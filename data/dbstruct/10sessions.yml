@@ -1,0 +1,43 @@
+## sessions table definition
+---
+name: sessions
+primarykey: id
+engine: InnoDB
+charset: utf8
+autoincrement:
+    colname: id
+    start: 1
+cols:
+    id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    userid:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    sessionid:
+        type: varchar
+        length: 255
+        params: NOT NULL
+    login:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    logout:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    lastaction:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    ip:
+        type: varchar
+        length: 512
+        params: NOT NULL
+    external:
+        type: bool
+        length: 
+        params: NOT NULL
+indices:     

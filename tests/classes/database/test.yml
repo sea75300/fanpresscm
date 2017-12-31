@@ -1,0 +1,62 @@
+## YAML Template.
+---
+name: sample
+primarykey: id_bigint
+engine: InnoDB
+charset: utf8
+autoincrement:
+    colname: id_bigint
+    start: 1
+cols:
+    id_bigint:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    int_col:
+        type: int
+        length: 11
+        params: NOT NULL
+    char_col:
+        type: char
+        length: 255
+        params: NOT NULL
+    varchar_col:
+        type: varchar
+        length: 255
+        params: NOT NULL
+    text_col:
+        type: text
+        length: -1
+        params: NOT NULL
+    mtext_col:
+        type: mtext
+        length: 20
+        params: NOT NULL
+    ltext_col:
+        type: ltext
+        length: 
+        params: NOT NULL
+    bool_col:
+        type: bool
+        length: 4
+        params: NOT NULL
+    bin_col:
+        type: bin
+        length: 
+        params: NOT NULL
+    lbin_col:
+        type: lbin
+        length: 
+        params: NOT NULL
+    float_col:
+        type: float
+        length: 11
+        params: NOT NULL
+    double_col:
+        type: double
+        length: 11
+        params: NOT NULL
+indices:
+    int_colidx:
+        col: int_col
+        isUnqiue: true

@@ -1,0 +1,10 @@
+<?php
+    $config = array(
+        'DBTYPE' => 'mysql',
+        'DBHOST' => 'localhost',
+        'DBNAME' => 'database_name',
+        'DBUSER' => 'database_user',
+        'DBPASS' => 'database_name',
+        'DBPREF' => 'fpcm'
+    );
+?>

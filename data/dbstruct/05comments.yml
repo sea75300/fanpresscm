@@ -1,0 +1,84 @@
+## comments table definition
+---
+name: comments
+primarykey: id
+engine: InnoDB
+charset: utf8
+autoincrement:
+    colname: id
+    start: 1
+cols:
+    id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    articleid:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    name:
+        type: varchar
+        length: 255
+        params: NOT NULL
+    email:
+        type: varchar
+        length: 255
+        params: NOT NULL
+    website:
+        type: varchar
+        length: 255
+        params: NOT NULL
+    text:
+        type: text
+        length: 
+        params: NOT NULL
+    private:
+        type: bool
+        length: 
+        params: NOT NULL
+    approved:
+        type: bool
+        length: 
+        params: NOT NULL
+    spammer:
+        type: bool
+        length: 
+        params: NOT NULL
+    ipaddress:
+        type: varchar
+        length: 512
+        params: NOT NULL
+    createtime:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    changetime:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    changeuser:
+        type: bigint
+        length: 20
+        params: NOT NULL
+indices:
+    name:
+        col: name
+        isUnqiue: false
+    email:
+        col: email
+        isUnqiue: false
+    website:
+        col: website
+        isUnqiue: false
+    private:
+        col: private
+        isUnqiue: false
+    approved:
+        col: approved
+        isUnqiue: false
+    spammer:
+        col: spammer
+        isUnqiue: false
+    createtime:
+        col: createtime
+        isUnqiue: false

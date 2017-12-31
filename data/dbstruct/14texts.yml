@@ -1,0 +1,35 @@
+## texts table definition
+---
+name: texts
+primarykey: id
+engine: InnoDB
+charset: utf8
+autoincrement:
+    colname: id
+    start: 1
+cols:
+    id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    searchtext:
+        type: varchar
+        length: 255
+        params: NOT NULL
+    replacementtext:
+        type: varchar
+        length: 255
+        params: NOT NULL
+    replacetxt:
+        type: bool
+        length: 
+        params: NOT NULL
+    lockarticle:
+        type: bool
+        length: 
+        params: NOT NULL
+    commentapproval:
+        type: bool
+        length: 
+        params: NOT NULL
+indices:     

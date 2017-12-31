@@ -1,0 +1,231 @@
+div.mce-btn button .mce-ico.mce-i-fpcm-readmore:before,
+h1 a.fpcm-ui-helpbutton:before,
+.fpcm-ui-button span.ui-button-text:before,
+.fpcm-ui-button.fpcm-ui-button-blank span.ui-icon:before,
+.fpcm-ui-button.fpcm-back-button .ui-button-text:after,
+.fpcm-ui-button.fpcm-forward-button .ui-button-text:after,
+.fpcm-ui-button:before,
+.fpcm-ui-button:after,
+#fpcm-filemanager-upload-drop h4:before,
+span.fpcm-ui-badge.fpcm-ui-badge:before {
+    font-family: 'FontAwesome';
+}
+
+.fpcm-ui-button.fpcm-save-btn span.ui-button-text:before,
+.fpcm-ui-button.fpcm-login-btn span.ui-button-text:before,
+.fpcm-ui-button.fpcm-passreset-btn .ui-button-text:before,
+.fpcm-ui-button.fpcm-ok-button .ui-button-text:before,
+.fpcm-ui-button.fpcm-ui-articleactions-ok .ui-button-text:before,
+.fpcm-ui-button.fpcm-back-button .ui-button-text:before,
+.fpcm-ui-button.fpcm-profile-btn .ui-button-text:before,
+.fpcm-ui-button.fpcm-new-btn span.ui-button-text:before,
+.fpcm-ui-button.fpcm-rename-btn span.ui-button-text:before,
+.fpcm-ui-button.fpcm-articles-opensearch span.ui-button-text:before,
+.fpcm-ui-button.fpcm-delete-btn span.ui-button-text:before,
+.fpcm-ui-button.fpcm-clear-btn span.ui-button-text:before,
+.fpcm-ui-button.fpcm-ui-revision-restore span.ui-button-text:before,
+.fpcm-ui-button.fpcm-newthumb-btn span.ui-button-text:before,
+.fpcm-ui-button.fpcm-syscheck-btn span.ui-button-text:before,
+.fpcm-ui-button.fpcm-cacheclear-btn span.ui-button-text:before,
+.fpcm-ui-button.fpcm-open-btn span.ui-button-text:before,
+.fpcm-ui-button.fpcm-ui-useractions-disable span.ui-button-text:before,
+.fpcm-ui-button.fpcm-ui-useractions-enable span.ui-button-text:before,
+.fpcm-ui-button.fpcm-externallink-btn span.ui-button-text:before,
+.fpcm-ui-button.fpcm-ui-preview span.ui-button-text:before,
+.fpcm-ui-button.fpcm-ui-margin-icon:before
+{
+    font-weight: normal !important;
+    padding-right: 0.65em;
+    margin: 0 0 0 -0.3em;
+}
+
+.fpcm-ui-button.fpcm-ui-button-blank span.ui-icon {
+    text-indent: 0;
+}
+
+.fpcm-ui-button.fpcm-ui-button-blank span.ui-icon:before {
+    font-weight: normal !important;
+    margin-left: 0;
+    padding: 0;
+}
+
+.fpcm-ui-button.fpcm-ui-button-blank span.ui-icon {
+    background: none;
+}
+
+.fpcm-ui-button.fpcm-new-btn:before {
+    content: '\f016';
+    font-size: 0.8em;
+}
+
+.fpcm-ui-button.fpcm-newuser-btn:before {
+    content: '\f234';
+}
+
+.fpcm-ui-button.fpcm-ui-button-edit span.ui-icon:before,
+.fpcm-ui-button.fpcm-ui-button-massedit:before,
+.fpcm-ui-button.fpcm-rename-btn:before {
+    content: '\f044';
+}
+
+.fpcm-ui-button.fpcm-save-btn:before {
+    content: '\f0c7';
+}
+
+.fpcm-ui-button.fpcm-openlink-btn span.ui-icon:before,
+.fpcm-ui-button.fpcm-openlink-btn:before {
+    content: '\f144';
+}
+
+.fpcm-ui-button.fpcm-delete-btn:before,
+.fpcm-ui-button.fpcm-clear-btn:before {
+    content: '\f014';
+}
+
+.fpcm-ui-button.fpcm-login-btn:before {
+    content: '\f090';
+}
+
+.fpcm-ui-button.fpcm-passreset-btn:before,
+.fpcm-ui-button.fpcm-passreset-btn span.ui-icon:before {
+    content: '\f084';
+}
+
+.fpcm-ui-button.fpcm-profilereset-btn:before {
+    content: '\f0ec';
+}
+
+.fpcm-ui-button.fpcm-ui-articleactions-ok:before,
+.fpcm-ui-button.fpcm-ok-button:before,
+.fpcm-ui-button.fpcm-ok-button span.ui-icon:before {
+    content: '\f00c';
+}
+
+.fpcm-ui-button.fpcm-forward-button:after {
+    content: '\f138';
+    font-weight: normal !important;
+    padding-left: 0.65em;
+    margin: 0 -0.3em 0 0;
+}
+
+.fpcm-ui-button.fpcm-back-button:before {
+    content: '\f137';
+}
+
+.fpcm-ui-button.fpcm-profile-btn:before,
+.fpcm-ui-button.fpcm-modules-configuremodule span.ui-icon:before {
+    content: '\f0ad';
+}
+
+.fpcm-ui-button.fpcm-articles-opensearch:before{
+    content: '\f002';
+}
+
+.fpcm-ui-button.fpcm-ui-revision-restore:before {
+    content: '\f0e2';
+}
+
+.fpcm-ui-button.fpcm-newthumb-btn:before,
+.fpcm-ui-button.fpcm-filelist-articleimage span.ui-icon:before {
+    content: '\f03e';
+}
+
+.fpcm-ui-button.fpcm-syscheck-btn:before,
+.fpcm-ui-button.fpcm-modulelist-singleaction-update span.ui-icon:before,
+.fpcm-ui-button.fpcm-reload-btn span.ui-icon:before {
+    content: '\f021';
+}
+
+.fpcm-ui-button.fpcm-ui-useractions-disable:before {
+    content: '\f204';
+}
+
+.fpcm-ui-button.fpcm-ui-useractions-enable:before {
+    content: '\f205';
+}
+
+.fpcm-ui-button.fpcm-articlelist-shortlink span.ui-icon:before,
+.fpcm-ui-button.fpcm-externallink-btn:before {
+    content: '\f08e';
+}
+
+.fpcm-ui-button.fpcm-filelist-link-thumb span.ui-icon:before {
+    content: '\f1c5';
+}
+
+.fpcm-ui-button.fpcm-filelist-link-full span.ui-icon:before {
+    content: '\f065';
+}
+
+.fpcm-ui-button.fpcm-filelist-tinymce-thumb span.ui-icon:before {
+    content: '\f123';
+}
+
+.fpcm-ui-button.fpcm-filelist-tinymce-full span.ui-icon:before {
+    content: '\f005';
+}
+
+.fpcm-ui-button.fpcm-modulelist-singleaction-enable span.ui-icon:before,
+.fpcm-ui-button.fpcm-cronjoblist-exec span.ui-icon:before {
+    content: '\f01d';
+}
+
+.fpcm-ui-button.fpcm-modulelist-singleaction-disable span.ui-icon:before {
+    content: '\f011';
+}
+
+.fpcm-ui-button.fpcm-modulelist-singleaction-install span.ui-icon:before,
+.fpcm-ui-button.fpcm-download-btn span.ui-icon:before {
+    content: '\f0ed';
+}
+
+.fpcm-ui-button.fpcm-modulelist-singleaction-uninstall span.ui-icon:before {
+    content: '\f056';
+}
+
+.fpcm-ui-button.fpcm-modules-depencerror span.ui-icon:before {
+    content: '\f071';
+}
+
+.fpcm-ui-button.fpcm-folderopen-btn span.ui-icon:before {
+    content: '\f07c';
+}
+
+.fpcm-ui-button.fpcm-email-btn span.ui-icon:before {
+    content: '\f003';
+}
+
+.fpcm-ui-button.fpcm-ui-preview:before {
+    content: '\f06e';
+}
+
+div.mce-btn button .mce-ico.mce-i-fpcm-readmore:before,
+#fpcm-filemanager-upload-drop h4:before {
+    content: '\f0fe';
+}
+
+h1 a.fpcm-ui-helpbutton:before {
+    content: '\f059';
+}
+
+.fpcm-ui-button.fpcm-passgen-btn span.ui-icon:before {
+    content: '\f069';
+}
+
+.fpcm-ui-button.fpcm-button-extended:before {
+    content: '\f0ad';
+}
+
+.fpcm-ui-button.fpcm-button-recycle span.ui-icon:before {
+    content: '\f1b8';
+}
+
+span.fpcm-ui-badge.fpcm-ui-badge-comments:before {
+    content: '\f086';
+    padding-right: 0.3em;
+}
+
+span.fpcm-ui-badge.fpcm-ui-badge-userarticles:before {
+    content: '\f02d';
+    padding-right: 0.3em;
+}

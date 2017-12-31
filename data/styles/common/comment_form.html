@@ -1,0 +1,35 @@
+<div id="fpcm-pub-formbox">
+    <div class="fpcm-pub-formbox-top">{{formHeadline}}</div>
+    <div class="fpcm-pub-formbox-center">
+        <form method="post" action="{{submitUrl}}">
+            <table>
+                <tr>
+                    <td>{{nameDescription}}:</td>
+                    <td>{{nameField}}</td>
+                </tr>
+                <tr>
+                    <td>{{emailDescription}}:</td>
+                    <td>{{emailField}}</td>
+                </tr>
+                <tr>
+                    <td>{{websiteDescription}}:</td>
+                    <td>{{websiteField}} (optional)</td>
+                </tr>
+                <tr>
+                    <td><b>{{smileysDescription}}:</b></td>
+                    <td>{{smileys}}</td>
+                </tr>
+            </table>
+
+            <p>{{textfield}}</p>  
+            <p>{{tags}}</p>
+            <p>{{spampluginQuestion}} {{spampluginField}}</p>
+            <p>
+                {{submitButton}}
+                {{resetButton}}
+                {{privateCheckbox}} privat
+            </p>
+        </form>
+    </div>
+    <div class="fpcm-pub-formbox-bottom"></div>    
+</div>

@@ -1,0 +1,177 @@
+## smileys table definition
+---
+name: smileys
+primarykey: id
+engine: InnoDB
+charset: utf8
+autoincrement:
+    colname: id
+    start: 1
+cols:
+    id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    smileycode:
+        type: varchar
+        length: 32
+        params: NOT NULL
+    filename:
+        type: varchar
+        length: 255
+        params: NOT NULL
+indices:
+defaultvalues:
+    rows:
+        1:
+            id: 1
+            smileycode: ":annoyed:"
+            filename: "annoyed.gif"
+        2:
+            id: 2
+            smileycode: ":D"
+            filename: "biggrin.gif"
+        3:
+            id: 3
+            smileycode: ":blah:"
+            filename: "blah.gif"
+        4:
+            id: 4
+            smileycode: ":|"
+            filename: "blank.gif"
+        5:
+            id: 5
+            smileycode: ":blush:"
+            filename: "blush.gif"
+        6:
+            id: 6
+            smileycode: ":bored:"
+            filename: "bored.gif"
+        7:
+            id: 7
+            smileycode: ":bounce:"
+            filename: "bounce.gif"
+        8:
+            id: 8
+            smileycode: ":confused:"
+            filename: "confused.gif"
+        9:
+            id: 9
+            smileycode: ":cool:"
+            filename: "cool.gif"
+        10:
+            id: 10
+            smileycode: ":cry:"
+            filename: "cry.gif"
+        11:
+            id: 11
+            smileycode: ":cute:"
+            filename: "cute.gif"
+        12:
+            id: 12
+            smileycode: ":evil:"
+            filename: "evil.gif"
+        13:
+            id: 13
+            smileycode: ":frustrated:"
+            filename: "frustrated.gif"
+        14:
+            id: 14
+            smileycode: ":grins:"
+            filename: "grin.gif"
+        15:
+            id: 15
+            smileycode: ":gross:"
+            filename: "gross.gif"
+        16:
+            id: 16
+            smileycode: ":grr:"
+            filename: "grr.gif"
+        17:
+            id: 17
+            smileycode: ":heart:"
+            filename: "heart.gif"
+        18:
+            id: 18
+            smileycode: ":huh:"
+            filename: "huh.gif"
+        19:
+            id: 19
+            smileycode: ":kiss:"
+            filename: "kissy.gif"
+        20:
+            id: 20
+            smileycode: ":lol:"
+            filename: "laugh.gif"
+        21:
+            id: 21
+            smileycode: ":love:"
+            filename: "love.gif"
+        22:
+            id: 22
+            smileycode: ":mad:"
+            filename: "mad.gif"
+        23:
+            id: 23
+            smileycode: ":nono:"
+            filename: "no.gif"
+        24:
+            id: 24
+            smileycode: ":ouch:"
+            filename: "ouch.gif"
+        25:
+            id: 25
+            smileycode: ":/"
+            filename: "sad.gif"
+        26:
+            id: 26
+            smileycode: ":secret:"
+            filename: "secret.gif"
+        27:
+            id: 27
+            smileycode: ":shocked:"
+            filename: "shocked.gif"
+        28:
+            id: 28
+            smileycode: ":sleepy:"
+            filename: "sleepy.gif"
+        29:
+            id: 29
+            smileycode: ":)"
+            filename: "smile.gif"
+        30:
+            id: 30
+            smileycode: ":spin:"
+            filename: "spin.gif"
+        31:
+            id: 31
+            smileycode: ":sweat:"
+            filename: "sweatdrop.gif"
+        32:
+            id: 32
+            smileycode: ":think:"
+            filename: "thinking.gif"
+        33:
+            id: 33
+            smileycode: ":P"
+            filename: "tongue.gif"
+        34:
+            id: 34
+            smileycode: ":whoa:"
+            filename: "whoa.gif"
+        35:
+            id: 35
+            smileycode: ";)"
+            filename: "wink.gif"
+        36:
+            id: 36
+            smileycode: ":woohoo:"
+            filename: "woohoo.gif"
+        37:
+            id: 37
+            smileycode: ":yes:"
+            filename: "yes.gif"
+        38:
+            id: 38
+            smileycode: ":yum:"
+            filename: "yum.gif"

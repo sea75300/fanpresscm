@@ -1,0 +1,80 @@
+## cronjobs table definition
+---
+name: cronjobs
+primarykey: id
+engine: InnoDB
+charset: utf8
+autoincrement:
+    colname: id
+    start: 1
+cols:
+    id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    cjname:
+        type: varchar
+        length: 64
+        params: NOT NULL
+    lastexec:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    execinterval:
+        type: bigint
+        length: 20
+        params: NOT NULL
+indices:
+    cjname:
+        col: cjname
+        isUnqiue: true
+    lastexec:
+        col: lastexec
+        isUnqiue: false
+defaultvalues:
+    rows:
+        1:
+            id: 1
+            cjname: "anonymizeIps"
+            lastexec: 0
+            execinterval: 2419200
+        2:
+            id: 2
+            cjname: "clearLogs"
+            lastexec: 0
+            execinterval: 2419200
+        3:
+            id: 3
+            cjname: "clearTemp"
+            lastexec: 0
+            execinterval: 604800
+        4:
+            id: 4
+            cjname: "fmThumbs"
+            lastexec: 0
+            execinterval: 604800
+        5:
+            id: 5
+            cjname: "postponedArticles"
+            lastexec: 0
+            execinterval: 600
+        6:
+            id: 6
+            cjname: "updateCheck"
+            lastexec: 0
+            execinterval: 86400
+        7:
+            id: 7
+            cjname: "dbBackup"
+            lastexec: 0
+            execinterval: 604800
+        8:
+            id: 8
+            cjname: "fileindex"
+            lastexec: 0
+            execinterval: 86400
+        9:
+            id: 9
+            cjname: "removeRevisions"
+            lastexec: 0
+            execinterval: 2419200

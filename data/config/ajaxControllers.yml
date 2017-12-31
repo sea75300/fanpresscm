@@ -1,0 +1,35 @@
+## FanPress CM ajax controller file
+---
+ajax/cache: ajax/common/cache
+ajax/addmsg: ajax/common/addmsg
+ajax/session: ajax/common/sessioncheck
+ajax/autocomplete: ajax/common/autocomplete
+ajax/logs/clear: ajax/logs/clear
+ajax/logs/reload: ajax/logs/reload
+ajax/filelist: ajax/files/filelist
+ajax/files/search: ajax/files/search
+ajax/jqupload: ajax/files/jqupload
+ajax/articles/search: ajax/articles/search
+ajax/articles/tweet: ajax/articles/listnewtweets
+ajax/articles/massedit: ajax/articles/massedit
+ajax/editor/cleartags: ajax/articles/removeeditortags
+ajax/editor/smileys: ajax/articles/smileys
+ajax/editor/draft: ajax/articles/draft
+ajax/editor/imgupload: ajax/articles/imgupload
+ajax/editor/inedit: ajax/articles/inedit
+ajax/editor/editorlist: ajax/articles/editorlist
+ajax/dashboard: ajax/system/dashboard
+ajax/syscheck: ajax/system/syscheck
+ajax/cronasync: ajax/system/cronasync
+ajax/croninterval: ajax/system/croninterval
+ajax/packagemgr/sysupdater: ajax/packagemgr/sysupdater
+ajax/packagemgr/sysupdatervc: ajax/packagemgr/sysupdater_versioncheck
+ajax/packagemgr/modinstall: ajax/packagemgr/module_install
+ajax/packagemgr/modupdate: ajax/packagemgr/module_update
+ajax/modules/actions: ajax/modules/moduleactions
+ajax/modules/loadpkglist: ajax/modules/loadpkglist
+ajax/installer/checkdb: ajax/installer/checkdb
+ajax/installer/initdb: ajax/installer/initdb
+ajax/comments/search: ajax/comments/search
+ajax/comments/massedit: ajax/comments/massedit
+ajax/templates/savetemp: ajax/system/savetemptpl

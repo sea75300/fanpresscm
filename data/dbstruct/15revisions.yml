@@ -1,0 +1,45 @@
+## articles table definition
+---
+name: revisions
+primarykey: id
+engine: InnoDB
+charset: utf8
+autoincrement:
+    colname: id
+    start: 1
+cols:
+    id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    article_id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    revision_idx:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    content:
+        type: ltext
+        length: 
+        params: NOT NULL
+    hashsum:
+        type: varchar
+        length: 128
+        params: NOT NULL
+indices:
+    article_id:
+        col: article_id
+        isUnqiue: false
+    revision_idx:
+        col: revision_idx
+        isUnqiue: false
+    hashsum_idx:
+        col: hashsum
+        isUnqiue: false
+    article_id_revision_idx:
+        col:
+            article_id
+            revision_idx
+        isUnqiue: true

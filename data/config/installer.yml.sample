@@ -1,0 +1,26 @@
+## FanPress CM cli installer config file
+---
+config:
+    language: en
+    email: 
+    sysurl: http://eample.org/index.php
+    timezone: Europe/Berlin
+    datetimemask: d.m.Y H:i:s
+    sessionlength: 3600
+    cachetimeout: 86400
+    mode: 1
+    captcha:
+        question: 
+        answer: 
+database:
+    dbtype: mysql/pgsql
+    dbhost: localhost
+    dbname: 
+    dbuser: 
+    dbpass: 
+    dbpref: fpcm
+user:
+    username: 
+    password: 
+    email: 
+    displayname: 

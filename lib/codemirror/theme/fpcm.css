@@ -1,0 +1,23 @@
+.cm-s-fpcm.CodeMirror { color: #999; background-color: #fff; }
+.cm-s-fpcm div.CodeMirror-selected { background: #cfc; }
+.cm-s-fpcm .CodeMirror-line { color: #362b36; }
+.cm-s-fpcm .CodeMirror-line::selection, .cm-s-fpcm .CodeMirror-line > span::selection, .cm-s-fpcm .CodeMirror-line > span > span::selection { background: #cfc; }
+.cm-s-fpcm .CodeMirror-line::-moz-selection, .cm-s-fpcm .CodeMirror-line > span::-moz-selection, .cm-s-fpcm .CodeMirror-line > span > span::-moz-selection { background: #cfc; }
+
+.cm-s-fpcm .CodeMirror-gutters { background: #f8f8f8; color: #333; }
+.cm-s-fpcm .CodeMirror-linenumber { color: #aaa; padding-left: 8px; }
+.cm-s-fpcm .CodeMirror-cursor { border-left: 2px solid #222; }
+
+.cm-s-fpcm .cm-keyword { font-weight:bold; }
+.cm-s-fpcm .cm-atom, .cm-s-fpcm .cm-def, .cm-s-fpcm .cm-attribute, .cm-s-fpcm .cm-property { color: #F90; }
+.cm-s-fpcm .cm-variable { color: #07a; }
+
+.cm-s-fpcm .cm-operator { font-weight:bold; }
+.cm-s-fpcm .cm-comment { color:#777; font-weight:normal; }
+.cm-s-fpcm .cm-string, .cm-s-fpcm .cm-string-2, .cm-s-fpcm .cm-number { color:#666; }
+.cm-s-fpcm .cm-tag, .cm-s-fpcm span.cm-tag { color: #2779aa; }
+.cm-s-fpcm .cm-link { color:#ad9361; font-style:italic; text-decoration:none; }
+.cm-s-fpcm .cm-error { border-bottom: 1px dotted red; }
+
+div.cm-s-fpcm .CodeMirror-activeline-background { background: #efefff; }
+div.cm-s-fpcm span.CodeMirror-matchingbracket { outline:1px solid grey; color: inherit; }

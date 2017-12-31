@@ -1,0 +1,27 @@
+## uploadfiles table definition
+---
+name: uploadfiles
+primarykey: id
+engine: InnoDB
+charset: utf8
+autoincrement:
+    colname: id
+    start: 1
+cols:
+    id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    userid:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    filename:
+        type: varchar
+        length: 255
+        params: NOT NULL
+    filetime:
+        type: bigint
+        length: 20
+        params: NOT NULL
+indices:     

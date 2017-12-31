@@ -1,0 +1,30 @@
+## userrolls table definition
+---
+name: userrolls
+primarykey: id
+engine: InnoDB
+charset: utf8
+autoincrement:
+    colname: id
+    start: 1
+cols:
+    id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    leveltitle:
+        type: varchar
+        length: 255
+        params: NOT NULL
+indices:
+defaultvalues:
+    rows:
+        1:
+            id: 1
+            leveltitle: "GLOBAL_ADMINISTRATOR"
+        2:
+            id: 2
+            leveltitle: "GLOBAL_EDITOR"
+        3:
+            id: 3
+            leveltitle: "GLOBAL_AUTHOR"

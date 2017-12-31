@@ -1,0 +1,61 @@
+<?php
+    /**
+     * Module-Event: createRevision
+     * 
+     * Event wird ausgeführt, wenn eine neue Artikel-Revision erzeugt wird
+     * Parameter: array Revisionsinformationen
+     * Rückgabe: array Revisionsinformationen
+     * 
+     * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+     */
+    namespace fpcm\model\events;
+
+    /**
+     * Module-Event: createRevision
+     * 
+     * Event wird ausgeführt, wenn eine neue Artikel-Revision erzeugt wird
+     * Parameter: array Revisionsinformationen
+     * Rückgabe: array Revisionsinformationen
+     * 
+     * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+     * @package fpcm/model/events
+     */
+    final class createRevision extends \fpcm\model\abstracts\event {
+
+        /**
+         * wird ausgeführt, wenn eine neue Artikel-Revision erzeugt wir
+         * @param array $data
+         * @return array
+         */
+        public function run($data = null) {
+            
+            $eventClasses = $this->getEventClasses();
+            
+            if (!count($eventClasses)) return $data;
+            
+            $mdata = $data;
+            foreach ($eventClasses as $eventClass) {
+                
+                $classkey = $this->getModuleKeyByEvent($eventClass);                
+                $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'createRevision');
+                
+                /**
+                 * @var \fpcm\model\abstracts\event
+                 */
+                $module = new $eventClass();
+
+                if (!$this->is_a($module)) continue;
+                
+                $mdata = $module->run($mdata);
+            }
+            
+            if (!$mdata) return $data;
+            
+            return $mdata;
+            
+        }
+    }

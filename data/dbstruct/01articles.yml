@@ -1,0 +1,117 @@
+## articles table definition
+---
+name: articles
+primarykey: id
+engine: InnoDB
+charset: utf8
+autoincrement:
+    colname: id
+    start: 1
+cols:
+    id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    title:
+        type: varchar
+        length: 255
+        params: NOT NULL
+    content:
+        type: text
+        length: 
+        params: NOT NULL
+    categories:
+        type: varchar
+        length: 512
+        params: NOT NULL
+    createtime:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    createuser:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    changetime:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    changeuser:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    md5path:
+        type: varchar
+        length: 20
+        params: NOT NULL
+    draft:
+        type: bool
+        length: 
+        params: NOT NULL
+    archived:
+        type: bool
+        length: 
+        params: NOT NULL
+    pinned:
+        type: bool
+        length: 
+        params: NOT NULL
+    postponed:
+        type: bool
+        length: 
+        params: NOT NULL
+    deleted:
+        type: bool
+        length: 
+        params: NOT NULL
+    comments:
+        type: bool
+        length: 
+        params: NOT NULL
+    approval:
+        type: bool
+        length: 
+        params: NOT NULL
+    imagepath:
+        type: text
+        length: 
+        params: NOT NULL
+    sources:
+        type: varchar
+        length: 255
+        params: NOT NULL
+    inedit:
+        type: varchar
+        length: 25
+        params: NOT NULL
+indices:
+    title:
+        col: title
+        isUnqiue: false
+    categories:
+        col: categories
+        isUnqiue: false
+    createuser:
+        col: createuser
+        isUnqiue: false
+    createtime:
+        col: createtime
+        isUnqiue: false
+    pinned:
+        col: pinned
+        isUnqiue: false
+    postponed:
+        col: postponed
+        isUnqiue: false
+    deleted:
+        col: deleted
+        isUnqiue: false
+    approval:
+        col: approval
+        isUnqiue: false
+    draft:
+        col: draft
+        isUnqiue: false
+    inedit:
+        col: inedit
+        isUnqiue: false

@@ -1,0 +1,39 @@
+## blockedip table definition
+---
+name: blockedip
+primarykey: id
+engine: InnoDB
+charset: utf8
+autoincrement:
+    colname: id
+    start: 1
+cols:
+    id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    ipaddress:
+        type: varchar
+        length: 512
+        params: NOT NULL
+    iptime:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    userid:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    nocomments:
+        type: bool
+        length: 
+        params: NOT NULL
+    nologin:
+        type: bool
+        length: 
+        params: NOT NULL
+    noaccess:
+        type: bool
+        length: 
+        params: NOT NULL
+indices:
