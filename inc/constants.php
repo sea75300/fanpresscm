@@ -15,7 +15,7 @@
      * @since FPCM 3.5
      * @ignore
      */
-    define ('FPCM_PHP_REQUIRED', '5.5.3');
+    define ('FPCM_PHP_REQUIRED', '5.6.0');
 
     if (!defined('FPCM_DEBUG')) {
         /**
@@ -45,6 +45,13 @@
         define ('FPCM_IGNORE_INSTALLER_DISABLED', false);
     }
     
+    if (!defined('FPCM_CACHE_DEFAULT_TIMEOUT')) {
+        /**
+         * Timeout für Sprach-Cache
+         */
+        define ('FPCM_LANGCACHE_TIMEOUT', 3600 * 24 * 31);
+    }
+
     if (!defined('FPCM_LANGCACHE_TIMEOUT')) {
         /**
          * Timeout für Sprach-Cache

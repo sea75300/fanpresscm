@@ -6,7 +6,7 @@
     namespace fpcm\classes;
     
     /**
-     * library loader
+     * Loader
      * 
      * @package fpcm\classes\loader
      * @author Stefan Seehafer <sea75300@yahoo.de>
@@ -14,46 +14,54 @@
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */ 
     final class loader {
-        
-        /**
-         * Dateipfad zurückgeben
-         * @param string $libname
-         * @param string $libfile
-         * @param string $subpaths
-         * @param bool $exists
-         * @return string
-         */
-        public static function libGetFilePath($libname, $libfile, $subpaths = '', $exists = true) {      
 
-            $path = baseconfig::$incDir.'lib/'.$libname.'/'.trim($subpaths, '/').$libfile;
-            
-            if ($exists && !file_exists($path)) {
-                trigger_error('Lib path '.$path.' does not exists!');
-                return '';
+        /**
+         * Globaler Generator für Objekte
+         * @param string $class
+         * @param mixed $params
+         * @return object
+         */
+        public static function getObject($class, $params = null)
+        {
+            if (!class_exists($class)) {
+                trigger_error('Undefined class '.$class);
+                return false;
+            }
+
+            $hash = hash(security::defaultHashAlgo, $class.(is_array($params) || is_object($params) ? json_encode($params) : $params));
+            if (isset($GLOBALS['fpcm']['objects'][$hash]) && is_object($GLOBALS['fpcm']['objects'][$hash])) {
+                return $GLOBALS['fpcm']['objects'][$hash];
             }
             
+            $GLOBALS['fpcm']['objects'][$hash] = $params ? new $class($params) : new $class();
+
+            return $GLOBALS['fpcm']['objects'][$hash];
+        }
+
+        /**
+         * 
+         * @param string $libPath
+         * @param boolean $exists
+         * @return string
+         */
+        public static function libGetFilePath($libPath, $exists = true)
+        {
+            $path = dirs::getFullDirPath('lib', $libPath);
+            if ($exists && !file_exists($path)) {
+                trigger_error('Lib path '.$path.' does not exists!');
+            }
+
             return $path;
         }
         
         /**
-         * Dateiurl zurückgeben
-         * @param string $libname
-         * @param string $libfile
-         * @param string $subpaths
+         * 
+         * @param string $libPath
          * @return string
          */
-        public static function libGetFileUrl($libname, $libfile = '', $subpaths = '') {
-            
-            if (!$libfile) return baseconfig::$rootPath.'inc/lib/'.$libname.'/';
-            
-            $path = 'inc/lib/'.$libname.'/'.trim($subpaths, '/').$libfile;
-
-            if (!file_exists(baseconfig::$incDir.'lib/'.$libname.'/'.trim($subpaths, '/').$libfile)) {
-                trigger_error('Lib path '.$path.' does not exists!');
-                return '';
-            }
-            
-            return baseconfig::$rootPath.$path;
+        public static function libGetFileUrl($libPath)
+        {
+            return dirs::getLibUrl($libPath);
         }
         
         

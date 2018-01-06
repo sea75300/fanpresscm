@@ -13,6 +13,7 @@
      */
     define('IN_FPCM', true);
 
+    include __DIR__.'/classes/dirs.php';
     include __DIR__.'/classes/baseconfig.php';    
     include __DIR__.'/classes/timer.php';
     include __DIR__.'/constants.php';

@@ -16,90 +16,6 @@
     final class baseconfig {
         
         /**
-         * Basisordner
-         * @var string
-         */
-        public static $baseDir;
-        
-        /**
-         * core-Verzeichnis
-         * @var string
-         */
-        public static $coreDir;
-        
-        /**
-         * view-Verzeichnis
-         * @var string
-         */
-        public static $viewsDir;
-        
-        /**
-         * data-Verzeichnis
-         * @var string
-         */
-        public static $dataDir;
-        
-        /**
-         * cache-Verzeichnis
-         * @var string
-         */
-        public static $cacheDir;
-        
-        /**
-         * upload-Verzeichnis
-         * @var string
-         */
-        public static $uploadDir;
-        
-        /**
-         * log-Verzeichnis
-         * @var string
-         */
-        public static $logDir;
-        
-        /**
-         * Revision-Verzeichnis
-         * @var string
-         */
-        public static $revisionDir;
-        
-        /**
-         * temp-Verzeichnis
-         * @var string
-         */
-        public static $tempDir;
-        
-        /**
-         * config-Verzeichnis
-         * @var string
-         */
-        public static $configDir;
-        
-        /**
-         * Filemanager temp-Verzeichnis
-         * @var string
-         */
-        public static $filemanagerTempDir;
-        
-        /**
-         * sharebutton-Verzeichnis
-         * @var string
-         */
-        public static $shareDir;
-        
-        /**
-         * smiley-Verzeichnis
-         * @var string
-         */
-        public static $smileyDir;
-        
-        /**
-         * styles-Verzeichnis
-         * @var string
-         */
-        public static $stylesDir;
-        
-        /**
          * Update-Server-URL
          * @var string
          */
@@ -122,99 +38,6 @@
          * @var string
          */
         public static $moduleServerManualLink;
-
-        /**
-         * Include-Basis-Verzeichnis
-         * @var string
-         */
-        public static $incDir;
-        
-        /**
-         * Modul-Basis-Verzeichnis
-         * @var string
-         */
-        public static $moduleDir;
-        
-        /**
-         * Dashboard-Conatiner-Verzeichnis
-         * @var string
-         */
-        public static $dashcontainerDir;
-        
-        /**
-         * Sprachpaket-Verzeichnis
-         * @var string
-         */
-        public static $langDir;
-        
-        /**
-         * Verzeichnis für automatisch, via Cron erzeugte Datenbank-Dumps
-         * @var string
-         */
-        public static $dbdumpDir;
-        
-        /**
-         * Verzeichnis für Template-Vorlagen für Editor
-         * @var string
-         * @since FPCM 3.3
-         */
-        public static $articleTemplatesDir;
-        
-        /**
-         * root-URL
-         * @var string
-         */
-        public static $rootPath;
-        
-        /**
-         * root-Pfad-URL
-         * @var string
-         */
-        public static $uploadRootPath;
-        
-        /**
-         * sharebutton-URL
-         * @var string
-         */
-        public static $shareRootPath;
-        
-        /**
-         * smiley-URL
-         * @var string
-         */
-        public static $smileyRootPath;
-        
-        /**
-         * theme-URL
-         * @var string
-         */
-        public static $themePath;
-        
-        /**
-         * Javascript-URL - öffentlich
-         * @var string
-         */
-        public static $jsPath;
-        
-        /**
-         * Dateimanager-Temp-URL
-         * @var string
-         */
-        public static $filemanagerRootPath;
-        
-        /**
-         * Pfad zu system-eigenen SQL-Dateien
-         * @var string
-         * @since FPCM 3.2.0
-         */
-        public static $dbStructPath;
-        
-        /**
-         * Profile-Daten-Pfad
-         * @var string
-         * @since FPCM 3.6
-         */
-        public static $profilePath;
         
         /**
          * auszuschließende Ordner
@@ -227,12 +50,6 @@
          * @var array
          */
         public static $logFiles         = [];
-        
-        /**
-         * Controller-Dateien
-         * @var array
-         */
-        public static $controllerFiles  = [];
         
         /**
          * Datetime-Masken
@@ -316,90 +133,49 @@
          */
         public static function init() {
 
-            self::$baseDir             = dirname(dirname(__DIR__));                        
-            self::$dataDir             = self::$baseDir.'/data/';
-            self::$cacheDir            = self::$dataDir.'cache/';
-            self::$configDir           = self::$dataDir.'config/';
-            self::$filemanagerTempDir  = self::$dataDir.'filemanager/';
-            self::$logDir              = self::$dataDir.'logs/';
-            self::$revisionDir         = self::$dataDir.'revisions/';
-            self::$shareDir            = self::$dataDir.'share/';
-            self::$smileyDir           = self::$dataDir.'smileys/';
-            self::$stylesDir           = self::$dataDir.'styles/';
-            self::$tempDir             = self::$dataDir.'temp/';
-            self::$uploadDir           = self::$dataDir.'uploads/';
-            self::$dbdumpDir           = self::$dataDir.'dbdump/';
-            self::$dbStructPath        = self::$dataDir.'dbstruct/';
-            self::$articleTemplatesDir = self::$dataDir.'drafts/';
-            self::$profilePath         = self::$dataDir.'profiles/';
+            dirs::initDirs();           
+            dirs::initUrls();
             
-            self::$coreDir             = self::$baseDir.'/core/';
-            self::$viewsDir            = self::$coreDir.'views/';
+            fpcmDump($GLOBALS);
             
-            self::$incDir              = self::$baseDir.'/inc/';
-            self::$moduleDir           = self::$incDir.'modules/';
-            self::$langDir             = self::$incDir.'lang/';
-            self::$dashcontainerDir    = self::$incDir.'model/dashboard/';
+            die();
 
-            if (php_sapi_name() !== 'cli') {
-                $http = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 'https://' : 'http://';
-                self::$rootPath = $http.$_SERVER['HTTP_HOST'].rtrim(dirname(dirname($_SERVER['PHP_SELF'])), '/').'/'.basename(self::$baseDir).'/';
-            }
-            
-
-            self::$uploadRootPath      = self::$rootPath.basename(self::$dataDir).'/uploads/';
-            self::$shareRootPath       = self::$rootPath.basename(self::$dataDir).'/share/';
-            self::$smileyRootPath      = self::$rootPath.basename(self::$dataDir).'/smileys/';
-            self::$themePath           = self::$rootPath.basename(self::$coreDir).'/theme/';
-            self::$jsPath              = self::$rootPath.basename(self::$coreDir).'/js/';
-            self::$filemanagerRootPath = self::$rootPath.basename(self::$dataDir).'/filemanager/';
 
             self::initServers();
-            
+
             self::$logFiles            = array(
-                'phplog'    => self::$logDir.'phplog.txt',
-                'syslog'    => self::$logDir.'syslog.txt',
-                'dblog'     => self::$logDir.'dblog.txt',
-                'pkglog'    => self::$logDir.'packages.txt',
-                'cronlog'   => self::$logDir.'cronlog.txt'
+                'phplog'    => dirs::getDataDirPath(dirs::DATA_LOGS, 'phplog.txt'),
+                'syslog'    => dirs::getDataDirPath(dirs::DATA_LOGS, 'syslog.txt'),
+                'dblog'     => dirs::getDataDirPath(dirs::DATA_LOGS, 'dblog.txt'),
+                'pkglog'    => dirs::getDataDirPath(dirs::DATA_LOGS, 'packages.txt'),
+                'cronlog'   => dirs::getDataDirPath(dirs::DATA_LOGS, 'cronlog.txt')
             );
             
+            self::$versionFile          = dirs::getFullDirPath('version.php');
+            self::$installerEnabledFile = dirs::getDataDirPath(dirs::DATA_CONFIG, 'installer.enabled');
+            self::$cronAsyncFile        = dirs::getDataDirPath(dirs::DATA_TEMP, 'cronjob.disabled');
             
-            self::$controllerFiles      = array(
-                'actions'   => self::$configDir.'actionControllers.yml',
-                'ajax'      => self::$configDir.'ajaxControllers.yml'
-            );
-            
-            self::$versionFile          = self::$baseDir.'/version.php';
-            
-            self::$installerEnabledFile = self::$configDir.'installer.enabled';
-            
-            self::$cronAsyncFile        = self::$tempDir.'cronjob.disabled';
-            
-            self::$fpcmEvents           = new \fpcm\model\events\eventList();
+            loader::getObject('\fpcm\model\events\eventList');
 
             if (self::dbConfigExists()) {
-                self::$fpcmDatabase     = new \fpcm\classes\database();                
+                loader::getObject('\fpcm\classes\database');
             }
             
-            self::$fpcmConfig           = new \fpcm\model\system\config();
-            
-            self::$fpcmLanguage         = new language(self::$fpcmConfig->system_lang);
-            
-            self::$fpcmSession          = new \fpcm\model\system\session();
-
-            self::$fpcmNotifications    = new \fpcm\model\theme\notifications();
-            
+            loader::getObject('language', loader::getObject('\fpcm\model\system\config')->system_lang);
+            loader::getObject('\fpcm\model\system\session');
+            loader::getObject('\fpcm\model\theme\notifications');
         }
 
         /**
          * Lädt config.php
          * @return array
          */
-        public static function getDatabaseConfig() {
-            if (!file_exists(self::$configDir.'database.php')) return [];            
+        public static function getDatabaseConfig()
+        {
+            $path = dirs::getDataDirPath(dirs::DATA_CONFIG, 'database.php');            
+            if (!file_exists($path)) return [];
             
-            include self::$configDir.'database.php';
+            include $path;
             return $config;            
         }
 
@@ -408,11 +184,13 @@
          * @return array
          * @since FPCM 3.5
          */
-        public static function getCryptConfig() {
-            if (!file_exists(self::$configDir.'crypt.php')) return null;
+        public static function getCryptConfig()
+        {
+            $path = dirs::getDataDirPath(dirs::DATA_CONFIG, 'crypt.php');            
+            if (!file_exists($path)) return [];
             
-            include self::$configDir.'crypt.php';
-            return $config;            
+            include $path;
+            return $config;
         }
 
         /**
@@ -420,18 +198,21 @@
          * @return array
          * @since FPCM 3.6
          */
-        public static function getSecurityConfig() {
-            if (!file_exists(self::$configDir.'sec.php')) return null;
+        public static function getSecurityConfig()                
+        {
+            $path = dirs::getDataDirPath(dirs::DATA_CONFIG, 'sec.php');            
+            if (!file_exists($path)) return [];
             
-            include self::$configDir.'sec.php';
-            return $config;            
+            include $path;
+            return $config;
         }
 
         /**
          * allow_url_fopen = 1
          * @return bool
          */
-        public static function canConnect() {
+        public static function canConnect()
+        {
 
             if (!isset(self::$cfgDat[__FUNCTION__])) {
                 self::$cfgDat[__FUNCTION__] = (ini_get('allow_url_fopen') == 1) ? true : false;
@@ -445,7 +226,8 @@
          * allow_url_fopen = 1
          * @return bool
          */
-        public static function canCrypt() {
+        public static function canCrypt()
+        {
             
             if (!isset(self::$cfgDat[__FUNCTION__])) {
                 self::$cfgDat[__FUNCTION__] = function_exists('openssl_encrypt') && function_exists('openssl_decrypt');
@@ -459,7 +241,8 @@
          * @return bool
          * @since FPCM 3.5
          */
-        public static function canHttps() {
+        public static function canHttps()
+        {
             
             if (!isset(self::$cfgDat[__FUNCTION__])) {
                 self::$cfgDat[__FUNCTION__] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? true : false);
@@ -472,7 +255,6 @@
          * PHP Memory Limit
          * @param bool $inByte Ausgabe in Byte oder Mbyte
          * @return int
-         * @since FPCM 3.3
          */
         public static function memoryLimit($inByte = false) {
 
@@ -487,9 +269,9 @@
          * PHP Upload filesize limit
          * @param bool $inByte Ausgabe in Byte oder Mbyte
          * @return int
-         * @since FPCM 3.3
          */
-        public static function uploadFilesizeLimit($inByte = false) {
+        public static function uploadFilesizeLimit($inByte = false)
+        {
 
             if (!isset(self::$cfgDat[__FUNCTION__])) {
                 self::$cfgDat[__FUNCTION__] = (int) substr(ini_get('upload_max_filesize'), 0, -1);
@@ -503,8 +285,8 @@
          * Controller abrufen
          * @return array
          */
-        public static function getControllers() {
-            
+        public static function getControllers()
+        {
             $controllerCache = new cache('controllerCache', 'system');
             
             if (!$controllerCache->isExpired()) {
@@ -514,19 +296,17 @@
                 }                
             }
 
-            include_once loader::libGetFilePath('spyc', 'Spyc.php');
-
-            if (!file_exists(self::$controllerFiles['actions']) || !file_exists(self::$controllerFiles['ajax'])) {
-                die('ERROR: Controller config files not found.');
+            include_once loader::libGetFilePath('spyc/Spyc.php');
+            
+            $controller = [];
+            
+            $controllerFiles = glob(dirs::getDataDirPath(dirs::DATA_CONFIG, '*Controllers.yml'));
+            foreach ($controllerFiles as $controllerFile) {
+                $controller = array_merge($controller, \Spyc::YAMLLoad($controllerFile));
             }
-            
-            $actions = \Spyc::YAMLLoad(self::$controllerFiles['actions']);
-            $ajaxs   = \Spyc::YAMLLoad(self::$controllerFiles['ajax']);
-            $modules = self::initModuleControllers();
 
-            $controllerList = array_unique(array_merge($actions, $ajaxs, $modules));
-            
-            $controllerCache->write($controllerList, FPCM_LANGCACHE_TIMEOUT);
+            $controller     = array_unique(array_merge($controller, self::initModuleControllers()));
+            $controllerCache->write($controller, FPCM_LANGCACHE_TIMEOUT);
             
             return $controllerList;
         }
@@ -535,10 +315,10 @@
          * Prüft ob Datenbank-Config-Datei existiert
          * @return bool
          */
-        public static function dbConfigExists() {
-
+        public static function dbConfigExists()
+        {
             if (!isset(self::$cfgDat[__FUNCTION__])) {
-                self::$cfgDat[__FUNCTION__] = file_exists(self::$configDir.'database.php');
+                self::$cfgDat[__FUNCTION__] = count(self::getDatabaseConfig()) ? true : false;
             }
 
             return self::$cfgDat[__FUNCTION__];
@@ -548,10 +328,9 @@
          * Prüft ob Installer aktiv ist
          * @return bool
          */
-        public static function installerEnabled() {
-
-            if (defined('FPCM_IGNORE_INSTALLER_DISABLED') && FPCM_IGNORE_INSTALLER_DISABLED) return true;
-            
+        public static function installerEnabled()
+        {
+            if (defined('FPCM_INSTALLER_ENABLED')) return FPCM_INSTALLER_ENABLED;
             return file_exists(self::$installerEnabledFile);
         }
         
@@ -560,7 +339,8 @@
          * @param bool $status neuer Status
          * @return bool
          */
-        public static function enableInstaller($status) {
+        public static function enableInstaller($status)
+        {
 
             if (self::installerEnabled() && !$status) {
                 return unlink(self::$installerEnabledFile);
@@ -573,7 +353,8 @@
          * Prüft ob Ausführung von asynchronen Cronjobs aktiv ist
          * @return bool
          */
-        public static function asyncCronjobsEnabled() {
+        public static function asyncCronjobsEnabled()
+        {
             return file_exists(self::$cronAsyncFile) ? false : true;
         }
         
@@ -582,8 +363,8 @@
          * @param bool $status neuer Status
          * @return bool
          */
-        public static function enableAsyncCronjobs($status) {
-
+        public static function enableAsyncCronjobs($status)
+        {
             if (self::asyncCronjobsEnabled() && !$status) {
                 fpcmLogSystem('Asynchronous cron job execution disabled.');
                 return file_put_contents(self::$cronAsyncFile, '');
@@ -600,15 +381,15 @@
         /**
          * Initialisiert Server-Infos
          */
-        private static function initServers(){
-            
+        private static function initServers()
+        {
             include_once loader::libGetFilePath('spyc', 'Spyc.php');
             
-            $servers = \Spyc::YAMLLoad(self::$configDir.'servers.yml');
+            $servers = \Spyc::YAMLLoad(dirs::getDataDirPath(dirs::DATA_CONFIG, 'servers.yml'));
 
-            self::$updateServer = $servers['updates'];
+            self::$updateServer           = $servers['updates'];
+            self::$moduleServer           = $servers['modules'];
             self::$updateServerManualLink = $servers['updatesManual'];
-            self::$moduleServer = $servers['modules'];
             self::$moduleServerManualLink = $servers['modulesManual'];
         }
         
@@ -616,8 +397,9 @@
          * Registriert Controller-Configs aus controllers.yml
          * @return aarray
          */
-        private static function initModuleControllers() {
-            $moduleConfigs = glob(self::$moduleDir.'*/*/config/controllers.yml');
+        private static function initModuleControllers()
+        {
+            $moduleConfigs = glob(dirs::getDataDirPath(dirs::DATA_MODULES, '*/*/config/controllers.yml'));
             if (!$moduleConfigs || !count($moduleConfigs)) return [];
 
             $modules = [];
@@ -627,5 +409,6 @@
             
             return $modules;
         }
+
     }
 ?>

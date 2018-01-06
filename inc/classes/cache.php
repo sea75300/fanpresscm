@@ -13,86 +13,31 @@
      * @copyright (c) 2011-2017, Stefan Seehafer
      */ 
     final class cache {
-        
-        /**
-         * kodierter Cache-Datei-Name als MD5-Hash
-         * @var string
-         */
-        private $cacheName;
-        
-        /**
-         * Cache-Datei-Pfad inkl. Name
-         * @var string
-         */
-        private $fileName;
-
-        /**
-         * Cache-Inhalt
-         * @var mixed
-         */
-        private $data;
-        
-        /**
-         * Zeitpunkt des Verfalls
-         * @var int
-         */
-        private $expirationTime;
-
-        /**
-         * Status-Flag, ob Cache-Modul angegeben wurde doer nicht
-         * @var bool
-         * @since FPCM 3.4
-         */
-        private $hasModule = false;
 
         /**
          * Crypt Object
          * @var crypt
-         * @since FPCM 3.5
          */
-        private $crypt = false;
+        private $crypt;
 
         /**
-         * Der Konstruktur
-         * @param string $cacheName
-         * @param string $module
+         * Konstruktor
+         * @return void
          */
-        public function __construct($cacheName = null, $module = '') {
-
-            $this->cacheName = $this->initCacheName($cacheName);
-            $this->crypt     = new crypt();
-
-            if (is_null($this->cacheName)) {
-                return;
-            }
-
-            $this->fileName = baseconfig::$cacheDir.$this->initCacheModule($module).$this->cacheName.'.cache';
-
-            if (!file_exists($this->fileName)) {
-                return false;
-            }
-
-            $data = unserialize(base64_decode(file_get_contents($this->fileName)));
-            $this->data = $data['data'];
-            $this->expirationTime = $data['expires'];
-        }
-        
-        /**
-         * Gibt Dateiname von aktuellem Cache zurück
-         * @return string
-         */
-        public function getCacheFileName() {
-            return $this->fileName;
+        public function __construct() {
+            $this->crypt     = loader::getObject('crypt');
         }
 
         /**
          * Ist Cache-Inhalt veraltet
          * @return bool
          */
-        public function isExpired() {
+        public function isExpired($cacheName) {
+
             if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) return true;
-            
-            return ($this->expirationTime <= time() || !file_exists($this->fileName)) ?  true : false;
+
+            $cacheFile = loader::getObject('\fpcm\model\files\cacheFile', $cacheName);
+            return $cacheFile->expires() <= time() ?  true : false;
         }
 
         /**
@@ -100,32 +45,24 @@
          * @param mixed $data
          * @param int $expires
          */
-        public function write($data, $expires = 0) {
+        public function write($cacheName, $data, $expires = 0)
+        {
             if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) return false;
-
-            $parent = dirname($this->fileName);
-            if ($this->hasModule && !is_dir($parent) && !mkdir($parent)) {
-                trigger_error('Unable to create cache subdirectory in '.\fpcm\model\files\ops::removeBaseDir($parent, true));
-                return false;
-            }
-
-            if (!is_null($this->fileName)) {
-                file_put_contents($this->fileName, base64_encode(serialize(array('data' => $data,'expires' => time() + $expires))));
-            }
+            
+            $cacheFile = loader::getObject('\fpcm\model\files\cacheFile', $cacheName);
+            return $cacheFile->write($data, $expires ? $expires : FPCM_CACHE_DEFAULT_TIMEOUT);
         }
         
         /**
          * Cache-Inhalt lesen
          * @return string
          */
-        public function read() {
+        public function read($cacheName)
+        {
+            if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) return false;
 
-            if (!is_null($this->fileName) && file_exists($this->fileName)) { 
-                $data = unserialize(base64_decode(file_get_contents($this->fileName)));
-                return $data['data'];
-            }
-            
-            return '';
+            $cacheFile = loader::getObject('\fpcm\model\files\cacheFile', $cacheName);
+            return $cacheFile->read();
         }
         
         /**
@@ -134,9 +71,16 @@
          * @param string $module
          * @return bool
          */
-        public function cleanup($path = false, $module = '') {
+        public function cleanup($cacheName)
+        {
 
-            $cacheBaseDir = baseconfig::$cacheDir.$this->initCacheModule($module);
+            if (substr($cacheName, -1) === '*') {
+                
+            }
+            
+            $cacheFile = loader::getObject('\fpcm\model\files\cacheFile', $cacheName);
+            
+
             
             if ($path) {
                 $cacheFiles = glob($cacheBaseDir.$this->initCacheName($path).'.cache');
@@ -167,17 +111,9 @@
          * Gibt aktuelle Größe des Caches in byte zurück
          * @return int
          */
-        public function getSize() {
+        public function getSize()
+        {
             return array_sum(array_map('filesize', $this->getCacheComplete()));
-        }
-
-        /**
-         * Gibt Zeitspanne zurück, bis Cache verfällt
-         * @return int
-         * @since FPCM 3.3
-         */
-        public function getExpirationTime() {
-            return $this->expirationTime;
         }
 
         /**
@@ -187,41 +123,6 @@
          */
         public function getCacheComplete() {
             return array_merge(glob(baseconfig::$cacheDir.'*.cache'), glob(baseconfig::$cacheDir.'*/*.cache'));
-        }
-
-                /**
-         * Cache-Name verschlüsseln
-         * @param string $cacheName
-         * @return string
-         */
-        protected function initCacheName($cacheName) {
-            
-            if ($cacheName === null) return null;
-
-            if (defined('FPCM_CACHE_DEBUG') && FPCM_CACHE_DEBUG) {
-                return strtolower($cacheName);
-            }
-            
-            return md5(strtolower($cacheName));
-        }
-        
-        /**
-         * Cache-Modul verschlüsseln
-         * @param string $module
-         * @return string
-         * @since FPCM 3.4
-         */
-        protected function initCacheModule($module) {
-            
-            if (!trim($module)) return '';
-
-            $this->hasModule = true;
-
-            if (defined('FPCM_CACHEMODULE_DEBUG') && FPCM_CACHEMODULE_DEBUG) {
-                return strtolower($module).'/';
-            }
-            
-            return md5(strtolower($module)).'/';
         }
 
     }

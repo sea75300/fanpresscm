@@ -6,14 +6,13 @@
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
 
-    spl_autoload_register(function($class) {
-
+    spl_autoload_register(function($class)
+    {
         if (strpos($class, 'fpcm') === false || strpos($class, 'fpcm/modules') !== false) {
             return false;
         }
 
-        $includePath = fpcm\classes\baseconfig::$incDir.DIRECTORY_SEPARATOR.str_replace(['fpcm\\', '\\'], ['', DIRECTORY_SEPARATOR], $class).'.php';
-        
+        $includePath = \fpcm\classes\dirs::getIncDirPath(str_replace(['fpcm\\', '\\'], ['', DIRECTORY_SEPARATOR], $class).'.php');        
         if (file_exists($includePath)) {
             require $includePath;
             return true;   
@@ -22,14 +21,18 @@
         return true;
     });
 
-    spl_autoload_register(function($class) {
+    spl_autoload_register(function($class)
+    {
 
         if (strpos($class, 'fpcm/modules') === false) {
             return false;
         }
 
-        $includePath = fpcm\classes\baseconfig::$moduleDir.DIRECTORY_SEPARATOR.str_replace(['fpcm\\modules\\', '\\'], ['', DIRECTORY_SEPARATOR], $class).'.php';
-        
+        $includePath = \fpcm\classes\dirs::getDataDirPath(
+            \fpcm\classes\dirs::DATA_MODULES,
+            str_replace(['fpcm\\modules\\', '\\'], ['', DIRECTORY_SEPARATOR], $class).'.php'
+        );
+
         if (file_exists($includePath)) {
             require $includePath;
             return true;   
@@ -38,7 +41,8 @@
         return true;
     });
 
-    set_error_handler(function($ecode, $etext, $efile, $eline) {        
+    set_error_handler(function($ecode, $etext, $efile, $eline)
+    {        
 
         $errorLog = dirname(__DIR__).'/data/logs/phplog.txt';
         
@@ -61,7 +65,8 @@
      * @return boolean
      * @since FPCM 3.6
      */
-    function fpcmLogSystem($data) {
+    function fpcmLogSystem($data)
+    {
         
         $data   = is_array($data) || is_object($data)
                 ? print_r($data, true)
@@ -82,8 +87,9 @@
      * @return boolean
      * @since FPCM 3.6
      */
-    function fpcmLogSql($data) {
-        
+    function fpcmLogSql($data)
+    {
+
         $data   = is_array($data) || is_object($data)
                 ? print_r($data, true)
                 : $data;
@@ -104,7 +110,8 @@
      * @return boolean
      * @since FPCM 3.6
      */
-    function fpcmLogPackages($packageName, array $data) {
+    function fpcmLogPackages($packageName, array $data)
+    {
         
         if (file_put_contents(\fpcm\classes\baseconfig::$logFiles['pkglog'], json_encode(array('time' => date('Y-m-d H:i:s'), 'pkgname' => $packageName, 'text' => $data)).PHP_EOL, FILE_APPEND) === false) {
             trigger_error('Unable to write data to package manager log');
@@ -121,7 +128,8 @@
      * @return boolean
      * @since FPCM 3.6
      */
-    function fpcmLogCron($data) {
+    function fpcmLogCron($data)
+    {
         
         $data   = is_array($data) || is_object($data)
                 ? print_r($data, true)
@@ -139,7 +147,8 @@
     /**
      * Debug-Ausgabe am Ende der Seite
      */
-    function fpcmDebugOutput() {
+    function fpcmDebugOutput()
+    {
         if (defined('FPCM_DEBUG') && !FPCM_DEBUG) {
             return false;
         }
@@ -158,7 +167,8 @@
      * FanPress CM Dump Funktion
      * @param mixed
      */
-    function fpcmDump() {
+    function fpcmDump()
+    {
         print "<pre>";
         var_dump(func_get_args());
         print "</pre>";
