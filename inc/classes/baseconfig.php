@@ -138,7 +138,6 @@
             
             fpcmDump($GLOBALS);
             
-            die();
 
 
             self::initServers();
@@ -160,10 +159,12 @@
             if (self::dbConfigExists()) {
                 loader::getObject('\fpcm\classes\database');
             }
-            
+
             loader::getObject('language', loader::getObject('\fpcm\model\system\config')->system_lang);
             loader::getObject('\fpcm\model\system\session');
             loader::getObject('\fpcm\model\theme\notifications');
+
+            die();
         }
 
         /**
@@ -287,9 +288,11 @@
          */
         public static function getControllers()
         {
-            $controllerCache = new cache('controllerCache', 'system');
+            $cacheName = 'system/controllerCache';
             
-            if (!$controllerCache->isExpired()) {
+            $controllerCache = new cache();
+            
+            if (!$controllerCache->isExpired('system/controllerCache')) {
                 $controllerList = $controllerCache->read();
                 if (is_array($controllerList)) {
                     return $controllerList;
@@ -383,7 +386,7 @@
          */
         private static function initServers()
         {
-            include_once loader::libGetFilePath('spyc', 'Spyc.php');
+            include_once loader::libGetFilePath('spyc/Spyc.php');
             
             $servers = \Spyc::YAMLLoad(dirs::getDataDirPath(dirs::DATA_CONFIG, 'servers.yml'));
 

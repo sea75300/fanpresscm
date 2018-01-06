@@ -13,6 +13,8 @@
      */
     class cacheFile {
 
+        const EXTENSION_CACHE = '.cache';
+        
         private $path;
 
         private $module;
@@ -21,7 +23,6 @@
 
         public function __construct($cacheName)
         {
-
             $cacheName      = explode('/', $cacheName, 2);
             
             $this->module   = count($cacheName[1]) ? $cacheName[0] : '';
@@ -30,7 +31,7 @@
                 \fpcm\classes\dirs::DATA_CACHE,
                 $this->initCacheModule($this->module),
                 $this->initCacheName($this->module ? $cacheName[1] : $cacheName[0])
-            );
+            ).self::EXTENSION_CACHE;
 
         }
 
@@ -92,10 +93,18 @@
             $this->expires  = isset($data->expires) ? $data->expires : 0;
             return $this->expires;
         }
-        
+
+        /**
+         * Cache-Datei bereinigen
+         * @return boolean
+         */
         public function cleanup()
         {
-            
+            if (!file_exists($this->path)) {
+                return true;
+            }
+
+            return unlink($this->path);
         }
 
         /**

@@ -34,7 +34,7 @@
                 return true;
             }
             
-            include_once \fpcm\classes\loader::libGetFilePath('Ifsnop/Mysqldump', 'Mysqldump.php');
+            include_once \fpcm\classes\loader::libGetFilePath('Ifsnop/Mysqldump/Mysqldump.php');
             
             fpcmLogCron('Check database config...');
             

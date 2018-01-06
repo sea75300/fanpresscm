@@ -801,7 +801,7 @@
             $isPg    = $this->dbtype === 'pgsql' ? true : false;
             $typeMap = $this->driver->getYaTDLDataTypes();
 
-            $yatdl = new \fpcm\model\system\yatdl(baseconfig::$dbStructPath.$tableFile.'.yml');
+            $yatdl = new \fpcm\model\system\yatdl(dirs::getDataDirPath(dirs::DATA_DBSTRUCT, $tableFile.'.yml'));
             
             $data  = $yatdl->getArray();            
             $table = $data['name'];
@@ -859,7 +859,7 @@
          */
         public function createDbConfigFile(array $data) {
             
-            include_once \fpcm\classes\baseconfig::$configDir.'/database.php.sample';
+            include_once dirs::getDataDirPath(dirs::DATA_CONFIG, 'database.php.sample');
             
             foreach ($data as $key => $value) {
                 $config[$key] = $value;
@@ -881,7 +881,7 @@
             $content[]  = ' */';
             $content[]  = '$config = '.var_export($config, true).';';
             $content[]  = '?>';
-            file_put_contents(\fpcm\classes\baseconfig::$configDir.'/database.php', implode(PHP_EOL, $content));
+            file_put_contents(dirs::getDataDirPath(dirs::DATA_CONFIG, 'databse.php'), implode(PHP_EOL, $content));
             
             return true;
         }
@@ -902,7 +902,7 @@
         public static function getTableFiles($path = false) {
             
             if (!$path) {
-                $path = \fpcm\classes\baseconfig::$dbStructPath;
+                $path = dirs::getDataDirPath(dirs::DATA_DBSTRUCT);
             }
             
             if (!is_dir($path)) {

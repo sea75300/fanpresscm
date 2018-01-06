@@ -72,7 +72,8 @@
          * @param sring $from Absender-Adresse, Default: fanpresscm@@hostdomain.xyz
          * @param bool $html enthält $text HTML-Code ja/nein
          */
-        function __construct($to, $subject, $text, $from = false, $html = false) {
+        function __construct($to, $subject, $text, $from = false, $html = false)
+        {
             $this->to       = $to;
             $this->from     = $from ? $from : 'FanPress CM <fanpresscm@'.$_SERVER['HTTP_HOST'].'>';
             $this->subject  = $subject;
@@ -84,7 +85,8 @@
          * Empfänger auslesen
          * @return sring
          */
-        public function getTo() {
+        public function getTo()
+        {
             return $this->to;
         }
 
@@ -92,7 +94,8 @@
          * Absender auslesen
          * @return sring
          */
-        public function getFrom() {
+        public function getFrom()
+        {
             return $this->from;
         }
 
@@ -100,7 +103,8 @@
          * Betreff auslesen
          * @return sring
          */
-        public function getSubject() {
+        public function getSubject()
+        {
             return $this->subject;
         }
 
@@ -108,7 +112,8 @@
          * E-Mail-Inhalt auslesen
          * @return sring
          */
-        public function getText() {
+        public function getText()
+        {
             return $this->text;
         }
 
@@ -117,7 +122,8 @@
          * @return array
          * @since FPCN 3.6
          */
-        public function getAttachments() {
+        public function getAttachments()
+        {
             return $this->attachments;
         }
 
@@ -125,7 +131,8 @@
          * HTMl-E-Mail ja/nein
          * @return bool
          */
-        public function isHtml() {
+        public function isHtml()
+        {
             return $this->html;
         }
 
@@ -133,7 +140,8 @@
          * Empfänger setzen
          * @param sring $to
          */
-        public function setTo($to) {
+        public function setTo($to)
+        {
             $this->to = $to;
         }
 
@@ -141,7 +149,8 @@
          * Absender setzen
          * @param sring $from
          */
-        public function setFrom($from) {
+        public function setFrom($from)
+        {
             $this->from = $from;
         }
 
@@ -149,7 +158,8 @@
          * Betreff setzen
          * @param sring $subject
          */
-        public function setSubject($subject) {
+        public function setSubject($subject)
+        {
             $this->subject = $subject;
         }
 
@@ -157,7 +167,8 @@
          * E-Mail-Inhalt setzen
          * @param sring $text
          */
-        public function setText($text) {
+        public function setText($text)
+        {
             $this->text = $text;
         }
 
@@ -165,7 +176,8 @@
          * E-Mail- als HTML-E-Mail markieren
          * @param bool $html
          */
-        public function setHtml($html) {
+        public function setHtml($html)
+        {
             $this->html = $html;
         }
 
@@ -174,7 +186,8 @@
          * @param array $attachments
          * @since FPCN 3.6
          */
-        public function setAttachments(array $attachments) {
+        public function setAttachments(array $attachments)
+        {
             $this->attachments = $attachments;
         }
         
@@ -182,7 +195,8 @@
          * Versendet E-Mail
          * @return boolean
          */
-        public function submit() {
+        public function submit()
+        {
 
             $eventData = baseconfig::$fpcmEvents->runEvent('emailSubmit', array(
                 'headers'     => $this->headers,
@@ -237,7 +251,8 @@
          * @return boolean
          * @since FPCM 3.5
          */
-        public function checkSmtp() {
+        public function checkSmtp()
+        {
 
             if (!baseconfig::$fpcmConfig->smtp_enabled) {
                 return false;
@@ -272,7 +287,8 @@
          * @return boolean
          * @since FPCM 3.5
          */
-        private function submitPhp() {
+        private function submitPhp()
+        {
 
             try {                
                 $res = $this->mailer->send();
@@ -289,7 +305,8 @@
          * @return bool
          * @since FPCM 3.5
          */
-        private function submitSmtp() {
+        private function submitSmtp()
+        {
             
             $autoEncryption = (baseconfig::$fpcmConfig->smtp_settings['encr'] === 'auto' ? true : false);
             
@@ -317,11 +334,12 @@
          * @return boolean
          * @since FPCM 3.5
          */
-        private function getMailerObj() {
+        private function getMailerObj()
+        {
 
-            require_once loader::libGetFilePath('PHPMailer', 'PHPMailer.php');
-            require_once loader::libGetFilePath('PHPMailer', 'SMTP.php');            
-            require_once loader::libGetFilePath('PHPMailer', 'Exception.php');            
+            require_once loader::libGetFilePath('PHPMailer/PHPMailer.php');
+            require_once loader::libGetFilePath('PHPMailer/SMTP.php');
+            require_once loader::libGetFilePath('PHPMailer/Exception.php');
 
             $this->mailer = new \PHPMailer\PHPMailer\PHPMailer();
             $this->mailer->isHTML($this->html);

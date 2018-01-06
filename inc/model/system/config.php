@@ -94,9 +94,9 @@
         function __construct($initUserSettings = true, $useCache = true) {
             
             $this->table    = \fpcm\classes\database::tableConfig;
-            $this->dbcon    = \fpcm\classes\baseconfig::$fpcmDatabase;
-            $this->events   = \fpcm\classes\baseconfig::$fpcmEvents;
-            $this->cache    = new \fpcm\classes\cache('config', 'system');
+            $this->dbcon    = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+            $this->events   = \fpcm\classes\loader::getObject('\fpcm\classes\eventList');
+            $this->cache    = new \fpcm\classes\cache();
             $this->useCache = $useCache;
 
             $this->data = [];
@@ -202,17 +202,15 @@
 
             if (!defined('FPCM_USERID') || !FPCM_USERID) return false;
 
-            $cache2 = new \fpcm\classes\cache($this->cacheName.'_user'.FPCM_USERID, 'system');
+            $userData = $this->cache->read('system/configuser'.FPCM_USERID);
             
-            $userData = $cache2->read();
-            
-            if ($cache2->isExpired() || !$this->useCache || !is_array($userData)) {
+            if ($this->cache->isExpired('system/configuser'.FPCM_USERID) || !$this->useCache || !is_array($userData)) {
                 $userData = $this->dbcon->fetch($this->dbcon->select(\fpcm\classes\database::tableAuthors, 'id, usrmeta', 'id = ?', array(FPCM_USERID)));
                 $userData = json_decode($userData->usrmeta, true);
 
                 if (!is_array($userData)) return false;                    
                 
-                $cache2->write($userData, $this->system_cache_timeout);
+                $this->cache->write('system/configuser'.FPCM_USERID, $userData, $this->system_cache_timeout);
             }
 
             foreach ($userData as $key => $value) {
@@ -241,7 +239,7 @@
             
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
             
-            if ($this->cache->isExpired() || !$this->useCache) {
+            if ($this->cache->isExpired('system/config') || !$this->useCache) {
                 $configData = $this->dbcon->fetch($this->dbcon->select($this->table), true);
                 foreach ($configData as $data) {
                     $this->data[$data->config_name] = $data->config_value;
@@ -251,12 +249,12 @@
                 $this->data['twitter_events'] = json_decode($this->data['twitter_events'], true);
                 $this->data['smtp_settings']  = json_decode($this->data['smtp_settings'], true);
 
-                $this->cache->write($this->data, $this->data['system_cache_timeout']);
+                $this->cache->write('system/config', $this->data, $this->data['system_cache_timeout']);
                 
                 return;
             }
             
-            $this->data = $this->cache->read();
+            $this->data = $this->cache->read('system/config');
         }
 
         /**

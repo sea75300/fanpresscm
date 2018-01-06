@@ -42,8 +42,8 @@
          * Controller-Processing
          */
         public function process() {
-            
-            require_once \fpcm\classes\loader::libGetFilePath('jqupload', '/UploadHandler.php', 'server');
+
+            require_once \fpcm\classes\loader::libGetFilePath('jqupload/UploadHandler.php');
 
             $options = array(
                 'script_url' => \fpcm\classes\baseconfig::$rootPath.$this->getControllerLink('ajax/jqupload'),

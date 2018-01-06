@@ -41,23 +41,23 @@
         return true;
     });
 
-    set_error_handler(function($ecode, $etext, $efile, $eline)
-    {        
-
-        $errorLog = dirname(__DIR__).'/data/logs/phplog.txt';
-        
-        if (file_exists($errorLog) && !is_writable($errorLog)) {
-            trigger_error($errorLog.' is not writable', E_USER_ERROR);
-            return false;
-        }
-        
-        $text = array($etext, 'in file '.$efile.', line '.$eline, 'ERROR CODE: '.$ecode);
-        
-        $LogLine = json_encode(array('time' => date('Y-m-d H:i:s'), 'text' => implode(PHP_EOL, $text)));
-        file_put_contents($errorLog, $LogLine.PHP_EOL, FILE_APPEND);
-
-        return true;
-    });
+//    set_error_handler(function($ecode, $etext, $efile, $eline)
+//    {        
+//
+//        $errorLog = dirname(__DIR__).'/data/logs/phplog.txt';
+//        
+//        if (file_exists($errorLog) && !is_writable($errorLog)) {
+//            trigger_error($errorLog.' is not writable', E_USER_ERROR);
+//            return false;
+//        }
+//        
+//        $text = array($etext, 'in file '.$efile.', line '.$eline, 'ERROR CODE: '.$ecode);
+//        
+//        $LogLine = json_encode(array('time' => date('Y-m-d H:i:s'), 'text' => implode(PHP_EOL, $text)));
+//        file_put_contents($errorLog, $LogLine.PHP_EOL, FILE_APPEND);
+//
+//        return true;
+//    });
 
     /**
      * Systemlog schreiben

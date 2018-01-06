@@ -34,7 +34,7 @@
         public function __construct() {
             parent::__construct();
 
-            include_once \fpcm\classes\loader::libGetFilePath('tmhoauth', 'tmhOAuth.php');
+            include_once \fpcm\classes\loader::libGetFilePath('tmhoauth/tmhOAuth.php');
             
             if (!$this->checkRequirements()) {
                 return;

@@ -169,7 +169,7 @@
          */
         public function createFilemanagerThumbs($folderFiles = null) {            
             $folderFiles = is_null($folderFiles) ? $this->getFolderList() : $folderFiles;
-            include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop', 'ImageWorkshop.php');
+            include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop/ImageWorkshop.php');
 
             $memoryLimit      = \fpcm\classes\baseconfig::memoryLimit(true);
             

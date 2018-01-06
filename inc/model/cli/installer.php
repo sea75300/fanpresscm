@@ -79,7 +79,7 @@
                 $this->output('No configuration file found in '.\fpcm\model\files\ops::removeBaseDir(\fpcm\classes\baseconfig::$configDir, true), true);
             }
 
-            include_once \fpcm\classes\loader::libGetFilePath('spyc', 'Spyc.php');
+            include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
             $this->conf = \Spyc::YAMLLoad($configFile);
 
             $this->lang = new \fpcm\classes\language($this->conf['config']['language']);

@@ -75,11 +75,6 @@
         public static function getFullDirPath($type, $path = '', $base = false)
         {
             $path = $GLOBALS['fpcm']['dir']['base'].$type.(trim($path ? DIRECTORY_SEPARATOR.$path : ''));
-            if (!file_exists($path)) {
-                trigger_error('Invalid path, path does not exists in "'.$path.'"!');
-                return false;
-            }
-
             return ($base ? basename($path) : $path);
         }
 
@@ -93,11 +88,6 @@
         public static function getDataDirPath($type, $path = '', $base = false)
         {
             $path = $GLOBALS['fpcm']['dir']['data'].$type.DIRECTORY_SEPARATOR.$path;
-            if (!file_exists($path)) {
-                trigger_error('Invalid data path, path does not exists in "'.$path.'"!');
-                return false;
-            }
-            
             return ($base ? basename($path) : $path);
         }
 
@@ -108,13 +98,18 @@
          */
         public static function getIncDirPath($path = '')
         {
-            $path = $GLOBALS['fpcm']['dir']['inc'].$path;
-            if (!file_exists($path)) {
-                trigger_error('Invalid include path, path does not exists in "'.$path.'"!');
-                return false;
-            }
-            
-            return $path;
+            return $GLOBALS['fpcm']['dir']['inc'].$path;
+        }
+
+        /**
+         * Komplette URL ausgehend vom root-Ebene ermitteln
+         * @param string $type
+         * @param string $path
+         * @return string
+         */
+        public static function getRootUrl($path = '')
+        {
+            return $GLOBALS['fpcm']['dir']['base'].'/'.$path;
         }
 
         /**

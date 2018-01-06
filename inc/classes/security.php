@@ -54,7 +54,7 @@
                 return self::$cookieName;
             }
 
-            self::$cookieName = 'fpcm_sid'.md5(baseconfig::$rootPath.'_'.date('d-m-Y'));
+            self::$cookieName = 'fpcm_sid'.md5(dirs::getRootUrl().'_'.date('d-m-Y'));
             if (isset($_COOKIE[self::$cookieName])) {
                 return self::$cookieName;
             }
@@ -82,7 +82,7 @@
             $conf                   = baseconfig::getSecurityConfig();
             self::$pageTokenName    = (is_array($conf) && isset($conf['pageTokenBase']))
                                     ? hash(self::defaultHashAlgo, $conf['pageTokenBase'].(trim($overrideModule) ? trim($overrideModule) : http::getOnly('module')))
-                                    : hash(self::defaultHashAlgo, 'fpcmpgtk'.baseconfig::$rootPath.'_'.date('d-m-Y').'$'.http::getOnly('module'));
+                                    : hash(self::defaultHashAlgo, 'fpcmpgtk'.dirs::getRootUrl().'_'.date('d-m-Y').'$'.http::getOnly('module'));
 
             return self::$pageTokenName;
         }
@@ -137,17 +137,17 @@
          */
         public static function createPageToken($overrideModule = '') {
 
-            $str   = '$'.baseconfig::$rootPath.'$pageToken$'.self::getSessionCookieValue().
+            $str   = '$'.dirs::getRootUrl().'$pageToken$'.self::getSessionCookieValue().
                      '$'.(trim($overrideModule) ? trim($overrideModule) : http::getOnly('module')).
                      '$'. uniqid();
 ;            
             $crypt = new crypt();
             $str   = $crypt->encrypt(hash(self::defaultHashAlgo, $str));
             
-            $cacheName = self::getPageTokenFieldName($overrideModule);            
-            $cache     = new cache($cacheName, self::pageTokenCacheModule);
-            $cache->cleanup($cacheName, self::pageTokenCacheModule);
-            $cache->write($str, FPCM_PAGETOKENCACHE_TIMEOUT);            
+            $cacheName = self::pageTokenCacheModule.'/'.self::getPageTokenFieldName($overrideModule);            
+            $cache     = new cache();
+            $cache->cleanup($cacheName);
+            $cache->write($cacheName, $str, FPCM_PAGETOKENCACHE_TIMEOUT);            
             unset($cache);
             
             return $str;
@@ -166,11 +166,11 @@
             }
             
             $secConf = [
-                'cookieName'    => hash(self::defaultHashAlgo, 'cookie'.uniqid('fpcm', true).baseconfig::$rootPath),
-                'pageTokenBase' => hash(self::defaultHashAlgo, 'pgToken'.baseconfig::$rootPath.'$')
+                'cookieName'    => hash(self::defaultHashAlgo, 'cookie'.uniqid('fpcm', true).dirs::getRootUrl()),
+                'pageTokenBase' => hash(self::defaultHashAlgo, 'pgToken'.dirs::getRootUrl().'$')
             ];
             
-            return file_put_contents(baseconfig::$configDir.'sec.php', '<?php'.PHP_EOL.' $config = '.var_export($secConf, true).PHP_EOL.'?>');
+            return file_put_contents(dirs::getDataDirPath(dirs::DATA_CONFIG, 'sec.php'), '<?php'.PHP_EOL.' $config = '.var_export($secConf, true).PHP_EOL.'?>');
             
         }
 

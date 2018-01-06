@@ -81,20 +81,20 @@
 
             $moduleList = new \fpcm\model\modules\modulelist();
             
-            $this->cache = new \fpcm\classes\cache('activeeventscache', 'modules');
+            $this->cache = new \fpcm\classes\cache();
             
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
             
             $config = \fpcm\classes\baseconfig::$fpcmConfig;
             $config->setUserSettings();
             
-            if ($this->cache->isExpired()) {
+            if ($this->cache->isExpired('modules/activeeventscache')) {
                 $this->activeModules = $moduleList->getEnabledInstalledModules();   
-                $this->cache->write($this->activeModules, $config->system_cache_timeout);
+                $this->cache->write('modules/activeeventscache', $this->activeModules, $config->system_cache_timeout);
                 return;
             }
 
-            $this->activeModules = $this->cache->read();
+            $this->activeModules = $this->cache->read('modules/activeeventscache');
 
         }
         

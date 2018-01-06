@@ -319,7 +319,7 @@
             
             if (!file_exists($path)) return [];
             
-            include_once \fpcm\classes\loader::libGetFilePath('spyc', 'Spyc.php');
+            include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
             return \Spyc::YAMLLoad($path);            
         }
         

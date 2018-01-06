@@ -121,7 +121,7 @@
                     return $res;
                 }
 
-                include_once \fpcm\classes\loader::libGetFilePath('spyc', 'Spyc.php');
+                include_once loader::libGetFilePath('spyc/Spyc.php');
                 $modulelisteConfig = \Spyc::YAMLLoad($modulelisteConfigFile);                  
                 
                 if ($res !== true) return $res;

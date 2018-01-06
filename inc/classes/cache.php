@@ -13,6 +13,8 @@
      * @copyright (c) 2011-2017, Stefan Seehafer
      */ 
     final class cache {
+        
+        const CLEAR_ALL = '*';
 
         /**
          * Crypt Object
@@ -21,18 +23,27 @@
         private $crypt;
 
         /**
+         * Basis-Pfad für Cache
+         * @var string
+         */
+        private $basePath;
+
+        /**
          * Konstruktor
          * @return void
          */
-        public function __construct() {
-            $this->crypt     = loader::getObject('crypt');
+        public function __construct()
+        {
+            $this->crypt    = loader::getObject('\fpcm\classes\crypt');
+            $this->basePath = dirs::getDataDirPath(dirs::DATA_CACHE);
         }
 
         /**
          * Ist Cache-Inhalt veraltet
          * @return bool
          */
-        public function isExpired($cacheName) {
+        public function isExpired($cacheName)
+        {
 
             if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) return true;
 
@@ -66,34 +77,26 @@
         }
         
         /**
-         * Cache-Inhalt leeren
-         * @param string $path
-         * @param string $module
-         * @return bool
+         * Cachew bereinigen
+         * @param string $cacheName
+         * @return boolean
          */
-        public function cleanup($cacheName)
+        public function cleanup($cacheName = null)
         {
-
-            if (substr($cacheName, -1) === '*') {
+            if ($cacheName !== null && substr($cacheName, -2) !== '/*') {
                 
-            }
-            
-            $cacheFile = loader::getObject('\fpcm\model\files\cacheFile', $cacheName);
-            
-
-            
-            if ($path) {
-                $cacheFiles = glob($cacheBaseDir.$this->initCacheName($path).'.cache');
-            }
-            elseif ($module) {
-                $cacheFiles = glob($cacheBaseDir.'*.cache');
-            }
-            else {
-                $cacheFiles = $this->getCacheComplete();
+                /* @var $cacheFile \fpcm\model\files\cacheFile */
+                $cacheFile = loader::getObject('\fpcm\model\files\cacheFile', $cacheName);
+                return $cacheFile->cleanup();                
             }
 
-            if (!is_array($cacheFiles) || !count($cacheFiles)) return false;
-            
+            $cacheFiles = (substr($cacheName, -2) === '/*'
+                        ? glob($this->basePath.substr($cacheName, 0, -2).\fpcm\model\files\cacheFile::EXTENSION_CACHE)
+                        : $this->getCacheComplete());
+
+            if (!is_array($cacheFiles) || !count($cacheFiles)) {
+                return false;
+            }
 
             foreach ($cacheFiles as $cacheFile) {
 
@@ -122,7 +125,7 @@
          * @since FPCM 3.4
          */
         public function getCacheComplete() {
-            return array_merge(glob(baseconfig::$cacheDir.'*.cache'), glob(baseconfig::$cacheDir.'*/*.cache'));
+            return array_merge(glob($this->basePath.'*'.\fpcm\model\files\cacheFile::EXTENSION_CACHE), glob($this->basePath.'*/*'.\fpcm\model\files\cacheFile::EXTENSION_CACHE));
         }
 
     }

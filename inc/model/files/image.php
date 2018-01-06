@@ -322,7 +322,7 @@
          */
         public function createThumbnail() {
 
-            include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop', 'ImageWorkshop.php');
+            include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop/ImageWorkshop.php');
 
             $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($this->getFullpath());
             if (memory_get_usage(true) < \fpcm\classes\baseconfig::memoryLimit(true) * 0.5) {

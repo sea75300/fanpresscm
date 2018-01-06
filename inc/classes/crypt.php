@@ -169,7 +169,7 @@
                 return false;
             }
 
-            return file_put_contents(baseconfig::$configDir.'crypt.php', '<?php'.PHP_EOL.' $config = '.var_export($config, true).PHP_EOL.'?>');
+            return file_put_contents(dirs::getDataDirPath(dirs::DATA_CONFIG, 'crypt.php'), '<?php'.PHP_EOL.' $config = '.var_export($config, true).PHP_EOL.'?>');
             
         }
 

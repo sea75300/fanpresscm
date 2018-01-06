@@ -400,7 +400,7 @@
                 return false;
             }
 
-            include_once \fpcm\classes\loader::libGetFilePath('PHP-FineDiff', 'finediff.php');
+            include_once \fpcm\classes\loader::libGetFilePath('PHP-FineDiff/finediff.php');
 
             $this->revisionArticle = clone $this->article;
 

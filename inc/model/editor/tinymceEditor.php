@@ -66,7 +66,7 @@
             }
             elseif ($cache->isExpired()) {
 
-                $path  = dirname(\fpcm\classes\loader::libGetFilePath('tinymce4', 'tinymce.min.js'));            
+                $path  = dirname(\fpcm\classes\loader::libGetFilePath('tinymce4/tinymce.min.js'));            
                 $path .= '/plugins/*';
 
                 $pluginFolders = implode(' ', array_map('basename', glob($path, GLOB_ONLYDIR)));

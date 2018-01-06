@@ -26,6 +26,12 @@
          * @var string
          */
         private $langCode = '';
+
+        /**
+         * Pfad für Sprachpaket
+         * @var string
+         */
+        private $langPath = '';
         
         /**
          * Pfad zu Hilfe-Datei
@@ -48,40 +54,47 @@
             
             if (!$langCode) $langCode = FPCM_DEFAULT_LANGUAGE_CODE;
             
-            if (!is_dir(baseconfig::$langDir.$langCode)) {
+            $this->langPath = dirs::getIncDirPath('lang'.DIRECTORY_SEPARATOR.$langCode);
+            
+            if (!is_dir($this->langPath)) {
                 trigger_error('Try to load undefined language: '.$langCode);
                 return false;
             }
             
             $GLOBALS['langdata'] = [];
-            
             $this->langCode = $langCode;
 
-            $confFile = baseconfig::$langDir.$langCode.'/lang.cfg';            
+            $confFile = $this->langPath.'/lang.cfg';            
             if (!file_exists($confFile)) {
                 trigger_error('Unable to find language config file in: '.$langCode);
                 return false;
             }
             
             $this->langList[$langCode] = file_get_contents($confFile);
+            $this->helpFile            = $this->langPath.'/help.php';
+
+            $this->cache = loader::getObject('cache');
+            $cacheName   = 'system/langcache_'.$langCode;
             
-            $this->helpFile            = baseconfig::$langDir.$langCode.'/help.php';
-            
-            $this->cache = new cache('langcache_'.$langCode, 'system');
-            
-            if (!$this->cache->isExpired()) {
-                $GLOBALS['langdata'] = $this->cache->read();                
+            if (!$this->cache->isExpired($cacheName)) {
+                $GLOBALS['langdata'] = $this->cache->read($cacheName);                
                 return;
             }            
             
-            $moduleLangFiles = ($langCode != FPCM_DEFAULT_LANGUAGE_CODE ? glob(baseconfig::$moduleDir.'*/*/lang/'.FPCM_DEFAULT_LANGUAGE_CODE.'/*.php') : array());
-            $moduleLangFiles_langcode = glob(baseconfig::$moduleDir.'*/*/lang/'.$langCode.'/*.php');
+            $moduleLangFiles            = ($langCode != FPCM_DEFAULT_LANGUAGE_CODE
+                                        ? glob(dirs::getDataDirPath(dirs::DATA_MODULES, '*/*/lang/'.FPCM_DEFAULT_LANGUAGE_CODE.'/*.php'))
+                                        : []);
+
+            $moduleLangFiles_langcode   = glob(dirs::getDataDirPath(dirs::DATA_MODULES, '*/*/lang/'.$langCode.'/*.php'));
             
             if (is_array($moduleLangFiles_langcode)) {
                 $moduleLangFiles += $moduleLangFiles_langcode;
             }
 
-            $langfiles       = array_merge(glob(baseconfig::$langDir.$langCode.'/*.php'), (is_array($moduleLangFiles) ? $moduleLangFiles : array()));
+            $langfiles       = array_merge(
+                glob($this->langPath.'*.php'),
+                (is_array($moduleLangFiles) ? $moduleLangFiles : [])
+            );
             
             foreach ($langfiles as $file) {
 
@@ -99,7 +112,7 @@
                 $GLOBALS['langdata'] = array_merge($GLOBALS['langdata'], $lang);
             }
 
-            $this->cache->write($GLOBALS['langdata'], FPCM_LANGCACHE_TIMEOUT);
+            $this->cache->write($cacheName, $GLOBALS['langdata'], FPCM_LANGCACHE_TIMEOUT);
         }
         
         /**
@@ -108,7 +121,7 @@
          */
         public function getLanguages() {
             
-            $langs = glob(baseconfig::$langDir.'*/lang.cfg');
+            $langs = glob(dirs::getIncDirPath('lang/*/lang.cfg'));
             
             foreach ($langs as $lang) {
                 $langCode = basename(dirname($lang));
