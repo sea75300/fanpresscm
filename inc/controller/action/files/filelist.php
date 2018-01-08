@@ -144,7 +144,7 @@
             if (!parent::process()) return false;
 
             $this->view->addJsVars([
-                'fpcmBaseUrl'           => \fpcm\classes\baseconfig::$rootPath,
+                'fpcmBaseUrl'           => \fpcm\classes\dirs::getRootUrl(),
                 'fpcmFmgrMode'          => $this->mode,
                 'fpcmEditorType'        => $this->config->system_editor,
                 'fpcmJqUploadInit'      => $this->config->file_uploader_new,
@@ -170,9 +170,9 @@
             $this->view->setViewJsFiles(['filemanager.js', 'fileuploader.js']);
             
             if ($this->config->file_uploader_new) {
-                $this->view->assign('actionPath', \fpcm\classes\baseconfig::$rootPath.$this->getControllerLink('ajax/jqupload'));
+                $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'));
             } else {
-                $this->view->assign('actionPath', \fpcm\classes\baseconfig::$rootPath.$this->getControllerLink('files/list', array('mode' => $this->mode)));
+                $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('files/list', array('mode' => $this->mode)));
                 
                 $translInfo = [
                     '{{filecount}}' => ini_get("max_file_uploads"),

@@ -58,7 +58,7 @@
                     continue;
                 }
                 
-                $fileName = \fpcm\classes\baseconfig::$uploadDir.$fileNames[$key];
+                $fileName = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $fileNames[$key]);
                 $image = new image($fileNames[$key]);
                 if (!$image->moveUploadedFile($value)) {
                     trigger_error('Unable to move uploaded to to uploader folder! '.$fileNames[$key]);
@@ -105,7 +105,7 @@
                 
                 if ($ext != 'zip') return false;
                 
-                $fileName = \fpcm\classes\baseconfig::$tempDir.$fileNames[$key];
+                $fileName = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $fileNames[$key]);
                 if (!move_uploaded_file($value, $fileName)) return false;
                 
                 $data = \fpcm\model\packages\package::explodeModuleFileName(basename($fileNames[$key], '.zip'));

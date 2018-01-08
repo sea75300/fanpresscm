@@ -45,7 +45,7 @@
                 return false;
             }
             
-            $vendorFolder = \fpcm\classes\baseconfig::$baseDir.$this->copyDestination.dirname($this->key);
+            $vendorFolder = \fpcm\classes\dirs::getFullDirPath('', $this->copyDestination.dirname($this->key));
             if (!is_dir($vendorFolder) && !mkdir($vendorFolder) ) {
                 trigger_error('Unable to create module vendor folder '.\fpcm\model\files\ops::removeBaseDir($vendorFolder, true));
                 \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
@@ -56,7 +56,7 @@
             foreach ($this->files as $zipFile) {
                 $source = $this->extractPath.$zipFile;
 
-                $dest   = \fpcm\classes\baseconfig::$baseDir.$this->copyDestination.str_replace(basename($this->key).'/', $this->key.'/', $zipFile);
+                $dest   = \fpcm\classes\dirs::getFullDirPath('', $this->copyDestination.str_replace(basename($this->key).DIRECTORY_SEPARATOR, $this->key.DIRECTORY_SEPARATOR, $zipFile));
                 $dest   = $this->replaceFanpressDirString($dest);
                 
                 if (is_dir($source)) {
@@ -103,11 +103,11 @@
             $this->filename     = $this->key.'_version'.$this->version.'.zip';
 
             $this->remoteFile   = \fpcm\classes\baseconfig::$moduleServer.self::FPCMPACKAGE_SERVER_PACKAGEPATH.$this->filename;
-            $this->localFile    = \fpcm\classes\baseconfig::$tempDir.$this->filename;            
-            $this->extractPath  = \fpcm\classes\baseconfig::$tempDir.dirname($this->key).'/';
-            $this->tempListFile = \fpcm\classes\baseconfig::$tempDir.md5($this->localFile);
+            $this->localFile    = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $this->filename);
+            $this->extractPath  = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, dirname($this->key).DIRECTORY_SEPARATOR);
+            $this->tempListFile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, md5($this->localFile));
             
-            $copyDest = str_replace(\fpcm\classes\baseconfig::$baseDir, '', \fpcm\classes\baseconfig::$moduleDir);
+            $copyDest = str_replace(\fpcm\classes\dirs::getFullDirPath(''), '', \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES));
             $this->setCopyDestination($copyDest);
         }
 

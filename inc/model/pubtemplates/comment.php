@@ -36,7 +36,7 @@
          * @param string $fileName Template-Datei unterhalb von data/styles/comments
          */
         public function __construct($fileName) {
-            parent::__construct($fileName.'.html', \fpcm\classes\baseconfig::$stylesDir.'comments/');
+            parent::__construct('comments'.DIRECTORY_SEPARATOR.$fileName.'.html');
         }
         
         /**

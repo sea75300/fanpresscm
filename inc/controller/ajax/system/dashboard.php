@@ -54,7 +54,7 @@
          * Container-Klassen ermitteln
          */
         protected function getClasses() {
-            $containers = array_map(array($this, 'parseClassname'), glob(\fpcm\classes\baseconfig::$dashcontainerDir.'*.php'));            
+            $containers = array_map(array($this, 'parseClassname'), glob(\fpcm\classes\dirs::getIncDirPath('model'.DIRECTORY_SEPARATOR.'dashboard'.DIRECTORY_SEPARATOR.'*.php')));
             $containers = $this->events->runEvent('dashboardContainersLoad', $containers);
             
             $additional = [];

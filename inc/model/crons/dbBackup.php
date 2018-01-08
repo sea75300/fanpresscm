@@ -42,7 +42,7 @@
             
             $dumpSettings = [];
             
-            $this->dumpfile = \fpcm\classes\baseconfig::$dbdumpDir.$dbconfig['DBNAME'].'_'.date('Y-m-d_H-i-s').'.sql';
+            $this->dumpfile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP, $dbconfig['DBNAME'].'_'.date('Y-m-d_H-i-s').'.sql');
             if (function_exists('gzopen')) {
                 $dumpSettings['compress'] = \Ifsnop\Mysqldump\Mysqldump::GZIP;
                 $this->dumpfile .= '.gz';

@@ -184,10 +184,10 @@
 
             $classes = [];
             
-            $eventBaseClass = '/events/'.$this->getEventClassBase().'.php';
+            $eventBaseClass = DIRECTORY_SEPARATOR.'events'.DIRECTORY_SEPARATOR.$this->getEventClassBase().'.php';
             foreach ($this->activeModules as $module) {
-                
-                $path = \fpcm\classes\baseconfig::$moduleDir.$module.$eventBaseClass;
+
+                $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $module, $eventBaseClass);
                 if (!file_exists($path)) {
                     continue;
                 }

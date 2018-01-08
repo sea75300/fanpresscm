@@ -27,8 +27,8 @@
             if (!\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled()) {
                 return $dataParams;
             }
-            
-            if (!file_exists(\fpcm\classes\baseconfig::$incDir.'model/events/'.$eventName.'.php')) {
+
+            if (!file_exists(\fpcm\classes\dirs::getIncDirPath('model'.DIRECTORY_SEPARATOR.'events'.DIRECTORY_SEPARATOR.$eventName.'.php'))) {
                 trigger_error('ERROR: Undefined event called: '.$eventName);
                 return $dataParams;
             }
@@ -53,7 +53,7 @@
         public function getSystemEventList() {
 
             $list = [];
-            foreach (glob(\fpcm\classes\baseconfig::$incDir.'model/events/*.php') as &$file) {                
+            foreach (glob(\fpcm\classes\dirs::getIncDirPath('model'.DIRECTORY_SEPARATOR.'events'.DIRECTORY_SEPARATOR.'*.php')) as &$file) {                
                 if ($file == __FILE__) continue;                
                 $list[]  = basename($file, '.php');
             }

@@ -50,7 +50,7 @@
 
                 $source = $this->extractPath.$zipFile;
 
-                $dest   = dirname(\fpcm\classes\baseconfig::$baseDir).$this->copyDestination.$zipFile;
+                $dest   = dirname(\fpcm\classes\dirs::getFullDirPath('')).$this->copyDestination.$zipFile;
                 $dest   = is_dir($source) ? dirname($dest).'/'.basename($dest) : $dest;                
                 $dest   = $this->replaceFanpressDirString($dest);
 

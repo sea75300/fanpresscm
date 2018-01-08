@@ -102,13 +102,14 @@
          * @param string $viewName View-Name, ohne Endung .php
          * @param string $viewPath View-Pfad unterhalb von core/views/
          */
-        public function __construct($viewName = '', $viewPath = '') {
+        public function __construct($viewName = '') {
+            
+            $viewName .= '.php';
+            
             parent::__construct();
-            if (!$this->viewPath) {
-                $this->viewPath = \fpcm\classes\baseconfig::$viewsDir.$viewPath;                
-            }
-
-            if (!empty($viewName)) $this->viewName = $viewName.'.php';
+            $this->viewPath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
+            $this->viewName = basename($this->viewPath);
+            
             
             $this->fileLib = new \fpcm\model\system\fileLib();
             
@@ -183,7 +184,7 @@
          */
         private function checkJsPath($item) {
 
-            if (strpos($item, \fpcm\classes\baseconfig::$jsPath) === 0) {
+            if (strpos($item, \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::CORE_JS)) === 0) {
                 return $item;
             }
 
@@ -200,9 +201,9 @@
             }
             
             try {
-                $file_headers = get_headers(\fpcm\classes\baseconfig::$jsPath.$item);
+                $file_headers = get_headers(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::CORE_JS, $item));
                 if (isset($file_headers[0]) && $file_headers[0] === 'HTTP/1.1 200 OK') {
-                    $checks[$hash] = \fpcm\classes\baseconfig::$jsPath.$item;
+                    $checks[$hash] = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::CORE_JS, $item);
                     $cache->write($checks, FPCM_LANGCACHE_TIMEOUT);
                     return $checks[$hash];
                 }

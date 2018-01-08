@@ -62,6 +62,17 @@
 
             return $redirectString.'&'.http_build_query($params);
         }
+
+        /**
+         * Create controller link
+         * @param string $controller
+         * @param array $params
+         * @return string
+         * @since FPCM 3.4
+         */
+        public static function getFullControllerLink($controller = '', array $params = []) {
+            return dirs::getRootUrl(self::getControllerLink($controller, $params));
+        }
         
         /**
          * Berechnet Werte für Seitennavigation

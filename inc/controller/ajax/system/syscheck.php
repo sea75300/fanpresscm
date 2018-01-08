@@ -98,7 +98,7 @@
 
             $data = array_slice($this->processCli(), 0, 18);
             
-            $text  = 'Statistical data '.hash(\fpcm\classes\security::defaultHashAlgo, \fpcm\classes\baseconfig::$rootPath).PHP_EOL.PHP_EOL;
+            $text  = 'Statistical data '.hash(\fpcm\classes\security::defaultHashAlgo, \fpcm\classes\dirs::getRootUrl()).PHP_EOL.PHP_EOL;
             
             foreach ($data as $key => $value) {
                 
@@ -142,7 +142,7 @@
                 'current'   => $this->config->system_version,
                 'recommend' => $remoteVersion ? $remoteVersion : $this->lang->translate('GLOBAL_NOTFOUND'),
                 'result'    => $versionCheckresult,
-                'notice'    => !$versionCheckresult ? 'You may run       : php '.\fpcm\classes\baseconfig::$baseDir.'fpcmcli.php pkg --upgrade system' : ''
+                'notice'    => !$versionCheckresult ? 'You may run       : php '.\fpcm\classes\dirs::getFullDirPath('fpcmcli.php').' pkg --upgrade system' : ''
             );      
 
             $checkOptions = array_merge($checkOptions, $this->getCheckOptionsSystem());

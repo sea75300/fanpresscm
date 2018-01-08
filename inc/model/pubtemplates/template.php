@@ -57,7 +57,7 @@
          * @param string $filepath Template-Datei-Pfad unterhalb von data/styles/
          */
         public function __construct($filename = '', $filepath = '') {
-            parent::__construct($filename, $filepath);
+            parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES, $filename));
             $this->init(null);
             $this->smileyCache = new \fpcm\classes\cache('smileyCache');
         }

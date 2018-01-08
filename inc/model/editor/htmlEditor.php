@@ -29,7 +29,7 @@
          * @return string
          */
         public function getEditorTemplate() {
-            return \fpcm\classes\baseconfig::$viewsDir.'articles/editors/html.php';
+            return \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, 'articles/editors/html.php');
         }
 
         /**

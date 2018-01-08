@@ -103,7 +103,7 @@
                 '{{filesize}}'  => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
             );
             $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', $translInfo));
-            $this->view->assign('actionPath', \fpcm\classes\baseconfig::$rootPath.$this->getControllerLink('modules/list'));
+            $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('modules/list'));
             $this->view->assign('styleLeftMargin', true);
 
             $this->view->setHelpLink('hl_modules');

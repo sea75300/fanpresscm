@@ -484,7 +484,7 @@
                     '{{email}}'       => $this->newComment->getEmail(),
                     '{{commenttext}}' => strip_tags($this->newComment->getText()),
                     '{{articleurl}}'  => $this->article->getArticleLink(),
-                    '{{systemurl}}'   => \fpcm\classes\baseconfig::$rootPath
+                    '{{systemurl}}'   => \fpcm\classes\dirs::getRootUrl()
                 ));
 
                 $to    = [];

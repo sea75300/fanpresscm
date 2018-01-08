@@ -36,16 +36,10 @@
         /**
          * Konstruktor
          * @param string $filename Dateiname
-         * @param string $filepath Dateipfad
-         * @param string $content Dateiinhalt
          */
-        public function __construct($filename = '', $filepath = '', $content = '') {
+        public function __construct($filename = '') {
 
-            if (!$filepath) {
-                $filepath = \fpcm\classes\baseconfig::$dbdumpDir;
-            }
-
-            parent::__construct($filename, $filepath, $content);
+            parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP, $filename));
             
             if (!$this->exists()) {
                 return false;

@@ -36,7 +36,7 @@
          */
         public function __construct($moduleKey = '', $type = 'acp', $viewName = '', $viewPath = '') {
             $this->moduleViewType   = $type;
-            $this->viewPath         = \fpcm\classes\baseconfig::$moduleDir.$moduleKey.'/views'.trim($viewPath, '/').'/';
+            $this->viewPath         = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $moduleKey.DIRECTORY_SEPARATOR.'views'.trim($viewPath, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR);
             parent::__construct($viewName);
         }        
         

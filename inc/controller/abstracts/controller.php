@@ -272,7 +272,7 @@
          * @return boolean
          */
         protected function checkPageToken() {
-            if (isset($_SERVER['HTTP_REFERER']) && !is_null($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\baseconfig::$rootPath) === false) {
+            if (isset($_SERVER['HTTP_REFERER']) && !is_null($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
                 return false;
             }
             

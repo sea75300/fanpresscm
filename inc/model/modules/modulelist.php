@@ -126,7 +126,7 @@
          */
         protected function getModuleLocalFilesystem() {
             $localsDB = $this->getInstalledModules();
-            $localsFs = glob(\fpcm\classes\baseconfig::$moduleDir.'*/*');
+            $localsFs = glob(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, '*/*'));
 
             if (!is_array($localsFs) || !count($localsFs)) return false;
 
@@ -291,7 +291,7 @@
             $res     = $res && $this->dbcon->delete($this->table, "(modkey = '".  implode("' OR modkey = '", $keys)."') AND status = 0");
             $lastKey = false;
             foreach ($keys as $key) {
-                $res = $res && \fpcm\model\files\ops::deleteRecursive(\fpcm\classes\baseconfig::$moduleDir.$key);
+                $res = $res && \fpcm\model\files\ops::deleteRecursive(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $key));
                 $lastKey = $key;
             }
             
@@ -299,9 +299,9 @@
                 return $res;
             }
 
-            $folders = glob(\fpcm\classes\baseconfig::$moduleDir.dirname($lastKey).'/*', GLOB_ONLYDIR);
+            $folders = glob(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, dirname($lastKey).DIRECTORY_SEPARATOR.'*'), GLOB_ONLYDIR);
             if (!count($folders)) {
-                $res = $res && \fpcm\model\files\ops::deleteRecursive(\fpcm\classes\baseconfig::$moduleDir.dirname($lastKey));                    
+                $res = $res && \fpcm\model\files\ops::deleteRecursive(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, dirname($lastKey)));
             }
 
             return $res;
@@ -315,7 +315,7 @@
          */
         public function getConfigByModuleKey($moduleKey, $configFile) {
             
-            $path = \fpcm\classes\baseconfig::$moduleDir.$moduleKey.'/config/'.$configFile.'.yml';
+            $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $moduleKey.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.$configFile.'.yml');
             
             if (!file_exists($path)) return [];
             

@@ -348,7 +348,7 @@
          * @return string
          */
         public function getEditLink() {
-            return \fpcm\classes\baseconfig::$rootPath."index.php?module={$this->editAction}".$this->id;
+            return \fpcm\classes\dirs::getRootUrl("index.php?module={$this->editAction}".$this->id);
         }
         
     }

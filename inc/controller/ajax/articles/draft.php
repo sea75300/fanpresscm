@@ -28,7 +28,7 @@
             
             $draftPath = $this->getRequestVar('path');
             
-            $file = \fpcm\classes\baseconfig::$articleTemplatesDir.$draftPath;
+            $file = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES, $draftPath);
             if (!trim($draftPath) || !file_exists($file)) {
                 $this->returnCode = -1;
                 $this->returnData = '';

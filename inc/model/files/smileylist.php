@@ -20,7 +20,7 @@
          */
         public function __construct() {
             $this->table    = \fpcm\classes\database::tableSmileys;
-            $this->basepath = \fpcm\classes\baseconfig::$smileyDir;
+            $this->basepath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SMILEYS);
             $this->exts     = image::$allowedExts;
             
             parent::__construct();

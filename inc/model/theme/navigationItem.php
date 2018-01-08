@@ -110,7 +110,7 @@
          * @return string
          */
         public function getFullUrl() {
-            return \fpcm\classes\baseconfig::$rootPath.'index.php?module='.$this->url;
+            return \fpcm\classes\dirs::getRootUrl('index.php?module='.$this->url);
         }
 
         /**

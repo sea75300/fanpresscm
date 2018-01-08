@@ -156,7 +156,7 @@
         $html   = array();
         $html[] = 'Memory usage: '.round(memory_get_usage(true) / 1024 / 1024,2).'MB';
         $html[] = 'Memorypeak: '.round(memory_get_peak_usage(true) / 1024 / 1024,2).'MB';
-        $html[] = 'Basedir: '.\fpcm\classes\baseconfig::$baseDir;
+        $html[] = 'Basedir: '.\fpcm\classes\dirs::getFullDirPath('');
         $html[] = 'PHP version: '.PHP_VERSION;
         $html[] = 'Runtime: '.fpcm\classes\timer::cal().' sec';
         $html[] = 'Database queries: '.\fpcm\classes\baseconfig::$fpcmDatabase->getQueryCount();

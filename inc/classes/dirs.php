@@ -21,6 +21,7 @@
         const DATA_LOGS     = 'logs';
         const DATA_STYLES   = 'styles';
         const DATA_SHARE    = 'share';
+        const DATA_SMILEYS  = 'smileys';
         const DATA_TEMP     = 'temp';
         const DATA_UPLOADS  = 'uploads';
         const DATA_DBDUMP   = 'dbdump';
@@ -29,8 +30,9 @@
         const DATA_PROFILES = 'profiles';
         const DATA_MODULES  = 'modules';
 
-        const CORE_THEME    = 'theme';
         const CORE_JS       = 'js';
+        const CORE_THEME    = 'theme';
+        const CORE_VIEWS    = 'views';
 
         /**
          * Initialisiert Basis-Ordner
@@ -109,7 +111,7 @@
          */
         public static function getRootUrl($path = '')
         {
-            return $GLOBALS['fpcm']['dir']['base'].'/'.$path;
+            return $GLOBALS['fpcm']['urls']['base'].'/'.$path;
         }
 
         /**
@@ -120,7 +122,7 @@
          */
         public static function getDataUrl($type, $path)
         {
-            return $GLOBALS['fpcm']['dir']['data'].'/data/'.$type.'/'.$path;
+            return $GLOBALS['fpcm']['urls']['data'].'/data/'.$type.'/'.$path;
         }
 
         /**

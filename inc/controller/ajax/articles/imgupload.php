@@ -36,7 +36,7 @@
                 $data = $_FILES['file'];
 
                 $name = $data['name'];
-                if (file_exists(\fpcm\classes\baseconfig::$uploadDir.$name)) {
+                if (file_exists(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $name))) {
                     $name     = explode('.', $data['name']);
                     $name[0] .= '_cropped'. date('Ymd').$this->session->getUserId();
                     $name     = implode('.', $name);
@@ -51,7 +51,7 @@
                 $result = $uploader->processUpload($this->session->getUserId());
 
                 if (!count($result['error']) && count($result['success'])) {
-                    die(json_encode(['location' => \fpcm\classes\baseconfig::$uploadRootPath.$name]));
+                    die(json_encode(['location' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $name)]));
                 }
 
             }

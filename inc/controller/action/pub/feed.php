@@ -130,7 +130,7 @@
                 
                 $title = $dom->createElement('title', 'FanPress CM RSS Feed');
                 $channel->appendChild($title);
-                $link = $dom->createElement('link', \fpcm\classes\baseconfig::$rootPath.'index.php?module=fpcm/feed');
+                $link = $dom->createElement('link', \fpcm\classes\tools::getFullControllerLink('fpcm/feed'));
                 $channel->appendChild($link);
                 $date = $dom->createElement('lastBuildDate', date(DATE_RSS,time()));
                 $channel->appendChild($date);

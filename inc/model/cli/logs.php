@@ -26,7 +26,7 @@
                 $this->output('Invalid params', true);
             }
             
-            $path = \fpcm\classes\baseconfig::$logDir.$this->funcParams[1].'.txt';
+            $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_LOGS, $this->funcParams[1].'.txt');
             
             $this->output('--- Logfile: '.\fpcm\model\files\ops::removeBaseDir($path, true).' ---');
             

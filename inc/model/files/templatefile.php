@@ -34,7 +34,7 @@
          * @param string $content Dateiinhalt
          */
         public function __construct($filename = '', $filepath = '', $content = '') {
-            parent::__construct($filename, \fpcm\classes\baseconfig::$articleTemplatesDir.$filepath, $content);
+            parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES, $filename));
         }
 
         /**
@@ -42,7 +42,7 @@
          * @return string
          */
         public function getFileUrl() {
-            return \fpcm\classes\baseconfig::$rootPath.  ltrim(ops::removeBaseDir($this->fullpath), '/');
+            return \fpcm\classes\dirs::getRootUrl(ltrim(ops::removeBaseDir($this->fullpath), DIRECTORY_SEPARATOR));
         }
 
         /**
@@ -52,7 +52,7 @@
          */
         public function getEditUrl() {
             $crypt = new \fpcm\classes\crypt();
-            return \fpcm\classes\baseconfig::$rootPath.\fpcm\classes\tools::getControllerLink('system/templateedit', [
+            return \fpcm\classes\tools::getFullControllerLink('system/templateedit', [
                 'file' => urlencode($crypt->encrypt($this->filename))
             ]);
         }

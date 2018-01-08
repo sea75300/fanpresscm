@@ -300,9 +300,8 @@
 
                 $moduleClass = \fpcm\model\abstracts\module::getModuleClassName($pkg->getKey());
                 $res = class_exists($moduleClass);
-
-                $moduleClassPath = \fpcm\classes\baseconfig::$moduleDir.$pkg->getKey().'/'.str_replace(array('\\', '/'), '', $pkg->getKey()).'.php';
-
+                
+                $moduleClassPath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $pkg->getKey().DIRECTORY_SEPARATOR.str_replace(array('\\', DIRECTORY_SEPARATOR), '', $pkg->getKey()).'.php');
                 if (!file_exists($moduleClassPath)) {
                     $this->output('Module class '.$moduleClass.' not found in "'.$moduleClassPath.'"!', true);
                 }

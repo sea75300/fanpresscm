@@ -15,7 +15,7 @@ class emailTest extends \PHPUnit_Framework_TestCase {
     
     public function testSubmit() {
 
-        $path = \fpcm\classes\baseconfig::$tempDir.'testfile.txt';
+        $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, 'testfile.txt');
         $this->assertNotFalse(file_put_contents($path, 'This is a unit test temp testfile attachement.'.PHP_EOL));
         
         $email = new fpcm\classes\email('sea75300@yahoo.de',

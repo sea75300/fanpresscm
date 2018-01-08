@@ -21,7 +21,7 @@
          * @param string $filename Dateiname
          */
         public function __construct($filename) {
-            parent::__construct($filename, \fpcm\classes\baseconfig::$profilePath.'images'.DIRECTORY_SEPARATOR, '');
+            parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_PROFILES,'images'.DIRECTORY_SEPARATOR.$filename));
             $this->init(false);
         }
         
@@ -30,7 +30,7 @@
          * @return string
          */
         public function getImageUrl() {
-            return \fpcm\classes\baseconfig::$profilePath.'images/'.$this->filename;
+            return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_PROFILES, 'images/'.$this->filename);
         }
 
 

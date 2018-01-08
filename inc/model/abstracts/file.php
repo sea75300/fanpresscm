@@ -127,7 +127,7 @@
          * @param string $filepath
          * @param string $content
          */
-        public function __construct($filename = '', $filepath = '', $content = '') {
+        public function __construct($filename = '') {
 
             $this->escapeFileName($filename);
             

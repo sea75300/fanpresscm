@@ -538,7 +538,7 @@
                 return false;
             }
             
-            $vendorFolder = \fpcm\classes\baseconfig::$baseDir.$this->copyDestination.dirname($this->key);
+            $vendorFolder = \fpcm\classes\dirs::getFullDirPath($this->copyDestination.dirname($this->key));
             if ($this->type == 'module' && !is_dir($vendorFolder) && !mkdir($vendorFolder) ) {
                 trigger_error('Unable to create module vendor folder: '.\fpcm\model\files\ops::removeBaseDir($vendorFolder, true));
                 \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
@@ -550,8 +550,8 @@
                 $source = $this->extractPath.$zipFile;
 
                 $dest   = ($this->type == 'module'
-                        ? \fpcm\classes\baseconfig::$baseDir.$this->copyDestination.str_replace(basename($this->key).'/', $this->key.'/', $zipFile)
-                        : dirname(\fpcm\classes\baseconfig::$baseDir).$this->copyDestination.$zipFile);
+                        ? \fpcm\classes\dirs::getFullDirPath($this->copyDestination.str_replace(basename($this->key).'/', $this->key.'/', $zipFile))
+                        : dirname(\fpcm\classes\dirs::getFullDirPath('')).$this->copyDestination.$zipFile);
 
                 $dest   = $this->replaceFanpressDirString($dest);
                 
@@ -616,8 +616,8 @@
                 $source = $this->extractPath.$zipFile;
 
                 $dest   = ($this->type == 'module'
-                        ? \fpcm\classes\baseconfig::$baseDir.$this->copyDestination.str_replace(basename($this->key).'/', $this->key.'/', $zipFile)
-                        : dirname(\fpcm\classes\baseconfig::$baseDir).$this->copyDestination.$zipFile);
+                        ? \fpcm\classes\dirs::getFullDirPath($this->copyDestination.str_replace(basename($this->key).'/', $this->key.'/', $zipFile))
+                        : dirname(\fpcm\classes\dirs::getFullDirPath('')).$this->copyDestination.$zipFile);
 
                 $dest   = $this->replaceFanpressDirString($dest);
                 if (!$dest || file_exists($dest) && !is_writable($dest)) {
@@ -692,9 +692,9 @@
             $this->filename     = $this->key.$this->version.'.zip';
 
             $this->remoteFile   = \fpcm\classes\baseconfig::$updateServer.self::FPCMPACKAGE_SERVER_PACKAGEPATH.$this->filename;
-            $this->localFile    = \fpcm\classes\baseconfig::$tempDir.$this->filename;
+            $this->localFile    = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $this->filename);
             $this->extractPath  = dirname($this->localFile).'/'.md5(basename($this->localFile, '.zip')).'/';
-            $this->tempListFile = \fpcm\classes\baseconfig::$tempDir.md5($this->localFile);
+            $this->tempListFile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, md5($this->localFile));
         }
         
         /**
@@ -741,7 +741,7 @@
          * @return string
          */
         protected function replaceFanpressDirString($path) {
-            return str_replace('fanpress/', basename(\fpcm\classes\baseconfig::$baseDir).'/', $path);
+            return str_replace('fanpress/', basename(\fpcm\classes\dirs::getFullDirPath('')).'/', $path);
         }
 
         /**

@@ -175,7 +175,7 @@
 
             $this->res = $this->pkg->copy();
 
-            $dest = \fpcm\model\files\ops::removeBaseDir(\fpcm\classes\baseconfig::$baseDir);
+            $dest = \fpcm\model\files\ops::removeBaseDir(\fpcm\classes\dirs::getFullDirPath(''));
             $from = \fpcm\model\files\ops::removeBaseDir($this->pkg->getExtractPath());
 
             if ($this->res === true) {
@@ -284,7 +284,7 @@
 
             $this->res = $this->pkg->copy();
 
-            $dest = \fpcm\model\files\ops::removeBaseDir(\fpcm\classes\baseconfig::$baseDir);
+            $dest = \fpcm\model\files\ops::removeBaseDir(\fpcm\classes\dirs::getFullDirPath(''));
             $from = \fpcm\model\files\ops::removeBaseDir($this->pkg->getExtractPath());
 
             if ($this->res === true) {

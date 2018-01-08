@@ -33,7 +33,9 @@
             if (!parent::process()) return false;
 
             $this->view->assign('customLogs', $this->events->runEvent('logsAddList', []));
-            $this->view->assign('reloadBaseLink', \fpcm\classes\baseconfig::$rootPath.'index.php?module=ajax/logs/reload&log=');
+            $this->view->assign('reloadBaseLink', \fpcm\classes\tools::getFullControllerLink('ajax/logs/reload', [
+                'log' => ''
+            ]));
             $this->view->setViewJsFiles(['logs.js']);
             $this->view->setHelpLink('hl_options');
             

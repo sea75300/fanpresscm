@@ -74,9 +74,9 @@
             
             $this->output(PHP_EOL.'Load installer config file...'.PHP_EOL);
 
-            $configFile = \fpcm\classes\baseconfig::$configDir.'installer.yml';
+            $configFile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'installer.yml');
             if (!file_exists($configFile)) {
-                $this->output('No configuration file found in '.\fpcm\model\files\ops::removeBaseDir(\fpcm\classes\baseconfig::$configDir, true), true);
+                $this->output('No configuration file found in '.\fpcm\model\files\ops::removeBaseDir(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG), true), true);
             }
 
             include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
@@ -300,8 +300,8 @@
             usleep(75000);
             
             $this->output(PHP_EOL.'Remove database table structure files...'.PHP_EOL);
-            if (!\fpcm\model\files\ops::deleteRecursive(\fpcm\classes\baseconfig::$dbStructPath)) {
-                $this->output(PHP_EOL.'Failed, please delete folder '.\fpcm\model\files\ops::removeBaseDir(\fpcm\classes\baseconfig::$dbStructPath).' ...'.PHP_EOL);
+            if (!\fpcm\model\files\ops::deleteRecursive(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBSTRUCT))) {
+                $this->output(PHP_EOL.'Failed, please delete folder '.\fpcm\model\files\ops::removeBaseDir(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBSTRUCT)).' ...'.PHP_EOL);
             }
             usleep(75000);
 

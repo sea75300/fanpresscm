@@ -33,7 +33,7 @@
          * Konstruktor
          */
         public function __construct() {
-            parent::__construct('tweet.html', \fpcm\classes\baseconfig::$stylesDir.'common/');
+            parent::__construct('common'.DIRECTORY_SEPARATOR.'tweet.html');
         }
         
         /**

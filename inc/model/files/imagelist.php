@@ -20,7 +20,7 @@
          */
         public function __construct() {
             $this->table    = \fpcm\classes\database::tableFiles;
-            $this->basepath = \fpcm\classes\baseconfig::$uploadDir;
+            $this->basepath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS);
             $this->exts     = image::$allowedExts;
             
             parent::__construct();

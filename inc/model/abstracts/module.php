@@ -364,7 +364,7 @@
          * @return bool
          */
         public function currentLanguageIncluded() {
-            return is_dir(\fpcm\classes\baseconfig::$moduleDir.$this->modkey.'/lang/'.$this->config->system_lang);
+            return is_dir(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $this->modkey.DIRECTORY_SEPARATOR.'lang'.DIRECTORY_SEPARATOR.$this->config->system_lang));
         }
         
         /**
@@ -398,7 +398,7 @@
          */
         public function getConfig($filename) {
             
-            $path = \fpcm\classes\baseconfig::$moduleDir.$this->modkey.'/config/'.$filename.'.yml';
+            $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $this->modkey.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.$filename.'.yml');
             
             if (!file_exists($path)) return [];
 
@@ -464,7 +464,7 @@
          */
         public static function getModuleKeyByFolder($folder) {
 
-            $folder = explode('/', str_replace(\fpcm\classes\baseconfig::$moduleDir, '', $folder));
+            $folder = explode(DIRECTORY_SEPARATOR, str_replace(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES), '', $folder));
             
             if (count($folder) > 2) {
                 $folder = array($folder[0], (isset($folder[1]) && trim($folder[1]) ? $folder[1] : ''));

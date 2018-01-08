@@ -69,7 +69,7 @@
          * @param string $fileName Template-Datei unterhalb von data/styles/articles
          */
         public function __construct($fileName) {
-            parent::__construct($fileName.'.html', \fpcm\classes\baseconfig::$stylesDir.'articles/');
+            parent::__construct('articles'.DIRECTORY_SEPARATOR.$fileName.'.html');
         }
         
         /**

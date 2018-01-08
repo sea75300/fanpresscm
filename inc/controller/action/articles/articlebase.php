@@ -111,7 +111,9 @@
             
             $this->jsVars  = $this->editorPlugin->getJsVars();
             $this->jsVars += array(
-                'fpcmFileManagerUrl'        => \fpcm\classes\baseconfig::$rootPath.'index.php?module=files/list&mode=',
+                'fpcmFileManagerUrl'        => \fpcm\classes\tools::getFullControllerLink('files/list', [
+                    'mode' => ''
+                ]),
                 'fpcmFileManagerUrlMode'    => 2
             );
             

@@ -35,7 +35,7 @@
             
             $this->moduleKey = $this->getRequestVar('key');
 
-            $modulePath = \fpcm\classes\baseconfig::$moduleDir.'/'.$this->moduleKey;
+            $modulePath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $this->moduleKey);
             
             if (!is_dir($modulePath)) {
                 $this->moduleKey = false;

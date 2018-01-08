@@ -25,20 +25,20 @@
                 return false;
             }
 
-            if (!is_writable(\fpcm\classes\baseconfig::$tempDir)) {
-                trigger_error('Unable to cleanup '.\fpcm\classes\baseconfig::$tempDir.'! Access denied!');
+            if (!is_writable(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP))) {
+                trigger_error('Unable to cleanup '.\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP).'! Access denied!');
                 return false;
             }
 
-            $tempFiles = glob(\fpcm\classes\baseconfig::$tempDir.'*');
+            $tempFiles = glob(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, '*'));
             if (!is_array($tempFiles) || !count($tempFiles)) {
-                fpcmLogCron('Nothing to do in '.\fpcm\classes\baseconfig::$tempDir);
+                fpcmLogCron('Nothing to do in '.\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP));
                 return true;
             }
 
             foreach ($tempFiles as $tempFile) {
                 
-                if ($tempFile == \fpcm\classes\baseconfig::$tempDir.'index.html') continue;
+                if ($tempFile == \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, 'index.html')) continue;
                 
                 if (filectime($tempFile) + 3600 * 24 > time()) continue;
                 
@@ -49,7 +49,7 @@
                 unlink($tempFile);
             }
 
-            fpcmLogCron('Temp files removed in '.\fpcm\classes\baseconfig::$tempDir);
+            fpcmLogCron('Temp files removed in '.\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP));
             
             return true;
         }

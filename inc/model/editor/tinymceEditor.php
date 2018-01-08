@@ -29,7 +29,7 @@
          * @return string
          */
         public function getEditorTemplate() {
-            return \fpcm\classes\baseconfig::$viewsDir.'articles/editors/tinymce.php';
+            return \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, 'articles/editors/tinymce.php');
         }
 
         /**
@@ -166,7 +166,7 @@
                     
                 $ret[] = array(
                     "title" => $basename,
-                    "url"   => \fpcm\classes\baseconfig::$rootPath.\fpcm\model\files\ops::removeBaseDir($file)
+                    "url"   => \fpcm\classes\dirs::getRootUrl(\fpcm\model\files\ops::removeBaseDir($file))
                 );
                 
             }

@@ -109,7 +109,7 @@
                     break;
                 case 3 :
                     $res  = $pkg->copy();
-                    $dest = \fpcm\model\files\ops::removeBaseDir(\fpcm\classes\baseconfig::$baseDir).$pkg->getCopyDestination().$pkg->getKey();
+                    $dest = \fpcm\model\files\ops::removeBaseDir(\fpcm\classes\dirs::getFullDirPath('')).$pkg->getCopyDestination().$pkg->getKey();
                     $from = \fpcm\model\files\ops::removeBaseDir($pkg->getExtractPath().basename($pkg->getKey()));
                     if ($res === true) {                        
                         fpcmLogSystem('Moved module package content successfully from '.$from.' to '.$dest);
@@ -124,7 +124,7 @@
                     $moduleClass = \fpcm\model\abstracts\module::getModuleClassName($keyData[0]);
                     $res = class_exists($moduleClass);
                     
-                    $moduleClassPath = \fpcm\classes\baseconfig::$moduleDir.$keyData[0].'/'.str_replace(array('\\', '/'), '', $keyData[0]).'.php';
+                    $moduleClassPath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $keyData[0].DIRECTORY_SEPARATOR.str_replace(array('\\', DIRECTORY_SEPARATOR), '', $keyData[0]).'.php');
                     if (!file_exists($moduleClassPath)) {
                         $res = false;
                         trigger_error('Module class '.$moduleClass.' not found in "'.$moduleClassPath.'"!');

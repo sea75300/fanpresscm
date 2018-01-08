@@ -67,7 +67,7 @@
             foreach ($smileyList->getFolderList() as $file) {
                 
                 $fileName   = basename($file);
-                $url        = \fpcm\classes\baseconfig::$smileyRootPath.$fileName;
+                $url        = \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SMILEYS, $fileName);
                 
                 $files[] = [
                     'label' => $url,

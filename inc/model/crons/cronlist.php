@@ -108,7 +108,7 @@
          * @return array
          */
         public function getCrons() {
-            $cronFiles = glob(\fpcm\classes\baseconfig::$incDir.'model/crons/*.php');
+            $cronFiles = glob(\fpcm\classes\dirs::getIncDirPath('model'.DIRECTORY_SEPARATOR.'crons'.DIRECTORY_SEPARATOR.'*.php'));
             
             if (!is_array($cronFiles)) return [];
 

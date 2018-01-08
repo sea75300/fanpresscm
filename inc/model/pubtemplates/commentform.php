@@ -50,7 +50,7 @@
                 $fileName = 'comment_form';
             }
 
-            parent::__construct($fileName.'.html', \fpcm\classes\baseconfig::$stylesDir.'common/');
+            parent::__construct('common'.DIRECTORY_SEPARATOR.$fileName.'.html');
         }
         
         /**

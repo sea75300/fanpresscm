@@ -20,7 +20,7 @@
          * Konstruktor
          */
         public function __construct() {
-            $this->basepath = \fpcm\classes\baseconfig::$articleTemplatesDir;
+            $this->basepath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES);
             $this->exts     = templatefile::$allowedExts;
             parent::__construct();
         }
@@ -41,7 +41,7 @@
 
             $files = parent::getFolderList();
             
-            $idxkey = array_search(\fpcm\classes\baseconfig::$articleTemplatesDir.'index.html', $files);
+            $idxkey = array_search(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES, 'index.html'), $files);
             unset($files[$idxkey]);
 
             return $files;

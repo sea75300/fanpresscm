@@ -59,7 +59,7 @@
          */
         public static function removeBaseDir($path, $keepFanPress = false) {
             
-            $replacePath = \fpcm\classes\baseconfig::$baseDir;
+            $replacePath = \fpcm\classes\dirs::getFullDirPath('');
             if ($keepFanPress) {
                 $replacePath = dirname($replacePath);
             }

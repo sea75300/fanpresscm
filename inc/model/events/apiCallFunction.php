@@ -46,8 +46,7 @@
             $moduleKey    = $functionData[1];
             $functionName = $functionData[2];
             
-            $classFile = \fpcm\classes\baseconfig::$moduleDir.$vendorKey.'/'.$moduleKey.'/events/apiCallFunction.php';
-
+            $classFile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $vendorKey.DIRECTORY_SEPARATOR.$moduleKey.DIRECTORY_SEPARATOR.'events'.DIRECTORY_SEPARATOR.'apiCallFunction.php');
             if (!file_exists($classFile)) {
                 trigger_error('Event class "apiCallFunction" not found in '.\fpcm\model\files\ops::removeBaseDir($classFile, true));
                 return false;

@@ -83,10 +83,10 @@
          * @param bool $initDB Datenbank-Eintrag initialisieren
          * @param bool $forceInit Initialisierung erzwingen
          */
-        public function __construct($filename = '', $filepath = '', $content = '', $initDB = true, $forceInit = false) {
+        public function __construct($filename = '', $initDB = true, $forceInit = false) {
             $this->table    = \fpcm\classes\database::tableFiles;
             
-            if (!$filepath) $filepath = \fpcm\classes\baseconfig::$uploadDir;
+            if (!$filepath) $filepath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS);
             
             parent::__construct($filename, $filepath, $content);
             
@@ -109,7 +109,7 @@
          * @return string
          */
         public function getImageUrl() {
-            return \fpcm\classes\baseconfig::$uploadRootPath.$this->filename;
+            return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $this->filename);
         }
 
         /**
@@ -117,7 +117,7 @@
          * @return string
          */
         public function getThumbnailUrl() {
-            return \fpcm\classes\baseconfig::$uploadRootPath.$this->getThumbnail();
+            return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $this->getThumbnail());
         }
 
         /**
@@ -125,7 +125,7 @@
          * @return string
          */
         public function getFileManagerThumbnailUrl() {
-            return \fpcm\classes\baseconfig::$filemanagerRootPath.$this->filename;
+            return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_FMTMP, $this->filename);
         }
 
         /**
@@ -141,7 +141,7 @@
          * @return string
          */
         public function getFileManagerThumbnail() {
-            return  \fpcm\classes\baseconfig::$filemanagerTempDir.$this->filename;
+            return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_FMTMP, $this->filename);
         }
 
         /**
@@ -249,7 +249,11 @@
         public function delete() {
             parent::delete();            
             if (file_exists($this->getFileManagerThumbnail())) unlink ($this->getFileManagerThumbnail());
-            if (file_exists(\fpcm\classes\baseconfig::$uploadDir.$this->getThumbnail())) unlink (\fpcm\classes\baseconfig::$uploadDir.$this->getThumbnail());
+            
+            $fileName = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $this->getThumbnail());
+            if (file_exists($fileName)) {
+                unlink ($fileName);
+            }
             return $this->dbcon->delete($this->table, 'filename = ?', array($this->filename));
             
             return false;
@@ -283,7 +287,7 @@
             }
             
             $this->filename = $oldname;
-            unlink(\fpcm\classes\baseconfig::$uploadDir.$this->getThumbnail());
+            unlink(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $this->getThumbnail()));
             
             return true;
         }

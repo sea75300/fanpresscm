@@ -59,7 +59,7 @@
         public function __construct($filename = '', $initDB = true) {
             $this->table    = \fpcm\classes\database::tableSmileys;
 
-            parent::__construct($filename, \fpcm\classes\baseconfig::$smileyDir);
+            parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SMILEYS, $filename));
             
             if ($this->exists()) {                
                 $this->init($initDB);
@@ -111,7 +111,7 @@
          * @return string
          */
         public function getSmileyUrl() {
-            return \fpcm\classes\baseconfig::$smileyRootPath.$this->filename;
+            return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SMILEYS, $this->filename);
         }
 
         /**
@@ -260,11 +260,13 @@
          * @return string
          */
         public function getEditLink() {
-            return \fpcm\classes\baseconfig::$rootPath."index.php?module=smileys/edit&data=".urlencode(base64_encode(json_encode(array(
-                'filename' => $this->filename,
-                'code'     => $this->smileycode,
-                'id'       => $this->id
-            ))));
+            return \fpcm\classes\tools::getFullControllerLink('smileys/edit', [
+                'data' => urlencode(base64_encode(json_encode([
+                    'filename' => $this->filename,
+                    'code'     => $this->smileycode,
+                    'id'       => $this->id
+                ])))
+            ]);
         }
 
     }

@@ -33,7 +33,7 @@
                 
                 $replacements = array(
                     '{{version}}' => $updater->getRemoteData('version'),
-                    '{{acplink}}' => \fpcm\classes\baseconfig::$rootPath
+                    '{{acplink}}' => \fpcm\classes\dirs::getRootUrl()
                 );
                 
                 $language = \fpcm\classes\baseconfig::$fpcmLanguage;

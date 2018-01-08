@@ -46,14 +46,14 @@
             require_once \fpcm\classes\loader::libGetFilePath('jqupload/UploadHandler.php');
 
             $options = array(
-                'script_url' => \fpcm\classes\baseconfig::$rootPath.$this->getControllerLink('ajax/jqupload'),
-                'upload_dir' => \fpcm\classes\baseconfig::$uploadDir,
-                'upload_url' => \fpcm\classes\baseconfig::$uploadDir,
+                'script_url' => \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'),
+                'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS),
+                'upload_url' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS),
                 'accept_file_types'  => '/\.(gif|jpe?g|png|bmp)$/i',
                 'image_versions'     => array(
                     'thumbnail'      => array(
-                        'upload_dir' => \fpcm\classes\baseconfig::$uploadDir.'thumbs/',
-                        'upload_url' => \fpcm\classes\baseconfig::$uploadDir.'thumbs/',
+                        'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, 'thumbs'.DIRECTORY_SEPARATOR),
+                        'upload_url' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, 'thumbs'.DIRECTORY_SEPARATOR),
                         'crop'       => false,
                         'max_width'  => $this->config->file_img_thumb_width,
                         'max_height' => $this->config->file_img_thumb_height

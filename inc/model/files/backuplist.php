@@ -21,7 +21,7 @@
          * Konstruktor
          */
         public function __construct() {
-            $this->basepath = \fpcm\classes\baseconfig::$dbdumpDir;
+            $this->basepath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP);
             $this->exts     = dbbackup::$allowedExts;
             
             parent::__construct();
