@@ -13,7 +13,7 @@
      * @package fpcm\model\updater
      * @author Stefan Seehafer <sea75300@yahoo.de>
      */
-    final class finalizer extends \fpcm\model\abstracts\model {
+    final class finalizer extends \fpcm\model\abstracts\dataset {
         
         /**
          * Initialisiert System Update

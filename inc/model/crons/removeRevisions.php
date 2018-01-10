@@ -20,7 +20,7 @@
          */
         public function run() {
             
-            $limit = \fpcm\classes\baseconfig::$fpcmConfig->articles_revisions_limit;
+            $limit = \fpcm\classes\loader::getObject('\fpcm\model\system\config')->articles_revisions_limit;
             if (!$limit) {
                 $this->updateLastExecTime();
                 return true;

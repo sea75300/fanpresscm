@@ -39,7 +39,7 @@
          */
         public function __construct($filename = '') {
 
-            parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP, $filename));
+            parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP, basename($filename)));
             
             if (!$this->exists()) {
                 return false;

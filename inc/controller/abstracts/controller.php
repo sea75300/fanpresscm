@@ -114,11 +114,11 @@
             
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
 
-            $this->events        = \fpcm\classes\baseconfig::$fpcmEvents;
-            $this->cache         = new \fpcm\classes\cache($this->cacheName ? $this->cacheName : md5(microtime(false)), $this->cacheModule);
-            $this->config        = \fpcm\classes\baseconfig::$fpcmConfig;
-            $this->session       = \fpcm\classes\baseconfig::$fpcmSession;
-            $this->notifications = \fpcm\classes\baseconfig::$fpcmNotifications;
+            $this->events        = \fpcm\classes\loader::getObject('\fpcm\model\events\eventList');
+            $this->cache         = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+            $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+            $this->session       = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+            $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
             $this->crons         = new \fpcm\model\crons\cronlist();
             
             $moduleList           = new \fpcm\model\modules\modulelist();
@@ -130,7 +130,7 @@
             
             $this->config->setUserSettings();
             
-            $this->lang         = \fpcm\classes\baseconfig::$fpcmLanguage;
+            $this->lang         = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
         }
         
         /**

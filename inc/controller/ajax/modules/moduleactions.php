@@ -98,7 +98,8 @@
                     if (!$this->permissions->check(array('modules' => 'install'))) return true;
                     
                     $this->keys = array_diff($this->keys, $this->modulelist->getInstalledModules());
-                    $tempFile = new \fpcm\model\files\tempfile('installkeys', json_encode($this->keys));
+                    $tempFile = new \fpcm\model\files\tempfile('installkeys');
+                    $tempFile->setContent(json_encode($this->keys));
                     if (!$tempFile->save()) {
                         trigger_error('Unable to save module keys to temp file');
                         return true;
@@ -119,7 +120,8 @@
                         $versionKeys[] = $key.'_version'.$remotes[$key]['version'];
                     }
 
-                    $tempFile = new \fpcm\model\files\tempfile('installkeys', json_encode($versionKeys));
+                    $tempFile = new \fpcm\model\files\tempfile('installkeys');
+                    $tempFile->setContent(json_encode($versionKeys));
                     if (!$tempFile->save()) {
                         trigger_error('Unable to save module keys to temp file');
                         return true;

@@ -17,7 +17,7 @@
      * @author Stefan Seehafer <sea75300@yahoo.de>
      * @since FPCM 3.2.0
      */ 
-    class item extends \fpcm\model\abstracts\model {
+    class item extends \fpcm\model\abstracts\dataset {
         
         /**
          * gesuchter Text

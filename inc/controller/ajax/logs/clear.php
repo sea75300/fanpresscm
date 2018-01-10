@@ -59,7 +59,7 @@
             if (is_numeric($this->log)) {
                 
                 if ($this->log < 1) {
-                    $res = \fpcm\classes\baseconfig::$fpcmSession->clearSessions();
+                    $res = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->clearSessions();
                 }
                 else {
                     $logfile = new \fpcm\model\files\logfile($this->log);

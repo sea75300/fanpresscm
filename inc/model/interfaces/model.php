@@ -17,27 +17,9 @@
     interface model {     
         
         /**
-         * Gibt Object-ID zurück
-         * @return int
+         * Initialisiert Objekt
+         * @return boolean
          */
-        public function getId();
-        
-        /**
-         * Speichert ein Objekt in der Datenbank
-         * @return bool
-         */
-        public function save();
-
-        /**
-         * Aktualisiert ein Objekt in der Datenbank
-         * @return bool
-         */        
-        public function update();
-        
-        /**
-         * Löscht ein Objekt in der Datenbank
-         * @return bool
-         */        
-        public function delete();       
+        public function init();
         
     }

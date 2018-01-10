@@ -106,7 +106,8 @@
          * Konstruktor
          * @param array $funcParams
          */
-        public function __construct($funcParams) {
+        public function __construct($funcParams)
+        {
             
             parent::__construct();
             $this->funcParams = $funcParams;
@@ -129,7 +130,8 @@
          * @param string $str
          * @param bool $die
          */
-        protected function output($str, $die = false) {
+        protected function output($str, $die = false)
+        {
 
             if (is_array($str)) {
                 $str = implode(PHP_EOL, $str);
@@ -148,7 +150,8 @@
          * @param string $str
          * @param bool $die
          */
-        protected function debug($str, $die = false) {
+        protected function debug($str, $die = false)
+        {
 
             if (is_array($str)) {
                 $str = print_r($str, true);
@@ -163,7 +166,8 @@
          * @param string $str
          * @param mixed
          */
-        protected function input($str) {
+        protected function input($str)
+        {
             return readline($str.' ');
         }
     }

@@ -85,7 +85,7 @@
             
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
             
-            $config = \fpcm\classes\baseconfig::$fpcmConfig;
+            $config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
             $config->setUserSettings();
             
             if ($this->cache->isExpired('modules/activeeventscache')) {

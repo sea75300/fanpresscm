@@ -81,9 +81,9 @@
                 'isFolder'  => 0
             );
     
-            if (is_object(\fpcm\classes\baseconfig::$fpcmDatabase)) {
+            if (is_object(\fpcm\classes\loader::getObject('\fpcm\classes\database'))) {
                 $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_ACTIVE')]    = array(
-                    'current'   => \fpcm\classes\baseconfig::$fpcmDatabase->getDbtype(),
+                    'current'   => \fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype(),
                     'recommend' => implode(', ', array_intersect($dbDrivers, array_keys(\fpcm\classes\database::$supportedDBMS))),
                     'result'    => true,
                     'helplink'  => 'http://php.net/manual/de/pdo.getavailabledrivers.php',
@@ -92,9 +92,9 @@
                 );
 
                 $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBVERSION')]    = array(
-                    'current'   => \fpcm\classes\baseconfig::$fpcmDatabase->getDbVersion(),
-                    'recommend' => \fpcm\classes\baseconfig::$fpcmDatabase->getRecommendVersion(),
-                    'result'    => \fpcm\classes\baseconfig::$fpcmDatabase->checkDbVersion(),
+                    'current'   => \fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbVersion(),
+                    'recommend' => \fpcm\classes\loader::getObject('\fpcm\classes\database')->getRecommendVersion(),
+                    'result'    => \fpcm\classes\loader::getObject('\fpcm\classes\database')->checkDbVersion(),
                     'helplink'  => 'http://php.net/manual/de/pdo.getattribute.php',
                     'optional'  => 0,
                     'isFolder'  => 0

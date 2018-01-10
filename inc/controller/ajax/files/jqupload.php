@@ -20,8 +20,8 @@
          * Konstruktor
          */
         public function __construct() {
-            $this->config       = \fpcm\classes\baseconfig::$fpcmConfig;
-            $this->session      = \fpcm\classes\baseconfig::$fpcmSession;
+            $this->config       = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+            $this->session      = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
             
             if (!$this->session->getCurrentUser()) {
                 return;

@@ -77,19 +77,24 @@
          * Konstruktor
          * @return void
          */
-        public function __construct() {
-
-            $this->events   = \fpcm\classes\baseconfig::$fpcmEvents;
-            $this->cache    = new \fpcm\classes\cache($this->cacheName ? $this->cacheName : md5(microtime(false)), $this->cacheModule);            
+        public function __construct()
+        {
             
-            if (!\fpcm\classes\baseconfig::dbConfigExists()) return;
-
-            $this->session       = \fpcm\classes\baseconfig::$fpcmSession;
-            $this->config        = \fpcm\classes\baseconfig::$fpcmConfig;
-            $this->language      = \fpcm\classes\baseconfig::$fpcmLanguage;
-            $this->notifications = !empty(\fpcm\classes\baseconfig::$fpcmNotifications) ? \fpcm\classes\baseconfig::$fpcmNotifications : null;
+            $this->events   = \fpcm\classes\loader::getObject('\fpcm\model\events\eventList');
+            $this->cache    = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
             
-            if (is_object($this->config)) $this->config->setUserSettings();
+            if (!\fpcm\classes\baseconfig::dbConfigExists()) {
+                return;
+            }
+
+            $this->session       = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+            $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+            $this->language      = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
+            $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+            
+            if (is_object($this->config)) {
+                $this->config->setUserSettings();
+            }
         }
         
         /**
@@ -97,7 +102,8 @@
          * @param string $name
          * @return mixed
          */
-        public function __get($name) {
+        public function __get($name)
+        {
             return isset($this->data[$name]) ? $this->data[$name] : false;
         }
         
@@ -106,7 +112,8 @@
          * @param mixed $name
          * @param mixed $value
          */
-        public function __set($name, $value) {
+        public function __set($name, $value)
+        {
             $this->data[$name] = $value;
         }
         
@@ -116,7 +123,8 @@
          * @param mixed $arguments
          * @return boolean
          */
-        public function __call($name, $arguments) {
+        public function __call($name, $arguments)
+        {
             print "Function '{$name}' not found in ".get_class($this).'<br>';
             return false;
         }
@@ -127,7 +135,8 @@
          * @param mixed $arguments
          * @return boolean
          */        
-        public static function __callStatic($name, $arguments) {
+        public static function __callStatic($name, $arguments)
+        {
             print "Static function '{$name}' not found in ".get_class($this).'<br>';
             return false;
         }

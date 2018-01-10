@@ -14,7 +14,7 @@
      * @package fpcm\model\comments
      * @author Stefan Seehafer <sea75300@yahoo.de>
      */    
-    class comment extends \fpcm\model\abstracts\model {
+    class comment extends \fpcm\model\abstracts\dataset {
         
         /**
          * Erlaubte HTML-Tags in einem Kommentar, für Formular

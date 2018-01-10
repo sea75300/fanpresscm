@@ -29,7 +29,7 @@
          */
         public function run() {
 
-            if (\fpcm\classes\baseconfig::$fpcmDatabase->getDbtype() == \fpcm\classes\database::DBTYPE_POSTGRES) {
+            if (\fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() == \fpcm\classes\database::DBTYPE_POSTGRES) {
                 $this->updateLastExecTime();
                 return true;
             }
@@ -92,16 +92,16 @@
             
             fpcmLogCron('New database dump created in "'.\fpcm\model\files\ops::removeBaseDir($this->dumpfile, true).'".');            
 
-            $text  = \fpcm\classes\baseconfig::$fpcmLanguage->translate('CRONJOB_DBBACKUPS_TEXT', array(
-                '{{filetime}}' => date(\fpcm\classes\baseconfig::$fpcmConfig->system_dtmask, $this->getLastExecTime()),
+            $text  = \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate('CRONJOB_DBBACKUPS_TEXT', array(
+                '{{filetime}}' => date(\fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_dtmask, $this->getLastExecTime()),
                 '{{dumpfile}}' => \fpcm\model\files\ops::removeBaseDir($this->dumpfile)
             ));
 
             fpcmLogCron('Create email notification for new databse backup');
             
             $email = new \fpcm\classes\email(
-                \fpcm\classes\baseconfig::$fpcmConfig->system_email,
-                \fpcm\classes\baseconfig::$fpcmLanguage->translate('CRONJOB_DBBACKUPS_SUBJECT'),
+                \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_email,
+                \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate('CRONJOB_DBBACKUPS_SUBJECT'),
                 $text
             );
 

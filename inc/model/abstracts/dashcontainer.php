@@ -173,39 +173,6 @@
             
             return implode(PHP_EOL, $html);
         }
-                
-        /**
-         * Unused
-         * @return void
-         */
-        public function delete() {
-            return;
-        }
-
-        /**
-         * Unused
-         * @return void
-         */
-        protected function init() {
-            return;
-        }
-
-        /**
-         * Unused
-         * @return void
-         */
-        public function save() {
-            return;
-        }
-
-        /**
-         * Unused
-         * @return void
-         */
-        public function update() {
-            return;
-        }
-
         
     }
 ?>

@@ -15,7 +15,7 @@
      * @package fpcm\model\user
      * @author Stefan Seehafer <sea75300@yahoo.de>
      */
-    class author extends \fpcm\model\abstracts\model {
+    class author extends \fpcm\model\abstracts\dataset {
         
         /**
          * Error-Code: Benutzer existiert

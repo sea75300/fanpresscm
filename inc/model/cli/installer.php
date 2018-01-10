@@ -181,7 +181,7 @@
             $this->output(PHP_EOL.'Create tables...'.PHP_EOL);
             $files = \fpcm\classes\database::getTableFiles();
 
-            \fpcm\classes\baseconfig::$fpcmDatabase = new \fpcm\classes\database();
+            \fpcm\classes\loader::getObject('\fpcm\classes\database') = new \fpcm\classes\database();
             foreach ($files as $file) {
 
                 $tabName = substr(basename($file, '.yml'), 2);
@@ -189,7 +189,7 @@
                 print '...';
                 usleep(50000);
 
-                $res = \fpcm\classes\baseconfig::$fpcmDatabase->execYaTdl($file);
+                $res = \fpcm\classes\loader::getObject('\fpcm\classes\database')->execYaTdl($file);
                 print '.';
                 usleep(50000);
 

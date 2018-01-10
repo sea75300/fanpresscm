@@ -33,7 +33,7 @@
          * @param string $filepath Dateipfad
          * @param string $content Dateiinhalt
          */
-        public function __construct($filename = '', $filepath = '', $content = '') {
+        public function __construct($filename = '') {
             parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES, $filename));
         }
 

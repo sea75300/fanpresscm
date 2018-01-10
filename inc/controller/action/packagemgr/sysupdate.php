@@ -55,7 +55,8 @@
             }
             
             if ($this->getRequestVar('file')) {
-                $tmpFile = new \fpcm\model\files\tempfile('forceUpdateFile', $this->getRequestVar('file'));
+                $tmpFile = new \fpcm\model\files\tempfile('forceUpdateFile');
+                $tmpFile->setContent($this->getRequestVar('file'));
                 $tmpFile->save();
             }
             

@@ -42,7 +42,14 @@
                 return false;
             }
             
-            $this->file = new \fpcm\model\files\templatefile($this->getRequestVar('file', [11,10]), '', \fpcm\model\abstracts\file::FPCM_FILE_LOADCONTENT);
+            $this->file = new \fpcm\model\files\templatefile(
+                $this->getRequestVar('file', [
+                    \fpcm\classes\http::FPCM_REQFILTER_URLDECODE,
+                    \fpcm\classes\http::FPCM_REQFILTER_DECRYPT
+                ])
+            );
+            
+            $this->file->loadContent();
 
             if (!$this->file->isWritable()) {
                 $this->view->addErrorMessage('FILE_NOT_WRITABLE');

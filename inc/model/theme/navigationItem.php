@@ -81,8 +81,8 @@
          */
         public function __construct() {
             
-            $this->config   = \fpcm\classes\baseconfig::$fpcmConfig;
-            $this->language = \fpcm\classes\baseconfig::$fpcmLanguage;
+            $this->config   = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+            $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
 
             $this->id            = uniqid('fpcm-nav-item');
             $this->currentModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
@@ -300,8 +300,8 @@
          * @return void
          */
         public function __wakeup() {
-            $this->config        = \fpcm\classes\baseconfig::$fpcmConfig;
-            $this->language      = \fpcm\classes\baseconfig::$fpcmLanguage;
+            $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+            $this->language      = \fpcm\classes\loader::getObject('\fpcm\classes\language');
             $this->currentModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
         }
 

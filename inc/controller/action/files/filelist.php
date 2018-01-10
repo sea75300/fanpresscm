@@ -81,7 +81,7 @@
                 $deletedOk = [];
                 $deletedFailed = [];
                 foreach ($fileNames as $fileName) {
-                    $image = new \fpcm\model\files\image($fileName, '', '', false);
+                    $image = new \fpcm\model\files\image($fileName, false);
                     
                     if ($image->delete()) {
                         $deletedOk[] = $fileName;
@@ -104,7 +104,7 @@
                 $success = [];
                 $failed  = [];                
                 foreach ($fileNames as $fileName) {
-                    $image = new \fpcm\model\files\image($fileName, '', '', false);
+                    $image = new \fpcm\model\files\image($fileName, false);
                     
                     if ($image->createThumbnail()) {
                         $success[] = $fileName;
@@ -124,7 +124,7 @@
             if ($this->buttonClicked('renameFiles') && !is_null($this->getRequestVar('filenames') && $this->getRequestVar('newfilename'))) {
                 $fileNames = array_map('base64_decode', $this->getRequestVar('filenames'));
                 $fileName  = array_shift($fileNames);
-                $image     = new \fpcm\model\files\image($fileName, '', '', false);                
+                $image     = new \fpcm\model\files\image($fileName, false);                
                 
                 $newname   = $this->getRequestVar('newfilename');
                 

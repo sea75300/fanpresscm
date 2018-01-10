@@ -82,15 +82,17 @@
          */
         public function __construct() {
  
-            $this->dbcon    = \fpcm\classes\baseconfig::$fpcmDatabase;
-            $this->events   = \fpcm\classes\baseconfig::$fpcmEvents;
-            $this->cache    = new \fpcm\classes\cache($this->cacheName ? $this->cacheName : md5(microtime(false)), $this->cacheModule);
+            $this->dbcon    = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+            $this->events   = \fpcm\classes\loader::getObject('\fpcm\model\events\eventList');
+            $this->cache    = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
 
-            if (\fpcm\classes\baseconfig::installerEnabled()) return false;
+            if (\fpcm\classes\baseconfig::installerEnabled()) {
+                return false;
+            }
             
-            $this->config        = \fpcm\classes\baseconfig::$fpcmConfig;
-            $this->language      = \fpcm\classes\baseconfig::$fpcmLanguage;
-            $this->notifications = !empty(\fpcm\classes\baseconfig::$fpcmNotifications) ? \fpcm\classes\baseconfig::$fpcmNotifications : null;
+            $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+            $this->language      = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
+            $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
 
             if (is_object($this->config)) {
                 $this->config->setUserSettings();

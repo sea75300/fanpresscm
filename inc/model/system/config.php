@@ -71,7 +71,7 @@
      * @package fpcm\model\system
      * @author Stefan Seehafer <sea75300@yahoo.de>
      */
-    final class config extends \fpcm\model\abstracts\model {
+    final class config extends \fpcm\model\abstracts\dataset {
 
         /**
          * Neue Konfiguration
@@ -217,8 +217,8 @@
                 $this->data[$key] = $value;
             }
             
-            if ($this->system_lang != \fpcm\classes\baseconfig::$fpcmLanguage->getLangCode()) {
-                \fpcm\classes\baseconfig::$fpcmLanguage = new \fpcm\classes\language($this->system_lang);                
+            if ($this->system_lang != \fpcm\classes\loader::getObject('\fpcm\classes\language')->getLangCode()) {
+                \fpcm\classes\loader::getObject('\fpcm\classes\language') = new \fpcm\classes\language($this->system_lang);                
             }
         }
         

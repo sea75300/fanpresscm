@@ -35,7 +35,7 @@
             
             if ($this->getRequestVar('save')) {
                 $filePath = base64_decode(str_rot13($this->getRequestVar('save')));
-                $file = new \fpcm\model\files\dbbackup(basename($filePath));
+                $file = new \fpcm\model\files\dbbackup($filePath);
                 
                 if (!$file->exists()) {
                     $this->view = new \fpcm\model\view\error();

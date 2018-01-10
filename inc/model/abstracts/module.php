@@ -152,12 +152,12 @@
          */
         public function __construct($key, $name, $version, $versionRemote = '-', $description = '-', $author = '-', $link = '', $systemMinVersion = '', $init = true) {
 
-            $this->dbcon    = \fpcm\classes\baseconfig::$fpcmDatabase;
+            $this->dbcon    = \fpcm\classes\loader::getObject('\fpcm\classes\database');
             
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
             
-            $this->config        = \fpcm\classes\baseconfig::$fpcmConfig;
-            $this->language      = \fpcm\classes\baseconfig::$fpcmLanguage;
+            $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+            $this->language      = \fpcm\classes\loader::getObject('\fpcm\classes\language');
             $this->notifications = !empty(\fpcm\classes\baseconfig::$fpcmNotifications) ? \fpcm\classes\baseconfig::$fpcmNotifications : null;
             
             $this->modkey           = $key;

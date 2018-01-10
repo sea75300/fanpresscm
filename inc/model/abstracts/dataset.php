@@ -14,7 +14,7 @@
      * @package fpcm\model\abstracts
      * @author Stefan Seehafer <sea75300@yahoo.de>
      */ 
-    abstract class model implements \fpcm\model\interfaces\model {
+    abstract class dataset implements \fpcm\model\interfaces\dataset {
 
         /**
          * DB-Verbindung
@@ -59,6 +59,12 @@
         protected $cache;
         
         /**
+         * System-Session
+         * @var \fpcm\model\system\session
+         */
+        protected $session;
+        
+        /**
          * Event-Liste
          * @var \fpcm\model\events\eventList 
          */
@@ -100,12 +106,6 @@
          * @var string
          */
         protected $cacheName    = false;
-        
-        /**
-         * Cache name
-         * @var string
-         */
-        protected $cacheModule  = '';
 
         /**
          * Konstruktor
@@ -218,7 +218,9 @@
          */
         protected function init()
         {            
-            $data = $this->dbcon->fetch($this->dbcon->select($this->table, '*', "id = ?", array($this->id)));
+            $data = $this->dbcon->fetch($this->dbcon->select($this->table, '*', "id = ?", [
+                $this->id
+            ]));
             
             if (!$data) {
                 trigger_error('Failed to load data for object of type "'.get_class($this).'" with given id '.$this->id.'!');
@@ -274,7 +276,9 @@
          */        
         public function delete()
         {
-            $this->dbcon->delete($this->table, 'id = ?', array($this->id));            
+            $this->dbcon->delete($this->table, 'id = ?', [
+                $this->id
+            ]);            
             $this->cache->cleanup();
             
             return true;

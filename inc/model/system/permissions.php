@@ -14,7 +14,7 @@
      * @package fpcm\model\system
      * @author Stefan Seehafer <sea75300@yahoo.de>
      */
-    class permissions extends \fpcm\model\abstracts\model {
+    class permissions extends \fpcm\model\abstracts\dataset {
 
         /**
          * Rollen-ID

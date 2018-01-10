@@ -27,7 +27,7 @@
             $this->setReturnData($res);
             
             /* @var $config \fpcm\model\system\config */
-            $config = \fpcm\classes\baseconfig::$fpcmConfig;
+            $config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
             
             if (!$res && $this->getAsyncCurrent() && $config->system_updates_emailnotify) {
                 
@@ -36,7 +36,7 @@
                     '{{acplink}}' => \fpcm\classes\dirs::getRootUrl()
                 );
                 
-                $language = \fpcm\classes\baseconfig::$fpcmLanguage;
+                $language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
                 $email = new \fpcm\classes\email($config->system_email,
                                                  $language->translate('CRONJOB_UPDATES_NEWVERSION'),
                                                  $language->translate('CRONJOB_UPDATES_NEWVERSION_TEXT', $replacements));                

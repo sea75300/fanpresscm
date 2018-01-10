@@ -131,7 +131,7 @@
 
             foreach ($folderFiles as $folderFile) {
                 if (isset($dbFiles[$folderFile])) continue;                
-                $image = new \fpcm\model\files\image(basename($folderFile), '', '', false, true);
+                $image = new \fpcm\model\files\image(basename($folderFile), false, true);
                 $image->setFiletime(time());
                 $image->setUserid($userId);
                 
@@ -184,7 +184,7 @@
                 }
                 
                 $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($folderFile);
-                $image     = new \fpcm\model\files\image(basename($folderFile), '', '');
+                $image     = new \fpcm\model\files\image(basename($folderFile));
                 if (file_exists($image->getFileManagerThumbnail())) {
                     $image     = null;
                     $phpImgWsp = null;

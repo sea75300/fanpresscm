@@ -14,7 +14,7 @@
      * @package fpcm\model\system
      * @author Stefan Seehafer <sea75300@yahoo.de>
      */
-    final class session extends \fpcm\model\abstracts\model {
+    final class session extends \fpcm\model\abstracts\dataset {
 
         /**
          * Session-ID

@@ -13,7 +13,7 @@
      * @package fpcm\model\system
      * @author Stefan Seehafer <sea75300@yahoo.de>
      */
-    class ipaddress extends \fpcm\model\abstracts\model {
+    class ipaddress extends \fpcm\model\abstracts\dataset {
 
         /**
          * IP-Adresse

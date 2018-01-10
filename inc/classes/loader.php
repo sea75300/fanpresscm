@@ -28,7 +28,8 @@
                 return false;
             }
 
-            $hash = hash(security::defaultHashAlgo, $class.(is_array($params) || is_object($params) ? json_encode($params) : $params));
+            $hash = (strpos($class, 'fpcm\classes') !== false ? explode('\\', $class, 3)[3] : $class);
+            $hash = hash(security::defaultHashAlgo, $hash.(is_array($params) || is_object($params) ? json_encode($params) : $params));
             if (isset($GLOBALS['fpcm']['objects'][$hash]) && is_object($GLOBALS['fpcm']['objects'][$hash])) {
                 return $GLOBALS['fpcm']['objects'][$hash];
             }

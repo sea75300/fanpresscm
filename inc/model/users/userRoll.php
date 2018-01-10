@@ -15,7 +15,7 @@
      * @package fpcm\model\user
      * @author Stefan Seehafer <sea75300@yahoo.de>
      */
-    class userRoll extends \fpcm\model\abstracts\model {
+    class userRoll extends \fpcm\model\abstracts\dataset {
         
         /**
          * Bezeichnung der Benutzer-Rolle

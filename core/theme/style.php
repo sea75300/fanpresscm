@@ -8,32 +8,30 @@
 
 require_once dirname(dirname(__DIR__)).'/inc/common.php';
 
-$data = array('content' => '', 'filesize' => 0);
-$cache = new \fpcm\classes\cache('cssfiles', 'theme');
+$data  = ['content' => '', 'filesize' => 0];
+$cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
 
-if ($cache->isExpired() || \fpcm\classes\baseconfig::installerEnabled() || FPCM_DEBUG) {
+$cacheName = 'theme/cssfiles';
 
-    $cssFiles = array(
-        __DIR__.'/style.css',
-        __DIR__.'/responsive.css',
-        __DIR__.'/icons.css'
-    );
+if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled() || FPCM_DEBUG) {
 
-    foreach ($cssFiles as $cssFile) {
+    foreach (glob(__DIR__.'/*.css') as $cssFile) {
 
-        $fileContent = '/* '.\fpcm\model\files\ops::removeBaseDir($cssFile).' */'.PHP_EOL.file_get_contents($cssFile).PHP_EOL.PHP_EOL;
+        $fileContent = '/* '.\fpcm\model\files\ops::removeBaseDir($cssFile).' */'.PHP_EOL.file_get_contents($cssFile).PHP_EOL.PHP_EOL;        
+        $contentSize = strlen($fileContent);
+        
         if (!$fileContent) {
             continue;
         }
 
         $data['content']  .= $fileContent;
-        $data['filesize'] += filesize($cssFile);
+        $data['filesize'] += (filesize($cssFile) + $contentSize);
 
     }
 
-    $cache->write($data, FPCM_LANGCACHE_TIMEOUT);
+    $cache->write($cacheName, $data, FPCM_LANGCACHE_TIMEOUT);
 } else {
-    $data = $cache->read();
+    $data = $cache->read($cacheName);
 }
 
 header("Content-Type: text/css");

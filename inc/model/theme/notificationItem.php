@@ -55,7 +55,7 @@
          * @param string $id ID des Elements
          */
         function __construct($description, $icon, $class = false, $id = false, $callback = false) {
-            $this->description  = \fpcm\classes\baseconfig::$fpcmLanguage->translate($description);
+            $this->description  = \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate($description);
             $this->icon         = $icon;
             $this->class        = trim($class) ? ' '. trim($class) : '';
             $this->id           = trim($id) ? trim($id) : uniqid('fpcm-notification-item');
@@ -76,7 +76,7 @@
          * @param array $params
          */
         public function setDescription($description, array $params = []) {
-            $this->description = \fpcm\classes\baseconfig::$fpcmLanguage->translate($description, $params);
+            $this->description = \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate($description, $params);
         }
                 
         /**

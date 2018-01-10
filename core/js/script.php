@@ -8,10 +8,12 @@
 
 require_once dirname(dirname(__DIR__)).'/inc/common.php';
 
-$data = array('content' => '', 'filesize' => 0);
-$cache = new \fpcm\classes\cache('jsfiles', 'theme');
+$data  = ['content' => '', 'filesize' => 0];
+$cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
 
-if ($cache->isExpired() || \fpcm\classes\baseconfig::installerEnabled() || FPCM_DEBUG) {
+$cacheName = 'theme/jsfiles';
+
+if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled() || FPCM_DEBUG) {
 
     $jsFiles = array(
         __DIR__.'/ui.js',
@@ -33,9 +35,9 @@ if ($cache->isExpired() || \fpcm\classes\baseconfig::installerEnabled() || FPCM_
 
     }
 
-    $cache->write($data, FPCM_LANGCACHE_TIMEOUT);
+    $cache->write($cacheName, $data, FPCM_LANGCACHE_TIMEOUT);
 } else {
-    $data = $cache->read();
+    $data = $cache->read($cacheName);
 }
 
 header("Content-Type: application/javascript");

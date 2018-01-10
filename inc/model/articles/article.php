@@ -15,7 +15,7 @@
      * @package fpcm\model\articles
      * @author Stefan Seehafer <sea75300@yahoo.de>
      */ 
-    class article extends \fpcm\model\abstracts\model {
+    class article extends \fpcm\model\abstracts\dataset {
 
         /**
          * Cache-Name für einzelnen Artikel

@@ -409,7 +409,7 @@
         public static function dateText($timespan, $format = false, $return = false) {
             
             if (!$format) {
-                $format = \fpcm\classes\baseconfig::$fpcmConfig->system_dtmask;
+                $format = \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_dtmask;
             }
 
             $timespan = date($format, $timespan); 

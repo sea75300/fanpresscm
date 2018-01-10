@@ -72,42 +72,6 @@
          * @var string
          */
         public static $versionFile;
-        
-        /**
-         * Eventliste
-         * @var \fpcm\model\events\eventList
-         */
-        public static $fpcmEvents;
-        
-        /**
-         * Zentrales Config-Event
-         * @var \fpcm\model\system\config
-         */
-        public static $fpcmConfig;
-        
-        /**
-         * Zentrales Language-Objekt
-         * @var language
-         */
-        public static $fpcmLanguage;
-        
-        /**
-         * Zentrales Session Objekt
-         * @var \fpcm\model\system\session
-         */
-        public static $fpcmSession;
-        
-        /**
-         * Datenbank-Objekt
-         * @var database
-         */
-        public static $fpcmDatabase;
-        
-        /**
-         * Notifications-Objekt
-         * @var \fpcm\model\theme\notifications
-         */
-        public static $fpcmNotifications;
 
         /**
          * Installer aktiv Status-Datei
@@ -153,8 +117,6 @@
             self::$versionFile          = dirs::getFullDirPath('version.php');
             self::$installerEnabledFile = dirs::getDataDirPath(dirs::DATA_CONFIG, 'installer.enabled');
             self::$cronAsyncFile        = dirs::getDataDirPath(dirs::DATA_TEMP, 'cronjob.disabled');
-            
-            loader::getObject('\fpcm\model\events\eventList');
 
             if (self::dbConfigExists()) {
                 loader::getObject('\fpcm\classes\database');

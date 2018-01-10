@@ -57,7 +57,7 @@
 
                         case 'maintenance' :
 
-                            if (\fpcm\classes\baseconfig::$fpcmConfig->setMaintenanceMode(1)){
+                            if (\fpcm\classes\loader::getObject('\fpcm\model\system\config')->setMaintenanceMode(1)){
                                 $this->output('Maintenance mode enabled!');
                             }
                             else {
@@ -101,7 +101,7 @@
 
                         case 'maintenance' :
 
-                            if (\fpcm\classes\baseconfig::$fpcmConfig->setMaintenanceMode(0)){
+                            if (\fpcm\classes\loader::getObject('\fpcm\model\system\config')->setMaintenanceMode(0)){
                                 $this->output('Maintenance mode disabled!');
                             }
                             else {

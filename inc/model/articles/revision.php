@@ -14,7 +14,7 @@
      * @package fpcm\model\articles
      * @since FPCM 3.3
      */ 
-    class revision extends \fpcm\model\abstracts\model {
+    class revision extends \fpcm\model\abstracts\dataset {
         
         /**
          * Article id
