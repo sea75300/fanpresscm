@@ -21,7 +21,7 @@
          * @param mixed $params
          * @return object
          */
-        public static function getObject($class, $params = null)
+        public static function getObject($class, $params = null, $cache = true)
         {
             if (!class_exists($class)) {
                 trigger_error('Undefined class '.$class);
@@ -29,8 +29,7 @@
             }
 
             $hash = (strpos($class, 'fpcm\classes') !== false ? explode('\\', $class, 3)[3] : $class);
-            $hash = hash(security::defaultHashAlgo, $hash.(is_array($params) || is_object($params) ? json_encode($params) : $params));
-            if (isset($GLOBALS['fpcm']['objects'][$hash]) && is_object($GLOBALS['fpcm']['objects'][$hash])) {
+            if (isset($GLOBALS['fpcm']['objects'][$hash]) && is_object($GLOBALS['fpcm']['objects'][$hash]) && $cache) {
                 return $GLOBALS['fpcm']['objects'][$hash];
             }
             
