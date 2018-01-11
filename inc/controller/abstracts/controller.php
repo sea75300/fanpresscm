@@ -115,7 +115,7 @@
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
 
             $this->events        = \fpcm\classes\loader::getObject('\fpcm\model\events\eventList');
-            $this->cache         = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+            $this->cache         = \fpcm\classes\loader::getObject('cache');
             $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
             $this->session       = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
@@ -130,7 +130,7 @@
             
             $this->config->setUserSettings();
             
-            $this->lang         = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
+            $this->lang         = \fpcm\classes\loader::getObject('language');
         }
         
         /**

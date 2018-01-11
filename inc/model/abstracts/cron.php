@@ -66,7 +66,7 @@
          */
         public function __construct($cronName, $init = true) {
             $this->table    = \fpcm\classes\database::tableCronjobs;
-            $this->dbcon    = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+            $this->dbcon    = \fpcm\classes\loader::getObject('database');
             $this->events   = \fpcm\classes\loader::getObject('\fpcm\model\events\eventList');
             $this->cronName = basename(str_replace('\\', DIRECTORY_SEPARATOR, $cronName));
             

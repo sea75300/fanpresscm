@@ -36,8 +36,8 @@
             
             $this->parser = new \nkorg\yatdl\parser(
                 \Spyc::YAMLLoad($filePath),
-                \fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype(),
-                \fpcm\classes\loader::getObject('\fpcm\classes\database')->getYaTDLDataTypes()
+                \fpcm\classes\loader::getObject('database')->getDbtype(),
+                \fpcm\classes\loader::getObject('database')->getYaTDLDataTypes()
             );
 
         }

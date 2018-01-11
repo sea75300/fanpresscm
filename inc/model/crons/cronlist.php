@@ -128,8 +128,8 @@
          */
         public function getExecutableCrons() {
             
-            $res = \fpcm\classes\loader::getObject('\fpcm\classes\database')->fetch(
-                    \fpcm\classes\loader::getObject('\fpcm\classes\database')->select(
+            $res = \fpcm\classes\loader::getObject('database')->fetch(
+                    \fpcm\classes\loader::getObject('database')->select(
                         \fpcm\classes\database::tableCronjobs,
                         '*',
                         '(lastexec+execinterval) < ?',
@@ -171,7 +171,7 @@
          * @return array
          */
         public function getCronsData() {
-            $res = \fpcm\classes\loader::getObject('\fpcm\classes\database')->fetch(\fpcm\classes\loader::getObject('\fpcm\classes\database')->select(\fpcm\classes\database::tableCronjobs), true);
+            $res = \fpcm\classes\loader::getObject('database')->fetch(\fpcm\classes\loader::getObject('database')->select(\fpcm\classes\database::tableCronjobs), true);
             
             $list = [];
             

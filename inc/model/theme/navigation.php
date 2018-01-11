@@ -310,7 +310,7 @@
                 ])
             );
             
-            if (\fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() == 'mysql') {
+            if (\fpcm\classes\loader::getObject('database')->getDbtype() == 'mysql') {
                 $data[] = navigationItem::createItemFromArray([
                     'url'               => 'system/backups',
                     'permission'        => array('system' => 'backups'),

@@ -36,7 +36,7 @@
                     '{{acplink}}' => \fpcm\classes\dirs::getRootUrl()
                 );
                 
-                $language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+                $language = \fpcm\classes\loader::getObject('language');
                 $email = new \fpcm\classes\email($config->system_email,
                                                  $language->translate('CRONJOB_UPDATES_NEWVERSION'),
                                                  $language->translate('CRONJOB_UPDATES_NEWVERSION_TEXT', $replacements));                

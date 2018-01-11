@@ -21,9 +21,9 @@
          * @var array
          */
         private $csslib = array(
-            'inc/lib/jquery-ui/jquery-ui.min.css',
-            'inc/lib/fancybox/jquery.fancybox.min.css',
-            'inc/lib/font-awesome/css/font-awesome.min.css',
+            'lib/jquery-ui/jquery-ui.min.css',
+            'lib/fancybox/jquery.fancybox.min.css',
+            'lib/font-awesome/css/font-awesome.min.css',
             'core/theme/style.php'
         );
 
@@ -32,42 +32,10 @@
          * @var array
          */
         private $jslib = array(
-            'inc/lib/jquery/jquery-3.2.1.min.js',
-            'inc/lib/jquery-ui/jquery-ui.min.js',
-            'inc/lib/fancybox/jquery.fancybox.min.js',
+            'lib/jquery/jquery-3.2.1.min.js',
+            'lib/jquery-ui/jquery-ui.min.js',
+            'lib/fancybox/jquery.fancybox.min.js',
             'core/js/script.php'
-        );
-
-        /**
-         * FPCM Code Mirror JS library
-         * @var array
-         */
-        private $cmJsFiles = array(
-            'inc/lib/codemirror/lib/codemirror.js',
-            'inc/lib/codemirror/addon/selection/active-line.js',
-            'inc/lib/codemirror/addon/edit/matchbrackets.js',
-            'inc/lib/codemirror/addon/edit/matchtags.js',
-            'inc/lib/codemirror/addon/edit/closetag.js',
-            'inc/lib/codemirror/addon/fold/xml-fold.js',
-            'inc/lib/codemirror/addon/hint/show-hint.js',
-            'inc/lib/codemirror/addon/hint/xml-hint.js',
-            'inc/lib/codemirror/addon/hint/html-hint.js',
-            'inc/lib/codemirror/addon/runmode/runmode.js',
-            'inc/lib/codemirror/addon/runmode/colorize.js',
-            'inc/lib/codemirror/mode/xml/xml.js',
-            'inc/lib/codemirror/mode/javascript/javascript.js',
-            'inc/lib/codemirror/mode/css/css.js',
-            'inc/lib/codemirror/mode/htmlmixed/htmlmixed.js'
-        );
-
-        /**
-         * FPCM Code Mirror CSS library
-         * @var array
-         */
-        private $cmCssFiles = array(
-            'inc/lib/codemirror/lib/codemirror.css',
-            'inc/lib/codemirror/theme/fpcm.css',
-            'inc/lib/codemirror/addon/hint/show-hint.css'
         );
         
         /**
@@ -90,22 +58,6 @@
             $modulesFiles = $modulesFiles ? $modulesFiles : array();
             
             return array_map(array($this, 'addRootPath'), array_merge($this->jslib, $modulesFiles));
-        }
-
-        /**
-         * Gibt Code Mirror JS library zurück
-         * @return array
-         */        
-        public function getCmJsFiles() {
-            return array_map(array($this, 'addRootPath'), $this->cmJsFiles);
-        }
-
-        /**
-         * Gibt Code Mirror CSS library zurück
-         * @return array
-         */        
-        public function getCmCssFiles() {
-            return array_map(array($this, 'addRootPath'), $this->cmCssFiles);
         }
         
         /**

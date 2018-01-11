@@ -131,14 +131,14 @@
 
             $this->escapeFileName($filename);
             
-            $this->dbcon    = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+            $this->dbcon    = \fpcm\classes\loader::getObject('database');
             
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
             
-            $this->cache         = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+            $this->cache         = \fpcm\classes\loader::getObject('cache');
             $this->events        = \fpcm\classes\loader::getObject('\fpcm\model\events\eventList');
             $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-            $this->language      = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+            $this->language      = \fpcm\classes\loader::getObject('language');
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
             
             $this->config->setUserSettings();

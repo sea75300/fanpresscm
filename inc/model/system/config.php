@@ -91,11 +91,11 @@
          * @param bool $useCache Configuration aus Cache laden
          * @return boolean
          */
-        function __construct($initUserSettings = true, $useCache = true) {
+        function __construct($useCache = true) {
             
             $this->table    = \fpcm\classes\database::tableConfig;
-            $this->dbcon    = \fpcm\classes\loader::getObject('\fpcm\classes\database');
-            $this->events   = \fpcm\classes\loader::getObject('\fpcm\classes\eventList');
+            $this->dbcon    = \fpcm\classes\loader::getObject('database');
+            $this->events   = \fpcm\classes\loader::getObject('eventList');
             $this->cache    = new \fpcm\classes\cache();
             $this->useCache = $useCache;
 
@@ -103,11 +103,7 @@
 
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
             
-            $this->init();
-            
-            if ($initUserSettings) {
-                $this->setUserSettings();
-            }            
+            $this->init();        
         }
         
         /**
@@ -217,8 +213,8 @@
                 $this->data[$key] = $value;
             }
             
-            if ($this->system_lang != \fpcm\classes\loader::getObject('\fpcm\classes\language')->getLangCode()) {
-                \fpcm\classes\loader::getObject('\fpcm\classes\language') = new \fpcm\classes\language($this->system_lang);                
+            if ($this->system_lang != \fpcm\classes\loader::getObject('language')->getLangCode()) {
+                \fpcm\classes\loader::getObject('language') = new \fpcm\classes\language($this->system_lang);                
             }
         }
         

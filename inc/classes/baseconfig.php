@@ -119,11 +119,13 @@
             self::$cronAsyncFile        = dirs::getDataDirPath(dirs::DATA_TEMP, 'cronjob.disabled');
 
             if (self::dbConfigExists()) {
-                loader::getObject('\fpcm\classes\database');
+                loader::getObject('database');
             }
 
-            loader::getObject('language', loader::getObject('\fpcm\model\system\config')->system_lang);
+            loader::getObject('\fpcm\model\system\config');
             loader::getObject('\fpcm\model\system\session');
+            loader::getObject('\fpcm\model\system\config')->setUserSettings();
+            loader::getObject('language', loader::getObject('\fpcm\model\system\config')->system_lang);
             loader::getObject('\fpcm\model\theme\notifications');
 
             die();

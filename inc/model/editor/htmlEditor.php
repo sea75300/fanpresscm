@@ -20,15 +20,21 @@
          * Liefert zu ladender CSS-Dateien für Editor zurück
          * @return array
          */
-        public function getCssFiles() {
-            return $this->fileLib->getCmCssFiles();
+        public function getCssFiles()
+        {
+            return [
+                \fpcm\classes\dirs::getIncDirPath('codemirror/lib/codemirror.css'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/theme/fpcm.css'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/hint/show-hint.css'),
+            ];
         }
 
         /**
          * Pfad der Editor-Template-Datei
          * @return string
          */
-        public function getEditorTemplate() {
+        public function getEditorTemplate()
+        {
             return \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, 'articles/editors/html.php');
         }
 
@@ -36,39 +42,50 @@
          * Liefert zu ladender Javascript-Dateien für Editor zurück
          * @return array
          */ 
-        public function getJsFiles() {
+        public function getJsFiles()
+        {
 
-            return array_merge(
-                $this->fileLib->getCmJsFiles(),
-                array(
-                    \fpcm\classes\loader::libGetFileUrl('leela-colorpicker', 'leela.colorpicker-1.0.2.jquery.min.js'),
-                    'editor.js',
-                    'editor_codemirror.js',
-                    'editor_videolinks.js'
-                )
-            );
+            return [
+                \fpcm\classes\dirs::getIncDirPath('codemirror/lib/codemirror.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/selection/active-line.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/edit/matchbrackets.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/edit/matchtags.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/edit/closetag.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/old/xml-fold.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/hint/show-hint.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/hint/xml-hint.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/hint/html-hint.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/runmode/runmode.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/runmode/colorize.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/mode/xml/xml.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/mode/javascript/javascript.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/mode/css/css.js'),
+                \fpcm\classes\dirs::getIncDirPath('codemirror/mode/htmlmixed/htmlmixed.js'),
+                \fpcm\classes\loader::libGetFileUrl('leela-colorpicker/leela.colorpicker-1.0.2.jquery.min.js'),
+                'editor.js',
+                'editor_codemirror.js',
+                'editor_videolinks.js'
+            ];
         }
 
         /**
          * Array von Javascript-Variablen, welche in Editor-Template genutzt werden
          * @return array
          */
-        public function getJsVars() {
-
-            $editorHtmlColors = array(
-                '#000000','#993300','#333300','#003300','#003366','#00007f','#333398','#333333',
-                '#800000','#ff6600','#808000','#007f00','#007171','#0000e8','#5d5d8b','#6c6c6c',
-                '#f00000','#e28800','#8ebe00','#2f8e5f','#30bfbf','#3060f1','#770077','#8d8d8d',                
-                '#f100f1','#f0c000','#eeee00','#00f200','#00efef','#00beee','#8d2f5e','#b5b5b5',
-                '#ed8ebe','#efbf8f','#e8e88b','#bbeabb','#bcebeb','#89b6e4','#b88ae6','#ffffff'
-            );
-            
-            return array(
-                'fpcmCmColors'                  => $editorHtmlColors,
-                'fpcmEditorHtmlElement'         => $this->language->translate('EDITOR_HTML_BUTTONS_LITEXT'),
-                'fpcmEditorAutosavePrefix'      => 'fpcm-editor-as-'.$this->session->getUserId().'draft',
-                'fpcmEditorInitFunction'        => 'initCodeMirror'
-            );
+        public function getJsVars()
+        {
+            return [
+                'cmConfig'          => [
+                    'colors'        => [
+                        '#000000','#993300','#333300','#003300','#003366','#00007f','#333398','#333333',
+                        '#800000','#ff6600','#808000','#007f00','#007171','#0000e8','#5d5d8b','#6c6c6c',
+                        '#f00000','#e28800','#8ebe00','#2f8e5f','#30bfbf','#3060f1','#770077','#8d8d8d',                
+                        '#f100f1','#f0c000','#eeee00','#00f200','#00efef','#00beee','#8d2f5e','#b5b5b5',
+                        '#ed8ebe','#efbf8f','#e8e88b','#bbeabb','#bcebeb','#89b6e4','#b88ae6','#ffffff'
+                    ],
+                    'autosavePref'  => 'fpcm-editor-as-'.$this->session->getUserId().'draft',                    
+                ]
+            ]
         }
 
         /**
@@ -77,27 +94,21 @@
          * @return array
          * @since FPCM 3.3
          */
-        public function getJsLangVars() {
-            return array(
-                'globalInsert'       => $this->language->translate('GLOBAL_INSERT'),
-                'editorInsertPic'    => $this->language->translate('EDITOR_INSERTPIC'),
-                'editorInsertLink'   => $this->language->translate('EDITOR_INSERTLINK'),
-                'editorInsertTable'  => $this->language->translate('EDITOR_INSERTTABLE'),
-                'editorInsertColor'  => $this->language->translate('EDITOR_INSERTCOLOR'),
-                'editorInsertMedia'  => $this->language->translate('EDITOR_INSERTMEDIA'),
-                'editorInsertSmiley' => $this->language->translate('EDITOR_INSERTSMILEY'),
-                'editorInsertSymbol' => $this->language->translate('EDITOR_INSERTSYMBOL'),
-                'editorInsertATpl'   => $this->language->translate('EDITOR_HTML_BUTTONS_ARTICLETPL'),
-                'editorInsertUl'     => $this->language->translate('EDITOR_HTML_BUTTONS_LISTUL'),
-                'editorInsertOl'     => $this->language->translate('EDITOR_HTML_BUTTONS_LISTOL')
-            );
+        public function getJsLangVars()
+        {
+            return [
+                'GLOBAL_INSERT', 'EDITOR_INSERTPIC', 'EDITOR_INSERTLINK', 'EDITOR_INSERTTABLE',
+                'EDITOR_INSERTCOLOR', 'EDITOR_INSERTMEDIA', 'EDITOR_INSERTSMILEY', 'EDITOR_INSERTSYMBOL',
+                'EDITOR_HTML_BUTTONS_ARTICLETPL', 'EDITOR_HTML_BUTTONS_LISTUL', 'EDITOR_HTML_BUTTONS_LISTOL'
+            ];
         }
 
         /**
          * Array von Variablen, welche in Editor-Template genutzt werden
          * @return array
          */
-        public function getViewVars() {
+        public function getViewVars()
+        {
             
             $editorStyles = $this->getEditorStyles();
 

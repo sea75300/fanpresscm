@@ -131,7 +131,7 @@
          * @param string $path
          * @return string
          */
-        public static function getCoreUrl($type, $path)
+        public static function getCoreUrl($type, $path = '')
         {
             return $GLOBALS['fpcm']['urls']['core'].'/core/'.$type.'/'.$path;
         }

@@ -49,7 +49,7 @@
         /**
          * Timeout für Sprach-Cache
          */
-        define ('FPCM_LANGCACHE_TIMEOUT', 3600 * 24 * 31);
+        define ('FPCM_CACHE_DEFAULT_TIMEOUT', 3600);
     }
 
     if (!defined('FPCM_LANGCACHE_TIMEOUT')) {

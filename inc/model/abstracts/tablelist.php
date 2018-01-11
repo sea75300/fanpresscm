@@ -82,16 +82,16 @@
          */
         public function __construct() {
  
-            $this->dbcon    = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+            $this->dbcon    = \fpcm\classes\loader::getObject('database');
             $this->events   = \fpcm\classes\loader::getObject('\fpcm\model\events\eventList');
-            $this->cache    = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+            $this->cache    = \fpcm\classes\loader::getObject('cache');
 
             if (\fpcm\classes\baseconfig::installerEnabled()) {
                 return false;
             }
             
             $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-            $this->language      = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
+            $this->language      = \fpcm\classes\loader::getObject('language', $this->config->system_lang);
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
 
             if (is_object($this->config)) {
