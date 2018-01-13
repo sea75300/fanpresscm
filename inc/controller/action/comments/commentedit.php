@@ -122,7 +122,7 @@
                 $this->view->setShowFooter(0);
             }
             
-            $this->view->setViewJsFiles([
+            $this->view->addJsFiles([
                 \fpcm\classes\loader::libGetFileUrl('tinymce4', 'tinymce.min.js'),
                 'editor_tinymce.js'
             ]);
@@ -148,7 +148,7 @@
                 $this->view->assign('changeInfo', $this->lang->translate('GLOBAL_NOCHANGE'));
             }
 
-            $this->view->setViewJsFiles(['comments.js']);
+            $this->view->addJsFiles(['comments.js']);
             $this->view->assign('ipWhoisLink', substr($this->comment->getIpaddress(), -1) === '*' ? false : true);
             $this->view->assign('comment', $this->comment);
             $this->view->assign('commentsMode', $mode);

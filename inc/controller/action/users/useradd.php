@@ -84,7 +84,7 @@
             $this->view->assign('showDisableButton', false);
             $this->view->assign('showExtended', true);
             $this->view->assign('showImage', false);
-            $this->view->setViewJsFiles([\fpcm\classes\loader::libGetFileUrl('password-generator', 'password-generator.min.js')]);
+            $this->view->addJsFiles([\fpcm\classes\loader::libGetFileUrl('password-generator', 'password-generator.min.js')]);
             $this->view->addJsVars([
                 'fpcmNavigationActiveItemId' => 'submenu-itemnav-item-users',
                 'fpcmFieldSetAutoFocus'      => 'username'

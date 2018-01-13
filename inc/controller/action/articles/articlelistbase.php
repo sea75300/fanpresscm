@@ -197,7 +197,7 @@
             $this->view->assign('commentCount', $commentCounts);
             $this->view->assign('commentPrivateUnapproved', $this->commentList->countUnapprovedPrivateComments($this->getArticleListIds()));            
             
-            $this->view->setViewJsFiles(['articlelist.js']);
+            $this->view->addJsFiles(['articlelist.js']);
             
             $this->translateCategories();
 

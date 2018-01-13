@@ -249,8 +249,8 @@
             
             $controllerCache = new cache();
             
-            if (!$controllerCache->isExpired('system/controllerCache')) {
-                $controllerList = $controllerCache->read();
+            if (!$controllerCache->isExpired($cacheName)) {
+                $controllerList = $controllerCache->read($cacheName);
                 if (is_array($controllerList)) {
                     return $controllerList;
                 }                

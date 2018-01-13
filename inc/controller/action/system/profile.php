@@ -153,7 +153,7 @@
             $this->view->assign('articleLimitList', \fpcm\model\system\config::getAcpArticleLimits());
             $this->view->assign('defaultFontsizes', \fpcm\model\system\config::getDefaultFontsizes());
             $this->view->assign('showDisableButton', false);
-            $this->view->setViewJsFiles([
+            $this->view->addJsFiles([
                 \fpcm\classes\loader::libGetFileUrl('password-generator', 'password-generator.min.js'),
                 'profile.js', 'fileuploader.js'
             ]);

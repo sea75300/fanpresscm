@@ -36,7 +36,7 @@
             $this->view->assign('reloadBaseLink', \fpcm\classes\tools::getFullControllerLink('ajax/logs/reload', [
                 'log' => ''
             ]));
-            $this->view->setViewJsFiles(['logs.js']);
+            $this->view->addJsFiles(['logs.js']);
             $this->view->setHelpLink('hl_options');
             
             $this->view->render();

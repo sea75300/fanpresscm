@@ -58,7 +58,7 @@
 
             $pos = $this->chapterHeadline ? (int) array_search(strtoupper(base64_decode($this->chapterHeadline)), array_keys($contents)) : 0;
             $this->view->addJsVars(['fpcmDefaultCapter' => $pos]);
-            $this->view->setViewJsFiles(['help.js']);
+            $this->view->addJsFiles(['help.js']);
             
             $this->view->render();
         }

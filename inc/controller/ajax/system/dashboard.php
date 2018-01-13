@@ -72,7 +72,7 @@
                 
                 $position = $containerObj->getPosition();
 
-                $this->view->setViewJsFiles($containerObj->getJavascriptFiles());
+                $this->view->addJsFiles($containerObj->getJavascriptFiles());
                 $this->view->addJsVars($containerObj->getJavascriptVars());
 
                 $containerViewVars = $containerObj->getControllerViewVars();

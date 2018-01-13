@@ -120,7 +120,7 @@
         {            
             $viewName .= '.php';
 
-            $this->viewPath         = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
+            $this->viewPath         = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
             $this->viewName         = $viewName;
             
             $this->showHeader       = self::INCLUDE_HEADER_FULL;
@@ -220,7 +220,7 @@
          */
         protected function prepareNotifications()
         {
-            if ($config->system_maintenance) {
+            if ($this->config->system_maintenance) {
                 $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
                     'SYSTEM_OPTIONS_MAINTENANCE', 
                     'fa fa-lightbulb-o fa-lg fa-fw',

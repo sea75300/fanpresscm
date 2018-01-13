@@ -110,6 +110,17 @@
         }
 
         /**
+         * Komplette URL ausgehend von core-Ordner ermitteln
+         * @param string $type
+         * @param string $path
+         * @return string
+         */
+        public static function getCoreDirPath($type, $path = '')
+        {
+            return $GLOBALS['fpcm']['dir']['core'].$type.DIRECTORY_SEPARATOR.$path;
+        }
+
+        /**
          * Komplette URL ausgehend vom root-Ebene ermitteln
          * @param string $type
          * @param string $path

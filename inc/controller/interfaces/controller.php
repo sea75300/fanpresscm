@@ -19,13 +19,20 @@
     interface controller {
 
         /**
-         * Request-Handler
-         * @return boolean, false verhindert Ausführung von @see process()
+         * Request processing
+         * @return boolean, false prevent execution of @see process()
          */ 
         public function request();
 
         /**
+         * Access check processing
+         * @return boolean, false prevent execution of @see request() @see process()
+         */ 
+        public function hasAccess();
+
+        /**
          * Controller-Processing
+         * @return boolean
          */ 
         public function process();
 

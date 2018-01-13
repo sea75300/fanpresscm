@@ -33,7 +33,7 @@
             }
 
             $this->view->addJsLangVars(['dashboard_loading' => $this->lang->translate('DASHBOARD_LOADING')]);
-            $this->view->setViewJsFiles(['dashboard.js']);
+            $this->view->addJsFiles(['dashboard.js']);
             $this->view->setHelpLink('hl_dashboard');
             $this->view->render();            
         }

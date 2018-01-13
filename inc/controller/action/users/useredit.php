@@ -160,7 +160,7 @@
                                : true;
             
             $this->view->assign('showDisableButton', $showDisableButton);
-            $this->view->setViewJsFiles([
+            $this->view->addJsFiles([
                 \fpcm\classes\loader::libGetFileUrl('password-generator', 'password-generator.min.js'),
                 'fileuploader.js'
             ]);

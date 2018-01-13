@@ -63,7 +63,7 @@
             
             $fileLib = new \fpcm\model\system\fileLib();
             
-            $this->view->setViewJsFiles($fileLib->getCmJsFiles());
+            $this->view->addJsFiles($fileLib->getCmJsFiles());
             $this->view->setViewCssFiles($fileLib->getCmCssFiles());
             
             $this->articleTemplate       = new \fpcm\model\pubtemplates\article($this->config->articles_template_active);
@@ -200,7 +200,7 @@
             $tplfilelist = new \fpcm\model\files\templatefilelist();
             $this->view->assign('templateFiles', $tplfilelist->getFolderObjectList());
             
-            $this->view->setViewJsFiles(['fileuploader.js', 'editor_codemirror.js', 'templates.js']);
+            $this->view->addJsFiles(['fileuploader.js', 'editor_codemirror.js', 'templates.js']);
             
             $translInfo = array(
                 '{{filecount}}' => 1,

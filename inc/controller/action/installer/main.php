@@ -116,7 +116,7 @@
             $this->view->assign('step', $this->step + 1);
             $this->view->assign('showNextButton', true);
             $this->view->assign('showReload', false);
-            $this->view->setViewJsFiles(['installer.js', \fpcm\classes\loader::libGetFileUrl('password-generator', 'password-generator.min.js')]);
+            $this->view->addJsFiles(['installer.js', \fpcm\classes\loader::libGetFileUrl('password-generator', 'password-generator.min.js')]);
 
             if (method_exists($this, 'runAfterStep'.($this->step - 1))) {
                 call_user_func(array($this, 'runAfterStep'.($this->step - 1)));                

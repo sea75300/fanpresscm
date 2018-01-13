@@ -54,7 +54,7 @@
         {
             
             $this->langPath = dirs::getIncDirPath('lang'.DIRECTORY_SEPARATOR.$langCode);
-            
+
             if (!is_dir($this->langPath)) {
                 trigger_error('Try to load undefined language: '.$langCode);
                 return false;
@@ -73,28 +73,28 @@
             $this->helpFile            = $this->langPath.'/help.php';
 
             $this->cache = loader::getObject('fpcm\classes\cache');
-            $cacheName   = 'system/langcache_'.$langCode;
+            $cacheName   = 'system/langcache'. strtoupper($langCode);
             
-            if (!$this->cache->isExpired($cacheName)) {
-                $GLOBALS['langdata'] = $this->cache->read($cacheName);                
-                return;
-            }            
+//            if (!$this->cache->isExpired($cacheName)) {
+//                $GLOBALS['langdata'] = $this->cache->read($cacheName);                
+//                return;
+//            }            
             
-            $moduleLangFiles            = ($langCode != FPCM_DEFAULT_LANGUAGE_CODE
-                                        ? glob(dirs::getDataDirPath(dirs::DATA_MODULES, '*/*/lang/'.FPCM_DEFAULT_LANGUAGE_CODE.'/*.php'))
-                                        : []);
-
-            $moduleLangFiles_langcode   = glob(dirs::getDataDirPath(dirs::DATA_MODULES, '*/*/lang/'.$langCode.'/*.php'));
-            
-            if (is_array($moduleLangFiles_langcode)) {
-                $moduleLangFiles += $moduleLangFiles_langcode;
-            }
+//            $moduleLangFiles            = ($langCode != FPCM_DEFAULT_LANGUAGE_CODE
+//                                        ? glob(dirs::getDataDirPath(dirs::DATA_MODULES, '*/*/lang/'.FPCM_DEFAULT_LANGUAGE_CODE.'/*.php'))
+//                                        : []);
+//
+//            $moduleLangFiles_langcode   = glob(dirs::getDataDirPath(dirs::DATA_MODULES, '*/*/lang/'.$langCode.'/*.php'));
+//            
+//            if (is_array($moduleLangFiles_langcode)) {
+//                $moduleLangFiles += $moduleLangFiles_langcode;
+//            }
 
             $langfiles       = array_merge(
-                glob($this->langPath.'*.php'),
-                (is_array($moduleLangFiles) ? $moduleLangFiles : [])
+                glob($this->langPath.DIRECTORY_SEPARATOR.'*.php'),
+                [] //(is_array($moduleLangFiles) ? $moduleLangFiles : [])
             );
-            
+
             foreach ($langfiles as $file) {
 
                 if (strpos($file, 'help.php') !== false) {

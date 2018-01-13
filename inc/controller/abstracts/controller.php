@@ -106,7 +106,8 @@
         /**
          * Konstruktor
          */        
-        public function __construct() {
+        public function __construct()
+        {
             
             if (\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
                 $this->redirect('installer');
@@ -130,7 +131,7 @@
             
             $this->config->setUserSettings();
             
-            $this->lang         = \fpcm\classes\loader::getObject('fpcm\classes\language');
+            $this->lang         = \fpcm\classes\loader::getObject('fpcm\classes\language', $this->config->system_lang);
         }
         
         /**
@@ -139,7 +140,8 @@
          * @param array $filter
          * @return mixed
          */
-        public function getRequestVar($varname = null, array $filter = [\fpcm\classes\http::FPCM_REQFILTER_STRIPTAGS,\fpcm\classes\http::FPCM_REQFILTER_HTMLENTITIES, \fpcm\classes\http::FPCM_REQFILTER_STRIPSLASHES,\fpcm\classes\http::FPCM_REQFILTER_TRIM]) {
+        public function getRequestVar($varname = null, array $filter = [\fpcm\classes\http::FPCM_REQFILTER_STRIPTAGS,\fpcm\classes\http::FPCM_REQFILTER_HTMLENTITIES, \fpcm\classes\http::FPCM_REQFILTER_STRIPSLASHES,\fpcm\classes\http::FPCM_REQFILTER_TRIM])
+        {
             return \fpcm\classes\http::get($varname, $filter);
         }
         
@@ -148,7 +150,8 @@
          * @param string $buttonName
          * @return string
          */
-        public function buttonClicked($buttonName) {
+        public function buttonClicked($buttonName)
+        {
             $btnName = 'btn'.ucfirst($buttonName);
             return !is_null(\fpcm\classes\http::postOnly($btnName)) && is_null(\fpcm\classes\http::getOnly($btnName));
         }
@@ -157,17 +160,18 @@
          * Session zurückgeben
          * @return \model\session
          */        
-        public function getSession() {
+        public function getSession()
+        {
             return $this->session;
         }
         
         /**
-         * Redirect wenn nicht eingeloggt
-         * @param string $subDir
+         * Redirect if user is not logged in
+         * @return boolean
          */
-        protected function redirectNoSession($subDir = false) {
-            $subDir = ($subDir) ? '../' : '';
-            header("Location: ".$subDir."index.php?module=system/login&nologin");
+        protected function redirectNoSession()
+        {
+            return $this->redirect('system/login', ['nologin' => 1]);
         }
 
         /**
@@ -175,17 +179,16 @@
          * @param string $controller
          * @param array $params
          */
-        protected function redirect($controller = '', array $params = []) {
-            $redirectString = empty($controller) ? "Location: index.php" : "Location: index.php?module=$controller";
-            if (count($params)) {
-                $redirectString .= '&'.http_build_query($params);
-            }
-            
+        protected function redirect($controller = '', array $params = [])
+        {
+            $redirectString = 'Location: '.($controller ? \fpcm\classes\tools::getFullControllerLink($controller, $params) : 'index.php');
             if (is_object($this->events)) {
-                $this->events->runEvent('controllerRedirect', $redirectString);                
+                $this->events->runEvent('controllerRedirect', $redirectString);
+                return false;
             }
 
             header($redirectString);
+            return false;
         }
 
         /**
@@ -194,54 +197,9 @@
          * @param array $params
          * @return string
          */
-        protected function getControllerLink($controller = '', array $params = []) {
+        protected function getControllerLink($controller = '', array $params = [])
+        {
             return \fpcm\classes\tools::getControllerLink($controller, $params);
-        }
-
-        /**
-         * Prüft ob neue System-Updates vorhanden sind, erzeugt ggf. Meldung mit Möglichkeit, Update zu starten
-         * @return void
-         */
-        protected function checkUpdates() {
-
-            if (!$this->updateCheckEnabled) return;
-            
-            $asyncMail = $this->session->exists() ? false : true;            
-            $res = $this->crons->registerCron('updateCheck', $asyncMail);
-
-            if ($res === \fpcm\model\updater\system::SYSTEMUPDATER_FURLOPEN_ERROR || !\fpcm\classes\baseconfig::canConnect()) {
-                $updater = new \fpcm\model\updater\system();
-                $this->view->addJsVars(array(
-                    'fpcmManualCheckUrl'      => $updater->getManualCheckAddress(),
-                    'fpcmManualCheckHeadline' => $this->lang->translate('HL_PACKAGEMGR_SYSUPDATES')
-                ));                
-                $this->view->assign('includeManualCheck', true);
-                
-                if (!\fpcm\classes\baseconfig::canConnect() && $updater->checkManual()) {
-                    $this->view->assign('autoDialog', is_null($res) ? false : true);
-                } else {
-                    $this->view->assign('autoDialog', false);
-                }
-                
-                return;
-                
-            }
-            
-            if ($res === \fpcm\model\updater\system::SYSTEMUPDATER_FORCE_UPDATE) {
-                $this->redirect('package/sysupdate');
-                return;
-            }
-            
-            if ($res === false) {
-
-                $systemUpdates = new \fpcm\model\updater\system();
-                $replace = array(
-                    '{{versionlink}}' => $this->getControllerLink('package/sysupdate'),
-                    '{{version}}'     => $systemUpdates->getRemoteData('version')
-                );
-                $this->view->addErrorMessage('UPDATE_VERSIONCHECK_NEW', $replace);
-            }
-
         }
         
         /**
@@ -249,38 +207,36 @@
          * @param boolean $simplemsg
          * @return boolean
          */
-        protected function maintenanceMode($simplemsg = true) {
-            
-            if ($this->config->system_maintenance) {
-                
-                if ($simplemsg) {
-                    print $this->lang->translate('MAINTENANCE_MODE_ENABLED');
-                } else {
-                    $view = new \fpcm\view\error();
-                    $view->setMessage($this->lang->translate('MAINTENANCE_MODE_ENABLED'));
-                    $view->render();
-                }
-                
+        protected function maintenanceMode($simplemsg = true)
+        {
+            if (!$this->config->system_maintenance) {
+                return true;
+            }
+
+            if ($simplemsg) {
+                print $this->lang->translate('MAINTENANCE_MODE_ENABLED');
                 return false;
             }
 
-            return true;
+            $view = new \fpcm\view\error('MAINTENANCE_MODE_ENABLED');
+            $view->render();
+
+            return false;
         }
         
         /**
          * Page-Token prüfen
          * @return boolean
          */
-        protected function checkPageToken() {
+        protected function checkPageToken()
+        {
             if (isset($_SERVER['HTTP_REFERER']) && !is_null($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
                 return false;
             }
             
-            $fieldname = \fpcm\classes\security::getPageTokenFieldName();
-            $cache     = new \fpcm\classes\cache($fieldname, \fpcm\classes\security::pageTokenCacheModule);
-            
-            $tokenData = $cache->read();
-            $cache->cleanup($fieldname, \fpcm\classes\security::pageTokenCacheModule);
+            $fieldname = \fpcm\classes\security::pageTokenCacheModule.DIRECTORY_SEPARATOR.\fpcm\classes\security::getPageTokenFieldName();
+            $tokenData = $this->cache->read($fieldname);
+            $this->cache->cleanup($fieldname);
             
             if (\fpcm\classes\http::getPageToken() == $tokenData) {
                 return true;
@@ -293,7 +249,8 @@
          * Controller-Processing
          * @return boolean
          */
-        public function process() {
+        public function process()
+        {
            
             $currentClass = get_class($this);
             if (strpos($currentClass, 'fpcm\\modules\\') !== false) {
@@ -309,32 +266,37 @@
                 }
             }
             
-            if (!$this->session->exists()) {
-                $this->redirectNoSession();
-                return false;
-            }
-            
-            if ($this->permissions) {
-                if (count($this->checkPermission) && !$this->permissions->check($this->checkPermission)) {
-                    $view = new \fpcm\view\error();
-                    $view->setMessage($this->lang->translate('PERMISSIONS_REQUIRED'));
-                    $view->render();
-                    die();
-                }
-                
-                if ($this->session->getCurrentUser()->isAdmin() && $this->permissions->check(array('system' => 'update'))) {
-                    $this->checkUpdates();
-                }
-            }
-            
             return true;
         }
         
         /**
-         * Request-Handler
-         * @return boolean
-         */
-        public function request() {
+         * Request processing
+         * @return boolean, false prevent execution of @see process()
+         */ 
+        public function request()
+        {
+            return true;
+        }
+        
+        /**
+         * Access check processing
+         * @return boolean, false prevent execution of @see request() @see process()
+         */ 
+        public function hasAccess()
+        {
+            if (!$this->maintenanceMode(false) && !$this->session->exists()) {
+                return false;
+            }
+
+            if (!$this->session->exists()) {
+                return $this->redirectNoSession();
+            }
+            
+            if ($this->permissions && count($this->checkPermission) && !$this->permissions->check($this->checkPermission)) {
+                $view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
+                $view->render();
+            }
+
             return true;
         }
         

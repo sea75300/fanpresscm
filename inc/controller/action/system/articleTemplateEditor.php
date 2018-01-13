@@ -92,8 +92,8 @@
 
             $fileLib = new \fpcm\model\system\fileLib();
             $this->view->setViewCssFiles($fileLib->getCmCssFiles());
-            $this->view->setViewJsFiles($fileLib->getCmJsFiles());
-            $this->view->setViewJsFiles(['editor_codemirror.js', 'templates_articles.js']);
+            $this->view->addJsFiles($fileLib->getCmJsFiles());
+            $this->view->addJsFiles(['editor_codemirror.js', 'templates_articles.js']);
 
             $this->view->render();
         }

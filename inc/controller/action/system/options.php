@@ -216,7 +216,7 @@
             $this->view->assign('smtpActive', $smtpActive);
 
             $this->view->setHelpLink('hl_options');
-            $this->view->setViewJsFiles(['options.js']);
+            $this->view->addJsFiles(['options.js']);
             $this->view->addJsVars([
                 'showTwitter'   => $showTwitter ? 1 : 0,
                 'syscheck'      => $this->syscheck,

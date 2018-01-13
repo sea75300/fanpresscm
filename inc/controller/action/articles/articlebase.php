@@ -62,7 +62,7 @@
             if (!parent::process()) return false;
 
             $this->editorPlugin = $this->getEditorPlugin();            
-            $this->view->setViewJsFiles($this->editorPlugin->getJsFiles());
+            $this->view->addJsFiles($this->editorPlugin->getJsFiles());
             $this->view->setViewCssFiles($this->editorPlugin->getCssFiles());
             
             $viewVars = $this->editorPlugin->getViewVars();

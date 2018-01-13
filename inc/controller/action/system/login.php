@@ -56,7 +56,7 @@
          */
         public function __construct() {
             parent::__construct();
-            $this->view = new \fpcm\view\view('login', 'login');
+            $this->view = new \fpcm\view\view('login/login');
             
             $this->loginLockedExpire = session_cache_expire();
             $this->iplist            = new \fpcm\model\ips\iplist();            
@@ -66,14 +66,11 @@
          * Request-Handler
          * @return boolean
          */
-        public function request() {
+        public function request()
+        {
             
             if ($this->session->exists()) {
                 $this->redirect('system/dashboard');
-            }
-            
-            if (!$this->maintenanceMode(false)) {
-                return false;
             }
             
             $this->pageTokenOk = $this->checkPageToken();
@@ -138,6 +135,14 @@
             return true;
             
         }
+
+        /**
+         * 
+         * @return boolean
+         */
+        public function hasAccess() {
+            return true;
+        }
         
         /**
          * Controller-Processing
@@ -161,7 +166,7 @@
                 ));
             }
             
-            $this->view->setViewJsFiles(['login.js']);
+            $this->view->addJsFiles(['login.js']);
 
             $this->view->assign('loginAttempts', $this->currentAttempts);
             $this->view->assign('loginAttemptsMax', $this->config->system_loginfailed_locked);

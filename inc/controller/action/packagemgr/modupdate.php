@@ -73,7 +73,7 @@
 
             if (!parent::process()) return false;
             
-            $this->view->setViewJsFiles(['moduleinstaller.js']);
+            $this->view->addJsFiles(['moduleinstaller.js']);
             
             $tempFile = new \fpcm\model\files\tempfile('installkeys');            
             if (!$tempFile->getContent()) {                

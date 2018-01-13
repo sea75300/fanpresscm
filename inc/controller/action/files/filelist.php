@@ -167,7 +167,7 @@
 
             $this->view->assign('newUploader', $this->config->file_uploader_new);
             $this->view->assign('jquploadPath', \fpcm\classes\loader::libGetFileUrl('jqupload'));
-            $this->view->setViewJsFiles(['filemanager.js', 'fileuploader.js']);
+            $this->view->addJsFiles(['filemanager.js', 'fileuploader.js']);
             
             if ($this->config->file_uploader_new) {
                 $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'));

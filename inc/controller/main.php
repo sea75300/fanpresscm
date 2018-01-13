@@ -77,11 +77,11 @@
                 die("Controller class <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>. <span class=\"fa fa-frown-o\"></span>");
             }
 
-            if (!$controller->request()) {
+            if ($controller->hasAccess()) {
                 return false;
             }
 
-            if (method_exists($controller, 'hasAccess') && !$controller->hasAccess()) {
+            if (!$controller->request()) {
                 return false;
             }
 

@@ -35,7 +35,7 @@
             $cronlist = new \fpcm\model\crons\cronlist();
             $this->view->assign('cronjobList', $cronlist->getCronsData());
             $this->view->assign('currentTime', time());
-            $this->view->setViewJsFiles(['crons.js']);
+            $this->view->addJsFiles(['crons.js']);
             $this->view->setHelpLink('hl_options');
             $this->view->render();
         }
