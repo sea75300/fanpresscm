@@ -3,7 +3,7 @@
      * FanPress CM file model
      * 
      * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\model\abstracts;
@@ -43,7 +43,7 @@
         
         /**
          * Event-Liste
-         * @var \fpcm\model\events\eventList 
+         * @var \fpcm\events\events 
          */
         protected $events;
         
@@ -131,14 +131,14 @@
 
             $this->escapeFileName($filename);
             
-            $this->dbcon    = \fpcm\classes\loader::getObject('database');
+            $this->dbcon    = \fpcm\classes\loader::getObject('fpcm\classes\database');
             
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
             
-            $this->cache         = \fpcm\classes\loader::getObject('cache');
-            $this->events        = \fpcm\classes\loader::getObject('\fpcm\model\events\eventList');
+            $this->cache         = \fpcm\classes\loader::getObject('fpcm\classes\cache');
+            $this->events        = \fpcm\classes\loader::getObject('\fpcm\events\events');
             $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-            $this->language      = \fpcm\classes\loader::getObject('language');
+            $this->language      = \fpcm\classes\loader::getObject('fpcm\classes\language');
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
             
             $this->config->setUserSettings();

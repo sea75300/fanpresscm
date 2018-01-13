@@ -2,7 +2,7 @@
     /**
      * File manager controller
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\action\files;
@@ -13,7 +13,7 @@
         
         /**
          * Controller-View
-         * @var \fpcm\model\view\acp
+         * @var \fpcm\view\view
          */
         protected $view;
         
@@ -39,7 +39,7 @@
             parent::__construct(); 
             
             $this->checkPermission = array('uploads' => 'visible');            
-            $this->view = new \fpcm\model\view\acp('listouter', 'filemanager');
+            $this->view = new \fpcm\view\view('listouter', 'filemanager');
             
             $this->fileList = new \fpcm\model\files\imagelist();
             $this->userList = new \fpcm\model\users\userList();

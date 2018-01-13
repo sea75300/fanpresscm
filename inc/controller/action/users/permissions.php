@@ -9,7 +9,7 @@ namespace fpcm\controller\action\users;
     /**
      * Permission edit controller for single group
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      * @since FPCM 3.6
      */    
@@ -17,7 +17,7 @@ namespace fpcm\controller\action\users;
 
         /**
          *
-         * @var \fpcm\model\view\acp
+         * @var \fpcm\view\view
          */
         protected $view;
 
@@ -34,7 +34,7 @@ namespace fpcm\controller\action\users;
             parent::__construct();
             
             $this->checkPermission = array('system' => 'permissions');
-            $this->view = new \fpcm\model\view\acp('permissions', 'users');
+            $this->view = new \fpcm\view\view('permissions', 'users');
             $this->view->setShowHeader(false);
             $this->view->setShowFooter(false);
 

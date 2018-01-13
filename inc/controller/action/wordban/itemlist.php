@@ -2,7 +2,7 @@
     /**
      * Wordban item list controller
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\action\wordban;
@@ -18,7 +18,7 @@
             
             $this->checkPermission = array('system' => 'wordban');
             
-            $this->view     = new \fpcm\model\view\acp('itemlist', 'wordban');
+            $this->view     = new \fpcm\view\view('itemlist', 'wordban');
             $this->list     = new \fpcm\model\wordban\items();
 
         }

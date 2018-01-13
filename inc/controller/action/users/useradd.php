@@ -2,7 +2,7 @@
     /**
      * User add controller
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\action\users;
@@ -11,7 +11,7 @@
         
         /**
          *
-         * @var \fpcm\model\view\acp
+         * @var \fpcm\view\view
          */
         protected $view;
 
@@ -26,7 +26,7 @@
             
             $this->checkPermission = array('system' => 'users');
             
-            $this->view   = new \fpcm\model\view\acp('useradd', 'users');
+            $this->view   = new \fpcm\view\view('useradd', 'users');
             $this->author = new \fpcm\model\users\author();
         }
 

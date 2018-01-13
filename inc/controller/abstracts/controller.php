@@ -3,7 +3,7 @@
      * Base controller
      * 
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\abstracts;
@@ -56,7 +56,7 @@
 
         /**
          * Events
-         * @var \fpcm\model\events\eventList
+         * @var \fpcm\events\events
          */
         protected $events;
 
@@ -114,8 +114,8 @@
             
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
 
-            $this->events        = \fpcm\classes\loader::getObject('\fpcm\model\events\eventList');
-            $this->cache         = \fpcm\classes\loader::getObject('cache');
+            $this->events        = \fpcm\classes\loader::getObject('\fpcm\events\events');
+            $this->cache         = \fpcm\classes\loader::getObject('fpcm\classes\cache');
             $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
             $this->session       = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
@@ -130,7 +130,7 @@
             
             $this->config->setUserSettings();
             
-            $this->lang         = \fpcm\classes\loader::getObject('language');
+            $this->lang         = \fpcm\classes\loader::getObject('fpcm\classes\language');
         }
         
         /**
@@ -256,7 +256,7 @@
                 if ($simplemsg) {
                     print $this->lang->translate('MAINTENANCE_MODE_ENABLED');
                 } else {
-                    $view = new \fpcm\model\view\error();
+                    $view = new \fpcm\view\error();
                     $view->setMessage($this->lang->translate('MAINTENANCE_MODE_ENABLED'));
                     $view->render();
                 }
@@ -302,7 +302,7 @@
 
                 if (!in_array($modulename, $this->enabledModules)) {
                     trigger_error("Request for controller '{$currentClass}' of disabled module '{$modulename}'!");                    
-                    $view = new \fpcm\model\view\error();
+                    $view = new \fpcm\view\error();
                     $view->setMessage("The controller '{$this->getRequestVar('module')}' is not enabled for execution!");
                     $view->render();
                     die();
@@ -316,7 +316,7 @@
             
             if ($this->permissions) {
                 if (count($this->checkPermission) && !$this->permissions->check($this->checkPermission)) {
-                    $view = new \fpcm\model\view\error();
+                    $view = new \fpcm\view\error();
                     $view->setMessage($this->lang->translate('PERMISSIONS_REQUIRED'));
                     $view->render();
                     die();

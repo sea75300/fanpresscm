@@ -2,7 +2,7 @@
     /**
      * FanPress CM Cronjob list
      * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
 
@@ -20,7 +20,7 @@
          * Konstruktor
          */
         public function __construct() {
-            $this->events = new \fpcm\model\events\eventList();
+            $this->events = new \fpcm\events\events();
         }
         
         /**
@@ -128,8 +128,8 @@
          */
         public function getExecutableCrons() {
             
-            $res = \fpcm\classes\loader::getObject('database')->fetch(
-                    \fpcm\classes\loader::getObject('database')->select(
+            $res = \fpcm\classes\loader::getObject('fpcm\classes\database')->fetch(
+                    \fpcm\classes\loader::getObject('fpcm\classes\database')->select(
                         \fpcm\classes\database::tableCronjobs,
                         '*',
                         '(lastexec+execinterval) < ?',
@@ -171,7 +171,7 @@
          * @return array
          */
         public function getCronsData() {
-            $res = \fpcm\classes\loader::getObject('database')->fetch(\fpcm\classes\loader::getObject('database')->select(\fpcm\classes\database::tableCronjobs), true);
+            $res = \fpcm\classes\loader::getObject('fpcm\classes\database')->fetch(\fpcm\classes\loader::getObject('fpcm\classes\database')->select(\fpcm\classes\database::tableCronjobs), true);
             
             $list = [];
             

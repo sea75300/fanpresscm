@@ -1,7 +1,7 @@
 <?php
     /**
      * FanPress CM 3.x
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\classes;
@@ -11,7 +11,7 @@
      * 
      * @package fpcm\classes\language
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      */ 
     final class language {
         
@@ -50,9 +50,8 @@
          * @param string $langCode
          * @return boolean
          */
-        public function __construct($langCode) {
-            
-            if (!$langCode) $langCode = FPCM_DEFAULT_LANGUAGE_CODE;
+        public function __construct($langCode = FPCM_DEFAULT_LANGUAGE_CODE)
+        {
             
             $this->langPath = dirs::getIncDirPath('lang'.DIRECTORY_SEPARATOR.$langCode);
             
@@ -73,7 +72,7 @@
             $this->langList[$langCode] = file_get_contents($confFile);
             $this->helpFile            = $this->langPath.'/help.php';
 
-            $this->cache = loader::getObject('cache');
+            $this->cache = loader::getObject('fpcm\classes\cache');
             $cacheName   = 'system/langcache_'.$langCode;
             
             if (!$this->cache->isExpired($cacheName)) {
@@ -119,7 +118,8 @@
          * Gibt installierte Sprachpakete zurück
          * @return array
          */
-        public function getLanguages() {
+        public function getLanguages()
+        {
             
             $langs = glob(dirs::getIncDirPath('lang/*/lang.cfg'));
             
@@ -137,7 +137,8 @@
          * Gibt aktuellen Sprachcode zurück
          * @return string
          */        
-        public function getLangCode() {
+        public function getLangCode()
+        {
             return $this->langCode;
         }        
         
@@ -145,7 +146,8 @@
          * Gibt Hilfe-XML-String zurück
          * @return string
          */
-        public function getHelp() {
+        public function getHelp()
+        {
             return file_get_contents($this->helpFile);
         }
 
@@ -156,7 +158,8 @@
          * * Aufbau: Key = Platzhalter => Value = Text
          * @return string
          */
-        public function translate($langvar, array $replaceParams = array()) {
+        public function translate($langvar, array $replaceParams = [])
+        {
 
             $langvar  = strtoupper($langvar);
             $langData = isset($GLOBALS['langdata'][$langvar]) ? $GLOBALS['langdata'][$langvar] : null;  
@@ -180,7 +183,8 @@
          * Ersetzt Monat (1-12) in sprachspezifischen String
          * @param int $monthId
          */
-        public function writeMonth($monthId) {
+        public function writeMonth($monthId)
+        {
             print isset($GLOBALS['langdata']['SYSTEM_MONTHS'][$monthId]) ? $GLOBALS['langdata']['SYSTEM_MONTHS'][$monthId] : null;
         }
         
@@ -188,7 +192,8 @@
          * Gibt sprachspezifische Monate zurück
          * @return array
          */
-        public function getMonths() {
+        public function getMonths()
+        {
             return $GLOBALS['langdata']['SYSTEM_MONTHS'];
         }
         
@@ -196,7 +201,8 @@
          * Gibt sprachspezifische Tage zurück
          * @return array
          */
-        public function getDays() {
+        public function getDays()
+        {
             return $GLOBALS['langdata']['SYSTEM_DAYS'];
         }
         
@@ -204,7 +210,8 @@
          * Gibt sprachspezifische Tage zurück
          * @return array
          */
-        public function getDaysShort() {            
+        public function getDaysShort()
+        {            
             $days = $this->getDays();
             foreach ($days as &$day) {
                 $day = substr($day, 0, 2);
@@ -218,51 +225,10 @@
          * @param array $replaceParams Liste von Platzhaltern in der Sprachvariable mit zu ersetzendem Text
          * * Aufbau: Key = Platzhalter => Value = Text
          */
-        public function write($langvar, array $replaceParams = array()) {
+        public function write($langvar, array $replaceParams = [])
+        {
             print $this->translate($langvar, $replaceParams);
         }
-        
-        /**
-         * Gibt OK aus
-         */
-        public function printOk() {
-            print $this->translate('GLOBAL_OK');
-        }
-        
-        /**
-         * Gibt "Ja" aus
-         */
-        public function printYes() {
-            print $this->translate('GLOBAL_YES');
-        }
-        
-        /**
-         * Gibt "Nein" aus
-         */
-        public function printNo() {
-            print $this->translate('GLOBAL_NO');
-        }
-        
-        /**
-         * Gibt "Speichern" aus
-         */
-        public function printSave() {
-            print $this->translate('GLOBAL_SAVE');
-        }
-        
-        /**
-         * Gibt "Zurück" aus
-         */
-        public function printBack() {
-            print $this->translate('GLOBAL_BACK');
-        }
-        
-        /**
-         * Gibt "Schließen" aus
-         */
-        public function printClose() {
-            print $this->translate('GLOBAL_CLOSE');
-        }
-        
+
     }
 ?>

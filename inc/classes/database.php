@@ -10,7 +10,7 @@
      * 
      * @package fpcm\classes\database
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      */ 
     final class database {
 

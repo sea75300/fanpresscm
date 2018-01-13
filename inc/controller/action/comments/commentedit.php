@@ -2,7 +2,7 @@
     /**
      * Comment edit controller
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\action\comments;
@@ -13,7 +13,7 @@
 
         /**
          *
-         * @var \fpcm\model\view\acp
+         * @var \fpcm\view\view
          */
         protected $view;
 
@@ -52,7 +52,7 @@
             }
             
             
-            $this->view     = new \fpcm\model\view\acp('commentedit', 'comments');            
+            $this->view     = new \fpcm\view\view('commentedit', 'comments');            
         }
 
         public function request() {
@@ -69,7 +69,7 @@
 
             $this->checkEditPermissions($this->comment);
             if (!$this->comment->getEditPermission()) {
-                $this->view = new \fpcm\model\view\error();
+                $this->view = new \fpcm\view\error();
                 $this->view->setMessage($this->lang->translate('PERMISSIONS_REQUIRED'));
                 $this->view->render();
                 return false;

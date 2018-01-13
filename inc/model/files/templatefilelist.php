@@ -8,7 +8,7 @@
     /**
      * Article template file list
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      * @package fpcm\model\files
      * @author Stefan Seehafer <sea75300@yahoo.de>

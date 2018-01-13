@@ -2,7 +2,7 @@
     /**
      * Category list controller
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\action\categories;
@@ -20,7 +20,7 @@
             
             $this->checkPermission = array('system' => 'categories');
             
-            $this->view     = new \fpcm\model\view\acp('categorylist', 'categories');
+            $this->view     = new \fpcm\view\view('categorylist', 'categories');
             
             $this->list     = new \fpcm\model\categories\categoryList();
             $this->rollList = new \fpcm\model\users\userRollList();

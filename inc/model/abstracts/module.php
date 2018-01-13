@@ -3,7 +3,7 @@
      * FanPress CM module base class
      * 
      * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\model\abstracts;
@@ -152,13 +152,13 @@
          */
         public function __construct($key, $name, $version, $versionRemote = '-', $description = '-', $author = '-', $link = '', $systemMinVersion = '', $init = true) {
 
-            $this->dbcon    = \fpcm\classes\loader::getObject('database');
+            $this->dbcon    = \fpcm\classes\loader::getObject('fpcm\classes\database');
             
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
             
             $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-            $this->language      = \fpcm\classes\loader::getObject('language');
-            $this->notifications = !empty(\fpcm\classes\baseconfig::$fpcmNotifications) ? \fpcm\classes\baseconfig::$fpcmNotifications : null;
+            $this->language      = \fpcm\classes\loader::getObject('fpcm\classes\language');
+            $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
             
             $this->modkey           = $key;
             $this->name             = $name;
@@ -454,7 +454,7 @@
          * @return string
          */
         public static function getModuleEventNamespace($key, $event) {
-            return "\\fpcm\\modules\\".str_replace(DIRECTORY_SEPARATOR, '\\', $key)."\\events\\{$event}";
+            return "\\fpcm\\events\\".str_replace(DIRECTORY_SEPARATOR, '\\', $key)."\\{$event}";
         }
         
         /**

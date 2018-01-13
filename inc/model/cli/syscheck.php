@@ -10,7 +10,7 @@
      * 
      * @package fpcm\model\cli
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      * @since FPCM 3.5.1
      */
@@ -22,7 +22,7 @@
          */
         public function process() {
 
-            \fpcm\classes\loader::getObject('language') = new \fpcm\classes\language('en');
+            \fpcm\classes\loader::getObject('fpcm\classes\language', 'en', false);
             
             $sysCheckAction = new \fpcm\controller\ajax\system\syscheck();
             $rows = $sysCheckAction->processCli();

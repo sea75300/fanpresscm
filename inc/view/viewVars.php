@@ -6,11 +6,11 @@
     namespace fpcm\view;
     
     /**
-     * Standard-View Variablen
+     * Defaul view vars
      * 
      * @package fpcm\view
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      * 
      * @property string $version
@@ -34,5 +34,30 @@
      */ 
     class viewVars {
 
+        /**
+         * Var values
+         * @var array
+         */
+        private $vars = [];
+
+        /**
+         * Magic Getter
+         * @param string $name
+         * @return mixed|null
+         */
+        public function __get($name) {
+            return isset($this->vars[$name]) ? $this->vars[$name] : null;
+        }
+
+        /**
+         * Magic setter
+         * @param string $name
+         * @param mixed $value
+         */
+        public function __set($name, $value) {
+            $this->vars[$name] = $value;
+        }
+
+        
     }
 ?>

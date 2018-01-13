@@ -2,7 +2,7 @@
     /**
      * Recent articles Dashboard Container
      * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
 
@@ -68,10 +68,10 @@
                 
                 $content[] = '<tr class="fpcm-small-text">';
                 $content[] = '  <td class="fpcm-ui-articlelist-open">';
-                $content[] = '  <a class="fpcm-ui-button fpcm-ui-button-blank fpcm-openlink-btn" href="'.\fpcm\model\view\helper::escapeVal(strip_tags($item->link)).'" target="_blank" title="'.$this->language->translate('GLOBAL_OPENNEWWIN').'">'.$this->language->translate('GLOBAL_OPENNEWWIN').'</a>';
+                $content[] = '  <a class="fpcm-ui-button fpcm-ui-button-blank fpcm-openlink-btn" href="'.\fpcm\view\helper::escapeVal(strip_tags($item->link)).'" target="_blank" title="'.$this->language->translate('GLOBAL_OPENNEWWIN').'">'.$this->language->translate('GLOBAL_OPENNEWWIN').'</a>';
                 $content[] = '  </td>';
                 $content[] = '  <td>';
-                $content[] = '  <strong>'.\fpcm\model\view\helper::escapeVal(strip_tags($item->title)).'</strong><br>';
+                $content[] = '  <strong>'.\fpcm\view\helper::escapeVal(strip_tags($item->title)).'</strong><br>';
                 $content[] = '  <span>'.date($this->config->system_dtmask, strtotime($item->pubDate)).'</span>';
                 $content[] = '  </td>';               
                 $content[] = '</tr>';

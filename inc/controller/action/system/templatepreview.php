@@ -2,7 +2,7 @@
     /**
      * Template preview controller
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\action\system;
@@ -13,7 +13,7 @@
         
         /**
          *
-         * @var \fpcm\model\view\pub
+         * @var \fpcm\view\pub
          */
         protected $view;
 
@@ -79,7 +79,7 @@
                     $this->getLatestNewsPreview();
                     break;
                 default :
-                    $this->view = new \fpcm\model\view\error();
+                    $this->view = new \fpcm\view\error();
                     $this->view->setMessage('Invalid template data');
                     $this->view->render();
                     return;
@@ -99,7 +99,7 @@
         
         private function getArticlesPreview() {
 
-            $this->view         = new \fpcm\model\view\pub('showall', 'public');
+            $this->view         = new \fpcm\view\pub('showall', 'public');
 
             $parsed = [];
             
@@ -163,7 +163,7 @@
 
         private function getArticlePreview() {
 
-            $this->view         = new \fpcm\model\view\pub('showsingle', 'public');
+            $this->view         = new \fpcm\view\pub('showsingle', 'public');
             
             $categoryTexts     = array('<span class="fpcm-pub-category-text">Category 1</span>', '<span class="fpcm-pub-category-text">Category 2</span>');
             $shareButtonParser = new \fpcm\model\pubtemplates\sharebuttons($this->config->system_url, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr!');
@@ -198,7 +198,7 @@
         }
         
         private function getCommentPreview() {
-            $this->view = new \fpcm\model\view\pub('showsingle', 'public');
+            $this->view = new \fpcm\view\pub('showsingle', 'public');
 
             $this->view->assign('article', '');
             
@@ -221,7 +221,7 @@
         
         private function getCommentFormPreview() {
             
-            $this->view = new \fpcm\model\view\pub('showsingle', 'public');
+            $this->view = new \fpcm\view\pub('showsingle', 'public');
             $this->view->assign('article', '');
             $this->view->assign('comments', '');
             
@@ -267,7 +267,7 @@
         
         private function getLatestNewsPreview() {
 
-            $this->view = new \fpcm\model\view\pub('showlatest', 'public');
+            $this->view = new \fpcm\view\pub('showlatest', 'public');
             
             $replacements = array(
                 '{{headline}}'                      => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr!',

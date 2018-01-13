@@ -3,7 +3,7 @@
      * AJAX logs reload controller
      * 
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\ajax\logs;
@@ -74,7 +74,7 @@
         private function loadLog0() {
             $userList = new \fpcm\model\users\userList();
             
-            $view = new \fpcm\model\view\ajax('sessions', 'logs');
+            $view = new \fpcm\view\ajax('sessions', 'logs');
             $view->setExcludeMessages(true);
             $view->initAssigns();
             $view->assign('userList', $userList->getUsersAll());
@@ -124,7 +124,7 @@
          */
         private function readStandard($tpl, $varName) {
             $logFile = new \fpcm\model\files\logfile($this->log);            
-            $view = new \fpcm\model\view\ajax($tpl, 'logs');
+            $view = new \fpcm\view\ajax($tpl, 'logs');
             $view->assign($varName, $logFile->fetchData());
             $view->setExcludeMessages(true);
             $view->initAssigns();

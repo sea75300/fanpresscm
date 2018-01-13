@@ -2,7 +2,7 @@
     /**
      * FanPress CM Database dump cronjob
      * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
 
@@ -11,7 +11,7 @@
     /**
      * FanPress CM Database dump cronjob
      * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      * @package fpcm\model\crons
      * @author Stefan Seehafer <sea75300@yahoo.de>
@@ -29,7 +29,7 @@
          */
         public function run() {
 
-            if (\fpcm\classes\loader::getObject('database')->getDbtype() == \fpcm\classes\database::DBTYPE_POSTGRES) {
+            if (\fpcm\classes\loader::getObject('fpcm\classes\database')->getDbtype() == \fpcm\classes\database::DBTYPE_POSTGRES) {
                 $this->updateLastExecTime();
                 return true;
             }
@@ -92,7 +92,7 @@
             
             fpcmLogCron('New database dump created in "'.\fpcm\model\files\ops::removeBaseDir($this->dumpfile, true).'".');            
 
-            $text  = \fpcm\classes\loader::getObject('language')->translate('CRONJOB_DBBACKUPS_TEXT', array(
+            $text  = \fpcm\classes\loader::getObject('fpcm\classes\language')->translate('CRONJOB_DBBACKUPS_TEXT', array(
                 '{{filetime}}' => date(\fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_dtmask, $this->getLastExecTime()),
                 '{{dumpfile}}' => \fpcm\model\files\ops::removeBaseDir($this->dumpfile)
             ));
@@ -101,7 +101,7 @@
             
             $email = new \fpcm\classes\email(
                 \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_email,
-                \fpcm\classes\loader::getObject('language')->translate('CRONJOB_DBBACKUPS_SUBJECT'),
+                \fpcm\classes\loader::getObject('fpcm\classes\language')->translate('CRONJOB_DBBACKUPS_SUBJECT'),
                 $text
             );
 

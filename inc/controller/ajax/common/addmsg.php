@@ -3,7 +3,7 @@
      * AJAX add message controller
      * 
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\ajax\common;
@@ -22,7 +22,7 @@
         public function process() {
             parent::process();
 
-            $view = new \fpcm\model\view\ajax();
+            $view = new \fpcm\view\ajax();
             
             $type = $this->getRequestVar('type');
             $msg  = $this->getRequestVar('msgtxt');

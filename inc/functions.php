@@ -2,7 +2,7 @@
     /**
      * Base functions
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
 
@@ -159,7 +159,7 @@
         $html[] = 'Basedir: '.\fpcm\classes\dirs::getFullDirPath('');
         $html[] = 'PHP version: '.PHP_VERSION;
         $html[] = 'Runtime: '.fpcm\classes\timer::cal().' sec';
-        $html[] = 'Database queries: '.\fpcm\classes\loader::getObject('database')->getQueryCount();
+        $html[] = 'Database queries: '.\fpcm\classes\loader::getObject('fpcm\classes\database')->getQueryCount();
         print '<div class="fpcm-debug-data"><div>'.implode("<br>\n", $html).'</div></div>'.PHP_EOL.PHP_EOL;
     }    
     

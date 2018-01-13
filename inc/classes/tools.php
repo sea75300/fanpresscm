@@ -10,7 +10,7 @@
      * 
      * @package fpcm\classes\tools
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      * @since FPCM 3.1.2
      */     
@@ -120,7 +120,7 @@
             $data['pageCurrent'] = $pageCurrent;
 
             /* @var $langObj language */
-            $langObj = loader::getObject('language', loader::getObject('\fpcm\model\system\config')->system_lang);
+            $langObj = loader::getObject('fpcm\classes\language', loader::getObject('\fpcm\model\system\config')->system_lang);
             
             for ($i=1; $i<=$data['pageCount']; $i++) {
                 $data['pageSelectOptions'][$langObj->translate('GLOBAL_PAGER', array('{{current}}' => $i, '{{total}}' => $data['pageCount']))] = $i;

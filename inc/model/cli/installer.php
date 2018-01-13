@@ -10,7 +10,7 @@
      * 
      * @package fpcm\model\cli
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      * @since FPCM 3.5.1
      */
@@ -181,7 +181,7 @@
             $this->output(PHP_EOL.'Create tables...'.PHP_EOL);
             $files = \fpcm\classes\database::getTableFiles();
 
-            \fpcm\classes\loader::getObject('database') = new \fpcm\classes\database();
+            \fpcm\classes\loader::getObject('fpcm\classes\database') = new \fpcm\classes\database();
             foreach ($files as $file) {
 
                 $tabName = substr(basename($file, '.yml'), 2);
@@ -189,7 +189,7 @@
                 print '...';
                 usleep(50000);
 
-                $res = \fpcm\classes\loader::getObject('database')->execYaTdl($file);
+                $res = \fpcm\classes\loader::getObject('fpcm\classes\database')->execYaTdl($file);
                 print '.';
                 usleep(50000);
 
@@ -295,7 +295,7 @@
             usleep(75000);
             
             $this->output(PHP_EOL.'Cleanup cache...'.PHP_EOL);
-            $cache = new \fpcm\classes\cache();
+            $cache = \fpcm\classes\loader::getObject('fpcm\classes\cache');
             $cache->cleanup();
             usleep(75000);
             

@@ -9,7 +9,7 @@
      * ACP navigation Objekt
      * 
      * @author Stefan Seehafer aka imagine <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      * @package fpcm\model\theme
      */
@@ -310,7 +310,7 @@
                 ])
             );
             
-            if (\fpcm\classes\loader::getObject('database')->getDbtype() == 'mysql') {
+            if (\fpcm\classes\loader::getObject('fpcm\classes\database')->getDbtype() == 'mysql') {
                 $data[] = navigationItem::createItemFromArray([
                     'url'               => 'system/backups',
                     'permission'        => array('system' => 'backups'),

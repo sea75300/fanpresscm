@@ -10,7 +10,7 @@
      * 
      * @package fpcm\controller\ajax\commom.addmsg
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      * @since FPCM 3.6
      */

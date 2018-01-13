@@ -11,7 +11,7 @@
      * 
      * @package fpcm\classes\baseconfig
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      */     
     final class baseconfig {
         
@@ -95,16 +95,9 @@
         /**
          * Initiiert Grundsystem
          */
-        public static function init() {
+        public static function init()
+        {
 
-            dirs::initDirs();           
-            dirs::initUrls();
-            
-            fpcmDump($GLOBALS);
-            
-
-
-            self::initServers();
 
             self::$logFiles            = array(
                 'phplog'    => dirs::getDataDirPath(dirs::DATA_LOGS, 'phplog.txt'),
@@ -119,16 +112,16 @@
             self::$cronAsyncFile        = dirs::getDataDirPath(dirs::DATA_TEMP, 'cronjob.disabled');
 
             if (self::dbConfigExists()) {
-                loader::getObject('database');
+                loader::getObject('\fpcm\classes\database');
             }
 
-            loader::getObject('\fpcm\model\system\config');
+            $config = loader::getObject('\fpcm\model\system\config');
             loader::getObject('\fpcm\model\system\session');
             loader::getObject('\fpcm\model\system\config')->setUserSettings();
-            loader::getObject('language', loader::getObject('\fpcm\model\system\config')->system_lang);
+            loader::getObject('\fpcm\classes\language', $config->system_lang);
             loader::getObject('\fpcm\model\theme\notifications');
 
-            die();
+            self::initServers();
         }
 
         /**
@@ -273,9 +266,9 @@
             }
 
             $controller     = array_unique(array_merge($controller, self::initModuleControllers()));
-            $controllerCache->write($controller, FPCM_LANGCACHE_TIMEOUT);
+            $controllerCache->write($cacheName, $controller, FPCM_CACHE_DEFAULT_TIMEOUT);
             
-            return $controllerList;
+            return $controller;
         }
         
         /**
@@ -366,6 +359,8 @@
          */
         private static function initModuleControllers()
         {
+            return [];
+            
             $moduleConfigs = glob(dirs::getDataDirPath(dirs::DATA_MODULES, '*/*/config/controllers.yml'));
             if (!$moduleConfigs || !count($moduleConfigs)) return [];
 

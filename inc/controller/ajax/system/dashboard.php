@@ -2,7 +2,7 @@
     /**
      * Dashboard controller
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\ajax\system;
@@ -11,7 +11,7 @@
         
         /**
          * Controller-View
-         * @var \fpcm\model\view\ajax
+         * @var \fpcm\view\ajax
          */
         protected $view;
         
@@ -26,7 +26,7 @@
          */
         public function __construct() {
             parent::__construct();
-            $this->view = new \fpcm\model\view\ajax('list', 'dashboard');
+            $this->view = new \fpcm\view\ajax('list', 'dashboard');
         }
         
         public function request() {

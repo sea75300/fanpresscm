@@ -2,7 +2,7 @@
     /**
      * Common inits
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
 
@@ -24,6 +24,7 @@
 
     include __DIR__.'/functions.php';
     
+    \fpcm\classes\dirs::init();
     \fpcm\classes\baseconfig::init();
     
 ?>

@@ -3,7 +3,7 @@
      * AJAX inner file list controller
      * 
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\ajax\files;
@@ -26,7 +26,7 @@
         
         /**
          * Controller-View
-         * @var \fpcm\model\view\ajax
+         * @var \fpcm\view\ajax
          */        
         protected $view;
         
@@ -38,7 +38,7 @@
             
             $this->checkPermission = array('article' => 'add', 'article' => 'edit', 'uploads' => 'add');
             
-            $this->view = new \fpcm\model\view\ajax('listinner', 'filemanager');
+            $this->view = new \fpcm\view\ajax('listinner', 'filemanager');
         }
         
         /**

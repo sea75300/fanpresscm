@@ -10,7 +10,7 @@
      * 
      * @package fpcm\classes\loader
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */ 
     final class loader {
@@ -28,14 +28,14 @@
                 return false;
             }
 
-            $hash = (strpos($class, 'fpcm\classes') !== false ? explode('\\', $class, 3)[3] : $class);
-            if (isset($GLOBALS['fpcm']['objects'][$hash]) && is_object($GLOBALS['fpcm']['objects'][$hash]) && $cache) {
-                return $GLOBALS['fpcm']['objects'][$hash];
+            $class = ltrim($class, '\\');            
+            if (isset($GLOBALS['fpcm']['objects'][$class]) && is_object($GLOBALS['fpcm']['objects'][$class]) && $cache) {
+                return $GLOBALS['fpcm']['objects'][$class];
             }
             
-            $GLOBALS['fpcm']['objects'][$hash] = $params ? new $class($params) : new $class();
+            $GLOBALS['fpcm']['objects'][$class] = $params ? new $class($params) : new $class();
 
-            return $GLOBALS['fpcm']['objects'][$hash];
+            return $GLOBALS['fpcm']['objects'][$class];
         }
 
         /**

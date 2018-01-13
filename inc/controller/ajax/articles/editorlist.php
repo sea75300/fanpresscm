@@ -22,7 +22,7 @@
 
         /**
          *
-         * @var \fpcm\model\view\ajax
+         * @var \fpcm\view\ajax
          */
         protected $view;
 
@@ -72,7 +72,7 @@
             $search->articleid  = $this->oid;
             $search->searchtype = 0;
 
-            $this->view = new \fpcm\model\view\ajax('commentlist_inner', 'comments');
+            $this->view = new \fpcm\view\ajax('commentlist_inner', 'comments');
             $this->view->assign('comments', $commentList->getCommentsBySearchCondition($search));
             $this->view->assign('commentsMode', 2);
             $this->view->assign('showPager', false);
@@ -89,7 +89,7 @@
                 die();
             }
             
-            $this->view = new \fpcm\model\view\ajax('revisions', 'articles/lists');
+            $this->view = new \fpcm\view\ajax('revisions', 'articles/lists');
             $this->view->assign('revisions', $article->getRevisions());
             $this->view->assign('revisionCount', $article->getRevisionsCount());
             $this->view->assign('revisionPermission', $this->permissions->check(array('article' => 'revisions')));

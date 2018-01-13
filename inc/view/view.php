@@ -6,11 +6,11 @@
     namespace fpcm\view;
     
     /**
-     * View Objekt
+     * Default view object
      * 
      * @package fpcm\view
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */ 
     class view {
@@ -22,61 +22,61 @@
         const INCLUDE_HEADER_NONE   = 0b00100;
         
         /**
-         * Pfad zur View
+         * Complete view path
          * @var string
          */
         protected $viewPath = '';
         
         /**
-         * Name zur View
+         * View file name
          * @var string
          */
         protected $viewName = '';
         
         /**
-         * Header & Footer includen anzeigen
+         * Include header and footer in view::render
          * @var int
          */
         protected $showHeader;
 
         /**
-         * View-Variablen
+         * View vars
          * @var array
          */
         protected $viewVars       = [];
         
         /**
-         * View-Javascript-Dateien
+         * View JS files
          * @var array
          */
         protected $viewJsFiles    = [];
         
         /**
-         * View-CSS-Dateien
+         * View CSS files
          * @var array
          */
         protected $viewCssFiles   = [];
 
         /**
-         * View-Message-Informationen
+         * View messages
          * @var array
          */
         protected $messages       = [];
         
         /**
-         * View-Javascript-Variablen
+         * View JS vars
          * @var array
          */
         protected $jsvars         = [];
         
         /**
-         * View-Javascript-Sprachvariablen
+         * View JS language vars
          * @var array
          */
         protected $jsLangVars       = [];
         
         /**
-         * View Filelib
+         * File library object
          * @var \fpcm\model\system\fileLib
          */
         protected $fileLib;
@@ -88,13 +88,13 @@
         protected $notifications;
 
         /**
-         * Standard-View-Variablen
+         * Default vars object
          * @var viewVars
          */
         protected $defaultViewVars;
 
         /**
-         * Session
+         * Session object
          * @var \fpcm\model\system\session
          */
         protected $session;
@@ -128,7 +128,7 @@
             $this->session          = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
             $this->config           = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
             $this->notifications    = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
-            $this->language         = \fpcm\classes\loader::getObject('language');
+            $this->language         = \fpcm\classes\loader::getObject('fpcm\classes\language');
             
             $this->fileLib          = new \fpcm\model\system\fileLib();
             $this->defaultViewVars  = new viewVars();
@@ -175,7 +175,7 @@
             $cacheName  = 'system/jspaths';
             
             /* @var $cache \fpcm\classes\cache */
-            $cache      = \fpcm\classes\loader::getObject('cache');
+            $cache      = \fpcm\classes\loader::getObject('fpcm\classes\cache');
             $checks     = [];
             
             if (!$cache->isExpired($cacheName)) {
@@ -259,7 +259,7 @@
         }
 
         /**
-         * JS-Variable zur Nutzung hinzufügen
+         * Add new JS vars
          * @param mixed $jsvars
          */
         public function addJsVars(array $jsvars)
@@ -268,7 +268,7 @@
         }
 
         /**
-         * Sprachvariable zur Nutzung via Javascript hinzufügen
+         * Add new JS language vars
          * @param mixed $jsvars
          */
         public function addJsLangVars(array $jsvars)
@@ -276,7 +276,7 @@
             $keys   = array_map('strtolower', array_keys($jsvars));
             $values = array_map([$this->language, 'translate'], array_values($jsvars));
 
-            $this->jsLangVars = array_merge($this->jsLangVars, array_combine($keys, $values)));
+            $this->jsLangVars = array_merge( $this->jsLangVars, array_combine($keys, $values) );
         }
 
         /**
@@ -293,7 +293,7 @@
         }
         
         /**
-         * Weißt Variable in View Wert zu
+         * Assign new variable to view
          * @param string $varName
          * @param mixes $varValue
          */       
@@ -303,7 +303,7 @@
         }
         
         /**
-         * rote Fehlermeldungen ausgeben
+         * Add red error message
          * @param string $messageText
          * @param string $params
          * @return void
@@ -328,7 +328,7 @@
         }
         
         /**
-         * blaue Info-Meldungen ausgeben
+         * Add blue notification message
          * @param string $messageText
          * @param string $params
          * @return void
@@ -353,7 +353,7 @@
         }
         
         /**
-         * glebe Meldungen ausgeben
+         * Add yellow message
          * @param string $messageText
          * @param string $params
          * @return void
@@ -378,7 +378,7 @@
         }
 
         /**
-         * Hilfe-Link setzen
+         * Set link for help button
          * @param string $helpLink
          * @since FPCM 3.5
          */
@@ -388,15 +388,15 @@
         }
 
         /**
-         * Header und Footer included oder nicht
-         * @param int $showHeader
+         * Include header and footer into view
+         * @param int $showHeader, valid values are \fpcm\view\view::INCLUDE_HEADER_FULL, \fpcm\view\view::INCLUDE_HEADER_SIMPLE, \fpcm\view\view::INCLUDE_HEADER_NONE
          */
         function showHeaderFooter($showHeader) {
             $this->showHeader = $showHeader;
         }
         
         /**
-         * Prüft, ob View-Datei vorhanden ist und lädt diese
+         * Renders a set up view
          * @return bool
          */        
         public function render()
@@ -407,9 +407,7 @@
             }
             
             $this->initAssigns();
-            $viewVars = $this->events->runEvent('view/renderBefore', $this->viewVars);
-
-            foreach ($viewVars as $key => $value) {
+            foreach ($this->events->runEvent('view/renderBefore', $this->viewVars) as $key => $value) {
                 $$key = $value;
             }
 
@@ -441,11 +439,12 @@
         }
 
         /**
-         * View-Variablen initialisieren
+         * Initializes basic view vars
+         * @return boolean
          */
         protected function initAssigns()
         {
-            if ($session->exists()) {
+            if ($this->session->exists()) {
                 
                 $this->addJsLangVars(['SESSION_TIMEOUT']);
                 $this->addJsVars(['sessionCheckEnabled' => true]);
@@ -463,8 +462,8 @@
             $this->defaultViewVars->themePath     = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
             $this->defaultViewVars->currentModule = \fpcm\classes\http::get('module');
 
-            $this->defaultViewVars->loggedIn      = $session->exists();
-            $this->defaultViewVars->language      = \fpcm\classes\loader::getObject('language', $this->config->system_lang);            
+            $this->defaultViewVars->loggedIn      = $this->session->exists();
+            $this->defaultViewVars->language      = \fpcm\classes\loader::getObject('fpcm\classes\language');            
             
             $this->defaultViewVars->filesCss      = $this->viewCssFiles;
             $this->defaultViewVars->filesJs       = $this->viewJsFiles;
@@ -482,10 +481,12 @@
             $this->assign('theView', $this->defaultViewVars);
 
             helper::init($this->config->system_lang);
+            
+            return true;
         }
 
         /**
-         * Prüft ob aktuelle Browser einem bestimmten Browser entspricht (nicht unbedingt 100%-tig zuverlässig!)
+         * Checks User Agent for a certain browser
          * @param string $key
          * @return boolean
          * @static

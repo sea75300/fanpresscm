@@ -2,7 +2,7 @@
     /**
      * Module list entry object
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\model\modules;
@@ -29,7 +29,10 @@
          * @param bool $init
          * @return array
          */
-        public function getModulesRemote($init = true) {
+        public function getModulesRemote($init = true)
+        {
+            return [];
+
             
             if (!\fpcm\classes\baseconfig::canConnect()) return [];
             
@@ -76,7 +79,10 @@
          * Gibt Liste mit Modulen zurück, die in lokaler Modul-DB-Tabellen enthalten sind und nicht von Modul-Server angeboten werden
          * @return array
          */
-        public function getModulesLocal() {
+        public function getModulesLocal()
+        {
+            return [];
+
             
             $this->getModuleLocalFilesystem();
             
@@ -124,7 +130,10 @@
          * Module in Datenbank schreiben, welche zwar in Filesystem sind aber noch nicht in DB
          * @return boolean
          */
-        protected function getModuleLocalFilesystem() {
+        protected function getModuleLocalFilesystem()
+        {
+            return [];
+
             $localsDB = $this->getInstalledModules();
             $localsFs = glob(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, '*/*'));
 
@@ -168,7 +177,9 @@
          * Gibt installierte, aber deaktivierte Module zurück
          * @return array
          */
-        public function getDisabledInstalledModules() {
+        public function getDisabledInstalledModules()
+        {
+            return [];
 
             $cache = new \fpcm\classes\cache(__FUNCTION__, \fpcm\model\abstracts\module::FPCM_MODULES_CACHEFOLDER);
             if (!$cache->isExpired()) {
@@ -191,8 +202,11 @@
          * Gibt installierte, aber deaktivierte Module zurück
          * @return array
          */
-        public function getEnabledInstalledModules() {
+        public function getEnabledInstalledModules()
+        {
 
+            return [];
+            
             $cache = new \fpcm\classes\cache(__FUNCTION__, \fpcm\model\abstracts\module::FPCM_MODULES_CACHEFOLDER);
             if (!$cache->isExpired()) {
                 return $cache->read();
@@ -214,7 +228,10 @@
          * Gibt installierte Module zurück
          * @return array
          */
-        public function getInstalledModules() {
+        public function getInstalledModules()
+        {
+            return [];
+
 
             $cache = new \fpcm\classes\cache(__FUNCTION__, \fpcm\model\abstracts\module::FPCM_MODULES_CACHEFOLDER);
             if (!$cache->isExpired()) {
@@ -238,7 +255,8 @@
          * @param array $keys
          * @return bool
          */
-        public function disableModules(array $keys) {
+        public function disableModules(array $keys)
+        {
             $this->cache->cleanup();
             return $this->dbcon->reverseBool($this->table, 'status', "(modkey ".$this->dbcon->dbLike()." '".  implode("' OR modkey ".$this->dbcon->dbLike()." '", $keys)."') AND status = 1");
         }
@@ -248,7 +266,8 @@
          * @param array $keys
          * @return bool
          */
-        public function enableModules(array $keys) {
+        public function enableModules(array $keys)
+        {
             $this->cache->cleanup();
             
             foreach ($keys as $key => $val) {
@@ -268,7 +287,8 @@
          * @param array $keys
          * @return boolean
          */
-        public function uninstallModules(array $keys) {
+        public function uninstallModules(array $keys)
+        {
 
             $this->cache->cleanup();
             
@@ -313,7 +333,8 @@
          * @param string $configFile
          * @return array
          */
-        public function getConfigByModuleKey($moduleKey, $configFile) {
+        public function getConfigByModuleKey($moduleKey, $configFile)
+        {
             
             $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $moduleKey.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.$configFile.'.yml');
             
@@ -328,7 +349,8 @@
          * @param string $moduleKey
          * @return boolean
          */
-        public function checkDepencies($moduleKey) {
+        public function checkDepencies($moduleKey)
+        {
 
             if (defined('FPCM_MODULE_IGNORE_DEPENDENCIES') && FPCM_MODULE_IGNORE_DEPENDENCIES) return true;
             

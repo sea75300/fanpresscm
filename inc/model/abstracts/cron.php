@@ -3,7 +3,7 @@
      * FanPress CM cronjob model
      * 
      * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\model\abstracts;
@@ -66,8 +66,8 @@
          */
         public function __construct($cronName, $init = true) {
             $this->table    = \fpcm\classes\database::tableCronjobs;
-            $this->dbcon    = \fpcm\classes\loader::getObject('database');
-            $this->events   = \fpcm\classes\loader::getObject('\fpcm\model\events\eventList');
+            $this->dbcon    = \fpcm\classes\loader::getObject('fpcm\classes\database');
+            $this->events   = \fpcm\classes\loader::getObject('\fpcm\events\events');
             $this->cronName = basename(str_replace('\\', DIRECTORY_SEPARATOR, $cronName));
             
             if ($init) {

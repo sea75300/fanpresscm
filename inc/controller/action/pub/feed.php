@@ -2,7 +2,7 @@
     /**
      * Public article RSS feed controller
      * @article Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\action\pub;
@@ -64,7 +64,7 @@
             parent::__construct();
             
             if ($this->config->articles_rss) {
-                $this->view         = new \fpcm\model\view\pub('feed', 'public');
+                $this->view         = new \fpcm\view\pub('feed', 'public');
 
                 $this->articleList  = new \fpcm\model\articles\articlelist();
                 $this->userList     = new \fpcm\model\users\userList();

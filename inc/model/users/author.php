@@ -3,7 +3,7 @@
      * FanPress CM Author/ User Model
      * 
      * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
 
@@ -538,7 +538,7 @@
         /**
          * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
          */
-        protected function init() {
+        public function init() {
             
             $item   = $this->dbcon->getTablePrefixed($this->table).'.*, ';
             $item  .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll).'.leveltitle AS groupname';

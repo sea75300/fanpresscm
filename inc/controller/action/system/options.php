@@ -2,7 +2,7 @@
     /**
      * Option edit controller
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\action\system;
@@ -13,7 +13,7 @@
         
         /**
          *
-         * @var \fpcm\model\view\acp
+         * @var \fpcm\view\view
          */
         protected $view;
         
@@ -49,7 +49,7 @@
             
             $this->checkPermission = array('system' => 'options');
             
-            $this->view   = new \fpcm\model\view\acp('options', 'system');
+            $this->view   = new \fpcm\view\view('options', 'system');
             $this->config = new \fpcm\model\system\config(false, false);
         }
         

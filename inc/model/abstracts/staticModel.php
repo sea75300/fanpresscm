@@ -3,7 +3,7 @@
      * FanPress CM static data model
      * 
      * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\model\abstracts;
@@ -31,7 +31,7 @@
         
         /**
          * Event list
-         * @var \fpcm\model\events\eventList 
+         * @var \fpcm\events\events 
          */
         protected $events;
         
@@ -80,8 +80,8 @@
         public function __construct()
         {
             
-            $this->events   = \fpcm\classes\loader::getObject('\fpcm\model\events\eventList');
-            $this->cache    = \fpcm\classes\loader::getObject('cache');
+            $this->events   = \fpcm\classes\loader::getObject('\fpcm\events\events');
+            $this->cache    = \fpcm\classes\loader::getObject('fpcm\classes\cache');
             
             if (!\fpcm\classes\baseconfig::dbConfigExists()) {
                 return;
@@ -89,7 +89,7 @@
 
             $this->session       = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
             $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-            $this->language      = \fpcm\classes\loader::getObject('language');
+            $this->language      = \fpcm\classes\loader::getObject('fpcm\classes\language');
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
             
             if (is_object($this->config)) {

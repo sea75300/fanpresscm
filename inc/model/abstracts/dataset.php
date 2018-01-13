@@ -3,7 +3,7 @@
      * FanPress CM Model object
      * 
      * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\model\abstracts;
@@ -66,7 +66,7 @@
         
         /**
          * Event-Liste
-         * @var \fpcm\model\events\eventList 
+         * @var \fpcm\events\events 
          */
         protected $events;
         
@@ -115,16 +115,16 @@
         public function __construct($id = null)
         {
  
-            $this->dbcon    = \fpcm\classes\loader::getObject('database');
-            $this->events   = \fpcm\classes\loader::getObject('\fpcm\model\events\eventList');
-            $this->cache    = \fpcm\classes\loader::getObject('cache');
+            $this->dbcon    = \fpcm\classes\loader::getObject('fpcm\classes\database');
+            $this->events   = \fpcm\classes\loader::getObject('\fpcm\events\events');
+            $this->cache    = \fpcm\classes\loader::getObject('fpcm\classes\cache');
 
             if (\fpcm\classes\baseconfig::installerEnabled()) {
                 return false;
             }
             
             $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-            $this->language      = \fpcm\classes\loader::getObject('language');
+            $this->language      = \fpcm\classes\loader::getObject('fpcm\classes\language');
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
 
             if (is_object($this->config)) {
@@ -216,7 +216,7 @@
         /**
          * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
          */
-        protected function init()
+        public function init()
         {            
             $data = $this->dbcon->fetch($this->dbcon->select($this->table, '*', "id = ?", [
                 $this->id

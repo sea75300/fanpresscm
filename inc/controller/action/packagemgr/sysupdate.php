@@ -2,7 +2,7 @@
     /**
      * System updater controller
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\action\packagemgr;
@@ -13,7 +13,7 @@
         
         /**
          * Controller-View
-         * @var \fpcm\model\view\acp
+         * @var \fpcm\view\view
          */
         protected $view;
         
@@ -42,7 +42,7 @@
             parent::__construct();
 
             $this->checkPermission  = array('system' => 'update');
-            $this->view             = new \fpcm\model\view\acp('sysupdater', 'packagemgr');
+            $this->view             = new \fpcm\view\view('sysupdater', 'packagemgr');
         }
         
         /**

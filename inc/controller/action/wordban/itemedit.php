@@ -2,7 +2,7 @@
     /**
      * Wordban item edit controller
      * @item Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\action\wordban;
@@ -21,7 +21,7 @@
             parent::__construct();
             
             $this->checkPermission = array('system' => 'wordban');
-            $this->view = new \fpcm\model\view\acp('itemedit', 'wordban');
+            $this->view = new \fpcm\view\view('itemedit', 'wordban');
             
         }
 

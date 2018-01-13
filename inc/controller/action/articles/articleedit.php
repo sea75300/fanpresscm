@@ -2,7 +2,7 @@
     /**
      * Article edit controller
      * @article Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\action\articles;
@@ -56,7 +56,7 @@
             
             $this->checkPermission = array('article' => 'edit');
             
-            $this->view        = new \fpcm\model\view\acp('articleedit', 'articles');
+            $this->view        = new \fpcm\view\view('articleedit', 'articles');
             $this->userList    = new \fpcm\model\users\userList();
             $this->commentList = new \fpcm\model\comments\commentList();
         }
@@ -80,7 +80,7 @@
 
             $this->checkEditPermissions($this->article);
             if (!$this->article->getEditPermission()) {
-                $this->view = new \fpcm\model\view\error();
+                $this->view = new \fpcm\view\error();
                 $this->view->setMessage($this->lang->translate('PERMISSIONS_REQUIRED'));
                 $this->view->render();
                 return false;

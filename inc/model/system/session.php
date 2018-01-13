@@ -3,7 +3,7 @@
      * Session object
      * 
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\model\system;
@@ -393,7 +393,7 @@
         /**
          * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
          */
-        protected function init() {
+        public function init() {
             
             $lastaction = time() + $this->config->system_session_length;
             $data = $this->dbcon->fetch($this->dbcon->select($this->table, '*', "sessionid = ? AND logout = 0 AND lastaction <= ? ".$this->dbcon->limitQuery(1, 0), array($this->sessionid, $lastaction)));

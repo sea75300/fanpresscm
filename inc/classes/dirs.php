@@ -34,11 +34,17 @@
         const CORE_THEME    = 'theme';
         const CORE_VIEWS    = 'views';
 
+        public static function init()
+        {
+            self::initDirs();
+            self::initUrls();
+        }
+        
         /**
          * Initialisiert Basis-Ordner
          * @return boolean
          */
-        public static function initDirs() {
+        private static function initDirs() {
             $GLOBALS['fpcm']['dir']['base'] = dirname(dirname(__DIR__)).DIRECTORY_SEPARATOR;                        
             $GLOBALS['fpcm']['dir']['core'] = $GLOBALS['fpcm']['dir']['base'].'core'.DIRECTORY_SEPARATOR;
             $GLOBALS['fpcm']['dir']['data'] = $GLOBALS['fpcm']['dir']['base'].'data'.DIRECTORY_SEPARATOR;
@@ -52,7 +58,7 @@
          * Initialisiert Basis-URLs
          * @return boolean
          */
-        public static function initUrls() {
+        private static function initUrls() {
 
             if (php_sapi_name() === 'cli') {
                 $GLOBALS['fpcm']['urls']['base'] = '';

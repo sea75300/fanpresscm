@@ -2,7 +2,7 @@
     /**
      * User list Dashboard Container
      * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
 
@@ -53,14 +53,14 @@
             /* @var $item \fpcm\model\users\author */
             foreach ($items as $item) {
                 
-                $emailAddress = \fpcm\model\view\helper::escapeVal($item->getEmail());
+                $emailAddress = \fpcm\view\helper::escapeVal($item->getEmail());
                 
                 $content[] = '<tr class="fpcm-small-text">';
                 $content[] = '  <td class="fpcm-ui-editbutton-col">';
                 $content[] = '  <a class="fpcm-ui-button fpcm-ui-button-blank fpcm-email-btn" href="mailto:'.$emailAddress.'" target="_blank" title="'.$this->language->translate('GLOBAL_WRITEMAIL').'">'.$this->language->translate('GLOBAL_WRITEMAIL').'</a>';
                 $content[] = '  </td>';
                 $content[] = '  <td>';
-                $content[] = '  <strong>'.\fpcm\model\view\helper::escapeVal($item->getDisplayname()).'</strong><br>';
+                $content[] = '  <strong>'.\fpcm\view\helper::escapeVal($item->getDisplayname()).'</strong><br>';
                 $content[] = '  <span>'.$emailAddress.'</span>';
                 $content[] = '  </td>';               
                 $content[] = '</tr>';

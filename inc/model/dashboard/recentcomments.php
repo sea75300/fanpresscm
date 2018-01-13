@@ -2,7 +2,7 @@
     /**
      * Recent comments Dashboard Container
      * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
 
@@ -117,7 +117,7 @@
                 $content[] = '  </td>';
                 
                 $content[] = '  <td>';
-                $content[] = '  <strong>'.\fpcm\model\view\helper::escapeVal(strip_tags($comment->getName())).'</strong> @ '.date($this->config->system_dtmask, $comment->getCreatetime()).'<br>';
+                $content[] = '  <strong>'.\fpcm\view\helper::escapeVal(strip_tags($comment->getName())).'</strong> @ '.date($this->config->system_dtmask, $comment->getCreatetime()).'<br>';
                 $content[] = '  <span>'.$createInfo.'</span>';
                 $content[] = '  </td>';
                 $content[] = '  <td class="fpcm-ui-dashboard-recentarticles-meta">';

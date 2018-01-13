@@ -2,7 +2,7 @@
     /**
      * System install controller
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\action\installer;
@@ -16,7 +16,7 @@
         
         /**
          *
-         * @var \fpcm\model\view\installer
+         * @var \fpcm\view\installer
          */
         protected $view;
         
@@ -87,7 +87,7 @@
             $this->step     = !is_null($this->getRequestVar('step')) ? $this->getRequestVar('step', array(9)) : 1;
             $this->langCode = !is_null($this->getRequestVar('language')) ? $this->getRequestVar('language') : FPCM_DEFAULT_LANGUAGE_CODE;            
             $this->lang     = new \fpcm\classes\language($this->langCode);
-            $this->view     = new \fpcm\model\view\installer('main', $this->langCode);
+            $this->view     = new \fpcm\view\installer('main', $this->langCode);
 
             return true;
         }
@@ -340,7 +340,7 @@
             $this->view->assign('disableInstallerMsg', !$res);
             $this->view->assign('showNextButton', false);
             
-            $cache = new \fpcm\classes\cache();
+            $cache = \fpcm\classes\loader::getObject('fpcm\classes\cache');
             $cache->cleanup();
             
         }

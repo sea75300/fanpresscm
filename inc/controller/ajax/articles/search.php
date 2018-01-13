@@ -5,7 +5,7 @@
      * AJAX controller for article search
      * 
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\ajax\articles;
@@ -22,7 +22,7 @@
         
         /**
          * Controller-View
-         * @var \fpcm\model\view\ajax
+         * @var \fpcm\view\ajax
          */
         protected $view;
         
@@ -85,7 +85,7 @@
             $this->commentList  = new \fpcm\model\comments\commentList();
             $this->userList     = new \fpcm\model\users\userList();
 
-            $this->view         = new \fpcm\model\view\ajax('articles', 'articles/lists');
+            $this->view         = new \fpcm\view\ajax('articles', 'articles/lists');
             $this->view->initAssigns();
         }
         

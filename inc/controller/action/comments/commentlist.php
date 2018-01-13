@@ -8,7 +8,7 @@
     /**
      * Comment list controller
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     class commentlist extends \fpcm\controller\abstracts\controller {
@@ -17,7 +17,7 @@
         
         /**
          *
-         * @var \fpcm\model\view\acp
+         * @var \fpcm\view\view
          */
         protected $view;
 
@@ -59,7 +59,7 @@
             
             $this->checkPermission = array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit'));
             
-            $this->view          = new \fpcm\model\view\acp('commentlist', 'comments');            
+            $this->view          = new \fpcm\view\view('commentlist', 'comments');            
             $this->list          = new \fpcm\model\comments\commentList();
             $this->articleList   = new \fpcm\model\articles\articlelist();
 

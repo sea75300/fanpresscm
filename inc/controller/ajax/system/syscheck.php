@@ -2,7 +2,7 @@
     /**
      * AJAX syscheck controller
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\ajax\system;
@@ -19,7 +19,7 @@
         
         /**
          * Controller-View
-         * @var \fpcm\model\view\acp
+         * @var \fpcm\view\view
          */
         protected $view;
 
@@ -56,7 +56,7 @@
          */
         public function process() {
 
-            $view = new \fpcm\model\view\ajax('syscheck', 'system');
+            $view = new \fpcm\view\ajax('syscheck', 'system');
             $view->setExcludeMessages(true);
             $view->initAssigns();
             $view->assign('checkOptions', $this->getCheckOptions());

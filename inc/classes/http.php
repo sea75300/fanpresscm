@@ -11,7 +11,7 @@
      * 
      * @package fpcm\classes\http
      * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      */ 
     final class http {
 

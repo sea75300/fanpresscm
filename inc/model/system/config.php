@@ -3,7 +3,7 @@
      * Configuration object
      * 
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\model\system;
@@ -94,9 +94,9 @@
         function __construct($useCache = true) {
             
             $this->table    = \fpcm\classes\database::tableConfig;
-            $this->dbcon    = \fpcm\classes\loader::getObject('database');
-            $this->events   = \fpcm\classes\loader::getObject('eventList');
-            $this->cache    = new \fpcm\classes\cache();
+            $this->dbcon    = \fpcm\classes\loader::getObject('fpcm\classes\database');
+            $this->events   = \fpcm\classes\loader::getObject('fpcm\events\events');
+            $this->cache    = \fpcm\classes\loader::getObject('fpcm\classes\cache');
             $this->useCache = $useCache;
 
             $this->data = [];
@@ -212,10 +212,8 @@
             foreach ($userData as $key => $value) {
                 $this->data[$key] = $value;
             }
-            
-            if ($this->system_lang != \fpcm\classes\loader::getObject('language')->getLangCode()) {
-                \fpcm\classes\loader::getObject('language') = new \fpcm\classes\language($this->system_lang);                
-            }
+
+            \fpcm\classes\loader::getObject('fpcm\classes\language', $this->system_lang, false);
         }
         
         /**

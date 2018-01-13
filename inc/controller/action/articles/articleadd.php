@@ -2,7 +2,7 @@
     /**
      * Article add controller
      * @article Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\controller\action\articles;
@@ -14,7 +14,7 @@
             
             $this->checkPermission = array('article' => 'add');
             
-            $this->view    = new \fpcm\model\view\acp('articleadd', 'articles');
+            $this->view    = new \fpcm\view\view('articleadd', 'articles');
             
             $this->article = new \fpcm\model\articles\article();
             $this->categoryList = new \fpcm\model\categories\categoryList();

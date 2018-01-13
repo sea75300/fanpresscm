@@ -2,7 +2,7 @@
     /**
      * Image file object
      * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2017, Stefan Seehafer
+     * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\model\files;
@@ -29,7 +29,7 @@
             
             $this->path     = \fpcm\classes\dirs::getDataDirPath(
                 \fpcm\classes\dirs::DATA_CACHE,
-                $this->initCacheModule($this->module),
+                $this->initCacheModule($this->module).DIRECTORY_SEPARATOR.
                 $this->initCacheName($this->module ? $cacheName[1] : $cacheName[0])
             ).self::EXTENSION_CACHE;
 
@@ -61,7 +61,7 @@
                 'expires'   => $expires,
                 'data'      => $data
             ];
-            
+
             return file_put_contents($this->path, json_encode($data));
         }
         
