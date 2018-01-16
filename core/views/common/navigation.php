@@ -1,4 +1,4 @@
-<?php if (isset($FPCM_NAVIGATION) && $FPCM_LOGGEDIN) : ?>
+<?php if (isset($FPCM_NAVIGATION) && $theView->loggedIn) : ?>
 <div class="fpcm-navigation-wrapper">
     <div class="fpcm-navigation">
         <ul id="fpcm-navigation-ul" class="fpcm-menu">

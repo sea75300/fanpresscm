@@ -16,7 +16,7 @@
         'PERMISSIONS_REQUIRED'          => 'Du hast keine Berechtigungen um auf diese Seite zuzugreifen!',
         'VIEW_NOT_FOUND'                => 'Die View {{viewname}} wurde nicht gefunden!',
         'AJAX_REQUEST_ERROR'            => 'Beim Ausführen der Aktion ist ein Fehler aufgetreten! Weitere Informationen findest du im Javascript-Log deines Browsers.',
-        'AJAX_REPONSE_ERROR'            => 'Vom Server wurde eine ungültige Antwort geliefert! Weitere Informationen findest du im Javascript-Log deines Browsers und ggf. im PHP-Log.',
+        'AJAX_RESPONSE_ERROR'            => 'Vom Server wurde eine ungültige Antwort geliefert! Weitere Informationen findest du im Javascript-Log deines Browsers und ggf. im PHP-Log.',
         'ERROR_IP_LOCKED'               => 'Deine IP-Adresse wurde für diese Aktion gesperrt! Um den Grund zu erfahren wende dich an die Betreiber der Seite.',
         'CACHE_CLEARED_OK'              => 'Der Cache wurde geleert!',
         'CONFIRM_MESSAGE'               => 'Willst du diese Aktion wirklich durchführen?',

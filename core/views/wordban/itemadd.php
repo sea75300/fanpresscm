@@ -1,9 +1,9 @@
 <div class="fpcm-content-wrapper">
-    <h1><span class="fa fa-ban"></span> <?php $FPCM_LANG->write('HL_OPTIONS_WORDBAN'); ?></h1>
-    <form method="post" action="<?php print $FPCM_SELF; ?>?module=wordban/add">
+    <h1><span class="fa fa-ban"></span> <?php $theView->lang->write('HL_OPTIONS_WORDBAN'); ?></h1>
+    <form method="post" action="<?php print $theView->self; ?>?module=wordban/add">
         <div class="fpcm-tabs-general">
             <ul>
-                <li><a href="#tabs-category"><?php $FPCM_LANG->write('WORDBAN_ADD'); ?></a></li>
+                <li><a href="#tabs-category"><?php $theView->lang->write('WORDBAN_ADD'); ?></a></li>
             </ul>            
             
             <div id="tabs-category">                

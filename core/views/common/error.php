@@ -1,11 +1,11 @@
 <!DOCTYPE HTML>
 <HTML>
     <head>
-        <title><?php $FPCM_LANG->write('HEADLINE'); ?></title>
+        <title><?php $theView->lang->write('HEADLINE'); ?></title>
         <meta http-equiv="Content-Language" content="de">
         <meta http-equiv="content-type" content= "text/html; charset=utf-8">
         <meta name="robots" content="noindex, nofollow">  
-        <link rel="shortcut icon" href="<?php print $FPCM_THEMEPATH; ?>favicon.png" type="image/png" /> 
+        <link rel="shortcut icon" href="<?php print $theView->themePath; ?>favicon.png" type="image/png" /> 
         <?php include_once 'includefiles.php'; ?>
     </head>    
 
@@ -21,9 +21,9 @@
                     <span class="fa fa-exclamation-triangle fa-stack-1x fa-inverse"></span>
                 </span>
                 
-                <p><?php print $message; ?></p>
+                <p><?php print \fpcm\view\helper::escapeVal($message); ?></p>
                 
-                <p><?php \fpcm\model\view\helper::linkButton('javascript:window.history.back();', 'GLOBAL_BACK'); ?></p>
+                <p><?php \fpcm\view\helper::linkButton('javascript:window.history.back();', 'GLOBAL_BACK'); ?></p>
                 
             </div>
         </div>

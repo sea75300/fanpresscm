@@ -7,4 +7,4 @@
 
 <?php if (!$hideDebug) : ?><?php fpcmDebugOutput(); ?><?php endif; ?>
 
-<!-- Powered by FanPress CM News System version <?php print $FPCM_VERSION; ?> -->
+<!-- Powered by FanPress CM News System version <?php print $theView->version; ?> -->

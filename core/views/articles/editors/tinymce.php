@@ -12,7 +12,7 @@
     <?php endif; ?>    
     <tr>
         <td>
-            <?php \fpcm\model\view\helper::textInput('article[title]', 'fpcm-full-width', $article->getTitle()); ?>
+            <?php \fpcm\view\helper::textInput('article[title]', 'fpcm-full-width', $article->getTitle()); ?>
         </td>
     </tr>
     <tr>
@@ -22,7 +22,7 @@
     </tr>
      <tr>
         <td>
-            <?php \fpcm\model\view\helper::textArea('article[content]', 'fpcm-full-width', stripslashes($article->getContent()), false, false); ?>
+            <?php \fpcm\view\helper::textArea('article[content]', 'fpcm-full-width', stripslashes($article->getContent()), false, false); ?>
         </td>
     </tr>
 </table>

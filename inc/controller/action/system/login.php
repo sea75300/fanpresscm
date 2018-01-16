@@ -11,12 +11,6 @@
         
         /**
          *
-         * @var \fpcm\view\view
-         */
-        protected $view;
-        
-        /**
-         *
          * @var \fpcm\model\ips\iplist
          */
         protected $iplist;
@@ -56,10 +50,16 @@
          */
         public function __construct() {
             parent::__construct();
-            $this->view = new \fpcm\view\view('login/login');
-            
-            $this->loginLockedExpire = session_cache_expire();
+            $this->loginLockedExpire = 0; //session_cache_expire();
             $this->iplist            = new \fpcm\model\ips\iplist();            
+        }
+
+        /**
+         * 
+         * @return string
+         */
+        protected function getViewPath() {
+            return 'login/login';
         }
 
         /**
@@ -71,6 +71,7 @@
             
             if ($this->session->exists()) {
                 $this->redirect('system/dashboard');
+                return true;
             }
             
             $this->pageTokenOk = $this->checkPageToken();

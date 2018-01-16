@@ -3,7 +3,7 @@
      * FanPress CM 4
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
-    namespace fpcm\model\view;
+    namespace fpcm\view;
     
     /**
      * Error View Objekt

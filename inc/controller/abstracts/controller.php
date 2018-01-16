@@ -102,6 +102,12 @@
          * @var array
          */
         protected $enabledModules   = [];
+        
+        /**
+         *
+         * @var \fpcm\view\view
+         */
+        protected $view;
 
         /**
          * Konstruktor
@@ -132,6 +138,13 @@
             $this->config->setUserSettings();
             
             $this->lang         = \fpcm\classes\loader::getObject('fpcm\classes\language', $this->config->system_lang);
+            
+            $viewPath           = $this->getViewPath();
+            if (!$viewPath) {
+                return;
+            }
+            
+            $this->view         = new \fpcm\view\view($viewPath);
         }
         
         /**
@@ -243,6 +256,15 @@
             }
 
             return false;
+        }
+
+        /**
+         * Get view path for controller
+         * @return string
+         */
+        protected function getViewPath()
+        {
+            return '';
         }
 
         /**

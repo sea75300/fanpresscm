@@ -12,20 +12,20 @@
         </div>
     </div>
 
-    <div id="fpcm-filemanager-upload-drop"><h4 class="fpcm-ui-center"><?php $FPCM_LANG->write('FILE_LIST_UPLOADDROP'); ?></h4></div>
+    <div id="fpcm-filemanager-upload-drop"><h4 class="fpcm-ui-center"><?php $theView->lang->write('FILE_LIST_UPLOADDROP'); ?></h4></div>
     
     <table role="presentation" class="fpcm-ui-table fpcm-ui-uploadlist">
         <tbody class="files"></tbody>
     </table>
     
-    <div class="<?php \fpcm\model\view\helper::buttonsContainerClass(); ?> <?php if (!$styleLeftMargin) : ?>fpcm-buttons-fixed-full<?php endif; ?> fileupload-buttonbar">
+    <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> <?php if (!$styleLeftMargin) : ?>fpcm-buttons-fixed-full<?php endif; ?> fileupload-buttonbar">
         <div class="fileupload-buttons">
             <span class="fileinput-button">
-                <span><?php $FPCM_LANG->write('FILE_FORM_FILEADD'); ?></span>
+                <span><?php $theView->lang->write('FILE_FORM_FILEADD'); ?></span>
                 <input type="file" name="files[]" multiple>
             </span>
-            <button type="submit" class="start"><?php $FPCM_LANG->write('FILE_FORM_UPLOADSTART'); ?></button>
-            <button type="reset" class="cancel"><?php $FPCM_LANG->write('FILE_FORM_UPLOADCANCEL'); ?></button>
+            <button type="submit" class="start"><?php $theView->lang->write('FILE_FORM_UPLOADSTART'); ?></button>
+            <button type="reset" class="cancel"><?php $theView->lang->write('FILE_FORM_UPLOADCANCEL'); ?></button>
             <span class="fileupload-process"></span>
         </div>
     </div>
@@ -42,10 +42,10 @@
 
         <td class="jqupload-row-buttons">
             {% if (!i && !o.options.autoUpload) { %}
-                <button class="start jqupload-btn"><?php $FPCM_LANG->write('FILE_FORM_UPLOADSTART'); ?></button>
+                <button class="start jqupload-btn"><?php $theView->lang->write('FILE_FORM_UPLOADSTART'); ?></button>
             {% } %}
             {% if (!i) { %}
-                <button class="cancel jqupload-btn"><?php $FPCM_LANG->write('FILE_FORM_UPLOADCANCEL'); ?></button>
+                <button class="cancel jqupload-btn"><?php $theView->lang->write('FILE_FORM_UPLOADCANCEL'); ?></button>
             {% } %}
         </td>
     </tr>

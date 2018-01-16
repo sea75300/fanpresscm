@@ -10,7 +10,7 @@
         <div class="fpcm-ui-editor-extended-row">
             <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-picture-o fa-fw fa-lg"></span></div>
             <div class="fpcm-ui-editor-extended-button fpcm-ui-editor-extended-textarea"><?php fpcm\model\view\helper::textInput('article[imagepath]', '', $article->getImagepath(), false, 512, 'TEMPLATE_ARTICLE_ARTICLEIMAGE'); ?></div>
-            <div class="fpcm-ui-editor-extended-col fpcm-ui-editor-extended-articleimg"><?php \fpcm\model\view\helper::linkButton('', 'HL_FILES_MNG', 'fpcmuieditoraimgfmg', 'fpcm-ui-button-blank fpcm-folderopen-btn'); ?></div>
+            <div class="fpcm-ui-editor-extended-col fpcm-ui-editor-extended-articleimg"><?php \fpcm\view\helper::linkButton('', 'HL_FILES_MNG', 'fpcmuieditoraimgfmg', 'fpcm-ui-button-blank fpcm-folderopen-btn'); ?></div>
             <div class="fpcm-clear"></div>
         </div>
     </div>
@@ -27,7 +27,7 @@
             </div>
             <div class="fpcm-clear"></div>
         </div>
-        <p class="fpcm-ui-center"><span class="fpcm-small-text"><?php print $twitterReplacements; ?></span> <?php fpcm\model\view\helper::shortHelpButton('EDITOR_TWEET_TEXT_REPLACER', '', $FPCM_BASEMODULELINK.'system/templates', '_blank'); ?></p>
+        <p class="fpcm-ui-center"><span class="fpcm-small-text"><?php print $twitterReplacements; ?></span> <?php fpcm\model\view\helper::shortHelpButton('EDITOR_TWEET_TEXT_REPLACER', '', $theView->basePath.'system/templates', '_blank'); ?></p>
         <?php endif; ?>
 
         <?php if (!$editorMode || $article->getPostponed()) : ?>
@@ -89,11 +89,11 @@
     </div>
 <?php endif; ?>
 
-<div class="<?php \fpcm\model\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
+<div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
     <div class="fpcm-ui-margin-center">
         <?php if ($isRevision) : ?>
             <?php if ($revisionPermission) : ?><?php fpcm\model\view\helper::submitButton('articleRevisionRestore', 'EDITOR_REVISION_RESTORE', 'fpcm-ui-revision-restore fpcm-loader'); ?><?php endif; ?>
-            <?php \fpcm\model\view\helper::linkButton($article->getEditLink(), 'EDITOR_BACKTOCURRENT', '', 'fpcm-back-button'); ?>
+            <?php \fpcm\view\helper::linkButton($article->getEditLink(), 'EDITOR_BACKTOCURRENT', '', 'fpcm-back-button'); ?>
         <?php else : ?>
             <?php fpcm\model\view\helper::linkButton('#', 'GLOBAL_EXTENDED', 'fpcmeditorextended', 'fpcm-button-extended'); ?>
             <?php fpcm\model\view\helper::saveButton('articleSave'); ?>

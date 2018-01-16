@@ -208,7 +208,7 @@ fpcm.filemanager = {
             fpcm.ui.datepicker('.fpcm-full-width-date');
             
             fpcm.ui.autocomplete('#articleId', {
-                source: fpcmAjaxActionPath + 'autocomplete&src=articles',
+                source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
                 appendTo: '#fpcm-dialog-files-search',
                 minLength: 3
             });

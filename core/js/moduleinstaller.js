@@ -83,7 +83,7 @@ var fpcmModuleInstaller = function () {
             execDone: function () {
                 self.responseData = fpcm.ajax.fromJSON(fpcm.ajax.getResult('packagemgr/mod' + self.type));
                 if (self.responseData.data === undefined) {
-                    alert(fpcm.ui.translate('ajaxErrorMessage'));
+                    alert(fpcm.ui.translate('ajax_response_error'));
                     return false;
                 }
 

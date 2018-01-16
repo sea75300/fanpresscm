@@ -11,7 +11,7 @@ if (fpcm === undefined) {
 fpcm.login = {
 
     init: function() {
-        this.moveToCenter();
+        fpcm.login.moveToCenter();
         fpcm.ui.setFocus('loginusername');
     },
 

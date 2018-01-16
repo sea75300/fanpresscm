@@ -54,7 +54,7 @@
          */
         public static function getControllerLink($controller = '', array $params = []) {
 
-            $redirectString = "index.php?module={$controller}";
+            $redirectString = dirs::getRootUrl("index.php?module={$controller}");
 
             if (!count($params)) {
                 return $redirectString;
@@ -71,7 +71,7 @@
          * @since FPCM 3.4
          */
         public static function getFullControllerLink($controller = '', array $params = []) {
-            return dirs::getRootUrl(self::getControllerLink($controller, $params));
+            return self::getControllerLink($controller, $params);
         }
         
         /**

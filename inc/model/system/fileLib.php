@@ -82,7 +82,7 @@
             return array_merge(
                 array(
                     \fpcm\classes\loader::libGetFileUrl('jquery', 'jquery-3.2.1.min.js'),
-                    \fpcm\classes\baseconfig::$rootPath.'js/fpcm.js'
+                    \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
                 ),
                 $modulesFiles
             );
@@ -94,7 +94,7 @@
          * @return string
          */
         private function addRootPath($path) {
-            return \fpcm\classes\dirs::getFullDirPath($path);
+            return \fpcm\classes\dirs::getRootUrl($path);
         }
         
         

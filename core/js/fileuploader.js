@@ -68,7 +68,7 @@ fpcm.fileuploader = {
         var uploaderEl = jQuery('#fileupload');
 
         uploaderEl.fileupload({
-            url: fpcmAjaxActionPath + 'jqupload',
+            url: fpcm.vars.ajaxActionPath + 'jqupload',
             dropZone: jQuery('#fpcm-filemanager-upload-drop'),
         });
         

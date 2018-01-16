@@ -1,14 +1,14 @@
 <table class="fpcm-ui-table">
     <tr>
-        <td><?php $FPCM_LANG->write('CATEGORIES_NAME'); ?>:</td>
-        <td><?php \fpcm\model\view\helper::textInput('category[name]','',$category->getName()); ?></td>
+        <td><?php $theView->lang->write('CATEGORIES_NAME'); ?>:</td>
+        <td><?php \fpcm\view\helper::textInput('category[name]','',$category->getName()); ?></td>
     </tr>
     <tr>
-        <td><?php $FPCM_LANG->write('CATEGORIES_ICON_PATH'); ?>:</td>
-        <td><?php \fpcm\model\view\helper::textInput('category[iconpath]','',$category->getIconPath()); ?></td>
+        <td><?php $theView->lang->write('CATEGORIES_ICON_PATH'); ?>:</td>
+        <td><?php \fpcm\view\helper::textInput('category[iconpath]','',$category->getIconPath()); ?></td>
     </tr>
     <tr>
-        <td><?php $FPCM_LANG->write('CATEGORIES_ROLLS'); ?></td>
+        <td><?php $theView->lang->write('CATEGORIES_ROLLS'); ?></td>
         <td class="fpcm-ui-buttonset">
         <?php foreach ($userRolls as $rollname => $rollid) : ?>
             <?php
@@ -24,8 +24,8 @@
     </tr>               
 </table> 
 
-<div class="<?php \fpcm\model\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
+<div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
     <div class="fpcm-ui-margin-center">
-        <?php \fpcm\model\view\helper::saveButton('categorySave'); ?>
+        <?php \fpcm\view\helper::saveButton('categorySave'); ?>
     </div>
 </div>

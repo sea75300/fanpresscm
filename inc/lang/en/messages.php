@@ -16,7 +16,7 @@
         'PERMISSIONS_REQUIRED'          => 'You have no permissions to access this page!',
         'VIEW_NOT_FOUND'                => 'View with name {{viewname}} not found!',
         'AJAX_REQUEST_ERROR'            => 'An error occurred during the last action! Check the JavaScript log of your browser for further information.',
-        'AJAX_REPONSE_ERROR'            => 'The server response was invalid! Check the JavaScript log of your browser and PHP log for further information.',
+        'AJAX_RESPONSE_ERROR'            => 'The server response was invalid! Check the JavaScript log of your browser and PHP log for further information.',
         'ERROR_IP_LOCKED'               => 'You IP address has been locked for this action. Contact the site administration for further information.',
         'CACHE_CLEARED_OK'              => 'Cache has been clear!',
         'CONFIRM_MESSAGE'               => 'Do you want to proceed with this action?',

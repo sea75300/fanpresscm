@@ -54,19 +54,23 @@
 
             $module = \fpcm\classes\http::get('module');
             if (!$module) {
-                header('Location: index.php?module=system/login');
+                header('Location: '.\fpcm\classes\tools::getControllerLink('system/login'));
                 return true;
             }
 
             $controllerName = (isset($this->controllers[$module]) ? $this->controllers[$module] : '');
-            if (strpos($controllerName, 'fpcm/modules/') === false) $controllerName  = "fpcm/controller/".$controllerName;
-            $controllerName  = str_replace('/', '\\', $controllerName);
 
+            if (strpos($controllerName, 'fpcm/modules/') === false) {
+                $controllerName  = "fpcm/controller/".$controllerName;
+            }
+
+            $controllerName  = str_replace('/', '\\', $controllerName);
             if (!class_exists($controllerName)) {
                 trigger_error('Undefined controller called: '.$module);
                 $this->errorPage("The requested controller <b>$module</b> does not exist! <span class=\"fa fa-frown-o\"></span>");
             }
 
+            
             /**
              * @var abstracts\controller
              */
@@ -77,11 +81,7 @@
                 die("Controller class <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>. <span class=\"fa fa-frown-o\"></span>");
             }
 
-            if ($controller->hasAccess()) {
-                return false;
-            }
-
-            if (!$controller->request()) {
+            if (!$controller->hasAccess() || !$controller->request()) {
                 return false;
             }
 
@@ -93,10 +93,9 @@
          * @param string $text
          */
         private function errorPage($text) {        
-            $view = new \fpcm\view\error();
-            $view->setMessage($text);
+            $view = new \fpcm\model\view\error($text);
             $view->render();
-            die();
+            exit;
         }
 
     }

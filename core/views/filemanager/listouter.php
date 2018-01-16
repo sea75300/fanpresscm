@@ -1,7 +1,7 @@
 <?php if ($mode == 1) : ?>
 <div class="fpcm-content-wrapper">
     <h1>
-        <span class="fa fa-folder-open"></span> <?php $FPCM_LANG->write('HL_FILES_MNG'); ?>
+        <span class="fa fa-folder-open"></span> <?php $theView->lang->write('HL_FILES_MNG'); ?>
     </h1>
 <?php else : ?>
 <div class="fpcm-inner-wrapper">
@@ -9,11 +9,11 @@
     
     <div class="fpcm-tabs-general">
         <ul>
-            <li id="tabs-files-list-reload"><a href="#tabs-files-list"><?php $FPCM_LANG->write('FILE_LIST_AVAILABLE'); ?></a></li>                
-            <?php if ($permUpload) : ?><li><a href="#tabs-files-upload"><?php $FPCM_LANG->write('FILE_LIST_UPLOADFORM'); ?></a></li><?php endif; ?>                
+            <li id="tabs-files-list-reload"><a href="#tabs-files-list"><?php $theView->lang->write('FILE_LIST_AVAILABLE'); ?></a></li>                
+            <?php if ($permUpload) : ?><li><a href="#tabs-files-upload"><?php $theView->lang->write('FILE_LIST_UPLOADFORM'); ?></a></li><?php endif; ?>                
         </ul>
 
-        <form method="post" action="<?php print $FPCM_SELF; ?>?module=files/list&mode=<?php print $mode; ?>">
+        <form method="post" action="<?php print $theView->self; ?>?module=files/list&mode=<?php print $mode; ?>">
             <div id="tabs-files-list">
                 <div id="tabs-files-list-content"><?php include __DIR__.'/listinner.php'; ?></div>
                 <?php include __DIR__.'/buttons.php'; ?>

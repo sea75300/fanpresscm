@@ -7,7 +7,7 @@
             </tr>  
         </table>
 
-        <div class="fpcm-hidden"><?php \fpcm\model\view\helper::saveButton('saveTemplate'); ?></div>
+        <div class="fpcm-hidden"><?php \fpcm\view\helper::saveButton('saveTemplate'); ?></div>
 
-        <?php \fpcm\model\view\helper::pageTokenField(); ?>
+        <?php \fpcm\view\helper::pageTokenField(); ?>
     </form>

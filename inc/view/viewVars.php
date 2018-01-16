@@ -29,7 +29,7 @@
      * @property array  $filesCss
      * @property array  $varsJs
      * @property bool   $loggedIn
-     * @property \fpcm\classes\language $language
+     * @property \fpcm\classes\language $lang
      * @property \fpcm\model\users\author $currentUser
      */ 
     class viewVars {

@@ -60,7 +60,7 @@ fpcm.ui = {
     
     translate: function(langVar) {
         
-        return fpcmLang[langVar] === undefined ? langVar : fpcmLang[langVar];
+        return fpcm.vars.ui.lang[langVar] === undefined ? langVar : fpcm.vars.ui.lang[langVar];
 
     },
 

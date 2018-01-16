@@ -65,10 +65,12 @@
                 return false;
             }
 
-            $GLOBALS['fpcm']['urls']['base'] = (baseconfig::canHttps() ? 'https://' : 'http://').$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
-            $GLOBALS['fpcm']['urls']['data'] = $GLOBALS['fpcm']['urls']['base'].'/data/';
-            $GLOBALS['fpcm']['urls']['core'] = $GLOBALS['fpcm']['urls']['base'].'/core/';
-            $GLOBALS['fpcm']['urls']['lib']  = $GLOBALS['fpcm']['urls']['base'].'/lib/';
+            
+            
+            $GLOBALS['fpcm']['urls']['base'] = (baseconfig::canHttps() ? 'https://' : 'http://').$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF']).'/';
+            $GLOBALS['fpcm']['urls']['data'] = $GLOBALS['fpcm']['urls']['base'].'data/';
+            $GLOBALS['fpcm']['urls']['core'] = $GLOBALS['fpcm']['urls']['base'].'core/';
+            $GLOBALS['fpcm']['urls']['lib']  = $GLOBALS['fpcm']['urls']['base'].'lib/';
             
             return true;
         }
@@ -128,7 +130,7 @@
          */
         public static function getRootUrl($path = '')
         {
-            return $GLOBALS['fpcm']['urls']['base'].'/'.$path;
+            return $GLOBALS['fpcm']['urls']['base'].$path;
         }
 
         /**
@@ -139,7 +141,7 @@
          */
         public static function getDataUrl($type, $path)
         {
-            return $GLOBALS['fpcm']['urls']['data'].'/data/'.$type.'/'.$path;
+            return $GLOBALS['fpcm']['urls']['data'].$type.'/'.$path;
         }
 
         /**
@@ -150,7 +152,7 @@
          */
         public static function getCoreUrl($type, $path = '')
         {
-            return $GLOBALS['fpcm']['urls']['core'].'/core/'.$type.'/'.$path;
+            return $GLOBALS['fpcm']['urls']['core'].$type.'/'.$path;
         }
 
         /**

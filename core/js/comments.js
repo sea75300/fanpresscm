@@ -48,7 +48,7 @@ fpcm.comments = {
     initWidgets: function(dialogId) {
 
         fpcm.ui.autocomplete('#moveToArticle', {
-            source: fpcmAjaxActionPath + 'autocomplete&src=articles',
+            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
             appendTo: dialogId,
             minLength: 3
         });
@@ -68,7 +68,7 @@ fpcm.comments = {
             fpcm.ui.datepicker('.fpcm-full-width-date');
             
             fpcm.ui.autocomplete('#articleId', {
-                source: fpcmAjaxActionPath + 'autocomplete&src=articles',
+                source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
                 appendTo: '#fpcm-dialog-comments-search',
                 minLength: 3
             });

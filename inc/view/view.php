@@ -151,7 +151,7 @@
             
             $this->addJsLangVars([
                 'GLOBAL_CONFIRM', 'GLOBAL_CLOSE', 'GLOBAL_YES', 'GLOBAL_NO',
-                'GLOBAL_OPENNEWWIN', 'GLOBAL_EXTENDED', 'AJAX_REQUEST_ERROR', 'AJAX_REPONSE_ERROR',
+                'GLOBAL_OPENNEWWIN', 'GLOBAL_EXTENDED', 'AJAX_REQUEST_ERROR', 'AJAX_RESPONSE_ERROR',
                 'CONFIRM_MESSAGE',
             ]);
 
@@ -167,7 +167,6 @@
          */
         private function checkJsPath($item)
         {
-
             if (strpos($item, \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::CORE_JS)) === 0) {
                 return $item;
             }
@@ -188,9 +187,8 @@
             }
             
             try {
-                $file_headers = get_headers(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::CORE_JS, $item));
-                if (isset($file_headers[0]) && $file_headers[0] === 'HTTP/1.1 200 OK') {
-                    $checks[$hash] = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::CORE_JS, $item);
+                if (file_exists(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, $item))) {
+                    $checks[$hash] = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_JS, $item);
                     $cache->write($cacheName, $checks);
                     return $checks[$hash];
                 }
@@ -273,7 +271,7 @@
          */
         public function addJsLangVars(array $jsvars)
         {
-            $keys   = array_map('strtolower', array_keys($jsvars));
+            $keys   = array_map('strtolower', array_values($jsvars));
             $values = array_map([$this->language, 'translate'], array_values($jsvars));
 
             $this->jsLangVars = array_merge( $this->jsLangVars, array_combine($keys, $values) );
@@ -400,25 +398,27 @@
          * @return bool
          */        
         public function render()
-        {
+        {            
             if (!file_exists($this->viewPath)) {
                 trigger_error("View file {$this->viewName} not found!");
                 return false;
             }
-            
+
             $this->initAssigns();
-            foreach ($this->events->runEvent('view/renderBefore', $this->viewVars) as $key => $value) {
+            
+//            foreach ($this->events->runEvent('view/renderBefore', $this->viewVars) as $key => $value) {
+//                $$key = $value;
+//            }
+            foreach ($this->viewVars as $key => $value) {
                 $$key = $value;
-            }
+            }            
 
             switch ($this->showHeader) {
                 case self::INCLUDE_HEADER_FULL :
-                    include_once \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, 'common/header.php');
-                    include_once \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, 'common/messages.php');
+                    include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/header.php');
                     break;
                 case self::INCLUDE_HEADER_SIMPLE :
-                    include_once \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, 'common/headersimple.php');
-                    include_once \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, 'common/messages.php');
+                    include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/headersimple.php');
                     break;
             }
 
@@ -426,14 +426,14 @@
 
             switch ($this->showHeader) {
                 case self::INCLUDE_HEADER_FULL :
-                    include_once \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, 'common/footer.php');
+                    include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/footer.php');
                     break;
                 case self::INCLUDE_HEADER_SIMPLE :
-                    include_once \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, 'common/footersimple.php');
+                    include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/footersimple.php');
                     break;
             }
 
-            $this->events->runEvent('view/renderAfter');
+            //$this->events->runEvent('view/renderAfter');
             
             return true;
         }
@@ -463,17 +463,19 @@
             $this->defaultViewVars->currentModule = \fpcm\classes\http::get('module');
 
             $this->defaultViewVars->loggedIn      = $this->session->exists();
-            $this->defaultViewVars->language      = \fpcm\classes\loader::getObject('fpcm\classes\language');            
+            $this->defaultViewVars->lang          = \fpcm\classes\loader::getObject('fpcm\classes\language');            
             
             $this->defaultViewVars->filesCss      = $this->viewCssFiles;
             $this->defaultViewVars->filesJs       = $this->viewJsFiles;
             $this->defaultViewVars->varsJs        = [
-                'fpcm' => [
-                    'ui'    => [
-                        'messages'  => $this->getMessages(),
-                        'lang'      => $this->jsLangVars,
+                'vars'                  => [
+                    'ui'                => [
+                        'messages'      => $this->messages,
+                        'lang'          => $this->jsLangVars,
                     ],
-                    'vars'          => $this->jsvars
+                    'jsvars'            => $this->jsvars,
+                    'actionPath'        => \fpcm\classes\tools::getFullControllerLink(''),
+                    'ajaxActionPath'    => \fpcm\classes\tools::getFullControllerLink('ajax/'),
                 ]
             ];
 

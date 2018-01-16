@@ -12,7 +12,7 @@
     </tr>
     <tr class="fpcm-td-spacer"><td></td></tr>
     <tr>
-        <th class="fpcm-th-full"><?php $FPCM_LANG->write('TEMPLATE_EDITOR'); ?></th>
+        <th class="fpcm-th-full"><?php $theView->lang->write('TEMPLATE_EDITOR'); ?></th>
     </tr>
     <tr>
         <td>

@@ -45,7 +45,7 @@ fpcm.ajax = {
         }
 
         jQuery.ajax({
-            url         : fpcmAjaxActionPath + action,
+            url         : fpcm.vars.ajaxActionPath + action,
             type        : params.method.toUpperCase(),
             data        : params.data,
             async       : params.async
@@ -53,7 +53,7 @@ fpcm.ajax = {
         .done(function(result) {
 
             if (result.search('FATAL ERROR:') === 3) {
-                console.log(fpcm.ui.translate('ajaxErrorMessage'));
+                console.log(fpcm.ui.translate('ajax_response_error'));
                 console.log('ERROR MESSAGE: ' + errorThrown);
             }
 
@@ -77,7 +77,7 @@ fpcm.ajax = {
             }
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-            console.log(fpcm.ui.translate('ajaxErrorMessage'));
+            console.log(fpcm.ui.translate('ajax_response_error'));
             console.log('ERROR MESSAGE: ' + errorThrown);
 
             if (typeof params.execFail == 'string') {

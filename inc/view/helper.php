@@ -3,7 +3,7 @@
      * FanPress CM 3.x
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
-    namespace fpcm\model\view;
+    namespace fpcm\view;
 
     /**
      * View Helper

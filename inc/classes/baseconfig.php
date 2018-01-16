@@ -97,8 +97,6 @@
          */
         public static function init()
         {
-
-
             self::$logFiles            = array(
                 'phplog'    => dirs::getDataDirPath(dirs::DATA_LOGS, 'phplog.txt'),
                 'syslog'    => dirs::getDataDirPath(dirs::DATA_LOGS, 'syslog.txt'),

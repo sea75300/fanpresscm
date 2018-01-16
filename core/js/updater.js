@@ -49,7 +49,7 @@ fpcm.updater = {
             execDone: function () {
                 fpcm.updater.responseData = fpcm.ajax.fromJSON(fpcm.ajax.getResult('packagemgr/sysupdater'));
                 if (fpcm.updater.responseData.data === undefined) {
-                    alert(fpcm.ui.translate('ajaxErrorMessage'));
+                    alert(fpcm.ui.translate('ajax_response_error'));
                     return false;
                 }
 
