@@ -60,8 +60,8 @@
         {
             if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) return false;
             
-            $cacheFile = loader::getObject('\fpcm\model\files\cacheFile', $cacheName);
-            return $cacheFile->write($data, $expires ? $expires : FPCM_CACHE_DEFAULT_TIMEOUT);
+            $file = new \fpcm\model\files\cacheFile($cacheName);
+            return $file->write($data, $expires ? $expires : FPCM_CACHE_DEFAULT_TIMEOUT);
         }
         
         /**
@@ -71,9 +71,9 @@
         public function read($cacheName)
         {
             if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) return false;
-
-            $cacheFile = loader::getObject('\fpcm\model\files\cacheFile', $cacheName);
-            return $cacheFile->read();
+            
+            $file = new \fpcm\model\files\cacheFile($cacheName);
+            return $file->read();
         }
         
         /**
@@ -85,9 +85,8 @@
         {
             if ($cacheName !== null && substr($cacheName, -2) !== '/*') {
                 
-                /* @var $cacheFile \fpcm\model\files\cacheFile */
-                $cacheFile = loader::getObject('\fpcm\model\files\cacheFile', $cacheName);
-                return $cacheFile->cleanup();                
+                $file = new \fpcm\model\files\cacheFile($cacheName);
+                return $file->cleanup();                
             }
 
             $cacheFiles = (substr($cacheName, -2) === '/*'

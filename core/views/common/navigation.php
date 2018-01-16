@@ -1,8 +1,8 @@
-<?php if (isset($FPCM_NAVIGATION) && $theView->loggedIn) : ?>
+<?php if ($theView->navigation && $theView->loggedIn) : ?>
 <div class="fpcm-navigation-wrapper">
     <div class="fpcm-navigation">
         <ul id="fpcm-navigation-ul" class="fpcm-menu">
-    <?php foreach ($FPCM_NAVIGATION as $navigationGroup) : ?>
+    <?php foreach ($theView->navigation as $navigationGroup) : ?>
         <?php foreach ($navigationGroup as $groupName => $navigationItem) : ?>     
             <li id="item<?php print $navigationItem->getId(); ?>" class="fpcm-menu-level1 fpcm-menu-level1-show fpcm-ui-center <?php if ($navigationItem->isActive()) : ?>fpcm-menu-active<?php endif; ?>">
                 <a href="<?php print $navigationItem->getFullUrl(); ?>" class="<?php print $navigationItem->getClass(); ?> fpcm-loader" id="<?php print $navigationItem->getId(); ?>">

@@ -29,7 +29,7 @@
             
             $this->path     = \fpcm\classes\dirs::getDataDirPath(
                 \fpcm\classes\dirs::DATA_CACHE,
-                $this->initCacheModule($this->module).DIRECTORY_SEPARATOR.
+                $this->initCacheModule($this->module).
                 $this->initCacheName($this->module ? $cacheName[1] : $cacheName[0])
             ).self::EXTENSION_CACHE;
 

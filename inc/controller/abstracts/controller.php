@@ -243,14 +243,14 @@
          */
         protected function checkPageToken()
         {
-            if (isset($_SERVER['HTTP_REFERER']) && !is_null($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
+            if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
                 return false;
             }
-            
+
             $fieldname = \fpcm\classes\security::pageTokenCacheModule.DIRECTORY_SEPARATOR.\fpcm\classes\security::getPageTokenFieldName();
             $tokenData = $this->cache->read($fieldname);
             $this->cache->cleanup($fieldname);
-            
+
             if (\fpcm\classes\http::getPageToken() == $tokenData) {
                 return true;
             }

@@ -447,7 +447,9 @@
             if ($this->session->exists()) {
                 
                 $this->addJsLangVars(['SESSION_TIMEOUT']);
-                $this->addJsVars(['sessionCheckEnabled' => true]);
+                $this->addJsVars([
+                    'sessionCheckEnabled' => true
+                ]);
 
                 $this->defaultViewVars->currentUser              = $this->session->getCurrentUser();
                 $this->defaultViewVars->navigation               = (new \fpcm\model\theme\navigation())->render();
@@ -456,9 +458,10 @@
 
             $this->defaultViewVars->version       = $this->config->system_version;
             $this->defaultViewVars->dateTimeMask  = $this->config->system_dtmask;
+            $this->defaultViewVars->dateTimeZone  = $this->config->system_timezone;
             $this->defaultViewVars->self          = $_SERVER['PHP_SELF'];
             $this->defaultViewVars->frontEndLink  = $this->config->system_url;
-            $this->defaultViewVars->basePath      = \fpcm\classes\dirs::getRootUrl();
+            $this->defaultViewVars->basePath      = \fpcm\classes\tools::getFullControllerLink();
             $this->defaultViewVars->themePath     = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
             $this->defaultViewVars->currentModule = \fpcm\classes\http::get('module');
 

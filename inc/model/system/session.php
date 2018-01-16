@@ -85,9 +85,9 @@
             parent::__construct();
             
             $this->table    = \fpcm\classes\database::tableSessions;
-            
+
             if (!is_object($this->config)) {
-                $this->config = new config(false);
+                $this->config = new config();
             }
 
             if ($init && !is_null(\fpcm\classes\security::getSessionCookieValue())) {                

@@ -48,7 +48,8 @@
         /**
          * Konstruktor
          */
-        public function __construct() {
+        public function __construct()
+        {
             parent::__construct();
             $this->loginLockedExpire = 0; //session_cache_expire();
             $this->iplist            = new \fpcm\model\ips\iplist();            
@@ -58,7 +59,8 @@
          * 
          * @return string
          */
-        protected function getViewPath() {
+        protected function getViewPath()
+        {
             return 'login/login';
         }
 
@@ -68,7 +70,6 @@
          */
         public function request()
         {
-            
             if ($this->session->exists()) {
                 $this->redirect('system/dashboard');
                 return true;
@@ -141,14 +142,16 @@
          * 
          * @return boolean
          */
-        public function hasAccess() {
+        public function hasAccess()
+        {
             return true;
         }
         
         /**
          * Controller-Processing
          */
-        public function process() {
+        public function process()
+        {
             
             if (!$this->pageTokenOk && ($this->buttonClicked('reset') || $this->buttonClicked('login'))) {
                 $this->view->addErrorMessage('CSRF_INVALID');
@@ -177,7 +180,8 @@
         /**
          * Prüft, ob Login gesperrt ist
          */
-        protected function loginLocked() {
+        protected function loginLocked()
+        {
             if (!\fpcm\classes\http::getSessionVar('loginAttempts')) {
                 \fpcm\classes\http::setSessionVar('loginAttempts', $this->currentAttempts);
             } else {                

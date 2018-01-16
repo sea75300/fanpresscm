@@ -16,6 +16,7 @@
      * @property string $version
      * @property string $self
      * @property string $dateTimeMask
+     * @property string $dateTimeZone
      * @property string $currentModule
      * @property string $themePath
      * @property string $frontEndLink

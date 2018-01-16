@@ -206,7 +206,7 @@
          * Berechtigungen initialisieren
          * @return void
          */
-        protected function init() {
+        public function init() {
 
             if (!$this->cache->isExpired()) {
                 $this->permissiondata = $this->cache->read();

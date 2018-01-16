@@ -48,7 +48,8 @@
          * Cookie-Name zurückgeben
          * @return string
          */
-        public static function getSessionCookieName() {
+        public static function getSessionCookieName()
+        {
             
             if (self::$cookieName) {
                 return self::$cookieName;
@@ -73,17 +74,16 @@
          * @param string $overrideModule
          * @return string
          */
-        public static function getPageTokenFieldName($overrideModule = '') {
-            
+        public static function getPageTokenFieldName($overrideModule = '')
+        {
             if (self::$pageTokenName) {
                 return self::$pageTokenName;
             }
             
             $conf                   = baseconfig::getSecurityConfig();
-            self::$pageTokenName    = (is_array($conf) && isset($conf['pageTokenBase']))
-                                    ? hash(self::defaultHashAlgo, $conf['pageTokenBase'].(trim($overrideModule) ? trim($overrideModule) : http::getOnly('module')))
-                                    : hash(self::defaultHashAlgo, 'fpcmpgtk'.dirs::getRootUrl().'_'.date('d-m-Y').'$'.http::getOnly('module'));
+            self::$pageTokenName    = hash(self::defaultHashAlgo, $conf['pageTokenBase'].(trim($overrideModule) ? trim($overrideModule) : http::getOnly('module')));
 
+            
             return self::$pageTokenName;
         }
         
@@ -91,10 +91,9 @@
          * gibt Inhalt von Session cookie zurück
          * @return string
          */
-        public static function getSessionCookieValue() {
-
+        public static function getSessionCookieValue()
+        {
             $value = http::cookieOnly(self::getSessionCookieName(), array(1,4,7));
-            
             if (substr($value, 0, 3) !== '_$$') {
                 return $value;
             }
@@ -107,7 +106,8 @@
          * gibt Inhalt von Session cookie zurück
          * @return string
          */
-        public static function createSessionId() {
+        public static function createSessionId()
+        {
             return hash(self::defaultHashAlgo, self::getSecureBaseString());
         }         
         
@@ -117,7 +117,8 @@
          * @param string $salt
          * @return string
          */
-        public static function createPasswordHash($password, $salt) {            
+        public static function createPasswordHash($password, $salt)
+        {            
             return crypt($password, $salt);
         }
         
@@ -126,7 +127,8 @@
          * @param string $additional
          * @return string
          */
-        public static function createSalt($additional = '') {
+        public static function createSalt($additional = '')
+        {
             return '$5$'.substr(hash(self::defaultHashAlgo, self::getSecureBaseString()), 0, 16).'$';
         }
         
@@ -135,19 +137,20 @@
          * @param bool $overrideModule
          * @return string
          */
-        public static function createPageToken($overrideModule = '') {
+        public static function createPageToken($overrideModule = '')
+        {
+            $str        = '$'.dirs::getRootUrl().'$pageToken$'.self::getSessionCookieValue().
+                          '$'.(trim($overrideModule) ? trim($overrideModule) : http::getOnly('module')).
+                          '$'. uniqid();
 
-            $str   = '$'.dirs::getRootUrl().'$pageToken$'.self::getSessionCookieValue().
-                     '$'.(trim($overrideModule) ? trim($overrideModule) : http::getOnly('module')).
-                     '$'. uniqid();
-;            
-            $crypt = new crypt();
-            $str   = $crypt->encrypt(hash(self::defaultHashAlgo, $str));
-            
-            $cacheName = self::pageTokenCacheModule.'/'.self::getPageTokenFieldName($overrideModule);            
-            $cache     = new cache();
+            $str        = \fpcm\classes\loader::getObject('fpcm\classes\crypt')->encrypt(hash(self::defaultHashAlgo, $str));
+
+            $cacheName  = self::pageTokenCacheModule.DIRECTORY_SEPARATOR.self::getPageTokenFieldName($overrideModule);
+
+            /* @var $cache cache */
+            $cache      = \fpcm\classes\loader::getObject('fpcm\classes\cache');
             $cache->cleanup($cacheName);
-            $cache->write($cacheName, $str, FPCM_PAGETOKENCACHE_TIMEOUT);            
+            $cache->write($cacheName, $str, FPCM_CACHE_DEFAULT_TIMEOUT);            
             unset($cache);
             
             return $str;
@@ -158,7 +161,8 @@
          * @return boolean
          * @since FPCM 3.6
          */
-        public static function initSecurityConfig() {
+        public static function initSecurityConfig()
+        {
             
             $secConf = baseconfig::getSecurityConfig();
             if (is_array($secConf) && count($secConf)) {
@@ -178,7 +182,8 @@
          * Erzeugt Basis-String für Hash-Funktionen
          * @return string
          */
-        private static function getSecureBaseString() {
+        private static function getSecureBaseString()
+        {
             
             $md5base = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : __FILE__;
             return uniqid('fpcm', true).'#'.microtime(true).'#'.md5($md5base).'#'.mt_rand();

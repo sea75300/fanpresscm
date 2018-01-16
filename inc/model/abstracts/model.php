@@ -315,6 +315,7 @@
                 $params['config'],
                 $params['dbcon'],
                 $params['events'],
+                $params['session'],
                 $params['id'],
                 $params['nodata'],
                 $params['system'],
