@@ -117,7 +117,8 @@
             $this->categoryList = new \fpcm\model\categories\categoryList();
             $this->userList     = new \fpcm\model\users\userList();
             $this->template     = new \fpcm\model\pubtemplates\article($this->config->articles_template_active);
-            $this->iplist       = new \fpcm\model\ips\iplist();
+
+            $this->iplist       = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
         }
 
         /**
@@ -153,7 +154,7 @@
         public function process() {
             parent::process();
             
-            if ($this->cache->isExpired() || $this->session->exists()) { 
+            if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) { 
                 $this->categories    = $this->categoryList->getCategoriesAll();
                 $this->commentCounts = ($this->config->system_comments_enabled) ? $this->commentList->countComments([], 0, 1) : [];
             }

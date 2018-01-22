@@ -23,7 +23,7 @@
          */
         public function checkEditPermissions(comment &$comment) {
 
-            if (!\fpcm\classes\baseconfig::$fpcmSession->exists()) {
+            if (!\fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
                 return false;
             }
 
@@ -33,10 +33,10 @@
 
             if (!is_array($this->ownArticleIds)) {                
                 $this->articleList   = new \fpcm\model\articles\articlelist();
-                $this->ownArticleIds = $this->articleList->getArticleIDsByUser(\fpcm\classes\baseconfig::$fpcmSession->getUserId());
+                $this->ownArticleIds = $this->articleList->getArticleIDsByUser(\fpcm\classes\loader::getObject('\fpcm\model\system\session')->getUserId());
             }
 
-            $isAdmin     = \fpcm\classes\baseconfig::$fpcmSession->getCurrentUser()->isAdmin();
+            $isAdmin     = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->isAdmin();
             $permEditAll = $this->permissions->check(array('comment' => 'editall'));            
             $permEditOwn = $this->permissions->check(array('comment' => 'edit'));
             

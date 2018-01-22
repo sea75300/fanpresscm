@@ -108,7 +108,6 @@
          */
         public function __construct($funcParams)
         {
-            
             parent::__construct();
             $this->funcParams = $funcParams;
         }

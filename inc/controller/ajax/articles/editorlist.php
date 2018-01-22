@@ -22,25 +22,32 @@
 
         /**
          *
-         * @var \fpcm\view\ajax
+         * @var string
          */
-        protected $view;
+        private $module;
+        
+        protected $checkPermission = ['article' => 'edit'];
 
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-            $this->checkPermission = array('article' => 'edit');
+        public function request() {
+            
+            $this->oid      = $this->getRequestVar('id', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
+            $this->module   = ucfirst($this->getRequestVar('view'));
+
+            return true;
         }
 
-        
         /**
-         * Request-Handler
-         * @return bool
+         * Get view path for controller
+         * @return string
          */
-        public function request() {
-            return $this->session->exists();
+        protected function getViewPath() {
+
+            if ($this->module === 'comments') {
+                return 'comments/commentlist_inner';                
+            }
+
+            return 'articles/lists/revisions';
+
         }
 
         /**
@@ -48,19 +55,13 @@
          */
         public function process() {
 
-            if (!parent::process()) return false;
-            
-            $this->oid  = $this->getRequestVar('id', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
-            $module     = ucfirst($this->getRequestVar('view'));
-            
-            $fn         = 'getView'.$module;
+            $fn         = 'getView'.$this->module;
             if (!method_exists($this, $fn) || !$this->oid) {                
                 die('');
             }
             
             call_user_func([$this, $fn]);
-            
-            $this->view->initAssigns();
+
             $this->view->render();
         }
         
@@ -72,7 +73,6 @@
             $search->articleid  = $this->oid;
             $search->searchtype = 0;
 
-            $this->view = new \fpcm\view\ajax('commentlist_inner', 'comments');
             $this->view->assign('comments', $commentList->getCommentsBySearchCondition($search));
             $this->view->assign('commentsMode', 2);
             $this->view->assign('showPager', false);
@@ -88,8 +88,7 @@
             if (!$article->exists()) {
                 die();
             }
-            
-            $this->view = new \fpcm\view\ajax('revisions', 'articles/lists');
+
             $this->view->assign('revisions', $article->getRevisions());
             $this->view->assign('revisionCount', $article->getRevisionsCount());
             $this->view->assign('revisionPermission', $this->permissions->check(array('article' => 'revisions')));

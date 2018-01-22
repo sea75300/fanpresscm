@@ -32,8 +32,8 @@
 
             $this->table = \fpcm\classes\database::tableArticles;
             
-            if (is_object(\fpcm\classes\baseconfig::$fpcmSession) && \fpcm\classes\baseconfig::$fpcmSession->exists()) {
-                $this->permissions = new \fpcm\model\system\permissions(\fpcm\classes\baseconfig::$fpcmSession->getCurrentUser()->getRoll());
+            if (is_object(\fpcm\classes\loader::getObject('\fpcm\model\system\session')) && \fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
+                $this->permissions = new \fpcm\model\system\permissions(\fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getRoll());
             }
 
             parent::__construct();
@@ -337,57 +337,7 @@
             if (!$this->config->articles_trash) return false;
             return $this->dbcon->delete($this->table, 'deleted = 1');
         }
-        
-        /**
-         * Archiviert Artikel
-         * @param array $ids
-         * @return bool
-         * @deprecated FPCM 3.6
-         */
-        public function archiveArticles(array $ids) {   
-            $values = array(
-                'archived' => 1,
-                'pinned'  => 0
-            );
-            
-            $res = $this->dbcon->update($this->table, array_keys($values), array_values($values), 'id IN ('.implode(', ', $ids).') AND deleted = 0');
 
-            return $res;
-        }
-        
-        /**
-         * Wechselt Kommentar-Aktiv-Status von Artikeln
-         * @param array $ids
-         * @return bool
-         * @deprecated FPCM 3.6
-         */
-        public function toggleComments(array $ids) {
-            $this->cache->cleanup();
-            return $this->dbcon->reverseBool($this->table, 'comments', 'id IN ('.implode(', ', $ids).')');
-        }
-        
-        /**
-         * Wechselt Freigeben-Status von Artikeln
-         * @param array $ids
-         * @return bool
-         * @deprecated FPCM 3.6
-         */
-        public function toggleApproval(array $ids) {
-            $this->cache->cleanup();            
-            return $this->dbcon->reverseBool($this->table, 'approval', 'id IN ('.implode(', ', $ids).')');
-        }
-        
-        /**
-         * Wechselt Pinned-Status von Artikeln
-         * @param array $ids
-         * @return bool
-         * @deprecated FPCM 3.6
-         */
-        public function togglePinned(array $ids) {
-            $this->cache->cleanup();
-            return $this->dbcon->reverseBool($this->table, 'pinned', 'id IN ('.implode(', ', $ids).') AND deleted = 0 AND archived = 0');
-        }
-        
         /**
          * Gibt Artikel-Anzahl für jeden Benutzer zurück
          * @param array $userIds

@@ -19,24 +19,22 @@
          * Konstruktor
          */
         public function __construct() {
+                                   
+            $this->name      = 'userlist';
 
-            $this->cacheName   = 'userlist';
-            $this->cacheModule = self::CACHE_M0DULE_DASHBOARD;
+            $this->getCacheName();
             
             parent::__construct();
-
-            $this->cache        = new \fpcm\classes\cache($this->cacheName, self::CACHE_M0DULE_DASHBOARD);
             
             if ($this->cache->isExpired()) {
                 $this->renderContent();                
             } else {
                 $this->content = $this->cache->read();
             }
-                                   
-            $this->headline = $this->language->translate('DASHBOARD_USERLIST');
-            $this->name     = 'userlist';
-            $this->position = 8;
-            $this->height   = 0;
+
+            $this->headline  = $this->language->translate('DASHBOARD_USERLIST');
+            $this->position  = 8;
+            $this->height    = 0;
         }
         
         /**

@@ -100,11 +100,11 @@
          */
         public function getCategoriesCurrentUser() {
 
-            if (!is_object(\fpcm\classes\baseconfig::$fpcmSession) || !\fpcm\classes\baseconfig::$fpcmSession->exists()) {
+            if (!is_object(\fpcm\classes\loader::getObject('\fpcm\model\system\session')) || !\fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
                 return [];
             }
 
-            $groupId = \fpcm\classes\baseconfig::$fpcmSession->getCurrentUser()->getRoll();
+            $groupId = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getRoll();
 
             return $this->getCategoriesByGroup($groupId);
         }

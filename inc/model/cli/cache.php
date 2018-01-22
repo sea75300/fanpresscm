@@ -26,31 +26,31 @@
                 $this->output('Invalid params detected, missing cache name or param "all"!');
                 return true;
             }
-            
+
             $cacheName   = $this->funcParams[1] === 'all' ? null : $this->funcParams[1];
-            $cacheModule = !isset($this->funcParams[2]) || $this->funcParams[2] === 'all' ? '' : $this->funcParams[2];
-            $cache       = new \fpcm\classes\cache($cacheName, $cacheModule);
+            $cacheModule = !isset($this->funcParams[2]) || $this->funcParams[2] === 'all' ? '*' : $this->funcParams[2];
+            $cacheName   = $cacheModule.'/'.$cacheName;
 
             if ($this->funcParams[0] === self::FPCMCLI_PARAM_CLEAN) {
-                $cache->cleanup($cacheName === null ? false : $cacheName, $cacheModule);
+                $this->cache->cleanup($cacheName);
                 $this->output('Cache was cleared!');
                 return true;
             }
 
             if ($this->funcParams[0] === self::FPCMCLI_PARAM_INFO) {
-                $this->output('Cache expiration interval: '.date('Y-m-d H:i:s', $cache->getExpirationTime()));
-                $this->output('Cache is expired: '.(int) $cache->isExpired());
+                $this->output('Cache expiration interval: '.date('Y-m-d H:i:s', $this->cache->getExpirationTime($cacheName)));
+                $this->output('Cache is expired: '.(int) $this->cache->isExpired($cacheName));
                 return true;
             }
 
             if ($this->funcParams[0] === self::FPCMCLI_PARAM_SIZE) {
-                $this->output('Cache total size: '.\fpcm\classes\tools::calcSize($cache->getSize()));
+                $this->output('Cache total size: '.\fpcm\classes\tools::calcSize($this->cache->getSize($cacheName)));
                 return true;
             }
 
             if ($this->funcParams[0] === self::FPCMCLI_PARAM_LIST) {
                 $this->output('Cache structur: ');
-                $this->output($cache->getCacheComplete());
+                $this->output($this->cache->getCacheComplete());
                 return true;
             }
 

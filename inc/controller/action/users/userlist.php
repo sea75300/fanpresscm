@@ -8,12 +8,6 @@
     namespace fpcm\controller\action\users;
     
     class userlist extends \fpcm\controller\abstracts\controller {
-        
-        /**
-         *
-         * @var \fpcm\view\view
-         */
-        protected $view;
 
         /**
          *

@@ -16,12 +16,6 @@
      * @abstract
      */  
     class pubController extends controller {
-        
-        /**
-         * Controller-View
-         * @var \fpcm\view\pub
-         */
-        protected $view;
 
         /**
          * Update-Prüfung

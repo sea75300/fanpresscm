@@ -10,12 +10,6 @@
     class templatepreview extends \fpcm\controller\abstracts\controller {
         
         use \fpcm\controller\traits\system\templatepreview;
-        
-        /**
-         *
-         * @var \fpcm\view\pub
-         */
-        protected $view;
 
         /**
          *

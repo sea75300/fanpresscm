@@ -21,12 +21,6 @@
         use \fpcm\controller\traits\articles\lists;
         
         /**
-         * Controller-View
-         * @var \fpcm\view\ajax
-         */
-        protected $view;
-        
-        /**
          * Kategorie-Liste
          * @var \fpcm\model\categories\categoryList
          */
@@ -84,9 +78,14 @@
             $this->categoryList = new \fpcm\model\categories\categoryList();
             $this->commentList  = new \fpcm\model\comments\commentList();
             $this->userList     = new \fpcm\model\users\userList();
+        }
 
-            $this->view         = new \fpcm\view\ajax('articles', 'articles/lists');
-            $this->view->initAssigns();
+        /**
+         * Get view path for controller
+         * @return string
+         */
+        protected function getViewPath() {
+            return 'articles/lists/articles';
         }
         
         /**
@@ -143,12 +142,8 @@
         /**
          * Controller-Processing
          */
-        public function process() {
-            if (!parent::process()) return false;
-            
+        public function process() {            
             $users = $this->userList->getUsersNameList();
-            
-            $this->view->setExcludeMessages(true);
 
             $this->view->assign('timesMode', true);
             $this->view->assign('users', array_flip($users));
@@ -167,7 +162,6 @@
             
             $this->view->assign('list', $this->articleItems);
             $this->view->render();
-            
         }
         
         /**

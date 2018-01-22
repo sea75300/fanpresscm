@@ -122,7 +122,7 @@
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
 
             $this->events        = \fpcm\classes\loader::getObject('\fpcm\events\events');
-            $this->cache         = \fpcm\classes\loader::getObject('fpcm\classes\cache');
+            $this->cache         = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
             $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
             $this->session       = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');

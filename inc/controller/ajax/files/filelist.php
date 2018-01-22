@@ -23,23 +23,12 @@
          * @var int
          */
         protected $mode = 1;
-        
+
         /**
-         * Controller-View
-         * @var \fpcm\view\ajax
-         */        
-        protected $view;
-        
-        /**
-         * Konstruktor
+         *
+         * @var array
          */
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('article' => 'add', 'article' => 'edit', 'uploads' => 'add');
-            
-            $this->view = new \fpcm\view\ajax('listinner', 'filemanager');
-        }
+        protected $checkPermission = ['article' => 'add', 'article' => 'edit', 'uploads' => 'add'];
         
         /**
          * Request-Handler
@@ -52,13 +41,19 @@
             
             return true;
         }
+
+        /**
+         * Get view path for controller
+         * @return string
+         */
+        protected function getViewPath() {
+            return 'filemanager/listinner';
+        }
         
         /**
          * Controller-Processing
          */
         public function process() {
-            if (!parent::process()) return false;
-            
             $fileList   = new \fpcm\model\files\imagelist();
 
             $page       = $this->getRequestVar('page', array(9));
@@ -78,10 +73,8 @@
 
             $userList = new \fpcm\model\users\userList();
             $this->initViewAssigns($list, $userList->getUsersAll(), $pagerData);
-            $this->initPermissions();           
+            $this->initPermissions();
 
-            $this->view->setExcludeMessages(true);
-            $this->view->initAssigns();
             $this->view->render();
         }
 

@@ -11,11 +11,6 @@
 
         use \fpcm\controller\traits\articles\editor;
 
-        /**
-         *
-         * @var \fpcm\view\view
-         */
-        protected $view;
 
         /**
          *

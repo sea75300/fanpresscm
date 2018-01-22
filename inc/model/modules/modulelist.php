@@ -167,7 +167,7 @@
             }
             
             if ($count) {
-                $this->cache->cleanup(false, \fpcm\model\abstracts\module::FPCM_MODULES_CACHEFOLDER);
+                $this->cache->cleanup(\fpcm\model\abstracts\module::FPCM_MODULES_CACHEFOLDER.'/*');
             }
             
             return true;
@@ -181,9 +181,9 @@
         {
             return [];
 
-            $cache = new \fpcm\classes\cache(__FUNCTION__, \fpcm\model\abstracts\module::FPCM_MODULES_CACHEFOLDER);
-            if (!$cache->isExpired()) {
-                return $cache->read();
+            $cacheName = \fpcm\model\abstracts\module::FPCM_MODULES_CACHEFOLDER.'/'.__FUNCTION__;
+            if (!$this->cache->isExpired($cacheName)) {
+                return $this->cache->read($cacheName);
             }
 
             $modules = $this->dbcon->fetch($this->dbcon->select($this->table, 'modkey', 'status = 0'), true);
@@ -193,7 +193,7 @@
                 $keys[] = $module->modkey;
             }
 
-            $cache->write($keys, $this->config->system_cache_timeout);
+            $this->cache->write($cacheName, $keys, $this->config->system_cache_timeout);
 
             return $keys;
         }
@@ -204,12 +204,11 @@
          */
         public function getEnabledInstalledModules()
         {
-
             return [];
             
-            $cache = new \fpcm\classes\cache(__FUNCTION__, \fpcm\model\abstracts\module::FPCM_MODULES_CACHEFOLDER);
-            if (!$cache->isExpired()) {
-                return $cache->read();
+            $cacheName = \fpcm\model\abstracts\module::FPCM_MODULES_CACHEFOLDER.'/'.__FUNCTION__;
+            if (!$this->cache->isExpired($cacheName)) {
+                return $this->cache->read($cacheName);
             }
 
             $modules = $this->dbcon->fetch($this->dbcon->select($this->table, 'modkey', 'status = 1', array(), true), true);
@@ -219,7 +218,7 @@
                 $keys[] = $module->modkey;
             }
 
-            $cache->write(array_unique($keys), $this->config->system_cache_timeout);
+            $this->cache->write($cacheName, array_unique($keys), $this->config->system_cache_timeout);
 
             return $keys;
         }
@@ -232,10 +231,9 @@
         {
             return [];
 
-
-            $cache = new \fpcm\classes\cache(__FUNCTION__, \fpcm\model\abstracts\module::FPCM_MODULES_CACHEFOLDER);
-            if (!$cache->isExpired()) {
-                return $cache->read();
+            $cacheName = \fpcm\model\abstracts\module::FPCM_MODULES_CACHEFOLDER.'/'.__FUNCTION__;
+            if (!$this->cache->isExpired($cacheName)) {
+                return $this->cache->read($cacheName);
             }
 
             $modules = $this->dbcon->fetch($this->dbcon->select($this->table, 'modkey'), true);
@@ -245,7 +243,7 @@
                 $keys[] = $module->modkey;
             }
 
-            $cache->write($keys, $this->config->system_cache_timeout);
+            $this->cache->write($cacheName, $keys, $this->config->system_cache_timeout);
 
             return $keys;
         }
@@ -289,7 +287,6 @@
          */
         public function uninstallModules(array $keys)
         {
-
             $this->cache->cleanup();
             
             $keys = array_intersect($keys, $this->getDisabledInstalledModules());
@@ -335,7 +332,6 @@
          */
         public function getConfigByModuleKey($moduleKey, $configFile)
         {
-            
             $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $moduleKey.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.$configFile.'.yml');
             
             if (!file_exists($path)) return [];
@@ -351,7 +347,6 @@
          */
         public function checkDepencies($moduleKey)
         {
-
             if (defined('FPCM_MODULE_IGNORE_DEPENDENCIES') && FPCM_MODULE_IGNORE_DEPENDENCIES) return true;
             
             $dependencies = $this->getConfigByModuleKey($moduleKey, 'dependencies');

@@ -41,11 +41,12 @@
         /**
          * Konstruktor
          */
-        public function __construct() {
+        public function __construct()
+        {
             $this->table = \fpcm\classes\database::tableComments;
 
-            if (is_object(\fpcm\classes\baseconfig::$fpcmSession) && \fpcm\classes\baseconfig::$fpcmSession->exists()) {
-                $this->permissions = new \fpcm\model\system\permissions(\fpcm\classes\baseconfig::$fpcmSession->getCurrentUser()->getRoll());
+            if (is_object(\fpcm\classes\loader::getObject('\fpcm\model\system\session')) && \fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
+                $this->permissions = new \fpcm\model\system\permissions(\fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getRoll());
             }
 
             parent::__construct();
@@ -55,7 +56,8 @@
          * Liefert ein array aller Kommentare
          * @return array
          */
-        public function getCommentsAll() {
+        public function getCommentsAll()
+        {
             $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', '1=1'.$this->dbcon->orderBy(array('createtime DESC'))), true);
             return $this->createCommentResult($list);
         }
@@ -69,10 +71,11 @@
          * @param bool $spam
          * @return array
          */
-        public function getCommentsByDate($from, $to, $private = 0, $approved = 1, $spam = 0) {
+        public function getCommentsByDate($from, $to, $private = 0, $approved = 1, $spam = 0)
+        {
             
-            $params  = array($from, $to, $approved, $private, $spam);
-            $where   = array('createtime >= ?', 'createtime <= ?', 'approved = ?', 'private = ?', 'spammer = ?');
+            $params  = [$from, $to, $approved, $private, $spam];
+            $where   = ['createtime >= ?', 'createtime <= ?', 'approved = ?', 'private = ?', 'spammer = ?'];
 
             $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', implode(' AND ', $where).$this->dbcon->orderBy(array('createtime DESC')), $params), true);
             return $this->createCommentResult($list);
@@ -86,7 +89,8 @@
          * @param bool $spam als Spam markierte Kommentare ja/nein
          * @return array
          */
-        public function getCommentsByCondition($articleId, $private = 0, $hideUnapproved = 1, $spam = 0) {
+        public function getCommentsByCondition($articleId, $private = 0, $hideUnapproved = 1, $spam = 0)
+        {
 
             $conditions             = new search();
             $conditions->articleid  = $articleId;
@@ -103,17 +107,13 @@
          * @param search $conditions
          * @return array
          */
-        public function getCommentsBySearchCondition($conditions) {
+        public function getCommentsBySearchCondition($conditions)
+        {
             
-            $where = array('1=1');
+            $where       = ['1=1'];
             $valueParams = [];
-            
-            if (is_array($conditions) && count($conditions)) {
-                trigger_error('Using an array for '.__METHOD__.' is deprecated as of FPCM 3.5. Create an instance of "fpcm\model\comments\search" instead.');
-            }
-            elseif (is_object($conditions)) {
-                $conditions = $conditions->getData();
-            }
+
+            $conditions = $conditions->getData();
 
             if (isset($conditions['text']) && $conditions['searchtype'] == 0) {
                 $where[] = "name ".$this->dbcon->dbLike()." ?";
@@ -216,7 +216,8 @@
          * @return array
          * @since FPCM 3.1.0
          */
-        public function getCommentsByLimit($offset, $limit, $order = 'DESC') {
+        public function getCommentsByLimit($offset, $limit, $order = 'DESC')
+        {
             $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'id > 0'.$this->dbcon->orderBy(array("createtime {$order}")).$this->dbcon->limitQuery($offset, $limit)), true);
             return $this->createCommentResult($list);
         }
@@ -226,7 +227,8 @@
          * @param array $ids
          * @return bool
          */
-        public function deleteComments(array $ids) {
+        public function deleteComments(array $ids)
+        {
             $this->cache->cleanup();
             return $this->dbcon->delete($this->table, 'id IN ('.implode(', ', $ids).')');
         }
@@ -236,7 +238,8 @@
          * @param int|array $article_ids
          * @return bool
          */
-        public function deleteCommentsByArticle($article_ids) {
+        public function deleteCommentsByArticle($article_ids)
+        {
             
             if (!is_array($article_ids)) {
                 $article_ids = array($article_ids);
@@ -248,39 +251,6 @@
         }
 
         /**
-         * Schaltet Genehmigt-Status um
-         * @param array $ids
-         * @return bool
-         * @deprecated FPCM 3.6
-         */
-        public function toggleApprovement(array $ids) { 
-            $this->cache->cleanup();  
-            return $this->dbcon->reverseBool($this->table, 'approved', 'id IN ('.implode(', ', $ids).')');
-        }
-
-        /**
-         * Schaltet Privat-Status um
-         * @param array $ids
-         * @return bool
-         * @deprecated FPCM 3.6
-         */
-        public function togglePrivate(array $ids) {
-            $this->cache->cleanup();
-            return $this->dbcon->reverseBool($this->table, 'private', 'id IN ('.implode(', ', $ids).')');
-        }
-
-        /**
-         * Schaltet Spam-Status um
-         * @param array $ids
-         * @return bool
-         * @deprecated FPCM 3.6
-         */
-        public function toggleSpammer(array $ids) {
-            $this->cache->cleanup();
-            return $this->dbcon->reverseBool($this->table, 'spammer', 'id IN ('.implode(', ', $ids).')');
-        }
-        
-        /**
          * Zählt Kommentare für alle Artikel
          * @param array $articleIds
          * @param bool $private
@@ -289,12 +259,12 @@
          * @param bool $getCached
          * @return bool
          */
-        public function countComments(array $articleIds = [], $private = null, $approved = null, $spam = null, $getCached = true) {
+        public function countComments(array $articleIds = [], $private = null, $approved = null, $spam = null, $getCached = true)
+        {
+            $cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/'.__FUNCTION__.hash(\fpcm\classes\security::defaultHashAlgo, json_encode(func_get_args()));
 
-            $cacheName = __FUNCTION__.hash(\fpcm\classes\security::defaultHashAlgo, json_encode(func_get_args()));
-            $cache     = new \fpcm\classes\cache($cacheName, \fpcm\model\articles\article::CACHE_ARTICLE_MODULE);
-            if (!$cache->isExpired() && $getCached) {
-                return $cache->read();
+            if (!$this->cache->isExpired($cacheName) && $getCached) {
+                return $this->cache->read($cacheName);
             }
             
             $where  = count($articleIds) ? "articleid IN (".  implode(',', $articleIds).")" : '1=1';
@@ -311,7 +281,7 @@
                 $res[$articleCount->articleid] = $articleCount->count;
             }
             
-            $cache->write($res, $this->config->system_cache_timeout);
+            $this->cache->write($cacheName, $res, $this->config->system_cache_timeout);
             
             return $res;
         }
@@ -321,12 +291,11 @@
          * @param array $articleIds
          * @return array
          */
-        public function countUnapprovedPrivateComments(array $articleIds = []) {
-
-            $cacheName = __FUNCTION__.hash(\fpcm\classes\security::defaultHashAlgo, implode(':', $articleIds));
-            $cache = new \fpcm\classes\cache($cacheName, \fpcm\model\articles\article::CACHE_ARTICLE_MODULE);
-            if (!$cache->isExpired()) {
-                return $cache->read();
+        public function countUnapprovedPrivateComments(array $articleIds = [])
+        {
+            $cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/'.__FUNCTION__.hash(\fpcm\classes\security::defaultHashAlgo, implode(':', $articleIds));
+            if (!$this->cache->isExpired($cacheName)) {
+                return $this->cache->read($cacheName);
             }
             
             $where = count($articleIds) ? "articleid IN (".  implode(',', $articleIds).")" : '1=1';            
@@ -339,7 +308,7 @@
                 $res[$articleCount->articleid] = $articleCount->count;
             }
 
-            $cache->write($res, $this->config->system_cache_timeout);
+            $this->cache->write($cacheName, $res, $this->config->system_cache_timeout);
 
             return $res;
         }
@@ -349,14 +318,9 @@
          * @param search $conditions
          * @return int
          */
-        public function countCommentsByCondition($conditions = []) {
-
-            if (is_array($conditions) && count($conditions)) {
-                trigger_error('Using an array for '.__METHOD__.' is deprecated as of FPCM 3.5. Create an instance of "fpcm\model\comments\search" instead.');
-            }
-            elseif (is_object($conditions)) {
-                $conditions = $conditions->getData();
-            }
+        public function countCommentsByCondition(search $conditions)
+        {
+            $conditions = $conditions->getData();
             
             $where = null;
 
@@ -373,7 +337,8 @@
          * Gibt Zeit zurück, wenn von der aktuellen IP der letzte Kommentar geschrieben wurde
          * @return int
          */
-        public function getLastCommentTimeByIP(){            
+        public function getLastCommentTimeByIP()
+        {            
             $res = $this->dbcon->fetch($this->dbcon->select($this->table, 'createtime', 'ipaddress '.$this->dbcon->dbLike().' ?'.$this->dbcon->orderBy(array('createtime ASC')).$this->dbcon->limitQuery(0, 1), array(\fpcm\classes\http::getIp())));            
             return isset($res->createtime) ? $res->createtime : 0;
         }
@@ -383,7 +348,8 @@
          * @param \fpcm\model\comments\comment $comment
          * @return boolean true, wenn Anzahl größer als in $this->config->comments_markspam_commentcount definiert
          */
-        public function spamExistsbyCommentData(comment $comment) {            
+        public function spamExistsbyCommentData(comment $comment)
+        {            
             $where   = array('name '.$this->dbcon->dbLike().' ?', 'email '.$this->dbcon->dbLike().' ?', 'website '.$this->dbcon->dbLike().' ?', 'ipaddress '.$this->dbcon->dbLike().' ?');
             $params = array($comment->getName(), '%'.$comment->getEmail().'%', '%'.$comment->getWebsite().'%', $comment->getIpaddress());
             $count = $this->dbcon->count($this->table, 'id', implode(' OR ', $where).' AND spammer = 1', $params);
@@ -398,7 +364,8 @@
          * @param array $fields
          * @since FPCM 3.6
          */
-        public function editCommentsByMass(array $commentIds, array $fields) {
+        public function editCommentsByMass(array $commentIds, array $fields)
+        {
 
             if (!count($commentIds)) {
                 return false;
@@ -445,7 +412,8 @@
          * @param array $list
          * @return array
          */
-        private function createCommentResult($list) {
+        private function createCommentResult($list)
+        {
             $res = [];
             
             foreach ($list as $listItem) {

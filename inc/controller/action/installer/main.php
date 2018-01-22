@@ -16,12 +16,6 @@
         
         /**
          *
-         * @var \fpcm\view\installer
-         */
-        protected $view;
-        
-        /**
-         *
          * @var \fpcm\classes\language
          */
         protected $lang;

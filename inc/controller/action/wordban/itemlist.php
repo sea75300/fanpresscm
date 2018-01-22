@@ -8,8 +8,6 @@
     namespace fpcm\controller\action\wordban;
     
     class itemlist extends \fpcm\controller\abstracts\controller {
-        
-        protected $view;
 
         protected $list;
 

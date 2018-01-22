@@ -688,7 +688,7 @@
         /**
          * Initialisiert Daten
          */
-        protected function init() {
+        public function init() {
             $this->filename     = $this->key.$this->version.'.zip';
 
             $this->remoteFile   = \fpcm\classes\baseconfig::$updateServer.self::FPCMPACKAGE_SERVER_PACKAGEPATH.$this->filename;

@@ -10,12 +10,6 @@
     class ipadd extends \fpcm\controller\abstracts\controller {
 
         /**
-         * Controller-View
-         * @var \fpcm\view\view
-         */
-        protected $view;
-
-        /**
          * Ip-Adress-Objekt
          * @var \fpcm\model\ips\ipaddress
          */

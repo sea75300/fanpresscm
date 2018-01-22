@@ -31,7 +31,8 @@
         /**
          * Konstruktor
          */
-        public function __construct() {
+        public function __construct()
+        {
             parent::__construct();
 
             include_once \fpcm\classes\loader::libGetFilePath('tmhoauth/tmhOAuth.php');
@@ -47,7 +48,8 @@
          * Prüft, ob Verbindung zu Twitter hergestellt werden kann
          * @return bool
          */
-        public function checkRequirements() {
+        public function checkRequirements()
+        {
 
             if (!is_array($this->config->twitter_data)) {                
                 return false;
@@ -60,11 +62,12 @@
          * Prüft ob Verbindung zu Twitter besteht
          * @return boolean
          */
-        public function checkConnection() {
-            
-            $cache = new \fpcm\classes\cache(__METHOD__, 'system');
-            if (!$cache->isExpired()) {
-                return $cache->read();
+        public function checkConnection()
+        {
+            $this->cacheName = 'system/'.__METHOD__;
+
+            if (!$this->cache->isExpired($this->cacheName)) {
+                return $this->cache->read($this->cacheName);
             }
 
             $keys = $this->config->twitter_data['consumer_key'] &&
@@ -84,7 +87,7 @@
             $this->log();
 
             $return = ($code != 200 ? false : true);
-            $cache->write($return, $this->config->system_cache_timeout);
+            $this->cache->write($this->cacheName, $return, $this->config->system_cache_timeout);
 
             return $return;
         }
@@ -94,8 +97,8 @@
          * @param string $text
          * @return bool
          */
-        public function updateStatus($text) {
-
+        public function updateStatus($text)
+        {
             if (!trim($text)) return false;
             
             $code = $this->oAuth->request(
@@ -113,7 +116,8 @@
          * Loggt Twitter-response-Daten
          * @return bool
          */
-        private function log() {
+        private function log()
+        {
             $responseData = json_decode($this->oAuth->response['response'], true);
 
             if (isset($responseData['errors'])) {
@@ -144,7 +148,8 @@
          * Gibt Twitter-Benutzername zurück
          * @return string
          */
-        public function getUsername() {
+        public function getUsername()
+        {
             return $this->username;
         }
 

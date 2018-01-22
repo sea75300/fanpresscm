@@ -8,13 +8,7 @@
     namespace fpcm\controller\ajax\system;
     
     class dashboard extends \fpcm\controller\abstracts\ajaxController {
-        
-        /**
-         * Controller-View
-         * @var \fpcm\view\ajax
-         */
-        protected $view;
-        
+
         /**
          * Dashboard-Container-Array
          * @var array
@@ -22,30 +16,20 @@
         protected $containers = [];
 
         /**
-         * Konstruktor
+         * Get view path for controller
+         * @return string
          */
-        public function __construct() {
-            parent::__construct();
-            $this->view = new \fpcm\view\ajax('list', 'dashboard');
+        protected function getViewPath() {
+            return 'dashboard/list';
         }
-        
-        public function request() {
-            return $this->session->exists();
-        }
-
-        
+                
         /**
          * Controller-Processing
          * @return boolean
          */
         public function process() {
-            if (!parent::process()) {
-                return false;
-            }
 
             $this->getClasses();
-
-            $this->view->setExcludeMessages(true);
             $this->view->assign('containers', $this->containers);
             $this->view->render();            
         }

@@ -8,12 +8,6 @@
     namespace fpcm\controller\action\users;
     
     class rolladd extends \fpcm\controller\abstracts\controller {
-        
-        /**
-         *
-         * @var \fpcm\view\view
-         */
-        protected $view;
 
         public function __construct() {
             parent::__construct();

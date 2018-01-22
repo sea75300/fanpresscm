@@ -51,8 +51,8 @@
         public function __construct()
         {
             parent::__construct();
-            $this->loginLockedExpire = 0; //session_cache_expire();
-            $this->iplist            = new \fpcm\model\ips\iplist();            
+            $this->loginLockedExpire = session_cache_expire();
+            $this->iplist            = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
         }
 
         /**

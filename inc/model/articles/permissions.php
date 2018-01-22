@@ -23,7 +23,7 @@
          */
         public function checkEditPermissions(article &$article) {
 
-            if (!\fpcm\classes\baseconfig::$fpcmSession->exists()) {
+            if (!\fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
                 return false;
             }
 
@@ -31,7 +31,7 @@
                 return true;
             }
 
-            $isAdmin     = \fpcm\classes\baseconfig::$fpcmSession->getCurrentUser()->isAdmin();
+            $isAdmin     = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->isAdmin();
             $permEditAll = $this->permissions->check(array('article' => 'editall'));            
             $permEditOwn = $this->permissions->check(array('article' => 'edit'));
             
@@ -41,7 +41,7 @@
             }
             
             if (!$isAdmin && !$permEditAll && $permEditOwn &&
-                $article->getCreateuser() == \fpcm\classes\baseconfig::$fpcmSession->getUserId()) {
+                $article->getCreateuser() == \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getUserId()) {
                 $article->setEditPermission(true);
                 return true;                
             }

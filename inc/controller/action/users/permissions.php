@@ -17,12 +17,6 @@ namespace fpcm\controller\action\users;
 
         /**
          *
-         * @var \fpcm\view\view
-         */
-        protected $view;
-
-        /**
-         *
          * @var \fpcm\model\system\permissions
          */
         protected $permissionObj;

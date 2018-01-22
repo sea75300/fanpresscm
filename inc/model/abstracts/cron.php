@@ -162,7 +162,7 @@
         /**
          * Initialisiert
          */
-        protected function init() {
+        public function init() {
             $res = $this->dbcon->fetch($this->dbcon->select($this->table, 'lastexec, execinterval', 'cjname '.$this->dbcon->dbLike().' ?', array($this->cronName)));            
             $this->lastExecTime = isset($res->lastexec) ? $res->lastexec : 0;
         }

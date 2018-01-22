@@ -14,12 +14,6 @@
     class commentlist extends \fpcm\controller\abstracts\controller {
         
         use \fpcm\controller\traits\comments\lists;
-        
-        /**
-         *
-         * @var \fpcm\view\view
-         */
-        protected $view;
 
         /**
          *

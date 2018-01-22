@@ -11,13 +11,7 @@
         
         use \fpcm\controller\traits\common\timezone,
             \fpcm\controller\traits\users\authorImages;
-        
-        /**
-         *
-         * @var \fpcm\view\view
-         */
-        protected $view;
-        
+
         /**
          *
          * @var int

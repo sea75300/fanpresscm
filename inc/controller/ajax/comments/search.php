@@ -20,12 +20,6 @@
     class search extends \fpcm\controller\abstracts\ajaxController {
         
         use \fpcm\controller\traits\comments\lists;
-        
-        /**
-         *
-         * @var \fpcm\view\ajax
-         */
-        protected $view;
 
         /**
          *
@@ -47,13 +41,18 @@
             parent::__construct();
             
             $this->checkPermission = array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit'));
-            
-            $this->view         = new \fpcm\view\ajax('commentlist_inner', 'comments');
-            $this->view->initAssigns();
 
             $this->list         = new \fpcm\model\comments\commentList();
             $this->articleList  = new \fpcm\model\articles\articlelist();
 
+        }
+
+        /**
+         * Get view path for controller
+         * @return string
+         */
+        protected function getViewPath() {
+            return 'comments/commentslist_inner';
         }
         
         /**
@@ -62,10 +61,6 @@
          */
         public function request() {
 
-            if (!$this->session->exists()) {
-                return false;
-            }
-           
             $filter     = $this->getRequestVar('filter');
 
             $sparams             = new \fpcm\model\comments\search();
@@ -96,17 +91,13 @@
          * Controller-Processing
          */
         public function process() {
-            if (!parent::process()) return false;
-
             $this->initCommentPermissions();
             $this->initCommentMassEditForm(true);
 
-            $this->view->setExcludeMessages(true);
             $this->view->assign('ownArticleIds', $this->articleList->getArticleIDsByUser($this->session->getUserId()));
             $this->view->assign('commentsMode', 1);
             $this->view->assign('showPager', false);
-            $this->view->render();
-            
+            $this->view->render();            
         }
 
     }

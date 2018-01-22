@@ -8,12 +8,6 @@
     namespace fpcm\controller\action\smileys;
     
     class smileyadd extends \fpcm\controller\abstracts\controller {
-        
-        /**
-         * Controller-View
-         * @var \fpcm\view\view
-         */
-        protected $view;
 
         /**
          *

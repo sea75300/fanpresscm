@@ -135,7 +135,8 @@
          * Konstruktor
          * @param int $id
          */
-        public function __construct($id = null) {
+        public function __construct($id = null)
+        {
             $this->table = \fpcm\classes\database::tableAuthors;
             $this->wordbanList = new \fpcm\model\wordban\items();
             
@@ -148,7 +149,8 @@
          * Liefert anzeigten Name zurück
          * @return string
          */
-        public function getDisplayname() {
+        public function getDisplayname()
+        {
             return $this->displayname;
         }
         
@@ -156,7 +158,8 @@
          * Liefert E-Mail-Adresse zurück
          * @return string
          */
-        public function getEmail() {
+        public function getEmail()
+        {
             return $this->email;
         }
         
@@ -164,7 +167,8 @@
          * Liefert Datum der Anmeldung zurück
          * @return int
          */
-        public function getRegistertime() {
+        public function getRegistertime()
+        {
             return $this->registertime;
         }
         
@@ -172,14 +176,17 @@
          * Liefert Benutzername zurück
          * @return string
          */
-        public function getUsername() {
+        public function getUsername()
+        {
             return $this->username;
         } 
         
         /**
          * Liefert Passwort-Hash zurück
          * @return string
-         */public function getPasswd() {
+         */
+        public function getPasswd()
+        {
             return $this->passwd;
         }
         
@@ -187,7 +194,8 @@
          * Liefert Rollen-ID zurück
          * @return string
          */
-        public function getRoll() {
+        public function getRoll()
+        {
             return (int) $this->roll;
         }
         
@@ -195,7 +203,8 @@
          * Rollen-ID setzen
          * @param int $roll
          */
-        public function setRoll($roll) {
+        public function setRoll($roll)
+        {
             $this->roll = (int) $roll;
         }
         
@@ -203,7 +212,8 @@
          * Passwort-Salt auslesen
          * @return string
          */
-        public function getSalt() {
+        public function getSalt()
+        {
             return $this->salt;
         }
 
@@ -211,7 +221,8 @@
          * Passwort-Salt setzen
          * @param string $salt
          */
-        public function setSalt($salt) {
+        public function setSalt($salt)
+        {
             $this->salt = $salt;
         }        
         
@@ -219,7 +230,8 @@
          * Status ob Benutzer deaktiviert ist auslesen
          * @return bool
          */
-        public function getDisabled() {
+        public function getDisabled()
+        {
             return $this->disabled;
         }
 
@@ -228,7 +240,8 @@
          * @return string
          * @since FPCM 3.4
          */        
-        function getGroupname() {
+        function getGroupname()
+        {
             return $this->groupname;
         }
 
@@ -236,7 +249,8 @@
          * Kurze Authoren-Beschreibung setzen
          * @since FPCM 3.6
          */
-        public function getUsrinfo() {
+        public function getUsrinfo()
+        {
             return $this->usrinfo;
         }
 
@@ -244,7 +258,8 @@
          * Author-Bild zurückliefern
          * @since FPCM 3.6
          */
-        public function getImage() {
+        public function getImage()
+        {
             return $this->image;
         }
 
@@ -252,7 +267,8 @@
          * Deaktiviert-Status setzen
          * @param bool $disabled
          */
-        public function setDisabled($disabled) {
+        public function setDisabled($disabled)
+        {
             $this->disabled = $disabled;
         }
 
@@ -261,7 +277,8 @@
          * @param string $valueName
          * @return string|array
          */
-        public function getUserMeta($valueName = null) {
+        public function getUserMeta($valueName = null)
+        {
             $userMeta = json_decode($this->usrmeta, true);
             
             if (is_null($valueName))          {
@@ -279,7 +296,8 @@
          * ist Benutzer ein Administrator
          * @return bool
          */
-        public function isAdmin() {
+        public function isAdmin()
+        {
             return $this->roll == 1 ? true : false;
         }
 
@@ -287,7 +305,8 @@
          * Angezeigten Name setzen
          * @param string $displayname
          */
-        public function setDisplayName($displayname) {
+        public function setDisplayName($displayname)
+        {
             $this->displayname = $displayname;
         }
 
@@ -295,7 +314,8 @@
          * E-Mail-Adresse setzen
          * @param string $email
          */
-        public function setEmail($email) {
+        public function setEmail($email)
+        {
             $this->email = $email;
         }
 
@@ -303,7 +323,8 @@
          * Anmelde-Datum setzen
          * @param string $registertime
          */
-        public function setRegistertime($registertime) {
+        public function setRegistertime($registertime)
+        {
             $this->registertime = $registertime;
         }
 
@@ -311,7 +332,8 @@
          * Benutzername setzen
          * @param string $username
          */
-        public function setUserName($username) {
+        public function setUserName($username)
+        {
             $this->username = $username;
         }
 
@@ -319,7 +341,8 @@
          * Passwort-Hash setzen
          * @param string $passwd
          */
-        public function setPassword($passwd) {
+        public function setPassword($passwd)
+        {
             $this->passwd = $passwd;
         }
 
@@ -327,7 +350,8 @@
          * ben.-def. Einstellungen setzen
          * @param array $usrmeta
          */
-        public function setUserMeta(array $usrmeta) {
+        public function setUserMeta(array $usrmeta)
+        {
             $this->usrmeta = json_encode($usrmeta);
         }
 
@@ -336,7 +360,8 @@
          * @param string $usrinfo
          * @since FPCM 3.6
          */
-        public function setUsrinfo($usrinfo) {
+        public function setUsrinfo($usrinfo)
+        {
             $this->usrinfo = $usrinfo;
         }
         
@@ -344,8 +369,8 @@
          * Speichert einen neuen Benutzer in der Datenbank
          * @return boolean
          */
-        public function save() {
-
+        public function save()
+        {
             $this->removeBannedTexts();
 
             if (!$this->username) {
@@ -382,8 +407,8 @@
          * Aktualisiert einen Benutzer in der Datenbank
          * @return boolean
          */
-        public function update() {
-
+        public function update()
+        {
             $this->removeBannedTexts();
 
             if (!$this->passwordSecCheckDisabled()) {
@@ -414,20 +439,13 @@
             
             return $return;
         }
-        
-        /**
-         * Löscht einen Benutzer in der Datenbank
-         * @return bool
-         */
-        public function delete() {
-            return parent::delete();
-        }
-        
+
         /**
          * Deaktiviert einen Benutzer
          * @return bool
          */
-        public function disable() {
+        public function disable()
+        {
             $this->disabled = 1;
             $this->disablePasswordSecCheck();
             return $this->update();
@@ -437,7 +455,8 @@
          * Aktiviert einen Benutzer
          * @return bool
          */        
-        public function enable() {
+        public function enable()
+        {
             $this->disabled = 0;
             $this->disablePasswordSecCheck();
             return $this->update();
@@ -446,14 +465,16 @@
         /**
          * Passwort-Check ein Anlegen/Aktualisieren deaktivieren
          */
-        public function disablePasswordSecCheck() {
+        public function disablePasswordSecCheck()
+        {
             $this->nopasscheck = true;
         }
         
         /**
          * Passwort-Check ein Anlegen/Aktualisieren deaktivieren
          */
-        public function passwordSecCheckDisabled() {
+        public function passwordSecCheckDisabled()
+        {
             return $this->nopasscheck;
         }
         
@@ -462,7 +483,8 @@
          * @param bool $resetOnly (@since FPCM3.4)
          * @return boolean
          */
-        public function resetPassword($resetOnly = false) {
+        public function resetPassword($resetOnly = false)
+        {
 
             $this->disablePasswordSecCheck();
             
@@ -494,21 +516,21 @@
          * @param object $object
          * @return boolean
          */
-        public function createFromDbObject($object) {
-
+        public function createFromDbObject($object)
+        {
             $res = parent::createFromDbObject($object);
             $this->groupname = $this->language->translate($this->groupname);
             $this->image     = preg_replace('/[^a-z0-9_\-\w]/', '', strtolower($this->username));
             
             return $res;
-
         }
 
         /**
          * Prüft, ob Benutzer existiert
          * @return bool
          */
-        private function authorExists() {
+        private function authorExists()
+        {
             $result = $this->dbcon->count($this->table,"id", "username ".$this->dbcon->dbLike()." ? OR displayname ".$this->dbcon->dbLike()." ?", array($this->username, $this->displayname));
             return ($result > 0) ? true : false;
         }
@@ -517,7 +539,8 @@
          * Prüft, ob Passwort den minimalen Anforderungen entspricht
          * @return boolean
          */
-        private function checkPasswordSecure() {
+        private function checkPasswordSecure()
+        {
             return (preg_match(\fpcm\classes\security::regexPasswordCkeck, $this->passwd)) ? true : false;
         }
         
@@ -526,7 +549,8 @@
          * @return boolean
          * @since FPCM 3.2.0
          */
-        private function removeBannedTexts() {
+        private function removeBannedTexts()
+        {
 
             $this->username     = $this->wordbanList->replaceItems($this->username);
             $this->displayname   = $this->wordbanList->replaceItems($this->displayname);
@@ -538,7 +562,8 @@
         /**
          * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
          */
-        public function init() {
+        public function init()
+        {
             
             $item   = $this->dbcon->getTablePrefixed($this->table).'.*, ';
             $item  .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll).'.leveltitle AS groupname';
@@ -565,14 +590,15 @@
          * @return string
          * @since FPCM 3.6
          */
-        public static function getAuthorImageDataOrPath($author, $asUrl = true) {
+        public static function getAuthorImageDataOrPath($author, $asUrl = true)
+        {
 
             if (!$author instanceof author) {
                 return '';
             }
             
-            $cache = new \fpcm\classes\cache('authorImages', 'system');
-            $data  = $cache->read();
+            $cacheName  = 'system/'.$this->cacheName.'_image';
+            $data       = $this->cache->read($cacheName);
             
             if (!is_array($data)) {
                 $data = [];
@@ -580,7 +606,7 @@
             
             $usernameHash = hash(\fpcm\classes\security::defaultHashAlgo, $author->getUsername());
 
-            if (!$cache->isExpired() && isset($data[$usernameHash])) {
+            if (!$this->cache->isExpired($cacheName) && isset($data[$usernameHash])) {
                 return $asUrl ? $data[$usernameHash]['url'] : $data[$usernameHash]['data'];
             }
 
@@ -601,7 +627,7 @@
                 break;
             }
             
-            $cache->write($data, FPCM_LANGCACHE_TIMEOUT);
+            $this->cache->write($cacheName, $data, FPCM_LANGCACHE_TIMEOUT);
             if (!isset($data[$usernameHash])) {
                 return '';
             }

@@ -16,12 +16,6 @@
     class syscheck extends \fpcm\controller\abstracts\ajaxController {
         
         use \fpcm\controller\traits\system\syscheck;
-        
-        /**
-         * Controller-View
-         * @var \fpcm\view\view
-         */
-        protected $view;
 
         /**
          *
@@ -30,13 +24,20 @@
         protected $installer;
 
         /**
-         * Konstruktor
+         * Get view path for controller
+         * @return string
          */
-        public function __construct() {
-            parent::__construct();
+        protected function getViewPath()
+        {
+            return 'system/syscheck';
         }
 
-        public function request() {
+        /**
+         * 
+         * @return boolean
+         */
+        public function request()
+        {
 
             if (!\fpcm\classes\baseconfig::installerEnabled() && \fpcm\classes\baseconfig::dbConfigExists() && !$this->session->exists()) {
                 return false;
@@ -54,21 +55,18 @@
         /**
          * Controller-Processing
          */
-        public function process() {
-
-            $view = new \fpcm\view\ajax('syscheck', 'system');
-            $view->setExcludeMessages(true);
-            $view->initAssigns();
-            $view->assign('checkOptions', $this->getCheckOptions());
-            $view->render();
-
+        public function process()
+        {
+            $this->view->assign('checkOptions', $this->getCheckOptions());
+            $this->view->render();
         }
         
         /**
          * System-Check-Optionen ermitteln
          * @return array
          */
-        private function getCheckOptions() {
+        private function getCheckOptions()
+        {
             $checkOptions     = [];            
             
             $updater = new \fpcm\model\updater\system();
@@ -94,7 +92,8 @@
             return $this->events->runEvent('runSystemCheck', $checkOptions);
         }
         
-        private function submitStatsData() {
+        private function submitStatsData()
+        {
 
             $data = array_slice($this->processCli(), 0, 18);
             
@@ -128,7 +127,8 @@
             $email->submit();
         }
 
-        public function processCli() {
+        public function processCli()
+        {
             
             $checkOptions     = [];            
             

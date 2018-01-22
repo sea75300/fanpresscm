@@ -24,7 +24,7 @@
         public function run() {
 
             /*@var $session \fpcm\model\system\session */
-            $session = \fpcm\classes\baseconfig::$fpcmSession;
+            $session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
             $user_id = $session->exists() ? $session->getUserId() : 0;
             
             $imageList = new \fpcm\model\files\imagelist();

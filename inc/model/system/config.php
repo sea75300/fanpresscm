@@ -91,7 +91,8 @@
          * @param bool $useCache Configuration aus Cache laden
          * @return boolean
          */
-        function __construct($useCache = true) {
+        function __construct($useCache = true)
+        {
             
             $this->table    = \fpcm\classes\database::tableConfig;
             $this->dbcon    = \fpcm\classes\loader::getObject('fpcm\classes\database');
@@ -110,7 +111,8 @@
          * Speichert neue Konfiguration
          * @param array $newConfig
          */
-        public function setNewConfig(array $newConfig) {
+        public function setNewConfig(array $newConfig)
+        {
             $this->newConfig = $newConfig;
         }        
 
@@ -118,7 +120,8 @@
          * not used
          * @return boolean
          */
-        public function save() {
+        public function save()
+        {
             return false;
         }
         
@@ -126,7 +129,8 @@
          * not used
          * @return boolean
          */
-        public function delete() {
+        public function delete()
+        {
             return false;
         }
 
@@ -134,7 +138,8 @@
          * Konfiguration aktualisieren
          * @return boolean
          */
-        public function update() {
+        public function update()
+        {
             if (!count($this->newConfig)) return false;
 
             $params = $this->events->runEvent('configUpdate', $this->newConfig);
@@ -164,7 +169,8 @@
          * @param string $keyvalue
          * @return boolean
          */
-        public function add($keyname, $keyvalue) {
+        public function add($keyname, $keyvalue)
+        {
             if (isset($this->data[$keyname])) return -1;
 
             $keyvalue = is_array($keyvalue) ? json_encode($keyvalue) : $keyvalue;
@@ -180,7 +186,8 @@
          * @param string $keyname
          * @return boolean
          */
-        public function remove($keyname) {
+        public function remove($keyname)
+        {
             if (!isset($this->data[$keyname])) return false;
 
             $res = $this->dbcon->delete($this->table, "config_name ".$this->dbcon->dbLike()." ?", array($keyname));
@@ -194,19 +201,21 @@
          * Überschreibt systemweite Einstellungen mit Benutzer-Einstellungen
          * @return void
          */
-        public function setUserSettings() {
-
+        public function setUserSettings()
+        {
             if (!defined('FPCM_USERID') || !FPCM_USERID) return false;
 
-            $userData = $this->cache->read('system/configuser'.FPCM_USERID);
+            $cacheName = 'system/configuser'.FPCM_USERID;
             
-            if ($this->cache->isExpired('system/configuser'.FPCM_USERID) || !$this->useCache || !is_array($userData)) {
+            $userData = $this->cache->read($cacheName);
+            
+            if ($this->cache->isExpired($cacheName) || !$this->useCache || !is_array($userData)) {
                 $userData = $this->dbcon->fetch($this->dbcon->select(\fpcm\classes\database::tableAuthors, 'id, usrmeta', 'id = ?', array(FPCM_USERID)));
                 $userData = json_decode($userData->usrmeta, true);
 
                 if (!is_array($userData)) return false;                    
                 
-                $this->cache->write('system/configuser'.FPCM_USERID, $userData, $this->system_cache_timeout);
+                $this->cache->write($cacheName, $userData, $this->system_cache_timeout);
             }
 
             foreach ($userData as $key => $value) {
@@ -221,7 +230,8 @@
          * @param bool $mode
          * @return bool
          */
-        public function setMaintenanceMode($mode) {
+        public function setMaintenanceMode($mode)
+        {
             $this->newConfig = ['system_maintenance' => (int) $mode];
             return $this->update();
         }
@@ -229,11 +239,14 @@
         /**
          * Inittiert Objekt mit Daten aus der Datenbank
          */
-        public function init() {
+        public function init()
+        {
             
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
             
-            if ($this->cache->isExpired('system/config') || !$this->useCache) {
+            $this->cacheName = 'system/config';
+            
+            if ($this->cache->isExpired($this->cacheName) || !$this->useCache) {
                 $configData = $this->dbcon->fetch($this->dbcon->select($this->table), true);
                 foreach ($configData as $data) {
                     $this->data[$data->config_name] = $data->config_value;
@@ -243,12 +256,12 @@
                 $this->data['twitter_events'] = json_decode($this->data['twitter_events'], true);
                 $this->data['smtp_settings']  = json_decode($this->data['smtp_settings'], true);
 
-                $this->cache->write('system/config', $this->data, $this->data['system_cache_timeout']);
+                $this->cache->write($this->cacheName, $this->data, $this->data['system_cache_timeout']);
                 
                 return;
             }
             
-            $this->data = $this->cache->read('system/config');
+            $this->data = $this->cache->read($this->cacheName);
         }
 
         /**
@@ -256,7 +269,8 @@
          * @return boolean
          * @since FPCM 3.6
          */
-        public function prepareDataSave() {
+        public function prepareDataSave()
+        {
 
             if (isset($this->newConfig['twitter_events']) && is_array($this->newConfig['twitter_events'])) {
                 $this->newConfig['twitter_events'] = json_encode($this->newConfig['twitter_events']);
@@ -336,7 +350,8 @@
         /**
          * Config-Refresh
          */
-        private function refresh() {
+        private function refresh()
+        {
             $this->cache->cleanup();
             $this->init();            
         }
@@ -346,7 +361,8 @@
          * @return array
          * @since FPCM 3.4
          */
-        public static function getDefaultFontsizes() {
+        public static function getDefaultFontsizes()
+        {
 
             $defaultFontsizes = [];
             for ($i=8; $i<=16;$i++) {
@@ -361,8 +377,8 @@
          * @return array
          * @since FPCM 3.4
          */
-        public static function getAcpArticleLimits() {
-
+        public static function getAcpArticleLimits()
+        {
             return array(
                 10 => 10,
                 25 => 25,
@@ -382,8 +398,8 @@
          * @return array
          * @since FPCM 3.4
          */
-        public static function getArticleLimits() {
-
+        public static function getArticleLimits()
+        {
             return array(
                 1 => 1,
                 2 => 2,

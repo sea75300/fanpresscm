@@ -50,7 +50,8 @@
         /**
          * Initialisiert System Updater
          */
-        public function __construct() {
+        public function __construct()
+        {
             parent::__construct();
 
             $this->remoteUrl = \fpcm\classes\baseconfig::$moduleServer.'server3.php?data=';
@@ -64,11 +65,12 @@
          * @param bool $force Cache-Daten nicht verwenden
          * @return boolean
          */
-        public function getModulelist($force = false) {
+        public function getModulelist($force = false)
+        {
 
             if (!$this->canConnect) return self::MODULEUPDATER_FURLOPEN_ERROR;
 
-            if ($this->cache->isExpired() || $force) {
+            if ($this->cache->isExpired($this->getCacheName()) || $force) {
                 
                 if (!$this->remoteAvailable()) self::MODULEUPDATER_REMOTEFILE_ERROR;
 
@@ -81,9 +83,9 @@
                 
                 $this->decodeData();
                 
-                $this->cache->write($this->remoteData, $this->config->system_cache_timeout);
+                $this->cache->write($this->getCacheName(), $this->remoteData, $this->config->system_cache_timeout);
             } else {
-                $this->remoteData = $this->cache->read();
+                $this->remoteData = $this->cache->read($this->getCacheName());
             }            
 
             return true;            
@@ -93,7 +95,8 @@
          * Prüft ob Updates für Module vorhanden sind
          * @return boolean
          */
-        public function checkUpdates() {
+        public function checkUpdates()
+        {
             
             if (!$this->canConnect) return self::MODULEUPDATER_FURLOPEN_ERROR;
             

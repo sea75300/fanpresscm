@@ -22,13 +22,7 @@
          * @var \fpcm\model\modules\modulelist
          */
         protected $modulelist;
-        
-        /**
-         * AJAX-View
-         * @var \fpcm\view\ajax
-         */
-        protected $view;
-        
+
         /**
          * Update-Check aktiv
          * @var bool

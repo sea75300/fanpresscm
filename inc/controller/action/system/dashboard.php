@@ -8,19 +8,13 @@
     namespace fpcm\controller\action\system;
     
     class dashboard extends \fpcm\controller\abstracts\controller {
-        
-        /**
-         * Controller-View
-         * @var \fpcm\view\view
-         */
-        protected $view;
 
         /**
-         * Konstruktor
+         * Get view path for controller
+         * @return string
          */
-        public function __construct() {
-            parent::__construct();
-            $this->view = new \fpcm\view\view('index', 'dashboard');
+        protected function getViewPath() {
+            return 'dashboard/index';
         }
         
         /**

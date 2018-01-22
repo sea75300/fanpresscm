@@ -54,7 +54,7 @@
         public function __construct() {
             parent::__construct();
 
-            $this->remoteUrl = \fpcm\classes\baseconfig::$updateServer.'server3.php?data=';
+            $this->remoteUrl    = \fpcm\classes\baseconfig::$updateServer.'server3.php?data=';
             $this->checkParams  = array('version' => $this->config->system_version);
             
             if ($this->config->system_updates_devcheck) {
@@ -72,7 +72,7 @@
 
             if (!$this->canConnect) return self::SYSTEMUPDATER_FURLOPEN_ERROR;
 
-            if ($this->cache->isExpired()) {
+            if ($this->cache->isExpired($this->getCacheName())) {
 
                 if (!$this->remoteAvailable()) self::SYSTEMUPDATER_REMOTEFILE_ERROR;
                 
@@ -85,9 +85,9 @@
 
                 $this->decodeData();
 
-                $this->cache->write($this->remoteData, $this->config->system_cache_timeout);
+                $this->cache->write($this->getCacheName(), $this->remoteData, $this->config->system_cache_timeout);
             } else {
-                $this->remoteData = $this->cache->read();
+                $this->remoteData = $this->cache->read($this->getCacheName());
             }
 
             $version = version_compare($this->config->system_version, $this->remoteData['version'], '<');

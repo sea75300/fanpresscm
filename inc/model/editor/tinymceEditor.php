@@ -20,7 +20,8 @@
          * Liefert zu ladender CSS-Dateien für Editor zurück
          * @return array
          */
-        public function getCssFiles() {
+        public function getCssFiles()
+        {
             return [];
         }
 
@@ -28,7 +29,8 @@
          * Pfad der Editor-Template-Datei
          * @return string
          */
-        public function getEditorTemplate() {
+        public function getEditorTemplate()
+        {
             return \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, 'articles/editors/tinymce.php');
         }
 
@@ -36,8 +38,8 @@
          * Liefert zu ladender Javascript-Dateien für Editor zurück
          * @return array
          */        
-        public function getJsFiles() {
-
+        public function getJsFiles()
+        {
             return array(
                 \fpcm\classes\loader::libGetFileUrl('tinymce4', 'tinymce.min.js'),
                 'editor.js',
@@ -50,11 +52,10 @@
          * Array von Javascript-Variablen, welche in Editor-Template genutzt werden
          * @return array
          */
-        public function getJsVars() {
-
+        public function getJsVars()
+        {
             $editorStyles = array(array('title' => $this->language->translate('GLOBAL_SELECT'), 'value' => ''));
 
-            $cache = new \fpcm\classes\cache('tinymce_plugins');
             if (defined('FPCM_TINYMCE_PLUGINS') && FPCM_TINYMCE_PLUGINS) {
                 $pluginFolders = FPCM_TINYMCE_PLUGINS;
                 
@@ -64,16 +65,16 @@
                 ));
                 
             }
-            elseif ($cache->isExpired()) {
+            elseif ($this->cache->isExpired('tinymce_plugins')) {
 
                 $path  = dirname(\fpcm\classes\loader::libGetFilePath('tinymce4/tinymce.min.js'));            
                 $path .= '/plugins/*';
 
                 $pluginFolders = implode(' ', array_map('basename', glob($path, GLOB_ONLYDIR)));
-                $cache->write($pluginFolders, $this->config->system_cache_timeout);
+                $this->cache->write('tinymce_plugins', $pluginFolders, $this->config->system_cache_timeout);
             }
             else {
-                $pluginFolders = $cache->read();
+                $pluginFolders = $this->cache->read('tinymce_plugins');
             }
             
             $params = array(
@@ -98,7 +99,8 @@
          * Array von Variablen, welche in Editor-Template genutzt werden
          * @return array
          */
-        public function getViewVars() {
+        public function getViewVars()
+        {
             return [];
         }
         
@@ -106,7 +108,8 @@
          * Editor-Styles initialisieren
          * @return array
          */
-        protected function getEditorStyles() {
+        protected function getEditorStyles()
+        {
             if (!$this->config->system_editor_css) return [];
             
             $classes = explode(PHP_EOL, $this->config->system_editor_css);
@@ -124,7 +127,8 @@
          * Editor-Links initialisieren
          * @return string
          */
-        public function getEditorLinks() {
+        public function getEditorLinks()
+        {
             $links = $this->events->runEvent('editorAddLinks');
             if (!is_array($links) || !count($links)) return [];
             return json_decode(str_replace('label', 'title', json_encode($links)), false);
@@ -134,7 +138,8 @@
          * Dateiliste initialisieren
          * @return array
          */
-        public function getFileList() {
+        public function getFileList()
+        {
             $data = [];            
             foreach ($this->fileList->getDatabaseList() as $image) {
                 $data[] = array('title' => $image->getFilename(), 'value' => $image->getImageUrl());
@@ -151,8 +156,8 @@
          * @return array
          * @since FPCM 3.3
          */
-        public function getTemplateDrafts() {
-            
+        public function getTemplateDrafts()
+        {
             $templatefilelist = new \fpcm\model\files\templatefilelist();
 
             $ret = [];
@@ -180,7 +185,8 @@
          * @return array
          * @since FPCM 3.3
          */
-        public function getJsLangVars() {
+        public function getJsLangVars()
+        {
             return [];
         }
 

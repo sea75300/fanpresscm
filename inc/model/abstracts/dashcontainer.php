@@ -71,6 +71,15 @@
         protected $position = 0;
 
         /**
+         * Cache-Name zurückgeben
+         * @return string
+         */
+        public function getCacheName($addName = '') {
+            $this->cacheName = self::CACHE_M0DULE_DASHBOARD.'/'.$this->name.$addName;
+            return $this->cacheName;
+        }
+
+        /**
          * Container-Name zurückgeben
          * @return string
          */

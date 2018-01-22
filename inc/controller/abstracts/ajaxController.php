@@ -34,7 +34,16 @@
          * @var bool
          */
         protected $updateCheckEnabled = false;
-     
+        
+        public function __construct()
+        {
+            parent::__construct();
+            if ($this->view instanceof \fpcm\view\view) {
+                $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
+            }
+            
+        }
+
         /**
          * JSON-codiertes Array mit Rückgabe-Code und ggf. Rückgabe-Daten erzeugen
          * @return void

@@ -422,7 +422,7 @@
         /**
          * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
          */
-        protected function init() {
+        public function init() {
             $data = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'modkey = ?', array($this->modkey)));
             if (!$data) {
                 return false;

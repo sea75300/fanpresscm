@@ -454,7 +454,9 @@
          * @since FPCM 3.5
          */
         public static function printHelpLink($entry) {
-            print \fpcm\classes\baseconfig::$rootPath.'index.php?module=system/help&ref='.base64_encode(strtolower($entry));
+            print \fpcm\classes\tools::getFullControllerLink('system/help', [
+                'ref' => base64_encode(strtolower($entry))
+            ]);
         }
 
         /**

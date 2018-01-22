@@ -24,12 +24,6 @@
         protected $modulelist;
         
         /**
-         * AJAX-View
-         * @var \fpcm\view\ajax
-         */
-        protected $view;
-        
-        /**
          * Update-Prüfung aktiv
          * @var bool
          */

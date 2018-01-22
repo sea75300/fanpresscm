@@ -25,21 +25,10 @@
         protected $mode = 1;
         
         /**
-         * Controller-View
-         * @var \fpcm\view\ajax
-         */        
-        protected $view;
-        
-        /**
-         * Konstruktor
+         * Array mit zu prüfenden Berchtigungen
+         * @var array
          */
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('article' => 'add', 'article' => 'edit', 'uploads' => 'add');
-            
-            $this->view = new \fpcm\view\ajax('listinner', 'filemanager');
-        }
+        protected $checkPermission = ['article' => 'add', 'article' => 'edit', 'uploads' => 'add'];
         
         /**
          * Request-Handler
@@ -55,7 +44,15 @@
 
             return true;
         }
-        
+
+        /**
+         * Get view path for controller
+         * @return string
+         */
+        protected function getViewPath() {
+            return 'filemanager/listinner';
+        }
+
         /**
          * Controller-Processing
          */
@@ -86,8 +83,6 @@
             $this->initPermissions();
 
             $this->view->assign('showPager', false);
-            $this->view->setExcludeMessages(true);
-            $this->view->initAssigns();
             $this->view->render();
         }
 

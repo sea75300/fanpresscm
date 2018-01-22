@@ -52,26 +52,27 @@
          * Konstruktor
          */
         public function __construct() {
+                                   
+            $this->name      = 'recentcomments';
 
-            $this->cacheName = 'recentcomments';
-            
-            parent::__construct();
-            
-            $session            = \fpcm\classes\baseconfig::$fpcmSession;
+            $session            = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
             $this->currentUser  = $session->getUserId();
             $this->isAdmin      = $session->getCurrentUser()->isAdmin();
-            $this->permissions  = new \fpcm\model\system\permissions($session->currentUser->getRoll());
-            $this->cache        = new \fpcm\classes\cache($this->cacheName.'_'.$this->currentUser, self::CACHE_M0DULE_DASHBOARD);
+
+            $this->getCacheName('_'.$this->currentUser);
             
-            if ($this->cache->isExpired()) {
+            parent::__construct();
+
+            $this->permissions  = new \fpcm\model\system\permissions($session->currentUser->getRoll());
+            
+            if ($this->cache->isExpired($this->cacheName)) {
                 $this->renderContent();                
             } else {
-                $this->content = $this->cache->read();
+                $this->content = $this->cache->read($this->cacheName);
             }
-                                   
-            $this->headline = $this->language->translate('RECENT_COMMENTS');
-            $this->name     = 'recentcomments';
-            $this->position = 4;
+
+            $this->headline  = $this->language->translate('RECENT_COMMENTS');
+            $this->position  = 4;
         }
         
         /**
@@ -140,7 +141,7 @@
             
             $this->content = implode(PHP_EOL, $content);
             
-            $this->cache->write($this->content, $this->config->system_cache_timeout);
+            $this->cache->write($this->cacheName, $this->content, $this->config->system_cache_timeout);
         }
         
     }

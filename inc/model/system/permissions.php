@@ -151,11 +151,10 @@
          * @param int $rollid ID der Benutzerrolle
          * @return void
          */
-        public function __construct($rollid = 0) {
-
+        public function __construct($rollid = 0)
+        {
             $this->table       = \fpcm\classes\database::tablePermissions;
-            $this->cacheName   = 'permissioncache'.$rollid;
-            $this->cacheModule = 'permissioncache';
+            $this->cacheName   = 'system/permissioncache'.$rollid;
 
             parent::__construct();
             
@@ -169,7 +168,8 @@
          * Rollen-ID auslesen
          * @return int
          */
-        function getRollId() {
+        function getRollId()
+        {
             return $this->rollid;
         }
 
@@ -177,7 +177,8 @@
          * Berechtigungsdaten auslesen
          * @return array
          */
-        public function getPermissionData() {
+        public function getPermissionData()
+        {
             
             if (is_array($this->permissiondata)) {
                 return $this->permissiondata;
@@ -190,7 +191,8 @@
          * Rollen-ID setzen
          * @param array $rollid
          */
-        public function setRollId($rollid) {
+        public function setRollId($rollid)
+        {
             $this->rollid = $rollid;
         }
 
@@ -198,7 +200,8 @@
          * Berechtigungsdaten setzen
          * @param array $permissiondata
          */
-        public function setPermissionData(array $permissiondata) {
+        public function setPermissionData(array $permissiondata)
+        {
             $this->permissiondata = json_encode($permissiondata);
         }
 
@@ -206,10 +209,10 @@
          * Berechtigungen initialisieren
          * @return void
          */
-        public function init() {
-
-            if (!$this->cache->isExpired()) {
-                $this->permissiondata = $this->cache->read();
+        public function init()
+        {
+            if (!$this->cache->isExpired($this->cacheName)) {
+                $this->permissiondata = $this->cache->read($this->cacheName);
                 return true;
             }
             
@@ -222,7 +225,7 @@
             }
 
             $this->permissiondata = json_decode($this->permissiondata, true);
-            $this->cache->write($this->permissiondata, $this->config->system_cache_timeout);
+            $this->cache->write($this->cacheName, $this->permissiondata, $this->config->system_cache_timeout);
 
         }
         
@@ -230,7 +233,8 @@
          * Speichert einen neuen Rechte-Datensatz in der Datenbank
          * @return boolean
          */        
-        public function save() {
+        public function save()
+        {
             $params = $this->getPreparedSaveParams();         
             $params = $this->events->runEvent('permissionsSave', $params);
             
@@ -245,7 +249,8 @@
          * Aktualisiert einen Rechte-Datensatz in der Datenbank
          * @return boolean
          */        
-        public function update() {
+        public function update()
+        {
             $params     = $this->getPreparedSaveParams();
             $params     = $this->events->runEvent('permissionsUpdate', $params);
             
@@ -268,7 +273,8 @@
          * Löschen Berechtigungsdatensatz aus DB
          * @return boolean
          */
-        public function delete() {
+        public function delete()
+        {
             $this->dbcon->delete($this->table, 'rollid = ?', array($this->rollid));            
             $this->cache->cleanup();
             
@@ -280,7 +286,8 @@
          * @param array $permissionArray
          * @return boolean
          */
-        public function check(array $permissionArray) {                 
+        public function check(array $permissionArray)
+        {                 
             $res = true;
             
             $permissionArrayHash = hash(\fpcm\classes\security::defaultHashAlgo, json_encode($permissionArray));
@@ -321,7 +328,8 @@
          * @param int $rollid
          * @return bool
          */
-        public function addDefault($rollid) {            
+        public function addDefault($rollid)
+        {            
             $this->setRollId($rollid);
             $this->setPermissionData($this->defaultPermissions);
 
@@ -332,7 +340,8 @@
          * Gibt leeren Standard-Berechtigungsset zurück
          * @return array
          */
-        public function getPermissionSet() {
+        public function getPermissionSet()
+        {
             return $this->permissionSet;
         }
                 
@@ -340,7 +349,8 @@
          * Gibt Array mit allen Berechtigungsdatensätzen zurück
          * @return array
          */
-        public function getPermissionsAll() {           
+        public function getPermissionsAll()
+        {           
             $datasets = $this->dbcon->fetch($this->dbcon->select($this->table, 'rollid, permissiondata'));
             
             $res = [];
@@ -359,8 +369,8 @@
          * @param string $name
          * @return mixed
          */
-        public function __get($name) {
-
+        public function __get($name)
+        {
             if ($name == 'permissionData') {
                 return $this->permissiondata;
             }         
@@ -373,8 +383,8 @@
          * @param mixed $name
          * @param mixed $value
          */
-        public function __set($name, $value) {
-            
+        public function __set($name, $value)
+        {
             if ($name == 'permissionData') {
                 $this->permissiondata = $value;
                 return true;

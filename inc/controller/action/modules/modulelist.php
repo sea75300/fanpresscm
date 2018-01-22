@@ -10,12 +10,6 @@
     class modulelist extends \fpcm\controller\abstracts\controller {
 
         use \fpcm\controller\traits\modules\moduleactions;
-        
-        /**
-         * Controller-View
-         * @var \fpcm\view\view
-         */        
-        protected $view;
 
         /**
          * Modul-Actions

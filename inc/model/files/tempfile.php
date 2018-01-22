@@ -39,7 +39,7 @@
          * Initialisiert Objekt einer temporären Datei
          * @return void
          */
-        protected function init() {
+        public function init() {
             
             if (!$this->exists()) return;
             

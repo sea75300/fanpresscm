@@ -32,13 +32,10 @@
                 return false;
             }
 
-            $this->limit = defined('FPCM_PUB_LIMIT_ARCHIVE') ? FPCM_PUB_LIMIT_ARCHIVE : $this->config->articles_limit;
+            $this->limit        = defined('FPCM_PUB_LIMIT_ARCHIVE') ? FPCM_PUB_LIMIT_ARCHIVE : $this->config->articles_limit;
+            $this->cacheName    = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/articlearchive'.$this->page;
             
-            parent::request();
-            
-            $this->cache = new \fpcm\classes\cache('articlearchive'.$this->page, \fpcm\model\articles\article::CACHE_ARTICLE_MODULE);
-            
-            return true;
+            return parent::request();
         }
         
         /**
@@ -51,12 +48,12 @@
             
             $this->view->assign('showToolbars', false);
             
-            $parsed = [];
+            $parsed     = [];
             
-            if ($this->cache->isExpired() || $this->session->exists()) {
+            if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
 
-                $conditions = new \fpcm\model\articles\search();
-                $conditions->limit = [$this->limit, $this->listShowLimit];
+                $conditions             = new \fpcm\model\articles\search();
+                $conditions->limit      = [$this->limit, $this->listShowLimit];
                 $conditions->archived  = 1;
                 $conditions->postponed = 0;
 
@@ -89,9 +86,11 @@
 
                 $parsed   = $this->events->runEvent('publicShowArchive', $parsed);
                 
-                if (!$this->session->exists()) $this->cache->write($parsed, $this->config->system_cache_timeout);
+                if (!$this->session->exists()) {
+                    $this->cache->write($this->cacheName, $parsed, $this->config->system_cache_timeout);
+                }
             } else {
-                $parsed = $this->cache->read();
+                $parsed = $this->cache->read($this->cacheName);
             }
 
             $content = implode(PHP_EOL, $parsed);

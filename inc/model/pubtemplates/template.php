@@ -59,7 +59,6 @@
         public function __construct($filename = '', $filepath = '') {
             parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES, $filename));
             $this->init(null);
-            $this->smileyCache = new \fpcm\classes\cache('smileyCache');
         }
         
         /**
@@ -67,7 +66,8 @@
          * @param string $delim
          * @return string
          */
-        public function getAllowedTags($delim = '') {
+        public function getAllowedTags($delim = '')
+        {
             return implode($delim, $this->allowedTags);
         }
 
@@ -75,7 +75,8 @@
          * Liefert Platzhalter zurück
          * @return array
          */
-        public function getReplacementTags() {
+        public function getReplacementTags()
+        {
             return $this->replacementTags;
         }
 
@@ -83,7 +84,8 @@
          * Liefert interne Platzhalter zurück
          * @return array
          */
-        public function getReplacementInternal() {
+        public function getReplacementInternal()
+        {
             return $this->replacementInternal;
         }
 
@@ -91,7 +93,8 @@
          * Fügt erlaubte HTML-Tags hinzu
          * @param array $allowedTags
          */
-        public function setAllowedTags(array $allowedTags) {
+        public function setAllowedTags(array $allowedTags)
+        {
             $this->allowedTags = array_merge($this->allowedTags, $allowedTags);
         }
 
@@ -99,7 +102,8 @@
          * Fügt Platzhalter hinzu
          * @param array $replacementTags
          */
-        public function setReplacementTags(array $replacementTags) {
+        public function setReplacementTags(array $replacementTags)
+        {
             $this->replacementTags = $replacementTags;
         }
 
@@ -107,7 +111,8 @@
          * nicht verwendet
          * @return boolean
          */
-        public function delete() {
+        public function delete()
+        {
             return false;
         }
         
@@ -117,7 +122,8 @@
          * @param int $userId
          * @return boolean
          */
-        public function rename($newname, $userId = false) {
+        public function rename($newname, $userId = false)
+        {
             return false;
         }       
         
@@ -125,7 +131,8 @@
          * Datei-Inhalt festlegen
          * @param string $content
          */
-        public function setContent($content) {
+        public function setContent($content)
+        {
             parent::setContent(strip_tags($content, $this->getAllowedTags()));
         }
 
@@ -133,7 +140,8 @@
          * Datei-Inhalt zurückgeben
          * @return string
          */
-        public function getContent() {
+        public function getContent()
+        {
             return strip_tags(parent::getContent(), $this->getAllowedTags());
         }
         
@@ -141,7 +149,8 @@
          * Speichert Template in Dateisystem
          * @return boolean
          */
-        public function save() {
+        public function save()
+        {
             if (!$this->exists() || !$this->content || !$this->isWritable()) return false;
             
             $this->content = $this->events->runEvent('templateSave', array('file' => $this->fullpath, 'content' => $this->content))['content'];
@@ -160,8 +169,8 @@
          * Parst Template-Platzhalter
          * @return string
          */
-        public function parse() {
-            
+        public function parse()
+        {
             if (!count($this->replacementTags) || !$this->content) return false;
 
             $this->replacementTags = $this->events->runEvent('parseTemplate', $this->replacementTags);
@@ -176,7 +185,8 @@
          * @return array
          * @since FPCM 3.5.2
          */
-        public function getReplacementTranslations($prefix) {
+        public function getReplacementTranslations($prefix)
+        {
 
             if (count($this->replacementTranslated)) {
                 return $this->replacementTranslated;
@@ -196,14 +206,15 @@
          * @param string $content
          * @return string
          */
-        protected function parseSmileys($content) {
+        protected function parseSmileys($content)
+        {
             
-            if ($this->smileyCache->isExpired()) {
+            if ($this->cache->isExpired('smileyCache')) {
                 $smileysList = new \fpcm\model\files\smileylist();
                 $smileys = $smileysList->getDatabaseList();
-                $this->smileyCache->write($smileys, $this->config->system_cache_timeout);
+                $this->cache->write('smileyCache', $smileys, $this->config->system_cache_timeout);
             } else {
-                $smileys = $this->smileyCache->read();
+                $smileys = $this->cache->read('smileyCache');
             }
                         
             foreach ($smileys as $smiley) {
@@ -218,7 +229,8 @@
          * @param \fpcm\model\files\smiley $smiley
          * @return string
          */
-        private function parseSmileyFilePath(\fpcm\model\files\smiley $smiley) {
+        private function parseSmileyFilePath(\fpcm\model\files\smiley $smiley)
+        {
             return '<img src="'.$smiley->getSmileyUrl().'" class="fpcm-pub-smiley" '.$smiley->getWhstring().' alt="">';
         }
 
@@ -226,8 +238,8 @@
          * Initialisiert Template-Inhalt
          * @param void $initDB
          */
-        protected function init($initDB) {
-
+        protected function init($initDB)
+        {
             if (!$this->exists()) {
                 return false;
             }
@@ -243,8 +255,8 @@
          * @param bool $returnOnly
          * @return string
          */
-        protected function parseLinks(&$content, array $attributes=array(), $returnOnly = false) {
-
+        protected function parseLinks(&$content, array $attributes = [], $returnOnly = false)
+        {
             $attrs = '';
             foreach ($attributes as $attribute => $value) {
                 $attrs .= " {$attribute}=\"{$value}\"";

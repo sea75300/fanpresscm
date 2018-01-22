@@ -8,12 +8,6 @@
     namespace fpcm\controller\action\users;
     
     class useradd extends \fpcm\controller\abstracts\controller {
-        
-        /**
-         *
-         * @var \fpcm\view\view
-         */
-        protected $view;
 
         /**
          *

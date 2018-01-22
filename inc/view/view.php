@@ -94,6 +94,12 @@
         protected $defaultViewVars;
 
         /**
+         * Cache object
+         * @var \fpcm\classes\cache
+         */
+        protected $cache;
+
+        /**
          * Session object
          * @var \fpcm\model\system\session
          */
@@ -129,6 +135,7 @@
             $this->config           = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
             $this->notifications    = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
             $this->language         = \fpcm\classes\loader::getObject('fpcm\classes\language');
+            $this->cache            = \fpcm\classes\loader::getObject('fpcm\classes\cache');
             
             $this->fileLib          = new \fpcm\model\system\fileLib();
             $this->defaultViewVars  = new viewVars();
@@ -171,14 +178,12 @@
                 return $item;
             }
 
-            $cacheName  = 'system/jspaths';
-            
-            /* @var $cache \fpcm\classes\cache */
-            $cache      = \fpcm\classes\loader::getObject('fpcm\classes\cache');
+            $cacheName  = 'system/'.__METHOD__;
+
             $checks     = [];
             
-            if (!$cache->isExpired($cacheName)) {
-                $checks = $cache->read($cacheName);
+            if (!$this->cache->isExpired($cacheName)) {
+                $checks = $this->cache->read($cacheName);
             }
             
             $hash = hash(\fpcm\classes\security::defaultHashAlgo, $item);
@@ -189,7 +194,7 @@
             try {
                 if (file_exists(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, $item))) {
                     $checks[$hash] = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_JS, $item);
-                    $cache->write($cacheName, $checks);
+                    $this->cache->write($cacheName, $checks);
                     return $checks[$hash];
                 }
             } catch (\Exception $e) {
@@ -201,7 +206,7 @@
                 $file_headers = get_headers($item);
                 if (isset($file_headers[0]) && $file_headers[0] === 'HTTP/1.1 200 OK') {
                     $checks[$hash] = $item;
-                    $cache->write($cacheName, $checks);
+                    $this->cache->write($cacheName, $checks);
                     return $checks[$hash];
                 }
             } catch (\Exception $e) {
@@ -308,7 +313,6 @@
          */
         public function addErrorMessage($messageText, $params = [])
         {
-
             $msg  = $this->language->translate($messageText, $params);
             if (!$msg) {
                 $msg = $messageText;
@@ -333,7 +337,6 @@
          */
         public function addNoticeMessage($messageText, $params= [])
         {
-
             $msg  = $this->language->translate($messageText, $params);
             if (!$msg) {
                 $msg = $messageText;
@@ -358,7 +361,6 @@
          */
         public function addMessage($messageText, $params = [])
         {
-
             $msg  = $this->language->translate($messageText, $params);
             if (!$msg) {
                 $msg = $messageText;
@@ -389,7 +391,7 @@
          * Include header and footer into view
          * @param int $showHeader, valid values are \fpcm\view\view::INCLUDE_HEADER_FULL, \fpcm\view\view::INCLUDE_HEADER_SIMPLE, \fpcm\view\view::INCLUDE_HEADER_NONE
          */
-        function showHeaderFooter($showHeader) {
+        public function showHeaderFooter($showHeader) {
             $this->showHeader = $showHeader;
         }
         
@@ -501,6 +503,22 @@
             if (!isset($_SERVER['HTTP_USER_AGENT'])) return true;
             return preg_match("/($key)/is", $_SERVER['HTTP_USER_AGENT']) === 1 ? true : false;
         }
-        
+
+        /**
+         * Return assigned view vars
+         * @return array
+         */
+        public function getViewVars() {
+            return $this->viewVars;
+        }
+
+        /**
+         * Overrides assigned view vars
+         * @param array $viewVars
+         */
+        public function setViewVars(array $viewVars) {
+            $this->viewVars = $viewVars;
+        }
+
     }
 ?>

@@ -26,17 +26,17 @@
          * Konstruktor
          */
         public function __construct() {
+
+            $this->name     = 'sysstats';            
             
-            $this->cacheName   = 'sysstats';
-            $this->cacheModule = self::CACHE_M0DULE_DASHBOARD;
+            $this->getCacheName();
             
             parent::__construct();   
             
             $this->runCheck();
 
-            $this->headline = $this->language->translate('SYSTEM_stats');
             $this->content  = implode(PHP_EOL, array('<table class="fpcm-ui-table fpcm-small-text2">', implode(PHP_EOL, $this->tableContent),'</table>'));
-            $this->name     = 'sysstats';            
+            $this->headline = $this->language->translate('SYSTEM_stats');
             $this->position = 6;
             $this->height   = 1;
         }
@@ -46,15 +46,15 @@
          */
         protected function runCheck() {
 
-            if ($this->cache->isExpired()) {
+            if ($this->cache->isExpired($this->cacheName)) {
                 $this->getArticleStats();
                 $this->getCommentStats();
                 $this->getUserStats();
                 $this->getFileStats();
                 
-                $this->cache->write($this->tableContent, $this->config->system_cache_timeout);
+                $this->cache->write($this->cacheName, $this->tableContent, $this->config->system_cache_timeout);
             } else {
-                $this->tableContent = $this->cache->read();
+                $this->tableContent = $this->cache->read($this->cacheName);
             }
             
             $this->getCacheStats();

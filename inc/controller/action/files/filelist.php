@@ -10,13 +10,7 @@
     class filelist extends \fpcm\controller\abstracts\controller {
         
         use \fpcm\controller\traits\files\lists;
-        
-        /**
-         * Controller-View
-         * @var \fpcm\view\view
-         */
-        protected $view;
-        
+
         /**
          * Dateiliste
          * @var \fpcm\model\files\imagelist

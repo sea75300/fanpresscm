@@ -53,20 +53,20 @@
          */
         public function __construct() {
 
-            $this->cacheName   = 'recentarticles';
+            $session            = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+            $this->currentUser  = $session->getUserId();
+            $this->isAdmin      = $session->getCurrentUser()->isAdmin();
+
+            $this->getCacheName('_'.$this->currentUser);
 
             parent::__construct();
 
-            $session            = \fpcm\classes\baseconfig::$fpcmSession;
-            $this->currentUser  = $session->getUserId();
-            $this->isAdmin      = $session->getCurrentUser()->isAdmin();
             $this->permissions  = new \fpcm\model\system\permissions($session->currentUser->getRoll());
-            $this->cache        = new \fpcm\classes\cache($this->cacheName.'_'.$this->currentUser, self::CACHE_M0DULE_DASHBOARD);
             
-            if ($this->cache->isExpired()) {
+            if ($this->cache->isExpired($this->cacheName)) {
                 $this->renderContent();                
             } else {
-                $this->content = $this->cache->read();
+                $this->content = $this->cache->read($this->cacheName);
             }
                                    
             $this->headline = $this->language->translate('RECENT_ARTICLES');
@@ -141,7 +141,7 @@
             
             $this->content = implode(PHP_EOL, $content);
             
-            $this->cache->write($this->content, $this->config->system_cache_timeout);
+            $this->cache->write($this->cacheName, $this->content, $this->config->system_cache_timeout);
         }
         
     }

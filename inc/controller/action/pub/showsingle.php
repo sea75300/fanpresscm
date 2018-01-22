@@ -100,7 +100,8 @@
             $this->commentList  = new \fpcm\model\comments\commentList();
             $this->categoryList = new \fpcm\model\categories\categoryList();
             $this->userList     = new \fpcm\model\users\userList();
-            $this->iplist       = new \fpcm\model\ips\iplist();
+
+            $this->iplist       = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
         }
         
         /**
@@ -141,9 +142,8 @@
                 return true;
             }
 
-            $this->cache = new \fpcm\classes\cache(\fpcm\model\articles\article::CACHE_ARTICLE_SINGLE.$this->articleId, \fpcm\model\articles\article::CACHE_ARTICLE_MODULE);
-            
-            $this->articleTemplate = new \fpcm\model\pubtemplates\article($this->config->article_template_active);
+            $this->cacheName        = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/'.\fpcm\model\articles\article::CACHE_ARTICLE_SINGLE.$this->articleId;
+            $this->articleTemplate  = new \fpcm\model\pubtemplates\article($this->config->article_template_active);
 
             $this->saveComment();
 
@@ -166,15 +166,17 @@
             }
             
             $parsed = array('articles' => '', 'comments' => '');
-            if ($this->cache->isExpired() || $this->session->exists()) {
+            if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
                 $parsed['articles'] = $this->assignArticleData();
                 $parsed['comments'] = $this->assignCommentsData();
                 
                 $parsed = $this->events->runEvent('publicShowSingle', $parsed);
                 
-                if (!$this->session->exists()) $this->cache->write($parsed, $this->config->system_cache_timeout);
+                if (!$this->session->exists()) {
+                    $this->cache->write($this->cacheName, $parsed, $this->config->system_cache_timeout);
+                }
             } else {
-                $parsed = $this->cache->read();
+                $parsed = $this->cache->read($this->cacheName);
             }
             
             if (!$this->isUtf8) {

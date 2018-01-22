@@ -25,7 +25,7 @@
         {
             $cacheName      = explode('/', $cacheName, 2);
             
-            $this->module   = count($cacheName[1]) ? $cacheName[0] : '';
+            $this->module   = isset($cacheName[1]) && trim($cacheName[1]) ? $cacheName[0] : '';
             
             $this->path     = \fpcm\classes\dirs::getDataDirPath(
                 \fpcm\classes\dirs::DATA_CACHE,

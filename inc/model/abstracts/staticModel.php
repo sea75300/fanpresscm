@@ -141,4 +141,12 @@
             return false;
         }
 
+        /**
+         * Cache-Name zurückgeben
+         * @return string
+         */
+        public function getCacheName($addName = '') {
+            return $this->cacheModule.''.$this->cacheName.$addName;
+        }
+
     }

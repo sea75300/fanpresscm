@@ -35,13 +35,10 @@
                 return false;
             }
 
-            $this->limit = defined('FPCM_PUB_LIMIT_LISTALL') ? FPCM_PUB_LIMIT_LISTALL : $this->config->articles_limit;
-            
-            parent::request();
+            $this->limit     = defined('FPCM_PUB_LIMIT_LISTALL') ? FPCM_PUB_LIMIT_LISTALL : $this->config->articles_limit;            
+            $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/articlelist'.$this->page.$this->category;
 
-            $this->cache = new \fpcm\classes\cache('articlelist'.$this->page.$this->category, \fpcm\model\articles\article::CACHE_ARTICLE_MODULE);
-            
-            return true;
+            return parent::request();
         }
         
         /**
@@ -52,8 +49,8 @@
             parent::process();
             
             $parsed = [];
-            
-            if ($this->cache->isExpired() || $this->session->exists()) {
+
+            if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
                 
                 $conditions = new \fpcm\model\articles\search();
                 $conditions->limit = [$this->limit, $this->listShowLimit];
@@ -81,9 +78,12 @@
                 $parsed[] = $this->createPagination($this->articleList->countArticlesByCondition($countConditions));                
                 $parsed   = $this->events->runEvent('publicShowAll', $parsed);
                 
-                if (!$this->session->exists()) $this->cache->write($parsed, $this->config->system_cache_timeout);
+                if (!$this->session->exists()) {
+                    $this->cache->write($cacheName, $parsed, $this->config->system_cache_timeout);
+                }
+
             } else {
-                $parsed = $this->cache->read();
+                $parsed = $this->cache->read($this->cacheName);
             }
 
             $content = implode(PHP_EOL, $parsed);

@@ -10,12 +10,6 @@
     class help extends \fpcm\controller\abstracts\controller {
         
         /**
-         * Controller-View
-         * @var \fpcm\view\view
-         */
-        protected $view;
-        
-        /**
          * ID des automatisch offenen Kapitels
          * @var int
          */
@@ -27,9 +21,9 @@
         public function __construct() {
             parent::__construct();
 
-            $this->checkPermission = [];
-            $this->view            = new \fpcm\view\view('help', 'system');
-            $this->cache           = new \fpcm\classes\cache('helpcache_'.$this->config->system_lang);
+            $this->checkPermission  = [];
+            $this->view             = new \fpcm\view\view('help', 'system');
+            $this->cacheName        = 'helpcache_'.$this->config->system_lang;
         }
 
         public function request() {
@@ -44,13 +38,16 @@
         public function process() {
             if (!parent::process()) return false;
 
-            $contents = $this->cache->read();
-            if ($this->cache->isExpired() || !is_array($contents)) {
+            $contents = $this->cache->read($this->cacheName);
+            if ($this->cache->isExpired($this->cacheName) || !is_array($contents)) {
+
                 $xml = simplexml_load_string($this->lang->getHelp());
                 foreach ($xml->chapter as $chapter) {
                     $headline = trim($chapter->headline);
                     $contents[$headline] = trim($chapter->text);
-                }                
+                }
+
+                $this->cache->write($this->cacheName, $contents);
             }            
             
             $contents = $this->events->runEvent('extendHelp', $contents);

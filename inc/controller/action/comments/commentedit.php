@@ -13,12 +13,6 @@
 
         /**
          *
-         * @var \fpcm\view\view
-         */
-        protected $view;
-
-        /**
-         *
          * @var \fpcm\model\comments\comment
          */
         protected $comment;

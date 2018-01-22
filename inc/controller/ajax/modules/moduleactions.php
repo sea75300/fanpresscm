@@ -35,12 +35,6 @@
          * @var \fpcm\model\modules\modulelist
          */
         protected $modulelist;
-        
-        /**
-         * Controller-View
-         * @var \fpcm\view\ajax
-         */
-        protected $view;
 
         /**
          * Konstruktor
@@ -51,9 +45,16 @@
             $this->checkPermission = array('system' => 'options', 'modules' => 'configure');
             
             $this->modulelist = new \fpcm\model\modules\modulelist();
-            
-            $this->view = new \fpcm\view\ajax('list_inner', 'modules');
         }
+
+        /**
+         * 
+         * @return string
+         */
+        protected function getViewPath() {
+            return 'modules/list_inner';
+        }
+
         
         /**
          * Request-Handler
@@ -61,10 +62,6 @@
          */
         public function request() {
 
-            if (!$this->session->exists() && !$this->permissions->check($this->checkPermission)) {
-                return false;
-            }
-            
             if (is_null($this->getRequestVar('action')) || is_null($this->getRequestVar('keys'))) return true;
             
             $this->cache->cleanup();
@@ -144,14 +141,9 @@
          * Controller-Processing
          */
         public function process() {
-            
-            if (!parent::process()) return false;
-
             $this->assignModules($this->modulelist, false);
-            $this->view->setExcludeMessages(true);
             $this->view->initAssigns();
             $this->view->render();
-            
         }
 
     }

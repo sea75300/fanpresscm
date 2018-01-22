@@ -8,12 +8,6 @@
     namespace fpcm\controller\action\smileys;
     
     class smileylist extends \fpcm\controller\abstracts\controller {
-        
-        /**
-         * Controller-View
-         * @var \fpcm\view\view
-         */
-        protected $view;
 
         /**
          * Smiley-Liste

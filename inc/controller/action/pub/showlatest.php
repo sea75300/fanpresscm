@@ -71,7 +71,7 @@
             
             $this->articleList  = new \fpcm\model\articles\articlelist();
             $this->userList     = new \fpcm\model\users\userList();
-            $this->iplist       = new \fpcm\model\ips\iplist();
+            $this->iplist       = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
             
             $this->template = new \fpcm\model\pubtemplates\latestnews();
 
@@ -87,17 +87,16 @@
             if (!$this->maintenanceMode()) {
                 return false;
             }
-            
+
             if ($this->iplist->ipIsLocked()) {
                 return false;
             }
-            
-            $this->category = defined('FPCM_PUB_CATEGORY_LATEST') ? FPCM_PUB_CATEGORY_LATEST : 0;
-            $this->limit    = defined('FPCM_PUB_LIMIT_LATEST') ? FPCM_PUB_LIMIT_LATEST : $this->config->articles_limit;
-            $this->isUtf8   = defined('FPCM_PUB_OUTPUT_UTF8') ? FPCM_PUB_OUTPUT_UTF8 : true;
 
-            $this->cache = new \fpcm\classes\cache('articlelatest', \fpcm\model\articles\article::CACHE_ARTICLE_MODULE);
-            
+            $this->category  = defined('FPCM_PUB_CATEGORY_LATEST') ? FPCM_PUB_CATEGORY_LATEST : 0;
+            $this->limit     = defined('FPCM_PUB_LIMIT_LATEST') ? FPCM_PUB_LIMIT_LATEST : $this->config->articles_limit;
+            $this->isUtf8    = defined('FPCM_PUB_OUTPUT_UTF8') ? FPCM_PUB_OUTPUT_UTF8 : true;
+            $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/articlelatest';
+
             return true;
         }
         
@@ -110,7 +109,7 @@
             
             $parsed = [];
             
-            if ($this->cache->isExpired() || $this->session->exists()) {
+            if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
                 $this->users      = array_flip($this->userList->getUsersNameList());
                 
                 $conditions = new \fpcm\model\articles\search();
@@ -129,9 +128,12 @@
                     $parsed[] = $this->assignData($article);
                 }
 
-                if (!$this->session->exists()) $this->cache->write($parsed, $this->config->system_cache_timeout);
+                if (!$this->session->exists()) {
+                    $this->cache->write($this->cacheName, $parsed, $this->config->system_cache_timeout);
+                }
+
             } else {
-                $parsed = $this->cache->read();
+                $parsed = $this->cache->read($this->cacheName);
             }
 
             $content = implode(PHP_EOL, $parsed);

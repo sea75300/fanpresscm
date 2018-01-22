@@ -68,9 +68,9 @@
 
                 $this->articleList  = new \fpcm\model\articles\articlelist();
                 $this->userList     = new \fpcm\model\users\userList();
-                $this->iplist       = new \fpcm\model\ips\iplist();
+                $this->template     = new \fpcm\model\pubtemplates\latestnews();
 
-                $this->template = new \fpcm\model\pubtemplates\latestnews();
+                $this->iplist       = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
 
                 $this->view->setShowHeader(false);
                 $this->view->setShowFooter(false);
@@ -95,10 +95,9 @@
                 return false;
             }
             
-            $this->category = defined('FPCM_PUB_CATEGORY_LATEST') ? FPCM_PUB_CATEGORY_LATEST : 0;
-            $this->limit    = defined('FPCM_PUB_LIMIT_LATEST') ? FPCM_PUB_LIMIT_LATEST : $this->config->articles_limit;
-
-            $this->cache = new \fpcm\classes\cache('articlefeed', \fpcm\model\articles\article::CACHE_ARTICLE_MODULE);
+            $this->category  = defined('FPCM_PUB_CATEGORY_LATEST') ? FPCM_PUB_CATEGORY_LATEST : 0;
+            $this->limit     = defined('FPCM_PUB_LIMIT_LATEST') ? FPCM_PUB_LIMIT_LATEST : $this->config->articles_limit;
+            $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/articlefeed';
             
             return true;
         }
@@ -114,7 +113,7 @@
             header('Content-type: text/html; charset=utf-8');
             $content = '';
 
-            if ($this->cache->isExpired() || $this->session->exists()) {
+            if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
                 $this->users  = array_flip($this->userList->getUsersNameList());
                 $this->emails = array_flip($this->userList->getUsersEmailList());
     
@@ -188,10 +187,10 @@
                 $content .= $dom->saveXML();
                 
                 if (!$this->session->exists()) {
-                    $this->cache->write($content, $this->config->system_cache_timeout);
+                    $this->cache->write($this->cacheName, $content, $this->config->system_cache_timeout);
                 }
             } else {
-                $content .= $this->cache->read();
+                $content .= $this->cache->read($this->cacheName);
             }
 
             $this->view->assign('content', $content);

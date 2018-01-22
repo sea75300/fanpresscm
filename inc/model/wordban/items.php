@@ -23,7 +23,8 @@
          * Konstruktor
          * @param int $id
          */
-        public function __construct($id = null) {
+        public function __construct($id = null)
+        {
             $this->table = \fpcm\classes\database::tableTexts;
             
             parent::__construct($id);
@@ -33,7 +34,8 @@
          * Ruft Liste von Text-Sperren ab
          * @return array
          */
-        public function getItems() {
+        public function getItems()
+        {
             
             $list = $this->dbcon->fetch($this->dbcon->select($this->table), true);
             
@@ -53,7 +55,8 @@
          * @param array $ids
          * @return bool
          */
-        public function deleteItems(array $ids) {
+        public function deleteItems(array $ids)
+        {
             
             if (!count($ids)) {
                 return false;
@@ -70,12 +73,13 @@
          * @param string $text
          * @return string
          */
-        public function replaceItems($text) {
-            
-            $itemsCache = new \fpcm\classes\cache('wordbanItemsReplace');
+        public function replaceItems($text)
+        {
+            $cacheName = 'wordban/itemsReplace';
+
             $data = array('search' => array(), 'replace' => array());
 
-            if ($itemsCache->isExpired() || !is_array($itemsCache->read())) {
+            if ($this->cache->isExpired($cacheName) || !is_array($this->cache->read($cacheName))) {
                 $items = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'replacetxt = 1'), true);
 
                 if (!is_array($items) || !count($items)) {
@@ -88,10 +92,10 @@
                 }
                 
                 
-                $itemsCache->write($data);
+                $this->cache->write($cacheName, $data);
                 
             } else {
-                $data = $itemsCache->read();
+                $data = $this->cache->read($cacheName);
             }
 
             return str_replace($data['search'], $data['replace'], $text);
@@ -104,12 +108,12 @@
          * @return bool
          * @since FPCM 3.5
          */
-        public function checkArticleApproval($text) {
-            
-            $itemsCache = new \fpcm\classes\cache('wordbanItemsArticleApproval');
+        public function checkArticleApproval($text)
+        {
+            $cacheName = 'wordban/itemsArticleApproval';
             $data = [];
 
-            if ($itemsCache->isExpired() || !is_array($itemsCache->read())) {
+            if ($this->cache->isExpired($cacheName) || !is_array($this->cache->read($cacheName))) {
                 $items = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'lockarticle = 1'), true);
 
                 if (!is_array($items) || !count($items)) {
@@ -121,10 +125,10 @@
                 }
                 
                 $data = implode('|', $data);
-                $itemsCache->write($data);
+                $this->cache->write($cacheName, $data);
                 
             } else {
-                $data = $itemsCache->read();
+                $data = $this->cache->read($cacheName);
             }
 
             if (!trim($data)) {
@@ -140,12 +144,12 @@
          * @return bool
          * @since FPCM 3.5
          */
-        public function checkCommentApproval($text) {
-            
-            $itemsCache = new \fpcm\classes\cache('wordbanItemsCommentApproval');
+        public function checkCommentApproval($text)
+        {
+            $cacheName = 'wordban/ItemsCommentApproval';
             $data = [];
 
-            if ($itemsCache->isExpired() || !is_array($itemsCache->read())) {
+            if ($this->cache->isExpired($cacheName) || !is_array($this->cache->read($cacheName))) {
                 $items = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'commentapproval = 1'), true);
 
                 if (!is_array($items) || !count($items)) {
@@ -157,10 +161,10 @@
                 }
 
                 $data = implode('|', $data);
-                $itemsCache->write($data);
+                $this->cache->write($cacheName, $data);
                 
             } else {
-                $data = $itemsCache->read();
+                $data = $this->cache->read($cacheName);
             }
 
             if (!trim($data)) {

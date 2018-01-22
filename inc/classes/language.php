@@ -75,10 +75,10 @@
             $this->cache = loader::getObject('fpcm\classes\cache');
             $cacheName   = 'system/langcache'. strtoupper($langCode);
             
-//            if (!$this->cache->isExpired($cacheName)) {
-//                $GLOBALS['langdata'] = $this->cache->read($cacheName);                
-//                return;
-//            }            
+            if (!$this->cache->isExpired($cacheName)) {
+                $GLOBALS['langdata'] = $this->cache->read($cacheName);                
+                return;
+            }            
             
 //            $moduleLangFiles            = ($langCode != FPCM_DEFAULT_LANGUAGE_CODE
 //                                        ? glob(dirs::getDataDirPath(dirs::DATA_MODULES, '*/*/lang/'.FPCM_DEFAULT_LANGUAGE_CODE.'/*.php'))

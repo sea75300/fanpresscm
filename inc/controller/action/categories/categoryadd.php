@@ -8,8 +8,6 @@
     namespace fpcm\controller\action\categories;
     
     class categoryadd extends \fpcm\controller\abstracts\controller {
-        
-        protected $view;
 
         protected $category;
 

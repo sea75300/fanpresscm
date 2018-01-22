@@ -8,12 +8,6 @@
     namespace fpcm\controller\action\system;
     
     class logs extends \fpcm\controller\abstracts\controller {
-        
-        /**
-         * Controller-View
-         * @var \fpcm\view\view
-         */
-        protected $view;
 
         /**
          * Konstruktor

@@ -968,11 +968,11 @@
          */
         public function publicIsVisible() {
 
-            if (!$this->exists() || ($this->getDeleted() && !\fpcm\classes\baseconfig::$fpcmSession->exists())) {
+            if (!$this->exists() || ($this->getDeleted() && !\fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists())) {
                 return false;
             }
 
-            if (($this->getDraft() || $this->getPostponed()) && !\fpcm\classes\baseconfig::$fpcmSession->exists()) {
+            if (($this->getDraft() || $this->getPostponed()) && !\fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
                 return false;
             }
 

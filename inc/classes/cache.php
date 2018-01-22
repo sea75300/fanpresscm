@@ -77,6 +77,18 @@
         }
         
         /**
+         * Cache-Inhalt lesen
+         * @return string
+         */
+        public function getExpirationTime($cacheName)
+        {
+            if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) return false;
+            
+            $file = new \fpcm\model\files\cacheFile($cacheName);
+            return $file->expires();
+        }
+        
+        /**
          * Cachew bereinigen
          * @param string $cacheName
          * @return boolean

@@ -15,12 +15,6 @@
          */
         protected $moduleKey = false;
 
-        /**
-         * Controller-View
-         * @var \fpcm\view\view
-         */        
-        protected $view;
-
         public function __construct() {
             parent::__construct();
             

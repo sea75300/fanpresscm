@@ -12,12 +12,6 @@
         use \fpcm\controller\traits\packagemgr\initialize;
         
         /**
-         * Controller-View
-         * @var \fpcm\view\view
-         */
-        protected $view;
-        
-        /**
          * Update-Prüfung aktiv
          * @var bool
          */

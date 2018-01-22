@@ -114,7 +114,6 @@
          */
         public function __construct($id = null)
         {
- 
             $this->dbcon    = \fpcm\classes\loader::getObject('fpcm\classes\database');
             $this->events   = \fpcm\classes\loader::getObject('\fpcm\events\events');
             $this->cache    = \fpcm\classes\loader::getObject('fpcm\classes\cache');
@@ -216,7 +215,7 @@
         /**
          * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
          */
-        protected function init()
+        public function init()
         {            
             $data = $this->dbcon->fetch($this->dbcon->select($this->table, '*', "id = ?", array($this->id)));
             
