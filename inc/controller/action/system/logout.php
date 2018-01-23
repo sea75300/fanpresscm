@@ -15,21 +15,25 @@
          */
         protected $redirectFE = false;
 
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
+        public function hasAccess()
+        {
+            return true;
         }
-
+        
         /**
          * Request-Handler
          * @return boolean
          */
-        public function request() {   
+        public function request()
+        {   
+            if (!$this->session->exists()) {
+                $this->redirect('system/login');
+                return true;
+            }
 
-            if (!$this->session->exists()) $this->redirect('system/login');
-            if (!is_null($this->getRequestVar('redirect'))) $this->redirectFE = true;
+            if (!is_null($this->getRequestVar('redirect'))) {
+                $this->redirectFE = true;
+            }
             
             $this->session->setLogout(time());
             $this->session->update();            
@@ -42,15 +46,14 @@
          * Controller-Processing
          * @return type
          */
-        public function process() {
-
+        public function process()
+        {
             if ($this->redirectFE) {
                 header('Location: '.$this->config->system_url);
                 return;
             }
             
             $this->redirect('system/login');
-            
         }
 
     }

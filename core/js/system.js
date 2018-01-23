@@ -93,7 +93,7 @@ fpcm.system = {
             return false;
         }
         
-        fpcm.ajax.get('cronasync');
+//        fpcm.ajax.get('cronasync');
     },
     
     runMinuteIntervals: function() {

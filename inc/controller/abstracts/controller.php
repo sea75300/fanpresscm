@@ -133,9 +133,9 @@
 
             if ($this->session->getCurrentUser()) {
                 $this->permissions  = new \fpcm\model\system\permissions($this->session->currentUser->getRoll());
+                $this->config->setUserSettings();
             }
             
-            $this->config->setUserSettings();
             
             $this->lang         = \fpcm\classes\loader::getObject('fpcm\classes\language', $this->config->system_lang);
             
@@ -196,8 +196,7 @@
         {
             $redirectString = 'Location: '.($controller ? \fpcm\classes\tools::getFullControllerLink($controller, $params) : 'index.php');
             if (is_object($this->events)) {
-                $this->events->runEvent('controllerRedirect', $redirectString);
-                return false;
+                $redirectString = $this->events->runEvent('controllerRedirect', $redirectString);
             }
 
             header($redirectString);
@@ -247,10 +246,9 @@
                 return false;
             }
 
-            $fieldname = \fpcm\classes\security::pageTokenCacheModule.DIRECTORY_SEPARATOR.\fpcm\classes\security::getPageTokenFieldName();
-            $tokenData = $this->cache->read($fieldname);
+            $fieldname = \fpcm\classes\security::pageTokenCacheModule.'/'.\fpcm\classes\security::getPageTokenFieldName();
+            $tokenData = \fpcm\classes\loader::getObject('fpcm\classes\crypt')->decrypt($this->cache->read($fieldname));
             $this->cache->cleanup($fieldname);
-
             if (\fpcm\classes\http::getPageToken() == $tokenData) {
                 return true;
             }

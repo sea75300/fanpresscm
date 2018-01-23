@@ -37,7 +37,7 @@
          * Sperrzeit
          * @var int
          */
-        protected $loginLockedExpire = 15;
+        protected $loginLockedExpire = 600;
         
         /**
          * Page Token Prüfung erfolgreich
@@ -51,7 +51,7 @@
         public function __construct()
         {
             parent::__construct();
-            $this->loginLockedExpire = session_cache_expire();
+//            $this->loginLockedExpire = session_cache_expire();
             $this->iplist            = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
         }
 
@@ -74,11 +74,9 @@
                 $this->redirect('system/dashboard');
                 return true;
             }
+            session_start();
             
             $this->pageTokenOk = $this->checkPageToken();
-
-            session_start();
-
             $this->loginLocked();
 
             if ($this->buttonClicked('login') && !is_null($this->getRequestVar('login')) && !$this->loginLocked && $this->pageTokenOk) {
@@ -151,8 +149,7 @@
          * Controller-Processing
          */
         public function process()
-        {
-            
+        {            
             if (!$this->pageTokenOk && ($this->buttonClicked('reset') || $this->buttonClicked('login'))) {
                 $this->view->addErrorMessage('CSRF_INVALID');
             }
@@ -182,6 +179,8 @@
          */
         protected function loginLocked()
         {
+            return false;
+            
             if (!\fpcm\classes\http::getSessionVar('loginAttempts')) {
                 \fpcm\classes\http::setSessionVar('loginAttempts', $this->currentAttempts);
             } else {                
@@ -190,7 +189,7 @@
             
             if (\fpcm\classes\http::getSessionVar('lockedTime')) {                
                 $this->loginLockedDate  = \fpcm\classes\http::getSessionVar('lockedTime');
-            }            
+            }
             
             if ($this->currentAttempts >= $this->config->system_loginfailed_locked) {
                 $this->loginLocked      = true;

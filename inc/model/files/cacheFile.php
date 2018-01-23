@@ -47,7 +47,7 @@
 
             $parent = dirname($this->path);
             if ($this->module && !is_dir($parent) && !mkdir($parent)) {
-                trigger_error('Unable to create cache subdirectory in '.\fpcm\model\files\ops::removeBaseDir($parent, true));
+                trigger_error('Unable to create cache subdirectory in '.ops::removeBaseDir($parent, true));
                 return false;
             }
             
@@ -58,11 +58,16 @@
             }
 
             $data = [
-                'expires'   => $expires,
+                'expires'   => $this->expires,
                 'data'      => $data
             ];
 
-            return file_put_contents($this->path, json_encode($data));
+            if (!file_put_contents($this->path, json_encode($data))) {
+                trigger_error('Unable to write cache file '.ops::removeBaseDir($this->path, true));
+                return false;
+            }
+            
+            return true;
         }
         
         /**

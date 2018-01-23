@@ -44,7 +44,6 @@
          */
         public function isExpired($cacheName)
         {
-
             if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) return true;
 
             $cacheFile = loader::getObject('\fpcm\model\files\cacheFile', $cacheName);
@@ -96,7 +95,6 @@
         public function cleanup($cacheName = null)
         {
             if ($cacheName !== null && substr($cacheName, -2) !== '/*') {
-                
                 $file = new \fpcm\model\files\cacheFile($cacheName);
                 return $file->cleanup();                
             }

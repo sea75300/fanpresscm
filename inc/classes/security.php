@@ -50,7 +50,6 @@
          */
         public static function getSessionCookieName()
         {
-            
             if (self::$cookieName) {
                 return self::$cookieName;
             }
@@ -83,7 +82,6 @@
             $conf                   = baseconfig::getSecurityConfig();
             self::$pageTokenName    = hash(self::defaultHashAlgo, $conf['pageTokenBase'].(trim($overrideModule) ? trim($overrideModule) : http::getOnly('module')));
 
-            
             return self::$pageTokenName;
         }
         
@@ -139,20 +137,14 @@
          */
         public static function createPageToken($overrideModule = '')
         {
-            $str        = '$'.dirs::getRootUrl().'$pageToken$'.self::getSessionCookieValue().
-                          '$'.(trim($overrideModule) ? trim($overrideModule) : http::getOnly('module')).
-                          '$'. uniqid();
-
-            $str        = \fpcm\classes\loader::getObject('fpcm\classes\crypt')->encrypt(hash(self::defaultHashAlgo, $str));
-
-            $cacheName  = self::pageTokenCacheModule.DIRECTORY_SEPARATOR.self::getPageTokenFieldName($overrideModule);
+            $str        = hash(self::defaultHashAlgo, uniqid(true, __FUNCTION__).mt_rand(). microtime(true));
+            $cacheName  = self::pageTokenCacheModule.'/'.self::getPageTokenFieldName($overrideModule);
 
             /* @var $cache cache */
             $cache      = \fpcm\classes\loader::getObject('fpcm\classes\cache');
-            $cache->cleanup($cacheName);
-            $cache->write($cacheName, $str, FPCM_CACHE_DEFAULT_TIMEOUT);            
-            unset($cache);
-            
+            $cache->cleanup($cacheName);            
+            $cache->write($cacheName, \fpcm\classes\loader::getObject('fpcm\classes\crypt')->encrypt($str));
+   
             return $str;
         }
 
@@ -163,7 +155,6 @@
          */
         public static function initSecurityConfig()
         {
-            
             $secConf = baseconfig::getSecurityConfig();
             if (is_array($secConf) && count($secConf)) {
                 return true;
@@ -184,7 +175,6 @@
          */
         private static function getSecureBaseString()
         {
-            
             $md5base = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : __FILE__;
             return uniqid('fpcm', true).'#'.microtime(true).'#'.md5($md5base).'#'.mt_rand();
         }
