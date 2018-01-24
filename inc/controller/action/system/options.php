@@ -43,7 +43,7 @@
             
             $this->checkPermission = array('system' => 'options');
             
-            $this->view   = new \fpcm\view\view('options', 'system');
+            $this->view   = new \fpcm\view\view('system/options');
             $this->config = new \fpcm\model\system\config(false, false);
         }
         
@@ -125,7 +125,7 @@
          * @return boolean
          */
         public function process() {
-            if (!parent::process()) return false;
+            
             
             $timezones = [];
             

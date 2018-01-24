@@ -23,7 +23,7 @@
             
             $this->checkPermission = array('system' => 'ipaddr');
 
-            $this->view = new \fpcm\view\view('iplist', 'ips');
+            $this->view = new \fpcm\view\view('ips/iplist');
             
             $this->ipList = new \fpcm\model\ips\iplist();
         }
@@ -62,7 +62,7 @@
          * Controller-Processing
          */
         public function process() {
-            if (!parent::process()) return false;
+            
             
             $userList = new \fpcm\model\users\userList();
             

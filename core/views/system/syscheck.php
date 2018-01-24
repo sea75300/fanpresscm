@@ -12,7 +12,7 @@
         <td>
             <spam><?php print $checkOption; ?></spam>
             <?php if (isset($checkResult['actionbtn']) && !$checkResult['result']) : ?>
-            <?php fpcm\model\view\helper::linkButton($checkResult['actionbtn']['link'], $checkResult['actionbtn']['description']); ?>
+            <?php fpcm\view\helper::linkButton($checkResult['actionbtn']['link'], $checkResult['actionbtn']['description']); ?>
             <?php endif; ?>
         </td>
         <td class="fpcm-ui-center fpcm-ui-syscheck-current"><?php print $checkResult['current']; ?></td>

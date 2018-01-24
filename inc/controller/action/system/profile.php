@@ -18,12 +18,9 @@
          */
         protected $reloadSite;
 
-        /**
-         * Controller-Processing
-         */
-        public function __construct() {
-            parent::__construct();
-            $this->view = new \fpcm\view\view('profile', 'system');
+        protected function getViewPath()
+        {
+            return 'system/profile';
         }
 
         /**
@@ -117,7 +114,7 @@
          * @return boolean
          */
         public function process() {
-            if (!parent::process()) return false;
+            
             
             $userRolls = new \fpcm\model\users\userRollList();            
             $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());

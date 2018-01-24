@@ -16,7 +16,7 @@
             parent::__construct();
 
             $this->checkPermission = array('system' => 'crons');
-            $this->view   = new \fpcm\view\view('cronjobs', 'system');
+            $this->view   = new \fpcm\view\view('system/cronjobs');
 
         }
         
@@ -24,7 +24,7 @@
          * Controller-Processing
          */
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $cronlist = new \fpcm\model\crons\cronlist();
             $this->view->assign('cronjobList', $cronlist->getCronsData());

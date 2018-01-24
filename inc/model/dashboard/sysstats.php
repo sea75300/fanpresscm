@@ -96,8 +96,9 @@
          */
         protected function getCommentStats() {
             $commentList = new \fpcm\model\comments\commentList();
-            
-            $this->tableContent[] = '<tr><td><span class="fa fa-comments fa-fw"></span> <strong>'.$this->language->translate('SYSTEM_STATS_COMMENTS_ALL').':</strong></td><td class="fpcm-ui-center">'.$commentList->countCommentsByCondition().'</td></tr>';
+
+            $sObj = new \fpcm\model\comments\search();            
+            $this->tableContent[] = '<tr><td><span class="fa fa-comments fa-fw"></span> <strong>'.$this->language->translate('SYSTEM_STATS_COMMENTS_ALL').':</strong></td><td class="fpcm-ui-center">'.$commentList->countCommentsByCondition($sObj).'</td></tr>';
 
             $sObj = new \fpcm\model\comments\search();
             $sObj->unapproved = true;

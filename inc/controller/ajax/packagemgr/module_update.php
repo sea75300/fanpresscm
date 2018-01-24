@@ -68,7 +68,7 @@
          */
         public function process() {
 
-            if (!parent::process()) return false;
+            
 
             $this->cache->cleanup(false, \fpcm\model\abstracts\module::FPCM_MODULES_CACHEFOLDER);
 

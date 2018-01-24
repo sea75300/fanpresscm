@@ -33,7 +33,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $this->view->assign('headlineVar', 'HL_ARTICLE_EDIT_ALL');
             $this->view->assign('listAction', 'articles/listall');

@@ -14,7 +14,7 @@
             
             $this->checkPermission = array('system' => 'users', 'system' => 'rolls');
             
-            $this->view   = new \fpcm\view\view('rolledit', 'users');
+            $this->view   = new \fpcm\view\view('users/rolledit');
         }
 
         public function request() {
@@ -49,7 +49,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $this->view->setHelpLink('hl_options');
             $this->view->render();

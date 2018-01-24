@@ -51,7 +51,7 @@
             
             $this->modulelist = new \fpcm\model\modules\modulelist();
             
-            $this->view = new \fpcm\view\view('modules', 'packagemgr');
+            $this->view = new \fpcm\view\view('packagemgr/modules');
             $this->view->assign('modeHeadline', 'MODULES_LIST_INSTALL');
 
         }
@@ -76,7 +76,7 @@
          */
         public function process() {
 
-            if (!parent::process()) return false;
+            
             
             $this->view->addJsFiles(['moduleinstaller.js']);
             

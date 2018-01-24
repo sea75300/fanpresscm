@@ -23,7 +23,7 @@
                     <tr <?php if ($currentTime > ($cronjob->getNextExecTime() - 60)) : ?>class="fpcm-ui-important-text"<?php endif; ?>>
                         <td class="fpcm-ui-center"><?php \fpcm\view\helper::linkButton('#', 'CRONJOB_LIST_EXECDEMAND', $cronjob->getCronName(), 'fpcm-ui-button-blank fpcm-cronjoblist-exec'); ?></td>
                         <td class="fpcm-cronjob-name"><?php $theView->lang->write('CRONJOB_'.strtoupper($cronjob->getCronName())); ?></td>
-                        <td class="fpcm-cronjob-interval fpcm-ui-center"><?php fpcm\model\view\helper::select('intervals_'.$cronjob->getCronName(), $theView->lang->translate('SYSTEM_OPTIONS_CRONINTERVALS'), $cronjob->getIntervalTime(), false, false, false, 'fpcm-cronjoblist-intervals'); ?></td>
+                        <td class="fpcm-cronjob-interval fpcm-ui-center"><?php fpcm\view\helper::select('intervals_'.$cronjob->getCronName(), $theView->lang->translate('SYSTEM_OPTIONS_CRONINTERVALS'), $cronjob->getIntervalTime(), false, false, false, 'fpcm-cronjoblist-intervals'); ?></td>
                         <td class="fpcm-ui-center"><?php \fpcm\view\helper::dateText($cronjob->getLastExecTime()); ?></td>
                         <td class="fpcm-ui-center"><?php \fpcm\view\helper::dateText($cronjob->getNextExecTime()); ?></td>
                     </tr>

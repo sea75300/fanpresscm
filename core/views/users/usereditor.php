@@ -48,10 +48,10 @@
         <tr>
             <td class="fpcm-align-top"><?php $theView->lang->write('USERS_AVATAR'); ?>:</td>
             <td><div class="fpcm-filemanager-buttons">
-                    <?php fpcm\model\view\helper::linkButton('#', 'FILE_FORM_FILEADD', 'btnAddFile') ?>
-                    <?php fpcm\model\view\helper::submitButton('uploadFile', 'FILE_FORM_UPLOADSTART', 'start-upload fpcm-loader'); ?>
+                    <?php fpcm\view\helper::linkButton('#', 'FILE_FORM_FILEADD', 'btnAddFile') ?>
+                    <?php fpcm\view\helper::submitButton('uploadFile', 'FILE_FORM_UPLOADSTART', 'start-upload fpcm-loader'); ?>
                     <button type="reset" class="cancel-upload" id="btnCancelUpload"><?php $theView->lang->write('FILE_FORM_UPLOADCANCEL'); ?></button>
-                    <?php fpcm\model\view\helper::deleteButton('fileDelete'); ?>
+                    <?php fpcm\view\helper::deleteButton('fileDelete'); ?>
                     <input type="file" name="files" class="fpcm-ui-fileinput-select fpcm-hidden">
                 </div>
 

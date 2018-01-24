@@ -7,7 +7,7 @@
             <div class="fpcm-ui-massedit-categories">
                 <div class="fpcm-ui-buttonset">
                     <?php foreach ($massEditCategories as $name => $id) : ?>
-                        <?php fpcm\model\view\helper::checkbox('categories[]', 'fpcm-ui-input-massedit-categories', $id, $name, 'cat'.$id, false); ?>
+                        <?php fpcm\view\helper::checkbox('categories[]', 'fpcm-ui-input-massedit-categories', $id, $name, 'cat'.$id, false); ?>
                     <?php endforeach; ?>
                 </div>
             </div>

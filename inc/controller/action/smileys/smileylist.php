@@ -20,7 +20,7 @@
             
             $this->checkPermission = array('system' => 'smileys');
 
-            $this->view = new \fpcm\view\view('list', 'smileys');      
+            $this->view = new \fpcm\view\view('smileys/list');      
             
             $this->smileyList = new \fpcm\model\files\smileylist();
         }
@@ -50,7 +50,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $list = $this->smileyList->getDatabaseList();
 

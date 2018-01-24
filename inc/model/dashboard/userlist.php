@@ -26,10 +26,10 @@
             
             parent::__construct();
             
-            if ($this->cache->isExpired()) {
+            if ($this->cache->isExpired($this->cacheName)) {
                 $this->renderContent();                
             } else {
-                $this->content = $this->cache->read();
+                $this->content = $this->cache->read($this->cacheName);
             }
 
             $this->headline  = $this->language->translate('DASHBOARD_USERLIST');
@@ -69,7 +69,7 @@
             
             $this->content = implode(PHP_EOL, $content);
             
-            $this->cache->write($this->content, $this->config->system_cache_timeout);
+            $this->cache->write($this->cacheName, $this->content, $this->config->system_cache_timeout);
         }
         
     }

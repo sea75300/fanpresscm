@@ -20,7 +20,7 @@
             
             $this->checkPermission = array('system' => 'smileys');
 
-            $this->view = new \fpcm\view\view('add', 'smileys');            
+            $this->view = new \fpcm\view\view('smileys/add');            
         }
 
         public function request() {
@@ -49,7 +49,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
             
             if (!is_object($this->smiley)) {
                 $this->smiley = new \fpcm\model\files\smiley();

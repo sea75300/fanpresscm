@@ -15,7 +15,7 @@
                         <th><?php $theView->lang->write('FILE_LIST_FILENAME'); ?></th>
                         <th><?php $theView->lang->write('FILE_LIST_FILESIZE'); ?></th>
                     </tr>
-                    <?php fpcm\model\view\helper::notFoundContainer($folderList, 2); ?>
+                    <?php fpcm\view\helper::notFoundContainer($folderList, 2); ?>
                     
                     <tr class="fpcm-td-spacer"><td></td></tr>
                     <?php foreach ($folderList as $value) : ?>

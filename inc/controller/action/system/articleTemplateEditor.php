@@ -22,7 +22,7 @@
             parent::__construct();
             
             $this->checkPermission = array('system' => 'templates');
-            $this->view            = new \fpcm\view\view('articeltpleditor', 'templates');
+            $this->view            = new \fpcm\view\view('templates/articeltpleditor');
 
         }
         
@@ -78,7 +78,7 @@
          * @return boolean
          */
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $this->view->assign('file', $this->file);
             $this->view->setShowHeader(false);

@@ -72,7 +72,7 @@
             }
             
             $path = $this->fileMap[$logFile];
-            parent::__construct(basename($path), dirname($path).DIRECTORY_SEPARATOR);
+            parent::__construct($path);
             
             $this->init();
         }

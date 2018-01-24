@@ -32,8 +32,8 @@
                 
                 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
                     <div class="fpcm-ui-margin-center">
-                        <?php fpcm\model\view\helper::linkButton($theView->basePath.'categories/add', $theView->lang->translate('CATEGORIES_ADD'), '', 'fpcm-loader fpcm-new-btn'); ?>
-                        <?php fpcm\model\view\helper::deleteButton('delete'); ?>
+                        <?php fpcm\view\helper::linkButton($theView->basePath.'categories/add', $theView->lang->translate('CATEGORIES_ADD'), '', 'fpcm-loader fpcm-new-btn'); ?>
+                        <?php fpcm\view\helper::deleteButton('delete'); ?>
                     </div>
                 </div>
             </div>

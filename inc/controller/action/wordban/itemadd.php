@@ -16,7 +16,7 @@
             
             $this->checkPermission = array('system' => 'wordban');
             
-            $this->view = new \fpcm\view\view('itemadd', 'wordban');
+            $this->view = new \fpcm\view\view('wordban/itemadd');
             $this->item = new \fpcm\model\wordban\item();
         }
 
@@ -59,7 +59,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
        
             $this->view->assign('item', $this->item);
             $this->view->setHelpLink('hl_options');

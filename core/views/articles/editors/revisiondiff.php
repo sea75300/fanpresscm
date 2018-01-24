@@ -23,10 +23,10 @@
     </tr>    
     <tr>
         <td>
-            <h3><?php print fpcm\model\view\helper::escapeVal($revisionArticle->getTitle()); ?></h3>
+            <h3><?php print fpcm\view\helper::escapeVal($revisionArticle->getTitle()); ?></h3>
         </td>
         <td>
-            <h3><?php print fpcm\model\view\helper::escapeVal($article->getTitle()); ?></h3>
+            <h3><?php print fpcm\view\helper::escapeVal($article->getTitle()); ?></h3>
         </td>
     </tr>
     <tr>
@@ -34,7 +34,7 @@
             <div class="fpcm-ui-buttonset fpcm-ui-editor-categories fpcm-ui-editor-categories-revisiondiff">
                 <?php foreach ($categories as $value => $key) : ?>
                 <?php $selected = in_array($value, $revisionArticle->getCategories()); ?>
-                <?php fpcm\model\view\helper::checkbox('article[categories][revision]', '', $value, $key->getName(), 'rcat'.$value, $selected); ?>
+                <?php fpcm\view\helper::checkbox('article[categories][revision]', '', $value, $key->getName(), 'rcat'.$value, $selected); ?>
                 <?php endforeach; ?>
             </div>
         </td>
@@ -42,7 +42,7 @@
             <div class="fpcm-ui-buttonset fpcm-ui-editor-categories fpcm-ui-editor-categories-revisiondiff">
                 <?php foreach ($categories as $value => $key) : ?>
                 <?php $selected = in_array($value, $article->getCategories()); ?>
-                <?php fpcm\model\view\helper::checkbox('article[categories][current]', '', $value, $key->getName(), 'ccat'.$value, $selected); ?>
+                <?php fpcm\view\helper::checkbox('article[categories][current]', '', $value, $key->getName(), 'ccat'.$value, $selected); ?>
                 <?php endforeach; ?>
             </div> 
         </td>

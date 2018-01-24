@@ -19,7 +19,7 @@
             parent::__construct();
             
             $this->checkPermission = array('system' => 'wordban');
-            $this->view = new \fpcm\view\view('itemedit', 'wordban');
+            $this->view = new \fpcm\view\view('wordban/itemedit');
             
         }
 
@@ -66,7 +66,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $this->view->addJsVars(array(
                 'fpcmNavigationActiveItemId' => 'submenu-itemnav-item-wordban',

@@ -36,7 +36,7 @@
             parent::__construct();
 
             $this->checkPermission  = array('system' => 'update');
-            $this->view             = new \fpcm\view\view('sysupdater', 'packagemgr');
+            $this->view             = new \fpcm\view\view('packagemgr/sysupdater');
         }
         
         /**
@@ -65,7 +65,7 @@
          * Controller-Processing
          */
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $this->config->setMaintenanceMode(false);
             

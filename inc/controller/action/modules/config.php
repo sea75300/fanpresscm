@@ -18,7 +18,7 @@
         public function __construct() {
             parent::__construct();
             
-            $this->view = new \fpcm\view\view('ajax', 'common');
+            $this->view = new \fpcm\view\view('common/ajax');
             
             $this->checkPermission = array('system' => 'options', 'modules' => 'configure');      
         }
@@ -40,7 +40,7 @@
         }
 
         public function process() {
-            if (!parent::process()) return false;
+            
 
             if (!$this->moduleKey) {
                 $this->view = new \fpcm\view\error();

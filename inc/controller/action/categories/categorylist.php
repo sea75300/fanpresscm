@@ -18,7 +18,7 @@
             
             $this->checkPermission = array('system' => 'categories');
             
-            $this->view     = new \fpcm\view\view('categorylist', 'categories');
+            $this->view     = new \fpcm\view\view('categories/categorylist');
             
             $this->list     = new \fpcm\model\categories\categoryList();
             $this->rollList = new \fpcm\model\users\userRollList();
@@ -53,7 +53,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
             
             $categoryList = $this->list->getCategoriesAll();
             

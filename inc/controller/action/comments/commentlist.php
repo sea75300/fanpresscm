@@ -53,7 +53,7 @@
             
             $this->checkPermission = array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit'));
             
-            $this->view          = new \fpcm\view\view('commentlist', 'comments');            
+            $this->view          = new \fpcm\view\view('comments/commentlist');            
             $this->list          = new \fpcm\model\comments\commentList();
             $this->articleList   = new \fpcm\model\articles\articlelist();
 
@@ -84,7 +84,7 @@
          */        
         public function process() {
 
-            if (!parent::process()) return false;
+            
 
             $this->initCommentPermissions();
             $this->initSearchForm();

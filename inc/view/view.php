@@ -123,11 +123,8 @@
          * @param string $viewPath View-Pfad unterhalb von core/views/
          */
         public function __construct($viewName = '')
-        {            
-            $viewName .= '.php';
-
-            $this->viewPath         = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
-            $this->viewName         = $viewName;
+        {
+            $this->setViewPath($viewName);
             
             $this->showHeader       = self::INCLUDE_HEADER_FULL;
 
@@ -391,7 +388,8 @@
          * Include header and footer into view
          * @param int $showHeader, valid values are \fpcm\view\view::INCLUDE_HEADER_FULL, \fpcm\view\view::INCLUDE_HEADER_SIMPLE, \fpcm\view\view::INCLUDE_HEADER_NONE
          */
-        public function showHeaderFooter($showHeader) {
+        public function showHeaderFooter($showHeader)
+        {
             $this->showHeader = $showHeader;
         }
         
@@ -505,10 +503,32 @@
         }
 
         /**
+         * Returns view path
+         * @return string
+         */
+        public function getViewPath()
+        {
+            return $this->viewPath;
+        }
+
+        /**
+         * Sets view path
+         * @param string $viewName
+         */
+        public function setViewPath($viewName)
+        {
+            $viewName .= '.php';
+
+            $this->viewPath         = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
+            $this->viewName         = $viewName;
+        }
+        
+        /**
          * Return assigned view vars
          * @return array
          */
-        public function getViewVars() {
+        public function getViewVars()
+        {
             return $this->viewVars;
         }
 
@@ -516,7 +536,8 @@
          * Overrides assigned view vars
          * @param array $viewVars
          */
-        public function setViewVars(array $viewVars) {
+        public function setViewVars(array $viewVars)
+        {
             $this->viewVars = $viewVars;
         }
 

@@ -22,8 +22,6 @@
         public function process() {
             parent::process();
 
-            $view = new \fpcm\view\ajax();
-            
             $type = $this->getRequestVar('type');
             $msg  = $this->getRequestVar('msgtxt');
             

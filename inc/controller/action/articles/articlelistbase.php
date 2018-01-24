@@ -96,7 +96,7 @@
 
             $this->listShowLimit    = $this->config->articles_acp_limit;
 
-            $this->view             = new \fpcm\view\view('listouter', 'articles');
+            $this->view             = new \fpcm\view\view('articles/listouter');
             
             $this->initArticleActions();
             $this->initEditPermisions();
@@ -165,7 +165,7 @@
          * @return boolean
          */
         public function process() {
-            if (!parent::process()) return false;
+            
             
             $this->initPagination();
             

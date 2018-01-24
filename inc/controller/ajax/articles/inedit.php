@@ -24,7 +24,7 @@
          */
         public function process() {
 
-            if (!parent::process()) return false;
+            
 
             $article = new \fpcm\model\articles\article($this->getRequestVar('id', [9]));
 

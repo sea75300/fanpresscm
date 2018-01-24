@@ -19,7 +19,7 @@
             <div>
                 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
                     <div class="fpcm-ui-margin-center">
-                        <?php fpcm\model\view\helper::submitButton('fpcm-logs-clear_0', 'LOGS_CLEARLOG', 'fpcm-logs-clear fpcm-clear-btn'); ?>
+                        <?php fpcm\view\helper::submitButton('fpcm-logs-clear_0', 'LOGS_CLEARLOG', 'fpcm-logs-clear fpcm-clear-btn'); ?>
                     </div>
                 </div>              
             </div>            

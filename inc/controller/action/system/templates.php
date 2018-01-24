@@ -53,7 +53,7 @@
             
             $this->checkPermission = array('system' => 'templates');
 
-            $this->view   = new \fpcm\view\view('overview', 'templates');
+            $this->view   = new \fpcm\view\view('templates/overview');
             
             $fileLib = new \fpcm\model\system\fileLib();
             
@@ -160,7 +160,7 @@
          * @return boolean
          */
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $this->view->assign('replacementsArticle', $this->articleTemplate->getReplacementTranslations('TEMPLATE_ARTICLE_'));
             $this->view->assign('contentArticle', $this->articleTemplate->getContent());

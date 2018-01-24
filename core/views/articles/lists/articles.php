@@ -4,7 +4,7 @@
         <th><?php $theView->lang->write('ARTICLE_LIST_TITLE'); ?></th>
         <th class="fpcm-ui-center fpcm-td-articlelist-categories"><?php $theView->lang->write('HL_CATEGORIES_MNG'); ?></th>
         <th class="fpcm-td-articlelist-meta"></th>
-        <th class="fpcm-th-select-row"><?php fpcm\model\view\helper::checkbox('fpcm-select-all', '', '', '', 'fpcm-select-all', false); ?></th>
+        <th class="fpcm-th-select-row"><?php fpcm\view\helper::checkbox('fpcm-select-all', '', '', '', 'fpcm-select-all', false); ?></th>
     </tr>
 
     <?php \fpcm\view\helper::notFoundContainer($list, 6); ?>
@@ -13,10 +13,10 @@
         <tr class="fpcm-td-spacer"><td colspan="5"></td></tr>
         <tr>
             <th></th>
-            <th><?php $theView->lang->writeMonth(fpcm\model\view\helper::dateText($articleMonth, 'n', true)); ?> <?php print fpcm\model\view\helper::dateText($articleMonth, 'Y', true); ?> (<?php print count($articles); ?>)</th> 
+            <th><?php $theView->lang->writeMonth(fpcm\view\helper::dateText($articleMonth, 'n', true)); ?> <?php print fpcm\view\helper::dateText($articleMonth, 'Y', true); ?> (<?php print count($articles); ?>)</th> 
             <th class="fpcm-td-articlelist-categories"></th>
             <th class="fpcm-td-articlelist-meta"></th>
-            <th class="fpcm-td-select-row"><?php fpcm\model\view\helper::checkbox('fpcm-select-allsub', 'fpcm-select-allsub', $articleMonth, '', 'fpcm-select-allsub'.$articleMonth, false); ?></th>
+            <th class="fpcm-td-select-row"><?php fpcm\view\helper::checkbox('fpcm-select-allsub', 'fpcm-select-allsub', $articleMonth, '', 'fpcm-select-allsub'.$articleMonth, false); ?></th>
         </tr>
         <tr class="fpcm-td-spacer"><td></td></tr>
         <?php foreach($articles AS $articleId => $article) : ?>
@@ -52,9 +52,9 @@
                 <td class="fpcm-td-articlelist-meta"><?php include dirname(__DIR__).'/metainfo.php'; ?></td>
                 <td class="fpcm-td-select-row">
                 <?php if ($article->getEditPermission()) : ?>                    
-                    <?php fpcm\model\view\helper::checkbox('actions[ids][]', 'fpcm-list-selectbox fpcm-list-selectbox-sub'.$articleMonth, $articleId, '', 'chbx'.$articleId, false); ?>
+                    <?php fpcm\view\helper::checkbox('actions[ids][]', 'fpcm-list-selectbox fpcm-list-selectbox-sub'.$articleMonth, $articleId, '', 'chbx'.$articleId, false); ?>
                 <?php else : ?>
-                    <?php fpcm\model\view\helper::checkbox('actions[ro][]', 'fpcm-list-selectbox fpcm-list-selectbox-sub'.$articleMonth, $articleId, '', 'chbx'.$articleId, false, true); ?>
+                    <?php fpcm\view\helper::checkbox('actions[ro][]', 'fpcm-list-selectbox fpcm-list-selectbox-sub'.$articleMonth, $articleId, '', 'chbx'.$articleId, false, true); ?>
                 <?php endif; ?>
                 </td>
             </tr>

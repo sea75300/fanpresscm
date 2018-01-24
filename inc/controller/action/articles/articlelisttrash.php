@@ -13,7 +13,7 @@
         public function __construct() {
             parent::__construct();
 
-            $this->view            = new \fpcm\view\view('listtrash', 'articles');
+            $this->view            = new \fpcm\view\view('articles/listtrash');
             $this->checkPermission = ['article' => 'edit', 'article' => 'editall'];
 
             $this->articleActions   = [
@@ -35,7 +35,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $this->view->assign('listAction', 'articles/trash');
             $this->view->assign('listIcon', 'trash');

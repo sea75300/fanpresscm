@@ -13,7 +13,7 @@
         <?php include __DIR__.'/editorhead.php'; ?>
     <tr>
         <td>
-            <?php fpcm\model\view\helper::textArea('template[latestNews]', 'fpcm-full-width', $contentLatestNews); ?>
+            <?php fpcm\view\helper::textArea('template[latestNews]', 'fpcm-full-width', $contentLatestNews); ?>
         </td>
     </tr>                    
 </table>

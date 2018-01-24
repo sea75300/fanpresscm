@@ -54,7 +54,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $this->editorPlugin = $this->getEditorPlugin();            
             $this->view->addJsFiles($this->editorPlugin->getJsFiles());

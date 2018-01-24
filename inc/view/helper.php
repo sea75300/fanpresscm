@@ -26,7 +26,7 @@
          * @param string $langCode
          */
         public static function init($langCode) {
-            self::$language = new \fpcm\classes\language($langCode);
+            self::$language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $langCode);
         }
 
         /**
@@ -502,7 +502,7 @@
          */
         public static function progressBar($progressbarName) {            
             if (!$progressbarName) return;
-            include_once \fpcm\classes\baseconfig::$viewsDir.'components/progress.php';
+            include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'components/progress.php');
         }
 
         /**

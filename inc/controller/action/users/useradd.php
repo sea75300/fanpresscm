@@ -20,7 +20,7 @@
             
             $this->checkPermission = array('system' => 'users');
             
-            $this->view   = new \fpcm\view\view('useradd', 'users');
+            $this->view   = new \fpcm\view\view('users/useradd');
             $this->author = new \fpcm\model\users\author();
         }
 
@@ -68,7 +68,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
             
             $userRolls = new \fpcm\model\users\userRollList();         
             $this->view->setHelpLink('hl_options');

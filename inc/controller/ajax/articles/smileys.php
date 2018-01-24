@@ -17,26 +17,20 @@
      * @author Stefan Seehafer <sea75300@yahoo.de>
      */
     class smileys extends \fpcm\controller\abstracts\ajaxController {
-
-        /**
-         * Request-Handler
-         * @return bool
-         */
-        public function request() {
-            return $this->session->exists();
+        
+        protected function getViewPath() 
+        {
+            return 'articles/editors/smileys';
         }
         
         /**
          * Controller-Processing
          */
-        public function process() {
+        public function process()
+        {
             $smileyList = new \fpcm\model\files\smileylist();
             
-            $view = new \fpcm\view\ajax('smileys', 'articles/editors');
-            
             $view->assign('smileys', array_values($smileyList->getDatabaseList()));
-            $view->setExcludeMessages(true);
-            
             $view->render();
         }
     }

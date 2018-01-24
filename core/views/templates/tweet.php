@@ -16,7 +16,7 @@
     </tr>
     <tr>
         <td>
-            <?php fpcm\model\view\helper::textArea('template[tweet]', 'fpcm-full-width', $contentTweet); ?>
+            <?php fpcm\view\helper::textArea('template[tweet]', 'fpcm-full-width', $contentTweet); ?>
         </td>
     </tr>                    
 </table>

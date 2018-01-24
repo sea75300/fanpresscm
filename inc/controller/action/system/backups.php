@@ -17,7 +17,7 @@
             
             $this->checkPermission = array('system' => 'backups');
 
-            $this->view   = new \fpcm\view\view('overview', 'backups');
+            $this->view   = new \fpcm\view\view('backups/overview');
         }
         
         public function request() {
@@ -56,7 +56,7 @@
          * Controller-Processing
          */
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $folderList = new \fpcm\model\files\backuplist();            
             $files      = $folderList->getFolderList();

@@ -18,7 +18,7 @@
                     $selected = false;
                 }
             ?>
-            <?php fpcm\model\view\helper::checkbox('category[groups][]', '', $rollid, $rollname, 'cat'.$rollid, $selected); ?>
+            <?php fpcm\view\helper::checkbox('category[groups][]', '', $rollid, $rollname, 'cat'.$rollid, $selected); ?>
         <?php endforeach; ?>                    
         </td>
     </tr>               

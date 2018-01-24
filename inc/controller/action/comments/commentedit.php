@@ -46,7 +46,7 @@
             }
             
             
-            $this->view     = new \fpcm\view\view('commentedit', 'comments');            
+            $this->view     = new \fpcm\view\view('comments/commentedit');            
         }
 
         public function request() {
@@ -107,7 +107,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $mode = (int) $this->getRequestVar('mode');
             

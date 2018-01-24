@@ -29,7 +29,7 @@
             
             $this->checkPermission = ['system' => 'users'];
 
-            $this->view = new \fpcm\view\view('useredit', 'users');
+            $this->view = new \fpcm\view\view('users/useredit');
         }
 
         public function request() {
@@ -126,7 +126,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
             
             $userRolls = new \fpcm\model\users\userRollList();            
             $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());

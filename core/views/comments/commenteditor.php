@@ -32,10 +32,10 @@
         <td colspan="2">
             <div class="fpcm-ui-buttonset">
                 <?php if ($permApprove) : ?>
-                    <?php fpcm\model\view\helper::checkbox('comment[spam]', '', 1, 'COMMMENT_SPAM', 'spam', $comment->getSpammer()); ?>
-                    <?php fpcm\model\view\helper::checkbox('comment[approved]', '', 1, 'COMMMENT_APPROVE', 'approved', $comment->getApproved()); ?>
+                    <?php fpcm\view\helper::checkbox('comment[spam]', '', 1, 'COMMMENT_SPAM', 'spam', $comment->getSpammer()); ?>
+                    <?php fpcm\view\helper::checkbox('comment[approved]', '', 1, 'COMMMENT_APPROVE', 'approved', $comment->getApproved()); ?>
                 <?php endif; ?>
-                <?php if ($permPrivate) : ?><?php fpcm\model\view\helper::checkbox('comment[private]', '', 1, 'COMMMENT_PRIVATE', 'private', $comment->getPrivate()); ?><?php endif; ?>
+                <?php if ($permPrivate) : ?><?php fpcm\view\helper::checkbox('comment[private]', '', 1, 'COMMMENT_PRIVATE', 'private', $comment->getPrivate()); ?><?php endif; ?>
             </div>
         </td>
     </tr>
@@ -50,6 +50,6 @@
 
 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons <?php if ($commentsMode == 2) : ?>fpcm-hidden<?php endif; ?>">
     <div class="fpcm-ui-margin-center">
-        <?php fpcm\model\view\helper::saveButton('commentSave'); ?>
+        <?php fpcm\view\helper::saveButton('commentSave'); ?>
     </div>
 </div>

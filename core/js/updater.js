@@ -20,31 +20,31 @@ fpcm.updater = {
         
         fpcm.ui.showLoader(true);
         
-        if (!fpcmUpdaterProgressbar) {
+        if (!fpcm.vars.jsvars.fpcmUpdaterProgressbar) {
             jQuery('.fpcm-updater-progressbar').remove();
         }
 
         fpcm.updater.progressbar(0);
-        fpcm.updater.execRequest(fpcmUpdaterStartStep);
+        fpcm.updater.execRequest(fpcm.vars.jsvars.fpcmUpdaterStartStep);
 
     },
 
     execRequest: function(stepName) {
 
-        if (fpcmUpdaterStepMap[stepName] === undefined) {
+        if (fpcm.vars.jsvars.fpcmUpdaterStepMap[stepName] === undefined) {
             return false;
         }
 
-        var idx = fpcmUpdaterStepMap[stepName];        
-        if (idx > fpcmUpdaterMaxStep) {
+        var idx = fpcm.vars.jsvars.fpcmUpdaterStepMap[stepName];        
+        if (idx > fpcm.vars.jsvars.fpcmUpdaterMaxStep) {
             return false;
         }
 
-        fpcm.ui.assignHtml('div.fpcm-updater-progressbar div.fpcm-ui-progressbar-label', fpcmUpdaterMessages[stepName + '_START']);
+        fpcm.ui.assignHtml('div.fpcm-updater-progressbar div.fpcm-ui-progressbar-label', fpcm.vars.jsvars.fpcmUpdaterMessages[stepName + '_START']);
         fpcm.ajax.post('packagemgr/sysupdater', {
             data: {
                 step : stepName,
-                force: fpcmUpdaterForce,
+                force: fpcm.vars.jsvars.fpcmUpdaterForce,
             },
             execDone: function () {
                 fpcm.updater.responseData = fpcm.ajax.fromJSON(fpcm.ajax.getResult('packagemgr/sysupdater'));
@@ -55,26 +55,26 @@ fpcm.updater = {
 
                 fpcm.updater.progressbar(fpcm.updater.responseData.data.current);
 
-                var currentIdx = fpcmUpdaterStepMap[fpcm.updater.responseData.data.current];
-                if (currentIdx < fpcmUpdaterMaxStep &&
+                var currentIdx = fpcm.vars.jsvars.fpcmUpdaterStepMap[fpcm.updater.responseData.data.current];
+                if (currentIdx < fpcm.vars.jsvars.fpcmUpdaterMaxStep &&
                     fpcm.updater.responseData.code != fpcm.updater.responseData.data.current + '_' + 1) {
                     fpcm.ui.showLoader(false);
-                    fpcm.ui.appendHtml('.fpcm-updater-list', '<p class="fpcm-ui-important-text">' + fpcmUpdaterMessages[fpcm.updater.responseData.code] + '</p>');
+                    fpcm.ui.appendHtml('.fpcm-updater-list', '<p class="fpcm-ui-important-text">' + fpcm.vars.jsvars.fpcmUpdaterMessages[fpcm.updater.responseData.code] + '</p>');
                     return false;
                 }
-                else if (currentIdx === fpcmUpdaterMaxStep) {
-                    fpcm.ui.appendHtml('.fpcm-updater-list', '<p>' + fpcmUpdaterMessages[fpcm.updater.responseData.code] + ': ' + fpcm.updater.responseData.data.newver + '</p>');
+                else if (currentIdx === fpcm.vars.jsvars.fpcmUpdaterMaxStep) {
+                    fpcm.ui.appendHtml('.fpcm-updater-list', '<p>' + fpcm.vars.jsvars.fpcmUpdaterMessages[fpcm.updater.responseData.code] + ': ' + fpcm.updater.responseData.data.newver + '</p>');
                     fpcm.updater.ajaxCallbackFinal(fpcm.updater.responseDataresponseData);
                 }
                 else {
-                    fpcm.ui.appendHtml('.fpcm-updater-list', '<p>' + fpcmUpdaterMessages[fpcm.updater.responseData.code] + '</p>');
+                    fpcm.ui.appendHtml('.fpcm-updater-list', '<p>' + fpcm.vars.jsvars.fpcmUpdaterMessages[fpcm.updater.responseData.code] + '</p>');
                 }
 
-                if (currentIdx < fpcmUpdaterMaxStep) {
+                if (currentIdx < fpcm.vars.jsvars.fpcmUpdaterMaxStep) {
                     fpcm.updater.execRequest(fpcm.updater.responseData.data.nextstep);
                 }
 
-                if (currentIdx == fpcmUpdaterMaxStep) {
+                if (currentIdx == fpcm.vars.jsvars.fpcmUpdaterMaxStep) {
                     fpcm.ui.assignText('div.fpcm-updater-progressbar div.fpcm-ui-progressbar-label', '');
                 }
             }
@@ -85,8 +85,8 @@ fpcm.updater = {
 
     ajaxCallbackFinal: function() {
         jQuery('#fpcm-ui-headspinner').removeClass('fa-spin');
-        fpcmJs.addAjaxMassage('notice', fpcmUpdaterMessages['EXIT_1']);
-        fpcm.ui.appendHtml('.fpcm-updater-list', '<p>' + '<span class="fa fa-check-square fa-fw fa-lg fpcm-ui-booltext-yes"></span>'  + fpcmUpdaterMessages['EXIT_1'] + '</p>');
+        fpcmJs.addAjaxMassage('notice', fpcm.vars.jsvars.fpcmUpdaterMessages['EXIT_1']);
+        fpcm.ui.appendHtml('.fpcm-updater-list', '<p>' + '<span class="fa fa-check-square fa-fw fa-lg fpcm-ui-booltext-yes"></span>'  + fpcm.vars.jsvars.fpcmUpdaterMessages['EXIT_1'] + '</p>');
         fpcm.ui.showLoader(false);
         fpcm.updater.addTimer();
         jQuery('#updaterButtons').show();

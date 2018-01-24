@@ -33,7 +33,7 @@
             parent::__construct(); 
             
             $this->checkPermission = array('uploads' => 'visible');            
-            $this->view = new \fpcm\view\view('listouter', 'filemanager');
+            $this->view = new \fpcm\view\view('filemanager/listouter');
             
             $this->fileList = new \fpcm\model\files\imagelist();
             $this->userList = new \fpcm\model\users\userList();
@@ -135,7 +135,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $this->view->addJsVars([
                 'fpcmBaseUrl'           => \fpcm\classes\dirs::getRootUrl(),

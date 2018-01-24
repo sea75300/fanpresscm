@@ -24,7 +24,7 @@
          */
         public function process() {
 
-            if (!parent::process()) return false;
+            
             
             $draftPath = $this->getRequestVar('path');
             

@@ -8,38 +8,26 @@
     namespace fpcm\controller\action\system;
     
     class help extends \fpcm\controller\abstracts\controller {
-        
-        /**
-         * ID des automatisch offenen Kapitels
-         * @var int
-         */
-        protected $chapterHeadline = '';
 
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-
-            $this->checkPermission  = [];
-            $this->view             = new \fpcm\view\view('help', 'system');
-            $this->cacheName        = 'helpcache_'.$this->config->system_lang;
-        }
-
-        public function request() {
-            $this->chapterHeadline = $this->getRequestVar('ref');
-            return parent::request();
+        protected function getViewPath() {
+            return 'system/help';
         }
         
         /**
          * Controller-Processing
          * @return boolean
          */
-        public function process() {
-            if (!parent::process()) return false;
+        public function process() 
+        {
+            $this->cacheName  = 'helpcache_'.$this->config->system_lang;
+            $chapterHeadline  = $this->getRequestVar('ref');
 
             $contents = $this->cache->read($this->cacheName);
-            if ($this->cache->isExpired($this->cacheName) || !is_array($contents)) {
+            if (!is_array($contents)) {
+                $contents = [];
+            }
+
+            if ($this->cache->isExpired($this->cacheName)) {
 
                 $xml = simplexml_load_string($this->lang->getHelp());
                 foreach ($xml->chapter as $chapter) {
@@ -53,7 +41,7 @@
             $contents = $this->events->runEvent('extendHelp', $contents);
             $this->view->assign('chapters', $contents);
 
-            $pos = $this->chapterHeadline ? (int) array_search(strtoupper(base64_decode($this->chapterHeadline)), array_keys($contents)) : 0;
+            $pos = $chapterHeadline ? (int) array_search(strtoupper(base64_decode($chapterHeadline)), array_keys($contents)) : 0;
             $this->view->addJsVars(['fpcmDefaultCapter' => $pos]);
             $this->view->addJsFiles(['help.js']);
             

@@ -32,6 +32,8 @@
             
             $this->oid      = $this->getRequestVar('id', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
             $this->module   = ucfirst($this->getRequestVar('view'));
+            
+            $this->initView();
 
             return true;
         }

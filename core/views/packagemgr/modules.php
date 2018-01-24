@@ -9,7 +9,7 @@
         <?php if (isset($nokeys)) : ?>
             <?php $theView->lang->write('GLOBAL_NOTFOUND2'); ?>
         <?php else : ?>
-            <?php fpcm\model\view\helper::progressBar('fpcm-updater-progressbar'); ?>
+            <?php fpcm\view\helper::progressBar('fpcm-updater-progressbar'); ?>
             <div class="fpcm-updater-list"></div>
         <?php endif; ?>
         </div>
@@ -18,6 +18,6 @@
 
 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
     <div class="fpcm-ui-margin-center">
-        <?php fpcm\model\view\helper::linkButton($theView->basePath.'modules/list', 'MODULES_LIST_BACKTOLIST', '', 'fpcm-ui-pager-buttons fpcm-back-button fpcm-loader'); ?>
+        <?php fpcm\view\helper::linkButton($theView->basePath.'modules/list', 'MODULES_LIST_BACKTOLIST', '', 'fpcm-ui-pager-buttons fpcm-back-button fpcm-loader'); ?>
     </div>
 </div>

@@ -38,10 +38,22 @@
         public function __construct()
         {
             parent::__construct();
+
+            
+        }
+
+        /**
+         * Initialises view object
+         * @return boolean
+         */
+        protected function initView()
+        {
+            parent::initView();
             if ($this->view instanceof \fpcm\view\view) {
                 $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
             }
             
+            return true;
         }
 
         /**

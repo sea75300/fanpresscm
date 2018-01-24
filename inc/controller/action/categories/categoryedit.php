@@ -16,7 +16,7 @@
             
             $this->checkPermission = array('system' => 'categories');
             
-            $this->view = new \fpcm\view\view('categoryedit', 'categories');
+            $this->view = new \fpcm\view\view('categories/categoryedit');
             
         }
 
@@ -56,7 +56,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
             
             $userRolls = new \fpcm\model\users\userRollList();            
             $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());               

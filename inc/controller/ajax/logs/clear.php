@@ -54,7 +54,7 @@
          */ 
         public function process() {
 
-            if (!parent::process()) return false;
+            
             
             if (is_numeric($this->log)) {
                 

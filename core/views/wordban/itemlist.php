@@ -44,15 +44,15 @@
                                 </span>
                             </div>
                         </td>
-                        <td class="fpcm-td-select-row"><?php fpcm\model\view\helper::checkbox('ids[]', 'fpcm-list-selectbox', $item->getId(), '', '', false); ?></td>
+                        <td class="fpcm-td-select-row"><?php fpcm\view\helper::checkbox('ids[]', 'fpcm-list-selectbox', $item->getId(), '', '', false); ?></td>
                     </tr>      
                     <?php endforeach; ?>
                 </table>
                 
                 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
                     <div class="fpcm-ui-margin-center">
-                        <?php fpcm\model\view\helper::linkButton($theView->basePath.'wordban/add', $theView->lang->translate('WORDBAN_ADD'), '', 'fpcm-loader fpcm-new-btn'); ?>
-                        <?php fpcm\model\view\helper::deleteButton('delete'); ?>
+                        <?php fpcm\view\helper::linkButton($theView->basePath.'wordban/add', $theView->lang->translate('WORDBAN_ADD'), '', 'fpcm-loader fpcm-new-btn'); ?>
+                        <?php fpcm\view\helper::deleteButton('delete'); ?>
                     </div>
                 </div>
             </div>

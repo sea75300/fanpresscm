@@ -14,7 +14,7 @@
             
             $this->checkPermission = array('article' => 'add');
             
-            $this->view    = new \fpcm\view\view('articleadd', 'articles');
+            $this->view    = new \fpcm\view\view('articles/articleadd');
             
             $this->article = new \fpcm\model\articles\article();
             $this->categoryList = new \fpcm\model\categories\categoryList();
@@ -96,7 +96,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
             
             $this->view->assign('editorAction', 'articles/add');
             $this->view->assign('editorMode', 0);

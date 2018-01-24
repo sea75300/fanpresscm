@@ -2,7 +2,7 @@
         <table class="fpcm-ui-table fpcm-ui-articletemplates">
             <tr>
                 <td>
-                    <?php fpcm\model\view\helper::textArea('templatecode', 'fpcm-full-width', $file->getContent()); ?>
+                    <?php fpcm\view\helper::textArea('templatecode', 'fpcm-full-width', $file->getContent()); ?>
                 </td>
             </tr>  
         </table>

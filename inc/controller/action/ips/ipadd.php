@@ -20,7 +20,7 @@
             
             $this->checkPermission = array('system' => 'ipaddr');
             
-            $this->view = new \fpcm\view\view('ipadd', 'ips');
+            $this->view = new \fpcm\view\view('ips/ipadd');
             $this->ipaddress = new \fpcm\model\ips\ipaddress();
         }
 
@@ -51,7 +51,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
             
             $this->view->addJsVars(['fpcmFieldSetAutoFocus' => 'ipaddress']);
             $this->view->setHelpLink('hl_options');

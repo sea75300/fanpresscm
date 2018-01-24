@@ -28,7 +28,7 @@ namespace fpcm\controller\action\users;
             parent::__construct();
             
             $this->checkPermission = array('system' => 'permissions');
-            $this->view = new \fpcm\view\view('permissions', 'users');
+            $this->view = new \fpcm\view\view('users/permissions');
             $this->view->setShowHeader(false);
             $this->view->setShowFooter(false);
 
@@ -84,7 +84,7 @@ namespace fpcm\controller\action\users;
          * Controller-Processing
          */
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $this->view->assign('permissions', $this->permissionObj->getPermissionData());            
             $this->view->assign('hideTitle', false);

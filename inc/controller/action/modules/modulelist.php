@@ -31,7 +31,7 @@
             
             $this->checkPermission = array('system' => 'options', 'modules' => 'configure');
             
-            $this->view   = new \fpcm\view\view('list', 'modules');
+            $this->view   = new \fpcm\view\view('modules/list');
             
             $this->moduleList = new \fpcm\model\modules\modulelist();
             
@@ -62,7 +62,7 @@
 
         
         public function process() {
-            if (!parent::process()) return false;
+            
             
             $this->assignModules($this->moduleList);
 

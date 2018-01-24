@@ -22,10 +22,6 @@
          * @return boolean
          */
         public function process() {
-            if (!parent::process()) {
-                return false;
-            }
-
             $this->view->addJsLangVars(['dashboard_loading' => $this->lang->translate('DASHBOARD_LOADING')]);
             $this->view->addJsFiles(['dashboard.js']);
             $this->view->setHelpLink('hl_dashboard');

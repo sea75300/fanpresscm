@@ -21,41 +21,34 @@
          * @var int
          */
         protected $log;
-
+        
         /**
-         * Konstruktor
+         * Array mit zu prüfenden Berchtigungen
+         * @var array
          */
-        public function __construct() {
-            parent::__construct();
-        }
+        protected $checkPermission = ['system' => 'logs'];
         
         /**
          * Request-Handler
          * @return boolean
          */
-        public function request() {
-            
-            if (!$this->session->exists()) {
-                return false;
-            }
-            
-            if (!$this->permissions->check(array('system' => 'logs'))) {
-                return false;
-            }
-            
-            if ($this->getRequestVar('log') === null) return false;
+        public function request()
+        {
             $this->log = $this->getRequestVar('log');
-            
-            return true;
+            return $this->log === null ? false : true;
         }
-        
+
+        protected function getViewPath() {
+            return 'logs/sessions';
+        }
+
         /**
          * Controller-Processing
          */ 
-        public function process() {
+        public function process()
+        {
+            $this->initView();
 
-            if (!parent::process()) return false;
-            
             if (method_exists($this, 'loadLog'.$this->log)) {
                 call_user_func(array($this, 'loadLog'.$this->log));
             }
@@ -71,49 +64,51 @@
         /**
          * Lädt Sessions-Log (Typ 0)
          */
-        private function loadLog0() {
+        private function loadLog0()
+        {
             $userList = new \fpcm\model\users\userList();
-            
-            $view = new \fpcm\view\ajax('sessions', 'logs');
-            $view->setExcludeMessages(true);
-            $view->initAssigns();
-            $view->assign('userList', $userList->getUsersAll());
-            $view->assign('sessionList', $this->session->getSessions());
-            $view->render();            
+            $this->view->assign('userList', $userList->getUsersAll());
+            $this->view->assign('sessionList', $this->session->getSessions());
+            $this->view->render();            
         }
         
         /**
          * Lädt System-Log (Typ 1)
          */
-        private function loadLog1() {
+        private function loadLog1()
+        {
             $this->readStandard('system', 'systemLogs');
         }
         
         /**
          * Lädt PHP-Error-Log (Typ 2)
          */        
-        private function loadLog2() {           
+        private function loadLog2()
+        {           
             $this->readStandard('errors', 'errorLogs');
         }
         
         /**
          * Lädt Datenbank-Log (Typ 3)
          */
-        private function loadLog3() {
+        private function loadLog3()
+        {
             $this->readStandard('database', 'databaseLogs');
         }
         
         /**
          * Lädt Cronjob-Log (Typ 4)
          */
-        private function loadLog4() {
+        private function loadLog4()
+        {
             $this->readStandard('packages', 'packagesLogs');
         }
         
         /**
          * Lädt Cronjob-Log (Typ 5)
          */
-        private function loadLog5() {
+        private function loadLog5()
+        {
             $this->readStandard('cronjobs', 'cronjobLogs');
         }
 
@@ -122,13 +117,12 @@
          * @param string $tpl
          * @param string $varName
          */
-        private function readStandard($tpl, $varName) {
-            $logFile = new \fpcm\model\files\logfile($this->log);            
-            $view = new \fpcm\view\ajax($tpl, 'logs');
-            $view->assign($varName, $logFile->fetchData());
-            $view->setExcludeMessages(true);
-            $view->initAssigns();
-            $view->render();  
+        private function readStandard($tpl, $varName)
+        {
+            $logFile = new \fpcm\model\files\logfile($this->log);
+            $this->view->setViewPath('logs/'.$tpl);
+            $this->view->assign($varName, $logFile->fetchData());
+            $this->view->render();  
         }
 
     }

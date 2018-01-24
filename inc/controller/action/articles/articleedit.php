@@ -56,7 +56,7 @@
             
             $this->checkPermission = array('article' => 'edit');
             
-            $this->view        = new \fpcm\view\view('articleedit', 'articles');
+            $this->view        = new \fpcm\view\view('articles/articleedit');
             $this->userList    = new \fpcm\model\users\userList();
             $this->commentList = new \fpcm\model\comments\commentList();
         }
@@ -117,7 +117,7 @@
          * @return mixed
          */        
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $this->view->assign('editorAction', 'articles/edit&articleid='.$this->article->getId());
             $this->view->assign('editorMode', 1);

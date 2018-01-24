@@ -27,7 +27,7 @@
                 </div>
                 
                 <div class="fpcm-filelist-actions-checkbox">
-                    <?php fpcm\model\view\helper::checkbox('filenames[]', 'fpcm-list-selectbox', base64_encode($file->getFilename()), '', 'cb_'.$file->getFilename(), false); ?>
+                    <?php fpcm\view\helper::checkbox('filenames[]', 'fpcm-list-selectbox', base64_encode($file->getFilename()), '', 'cb_'.$file->getFilename(), false); ?>
                 </div>
                 
                 <div class="fpcm-clear"></div>

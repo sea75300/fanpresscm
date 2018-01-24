@@ -13,7 +13,7 @@
     <?php include __DIR__.'/editorhead.php'; ?>
     <tr>
         <td>
-            <?php fpcm\model\view\helper::textArea('template[commentForm]', 'fpcm-full-width', $contentCommentForm); ?>
+            <?php fpcm\view\helper::textArea('template[commentForm]', 'fpcm-full-width', $contentCommentForm); ?>
         </td>
     </tr>                    
 </table>

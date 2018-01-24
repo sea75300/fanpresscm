@@ -127,9 +127,14 @@
          * @param string $filepath
          * @param string $content
          */
-        public function __construct($filename = '') {
+        public function __construct($filename = '')
+        {
 
-            $this->escapeFileName($filename);
+            $this->filename = basename($filename);
+            $this->filepath = dirname($filename);
+            $this->fullpath = $filename;
+            
+            $this->escapeFileName($this->filename);
             
             $this->dbcon    = \fpcm\classes\loader::getObject('fpcm\classes\database');
             
@@ -142,17 +147,13 @@
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
             
             $this->config->setUserSettings();
-            
-            $this->filename = $filename;
-            $this->filepath = $filepath;
-            $this->fullpath = $filepath.$filename;
-            $this->content  = ($content === self::FPCM_FILE_LOADCONTENT ? file_get_contents($this->fullpath) : $content);
-            
+
             if ($this->exists()){
                 $ext = pathinfo($this->fullpath, PATHINFO_EXTENSION);
                 $this->extension = ($ext) ? $ext : '';
                 $this->filesize = filesize($this->fullpath);
-            }          
+            }
+
         }
         
         /**
@@ -160,7 +161,8 @@
          * @param string $name
          * @return mixed
          */
-        public function __get($name) {
+        public function __get($name)
+        {
             return isset($this->data[$name]) ? $this->data[$name] : false;
         }
         
@@ -169,7 +171,8 @@
          * @param mixed $name
          * @param mixed $value
          */
-        public function __set($name, $value) {
+        public function __set($name, $value)
+        {
             $this->data[$name] = $value;
         }
         
@@ -177,7 +180,8 @@
          * Magic string
          * @return string
          */
-        public function __toString() {
+        public function __toString()
+        {
             return $this->filename;
         }
         
@@ -187,7 +191,8 @@
          * @param mixed $arguments
          * @return boolean
          */
-        public function __call($name, $arguments) {
+        public function __call($name, $arguments)
+        {
             print "Function '{$name}' not found in ".get_class($this).'<br>';
             return false;
         }
@@ -198,7 +203,8 @@
          * @param mixed $arguments
          * @return boolean
          */        
-        public static function __callStatic($name, $arguments) {
+        public static function __callStatic($name, $arguments)
+        {
             print "Static function '{$name}' not found in ".get_class($this).'<br>';
             return false;
         }
@@ -207,7 +213,8 @@
          * Gibt Inhalt von "data" zurück
          * @return array
          */
-        public function getData() {
+        public function getData()
+        {
             return $this->data;
         }
         
@@ -215,7 +222,8 @@
          * Löscht Datei in Dateisystem
          * @return bool
          */        
-        public function delete() {
+        public function delete()
+        {
             if ($this->exists() && !unlink($this->fullpath)) {
                 trigger_error('Unable to delete file: '.$this->fullpath);
                 return false;
@@ -230,7 +238,8 @@
          * @param int $userid
          * @return bool
          */
-        public function rename($newname, $userid = false) {
+        public function rename($newname, $userid = false)
+        {
             
             if (!rename($this->fullpath, $this->filepath.$newname)) {
                 trigger_error('Unable to rename file: '.$this->fullpath);
@@ -247,7 +256,8 @@
          * Prüft ob Datei existiert
          * @return bool
          */
-        public function exists() {
+        public function exists()
+        {
             return file_exists($this->fullpath);
         }
 
@@ -255,7 +265,8 @@
          * Dateiname
          * @return string
          */
-        public function getFilename() {
+        public function getFilename()
+        {
             return $this->filename;
         }
         
@@ -263,7 +274,8 @@
          * Dateipfad
          * @return string
          */
-        public function getFilepath() {
+        public function getFilepath()
+        {
             return $this->filepath;
         }
 
@@ -271,7 +283,8 @@
          * Dateipfad + Dateiname
          * @return string
          */
-        public function getFullpath() {
+        public function getFullpath()
+        {
             return $this->fullpath;
         }
 
@@ -279,7 +292,8 @@
          * Erweiterung
          * @return string
          */
-        public function getExtension() {
+        public function getExtension()
+        {
             return $this->extension;
         }
 
@@ -287,7 +301,8 @@
          * Dateigröße
          * @return int
          */
-        public function getFilesize() {
+        public function getFilesize()
+        {
             return $this->filesize;
         }
 
@@ -295,7 +310,8 @@
          * Dateiinhalt
          * @return string
          */
-        public function getContent() {
+        public function getContent()
+        {
             return $this->content;
         }
 
@@ -303,7 +319,8 @@
          * Dateiname setzen
          * @param string $filename
          */
-        public function setFilename($filename) {
+        public function setFilename($filename)
+        {
             $this->filename = $filename;
         }
 
@@ -311,7 +328,8 @@
          * Dateipfad setzen
          * @param string $filepath
          */
-        public function setFilepath($filepath) {
+        public function setFilepath($filepath)
+        {
             $this->filepath = $filepath;
         }
 
@@ -319,7 +337,8 @@
          * Dateiinhalt setzen
          * @param string $content
          */
-        public function setContent($content) {
+        public function setContent($content)
+        {
             $this->content = $content;
         }
         
@@ -327,7 +346,8 @@
          * Bereinigt Dateiname von problematischen Zeichen
          * @param string $filename
          */
-        public function escapeFileName(&$filename) {
+        public function escapeFileName(&$filename)
+        {
             $filename = preg_replace('/[^A-Za-z0-9_.\-]/', '', htmlentities($filename, ENT_COMPAT | ENT_HTML401));
         }
 
@@ -337,7 +357,8 @@
          * @return bool
          * @since FPCM 3.3
          */
-        public function moveUploadedFile($uploadedPath) {
+        public function moveUploadedFile($uploadedPath)
+        {
             return move_uploaded_file($uploadedPath, $this->fullpath);
         }
 
@@ -346,7 +367,8 @@
          * @return boolean
          * @since FPCM 3.5
          */
-        public function loadContent() {
+        public function loadContent()
+        {
             $this->content = file_get_contents($this->fullpath);
             
             if (!trim($this->content)) {
@@ -361,7 +383,8 @@
          * @return boolean
          * @since FPCM 3.5
          */
-        public function isWritable() {
+        public function isWritable()
+        {
             return is_writable($this->fullpath) ? true : false;
         }
 
@@ -370,7 +393,8 @@
          * @return boolean
          * @since FPCM 3.5
          */
-        public function isReadable() {
+        public function isReadable()
+        {
             return is_readable($this->fullpath) ? true : false;
         }
         

@@ -30,7 +30,7 @@
          */
         public function process() {
             
-            if (!parent::process()) return false;
+            
             
             $this->cache->cleanup();
 

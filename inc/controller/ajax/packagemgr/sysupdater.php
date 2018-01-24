@@ -75,7 +75,7 @@
          */
         public function process() {
 
-            if (!parent::process()) return false;
+            
 
             $this->canConnect   = \fpcm\classes\baseconfig::canConnect();
             

@@ -49,7 +49,7 @@
          * @return bool
          */
         public function process() {
-            if (!parent::process()) return false;
+            
 
             if ($this->module) {
 

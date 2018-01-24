@@ -32,7 +32,7 @@
             
             $this->checkPermission = array('system' => 'users');
             
-            $this->view = new \fpcm\view\view('userlist', 'users');
+            $this->view = new \fpcm\view\view('users/userlist');
             
             $this->userList     = new \fpcm\model\users\userList(); 
             $this->rollList     = new \fpcm\model\users\userRollList();
@@ -94,7 +94,7 @@
         }
         
         public function process() {
-            if (!parent::process()) return false;
+            
             
             $translatedRolls = $this->rollList->getUserRollsTranslated();
             

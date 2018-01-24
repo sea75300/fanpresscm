@@ -17,7 +17,7 @@
                         <th><?php $theView->lang->write('LOGS_LIST_USER'); ?></th>
                         <th><?php $theView->lang->write('IPLIST_IPTIME'); ?></th>
                         <th class="fpcm-td-iplist-meta"></th>
-                        <th class="fpcm-th-select-row"><?php fpcm\model\view\helper::checkbox('fpcm-select-all', '', '', '', 'fpcm-select-all', false); ?></th>
+                        <th class="fpcm-th-select-row"><?php fpcm\view\helper::checkbox('fpcm-select-all', '', '', '', 'fpcm-select-all', false); ?></th>
                     </tr>
                     
                     <?php \fpcm\view\helper::notFoundContainer($ipList, 5); ?>
@@ -47,7 +47,7 @@
                             </div>
                         </td>
                         <td class="fpcm-td-select-row fpcm-filelist-checkboxes">
-                            <?php fpcm\model\view\helper::checkbox('ipids[]', 'fpcm-list-selectbox', $value->getId(), '', '', false); ?>        
+                            <?php fpcm\view\helper::checkbox('ipids[]', 'fpcm-list-selectbox', $value->getId(), '', '', false); ?>        
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -57,8 +57,8 @@
             
             <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
                 <div class="fpcm-ui-margin-center">
-                    <?php fpcm\model\view\helper::linkButton($theView->basePath.'ips/add', 'IPLIST_ADDIP', '', 'fpcm-loader fpcm-new-btn'); ?>
-                    <?php fpcm\model\view\helper::deleteButton('delete'); ?>
+                    <?php fpcm\view\helper::linkButton($theView->basePath.'ips/add', 'IPLIST_ADDIP', '', 'fpcm-loader fpcm-new-btn'); ?>
+                    <?php fpcm\view\helper::deleteButton('delete'); ?>
                 </div>
             </div>             
 

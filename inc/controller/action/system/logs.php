@@ -17,14 +17,14 @@
             
             $this->checkPermission = array('system' => 'logs');
 
-            $this->view   = new \fpcm\view\view('overview', 'logs');
+            $this->view   = new \fpcm\view\view('logs/overview');
         }
         
         /**
          * Controller-Processing
          */
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $this->view->assign('customLogs', $this->events->runEvent('logsAddList', []));
             $this->view->assign('reloadBaseLink', \fpcm\classes\tools::getFullControllerLink('ajax/logs/reload', [

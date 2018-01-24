@@ -30,7 +30,7 @@
          */
         public function process() {
 
-            if (!parent::process()) return false;
+            
 
             if (isset($_FILES['file'])) {
                 $data = $_FILES['file'];

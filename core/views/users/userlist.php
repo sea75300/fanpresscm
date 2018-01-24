@@ -33,7 +33,7 @@
                             <td class="fpcm-ui-editbutton-col"><?php \fpcm\view\helper::editButton($user->getEditLink()); ?></td>
                             <td><strong><?php print \fpcm\view\helper::escapeVal($user->getUserName()); ?></strong></td>
                             <td><a href="mailto:<?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?>"><?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?></a>
-                                <?php fpcm\model\view\helper::badge([
+                                <?php fpcm\view\helper::badge([
                                     'title' => 'USERS_ARTICLE_COUNT',
                                     'value' => isset($articleCounts[$user->getId()]) ? $articleCounts[$user->getId()] : 0,
                                     'class' => 'fpcm-ui-badge-userarticles'
@@ -50,9 +50,9 @@
                 
                 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
                     <div class="fpcm-ui-margin-center">
-                        <?php fpcm\model\view\helper::linkButton($theView->basePath.'users/add', 'USERS_ADD', '', 'fpcm-loader fpcm-newuser-btn'); ?>
-                        <?php fpcm\model\view\helper::submitButton('disableUser', 'GLOBAL_DISABLE', 'fpcm-loader fpcm-ui-useractions-disable'); ?>
-                        <?php fpcm\model\view\helper::deleteButton('deleteActive'); ?>
+                        <?php fpcm\view\helper::linkButton($theView->basePath.'users/add', 'USERS_ADD', '', 'fpcm-loader fpcm-newuser-btn'); ?>
+                        <?php fpcm\view\helper::submitButton('disableUser', 'GLOBAL_DISABLE', 'fpcm-loader fpcm-ui-useractions-disable'); ?>
+                        <?php fpcm\view\helper::deleteButton('deleteActive'); ?>
                     </div>
                 </div>
             </div>
@@ -81,7 +81,7 @@
                             <td class="fpcm-ui-editbutton-col"><?php \fpcm\view\helper::editButton($user->getEditLink()); ?></td>
                             <td><strong><?php print \fpcm\view\helper::escapeVal($user->getUserName()); ?></strong></td>
                             <td><a href="mailto:<?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?>"><?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?></a>
-                                <?php fpcm\model\view\helper::badge([
+                                <?php fpcm\view\helper::badge([
                                     'title' => 'USERS_ARTICLE_COUNT',
                                     'value' => isset($articleCounts[$user->getId()]) ? $articleCounts[$user->getId()] : 0,
                                     'class' => 'fpcm-ui-badge-userarticles'
@@ -98,8 +98,8 @@
                 
                 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
                     <div class="fpcm-ui-margin-center">
-                        <?php fpcm\model\view\helper::submitButton('enableUser', 'GLOBAL_ENABLE', 'fpcm-loader fpcm-ui-useractions-enable'); ?>
-                        <?php fpcm\model\view\helper::deleteButton('deleteDisabled'); ?>
+                        <?php fpcm\view\helper::submitButton('enableUser', 'GLOBAL_ENABLE', 'fpcm-loader fpcm-ui-useractions-enable'); ?>
+                        <?php fpcm\view\helper::deleteButton('deleteDisabled'); ?>
                     </div>
                 </div>
             </div>
@@ -128,8 +128,8 @@
                 
                 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
                     <div class="fpcm-ui-margin-center">
-                        <?php fpcm\model\view\helper::linkButton($theView->basePath.'users/addroll', 'USERS_ROLL_ADD', '', 'fpcm-loader fpcm-new-btn'); ?>
-                        <?php fpcm\model\view\helper::deleteButton('deleteRoll'); ?>
+                        <?php fpcm\view\helper::linkButton($theView->basePath.'users/addroll', 'USERS_ROLL_ADD', '', 'fpcm-loader fpcm-new-btn'); ?>
+                        <?php fpcm\view\helper::deleteButton('deleteRoll'); ?>
                     </div>
                 </div>
             </div>

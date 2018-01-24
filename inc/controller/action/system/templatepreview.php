@@ -53,7 +53,7 @@
          * @return boolean
          */
         public function process() {
-            if (!parent::process()) return false;
+            
 
             $this->template = $this->getTemplateById($this->tid);
             switch ($this->tid) {

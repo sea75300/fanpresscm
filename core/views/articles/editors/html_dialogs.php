@@ -83,11 +83,11 @@
         </tr>   
         <tr>
             <td><label><?php $theView->lang->write('EDITOR_INSERTMEDIA_AUDIO'); ?>:</label></td>
-            <td><?php fpcm\model\view\helper::radio('media[type]', 'fpcm-editor-mediatype', 'audio', '', 'mediatype_a', true); ?></td>
+            <td><?php fpcm\view\helper::radio('media[type]', 'fpcm-editor-mediatype', 'audio', '', 'mediatype_a', true); ?></td>
         </tr>
         <tr>
             <td><label><?php $theView->lang->write('EDITOR_INSERTMEDIA_VIDEO'); ?>:</label></td>
-            <td><?php fpcm\model\view\helper::radio('media[type]', 'fpcm-editor-mediatype', 'video', '', 'mediatype_v', false); ?></td>
+            <td><?php fpcm\view\helper::radio('media[type]', 'fpcm-editor-mediatype', 'video', '', 'mediatype_v', false); ?></td>
         </tr>         
     </table>
 </div>
@@ -101,11 +101,11 @@
         </tr>   
         <tr>
             <td><label><?php $theView->lang->write('EDITOR_INSERTCOLOR_TEXT'); ?>:</label></td>
-            <td><?php fpcm\model\view\helper::radio('color_mode', 'color_mode', 'color', '', 'color_mode1'); ?></td>
+            <td><?php fpcm\view\helper::radio('color_mode', 'color_mode', 'color', '', 'color_mode1'); ?></td>
         </tr>
         <tr>
             <td><label><?php $theView->lang->write('EDITOR_INSERTCOLOR_BACKGROUND'); ?>:</label></td>
-            <td><?php fpcm\model\view\helper::radio('color_mode', 'color_mode', 'background', '', 'color_mode2', false); ?></td>
+            <td><?php fpcm\view\helper::radio('color_mode', 'color_mode', 'background', '', 'color_mode2', false); ?></td>
         </tr>        
     </table>
 </div>

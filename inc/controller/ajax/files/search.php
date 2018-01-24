@@ -57,7 +57,7 @@
          * Controller-Processing
          */
         public function process() {
-            if (!parent::process()) return false;
+            
             
             $filter     = $this->getRequestVar('filter');
             

@@ -89,13 +89,6 @@
          * @var string
          */
         protected $cacheName        = false;
-        
-        /**
-         * Cache Modul
-         * @var string
-         * @since FPCM 3.4
-         */
-        protected $cacheModule    = '';
 
         /**
          * Aktive Module für Prüfung von Controlelr-Ausführung
@@ -114,7 +107,6 @@
          */        
         public function __construct()
         {
-            
             if (\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
                 $this->redirect('installer');
             }
@@ -139,12 +131,7 @@
             
             $this->lang         = \fpcm\classes\loader::getObject('fpcm\classes\language', $this->config->system_lang);
             
-            $viewPath           = $this->getViewPath();
-            if (!$viewPath) {
-                return;
-            }
-            
-            $this->view         = new \fpcm\view\view($viewPath);
+            $this->initView();
         }
         
         /**
@@ -177,7 +164,22 @@
         {
             return $this->session;
         }
-        
+
+        /**
+         * Initialises view object
+         * @return boolean
+         */
+        protected function initView()
+        {
+            $viewPath = $this->getViewPath();
+            if (!$viewPath) {
+                return false;
+            }
+            
+            $this->view = new \fpcm\view\view($viewPath);
+            return true;
+        }
+
         /**
          * Redirect if user is not logged in
          * @return boolean

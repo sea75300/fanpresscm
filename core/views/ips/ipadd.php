@@ -22,9 +22,9 @@
                     <tr>
                         <td><?php $theView->lang->write('IPLIST_BLOCKTYPE'); ?>:</td>
                         <td class="fpcm-ui-buttonset">
-                            <?php fpcm\model\view\helper::checkbox('nocomments', '', '1', 'IPLIST_NOCOMMENTS', 'nocomments', false); ?> 
-                            <?php fpcm\model\view\helper::checkbox('nologin', '', '1', 'IPLIST_NOLOGIN', 'nologin', false); ?> 
-                            <?php fpcm\model\view\helper::checkbox('noaccess', '', '1', 'IPLIST_NOACCESS', 'noaccess', false); ?> 
+                            <?php fpcm\view\helper::checkbox('nocomments', '', '1', 'IPLIST_NOCOMMENTS', 'nocomments', false); ?> 
+                            <?php fpcm\view\helper::checkbox('nologin', '', '1', 'IPLIST_NOLOGIN', 'nologin', false); ?> 
+                            <?php fpcm\view\helper::checkbox('noaccess', '', '1', 'IPLIST_NOACCESS', 'noaccess', false); ?> 
                         </td>
                     </tr>
                 </table>            
