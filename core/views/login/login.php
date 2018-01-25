@@ -28,11 +28,12 @@
                 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
                     <div class="fpcm-ui-margin-center">
                 <?php if ($resetPasswort) : ?>
-                    <?php \fpcm\view\helper::submitButton('reset', 'GLOBAL_OK', 'fpcm-loader fpcm-ok-button'); ?>
+                    <?php (new \fpcm\view\helper\submitButton('reset'))->setText('GLOBAL_OK')->setClass('fpcm-loader fpcm-ok-button')->setIcon('fa fa-check fa-fw'); ?>    
                     <?php \fpcm\view\helper::linkButton($theView->basePath, 'GLOBAL_BACK', '', 'fpcm-loader fpcm-back-button'); ?>
                 <?php else : ?>
-                    <?php \fpcm\view\helper::submitButton('login', 'LOGIN_BTN', 'fpcm-loader fpcm-login-btn'); ?>
-                    <?php \fpcm\view\helper::linkButton($theView->basePath.'index.php?module='.$theView->currentModule.'&reset', 'LOGIN_NEWPASSWORD', '', 'fpcm-loader fpcm-passreset-btn'); ?>
+                    
+                    <?php (new \fpcm\view\helper\submitButton('login'))->setText('LOGIN_BTN')->setClass('fpcm-loader fpcm-login-btn')->setIcon('fa fa-sign-in fa-fw'); ?>
+                    <?php \fpcm\view\helper::linkButton($theView->basePath.$theView->currentModule.'&reset', 'LOGIN_NEWPASSWORD', '', 'fpcm-loader fpcm-passreset-btn'); ?>
                 <?php endif; ?>
                     </div>
                 </div>

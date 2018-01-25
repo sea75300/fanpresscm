@@ -11,7 +11,7 @@
      * @author Stefan Seehafer <sea75300@yahoo.de>
      * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     * @package fpcm\model\view
+     * @package fpcm\view
      */
     final class helper {
         
@@ -33,24 +33,27 @@
          * Erzeugt Speichern Button
          * @param string $name Name des Buttons
          */
-        public static function saveButton($name) {         
-            self::button('submit', $name, 'GLOBAL_SAVE', 'fpcm-save-btn fpcm-loader');
+        public static function saveButton($name)
+        {
+            (new helper\submitButton($name))->setText('GLOBAL_SAVE')->setClass('fpcm-save-btn fpcm-loader');
         }
 
         /**
          * Erzeugt Speichern Button
          * @param string $name Name des Buttons
          */
-        public static function deleteButton($name) {         
-            self::button('submit', $name, 'GLOBAL_DELETE', 'fpcm-delete-btn fpcm-loader');
+        public static function deleteButton($name)
+        {
+            (new helper\submitButton($name))->setText('GLOBAL_DELETE')->setClass('fpcm-delete-btn fpcm-loader');
         }
         
         /**
          * Erzeugt Zuürcksetzen Button
          * @param string $name Name des Buttons
          */        
-        public static function resetButton($name) {           
-            self::button('reset', $name, 'GLOBAL_RESET', 'fpcm-save-reset');
+        public static function resetButton($name)
+        {
+            (new helper\resetButton($name))->setText('GLOBAL_RESET')->setClass('fpcm-save-reset');
         }        
         
         /**
@@ -60,8 +63,9 @@
          * @param string $descr Beschreibung des Buttons
          * @param string $class CSS-Klasse
          */
-        public static function submitButton($name, $descr, $class = '') {   
-            self::button('submit', $name, $descr, 'fpcm-submit-button '.$class);
+        public static function submitButton($name, $descr, $class = '')
+        {
+            (new helper\submitButton($name))->setText($descr)->setClass('fpcm-submit-button '.$class);
         }
         
         /**
