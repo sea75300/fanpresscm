@@ -1,3 +1,1 @@
-<script type="text/javascript">
-Object.assign(fpcm, <?php print json_encode($theView->varsJs); ?>);
-</script>
+<script>Object.assign(fpcm, <?php print json_encode($theView->varsJs); ?>);</script>

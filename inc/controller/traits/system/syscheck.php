@@ -233,19 +233,19 @@
             
             $checkFolders = array(
                 $this->lang->translate('SYSCHECK_FOLDER_DATA')          => \fpcm\classes\dirs::getDataDirPath(''),
-                $this->lang->translate('SYSCHECK_FOLDER_CACHE')         => \fpcm\classes\dirs::getFullDirPath(\fpcm\classes\dirs::DATA_CACHE),
-                $this->lang->translate('SYSCHECK_FOLDER_CONFIG')        => \fpcm\classes\dirs::getFullDirPath(\fpcm\classes\dirs::DATA_CONFIG),
-                $this->lang->translate('SYSCHECK_FOLDER_FILEMANAGER')   => \fpcm\classes\dirs::getFullDirPath(\fpcm\classes\dirs::DATA_FMTMP),
-                $this->lang->translate('SYSCHECK_FOLDER_LOGS')          => \fpcm\classes\dirs::getFullDirPath(\fpcm\classes\dirs::DATA_LOGS),
-                $this->lang->translate('SYSCHECK_FOLDER_MODULES')       => \fpcm\classes\dirs::getFullDirPath(\fpcm\classes\dirs::DATA_MODULES),
-                $this->lang->translate('SYSCHECK_FOLDER_SHARE')         => \fpcm\classes\dirs::getFullDirPath(\fpcm\classes\dirs::DATA_SHARE),
-                $this->lang->translate('SYSCHECK_FOLDER_SMILEYS')       => \fpcm\classes\dirs::getFullDirPath(\fpcm\classes\dirs::DATA_SMILEYS),
-                $this->lang->translate('SYSCHECK_FOLDER_STYLES')        => \fpcm\classes\dirs::getFullDirPath(\fpcm\classes\dirs::DATA_STYLES),
-                $this->lang->translate('SYSCHECK_FOLDER_TEMP')          => \fpcm\classes\dirs::getFullDirPath(\fpcm\classes\dirs::DATA_TEMP),
-                $this->lang->translate('SYSCHECK_FOLDER_UPLOADS')       => \fpcm\classes\dirs::getFullDirPath(\fpcm\classes\dirs::DATA_UPLOADS),
-                $this->lang->translate('SYSCHECK_FOLDER_DBDUMPS')       => \fpcm\classes\dirs::getFullDirPath(\fpcm\classes\dirs::DATA_DBDUMP),
-                $this->lang->translate('SYSCHECK_FOLDER_DRAFTS')        => \fpcm\classes\dirs::getFullDirPath(\fpcm\classes\dirs::DATA_DRAFTS),
-                $this->lang->translate('SYSCHECK_FOLDER_PROFILES')      => \fpcm\classes\dirs::getFullDirPath(\fpcm\classes\dirs::DATA_PROFILES),
+                $this->lang->translate('SYSCHECK_FOLDER_CACHE')         => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CACHE),
+                $this->lang->translate('SYSCHECK_FOLDER_CONFIG')        => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG),
+                $this->lang->translate('SYSCHECK_FOLDER_FILEMANAGER')   => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_FMTMP),
+                $this->lang->translate('SYSCHECK_FOLDER_LOGS')          => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_LOGS),
+                $this->lang->translate('SYSCHECK_FOLDER_MODULES')       => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES),
+                $this->lang->translate('SYSCHECK_FOLDER_SHARE')         => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SHARE),
+                $this->lang->translate('SYSCHECK_FOLDER_SMILEYS')       => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SMILEYS),
+                $this->lang->translate('SYSCHECK_FOLDER_STYLES')        => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES),
+                $this->lang->translate('SYSCHECK_FOLDER_TEMP')          => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP),
+                $this->lang->translate('SYSCHECK_FOLDER_UPLOADS')       => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS),
+                $this->lang->translate('SYSCHECK_FOLDER_DBDUMPS')       => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP),
+                $this->lang->translate('SYSCHECK_FOLDER_DRAFTS')        => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS),
+                $this->lang->translate('SYSCHECK_FOLDER_PROFILES')      => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_PROFILES),
             );
             
             natsort($checkFolders);

@@ -55,6 +55,18 @@
         protected $prefix   = '';
 
         /**
+         * Add div wrapper to input field
+         * @var string
+         */
+        protected $useWrapper = true;
+
+        /**
+         * CSS class for div wrapper
+         * @var string
+         */
+        protected $wrapperClass = true;
+
+        /**
          *
          * @var \fpcm\classes\language
          */
@@ -80,7 +92,7 @@
 
             $this->init();
             
-            $this->name     = $this->prefix. ucfirst($name);
+            $this->name     = $this->prefix ? $this->prefix.ucfirst($name) : $name;
             $this->id       = trim($id) ? $id : $this->getCleanName();
             
             $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
@@ -125,7 +137,7 @@
          */
         final protected function getNameIdString()
         {
-            return "name=\"{$this->name}\" id=\"{$this->name}\" ";
+            return "name=\"{$this->name}\" id=\"{$this->id}\" ";
         }
         
         public function setClass($class) {
@@ -143,13 +155,34 @@
         }
 
         /**
-         * 
+         * Set element to readonly
          * @param boolean $readonly
          * @return $this
          */
         public function setReadonly($readonly)
         {
             $this->readonly = (bool) $readonly;
+            return $this;
+        }
+
+        /**
+         * Use div wrapper around input field
+         * @param bool $useWrapper
+         * @return $this
+         */
+        public function setWrapper($useWrapper)
+        {
+            $this->userwrapper = (bool) $useWrapper;
+            return $this;
+        }
+
+        /**
+         * Set wrapper css class
+         * @param string $wrapperClass
+         * @return $this
+         */
+        public function setWrapperClass($wrapperClass) {
+            $this->wrapperClass = $wrapperClass;
             return $this;
         }
 

@@ -51,6 +51,10 @@
                 trigger_error('Lib path '.$path.' does not exists!');
             }
 
+            if (file_exists($path.DIRECTORY_SEPARATOR.'autoload.php')) {
+                return $path.DIRECTORY_SEPARATOR.'autoload.php';
+            }
+            
             return $path;
         }
         

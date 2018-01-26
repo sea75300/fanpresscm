@@ -7,5 +7,6 @@
 <?php endforeach; ?>
 
 <?php foreach ($theView->filesJs as $jsFile) : ?>
-    <script type="text/javascript" src="<?php print $jsFile; ?>"></script>
+    <?php if (!trim($jsFile)) continue; ?>
+    <script src="<?php print $jsFile; ?>"></script>
 <?php endforeach; ?>

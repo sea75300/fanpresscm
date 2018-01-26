@@ -45,10 +45,10 @@
          */
         protected function getString()
         {
-            return implode('', [
+            return implode(' ', [
                 ($this->readonly ? '<span ' : "<button type=\"{$this->type}\" "),
                 ($this->readonly ? $this->getClassString() : "{$this->getNameIdString()}{$this->getClassString()}"),
-                ($this->iconOnly ? "title=\"{$this->text}\">{$this->icon}" : ">{$this->icon}<span>{$this->text}</span>"),
+                ($this->iconOnly ? "title=\"{$this->text}\">{$this->icon}" : ">{$this->icon}<span class=\"fpcm-ui-label\">{$this->text}</span>"),
                 ($this->readonly ? '</span>' : "</button>")
             ]);
         }

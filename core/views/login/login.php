@@ -8,18 +8,18 @@
                     <tr>
                         <td>
                         <?php if ($resetPasswort) : ?>
-                            <?php \fpcm\view\helper::textInput('username', '', '', false, 255, $theView->lang->translate('GLOBAL_USERNAME')); ?>
+                            <?php \fpcm\view\helper::textInput('username', '', '', false, 255, 'GLOBAL_USERNAME'); ?>
                         <?php else : ?>
-                            <?php \fpcm\view\helper::textInput('login[username]', '', '', false, 255, $theView->lang->translate('GLOBAL_USERNAME')); ?>
+                            <?php \fpcm\view\helper::textInput('login[username]', '', '', false, 255, 'GLOBAL_USERNAME'); ?>
                         <?php endif; ?>
                         </td>
                     </tr>
                     <tr>
                         <td>
                         <?php if ($resetPasswort) : ?>
-                            <?php \fpcm\view\helper::textInput('email', '', '', false, 255, $theView->lang->translate('GLOBAL_EMAIL')); ?>
+                            <?php \fpcm\view\helper::textInput('email', '', '', false, 255, 'GLOBAL_EMAIL'); ?>
                         <?php else : ?>
-                            <?php \fpcm\view\helper::passwordInput('login[password]', '', '', false, 255, $theView->lang->translate('GLOBAL_PASSWORD')); ?>
+                            <?php \fpcm\view\helper::passwordInput('login[password]', '', '', false, 255, 'GLOBAL_PASSWORD'); ?>
                         <?php endif; ?>
                         </td>
                 </table>

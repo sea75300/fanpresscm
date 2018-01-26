@@ -174,27 +174,15 @@
          */
         public static function textInput($name, $class = '', $value = '', $readonly = false, $maxlength = 255, $placeholder = false, $wrapper = true) {
 
-            $placeholder = self::$language->translate($placeholder) ? self::$language->translate($placeholder) : $placeholder;
-
-            $html   = [];
-            if ($wrapper) {
-                $wrapperClass = is_string($wrapper) ? $wrapper : '';
-                $html[] = "<div class=\"fpcm-ui-input-wrapper $wrapperClass\"><div class=\"fpcm-ui-input-wrapper-inner\">";
-            }
-            $html[] = "<input type=\"text\" class=\"fpcm-ui-input-text $class\" name=\"$name\" id=\"".self::cleanIdName($name)."\" value=\"".htmlentities($value, ENT_QUOTES)."\" maxlength=\"$maxlength\"";
-            if ($readonly) $html[] = " readonly=\"readonly\"";
-            if ($placeholder) $html[] = " placeholder=\"$placeholder\"";
-            if ($placeholder && \fpcm\model\abstracts\view::isBrowser('MSIE 9.0')) {
-                $html[] = " title=\"$placeholder\"";
-            }
-            
-            $html[] = ">\n";
-            if ($wrapper) {
-                $html[] = "</div>\n";
-                $html[] = "</div>\n";
-            }
-            
-            print implode('', $html);
+            (new helper\textInput($name))
+                ->setClass($class)
+                ->setValue($value)
+                ->setReadonly($readonly)
+                ->setMaxlenght($maxlength)
+                ->setPlaceholder($placeholder ? true : false)
+                ->setText(is_string($placeholder) ? $placeholder : '')
+                ->setWrapper($wrapper ? true : false)
+                ->setWrapperClass(is_string($wrapper) ? $wrapper : '');
         }
         
         /**
@@ -203,7 +191,7 @@
          * @param string $value Wert
          */
         public static function hiddenInput($name, $value = '') {
-            print "<input type=\"hidden\" name=\"$name\" id=\"".self::cleanIdName($name)."\" value=\"".htmlentities($value, ENT_QUOTES)."\">\n";
+            (new helper\hiddenInput($name))->setValue($value);
         }       
         
         /**
@@ -216,23 +204,16 @@
          * @param sting $placeholder HTML5-Platzhalter-Text
          * @param string $wrapper Wrapper-DIV nutzen
          */
-        public static function passwordInput($name, $class = '', $value = '', $readonly = false, $maxlength = 255, $placeholder = false, $wrapper = true) {
-            $html   = [];
-            if ($wrapper) {
-                $wrapperClass = is_string($wrapper) ? $wrapper : '';
-                $html[] = "<div class=\"fpcm-ui-input-wrapper $wrapperClass\"><div class=\"fpcm-ui-input-wrapper-inner\">";
-            }
-            $html[] = "<input type=\"password\" class=\"fpcm-ui-input-text $class\" name=\"$name\" id=\"".self::cleanIdName($name)."\" value=\"".htmlentities($value, ENT_QUOTES)."\" maxlength=\"$maxlength\"";
-            if ($readonly) $html[] = " readonly=\"readonly\"";
-            if ($placeholder) $html[] = " placeholder=\"$placeholder\"";
-            if ($placeholder && \fpcm\model\abstracts\view::isBrowser('MSIE 9.0')) {
-                $html[] = " title=\"$placeholder\"";
-            }
-            $html[] = ">\n";
-            $html[] = "</div>\n";
-            if ($wrapper) $html[] = "</div>\n";
-            
-            print implode('', $html);
+        public static function passwordInput($name, $class = '', $value = '', $readonly = false, $maxlength = 255, $placeholder = false, $wrapper = true) {           
+            (new helper\passwordInput($name))
+                ->setClass($class)
+                ->setValue($value)
+                ->setReadonly($readonly)
+                ->setMaxlenght($maxlength)
+                ->setPlaceholder($placeholder ? true : false)
+                ->setText(is_string($placeholder) ? $placeholder : '')
+                ->setWrapper($wrapper ? true : false)
+                ->setWrapperClass(is_string($wrapper) ? $wrapper : '');
         }
         
         /**
@@ -295,12 +276,7 @@
          * @param bool $readonly readonly Status
          */
         public static function textArea($name, $class = '', $value = '', $readonly = false) {
-            $html   = [];
-            $html[] = "<textarea class=\"fpcm-ui-textarea $class\" name=\"$name\" id=\"".self::cleanIdName($name)."\"";
-            if ($readonly) $html[] = " readonly=\"readonly\"";
-            $html[] = ">".htmlentities($value, ENT_QUOTES)."</textarea>\n";
-            
-            print implode('', $html);            
+            (new helper\textarea($name))->setClass($class)->setValue($value)->setReadonly($readonly);
         }
         
         /**
