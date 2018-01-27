@@ -206,7 +206,7 @@
 
             return self::$cfgDat[__FUNCTION__];
         }
-        
+
         /**
          * PHP Memory Limit
          * @param bool $inByte Ausgabe in Byte oder Mbyte

@@ -118,6 +118,12 @@
         protected $language;
 
         /**
+         * View was already rendered
+         * @var bool
+         */
+        protected $rendered;
+
+        /**
          * Konstruktor
          * @param string $viewName View-Name, ohne Endung .php
          * @param string $viewPath View-Pfad unterhalb von core/views/
@@ -398,7 +404,7 @@
          * @return bool
          */        
         public function render()
-        {            
+        {   
             if (!file_exists($this->viewPath)) {
                 trigger_error("View file {$this->viewName} not found!");
                 return false;
@@ -435,6 +441,7 @@
 
             //$this->events->runEvent('view/renderAfter');
             
+            $this->rendered = true;
             return true;
         }
 
@@ -539,6 +546,14 @@
         public function setViewVars(array $viewVars)
         {
             $this->viewVars = $viewVars;
+        }
+
+        /**
+         * Check if view was already rendered
+         * @return bool
+         */
+        public function wasRendered() {
+            return $this->rendered;
         }
 
     }

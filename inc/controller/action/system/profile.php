@@ -18,6 +18,10 @@
          */
         protected $reloadSite;
 
+        /**
+         * @see \fpcm\controller\abstracts\controller::getViewPath
+         * @return string
+         */
         protected function getViewPath()
         {
             return 'system/profile';
@@ -113,9 +117,8 @@
          * Controller-Processing
          * @return boolean
          */
-        public function process() {
-            
-            
+        public function process()
+        {    
             $userRolls = new \fpcm\model\users\userRollList();            
             $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());
             $this->view->assign('languages', array_flip($this->lang->getLanguages()));

@@ -21,7 +21,7 @@
                     <span class="fa fa-exclamation-triangle fa-stack-1x fa-inverse"></span>
                 </span>
                 
-                <p><?php print \fpcm\view\helper::escapeVal($message); ?></p>
+                <p><?php print \fpcm\view\helper::escapeVal($errorMessage); ?></p>
                 
                 <p><?php \fpcm\view\helper::linkButton('javascript:window.history.back();', 'GLOBAL_BACK'); ?></p>
                 

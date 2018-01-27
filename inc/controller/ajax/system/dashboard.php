@@ -19,7 +19,8 @@
          * Get view path for controller
          * @return string
          */
-        protected function getViewPath() {
+        protected function getViewPath()
+        {
             return 'dashboard/list';
         }
                 
@@ -27,17 +28,18 @@
          * Controller-Processing
          * @return boolean
          */
-        public function process() {
+        public function process()
+        {
 
             $this->getClasses();
-            $this->view->assign('containers', $this->containers);
-            $this->view->render();            
+            $this->view->assign('containers', $this->containers);         
         }
     
         /**
          * Container-Klassen ermitteln
          */
-        protected function getClasses() {
+        protected function getClasses()
+        {
             $containers = array_map(array($this, 'parseClassname'), glob(\fpcm\classes\dirs::getIncDirPath('model'.DIRECTORY_SEPARATOR.'dashboard'.DIRECTORY_SEPARATOR.'*.php')));
             $containers = $this->events->runEvent('dashboardContainersLoad', $containers);
             
@@ -81,7 +83,8 @@
          * @param string $filename
          * @return string
          */
-        protected function parseClassname($filename) {            
+        protected function parseClassname($filename)
+        {            
             return '\\fpcm\\model\\dashboard\\'.basename($filename, '.php');            
         }
     }

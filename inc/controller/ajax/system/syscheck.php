@@ -24,12 +24,27 @@
         protected $installer;
 
         /**
+         * Add no view to returned values
+         * @var bool
+         */
+        protected $noView;
+
+        /**
+         * 
+         * @param bool $noView
+         */
+        public function __construct($noView = false) {
+            $this->noView = $noView;
+            parent::__construct();
+        }
+
+        /**
          * Get view path for controller
          * @return string
          */
         protected function getViewPath()
         {
-            return 'system/syscheck';
+            return $this->noView ? '' : 'system/syscheck';
         }
 
         /**
@@ -129,7 +144,6 @@
 
         public function processCli()
         {
-            
             $checkOptions     = [];            
             
             $updater = new \fpcm\model\updater\system();

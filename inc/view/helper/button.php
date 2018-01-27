@@ -14,30 +14,9 @@
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     abstract class button extends helper {
-
-        /**
-         * Button type
-         * @var string
-         */
-        protected $type     = '';
-
-        /**
-         * Button icon
-         * @var string
-         */
-        protected $icon     = '';
-
-        /**
-         * Button text
-         * @var string
-         */
-        protected $text     = '';
-
-        /**
-         * Button text
-         * @var string
-         */
-        protected $iconOnly = false;
+        
+        use traits\iconHelper,
+            traits\typeHelper;
 
         /**
          * Return element string
@@ -47,8 +26,9 @@
         {
             return implode(' ', [
                 ($this->readonly ? '<span ' : "<button type=\"{$this->type}\" "),
-                ($this->readonly ? $this->getClassString() : "{$this->getNameIdString()}{$this->getClassString()}"),
+                ($this->readonly ? $this->getClassString() : $this->getNameIdString().' '.$this->getClassString()),
                 ($this->iconOnly ? "title=\"{$this->text}\">{$this->icon}" : ">{$this->icon}<span class=\"fpcm-ui-label\">{$this->text}</span>"),
+                $this->getDataString(),
                 ($this->readonly ? '</span>' : "</button>")
             ]);
         }
@@ -60,39 +40,7 @@
         protected function init()
         {
             $this->prefix = 'btn';
-        }
-
-        /**
-         * Set button icon
-         * @param string $icon
-         * @return $this
-         */
-        public function setIcon($icon)
-        {
-            $this->icon = "<span class=\"fpcm-ui-icon {$icon}\"></span> ";
-            return $this;
-        }
-        
-        /**
-         * Set button description
-         * @param string $text
-         * @param array $params
-         * @return $this
-         */
-        public function setText($text, $params = [])
-        {
-            $this->text = $this->language->translate(strtoupper($text), $params);
-            return $this;
-        }
-
-        /**
-         * Set button to display icon only
-         * @param string $iconOnly
-         * @return $this
-         */
-        public function setIconOnly($iconOnly) {
-            $this->iconOnly = (bool) $iconOnly;
-            return $this;
+            $this->class  = 'fpcm-ui-button';
         }
 
     }

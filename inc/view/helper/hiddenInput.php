@@ -21,7 +21,7 @@
          */
         protected function getString()
         {
-            return "<input type=\"hidden\" {$this->getNameIdString()} value=\"{$this->value}\">\n";
+            return "<input type=\"hidden\" {$this->getNameIdString()}{$this->getDataString()} value=\"{$this->value}\">\n";
         }
         
     }

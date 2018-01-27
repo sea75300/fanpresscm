@@ -21,6 +21,7 @@
         {
             parent::__construct('common/error');
             $this->errorMessage = $this->language->translate($errorMessage);
+            $this->showHeaderFooter(view::INCLUDE_HEADER_NONE);
         }
         
         public function render()

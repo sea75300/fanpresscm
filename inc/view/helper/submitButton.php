@@ -22,8 +22,8 @@
         protected function init()
         {
             parent::init();
-            $this->type  = 'submit';
-            $this->class = 'fpcm-submit-button ';
+            $this->type   = 'submit';
+            $this->class .= ' fpcm-ui-button-submit';
         }
 
     }

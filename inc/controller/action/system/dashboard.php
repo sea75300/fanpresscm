@@ -22,7 +22,7 @@
          * @return boolean
          */
         public function process() {
-            $this->view->addJsLangVars(['dashboard_loading' => $this->lang->translate('DASHBOARD_LOADING')]);
+            $this->view->addJsLangVars(['DASHBOARD_LOADING']);
             $this->view->addJsFiles(['dashboard.js']);
             $this->view->setHelpLink('hl_dashboard');
             $this->view->render();            

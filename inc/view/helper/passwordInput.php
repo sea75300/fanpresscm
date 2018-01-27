@@ -21,8 +21,9 @@
          */
         protected function init()
         {
-            $this->type  = 'password';
-            $this->class = 'fpcm-ui-input-password';
+            parent::init();
+            $this->type   = 'password';
+            $this->class .= ' fpcm-ui-input-password';
         }
         
     }

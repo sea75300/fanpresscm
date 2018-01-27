@@ -37,6 +37,12 @@
         protected $name     = '';
 
         /**
+         * Input label
+         * @var string
+         */
+        protected $text     = '';
+
+        /**
          * CSS class string
          * @var string
          */
@@ -141,7 +147,7 @@
         }
         
         public function setClass($class) {
-            $this->class .= $class;
+            $this->class .= ' '.$class;
             return $this;
         }
 
@@ -151,7 +157,39 @@
          */
         protected function getClassString()
         {
-            return "class=\"{$this->class}\" ";
+            return "class=\"{$this->class}\"";
+        }
+
+        /**
+         * Return class string
+         * @return string
+         */
+        protected function getDataString()
+        {
+            if (!count($this->data)) {
+                return '';
+            }
+            
+            $return = [];
+            foreach ($this->data as $key => $value) {
+                
+                if (is_object($value) || is_array($value)) {
+                    $value = json_encode($value);
+                }
+                
+                $return[] = "data-{$key}=\"{$value}\"";
+            }
+            
+            return implode(' ', $return);
+        }
+
+        /**
+         * Return class string
+         * @return string
+         */
+        protected function getReadonlyString()
+        {
+            return $this->readonly ? "readonly" : '';
         }
 
         /**
@@ -185,7 +223,30 @@
             $this->wrapperClass = $wrapperClass;
             return $this;
         }
+        
+        /**
+         * Set button description
+         * @param string $text
+         * @param array $params
+         * @return $this
+         */
+        public function setText($text, $params = [])
+        {
+            $this->text = $this->language->translate($text, $params);
+            return $this;
+        }
 
+        /**
+         * Add array for 'data-'-params to element
+         * @param array $data
+         * @return $this
+         */
+        public function setData(array $data)
+        {
+            $this->data = $data;
+            return $this;
+        }
+                
         /**
          * Optional init function
          * @return void

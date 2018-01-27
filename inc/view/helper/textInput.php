@@ -21,8 +21,10 @@
          */
         protected function init()
         {
-            $this->type  = 'text';
-            $this->class = 'fpcm-ui-input-text';
+            parent::init();
+
+            $this->type   = 'text';
+            $this->class .= ' fpcm-ui-input-text';
         }
         
     }

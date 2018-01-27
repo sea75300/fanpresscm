@@ -251,6 +251,7 @@
             $fieldname = \fpcm\classes\security::pageTokenCacheModule.'/'.\fpcm\classes\security::getPageTokenFieldName();
             $tokenData = \fpcm\classes\loader::getObject('fpcm\classes\crypt')->decrypt($this->cache->read($fieldname));
             $this->cache->cleanup($fieldname);
+
             if (\fpcm\classes\http::getPageToken() == $tokenData) {
                 return true;
             }
@@ -306,7 +307,8 @@
          */ 
         public function hasAccess()
         {
-            if (!$this->maintenanceMode(false) && !$this->session->exists()) {
+            if (!$this->maintenanceMode(false) && !$this->session->exists())
+        {
                 return false;
             }
 
@@ -328,7 +330,8 @@
          * @param array $filters
          * @return string
          */
-        public static function filterRequest($filterString, array $filters) {            
+        public static function filterRequest($filterString, array $filters)
+        {            
             return \fpcm\classes\http::filter($filterString, $filters);         
         }
         
@@ -338,7 +341,8 @@
          * @param mixed $arguments
          * @return boolean
          */
-        public function __call($name, $arguments) {
+        public function __call($name, $arguments)
+        {
             print "Function not found! {$name}";
             return false;
         }
@@ -349,7 +353,8 @@
          * @param mixed $arguments
          * @return boolean
          */        
-        public static function __callStatic($name, $arguments) {
+        public static function __callStatic($name, $arguments)
+        {
             print "Function not found! {$name}";
             return false;
         }
@@ -358,17 +363,11 @@
          * Destruktor
          * @return void
          */
-        public function __destruct() {
-            $this->cache       = null;
-            $this->config      = null;
-            $this->session     = null;
-            $this->lang        = null;
-            $this->events      = null;
-            $this->request     = null;
-            $this->crons       = null;            
-            $this->permissions = null;
-            
-            return;
+        public function __destruct()
+        {
+            if ($this->view instanceof \fpcm\view\view && !$this->view->wasRendered()) {
+                $this->view->render();
+            }
         }
     }
 ?>

@@ -14,7 +14,7 @@
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     final class textarea extends input {
-
+        
         /**
          * Optional init function
          * @return void
@@ -31,9 +31,10 @@
         {
             return implode(' ', [
                 "<textarea",
-                "{$this->getNameIdString()}{$this->getClassString()}",
-                $this->readonly     ? "readonly" : '',
-                $this->placeholder  ? "placeholder=\"{$this->text}\"" : '',
+                $this->getNameIdString(),
+                $this->getClassString(),
+                $this->getReadonlyString(),
+                $this->getDataString(),
                 ">{$this->value}",
                 "</textarea>"
             ]);

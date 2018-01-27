@@ -15,29 +15,9 @@
      */
     abstract class input extends helper {
 
-        /**
-         * Input type
-         * @var string
-         */
-        protected $type     = '';
-
-        /**
-         * Input icon
-         * @var string
-         */
-        protected $icon     = '';
-
-        /**
-         * Input label
-         * @var string
-         */
-        protected $text     = '';
-
-        /**
-         * Element value
-         * @var string
-         */
-        protected $value    = '';
+        use traits\iconHelper,
+            traits\valueHelper,
+            traits\typeHelper;
 
         /**
          * Maximum input lenght
@@ -64,50 +44,25 @@
                                     : ( "<label>".($this->icon ? $this->icon : '')."<span class=\"fpcm-ui-label\">{$this->text}</span></label>" ),
 
                 "<input type=\"{$this->type}\"",
-                "{$this->getNameIdString()}{$this->getClassString()}",
-                $this->readonly     ? "readonly" : '',
+                $this->getNameIdString(),
+                $this->getClassString(),
+                $this->getReadonlyString(),
                 "value=\"{$this->value}\"",
                 "maxlength=\"{$this->maxlenght}\"",
-                $this->placeholder  ? "placeholder=\"{$this->text}\"" : '',
+                $this->getPlaceholderString(),
+                $this->getDataString(),
                 ">",
                 $this->useWrapper ? "</div></div>" : '',
             ]);
         }
-        
-        /**
-         * Set input value
-         * @param mixed $value
-         * @param int $escapeMode
-         * @return $this
-         */
-        public function setValue($value, $escapeMode = null)
-        {
-            $this->value = self::escapeVal($value,$escapeMode);
-            return $this;
-        }
 
-        
         /**
-         * Set button icon
-         * @param string $icon
-         * @return $this
+         * Optional init function
+         * @return void
          */
-        public function setIcon($icon)
+        protected function init()
         {
-            $this->icon = "<span class=\"fpcm-ui-icon {$icon}\"></span> ";
-            return $this;
-        }
-        
-        /**
-         * Set button description
-         * @param string $text
-         * @param array $params
-         * @return $this
-         */
-        public function setText($text, $params = [])
-        {
-            $this->text = $this->language->translate(strtoupper($text), $params);
-            return $this;
+            $this->class  = 'fpcm-ui-input';
         }
 
         /**
@@ -131,15 +86,10 @@
             $this->placeholder = (bool) $placeholder;
             return $this;
         }
-
-        /**
-         * Escapes given values
-         * @param string $value
-         * @param int $mode
-         * @return void
-         */
-        public static function escapeVal($value, $mode = null) {
-            return htmlentities($value, ($mode !== null ? (int) $mode : ENT_COMPAT | ENT_HTML5));
+        
+        protected function getPlaceholderString()
+        {
+            return ($this->placeholder  ? "placeholder=\"{$this->text}\"" : '');
         }
 
     }

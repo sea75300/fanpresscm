@@ -53,7 +53,7 @@
          */        
         public static function resetButton($name)
         {
-            (new helper\resetButton($name))->setText('GLOBAL_RESET')->setClass('fpcm-save-reset');
+            (new helper\resetButton($name))->setText('GLOBAL_RESET');
         }        
         
         /**
@@ -65,7 +65,7 @@
          */
         public static function submitButton($name, $descr, $class = '')
         {
-            (new helper\submitButton($name))->setText($descr)->setClass('fpcm-submit-button '.$class);
+            (new helper\submitButton($name))->setText($descr)->setClass($class);
         }
         
         /**
@@ -93,15 +93,7 @@
          * @param string $target Link-Target
          */
         public static function linkButton($href, $descr, $id = '', $class = '', $target = '_self') {
-            $descr = self::$language->translate($descr) ? self::$language->translate($descr) : $descr;
-
-            if (!trim($id)) {
-                $id = uniqid('lnkbtn_');
-            }
-            
-            $titleData = self::getTitleByCssClass($class, $descr);
-
-            print "<a href=\"$href\" class=\"fpcm-ui-button fpcm-ui-margin-icon $class\" id=\"".self::cleanIdName($id)."\" target=\"$target\" $titleData>$descr</a>\n";
+            (new helper\linkButton(uniqid()))->setText($descr)->setClass($class)->setUrl($href)->setTarget($target);
         }
         
         /**
@@ -110,11 +102,7 @@
          * @param string $class CSS-Klasse
          */
         public static function dummyButton($descr, $class = '') {
-            $descr = self::$language->translate($descr) ? self::$language->translate($descr) : $descr;
-            
-            $titleData = self::getTitleByCssClass($class, $descr);
-            
-            print "<span class=\"fpcm-ui-button fpcm-ui-margin-icon $class\" $titleData>$descr</span>\n";
+            (new helper\submitButton(uniqid()))->setText($descr)->setClass($class)->setReadonly(true);
         }        
         
         /**

@@ -52,7 +52,7 @@
          */
         protected function runCheck() {
             
-            $sysCheckAction = new \fpcm\controller\ajax\system\syscheck();
+            $sysCheckAction = new \fpcm\controller\ajax\system\syscheck(true);
             $rows = $sysCheckAction->processCli();
 
             $this->tableContent[] = '<tr><td class="fpcm-ui-center"><a class="fpcm-ui-button fpcm-ui-margin-icon fpcm-syscheck-btn" href="index.php?module=system/options&syscheck=1">'.$this->language->translate('SYSCHECK_COMPLETE').'</a></td></tr>';

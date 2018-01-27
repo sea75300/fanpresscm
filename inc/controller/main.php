@@ -24,7 +24,8 @@
         /**
          * Konstruktor
          */
-        public function __construct() {
+        public function __construct()
+        {
 
             if (version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<')) {
                 die('FanPress CM requires at least PHP '.FPCM_PHP_REQUIRED.' or better!');
@@ -41,7 +42,8 @@
         /**
          * Controller registrieren
          */
-        public function registerController() {
+        public function registerController()
+        {
             $this->controllers = \fpcm\classes\baseconfig::getControllers();
         }
 
@@ -49,7 +51,8 @@
          * Controller-Processing
          * @return boolean
          */
-        public function exec() {
+        public function exec()
+        {
             $this->registerController();
 
             $module = \fpcm\classes\http::get('module');
@@ -92,8 +95,9 @@
          * Fehlerseite ausgeben
          * @param string $text
          */
-        private function errorPage($text) {        
-            $view = new \fpcm\model\view\error($text);
+        private function errorPage($text)
+        {
+            $view = new \fpcm\view\error($text);            
             $view->render();
             exit;
         }
