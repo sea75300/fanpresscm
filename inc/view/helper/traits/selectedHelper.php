@@ -13,13 +13,13 @@
      * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
-    trait valueHelper {
+    trait selectedHelper {
 
         /**
          * Element value
          * @var string
          */
-        protected $value    = '';
+        protected $selected    = '';
         
         /**
          * Set input value
@@ -27,29 +27,15 @@
          * @param int $escapeMode
          * @return $this
          */
-        public function setValue($value, $escapeMode = null)
+        public function setSelected($selected)
         {
-            $this->value = self::escapeVal($value,$escapeMode);
+            $this->selected = $selected;
             return $this;
         }
 
-        /**
-         * Escapes given values
-         * @param string $value
-         * @param int $mode
-         * @return void
-         */
-        public static function escapeVal($value, $mode = null) {
-            return htmlentities($value, ($mode !== null ? (int) $mode : ENT_COMPAT | ENT_HTML5));
-        }
-
-        /**
-         * Return value string
-         * @return string
-         */
-        protected function getValueString($value = null)
+        protected function getSelectedString()
         {
-            return "value=\"{$this->value}\"";
+            return $this->value == $this->selected ? 'selected' : '';
         }
 
     }

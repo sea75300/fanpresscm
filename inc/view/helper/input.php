@@ -47,7 +47,7 @@
                 $this->getNameIdString(),
                 $this->getClassString(),
                 $this->getReadonlyString(),
-                "value=\"{$this->value}\"",
+                $this->getValueString(),
                 "maxlength=\"{$this->maxlenght}\"",
                 $this->getPlaceholderString(),
                 $this->getDataString(),

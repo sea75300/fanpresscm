@@ -70,7 +70,7 @@ class yatdlTest extends testBase {
         
         $data = $this->object->getSqlString();
 
-        if (fpcm\classes\baseconfig::$fpcmDatabase->getDbtype() === 'pgsql') {
+        if (fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() === 'pgsql') {
             
             $this->assertContains('CREATE TABLE {{dbpref}}_sample', $data, 'Invalid create table data', true);
             $this->assertContains('id_bigint bigint ', $data, 'Invalid "id_bigint" col', true);
@@ -87,7 +87,7 @@ class yatdlTest extends testBase {
             $this->assertContains('double_col decimal ', $data, 'Invalid "double_col" col', true);
 
         }
-        if (fpcm\classes\baseconfig::$fpcmDatabase->getDbtype() === 'mysql') {
+        if (fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() === 'mysql') {
 
             $this->assertContains('CREATE TABLE IF NOT EXISTS `{{dbpref}}_sample`', $data, 'Invalid create table data', true);
             $this->assertContains('`id_bigint` bigint(20) ', $data, 'Invalid "id_bigint" col', true);

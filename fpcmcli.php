@@ -29,7 +29,7 @@ class fpcmCLI {
      */
     public function __construct(array $params) {
 
-        $this->output(PHP_EOL.'--- FanPress CM 3 CLI - version '.\fpcm\classes\baseconfig::$fpcmConfig->system_version.' ---');
+        $this->output(PHP_EOL.'--- FanPress CM 3 CLI - version '.\fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_version.' ---');
         
         if (php_sapi_name() !== 'cli') {
             $this->output('FanPress CM 3 cli must be run from console!', true);

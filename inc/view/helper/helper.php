@@ -111,7 +111,7 @@
         final public function __toString()
         {
             $this->returned = true;            
-            return $this->getString();
+            return $this->getString().PHP_EOL;
         }
 
         /**
@@ -124,7 +124,7 @@
                 return;
             }
 
-            print $this->getString();
+            print $this->getString().PHP_EOL;
         }
 
         /**
@@ -145,7 +145,12 @@
         {
             return "name=\"{$this->name}\" id=\"{$this->id}\" ";
         }
-        
+
+        /**
+         * Set additional css class
+         * @param string $class
+         * @return $this
+         */
         public function setClass($class) {
             $this->class .= ' '.$class;
             return $this;
@@ -210,7 +215,7 @@
          */
         public function setWrapper($useWrapper)
         {
-            $this->userwrapper = (bool) $useWrapper;
+            $this->useWrapper = (bool) $useWrapper;
             return $this;
         }
 

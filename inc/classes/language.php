@@ -160,9 +160,8 @@
          */
         public function translate($langvar, array $replaceParams = [])
         {
-
-            $langvar  = strtoupper($langvar);
-            $langData = isset($GLOBALS['langdata'][$langvar]) ? $GLOBALS['langdata'][$langvar] : null;  
+            $langvarUc = strtoupper($langvar);
+            $langData  = isset($GLOBALS['langdata'][$langvarUc]) ? $GLOBALS['langdata'][$langvarUc] : $langvar;  
 
             $replacement = [];
             foreach ($replaceParams as $key => $val) {
@@ -173,10 +172,8 @@
 
                 $replacement[$key] = $val;
             }
-            
-            $replaceParams = null;
 
-            return is_null($langData) ? $langData : str_replace(array_keys($replacement), array_values($replacement), $langData);
+            return str_replace(array_keys($replacement), array_values($replacement), $langData);
         }
         
         /**

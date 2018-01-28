@@ -29,7 +29,7 @@
          * @return array
          */
         public function getArticleTemplates() {
-            return $this->getList(glob(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES), 'articles/*.html'));
+            return $this->getList(glob(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES, 'articles/*.html')));
         }
 
         /**
@@ -37,7 +37,7 @@
          * @return array
          */        
         public function getCommentTemplates() {
-            return $this->getList(glob(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES), 'comments/*.html'));
+            return $this->getList(glob(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES, 'comments/*.html')));
         }
 
         /**
@@ -45,7 +45,7 @@
          * @return array
          */        
         public function getCommonTemplates() {
-            return $this->getList(glob(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES), 'common/*.html'));
+            return $this->getList(glob(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES, 'common/*.html')));
         }        
 
         /**

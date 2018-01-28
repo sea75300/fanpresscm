@@ -68,7 +68,7 @@
         private function clear($log) {
             
             if ($log < 1) {
-                return baseconfig::$fpcmSession->clearSessions();
+                return \fpcm\classes\loader::getObject('\fpcm\model\system\session')->clearSessions();
             }
             
             $logfile = new \fpcm\model\files\logfile($log);

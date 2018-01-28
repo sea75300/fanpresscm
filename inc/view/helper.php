@@ -169,7 +169,7 @@
                 ->setMaxlenght($maxlength)
                 ->setPlaceholder($placeholder ? true : false)
                 ->setText(is_string($placeholder) ? $placeholder : '')
-                ->setWrapper($wrapper ? true : false)
+                ->setWrapper(is_string($wrapper) ? true : false)
                 ->setWrapperClass(is_string($wrapper) ? $wrapper : '');
         }
         
@@ -278,23 +278,13 @@
          * @param string $class CSS-Klasse
          */
         public static function select($name, $options, $selected = null, $firstEmpty = false, $firstEnabled = true, $readonly = false, $class = '') {
-            $optionsString = '';
+            
+            $firstOption    = $firstEnabled && $firstEmpty
+                            ? helper\select::FIRST_OPTION_EMPTY
+                            : ($firstEnabled ? helper\select::FIRST_OPTION_PLEASESELECT : helper\select::FIRST_OPTION_DISABLED);
 
-            if ($firstEnabled) $optionsString = ($firstEmpty) ? '<option value=""></option>' : '<option value="">'.self::$language->translate('GLOBAL_SELECT').'</option>';            
-            foreach ($options as $key => $value) {
-                $optionsString .= "<option value=\"".htmlentities($value, ENT_QUOTES)."\"";
-                if (!is_null($selected) && $value == $selected) $optionsString .= " selected=\"selected\"";
-                $optionsString .= ">".htmlentities($key, ENT_QUOTES)."</option>";
-            }
+            (new helper\select($name))->setClass($class)->setSelected($selected)->setOptions($options)->setReadonly($readonly)->setFirstOption($firstOption);
             
-            $id = self::cleanIdName($name);
-            
-            $html   = [];
-            $html[] = "<select name=\"$name\" id=\"$id\" class=\"fpcm-ui-input-select $class\"";
-            if ($readonly) $html[] = " disabled=\"disabled\"";
-            $html[] = ">$optionsString</select>\n";
-            
-            print implode('', $html);            
         }   
         
         /**

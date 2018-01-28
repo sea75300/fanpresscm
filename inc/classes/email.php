@@ -65,6 +65,12 @@
         private $mailer     = null;
 
         /**
+         * Config Object
+         * @var \fpcm\model\system\config
+         */
+        private $config;
+
+        /**
          * Konstruktor
          * @param sring $to Empfänger-Adresse
          * @param sring $subject Betreff
@@ -79,6 +85,8 @@
             $this->subject  = $subject;
             $this->text     = is_array($text) ? implode(PHP_EOL, $text) : $text;
             $this->html     = $html;
+            
+            $this->config   = loader::getObject('\fpcm\model\system\config');
         }
 
         /**
@@ -228,7 +236,7 @@
             if ($this->html) {
                 $this->mailer->AltBody = $this->mailer->html2text($this->text);
             }
-            $this->mailer->XMailer = 'FanPressCM'.baseconfig::$fpcmConfig->system_version;
+            $this->mailer->XMailer = 'FanPressCM'.$this->config->system_version;
             $this->mailer->CharSet = 'utf-8';
 
             if (count($this->headers)) {
@@ -243,7 +251,7 @@
                 }
             }
 
-            return call_user_func([$this, 'submit'.(baseconfig::$fpcmConfig->smtp_enabled ? 'Smtp' : 'Php')]);            
+            return call_user_func([$this, 'submit'.($this->config->smtp_enabled ? 'Smtp' : 'Php')]);            
         }
 
         /**
@@ -254,22 +262,24 @@
         public function checkSmtp()
         {
 
-            if (!baseconfig::$fpcmConfig->smtp_enabled) {
+            if (!$this->config->smtp_enabled) {
                 return false;
             }
             
             $this->getMailerObj();
             $this->mailer->isSMTP();
 
-            $autoEncryption            = (baseconfig::$fpcmConfig->smtp_settings['encr'] === 'auto' ? true : false);
+            $config                    = $this->config;
+            
+            $autoEncryption            = ($config->smtp_settings['encr'] === 'auto' ? true : false);
 
-            $this->mailer->Host        = baseconfig::$fpcmConfig->smtp_settings['srvurl'];
-            $this->mailer->Username    = baseconfig::$fpcmConfig->smtp_settings['user'];
-            $this->mailer->Password    = baseconfig::$fpcmConfig->smtp_settings['pass'];
-            $this->mailer->Port        = baseconfig::$fpcmConfig->smtp_settings['port'];
-            $this->mailer->SMTPSecure  = !$autoEncryption ? baseconfig::$fpcmConfig->smtp_settings['encr'] : '';
+            $this->mailer->Host        = $config->smtp_settings['srvurl'];
+            $this->mailer->Username    = $config->smtp_settings['user'];
+            $this->mailer->Password    = $config->smtp_settings['pass'];
+            $this->mailer->Port        = $config->smtp_settings['port'];
+            $this->mailer->SMTPSecure  = !$autoEncryption ? $config->smtp_settings['encr'] : '';
             $this->mailer->SMTPAutoTLS = $autoEncryption;
-            $this->mailer->SMTPAuth    = (baseconfig::$fpcmConfig->smtp_settings['user'] && baseconfig::$fpcmConfig->smtp_settings['pass']) ? true : false;
+            $this->mailer->SMTPAuth    = ($config->smtp_settings['user'] && $config->smtp_settings['pass']) ? true : false;
 
             try {
                 $res = $this->mailer->smtpConnect();
@@ -308,15 +318,15 @@
         private function submitSmtp()
         {
             
-            $autoEncryption = (baseconfig::$fpcmConfig->smtp_settings['encr'] === 'auto' ? true : false);
+            $autoEncryption = ($this->config->smtp_settings['encr'] === 'auto' ? true : false);
             
-            $this->mailer->Host        = baseconfig::$fpcmConfig->smtp_settings['srvurl'];
-            $this->mailer->Username    = baseconfig::$fpcmConfig->smtp_settings['user'];
-            $this->mailer->Password    = baseconfig::$fpcmConfig->smtp_settings['pass'];
-            $this->mailer->Port        = baseconfig::$fpcmConfig->smtp_settings['port'];
-            $this->mailer->SMTPSecure  = !$autoEncryption ? baseconfig::$fpcmConfig->smtp_settings['encr'] : '';
+            $this->mailer->Host        = $this->config->smtp_settings['srvurl'];
+            $this->mailer->Username    = $this->config->smtp_settings['user'];
+            $this->mailer->Password    = $this->config->smtp_settings['pass'];
+            $this->mailer->Port        = $this->config->smtp_settings['port'];
+            $this->mailer->SMTPSecure  = !$autoEncryption ? $this->config->smtp_settings['encr'] : '';
             $this->mailer->SMTPAutoTLS = $autoEncryption;
-            $this->mailer->SMTPAuth    = (baseconfig::$fpcmConfig->smtp_settings['user'] && baseconfig::$fpcmConfig->smtp_settings['pass']) ? true : false;
+            $this->mailer->SMTPAuth    = ($this->config->smtp_settings['user'] && $this->config->smtp_settings['pass']) ? true : false;
             $this->mailer->isSMTP();
 
             try {                
@@ -343,8 +353,8 @@
 
             $this->mailer = new \PHPMailer\PHPMailer\PHPMailer();
             $this->mailer->isHTML($this->html);
-            $this->mailer->setFrom(baseconfig::$fpcmConfig->smtp_settings['addr']);
-            $this->mailer->setLanguage(baseconfig::$fpcmConfig->system_lang);
+            $this->mailer->setFrom($this->config->smtp_settings['addr']);
+            $this->mailer->setLanguage($this->config->system_lang);
 
             return true;
 

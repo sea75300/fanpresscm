@@ -17,7 +17,7 @@
                 <?php \fpcm\view\helper::submitButton('twitterDisconnect', 'SYSTEM_OPTIONS_TWITTER_DISCONNECT', 'fpcm-ui-actions-genreal'); ?>
             <?php endif; ?>
 
-            <?php \fpcm\view\helper::shortHelpButton($theView->lang->translate('HL_HELP'), '', \fpcm\classes\baseconfig::$rootPath.'index.php?module=system/help&ref='.base64_encode('system_options_twitter_connection'), '_blank'); ?>
+            <?php \fpcm\view\helper::shortHelpButton($theView->lang->translate('HL_HELP'), '', \fpcm\classes\tools::getFullControllerLink('system/help', ['ref' => base64_encode('system_options_twitter_connection')]), '_blank'); ?>
         </td>
     </tr>
     <tr>			

@@ -20,7 +20,7 @@
                     <tr class="fpcm-td-spacer"><td></td></tr>
                     <?php foreach ($folderList as $value) : ?>
                     <tr>
-                        <td class="fpcm-ui-editbutton-col fpcm-ui-center"><?php \fpcm\view\helper::linkButton(fpcm\classes\baseconfig::$rootPath.'index.php?module=system/backups&save='.str_rot13(base64_encode($value)), 'GLOBAL_DOWNLOAD', '', 'fpcm-ui-button-blank fpcm-download-btn', '_blank'); ?></td>
+                        <td class="fpcm-ui-editbutton-col fpcm-ui-center"><?php  \fpcm\view\helper::linkButton(\fpcm\classes\tools::getFullControllerLink('system/backups', ['save' => str_rot13(base64_encode($value))]), 'GLOBAL_DOWNLOAD', '', 'fpcm-ui-button-blank fpcm-download-btn', '_blank'); ?></td>
                         <td><?php print basename($value); ?></td>
                         <td><?php print \fpcm\classes\tools::calcSize(filesize($value)); ?></td>
                     </tr>
