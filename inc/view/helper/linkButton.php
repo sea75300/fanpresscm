@@ -6,14 +6,14 @@
     namespace fpcm\view\helper;
     
     /**
-     * Button view helper object
+     * Link button view helper object
      * 
      * @package fpcm\view\helper
      * @author Stefan Seehafer <sea75300@yahoo.de>
      * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
-    final class linkButton extends button {
+    class linkButton extends button {
 
         /**
          * Link URL
@@ -43,13 +43,22 @@
          */
         protected function getString()
         {
+            if ($this->readonly) {
+                return implode(' ', [
+                    "<span",
+                    $this->getClassString(),
+                    ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()}{$this->getDescriptionTextString()}"),
+                    '</span>'
+                ]);                
+            }
+            
             return implode(' ', [
                 "<a href=\"{$this->url}\"",
+                $this->target ? "target=\"{$this->target}\"" : '',
                 $this->getNameIdString(),
                 $this->getClassString(),
-                $this->target ? "target=\"{$this->target}\"" : '',
                 $this->getDataString(),
-                ($this->iconOnly ? "title=\"{$this->text}\">{$this->icon}" : ">{$this->icon}<span class=\"fpcm-ui-label\">{$this->text}</span>"),
+                ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()}{$this->getDescriptionTextString()}"),
                 '</a>'
             ]);
 

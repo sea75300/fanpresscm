@@ -13,7 +13,7 @@
      * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
-    abstract class button extends helper {
+    class button extends helper {
         
         use traits\iconHelper,
             traits\typeHelper;
@@ -26,9 +26,9 @@
         {
             return implode(' ', [
                 ($this->readonly ? '<span ' : "<button type=\"{$this->type}\" "),
-                ($this->readonly ? $this->getClassString() : $this->getNameIdString().' '.$this->getClassString()),
-                ($this->iconOnly ? "title=\"{$this->text}\">{$this->icon}" : ">{$this->icon}<span class=\"fpcm-ui-label\">{$this->text}</span>"),
                 $this->getDataString(),
+                ($this->readonly ? $this->getClassString() : $this->getNameIdString().' '.$this->getClassString()),
+                ($this->iconOnly ? "title=\"{$this->text}\">" : ">{$this->getIconString()} {$this->getDescriptionTextString()}"),
                 ($this->readonly ? '</span>' : "</button>")
             ]);
         }

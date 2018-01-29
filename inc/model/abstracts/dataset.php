@@ -376,7 +376,7 @@
          */
         public function getEditLink()
         {
-            return \fpcm\classes\dirs::getRootUrl("index.php?module={$this->editAction}".$this->id);
+            return \fpcm\classes\dirs::getRootUrl('index.php?module='.$this->editAction.$this->id);
         }
         
     }

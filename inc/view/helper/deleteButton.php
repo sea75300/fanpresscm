@@ -6,14 +6,14 @@
     namespace fpcm\view\helper;
     
     /**
-     * Reset rutton view helper object
+     * Delete submit button view helper object
      * 
      * @package fpcm\view\helper
      * @author Stefan Seehafer <sea75300@yahoo.de>
      * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
-    final class resetButton extends button {
+    final class deleteButton extends submitButton {
 
         /**
          * Optional init function
@@ -22,10 +22,10 @@
         protected function init()
         {
             parent::init();
-            $this->type   = 'reset';
-            $this->class .= ' fpcm-ui-button-reset';
-            $this->setText('GLOBAL_RESET');
+            $this->type   = 'submit';
+            $this->class .= ' fpcm-ui-button-delete fpcm-loader';
+            $this->setText('GLOBAL_DELETE');
         }
-        
+
     }
 ?>

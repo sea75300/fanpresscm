@@ -21,5 +21,16 @@
          */
         protected $type     = '';
 
+        /**
+         * Set button type
+         * @param string $type
+         * @return $this
+         */
+        public function setType($type)
+        {
+            $this->type = $type;
+            return $this;
+        }
+
     }
 ?>

@@ -6,14 +6,14 @@
     namespace fpcm\view\helper;
     
     /**
-     * Button view helper object
+     * Submit view helper object
      * 
      * @package fpcm\view\helper
      * @author Stefan Seehafer <sea75300@yahoo.de>
      * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
-    final class submitButton extends button {
+    class submitButton extends button {
 
         /**
          * Optional init function

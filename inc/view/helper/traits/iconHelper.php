@@ -29,13 +29,13 @@
 
         
         /**
-         * Set button icon
+         * Set icon
          * @param string $icon
          * @return $this
          */
         public function setIcon($icon)
         {
-            $this->icon = "<span class=\"fpcm-ui-icon {$icon}\"></span> ";
+            $this->icon = $icon;
             return $this;
         }
 
@@ -47,6 +47,19 @@
         public function setIconOnly($iconOnly) {
             $this->iconOnly = (bool) $iconOnly;
             return $this;
+        }
+
+        /**
+         * Return full icon string
+         * @return string
+         */
+        protected function getIconString()
+        {
+            if (!trim($this->icon)) {
+                return '';
+            }
+            
+            return "<span class=\"fpcm-ui-icon {$this->icon}\"></span> ";;
         }
 
     }

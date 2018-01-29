@@ -59,6 +59,5 @@
             $this->vars[$name] = $value;
         }
 
-        
     }
 ?>

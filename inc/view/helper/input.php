@@ -6,7 +6,7 @@
     namespace fpcm\view\helper;
     
     /**
-     * Button view helper object
+     * Imput view helper object
      * 
      * @package fpcm\view\helper
      * @author Stefan Seehafer <sea75300@yahoo.de>
@@ -38,11 +38,9 @@
         protected function getString()
         {
             return implode(' ', [
-                
                 $this->useWrapper   ? "<div class=\"fpcm-ui-input-wrapper {$this->wrapperClass}\"><div class=\"fpcm-ui-input-wrapper-inner\">" : '',
-                $this->placeholder  ? ($this->icon ? $this->icon : '')
-                                    : ( "<label>".($this->icon ? $this->icon : '')."<span class=\"fpcm-ui-label\">{$this->text}</span></label>" ),
-
+                $this->placeholder  ? $this->getIconString()
+                                    : ( "<label>{$this->getIconString()}{$this->getDescriptionTextString()}</label>" ),
                 "<input type=\"{$this->type}\"",
                 $this->getNameIdString(),
                 $this->getClassString(),
