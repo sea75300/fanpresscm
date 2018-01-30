@@ -85,7 +85,7 @@
             $this->view->setShowFooter(false);
 
             $fileLib = new \fpcm\model\system\fileLib();
-            $this->view->setViewCssFiles($fileLib->getCmCssFiles());
+            $this->view->addCssFiles($fileLib->getCmCssFiles());
             $this->view->addJsFiles($fileLib->getCmJsFiles());
             $this->view->addJsFiles(['editor_codemirror.js', 'templates_articles.js']);
 

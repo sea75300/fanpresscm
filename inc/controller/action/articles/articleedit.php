@@ -116,8 +116,10 @@
          * @see \fpcm\controller\abstracts\controller::process()
          * @return mixed
          */        
-        public function process() {
+        public function process()
+        {
             
+            parent::process();
 
             $this->view->assign('editorAction', 'articles/edit&articleid='.$this->article->getId());
             $this->view->assign('editorMode', 1);

@@ -31,7 +31,7 @@
          */
         public function getEditorTemplate()
         {
-            return \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, 'articles/editors/tinymce.php');
+            return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'articles/editors/tinymce.php');
         }
 
         /**
@@ -40,12 +40,12 @@
          */        
         public function getJsFiles()
         {
-            return array(
+            return [
                 \fpcm\classes\loader::libGetFileUrl('tinymce4', 'tinymce.min.js'),
                 'editor.js',
                 'editor_tinymce.js',
                 'editor_videolinks.js'
-            );
+            ];
         }
 
         /**

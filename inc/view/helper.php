@@ -164,7 +164,7 @@ final class helper {
                 ->setMaxlenght($maxlength)
                 ->setPlaceholder($placeholder ? true : false)
                 ->setText(is_string($placeholder) ? $placeholder : '')
-                ->setWrapper(is_string($wrapper) ? true : false)
+                ->setWrapper(is_string($wrapper) || $wrapper === true ? true : false)
                 ->setWrapperClass(is_string($wrapper) ? $wrapper : '');
     }
 

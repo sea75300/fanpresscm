@@ -36,6 +36,7 @@
         
         public function process() {
             
+            parent::process();
 
             $this->view->assign('listAction', 'articles/trash');
             $this->view->assign('listIcon', 'trash');

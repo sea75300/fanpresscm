@@ -34,6 +34,7 @@
         
         public function process() {
             
+            parent::process();
 
             $this->view->assign('headlineVar', 'HL_ARTICLE_EDIT_ALL');
             $this->view->assign('listAction', 'articles/listall');

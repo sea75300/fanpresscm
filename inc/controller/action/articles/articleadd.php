@@ -12,16 +12,17 @@
         public function __construct() {
             parent::__construct();
             
-            $this->checkPermission = array('article' => 'add');
-            
-            $this->view    = new \fpcm\view\view('articles/articleadd');
-            
-            $this->article = new \fpcm\model\articles\article();
-            $this->categoryList = new \fpcm\model\categories\categoryList();
+            $this->checkPermission  = ['article' => 'add'];
+            $this->article          = new \fpcm\model\articles\article();
         }
 
-        public function request() {
-
+        protected function getViewPath()
+        {
+            return 'articles/articleadd';
+        }
+        
+        public function request()
+        {
             $checkPageToken = $this->checkPageToken();
             if ($this->buttonClicked('doAction') && !$checkPageToken) {
                 $this->view->addErrorMessage('CSRF_INVALID');
@@ -95,8 +96,9 @@
             
         }
         
-        public function process() {
-            
+        public function process()
+        {
+            parent::process();
             
             $this->view->assign('editorAction', 'articles/add');
             $this->view->assign('editorMode', 0);

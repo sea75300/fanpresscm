@@ -58,7 +58,7 @@
             $fileLib = new \fpcm\model\system\fileLib();
             
             $this->view->addJsFiles($fileLib->getCmJsFiles());
-            $this->view->setViewCssFiles($fileLib->getCmCssFiles());
+            $this->view->addCssFiles($fileLib->getCmCssFiles());
             
             $this->articleTemplate       = new \fpcm\model\pubtemplates\article($this->config->articles_template_active);
             

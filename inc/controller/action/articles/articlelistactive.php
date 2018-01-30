@@ -37,7 +37,8 @@
         
         public function process() {
             
-
+            parent::process();
+            
             $this->view->assign('headlineVar', 'HL_ARTICLE_EDIT_ACTIVE');
             $this->view->assign('listAction', 'articles/listactive');            
             $this->view->assign('list', $this->articleItems);

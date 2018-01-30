@@ -6,20 +6,14 @@
             <form method="post" action="<?php print $theView->basePath; ?>system/login">
                 <table class="fpcm-ui-table fpcm-login-form-table">
                     <tr>
-                        <td>
-                        <?php if ($resetPasswort) : ?>
-                            <?php \fpcm\view\helper::textInput('username', '', '', false, 255, 'GLOBAL_USERNAME'); ?>
-                        <?php else : ?>
-                            <?php \fpcm\view\helper::textInput('login[username]', '', '', false, 255, 'GLOBAL_USERNAME'); ?>
-                        <?php endif; ?>
-                        </td>
+                        <td><?php (new fpcm\view\helper\textInput($userNameField))->setText('GLOBAL_USERNAME')->setPlaceholder(true); ?></td>
                     </tr>
                     <tr>
                         <td>
                         <?php if ($resetPasswort) : ?>
-                            <?php \fpcm\view\helper::textInput('email', '', '', false, 255, 'GLOBAL_EMAIL'); ?>
+                            <?php (new fpcm\view\helper\textInput('email'))->setText('GLOBAL_EMAIL')->setPlaceholder(true); ?>
                         <?php else : ?>
-                            <?php \fpcm\view\helper::passwordInput('login[password]', '', '', false, 255, 'GLOBAL_PASSWORD'); ?>
+                            <?php (new fpcm\view\helper\passwordInput('login[password]'))->setText('GLOBAL_PASSWORD')->setPlaceholder(true); ?>
                         <?php endif; ?>
                         </td>
                 </table>
@@ -28,12 +22,11 @@
                 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
                     <div class="fpcm-ui-margin-center">
                 <?php if ($resetPasswort) : ?>
-                    <?php (new \fpcm\view\helper\submitButton('reset'))->setText('GLOBAL_OK')->setClass('fpcm-loader fpcm-ok-button')->setIcon('fa fa-check fa-fw'); ?>    
-                    <?php \fpcm\view\helper::linkButton($theView->basePath, 'GLOBAL_BACK', '', 'fpcm-loader fpcm-back-button'); ?>
+                    <?php (new \fpcm\view\helper\submitButton('reset'))->setText('GLOBAL_OK')->setClass('fpcm-loader fpcm-ok-button')->setIcon('fa fa-check fa-fw'); ?>
+                    <?php (new fpcm\view\helper\linkButton('loginback'))->setText('GLOBAL_BACK')->setUrl($theView->self.'?module='.$theView->currentModule)->setClass('fpcm-loader fpcm-back-button')->setIcon('fa fa-chevron-circle-left fa-fw'); ?>
                 <?php else : ?>
-                    
                     <?php (new \fpcm\view\helper\submitButton('login'))->setText('LOGIN_BTN')->setClass('fpcm-loader fpcm-login-btn')->setIcon('fa fa-sign-in fa-fw'); ?>
-                    <?php \fpcm\view\helper::linkButton($theView->basePath.$theView->currentModule.'&reset', 'LOGIN_NEWPASSWORD', '', 'fpcm-loader fpcm-passreset-btn'); ?>
+                    <?php (new fpcm\view\helper\linkButton('newpass'))->setText('LOGIN_NEWPASSWORD')->setUrl($theView->self.'?module='.$theView->currentModule.'&reset')->setClass('fpcm-loader fpcm-passreset-btn')->setIcon('fa fa-key fa-fw'); ?>
                 <?php endif; ?>
                     </div>
                 </div>

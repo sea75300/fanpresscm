@@ -35,7 +35,7 @@
                 $this->getClassString(),
                 $this->getReadonlyString(),
                 $this->getDataString(),
-                ">{$this->value}",
+                ">".$this->value,
                 "</textarea>"
             ]);
         }

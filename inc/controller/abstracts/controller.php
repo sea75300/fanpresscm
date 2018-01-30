@@ -273,22 +273,7 @@
          * @return boolean
          */
         public function process()
-        {
-           
-            $currentClass = get_class($this);
-            if (strpos($currentClass, 'fpcm\\modules\\') !== false) {
-                $modulename = explode('\\', $currentClass);
-                $modulename = $modulename[2].'/'.$modulename[3];
-
-                if (!in_array($modulename, $this->enabledModules)) {
-                    trigger_error("Request for controller '{$currentClass}' of disabled module '{$modulename}'!");                    
-                    $view = new \fpcm\view\error();
-                    $view->setMessage("The controller '{$this->getRequestVar('module')}' is not enabled for execution!");
-                    $view->render();
-                    die();
-                }
-            }
-            
+        {            
             return true;
         }
         
@@ -321,6 +306,18 @@
                 $view->render();
             }
 
+            $currentClass = get_class($this);
+            if (strpos($currentClass, 'fpcm\\modules\\') !== false) {
+                $modulename = explode('\\', $currentClass);
+                $modulename = $modulename[2].'/'.$modulename[3];
+
+                if (!in_array($modulename, $this->enabledModules)) {
+                    trigger_error("Request for controller '{$currentClass}' of disabled module '{$modulename}'!");                    
+                    $view = new \fpcm\view\error("The controller '{$this->getRequestVar('module')}' is not enabled for execution!");
+                    $view->render();
+                }
+            }
+            
             return true;
         }
         

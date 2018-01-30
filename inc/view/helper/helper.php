@@ -96,12 +96,12 @@
                 return false;
             }
 
+            $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+
             $this->init();
             
             $this->name     = $this->prefix ? $this->prefix.ucfirst($name) : $name;
             $this->id       = trim($id) ? $id : $this->getCleanName();
-            
-            $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         }
 
         /**
@@ -234,7 +234,8 @@
          * @param string $wrapperClass
          * @return $this
          */
-        public function setWrapperClass($wrapperClass) {
+        public function setWrapperClass($wrapperClass)
+        {
             $this->wrapperClass = $wrapperClass;
             return $this;
         }
@@ -245,9 +246,9 @@
          * @param array $params
          * @return $this
          */
-        public function setText($text, $params = [])
+        final public function setText($text, $params = [])
         {
-            $this->text = $this->language->translate($text, $params);
+            $this->text = $this->language->translate($text, $params); //$this->language->translate($text, $params);
             return $this;
         }
 

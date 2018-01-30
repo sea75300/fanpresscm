@@ -46,7 +46,8 @@
          * @param string $name
          * @return mixed|null
          */
-        public function __get($name) {
+        public function __get($name)
+        {
             return isset($this->vars[$name]) ? $this->vars[$name] : null;
         }
 
@@ -55,9 +56,19 @@
          * @param string $name
          * @param mixed $value
          */
-        public function __set($name, $value) {
+        public function __set($name, $value)
+        {
             $this->vars[$name] = $value;
         }
 
+        /**
+         * Return view include path
+         * @param string $view
+         * @return string
+         */
+        public function getIncludePath($view)
+        {
+            return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $view);
+        }
     }
 ?>

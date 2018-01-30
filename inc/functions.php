@@ -170,6 +170,13 @@
     function fpcmDump()
     {
         print "<pre>";
-        var_dump(func_get_args());
+        
+        if (func_num_args() === 1) {
+            var_dump(func_get_args()[0]);
+        }
+        else {
+            var_dump(func_get_args());
+        }
+        
         print "</pre>";
     }    

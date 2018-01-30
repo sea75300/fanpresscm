@@ -53,12 +53,11 @@
             $this->categoryList = new \fpcm\model\categories\categoryList();
         }
         
-        public function process() {
-            
-
+        public function process()
+        {
             $this->editorPlugin = $this->getEditorPlugin();            
             $this->view->addJsFiles($this->editorPlugin->getJsFiles());
-            $this->view->setViewCssFiles($this->editorPlugin->getCssFiles());
+            $this->view->addCssFiles($this->editorPlugin->getCssFiles());
             
             $viewVars = $this->editorPlugin->getViewVars();
             foreach ($viewVars as $key => $value) {

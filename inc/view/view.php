@@ -415,6 +415,7 @@
 //            foreach ($this->events->runEvent('view/renderBefore', $this->viewVars) as $key => $value) {
 //                $$key = $value;
 //            }
+
             foreach ($this->viewVars as $key => $value) {
                 $$key = $value;
             }            

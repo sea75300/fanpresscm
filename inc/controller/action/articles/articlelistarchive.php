@@ -38,6 +38,7 @@
         
         public function process() {
             
+            parent::process();
 
             $this->view->assign('headlineVar', 'HL_ARTICLE_EDIT_ARCHIVE');
             $this->view->assign('listAction', 'articles/listarchive');

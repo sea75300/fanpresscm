@@ -35,7 +35,7 @@
          */
         public function getEditorTemplate()
         {
-            return \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, 'articles/editors/html.php');
+            return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'articles/editors/html.php');
         }
 
         /**
@@ -85,7 +85,7 @@
                     ],
                     'autosavePref'  => 'fpcm-editor-as-'.$this->session->getUserId().'draft',                    
                 ]
-            ]
+            ];
         }
 
         /**

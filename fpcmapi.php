@@ -174,8 +174,8 @@ class fpcmAPI {
      */
     public function __call($name, $arguments) {
 
-        /* @var $eventList fpcm\model\events\eventList */
-        $eventList = fpcm\classes\baseconfig::$fpcmEvents;
+        /* @var $eventList fpcm\events\events */
+        $eventList = fpcm\classes\loader::getObject('fpcm\events\events');
 
         $params = array(
             'name'   => $name,
@@ -195,8 +195,8 @@ class fpcmAPI {
      * @since FPCM 3.1.5
      */
     public static function __callStatic($name, $arguments) {
-        /* @var $eventList fpcm\model\events\eventList */
-        $eventList = fpcm\classes\baseconfig::$fpcmEvents;
+        /* @var $eventList fpcm\events\events */
+        $eventList = fpcm\classes\loader::getObject('fpcm\events\events');
 
         $params = array(
             'name' => $name,

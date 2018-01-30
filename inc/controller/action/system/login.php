@@ -129,6 +129,7 @@
             
             $reset  = !is_null($this->getRequestVar('reset')) ? true : false;
             
+            $this->view->assign('userNameField', $reset ? 'username' : 'login[username]'); 
             $this->view->assign('resetPasswort', $reset);
             $this->view->assign('noFullWrapper', true);
 
