@@ -17,6 +17,8 @@ namespace fpcm\view;
  */
 final class helper {
 
+    const FA_DEFAULT_CLASSES = 'fa fa-fw ';
+    
     /**
      * Objekt vom typ \fpcm\classes\language
      * @var \fpcm\classes\language
@@ -93,7 +95,11 @@ final class helper {
      */
     public static function linkButton($href, $descr, $id = '', $class = '', $target = '_self')
     {
-        (new helper\linkButton(uniqid('_lkbtn')))->setText($descr)->setClass($class)->setUrl($href)->setTarget($target);
+        (new helper\linkButton(uniqid('_lkbtn')))
+                ->setText($descr)
+                ->setClass($class)
+                ->setUrl($href)
+                ->setTarget($target);
     }
 
     /**
@@ -103,7 +109,11 @@ final class helper {
      */
     public static function dummyButton($descr, $class = '')
     {
-        (new helper\button(uniqid('_dmbtn')))->setText($descr)->setClass($class)->setReadonly(true)->setType('button');
+        (new helper\button(uniqid('_dmbtn')))
+                ->setText($descr)
+                ->setClass($class)
+                ->setReadonly(true)
+                ->setType('button');
     }
 
     /**
@@ -114,7 +124,11 @@ final class helper {
      */
     public static function editButton($href, $active = true, $class = '')
     {
-        (new helper\editButton(uniqid('_edbtn')))->setClass($class)->setReadonly($active ? false : true)->setUrl($href);
+        (new helper\editButton(uniqid('_edbtn')))
+                ->setClass($class)->setReadonly($active ? false : true)
+                ->setUrl($href)
+                ->setIconOnly(true)
+                ->setIcon(self::FA_DEFAULT_CLASSES.'fa-pencil-square-o');
     }
 
     /**
@@ -126,7 +140,6 @@ final class helper {
      */
     public static function clearCacheButton(array $params, $active = true, $class = '', $isButton = false)
     {
-
         $descr = self::$language->translate('ARTICLES_CACHE_CLEAR');
 
         if (!$active) {
@@ -213,7 +226,12 @@ final class helper {
      */
     public static function checkbox($name, $class = '', $value = '', $descr = '', $id = '', $selected = true, $readonly = false)
     {
-        (new helper\checkbox(uniqid('_chkbx')))->setClass($class)->setValue($value)->setText($descr)->setReadonly($readonly)->setSelected($selected);
+        (new helper\checkbox($name))
+                ->setClass($class)
+                ->setValue($value)
+                ->setText($descr)
+                ->setReadonly($readonly)
+                ->setSelected($selected);
     }
 
     /**
@@ -228,7 +246,12 @@ final class helper {
      */
     public static function radio($name, $class = '', $value = '', $descr = '', $id = '', $selected = true, $readonly = false)
     {
-        (new helper\radiobutton(uniqid('_rdbtn')))->setClass($class)->setValue($value)->setText($descr)->setReadonly($readonly)->setSelected($selected);
+        (new helper\radiobutton($name))
+                ->setClass($class)
+                ->setValue($value)
+                ->setText($descr)
+                ->setReadonly($readonly)
+                ->setSelected($selected);
     }
 
     /**
@@ -259,7 +282,12 @@ final class helper {
                         ? helper\select::FIRST_OPTION_EMPTY
                         : ($firstEnabled ? helper\select::FIRST_OPTION_PLEASESELECT : helper\select::FIRST_OPTION_DISABLED);
 
-        (new helper\select($name))->setClass($class)->setSelected($selected)->setOptions($options)->setReadonly($readonly)->setFirstOption($firstOption);
+        (new helper\select($name))
+                ->setClass($class)
+                ->setSelected($selected)
+                ->setOptions($options)
+                ->setReadonly($readonly)
+                ->setFirstOption($firstOption);
     }
 
     /**
@@ -271,46 +299,11 @@ final class helper {
      */
     public static function selectGroup($name, $options, $selected = null, $readonly = false)
     {
-        $optionsString = '';
-        foreach ($options as $key => $value) {
-            $optionsString .= "<optgroup label=\"" . htmlentities($key, ENT_QUOTES) . "\">";
-            $optionsString .= self::selectOptions($value, $selected, true);
-            $optionsString .= "</optgroup>";
-        }
-
-        $id = self::cleanIdName($name);
-
-        $html = [];
-        $html[] = "<select name=\"$name\" id=\"$id\" class=\"fpcm-ui-input-select\"";
-        if ($readonly)
-            $html[] = " disabled=\"disabled\"";
-        $html[] = ">$optionsString</select>\n";
-
-        print implode('', $html);
-    }
-
-    /**
-     * Erzeugt Option für Select-Menü
-     * @param array $options Array mit Optionen für das Auswahlmenü
-     * @param string $selected vorausgewähltes Element
-     * @param bool $return Werte sollen zurückgegeben werden
-     * @return string
-     */
-    public static function selectOptions($options, $selected = null, $return = false)
-    {
-        $optionsString = '';
-
-        foreach ($options as $key => $value) {
-            $optionsString .= "<option value=\"" . htmlentities($value, ENT_QUOTES) . "\"";
-            if (!is_null($selected) && $value == $selected)
-                $optionsString .= " selected=\"selected\"";
-            $optionsString .= ">" . htmlentities($key, ENT_QUOTES) . "</option>";
-        }
-
-        if ($return)
-            return $optionsString;
-
-        print $optionsString;
+        (new helper\select($name))
+                ->setSelected($selected)
+                ->setOptions($options)
+                ->setReadonly($readonly)
+                ->setOptGroup(true);
     }
 
     /**
@@ -320,7 +313,7 @@ final class helper {
      */
     public static function boolToText($value, $text = 'GLOBAL_YES')
     {
-        print ($value) ? '<span class="fa fa-check-square fpcm-ui-booltext-yes" title="' . self::$language->translate($text) . '"></span>' : '<span class="fa fa-minus-square fpcm-ui-booltext-no" title="' . self::$language->translate('GLOBAL_NO') . '"></span>';
+        (new helper\boolToText(uniqid('_dmbtn')))->setValue($value)->setText($text);
     }
 
     /**
@@ -333,8 +326,10 @@ final class helper {
      */
     public static function boolSelect($name, $selected, $readonly = false, $class = '')
     {
-        $options = array(self::$language->translate('GLOBAL_YES') => 1, self::$language->translate('GLOBAL_NO') => 0);
-        return self::select($name, $options, $selected, false, false, $readonly, $class);
+        (new helper\boolSelect($name))
+                ->setSelected($selected)
+                ->setReadonly($readonly)
+                ->setClass($class);
     }
 
     /**
@@ -346,7 +341,6 @@ final class helper {
      */
     public static function dateText($timespan, $format = false, $return = false)
     {
-
         if (!$format) {
             $format = \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_dtmask;
         }
@@ -461,38 +455,15 @@ final class helper {
      */
     public static function badge(array $params)
     {
-
         if (!isset($params['class'])) {
             $params['class'] = '';
         }
 
-        $params['title'] = isset($params['title']) ? 'title="' . self::$language->translate($params['title']) . '"' : '';
-
-        print "<span class=\"fpcm-ui-badge {$params['class']}\" {$params['title']}>{$params['value']}</span>\n";
+        (new helper\badge(uniqid('_badge')))
+                ->setClass($params['class'])
+                ->setText($params['title'])
+                ->setValue($params['value']);
     }
-
-    /**
-     * IDs aufräumen
-     * @param string $text ID-String
-     * @return string
-     */
-    private static function cleanIdName($text)
-    {
-        return trim(str_replace(array('[', '(', ')', ']', '-'), '', $text));
-    }
-
-    /**
-     * Erzeugt title-Attribut anhand von Klassen-Namen
-     * @param string $class
-     * @param string $descr
-     * @return string
-     * @since FPCM 3.4
-     */
-    private static function getTitleByCssClass($class, $descr)
-    {
-        return strpos($class, 'fpcm-ui-button-blank') === false ? '' : 'title="' . $descr . '"';
-    }
-
 }
 
 ?>

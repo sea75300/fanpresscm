@@ -35,10 +35,22 @@
         protected $options = [];
 
         /**
-         *
+         * Is first option auto added
          * @var int
          */
         protected $firstOption;
+
+        /**
+         * Select includes opt groups
+         * @var boolean
+         */
+        protected $hasOptGroup = false;
+
+        /**
+         * Option return string
+         * @var string
+         */
+        protected $returnString = [];
 
         /**
          * Return element string
@@ -53,7 +65,8 @@
                 $this->getReadonlyString(),
                 $this->getDataString(),
                 ">",
-                $this->getOptionsString(),
+                $this->hasOptGroup  ? $this->getOptionsGroupsString()
+                                    : $this->getOptionsString($this->options),
                 "</select>",
             ]);
         }
@@ -91,35 +104,86 @@
         }
 
         /**
+         * Enables opt group for select element
+         * @param bool $hasOptGroup
+         * @return $this
+         */
+        public function setOptGroup($hasGroup)
+        {
+            $this->hasOptGroup = (bool) $hasGroup;
+            return $this;
+        }
+
+        /**
+         * Return first option string
+         * @return boolean
+         */
+        protected function getFirstOption()
+        {
+            switch ($this->firstOption) {
+                case self::FIRST_OPTION_EMPTY :
+                    $this->returnString[] = "<option {$this->getValueString()} {$this->getSelectedString()}></option>";
+                    break;
+                case self::FIRST_OPTION_PLEASESELECT :
+                    $this->returnString[] = "<option {$this->getValueString()} {$this->getSelectedString()}>{$this->language->translate('GLOBAL_SELECT')}</option>";
+                    break;
+            }
+            
+            return true;
+        }
+
+        /**
+         * Create options string
+         * @return string|void
+         */
+        protected function getOptionsString($options)
+        {   
+            if (!count($options)) {
+                return '';
+            }
+
+            if (!$this->hasOptGroup) {
+                $this->getFirstOption();
+            }
+
+            $this->value = '';
+            
+            foreach ($options as $key => $value) {
+                $this->value          = $this->escapeVal($value, ENT_QUOTES);
+                $key                  = $this->escapeVal($key, ENT_QUOTES);
+                $this->returnString[] = "<option {$this->getValueString()} {$this->getSelectedString()}>{$this->language->translate($key)}</option>";
+            }
+            
+            if (!$this->hasOptGroup) {
+                return implode(PHP_EOL, $this->returnString);
+            }
+
+            return;
+        }
+
+        /**
          * Create options string
          * @return string
          */
-        protected function getOptionsString()
+        protected function getOptionsGroupsString()
         {   
             if (!count($this->options)) {
                 return '';
             }
 
-            $return = [];
-            
-            switch ($this->firstOption) {
-                case self::FIRST_OPTION_EMPTY :
-                    $return[] = "<option {$this->getValueString()} {$this->getSelectedString()}></option>";
-                    break;
-                case self::FIRST_OPTION_PLEASESELECT :
-                    $return[] = "<option {$this->getValueString()} {$this->getSelectedString()}>{$this->language->translate('GLOBAL_SELECT')}</option>";
-                    break;
+            $this->value = '';
+            foreach ($this->options as $label => $options) {
+
+                if (!count($options)) {
+                    continue;
+                }
+
+                $this->returnString[] = "<optgroup label=\"{$this->language->translate($label)}\">";
+                $this->getOptionsString($options);
+                $this->returnString[] = "</optgroup>";
             }
 
-            $this->value = '';
-            
-            foreach ($this->options as $key => $value) {
-                $this->value = $this->escapeVal($value);
-                $key         = $this->escapeVal($key);
-                $return[]    = "<option {$this->getValueString()} {$this->getSelectedString()}>{$this->language->translate($key)}</option>";
-            }
-            
-            return implode(PHP_EOL, $return);
+            return implode(PHP_EOL, $this->returnString);
         }
 
     }

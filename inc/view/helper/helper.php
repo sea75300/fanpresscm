@@ -151,6 +151,16 @@
          * @param string $prefix
          * @return string
          */
+        final protected function getIdString()
+        {
+            return "id=\"{$this->id}\" ";
+        }
+
+        /**
+         * Returns name and ID string
+         * @param string $prefix
+         * @return string
+         */
         final protected function getDescriptionTextString()
         {
             return "<span class=\"fpcm-ui-label\">{$this->text}</span>";

@@ -33,6 +33,10 @@
             return $this;
         }
 
+        /**
+         * Return selected string
+         * @return string
+         */
         protected function getSelectedString()
         {
             return $this->value == $this->selected ? 'selected' : '';
