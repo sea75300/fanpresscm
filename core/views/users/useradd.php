@@ -7,7 +7,7 @@
             </ul>            
             
             <div id="tabs-user">                
-               <?php include __DIR__.'/usereditor.php' ?>                
+                <?php include $theView->getIncludePath('users/usereditor.php'); ?>
             </div>
         </div>
     </form>

@@ -15,6 +15,8 @@
      */
     trait valueHelper {
 
+        use escapeHelper;
+        
         /**
          * Element value
          * @var string

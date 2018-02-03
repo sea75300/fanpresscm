@@ -1,5 +1,5 @@
 <table class="fpcm-ui-table">
-    <?php include __DIR__.'/replacementhead.php'; ?>
+    <?php include $theView->getIncludePath('templates/replacementhead.php'); ?>
     <tr>
         <td class="fpcm-ui-template-replacements ui-widget-content ui-corner-all ui-state-normal">
             <dl>
@@ -10,7 +10,7 @@
             </dl>
         </td>
     </tr>
-    <?php include __DIR__.'/editorhead.php'; ?>
+    <?php include $theView->getIncludePath('templates/editorhead.php'); ?>
     <tr>
         <td>
             <?php fpcm\view\helper::textArea('template[comment]', 'fpcm-full-width', $contentComment); ?>

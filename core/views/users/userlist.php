@@ -33,11 +33,11 @@
                             <td class="fpcm-ui-editbutton-col"><?php \fpcm\view\helper::editButton($user->getEditLink()); ?></td>
                             <td><strong><?php print \fpcm\view\helper::escapeVal($user->getUserName()); ?></strong></td>
                             <td><a href="mailto:<?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?>"><?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?></a>
-                                <?php fpcm\view\helper::badge([
-                                    'title' => 'USERS_ARTICLE_COUNT',
-                                    'value' => isset($articleCounts[$user->getId()]) ? $articleCounts[$user->getId()] : 0,
-                                    'class' => 'fpcm-ui-badge-userarticles'
-                                ]); ?>
+                                <?php (new \fpcm\view\helper\badge('user_article_count'.$user->getId()))
+                                        ->setValue(isset($articleCounts[$user->getId()]) ? $articleCounts[$user->getId()] : 0)
+                                        ->setIcon('fa-book')
+                                        ->setText('USERS_ARTICLE_COUNT');
+                                ?>
                             </td>
                             <td class="fpcm-ui-center fpcm-ui-users-registeredtime"><?php \fpcm\view\helper::dateText($user->getRegistertime()); ?></td>
                             <td class="fpcm-td-select-row"><input type="radio" name="useridsa" value="<?php print $user->getId(); ?>" <?php if ($user->getId() == $currentUser) : ?>disabled="disabled"<?php endif; ?>></td>      
@@ -81,11 +81,11 @@
                             <td class="fpcm-ui-editbutton-col"><?php \fpcm\view\helper::editButton($user->getEditLink()); ?></td>
                             <td><strong><?php print \fpcm\view\helper::escapeVal($user->getUserName()); ?></strong></td>
                             <td><a href="mailto:<?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?>"><?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?></a>
-                                <?php fpcm\view\helper::badge([
-                                    'title' => 'USERS_ARTICLE_COUNT',
-                                    'value' => isset($articleCounts[$user->getId()]) ? $articleCounts[$user->getId()] : 0,
-                                    'class' => 'fpcm-ui-badge-userarticles'
-                                ]); ?>
+                                <?php (new \fpcm\view\helper\badge('user_article_count'.$user->getId()))
+                                        ->setValue(isset($articleCounts[$user->getId()]) ? $articleCounts[$user->getId()] : 0)
+                                        ->setIcon('fa-book')
+                                        ->setText('USERS_ARTICLE_COUNT');
+                                ?>
                             </td>
                             <td class="fpcm-ui-center fpcm-ui-users-registeredtime"><?php \fpcm\view\helper::dateText($user->getRegistertime()); ?></td>
                             <td class="fpcm-td-select-row"><input type="radio" name="useridsd" value="<?php print $user->getId(); ?>"></td>

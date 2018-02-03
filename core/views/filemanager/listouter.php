@@ -15,22 +15,22 @@
 
         <form method="post" action="<?php print $theView->self; ?>?module=files/list&mode=<?php print $mode; ?>">
             <div id="tabs-files-list">
-                <div id="tabs-files-list-content"><?php include __DIR__.'/listinner.php'; ?></div>
-                <?php include __DIR__.'/buttons.php'; ?>
+                <div id="tabs-files-list-content"><?php include $theView->getIncludePath('filemanager/listinner.php'); ?></div>
+                <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
             </div>            
         </form>
 
         <?php if ($permUpload) : ?>
         <div id="tabs-files-upload">
             <?php if ($newUploader) : ?>
-                <?php include __DIR__.'/forms/jqupload.php'; ?>
+                <?php include $theView->getIncludePath('filemanager/forms/jqupload.php'); ?>
             <?php else : ?>
-                <?php include __DIR__.'/forms/phpupload.php'; ?>
+                <?php include $theView->getIncludePath('filemanager/forms/phpuoload.php'); ?>
             <?php endif; ?>
 
         </div>
         <?php endif; ?>
     </div>
 </div>
-    
-<?php include __DIR__.'/searchform.php'; ?>
+
+<?php include $theView->getIncludePath('filemanager/searchform.php'); ?>

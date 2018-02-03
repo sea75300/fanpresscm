@@ -26,16 +26,16 @@
          * @var string
          */
         protected $iconOnly = false;
-
         
         /**
          * Set icon
-         * @param string $icon
+         * @param string $icon Icon CSS classes
+         * @param bool $useFa Auto-add FontAwesome Icon classes
          * @return $this
          */
-        public function setIcon($icon)
+        public function setIcon($icon, $useFa = true)
         {
-            $this->icon = $icon;
+            $this->icon = $useFa ? $this->getDefaultIconClassString($icon) : $icon;
             return $this;
         }
 
@@ -60,6 +60,16 @@
             }
             
             return "<span class=\"fpcm-ui-icon {$this->icon}\"></span> ";;
+        }
+
+        /**
+         * Returns default FontAwesome class string
+         * @param string $iconClass
+         * @return string
+         */
+        protected function getDefaultIconClassString($iconClass)
+        {
+            return 'fa fa-fw '.$iconClass;
         }
 
     }

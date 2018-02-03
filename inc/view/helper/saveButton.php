@@ -23,6 +23,7 @@
         {
             parent::init();
             $this->type   = 'submit';
+            $this->icon   = $this->getDefaultIconClassString('fa-floppy-o');
             $this->class .= ' fpcm-ui-button-save fpcm-loader';
             $this->setText('GLOBAL_SAVE');
         }

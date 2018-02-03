@@ -9,7 +9,7 @@
             </ul>
 
             <div id="tabs-article-list">
-                <?php include __DIR__.'/lists/articles.php'; ?>
+                <?php include $theView->getIncludePath('articles/lists/articles.php'); ?>
             </div>
 
         </div>
@@ -28,7 +28,7 @@
         
         <?php \fpcm\view\helper::pageTokenField(); ?>
     </form>
-        
-    <?php include __DIR__.'/searchform.php'; ?>
-    <?php if ($canEdit) : ?><?php include __DIR__.'/massedit.php'; ?><?php endif; ?>
+
+    <?php include $theView->getIncludePath('articles/searchform.php'); ?>
+    <?php if ($canEdit) : ?><?php include $theView->getIncludePath('articles/massedit.php'); ?><?php endif; ?>
 </div>

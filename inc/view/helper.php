@@ -17,8 +17,6 @@ namespace fpcm\view;
  */
 final class helper {
 
-    const FA_DEFAULT_CLASSES = 'fa fa-fw ';
-    
     /**
      * Objekt vom typ \fpcm\classes\language
      * @var \fpcm\classes\language
@@ -126,9 +124,7 @@ final class helper {
     {
         (new helper\editButton(uniqid('_edbtn')))
                 ->setClass($class)->setReadonly($active ? false : true)
-                ->setUrl($href)
-                ->setIconOnly(true)
-                ->setIcon(self::FA_DEFAULT_CLASSES.'fa-pencil-square-o');
+                ->setUrl($href);
     }
 
     /**

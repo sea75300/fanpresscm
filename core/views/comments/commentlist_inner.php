@@ -20,7 +20,7 @@
         <td><strong title="<?php print substr(\fpcm\view\helper::escapeVal($comment->getText()), 0, 100); ?>..."><?php print \fpcm\view\helper::escapeVal($comment->getName()); ?></strong></td>
         <td><?php print \fpcm\view\helper::escapeVal($comment->getEmail()); ?></td>
         <td><?php \fpcm\view\helper::dateText($comment->getCreatetime()); ?></td>
-        <td class="fpcm-td-commentlist-meta"><?php include __DIR__.'/metainfo.php'; ?></td>
+        <td class="fpcm-td-commentlist-meta"><?php include $theView->getIncludePath('comments/metainfo.php'); ?></td>
         <td class="fpcm-td-select-row">
         <?php if ($comment->getEditPermission()) : ?>
             <?php fpcm\view\helper::checkbox('ids[]', 'fpcm-list-selectbox', $comment->getId(), '', 'chbx'.$comment->getId(), false); ?>
@@ -32,7 +32,7 @@
     <?php endforeach; ?>
 </table>
 
-<?php include dirname(__DIR__).'/components/pager.php'; ?>
+<?php include $theView->getIncludePath('components/pager.php'); ?>
 
 <?php if ($canEditComments || $canDelete || $commentsMode == 1) : ?>
 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons fpcm-ui-commentaction-buttons">
@@ -44,4 +44,4 @@
 </div>
 <?php endif; ?>
 
-<?php if ($canEditComments) : ?><?php include __DIR__.'/massedit.php'; ?><?php endif; ?>
+<?php if ($canEditComments) : ?><?php include $theView->getIncludePath('comments/massedit.php'); ?><?php endif; ?>

@@ -10,7 +10,7 @@
 
         <div id="tabs-modules-list">
             <div id="modules-list-content">
-                <?php include __DIR__.'/list_inner.php'; ?>
+                <?php include $theView->getIncludePath('modules/list_inner.php'); ?>
             </div>
             
             <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">                
@@ -28,7 +28,7 @@
         
         <?php if ($permissionInstall) : ?>
         <div id="tabs-modules-upload">
-            <?php include_once dirname(__DIR__).'/filemanager/forms/phpupload.php'; ?>
+            <?php include $theView->getIncludePath('filemanager/forms/phpupload.php'); ?>
         </div>
         <?php endif; ?>
     </div>

@@ -11,7 +11,7 @@
             
             <div id="tabs-category">                
     <?php endif; ?>
-            <?php include __DIR__.'/commenteditor.php'; ?>
+            <?php include $theView->getIncludePath('comments/editor.php'); ?>
     <?php if ($commentsMode == 1) : ?>
             </div>
         </div>

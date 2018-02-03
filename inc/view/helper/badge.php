@@ -25,7 +25,7 @@
         protected function getString()
         {
             $title = ($this->text ? "title=\"{$this->text}\" " : '');
-            return "<span {$this->getIdString()}{$title}{$this->getClassString()}>{$this->value}</span>";
+            return "<span {$this->getIdString()}{$title}{$this->getClassString()}>{$this->getIconString()}{$this->value}</span>";
         }
 
         /**

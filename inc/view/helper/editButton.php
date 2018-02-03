@@ -22,8 +22,10 @@
         protected function init()
         {
             parent::init();
-            $this->class .= ' fpcm-ui-button-edit fpcm-loader';
+            $this->class    .= ' fpcm-ui-button-edit fpcm-loader';
+            $this->iconOnly  = true;
             $this->setText('GLOBAL_EDIT');
+            $this->setIcon('fa-pencil-square-o');
         }
 
         final public function setUrlbyObject(\fpcm\model\abstracts\dataset $object)

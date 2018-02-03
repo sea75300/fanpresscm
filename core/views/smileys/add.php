@@ -7,7 +7,7 @@
             </ul>            
             
             <div id="tabs-roll">
-                <?php include __DIR__.'/editor.php';?>
+                <?php include $theView->getIncludePath('smileys/editor.php'); ?>
             </div>
         </div>
     </div>             

@@ -9,12 +9,12 @@
             </ul>            
             
             <div id="tabs-comments-active">
-                <?php include __DIR__.'/commentlist_inner.php'; ?>
+                <?php include $theView->getIncludePath('comments/commentlist_inner.php'); ?>
             </div>
         </div>
 </div>
 
     <?php \fpcm\view\helper::pageTokenField(); ?>
 </form>
-    
-<?php include __DIR__.'/searchform.php'; ?>
+
+<?php include $theView->getIncludePath('comments/searchform.php'); ?>

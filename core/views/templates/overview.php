@@ -17,27 +17,27 @@
                 <li><a href="#tabs-templates-articletpl" class="fpcm-template-tab" data-tpl="7"><?php $theView->lang->write('TEMPLATE_HL_DRAFTS'); ?></a></li>
             </ul>
             <div id="tabs-templates-articles">
-                <?php include __DIR__.'/articles.php'; ?>
+                <?php include $theView->getIncludePath('templates/articles.php'); ?>
             </div>
             <?php if (isset($contentArticleSingle) && isset($replacementsArticleSingle)) : ?>
             <div id="tabs-templates-article">
-                <?php include __DIR__.'/article.php'; ?>
+                <?php include $theView->getIncludePath('templates/articles.php'); ?>
             </div>
             <?php endif; ?>
             <div id="tabs-templates-comments">
-                <?php include __DIR__.'/comments.php'; ?>
+                <?php include $theView->getIncludePath('templates/comments.php'); ?>
             </div>
             <div id="tabs-templates-commentform">
-                <?php include __DIR__.'/commentform.php'; ?>
+                <?php include $theView->getIncludePath('templates/commentform.php'); ?>
             </div>             
             <div id="tabs-templates-latestnews">
-                <?php include __DIR__.'/latestnews.php'; ?>
+                <?php include $theView->getIncludePath('templates/latestnews.php'); ?>
             </div>             
             <div id="tabs-templates-tweet">
-                <?php include __DIR__.'/tweet.php'; ?>
+                <?php include $theView->getIncludePath('templates/tweet.php'); ?>
             </div>             
             <div id="tabs-templates-articletpl">
-                <?php include __DIR__.'/article_templates.php'; ?>
+                <?php include $theView->getIncludePath('templates/article_templates.php'); ?>
             </div>
         </div>
         

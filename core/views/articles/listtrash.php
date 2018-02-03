@@ -9,7 +9,7 @@
             </ul>
 
             <div id="tabs-article-trash">
-                <?php include __DIR__.'/lists/trash.php'; ?>
+                <?php include $theView->getIncludePath('articles/lists/trash.php'); ?>
             </div>
 
         </div>

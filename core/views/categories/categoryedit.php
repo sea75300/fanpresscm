@@ -7,7 +7,7 @@
             </ul>            
             
             <div id="tabs-category">                
-               <?php include __DIR__.'/categoryeditor.php'; ?>                
+               <?php include $theView->getIncludePath('categories/editor.php'); ?>
             </div>
         </div>
     </form>

@@ -34,6 +34,8 @@
      * @property \fpcm\model\users\author $currentUser
      */ 
     class viewVars {
+        
+        use helper\traits\escapeHelper;
 
         /**
          * Var values
@@ -68,7 +70,15 @@
          */
         public function getIncludePath($view)
         {
-            return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $view);
+            $path = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $view);
+            
+            if (!file_exists($path)) {
+                trigger_error('Include view path '.$view.' does not exists');
+                return '';
+            }
+
+            return $path;
         }
+
     }
 ?>

@@ -1,11 +1,11 @@
-<?php include __DIR__.'/html_dialogs.php'; ?>
+<?php include $theView->getIncludePath('articles/editors/html_dialogs.php'); ?>
 <table class="fpcm-ui-table">
     <?php if ($editorMode) : ?>
     <tr>
         <td>
             <div class="fpcm-ui-editor-metabox">
-                <?php include dirname(__DIR__).'/times.php'; ?>
-                <?php include dirname(__DIR__).'/metainfo.php'; ?>
+                <?php include $theView->getIncludePath('articles/times.php'); ?>
+                <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
                 <div class="fpcm-clear"></div>
             </div>
         </td>
@@ -18,7 +18,7 @@
     </tr>
     <tr>
         <td class="fpcm-ui-editor-categories">
-            <?php include dirname(__DIR__).'/categories.php'; ?>
+            <?php include $theView->getIncludePath('articles/categories.php'); ?>
         </td>
     </tr>
     <tr>

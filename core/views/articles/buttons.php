@@ -84,7 +84,7 @@
         </div>  
         <?php endif; ?>
 
-        <?php include __DIR__.'/userfields.php'; ?>
+        <?php include $theView->getIncludePath('articles/userfields.php'); ?>
 
     </div>
 <?php endif; ?>

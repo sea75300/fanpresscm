@@ -7,7 +7,7 @@
             </ul>            
             
             <div id="tabs-category">                
-               <?php include __DIR__.'/itemeditor.php'; ?>                
+                <?php include $theView->getIncludePath('wordban/editor.php'); ?>
             </div>
         </div>
     </form>

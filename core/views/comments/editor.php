@@ -10,7 +10,7 @@
                     <?php print $comment->getIpaddress(); ?>                    
                     <?php if ($ipWhoisLink) : ?>(<a href="http://www.whois.com/whois/<?php print $comment->getIpaddress(); ?>" target="_blank">Whois</a>)<?php endif; ?>
                 </div>                
-                <?php include __DIR__.'/metainfo.php'; ?>
+                <?php include $theView->getIncludePath('comments/metainfo.php'); ?>
                 <div class="fpcm-clear"></div>
             </div>
         </td>

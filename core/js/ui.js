@@ -401,14 +401,14 @@ fpcm.ui = {
     
     showMessages: function() {
         
-        if (window.fpcmMsg === undefined || !fpcmMsg.length) {
+        if (window.fpcm.vars.ui.messages === undefined || !fpcm.vars.ui.messages.length) {
             return false;
         }
         
         var msg = null;
-        for (var i = 0; i < window.fpcmMsg.length; i++) {
+        for (var i = 0; i < window.fpcm.vars.ui.messages.length; i++) {
 
-            msg = fpcmMsg[i];
+            msg = fpcm.vars.ui.messages[i];
             msgCode  = '<div class="fpcm-message-box fpcm-message-' + msg.type + '" id="msgbox-' + msg.id + '">';
             msgCode += '    <div class="fpcm-msg-icon">';
             msgCode += '        <span class="fa-stack fa-lg">';
@@ -439,11 +439,11 @@ fpcm.ui = {
     
     appendMessage: function(value) {
 
-        if (window.fpcmMsg === undefined) {
-            window.fpcmMsg = [];
+        if (window.fpcm.vars.ui.messages === undefined) {
+            window.fpcm.vars.ui.messages = [];
         }
 
-        window.fpcmMsg = fpcm.ajax.fromJSON(value).data;
+        window.fpcm.vars.ui.messages = fpcm.ajax.fromJSON(value).data;
         this.showMessages();
         this.prepareMessages();
         this.messagesInitClose();
@@ -452,11 +452,11 @@ fpcm.ui = {
     
     addMessage: function(value, clear) {
 
-        if (window.fpcmMsg === undefined || clear) {
-            window.fpcmMsg = [];
+        if (window.fpcm.vars.ui.messages === undefined || clear) {
+            window.fpcm.vars.ui.messages = [];
         }
 
-        window.fpcmMsg.push(value);
+        window.fpcm.vars.ui.messages.push(value);
         this.showMessages();
         this.prepareMessages();
         this.messagesInitClose();

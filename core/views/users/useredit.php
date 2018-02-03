@@ -8,11 +8,11 @@
             </ul>            
             
             <div id="tabs-user">                
-               <?php include __DIR__.'/usereditor.php' ?>                
+               <?php include $theView->getIncludePath('users/usereditor.php'); ?>
             </div>
             
             <div id="tabs-user-meta">                
-               <?php include __DIR__.'/editormeta.php' ?>                
+               <?php include $theView->getIncludePath('users/editormeta.php'); ?>
             </div>            
         </div>
         
