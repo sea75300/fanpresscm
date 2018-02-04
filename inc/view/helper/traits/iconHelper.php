@@ -35,7 +35,7 @@
          */
         public function setIcon($icon, $useFa = true)
         {
-            $this->icon = $useFa ? $this->getDefaultIconClassString($icon) : $icon;
+            $this->icon = ($useFa ? 'fa fa-fw fa-'.$icon : $icon);
             return $this;
         }
 
@@ -60,16 +60,6 @@
             }
             
             return "<span class=\"fpcm-ui-icon {$this->icon}\"></span> ";;
-        }
-
-        /**
-         * Returns default FontAwesome class string
-         * @param string $iconClass
-         * @return string
-         */
-        protected function getDefaultIconClassString($iconClass)
-        {
-            return 'fa fa-fw fa-'.$iconClass;
         }
 
     }
