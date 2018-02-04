@@ -21,9 +21,9 @@
         <tr class="fpcm-td-spacer"><td></td></tr>
         <?php foreach($articles AS $articleId => $article) : ?>
             <tr>
-                <td class="fpcm-ui-articlelist-open">
-                    <?php \fpcm\view\helper::linkButton($article->getArticleLink(), 'GLOBAL_FRONTEND_OPEN', '', 'fpcm-ui-button-blank fpcm-openlink-btn', '_blank'); ?>
-                    <?php \fpcm\view\helper::editButton($article->getEditLink(), $article->getEditPermission() ); ?>
+                <td class="fpcm-ui-articlelist-open">                    
+                    <?php (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget('_blank'); ?>
+                    <?php (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article); ?>
                     <?php (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article); ?>
                 </td>
                 <td>

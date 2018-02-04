@@ -55,7 +55,7 @@
 
             $db->createDbConfigFile($databaseInfo);
 
-            $crypt = new \fpcm\classes\crypt();
+            $crypt = \fpcm\classes\loader::getObject('fpcm\classes\crypt');
             $crypt->initCrypt();
             
             \fpcm\classes\security::initSecurityConfig();

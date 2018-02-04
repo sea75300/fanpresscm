@@ -13,7 +13,7 @@ fpcm.comments = {
 
     init: function () {
 
-        if (fpcmLang.searchHeadline) {
+        if (fpcm.ui.langvarExists('articles_search')) {
             this.initCommentSearch();
         }
 
@@ -79,10 +79,10 @@ fpcm.comments = {
                 id      : 'comments-search',
                 dlWidth: size.width,
                 resizable: true,
-                title    : fpcm.ui.translate('searchHeadline'),
+                title    : fpcm.ui.translate('articles_search'),
                 dlButtons  : [
                     {
-                        text: fpcm.ui.translate('searchStart'),
+                        text: fpcm.ui.translate('article_search_start'),
                         icon: "ui-icon-check",                        
                         click: function() {                            
                             var sfields = jQuery('.fpcm-comments-search-input');
@@ -121,7 +121,7 @@ fpcm.comments = {
     startCommentSearch: function (sParams) {
 
         if (((new Date()).getTime() - fpcmCommentsLastSearch) < 10000) {
-            fpcmJs.addAjaxMassage('error', fpcm.ui.translate('searchWaitMsg'));            
+            fpcmJs.addAjaxMassage('error', fpcm.ui.translate('search_waitmsg'));
             return false;
         }
 

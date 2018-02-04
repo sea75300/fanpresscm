@@ -59,9 +59,11 @@ fpcm.ui = {
     },
     
     translate: function(langVar) {
-        
         return fpcm.vars.ui.lang[langVar] === undefined ? langVar : fpcm.vars.ui.lang[langVar];
-
+    },
+    
+    langvarExists: function(langVar) {
+        return fpcm.vars.ui.lang[langVar] === undefined ? false : true;
     },
 
     actionButtonsGenreal: function() {

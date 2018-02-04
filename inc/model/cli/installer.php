@@ -164,7 +164,7 @@
             $this->output(PHP_EOL.'Init system encryption...'.PHP_EOL);
             usleep(250000);
             
-            $crypt = new \fpcm\classes\crypt();
+            $crypt = \fpcm\classes\loader::getObject('fpcm\classes\crypt');
             $crypt->initCrypt();
 
             usleep(250000);

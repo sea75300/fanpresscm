@@ -568,8 +568,6 @@ fpcm.editor = {
                 jQuery('#fpcmdialogeditorhtmlcolorhexcode').val(colorCode);
             }
         });
-
-
         
         editor = fpcm.editor_codemirror.create({
            editorId  : 'htmleditor',

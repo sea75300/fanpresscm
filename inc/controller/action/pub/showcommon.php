@@ -189,7 +189,7 @@
                 $categoryIcons[] = $category->getCategoryImage();
             }
 
-            $shareButtonParser = new \fpcm\model\pubtemplates\sharebuttons($article->getArticleLink(), $article->getTitle());
+            $shareButtonParser = new \fpcm\model\pubtemplates\sharebuttons($article->getElementLink(), $article->getTitle());
             
             $commentCount = $this->config->system_comments_enabled && $article->getComments() ? (isset($this->commentCounts[$article->getId()]) ? (int) $this->commentCounts[$article->getId()] : 0) : '';
             
@@ -217,8 +217,8 @@
                 '{{categoryIcons}}'                 => implode(PHP_EOL, $categoryIcons),
                 '{{categoryTexts}}'                 => implode(PHP_EOL, $categoryTexts),
                 '{{commentCount}}'                  => $commentCount,
-                '{{permaLink}}:{{/permaLink}}'      => $article->getArticleLink(),
-                '{{commentLink}}:{{/commentLink}}'  => $article->getArticleLink().'#comments',
+                '{{permaLink}}:{{/permaLink}}'      => $article->getElementLink(),
+                '{{commentLink}}:{{/commentLink}}'  => $article->getElementLink().'#comments',
                 '<readmore>:</readmore>'            => $article->getMd5path(),
                 '{{articleImage}}'                  => $article->getArticleImage(),
                 '{{sources}}'                       => $article->getSources()

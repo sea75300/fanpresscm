@@ -147,12 +147,7 @@
                 'fpcmFilesLastSearch'   => 0
             ]);
 
-            $this->view->addJsLangVars([
-                'newNameMsg'        => $this->lang->translate('FILE_LIST_RENAME_NEWNAME'),
-                'searchWaitMsg'     => $this->lang->translate('SEARCH_WAITMSG'),
-                'searchHeadline'    => $this->lang->translate('ARTICLES_SEARCH'),
-                'searchStart'       => $this->lang->translate('ARTICLE_SEARCH_START')
-            ]);
+            $this->view->addJsLangVars(['FILE_LIST_RENAME_NEWNAME', 'SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START']);
 
             $this->view->assign('searchCombination', array(
                 $this->lang->translate('ARTICLE_SEARCH_LOGICAND') => 0,

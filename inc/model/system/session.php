@@ -348,7 +348,7 @@
         public function setCookie() {       
             $expire = $this->getLastaction() + $this->config->system_session_length;
             
-            $crypt = new \fpcm\classes\crypt();
+            $crypt = \fpcm\classes\loader::getObject('fpcm\classes\crypt');
             return setcookie(\fpcm\classes\security::getSessionCookieName(), '_$$'.$crypt->encrypt($this->sessionid), $expire, '/', '', false, true);
         }
                 

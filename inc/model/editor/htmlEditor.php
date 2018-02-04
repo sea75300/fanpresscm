@@ -44,14 +44,13 @@
          */ 
         public function getJsFiles()
         {
-
             return [
                 \fpcm\classes\dirs::getLibUrl('codemirror/lib/codemirror.js'),
                 \fpcm\classes\dirs::getLibUrl('codemirror/addon/selection/active-line.js'),
                 \fpcm\classes\dirs::getLibUrl('codemirror/addon/edit/matchbrackets.js'),
                 \fpcm\classes\dirs::getLibUrl('codemirror/addon/edit/matchtags.js'),
                 \fpcm\classes\dirs::getLibUrl('codemirror/addon/edit/closetag.js'),
-                \fpcm\classes\dirs::getLibUrl('codemirror/addon/old/xml-fold.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/addon/fold/xml-fold.js'),
                 \fpcm\classes\dirs::getLibUrl('codemirror/addon/hint/show-hint.js'),
                 \fpcm\classes\dirs::getLibUrl('codemirror/addon/hint/xml-hint.js'),
                 \fpcm\classes\dirs::getLibUrl('codemirror/addon/hint/html-hint.js'),

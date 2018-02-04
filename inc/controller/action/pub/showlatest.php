@@ -161,8 +161,8 @@
                 '{{headline}}'                      => $article->getTitle(),
                 '{{author}}'                        => isset($this->users[$article->getCreateuser()]) ? $this->users[$article->getCreateuser()]->getDisplayname() : $this->lang->translate('GLOBAL_NOTFOUND'),
                 '{{date}}'                          => date($this->config->system_dtmask, $article->getCreatetime()),
-                '{{permaLink}}:{{/permaLink}}'      => $article->getArticleLink(),
-                '{{commentLink}}:{{/commentLink}}'  => $article->getArticleLink().'#comments'
+                '{{permaLink}}:{{/permaLink}}'      => $article->getElementLink(),
+                '{{commentLink}}:{{/commentLink}}'  => $article->getElementLink().'#comments'
             );
 
             $tpl->setReplacementTags($replacements);

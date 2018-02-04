@@ -292,7 +292,7 @@
 
             $this->articleActions[$this->lang->translate('ARTICLES_CACHE_CLEAR')]       = 'articlecache';
             
-            $crypt = new \fpcm\classes\crypt();
+            $crypt = \fpcm\classes\loader::getObject('fpcm\classes\crypt');
             $this->view->addJsVars(['artCacheMod' => urlencode($crypt->encrypt(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE))]);
         }
         
@@ -349,11 +349,7 @@
                 $this->lang->translate('ARTICLE_SEARCH_LOGICOR')  => 1
             ]);
 
-            $this->view->addJsLangVars([
-                'searchWaitMsg'      => $this->lang->translate('SEARCH_WAITMSG'),
-                'searchHeadline'     => $this->lang->translate('ARTICLES_SEARCH'),
-                'searchStart'        => $this->lang->translate('ARTICLE_SEARCH_START')
-            ]);
+            $this->view->addJsLangVars(['SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START']);
 
             $this->view->addJsVars(['fpcmArticlesLastSearch' => 0]);
         }

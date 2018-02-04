@@ -153,13 +153,13 @@
                     
                     $item   = $dom->createElement('item');
                     
-                    $guid   = $dom->createElement('guid', htmlspecialchars($article->getArticleLink()));
+                    $guid   = $dom->createElement('guid', htmlspecialchars($article->getElementLink()));
                     $item->appendChild($guid);
 
                     $atitle = $dom->createElement('title', htmlspecialchars($article->getTitle()));
                     $item->appendChild($atitle);
                     
-                    $alink  = $dom->createElement('link', htmlspecialchars($article->getArticleLink()));
+                    $alink  = $dom->createElement('link', htmlspecialchars($article->getElementLink()));
                     $item->appendChild($alink);
 
                     $adescr = $dom->createElement('description');

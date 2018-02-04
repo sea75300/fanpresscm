@@ -37,21 +37,23 @@
          */
         protected function getString()
         {
-            return implode(' ', [
-                $this->useWrapper   ? "<div class=\"fpcm-ui-input-wrapper {$this->wrapperClass}\"><div class=\"fpcm-ui-input-wrapper-inner\">" : '',
-                $this->placeholder  ? $this->getIconString()
-                                    : ( "<label>{$this->getIconString()}{$this->getDescriptionTextString()}</label>" ),
-                "<input type=\"{$this->type}\"",
-                $this->getNameIdString(),
-                $this->getClassString(),
-                $this->getReadonlyString(),
-                $this->getValueString(),
-                "maxlength=\"{$this->maxlenght}\"",
-                $this->getPlaceholderString(),
-                $this->getDataString(),
-                ">",
-                $this->useWrapper ? "</div></div>" : '',
-            ]);
+            $wrapperStart   = $this->useWrapper
+                            ? "<div class=\"fpcm-ui-input-wrapper {$this->wrapperClass}\"><div class=\"fpcm-ui-input-wrapper-inner\">"
+                            : '';
+
+            $wrapperEnd     = $this->useWrapper ? "</div></div>" : '';
+
+            $input          = "<input type=\"{$this->type}\" {$this->getNameIdString()}{$this->getClassString()} {$this->getValueString()} {$this->getReadonlyString()} maxlength=\"{$this->maxlenght}\" {$this->getPlaceholderString()} {$this->getDataString()}>";
+
+            if (!$this->text) {
+                return $wrapperStart.$input.$wrapperEnd;               
+            }
+
+            $description    = $this->placeholder
+                            ? $this->getIconString()
+                            : ( "<label>{$this->getIconString()}{$this->getDescriptionTextString()}</label>");
+
+            return $wrapperStart.$description.$input.$wrapperEnd;
         }
 
         /**

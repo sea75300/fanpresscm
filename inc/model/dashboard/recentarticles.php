@@ -106,8 +106,8 @@
                 
                 $content[] = '<tr class="fpcm-small-text">';
                 $content[] = '  <td class="fpcm-ui-articlelist-open">';
-                $content[] = (string) (new \fpcm\view\helper\linkButton('openBtn'.$article->getId()))->setUrl($article->getArticleLink())->setIcon('fa-play-circle');
-                $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'.$article->getId()))->setUrlbyObject($article)->setReadonly($article->getEditPermission() ? false : true);
+                $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($article)->setTarget('_blank');
+                $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($article)->setReadonly($article->getEditPermission() ? false : true);
                 $content[] = '  </td>';
                 
                 $content[] = '  <td class="fpcm-ui-ellipsis">';

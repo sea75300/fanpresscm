@@ -26,7 +26,7 @@
     <?php if (!$timesMode) : ?>
         <?php if (!$isRevision) : ?>
         <div class="fpcm-ui-editor-metabox-left-frontend">
-            <?php \fpcm\view\helper::linkButton($article->getArticleLink(), 'GLOBAL_FRONTEND_OPEN', '', 'fpcm-ui-button-blank fpcm-openlink-btn', '_blank'); ?>
+            <?php \fpcm\view\helper::linkButton($article->getElementLink(), 'GLOBAL_FRONTEND_OPEN', '', 'fpcm-ui-button-blank fpcm-openlink-btn', '_blank'); ?>
         </div>
         <div class="fpcm-ui-editor-metabox-left-short">
             <?php \fpcm\view\helper::linkButton($article->getArticleShortLink(), 'EDITOR_ARTICLE_SHORTLINK', '', 'fpcm-ui-button-blank fpcm-articlelist-shortlink'); ?>

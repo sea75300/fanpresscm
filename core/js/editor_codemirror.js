@@ -14,8 +14,8 @@ fpcm.editor_codemirror = {
 
         params = {
             lineNumbers      : true,
-            matchBrackets    : true,
             lineWrapping     : true,
+            matchBrackets    : true,
             autoCloseTags    : true,
             id               : config.editorId,
             value            : document.documentElement.innerHTML,
@@ -23,7 +23,7 @@ fpcm.editor_codemirror = {
             theme            : 'fpcm',
             matchTags        : {
                 bothTags     : true
-            },            
+            },
             extraKeys        : {
                 "Ctrl-Space" : "autocomplete",
             }

@@ -217,7 +217,7 @@
                 $categoryIcons[] = '<img src="'.$category->getIconPath().'" alt="'.$category->getName().'" title="'.$category->getName().'" class="fpcm-pub-category-icon">';
             }
 
-            $shareButtonParser = new \fpcm\model\pubtemplates\sharebuttons($this->article->getArticleLink(), $this->article->getTitle());
+            $shareButtonParser = new \fpcm\model\pubtemplates\sharebuttons($this->article->getElementLink(), $this->article->getTitle());
             
             $users = $this->userList->getUsersByIds(array($this->article->getCreateuser(), $this->article->getChangeuser()));
 
@@ -270,8 +270,8 @@
                 '{{categoryIcons}}'                 => implode(PHP_EOL, $categoryIcons),
                 '{{categoryTexts}}'                 => implode(PHP_EOL, $categoryTexts),
                 '{{commentCount}}'                  => $commentCount,
-                '{{permaLink}}:{{/permaLink}}'      => $this->article->getArticleLink(),
-                '{{commentLink}}:{{/commentLink}}'  => $this->article->getArticleLink().'#comments',
+                '{{permaLink}}:{{/permaLink}}'      => $this->article->getElementLink(),
+                '{{commentLink}}:{{/commentLink}}'  => $this->article->getElementLink().'#comments',
                 '<readmore>:</readmore>'            => $this->article->getMd5path(),
                 '{{articleImage}}'                  => $this->article->getArticleImage(),
                 '{{sources}}'                       => $this->article->getSources()
@@ -355,7 +355,7 @@
             
             $replacementTags = array(
                 '{{formHeadline}}'                   => $this->lang->translate('COMMENTS_PUBLIC_FORMHEADLINE'),
-                '{{submitUrl}}'                      => $this->article->getArticleLink(),
+                '{{submitUrl}}'                      => $this->article->getElementLink(),
                 '{{nameDescription}}'                => $this->lang->translate('COMMMENT_AUTHOR'),
                 '{{nameField}}'                      => '<input type="text" class="fpcm-pub-textinput" name="newcomment[name]" value="'.$this->newComment->getName().'">',
                 '{{emailDescription}}'               => $this->lang->translate('GLOBAL_EMAIL'),
@@ -485,7 +485,7 @@
                     '{{name}}'        => $this->newComment->getName(),
                     '{{email}}'       => $this->newComment->getEmail(),
                     '{{commenttext}}' => strip_tags($this->newComment->getText()),
-                    '{{articleurl}}'  => $this->article->getArticleLink(),
+                    '{{articleurl}}'  => $this->article->getElementLink(),
                     '{{systemurl}}'   => \fpcm\classes\dirs::getRootUrl()
                 ));
 

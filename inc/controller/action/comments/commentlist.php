@@ -135,12 +135,8 @@
                 $this->lang->translate('ARTICLE_SEARCH_LOGICAND') => 0,
                 $this->lang->translate('ARTICLE_SEARCH_LOGICOR')  => 1
             ));
-            
-            $this->view->addJsLangVars(array(
-                'searchWaitMsg'      => $this->lang->translate('SEARCH_WAITMSG'),
-                'searchHeadline'     => $this->lang->translate('ARTICLES_SEARCH'),
-                'searchStart'        => $this->lang->translate('ARTICLE_SEARCH_START')
-            ));
+
+            $this->view->addJsLangVars(['SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START']);
 
             $this->view->addJsVars(array('fpcmCommentsLastSearch' => 0));
         }

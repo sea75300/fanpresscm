@@ -13,7 +13,7 @@
      * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
-    final class editButton extends linkButton {
+    final class openButton extends linkButton {
 
         /**
          * Optional init function
@@ -22,30 +22,20 @@
         protected function init()
         {
             parent::init();
-            $this->class    .= ' fpcm-ui-button-edit fpcm-loader';
+            $this->class    .= ' fpcm-ui-button-openfe';
             $this->iconOnly  = true;
-            $this->setText('GLOBAL_EDIT');
-            $this->setIcon('pencil-square-o');
+            $this->setText('GLOBAL_FRONTEND_OPEN');
+            $this->setIcon('play');
         }
 
-        /**
-         * Set URL by given object
-         * @param \fpcm\model\abstracts\dataset $object
-         * @return $this
-         */
         final public function setUrlbyObject(\fpcm\model\abstracts\dataset $object)
         {
-            if (!method_exists($object, 'getEditLink')) {
-                trigger_error('Invalid parameter for object of class '.get_class($object).', method getEditLink() not found');
+            if (!method_exists($object, 'getElementLink')) {
+                trigger_error('Invalid parameter for object of class '.get_class($object).', method getElementLink() not found');
                 return $this;
             }
 
-            $this->url = $object->getEditLink();
-            
-            if (!method_exists($object, 'getEditPermission')) {
-                $this->readonly = $object->getEditPermission() ? false : true;
-            }
-
+            $this->url   = $object->getElementLink();
             $this->name .= $object->getId();
             $this->id   .= $object->getId();
 

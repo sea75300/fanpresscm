@@ -395,7 +395,7 @@
          * Gibt Direkt-Link zum Artikel zurück
          * @return string
          */
-        public function getArticleLink() {
+        public function getElementLink() {
             return $this->config->system_url.'?module=fpcm/article&id='.$this->articleid.'#comments';
         }
 
