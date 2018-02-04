@@ -30,7 +30,7 @@
         public function process() {
             
             
-            die(strip_tags($this->getRequestVar('text')));
+            exit(strip_tags($this->getRequestVar('text')));
             
         }
     }

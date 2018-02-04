@@ -45,12 +45,12 @@
                 $db = new \fpcm\classes\database($databaseInfo);                
             } catch (\PDOException $exc) {
                 trigger_error($exc->getMessage());
-                die('0');
+                exit('0');
             }
             
             if (!$db->checkDbVersion()) {
                 trigger_error('Unsupported database system detected. Installed version is '.$db->getDbVersion().', FanPress CM requires version '.$db->getRecommendVersion());
-                die('0');
+                exit('0');
             }
 
             $db->createDbConfigFile($databaseInfo);
@@ -60,7 +60,7 @@
             
             \fpcm\classes\security::initSecurityConfig();
             
-            die('1');
+            exit('1');
         }
 
     }

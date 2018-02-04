@@ -41,7 +41,7 @@
         public function getJsFiles()
         {
             return [
-                \fpcm\classes\loader::libGetFileUrl('tinymce4', 'tinymce.min.js'),
+                \fpcm\classes\loader::libGetFileUrl('tinymce4/tinymce.min.js'),
                 'editor.js',
                 'editor_tinymce.js',
                 'editor_videolinks.js'
@@ -77,22 +77,28 @@
                 $pluginFolders = $this->cache->read('tinymce_plugins');
             }
             
-            $params = array(
-                'fpcmTinyMceLang'               => $this->config->system_lang,
-                'fpcmTinyMceElements'           => 'readmore',
-                'fpcmTinyMcePlugins'            => $pluginFolders,
-                'fpcmTinyMceToolbar'            => 'formatselect fontsizeselect | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify outdent indent | subscript superscript table toc | bullist numlist | fpcm_readmore hr blockquote | link unlink anchor image media | emoticons charmap insertdatetime template | undo redo removeformat searchreplace fullscreen code restoredraft',
-                'fpcmTinyMceCssClasses'         => array_merge($editorStyles, $this->getEditorStyles()),
-                'fpcmTinyMceTextpattern'        => $this->getTextPatterns(),
-                'fpcmTinyMceDefaultFontsize'    => $this->config->system_editor_fontsize,
-                'fpcmTinyMceReadmoreBlockHL'    => $this->language->translate('EDITOR_HTML_BUTTONS_READMORE'),
-                'fpcmTinyMceTemplatesList'      => $this->getTemplateDrafts(),
-                'fpcmTinyMceAutosavePrefix'     => 'fpcm-editor-as-'.$this->session->getUserId(),
-                'fpcmTinyMceFileUpload'         => $this->config->articles_imageedit_persistence ? 1 : 0,
-                'fpcmEditorInitFunction'        => 'initTinyMce'
-            );
-            
-            return $this->events->runEvent('editorInitTinymce', $params);
+            $cssClasses = array_merge($editorStyles, $this->getEditorStyles());
+
+            return $this->events->runEvent('editorInitTinymce', [
+                'editorConfig' => [
+                    'language'              => $this->config->system_lang,
+                    'plugins'               => $pluginFolders,
+                    'custom_elements'       => 'readmore',
+                    'toolbar'               => 'formatselect fontsizeselect | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify outdent indent | subscript superscript table toc | bullist numlist | fpcm_readmore hr blockquote | link unlink anchor image media | emoticons charmap insertdatetime template | undo redo removeformat searchreplace fullscreen code restoredraft',
+                    'link_class_list'       => $cssClasses,
+                    'image_class_list'      => $cssClasses,
+                    'link_list'             => \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorlinks']),
+                    'image_list'            => \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorfiles']),                    
+                    'textpattern_patterns'  => $this->getTextPatterns(),
+                    'templates'             => $this->getTemplateDrafts(),
+                    'autosave_prefix'       => 'fpcm-editor-as-'.$this->session->getUserId(),
+                    'images_upload_url'     => $this->config->articles_imageedit_persistence ? \fpcm\classes\tools::getFullControllerLink('ajax/editor/imgupload') : false,
+                    'automatic_uploads'     => $this->config->articles_imageedit_persistence ? 1 : 0,
+                    'autoresize_min_height' => 500
+                ],
+                'editorDefaultFontsize' => $this->config->system_editor_fontsize,
+                'editorInitFunction'    => 'initTinyMce'
+            ]);
         }
 
         /**
@@ -187,7 +193,7 @@
          */
         public function getJsLangVars()
         {
-            return [];
+            return ['EDITOR_HTML_BUTTONS_READMORE'];
         }
 
     }

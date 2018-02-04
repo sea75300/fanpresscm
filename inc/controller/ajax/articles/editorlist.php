@@ -59,7 +59,7 @@
 
             $fn         = 'getView'.$this->module;
             if (!method_exists($this, $fn) || !$this->oid) {                
-                die('');
+                exit('');
             }
             
             call_user_func([$this, $fn]);
@@ -88,7 +88,7 @@
 
             $article = new \fpcm\model\articles\article($this->oid);
             if (!$article->exists()) {
-                die();
+                exit();
             }
 
             $this->view->assign('revisions', $article->getRevisions());

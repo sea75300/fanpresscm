@@ -105,10 +105,10 @@
             
             $this->jsVars  = $this->editorPlugin->getJsVars();
             $this->jsVars += array(
-                'fpcmFileManagerUrl'        => \fpcm\classes\tools::getFullControllerLink('files/list', [
+                'filemanagerUrl'        => \fpcm\classes\tools::getFullControllerLink('files/list', [
                     'mode' => ''
                 ]),
-                'fpcmFileManagerUrlMode'    => 2
+                'filemanagerMode'    => 2
             );
             
             $jsLangVars = array('fileManagerHeadline' => $this->lang->translate('HL_FILES_MNG'));

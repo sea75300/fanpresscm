@@ -293,7 +293,7 @@
         public function hasAccess()
         {
             if (!$this->maintenanceMode(false) && !$this->session->exists())
-        {
+            {
                 return false;
             }
 

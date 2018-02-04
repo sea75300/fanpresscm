@@ -28,10 +28,7 @@
          */
         public function process()
         {
-            $smileyList = new \fpcm\model\files\smileylist();
-            
-            $view->assign('smileys', array_values($smileyList->getDatabaseList()));
-            $view->render();
+            $this->view->assign('smileys', array_values( (new \fpcm\model\files\smileylist())->getDatabaseList() ) );
         }
     }
 ?>

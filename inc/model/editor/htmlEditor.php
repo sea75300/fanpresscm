@@ -23,9 +23,9 @@
         public function getCssFiles()
         {
             return [
-                \fpcm\classes\dirs::getIncDirPath('codemirror/lib/codemirror.css'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/theme/fpcm.css'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/hint/show-hint.css'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/lib/codemirror.css'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/theme/fpcm.css'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/addon/hint/show-hint.css'),
             ];
         }
 
@@ -46,22 +46,22 @@
         {
 
             return [
-                \fpcm\classes\dirs::getIncDirPath('codemirror/lib/codemirror.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/selection/active-line.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/edit/matchbrackets.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/edit/matchtags.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/edit/closetag.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/old/xml-fold.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/hint/show-hint.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/hint/xml-hint.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/hint/html-hint.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/runmode/runmode.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/addon/runmode/colorize.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/mode/xml/xml.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/mode/javascript/javascript.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/mode/css/css.js'),
-                \fpcm\classes\dirs::getIncDirPath('codemirror/mode/htmlmixed/htmlmixed.js'),
-                \fpcm\classes\loader::libGetFileUrl('leela-colorpicker/leela.colorpicker-1.0.2.jquery.min.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/lib/codemirror.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/addon/selection/active-line.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/addon/edit/matchbrackets.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/addon/edit/matchtags.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/addon/edit/closetag.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/addon/old/xml-fold.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/addon/hint/show-hint.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/addon/hint/xml-hint.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/addon/hint/html-hint.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/addon/runmode/runmode.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/addon/runmode/colorize.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/mode/xml/xml.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/mode/javascript/javascript.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/mode/css/css.js'),
+                \fpcm\classes\dirs::getLibUrl('codemirror/mode/htmlmixed/htmlmixed.js'),
+                \fpcm\classes\dirs::getLibUrl('leela-colorpicker/leela.colorpicker-1.0.2.jquery.min.js'),
                 'editor.js',
                 'editor_codemirror.js',
                 'editor_videolinks.js'
@@ -74,8 +74,8 @@
          */
         public function getJsVars()
         {
-            return [
-                'cmConfig'          => [
+            return $this->events->runEvent('editorInitCodemirror', [
+                'editorConfig' => [
                     'colors'        => [
                         '#000000','#993300','#333300','#003300','#003366','#00007f','#333398','#333333',
                         '#800000','#ff6600','#808000','#007f00','#007171','#0000e8','#5d5d8b','#6c6c6c',
@@ -83,9 +83,10 @@
                         '#f100f1','#f0c000','#eeee00','#00f200','#00efef','#00beee','#8d2f5e','#b5b5b5',
                         '#ed8ebe','#efbf8f','#e8e88b','#bbeabb','#bcebeb','#89b6e4','#b88ae6','#ffffff'
                     ],
-                    'autosavePref'  => 'fpcm-editor-as-'.$this->session->getUserId().'draft',                    
-                ]
-            ];
+                    'autosavePref'  => 'fpcm-editor-as-'.$this->session->getUserId().'draft',
+                ],
+                'editorInitFunction'    => 'initCodeMirror'
+            ]);
         }
 
         /**
@@ -109,7 +110,6 @@
          */
         public function getViewVars()
         {
-            
             $editorStyles = $this->getEditorStyles();
 
             $vars = array(

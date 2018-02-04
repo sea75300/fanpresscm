@@ -1,0 +1,14 @@
+div.mce-btn button .mce-ico.mce-i-fpcm-readmore:before,
+fpcm-ui-faicon:before {
+    font-family: 'FontAwesome';
+}
+
+fpcm-ui-faicon:before {
+    font-weight: normal !important;
+    padding-right: 0.65em;
+    margin: 0 0 0 -0.3em;
+}
+
+div.mce-btn button .mce-ico.mce-i-fpcm-readmore:before {
+    content: '\f0fe';
+}

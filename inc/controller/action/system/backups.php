@@ -35,7 +35,7 @@
                     $this->view = new \fpcm\view\error();
                     $this->view->setMessage($this->lang->translate('GLOBAL_NOTFOUND_FILE'));
                     $this->view->render();
-                    die();
+                    exit();
                 }
 
                 header('Content-Description: File Transfer');

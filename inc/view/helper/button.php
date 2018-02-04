@@ -28,7 +28,7 @@
                 ($this->readonly ? '<span ' : "<button type=\"{$this->type}\" "),
                 $this->getDataString(),
                 ($this->readonly ? $this->getClassString() : $this->getNameIdString().' '.$this->getClassString()),
-                ($this->iconOnly ? "title=\"{$this->text}\">" : ">{$this->getIconString()} {$this->getDescriptionTextString()}"),
+                ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()} {$this->getDescriptionTextString()}"),
                 ($this->readonly ? '</span>' : "</button>")
             ]);
         }
@@ -41,6 +41,7 @@
         {
             $this->prefix = 'btn';
             $this->class  = 'fpcm-ui-button';
+            $this->type   = 'button';
         }
 
     }

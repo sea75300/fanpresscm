@@ -29,7 +29,7 @@ fpcm.editor = {
             return false;
         });
         
-        this[fpcmEditorInitFunction].call();
+        this[fpcm.vars.jsvars.editorInitFunction].call();
 
         fpcm.ui.selectmenu('#fpcm-editor-paragraphs', {
             select: function( event, ui ) {
@@ -212,9 +212,9 @@ fpcm.editor = {
         jQuery('.fpcm-editor-articleimage').fancybox();
 
         jQuery('#fpcmuieditoraimgfmg').click(function () {
-            fpcmFileManagerUrlMode = 3;
+            fpcm.vars.jsvars.filemanagerMode = 3;
             fpcm.editor.showFileManager();
-            fpcmFileManagerUrlMode = 2;
+            fpcm.vars.jsvars.filemanagerMode = 2;
             return false;
         });
 
@@ -439,7 +439,7 @@ fpcm.editor = {
         
         var size = fpcm.ui.getDialogSizes(top, 0.75);
         
-        fpcm.ui.appendHtml('#fpcm-dialog-editor-html-filemanager', '<iframe id="fpcm-dialog-editor-html-filemanager-frame" class="fpcm-full-width" src="' + fpcmFileManagerUrl + fpcmFileManagerUrlMode + '"></iframe>');
+        fpcm.ui.appendHtml('#fpcm-dialog-editor-html-filemanager', '<iframe id="fpcm-dialog-editor-html-filemanager-frame" class="fpcm-full-width" src="' + fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode + '"></iframe>');
         fpcm.ui.dialog({
             id       : 'editor-html-filemanager',
             dlMinWidth : size.width,
@@ -519,7 +519,7 @@ fpcm.editor = {
     
     initCodeMirrorAutosave: function() {
 
-        var autoSaveStorage = localStorage.getItem(fpcmEditorAutosavePrefix);
+        var autoSaveStorage = localStorage.getItem(fpcm.vars.jsvars.editorConfig.autosavePref);
         var isDisabled = (autoSaveStorage === null ? true : false);
         
         fpcm.ui.button('#fpcm-editor-html-restoredraft-btn',
@@ -528,7 +528,7 @@ fpcm.editor = {
         },
         function () {
 
-            var autoSaveStorage = localStorage.getItem(fpcmEditorAutosavePrefix);
+            var autoSaveStorage = localStorage.getItem(fpcm.vars.jsvars.editorConfig.autosavePref);
             editor.setValue(autoSaveStorage);
 
             return false;
@@ -541,11 +541,11 @@ fpcm.editor = {
                 return false;
             }
             
-            if (editorValue === localStorage.getItem(fpcmEditorAutosavePrefix)) {
+            if (editorValue === localStorage.getItem(fpcm.vars.jsvars.editorConfig.autosavePref)) {
                 return true;
             }
 
-            localStorage.setItem(fpcmEditorAutosavePrefix, editorValue);
+            localStorage.setItem(fpcm.vars.jsvars.editorConfig.autosavePref, editorValue);
             fpcm.ui.button('#fpcm-editor-html-restoredraft-btn', {
                 disabled: false
             });
@@ -563,7 +563,7 @@ fpcm.editor = {
             cellHeight  : 15,
             top         : 27,
             left        : 0,
-            colorData   : fpcmCmColors,            
+            colorData   : fpcm.vars.jsvars.editorConfig.colors,            
             onSelect    : function(colorCode) {
                 jQuery('#fpcmdialogeditorhtmlcolorhexcode').val(colorCode);
             }
@@ -1096,76 +1096,64 @@ fpcm.editor = {
     },
     
     initTinyMce: function() {
-        
-        fpcm.editor_tinymce.create({
-            custom_elements              : fpcmTinyMceElements,
-            language                     : fpcmTinyMceLang,
-            plugins                      : fpcmTinyMcePlugins,
-            toolbar                      : fpcmTinyMceToolbar,
-            link_class_list              : fpcmTinyMceCssClasses,
-            image_class_list             : fpcmTinyMceCssClasses,
-            link_list                    : fpcm.vars.ajaxActionPath + 'autocomplete&src=editorlinks',
-            image_list                   : fpcm.vars.ajaxActionPath + 'autocomplete&src=editorfiles',
-            textpattern_patterns         : fpcmTinyMceTextpattern,
-            templates                    : fpcmTinyMceTemplatesList,
-            autosave_prefix              : fpcmTinyMceAutosavePrefix,
-            images_upload_url            : fpcmTinyMceFileUpload ? fpcm.vars.ajaxActionPath + 'editor/imgupload' : false,
-            automatic_uploads            : fpcmTinyMceFileUpload,
-            autoresize_min_height        : '500',
-            file_picker                  : function(callback, value, meta) {
 
-                var fmSize = fpcm.ui.getDialogSizes(top, 0.75);
+        fpcm.vars.jsvars.editorConfig.file_picker = function(callback, value, meta) {
 
-                tinymce.activeEditor.windowManager.open({
-                    file            : fpcmFileManagerUrl + fpcmFileManagerUrlMode,
-                    title           : fpcm.ui.translate('fileManagerHeadline'),
-                    width           : fmSize.width,
-                    height          : fmSize.height,
-                    close_previous  : false,
-                    buttons  : [
-                        {
-                            text: fpcm.ui.translate('extended'),                   
-                            onclick: function() {
-                                var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
-                                jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('.fpcm-filemanager-buttons').fadeToggle();
-                            }
-                        },
-                        {
-                            text: fpcm.ui.translate('close'),                      
-                            onclick: function() {
-                                top.tinymce.activeEditor.windowManager.close();
-                            }
-                        }                            
-                    ]
-                },
-                {
-                    oninsert: function (url, objVals) {
-                        callback(url, objVals);
-                    }
-                });
+            var fmSize = fpcm.ui.getDialogSizes(top, 0.75);
+
+            tinymce.activeEditor.windowManager.open({
+                file            : fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode,
+                title           : fpcm.ui.translate('fileManagerHeadline'),
+                width           : fmSize.width,
+                height          : fmSize.height,
+                close_previous  : false,
+                buttons  : [
+                    {
+                        text: fpcm.ui.translate('extended'),                   
+                        onclick: function() {
+                            var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
+                            jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('.fpcm-filemanager-buttons').fadeToggle();
+                        }
+                    },
+                    {
+                        text: fpcm.ui.translate('close'),                      
+                        onclick: function() {
+                            top.tinymce.activeEditor.windowManager.close();
+                        }
+                    }                            
+                ]
             },
-            onInit : function(ed) {
-
-                ed.on('init', function() {
-                    this.getBody().style.fontSize = fpcmTinyMceDefaultFontsize;
-                    jQuery('#' + this.iframeElement.id).removeAttr('title');                 
-                    fpcm.ui.resize();
-                });
-
-            },
-            onPaste: function(plugin, args) {
-
-
-                var content = fpcm.editor_videolinks.replace(args.content);
-                if (content === args.content) {
-                    return true;
+            {
+                oninsert: function (url, objVals) {
+                    callback(url, objVals);
                 }
+            });
+        };
 
-                fpcm.ui.showLoader(true);
-                args.content = fpcm.editor_videolinks.createFrame(content, true);
-                fpcm.ui.showLoader(false);
+        fpcm.vars.jsvars.editorConfig.onInit = function(ed) {
+
+            ed.on('init', function() {
+                this.getBody().style.fontSize = fpcm.vars.jsvars.editorDefaultFontsize;
+                jQuery('#' + this.iframeElement.id).removeAttr('title');                 
+                fpcm.ui.resize();
+            });
+
+        };
+
+        fpcm.vars.jsvars.editorConfig.onPaste = function(plugin, args) {
+
+
+            var content = fpcm.editor_videolinks.replace(args.content);
+            if (content === args.content) {
+                return true;
             }
-        });
+
+            fpcm.ui.showLoader(true);
+            args.content = fpcm.editor_videolinks.createFrame(content, true);
+            fpcm.ui.showLoader(false);
+        };
+
+        fpcm.editor_tinymce.create(fpcm.vars.jsvars.editorConfig);
    
     },
 

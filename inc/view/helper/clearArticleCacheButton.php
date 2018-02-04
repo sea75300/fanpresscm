@@ -13,7 +13,7 @@
      * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
-    final class editButton extends linkButton {
+    final class clearArticleCacheButton extends button {
 
         /**
          * Optional init function
@@ -22,20 +22,18 @@
         protected function init()
         {
             parent::init();
-            $this->class    .= ' fpcm-ui-button-edit fpcm-loader';
+            $this->class    .= ' fpcm-article-cache-clear';
             $this->iconOnly  = true;
-            $this->setText('GLOBAL_EDIT');
-            $this->setIcon('pencil-square-o');
+            $this->setText('ARTICLES_CACHE_CLEAR');
+            $this->setIcon('recycle');
         }
 
-        final public function setUrlbyObject(\fpcm\model\abstracts\dataset $object)
+        final public function setDatabyObject(\fpcm\model\articles\article $object)
         {
-            if (!method_exists($object, 'getEditLink')) {
-                trigger_error('Invalid parameter for object of class '.get_class($object).', method getEditLink() not found');
-                return $this;
-            }
-
-            $this->url = $object->getEditLink();
+            $this->data      = $object->getArticleCacheParams();
+            $this->readonly  = $object->getEditPermission() ? false : true;
+            $this->name     .= $object->getId();
+            $this->id       .= $object->getId();
             return $this;
         }
 

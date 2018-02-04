@@ -28,13 +28,13 @@
         {
 
             if (version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<')) {
-                die('FanPress CM requires at least PHP '.FPCM_PHP_REQUIRED.' or better!');
+                exit('FanPress CM requires at least PHP '.FPCM_PHP_REQUIRED.' or better!');
             }
 
             \fpcm\classes\http::init();
 
             if (!\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
-                die('You have to install FanPress CM 3 before using it.');
+                exit('You have to install FanPress CM 3 before using it.');
             }
 
         }
@@ -81,7 +81,7 @@
 
             if (!is_a($controller, 'fpcm\controller\abstracts\controller')) {
                 trigger_error("ERROR: The controller for <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>.");
-                die("Controller class <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>. <span class=\"fa fa-frown-o\"></span>");
+                exit("Controller class <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>. <span class=\"fa fa-frown-o\"></span>");
             }
 
             if (!$controller->hasAccess() || !$controller->request()) {

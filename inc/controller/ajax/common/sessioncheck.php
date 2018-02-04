@@ -24,10 +24,10 @@
         public function process() {
             
             if (!is_object($this->session) || !$this->session->exists()) {
-                die('0');
+                exit('0');
             }
             
-            die('1');
+            exit('1');
             
         }
 

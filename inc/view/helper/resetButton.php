@@ -25,6 +25,7 @@
             $this->type   = 'reset';
             $this->class .= ' fpcm-ui-button-reset';
             $this->setText('GLOBAL_RESET');
+            $this->setIcon('exchange');
         }
         
     }

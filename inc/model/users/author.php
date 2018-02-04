@@ -564,7 +564,6 @@
          */
         public function init()
         {
-            
             $item   = $this->dbcon->getTablePrefixed($this->table).'.*, ';
             $item  .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll).'.leveltitle AS groupname';
 
@@ -580,7 +579,11 @@
             
             $this->objExists = true;
             $this->createFromDbObject($data);
-
+        }
+        
+        public function writeOption()
+        {
+            
         }
 
         /**

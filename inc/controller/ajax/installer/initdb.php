@@ -48,15 +48,15 @@
         public function process() {            
 
             if (!file_exists($this->filename) || strpos($this->filename, '.yml') === false) {
-                die('0');
+                exit('0');
             }
 
             $db = new \fpcm\classes\database(false, true);
             if($db->execYaTdl($this->filename)) {
-                die('1');
+                exit('1');
             }
 
-            die('0');
+            exit('0');
         }
 
     }

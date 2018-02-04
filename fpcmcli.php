@@ -71,7 +71,7 @@ class fpcmCLI {
     final private function output($str, $die = false) {
         
         if ($die) {
-            die($str.PHP_EOL);
+            exit($str.PHP_EOL);
         }
 
         print $str.PHP_EOL;

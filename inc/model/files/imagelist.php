@@ -46,7 +46,7 @@
 
             $res = [];
             foreach ($images as $image) {
-                $imageObj = new image('', '', '', false);
+                $imageObj = new image('', false);
                 $imageObj->createFromDbObject($image);
                 $res[$image->filename] = $imageObj;
             }
@@ -109,7 +109,7 @@
 
             $res = [];
             foreach ($images as $image) {
-                $imageObj = new image('', '', '', false);
+                $imageObj = new image('', false);
                 $imageObj->createFromDbObject($image);
                 $res[$image->filename] = $imageObj;
             }

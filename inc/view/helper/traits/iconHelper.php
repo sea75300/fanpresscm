@@ -69,7 +69,7 @@
          */
         protected function getDefaultIconClassString($iconClass)
         {
-            return 'fa fa-fw '.$iconClass;
+            return 'fa fa-fw fa-'.$iconClass;
         }
 
     }

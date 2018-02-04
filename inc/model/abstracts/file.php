@@ -129,7 +129,6 @@
          */
         public function __construct($filename = '')
         {
-
             $this->filename = basename($filename);
             $this->filepath = dirname($filename);
             $this->fullpath = $filename;

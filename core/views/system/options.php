@@ -52,7 +52,7 @@
                     </tr>			 
                     <tr>			
                         <td><?php $theView->lang->write('SYSTEM_OPTIONS_STYLESHEET'); ?>:</td>
-                        <td><?php fpcm\view\helper::textInput('system_css_path', '', $globalConfig['system_css_path']); ?></td>
+                        <td><?php (new \fpcm\view\helper\textarea('system_css_path'))->setValue($globalConfig['system_css_path'], ENT_QUOTES); ?></td>
                     </tr>
                     <tr>
                         <td><?php $theView->lang->write('SYSTEM_OPTIONS_INCLUDEJQUERY'); ?>:</td>

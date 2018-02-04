@@ -190,9 +190,9 @@
             }
             
             $hash = hash(\fpcm\classes\security::defaultHashAlgo, $item);
-            if (isset($checks[$hash])) {
-                return $checks[$hash];
-            }
+//            if (isset($checks[$hash])) {
+//                return $checks[$hash];
+//            }
             
             try {
                 if (file_exists(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, $item))) {
@@ -206,6 +206,11 @@
             }
 
             try {
+                
+                if (substr($item, 0, 4) !== 'http') {
+                    fpcmDump(substr($item, 0, 4), $item);
+                }
+
                 $file_headers = get_headers($item);
                 if (isset($file_headers[0]) && $file_headers[0] === 'HTTP/1.1 200 OK') {
                     $checks[$hash] = $item;

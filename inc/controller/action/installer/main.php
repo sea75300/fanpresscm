@@ -73,7 +73,7 @@
         public function request() {
             
             if (!\fpcm\classes\baseconfig::installerEnabled()) {
-                die('The FanPress CM installer is not enabled!');
+                exit('The FanPress CM installer is not enabled!');
                 trigger_error('Access to disabled installer from ip address '.\fpcm\classes\http::getIp());
                 return false;
             }
@@ -90,7 +90,7 @@
             
             $maxStep = max(array_keys($this->subTemplates));
             
-            if ($this->step > $maxStep) die('Undefined step!');
+            if ($this->step > $maxStep) exit('Undefined step!');
 
             $disabledTabs = array_keys(array_keys($this->subTemplates));
             $disabledTabs = array_slice($disabledTabs, ($this->step === 1 ? 1 : $this->step), $maxStep);

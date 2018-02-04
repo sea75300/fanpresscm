@@ -51,7 +51,7 @@
                 $result = $uploader->processUpload($this->session->getUserId());
 
                 if (!count($result['error']) && count($result['success'])) {
-                    die(json_encode(['location' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $name)]));
+                    exit(json_encode(['location' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $name)]));
                 }
 
             }

@@ -890,7 +890,7 @@
          * Error die
          */
         private function dieError() {
-            die('Connection to database failed!');
+            exit('Connection to database failed!');
         }
 
         /**

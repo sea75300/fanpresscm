@@ -79,7 +79,7 @@ class fpcmAPI {
         $controller = new $controllerName(true);    
 
         if (!is_a($controller, 'fpcm\controller\abstracts\controller')) {
-            die("ERROR: The controller for <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>. ;)");
+            exit("ERROR: The controller for <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>. ;)");
             return false;
         }
 
@@ -102,7 +102,7 @@ class fpcmAPI {
         $controller = new \fpcm\controller\action\pub\showlatest(true);
 
         if (!is_a($controller, 'fpcm\controller\abstracts\controller')) {
-            die("ERROR: The controller for <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>. ;)");
+            exit("ERROR: The controller for <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>. ;)");
             return false;
         }
 

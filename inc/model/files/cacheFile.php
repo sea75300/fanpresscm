@@ -13,7 +13,7 @@
      */
     class cacheFile {
 
-        const EXTENSION_CACHE = '.cache';
+        const EXTENSION_CACHE  = '.cache';
         
         private $path;
 
@@ -24,14 +24,14 @@
         public function __construct($cacheName)
         {
             $cacheName      = explode('/', $cacheName, 2);
-            
+
             $this->module   = isset($cacheName[1]) && trim($cacheName[1]) ? $cacheName[0] : '';
             
             $this->path     = \fpcm\classes\dirs::getDataDirPath(
-                \fpcm\classes\dirs::DATA_CACHE,
+                $this->getType(),
                 $this->initCacheModule($this->module).
                 $this->initCacheName($this->module ? $cacheName[1] : $cacheName[0])
-            ).self::EXTENSION_CACHE;
+            ).$this->getExt();
 
         }
 
@@ -78,7 +78,7 @@
         {
             if (file_exists($this->path)) { 
                 $return = json_decode(file_get_contents($this->path));
-                return $raw ? $return : $return->data;                
+                return $raw ? $return : (isset($return->data) ? $return->data : null);                
             }
             
             return null;
@@ -143,6 +143,24 @@
             }
             
             return md5(strtolower($module)).DIRECTORY_SEPARATOR;
+        }
+
+        /**
+         * Return extension for cache file
+         * @return string
+         */
+        protected function getExt()
+        {
+            return self::EXTENSION_CACHE;
+        }
+
+        /**
+         * Return path type
+         * @return string
+         */
+        protected function getType()
+        {
+            return \fpcm\classes\dirs::DATA_CACHE;
         }
         
     }

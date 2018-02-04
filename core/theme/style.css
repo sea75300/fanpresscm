@@ -936,11 +936,6 @@ div.fpcm-editor-fields-tabs div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-e
     min-width: 85%;
 }
 
-.fpcm-ui-editor-buttons .ui-selectmenu-button {
-    height: 17.666666666666666666666667px;
-    line-height: 17.666666666666666666666667px;
-}
-
 .fpcm-buttons.fpcm-ui-list-buttons a.fpcm-ui-button,
 .fpcm-buttons.fpcm-ui-list-buttons .ui-selectmenu-button,
 .fpcm-filemanager-buttons a {

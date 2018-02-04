@@ -38,4 +38,4 @@ header("Content-Type: text/css");
 if (!FPCM_NOJSCSSPHP_FILESIZE_HEADER) {
     header("Content-Length: ".$data['filesize']);
 }
-die($data['content']);
+exit($data['content']);

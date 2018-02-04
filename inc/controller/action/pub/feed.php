@@ -88,7 +88,7 @@
             }
             
             if (!$this->config->articles_rss) {
-                die($this->lang->translate('RSSFEED_DISABLED'));
+                exit($this->lang->translate('RSSFEED_DISABLED'));
             }
             
             if ($this->iplist->ipIsLocked()) {

@@ -24,7 +24,7 @@
                 <td class="fpcm-ui-articlelist-open">
                     <?php \fpcm\view\helper::linkButton($article->getArticleLink(), 'GLOBAL_FRONTEND_OPEN', '', 'fpcm-ui-button-blank fpcm-openlink-btn', '_blank'); ?>
                     <?php \fpcm\view\helper::editButton($article->getEditLink(), $article->getEditPermission() ); ?>
-                    <?php \fpcm\view\helper::clearCacheButton($article->getArticleCacheParams(), $article->getEditPermission(), 'fpcm-ui-button-blank fpcm-article-cache-clear'); ?>
+                    <?php (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article); ?>
                 </td>
                 <td>
                     <div class="fpcm-ui-ellipsis">

@@ -128,33 +128,6 @@ final class helper {
     }
 
     /**
-     * Erzeugt Link-basierte Bearbeiten-Button
-     * @param array $params Array mit Paramatern
-     * @param bool $active Button ist aktiv
-     * @param string $class CSS-Klasse
-     * @param bool $isButton
-     */
-    public static function clearCacheButton(array $params, $active = true, $class = '', $isButton = false)
-    {
-        $descr = self::$language->translate('ARTICLES_CACHE_CLEAR');
-
-        if (!$active) {
-            print "<span class=\"fpcm-ui-button fpcm-ui-button-blank fpcm-loader fpcm-article-cache-clear fpcm-ui-readonly\" title=\"$descr\">" . $descr . "</span>\n";
-            return;
-        }
-
-        foreach ($params as $key => &$val) {
-            $val = "data-{$key}=\"{$val}\"";
-        }
-
-        $params = implode(' ', $params);
-
-        $tag = $isButton ? 'button' : 'span';
-
-        print "<{$tag} class=\"fpcm-ui-button fpcm-ui-button-blank fpcm-loader fpcm-button-recycle $class\" title=\"$descr\" {$params}>" . $descr . "</{$tag}>\n";
-    }
-
-    /**
      * Erzeugt Input
      * @param string $name Name des Buttons
      * @param string $class CSS-Klasse
@@ -259,7 +232,7 @@ final class helper {
      */
     public static function textArea($name, $class = '', $value = '', $readonly = false)
     {
-        (new helper\textarea($name))->setClass($class)->setValue($value)->setReadonly($readonly);
+        (new helper\textarea($name))->setClass($class)->setValue($value, ENT_QUOTES)->setReadonly($readonly);
     }
 
     /**
