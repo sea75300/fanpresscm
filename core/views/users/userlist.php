@@ -35,7 +35,7 @@
                             <td><a href="mailto:<?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?>"><?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?></a>
                                 <?php (new \fpcm\view\helper\badge('user_article_count'.$user->getId()))
                                         ->setValue(isset($articleCounts[$user->getId()]) ? $articleCounts[$user->getId()] : 0)
-                                        ->setIcon('fa-book')
+                                        ->setIcon('book')
                                         ->setText('USERS_ARTICLE_COUNT');
                                 ?>
                             </td>
@@ -83,7 +83,7 @@
                             <td><a href="mailto:<?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?>"><?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?></a>
                                 <?php (new \fpcm\view\helper\badge('user_article_count'.$user->getId()))
                                         ->setValue(isset($articleCounts[$user->getId()]) ? $articleCounts[$user->getId()] : 0)
-                                        ->setIcon('fa-book')
+                                        ->setIcon('book')
                                         ->setText('USERS_ARTICLE_COUNT');
                                 ?>
                             </td>
