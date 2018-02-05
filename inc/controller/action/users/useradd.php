@@ -68,10 +68,7 @@
         }
         
         public function process() {
-            
-            
             $userRolls = new \fpcm\model\users\userRollList();         
-            $this->view->setHelpLink('hl_options');
             $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());            
             $this->view->assign('author', $this->author);
             $this->view->assign('avatar', false);
@@ -85,6 +82,11 @@
             ]);
 
             $this->view->render();            
+        }
+
+        protected function getHelpLink()
+        {
+            return 'hl_options';
         }
 
     }

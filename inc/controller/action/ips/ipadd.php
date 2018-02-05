@@ -54,8 +54,12 @@
             
             
             $this->view->addJsVars(['fpcmFieldSetAutoFocus' => 'ipaddress']);
-            $this->view->setHelpLink('hl_options');
             $this->view->render();            
+        }
+
+        protected function getHelpLink()
+        {
+            return 'hl_options';
         }
 
     }

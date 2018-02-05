@@ -208,8 +208,6 @@
             }
 
             $this->view->assign('smtpActive', $smtpActive);
-
-            $this->view->setHelpLink('hl_options');
             $this->view->addJsFiles(['options.js']);
             $this->view->addJsVars([
                 'showTwitter'   => $showTwitter ? 1 : 0,
@@ -218,6 +216,11 @@
             ]);
             
             $this->view->render();            
+        }
+
+        protected function getHelpLink()
+        {
+            return 'hl_options';
         }
         
     }

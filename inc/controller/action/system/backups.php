@@ -64,8 +64,12 @@
             rsort($files);
             
             $this->view->assign('folderList', $files);
-            $this->view->setHelpLink('hl_options');
             $this->view->render();
+        }
+
+        protected function getHelpLink()
+        {
+            return 'hl_options';
         }
         
     }

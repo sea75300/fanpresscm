@@ -387,12 +387,20 @@
 
         /**
          * Set link for help button
-         * @param string $helpLink
+         * @param string $entry
          * @since FPCM 3.5
          */
-        public function setHelpLink($helpLink)
+        public function setHelpLink($entry)
         {
-            $this->defaultViewVars->helpLink = $helpLink;
+            if (!trim($entry)) {
+                return false;
+            }
+            
+            $this->defaultViewVars->helpLink = \fpcm\classes\tools::getFullControllerLink('system/help', [
+                'ref' => base64_encode(strtolower($entry))
+            ]);
+            
+            return true;
         }
 
         /**

@@ -12,8 +12,8 @@
 
             <div id="tabs-installer-<?php print md5($subTemplate); ?>">
                 <div class="fpcm-installer-progressbar fpcm-half-width fpcm-ui-margin-center"></div>
-                <?php if (file_exists(__DIR__.'/'.$subTemplate.'.php')) : ?>                
-                    <?php include_once __DIR__.'/'.$subTemplate.'.php'; ?>
+                <?php if ($theView->getIncludePath('installer/'.$subTemplate.'.php')) : ?>                
+                    <?php include $theView->getIncludePath('installer/'.$subTemplate.'.php'); ?>
                 <?php else : ?>
                     <p class="fpcm-ui-center"><?php $theView->lang->write('GLOBAL_NOTFOUND'); ?></p>
                 <?php endif; ?>

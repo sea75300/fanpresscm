@@ -146,7 +146,6 @@
             $this->view->assign('defaultFontsizes', \fpcm\model\system\config::getDefaultFontsizes());
             $this->view->assign('showExtended', true);
             $this->view->assign('showImage', true);
-            $this->view->setHelpLink('hl_options');
             
             $userList = new \fpcm\model\users\userList();
             $showDisableButton = (!$this->userEnabled && ($this->userId == $this->session->getUserId() || $userList->countActiveUsers() == 1))
@@ -166,6 +165,11 @@
             ]);
             
             $this->view->render();            
+        }
+
+        protected function getHelpLink()
+        {
+            return 'hl_options';
         }
 
     }

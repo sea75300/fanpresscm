@@ -50,13 +50,14 @@
         }
         
         public function process() {
-            
-
             $list = $this->smileyList->getDatabaseList();
-
-            $this->view->setHelpLink('hl_options');
             $this->view->assign('list', $list);            
             $this->view->render();
+        }
+
+        protected function getHelpLink()
+        {
+            return 'hl_options';
         }
 
     }

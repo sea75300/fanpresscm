@@ -31,9 +31,13 @@
                 'log' => ''
             ]));
             $this->view->addJsFiles(['logs.js']);
-            $this->view->setHelpLink('hl_options');
             
             $this->view->render();
+        }
+
+        protected function getHelpLink()
+        {
+            return 'hl_options';
         }
         
     }

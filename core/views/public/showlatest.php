@@ -1,5 +1,5 @@
-<?php include_once dirname(__DIR__).'/common/includefiles.php'; ?>
-<?php include_once dirname(__DIR__).'/common/vars.php'; ?>
+<?php include $theView->getIncludePath('/common/includefiles.php'); ?>
+<?php include $theView->getIncludePath('/common/vars.php'); ?>
 
 <?php print $content; ?>
 

@@ -47,11 +47,15 @@
                 $this->view->setMessage('Selected module not found in installed modules!');
                 return $this->view->render();
             }
-            
+
             $this->events->runEvent('acpConfig', $this->moduleKey);
-            $this->view->setHelpLink('hl_modules');
             $this->view->render();
             
+        }
+
+        protected function getHelpLink()
+        {
+            return 'hl_modules';
         }
         
     }

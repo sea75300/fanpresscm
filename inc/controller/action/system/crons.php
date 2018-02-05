@@ -30,8 +30,12 @@
             $this->view->assign('cronjobList', $cronlist->getCronsData());
             $this->view->assign('currentTime', time());
             $this->view->addJsFiles(['crons.js']);
-            $this->view->setHelpLink('hl_options');
             $this->view->render();
+        }
+
+        protected function getHelpLink()
+        {
+            return 'hl_options';
         }
         
     }

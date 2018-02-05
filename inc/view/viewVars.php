@@ -32,6 +32,27 @@
      * @property bool   $loggedIn
      * @property \fpcm\classes\language $lang
      * @property \fpcm\model\users\author $currentUser
+     * 
+     * @method helper\badge         badge(string $name [, string $id])
+     * @method helper\boolSelect    boolSelect(string $name [, string $id])
+     * @method helper\boolToText    boolToText(string $name [, string $id])
+     * @method helper\button        button(string $name [, string $id])
+     * @method helper\checkbox      checkbox(string $name [, string $id])
+     * @method helper\clearArticleCacheButton clearArticleCacheButton(string $name [, string $id])
+     * @method helper\deleteButton  deleteButton(string $name [, string $id])
+     * @method helper\editButton    editButton(string $name [, string $id])
+     * @method helper\hiddenInput   hiddenInput(string $name [, string $id])
+     * @method helper\input         input(string $name [, string $id])
+     * @method helper\linkButton    linkButton(string $name [, string $id])
+     * @method helper\openButton    openButton(string $name [, string $id])
+     * @method helper\passwordInput passwordInput(string $name [, string $id])
+     * @method helper\radiobutton   radiobutton(string $name [, string $id])
+     * @method helper\resetButton   resetButton(string $name [, string $id])
+     * @method helper\saveButton    saveButton(string $name [, string $id])
+     * @method helper\select        select(string $name [, string $id])
+     * @method helper\submitButton  submitButton(string $name [, string $id])
+     * @method helper\textInput     textInput(string $name [, string $id])
+     * @method helper\textarea      textarea(string $name [, string $id])
      */ 
     class viewVars {
         

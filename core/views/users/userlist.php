@@ -136,8 +136,7 @@
             <?php endif; ?>
         </div>
 
-        <?php include_once __DIR__.'/userlist_dialogs.php'; ?>
-        
-        <?php \fpcm\view\helper::pageTokenField(); ?>
+        <?php include $theView->getIncludePath('users/userlist_dialogs.php'); ?>        
+        <?php (new fpcm\view\helper\pageTokenField('pgtkn')); ?>
     </form>
 </div>

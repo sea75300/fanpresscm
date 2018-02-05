@@ -136,8 +136,7 @@
             $this->view->assign('inProfile', true);
             $this->view->assign('showExtended', true);
             $this->view->assign('showImage', true);
-            $this->view->setHelpLink('hl_profile');
-            
+
             $this->view->addJsVars(array(
                 'fpcmDtMasks'       => $this->getDateTimeMasks(),
                 'fpcmReloadPage'    => $this->reloadSite,
@@ -153,6 +152,11 @@
             ]);
 
             $this->view->render();            
+        }
+
+        protected function getHelpLink()
+        {
+            return 'hl_profile';
         }
 
     }

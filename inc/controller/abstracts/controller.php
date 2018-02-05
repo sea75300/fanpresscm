@@ -177,6 +177,7 @@
             }
             
             $this->view = new \fpcm\view\view($viewPath);
+            $this->view->setHelpLink($this->getHelpLink());
             return true;
         }
 
@@ -264,6 +265,15 @@
          * @return string
          */
         protected function getViewPath()
+        {
+            return '';
+        }
+
+        /**
+         * Get help link
+         * @return string
+         */
+        protected function getHelpLink()
         {
             return '';
         }

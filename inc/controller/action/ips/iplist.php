@@ -68,9 +68,12 @@
             
             $this->view->assign('ipList', $this->ipList->getIpAll());
             $this->view->assign('users', $userList->getUsersAll());
+            $this->view->render();
+        }
 
-            $this->view->setHelpLink('hl_options');
-            $this->view->render();            
+        protected function getHelpLink()
+        {
+            return 'hl_options';
         }
 
     }

@@ -34,22 +34,20 @@
                     </div>
 
                     <?php if ($commentEnabledGlobal) : ?>
-                    <?php \fpcm\view\helper::badge([
-                        'value' => (isset($commentCount[$articleId]) ? $commentCount[$articleId] : 0),
-                        'title' => (isset($commentPrivateUnapproved[$articleId]) && $commentPrivateUnapproved[$articleId] ? 'ARTICLE_LIST_COMMENTNOTICE' : 'HL_COMMENTS_MNG'),
-                        'class' => (isset($commentPrivateUnapproved[$articleId]) && $commentPrivateUnapproved[$articleId] ? 'fpcm-ui-badge-red fpcm-ui-badge-comments' : 'fpcm-ui-badge-comments')]);
-                    ?>
+                    <?php (new \fpcm\view\helper\badge('badge'.$articleId)) 
+                                ->setClass( (isset($commentPrivateUnapproved[$articleId]) && $commentPrivateUnapproved[$articleId] ? 'fpcm-ui-badge-red fpcm-ui-badge-comments' : 'fpcm-ui-badge-comments') )
+                                ->setText( (isset($commentPrivateUnapproved[$articleId]) && $commentPrivateUnapproved[$articleId] ? 'ARTICLE_LIST_COMMENTNOTICE' : 'HL_COMMENTS_MNG') )
+                                ->setValue( (isset($commentCount[$articleId]) ? $commentCount[$articleId] : 0) ); ?>
                     <?php endif; ?>
 
                     <div class="fpcm-ui-editor-metabox-left fpcm-articlelist-categories fpcm-hidden">
                         <strong><?php $theView->lang->write('HL_CATEGORIES_MNG'); ?>:</strong>
                         <?php print implode(', ', $article->getCategories()); ?>
                     </div>
-                    
-                    <?php include dirname(__DIR__).'/times.php'; ?>
+                    <?php include $theView->getIncludePath('articles/times.php'); ?>
                 </td>                
                 <td class="fpcm-ui-center fpcm-td-articlelist-categories"><?php print implode(', ', $article->getCategories()); ?></td>
-                <td class="fpcm-td-articlelist-meta"><?php include dirname(__DIR__).'/metainfo.php'; ?></td>
+                <td class="fpcm-td-articlelist-meta"><?php include $theView->getIncludePath('articles/metainfo.php'); ?></td>
                 <td class="fpcm-td-select-row">
                 <?php if ($article->getEditPermission()) : ?>                    
                     <?php fpcm\view\helper::checkbox('actions[ids][]', 'fpcm-list-selectbox fpcm-list-selectbox-sub'.$articleMonth, $articleId, '', 'chbx'.$articleId, false); ?>
@@ -62,4 +60,4 @@
     <?php endforeach; ?>
 </table>
 
-<?php include dirname(dirname(__DIR__)).'/components/pager.php'; ?>
+<?php include $theView->getIncludePath('components/pager.php'); ?>

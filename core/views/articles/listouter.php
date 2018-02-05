@@ -26,7 +26,7 @@
 
         </div>
         
-        <?php \fpcm\view\helper::pageTokenField(); ?>
+        <?php (new fpcm\view\helper\pageTokenField('pgtkn')); ?>
     </form>
 
     <?php include $theView->getIncludePath('articles/searchform.php'); ?>

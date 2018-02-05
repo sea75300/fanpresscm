@@ -6,6 +6,6 @@
         <?php $showExtended      = false; ?>
         <?php $showImage         = false; ?>
         <?php $avatar            = false; ?>
-        <?php include_once dirname(__DIR__).'/users/usereditor.php'; ?>        
+        <?php include $theView->getIncludePath('users/usereditor.php'); ?>
     </div>
 </div>

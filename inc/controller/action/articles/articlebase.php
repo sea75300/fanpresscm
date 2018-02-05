@@ -52,7 +52,12 @@
             parent::__construct();
             $this->categoryList = new \fpcm\model\categories\categoryList();
         }
-        
+
+        protected function getHelpLink()
+        {
+            return 'articles_editor';
+        }
+
         public function process()
         {
             $this->editorPlugin = $this->getEditorPlugin();            
@@ -81,7 +86,6 @@
             $this->view->assign('isRevision', false);
             $this->view->assign('timesMode', false);
             $this->view->assign('userfields', $this->getUserFields());
-            $this->view->setHelpLink('articles_editor');
 
             $twitter = new \fpcm\model\system\twitter();
             $twitterOk = $twitter->checkRequirements();

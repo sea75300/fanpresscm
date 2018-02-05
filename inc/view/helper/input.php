@@ -86,7 +86,11 @@
             $this->placeholder = (bool) $placeholder;
             return $this;
         }
-        
+
+        /**
+         * Placeholder string
+         * @return string
+         */
         protected function getPlaceholderString()
         {
             return ($this->placeholder  ? "placeholder=\"{$this->text}\"" : '');

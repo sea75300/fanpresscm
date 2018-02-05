@@ -3,7 +3,7 @@
      <ul class="fpcm-menu-top">
      <?php if ($theView->helpLink) : ?>
          <li class="fpcm-menu-top-level1 fpcm-ui-helplink">
-             <a href="<?php \fpcm\view\helper::printHelpLink($theView->helpLink); ?>" title="<?php $theView->lang->write('HELP_BTN_OPEN'); ?>">
+             <a href="<?php print $theView->helpLink; ?>" title="<?php $theView->lang->write('HELP_BTN_OPEN'); ?>">
                  <span class="fa fa-question-circle fa-lg fa-fw"></span>
              </a>
          </li>
@@ -51,7 +51,7 @@
                  <span class="fpcm-ui-center fpcm-navicon fa fa-play fa-lg fa-fw"></span>
              </a>
          </li>
-         <?php if (!empty($notificationsString)) : ?><?php print $notificationsString; ?><?php endif; ?>
+         <?php print $theView->notificationString; ?>
      </ul>
 
      <div class="fpcm-clear"></div>

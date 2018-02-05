@@ -99,11 +99,14 @@
             $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', $translInfo));
             $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('modules/list'));
             $this->view->assign('styleLeftMargin', true);
-
-            $this->view->setHelpLink('hl_modules');
             $this->view->assign('moduleActions', $this->moduleActions);
             $this->view->render();
             
+        }
+
+        protected function getHelpLink()
+        {
+            return 'hl_modules';
         }
         
     }

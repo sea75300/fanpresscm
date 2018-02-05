@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 
-                <?php \fpcm\view\helper::pageTokenField(); ?>
+                <?php (new fpcm\view\helper\pageTokenField('pgtkn')); ?>
                 
             </form> 
         </div>

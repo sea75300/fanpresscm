@@ -74,9 +74,13 @@
             ));
 
             $this->view->assign('item', $this->item);
-            $this->view->setHelpLink('hl_options');
             $this->view->render();
 
+        }
+
+        protected function getHelpLink()
+        {
+            return 'hl_options';
         }
 
     }

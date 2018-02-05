@@ -9,12 +9,12 @@
                 <li><a href="#tabs-user-meta"><?php $theView->lang->write('USERS_META_OPTIONS'); ?></a></li>
             </ul>            
             
-            <div id="tabs-user">                
-               <?php include dirname(__DIR__).'/users/usereditor.php' ?>                
+            <div id="tabs-user">
+                <?php include $theView->getIncludePath('users/usereditor.php'); ?>
             </div>
             
-            <div id="tabs-user-meta">                
-               <?php include dirname(__DIR__).'/users/editormeta.php' ?>                
+            <div id="tabs-user-meta">
+                <?php include $theView->getIncludePath('/users/editormeta.php'); ?>
             </div>            
         </div>
         

@@ -287,7 +287,7 @@
 
             <?php if ($showTwitter) : ?>
             <div id="tabs-options-twitter">
-                <?php include_once __DIR__.'/twitter.php'; ?>
+                <?php include $theView->getIncludePath('system/twitter.php'); ?>
             </div> 
             <?php endif; ?>
 
@@ -301,7 +301,7 @@
             </div>
         </div>
 
-        <?php \fpcm\view\helper::pageTokenField(); ?>
+        <?php (new fpcm\view\helper\pageTokenField('pgtkn')); ?>
         
     </form> 
 </div>

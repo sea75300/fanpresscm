@@ -151,16 +151,6 @@ final class helper {
     }
 
     /**
-     * Erzeugt hidden Inout-Feld
-     * @param string $name Name des Buttons
-     * @param string $value Wert
-     */
-    public static function hiddenInput($name, $value = '')
-    {
-        (new helper\hiddenInput($name))->setValue($value);
-    }
-
-    /**
      * Erzeugt Passwort-Input
      * @param string $name Name des Buttons
      * @param string $class CSS-Klasse
@@ -344,28 +334,6 @@ final class helper {
     }
 
     /**
-     * Erzeugt verstecktes Feld mit Page-Token zur Absicherung gegen Cross-Site-Request-Forgery
-     */
-    public static function pageTokenField()
-    {
-        $tokenValue = \fpcm\classes\security::createPageToken();
-        self::hiddenInput(\fpcm\classes\security::getPageTokenFieldName(), $tokenValue);
-    }
-
-    /**
-     * Erzeugt Link für "Hilfe"-Button welcher Hilfe-Seite aufruft und entsprechende Kapitel öffnet
-     * @param string $entry
-     * @return string
-     * @since FPCM 3.5
-     */
-    public static function printHelpLink($entry)
-    {
-        print \fpcm\classes\tools::getFullControllerLink('system/help', [
-            'ref' => base64_encode(strtolower($entry))
-        ]);
-    }
-
-    /**
      * Erzeugt einen "Hilfe"/"Information"-Fragezeichen-Button, wie in System-Optionen, System-Check, etc genutzt.
      * @param type $description Beschreibung für Tooltip
      * @param type $style
@@ -417,22 +385,6 @@ final class helper {
         include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'components/progress.php');
     }
 
-    /**
-     * CSS-basierter Badge
-     * @param array $params [class, value, title]
-     * @since FPCM 3.6
-     */
-    public static function badge(array $params)
-    {
-        if (!isset($params['class'])) {
-            $params['class'] = '';
-        }
-
-        (new helper\badge(uniqid('_badge')))
-                ->setClass($params['class'])
-                ->setText($params['title'])
-                ->setValue($params['value']);
-    }
 }
 
 ?>

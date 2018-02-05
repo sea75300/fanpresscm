@@ -62,4 +62,4 @@
 
 <span id="fpcm-filelist-images-finished"></span>
 
-<?php include dirname(__DIR__).'/components/pager.php'; ?>
+<?php include $theView->getIncludePath('components/pager.php'); ?>

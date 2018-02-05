@@ -77,6 +77,11 @@
            
             return $this->processCommentActions($this->list);
         }
+
+        protected function getHelpLink()
+        {
+            return 'hl_comments_mng';
+        }
         
         /**
          * @see \fpcm\controller\abstracts\controller::process()
@@ -99,7 +104,6 @@
             
             $this->view->assign('commentsMode', 1);
             $this->view->assign('showPager', true);
-            $this->view->setHelpLink('hl_comments_mng');
             $this->view->render();
         }
         

@@ -258,7 +258,7 @@
          */
         final public function setText($text, $params = [])
         {
-            $this->text = $this->language->translate($text, $params); //$this->language->translate($text, $params);
+            $this->text = $this->language->translate($text, $params);
             return $this;
         }
 

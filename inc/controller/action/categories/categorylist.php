@@ -51,6 +51,11 @@
             
             return true;            
         }
+
+        protected function getHelpLink()
+        {
+            return 'hl_options';
+        }
         
         public function process() {
             
@@ -63,7 +68,6 @@
             }
             
             $this->view->assign('categorieList', $categoryList);
-            $this->view->setHelpLink('hl_options');
             
             $this->view->render();
         }

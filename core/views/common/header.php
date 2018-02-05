@@ -34,7 +34,7 @@
         </div>
         
         <?php if (isset($includeManualCheck) && $includeManualCheck) : ?>
-        <?php include_once __DIR__.'/updatemancheck.php'; ?>
+        <?php include $theView->getIncludePath('common/updatemancheck.php'); ?>
         <?php endif; ?>
         
         <div class="fpcm-wrapper <?php if (in_array($theView->currentModule, array('system/login', 'installer'))) : ?>fpcm-wrapper-fixed<?php endif; ?>" id="fpcm-wrapper-right">
