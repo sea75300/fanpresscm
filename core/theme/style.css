@@ -439,7 +439,7 @@ table.fpcm-ui-options div.fpcm-ui-input-wrapper {
   background-position: -64px -144px !important;
 }
 
-textarea.fpcm-options-cssclasses {
+textarea.fpcm-ui-options-cssclasses {
     height: 150px;
     width: 400px;
 }
@@ -889,7 +889,7 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-icon {
     line-height: 2em;
 }
 
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col .fpcm-ui-shorthelp {
+div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col .fpcm-ui-button-shorthelp {
     margin-top: 0.4em;
 }
 
@@ -1406,12 +1406,12 @@ span.fpcm-ui-booltext-no {
 a:hover, a:focus, a:active,
 .fpcm-dashboard-updates-current,
 .fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li.fpcm-ui-helplink a,
-span.fpcm-ui-shorthelp:hover,
+span.fpcm-ui-button-shorthelp:hover,
 span.fpcm-ui-booltext-yes {
     color: #3399ff;
 }
 
-span.fpcm-ui-shorthelp {
+span.fpcm-ui-button-shorthelp {
     color: #0048A9;
 }
 

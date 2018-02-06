@@ -15,7 +15,7 @@
             <td><?php $theView->lang->write('SYSTEM_OPTIONS_DATETIMEMASK'); ?>:</td>
             <td>
                 <?php \fpcm\view\helper::textInput('usermeta[system_dtmask]', '', $author->getUserMeta('system_dtmask')); ?>
-                <?php \fpcm\view\helper::shortHelpButton($theView->lang->translate('SYSTEM_OPTIONS_DATETIMEMASK_HELP'), '', 'http://us2.php.net/manual/function.date.php', '_blank'); ?>
+                <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
             </td>
         </tr>
         <tr>

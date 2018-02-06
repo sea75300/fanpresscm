@@ -13,7 +13,7 @@
     <?php endif; ?>
     <tr>
         <td>
-            <?php (new fpcm\view\helper\textInput('article[title]'))->setClass('fpcm-full-width')->setValue($article->getTitle()); ?>
+            <?php $theView->textInput('article[title]')->setClass('fpcm-full-width')->setValue($article->getTitle()); ?>
         </td>
     </tr>
     <tr>
@@ -84,7 +84,7 @@
     </tr>
     <tr>
         <td style="font-size: <?php print $editorDefaultFontsize; ?>">
-            <?php (new fpcm\view\helper\textarea('article[content]'))->setClass('fpcm-full-width')->setValue($article->getContent(), ENT_QUOTES); ?>
+            <?php $theView->textarea('article[content]')->setClass('fpcm-full-width')->setValue($article->getContent(), ENT_QUOTES); ?>
         </td>
     </tr>
 </table>

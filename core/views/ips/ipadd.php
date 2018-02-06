@@ -37,6 +37,6 @@
             </div>
         </div>
         
-        <?php (new fpcm\view\helper\pageTokenField('pgtkn')); ?>
+        <?php $theView->pageTokenField('pgtkn'); ?>
     </form>
 </div>

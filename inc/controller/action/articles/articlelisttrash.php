@@ -23,11 +23,6 @@
         }
         
         public function request() {
-            
-            if (!$this->config->articles_trash) {
-                return false;
-            }
-
             $res = parent::request();
             $this->articleItems = $this->articleList->getArticlesDeleted(true);
 

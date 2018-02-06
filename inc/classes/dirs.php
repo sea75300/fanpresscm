@@ -65,8 +65,6 @@
                 return false;
             }
 
-            
-            
             $GLOBALS['fpcm']['urls']['base'] = (baseconfig::canHttps() ? 'https://' : 'http://').$_SERVER['HTTP_HOST']. dirname($_SERVER['PHP_SELF']).'/';
             $GLOBALS['fpcm']['urls']['data'] = $GLOBALS['fpcm']['urls']['base'].'data/';
             $GLOBALS['fpcm']['urls']['core'] = $GLOBALS['fpcm']['urls']['base'].'core/';

@@ -230,7 +230,7 @@
          * @return boolean
          */
         protected function doTrash() {
-            if (!$this->deleteActions || !$this->config->articles_trash) return false;            
+            if (!$this->deleteActions) return false;            
             return $this->articleList->emptyTrash();
         }
         
@@ -240,7 +240,7 @@
          * @return boolean
          */
         protected function doRestore(array $ids) {
-            if (!$this->deleteActions || !$this->config->articles_trash) return false;            
+            if (!$this->deleteActions) return false;            
             return $this->articleList->restoreArticles($ids);
         }
 

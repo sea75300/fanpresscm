@@ -137,6 +137,6 @@
         </div>
 
         <?php include $theView->getIncludePath('users/userlist_dialogs.php'); ?>        
-        <?php (new fpcm\view\helper\pageTokenField('pgtkn')); ?>
+        <?php $theView->pageTokenField('pgtkn'); ?>
     </form>
 </div>

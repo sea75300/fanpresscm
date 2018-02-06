@@ -291,13 +291,9 @@
             
             $where = 'id IN ('.implode(', ', $ids).')';
             
-            if ($this->config->articles_trash) {
-                $res = $this->dbcon->update($this->table, array('deleted', 'pinned'), array(1,0), $where);
-            } else {
-                $res = $this->dbcon->delete($this->table, $where);
-            }
+            $res = $this->dbcon->update($this->table, array('deleted', 'pinned'), array(1,0), $where);
 
-            if ($res && !$this->config->articles_trash) {
+            if ($res) {
                 $commentList = new \fpcm\model\comments\commentList();
                 $commentList->deleteCommentsByArticle($ids);
             }            
@@ -313,7 +309,6 @@
          * @return bool
          */
         public function restoreArticles(array $ids) {
-            if (!$this->config->articles_trash) return false;
             $this->cache->cleanup();
             return $this->dbcon->update($this->table, array('deleted'), array(0), 'id IN ('.implode(', ', $ids).') AND deleted = 1');
         }
@@ -334,7 +329,6 @@
          * @return bool
          */
         public function emptyTrash() {
-            if (!$this->config->articles_trash) return false;
             return $this->dbcon->delete($this->table, 'deleted = 1');
         }
 
@@ -494,20 +488,10 @@
                 return false;
             }
 
-            if ($this->config->articles_trash) {
-                $res = $this->dbcon->update($this->table, array('deleted', 'pinned'), [1,0, $userId], 'createuser = ?');
-                $this->cache->cleanup();
-                return $res;
-            }
 
-            $res = $this->dbcon->delete($this->table, 'createuser = ?', [$userId]);
-
-            if ($res) {
-                $subQuery = 'SELECT id FROM '. $this->dbcon->getTablePrefixed($this->table).' WHERE createuser = ?';
-                $this->dbcon->delete(\fpcm\classes\database::tableComments, 'articleid IN ('.$subQuery.')', [$userId]);
-            }
-
+            $res = $this->dbcon->update($this->table, array('deleted', 'pinned'), [1,0, $userId], 'createuser = ?');
             $this->cache->cleanup();
+
             return $res;
         }
 

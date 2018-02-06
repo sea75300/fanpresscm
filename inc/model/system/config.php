@@ -34,7 +34,6 @@
      * @property int    $system_updates_manual Interval für manuelle Update-Prüfung
      * 
      * @property bool   $articles_revisions Revisionen aktiv
-     * @property bool   $articles_trash Papierkorb aktiv
      * @property int    $articles_limit Artikel pro Seite im Fronend
      * @property string $articles_template_active aktives Template für Artikel-Liste
      * @property string $article_template_active aktives Template für Artikel-Einzel-Ansicht

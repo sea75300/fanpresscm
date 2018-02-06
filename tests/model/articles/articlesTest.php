@@ -199,9 +199,7 @@ class articlesTest extends testBase {
 
     public function testGetArticlesDeleted() {
         
-        if (!loader::getObject('\fpcm\model\system\config')->articles_trash) {
-            $this->markTestSkipped('Trash not enabled');
-        }
+        $this->markTestSkipped('Trash not enabled');
         
         $data = $this->object->getArticlesDeleted();
 
@@ -217,10 +215,8 @@ class articlesTest extends testBase {
     }
 
     public function testEmptyTrash() {
-        
-        if (!loader::getObject('\fpcm\model\system\config')->articles_trash) {
-            $this->markTestSkipped('Trash not enabled');
-        }
+
+        $this->markTestSkipped('Trash not enabled');
 
         $result = $this->object->emptyTrash();
         $this->assertTrue($result);

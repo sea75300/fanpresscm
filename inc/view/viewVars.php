@@ -50,6 +50,7 @@
      * @method helper\resetButton   resetButton(string $name [, string $id])
      * @method helper\saveButton    saveButton(string $name [, string $id])
      * @method helper\select        select(string $name [, string $id])
+     * @method helper\shorthelpButton shorthelpButton(string $name [, string $id])
      * @method helper\submitButton  submitButton(string $name [, string $id])
      * @method helper\textInput     textInput(string $name [, string $id])
      * @method helper\textarea      textarea(string $name [, string $id])
@@ -84,6 +85,28 @@
             $this->vars[$name] = $value;
         }
 
+        /**
+         * Return a view helper object
+         * @param string $name
+         * @param array $arguments
+         * @return helper
+         */
+        public function __call($name, array $arguments)
+        {
+            $helperClass = 'fpcm\\view\\helper\\'.$name;
+            if (!class_exists($helperClass)) {
+                trigger_error('View helper '.$name.' does not exists.');
+                exit('View helper '.$name.' does not exists.');
+            }
+            
+            if (empty($arguments[0]) || !is_string($arguments[0])) {
+                trigger_error('Invalid view helper params found for name of'.$name);
+                exit('Invalid view helper params found for name of'.$name);
+            }
+
+            return new $helperClass($arguments[0], (isset($arguments[0]) ? $arguments[0] : ''));
+        }
+        
         /**
          * Return view include path
          * @param string $view

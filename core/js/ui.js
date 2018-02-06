@@ -241,7 +241,12 @@ fpcm.ui = {
             params = {};
         }
 
-        if (params.width === undefined) {
+        var dataWidth = jQuery(elemClassId).attr('data-width');
+
+        if (dataWidth) {
+            params.width = dataWidth;
+        }
+        else if (params.width === undefined) {
             params.width = 200;
         }
 

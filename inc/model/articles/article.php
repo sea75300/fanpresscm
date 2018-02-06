@@ -724,10 +724,9 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function delete()
     {
-
         $this->cleanupCaches();
 
-        if ($this->config->articles_trash && !$this->forceDelete) {
+        if (!$this->forceDelete) {
             $this->deleted = 1;
 
             return $this->update();

@@ -131,7 +131,6 @@
         'SYSTEM_OPTIONS_NEWS_BYAUTHOR'              => 'Autor',
         'SYSTEM_OPTIONS_NEWS_ORDERASC'              => 'Aufsteigend',
         'SYSTEM_OPTIONS_NEWS_ORDERDESC'             => 'Absteigend',
-        'SYSTEM_OPTIONS_NEWS_ENABLETRASH'           => 'Papierkorb aktivieren',
         'SYSTEM_OPTIONS_NEWS_ENABLEFEED'            => 'RSS-Feed ist aktiv',
 
         'SYSTEM_OPTIONS_EXTENDED_EMAILUPDATES'      => 'E-Mail-Benachrichtigung, wenn Updates verfügbar',

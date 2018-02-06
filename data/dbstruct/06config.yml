@@ -116,117 +116,113 @@ defaultvalues:
             config_value: "1"
         23:
             id: 23
-            config_name: "articles_trash"
-            config_value: "1"
-        24:
-            id: 24
             config_name: "articles_limit"
             config_value: "5"
-        25:
-            id: 25
+        24:
+            id: 24
             config_name: "articles_template_active"
             config_value: "articlelist"
-        26:
-            id: 26
+        25:
+            id: 25
             config_name: "articles_archive_show"
             config_value: "1"
-        27:
-            id: 27
+        26:
+            id: 25
             config_name: "articles_sort"
             config_value: "createtime"
-        28:
-            id: 28
+        27:
+            id: 27
             config_name: "articles_sort_order"
             config_value: "DESC"
-        29:
-            id: 29
+        28:
+            id: 28
             config_name: "article_template_active"
             config_value: "articlesingle"
-        30:
-            id: 30
+        29:
+            id: 29
             config_name: "articles_rss"
             config_value: "1"
-        31:
-            id: 31
+        30:
+            id: 30
             config_name: "articles_acp_limit"
             config_value: "100"
+        30:
+            id: 31
+            config_name: "articles_archive_datelimit"
+            config_value: "0"
         32:
             id: 32
-            config_name: "articles_archive_datelimit"
+            config_name: "articles_revisions_limit"
             config_value: "0"
         33:
             id: 33
-            config_name: "articles_revisions_limit"
+            config_name: "articles_link_urlrewrite"
             config_value: "0"
         34:
             id: 34
-            config_name: "articles_link_urlrewrite"
+            config_name: "articles_imageedit_persistence"
             config_value: "0"
         35:
             id: 35
-            config_name: "articles_imageedit_persistence"
-            config_value: "0"
-        36:
-            id: 36
             config_name: "comments_template_active"
             config_value: "comments"
-        37:
-            id: 37
+        36:
+            id: 36
             config_name: "comments_flood"
             config_value: "300"
+        37:
+            id: 37
+            config_name: "comments_email_optional"
+            config_value: "1"
         38:
             id: 38
-            config_name: "comments_email_optional"
+            config_name: "comments_confirm"
             config_value: "1"
         39:
             id: 39
-            config_name: "comments_confirm"
-            config_value: "1"
+            config_name: "comments_antispam_question"
+            config_value: ""
         40:
             id: 40
-            config_name: "comments_antispam_question"
+            config_name: "comments_antispam_answer"
             config_value: ""
         41:
             id: 41
-            config_name: "comments_antispam_answer"
-            config_value: ""
-        42:
-            id: 42
             config_name: "comments_notify"
             config_value: "0"
-        43:
-            id: 43
+        42:
+            id: 42
             config_name: "comments_markspam_commentcount"
             config_value: "2"
+        43:
+            id: 43
+            config_name: "file_img_thumb_width"
+            config_value: "100"
         44:
             id: 44
-            config_name: "file_img_thumb_width"
+            config_name: "file_img_thumb_height"
             config_value: "100"
         45:
             id: 45
-            config_name: "file_img_thumb_height"
-            config_value: "100"
-        46:
-            id: 46
             config_name: "file_uploader_new"
             config_value: "1"
-        47:
-            id: 47
+        46:
+            id: 46
             config_name: "file_list_limit"
             config_value: "25"
-        48:
-            id: 48
+        47:
+            id: 47
             config_name: "twitter_data"
             config_value: '{"consumer_key":"","consumer_secret":"","user_token":"","user_secret":""}'
-        49:
-            id: 49
+        48:
+            id: 48
             config_name: "twitter_events"
             config_value: '{"create":0,"update":0}'
-        50:
-            id: 50
+        49:
+            id: 49
             config_name: "smtp_enabled"
             config_value: 0
-        51:
-            id: 51
+        50:
+            id: 50
             config_name: "smtp_settings"
             config_value: '{"srvurl":"","user":"","pass":"","encr":"","port":"25","addr":""}'

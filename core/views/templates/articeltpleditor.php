@@ -9,5 +9,5 @@
 
         <div class="fpcm-hidden"><?php \fpcm\view\helper::saveButton('saveTemplate'); ?></div>
 
-        <?php (new fpcm\view\helper\pageTokenField('pgtkn')); ?>
+        <?php $theView->pageTokenField('pgtkn'); ?>
     </form>

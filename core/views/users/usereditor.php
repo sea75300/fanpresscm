@@ -14,7 +14,7 @@
         <td>
             <?php \fpcm\view\helper::textInput('password', 'fpcm-usereditor-password') ?>
             <?php \fpcm\view\helper::linkButton('#', 'USERS_PASSGEN', 'generatepasswd', 'fpcm-ui-button-blank fpcm-passgen-btn'); ?>
-            <?php \fpcm\view\helper::shortHelpButton($theView->lang->translate('USERS_REQUIREMENTS')); ?>
+            <?php $theView->shorthelpButton('dtmask')->setText('USERS_REQUIREMENTS'); ?>
         </td>
     </tr>
     <tr>
@@ -78,4 +78,4 @@
 </div>
 <?php endif; ?>
 
-<?php (new fpcm\view\helper\pageTokenField('pgtkn')); ?>
+<?php $theView->pageTokenField('pgtkn'); ?>

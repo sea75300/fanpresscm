@@ -64,7 +64,7 @@
 
         <div class="fpcm-hidden"><?php fpcm\view\helper::saveButton('permissionsSave', 'fpcm-loader'); ?></div>
 
-        <?php (new fpcm\view\helper\pageTokenField('pgtkn')); ?>
+        <?php $theView->pageTokenField('pgtkn'); ?>
 
     </form>
 

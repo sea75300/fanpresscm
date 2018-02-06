@@ -39,7 +39,7 @@
                         <td><?php $theView->lang->write('SYSTEM_OPTIONS_DATETIMEMASK'); ?>:</td>
                         <td>
                             <?php fpcm\view\helper::textInput('system_dtmask', '', $globalConfig['system_dtmask']); ?>
-                            <?php \fpcm\view\helper::shortHelpButton($theView->lang->translate('SYSTEM_OPTIONS_DATETIMEMASK_HELP'), '', 'http://us2.php.net/manual/function.date.php', '_blank'); ?>
+                            <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
                         </td>
                     </tr>
                     <tr>			
@@ -52,13 +52,13 @@
                     </tr>			 
                     <tr>			
                         <td><?php $theView->lang->write('SYSTEM_OPTIONS_STYLESHEET'); ?>:</td>
-                        <td><?php (new \fpcm\view\helper\textarea('system_css_path'))->setValue($globalConfig['system_css_path'], ENT_QUOTES); ?></td>
+                        <td><?php $theView->textInput('system_css_path')->setValue($globalConfig['system_css_path'], ENT_QUOTES); ?></td>
                     </tr>
                     <tr>
                         <td><?php $theView->lang->write('SYSTEM_OPTIONS_INCLUDEJQUERY'); ?>:</td>
                         <td>
                             <?php fpcm\view\helper::boolSelect('system_loader_jquery', $globalConfig['system_loader_jquery']); ?>
-                            <?php \fpcm\view\helper::shortHelpButton($theView->lang->translate('SYSTEM_OPTIONS_INCLUDEJQUERY_YES')); ?>
+                            <?php $theView->shorthelpButton('jqueryInclude')->setText('SYSTEM_OPTIONS_INCLUDEJQUERY_YES'); ?>
                         </td>
                     </tr>
                 </table>
@@ -85,10 +85,6 @@
                         <td><?php fpcm\view\helper::select('articles_revisions_limit', $theView->lang->translate('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT_LIST'), $globalConfig['articles_revisions_limit'], false, false); ?></td>
                     </tr>
                     <tr>			
-                        <td><?php $theView->lang->write('SYSTEM_OPTIONS_NEWS_ENABLETRASH'); ?>:</td>
-                        <td><?php fpcm\view\helper::boolSelect('articles_trash', $globalConfig['articles_trash']); ?></td>		
-                    </tr>
-                    <tr>			
                         <td><?php $theView->lang->write('SYSTEM_OPTIONS_NEWS_NEWUPLOADER'); ?>:</td>
                         <td><?php fpcm\view\helper::boolSelect('file_uploader_new', $globalConfig['file_uploader_new']); ?></td>
                     </tr>
@@ -113,9 +109,7 @@
                     </tr>
                     <tr>			
                         <td class="fpcm-align-top"><?php $theView->lang->write('SYSTEM_OPTIONS_NEWS_EDITOR_CSS'); ?>:</td>
-                        <td>
-                            <?php fpcm\view\helper::textArea('system_editor_css', 'fpcm-ui-half-width fpcm-options-cssclasses', $globalConfig['system_editor_css'], false); ?>
-                        </td>	
+                        <td><?php $theView->textarea('system_editor_css')->setValue($globalConfig['system_editor_css'], ENT_QUOTES)->setClass('fpcm-ui-options-cssclasses'); ?></td>
                     </tr>
                 </table>
             </div>
@@ -167,7 +161,7 @@
                     <tr>			
                         <td><?php $theView->lang->write('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT'); ?>:</td>
                         <td><?php fpcm\view\helper::textInput('articles_archive_datelimit', '', $globalConfig['articles_archive_datelimit'] ? fpcm\view\helper::dateText($globalConfig['articles_archive_datelimit'], 'Y-m-d', true) : ''); ?>
-                            <?php \fpcm\view\helper::shortHelpButton($theView->lang->translate('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY')); ?>
+                            <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY'); ?>
                         </td>
                     </tr>
                 </table>                    
@@ -301,7 +295,7 @@
             </div>
         </div>
 
-        <?php (new fpcm\view\helper\pageTokenField('pgtkn')); ?>
+        <?php $theView->pageTokenField('pgtkn'); ?>
         
     </form> 
 </div>

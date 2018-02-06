@@ -32,7 +32,7 @@
          * Select options
          * @var array
          */
-        protected $options = [];
+        protected $options      = [];
 
         /**
          * Is first option auto added
@@ -114,6 +114,17 @@
             return $this;
         }
 
+        /**
+         * Set with of select menu
+         * @param int $width
+         * @return $this
+         */
+        public function setWidth($width)
+        {
+            $this->data['width'] = (int) $width;
+            return $this;
+        }
+                
         /**
          * Return first option string
          * @return boolean

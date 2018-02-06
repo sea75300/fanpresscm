@@ -9,7 +9,7 @@
             </tr>			
             <tr>			
                 <td><?php $theView->lang->write('SYSTEM_OPTIONS_URL'); ?>:</td>
-                <td><?php fpcm\view\helper::textInput('conf[system_url]', '', 'http://'.$_SERVER['HTTP_HOST'].'/index.php'); ?></td>
+                <td><?php fpcm\view\helper::textInput('conf[system_url]', '', fpcm\classes\dirs::getRootUrl('index.php')); ?></td>
             </tr>	
             <tr>			
                 <td><?php $theView->lang->write('SYSTEM_OPTIONS_LANG'); ?>:</td>
@@ -22,8 +22,8 @@
             <tr>			
                 <td><?php $theView->lang->write('SYSTEM_OPTIONS_DATETIMEMASK'); ?>:</td>
                 <td>
-                    <?php fpcm\view\helper::textInput('conf[system_dtmask]', '', 'd.m.Y H:i:s'); ?>
-                    <?php \fpcm\view\helper::shortHelpButton($theView->lang->translate('SYSTEM_OPTIONS_DATETIMEMASK_HELP'), '', 'http://us2.php.net/manual/function.date.php', '_blank'); ?>
+                    <?php fpcm\view\helper::textInput('conf[system_dtmask]', '', 'd.m.Y H:i:s'); ?>                    
+                    <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
                 </td>
             </tr>			 			 
             <tr>			
@@ -32,7 +32,7 @@
             </tr>
             <tr>			
                 <td><?php $theView->lang->write('SYSTEM_OPTIONS_CACHETIMEOUT'); ?>:</td>
-                <td><?php fpcm\view\helper::select('conf[system_cache_timeout]', $theView->lang->translate('SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL'), '86400', false, false); ?></td>
+                <td><?php fpcm\view\helper::select('conf[system_cache_timeout]', $theView->lang->translate('SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL'), FPCM_CACHE_DEFAULT_TIMEOUT, false, false); ?></td>
             </tr>                               
             <tr>			
                 <td><?php $theView->lang->write('SYSTEM_OPTIONS_USEMODE'); ?>:</td>

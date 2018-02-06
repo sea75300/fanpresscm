@@ -25,6 +25,6 @@
             <?php include $theView->getIncludePath('articles/buttons.php'); ?>
         </div>
         
-        <?php (new fpcm\view\helper\pageTokenField('pgtkn')); ?>
+        <?php $theView->pageTokenField('pgtkn'); ?>
     </form>
 </div>

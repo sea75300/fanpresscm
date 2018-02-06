@@ -215,17 +215,15 @@
                     'icon'              => 'fa fa-archive fa-fw'
                 ])                
             );
-            
-            if ($this->config->articles_trash) {
-                $menu[] = navigationItem::createItemFromArray([
-                    'url'               => 'articles/trash',
-                    'permission'        => array('article' => 'delete'),
-                    'description'       => $this->language->translate('ARTICLES_TRASH'),
-                    'class'             => '',
-                    'id'                => '',
-                    'icon'              => 'fa fa-trash-o fa-fw'
-                ]);
-            }
+
+            $menu[] = navigationItem::createItemFromArray([
+                'url'               => 'articles/trash',
+                'permission'        => array('article' => 'delete'),
+                'description'       => $this->language->translate('ARTICLES_TRASH'),
+                'class'             => '',
+                'id'                => '',
+                'icon'              => 'fa fa-trash-o fa-fw'
+            ]);
             
             return $menu;
         }
