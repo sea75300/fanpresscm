@@ -15,17 +15,14 @@
          */
         protected $ipList;
 
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'ipaddr');
+        public function getViewPath()
+        {
+            return 'ips/iplist';
+        }
 
-            $this->view = new \fpcm\view\view('ips/iplist');
-            
-            $this->ipList = new \fpcm\model\ips\iplist();
+        protected function getPermissions()
+        {
+            return ['system' => 'ipaddr'];
         }
 
         /**
@@ -33,6 +30,8 @@
          * @return boolean
          */
         public function request() {
+
+            $this->ipList = new \fpcm\model\ips\iplist();
 
             if ($this->getRequestVar('added') == 1) {
                 $this->view->addNoticeMessage('SAVE_SUCCESS_IPADDRESS');

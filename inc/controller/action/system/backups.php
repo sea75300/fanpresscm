@@ -9,17 +9,16 @@
     
     class backups extends \fpcm\controller\abstracts\controller {
 
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'backups');
-
-            $this->view   = new \fpcm\view\view('backups/overview');
+        protected function getPermissions()
+        {
+            return ['system' => 'backups'];
         }
-        
+
+        protected function getViewPath()
+        {
+            return 'backups/overview';
+        }
+
         public function request() {
             
             if (!$this->session->exists()) {

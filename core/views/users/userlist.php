@@ -1,7 +1,4 @@
 <div class="fpcm-content-wrapper">
-    <h1>
-        <span class="fa fa-users"></span> <?php $theView->lang->write('HL_OPTIONS_USERS'); ?>
-    </h1>
     <form method="post" action="<?php print $theView->self; ?>?module=users/list">
         <div class="fpcm-tabs-general">
             <ul>
@@ -30,7 +27,7 @@
                     
                         <?php foreach($usersList AS $user) : ?>
                         <tr>
-                            <td class="fpcm-ui-editbutton-col"><?php \fpcm\view\helper::editButton($user->getEditLink()); ?></td>
+                            <td class="fpcm-ui-editbutton-col"><?php $theView->editButton('usrEditBtn'.$user->getId())->setUrlbyObject($user); ?></td>
                             <td><strong><?php print \fpcm\view\helper::escapeVal($user->getUserName()); ?></strong></td>
                             <td><a href="mailto:<?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?>"><?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?></a>
                                 <?php (new \fpcm\view\helper\badge('user_article_count'.$user->getId()))
@@ -78,7 +75,7 @@
                     
                         <?php foreach($usersList AS $user) : ?>
                         <tr>
-                            <td class="fpcm-ui-editbutton-col"><?php \fpcm\view\helper::editButton($user->getEditLink()); ?></td>
+                            <td class="fpcm-ui-editbutton-col"><?php $theView->editButton('usrDisEditBtn'.$user->getId())->setUrlbyObject($user); ?></td>
                             <td><strong><?php print \fpcm\view\helper::escapeVal($user->getUserName()); ?></strong></td>
                             <td><a href="mailto:<?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?>"><?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?></a>
                                 <?php (new \fpcm\view\helper\badge('user_article_count'.$user->getId()))
@@ -117,8 +114,8 @@
                     <?php foreach($usersRollList AS $rollName => $rollid) : ?>
                     <tr>
                         <td class="fpcm-ui-editbutton-col">
-                            <?php \fpcm\view\helper::editButton($theView->basePath.'users/editroll&id='.$rollid, ($rollid <= 3 ? false : true)); ?>
-                            <?php \fpcm\view\helper::linkButton($theView->basePath.'users/permissions&roll='.$rollid, 'USERS_ROLLS_PERMISSIONS', '', 'fpcm-ui-button-blank fpcm-passreset-btn fpcm-ui-rolllist-permissionedit'); ?>
+                            <?php $theView->editButton('rollEditBtn'.$rollid)->setUrl($theView->basePath.'users/editroll&id='.$rollid)->setReadonly($rollid <= 3 ? false : true); ?>
+                            <?php $theView->linkButton('rollPermBtn'.$rollid)->setUrl($theView->basePath.'users/permissions&id='.$rollid)->setText('USERS_ROLLS_PERMISSIONS')->setClass('fpcm-ui-rolllist-permissionedit')->setIcon('key')->setIconOnly(true); ?>
                         </td>
                         <td><strong><?php print \fpcm\view\helper::escapeVal($rollName); ?></strong></td>
                         <td class="fpcm-td-select-row"><input type="radio" name="rollids" value="<?php print $rollid; ?>" <?php if ($rollid <= 3) : ?>disabled="disabled"<?php endif; ?>></td>

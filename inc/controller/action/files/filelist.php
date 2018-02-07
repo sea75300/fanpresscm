@@ -28,19 +28,22 @@
          * @var int
          */
         protected $mode = 1;
+        
+        public function getViewPath()
+        {
+            return 'filemanager/listouter';
+        }
 
-        public function __construct() {
-            parent::__construct(); 
-            
-            $this->checkPermission = array('uploads' => 'visible');            
-            $this->view = new \fpcm\view\view('filemanager/listouter');
-            
-            $this->fileList = new \fpcm\model\files\imagelist();
-            $this->userList = new \fpcm\model\users\userList();
+        protected function getPermissions()
+        {
+            return ['uploads' => 'visible'];
         }
 
         public function request() {
             
+            $this->fileList = new \fpcm\model\files\imagelist();
+            $this->userList = new \fpcm\model\users\userList();
+
             $styleLeftMargin = true;
             if (!is_null($this->getRequestVar('mode'))) {
                 $this->mode = (int) $this->getRequestVar('mode');

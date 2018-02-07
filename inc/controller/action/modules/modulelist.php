@@ -23,15 +23,20 @@
          */
         protected $moduleList;
 
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'options', 'modules' => 'configure');
-            
-            $this->view   = new \fpcm\view\view('modules/list');
+        public function getViewPath()
+        {
+            return 'modules/list';
+        }
+
+        protected function getPermissions()
+        {
+            return [
+                'system' => 'options',
+                'modules' => 'configure'
+            ];
+        }
+
+        public function request() {
             
             $this->moduleList = new \fpcm\model\modules\modulelist();
             
@@ -41,11 +46,8 @@
                 $this->lang->translate('MODULES_LIST_UPDATE')       => 'update',
                 $this->lang->translate('MODULES_LIST_ENABLE')       => 'enable',
                 $this->lang->translate('MODULES_LIST_DISABLE')      => 'disable'
-            );            
-        }
+            );
 
-        public function request() {
-            
             if (!is_null(\fpcm\classes\http::getFiles())) {
                 $uploader = new \fpcm\model\files\fileuploader(\fpcm\classes\http::getFiles());
                 $res = $uploader->processModuleUpload();

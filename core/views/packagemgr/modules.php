@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <h1><span class="fa fa-refresh" id="fpcm-ui-headspinner"></span> <?php $theView->lang->write($modeHeadline); ?></h1>
+    
     <div class="fpcm-tabs-general">
         <ul>
             <li><a href="#tabs-updater-general"><?php $theView->lang->write($modeHeadline); ?></a></li>

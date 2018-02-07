@@ -1,7 +1,4 @@
 <div class="fpcm-content-wrapper">
-    <h1>
-        <span class="fa fa-life-ring"></span> <?php $theView->lang->write('HL_BACKUPS'); ?>
-    </h1>
     <form method="post" action="<?php print $theView->self; ?>?module=system/logs">
         
         <div class="fpcm-tabs-general">

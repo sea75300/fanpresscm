@@ -41,19 +41,18 @@
          */
         protected $legacy = true;
 
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-
-            $this->checkPermission = array('system' => 'options', 'modules' => 'configure', 'modules' => 'install');
-            
-            $this->modulelist = new \fpcm\model\modules\modulelist();
-            
-            $this->view = new \fpcm\view\view('packagemgr/modules');
-            $this->view->assign('modeHeadline', 'MODULES_LIST_INSTALL');
-
+        public function getViewPath()
+        {
+            return 'packagemgr/modules';
+        }
+        
+        protected function getPermissions()
+        {
+            return [
+                'system' => 'options',
+                'modules' => 'configure',
+                'modules' => 'install'
+            ];
         }
         
         /**
@@ -61,6 +60,10 @@
          * @return boolean
          */
         public function request() {
+
+            $this->modulelist = new \fpcm\model\modules\modulelist();
+            $this->view->assign('modeHeadline', 'MODULES_LIST_INSTALL');
+
             if ($this->getRequestVar('step')) {
                 $this->forceStep = (int) $this->getRequestVar('step');
             }

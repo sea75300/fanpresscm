@@ -9,20 +9,20 @@
     
     class articleadd extends articlebase {
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission  = ['article' => 'add'];
-            $this->article          = new \fpcm\model\articles\article();
-        }
-
         protected function getViewPath()
         {
             return 'articles/articleadd';
         }
         
+        protected function getPermissions()
+        {
+            return ['article' => 'add'];
+        }
+
         public function request()
         {
+            $this->article          = new \fpcm\model\articles\article();
+
             $checkPageToken = $this->checkPageToken();
             if ($this->buttonClicked('doAction') && !$checkPageToken) {
                 $this->view->addErrorMessage('CSRF_INVALID');

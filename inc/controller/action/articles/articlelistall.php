@@ -9,10 +9,9 @@
     
     class articlelistall extends articlelistbase {
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('article' => 'edit', 'article' => 'editall');
+        protected function getPermissions()
+        {
+            return ['article' => 'edit', 'article' => 'editall'];
         }
 
         public function request() {

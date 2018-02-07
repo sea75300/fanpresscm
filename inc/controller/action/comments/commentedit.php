@@ -35,21 +35,32 @@
          */
         protected $ownArticleIds = [];
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit'));
+        protected function getViewPath()
+        {
+            return 'comments/commentedit';
+        }
+
+        protected function getPermissions()
+        {
+            return [
+                'article' => [
+                    'editall',
+                    'edit'
+                ],
+                'comment' => [
+                    'editall',
+                    'edit'
+                ]
+            ];
+        }
+
+        public function request() {
             
             if ($this->permissions) {
                 $this->approve = $this->permissions->check(array('comment' => 'approve'));
                 $this->private = $this->permissions->check(array('comment' => 'private'));                
             }
-            
-            
-            $this->view     = new \fpcm\view\view('comments/commentedit');            
-        }
 
-        public function request() {
             if (is_null($this->getRequestVar('commentid'))) {
                 $this->redirect('comments/list');
             }
@@ -125,9 +136,10 @@
                 'fpcmTinyMceDefaultFontsize'    => $this->config->system_editor_fontsize,
                 'fpcmTinyMcePlugins'            => 'autolink charmap code image link lists media nonbreaking wordcount fpcm_emoticons autoresize',
                 'fpcmTinyMceToolbar'            => 'fontsizeselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist blockquote | link unlink anchor image media emoticons charmap | undo redo removeformat searchreplace fullscreen code',
-                'fpcmNavigationActiveItemId'    => 'itemnav-item-editcomments',
                 'fpcmCommentsEdit'              => 1
             ]);
+            
+            $this->view->setActiveNavigationElement('itemnav-id-editcomments');
             
             if ($this->comment->getChangeuser() && $this->comment->getChangetime()) {
                 $changeUser = new \fpcm\model\users\author($this->comment->getChangeuser());

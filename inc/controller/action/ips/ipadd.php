@@ -15,17 +15,21 @@
          */
         protected $ipaddress;
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'ipaddr');
-            
-            $this->view = new \fpcm\view\view('ips/ipadd');
-            $this->ipaddress = new \fpcm\model\ips\ipaddress();
+        protected function getViewPath()
+        {
+            return 'ips/ipadd';
+        }
+
+        protected function getPermissions()
+        {
+            return ['system' => 'ipaddr'];
         }
 
         public function request() {
             
+            $this->ipaddress        = new \fpcm\model\ips\ipaddress();
+            $this->view->setFieldAutofocus('ipaddress');
+
             if ($this->buttonClicked('ipSave') && !$this->checkPageToken()) {
                 $this->view->addErrorMessage('CSRF_INVALID');
                 return true;
@@ -48,13 +52,6 @@
             
             return true;
             
-        }
-        
-        public function process() {
-            
-            
-            $this->view->addJsVars(['fpcmFieldSetAutoFocus' => 'ipaddress']);
-            $this->view->render();            
         }
 
         protected function getHelpLink()

@@ -1,7 +1,4 @@
 <div class="fpcm-content-wrapper">
-    <h1>
-        <span class="fa fa-code"></span> <?php $theView->lang->write('HL_OPTIONS_TEMPLATES'); ?>
-    </h1>
     <form method="post" action="<?php print $theView->self; ?>?module=system/templates" enctype="multipart/form-data">
         
         <div class="fpcm-tabs-general">

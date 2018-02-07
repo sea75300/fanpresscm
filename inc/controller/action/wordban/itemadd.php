@@ -11,16 +11,19 @@
 
         protected $item;
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'wordban');
-            
-            $this->view = new \fpcm\view\view('wordban/itemadd');
-            $this->item = new \fpcm\model\wordban\item();
+        public function getViewPath()
+        {
+            return 'wordban/itemadd';
+        }
+        
+        protected function getPermissions()
+        {
+            return ['system' => 'wordban'];
         }
 
         public function request() {
+
+            $this->item = new \fpcm\model\wordban\item();
 
             if ($this->buttonClicked('wbitemSave') && !$this->checkPageToken()) {
                 $this->view->addErrorMessage('CSRF_INVALID');
@@ -48,11 +51,9 @@
                 }
                 
             }
-            
-            $this->view->addJsVars(array(
-                'fpcmNavigationActiveItemId' => 'submenu-itemnav-item-wordban',
-                'fpcmFieldSetAutoFocus'      => 'wbitemsearchtext'
-            ));
+
+            $this->view->setFieldAutofocus('wbitemsearchtext');
+            $this->view->setActiveNavigationElement('submenu-itemnav-item-wordban');
             
             return true;
             

@@ -595,13 +595,14 @@
          */
         public static function getAuthorImageDataOrPath($author, $asUrl = true)
         {
-
             if (!$author instanceof author) {
                 return '';
             }
+
+            $cache      = \fpcm\classes\loader::getObject('fpcm\classes\cache');
             
-            $cacheName  = 'system/'.$this->cacheName.'_image';
-            $data       = $this->cache->read($cacheName);
+            $cacheName  = 'system/author'.$author->getImage().'_image';
+            $data       = $cache->read($cacheName);
             
             if (!is_array($data)) {
                 $data = [];
@@ -609,7 +610,7 @@
             
             $usernameHash = hash(\fpcm\classes\security::defaultHashAlgo, $author->getUsername());
 
-            if (!$this->cache->isExpired($cacheName) && isset($data[$usernameHash])) {
+            if (!$cache->isExpired($cacheName) && isset($data[$usernameHash])) {
                 return $asUrl ? $data[$usernameHash]['url'] : $data[$usernameHash]['data'];
             }
 
@@ -630,7 +631,7 @@
                 break;
             }
             
-            $this->cache->write($cacheName, $data, FPCM_LANGCACHE_TIMEOUT);
+            $cache->write($cacheName, $data, FPCM_LANGCACHE_TIMEOUT);
             if (!isset($data[$usernameHash])) {
                 return '';
             }

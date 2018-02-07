@@ -8,16 +8,15 @@
     namespace fpcm\controller\action\system;
     
     class logs extends \fpcm\controller\abstracts\controller {
+        
+        protected function getPermissions()
+        {
+            return ['system' => 'logs'];
+        }
 
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'logs');
-
-            $this->view   = new \fpcm\view\view('logs/overview');
+        protected function getViewPath()
+        {
+            return 'logs/overview';
         }
         
         /**

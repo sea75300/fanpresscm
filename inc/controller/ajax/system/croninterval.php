@@ -14,23 +14,10 @@
      * @author Stefan Seehafer <sea75300@yahoo.de>
      */  
     class croninterval extends \fpcm\controller\abstracts\ajaxController {
-
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            
-            $this->checkPermission  = array('system' => 'options');
-            parent::__construct();
-
-        }
         
-        /**
-         * Request-Handler
-         * @return bool
-         */
-        public function request() {
-            return $this->session->exists();
+        protected function getPermissions()
+        {
+            return ['system' => 'options'];
         }
         
         /**

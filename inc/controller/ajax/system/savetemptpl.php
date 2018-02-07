@@ -14,20 +14,9 @@
 
         use \fpcm\controller\traits\system\templatepreview;
         
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-            $this->checkPermission = array('system' => 'templates');
-        }
-        
-        /**
-         * Request-Handler
-         * @return bool
-         */
-        public function request() {
-            return $this->session->exists();
+        protected function getPermissions()
+        {
+            return ['system' => 'templates'];
         }
         
         /**

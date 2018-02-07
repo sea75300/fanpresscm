@@ -134,8 +134,11 @@ class articlesTest extends testBase {
     }
 
     public function testArchiveArticles() {
-        
-        $result = $this->object->archiveArticles([$GLOBALS['articleId']]);
+
+        $result = $this->object->editArticlesByMass([$GLOBALS['articleId']], [
+            'archived' => 1
+        ]);
+
         $this->assertTrue($result);
 
     }

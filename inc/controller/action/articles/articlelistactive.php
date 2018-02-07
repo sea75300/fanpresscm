@@ -9,10 +9,9 @@
     
     class articlelistactive extends articlelistbase {
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('article' => 'edit');
+        protected function getPermissions()
+        {
+            return ['article' => 'edit'];
         }
 
         public function request() {

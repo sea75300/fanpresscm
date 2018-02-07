@@ -21,17 +21,14 @@ namespace fpcm\controller\action\users;
          */
         protected $permissionObj;
 
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'permissions');
-            $this->view = new \fpcm\view\view('users/permissions');
-            $this->view->setShowHeader(false);
-            $this->view->setShowFooter(false);
+        protected function getPermissions()
+        {
+            return ['system' => 'permissions'];
+        }
 
+        public function getViewPath()
+        {
+            return 'users/permissions';
         }
 
         /**
@@ -88,6 +85,7 @@ namespace fpcm\controller\action\users;
 
             $this->view->assign('permissions', $this->permissionObj->getPermissionData());            
             $this->view->assign('hideTitle', false);
+            $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
 
             $this->view->addJsFiles(['permissions.js']);            
             $this->view->render();            

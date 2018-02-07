@@ -8,16 +8,15 @@
     namespace fpcm\controller\action\system;
     
     class crons extends \fpcm\controller\abstracts\controller {
+        
+        protected function getPermissions()
+        {
+            return ['system' => 'crons'];
+        }
 
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-
-            $this->checkPermission = array('system' => 'crons');
-            $this->view   = new \fpcm\view\view('system/cronjobs');
-
+        protected function getViewPath()
+        {
+            return 'system/cronjobs';
         }
         
         /**

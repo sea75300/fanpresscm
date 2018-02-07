@@ -10,21 +10,22 @@
     
     class articlelisttrash extends articlelistbase {
 
-        public function __construct() {
-            parent::__construct();
-
-            $this->view            = new \fpcm\view\view('articles/listtrash');
-            $this->checkPermission = ['article' => 'edit', 'article' => 'editall'];
-
-            $this->articleActions   = [
-                $this->lang->translate('ARTICLE_LIST_RESTOREARTICLE') => 'restore',
-                $this->lang->translate('ARTICLE_LIST_EMPTYTRASH')     => 'trash',
-            ];
+        protected function getViewPath()
+        {
+            return 'articles/listtrash';
         }
-        
+
+        protected function getPermissions()
+        {
+            return ['article' => 'edit', 'article' => 'editall'];
+        }
+
         public function request() {
+
             $res = parent::request();
-            $this->articleItems = $this->articleList->getArticlesDeleted(true);
+
+            $this->articleActions   = [$this->lang->translate('ARTICLE_LIST_RESTOREARTICLE') => 'restore', $this->lang->translate('ARTICLE_LIST_EMPTYTRASH') => 'trash'];
+            $this->articleItems     = $this->articleList->getArticlesDeleted(true);
 
             return $res;
         }

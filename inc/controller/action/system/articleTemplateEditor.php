@@ -15,16 +15,16 @@
          */
         protected $file;
 
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'templates');
-            $this->view            = new \fpcm\view\view('templates/articeltpleditor');
-
+        protected function getPermissions()
+        {
+            return ['system' => 'templates'];
         }
+
+        protected function getViewPath()
+        {
+            return 'templates/articeltpleditor';
+        }
+
         
         /**
          * Request-Handler

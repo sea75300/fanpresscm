@@ -504,23 +504,13 @@
             ];
 
             $this->prepareNotifications();
+            
+            /* @var $theView viewVars */
             $this->assign('theView', $this->defaultViewVars);
 
             helper::init($this->config->system_lang);
             
             return true;
-        }
-
-        /**
-         * Checks User Agent for a certain browser
-         * @param string $key
-         * @return boolean
-         * @static
-         */
-        public static function isBrowser($key)
-        {            
-            if (!isset($_SERVER['HTTP_USER_AGENT'])) return true;
-            return preg_match("/($key)/is", $_SERVER['HTTP_USER_AGENT']) === 1 ? true : false;
         }
 
         /**
@@ -563,11 +553,41 @@
         }
 
         /**
+         * Auto focus element
+         * @param string $elementId
+         */
+        public function setFieldAutofocus($elementId)
+        {
+            $this->jsvars['fieldAutoFocus'] = (string) $elementId;
+        }
+
+        /**
+         * Auto focus element
+         * @param string $elementId
+         */
+        public function setActiveNavigationElement($elementId)
+        {
+            $this->jsvars['navigationActive'] = (string) $elementId;
+        }
+
+        /**
          * Check if view was already rendered
          * @return bool
          */
         public function wasRendered() {
             return $this->rendered;
+        }
+
+        /**
+         * Checks User Agent for a certain browser
+         * @param string $key
+         * @return boolean
+         * @static
+         */
+        public static function isBrowser($key)
+        {            
+            if (!isset($_SERVER['HTTP_USER_AGENT'])) return true;
+            return preg_match("/($key)/is", $_SERVER['HTTP_USER_AGENT']) === 1 ? true : false;
         }
 
     }

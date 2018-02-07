@@ -10,19 +10,21 @@
     class itemlist extends \fpcm\controller\abstracts\controller {
 
         protected $list;
+        
+        protected function getPermissions()
+        {
+            return ['system' => 'wordban'];
+        }
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'wordban');
-            
-            $this->view     = new \fpcm\view\view('wordban/itemlist');
-            $this->list     = new \fpcm\model\wordban\items();
-
+        protected function getViewPath()
+        {
+            return 'wordban/itemlist';
         }
 
         public function request() {
             
+            $this->list     = new \fpcm\model\wordban\items();
+
             if ($this->getRequestVar('added')) {
                 $this->view->addNoticeMessage('SAVE_SUCCESS_WORDBAN');
             }

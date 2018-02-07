@@ -15,17 +15,20 @@
          */
         protected $smileyList;
 
-        public function __construct() {
-            parent::__construct();   
-            
-            $this->checkPermission = array('system' => 'smileys');
+        public function getViewPath()
+        {
+            return 'smileys/list';
+        }
 
-            $this->view = new \fpcm\view\view('smileys/list');      
-            
-            $this->smileyList = new \fpcm\model\files\smileylist();
+        protected function getPermissions()
+        {
+            return ['system' => 'smileys'];
         }
 
         public function request() {
+
+            $this->smileyList = new \fpcm\model\files\smileylist();
+
             if ($this->getRequestVar('added')) {
                 $this->view->addNoticeMessage('SAVE_SUCCESS_SMILEY');
             }

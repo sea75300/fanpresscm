@@ -1,7 +1,4 @@
 <div class="fpcm-content-wrapper">
-    <h1>
-        <span class="fa fa-<?php print $listIcon; ?>"></span> <?php $theView->lang->write($headlineVar); ?>
-    </h1>
     <form method="post" action="<?php print $theView->self; ?>?module=<?php print $listAction.$listActionLimit; ?>">
         <div class="fpcm-tabs-general">
             <ul class="fpcm-tabs-articles-headers">

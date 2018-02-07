@@ -21,8 +21,6 @@
         </td>
     </tr>
      <tr>
-        <td>
-            <?php \fpcm\view\helper::textArea('article[content]', 'fpcm-full-width', stripslashes($article->getContent()), false, false); ?>
-        </td>
+        <td><?php $theView->textarea('article[content]')->setClass('fpcm-full-width')->setValue(stripslashes($article->getContent())); ?></td>
     </tr>
 </table>

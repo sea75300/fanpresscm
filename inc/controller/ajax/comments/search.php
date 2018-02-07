@@ -32,19 +32,19 @@
          * @var \fpcm\model\articles\articlelist
          */
         protected $articleList;
-
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-
-            parent::__construct();
-            
-            $this->checkPermission = array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit'));
-
-            $this->list         = new \fpcm\model\comments\commentList();
-            $this->articleList  = new \fpcm\model\articles\articlelist();
-
+        
+        protected function getPermissions()
+        {
+            return [
+                'article' => [
+                    'editall',
+                    'edit'                    
+                ],
+                'comment' => [
+                    'editall',
+                    'edit'                    
+                ]
+            ];
         }
 
         /**
@@ -60,6 +60,9 @@
          * @return boolean
          */
         public function request() {
+
+            $this->list         = new \fpcm\model\comments\commentList();
+            $this->articleList  = new \fpcm\model\articles\articlelist();
 
             $filter     = $this->getRequestVar('filter');
 

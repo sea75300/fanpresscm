@@ -27,19 +27,21 @@
          */
         protected $articleList;
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'users');
-            
-            $this->view = new \fpcm\view\view('users/userlist');
-            
-            $this->userList     = new \fpcm\model\users\userList(); 
-            $this->rollList     = new \fpcm\model\users\userRollList();
-            $this->articleList  = new \fpcm\model\articles\articlelist();
+        public function getViewPath()
+        {
+            return 'users/userlist';
+        }
+        
+        protected function getPermissions()
+        {
+            return ['system' => 'users'];
         }
 
         public function request() {
+
+            $this->userList     = new \fpcm\model\users\userList(); 
+            $this->rollList     = new \fpcm\model\users\userRollList();
+            $this->articleList  = new \fpcm\model\articles\articlelist();
             
             if ($this->getRequestVar('added') == 1) {
                 $this->view->addNoticeMessage('SAVE_SUCCESS_ADDUSER');

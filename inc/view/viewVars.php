@@ -104,7 +104,7 @@
                 exit('Invalid view helper params found for name of'.$name);
             }
 
-            return new $helperClass($arguments[0], (isset($arguments[0]) ? $arguments[0] : ''));
+            return new $helperClass($arguments[0], (isset($arguments[1]) ? $arguments[1] : ''));
         }
         
         /**

@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <h1><span class="fa fa-unlock"></span> <?php $theView->lang->write('HL_OPTIONS_IPBLOCKING'); ?></h1>
+    
     <form method="post" action="<?php print $theView->self; ?>?module=ips/add">
         <div class="fpcm-tabs-general">
             <ul>

@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <h1><span class="fa fa-question-circle"></span> <?php $theView->lang->write('HL_HELP'); ?></h1>
+    
     <div class="fpcm-tabs-general">
         <ul>
             <li><a href="#tabs-help-general"><?php $theView->lang->write('HL_HELP'); ?></a></li>

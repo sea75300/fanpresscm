@@ -439,7 +439,7 @@ table.fpcm-ui-options div.fpcm-ui-input-wrapper {
   background-position: -64px -144px !important;
 }
 
-textarea.fpcm-ui-options-cssclasses {
+textarea.fpcm-ui-textarea-medium {
     height: 150px;
     width: 400px;
 }

@@ -29,6 +29,12 @@
          * @since FPCM 3.2.0
          */
         protected $wordbanList;
+        
+        /**
+         * Edit action string
+         * @var string
+         */
+        protected $editAction = 'users/editroll&id=';
 
         /**
          * Konstruktor
@@ -146,9 +152,7 @@
          * @since FPCM 3.2.0
          */
         private function removeBannedTexts() {
-
             $this->leveltitle  = $this->wordbanList->replaceItems($this->leveltitle);
-            
             return true;
         }
         

@@ -47,18 +47,15 @@
          * @var int
          */
         protected $revisionId = 0;
+        
+        protected function getViewPath()
+        {
+            return 'articles/articleedit';
+        }
 
-        /**
-         * @see \fpcm\controller\abstracts\controller::__construct()
-         */        
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('article' => 'edit');
-            
-            $this->view        = new \fpcm\view\view('articles/articleedit');
-            $this->userList    = new \fpcm\model\users\userList();
-            $this->commentList = new \fpcm\model\comments\commentList();
+        protected function getPermissions()
+        {
+            return ['article' => 'edit'];
         }
 
         /**
@@ -66,6 +63,9 @@
          * @return boolean
          */        
         public function request() {
+
+            $this->userList    = new \fpcm\model\users\userList();
+            $this->commentList = new \fpcm\model\comments\commentList();
             
             if (is_null($this->getRequestVar('articleid'))) {
                 $this->redirect('articles/list');
@@ -135,11 +135,12 @@
             $this->view->addJsVars([
                 'fpcmEditorCommentLayerSave'   => $this->lang->translate('GLOBAL_SAVE'),
                 'fpcmCanConnect'               => \fpcm\classes\baseconfig::canConnect() ? 1 : 0,
-                'fpcmNavigationActiveItemId'   => 'itemnav-id-editnews',
                 'fpcmArticleId'                => $this->article->getId(),
                 'fpcmCheckTimeout'             => FPCM_ARTICLE_LOCKED_INTERVAL * 1000,
                 'fpcmCheckLastState'           => -1
             ]);
+
+            $this->view->setActiveNavigationElement('itemnav-id-editnews');
             
             $this->view->addJsLangVars([
                 'editor_status_inedit'    => $this->lang->translate('EDITOR_STATUS_INEDIT'),

@@ -51,7 +51,7 @@
         public function __construct()
         {
             parent::__construct();
-//            $this->loginLockedExpire = session_cache_expire();
+            $this->loginLockedExpire = session_cache_expire();
             $this->iplist            = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
         }
 
@@ -180,8 +180,6 @@
          */
         protected function loginLocked()
         {
-            return false;
-            
             if (!\fpcm\classes\http::getSessionVar('loginAttempts')) {
                 \fpcm\classes\http::setSessionVar('loginAttempts', $this->currentAttempts);
             } else {                

@@ -29,16 +29,16 @@
          */
         protected $legacy = false;
 
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-
-            $this->checkPermission  = array('system' => 'update');
-            $this->view             = new \fpcm\view\view('packagemgr/sysupdater');
+        protected function getPermissions()
+        {
+            return ['system' => 'update'];
         }
-        
+
+        protected function getViewPath()
+        {
+            return 'packagemgr/sysupdater';
+        }
+
         /**
          * Request-Handler
          * @return bool

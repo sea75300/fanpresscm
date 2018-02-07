@@ -22,15 +22,10 @@
          * @var int 
          */
         protected $tid;
-
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'templates');
-
+        
+        protected function getPermissions()
+        {
+            return ['system' => 'templates'];
         }
         
         /**

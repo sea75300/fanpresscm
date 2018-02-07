@@ -22,13 +22,6 @@
          * @var array
          */
         protected $request;
-        
-        /**
-         * Array mit zu prüfenden Berchtigungen
-         * @var array
-         */
-        protected $checkPermission = [];
-
 
         /**
          * Aktuelle Sessions
@@ -178,6 +171,7 @@
             
             $this->view = new \fpcm\view\view($viewPath);
             $this->view->setHelpLink($this->getHelpLink());
+
             return true;
         }
 
@@ -279,6 +273,15 @@
         }
 
         /**
+         * Get controller permissions
+         * @return array()
+         */
+        protected function getPermissions()
+        {
+            return [];
+        }
+
+        /**
          * Controller-Processing
          * @return boolean
          */
@@ -302,16 +305,16 @@
          */ 
         public function hasAccess()
         {
-            if (!$this->maintenanceMode(false) && !$this->session->exists())
-            {
+            if (!$this->maintenanceMode(false) && !$this->session->exists()) {
                 return false;
             }
 
             if (!$this->session->exists()) {
                 return $this->redirectNoSession();
             }
-            
-            if ($this->permissions && count($this->checkPermission) && !$this->permissions->check($this->checkPermission)) {
+
+            $permissions = $this->getPermissions();
+            if ($this->permissions && count($permissions) && !$this->permissions->check($permissions)) {
                 $view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
                 $view->render();
             }

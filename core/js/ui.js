@@ -48,8 +48,8 @@ fpcm.ui = {
             fpcm.ui.showLoader(true);
         });
         
-        if (window.fpcmFieldSetAutoFocus) {
-            fpcm.ui.setFocus(window.fpcmFieldSetAutoFocus);
+        if (fpcm.vars.jsvars.fieldAutoFocus) {
+            fpcm.ui.setFocus(fpcm.vars.jsvars.fieldAutoFocus);
         }
 
         fpcm.ui.resize();
@@ -241,12 +241,14 @@ fpcm.ui = {
             params = {};
         }
 
-        var dataWidth = jQuery(elemClassId).attr('data-width');
-
-        if (dataWidth) {
-            params.width = dataWidth;
+        if (elemClassId.substr(1,1) === '#') {
+            var dataWidth = jQuery(elemClassId).attr('data-width');
+            if (dataWidth) {
+                params.width = dataWidth;
+            }
         }
-        else if (params.width === undefined) {
+        
+        if (params.width === undefined) {
             params.width = 200;
         }
 
@@ -369,8 +371,8 @@ fpcm.ui = {
     
     highlightModule: function() {
 
-        if (window.fpcmNavigationActiveItemId !== undefined) {
-            jQuery('#' + window.fpcmNavigationActiveItemId).addClass('fpcm-menu-active');
+        if (fpcm.vars.jsvars.navigationActive !== undefined) {
+            jQuery('#' + fpcm.vars.jsvars.navigationActive).addClass('fpcm-menu-active');
         }
 
         var active_submenu_items = jQuery('#fpcm-navigation-ul ul.fpcm-submenu').find('li.fpcm-menu-active');

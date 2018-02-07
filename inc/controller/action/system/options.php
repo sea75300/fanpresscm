@@ -34,17 +34,15 @@
          * @var bool
          */
         protected $mailSettingsChanged = false;
+        
+        protected function getPermissions()
+        {
+            return ['system' => 'options'];
+        }
 
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'options');
-            
-            $this->view   = new \fpcm\view\view('system/options');
-            $this->config = new \fpcm\model\system\config(false, false);
+        protected function getViewPath()
+        {
+            return 'system/options';
         }
         
         /**
@@ -53,6 +51,8 @@
          */
         public function request() {
             
+            $this->config = new \fpcm\model\system\config(false, false);
+
             if ($this->getRequestVar('syscheck')) {
                 $this->syscheck = $this->getRequestVar('syscheck', array(9));
             }

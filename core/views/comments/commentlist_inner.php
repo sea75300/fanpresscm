@@ -14,8 +14,8 @@
     <?php foreach($comments AS $comment) : ?>
     <tr>
         <td <?php if ($commentsMode == 1) : ?>class="fpcm-ui-articlelist-open"<?php endif; ?>>
-            <?php if ($commentsMode == 1) : ?><?php \fpcm\view\helper::linkButton($comment->getElementLink(), 'GLOBAL_FRONTEND_OPEN', '', 'fpcm-ui-button-blank fpcm-openlink-btn', '_blank'); ?><?php endif; ?>
-            <?php \fpcm\view\helper::editButton($comment->getEditLink().'&mode='.$commentsMode, $comment->getEditPermission(), $commentsMode == 2 ? 'fpcm-ui-commentlist-link': ''); ?>
+            <?php if ($commentsMode == 1) : ?><?php $theView->openButton('openBtn'.$comment->getId())->setUrlbyObject($comment)->setTarget('_blank'); ?><?php endif; ?>
+            <?php $theView->editButton('editBtn'.$comment->getId())->setUrlbyObject($comment, '&mode='.$commentsMode)->setClass($commentsMode == 2 ? 'fpcm-ui-commentlist-link': ''); ?>
         </td>
         <td><strong title="<?php print substr(\fpcm\view\helper::escapeVal($comment->getText()), 0, 100); ?>..."><?php print \fpcm\view\helper::escapeVal($comment->getName()); ?></strong></td>
         <td><?php print \fpcm\view\helper::escapeVal($comment->getEmail()); ?></td>

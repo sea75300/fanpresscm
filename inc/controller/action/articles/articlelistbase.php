@@ -82,6 +82,11 @@
          * @var array
          */
         protected $categories = [];
+        
+        protected function getViewPath()
+        {
+            return 'articles/listouter';
+        }
 
         /**
          * Konstruktor
@@ -93,11 +98,8 @@
             $this->categoryList     = new \fpcm\model\categories\categoryList();
             $this->commentList      = new \fpcm\model\comments\commentList();
             $this->userList         = new \fpcm\model\users\userList();
-
             $this->listShowLimit    = $this->config->articles_acp_limit;
 
-            $this->view             = new \fpcm\view\view('articles/listouter');
-            
             $this->initArticleActions();
             $this->initEditPermisions();
         }

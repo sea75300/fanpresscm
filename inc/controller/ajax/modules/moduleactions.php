@@ -35,16 +35,10 @@
          * @var \fpcm\model\modules\modulelist
          */
         protected $modulelist;
-
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-
-            $this->checkPermission = array('system' => 'options', 'modules' => 'configure');
-            
-            $this->modulelist = new \fpcm\model\modules\modulelist();
+        
+        protected function getPermissions()
+        {
+            return ['system' => 'options', 'modules' => 'configure'];
         }
 
         /**
@@ -61,6 +55,8 @@
          * @return boolean
          */
         public function request() {
+            
+            $this->modulelist = new \fpcm\model\modules\modulelist();
 
             if (is_null($this->getRequestVar('action')) || is_null($this->getRequestVar('keys'))) return true;
             

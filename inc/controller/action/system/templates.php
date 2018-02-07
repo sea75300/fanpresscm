@@ -44,21 +44,31 @@
          * @var \fpcm\model\pubtemplates\tweet
          */        
         protected $tweetTemplate;
+        
+        protected function getPermissions()
+        {
+            return ['system' => 'templates'];
+        }
+        
+        protected function getViewPath()
+        {
+            return 'templates/overview';
+        }
 
+        
         /**
-         * Konstruktor
+         * Request-Handler
+         * @return boolean
          */
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'templates');
+        public function request() {
 
-            $this->view   = new \fpcm\view\view('templates/overview');
+            $editor = new \fpcm\model\editor\htmlEditor();
             
-            $fileLib = new \fpcm\model\system\fileLib();
+            $this->view->addCssFiles($editor->getCssFiles());
             
-            $this->view->addJsFiles($fileLib->getCmJsFiles());
-            $this->view->addCssFiles($fileLib->getCmCssFiles());
+            $jsFiles = $editor->getJsFiles();
+            unset($jsFiles[16], $jsFiles[18]);
+            $this->view->addJsFiles($jsFiles);
             
             $this->articleTemplate       = new \fpcm\model\pubtemplates\article($this->config->articles_template_active);
             
@@ -69,13 +79,6 @@
             $this->commentFormTemplate   = new \fpcm\model\pubtemplates\commentform();
             $this->latestNewsTemplate    = new \fpcm\model\pubtemplates\latestnews();
             $this->tweetTemplate         = new \fpcm\model\pubtemplates\tweet();
-        }
-        
-        /**
-         * Request-Handler
-         * @return boolean
-         */
-        public function request() {
 
             if ($this->buttonClicked('uploadFile') && !is_null(\fpcm\classes\http::getFiles())) {
                 $uploader = new \fpcm\model\files\fileuploader(\fpcm\classes\http::getFiles());
@@ -194,7 +197,7 @@
             $tplfilelist = new \fpcm\model\files\templatefilelist();
             $this->view->assign('templateFiles', $tplfilelist->getFolderObjectList());
             
-            $this->view->addJsFiles(['fileuploader.js', 'editor_codemirror.js', 'templates.js']);
+            $this->view->addJsFiles(['fileuploader.js', 'templates.js']);
             
             $translInfo = array(
                 '{{filecount}}' => 1,

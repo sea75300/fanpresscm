@@ -23,13 +23,15 @@
          * @var bool
          */
         protected $userEnabled;
+        
+        protected function getPermissions()
+        {
+            return ['system' => 'users'];
+        }
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = ['system' => 'users'];
-
-            $this->view = new \fpcm\view\view('users/useredit');
+        public function getViewPath()
+        {
+            return 'users/useredit';
         }
 
         public function request() {
@@ -158,11 +160,12 @@
                 'fileuploader.js'
             ]);
             $this->view->addJsVars([
-                'fpcmNavigationActiveItemId' => 'submenu-itemnav-item-users',
                 'fpcmDtMasks'                => $this->getDateTimeMasks(),
-                'fpcmFieldSetAutoFocus'      => 'username',
                 'fpcmJqUploadInit'           => 0
             ]);
+            
+            $this->view->setFieldAutofocus('username');
+            $this->view->setActiveNavigationElement('submenu-itemnav-item-users');
             
             $this->view->render();            
         }

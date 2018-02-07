@@ -15,12 +15,14 @@
          */
         protected $smiley;
 
-        public function __construct() {
-            parent::__construct();   
-            
-            $this->checkPermission = array('system' => 'smileys');
+        public function getViewPath()
+        {
+            return 'smileys/add';
+        }
 
-            $this->view = new \fpcm\view\view('smileys/add');            
+        protected function getPermissions()
+        {
+            return ['system' => 'smileys'];
         }
 
         public function request() {
@@ -69,12 +71,9 @@
                 ];
             }
             
-            $this->view->addJsVars([
-                'fpcmSmileyFiles'            => $files,
-                'fpcmNavigationActiveItemId' => 'submenu-itemnav-item-smileys',
-                'fpcmFieldSetAutoFocus'      => 'smileycode'
-            ]);
-
+            $this->view->addJsVars(['fpcmSmileyFiles' => $files]);
+            $this->view->setFieldAutofocus('smileycode');
+            $this->view->setActiveNavigationElement('submenu-itemnav-item-smileys');
             $this->view->addJsFiles(['smileys.js']);
             $this->view->assign('smiley', $this->smiley);
             $this->view->assign('files', $files);

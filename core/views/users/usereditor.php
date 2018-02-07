@@ -42,7 +42,7 @@
     <?php if ($showExtended) : ?>
     <tr>
         <td class="fpcm-align-top"><?php $theView->lang->write('USERS_BIOGRAPHY'); ?>:</td>
-        <td><?php \fpcm\view\helper::textArea('usrinfo','fpcm-ui-half-width fpcm-options-cssclasses',$author->getUsrinfo()); ?></td>
+        <td><?php \fpcm\view\helper::textArea('usrinfo','fpcm-ui-half-width fpcm-ui-textarea-medium',$author->getUsrinfo()); ?></td>
     </tr>
         <?php if ($showImage) : ?>
         <tr>

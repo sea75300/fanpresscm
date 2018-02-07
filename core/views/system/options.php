@@ -1,7 +1,4 @@
 <div class="fpcm-content-wrapper">
-    <h1>
-        <span class="fa fa-cog"></span> <?php $theView->lang->write('HL_OPTIONS_SYSTEM'); ?>
-    </h1>
     <form method="post" action="<?php print $theView->self; ?>?module=system/options">
         <div class="fpcm-tabs-general">
             <ul>
@@ -109,7 +106,7 @@
                     </tr>
                     <tr>			
                         <td class="fpcm-align-top"><?php $theView->lang->write('SYSTEM_OPTIONS_NEWS_EDITOR_CSS'); ?>:</td>
-                        <td><?php $theView->textarea('system_editor_css')->setValue($globalConfig['system_editor_css'], ENT_QUOTES)->setClass('fpcm-ui-options-cssclasses'); ?></td>
+                        <td><?php $theView->textarea('system_editor_css')->setValue($globalConfig['system_editor_css'], ENT_QUOTES)->setClass('fpcm-ui-textarea-medium'); ?></td>
                     </tr>
                 </table>
             </div>

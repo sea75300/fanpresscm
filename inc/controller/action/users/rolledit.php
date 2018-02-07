@@ -9,12 +9,14 @@
     
     class rolledit extends \fpcm\controller\abstracts\controller {
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'users', 'system' => 'rolls');
-            
-            $this->view   = new \fpcm\view\view('users/rolledit');
+        protected function getPermissions()
+        {
+            return ['system' => 'users', 'system' => 'rolls'];
+        }
+
+        protected function getViewPath()
+        {
+            return 'users/rolledit';
         }
 
         public function request() {
@@ -39,10 +41,8 @@
             }
             
             $this->view->assign('userRoll', $userRoll);
-            $this->view->addJsVars([
-                'fpcmNavigationActiveItemId' => 'submenu-itemnav-item-users',
-                'fpcmFieldSetAutoFocus'      => 'rollname'
-            ]);
+            $this->view->setFieldAutofocus('rollname');
+            $this->view->setActiveNavigationElement('submenu-itemnav-item-users');
             
             return true;
             

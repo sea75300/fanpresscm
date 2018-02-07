@@ -28,14 +28,14 @@
             $this->setIcon('play');
         }
 
-        final public function setUrlbyObject(\fpcm\model\abstracts\dataset $object)
+        final public function setUrlbyObject(\fpcm\model\abstracts\dataset $object, $paramsString = '')
         {
             if (!method_exists($object, 'getElementLink')) {
                 trigger_error('Invalid parameter for object of class '.get_class($object).', method getElementLink() not found');
                 return $this;
             }
 
-            $this->url   = $object->getElementLink();
+            $this->url   = $object->getElementLink().$paramsString;
             $this->name .= $object->getId();
             $this->id   .= $object->getId();
 

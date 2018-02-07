@@ -11,13 +11,14 @@
 
         protected $category;
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'categories');
-            
-            $this->view = new \fpcm\view\view('categories/categoryedit');
-            
+        protected function getViewPath()
+        {
+            return 'categories/categoryedit';
+        }
+        
+        protected function getPermissions()
+        {
+            return ['system' => 'categories'];
         }
 
         public function request() {
@@ -66,11 +67,9 @@
             $userRolls = new \fpcm\model\users\userRollList();            
             $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());               
             $this->view->assign('category', $this->category);
-            $this->view->assign('selectedGroups', explode(';', $this->category->getGroups()));
-            $this->view->addJsVars([
-                'fpcmNavigationActiveItemId' => 'submenu-itemnav-item-categories',
-                'fpcmFieldSetAutoFocus'      => 'categoryname'
-            ]);
+            $this->view->assign('selectedGroups', explode(';', $this->category->getGroups()));            
+            $this->view->setFieldAutofocus('categoryname');
+            $this->view->setActiveNavigationElement('submenu-itemnav-item-categories');
             
             $this->view->render();            
         }

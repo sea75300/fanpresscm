@@ -1,7 +1,4 @@
 <div class="fpcm-content-wrapper">
-    <h1>
-        <span class="fa fa-trash-o"></span> <?php $theView->lang->write('ARTICLES_TRASH'); ?>
-    </h1>
     <form method="post" action="<?php print $theView->self; ?>?module=<?php print $listAction; ?>">
         <div class="fpcm-tabs-general">
             <ul class="fpcm-tabs-articles-headers">

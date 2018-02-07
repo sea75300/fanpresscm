@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <h1><span class="fa fa-users"></span> <?php $theView->lang->write('HL_OPTIONS_USERS'); ?></h1>
+    
     <form method="post" action="<?php print $theView->self; ?>?module=users/editroll&id=<?php print $userRoll->getId(); ?>">
         <div class="fpcm-tabs-general">
             <ul>

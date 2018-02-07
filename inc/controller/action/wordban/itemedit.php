@@ -15,12 +15,14 @@
          */
         protected $item;
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'wordban');
-            $this->view = new \fpcm\view\view('wordban/itemedit');
-            
+        public function getViewPath()
+        {
+            return 'wordban/itemedit';
+        }
+
+        protected function getPermissions()
+        {
+            return ['system' => 'wordban'];
         }
 
         public function request() {
@@ -67,12 +69,8 @@
         
         public function process() {
             
-
-            $this->view->addJsVars(array(
-                'fpcmNavigationActiveItemId' => 'submenu-itemnav-item-wordban',
-                'fpcmFieldSetAutoFocus'      => 'wbitemsearchtext'
-            ));
-
+            $this->view->setFieldAutofocus('wbitemsearchtext');
+            $this->view->setActiveNavigationElement('submenu-itemnav-item-wordban');
             $this->view->assign('item', $this->item);
             $this->view->render();
 

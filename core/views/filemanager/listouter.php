@@ -1,9 +1,4 @@
-<?php if ($mode == 1) : ?>
-<div class="fpcm-content-wrapper">
-    <h1>
-        <span class="fa fa-folder-open"></span> <?php $theView->lang->write('HL_FILES_MNG'); ?>
-    </h1>
-<?php else : ?>
+<?php if ($mode == 2) : ?>
 <div class="fpcm-inner-wrapper">
 <?php endif; ?>
     

@@ -91,7 +91,7 @@
          */
         final public function __construct($name, $id = '')
         {
-            if (!is_string($name) || !is_string($id)) {
+            if (!is_string($name)) {
                 trigger_error('Invalid view helper params found in name or id');
                 return false;
             }

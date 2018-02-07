@@ -15,18 +15,15 @@
          */
         protected $showDraftStatus = false;
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('article' => 'edit', 'article' => 'editall', 'article' => 'archive');
-            
-            unset(
-                $this->articleActions[$this->lang->translate('EDITOR_PINNED')],
-                $this->articleActions[$this->lang->translate('EDITOR_ARCHIVE')]
-            );            
+        protected function getPermissions()
+        {
+            return ['article' => 'edit', 'article' => 'editall', 'article' => 'archive'];
         }
         
         public function request() {
+
+            unset($this->articleActions[$this->lang->translate('EDITOR_PINNED')], $this->articleActions[$this->lang->translate('EDITOR_ARCHIVE')]);
+
             $this->articleCount = $this->articleList->getArticlesArchived(false, [], true);
             
             parent::request();

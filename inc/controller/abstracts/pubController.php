@@ -30,18 +30,18 @@
          * @return boolean
          */
         public function process() {
-            $showToolbars = false;
-            $permAdd = false;
-            $permEditOwn = false;
-            $permEditAll = false;
-            $currentUserId = false;            
-            $isAdmin = false;
+            $showToolbars   = false;
+            $permAdd        = false;
+            $permEditOwn    = false;
+            $permEditAll    = false;
+            $currentUserId  = false;            
+            $isAdmin        = false;
             
             if ($this->session->exists()) {                
                 $showToolbars   = true;
-                $permAdd        = $this->permissions->check(array('article' => 'add'));
-                $permEditOwn    = $this->permissions->check(array('article' => 'edit'));
-                $permEditAll    = $this->permissions->check(array('article' => 'editall'));
+                $permAdd        = $this->permissions->check(['article' => 'add']);
+                $permEditOwn    = $this->permissions->check(['article' => 'edit']);
+                $permEditAll    = $this->permissions->check(['article' => 'editall']);
                 $currentUserId  = $this->session->getUserId();
                 $isAdmin        = $this->session->getCurrentUser()->isAdmin();
             }            

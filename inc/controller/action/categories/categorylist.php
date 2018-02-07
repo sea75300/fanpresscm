@@ -13,18 +13,20 @@
 
         protected $rollList;
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'categories');
-            
-            $this->view     = new \fpcm\view\view('categories/categorylist');
-            
-            $this->list     = new \fpcm\model\categories\categoryList();
-            $this->rollList = new \fpcm\model\users\userRollList();
+        protected function getViewPath()
+        {
+            return 'categories/categorylist';
+        }
+        
+        protected function getPermissions()
+        {
+            return ['system' => 'categories'];
         }
 
         public function request() {
+
+            $this->list     = new \fpcm\model\categories\categoryList();
+            $this->rollList = new \fpcm\model\users\userRollList();
             
             if ($this->getRequestVar('added')) {
                 $this->view->addNoticeMessage('SAVE_SUCCESS_ADDCATEGORY');

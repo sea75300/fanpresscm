@@ -38,16 +38,10 @@
          * @var bool
          */
         protected $canConnect;
-
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-            parent::__construct();
-
-            $this->checkPermission  = array('system' => 'options', 'modules' => 'configure', 'modules' => 'install');
-            $this->canConnect       = \fpcm\classes\baseconfig::canConnect();
-            
+        
+        protected function getPermissions()
+        {
+            return ['system' => 'options', 'modules' => 'configure', 'modules' => 'install'];
         }
         
         /**
@@ -56,9 +50,10 @@
          */ 
         public function request() {
             
-            $this->step = $this->getRequestVar('step', array(9));
-            $this->key  = $this->getRequestVar('key');
-            $this->midx = $this->getRequestVar('midx');            
+            $this->canConnect   = \fpcm\classes\baseconfig::canConnect();
+            $this->step         = $this->getRequestVar('step', array(9));
+            $this->key          = $this->getRequestVar('key');
+            $this->midx         = $this->getRequestVar('midx');            
             
             return true;
         }

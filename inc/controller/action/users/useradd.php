@@ -15,16 +15,20 @@
          */
         protected $author;
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'users');
-            
-            $this->view   = new \fpcm\view\view('users/useradd');
-            $this->author = new \fpcm\model\users\author();
+        protected function getPermissions()
+        {
+            return ['system' => 'users'];
+        }
+
+        protected function getViewPath()
+        {
+            return 'users/useradd';
         }
 
         public function request() {
+
+            $this->author = new \fpcm\model\users\author();
+
             if (!$this->buttonClicked('userSave')) {
                 return true;
             }
@@ -76,10 +80,8 @@
             $this->view->assign('showExtended', true);
             $this->view->assign('showImage', false);
             $this->view->addJsFiles([\fpcm\classes\loader::libGetFileUrl('password-generator', 'password-generator.min.js')]);
-            $this->view->addJsVars([
-                'fpcmNavigationActiveItemId' => 'submenu-itemnav-item-users',
-                'fpcmFieldSetAutoFocus'      => 'username'
-            ]);
+            $this->view->setFieldAutofocus('username');
+            $this->view->setActiveNavigationElement('submenu-itemnav-item-users');
 
             $this->view->render();            
         }

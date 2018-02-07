@@ -41,19 +41,21 @@
          */
         protected $legacy = true;
 
-        public function __construct() {
-            parent::__construct();
+        public function getViewPath()
+        {
+            return 'packagemgr/modules';
+        }
 
-            $this->checkPermission = array('system' => 'options', 'modules' => 'configure', 'modules' => 'install');
-            
-            $this->modulelist = new \fpcm\model\modules\modulelist();
-            
-            $this->view = new \fpcm\view\view('packagemgr/modules');
-            $this->view->assign('modeHeadline', 'MODULES_LIST_UPDATE');
-
+        protected function getPermissions()
+        {
+            return ['system' => 'options', 'modules' => 'configure', 'modules' => 'install'];
         }
         
         public function request() {
+
+            $this->modulelist = new \fpcm\model\modules\modulelist();
+            $this->view->assign('modeHeadline', 'MODULES_LIST_UPDATE');
+
             if ($this->getRequestVar('step')) {
                 $this->forceStep = (int) $this->getRequestVar('step');
             }

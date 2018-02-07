@@ -45,19 +45,23 @@
          */
         protected $commentCount = 0;
 
-        /**
-         * @see \fpcm\controller\abstracts\controller::__construct()
-         */
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit'));
-            
-            $this->view          = new \fpcm\view\view('comments/commentlist');            
-            $this->list          = new \fpcm\model\comments\commentList();
-            $this->articleList   = new \fpcm\model\articles\articlelist();
-
-            $this->listShowLimit = $this->config->articles_acp_limit;
+        protected function getViewPath()
+        {
+            return 'comments/commentlist';
+        }
+        
+        protected function getPermissions()
+        {
+            return [
+                'article' => [
+                    'editall',
+                    'edit'
+                ],
+                'comment' => [
+                    'editall',
+                    'edit'
+                ]
+            ];
         }
 
         /**
@@ -65,6 +69,10 @@
          * @return boolean
          */
         public function request() {
+
+            $this->list          = new \fpcm\model\comments\commentList();
+            $this->articleList   = new \fpcm\model\articles\articlelist();
+            $this->listShowLimit = $this->config->articles_acp_limit;
 
             if (!$this->buttonClicked('deleteComment')) {
                 return true;

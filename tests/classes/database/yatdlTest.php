@@ -1,7 +1,7 @@
 <?php
 
 require_once dirname(dirname(__DIR__)).'/testBase.php';
-require_once dirname(dirname(dirname(__DIR__))).'/inc/lib/nkorg/yatdl/parser.php';
+require_once dirname(dirname(dirname(__DIR__))).'/lib/nkorg/yatdl/parser.php';
 
 class yatdlTest extends testBase {
 

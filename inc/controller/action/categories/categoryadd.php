@@ -10,17 +10,21 @@
     class categoryadd extends \fpcm\controller\abstracts\controller {
 
         protected $category;
+        
+        public function getViewPath()
+        {
+            return 'categories/categoryadd';
+        }
 
-        public function __construct() {
-            parent::__construct();
-            
-            $this->checkPermission = array('system' => 'categories');
-            
-            $this->view = new \fpcm\view\view('categories/categoryadd');
-            $this->category = new \fpcm\model\categories\category();
+        protected function getPermissions()
+        {
+            return ['system' => 'categories'];
         }
 
         public function request() {
+
+            $this->category         = new \fpcm\model\categories\category();
+
             if ($this->buttonClicked('categorySave')) {
                 $data = $this->getRequestVar('category');
                 
@@ -55,10 +59,8 @@
             $userRolls = new \fpcm\model\users\userRollList();            
             $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());               
             $this->view->assign('category', $this->category);
-            $this->view->addJsVars([
-                'fpcmNavigationActiveItemId' => 'submenu-itemnav-item-categories',
-                'fpcmFieldSetAutoFocus'      => 'categoryname'
-            ]);
+            $this->view->setFieldAutofocus('categoryname');
+            $this->view->setActiveNavigationElement('submenu-itemnav-item-categories');
             
             $this->view->render();            
         }
