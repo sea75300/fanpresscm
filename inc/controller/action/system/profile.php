@@ -132,6 +132,7 @@
             $this->view->assign('showExtended', true);
             $this->view->assign('showImage', true);
 
+            $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH']);
             $this->view->addJsVars(array(
                 'fpcmDtMasks'       => $this->getDateTimeMasks(),
                 'fpcmReloadPage'    => $this->reloadSite,
@@ -142,7 +143,7 @@
             $this->view->assign('defaultFontsizes', \fpcm\model\system\config::getDefaultFontsizes());
             $this->view->assign('showDisableButton', false);
             $this->view->addJsFiles([
-                \fpcm\classes\loader::libGetFileUrl('password-generator', 'password-generator.min.js'),
+                \fpcm\classes\loader::libGetFileUrl('password-generator/password-generator.min.js'),
                 'profile.js', 'fileuploader.js'
             ]);
 

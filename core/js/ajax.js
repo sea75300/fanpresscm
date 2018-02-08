@@ -53,7 +53,7 @@ fpcm.ajax = {
         .done(function(result) {
 
             if (result.search('FATAL ERROR:') === 3) {
-                console.log(fpcm.ui.translate('ajax_response_error'));
+                console.log(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
                 console.log('ERROR MESSAGE: ' + errorThrown);
             }
 
@@ -77,7 +77,7 @@ fpcm.ajax = {
             }
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-            console.log(fpcm.ui.translate('ajax_response_error'));
+            console.log(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
             console.log('ERROR MESSAGE: ' + errorThrown);
 
             if (typeof params.execFail == 'string') {
@@ -111,8 +111,8 @@ fpcm.ajax = {
         fpcm.ajax.exec(action, params);
     },
 
-    getResult: function(action) {
-        return fpcm.ajax.result[action] ? fpcm.ajax.result[action] : null;
+    getResult: function(action, isJson) {
+        return fpcm.ajax.result[action] ? (isJson ? fpcm.ajax.fromJSON(fpcm.ajax.result[action]) : fpcm.ajax.result[action])  : null;
     },
 
     getWorkData: function(action) {

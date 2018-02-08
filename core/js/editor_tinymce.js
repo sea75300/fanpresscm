@@ -93,6 +93,15 @@ fpcm.editor_tinymce = {
         if (config.onInit !== undefined && typeof config.onInit == 'function') {
             params.setup = config.onInit;
         }
+        else {
+            params.setup = function(ed) {
+                ed.on('init', function() {
+                    this.getBody().style.fontSize = fpcm.vars.jsvars.editorDefaultFontsize;
+                    jQuery('#' + this.iframeElement.id).removeAttr('title');                 
+                    fpcm.ui.resize();
+                });
+            }
+        }
         
         if (config.autoresize_min_height !== undefined) {
             params.autoresize_min_height = config.autoresize_min_height ? config.autoresize_min_height : '250';

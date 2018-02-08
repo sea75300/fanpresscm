@@ -66,7 +66,7 @@ var fpcmModuleInstaller = function () {
         var msgText = fpcmUpdaterMessages[idx + '_START'];
 
         if (idx == 1) {
-            fpcm.ui.appendHtml(self.moduleListClass, '<p><span id="' + self.moduleListSpinenrId + '" class="fa fa-spinner fa-spin fa-fw fa-lg"></span><strong>' + fpcm.ui.translate('statusinfo').replace('{{modulekey}}', self.key.split('_version')[0]) + '</strong></p>');
+            fpcm.ui.appendHtml(self.moduleListClass, '<p><span id="' + self.moduleListSpinenrId + '" class="fa fa-spinner fa-spin fa-fw fa-lg"></span><strong>' + fpcm.ui.translate('MODULES_LIST_UPDATING').replace('{{modulekey}}', self.key.split('_version')[0]) + '</strong></p>');
             msgText = msgText.replace('{{pkglink}}', fpcmModuleUrl.replace('{{pkgkey}}', self.key));
         }
 
@@ -83,7 +83,7 @@ var fpcmModuleInstaller = function () {
             execDone: function () {
                 self.responseData = fpcm.ajax.fromJSON(fpcm.ajax.getResult('packagemgr/mod' + self.type));
                 if (self.responseData.data === undefined) {
-                    alert(fpcm.ui.translate('ajax_response_error'));
+                    alert(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
                     return false;
                 }
 

@@ -53,7 +53,6 @@
             }
 
             $this->view->setFieldAutofocus('wbitemsearchtext');
-            $this->view->setActiveNavigationElement('submenu-itemnav-item-wordban');
             
             return true;
             
@@ -67,6 +66,11 @@
         protected function getHelpLink()
         {
             return 'hl_options';
+        }
+
+        protected function getActiveNavigationElement()
+        {
+            return 'submenu-itemnav-item-wordban';
         }
 
     }

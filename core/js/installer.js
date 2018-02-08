@@ -43,7 +43,7 @@ fpcm.installer = {
                 jQuery('#fpcm-messages').empty();
                 window.fpcmMsg = [];
                 window.fpcmMsg.push({
-                    txt  : fpcm.ui.translate('dbTestFailed'),
+                    txt  : fpcm.ui.translate('INSTALLER_DBCONNECTION_FAILEDMSG'),
                     type : 'error',
                     id   : 'errordbtestfailed',
                     icon : 'exclamation-triangle'
@@ -126,7 +126,7 @@ fpcm.installer = {
                     return false;
                 }
 
-                fpcmJs.relocate(backLink);
+                fpcm.ui.relocate(backLink);
             }
         });
         

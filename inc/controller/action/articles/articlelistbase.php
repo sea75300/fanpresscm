@@ -405,14 +405,9 @@
                 $this->lang->translate('GLOBAL_NO')             => 0
             ]);
 
-            $this->view->addJsLangVars([
-                'masseditHeadline'   => $this->lang->translate('GLOBAL_EDIT_SELECTED'),
-                'masseditSave'       => $this->lang->translate('GLOBAL_SAVE'),
-                'masseditSaveFailed' => $this->lang->translate('SAVE_FAILED_ARTICLES')
-            ]);
-            
             $this->view->addJsVars([
-                'masseditPageToken'  => \fpcm\classes\security::createPageToken('articles/massedit')
+                'masseditPageToken'  => \fpcm\classes\security::createPageToken('articles/massedit'),
+                'masseditSaveFailed' => $this->lang->translate('SAVE_FAILED_ARTICLES')
             ]);
 
         }

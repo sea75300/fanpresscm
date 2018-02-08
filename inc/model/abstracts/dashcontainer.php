@@ -154,6 +154,15 @@
         }
 
         /**
+         * Gibt benötigte Javascript-Sprach-Variablen zurück
+         * @return array
+         * @since FPCM 4.0
+         */
+        public function getJavascriptLangVars() {
+            return [];
+        }
+
+        /**
          * Gibt Liste mit zu Variablen zurück, welche an Dashboard-Controller-View übergeben werden sollen
          * @return array
          * @since FPCM 3.1.3

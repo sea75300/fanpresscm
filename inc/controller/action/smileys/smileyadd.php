@@ -73,7 +73,6 @@
             
             $this->view->addJsVars(['fpcmSmileyFiles' => $files]);
             $this->view->setFieldAutofocus('smileycode');
-            $this->view->setActiveNavigationElement('submenu-itemnav-item-smileys');
             $this->view->addJsFiles(['smileys.js']);
             $this->view->assign('smiley', $this->smiley);
             $this->view->assign('files', $files);
@@ -85,6 +84,11 @@
         protected function getHelpLink()
         {
             return 'hl_options';
+        }
+
+        protected function getActiveNavigationElement()
+        {
+            return 'submenu-itemnav-item-smileys';
         }
 
     }

@@ -71,18 +71,21 @@ fpcm.modulelist = {
         var size  = fpcm.ui.getDialogSizes(top, 0.35);
 
         fpcm.ui.dialog({
-            title: fpcm.ui.translate('confirmHL'),
-            content: fpcm.ui.translate('confirmMessage'),
+            title: fpcm.ui.translate('GLOBAL_CONFIRM'),
+            content: fpcm.ui.translate('CONFIRM_MESSAGE'),
             dlWidth: size.width,
             dlButtons: [
                 {
-                    text: fpcm.ui.translate('yes'),
+                    text: fpcm.ui.translate('GLOBAL_YES'),
                     icon: "ui-icon-check",                    
                     click: function() {
                         var moduleKeys = fpcm.ui.getCheckboxCheckedValues('.fpcm-list-selectbox');
                         if (moduleKeys.length == 0 || !jQuery('#moduleActions').val()) {
                             fpcm.ui.showLoader(false);
-                            fpcmJs.addAjaxMassage('error', 'SELECT_ITEMS_MSG');
+                            fpcm.ui.addMessage({
+                                type: 'error',
+                                txt : fpcm.ui.translate('SELECT_ITEMS_MSG')
+                            });
                             return false;
                         }
 
@@ -99,7 +102,7 @@ fpcm.modulelist = {
                     }
                 },
                 {
-                    text: fpcm.ui.translate('no'),
+                    text: fpcm.ui.translate('GLOBAL_NO'),
                     icon: "ui-icon-closethick",
                     click: function() {
                         jQuery(this).addClass('fpcm-noloader');
@@ -123,10 +126,10 @@ fpcm.modulelist = {
             id         : 'modulelist-infos',
             dlWidth    : size.width,
             resizable  : true,
-            title      : fpcm.ui.translate('detailsHeadline') + ' « ' + moduleName + ' »',
+            title      : fpcm.ui.translate('MODULES_LIST_INFORMATIONS') + ' « ' + moduleName + ' »',
             dlButtons  : [
                 {
-                    text: fpcm.ui.translate('close'),
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
                     icon: "ui-icon-closethick",
                     click: function() {
                         jQuery( this ).dialog( "close" );
@@ -158,7 +161,7 @@ fpcm.modulelist = {
                 fpcm.ui.assignHtml('#modules-list-content', fpcm.ajax.getResult('modules/actions'));
                 noActionButtonAssign = true;
                 fpcm.modulelist.actionButtons();
-                fpcmJs.assignButtons();
+                fpcm.ui.assignButtons();
                 fpcm.ui.prepareMessages();
                 jQuery('#moduleActions').prop('selectedIndex',0);
                 jQuery('#moduleActions').selectmenu('refresh');
@@ -175,7 +178,7 @@ fpcm.modulelist = {
             },
             async: false,
             execDone: function() {
-                fpcmJs.relocate(fpcmActionPath + 'package/modinstall');
+                fpcm.ui.relocate(fpcmActionPath + 'package/modinstall');
             }
         });
     },
@@ -189,7 +192,7 @@ fpcm.modulelist = {
             },
             async: false,
             execDone: function() {
-                fpcmJs.relocate(fpcmActionPath + 'package/modupdate');
+                fpcm.ui.relocate(fpcmActionPath + 'package/modupdate');
             }
         });
 

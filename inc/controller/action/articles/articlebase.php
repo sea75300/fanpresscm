@@ -114,10 +114,11 @@
                 ]),
                 'filemanagerMode'    => 2
             );
-            
-            $jsLangVars = array('fileManagerHeadline' => $this->lang->translate('HL_FILES_MNG'));
-            $this->view->addJsLangVars(array_merge($jsLangVars, $this->editorPlugin->getJsLangVars()));
-            
+
+            $this->view->addJsLangVars(array_merge(
+                ['HL_FILES_MNG'],
+                $this->editorPlugin->getJsLangVars()
+            ));            
             $this->view->addJsVars($this->jsVars);
             
             return true;

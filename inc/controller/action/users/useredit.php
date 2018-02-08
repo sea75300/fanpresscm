@@ -156,16 +156,17 @@
             
             $this->view->assign('showDisableButton', $showDisableButton);
             $this->view->addJsFiles([
-                \fpcm\classes\loader::libGetFileUrl('password-generator', 'password-generator.min.js'),
+                \fpcm\classes\loader::libGetFileUrl('password-generator/password-generator.min.js'),
                 'fileuploader.js'
             ]);
+            
+            $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH']);
             $this->view->addJsVars([
                 'fpcmDtMasks'                => $this->getDateTimeMasks(),
                 'fpcmJqUploadInit'           => 0
             ]);
             
             $this->view->setFieldAutofocus('username');
-            $this->view->setActiveNavigationElement('submenu-itemnav-item-users');
             
             $this->view->render();            
         }
@@ -173,6 +174,11 @@
         protected function getHelpLink()
         {
             return 'hl_options';
+        }
+
+        protected function getActiveNavigationElement()
+        {
+            return 'submenu-itemnav-item-users';
         }
 
     }

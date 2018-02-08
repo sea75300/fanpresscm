@@ -25,6 +25,16 @@
             return ['system' => 'ipaddr'];
         }
 
+        protected function getHelpLink()
+        {
+            return 'hl_options';
+        }
+        
+        protected function getActiveNavigationElement()
+        {
+            return 'submenu-itemnav-item-ips';
+        }
+
         /**
          * Request-Handler
          * @return boolean
@@ -68,11 +78,6 @@
             $this->view->assign('ipList', $this->ipList->getIpAll());
             $this->view->assign('users', $userList->getUsersAll());
             $this->view->render();
-        }
-
-        protected function getHelpLink()
-        {
-            return 'hl_options';
         }
 
     }

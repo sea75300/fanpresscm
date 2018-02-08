@@ -13,23 +13,13 @@ fpcm.comments = {
 
     init: function () {
 
-        if (fpcm.ui.langvarExists('articles_search')) {
+        if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
             this.initCommentSearch();
         }
 
-        if (window.tinymce && window.fpcmCommentsEdit) {
-            fpcm.editor_tinymce.create({
-                language : fpcmTinyMceLang,
-                plugins  : fpcmTinyMcePlugins,
-                toolbar  : fpcmTinyMceToolbar,
-                onInit : function(ed) { 
-                    ed.on('init', function() {
-                        this.getBody().style.fontSize = fpcmTinyMceDefaultFontsize;
-                        jQuery(this.iframeElement).removeAttr('title');
-                    });
-                }    
-            });
-            fpcm.ui.setFocus('commentname');
+        if (window.tinymce && fpcm.vars.jsvars.commentsEdit) {
+            fpcm.editor_tinymce.create(fpcm.vars.jsvars.editorConfig);
+            fpcm.ui.setFocus('commentname');            
         }
 
         fpcm.comments.assignActions();
@@ -79,10 +69,10 @@ fpcm.comments = {
                 id      : 'comments-search',
                 dlWidth: size.width,
                 resizable: true,
-                title    : fpcm.ui.translate('articles_search'),
+                title    : fpcm.ui.translate('ARTICLES_SEARCH'),
                 dlButtons  : [
                     {
-                        text: fpcm.ui.translate('article_search_start'),
+                        text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
                         icon: "ui-icon-check",                        
                         click: function() {                            
                             var sfields = jQuery('.fpcm-comments-search-input');
@@ -101,7 +91,7 @@ fpcm.comments = {
                         }
                     },                    
                     {
-                        text: fpcm.ui.translate('close'),
+                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick",                        
                         click: function() {
                             jQuery(this).dialog('close');
@@ -121,7 +111,10 @@ fpcm.comments = {
     startCommentSearch: function (sParams) {
 
         if (((new Date()).getTime() - fpcmCommentsLastSearch) < 10000) {
-            fpcmJs.addAjaxMassage('error', fpcm.ui.translate('search_waitmsg'));
+            fpcm.ui.addMessage({
+                type: 'error',
+                txt : fpcm.ui.translate('SEARCH_WAITMSG')
+            });
             return false;
         }
 
@@ -132,7 +125,7 @@ fpcm.comments = {
             execDone: function () {
                 fpcm.ui.showLoader(false);
                 fpcm.ui.assignHtml('#tabs-comments-active', fpcm.ajax.getResult('comments/search'));
-                fpcmJs.assignButtons();
+                fpcm.ui.assignButtons();
                 fpcm.comments.initCommentSearch();
                 fpcm.comments.assignActions();
                 fpcm.ui.assignSelectmenu();

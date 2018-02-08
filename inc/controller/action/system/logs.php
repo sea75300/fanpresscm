@@ -23,13 +23,13 @@
          * Controller-Processing
          */
         public function process() {
-            
 
             $this->view->assign('customLogs', $this->events->runEvent('logsAddList', []));
             $this->view->assign('reloadBaseLink', \fpcm\classes\tools::getFullControllerLink('ajax/logs/reload', [
                 'log' => ''
             ]));
             $this->view->addJsFiles(['logs.js']);
+            $this->view->addJsLangVars(['LOGS_CLEARED_LOG_OK', 'LOGS_CLEARED_LOG_FAILED']);
             
             $this->view->render();
         }

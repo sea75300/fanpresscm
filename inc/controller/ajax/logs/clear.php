@@ -74,14 +74,12 @@
 
             $this->events->runEvent('clearSystemLogs');
 
-            $this->returnData[] = array(
-                'txt'  => $this->lang->translate($res ? 'LOGS_CLEARED_LOG_OK' : 'LOGS_CLEARED_LOG_FAILED'),
+            $this->returnData = [
+                'txt'  => $res ? 'LOGS_CLEARED_LOG_OK' : 'LOGS_CLEARED_LOG_FAILED',
                 'type' => $res ? 'notice' : 'error',
-                'id'   => md5(uniqid()),
-                'icon' => $res ? 'info-circle' : 'exclamation-triangle'
-            );
+            ];
 
-            $this->getResponse();
+            $this->getSimpleResponse();
             
         }
 

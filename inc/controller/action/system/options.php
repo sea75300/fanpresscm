@@ -208,10 +208,10 @@
             }
 
             $this->view->assign('smtpActive', $smtpActive);
-            $this->view->addJsFiles(['options.js']);
+            $this->view->addJsFiles(['options.js', 'systemcheck.js']);
             $this->view->addJsVars([
                 'showTwitter'   => $showTwitter ? 1 : 0,
-                'syscheck'      => $this->syscheck,
+                'runSysCheck'   => $this->syscheck,
                 'fpcmDtMasks'   => $this->getDateTimeMasks()
             ]);
             

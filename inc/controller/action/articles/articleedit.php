@@ -58,6 +58,11 @@
             return ['article' => 'edit'];
         }
 
+        protected function getActiveNavigationElement()
+        {
+            return 'itemnav-id-editnews';
+        }
+        
         /**
          * @see \fpcm\controller\abstracts\controller::request()
          * @return boolean
@@ -140,13 +145,7 @@
                 'fpcmCheckLastState'           => -1
             ]);
 
-            $this->view->setActiveNavigationElement('itemnav-id-editnews');
-            
-            $this->view->addJsLangVars([
-                'editor_status_inedit'    => $this->lang->translate('EDITOR_STATUS_INEDIT'),
-                'editor_status_notinedit' => $this->lang->translate('EDITOR_STATUS_NOTINEDIT'),
-                'editorCommentLayerHeader' => $this->lang->translate('COMMENTS_EDIT')
-            ]);
+            $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'COMMENTS_EDIT']);
             
             if (!$this->permissions->check(array('article' => 'approve')) && $this->article->getApproval()) {
                 $this->view->addMessage('SAVE_SUCCESS_APPROVAL_SAVE');

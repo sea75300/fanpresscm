@@ -23,14 +23,14 @@ fpcm.templates = {
 
             var sizes       = fpcm.ui.getDialogSizes(top, 0.75);
             fpcm.ui.dialog({
-                title     : fpcm.ui.translate('articleTplEditHeadline'),
+                title     : fpcm.ui.translate('TEMPLATE_HL_DRAFTS_EDIT'),
                 content   : '<iframe id="fpcm-articletemplates-editor-frame" src="' + jQuery(this).attr('href') + '" class="fpcm-full-width"></iframe>',
                 dlWidth   : parseInt(sizes.width),
                 dlHeight  : parseInt(sizes.height),
                 resizable : true,
                 dlButtons : [
                     {
-                        text: fpcm.ui.translate('saveArticleTemplate'),
+                        text: fpcm.ui.translate('GLOBAL_SAVE'),
                         icon: "ui-icon-disk",                        
                         click: function() {
                             jQuery(this).children('#fpcm-articletemplates-editor-frame').contents().find('#btnSaveTemplate').trigger('click');
@@ -38,7 +38,7 @@ fpcm.templates = {
                         }
                     },
                     {
-                        text: fpcm.ui.translate('close'),
+                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick",                    
                         click: function() {
                             jQuery(this).dialog('close');
@@ -113,12 +113,12 @@ fpcm.templates = {
             
             if (fpcmTemplateId > 5) {
                 jQuery('#showpreview').hide();
-                fpcmJs.assignButtons();
+                fpcm.ui.assignButtons();
                 return false;
             }
 
             jQuery('#showpreview').show();
-            fpcmJs.assignButtons();
+            fpcm.ui.assignButtons();
 
             return false;
         });
@@ -148,10 +148,10 @@ fpcm.templates = {
                     dlWidth    : fpcm.ui.getDialogSizes(top, 0.75).width,
                     dlHeight   : fpcm.ui.getDialogSizes(top, 0.75).height,
                     resizable  : true,
-                    title      : fpcm.ui.translate('previewHeadline'),
+                    title      : fpcm.ui.translate('HL_TEMPLATE_PREVIEW'),
                     dlButtons  : [
                         {
-                            text: fpcm.ui.translate('close'),
+                            text: fpcm.ui.translate('GLOBAL_CLOSE'),
                             icon: "ui-icon-closethick",                    
                             click: function() {
                                 jQuery(this).dialog('close');

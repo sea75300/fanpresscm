@@ -68,14 +68,13 @@
                 'objid'  => $this->objid
             ]);
 
-            $this->returnData[] = array(
-                'txt'  => $this->lang->translate('CACHE_CLEARED_OK'),
+            $this->returnData = [
+                'txt'  => 'cache_cleared_ok',
                 'type' => 'notice',
-                'id'   => md5(uniqid()),
-                'icon' => 'info-circle'
-            );
+                'icon' => 'recycle'
+            ];
 
-            $this->getResponse();
+            $this->getSimpleResponse();
         }
 
         /**

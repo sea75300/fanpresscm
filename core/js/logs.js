@@ -22,12 +22,12 @@ fpcm.logs = {
             var logId = jQuery(this).attr('id');
             var size  = fpcm.ui.getDialogSizes(top, 0.35);
             fpcm.ui.dialog({
-                title: fpcm.ui.translate('confirmHL'),
-                content: fpcm.ui.translate('confirmMessage'),
+                title: fpcm.ui.translate('GLOBAL_CONFIRM'),
+                content: fpcm.ui.translate('CONFIRM_MESSAGE'),
                 dlWidth: size.width,
                 dlButtons: [
                     {
-                        text: fpcm.ui.translate('yes'),
+                        text: fpcm.ui.translate('GLOBAL_YES'),
                         icon: "ui-icon-check",                    
                         click: function() {
                             fpcm.logs.clearLogs(logId);
@@ -35,7 +35,7 @@ fpcm.logs = {
                         }
                     },
                     {
-                        text: fpcm.ui.translate('no'),
+                        text: fpcm.ui.translate('GLOBAL_NO'),
                         icon: "ui-icon-closethick",
                         click: function() {
                             jQuery(this).dialog('close');
@@ -92,7 +92,7 @@ fpcm.logs = {
             execDone: function() {
                 fpcm.ui.showLoader(false);
                 fpcm.logs.reloadLogs();
-                fpcm.ui.appendMessage(fpcm.ajax.getResult('logs/clear'));
+                fpcm.ui.addMessage(fpcm.ajax.getResult('logs/clear', true), true);
             }
         });
 

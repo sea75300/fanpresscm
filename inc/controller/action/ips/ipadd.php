@@ -25,6 +25,16 @@
             return ['system' => 'ipaddr'];
         }
 
+        protected function getHelpLink()
+        {
+            return 'hl_options';
+        }
+        
+        protected function getActiveNavigationElement()
+        {
+            return 'submenu-itemnav-item-ips';
+        }
+
         public function request() {
             
             $this->ipaddress        = new \fpcm\model\ips\ipaddress();
@@ -52,11 +62,6 @@
             
             return true;
             
-        }
-
-        protected function getHelpLink()
-        {
-            return 'hl_options';
         }
 
     }

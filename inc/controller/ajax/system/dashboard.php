@@ -60,6 +60,7 @@
 
                 $this->view->addJsFiles($containerObj->getJavascriptFiles());
                 $this->view->addJsVars($containerObj->getJavascriptVars());
+                $this->view->addJsLangVars($containerObj->getJavascriptLangVars());
 
                 $containerViewVars = $containerObj->getControllerViewVars();
                 $viewVars          = $this->view->getViewVars();

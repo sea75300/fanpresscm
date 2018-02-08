@@ -14,7 +14,7 @@ fpcm.ui = {
 
         jQuery(document).tooltip();
 
-        fpcmJs.assignButtons();
+        fpcm.ui.assignButtons();        
         this.assignSelectmenu();
         this.initInputShadow();
         this.spinner('input.fpcm-ui-spinner');
@@ -40,7 +40,7 @@ fpcm.ui = {
         });
 
         jQuery('#fpcm-clear-cache').click(function () {
-            return fpcmJs.clearCache();
+            return fpcm.system.clearCache();
         });
 
         jQuery('.fpcm-loader').click(function () {
@@ -66,10 +66,33 @@ fpcm.ui = {
         return fpcm.vars.ui.lang[langVar] === undefined ? false : true;
     },
 
+    assignButtons: function () {
+
+        fpcm.ui.controlgroup('.fpcm-ui-buttonset');
+        fpcm.ui.controlgroup('.fpcm-buttons.fpcm-ui-list-buttons', {
+            onlyVisible: true
+        });
+
+        fpcm.ui.controlgroup('.fpcm-buttons div.fpcm-ui-margin-center', {
+            onlyVisible: true
+        });
+
+        fpcm.ui.button('.fpcm-ui-button');
+        fpcm.ui.actionButtonsGenreal();
+        fpcm.ui.assignBlankIconButton();
+        fpcm.ui.assignCheckboxes();
+        fpcm.ui.assignCheckboxesSub();
+        fpcm.ui.articleActionsOkButton();
+        fpcm.ui.assignDeleteButton();
+        fpcm.ui.pagerButtons();
+        
+        noActionButtonAssign = false;
+    },
+
     actionButtonsGenreal: function() {
         jQuery('.fpcm-ui-actions-genreal').click(function () {
             if (jQuery(this).hasClass('fpcm-noloader')) jQuery(this).removeClass('fpcm-noloader');
-            if (!confirm(fpcm.ui.translate('confirmMessage'))) {
+            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
                 jQuery(this).addClass('fpcm-noloader');
                 return false;
             }            
@@ -81,6 +104,43 @@ fpcm.ui = {
             icon: "ui-icon-blank",
             showLabel: false
         });        
+    },
+    
+    assignDeleteButton: function () {
+        
+        if (noDeleteButtonAssign) return false;
+        
+        jQuery('.fpcm-delete-btn').click(function () {
+            if (jQuery(this).hasClass('fpcm-noloader')) jQuery(this).removeClass('fpcm-noloader');
+            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
+                jQuery(this).addClass('fpcm-noloader');
+                return false;
+            }
+        });
+        
+        noDeleteButtonAssign = true;
+    },
+    
+    articleActionsOkButton: function () {
+
+        if (window.noActionButtonAssign) return false;
+
+        jQuery('.fpcm-ui-articleactions-ok').click(function () {
+
+            for (var object in fpcm) {
+                if (typeof fpcm[object].assignActions === 'function' && fpcm[object].assignActions() === -1) {
+                    return false;
+                }
+            }
+
+            fpcm.ui.removeLoaderClass(this);
+            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
+                jQuery(this).addClass('fpcm-noloader');
+                return false;
+            }
+
+        });
+
     },
     
     assignCheckboxes: function() {
@@ -446,26 +506,36 @@ fpcm.ui = {
         });
     },
     
-    appendMessage: function(value) {
-
-        if (window.fpcm.vars.ui.messages === undefined) {
-            window.fpcm.vars.ui.messages = [];
-        }
-
-        window.fpcm.vars.ui.messages = fpcm.ajax.fromJSON(value).data;
-        this.showMessages();
-        this.prepareMessages();
-        this.messagesInitClose();
-
-    },
-    
     addMessage: function(value, clear) {
 
-        if (window.fpcm.vars.ui.messages === undefined || clear) {
-            window.fpcm.vars.ui.messages = [];
+        if (fpcm.vars.ui.messages === undefined || clear) {
+            fpcm.vars.ui.messages = [];
+            jQuery('#fpcm-messages').empty();
+        }
+        
+        if (!value.icon) {
+            switch (value.type) {                    
+                case 'error' :
+                    value.icon = 'exclamation-triangle';
+                    break;
+                case 'notice' :
+                    value.icon = 'check';
+                    break;
+                default:
+                    value.icon = 'info-circle';
+                    break;
+            }
+        }
+        
+        if (!value.id) {
+            value.id = (new Date()).getTime();
+        }
+        
+        if (fpcm.ui.langvarExists(value.txt)) {
+            value.txt = fpcm.ui.translate(value.txt);
         }
 
-        window.fpcm.vars.ui.messages.push(value);
+        fpcm.vars.ui.messages.push(value);
         this.showMessages();
         this.prepareMessages();
         this.messagesInitClose();
@@ -622,23 +692,45 @@ fpcm.ui = {
         var size  = fpcm.ui.getDialogSizes(top, 0.35);
 
         fpcm.ui.dialog({
-            title: fpcm.ui.translate('confirmHL'),
-            content: fpcm.ui.translate('confirmMessage'),
+            title: fpcm.ui.translate('GLOBAL_CONFIRM'),
+            content: fpcm.ui.translate('CONFIRM_MESSAGE'),
             dlWidth: size.width,
             dlButtons: [
                 {
-                    text: fpcm.ui.translate('yes'),
+                    text: fpcm.ui.translate('GLOBAL_YES'),
                     icon: "ui-icon-check",                    
                     click: params.clickYes
                 },
                 {
-                    text: fpcm.ui.translate('no'),
+                    text: fpcm.ui.translate('GLOBAL_NO'),
                     icon: "ui-icon-closethick",
                     click: params.clickNo
                 }
             ]
         });
 
+    },
+    
+    pagerButtons: function() {
+
+        fpcm.ui.selectmenu('#pageSelect', {
+            select: function( event, ui ) {
+                if (ui.item.value == '1') {
+                    window.location.href = fpcmActionPath + fpcmCurrentModule;
+                    return true;
+                }
+                window.location.href = fpcmActionPath + fpcmCurrentModule + '&page=' + ui.item.value;
+            },
+            position: {
+                my: "left bottom",
+                at: "left top"
+            }
+        });
+        
+    },
+    
+    relocate: function (url) {
+        window.location.href = url;
     }
     
 };

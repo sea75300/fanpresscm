@@ -78,7 +78,7 @@
          * Cache-Datei-Namen nicht hashen
          * @since FPCM 3.2
          */
-        define ('FPCM_CACHE_DEBUG', true);
+        define ('FPCM_CACHE_DEBUG', false);
     }
     
     if (!defined('FPCM_CACHEMODULE_DEBUG')) {
@@ -86,7 +86,7 @@
          * Cache-Moduleordner-Namen nicht hashen
          * @since FPCM 3.4
          */
-        define ('FPCM_CACHEMODULE_DEBUG', true);
+        define ('FPCM_CACHEMODULE_DEBUG', false);
     }
     
     if (!defined('FPCM_NOJSCSSPHP_FILESIZE_HEADER')) {

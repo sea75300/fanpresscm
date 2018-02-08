@@ -160,9 +160,9 @@
             }
             
             $this->addJsLangVars([
-                'GLOBAL_CONFIRM', 'GLOBAL_CLOSE', 'GLOBAL_YES', 'GLOBAL_NO',
-                'GLOBAL_OPENNEWWIN', 'GLOBAL_EXTENDED', 'AJAX_REQUEST_ERROR', 'AJAX_RESPONSE_ERROR',
-                'CONFIRM_MESSAGE',
+                'GLOBAL_CONFIRM', 'GLOBAL_CLOSE', 'GLOBAL_OK', 'GLOBAL_YES', 'GLOBAL_NO', 'GLOBAL_SAVE', 'GLOBAL_CLOSE',
+                'GLOBAL_OPENNEWWIN', 'GLOBAL_EXTENDED', 'GLOBAL_EDIT_SELECTED', 'SAVE_FAILED_ARTICLES',
+                'AJAX_REQUEST_ERROR', 'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK', 'SELECT_ITEMS_MSG'
             ]);
 
             $this->jsLangVars['calendar']['days']       =  $this->language->getDays();
@@ -284,7 +284,7 @@
          */
         public function addJsLangVars(array $jsvars)
         {
-            $keys   = array_map('strtolower', array_values($jsvars));
+            $keys   = array_values($jsvars);
             $values = array_map([$this->language, 'translate'], array_values($jsvars));
 
             $this->jsLangVars = array_merge( $this->jsLangVars, array_combine($keys, $values) );
@@ -468,9 +468,7 @@
             if ($this->session->exists()) {
                 
                 $this->addJsLangVars(['SESSION_TIMEOUT']);
-                $this->addJsVars([
-                    'sessionCheckEnabled' => true
-                ]);
+                $this->addJsVars(['sessionCheckEnabled' => true]);
 
                 $this->defaultViewVars->currentUser              = $this->session->getCurrentUser();
                 $this->defaultViewVars->navigation               = (new \fpcm\model\theme\navigation())->render();
@@ -560,13 +558,18 @@
         {
             $this->jsvars['fieldAutoFocus'] = (string) $elementId;
         }
-
+        
         /**
-         * Auto focus element
+         * Set active navigation item
          * @param string $elementId
+         * @return boolean
          */
         public function setActiveNavigationElement($elementId)
         {
+            if (!trim($elementId)) {
+                return false;
+            }
+            
             $this->jsvars['navigationActive'] = (string) $elementId;
         }
 

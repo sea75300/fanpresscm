@@ -93,9 +93,7 @@
             $params['fpcmModulesMode']                = 'update';
             $this->view->addJsVars($params);                        
 
-            $this->view->addJsLangVars([
-                'statusinfo' => $this->lang->translate('MODULES_LIST_UPDATING')
-            ]);
+            $this->view->addJsLangVars(['MODULES_LIST_UPDATING']);
             $this->view->render();
             
             $tempFile->delete();

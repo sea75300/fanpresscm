@@ -42,7 +42,6 @@
             
             $this->view->assign('userRoll', $userRoll);
             $this->view->setFieldAutofocus('rollname');
-            $this->view->setActiveNavigationElement('submenu-itemnav-item-users');
             
             return true;
             
@@ -51,6 +50,11 @@
         protected function getHelpLink()
         {
             return 'hl_options';
+        }
+
+        protected function getActiveNavigationElement()
+        {
+            return 'submenu-itemnav-item-users';
         }
 
     }

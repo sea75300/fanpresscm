@@ -105,7 +105,7 @@
             $params['fpcmModulesMode']                = 'install';
             $this->view->addJsVars($params);
 
-            $this->view->addJsLangVars(array('statusinfo' => $this->lang->translate('MODULES_LIST_INSTALLING')));
+            $this->view->addJsLangVars(['MODULES_LIST_INSTALLING']);
             
             $this->view->render();
             

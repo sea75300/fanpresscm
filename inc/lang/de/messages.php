@@ -98,6 +98,7 @@
         'SAVE_FAILED_ARTICLEREVRESTORE' => 'Die Revision konnte nicht wiederhergestellt werden!',
         'SAVE_FAILED_ARTICLEAPPROVAL'   => 'Die Artikel-Freigaben konnten nicht geändert werden!',
         'SAVE_FAILED_COMMENT'           => 'Der Kommentar konnte nicht gespeichert werden!',
+        'SAVE_FAILED_COMMENTS'          => 'Die Änderungen an den Kommentaren konnten nicht gespeichert werden!',
         'SAVE_FAILED_APPROVEMENT'       => 'Die Genehmigung der Kommentare konnte nicht geändert werden!',
         'SAVE_FAILED_PRIVATE'           => 'Der Privat-Status der Kommentare konnte nicht geändert werden!',
         'SAVE_FAILED_SPAMMER'           => 'Die Spam-Markierung der Kommentare konnte nicht geändert werden!',

@@ -52,6 +52,11 @@
         {
             return 'hl_options';
         }
+
+        protected function getActiveNavigationElement()
+        {
+            return 'submenu-itemnav-item-categories';
+        }
         
         public function process() {
             
@@ -60,7 +65,6 @@
             $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());               
             $this->view->assign('category', $this->category);
             $this->view->setFieldAutofocus('categoryname');
-            $this->view->setActiveNavigationElement('submenu-itemnav-item-categories');
             
             $this->view->render();            
         }

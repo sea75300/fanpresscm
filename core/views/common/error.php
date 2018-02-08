@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
-<HTML>
+<HTML lang="<?php print $theView->lang->getLangCode(); ?>">
     <head>
         <title><?php $theView->lang->write('HEADLINE'); ?></title>
-        <meta http-equiv="Content-Language" content="de">
         <meta http-equiv="content-type" content= "text/html; charset=utf-8">
-        <meta name="robots" content="noindex, nofollow">  
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="<?php print $theView->themePath; ?>favicon.png" type="image/png" /> 
         <?php include_once 'includefiles.php'; ?>
-    </head>    
+    </head>  
 
     <body class="fpcm-body" id="fpcm-body">
 
@@ -21,7 +21,7 @@
                     <span class="fa fa-exclamation-triangle fa-stack-1x fa-inverse"></span>
                 </span>
                 
-                <p><?php print \fpcm\view\helper::escapeVal($errorMessage); ?></p>
+                <p><?php print $errorMessage; ?></p>
                 
                 <p><?php \fpcm\view\helper::linkButton('javascript:window.history.back();', 'GLOBAL_BACK'); ?></p>
                 

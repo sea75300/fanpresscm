@@ -79,9 +79,9 @@
             $this->view->assign('showDisableButton', false);
             $this->view->assign('showExtended', true);
             $this->view->assign('showImage', false);
-            $this->view->addJsFiles([\fpcm\classes\loader::libGetFileUrl('password-generator', 'password-generator.min.js')]);
+            $this->view->addJsFiles([\fpcm\classes\loader::libGetFileUrl('password-generator/password-generator.min.js')]);
             $this->view->setFieldAutofocus('username');
-            $this->view->setActiveNavigationElement('submenu-itemnav-item-users');
+            $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH']);
 
             $this->view->render();            
         }
@@ -89,6 +89,11 @@
         protected function getHelpLink()
         {
             return 'hl_options';
+        }
+
+        protected function getActiveNavigationElement()
+        {
+            return 'submenu-itemnav-item-users';
         }
 
     }

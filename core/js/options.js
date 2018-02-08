@@ -13,7 +13,7 @@ fpcm.options = {
     init: function () {
 
         fpcm.ui.tabs('.fpcm-tabs-general', {
-            active   : (!window.syscheck ?  0 : (window.showTwitter ? 7 : 6)),
+            active   : (!fpcm.vars.jsvars.runSysCheck ?  0 : (window.showTwitter ? 8 : 7)),
             activate : function(event, ui) {
 
                 if (jQuery(ui.newTab).attr('id') === 'tabs-options-syscheck') {
@@ -27,19 +27,13 @@ fpcm.options = {
             },
             addTabScroll: true
         });
-        
-        if (window.syscheck) {
-            jQuery('#fpcmsyschecksubmitstats').show();
-            jQuery('#btnConfigSave').hide();
-            fpcmJs.systemCheck();
-        }
 
         fpcm.ui.datepicker('#articles_archive_datelimit', {
             maxDate: "-3m"
         });
 
         jQuery('#tabs-options-syscheck').click(function () {
-            fpcmJs.systemCheck();
+            fpcm.systemcheck.execute();
         });
 
         jQuery('#fpcmsyschecksubmitstats').click(function () {

@@ -49,7 +49,7 @@ fpcm.updater = {
             execDone: function () {
                 fpcm.updater.responseData = fpcm.ajax.fromJSON(fpcm.ajax.getResult('packagemgr/sysupdater'));
                 if (fpcm.updater.responseData.data === undefined) {
-                    alert(fpcm.ui.translate('ajax_response_error'));
+                    alert(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
                     return false;
                 }
 
@@ -85,7 +85,10 @@ fpcm.updater = {
 
     ajaxCallbackFinal: function() {
         jQuery('#fpcm-ui-headspinner').removeClass('fa-spin');
-        fpcmJs.addAjaxMassage('notice', fpcm.vars.jsvars.fpcmUpdaterMessages['EXIT_1']);
+        fpcm.ui.addMessage({
+            type: 'notice',
+            txt : fpcm.vars.jsvars.fpcmUpdaterMessages['EXIT_1']
+        });
         fpcm.ui.appendHtml('.fpcm-updater-list', '<p>' + '<span class="fa fa-check-square fa-fw fa-lg fpcm-ui-booltext-yes"></span>'  + fpcm.vars.jsvars.fpcmUpdaterMessages['EXIT_1'] + '</p>');
         fpcm.ui.showLoader(false);
         fpcm.updater.addTimer();

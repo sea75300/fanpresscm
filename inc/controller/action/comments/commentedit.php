@@ -118,7 +118,6 @@
         }
         
         public function process() {
-            
 
             $mode = (int) $this->getRequestVar('mode');
             
@@ -127,19 +126,18 @@
                 $this->view->setShowFooter(0);
             }
             
-            $this->view->addJsFiles([
-                \fpcm\classes\loader::libGetFileUrl('tinymce4', 'tinymce.min.js'),
-                'editor_tinymce.js'
-            ]);
+            $this->view->addJsFiles([\fpcm\classes\loader::libGetFileUrl('tinymce4/tinymce.min.js'), 'editor_tinymce.js']);
+
             $this->view->addJsVars([
-                'fpcmTinyMceLang'               => $this->config->system_lang,
-                'fpcmTinyMceDefaultFontsize'    => $this->config->system_editor_fontsize,
-                'fpcmTinyMcePlugins'            => 'autolink charmap code image link lists media nonbreaking wordcount fpcm_emoticons autoresize',
-                'fpcmTinyMceToolbar'            => 'fontsizeselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist blockquote | link unlink anchor image media emoticons charmap | undo redo removeformat searchreplace fullscreen code',
-                'fpcmCommentsEdit'              => 1
+                'editorConfig' => [
+                    'language'          => $this->config->system_lang,
+                    'plugins'           => 'autolink charmap code image link lists media nonbreaking wordcount fpcm_emoticons autoresize',
+                    'toolbar'           => 'fontsizeselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist blockquote | link unlink anchor image media emoticons charmap | undo redo removeformat searchreplace fullscreen code',
+                    
+                ],
+                'editorDefaultFontsize' => $this->config->system_editor_fontsize,
+                'commentsEdit'          => 1
             ]);
-            
-            $this->view->setActiveNavigationElement('itemnav-id-editcomments');
             
             if ($this->comment->getChangeuser() && $this->comment->getChangetime()) {
                 $changeUser = new \fpcm\model\users\author($this->comment->getChangeuser());
@@ -166,6 +164,11 @@
         protected function getHelpLink()
         {
             return 'hl_comments_mng';
+        }
+
+        protected function getActiveNavigationElement()
+        {
+            return 'itemnav-item-editcomments';
         }
 
     }

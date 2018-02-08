@@ -171,6 +171,7 @@
             
             $this->view = new \fpcm\view\view($viewPath);
             $this->view->setHelpLink($this->getHelpLink());
+            $this->view->setActiveNavigationElement($this->getActiveNavigationElement());
 
             return true;
         }
@@ -279,6 +280,15 @@
         protected function getPermissions()
         {
             return [];
+        }
+
+        /**
+         * Get active navigation item id
+         * @return string
+         */
+        protected function getActiveNavigationElement()
+        {
+            return '';
         }
 
         /**

@@ -15,7 +15,7 @@ fpcm.users = {
 
         jQuery('.fpcm-ui-useractions-diable').click(function() {
             if (jQuery(this).hasClass('fpcm-noloader')) jQuery(this).removeClass('fpcm-noloader');
-            if (!confirm(fpcm.ui.translate('confirmMessage'))) {
+            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
                 jQuery(this).addClass('fpcm-noloader');
                 return false;
             }            
@@ -23,7 +23,7 @@ fpcm.users = {
                 
         jQuery('.fpcm-ui-useractions-enable').click(function() {
             if (jQuery(this).hasClass('fpcm-noloader')) jQuery(this).removeClass('fpcm-noloader');
-            if (!confirm(fpcm.ui.translate('confirmMessage'))) {
+            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
                 jQuery(this).addClass('fpcm-noloader');
                 return false;
             }
@@ -63,7 +63,7 @@ fpcm.users = {
                         }
                     },
                     {
-                        text: fpcm.ui.translate('close'),
+                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick",                    
                         click: function() {
                             jQuery(this).dialog('close');
@@ -106,12 +106,12 @@ fpcm.users = {
                         jQuery(this).dialog('close');
 
                         fpcm.ui.dialog({
-                            title: fpcm.ui.translate('confirmHL'),
-                            content: fpcm.ui.translate('confirmMessage'),
+                            title: fpcm.ui.translate('GLOBAL_CONFIRM'),
+                            content: fpcm.ui.translate('CONFIRM_MESSAGE'),
                             dlWidth: size.width,
                             dlButtons: [
                                 {
-                                    text: fpcm.ui.translate('yes'),
+                                    text: fpcm.ui.translate('GLOBAL_YES'),
                                     icon: "ui-icon-check",                    
                                     click: function() {
                                         fpcm.users.continueDelete = true;
@@ -120,7 +120,7 @@ fpcm.users = {
                                     }
                                 },
                                 {
-                                    text: fpcm.ui.translate('no'),
+                                    text: fpcm.ui.translate('GLOBAL_NO'),
                                     icon: "ui-icon-closethick",
                                     click: function() {
                                         jQuery(this).dialog('close');
@@ -133,7 +133,7 @@ fpcm.users = {
                     }
                 },
                 {
-                    text: fpcm.ui.translate('close'),
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
                     icon: "ui-icon-closethick",                    
                     click: function() {
                         jQuery(this).dialog('close');

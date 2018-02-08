@@ -142,7 +142,7 @@
         }
         
         /**
-         * Gibt benötigte Javascript-Variablen zurück
+         * 
          * @see \fpcm\model\interfaces\dashcontainer::getJavascriptVars()
          * @return array
          */
@@ -156,6 +156,16 @@
                 'fpcmManualCheckUrl'      => $this->systemUpdates->getManualCheckAddress(),
                 'fpcmManualCheckHeadline' => $this->language->translate('HL_PACKAGEMGR_SYSUPDATES')
             );
+        }
+
+        /**
+         * 
+         * @see \fpcm\model\interfaces\dashcontainer::getJavascriptLangVars()
+         * @return array
+         */
+        public function getJavascriptLangVars()
+        {
+            return ['HL_PACKAGEMGR_SYSUPDATES'];
         }
         
         /**

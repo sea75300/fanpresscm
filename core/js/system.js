@@ -24,11 +24,10 @@ fpcm.system = {
             var confirm  = jQuery(this).val();
 
             if (password != confirm) {
-                if (fpcmLang.passCheckAlert !== undefined) {
-                    alert(fpcm.ui.translate('passCheckAlert'));
-                } else {
-                    fpcmJs.addAjaxMassage('error', 'SAVE_FAILED_PASSWORD_MATCH');                
-                }
+                fpcm.ui.addMessage({
+                    type: 'error',
+                    txt : fpcm.ui.translate('SAVE_FAILED_PASSWORD_MATCH')
+                });
             }
 
             return false;
@@ -46,18 +45,18 @@ fpcm.system = {
         window.fpcmSessionCheckEnabled = false;
 
         fpcm.ui.dialog({
-            content: fpcm.ui.translate('sessionCheckMsg'),
+            content: fpcm.ui.translate('SESSION_TIMEOUT'),
             dlButtons: buttons = [
                 {
-                    text: fpcm.ui.translate('yes'),
+                    text: fpcm.ui.translate('GLOBAL_YES'),
                     icon: "ui-icon-check",
                     click: function() {
-                        fpcmJs.relocate(fpcmActionPath + 'system/login');
+                        fpcm.ui.relocate(fpcmActionPath + 'system/login');
                         jQuery(this).dialog('close');
                     }
                 },
                 {
-                    text: fpcm.ui.translate('no'),
+                    text: fpcm.ui.translate('GLOBAL_NO'),
                     icon: "ui-icon-closethick",
                     click: function() {
                         fpcmSessionCheckEnabled = true;
@@ -115,7 +114,6 @@ fpcm.system = {
     
     initMassEditDialog: function(func, dialogId, list) {
 
-        
         var dialogIdCom = '#fpcm-dialog-' + dialogId;
 
         fpcm.ui.selectmenu('.fpcm-ui-input-select-massedit', {
@@ -133,10 +131,10 @@ fpcm.system = {
             id       : dialogId,
             dlWidth  : size.width,
             resizable: true,
-            title    : fpcm.ui.translate('masseditHeadline'),
+            title    : fpcm.ui.translate('GLOBAL_EDIT_SELECTED'),
             dlButtons  : [
                 {
-                    text: fpcm.ui.translate('masseditSave'),
+                    text: fpcm.ui.translate('GLOBAL_SAVE'),
                     icon: "ui-icon-check",
                     click: function() {
 
@@ -176,7 +174,7 @@ fpcm.system = {
                     }
                 },                    
                 {
-                    text: fpcm.ui.translate('close'),
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
                     icon: "ui-icon-closethick" ,                        
                     click: function() {
                         jQuery(this).dialog('close');
@@ -199,7 +197,7 @@ fpcm.system = {
                 var res = fpcm.ajax.fromJSON(fpcm.ajax.getResult(func));
 
                 if (res !== null && res.code == 1) {
-                    fpcmJs.relocate(window.location.href);
+                    fpcm.ui.relocate(window.location.href);
                     return true;
                 }
 
@@ -207,12 +205,74 @@ fpcm.system = {
                     type : 'error',
                     id   : 'fpcm-articles-massedit',
                     icon : 'exclamation-triangle',
-                    txt  : fpcm.ui.translate('masseditSaveFailed')
+                    txt  : fpcm.vars.jsvars.masseditSaveFailed
                 }, true);
 
             }
         });
     },
+    
+    clearCache: function (params) {
+        
+        if (!params) {
+            params = {};
+        }
+
+        fpcm.ui.showLoader(true);
+
+        fpcm.ajax.get('cache', {
+            data: params,
+            execDone: function () {
+                fpcm.ui.showLoader(false);
+                
+                var data = fpcm.ajax.getResult('cache', true);
+                fpcm.ui.addMessage({
+                    type : data.type,
+                    icon : data.icon,
+                    txt  : data.txt
+                }, true);
+            }
+        });
+        
+        return false;        
+    },
+    
+    openManualCheckFrame: function () {
+
+        var size = fpcm.ui.getDialogSizes();
+
+        fpcm.ui.dialog({
+            id         : 'manualupdate-check',
+            dlWidth    : size.width,
+            dlHeight   : size.height,
+            resizable  : true,
+            title      : fpcm.ui.translate('HL_PACKAGEMGR_SYSUPDATES'),
+            dlButtons  : [
+                {
+                    text: fpcm.ui.translate('GLOBAL_OPENNEWWIN'),
+                    icon: "ui-icon-extlink",                    
+                    click: function() {
+                        window.open(fpcmManualCheckUrl);
+                        jQuery(this).dialog('close');
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    icon: "ui-icon-closethick",                    
+                    click: function() {
+                        jQuery(this).dialog('close');
+                    }
+                }
+            ],
+            dlOnOpen: function (event, ui) {
+                jQuery(this).empty();
+                fpcm.ui.appendHtml(this, '<iframe class="fpcm-full-width" style="height:100%;"  src="' + fpcmManualCheckUrl + '"></iframe>');
+            },
+            dlOnClose: function( event, ui ) {
+                jQuery(this).empty();
+            }
+        });
+    }
 
 };
 

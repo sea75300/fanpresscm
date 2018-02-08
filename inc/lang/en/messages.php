@@ -98,6 +98,7 @@
         'SAVE_FAILED_ARTICLEREVRESTORE' => 'Unable to restore article revision!',
         'SAVE_FAILED_ARTICLEAPPROVAL'   => 'Unable to change article approvals!',
         'SAVE_FAILED_COMMENT'           => 'Unable to save comment!',
+        'SAVE_FAILED_COMMENTS'          => 'Unable to save changed to selected comments!!',
         'SAVE_FAILED_APPROVEMENT'       => 'Unable to change comment approval status!',
         'SAVE_FAILED_PRIVATE'           => 'Unable to change comment private status!',
         'SAVE_FAILED_SPAMMER'           => 'Unable to change comment spam status!',

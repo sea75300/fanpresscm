@@ -60,6 +60,11 @@
         {
             return 'hl_options';
         }
+
+        protected function getActiveNavigationElement()
+        {
+            return 'submenu-itemnav-item-categories';
+        }
         
         public function process() {
             
@@ -69,7 +74,6 @@
             $this->view->assign('category', $this->category);
             $this->view->assign('selectedGroups', explode(';', $this->category->getGroups()));            
             $this->view->setFieldAutofocus('categoryname');
-            $this->view->setActiveNavigationElement('submenu-itemnav-item-categories');
             
             $this->view->render();            
         }

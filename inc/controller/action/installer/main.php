@@ -100,7 +100,7 @@
                 'activeTab'     => $this->step === 1 ? 0 : $this->step - 1
             ));
 
-            $this->view->addJsLangVars(array('dbTestFailed' => $this->lang->translate('INSTALLER_DBCONNECTION_FAILEDMSG')));
+            $this->view->addJsLangVars(['INSTALLER_DBCONNECTION_FAILEDMSG']);
 
             $this->view->assign('tabCounter', 1);
             $this->view->assign('subTabs', $this->subTabs);
@@ -110,7 +110,7 @@
             $this->view->assign('step', $this->step + 1);
             $this->view->assign('showNextButton', true);
             $this->view->assign('showReload', false);
-            $this->view->addJsFiles(['installer.js', \fpcm\classes\loader::libGetFileUrl('password-generator', 'password-generator.min.js')]);
+            $this->view->addJsFiles(['installer.js', 'systemcheck.js', \fpcm\classes\loader::libGetFileUrl('password-generator/password-generator.min.js')]);
 
             if (method_exists($this, 'runAfterStep'.($this->step - 1))) {
                 call_user_func(array($this, 'runAfterStep'.($this->step - 1)));                
@@ -242,6 +242,7 @@
             $this->view->assign('author', $user);
             $this->view->assign('userRolls', array($this->lang->translate('GLOBAL_ADMINISTRATOR') => 1));
             $this->view->assign('externalSave', true);
+            $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH']);
             
             if (!is_null($this->getRequestVar('msg'))) {                
                 switch ($this->getRequestVar('msg')) {

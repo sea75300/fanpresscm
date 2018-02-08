@@ -17,7 +17,7 @@ fpcm.filemanager = {
             this.initActionButtons();
         }
         
-        if (fpcm.ui.langvarExists('articles_search')) {
+        if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
             this.initFilesSearch();
         }
     
@@ -42,7 +42,7 @@ fpcm.filemanager = {
                 return true;
             }
 
-            var newName = prompt(fpcm.ui.translate('newNameMsg'), '');
+            var newName = prompt(fpcm.ui.translate('FILE_LIST_RENAME_NEWNAME'), '');
             if (!newName || newName == '') {
                 jQuery(this).addClass('fpcm-noloader');
                 fpcm.ui.showLoader(false);
@@ -54,7 +54,7 @@ fpcm.filemanager = {
         });
         
         jQuery('#btnCreateThumbs').click(function () {            
-            if (!confirm(fpcm.ui.translate('confirmMessage'))) {
+            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
                 jQuery(this).addClass('fpcm-noloader');
                 return false;
             }
@@ -177,7 +177,7 @@ fpcm.filemanager = {
             execDone: function () {
 
                 fpcm.ui.assignHtml("#tabs-files-list-content", fpcm.ajax.getResult('filelist'));
-                fpcmJs.assignButtons();
+                fpcm.ui.assignButtons();
                 fpcm.filemanager.assignButtons();
                 var fpcmRFDinterval = setInterval(function(){
                     if (jQuery('#fpcm-filelist-images-finished').length == 1) {
@@ -219,10 +219,10 @@ fpcm.filemanager = {
                 id      : 'files-search',
                 dlWidth: size.width,
                 resizable: true,
-                title    : fpcm.ui.translate('articles_search'),
+                title    : fpcm.ui.translate('ARTICLES_SEARCH'),
                 dlButtons  : [
                     {
-                        text: fpcm.ui.translate('article_search_start'),
+                        text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
                         icon: "ui-icon-check",                        
                         click: function() {                            
                             var sfields = jQuery('.fpcm-files-search-input');
@@ -242,7 +242,7 @@ fpcm.filemanager = {
                         }
                     },                    
                     {
-                        text: fpcm.ui.translate('close'),
+                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick",                        
                         click: function() {
                             jQuery(this).dialog('close');
@@ -262,7 +262,10 @@ fpcm.filemanager = {
     startFilesSearch: function (sParams) {
 
         if (((new Date()).getTime() - fpcmFilesLastSearch) < 10000) {
-            fpcmJs.addAjaxMassage('error', fpcm.ui.translate('search_waitmsg'));            
+            fpcm.ui.addMessage({
+                type: 'error',
+                txt : fpcm.ui.translate('SEARCH_WAITMSG')
+            });
             return false;
         }
 
@@ -272,7 +275,7 @@ fpcm.filemanager = {
             data: sParams,
             execDone: function () {
                 fpcm.ui.assignHtml("#tabs-files-list-content", fpcm.ajax.getResult('files/search'));
-                fpcmJs.assignButtons();
+                fpcm.ui.assignButtons();
                 fpcm.filemanager.assignButtons();
                 var fpcmRFDinterval = setInterval(function(){
                     if (jQuery('#fpcm-filelist-images-finished').length == 1) {

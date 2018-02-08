@@ -46,8 +46,8 @@
 
             $minMax = $this->articleList->getMinMaxDate(0);
             $this->view->addJsVars([
-                'fpcmArticleSearchMode'   => 0,
-                'fpcmArticlSearchMinDate' => date('Y-m-d', $minMax['minDate'])
+                'articleSearchMode'   => 0,
+                'articleSearchMinDate' => date('Y-m-d', $minMax['minDate'])
             ]);
 
             $this->view->render();
