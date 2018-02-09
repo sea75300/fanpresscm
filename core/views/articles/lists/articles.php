@@ -22,9 +22,9 @@
         <?php foreach($articles AS $articleId => $article) : ?>
             <tr>
                 <td class="fpcm-ui-articlelist-open">                    
-                    <?php (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget('_blank'); ?>
-                    <?php (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article); ?>
-                    <?php (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article); ?>
+                    <?php $theView->openButton('articlefe')->setUrlbyObject($article)->setTarget('_blank'); ?>
+                    <?php $theView->editButton('articleedit')->setUrlbyObject($article); ?>
+                    <?php $theView->clearArticleCacheButton('cac')->setDatabyObject($article); ?>
                 </td>
                 <td>
                     <div class="fpcm-ui-ellipsis">
@@ -34,13 +34,13 @@
                     </div>
 
                     <?php if ($commentEnabledGlobal) : ?>
-                    <?php (new \fpcm\view\helper\badge('badge'.$articleId)) 
-                                ->setClass( (isset($commentPrivateUnapproved[$articleId]) && $commentPrivateUnapproved[$articleId] ? 'fpcm-ui-badge-red fpcm-ui-badge-comments' : 'fpcm-ui-badge-comments') )
-                                ->setText( (isset($commentPrivateUnapproved[$articleId]) && $commentPrivateUnapproved[$articleId] ? 'ARTICLE_LIST_COMMENTNOTICE' : 'HL_COMMENTS_MNG') )
-                                ->setValue( (isset($commentCount[$articleId]) ? $commentCount[$articleId] : 0) ); ?>
+                    <?php $theView->badge('badge'.$articleId)
+                            ->setClass( (isset($commentPrivateUnapproved[$articleId]) && $commentPrivateUnapproved[$articleId] ? 'fpcm-ui-badge-red fpcm-ui-badge-comments' : 'fpcm-ui-badge-comments') )
+                            ->setText( (isset($commentPrivateUnapproved[$articleId]) && $commentPrivateUnapproved[$articleId] ? 'ARTICLE_LIST_COMMENTNOTICE' : 'HL_COMMENTS_MNG') )
+                            ->setValue( (isset($commentCount[$articleId]) ? $commentCount[$articleId] : 0) ); ?>
                     <?php endif; ?>
 
-                    <div class="fpcm-ui-editor-metabox-left fpcm-articlelist-categories fpcm-hidden">
+                    <div class="fpcm-ui-editor-metabox-left fpcm-articlelist-categories fpcm-ui-hidden">
                         <strong><?php $theView->lang->write('HL_CATEGORIES_MNG'); ?>:</strong>
                         <?php print implode(', ', $article->getCategories()); ?>
                     </div>

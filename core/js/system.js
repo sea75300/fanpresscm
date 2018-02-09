@@ -51,7 +51,7 @@ fpcm.system = {
                     text: fpcm.ui.translate('GLOBAL_YES'),
                     icon: "ui-icon-check",
                     click: function() {
-                        fpcm.ui.relocate(fpcmActionPath + 'system/login');
+                        fpcm.ui.relocate(fpcm.vars.actionPath + 'system/login');
                         jQuery(this).dialog('close');
                     }
                 },
@@ -239,6 +239,10 @@ fpcm.system = {
     
     openManualCheckFrame: function () {
 
+        if (!fpcm.vars.jsvars.manualCheckUrl) {
+            return false;
+        }
+
         var size = fpcm.ui.getDialogSizes();
 
         fpcm.ui.dialog({
@@ -252,7 +256,7 @@ fpcm.system = {
                     text: fpcm.ui.translate('GLOBAL_OPENNEWWIN'),
                     icon: "ui-icon-extlink",                    
                     click: function() {
-                        window.open(fpcmManualCheckUrl);
+                        window.open(fpcm.vars.jsvars.manualCheckUrl);
                         jQuery(this).dialog('close');
                     }
                 },

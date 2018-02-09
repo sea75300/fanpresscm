@@ -109,12 +109,8 @@
                 
                 $content[] = '<tr class="fpcm-small-text">';
                 $content[] = '  <td class="fpcm-ui-articlelist-open">';
-                $content[] = '  <a class="fpcm-ui-button fpcm-ui-button-blank fpcm-openlink-btn" href="'.$comment->getElementLink().'" target="_blank" title="'.$this->language->translate('GLOBAL_FRONTEND_OPEN').'">'.$this->language->translate('GLOBAL_FRONTEND_OPEN').'</a>';
-                if ($comment->getEditPermission()) {
-                    $content[] = '  <a class="fpcm-ui-button fpcm-ui-button-blank fpcm-ui-button-edit fpcm-loader" href="'.$comment->getEditLink().'&amp;mode=1" title="'.$this->language->translate('GLOBAL_EDIT').'">'.$this->language->translate('GLOBAL_EDIT').'</a>';
-                } else {
-                    $content[] = '  <span class="fpcm-ui-button fpcm-ui-button-blank fpcm-ui-button-edit fpcm-ui-readonly" title="'.$this->language->translate('GLOBAL_EDIT').'">'.$this->language->translate('GLOBAL_EDIT').'</span>';
-                }
+                $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($comment)->setTarget('_blank');
+                $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($comment, '&mode=1')->setReadonly($comment->getEditPermission() ? false : true);
                 $content[] = '  </td>';
                 
                 $content[] = '  <td>';

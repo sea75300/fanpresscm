@@ -82,6 +82,8 @@
             $this->view->addJsFiles([\fpcm\classes\loader::libGetFileUrl('password-generator/password-generator.min.js')]);
             $this->view->setFieldAutofocus('username');
             $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH']);
+            $this->view->addButton((new \fpcm\view\helper\saveButton('userSave')));
+            $this->view->setFormAction('users/add');
 
             $this->view->render();            
         }

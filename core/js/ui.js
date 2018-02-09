@@ -635,16 +635,16 @@ fpcm.ui = {
     
     initDateTimeMasks: function() {
         
-        if (window.fpcmDtMasks === undefined) {
+        if (!fpcm.vars.jsvars.dtMasks) {
             return false;
         }
         
         fpcm.ui.autocomplete('#system_dtmask', {
-            source: fpcmDtMasks
+            source: fpcm.vars.jsvars.dtMasks
         });
 
         fpcm.ui.autocomplete('#usermetasystem_dtmask', {
-            source: fpcmDtMasks
+            source: fpcm.vars.jsvars.dtMasks
         });
     },
     
@@ -716,10 +716,10 @@ fpcm.ui = {
         fpcm.ui.selectmenu('#pageSelect', {
             select: function( event, ui ) {
                 if (ui.item.value == '1') {
-                    window.location.href = fpcmActionPath + fpcmCurrentModule;
+                    window.location.href = fpcm.vars.actionPath + fpcm.vars.jsvars.currentModule;
                     return true;
                 }
-                window.location.href = fpcmActionPath + fpcmCurrentModule + '&page=' + ui.item.value;
+                window.location.href = fpcm.vars.actionPath + fpcm.vars.jsvars.currentModule + '&page=' + ui.item.value;
             },
             position: {
                 my: "left bottom",

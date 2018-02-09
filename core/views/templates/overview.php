@@ -41,10 +41,10 @@
         <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons" id="template_buttons">
             <div class="fpcm-ui-margin-center">
                 <?php \fpcm\view\helper::linkButton('#', 'GLOBAL_PREVIEW', 'showpreview', 'fpcm-ui-preview'); ?>
-                <?php \fpcm\view\helper::saveButton('saveTemplates'); ?>
+                <?php $theView->saveButton('saveTemplates'); ?>
             </div>
         </div>
     </form>
 </div>
 
-<div class="fpcm-ui-dialog-layer fpcm-hidden fpcm-editor-dialog" id="fpcm-dialog-templatepreview-layer"></div>
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-templatepreview-layer"></div>

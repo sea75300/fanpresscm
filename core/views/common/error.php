@@ -14,7 +14,7 @@
         <?php include_once 'vars.php'; ?>
 
         <div class="wrapper">
-            <div class="fpcm-ui-center fpcm-ui-errorbox" id="fpcm-ui-errorbox">
+            <div class="fpcm-ui-center fpcm-ui-errorbox fpcm-ui-background-white-50p" id="fpcm-ui-errorbox">
 
                 <span class="fa-stack fa-lg fa-5x fpcm-ui-important-text">
                     <span class="fa fa-square fa-stack-2x"></span>

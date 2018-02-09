@@ -1,5 +1,5 @@
 <?php if ($theView->loggedIn) : ?>
- <div class="fpcm-status-info">
+<div class="fpcm-status-info fpcm-ui-background-white-50p">
      <ul class="fpcm-menu-top">
      <?php if ($theView->helpLink) : ?>
          <li class="fpcm-menu-top-level1 fpcm-ui-helplink">

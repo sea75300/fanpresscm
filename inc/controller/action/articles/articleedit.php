@@ -123,10 +123,9 @@
          */        
         public function process()
         {
-            
             parent::process();
 
-            $this->view->assign('editorAction', 'articles/edit&articleid='.$this->article->getId());
+            $this->view->setFormAction('articles/edit', ['articleid' => $this->article->getId()]);
             $this->view->assign('editorMode', 1);
             $this->view->assign('showRevisions', true);
             $this->view->assign('postponedTimer', $this->article->getCreatetime());
@@ -135,14 +134,12 @@
 
             $this->view->assign('commentsMode', 2);
             $this->view->assign('revisionCount', $this->article->getRevisionsCount());
-            $this->view->assign('revisionPermission', $this->permissions->check(array('article' => 'revisions')));
             
             $this->view->addJsVars([
-                'fpcmEditorCommentLayerSave'   => $this->lang->translate('GLOBAL_SAVE'),
-                'fpcmCanConnect'               => \fpcm\classes\baseconfig::canConnect() ? 1 : 0,
-                'fpcmArticleId'                => $this->article->getId(),
-                'fpcmCheckTimeout'             => FPCM_ARTICLE_LOCKED_INTERVAL * 1000,
-                'fpcmCheckLastState'           => -1
+                'canConnect'               => \fpcm\classes\baseconfig::canConnect() ? 1 : 0,
+                'articleId'                => $this->article->getId(),
+                'checkTimeout'             => FPCM_ARTICLE_LOCKED_INTERVAL * 1000,
+                'checkLastState'           => -1
             ]);
 
             $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'COMMENTS_EDIT']);
@@ -166,7 +163,6 @@
             
             $this->initPermissions();
 
-            $this->view->assign('isRevision', false);
             if ($this->showRevision) {
                 $this->view->assign('revisionArticle', $this->revisionArticle);
                 $this->view->assign('editorFile', \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_VIEWS, 'articles/editors/revisiondiff.php'));
@@ -174,7 +170,24 @@
                 $this->view->assign('showRevisions', false);
                 $this->view->assign('showComments', false);
                 $this->view->assign('editorAction', 'articles/edit&articleid='.$this->article->getId().'&rev='.$this->getRequestVar('rev'));
+
+                if ($this->permissions->check(['article' => 'revisions'])) {
+                    $this->view->addButton( (new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo') );
+                }
+
+                $this->view->addButton( (new \fpcm\view\helper\linkButton(''))->setUrl($this->article->getEditLink())->setText('EDITOR_BACKTOCURRENT')->setIcon('chevron-circle-left') );
             }
+            else {                
+                $this->view->addButtons([
+                    (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($this->article)->setTarget('_blank')->setIconOnly(true),
+                    (new \fpcm\view\helper\linkButton('shortlink'))->setUrl($this->article->getArticleShortLink())->setText('EDITOR_ARTICLE_SHORTLINK')->setIcon('external-link')->setIconOnly(true),
+                ]);
+                
+                if ($this->article->getImagepath()) {
+                    $this->view->addButton( (new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('picture-o')->setIconOnly(true)->setClass('fpcm-editor-articleimage') );
+                }
+            }
+            
             
             $this->view->render();
         }
@@ -193,7 +206,13 @@
                 $this->initCommentMassEditForm();
             }
             
-            $this->view->assign('permDeleteArticle', $this->permissions->check(array('article' => 'delete')));
+            $deletePermissions = $this->permissions->check(array('article' => 'delete'));
+            
+            if ($deletePermissions) {
+                $this->view->addButton(new \fpcm\view\helper\deleteButton('articleDelete'));
+            }
+            
+            $this->view->assign('permDeleteArticle', $deletePermissions);
             $this->view->assign('permApprove', $this->permissions->check(array('comment' => 'approve')));
             $this->view->assign('permPrivate', $this->permissions->check(array('comment' => 'private')));            
             $this->view->assign('permEditOwn', $this->permissions->check(array('comment' => 'edit')));

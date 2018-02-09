@@ -23,12 +23,15 @@
      * @property string $basePath
      * @property string $notificationString
      * @property string $helpLink
+     * @property string $formActionTarget
+     * 
      * @property array  $navigation
      * @property array  $navigationActiveModule
      * @property array  $messages
      * @property array  $filesJs
      * @property array  $filesCss
      * @property array  $varsJs
+     * @property array  $buttons
      * @property bool   $loggedIn
      * @property \fpcm\classes\language $lang
      * @property \fpcm\model\users\author $currentUser

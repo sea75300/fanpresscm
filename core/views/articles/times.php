@@ -22,23 +22,7 @@
     }            
 ?>
 
-<div class="fpcm-ui-editor-metabox-left">
-    <?php if (!$timesMode) : ?>
-        <?php if (!$isRevision) : ?>
-        <div class="fpcm-ui-editor-metabox-left-frontend">
-            <?php \fpcm\view\helper::linkButton($article->getElementLink(), 'GLOBAL_FRONTEND_OPEN', '', 'fpcm-ui-button-blank fpcm-openlink-btn', '_blank'); ?>
-        </div>
-        <div class="fpcm-ui-editor-metabox-left-short">
-            <?php \fpcm\view\helper::linkButton($article->getArticleShortLink(), 'EDITOR_ARTICLE_SHORTLINK', '', 'fpcm-ui-button-blank fpcm-articlelist-shortlink'); ?>
-        </div>
-        <?php endif; ?>
-        <?php if ($article->getImagepath()) : ?>
-        <div class="fpcm-ui-editor-metabox-left-aimg">
-            <?php \fpcm\view\helper::linkButton($article->getImagepath(), 'EDITOR_ARTICLEIMAGE_SHOW', '', 'fpcm-ui-button-blank fpcm-filelist-articleimage fpcm-editor-articleimage'); ?>
-        </div>
-        <?php endif; ?>
-    <?php endif; ?>
-    
+<div class="fpcm-ui-editor-metabox-left">    
     <div class="fpcm-ui-ellipsis"><?php print $timeInfoCreate; ?><br>
     <?php print $timeInfoChange; ?>
     <?php if (!$timesMode && $isRevision) : ?><br>
@@ -51,5 +35,5 @@
 
 <?php if (!$timesMode) : ?>
 <!-- Shortlink layer -->  
-<div class="fpcm-ui-dialog-layer fpcm-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-shortlink"></div>
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-shortlink"></div>
 <?php endif; ?>

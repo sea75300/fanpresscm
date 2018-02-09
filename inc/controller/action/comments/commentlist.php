@@ -172,7 +172,7 @@
                 $this->view->assign($key, $value);
             }
             
-            $this->view->addJsVars(['fpcmCurrentModule'=> $this->getRequestVar('module')]);
+            $this->view->addJsVars(['currentModule'=> $this->getRequestVar('module')]);
         }
 
     }

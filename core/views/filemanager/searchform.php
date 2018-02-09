@@ -1,4 +1,4 @@
-<div class="fpcm-ui-dialog-layer fpcm-hidden" id="fpcm-dialog-files-search">
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden" id="fpcm-dialog-files-search">
     <table class="fpcm-ui-table fpcm-ui-files-search">
         <tr>
             <td colspan="2"><?php \fpcm\view\helper::textInput('filename', 'fpcm-files-search-input', '', false, 255, $theView->lang->translate('FILE_LIST_FILENAME'), 'fpcm-full-width'); ?></td>

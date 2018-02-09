@@ -59,7 +59,7 @@ fpcm.fileuploader = {
     
     initJqUpload: function() {
         
-        if (!fpcmJqUploadInit) {
+        if (!fpcm.vars.jsvars.jqUploadInit) {
             return false;
         }
 

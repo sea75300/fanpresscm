@@ -134,9 +134,9 @@
 
             $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH']);
             $this->view->addJsVars(array(
-                'fpcmDtMasks'       => $this->getDateTimeMasks(),
-                'fpcmReloadPage'    => $this->reloadSite,
-                'fpcmJqUploadInit'  => 0
+                'dtMasks'       => $this->getDateTimeMasks(),
+                'reloadPage'    => $this->reloadSite,
+                'jqUploadInit'  => 0
             ));
 
             $this->view->assign('articleLimitList', \fpcm\model\system\config::getAcpArticleLimits());
@@ -146,6 +146,13 @@
                 \fpcm\classes\loader::libGetFileUrl('password-generator/password-generator.min.js'),
                 'profile.js', 'fileuploader.js'
             ]);
+            
+            $this->view->addButtons([
+                (new \fpcm\view\helper\saveButton('profileSave')),
+                (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('exchange')
+            ]);
+            
+            $this->view->setFormAction('system/profile');
 
             $this->view->render();            
         }

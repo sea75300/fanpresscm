@@ -1,4 +1,4 @@
-<div class="fpcm-ui-dialog-layer fpcm-hidden fpcm-editor-dialog fpcm-massedit-dialog" id="fpcm-dialog-articles-massedit">
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog fpcm-massedit-dialog" id="fpcm-dialog-articles-massedit">
     
     <div class="fpcm-ui-editor-extended-row">
         <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-tags fa-fw fa-lg"></span></div>

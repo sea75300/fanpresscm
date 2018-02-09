@@ -178,7 +178,7 @@ fpcm.modulelist = {
             },
             async: false,
             execDone: function() {
-                fpcm.ui.relocate(fpcmActionPath + 'package/modinstall');
+                fpcm.ui.relocate(fpcm.vars.actionPath + 'package/modinstall');
             }
         });
     },
@@ -192,7 +192,7 @@ fpcm.modulelist = {
             },
             async: false,
             execDone: function() {
-                fpcm.ui.relocate(fpcmActionPath + 'package/modupdate');
+                fpcm.ui.relocate(fpcm.vars.actionPath + 'package/modupdate');
             }
         });
 

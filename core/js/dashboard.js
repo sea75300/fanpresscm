@@ -35,6 +35,10 @@ fpcm.dashboard = {
                 }, 250);
             }
         });
+        
+        if (fpcm.vars.jsvars.autoDialog) {
+            fpcm.system.openManualCheckFrame();
+        }
 
     }
 

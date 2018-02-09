@@ -17,14 +17,12 @@
         <?php endif; ?>
     </ul>            
 
-    <form method="post" action="<?php print $theView->self; ?>?module=<?php print $editorAction; ?>" name="nform">
-        <div id="tabs-article">
-            <div class="fpcm-ui-dialog-layer fpcm-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-filemanager"></div>            
-            
-            <?php include $editorFile; ?>
-            <?php include $theView->getIncludePath('articles/buttons.php'); ?>
-        </div>
-        
-        <?php $theView->pageTokenField('pgtkn'); ?>
-    </form>
+    <div id="tabs-article">
+        <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-filemanager"></div>            
+
+        <?php include $editorFile; ?>
+        <?php include $theView->getIncludePath('articles/buttons.php'); ?>
+    </div>
+
+    <?php $theView->pageTokenField('pgtkn'); ?>
 </div>

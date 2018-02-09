@@ -31,7 +31,7 @@
     </div>
 </div>
 
-<div class="fpcm-ui-dialog-layer fpcm-hidden" id="fpcm-dialog-modulelist-infos">  
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden" id="fpcm-dialog-modulelist-infos">  
     <table class="fpcm-ui-table">
         <tr>
             <td class="fpcm-quarter-width"><label><?php $theView->lang->write('MODULES_LIST_KEY'); ?>:</label></td>

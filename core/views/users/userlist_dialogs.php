@@ -1,4 +1,4 @@
-<div class="fpcm-ui-dialog-layer fpcm-hidden fpcm-editor-dialog" id="fpcm-dialog-users-select-delete">  
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-users-select-delete">  
     <table class="fpcm-ui-table">
         <tr>
             <td><label><?php $theView->lang->write('USERS_ARTICLES_SELECT'); ?>:</label></td>
@@ -15,4 +15,4 @@
     </table>
 </div>
 
-<div class="fpcm-ui-dialog-layer fpcm-hidden fpcm-editor-dialog" id="fpcm-dialog-users-permissions-edit"></div>
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-users-permissions-edit"></div>

@@ -121,6 +121,8 @@
             $this->userEnabled = $author->getDisabled();
             
             $this->view->assign('author', $author);
+            $this->view->setFormAction($author->getEditLink(), [], true);
+
             $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($author, false));
             
             return true;
@@ -162,11 +164,15 @@
             
             $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH']);
             $this->view->addJsVars([
-                'fpcmDtMasks'                => $this->getDateTimeMasks(),
-                'fpcmJqUploadInit'           => 0
+                'dtMasks'                => $this->getDateTimeMasks(),
+                'jqUploadInit'           => 0
             ]);
             
             $this->view->setFieldAutofocus('username');
+            $this->view->addButtons([
+                (new \fpcm\view\helper\saveButton('userSave')),
+                (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('exchange')
+            ]);
             
             $this->view->render();            
         }

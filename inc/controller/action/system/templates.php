@@ -187,7 +187,7 @@
             
             $this->view->assign('allowedTags', htmlentities($this->articleTemplate->getAllowedTags(', ')));
 
-            $this->view->addJsVars(array('fpcmTemplateId' => 1, 'fpcmJqUploadInit' => 0));
+            $this->view->addJsVars(array('fpcmTemplateId' => 1, 'jqUploadInit' => 0));
             $this->view->addJsLangVars(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT']);
             
             $tplfilelist = new \fpcm\model\files\templatefilelist();

@@ -31,7 +31,7 @@
 
                 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
                     <div class="fpcm-ui-margin-center">
-                        <?php \fpcm\view\helper::saveButton('ipSave'); ?>
+                        <?php $theView->saveButton('ipSave'); ?>
                     </div>
                 </div> 
             </div>

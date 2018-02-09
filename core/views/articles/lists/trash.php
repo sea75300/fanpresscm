@@ -17,7 +17,7 @@
         <tr class="fpcm-td-spacer"><td></td></tr>
         <?php foreach($articles AS $articleId => $article) : ?>
             <tr>
-                <td><?php (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget('_blank'); ?></td>
+                <td><?php $theView->openButton('articlefe')->setUrlbyObject($article)->setTarget('_blank'); ?></td>
                 <td class="fpcm-ui-ellipsis"><strong><?php print \fpcm\view\helper::escapeVal(strip_tags($article->getTitle())); ?></strong></td>
                 <td class="fpcm-td-select-row"><?php fpcm\view\helper::checkbox('actions[ids][]', 'fpcm-list-selectbox-trash fpcm-list-selectbox-sub-trash'.$articleMonth, $articleId, '', 'chbx'.$articleId, false) ?></td>
             </tr>

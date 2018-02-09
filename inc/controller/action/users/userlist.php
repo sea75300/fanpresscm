@@ -109,12 +109,7 @@
             $this->view->assign('articleCounts', $this->articleList->countArticlesByUsers());
             $this->view->assign('rollPermissions', $this->permissions->check(array('system' => 'rolls')));
             $this->view->addJsFiles(['users.js']);
-            $this->view->addJsLangVars([
-                'USERS_ARTICLES_SELECT'     => $this->lang->translate('USERS_ARTICLES_SELECT'),
-                'GLOBAL_OK'                 => $this->lang->translate('GLOBAL_OK'),
-                'GLOBAL_SAVE'               => $this->lang->translate('GLOBAL_SAVE'),
-                'HL_OPTIONS_PERMISSIONS'    => $this->lang->translate('HL_OPTIONS_PERMISSIONS')
-            ]);
+            $this->view->addJsLangVars(['USERS_ARTICLES_SELECT', 'HL_OPTIONS_PERMISSIONS']);
 
             $this->view->render();
         }

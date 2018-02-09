@@ -69,7 +69,7 @@
             ]);
 
             $this->returnData = [
-                'txt'  => 'cache_cleared_ok',
+                'txt'  => 'CACHE_CLEARED_OK',
                 'type' => 'notice',
                 'icon' => 'recycle'
             ];

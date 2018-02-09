@@ -13,10 +13,10 @@ fpcm.profile = {
 
     init: function () {
 
-        if (fpcmReloadPage) {
+        if (fpcm.vars.jsvars.reloadPage) {
             setTimeout(function () {
                 fpcm.ui.showLoader(true);
-                fpcm.ui.relocate(fpcmActionPath + 'system/profile');
+                fpcm.ui.relocate(fpcm.vars.actionPath + 'system/profile');
             }, 1500);
         }
 

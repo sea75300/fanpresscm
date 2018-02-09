@@ -6,7 +6,7 @@
 <form id="fileupload" action="<?php print $actionPath; ?>" method="POST" enctype="multipart/form-data">
 
     <div class="fileupload-buttonbar">
-        <div class="fileupload-progress fade fpcm-hidden">
+        <div class="fileupload-progress fade fpcm-ui-hidden">
             <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
             <div class="progress-extended">&nbsp;</div>
         </div>

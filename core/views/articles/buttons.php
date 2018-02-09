@@ -15,7 +15,7 @@
         </div>
     </div>
         
-    <div class="fpcm-ui-dialog-layer fpcm-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-extended">
+    <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-extended">
         <?php if ($showTwitter) : ?>
         <div class="fpcm-ui-editor-extended-row">
             <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-twitter fa-fw fa-lg"></span></div>
@@ -88,16 +88,3 @@
 
     </div>
 <?php endif; ?>
-
-<div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
-    <div class="fpcm-ui-margin-center">
-        <?php if ($isRevision) : ?>
-            <?php if ($revisionPermission) : ?><?php fpcm\view\helper::submitButton('articleRevisionRestore', 'EDITOR_REVISION_RESTORE', 'fpcm-ui-revision-restore fpcm-loader'); ?><?php endif; ?>
-            <?php \fpcm\view\helper::linkButton($article->getEditLink(), 'EDITOR_BACKTOCURRENT', '', 'fpcm-back-button'); ?>
-        <?php else : ?>
-            <?php fpcm\view\helper::linkButton('#', 'GLOBAL_EXTENDED', 'fpcmeditorextended', 'fpcm-button-extended'); ?>
-            <?php fpcm\view\helper::saveButton('articleSave'); ?>
-            <?php if ($editorMode && $permDeleteArticle) : ?><?php fpcm\view\helper::deleteButton('articleDelete'); ?><?php endif; ?>
-        <?php endif; ?>
-    </div>
-</div>

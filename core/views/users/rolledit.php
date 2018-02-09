@@ -18,7 +18,7 @@
 
                 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
                     <div class="fpcm-ui-margin-center">
-                        <?php \fpcm\view\helper::saveButton('saveRoll'); ?>
+                        <?php $theView->saveButton('saveRoll'); ?>
                     </div>
                 </div>                
             </div>

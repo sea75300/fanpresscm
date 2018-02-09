@@ -147,15 +147,10 @@
          * @return array
          */
         public function getJavascriptVars() {
-            
-            if (!$this->autoCheckFailed) {
-                return [];
-            }
-            
-            return array(
-                'fpcmManualCheckUrl'      => $this->systemUpdates->getManualCheckAddress(),
-                'fpcmManualCheckHeadline' => $this->language->translate('HL_PACKAGEMGR_SYSUPDATES')
-            );
+            return [
+                'manualCheckUrl'    => $this->autoCheckFailed ? $this->systemUpdates->getManualCheckAddress() : false,
+                'autoDialog'        => true
+            ];
         }
 
         /**
@@ -174,15 +169,7 @@
          * @return array
          */
         public function getControllerViewVars() {
-            
-            if (!$this->autoCheckFailed) {
-                return [];
-            }
-            
-            return array(
-                'includeManualCheck' => true,
-                'autoDialog'         => false
-            );
+            return ['includeManualCheck' => $this->autoCheckFailed ? true : false];
         }
         
         /**

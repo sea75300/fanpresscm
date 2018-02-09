@@ -30,6 +30,7 @@
             ]));
             $this->view->addJsFiles(['logs.js']);
             $this->view->addJsLangVars(['LOGS_CLEARED_LOG_OK', 'LOGS_CLEARED_LOG_FAILED']);
+            $this->view->addButton((new \fpcm\view\helper\button('fpcm-logs-clear_0'))->setType('button')->setText('LOGS_CLEARLOG')->setClass('fpcm-logs-clear fpcm-clear-btn')->setIcon('trash'));
             
             $this->view->render();
         }

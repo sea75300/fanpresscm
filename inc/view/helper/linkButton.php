@@ -44,6 +44,7 @@
         protected function getString()
         {
             if ($this->readonly) {
+                $this->class = str_replace('fpcm-loader', '', $this->class);
                 return implode(' ', [
                     "<span",
                     $this->getClassString(),

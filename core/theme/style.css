@@ -134,6 +134,10 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
     display : none;
 }
 
+#fpcm-ui-toolbar {
+    padding: 0.3em 0;
+}
+
 .fpcm-wrapper {
     padding:0;
     margin: 0;
@@ -141,9 +145,7 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
 }
 
 h1,
-.fpcm-status-info,
-.fpcm-wrapper-left,
-.fpcm-ui-errorbox {
+.fpcm-ui-background-white-50p {
     background: rgba(255,255,255,0.5);
 }
 
@@ -209,7 +211,7 @@ img.fpcm-logo {
 .fpcm-dialog-wrapper    {
     padding: 0em 0.6em 0em 0em;
 }
-.fpcm-hidden            {
+.fpcm-ui-hidden            {
     display: none;
 }
 .fpcm-clear             {

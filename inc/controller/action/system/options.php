@@ -125,8 +125,7 @@
          * @return boolean
          */
         public function process() {
-            
-            
+
             $timezones = [];
             
             foreach ($this->getTimeZones() as $area => $zones) {
@@ -212,7 +211,13 @@
             $this->view->addJsVars([
                 'showTwitter'   => $showTwitter ? 1 : 0,
                 'runSysCheck'   => $this->syscheck,
-                'fpcmDtMasks'   => $this->getDateTimeMasks()
+                'dtMasks'   => $this->getDateTimeMasks()
+            ]);
+            
+            $this->view->setFormAction('system/options');
+            $this->view->addButtons([
+                (new \fpcm\view\helper\saveButton('configSave')),
+                (new \fpcm\view\helper\button('fpcmsyschecksubmitstats'))->setType('button')->setText('SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS')->setClass('fpcm-ui-hidden'),
             ]);
             
             $this->view->render();            

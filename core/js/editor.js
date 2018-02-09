@@ -16,9 +16,9 @@ fpcm.editor = {
 
         fpcm.ui.setFocus('articletitle');
 
-        if (window.fpcmArticleId) {
+        if (fpcm.vars.jsvars.articleId) {
             fpcm.editor.setInEdit();
-            setInterval(fpcm.editor.setInEdit, window.fpcmCheckTimeout);
+            setInterval(fpcm.editor.setInEdit, fpcm.vars.jsvars.checkTimeout);
         }
 
         fpcm.ui.checkboxradio('.fpcm-ui-editor-categories .fpcm-ui-input-checkbox', {
@@ -116,8 +116,7 @@ fpcm.editor = {
             return false;
         });
 
-        fpcm.ui.button('#fpcmeditorextended', {},
-        function() {
+        jQuery('#editorextended').click(function() {
 
             var size = fpcm.ui.getDialogSizes(top, 0.75);
 
@@ -176,7 +175,7 @@ fpcm.editor = {
             jQuery('.fpcm-editor-select').fadeOut();
         });
 
-        jQuery('.fpcm-articlelist-shortlink').click(function () {
+        jQuery('#shortlink').click(function () {
             var text = jQuery(this).text();
             var link = jQuery(this).attr('href');
 
@@ -196,7 +195,7 @@ fpcm.editor = {
                     }
                 ],
                 dlOnOpen: function (event, ui) {                
-                    var appendCode  = fpcmCanConnect
+                    var appendCode  = fpcm.vars.jsvars.canConnect
                                     ? '<div class="fpcm-ui-input-wrapper"><div class="fpcm-ui-input-wrapper-inner"><input type="text" value="' + link + '"></div></div>'
                                     : '<iframe class="fpcm-full-width"  src="' + link + '"></iframe>';
 
@@ -486,7 +485,7 @@ fpcm.editor = {
             title    : fpcm.ui.translate('COMMENTS_EDIT'),
             dlButtons  : [
                 {
-                    text: fpcmEditorCommentLayerSave,
+                    text: fpcm.ui.translate('GLOBAL_SVAE'),
                     icon: "ui-icon-disk",                        
                     click: function() {
                         jQuery(this).children('#fpcm-editor-comment-frame').contents().find('#btnCommentSave').trigger('click');
@@ -1153,12 +1152,12 @@ fpcm.editor = {
         
         fpcm.ajax.post('editor/inedit', {
             data: {
-                id: window.fpcmArticleId
+                id: fpcm.vars.jsvars.articleId
             },
             execDone: function () {
 
                 var res = fpcm.ajax.fromJSON(fpcm.ajax.getResult('editor/inedit'));
-                if (fpcmCheckLastState == 1 && res.code == 0) {
+                if (fpcm.vars.jsvars.checkLastState == 1 && res.code == 0) {
 
                     fpcm.ui.addMessage({
                         type : 'notice',
@@ -1168,7 +1167,7 @@ fpcm.editor = {
                     }, true);
                 }
 
-                if (fpcmCheckLastState == 0 && res.code == 1 && res.username) {
+                if (fpcm.vars.jsvars.checkLastState == 0 && res.code == 1 && res.username) {
 
                     var msg = fpcm.ui.translate('EDITOR_STATUS_INEDIT');
                     fpcm.ui.addMessage({
@@ -1179,7 +1178,7 @@ fpcm.editor = {
                     }, true);
                 }
 
-                fpcmCheckLastState = res.code;
+                fpcm.vars.jsvars.checkLastState = res.code;
             }
         });            
 

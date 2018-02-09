@@ -12,7 +12,7 @@ fpcm.filemanager = {
 
     init: function() {
 
-        if (window.fpcmLoadAjax) {
+        if (fpcm.vars.jsvars.fmLoadAjax) {
             this.reloadFiles();
             this.initActionButtons();
         }
@@ -68,7 +68,7 @@ fpcm.filemanager = {
             var url   = jQuery(this).attr('href');
             var title = jQuery(this).attr('imgtxt');  
 
-            if (fpcmEditorType == 1) {
+            if (fpcm.vars.jsvars.editorType == 1) {
                 if (parent.fileOpenMode == 1) {
                     parent.document.getElementById('linksurl').value  = url;
                     parent.document.getElementById('linkstext').value = title;
@@ -92,7 +92,7 @@ fpcm.filemanager = {
             var url   = jQuery(this).attr('href');
             var title = jQuery(this).attr('imgtxt');
 
-            if (fpcmEditorType == 1) {
+            if (fpcm.vars.jsvars.editorType == 1) {
                 if (parent.fileOpenMode == 1) {
                     parent.document.getElementById('linksurl').value  = url;
                     parent.document.getElementById('linkstext').value = title;
@@ -113,8 +113,8 @@ fpcm.filemanager = {
         });
 
         jQuery('.fpcm-filelist-articleimage').click(function () {
-            var url   = jQuery(this).attr('href');
 
+            var url   = jQuery(this).attr('href');
             parent.document.getElementById('articleimagepath').value  = url;
             window.parent.jQuery("#fpcm-dialog-editor-html-filemanager").dialog('close');
             window.parent.jQuery('#fpcm-dialog-editor-html-filemanager').empty();
@@ -171,7 +171,7 @@ fpcm.filemanager = {
 
         fpcm.ajax.get('filelist', {
             data: {
-                mode: fpcmFmgrMode,
+                mode: fpcm.vars.jsvars.fmgrMode,
                 page: page
             },
             execDone: function () {
@@ -227,7 +227,7 @@ fpcm.filemanager = {
                         click: function() {                            
                             var sfields = jQuery('.fpcm-files-search-input');
                             var sParams = {
-                                mode    : fpcmFmgrMode,
+                                mode    : fpcm.vars.jsvars.fmgrMode,
                                 filter  : {}
                             };
 
@@ -261,7 +261,7 @@ fpcm.filemanager = {
 
     startFilesSearch: function (sParams) {
 
-        if (((new Date()).getTime() - fpcmFilesLastSearch) < 10000) {
+        if (((new Date()).getTime() - fpcm.vars.jsvars.filesLastSearch) < 10000) {
             fpcm.ui.addMessage({
                 type: 'error',
                 txt : fpcm.ui.translate('SEARCH_WAITMSG')
@@ -291,6 +291,6 @@ fpcm.filemanager = {
             }
         });
 
-        fpcmFilesLastSearch = (new Date()).getTime();
+        fpcm.vars.jsvars.filesLastSearch = (new Date()).getTime();
     }
 };

@@ -30,7 +30,7 @@
                             <td class="fpcm-ui-editbutton-col"><?php $theView->editButton('usrEditBtn'.$user->getId())->setUrlbyObject($user); ?></td>
                             <td><strong><?php print \fpcm\view\helper::escapeVal($user->getUserName()); ?></strong></td>
                             <td><a href="mailto:<?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?>"><?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?></a>
-                                <?php (new \fpcm\view\helper\badge('user_article_count'.$user->getId()))
+                                <?php $theView->badge('user_article_count'.$user->getId())
                                         ->setValue(isset($articleCounts[$user->getId()]) ? $articleCounts[$user->getId()] : 0)
                                         ->setIcon('book')
                                         ->setText('USERS_ARTICLE_COUNT');
@@ -47,9 +47,9 @@
                 
                 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
                     <div class="fpcm-ui-margin-center">
-                        <?php fpcm\view\helper::linkButton($theView->basePath.'users/add', 'USERS_ADD', '', 'fpcm-loader fpcm-newuser-btn'); ?>
-                        <?php fpcm\view\helper::submitButton('disableUser', 'GLOBAL_DISABLE', 'fpcm-loader fpcm-ui-useractions-disable'); ?>
-                        <?php fpcm\view\helper::deleteButton('deleteActive'); ?>
+                        <?php $theView->linkButton('addUser')->setUrl($theView->basePath.'users/add')->setText('USERS_ADD')->setClass('fpcm-loader fpcm-ui-button-newuser')->setIcon('user-plus'); ?>
+                        <?php $theView->submitButton('disableUser')->setText('GLOBAL_DISABLE')->setClass('fpcm-loader')->setIcon('toggle-off'); ?>
+                        <?php $theView->deleteButton('deleteActive'); ?>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                             <td class="fpcm-ui-editbutton-col"><?php $theView->editButton('usrDisEditBtn'.$user->getId())->setUrlbyObject($user); ?></td>
                             <td><strong><?php print \fpcm\view\helper::escapeVal($user->getUserName()); ?></strong></td>
                             <td><a href="mailto:<?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?>"><?php print \fpcm\view\helper::escapeVal($user->getEmail()); ?></a>
-                                <?php (new \fpcm\view\helper\badge('user_article_count'.$user->getId()))
+                                <?php $theView->badge('user_article_count'.$user->getId())
                                         ->setValue(isset($articleCounts[$user->getId()]) ? $articleCounts[$user->getId()] : 0)
                                         ->setIcon('book')
                                         ->setText('USERS_ARTICLE_COUNT');
@@ -95,8 +95,8 @@
                 
                 <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
                     <div class="fpcm-ui-margin-center">
-                        <?php fpcm\view\helper::submitButton('enableUser', 'GLOBAL_ENABLE', 'fpcm-loader fpcm-ui-useractions-enable'); ?>
-                        <?php fpcm\view\helper::deleteButton('deleteDisabled'); ?>
+                        <?php $theView->submitButton('enableUser')->setText('GLOBAL_ENABLE')->setClass('fpcm-loader')->setIcon('toggle-on'); ?>
+                        <?php $theView->deleteButton('deleteDisabled'); ?>
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
                     <?php foreach($usersRollList AS $rollName => $rollid) : ?>
                     <tr>
                         <td class="fpcm-ui-editbutton-col">
-                            <?php $theView->editButton('rollEditBtn'.$rollid)->setUrl($theView->basePath.'users/editroll&id='.$rollid)->setReadonly($rollid <= 3 ? false : true); ?>
+                            <?php $theView->editButton('rollEditBtn'.$rollid)->setUrl($theView->basePath.'users/editroll&id='.$rollid)->setReadonly($rollid <= 3 ? true : false); ?>
                             <?php $theView->linkButton('rollPermBtn'.$rollid)->setUrl($theView->basePath.'users/permissions&id='.$rollid)->setText('USERS_ROLLS_PERMISSIONS')->setClass('fpcm-ui-rolllist-permissionedit')->setIcon('key')->setIconOnly(true); ?>
                         </td>
                         <td><strong><?php print \fpcm\view\helper::escapeVal($rollName); ?></strong></td>

@@ -138,16 +138,14 @@
         }
         
         public function process() {
-            
 
             $this->view->addJsVars([
-                'fpcmBaseUrl'           => \fpcm\classes\dirs::getRootUrl(),
-                'fpcmFmgrMode'          => $this->mode,
-                'fpcmEditorType'        => $this->config->system_editor,
-                'fpcmJqUploadInit'      => $this->config->file_uploader_new,
-                'fpcmLoadAjax'          => ($this->fileList->getDatabaseFileCount() ? 1 : 0),
-                'fpcmCurrentModule'     => $this->getRequestVar('module'),
-                'fpcmFilesLastSearch'   => 0
+                'fmgrMode'          => $this->mode,
+                'editorType'        => $this->config->system_editor,
+                'jqUploadInit'      => $this->config->file_uploader_new,
+                'fmLoadAjax'        => ($this->fileList->getDatabaseFileCount() ? 1 : 0),
+                'currentModule'     => $this->getRequestVar('module'),
+                'filesLastSearch'   => 0
             ]);
 
             $this->view->addJsLangVars(['FILE_LIST_RENAME_NEWNAME', 'SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START']);

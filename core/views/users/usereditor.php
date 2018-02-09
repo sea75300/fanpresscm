@@ -52,7 +52,7 @@
                     <?php fpcm\view\helper::submitButton('uploadFile', 'FILE_FORM_UPLOADSTART', 'start-upload fpcm-loader'); ?>
                     <button type="reset" class="cancel-upload" id="btnCancelUpload"><?php $theView->lang->write('FILE_FORM_UPLOADCANCEL'); ?></button>
                     <?php fpcm\view\helper::deleteButton('fileDelete'); ?>
-                    <input type="file" name="files" class="fpcm-ui-fileinput-select fpcm-hidden">
+                    <input type="file" name="files" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
                 </div>
 
                 <p><?php if ($avatar) : ?><img src="<?php print $avatar; ?>"><?php else: ?><?php $theView->lang->write('GLOBAL_NOTFOUND'); ?><?php endif; ?></p>
@@ -68,14 +68,6 @@
         </td>
     </tr>
     <?php endif; ?>
-</table>            
-
-<?php if (!isset($externalSave)) : ?>
-<div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
-    <div class="fpcm-ui-margin-center">
-        <?php \fpcm\view\helper::saveButton('userSave'); ?>
-    </div>
-</div>
-<?php endif; ?>
+</table>
 
 <?php $theView->pageTokenField('pgtkn'); ?>

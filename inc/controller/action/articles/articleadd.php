@@ -99,13 +99,12 @@
         public function process()
         {
             parent::process();
-            
-            $this->view->assign('editorAction', 'articles/add');
+
+            $this->view->setFormAction('articles/add');
             $this->view->assign('editorMode', 0);
             $this->view->assign('showComments', false);
             $this->view->assign('showRevisions', false);
             $this->view->assign('postponedTimer', time());
-
             $this->view->render();
         }
 

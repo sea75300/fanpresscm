@@ -77,13 +77,13 @@
                 $this->view->assign('changeuserList', $changeuserList);
             }
 
+            $this->view->assign('isRevision', false);
             $this->view->assign('editorFile', $this->editorPlugin->getEditorTemplate());
             $this->view->assign('article', $this->article);
             $this->view->assign('categories', $this->categoryList->getCategoriesCurrentUser());
             $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
             $this->view->assign('showArchiveStatus', true);
             $this->view->assign('showDraftStatus', true);
-            $this->view->assign('isRevision', false);
             $this->view->assign('timesMode', false);
             $this->view->assign('userfields', $this->getUserFields());
 
@@ -120,6 +120,11 @@
                 $this->editorPlugin->getJsLangVars()
             ));            
             $this->view->addJsVars($this->jsVars);
+
+            $this->view->addButtons([
+                (new \fpcm\view\helper\button('editorextended', 'editorextended'))->setText('GLOBAL_EXTENDED')->setIcon('bars'),
+                (new \fpcm\view\helper\saveButton('articleSave'))
+            ]);
             
             return true;
         }

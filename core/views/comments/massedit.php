@@ -1,4 +1,4 @@
-<div class="fpcm-ui-dialog-layer fpcm-hidden fpcm-editor-dialog fpcm-massedit-dialog" id="fpcm-dialog-comments-massedit">
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog fpcm-massedit-dialog" id="fpcm-dialog-comments-massedit">
 
     <?php if ($canApprove) : ?>
     <div class="fpcm-ui-editor-extended-row">

@@ -10,7 +10,7 @@
 
         <button type="reset" class="cancel-upload" id="btnCancelUpload"><?php $theView->lang->write('FILE_FORM_UPLOADCANCEL'); ?></button>
 
-            <input type="file" name="files[]" multiple class="fpcm-ui-fileinput-select fpcm-hidden">
+            <input type="file" name="files[]" multiple class="fpcm-ui-fileinput-select fpcm-ui-hidden">
         </span>
     </div>
 </form>

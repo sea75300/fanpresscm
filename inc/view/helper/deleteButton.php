@@ -25,6 +25,7 @@
             $this->type   = 'submit';
             $this->class .= ' fpcm-ui-button-delete fpcm-loader';
             $this->setText('GLOBAL_DELETE');
+            $this->setIcon('trash');
         }
 
     }
