@@ -47,10 +47,10 @@
             <?php \fpcm\view\helper::linkButton('#', 'MODULES_LIST_INSTALL', str_replace('/', '', $module->getKey()), 'fpcm-ui-button-blank fpcm-modulelist-singleaction-install'); ?>
         <?php endif; ?>
         </td>
-        <td><?php fpcm\view\helper::linkButton('', \fpcm\view\helper::escapeVal($module->getName()), str_replace('/', '', $module->getKey()), 'fpcm-module-openinfo-link'); ?></td>
-        <td class="fpcm-ui-modules-key"><?php print \fpcm\view\helper::escapeVal($module->getKey()); ?></td>
-        <td class="fpcm-ui-modules-version fpcm-ui-center" id="fpcm-module-version<?php print $module->getKey(); ?>"><?php print \fpcm\view\helper::escapeVal($module->getVersion()); ?></td>
-        <td class="fpcm-ui-modules-version fpcm-ui-center" id="fpcm-module-versionrem<?php print $module->getKey(); ?>"><?php print \fpcm\view\helper::escapeVal($module->getVersionRemote()); ?></td>
+        <td><?php fpcm\view\helper::linkButton('', $theView->escape($module->getName()), str_replace('/', '', $module->getKey()), 'fpcm-module-openinfo-link'); ?></td>
+        <td class="fpcm-ui-modules-key"><?php print $theView->escape($module->getKey()); ?></td>
+        <td class="fpcm-ui-modules-version fpcm-ui-center" id="fpcm-module-version<?php print $module->getKey(); ?>"><?php print $theView->escape($module->getVersion()); ?></td>
+        <td class="fpcm-ui-modules-version fpcm-ui-center" id="fpcm-module-versionrem<?php print $module->getKey(); ?>"><?php print $theView->escape($module->getVersionRemote()); ?></td>
         <td class="fpcm-td-select-row">
         <?php if ($module->isInstalled()) : ?>
             <?php fpcm\view\helper::checkbox('moduleksys[]', 'fpcm-list-selectbox', base64_encode($module->getKey()), '', 'cb_'.str_replace('/', '', $module->getKey()), false) ?>

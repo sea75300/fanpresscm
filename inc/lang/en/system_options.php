@@ -156,20 +156,6 @@
         'SYSTEM_OPTIONS_EMAIL_PASSWORD'             => 'SMTP password',
         'SYSTEM_OPTIONS_EMAIL_ENCRYPTED'            => 'SMTP-encryption',
         'SYSTEM_OPTIONS_EMAIL_ACTIVE'               => 'Check of credentials successfully. E-mails are delivered via SMTP.',
-        
-        'SYSTEM_OPTIONS_SYSCHECK_CURRENT'           => 'Current value',
-        'SYSTEM_OPTIONS_SYSCHECK_RECOMMEND'         => 'Recommended value',
-        'SYSTEM_OPTIONS_SYSCHECK_STATUS'            => 'value OK?',
-        'SYSTEM_OPTIONS_SYSCHECK_FPCMVERSION'       => 'FanPress CM version',
-        'SYSTEM_OPTIONS_SYSCHECK_PHPVERSION'        => 'PHP version',
-        'SYSTEM_OPTIONS_SYSCHECK_PHPMEMLIMIT'       => 'PHP memory limit',
-        'SYSTEM_OPTIONS_SYSCHECK_PHPMAXEXECTIME'    => 'PHP max execution time',
-        'SYSTEM_OPTIONS_SYSCHECK_DBDRV_MYSQL'       => 'MySQL/ MariaDB database driver',
-        'SYSTEM_OPTIONS_SYSCHECK_DBDRV_PGSQL'       => 'Postgres database driver',
-        'SYSTEM_OPTIONS_SYSCHECK_DBDRV_ACTIVE'      => 'Active database driver',
-        'SYSTEM_OPTIONS_SYSCHECK_DBVERSION'         => 'Database system version',
-        'SYSTEM_OPTIONS_SYSCHECK_HTTPS'             => 'HTTPS is active',
-        'SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS'       => 'Submit statistical informaton',
 
         'SYSTEM_OPTIONS_CRONINTERVALS' => array(
             'every request'     => 0,

@@ -37,7 +37,7 @@
                 <table class="fpcm-ui-table fpcm-ui-nobg">
                     <tr>
                         <td><strong><?php $theView->lang->write('FILE_LIST_UPLOAD_DATE'); ?>:</strong></td>
-                        <td><?php \fpcm\view\helper::dateText($file->getFiletime()); ?></td>                    
+                        <td><?php $theView->dateText($file->getFiletime()); ?></td>                    
                     </tr>
                     <tr>
                         <td><strong><?php $theView->lang->write('FILE_LIST_UPLOAD_BY'); ?>:</strong></td>

@@ -113,12 +113,12 @@ fpcm.templates = {
             
             if (fpcmTemplateId > 5) {
                 jQuery('#showpreview').hide();
-                fpcm.ui.assignButtons();
+                fpcm.ui.initJqUiWidgets();
                 return false;
             }
 
             jQuery('#showpreview').show();
-            fpcm.ui.assignButtons();
+            fpcm.ui.initJqUiWidgets();
 
             return false;
         });

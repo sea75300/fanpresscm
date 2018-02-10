@@ -18,8 +18,8 @@
                     <?php foreach ($list as $smiley) : ?>
                     <tr>
                         <td class="fpcm-ui-smiley-listimg"><img src="<?php print $smiley->getSmileyUrl(); ?>" alt="<?php print $smiley->getFilename(); ?>" <?php print $smiley->getWhstring(); ?>></td>
-                        <td><?php print \fpcm\view\helper::escapeVal($smiley->getFilename()); ?></td>
-                        <td><?php print \fpcm\view\helper::escapeVal($smiley->getSmileyCode()); ?></td>
+                        <td><?php print $theView->escape($smiley->getFilename()); ?></td>
+                        <td><?php print $theView->escape($smiley->getSmileyCode()); ?></td>
                         <td class="fpcm-td-select-row"><?php fpcm\view\helper::checkbox('smileyids[]', 'fpcm-list-selectbox', base64_encode(serialize(array($smiley->getFilename(), $smiley->getSmileyCode()))), '', '', false) ?></td>
                     </tr>
                     <?php endforeach; ?>

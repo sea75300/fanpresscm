@@ -51,6 +51,7 @@
         'PROFILE_MENU_LOGGEDINAS'       => 'You are logged in as <em>{{username}}</em>',
         'PROFILE_MENU_LOGGEDINSINCE'    => 'since',
         'PROFILE_MENU_YOURIP'           => 'IP address',
+        'PROFILE_OPEN'                  => 'Open my profile',
         
         'HELP_SELECT'                   => 'Click on headline to open help entry',
         'HELP_BTN_OPEN'                 => 'Open help chapter',

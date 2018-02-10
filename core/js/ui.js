@@ -14,7 +14,7 @@ fpcm.ui = {
 
         jQuery(document).tooltip();
 
-        fpcm.ui.assignButtons();        
+        fpcm.ui.initJqUiWidgets();        
         this.assignSelectmenu();
         this.initInputShadow();
         this.spinner('input.fpcm-ui-spinner');
@@ -57,16 +57,8 @@ fpcm.ui = {
             fpcm.ui.resize();
         });
     },
-    
-    translate: function(langVar) {
-        return fpcm.vars.ui.lang[langVar] === undefined ? langVar : fpcm.vars.ui.lang[langVar];
-    },
-    
-    langvarExists: function(langVar) {
-        return fpcm.vars.ui.lang[langVar] === undefined ? false : true;
-    },
 
-    assignButtons: function () {
+    initJqUiWidgets: function () {
 
         fpcm.ui.controlgroup('.fpcm-ui-buttonset');
         fpcm.ui.controlgroup('.fpcm-buttons.fpcm-ui-list-buttons', {
@@ -77,9 +69,8 @@ fpcm.ui = {
             onlyVisible: true
         });
 
-        fpcm.ui.button('.fpcm-ui-button');
+        /*fpcm.ui.button('.fpcm-ui-button');*/
         fpcm.ui.actionButtonsGenreal();
-        fpcm.ui.assignBlankIconButton();
         fpcm.ui.assignCheckboxes();
         fpcm.ui.assignCheckboxesSub();
         fpcm.ui.articleActionsOkButton();
@@ -87,6 +78,14 @@ fpcm.ui = {
         fpcm.ui.pagerButtons();
         
         noActionButtonAssign = false;
+    },
+    
+    translate: function(langVar) {
+        return fpcm.vars.ui.lang[langVar] === undefined ? langVar : fpcm.vars.ui.lang[langVar];
+    },
+    
+    langvarExists: function(langVar) {
+        return fpcm.vars.ui.lang[langVar] === undefined ? false : true;
     },
 
     actionButtonsGenreal: function() {
@@ -97,13 +96,6 @@ fpcm.ui = {
                 return false;
             }            
         });
-    },
-    
-    assignBlankIconButton: function() {        
-        this.button('.fpcm-ui-button-blank', {
-            icon: "ui-icon-blank",
-            showLabel: false
-        });        
     },
     
     assignDeleteButton: function () {

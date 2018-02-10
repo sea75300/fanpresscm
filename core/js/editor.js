@@ -229,7 +229,7 @@ fpcm.editor = {
             load: function(event, ui) {
                 fpcm.editor.initCommentListActions();
                 fpcm.ui.resize();
-                fpcm.ui.assignButtons();
+                fpcm.ui.initJqUiWidgets();
                 fpcm.ui.assignSelectmenu();
                 fpcm.ui.showLoader(false);
             },
@@ -237,7 +237,7 @@ fpcm.editor = {
         });
         
         jQuery('#fpcm-editor-tabs-editorregister').click(function() {
-            fpcm.ui.assignButtons();
+            fpcm.ui.initJqUiWidgets();
         });
 
         /**

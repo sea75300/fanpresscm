@@ -25,7 +25,7 @@
             
             $loadedExtensions = array_map('strtolower', get_loaded_extensions());
 
-            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_PHPVERSION')]    = array(
+            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_PHPVERSION', ['value' => FPCM_PHP_REQUIRED])]    = array(
                 'current'   => phpversion(),
                 'recommend' => FPCM_PHP_REQUIRED,
                 'result'    => version_compare(phpversion(), FPCM_PHP_REQUIRED, '>='),
@@ -36,7 +36,7 @@
             
             $recomVal = 64;
             $curVal   = \fpcm\classes\baseconfig::memoryLimit();
-            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_PHPMEMLIMIT')]    = array(
+            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_PHPMEMLIMIT', ['value' => $recomVal.' MiB'])]    = array(
                 'current'   => $curVal.' MiB',  
                 'recommend' => $recomVal.' MiB',
                 'result'    => ($curVal >= $recomVal ? true : false),
@@ -47,7 +47,7 @@
             
             $recomVal = 10;
             $curVal   = ini_get('max_execution_time');
-            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_PHPMAXEXECTIME')]    = array(
+            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_PHPMAXEXECTIME', ['value' => $recomVal.' sec'])]    = array(
                 'current'   => $curVal.' sec',
                 'recommend' => $recomVal.' sec',
                 'result'    => ($curVal >= $recomVal ? true : false),
@@ -63,7 +63,7 @@
 
             $current = $resultMySql || $resultPgSql ? true : false;
             
-            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_MYSQL')]    = array(
+            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_MYSQL', ['value' => 'true'])]    = array(
                 'current'   => $current ? 'true' : 'false',
                 'recommend' => 'true',
                 'result'    => $resultMySql,
@@ -72,7 +72,7 @@
                 'isFolder'  => 0
             );
             
-            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_PGSQL')]    = array(
+            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_PGSQL', ['value' => 'true'])]    = array(
                 'current'   => $current ? 'true' : 'false',
                 'recommend' => 'true',
                 'result'    => $resultPgSql,
@@ -82,19 +82,24 @@
             );
     
             if (is_object(\fpcm\classes\loader::getObject('fpcm\classes\database'))) {
-                $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_ACTIVE')]    = array(
-                    'current'   => \fpcm\classes\loader::getObject('fpcm\classes\database')->getDbtype(),
-                    'recommend' => implode(', ', array_intersect($dbDrivers, array_keys(\fpcm\classes\database::$supportedDBMS))),
+                
+                $db = \fpcm\classes\loader::getObject('fpcm\classes\database');
+                
+                $recommend = implode('/', array_intersect($dbDrivers, array_keys(\fpcm\classes\database::$supportedDBMS)));
+                
+                $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_ACTIVE', ['value' => $recommend])]    = array(
+                    'current'   => $db->getDbtype(),
+                    'recommend' => $recommend,
                     'result'    => true,
                     'helplink'  => 'http://php.net/manual/de/pdo.getavailabledrivers.php',
                     'optional'  => 0,
                     'isFolder'  => 0
                 );
 
-                $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBVERSION')]    = array(
-                    'current'   => \fpcm\classes\loader::getObject('fpcm\classes\database')->getDbVersion(),
-                    'recommend' => \fpcm\classes\loader::getObject('fpcm\classes\database')->getRecommendVersion(),
-                    'result'    => \fpcm\classes\loader::getObject('fpcm\classes\database')->checkDbVersion(),
+                $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBVERSION', ['value' => $db->getRecommendVersion()])]    = array(
+                    'current'   => $db->getDbVersion(),
+                    'recommend' => $db->getRecommendVersion(),
+                    'result'    => $db->checkDbVersion(),
                     'helplink'  => 'http://php.net/manual/de/pdo.getattribute.php',
                     'optional'  => 0,
                     'isFolder'  => 0

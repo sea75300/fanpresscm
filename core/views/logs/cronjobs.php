@@ -11,7 +11,7 @@
     <?php if (!is_object($value)) continue; ?>
     <tr>
         <td><?php print $value->time?></td>
-        <td class="fpcm-ui-monospace"><?php print str_replace('&NewLine;', '<br>', \fpcm\view\helper::escapeVal($value->text)); ?></td>
+        <td class="fpcm-ui-monospace"><?php print str_replace('&NewLine;', '<br>', $theView->escape($value->text)); ?></td>
 
     </tr>
     <?php endforeach; ?>

@@ -27,7 +27,7 @@ fpcm.filemanager = {
         });
     },
 
-    assignButtons: function () {
+    initJqUiWidgets: function () {
         fpcm.ui.assignCheckboxes();
         this.initInsertButtons();
         this.initSelectionCheckboxes();
@@ -177,8 +177,8 @@ fpcm.filemanager = {
             execDone: function () {
 
                 fpcm.ui.assignHtml("#tabs-files-list-content", fpcm.ajax.getResult('filelist'));
-                fpcm.ui.assignButtons();
-                fpcm.filemanager.assignButtons();
+                fpcm.ui.initJqUiWidgets();
+                fpcm.filemanager.initJqUiWidgets();
                 var fpcmRFDinterval = setInterval(function(){
                     if (jQuery('#fpcm-filelist-images-finished').length == 1) {
                         fpcm.ui.showLoader(false);
@@ -275,8 +275,8 @@ fpcm.filemanager = {
             data: sParams,
             execDone: function () {
                 fpcm.ui.assignHtml("#tabs-files-list-content", fpcm.ajax.getResult('files/search'));
-                fpcm.ui.assignButtons();
-                fpcm.filemanager.assignButtons();
+                fpcm.ui.initJqUiWidgets();
+                fpcm.filemanager.initJqUiWidgets();
                 var fpcmRFDinterval = setInterval(function(){
                     if (jQuery('#fpcm-filelist-images-finished').length == 1) {
                         fpcm.ui.showLoader(false);

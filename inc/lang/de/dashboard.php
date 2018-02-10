@@ -12,7 +12,7 @@
         'WELCOME_HEADLINE'  => '<span class="fa fa-fw fa-user"></span> Willkommen {{username}}! <span class="fa fa-fw fa-smile-o"></span>',
         'WELCOME_CONTENT'   => 'Du befindest dich im Dashboard von FanPress CM, dem News-System speziell für Fanseiten.<br>Über die '.
                                'Navigation links kannst du in die verschiedenen Bereiche gelangen.<br><br>Nachfolgend findet du einige '.
-                               'Statistiken und weitere Informationen zum aktuellen System. <a class="fpcm-ui-button fpcm-ui-margin-icon fpcm-profile-btn fpcm-loader" href="{{profilelink}}">Profil aufrufen</a>',
+                               'Statistiken und weitere Informationen zum aktuellen System.',
         
         'RECENT_ARTICLES'       => '<span class="fa fa-fw fa-pencil"></span> Zuletzt geschriebene News',
         

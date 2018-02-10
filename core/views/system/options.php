@@ -156,7 +156,7 @@
                 </tr>
                 <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT'); ?>:</td>
-                    <td><?php fpcm\view\helper::textInput('articles_archive_datelimit', '', $globalConfig['articles_archive_datelimit'] ? fpcm\view\helper::dateText($globalConfig['articles_archive_datelimit'], 'Y-m-d', true) : ''); ?>
+                    <td><?php fpcm\view\helper::textInput('articles_archive_datelimit', '', $globalConfig['articles_archive_datelimit'] ? $theView->dateText($globalConfig['articles_archive_datelimit'], 'Y-m-d') : ''); ?>
                         <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY'); ?>
                     </td>
                 </tr>

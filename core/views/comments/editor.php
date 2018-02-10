@@ -4,7 +4,7 @@
             <div class="fpcm-ui-editor-metabox">
                 <div class="fpcm-ui-editor-metabox-left">
                     <strong><?php $theView->lang->write('COMMMENT_CREATEDATE'); ?>:</strong>
-                    <?php \fpcm\view\helper::dateText($comment->getCreatetime()); ?><br>
+                    <?php $theView->dateText($comment->getCreatetime()); ?><br>
                     <?php print $changeInfo; ?><br>
                     <strong><?php $theView->lang->write('COMMMENT_IPADDRESS'); ?>:</strong>
                     <?php print $comment->getIpaddress(); ?>                    

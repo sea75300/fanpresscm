@@ -17,7 +17,11 @@
         </td>
         <td class="fpcm-ui-center fpcm-ui-syscheck-current"><?php print $checkResult['current']; ?></td>
         <td class="fpcm-ui-center fpcm-ui-syscheck-recommend"><?php print $checkResult['recommend']; ?></td>
-        <td><?php \fpcm\view\helper::boolToText($checkResult['result'], (isset($checkResult['isFolder']) && $checkResult['isFolder'] ? 'GLOBAL_WRITABLE' : 'GLOBAL_YES')); ?></td>
+        <td>            
+            <?php $theView->boolToText(uniqid('checkres'))
+                    ->setValue($checkResult['result'])
+                    ->setText( (isset($checkResult['isFolder']) && $checkResult['isFolder'] ? 'GLOBAL_WRITABLE' : 'GLOBAL_YES') ); ?>    
+        </td>
     </tr>
 <?php endforeach; ?>
 </table>

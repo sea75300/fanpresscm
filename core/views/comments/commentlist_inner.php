@@ -17,9 +17,9 @@
             <?php if ($commentsMode == 1) : ?><?php $theView->openButton('openBtn'.$comment->getId())->setUrlbyObject($comment)->setTarget('_blank'); ?><?php endif; ?>
             <?php $theView->editButton('editBtn'.$comment->getId())->setUrlbyObject($comment, '&mode='.$commentsMode)->setClass($commentsMode == 2 ? 'fpcm-ui-commentlist-link': ''); ?>
         </td>
-        <td><strong title="<?php print substr(\fpcm\view\helper::escapeVal($comment->getText()), 0, 100); ?>..."><?php print \fpcm\view\helper::escapeVal($comment->getName()); ?></strong></td>
-        <td><?php print \fpcm\view\helper::escapeVal($comment->getEmail()); ?></td>
-        <td><?php \fpcm\view\helper::dateText($comment->getCreatetime()); ?></td>
+        <td><strong title="<?php print substr($theView->escape($comment->getText()), 0, 100); ?>..."><?php print $theView->escape($comment->getName()); ?></strong></td>
+        <td><?php print $theView->escape($comment->getEmail()); ?></td>
+        <td><?php $theView->dateText($comment->getCreatetime()); ?></td>
         <td class="fpcm-td-commentlist-meta"><?php include $theView->getIncludePath('comments/metainfo.php'); ?></td>
         <td class="fpcm-td-select-row">
         <?php if ($comment->getEditPermission()) : ?>

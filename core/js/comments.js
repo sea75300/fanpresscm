@@ -125,7 +125,7 @@ fpcm.comments = {
             execDone: function () {
                 fpcm.ui.showLoader(false);
                 fpcm.ui.assignHtml('#tabs-comments-active', fpcm.ajax.getResult('comments/search'));
-                fpcm.ui.assignButtons();
+                fpcm.ui.initJqUiWidgets();
                 fpcm.comments.initCommentSearch();
                 fpcm.comments.assignActions();
                 fpcm.ui.assignSelectmenu();

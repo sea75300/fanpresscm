@@ -79,7 +79,7 @@
         protected $language;
 
         /**
-         * Flag if elemtn string was return by @see __toString
+         * Flag if element string was return by @see __toString
          * @var boolean
          */
         protected $returned = false;

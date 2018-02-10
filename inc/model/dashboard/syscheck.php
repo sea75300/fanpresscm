@@ -55,7 +55,12 @@
             $sysCheckAction = new \fpcm\controller\ajax\system\syscheck(true);
             $rows = $sysCheckAction->processCli();
 
-            $this->tableContent[] = '<tr><td class="fpcm-ui-center"><a class="fpcm-ui-button fpcm-ui-margin-icon fpcm-syscheck-btn" href="index.php?module=system/options&syscheck=1">'.$this->language->translate('SYSCHECK_COMPLETE').'</a></td></tr>';
+            $this->tableContent[] = '<tr><td class="fpcm-ui-center">';
+            $this->tableContent[] = (new \fpcm\view\helper\linkButton('runSyscheck'))
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['syscheck' => 1]))
+                ->setIcon('refresh')
+                ->setText('SYSCHECK_COMPLETE');            
+            $this->tableContent[] = '</td></tr>';
             $this->tableContent[] = '<tr><td class="fpcm-td-spacer" style="padding-bottom:0.5em;"></td></tr>';
 
             $options = array_slice($rows, 16, 2);
@@ -78,7 +83,8 @@
          * @return string
          */
         protected function boolToText($value) {
-            return ($value) ? '<span class="fa fa-check-square fpcm-ui-booltext-yes" title="'.$this->language->translate('GLOBAL_WRITABLE').'"></span>' : '<span class="fa fa-minus-square fpcm-ui-booltext-no" title="'.$this->language->translate('GLOBAL_NOT_WRITABLE').'"></span>';
+            return (new \fpcm\view\helper\boolToText(uniqid()))->setValue($value)->setText($value ? 'GLOBAL_WRITABLE' : 'GLOBAL_NOT_WRITABLE');
+            
         }
         
         /**
@@ -87,7 +93,7 @@
          * @return string
          */
         protected function boolToText2($value) {
-            return ($value) ? '<span class="fa fa-check-square fpcm-ui-booltext-yes" title="'.$this->language->translate('GLOBAL_YES').'"></span>' : '<span class="fa fa-minus-square fpcm-ui-booltext-no" title="'.$this->language->translate('GLOBAL_NO').'"></span>';
+            return (new \fpcm\view\helper\boolToText(uniqid()))->setValue($value);
         }
         
     }

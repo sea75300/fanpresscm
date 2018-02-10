@@ -266,16 +266,6 @@ final class helper {
     }
 
     /**
-     * Setzt bool-Wert in Text ja/nein um
-     * @param bool $value
-     * @param string $text
-     */
-    public static function boolToText($value, $text = 'GLOBAL_YES')
-    {
-        (new helper\boolToText(uniqid('_dmbtn')))->setValue($value)->setText($text);
-    }
-
-    /**
      * Erzeugt Ja/nein Select-Menü
      * @param string $name Name des Buttons
      * @param array $selected
@@ -292,68 +282,12 @@ final class helper {
     }
 
     /**
-     * Vier-Helper für einheitliche Ausgabe von Datumsangaben
-     * @param int $timespan Zeitstempel
-     * @param string $format Datumsformat, überschreibt "system_dtmask"
-     * @param strig $return Datum-String zurückgeben und nicht in Ausgabe schreiben
-     * @since FPCM 3.2.0
-     */
-    public static function dateText($timespan, $format = false, $return = false)
-    {
-        if (!$format) {
-            $format = \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_dtmask;
-        }
-
-        $timespan = date($format, $timespan);
-
-        if ($return) {
-            return $timespan;
-        }
-
-        print $timespan;
-    }
-
-    /**
      * CSS-Klassen-Containter für Button-Toolbar
      * @return void
      */
     public static function buttonsContainerClass()
     {
         print 'fpcm-buttons fpcm-buttons-fixed';
-    }
-
-    /**
-     * Werte in View escapen als Schutz gegen XSS, etc.
-     * @param string $value
-     * @param int $mode
-     * @return string
-     */
-    public static function escapeVal($value, $mode = false)
-    {
-        return htmlentities($value, ($mode ? (int) $mode : ENT_COMPAT | ENT_HTML5));
-    }
-
-    /**
-     * Erzeugt einen "Hilfe"/"Information"-Fragezeichen-Button, wie in System-Optionen, System-Check, etc genutzt.
-     * @param type $description Beschreibung für Tooltip
-     * @param type $style
-     * @param type $href Ziel-Link, false, wenn kein Link erzeugt werden soll
-     * @param type $target Link in gleichem/ neuen Fenster öffnen
-     * @since FPCM 3.1.6
-     */
-    public static function shortHelpButton($description, $style = '', $href = false, $target = '_self')
-    {
-        $description = self::$language->translate($description) ? self::$language->translate($description) : $description;
-
-        $html = [];
-
-        if ($href) $html[] = "<a href=\"{$href}\" target=\"{$target}\">";
-
-        $html[] = "<span style=\"{$style}\" class=\"fa fa-question-circle fa-fw fpcm-ui-shorthelp\" title=\"{$description}\"></span>";
-
-        if ($href) $html[] = "</a>";
-
-        print implode('', $html) . PHP_EOL;
     }
 
     /**

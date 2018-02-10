@@ -11,8 +11,7 @@
         
         'WELCOME_HEADLINE'  => '<span class="fa fa-fw fa-user"></span> Welcome {{username}}! <span class="fa fa-fw fa-smile-o"></span>',
         'WELCOME_CONTENT'   => 'You are in the FanPress CM dashboard. Choose an area using the navigation at the left site. '.
-                               'Below you\'ll find additional information about you system including statistics. '.
-                               '<a class="fpcm-ui-button fpcm-ui-margin-icon fpcm-profile-btn fpcm-loader" href="{{profilelink}}">Open profile</a>',
+                               'Below you\'ll find additional information about you system including statistics. ',
         
         'RECENT_ARTICLES'       => '<span class="fa fa-fw fa-pencil"></span> Recent Articles',
         

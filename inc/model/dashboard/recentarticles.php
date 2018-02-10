@@ -111,7 +111,7 @@
                 $content[] = '  </td>';
                 
                 $content[] = '  <td class="fpcm-ui-ellipsis">';
-                $content[] = '  <strong>'.\fpcm\view\helper::escapeVal(strip_tags(rtrim($article->getTitle(), '.!?'))).'</strong><br>';
+                $content[] = '  <strong>'.(new \fpcm\view\helper\escape(strip_tags(rtrim($article->getTitle(), '.!?')))).'</strong><br>';
                 $content[] = '  <span>'.  $createInfo.'</span>';
                 $content[] = '  </td>';
                 $content[] = '  <td class="fpcm-ui-dashboard-recentarticles-meta">';

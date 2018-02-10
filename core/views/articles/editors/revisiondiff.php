@@ -23,10 +23,10 @@
     </tr>    
     <tr>
         <td>
-            <h3><?php print fpcm\view\helper::escapeVal($revisionArticle->getTitle()); ?></h3>
+            <h3><?php print $theView->escape($revisionArticle->getTitle()); ?></h3>
         </td>
         <td>
-            <h3><?php print fpcm\view\helper::escapeVal($article->getTitle()); ?></h3>
+            <h3><?php print $theView->escape($article->getTitle()); ?></h3>
         </td>
     </tr>
     <tr>

@@ -31,18 +31,8 @@
          */
         public function setValue($value, $escapeMode = null)
         {
-            $this->value = self::escapeVal($value,$escapeMode);
+            $this->value = $this->escapeVal($value,$escapeMode);
             return $this;
-        }
-
-        /**
-         * Escapes given values
-         * @param string $value
-         * @param int $mode
-         * @return void
-         */
-        public static function escapeVal($value, $mode = null) {
-            return htmlentities($value, ($mode !== null ? (int) $mode : ENT_COMPAT | ENT_HTML5));
         }
 
         /**

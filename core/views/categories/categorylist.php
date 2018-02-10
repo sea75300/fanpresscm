@@ -19,7 +19,7 @@
                     <?php foreach($categorieList AS $cat) : ?>
                     <tr>
                         <td class="fpcm-ui-editbutton-col"><?php \fpcm\view\helper::editButton($cat->getEditLink()); ?></td>
-                        <td><strong><?php print \fpcm\view\helper::escapeVal($cat->getName()); ?></strong></td>
+                        <td><strong><?php print $theView->escape($cat->getName()); ?></strong></td>
                         <td><?php if ($cat->getIconPath()) : ?> <img src="<?php print $cat->getIconPath(); ?>" alt="<?php print $cat->getName(); ?>"><?php endif; ?></td>
                         <td><?php print $cat->getGroups(); ?></td>
                         <td class="fpcm-td-select-row"><input type="radio" name="ids" value="<?php print $cat->getId(); ?>"></td>

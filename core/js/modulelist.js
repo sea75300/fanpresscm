@@ -161,7 +161,7 @@ fpcm.modulelist = {
                 fpcm.ui.assignHtml('#modules-list-content', fpcm.ajax.getResult('modules/actions'));
                 noActionButtonAssign = true;
                 fpcm.modulelist.actionButtons();
-                fpcm.ui.assignButtons();
+                fpcm.ui.initJqUiWidgets();
                 fpcm.ui.prepareMessages();
                 jQuery('#moduleActions').prop('selectedIndex',0);
                 jQuery('#moduleActions').selectmenu('refresh');

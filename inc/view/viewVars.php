@@ -42,8 +42,10 @@
      * @method helper\button        button(string $name [, string $id])
      * @method helper\checkbox      checkbox(string $name [, string $id])
      * @method helper\clearArticleCacheButton clearArticleCacheButton(string $name [, string $id])
+     * @method helper\dateText      dateText(int $timespan [, string $format])
      * @method helper\deleteButton  deleteButton(string $name [, string $id])
      * @method helper\editButton    editButton(string $name [, string $id])
+     * @method helper\escape        escape(mixed $value [, int $mode])
      * @method helper\hiddenInput   hiddenInput(string $name [, string $id])
      * @method helper\input         input(string $name [, string $id])
      * @method helper\linkButton    linkButton(string $name [, string $id])
@@ -102,9 +104,11 @@
                 exit('View helper '.$name.' does not exists.');
             }
             
-            if (empty($arguments[0]) || !is_string($arguments[0])) {
-                trigger_error('Invalid view helper params found for name of'.$name);
-                exit('Invalid view helper params found for name of'.$name);
+            $whiteList = ['dateText'];
+            
+            if (empty($arguments[0]) || (!in_array($name, $whiteList) && !is_string($arguments[0])) ) {
+                trigger_error('Invalid view helper params found for name of '.$name);
+                exit('Invalid view helper params found for name of '.$name);
             }
 
             return new $helperClass($arguments[0], (isset($arguments[1]) ? $arguments[1] : ''));

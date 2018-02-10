@@ -51,14 +51,14 @@
             /* @var $item \fpcm\model\users\author */
             foreach ($items as $item) {
                 
-                $emailAddress = \fpcm\view\helper::escapeVal($item->getEmail());
+                $emailAddress = (new \fpcm\view\helper\escape($item->getEmail()));
                 
                 $content[] = '<tr class="fpcm-small-text">';
                 $content[] = '  <td class="fpcm-ui-editbutton-col">';
-                $content[] = '  <a class="fpcm-ui-button fpcm-ui-button-blank fpcm-email-btn" href="mailto:'.$emailAddress.'" target="_blank" title="'.$this->language->translate('GLOBAL_WRITEMAIL').'">'.$this->language->translate('GLOBAL_WRITEMAIL').'</a>';
+                $content[] = (new \fpcm\view\helper\linkButton(uniqid('createMail')))->setUrl('mailto:'.$emailAddress)->setText('GLOBAL_WRITEMAIL')->setTarget('_blank')->setIcon('envelope-o')->setIconOnly(true);
                 $content[] = '  </td>';
                 $content[] = '  <td>';
-                $content[] = '  <strong>'.\fpcm\view\helper::escapeVal($item->getDisplayname()).'</strong><br>';
+                $content[] = '  <strong>'.(new \fpcm\view\helper\escape($item->getDisplayname())).'</strong><br>';
                 $content[] = '  <span>'.$emailAddress.'</span>';
                 $content[] = '  </td>';               
                 $content[] = '</tr>';

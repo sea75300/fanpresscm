@@ -13,7 +13,7 @@
         <tr class="fpcm-td-spacer"><td colspan="5"></td></tr>
         <tr>
             <th></th>
-            <th><?php $theView->lang->writeMonth(fpcm\view\helper::dateText($articleMonth, 'n', true)); ?> <?php print fpcm\view\helper::dateText($articleMonth, 'Y', true); ?> (<?php print count($articles); ?>)</th> 
+            <th><?php $theView->lang->writeMonth($theView->dateText($articleMonth, 'n')); ?> <?php print $theView->dateText($articleMonth, 'Y'); ?> (<?php print count($articles); ?>)</th> 
             <th class="fpcm-td-articlelist-categories"></th>
             <th class="fpcm-td-articlelist-meta"></th>
             <th class="fpcm-td-select-row"><?php fpcm\view\helper::checkbox('fpcm-select-allsub', 'fpcm-select-allsub', $articleMonth, '', 'fpcm-select-allsub'.$articleMonth, false); ?></th>
@@ -28,8 +28,8 @@
                 </td>
                 <td>
                     <div class="fpcm-ui-ellipsis">
-                        <strong title="<?php print substr(\fpcm\view\helper::escapeVal(strip_tags($article->getContent())), 0, 128); ?>...">
-                            <?php print \fpcm\view\helper::escapeVal(strip_tags($article->getTitle())); ?>
+                        <strong title="<?php print substr($theView->escape(strip_tags($article->getContent())), 0, 128); ?>...">
+                            <?php print $theView->escape(strip_tags($article->getTitle())); ?>
                         </strong>
                     </div>
 

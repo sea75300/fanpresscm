@@ -29,9 +29,15 @@
 
             parent::__construct();            
 
-            $this->session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+            $this->session  = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
             $this->headline = $this->language->translate('WELCOME_HEADLINE', array('{{username}}' => $this->session->currentUser->getDisplayname()));
-            $this->content  = $this->language->translate('WELCOME_CONTENT', array('{{profilelink}}' => 'index.php?module=system/profile'));
+            $this->content  = $this->language->translate('WELCOME_CONTENT').PHP_EOL.
+                (new \fpcm\view\helper\linkButton('openProfile'))
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/profile'))
+                ->setIcon('wrench')
+                ->setText('PROFILE_OPEN')
+                ->setClass('fpcm-ui-button-profile');
+            
             $this->name     = 'welcome';            
             $this->position = 1;
         }

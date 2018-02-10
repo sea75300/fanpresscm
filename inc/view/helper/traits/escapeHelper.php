@@ -21,7 +21,7 @@
          * @param int $mode
          * @return void
          */
-        public static function escapeVal($value, $mode = null) {
+        public function escapeVal($value, $mode = null) {
             return htmlentities($value, ($mode !== null ? (int) $mode : ENT_COMPAT | ENT_HTML5));
         }
 

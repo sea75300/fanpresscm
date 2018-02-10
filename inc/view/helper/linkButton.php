@@ -34,7 +34,7 @@
          */
         protected function init()
         {
-            $this->class = 'fpcm-ui-button fpcm-ui-button-link';
+            $this->class = 'ui-button ui-corner-all ui-widget fpcm-ui-button fpcm-ui-button-link';
         }
 
         /**

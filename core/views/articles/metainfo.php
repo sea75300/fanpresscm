@@ -11,7 +11,7 @@
     </span>
     <?php endif; ?>
 
-    <span class="fa-stack fa-fw fpcm-ui-editor-metainfo fpcm-ui-status-<?php print $article->getPostponed(); ?>" title="<?php $theView->lang->write('EDITOR_STATUS_POSTPONETO'); ?><?php if ($article->getPostponed()) : ?>: <?php fpcm\view\helper::dateText($article->getCreatetime()); ?><?php endif; ?>">
+    <span class="fa-stack fa-fw fpcm-ui-editor-metainfo fpcm-ui-status-<?php print $article->getPostponed(); ?>" title="<?php $theView->lang->write('EDITOR_STATUS_POSTPONETO'); ?><?php if ($article->getPostponed()) : ?>: <?php $theView->dateText($article->getCreatetime()); ?><?php endif; ?>">
         <span class="fa fa-square fa-stack-2x"></span>
         <span class="fa fa-clock-o fa-stack-1x fa-inverse"></span>
     </span>

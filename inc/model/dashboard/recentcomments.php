@@ -114,7 +114,7 @@
                 $content[] = '  </td>';
                 
                 $content[] = '  <td>';
-                $content[] = '  <strong>'.\fpcm\view\helper::escapeVal(strip_tags($comment->getName())).'</strong> @ '.date($this->config->system_dtmask, $comment->getCreatetime()).'<br>';
+                $content[] = '  <strong>'.(new \fpcm\view\helper\escape(strip_tags($comment->getName()))).'</strong> @ '.(new \fpcm\view\helper\dateText($comment->getCreatetime())).'<br>';
                 $content[] = '  <span>'.$createInfo.'</span>';
                 $content[] = '  </td>';
                 $content[] = '  <td class="fpcm-ui-dashboard-recentarticles-meta">';

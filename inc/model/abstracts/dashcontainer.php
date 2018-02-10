@@ -123,7 +123,7 @@
          * Container-Position zurückgeben
          * @return string
          */
-        public function getPosition() {
+        final public function getPosition() {
             return $this->position;
         }
 
@@ -131,7 +131,7 @@
          * Container-Berechtigungen, die geprüft werden müssen, zurückgeben
          * @return string
          */
-        public function getPermissions() {
+        final public function getPermissions() {
             return $this->checkPermissions;
         }
         
@@ -170,12 +170,21 @@
         public function getControllerViewVars() {
             return [];
         }
+
+        /**
+         * Gibt Liste mit zu Variablen zurück, welche an Dashboard-Controller-View übergeben werden sollen
+         * @return ''
+         * @since FPCM 3.1.3
+         */
+        public function getView() {
+            return '';
+        }
         
         /**
          * container-Objekt via print/echo ausgeben
          * @return string
          */
-        public function __toString() {
+        final public function __toString() {
 
             $html   = [];
             $html[] = '<div class="fpcm-dashboard-container fpcm-dashboard-container-'.$this->getName().' fpcm-dashboard-container-width-'.$this->getWidth().' fpcm-dashboard-container-height-'.$this->getHeight().'">';

@@ -65,13 +65,13 @@
                     break;
                 }
                 
-                $content[] = '<tr class="fpcm-small-text">';
+                $content[] = '<tr class="fpcm-small-text">';                
                 $content[] = '  <td class="fpcm-ui-articlelist-open">';
-                $content[] = '  <a class="fpcm-ui-button fpcm-ui-button-blank fpcm-openlink-btn" href="'.\fpcm\view\helper::escapeVal(strip_tags($item->link)).'" target="_blank" title="'.$this->language->translate('GLOBAL_OPENNEWWIN').'">'.$this->language->translate('GLOBAL_OPENNEWWIN').'</a>';
+                $content[] = (new \fpcm\view\helper\openButton(uniqid('fpcmNews')))->setUrl(strip_tags($item->link))->setTarget('_blank');
                 $content[] = '  </td>';
                 $content[] = '  <td>';
-                $content[] = '  <strong>'.\fpcm\view\helper::escapeVal(strip_tags($item->title)).'</strong><br>';
-                $content[] = '  <span>'.date($this->config->system_dtmask, strtotime($item->pubDate)).'</span>';
+                $content[] = '  <strong>'.(new \fpcm\view\helper\escape(strip_tags($item->title))).'</strong><br>';
+                $content[] = '  <span>'.(new \fpcm\view\helper\dateText(strtotime($item->pubDate))).'</span>';
                 $content[] = '  </td>';               
                 $content[] = '</tr>';
                 $idx++;

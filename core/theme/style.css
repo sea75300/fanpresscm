@@ -1064,10 +1064,9 @@ h3, .fpcm-dashboard-container h3 {
     padding: 0em;
 }
 
-.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-profile-btn {
+.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-ui-button-profile {
     display: block;
-    max-width: 50%;
-    margin: 1.5em auto 0 auto;
+    margin-top: 0.5em;
 }
 
 .fpcm-dashboard-container table.fpcm-ui-table.fpcm-ui-large-td td {

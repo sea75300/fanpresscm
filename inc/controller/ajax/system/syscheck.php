@@ -88,8 +88,9 @@
             $updater->checkUpdates();
             
             $remoteVersion = $updater->getRemoteData('version');
+            $remoteVersion ? $remoteVersion : $this->lang->translate('GLOBAL_NOTFOUND');
             
-            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_FPCMVERSION')]    = array(
+            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_FPCMVERSION', ['value' => $remoteVersion])]    = array(
                 'current'   => $this->config->system_version,
                 'recommend' => $remoteVersion ? $remoteVersion : $this->lang->translate('GLOBAL_NOTFOUND'),
                 'result'    => version_compare($this->config->system_version, $remoteVersion, '>='),

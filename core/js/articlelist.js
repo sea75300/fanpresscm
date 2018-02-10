@@ -125,7 +125,7 @@ fpcm.articlelist = {
                 fpcm.ui.showLoader(false);
                 fpcm.ui.assignHtml('#tabs-article-list', fpcm.ajax.getResult('articles/search'));
                 window.noActionButtonAssign = true;
-                fpcm.ui.assignButtons();
+                fpcm.ui.initJqUiWidgets();
                 fpcm.articlelist.clearArticleCache();
                 fpcm.ui.resize();
             }

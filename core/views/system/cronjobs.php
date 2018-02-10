@@ -21,8 +21,8 @@
                         <td class="fpcm-ui-center"><?php $theView->button($cronjob->getCronName(), $cronjob->getCronName())->setType('button')->setText('CRONJOB_LIST_EXECDEMAND')->setClass('fpcm-cronjoblist-exec')->setIcon('play-circle')->setIconOnly(true); ?></td>
                         <td class="fpcm-cronjob-name"><?php $theView->lang->write('CRONJOB_'.strtoupper($cronjob->getCronName())); ?></td>
                         <td class="fpcm-cronjob-interval fpcm-ui-center"><?php fpcm\view\helper::select('intervals_'.$cronjob->getCronName(), $theView->lang->translate('SYSTEM_OPTIONS_CRONINTERVALS'), $cronjob->getIntervalTime(), false, false, false, 'fpcm-cronjoblist-intervals'); ?></td>
-                        <td class="fpcm-ui-center"><?php \fpcm\view\helper::dateText($cronjob->getLastExecTime()); ?></td>
-                        <td class="fpcm-ui-center"><?php \fpcm\view\helper::dateText($cronjob->getNextExecTime()); ?></td>
+                        <td class="fpcm-ui-center"><?php $theView->dateText($cronjob->getLastExecTime()); ?></td>
+                        <td class="fpcm-ui-center"><?php $theView->dateText($cronjob->getNextExecTime()); ?></td>
                     </tr>
                     <?php endforeach; ?>
                 </table>

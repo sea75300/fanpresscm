@@ -35,9 +35,9 @@
             <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-clock-o fa-fw fa-lg"></span></div>
             <div class="fpcm-ui-editor-extended-button"><?php fpcm\view\helper::checkbox('article[postponed]', '', 1, 'EDITOR_POSTPONETO', 'articlepostponed', $article->getPostponed()); ?></div>
             <div class="fpcm-ui-editor-extended-col fpcm-ui-editor-extended-col-postponed">
-                <?php fpcm\view\helper::textInput('article[postponedate]', 'fpcm-ui-datepicker', fpcm\view\helper::dateText($postponedTimer, 'Y-m-d', true), false, 2, false, 'fpcm-ui-datepicker-inputwrapper'); ?>
-                <?php fpcm\view\helper::textInput('article[postponehour]', 'fpcm-ui-spinner-hour', fpcm\view\helper::dateText($postponedTimer, 'H', true), false, 2, false, false); ?>
-                <?php fpcm\view\helper::textInput('article[postponeminute]', 'fpcm-ui-spinner-minutes', fpcm\view\helper::dateText($postponedTimer, 'i', true), false, 2, false, false); ?>
+                <?php fpcm\view\helper::textInput('article[postponedate]', 'fpcm-ui-datepicker', $theView->dateText($postponedTimer, 'Y-m-d'), false, 2, false, 'fpcm-ui-datepicker-inputwrapper'); ?>
+                <?php fpcm\view\helper::textInput('article[postponehour]', 'fpcm-ui-spinner-hour', $theView->dateText($postponedTimer, 'H'), false, 2, false, false); ?>
+                <?php fpcm\view\helper::textInput('article[postponeminute]', 'fpcm-ui-spinner-minutes', $theView->dateText($postponedTimer, 'i'), false, 2, false, false); ?>
             </div>
             <div class="fpcm-clear"></div>
         </div>       

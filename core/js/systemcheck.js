@@ -30,7 +30,7 @@ fpcm.systemcheck = {
             execDone: function () {
                 fpcm.ui.showLoader(false);
                 fpcm.ui.assignHtml("#tabs-options-check", fpcm.ajax.getResult('syscheck'));
-                fpcm.ui.assignButtons();
+                fpcm.ui.initJqUiWidgets();
                 fpcm.ui.resize();
             }
         });

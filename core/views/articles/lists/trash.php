@@ -11,14 +11,14 @@
         <tr class="fpcm-td-spacer"><td></td></tr>
         <tr>
             <th></th>
-            <th><?php $theView->lang->writeMonth(fpcm\view\helper::dateText($articleMonth, 'n', true)); ?> <?php print fpcm\view\helper::dateText($articleMonth, 'Y', true); ?></th> 
+            <th><?php $theView->lang->writeMonth($theView->dateText($articleMonth, 'n')); ?> <?php print $theView->dateText($articleMonth, 'Y'); ?></th> 
             <th class="fpcm-td-select-row"><?php fpcm\view\helper::checkbox('fpcm-select-allsub', 'fpcm-select-allsub', '-trash'.$articleMonth, '', 'fpcm-select-allsub', false); ?></th>
         </tr>
         <tr class="fpcm-td-spacer"><td></td></tr>
         <?php foreach($articles AS $articleId => $article) : ?>
             <tr>
                 <td><?php $theView->openButton('articlefe')->setUrlbyObject($article)->setTarget('_blank'); ?></td>
-                <td class="fpcm-ui-ellipsis"><strong><?php print \fpcm\view\helper::escapeVal(strip_tags($article->getTitle())); ?></strong></td>
+                <td class="fpcm-ui-ellipsis"><strong><?php print $theView->escape(strip_tags($article->getTitle())); ?></strong></td>
                 <td class="fpcm-td-select-row"><?php fpcm\view\helper::checkbox('actions[ids][]', 'fpcm-list-selectbox-trash fpcm-list-selectbox-sub-trash'.$articleMonth, $articleId, '', 'chbx'.$articleId, false) ?></td>
             </tr>
         <?php endforeach; ?>

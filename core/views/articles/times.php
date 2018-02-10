@@ -2,22 +2,22 @@
     if ($timesMode) {
         $timeInfoCreate = $theView->lang->translate('EDITOR_AUTHOREDIT', array(
             '{{username}}' => isset($users[$article->getCreateuser()]) ? $users[$article->getCreateuser()] : $theView->lang->translate('GLOBAL_NOTFOUND'),
-            '{{time}}'     => \fpcm\view\helper::dateText($article->getCreatetime(), false, true)
+            '{{time}}'     => $theView->dateText($article->getCreatetime(), false)
         ));
 
         $timeInfoChange = $theView->lang->translate('EDITOR_LASTEDIT', array(
             '{{username}}' => isset($users[$article->getChangeuser()]) ? $users[$article->getChangeuser()] : $theView->lang->translate('GLOBAL_NOTFOUND'),
-            '{{time}}'     => \fpcm\view\helper::dateText($article->getChangetime(), false, true)
+            '{{time}}'     => $theView->dateText($article->getChangetime(), false)
         ));         
     } else {
         $timeInfoCreate = $theView->lang->translate('EDITOR_AUTHOREDIT', array(
             '{{username}}' => isset($users[$article->getCreateuser()]) ? $users[$article->getCreateuser()]->getDisplayname() : $theView->lang->translate('GLOBAL_NOTFOUND'),
-            '{{time}}'     => \fpcm\view\helper::dateText($article->getCreatetime(), false, true)
+            '{{time}}'     => $theView->dateText($article->getCreatetime(), false)
         ));
 
         $timeInfoChange = $theView->lang->translate('EDITOR_LASTEDIT', array(
             '{{username}}' => isset($users[$article->getChangeuser()]) ? $users[$article->getChangeuser()]->getDisplayname() : $theView->lang->translate('GLOBAL_NOTFOUND'),
-            '{{time}}'     => \fpcm\view\helper::dateText($article->getChangetime(), false, true)
+            '{{time}}'     => $theView->dateText($article->getChangetime(), false)
         ));        
     }            
 ?>

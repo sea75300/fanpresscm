@@ -16,9 +16,9 @@
     <tr>
         <td><?php print isset($userList[$sessionItem->getUserId()]) ? $userList[$sessionItem->getUserId()]->getDisplayName() : $theView->lang->translate('GLOBAL_NOTFOUND'); ?></td>
         <td class="fpcm-ui-center"><?php print $sessionItem->getIp(); ?></td>
-        <td class="fpcm-ui-center"><?php \fpcm\view\helper::dateText($sessionItem->getLogin()); ?></td>
-        <td class="fpcm-ui-center"><?php print $sessionItem->getLogout() > 0 ? \fpcm\view\helper::dateText($sessionItem->getLogout()) : $theView->lang->translate('LOGS_LIST_TIMEOUT'); ?></td>
-        <td class="fpcm-ui-center"><?php \fpcm\view\helper::boolToText($sessionItem->getExternal()); ?></td>
+        <td class="fpcm-ui-center"><?php $theView->dateText($sessionItem->getLogin()); ?></td>
+        <td class="fpcm-ui-center"><?php print $sessionItem->getLogout() > 0 ? $theView->dateText($sessionItem->getLogout()) : $theView->lang->translate('LOGS_LIST_TIMEOUT'); ?></td>
+        <td class="fpcm-ui-center"><?php $theView->boolToText(uniqid('sessext'))->setValue($sessionItem->getExternal()); ?></td>
     </tr>
     <?php endforeach; ?>
 </table>
