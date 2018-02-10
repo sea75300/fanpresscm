@@ -202,7 +202,7 @@ class article extends \fpcm\model\abstracts\dataset {
     {
         $this->table = \fpcm\classes\database::tableArticles;
         $this->wordbanList  = new \fpcm\model\wordban\items();
-        $this->crypt        = \fpcm\classes\loader::getObject('fpcm\classes\crypt');
+        $this->crypt        = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
 
         parent::__construct($id);
     }

@@ -30,7 +30,7 @@
     <?php if ($permApprove || $permPrivate) : ?>
     <tr>
         <td colspan="2">
-            <div class="fpcm-ui-buttonset">
+            <div class="fpcm-ui-toolbar">
                 <?php if ($permApprove) : ?>
                     <?php fpcm\view\helper::checkbox('comment[spam]', '', 1, 'COMMMENT_SPAM', 'spam', $comment->getSpammer()); ?>
                     <?php fpcm\view\helper::checkbox('comment[approved]', '', 1, 'COMMMENT_APPROVE', 'approved', $comment->getApproved()); ?>

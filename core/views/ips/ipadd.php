@@ -21,7 +21,7 @@
                     </tr>
                     <tr>
                         <td><?php $theView->lang->write('IPLIST_BLOCKTYPE'); ?>:</td>
-                        <td class="fpcm-ui-buttonset">
+                        <td class="fpcm-ui-toolbar">
                             <?php fpcm\view\helper::checkbox('nocomments', '', '1', 'IPLIST_NOCOMMENTS', 'nocomments', false); ?> 
                             <?php fpcm\view\helper::checkbox('nologin', '', '1', 'IPLIST_NOLOGIN', 'nologin', false); ?> 
                             <?php fpcm\view\helper::checkbox('noaccess', '', '1', 'IPLIST_NOACCESS', 'noaccess', false); ?> 

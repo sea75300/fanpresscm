@@ -24,11 +24,15 @@
             $this->showHeaderFooter(view::INCLUDE_HEADER_NONE);
         }
         
-        public function render()
+        public function render($exit = true)
         {
             $this->assign('errorMessage', $this->errorMessage);
-            return parent::render();
-            exit;
+            parent::render();
+            if ($exit) {
+                exit;
+            }
+
+            return false;
         }
 
     }

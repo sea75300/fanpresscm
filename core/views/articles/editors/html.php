@@ -24,7 +24,7 @@
     <tr>
         <td class="ui-widget-content ui-corner-all ui-state-normal">
 
-            <div class="fpcm-ui-buttonset fpcm-ui-editor-buttons">
+            <div class="fpcm-ui-toolbar fpcm-ui-editor-buttons">
                 
                 <?php if (count($editorStyles)) : ?>
                 <select class="fpcm-ui-input-select" id="fpcm-editor-styles">

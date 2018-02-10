@@ -138,6 +138,10 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
     padding: 0.3em 0;
 }
 
+#article_template_buttons {
+    margin-bottom: 1em;
+}
+
 .fpcm-wrapper {
     padding:0;
     margin: 0;
@@ -938,10 +942,11 @@ div.fpcm-editor-fields-tabs div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-e
     min-width: 85%;
 }
 
+.fpcm-ui-button,
 .fpcm-buttons.fpcm-ui-list-buttons a.fpcm-ui-button,
-.fpcm-buttons.fpcm-ui-list-buttons .ui-selectmenu-button,
-.fpcm-filemanager-buttons a {
-    height: 18.666666666666666666666667px;
+.ui-selectmenu-button,
+.fpcm-ui-filemanager-buttons a {
+    min-height: 18.666666666666666666666667px;
     line-height: 18.666666666666666666666667px;
 }
 

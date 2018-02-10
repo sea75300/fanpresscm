@@ -34,7 +34,7 @@
          */
         public function __construct()
         {
-            $this->crypt    = loader::getObject('fpcm\classes\crypt');
+            $this->crypt    = loader::getObject('\fpcm\classes\crypt');
             $this->basePath = dirs::getDataDirPath(dirs::DATA_CACHE);
         }
 

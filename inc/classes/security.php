@@ -141,9 +141,9 @@
             $cacheName  = self::pageTokenCacheModule.'/'.self::getPageTokenFieldName($overrideModule);
 
             /* @var $cache cache */
-            $cache      = \fpcm\classes\loader::getObject('fpcm\classes\cache');
+            $cache      = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
             $cache->cleanup($cacheName);            
-            $cache->write($cacheName, \fpcm\classes\loader::getObject('fpcm\classes\crypt')->encrypt($str));
+            $cache->write($cacheName, \fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt($str));
    
             return $str;
         }

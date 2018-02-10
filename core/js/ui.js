@@ -60,7 +60,10 @@ fpcm.ui = {
 
     initJqUiWidgets: function () {
 
-        fpcm.ui.controlgroup('.fpcm-ui-buttonset');
+        fpcm.ui.controlgroup('.fpcm-ui-toolbar', {
+            onlyVisible: true
+        });
+
         fpcm.ui.controlgroup('.fpcm-buttons.fpcm-ui-list-buttons', {
             onlyVisible: true
         });

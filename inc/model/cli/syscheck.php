@@ -22,7 +22,7 @@
          */
         public function process() {
 
-            \fpcm\classes\loader::getObject('fpcm\classes\language', 'en', false);
+            \fpcm\classes\loader::getObject('\fpcm\classes\language', 'en', false);
             
             $sysCheckAction = new \fpcm\controller\ajax\system\syscheck();
             $rows = $sysCheckAction->processCli();

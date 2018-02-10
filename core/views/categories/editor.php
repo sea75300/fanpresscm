@@ -9,7 +9,7 @@
     </tr>
     <tr>
         <td><?php $theView->lang->write('CATEGORIES_ROLLS'); ?></td>
-        <td class="fpcm-ui-buttonset">
+        <td class="fpcm-ui-toolbar">
         <?php foreach ($userRolls as $rollname => $rollid) : ?>
             <?php
                 if (isset($selectedGroups)) {

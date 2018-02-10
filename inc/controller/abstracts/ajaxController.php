@@ -38,6 +38,12 @@ class ajaxController extends controller {
     protected $updateCheckEnabled = false;
 
     /**
+     * Cache name
+     * @var string
+     */
+    protected $moduleCheckExit = false;
+
+    /**
      * Initialises view object
      * @return boolean
      */

@@ -21,23 +21,21 @@
         }
 
         public function request() {
+            
+            $this->listAction   = 'articles/trash';
 
             $res = parent::request();
 
             $this->articleActions   = [$this->lang->translate('ARTICLE_LIST_RESTOREARTICLE') => 'restore', $this->lang->translate('ARTICLE_LIST_EMPTYTRASH') => 'trash'];
             $this->articleItems     = $this->articleList->getArticlesDeleted(true);
 
-            return $res;
-        }
-        
-        public function process() {
+            if ($this->deleteActions) {
+                $this->view->addButton((new \fpcm\view\helper\deleteButton('trash'))->setText('ARTICLE_LIST_EMPTYTRASH')->setClass('fpcm-ui-hidden'));
+            }
             
-            parent::process();
-
-            $this->view->assign('listAction', 'articles/trash');
-            $this->view->assign('listIcon', 'trash');
-
-            $this->view->render();
+            $this->view->setFormAction('articles/trash');
+            
+            return $res;
         }
 
     }

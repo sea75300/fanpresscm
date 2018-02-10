@@ -3,7 +3,7 @@
     
     <table id="fpcm-ui-phpupload-filelist" class="fpcm-ui-table fpcm-ui-phpupload"></table>
     
-    <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> <?php if (!$styleLeftMargin) : ?>fpcm-buttons-fixed-full<?php endif; ?> fpcm-filemanager-buttons">
+    <div class="fpcm-ui-filemanager-buttons fpcm-ui-toolbar">
         <span class="fpcm-ui-fileinput-php">
         <?php fpcm\view\helper::linkButton('#', 'FILE_FORM_FILEADD', 'btnAddFile') ?>
         <?php fpcm\view\helper::submitButton('uploadFile', 'FILE_FORM_UPLOADSTART', 'start-upload fpcm-loader'); ?>

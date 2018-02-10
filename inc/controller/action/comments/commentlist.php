@@ -155,7 +155,7 @@
 
         protected function initPagination() {
 
-            $this->view->assign('listAction', 'comments/list');  
+            $this->view->setFormAction('comments/list');
 
             $page       = $this->getRequestVar('page', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
             $pagerData  = \fpcm\classes\tools::calcPagination(

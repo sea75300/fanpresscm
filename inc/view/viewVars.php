@@ -98,15 +98,17 @@
          */
         public function __call($name, array $arguments)
         {
-            $helperClass = 'fpcm\\view\\helper\\'.$name;
+            $prefix      = 'fpcm\\view\\helper\\';
+            $helperClass = $prefix.$name;
             if (!class_exists($helperClass)) {
                 trigger_error('View helper '.$name.' does not exists.');
                 exit('View helper '.$name.' does not exists.');
             }
             
-            $whiteList = ['dateText'];
             
-            if (empty($arguments[0]) || (!in_array($name, $whiteList) && !is_string($arguments[0])) ) {
+            $whiteList = ['dateText', 'escape'];
+
+            if (!in_array($name, $whiteList) && (empty($arguments[0]) || !is_string($arguments[0])) ) {
                 trigger_error('Invalid view helper params found for name of '.$name);
                 exit('Invalid view helper params found for name of '.$name);
             }

@@ -187,7 +187,7 @@
             
             $this->view->assign('allowedTags', htmlentities($this->articleTemplate->getAllowedTags(', ')));
 
-            $this->view->addJsVars(array('fpcmTemplateId' => 1, 'jqUploadInit' => 0));
+            $this->view->addJsVars(array('templateId' => 1, 'jqUploadInit' => 0));
             $this->view->addJsLangVars(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT']);
             
             $tplfilelist = new \fpcm\model\files\templatefilelist();
@@ -202,6 +202,12 @@
             $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', $translInfo));
             $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('modules/list'));
             $this->view->assign('styleLeftMargin', true);
+            
+            $this->view->setFormAction('system/templates');
+            $this->view->addButtons([
+                (new \fpcm\view\helper\button('showpreview', 'showpreview'))->setText('GLOBAL_PREVIEW')->setIcon('eye'),
+                new \fpcm\view\helper\saveButton('saveTemplates')
+            ]);
             
             $this->view->render();
         }

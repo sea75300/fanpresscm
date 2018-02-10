@@ -71,8 +71,7 @@
         public function request()
         {
             if ($this->session->exists()) {
-                $this->redirect('system/dashboard');
-                return true;
+                return $this->redirect('system/dashboard');
             }
             session_start();
             
@@ -185,7 +184,7 @@
             } else {                
                 $this->currentAttempts = \fpcm\classes\http::getSessionVar('loginAttempts');
             }
-            
+
             if (\fpcm\classes\http::getSessionVar('lockedTime')) {                
                 $this->loginLockedDate  = \fpcm\classes\http::getSessionVar('lockedTime');
             }

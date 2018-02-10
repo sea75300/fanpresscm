@@ -20,7 +20,6 @@
          * Berechtigungen zum Bearbeiten initialisieren
          */
         public function initEditPermisions() {
-            $this->view->assign('permAdd', $this->permissions->check(array('article' => 'add')));
             $this->view->assign('permEditOwn', $this->permissions->check(array('article' => 'edit')));
             $this->view->assign('permEditAll', $this->permissions->check(array('article' => 'editall')));
             $this->view->assign('currentUserId', $this->session->getUserId());
@@ -31,6 +30,7 @@
             $this->view->assign('canChangeAuthor', $this->permissions->check(['article' => 'authors']));
             
             $this->deleteActions = $this->permissions->check(['article' => 'delete']);
+
         }
         
         /**

@@ -1,4 +1,4 @@
-    <form method="post" action="<?php print $file->getEditUrl(); ?>" enctype="multipart/form-data">
+    <form method="post" action="<?php print $file->getEditLink(); ?>" enctype="multipart/form-data">
         <table class="fpcm-ui-table fpcm-ui-articletemplates">
             <tr>
                 <td>

@@ -51,7 +51,7 @@
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
             
             $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-            $this->lang          = \fpcm\classes\loader::getObject('fpcm\classes\language');
+            $this->lang          = \fpcm\classes\loader::getObject('\fpcm\classes\language');
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
             
             $this->config->setUserSettings();

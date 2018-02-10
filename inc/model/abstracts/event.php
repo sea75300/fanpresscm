@@ -81,7 +81,7 @@
 
             $moduleList = new \fpcm\model\modules\modulelist();
             
-            $this->cache = \fpcm\classes\loader::getObject('fpcm\classes\cache');
+            $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
             
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
             

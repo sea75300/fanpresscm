@@ -81,7 +81,7 @@
         {
             
             $this->events   = \fpcm\classes\loader::getObject('\fpcm\events\events');
-            $this->cache    = \fpcm\classes\loader::getObject('fpcm\classes\cache');
+            $this->cache    = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
             
             if (!\fpcm\classes\baseconfig::dbConfigExists()) {
                 return;
@@ -89,7 +89,7 @@
 
             $this->session       = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
             $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-            $this->language      = \fpcm\classes\loader::getObject('fpcm\classes\language');
+            $this->language      = \fpcm\classes\loader::getObject('\fpcm\classes\language');
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
             
             if (is_object($this->config)) {

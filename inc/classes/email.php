@@ -206,7 +206,7 @@
         public function submit()
         {
 
-            $eventData = loader::getObject('fpcm\events\events')->runEvent('emailSubmit', array(
+            $eventData = loader::getObject('\fpcm\events\events')->runEvent('emailSubmit', array(
                 'headers'     => $this->headers,
                 'maildata'    => array(
                     'to'      => $this->to,

@@ -81,9 +81,9 @@
                 'isFolder'  => 0
             );
     
-            if (is_object(\fpcm\classes\loader::getObject('fpcm\classes\database'))) {
+            if (is_object(\fpcm\classes\loader::getObject('\fpcm\classes\database'))) {
                 
-                $db = \fpcm\classes\loader::getObject('fpcm\classes\database');
+                $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
                 
                 $recommend = implode('/', array_intersect($dbDrivers, array_keys(\fpcm\classes\database::$supportedDBMS)));
                 

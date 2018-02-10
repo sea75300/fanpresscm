@@ -50,9 +50,9 @@
          * @return string
          * @since FPCM 3.5
          */
-        public function getEditUrl() {
+        public function getEditLink() {
             return \fpcm\classes\tools::getFullControllerLink('system/templateedit', [
-                'file' => urlencode(\fpcm\classes\loader::getObject('fpcm\classes\crypt')->encrypt($this->filename))
+                'file' => urlencode(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt($this->filename))
             ]);
         }
         

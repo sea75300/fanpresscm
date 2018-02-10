@@ -451,7 +451,7 @@ fpcm.editor = {
                     text: fpcm.ui.translate('GLOBAL_EXTENDED'),
                     icon: "ui-icon-wrench",                    
                     click: function() {
-                        jQuery(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('.fpcm-filemanager-buttons').fadeToggle();
+                        jQuery(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('.fpcm-ui-filemanager-buttons').fadeToggle();
                     }
                 },
                 {
@@ -1109,7 +1109,7 @@ fpcm.editor = {
                         text: fpcm.ui.translate('GLOBAL_EXTENDED'),                   
                         onclick: function() {
                             var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
-                            jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('.fpcm-filemanager-buttons').fadeToggle();
+                            jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('.fpcm-ui-filemanager-buttons').fadeToggle();
                         }
                     },
                     {

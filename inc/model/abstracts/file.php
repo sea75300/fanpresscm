@@ -129,20 +129,20 @@
          */
         public function __construct($filename = '')
         {
-            $this->filename = basename($filename);
-            $this->filepath = dirname($filename);
+            $this->filename = trim($filename) ? basename($filename) : '';
+            $this->filepath = trim($filename) ? dirname($filename) : '';
             $this->fullpath = $filename;
             
             $this->escapeFileName($this->filename);
             
-            $this->dbcon    = \fpcm\classes\loader::getObject('fpcm\classes\database');
+            $this->dbcon    = \fpcm\classes\loader::getObject('\fpcm\classes\database');
             
             if (\fpcm\classes\baseconfig::installerEnabled()) return false;
             
-            $this->cache         = \fpcm\classes\loader::getObject('fpcm\classes\cache');
+            $this->cache         = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
             $this->events        = \fpcm\classes\loader::getObject('\fpcm\events\events');
             $this->config        = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-            $this->language      = \fpcm\classes\loader::getObject('fpcm\classes\language');
+            $this->language      = \fpcm\classes\loader::getObject('\fpcm\classes\language');
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
             
             $this->config->setUserSettings();

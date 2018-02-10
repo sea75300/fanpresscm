@@ -16,7 +16,7 @@ fpcm.articlelist = {
             icon: false
         });
 
-        jQuery('#fpcmarticleslistmassedit').click(function () {
+        jQuery('#massEdit').click(function () {
             fpcm.system.initMassEditDialog('articles/massedit', 'articles-massedit', fpcm.articlelist);
             return false;
         });
@@ -50,7 +50,7 @@ fpcm.articlelist = {
     },
     
     initArticleSearch: function() {
-        jQuery('#fpcmarticlesopensearch').click(function () {
+        jQuery('#opensearch').click(function () {
 
             fpcm.ui.selectmenu('.fpcm-ui-input-select-articlesearch', {
                 width: '100%',

@@ -85,7 +85,7 @@
         public function __construct($dataParams = null)
         {
             $this->data  = $dataParams;
-            $this->cache = loader::getObject('fpcm\classes\cache');
+            $this->cache = loader::getObject('\fpcm\classes\cache');
             
             if (\fpcm\classes\baseconfig::installerEnabled()) {
                 return false;

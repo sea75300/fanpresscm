@@ -95,29 +95,32 @@ fpcm.templates = {
         
         jQuery('.fpcm-template-tab').click(function () {
 
-            fpcmTemplateId = jQuery(this).data('tpl');
+            fpcm.vars.jsvars.templateId = jQuery(this).data('tpl');
 
-            var idClass = fpcm.templates.getIdClass(fpcmTemplateId);
-            if (idClass !== false && !fpcm.templates.enabledEditors['ed' + fpcmTemplateId]) {
+            var idClass = fpcm.templates.getIdClass(fpcm.vars.jsvars.templateId);
+            if (idClass !== false && !fpcm.templates.enabledEditors['ed' + fpcm.vars.jsvars.templateId]) {
                 fpcm.templates.initCodeMirror(idClass);
             }
 
-            if (fpcmTemplateId == 7) {
-                jQuery('#template_buttons').hide();
+            if (fpcm.vars.jsvars.templateId == 7) {
+                jQuery('#showpreview').hide();
+                jQuery('#btnSaveTemplates').hide();
                 jQuery('#article_template_buttons').show();
                 return false;
             }
             
-            jQuery('#template_buttons').show();            
+            jQuery('#fpcm-ui-toolbar').show();            
             jQuery('#article_template_buttons').hide();
             
-            if (fpcmTemplateId > 5) {
+            if (fpcm.vars.jsvars.templateId > 5) {
                 jQuery('#showpreview').hide();
+                jQuery('#btnSaveTemplates').show();
                 fpcm.ui.initJqUiWidgets();
                 return false;
             }
 
             jQuery('#showpreview').show();
+            jQuery('#btnSaveTemplates').show();
             fpcm.ui.initJqUiWidgets();
 
             return false;
@@ -134,10 +137,10 @@ fpcm.templates = {
 
         fpcm.ajax.post('templates/savetemp', {
             data    : {
-                content: fpcm.templates.enabledEditors['ed' + fpcmTemplateId].getValue(),
-                tplid  : fpcmTemplateId
+                content: fpcm.templates.enabledEditors['ed' + fpcm.vars.jsvars.templateId].getValue(),
+                tplid  : fpcm.vars.jsvars.templateId
             },
-            workData: fpcmTemplateId,
+            workData: fpcm.vars.jsvars.templateId,
             execDone: function() {
 
                 tplId = fpcm.ajax.getWorkData('templates/savetemp');
@@ -171,7 +174,7 @@ fpcm.templates = {
 
     initCodeMirror: function(id) {
 
-        fpcm.templates.enabledEditors['ed' + fpcmTemplateId] = fpcm.editor_codemirror.create({
+        fpcm.templates.enabledEditors['ed' + fpcm.vars.jsvars.templateId] = fpcm.editor_codemirror.create({
            editorId  : 'tpleditor-' + id,
            elementId : id,
         });

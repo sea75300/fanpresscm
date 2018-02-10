@@ -21,6 +21,8 @@
         }
         
         public function request() {
+            
+            $this->listAction   = 'articles/listarchive';
 
             unset($this->articleActions[$this->lang->translate('EDITOR_PINNED')], $this->articleActions[$this->lang->translate('EDITOR_ARCHIVE')]);
 
@@ -37,17 +39,13 @@
             
             parent::process();
 
-            $this->view->assign('headlineVar', 'HL_ARTICLE_EDIT_ARCHIVE');
-            $this->view->assign('listAction', 'articles/listarchive');
             $this->view->assign('showArchiveStatus', false);
-            $this->view->assign('listIcon', 'archive');
             
             $minMax = $this->articleList->getMinMaxDate(1);
             $this->view->addJsVars(array(
                 'articleSearchMode'   => 1,
                 'articleSearchMinDate' => date('Y-m-d', $minMax['minDate'])
             ));
-            $this->view->assign('permAdd', false);
 
             $this->view->render();
         }

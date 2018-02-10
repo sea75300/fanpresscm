@@ -93,7 +93,7 @@ final class helper {
      */
     public static function linkButton($href, $descr, $id = '', $class = '', $target = '_self')
     {
-        (new helper\linkButton(uniqid('_lkbtn')))
+        (new helper\linkButton(uniqid('_lkbtn', $id)))
                 ->setText($descr)
                 ->setClass($class)
                 ->setUrl($href)
@@ -110,8 +110,7 @@ final class helper {
         (new helper\button(uniqid('_dmbtn')))
                 ->setText($descr)
                 ->setClass($class)
-                ->setReadonly(true)
-                ->setType('button');
+                ->setReadonly(true);
     }
 
     /**

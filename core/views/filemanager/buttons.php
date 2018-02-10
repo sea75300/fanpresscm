@@ -1,5 +1,5 @@
 <?php if ($permRename || $permThumbs || $permDelete) : ?>
-<div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons fpcm-filemanager-buttons <?php if ($mode > 1) : ?>fpcm-ui-hidden fpcm-buttons-fixed-full<?php endif; ?>">
+<div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons fpcm-ui-filemanager-buttons <?php if ($mode > 1) : ?>fpcm-ui-hidden fpcm-buttons-fixed-full<?php endif; ?>">
     <div class="fpcm-ui-margin-center">
     <?php fpcm\view\helper::checkbox('fpcm-select-all', 'fpcm-select-all-checkbutton', '', '', 'fpcm-select-all', false); ?>
     <?php \fpcm\view\helper::linkButton('#', 'ARTICLES_SEARCH', 'fpcmfilessopensearch', 'fpcm-articles-opensearch'); ?>

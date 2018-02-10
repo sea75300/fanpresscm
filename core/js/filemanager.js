@@ -126,7 +126,7 @@ fpcm.filemanager = {
     initSelectionCheckboxes: function() {
 
         fpcm.ui.checkboxradio(
-            '.fpcm-filemanager-buttons #fpcmselectall', {}, function() {
+            '.fpcm-ui-filemanager-buttons #fpcmselectall', {}, function() {
                 fpcm.filemanager.refreshSingleCheckboxes();
         });
         

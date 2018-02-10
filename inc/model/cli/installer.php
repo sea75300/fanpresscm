@@ -164,7 +164,7 @@
             $this->output(PHP_EOL.'Init system encryption...'.PHP_EOL);
             usleep(250000);
             
-            $crypt = \fpcm\classes\loader::getObject('fpcm\classes\crypt');
+            $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
             $crypt->initCrypt();
 
             usleep(250000);
@@ -181,7 +181,7 @@
             $this->output(PHP_EOL.'Create tables...'.PHP_EOL);
             $files = \fpcm\classes\database::getTableFiles();
 
-            \fpcm\classes\loader::getObject('fpcm\classes\database') = new \fpcm\classes\database();
+            \fpcm\classes\loader::getObject('\fpcm\classes\database') = new \fpcm\classes\database();
             foreach ($files as $file) {
 
                 $tabName = substr(basename($file, '.yml'), 2);
@@ -189,7 +189,7 @@
                 print '...';
                 usleep(50000);
 
-                $res = \fpcm\classes\loader::getObject('fpcm\classes\database')->execYaTdl($file);
+                $res = \fpcm\classes\loader::getObject('\fpcm\classes\database')->execYaTdl($file);
                 print '.';
                 usleep(50000);
 
@@ -295,7 +295,7 @@
             usleep(75000);
             
             $this->output(PHP_EOL.'Cleanup cache...'.PHP_EOL);
-            $cache = \fpcm\classes\loader::getObject('fpcm\classes\cache');
+            $cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
             $cache->cleanup();
             usleep(75000);
             

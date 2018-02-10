@@ -59,7 +59,11 @@
         public function __construct($filename = '', $initDB = true) {
             $this->table    = \fpcm\classes\database::tableSmileys;
 
-            parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SMILEYS, $filename));
+            $filename       = trim($filename)
+                            ? \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SMILEYS, $filename)
+                            : '';
+            
+            parent::__construct($filename);
             
             if ($this->exists()) {                
                 $this->init($initDB);

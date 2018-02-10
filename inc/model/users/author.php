@@ -599,7 +599,7 @@
                 return '';
             }
 
-            $cache      = \fpcm\classes\loader::getObject('fpcm\classes\cache');
+            $cache      = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
             
             $cacheName  = 'system/author'.$author->getImage().'_image';
             $data       = $cache->read($cacheName);

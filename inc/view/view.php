@@ -149,8 +149,8 @@ class view {
         $this->session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
         $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
         $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
-        $this->language = \fpcm\classes\loader::getObject('fpcm\classes\language');
-        $this->cache = \fpcm\classes\loader::getObject('fpcm\classes\cache');
+        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
 
         $this->fileLib = new \fpcm\model\system\fileLib();
         $this->defaultViewVars = new viewVars();
@@ -303,8 +303,8 @@ class view {
     }
 
     /**
-     * Add buttons to toolbar
-     * @param mixed $buttons
+     * Add array of buttons to toolbar
+     * @param array[fpcm/view/helper/helper] $buttons
      */
     public function addButtons(array $buttons)
     {
@@ -312,18 +312,26 @@ class view {
             $this->addButton($button);
         }
     }
-
-    /**
-     * Add new JS language vars
-     * @param mixed $jsvars
-     */
-
+    
     /**
      * Add button to toolbar
      * @param \fpcm\view\helper\button $button
+     * @param type $pos
+     * @return void
      */
-    public function addButton(helper\button $button)
+    public function addButton($button, $pos = false)
     {
+        if (!$button instanceof helper\helper) {
+            trigger_error('Invalid parameter, $button must be an instance of /fpcm/view/helper.');
+            return;
+        }
+        
+        if ($pos) {
+            $this->buttons[$pos] = $button;
+            ksort($this->buttons);
+            return;
+        }
+        
         $this->buttons[] = $button;
     }
 
@@ -520,7 +528,7 @@ class view {
         $this->defaultViewVars->formActionTarget = $this->formAction;
 
         $this->defaultViewVars->loggedIn = $this->session->exists();
-        $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('fpcm\classes\language');
+        $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
 
         $this->defaultViewVars->filesCss = $this->viewCssFiles;
         $this->defaultViewVars->filesJs = $this->viewJsFiles;

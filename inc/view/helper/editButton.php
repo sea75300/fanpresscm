@@ -33,10 +33,15 @@
          * @param \fpcm\model\abstracts\dataset $object
          * @return $this
          */
-        final public function setUrlbyObject(\fpcm\model\abstracts\dataset $object, $paramsString = '')
+        final public function setUrlbyObject($object, $paramsString = '')
         {
+            if (!is_object($object)) {
+                trigger_error('Invalid parameter, $object must be an object');
+                return $this;                
+            }
+            
             if (!method_exists($object, 'getEditLink')) {
-                trigger_error('Invalid parameter for object of class '.get_class($object).', method getEditLink() not found');
+                trigger_error('Invalid parameter for $object of class '.get_class($object).', method getEditLink() not found');
                 return $this;
             }
 
@@ -45,9 +50,11 @@
             if (method_exists($object, 'getEditPermission')) {
                 $this->readonly = $object->getEditPermission() ? false : true;
             }
-
-            $this->name .= $object->getId();
-            $this->id   .= $object->getId();
+            
+            if (method_exists($object, 'getId')) {
+                $this->name .= $object->getId();
+                $this->id   .= $object->getId();
+            }
 
             return $this;
         }

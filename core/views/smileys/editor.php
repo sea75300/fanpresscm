@@ -11,10 +11,4 @@
             <?php \fpcm\view\helper::textInput('smiley[filename]', '', $smiley->getFilename()); ?>
         </td>
     </tr>                    
-</table>            
-
-<div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
-    <div class="fpcm-ui-margin-center">
-        <?php $theView->saveButton('saveSmiley'); ?>
-    </div>
-</div>
+</table>

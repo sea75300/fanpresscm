@@ -17,11 +17,7 @@ fpcm.fileuploader = {
     
     initUploadButtons: function() {
 
-        fpcm.ui.button('#btnAddFile', {
-            icon: "ui-icon-plusthick"
-        },
-        function () {
-
+        jQuery('#btnAddFile').click(function () {
             jQuery('#fpcm-ui-phpupload-filelist').empty();
             jQuery(this).parent().find('.fpcm-ui-fileinput-select').trigger('click');
             jQuery('.fpcm-ui-fileinput-select').change(function () {
@@ -43,14 +39,7 @@ fpcm.fileuploader = {
 
         });
 
-        fpcm.ui.button('#btnUploadFile', {
-            icon: "ui-icon-circle-arrow-e"
-        });
-
-        fpcm.ui.button('#btnCancelUpload', {
-            icon: "ui-icon-cancel"
-        },
-        function () {
+        jQuery('#btnCancelUpload').click(function () {
             jQuery('#fpcm-ui-phpupload-filelist').empty();
             jQuery('.fpcm-ui-fileinput-select').empty();
         });

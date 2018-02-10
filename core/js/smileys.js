@@ -14,7 +14,7 @@ fpcm.smileys = {
     init: function () {
 
         var acObject = fpcm.ui.autocomplete('#smileyfilename', {
-            source: fpcmSmileyFiles
+            source: fpcm.vars.jsvars.files
         });
 
         acObject.autocomplete('instance').

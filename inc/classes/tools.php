@@ -120,7 +120,7 @@
             $data['pageCurrent'] = $pageCurrent;
 
             /* @var $langObj language */
-            $langObj = loader::getObject('fpcm\classes\language', loader::getObject('\fpcm\model\system\config')->system_lang);
+            $langObj = loader::getObject('\fpcm\classes\language', loader::getObject('\fpcm\model\system\config')->system_lang);
             
             for ($i=1; $i<=$data['pageCount']; $i++) {
                 $data['pageSelectOptions'][$langObj->translate('GLOBAL_PAGER', array('{{current}}' => $i, '{{total}}' => $data['pageCount']))] = $i;

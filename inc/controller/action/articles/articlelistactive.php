@@ -15,6 +15,8 @@
         }
 
         public function request() {
+            
+            $this->listAction   = 'articles/listactive';
 
             $conditions = new \fpcm\model\articles\search();
             $conditions->draft    = -1;
@@ -38,11 +40,8 @@
             
             parent::process();
             
-            $this->view->assign('headlineVar', 'HL_ARTICLE_EDIT_ACTIVE');
-            $this->view->assign('listAction', 'articles/listactive');            
             $this->view->assign('list', $this->articleItems);
             $this->view->assign('showArchiveStatus', false);
-            $this->view->assign('listIcon', 'newspaper-o');
 
             $minMax = $this->articleList->getMinMaxDate(0);
             $this->view->addJsVars([

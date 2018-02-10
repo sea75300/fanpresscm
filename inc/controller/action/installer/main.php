@@ -335,7 +335,7 @@
             $this->view->assign('disableInstallerMsg', !$res);
             $this->view->assign('showNextButton', false);
             
-            $cache = \fpcm\classes\loader::getObject('fpcm\classes\cache');
+            $cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
             $cache->cleanup();
             
         }

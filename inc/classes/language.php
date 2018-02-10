@@ -72,7 +72,7 @@
             $this->langList[$langCode] = file_get_contents($confFile);
             $this->helpFile            = $this->langPath.'/help.php';
 
-            $this->cache = loader::getObject('fpcm\classes\cache');
+            $this->cache = loader::getObject('\fpcm\classes\cache');
             $cacheName   = 'system/langcache'. strtoupper($langCode);
             
             if (!$this->cache->isExpired($cacheName)) {
@@ -182,6 +182,7 @@
          */
         public function writeMonth($monthId)
         {
+            $monthId = (string) $monthId;
             print isset($GLOBALS['langdata']['SYSTEM_MONTHS'][$monthId]) ? $GLOBALS['langdata']['SYSTEM_MONTHS'][$monthId] : null;
         }
         

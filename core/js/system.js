@@ -205,7 +205,7 @@ fpcm.system = {
                     type : 'error',
                     id   : 'fpcm-articles-massedit',
                     icon : 'exclamation-triangle',
-                    txt  : fpcm.vars.jsvars.masseditSaveFailed
+                    txt  : fpcm.ui.translate('SAVE_FAILED_ARTICLES')
                 }, true);
 
             }
