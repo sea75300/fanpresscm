@@ -385,6 +385,10 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     public function __destruct()
     {
+        if (\fpcm\classes\baseconfig::isCli()) {
+            return;
+        }
+        
         if ($this->view instanceof \fpcm\view\view && !$this->view->wasRendered()) {
             $this->view->render();
         }

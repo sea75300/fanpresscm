@@ -59,6 +59,13 @@
          * @since FPCM 3.6
          */
         protected $notifications;
+
+        /**
+         * Permissions
+         * @var \fpcm\model\system\permissions
+         * @since FPCM 4
+         */
+        protected $permissions;
         
         /**
          * Cache name
@@ -79,7 +86,6 @@
          */
         public function __construct()
         {
-            
             $this->events   = \fpcm\classes\loader::getObject('\fpcm\events\events');
             $this->cache    = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
             
@@ -95,6 +101,13 @@
             if (is_object($this->config)) {
                 $this->config->setUserSettings();
             }
+
+            $rollId                 = 0;
+            if ($this->session->exists()) {
+                $rollId = $this->session->currentUser->getRoll();
+            }
+
+            $this->permissions      = new \fpcm\model\system\permissions($rollId);
         }
         
         /**

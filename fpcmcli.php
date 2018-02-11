@@ -29,18 +29,20 @@ class fpcmCLI {
      */
     public function __construct(array $params) {
 
-        $this->output(PHP_EOL.'--- FanPress CM 3 CLI - version '.\fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_version.' ---');
+        $title = 'FanPress CM '.\fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_version.' command line ';
         
-        if (php_sapi_name() !== 'cli') {
-            $this->output('FanPress CM 3 cli must be run from console!', true);
+        if (!\fpcm\classes\baseconfig::isCli()) {
+            $this->output($title.' must be run from console!', true);
         }
+        
+        $this->output(PHP_EOL.'--- '.$title.' ---');
 
         if (version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<')) {
-            $this->output('FanPress CM 3 requires PHP '.FPCM_PHP_REQUIRED.' or better!', true);
+            $this->output($title.' requires PHP '.FPCM_PHP_REQUIRED.' or better!', true);
         }
 
         if (!count($params)) {
-            $this->output('FanPress CM 3 CLi requires at least on parameter.', true);
+            $this->output($title.' requires at least on parameter.', true);
         }
         
         $this->params = $params;
@@ -78,6 +80,10 @@ class fpcmCLI {
 
     }
     
+}
+
+if (!isset($argv)) {
+    $argv = [];
 }
 
 $cli = new fpcmCLI(array_slice($argv, 1));

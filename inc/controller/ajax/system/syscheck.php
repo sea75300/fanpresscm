@@ -53,7 +53,6 @@
          */
         public function request()
         {
-
             if (!\fpcm\classes\baseconfig::installerEnabled() && \fpcm\classes\baseconfig::dbConfigExists() && !$this->session->exists()) {
                 return false;
             }
@@ -82,30 +81,7 @@
          */
         private function getCheckOptions()
         {
-            $checkOptions     = [];            
-            
-            $updater = new \fpcm\model\updater\system();
-            $updater->checkUpdates();
-            
-            $remoteVersion = $updater->getRemoteData('version');
-            $remoteVersion ? $remoteVersion : $this->lang->translate('GLOBAL_NOTFOUND');
-            
-            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_FPCMVERSION', ['value' => $remoteVersion])]    = array(
-                'current'   => $this->config->system_version,
-                'recommend' => $remoteVersion ? $remoteVersion : $this->lang->translate('GLOBAL_NOTFOUND'),
-                'result'    => version_compare($this->config->system_version, $remoteVersion, '>='),
-                'helplink'  => 'https://nobody-knows.org/download/fanpress-cm/',
-                'actionbtn' => array('link' => $this->getControllerLink('package/sysupdate'), 'description' => 'PACKAGES_UPDATE'),
-                'isFolder'  => 0
-            );      
-            
-            if (!$this->permissions->check(array('system' => 'update'))) {
-                unset($checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_FPCMVERSION')]['actionbtn']);
-            }
-            
-            $checkOptions = array_merge($checkOptions, $this->getCheckOptionsSystem());
-
-            return $this->events->runEvent('runSystemCheck', $checkOptions);
+            return $this->events->runEvent('runSystemCheck', $this->getCheckOptionsSystem());
         }
         
         private function submitStatsData()
@@ -145,24 +121,7 @@
 
         public function processCli()
         {
-            $checkOptions     = [];            
-            
-            $updater = new \fpcm\model\updater\system();
-            $updater->checkUpdates();
-            
-            $remoteVersion = $updater->getRemoteData('version');
-
-            $versionCheckresult = version_compare($this->config->system_version, $remoteVersion, '>=');
-            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_FPCMVERSION')] = array(
-                'current'   => $this->config->system_version,
-                'recommend' => $remoteVersion ? $remoteVersion : $this->lang->translate('GLOBAL_NOTFOUND'),
-                'result'    => $versionCheckresult,
-                'notice'    => !$versionCheckresult ? 'You may run       : php '.\fpcm\classes\dirs::getFullDirPath('fpcmcli.php').' pkg --upgrade system' : ''
-            );      
-
-            $checkOptions = array_merge($checkOptions, $this->getCheckOptionsSystem());
-
-            return $this->events->runEvent('runSystemCheck', $checkOptions);
+            return $this->events->runEvent('runSystemCheck', $this->getCheckOptionsSystem());
             
         }
         

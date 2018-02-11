@@ -60,7 +60,7 @@
          */
         private static function initUrls() {
 
-            if (php_sapi_name() === 'cli') {
+            if (baseconfig::isCli()) {
                 $GLOBALS['fpcm']['urls']['base'] = '';
                 return false;
             }
@@ -95,7 +95,7 @@
          */
         public static function getDataDirPath($type, $path = '', $base = false)
         {
-            $path = $GLOBALS['fpcm']['dir']['data'].$type.DIRECTORY_SEPARATOR.$path;
+            $path = $GLOBALS['fpcm']['dir']['data'].$type.($path ? DIRECTORY_SEPARATOR.$path : '');
             return ($base ? basename($path) : $path);
         }
 

@@ -16,12 +16,6 @@
     class navigation extends \fpcm\model\abstracts\staticModel {
 
         /**
-         * Permissions-Objekt
-         * @var \fpcm\model\system\permissions
-         */
-        private $permissions;
-
-        /**
          * Konstruktor
          */
         public function __construct() {
