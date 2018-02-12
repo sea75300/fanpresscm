@@ -53,7 +53,7 @@
                 <tr>
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_INCLUDEJQUERY'); ?>:</td>
                     <td>
-                        <?php fpcm\view\helper::boolSelect('system_loader_jquery', $globalConfig['system_loader_jquery']); ?>
+                        <?php $theView->boolSelect('system_loader_jquery')->setSelected($globalConfig['system_loader_jquery']); ?>
                         <?php $theView->shorthelpButton('jqueryInclude')->setText('SYSTEM_OPTIONS_INCLUDEJQUERY_YES'); ?>
                     </td>
                 </tr>
@@ -73,7 +73,7 @@
                 <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_REVISIONS_ENABLED'); ?>:</td>
                     <td>
-                        <?php fpcm\view\helper::boolSelect('articles_revisions', $globalConfig['articles_revisions']); ?>
+                        <?php $theView->boolSelect('articles_revisions')->setSelected($globalConfig['articles_revisions']); ?>
                     </td>		
                 </tr>
                 <tr>			
@@ -82,7 +82,7 @@
                 </tr>
                 <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_NEWS_NEWUPLOADER'); ?>:</td>
-                    <td><?php fpcm\view\helper::boolSelect('file_uploader_new', $globalConfig['file_uploader_new']); ?></td>
+                    <td><?php $theView->boolSelect('file_uploader_new')->setSelected($globalConfig['file_uploader_new']); ?></td>
                 </tr>
                 <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_FILEMANAGER_LIMIT'); ?>:</td>
@@ -90,7 +90,7 @@
                 </tr>
                 <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_NEWS_EDITOR_IMGTOOLS'); ?>:</td>
-                    <td><?php fpcm\view\helper::boolSelect('articles_imageedit_persistence', $globalConfig['articles_imageedit_persistence']); ?></td>
+                    <td><?php $theView->boolSelect('articles_imageedit_persistence')->setSelected($globalConfig['articles_imageedit_persistence']); ?></td>
                 </tr>
                 <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_NEWSSHOWIMGTHUMBSIZE'); ?>:</td>
@@ -140,19 +140,19 @@
 
                 <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_NEWSSHOWSHARELINKS'); ?>:</td>
-                    <td><?php fpcm\view\helper::boolSelect('system_show_share', $globalConfig['system_show_share']); ?></td>		
+                    <td><?php $theView->boolSelect('system_show_share')->setSelected($globalConfig['system_show_share']); ?></td>		
                 </tr>
                 <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_NEWS_URLREWRITING'); ?>:</td>
-                    <td><?php fpcm\view\helper::boolSelect('articles_link_urlrewrite', $globalConfig['articles_link_urlrewrite']); ?></td>
+                    <td><?php $theView->boolSelect('articles_link_urlrewrite')->setSelected($globalConfig['articles_link_urlrewrite']); ?></td>
                 </tr>
                 <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_NEWS_ENABLEFEED'); ?>:</td>
-                    <td><?php fpcm\view\helper::boolSelect('articles_rss', $globalConfig['articles_rss']); ?></td>
+                    <td><?php $theView->boolSelect('articles_rss')->setSelected($globalConfig['articles_rss']); ?></td>
                 </tr>
                 <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_ARCHIVE_LINK'); ?>:</td>
-                    <td><?php fpcm\view\helper::boolSelect('articles_archive_show', $globalConfig['articles_archive_show']); ?></td>		
+                    <td><?php $theView->boolSelect('articles_archive_show')->setSelected($globalConfig['articles_archive_show']); ?></td>		
                 </tr>
                 <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT'); ?>:</td>
@@ -167,7 +167,7 @@
             <table class="fpcm-ui-table fpcm-ui-options">
                <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_COMMENT_ENABLED_GLOBAL'); ?>:</td>
-                    <td><?php fpcm\view\helper::boolSelect('system_comments_enabled', $globalConfig['system_comments_enabled']); ?></td>		
+                    <td><?php $theView->boolSelect('system_comments_enabled')->setSelected($globalConfig['system_comments_enabled']); ?></td>		
                </tr>                                                
                <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_ACTIVECOMMENTTEMPLATE'); ?>:</td>
@@ -179,11 +179,11 @@
                </tr>		
                <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_COMMENTEMAIL'); ?>:</td>
-                    <td><?php fpcm\view\helper::boolSelect('comments_email_optional', $globalConfig['comments_email_optional']); ?></td>
+                    <td><?php $theView->boolSelect('comments_email_optional')->setSelected($globalConfig['comments_email_optional']); ?></td>
                </tr>	
                <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_COMMENT_APPROVE'); ?>:</td>
-                    <td><?php fpcm\view\helper::boolSelect('comments_confirm', $globalConfig['comments_confirm']); ?></td>		
+                    <td><?php $theView->boolSelect('comments_confirm')->setSelected($globalConfig['comments_confirm']); ?></td>		
                </tr>	
                <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_COMMENT_NOTIFY'); ?>:</td>
@@ -208,7 +208,7 @@
             <table class="fpcm-ui-table fpcm-ui-options">
                 <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_MAINTENANCE'); ?>:</td>
-                    <td><?php fpcm\view\helper::boolSelect('system_maintenance', $globalConfig['system_maintenance']); ?></td>		
+                    <td><?php $theView->boolSelect('system_maintenance')->setSelected($globalConfig['system_maintenance']); ?></td>		
                 </tr>			 			 
                 <tr>			
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_SESSIONLENGHT'); ?>:</td>
@@ -225,11 +225,11 @@
             <table class="fpcm-ui-table fpcm-ui-options">
                 <tr>			
                      <td><?php $theView->lang->write('SYSTEM_OPTIONS_EXTENDED_EMAILUPDATES'); ?>:</td>
-                     <td><?php fpcm\view\helper::boolSelect('system_updates_emailnotify', $globalConfig['system_updates_emailnotify']); ?></td>		
+                     <td><?php $theView->boolSelect('system_updates_emailnotify')->setSelected($globalConfig['system_updates_emailnotify']); ?></td>		
                 </tr>
                 <tr>			
                      <td><?php $theView->lang->write('SYSTEM_OPTIONS_EXTENDED_DEVUPDATES'); ?>:</td>
-                     <td><?php fpcm\view\helper::boolSelect('system_updates_devcheck', $globalConfig['system_updates_devcheck']); ?></td>		
+                     <td><?php $theView->boolSelect('system_updates_devcheck')->setSelected($globalConfig['system_updates_devcheck']); ?></td>		
                 </tr>
                 <tr>			
                      <td><?php $theView->lang->write('SYSTEM_OPTIONS_EXTENDED_UPDATESMANCHK'); ?>:</td>
@@ -245,7 +245,7 @@
                 <tr>	
                     <td><?php $theView->lang->write('SYSTEM_OPTIONS_EMAIL_ENABLED'); ?>:</td>
                     <td>
-                        <?php fpcm\view\helper::boolSelect('smtp_enabled', $globalConfig['smtp_enabled']); ?>
+                        <?php $theView->boolSelect('smtp_enabled')->setSelected($globalConfig['smtp_enabled']); ?>
                     </td>
                 </tr>
                 <tr>			

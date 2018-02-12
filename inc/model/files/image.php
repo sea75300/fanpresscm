@@ -428,8 +428,9 @@ class image extends \fpcm\model\abstracts\file {
             $this->$key = $object->$key;
         }
 
-        $this->filepath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS);
-        $this->fullpath = $this->filepath.$this->filename;
+        $this->fullpath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $this->filename);
+        $this->filepath = dirname($this->fullpath);
+        
         $this->init(false);
 
         return true;

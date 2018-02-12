@@ -135,10 +135,12 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
 }
 
 #fpcm-ui-toolbar {
-    padding: 0.3em 0;
+    padding: 0.4em 0;
+    margin-bottom: 0.4em;
 }
 
-#article_template_buttons {
+.fpcm-ui-controlgroup,
+.fpcm-ui-filelist {
     margin-bottom: 1em;
 }
 
@@ -945,7 +947,7 @@ div.fpcm-editor-fields-tabs div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-e
 .fpcm-ui-button,
 .fpcm-buttons.fpcm-ui-list-buttons a.fpcm-ui-button,
 .ui-selectmenu-button,
-.fpcm-ui-filemanager-buttons a {
+.ui-checkboxradio-label {
     min-height: 18.666666666666666666666667px;
     line-height: 18.666666666666666666666667px;
 }

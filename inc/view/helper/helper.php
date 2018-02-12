@@ -128,6 +128,18 @@
         }
 
         /**
+         * 
+         * @param string $name
+         * @param string $arguments
+         * @return $this
+         */
+        public function __call($name, $arguments)
+        {
+            print $name.' does not exists in '.get_class($this);
+            return $this;
+        }
+
+        /**
          * Name cleanup from bracket, etc.
          * @return string
          */

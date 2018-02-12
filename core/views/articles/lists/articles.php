@@ -4,7 +4,7 @@
         <th><?php $theView->lang->write('ARTICLE_LIST_TITLE'); ?></th>
         <th class="fpcm-ui-center fpcm-td-articlelist-categories"><?php $theView->lang->write('HL_CATEGORIES_MNG'); ?></th>
         <th class="fpcm-td-articlelist-meta"></th>
-        <th class="fpcm-th-select-row"><?php fpcm\view\helper::checkbox('fpcm-select-all', '', '', '', 'fpcm-select-all', false); ?></th>
+        <th class="fpcm-th-select-row"><?php $theView->checkbox('fpcm-select-all')->setClass('fpcm-select-all')->setText('-1'); ?></th>
     </tr>
 
     <?php \fpcm\view\helper::notFoundContainer($list, 6); ?>
@@ -16,7 +16,7 @@
             <th><?php $theView->lang->writeMonth($theView->dateText($articleMonth, 'n')); ?> <?php print $theView->dateText($articleMonth, 'Y'); ?> (<?php print count($articles); ?>)</th> 
             <th class="fpcm-td-articlelist-categories"></th>
             <th class="fpcm-td-articlelist-meta"></th>
-            <th class="fpcm-td-select-row"><?php fpcm\view\helper::checkbox('fpcm-select-allsub', 'fpcm-select-allsub', $articleMonth, '', 'fpcm-select-allsub'.$articleMonth, false); ?></th>
+            <th class="fpcm-td-select-row"><?php $theView->checkbox('fpcm-select-allsub', 'fpcm-select-allsub'.$articleMonth)->setClass('fpcm-select-allsub')->setValue($articleMonth)->setText('0'); ?></th>
         </tr>
         <tr class="fpcm-td-spacer"><td></td></tr>
         <?php foreach($articles AS $articleId => $article) : ?>
@@ -49,11 +49,8 @@
                 <td class="fpcm-ui-center fpcm-td-articlelist-categories"><?php print implode(', ', $article->getCategories()); ?></td>
                 <td class="fpcm-td-articlelist-meta"><?php include $theView->getIncludePath('articles/metainfo.php'); ?></td>
                 <td class="fpcm-td-select-row">
-                <?php if ($article->getEditPermission()) : ?>                    
-                    <?php fpcm\view\helper::checkbox('actions[ids][]', 'fpcm-list-selectbox fpcm-list-selectbox-sub'.$articleMonth, $articleId, '', 'chbx'.$articleId, false); ?>
-                <?php else : ?>
-                    <?php fpcm\view\helper::checkbox('actions[ro][]', 'fpcm-list-selectbox fpcm-list-selectbox-sub'.$articleMonth, $articleId, '', 'chbx'.$articleId, false, true); ?>
-                <?php endif; ?>
+                    <?php $nameList = $article->getEditPermission() ? 'ids' : 'ro'; ?>                    
+                    <?php $theView->checkbox('actions['.$nameList.'][]', 'chbx'.$articleId)->setClass('fpcm-list-selectbox fpcm-list-selectbox-sub'.$articleMonth)->setValue($articleId)->setReadonly($article->getEditPermission())->setText('1'); ?>
                 </td>
             </tr>
         <?php endforeach; ?>

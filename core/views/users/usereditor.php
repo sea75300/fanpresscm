@@ -64,7 +64,7 @@
     <tr>
         <td><?php $theView->lang->write('GLOBAL_DISABLE'); ?>:</td>
         <td>
-            <?php \fpcm\view\helper::boolSelect('disabled', $author->getDisabled()); ?>              
+            <?php $theView->boolSelect('disabled')->setSelected($author->getDisabled()); ?>              
         </td>
     </tr>
     <?php endif; ?>

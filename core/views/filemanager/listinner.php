@@ -15,19 +15,21 @@
 
             <div class="fpcm-filelist-actions-box fpcm-ui-center">
                 <div class="fpcm-filelist-actions">
-                    <a href="<?php print $file->getThumbnailUrl(); ?>" class="fpcm-ui-button fpcm-ui-button-blank fpcm-filelist-link-thumb" target="_blank" title="<?php $theView->lang->write('FILE_LIST_OPEN_THUMB'); ?>"><?php $theView->lang->write('FILE_LIST_OPEN_THUMB'); ?></a>
-                    <a href="<?php print $file->getImageUrl(); ?>" target="_blank" class="fpcm-ui-button fpcm-ui-button-blank fpcm-filelist-link-full fpcm-file-list-link" title="<?php $theView->lang->write('FILE_LIST_OPEN_FULL'); ?>"><?php $theView->lang->write('FILE_LIST_OPEN_FULL'); ?></a>
-                    <?php if ($mode == 2) : ?>
-                    <a href="<?php print $file->getThumbnailUrl(); ?>" imgtxt="<?php print $file->getFilename(); ?>" class="fpcm-ui-button fpcm-ui-button-blank fpcm-filelist-tinymce-thumb" title="<?php $theView->lang->write('FILE_LIST_INSERT_THUMB'); ?>"><?php $theView->lang->write('FILE_LIST_INSERT_THUMB'); ?></a>
-                    <a href="<?php print $file->getImageUrl(); ?>" imgtxt="<?php print $file->getFilename(); ?>" class="fpcm-ui-button fpcm-ui-button-blank fpcm-filelist-tinymce-full" title="<?php $theView->lang->write('FILE_LIST_INSERT_FULL'); ?>"><?php $theView->lang->write('FILE_LIST_INSERT_FULL'); ?></a>
+                    
+                    <?php $theView->linkButton(uniqid('thumbs'))->setUrl($file->getThumbnailUrl())->setText('FILE_LIST_OPEN_THUMB')->setClass('fpcm-filelist-link-thumb')->setIcon('file-image-o')->setIconOnly(true)->setTarget('_blank'); ?>
+                    <?php $theView->linkButton(uniqid('imgurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_OPEN_FULL')->setClass('fpcm-filelist-link-full fpcm-file-list-link')->setIcon('search-plus')->setIconOnly(true)->setTarget('_blank'); ?>
+
+                    <?php if ($mode == 2) : ?>                    
+                        <?php $theView->linkButton(uniqid('thumbsurl'))->setUrl($file->getThumbnailUrl())->setText('FILE_LIST_INSERT_THUMB')->setClass('fpcm-filelist-tinymce-thumb')->setIcon('star-half-o')->setIconOnly(true)->setData(['imgtext' => $file->getFilename()]); ?>
+                        <?php $theView->linkButton(uniqid('imgsurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_INSERT_FULL')->setClass('fpcm-filelist-tinymce-full')->setIcon('star')->setIconOnly(true)->setData(['imgtext' => $file->getFilename()]); ?>
                     <?php endif; ?>
-                    <?php if ($mode == 3) : ?>
-                    <a href="<?php print $file->getImageUrl(); ?>" imgtxt="<?php print $file->getFilename(); ?>" class="fpcm-ui-button fpcm-ui-button-blank fpcm-filelist-articleimage" title="<?php $theView->lang->write('EDITOR_ARTICLEIMAGE'); ?>"><?php $theView->lang->write('EDITOR_ARTICLEIMAGE'); ?></a>
+                    <?php if ($mode == 3) : ?>                    
+                        <?php $theView->linkButton(uniqid('articleimg'))->setUrl($file->getImageUrl())->setText('EDITOR_ARTICLEIMAGE')->setClass('fpcm-filelist-articleimage')->setIcon('picture-o')->setIconOnly(true)->setData(['imgtext' => $file->getFilename()]); ?>
                     <?php endif; ?>                    
                 </div>
                 
                 <div class="fpcm-filelist-actions-checkbox">
-                    <?php fpcm\view\helper::checkbox('filenames[]', 'fpcm-list-selectbox', base64_encode($file->getFilename()), '', 'cb_'.$file->getFilename(), false); ?>
+                    <?php $theView->checkbox('filenames[]', 'cb_'. md5($file->getFilename()))->setClass('fpcm-list-selectbox')->setValue(base64_encode($file->getFilename())); ?>
                 </div>
                 
                 <div class="fpcm-clear"></div>

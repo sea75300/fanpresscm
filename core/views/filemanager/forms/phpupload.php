@@ -1,16 +1,10 @@
-<form action="<?php print $actionPath; ?>" method="POST" enctype="multipart/form-data">
-    <p><?php print $maxFilesInfo; ?></p>
-    
-    <table id="fpcm-ui-phpupload-filelist" class="fpcm-ui-table fpcm-ui-phpupload"></table>
-    
-    <div class="fpcm-ui-filemanager-buttons fpcm-ui-toolbar">
-        <span class="fpcm-ui-fileinput-php">
-        <?php fpcm\view\helper::linkButton('#', 'FILE_FORM_FILEADD', 'btnAddFile') ?>
-        <?php fpcm\view\helper::submitButton('uploadFile', 'FILE_FORM_UPLOADSTART', 'start-upload fpcm-loader'); ?>
+<p><?php print $maxFilesInfo; ?></p>
 
-        <button type="reset" class="cancel-upload" id="btnCancelUpload"><?php $theView->lang->write('FILE_FORM_UPLOADCANCEL'); ?></button>
+<div class="fpcm-ui-controlgroup">
+    <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
+    <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('cloud-upload'); ?>
+    <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>
+    <input type="file" name="files[]" multiple class="fpcm-ui-fileinput-select fpcm-ui-hidden">
+</div>
 
-            <input type="file" name="files[]" multiple class="fpcm-ui-fileinput-select fpcm-ui-hidden">
-        </span>
-    </div>
-</form>
+<table id="fpcm-ui-phpupload-filelist" class="fpcm-ui-table fpcm-ui-phpupload"></table>

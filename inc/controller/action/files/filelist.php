@@ -142,8 +142,8 @@
             $this->view->addJsVars([
                 'fmgrMode'          => $this->mode,
                 'editorType'        => $this->config->system_editor,
-                'jqUploadInit'      => $this->config->file_uploader_new,
-                'fmLoadAjax'        => ($this->fileList->getDatabaseFileCount() ? 1 : 0),
+                'jqUploadInit'      => $this->config->file_uploader_new ? true : false,
+                'fmLoadAjax'        => ($this->fileList->getDatabaseFileCount() ? true : false),
                 'currentModule'     => $this->getRequestVar('module'),
                 'filesLastSearch'   => 0
             ]);
@@ -156,7 +156,7 @@
             ));
 
             $this->view->assign('newUploader', $this->config->file_uploader_new);
-            $this->view->assign('jquploadPath', \fpcm\classes\loader::libGetFileUrl('jqupload'));
+            $this->view->assign('jquploadPath', \fpcm\classes\dirs::getLibUrl('jqupload/'));
             $this->view->addJsFiles(['filemanager.js', 'fileuploader.js']);
             
             if ($this->config->file_uploader_new) {
@@ -173,6 +173,25 @@
 
             $this->initViewAssigns([], [], \fpcm\classes\tools::calcPagination(1, 1, 0, 0));
             $this->initPermissions();
+
+            $this->view->addButtons([
+                (new \fpcm\view\helper\checkbox('fpcm-select-all')),
+                (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')
+            ]);
+            
+            if ($this->permissionsData['permRename']) {
+                $this->view->addButton((new \fpcm\view\helper\submitButton('renameFiles'))->setText('FILE_LIST_RENAME')->setIcon('pencil-square') );
+            }
+
+            if ($this->permissionsData['permThumbs']) {
+                $this->view->addButton((new \fpcm\view\helper\submitButton('createThumbs'))->setText('FILE_LIST_NEWTHUMBS')->setIcon('file-image-o') );
+            }
+
+            if ($this->permissionsData['permDelete']) {
+                $this->view->addButton(new \fpcm\view\helper\deleteButton('deleteFiles'));
+            }
+
+            $this->view->setFormAction('files/list', ['mode' => $this->mode]);
             $this->view->render();
         }
 

@@ -64,13 +64,13 @@ fpcm.ui = {
             onlyVisible: true
         });
 
-        fpcm.ui.controlgroup('.fpcm-buttons.fpcm-ui-list-buttons', {
-            onlyVisible: true
+        fpcm.ui.controlgroup('.fpcm-ui-controlgroup', {
+            onlyVisible: false
         });
 
-        fpcm.ui.controlgroup('.fpcm-buttons div.fpcm-ui-margin-center', {
-            onlyVisible: true
-        });
+//        fpcm.ui.controlgroup('.fpcm-buttons div.fpcm-ui-margin-center', {
+//            onlyVisible: true
+//        });
 
         /*fpcm.ui.button('.fpcm-ui-button');*/
         fpcm.ui.actionButtonsGenreal();
@@ -138,7 +138,7 @@ fpcm.ui = {
 
     },
     
-    assignCheckboxes: function() {
+    assignCheckboxes: function() {        
         jQuery('#fpcmselectall').click(function(){
             jQuery('.fpcm-select-allsub').prop('checked', false);
             if (jQuery(this).prop('checked'))        

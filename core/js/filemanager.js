@@ -198,7 +198,7 @@ fpcm.filemanager = {
     
     initFilesSearch: function() {
 
-        jQuery('#fpcmfilessopensearch').click(function () {
+        jQuery('#opensearch').click(function () {
 
             fpcm.ui.selectmenu('.fpcm-ui-input-select-filesearch', {
                 width: '100%',

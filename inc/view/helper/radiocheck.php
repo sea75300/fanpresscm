@@ -36,7 +36,7 @@
         protected function getString()
         {
             return implode(' ', [
-                "<label for=\"{$this->name}\">",
+                "<label for=\"{$this->id}\">",
                 $this->getIconString(),
                 $this->getDescriptionTextString(),
                 "<input type=\"{$this->type}\"",

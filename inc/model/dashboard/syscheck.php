@@ -64,36 +64,19 @@
             $this->tableContent[] = '<tr><td class="fpcm-td-spacer" style="padding-bottom:0.5em;"></td></tr>';
 
             $options = array_slice($rows, 16, 2);
+            
+            /* @var $data \fpcm\model\system\syscheckOption */
             foreach ($options as $description => $data) {
-                $checkres             = $this->boolToText2($data['result']);
+                $checkres             = (new \fpcm\view\helper\boolToText($description))->setValue($data->getResult());
                 $this->tableContent[] =  "<tr><td>{$checkres} {$description}</td></tr>";
             }
 
             $folders = array_slice($rows, -13);
             foreach ($folders as $description => $data) {
-                $checkres             = $this->boolToText($data['result']);
+                $checkres             = (new \fpcm\view\helper\boolToText($description))->setValue($data->getResult())->setText($data->getResult() ? 'GLOBAL_WRITABLE' : 'GLOBAL_NOT_WRITABLE');
                 $this->tableContent[] =  "<tr><td>{$checkres} {$description}</td></tr>";
             }
 
-        }
-        
-        /**
-         * bool nach text beschreibbar/ nicht beschreibbar
-         * @param bool $value
-         * @return string
-         */
-        protected function boolToText($value) {
-            return (new \fpcm\view\helper\boolToText(uniqid()))->setValue($value)->setText($value ? 'GLOBAL_WRITABLE' : 'GLOBAL_NOT_WRITABLE');
-            
-        }
-        
-        /**
-         * bool nach Text ja/ nein
-         * @param bool $value
-         * @return string
-         */
-        protected function boolToText2($value) {
-            return (new \fpcm\view\helper\boolToText(uniqid()))->setValue($value);
         }
         
     }

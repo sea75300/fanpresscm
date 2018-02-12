@@ -30,6 +30,6 @@
         </tr>
         <tr>			
             <td><?php $theView->lang->write('SYSTEM_OPTIONS_NEWS_NEWUPLOADER'); ?>:</td>
-            <td><?php fpcm\view\helper::boolSelect('usermeta[file_uploader_new]', $author->getUserMeta('file_uploader_new')); ?></td>
+            <td><?php $theView->boolSelect('usermeta[file_uploader_new]')->setSelected($author->getUserMeta('file_uploader_new')); ?></td>
         </tr>
     </table>
