@@ -357,7 +357,7 @@
             $params = $this->getPreparedSaveParams();
             $params = $this->events->runEvent('commentSave', $params);
 
-            if (!$this->dbcon->insert($this->table, implode(',', array_keys($params)), implode(', ', $this->getPreparedValueParams()), array_values($params))) {
+            if (!$this->dbcon->insert($this->table, $params)) {
                 return false;
             }
             

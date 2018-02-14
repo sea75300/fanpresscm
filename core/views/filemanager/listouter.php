@@ -4,8 +4,8 @@
     
     <div class="fpcm-tabs-general">
         <ul>
-            <li id="tabs-files-list-reload"><a href="#tabs-files-list"><?php $theView->lang->write('FILE_LIST_AVAILABLE'); ?></a></li>                
-            <?php if ($permUpload) : ?><li><a href="#tabs-files-upload"><?php $theView->lang->write('FILE_LIST_UPLOADFORM'); ?></a></li><?php endif; ?>                
+            <li id="tabs-files-list-reload"><a href="#tabs-files-list"><?php $theView->write('FILE_LIST_AVAILABLE'); ?></a></li>                
+            <?php if ($permUpload) : ?><li><a href="#tabs-files-upload"><?php $theView->write('FILE_LIST_UPLOADFORM'); ?></a></li><?php endif; ?>                
         </ul>
 
         <div id="tabs-files-list">

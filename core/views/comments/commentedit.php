@@ -5,7 +5,7 @@
     <div class="fpcm-content-wrapper">
         <div class="fpcm-tabs-general">
             <ul>
-                <li><a href="#tabs-category"><?php $theView->lang->write('COMMENTS_EDIT'); ?></a></li>
+                <li><a href="#tabs-category"><?php $theView->write('COMMENTS_EDIT'); ?></a></li>
             </ul>
             
             <div id="tabs-category">                

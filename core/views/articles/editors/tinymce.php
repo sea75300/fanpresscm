@@ -17,6 +17,7 @@
     </tr>
     <tr>
         <td class="fpcm-ui-editor-categories">
+            <?php $fieldname = 'article[categories][]'; ?>
             <?php include $theView->getIncludePath('articles/categories.php'); ?>
         </td>
     </tr>

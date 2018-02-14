@@ -3,7 +3,7 @@
     <form method="post" action="<?php print $theView->self; ?>?module=smileys/add">
         <div class="fpcm-tabs-general">
             <ul>
-                <li><a href="#tabs-roll"><?php $theView->lang->write('FILE_LIST_SMILEYADD'); ?></a></li>
+                <li><a href="#tabs-roll"><?php $theView->write('FILE_LIST_SMILEYADD'); ?></a></li>
             </ul>            
             
             <div id="tabs-roll">

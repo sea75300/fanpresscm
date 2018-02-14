@@ -2,12 +2,12 @@
     
     <div class="fpcm-ui-editor-extended-row">
         <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-tags fa-fw fa-lg"></span></div>
-        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->lang->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?></label></div>
+        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?></label></div>
         <div class="fpcm-ui-editor-extended-col">
             <div class="fpcm-ui-massedit-categories">
                 <div class="fpcm-ui-toolbar">
                     <?php foreach ($massEditCategories as $name => $id) : ?>
-                        <?php fpcm\view\helper::checkbox('categories[]', 'fpcm-ui-input-massedit-categories', $id, $name, 'cat'.$id, false); ?>
+                    <?php $theView->checkbox('categories[]', 'cat'.$id)->setClass('fpcm-ui-input-massedit-categories')->setText($name)->setValue($id); ?>
                     <?php endforeach; ?>
                 </div>
             </div>
@@ -18,7 +18,7 @@
     <?php if ($canChangeAuthor) : ?>
     <div class="fpcm-ui-editor-extended-row">
         <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-user fa-fw fa-lg"></span></div>
-        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->lang->write('EDITOR_CHANGEAUTHOR'); ?></label></div>
+        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->write('EDITOR_CHANGEAUTHOR'); ?></label></div>
         <div class="fpcm-ui-editor-extended-col"><?php \fpcm\view\helper::select('userid', $massEditUsers, null, false, false, false, 'fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'); ?></div>
         <div class="fpcm-clear"></div>
     </div>
@@ -26,7 +26,7 @@
     
     <div class="fpcm-ui-editor-extended-row">
         <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-thumb-tack fa-rotate-90 fa-fw fa-lg"></span></div>
-        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->lang->write('EDITOR_PINNED'); ?></label></div>
+        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->write('EDITOR_PINNED'); ?></label></div>
         <div class="fpcm-ui-editor-extended-col"><?php \fpcm\view\helper::select('pinned', $massEditPinned, null, false, false, false, 'fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'); ?></div>
         <div class="fpcm-clear"></div>
     </div>
@@ -34,7 +34,7 @@
     <?php if ($showDraftStatus) : ?>
     <div class="fpcm-ui-editor-extended-row">
         <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-file-text-o fa-fw fa-lg"></span></div>
-        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->lang->write('EDITOR_DRAFT'); ?></label></div>
+        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->write('EDITOR_DRAFT'); ?></label></div>
         <div class="fpcm-ui-editor-extended-col"><?php \fpcm\view\helper::select('draft', $massEditDraft, null, false, false, false, 'fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'); ?></div>
         <div class="fpcm-clear"></div>
     </div>
@@ -43,7 +43,7 @@
     <?php if (!$canApprove) : ?>
     <div class="fpcm-ui-editor-extended-row">
         <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-thumbs-o-up fa-fw fa-lg"></span></div>
-        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->lang->write('EDITOR_STATUS_APPROVAL'); ?></label></div>
+        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->write('EDITOR_STATUS_APPROVAL'); ?></label></div>
         <div class="fpcm-ui-editor-extended-col"><?php \fpcm\view\helper::select('approval', $massEditApproved, null, false, false, false, 'fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'); ?></div>
         <div class="fpcm-clear"></div>
     </div>
@@ -52,7 +52,7 @@
     <?php if ($commentEnabledGlobal) : ?>
     <div class="fpcm-ui-editor-extended-row">
         <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-comments-o fa-fw fa-lg"></span></div>
-        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->lang->write('EDITOR_COMMENTS'); ?></label></div>
+        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->write('EDITOR_COMMENTS'); ?></label></div>
         <div class="fpcm-ui-editor-extended-col"><?php \fpcm\view\helper::select('comments', $massEditComments, null, false, false, false, 'fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'); ?></div>
         <div class="fpcm-clear"></div>
     </div>
@@ -61,7 +61,7 @@
     <?php if ($canArchive) : ?>
     <div class="fpcm-ui-editor-extended-row">
         <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-archive fa-fw fa-lg"></span></div>
-        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->lang->write('EDITOR_ARCHIVE'); ?></label></div>
+        <div class="fpcm-ui-editor-extended-button"><label><?php $theView->write('EDITOR_ARCHIVE'); ?></label></div>
         <div class="fpcm-ui-editor-extended-col"><?php \fpcm\view\helper::select('archived', $massEditArchived, null, false, false, false, 'fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'); ?></div>
         <div class="fpcm-clear"></div>
     </div>

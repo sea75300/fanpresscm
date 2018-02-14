@@ -29,8 +29,7 @@ fpcm.ui = {
             fpcm.ui.showLoader(false);
             return false;
         });
-    
-    
+
         jQuery('#fpcm-ui-showmenu-li').click(function () {
             jQuery('li.fpcm-menu-level1.fpcm-menu-level1-show').fadeToggle();
         });
@@ -316,6 +315,14 @@ fpcm.ui = {
         if (params === undefined) {
             params = {};
         }
+        
+        if (params.icon === undefined) {
+            params.icon = false;
+        }
+
+        console.log(elemClassId);
+        console.log(params);
+        
 
         jQuery(elemClassId).checkboxradio(params);
 

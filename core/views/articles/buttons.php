@@ -20,7 +20,7 @@
         <div class="fpcm-ui-editor-extended-row">
             <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-twitter fa-fw fa-lg"></span></div>
             <div class="fpcm-ui-editor-extended-button fpcm-ui-editor-extended-col-floatsmall">
-                <?php fpcm\view\helper::checkbox('article[tweet]', '', 1, 'EDITOR_TWEET_ENABLED', 'articletweet', $article->tweetCreationEnabled()); ?>
+                <?php $theView->checkbox('article[tweet]')->setText('EDITOR_TWEET_ENABLED')->setSelected($article->tweetCreationEnabled()); ?>
             </div>
             <div class="fpcm-ui-editor-extended-col fpcm-ui-editor-extended-col-tweettext">
                 <?php fpcm\view\helper::textInput('article[tweettxt]', '', '', false, 512, 'EDITOR_TWEET_TEXT'); ?>
@@ -33,7 +33,7 @@
         <?php if (!$editorMode || $article->getPostponed()) : ?>
         <div class="fpcm-ui-editor-extended-row">
             <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-clock-o fa-fw fa-lg"></span></div>
-            <div class="fpcm-ui-editor-extended-button"><?php fpcm\view\helper::checkbox('article[postponed]', '', 1, 'EDITOR_POSTPONETO', 'articlepostponed', $article->getPostponed()); ?></div>
+            <div class="fpcm-ui-editor-extended-button"><?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed()); ?></div>
             <div class="fpcm-ui-editor-extended-col fpcm-ui-editor-extended-col-postponed">
                 <?php fpcm\view\helper::textInput('article[postponedate]', 'fpcm-ui-datepicker', $theView->dateText($postponedTimer, 'Y-m-d'), false, 2, false, 'fpcm-ui-datepicker-inputwrapper'); ?>
                 <?php fpcm\view\helper::textInput('article[postponehour]', 'fpcm-ui-spinner-hour', $theView->dateText($postponedTimer, 'H'), false, 2, false, false); ?>
@@ -46,14 +46,14 @@
         <?php if (!$article->getArchived()) : ?>
         <div class="fpcm-ui-editor-extended-row">
             <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-file-text-o fa-fw fa-lg"></span></div>
-            <div class="fpcm-ui-editor-extended-button"><?php fpcm\view\helper::checkbox('article[draft]', '', 1, 'EDITOR_DRAFT', 'articledraft', $article->getDraft()); ?></div>
+            <div class="fpcm-ui-editor-extended-button"><?php $theView->checkbox('article[draft]')->setText('EDITOR_DRAFT')->setSelected($article->getDraft()); ?></div>
             <div class="fpcm-ui-editor-extended-col"></div>
             <div class="fpcm-clear"></div>
         </div>
 
         <div class="fpcm-ui-editor-extended-row">
             <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-thumb-tack fa-rotate-90 fa-fw fa-lg"></span></div>
-            <div class="fpcm-ui-editor-extended-button"><?php fpcm\view\helper::checkbox('article[pinned]', '', 1, 'EDITOR_PINNED', 'articlepinned', $article->getPinned()); ?></div>
+            <div class="fpcm-ui-editor-extended-button"><?php $theView->checkbox('article[pinned]')->setText('EDITOR_PINNED')->setSelected($article->getPinned()); ?></div>
             <div class="fpcm-ui-editor-extended-col"></div>
             <div class="fpcm-clear"></div>
         </div>
@@ -61,7 +61,7 @@
         
         <div class="fpcm-ui-editor-extended-row">
             <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-comments-o fa-fw fa-lg"></span></div>
-            <div class="fpcm-ui-editor-extended-button"><?php fpcm\view\helper::checkbox('article[comments]', '', 1, 'EDITOR_COMMENTS', 'articlecomments', $article->getComments()); ?></div>
+            <div class="fpcm-ui-editor-extended-button"><?php $theView->checkbox('article[comments]')->setText('EDITOR_COMMENTS')->setSelected($article->getComments()); ?></div>
             <div class="fpcm-ui-editor-extended-col"></div>
             <div class="fpcm-clear"></div>
         </div>
@@ -69,7 +69,7 @@
         <?php if ($editorMode) : ?>
         <div class="fpcm-ui-editor-extended-row">
             <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-archive fa-fw fa-lg"></span></div>
-            <div class="fpcm-ui-editor-extended-button"><?php fpcm\view\helper::checkbox('article[archived]', '', 1, 'EDITOR_ARCHIVE', 'articlearchived', $article->getArchived()); ?></div>
+            <div class="fpcm-ui-editor-extended-button"><?php $theView->checkbox('article[archived]')->setText('EDITOR_ARCHIVE')->setSelected($article->getArchived()); ?></div>
             <div class="fpcm-ui-editor-extended-col"></div>
             <div class="fpcm-clear"></div>
         </div>

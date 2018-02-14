@@ -167,7 +167,7 @@
             $params = $this->events->runEvent('wordbanItemSave', $params);
 
             $return = false;
-            if ($this->dbcon->insert($this->table, implode(',', array_keys($params)), implode(', ', $this->getPreparedValueParams(count($params))), array_values($params))) {
+            if ($this->dbcon->insert($this->table, $params)) {
                 $return = true;
             }
 

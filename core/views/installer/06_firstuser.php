@@ -1,5 +1,5 @@
 <div class="fpcm-ui-center">
-    <h3><span class="fa fa-user-plus"></span> <?php $theView->lang->write('INSTALLER_ADMINUSER'); ?></h3>
+    <h3><span class="fa fa-user-plus"></span> <?php $theView->write('INSTALLER_ADMINUSER'); ?></h3>
     
     <div class="fpcm-ui-left">
         <?php $showDisableButton = false; ?>

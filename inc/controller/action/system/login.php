@@ -10,12 +10,6 @@
     class login extends \fpcm\controller\abstracts\controller {
         
         /**
-         *
-         * @var \fpcm\model\ips\iplist
-         */
-        protected $iplist;
-        
-        /**
          * aktuelle Anzahl an Fehler-Logins
          * @var int
          */
@@ -52,7 +46,6 @@
         {
             parent::__construct();
             $this->loginLockedExpire = session_cache_expire();
-            $this->iplist            = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
         }
 
         /**
@@ -154,7 +147,7 @@
                 $this->view->addErrorMessage('CSRF_INVALID');
             }
 
-            if (($this->iplist->ipIsLocked() || $this->iplist->ipIsLocked('nologin'))) {
+            if (($this->ipList->ipIsLocked() || $this->ipList->ipIsLocked('nologin'))) {
                 $this->view->addErrorMessage('ERROR_IP_LOCKED');
                 $this->view->assign('lockedGlobal', true);
             }            

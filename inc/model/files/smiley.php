@@ -166,7 +166,7 @@
             
             $this->cache->cleanup();
             
-            return $this->dbcon->insert($this->table, implode(', ', $this->dbParams), '?, ?', array_values($saveValues));
+            return $this->dbcon->insert($this->table, $saveValues);
         }
 
         /**

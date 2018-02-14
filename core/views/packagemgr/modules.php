@@ -2,12 +2,12 @@
     
     <div class="fpcm-tabs-general">
         <ul>
-            <li><a href="#tabs-updater-general"><?php $theView->lang->write($modeHeadline); ?></a></li>
+            <li><a href="#tabs-updater-general"><?php $theView->write($modeHeadline); ?></a></li>
         </ul>
 
         <div id="tabs-updater-general">
         <?php if (isset($nokeys)) : ?>
-            <?php $theView->lang->write('GLOBAL_NOTFOUND2'); ?>
+            <?php $theView->write('GLOBAL_NOTFOUND2'); ?>
         <?php else : ?>
             <?php fpcm\view\helper::progressBar('fpcm-updater-progressbar'); ?>
             <div class="fpcm-updater-list"></div>

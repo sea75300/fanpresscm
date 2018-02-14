@@ -2,7 +2,7 @@
     <?php if ($twitterIsActive) : ?>
     <tr>
         <th></th>
-        <th><span class="fa fa-check-square fa-align-right"></span> <?php $theView->lang->write('SYSTEM_OPTIONS_TWITTER_ACTIVE', array('{{screenname}}' => $twitterScreenName)); ?></th>
+        <th><span class="fa fa-check-square fa-align-right"></span> <?php $theView->write('SYSTEM_OPTIONS_TWITTER_ACTIVE', array('{{screenname}}' => $twitterScreenName)); ?></th>
     </tr>
     <tr class="fpcm-td-spacer"><td colspan="2"></td></tr>
     <?php endif; ?>
@@ -21,7 +21,7 @@
         </td>
     </tr>
     <tr>			
-        <td><?php $theView->lang->write('SYSTEM_OPTIONS_TWITTER_EVENTS'); ?>:</td>
+        <td><?php $theView->write('SYSTEM_OPTIONS_TWITTER_EVENTS'); ?>:</td>
         <td>
             <div class="fpcm-ui-toolbar">
                 <?php fpcm\view\helper::checkbox('twitter_events[create]', '', 1, 'SYSTEM_OPTIONS_TWITTER_EVENTCREATE', 'twitter_events_create', $globalConfig['twitter_events']['create']); ?>
@@ -30,19 +30,19 @@
         </td>
     </tr>
     <tr>	
-        <td><?php $theView->lang->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY'); ?>:</td>
+        <td><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY'); ?>:</td>
         <td><?php fpcm\view\helper::textInput('twitter_data[consumer_key]', '', $globalConfig['twitter_data']['consumer_key']); ?></td>
     </tr>
     <tr>			
-        <td><?php $theView->lang->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET'); ?>:</td>
+        <td><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET'); ?>:</td>
         <td><?php fpcm\view\helper::textInput('twitter_data[consumer_secret]', '', $globalConfig['twitter_data']['consumer_secret']); ?></td>
     </tr>
     <tr>			
-        <td><?php $theView->lang->write('SYSTEM_OPTIONS_TWITTER_USER_TOKEN'); ?>:</td>
+        <td><?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_TOKEN'); ?>:</td>
         <td><?php fpcm\view\helper::textInput('twitter_data[user_token]', '', $globalConfig['twitter_data']['user_token']); ?></td>
     </tr>
     <tr>			
-        <td><?php $theView->lang->write('SYSTEM_OPTIONS_TWITTER_USER_SECRET'); ?>:</td>
+        <td><?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_SECRET'); ?>:</td>
         <td><?php fpcm\view\helper::textInput('twitter_data[user_secret]', '', $globalConfig['twitter_data']['user_secret']); ?></td>
     </tr>
 </table>

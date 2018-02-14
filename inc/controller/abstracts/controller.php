@@ -74,6 +74,12 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected $notifications;
 
     /**
+     * IP-Sperren-List-Objekt
+     * @var \fpcm\model\ips\iplist
+     */
+    protected $ipList;
+
+    /**
      * Update-Prüfung aktiv
      * @var bool
      */
@@ -108,8 +114,6 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     public function __construct()
     {
-        
-        
         if (\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
             return $this->redirect('installer');
         }
@@ -122,18 +126,16 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->cache            = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
         $this->config           = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
         $this->session          = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        $this->config->setUserSettings();
+
         $this->notifications    = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
-        $this->crons            = new \fpcm\model\crons\cronlist();
-        $this->enabledModules   = (new \fpcm\model\modules\modulelist())->getEnabledInstalledModules();
+        $this->ipList           = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
+        $this->crons            = \fpcm\classes\loader::getObject('\fpcm\model\crons\cronlist');
+        $this->enabledModules   = \fpcm\classes\loader::getObject('\fpcm\model\modules\modulelist')->getEnabledInstalledModules();
 
-        $rollId                 = 0;
-        if ($this->session->exists()) {
-            $rollId = $this->session->currentUser->getRoll();
-            $this->config->setUserSettings();
-        }
+        $rollId                 = $this->session->exists() ? $rollId = $this->session->currentUser->getRoll() : 0;
 
-        $this->permissions      = new \fpcm\model\system\permissions($rollId);
-
+        $this->permissions      = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions', $rollId);
         $this->lang             = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
 
         $this->initView();
@@ -286,6 +288,15 @@ class controller implements \fpcm\controller\interfaces\controller {
     }
 
     /**
+     * Get controller access lock module
+     * @return array()
+     */
+    protected function getIpLockedModul()
+    {
+        return 'noaccess';
+    }
+
+    /**
      * Get controller permissions
      * @return array()
      */
@@ -333,6 +344,10 @@ class controller implements \fpcm\controller\interfaces\controller {
 
         if (!$this->session->exists()) {
             return $this->redirectNoSession();
+        }
+
+        if ($this->getIpLockedModul() && $this->ipList->ipIsLocked($this->getIpLockedModul())) {
+            return false;
         }
 
         $permissions = $this->getPermissions();

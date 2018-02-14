@@ -2,14 +2,14 @@
     
     <div class="fpcm-tabs-general">
         <ul>
-            <li><a href="#tabs-updater-general"><?php $theView->lang->write('HL_PACKAGEMGR_SYSUPDATES'); ?></a></li>
+            <li><a href="#tabs-updater-general"><?php $theView->write('HL_PACKAGEMGR_SYSUPDATES'); ?></a></li>
         </ul>
 
         <div id="tabs-updater-general">
             <?php fpcm\view\helper::progressBar('fpcm-updater-progressbar'); ?>
             
-            <p><span class="fa fa-arrow-circle-right fa-lg fa-fw"></span> <strong><?php $theView->lang->write('PACKAGES_UPDATE_CURRENT_VERSION'); ?>:</strong> <?php print $theView->version; ?></p>
-            <p><span class="fa fa-language fa-lg fa-fw"></span> <strong><?php $theView->lang->write('PACKAGES_UPDATE_CURRENT_LANG'); ?>:</strong> <?php print $theView->lang->getLangCode(); ?></p>
+            <p><span class="fa fa-arrow-circle-right fa-lg fa-fw"></span> <strong><?php $theView->write('PACKAGES_UPDATE_CURRENT_VERSION'); ?>:</strong> <?php print $theView->version; ?></p>
+            <p><span class="fa fa-language fa-lg fa-fw"></span> <strong><?php $theView->write('PACKAGES_UPDATE_CURRENT_LANG'); ?>:</strong> <?php print $theView->langCode; ?></p>
             
             <div class="fpcm-updater-list"></div>
         </div>        

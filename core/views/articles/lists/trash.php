@@ -1,7 +1,7 @@
 <table class="fpcm-ui-table fpcm-ui-articles">
     <tr>
         <th></th>
-        <th><?php $theView->lang->write('ARTICLE_LIST_TITLE'); ?></th>
+        <th><?php $theView->write('ARTICLE_LIST_TITLE'); ?></th>
         <th class="fpcm-th-select-row"><?php fpcm\view\helper::checkbox('fpcm-select-all', '', '', '', 'fpcm-select-all-trash', false); ?></th>
     </tr>
 
@@ -11,7 +11,7 @@
         <tr class="fpcm-td-spacer"><td></td></tr>
         <tr>
             <th></th>
-            <th><?php $theView->lang->writeMonth($theView->dateText($articleMonth, 'n')); ?> <?php print $theView->dateText($articleMonth, 'Y'); ?></th> 
+            <th><?php $theView->writeMonth($theView->dateText($articleMonth, 'n')); ?> <?php print $theView->dateText($articleMonth, 'Y'); ?></th> 
             <th class="fpcm-td-select-row"><?php fpcm\view\helper::checkbox('fpcm-select-allsub', 'fpcm-select-allsub', '-trash'.$articleMonth, '', 'fpcm-select-allsub', false); ?></th>
         </tr>
         <tr class="fpcm-td-spacer"><td></td></tr>

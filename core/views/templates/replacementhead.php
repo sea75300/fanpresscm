@@ -1,6 +1,6 @@
 <tr>
-    <th class="fpcm-th-full"><?php $theView->lang->write('TEMPLATE_REPLACEMENTS'); ?></th>
+    <th class="fpcm-th-full"><?php $theView->write('TEMPLATE_REPLACEMENTS'); ?></th>
 </tr>
 <tr>
-    <td><p><?php $theView->lang->write('TEMPLATE_NOTES'); ?></p></td>
+    <td><p><?php $theView->write('TEMPLATE_NOTES'); ?></p></td>
 </tr>

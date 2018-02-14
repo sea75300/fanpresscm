@@ -17,8 +17,13 @@ namespace fpcm\view;
  */
 class view {
 
+    /* @var Include full theme header, including header images, menu and so */
     const INCLUDE_HEADER_FULL = 0b00001;
+
+    /* @var Include simple theme header */
     const INCLUDE_HEADER_SIMPLE = 0b00010;
+
+    /* @var Include no theme header */
     const INCLUDE_HEADER_NONE = 0b00100;
 
     /**
@@ -181,9 +186,9 @@ class view {
             'AJAX_REQUEST_ERROR', 'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK', 'SELECT_ITEMS_MSG'
         ]);
 
-        $this->jsLangVars['calendar']['days'] = $this->language->getDays();
-        $this->jsLangVars['calendar']['daysShort'] = $this->language->getDaysShort();
-        $this->jsLangVars['calendar']['months'] = array_values($this->language->getMonths());
+        $this->jsLangVars['calendar']['days']       = $this->language->getDays();
+        $this->jsLangVars['calendar']['daysShort']  = $this->language->getDaysShort();
+        $this->jsLangVars['calendar']['months']     = array_values($this->language->getMonths());
     }
 
     /**
@@ -511,28 +516,29 @@ class view {
             $this->addJsLangVars(['SESSION_TIMEOUT']);
             $this->addJsVars(['sessionCheckEnabled' => true]);
 
-            $this->defaultViewVars->currentUser = $this->session->getCurrentUser();
-            $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation())->render();
-            $this->defaultViewVars->navigationActiveModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
+            $this->defaultViewVars->currentUser             = $this->session->getCurrentUser();
+            $this->defaultViewVars->navigation              = (new \fpcm\model\theme\navigation())->render();
+            $this->defaultViewVars->navigationActiveModule  = \fpcm\classes\tools::getNavigationActiveCheckStr();
         }
 
-        $this->defaultViewVars->version = $this->config->system_version;
-        $this->defaultViewVars->dateTimeMask = $this->config->system_dtmask;
-        $this->defaultViewVars->dateTimeZone = $this->config->system_timezone;
-        $this->defaultViewVars->self = $_SERVER['PHP_SELF'];
-        $this->defaultViewVars->frontEndLink = $this->config->system_url;
-        $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
-        $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
-        $this->defaultViewVars->currentModule = \fpcm\classes\http::get('module');
-        $this->defaultViewVars->buttons = $this->buttons;
+        $this->defaultViewVars->version          = $this->config->system_version;
+        $this->defaultViewVars->dateTimeMask     = $this->config->system_dtmask;
+        $this->defaultViewVars->dateTimeZone     = $this->config->system_timezone;
+        $this->defaultViewVars->langCode         = $this->language->getLangCode();
+        $this->defaultViewVars->self             = strip_tags(trim($_SERVER['PHP_SELF']));
+        $this->defaultViewVars->frontEndLink     = $this->config->system_url;
+        $this->defaultViewVars->basePath         = \fpcm\classes\tools::getFullControllerLink();
+        $this->defaultViewVars->themePath        = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
+        $this->defaultViewVars->currentModule    = \fpcm\classes\http::get('module');
+        $this->defaultViewVars->buttons          = $this->buttons;
         $this->defaultViewVars->formActionTarget = $this->formAction;
 
-        $this->defaultViewVars->loggedIn = $this->session->exists();
-        $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+        $this->defaultViewVars->loggedIn         = $this->session->exists();
+        $this->defaultViewVars->lang             = \fpcm\classes\loader::getObject('\fpcm\classes\language');
 
-        $this->defaultViewVars->filesCss = $this->viewCssFiles;
-        $this->defaultViewVars->filesJs = $this->viewJsFiles;
-        $this->defaultViewVars->varsJs = [
+        $this->defaultViewVars->filesCss         = $this->viewCssFiles;
+        $this->defaultViewVars->filesJs          = $this->viewJsFiles;
+        $this->defaultViewVars->varsJs           = [
             'vars' => [
                 'ui' => [
                     'messages' => $this->messages,

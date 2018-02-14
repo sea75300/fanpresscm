@@ -1,7 +1,7 @@
 <div class="fpcm-content-wrapper">
     <div class="fpcm-tabs-general">
         <ul class="fpcm-tabs-articles-headers">
-            <li><a href="#tabs-article-list"><?php $theView->lang->write('HL_ARTICLE_EDIT'); ?></a></li>
+            <li><a href="#tabs-article-list"><?php $theView->write('HL_ARTICLE_EDIT'); ?></a></li>
         </ul>
 
         <div id="tabs-article-list">

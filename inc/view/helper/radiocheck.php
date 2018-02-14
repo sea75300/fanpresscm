@@ -27,6 +27,16 @@
         protected function init()
         {
             $this->class  = 'fpcm-ui-input-radiocheck';
+            $this->value  = 1;
+        }
+
+        /**
+         * Return selected string
+         * @return string
+         */
+        protected function getSelectedString()
+        {
+            return $this->value == $this->selected ? 'checked' : '';
         }
 
         /**
@@ -45,6 +55,7 @@
                 $this->getReadonlyString(),
                 $this->getValueString(),
                 $this->getDataString(),
+                $this->getSelectedString(),
                 ">",
                 "</label>"
             ]);

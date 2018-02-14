@@ -3,16 +3,16 @@
         
         <div class="fpcm-tabs-general">
             <ul>
-                <li><a href="#tabs-ips-list"><?php $theView->lang->write('HL_OPTIONS_IPBLOCKING'); ?></a></li>
+                <li><a href="#tabs-ips-list"><?php $theView->write('HL_OPTIONS_IPBLOCKING'); ?></a></li>
             </ul>
             
             <div id="tabs-ips-list">
                 
                 <table class="fpcm-ui-table fpcm-ui-iplist">
                     <tr>
-                        <th><?php $theView->lang->write('IPLIST_IPADDRESS'); ?></th>
-                        <th><?php $theView->lang->write('LOGS_LIST_USER'); ?></th>
-                        <th><?php $theView->lang->write('IPLIST_IPTIME'); ?></th>
+                        <th><?php $theView->write('IPLIST_IPADDRESS'); ?></th>
+                        <th><?php $theView->write('LOGS_LIST_USER'); ?></th>
+                        <th><?php $theView->write('IPLIST_IPTIME'); ?></th>
                         <th class="fpcm-td-iplist-meta"></th>
                         <th class="fpcm-th-select-row"><?php fpcm\view\helper::checkbox('fpcm-select-all', '', '', '', 'fpcm-select-all', false); ?></th>
                     </tr>
@@ -23,21 +23,21 @@
                     <?php foreach ($ipList as $value) : ?>
                     <tr>
                         <td><?php print $theView->escape($value->getIpaddress()); ?></td>
-                        <td><?php print isset($users[$value->getUserid()]) ? $users[$value->getUserid()]->getDisplayName() : $theView->lang->translate('GLOBAL_NOTFOUND'); ?></td>
+                        <td><?php print isset($users[$value->getUserid()]) ? $users[$value->getUserid()]->getDisplayName() : $theView->translate('GLOBAL_NOTFOUND'); ?></td>
                         <td><?php $theView->dateText($value->getIptime()); ?></td>
                         <td class="fpcm-td-iplist-meta">
                             <div class="fpcm-ui-editor-metabox-right fpcm-ui-iplist-metabox-right">
-                                <span class="fa-stack fa-fw fpcm-ui-editor-metainfo fpcm-ui-status-<?php print $value->getNocomments(); ?>" title="<?php $theView->lang->write('IPLIST_NOCOMMENTS'); ?>">
+                                <span class="fa-stack fa-fw fpcm-ui-editor-metainfo fpcm-ui-status-<?php print $value->getNocomments(); ?>" title="<?php $theView->write('IPLIST_NOCOMMENTS'); ?>">
                                     <span class="fa fa-square fa-stack-2x"></span>
                                     <span class="fa fa-comments fa-stack-1x fa-inverse"></span>
                                 </span>                                
                                 
-                                <span class="fa-stack fa-fw fpcm-ui-editor-metainfo fpcm-ui-status-<?php print $value->getNologin(); ?>" title="<?php $theView->lang->write('IPLIST_NOLOGIN'); ?>">
+                                <span class="fa-stack fa-fw fpcm-ui-editor-metainfo fpcm-ui-status-<?php print $value->getNologin(); ?>" title="<?php $theView->write('IPLIST_NOLOGIN'); ?>">
                                     <span class="fa fa-square fa-stack-2x"></span>
                                     <span class="fa fa-sign-in fa-stack-1x fa-inverse"></span>
                                 </span>                                
                                 
-                                <span class="fa-stack fa-fw fpcm-ui-editor-metainfo fpcm-ui-status-<?php print $value->getNoaccess(); ?>" title="<?php $theView->lang->write('IPLIST_NOACCESS'); ?>">
+                                <span class="fa-stack fa-fw fpcm-ui-editor-metainfo fpcm-ui-status-<?php print $value->getNoaccess(); ?>" title="<?php $theView->write('IPLIST_NOACCESS'); ?>">
                                     <span class="fa fa-square fa-stack-2x"></span>
                                     <span class="fa fa-toggle-on fa-stack-1x fa-inverse"></span>
                                 </span>
@@ -51,13 +51,6 @@
                 </table>                
                 
             </div>
-            
-            <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
-                <div class="fpcm-ui-margin-center">
-                    <?php fpcm\view\helper::linkButton($theView->basePath.'ips/add', 'IPLIST_ADDIP', '', 'fpcm-loader fpcm-new-btn'); ?>
-                    <?php fpcm\view\helper::deleteButton('delete'); ?>
-                </div>
-            </div>             
 
         </div>
         

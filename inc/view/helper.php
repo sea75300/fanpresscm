@@ -184,7 +184,7 @@ final class helper {
      */
     public static function checkbox($name, $class = '', $value = '', $descr = '', $id = '', $selected = true, $readonly = false)
     {
-        (new helper\checkbox($name))
+        (new helper\checkbox($name, $id))
                 ->setClass($class)
                 ->setValue($value)
                 ->setText($descr)
@@ -204,7 +204,7 @@ final class helper {
      */
     public static function radio($name, $class = '', $value = '', $descr = '', $id = '', $selected = true, $readonly = false)
     {
-        (new helper\radiobutton($name))
+        (new helper\radiobutton($name, $id))
                 ->setClass($class)
                 ->setValue($value)
                 ->setText($descr)

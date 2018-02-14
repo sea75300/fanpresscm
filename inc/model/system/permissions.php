@@ -238,7 +238,7 @@
             $params = $this->getPreparedSaveParams();         
             $params = $this->events->runEvent('permissionsSave', $params);
             
-            $res = $this->dbcon->insert($this->table, implode(',', array_keys($params)), '?, ?', array_values($params));
+            $res = $this->dbcon->insert($this->table, $params);
             
             $this->cache->cleanup();
             

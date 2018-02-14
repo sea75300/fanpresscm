@@ -241,7 +241,7 @@ class image extends \fpcm\model\abstracts\file {
         $saveValues = $this->getSaveValues();
         $saveValues = $this->events->runEvent('imageSave', $saveValues);
 
-        return $this->dbcon->insert($this->table, implode(', ', $this->dbParams), '?, ?, ?', array_values($saveValues));
+        return $this->dbcon->insert($this->table, $saveValues);
     }
 
     /**

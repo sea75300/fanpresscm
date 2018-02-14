@@ -1,15 +1,15 @@
 <div class="fpcm-content-wrapper">
     <div class="fpcm-tabs-general">
         <ul>
-            <li><a href="#tabs-smiley-list"><?php $theView->lang->write('HL_OPTIONS_SMILEYS'); ?></a></li>                
+            <li><a href="#tabs-smiley-list"><?php $theView->write('HL_OPTIONS_SMILEYS'); ?></a></li>                
         </ul>
 
         <div id="tabs-smiley-list">
             <table class="fpcm-ui-table fpcm-ui-smileys">
                 <tr>
                     <th class="fpcm-ui-smiley-listimg"></th>
-                    <th><?php $theView->lang->write('FILE_LIST_FILENAME'); ?></th>
-                    <th><?php $theView->lang->write('FILE_LIST_SMILEYCODE'); ?></th>
+                    <th><?php $theView->write('FILE_LIST_FILENAME'); ?></th>
+                    <th><?php $theView->write('FILE_LIST_SMILEYCODE'); ?></th>
                     <th class="fpcm-th-select-row"><?php fpcm\view\helper::checkbox('fpcm-select-all', '', '', '', 'fpcm-select-all', false); ?></th>
                 </tr>
                 <?php \fpcm\view\helper::notFoundContainer($list, 4); ?>

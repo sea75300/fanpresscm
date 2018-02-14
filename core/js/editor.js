@@ -21,9 +21,7 @@ fpcm.editor = {
             setInterval(fpcm.editor.setInEdit, fpcm.vars.jsvars.checkTimeout);
         }
 
-        fpcm.ui.checkboxradio('.fpcm-ui-editor-categories .fpcm-ui-input-checkbox', {
-            icon: false
-        });
+        fpcm.ui.checkboxradio('.fpcm-ui-editor-categories .fpcm-ui-input-checkbox');
 
         jQuery('.fpcm-ui-editor-categories-revisiondiff .fpcm-ui-input-checkbox').click(function() {
             return false;
@@ -218,9 +216,7 @@ fpcm.editor = {
         });
 
 
-        fpcm.ui.checkboxradio('#fpcm-dialog-editor-extended .fpcm-ui-input-checkbox', {
-            icon: false
-        });
+        fpcm.ui.checkboxradio('#fpcm-dialog-editor-extended .fpcm-ui-input-checkbox');
         
         fpcm.ui.tabs('#fpcm-editor-tabs', {
             beforeLoad: function(event, ui) {

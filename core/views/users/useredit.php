@@ -2,8 +2,8 @@
 
     <div class="fpcm-tabs-general">
         <ul>
-            <li><a href="#tabs-user"><?php $theView->lang->write('USERS_EDIT'); ?></a></li>
-            <li><a href="#tabs-user-meta"><?php $theView->lang->write('USERS_META_OPTIONS'); ?></a></li>
+            <li><a href="#tabs-user"><?php $theView->write('USERS_EDIT'); ?></a></li>
+            <li><a href="#tabs-user-meta"><?php $theView->write('USERS_META_OPTIONS'); ?></a></li>
         </ul>            
 
         <div id="tabs-user">                

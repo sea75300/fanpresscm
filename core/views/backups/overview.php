@@ -3,14 +3,14 @@
         
         <div class="fpcm-tabs-general">
             <ul>
-                <li><a href="#tabs-backups-database"><?php $theView->lang->write('BACKUPS_TAB_DATABASE'); ?></a></li>
+                <li><a href="#tabs-backups-database"><?php $theView->write('BACKUPS_TAB_DATABASE'); ?></a></li>
             </ul>
             <div id="tabs-backups-database">
                 <table class="fpcm-ui-table fpcm-ui-backups">
                     <tr>
                         <th class="fpcm-ui-editbutton-col"></th>
-                        <th><?php $theView->lang->write('FILE_LIST_FILENAME'); ?></th>
-                        <th><?php $theView->lang->write('FILE_LIST_FILESIZE'); ?></th>
+                        <th><?php $theView->write('FILE_LIST_FILENAME'); ?></th>
+                        <th><?php $theView->write('FILE_LIST_FILESIZE'); ?></th>
                     </tr>
                     <?php fpcm\view\helper::notFoundContainer($folderList, 2); ?>
                     

@@ -24,6 +24,7 @@
      * @property string $notificationString
      * @property string $helpLink
      * @property string $formActionTarget
+     * @property string $langCode
      * 
      * @property array  $navigation
      * @property array  $navigationActiveModule
@@ -131,6 +132,38 @@
             }
 
             return $path;
+        }
+        
+        /**
+         * Write result of language variable
+         * @param string $var
+         * @param array $param
+         */
+        public function write($var, array $params = [])
+        {
+            print $this->translate($var, $params);
+        }
+        
+        /**
+         * Returns result of language variable
+         * @param type $var
+         * @param array $params
+         * @return string
+         */
+        public function translate($var, array $params = [])
+        {
+            return $this->lang->translate($var, $params);
+        }
+        
+        /**
+         * Returns language code
+         * @param type $var
+         * @param array $params
+         * @return string
+         */
+        public function writeMonth($monthId)
+        {
+            $this->lang->writeMonth($monthId);
         }
 
     }

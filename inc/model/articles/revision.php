@@ -141,13 +141,7 @@
         public function save() {
 
             $params = $this->getPreparedSaveParams();
-            if (!$this->dbcon->insert(
-                        $this->table,
-                        implode(',', array_keys($params)),
-                        implode(', ', $this->getPreparedValueParams(count($params))),
-                        array_values($params)
-                    )
-                ) {
+            if (!$this->dbcon->insert($this->table, $params)) {
                 return false;
             }
             

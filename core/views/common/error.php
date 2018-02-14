@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
-<HTML lang="<?php print $theView->lang->getLangCode(); ?>">
+<HTML lang="<?php print $theView->langCode; ?>">
     <head>
-        <title><?php $theView->lang->write('HEADLINE'); ?></title>
+        <title><?php $theView->write('HEADLINE'); ?></title>
         <meta http-equiv="content-type" content= "text/html; charset=utf-8">
         <meta name="robots" content="noindex, nofollow">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
                 
                 <p><?php print $errorMessage; ?></p>
                 
-                <p><?php \fpcm\view\helper::linkButton('javascript:window.history.back();', 'GLOBAL_BACK'); ?></p>
+                <p><?php $theView->linkButton('backBtn')->setUrl('javascript:window.history.back();')->setText('GLOBAL_BACK'); ?></p>
                 
             </div>
         </div>

@@ -1,7 +1,7 @@
 <div class="fpcm-content-wrapper">
     <div class="fpcm-tabs-general">
         <ul>
-            <li><a href="#tabs-user"><?php $theView->lang->write('USERS_ADD'); ?></a></li>
+            <li><a href="#tabs-user"><?php $theView->write('USERS_ADD'); ?></a></li>
         </ul>            
 
         <div id="tabs-user">                

@@ -1,7 +1,7 @@
 <table class="fpcm-ui-table fpcm-ui-logs">
     <tr>
-        <th><?php $theView->lang->write('LOGS_LIST_TIME'); ?></th>
-        <th><?php $theView->lang->write('LOGS_LIST_TEXT'); ?></th>
+        <th><?php $theView->write('LOGS_LIST_TIME'); ?></th>
+        <th><?php $theView->write('LOGS_LIST_TEXT'); ?></th>
     </tr>
     
     <?php \fpcm\view\helper::notFoundContainer($databaseLogs, 2); ?>

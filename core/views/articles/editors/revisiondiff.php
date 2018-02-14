@@ -33,16 +33,14 @@
         <td>
             <div class="fpcm-ui-toolbar fpcm-ui-editor-categories fpcm-ui-editor-categories-revisiondiff">
                 <?php foreach ($categories as $value => $key) : ?>
-                <?php $selected = in_array($value, $revisionArticle->getCategories()); ?>
-                <?php fpcm\view\helper::checkbox('article[categories][revision]', '', $value, $key->getName(), 'rcat'.$value, $selected); ?>
+                <?php $theView->checkbox('article[categories][revision]', 'rcat'.$value)->setValue($value)->setText($key->getName())->setSelected(in_array($value, $revisionArticle->getCategories())); ?>
                 <?php endforeach; ?>
             </div>
         </td>
         <td>
             <div class="fpcm-ui-toolbar fpcm-ui-editor-categories fpcm-ui-editor-categories-revisiondiff">
                 <?php foreach ($categories as $value => $key) : ?>
-                <?php $selected = in_array($value, $article->getCategories()); ?>
-                <?php fpcm\view\helper::checkbox('article[categories][current]', '', $value, $key->getName(), 'ccat'.$value, $selected); ?>
+                <?php $theView->checkbox('article[categories][current]', 'ccat'.$value)->setValue($value)->setText($key->getName())->setSelected(in_array($value, $article->getCategories())); ?>
                 <?php endforeach; ?>
             </div> 
         </td>

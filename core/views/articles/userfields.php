@@ -1,21 +1,9 @@
 <?php if (count($userfields)) : ?>
     <?php foreach ($userfields as $options) : ?>
         <div class="fpcm-ui-editor-extended-row">
-            <div class="fpcm-ui-editor-extended-icon"><span class="fa fa-<?php print $options['type']; ?> fa-fw fa-lg"></span></div>
-            <div class="fpcm-ui-editor-extended-button">
-            <?php if ($options['type'] == 'textarea') : ?>
-                <p><?php print $options['description']; ?>:</p>
-                <?php \fpcm\view\helper::textArea('userfields['.$options['name'].']', $options['class'], $options['value'], $options['readonly']) ?>
-            <?php elseif ($options['type'] == 'select') : ?>
-                <p><?php print $options['description']; ?>:</p>
-                <?php \fpcm\view\helper::select('userfields['.$options['name'].']', $options['options'], $options['value'], $options['firstempty'], $options['firstenabled'], $options['readonly'], $options['class']) ?>
-            <?php elseif ($options['type'] == 'checkbox') : ?>
-                <?php \fpcm\view\helper::checkbox('userfields['.$options['name'].']', $options['class'], $options['value'], $options['description'], $options['id'], $options['selected'], $options['readonly']) ?>
-            <?php elseif ($options['type'] == 'radio') : ?>
-                <?php \fpcm\view\helper::radio('userfields['.$options['name'].']', $options['class'], $options['value'], $options['description'], $options['id'], $options['selected'], $options['readonly']) ?>
-            <?php else: ?>
-                <?php \fpcm\view\helper::textInput('userfields['.$options['name'].']', $options['class'], $options['value'], $options['readonly'], $options['lenght']) ?>
-            <?php endif; ?>    
+            <div class="fpcm-ui-editor-extended-icon"><?php print $options->getIcon(); ?></div>
+            <div class="fpcm-ui-editor-extended-button">                
+                <?php print $options; ?>
             </div>
             <div class="fpcm-ui-editor-extended-col">
 

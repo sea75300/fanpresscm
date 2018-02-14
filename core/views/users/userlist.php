@@ -2,18 +2,18 @@
     <form method="post" action="<?php print $theView->self; ?>?module=users/list">
         <div class="fpcm-tabs-general">
             <ul>
-                <li><a href="#tabs-users-active"><?php $theView->lang->write('USERS_LIST_ACTIVE'); ?></a></li>
-                <?php if (count($usersDisabled)) : ?><li><a href="#tabs-users-inactive"><?php $theView->lang->write('USERS_LIST_DISABLED'); ?></a></li><?php endif; ?>
-                <?php if ($rollPermissions) : ?><li><a href="#tabs-users-rolls"><?php $theView->lang->write('USERS_LIST_ROLLS'); ?></a></li><?php endif; ?>
+                <li><a href="#tabs-users-active"><?php $theView->write('USERS_LIST_ACTIVE'); ?></a></li>
+                <?php if (count($usersDisabled)) : ?><li><a href="#tabs-users-inactive"><?php $theView->write('USERS_LIST_DISABLED'); ?></a></li><?php endif; ?>
+                <?php if ($rollPermissions) : ?><li><a href="#tabs-users-rolls"><?php $theView->write('USERS_LIST_ROLLS'); ?></a></li><?php endif; ?>
             </ul>            
             
             <div id="tabs-users-active">
                 <table class="fpcm-ui-table fpcm-ui-users">
                     <tr>
                         <th></th>
-                        <th><?php $theView->lang->write('GLOBAL_USERNAME'); ?></th>
-                        <th><?php $theView->lang->write('GLOBAL_EMAIL'); ?></th>
-                        <th class="fpcm-ui-center fpcm-ui-users-registeredtime"><?php $theView->lang->write('USERS_REGISTEREDTIME'); ?></th>           
+                        <th><?php $theView->write('GLOBAL_USERNAME'); ?></th>
+                        <th><?php $theView->write('GLOBAL_EMAIL'); ?></th>
+                        <th class="fpcm-ui-center fpcm-ui-users-registeredtime"><?php $theView->write('USERS_REGISTEREDTIME'); ?></th>           
                         <th class="fpcm-th-select-row"></th>         
                     </tr>
                     <tr class="fpcm-td-spacer"><td></td></tr>
@@ -21,7 +21,7 @@
                     <?php foreach($usersActive AS $rollId => $usersList) : ?>
                         <tr>
                             <th></th>
-                            <th colspan="6"><?php $theView->lang->write('USERS_ROLL'); ?>: <?php if (isset($usersRolls[$rollId])) : ?><?php print $usersRolls[$rollId]; ?><?php else : ?><?php $theView->lang->write('GLOBAL_NOTFOUND'); ?><?php endif; ?></th>
+                            <th colspan="6"><?php $theView->write('USERS_ROLL'); ?>: <?php if (isset($usersRolls[$rollId])) : ?><?php print $usersRolls[$rollId]; ?><?php else : ?><?php $theView->write('GLOBAL_NOTFOUND'); ?><?php endif; ?></th>
                         </tr>
                         <?php if (count($usersList)) : ?><tr class="fpcm-td-spacer"><td></td></tr><?php endif; ?>
                     
@@ -59,9 +59,9 @@
                 <table class="fpcm-ui-table fpcm-ui-users">
                     <tr>
                         <th></th>
-                        <th><?php $theView->lang->write('GLOBAL_USERNAME'); ?></th>
-                        <th><?php $theView->lang->write('GLOBAL_EMAIL'); ?></th>
-                        <th class="fpcm-ui-center fpcm-ui-users-registeredtime"><?php $theView->lang->write('USERS_REGISTEREDTIME'); ?></th>           
+                        <th><?php $theView->write('GLOBAL_USERNAME'); ?></th>
+                        <th><?php $theView->write('GLOBAL_EMAIL'); ?></th>
+                        <th class="fpcm-ui-center fpcm-ui-users-registeredtime"><?php $theView->write('USERS_REGISTEREDTIME'); ?></th>           
                         <th class="fpcm-th-select-row"></th>         
                     </tr>
                     <tr class="fpcm-td-spacer"><td></td></tr>
@@ -69,7 +69,7 @@
                     <?php foreach($usersDisabled AS $rollId => $usersList) : ?>
                         <tr>
                             <th></th>
-                            <th colspan="6"><?php $theView->lang->write('USERS_ROLL'); ?>: <?php if (isset($usersRolls[$rollId])) : ?><?php print $usersRolls[$rollId]; ?><?php else : ?><?php $theView->lang->write('GLOBAL_NOTFOUND'); ?><?php endif; ?></th>
+                            <th colspan="6"><?php $theView->write('USERS_ROLL'); ?>: <?php if (isset($usersRolls[$rollId])) : ?><?php print $usersRolls[$rollId]; ?><?php else : ?><?php $theView->write('GLOBAL_NOTFOUND'); ?><?php endif; ?></th>
                         </tr>
                         <?php if (count($usersList)) : ?><tr class="fpcm-td-spacer"><td></td></tr><?php endif; ?>
                     
@@ -107,7 +107,7 @@
                 <table class="fpcm-ui-table fpcm-ui-users">
                     <tr>
                         <th></th>
-                        <th><?php $theView->lang->write('USERS_ROLLS_NAME'); ?></th>  
+                        <th><?php $theView->write('USERS_ROLLS_NAME'); ?></th>  
                         <th class="fpcm-th-select-row"></th>         
                     </tr>
                     <tr class="fpcm-td-spacer"><td></td></tr>

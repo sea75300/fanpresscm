@@ -74,7 +74,7 @@
             
             $this->leveltitle = $this->events->runEvent('userrollSave', $this->leveltitle);
             
-            $newId = $this->dbcon->insert($this->table, 'leveltitle', '?', array($this->leveltitle));
+            $newId = $this->dbcon->insert($this->table, ['leveltitle' => $this->leveltitle]);
             if (!$newId) {
                 trigger_error('Failed to create new user roll "'.$this->leveltitle.'"');
                 return false;

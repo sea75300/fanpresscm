@@ -1,9 +1,9 @@
 <table class="fpcm-ui-table fpcm-ui-comments">
     <tr>
         <th <?php if ($commentsMode == 1) : ?>class="fpcm-ui-articlelist-open"<?php endif; ?>></th>
-        <th><?php $theView->lang->write('COMMMENT_AUTHOR'); ?></th>
-        <th><?php $theView->lang->write('GLOBAL_EMAIL'); ?></th>
-        <th><?php $theView->lang->write('COMMMENT_CREATEDATE'); ?></th>
+        <th><?php $theView->write('COMMMENT_AUTHOR'); ?></th>
+        <th><?php $theView->write('GLOBAL_EMAIL'); ?></th>
+        <th><?php $theView->write('COMMMENT_CREATEDATE'); ?></th>
         <th></th>
         <th class="fpcm-th-select-row"><?php fpcm\view\helper::checkbox('fpcm-select-all', '', '', '', 'fpcm-select-all', false); ?></th>
     </tr>

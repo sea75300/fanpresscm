@@ -13,8 +13,8 @@
 <table class="fpcm-ui-table fpcm-ui-articletemplates">
     <tr>
         <th class="fpcm-ui-editbutton-col"></th>
-        <th><?php $theView->lang->write('FILE_LIST_FILENAME'); ?></th>
-        <th><?php $theView->lang->write('FILE_LIST_FILESIZE'); ?></th>
+        <th><?php $theView->write('FILE_LIST_FILENAME'); ?></th>
+        <th><?php $theView->write('FILE_LIST_FILESIZE'); ?></th>
         <th class="fpcm-th-select-row"></th>
     </tr>
     <?php fpcm\view\helper::notFoundContainer($templateFiles, 4); ?>

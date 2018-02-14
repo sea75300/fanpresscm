@@ -2,21 +2,21 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertlink">  
     <table class="fpcm-ui-table">
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_LINKURL'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_LINKURL'); ?>:</label></td>
             <td><?php \fpcm\view\helper::textInput('links[url]', '', 'http://'); ?></td>
         </tr>
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_LINKTXT'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_LINKTXT'); ?>:</label></td>
             <td><?php \fpcm\view\helper::textInput('links[text]', '', ''); ?></td>
         </tr>        
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_LINKTARGET'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_LINKTARGET'); ?>:</label></td>
             <td>
                 <?php \fpcm\view\helper::select('links[target]', $targets, ''); ?>
             </td>
         </tr>        
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_CSS_CLASS'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_CSS_CLASS'); ?>:</label></td>
             <td>
                 <?php \fpcm\view\helper::select('links[css]', $cssClasses, ''); ?>
             </td>
@@ -28,21 +28,21 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertimage">  
     <table class="fpcm-ui-table">
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_IMGPATH'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_IMGPATH'); ?>:</label></td>
             <td><?php \fpcm\view\helper::textInput('images[path]', '', 'http://'); ?></td>
         </tr>
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_IMGALTTXT'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_IMGALTTXT'); ?>:</label></td>
             <td><?php \fpcm\view\helper::textInput('images[alt]', '', ''); ?></td>
         </tr>        
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_IMGALIGN'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_IMGALIGN'); ?>:</label></td>
             <td>
                 <?php \fpcm\view\helper::select('images[align]', $aligns, ''); ?>
             </td>
         </tr>         
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_CSS_CLASS'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_CSS_CLASS'); ?>:</label></td>
             <td>
                 <?php \fpcm\view\helper::select('images[css]', $cssClasses, ''); ?>             
             </td>
@@ -54,11 +54,11 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-inserttable">  
     <table class="fpcm-ui-table fpcm-ui-table-insert">
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_INSERTTABLE_ROWS'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_INSERTTABLE_ROWS'); ?>:</label></td>
             <td><?php \fpcm\view\helper::textInput('table[rows]', '', 1, false, 5, false, false); ?></td>
         </tr>
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_INSERTTABLE_COLS'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_INSERTTABLE_COLS'); ?>:</label></td>
             <td><?php \fpcm\view\helper::textInput('table[cols]', '', 1, false, 5, false, false); ?></td>
         </tr>        
     </table>
@@ -68,7 +68,7 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertlist">  
     <table class="fpcm-ui-table fpcm-ui-table-insert">
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_INSERTTABLE_ROWS'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_INSERTTABLE_ROWS'); ?>:</label></td>
             <td><?php \fpcm\view\helper::textInput('list[rows]', '', 1, false, 5, false, false); ?></td>
         </tr>       
     </table>
@@ -78,15 +78,15 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertmedia">  
     <table class="fpcm-ui-table">
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_IMGPATH'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_IMGPATH'); ?>:</label></td>
             <td><?php \fpcm\view\helper::textInput('media[path]'); ?></td>
         </tr>   
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_INSERTMEDIA_AUDIO'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_INSERTMEDIA_AUDIO'); ?>:</label></td>
             <td><?php fpcm\view\helper::radio('media[type]', 'fpcm-editor-mediatype', 'audio', '', 'mediatype_a', true); ?></td>
         </tr>
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_INSERTMEDIA_VIDEO'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_INSERTMEDIA_VIDEO'); ?>:</label></td>
             <td><?php fpcm\view\helper::radio('media[type]', 'fpcm-editor-mediatype', 'video', '', 'mediatype_v', false); ?></td>
         </tr>         
     </table>
@@ -96,15 +96,15 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertcolor">  
     <table class="fpcm-ui-table">
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_INSERTCOLOR_HEXCODE'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_INSERTCOLOR_HEXCODE'); ?>:</label></td>
             <td><?php \fpcm\view\helper::textInput('fpcm-dialog-editor-html-colorhexcode', '', '', false, 5); ?></td>
         </tr>   
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_INSERTCOLOR_TEXT'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_INSERTCOLOR_TEXT'); ?>:</label></td>
             <td><?php fpcm\view\helper::radio('color_mode', 'color_mode', 'color', '', 'color_mode1'); ?></td>
         </tr>
         <tr>
-            <td><label><?php $theView->lang->write('EDITOR_INSERTCOLOR_BACKGROUND'); ?>:</label></td>
+            <td><label><?php $theView->write('EDITOR_INSERTCOLOR_BACKGROUND'); ?>:</label></td>
             <td><?php fpcm\view\helper::radio('color_mode', 'color_mode', 'background', '', 'color_mode2', false); ?></td>
         </tr>        
     </table>

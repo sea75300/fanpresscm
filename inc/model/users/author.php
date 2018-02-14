@@ -392,7 +392,7 @@
             $this->events->runEvent('authorSave', $params);
 
             $return = false;
-            $insertRes = $this->dbcon->insert($this->table, implode(',', array_keys($params)), implode(', ', $this->getPreparedValueParams()), array_values($params));
+            $insertRes = $this->dbcon->insert($this->table, $params);
             if ($insertRes) {
                 $return = true;
             }

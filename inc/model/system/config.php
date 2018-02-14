@@ -182,8 +182,11 @@ final class config extends \fpcm\model\abstracts\dataset {
             return -1;
         }
 
-        $keyvalue = is_array($keyvalue) ? json_encode($keyvalue) : $keyvalue;
-        $res = $this->dbcon->insert($this->table, 'config_name, config_value', '?, ?', array($keyname, $keyvalue));
+        $keyvalue   = is_array($keyvalue) || is_object($keyvalue)
+                    ? json_encode($keyvalue)
+                    : $keyvalue;
+
+        $res = $this->dbcon->insert($this->table, ['config_name' => $keyname, 'config_value' => $keyvalue]);
 
         $this->refresh();
 

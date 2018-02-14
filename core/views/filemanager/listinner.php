@@ -38,20 +38,20 @@
             <div class="fpcm-filelist-meta fpcm-ui-left fpcm-small-text">
                 <table class="fpcm-ui-table fpcm-ui-nobg">
                     <tr>
-                        <td><strong><?php $theView->lang->write('FILE_LIST_UPLOAD_DATE'); ?>:</strong></td>
+                        <td><strong><?php $theView->write('FILE_LIST_UPLOAD_DATE'); ?>:</strong></td>
                         <td><?php $theView->dateText($file->getFiletime()); ?></td>                    
                     </tr>
                     <tr>
-                        <td><strong><?php $theView->lang->write('FILE_LIST_UPLOAD_BY'); ?>:</strong></td>
-                        <td><?php print isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayName() : $theView->lang->translate('GLOBAL_NOTFOUND'); ?></td>                    
+                        <td><strong><?php $theView->write('FILE_LIST_UPLOAD_BY'); ?>:</strong></td>
+                        <td><?php print isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayName() : $theView->translate('GLOBAL_NOTFOUND'); ?></td>                    
                     </tr>
                     <tr>
-                        <td><strong><?php $theView->lang->write('FILE_LIST_FILESIZE'); ?>:</strong></td>
+                        <td><strong><?php $theView->write('FILE_LIST_FILESIZE'); ?>:</strong></td>
                         <td><?php print \fpcm\classes\tools::calcSize($file->getFilesize()); ?></td>                    
                     </tr>
                     <tr>
-                        <td><strong><?php $theView->lang->write('FILE_LIST_RESOLUTION'); ?>:</strong></td>
-                        <td><?php print $file->getWidth(); ?> <span class="fa fa-times fa-fw"></span> <?php print $file->getHeight(); ?> <?php $theView->lang->write('FILE_LIST_RESOLUTION_PIXEL'); ?></td>                    
+                        <td><strong><?php $theView->write('FILE_LIST_RESOLUTION'); ?>:</strong></td>
+                        <td><?php print $file->getWidth(); ?> <span class="fa fa-times fa-fw"></span> <?php print $file->getHeight(); ?> <?php $theView->write('FILE_LIST_RESOLUTION_PIXEL'); ?></td>                    
                     </tr>
                 </table>
             </div>

@@ -3,13 +3,13 @@
     <form method="post" action="<?php print $theView->self; ?>?module=users/editroll&id=<?php print $userRoll->getId(); ?>">
         <div class="fpcm-tabs-general">
             <ul>
-                <li><a href="#tabs-roll"><?php $theView->lang->write('USERS_ROLL_EDIT'); ?></a></li>
+                <li><a href="#tabs-roll"><?php $theView->write('USERS_ROLL_EDIT'); ?></a></li>
             </ul>            
             
             <div id="tabs-roll">
                 <table class="fpcm-ui-table">
                     <tr>
-                        <td><?php $theView->lang->write('USERS_ROLLS_NAME'); ?>:</td>
+                        <td><?php $theView->write('USERS_ROLLS_NAME'); ?>:</td>
                         <td>
                             <?php \fpcm\view\helper::textInput('rollname','', $userRoll->getRollName()); ?>
                         </td>

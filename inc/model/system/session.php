@@ -260,7 +260,7 @@
             $value_params = $this->getPreparedValueParams();
 
             $return = false;
-            if ($this->dbcon->insert($this->table, implode(',', array_keys($params)), implode(', ', $value_params), array_values($params))) {
+            if ($this->dbcon->insert($this->table, $params)) {
                 $return = true;
             }
             

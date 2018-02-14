@@ -44,7 +44,7 @@
          * @return bool
          */
         final public function save() {
-            $this->dbcon->insert($this->table, 'modkey, version, status', '?, ?, ?', array($this->modkey, $this->versionRemote, (int) $this->status));
+            return $this->dbcon->insert($this->table, ['modkey' => $this->modkey, 'version' => $this->versionRemote, 'status' => $this->version]);
         }
         
         /**
@@ -52,7 +52,7 @@
          * @return bool
          */
         final public function update() {
-            $this->dbcon->update($this->table, array('version'), array($this->versionRemote, $this->modkey), 'modkey = ?');
+            return $this->dbcon->update($this->table, array('version'), array($this->versionRemote, $this->modkey), 'modkey = ?');
         }
         
         /**

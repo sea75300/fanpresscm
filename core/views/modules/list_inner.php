@@ -3,8 +3,8 @@
         <th></th>
         <th></th>
         <th class="fpcm-ui-modules-key"></th>
-        <th class="fpcm-ui-modules-version fpcm-ui-center"><?php $theView->lang->write('MODULES_LIST_VERSION_LOCAL'); ?></th>
-        <th class="fpcm-ui-modules-version fpcm-ui-center"><?php $theView->lang->write('MODULES_LIST_VERSION_REMOTE'); ?></th>
+        <th class="fpcm-ui-modules-version fpcm-ui-center"><?php $theView->write('MODULES_LIST_VERSION_LOCAL'); ?></th>
+        <th class="fpcm-ui-modules-version fpcm-ui-center"><?php $theView->write('MODULES_LIST_VERSION_REMOTE'); ?></th>
         <th class="fpcm-th-select-row"><?php fpcm\view\helper::checkbox('fpcm-select-all', '', '', '', 'fpcm-select-all', false); ?></th>
     </tr>
     
