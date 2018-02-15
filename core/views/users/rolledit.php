@@ -1,27 +1,18 @@
 <div class="fpcm-content-wrapper">
-    
-    <form method="post" action="<?php print $theView->self; ?>?module=users/editroll&id=<?php print $userRoll->getId(); ?>">
-        <div class="fpcm-tabs-general">
-            <ul>
-                <li><a href="#tabs-roll"><?php $theView->write('USERS_ROLL_EDIT'); ?></a></li>
-            </ul>            
-            
-            <div id="tabs-roll">
-                <table class="fpcm-ui-table">
-                    <tr>
-                        <td><?php $theView->write('USERS_ROLLS_NAME'); ?>:</td>
-                        <td>
-                            <?php \fpcm\view\helper::textInput('rollname','', $userRoll->getRollName()); ?>
-                        </td>
-                    </tr>      
-                </table>            
+    <div class="fpcm-tabs-general">
+        <ul>
+            <li><a href="#tabs-roll"><?php $theView->write('USERS_ROLL_EDIT'); ?></a></li>
+        </ul>            
 
-                <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
-                    <div class="fpcm-ui-margin-center">
-                        <?php $theView->saveButton('saveRoll'); ?>
-                    </div>
-                </div>                
-            </div>
+        <div id="tabs-roll">
+            <table class="fpcm-ui-table">
+                <tr>
+                    <td><?php $theView->write('USERS_ROLLS_NAME'); ?>:</td>
+                    <td>
+                        <?php \fpcm\view\helper::textInput('rollname','', $userRoll->getRollName()); ?>
+                    </td>
+                </tr>      
+            </table>
         </div>
-    </form>
+    </div>
 </div>

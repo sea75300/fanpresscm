@@ -13,25 +13,6 @@ fpcm.users = {
 
     init: function() {
 
-        jQuery('.fpcm-ui-useractions-diable').click(function() {
-            if (jQuery(this).hasClass('fpcm-noloader')) jQuery(this).removeClass('fpcm-noloader');
-            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
-                jQuery(this).addClass('fpcm-noloader');
-                return false;
-            }            
-        });
-                
-        jQuery('.fpcm-ui-useractions-enable').click(function() {
-            if (jQuery(this).hasClass('fpcm-noloader')) jQuery(this).removeClass('fpcm-noloader');
-            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
-                jQuery(this).addClass('fpcm-noloader');
-                return false;
-            }
-        });
-
-        jQuery('#btnDeleteActive').off('click');
-        jQuery('#btnDeleteDisabled').off('click');
-
         jQuery('#btnDeleteActive').click(function() {
             return fpcm.users.initMoveDeleteArticles('btnDeleteActive');
         });
@@ -80,6 +61,19 @@ fpcm.users = {
             });
             
             return false;
+        });
+        
+        fpcm.ui.tabs('#fpcm-ui-tabs-users', {
+            beforeActivate: function( event, ui ) {
+                
+                var hideButtons = jQuery(ui.oldTab).attr('data-toolbar-buttons');
+                var showButtons = jQuery(ui.newTab).attr('data-toolbar-buttons');
+
+                fpcm.ui.mainToolbar.find('.fpcm-ui-userlist-tab'+ hideButtons).addClass('fpcm-ui-hidden');
+                fpcm.ui.mainToolbar.find('.fpcm-ui-userlist-tab'+ showButtons).removeClass('fpcm-ui-hidden');
+                
+                fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
+            }
         });
 
     },

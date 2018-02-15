@@ -22,9 +22,8 @@
 
             <div class="fpcm-wrapper-left fpcm-ui-background-white-50p <?php if (in_array($theView->currentModule, ['system/login', 'installer'] )) : ?>fpcm-wrapper-fixed<?php endif; ?>" id="fpcm-wrapper-left">
 
-                <div id="fpcm-logo" class="fpcm-logo fpcm-ui-center">
-                    <div><img class="fpcm-logo" src="<?php print $theView->themePath; ?>logo.svg" alt="FanPress CM News System"></div>
-                    <div><span>FanPress CM</span> <span>News System</span></div>
+                <div id="fpcm-ui-logo" class="fpcm-ui-logo fpcm-ui-center">
+                    <h1><span>FanPress CM</span> <span>News System</span></h1>
                 </div>
 
                 <?php include_once $theView->getIncludePath('common/navigation.php'); ?>

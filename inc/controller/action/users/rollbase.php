@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * User roll add controller
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\action\users;
+
+abstract class rollbase extends \fpcm\controller\abstracts\controller {
+
+    /**
+     *
+     * @var \fpcm\model\users\userRoll
+     */
+    protected $userRoll;
+
+    protected function getPermissions()
+    {
+        return ['system' => 'users', 'system' => 'rolls'];
+    }
+
+    protected function getHelpLink()
+    {
+        return 'hl_options';
+    }
+
+    protected function getActiveNavigationElement()
+    {
+        return 'submenu-itemnav-item-users';
+    }
+
+    public function request()
+    {
+        $this->view->setFieldAutofocus('rollname');
+        $this->view->addButton(new \fpcm\view\helper\saveButton('saveRoll'));
+        $this->view->assign('userRoll', $this->userRoll);
+        return true;
+    }
+    
+    protected function save($update = false)
+    {
+        if (!$this->buttonClicked('saveRoll')) {
+            return false;
+        }
+
+        $this->userRoll->setRollName($this->getRequestVar('rollname'));
+        $func = $update ? 'update' : 'save';
+        $msg  = $update ? 'edited' : 'added';
+        if (call_user_func([$this->userRoll, $func])) {
+            $this->redirect('users/list', [$msg => 2]);
+            return true;
+        }
+
+        $this->view->addErrorMessage('SAVE_FAILED_ROLL');
+        
+        return true;
+    }
+
+}
+
+?>

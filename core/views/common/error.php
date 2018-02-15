@@ -23,7 +23,7 @@
                 
                 <p><?php print $errorMessage; ?></p>
                 
-                <p><?php $theView->linkButton('backBtn')->setUrl('javascript:window.history.back();')->setText('GLOBAL_BACK'); ?></p>
+                <p><?php $theView->linkButton('backBtn')->setUrl($backController ? $backController : 'javascript:window.history.back();')->setText('GLOBAL_BACK'); ?></p>
                 
             </div>
         </div>

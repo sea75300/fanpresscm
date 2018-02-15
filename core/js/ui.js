@@ -34,7 +34,7 @@ fpcm.ui = {
             jQuery('li.fpcm-menu-level1.fpcm-menu-level1-show').fadeToggle();
         });
 
-        jQuery('#fpcm-logo').click(function () {
+        jQuery('#fpcm-ui-logo').click(function () {
             jQuery('li.fpcm-menu-level1.fpcm-menu-level1-show').fadeOut();
         });
 
@@ -59,20 +59,23 @@ fpcm.ui = {
 
     initJqUiWidgets: function () {
 
-        fpcm.ui.controlgroup('.fpcm-ui-toolbar', {
+        fpcm.ui.mainToolbar = fpcm.ui.controlgroup('div.fpcm-ui-toolbar', {
             onlyVisible: true
         });
 
-        fpcm.ui.controlgroup('.fpcm-ui-controlgroup', {
+        fpcm.ui.controlgroup('div.fpcm-ui-controlgroup', {
             onlyVisible: false
         });
+        
+        jQuery('.fpcm-ui-button.fpcm-ui-button-confirm').click(function() {
+            fpcm.ui.showLoader(false);
+            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
+                fpcm.ui.showLoader(false);
+                return false;
+            }
+            fpcm.ui.showLoader(true);
+        });
 
-//        fpcm.ui.controlgroup('.fpcm-buttons div.fpcm-ui-margin-center', {
-//            onlyVisible: true
-//        });
-
-        /*fpcm.ui.button('.fpcm-ui-button');*/
-        fpcm.ui.actionButtonsGenreal();
         fpcm.ui.assignCheckboxes();
         fpcm.ui.assignCheckboxesSub();
         fpcm.ui.articleActionsOkButton();
@@ -339,7 +342,7 @@ fpcm.ui = {
             params = {};
         }
 
-        jQuery(elemClassId).controlgroup(params);
+        return jQuery(elemClassId).controlgroup(params);
 
     },
     

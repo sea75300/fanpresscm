@@ -36,7 +36,7 @@
          */
         protected function getSelectedString()
         {
-            return $this->value == $this->selected ? 'checked' : '';
+            return $this->selected && $this->value == $this->selected ? 'checked' : '';
         }
 
         /**

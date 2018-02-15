@@ -32,11 +32,6 @@ button {
     font-family: 'Droid Sans', sans-serif !important;
 }
 
-h1,
-.fpcm-logo {
-     font-family: 'Raleway', 'Droid Sans', sans-serif !important;
-}
-
 body.fpcm-body-nogradient {
     background: #ffffff;
 }
@@ -46,29 +41,27 @@ label {
 }
 
 h1 {
-    font-size: 1.75em;
-    color: #222;
-    padding: 0.6em;
-    margin: -0.3em -0.3em 0.8em -0.3em;
+    font-family: 'Raleway', 'Droid Sans', sans-serif !important;
+    font-size: 1.5em !important;
+    font-weight: 300;
+    color: #00aded;
+    padding: 3.5em 0 0.75em 0;
+    margin: 0;
 }
 
-h1 a.fpcm-ui-helpbutton {
-    float: right;
-    font-size: 0.9em;
-    opacity: 0.5;
-    display: inline;
-    padding: 0.1em 0.25em 0.05em 0.25em;
+h1 span {
+    display: block;
 }
 
-h1 a.fpcm-ui-helpbutton:hover {
-    opacity: 1;
+h1 span:nth-child(even) {
+    color: #000000;
 }
 
 h2 {
     font-size:1.35em;
     color: #2779aa;
     border: 1px solid #aed0ea;
-    background: #deedf7 url("../../inc/lib/jquery-ui/images/ui-bg_glass_100_deedf7_1x400.png") 50% 50% repeat-x;
+    background: #deedf7 url("../../lib/jquery-ui/images/ui-bg_glass_100_deedf7_1x400.png") 50% 50% repeat-x;
     font-weight: bold;
     padding: 0.4em;
     border-radius: 5px;
@@ -128,6 +121,11 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
     display: block;
 }
 
+#fpcm-ui-logo {
+    background: url(logo.png) no-repeat center top;
+    margin: 0;
+}
+
 #fpcm-loader {
     z-index : 100;
     position: fixed;
@@ -150,32 +148,12 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
     width: 85%;
 }
 
-h1,
 .fpcm-ui-background-white-50p {
     background: rgba(255,255,255,0.5);
 }
 
 .fpcm-wrapper-left {
     width: 15%;
-}
-
-.fpcm-wrapper-left div.fpcm-logo {
-    margin-bottom: 0.4em;
-}
-
-.fpcm-wrapper-left div.fpcm-logo span {
-    display: block;
-    font-size: 1.25em;
-    color: #00aded;
-}
-
-img.fpcm-logo {
-    width: 50%;
-    max-width: 100px;
-}
-
-.fpcm-wrapper-left div.fpcm-logo span:nth-child(even) {
-    color: #000000;
 }
 
 .fpcm-quarter-width     {
@@ -659,7 +637,7 @@ table.fpcm-ui-table th {
     font-size: 1.1em;
     padding: 0.5em 0.3em;
     color: #2779aa;
-    background: #deedf7 url("../../inc/lib/jquery-ui/images/ui-bg_glass_100_deedf7_1x400.png") 50% 50% repeat-x;
+    background: #deedf7 url("../../lib/jquery-ui/images/ui-bg_glass_100_deedf7_1x400.png") 50% 50% repeat-x;
     border-top: 1px solid #aed0ea;
     border-bottom: 1px solid #aed0ea;
 }
@@ -991,7 +969,7 @@ td.fpcm-td-spacer {
 
 h3, .fpcm-dashboard-container h3 {
     border: 1px solid #2694e8;
-    background: #3baae3 url("../../inc/lib/jquery-ui/images/ui-bg_glass_50_3baae3_1x400.png") 50% 50% repeat-x;
+    background: #3baae3 url("../../lib/jquery-ui/images/ui-bg_glass_50_3baae3_1x400.png") 50% 50% repeat-x;
     color: #FFF;
     font-weight: bold;
     padding: 0.4em;
