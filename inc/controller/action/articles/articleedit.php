@@ -79,15 +79,13 @@
             $this->article = new \fpcm\model\articles\article($this->getRequestVar('articleid'));
 
             if (!$this->article->exists()) {
-                $this->view->setNotFound('LOAD_FAILED_ARTICLE', 'articles/list');                
-                return true;
+                $this->view = new \fpcm\view\error('LOAD_FAILED_ARTICLE', 'articles/list');
+                return false;
             }
 
             $this->checkEditPermissions($this->article);
             if (!$this->article->getEditPermission()) {
-                $this->view = new \fpcm\view\error();
-                $this->view->setMessage($this->lang->translate('PERMISSIONS_REQUIRED'));
-                $this->view->render();
+                $this->view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
                 return false;
             }
 

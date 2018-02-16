@@ -137,9 +137,12 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
     margin-bottom: 0.4em;
 }
 
-.fpcm-ui-controlgroup,
-.fpcm-ui-filelist {
+.fpcm-ui-marginbottom-lg {
     margin-bottom: 1em;
+}
+
+.fpcm-ui-margintop-lg {
+    margin-top: 1em;
 }
 
 .fpcm-wrapper {

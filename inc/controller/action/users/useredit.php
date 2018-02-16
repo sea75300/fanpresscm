@@ -45,8 +45,8 @@
             $author = new \fpcm\model\users\author($this->userId);
             
             if (!$author->exists()) {
-                $this->view->setNotFound('LOAD_FAILED_USER', 'users/list');                
-                return true;
+                $this->view = new \fpcm\view\error('LOAD_FAILED_USER', 'users/list');
+                return false;
             }
             
             $this->uploadImage($author);

@@ -68,9 +68,7 @@
                     $this->getLatestNewsPreview();
                     break;
                 default :
-                    $this->view = new \fpcm\view\error();
-                    $this->view->setMessage('Invalid template data');
-                    $this->view->render();
+                    $this->view = new \fpcm\view\error('Invalid template data');
                     return;
             }
 
@@ -78,9 +76,8 @@
             $this->view->assign('hideDebug', true);
             $this->view->assign('hideDebug', true);
             $this->view->assign('systemMode', 1);
-            $this->view->setShowHeader(true);
-            $this->view->setShowFooter(true);
-            $this->view->setForceCss(true);
+            $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
+            //$this->view->setForceCss(true);
             $this->view->prependjQuery();
             $this->view->render();
 

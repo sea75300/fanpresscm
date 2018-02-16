@@ -16,6 +16,8 @@
      */    
     trait lists {
 
+        protected $permissionsArray = [];
+
         protected $actions = array(
             'COMMENTLIST_ACTION_MASSEDIT' => 1,
             'COMMENTLIST_ACTION_DELETE'   => 2
@@ -28,17 +30,16 @@
 
             if (!$this->permissions) return false;
             
-            $commentActions = [];
+            $this->permissionsArray['canEditComments']  = $this->permissions->check(['comment' => ['editall', 'edit']]);
+            $this->permissionsArray['canApprove']       = $this->permissions->check(['comment' => 'approve']);
+            $this->permissionsArray['canPrivate']       = $this->permissions->check(['comment' => 'private']);
+            $this->permissionsArray['canMove']          = $this->permissions->check(['comment' => 'move']);
+            $this->permissionsArray['canDelete']        = $this->permissions->check(['comment' => 'delete']);
 
-            $canEdit    = $this->permissions->check(['comment' => ['editall', 'edit']]);
-            $canApprove = $this->permissions->check(['comment' => 'approve']);
-            $canPrivate = $this->permissions->check(['comment' => 'private']);
+            foreach ($this->permissionsArray as $key => $value) {
+                $this->view->assign($key, $value);
+            }
 
-            $this->view->assign('canEditComments', $canEdit);
-            $this->view->assign('canApprove', $canApprove);
-            $this->view->assign('canPrivate', $canPrivate);
-            $this->view->assign('canMove', $this->permissions->check(['comment' => 'move']));
-            $this->view->assign('canDelete', $this->permissions->check(['comment' => 'delete']));
         }
 
         /**
@@ -92,7 +93,7 @@
             }
 
             $this->view->addJsVars([
-                'masseditPageToken'  => \fpcm\classes\security::createPageToken('cooments/massedit'),
+                'masseditPageToken'  => \fpcm\classes\security::createPageToken('coments/massedit'),
                 'masseditSaveFailed' => $this->lang->translate('SAVE_FAILED_COMMENTS')
             ]);
 

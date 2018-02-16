@@ -37,8 +37,8 @@ class itemedit extends \fpcm\controller\abstracts\controller {
         $this->item = new \fpcm\model\wordban\item($this->getRequestVar('itemid', array(9)));
 
         if (!$this->item->exists()) {
-            $this->view->setNotFound('LOAD_FAILED_WORDBAN', 'wordban/list');
-            return true;
+            $this->view = new \fpcm\view\error('LOAD_FAILED_WORDBAN', 'wordban/list');
+            return false;
         }
 
         if ($this->buttonClicked('wbitemSave') && !$this->checkPageToken()) {

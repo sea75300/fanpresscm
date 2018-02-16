@@ -151,14 +151,14 @@ class view {
 
         $this->showHeader = self::INCLUDE_HEADER_FULL;
 
-        $this->session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
-        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-        $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
-        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+        $this->session          = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        $this->config           = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+        $this->notifications    = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+        $this->language         = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+        $this->cache            = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
 
-        $this->fileLib = new \fpcm\model\system\fileLib();
-        $this->defaultViewVars = new viewVars();
+        $this->fileLib          = new \fpcm\model\system\fileLib();
+        $this->defaultViewVars  = new viewVars();
 
         $this->initFileLib();
     }
@@ -211,9 +211,9 @@ class view {
         }
 
         $hash = hash(\fpcm\classes\security::defaultHashAlgo, $item);
-//            if (isset($checks[$hash])) {
-//                return $checks[$hash];
-//            }
+        if (isset($checks[$hash])) {
+            return $checks[$hash];
+        }
 
         try {
             if (file_exists(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, $item))) {
@@ -575,7 +575,7 @@ class view {
      */
     public function setViewPath($viewName)
     {
-        $viewName .= '.php';
+        $viewName      .= '.php';
 
         $this->viewPath = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
         $this->viewName = $viewName;
@@ -639,7 +639,7 @@ class view {
     public function setFormAction($controller, array $params = [], $isLink = false)
     {
         if ($isLink) {
-            $this->formAction = $controller;
+            $this->formAction = $controller.(count($params) ? '&'.http_build_query($params) : '');
             return;
         }
         

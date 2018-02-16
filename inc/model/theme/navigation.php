@@ -100,9 +100,7 @@
                         'url'               => 'articles/add',
                         'permission'        => array('article' => 'add'),
                         'description'       => $this->language->translate('HL_ARTICLE_ADD'),
-                        'icon'              => 'fa fa-pencil',
-                        'class'             => '',
-                        'id'                => ''                        
+                        'icon'              => 'fa fa-pencil'
                     ])
                 ),
                 'editnews'      => array(
@@ -122,7 +120,6 @@
                         'permission'        => array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit')),
                         'description'       => $this->language->translate('HL_COMMENTS_MNG'),
                         'icon'              => 'fa fa-comments',
-                        'class'             => '',
                         'id'                => 'nav-item-editcomments'                        
                     ])
                 ),
@@ -131,9 +128,7 @@
                         'url'               => 'files/list&mode=1',
                         'permission'        => array('uploads' => 'visible'),
                         'description'       => $this->language->translate('HL_FILES_MNG'),
-                        'icon'              => 'fa fa-folder-open',
-                        'class'             => '',
-                        'id'                => ''                        
+                        'icon'              => 'fa fa-folder-open'
                     ])
                 ),
                 'options'       => array(
@@ -154,7 +149,6 @@
                         'description'       => $this->language->translate('HL_MODULES'),
                         'icon'              => 'fa fa-plug',
                         'class'             => 'fpcm-navigation-noclick',
-                        'id'                => '',
                         'submenu'           => $this->modulesSubmenu()                     
                     ])
                 ),
@@ -162,9 +156,7 @@
                     navigationItem::createItemFromArray([
                         'url'               => 'system/help',
                         'description'       => $this->language->translate('HL_HELP'),
-                        'icon'              => 'fa fa-question-circle',
-                        'class'             => '',
-                        'id'                => ''                        
+                        'icon'              => 'fa fa-question-circle'
                     ])
                 ),
                 'after'         => []
@@ -188,24 +180,18 @@
                     'url'               => 'articles/listall',
                     'permission'        => array('article' => 'edit', 'article' => 'editall'),
                     'description'       => $this->language->translate('HL_ARTICLE_EDIT_ALL'),
-                    'class'             => '',
-                    'id'                => '',
                     'icon'              => 'fa fa-book fa-fw'
                 ]),
                 navigationItem::createItemFromArray([
                     'url'               => 'articles/listactive',
                     'permission'        => array('article' => 'edit'),
                     'description'       => $this->language->translate('HL_ARTICLE_EDIT_ACTIVE'),
-                    'class'             => '',
-                    'id'                => '',
                     'icon'              => 'fa fa-newspaper-o fa-fw'
                 ]),
                 navigationItem::createItemFromArray([
                     'url'               => 'articles/listarchive',
                     'permission'        => array('article' => 'edit', 'article' => 'editall', 'article' => 'archive'),
                     'description'       => $this->language->translate('HL_ARTICLE_EDIT_ARCHIVE'),
-                    'class'             => '',
-                    'id'                => '',
                     'icon'              => 'fa fa-archive fa-fw'
                 ])                
             );
@@ -214,8 +200,6 @@
                 'url'               => 'articles/trash',
                 'permission'        => array('article' => 'delete'),
                 'description'       => $this->language->translate('ARTICLES_TRASH'),
-                'class'             => '',
-                'id'                => '',
                 'icon'              => 'fa fa-trash-o fa-fw'
             ]);
             
@@ -232,15 +216,12 @@
                     'url'               => 'system/options',
                     'permission'        => array('system' => 'options'),
                     'description'       => $this->language->translate('HL_OPTIONS_SYSTEM'),
-                    'class'             => '',
-                    'id'                => '',
                     'icon'              => 'fa fa-cog fa-fw'
                 ]),
                 navigationItem::createItemFromArray([
                     'url'               => 'users/list',
                     'permission'        => array('system' => 'users', 'system' => 'rolls'),
                     'description'       => $this->language->translate('HL_OPTIONS_USERS'),
-                    'class'             => '',
                     'id'                => 'nav-item-users',
                     'icon'              => 'fa fa-users fa-fw'
                 ]),
@@ -248,7 +229,6 @@
                     'url'               => 'ips/list',
                     'permission'        => array('system' => 'ipaddr'),
                     'description'       => $this->language->translate('HL_OPTIONS_IPBLOCKING'),
-                    'class'             => '',
                     'id'                => 'nav-item-ips',
                     'icon'              => 'fa fa-unlock fa-fw'
                 ]),
@@ -256,7 +236,6 @@
                     'url'               => 'wordban/list',
                     'permission'        => array('system' => 'wordban'),
                     'description'       => $this->language->translate('HL_OPTIONS_WORDBAN'),
-                    'class'             => '',
                     'id'                => 'nav-item-wordban',
                     'icon'              => 'fa fa-ban fa-fw'
                 ]),
@@ -264,7 +243,6 @@
                     'url'               => 'categories/list',
                     'permission'        => array('system' => 'categories'),
                     'description'       => $this->language->translate('HL_CATEGORIES_MNG'),
-                    'class'             => '',
                     'id'                => 'nav-item-categories',
                     'icon'              => 'fa fa-file-o fa-fw'
                 ]),
@@ -272,15 +250,12 @@
                     'url'               => 'system/templates',
                     'permission'        => array('system' => 'templates'),
                     'description'       => $this->language->translate('HL_OPTIONS_TEMPLATES'),
-                    'class'             => '',
-                    'id'                => '',
                     'icon'              => 'fa fa-code fa-fw'
                 ]),
                 navigationItem::createItemFromArray([
                     'url'               => 'smileys/list',
                     'permission'        => array('system' => 'smileys'),
                     'description'       => $this->language->translate('HL_OPTIONS_SMILEYS'),
-                    'class'             => '',
                     'id'                => 'nav-item-smileys',
                     'icon'              => 'fa fa-smile-o fa-fw'
                 ]),
@@ -288,16 +263,12 @@
                     'url'               => 'system/crons',
                     'permission'        => array('system' => 'crons'),
                     'description'       => $this->language->translate('HL_CRONJOBS'),
-                    'class'             => '',
-                    'id'                => '',
                     'icon'              => 'fa fa-history fa-fw'
                 ]),
                 navigationItem::createItemFromArray([
                     'url'               => 'system/logs',
                     'permission'        => array('system' => 'logs'),
                     'description'       => $this->language->translate('HL_LOGS'),
-                    'class'             => '',
-                    'id'                => '',
                     'icon'              => 'fa fa-exclamation-triangle fa-fw'
                 ])
             );
@@ -307,8 +278,6 @@
                     'url'               => 'system/backups',
                     'permission'        => array('system' => 'backups'),
                     'description'       => $this->language->translate('HL_BACKUPS'),
-                    'class'             => '',
-                    'id'                => '',
                     'icon'              => 'fa fa-life-ring fa-fw'
                 ]);
             }
@@ -327,8 +296,6 @@
                     'url'               => 'modules/list',
                     'permission'        => array('modules' => array('install', 'uninstall', 'configure', 'enable')),
                     'description'       => $this->language->translate('HL_MODULES_MNG'),                    
-                    'class'             => '',
-                    'id'                => '',
                     'icon'              => 'fa fa-plug fa-fw'
                 ])
             );

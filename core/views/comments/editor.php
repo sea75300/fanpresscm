@@ -30,12 +30,12 @@
     <?php if ($permApprove || $permPrivate) : ?>
     <tr>
         <td colspan="2">
-            <div class="fpcm-ui-toolbar">
+            <div class="fpcm-ui-controlgroup">
                 <?php if ($permApprove) : ?>
-                    <?php fpcm\view\helper::checkbox('comment[spam]', '', 1, 'COMMMENT_SPAM', 'spam', $comment->getSpammer()); ?>
-                    <?php fpcm\view\helper::checkbox('comment[approved]', '', 1, 'COMMMENT_APPROVE', 'approved', $comment->getApproved()); ?>
+                    <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setSelected($comment->getSpammer()); ?>
+                    <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setSelected($comment->getApproved()); ?>
                 <?php endif; ?>
-                <?php if ($permPrivate) : ?><?php fpcm\view\helper::checkbox('comment[private]', '', 1, 'COMMMENT_PRIVATE', 'private', $comment->getPrivate()); ?><?php endif; ?>
+                <?php if ($permPrivate) : ?><?php $theView->checkbox('comment[private]', 'private')->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate()); ?><?php endif; ?>
             </div>
         </td>
     </tr>
@@ -48,8 +48,4 @@
     </tr>
 </table>
 
-<div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons <?php if ($commentsMode == 2) : ?>fpcm-ui-hidden<?php endif; ?>">
-    <div class="fpcm-ui-margin-center">
-        <?php fpcm\view\helper::saveButton('commentSave'); ?>
-    </div>
-</div>
+<?php if ($commentsMode) : ?><?php $theView->saveButton('commentSave')->setClass('fpcm-ui-hidden'); ?><?php endif; ?>

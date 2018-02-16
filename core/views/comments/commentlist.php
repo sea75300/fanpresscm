@@ -1,4 +1,3 @@
-<form method="post" action="<?php print $theView->self; ?>?module=comments/list">
 <div class="fpcm-content-wrapper">
     <div class="fpcm-tabs-general">
         <ul>
@@ -11,7 +10,6 @@
     </div>
 </div>
 
-    <?php $theView->pageTokenField('pgtkn'); ?>
-</form>
-
 <?php include $theView->getIncludePath('comments/searchform.php'); ?>
+
+<?php $theView->pageTokenField('pgtkn'); ?>

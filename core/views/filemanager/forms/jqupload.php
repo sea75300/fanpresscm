@@ -3,33 +3,35 @@
 <noscript><link rel="stylesheet" type="text/css" href="<?php print $jquploadPath ?>css/jquery.fileupload-noscript.css"></noscript>
 <noscript><link rel="stylesheet" type="text/css" href="<?php print $jquploadPath ?>css/jquery.fileupload-ui-noscript.css"></noscript>
 
+</form>
+
 <form id="fileupload" action="<?php print $actionPath; ?>" method="POST" enctype="multipart/form-data">
 
-    <div class="fileupload-buttonbar">
+    <div class="fpcm-ui-marginbottom-lg fileupload-buttonbar">
         <div class="fileupload-progress fade fpcm-ui-hidden">
             <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
             <div class="progress-extended">&nbsp;</div>
         </div>
-    </div>
-
-    <div id="fpcm-filemanager-upload-drop"><h4 class="fpcm-ui-center"><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4></div>
+    </div>    
     
-    <table role="presentation" class="fpcm-ui-table fpcm-ui-uploadlist">
-        <tbody class="files"></tbody>
-    </table>
-    
-    <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> <?php if (!$styleLeftMargin) : ?>fpcm-buttons-fixed-full<?php endif; ?> fileupload-buttonbar">
+    <div class="fpcm-ui-marginbottom-lg fileupload-buttonbar">
         <div class="fileupload-buttons">
             <span class="fileinput-button">
                 <span><?php $theView->write('FILE_FORM_FILEADD'); ?></span>
                 <input type="file" name="files[]" multiple>
             </span>
-            <button type="submit" class="start"><?php $theView->write('FILE_FORM_UPLOADSTART'); ?></button>
-            <button type="reset" class="cancel"><?php $theView->write('FILE_FORM_UPLOADCANCEL'); ?></button>
+            
+            <?php $theView->submitButton('start')->setText('FILE_FORM_UPLOADSTART')->setClass('start'); ?>
+            <?php $theView->resetButton('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('cancel')->setIcon('', false); ?>
             <span class="fileupload-process"></span>
         </div>
     </div>
-</form>
+
+    <div id="fpcm-filemanager-upload-drop"><h4 class="fpcm-ui-center"><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4></div>
+    
+    <table role="presentation" class="fpcm-ui-margintop-lg fpcm-ui-table fpcm-ui-uploadlist">
+        <tbody class="files"></tbody>
+    </table>
 
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">

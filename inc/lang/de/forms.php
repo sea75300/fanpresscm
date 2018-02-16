@@ -142,6 +142,7 @@
         'FILE_LIST_RENAME_NEWNAME'      => 'Bitte einen neuen Dateiname eingeben:',
         'FILE_LIST_PHPMAXINFO'          => 'Maximal {{filecount}} Dateien mit {{filesize}}.',
         'FILE_LIST_UPLOADDROP'          => 'Dateien zum Hochladen hierher ziehen',
+        'FILE_LIST_ADDTOINDEX'          => 'Datei(en) indizieren...',
         
         'FILE_LIST_SMILEYCODE'          => 'Smiley-Code',
         'FILE_LIST_SMILEYADD'           => 'Smiley hinzufügen',

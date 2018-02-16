@@ -69,7 +69,7 @@ fpcm.fileuploader = {
                 return true;
             }
 
-            fpcm.ui.showLoader(true);
+            fpcm.ui.showLoader(true, fpcm.ui.translate('FILE_LIST_ADDTOINDEX'));
             fpcm.ajax.get('cronasync', {
                 data    : {
                     cjId: 'fileindex'

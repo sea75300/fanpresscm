@@ -5,7 +5,7 @@
         <div class="fpcm-ui-editor-extended-button"><label><?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?></label></div>
         <div class="fpcm-ui-editor-extended-col">
             <div class="fpcm-ui-massedit-categories">
-                <div class="fpcm-ui-toolbar">
+                <div class="fpcm-ui-controlgroup">
                     <?php foreach ($massEditCategories as $name => $id) : ?>
                     <?php $theView->checkbox('categories[]', 'cat'.$id)->setClass('fpcm-ui-input-massedit-categories')->setText($name)->setValue($id); ?>
                     <?php endforeach; ?>

@@ -22,11 +22,11 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      */
     public function __construct()
     {
-        $this->table    = \fpcm\classes\database::tableFiles;
-        $this->basepath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS);
-        $this->exts     = image::$allowedExts;
-
         parent::__construct();
+
+        $this->table    = \fpcm\classes\database::tableFiles;
+        $this->basepath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, '/');
+        $this->exts     = image::$allowedExts;
     }
 
     /**
@@ -70,7 +70,6 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      */
     public function getDatabaseListByCondition(search $conditions)
     {
-
         $where = array('1=1');
         $valueParams = [];
 
@@ -124,16 +123,19 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      */
     public function updateFileIndex($userId)
     {
-        $folderFiles = $this->getFolderList();
-        $dbFiles = $this->getDatabaseList();
+        $folderFiles    = $this->getFolderList();
+        $dbFiles        = $this->getDatabaseList();
 
         if (!$folderFiles || !count($folderFiles) || count($folderFiles) == count($dbFiles)) {
             return;
         }
 
         foreach ($folderFiles as $folderFile) {
-            if (isset($dbFiles[$folderFile]))
-                continue;
+
+            if (isset($dbFiles[$folderFile])) {
+                continue;                
+            }
+
             $image = new \fpcm\model\files\image(basename($folderFile), false, true);
             $image->setFiletime(time());
             $image->setUserid($userId);

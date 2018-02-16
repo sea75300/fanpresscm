@@ -36,8 +36,9 @@ fpcm.filemanager = {
     },
     
     initActionButtons : function() {
+
         jQuery('#btnRenameFiles').click(function () {
-            if (fpcmLang.newNameMsg === undefined) {
+            if (fpcm.ui.langvarExists('FILE_LIST_RENAME_NEWNAME')) {
                 fpcm.ui.showLoader(false);
                 return true;
             }
@@ -50,15 +51,8 @@ fpcm.filemanager = {
             }
 
             jQuery('#newfilename').val(newName);
+        });
 
-        });
-        
-        jQuery('#btnCreateThumbs').click(function () {            
-            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
-                jQuery(this).addClass('fpcm-noloader');
-                return false;
-            }
-        });
         
         this.initSelectionCheckboxes();
     },
@@ -177,7 +171,6 @@ fpcm.filemanager = {
             execDone: function () {
 
                 fpcm.ui.assignHtml("#tabs-files-list-content", fpcm.ajax.getResult('filelist'));
-                fpcm.ui.initJqUiWidgets();
                 fpcm.filemanager.initJqUiWidgets();
                 var fpcmRFDinterval = setInterval(function(){
                     if (jQuery('#fpcm-filelist-images-finished').length == 1) {

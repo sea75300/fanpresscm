@@ -27,7 +27,7 @@ fpcm.comments = {
 
     assignActions: function() {
 
-        jQuery('#fpcmcommentslistmassedit').click(function () {
+        jQuery('#massEdit').click(function () {
             fpcm.system.initMassEditDialog('comments/massedit', 'comments-massedit', fpcm.comments);
             return false;
         });
@@ -48,7 +48,7 @@ fpcm.comments = {
     
     initCommentSearch: function() {
 
-        jQuery('#fpcmcommentsopensearch').click(function () {
+        jQuery('#opensearch').click(function () {
 
             fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch', {
                 width: '100%',
@@ -110,7 +110,7 @@ fpcm.comments = {
 
     startCommentSearch: function (sParams) {
 
-        if (((new Date()).getTime() - fpcmCommentsLastSearch) < 10000) {
+        if (((new Date()).getTime() - fpcm.vars.jsvars.commentsLastSearch) < 10000) {
             fpcm.ui.addMessage({
                 type: 'error',
                 txt : fpcm.ui.translate('SEARCH_WAITMSG')
@@ -133,7 +133,7 @@ fpcm.comments = {
             }
         });
 
-        fpcmCommentsLastSearch = (new Date()).getTime();
+        fpcm.vars.jsvars.commentsLastSearch = (new Date()).getTime();
     }
 
 };

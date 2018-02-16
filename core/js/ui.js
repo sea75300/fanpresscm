@@ -59,7 +59,7 @@ fpcm.ui = {
 
     initJqUiWidgets: function () {
 
-        fpcm.ui.mainToolbar = fpcm.ui.controlgroup('div.fpcm-ui-toolbar', {
+        fpcm.ui.mainToolbar = fpcm.ui.controlgroup('#fpcm-ui-toolbar div.fpcm-ui-toolbar', {
             onlyVisible: true
         });
 
@@ -322,10 +322,6 @@ fpcm.ui = {
         if (params.icon === undefined) {
             params.icon = false;
         }
-
-        console.log(elemClassId);
-        console.log(params);
-        
 
         jQuery(elemClassId).checkboxradio(params);
 

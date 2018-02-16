@@ -148,7 +148,7 @@
                 'filesLastSearch'   => 0
             ]);
 
-            $this->view->addJsLangVars(['FILE_LIST_RENAME_NEWNAME', 'SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START']);
+            $this->view->addJsLangVars(['FILE_LIST_RENAME_NEWNAME', 'SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START', 'FILE_LIST_ADDTOINDEX']);
 
             $this->view->assign('searchCombination', array(
                 $this->lang->translate('ARTICLE_SEARCH_LOGICAND') => 0,
@@ -188,7 +188,7 @@
             }
 
             if ($this->permissionsData['permDelete']) {
-                $this->view->addButton(new \fpcm\view\helper\deleteButton('deleteFiles'));
+                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteFiles'))->setClass('fpcm-ui-button-confirm'));
             }
 
             $this->view->setFormAction('files/list', ['mode' => $this->mode]);

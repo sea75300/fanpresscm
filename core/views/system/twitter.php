@@ -23,7 +23,7 @@
     <tr>			
         <td><?php $theView->write('SYSTEM_OPTIONS_TWITTER_EVENTS'); ?>:</td>
         <td>
-            <div class="fpcm-ui-toolbar">
+            <div class="fpcm-ui-controlgroup">
                 <?php fpcm\view\helper::checkbox('twitter_events[create]', '', 1, 'SYSTEM_OPTIONS_TWITTER_EVENTCREATE', 'twitter_events_create', $globalConfig['twitter_events']['create']); ?>
                 <?php fpcm\view\helper::checkbox('twitter_events[update]', '', 1, 'SYSTEM_OPTIONS_TWITTER_EVENTUPDATE', 'twitter_events_update', $globalConfig['twitter_events']['update']); ?>                
             </div>        

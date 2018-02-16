@@ -52,7 +52,7 @@
                 
                 $res = array_merge($res, $extLower, $extUpper);
             }
-            
+
             return $res;
         }
         

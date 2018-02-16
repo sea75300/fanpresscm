@@ -1,6 +1,6 @@
 <p><?php print $maxFilesInfo; ?></p>
 
-<div class="fpcm-ui-controlgroup" id="article_template_buttons">    
+<div class="fpcm-ui-controlgroup fpcm-ui-marginbottom-lg" id="article_template_buttons">    
     <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
     <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('cloud-upload'); ?>
     <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>
@@ -8,7 +8,7 @@
     <?php fpcm\view\helper::deleteButton('fileDelete'); ?>
 </div>
 
-<table id="fpcm-ui-phpupload-filelist" class="fpcm-ui-table fpcm-ui-filelist fpcm-ui-phpupload"></table>
+<table id="fpcm-ui-phpupload-filelist" class="fpcm-ui-table fpcm-ui-marginbottom-lg fpcm-ui-filelist fpcm-ui-phpupload"></table>
 
 <table class="fpcm-ui-table fpcm-ui-articletemplates">
     <tr>

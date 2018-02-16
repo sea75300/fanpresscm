@@ -83,7 +83,7 @@
         public static function getFullDirPath($type, $path = '', $base = false)
         {
             $path = $GLOBALS['fpcm']['dir']['base'].$type.(trim($path ? DIRECTORY_SEPARATOR.$path : ''));
-            return ($base ? basename($path) : $path);
+            return str_replace('//', DIRECTORY_SEPARATOR, ($base ? basename($path) : $path));
         }
 
         /**
@@ -96,7 +96,7 @@
         public static function getDataDirPath($type, $path = '', $base = false)
         {
             $path = $GLOBALS['fpcm']['dir']['data'].$type.($path ? DIRECTORY_SEPARATOR.$path : '');
-            return ($base ? basename($path) : $path);
+            return str_replace('//', DIRECTORY_SEPARATOR, ($base ? basename($path) : $path));
         }
 
         /**
@@ -106,7 +106,7 @@
          */
         public static function getIncDirPath($path = '')
         {
-            return $GLOBALS['fpcm']['dir']['inc'].$path;
+            return str_replace('//', DIRECTORY_SEPARATOR, $GLOBALS['fpcm']['dir']['inc'].$path);
         }
 
         /**
@@ -117,7 +117,7 @@
          */
         public static function getCoreDirPath($type, $path = '')
         {
-            return $GLOBALS['fpcm']['dir']['core'].$type.DIRECTORY_SEPARATOR.$path;
+            return str_replace('//', DIRECTORY_SEPARATOR, $GLOBALS['fpcm']['dir']['core'].$type.DIRECTORY_SEPARATOR.$path);
         }
 
         /**

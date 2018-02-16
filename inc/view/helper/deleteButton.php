@@ -23,7 +23,7 @@
         {
             parent::init();
             $this->type   = 'submit';
-            $this->class .= ' fpcm-ui-button-delete fpcm-loader';
+            $this->class .= ' fpcm-ui-button-delete';
             $this->setText('GLOBAL_DELETE');
             $this->setIcon('trash');
         }

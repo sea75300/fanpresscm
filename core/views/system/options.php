@@ -95,7 +95,7 @@
                 <tr>			
                     <td><?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWIMGTHUMBSIZE'); ?>:</td>
                     <td>
-                        <div class="fpcm-ui-toolbar">
+                        <div class="fpcm-ui-controlgroup">
                             <?php fpcm\view\helper::textInput('file_img_thumb_width', 'ui-spinner-input', $globalConfig['file_img_thumb_width'], false, 5, false, false); ?>
                             <label for="file_img_thumb_width" class="ui-controlgroup-label"><span class="fa fa-times fa-fw"></span></label>                                
                             <?php fpcm\view\helper::textInput('file_img_thumb_height', 'ui-spinner-input', $globalConfig['file_img_thumb_height'], false, 5, false, false); ?>
@@ -131,7 +131,7 @@
                 <tr>			
                     <td><?php $theView->write('SYSTEM_OPTIONS_NEWS_SORTING'); ?>:</td>
                     <td>
-                        <div class="fpcm-ui-toolbar">
+                        <div class="fpcm-ui-controlgroup">
                             <?php fpcm\view\helper::select('articles_sort', $sorts, $globalConfig['articles_sort'], false, false); ?>
                             <?php fpcm\view\helper::select('articles_sort_order', $sortsOrders, $globalConfig['articles_sort_order'], false, false); ?>
                         </div>

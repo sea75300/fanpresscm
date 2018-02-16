@@ -276,8 +276,15 @@
             $item->setUrl(isset($data['url']) ? $data['url'] : '#');
             $item->setDescription(isset($data['description']) ? $data['description'] : '');
             $item->setIcon(isset($data['icon']) ? $data['icon'] : 'fa fa-fw fa-square');
-            $item->setId(isset($data['id']) ? $data['id'] : '');
-            $item->setClass(isset($data['class']) ? $data['class'] : '');
+
+            if(isset($data['id'])) {
+                $item->setId($data['id']);
+            }
+
+            if(isset($data['class'])) {
+                $item->setClass($data['class']);
+            }
+
             $item->setPermission(isset($data['permission']) && is_array($data['permission']) ? $data['permission'] : []);
             $item->setSubmenu(isset($data['submenu']) && is_array($data['submenu']) ? $data['submenu'] : []);
             

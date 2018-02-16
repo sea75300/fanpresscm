@@ -31,10 +31,8 @@
                 $file = new \fpcm\model\files\dbbackup($filePath);
                 
                 if (!$file->exists()) {
-                    $this->view = new \fpcm\view\error();
-                    $this->view->setMessage($this->lang->translate('GLOBAL_NOTFOUND_FILE'));
-                    $this->view->render();
-                    exit();
+                    $this->view = new \fpcm\view\error('GLOBAL_NOTFOUND_FILE');
+                    return false;
                 }
 
                 header('Content-Description: File Transfer');

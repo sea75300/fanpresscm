@@ -151,7 +151,7 @@ fpcm.system = {
                                 var params = {
                                     fields: {},
                                     ids     : fpcm.ajax.toJSON(objectIDs),
-                                    pageTkn : masseditPageToken
+                                    pageTkn : fpcm.vars.jsvars.masseditPageToken
                                 };
 
                                 jQuery.each(mefields, function (key, obj) {

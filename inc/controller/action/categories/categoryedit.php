@@ -32,8 +32,8 @@ class categoryedit extends \fpcm\controller\abstracts\controller {
         $this->category = new \fpcm\model\categories\category($this->getRequestVar('categoryid'));
 
         if (!$this->category->exists()) {
-            $this->view->setNotFound('LOAD_FAILED_CATEGORY', 'categories/list');
-            return true;
+            $this->view = new \fpcm\view\error('LOAD_FAILED_CATEGORY', 'categories/list');
+            return false;
         }
 
         if ($this->buttonClicked('categorySave')) {

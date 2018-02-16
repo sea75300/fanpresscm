@@ -34,14 +34,4 @@
 
 <?php include $theView->getIncludePath('components/pager.php'); ?>
 
-<?php if ($canEditComments || $canDelete || $commentsMode == 1) : ?>
-<div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons fpcm-ui-commentaction-buttons">
-    <div class="fpcm-ui-margin-center">
-        <?php if ($commentsMode == 1) : ?><?php \fpcm\view\helper::linkButton('#', 'ARTICLES_SEARCH', 'fpcmcommentsopensearch', 'fpcm-articles-opensearch'); ?><?php endif; ?>
-        <?php if ($canEditComments) : ?><?php \fpcm\view\helper::linkButton('#', 'GLOBAL_EDIT', 'fpcm-comments-listmassedit', 'fpcm-ui-button-massedit'); ?><?php endif; ?>
-        <?php if ($canDelete) : ?><?php fpcm\view\helper::deleteButton('deleteComment'); ?><?php endif; ?>
-    </div>
-</div>
-<?php endif; ?>
-
 <?php if ($canEditComments) : ?><?php include $theView->getIncludePath('comments/massedit.php'); ?><?php endif; ?>
