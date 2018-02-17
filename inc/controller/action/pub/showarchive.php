@@ -17,11 +17,8 @@ class showarchive extends showcommon {
      */
     public function __construct($apiMode = false)
     {
-
         parent::__construct();
-
-        $this->view->setShowHeader($apiMode ? false : true);
-        $this->view->setShowFooter($apiMode ? false : true);
+        $this->view->showHeaderFooter($apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);
     }
 
     /**

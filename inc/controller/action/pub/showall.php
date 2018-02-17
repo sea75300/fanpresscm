@@ -17,13 +17,10 @@ class showall extends showcommon {
      */
     public function __construct($apiMode = false)
     {
-
         $this->apiMode = $apiMode;
-
         parent::__construct();
 
-        $this->view->setShowHeader($this->apiMode ? false : true);
-        $this->view->setShowFooter($this->apiMode ? false : true);
+        $this->view->showHeaderFooter($this->apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);
     }
 
     /**

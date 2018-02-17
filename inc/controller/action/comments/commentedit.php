@@ -131,8 +131,7 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         $mode = $this->getRequestVar('mode', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
 
         if ($mode === 2) {
-            $this->view->setShowHeader(0);
-            $this->view->setShowFooter(0);
+            $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         }
 
         $this->view->addJsFiles([\fpcm\classes\loader::libGetFileUrl('tinymce4/tinymce.min.js'), 'editor_tinymce.js']);
@@ -168,8 +167,8 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         $this->view->assign('ipWhoisLink', substr($this->comment->getIpaddress(), -1) === '*' ? false : true);
         $this->view->assign('comment', $this->comment);
         $this->view->assign('commentsMode', $mode);
-        $this->view->assign('permApprove', $this->approve);
-        $this->view->assign('permPrivate', $this->private);
+        $this->view->assign('canApprove', $this->approve);
+        $this->view->assign('canPrivate', $this->private);
         $this->view->render();
     }
 

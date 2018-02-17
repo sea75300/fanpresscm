@@ -90,8 +90,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         $this->view->assign('commentform', '');
         $this->view->assign('systemMode', $this->config->system_mode);
 
-        $this->view->setShowHeader($apiMode ? false : true);
-        $this->view->setShowFooter($apiMode ? false : true);
+        $this->view->showHeaderFooter($apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);
 
         $this->commentList  = new \fpcm\model\comments\commentList();
         $this->categoryList = new \fpcm\model\categories\categoryList();

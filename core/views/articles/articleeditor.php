@@ -3,15 +3,15 @@
         <?php if ($isRevision) : ?>
         <li><a href="#tabs-article"><?php $theView->write('EDITOR_STATUS_REVISION'); ?></a></li>
         <?php else : ?>
-        <li id="fpcm-editor-tabs-editorregister"><a href="#tabs-article"><?php $theView->write('ARTICLES_EDITOR'); ?></a></li>
+        <li id="fpcm-editor-tabs-editorregister" data-toolbar-buttons="1"><a href="#tabs-article"><?php $theView->write('ARTICLES_EDITOR'); ?></a></li>
         <?php endif; ?>
         <?php if ($showComments && !$isRevision) : ?>
-        <li><a href="<?php print $theView->basePath.\fpcm\classes\tools::getControllerLink('ajax/editor/editorlist', ['id' => $article->getId(), 'view' => 'comments']); ?>">
+        <li data-toolbar-buttons="2"><a href="<?php print \fpcm\classes\tools::getFullControllerLink('ajax/editor/editorlist', ['id' => $article->getId(), 'view' => 'comments']); ?>">
             <?php $theView->write('HL_ARTICLE_EDIT_COMMENTS', [ 'count' => $commentCount ]); ?>
         </a></li>
         <?php endif; ?>
         <?php if ($showRevisions) : ?>
-        <li><a href="<?php print $theView->basePath.\fpcm\classes\tools::getControllerLink('ajax/editor/editorlist', ['id' => $article->getId(), 'view' => 'revisions']); ?>">
+        <li data-toolbar-buttons="3"><a href="<?php print \fpcm\classes\tools::getFullControllerLink('ajax/editor/editorlist', ['id' => $article->getId(), 'view' => 'revisions']); ?>">
             <?php $theView->write('HL_ARTICLE_EDIT_REVISIONS', [ 'count' => $revisionCount ]); ?>
         </a></li>
         <?php endif; ?>

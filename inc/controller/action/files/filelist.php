@@ -49,8 +49,7 @@
                 $this->mode = (int) $this->getRequestVar('mode');
                 
                 if ($this->mode > 1) {
-                    $this->view->setShowHeader(false);
-                    $this->view->setShowFooter(false);
+                    $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
                     $styleLeftMargin = false;
                 }
                 

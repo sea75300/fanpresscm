@@ -27,7 +27,9 @@ fpcm.editor = {
             return false;
         });
         
-        this[fpcm.vars.jsvars.editorInitFunction].call();
+        if (!fpcm.vars.jsvars.isRevision) {
+            this[fpcm.vars.jsvars.editorInitFunction].call();
+        }
 
         fpcm.ui.selectmenu('#fpcm-editor-paragraphs', {
             select: function( event, ui ) {
@@ -228,6 +230,16 @@ fpcm.editor = {
                 fpcm.ui.initJqUiWidgets();
                 fpcm.ui.assignSelectmenu();
                 fpcm.ui.showLoader(false);
+            },
+            beforeActivate: function( event, ui ) {
+                
+                var hideButtons = jQuery(ui.oldTab).attr('data-toolbar-buttons');
+                var showButtons = jQuery(ui.newTab).attr('data-toolbar-buttons');
+
+                fpcm.ui.mainToolbar.find('.fpcm-ui-editor-tab'+ hideButtons).addClass('fpcm-ui-hidden');
+                fpcm.ui.mainToolbar.find('.fpcm-ui-editor-tab'+ showButtons).removeClass('fpcm-ui-hidden');
+                
+                fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
             },
             addTabScroll: true
         });
@@ -481,7 +493,7 @@ fpcm.editor = {
             title    : fpcm.ui.translate('COMMENTS_EDIT'),
             dlButtons  : [
                 {
-                    text: fpcm.ui.translate('GLOBAL_SVAE'),
+                    text: fpcm.ui.translate('GLOBAL_SAVE'),
                     icon: "ui-icon-disk",                        
                     click: function() {
                         jQuery(this).children('#fpcm-editor-comment-frame').contents().find('#btnCommentSave').trigger('click');

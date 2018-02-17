@@ -27,15 +27,15 @@
         <td><strong><?php $theView->write('COMMMENT_WEBSITE'); ?></strong>:</td>
         <td><?php \fpcm\view\helper::textInput('comment[website]', 'fpcm-full-width', $comment->getWebsite()); ?></td>
     </tr>
-    <?php if ($permApprove || $permPrivate) : ?>
+    <?php if ($canApprove || $canPrivate) : ?>
     <tr>
         <td colspan="2">
             <div class="fpcm-ui-controlgroup">
-                <?php if ($permApprove) : ?>
+                <?php if ($canApprove) : ?>
                     <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setSelected($comment->getSpammer()); ?>
                     <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setSelected($comment->getApproved()); ?>
                 <?php endif; ?>
-                <?php if ($permPrivate) : ?><?php $theView->checkbox('comment[private]', 'private')->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate()); ?><?php endif; ?>
+                <?php if ($canPrivate) : ?><?php $theView->checkbox('comment[private]', 'private')->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate()); ?><?php endif; ?>
             </div>
         </td>
     </tr>

@@ -67,9 +67,7 @@ class showlatest extends \fpcm\controller\abstracts\pubController {
         $this->articleList  = new \fpcm\model\articles\articlelist();
         $this->userList     = new \fpcm\model\users\userList();
         $this->template     = new \fpcm\model\pubtemplates\latestnews();
-
-        $this->view->setShowHeader($this->apiMode ? false : true);
-        $this->view->setShowFooter($this->apiMode ? false : true);
+        $this->view->showHeaderFooter($this->apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);
     }
 
     /**

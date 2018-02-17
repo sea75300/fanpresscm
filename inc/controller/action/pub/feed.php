@@ -64,9 +64,7 @@ class feed extends \fpcm\controller\abstracts\pubController {
             $this->articleList  = new \fpcm\model\articles\articlelist();
             $this->userList     = new \fpcm\model\users\userList();
             $this->template     = new \fpcm\model\pubtemplates\latestnews();
-
-            $this->view->setShowHeader(false);
-            $this->view->setShowFooter(false);
+            $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         }
     }
 
