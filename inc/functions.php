@@ -48,9 +48,21 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
         return false;
     }
 
-    $text = array($etext, 'in file ' . $efile . ', line ' . $eline, 'ERROR CODE: ' . $ecode, 'BACKTRACE: ' . print_r(debug_backtrace(2), true));
+    $text = [
+        $etext,
+        'in file ' .
+        $efile . ', line ' .
+        $eline,
+        'ERROR CODE: ' .
+        $ecode,
+        'BACKTRACE: ',
+        defined('FPCM_UNITTEST') ? 'Unit test, no backtrace' : print_r(debug_backtrace(1), true)
+    ];
 
-    $LogLine = json_encode(array('time' => date('Y-m-d H:i:s'), 'text' => implode(PHP_EOL, $text)));
+    $LogLine = json_encode([
+        'time' => date('Y-m-d H:i:s'),
+        'text' => implode(PHP_EOL, $text)
+    ]);
     file_put_contents($errorLog, $LogLine . PHP_EOL, FILE_APPEND);
 
     return true;

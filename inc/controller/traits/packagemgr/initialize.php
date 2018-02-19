@@ -26,7 +26,7 @@
             if ($this->legacy) {
                 
                 return array(
-                    'fpcmCronAsyncDiabled'   => true,
+                    'cronAsyncDiabled'   => true,
                     'fpcmUpdaterProcessTime' => $this->lang->translate('PACKAGES_PROCESS_TIME'),
                     'fpcmUpdaterMaxStep'     => $this->forceStep ? $this->forceStep : 5,
                     'fpcmUpdaterProgressbar' => (int) \fpcm\classes\baseconfig::canConnect(),
@@ -63,7 +63,7 @@
             }
 
             return array(
-                'fpcmCronAsyncDiabled'   => true,
+                'cronAsyncDiabled'   => true,
                 'fpcmUpdaterProcessTime' => $this->lang->translate('PACKAGES_PROCESS_TIME'),
                 'fpcmUpdaterMaxStep'     => $this->forceStep ? $this->forceStep : \fpcm\model\packages\package::FPCMPACKAGE_STEP_CLEANUP,
                 'fpcmUpdaterProgressbar' => (int) \fpcm\classes\baseconfig::canConnect(),

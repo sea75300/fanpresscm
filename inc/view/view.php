@@ -514,7 +514,7 @@ class view {
     {
         if ($this->session->exists()) {
             $this->addJsLangVars(['SESSION_TIMEOUT']);
-            $this->addJsVars(['sessionCheckEnabled' => true]);
+            $this->addJsVars(['sessionCheck' => true]);
 
             $this->defaultViewVars->currentUser             = $this->session->getCurrentUser();
             $this->defaultViewVars->navigation              = (new \fpcm\model\theme\navigation())->render();

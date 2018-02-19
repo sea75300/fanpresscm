@@ -210,7 +210,7 @@ fpcm.editor = {
 
         jQuery('.fpcm-editor-articleimage').fancybox();
 
-        jQuery('#fpcmuieditoraimgfmg').click(function () {
+        jQuery('#insertarticleimg').click(function () {
             fpcm.vars.jsvars.filemanagerMode = 3;
             fpcm.editor.showFileManager();
             fpcm.vars.jsvars.filemanagerMode = 2;
@@ -231,16 +231,7 @@ fpcm.editor = {
                 fpcm.ui.assignSelectmenu();
                 fpcm.ui.showLoader(false);
             },
-            beforeActivate: function( event, ui ) {
-                
-                var hideButtons = jQuery(ui.oldTab).attr('data-toolbar-buttons');
-                var showButtons = jQuery(ui.newTab).attr('data-toolbar-buttons');
-
-                fpcm.ui.mainToolbar.find('.fpcm-ui-editor-tab'+ hideButtons).addClass('fpcm-ui-hidden');
-                fpcm.ui.mainToolbar.find('.fpcm-ui-editor-tab'+ showButtons).removeClass('fpcm-ui-hidden');
-                
-                fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-            },
+            addMainToobarToggle: true,
             addTabScroll: true
         });
         
@@ -1154,7 +1145,7 @@ fpcm.editor = {
 
     setInEdit: function(){
         
-        if (!window.fpcmSessionCheckEnabled) {
+        if (!fpcm.vars.jsvars.sessionCheck) {
             return false;
         }
         

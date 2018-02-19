@@ -103,8 +103,9 @@
          */
         public static function get($varname = null, array $filter = [self::FPCM_REQFILTER_STRIPTAGS,self::FPCM_REQFILTER_STRIPSLASHES,self::FPCM_REQFILTER_TRIM]) {
             if (is_null($varname)) return self::$request;
-            $returnVal = (isset(self::$request[$varname])) ? self::filter(self::$request[$varname], $filter) : null;
-            return $returnVal;            
+            return  (isset(self::$request[$varname]))
+                    ? self::filter(self::$request[$varname], $filter)
+                    : null;
         }
 
         /**
@@ -226,9 +227,10 @@
                 return $filterString;
             }
             
+            
             if (is_array($filterString)) {  
-                foreach ($filterString as $value) {
-                    static::filter($value, $filters);
+                foreach ($filterString as &$value) {
+                    $value = static::filter($value, $filters);
                 }
                 return $filterString;
             }

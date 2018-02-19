@@ -1,5 +1,7 @@
 <?php
 
+define('FPCM_UNITTEST', 1);
+
 class fpcmTests extends \PHPUnit_Framework_TestCase {
 
    public static function suite()

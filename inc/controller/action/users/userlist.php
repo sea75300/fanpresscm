@@ -119,15 +119,15 @@ class userlist extends \fpcm\controller\abstracts\controller {
         $this->view->setFormAction('users/list');
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\linkButton('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/add'))->setText('USERS_ADD')->setClass('fpcm-loader fpcm-ui-userlist-tab1')->setIcon('user-plus'),
-            (new \fpcm\view\helper\submitButton('disableUser'))->setText('GLOBAL_DISABLE')->setClass('fpcm-ui-userlist-tab1 fpcm-ui-button-confirm')->setIcon('toggle-off'),
-            (new \fpcm\view\helper\deleteButton('deleteActive'))->setClass('fpcm-ui-userlist-tab1'),            
+            (new \fpcm\view\helper\linkButton('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/add'))->setText('USERS_ADD')->setClass('fpcm-loader fpcm-ui-maintoolbarbuttons-tab1')->setIcon('user-plus'),
+            (new \fpcm\view\helper\submitButton('disableUser'))->setText('GLOBAL_DISABLE')->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setIcon('toggle-off'),
+            (new \fpcm\view\helper\deleteButton('deleteActive'))->setClass('fpcm-ui-maintoolbarbuttons-tab1'),            
             
-            (new \fpcm\view\helper\submitButton('enableUser'))->setText('GLOBAL_ENABLE')->setClass('fpcm-ui-userlist-tab2 fpcm-ui-hidden fpcm-ui-button-confirm')->setIcon('toggle-on'),
-            (new \fpcm\view\helper\deleteButton('deleteDisabled'))->setClass('fpcm-ui-userlist-tab2 fpcm-ui-hidden'),
+            (new \fpcm\view\helper\submitButton('enableUser'))->setText('GLOBAL_ENABLE')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden fpcm-ui-button-confirm')->setIcon('toggle-on'),
+            (new \fpcm\view\helper\deleteButton('deleteDisabled'))->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden'),
             
-            (new \fpcm\view\helper\linkButton('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('USERS_ROLL_ADD')->setClass('fpcm-ui-userlist-tab3 fpcm-ui-hidden')->setIcon('users'),
-            (new \fpcm\view\helper\deleteButton('deleteRoll'))->setClass('fpcm-ui-userlist-tab3 fpcm-ui-hidden'),
+            (new \fpcm\view\helper\linkButton('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('USERS_ROLL_ADD')->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden')->setIcon('users'),
+            (new \fpcm\view\helper\deleteButton('deleteRoll'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden'),
             
         ]);
         

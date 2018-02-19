@@ -34,7 +34,7 @@
                 return $this->cache->read($this->cacheName);
             }
             
-            $this->permissions = new \fpcm\model\system\permissions($this->session->getCurrentUser()->getRoll());
+            $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
 
             $navigation = $this->getNavigation();
             $navigation = $this->events->runEvent('navigationRender', $navigation);

@@ -114,11 +114,12 @@ final class baseconfig {
             loader::getObject('\fpcm\classes\database');
         }
 
-        $config = loader::getObject('\fpcm\model\system\config');
-        loader::getObject('\fpcm\model\system\session');
+        $config  = loader::getObject('\fpcm\model\system\config');
+        $session = loader::getObject('\fpcm\model\system\session');
         loader::getObject('\fpcm\model\system\config')->setUserSettings();
         loader::getObject('\fpcm\classes\language', $config->system_lang);
         loader::getObject('\fpcm\model\theme\notifications');
+        loader::getObject('\fpcm\model\system\permissions', ($session->exists() ? $session->currentUser->getRoll() : 0));
 
         self::initServers();
     }

@@ -76,17 +76,17 @@ class articleedit extends articlebase {
     public function request()
     {
 
-        $this->userList = new \fpcm\model\users\userList();
-        $this->commentList = new \fpcm\model\comments\commentList();
+        $this->userList     = new \fpcm\model\users\userList();
+        $this->commentList  = new \fpcm\model\comments\commentList();
 
         if (is_null($this->getRequestVar('articleid'))) {
             $this->redirect('articles/list');
         }
 
-        $this->article = new \fpcm\model\articles\article($this->getRequestVar('articleid'));
+        $this->initObject();
 
         if (!$this->article->exists()) {
-            $this->view = new \fpcm\view\error('LOAD_FAILED_ARTICLE', 'articles/list');
+            $this->view = new \fpcm\view\error('LOAD_FAILED_ARTICLE', 'articles/listall');
             return false;
         }
 
@@ -110,7 +110,31 @@ class articleedit extends articlebase {
 
         $this->handleRevisionActions();
         $this->handleDeleteAction();
-        $this->handleSaveAction();
+        
+        $res = false;
+        if (!$this->showRevision && $this->checkPageToken && !$this->article->isInEdit()) {
+            $res = $this->handleSaveAction();
+
+            if (!$res) {
+                $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');
+                return false;
+            }
+        }
+        
+        $added = $this->getRequestVar('added', [
+            \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+        ]);
+
+        if ($res || $added === 1) {
+            $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLE');
+            return true;
+        }
+
+        if ($added == 2) {
+            $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLE_APPROVAL');
+            return true;
+        }
+
         $this->handleCommentActions();
 
         if (!$this->revisionId) {
@@ -179,8 +203,8 @@ class articleedit extends articlebase {
             $this->view->addButton((new \fpcm\view\helper\linkButton('backToArticel'))->setUrl($this->article->getEditLink())->setText('EDITOR_BACKTOCURRENT')->setIcon('chevron-circle-left'), 2);
         } else {
             $this->view->addButtons([
-                (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($this->article)->setTarget('_blank')->setIconOnly(true)->setClass('fpcm-ui-editor-tab1'),
-                (new \fpcm\view\helper\linkButton('shortlink'))->setUrl($this->article->getArticleShortLink())->setText('EDITOR_ARTICLE_SHORTLINK')->setIcon('external-link')->setIconOnly(true)->setClass('fpcm-ui-editor-tab1'),
+                (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($this->article)->setTarget('_blank')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
+                (new \fpcm\view\helper\linkButton('shortlink'))->setUrl($this->article->getArticleShortLink())->setText('EDITOR_ARTICLE_SHORTLINK')->setIcon('external-link')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
             ]);
 
             if ($this->article->getImagepath()) {
@@ -189,9 +213,9 @@ class articleedit extends articlebase {
         }
         
         if ($this->permissions->check(['article' => 'revisions'])) {
-             $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setClass('fpcm-ui-editor-tab3 '.($this->showRevision ? '' : 'fpcm-ui-hidden')));
+             $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setClass('fpcm-ui-maintoolbarbuttons-tab3 '.($this->showRevision ? '' : 'fpcm-ui-hidden')));
             if (!$this->showRevision) {
-                $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-editor-tab3 fpcm-ui-hidden'));
+                $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden'));
                 
             }
         }
@@ -217,11 +241,11 @@ class articleedit extends articlebase {
             
             $this->view->addJsFiles(['comments.js']);
             if ($this->permissionsArray['canEditComments']) {
-                $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('pencil-square-o')->setClass('fpcm-ui-editor-tab2 fpcm-ui-hidden'));
+                $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('pencil-square-o')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden'));
             }
 
             if ($this->permissionsArray['canDelete']) {
-                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm-ui-button-confirm fpcm-ui-editor-tab2 fpcm-ui-hidden'));
+                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden'));
             }
 
             $this->initCommentMassEditForm();
@@ -230,7 +254,7 @@ class articleedit extends articlebase {
         $deletePermissions = $this->permissions->check(array('article' => 'delete'));
 
         if ($deletePermissions && !$this->getRequestVar('rev')) {
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-editor-tab1'));
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1'));
         }
 
         $this->view->assign('currentUserId', $this->session->getUserId());
@@ -256,7 +280,6 @@ class articleedit extends articlebase {
      */
     private function handleDeleteAction()
     {
-
         if (!$this->buttonClicked('articleDelete') || $this->showRevision || !$this->checkPageToken) {
             return true;
         }
@@ -278,139 +301,22 @@ class articleedit extends articlebase {
      * 
      * @return boolean
      */
-    private function handleSaveAction()
-    {
-        $res = false;
-
-        $allTimer = time();
-
-        if ($this->buttonClicked('articleSave') && !$this->showRevision && $this->checkPageToken && !$this->article->isInEdit()) {
-
-            $this->article->prepareRevision();
-
-            $data = $this->getRequestVar('article', [
-                \fpcm\classes\http::FPCM_REQFILTER_STRIPSLASHES,
-                \fpcm\classes\http::FPCM_REQFILTER_TRIM
-            ]);
-
-            $this->assignArticleFormData($data, $allTimer);
-
-            if (!$this->article->getTitle() || !$this->article->getContent()) {
-                $this->view->addErrorMessage('SAVE_FAILED_ARTICLE_EMPTY');
-                return true;
-            }
-
-            if (isset($data['tweettxt']) && $data['tweettxt']) {
-                $this->article->setTweetOverride($data['tweettxt']);
-            }
-
-            $this->article->setChangetime($allTimer);
-            $this->article->setChangeuser($this->session->getUserId());
-            $this->article->setMd5path($this->article->getArticleNicePath());
-            $this->article->prepareDataSave();
-
-            $saved = true;
-            $this->article->enableTweetCreation(isset($data['tweet']) ? true : false);
-            $res = $this->article->update();
-
-            if ($res) {
-                $this->article->createRevision();
-            }
-        }
-
-        if ($res || $this->getRequestVar('added') == 1) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLE');
-            return true;
-        }
-
-        if ($this->getRequestVar('added') == 2) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLE_APPROVAL');
-            return true;
-        }
-
-        if (isset($saved) && !$res) {
-            $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * 
-     * @param array $data
-     * @param int $allTimer
-     * @return boolean
-     */
-    private function assignArticleFormData(array $data, $allTimer)
-    {
-        $this->article->setTitle($data['title']);
-        $this->article->setContent($data['content']);
-
-        $cats = $this->categoryList->getCategoriesCurrentUser();
-
-        $categories = isset($data['categories']) ? array_map('intval', $data['categories']) : array(array_shift($cats)->getId());
-        $this->article->setCategories($categories);
-
-        if (isset($data['postponed']) && !isset($data['archived'])) {
-            $timer = strtotime($data['postponedate'] . ' ' . (int) $data['postponehour'] . ':' . (int) $data['postponeminute'] . ':00');
-
-            $postpone = 1;
-            if ($timer === false) {
-                $timer = $allTimer;
-                $postpone = 0;
-            }
-
-            $this->article->setPostponed($postpone);
-            $this->article->setCreatetime($timer);
-        } else {
-            if ($this->article->getPostponed() || ($this->article->getDraft() && !isset($data['draft']))) {
-                $this->article->setCreatetime($allTimer);
-            }
-
-            $this->article->setPostponed(0);
-        }
-
-        $this->article->setPinned(isset($data['pinned']) ? 1 : 0);
-        $this->article->setDraft(isset($data['draft']) ? 1 : 0);
-        $this->article->setComments(isset($data['comments']) ? 1 : 0);
-        $this->article->setApproval($this->permissions->check(array('article' => 'approve')) ? 1 : 0);
-        $this->article->setImagepath(isset($data['imagepath']) ? $data['imagepath'] : '');
-        $this->article->setSources(isset($data['sources']) ? $data['sources'] : '');
-
-        if (isset($data['archived'])) {
-            $this->article->setArchived(1);
-            $this->article->setPinned(0);
-            $this->article->setDraft(0);
-        } else {
-            $this->article->setArchived(0);
-        }
-
-        if (isset($data['author']) && trim($data['author'])) {
-            $this->article->setCreateuser($data['author']);
-        }
-
-        return true;
-    }
-
-    /**
-     * 
-     * @return boolean
-     */
     private function handleRevisionActions()
     {
         if ($this->getRequestVar('revrestore')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLEREVRESTORE');
         }
 
-        $revisionIdsArray = !is_null($this->getRequestVar('revisionIds')) ? array_map('intval', $this->getRequestVar('revisionIds')) : false;
+        $revisionIdsArray = $this->getRequestVar('revisionIds', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
 
-        if ($this->buttonClicked('revisionDelete') && $revisionIdsArray && !$this->showRevision && $this->checkPageToken) {
+        if ($this->buttonClicked('revisionDelete') && is_array($revisionIdsArray) && !$this->showRevision && $this->checkPageToken) {
             if ($this->article->deleteRevisions($revisionIdsArray)) {
                 $this->view->addNoticeMessage('DELETE_SUCCESS_REVISIONS');
             } else {
                 $this->view->addErrorMessage('DELETE_FAILED_REVISIONS');
             }
+            
+            return true;
         }
 
         $this->revisionId = !is_null($this->getRequestVar('rev')) ? (int) $this->getRequestVar('rev') : (is_array($revisionIdsArray) ? array_shift($revisionIdsArray) : false);

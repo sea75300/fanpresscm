@@ -102,12 +102,7 @@
                 $this->config->setUserSettings();
             }
 
-            $rollId                 = 0;
-            if ($this->session->exists()) {
-                $rollId = $this->session->currentUser->getRoll();
-            }
-
-            $this->permissions      = new \fpcm\model\system\permissions($rollId);
+            $this->permissions  = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
         }
         
         /**

@@ -60,6 +60,15 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         return 'articles_editor';
     }
 
+    protected function initObject()
+    {
+        $id = $this->getRequestVar('articleid',[
+            \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+        ]);
+        
+        $this->article  = new \fpcm\model\articles\article($id);
+    }
+
     public function process()
     {
         $this->editorPlugin = $this->getEditorPlugin();
@@ -122,11 +131,118 @@ class articlebase extends \fpcm\controller\abstracts\controller {
 
         if (!$this->getRequestVar('rev')) {            
             $this->view->addButtons([
-                (new \fpcm\view\helper\button('editorextended', 'editorextended'))->setText('GLOBAL_EXTENDED')->setIcon('bars')->setClass('fpcm-ui-editor-tab1'),
-                (new \fpcm\view\helper\saveButton('articleSave'))->setClass('fpcm-ui-editor-tab1')
+                (new \fpcm\view\helper\button('editorextended', 'editorextended'))->setText('GLOBAL_EXTENDED')->setIcon('bars')->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
+                (new \fpcm\view\helper\saveButton('articleSave'))->setClass('fpcm-ui-maintoolbarbuttons-tab1')
             ]);
         }
+
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    protected function handleSaveAction()
+    {
+        $res = false;
+
+        $allTimer = time();
+
+        if (!$this->buttonClicked('articleSave')) {
+            return false;
+        }
         
+        if ($this->article->getId()) {
+            $this->article->prepareRevision();
+        }
+        
+        $data = $this->getRequestVar('article', [
+            \fpcm\classes\http::FPCM_REQFILTER_STRIPSLASHES,
+            \fpcm\classes\http::FPCM_REQFILTER_TRIM
+        ]);
+
+        $this->assignArticleFormData($data, $allTimer);
+
+        if (!$this->article->getTitle() || !$this->article->getContent()) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLE_EMPTY');
+            return false;
+        }
+
+        if (isset($data['tweettxt']) && $data['tweettxt']) {
+            $this->article->setTweetOverride($data['tweettxt']);
+        }
+
+        $this->article->setChangetime($allTimer);
+        $this->article->setChangeuser($this->session->getUserId());
+        $this->article->setMd5path($this->article->getArticleNicePath());
+        $this->article->prepareDataSave();
+
+        $this->article->enableTweetCreation(isset($data['tweet']) ? true : false);
+        $res    = $this->article->getId()
+                ? $this->article->update()
+                : $this->article->save();
+
+        if ($res && $this->article->getId()) {
+            $this->article->createRevision();
+        }
+
+        return $res;
+    }
+
+    /**
+     * 
+     * @param array $data
+     * @param int $allTimer
+     * @return boolean
+     */
+    private function assignArticleFormData(array $data, $allTimer)
+    {
+        $this->article->setTitle($data['title']);
+        $this->article->setContent($data['content']);
+
+        $cats = $this->categoryList->getCategoriesCurrentUser();
+
+        $categories = isset($data['categories']) ? array_map('intval', $data['categories']) : array(array_shift($cats)->getId());
+        $this->article->setCategories($categories);
+
+        if (isset($data['postponed']) && !isset($data['archived'])) {
+            $timer = strtotime($data['postponedate'] . ' ' . (int) $data['postponehour'] . ':' . (int) $data['postponeminute'] . ':00');
+
+            $postpone = 1;
+            if ($timer === false) {
+                $timer = $allTimer;
+                $postpone = 0;
+            }
+
+            $this->article->setPostponed($postpone);
+            $this->article->setCreatetime($timer);
+        } else {
+            if ($this->article->getPostponed() || ($this->article->getDraft() && !isset($data['draft']))) {
+                $this->article->setCreatetime($allTimer);
+            }
+
+            $this->article->setPostponed(0);
+        }
+
+        $this->article->setPinned(isset($data['pinned']) ? 1 : 0);
+        $this->article->setDraft(isset($data['draft']) ? 1 : 0);
+        $this->article->setComments(isset($data['comments']) ? 1 : 0);
+        $this->article->setApproval($this->permissions->check(array('article' => 'approve')) ? 1 : 0);
+        $this->article->setImagepath(isset($data['imagepath']) ? $data['imagepath'] : '');
+        $this->article->setSources(isset($data['sources']) ? $data['sources'] : '');
+
+        if (isset($data['archived'])) {
+            $this->article->setArchived(1);
+            $this->article->setPinned(0);
+            $this->article->setDraft(0);
+        } else {
+            $this->article->setArchived(0);
+        }
+
+        if (isset($data['author']) && trim($data['author'])) {
+            $this->article->setCreateuser($data['author']);
+        }
 
         return true;
     }

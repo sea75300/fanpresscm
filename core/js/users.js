@@ -64,16 +64,7 @@ fpcm.users = {
         });
         
         fpcm.ui.tabs('#fpcm-ui-tabs-users', {
-            beforeActivate: function( event, ui ) {
-                
-                var hideButtons = jQuery(ui.oldTab).attr('data-toolbar-buttons');
-                var showButtons = jQuery(ui.newTab).attr('data-toolbar-buttons');
-
-                fpcm.ui.mainToolbar.find('.fpcm-ui-userlist-tab'+ hideButtons).addClass('fpcm-ui-hidden');
-                fpcm.ui.mainToolbar.find('.fpcm-ui-userlist-tab'+ showButtons).removeClass('fpcm-ui-hidden');
-                
-                fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-            }
+            addMainToobarToggle: true
         });
 
     },

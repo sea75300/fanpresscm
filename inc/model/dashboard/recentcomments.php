@@ -63,7 +63,7 @@
             
             parent::__construct();
 
-            $this->permissions  = new \fpcm\model\system\permissions($session->currentUser->getRoll());
+            $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
             
             if ($this->cache->isExpired($this->cacheName)) {
                 $this->renderContent();                

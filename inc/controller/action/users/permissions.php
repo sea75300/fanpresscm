@@ -46,7 +46,7 @@ namespace fpcm\controller\action\users;
             $roll = new \fpcm\model\users\userRoll($rollId);
             $this->view->assign('rollname', $this->lang->translate($roll->getRollName()));
 
-            $this->permissionObj = new \fpcm\model\system\permissions($rollId);
+            $this->permissionObj = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions', $rollId, false);
             
             $checkPageToken = $this->checkPageToken();
             if ($this->buttonClicked('permissionsSave') && !$checkPageToken) {

@@ -42,7 +42,7 @@ fpcm.system = {
     
     showSessionCheckDialog: function () {
         
-        window.fpcmSessionCheckEnabled = false;
+        fpcm.vars.jsvars.sessionCheck = false;
 
         fpcm.ui.dialog({
             content: fpcm.ui.translate('SESSION_TIMEOUT'),
@@ -59,7 +59,7 @@ fpcm.system = {
                     text: fpcm.ui.translate('GLOBAL_NO'),
                     icon: "ui-icon-closethick",
                     click: function() {
-                        fpcmSessionCheckEnabled = true;
+                        fpcm.vars.jsvars.sessionCheck = true;
                         jQuery(this).dialog('close');
                     }
                 }
@@ -70,7 +70,7 @@ fpcm.system = {
     
     checkSession: function() {
         
-        if (!window.fpcmSessionCheckEnabled) {
+        if (!fpcm.vars.jsvars.sessionCheck) {
             return false;
         }
 
@@ -88,11 +88,12 @@ fpcm.system = {
     },
     
     runCronsAsync: function() {
-        if (window.fpcmCronAsyncDiabled) {
+
+        if (fpcm.vars.jsvars.cronAsyncDiabled) {
             return false;
         }
         
-//        fpcm.ajax.get('cronasync');
+        fpcm.ajax.get('cronasync');
     },
     
     runMinuteIntervals: function() {

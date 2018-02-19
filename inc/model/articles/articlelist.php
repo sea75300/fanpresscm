@@ -33,7 +33,8 @@
             $this->table = \fpcm\classes\database::tableArticles;
             
             if (is_object(\fpcm\classes\loader::getObject('\fpcm\model\system\session')) && \fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
-                $this->permissions = new \fpcm\model\system\permissions(\fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getRoll());
+                $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
+                
             }
 
             parent::__construct();

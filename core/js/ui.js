@@ -250,6 +250,23 @@ fpcm.ui = {
         if (params === undefined) params = {};
         var el = jQuery(elemClassId);
         
+        if (!el.length) {
+            return;
+        }
+        
+        if (params.addMainToobarToggle) {
+            params.beforeActivate = function( event, ui ) {
+                
+                var hideButtons = jQuery(ui.oldTab).attr('data-toolbar-buttons');
+                var showButtons = jQuery(ui.newTab).attr('data-toolbar-buttons');
+
+                fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ hideButtons).addClass('fpcm-ui-hidden');
+                fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ showButtons).removeClass('fpcm-ui-hidden');
+                
+                fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
+            }            
+        }
+        
         el.tabs(params);
         
         if (params.addTabScroll) {

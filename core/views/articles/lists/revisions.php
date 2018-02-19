@@ -11,7 +11,7 @@
     <tr class="fpcm-td-spacer"><td></td></tr>
     <?php foreach($revisions AS $revisionTime => $revisionTitle) : ?>
         <tr>
-            <td class="fpcm-ui-articlelist-open"><?php \fpcm\view\helper::linkButton($article->getEditLink().'&rev='.$revisionTime, 'EDITOR_STATUS_REVISION_SHOW', '', 'fpcm-ui-button-blank fpcm-openlink-btn'); ?></td>
+            <td class="fpcm-ui-articlelist-open"><?php $theView->linkButton('rev'.$revisionTime)->setUrl($article->getEditLink().'&rev='.$revisionTime)->setText('EDITOR_STATUS_REVISION_SHOW')->setIcon('play')->setIconOnly(true); ?></td>
             <td class="fpcm-ui-ellipsis"><strong><?php print $theView->escape(strip_tags($revisionTitle)); ?></strong></td>
             <td class="fpcm-ui-revision-time"><?php $theView->dateText($revisionTime); ?></td>
             <td class="fpcm-td-select-row"><?php $theView->checkbox('revisionIds[]', 'chbx'.$revisionTime)->setValue($revisionTime)->setClass('fpcm-list-selectboxrevisions'); ?></td>
