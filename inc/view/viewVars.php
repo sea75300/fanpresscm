@@ -48,6 +48,7 @@
      * @method helper\editButton    editButton(string $name [, string $id])
      * @method helper\escape        escape(mixed $value [, int $mode])
      * @method helper\hiddenInput   hiddenInput(string $name [, string $id])
+     * @method helper\icon          icon(string $icon)
      * @method helper\input         input(string $name [, string $id])
      * @method helper\linkButton    linkButton(string $name [, string $id])
      * @method helper\openButton    openButton(string $name [, string $id])

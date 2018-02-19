@@ -34,12 +34,6 @@ class articleedit extends articlebase {
 
     /**
      *
-     * @var bool
-     */
-    protected $checkPageToken = true;
-
-    /**
-     *
      * @var \fpcm\model\articles\article
      */
     protected $revisionArticle = null;
@@ -49,15 +43,6 @@ class articleedit extends articlebase {
      * @var int
      */
     protected $revisionId = 0;
-
-    /**
-     * see \fpcm\controller\abstracts\controller::getViewPath
-     * @return string
-     */
-    protected function getViewPath()
-    {
-        return 'articles/articleedit';
-    }
 
     protected function getPermissions()
     {
@@ -75,15 +60,13 @@ class articleedit extends articlebase {
      */
     public function request()
     {
-
-        $this->userList     = new \fpcm\model\users\userList();
-        $this->commentList  = new \fpcm\model\comments\commentList();
-
         if (is_null($this->getRequestVar('articleid'))) {
             $this->redirect('articles/list');
         }
 
-        $this->initObject();
+        if (!parent::request()) {
+            return false;
+        }
 
         if (!$this->article->exists()) {
             $this->view = new \fpcm\view\error('LOAD_FAILED_ARTICLE', 'articles/listall');
@@ -95,11 +78,11 @@ class articleedit extends articlebase {
             $this->view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
             return false;
         }
+        
+        $this->userList     = new \fpcm\model\users\userList();
+        $this->commentList  = new \fpcm\model\comments\commentList();
 
-        $this->checkPageToken = $this->checkPageToken();
         if ($this->buttonClicked('doAction') && !$this->checkPageToken) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-
             $data = $this->getRequestVar('article', [
                 \fpcm\classes\http::FPCM_REQFILTER_STRIPSLASHES,
                 \fpcm\classes\http::FPCM_REQFILTER_TRIM
@@ -113,7 +96,7 @@ class articleedit extends articlebase {
         
         $res = false;
         if (!$this->showRevision && $this->checkPageToken && !$this->article->isInEdit()) {
-            $res = $this->handleSaveAction();
+            $res = $this->saveArticle();
 
             if (!$res) {
                 $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');
@@ -125,7 +108,7 @@ class articleedit extends articlebase {
             \fpcm\classes\http::FPCM_REQFILTER_CASTINT
         ]);
 
-        if ($res || $added === 1) {
+        if ($res > 0 || $added === 1) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLE');
             return true;
         }

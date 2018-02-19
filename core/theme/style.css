@@ -1156,11 +1156,11 @@ table.fpcm-ui-articles tr td.fpcm-ui-dashboard-recentarticles-meta {
     font-size: 1.1em;
 }
 
-.fpcm-ui-editor-metabox-right .fpcm-ui-status-0 {
+.fpcm-ui-status-0 {
     opacity: 0.2;
 }
 
-.fpcm-ui-editor-metabox-right .fpcm-ui-status-1 {
+.fpcm-ui-status-1 {
     opacity: 1.0;
 }
 

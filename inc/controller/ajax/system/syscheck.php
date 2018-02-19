@@ -53,9 +53,6 @@
          */
         public function request()
         {
-            if (!\fpcm\classes\baseconfig::installerEnabled() && \fpcm\classes\baseconfig::dbConfigExists() && !$this->session->exists()) {
-                return false;
-            }
 
             if ($this->getRequestVar('sendstats')) {
                 $this->submitStatsData();
@@ -65,8 +62,24 @@
             return true;
         }
 
-        
         /**
+     * @see \fpcm\controller\abstracts\controller::hasAccess()
+     * @return boolean
+     */
+    public function hasAccess()
+    {
+        if (!\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
+            return true;
+        }
+        
+        if (\fpcm\classes\baseconfig::dbConfigExists() && $this->session->exists() && $this->permissions->check(['system' => 'options'])) {
+            return true;
+        }
+        
+        return false;
+    }
+
+    /**
          * Controller-Processing
          */
         public function process()
@@ -83,7 +96,11 @@
         {
             return $this->events->runEvent('runSystemCheck', $this->getCheckOptionsSystem());
         }
-        
+
+        /**
+         * 
+         * @return boolean
+         */
         private function submitStatsData()
         {
 
@@ -117,6 +134,8 @@
             
             $email = new \fpcm\classes\email('sea75300@yahoo.de', 'FanPress CM Stats', $text);
             $email->submit();
+            
+            return true;
         }
 
         public function processCli()

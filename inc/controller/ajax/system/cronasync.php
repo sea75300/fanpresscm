@@ -32,6 +32,15 @@ class cronasync extends \fpcm\controller\abstracts\ajaxController {
     }
 
     /**
+     * @see \fpcm\controller\abstracts\controller::hasAccess()
+     * @return boolean
+     */
+    public function hasAccess()
+    {
+        return true;
+    }
+    
+    /**
      * Controller-Processing
      */
     public function process()

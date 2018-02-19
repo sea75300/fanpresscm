@@ -355,7 +355,13 @@ fpcm.ui = {
             params = {};
         }
 
-        return jQuery(elemClassId).controlgroup(params);
+        var el = jQuery(elemClassId);
+        
+        if (!el.length) {
+            return false;
+        }
+
+        return el.controlgroup(params);
 
     },
     

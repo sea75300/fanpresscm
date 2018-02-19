@@ -217,7 +217,7 @@
             $this->view->setFormAction('system/options');
             $this->view->addButtons([
                 (new \fpcm\view\helper\saveButton('configSave')),
-                (new \fpcm\view\helper\button('fpcmsyschecksubmitstats'))->setText('SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS')->setClass('fpcm-ui-hidden'),
+                (new \fpcm\view\helper\button('syschecksubmitstats', 'syschecksubmitstats'))->setText('SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS')->setClass('fpcm-ui-hidden')->setIcon('line-chart'),
             ]);
             
             $this->view->render();            

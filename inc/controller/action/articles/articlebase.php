@@ -60,13 +60,34 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         return 'articles_editor';
     }
 
+    /**
+     * see \fpcm\controller\abstracts\controller::getViewPath
+     * @return string
+     */
+    protected function getViewPath()
+    {
+        return 'articles/editor';
+    }
+
     protected function initObject()
     {
-        $id = $this->getRequestVar('articleid',[
+        $id = $this->getRequestVar('articleid', [
             \fpcm\classes\http::FPCM_REQFILTER_CASTINT
         ]);
-        
-        $this->article  = new \fpcm\model\articles\article($id);
+
+        $this->article = new \fpcm\model\articles\article($id);
+    }
+
+    public function request()
+    {
+        $this->initObject();
+
+        if ($this->buttonClicked('doAction') && !$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return false;
+        }
+
+        return true;
     }
 
     public function process()
@@ -118,7 +139,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->view->assign('twitterReplacements', $twitterReplacements);
         $this->view->assign('showTwitter', $twitterOk);
 
-        $this->jsVars = $this->editorPlugin->getJsVars();
+        $this->jsVars  = $this->editorPlugin->getJsVars();
         $this->jsVars += array(
             'filemanagerUrl' => \fpcm\classes\tools::getFullControllerLink('files/list', [
                 'mode' => ''
@@ -129,9 +150,9 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->view->addJsLangVars(array_merge(['HL_FILES_MNG'], $this->editorPlugin->getJsLangVars()));
         $this->view->addJsVars($this->jsVars);
 
-        if (!$this->getRequestVar('rev')) {            
+        if (!$this->getRequestVar('rev')) {
             $this->view->addButtons([
-                (new \fpcm\view\helper\button('editorextended', 'editorextended'))->setText('GLOBAL_EXTENDED')->setIcon('bars')->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
+                (new \fpcm\view\helper\button('editorextended', 'editorextended'))->setText('GLOBAL_EXTENDED')->setIcon('bars')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
                 (new \fpcm\view\helper\saveButton('articleSave'))->setClass('fpcm-ui-maintoolbarbuttons-tab1')
             ]);
         }
@@ -143,20 +164,20 @@ class articlebase extends \fpcm\controller\abstracts\controller {
      * 
      * @return boolean
      */
-    protected function handleSaveAction()
+    protected function saveArticle()
     {
         $res = false;
 
         $allTimer = time();
 
         if (!$this->buttonClicked('articleSave')) {
-            return false;
+            return -1;
         }
-        
+
         if ($this->article->getId()) {
             $this->article->prepareRevision();
         }
-        
+
         $data = $this->getRequestVar('article', [
             \fpcm\classes\http::FPCM_REQFILTER_STRIPSLASHES,
             \fpcm\classes\http::FPCM_REQFILTER_TRIM
@@ -179,9 +200,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->article->prepareDataSave();
 
         $this->article->enableTweetCreation(isset($data['tweet']) ? true : false);
-        $res    = $this->article->getId()
-                ? $this->article->update()
-                : $this->article->save();
+        $res = $this->article->getId() ? $this->article->update() : $this->article->save();
 
         if ($res && $this->article->getId()) {
             $this->article->createRevision();

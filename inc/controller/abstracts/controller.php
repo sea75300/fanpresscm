@@ -110,6 +110,12 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected $view;
 
     /**
+     *
+     * @var bool
+     */
+    protected $checkPageToken = true;
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -255,18 +261,19 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected function checkPageToken()
     {
         if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
-            return false;
+            $this->checkPageToken = false;
+            return $this->checkPageToken;
         }
 
         $fieldname = \fpcm\classes\security::pageTokenCacheModule . '/' . \fpcm\classes\security::getPageTokenFieldName();
         $tokenData = \fpcm\classes\loader::getObject('\fpcm\classes\crypt')->decrypt($this->cache->read($fieldname));
         $this->cache->cleanup($fieldname);
 
-        if (\fpcm\classes\http::getPageToken() == $tokenData) {
-            return true;
-        }
+        $this->checkPageToken = (\fpcm\classes\http::getPageToken() == $tokenData ? true :false);
+        
+        fpcmDump(__METHOD__, $this->checkPageToken);
 
-        return false;
+        return $this->checkPageToken;
     }
 
     /**

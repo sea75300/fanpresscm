@@ -17,13 +17,15 @@ fpcm.options = {
             activate : function(event, ui) {
 
                 if (jQuery(ui.newTab).attr('id') === 'tabs-options-syscheck') {
-                    jQuery('#fpcmsyschecksubmitstats').show();
+                    jQuery('#syschecksubmitstats').show();
                     jQuery('#btnConfigSave').hide();
                     return false;
                 }
 
                 jQuery('#btnConfigSave').show();
-                jQuery('#fpcmsyschecksubmitstats').hide();
+                jQuery('#syschecksubmitstats').hide();
+                
+                fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
             },
             addTabScroll: true
         });
