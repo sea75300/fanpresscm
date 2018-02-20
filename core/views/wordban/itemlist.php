@@ -40,7 +40,7 @@
                             </span>
                         </div>
                     </td>
-                    <td class="fpcm-td-select-row"><?php fpcm\view\helper::checkbox('ids[]', 'fpcm-list-selectbox', $item->getId(), '', '', false); ?></td>
+                    <td class="fpcm-td-select-row"><?php fpcm\view\helper::checkbox('ids[]', 'fpcm-ui-list-checkbox', $item->getId(), '', '', false); ?></td>
                 </tr>      
                 <?php endforeach; ?>
             </table>

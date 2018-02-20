@@ -30,7 +30,7 @@
             $this->articleItems     = $this->articleList->getArticlesDeleted(true);
 
             if ($this->deleteActions) {
-                $this->view->addButton((new \fpcm\view\helper\deleteButton('trash'))->setText('ARTICLE_LIST_EMPTYTRASH')->setClass('fpcm-ui-hidden'));
+                $this->view->addButton((new \fpcm\view\helper\deleteButton('trash'))->setText('ARTICLE_LIST_EMPTYTRASH')->setClass('fpcm-ui-hidden fpcm-ui-button-confirm'));
             }
             
             $this->view->setFormAction('articles/trash');

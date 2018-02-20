@@ -128,7 +128,6 @@ fpcm.comments = {
                 fpcm.ui.initJqUiWidgets();
                 fpcm.comments.initCommentSearch();
                 fpcm.comments.assignActions();
-                fpcm.ui.assignSelectmenu();
                 fpcm.ui.resize();
             }
         });

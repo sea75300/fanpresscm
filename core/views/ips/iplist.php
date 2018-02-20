@@ -44,7 +44,7 @@
                             </div>
                         </td>
                         <td class="fpcm-td-select-row fpcm-filelist-checkboxes">
-                            <?php fpcm\view\helper::checkbox('ipids[]', 'fpcm-list-selectbox', $value->getId(), '', '', false); ?>        
+                            <?php fpcm\view\helper::checkbox('ipids[]', 'fpcm-ui-list-checkbox', $value->getId(), '', '', false); ?>        
                         </td>
                     </tr>
                     <?php endforeach; ?>

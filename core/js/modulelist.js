@@ -79,7 +79,7 @@ fpcm.modulelist = {
                     text: fpcm.ui.translate('GLOBAL_YES'),
                     icon: "ui-icon-check",                    
                     click: function() {
-                        var moduleKeys = fpcm.ui.getCheckboxCheckedValues('.fpcm-list-selectbox');
+                        var moduleKeys = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
                         if (moduleKeys.length == 0 || !jQuery('#moduleActions').val()) {
                             fpcm.ui.showLoader(false);
                             fpcm.ui.addMessage({
@@ -108,7 +108,7 @@ fpcm.modulelist = {
                         jQuery(this).addClass('fpcm-noloader');
                         jQuery('#moduleActions option:selected').prop('selected', false);
                         jQuery('#moduleActions').selectmenu('refresh');
-                        jQuery('.fpcm-list-selectbox:checked').prop('checked', false);
+                        jQuery('.fpcm-ui-list-checkbox:checked').prop('checked', false);
                         jQuery(this).dialog('close');
                         fpcm.ui.showLoader(false);
                     }

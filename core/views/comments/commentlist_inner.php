@@ -23,9 +23,9 @@
         <td class="fpcm-td-commentlist-meta"><?php include $theView->getIncludePath('comments/metainfo.php'); ?></td>
         <td class="fpcm-td-select-row">
         <?php if ($comment->getEditPermission()) : ?>
-            <?php fpcm\view\helper::checkbox('ids[]', 'fpcm-list-selectbox', $comment->getId(), '', 'chbx'.$comment->getId(), false); ?>
+            <?php fpcm\view\helper::checkbox('ids[]', 'fpcm-ui-list-checkbox', $comment->getId(), '', 'chbx'.$comment->getId(), false); ?>
         <?php else : ?>
-            <?php fpcm\view\helper::checkbox('ids[ro]', 'fpcm-list-selectbox', '', '', 'chbx'.$comment->getId(), false, true); ?>
+            <?php fpcm\view\helper::checkbox('ids[ro]', 'fpcm-ui-list-checkbox', '', '', 'chbx'.$comment->getId(), false, true); ?>
         <?php endif; ?>            
         </td>
     </tr>      

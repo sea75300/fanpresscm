@@ -76,43 +76,23 @@ fpcm.editor = {
             }
         });
 
-        jQuery('.fpcm-editor-htmlclick').click(function() {        
-            var tag = jQuery(this).attr('htmltag');
-            fpcm.editor.insert('<' + tag + '>', '</' + tag + '>');
-            return false;
-        });
+        jQuery('.fpcm-editor-html-click').click(function() {
+            
+            var el      = jQuery(this);
+            var tag     = el.attr('data-htmltag');
+            var action  = el.attr('data-action');
 
-        jQuery('.fpcm-editor-htmlsymbol').click(function() {
-            fpcm.editor.insert(jQuery(this).attr('symbolcode'), '');
-            return false;
-        });
-
-        jQuery('.fpcm-editor-alignclick').click(function() {
-            var tag = jQuery(this).attr('htmltag');
-            fpcm.editor.insertAlignTags(tag);
-            return false;
-        });
-
-        jQuery('#fpcm-editor-html-insertiframe-btn').click(function() {
-            fpcm.editor.insertFrame();
-            return false;
-        });
-
-        jQuery('#fpcm-editor-html-insertmore-btn').click(function() {
-            fpcm.editor.insertMoreArea();
-            return false;
-        });
-
-        jQuery('#fpcm-editor-html-removetags-btn').click(function() {
-            fpcm.ajax.post('editor/cleartags', {
-                data: {
-                    text: editor.doc.getValue()
-                },
-                execDone: function () {
-                    window.editor.doc.setValue(fpcm.ajax.getResult('editor/cleartags'));
-                }
-            });
-
+            if (tag && !action) {
+                fpcm.editor.insert('<' + tag + '>', '</' + tag + '>');
+            }
+            else if (action && tag) {
+                fpcm.editor[action].call(this, tag);
+            }
+            else if (action) {
+                fpcm.editor[action].call();
+            }
+                
+            
             return false;
         });
 
@@ -164,16 +144,10 @@ fpcm.editor = {
             minDate: "-0d"
         });   
 
-        jQuery('.fp-ui-button-restore').click(function() {
-            if(!confirm(fpNewsListActionConfirmMsg)) {
-                fpcm.ui.showLoader(true);
-                return false;
-            }        
-        });
-
-        jQuery(window).click(function() {
-            jQuery('.fpcm-editor-select').fadeOut();
-        });
+//
+//        jQuery(window).click(function() {
+//            jQuery('.fpcm-editor-select').fadeOut();
+//        });
 
         jQuery('#shortlink').click(function () {
             var text = jQuery(this).text();
@@ -228,7 +202,6 @@ fpcm.editor = {
                 fpcm.editor.initCommentListActions();
                 fpcm.ui.resize();
                 fpcm.ui.initJqUiWidgets();
-                fpcm.ui.assignSelectmenu();
                 fpcm.ui.showLoader(false);
             },
             addMainToobarToggle: true,
@@ -258,122 +231,25 @@ fpcm.editor = {
     
     insert: function(aTag, eTag) {    
 
-        if(editor.doc.somethingSelected()) {
-            editor.doc.replaceSelection(aTag + editor.doc.getSelection() + eTag);
+        if(fpcm.editor.cmInstance.doc.somethingSelected()) {
+            fpcm.editor.cmInstance.doc.replaceSelection(aTag + fpcm.editor.cmInstance.doc.getSelection() + eTag);
         }
         else {
-            var cursorPos       = editor.doc.getCursor();
-            editor.doc.replaceRange(aTag + '' + eTag, cursorPos, cursorPos);        
+            var cursorPos       = fpcm.editor.cmInstance.doc.getCursor();
+            fpcm.editor.cmInstance.doc.replaceRange(aTag + '' + eTag, cursorPos, cursorPos);        
 
             if(eTag != '') {
                 cursorPos.ch = (eTag.length > cursorPos.ch)
                              ? cursorPos.ch + aTag.length
                              : cursorPos.ch - eTag.length;
 
-                editor.doc.setCursor(cursorPos);            
+                fpcm.editor.cmInstance.doc.setCursor(cursorPos);            
             }
 
-            editor.focus();
+            fpcm.editor.cmInstance.focus();
         }
 
         return false;  
-    },
-    
-    clearPathTextValuesLink: function() {      
-        jQuery('#linksurl').val('http://');
-        jQuery('#linkstext').val('');
-        jQuery('#linkstarget').val('');
-        jQuery('#linkscss').val('');
-        fileOpenMode = 0;
-    },
-
-    clearPathTextValuesImg: function() {
-        jQuery('#imagespath').val('http://');
-        jQuery('#imagesalign').val('');
-        jQuery('#imagesalt').val('');
-        jQuery('#imagescss').val('');
-        fileOpenMode = 0;
-    },
-
-    clearTableForm: function() {
-        jQuery('#tablerows').val('1');
-        jQuery('#tablecols').val('1');
-    },
-
-    clearListForm: function() {
-        jQuery('#listrows').val('1');
-    },
-    
-    insertLink: function() {
-        var lnk_url = jQuery('#linksurl').val();
-        var lnk_txt = jQuery('#linkstext').val();
-        var lnk_tgt = jQuery('#linkstarget').val();
-
-        if(jQuery('#linkscss') != null) {
-            var lnk_css = jQuery('#linkscss').value;
-        }
-
-        if (lnk_tgt != "") {
-            aTag = '<a href=\"' + lnk_url + '"\ target=\"' + lnk_tgt + '\"';
-            if(lnk_css) { aTag = aTag + ' class=\"'+ lnk_css +'\"'; }
-            aTag = aTag + '>' + lnk_txt ;
-        }
-        else {
-            aTag = '<a href=\"' + lnk_url + '\"';
-            if(lnk_css) { aTag = aTag + ' class=\"'+ lnk_css +'\"'; }
-            aTag = aTag + '>' + lnk_txt ;
-        }
-
-        fpcm.editor.insert(aTag, '</a>');
-    },
-
-    insertTable: function() {
-        var tablerows = jQuery('#tablerows').val();
-        var tablecols = jQuery('#tablecols').val();
-        var aTag = '<table>\n'
-
-        for (i=0;i<tablerows;i++) {        
-            aTag += '<tr>\n';        
-            for (x=0;x<tablecols;x++) { aTag += '<td></td>\n'; }        
-            aTag += '</tr>\n';        
-        }
-        fpcm.editor.insert(aTag + '</table>', '');  
-    },
-
-    insertPicture: function() {
-        var pic_path = jQuery('#imagespath').val();
-        var pic_align = jQuery('#imagesalign').val();
-        var pic_atxt = jQuery('#imagesalt').val();
-
-        if(jQuery('#imagescss') != null) {
-            var pic_css = jQuery('#imagescss').value;
-        }
-
-        if (pic_align == "right" || pic_align == "left") {
-            aTag = '<img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\" style=\"float:' + pic_align + ';margin:3px;\"';
-            if(pic_css) { aTag = aTag + ' class=\"'+ pic_css +'\"'; }
-            fpcm.editor.insert(aTag + '/>', ' ');
-        } else if (pic_align == "center") {
-            aTag = '<div style=\"text-align:' + pic_align + ';\"><img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\"';
-            if(pic_css) { aTag = aTag + ' class=\"'+ pic_css +'\"'; }
-            fpcm.editor.insert(aTag + '/></div>', ' ');
-        } else {
-            aTag = '<img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\"';
-            if(pic_css) { aTag = aTag + ' class=\"'+ pic_css +'\"'; }
-            fpcm.editor.insert(aTag + ' />', ' ');
-        }
-    },
-    
-    insertListToFrom: function(listtype) {
-
-        var tablerows = jQuery('#listrows').val();
-
-        aTag = '<' + listtype + '>\n';
-        for (i=0;i<tablerows;i++) {
-            aTag += '<li></li>\n';
-        }
-
-        fpcm.editor.insert(aTag, '</' + listtype + '>');
     },
 
     insertFontsize: function(fs) {
@@ -384,34 +260,6 @@ fpcm.editor = {
     insertAlignTags: function(aligndes) {
         aTag = '<p style=\"text-align:' + aligndes + ';\">';
         fpcm.editor.insert(aTag, '</p>');
-    },
-
-    insertMoreArea: function() {
-        fpcm.editor.insert('<readmore>', '</readmore>');
-    },
-    
-    insertSmilies: function(smiliecode) {
-        fpcm.editor.insert(' ' + smiliecode + ' ', '');
-    },
-    
-    insertColor: function(color, mode) {    
-        mode    = (mode === undefined) ? 'color' : mode;
-        color   = (color == '') ? '#000000' : color;    
-        fpcm.editor.insert('<span style="' + mode + ':' + color + ';">', '</span>');
-
-        jQuery('#fpcmdialogeditorhtmlcolorhexcode').val('');
-        jQuery('.color_mode:checked').removeAttr('checked');    
-        jQuery('#color_mode1').prop( "checked", true );
-    },
-    
-    insertPlayer: function(url, tagName) {
-        aTag  = '<' + tagName + '>';
-        aTag += '<source src="' + url + '">';        
-        self.insert(aTag, '</' + tagName + '>');
-        
-        jQuery('#mediapath').val('');
-        jQuery('.fpcm-editor-mediatype').removeAttr('checked');    
-        jQuery('#mediatype_a').prop( "checked", true );        
     },
     
     insertFrame: function(url, params, returnOnly) {
@@ -517,24 +365,11 @@ fpcm.editor = {
     
     initCodeMirrorAutosave: function() {
 
-        var autoSaveStorage = localStorage.getItem(fpcm.vars.jsvars.editorConfig.autosavePref);
-        var isDisabled = (autoSaveStorage === null ? true : false);
-        
-        fpcm.ui.button('#fpcm-editor-html-restoredraft-btn',
-        {
-            disabled: isDisabled
-        },
-        function () {
+        fpcm.vars.jsvars.autoSaveStorage = localStorage.getItem(fpcm.vars.jsvars.editorConfig.autosavePref);
 
-            var autoSaveStorage = localStorage.getItem(fpcm.vars.jsvars.editorConfig.autosavePref);
-            editor.setValue(autoSaveStorage);
-
-            return false;
-        });
-        
         setInterval(function() {
 
-            var editorValue = editor.getValue();
+            var editorValue = fpcm.editor.cmInstance.getValue();
             if (!editorValue) {
                 return false;
             }
@@ -544,7 +379,7 @@ fpcm.editor = {
             }
 
             localStorage.setItem(fpcm.vars.jsvars.editorConfig.autosavePref, editorValue);
-            fpcm.ui.button('#fpcm-editor-html-restoredraft-btn', {
+            fpcm.ui.button('#editor-html-buttonrestore', {
                 disabled: false
             });
             
@@ -553,7 +388,7 @@ fpcm.editor = {
     },
     
     initCodeMirror: function() {
-        jQuery('#fpcmdialogeditorhtmlcolorhexcode').colorPicker({
+        jQuery('#fpcm-dialog-editor-html-colorhexcode').colorPicker({
             rows        : 5,
             cols        : 8,
             showCode    : 0,
@@ -563,11 +398,11 @@ fpcm.editor = {
             left        : 0,
             colorData   : fpcm.vars.jsvars.editorConfig.colors,            
             onSelect    : function(colorCode) {
-                jQuery('#fpcmdialogeditorhtmlcolorhexcode').val(colorCode);
+                jQuery('#fpcm-dialog-editor-html-colorhexcode').val(colorCode);
             }
         });
         
-        editor = fpcm.editor_codemirror.create({
+        fpcm.editor.cmInstance = fpcm.editor_codemirror.create({
            editorId  : 'htmleditor',
            elementId : 'articlecontent',
            extraKeys : {
@@ -647,7 +482,7 @@ fpcm.editor = {
             }
         });
         
-        editor.on('paste', function(instance, event) {
+        fpcm.editor.cmInstance.on('paste', function(instance, event) {
                 
             if (event.clipboardData === undefined) {
                 return true;
@@ -673,421 +508,6 @@ fpcm.editor = {
         
         var sizeSmall = fpcm.ui.getDialogSizes(top, 0.35);
         var sizeLarge = fpcm.ui.getDialogSizes();
-
-        jQuery('#fpcm-dialog-editor-html-insertlink-btn').click(function() {           
-            fpcm.ui.dialog({
-                id: 'editor-html-insertlink',
-                dlWidth: sizeLarge.width,
-                title: fpcm.ui.translate('EDITOR_INSERTLINK'),
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_INSERT'),
-                        icon: "ui-icon-check",
-                        click: function() {
-                            fpcm.editor.insertLink();
-                            jQuery(this).dialog( "close" );
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('HL_FILES_MNG'),
-                        icon: "ui-icon-folder-open",
-                        click: function() {
-                            window.fileOpenMode = 1;
-                            fpcm.editor.showFileManager();
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",
-                        click: function() {
-                            jQuery( this ).dialog( "close" );
-                        }
-                    }
-                ],
-                dlOnOpen: function () {
-                    fpcm.ajax.exec('autocomplete&src=editorlinks', {
-                        execDone: function () {
-                            fpcm.ui.autocomplete('#linksurl', {
-                                source: fpcm.ajax.fromJSON(fpcm.ajax.getResult('autocomplete&src=editorlinks')),
-                                minLength: 2,
-                                appendTo: "#fpcm-dialog-editor-html-insertlink",
-                                select: function( event, ui ) {
-                                    jQuery('#linkstext').val(ui.item.label);
-                                }
-                            });
-                        }
-                    });
-                    fpcm.editor.setSelectToDialog(this);
-                },
-                dlOnClose: function () {
-                    fpcm.editor.clearPathTextValuesLink();
-                }
-            });
-            return false;
-        });        
-        
-        jQuery('#fpcm-dialog-editor-html-insertimage-btn').click(function() {
-            fpcm.ui.dialog({
-                id: 'editor-html-insertimage',
-                dlWidth: sizeLarge.width,
-                title: fpcm.ui.translate('EDITOR_INSERTPIC'),
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_INSERT'),
-                        icon: "ui-icon-check",                        
-                        click: function() {
-                            fpcm.editor.insertPicture();
-                            jQuery( this ).dialog( "close" );
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('HL_FILES_MNG'),
-                        icon: "ui-icon-folder-open" ,                
-                        click: function() {
-                            window.fileOpenMode = 2;
-                            fpcm.editor.showFileManager();
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                
-                        click: function() {
-                            jQuery( this ).dialog( "close" );
-                        }
-                    }
-                ],
-                dlOnOpen: function () {
-                    fpcm.ajax.exec('autocomplete&src=editorfiles', {
-                        execDone: function () {
-                            fpcm.ui.autocomplete('#imagespath', {
-                                source: fpcm.ajax.fromJSON(fpcm.ajax.getResult('autocomplete&src=editorfiles')),
-                                minLength: 2,
-                                appendTo: "#fpcm-dialog-editor-html-insertimage",
-                                select: function( event, ui ) {
-                                    jQuery('#imagesalt').val(ui.item.label);
-                                }
-                            });
-                        }
-                    });
-                    fpcm.editor.setSelectToDialog(this);
-                },
-                dlOnClose: function() {
-                    fpcm.editor.clearPathTextValuesImg();
-                }
-            });
-            return false;
-        });
-        
-        jQuery('#fpcm-dialog-editor-html-inserttable-btn').click(function() {
-            
-            fpcm.ui.spinner('#tablerows', {
-                min: 1
-            });
-
-            fpcm.ui.spinner('#tablecols', {
-                min: 1
-            });
-
-            fpcm.ui.dialog({
-                id: 'editor-html-inserttable',
-                dlWidth: sizeSmall.width,
-                title: fpcm.ui.translate('EDITOR_INSERTTABLE'),
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_INSERT'),
-                        icon: "ui-icon-check",                        
-                        click: function() {
-                            fpcm.editor.insertTable();
-                            jQuery( this ).dialog( "close" );
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                
-                        click: function() {
-                            jQuery( this ).dialog( "close" );
-                        }
-                    }
-                ],
-                dlOnOpen: function () {
-                    fpcm.editor.setSelectToDialog(this);
-                },
-                dlOnClose: function() {
-                    fpcm.editor.clearTableForm();
-                }
-            });
-            
-            return false;
-        });
-        
-        jQuery('#fpcm-dialog-editor-html-insertcolor-btn').click(function() {
-            fpcm.ui.dialog({
-                id: 'editor-html-insertcolor',
-                dlWidth: sizeSmall.width,
-                title: fpcm.ui.translate('EDITOR_INSERTCOLOR'),
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_INSERT'),
-                        icon: "ui-icon-check",                        
-                        click: function() {
-                            fpcm.editor.insertColor(jQuery('#fpcmdialogeditorhtmlcolorhexcode').val(), jQuery('.color_mode:checked').val());
-                            jQuery( this ).dialog( "close" );
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                
-                        click: function() {
-                            jQuery( this ).dialog( "close" );
-                        }
-                    }
-                ]        
-            });
-            return false;
-        });   
-        
-        jQuery('#fpcm-dialog-editor-html-insertmedia-btn').click(function() {
-            fpcm.ui.dialog({
-                id: 'editor-html-insertmedia',
-                dlWidth: sizeSmall.width,
-                title: fpcm.ui.translate('EDITOR_INSERTMEDIA'),
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_INSERT'),
-                        icon: "ui-icon-check",                        
-                        click: function() {
-                            fpcm.editor.insertPlayer(jQuery('#mediapath').val(), jQuery('#mediatype:checked').val());
-                            jQuery( this ).dialog( "close" );
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                
-                        click: function() {
-                            jQuery( this ).dialog( "close" );
-                        }
-                    }
-                ]        
-            });
-            return false;
-        });
-        
-        jQuery('#fpcm-dialog-editor-html-insertsmiley-btn').click(function() {
-            fpcm.ui.dialog({
-                id: 'editor-html-insertsmileys',
-                dlWidth: sizeSmall.width,
-                title: fpcm.ui.translate('EDITOR_INSERTSMILEY'),
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                        
-                        click: function() {
-                            jQuery( this ).dialog( "close" );
-                        }
-                    }
-                ],
-                dlOnOpen: function () {
-                    
-                    fpcm.ajax.exec('editor/smileys', {
-                        async: false,
-                        execDone: function () {
-                            jQuery('#fpcm-dialog-editor-html-insertsmileys').append(fpcm.ajax.getResult('editor/smileys'));
-                            jQuery('.fpcm-editor-htmlsmiley').click(function() {
-                                fpcm.editor.insertSmilies(jQuery(this).attr('smileycode'));
-                            });
-                        }
-                    });
-
-                },
-                dlOnClose: function() {
-                    jQuery(this).empty();
-                }
-            });
-            return false;
-        });         
-        
-        jQuery('#fpcm-dialog-editor-html-insertsymbol-btn').click(function() {
-            fpcm.ui.dialog({
-                id: 'editor-html-insertsymbol',
-                dlWidth: sizeLarge.width,
-                dlHeight: sizeLarge.height,
-                title: fpcm.ui.translate('EDITOR_INSERTSYMBOL'),
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                        
-                        click: function() {
-                            jQuery( this ).dialog( "close" );
-                        }
-                    }
-                ]
-            });
-            return false;
-        });
- 
-        jQuery('#fpcm-dialog-editor-html-insertdraft-btn').click(function() {
-            fpcm.ui.dialog({
-                id       : 'editor-html-insertdraft',
-                dlWidth  : sizeLarge.width,
-                dlHeight : sizeLarge.height,
-                title    : fpcm.ui.translate('EDITOR_HTML_BUTTONS_ARTICLETPL'),
-                resizable: true,
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_INSERT'),
-                        icon: "ui-icon-copy",                        
-                        click: function() {
-
-                            var item = jQuery('#tpldraft').val();
-                            if (!item) {
-                                jQuery( this ).dialog( "close" );
-                                return false;
-                            }
-
-                            fpcm.ajax.exec('editor/draft', {
-                                data    : {
-                                    path: item
-                                },
-                                execDone: function () {                                    
-                                    var responseData = fpcm.ajax.fromJSON(fpcm.ajax.getResult('editor/draft'));
-                                    window.editor.doc.setValue(responseData.data);
-                                    jQuery('#fpcm-dialog-editor-html-insertdraft').dialog('close');
-                                }
-                            });
-
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                        
-                        click: function() {
-                            jQuery( this ).dialog( "close" );
-                        }
-                    }
-                ],
-                dlOnOpen: function () {
-
-                    fpcm.ui.selectmenu('#tpldraft',{
-
-                        appendTo: '#fpcm-dialog-editor-html-insertdraft',
-                        change: function( event, ui ) {
-
-                            var item = jQuery(this).val();
-                            if (!item) {
-                                jQuery('#fpcm-dialog-editor-html-insertdraft-preview').empty();
-                                return false;
-                            }
-
-                            fpcm.ajax.exec('editor/draft', {
-                                data    : {
-                                    path: item
-                                },
-                                execDone: function () {
-
-                                    var responseData = fpcm.ajax.fromJSON(fpcm.ajax.getResult('editor/draft'));
-                                    fpcm.editor_codemirror.highlight({
-                                        input   : responseData.data,
-                                        ouputId : 'fpcm-dialog-editor-html-insertdraft-preview'
-                                    });
-
-                                }
-                            });
-
-                            return false;
-
-                        }
-                        
-                    });
-
-                },
-                dlOnClose: function() {
-                    jQuery('#fpcm-dialog-editor-html-insertdraft-preview').empty();
-                    var selectEl = jQuery('#tpldraft');
-                    selectEl.prop('selectedIndex', 0);
-                    selectEl.val('');
-                    selectEl.selectmenu("refresh");
-                }
-            });
-
-            return false;
-
-        });
-        
-        jQuery('#fpcm-editor-html-insertlist-btn').click(function() {
-
-            fpcm.ui.spinner('#listrows', {
-                min: 1
-            });
-
-            fpcm.ui.dialog({
-                id: 'editor-html-insertlist',
-                dlWidth: sizeSmall.width,
-                title: fpcm.ui.translate('EDITOR_HTML_BUTTONS_LISTUL'),
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_INSERT'),
-                        icon: "ui-icon-check",                        
-                        click: function() {
-                            fpcm.editor.insertListToFrom('ul');
-                            jQuery( this ).dialog( "close" );
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                
-                        click: function() {
-                            jQuery( this ).dialog( "close" );
-                        }
-                    }
-                ],
-                dlOnOpen: function () {
-                    fpcm.editor.setSelectToDialog(this);
-                },
-                dlOnClose: function() {
-                    fpcm.editor.clearListForm();
-                }
-            });
-
-            return false;
-        });
-
-        jQuery('#fpcm-editor-html-insertlistnum-btn').click(function() {
-
-            fpcm.ui.spinner('#listrows', {
-                min: 1
-            });
-
-            fpcm.ui.dialog({
-                id: 'editor-html-insertlist',
-                dlWidth: sizeSmall.width,
-                title: fpcm.ui.translate('EDITOR_HTML_BUTTONS_LISTOL'),
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_INSERT'),
-                        icon: "ui-icon-check",                        
-                        click: function() {
-                            fpcm.editor.insertListToFrom('ol');
-                            jQuery( this ).dialog( "close" );
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                
-                        click: function() {
-                            jQuery( this ).dialog( "close" );
-                        }
-                    }
-                ],
-                dlOnOpen: function () {
-                    fpcm.editor.setSelectToDialog(this);
-                },
-                dlOnClose: function() {
-                    fpcm.editor.clearListForm();
-                }
-            });
-
-            return false;
-        });
 
     },
     
@@ -1193,5 +613,507 @@ fpcm.editor = {
             return false;
         });
 
+    },
+    
+    insertList: function (listtype) {
+
+        fpcm.ui.spinner('#listrows', {
+            min: 1
+        });
+
+        fpcm.ui.dialog({
+            id: 'editor-html-insertlist',
+            dlWidth: fpcm.ui.getDialogSizes().width,
+            title: fpcm.ui.translate('EDITOR_HTML_BUTTONS_LISTOL'),
+            dlButtons: [
+                {
+                    text: fpcm.ui.translate('GLOBAL_INSERT'),
+                    icon: "ui-icon-check",                        
+                    click: function() {
+
+                        var tablerows = jQuery('#listrows').val();
+
+                        aTag = '<' + listtype + '>\n';
+                        for (i=0;i<tablerows;i++) {
+                            aTag += '<li></li>\n';
+                        }
+
+                        fpcm.editor.insert(aTag, '</' + listtype + '>');
+
+                        jQuery( this ).dialog( "close" );
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    icon: "ui-icon-closethick",                
+                    click: function() {
+                        jQuery( this ).dialog( "close" );
+                    }
+                }
+            ],
+            dlOnOpen: function () {
+                fpcm.editor.setSelectToDialog(this);
+            },
+            dlOnClose: function() {
+                jQuery('#listrows').val('1');
+            }
+        });
+    },
+    
+    insertSmilies: function () {
+        fpcm.ui.dialog({
+            id: 'editor-html-insertsmileys',
+            dlWidth: fpcm.ui.getDialogSizes().width,
+            title: fpcm.ui.translate('EDITOR_INSERTSMILEY'),
+            dlButtons: [
+                {
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    icon: "ui-icon-closethick",                        
+                    click: function() {
+                        jQuery( this ).dialog( "close" );
+                    }
+                }
+            ],
+            dlOnOpen: function () {
+
+                fpcm.ajax.exec('editor/smileys', {
+                    async: false,
+                    execDone: function () {
+                        jQuery('#fpcm-dialog-editor-html-insertsmileys').append(fpcm.ajax.getResult('editor/smileys'));
+                        jQuery('.fpcm-editor-htmlsmiley').click(function() {
+                            fpcm.editor.insert(' ' + jQuery(this).attr('smileycode') + ' ', '');
+                        });
+                    }
+                });
+
+            },
+            dlOnClose: function() {
+                jQuery(this).empty();
+            }
+        });
+    },
+    
+    insertSymbol: function () {
+        
+        var sizeLarge = fpcm.ui.getDialogSizes();
+        
+        fpcm.ui.dialog({
+            id: 'editor-html-insertsymbol',
+            dlWidth: sizeLarge.width,
+            dlHeight: sizeLarge.height,
+            title: fpcm.ui.translate('EDITOR_INSERTSYMBOL'),
+            dlButtons: [
+                {
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    icon: "ui-icon-closethick",                        
+                    click: function() {
+                        jQuery( this ).dialog( "close" );
+                    }
+                }
+            ]
+        });
+
+        jQuery('.fpcm-editor-htmlsymbol').click(function() {
+            fpcm.editor.insert(jQuery(this).attr('symbolcode'), '');
+            return false;
+        });
+    },
+    
+    insertColor: function () {
+        fpcm.ui.dialog({
+            id: 'editor-html-insertcolor',
+            dlWidth: fpcm.ui.getDialogSizes().width,
+            title: fpcm.ui.translate('EDITOR_INSERTCOLOR'),
+            dlButtons: [
+                {
+                    text: fpcm.ui.translate('GLOBAL_INSERT'),
+                    icon: "ui-icon-check",                        
+                    click: function() {
+                        
+                        var mode    = jQuery('.color_mode:checked').val();
+                        var color   = jQuery('#fpcm-dialog-editor-html-colorhexcode').val();
+                        fpcm.editor.insert('<span style="' + (mode === undefined ? 'color' : mode) + ':' + (color == '' ? '#000000' : color) + ';">', '</span>');
+
+                        jQuery('#fpcm-dialog-editor-html-colorhexcode').val('');
+                        jQuery('.color_mode:checked').removeAttr('checked');    
+                        jQuery('#color_mode1').prop( "checked", true );
+
+                        jQuery( this ).dialog( "close" );
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    icon: "ui-icon-closethick",                
+                    click: function() {
+                        jQuery( this ).dialog( "close" );
+                    }
+                }
+            ]        
+        });
+    },
+    
+    insertDrafts: function () {
+        
+        var sizeLarge = fpcm.ui.getDialogSizes();
+        
+        fpcm.ui.dialog({
+            id       : 'editor-html-insertdraft',
+            dlWidth  : sizeLarge.width,
+            dlHeight : sizeLarge.height,
+            title    : fpcm.ui.translate('EDITOR_HTML_BUTTONS_ARTICLETPL'),
+            resizable: true,
+            dlButtons: [
+                {
+                    text: fpcm.ui.translate('GLOBAL_INSERT'),
+                    icon: "ui-icon-copy",                        
+                    click: function() {
+
+                        var item = jQuery('#tpldraft').val();
+                        if (!item) {
+                            jQuery( this ).dialog( "close" );
+                            return false;
+                        }
+
+                        fpcm.ajax.exec('editor/draft', {
+                            data    : {
+                                path: item
+                            },
+                            execDone: function () {                                    
+                                var responseData = fpcm.ajax.fromJSON(fpcm.ajax.getResult('editor/draft'));
+                                fpcm.editor.cmInstance.doc.setValue(responseData.data);
+                                jQuery('#fpcm-dialog-editor-html-insertdraft').dialog('close');
+                            }
+                        });
+
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    icon: "ui-icon-closethick",                        
+                    click: function() {
+                        jQuery( this ).dialog( "close" );
+                    }
+                }
+            ],
+            dlOnOpen: function () {
+
+                fpcm.ui.selectmenu('#tpldraft',{
+
+                    appendTo: '#fpcm-dialog-editor-html-insertdraft',
+                    change: function( event, ui ) {
+
+                        var item = jQuery(this).val();
+                        if (!item) {
+                            jQuery('#fpcm-dialog-editor-html-insertdraft-preview').empty();
+                            return false;
+                        }
+
+                        fpcm.ajax.exec('editor/draft', {
+                            data    : {
+                                path: item
+                            },
+                            execDone: function () {
+
+                                var responseData = fpcm.ajax.fromJSON(fpcm.ajax.getResult('editor/draft'));
+                                fpcm.editor_codemirror.highlight({
+                                    input   : responseData.data,
+                                    ouputId : 'fpcm-dialog-editor-html-insertdraft-preview'
+                                });
+
+                            }
+                        });
+
+                        return false;
+
+                    }
+
+                });
+
+            },
+            dlOnClose: function() {
+                jQuery('#fpcm-dialog-editor-html-insertdraft-preview').empty();
+                var selectEl = jQuery('#tpldraft');
+                selectEl.prop('selectedIndex', 0);
+                selectEl.val('');
+                selectEl.selectmenu("refresh");
+            }
+        });
+    },
+    
+    insertMedia: function () {
+        fpcm.ui.dialog({
+            id: 'editor-html-insertmedia',
+            dlWidth: fpcm.ui.getDialogSizes(top, 0.35).width,
+            title: fpcm.ui.translate('EDITOR_INSERTMEDIA'),
+            dlButtons: [
+                {
+                    text: fpcm.ui.translate('GLOBAL_INSERT'),
+                    icon: "ui-icon-check",                        
+                    click: function() {
+                        
+                        var tagName = jQuery('#mediatype:checked').val();
+                        
+                        aTag        = '<' + tagName + '>';
+                        aTag       += '<source src="' + jQuery('#mediapath').val() + '">';        
+                        fpcm.editor.insert(aTag, '</' + tagName + '>');
+
+                        jQuery('#mediapath').val('');
+                        jQuery('.fpcm-editor-mediatype').removeAttr('checked');    
+                        jQuery('#mediatype_a').prop( "checked", true );
+
+                        jQuery( this ).dialog( "close" );
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    icon: "ui-icon-closethick",                
+                    click: function() {
+                        jQuery( this ).dialog( "close" );
+                    }
+                }
+            ]        
+        });
+    },
+    
+    insertTable: function () {
+        fpcm.ui.spinner('#tablerows', {
+            min: 1
+        });
+
+        fpcm.ui.spinner('#tablecols', {
+            min: 1
+        });
+
+        fpcm.ui.dialog({
+            id: 'editor-html-inserttable',
+            dlWidth: fpcm.ui.getDialogSizes(top, 0.35).width,
+            title: fpcm.ui.translate('EDITOR_INSERTTABLE'),
+            dlButtons: [
+                {
+                    text: fpcm.ui.translate('GLOBAL_INSERT'),
+                    icon: "ui-icon-check",                        
+                    click: function() {
+
+                        var tablerows = jQuery('#tablerows').val();
+                        var tablecols = jQuery('#tablecols').val();
+                        var aTag = '<table>\n'
+
+                        for (i=0;i<tablerows;i++) {        
+                            aTag += '<tr>\n';        
+                            for (x=0;x<tablecols;x++) { aTag += '<td></td>\n'; }        
+                            aTag += '</tr>\n';        
+                        }
+                        fpcm.editor.insert(aTag + '</table>', '');
+
+                        jQuery( this ).dialog( "close" );
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    icon: "ui-icon-closethick",                
+                    click: function() {
+                        jQuery( this ).dialog( "close" );
+                    }
+                }
+            ],
+            dlOnOpen: function () {
+                fpcm.editor.setSelectToDialog(this);
+            },
+            dlOnClose: function() {
+                jQuery('#tablerows').val('1');
+                jQuery('#tablecols').val('1');
+            }
+        });
+    },
+    
+    insertPicture: function () {
+        fpcm.ui.dialog({
+            id: 'editor-html-insertimage',
+            dlWidth: fpcm.ui.getDialogSizes().width,
+            title: fpcm.ui.translate('EDITOR_INSERTPIC'),
+            dlButtons: [
+                {
+                    text: fpcm.ui.translate('GLOBAL_INSERT'),
+                    icon: "ui-icon-check",                        
+                    click: function() {
+
+                        var pic_path = jQuery('#imagespath').val();
+                        var pic_align = jQuery('#imagesalign').val();
+                        var pic_atxt = jQuery('#imagesalt').val();
+
+                        if(jQuery('#imagescss') != null) {
+                            var pic_css = jQuery('#imagescss').value;
+                        }
+
+                        if (pic_align == "right" || pic_align == "left") {
+                            aTag = '<img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\" style=\"float:' + pic_align + ';margin:3px;\"';
+                            if(pic_css) { aTag = aTag + ' class=\"'+ pic_css +'\"'; }
+                            fpcm.editor.insert(aTag + '/>', ' ');
+                        } else if (pic_align == "center") {
+                            aTag = '<div style=\"text-align:' + pic_align + ';\"><img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\"';
+                            if(pic_css) { aTag = aTag + ' class=\"'+ pic_css +'\"'; }
+                            fpcm.editor.insert(aTag + '/></div>', ' ');
+                        } else {
+                            aTag = '<img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\"';
+                            if(pic_css) { aTag = aTag + ' class=\"'+ pic_css +'\"'; }
+                            fpcm.editor.insert(aTag + ' />', ' ');
+                        }
+
+                        jQuery( this ).dialog( "close" );
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('HL_FILES_MNG'),
+                    icon: "ui-icon-folder-open" ,                
+                    click: function() {
+                        window.fileOpenMode = 2;
+                        fpcm.editor.showFileManager();
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    icon: "ui-icon-closethick",                
+                    click: function() {
+                        jQuery( this ).dialog( "close" );
+                    }
+                }
+            ],
+            dlOnOpen: function () {
+                fpcm.ajax.exec('autocomplete&src=editorfiles', {
+                    execDone: function () {
+                        fpcm.ui.autocomplete('#imagespath', {
+                            source: fpcm.ajax.fromJSON(fpcm.ajax.getResult('autocomplete&src=editorfiles')),
+                            minLength: 2,
+                            appendTo: "#fpcm-dialog-editor-html-insertimage",
+                            select: function( event, ui ) {
+                                jQuery('#imagesalt').val(ui.item.label);
+                            }
+                        });
+                    }
+                });
+                fpcm.editor.setSelectToDialog(this);
+            },
+            dlOnClose: function() {
+                jQuery('#imagespath').val('http://');
+                jQuery('#imagesalign').val('');
+                jQuery('#imagesalt').val('');
+                jQuery('#imagescss').val('');
+                fileOpenMode = 0;
+            }
+        });
+    },
+    
+    insertLink: function() {
+        fpcm.ui.dialog({
+            id: 'editor-html-insertlink',
+            dlWidth: fpcm.ui.getDialogSizes().width,
+            title: fpcm.ui.translate('EDITOR_INSERTLINK'),
+            dlButtons: [
+                {
+                    text: fpcm.ui.translate('GLOBAL_INSERT'),
+                    icon: "ui-icon-check",
+                    click: function() {
+                        var lnk_url = jQuery('#linksurl').val();
+                        var lnk_txt = jQuery('#linkstext').val();
+                        var lnk_tgt = jQuery('#linkstarget').val();
+
+                        if(jQuery('#linkscss') != null) {
+                            var lnk_css = jQuery('#linkscss').value;
+                        }
+
+                        if (lnk_tgt != "") {
+                            aTag = '<a href=\"' + lnk_url + '"\ target=\"' + lnk_tgt + '\"';
+                            if(lnk_css) { aTag = aTag + ' class=\"'+ lnk_css +'\"'; }
+                            aTag = aTag + '>' + lnk_txt ;
+                        }
+                        else {
+                            aTag = '<a href=\"' + lnk_url + '\"';
+                            if(lnk_css) { aTag = aTag + ' class=\"'+ lnk_css +'\"'; }
+                            aTag = aTag + '>' + lnk_txt ;
+                        }
+
+                        fpcm.editor.insert(aTag, '</a>');
+                        jQuery(this).dialog( "close" );
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('HL_FILES_MNG'),
+                    icon: "ui-icon-folder-open",
+                    click: function() {
+                        window.fileOpenMode = 1;
+                        fpcm.editor.showFileManager();
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    icon: "ui-icon-closethick",
+                    click: function() {
+                        jQuery( this ).dialog( "close" );
+                    }
+                }
+            ],
+            dlOnOpen: function () {
+                fpcm.ajax.exec('autocomplete&src=editorlinks', {
+                    execDone: function () {
+                        fpcm.ui.autocomplete('#linksurl', {
+                            source: fpcm.ajax.fromJSON(fpcm.ajax.getResult('autocomplete&src=editorlinks')),
+                            minLength: 2,
+                            appendTo: "#fpcm-dialog-editor-html-insertlink",
+                            select: function( event, ui ) {
+                                jQuery('#linkstext').val(ui.item.label);
+                            }
+                        });
+                    }
+                });
+                fpcm.editor.setSelectToDialog(this);
+            },
+            dlOnClose: function () {
+                jQuery('#linksurl').val('http://');
+                jQuery('#linkstext').val('');
+                jQuery('#linkstarget').val('');
+                jQuery('#linkscss').val('');
+                fileOpenMode = 0;
+            }
+        });
+    },
+    
+    insertIframe: function () {
+        fpcm.editor.insertFrame();
+    },
+    
+    insertReadMore: function () {
+        fpcm.editor.insert('<readmore>', '</readmore>');
+    },
+    
+    removeTags: function () {
+        fpcm.ajax.post('editor/cleartags', {
+            data: {
+                text: fpcm.editor.cmInstance.doc.getValue()
+            },
+            execDone: function () {
+                fpcm.editor.cmInstance.doc.setValue(fpcm.ajax.getResult('editor/cleartags'));
+            }
+        });
+    },
+    
+    restoreSave: function () {
+        if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
+            return false;
+        }
+        
+        var isDisabled = (fpcm.vars.jsvars.autoSaveStorage === null ? true : false);
+
+        fpcm.ui.button('#editor-html-buttonrestore',
+        {
+            disabled: isDisabled
+        },
+        function () {
+
+            fpcm.vars.jsvars.autoSaveStorage = localStorage.getItem(fpcm.vars.jsvars.editorConfig.autosavePref);
+            fpcm.editor.cmInstance.setValue(fpcm.vars.jsvars.autoSaveStorage);
+
+            return false;
+        });
     }
+
 };

@@ -222,7 +222,7 @@ class articlelistbase extends \fpcm\controller\abstracts\controller {
         }
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\select('actions[action]'))->setOptions($this->articleActions)->setClass('fpcm-ui-input-select-articleactions'),
+            (new \fpcm\view\helper\select('actions[action]'))->setOptions($this->articleActions),
             (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-loader')->setIcon('check')
         ]);
         

@@ -141,13 +141,37 @@
                     $this->language->translate('EDITOR_CODE')                    => 'code',
                 ),
                 'editorDefaultFontsize' => $this->config->system_editor_fontsize,
-                'editorTemplatesList'   => $this->getTemplateDrafts()
+                'editorTemplatesList'   => $this->getTemplateDrafts(),
+                'editorButtons'         => [                    
+                    (new \fpcm\view\helper\button('editor-html-buttonbold'))->setText('EDITOR_HTML_BUTTONS_BOLD')->setIcon('bold')->setData(['htmltag' => 'b']),
+                    (new \fpcm\view\helper\button('editor-html-buttonitalic'))->setText('EDITOR_HTML_BUTTONS_ITALIC')->setIcon('italic')->setData(['htmltag' => 'i']),
+                    (new \fpcm\view\helper\button('editor-html-buttonunderline'))->setText('EDITOR_HTML_BUTTONS_UNDERLINE')->setIcon('underline')->setData(['htmltag' => 'u']),
+                    (new \fpcm\view\helper\button('editor-html-buttonstrike'))->setText('EDITOR_HTML_BUTTONS_STRIKE')->setIcon('strikethrough')->setData(['htmltag' => 's']),
+                    (new \fpcm\view\helper\button('editor-html-buttoninsertcolor'))->setText('EDITOR_INSERTCOLOR')->setIcon('tint')->setData(['action' => 'insertColor']),
+                    (new \fpcm\view\helper\button('editor-html-buttonsup'))->setText('EDITOR_HTML_BUTTONS_SUP')->setIcon('subscript')->setData(['htmltag' => 'sup']),
+                    (new \fpcm\view\helper\button('editor-html-buttonsub'))->setText('EDITOR_HTML_BUTTONS_SUB')->setIcon('subscript')->setData(['htmltag' => 'sub']),
+                    (new \fpcm\view\helper\button('editor-html-buttonaleft'))->setText('EDITOR_HTML_BUTTONS_ALEFT')->setIcon('align-left')->setData(['htmltag' => 'left', 'action' => 'insertAlignTags']),
+                    (new \fpcm\view\helper\button('editor-html-buttonacenter'))->setText('EDITOR_HTML_BUTTONS_ACENTER')->setIcon('align-center')->setData(['htmltag' => 'center', 'action' => 'insertAlignTags']),
+                    (new \fpcm\view\helper\button('editor-html-buttonaright'))->setText('EDITOR_HTML_BUTTONS_ARIGHT')->setIcon('align-right')->setData(['htmltag' => 'right', 'action' => 'insertAlignTags']),
+                    (new \fpcm\view\helper\button('editor-html-buttoninsertlist-btnpcm-editor-html-ajustify'))->setText('EDITOR_HTML_BUTTONS_AJUSTIFY')->setIcon('align-justify')->setData(['htmltag' => 'justify', 'action' => 'insertAlignTags']),
+                    (new \fpcm\view\helper\button('editor-html-buttoninsertlist'))->setText('EDITOR_HTML_BUTTONS_LISTUL')->setIcon('list-ul')->setData(['htmltag' => 'ul', 'action' => 'insertList']),
+                    (new \fpcm\view\helper\button('editor-html-buttoninsertlistnum'))->setText('EDITOR_HTML_BUTTONS_LISTOL')->setIcon('list-ol')->setData(['htmltag' => 'ol', 'action' => 'insertList']),
+                    (new \fpcm\view\helper\button('editor-html-buttonquote'))->setText('EDITOR_HTML_BUTTONS_QUOTE')->setIcon('quote-left')->setData(['htmltag' => 'blockquote']),
+                    (new \fpcm\view\helper\button('editor-html-buttoninsertlink'))->setText('EDITOR_INSERTLINK')->setIcon('link')->setData(['action' => 'insertLink']),
+                    (new \fpcm\view\helper\button('editor-html-buttoninsertimage'))->setText('EDITOR_INSERTPIC')->setIcon('picture-o')->setData(['action' => 'insertPicture']),
+                    (new \fpcm\view\helper\button('editor-html-buttoninsertmedia'))->setText('EDITOR_INSERTMEDIA')->setIcon('youtube-play')->setData(['action' => 'insertMedia']),
+                    (new \fpcm\view\helper\button('editor-html-buttoninsertframe'))->setText('EDITOR_HTML_BUTTONS_IFRAME')->setIcon('puzzle-piece')->setData(['action' => 'insertIframe']),
+                    (new \fpcm\view\helper\button('editor-html-buttonreadmore'))->setText('EDITOR_HTML_BUTTONS_READMORE')->setIcon('plus-square')->setData(['action' => 'insertReadMore']),
+                    (new \fpcm\view\helper\button('editor-html-buttontable'))->setText('EDITOR_INSERTTABLE')->setIcon('table')->setData(['action' => 'insertTable']),
+                    (new \fpcm\view\helper\button('editor-html-buttonsmileys'))->setText('HL_OPTIONS_SMILEYS')->setIcon('smile-o')->setData(['action' => 'insertSmilies']),
+                    (new \fpcm\view\helper\button('editor-html-buttondrafts'))->setText('EDITOR_HTML_BUTTONS_ARTICLETPL')->setIcon('file-text-o')->setData(['action' => 'insertDrafts']),
+                    (new \fpcm\view\helper\button('editor-html-buttonsymbol'))->setText('EDITOR_HTML_BUTTONS_SYMBOL')->setIcon('font')->setData(['action' => 'insertSymbol']),
+                    (new \fpcm\view\helper\button('editor-html-buttonremstyles'))->setText('EDITOR_HTML_BUTTONS_REMOVESTYLE')->setIcon('eraser')->setData(['action' => 'removeTags']),
+                    (new \fpcm\view\helper\button('editor-html-buttonrestore', 'editor-html-buttonrestore'))->setText('EDITOR_AUTOSAVE_RESTORE')->setIcon('repeat fa-flip-horizontal')->setData(['action' => 'restoreSave'])->setReadonly(true)
+                ]
             );
 
-            $vars = $this->events->runEvent('editorInitHtml', $vars);
-            array_shift($vars['extraButtons']);
-            
-            return $vars;
+            return $this->events->runEvent('editorInitHtml', $vars);
         }
 
         /**

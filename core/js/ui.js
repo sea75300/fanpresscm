@@ -14,16 +14,15 @@ fpcm.ui = {
 
         jQuery(document).tooltip();
 
-        fpcm.ui.initJqUiWidgets();        
-        this.assignSelectmenu();
-        this.initInputShadow();
-        this.spinner('input.fpcm-ui-spinner');
-        this.tabs('.fpcm-tabs-general');
-        this.accordion('.fpcm-tabs-accordion');
-        this.highlightModule();
-        this.showMessages();
-        this.messagesInitClose();
-        this.initDateTimeMasks();
+        fpcm.ui.initJqUiWidgets();
+        fpcm.ui.initInputShadow();
+        fpcm.ui.spinner('input.fpcm-ui-spinner');
+        fpcm.ui.tabs('.fpcm-tabs-general');
+        fpcm.ui.accordion('.fpcm-tabs-accordion');
+        fpcm.ui.highlightModule();
+        fpcm.ui.showMessages();
+        fpcm.ui.messagesInitClose();
+        fpcm.ui.initDateTimeMasks();
 
         jQuery('.fpcm-navigation-noclick').click(function () {
             fpcm.ui.showLoader(false);
@@ -76,10 +75,10 @@ fpcm.ui = {
             fpcm.ui.showLoader(true);
         });
 
+        fpcm.ui.selectmenu('.fpcm-ui-input-select');
+
         fpcm.ui.assignCheckboxes();
-        fpcm.ui.assignCheckboxesSub();
         fpcm.ui.articleActionsOkButton();
-        fpcm.ui.assignDeleteButton();
         fpcm.ui.pagerButtons();
         
         noActionButtonAssign = false;
@@ -101,21 +100,6 @@ fpcm.ui = {
                 return false;
             }            
         });
-    },
-    
-    assignDeleteButton: function () {
-        
-        if (noDeleteButtonAssign) return false;
-        
-        jQuery('.fpcm-delete-btn').click(function () {
-            if (jQuery(this).hasClass('fpcm-noloader')) jQuery(this).removeClass('fpcm-noloader');
-            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
-                jQuery(this).addClass('fpcm-noloader');
-                return false;
-            }
-        });
-        
-        noDeleteButtonAssign = true;
     },
     
     articleActionsOkButton: function () {
@@ -140,66 +124,49 @@ fpcm.ui = {
 
     },
     
-    assignCheckboxes: function() {        
-        jQuery('#fpcmselectall').click(function(){
-            jQuery('.fpcm-select-allsub').prop('checked', false);
-            if (jQuery(this).prop('checked'))        
-                jQuery('.fpcm-list-selectbox').prop('checked', true);
-            else
-                jQuery('.fpcm-list-selectbox').prop('checked', false);
+    assignCheckboxes: function() {
+        
+        var checkboxAll = jQuery('#fpcm-select-all');
+        if (!checkboxAll.length) {
+            return false;
+        }
+
+        checkboxAll.click(function() {
+            
+            var el0 = jQuery('.fpcm-ui-list-checkbox-sub');
+            el0.prop('checked', false);
+            if (fpcm.vars.jsvars.checkboxRefresh) {
+               el0.checkboxradio('refresh');
+            }
+            
+            var el1 = jQuery('.fpcm-ui-list-checkbox');
+            el1.prop('checked', (
+                jQuery(this).prop('checked') ? true : false
+            ));
+
+            if (fpcm.vars.jsvars.checkboxRefresh) {
+                el1.checkboxradio('refresh');
+            }
         });
-        jQuery('#fpcmselectalldraft').click(function(){
-            jQuery('.fpcm-select-allsub-draft').prop('checked', false);
-            if (jQuery(this).prop('checked'))        
-                jQuery('.fpcm-list-selectbox-draft').prop('checked', true);
-            else
-                jQuery('.fpcm-list-selectbox-draft').prop('checked', false);
-        });
-        jQuery('#fpcmselectalltrash').click(function(){
-            jQuery('.fpcm-select-allsub-trash').prop('checked', false);
-            if (jQuery(this).prop('checked'))        
-                jQuery('.fpcm-list-selectbox-trash').prop('checked', true);
-            else
-                jQuery('.fpcm-list-selectbox-trash').prop('checked', false);
-        });
-        jQuery('#fpcmselectallrevisions').click(function(){
-            if (jQuery(this).prop('checked'))        
-                jQuery('.fpcm-list-selectboxrevisions').prop('checked', true);
-            else
-                jQuery('.fpcm-list-selectboxrevisions').prop('checked', false);
-        });
-    },
-    
-    assignCheckboxesSub: function() {
-        jQuery('.fpcm-select-allsub').click(function(){
-            var subValue = jQuery(this).val();
-            if (jQuery(this).prop('checked'))        
-                jQuery('.fpcm-list-selectbox-sub' + subValue).prop('checked', true);
-            else
-                jQuery('.fpcm-list-selectbox-sub' + subValue).prop('checked', false);
+
+        var checkboxSub = jQuery('.fpcm-ui-list-checkbox-sub');
+        if (!checkboxSub.length) {
+            return false;
+        }
+
+        checkboxSub.click(function() {
+            var el2 = jQuery('.fpcm-ui-list-checkbox-subitem' + jQuery(this).val());
+            el2.prop('checked', ( jQuery(this).prop('checked') ? true : false ));
+            
+            if (fpcm.vars.jsvars.checkboxRefresh) {
+                el2.checkboxradio('refresh');
+            }
         });
     },
     
     assignSelectmenu: function() {
         
-        this.selectmenu('.fpcm-ui-input-select');
-        this.selectmenu(
-            '.fpcm-ui-input-select-articleactions', {
-            position: {
-                my: 'left top',
-                at: 'left bottom+5',
-                offset: null
-            }
-        });    
-
-        this.selectmenu(
-            '.fpcm-ui-input-select-moduleactions', {
-            position: {
-                my: 'left top',
-                at: 'left bottom+5',
-                offset: null
-            }
-        });
+        fpcm.ui.selectmenu('.fpcm-ui-input-select');
 
     },
 
@@ -298,10 +265,10 @@ fpcm.ui = {
         params.showButtonPanel   = true,
         params.showOtherMonths   = true,
         params.selectOtherMonths = true,
-        params.monthNames        = this.translate('jquiDateMonths'),
-        params.dayNames          = this.translate('jquiDateDays'),
-        params.dayNamesShort     = this.translate('jquiDateDaysShort'),
-        params.dayNamesMin       = this.translate('jquiDateDaysShort')
+        params.monthNames        = fpcm.ui.translate('jquiDateMonths'),
+        params.dayNames          = fpcm.ui.translate('jquiDateDays'),
+        params.dayNamesShort     = fpcm.ui.translate('jquiDateDaysShort'),
+        params.dayNamesMin       = fpcm.ui.translate('jquiDateDaysShort')
         params.firstDay          = 1;
         params.dateFormat        = "yy-mm-dd";
 
@@ -311,6 +278,11 @@ fpcm.ui = {
 
     selectmenu: function(elemClassId, params) {
 
+        var el = jQuery(elemClassId);
+        if (!el.length) {
+            return false;
+        }
+    
         if (params === undefined) {
             params = {};
         }
@@ -327,7 +299,6 @@ fpcm.ui = {
         }
 
         return jQuery(elemClassId).selectmenu(params);
-
     },
     
     checkboxradio: function(elemClassId, params, onClick) {
@@ -560,9 +531,9 @@ fpcm.ui = {
         }
 
         fpcm.vars.ui.messages.push(value);
-        this.showMessages();
-        this.prepareMessages();
-        this.messagesInitClose();
+        fpcm.ui.showMessages();
+        fpcm.ui.prepareMessages();
+        fpcm.ui.messagesInitClose();
 
     },
     

@@ -1,3 +1,4 @@
+<?php /* @var $theView fpcm\view\viewVars */ ?>
 <!-- Link einfügen -->  
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertlink">  
     <table class="fpcm-ui-table">
@@ -83,11 +84,11 @@
         </tr>   
         <tr>
             <td><label><?php $theView->write('EDITOR_INSERTMEDIA_AUDIO'); ?>:</label></td>
-            <td><?php fpcm\view\helper::radio('media[type]', 'fpcm-editor-mediatype', 'audio', '', 'mediatype_a', true); ?></td>
+            <td><?php $theView->radiobutton('mediatype')->setClass('fpcm-editor-mediatype')->setValue('audio'); ?></td>
         </tr>
         <tr>
             <td><label><?php $theView->write('EDITOR_INSERTMEDIA_VIDEO'); ?>:</label></td>
-            <td><?php fpcm\view\helper::radio('media[type]', 'fpcm-editor-mediatype', 'video', '', 'mediatype_v', false); ?></td>
+            <td><?php $theView->radiobutton('mediatype')->setClass('fpcm-editor-mediatype')->setValue('video'); ?></td>
         </tr>         
     </table>
 </div>

@@ -9,10 +9,12 @@
     </tr>
     <tr>
         <td><?php $theView->write('CATEGORIES_ROLLS'); ?></td>
-        <td class="fpcm-ui-controlgroup">
-        <?php foreach ($userRolls as $rollname => $rollid) : ?>
-        <?php $theView->checkbox('category[groups][]', 'cat'.$rollid)->setText($rollname)->setValue($rollid)->setSelected(isset($selectedGroups) && in_array($rollid, $selectedGroups) ? true : false); ?>
-        <?php endforeach; ?>                    
+        <td>
+            <div class="fpcm-ui-controlgroup">
+            <?php foreach ($userRolls as $rollname => $rollid) : ?>
+                <?php $theView->checkbox('category[groups][]', 'cat'.$rollid)->setText($rollname)->setValue($rollid)->setSelected(isset($selectedGroups) && in_array($rollid, $selectedGroups) ? true : false); ?>
+            <?php endforeach; ?>
+            </div>
         </td>
     </tr>               
 </table>

@@ -72,7 +72,7 @@ class iplist extends \fpcm\controller\abstracts\controller {
         $this->view->setFormAction('ips/list');
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('ips/add'))->setText('IPLIST_ADDIP')->setIcon('unlock')->setClass('fpcm-loader'),
-            new \fpcm\view\helper\deleteButton('delete')
+            (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')
         ]);
         $this->view->render();
     }

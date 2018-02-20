@@ -53,9 +53,9 @@
         <td class="fpcm-ui-modules-version fpcm-ui-center" id="fpcm-module-versionrem<?php print $module->getKey(); ?>"><?php print $theView->escape($module->getVersionRemote()); ?></td>
         <td class="fpcm-td-select-row">
         <?php if ($module->isInstalled()) : ?>
-            <?php fpcm\view\helper::checkbox('moduleksys[]', 'fpcm-list-selectbox', base64_encode($module->getKey()), '', 'cb_'.str_replace('/', '', $module->getKey()), false) ?>
+            <?php fpcm\view\helper::checkbox('moduleksys[]', 'fpcm-ui-list-checkbox', base64_encode($module->getKey()), '', 'cb_'.str_replace('/', '', $module->getKey()), false) ?>
         <?php else : ?>
-            <?php fpcm\view\helper::checkbox('moduleksys[]', 'fpcm-list-selectbox', base64_encode($module->getKey().'_version'.$module->getVersionRemote()), '', 'cb_'.str_replace('/', '', $module->getKey()), false) ?>
+            <?php fpcm\view\helper::checkbox('moduleksys[]', 'fpcm-ui-list-checkbox', base64_encode($module->getKey().'_version'.$module->getVersionRemote()), '', 'cb_'.str_replace('/', '', $module->getKey()), false) ?>
         <?php endif; ?>
         </td>
     </tr>

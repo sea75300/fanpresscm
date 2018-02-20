@@ -16,7 +16,7 @@
             <th><?php $theView->writeMonth($theView->dateText($articleMonth, 'n')); ?> <?php print $theView->dateText($articleMonth, 'Y'); ?> (<?php print count($articles); ?>)</th> 
             <th class="fpcm-td-articlelist-categories"></th>
             <th class="fpcm-td-articlelist-meta"></th>
-            <th class="fpcm-td-select-row"><?php $theView->checkbox('fpcm-select-allsub', 'fpcm-select-allsub'.$articleMonth)->setClass('fpcm-select-allsub')->setValue($articleMonth); ?></th>
+            <th class="fpcm-td-select-row"><?php $theView->checkbox('fpcm-ui-list-checkbox-sub', 'fpcm-ui-list-checkbox-sub'.$articleMonth)->setClass('fpcm-ui-list-checkbox-sub')->setValue($articleMonth); ?></th>
         </tr>
         <tr class="fpcm-td-spacer"><td></td></tr>
         <?php foreach($articles AS $articleId => $article) : ?>
@@ -50,7 +50,7 @@
                 <td class="fpcm-td-articlelist-meta"><?php include $theView->getIncludePath('articles/metainfo.php'); ?></td>
                 <td class="fpcm-td-select-row">
                     <?php $nameList = $article->getEditPermission() ? 'ids' : 'ro'; ?>                    
-                    <?php $theView->checkbox('actions['.$nameList.'][]', 'chbx'.$articleId)->setClass('fpcm-list-selectbox fpcm-list-selectbox-sub'.$articleMonth)->setValue($articleId)->setReadonly($article->getEditPermission()); ?>
+                    <?php $theView->checkbox('actions['.$nameList.'][]', 'chbx'.$articleId)->setClass('fpcm-ui-list-checkbox fpcm-ui-list-checkbox-subitem'.$articleMonth)->setValue($articleId)->setReadonly($article->getEditPermission()); ?>
                 </td>
             </tr>
         <?php endforeach; ?>

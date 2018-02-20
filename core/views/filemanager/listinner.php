@@ -1,3 +1,4 @@
+<?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if (!count($files)) : ?>
 <table class="fpcm-ui-table fpcm-ui-nobg">
     <?php \fpcm\view\helper::notFoundContainer($files, 4); ?>
@@ -29,7 +30,7 @@
                 </div>
                 
                 <div class="fpcm-filelist-actions-checkbox">
-                    <?php $theView->checkbox('filenames[]', 'cb_'. md5($file->getFilename()))->setClass('fpcm-list-selectbox')->setValue(base64_encode($file->getFilename())); ?>
+                    <?php $theView->checkbox('filenames[]', 'cb_'. md5($file->getFilename()))->setClass('fpcm-ui-list-checkbox')->setValue(base64_encode($file->getFilename())); ?>
                 </div>
                 
                 <div class="fpcm-clear"></div>

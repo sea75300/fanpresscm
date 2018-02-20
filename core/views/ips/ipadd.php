@@ -19,10 +19,12 @@
                 </tr>
                 <tr>
                     <td><?php $theView->write('IPLIST_BLOCKTYPE'); ?>:</td>
-                    <td class="fpcm-ui-controlgroup">
-                        <?php fpcm\view\helper::checkbox('nocomments', '', '1', 'IPLIST_NOCOMMENTS', 'nocomments', false); ?> 
-                        <?php fpcm\view\helper::checkbox('nologin', '', '1', 'IPLIST_NOLOGIN', 'nologin', false); ?> 
-                        <?php fpcm\view\helper::checkbox('noaccess', '', '1', 'IPLIST_NOACCESS', 'noaccess', false); ?> 
+                    <td>
+                        <div class="fpcm-ui-controlgroup">
+                            <?php $theView->checkbox('nocomments')->setText('IPLIST_NOCOMMENTS'); ?>
+                            <?php $theView->checkbox('nologin')->setText('IPLIST_NOLOGIN'); ?>
+                            <?php $theView->checkbox('noaccess')->setText('IPLIST_NOACCESS'); ?>
+                        </div>
                     </td>
                 </tr>
             </table>            

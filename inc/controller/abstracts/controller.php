@@ -270,8 +270,6 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->cache->cleanup($fieldname);
 
         $this->checkPageToken = (\fpcm\classes\http::getPageToken() == $tokenData ? true :false);
-        
-        fpcmDump(__METHOD__, $this->checkPageToken);
 
         return $this->checkPageToken;
     }

@@ -142,7 +142,7 @@ fpcm.system = {
                         fpcm.ui.confirmDialog({
                             clickYes: function() {
 
-                                var objectIDs = fpcm.ui.getCheckboxCheckedValues('.fpcm-list-selectbox');
+                                var objectIDs = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
                                 if (objectIDs.length == 0) {
                                     fpcm.ui.showLoader(false);
                                     return false;

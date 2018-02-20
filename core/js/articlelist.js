@@ -135,7 +135,7 @@ fpcm.articlelist = {
     articleActionsTweet: function() {
         fpcm.ui.confirmDialog({
             clickYes: function() {
-                var articleIds = fpcm.ui.getCheckboxCheckedValues('.fpcm-list-selectbox');
+                var articleIds = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
                 if (articleIds.length == 0) {
                     fpcm.ui.showLoader(false);
                     return false;

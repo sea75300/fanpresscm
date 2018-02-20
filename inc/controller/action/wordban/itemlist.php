@@ -60,7 +60,7 @@ class itemlist extends \fpcm\controller\abstracts\controller {
         $this->view->setFormAction('wordban/list');
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('wordban/add'))->setText('WORDBAN_ADD')->setIcon('ban')->setClass('fpcm-loader'),
-            new \fpcm\view\helper\deleteButton('delete')
+            (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')
         ]);
         $this->view->render();
     }

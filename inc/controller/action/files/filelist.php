@@ -144,7 +144,8 @@
                 'jqUploadInit'      => $this->config->file_uploader_new ? true : false,
                 'fmLoadAjax'        => ($this->fileList->getDatabaseFileCount() ? true : false),
                 'currentModule'     => $this->getRequestVar('module'),
-                'filesLastSearch'   => 0
+                'filesLastSearch'   => 0,
+                'checkboxRefresh'   => true
             ]);
 
             $this->view->addJsLangVars(['FILE_LIST_RENAME_NEWNAME', 'SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START', 'FILE_LIST_ADDTOINDEX']);

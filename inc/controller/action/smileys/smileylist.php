@@ -61,7 +61,7 @@ class smileylist extends \fpcm\controller\abstracts\controller {
 
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addSmiley'))->setText('FILE_LIST_SMILEYADD')->setUrl(\fpcm\classes\tools::getFullControllerLink('smileys/add'))->setClass('fpcm-loader')->setIcon('plus'),
-            new \fpcm\view\helper\deleteButton('deleteSmiley')
+            (new \fpcm\view\helper\deleteButton('deleteSmiley'))->setClass('fpcm-ui-button-confirm')
         ]);
 
         $this->view->setFormAction('smileys/list');

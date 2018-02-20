@@ -27,11 +27,12 @@ class button extends helper {
     protected function getString()
     {
         return implode(' ', [
-            ($this->readonly ? '<span ' : "<button type=\"{$this->type}\" "),
+            "<button type=\"{$this->type}\" ",
             $this->getDataString(),
+            $this->getReadonlyString(),
             ($this->readonly ? $this->getClassString() : $this->getNameIdString() . ' ' . $this->getClassString()),
             ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()} {$this->getDescriptionTextString()}"),
-            ($this->readonly ? '</span>' : "</button>")
+            "</button>"
         ]);
     }
 
