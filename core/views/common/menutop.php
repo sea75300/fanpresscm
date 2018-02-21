@@ -54,6 +54,6 @@
          <?php print $theView->notificationString; ?>
      </ul>
 
-     <div class="fpcm-clear"></div>
+     <div class="fpcm-ui-clear"></div>
  </div>
  <?php endif; ?> 

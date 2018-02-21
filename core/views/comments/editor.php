@@ -11,7 +11,7 @@
                     <?php if ($ipWhoisLink) : ?>(<a href="http://www.whois.com/whois/<?php print $comment->getIpaddress(); ?>" target="_blank">Whois</a>)<?php endif; ?>
                 </div>                
                 <?php include $theView->getIncludePath('comments/metainfo.php'); ?>
-                <div class="fpcm-clear"></div>
+                <div class="fpcm-ui-clear"></div>
             </div>
         </td>
     </tr>

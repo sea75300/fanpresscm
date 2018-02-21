@@ -33,7 +33,7 @@
     <?php endforeach; ?>
         </ul>
 
-        <div class="fpcm-clear"></div>
+        <div class="fpcm-ui-clear"></div>
 
     </div>
     

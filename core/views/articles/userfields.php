@@ -8,7 +8,7 @@
             <div class="fpcm-ui-editor-extended-col">
 
             </div>
-            <div class="fpcm-clear"></div>
+            <div class="fpcm-ui-clear"></div>
         </div>  
     <?php endforeach; ?>
 <?php endif; ?>

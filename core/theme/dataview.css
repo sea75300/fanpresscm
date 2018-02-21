@@ -1,0 +1,71 @@
+div.fpcm-ui-dataview {
+    
+}
+
+div.fpcm-ui-dataview div.fpcm-ui-dataview-head,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-head div.fpcm-ui-dataview-col,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row div.fpcm-ui-dataview-col {
+    display: block;
+}
+
+div.fpcm-ui-dataview div.fpcm-ui-dataview-head div.fpcm-ui-dataview-col,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row div.fpcm-ui-dataview-col {
+    float: left;
+}
+
+div.fpcm-ui-dataview-align-left {
+    text-align: left;
+}
+
+div.fpcm-ui-dataview-align-center {
+    text-align: center;
+}
+
+div.fpcm-ui-dataview-align-right {
+    text-align: right;
+}
+
+div.fpcm-ui-dataview-align-justify {
+    text-align: justify;
+}
+
+div.fpcm-ui-dataview-size-1 {
+    width: 10%;
+}
+
+div.fpcm-ui-dataview-size-2 {
+    width: 20%;
+}
+
+div.fpcm-ui-dataview-size-3 {
+    width: 30%;
+}
+
+div.fpcm-ui-dataview-size-4 {
+    width: 40%;
+}
+
+div.fpcm-ui-dataview-size-5 {
+    width: 50%;
+}
+
+div.fpcm-ui-dataview-size-6 {
+    width: 60%;
+}
+
+div.fpcm-ui-dataview-size-7 {
+    width: 70%;
+}
+
+div.fpcm-ui-dataview-size-8 {
+    width: 80%;
+}
+
+div.fpcm-ui-dataview-size-9 {
+    width: 90%;
+}
+
+div.fpcm-ui-dataview-size-10 {
+    width: 100%;
+}

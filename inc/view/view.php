@@ -198,6 +198,10 @@ class view {
      */
     private function checkJsPath($item)
     {
+        if (!trim($item)) {
+            return null;
+        }
+        
         if (strpos($item, \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::CORE_JS)) === 0) {
             return $item;
         }
@@ -644,6 +648,29 @@ class view {
         }
         
         $this->formAction = \fpcm\classes\tools::getFullControllerLink($controller, $params);
+    }
+
+    /**
+     * Set form action path
+     * @param string $controller
+     * @param array $params
+     */
+    public function addDataView(\fpcm\components\dataView\dataView $dataView)
+    {
+        $vars       = $dataView->getJsVars();
+        if (count($vars)) {
+            $this->addJsVars($vars);
+        }
+
+        $files      = $dataView->getJsFiles();
+        if (count($files)) {
+            $this->addJsFiles($files);
+        }
+
+        $langVars   = $dataView->getJsLangVars();
+        if (count($langVars)) {
+            $this->addJsLangVars($langVars);
+        }
     }
 
     /**

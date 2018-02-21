@@ -6,7 +6,7 @@
             <div class="fpcm-ui-editor-metabox">
                 <?php include $theView->getIncludePath('articles/times.php'); ?>
                 <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
-                <div class="fpcm-clear"></div>
+                <div class="fpcm-ui-clear"></div>
             </div>
         </td>
         <?php
@@ -17,7 +17,7 @@
             <div class="fpcm-ui-editor-metabox">
                 <?php include $theView->getIncludePath('articles/times.php'); ?>
                 <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
-                <div class="fpcm-clear"></div>
+                <div class="fpcm-ui-clear"></div>
             </div>
         </td>
     </tr>    

@@ -179,11 +179,19 @@
         /**
          * Ersetzt Monat (1-12) in sprachspezifischen String
          * @param int $monthId
+         * @param bool $return
+         * @return type
          */
-        public function writeMonth($monthId)
+        public function writeMonth($monthId, $return = false)
         {
-            $monthId = (string) $monthId;
-            print isset($GLOBALS['langdata']['SYSTEM_MONTHS'][$monthId]) ? $GLOBALS['langdata']['SYSTEM_MONTHS'][$monthId] : null;
+            $monthId    = (string) $monthId;
+            $result     = isset($GLOBALS['langdata']['SYSTEM_MONTHS'][$monthId]) ? $GLOBALS['langdata']['SYSTEM_MONTHS'][$monthId] : null;
+
+            if ($return) {
+                return $result;
+            }
+
+            print $result;
         }
         
         /**

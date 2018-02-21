@@ -26,7 +26,7 @@
                     </div>
                 </div>
 
-                <div class="fpcm-clear"></div>
+                <div class="fpcm-ui-clear"></div>
 
                 <div class="fpcm-ui-permissions-container">
                     <div class="fpcm-ui-permissions-container-inner">
@@ -57,7 +57,7 @@
                     </div>
                 </div>
 
-                <div class="fpcm-clear"></div>
+                <div class="fpcm-ui-clear"></div>
 
             </div>
         </div>

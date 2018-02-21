@@ -37,8 +37,6 @@ fpcm.users = {
                         text: fpcm.ui.translate('GLOBAL_SAVE'),
                         icon: "ui-icon-disk",                        
                         click: function() {
-                            console.log('save btn');
-                            
                             jQuery(this).children('iframe').contents().find('#btnPermissionsSave').trigger('click');
                             fpcm.ui.showLoader(false);
                         }

@@ -485,7 +485,7 @@ fpcm.ui = {
             msgCode += '        <span class="fa-stack fa-lg"><span class="fa fa-square fa-stack-2x fa-inverse"></span><span class="fa fa-times fa-stack-1x"></span></span>';
             msgCode += '    </div>';
             msgCode += '</div>';
-            msgCode += '<div class="fpcm-clear"></div>';
+            msgCode += '<div class="fpcm-ui-clear"></div>';
             fpcm.ui.appendHtml('#fpcm-messages', msgCode);
 
         }

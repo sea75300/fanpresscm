@@ -33,7 +33,7 @@
                     <?php $theView->checkbox('filenames[]', 'cb_'. md5($file->getFilename()))->setClass('fpcm-ui-list-checkbox')->setValue(base64_encode($file->getFilename())); ?>
                 </div>
                 
-                <div class="fpcm-clear"></div>
+                <div class="fpcm-ui-clear"></div>
             </div> 
             
             <div class="fpcm-filelist-meta fpcm-ui-left fpcm-small-text">
@@ -60,7 +60,7 @@
     </div>
     <?php endforeach; ?>
     
-    <div class="fpcm-clear"></div>
+    <div class="fpcm-ui-clear"></div>
 </div>
 
 <span id="fpcm-filelist-images-finished"></span>

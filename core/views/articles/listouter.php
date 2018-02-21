@@ -5,9 +5,9 @@
         </ul>
 
         <div id="tabs-article-list">
-            <?php include $theView->getIncludePath('articles/lists/articles.php'); ?>
+            <div id="fpcm-dataview-articlelistall"></div>
+            <?php //include $theView->getIncludePath('articles/lists/articles.php'); ?>
         </div>
-
     </div>
 
     <?php $theView->pageTokenField('pgtkn'); ?>

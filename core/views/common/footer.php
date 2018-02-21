@@ -1,6 +1,6 @@
             </div>
 
-            <div class="fpcm-clear"></div>
+            <div class="fpcm-ui-clear"></div>
 
             <div class="fpcm-footer fpcm-footer-bottom">
                 <div class="fpcm-footer-text">
