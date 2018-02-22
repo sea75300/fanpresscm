@@ -91,7 +91,7 @@ final class dataView {
      * 
      * @param array $row
      */
-    public function addRow(array $row)
+    public function addRow(row $row)
     {
         $this->rows[] = $row;
     }
@@ -132,10 +132,14 @@ final class dataView {
     public function getJsVars()
     {
         return [
-            'dataviews' => [
-                $this->name => [
+            'dataviews'         => [
+                $this->name     => [
                     'columns'   => $this->columns,
                     'rows'      => $this->rows
+                ],
+                'rolColTypes'   => [
+                    'coltypeValue'     => rowCol::COLTYPE_VALUE,
+                    'coltypeElement'   => rowCol::COLTYPE_ELEMENT
                 ]
             ]
         ];

@@ -14,6 +14,24 @@ div.fpcm-ui-dataview div.fpcm-ui-dataview-row div.fpcm-ui-dataview-col {
     float: left;
 }
 
+div.fpcm-ui-dataview-rowcolpadding {
+    margin: 0.5em 0em;
+    color: #2779aa;
+}
+
+div.fpcm-ui-dataview-head {
+    margin-top: 0em;
+    font-size: 1.15em;
+    line-height: 1.8em;
+    padding: 0.3em 0.15em;
+}
+
+div.fpcm-ui-dataview-subhead {
+    font-size: 1.0em;
+    line-height: 1.8em;
+    padding: 0.15em;
+}
+
 div.fpcm-ui-dataview-align-left {
     text-align: left;
 }
@@ -31,41 +49,49 @@ div.fpcm-ui-dataview-align-justify {
 }
 
 div.fpcm-ui-dataview-size-1 {
-    width: 10%;
+    width: 8.3333333333%;
 }
 
 div.fpcm-ui-dataview-size-2 {
-    width: 20%;
+    width: 16.6666666666%;
 }
 
 div.fpcm-ui-dataview-size-3 {
-    width: 30%;
+    width: 25%;
 }
 
 div.fpcm-ui-dataview-size-4 {
-    width: 40%;
+    width: 33.33333333%;
 }
 
 div.fpcm-ui-dataview-size-5 {
-    width: 50%;
+    width: 41.6666666666%;
 }
 
 div.fpcm-ui-dataview-size-6 {
-    width: 60%;
+    width: 50%;
 }
 
 div.fpcm-ui-dataview-size-7 {
-    width: 70%;
+    width: 58.3333333333%;
 }
 
 div.fpcm-ui-dataview-size-8 {
-    width: 80%;
+    width: 66.6666666667%;
 }
 
 div.fpcm-ui-dataview-size-9 {
-    width: 90%;
+    width: 75%;
 }
 
 div.fpcm-ui-dataview-size-10 {
+    width: 83.3333333333%;
+}
+
+div.fpcm-ui-dataview-size-11 {
+    width: 91.6666666667%;
+}
+
+div.fpcm-ui-dataview-size-12 {
     width: 100%;
 }

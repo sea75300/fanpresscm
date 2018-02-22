@@ -15,6 +15,9 @@ namespace fpcm\components\dataView;
  */
 final class rowCol implements \JsonSerializable {
 
+    const COLTYPE_VALUE     = 1;
+    const COLTYPE_ELEMENT   = 2;
+
     /**
      * Column name
      * @var string
@@ -34,16 +37,23 @@ final class rowCol implements \JsonSerializable {
     protected $class    = '';
 
     /**
+     * Column class
+     * @var int
+     */
+    protected $type     = 0;
+
+    /**
      * 
      * @param type $name
      * @param type $value
      * @param type $class
      */
-    public function __construct($name, $value = '', $class = '')
+    public function __construct($name, $value = '', $class = '', $type = self::COLTYPE_VALUE)
     {
         $this->name  = $name;
         $this->value = $value;
         $this->class = $class;
+        $this->type  = (int) $type;
     }
 
     /**

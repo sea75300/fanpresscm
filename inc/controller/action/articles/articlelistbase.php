@@ -97,6 +97,12 @@ class articlelistbase extends \fpcm\controller\abstracts\controller {
      */
     protected $categories = [];
 
+    /**
+     *
+     * @var array
+     */
+    protected $users      = [];
+
     protected function getViewPath()
     {
         return 'articles/listouter';
@@ -187,10 +193,10 @@ class articlelistbase extends \fpcm\controller\abstracts\controller {
     {
         $this->initPagination();
 
-        $users = $this->userList->getUsersNameList();
+        $this->users = $this->userList->getUsersNameList();
 
         $this->view->assign('timesMode', true);
-        $this->view->assign('users', array_flip($users));
+        $this->view->assign('users', array_flip($this->users));
         $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
         $this->view->assign('showArchiveStatus', true);
         $this->view->assign('showDraftStatus', $this->showDraftStatus);
@@ -200,8 +206,8 @@ class articlelistbase extends \fpcm\controller\abstracts\controller {
 
         $this->categories = $this->categoryList->getCategoriesNameListCurrent();
 
-        $this->initSearchForm($users);
-        $this->initMassEditForm($users);
+        $this->initSearchForm($this->users);
+        $this->initMassEditForm($this->users);
 
         $this->view->assign('commentCount', $this->commentList->countComments($this->getArticleListIds()));
         $this->view->assign('commentPrivateUnapproved', $this->commentList->countUnapprovedPrivateComments($this->getArticleListIds()));
