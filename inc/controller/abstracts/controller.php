@@ -347,7 +347,7 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        if (!$this->session->exists()) {
+        if (!is_object($this->session) || !$this->session->exists()) {
             return $this->redirectNoSession();
         }
 

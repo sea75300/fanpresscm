@@ -54,9 +54,7 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
         $efile . ', line ' .
         $eline,
         'ERROR CODE: ' .
-        $ecode,
-        'BACKTRACE: ',
-        defined('FPCM_UNITTEST') ? 'Unit test, no backtrace' : print_r(debug_backtrace(1), true)
+        $ecode
     ];
 
     $LogLine = json_encode([

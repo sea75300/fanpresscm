@@ -27,7 +27,7 @@
             </div>
             <div class="fpcm-ui-clear"></div>
         </div>
-        <p class="fpcm-ui-center"><span class="fpcm-small-text"><?php print $twitterReplacements; ?></span> <?php $theView->shorthelpButton('tweetHelp')->setText('EDITOR_TWEET_TEXT_REPLACER')->setUrl($theView->basePath.'system/templates'); ?></p>
+        <p class="fpcm-ui-center"><span class="fpcm-ui-font-small"><?php print $twitterReplacements; ?></span> <?php $theView->shorthelpButton('tweetHelp')->setText('EDITOR_TWEET_TEXT_REPLACER')->setUrl($theView->basePath.'system/templates'); ?></p>
         <?php endif; ?>
 
         <?php if (!$editorMode || $article->getPostponed()) : ?>

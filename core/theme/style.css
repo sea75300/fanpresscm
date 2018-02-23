@@ -198,9 +198,15 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
 .fpcm-dialog-wrapper    {
     padding: 0em 0.6em 0em 0em;
 }
+
+.fpcm-ui-block            {
+    display: block;
+}
+
 .fpcm-ui-hidden            {
     display: none;
 }
+
 .fpcm-ui-clear             {
     clear: both;
 }
@@ -214,9 +220,8 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
     padding: 0.5em;
 }
 
-.fpcm-small-text {
+.fpcm-ui-font-small {
     font-size: 0.85em;
-    padding: 0.2em;
 }
 
 .fpcm-footer {
@@ -1039,12 +1044,12 @@ h3, .fpcm-dashboard-container h3 {
     height: 100%;
 }
 
-.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-small-text,
-.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-small-text2 {
+.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-ui-font-small,
+.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-ui-font-small2 {
     font-size: 0.85em;
 }
 
-.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-small-text {
+.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-ui-font-small {
     line-height: 1.25em;
 }
 
@@ -1116,7 +1121,7 @@ table.fpcm-ui-articles tr td.fpcm-ui-dashboard-recentarticles-meta {
 }
 
 table.fpcm-ui-articles tr td.fpcm-ui-dashboard-recentarticles-meta,
-.fpcm-ui-editor-metabox-right {
+.fpcm-ui-metabox {
     color:#3399ff;
 }
 
@@ -1290,6 +1295,13 @@ span.fpcm-ui-badge.fpcm-ui-badge-comments,
 span.fpcm-ui-badge.fpcm-ui-badge-userarticles {
     font-size: 0.9em;
     min-width: 3em;
+    margin-top: 1.3em;
+    line-height: 2em;
+    padding: 0em 0.5em;
+}
+
+span.fpcm-ui-badge.fpcm-ui-badge-comments {
+    float: left;
 }
 
 /* jQuery UI Hooks */

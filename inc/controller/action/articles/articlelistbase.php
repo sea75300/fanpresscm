@@ -9,45 +9,16 @@
 
 namespace fpcm\controller\action\articles;
 
-class articlelistbase extends \fpcm\controller\abstracts\controller {
+abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
     use \fpcm\controller\traits\articles\lists;
 
-    /**
-     *
-     * @var \fpcm\model\categories\categoryList
-     */
-    protected $categoryList;
-
-    /**
-     *
-     * @var \fpcm\model\users\userList
-     */
-    protected $userList;
-
-    /**
-     *
-     * @var \fpcm\model\articles\articlelist
-     */
-    protected $articleList;
-
-    /**
-     *
-     * @var \fpcm\model\comments\commentList
-     */
-    protected $commentList;
 
     /**
      * Liste mit erlaubten Artikel-Aktionen
      * @var array
      */
     protected $articleActions = [];
-
-    /**
-     *
-     * @var array
-     */
-    protected $articleItems = [];
 
     /**
      *
@@ -69,43 +40,18 @@ class articlelistbase extends \fpcm\controller\abstracts\controller {
 
     /**
      *
-     * @var int
-     */
-    protected $listShowLimit = 0;
-
-    /**
-     *
-     * @var int
-     */
-    protected $listShowStart = 0;
-
-    /**
-     *
-     * @var int
-     */
-    protected $articleCount = 0;
-
-    /**
-     *
      * @var string
      */
     protected $listAction = '';
 
-    /**
-     *
-     * @var array
-     */
-    protected $categories = [];
-
-    /**
-     *
-     * @var array
-     */
-    protected $users      = [];
-
     protected function getViewPath()
     {
         return 'articles/listouter';
+    }
+
+    protected function getHelpLink()
+    {
+        return 'hl_article_edit';
     }
 
     /**
@@ -115,12 +61,7 @@ class articlelistbase extends \fpcm\controller\abstracts\controller {
     {
         parent::__construct();
 
-        $this->articleList = new \fpcm\model\articles\articlelist();
-        $this->categoryList = new \fpcm\model\categories\categoryList();
-        $this->commentList = new \fpcm\model\comments\commentList();
-        $this->userList = new \fpcm\model\users\userList();
-        $this->listShowLimit = $this->config->articles_acp_limit;
-
+        $this->initActionObjects();
         $this->initArticleActions();
         $this->initEditPermisions();
     }
@@ -180,11 +121,6 @@ class articlelistbase extends \fpcm\controller\abstracts\controller {
         return true;
     }
 
-    protected function getHelpLink()
-    {
-        return 'hl_article_edit';
-    }
-
     /**
      * Controller-Processing
      * @return boolean
@@ -192,8 +128,7 @@ class articlelistbase extends \fpcm\controller\abstracts\controller {
     public function process()
     {
         $this->initPagination();
-
-        $this->users = $this->userList->getUsersNameList();
+        $this->initActionVars();
 
         $this->view->assign('timesMode', true);
         $this->view->assign('users', array_flip($this->users));
@@ -202,15 +137,9 @@ class articlelistbase extends \fpcm\controller\abstracts\controller {
         $this->view->assign('showDraftStatus', $this->showDraftStatus);
         $this->view->assign('articleActions', $this->articleActions);
         $this->view->assign('deletePermissions', $this->deleteActions);
-        $this->view->assign('list', $this->articleItems);
-
-        $this->categories = $this->categoryList->getCategoriesNameListCurrent();
 
         $this->initSearchForm($this->users);
         $this->initMassEditForm($this->users);
-
-        $this->view->assign('commentCount', $this->commentList->countComments($this->getArticleListIds()));
-        $this->view->assign('commentPrivateUnapproved', $this->commentList->countUnapprovedPrivateComments($this->getArticleListIds()));
 
         $this->view->addJsFiles(['articlelist.js']);
 
@@ -219,7 +148,7 @@ class articlelistbase extends \fpcm\controller\abstracts\controller {
             if ($this->permissions->check(['article' => 'add'])) {
                 $this->view->addButton((new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pencil'));
             }
-            
+
             if ($this->canEdit) {
                 $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('pencil-square-o'));
             }
@@ -231,25 +160,14 @@ class articlelistbase extends \fpcm\controller\abstracts\controller {
             (new \fpcm\view\helper\select('actions[action]'))->setOptions($this->articleActions),
             (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-loader')->setIcon('check')
         ]);
-        
+
 
         $this->translateCategories();
 
+        $this->initDataView();
+        $this->view->addDataView($this->dataView);
+
         return true;
-    }
-
-    /**
-     * Artikel-IDs ermitteln
-     * @return array
-     */
-    protected function getArticleListIds()
-    {
-        $articleIds = [];
-        foreach ($this->articleItems as $monthData) {
-            $articleIds = array_merge($articleIds, array_keys($monthData));
-        }
-
-        return $articleIds;
     }
 
     /**
@@ -304,10 +222,7 @@ class articlelistbase extends \fpcm\controller\abstracts\controller {
 
         $page = $this->getRequestVar('page', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
         $pagerData = \fpcm\classes\tools::calcPagination(
-            $this->listShowLimit,
-            $page,
-            $this->articleCount,
-            count($this->articleItems)
+                        $this->listShowLimit, $page, $this->articleCount, count($this->articleItems)
         );
 
         $this->listShowStart = \fpcm\classes\tools::getPageOffset($page, $this->listShowLimit);
@@ -316,7 +231,7 @@ class articlelistbase extends \fpcm\controller\abstracts\controller {
         foreach ($pagerData as $key => $value) {
             $this->view->assign($key, $value);
         }
-        
+
         if ($this->listAction) {
             $this->view->setFormAction($this->listAction, ['page' => $pagerData['pageCurrent']]);
         }

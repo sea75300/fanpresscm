@@ -32,6 +32,14 @@ div.fpcm-ui-dataview-subhead {
     padding: 0.15em;
 }
 
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row {
+    line-height: 1.5em;
+}
+
+div.fpcm-ui-dataview div.fpcm-ui-dataview-lineheight4 {
+    line-height: 4em;
+}
+
 div.fpcm-ui-dataview-align-left {
     text-align: left;
 }
@@ -46,6 +54,10 @@ div.fpcm-ui-dataview-align-right {
 
 div.fpcm-ui-dataview-align-justify {
     text-align: justify;
+}
+
+div.fpcm-ui-dataview-size-05 {
+    width: 4.166666666%;
 }
 
 div.fpcm-ui-dataview-size-1 {

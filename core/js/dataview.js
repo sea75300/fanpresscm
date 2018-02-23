@@ -14,10 +14,12 @@ fpcm.dataview = {
     render: function (id, params) {
 
         if (!fpcm.vars.jsvars.dataviews[id]) {
+            console.log('Dataview ' + id + ' does not exists in fpcm.vars.jsvars.dataviews!');
             return false;
         }
 
         if (!fpcm.vars.jsvars.dataviews[id].columns.length) {
+            console.log('Dataview ' + id + ' does not contain any columns!');
             return false;
         }
 
@@ -76,6 +78,11 @@ fpcm.dataview = {
             params.onRenderAfter.call();
         }
         
+    },
+    
+    updateAndRender: function (id, params) {
+        jQuery('#fpcm-dataview-' + id).empty();
+        fpcm.dataview.render(id, params);
     }
 
 };

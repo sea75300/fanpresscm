@@ -36,7 +36,7 @@
                 <div class="fpcm-ui-clear"></div>
             </div> 
             
-            <div class="fpcm-filelist-meta fpcm-ui-left fpcm-small-text">
+            <div class="fpcm-filelist-meta fpcm-ui-left fpcm-ui-font-small">
                 <table class="fpcm-ui-table fpcm-ui-nobg">
                     <tr>
                         <td><strong><?php $theView->write('FILE_LIST_UPLOAD_DATE'); ?>:</strong></td>

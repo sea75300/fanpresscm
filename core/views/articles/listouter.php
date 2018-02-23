@@ -5,8 +5,7 @@
         </ul>
 
         <div id="tabs-article-list">
-            <div id="fpcm-dataview-articlelistall"></div>
-            <?php //include $theView->getIncludePath('articles/lists/articles.php'); ?>
+            <div id="fpcm-dataview-articlelist"></div>
         </div>
     </div>
 

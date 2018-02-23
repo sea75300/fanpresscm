@@ -19,7 +19,7 @@ fpcm.articlelist = {
             return false;
         });
 
-        fpcm.dataview.render('articlelistall', {
+        fpcm.dataview.render('articlelist', {
             onRenderAfter: fpcm.ui.assignCheckboxes
         });
 
@@ -124,12 +124,17 @@ fpcm.articlelist = {
         fpcm.ajax.post('articles/search', {
             data: sParams,
             execDone: function () {
-                fpcm.ui.showLoader(false);
-                fpcm.ui.assignHtml('#tabs-article-list', fpcm.ajax.getResult('articles/search'));
-                window.noActionButtonAssign = true;
-                fpcm.ui.initJqUiWidgets();
+
+                result = fpcm.ajax.getResult('articles/search', true);
+
+                fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
+                fpcm.dataview.updateAndRender(result.dataViewName, {
+                    onRenderAfter: fpcm.ui.assignCheckboxes
+                });
+
                 fpcm.articlelist.clearArticleCache();
                 fpcm.ui.resize();
+                fpcm.ui.showLoader(false);
             }
         });
 
