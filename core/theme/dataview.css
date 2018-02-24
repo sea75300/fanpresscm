@@ -22,18 +22,21 @@ div.fpcm-ui-dataview-rowcolpadding {
 div.fpcm-ui-dataview-head {
     margin-top: 0em;
     font-size: 1.15em;
-    line-height: 1.8em;
     padding: 0.3em 0.15em;
 }
 
 div.fpcm-ui-dataview-subhead {
     font-size: 1.0em;
-    line-height: 1.8em;
     padding: 0.15em;
 }
 
 div.fpcm-ui-dataview div.fpcm-ui-dataview-row {
     line-height: 1.5em;
+}
+
+div.fpcm-ui-dataview-head,
+div.fpcm-ui-dataview-subhead {
+    line-height: 1.8em !important;
 }
 
 div.fpcm-ui-dataview div.fpcm-ui-dataview-lineheight4 {

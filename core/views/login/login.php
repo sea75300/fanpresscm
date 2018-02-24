@@ -1,7 +1,7 @@
 <div class="fpcm-content-wrapper">
     <div class="fpcm-login-form">
     <?php if (!isset($lockedGlobal)) : ?>
-        <?php if ($loginAttempts < $loginAttemptsMax) : ?>
+        <?php if ($showLoginForm) : ?>
         <div class="ui-widget-content ui-corner-all ui-state-normal">
             <form method="post" action="<?php print $theView->basePath; ?>system/login">
                 <table class="fpcm-ui-table fpcm-login-form-table">

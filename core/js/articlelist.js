@@ -20,7 +20,10 @@ fpcm.articlelist = {
         });
 
         fpcm.dataview.render('articlelist', {
-            onRenderAfter: fpcm.ui.assignCheckboxes
+            onRenderAfter: function() {
+                fpcm.ui.assignCheckboxes();
+                fpcm.ui.assignControlgroups();
+            }
         });
 
         fpcm.articlelist.initArticleSearch();
@@ -124,6 +127,9 @@ fpcm.articlelist = {
         fpcm.ajax.post('articles/search', {
             data: sParams,
             execDone: function () {
+
+                fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
+                fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
 
                 result = fpcm.ajax.getResult('articles/search', true);
 

@@ -190,11 +190,13 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
 }
 
 .fpcm-content-wrapper   {
-    padding: 0.5em 0.5em 4em 0.5em;
+    padding: 0.5em;
 }
+
 .fpcm-inner-wrapper     {
     margin: 0.4em 0.4em 55px 0.4em;
 }
+
 .fpcm-dialog-wrapper    {
     padding: 0em 0.6em 0em 0em;
 }

@@ -62,10 +62,8 @@ fpcm.ui = {
             onlyVisible: true
         });
 
-        fpcm.ui.controlgroup('div.fpcm-ui-controlgroup', {
-            onlyVisible: false
-        });
-        
+        fpcm.ui.assignControlgroups();
+
         jQuery('.fpcm-ui-button.fpcm-ui-button-confirm').click(function() {
             fpcm.ui.showLoader(false);
             if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
@@ -122,6 +120,12 @@ fpcm.ui = {
 
         });
 
+    },
+    
+    assignControlgroups: function() {
+        fpcm.ui.controlgroup('div.fpcm-ui-controlgroup', {
+            onlyVisible: false
+        });
     },
     
     assignCheckboxes: function() {
@@ -716,9 +720,8 @@ fpcm.ui = {
                 }
                 window.location.href = fpcm.vars.actionPath + fpcm.vars.jsvars.currentModule + '&page=' + ui.item.value;
             },
-            position: {
-                my: "left bottom",
-                at: "left top"
+            classes: {
+                'ui-selectmenu-button': 'fpcm-ui-pager-element'
             }
         });
         
