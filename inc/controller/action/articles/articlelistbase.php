@@ -30,12 +30,6 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
      *
      * @var bool
      */
-    protected $showDraftStatus = true;
-
-    /**
-     *
-     * @var bool
-     */
     protected $canEdit = true;
 
     /**
@@ -43,6 +37,18 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
      * @var string
      */
     protected $listAction = '';
+
+    /**
+     *
+     * @var string
+     */
+    protected $page = '';
+
+    /**
+     *
+     * @var \fpcm\model\articles\search
+     */
+    protected $conditionItems;
 
     protected function getViewPath()
     {
@@ -71,7 +77,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
      * @return boolean
      */
     public function request()
-    {
+    {   
         if (($this->buttonClicked('doAction') || $this->buttonClicked('clearTrash')) && !$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return true;
@@ -117,7 +123,13 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
             $this->view->addNoticeMessage($msg);
         }
 
-        $this->initPagination();
+        $this->getListAction();
+        $this->getLimitsByPage();
+        $this->getConditionItem();
+        $this->getArticleCount();
+        $this->getArticleItems();
+        
+        //$this->initPagination();
         return true;
     }
 
@@ -127,13 +139,11 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
-        $this->initPagination();
+        //$this->initPagination();
         $this->initActionVars();
 
-        $this->view->assign('timesMode', true);
         $this->view->assign('users', array_flip($this->users));
         $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
-        $this->view->assign('showArchiveStatus', true);
         $this->view->assign('showDraftStatus', $this->showDraftStatus);
         $this->view->assign('articleActions', $this->articleActions);
         $this->view->assign('deletePermissions', $this->deleteActions);
@@ -157,11 +167,23 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         }
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\select('actions[action]'))->setOptions($this->articleActions),
+            (new \fpcm\view\helper\select('actions'))->setOptions($this->articleActions),
             (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-loader')->setIcon('check')
         ]);
 
+        $minMax = $this->articleList->getMinMaxDate(1);
+        $this->view->addJsVars([
+            'articleSearchMode'   => $this->getSearchMode(),
+            'articleSearchMinDate' => date('Y-m-d', $minMax['minDate'])
+        ]);
 
+        $formActionParams = [];
+        if ($this->page) {
+            $formActionParams['page'] = $this->page;
+        }
+        
+        $this->view->setFormAction($this->listAction, $formActionParams);
+        
         $this->translateCategories();
 
         $this->initDataView();
@@ -207,8 +229,14 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         if (!$this->deleteActions) {
             return false;
         }
-
+        
         return $this->articleList->restoreArticles($ids);
+    }
+    
+    protected function getLimitsByPage()
+    {
+        $this->page          = $this->getRequestVar('page', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
+        $this->listShowStart = \fpcm\classes\tools::getPageOffset($this->page, $this->listShowLimit);
     }
 
     /**
@@ -220,12 +248,12 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         $this->view->assign('nextBtn', false);
         $this->view->assign('listActionLimit', '');
 
-        $page = $this->getRequestVar('page', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
         $pagerData = \fpcm\classes\tools::calcPagination(
-                        $this->listShowLimit, $page, $this->articleCount, count($this->articleItems)
+            $this->listShowLimit,
+            $this->page,
+            $this->articleCount,
+            count($this->articleItems)
         );
-
-        $this->listShowStart = \fpcm\classes\tools::getPageOffset($page, $this->listShowLimit);
 
         $this->view->assign('showPager', true);
         foreach ($pagerData as $key => $value) {
@@ -371,6 +399,16 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         $this->view->addJsLangVars(['SAVE_FAILED_ARTICLES']);
         $this->view->addJsVars(['masseditPageToken' => \fpcm\classes\security::createPageToken('articles/massedit')]);
     }
+
+    abstract protected function getArticleCount();
+
+    abstract protected function getArticleItems();
+
+    abstract protected function getConditionItem();
+
+    abstract protected function getListAction();
+
+    abstract protected function getSearchMode();
 
 }
 

@@ -24,11 +24,7 @@ fpcm.dataview = {
         }
 
         var obj         = fpcm.vars.jsvars.dataviews[id];
-        var rowEl       = {};
-        var rowColumn   = {};
         var style       = '';
-        var rowId       = '';
-        var valueStr    = '';
 
         obj.fullId      = 'fpcm-dataview-' + id;
         obj.headId      = 'fpcm-dataview-' + id + '-head';
@@ -43,41 +39,46 @@ fpcm.dataview = {
 
         jQuery.each(obj.columns, function (index, column) {
             style = 'fpcm-ui-dataview-col fpcm-ui-dataview-align-' + column.align + ' fpcm-ui-dataview-size-' + column.size;
-            obj.headline.append('<div class="' + style + '" id="fpcm-dataview-headcol-' + column.name + '">' + (column.descr ? column.descr : '&nbsp;') + '</div>');            
+            obj.headline.append('<div class="' + style + '" id="fpcm-dataview-headcol-' + column.name + '">' + (column.descr ? fpcm.ui.translate(column.descr) : '&nbsp;') + '</div>');            
         });
         
         obj.headline.append('<div class="fpcm-ui-clear"></div>');
 
         jQuery.each(obj.rows, function (index, row) {
-
-            rowId = 'fpcm-dataview-row-' + index;
-
-            obj.lines.append('<div class="fpcm-ui-dataview-row' + (row.class ? ' ' + row.class : '') + '" id="' + rowId + '"></span>');
-            rowEl = jQuery('#'+rowId);
-
-            jQuery.each(row.columns, function (index, rowCol) {
-                rowColumn   = obj.columns[index] ? obj.columns[index] : {};
-
-                style       = 'fpcm-ui-dataview-col fpcm-ui-dataview-align-' + rowColumn.align
-                            + ' fpcm-ui-dataview-size-' + rowColumn.size
-                            + ' fpcm-ui-dataview-type' + rowCol.type
-                            + (rowCol.class ? ' ' + rowCol.class : '');
-                
-                valueStr    = ( rowCol.type == fpcm.vars.jsvars.dataviews.rolColTypes.coltypeValue
-                            ? '<div class="fpcm-ui-dataview-col-value">' + (rowCol.value ? rowCol.value : '&nbsp;') + '</div>'
-                            : (rowCol.value ? rowCol.value : '&nbsp;') );
-                
-                rowEl.append('<div class="' + style + '" id="fpcm-dataview-rowcol-' + rowCol.name + index + '">' + valueStr + '</div>');
-            });
-
-            rowEl.append('<div class="fpcm-ui-clear"></div>');
-            
+            fpcm.dataview.addRow(index, row, obj);
         });
         
         if (typeof params.onRenderAfter === 'function') {
             params.onRenderAfter.call();
         }
         
+    },
+    
+    addRow: function(index, row, obj) {
+
+        var rowId           = 'fpcm-dataview-row-' + index;
+
+        obj.lines.append('<div class="fpcm-ui-dataview-row' + (row.class ? ' ' + row.class : '') + '" id="' + rowId + '"></span>');
+        var rowEl           = jQuery('#'+rowId);
+
+        jQuery.each(row.columns, function (index, rowCol) {
+
+            var rowColumn   = obj.columns[index] ? obj.columns[index] : {};
+            
+
+            var style       = 'fpcm-ui-dataview-col fpcm-ui-dataview-align-' + rowColumn.align
+                            + ' fpcm-ui-dataview-size-' + rowColumn.size
+                            + ' fpcm-ui-dataview-type' + rowCol.type
+                            + (rowCol.class ? ' ' + rowCol.class : '');
+
+            var valueStr    = ( rowCol.type == fpcm.vars.jsvars.dataviews.rolColTypes.coltypeValue
+                            ? '<div class="fpcm-ui-dataview-col-value">' + (rowCol.value ? fpcm.ui.translate(rowCol.value) : '&nbsp;') + '</div>'
+                            : (rowCol.value ? fpcm.ui.translate(rowCol.value) : '&nbsp;') );
+
+            rowEl.append('<div class="' + style + '" id="fpcm-dataview-rowcol-' + rowCol.name + index + '">' + valueStr + '</div>');
+        });
+
+        rowEl.append('<div class="fpcm-ui-clear"></div>');
     },
     
     updateAndRender: function (id, params) {

@@ -112,7 +112,7 @@ fpcm.articlelist = {
     startSearch: function (sParams) {
 
         if (((new Date()).getTime() - fpcm.vars.jsvars.articlesLastSearch) < 10000) {
-            fpcm.ui.addAjaxMassage({
+            fpcm.ui.addMessage({
                 type: 'error',
                 txt : fpcm.ui.translate('SEARCH_WAITMSG')
             });

@@ -51,7 +51,7 @@ class search extends \fpcm\controller\abstracts\ajaxController {
     {
         $this->initActionObjects();
         $this->initActionVars();
-        
+
         $this->mode = $this->getRequestVar('mode', [
             \fpcm\classes\http::FPCM_REQFILTER_CASTINT
         ]);
@@ -110,6 +110,16 @@ class search extends \fpcm\controller\abstracts\ajaxController {
         if ($this->mode != -1) {
             $sparams->archived = (int) $this->mode;
         }
+        
+        switch ($this->mode) {
+            case 1 :
+                $this->showArchivedStatus = false;
+                $this->showDraftStatus    = false;
+                break;
+            case 0 :
+                $this->showArchivedStatus = false;
+                break;
+        }
 
         $sparams->approval = (int) $filter['approval'];
         $sparams->combination = $filter['combination'] ? 'OR' : 'AND';
@@ -125,9 +135,9 @@ class search extends \fpcm\controller\abstracts\ajaxController {
     {
         $this->translateCategories();
         $this->initDataView();
-        
+
         $dvVars = $this->dataView->getJsVars();
-        
+
         $this->returnData = [
             'dataViewVars' => $dvVars['dataviews'][$this->getDataViewName()],
             'dataViewName' => $this->getDataViewName()

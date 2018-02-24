@@ -16,37 +16,33 @@ class articlelistall extends articlelistbase {
         return ['article' => 'edit', 'article' => 'editall'];
     }
 
-    public function request()
+    protected function getListAction()
     {
         $this->listAction = 'articles/listall';
-
-        $conditions = new \fpcm\model\articles\search();
-        $conditions->draft = -1;
-        $conditions->drafts = -1;
-        $conditions->approval = -1;
-
-        $this->articleCount = $this->articleList->countArticlesByCondition($conditions);
-
-        parent::request();
-
-        $conditions->limit = [$this->listShowLimit, $this->listShowStart];
-        $this->articleItems = $this->articleList->getArticlesByCondition($conditions, true);
-
-        return true;
     }
 
-    public function process()
+    protected function getArticleCount()
     {
-        parent::process();
+        $this->articleCount = $this->articleList->countArticlesByCondition($this->conditionItems);
+    }
 
-        $minMax = $this->articleList->getMinMaxDate();
+    protected function getArticleItems()
+    {
+        $this->conditionItems->limit = [$this->listShowLimit, $this->listShowStart];
+        $this->articleItems = $this->articleList->getArticlesByCondition($this->conditionItems, true);
+    }
 
-        $this->view->addJsVars(array_merge([
-            'articleSearchMode'     => -1,
-            'articleSearchMinDate'  => date('Y-m-d', $minMax['minDate'])]
-        ));
+    protected function getSearchMode()
+    {
+        return -1;
+    }
 
-        $this->view->render();
+    protected function getConditionItem()
+    {
+        $this->conditionItems = new \fpcm\model\articles\search();
+        $this->conditionItems->draft = -1;
+        $this->conditionItems->drafts = -1;
+        $this->conditionItems->approval = -1;
     }
 
 }

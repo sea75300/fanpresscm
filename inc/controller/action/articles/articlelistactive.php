@@ -1,56 +1,59 @@
 <?php
+
+/**
+ * Article list active controller
+ * @article Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\action\articles;
+
+class articlelistactive extends articlelistbase {
+
     /**
-     * Article list active controller
-     * @article Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+     *
+     * @var bool
      */
-    namespace fpcm\controller\action\articles;
-    
-    class articlelistactive extends articlelistbase {
+    protected $showArchivedStatus = false;
 
-        protected function getPermissions()
-        {
-            return ['article' => 'edit'];
-        }
-
-        public function request() {
-            
-            $this->listAction   = 'articles/listactive';
-
-            $conditions = new \fpcm\model\articles\search();
-            $conditions->draft    = -1;
-            $conditions->drafts   = -1;
-            $conditions->active   = -1;
-            $conditions->archived = -1;
-            $conditions->approval = -1;
-
-            $this->articleCount = $this->articleList->countArticlesByCondition($conditions);
-
-            parent::request();
-
-            $conditions->archived = 0;
-            $conditions->limit    = [$this->listShowLimit, $this->listShowStart];            
-            $this->articleItems   = $this->articleList->getArticlesByCondition($conditions, true);
-
-            return true;
-        }
-        
-        public function process() {
-            
-            parent::process();
-            
-            $this->view->assign('list', $this->articleItems);
-            $this->view->assign('showArchiveStatus', false);
-
-            $minMax = $this->articleList->getMinMaxDate(0);
-            $this->view->addJsVars([
-                'articleSearchMode'   => 0,
-                'articleSearchMinDate' => date('Y-m-d', $minMax['minDate'])
-            ]);
-
-            $this->view->render();
-        }
-
+    protected function getPermissions()
+    {
+        return ['article' => 'edit'];
     }
+    
+    protected function getArticleCount()
+    {
+        $this->articleCount = $this->articleList->countArticlesByCondition($this->conditionItems);        
+    }
+
+    protected function getArticleItems()
+    {
+        $this->conditionItems->archived = 0;
+        $this->conditionItems->limit = [$this->listShowLimit, $this->listShowStart];
+        $this->articleItems = $this->articleList->getArticlesByCondition($this->conditionItems, true);
+    }
+
+    protected function getConditionItem()
+    {
+        $this->conditionItems = new \fpcm\model\articles\search();
+        $this->conditionItems->draft = -1;
+        $this->conditionItems->drafts = -1;
+        $this->conditionItems->active = -1;
+        $this->conditionItems->archived = -1;
+        $this->conditionItems->approval = -1;
+    }
+
+    protected function getSearchMode()
+    {
+        return 0;
+    }
+
+    protected function getListAction()
+    {
+        $this->listAction = 'articles/listactive';
+    }
+
+}
+
 ?>

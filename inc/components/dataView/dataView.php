@@ -151,7 +151,7 @@ final class dataView {
      */
     public function getJsLangVars()
     {
-        return [];
+        return ['GLOBAL_NOTFOUND2'];
     }
 
 }

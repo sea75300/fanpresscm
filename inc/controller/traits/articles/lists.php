@@ -96,6 +96,18 @@ trait lists {
     protected $articleCount = 0;
 
     /**
+     *
+     * @var bool
+     */
+    protected $showArchivedStatus = true;
+
+    /**
+     *
+     * @var bool
+     */
+    protected $showDraftStatus   = true;
+
+    /**
      * Berechtigungen zum Bearbeiten initialisieren
      */
     public function initEditPermisions()
@@ -170,6 +182,16 @@ trait lists {
         $this->dataView = new \fpcm\components\dataView\dataView($this->getDataViewName());
         $this->dataView->addColumns($this->getDataViewCols());
 
+        if (!count($this->articleItems)) {
+            $this->dataView->addRow(
+                new \fpcm\components\dataView\row([
+                    new \fpcm\components\dataView\rowCol('title', 'GLOBAL_NOTFOUND2' ),
+                ]
+            ));
+
+            return true;
+        }
+        
         /* @var $article \fpcm\model\articles\article */
         foreach ($this->articleItems as $articleMonth => $articles) {
 
@@ -203,15 +225,28 @@ trait lists {
 
                 $desc = $this->lang->translate('EDITOR_STATUS_POSTPONETO') . ($article->getPostponed() ? ' ' . new \fpcm\view\helper\dateText($article->getCreatetime()) : '');
 
-                $metaData = [
-                    $this->getCommentBadge($articleId),
-                    (new \fpcm\view\helper\icon('thumb-tack fa-rotate-90 fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getPinned())->setText('EDITOR_STATUS_PINNED')->setStack('square'),
-                    (new \fpcm\view\helper\icon('file-text-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getDraft())->setText('EDITOR_STATUS_DRAFT')->setStack('square'),
-                    (new \fpcm\view\helper\icon('clock-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getPostponed())->setText($desc)->setStack('square'),
-                    (new \fpcm\view\helper\icon('thumbs-o-up fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getApproval())->setText('EDITOR_STATUS_APPROVAL')->setStack('square'),
-                    (new \fpcm\view\helper\icon('comments-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getComments())->setText('EDITOR_STATUS_COMMENTS')->setStack('square'),
-                    (new \fpcm\view\helper\icon('archive fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getArchived())->setText('EDITOR_STATUS_ARCHIVE')->setStack('square')
-                ];
+                $metaDataIcons = [];
+                
+                if ($this->config->system_comments_enabled) {
+                    $metaDataIcons[] = $this->getCommentBadge($articleId);
+                }
+                
+                $metaDataIcons[] = (new \fpcm\view\helper\icon('thumb-tack fa-rotate-90 fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getPinned())->setText('EDITOR_STATUS_PINNED')->setStack('square');
+                
+                if ($this->showDraftStatus) {
+                    $metaDataIcons[] = (new \fpcm\view\helper\icon('file-text-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getDraft())->setText('EDITOR_STATUS_DRAFT')->setStack('square');
+                }
+
+                $metaDataIcons[] = (new \fpcm\view\helper\icon('clock-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getPostponed())->setText($desc)->setStack('square');
+                $metaDataIcons[] = (new \fpcm\view\helper\icon('thumbs-o-up fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getApproval())->setText('EDITOR_STATUS_APPROVAL')->setStack('square');
+
+                if ($this->config->system_comments_enabled) {
+                    $metaDataIcons[] = (new \fpcm\view\helper\icon('comments-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getComments())->setText('EDITOR_STATUS_COMMENTS')->setStack('square');
+                }
+                
+                if ($this->showArchivedStatus) {
+                    $metaDataIcons[] = (new \fpcm\view\helper\icon('archive fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getArchived())->setText('EDITOR_STATUS_ARCHIVE')->setStack('square');
+                }
 
                 $this->dataView->addRow(
                     new \fpcm\components\dataView\row([
@@ -219,7 +254,7 @@ trait lists {
                         new \fpcm\components\dataView\rowCol('button', implode('', $buttons), 'fpcm-ui-dataview-lineheight4', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                         new \fpcm\components\dataView\rowCol('title', implode(PHP_EOL, $title), 'fpcm-ui-ellipsis'),
                         new \fpcm\components\dataView\rowCol('categories', wordwrap(implode(', ', $article->getCategories()), 50, '<br>' ) ),
-                        new \fpcm\components\dataView\rowCol('metadata', implode('', $metaData), 'fpcm-ui-dataview-lineheight4 fpcm-ui-metabox', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                        new \fpcm\components\dataView\rowCol('metadata', implode('', $metaDataIcons), 'fpcm-ui-dataview-lineheight4 fpcm-ui-metabox', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     ]
                 ));
             }
@@ -304,6 +339,12 @@ trait lists {
      */
     protected function getDataViewCols()
     {
+        if (!count($this->articleItems)) {
+            return [
+                (new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE'))->setSize(12),
+            ];            
+        }
+        
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2),
