@@ -120,7 +120,7 @@
             }            
             
             $reset  = !is_null($this->getRequestVar('reset')) ? true : false;
-            
+
             $this->view->assign('userNameField', $reset ? 'username' : 'login[username]'); 
             $this->view->assign('resetPasswort', $reset);
             $this->view->assign('noFullWrapper', true);
@@ -135,6 +135,14 @@
          */
         public function hasAccess()
         {
+            if (!$this->maintenanceMode(false) && !$this->session->exists()) {
+                return false;
+            }
+
+            if ($this->getIpLockedModul() && ($this->ipList->ipIsLocked($this->getIpLockedModul()) || $this->ipList->ipIsLocked('nologin'))  ) {
+                return false;
+            }
+
             return true;
         }
         
@@ -145,13 +153,8 @@
         {            
             if (!$this->pageTokenOk && ($this->buttonClicked('reset') || $this->buttonClicked('login'))) {
                 $this->view->addErrorMessage('CSRF_INVALID');
-            }
+            }      
 
-            if (($this->ipList->ipIsLocked() || $this->ipList->ipIsLocked('nologin'))) {
-                $this->view->addErrorMessage('ERROR_IP_LOCKED');
-                $this->view->assign('lockedGlobal', true);
-            }            
-            
             if ($this->loginLocked) {
                 $this->view->addErrorMessage('LOGIN_ATTEMPTS_MAX', array(
                     '{{logincount}}' => $this->currentAttempts,
@@ -159,11 +162,9 @@
                     '{{lockeddate}}' => date($this->config->system_dtmask, $this->loginLockedDate)
                 ));
             }
-            
-            $this->view->addJsFiles(['login.js']);
 
-            $this->view->assign('loginAttempts', $this->currentAttempts);
-            $this->view->assign('loginAttemptsMax', $this->config->system_loginfailed_locked);
+            $this->view->addJsFiles(['login.js']);
+            $this->view->assign('showLoginForm', ($this->currentAttempts < $this->config->system_loginfailed_locked ? true : false));
             $this->view->render();
         }
         

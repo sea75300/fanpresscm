@@ -8,7 +8,7 @@
 namespace fpcm\view\helper;
 
 /**
- * Link button view helper object
+ * Shorthelp button view helper object
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>

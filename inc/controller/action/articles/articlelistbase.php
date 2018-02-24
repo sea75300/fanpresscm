@@ -128,8 +128,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         $this->getConditionItem();
         $this->getArticleCount();
         $this->getArticleItems();
-        
-        //$this->initPagination();
+
         return true;
     }
 
@@ -139,7 +138,6 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
-        //$this->initPagination();
         $this->initActionVars();
 
         $this->view->assign('users', array_flip($this->users));
@@ -153,24 +151,30 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
         $this->view->addJsFiles(['articlelist.js']);
 
+        $buttons = [];
+
         if ($this->listAction !== 'articles/trash') {
 
             if ($this->permissions->check(['article' => 'add'])) {
-                $this->view->addButton((new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pencil'));
+                $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pencil');
             }
 
             if ($this->canEdit) {
-                $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('pencil-square-o'));
+                $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('pencil-square-o');
             }
 
-            $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search'));
+            $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search');
         }
 
-        $this->view->addButtons([
-            (new \fpcm\view\helper\select('actions'))->setOptions($this->articleActions),
-            (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-loader')->setIcon('check')
-        ]);
-
+        $buttons[] = (new \fpcm\view\helper\select('actions'))->setOptions($this->articleActions);
+        $buttons[] = (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-loader')->setIcon('check');
+        
+        if ($this->listAction !== 'articles/trash') {
+            $buttons[] = (new \fpcm\view\helper\pager($this->listAction, $this->page, count($this->articleItems), $this->listShowLimit, $this->articleCount));
+        }
+        
+        $this->view->addButtons($buttons);
+        
         $minMax = $this->articleList->getMinMaxDate(1);
         $this->view->addJsVars([
             'articleSearchMode'   => $this->getSearchMode(),
@@ -239,34 +243,6 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         $this->listShowStart = \fpcm\classes\tools::getPageOffset($this->page, $this->listShowLimit);
     }
 
-    /**
-     * Seitenvaigation erzeugen
-     */
-    protected function initPagination()
-    {
-        $this->view->assign('backBtn', false);
-        $this->view->assign('nextBtn', false);
-        $this->view->assign('listActionLimit', '');
-
-        $pagerData = \fpcm\classes\tools::calcPagination(
-            $this->listShowLimit,
-            $this->page,
-            $this->articleCount,
-            count($this->articleItems)
-        );
-
-        $this->view->assign('showPager', true);
-        foreach ($pagerData as $key => $value) {
-            $this->view->assign($key, $value);
-        }
-
-        if ($this->listAction) {
-            $this->view->setFormAction($this->listAction, ['page' => $pagerData['pageCurrent']]);
-        }
-
-        $this->view->addJsVars(['currentModule' => $this->getRequestVar('module')]);
-    }
-
     protected function initArticleActions()
     {
         if (!$this->permissions) {
@@ -281,14 +257,14 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         $tweet = new \fpcm\model\system\twitter();
 
         if ($tweet->checkRequirements() && $tweet->checkConnection()) {
-            $this->articleActions[$this->lang->translate('ARTICLE_LIST_NEWTWEET')] = 'newtweet';
+            $this->articleActions['ARTICLE_LIST_NEWTWEET'] = 'newtweet';
         }
 
         if ($this->deleteActions) {
-            $this->articleActions[$this->lang->translate('GLOBAL_DELETE')] = 'delete';
+            $this->articleActions['GLOBAL_DELETE'] = 'delete';
         }
 
-        $this->articleActions[$this->lang->translate('ARTICLES_CACHE_CLEAR')] = 'articlecache';
+        $this->articleActions['ARTICLES_CACHE_CLEAR'] = 'articlecache';
 
         $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
         $this->view->addJsVars(['artCacheMod' => urlencode($crypt->encrypt(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE))]);
@@ -300,51 +276,51 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
      */
     private function initSearchForm($users)
     {
-        $users = [$this->lang->translate('ARTICLE_SEARCH_USER') => -1] + $users;
+        $users = ['ARTICLE_SEARCH_USER' => -1] + $users;
         $this->view->assign('searchUsers', $users);
 
-        $categories = [$this->lang->translate('ARTICLE_SEARCH_CATEGORY') => -1] + $this->categories;
+        $categories = ['ARTICLE_SEARCH_CATEGORY' => -1] + $this->categories;
         $this->view->assign('searchCategories', $categories);
 
         $this->view->assign('searchTypes', [
-            $this->lang->translate('ARTICLE_SEARCH_TYPE_ALL') => -1,
-            $this->lang->translate('ARTICLE_SEARCH_TYPE_TITLE') => 0,
-            $this->lang->translate('ARTICLE_SEARCH_TYPE_TEXT') => 1
+            'ARTICLE_SEARCH_TYPE_ALL' => -1,
+            'ARTICLE_SEARCH_TYPE_TITLE' => 0,
+            'ARTICLE_SEARCH_TYPE_TEXT' => 1
         ]);
 
         $this->view->assign('searchPinned', [
-            $this->lang->translate('ARTICLE_SEARCH_PINNED') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'ARTICLE_SEARCH_PINNED' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchPostponed', [
-            $this->lang->translate('ARTICLE_SEARCH_POSTPONED') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'ARTICLE_SEARCH_POSTPONED' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchComments', [
-            $this->lang->translate('ARTICLE_SEARCH_COMMENTS') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'ARTICLE_SEARCH_COMMENTS' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchApproval', [
-            $this->lang->translate('ARTICLE_SEARCH_APPROVAL') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'ARTICLE_SEARCH_APPROVAL' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchDraft', [
-            $this->lang->translate('ARTICLE_SEARCH_DRAFT') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'ARTICLE_SEARCH_DRAFT' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('searchCombination', [
-            $this->lang->translate('ARTICLE_SEARCH_LOGICAND') => 0,
-            $this->lang->translate('ARTICLE_SEARCH_LOGICOR') => 1
+            'ARTICLE_SEARCH_LOGICAND' => 0,
+            'ARTICLE_SEARCH_LOGICOR' => 1
         ]);
 
         $this->view->addJsLangVars(['SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START']);
@@ -357,43 +333,43 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
      */
     private function initMassEditForm($users)
     {
-        $this->view->assign('massEditUsers', [$this->lang->translate('GLOBAL_NOCHANGE_APPLY') => -1] + $users);
+        $this->view->assign('massEditUsers', ['GLOBAL_NOCHANGE_APPLY' => -1] + $users);
         $this->view->assign('massEditCategories', $this->categories);
 
         $this->view->assign('massEditPinned', [
-            $this->lang->translate('GLOBAL_NOCHANGE_APPLY') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'GLOBAL_NOCHANGE_APPLY' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('massEditPostponed', [
-            $this->lang->translate('GLOBAL_NOCHANGE_APPLY') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'GLOBAL_NOCHANGE_APPLY' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('massEditComments', [
-            $this->lang->translate('GLOBAL_NOCHANGE_APPLY') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'GLOBAL_NOCHANGE_APPLY' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('massEditApproved', [
-            $this->lang->translate('GLOBAL_NOCHANGE_APPLY') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'GLOBAL_NOCHANGE_APPLY' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('massEditDraft', [
-            $this->lang->translate('GLOBAL_NOCHANGE_APPLY') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'GLOBAL_NOCHANGE_APPLY' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ]);
 
         $this->view->assign('massEditArchived', [
-            $this->lang->translate('GLOBAL_NOCHANGE_APPLY') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'GLOBAL_NOCHANGE_APPLY' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ]);
 
         $this->view->addJsLangVars(['SAVE_FAILED_ARTICLES']);

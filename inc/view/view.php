@@ -16,8 +16,8 @@ namespace fpcm\view;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class view {
-
     /* @var Include full theme header, including header images, menu and so */
+
     const INCLUDE_HEADER_FULL = 0b00001;
 
     /* @var Include simple theme header */
@@ -151,14 +151,14 @@ class view {
 
         $this->showHeader = self::INCLUDE_HEADER_FULL;
 
-        $this->session          = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
-        $this->config           = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-        $this->notifications    = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
-        $this->language         = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-        $this->cache            = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+        $this->session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+        $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
 
-        $this->fileLib          = new \fpcm\model\system\fileLib();
-        $this->defaultViewVars  = new viewVars();
+        $this->fileLib = new \fpcm\model\system\fileLib();
+        $this->defaultViewVars = new viewVars();
 
         $this->initFileLib();
     }
@@ -186,9 +186,9 @@ class view {
             'AJAX_REQUEST_ERROR', 'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK', 'SELECT_ITEMS_MSG'
         ]);
 
-        $this->jsLangVars['calendar']['days']       = $this->language->getDays();
-        $this->jsLangVars['calendar']['daysShort']  = $this->language->getDaysShort();
-        $this->jsLangVars['calendar']['months']     = array_values($this->language->getMonths());
+        $this->jsLangVars['calendar']['days'] = $this->language->getDays();
+        $this->jsLangVars['calendar']['daysShort'] = $this->language->getDaysShort();
+        $this->jsLangVars['calendar']['months'] = array_values($this->language->getMonths());
     }
 
     /**
@@ -201,7 +201,7 @@ class view {
         if (!trim($item)) {
             return null;
         }
-        
+
         if (strpos($item, \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::CORE_JS)) === 0) {
             return $item;
         }
@@ -321,7 +321,7 @@ class view {
             $this->addButton($button);
         }
     }
-    
+
     /**
      * Add button to toolbar
      * @param \fpcm\view\helper\button $button
@@ -334,13 +334,13 @@ class view {
             trigger_error('Invalid parameter, $button must be an instance of /fpcm/view/helper.');
             return;
         }
-        
+
         if ($pos) {
             $this->buttons[$pos] = $button;
             ksort($this->buttons);
             return;
         }
-        
+
         $this->buttons[] = $button;
     }
 
@@ -468,7 +468,7 @@ class view {
      * @return bool
      */
     public function render()
-    {
+    {        
         if (!file_exists($this->viewPath)) {
             trigger_error("View file {$this->viewName} not found!");
             exit("View file {$this->viewName} not found!");
@@ -520,29 +520,32 @@ class view {
             $this->addJsLangVars(['SESSION_TIMEOUT']);
             $this->addJsVars(['sessionCheck' => true]);
 
-            $this->defaultViewVars->currentUser             = $this->session->getCurrentUser();
-            $this->defaultViewVars->navigation              = (new \fpcm\model\theme\navigation())->render();
-            $this->defaultViewVars->navigationActiveModule  = \fpcm\classes\tools::getNavigationActiveCheckStr();
+            $this->defaultViewVars->currentUser = $this->session->getCurrentUser();
+            $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation())->render();
+            $this->defaultViewVars->navigationActiveModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
         }
 
-        $this->defaultViewVars->version          = $this->config->system_version;
-        $this->defaultViewVars->dateTimeMask     = $this->config->system_dtmask;
-        $this->defaultViewVars->dateTimeZone     = $this->config->system_timezone;
-        $this->defaultViewVars->langCode         = $this->language->getLangCode();
-        $this->defaultViewVars->self             = strip_tags(trim($_SERVER['PHP_SELF']));
-        $this->defaultViewVars->frontEndLink     = $this->config->system_url;
-        $this->defaultViewVars->basePath         = \fpcm\classes\tools::getFullControllerLink();
-        $this->defaultViewVars->themePath        = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
-        $this->defaultViewVars->currentModule    = \fpcm\classes\http::get('module');
-        $this->defaultViewVars->buttons          = $this->buttons;
+        $this->defaultViewVars->version = $this->config->system_version;
+        $this->defaultViewVars->dateTimeMask = $this->config->system_dtmask;
+        $this->defaultViewVars->dateTimeZone = $this->config->system_timezone;
+        $this->defaultViewVars->langCode = $this->language->getLangCode();
+        $this->defaultViewVars->self = strip_tags(trim($_SERVER['PHP_SELF']));
+        $this->defaultViewVars->frontEndLink = $this->config->system_url;
+        $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
+        $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
+        $this->defaultViewVars->currentModule = \fpcm\classes\http::get('module');
+        $this->defaultViewVars->buttons = $this->buttons;
         $this->defaultViewVars->formActionTarget = $this->formAction;
 
-        $this->defaultViewVars->loggedIn         = $this->session->exists();
-        $this->defaultViewVars->lang             = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+        $this->defaultViewVars->loggedIn = $this->session->exists();
+        $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
 
-        $this->defaultViewVars->filesCss         = $this->viewCssFiles;
-        $this->defaultViewVars->filesJs          = $this->viewJsFiles;
-        $this->defaultViewVars->varsJs           = [
+        $this->defaultViewVars->filesCss = $this->viewCssFiles;
+        $this->defaultViewVars->filesJs = $this->viewJsFiles;
+        
+        $this->jsvars['currentModule'] = $this->defaultViewVars->currentModule;
+
+        $this->defaultViewVars->varsJs = [
             'vars' => [
                 'ui' => [
                     'messages' => $this->messages,
@@ -579,7 +582,7 @@ class view {
      */
     public function setViewPath($viewName)
     {
-        $viewName      .= '.php';
+        $viewName .= '.php';
 
         $this->viewPath = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
         $this->viewName = $viewName;
@@ -643,10 +646,10 @@ class view {
     public function setFormAction($controller, array $params = [], $isLink = false)
     {
         if ($isLink) {
-            $this->formAction = $controller.(count($params) ? '&'.http_build_query($params) : '');
+            $this->formAction = $controller . (count($params) ? '&' . http_build_query($params) : '');
             return;
         }
-        
+
         $this->formAction = \fpcm\classes\tools::getFullControllerLink($controller, $params);
     }
 
@@ -657,17 +660,17 @@ class view {
      */
     public function addDataView(\fpcm\components\dataView\dataView $dataView)
     {
-        $vars       = $dataView->getJsVars();
+        $vars = $dataView->getJsVars();
         if (count($vars)) {
             $this->addJsVars($vars);
         }
 
-        $files      = $dataView->getJsFiles();
+        $files = $dataView->getJsFiles();
         if (count($files)) {
             $this->addJsFiles($files);
         }
 
-        $langVars   = $dataView->getJsLangVars();
+        $langVars = $dataView->getJsLangVars();
         if (count($langVars)) {
             $this->addJsLangVars($langVars);
         }

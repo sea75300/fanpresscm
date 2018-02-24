@@ -1,3 +1,4 @@
+<?php /* @var $theView fpcm\view\viewVars */ ?>
 <!DOCTYPE HTML>
 <HTML lang="<?php print $theView->langCode; ?>">
     <head>
@@ -16,10 +17,7 @@
         <div class="wrapper">
             <div class="fpcm-ui-center fpcm-ui-errorbox fpcm-ui-background-white-50p" id="fpcm-ui-errorbox">
 
-                <span class="fa-stack fa-lg fa-5x fpcm-ui-important-text">
-                    <span class="fa fa-square fa-stack-2x"></span>
-                    <span class="fa fa-exclamation-triangle fa-stack-1x fa-inverse"></span>
-                </span>
+                <?php $theView->icon($icon.' fa-inverse')->setStack('square')->setClass('fa-5x fpcm-ui-important-text'); ?>
                 
                 <p><?php print $errorMessage; ?></p>
                 

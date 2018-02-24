@@ -130,10 +130,10 @@ class commentlist extends \fpcm\controller\abstracts\controller {
      */
     private function initSearchForm()
     {
-        $this->view->assign('searchTypes', array(
-            $this->lang->translate('COMMENTS_SEARCH_TYPE_ALL') => 0,
-            $this->lang->translate('COMMENTS_SEARCH_TYPE_TEXT') => 1
-        ));
+        $this->view->assign('searchTypes', [
+            'COMMENTS_SEARCH_TYPE_ALL' => 0,
+            'COMMENTS_SEARCH_TYPE_TEXT' => 1
+        ]);
 
         $this->view->assign('searchApproval', array(
             $this->lang->translate('COMMMENT_APPROVE') => -1,

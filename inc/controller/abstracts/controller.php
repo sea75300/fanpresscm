@@ -239,7 +239,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     protected function maintenanceMode($simplemsg = true)
     {
-        if (!$this->config->system_maintenance) {
+        if (!$this->config->system_maintenance || ($this->session->exists() && $this->session->getCurrentUser()->isAdmin()) ) {
             return true;
         }
 
@@ -248,8 +248,8 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        $view = new \fpcm\view\error('MAINTENANCE_MODE_ENABLED');
-        $view->render($this->moduleCheckExit);
+        $this->view = new \fpcm\view\error('MAINTENANCE_MODE_ENABLED', null, 'lightbulb-o');
+        $this->view->render($this->moduleCheckExit);
 
         return false;
     }

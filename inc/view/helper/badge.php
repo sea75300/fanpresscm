@@ -8,7 +8,7 @@
 namespace fpcm\view\helper;
 
 /**
- * Button view helper object
+ * Badge view helper object
  * 
  * @package fpcm\view\helper
  * @author Stefan Seehafer <sea75300@yahoo.de>

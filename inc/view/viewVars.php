@@ -103,12 +103,12 @@
             $prefix      = 'fpcm\\view\\helper\\';
             $helperClass = $prefix.$name;
             if (!class_exists($helperClass)) {
-                trigger_error('View helper '.$name.' does not exists.');
-                exit('View helper '.$name.' does not exists.');
+                trigger_error('View helper '.$name.' does not exists in '.$helperClass);
+                exit('View helper "'.$name.'" does not exists '.$helperClass);
             }
             
             
-            $whiteList = ['dateText', 'escape'];
+            $whiteList = ['dateText', 'escape', 'icon'];
 
             if (!in_array($name, $whiteList) && (empty($arguments[0]) || !is_string($arguments[0])) ) {
                 trigger_error('Invalid view helper params found for name of '.$name);

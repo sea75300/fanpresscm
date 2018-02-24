@@ -2,7 +2,7 @@
 /**
  * Combined JavaScript Files
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2017, Stefan Seehafer
+ * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 

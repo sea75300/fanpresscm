@@ -47,10 +47,10 @@ class linkButton extends button {
         if ($this->readonly) {
             $this->class = str_replace('fpcm-loader', '', $this->class);
             return implode(' ', [
-                "<span",
+                "<a href=\"#\"",
                 $this->getClassString(),
                 ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()}{$this->getDescriptionTextString()}"),
-                '</span>'
+                '</a>'
             ]);
         }
 
