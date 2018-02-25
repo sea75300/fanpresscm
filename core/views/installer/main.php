@@ -21,7 +21,7 @@
         </div>
     </div>
     
-    <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
+    <div class="fpcm-ui-list-buttons">
         <div class="fpcm-ui-margin-center">
         <?php if ($showNextButton) : ?>
             <?php \fpcm\view\helper::submitButton('SubmitNext', 'GLOBAL_NEXT', 'fpcm-installer-next-'.$currentStep); ?>

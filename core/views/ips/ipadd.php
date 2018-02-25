@@ -27,13 +27,7 @@
                         </div>
                     </td>
                 </tr>
-            </table>            
-
-            <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
-                <div class="fpcm-ui-margin-center">
-                    <?php $theView->saveButton('ipSave'); ?>
-                </div>
-            </div> 
+            </table>
         </div>
     </div>
 

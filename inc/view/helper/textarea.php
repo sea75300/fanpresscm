@@ -32,15 +32,12 @@ final class textarea extends input {
      */
     protected function getString()
     {
-        return implode(' ', [
-            "<textarea",
-            $this->getNameIdString(),
-            $this->getClassString(),
-            $this->getReadonlyString(),
-            $this->getDataString(),
-            ">" . $this->value,
-            "</textarea>"
-        ]);
+        return  '<textarea '.$this->getNameIdString().' '.
+                $this->getClassString().' '.
+                $this->getReadonlyString().' '.
+                $this->getDataString().' '.">".
+                $this->value."</textarea>"
+        ;
     }
 
 }

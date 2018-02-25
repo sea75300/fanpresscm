@@ -677,6 +677,16 @@ class view {
     }
 
     /**
+     * Add pager to view
+     * @param string $controller
+     * @param array $params
+     */
+    public function addPager(helper\pager $pager)
+    {
+        $this->defaultViewVars->pager = $pager;
+    }
+
+    /**
      * Checks User Agent for a certain browser
      * @param string $key
      * @return boolean

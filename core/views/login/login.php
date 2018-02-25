@@ -19,8 +19,8 @@
                 </table>
 
                 
-                <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
-                    <div class="fpcm-ui-margin-center">
+                <div class="fpcm-ui-margin-center">
+                    <div class="fpcm-ui-controlgroup">
                 <?php if ($resetPasswort) : ?>
                     <?php $theView->submitButton('reset')->setText('GLOBAL_OK')->setClass('fpcm-loader fpcm-ok-button')->setIcon('check'); ?>
                     <?php $theView->linkButton('loginback')->setText('GLOBAL_BACK')->setUrl($theView->self.'?module='.$theView->currentModule)->setClass('fpcm-loader fpcm-back-button')->setIcon('chevron-circle-left'); ?>

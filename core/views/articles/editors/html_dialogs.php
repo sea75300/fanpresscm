@@ -102,11 +102,11 @@
         </tr>   
         <tr>
             <td><label><?php $theView->write('EDITOR_INSERTCOLOR_TEXT'); ?>:</label></td>
-            <td><?php fpcm\view\helper::radio('color_mode', 'color_mode', 'color', '', 'color_mode1'); ?></td>
+            <td><?php $theView->radiobutton('color_mode', 'color_mode1')->setValue('color')->setClass('color_mode')->setSelected('color'); ?></td>
         </tr>
         <tr>
             <td><label><?php $theView->write('EDITOR_INSERTCOLOR_BACKGROUND'); ?>:</label></td>
-            <td><?php fpcm\view\helper::radio('color_mode', 'color_mode', 'background', '', 'color_mode2', false); ?></td>
+            <td><?php $theView->radiobutton('color_mode', 'color_mode2')->setValue('background')->setClass('color_mode'); ?></td>
         </tr>        
     </table>
 </div>

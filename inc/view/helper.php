@@ -193,26 +193,6 @@ final class helper {
     }
 
     /**
-     * Erzeugt Radiobutton
-     * @param string $name Name des Buttons
-     * @param string $class CSS-Klasse
-     * @param string $value Wert
-     * @param string $descr Beschreibung
-     * @param string $id Button-ID
-     * @param bool $selected Checkbox ist vorausgewählt
-     * @param bool $readonly readonly Status
-     */
-    public static function radio($name, $class = '', $value = '', $descr = '', $id = '', $selected = true, $readonly = false)
-    {
-        (new helper\radiobutton($name, $id))
-                ->setClass($class)
-                ->setValue($value)
-                ->setText($descr)
-                ->setReadonly($readonly)
-                ->setSelected($selected);
-    }
-
-    /**
      * Erzeugt Textarea
      * @param string $name Name des Buttons
      * @param string $class CSS-Klasse
@@ -262,31 +242,6 @@ final class helper {
                 ->setOptions($options)
                 ->setReadonly($readonly)
                 ->setOptGroup(true);
-    }
-
-    /**
-     * Erzeugt Ja/nein Select-Menü
-     * @param string $name Name des Buttons
-     * @param array $selected
-     * @param bool $readonly readonly Status
-     * @param string $class CSS-Klasse
-     * @return string
-     */
-    public static function boolSelect($name, $selected, $readonly = false, $class = '')
-    {
-        (new helper\boolSelect($name))
-                ->setSelected($selected)
-                ->setReadonly($readonly)
-                ->setClass($class);
-    }
-
-    /**
-     * CSS-Klassen-Containter für Button-Toolbar
-     * @return void
-     */
-    public static function buttonsContainerClass()
-    {
-        print 'fpcm-buttons fpcm-buttons-fixed';
     }
 
     /**

@@ -58,14 +58,6 @@
         margin: -4em 0 0 25%;
     }
 
-    .fpcm-buttons-fixed {
-        left: 25%;
-    }
-    
-    .fpcm-buttons-fixed-full {
-        left: 0px;
-    }
-
     div.fpcm-filelist-thumb-box,
     .fpcm-dashboard-container.fpcm-dashboard-container-width-small,
     .fpcm-dashboard-container.fpcm-dashboard-container-width-big {
@@ -162,7 +154,7 @@
 @media (max-width: 50em) {
 
     .fpcm-footer-bottom {
-        display: block;
+        display: block !important;
     }
     
     .fpcm-footer-left {
@@ -211,13 +203,6 @@
     
     table.fpcm-ui-table.fpcm-ui-options tr td:first-child {
         width: 35% !important;
-    }
-
-    .fpcm-buttons-fixed {
-        position: static !important;
-        margin: 0.5em 0em !important;
-        padding: 0.5em 0;
-        width: 100%;
     }
 
     .fpcm-wrapper {
@@ -272,7 +257,6 @@
     }
     
     .fpcm-messages {
-        position: fixed;
         right: 0em;
         left: 0em;
         top: 0.5em;

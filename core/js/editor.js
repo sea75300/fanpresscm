@@ -729,7 +729,7 @@ fpcm.editor = {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
                     icon: "ui-icon-check",                        
                     click: function() {
-                        
+
                         var mode    = jQuery('.color_mode:checked').val();
                         var color   = jQuery('#fpcm-dialog-editor-html-colorhexcode').val();
                         fpcm.editor.insert('<span style="' + (mode === undefined ? 'color' : mode) + ':' + (color == '' ? '#000000' : color) + ';">', '</span>');

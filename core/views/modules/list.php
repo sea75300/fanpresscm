@@ -10,7 +10,7 @@
                 <?php include $theView->getIncludePath('modules/list_inner.php'); ?>
             </div>
             
-            <div class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">                
+            <div class="fpcm-ui-list-buttons">                
                 <div class="fpcm-ui-margin-center">
             <?php if ($moduleManagerMode) : ?>
                 <?php fpcm\view\helper::linkButton('#', 'MODULES_LIST_RELOADPKGLIST', 'fpcm-ui-reloadpkglist', 'fpcm-ui-button-blank fpcm-reload-btn'); ?>

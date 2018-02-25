@@ -49,10 +49,6 @@ h1 {
     margin: 0;
 }
 
-h1 span {
-    display: block;
-}
-
 h1 span:nth-child(even) {
     color: #000000;
 }
@@ -107,6 +103,13 @@ ol.list-large li {
 
 /* .CSS-Klassen und #IDs */
 
+div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-icon,
+div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-button,
+div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col,
+div.fpcm-status-info ul.fpcm-menu-top #fpcm-ui-showmenu-li,
+span.fpcm-ui-badge.fpcm-ui-badge-comments,
+div.fpcm-filelist-thumb-box,
+div.fpcm-filelist-actions-box div.fpcm-filelist-actions,
 .fpcm-wrapper,
 .fpcm-wrapper-left,
 .fpcm-dashboard-container,
@@ -114,11 +117,89 @@ ol.list-large li {
 .fpcm-ui-editor-metabox-left,
 .fpcm-ui-editor-metabox-left div,
 .fpcm-ui-editor-metabox-right,
+.fpcm-ui-progressbar-label,
+.fpcm-updater-list span.fa,
+.fpcm-ui-float-left {
+    float: left;
+}
+
+span.fpcm-ui-badge,
+div.fpcm-filelist-actions-box div.fpcm-filelist-actions-checkbox,
+.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top,
+.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1,
+.fpcm-ui-editor-metabox-right,
+.fpcm-ui-float-right {
+    float: right;
+}
+
+table.fpcm-ui-comments .fpcm-ui-editor-metabox-right,
+.fpcm-ui-iplist-metabox-right,
+.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2,
+.fpcm-ui-float-none {
+    float: none;
+}
+
+span.fpcm-ui-badge,
+div.fpcm-navigation ul.fpcm-menu li,
+div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navicon,
+div.fpcm-navigation ul.fpcm-menu li:hover ul,
 div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-icon,
 div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-button,
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
-    float: left;
+div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col,
+#fpcm-filemanager-upload-drop h4:before,
+.fpcm-wrapper,
+.fpcm-wrapper-left,
+.fpcm-dashboard-container,
+.fpcm-ui-permissions-container,
+.fpcm-ui-editor-metabox-left,
+.fpcm-ui-editor-metabox-left div,
+.fpcm-ui-editor-metabox-right,
+.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top,
+.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1,
+.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2,
+.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2-status span,
+.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li:hover ul,
+.fpcm-ui-permissions-container .ui-button,
+.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-ui-button-profile,
+.fpcm-ui-progressbar-label,
+.fpcm-updater-list span.fa,
+.fpcm-ui-block {
     display: block;
+}
+
+.fpcm-buttons .fpcm-ui-spacer,
+.fpcm-ui-input-wrapper,
+.fpcm-ui-inline-block {
+    display: inline-block;
+}
+
+div.fpcm-navigation ul.fpcm-menu li ul,
+.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li ul,
+.fpcm-editor-select,
+.fpcm-ui-hidden {
+    display: none;
+}
+
+#fpcm-loader,
+.fpcm-messages {
+    position: fixed;
+}
+
+.fpcm-dashboard-container,
+.fpcm-ui-permissions-container,
+.fpcm-buttons .fpcm-ui-spacer {
+    position: relative;
+}
+
+div.fpcm-navigation ul.fpcm-menu li ul,
+.fpcm-message-box .fpcm-msg-close,
+.fpcm-ui-errorbox,
+.fpcm-editor-select,
+.fpcm-editor-dialog iframe,
+.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li ul,
+.fpcm-wrapper-left.fpcm-wrapper-fixed div.fpcm-footer,
+.fpcm-wrapper-left.fpcm-wrapper-fixed {
+    position: absolute;
 }
 
 #fpcm-ui-logo {
@@ -128,12 +209,11 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
 
 #fpcm-loader {
     z-index : 100;
-    position: fixed;
     display : none;
 }
 
 #fpcm-ui-toolbar {
-    padding: 0.4em 0;
+    padding: 0.4em;
     margin-bottom: 0.4em;
 }
 
@@ -171,25 +251,36 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
     margin-left: 15%;
 }
 
+.fpcm-wrapper-left.fpcm-wrapper-fixed div.fpcm-footer
 .fpcm-wrapper-left.fpcm-wrapper-fixed  {
-    position: absolute;
     top: 0px;
     bottom: 0px;
 }
 
 .fpcm-wrapper-left.fpcm-wrapper-fixed div.fpcm-footer  {
-    position: absolute;
     left: 0px;
     bottom: 0px;
     right: 0px;
 }
 
+div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navicon,
+div.fpcm-editor-fields-tabs div.fpcm-ui-editor-extended-row,
+.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top,
 .fpcm-full-width,
+.fpcm-message-box,
+.fpcm-ui-errorbox,
+.fpcm-ui-input-wrapper,
+.fpcm-ui-input-wrapper input,
+.fpcm-ui-progressbar,
+.fpcm-editor-dialog iframe,
+.fpcm-editor-select a,
 .fpcm-wrapper div.fpcm-status-info {
     width: 100%;
 }
 
-.fpcm-content-wrapper   {
+.fpcm-footer,
+.fpcm-content-wrapper,
+.fpcm-login-form form {
     padding: 0.5em;
 }
 
@@ -201,14 +292,6 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
     padding: 0em 0.6em 0em 0em;
 }
 
-.fpcm-ui-block            {
-    display: block;
-}
-
-.fpcm-ui-hidden            {
-    display: none;
-}
-
 .fpcm-ui-clear             {
     clear: both;
 }
@@ -218,10 +301,6 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
     margin: 0 auto;
 }
 
-.fpcm-login-form form {
-    padding: 0.5em;
-}
-
 .fpcm-ui-font-small {
     font-size: 0.85em;
 }
@@ -229,12 +308,6 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
 .fpcm-footer {
     font-size: 0.8em;
     text-align:center;
-    padding: 0.5em;
-    display: block;
-}
-
-.fpcm-footer-bottom {
-    display: none;
 }
 
 .fpcm-debug-data {
@@ -247,7 +320,6 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
 }
 
 .fpcm-messages {
-    position: fixed;
     right: 2.5em;
     top: 4.5em;
     z-index: 10000;
@@ -263,7 +335,6 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
 .fpcm-message-box {
     margin: 0.5em;
     box-shadow: 0px 0px 15px #555555;
-    width: 100%;
 }
 
 .fpcm-message-box a {
@@ -281,7 +352,6 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
 }
 
 .fpcm-message-box .fpcm-msg-close {
-    position: absolute;
     top:  0.3em;
     right: 0.3em;
     font-size: 0.4em;
@@ -345,8 +415,6 @@ del,
 }
 
 .fpcm-ui-errorbox {
-    position: absolute;
-    width: 100%;
     updates: 0.4em 0;
 }
 
@@ -356,10 +424,6 @@ input, select, textarea, option, button {
     border: 0;
     outline: 0;
     font-size: 1em;
-}
-
-.fpcm-ui-input-wrapper {
-    display: inline-block;
 }
 
 .fpcm-ui-input-wrapper,
@@ -391,7 +455,6 @@ textarea {
 
 .fpcm-ui-input-wrapper,
 .fpcm-ui-input-wrapper input {
-    width: 100%;
     height: auto;
 }
 
@@ -480,7 +543,6 @@ div.fpcm-navigation ul.fpcm-menu {
 }
 
 div.fpcm-navigation ul.fpcm-menu li {
-    display: block;
     padding: 0.6em 0;
     margin: 0px;
 }
@@ -499,8 +561,6 @@ div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navigation-descr 
 }
 
 div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navicon {
-    width: 100%;
-    display: block;
     padding: 0.1em 0;
     font-size: 1.75em;
     text-shadow: 1px 1px 1px #cccccc;
@@ -519,9 +579,7 @@ div.fpcm-navigation ul.fpcm-menu li ul.fpcm-submenu li.fpcm-menu-level2 span.fpc
 
 div.fpcm-navigation ul.fpcm-menu li ul,
 .fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li ul {
-    position: absolute;
     padding: 0;
-    display: none;
     height: auto;
     z-index: 100;
     background: rgba(255,255,255,0.75);
@@ -538,25 +596,14 @@ div.fpcm-navigation ul.fpcm-menu li:hover,
     background: rgba(255, 239, 143, 0.5);
 }
 
-div.fpcm-navigation ul.fpcm-menu li:hover ul {
-    display: block;
-}
-
 div.fpcm-navigation ul.fpcm-menu li li {
     display:block;
     float:none;
     padding: 0.5em 0.3em;
 }
 
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top {
-    float: right;
-    display: block;
-    width: 100%;
-}
-
 div.fpcm-status-info ul.fpcm-menu-top #fpcm-ui-showmenu-li {
     display: none !important;
-    float: left;
 }
 
 .fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li ul {
@@ -567,21 +614,11 @@ div.fpcm-status-info ul.fpcm-menu-top #fpcm-ui-showmenu-li {
     text-align: left;
 }
 
-span.fpcm-ui-badge,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2-status span,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li:hover ul {
-    display: block;
-}
-
 .fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1 {
-    float: right;
     padding: 0.4em;
 }
 
 .fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2 {
-    float: none;
     padding: 0.4em;
 }
 
@@ -851,29 +888,12 @@ table.fpcm-ui-table.fpcm-ui-modules tr.fpcm-ui-modules-updates1 {
 }
 
 .fpcm-buttons .fpcm-ui-spacer {
-    display: inline-block;
     background: #c3c3c3;
     border: 0px;
-    width: 1px;
-    display: inline-block;
-    position: relative;
+    width: 1px;    
     padding: 0px;
     margin-right: 1px;
     overflow: visible;
-}
-
-.fpcm-buttons-fixed {
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-    left: 15%;
-    margin-right: 0;
-    border-right: 0px;
-    z-index: 500;
-}
-
-.fpcm-buttons-fixed-full {
-    left: 0px;
 }
 
 div.fpcm-ui-editor-extended-row {
@@ -924,10 +944,6 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col.fpcm-ui-editor-e
     width: 50%;
 }
 
-div.fpcm-editor-fields-tabs div.fpcm-ui-editor-extended-row {
-    width: 100%;
-}
-
 div.fpcm-editor-fields-tabs div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-textarea {
     min-width: 85%;
 }
@@ -954,9 +970,7 @@ td.fpcm-td-spacer {
     border: 0;
     margin: 0;
     padding: 0;
-    width: 100%;
     height:100%;
-    position: absolute;
     bottom: 0px;
     top: 0px;
     left: 0px;
@@ -970,11 +984,6 @@ td.fpcm-td-spacer {
 #fpcm-dialog-manualupdate-check iframe {
     height:110px;
     min-height:110px;
-}
-
-.fpcm-dashboard-container,
-.fpcm-ui-permissions-container {
-    position: relative;
 }
 
 h3, .fpcm-dashboard-container h3 {
@@ -992,7 +1001,6 @@ h3, .fpcm-dashboard-container h3 {
 
 .fpcm-dashboard-container ul {
     margin: 0em 0.8em 0em 1.3em;
-    padding: 0em;
 }
 
 .fpcm-dashboard-container .fpcm-dashboard-container-inner {
@@ -1055,12 +1063,13 @@ h3, .fpcm-dashboard-container h3 {
     line-height: 1.25em;
 }
 
+.fpcm-dashboard-container ul,
+.fpcm-ui-editor-metabox-right span,
 .fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content table td {
     padding: 0em;
 }
 
 .fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-ui-button-profile {
-    display: block;
     margin-top: 0.5em;
 }
 
@@ -1069,7 +1078,6 @@ h3, .fpcm-dashboard-container h3 {
 }
 
 .fpcm-ui-permissions-container .ui-button {
-    display: block;
     margin: 0.2em 0em;
 }
 
@@ -1109,15 +1117,6 @@ h3, .fpcm-dashboard-container h3 {
     margin: 0.3em 0.6em 0.3em 0;
 }
 
-span.fpcm-ui-badge,
-.fpcm-ui-editor-metabox-right {
-    float: right;
-}
-
-.fpcm-ui-iplist-metabox-right {
-    float: none;
-}
-
 table.fpcm-ui-articles tr td.fpcm-ui-dashboard-recentarticles-meta {
     width: 8em;
 }
@@ -1125,14 +1124,6 @@ table.fpcm-ui-articles tr td.fpcm-ui-dashboard-recentarticles-meta {
 table.fpcm-ui-articles tr td.fpcm-ui-dashboard-recentarticles-meta,
 .fpcm-ui-metabox {
     color:#3399ff;
-}
-
-table.fpcm-ui-articles .fpcm-ui-editor-metabox-left,
-table.fpcm-ui-articles .fpcm-ui-editor-metabox-left div,
-table.fpcm-ui-articles .fpcm-ui-editor-metabox-right,
-table.fpcm-ui-comments .fpcm-ui-editor-metabox-right
-{
-    float: none; 
 }
 
 table.fpcm-ui-articles .fpcm-ui-editor-metabox-left,
@@ -1171,15 +1162,6 @@ table.fpcm-ui-articles tr td.fpcm-ui-dashboard-recentarticles-meta {
     opacity: 1.0;
 }
 
-.fpcm-ui-editor-metabox-right span {
-    padding: 0em;
-}
-
-div.fpcm-fpcm-editor-selectbox {
-    display: block;
-    float: left;
-}
-
 .fpcm-editor-select-button {
     min-width: 125px;
 }
@@ -1189,12 +1171,9 @@ div.fpcm-fpcm-editor-selectbox {
     max-width: 250px;
     padding: 0.4em;
     z-index: 525;
-    display: none;
-    position: absolute;
 }
 
 .fpcm-editor-select a {
-    width: 100%;
     line-height: 1.4em;
     font-weight: normal;
 }
@@ -1240,16 +1219,16 @@ table.fpcm-module-manager td {
 }
 
 table.fpcm-module-manager td.module-manager-list-td1 {
-    width: 15%;
     overflow: hidden;
+}
+
+table.fpcm-module-manager td.module-manager-list-td1,
+table.fpcm-module-manager td.module-manager-list-td6 {
+    width: 15%;
 }
 
 table.fpcm-module-manager td.module-manager-list-buttons {
     width: 100px;
-}
-
-table.fpcm-module-manager td.module-manager-list-td6 {
-    width: 15%;
 }
 
 table.fpcm-module-manager td.module-manager-list-td7 {
@@ -1257,14 +1236,11 @@ table.fpcm-module-manager td.module-manager-list-td7 {
 }
 
 .fpcm-ui-progressbar {
-    width: 100%;
     margin: 0 auto;
     overflow: hidden;
 }
 
 .fpcm-ui-progressbar-label {
-    float: left;
-    display: block;
     color: #000000;
     text-shadow: 0px 0px 2px #ececec;
     margin: 0.3em 0.8em;
@@ -1274,13 +1250,7 @@ table.fpcm-module-manager td.module-manager-list-td7 {
     margin-top: 0.5em;
 }
 
-.fpcm-updater-list span.fa {
-    float: left;
-    display: block;
-}
-
 span.fpcm-ui-badge {
-    display: block;
     background: #3399ff;
     color: #fff;
     padding: 0.3em 0.5em;
@@ -1300,10 +1270,6 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles {
     margin-top: 1.3em;
     line-height: 2em;
     padding: 0em 0.5em;
-}
-
-span.fpcm-ui-badge.fpcm-ui-badge-comments {
-    float: left;
 }
 
 /* jQuery UI Hooks */
@@ -1334,7 +1300,8 @@ div.fpcm-massedit-dialog div.fpcm-ui-editor-extended-button label {
     z-index: 1000 !important;
 }
 
-.ui-widget {
+.ui-widget,
+.ui-controlgroup .ui-controlgroup-label span {
     font-size: 1em;
 }
 .ui-selectmenu-menu {
@@ -1346,10 +1313,6 @@ div.fpcm-massedit-dialog div.fpcm-ui-editor-extended-button label {
 
 .ui-controlgroup-label.ui-widget-content:last-child {
     border-right: 1px solid #aed0ea;
-}
-
-.ui-controlgroup .ui-controlgroup-label span {
-    font-size: 1em;
 }
 
 .ui-selectmenu-button {
@@ -1371,7 +1334,6 @@ div.fpcm-accordion-pkgmanager ul {
 }
 
 div.fpcm-filelist-thumb-box {
-    float: left;
     width: 25%;
 }
 
@@ -1382,14 +1344,6 @@ div.fpcm-filelist-thumb-box-inner {
 
 div.fpcm-filelist-actions-box {
     margin: 0.5em 0em;
-}
-
-div.fpcm-filelist-actions-box div.fpcm-filelist-actions {
-    float: left;
-}
-
-div.fpcm-filelist-actions-box div.fpcm-filelist-actions-checkbox {
-    float: right;
 }
 
 div.fpcm-filelist-thumb-box img {
@@ -1427,7 +1381,6 @@ span.fpcm-ui-button-shorthelp {
 }
 
 #fpcm-filemanager-upload-drop h4:before {
-    display: block;
     font-size: 5em;
     padding-bottom: 0.1em;
 }

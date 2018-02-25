@@ -170,7 +170,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         $buttons[] = (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-loader')->setIcon('check');
         
         if ($this->listAction !== 'articles/trash') {
-            $buttons[] = (new \fpcm\view\helper\pager($this->listAction, $this->page, count($this->articleItems), $this->listShowLimit, $this->articleCount));
+            $this->view->addPager((new \fpcm\view\helper\pager($this->listAction, $this->page, count($this->articleItems), $this->listShowLimit, $this->articleCount)));
         }
         
         $this->view->addButtons($buttons);

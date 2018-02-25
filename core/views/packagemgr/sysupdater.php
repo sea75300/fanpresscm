@@ -17,7 +17,7 @@
     
 </div>
 
-<div id="updaterButtons" class="<?php \fpcm\view\helper::buttonsContainerClass(); ?> fpcm-ui-list-buttons">
+<div id="updaterButtons" class="fpcm-ui-list-buttons">
     <div class="fpcm-ui-margin-center">
         <?php fpcm\view\helper::linkButton($theView->basePath.'system/dashboard', 'PACKAGES_BACKTODASHBOARD', '', 'fpcm-ui-pager-buttons fpcm-back-button fpcm-loader'); ?>
     </div>
