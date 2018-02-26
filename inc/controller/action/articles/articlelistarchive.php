@@ -35,7 +35,7 @@ class articlelistarchive extends articlelistbase {
 
     protected function getArticleItems()
     {
-        $this->articleItems = $this->articleList->getArticlesArchived(true, [$this->listShowLimit, $this->listShowStart]);
+        $this->articleItems = $this->articleList->getArticlesArchived(true, [$this->config->articles_acp_limit, $this->listShowStart]);
     }
 
     protected function getConditionItem()

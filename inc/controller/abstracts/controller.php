@@ -269,6 +269,20 @@ class controller implements \fpcm\controller\interfaces\controller {
         $tokenData = \fpcm\classes\loader::getObject('\fpcm\classes\crypt')->decrypt($this->cache->read($fieldname));
         $this->cache->cleanup($fieldname);
 
+        fpcmLogSystem([
+            __METHOD__,
+            '$fieldname',
+            $fieldname,
+            '$tokenData',
+            
+            $tokenData,
+            
+            '\fpcm\classes\security::getPageTokenFieldName()',
+            \fpcm\classes\security::getPageTokenFieldName(),
+            '\fpcm\classes\http::getPageToken()',
+            \fpcm\classes\http::getPageToken()
+        ]);
+        
         $this->checkPageToken = (\fpcm\classes\http::getPageToken() == $tokenData ? true :false);
 
         return $this->checkPageToken;

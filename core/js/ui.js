@@ -713,6 +713,7 @@ fpcm.ui = {
     pagerButtons: function() {
 
         fpcm.ui.selectmenu('#pageSelect', {
+            width : 'auto',
             select: function( event, ui ) {
                 if (ui.item.value == '1') {
                     window.location.href = fpcm.vars.actionPath + fpcm.vars.jsvars.currentModule;

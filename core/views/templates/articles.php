@@ -12,8 +12,6 @@
     </tr>
     <?php include $theView->getIncludePath('templates/editorhead.php'); ?>
     <tr>
-        <td>
-            <?php fpcm\view\helper::textArea('template[article]', 'fpcm-full-width', $contentArticle); ?>
-        </td>
+        <td><?php $theView->textarea('template[article]', 'article')->setValue($contentArticle, ENT_QUOTES); ?></td>
     </tr>                    
 </table>

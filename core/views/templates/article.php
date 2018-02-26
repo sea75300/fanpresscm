@@ -1,3 +1,4 @@
+<?php /* @var $theView \fpcm\view\viewVars */ ?>
 <table class="fpcm-ui-table">
     <?php include $theView->getIncludePath('templates/replacementhead.php'); ?>
     <tr>
@@ -12,8 +13,6 @@
     </tr>
     <?php include $theView->getIncludePath('templates/editorhead.php'); ?>
     <tr>
-        <td>
-            <?php fpcm\view\helper::textArea('template[articleSingle]', 'fpcm-full-width', $contentArticleSingle); ?>
-        </td>
+        <td><?php $theView->textarea('template[articleSingle]', 'articleSingle')->setValue($contentArticleSingle, ENT_QUOTES); ?></td>
     </tr>                    
 </table>

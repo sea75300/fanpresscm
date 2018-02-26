@@ -20,7 +20,8 @@ namespace fpcm\controller\ajax\articles;
  */
 class search extends \fpcm\controller\abstracts\ajaxController {
 
-    use \fpcm\controller\traits\articles\lists;
+    use \fpcm\controller\traits\common\dataView,
+        \fpcm\controller\traits\articles\lists;
 
     /**
      * Suchparameter
@@ -33,15 +34,6 @@ class search extends \fpcm\controller\abstracts\ajaxController {
      * @var int
      */
     protected $mode = -1;
-
-    /**
-     * Get view path for controller
-     * @return string
-     */
-    protected function getViewPath()
-    {
-        return '';
-    }
 
     /**
      * Request-Handler

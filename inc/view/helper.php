@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 3.x
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -256,7 +256,7 @@ final class helper {
             return false;
         }
 
-        print "<tr class=\"fpcm-td-spacer\"><td colspan=\"{$cols}\"></td></tr><tr><td colspan=\"6\">" . self::$language->translate('GLOBAL_NOTFOUND2') . "</td></tr>";
+        print "<tr class=\"fpcm-td-spacer\"><td colspan=\"{$cols}\"></td></tr><tr><td colspan=\"{$cols}\">" . self::$language->translate('GLOBAL_NOTFOUND2') . "</td></tr>";
     }
 
     /**

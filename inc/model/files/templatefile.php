@@ -1,6 +1,6 @@
 <?php
     /**
-     * FanPress CM 3.x
+     * FanPress CM 4.x
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
     namespace fpcm\model\files;
@@ -34,7 +34,7 @@
          * @param string $content Dateiinhalt
          */
         public function __construct($filename = '') {
-            parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES, $filename));
+            parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS, $filename));
         }
 
         /**

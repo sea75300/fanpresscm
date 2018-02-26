@@ -28,7 +28,7 @@
 
                 <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
 
-                <div class="fpcm-footer fpcm-footer-left">
+                <div class="fpcm-footer fpcm-ui-font-small fpcm-ui-center fpcm-footer-left">
                     <div class="fpcm-footer-text">
                         <b>Version</b> <?php print $theView->version; ?><br>
                         &copy; 2011-<?php print date('Y'); ?> <a href="https://nobody-knows.org/download/fanpress-cm/" target="_blank">nobody-knows.org</a>                    

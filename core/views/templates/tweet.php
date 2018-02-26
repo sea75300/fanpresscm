@@ -15,8 +15,6 @@
         <th class="fpcm-th-full"><?php $theView->write('TEMPLATE_EDITOR'); ?></th>
     </tr>
     <tr>
-        <td>
-            <?php fpcm\view\helper::textArea('template[tweet]', 'fpcm-full-width', $contentTweet); ?>
-        </td>
-    </tr>                    
+        <td><?php $theView->textarea('template[tweet]', 'tweet')->setValue($contentTweet, ENT_QUOTES); ?></td>
+    </tr>
 </table>

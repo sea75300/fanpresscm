@@ -160,7 +160,6 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col,
 .fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2-status span,
 .fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li:hover ul,
 .fpcm-ui-permissions-container .ui-button,
-.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-ui-button-profile,
 .fpcm-ui-progressbar-label,
 .fpcm-updater-list span.fa,
 .fpcm-ui-block {
@@ -217,6 +216,15 @@ div.fpcm-navigation ul.fpcm-menu li ul,
     margin-bottom: 0.4em;
 }
 
+.fpcm-ui-marginbottom-md {
+    margin-bottom: 0.5em;
+}
+
+.fpcm-updater-list p.fpcm-updater-list-with-button span.fa,
+.fpcm-ui-margintop-md {
+    margin-top: 0.5em;
+}
+
 .fpcm-ui-marginbottom-lg {
     margin-bottom: 1em;
 }
@@ -239,10 +247,6 @@ div.fpcm-navigation ul.fpcm-menu li ul,
     width: 15%;
 }
 
-.fpcm-quarter-width     {
-    width: 25%;
-}
-
 .fpcm-full-width-date   {
     width: 85%;
 }
@@ -259,7 +263,6 @@ div.fpcm-navigation ul.fpcm-menu li ul,
 
 .fpcm-wrapper-left.fpcm-wrapper-fixed div.fpcm-footer  {
     left: 0px;
-    bottom: 0px;
     right: 0px;
 }
 
@@ -284,8 +287,8 @@ div.fpcm-editor-fields-tabs div.fpcm-ui-editor-extended-row,
     padding: 0.5em;
 }
 
-.fpcm-inner-wrapper     {
-    margin: 0.4em 0.4em 55px 0.4em;
+.fpcm-ui-inner-wrapper     {
+    margin: 0.4em;
 }
 
 .fpcm-dialog-wrapper    {
@@ -298,16 +301,10 @@ div.fpcm-editor-fields-tabs div.fpcm-ui-editor-extended-row,
 
 .fpcm-login-form {
     width: 450px;
-    margin: 0 auto;
 }
 
 .fpcm-ui-font-small {
     font-size: 0.85em;
-}
-
-.fpcm-footer {
-    font-size: 0.8em;
-    text-align:center;
 }
 
 .fpcm-debug-data {
@@ -599,6 +596,11 @@ div.fpcm-navigation ul.fpcm-menu li:hover,
 div.fpcm-navigation ul.fpcm-menu li li {
     display:block;
     float:none;
+}
+
+table.fpcm-ui-table td,
+table.fpcm-ui-table th,
+div.fpcm-navigation ul.fpcm-menu li li {
     padding: 0.5em 0.3em;
 }
 
@@ -676,13 +678,8 @@ table.fpcm-ui-table     {
     border:0px;
 }
 
-table.fpcm-ui-table td  {
-    padding: 0.5em 0.3em;
-}
-
 table.fpcm-ui-table th {
     font-size: 1.1em;
-    padding: 0.5em 0.3em;
     color: #2779aa;
     background: #deedf7 url("../../lib/jquery-ui/images/ui-bg_glass_100_deedf7_1x400.png") 50% 50% repeat-x;
     border-top: 1px solid #aed0ea;
@@ -717,6 +714,8 @@ table.fpcm-ui-table.fpcm-ui-modules tr td.fpcm-ui-modules-version {
     width: 15%;
 }
 
+.fpcm-quarter-width,
+div.fpcm-filelist-thumb-box
 table.fpcm-ui-table.fpcm-ui-options tr td:first-child,
 table.fpcm-ui-table.fpcm-ui-logs tr td:first-child,
 table.fpcm-ui-table.fpcm-ui-options-twitter tr td:first-child {
@@ -758,12 +757,6 @@ table.fpcm-ui-table.fpcm-ui-users tr td:first-child {
     width: 6em;
 }
 
-table.fpcm-ui-table.fpcm-ui-articles th.fpcm-td-articlelist-categories,
-table.fpcm-ui-table.fpcm-ui-articles td.fpcm-td-articlelist-categories {
-    min-width: 10%;
-    word-wrap: break-word;
-}
-
 table.fpcm-ui-table.fpcm-ui-comments tr td.fpcm-td-commentlist-meta,
 table.fpcm-ui-table.fpcm-ui-modules th:first-child,
 table.fpcm-ui-table.fpcm-ui-modules tr td:first-child,
@@ -799,11 +792,6 @@ table.fpcm-ui-table.fpcm-ui-iplist tr td.fpcm-td-iplist-meta {
 .fpcm-ui-center,
 .fpcm-login-form,
 div.fpcm-filelist-thumb-box,
-table.fpcm-module-manager td.module-manager-list-buttons,
-table.fpcm-module-manager td.module-manager-list-td3,
-table.fpcm-module-manager td.module-manager-list-td4,
-table.fpcm-module-manager td.module-manager-list-td5,
-table.fpcm-module-manager td.module-manager-list-td6
 table.fpcm-ui-table.fpcm-ui-smileys tr td:first-child,
 table.fpcm-ui-table.fpcm-ui-smileys tr td.fpcm-ui-smiley-listimg,
 table.fpcm-ui-table.fpcm-ui-smileys tr td:last-child,
@@ -817,7 +805,8 @@ table.fpcm-ui-table.fpcm-ui-permissions tr th {
 }
 
 .fpcm-ui-margin-center {
-    margin: 0 auto
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .fpcm-message-box .fpcm-msg-icon,
@@ -837,7 +826,6 @@ table.fpcm-ui-table.fpcm-ui-article-revisions tr td,
 table.fpcm-ui-table.fpcm-ui-iplist tr td,
 table.fpcm-ui-table.fpcm-dashboard-updates tr td,
 table.fpcm-ui-table.fpcm-ui-backups tr td,
-table.fpcm-module-manager td.module-manager-list-buttons,
 table.fpcm-ui-table.fpcm-ui-logs-cronjobs tr td,
 table.fpcm-ui-table.fpcm-ui-uploadlist tr td {
     vertical-align: middle;
@@ -1069,10 +1057,6 @@ h3, .fpcm-dashboard-container h3 {
     padding: 0em;
 }
 
-.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-ui-button-profile {
-    margin-top: 0.5em;
-}
-
 .fpcm-dashboard-container table.fpcm-ui-table.fpcm-ui-large-td td {
     padding: 0.4em 0.3em !important;
 }
@@ -1209,32 +1193,6 @@ img.fpcm-ui-smileylist-preview {
     font: 1em 'Courier New', monospace !important;
 }
 
-/* Module Manager */
-table.fpcm-module-manager tr.module-manager-list-row3 {
-    height: 10px;
-}
-
-table.fpcm-module-manager td {
-    padding: 0.5em 0.3em;
-}
-
-table.fpcm-module-manager td.module-manager-list-td1 {
-    overflow: hidden;
-}
-
-table.fpcm-module-manager td.module-manager-list-td1,
-table.fpcm-module-manager td.module-manager-list-td6 {
-    width: 15%;
-}
-
-table.fpcm-module-manager td.module-manager-list-buttons {
-    width: 100px;
-}
-
-table.fpcm-module-manager td.module-manager-list-td7 {
-    border-top: 1px dotted #000000;
-}
-
 .fpcm-ui-progressbar {
     margin: 0 auto;
     overflow: hidden;
@@ -1244,10 +1202,6 @@ table.fpcm-module-manager td.module-manager-list-td7 {
     color: #000000;
     text-shadow: 0px 0px 2px #ececec;
     margin: 0.3em 0.8em;
-}
-
-.fpcm-updater-list p.fpcm-updater-list-with-button span.fa {
-    margin-top: 0.5em;
 }
 
 span.fpcm-ui-badge {
@@ -1331,10 +1285,6 @@ div.fpcm-massedit-dialog div.fpcm-ui-editor-extended-button label {
 
 div.fpcm-accordion-pkgmanager ul {
     padding-left: 1.2em;
-}
-
-div.fpcm-filelist-thumb-box {
-    width: 25%;
 }
 
 div.fpcm-filelist-thumb-box-inner {

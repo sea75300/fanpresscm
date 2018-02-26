@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-login-form">
+    <div class="fpcm-login-form fpcm-ui-margin-center">
     <?php if (!isset($lockedGlobal)) : ?>
         <?php if ($showLoginForm) : ?>
         <div class="ui-widget-content ui-corner-all ui-state-normal">
@@ -19,7 +19,7 @@
                 </table>
 
                 
-                <div class="fpcm-ui-margin-center">
+                <div class="fpcm-ui-margin-center fpcm-ui-margintop-md fpcm-ui-marginbottom-md">
                     <div class="fpcm-ui-controlgroup">
                 <?php if ($resetPasswort) : ?>
                     <?php $theView->submitButton('reset')->setText('GLOBAL_OK')->setClass('fpcm-loader fpcm-ok-button')->setIcon('check'); ?>

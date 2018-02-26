@@ -1,16 +1,14 @@
 <div class="fpcm-content-wrapper">
     <div class="fpcm-tabs-general">
         <ul>
-            <li><a href="#tabs-options-general"><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></a></li>
-            <li><a href="#tabs-options-editor"><?php $theView->write('SYSTEM_HL_OPTIONS_EDITOR'); ?></a></li>
-            <li><a href="#tabs-options-news"><?php $theView->write('SYSTEM_HL_OPTIONS_ARTICLES'); ?></a></li>
-            <li><a href="#tabs-options-comments"><?php $theView->write('SYSTEM_HL_OPTIONS_COMMENTS'); ?></a></li>
-            <?php if ($showTwitter) : ?> 
-            <li><a href="#tabs-options-twitter"><?php $theView->write('SYSTEM_HL_OPTIONS_TWITTER'); ?></a></li>
-            <?php endif; ?>
-            <li><a href="#tabs-options-security"><?php $theView->write('SYSTEM_HL_OPTIONS_SECURITY'); ?></a></li>
-            <li><a href="#tabs-options-extended"><?php $theView->write('GLOBAL_EXTENDED'); ?></a></li>
-            <li id="tabs-options-syscheck"><a href="#tabs-options-check"><?php $theView->write('SYSTEM_HL_OPTIONS_SYSCHECK'); ?></a></li>
+            <li data-toolbar-buttons="1"><a href="#tabs-options-general"><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></a></li>
+            <li data-toolbar-buttons="1"><a href="#tabs-options-editor"><?php $theView->write('SYSTEM_HL_OPTIONS_EDITOR'); ?></a></li>
+            <li data-toolbar-buttons="1"><a href="#tabs-options-news"><?php $theView->write('SYSTEM_HL_OPTIONS_ARTICLES'); ?></a></li>
+            <li data-toolbar-buttons="1"><a href="#tabs-options-comments"><?php $theView->write('SYSTEM_HL_OPTIONS_COMMENTS'); ?></a></li>
+            <li data-toolbar-buttons="1"><a href="#tabs-options-twitter"><?php $theView->write('SYSTEM_HL_OPTIONS_TWITTER'); ?></a></li>
+            <li data-toolbar-buttons="1"><a href="#tabs-options-security"><?php $theView->write('SYSTEM_HL_OPTIONS_SECURITY'); ?></a></li>
+            <li data-toolbar-buttons="1"><a href="#tabs-options-extended"><?php $theView->write('GLOBAL_EXTENDED'); ?></a></li>
+            <li data-toolbar-buttons="2" id="tabs-options-syscheck"><a href="#tabs-options-check"><?php $theView->write('SYSTEM_HL_OPTIONS_SYSCHECK'); ?></a></li>
         </ul>
 
         <div id="tabs-options-general">
@@ -275,11 +273,9 @@
            </table>
         </div>
 
-        <?php if ($showTwitter) : ?>
         <div id="tabs-options-twitter">
             <?php include $theView->getIncludePath('system/twitter.php'); ?>
         </div> 
-        <?php endif; ?>
 
         <div id="tabs-options-check"></div>
     </div>

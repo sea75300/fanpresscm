@@ -191,7 +191,7 @@
         'SYSCHECK_FOLDER_DBDUMPS'       => 'Datenbank-Backup-Order',
         'SYSCHECK_FOLDER_DRAFTS'        => 'Vorlagen-Order',
         'SYSCHECK_FOLDER_PROFILES'      => 'Profil-Ordner-Struktur',
-        'SYSCHECK_COMPLETE'             => 'Vollständige Prüfung'
+        'SYSCHECK_COMPLETE'             => 'Vollständige Systemprüfung'
     );
 
 ?>

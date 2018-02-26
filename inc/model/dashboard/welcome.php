@@ -1,45 +1,58 @@
 <?php
-    /**
-     * Welcome Dashboard Container
-     * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     */
 
-    namespace fpcm\model\dashboard;
+/**
+ * Welcome Dashboard Container
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\model\dashboard;
+
+/**
+ * Welcome dashboard container object
+ * 
+ * @package fpcm\model\dashboard
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ */
+class welcome extends \fpcm\model\abstracts\dashcontainer {
 
     /**
-     * Welcome dashboard container object
      * 
-     * @package fpcm\model\dashboard
-     * @author Stefan Seehafer <sea75300@yahoo.de>
+     * @return string
      */
-    class welcome extends \fpcm\model\abstracts\dashcontainer {
-
-        /**
-         * Session
-         * @var \fpcm\model\system\session
-         */
-        protected $session;     
-
-        /**
-         * Konstruktor
-         */
-        public function __construct() {
-
-            parent::__construct();            
-
-            $this->session  = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
-            $this->headline = $this->language->translate('WELCOME_HEADLINE', array('{{username}}' => $this->session->currentUser->getDisplayname()));
-            $this->content  = $this->language->translate('WELCOME_CONTENT').PHP_EOL.
-                (new \fpcm\view\helper\linkButton('openProfile'))
-                ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/profile'))
-                ->setIcon('wrench')
-                ->setText('PROFILE_OPEN')
-                ->setClass('fpcm-ui-button-profile');
-            
-            $this->name     = 'welcome';            
-            $this->position = 1;
-        }
-        
+    public function getName()
+    {
+        return 'welcome';
     }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->language->translate('WELCOME_CONTENT');
+    }
+
+    /**
+     * Return container headline
+     * @return string
+     */
+    public function getHeadline()
+    {
+        return $this->language->translate('WELCOME_HEADLINE', [
+                    '{{username}}' => \fpcm\classes\loader::getObject('\fpcm\model\system\session')->currentUser->getDisplayname()
+        ]);
+    }
+
+    /**
+     * 
+     * @return int
+     */
+    public function getPosition()
+    {
+        return 1;
+    }
+
+}

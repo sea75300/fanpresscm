@@ -1,7 +1,7 @@
 <?php
 
 /**
- * FanPress CM 3.x
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -43,12 +43,6 @@ trait lists {
 
     /**
      *
-     * @var \fpcm\components\dataView\dataView
-     */
-    protected $dataView;
-
-    /**
-     *
      * @var array
      */
     protected $articleItems = [];
@@ -69,7 +63,7 @@ trait lists {
      *
      * @var array
      */
-    protected $commentCount             = [];
+    protected $commentCount = [];
 
     /**
      *
@@ -105,7 +99,16 @@ trait lists {
      *
      * @var bool
      */
-    protected $showDraftStatus   = true;
+    protected $showDraftStatus = true;
+
+    /**
+     * 
+     * @return string
+     */
+    protected function getDataViewName()
+    {
+        return 'articlelist';
+    }
 
     /**
      * Berechtigungen zum Bearbeiten initialisieren
@@ -147,15 +150,18 @@ trait lists {
             }
         }
     }
-    
+
+    /**
+     * 
+     * @return boolean
+     */
     protected function initActionObjects()
     {
         $this->articleList = new \fpcm\model\articles\articlelist();
         $this->categoryList = new \fpcm\model\categories\categoryList();
         $this->commentList = new \fpcm\model\comments\commentList();
         $this->userList = new \fpcm\model\users\userList();
-        $this->listShowLimit = $this->config->articles_acp_limit;
-        
+
         return true;
     }
 
@@ -165,11 +171,11 @@ trait lists {
      */
     protected function initActionVars()
     {
-        $this->users                    = $this->userList->getUsersNameList();
-        $this->categories               = $this->categoryList->getCategoriesNameListCurrent();
-        $this->commentCount             = $this->commentList->countComments($this->getArticleListIds());
+        $this->users = $this->userList->getUsersNameList();
+        $this->categories = $this->categoryList->getCategoriesNameListCurrent();
+        $this->commentCount = $this->commentList->countComments($this->getArticleListIds());
         $this->commentPrivateUnapproved = $this->commentList->countUnapprovedPrivateComments($this->getArticleListIds());
-        
+
         return true;
     }
 
@@ -184,14 +190,14 @@ trait lists {
 
         if (!count($this->articleItems)) {
             $this->dataView->addRow(
-                new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('title', 'GLOBAL_NOTFOUND2' ),
-                ]
+                    new \fpcm\components\dataView\row([
+                new \fpcm\components\dataView\rowCol('title', 'GLOBAL_NOTFOUND2'),
+                    ]
             ));
 
             return true;
         }
-        
+
         /* @var $article \fpcm\model\articles\article */
         foreach ($this->articleItems as $articleMonth => $articles) {
 
@@ -200,14 +206,13 @@ trait lists {
             $titleStr .= ' (' . count($articles) . ')';
 
             $this->dataView->addRow(
-                new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\checkbox('fpcm-ui-list-checkbox-sub', 'fpcm-ui-list-checkbox-sub' . $articleMonth))->setClass('fpcm-ui-list-checkbox-sub')->setValue($articleMonth), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                    new \fpcm\components\dataView\rowCol('button', ''),
-                    new \fpcm\components\dataView\rowCol('title', $titleStr),
-                    new \fpcm\components\dataView\rowCol('categories', ''),
-                    new \fpcm\components\dataView\rowCol('metadata', ''),
-                ],
-                'fpcm-ui-dataview-subhead fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset'
+                    new \fpcm\components\dataView\row([
+                        new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\checkbox('fpcm-ui-list-checkbox-sub', 'fpcm-ui-list-checkbox-sub' . $articleMonth))->setClass('fpcm-ui-list-checkbox-sub')->setValue($articleMonth), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                        new \fpcm\components\dataView\rowCol('button', ''),
+                        new \fpcm\components\dataView\rowCol('title', $titleStr),
+                        new \fpcm\components\dataView\rowCol('categories', ''),
+                        new \fpcm\components\dataView\rowCol('metadata', ''),
+                    ], 'fpcm-ui-dataview-subhead fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset'
             ));
 
             foreach ($articles as $articleId => $article) {
@@ -219,22 +224,22 @@ trait lists {
                     (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article),
                     '</div>'
                 ];
-                
+
                 $title = [
-                    '<strong>'.strip_tags($article->getTitle()).'</strong>',
+                    '<strong>' . strip_tags($article->getTitle()) . '</strong>',
                     $this->getMetaData($article)
                 ];
 
                 $desc = $this->lang->translate('EDITOR_STATUS_POSTPONETO') . ($article->getPostponed() ? ' ' . new \fpcm\view\helper\dateText($article->getCreatetime()) : '');
 
                 $metaDataIcons = [];
-                
+
                 if ($this->config->system_comments_enabled) {
                     $metaDataIcons[] = $this->getCommentBadge($articleId);
                 }
-                
+
                 $metaDataIcons[] = (new \fpcm\view\helper\icon('thumb-tack fa-rotate-90 fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getPinned())->setText('EDITOR_STATUS_PINNED')->setStack('square');
-                
+
                 if ($this->showDraftStatus) {
                     $metaDataIcons[] = (new \fpcm\view\helper\icon('file-text-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getDraft())->setText('EDITOR_STATUS_DRAFT')->setStack('square');
                 }
@@ -245,23 +250,23 @@ trait lists {
                 if ($this->config->system_comments_enabled) {
                     $metaDataIcons[] = (new \fpcm\view\helper\icon('comments-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getComments())->setText('EDITOR_STATUS_COMMENTS')->setStack('square');
                 }
-                
+
                 if ($this->showArchivedStatus) {
                     $metaDataIcons[] = (new \fpcm\view\helper\icon('archive fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getArchived())->setText('EDITOR_STATUS_ARCHIVE')->setStack('square');
                 }
 
                 $this->dataView->addRow(
-                    new \fpcm\components\dataView\row([
-                        new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\checkbox('actions[' . ($article->getEditPermission() ? 'ids' : 'ro') . '][]', 'chbx' . $articleId))->setClass('fpcm-ui-list-checkbox fpcm-ui-list-checkbox-subitem' . $articleMonth)->setValue($articleId)->setReadonly(!$article->getEditPermission()), 'fpcm-ui-dataview-lineheight4', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                        new \fpcm\components\dataView\rowCol('button', implode('', $buttons), 'fpcm-ui-dataview-lineheight4 fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                        new \fpcm\components\dataView\rowCol('title', implode(PHP_EOL, $title), 'fpcm-ui-ellipsis'),
-                        new \fpcm\components\dataView\rowCol('categories', wordwrap(implode(', ', $article->getCategories()), 50, '<br>' ) ),
-                        new \fpcm\components\dataView\rowCol('metadata', implode('', $metaDataIcons), 'fpcm-ui-dataview-lineheight4 fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                    ]
-                ));
+                        new \fpcm\components\dataView\row([
+                            new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\checkbox('actions[' . ($article->getEditPermission() ? 'ids' : 'ro') . '][]', 'chbx' . $articleId))->setClass('fpcm-ui-list-checkbox fpcm-ui-list-checkbox-subitem' . $articleMonth)->setValue($articleId)->setReadonly(!$article->getEditPermission()), 'fpcm-ui-dataview-lineheight4', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                            new \fpcm\components\dataView\rowCol('button', implode('', $buttons), 'fpcm-ui-dataview-lineheight4 fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                            new \fpcm\components\dataView\rowCol('title', implode(PHP_EOL, $title), 'fpcm-ui-ellipsis'),
+                            new \fpcm\components\dataView\rowCol('categories', wordwrap(implode(', ', $article->getCategories()), 50, '<br>')),
+                            new \fpcm\components\dataView\rowCol('metadata', implode('', $metaDataIcons), 'fpcm-ui-dataview-lineheight4 fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                        ])
+                );
             }
         }
-        
+
         return true;
     }
 
@@ -272,14 +277,14 @@ trait lists {
      */
     private function getCommentBadge($articleId)
     {
-        $badge = new \fpcm\view\helper\badge('badge'.$articleId);
-        
+        $badge = new \fpcm\view\helper\badge('badge' . $articleId);
+
         $privateUnapproved = (isset($this->commentPrivateUnapproved[$articleId]) && $this->commentPrivateUnapproved[$articleId] ? true : false);
 
         $badge->setClass(($privateUnapproved ? 'fpcm-ui-badge-red fpcm-ui-badge-comments fpcm-ui--display-inlineblock' : 'fpcm-ui-badge-comments fpcm-ui--display-inlineblock'))
-            ->setText(($privateUnapproved ? 'ARTICLE_LIST_COMMENTNOTICE' : 'HL_COMMENTS_MNG'))
-            ->setValue((isset($this->commentCount[$articleId]) ? $this->commentCount[$articleId] : 0))
-            ->setIcon('comments');
+                ->setText(($privateUnapproved ? 'ARTICLE_LIST_COMMENTNOTICE' : 'HL_COMMENTS_MNG'))
+                ->setValue((isset($this->commentCount[$articleId]) ? $this->commentCount[$articleId] : 0))
+                ->setIcon('comments');
 
         return $badge;
     }
@@ -293,24 +298,23 @@ trait lists {
     {
         $createuser = array_keys($this->users, $article->getCreateuser());
         $changeuser = array_keys($this->users, $article->getChangeuser());
-        
-        $notFound   = $this->lang->translate('GLOBAL_NOTFOUND');
+
+        $notFound = $this->lang->translate('GLOBAL_NOTFOUND');
 
         return implode('', [
             '<span class="fpcm-ui-font-small fpcm-ui-block fpcm-ui-">',
             $this->lang->translate('EDITOR_AUTHOREDIT', [
-                '{{username}}'  => isset($createuser[0]) ? $createuser[0] : $notFound,
-                '{{time}}'      => (string) new \fpcm\view\helper\dateText($article->getCreatetime())
+                '{{username}}' => isset($createuser[0]) ? $createuser[0] : $notFound,
+                '{{time}}' => (string) new \fpcm\view\helper\dateText($article->getCreatetime())
             ]),
             '</span>',
             '<span class="fpcm-ui-font-small fpcm-ui-block">',
             $this->lang->translate('EDITOR_LASTEDIT', [
-                '{{username}}'  => isset($changeuser[0]) ? $changeuser[0] : $notFound,
-                '{{time}}'      => (string) new \fpcm\view\helper\dateText($article->getChangetime())
+                '{{username}}' => isset($changeuser[0]) ? $changeuser[0] : $notFound,
+                '{{time}}' => (string) new \fpcm\view\helper\dateText($article->getChangetime())
             ]),
             '</span>'
         ]);
-        
     }
 
     /**
@@ -329,15 +333,6 @@ trait lists {
 
     /**
      * 
-     * @return string
-     */
-    protected function getDataViewName()
-    {
-        return 'articlelist';
-    }
-
-    /**
-     * 
      * @return array
      */
     protected function getDataViewCols()
@@ -345,9 +340,9 @@ trait lists {
         if (!count($this->articleItems)) {
             return [
                 (new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE'))->setSize(12),
-            ];            
+            ];
         }
-        
+
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2),

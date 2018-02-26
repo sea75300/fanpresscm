@@ -1,6 +1,6 @@
 <?php
     /**
-     * FanPress CM 3.x
+     * FanPress CM 4.x
      * @copyright (c) 2011-2018, Stefan Seehafer
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */

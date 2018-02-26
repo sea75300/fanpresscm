@@ -1,22 +1,22 @@
 <div class="fpcm-content-wrapper">
     <div class="fpcm-tabs-general">
         <ul>
-            <li><a href="#tabs-templates-articles" class="fpcm-template-tab" data-tpl="1"><?php $theView->write('TEMPLATE_HL_ARTICLES'); ?></a></li>
+            <li data-toolbar-buttons="1"><a href="#tabs-templates-articles" class="fpcm-template-tab" data-tpl="1"><?php $theView->write('TEMPLATE_HL_ARTICLES'); ?></a></li>
             <?php if (isset($contentArticleSingle) && isset($replacementsArticleSingle)) : ?>
-            <li><a href="#tabs-templates-article" class="fpcm-template-tab" data-tpl="2"><?php $theView->write('TEMPLATE_HL_ARTICLE_SINGLE'); ?></a></li>
+            <li data-toolbar-buttons="1"><a href="#tabs-templates-article" class="fpcm-template-tab" data-tpl="2"><?php $theView->write('TEMPLATE_HL_ARTICLE_SINGLE'); ?></a></li>
             <?php endif; ?>
-            <li><a href="#tabs-templates-comments" class="fpcm-template-tab" data-tpl="3"><?php $theView->write('TEMPLATE_HL_COMMENTS'); ?></a></li>
-            <li><a href="#tabs-templates-commentform" class="fpcm-template-tab" data-tpl="4"><?php $theView->write('TEMPLATE_HL_COMMENTFORM'); ?></a></li>
-            <li><a href="#tabs-templates-latestnews" class="fpcm-template-tab" data-tpl="5"><?php $theView->write('TEMPLATE_HL_LATESTNEWS'); ?></a></li>
-            <li><a href="#tabs-templates-tweet" class="fpcm-template-tab" data-tpl="6"><?php $theView->write('TEMPLATE_HL_TWEET'); ?></a></li>
-            <li><a href="#tabs-templates-articletpl" class="fpcm-template-tab" data-tpl="7"><?php $theView->write('TEMPLATE_HL_DRAFTS'); ?></a></li>
+            <li data-toolbar-buttons="1"><a href="#tabs-templates-comments" class="fpcm-template-tab" data-tpl="3"><?php $theView->write('TEMPLATE_HL_COMMENTS'); ?></a></li>
+            <li data-toolbar-buttons="1"><a href="#tabs-templates-commentform" class="fpcm-template-tab" data-tpl="4"><?php $theView->write('TEMPLATE_HL_COMMENTFORM'); ?></a></li>
+            <li data-toolbar-buttons="1"><a href="#tabs-templates-latestnews" class="fpcm-template-tab" data-tpl="5"><?php $theView->write('TEMPLATE_HL_LATESTNEWS'); ?></a></li>
+            <li data-toolbar-buttons="2"><a href="#tabs-templates-tweet" class="fpcm-template-tab" data-tpl="6"><?php $theView->write('TEMPLATE_HL_TWEET'); ?></a></li>
+            <li data-toolbar-buttons="3"><a href="#tabs-templates-articletpl" class="fpcm-template-tab" data-tpl="7"><?php $theView->write('TEMPLATE_HL_DRAFTS'); ?></a></li>
         </ul>
         <div id="tabs-templates-articles">
             <?php include $theView->getIncludePath('templates/articles.php'); ?>
         </div>
         <?php if (isset($contentArticleSingle) && isset($replacementsArticleSingle)) : ?>
         <div id="tabs-templates-article">
-            <?php include $theView->getIncludePath('templates/articles.php'); ?>
+            <?php include $theView->getIncludePath('templates/article.php'); ?>
         </div>
         <?php endif; ?>
         <div id="tabs-templates-comments">

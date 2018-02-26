@@ -8,11 +8,12 @@ if (fpcm === undefined) {
 fpcm.templates = {
     
     init: function() {
-        this.initCodeMirror('templatearticle');
+        this.initCodeMirror('article');
         this.initTemplatePreview();
 
         fpcm.ui.tabs('.fpcm-tabs-general', {
-            addTabScroll: true
+            addTabScroll: true,
+            addMainToobarToggle: true
         });
 
         fpcm.ui.resize();
@@ -69,22 +70,22 @@ fpcm.templates = {
 
         switch (id) {
             case 1:
-                return 'templatearticle';
+                return 'article';
                 break;
             case 2:
-                return 'templatearticleSingle';
+                return 'articleSingle';
                 break;
             case 3:
-                return 'templatecomment';
+                return 'comment';
                 break;
             case 4:
-                return 'templatecommentForm';
+                return 'commentForm';
                 break;
             case 5:
-                return 'templatelatestNews';
+                return 'latestNews';
                 break;
             case 6:
-                return 'templatetweet';
+                return 'tweet';
                 break;
         }
         
@@ -103,24 +104,14 @@ fpcm.templates = {
             }
 
             if (fpcm.vars.jsvars.templateId == 7) {
-                jQuery('#showpreview').hide();
-                jQuery('#btnSaveTemplates').hide();
-                jQuery('#article_template_buttons').show();
                 return false;
             }
-            
-            jQuery('#fpcm-ui-toolbar').show();            
-            jQuery('#article_template_buttons').hide();
-            
+
             if (fpcm.vars.jsvars.templateId > 5) {
-                jQuery('#showpreview').hide();
-                jQuery('#btnSaveTemplates').show();
                 fpcm.ui.initJqUiWidgets();
                 return false;
             }
 
-            jQuery('#showpreview').show();
-            jQuery('#btnSaveTemplates').show();
             fpcm.ui.initJqUiWidgets();
 
             return false;

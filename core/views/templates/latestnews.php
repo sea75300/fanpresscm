@@ -12,8 +12,6 @@
     </tr>
     <?php include $theView->getIncludePath('templates/editorhead.php'); ?>
     <tr>
-        <td>
-            <?php fpcm\view\helper::textArea('template[latestNews]', 'fpcm-full-width', $contentLatestNews); ?>
-        </td>
+        <td><?php $theView->textarea('template[latestNews]', 'latestNews')->setValue($contentLatestNews, ENT_QUOTES); ?></td>
     </tr>                    
 </table>

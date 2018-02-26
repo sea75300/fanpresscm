@@ -12,22 +12,16 @@ fpcm.options = {
 
     init: function () {
 
+        if (fpcm.vars.jsvars.runSysCheck) {
+            fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab1').addClass('fpcm-ui-hidden');
+            fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab2').removeClass('fpcm-ui-hidden');
+            fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
+        }
+
         fpcm.ui.tabs('.fpcm-tabs-general', {
-            active   : (!fpcm.vars.jsvars.runSysCheck ?  0 : (window.showTwitter ? 8 : 7)),
-            activate : function(event, ui) {
-
-                if (jQuery(ui.newTab).attr('id') === 'tabs-options-syscheck') {
-                    jQuery('#syschecksubmitstats').show();
-                    jQuery('#btnConfigSave').hide();
-                    return false;
-                }
-
-                jQuery('#btnConfigSave').show();
-                jQuery('#syschecksubmitstats').hide();
-                
-                fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-            },
-            addTabScroll: true
+            active   : (fpcm.vars.jsvars.runSysCheck ? 7 : 0),
+            addTabScroll: true,
+            addMainToobarToggle: true
         });
 
         fpcm.ui.datepicker('#articles_archive_datelimit', {

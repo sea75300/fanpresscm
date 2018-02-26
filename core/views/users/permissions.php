@@ -1,4 +1,4 @@
-<div class="fpcm-inner-wrapper">
+<div class="fpcm-ui-inner-wrapper">
     
     <form method="post" action="<?php print $theView->self; ?>?module=users/permissions&roll=<?php print $rollId; ?>">
         <div class="fpcm-tabs-general" id="fpcm-tabs-permissions">

@@ -12,8 +12,6 @@
     </tr>
     <?php include $theView->getIncludePath('templates/editorhead.php'); ?>
     <tr>
-        <td>
-            <?php fpcm\view\helper::textArea('template[commentForm]', 'fpcm-full-width', $contentCommentForm); ?>
-        </td>
+        <td><?php $theView->textarea('template[commentForm]', 'commentForm')->setValue($contentCommentForm, ENT_QUOTES); ?></td>
     </tr>                    
 </table>

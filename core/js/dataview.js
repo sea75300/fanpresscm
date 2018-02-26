@@ -39,7 +39,7 @@ fpcm.dataview = {
 
         jQuery.each(obj.columns, function (index, column) {
             style = 'fpcm-ui-dataview-col fpcm-ui-dataview-align-' + column.align + ' fpcm-ui-dataview-size-' + column.size;
-            obj.headline.append('<div class="' + style + '" id="fpcm-dataview-headcol-' + column.name + '">' + (column.descr ? fpcm.ui.translate(column.descr) : '&nbsp;') + '</div>');            
+            obj.headline.append('<div class="' + style + '" id="fpcm-dataview-headcol-' + column.name + index + '">' + (column.descr ? fpcm.ui.translate(column.descr) : '&nbsp;') + '</div>');            
         });
         
         obj.headline.append('<div class="fpcm-ui-clear"></div>');
@@ -64,7 +64,6 @@ fpcm.dataview = {
         jQuery.each(row.columns, function (index, rowCol) {
 
             var rowColumn   = obj.columns[index] ? obj.columns[index] : {};
-            
 
             var style       = 'fpcm-ui-dataview-col fpcm-ui-dataview-align-' + rowColumn.align
                             + ' fpcm-ui-dataview-size-' + rowColumn.size

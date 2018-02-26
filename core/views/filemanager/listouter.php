@@ -1,5 +1,5 @@
 <?php if ($mode == 2) : ?>
-<div class="fpcm-inner-wrapper">
+<div class="fpcm-ui-inner-wrapper">
 <?php endif; ?>
     
     <div class="fpcm-tabs-general">

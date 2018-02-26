@@ -6,7 +6,6 @@
     <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('cloud-upload'); ?>
     <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>
     <input type="file" name="files[]" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
-    <?php $theView->deleteButton('fileDelete')->setClass('fpcm-ui-button-confirm'); ?>
 </div>
 
 <table id="fpcm-ui-phpupload-filelist" class="fpcm-ui-table fpcm-ui-marginbottom-lg fpcm-ui-filelist fpcm-ui-phpupload"></table>
@@ -20,7 +19,7 @@
     </tr>
     <?php fpcm\view\helper::notFoundContainer($templateFiles, 4); ?>
 
-    <tr class="fpcm-td-spacer"><td></td></tr>
+    <tr class="fpcm-td-spacer"><td colspan="4"></td></tr>
     <?php foreach ($templateFiles as $templateFile) : ?>
     <tr>
         <td class="fpcm-ui-editbutton-col fpcm-ui-center">
@@ -33,5 +32,5 @@
     </tr>
     <?php endforeach; ?>
 
-    <tr class="fpcm-td-spacer"><td colspan="3"></td></tr>
+    <tr class="fpcm-td-spacer"><td colspan="4"></td></tr>
 </table>

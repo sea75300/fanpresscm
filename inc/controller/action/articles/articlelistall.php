@@ -28,7 +28,7 @@ class articlelistall extends articlelistbase {
 
     protected function getArticleItems()
     {
-        $this->conditionItems->limit = [$this->listShowLimit, $this->listShowStart];
+        $this->conditionItems->limit = [$this->config->articles_acp_limit, $this->listShowStart];
         $this->articleItems = $this->articleList->getArticlesByCondition($this->conditionItems, true);
     }
 

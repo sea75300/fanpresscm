@@ -1,3 +1,4 @@
+<?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-content-wrapper">
     <div class="fpcm-tabs-general">
         <ul class="fpcm-tabs-articles-headers">

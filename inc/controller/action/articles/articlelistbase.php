@@ -11,7 +11,8 @@ namespace fpcm\controller\action\articles;
 
 abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
-    use \fpcm\controller\traits\articles\lists;
+    use \fpcm\controller\traits\common\dataView,
+        \fpcm\controller\traits\articles\lists;
 
 
     /**
@@ -50,11 +51,19 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
      */
     protected $conditionItems;
 
+    /**
+     * 
+     * @return string
+     */
     protected function getViewPath()
     {
         return 'articles/listouter';
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function getHelpLink()
     {
         return 'hl_article_edit';
@@ -80,7 +89,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
     {   
         if (($this->buttonClicked('doAction') || $this->buttonClicked('clearTrash')) && !$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
-            return true;
+            return $this->init();
         }
 
         if ($this->buttonClicked('doAction') && !is_null($this->getRequestVar('actions'))) {
@@ -95,13 +104,13 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
                     $this->view->addNoticeMessage('DELETE_SUCCESS_TRASH');
                 }
 
-                return true;
+                return $this->init();
             }
 
 
             if ((!isset($actionData['ids']) && $actionData['action'] != 'trash') || !$actionData['action']) {
                 $this->view->addErrorMessage('SELECT_ITEMS_MSG');
-                return true;
+                return $this->init();
             }
 
             $ids = array_map('intval', $actionData['ids']);
@@ -110,25 +119,34 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
             if ($action === false) {
                 $this->view->addErrorMessage('SELECT_ITEMS_MSG');
-                return true;
+                return $this->init();
             }
 
             if (!call_user_func([$this, 'do' . ucfirst($action)], $ids)) {
                 $msg = ($action == 'delete') ? 'DELETE_FAILED_ARTICLE' : 'SAVE_FAILED_ARTICLE';
                 $this->view->addErrorMessage($msg);
-                return true;
+                return $this->init();
             }
 
             $msg = ($action == 'delete') ? 'DELETE_SUCCESS_ARTICLE' : 'SAVE_SUCCESS_ARTICLE' . strtoupper($action);
             $this->view->addNoticeMessage($msg);
         }
 
+        return $this->init();
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    private function init()
+    {
         $this->getListAction();
         $this->getLimitsByPage();
         $this->getConditionItem();
         $this->getArticleCount();
         $this->getArticleItems();
-
+        
         return true;
     }
 
@@ -156,21 +174,21 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         if ($this->listAction !== 'articles/trash') {
 
             if ($this->permissions->check(['article' => 'add'])) {
-                $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pencil');
+                $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pencil')->setIconOnly(true);
             }
 
             if ($this->canEdit) {
-                $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('pencil-square-o');
+                $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('pencil-square-o')->setIconOnly(true);
             }
 
-            $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search');
+            $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true);
         }
 
         $buttons[] = (new \fpcm\view\helper\select('actions'))->setOptions($this->articleActions);
-        $buttons[] = (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-loader')->setIcon('check');
+        $buttons[] = (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-loader')->setIcon('check')->setIconOnly(true);
         
         if ($this->listAction !== 'articles/trash') {
-            $this->view->addPager((new \fpcm\view\helper\pager($this->listAction, $this->page, count($this->articleItems), $this->listShowLimit, $this->articleCount)));
+            $this->view->addPager((new \fpcm\view\helper\pager($this->listAction, $this->page, count($this->articleItems), $this->config->articles_acp_limit, $this->articleCount)));
         }
         
         $this->view->addButtons($buttons);
@@ -240,7 +258,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
     protected function getLimitsByPage()
     {
         $this->page          = $this->getRequestVar('page', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
-        $this->listShowStart = \fpcm\classes\tools::getPageOffset($this->page, $this->listShowLimit);
+        $this->listShowStart = \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit);
     }
 
     protected function initArticleActions()

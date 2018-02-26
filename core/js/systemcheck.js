@@ -16,9 +16,7 @@ fpcm.systemcheck = {
         if (!fpcm.vars.jsvars.runSysCheck) {
             return true;
         }
-        
-        jQuery('#fpcmsyschecksubmitstats').show();
-        jQuery('#btnConfigSave').hide();
+
         fpcm.systemcheck.execute();
         return true;
     },
