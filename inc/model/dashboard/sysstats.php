@@ -40,7 +40,7 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     {
         $this->getCacheName();
         $this->runCheck();
-        return implode(PHP_EOL, array('<table class="fpcm-ui-table fpcm-ui-font-small2">', implode(PHP_EOL, $this->tableContent), '</table>'));
+        return implode(PHP_EOL, array('<table class="fpcm-ui-table fpcm-ui-font-small">', implode(PHP_EOL, $this->tableContent), '</table>'));
     }
 
     /**

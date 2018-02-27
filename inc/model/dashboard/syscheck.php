@@ -48,7 +48,7 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     public function getContent()
     {
         $this->runCheck();
-        return implode(PHP_EOL, array('<table class="fpcm-ui-table fpcm-ui-font-small2" style="overflow:auto;">', implode(PHP_EOL, $this->tableContent), '</table>'));
+        return implode(PHP_EOL, array('<table class="fpcm-ui-table fpcm-ui-font-small" style="overflow:auto;">', implode(PHP_EOL, $this->tableContent), '</table>'));
     }
 
     /**

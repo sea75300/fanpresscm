@@ -29,6 +29,7 @@ fpcm.filemanager = {
 
     initJqUiWidgets: function () {
         fpcm.ui.assignCheckboxes();
+        fpcm.ui.assignControlgroups();
         this.initInsertButtons();
         this.initSelectionCheckboxes();
         this.initPagination();

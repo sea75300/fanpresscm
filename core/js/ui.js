@@ -28,6 +28,10 @@ fpcm.ui = {
             fpcm.ui.showLoader(false);
             return false;
         });
+        
+        jQuery('.fpcm-menu-level1-hassubmenu').hover(function () {
+            jQuery(this).find('ul.fpcm-submenu').css('left', jQuery('#fpcm-navigation-ul').width());
+        })
 
         jQuery('#fpcm-ui-showmenu-li').click(function () {
             jQuery('li.fpcm-menu-level1.fpcm-menu-level1-show').fadeToggle();

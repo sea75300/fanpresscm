@@ -1,7 +1,4 @@
-<?php if ($mode == 2) : ?>
 <div class="fpcm-ui-inner-wrapper">
-<?php endif; ?>
-    
     <div class="fpcm-tabs-general">
         <ul>
             <li id="tabs-files-list-reload"><a href="#tabs-files-list"><?php $theView->write('FILE_LIST_AVAILABLE'); ?></a></li>                
@@ -9,7 +6,7 @@
         </ul>
 
         <div id="tabs-files-list">
-            <div id="tabs-files-list-content"><?php include $theView->getIncludePath('filemanager/listinner.php'); ?></div>
+            <div class="row" id="tabs-files-list-content"></div>
         </div>
 
         <?php if ($permUpload) : ?>
