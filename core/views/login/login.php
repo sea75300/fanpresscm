@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-login-form fpcm-ui-margin-center">
+    <div class="col-sm-12 col-md-8 fpcm-login-form fpcm-ui-margin-center">
     <?php if (!isset($lockedGlobal)) : ?>
         <?php if ($showLoginForm) : ?>
         <div class="ui-widget-content ui-corner-all ui-state-normal">

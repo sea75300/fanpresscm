@@ -2,18 +2,6 @@ div.fpcm-ui-dataview {
     
 }
 
-div.fpcm-ui-dataview div.fpcm-ui-dataview-head,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-head div.fpcm-ui-dataview-col,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row div.fpcm-ui-dataview-col {
-    display: block;
-}
-
-div.fpcm-ui-dataview div.fpcm-ui-dataview-head div.fpcm-ui-dataview-col,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row div.fpcm-ui-dataview-col {
-    float: left;
-}
-
 div.fpcm-ui-dataview-rowcolpadding {
     margin: 0.5em 0em;
     color: #2779aa;
@@ -22,7 +10,7 @@ div.fpcm-ui-dataview-rowcolpadding {
 div.fpcm-ui-dataview-head {
     margin-top: 0em;
     font-size: 1.15em;
-    padding: 0.3em 0.15em;
+    padding: 0.3em 0em;
 }
 
 div.fpcm-ui-dataview-subhead {
@@ -30,6 +18,7 @@ div.fpcm-ui-dataview-subhead {
     padding: 0.15em;
 }
 
+div.fpcm-ui-dataview div.fpcm-ui-dataview-subhead,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-row {
     line-height: 1.5em;
     padding: 0.35em 0;
@@ -41,10 +30,6 @@ div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(odd) {
 
 div.fpcm-ui-dataview div.fpcm-ui-dataview-row:hover {
     background: #DFEFFC;
-}
-
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row.fpcm-ui-dataview-subhead {
-    background: #deedf7 url("../../lib/jquery-ui/images/ui-bg_glass_100_deedf7_1x400.png") 50% 50% repeat-x !important;
 }
 
 div.fpcm-ui-dataview-head,
@@ -73,65 +58,7 @@ div.fpcm-ui-dataview-align-justify {
 }
 
 div.fpcm-ui-dataview-size-05 {
-    width: 4.166666666%;
-}
-
-div.fpcm-dashboard-container-width-1,
-div.fpcm-ui-dataview-size-1 {
-    width: 8.3333333333%;
-}
-
-div.fpcm-dashboard-container-width-2,
-div.fpcm-ui-dataview-size-2 {
-    width: 16.6666666666%;
-}
-
-div.fpcm-dashboard-container-width-3,
-div.fpcm-ui-dataview-size-3 {
-    width: 25%;
-}
-
-div.fpcm-dashboard-container-width-4,
-div.fpcm-ui-dataview-size-4 {
-    width: 33.33333333%;
-}
-
-div.fpcm-dashboard-container-width-5,
-div.fpcm-ui-dataview-size-5 {
-    width: 41.6666666666%;
-}
-
-div.fpcm-dashboard-container-width-6,
-div.fpcm-ui-dataview-size-6 {
-    width: 50%;
-}
-
-div.fpcm-dashboard-container-width-7,
-div.fpcm-ui-dataview-size-7 {
-    width: 58.3333333333%;
-}
-
-div.fpcm-dashboard-container-width-8,
-div.fpcm-ui-dataview-size-8 {
-    width: 66.6666666667%;
-}
-
-div.fpcm-dashboard-container-width-9,
-div.fpcm-ui-dataview-size-9 {
-    width: 75%;
-}
-
-div.fpcm-dashboard-container-width-10,
-div.fpcm-ui-dataview-size-10 {
-    width: 83.3333333333%;
-}
-
-div.fpcm-dashboard-container-width-11,
-div.fpcm-ui-dataview-size-11 {
-    width: 91.6666666667%;
-}
-
-div.fpcm-dashboard-container-width-12,
-div.fpcm-ui-dataview-size-12 {
-    width: 100%;
+    -ms-flex: 0 0 4.166666666%;
+    flex: 0 0 4.166666666%;
+    max-width: 4.166666666%;
 }

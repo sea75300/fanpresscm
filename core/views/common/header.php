@@ -1,3 +1,4 @@
+<?php /* @var $theView fpcm\view\viewVars */ ?>
 <!DOCTYPE HTML>
 <HTML lang="<?php print $theView->langCode; ?>">
     <head>
@@ -13,6 +14,9 @@
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data"><?php endif; ?>
 
+        <div class="row">
+
+
             <?php include_once 'vars.php'; ?>
 
             <div id="fpcm-messages" class="fpcm-messages"></div>
@@ -20,7 +24,7 @@
                 <div class="fpcm-editor-dialog" id="fpcm-dialog-manualupdate-check"></div>
             <?php endif; ?>
 
-            <div class="fpcm-wrapper-left fpcm-ui-background-white-50p <?php if (in_array($theView->currentModule, ['system/login', 'installer'] )) : ?>fpcm-wrapper-fixed<?php endif; ?>" id="fpcm-wrapper-left">
+            <div class="<?php if ($theView->fullWrapper) : ?>fpcm-ui-hidden<?php else : ?>col-sm-12 col-md-2<?php endif; ?> fpcm-ui-padding-none-lr fpcm-ui-background-white-50p" id="fpcm-wrapper-left">
 
                 <div id="fpcm-ui-logo" class="fpcm-ui-logo fpcm-ui-center">
                     <h1><span class="fpcm-ui-block">FanPress CM</span> <span class="fpcm-ui-block">News System</span></h1>
@@ -28,7 +32,7 @@
 
                 <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
 
-                <div class="fpcm-footer fpcm-ui-font-small fpcm-ui-center fpcm-footer-left">
+                <div id="fpcm-footer-left" class="col-md-12 fpcm-footer fpcm-ui-position-absolute fpcm-ui-position-bottom-0 fpcm-ui-font-small fpcm-ui-center">
                     <div class="fpcm-footer-text">
                         <b>Version</b> <?php print $theView->version; ?><br>
                         &copy; 2011-<?php print date('Y'); ?> <a href="https://nobody-knows.org/download/fanpress-cm/" target="_blank">nobody-knows.org</a>                    
@@ -37,6 +41,6 @@
 
             </div>
 
-            <div class="fpcm-wrapper <?php if (in_array($theView->currentModule, array('system/login', 'installer'))) : ?>fpcm-wrapper-fixed<?php endif; ?>" id="fpcm-wrapper-right">
+            <div class="<?php if ($theView->fullWrapper) : ?>col-sm-12<?php else : ?>col-md-10<?php endif; ?> fpcm-ui-padding-none-lr" id="fpcm-wrapper-right">
                 <?php include_once $theView->getIncludePath('common/menutop.php'); ?>
                 <?php include_once $theView->getIncludePath('common/buttons.php'); ?>

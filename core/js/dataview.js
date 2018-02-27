@@ -31,17 +31,17 @@ fpcm.dataview = {
         obj.rowsId      = 'fpcm-dataview-' + id + '-rows';
 
         obj.wrapper     = jQuery('#' + obj.fullId).addClass('fpcm-ui-dataview');
-        obj.wrapper.append('<div class="fpcm-ui-dataview-head fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset" id="' + obj.headId + '"></div>');
+        obj.wrapper.append('<div class="row fpcm-ui-dataview-head fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset" id="' + obj.headId + '"></div>');
         obj.wrapper.append('<div class="fpcm-ui-dataview-rows" id="' + obj.rowsId + '"></div>');
         
         obj.headline    = jQuery('#' + obj.headId);
         obj.lines       = jQuery('#' + obj.rowsId);
 
         jQuery.each(obj.columns, function (index, column) {
-            style = 'fpcm-ui-dataview-col fpcm-ui-dataview-align-' + column.align + ' fpcm-ui-dataview-size-' + column.size;
+            style = 'fpcm-ui-padding-none-lr fpcm-ui-dataview-col fpcm-ui-dataview-align-' + column.align + ' col ' + (column.size ? ' fpcm-ui-dataview-size-' + column.size + ' col-md-' + column.size : '');
             obj.headline.append('<div class="' + style + '" id="fpcm-dataview-headcol-' + column.name + index + '">' + (column.descr ? fpcm.ui.translate(column.descr) : '&nbsp;') + '</div>');            
         });
-        
+
         obj.headline.append('<div class="fpcm-ui-clear"></div>');
 
         jQuery.each(obj.rows, function (index, row) {
@@ -57,16 +57,19 @@ fpcm.dataview = {
     addRow: function(index, row, obj) {
 
         var rowId           = 'fpcm-dataview-row-' + index;
+        var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead' : 'fpcm-ui-dataview-row';
 
-        obj.lines.append('<div class="fpcm-ui-dataview-row' + (row.class ? ' ' + row.class : '') + '" id="' + rowId + '"></span>');
+        row.class           = baseclass + (row.class ? ' ' + row.class : '');
+
+        obj.lines.append('<div class="row ' + row.class + '" id="' + rowId + '"></span>');
         var rowEl           = jQuery('#'+rowId);
 
         jQuery.each(row.columns, function (index, rowCol) {
 
             var rowColumn   = obj.columns[index] ? obj.columns[index] : {};
 
-            var style       = 'fpcm-ui-dataview-col fpcm-ui-dataview-align-' + rowColumn.align
-                            + ' fpcm-ui-dataview-size-' + rowColumn.size
+            var style       = 'fpcm-ui-padding-none-lr fpcm-ui-dataview-col fpcm-ui-dataview-align-' + rowColumn.align
+                            + ' fpcm-ui-dataview-size-' + rowColumn.size + ' col col-md-' + rowColumn.size
                             + ' fpcm-ui-dataview-type' + rowCol.type
                             + (rowCol.class ? ' ' + rowCol.class : '');
 

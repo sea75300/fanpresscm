@@ -19,23 +19,30 @@ final class row implements \JsonSerializable {
      * Column value
      * @var int
      */
-    protected $columns  = [];
+    protected $columns      = [];
 
     /**
      * Column class
      * @var int
      */
-    protected $class    = '';
+    protected $class        = '';
+
+    /**
+     * Column class
+     * @var bool
+     */
+    protected $isheadline   = false;
 
     /**
      * Konstruktor
      * @param array $columns
      * @param string $class
      */
-    public function __construct(array $columns, $class = '')
+    public function __construct(array $columns, $class = '', $isheadline = false)
     {
-        $this->columns  = $columns;
-        $this->class    = $class;
+        $this->columns      = $columns;
+        $this->class        = $class;
+        $this->isheadline   = $isheadline;
     }
 
         /**

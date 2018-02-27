@@ -110,9 +110,6 @@ div.fpcm-status-info ul.fpcm-menu-top #fpcm-ui-showmenu-li,
 span.fpcm-ui-badge.fpcm-ui-badge-comments,
 div.fpcm-filelist-thumb-box,
 div.fpcm-filelist-actions-box div.fpcm-filelist-actions,
-.fpcm-wrapper,
-.fpcm-wrapper-left,
-.fpcm-dashboard-container,
 .fpcm-ui-permissions-container,
 .fpcm-ui-editor-metabox-left,
 .fpcm-ui-editor-metabox-left div,
@@ -125,8 +122,8 @@ div.fpcm-filelist-actions-box div.fpcm-filelist-actions,
 
 span.fpcm-ui-badge,
 div.fpcm-filelist-actions-box div.fpcm-filelist-actions-checkbox,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1,
+div.fpcm-status-info ul.fpcm-menu-top,
+div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1,
 .fpcm-ui-editor-metabox-right,
 .fpcm-ui-float-right {
     float: right;
@@ -134,7 +131,7 @@ div.fpcm-filelist-actions-box div.fpcm-filelist-actions-checkbox,
 
 table.fpcm-ui-comments .fpcm-ui-editor-metabox-right,
 .fpcm-ui-iplist-metabox-right,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2,
+div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2,
 .fpcm-ui-float-none {
     float: none;
 }
@@ -147,18 +144,15 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-icon,
 div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-button,
 div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col,
 #fpcm-filemanager-upload-drop h4:before,
-.fpcm-wrapper,
-.fpcm-wrapper-left,
-.fpcm-dashboard-container,
 .fpcm-ui-permissions-container,
 .fpcm-ui-editor-metabox-left,
 .fpcm-ui-editor-metabox-left div,
 .fpcm-ui-editor-metabox-right,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2-status span,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li:hover ul,
+div.fpcm-status-info ul.fpcm-menu-top,
+div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1,
+div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2,
+div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2-status span,
+div.fpcm-status-info ul.fpcm-menu-top li:hover ul,
 .fpcm-ui-permissions-container .ui-button,
 .fpcm-ui-progressbar-label,
 .fpcm-updater-list span.fa,
@@ -173,20 +167,21 @@ div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col,
 }
 
 div.fpcm-navigation ul.fpcm-menu li ul,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li ul,
+div.fpcm-status-info ul.fpcm-menu-top li ul,
 .fpcm-editor-select,
 .fpcm-ui-hidden {
     display: none;
 }
 
 #fpcm-loader,
-.fpcm-messages {
+.fpcm-messages,
+.fpcm-ui-position-fixed {
     position: fixed;
 }
 
-.fpcm-dashboard-container,
 .fpcm-ui-permissions-container,
-.fpcm-buttons .fpcm-ui-spacer {
+.fpcm-buttons .fpcm-ui-spacer,
+.fpcm-ui-position-relative {
     position: relative;
 }
 
@@ -195,9 +190,8 @@ div.fpcm-navigation ul.fpcm-menu li ul,
 .fpcm-ui-errorbox,
 .fpcm-editor-select,
 .fpcm-editor-dialog iframe,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li ul,
-.fpcm-wrapper-left.fpcm-wrapper-fixed div.fpcm-footer,
-.fpcm-wrapper-left.fpcm-wrapper-fixed {
+div.fpcm-status-info ul.fpcm-menu-top li ul,
+.fpcm-ui-position-absolute {
     position: absolute;
 }
 
@@ -213,7 +207,11 @@ div.fpcm-navigation ul.fpcm-menu li ul,
 
 #fpcm-ui-toolbar {
     padding: 0.4em;
-    margin-bottom: 0.4em;
+}
+
+.fpcm-ui-padding-none-lr {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .fpcm-ui-marginbottom-md {
@@ -243,10 +241,6 @@ div.fpcm-navigation ul.fpcm-menu li ul,
     background: rgba(255,255,255,0.5);
 }
 
-.fpcm-wrapper-left {
-    width: 15%;
-}
-
 .fpcm-full-width-date   {
     width: 85%;
 }
@@ -255,20 +249,25 @@ div.fpcm-navigation ul.fpcm-menu li ul,
     margin-left: 15%;
 }
 
-.fpcm-wrapper-left.fpcm-wrapper-fixed div.fpcm-footer
-.fpcm-wrapper-left.fpcm-wrapper-fixed  {
+.fpcm-ui-position-top-0 {
     top: 0px;
+}
+
+.fpcm-ui-position-bottom-0 {
     bottom: 0px;
 }
 
-.fpcm-wrapper-left.fpcm-wrapper-fixed div.fpcm-footer  {
+.fpcm-ui-position-left-0 {
     left: 0px;
+}
+
+.fpcm-ui-position-right-0 {
     right: 0px;
 }
 
 div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navicon,
 div.fpcm-editor-fields-tabs div.fpcm-ui-editor-extended-row,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top,
+div.fpcm-status-info ul.fpcm-menu-top,
 .fpcm-full-width,
 .fpcm-message-box,
 .fpcm-ui-errorbox,
@@ -277,11 +276,10 @@ div.fpcm-editor-fields-tabs div.fpcm-ui-editor-extended-row,
 .fpcm-ui-progressbar,
 .fpcm-editor-dialog iframe,
 .fpcm-editor-select a,
-.fpcm-wrapper div.fpcm-status-info {
+div.fpcm-status-info {
     width: 100%;
 }
 
-.fpcm-footer,
 .fpcm-content-wrapper,
 .fpcm-login-form form {
     padding: 0.5em;
@@ -300,7 +298,7 @@ div.fpcm-editor-fields-tabs div.fpcm-ui-editor-extended-row,
 }
 
 .fpcm-login-form {
-    width: 450px;
+    max-width: 450px;
 }
 
 .fpcm-ui-font-small {
@@ -381,6 +379,7 @@ ins,
     color: #2779aa;
 }
 
+div.fpcm-footer,
 table.fpcm-ui-table.fpcm-dashboard-updates tr:first-child td {
     padding-bottom: 0.8em;
 }
@@ -512,13 +511,13 @@ div.fpcm-navigation a:visited,
 div.fpcm-navigation a:hover,
 div.fpcm-navigation a:active,
 div.fpcm-navigation a:focus,
-.fpcm-wrapper div.fpcm-status-info a,
-.fpcm-wrapper div.fpcm-status-info a:link,
-.fpcm-wrapper div.fpcm-status-info a:visited,
-.fpcm-wrapper div.fpcm-status-info a:hover,
-.fpcm-wrapper div.fpcm-status-info a:active,
-.fpcm-wrapper div.fpcm-status-info a:focus,
-.fpcm-wrapper div.fpcm-status-info li {
+div.fpcm-status-info a,
+div.fpcm-status-info a:link,
+div.fpcm-status-info a:visited,
+div.fpcm-status-info a:hover,
+div.fpcm-status-info a:active,
+div.fpcm-status-info a:focus,
+div.fpcm-status-info li {
     color: #000;
 }
 
@@ -527,12 +526,12 @@ div.fpcm-navigation a,
 div.fpcm-navicon span.fpcm-navicon,
 div.fpcm-navigation li,
 .fpcm-wrapper div.fpcm-status-info,
-.fpcm-wrapper div.fpcm-status-info a,
-.fpcm-wrapper div.fpcm-status-info li {
+div.fpcm-status-info a,
+div.fpcm-status-info li {
     font-weight: normal !important;
 }
 
-.fpcm-wrapper div.fpcm-status-info ul,
+div.fpcm-status-info ul,
 div.fpcm-navigation ul.fpcm-menu {
     list-style:none;
     margin: 0;
@@ -575,7 +574,7 @@ div.fpcm-navigation ul.fpcm-menu li ul.fpcm-submenu li.fpcm-menu-level2 span.fpc
 }
 
 div.fpcm-navigation ul.fpcm-menu li ul,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li ul {
+div.fpcm-status-info ul.fpcm-menu-top li ul {
     padding: 0;
     height: auto;
     z-index: 100;
@@ -589,7 +588,7 @@ div.fpcm-navigation ul.fpcm-menu li ul {
 }
 
 div.fpcm-navigation ul.fpcm-menu li:hover,
-.fpcm-wrapper div.fpcm-status-info ul li:hover {
+div.fpcm-status-info ul li:hover {
     background: rgba(255, 239, 143, 0.5);
 }
 
@@ -608,7 +607,7 @@ div.fpcm-status-info ul.fpcm-menu-top #fpcm-ui-showmenu-li {
     display: none !important;
 }
 
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li ul {
+div.fpcm-status-info ul.fpcm-menu-top li ul {
     margin: 0.4em 0 0 0;
     right: 0;
     border-top: 5px solid #00aded;
@@ -616,11 +615,11 @@ div.fpcm-status-info ul.fpcm-menu-top #fpcm-ui-showmenu-li {
     text-align: left;
 }
 
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1 {
+div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1 {
     padding: 0.4em;
 }
 
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2 {
+div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2 {
     padding: 0.4em;
 }
 
@@ -1053,7 +1052,8 @@ h3, .fpcm-dashboard-container h3 {
 
 .fpcm-dashboard-container ul,
 .fpcm-ui-editor-metabox-right span,
-.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content table td {
+.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content table td,
+.fpcm-ui-padding-none {
     padding: 0em;
 }
 
@@ -1312,7 +1312,7 @@ span.fpcm-ui-booltext-no {
 
 a:hover, a:focus, a:active,
 .fpcm-dashboard-updates-current,
-.fpcm-wrapper div.fpcm-status-info ul.fpcm-menu-top li.fpcm-ui-helplink a,
+div.fpcm-status-info ul.fpcm-menu-top li.fpcm-ui-helplink a,
 span.fpcm-ui-button-shorthelp:hover,
 span.fpcm-ui-booltext-yes {
     color: #3399ff;
@@ -1333,4 +1333,9 @@ span.fpcm-ui-button-shorthelp {
 #fpcm-filemanager-upload-drop h4:before {
     font-size: 5em;
     padding-bottom: 0.1em;
+}
+
+div.row {
+    margin-left: 0;
+    margin-right: 0;
 }

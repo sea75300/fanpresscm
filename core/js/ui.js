@@ -557,18 +557,6 @@ fpcm.ui = {
     resize: function () {
         fpcm.ui.prepareMessages();
         jQuery('#fpcm-ui-errorbox').css('top', jQuery(window).height() / 2 - jQuery('#fpcm-ui-errorbox').height() / 2);
-
-
-        var wrpl        = jQuery('#fpcm-wrapper-left');
-        wrpl.css('min-height', jQuery(window).height());
-
-        var wrpl_height = jQuery('body').height() < jQuery(window).height() ? jQuery(window).height() : jQuery('body').height();
-
-        wrpl.css('min-height', '');
-        if (jQuery(window).width() > 800) {
-            jQuery('li.fpcm-menu-level1.fpcm-menu-level1-show').show();
-            wrpl.css('min-height', wrpl_height);
-        }
     },
     
     setFocus: function(elemId) {

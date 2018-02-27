@@ -33,7 +33,7 @@ class userlist extends \fpcm\model\abstracts\dashcontainer {
     {
         $this->getCacheName();
         if ($this->cache->isExpired($this->cacheName)) {
-            return $this->renderContent();
+            $this->renderContent();
         }
 
         return $this->cache->read($this->cacheName);

@@ -542,6 +542,8 @@ class view {
 
         $this->defaultViewVars->filesCss = $this->viewCssFiles;
         $this->defaultViewVars->filesJs = $this->viewJsFiles;
+
+        $this->defaultViewVars->fullWrapper = in_array($this->defaultViewVars->currentModule, ['installer']);
         
         $this->jsvars['currentModule'] = $this->defaultViewVars->currentModule;
 

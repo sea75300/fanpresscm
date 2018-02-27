@@ -36,6 +36,7 @@ namespace fpcm\view;
  * @property array  $varsJs
  * @property array  $buttons
  * @property bool   $loggedIn
+ * @property bool   $fullWrapper
  * @property \fpcm\classes\language $lang
  * @property \fpcm\model\users\author $currentUser
  * @property helper\pager $pager

@@ -212,7 +212,9 @@ trait lists {
                         new \fpcm\components\dataView\rowCol('title', $titleStr),
                         new \fpcm\components\dataView\rowCol('categories', ''),
                         new \fpcm\components\dataView\rowCol('metadata', ''),
-                    ], 'fpcm-ui-dataview-subhead fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset'
+                    ],
+                    'fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset',
+                    true
             ));
 
             foreach ($articles as $articleId => $article) {
@@ -348,7 +350,7 @@ trait lists {
             (new \fpcm\components\dataView\column('button', ''))->setSize(2),
             (new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE'))->setSize(4),
             (new \fpcm\components\dataView\column('categories', 'HL_CATEGORIES_MNG'))->setSize(3)->setAlign('center'),
-            (new \fpcm\components\dataView\column('metadata', ''))->setSize(2)->setAlign('center'),
+            (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
         ];
     }
 

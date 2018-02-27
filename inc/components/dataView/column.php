@@ -25,7 +25,7 @@ final class column implements \JsonSerializable {
      * Column width/size
      * @var int
      */
-    protected $size     = 1;
+    protected $size     = '';
 
     /**
      * Column description
