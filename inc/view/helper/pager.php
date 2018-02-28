@@ -75,14 +75,18 @@ class pager extends helper {
     public function __construct($actionLink, $currentPage, $currentPageItemsCount, $itemsPerPage, $maxItemCount)
     {
         $this->actionLink = $actionLink;
-        $this->currentPage = $currentPage;
-        $this->currentPageItemsCount = $currentPageItemsCount;
-        $this->itemsPerPage = $itemsPerPage;
-        $this->maxItemCount = $maxItemCount;
-        
+        $this->currentPage = (int) $currentPage;
+        $this->currentPageItemsCount = (int) $currentPageItemsCount;
+        $this->itemsPerPage = (int) $itemsPerPage;
+        $this->maxItemCount = (int) $maxItemCount;
+
         return parent::__construct('pager');
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     protected function init()
     {
         $this->maxPages = ceil($this->maxItemCount / $this->itemsPerPage);
@@ -93,16 +97,16 @@ class pager extends helper {
         if ($this->currentPage) {
 
             $this->showBackButton = $this->currentPage - 1;
-            $this->showNextButton = $this->currentPage + 1;  
-            
+            $this->showNextButton = $this->currentPage + 1;
+
             if ($this->showNextButton > $this->maxPages) {
                 $this->showNextButton = false;
             }
 
             return true;
         }
-        
-        if (!$this->currentPage && $this->currentPageItemsCount < $this->maxItemCount && !(2 * $this->itemsPerPage >= $this->maxItemCount + $this->itemsPerPage) ) {
+
+        if (!$this->currentPage && $this->currentPageItemsCount < $this->maxItemCount && !(2 * $this->itemsPerPage >= $this->maxItemCount + $this->itemsPerPage)) {
             $this->showNextButton = 2;
             return true;
         }
@@ -111,39 +115,44 @@ class pager extends helper {
     }
 
     /**
+     * @see helper::getJsVars
+     * @return array
+     */
+    public function getJsVars()
+    {
+        return [
+            'currentPage' => $this->currentPage ? $this->currentPage : 1,
+            'maxPages' => $this->maxPages,
+            'actionLink' => $this->actionLink,
+            'showBackButton' => $this->showBackButton,
+            'showNextButton' => $this->showNextButton,
+            'linkString' => \fpcm\classes\tools::getFullControllerLink($this->actionLink, [
+                'page' => '__page__'
+            ])
+        ];
+    }
+
+    /**
+     * @see helper::getJsLangVars
+     * @return array
+     */
+    public function getJsLangVars()
+    {
+        return ['GLOBAL_PAGER'];
+    }
+
+    /**
      * @see Return element string
      * @return string
      */
     protected function getString()
     {
-        $pageOptions = [];
-        for ($i=1; $i<= $this->maxPages; $i++) {
-            $pageOptions[$this->language->translate('GLOBAL_PAGER', [
-                '{{current}}' => $i,
-                '{{total}}' => $this->maxPages])
-            ] = $i;
-        }
-
-        $backLink = '#';
-        if ($this->showBackButton) {
-            $backLink = \fpcm\classes\tools::getFullControllerLink($this->actionLink, [
-                'page' => $this->showBackButton
-            ]);
-        }
-
-        $nextLink = '#';
-        if ($this->showNextButton) {
-            $backLink = \fpcm\classes\tools::getFullControllerLink($this->actionLink, [
-                'page' => $this->showNextButton
-            ]);
-        }
-
         $return = implode('', [
-            (new linkButton('back'))->setText('GLOBAL_BACK')->setUrl($backLink)->setReadonly($this->showBackButton ? false : true)->setIcon('chevron-circle-left')->setIconOnly(true)->setClass('fpcm-ui-pager-element'),
-            (new select('pageSelect'))->setOptions($pageOptions)->setSelected($this->currentPage)->setFirstOption(select::FIRST_OPTION_DISABLED)->setClass('fpcm-ui-pager-element'),
-            (new linkButton('next'))->setText('GLOBAL_NEXT')->setUrl($nextLink)->setReadonly($this->showNextButton ? false : true)->setIcon('chevron-circle-right')->setIconOnly(true)->setClass('fpcm-ui-pager-element')
+            (new linkButton('pagerBack'))->setText('GLOBAL_BACK')->setUrl('#')->setReadonly($this->showBackButton ? false : true)->setIcon('chevron-circle-left')->setIconOnly(true)->setClass('fpcm-ui-pager-element'),
+            (new select('pageSelect'))->setOptions([])->setFirstOption(select::FIRST_OPTION_DISABLED)->setClass('fpcm-ui-pager-element'),
+            (new linkButton('pagerNext'))->setText('GLOBAL_NEXT')->setUrl('#')->setReadonly($this->showNextButton ? false : true)->setIcon('chevron-circle-right')->setIconOnly(true)->setClass('fpcm-ui-pager-element')
         ]);
-        
+
         return $return;
     }
 

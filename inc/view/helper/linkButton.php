@@ -48,6 +48,7 @@ class linkButton extends button {
             $this->class = str_replace('fpcm-loader', '', $this->class);
             return implode(' ', [
                 "<a href=\"#\"",
+                "id=\"{$this->id}\"",
                 $this->getClassString(),
                 ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()}{$this->getDescriptionTextString()}"),
                 '</a>'
@@ -57,7 +58,7 @@ class linkButton extends button {
         return implode(' ', [
             "<a href=\"{$this->url}\"",
             $this->target ? "target=\"{$this->target}\"" : '',
-            $this->getNameIdString(),
+            "id=\"{$this->id}\"",
             $this->getClassString(),
             $this->getDataString(),
             ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()}{$this->getDescriptionTextString()}"),

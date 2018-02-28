@@ -31,14 +31,6 @@ fpcm.ui = {
         
         jQuery('.fpcm-menu-level1-hassubmenu').hover(function () {
             jQuery(this).find('ul.fpcm-submenu').css('left', jQuery('#fpcm-navigation-ul').width());
-        })
-
-        jQuery('#fpcm-ui-showmenu-li').click(function () {
-            jQuery('li.fpcm-menu-level1.fpcm-menu-level1-show').fadeToggle();
-        });
-
-        jQuery('#fpcm-ui-logo').click(function () {
-            jQuery('li.fpcm-menu-level1.fpcm-menu-level1-show').fadeOut();
         });
 
         jQuery('#fpcm-clear-cache').click(function () {
@@ -81,7 +73,7 @@ fpcm.ui = {
 
         fpcm.ui.assignCheckboxes();
         fpcm.ui.articleActionsOkButton();
-        fpcm.ui.pagerButtons();
+        fpcm.ui.initPager();
         
         noActionButtonAssign = false;
     },
@@ -306,7 +298,13 @@ fpcm.ui = {
             params.width = 200;
         }
 
-        return jQuery(elemClassId).selectmenu(params);
+        var el = jQuery(elemClassId).selectmenu(params);
+        if (params.doRefresh) {
+            el.selectmenu('refresh');
+        }
+
+        return el;
+        
     },
     
     checkboxradio: function(elemClassId, params, onClick) {
@@ -702,9 +700,46 @@ fpcm.ui = {
 
     },
     
-    pagerButtons: function() {
+    initPager: function(params) {
 
-        fpcm.ui.selectmenu('#pageSelect', {
+        if (params === undefined) {
+            params = {};
+        }
+
+        if (!fpcm.vars.jsvars.pager) {
+            return false;
+        }
+
+        var backEl = jQuery('#pagerBack');
+        var nextEl = jQuery('#pagerNext');
+
+        if (!params.backAction) {
+            params.backAction = function () {
+                jQuery(this).attr('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showBackButton) );
+            };
+        }
+
+        if (!params.nextAction) {
+            params.nextAction = function () {
+                jQuery(this).attr('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showNextButton) );
+            };
+        }
+
+        if (fpcm.vars.jsvars.pager.showBackButton) {
+            backEl.click(params.backAction);
+        }
+        
+        if (fpcm.vars.jsvars.pager.showNextButton) {
+            nextEl.click(params.nextAction);
+        }
+
+        var selectId    = '#pageSelect';
+        var selectEl    = jQuery(selectId);
+        for(i=1; i<= fpcm.vars.jsvars.pager.maxPages; i++) {
+            selectEl.append( '<option ' + (fpcm.vars.jsvars.pager.currentPage === i ? 'selected' : '') + ' value="' + i + '">' + fpcm.ui.translate('GLOBAL_PAGER').replace('{{current}}', i).replace('{{total}}', fpcm.vars.jsvars.pager.maxPages) + '</option>');
+        }
+
+        fpcm.ui.selectmenu(selectId, {
             width : 'auto',
             select: function( event, ui ) {
                 if (ui.item.value == '1') {
@@ -715,12 +750,16 @@ fpcm.ui = {
             },
             classes: {
                 'ui-selectmenu-button': 'fpcm-ui-pager-element'
-            }
+            },
+            doRefresh: true
         });
         
     },
     
     relocate: function (url) {
+        
+        console.log(url);
+        
         window.location.href = url;
     }
     

@@ -14,8 +14,7 @@
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data"><?php endif; ?>
 
-        <div class="row">
-
+        <div class="row fpcm-ui-position-absolute fpcm-ui-position-left-0 fpcm-ui-position-right-0 fpcm-ui-position-top-0 fpcm-ui-position-bottom-0">
 
             <?php include_once 'vars.php'; ?>
 
@@ -32,7 +31,7 @@
 
                 <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
 
-                <div id="fpcm-footer-left" class="col-md-12 fpcm-footer fpcm-ui-position-absolute fpcm-ui-position-bottom-0 fpcm-ui-font-small fpcm-ui-center">
+                <div id="fpcm-footer-left" class="col-md-12 fpcm-footer <?php if (!$theView->loggedIn) : ?>fpcm-ui-position-absolute fpcm-ui-position-bottom-0 <?php endif; ?>fpcm-ui-margintop-lg fpcm-ui-padding-none-lr  fpcm-ui-font-small fpcm-ui-center">
                     <div class="fpcm-footer-text">
                         <b>Version</b> <?php print $theView->version; ?><br>
                         &copy; 2011-<?php print date('Y'); ?> <a href="https://nobody-knows.org/download/fanpress-cm/" target="_blank">nobody-knows.org</a>                    

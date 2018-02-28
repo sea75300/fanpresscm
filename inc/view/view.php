@@ -686,6 +686,8 @@ class view {
     public function addPager(helper\pager $pager)
     {
         $this->defaultViewVars->pager = $pager;
+        $this->addJsVars(['pager' => $pager->getJsVars()]);
+        $this->addJsLangVars($pager->getJsLangVars());
     }
 
     /**

@@ -32,8 +32,16 @@ fpcm.options = {
             fpcm.systemcheck.execute();
         });
 
-        jQuery('#fpcmsyschecksubmitstats').click(function () {
-            fpcm.options.submitStatsData();
+        jQuery('#syschecksubmitstats').click(function () {
+            fpcm.ui.showLoader(true);
+            fpcm.ajax.get('syscheck', {
+                data: {
+                    sendstats: 1
+                },
+                execDone: function () {
+                    fpcm.ui.showLoader(false);
+                }
+            });
         });
         
         fpcm.ui.selectmenu('#smtp_enabled', {
@@ -46,19 +54,5 @@ fpcm.options = {
                 return true;
             }
         });
-    },
-    
-    submitStatsData: function () {
-        fpcm.ui.showLoader(true);
-        fpcm.ajax.get('syscheck', {
-            data: {
-                sendstats: 1
-            },
-            execDone: function () {
-                fpcm.ui.showLoader(false);
-            }
-        });
-        
     }
-
 };

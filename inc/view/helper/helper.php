@@ -278,6 +278,24 @@ abstract class helper {
     }
 
     /**
+     * Returns optional JavaScript vars
+     * @return void
+     */
+    public function getJsVars()
+    {
+        return [];
+    }
+
+    /**
+     * Returns optional JavaScript language vars
+     * @return void
+     */
+    public function getJsLangVars()
+    {
+        return [];
+    }
+
+    /**
      * Add array for 'data-'-params to element
      * @param array $data
      * @return $this

@@ -44,7 +44,7 @@
          */
         protected function getViewPath()
         {
-            return $this->noView ? '' : 'system/syscheck';
+            return $this->noView || $this->getRequestVar('sendstats') ? '' : 'system/syscheck';
         }
 
         /**
@@ -53,7 +53,6 @@
          */
         public function request()
         {
-
             if ($this->getRequestVar('sendstats')) {
                 $this->submitStatsData();
                 return false;
@@ -108,13 +107,14 @@
             
             $text  = 'Statistical data '.hash(\fpcm\classes\security::defaultHashAlgo, \fpcm\classes\dirs::getRootUrl()).PHP_EOL.PHP_EOL;
             
+            /* @var $value \fpcm\model\system\syscheckOption */
             foreach ($data as $key => $value) {
                 
                 if (!trim($key)) {
                     continue;
                 }
 
-                $text .= '- '.str_pad(trim($key), 40, '.').': '.$value['current'].PHP_EOL;
+                $text .= '- '.str_pad(trim($key), 40, '.').': '.$value->getCurrent().PHP_EOL;
             }
 
             $text .= PHP_EOL;
