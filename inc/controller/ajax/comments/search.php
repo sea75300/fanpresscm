@@ -21,41 +21,32 @@ namespace fpcm\controller\ajax\comments;
  */
 class search extends \fpcm\controller\abstracts\ajaxController {
 
-    use \fpcm\controller\traits\comments\lists;
+    use \fpcm\controller\traits\common\dataView,
+        \fpcm\controller\traits\comments\lists;
 
-    /**
-     *
-     * @var \fpcm\model\comments\commentList
-     */
-    protected $list;
-
-    /**
-     *
-     * @var \fpcm\model\articles\articlelist
-     */
-    protected $articleList;
-
-    protected function getPermissions()
+    
+    public function __construct()
     {
-        return [
-            'article' => [
-                'editall',
-                'edit'
-            ],
-            'comment' => [
-                'editall',
-                'edit'
-            ]
-        ];
+        $this->initActionObjects();
+        return parent::__construct();
     }
 
     /**
-     * Get view path for controller
+     * 
+     * @return int
+     */
+    protected function getMode()
+    {
+        return 3;
+    }
+
+    /**
+     * @see controller::getViewPath
      * @return string
      */
     protected function getViewPath()
     {
-        return 'comments/commentlist_inner';
+        return '';
     }
 
     /**
@@ -64,52 +55,43 @@ class search extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        $this->list         = new \fpcm\model\comments\commentList();
-        $this->articleList  = new \fpcm\model\articles\articlelist();
-
         $filter = $this->getRequestVar('filter');
 
-        $sparams = new \fpcm\model\comments\search();
-        $sparams->searchtype = (int) $filter['searchtype'];
+        $this->conditions->searchtype = (int) $filter['searchtype'];
 
         if (trim($filter['text']))
-            $sparams->text = $filter['text'];
+            $this->conditions->text = $filter['text'];
         if ($filter['datefrom'])
-            $sparams->datefrom = strtotime($filter['datefrom']);
+            $this->conditions->datefrom = strtotime($filter['datefrom']);
         if ($filter['dateto'])
-            $sparams->dateto = strtotime($filter['dateto']);
+            $this->conditions->dateto = strtotime($filter['dateto']);
         if ($filter['spam'] > -1)
-            $sparams->spam = (int) $filter['spam'];
+            $this->conditions->spam = (int) $filter['spam'];
         if ($filter['private'] > -1)
-            $sparams->private = (int) $filter['private'];
+            $this->conditions->private = (int) $filter['private'];
         if ($filter['approved'] > -1)
-            $sparams->approved = (int) $filter['approved'];
+            $this->conditions->approved = (int) $filter['approved'];
         if ($filter['articleId'] > 0)
-            $sparams->articleid = (int) $filter['articleId'];
+            $this->conditions->articleid = (int) $filter['articleId'];
 
-        $sparams->combination = $filter['combination'] ? 'OR' : 'AND';
-
-        $sparams = $this->events->runEvent('commentsPrepareSearch', $sparams);
-
-        $list = ($sparams->hasParams() ? $this->list->getCommentsBySearchCondition($sparams) : $this->list->getCommentsAll());
-
-        $this->view->assign('comments', $list);
+        $this->conditions->combination = $filter['combination'] ? 'OR' : 'AND';
+        $this->conditions = $this->events->runEvent('commentsPrepareSearch', $this->conditions);
 
         return true;
     }
-
-    /**
-     * Controller-Processing
-     */
+    
     public function process()
     {
-        $this->initCommentPermissions();
-        $this->initCommentMassEditForm(true);
+        $this->initDataView();
 
-        $this->view->assign('ownArticleIds', $this->articleList->getArticleIDsByUser($this->session->getUserId()));
-        $this->view->assign('commentsMode', 1);
-        $this->view->assign('showPager', false);
-        $this->view->render();
+        $dvVars = $this->dataView->getJsVars();
+
+        $this->returnData = [
+            'dataViewVars' => $dvVars['dataviews'][$this->getDataViewName()],
+            'dataViewName' => $this->getDataViewName()
+        ];
+
+        $this->getSimpleResponse();
     }
 
 }

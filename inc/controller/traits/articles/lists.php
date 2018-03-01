@@ -191,8 +191,8 @@ trait lists {
         if (!count($this->articleItems)) {
             $this->dataView->addRow(
                     new \fpcm\components\dataView\row([
-                new \fpcm\components\dataView\rowCol('title', 'GLOBAL_NOTFOUND2'),
-                    ]
+                    new \fpcm\components\dataView\rowCol('title', 'GLOBAL_NOTFOUND2', 'fpcm-ui-padding-md-lr'),
+                ]
             ));
 
             return true;

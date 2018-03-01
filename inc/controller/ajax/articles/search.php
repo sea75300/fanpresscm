@@ -24,16 +24,19 @@ class search extends \fpcm\controller\abstracts\ajaxController {
         \fpcm\controller\traits\articles\lists;
 
     /**
-     * Suchparameter
-     * @var array
-     */
-    protected $sparams = [];
-
-    /**
      * Suchmodus
      * @var int
      */
     protected $mode = -1;
+
+    /**
+     * @see controller::getViewPath
+     * @return string
+     */
+    protected function getViewPath()
+    {
+        return '';
+    }
 
     /**
      * Request-Handler

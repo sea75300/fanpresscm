@@ -14,13 +14,20 @@ fpcm.comments = {
     init: function () {
 
         if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
-            this.initCommentSearch();
+            fpcm.comments.initCommentSearch();
         }
 
         if (window.tinymce && fpcm.vars.jsvars.commentsEdit) {
             fpcm.editor_tinymce.create(fpcm.vars.jsvars.editorConfig);
             fpcm.ui.setFocus('commentname');            
         }
+        
+        fpcm.dataview.render('commentlist', {
+            onRenderAfter: function() {
+                fpcm.ui.assignCheckboxes();
+                fpcm.ui.assignControlgroups();
+            }
+        });
 
         fpcm.comments.assignActions();
     },
@@ -123,12 +130,22 @@ fpcm.comments = {
         fpcm.ajax.post('comments/search', {
             data: sParams,
             execDone: function () {
-                fpcm.ui.showLoader(false);
-                fpcm.ui.assignHtml('#tabs-comments-active', fpcm.ajax.getResult('comments/search'));
-                fpcm.ui.initJqUiWidgets();
-                fpcm.comments.initCommentSearch();
-                fpcm.comments.assignActions();
+
+                fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
+                fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
+
+                console.log(fpcm.ajax.getResult('comments/search'));
+                result = fpcm.ajax.getResult('comments/search', true);
+                
+                
+
+                fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
+                fpcm.dataview.updateAndRender(result.dataViewName, {
+                    onRenderAfter: fpcm.ui.assignCheckboxes
+                });
+
                 fpcm.ui.resize();
+                fpcm.ui.showLoader(false);
             }
         });
 

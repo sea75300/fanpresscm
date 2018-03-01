@@ -15,60 +15,27 @@ namespace fpcm\controller\action\comments;
  */
 class commentlist extends \fpcm\controller\abstracts\controller {
 
-    use \fpcm\controller\traits\comments\lists;
-
-    /**
-     *
-     * @var \fpcm\model\comments\commentList
-     */
-    protected $list;
-
-    /**
-     *
-     * @var \fpcm\model\articles\articlelist
-     */
-    protected $articleList;
-
-    /**
-     *
-     * @var int
-     */
-    protected $listShowLimit = 0;
-
-    /**
-     *
-     * @var int
-     */
-    protected $listShowStart = 0;
-
-    /**
-     *
-     * @var int
-     */
-    protected $commentCount = 0;
-
-    protected function getViewPath()
-    {
-        return 'comments/commentlist';
-    }
-
-    protected function getPermissions()
-    {
-        return [
-            'article' => [
-                'editall',
-                'edit'
-            ],
-            'comment' => [
-                'editall',
-                'edit'
-            ]
-        ];
-    }
+    use \fpcm\controller\traits\comments\lists,
+        \fpcm\controller\traits\common\dataView;
 
     protected function getHelpLink()
     {
         return 'hl_comments_mng';
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function getViewPath()
+    {
+        return 'comments/commentlist';
+    }
+    
+    public function __construct()
+    {
+        $this->initActionObjects();
+        return parent::__construct();
     }
 
     /**
@@ -77,10 +44,6 @@ class commentlist extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
-        $this->list = new \fpcm\model\comments\commentList();
-        $this->articleList = new \fpcm\model\articles\articlelist();
-        $this->listShowLimit = $this->config->articles_acp_limit;
-
         if (!$this->buttonClicked('deleteComment')) {
             return true;
         }
@@ -99,31 +62,31 @@ class commentlist extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
+        $this->view->assign('commentsMode', 1);
+        
         $this->initCommentPermissions();
         $this->initSearchForm();
         $this->initCommentMassEditForm();
-        $this->initPagination();
 
         $this->view->addJsFiles(['comments.js']);
+        $this->view->setFormAction('comments/list');
 
-        $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search'));
         if ($this->permissionsArray['canEditComments']) {
-            $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('pencil-square-o'));
+            $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('pencil-square-o')->setIconOnly(true));
         }
+
+        $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true));
 
         if ($this->permissionsArray['canDelete']) {
             $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm-ui-button-confirm'));
-        }     
+        }
 
-        $comments = $this->list->getCommentsByLimit($this->listShowLimit, $this->listShowStart);
-        $this->commentCount = count($comments);
-        $this->view->assign('comments', $comments);
-        $this->view->assign('listAction', 'comments/list');
-        $this->view->assign('commentsMode', 1);
-        $this->view->assign('showPager', true);
-        $this->view->render();
+        $this->initDataView();
+        $this->view->addDataView($this->dataView);
+        $this->view->addPager(new \fpcm\view\helper\pager('comments/list', $this->page, $this->commentCount, $this->config->articles_acp_limit, $this->maxItemCount));
     }
 
+    
     /**
      * Initialisiert Suchformular-Daten
      * @param array $users
@@ -136,49 +99,29 @@ class commentlist extends \fpcm\controller\abstracts\controller {
         ]);
 
         $this->view->assign('searchApproval', array(
-            $this->lang->translate('COMMMENT_APPROVE') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'COMMMENT_APPROVE' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ));
 
         $this->view->assign('searchSpam', array(
-            $this->lang->translate('COMMMENT_SPAM') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'COMMMENT_SPAM' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ));
 
         $this->view->assign('searchPrivate', array(
-            $this->lang->translate('COMMMENT_PRIVATE') => -1,
-            $this->lang->translate('GLOBAL_YES') => 1,
-            $this->lang->translate('GLOBAL_NO') => 0
+            'COMMMENT_PRIVATE' => -1,
+            'GLOBAL_YES' => 1,
+            'GLOBAL_NO' => 0
         ));
         $this->view->assign('searchCombination', array(
-            $this->lang->translate('ARTICLE_SEARCH_LOGICAND') => 0,
-            $this->lang->translate('ARTICLE_SEARCH_LOGICOR') => 1
+            'ARTICLE_SEARCH_LOGICAND' => 0,
+            'ARTICLE_SEARCH_LOGICOR' => 1
         ));
 
         $this->view->addJsLangVars(['SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START']);
-
         $this->view->addJsVars(['commentsLastSearch' => 0]);
-    }
-
-    protected function initPagination()
-    {
-        $this->view->setFormAction('comments/list');
-
-        $page = $this->getRequestVar('page', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
-        $pagerData = \fpcm\classes\tools::calcPagination(
-                        $this->listShowLimit, $page, $this->list->countCommentsByCondition(new \fpcm\model\comments\search()), $this->commentCount
-        );
-
-        $this->listShowStart = \fpcm\classes\tools::getPageOffset($page, $this->listShowLimit);
-
-        $this->view->assign('showPager', true);
-        foreach ($pagerData as $key => $value) {
-            $this->view->assign($key, $value);
-        }
-
-        $this->view->addJsVars(['currentModule' => $this->getRequestVar('module')]);
     }
 
 }

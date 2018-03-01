@@ -14,7 +14,10 @@
     <?php foreach($comments AS $comment) : ?>
     <tr>
         <td <?php if ($commentsMode == 1) : ?>class="fpcm-ui-articlelist-open"<?php endif; ?>>
-            <?php if ($commentsMode == 1) : ?><?php $theView->openButton('openBtn'.$comment->getId())->setUrlbyObject($comment)->setTarget('_blank'); ?><?php endif; ?>
+            <?php if ($commentsMode == 1) : ?>
+                
+                
+            <?php $theView->openButton('openBtn'.$comment->getId())->setUrlbyObject($comment)->setTarget('_blank'); ?><?php endif; ?>
             <?php $theView->editButton('editBtn'.$comment->getId())->setUrlbyObject($comment, '&mode='.$commentsMode)->setClass($commentsMode == 2 ? 'fpcm-ui-commentlist-link': ''); ?>
         </td>
         <td><strong title="<?php print substr($theView->escape($comment->getText()), 0, 100); ?>..."><?php print $theView->escape($comment->getName()); ?></strong></td>

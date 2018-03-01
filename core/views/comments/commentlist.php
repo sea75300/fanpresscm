@@ -5,11 +5,12 @@
         </ul>            
 
         <div id="tabs-comments-active">
-            <?php include $theView->getIncludePath('comments/commentlist_inner.php'); ?>
+            <div id="fpcm-dataview-commentlist"></div>
         </div>
     </div>
 </div>
 
 <?php include $theView->getIncludePath('comments/searchform.php'); ?>
+<?php if ($canEditComments) : ?><?php include $theView->getIncludePath('comments/massedit.php'); ?><?php endif; ?>
 
 <?php $theView->pageTokenField('pgtkn'); ?>

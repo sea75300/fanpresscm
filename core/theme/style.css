@@ -211,6 +211,11 @@ div.fpcm-status-info ul.fpcm-menu-top li ul,
     padding-right: 0;
 }
 
+.fpcm-ui-padding-md-lr {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
 .fpcm-ui-marginbottom-md {
     margin-bottom: 0.5em;
 }
@@ -278,7 +283,8 @@ div.fpcm-status-info {
 }
 
 .fpcm-content-wrapper,
-.fpcm-login-form form {
+.fpcm-login-form form,
+.fpcm-ui-editor-metabox {
     padding: 0.5em;
 }
 
@@ -1075,7 +1081,6 @@ h3, .fpcm-dashboard-container h3 {
 }
 
 .fpcm-ui-editor-metabox {
-    padding: 0.5em;
     background: rgba(229,227,239,0.4);
     border: 1px solid #A6C9E2;
     border-radius: 5px;
