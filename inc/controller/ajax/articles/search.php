@@ -44,7 +44,6 @@ class search extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        $this->initActionObjects();
         $this->initActionVars();
 
         $this->mode = $this->getRequestVar('mode', [

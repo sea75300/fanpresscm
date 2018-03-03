@@ -139,12 +139,14 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->crons            = \fpcm\classes\loader::getObject('\fpcm\model\crons\cronlist');
         $this->enabledModules   = \fpcm\classes\loader::getObject('\fpcm\model\modules\modulelist')->getEnabledInstalledModules();
 
-        $rollId                 = $this->session->exists() ? $rollId = $this->session->currentUser->getRoll() : 0;
+        $rollId                 = $this->session->exists() ? $this->session->currentUser->getRoll() : 0;
 
         $this->permissions      = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions', $rollId);
         $this->lang             = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
 
+        $this->initActionObjects();
         $this->initView();
+
     }
 
     /**
@@ -316,6 +318,15 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected function getActiveNavigationElement()
     {
         return '';
+    }
+
+    /**
+     * Init action objects
+     * @return bool
+     */
+    protected function initActionObjects()
+    {
+        return true;
     }
 
     /**

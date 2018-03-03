@@ -34,12 +34,19 @@ final class dataView {
     protected $name     = '';
 
     /**
+     * Init data view
+     * @var bool
+     */
+    protected $init     = '';
+
+    /**
      * Konstruktor
      * @param string $name
      */
-    public function __construct($name)
+    public function __construct($name, $init = true)
     {
         $this->name = $name;
+        $this->init = $init;
     }
     
     /**
@@ -135,12 +142,14 @@ final class dataView {
             'dataviews'         => [
                 $this->name     => [
                     'columns'   => $this->columns,
-                    'rows'      => $this->rows
+                    'rows'      => $this->rows,
+                    'init'      => $this->init
                 ],
                 'rolColTypes'   => [
                     'coltypeValue'     => rowCol::COLTYPE_VALUE,
                     'coltypeElement'   => rowCol::COLTYPE_ELEMENT
-                ]
+                ],
+                'data'          => []
             ]
         ];
     }

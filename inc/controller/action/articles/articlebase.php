@@ -146,6 +146,9 @@ class articlebase extends \fpcm\controller\abstracts\controller {
             ]),
             'filemanagerMode' => 2
         );
+        
+        $this->view->addDataView(new \fpcm\components\dataView\dataView('commentlist', false));
+        $this->view->addDataView(new \fpcm\components\dataView\dataView('revisionslist', false));
 
         $this->view->addJsLangVars(array_merge(['HL_FILES_MNG'], $this->editorPlugin->getJsLangVars()));
         $this->view->addJsVars($this->jsVars);

@@ -24,13 +24,6 @@ class search extends \fpcm\controller\abstracts\ajaxController {
     use \fpcm\controller\traits\common\dataView,
         \fpcm\controller\traits\comments\lists;
 
-    
-    public function __construct()
-    {
-        $this->initActionObjects();
-        return parent::__construct();
-    }
-
     /**
      * 
      * @return int

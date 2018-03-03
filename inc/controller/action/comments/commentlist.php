@@ -31,12 +31,6 @@ class commentlist extends \fpcm\controller\abstracts\controller {
     {
         return 'comments/commentlist';
     }
-    
-    public function __construct()
-    {
-        $this->initActionObjects();
-        return parent::__construct();
-    }
 
     /**
      * @see \fpcm\controller\abstracts\controller::request()

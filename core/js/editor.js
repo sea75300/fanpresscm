@@ -196,12 +196,35 @@ fpcm.editor = {
         
         fpcm.ui.tabs('#fpcm-editor-tabs', {
             beforeLoad: function(event, ui) {
-                fpcm.ui.showLoader(true);
+                fpcm.ui.showLoader(true);        
+                
+                tabList = ui.tab.attr('data-dataview-list');                
+                if (!tabList) {
+                    return true;
+                }
+
+                ui.ajaxSettings.dataFilter = function( response ) {
+                    fpcm.vars.jsvars.dataviews.data[tabList] = response;
+                };
             },
             load: function(event, ui) {
-                fpcm.editor.initCommentListActions();
-                fpcm.ui.resize();
-                fpcm.ui.initJqUiWidgets();
+                //fpcm.editor.initCommentListActions();
+                var tabList = ui.tab.attr('data-dataview-list');                
+                if (!tabList) {
+                    return true;
+                }
+
+                jQuery('.fpcm-ui-editor-editlist').remove();
+
+                var result = fpcm.ajax.fromJSON(fpcm.vars.jsvars.dataviews.data[tabList]);
+                ui.panel.empty();
+                ui.panel.append(fpcm.dataview.getDataViewWrapper(ui.tab.attr('data-dataview-list'), 'fpcm-ui-editor-editlist'));
+
+                fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
+                fpcm.dataview.updateAndRender(result.dataViewName, {
+                    onRenderAfter: fpcm.ui.assignCheckboxes
+                });
+
                 fpcm.ui.showLoader(false);
             },
             addMainToobarToggle: true,

@@ -170,13 +170,13 @@ trait lists {
      */
     protected function initActionObjects()
     {
-        $this->list = new \fpcm\model\comments\commentList();
-        $this->articleList = new \fpcm\model\articles\articlelist();
-        $this->conditions = new \fpcm\model\comments\search();
-
-        return true;
+        return $this->commentObjects();
     }
 
+    /**
+     * 
+     * @return array
+     */
     protected function getDataViewCols()
     {
         if (!$this->commentCount) {
@@ -195,21 +195,51 @@ trait lists {
         ];
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function getDataViewName()
     {
         return 'commentlist';
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     protected function initDataView()
     {
-        $this->page = $this->getRequestVar('page', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
+        $this->commentDataView();
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    protected function commentObjects()
+    {
+        $this->list = new \fpcm\model\comments\commentList();
+        $this->articleList = new \fpcm\model\articles\articlelist();
+        $this->conditions = new \fpcm\model\comments\search();
+        
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    protected function commentDataView()
+    {
+        $this->page          = $this->getRequestVar('page', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
         $this->listShowStart = \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit);
 
         if ($this->getMode() < 2) {
             $this->conditions->limit = [$this->config->articles_acp_limit, $this->listShowStart];
         }
 
-        $comments = $this->list->getCommentsBySearchCondition($this->conditions);
+        $comments           = $this->list->getCommentsBySearchCondition($this->conditions);
         $this->commentCount = count($comments);
         $this->maxItemCount = $this->list->countCommentsByCondition(new \fpcm\model\comments\search());
 

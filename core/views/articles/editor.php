@@ -9,12 +9,12 @@
             <li id="fpcm-editor-tabs-editorregister" data-toolbar-buttons="1"><a href="#tabs-article"><?php $theView->write('ARTICLES_EDITOR'); ?></a></li>
             <?php endif; ?>
             <?php if ($showComments && !$isRevision) : ?>
-            <li data-toolbar-buttons="2"><a href="<?php print \fpcm\classes\tools::getFullControllerLink('ajax/editor/editorlist', ['id' => $article->getId(), 'view' => 'comments']); ?>">
+            <li data-toolbar-buttons="2" data-dataview-list="commentlist"><a href="<?php print \fpcm\classes\tools::getFullControllerLink('ajax/editor/editorlist', ['id' => $article->getId(), 'view' => 'comments']); ?>">
                 <?php $theView->write('HL_ARTICLE_EDIT_COMMENTS', [ 'count' => $commentCount ]); ?>
             </a></li>
             <?php endif; ?>
             <?php if ($showRevisions) : ?>
-            <li data-toolbar-buttons="3"><a href="<?php print \fpcm\classes\tools::getFullControllerLink('ajax/editor/editorlist', ['id' => $article->getId(), 'view' => 'revisions']); ?>">
+            <li data-toolbar-buttons="3" data-dataview-list="revisionslist"><a href="<?php print \fpcm\classes\tools::getFullControllerLink('ajax/editor/editorlist', ['id' => $article->getId(), 'view' => 'revisions']); ?>">
                 <?php $theView->write('HL_ARTICLE_EDIT_REVISIONS', [ 'count' => $revisionCount ]); ?>
             </a></li>
             <?php endif; ?>

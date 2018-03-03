@@ -50,12 +50,6 @@ trait dataView {
      */
     abstract protected function getDataViewCols();
 
-    /**
-     * Init action objects
-     * @return bool
-     */
-    abstract protected function initActionObjects();
-
 }
 
 ?>

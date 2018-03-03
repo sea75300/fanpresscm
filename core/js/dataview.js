@@ -13,8 +13,16 @@ fpcm.dataview = {
 
     render: function (id, params) {
 
+        if (!fpcm.vars.jsvars.dataviews) {
+            return;
+        }
+
         if (!fpcm.vars.jsvars.dataviews[id]) {
             console.log('Dataview ' + id + ' does not exists in fpcm.vars.jsvars.dataviews!');
+            return false;
+        }
+        
+        if (!fpcm.vars.jsvars.dataviews[id].init) {
             return false;
         }
 
@@ -26,9 +34,9 @@ fpcm.dataview = {
         var obj         = fpcm.vars.jsvars.dataviews[id];
         var style       = '';
 
-        obj.fullId      = 'fpcm-dataview-' + id;
-        obj.headId      = 'fpcm-dataview-' + id + '-head';
-        obj.rowsId      = 'fpcm-dataview-' + id + '-rows';
+        obj.fullId      = fpcm.dataview.getFullId(id);
+        obj.headId      = obj.fullId + '-head';
+        obj.rowsId      = obj.fullId + '-rows';
 
         obj.wrapper     = jQuery('#' + obj.fullId).addClass('fpcm-ui-dataview');
         obj.wrapper.append('<div class="row fpcm-ui-dataview-head fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset" id="' + obj.headId + '"></div>');
@@ -53,8 +61,12 @@ fpcm.dataview = {
         }
         
     },
-    
+
     addRow: function(index, row, obj) {
+
+        if (!fpcm.vars.jsvars.dataviews) {
+            return;
+        }
 
         var rowId           = 'fpcm-dataview-row-' + index;
         var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead' : 'fpcm-ui-dataview-row';
@@ -84,8 +96,26 @@ fpcm.dataview = {
     },
     
     updateAndRender: function (id, params) {
-        jQuery('#fpcm-dataview-' + id).empty();
+
+        if (!fpcm.vars.jsvars.dataviews) {
+            return;
+        }
+
+        jQuery('#' + fpcm.dataview.getFullId(id)).empty();
         fpcm.dataview.render(id, params);
+    },
+    
+    getDataViewWrapper: function (id, _class) {
+
+        if (!_class) {
+            _class = 'fpcm-ui-dataview-wrapper';
+        }
+
+        return '<div id="'+ fpcm.dataview.getFullId(id) +'" class="' + _class + '"></div>';
+    },
+
+    getFullId: function (id) {
+        return 'fpcm-dataview-'+ id;
     }
 
 };
