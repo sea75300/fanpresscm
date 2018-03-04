@@ -44,15 +44,43 @@ class articlelisttrash extends articlelistbase {
 
     public function request()
     {
+        $this->articleActions = [$this->lang->translate('ARTICLE_LIST_RESTOREARTICLE') => 'restore', $this->lang->translate('ARTICLE_LIST_EMPTYTRASH') => 'trash'];
+
         $res = parent::request();
 
-        $this->articleActions = [$this->lang->translate('ARTICLE_LIST_RESTOREARTICLE') => 'restore', $this->lang->translate('ARTICLE_LIST_EMPTYTRASH') => 'trash'];
         if ($this->deleteActions) {
             $this->view->addButton((new \fpcm\view\helper\deleteButton('trash'))->setText('ARTICLE_LIST_EMPTYTRASH')->setClass('fpcm-ui-hidden fpcm-ui-button-confirm'));
         }
 
         $this->view->setFormAction('articles/trash');
         return $res;
+    }
+
+    protected function initArticleActions()
+    {
+        if (!$this->permissions) {
+            return false;
+        }
+
+        $this->canEdit = $this->permissions->check(['article' => ['edit', 'editall', 'approve', 'archive']]);
+
+        $this->view->assign('canEdit', $this->canEdit);
+        $this->deleteActions = $this->permissions->check(['article' => 'delete']);
+
+        $tweet = new \fpcm\model\system\twitter();
+
+        if ($tweet->checkRequirements() && $tweet->checkConnection()) {
+            $this->articleActions['ARTICLE_LIST_NEWTWEET'] = 'newtweet';
+        }
+
+        if ($this->deleteActions) {
+            $this->articleActions['GLOBAL_DELETE'] = 'delete';
+        }
+
+        $this->articleActions['ARTICLES_CACHE_CLEAR'] = 'articlecache';
+
+        $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
+        $this->view->addJsVars(['artCacheMod' => urlencode($crypt->encrypt(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE))]);
     }
 
 }

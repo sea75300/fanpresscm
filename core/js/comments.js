@@ -22,12 +22,15 @@ fpcm.comments = {
             fpcm.ui.setFocus('commentname');            
         }
         
-        fpcm.dataview.render('commentlist', {
-            onRenderAfter: function() {
-                fpcm.ui.assignCheckboxes();
-                fpcm.ui.assignControlgroups();
-            }
-        });
+        if (fpcm.dataview.exists('commentlist')) {
+            fpcm.dataview.render('commentlist', {
+                onRenderAfter: function() {
+                    fpcm.ui.assignCheckboxes();
+                    fpcm.ui.assignControlgroups();
+                }
+            });
+        }
+        
 
         fpcm.comments.assignActions();
     },

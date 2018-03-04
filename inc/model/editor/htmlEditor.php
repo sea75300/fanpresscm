@@ -61,7 +61,6 @@
                 \fpcm\classes\dirs::getLibUrl('codemirror/mode/css/css.js'),
                 \fpcm\classes\dirs::getLibUrl('codemirror/mode/htmlmixed/htmlmixed.js'),
                 \fpcm\classes\dirs::getLibUrl('leela-colorpicker/leela.colorpicker-1.0.2.jquery.min.js'),
-                'dataview.js',
                 'editor.js',
                 'editor_codemirror.js',
                 'editor_videolinks.js'

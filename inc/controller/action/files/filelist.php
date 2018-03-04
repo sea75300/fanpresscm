@@ -176,15 +176,15 @@
 
             $this->view->addButtons([
                 (new \fpcm\view\helper\checkbox('fpcm-select-all')),
-                (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')
+                (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)
             ]);
             
             if ($this->permissionsData['permRename']) {
-                $this->view->addButton((new \fpcm\view\helper\submitButton('renameFiles'))->setText('FILE_LIST_RENAME')->setIcon('pencil-square') );
+                $this->view->addButton((new \fpcm\view\helper\submitButton('renameFiles'))->setText('FILE_LIST_RENAME')->setIcon('pencil-square')->setIconOnly(true) );
             }
 
             if ($this->permissionsData['permThumbs']) {
-                $this->view->addButton((new \fpcm\view\helper\submitButton('createThumbs'))->setText('FILE_LIST_NEWTHUMBS')->setIcon('file-image-o') );
+                $this->view->addButton((new \fpcm\view\helper\submitButton('createThumbs'))->setText('FILE_LIST_NEWTHUMBS')->setIcon('file-image-o')->setIconOnly(true) );
             }
 
             if ($this->permissionsData['permDelete']) {

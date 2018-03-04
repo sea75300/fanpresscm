@@ -222,7 +222,10 @@ fpcm.editor = {
 
                 fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
                 fpcm.dataview.updateAndRender(result.dataViewName, {
-                    onRenderAfter: fpcm.ui.assignCheckboxes
+                    onRenderAfter: function () {
+                        fpcm.ui.assignCheckboxes();
+                        fpcm.editor.initCommentListActions();
+                    } 
                 });
 
                 fpcm.ui.showLoader(false);

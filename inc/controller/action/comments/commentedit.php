@@ -159,7 +159,21 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         }
         
         if ($mode === 1) {
-            $this->view->addButton((new \fpcm\view\helper\saveButton('commentSave')));
+            
+            $buttons     = [];
+            $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'));
+
+            $article     = new \fpcm\model\articles\article($this->comment->getArticleid());
+            $articleList = new \fpcm\model\articles\articlelist();
+            $articleList->checkEditPermissions($article);
+
+            if ($article->exists() && $article->getEditPermission()) {
+                $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE');
+            }
+            
+            $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget('_blank');
+            
+            $this->view->addButtons($buttons);
         }
 
         $this->view->setFormAction($this->comment->getEditLink(), ['mode' => $mode], true);

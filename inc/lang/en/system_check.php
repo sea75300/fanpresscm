@@ -7,8 +7,7 @@
      */
 
     $lang = array(
-        'SYSTEM_OPTIONS_SYSCHECK_CURRENT'           => 'Current value',
-        'SYSTEM_OPTIONS_SYSCHECK_STATUS'            => 'value OK?',
+        'SYSTEM_OPTIONS_SYSCHECK_CURRENT'           => 'Current',
         'SYSTEM_OPTIONS_SYSCHECK_FPCMVERSION'       => 'FanPress CM version = {{value}}',
         'SYSTEM_OPTIONS_SYSCHECK_PHPVERSION'        => 'PHP version >= {{value}}',
         'SYSTEM_OPTIONS_SYSCHECK_PHPMEMLIMIT'       => 'PHP memory limit >= {{value}}',

@@ -200,7 +200,7 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function __construct($id = null)
     {
-        $this->table = \fpcm\classes\database::tableArticles;
+        $this->table        = \fpcm\classes\database::tableArticles;
         $this->wordbanList  = new \fpcm\model\wordban\items();
         $this->crypt        = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
 
@@ -1075,7 +1075,6 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     private function cleanupCaches()
     {
-
         $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/*');
         $this->cache->cleanup(\fpcm\model\abstracts\dashcontainer::CACHE_M0DULE_DASHBOARD . '/*');
     }

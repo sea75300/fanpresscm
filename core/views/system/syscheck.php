@@ -3,7 +3,7 @@
         <th class="fpcm-ui-center"></th>
         <th></th>
         <th class="fpcm-ui-center fpcm-ui-syscheck-current"><?php $theView->write('SYSTEM_OPTIONS_SYSCHECK_CURRENT'); ?></th>
-        <th class="fpcm-ui-center"><?php $theView->write('SYSTEM_OPTIONS_SYSCHECK_STATUS'); ?></th>
+        <th class="fpcm-ui-center"></th>
     </tr>
 <?php foreach ($checkOptions as $checkOption => $checkResult) : ?>
     <tr>

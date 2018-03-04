@@ -107,13 +107,6 @@ fpcm.templates = {
                 return false;
             }
 
-            if (fpcm.vars.jsvars.templateId > 5) {
-                fpcm.ui.initJqUiWidgets();
-                return false;
-            }
-
-            fpcm.ui.initJqUiWidgets();
-
             return false;
         });
         

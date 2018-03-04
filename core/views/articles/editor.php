@@ -30,3 +30,5 @@
         <?php $theView->pageTokenField('pgtkn'); ?>
     </div>
 </div>
+
+<?php if ($showComments && !$isRevision) : ?><?php include $theView->getIncludePath('comments/massedit.php'); ?><?php endif; ?>

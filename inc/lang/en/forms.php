@@ -104,6 +104,7 @@
         'CATEGORIES_ROLLS'              => 'Available for rolls',
         
         'COMMENTS_EDIT'                 => 'Edit comment',
+        'COMMENTS_EDITARTICLE'          => 'Edit article of the comment',
         'COMMENTS_PUBLIC_FORMHEADLINE'  => 'Leave a comment',
         'COMMENTS_SEARCH_TYPE_TEXT'     => 'Search in comment content',
         'COMMENTS_SEARCH_TYPE_ALL'      => 'Search in complete comment',

@@ -17,7 +17,7 @@ fpcm.dataview = {
             return;
         }
 
-        if (!fpcm.vars.jsvars.dataviews[id]) {
+        if (!fpcm.dataview.exists(id)) {
             console.log('Dataview ' + id + ' does not exists in fpcm.vars.jsvars.dataviews!');
             return false;
         }
@@ -97,7 +97,7 @@ fpcm.dataview = {
     
     updateAndRender: function (id, params) {
 
-        if (!fpcm.vars.jsvars.dataviews) {
+        if (!fpcm.vars.jsvars.dataviews || !fpcm.dataview.exists(id)) {
             return;
         }
 
@@ -116,6 +116,15 @@ fpcm.dataview = {
 
     getFullId: function (id) {
         return 'fpcm-dataview-'+ id;
+    },
+
+    exists: function(id) {
+        
+        if (!fpcm.vars.jsvars.dataviews[id]) {
+            return false;
+        }
+
+        return true;
     }
 
 };

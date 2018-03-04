@@ -104,6 +104,7 @@
         'CATEGORIES_ROLLS'              => 'Verfügbar für Rollen',
         
         'COMMENTS_EDIT'                 => 'Kommentar bearbeiten',
+        'COMMENTS_EDITARTICLE'          => 'Zugehörigen Artikel bearbeiten',
         'COMMENTS_PUBLIC_FORMHEADLINE'  => 'Hinterlasse einen Kommentar',
         'COMMENTS_SEARCH_TYPE_TEXT'     => 'nur Text durchsuchen',
         'COMMENTS_SEARCH_TYPE_ALL'      => 'Alles durchsuchen',

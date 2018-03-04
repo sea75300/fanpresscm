@@ -1,15 +1,18 @@
-<table class="fpcm-ui-table">
+<table class="fpcm-ui-table">   
     <?php if ($editorMode) : ?>
     <tr>
         <td>
-            <div class="fpcm-ui-editor-metabox">
-                <?php include $theView->getIncludePath('articles/times.php'); ?>
-                <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
-                <div class="fpcm-ui-clear"></div>
+            <div class="row fpcm-ui-editor-metabox fpcm-ui-padding-md-tb">
+                <div class="col-sm-12 col-md-6 fpcm-ui-font-small">
+                    <?php include $theView->getIncludePath('articles/times.php'); ?>
+                </div>
+                <div class="col-sm-12 col-md-6 fpcm-ui-align-right">
+                    <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
+                </div>
             </div>
         </td>
     </tr>    
-    <?php endif; ?>    
+    <?php endif; ?>
     <tr>
         <td>
             <?php \fpcm\view\helper::textInput('article[title]', 'fpcm-full-width', $article->getTitle()); ?>

@@ -161,8 +161,6 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         $this->view->assign('users', array_flip($this->users));
         $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
         $this->view->assign('showDraftStatus', $this->showDraftStatus);
-        $this->view->assign('articleActions', $this->articleActions);
-        $this->view->assign('deletePermissions', $this->deleteActions);
 
         $this->initSearchForm($this->users);
         $this->initMassEditForm($this->users);
@@ -184,7 +182,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
             $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true);
         }
 
-        $buttons[] = (new \fpcm\view\helper\select('actions'))->setOptions($this->articleActions);
+        $buttons[] = (new \fpcm\view\helper\select('actions[action]'))->setOptions($this->articleActions);
         $buttons[] = (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-loader')->setIcon('check')->setIconOnly(true);
         
         if ($this->listAction !== 'articles/trash') {

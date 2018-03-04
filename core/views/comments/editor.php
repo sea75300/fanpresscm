@@ -1,18 +1,30 @@
 <table class="fpcm-ui-table fpcm-ui-comment-editor">
     <tr>
         <td colspan="2">
-            <div class="fpcm-ui-editor-metabox">
-                <div class="fpcm-ui-editor-metabox-left">
+            <div class="row fpcm-ui-editor-metabox fpcm-ui-padding-md-tb">
+                <div class="col-sm-12 col-md-6 fpcm-ui-font-small">
                     <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
                     <?php $theView->dateText($comment->getCreatetime()); ?><br>
                     <?php print $changeInfo; ?><br>
                     <strong><?php $theView->write('COMMMENT_IPADDRESS'); ?>:</strong>
                     <?php print $comment->getIpaddress(); ?>                    
                     <?php if ($ipWhoisLink) : ?>(<a href="http://www.whois.com/whois/<?php print $comment->getIpaddress(); ?>" target="_blank">Whois</a>)<?php endif; ?>
-                </div>                
-                <?php include $theView->getIncludePath('comments/metainfo.php'); ?>
-                <div class="fpcm-ui-clear"></div>
-            </div>
+                </div>
+                <div class="col-sm-12 col-md-6 fpcm-ui-align-right">
+                    <span class="fa-stack fa-fw fpcm-ui-editor-metainfo fpcm-ui-status-<?php print $comment->getSpammer(); ?>" title="<?php $theView->write('COMMMENT_SPAM'); ?>">
+                        <span class="fa fa-square fa-stack-2x"></span>        
+                        <span class="fa fa-flag fa-stack-1x fa-inverse"></span>
+                    </span>
+                    <span class="fa-stack fa-fw fpcm-ui-editor-metainfo fpcm-ui-status-<?php print $comment->getApproved(); ?>" title="<?php $theView->write('COMMMENT_APPROVE'); ?>">
+                        <span class="fa fa-square fa-stack-2x"></span>
+                        <span class="fa fa-check-circle-o fa-stack-1x fa-inverse"></span>
+                    </span>
+                    <span class="fa-stack fa-fw fpcm-ui-editor-metainfo fpcm-ui-status-<?php print $comment->getPrivate(); ?>" title="<?php $theView->write('COMMMENT_PRIVATE'); ?>">
+                        <span class="fa fa-square fa-stack-2x"></span>
+                        <span class="fa fa-eye-slash fa-stack-1x fa-inverse"></span>
+                    </span>
+                </div>
+            </div>            
         </td>
     </tr>
     <tr>

@@ -44,11 +44,19 @@ class articleedit extends articlebase {
      */
     protected $revisionId = 0;
 
+    /**
+     * 
+     * @return array
+     */
     protected function getPermissions()
     {
         return ['article' => 'edit'];
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function getActiveNavigationElement()
     {
         return 'itemnav-id-editnews';
@@ -142,9 +150,11 @@ class articleedit extends articlebase {
         $this->view->assign('postponedTimer', $this->article->getCreatetime());
         $this->view->assign('users', $this->userList->getUsersByIds(array($this->article->getCreateuser(), $this->article->getChangeuser())));
         $this->view->assign('commentCount', array_sum($this->commentList->countComments([$this->article->getId()])));
-
         $this->view->assign('commentsMode', 2);
         $this->view->assign('revisionCount', $this->article->getRevisionsCount());
+
+        $this->view->addDataView(new \fpcm\components\dataView\dataView('commentlist', false));
+        $this->view->addDataView(new \fpcm\components\dataView\dataView('revisionslist', false));
 
         $this->view->addJsVars([
             'canConnect' => \fpcm\classes\baseconfig::canConnect() ? 1 : 0,
@@ -198,7 +208,7 @@ class articleedit extends articlebase {
         if ($this->permissions->check(['article' => 'revisions'])) {
              $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setClass('fpcm-ui-maintoolbarbuttons-tab3 '.($this->showRevision ? '' : 'fpcm-ui-hidden')));
             if (!$this->showRevision) {
-                $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm-ui-button-confirm'));
+                $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
                 
             }
         }
@@ -224,11 +234,11 @@ class articleedit extends articlebase {
             
             $this->view->addJsFiles(['comments.js']);
             if ($this->permissionsArray['canEditComments']) {
-                $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('pencil-square-o')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden'));
+                $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('pencil-square-o')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden'));
             }
 
             if ($this->permissionsArray['canDelete']) {
-                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden fpcm-ui-button-confirm'));
+                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_COMMENTS_DELETE'));
             }
 
             $this->initCommentMassEditForm();

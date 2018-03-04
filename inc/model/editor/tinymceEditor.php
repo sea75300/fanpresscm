@@ -42,7 +42,6 @@
         {
             return [
                 \fpcm\classes\loader::libGetFileUrl('tinymce4/tinymce.min.js'),
-                'dataview.js',
                 'editor.js',
                 'editor_tinymce.js',
                 'editor_videolinks.js'

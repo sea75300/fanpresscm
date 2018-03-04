@@ -71,13 +71,13 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
         }
 
         call_user_func([$this, $fn]);
-        
-        //$this->returnData['dataViewVars'] = json_encode($this->returnData['dataViewVars']);
-        
-        
         $this->getSimpleResponse();
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     private function processComments()
     {        
         $this->conditions->articleid    = $this->oid;
@@ -90,8 +90,13 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
             'dataViewName' => $this->getDataViewName()
         ];
 
+        return true;
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     private function processRevisions()
     {
         if (!$this->article->exists()) {
@@ -106,9 +111,9 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
         if ($count) {
             $cols = [
                 (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
-                (new \fpcm\components\dataView\column('button', ''))->setSize(2),
-                (new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE'))->setSize(2),
-                (new \fpcm\components\dataView\column('date', 'EDITOR_REVISION_DATE'))->setSize(3)
+                (new \fpcm\components\dataView\column('button', ''))->setSize(1),
+                (new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE'))->setSize(5),
+                (new \fpcm\components\dataView\column('date', 'EDITOR_REVISION_DATE'))->setSize(5)
             ];
         }
         
@@ -135,6 +140,8 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
             'dataViewVars' => $dvVars['dataviews']['revisionslist'],
             'dataViewName' => 'revisionslist'
         ];
+        
+        return true;
 
     }
 
@@ -144,7 +151,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function getMode()
     {
-        return 3;
+        return 2;
     }
 
     /**

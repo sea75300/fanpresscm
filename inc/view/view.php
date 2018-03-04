@@ -540,8 +540,8 @@ class view {
         $this->defaultViewVars->loggedIn = $this->session->exists();
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
 
-        $this->defaultViewVars->filesCss = $this->viewCssFiles;
-        $this->defaultViewVars->filesJs = $this->viewJsFiles;
+        $this->defaultViewVars->filesCss = array_unique($this->viewCssFiles);
+        $this->defaultViewVars->filesJs = array_unique($this->viewJsFiles);
 
         $this->defaultViewVars->fullWrapper = in_array($this->defaultViewVars->currentModule, ['installer']);
         

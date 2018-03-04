@@ -3,10 +3,13 @@
         <?php $tmpArticle = $article; ?>
         <?php $article    = $revisionArticle; ?>
         <td class="fpcm-half-width">
-            <div class="fpcm-ui-editor-metabox">
-                <?php include $theView->getIncludePath('articles/times.php'); ?>
-                <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
-                <div class="fpcm-ui-clear"></div>
+            <div class="row fpcm-ui-editor-metabox fpcm-ui-padding-md-tb">
+                <div class="col-sm-12 fpcm-ui-font-small">
+                    <?php include $theView->getIncludePath('articles/times.php'); ?>
+                </div>
+                <div class="col-sm-12">
+                    <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
+                </div>
             </div>
         </td>
         <?php
@@ -14,12 +17,15 @@
             $tmpArticle = null;
         ?>
         <td class="fpcm-half-width">
-            <div class="fpcm-ui-editor-metabox">
-                <?php include $theView->getIncludePath('articles/times.php'); ?>
-                <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
-                <div class="fpcm-ui-clear"></div>
+            <div class="row fpcm-ui-editor-metabox fpcm-ui-padding-md-tb">
+                <div class="col-sm-12 fpcm-ui-font-small">
+                    <?php include $theView->getIncludePath('articles/times.php'); ?>
+                </div>
+                <div class="col-sm-12">
+                    <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
+                </div>
             </div>
-        </td>
+        </td>       
     </tr>    
     <tr>
         <td>

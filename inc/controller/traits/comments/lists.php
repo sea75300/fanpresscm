@@ -262,18 +262,18 @@ trait lists {
             $buttons = [
                 '<div class="fpcm-ui-controlgroup">',
                 (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($comment)->setTarget('_blank'),
-                (new \fpcm\view\helper\editButton('commentedit'))->setUrlbyObject($comment, '&mode=' . $this->getMode()),
+                (new \fpcm\view\helper\editButton('commentedit'))->setUrlbyObject($comment, '&mode=' . $this->getMode())->setClass('fpcm-ui-commentlist-link'),
                 '</div>'
             ];
 
             $metaDataIcons = [];
-            $metaDataIcons[] = (new \fpcm\view\helper\icon('flag fa-rotate-90 fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $comment->getSpammer())->setText('COMMMENT_SPAM')->setStack('square');
+            $metaDataIcons[] = (new \fpcm\view\helper\icon('flag fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $comment->getSpammer())->setText('COMMMENT_SPAM')->setStack('square');
             $metaDataIcons[] = (new \fpcm\view\helper\icon('check-circle-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $comment->getApproved())->setText('COMMMENT_APPROVE')->setStack('square');
             $metaDataIcons[] = (new \fpcm\view\helper\icon('eye-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $comment->getPrivate())->setText('COMMMENT_PRIVATE')->setStack('square');
 
             $this->dataView->addRow(
                 new \fpcm\components\dataView\row([
-                new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\checkbox('actions[' . ($comment->getEditPermission() ? 'ids' : 'ro') . '][]', 'chbx' . $commentId))->setClass('fpcm-ui-list-checkbox')->setValue($commentId)->setReadonly(!$comment->getEditPermission()), 'fpcm-ui-dataview-lineheight4', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\checkbox('ids[' . ($comment->getEditPermission() ? '' : 'ro') . ']', 'chbx' . $commentId))->setClass('fpcm-ui-list-checkbox')->setValue($commentId)->setReadonly(!$comment->getEditPermission()), 'fpcm-ui-dataview-lineheight4', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                 new \fpcm\components\dataView\rowCol('button', implode('', $buttons), 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                 new \fpcm\components\dataView\rowCol('name', $comment->getName(), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('email', $comment->getEmail(), 'fpcm-ui-ellipsis'),

@@ -47,6 +47,8 @@
         'EDITOR_REVISION_DATE'          => 'Revision date',
         'EDITOR_BACKTOCURRENT'          => 'Back to current version',
         'EDITOR_REVISION_RESTORE'       => 'Restore revision',
+        'EDITOR_REVISION_DELETE'        => 'Delete revisions',
+        'EDITOR_COMMENTS_DELETE'        => 'Delete comments',
         'EDITOR_AUTOSAVE_RESTORE'       => 'Restore latest draft',
         'EDITOR_ARTICLE_SHORTLINK'      => 'Short link',
         'EDITOR_CHANGEAUTHOR'           => 'Change author',

@@ -28,6 +28,7 @@ final class deleteButton extends submitButton {
         $this->class .= ' fpcm-ui-button-delete';
         $this->setText('GLOBAL_DELETE');
         $this->setIcon('trash');
+        $this->setIconOnly(true);
     }
 
 }
