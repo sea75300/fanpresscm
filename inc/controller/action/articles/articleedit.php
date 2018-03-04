@@ -28,12 +28,6 @@ class articleedit extends articlebase {
 
     /**
      *
-     * @var bool
-     */
-    protected $showRevision = false;
-
-    /**
-     *
      * @var \fpcm\model\articles\article
      */
     protected $revisionArticle = null;

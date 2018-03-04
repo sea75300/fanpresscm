@@ -49,12 +49,25 @@ class articlebase extends \fpcm\controller\abstracts\controller {
      */
     protected $editorPlugin;
 
+    /**
+     *
+     * @var bool
+     */
+    protected $showRevision = false;
+
+    /**
+     * Konstruktor
+     */
     public function __construct()
     {
         parent::__construct();
         $this->categoryList = new \fpcm\model\categories\categoryList();
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function getHelpLink()
     {
         return 'articles_editor';
@@ -69,6 +82,10 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         return 'articles/editor';
     }
 
+    /**
+     * 
+     * @return void
+     */
     protected function initObject()
     {
         $id = $this->getRequestVar('articleid', [
@@ -78,6 +95,10 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->article = new \fpcm\model\articles\article($id);
     }
 
+    /**
+     * 
+     * @return void
+     */
     public function request()
     {
         $this->initObject();
@@ -90,15 +111,21 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         return true;
     }
 
+    /**
+     * 
+     * @return void
+     */
     public function process()
     {
         $this->editorPlugin = $this->getEditorPlugin();
         $this->view->addJsFiles($this->editorPlugin->getJsFiles());
         $this->view->addCssFiles($this->editorPlugin->getCssFiles());
 
-        $viewVars = $this->editorPlugin->getViewVars();
-        foreach ($viewVars as $key => $value) {
-            $this->view->assign($key, $value);
+        if (!$this->showRevision) {
+            $viewVars = $this->editorPlugin->getViewVars();
+            foreach ($viewVars as $key => $value) {
+                $this->view->assign($key, $value);
+            }            
         }
 
         $changeAuthor = $this->permissions->check(['article' => 'authors']);

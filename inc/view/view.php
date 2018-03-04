@@ -594,9 +594,9 @@ class view {
      * Return assigned view vars
      * @return array
      */
-    public function getViewVars()
+    public function getViewVars($var = false)
     {
-        return $this->viewVars;
+        return $var ? $this->viewVars[$var] : $this->viewVars;
     }
 
     /**
