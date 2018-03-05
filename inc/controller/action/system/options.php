@@ -148,12 +148,7 @@ class options extends \fpcm\controller\abstracts\controller {
             'SYSTEM_OPTIONS_USEMODE_PHPINCLUDE' => 1
         );
         $this->view->assign('systemModes', $modes);
-
-        $editor = array(
-            'SYSTEM_OPTIONS_NEWS_EDITOR_STD' => 0,
-            'SYSTEM_OPTIONS_NEWS_EDITOR_CLASSIC' => 1
-        );
-        $this->view->assign('editors', $editor);
+        $this->view->assign('editors', \fpcm\components\components::getArticleEditors());
 
         $sorts = array(
             'SYSTEM_OPTIONS_NEWS_BYINTERNALID' => 'id',

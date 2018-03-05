@@ -108,7 +108,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      */
     private function autocompleteEditorfiles()
     {
-        $this->returnData = $this->getEditorPlugin()->getFileList();
+        $this->returnData = \fpcm\components\components::getArticleEditor()->getFileList();
         return true;
     }
 
@@ -118,7 +118,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      */
     private function autocompleteEditorlinks()
     {
-        $this->returnData = $this->getEditorPlugin()->getEditorLinks();
+        $this->returnData = \fpcm\components\components::getArticleEditor()->getEditorLinks();
         return true;
     }
 

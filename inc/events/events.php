@@ -22,9 +22,7 @@
          */
         public function runEvent($eventName, $dataParams = null)
         {
-            return $dataParams;
-            
-            $this->trigger($eventName, $dataParams);
+            return $this->trigger($eventName, $dataParams);
         }
 
         /**
@@ -35,6 +33,8 @@
          */
         public function trigger($eventName, $dataParams = null)
         {
+            return $dataParams;
+            
             if (!\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled()) {
                 return $dataParams;
             }
@@ -83,7 +83,7 @@
         {
             return \fpcm\classes\dirs::getIncDirPath(implode(DIRECTORY_SEPARATOR, [
                 'events',
-                $path
+                str_replace('\\', DIRECTORY_SEPARATOR, $path)
             ]));
         }
     }

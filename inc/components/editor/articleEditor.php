@@ -7,7 +7,7 @@
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      * @since FPCM 3.1.0
      */
-    namespace fpcm\model\abstracts;
+    namespace fpcm\components\editor;
 
     /**
      * Article editor plugin base model
@@ -17,7 +17,7 @@
      * @author Stefan Seehafer <sea75300@yahoo.de>
      * @since FPCM 3.1.0
      */ 
-    abstract class articleEditor extends staticModel {
+    abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
 
         /**
          * Dateilisten-Objekt

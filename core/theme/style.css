@@ -103,9 +103,6 @@ ol.list-large li {
 
 /* .CSS-Klassen und #IDs */
 
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-icon,
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-button,
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col,
 div.fpcm-status-info ul.fpcm-menu-top #fpcm-ui-showmenu-li,
 span.fpcm-ui-badge.fpcm-ui-badge-comments,
 .fpcm-ui-permissions-container,
@@ -132,9 +129,6 @@ span.fpcm-ui-badge,
 div.fpcm-navigation ul.fpcm-menu li,
 div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navicon,
 div.fpcm-navigation ul.fpcm-menu li:hover ul,
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-icon,
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-button,
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col,
 #fpcm-filemanager-upload-drop h4:before,
 .fpcm-ui-permissions-container,
 div.fpcm-status-info ul.fpcm-menu-top,
@@ -263,7 +257,6 @@ div.fpcm-status-info ul.fpcm-menu-top li ul,
 }
 
 div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navicon,
-div.fpcm-editor-fields-tabs div.fpcm-ui-editor-extended-row,
 div.fpcm-status-info ul.fpcm-menu-top,
 .fpcm-full-width,
 .fpcm-message-box,
@@ -273,7 +266,8 @@ div.fpcm-status-info ul.fpcm-menu-top,
 .fpcm-ui-progressbar,
 .fpcm-editor-dialog iframe,
 .fpcm-editor-select a,
-div.fpcm-status-info {
+div.fpcm-status-info,
+table.fpcm-ui-table {
     width: 100%;
 }
 
@@ -442,7 +436,6 @@ textarea {
 }
 
 .fpcm-ui-input-wrapper-inner {
-    padding: 0.3em 0.4em;
     width: auto;
     height: auto;
 }
@@ -663,7 +656,6 @@ table.fpcm-ui-table tr.fpcm-td-spacer:hover {
 }
 
 table.fpcm-ui-table     {
-    width:100%;
     border:0px;
 }
 
@@ -852,53 +844,9 @@ table.fpcm-ui-table.fpcm-ui-modules tr.fpcm-ui-modules-updates1 {
     margin-bottom: 1.2em;
 }
 
-div.fpcm-ui-editor-extended-row {
-    margin: 0.4em 0.2em;
-    padding: 0.3em 0em;
-}
-
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-icon {
-    line-height: 2em;
-}
-
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col .fpcm-ui-button-shorthelp {
-    margin-top: 0.4em;
-}
-
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-button {
-    margin: 0em 0.8em;
-    min-width: 20em;
-}
-
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-button .ui-checkboxradio-label {
-    width: 75%;
-}
-
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col.fpcm-ui-editor-extended-col-tweettext,
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-button.fpcm-ui-editor-extended-col-large {
-    width: 50%;
-}
-
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col {
-    margin-left: 0.4em;
-}
-
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col .ui-spinner {
-    margin-bottom: 0.2em;
-    height: 20px;
-}
-
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col .ui-spinner .ui-spinner-input {
-    margin-top: 0;
-}
-
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col .ui-spinner,
-div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-col div.fpcm-ui-datepicker-inputwrapper {
-    width: 10em;
-}
-
-div.fpcm-editor-fields-tabs div.fpcm-ui-editor-extended-row div.fpcm-ui-editor-extended-textarea {
-    min-width: 85%;
+div.fpcm-editor-dialog .ui-checkboxradio-label,
+div.fpcm-editor-dialog .ui-selectmenu-button {
+    width: 100% !important;
 }
 
 .fpcm-ui-button,

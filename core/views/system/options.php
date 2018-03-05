@@ -62,7 +62,7 @@
             <table class="fpcm-ui-table fpcm-ui-options">
                 <tr>			
                     <td><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('system_editor', $editors, $globalConfig['system_editor'], false, false); ?></td>		
+                    <td><?php fpcm\view\helper::select('system_editor', $editors, base64_encode($globalConfig['system_editor']), false, false); ?></td>		
                 </tr>
                 <tr>			
                     <td><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE'); ?>:</td>

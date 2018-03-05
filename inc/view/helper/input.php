@@ -39,7 +39,16 @@ abstract class input extends helper {
      */
     protected function getString()
     {
-        $wrapperStart = $this->useWrapper ? "<div class=\"fpcm-ui-input-wrapper {$this->wrapperClass}\"><div class=\"fpcm-ui-input-wrapper-inner\">" : '';
+        $wrapperStart = '';
+        
+        $sizeClass = 'col-12 fpcm-ui-padding-none-lr';
+        
+        if ($this->icon) {
+            $wrapperStart .= "<div class=\"col-1 fpcm-ui-padding-none-lr\">{$this->getIconString()}</div>";
+            $sizeClass = 'col-11 fpcm-ui-padding-none-lr';
+        }
+        
+        $wrapperStart .= $this->useWrapper ? "<div class=\"fpcm-ui-input-wrapper $sizeClass {$this->wrapperClass}\"><div class=\"fpcm-ui-input-wrapper-inner\">" : '';
 
         $wrapperEnd = $this->useWrapper ? "</div></div>" : '';
 
@@ -49,7 +58,7 @@ abstract class input extends helper {
             return $wrapperStart . $input . $wrapperEnd;
         }
 
-        $description = $this->placeholder ? $this->getIconString() : ( "<label>{$this->getIconString()}{$this->getDescriptionTextString()}</label>");
+        $description = $this->placeholder ? "" : "<label>{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
 
         return $wrapperStart . $description . $input . $wrapperEnd;
     }

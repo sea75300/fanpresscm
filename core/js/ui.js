@@ -265,10 +265,10 @@ fpcm.ui = {
         params.showButtonPanel   = true,
         params.showOtherMonths   = true,
         params.selectOtherMonths = true,
-        params.monthNames        = fpcm.ui.translate('jquiDateMonths'),
-        params.dayNames          = fpcm.ui.translate('jquiDateDays'),
-        params.dayNamesShort     = fpcm.ui.translate('jquiDateDaysShort'),
-        params.dayNamesMin       = fpcm.ui.translate('jquiDateDaysShort')
+        params.monthNames        = fpcm.vars.ui.lang.calendar.months;
+        params.dayNames          = fpcm.vars.ui.lang.calendar.days;
+        params.dayNamesShort     = fpcm.vars.ui.lang.calendar.daysShort;
+        params.dayNamesMin       = fpcm.vars.ui.lang.calendar.daysShort;
         params.firstDay          = 1;
         params.dateFormat        = "yy-mm-dd";
 

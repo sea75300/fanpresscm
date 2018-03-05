@@ -72,7 +72,7 @@ abstract class helper {
      * CSS class for div wrapper
      * @var string
      */
-    protected $wrapperClass = true;
+    protected $wrapperClass = '';
 
     /**
      *

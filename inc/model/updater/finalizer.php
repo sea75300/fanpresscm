@@ -85,7 +85,26 @@
          */
         private function updateSystemOptions()
         {
-            return true;
+            $newConfig = [];
+
+            if (is_numeric($this->config->system_editor)) {
+
+                $editors = [
+                    0 => '\fpcm\components\editor\tinymceEditor',
+                    1 => '\fpcm\components\editor\htmlEditor'
+                ];
+
+                $newConfig['system_editor'] = isset($editors[$this->config->system_editor])
+                                            ? $editors[$this->config->system_editor]
+                                            : $editors[0];
+            }
+
+            if (!count($newConfig)) {
+                return true;
+            }
+            
+            $this->config->setNewConfig($newConfig);
+            return $this->config->update();
         }
         
         /**
@@ -94,7 +113,8 @@
          */
         private function removeSystemOptions()
         {
-            return true;
+            $res = $this->config->remove('articles_trash');
+            return $res;
         }
         
         /**

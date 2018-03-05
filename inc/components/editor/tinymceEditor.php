@@ -6,7 +6,7 @@
      * @license http://www.gnu.org/licenses/gpl.txt GPLv3
      */
 
-    namespace fpcm\model\editor;
+    namespace fpcm\components\editor;
 
     /**
      * Recent articles dashboard container object

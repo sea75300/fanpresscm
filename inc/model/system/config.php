@@ -291,6 +291,10 @@ final class config extends \fpcm\model\abstracts\dataset {
     public function prepareDataSave()
     {
 
+        if (isset($this->newConfig['system_editor'])) {
+            $this->newConfig['system_editor'] = base64_decode($this->newConfig['system_editor']);
+        }
+
         if (isset($this->newConfig['twitter_events']) && is_array($this->newConfig['twitter_events'])) {
             $this->newConfig['twitter_events'] = json_encode($this->newConfig['twitter_events']);
         }

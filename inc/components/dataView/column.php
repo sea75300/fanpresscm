@@ -10,7 +10,7 @@ namespace fpcm\components\dataView;
 /**
  * Data view column component
  * 
- * @package fpcm\drivers\mysql
+ * @package fpcm\drivers\dataView
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 final class column implements \JsonSerializable {

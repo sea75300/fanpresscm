@@ -117,7 +117,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
-        $this->editorPlugin = $this->getEditorPlugin();
+        $this->editorPlugin = \fpcm\components\components::getArticleEditor();
         $this->view->addJsFiles($this->editorPlugin->getJsFiles());
         $this->view->addCssFiles($this->editorPlugin->getCssFiles());
 
@@ -137,7 +137,6 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         }
 
         $this->view->assign('isRevision', false);
-        $this->view->assign('editorFile', $this->editorPlugin->getEditorTemplate());
         $this->view->assign('article', $this->article);
         $this->view->assign('categories', $this->categoryList->getCategoriesCurrentUser());
         $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
