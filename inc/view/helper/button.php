@@ -37,6 +37,15 @@ class button extends helper {
     }
 
     /**
+     * Return class string
+     * @return string
+     */
+    protected function getReadonlyString()
+    {
+        return $this->readonly ? "disabled" : '';
+    }
+
+    /**
      * Optional init function
      * @return void
      */

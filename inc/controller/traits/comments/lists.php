@@ -17,6 +17,8 @@ namespace fpcm\controller\traits\comments;
  */
 trait lists {
 
+    use \fpcm\controller\traits\common\massedit;
+
     protected $permissionsArray = [];
 
     /**
@@ -69,6 +71,12 @@ trait lists {
      * @var int
      */
     protected $maxItemCount = 0;
+
+    /**
+     *
+     * @var int
+     */
+    protected $mode = 1;
 
     /**
      * 
@@ -134,34 +142,58 @@ trait lists {
      * Initialisiert Suchformular-Daten
      * @param array $users
      */
-    protected function initCommentMassEditForm($ajax = false)
+    protected function initCommentMassEditForm($mode)
     {
-        $this->view->assign('massEditPrivate', [
-            'GLOBAL_NOCHANGE_APPLY' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ]);
+        $fields = [];
+        
+        if ($this->permissionsArray['canApprove']) {
+            $fields[] = new \fpcm\components\masseditField(
+                'flag',
+                'COMMMENT_SPAM',
+                (new \fpcm\view\helper\select('isSpam'))
+                    ->setOptions($this->yesNoChangeList)
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
+                    'col-sm-6 col-md-4'
+            );
 
-        $this->view->assign('massEditSpam', [
-            'GLOBAL_NOCHANGE_APPLY' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ]);
-
-        $this->view->assign('massEditApproved', [
-            'GLOBAL_NOCHANGE_APPLY' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ]);
-
-        if ($ajax) {
-            return true;
+            $fields[] = new \fpcm\components\masseditField(
+                'check-circle-o',
+                'COMMMENT_APPROVE',
+                (new \fpcm\view\helper\select('isApproved'))
+                    ->setOptions($this->yesNoChangeList)
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
+                    'col-sm-6 col-md-4'
+            );
+        }
+        
+        if ($this->permissionsArray['canPrivate']) {
+            $fields[] = new \fpcm\components\masseditField(
+                'eye-slash',
+                'COMMMENT_PRIVATE',
+                (new \fpcm\view\helper\select('isPrivate'))
+                    ->setOptions($this->yesNoChangeList)
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
+                    'col-sm-6 col-md-4'
+            );
+        }
+        
+        if ($mode === 1 && $this->permissionsArray['canMove']) {
+            $fields[] = new \fpcm\components\masseditField(
+                'clipboard',
+                'COMMMENT_MOVE',
+                (new \fpcm\view\helper\textInput('moveToArticle'))
+                    ->setClass('fpcm-ui-input-massedit')
+                    ->setMaxlenght(20),
+                    'col-sm-6 col-md-4'
+            );
         }
 
-        $this->view->addJsVars([
-            'masseditPageToken' => \fpcm\classes\security::createPageToken('coments/massedit'),
-            'masseditSaveFailed' => $this->lang->translate('SAVE_FAILED_COMMENTS')
-        ]);
+        $this->assignFields($fields);        
+        $this->assignPageToken('coments');
+        $this->view->addJsLangVars(['SAVE_FAILED_COMMENTS']);
     }
 
     /**
@@ -274,11 +306,11 @@ trait lists {
             $this->dataView->addRow(
                 new \fpcm\components\dataView\row([
                 new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\checkbox('ids[' . ($comment->getEditPermission() ? '' : 'ro') . ']', 'chbx' . $commentId))->setClass('fpcm-ui-list-checkbox')->setValue($commentId)->setReadonly(!$comment->getEditPermission()), 'fpcm-ui-dataview-lineheight4', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                new \fpcm\components\dataView\rowCol('button', implode('', $buttons), 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                new \fpcm\components\dataView\rowCol('button', implode('', $buttons), 'fpcm-ui-dataview-lineheight4 fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                 new \fpcm\components\dataView\rowCol('name', $comment->getName(), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('email', $comment->getEmail(), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('create', (string) new \fpcm\view\helper\dateText($comment->getCreatetime()), 'fpcm-ui-ellipsis'),
-                new \fpcm\components\dataView\rowCol('metadata', implode('', $metaDataIcons), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                new \fpcm\components\dataView\rowCol('metadata', implode('', $metaDataIcons), 'fpcm-ui-metabox fpcm-ui-dataview-lineheight4 fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             ]));
         }
 

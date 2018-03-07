@@ -15,6 +15,10 @@ namespace fpcm\components;
  */
 final class components {
 
+    /**
+     * 
+     * @return editor\articleEditor
+     */
     public static function getArticleEditor()
     {
         $class = \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_editor;
@@ -26,6 +30,10 @@ final class components {
         return new $class();
     }
 
+    /**
+     * 
+     * @return array
+     */
     public static function getArticleEditors()
     {
         return array_map('base64_encode', \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('editor\getEditors', [
@@ -33,5 +41,15 @@ final class components {
             'SYSTEM_OPTIONS_NEWS_EDITOR_CLASSIC' => '\fpcm\components\editor\htmlEditor'
         ]));
     }
-    
+
+    /**
+     * 
+     * @param array $masseditFields
+     * @return boolean
+     */
+    public static function getMassEditFields(array $masseditFields = [])
+    {
+        include \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'components/massedit.php');
+        return true;
+    }
 }

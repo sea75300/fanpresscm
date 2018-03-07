@@ -41,7 +41,7 @@
                 <?php $fieldname = 'article[categories][]'; ?>
                 <?php include $theView->getIncludePath('articles/categories.php'); ?>
             </div>
-            
+
             <?php include \fpcm\components\components::getArticleEditor()->getEditorTemplate(); ?>
             <?php include $theView->getIncludePath('articles/buttons.php'); ?>
         </div>

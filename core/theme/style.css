@@ -787,8 +787,6 @@ table.fpcm-ui-table.fpcm-ui-permissions tr th {
 .fpcm-message-box .fpcm-msg-icon,
 .fpcm-message-box .fpcm-msg-text,
 table.fpcm-ui-table.fpcm-ui-options tr td,
-table.fpcm-ui-table.fpcm-ui-articles tr td,
-table.fpcm-ui-table.fpcm-ui-comments tr td,
 table.fpcm-ui-table.fpcm-ui-users tr td,
 table.fpcm-ui-table.fpcm-ui-categories tr td,
 table.fpcm-ui-table.fpcm-ui-middle tr td,
@@ -804,10 +802,6 @@ table.fpcm-ui-table.fpcm-ui-backups tr td,
 table.fpcm-ui-table.fpcm-ui-logs-cronjobs tr td,
 table.fpcm-ui-table.fpcm-ui-uploadlist tr td {
     vertical-align: middle;
-}
-
-table.fpcm-ui-table.fpcm-ui-table-insert tr td:first-child {
-    width: 66%;
 }
 
 table.fpcm-ui-table.fpcm-ui-articles-search td,

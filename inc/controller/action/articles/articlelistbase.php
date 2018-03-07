@@ -12,7 +12,8 @@ namespace fpcm\controller\action\articles;
 abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
     use \fpcm\controller\traits\common\dataView,
-        \fpcm\controller\traits\articles\lists;
+        \fpcm\controller\traits\articles\lists,
+        \fpcm\controller\traits\common\massedit;
 
 
     /**
@@ -162,8 +163,8 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
         $this->view->assign('showDraftStatus', $this->showDraftStatus);
 
-        $this->initSearchForm($this->users);
-        $this->initMassEditForm($this->users);
+        $this->initSearchForm();
+        $this->initMassEditForm();
 
         $this->view->addJsFiles(['articlelist.js']);
 
@@ -290,13 +291,10 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
      * Initialisiert Suchformular
      * @param array $users
      */
-    private function initSearchForm($users)
+    private function initSearchForm()
     {
-        $users = ['ARTICLE_SEARCH_USER' => -1] + $users;
-        $this->view->assign('searchUsers', $users);
-
-        $categories = ['ARTICLE_SEARCH_CATEGORY' => -1] + $this->categories;
-        $this->view->assign('searchCategories', $categories);
+        $this->view->assign('searchUsers', ['ARTICLE_SEARCH_USER' => -1] + $this->users);
+        $this->view->assign('searchCategories', ['ARTICLE_SEARCH_CATEGORY' => -1] + $this->categories);
 
         $this->view->assign('searchTypes', [
             'ARTICLE_SEARCH_TYPE_ALL' => -1,
@@ -345,51 +343,86 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
     /**
      * Initialisiert Massenbearbeitung
-     * @param array $users
      */
-    private function initMassEditForm($users)
+    private function initMassEditForm()
     {
-        $this->view->assign('massEditUsers', ['GLOBAL_NOCHANGE_APPLY' => -1] + $users);
+        $this->assignPageToken('articles');
+        
+        $fields = [];
+        
+        if ($this->permissions->check(['article' => 'authors'])) {
+            $fields[] = new \fpcm\components\masseditField(
+                'users',
+                'EDITOR_CHANGEAUTHOR',
+                (new \fpcm\view\helper\select('userid'))
+                    ->setOptions(['GLOBAL_NOCHANGE_APPLY' => -1] + $this->users)
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit')
+            );
+        }
+
+        $fields[] = new \fpcm\components\masseditField(
+            'thumb-tack fa-rotate-90',
+            'EDITOR_PINNED',
+            (new \fpcm\view\helper\select('pinned'))
+                ->setOptions($this->yesNoChangeList)
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
+                'col-sm-6 col-md-4'
+        );
+        
+        if ($this->showDraftStatus) {
+            $fields[] = new \fpcm\components\masseditField(
+                'file-text-o',
+                'EDITOR_DRAFT',
+                (new \fpcm\view\helper\select('draft'))
+                    ->setOptions($this->yesNoChangeList)
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
+                    'col-sm-6 col-md-4'
+            );
+        }
+        
+        if ($this->permissions->check(['article' => 'approve'])) {
+            $fields[] = new \fpcm\components\masseditField(
+                'thumbs-o-up',
+                'EDITOR_STATUS_APPROVAL',
+                (new \fpcm\view\helper\select('approval'))
+                    ->setOptions($this->yesNoChangeList)
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
+                    'col-sm-6 col-md-4'
+            );
+        }
+        
+        if ($this->config->system_comments_enabled) {
+            $fields[] = new \fpcm\components\masseditField(
+                'comments-o',
+                'EDITOR_COMMENTS',
+                (new \fpcm\view\helper\select('comments'))
+                    ->setOptions($this->yesNoChangeList)
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
+                    'col-sm-6 col-md-4'
+            );
+        }
+        
+        if ($this->permissions->check(['article' => 'archive'])) {
+            $fields[] = new \fpcm\components\masseditField(
+                'archive',
+                'EDITOR_ARCHIVE',
+                (new \fpcm\view\helper\select('archived'))
+                    ->setOptions($this->yesNoChangeList)
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
+                    'col-sm-6 col-md-4'
+            );
+        }
+
+        $this->assignFields($fields);
+
         $this->view->assign('massEditCategories', $this->categories);
-
-        $this->view->assign('massEditPinned', [
-            'GLOBAL_NOCHANGE_APPLY' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ]);
-
-        $this->view->assign('massEditPostponed', [
-            'GLOBAL_NOCHANGE_APPLY' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ]);
-
-        $this->view->assign('massEditComments', [
-            'GLOBAL_NOCHANGE_APPLY' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ]);
-
-        $this->view->assign('massEditApproved', [
-            'GLOBAL_NOCHANGE_APPLY' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ]);
-
-        $this->view->assign('massEditDraft', [
-            'GLOBAL_NOCHANGE_APPLY' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ]);
-
-        $this->view->assign('massEditArchived', [
-            'GLOBAL_NOCHANGE_APPLY' => -1,
-            'GLOBAL_YES' => 1,
-            'GLOBAL_NO' => 0
-        ]);
-
         $this->view->addJsLangVars(['SAVE_FAILED_ARTICLES']);
-        $this->view->addJsVars(['masseditPageToken' => \fpcm\classes\security::createPageToken('articles/massedit')]);
     }
 
     abstract protected function getArticleCount();

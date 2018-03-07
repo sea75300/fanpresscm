@@ -39,6 +39,16 @@ class linkButton extends button {
     }
 
     /**
+     * Returns name and ID string
+     * @param string $prefix
+     * @return string
+     */
+    protected function getNameIdString()
+    {
+        return "id=\"{$this->id}\" ";
+    }
+
+    /**
      * Return element string
      * @return string
      */

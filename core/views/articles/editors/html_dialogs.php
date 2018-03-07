@@ -1,114 +1,89 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <!-- Link einfügen -->  
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertlink">  
-    <table class="fpcm-ui-table">
-        <tr>
-            <td><label><?php $theView->write('EDITOR_LINKURL'); ?>:</label></td>
-            <td><?php \fpcm\view\helper::textInput('links[url]', '', 'http://'); ?></td>
-        </tr>
-        <tr>
-            <td><label><?php $theView->write('EDITOR_LINKTXT'); ?>:</label></td>
-            <td><?php \fpcm\view\helper::textInput('links[text]', '', ''); ?></td>
-        </tr>        
-        <tr>
-            <td><label><?php $theView->write('EDITOR_LINKTARGET'); ?>:</label></td>
-            <td>
-                <?php \fpcm\view\helper::select('links[target]', $targets, ''); ?>
-            </td>
-        </tr>        
-        <tr>
-            <td><label><?php $theView->write('EDITOR_CSS_CLASS'); ?>:</label></td>
-            <td>
-                <?php \fpcm\view\helper::select('links[css]', $cssClasses, ''); ?>
-            </td>
-        </tr>       
-    </table>
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertlink">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->write('EDITOR_LINKURL'); ?></div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('links[url]', 'linksurl')->setValue('http://'); ?></div>
+        
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->write('EDITOR_LINKTXT'); ?></div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('links[text]', 'linkstext'); ?></div>
+        
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->write('EDITOR_LINKTXT'); ?></div>
+        <div class="col-6 fpcm-ui-padding-md-tb"><?php $theView->select('links[target]', 'linkstarget')->setOptions($targets); ?></div>
+        
+        <?php if (count($cssClasses)) : ?>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->write('EDITOR_CSS_CLASS'); ?></div>
+        <div class="col-6 fpcm-ui-padding-md-tb"><?php $theView->select('links[css]', 'linkscss')->setOptions($cssClasses); ?></div>
+        <?php endif; ?>
+    </div>
 </div>
 
 <!-- Bild einfügen -->  
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertimage">  
-    <table class="fpcm-ui-table">
-        <tr>
-            <td><label><?php $theView->write('EDITOR_IMGPATH'); ?>:</label></td>
-            <td><?php \fpcm\view\helper::textInput('images[path]', '', 'http://'); ?></td>
-        </tr>
-        <tr>
-            <td><label><?php $theView->write('EDITOR_IMGALTTXT'); ?>:</label></td>
-            <td><?php \fpcm\view\helper::textInput('images[alt]', '', ''); ?></td>
-        </tr>        
-        <tr>
-            <td><label><?php $theView->write('EDITOR_IMGALIGN'); ?>:</label></td>
-            <td>
-                <?php \fpcm\view\helper::select('images[align]', $aligns, ''); ?>
-            </td>
-        </tr>         
-        <tr>
-            <td><label><?php $theView->write('EDITOR_CSS_CLASS'); ?>:</label></td>
-            <td>
-                <?php \fpcm\view\helper::select('images[css]', $cssClasses, ''); ?>             
-            </td>
-        </tr>       
-    </table>
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertimage">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->write('EDITOR_IMGPATH'); ?></div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('images[path]', 'imagespath')->setValue('http://'); ?></div>
+        
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->write('EDITOR_IMGALTTXT'); ?></div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('images[alt]', 'imagesalt'); ?></div>
+        
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->write('EDITOR_IMGALIGN'); ?></div>
+        <div class="col-6 fpcm-ui-padding-md-tb"><?php $theView->select('images[align]', 'imagesalign')->setOptions($aligns); ?></div>
+        
+        <?php if (count($cssClasses)) : ?>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->write('EDITOR_CSS_CLASS'); ?></div>
+        <div class="col-6 fpcm-ui-padding-md-tb"><?php $theView->select('images[css]', 'imagescss')->setOptions($cssClasses); ?></div>
+        <?php endif; ?>
+    </div>
 </div>
 
 <!-- Tabelle einfügen -->  
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-inserttable">  
-    <table class="fpcm-ui-table fpcm-ui-table-insert">
-        <tr>
-            <td><label><?php $theView->write('EDITOR_INSERTTABLE_ROWS'); ?>:</label></td>
-            <td><?php \fpcm\view\helper::textInput('table[rows]', '', 1, false, 5, false, false); ?></td>
-        </tr>
-        <tr>
-            <td><label><?php $theView->write('EDITOR_INSERTTABLE_COLS'); ?>:</label></td>
-            <td><?php \fpcm\view\helper::textInput('table[cols]', '', 1, false, 5, false, false); ?></td>
-        </tr>        
-    </table>
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-inserttable">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->write('EDITOR_INSERTTABLE_ROWS'); ?></div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('table[rows]', 'tablerows')->setValue(1)->setMaxlenght(5)->setWrapper(false); ?></div>
+        
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->write('EDITOR_INSERTTABLE_COLS'); ?></div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('table[cols]', 'tablecols')->setValue(1)->setMaxlenght(5)->setWrapper(false); ?></div>
+    </div>
 </div>
 
 <!-- Liste einfügen -->  
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertlist">  
-    <table class="fpcm-ui-table fpcm-ui-table-insert">
-        <tr>
-            <td><label><?php $theView->write('EDITOR_INSERTTABLE_ROWS'); ?>:</label></td>
-            <td><?php \fpcm\view\helper::textInput('list[rows]', '', 1, false, 5, false, false); ?></td>
-        </tr>       
-    </table>
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertlist">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->write('EDITOR_INSERTTABLE_ROWS'); ?></div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('list[rows]', 'listrows')->setValue(1)->setMaxlenght(5)->setWrapper(false); ?></div>
+    </div>
 </div>
 
 <!-- Player einfügen -->  
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertmedia">  
-    <table class="fpcm-ui-table">
-        <tr>
-            <td><label><?php $theView->write('EDITOR_IMGPATH'); ?>:</label></td>
-            <td><?php \fpcm\view\helper::textInput('media[path]'); ?></td>
-        </tr>   
-        <tr>
-            <td><label><?php $theView->write('EDITOR_INSERTMEDIA_AUDIO'); ?>:</label></td>
-            <td><?php $theView->radiobutton('mediatype')->setClass('fpcm-editor-mediatype')->setValue('audio'); ?></td>
-        </tr>
-        <tr>
-            <td><label><?php $theView->write('EDITOR_INSERTMEDIA_VIDEO'); ?>:</label></td>
-            <td><?php $theView->radiobutton('mediatype')->setClass('fpcm-editor-mediatype')->setValue('video'); ?></td>
-        </tr>         
-    </table>
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertmedia">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->write('EDITOR_IMGPATH'); ?></div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('media[path]', 'mediapath'); ?></div>
+        
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb">
+            <?php $theView->radiobutton('mediatype', 'mediatypea')->setText('EDITOR_INSERTMEDIA_AUDIO')->setClass('fpcm-editor-mediatype')->setValue('audio')->setSelected(true); ?>
+        </div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb">
+            <?php $theView->radiobutton('mediatype', 'mediatypev')->setText('EDITOR_INSERTMEDIA_VIDEO')->setClass('fpcm-editor-mediatype')->setValue('video'); ?>
+        </div>
+    </div>
 </div>
 
 <!-- Tabelle einfügen -->
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertcolor">  
-    <table class="fpcm-ui-table">
-        <tr>
-            <td><label><?php $theView->write('EDITOR_INSERTCOLOR_HEXCODE'); ?>:</label></td>
-            <td><?php \fpcm\view\helper::textInput('fpcm-dialog-editor-html-colorhexcode', '', '', false, 5); ?></td>
-        </tr>   
-        <tr>
-            <td><label><?php $theView->write('EDITOR_INSERTCOLOR_TEXT'); ?>:</label></td>
-            <td><?php $theView->radiobutton('color_mode', 'color_mode1')->setValue('color')->setClass('color_mode')->setSelected('color'); ?></td>
-        </tr>
-        <tr>
-            <td><label><?php $theView->write('EDITOR_INSERTCOLOR_BACKGROUND'); ?>:</label></td>
-            <td><?php $theView->radiobutton('color_mode', 'color_mode2')->setValue('background')->setClass('color_mode'); ?></td>
-        </tr>        
-    </table>
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertcolor">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->write('EDITOR_INSERTCOLOR_HEXCODE'); ?></div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('colorhexcode')->setMaxlenght(5); ?></div>
+        
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb">
+            <?php $theView->radiobutton('color_mode', 'color_mode1')->setText('EDITOR_INSERTCOLOR_TEXT')->setClass('fpcm-ui-editor-colormode')->setValue('color')->setSelected(true); ?>
+        </div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb">
+            <?php $theView->radiobutton('color_mode', 'color_mode2')->setText('EDITOR_INSERTCOLOR_BACKGROUND')->setClass('fpcm-ui-editor-colormode')->setValue('background'); ?>
+        </div>
+    </div>
 </div>
 
 <?php $count = 1; ?>
@@ -117,26 +92,19 @@
 
 <!-- Symbol einfügen -->
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertsymbol">
-    <table class="fpcm-ui-table fpcm-ui-editor-smileys">
-        <tr>
-        <?php for($i=161;$i<=450;$i++) : ?>
-            <td><a class="fpcm-editor-htmlsymbol" symbolcode="&#<?php print $i; ?>;" href="#">&#<?php print $i; ?>;</a></td>
-            <?php if ($i % 20 == 0) : ?></tr><tr><?php endif; ?>            
-        <?php endfor;  ?>            
-        </tr>        
-    </table>
+    <div class="row">
+        <?php for($i=161;$i<=450;$i++) : ?>        
+        <div class="col-1"><a class="fpcm-editor-htmlsymbol" data-symbolcode="&#<?php print $i; ?>;" href="#">&#<?php print $i; ?>;</a></div>
+        <?php endfor; ?>
+    </div>
 </div>
 
 <!-- Vorlage einfügen -->
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertdraft">
-    <table class="fpcm-ui-table">
-        <tr>
-            <td><?php \fpcm\view\helper::select('tpldraft', $editorTemplatesList, ''); ?></td>
-        </tr>
-        <tr>
-            <td>
-                <pre id="fpcm-dialog-editor-html-insertdraft-preview" class="CodeMirror cm-s-fpcm CodeMirror-wrap"></pre>
-            </td>
-        </tr>
-    </table>
+    <div class="row">
+        <div class="col-sm-6 fpcm-ui-padding-md-tb"><?php $theView->select('tpldraft')->setOptions($editorTemplatesList); ?></div>
+        <div class="col-sm-12 fpcm-ui-padding-md-tb">
+            <pre id="fpcm-dialog-editor-html-insertdraft-preview" class="CodeMirror cm-s-fpcm CodeMirror-wrap"></pre>
+        </div>
+    </div>
 </div>

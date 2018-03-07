@@ -68,7 +68,5 @@
     </div>
     <?php endif; ?>
 
-    <?php include $theView->getIncludePath('articles/userfields.php'); ?>
-
 </div>
 <?php endif; ?>

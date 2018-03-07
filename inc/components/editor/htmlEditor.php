@@ -14,7 +14,7 @@
      * @package fpcm\model\dashboard
      * @author Stefan Seehafer <sea75300@yahoo.de>
      */
-    class htmlEditor extends \fpcm\model\abstracts\articleEditor {
+    class htmlEditor extends articleEditor {
 
         /**
          * Liefert zu ladender CSS-Dateien für Editor zurück

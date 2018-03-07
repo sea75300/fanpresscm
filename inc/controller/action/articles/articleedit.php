@@ -235,7 +235,7 @@ class articleedit extends articlebase {
                 $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_COMMENTS_DELETE'));
             }
 
-            $this->initCommentMassEditForm();
+            $this->initCommentMassEditForm(2);
         }
 
         $deletePermissions = $this->permissions->check(array('article' => 'delete'));

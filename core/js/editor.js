@@ -414,7 +414,7 @@ fpcm.editor = {
     },
     
     initCodeMirror: function() {
-        jQuery('#fpcm-dialog-editor-html-colorhexcode').colorPicker({
+        jQuery('#colorhexcode').colorPicker({
             rows        : 5,
             cols        : 8,
             showCode    : 0,
@@ -424,10 +424,10 @@ fpcm.editor = {
             left        : 0,
             colorData   : fpcm.vars.jsvars.editorConfig.colors,            
             onSelect    : function(colorCode) {
-                jQuery('#fpcm-dialog-editor-html-colorhexcode').val(colorCode);
+                jQuery('#colorhexcode').val(colorCode);
             }
         });
-        
+
         fpcm.editor.cmInstance = fpcm.editor_codemirror.create({
            editorId  : 'htmleditor',
            elementId : 'articlecontent',
@@ -740,7 +740,7 @@ fpcm.editor = {
         });
 
         jQuery('.fpcm-editor-htmlsymbol').click(function() {
-            fpcm.editor.insert(jQuery(this).attr('symbolcode'), '');
+            fpcm.editor.insert(jQuery(this).attr('data-symbolcode'), '');
             return false;
         });
     },
@@ -756,12 +756,12 @@ fpcm.editor = {
                     icon: "ui-icon-check",                        
                     click: function() {
 
-                        var mode    = jQuery('.color_mode:checked').val();
-                        var color   = jQuery('#fpcm-dialog-editor-html-colorhexcode').val();
+                        var mode    = jQuery('.fpcm-ui-editor-colormode:checked').val();
+                        var color   = jQuery('#colorhexcode').val();
                         fpcm.editor.insert('<span style="' + (mode === undefined ? 'color' : mode) + ':' + (color == '' ? '#000000' : color) + ';">', '</span>');
 
-                        jQuery('#fpcm-dialog-editor-html-colorhexcode').val('');
-                        jQuery('.color_mode:checked').removeAttr('checked');    
+                        jQuery('#colorhexcode').val('');
+                        jQuery('.fpcm-ui-editor-colormode:checked').removeAttr('checked');    
                         jQuery('#color_mode1').prop( "checked", true );
 
                         jQuery( this ).dialog( "close" );
@@ -876,8 +876,8 @@ fpcm.editor = {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
                     icon: "ui-icon-check",                        
                     click: function() {
-                        
-                        var tagName = jQuery('#mediatype:checked').val();
+
+                        var tagName = jQuery('.fpcm-editor-mediatype:checked').val();
                         
                         aTag        = '<' + tagName + '>';
                         aTag       += '<source src="' + jQuery('#mediapath').val() + '">';        
@@ -885,7 +885,7 @@ fpcm.editor = {
 
                         jQuery('#mediapath').val('');
                         jQuery('.fpcm-editor-mediatype').removeAttr('checked');    
-                        jQuery('#mediatype_a').prop( "checked", true );
+                        jQuery('#mediatypea').prop( "checked", true );
 
                         jQuery( this ).dialog( "close" );
                     }

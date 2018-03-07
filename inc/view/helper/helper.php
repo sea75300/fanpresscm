@@ -155,7 +155,7 @@ abstract class helper {
      * @param string $prefix
      * @return string
      */
-    final protected function getNameIdString()
+    protected function getNameIdString()
     {
         return "name=\"{$this->name}\" id=\"{$this->id}\" ";
     }

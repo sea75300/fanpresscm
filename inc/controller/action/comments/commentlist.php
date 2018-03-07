@@ -60,7 +60,7 @@ class commentlist extends \fpcm\controller\abstracts\controller {
         
         $this->initCommentPermissions();
         $this->initSearchForm();
-        $this->initCommentMassEditForm();
+        $this->initCommentMassEditForm(1);
 
         $this->view->addJsFiles(['comments.js']);
         $this->view->setFormAction('comments/list');
