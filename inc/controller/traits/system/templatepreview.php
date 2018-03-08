@@ -1,46 +1,48 @@
 <?php
-    /**
-     * FanPress CM 4.x
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     */
 
-    namespace fpcm\controller\traits\system;
-    
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\traits\system;
+
+/**
+ * System check trait
+ * 
+ * @package fpcm\controller\traits\system.syscheck
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+trait templatepreview {
+
     /**
-     * System check trait
      * 
-     * @package fpcm\controller\traits\system.syscheck
-     * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+     * @param type $tplId
+     * @return bool|\fpcm\model\pubtemplates\template
      */
-    trait templatepreview {
-        
-        /**
-         * 
-         * @param type $tplId
-         * @return bool|\fpcm\model\pubtemplates\template
-         */
-        protected function getTemplateById($tplId) {
+    protected function getTemplateById($tplId)
+    {
 
-            $filename = '_preview'.$tplId;
+        $filename = '_preview' . $tplId;
 
-            switch ($tplId) {
-                case 1 :
-                    return new \fpcm\model\pubtemplates\article($filename);
-                case 2 :
-                    return new \fpcm\model\pubtemplates\article($filename);
-                case 3 :
-                    return new \fpcm\model\pubtemplates\comment($filename);
-                case 4 :
-                    return new \fpcm\model\pubtemplates\commentform($filename);
-                case 5 :
-                    return new \fpcm\model\pubtemplates\latestnews($filename);
-            }
-            
-            return false;
-            
+        switch ($tplId) {
+            case 1 :
+                return new \fpcm\model\pubtemplates\article($filename);
+            case 2 :
+                return new \fpcm\model\pubtemplates\article($filename);
+            case 3 :
+                return new \fpcm\model\pubtemplates\comment($filename);
+            case 4 :
+                return new \fpcm\model\pubtemplates\commentform($filename);
+            case 5 :
+                return new \fpcm\model\pubtemplates\latestnews($filename);
         }
-        
+
+        return false;
     }
+
+}
+
 ?>

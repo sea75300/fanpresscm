@@ -51,7 +51,7 @@
          * @since FPCM 3.5
          */
         public function getEditLink() {
-            return \fpcm\classes\tools::getFullControllerLink('system/templateedit', [
+            return \fpcm\classes\tools::getFullControllerLink('templates/templateedit', [
                 'file' => urlencode(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt($this->filename))
             ]);
         }

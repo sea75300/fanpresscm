@@ -284,8 +284,6 @@ fpcm.system = {
 jQuery.noConflict();
 jQuery(document).ready(function () {
 
-    fpcmJs   = new fpcmJs();
-
     jQuery.each(fpcm, function(idx, object) {
 
         if (typeof object.init === 'function') {

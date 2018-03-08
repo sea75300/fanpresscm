@@ -321,13 +321,6 @@ fpcm.editor = {
             title    : fpcm.ui.translate('HL_FILES_MNG'),
             dlButtons  : [
                 {
-                    text: fpcm.ui.translate('GLOBAL_EXTENDED'),
-                    icon: "ui-icon-wrench",                    
-                    click: function() {
-                        jQuery(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('.fpcm-ui-filemanager-buttons').fadeToggle();
-                    }
-                },
-                {
                     text: fpcm.ui.translate('GLOBAL_CLOSE'),
                     icon: "ui-icon-closethick",                    
                     click: function() {
@@ -550,13 +543,6 @@ fpcm.editor = {
                 height          : fmSize.height,
                 close_previous  : false,
                 buttons  : [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_EXTENDED'),                   
-                        onclick: function() {
-                            var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
-                            jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('.fpcm-ui-filemanager-buttons').fadeToggle();
-                        }
-                    },
                     {
                         text: fpcm.ui.translate('GLOBAL_CLOSE'),                      
                         onclick: function() {

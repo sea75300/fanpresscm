@@ -48,7 +48,7 @@
             
             if (!$this->config->system_show_share) return '';
 
-            $shareButtonPath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SHARE);
+            $shareButtonPath = \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SHARE, '');
             
             $sharecode  = [];
             $sharecode[] = "<ul class=\"fpcm-pub-sharebuttons\">";

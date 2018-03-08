@@ -1,12 +1,8 @@
 <?php
 
 /**
- * FanPress CM article editor plugin base model
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.1.0
  */
 
 namespace fpcm\components\editor;
@@ -14,9 +10,11 @@ namespace fpcm\components\editor;
 /**
  * Article editor plugin base model
  * 
- * @package fpcm\model\abstracts
  * @abstract
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @package fpcm\components\editor
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.1.0
  */
 abstract class articleEditor extends \fpcm\model\abstracts\staticModel {

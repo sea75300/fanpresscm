@@ -129,6 +129,12 @@ class view {
     protected $config;
 
     /**
+     * Events
+     * @var \fpcm\events\events
+     */
+    protected $events;
+
+    /**
      * Config
      * @var \fpcm\classes\language
      */
@@ -156,6 +162,7 @@ class view {
         $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+        $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
 
         $this->fileLib = new \fpcm\model\system\fileLib();
         $this->defaultViewVars = new viewVars();
@@ -300,6 +307,24 @@ class view {
     }
 
     /**
+     * Overrides CSS files variable to view
+     * @param array $viewCssFiles
+     */
+    public function overrideCssFiles(array $viewCssFiles)
+    {
+        $this->viewCssFiles = $viewCssFiles;
+    }
+
+    /**
+     * Overrides new JS vars
+     * @param mixed $viewJsFiles
+     */
+    public function overrideJsFiles(array $viewJsFiles)
+    {
+        $this->viewJsFiles = $viewJsFiles;
+    }
+
+    /**
      * Add new JS language vars
      * @param mixed $jsvars
      */
@@ -354,7 +379,7 @@ class view {
             return false;
         }
 
-        array_unshift($this->viewJsFiles, \fpcm\classes\loader::libGetFileUrl('jquery', 'jquery-3.2.0.min.js'));
+        array_unshift($this->viewJsFiles, \fpcm\classes\loader::libGetFileUrl('jquery/jquery-3.2.1.min.js'));
     }
 
     /**
@@ -468,7 +493,7 @@ class view {
      * @return bool
      */
     public function render()
-    {        
+    {
         if (!file_exists($this->viewPath)) {
             trigger_error("View file {$this->viewName} not found!");
             exit("View file {$this->viewName} not found!");
@@ -476,11 +501,7 @@ class view {
 
         $this->initAssigns();
 
-//            foreach ($this->events->runEvent('view/renderBefore', $this->viewVars) as $key => $value) {
-//                $$key = $value;
-//            }
-
-        foreach ($this->viewVars as $key => $value) {
+        foreach ($this->events->runEvent('view/renderBefore', $this->viewVars) as $key => $value) {
             $$key = $value;
         }
 
@@ -504,9 +525,9 @@ class view {
                 break;
         }
 
-        //$this->events->runEvent('view/renderAfter');
-
+        $this->events->runEvent('view/renderAfter');
         $this->rendered = true;
+
         return true;
     }
 
@@ -539,12 +560,11 @@ class view {
 
         $this->defaultViewVars->loggedIn = $this->session->exists();
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-
         $this->defaultViewVars->filesCss = array_unique($this->viewCssFiles);
         $this->defaultViewVars->filesJs = array_unique($this->viewJsFiles);
 
         $this->defaultViewVars->fullWrapper = in_array($this->defaultViewVars->currentModule, ['installer']);
-        
+
         $this->jsvars['currentModule'] = $this->defaultViewVars->currentModule;
 
         $this->defaultViewVars->varsJs = [
@@ -698,8 +718,10 @@ class view {
      */
     public static function isBrowser($key)
     {
-        if (!isset($_SERVER['HTTP_USER_AGENT']))
+        if (!isset($_SERVER['HTTP_USER_AGENT'])) {
             return true;
+        }
+
         return preg_match("/($key)/is", $_SERVER['HTTP_USER_AGENT']) === 1 ? true : false;
     }
 

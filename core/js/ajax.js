@@ -53,8 +53,8 @@ fpcm.ajax = {
         .done(function(result) {
 
             if (result.search('FATAL ERROR:') === 3) {
-                console.log(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
-                console.log('ERROR MESSAGE: ' + errorThrown);
+                console.error(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
+                console.error('ERROR MESSAGE: ' + errorThrown);
             }
 
             if (result.cmd !== undefined) {
@@ -77,8 +77,9 @@ fpcm.ajax = {
             }
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
-            console.log(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
-            console.log('ERROR MESSAGE: ' + errorThrown);
+            console.error(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
+            console.error('STATUS MESSAGE: ' + textStatus);
+            console.error('ERROR MESSAGE: ' + errorThrown);
 
             if (typeof params.execFail == 'string') {
                 eval(params.execFail);

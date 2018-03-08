@@ -7,7 +7,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\action\system;
+namespace fpcm\controller\action\templates;
 
 class articleTemplateEditor extends \fpcm\controller\abstracts\controller {
 

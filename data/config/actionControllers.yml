@@ -6,12 +6,12 @@ system/logout: action/system/logout
 system/options: action/system/options
 system/profile: action/system/profile
 system/logs: action/system/logs
-system/templates: action/system/templates
-system/templatepreview: action/system/templatepreview
-system/templateedit: action/system/articleTemplateEditor
 system/help: action/system/help
 system/backups: action/system/backups
 system/crons: action/system/crons
+templates/templates: action/templates/templates
+templates/preview: action/templates/preview
+templates/templateedit: action/templates/articleTemplateEditor
 users/add: action/users/useradd
 users/edit: action/users/useredit
 users/list: action/users/userlist

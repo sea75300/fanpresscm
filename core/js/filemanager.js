@@ -13,12 +13,12 @@ fpcm.filemanager = {
     init: function() {
 
         if (fpcm.vars.jsvars.fmLoadAjax) {
-            this.reloadFiles();
-            this.initActionButtons();
+            fpcm.filemanager.reloadFiles();
+            fpcm.filemanager.initActionButtons();
         }
         
         if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
-            this.initFilesSearch();
+            fpcm.filemanager.initFilesSearch();
         }
     
         jQuery('#tabs-files-list-reload').click(function () {
@@ -30,9 +30,9 @@ fpcm.filemanager = {
     initJqUiWidgets: function () {
         fpcm.ui.assignCheckboxes();
         fpcm.ui.assignControlgroups();
-        this.initInsertButtons();
-        this.initSelectionCheckboxes();
-        this.initPagination();
+        fpcm.filemanager.initInsertButtons();
+        fpcm.filemanager.initSelectionCheckboxes();
+        fpcm.filemanager.initPagination();
         jQuery('.fpcm-link-fancybox').fancybox();
     },
     
@@ -55,55 +55,18 @@ fpcm.filemanager = {
         });
 
         
-        this.initSelectionCheckboxes();
+        fpcm.filemanager.initSelectionCheckboxes();
     },
     
     initInsertButtons: function () {
+
         jQuery('.fpcm-filelist-tinymce-thumb').click(function () {
-            var url   = jQuery(this).attr('href');
-            var title = jQuery(this).attr('imgtxt');  
-
-            if (fpcm.vars.jsvars.editorType == 1) {
-                if (parent.fileOpenMode == 1) {
-                    parent.document.getElementById('linksurl').value  = url;
-                    parent.document.getElementById('linkstext').value = title;
-                }            
-                if (parent.fileOpenMode == 2) {
-                    parent.document.getElementById('imagespath').value = url;
-                    parent.document.getElementById('imagesalt').value  = title;                
-                }
-
-                window.parent.jQuery("#fpcm-dialog-editor-html-filemanager").dialog('close');
-                window.parent.jQuery('#fpcm-dialog-editor-html-filemanager').empty();
-            } else {
-                top.tinymce.activeEditor.windowManager.getParams().oninsert(url, { alt: title, text: title });
-                top.tinymce.activeEditor.windowManager.close();
-            }
-
+            parent.fpcm.editor.insertThumbByEditor(jQuery(this).attr('href'), jQuery(this).attr('data-imgtext'));
             return false;
         });
 
         jQuery('.fpcm-filelist-tinymce-full').click(function () {
-            var url   = jQuery(this).attr('href');
-            var title = jQuery(this).attr('imgtxt');
-
-            if (fpcm.vars.jsvars.editorType == 1) {
-                if (parent.fileOpenMode == 1) {
-                    parent.document.getElementById('linksurl').value  = url;
-                    parent.document.getElementById('linkstext').value = title;
-                }            
-                if (parent.fileOpenMode == 2) {
-                    parent.document.getElementById('imagespath').value = url;
-                    parent.document.getElementById('imagesalt').value  = title;
-                }
-
-                window.parent.jQuery("#fpcm-dialog-editor-html-filemanager").dialog('close');
-                window.parent.jQuery('#fpcm-dialog-editor-html-filemanager').empty();
-            } else {
-                top.tinymce.activeEditor.windowManager.getParams().oninsert(url, { alt: title, text: title });
-                top.tinymce.activeEditor.windowManager.close();
-            }
-
+            parent.fpcm.editor.insertFullByEditor(jQuery(this).attr('href'), jQuery(this).attr('data-imgtext'));
             return false;
         });
 
@@ -125,7 +88,7 @@ fpcm.filemanager = {
                 fpcm.filemanager.refreshSingleCheckboxes();
         });
         
-        this.refreshSingleCheckboxes();
+        fpcm.filemanager.refreshSingleCheckboxes();
     },
     
     refreshSingleCheckboxes: function() {

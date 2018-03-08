@@ -7,9 +7,9 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\action\system;
+namespace fpcm\controller\action\templates;
 
-class templatepreview extends \fpcm\controller\abstracts\controller {
+class preview extends \fpcm\controller\abstracts\controller {
 
     use \fpcm\controller\traits\system\templatepreview;
 
@@ -82,10 +82,21 @@ class templatepreview extends \fpcm\controller\abstracts\controller {
 
         $this->view->assign('showToolbars', false);
         $this->view->assign('hideDebug', true);
-        $this->view->assign('hideDebug', true);
         $this->view->assign('systemMode', 1);
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-        $this->view->prependjQuery();
+
+        $jsfiles = [
+            \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.2.1.min.js'),
+            \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
+        ];
+
+        $cssfiles = [];
+        if (trim($this->config->system_css_path)) {
+            $cssfiles[] = trim($this->config->system_css_path);
+        }
+
+        $this->view->overrideJsFiles($this->events->trigger('pub/addJsFiles', $jsfiles));
+        $this->view->overrideCssFiles($this->events->trigger('pub/addCssFiles', $cssfiles));
         $this->view->render();
     }
 

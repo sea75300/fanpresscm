@@ -31,6 +31,13 @@
         define ('FPCM_DEBUG_SQL', false);
     }
     
+    if (!defined('FPCM_DEBUG_ROUTES')) {
+        /**
+         * Controller-Routing-Debug-Modus aktivieren
+         */
+        define ('FPCM_DEBUG_ROUTES', false);
+    }
+    
     if (!defined('FPCM_MODULE_IGNORE_DEPENDENCIES')) {
         /**
          * ModulAbhängigkeiten ignorieren

@@ -129,7 +129,7 @@ fpcm.templates = {
 
                 tplId = fpcm.ajax.getWorkData('templates/savetemp');
 
-                fpcm.ui.appendHtml('#fpcm-dialog-templatepreview-layer', '<iframe id="fpcm-dialog-templatepreview-layer-frame" class="fpcm-full-width" src="' + fpcm.vars.actionPath + 'system/templatepreview&tid=' + tplId + '"></iframe>');
+                fpcm.ui.appendHtml('#fpcm-dialog-templatepreview-layer', '<iframe id="fpcm-dialog-templatepreview-layer-frame" class="fpcm-full-width" src="' + fpcm.vars.actionPath + 'templates/preview&tid=' + tplId + '"></iframe>');
                 fpcm.ui.dialog({
                     id         : 'templatepreview-layer',
                     dlWidth    : fpcm.ui.getDialogSizes(top, 0.75).width,

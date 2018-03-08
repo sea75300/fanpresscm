@@ -58,12 +58,29 @@ class pubController extends controller {
             $isAdmin = $this->session->getCurrentUser()->isAdmin();
         }
 
-        $this->view->assign('showToolbars', $showToolbars);
-        $this->view->assign('permAdd', $permAdd);
-        $this->view->assign('permEditOwn', $permEditOwn);
-        $this->view->assign('permEditAll', $permEditAll);
-        $this->view->assign('currentUserId', $currentUserId);
-        $this->view->assign('isAdmin', $isAdmin);
+        $this->view->setViewVars([
+            'showToolbars' => $showToolbars,
+            'permAdd' => $permAdd,
+            'permEditOwn' => $permEditOwn,
+            'permEditAll' => $permEditAll,
+            'currentUserId' => $currentUserId,
+            'isAdmin' => $isAdmin,
+            'hideDebug' => false           
+        ]);
+
+        $jsfiles = [];
+        if ($this->config->system_loader_jquery) {
+            $jsfiles[] = \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.2.1.min.js');
+        }
+        $jsfiles[] = \fpcm\classes\dirs::getRootUrl('js/fpcm.js');
+
+        $cssfiles = [];
+        if ($this->config->system_mode == 0 && trim($this->config->system_css_path)) {
+            $cssfiles[] = trim($this->config->system_css_path);
+        }
+
+        $this->view->overrideJsFiles($this->events->trigger('pub/addJsFiles', $jsfiles));
+        $this->view->overrideCssFiles($this->events->trigger('pub/addCssFiles', $cssfiles));
 
         return true;
     }

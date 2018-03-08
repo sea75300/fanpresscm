@@ -21,7 +21,7 @@
     </div>
     <div class="row fpcm-ui-padding-md-tb">
         <div class="col-12 fpcm-ui-center fpcm-ui-font-small">
-            <?php print $twitterReplacements; ?> <?php $theView->shorthelpButton('tweetHelp')->setText('EDITOR_TWEET_TEXT_REPLACER')->setUrl($theView->basePath.'system/templates'); ?>
+            <?php print $twitterReplacements; ?> <?php $theView->shorthelpButton('tweetHelp')->setText('EDITOR_TWEET_TEXT_REPLACER')->setUrl($theView->basePath.'templates/templates'); ?>
         </div>
     </div>
     <?php endif; ?>

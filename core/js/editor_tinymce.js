@@ -124,3 +124,23 @@ fpcm.editor_tinymce = {
     }
 
 };
+
+if (fpcm.editor) {
+    fpcm.editor.insertThumbByEditor = function (url, title) {
+        top.tinymce.activeEditor.windowManager.getParams().oninsert(url, {
+            alt: title,
+            text: title
+        });
+
+        top.tinymce.activeEditor.windowManager.close();
+    };
+
+    fpcm.editor.insertFullByEditor = function (url, title) {
+        top.tinymce.activeEditor.windowManager.getParams().oninsert(url, {
+            alt: title,
+            text: title
+        });
+
+        top.tinymce.activeEditor.windowManager.close();    
+    };
+}

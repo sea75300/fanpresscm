@@ -42,3 +42,32 @@ fpcm.editor_codemirror = {
     }
 
 };
+
+if (fpcm.editor) {
+    fpcm.editor.insertThumbByEditor = function (url, title) {
+        if (parent.fileOpenMode == 1) {
+            parent.document.getElementById('linksurl').value  = url;
+            parent.document.getElementById('linkstext').value = title;
+        }            
+        if (parent.fileOpenMode == 2) {
+            parent.document.getElementById('imagespath').value = url;
+            parent.document.getElementById('imagesalt').value  = title;                
+        }
+
+        window.parent.jQuery("#fpcm-dialog-editor-html-filemanager").dialog('close');
+        window.parent.jQuery('#fpcm-dialog-editor-html-filemanager').empty();
+    };
+
+    fpcm.editor.insertFullByEditor = function (url, title) {
+        if (parent.fileOpenMode == 1) {
+            parent.document.getElementById('linksurl').value  = url;
+            parent.document.getElementById('linkstext').value = title;
+        }            
+        if (parent.fileOpenMode == 2) {
+            parent.document.getElementById('imagespath').value = url;
+            parent.document.getElementById('imagesalt').value  = title;
+        }
+
+        window.parent.jQuery("#fpcm-dialog-editor-html-filemanager").dialog('close');  
+    };
+}

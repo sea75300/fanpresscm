@@ -16,9 +16,8 @@ $cacheName = 'theme/jsfiles';
 if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled() || FPCM_DEBUG) {
 
     $jsFiles = array(
-        __DIR__.'/ui.js',
         __DIR__.'/ajax.js',
-        __DIR__.'/functions.js',
+        __DIR__.'/ui.js',
         __DIR__.'/notifications.js',
         __DIR__.'/system.js'
     );

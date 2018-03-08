@@ -118,6 +118,11 @@ class articlebase extends \fpcm\controller\abstracts\controller {
     public function process()
     {
         $this->editorPlugin = \fpcm\components\components::getArticleEditor();
+        if (!$this->editorPlugin) {
+            $this->view = new \fpcm\view\error('Error loading article editor component '.$this->config->system_editor);
+            $this->view->render();
+        }
+        
         $this->view->addJsFiles($this->editorPlugin->getJsFiles());
         $this->view->addCssFiles($this->editorPlugin->getCssFiles());
 

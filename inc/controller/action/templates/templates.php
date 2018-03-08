@@ -7,7 +7,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\action\system;
+namespace fpcm\controller\action\templates;
 
 class templates extends \fpcm\controller\abstracts\controller {
 
@@ -205,7 +205,7 @@ class templates extends \fpcm\controller\abstracts\controller {
         $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('modules/list'));
         $this->view->assign('styleLeftMargin', true);
 
-        $this->view->setFormAction('system/templates');
+        $this->view->setFormAction('templates/templates');
         $this->view->addButtons([
             (new \fpcm\view\helper\button('showpreview', 'showpreview'))->setText('GLOBAL_PREVIEW')->setIcon('eye')->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
             (new \fpcm\view\helper\saveButton('saveTemplates', 'save1'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm'),

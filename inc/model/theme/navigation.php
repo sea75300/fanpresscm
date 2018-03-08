@@ -247,7 +247,7 @@
                     'icon'              => 'fa fa-file-o fa-fw'
                 ]),
                 navigationItem::createItemFromArray([
-                    'url'               => 'system/templates',
+                    'url'               => 'templates/templates',
                     'permission'        => array('system' => 'templates'),
                     'description'       => $this->language->translate('HL_OPTIONS_TEMPLATES'),
                     'icon'              => 'fa fa-code fa-fw'
