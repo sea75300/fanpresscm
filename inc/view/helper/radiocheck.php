@@ -47,6 +47,22 @@ abstract class radiocheck extends helper {
      */
     protected function getString()
     {
+        if ($this->iconOnly) {            
+            return implode(' ', [
+                "<label for=\"{$this->id}\" title=\"{$this->text}\">",
+                $this->getIconString(),
+                "<input type=\"{$this->type}\"",
+                $this->getNameIdString(),
+                $this->getClassString(),
+                $this->getReadonlyString(),
+                $this->getValueString(),
+                $this->getDataString(),
+                $this->getSelectedString(),
+                ">",
+                "</label>"
+            ]);
+        }
+        
         return implode(' ', [
             "<label for=\"{$this->id}\">",
             $this->getIconString(),

@@ -22,7 +22,7 @@ fpcm.comments = {
             fpcm.ui.setFocus('commentname');            
         }
         
-        if (fpcm.dataview.exists('commentlist')) {
+        if (fpcm.dataview && fpcm.dataview.exists('commentlist')) {
             fpcm.dataview.render('commentlist', {
                 onRenderAfter: function() {
                     fpcm.ui.assignCheckboxes();
@@ -30,8 +30,9 @@ fpcm.comments = {
                 }
             });
         }
-        
-
+    
+        fpcm.ui.checkboxradio('.fpcm-ui-comments-status');
+    
         fpcm.comments.assignActions();
     },
 

@@ -1,3 +1,4 @@
+<?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-content-wrapper">
     <div class="fpcm-tabs-general">
         <ul>
@@ -18,7 +19,7 @@
                 <?php fpcm\view\helper::linkButton(\fpcm\classes\baseconfig::$moduleServerManualLink, 'MODULES_LIST_EXTERNALLIST', 'fpcm-ui-externalpkglist', 'fpcm-externallink-btn', '_blank'); ?>
             <?php endif; ?>
                 <?php fpcm\view\helper::select('moduleActions', $moduleActions, '', false, true, false, 'fpcm-ui-input-select-moduleactions'); ?>
-                <?php \fpcm\view\helper::submitButton('doAction', 'GLOBAL_OK', 'fpcm-ui-actions-modules fpcm-ok-button fpcm-loader'); ?>
+                <?php include $theView->submitButton('doAction')->setText('GLOBAL_OK')->setClass('fpcm-ui-actions-modules'); ?>
                 </div>
             </div>         
         </div>

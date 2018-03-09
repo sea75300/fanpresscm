@@ -85,16 +85,6 @@ fpcm.ui = {
     langvarExists: function(langVar) {
         return fpcm.vars.ui.lang[langVar] === undefined ? false : true;
     },
-
-    actionButtonsGenreal: function() {
-        jQuery('.fpcm-ui-actions-genreal').click(function () {
-            if (jQuery(this).hasClass('fpcm-noloader')) jQuery(this).removeClass('fpcm-noloader');
-            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
-                jQuery(this).addClass('fpcm-noloader');
-                return false;
-            }            
-        });
-    },
     
     articleActionsOkButton: function () {
 

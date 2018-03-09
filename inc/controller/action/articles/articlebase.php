@@ -178,7 +178,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
             'filemanagerMode' => 2
         );
 
-        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG'], $this->editorPlugin->getJsLangVars()));
+        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH'], $this->editorPlugin->getJsLangVars()));
         $this->view->addJsVars($this->jsVars);
 
         if (!$this->getRequestVar('rev')) {

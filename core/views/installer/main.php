@@ -1,3 +1,4 @@
+<?php /* @var $theView \fpcm\view\viewVars */ ?>
 <form action="<?php print $theView->basePath; ?>installer&step=<?php print $step; ?><?php if ($currentStep > 1) : ?>&language=<?php print $theView->langCode; ?><?php endif; ?>" method="post" id="installerform">
     <div class="fpcm-content-wrapper fpcm-content-wrapper-installer">    
         <div class="fpcm-tabs-general" id="fpcm-tabs-installer">
@@ -24,9 +25,10 @@
     <div class="fpcm-ui-list-buttons">
         <div class="fpcm-ui-margin-center">
         <?php if ($showNextButton) : ?>
-            <?php \fpcm\view\helper::submitButton('SubmitNext', 'GLOBAL_NEXT', 'fpcm-installer-next-'.$currentStep); ?>
+            
+            <?php $theView->submitButton('SubmitNext')->setText('GLOBAL_NEXT')->setClass('fpcm-installer-next-'.$currentStep); ?>
         <?php elseif($showReload) : ?>
-            <?php \fpcm\view\helper::linkButton($theView->basePath.'installer&step='.$currentStep.($currentStep > 1 ? '&language='.$theView->langCode : ''), 'GLOBAL_RELOAD'); ?>
+            <?php $theView->linkButton('reloadbtn')->setText('GLOBAL_RELOAD')->setUrl($theView->basePath.'installer&step='.$currentStep.($currentStep > 1 ? '&language='.$theView->langCode : '')); ?>
         <?php endif; ?>
         </div>
     </div>

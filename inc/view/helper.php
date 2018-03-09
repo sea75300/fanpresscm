@@ -33,57 +33,6 @@ final class helper {
     }
 
     /**
-     * Erzeugt Speichern Button
-     * @param string $name Name des Buttons
-     */
-    public static function saveButton($name)
-    {
-        new helper\saveButton($name);
-    }
-
-    /**
-     * Erzeugt Speichern Button
-     * @param string $name Name des Buttons
-     */
-    public static function deleteButton($name)
-    {
-        new helper\deleteButton($name);
-    }
-
-    /**
-     * Erzeugt Zuürcksetzen Button
-     * @param string $name Name des Buttons
-     */
-    public static function resetButton($name)
-    {
-        new helper\resetButton($name);
-    }
-
-    /**
-     * 
-     * Erzeugt Senden Button
-     * @param string $name Name des Buttons
-     * @param string $descr Beschreibung des Buttons
-     * @param string $class CSS-Klasse
-     */
-    public static function submitButton($name, $descr, $class = '')
-    {
-        (new helper\submitButton($name))->setText($descr)->setClass($class);
-    }
-
-    /**
-     * Erzeugt Button
-     * @param string $type Button-Type
-     * @param string $name Name des Buttons
-     * @param string $descr Beschreibung des Buttons
-     * @param string $class CSS-Klasse
-     */
-    public static function button($type, $name, $descr, $class = '')
-    {
-        (new helper\button($name))->setType($type)->setText($descr)->setClass($class);
-    }
-
-    /**
      * Erzeugt Link-basierten Button
      * @param string $href Ziel-URL
      * @param string $descr Beschreibung

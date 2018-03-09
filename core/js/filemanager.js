@@ -31,7 +31,7 @@ fpcm.filemanager = {
         fpcm.ui.assignCheckboxes();
         fpcm.ui.assignControlgroups();
         fpcm.filemanager.initInsertButtons();
-        fpcm.filemanager.initSelectionCheckboxes();
+        fpcm.filemanager.refreshSingleCheckboxes();
         fpcm.filemanager.initPagination();
         jQuery('.fpcm-link-fancybox').fancybox();
     },
@@ -55,7 +55,7 @@ fpcm.filemanager = {
         });
 
         
-        fpcm.filemanager.initSelectionCheckboxes();
+        fpcm.filemanager.refreshSingleCheckboxes();
     },
     
     initInsertButtons: function () {
@@ -80,17 +80,7 @@ fpcm.filemanager = {
             return false;
         });
     },
-    
-    initSelectionCheckboxes: function() {
 
-        fpcm.ui.checkboxradio(
-            '.fpcm-ui-filemanager-buttons #fpcmselectall', {}, function() {
-                fpcm.filemanager.refreshSingleCheckboxes();
-        });
-        
-        fpcm.filemanager.refreshSingleCheckboxes();
-    },
-    
     refreshSingleCheckboxes: function() {
         jQuery('.fpcm-filelist-actions-checkbox').find('input[type="checkbox"]').checkboxradio({
             showLabel: false

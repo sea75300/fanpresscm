@@ -1,14 +1,13 @@
-div.mce-btn button .mce-ico.mce-i-fpcm-readmore:before,
-fpcm-ui-faicon:before {
+i.mce-ico.mce-i-fpcm-readmore:before,
+i.mce-ico.mce-i-fpcm-search:before {
     font-family: 'FontAwesome';
 }
 
-fpcm-ui-faicon:before {
-    font-weight: normal !important;
-    padding-right: 0.65em;
-    margin: 0 0 0 -0.3em;
+i.mce-ico.mce-i-fpcm-readmore:before {
+    content: '\f0fe';
 }
 
-div.mce-btn button .mce-ico.mce-i-fpcm-readmore:before {
-    content: '\f0fe';
+i.mce-ico.mce-i-fpcm-search:before {
+    content: '\f002';
+    font-size: 0.85em;
 }

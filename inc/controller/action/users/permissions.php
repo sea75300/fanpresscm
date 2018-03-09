@@ -22,6 +22,12 @@ class permissions extends \fpcm\controller\abstracts\controller {
      */
     protected $permissionObj;
 
+    /**
+     *
+     * @var int
+     */
+    protected $rollId;
+
     protected function getPermissions()
     {
         return ['system' => 'permissions'];
@@ -38,16 +44,16 @@ class permissions extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
-        $rollId = $this->getRequestVar('id', [
+        $this->rollId = $this->getRequestVar('id', [
             \fpcm\classes\http::FPCM_REQFILTER_CASTINT
         ]);
 
-        $this->view->assign('rollId', $rollId);
+        $this->view->assign('rollId', $this->rollId);
 
-        $roll = new \fpcm\model\users\userRoll($rollId);
+        $roll = new \fpcm\model\users\userRoll($this->rollId);
         $this->view->assign('rollname', $this->lang->translate($roll->getRollName()));
 
-        $this->permissionObj = new \fpcm\model\system\permissions($rollId);
+        $this->permissionObj = new \fpcm\model\system\permissions($this->rollId);
 
         $checkPageToken = $this->checkPageToken();
         if ($this->buttonClicked('permissionsSave') && !$checkPageToken) {
@@ -60,7 +66,7 @@ class permissions extends \fpcm\controller\abstracts\controller {
                 \fpcm\classes\http::FPCM_REQFILTER_CASTINT
             ]);
 
-            if ($rollId == 1) {
+            if ($this->rollId == 1) {
                 $permissionData['system']['permissions'] = 1;
             }
 
@@ -84,6 +90,9 @@ class permissions extends \fpcm\controller\abstracts\controller {
     {
         $this->view->assign('permissions', $this->permissionObj->getPermissionData());
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
+        $this->view->setFormAction('users/permissions', [
+            'roll' => $this->rollId
+        ]);
 
         $this->view->addJsFiles(['permissions.js']);
         $this->view->render();

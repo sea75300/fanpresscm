@@ -104,7 +104,6 @@ trait iconHelper {
         }
 
         return "<span class=\"fpcm-ui-icon {$this->icon} {$this->size}\"></span> ";
-        ;
     }
 
 }

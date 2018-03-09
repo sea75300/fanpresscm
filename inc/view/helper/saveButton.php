@@ -28,7 +28,6 @@ final class saveButton extends submitButton {
         $this->class .= ' fpcm-ui-button-save fpcm-loader';
         $this->setIcon('floppy-o');
         $this->setText('GLOBAL_SAVE');
-        $this->setIconOnly(true);
     }
 
 }

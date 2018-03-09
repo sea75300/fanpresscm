@@ -142,7 +142,6 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
     public function process()
     {
-
         $this->view->addJsVars([
             'fmgrMode' => $this->mode,
             'editorType' => $this->config->system_editor,
@@ -156,10 +155,11 @@ class filelist extends \fpcm\controller\abstracts\controller {
         $this->view->addJsLangVars(['FILE_LIST_RENAME_NEWNAME', 'SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START', 'FILE_LIST_ADDTOINDEX']);
 
         $this->view->assign('searchCombination', array(
-            $this->lang->translate('ARTICLE_SEARCH_LOGICAND') => 0,
-            $this->lang->translate('ARTICLE_SEARCH_LOGICOR') => 1
+            'ARTICLE_SEARCH_LOGICAND' => 0,
+            'ARTICLE_SEARCH_LOGICOR' => 1
         ));
 
+        $this->view->assign('mode', $this->mode);
         $this->view->assign('newUploader', $this->config->file_uploader_new);
         $this->view->assign('jquploadPath', \fpcm\classes\dirs::getLibUrl('jqupload/'));
         $this->view->addJsFiles(['filemanager.js', 'fileuploader.js']);
@@ -181,7 +181,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
         if ($this->mode === 1) {
             $this->view->addButtons([
-                (new \fpcm\view\helper\checkbox('fpcm-select-all')),
+                (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true),
                 (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)
             ]);
 
