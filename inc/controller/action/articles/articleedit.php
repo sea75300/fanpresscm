@@ -142,11 +142,10 @@ class articleedit extends articlebase {
         $this->view->assign('editorMode', 1);
         $this->view->assign('showRevisions', true);
         $this->view->assign('postponedTimer', $this->article->getCreatetime());
-        $this->view->assign('users', $this->userList->getUsersByIds(array($this->article->getCreateuser(), $this->article->getChangeuser())));
         $this->view->assign('commentCount', array_sum($this->commentList->countComments([$this->article->getId()])));
         $this->view->assign('commentsMode', 2);
         $this->view->assign('revisionCount', $this->article->getRevisionsCount());
-
+        
         $this->view->addDataView(new \fpcm\components\dataView\dataView('commentlist', false));
         $this->view->addDataView(new \fpcm\components\dataView\dataView('revisionslist', false));
 
@@ -189,6 +188,25 @@ class articleedit extends articlebase {
 
             $this->view->addButton((new \fpcm\view\helper\linkButton('backToArticel'))->setUrl($this->article->getEditLink())->setText('EDITOR_BACKTOCURRENT')->setIcon('chevron-circle-left'), 2);
         } else {
+
+            $users = $this->userList->getUsersByIds([
+                $this->article->getCreateuser(),
+                $this->article->getChangeuser()
+            ]);
+            
+            $createUser = isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : null;
+            $changeUser = isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : null;
+            
+            $this->view->assign('createInfo', $this->lang->translate('EDITOR_AUTHOREDIT', [
+                '{{username}}' => $createUser ? $createUser->getDisplayname() : $this->lang->translate('GLOBAL_NOTFOUND'),
+                '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())           
+            ]));
+
+            $this->view->assign('changeInfo', $this->lang->translate('EDITOR_LASTEDIT', [
+                '{{username}}' => $changeUser ? $changeUser->getDisplayname() : $this->lang->translate('GLOBAL_NOTFOUND'),
+                '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
+            ]));
+            
             $this->view->addButtons([
                 (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($this->article)->setTarget('_blank')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
                 (new \fpcm\view\helper\linkButton('shortlink'))->setUrl($this->article->getArticleShortLink())->setText('EDITOR_ARTICLE_SHORTLINK')->setIcon('external-link')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
@@ -328,10 +346,38 @@ class articleedit extends articlebase {
         $this->revisionArticle = clone $this->article;
 
         if (!$this->revisionId) {
-            $this->revisionId = (int) $this->getRequestVar('rev');
+            $this->revisionId = $this->getRequestVar('rev', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
         }
 
         $this->showRevision = ($this->revisionArticle->getRevision($this->revisionId) ? true : false);
+        
+        $users = $this->userList->getUsersByIds([
+            $this->article->getCreateuser(),
+            $this->article->getChangeuser(),
+            $this->revisionArticle->getCreateuser(),
+            $this->revisionArticle->getChangeuser(),
+        ]);
+        
+        $this->view->assign('createInfoOrg', $this->lang->translate('EDITOR_AUTHOREDIT', [
+            '{{username}}' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()]->getDisplayname() : $theView->translate('GLOBAL_NOTFOUND'),
+            '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())           
+        ]));
+
+        $this->view->assign('changeInfoOrg', $this->lang->translate('EDITOR_LASTEDIT', [
+            '{{username}}' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()]->getDisplayname() : $theView->translate('GLOBAL_NOTFOUND'),
+            '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
+        ]));
+        
+        $this->view->assign('createInfoRev', $this->lang->translate('EDITOR_AUTHOREDIT', [
+            '{{username}}' => isset($users[$this->revisionArticle->getCreateuser()]) ? $users[$this->revisionArticle->getCreateuser()]->getDisplayname() : $theView->translate('GLOBAL_NOTFOUND'),
+            '{{time}}'     => new \fpcm\view\helper\dateText($this->revisionArticle->getCreatetime())           
+        ]));
+
+        $this->view->assign('changeInfoRev', $this->lang->translate('EDITOR_LASTEDIT', [
+            '{{username}}' => isset($users[$this->revisionArticle->getChangeuser()]) ? $users[$this->revisionArticle->getChangeuser()]->getDisplayname() : $theView->translate('GLOBAL_NOTFOUND'),
+            '{{time}}'     => new \fpcm\view\helper\dateText($this->revisionArticle->getChangetime())
+        ]));
+        
 
         $from   = $this->revisionArticle->getContent();
         $opcode = \FineDiff::getDiffOpcodes($from, $this->article->getContent(), \FineDiff::$characterGranularity);

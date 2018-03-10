@@ -1,1 +1,1 @@
-<script>Object.assign(fpcm, <?php print json_encode($theView->varsJs); ?>);</script>
+<script>jQuery.extend(fpcm, <?php print json_encode($theView->varsJs); ?>);</script>

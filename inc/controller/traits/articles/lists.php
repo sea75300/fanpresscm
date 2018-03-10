@@ -246,7 +246,7 @@ trait lists {
                     $metaDataIcons[] = (new \fpcm\view\helper\icon('file-text-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getDraft())->setText('EDITOR_STATUS_DRAFT')->setStack('square');
                 }
 
-                $metaDataIcons[] = (new \fpcm\view\helper\icon('clock-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getPostponed())->setText($desc)->setStack('square');
+                $metaDataIcons[] = (new \fpcm\view\helper\icon('calendar-plus-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getPostponed())->setText($desc)->setStack('square');
                 $metaDataIcons[] = (new \fpcm\view\helper\icon('thumbs-o-up fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getApproval())->setText('EDITOR_STATUS_APPROVAL')->setStack('square');
 
                 if ($this->config->system_comments_enabled) {
@@ -303,14 +303,18 @@ trait lists {
 
         $notFound = $this->lang->translate('GLOBAL_NOTFOUND');
 
+        
+        
         return implode('', [
             '<span class="fpcm-ui-font-small fpcm-ui-block fpcm-ui-">',
+            new \fpcm\view\helper\icon('calendar'),
             $this->lang->translate('EDITOR_AUTHOREDIT', [
                 '{{username}}' => isset($createuser[0]) ? $createuser[0] : $notFound,
                 '{{time}}' => (string) new \fpcm\view\helper\dateText($article->getCreatetime())
             ]),
             '</span>',
             '<span class="fpcm-ui-font-small fpcm-ui-block">',
+            new \fpcm\view\helper\icon('clock-o'),
             $this->lang->translate('EDITOR_LASTEDIT', [
                 '{{username}}' => isset($changeuser[0]) ? $changeuser[0] : $notFound,
                 '{{time}}' => (string) new \fpcm\view\helper\dateText($article->getChangetime())
@@ -348,8 +352,8 @@ trait lists {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2),
-            (new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE'))->setSize(4),
-            (new \fpcm\components\dataView\column('categories', 'HL_CATEGORIES_MNG'))->setSize(3)->setAlign('center'),
+            (new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE'))->setSize('4 col-sm-12'),
+            (new \fpcm\components\dataView\column('categories', 'HL_CATEGORIES_MNG'))->setSize('3 col-sm-12')->setAlign('center'),
             (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
         ];
     }

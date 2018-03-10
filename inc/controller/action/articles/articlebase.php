@@ -137,7 +137,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->view->assign('changeAuthor', $changeAuthor);
         if ($changeAuthor) {
             $userlist = new \fpcm\model\users\userList();
-            $changeuserList = array($this->lang->translate('EDITOR_CHANGEAUTHOR') => '') + $userlist->getUsersNameList();
+            $changeuserList = ['EDITOR_CHANGEAUTHOR' => ''] + $userlist->getUsersNameList();
             $this->view->assign('changeuserList', $changeuserList);
         }
 
@@ -147,7 +147,6 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
         $this->view->assign('showArchiveStatus', true);
         $this->view->assign('showDraftStatus', true);
-        $this->view->assign('timesMode', false);
         $this->view->assign('userfields', $this->getUserFields());
 
         $twitter    = new \fpcm\model\system\twitter();
@@ -225,6 +224,10 @@ class articlebase extends \fpcm\controller\abstracts\controller {
             $this->article->setTweetOverride($data['tweettxt']);
         }
 
+        if (!$this->article->getId()) {
+            $this->article->setCreatetime($allTimer);
+        }
+
         $this->article->setChangetime($allTimer);
         $this->article->setChangeuser($this->session->getUserId());
         $this->article->setMd5path($this->article->getArticleNicePath());
@@ -253,7 +256,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
 
         $cats = $this->categoryList->getCategoriesCurrentUser();
 
-        $categories = isset($data['categories']) ? array_map('intval', $data['categories']) : array(array_shift($cats)->getId());
+        $categories = isset($data['categories']) && is_array($data['categories']) ? array_map('intval', $data['categories']) : [array_shift($cats)->getId()];
         $this->article->setCategories($categories);
 
         if (isset($data['postponed']) && !isset($data['archived'])) {
@@ -278,21 +281,18 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->article->setPinned(isset($data['pinned']) ? 1 : 0);
         $this->article->setDraft(isset($data['draft']) ? 1 : 0);
         $this->article->setComments(isset($data['comments']) ? 1 : 0);
-        $this->article->setApproval($this->permissions->check(array('article' => 'approve')) ? 1 : 0);
+        $this->article->setApproval($this->permissions->check(['article' => 'approve']) ? 1 : 0);
         $this->article->setImagepath(isset($data['imagepath']) ? $data['imagepath'] : '');
         $this->article->setSources(isset($data['sources']) ? $data['sources'] : '');
 
-        if (isset($data['archived'])) {
-            $this->article->setArchived(1);
+        $this->article->setArchived(isset($data['archived']) ? 1 : 0);
+        if ($this->article->getArchived()) {
             $this->article->setPinned(0);
             $this->article->setDraft(0);
-        } else {
-            $this->article->setArchived(0);
         }
-
-        if (isset($data['author']) && trim($data['author'])) {
-            $this->article->setCreateuser($data['author']);
-        }
+        
+        $authorId = (isset($data['author']) && trim($data['author']) ? $data['author'] : $this->session->getUserId());
+        $this->article->setCreateuser($authorId);
 
         return true;
     }

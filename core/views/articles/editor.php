@@ -24,30 +24,38 @@
         <div id="tabs-article">
             <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-filemanager"></div>            
 
-            <?php if ($editorMode) : ?>
-            <div class="row fpcm-ui-editor-metabox fpcm-ui-padding-md-tb">
-                <div class="col-sm-12 col-md-6 fpcm-ui-font-small">
-                    <?php include $theView->getIncludePath('articles/times.php'); ?>
+            <?php if ($isRevision) : ?>            
+                <?php include $theView->getIncludePath('articles/editors/revisiondiff.php'); ?>
+            <?php else : ?>
+                <div class="row fpcm-ui-padding-md-tb"><?php $theView->textInput('article[title]')->setValue($article->getTitle()); ?></div>
+
+                <?php if ($editorMode) : ?>
+                <div class="row fpcm-ui-editor-metabox fpcm-ui-padding-md-tb">
+                    <div class="col-sm-12 col-md-6 fpcm-ui-font-small">
+                        <?php include $theView->getIncludePath('articles/times.php'); ?>
+                    </div>
+                    <div class="col-sm-12 col-md-6 fpcm-ui-align-right">
+                        <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
+                    </div>
                 </div>
-                <div class="col-sm-12 col-md-6 fpcm-ui-align-right">
-                    <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
+                <?php endif; ?>
+
+                <div class="row fpcm-ui-padding-md-tb fpcm-ui-editor-categories">
+                    <?php $fieldname = 'article[categories][]'; ?>
+                    <?php include $theView->getIncludePath('articles/categories.php'); ?>
                 </div>
-            </div>
+
+                <?php include \fpcm\components\components::getArticleEditor()->getEditorTemplate(); ?>
+                <?php include $theView->getIncludePath('articles/buttons.php'); ?>
             <?php endif; ?>
-            
-
-            <div class="row fpcm-ui-padding-md-tb"><?php $theView->textInput('article[title]')->setValue($article->getTitle()); ?></div>
-            <div class="row fpcm-ui-padding-md-tb fpcm-ui-editor-categories">
-                <?php $fieldname = 'article[categories][]'; ?>
-                <?php include $theView->getIncludePath('articles/categories.php'); ?>
-            </div>
-
-            <?php include \fpcm\components\components::getArticleEditor()->getEditorTemplate(); ?>
-            <?php include $theView->getIncludePath('articles/buttons.php'); ?>
         </div>
 
         <?php $theView->pageTokenField('pgtkn'); ?>
     </div>
 </div>
 
-<?php if ($showComments && !$isRevision) : ?><?php include $theView->getIncludePath('comments/massedit.php'); ?><?php endif; ?>
+<?php if ($showComments && !$isRevision) : ?>
+    <?php include $theView->getIncludePath('comments/massedit.php'); ?>
+    <!-- Shortlink layer -->  
+    <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-shortlink"></div>
+<?php endif; ?>

@@ -102,26 +102,26 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
     protected $isUtf8 = true;
 
     /**
-     * Konstruktor
+     * 
+     * @return boolean
      */
-    public function __construct()
+    protected function initActionObjects()
     {
-        parent::__construct();
-
         $this->articleList  = new \fpcm\model\articles\articlelist();
         $this->commentList  = new \fpcm\model\comments\commentList();
         $this->categoryList = new \fpcm\model\categories\categoryList();
         $this->template     = new \fpcm\model\pubtemplates\article($this->config->articles_template_active);
         $this->userList     = \fpcm\classes\loader::getObject('\fpcm\model\users\userList');
+        return true;
     }
 
+    
     /**
      * Request-Handler
      * @return boolean
      */
     public function request()
     {
-
         if ($this->ipList->ipIsLocked()) {
             $this->view->addErrorMessage('ERROR_IP_LOCKED');
             $this->view->assign('systemMode', $this->config->system_mode);

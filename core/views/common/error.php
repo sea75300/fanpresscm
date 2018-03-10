@@ -8,11 +8,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="<?php print $theView->themePath; ?>favicon.png" type="image/png" /> 
         <?php include_once 'includefiles.php'; ?>
+        <?php include_once 'vars.php'; ?>
+
     </head>  
 
     <body class="fpcm-body" id="fpcm-body">
-
-        <?php include_once 'vars.php'; ?>
 
         <div class="wrapper">
             <div class="fpcm-ui-center fpcm-ui-errorbox fpcm-ui-background-white-50p" id="fpcm-ui-errorbox">

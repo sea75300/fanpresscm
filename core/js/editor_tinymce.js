@@ -126,6 +126,11 @@ fpcm.editor_tinymce = {
 };
 
 if (fpcm.editor) {
+    
+    fpcm.editor.initToolbar = function () {
+        return true;
+    };
+    
     fpcm.editor.insertThumbByEditor = function (url, title) {
         top.tinymce.activeEditor.windowManager.getParams().oninsert(url, {
             alt: title,

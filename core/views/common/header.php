@@ -8,6 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="shortcut icon" href="<?php print $theView->themePath; ?>favicon.png" type="image/png" /> 
         <?php include_once 'includefiles.php'; ?>
+        <?php include_once 'vars.php'; ?>
+
     </head>    
 
     <body class="fpcm-body" id="fpcm-body">
@@ -15,8 +17,6 @@
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data"><?php endif; ?>
 
         <div class="row fpcm-ui-position-absolute fpcm-ui-position-left-0 fpcm-ui-position-right-0 fpcm-ui-position-top-0 fpcm-ui-position-bottom-0">
-
-            <?php include_once 'vars.php'; ?>
 
             <div id="fpcm-messages" class="fpcm-messages"></div>
             <?php if (!empty($includeManualCheck)) : ?>

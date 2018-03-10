@@ -29,7 +29,7 @@
     <?php if (!$editorMode || $article->getPostponed()) : ?>
 
     <div class="row fpcm-ui-padding-md-tb">
-        <div class="col-sm-12 col-md-3"><?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed())->setIcon('clock-o'); ?></div>
+        <div class="col-sm-12 col-md-3"><?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed())->setIcon('calendar-plus-o'); ?></div>
         <div class="col-sm-12 col-md-3">
             <?php $theView->textInput('article[postponedate]')->setClass('fpcm-ui-datepicker')->setValue($theView->dateText($postponedTimer, 'Y-m-d'))->setWrapperClass('fpcm-ui-datepicker-inputwrapper'); ?>
         </div>
@@ -64,7 +64,7 @@
 
     <?php if ($changeAuthor) : ?>
     <div class="row fpcm-ui-padding-md-tb">
-        <div class="col-3"><?php $theView->select('article[author]')->setOptions($changeuserList)->setSelected($article->getCreateuser()); ?></div>
+        <div class="col-3"><?php $theView->select('article[author]')->setOptions($changeuserList)->setSelected($article->getCreateuser())->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?></div>
     </div>
     <?php endif; ?>
 

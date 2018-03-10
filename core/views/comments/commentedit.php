@@ -1,5 +1,5 @@
 <?php if ($commentsMode == 2) : ?>
-<div class="fpcm-dialog-wrapper">
+<div class="fpcm-ui-inner-wrapper">
 <?php elseif($commentsMode == 1) : ?>
 <div class="fpcm-content-wrapper">
     <div class="fpcm-tabs-general">

@@ -28,20 +28,17 @@ class pubController extends controller {
         return $this->hasActiveModule();
     }
     
-    protected function initView()
-    {
-        parent::initView();
-        $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
-        return true;
-    }
-
-    
     /**
      * Controller-Processing
      * @return boolean
      */
     public function process()
     {
+        if ($this->config->system_mode) {
+            $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
+        }
+        
+
         $showToolbars = false;
         $permAdd = false;
         $permEditOwn = false;

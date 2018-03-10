@@ -190,6 +190,14 @@ div.fpcm-status-info ul.fpcm-menu-top li ul,
     padding: 0.4em;
 }
 
+.fpcm-ui-padding-none-left {
+    padding-left: 0;
+}
+
+.fpcm-ui-padding-none-right {
+    padding-right: 0;
+}
+
 .fpcm-ui-padding-none-lr {
     padding-left: 0;
     padding-right: 0;

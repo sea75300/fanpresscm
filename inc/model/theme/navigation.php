@@ -230,7 +230,7 @@
                     'permission'        => array('system' => 'ipaddr'),
                     'description'       => $this->language->translate('HL_OPTIONS_IPBLOCKING'),
                     'id'                => 'nav-item-ips',
-                    'icon'              => 'fa fa-unlock fa-fw'
+                    'icon'              => 'fa fa-globe fa-fw'
                 ]),
                 navigationItem::createItemFromArray([
                     'url'               => 'wordban/list',

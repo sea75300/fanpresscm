@@ -1,9 +1,12 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="row fpcm-ui-editor-metabox fpcm-ui-padding-md-tb">
     <div class="col-sm-12 col-md-6 fpcm-ui-font-small">
+        <?php $theView->icon('calendar'); ?>
         <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
         <?php $theView->dateText($comment->getCreatetime()); ?><br>
+        <?php $theView->icon('clock-o'); ?> 
         <?php print $changeInfo; ?><br>
+        <?php $theView->icon('globe'); ?> 
         <strong><?php $theView->write('COMMMENT_IPADDRESS'); ?>:</strong>
         <?php print $comment->getIpaddress(); ?>                    
         <?php if ($ipWhoisLink) : ?>(<a href="http://www.whois.com/whois/<?php print $comment->getIpaddress(); ?>" target="_blank">Whois</a>)<?php endif; ?>
