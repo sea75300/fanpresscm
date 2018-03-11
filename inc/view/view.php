@@ -189,7 +189,7 @@ class view {
 
         $this->addJsLangVars([
             'GLOBAL_CONFIRM', 'GLOBAL_CLOSE', 'GLOBAL_OK', 'GLOBAL_YES', 'GLOBAL_NO', 'GLOBAL_SAVE', 'GLOBAL_CLOSE',
-            'GLOBAL_OPENNEWWIN', 'GLOBAL_EXTENDED', 'GLOBAL_EDIT_SELECTED', 'SAVE_FAILED_ARTICLES',
+            'GLOBAL_OPENNEWWIN', 'GLOBAL_EXTENDED', 'GLOBAL_EDIT_SELECTED', 'GLOBAL_NOTFOUND', 'SAVE_FAILED_ARTICLES',
             'AJAX_REQUEST_ERROR', 'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK', 'SELECT_ITEMS_MSG'
         ]);
 
@@ -304,6 +304,15 @@ class view {
     public function addJsVars(array $jsvars)
     {
         $this->jsvars = array_merge($this->jsvars, $jsvars);
+    }
+
+    /**
+     * Merge new JS vars
+     * @param mixed $jsvars
+     */
+    protected function mergeJsVars($jsVar, array $jsvars)
+    {
+        $this->jsvars[$jsVar] = array_merge($this->jsvars[$jsVar], $jsvars[$jsVar]);
     }
 
     /**
@@ -683,8 +692,14 @@ class view {
     public function addDataView(\fpcm\components\dataView\dataView $dataView)
     {
         $vars = $dataView->getJsVars();
+        
         if (count($vars)) {
-            $this->addJsVars($vars);
+            if (isset($this->jsvars['dataviews'])) {
+                $this->mergeJsVars('dataviews', $vars);
+            }
+            else {
+                $this->addJsVars($vars);
+            }
         }
 
         $files = $dataView->getJsFiles();

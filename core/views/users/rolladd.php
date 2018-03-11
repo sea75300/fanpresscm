@@ -1,3 +1,4 @@
+<?php /* @var $theView fpcm\view\viewVars */ ?>
 <div class="fpcm-content-wrapper">
     <div class="fpcm-tabs-general">
         <ul>
@@ -5,14 +6,16 @@
         </ul>            
 
         <div id="tabs-roll">
-            <table class="fpcm-ui-table">
-                <tr>
-                    <td><?php $theView->write('USERS_ROLLS_NAME'); ?>:</td>
-                    <td>
-                        <?php \fpcm\view\helper::textInput('rollname'); ?>
-                    </td>
-                </tr>      
-            </table>
+            
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('USERS_ROLLS_NAME'); ?>:
+                </div>
+                <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
+                    <?php $theView->textInput('rollname'); ?>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

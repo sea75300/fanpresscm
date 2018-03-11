@@ -104,7 +104,6 @@ ol.list-large li {
 /* .CSS-Klassen und #IDs */
 
 div.fpcm-status-info ul.fpcm-menu-top #fpcm-ui-showmenu-li,
-span.fpcm-ui-badge.fpcm-ui-badge-comments,
 .fpcm-ui-permissions-container,
 .fpcm-ui-progressbar-label,
 .fpcm-updater-list span.fa,
@@ -121,6 +120,8 @@ div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1,
 
 .fpcm-ui-iplist-metabox-right,
 div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2,
+span.fpcm-ui-badge.fpcm-ui-badge-comments,
+span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
 .fpcm-ui-float-none {
     float: none;
 }
@@ -143,6 +144,8 @@ div.fpcm-status-info ul.fpcm-menu-top li:hover ul,
     display: block;
 }
 
+span.fpcm-ui-badge.fpcm-ui-badge-comments,
+span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
 .fpcm-ui-input-wrapper,
 .fpcm-ui-inline-block {
     display: inline-block;
@@ -1083,11 +1086,11 @@ span.fpcm-ui-badge.fpcm-ui-badge-red {
 span.fpcm-ui-badge.fpcm-ui-badge-comments,
 span.fpcm-ui-badge.fpcm-ui-badge-userarticles {
     font-size: 0.9em;
-    min-width: 3em;
-    margin-top: 1.3em;
+    min-width: 4em;
     line-height: 2em;
     padding: 0em 0.5em;
 }
+
 
 /* jQuery UI Hooks */
 #fpcm-dialog-editor-extended.fpcm-editor-dialog .fpcm-ui-editor-postpone div.fpcm-ui-input-wrapper,

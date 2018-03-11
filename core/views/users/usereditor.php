@@ -1,75 +1,102 @@
-<table class="fpcm-ui-table fpcm-ui-options">
-    <tr>
-        <td><?php $theView->write('GLOBAL_USERNAME'); ?>:</td>
-        <td>
-            <?php if (isset($inProfile) && $inProfile) : ?>
-                <?php \fpcm\view\helper::textInput('username','',$author->getUserName(), true); ?>
-            <?php else : ?>                
-                <?php \fpcm\view\helper::textInput('username','',$author->getUserName()); ?>
-            <?php endif; ?>
-        </td>
-    </tr>
-    <tr>
-        <td><?php $theView->write('GLOBAL_PASSWORD'); ?>:</td>
-        <td>
-            <?php \fpcm\view\helper::textInput('password', 'fpcm-usereditor-password') ?>
-            <?php \fpcm\view\helper::linkButton('#', 'USERS_PASSGEN', 'generatepasswd', 'fpcm-ui-button-blank fpcm-passgen-btn'); ?>
-            <?php $theView->shorthelpButton('dtmask')->setText('USERS_REQUIREMENTS'); ?>
-        </td>
-    </tr>
-    <tr>
-        <td><?php $theView->write('USERS_PASSWORD_CONFIRM'); ?>:</td>
-        <td><?php \fpcm\view\helper::textInput('password_confirm'); ?></td>
-    </tr>                
-    <tr>
-        <td><?php $theView->write('USERS_DISPLAYNAME'); ?>:</td>
-        <td><?php \fpcm\view\helper::textInput('displayname','',$author->getDisplayName()); ?></td>
-    </tr>
-    <tr>
-        <td><?php $theView->write('GLOBAL_EMAIL'); ?>:</td>
-        <td><?php \fpcm\view\helper::textInput('email','',$author->getEmail()); ?></td>
-    </tr>
-    <tr>
-        <td><?php $theView->write('USERS_ROLL'); ?>:</td>
-        <td>
-            <?php if (isset($inProfile) && $inProfile) : ?>
-                <?php \fpcm\view\helper::select('roll', $userRolls, $author->getRoll(), false, false, true); ?>
-            <?php else : ?>                
-                <?php \fpcm\view\helper::select('roll', $userRolls, $author->getRoll(), false, false); ?>
-            <?php endif; ?>                
-        </td>
-    </tr>
-    <?php if ($showExtended) : ?>
-    <tr>
-        <td class="fpcm-align-top"><?php $theView->write('USERS_BIOGRAPHY'); ?>:</td>
-        <td><?php \fpcm\view\helper::textArea('usrinfo','fpcm-ui-half-width fpcm-ui-textarea-medium',$author->getUsrinfo()); ?></td>
-    </tr>
-        <?php if ($showImage) : ?>
-        <tr>
-            <td class="fpcm-align-top"><?php $theView->write('USERS_AVATAR'); ?>:</td>
-            <td>
-                
-                <div class="fpcm-ui-controlgroup fpcm-ui-marginbottom-lg" id="user_profile_image_buttons">
-                    <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
-                    <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('cloud-upload'); ?>
-                    <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>
-                    <?php $theView->deleteButton('fileDelete')->setClass('fpcm-ui-button-confirm'); ?>
-                    <input type="file" name="files" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
-                </div>
+<?php /* @var $theView fpcm\view\viewVars */ ?>
+<div class="row fpcm-ui-padding-md-tb">
+    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+        <?php $theView->write('USERS_DISPLAYNAME'); ?>:
+    </div>
+    <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
+        <?php $theView->textInput('displayname')->setValue($author->getDisplayName()); ?>
+    </div>
+</div>
 
-                <p><?php if ($avatar) : ?><img src="<?php print $avatar; ?>"><?php else: ?><?php $theView->write('GLOBAL_NOTFOUND'); ?><?php endif; ?></p>
-            </td>
-        </tr>
-        <?php endif; ?>
-    <?php endif; ?>
-    <?php if ($showDisableButton) : ?>
-    <tr>
-        <td><?php $theView->write('GLOBAL_DISABLE'); ?>:</td>
-        <td>
-            <?php $theView->boolSelect('disabled')->setSelected($author->getDisabled()); ?>              
-        </td>
-    </tr>
-    <?php endif; ?>
-</table>
+<div class="row fpcm-ui-padding-md-tb">
+    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+        <?php $theView->write('GLOBAL_USERNAME'); ?>:
+    </div>
+    <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
+        <?php $theView->textInput('username')->setValue($author->getUserName())->setReadonly((isset($inProfile) && $inProfile)); ?>
+    </div>
+</div>
+
+<div class="row fpcm-ui-padding-md-tb">
+    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+        <?php $theView->write('GLOBAL_PASSWORD'); ?>:
+    </div>
+    <div class="col-sm-11 col-md-6 fpcm-ui-padding-none-lr">
+        <?php $theView->textInput('password'); ?>
+    </div>
+    <div class="col-auto">
+        <?php $theView->button('genPasswd', 'genPasswd')->setText('USERS_PASSGEN')->setIcon('key')->setIconOnly(true); ?>
+        <?php $theView->shorthelpButton('dtmask')->setText('USERS_REQUIREMENTS'); ?>
+    </div>
+</div>
+
+<div class="row fpcm-ui-padding-md-tb">
+    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+        <?php $theView->write('USERS_PASSWORD_CONFIRM'); ?>:
+    </div>
+    <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
+        <?php $theView->textInput('password_confirm'); ?>
+    </div>
+</div>
+
+<div class="row fpcm-ui-padding-md-tb">
+    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+        <?php $theView->write('GLOBAL_EMAIL'); ?>:
+    </div>
+    <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
+        <?php $theView->textInput('email')->setValue($author->getEmail()); ?>
+    </div>
+</div>
+
+<div class="row fpcm-ui-padding-md-tb">
+    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+        <?php $theView->write('USERS_ROLL'); ?>:
+    </div>
+    <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
+        <?php $theView->select('roll')->setOptions($userRolls)->setSelected($author->getRoll())->setReadonly((isset($inProfile) && $inProfile)); ?>
+    </div>
+</div>
+
+<?php if ($showDisableButton) : ?>
+<div class="row fpcm-ui-padding-md-tb">
+    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+        <?php $theView->write('GLOBAL_DISABLE'); ?>:
+    </div>
+    <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
+        <?php $theView->boolSelect('disabled')->setSelected($author->getDisabled()); ?>
+    </div>
+</div>
+<?php endif; ?>
+
+<?php if ($showExtended) : ?>
+<div class="row fpcm-ui-padding-md-tb">
+    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+        <?php $theView->write('USERS_BIOGRAPHY'); ?>:
+    </div>
+    <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
+        <?php $theView->textarea('usrinfo')->setValue($author->getUsrinfo())->setClass('fpcm-ui-textarea-medium') ?>
+    </div>
+</div>
+
+<?php if ($showImage) : ?>
+<div class="row fpcm-ui-padding-md-tb">
+    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+        <?php $theView->write('USERS_AVATAR'); ?>:
+    </div>
+    <div class="col-sm-12 col-md-9 fpcm-ui-padding-none-lr">
+        <div class="fpcm-ui-controlgroup fpcm-ui-marginbottom-lg" id="user_profile_image_buttons">
+            <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
+            <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('cloud-upload'); ?>
+            <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>
+            <?php $theView->deleteButton('fileDelete')->setClass('fpcm-ui-button-confirm'); ?>
+            <input type="file" name="files" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
+        </div>
+
+        <p><?php if ($avatar) : ?><img src="<?php print $avatar; ?>"><?php else: ?><?php $theView->write('GLOBAL_NOTFOUND'); ?><?php endif; ?></p>
+    </div>
+</div>
+<?php endif; ?>
+
+<?php endif; ?>
 
 <?php $theView->pageTokenField('pgtkn'); ?>

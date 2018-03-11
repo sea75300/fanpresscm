@@ -259,11 +259,11 @@ trait lists {
 
                 $this->dataView->addRow(
                         new \fpcm\components\dataView\row([
-                            new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\checkbox('actions[' . ($article->getEditPermission() ? 'ids' : 'ro') . '][]', 'chbx' . $articleId))->setClass('fpcm-ui-list-checkbox fpcm-ui-list-checkbox-subitem' . $articleMonth)->setValue($articleId)->setReadonly(!$article->getEditPermission()), 'fpcm-ui-dataview-lineheight4', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                            new \fpcm\components\dataView\rowCol('button', implode('', $buttons), 'fpcm-ui-dataview-lineheight4 fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                            new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\checkbox('actions[' . ($article->getEditPermission() ? 'ids' : 'ro') . '][]', 'chbx' . $articleId))->setClass('fpcm-ui-list-checkbox fpcm-ui-list-checkbox-subitem' . $articleMonth)->setValue($articleId)->setReadonly(!$article->getEditPermission()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                            new \fpcm\components\dataView\rowCol('button', implode('', $buttons), 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                             new \fpcm\components\dataView\rowCol('title', implode(PHP_EOL, $title), 'fpcm-ui-ellipsis'),
                             new \fpcm\components\dataView\rowCol('categories', wordwrap(implode(', ', $article->getCategories()), 50, '<br>')),
-                            new \fpcm\components\dataView\rowCol('metadata', implode('', $metaDataIcons), 'fpcm-ui-dataview-lineheight4 fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                            new \fpcm\components\dataView\rowCol('metadata', implode('', $metaDataIcons), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                         ])
                 );
             }
@@ -283,7 +283,7 @@ trait lists {
 
         $privateUnapproved = (isset($this->commentPrivateUnapproved[$articleId]) && $this->commentPrivateUnapproved[$articleId] ? true : false);
 
-        $badge->setClass(($privateUnapproved ? 'fpcm-ui-badge-red fpcm-ui-badge-comments fpcm-ui--display-inlineblock' : 'fpcm-ui-badge-comments fpcm-ui--display-inlineblock'))
+        $badge->setClass(($privateUnapproved ? 'fpcm-ui-badge-red fpcm-ui-badge-comments' : 'fpcm-ui-badge-comments'))
                 ->setText(($privateUnapproved ? 'ARTICLE_LIST_COMMENTNOTICE' : 'HL_COMMENTS_MNG'))
                 ->setValue((isset($this->commentCount[$articleId]) ? $this->commentCount[$articleId] : 0))
                 ->setIcon('comments');

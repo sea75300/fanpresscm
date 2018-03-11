@@ -76,7 +76,7 @@ class userlist extends \fpcm\model\abstracts\dashcontainer {
 
             $content[] = '<tr class="fpcm-ui-font-small">';
             $content[] = '  <td class="fpcm-ui-editbutton-col">';
-            $content[] = (new \fpcm\view\helper\linkButton(uniqid('createMail')))->setUrl('mailto:' . $emailAddress)->setText('GLOBAL_WRITEMAIL')->setTarget('_blank')->setIcon('envelope-o')->setIconOnly(true);
+            $content[] = (new \fpcm\view\helper\linkButton(uniqid('createMail')))->setUrl('mailto:' . $emailAddress)->setText('GLOBAL_WRITEMAIL')->setTarget('_blank')->setIcon('envelope')->setIconOnly(true);
             $content[] = '  </td>';
             $content[] = '  <td>';
             $content[] = '  <strong>' . (new \fpcm\view\helper\escape($item->getDisplayname())) . '</strong><br>';

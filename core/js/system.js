@@ -33,7 +33,7 @@ fpcm.system = {
             return false;
         });
 
-        jQuery("#generatepasswd" ).click(function () {
+        jQuery("#genPasswd" ).click(function () {
             fpcm.system.generatePasswdString();
             return false;
         });

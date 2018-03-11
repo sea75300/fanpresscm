@@ -140,7 +140,6 @@ fpcm.editor = {
                 };
             },
             load: function(event, ui) {
-                //fpcm.editor.initCommentListActions();
                 var tabList = ui.tab.attr('data-dataview-list');                
                 if (!tabList) {
                     return true;
@@ -156,6 +155,7 @@ fpcm.editor = {
                 fpcm.dataview.updateAndRender(result.dataViewName, {
                     onRenderAfter: function () {
                         fpcm.ui.assignCheckboxes();
+                        fpcm.ui.assignControlgroups(),
                         fpcm.editor.initCommentListActions();
                     } 
                 });

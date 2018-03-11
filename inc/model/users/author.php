@@ -71,7 +71,7 @@
          * sha256-Hash des Salts
          * @var string
          */
-        protected $salt;
+        protected $salt = '';
         
         /**
          * Benutezrrolle

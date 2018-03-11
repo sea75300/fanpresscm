@@ -13,61 +13,34 @@ fpcm.users = {
 
     init: function() {
 
-        jQuery('#btnDeleteActive').click(function() {
-            return fpcm.users.initMoveDeleteArticles('btnDeleteActive');
-        });
-
-        jQuery('#btnDeleteDisabled').click(function() {
-            return fpcm.users.initMoveDeleteArticles('btnDeleteDisabled');
-        });
-        
-        jQuery('.fpcm-ui-rolllist-permissionedit').click(function() {
-
-            var sizes = fpcm.ui.getDialogSizes(top, 0.75);
-            var link  = jQuery(this).attr('href');
-
-            fpcm.ui.dialog({
-                id       : 'users-permissions-edit',
-                dlWidth  : sizes.width,
-                dlHeight : fpcm.ui.getDialogSizes(top, 0.75).height,
-                resizable: true,
-                title    : fpcm.ui.translate('HL_OPTIONS_PERMISSIONS'),
-                dlButtons  : [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_SAVE'),
-                        icon: "ui-icon-disk",                        
-                        click: function() {
-                            jQuery(this).children('iframe').contents().find('#btnPermissionsSave').trigger('click');
-                            fpcm.ui.showLoader(false);
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                    
-                        click: function() {
-                            jQuery(this).dialog('close');
-                            fpcm.ui.showLoader(false);
-                        }
-                    }                            
-                ],
-                dlOnOpen: function (event, ui) {                
-                    fpcm.ui.appendHtml(this, '<iframe class="fpcm-full-width"  src="' + link + '"></iframe>');
-                },
-                dlOnClose: function( event, ui ) {
-                    jQuery(this).empty();
-                }
-            });
-            
-            return false;
+        jQuery('#btnDeleteUser').click(function() {
+            return fpcm.users.initMoveDeleteArticles();
         });
         
         fpcm.ui.tabs('#fpcm-ui-tabs-users', {
             addMainToobarToggle: true
         });
 
+        if (fpcm.dataview.exists('userlist')) {
+            fpcm.dataview.render('userlist', {
+                onRenderAfter: function() {
+                    fpcm.ui.assignControlgroups();
+                }
+            });
+        };
+        
+        if (fpcm.dataview.exists('rollslist')) {
+            fpcm.dataview.render('rollslist', {
+                onRenderAfter: function() {
+                    fpcm.ui.assignControlgroups();
+                    fpcm.users.initPermissionEdit();
+                }
+            });
+        };
+
     },
     
-    initMoveDeleteArticles: function(clickBtn) {
+    initMoveDeleteArticles: function() {
 
         if (fpcm.users.continueDelete) {
             return true;
@@ -98,7 +71,7 @@ fpcm.users = {
                                     icon: "ui-icon-check",                    
                                     click: function() {
                                         fpcm.users.continueDelete = true;
-                                        jQuery('#' + clickBtn).trigger('click');
+                                        jQuery('#btnDeleteUser').trigger('click');
                                         jQuery(this).dialog('close');
                                     }
                                 },
@@ -144,5 +117,47 @@ fpcm.users = {
 
         return false;
 
+    },
+    
+    initPermissionEdit: function () {
+        jQuery('.fpcm-ui-rolllist-permissionedit').click(function() {
+
+            var sizes = fpcm.ui.getDialogSizes(top, 0.75);
+            var link  = jQuery(this).attr('href');
+
+            fpcm.ui.dialog({
+                id       : 'users-permissions-edit',
+                dlWidth  : sizes.width,
+                dlHeight : fpcm.ui.getDialogSizes(top, 0.75).height,
+                resizable: true,
+                title    : fpcm.ui.translate('HL_OPTIONS_PERMISSIONS'),
+                dlButtons  : [
+                    {
+                        text: fpcm.ui.translate('GLOBAL_SAVE'),
+                        icon: "ui-icon-disk",                        
+                        click: function() {
+                            jQuery(this).children('iframe').contents().find('#btnPermissionsSave').trigger('click');
+                            fpcm.ui.showLoader(false);
+                        }
+                    },
+                    {
+                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                        icon: "ui-icon-closethick",                    
+                        click: function() {
+                            jQuery(this).dialog('close');
+                            fpcm.ui.showLoader(false);
+                        }
+                    }                            
+                ],
+                dlOnOpen: function (event, ui) {                
+                    fpcm.ui.appendHtml(this, '<iframe class="fpcm-full-width"  src="' + link + '"></iframe>');
+                },
+                dlOnClose: function( event, ui ) {
+                    jQuery(this).empty();
+                }
+            });
+
+            return false;
+        });
     }
 };
