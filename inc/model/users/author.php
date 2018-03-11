@@ -384,8 +384,7 @@
             $this->email = filter_var($this->email, FILTER_VALIDATE_EMAIL);
             if (!$this->email) return self::AUTHOR_ERROR_NOEMAIL;
             
-            $this->salt     = \fpcm\classes\security::createSalt();
-            $this->passwd   = \fpcm\classes\security::createPasswordHash($this->passwd, $this->salt);
+            $this->passwd   = \fpcm\classes\security::createUserPasswordHash($this->passwd);
             $this->disabled = 0;
             
             $params = $this->getPreparedSaveParams();
@@ -413,7 +412,7 @@
 
             if (!$this->passwordSecCheckDisabled()) {
                 if (!$this->checkPasswordSecure()) return self::AUTHOR_ERROR_PASSWORDINSECURE;                
-                $this->passwd = \fpcm\classes\security::createPasswordHash($this->passwd, $this->salt);
+                $this->passwd = \fpcm\classes\security::createUserPasswordHash($this->passwd);
             }
             
             $this->email = filter_var($this->email, FILTER_VALIDATE_EMAIL);
@@ -489,9 +488,7 @@
             $this->disablePasswordSecCheck();
             
             $password       = substr(str_shuffle(ucfirst(sha1($this->username).uniqid())), 0, rand(10,16));
-
-            $this->salt     = \fpcm\classes\security::createSalt($this->displayname.'-'.$this->username.'-'.$this->id);
-            $this->passwd   = \fpcm\classes\security::createPasswordHash($password, $this->salt);
+            $this->passwd   = \fpcm\classes\security::createUserPasswordHash($password);
             
             if ($resetOnly) {
                 return array(
@@ -500,7 +497,7 @@
                 );
             }
 
-            $text = $this->language->translate('PASSWORD_RESET_TEXT', array('{{newpass}}' => $password));
+            $text = $this->language->translate('PASSWORD_RESET_TEXT', ['{{newpass}}' => $password]);
             $email = new \fpcm\classes\email($this->email, $this->language->translate('PASSWORD_RESET_SUBJECT'), $text);
             $email->setHtml(true);
 

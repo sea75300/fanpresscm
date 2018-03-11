@@ -27,7 +27,7 @@ final class components {
             return false;
         }
         
-        return new $class();
+        return \fpcm\classes\loader::getObject($class);
     }
 
     /**

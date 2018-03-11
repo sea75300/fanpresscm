@@ -123,6 +123,17 @@ final class security {
     }
 
     /**
+     * Passwort-Hash erzeugen
+     * @param string $password
+     * @return string
+     * @since FPCM 4
+     */
+    public static function createUserPasswordHash($password)
+    {
+        return password_hash($password, PASSWORD_BCRYPT);
+    }
+
+    /**
      * Passwort-Salt erzeugen
      * @param string $additional
      * @return string
