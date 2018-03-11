@@ -63,14 +63,38 @@ class categorylist extends \fpcm\controller\abstracts\controller {
 
     public function process()
     {
+        $dataView = new \fpcm\components\dataView\dataView('categorylist');
+        $dataView->addColumns([
+            (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('icon', 'CATEGORIES_ICON_PATH'))->setSize(3),
+            (new \fpcm\components\dataView\column('name', 'CATEGORIES_NAME'))->setSize(3),
+            (new \fpcm\components\dataView\column('groups', 'CATEGORIES_ROLLS'))->setAlign('center'),
+        ]);
+        
+        
         $categoryList = $this->list->getCategoriesAll();
+        
+        /* @var $category \fpcm\model\categories\category */
+        foreach ($categoryList as $category) {
 
-        foreach ($categoryList as &$category) {
             $rolls = $this->rollList->getRollsbyIdsTranslated(explode(';', $category->getGroups()));
-            $category->setGroups(implode(', ', array_keys($rolls)));
+            
+            $dataView->addRow(
+                new \fpcm\components\dataView\row([
+                    new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\radiobutton('ids', 'ids'.$category->getId()))->setValue($category->getId()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                    new \fpcm\components\dataView\rowCol('button', (string) (new \fpcm\view\helper\editButton('editCat'))->setUrlbyObject($category) , '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                    new \fpcm\components\dataView\rowCol('icon', $category->getCategoryImage() ),
+                    new \fpcm\components\dataView\rowCol('name', (string) new \fpcm\view\helper\escape($category->getName())),
+                    new \fpcm\components\dataView\rowCol('groups', implode(', ', array_keys($rolls)))
+                ]
+            ));
+
         }
 
-        $this->view->assign('categorieList', $categoryList);
+        $this->view->addDataView($dataView);
+        $this->view->addJsFiles(['categories.js']);
+
         $this->view->setFormAction('categories/list');
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('categories/add'))->setText('CATEGORIES_ADD')->setIcon('file-o')->setClass('fpcm-loader'),

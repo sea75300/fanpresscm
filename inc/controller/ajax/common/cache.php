@@ -1,106 +1,110 @@
 <?php
+
+/**
+ * AJAX cache controller
+ * 
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\ajax\common;
+
+/**
+ * AJAX controller zum Cache leeren 
+ * 
+ * @package fpcm\controller\ajax\common\cache
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ */
+class cache extends \fpcm\controller\abstracts\ajaxController {
+
     /**
-     * AJAX cache controller
-     * 
-     * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+     *
+     * @var string
      */
-    namespace fpcm\controller\ajax\common;
-    
+    private $module;
+
     /**
-     * AJAX controller zum Cache leeren 
+     *
+     * @var string
+     */
+    private $objid;
+
+    /**
      * 
-     * @package fpcm\controller\ajax\common\cache
-     * @author Stefan Seehafer <sea75300@yahoo.de>
-     */    
-    class cache extends \fpcm\controller\abstracts\ajaxController {
-
-        /**
-         *
-         * @var string
-         */
-        private $module;
-
-        /**
-         *
-         * @var string
-         */
-        private $objid;
-
-        /**
-         * Request-Handler
-         * @return bool
-         */
-        public function request() {
-
-            if (!$this->session->exists()) {
-                return false;
-            }
-
-            $this->module = $this->getRequestVar('cache', [\fpcm\classes\http::FPCM_REQFILTER_URLDECODE, \fpcm\classes\http::FPCM_REQFILTER_DECRYPT]);
-            $this->objid  = $this->getRequestVar('objid', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
-
-            return true;
+     * @return boolean
+     */
+    public function hasAccess()
+    {
+        if (!is_object($this->session) || !$this->session->exists()) {
+            return false;
         }
         
-        /**
-         * Controller-Processing
-         * @return bool
-         */
-        public function process() {
-            
-
-            if ($this->module) {
-
-                $fn = 'cleanup'.ucfirst($this->module);
-                if (method_exists($this, $fn)) {
-                    call_user_func([$this, $fn]);
-                }
-
-            }
-            else {
-                $this->cache->cleanup();
-            }
-            
-            $this->events->runEvent('clearCache', [
-                'module' => $this->module,
-                'objid'  => $this->objid
-            ]);
-
-            $this->returnData = [
-                'txt'  => 'CACHE_CLEARED_OK',
-                'type' => 'notice',
-                'icon' => 'recycle'
-            ];
-
-            $this->getSimpleResponse();
-        }
-
-        /**
-         * 
-         * @return boolean
-         */
-        private function cleanupArticle() {
-
-            $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_SINGLE.$this->objid,
-                                  \fpcm\model\articles\article::CACHE_ARTICLE_MODULE);
-
-            return true;
-            
-        }
-
-        /**
-         * 
-         * @return boolean
-         */
-        private function cleanupArticles() {
-
-            $this->cache->cleanup(false, \fpcm\model\articles\article::CACHE_ARTICLE_MODULE);
-
-            return true;
-            
-        }
-
+        return true;
     }
+
+    /**
+     * Request-Handler
+     * @return bool
+     */
+    public function request()
+    {
+        $this->module = $this->getRequestVar('cache', [\fpcm\classes\http::FPCM_REQFILTER_URLDECODE, \fpcm\classes\http::FPCM_REQFILTER_DECRYPT]);
+        $this->objid = $this->getRequestVar('objid', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
+
+        return true;
+    }
+
+    /**
+     * Controller-Processing
+     * @return bool
+     */
+    public function process()
+    {
+        if ($this->module) {
+
+            $fn = 'cleanup' . ucfirst($this->module);
+            if (method_exists($this, $fn)) {
+                call_user_func([$this, $fn]);
+            }
+        } else {
+            $this->cache->cleanup();
+        }
+
+        $this->events->runEvent('clearCache', [
+            'module' => $this->module,
+            'objid' => $this->objid
+        ]);
+
+        $this->returnData = [
+            'txt' => 'CACHE_CLEARED_OK',
+            'type' => 'notice',
+            'icon' => 'recycle'
+        ];
+
+        $this->getSimpleResponse();
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    private function cleanupArticle()
+    {
+        $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/'.\fpcm\model\articles\article::CACHE_ARTICLE_SINGLE . $this->objid);
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    private function cleanupArticles()
+    {
+        $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/*');
+        return true;
+    }
+
+}
+
 ?>

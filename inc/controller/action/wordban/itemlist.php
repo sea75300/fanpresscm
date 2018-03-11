@@ -23,6 +23,11 @@ class itemlist extends \fpcm\controller\abstracts\controller {
         return 'wordban/itemlist';
     }
 
+    protected function getHelpLink()
+    {
+        return 'hl_options';
+    }
+
     public function request()
     {
 
@@ -63,11 +68,6 @@ class itemlist extends \fpcm\controller\abstracts\controller {
             (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')
         ]);
         $this->view->render();
-    }
-
-    protected function getHelpLink()
-    {
-        return 'hl_options';
     }
 
 }

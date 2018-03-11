@@ -79,7 +79,8 @@ fpcm.system = {
                 if (fpcm.ajax.getResult('session') != '0') {
                     return true;
                 }
-                fpcm.system.showSessionCheckDialog
+
+                fpcm.system.showSessionCheckDialog();
             },
             execFail: fpcm.system.showSessionCheckDialog,
         });
