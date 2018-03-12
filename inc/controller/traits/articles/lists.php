@@ -207,7 +207,7 @@ trait lists {
 
             $this->dataView->addRow(
                     new \fpcm\components\dataView\row([
-                        new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\checkbox('fpcm-ui-list-checkbox-sub', 'fpcm-ui-list-checkbox-sub' . $articleMonth))->setClass('fpcm-ui-list-checkbox-sub')->setValue($articleMonth), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                        new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('fpcm-ui-list-checkbox-sub', 'fpcm-ui-list-checkbox-sub' . $articleMonth))->setClass('fpcm-ui-list-checkbox-sub')->setValue($articleMonth), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                         new \fpcm\components\dataView\rowCol('button', ''),
                         new \fpcm\components\dataView\rowCol('title', $titleStr),
                         new \fpcm\components\dataView\rowCol('categories', ''),
@@ -259,7 +259,7 @@ trait lists {
 
                 $this->dataView->addRow(
                         new \fpcm\components\dataView\row([
-                            new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\checkbox('actions[' . ($article->getEditPermission() ? 'ids' : 'ro') . '][]', 'chbx' . $articleId))->setClass('fpcm-ui-list-checkbox fpcm-ui-list-checkbox-subitem' . $articleMonth)->setValue($articleId)->setReadonly(!$article->getEditPermission()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                            new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('actions[' . ($article->getEditPermission() ? 'ids' : 'ro') . '][]', 'chbx' . $articleId))->setClass('fpcm-ui-list-checkbox fpcm-ui-list-checkbox-subitem' . $articleMonth)->setValue($articleId)->setReadonly(!$article->getEditPermission()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                             new \fpcm\components\dataView\rowCol('button', implode('', $buttons), 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                             new \fpcm\components\dataView\rowCol('title', implode(PHP_EOL, $title), 'fpcm-ui-ellipsis'),
                             new \fpcm\components\dataView\rowCol('categories', wordwrap(implode(', ', $article->getCategories()), 50, '<br>')),
@@ -310,14 +310,14 @@ trait lists {
             new \fpcm\view\helper\icon('calendar'),
             $this->lang->translate('EDITOR_AUTHOREDIT', [
                 '{{username}}' => isset($createuser[0]) ? $createuser[0] : $notFound,
-                '{{time}}' => (string) new \fpcm\view\helper\dateText($article->getCreatetime())
+                '{{time}}' => new \fpcm\view\helper\dateText($article->getCreatetime())
             ]),
             '</span>',
             '<span class="fpcm-ui-font-small fpcm-ui-block">',
             new \fpcm\view\helper\icon('clock-o'),
             $this->lang->translate('EDITOR_LASTEDIT', [
                 '{{username}}' => isset($changeuser[0]) ? $changeuser[0] : $notFound,
-                '{{time}}' => (string) new \fpcm\view\helper\dateText($article->getChangetime())
+                '{{time}}' => new \fpcm\view\helper\dateText($article->getChangetime())
             ]),
             '</span>'
         ]);

@@ -80,6 +80,12 @@
          * @since FPCM 3.5.2
          */
         const FPCM_REQFILTER_URLDECODE = 11;
+
+        /**
+         * HTTP Filter base64_decode
+         * @since FPCM 4
+         */
+        const FPCM_REQFILTER_BASE64DECODE = 12;
         
         /**
          * HTTP-Reuqest aus $_REQUEST und $_COOKIE
@@ -200,16 +206,7 @@
          * Verwendung v. A. für Werte aus Formularen, etc.
          * 
          * @param string $filterString
-         * @param array $filters
-         * * 1 - strip_tags
-         * * 2 - htmlspecialchars
-         * * 3 - htmlentities
-         * * 4 - stripslashes
-         * * 5 - htmlspecialchars_decode
-         * * 6 - html_entity_decode
-         * * 7 - trim
-         * * 8 - json_decode
-         * * 9 - (int)-Cast
+         * @param array $filters @see FPCM_REQFILTER_* constants
          * 
          * * allowedtags - erlaubte HTML-Tags für "1 - strip_tags"
          * * mode - Modus für
@@ -226,8 +223,7 @@
             if (!$filterString) {
                 return $filterString;
             }
-            
-            
+
             if (is_array($filterString)) {  
                 foreach ($filterString as &$value) {
                     $value = static::filter($value, $filters);
@@ -273,6 +269,9 @@
                     break;
                     case self::FPCM_REQFILTER_URLDECODE :
                         $filterString = urldecode($filterString);
+                    break;
+                    case self::FPCM_REQFILTER_BASE64DECODE :
+                        $filterString = base64_decode($filterString);
                     break;
                 }
             }            

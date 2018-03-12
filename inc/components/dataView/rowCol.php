@@ -51,7 +51,7 @@ final class rowCol implements \JsonSerializable {
     public function __construct($name, $value = '', $class = '', $type = self::COLTYPE_VALUE)
     {
         $this->name  = $name;
-        $this->value = $value;
+        $this->value = (is_object($value) ? (string) $value : $value);
         $this->class = $class;
         $this->type  = (int) $type;
     }

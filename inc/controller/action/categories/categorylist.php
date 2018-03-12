@@ -82,10 +82,10 @@ class categorylist extends \fpcm\controller\abstracts\controller {
             
             $dataView->addRow(
                 new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\radiobutton('ids', 'ids'.$category->getId()))->setValue($category->getId()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                    new \fpcm\components\dataView\rowCol('button', (string) (new \fpcm\view\helper\editButton('editCat'))->setUrlbyObject($category) , '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                    new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('ids', 'ids'.$category->getId()))->setValue($category->getId()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                    new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\editButton('editCat'))->setUrlbyObject($category) , '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     new \fpcm\components\dataView\rowCol('icon', $category->getCategoryImage() ),
-                    new \fpcm\components\dataView\rowCol('name', (string) new \fpcm\view\helper\escape($category->getName())),
+                    new \fpcm\components\dataView\rowCol('name', new \fpcm\view\helper\escape($category->getName())),
                     new \fpcm\components\dataView\rowCol('groups', implode(', ', array_keys($rolls)))
                 ]
             ));

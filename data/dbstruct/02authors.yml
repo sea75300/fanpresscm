@@ -20,10 +20,6 @@ cols:
         type: varchar
         length: 255
         params: NOT NULL
-    salt:
-        type: varchar
-        length: 255
-        params: NOT NULL
     displayname:
         type: varchar
         length: 255

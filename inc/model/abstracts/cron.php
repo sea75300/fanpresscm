@@ -134,6 +134,14 @@
         public function getCronName() {
             return $this->cronName;
         }
+        
+        /**
+         * Gibt Sprachvariable zur Übersetzung des Cronjob-Namen zurück
+         * @return string
+         */
+        public function getCronNameLangVar() {
+            return 'CRONJOB_'.strtoupper($this->cronName);
+        }
                 
         /**
          * Gibt Status zurück, ob Cronjob aktuell asynchron ausgführt wird

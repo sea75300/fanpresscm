@@ -1,73 +1,101 @@
 <?php
-    /**
-     * Backup manager controller
-     * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     */
-    namespace fpcm\controller\action\system;
-    
-    class backups extends \fpcm\controller\abstracts\controller {
 
-        protected function getPermissions()
-        {
-            return ['system' => 'backups'];
-        }
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
 
-        protected function getViewPath()
-        {
-            return 'backups/overview';
-        }
+namespace fpcm\controller\action\system;
 
-        public function request() {
-            
-            if (!$this->session->exists()) {
-                $this->redirectNoSession();
-                return false;
-            }
-            
-            if ($this->getRequestVar('save')) {
-                $filePath = base64_decode(str_rot13($this->getRequestVar('save')));
-                $file = new \fpcm\model\files\dbbackup($filePath);
-                
-                if (!$file->exists()) {
-                    $this->view = new \fpcm\view\error('GLOBAL_NOTFOUND_FILE');
-                    return false;
-                }
+/**
+ * Backup manager controller
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+class backups extends \fpcm\controller\abstracts\controller {
 
-                header('Content-Description: File Transfer');
-                header('Content-Type: '.$file->getMimetype());
-                header('Content-Disposition: attachment; filename="'.$file->getFilename().'"');
-                header('Expires: 0');
-                header('Cache-Control: must-revalidate');
-                header('Pragma: public');
-                header('Content-Length: '.$file->getFilesize());
-                readfile($file->getFullpath());
-                exit;
-            }
-            
+    protected function getPermissions()
+    {
+        return ['system' => 'backups'];
+    }
+
+    protected function getViewPath()
+    {
+        return 'backups/overview';
+    }
+
+    protected function getHelpLink()
+    {
+        return 'hl_options';
+    }
+
+    public function request()
+    {
+        if (!$this->getRequestVar('save')) {
             return true;
         }
+
+        $filePath = $this->getRequestVar('save', [
+            \fpcm\classes\http::FPCM_REQFILTER_URLDECODE,
+            \fpcm\classes\http::FPCM_REQFILTER_BASE64DECODE
+        ]);
         
-        /**
-         * Controller-Processing
-         */
-        public function process() {
-            
+        $filePath = $this->crypt->decrypt($filePath);
+        $file = new \fpcm\model\files\dbbackup($filePath);
 
-            $folderList = new \fpcm\model\files\backuplist();            
-            $files      = $folderList->getFolderList();
-
-            rsort($files);
-            
-            $this->view->assign('folderList', $files);
-            $this->view->render();
+        if (!$file->exists()) {
+            $this->view = new \fpcm\view\error('GLOBAL_NOTFOUND_FILE');
+            return false;
         }
 
-        protected function getHelpLink()
-        {
-            return 'hl_options';
-        }
-        
+        header('Content-Description: File Transfer');
+        header('Content-Type: ' . $file->getMimetype());
+        header('Content-Disposition: attachment; filename="' . $file->getFilename() . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . $file->getFilesize());
+        readfile($file->getFullpath());
+        exit;
     }
+
+    /**
+     * Controller-Processing
+     */
+    public function process()
+    {
+        $folderList = new \fpcm\model\files\backuplist();
+        $files = $folderList->getFolderList();
+
+        rsort($files);
+        
+        $dataView = new \fpcm\components\dataView\dataView('backups');
+        $dataView->addColumns([
+            (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('name', 'FILE_LIST_FILENAME')),
+            (new \fpcm\components\dataView\column('size', 'FILE_LIST_FILESIZE'))->setSize(3),
+        ]);
+        
+        foreach ($files as $file) {
+            
+            $url = \fpcm\classes\tools::getFullControllerLink('system/backups', ['save' => urlencode( base64_encode( $this->crypt->encrypt(basename($file)) ) ) ] );
+            
+            $dataView->addRow(
+                new \fpcm\components\dataView\row([
+                    new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\linkButton('download'.md5(basename($file))))->setUrl($url)->setText('GLOBAL_DOWNLOAD')->setIconOnly(true)->setIcon('download') , '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                    new \fpcm\components\dataView\rowCol('name', basename($file)),
+                    new \fpcm\components\dataView\rowCol('size', \fpcm\classes\tools::calcSize(filesize($file)) ),
+                ]
+            ));
+
+        }
+        
+        $this->view->addDataView($dataView);
+        $this->view->addJsFiles(['backups.js']);
+        $this->view->render();
+    }
+
+}
+
 ?>

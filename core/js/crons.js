@@ -13,20 +13,26 @@ fpcm.crons = {
 
     init: function () {
 
-        jQuery('.fpcm-cronjoblist-exec').click(function () {
-            var cjId = jQuery(this).attr('id');
-            fpcm.crons.execCronjobDemand(cjId);
-            return false;
-        });
+        fpcm.dataview.render('cronlist', {
+            onRenderAfter: function () {
 
-        jQuery(".fpcm-cronjoblist-intervals" ).on("selectmenuchange", function(event, ui) {
+                jQuery('.fpcm-cronjoblist-exec').click(function () {
+                    var cjId = jQuery(this).attr('id');
+                    fpcm.crons.execCronjobDemand(cjId);
+                    return false;
+                });
+                
+                fpcm.ui.selectmenu(".fpcm-cronjoblist-intervals", {
+                    change: function(event, ui) {
+                        var cronjob  = jQuery(this).attr('id').split('_');
+                        var interval = jQuery(this).val();
+                        fpcm.crons.setCronjobInterval(cronjob[1], interval);
+                        return false;
+                    }
+                });
 
-            var cronjob  = jQuery(this).attr('id').split('_');
-            var interval = jQuery(this).val();
-
-            fpcm.crons.setCronjobInterval(cronjob[1], interval);
-            return false;
-        });
+            }
+        })
 
     },
 

@@ -198,11 +198,11 @@ class userlist extends \fpcm\controller\abstracts\controller {
 
                 $dataView->addRow(
                     new \fpcm\components\dataView\row([
-                        new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\radiobutton('userids', 'userids'.$userId))->setValue($userId)->setReadonly($noRb), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                        new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('userids', 'userids'.$userId))->setValue($userId)->setReadonly($noRb), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                         new \fpcm\components\dataView\rowCol('button', implode('', $buttons), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                        new \fpcm\components\dataView\rowCol('username', (string) new \fpcm\view\helper\escape($user->getDisplayname()) ),
-                        new \fpcm\components\dataView\rowCol('email', (string) new \fpcm\view\helper\escape($user->getEmail())),
-                        new \fpcm\components\dataView\rowCol('registered', (string) new \fpcm\view\helper\dateText($user->getRegistertime())),
+                        new \fpcm\components\dataView\rowCol('username', new \fpcm\view\helper\escape($user->getDisplayname()) ),
+                        new \fpcm\components\dataView\rowCol('email', new \fpcm\view\helper\escape($user->getEmail())),
+                        new \fpcm\components\dataView\rowCol('registered', new \fpcm\view\helper\dateText($user->getRegistertime())),
                         new \fpcm\components\dataView\rowCol('metadata', implode('', $metadata), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     ]
                 ));
@@ -248,9 +248,9 @@ class userlist extends \fpcm\controller\abstracts\controller {
 
             $dataView->addRow(
                 new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('select', (string) (new \fpcm\view\helper\radiobutton('rollids', 'rollids'.$rollId))->setValue($rollId)->setReadonly($readonly), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                    new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('rollids', 'rollids'.$rollId))->setValue($rollId)->setReadonly($readonly), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     new \fpcm\components\dataView\rowCol('button', implode('', $buttons), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                    new \fpcm\components\dataView\rowCol('title', (string) new \fpcm\view\helper\escape($descr) ),
+                    new \fpcm\components\dataView\rowCol('title', new \fpcm\view\helper\escape($descr) ),
                 ]
             ));
 
