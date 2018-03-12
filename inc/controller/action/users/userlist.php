@@ -29,7 +29,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
      */
     protected $articleList;
 
-    public function getViewPath()
+    protected function getViewPath()
     {
         return 'users/userlist';
     }

@@ -31,7 +31,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
      */
     protected $mode = 1;
 
-    public function getViewPath()
+    protected function getViewPath()
     {
         return 'filemanager/listouter';
     }

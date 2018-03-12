@@ -213,7 +213,7 @@ trait lists {
     {
         if (!$this->commentCount) {
             return [
-                (new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE'))->setSize(12),
+                (new \fpcm\components\dataView\column('title', 'HL_COMMENTS_MNG'))->setSize(12),
             ];
         }
 

@@ -13,7 +13,7 @@ class categoryadd extends \fpcm\controller\abstracts\controller {
 
     protected $category;
 
-    public function getViewPath()
+    protected function getViewPath()
     {
         return 'categories/categoryadd';
     }

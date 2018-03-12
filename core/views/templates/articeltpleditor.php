@@ -7,5 +7,5 @@
 
         <div class="fpcm-ui-hidden"><?php $theView->saveButton('saveTemplate'); ?></div>
 
-        <?php $theView->pageTokenField('pgtkn'); ?>
+        
     </form>

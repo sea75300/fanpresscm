@@ -17,7 +17,7 @@ class smileyadd extends \fpcm\controller\abstracts\controller {
      */
     protected $smiley;
 
-    public function getViewPath()
+    protected function getViewPath()
     {
         return 'smileys/add';
     }
@@ -25,6 +25,16 @@ class smileyadd extends \fpcm\controller\abstracts\controller {
     protected function getPermissions()
     {
         return ['system' => 'smileys'];
+    }
+
+    protected function getHelpLink()
+    {
+        return 'hl_options';
+    }
+
+    protected function getActiveNavigationElement()
+    {
+        return 'submenu-itemnav-item-smileys';
     }
 
     public function request()
@@ -82,16 +92,6 @@ class smileyadd extends \fpcm\controller\abstracts\controller {
         $this->view->setFormAction('smileys/add');
 
         $this->view->render();
-    }
-
-    protected function getHelpLink()
-    {
-        return 'hl_options';
-    }
-
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-smileys';
     }
 
 }

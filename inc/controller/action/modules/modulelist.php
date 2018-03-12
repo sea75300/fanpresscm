@@ -23,7 +23,7 @@
          */
         protected $moduleList;
 
-        public function getViewPath()
+        protected function getViewPath()
         {
             return 'modules/list';
         }

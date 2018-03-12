@@ -122,6 +122,12 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected $checkPageToken = true;
 
     /**
+     *
+     * @var bool
+     */
+    protected $execDestruct = true;
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -361,21 +367,25 @@ class controller implements \fpcm\controller\interfaces\controller {
     public function hasAccess()
     {
         if (!$this->maintenanceMode(false) && !$this->session->exists()) {
+            $this->execDestruct = false;
             return false;
         }
 
         if (!is_object($this->session) || !$this->session->exists()) {
+            $this->execDestruct = false;
             return $this->redirectNoSession();
         }
 
         if ($this->getIpLockedModul() && $this->ipList->ipIsLocked($this->getIpLockedModul())) {
+            $this->execDestruct = false;
             return false;
         }
 
         $permissions = $this->getPermissions();
         if ($this->permissions && count($permissions) && !$this->permissions->check($permissions)) {
-            $view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
-            $view->render($this->moduleCheckExit);
+            $this->execDestruct = false;
+            $this->view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
+            $this->view->render($this->moduleCheckExit);
         }
 
         return $this->hasActiveModule();
@@ -422,7 +432,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     public function __destruct()
     {
-        if (\fpcm\classes\baseconfig::isCli()) {
+        if (\fpcm\classes\baseconfig::isCli() || !$this->execDestruct) {
             return;
         }
         
@@ -441,6 +451,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         if (strpos($currentClass, 'fpcm\\modules\\') !== false) {
             $modulename = explode('\\', $currentClass, 3)[2];
             if (!in_array($modulename, $this->enabledModules)) {
+                $this->execDestruct = false;
                 trigger_error("Request for controller '{$currentClass}' of disabled module '{$modulename}'!");
                 $view = new \fpcm\view\error("The controller '{$this->getRequestVar('module')}' is not enabled for execution!");
                 $view->render($this->moduleCheckExit);

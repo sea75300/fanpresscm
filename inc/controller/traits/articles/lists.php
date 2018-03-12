@@ -303,8 +303,6 @@ trait lists {
 
         $notFound = $this->lang->translate('GLOBAL_NOTFOUND');
 
-        
-        
         return implode('', [
             '<span class="fpcm-ui-font-small fpcm-ui-block fpcm-ui-">',
             new \fpcm\view\helper\icon('calendar'),

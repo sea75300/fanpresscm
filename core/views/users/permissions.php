@@ -62,5 +62,5 @@
     </div>
 
     <?php $theView->saveButton('permissionsSave')->setClass('fpcm-ui-hidden') ?>
-    <?php $theView->pageTokenField('pgtkn'); ?>
+    
 </div>

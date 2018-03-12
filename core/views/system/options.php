@@ -280,5 +280,5 @@
         <div id="tabs-options-check"></div>
     </div>
 
-    <?php $theView->pageTokenField('pgtkn'); ?>
+    
 </div>

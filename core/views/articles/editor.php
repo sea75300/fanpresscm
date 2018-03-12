@@ -50,7 +50,7 @@
             <?php endif; ?>
         </div>
 
-        <?php $theView->pageTokenField('pgtkn'); ?>
+        
     </div>
 </div>
 

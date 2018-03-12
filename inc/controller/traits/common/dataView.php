@@ -29,7 +29,7 @@ trait dataView {
      */
     protected function getViewPath()
     {
-        return 'common/dataView';
+        return 'components/dataview';
     }
 
     /**

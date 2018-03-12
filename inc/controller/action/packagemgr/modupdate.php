@@ -41,7 +41,7 @@
          */
         protected $legacy = true;
 
-        public function getViewPath()
+        protected function getViewPath()
         {
             return 'packagemgr/modules';
         }

@@ -33,7 +33,7 @@ class permissions extends \fpcm\controller\abstracts\controller {
         return ['system' => 'permissions'];
     }
 
-    public function getViewPath()
+    protected function getViewPath()
     {
         return 'users/permissions';
     }

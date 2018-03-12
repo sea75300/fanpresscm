@@ -691,6 +691,8 @@ class view {
      */
     public function addDataView(\fpcm\components\dataView\dataView $dataView)
     {
+        $this->assign('dataViewId', $dataView->getName());
+
         $vars = $dataView->getJsVars();
         
         if (count($vars)) {
@@ -711,6 +713,7 @@ class view {
         if (count($langVars)) {
             $this->addJsLangVars($langVars);
         }
+
     }
 
     /**

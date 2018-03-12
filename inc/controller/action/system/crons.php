@@ -18,7 +18,7 @@ class crons extends \fpcm\controller\abstracts\controller {
 
     protected function getViewPath()
     {
-        return 'system/cronjobs';
+        return 'components/dataview';
     }
 
     protected function getHelpLink()
@@ -61,6 +61,7 @@ class crons extends \fpcm\controller\abstracts\controller {
         }
 
         $this->view->addDataView($dataView);
+        $this->view->assign('headline', 'HL_CRONJOBS');
         $this->view->addJsFiles(['crons.js']);
         $this->view->render();
     }

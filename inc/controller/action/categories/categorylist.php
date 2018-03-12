@@ -16,12 +16,17 @@ class categorylist extends \fpcm\controller\abstracts\controller {
 
     protected function getViewPath()
     {
-        return 'categories/categorylist';
+        return 'components/dataview';
     }
 
     protected function getPermissions()
     {
         return ['system' => 'categories'];
+    }
+
+    protected function getHelpLink()
+    {
+        return 'hl_options';
     }
 
     public function request()
@@ -56,13 +61,11 @@ class categorylist extends \fpcm\controller\abstracts\controller {
         return true;
     }
 
-    protected function getHelpLink()
-    {
-        return 'hl_options';
-    }
-
     public function process()
     {
+        $categoryList = $this->list->getCategoriesAll();
+        $countReadOnly = count($categoryList) === 1 ? true : false;
+
         $dataView = new \fpcm\components\dataView\dataView('categorylist');
         $dataView->addColumns([
             (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
@@ -71,18 +74,15 @@ class categorylist extends \fpcm\controller\abstracts\controller {
             (new \fpcm\components\dataView\column('name', 'CATEGORIES_NAME'))->setSize(3),
             (new \fpcm\components\dataView\column('groups', 'CATEGORIES_ROLLS'))->setAlign('center'),
         ]);
-        
-        
-        $categoryList = $this->list->getCategoriesAll();
-        
+
         /* @var $category \fpcm\model\categories\category */
         foreach ($categoryList as $category) {
 
             $rolls = $this->rollList->getRollsbyIdsTranslated(explode(';', $category->getGroups()));
-            
+
             $dataView->addRow(
                 new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('ids', 'ids'.$category->getId()))->setValue($category->getId()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                    new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('ids', 'ids'.$category->getId()))->setValue($category->getId())->setReadonly($countReadOnly), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\editButton('editCat'))->setUrlbyObject($category) , '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     new \fpcm\components\dataView\rowCol('icon', $category->getCategoryImage() ),
                     new \fpcm\components\dataView\rowCol('name', new \fpcm\view\helper\escape($category->getName())),
@@ -94,6 +94,7 @@ class categorylist extends \fpcm\controller\abstracts\controller {
 
         $this->view->addDataView($dataView);
         $this->view->addJsFiles(['categories.js']);
+        $this->view->assign('headline', 'HL_CATEGORIES_MNG');
 
         $this->view->setFormAction('categories/list');
         $this->view->addButtons([

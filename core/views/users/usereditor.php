@@ -99,4 +99,3 @@
 
 <?php endif; ?>
 
-<?php $theView->pageTokenField('pgtkn'); ?>

@@ -13,17 +13,28 @@ fpcm.smileys = {
 
     init: function () {
 
-        var acObject = fpcm.ui.autocomplete('#smileyfilename', {
-            source: fpcm.vars.jsvars.files
-        });
+        if (fpcm.dataview && fpcm.dataview.exists('smileys')) {
+            fpcm.dataview.render('smileys', {
+                onRenderAfter: function() {
+                    fpcm.ui.assignCheckboxes();
+                }
+            });
+        }
 
-        acObject.autocomplete('instance').
-        _renderItem = function( ul, item ) {
-            return  jQuery('<li>').
-                    addClass('fpcm-ui-smileylist-preview').
-                    append('<div><img src="' + item.label + '" class="fpcm-ui-smileylist-preview"><span>' + item.value + '</span></div>').
-                    appendTo(ul);
-        };
+        if (fpcm.vars.jsvars.files) {            
+            var acObject = fpcm.ui.autocomplete('#smileyfilename', {
+                source: fpcm.vars.jsvars.files
+            });
+
+            acObject.autocomplete('instance').
+            _renderItem = function( ul, item ) {
+                return  jQuery('<li>').
+                        addClass('fpcm-ui-smileylist-preview').
+                        append('<div><img src="' + item.label + '" class="fpcm-ui-smileylist-preview"><span>' + item.value + '</span></div>').
+                        appendTo(ul);
+            };
+        }
+
 
     }
 };

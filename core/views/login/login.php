@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 
-                <?php $theView->pageTokenField('pgtkn'); ?>
+                
                 
             </form> 
         </div>

@@ -19,4 +19,3 @@
     </tr> 
 </table> 
 
-<?php $theView->pageTokenField('pgtkn'); ?>

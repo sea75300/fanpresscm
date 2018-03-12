@@ -17,5 +17,5 @@
     </div>
 
     <?php include $theView->getIncludePath('users/userlist_dialogs.php'); ?>        
-    <?php $theView->pageTokenField('pgtkn'); ?>
+    
 </div>

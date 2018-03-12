@@ -11,7 +11,7 @@ namespace fpcm\controller\action\ips;
 
 class iplist extends \fpcm\controller\abstracts\controller {
 
-    public function getViewPath()
+    protected function getViewPath()
     {
         return 'ips/iplist';
     }

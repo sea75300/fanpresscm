@@ -29,7 +29,7 @@
             return ['system' => 'users'];
         }
 
-        public function getViewPath()
+        protected function getViewPath()
         {
             return 'users/useredit';
         }

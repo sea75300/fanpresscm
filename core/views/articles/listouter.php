@@ -10,7 +10,7 @@
         </div>
     </div>
 
-    <?php $theView->pageTokenField('pgtkn'); ?>
+    
 
     <?php include $theView->getIncludePath('articles/searchform.php'); ?>
     <?php if ($canEdit) : ?><?php include $theView->getIncludePath('articles/massedit.php'); ?><?php endif; ?>
