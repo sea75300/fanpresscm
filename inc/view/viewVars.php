@@ -27,6 +27,7 @@ namespace fpcm\view;
  * @property string $helpLink
  * @property string $formActionTarget
  * @property string $langCode
+ * @property int    $loginTime
  * 
  * @property array  $navigation
  * @property array  $navigationActiveModule

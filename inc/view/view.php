@@ -551,6 +551,7 @@ class view {
             $this->addJsVars(['sessionCheck' => true]);
 
             $this->defaultViewVars->currentUser = $this->session->getCurrentUser();
+            $this->defaultViewVars->loginTime = $this->session->getLogin();
             $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation())->render();
             $this->defaultViewVars->navigationActiveModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
         }

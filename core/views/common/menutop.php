@@ -35,7 +35,7 @@
                  </li>
                  <li class="fpcm-menu-top-level2 fpcm-menu-top-level2-status">
                      <span><b><?php $theView->write('PROFILE_MENU_LOGGEDINSINCE'); ?>:</b></span>
-                     <span><?php $theView->dateText($theView->loggedIn); ?> (<?php print $theView->dateTimeZone; ?>)</span>
+                     <span><?php $theView->dateText($theView->loginTime); ?> (<?php print $theView->dateTimeZone; ?>)</span>
                      <span><b><?php $theView->write('PROFILE_MENU_YOURIP'); ?></b></span>
                      <span><?php print fpcm\classes\http::getIp(); ?></span>
                  </li>
