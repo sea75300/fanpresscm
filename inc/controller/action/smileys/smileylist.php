@@ -19,11 +19,6 @@ class smileylist extends \fpcm\controller\abstracts\controller {
      */
     protected $smileyList;
 
-    protected function getViewPath()
-    {
-        return 'components/dataview';
-    }
-
     protected function getPermissions()
     {
         return ['system' => 'smileys'];

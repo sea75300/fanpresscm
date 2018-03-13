@@ -22,11 +22,6 @@ class backups extends \fpcm\controller\abstracts\controller {
         return ['system' => 'backups'];
     }
 
-    protected function getViewPath()
-    {
-        return 'components/dataview';
-    }
-
     protected function getHelpLink()
     {
         return 'hl_options';

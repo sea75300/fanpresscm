@@ -38,15 +38,6 @@ class crons extends \fpcm\controller\abstracts\controller {
      * 
      * @return string
      */
-    protected function getViewPath()
-    {
-        return 'components/dataview';
-    }
-
-    /**
-     * 
-     * @return string
-     */
     protected function getHelpLink()
     {
         return 'hl_options';

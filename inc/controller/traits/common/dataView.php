@@ -79,6 +79,12 @@ trait dataView {
 
         $this->view->addDataView($this->dataView);
     }
+
+    /**
+     * Get data view name
+     * @return string
+     */
+    abstract protected function getDataViewName();
     
     /**
      * Initialize Data view row
@@ -89,12 +95,6 @@ trait dataView {
     {
         return null;
     }
-
-    /**
-     * Get data view name
-     * @return string
-     */
-    abstract protected function getDataViewName();
 
     /**
      * Get data view Columns

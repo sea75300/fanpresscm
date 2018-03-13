@@ -9,12 +9,12 @@ if (fpcm === undefined) {
     var fpcm = {};
 }
 
-fpcm.backups = {
+fpcm.ipadresses = {
 
     init: function() {
-
-        fpcm.dataview.render('backups');
-
+        fpcm.dataview.render('iplist', {
+            onRenderAfter: fpcm.ui.assignCheckboxes
+        });
     },
 
 };
