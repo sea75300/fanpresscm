@@ -25,7 +25,7 @@
 
             <div class="<?php if ($theView->fullWrapper) : ?>fpcm-ui-hidden<?php else : ?>col-sm-12 col-md-2<?php endif; ?> fpcm-ui-padding-none-lr fpcm-ui-background-white-50p" id="fpcm-wrapper-left">
 
-                <div id="fpcm-ui-logo" class="fpcm-ui-logo fpcm-ui-center">
+                <div id="fpcm-ui-logo" class="fpcm-ui-logo fpcm-ui-center fpcm-ui-margin-none">
                     <h1><span class="fpcm-ui-block">FanPress CM</span> <span class="fpcm-ui-block">News System</span></h1>
                 </div>
 

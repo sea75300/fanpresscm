@@ -63,7 +63,10 @@ trait dataView {
                 true
             ));
             
-            $this->view->addDataView($this->dataView);
+            if (isset($this->view) && $this->view instanceof \fpcm\view\view) {
+                $this->view->addDataView($this->dataView);
+            }
+
             return true;
         }
         
@@ -77,7 +80,11 @@ trait dataView {
             $this->dataView->addRow($row);
         }
 
-        $this->view->addDataView($this->dataView);
+        
+        if (isset($this->view) && $this->view instanceof \fpcm\view\view) {
+            $this->view->addDataView($this->dataView);
+        }
+        
     }
 
     /**

@@ -39,10 +39,17 @@ final class column implements \JsonSerializable {
      */
     protected $align    = 'left';
 
-    public function __construct($name, $descr)
+    /**
+     * CSS class
+     * @var string
+     */
+    protected $class    = '';
+
+    public function __construct($name, $descr, $class = '')
     {
         $this->name  = $name;
         $this->descr = \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate($descr);
+        $this->class = $class;
     }
 
     /**

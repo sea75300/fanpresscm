@@ -224,7 +224,7 @@ fpcm.ui = {
             }            
         }
         
-        el.tabs(params);
+        var tabEl = el.tabs(params);
         
         if (params.addTabScroll) {
 
@@ -236,6 +236,8 @@ fpcm.ui = {
             });
 
         }
+        
+        return tabEl;
 
     },
 

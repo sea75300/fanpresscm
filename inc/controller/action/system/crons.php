@@ -1,14 +1,18 @@
 <?php
 
 /**
- * Cronjob manager controller
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\system;
 
+/**
+ * Cronjob manager controller
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
 class crons extends \fpcm\controller\abstracts\controller {
 
     use \fpcm\controller\traits\common\dataView;
@@ -54,7 +58,7 @@ class crons extends \fpcm\controller\abstracts\controller {
         $this->currentTime = time();
 
         $this->initDataView();
-        
+
         $this->view->assign('headline', 'HL_CRONJOBS');
         $this->view->addJsFiles(['crons.js']);
         $this->view->render();
@@ -92,17 +96,15 @@ class crons extends \fpcm\controller\abstracts\controller {
     protected function initDataViewRow($cronjob)
     {
         return new \fpcm\components\dataView\row([
-                new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\button($cronjob->getCronName(), $cronjob->getCronName() ) )->setText('CRONJOB_LIST_EXECDEMAND')->setClass('fpcm-cronjoblist-exec')->setIcon('play-circle')->setIconOnly(true), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                new \fpcm\components\dataView\rowCol('name', $this->lang->translate($cronjob->getCronNameLangVar()) ),
-                new \fpcm\components\dataView\rowCol('interval', (new \fpcm\view\helper\select('intervals_'.$cronjob->getCronName()))->setOptions($this->intervals)->setSelected($cronjob->getIntervalTime())->setClass('fpcm-cronjoblist-intervals') ),
-                new \fpcm\components\dataView\rowCol('lastexec', new \fpcm\view\helper\dateText($cronjob->getLastExecTime()) ),
-                new \fpcm\components\dataView\rowCol('nextecec', new \fpcm\view\helper\dateText($cronjob->getNextExecTime()) )
-            ],
-            $this->currentTime > ($cronjob->getNextExecTime() - 60) ? 'fpcm-ui-important-text' : ''
+            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\button($cronjob->getCronName(), $cronjob->getCronName()))->setText('CRONJOB_LIST_EXECDEMAND')->setClass('fpcm-cronjoblist-exec')->setIcon('play-circle')->setIconOnly(true), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('name', $this->lang->translate($cronjob->getCronNameLangVar())),
+            new \fpcm\components\dataView\rowCol('interval', (new \fpcm\view\helper\select('intervals_' . $cronjob->getCronName()))->setOptions($this->intervals)->setSelected($cronjob->getIntervalTime())->setClass('fpcm-cronjoblist-intervals')),
+            new \fpcm\components\dataView\rowCol('lastexec', new \fpcm\view\helper\dateText($cronjob->getLastExecTime())),
+            new \fpcm\components\dataView\rowCol('nextecec', new \fpcm\view\helper\dateText($cronjob->getNextExecTime()))
+                ], $this->currentTime > ($cronjob->getNextExecTime() - 60) ? 'fpcm-ui-important-text' : ''
         );
     }
 
-    
 }
 
 ?>

@@ -181,7 +181,6 @@ div.fpcm-status-info ul.fpcm-menu-top li ul,
 
 #fpcm-ui-logo {
     background: url(logo.png) no-repeat center top;
-    margin: 0;
 }
 
 #fpcm-loader {
@@ -206,14 +205,32 @@ div.fpcm-status-info ul.fpcm-menu-top li ul,
     padding-right: 0;
 }
 
+.fpcm-dashboard-container ul,
+.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content table td,
+.fpcm-ui-padding-none {
+    padding: 0em;
+}
+
 .fpcm-ui-padding-md-lr {
     padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.fpcm-ui-padding-md-left {
+    padding-left: 0.5em;
+}
+
+.fpcm-ui-padding-md-right {
     padding-right: 0.5em;
 }
 
 .fpcm-ui-padding-md-tb {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
+}
+
+.fpcm-ui-margin-none {
+    margin: 0;
 }
 
 .fpcm-ui-marginbottom-md {
@@ -947,12 +964,6 @@ h3, .fpcm-dashboard-container h3 {
 
 .fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-ui-font-small {
     line-height: 1.25em;
-}
-
-.fpcm-dashboard-container ul,
-.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content table td,
-.fpcm-ui-padding-none {
-    padding: 0em;
 }
 
 .fpcm-dashboard-container table.fpcm-ui-table.fpcm-ui-large-td td {

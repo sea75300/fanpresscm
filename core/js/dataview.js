@@ -50,7 +50,7 @@ fpcm.dataview = {
         obj.lines       = jQuery('#' + obj.rowsId);
 
         jQuery.each(obj.columns, function (index, column) {
-            style = 'fpcm-ui-padding-none-lr fpcm-ui-dataview-col fpcm-ui-dataview-align-' + column.align + ' col align-self-center ' + (column.size ? ' fpcm-ui-dataview-size-' + column.size + ' col-md-' + column.size : '');
+            style = 'fpcm-ui-padding-none-lr fpcm-ui-dataview-col ' + column.class + ' fpcm-ui-dataview-align-' + column.align + ' col align-self-center ' + (column.size ? ' fpcm-ui-dataview-size-' + column.size + ' col-md-' + column.size : '');
             obj.headline.append('<div class="' + style + '" id="' + obj.fullId + '-dataview-headcol-' + column.name + index + '">' + (column.descr ? fpcm.ui.translate(column.descr) : '&nbsp;') + '</div>');            
         });
 
@@ -89,7 +89,7 @@ fpcm.dataview = {
                 return;
             }
 
-            var style       = 'fpcm-ui-padding-none-lr fpcm-ui-dataview-col fpcm-ui-dataview-align-' + rowColumn.align
+            var style       = 'fpcm-ui-padding-none-lr fpcm-ui-dataview-col ' + rowColumn.class + ' fpcm-ui-dataview-align-' + rowColumn.align
                             + (isNotFound ? 'col col-12' : ' fpcm-ui-dataview-size-' + rowColumn.size + ' col col-md-' + rowColumn.size)
                             + ' fpcm-ui-dataview-type' + rowCol.type + ' align-self-center'
                             + (rowCol.class ? ' ' + rowCol.class : '');

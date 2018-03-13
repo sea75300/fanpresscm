@@ -49,33 +49,65 @@ fpcm.logs = {
             return false;
         });
 
-        fpcm.ui.tabs('#fpcm-tabs-logs', {
-           
+        var tabs = fpcm.ui.tabs('#fpcm-tabs-logs', {
+
             beforeLoad: function(event, ui) {
-
-                var tabId = ui.ajaxSettings.url.split(fpcm.logs.delimiter);
-                jQuery('button.fpcm-logs-clear').attr('id', 'fpcm-logs-clear_' + tabId[1]);
-
+                
                 fpcm.ui.showLoader(true);
                 ui.jqXHR.done(function(result) {
                     fpcm.ui.showLoader();
-                    fpcm.logs.initTabReload();
+                    return true;
                 });
+
+                var tabId = ui.ajaxSettings.url.split(fpcm.logs.delimiter);
+                jQuery('button.fpcm-logs-clear').attr('id', 'fpcm-logs-clear_' + tabId[1]);
+                if (tabId[1] == 4) {
+                    return true;
+                }
+
+                ui.ajaxSettings.dataFilter = function( response ) {
+                    fpcm.vars.jsvars.dataviews.data.logs = response;
+                };
 
             },
             beforeActivate: function( event, ui ) {
-                fpcm.logs.oldTabItem     = ui.oldTab;
-                fpcm.logs.currentTabItem = ui.newTab;
+                jQuery(ui.oldTab).unbind('click');
             },
             load: function( event, ui ) {
+
+                jQuery(ui.tab).click(function () {
+                    fpcm.logs.reloadLogs();
+                });
+
+                if (ui.tab.attr('data-dataview-list')) {
+                    
+                    if (!fpcm.vars.jsvars.dataviews.data.logs) {
+                        return false;
+                    }
+                    
+                    jQuery('.fpcm-ui-logslist').remove();
+                    
+                    var result = fpcm.ajax.fromJSON(fpcm.vars.jsvars.dataviews.data.logs);
+                    ui.panel.empty();
+                    ui.panel.append(fpcm.dataview.getDataViewWrapper(ui.tab.attr('data-dataview-list'), 'fpcm-ui-logslist'));
+
+                    fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
+                    fpcm.dataview.updateAndRender(result.dataViewName);
+                }
+
                 fpcm.ui.accordion('.fpcm-accordion-pkgmanager');
-                fpcm.ui.resize();
+                return true;
+
             },
             addTabScroll: true
-            
         });
+        
+        var linkEl = jQuery('#fpcm-tabs-logs-sessions').find('a');
+        
+        linkEl.attr('href', linkEl.attr('data-href'));
+        linkEl.removeAttr('data-href');
 
-        fpcm.logs.initTabReload();
+        tabs.tabs('load', 0);
 
     },
 
@@ -100,51 +132,8 @@ fpcm.logs = {
     },
     
     reloadLogs: function() {
-
-        fpcm.ui.showLoader(true);
-        var logType = fpcm.logs.reloadDataHref.split(fpcm.logs.delimiter);
-
-        fpcm.ajax.get('logs/reload', {
-            workData: logType[1],
-            data: {
-                log: logType[1]
-            },
-            execDone: function() {
-                fpcm.ui.showLoader(false);
-
-                var tabId = fpcm.ajax.getWorkData('logs/reload');
-                fpcm.ui.assignHtml('#' + fpcm.logs.reloadDataDest, fpcm.ajax.getResult('logs/reload'));
-
-                if (tabId == 4) {
-                    fpcm.ui.accordion('.fpcm-accordion-pkgmanager');
-                }
-            }
-        });
-        
+        jQuery('#fpcm-tabs-logs').tabs('load', jQuery('#fpcm-tabs-logs').tabs( "option", "active" ));
         return false;
-    },
-    
-    initTabReload: function() {
-
-        jQuery('.fpcm-logs-reload').unbind('click');
-
-        if (fpcm.logs.currentTabItem && fpcm.logs.oldTabItem) {
-            jQuery(fpcm.logs.oldTabItem).removeClass('fpcm-logs-reload');
-            jQuery(fpcm.logs.currentTabItem).addClass('fpcm-logs-reload');
-
-            fpcm.logs.oldTabItem     = null;
-            fpcm.logs.currentTabItem = null;
-        }
-
-        var reloadEl             = jQuery('.fpcm-logs-reload');
-        fpcm.logs.reloadDataHref = reloadEl.find('a.ui-tabs-anchor').attr('href');
-        fpcm.logs.reloadDataDest = reloadEl.attr('aria-controls');
-
-        jQuery('.fpcm-logs-reload').click(function() {
-            fpcm.logs.reloadLogs();
-            return false;
-        });
-
     }
 
 };
