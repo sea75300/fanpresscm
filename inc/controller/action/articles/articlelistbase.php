@@ -11,8 +11,7 @@ namespace fpcm\controller\action\articles;
 
 abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
-    use \fpcm\controller\traits\common\dataView,
-        \fpcm\controller\traits\articles\lists,
+    use \fpcm\controller\traits\articles\lists,
         \fpcm\controller\traits\common\massedit;
 
 

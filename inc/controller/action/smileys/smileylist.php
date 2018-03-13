@@ -11,6 +11,8 @@ namespace fpcm\controller\action\smileys;
 
 class smileylist extends \fpcm\controller\abstracts\controller {
 
+    use \fpcm\controller\traits\common\dataView;
+    
     /**
      * Smiley-Liste
      * @var \fpcm\model\files\smileylist
@@ -56,65 +58,14 @@ class smileylist extends \fpcm\controller\abstracts\controller {
             $this->cache->cleanup();
         }
 
+        
         return true;
     }
 
     public function process()
     {        
-        $smileys = $this->smileyList->getDatabaseList();
-        $count   = count($smileys);
-        
-        $dataView = new \fpcm\components\dataView\dataView('smileys');
-        
-        if (!$count) {
-            $dataView->addColumns([
-                (new \fpcm\components\dataView\column('title', 'HL_OPTIONS_SMILEYS'))->setSize(12),
-            ]);
-        }
-        else {
-
-            $dataView->addColumns([
-                (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
-                (new \fpcm\components\dataView\column('image', ''))->setAlign('center'),
-                (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'))->setSize(5),
-                (new \fpcm\components\dataView\column('code', 'FILE_LIST_SMILEYCODE'))->setSize(4)
-            ]);
-
-        }        
-        
-
-        $intervals = $this->lang->translate('SYSTEM_OPTIONS_CRONINTERVALS');
-        $currentTime = time();
-        
-        if (!$count) {
-            $dataView->addRow(
-                new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('title', 'GLOBAL_NOTFOUND2', 'fpcm-ui-padding-md-lr'),
-                ]
-            ));
-        }
-        else {            
-            /* @var $smiley \fpcm\model\files\smiley */
-            foreach ($smileys as $smiley) {
-
-                $chbxdat = base64_encode(serialize([
-                    $smiley->getFilename(), $smiley->getSmileyCode()
-                ]));
-
-                $dataView->addRow(
-                    new \fpcm\components\dataView\row([
-                        new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('smileyids[]', 'chbx' . $chbxdat))->setClass('fpcm-ui-list-checkbox')->setValue($smiley->getId()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                        new \fpcm\components\dataView\rowCol('image', $smiley->getImageTag()),
-                        new \fpcm\components\dataView\rowCol('filename', new \fpcm\view\helper\escape($smiley->getFilename()) ),
-                        new \fpcm\components\dataView\rowCol('code', new \fpcm\view\helper\escape($smiley->getSmileyCode()) )
-                    ]
-                ));
-
-            }
-        }
-
-
-        $this->view->addDataView($dataView);
+        $this->items = $this->smileyList->getDatabaseList();
+        $this->initDataView();
 
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addSmiley'))->setText('FILE_LIST_SMILEYADD')->setUrl(\fpcm\classes\tools::getFullControllerLink('smileys/add'))->setClass('fpcm-loader')->setIcon('plus'),
@@ -125,6 +76,48 @@ class smileylist extends \fpcm\controller\abstracts\controller {
         $this->view->setFormAction('smileys/list');
         $this->view->addJsFiles(['smileys.js']);
         $this->view->render();
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    protected function getDataViewCols()
+    {
+        return [
+            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('image', ''))->setAlign('center'),
+            (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'))->setSize(5),
+            (new \fpcm\components\dataView\column('code', 'FILE_LIST_SMILEYCODE'))->setSize(4)
+        ];
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function getDataViewName()
+    {
+        return 'smileys';
+    }
+    
+    /**
+     * 
+     * @param \fpcm\model\files\smiley $smiley
+     * @return \fpcm\components\dataView\row
+     */
+    protected function initDataViewRow($smiley)
+    {
+        $chbxdat = base64_encode(serialize([
+            $smiley->getFilename(), $smiley->getSmileyCode()
+        ]));
+ 
+        return new \fpcm\components\dataView\row([
+            new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('smileyids[]', 'chbx' . $chbxdat))->setClass('fpcm-ui-list-checkbox')->setValue($smiley->getId()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('image', $smiley->getImageTag()),
+            new \fpcm\components\dataView\rowCol('filename', new \fpcm\view\helper\escape($smiley->getFilename()) ),
+            new \fpcm\components\dataView\rowCol('code', new \fpcm\view\helper\escape($smiley->getSmileyCode()) )
+        ]);
     }
 
 }

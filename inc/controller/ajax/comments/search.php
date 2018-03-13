@@ -21,8 +21,13 @@ namespace fpcm\controller\ajax\comments;
  */
 class search extends \fpcm\controller\abstracts\ajaxController {
 
-    use \fpcm\controller\traits\common\dataView,
-        \fpcm\controller\traits\comments\lists;
+    use \fpcm\controller\traits\comments\lists;
+
+    /**
+     * Data view object
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
 
     /**
      * 

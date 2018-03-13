@@ -1,37 +1,73 @@
 <?php
 
 /**
- * Category list controller
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\categories;
 
+/**
+ * Category list controller
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
 class categorylist extends \fpcm\controller\abstracts\controller {
 
+    use \fpcm\controller\traits\common\dataView;
+
+    /**
+     *
+     * @var \fpcm\model\categories\categoryList 
+     */
     protected $list;
+
+    /**
+     *
+     * @var \fpcm\model\users\userRollList
+     */
     protected $rollList;
 
+    /**
+     *
+     * @var bool
+     */
+    protected $countReadOnly = false;
+
+    /**
+     * 
+     * @return string
+     */
     protected function getViewPath()
     {
         return 'components/dataview';
     }
 
+    /**
+     * 
+     * @return array
+     */
     protected function getPermissions()
     {
         return ['system' => 'categories'];
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function getHelpLink()
     {
         return 'hl_options';
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function request()
     {
-
         $this->list = new \fpcm\model\categories\categoryList();
         $this->rollList = new \fpcm\model\users\userRollList();
 
@@ -61,38 +97,18 @@ class categorylist extends \fpcm\controller\abstracts\controller {
         return true;
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function process()
     {
-        $categoryList = $this->list->getCategoriesAll();
-        $countReadOnly = count($categoryList) === 1 ? true : false;
+        $this->items = $this->list->getCategoriesAll();
+        $this->itemsCount = count($this->items);
 
-        $dataView = new \fpcm\components\dataView\dataView('categorylist');
-        $dataView->addColumns([
-            (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('icon', 'CATEGORIES_ICON_PATH'))->setSize(3),
-            (new \fpcm\components\dataView\column('name', 'CATEGORIES_NAME'))->setSize(3),
-            (new \fpcm\components\dataView\column('groups', 'CATEGORIES_ROLLS'))->setAlign('center'),
-        ]);
+        $this->countReadOnly = $this->itemsCount < 2 ? true : false;
+        $this->initDataView();
 
-        /* @var $category \fpcm\model\categories\category */
-        foreach ($categoryList as $category) {
-
-            $rolls = $this->rollList->getRollsbyIdsTranslated(explode(';', $category->getGroups()));
-
-            $dataView->addRow(
-                new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('ids', 'ids'.$category->getId()))->setValue($category->getId())->setReadonly($countReadOnly), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                    new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\editButton('editCat'))->setUrlbyObject($category) , '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                    new \fpcm\components\dataView\rowCol('icon', $category->getCategoryImage() ),
-                    new \fpcm\components\dataView\rowCol('name', new \fpcm\view\helper\escape($category->getName())),
-                    new \fpcm\components\dataView\rowCol('groups', implode(', ', array_keys($rolls)))
-                ]
-            ));
-
-        }
-
-        $this->view->addDataView($dataView);
         $this->view->addJsFiles(['categories.js']);
         $this->view->assign('headline', 'HL_CATEGORIES_MNG');
 
@@ -103,6 +119,49 @@ class categorylist extends \fpcm\controller\abstracts\controller {
         ]);
 
         $this->view->render();
+        return true;
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    protected function getDataViewCols()
+    {
+        return [
+            (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('icon', 'CATEGORIES_ICON_PATH'))->setSize(3),
+            (new \fpcm\components\dataView\column('name', 'CATEGORIES_NAME'))->setSize(3),
+            (new \fpcm\components\dataView\column('groups', 'CATEGORIES_ROLLS'))->setAlign('center'),
+        ];
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function getDataViewName()
+    {
+        return 'categorylist';
+    }
+
+    /**
+     * 
+     * @param \fpcm\model\categories\category $category
+     * @return \fpcm\components\dataView\row
+     */
+    protected function initDataViewRow($category)
+    {
+        $rolls = $this->rollList->getRollsbyIdsTranslated(explode(';', $category->getGroups()));
+
+        return new \fpcm\components\dataView\row([
+            new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('ids', 'ids' . $category->getId()))->setValue($category->getId())->setReadonly($this->countReadOnly), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\editButton('editCat'))->setUrlbyObject($category), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('icon', $category->getCategoryImage()),
+            new \fpcm\components\dataView\rowCol('name', new \fpcm\view\helper\escape($category->getName())),
+            new \fpcm\components\dataView\rowCol('groups', implode(', ', array_keys($rolls)))
+        ]);
     }
 
 }

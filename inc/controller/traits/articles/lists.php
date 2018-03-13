@@ -102,6 +102,12 @@ trait lists {
     protected $showDraftStatus = true;
 
     /**
+     * Data view object
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
+
+    /**
      * 
      * @return string
      */
@@ -192,7 +198,8 @@ trait lists {
             $this->dataView->addRow(
                     new \fpcm\components\dataView\row([
                     new \fpcm\components\dataView\rowCol('title', 'GLOBAL_NOTFOUND2', 'fpcm-ui-padding-md-lr'),
-                ]
+                ],
+                '', false, true
             ));
 
             return true;
@@ -341,12 +348,6 @@ trait lists {
      */
     protected function getDataViewCols()
     {
-        if (!count($this->articleItems)) {
-            return [
-                (new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE'))->setSize(12),
-            ];
-        }
-
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2),

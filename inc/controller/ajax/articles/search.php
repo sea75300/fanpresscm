@@ -20,8 +20,7 @@ namespace fpcm\controller\ajax\articles;
  */
 class search extends \fpcm\controller\abstracts\ajaxController {
 
-    use \fpcm\controller\traits\common\dataView,
-        \fpcm\controller\traits\articles\lists;
+    use \fpcm\controller\traits\articles\lists;
 
     /**
      * Suchmodus

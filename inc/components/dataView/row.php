@@ -16,33 +16,42 @@ namespace fpcm\components\dataView;
 final class row implements \JsonSerializable {
 
     /**
-     * Column value
+     * Row columns
      * @var int
      */
     protected $columns      = [];
 
     /**
-     * Column class
+     * Row class
      * @var int
      */
     protected $class        = '';
 
     /**
-     * Column class
+     * Row is headline
      * @var bool
      */
     protected $isheadline   = false;
 
     /**
+     * Row contains not found
+     * @var bool
+     */
+    protected $isNotFound   = false;
+    
+    /**
      * Konstruktor
      * @param array $columns
      * @param string $class
+     * @param bool $isheadline
+     * @param bool $isNotFound
      */
-    public function __construct(array $columns, $class = '', $isheadline = false)
+    public function __construct(array $columns, $class = '', $isheadline = false, $isNotFound = false)
     {
         $this->columns      = $columns;
         $this->class        = $class;
-        $this->isheadline   = $isheadline;
+        $this->isheadline   = (bool) $isheadline;
+        $this->isNotFound   = (bool) $isNotFound;
     }
 
         /**

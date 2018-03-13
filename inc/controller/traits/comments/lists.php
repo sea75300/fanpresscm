@@ -211,12 +211,6 @@ trait lists {
      */
     protected function getDataViewCols()
     {
-        if (!$this->commentCount) {
-            return [
-                (new \fpcm\components\dataView\column('title', 'HL_COMMENTS_MNG'))->setSize(12),
-            ];
-        }
-
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2),
@@ -282,7 +276,8 @@ trait lists {
             $this->dataView->addRow(
                 new \fpcm\components\dataView\row([
                     new \fpcm\components\dataView\rowCol('title', 'GLOBAL_NOTFOUND2', 'fpcm-ui-padding-md-lr'),
-                ]
+                ],
+                '', false, true
             ));
 
             return true;

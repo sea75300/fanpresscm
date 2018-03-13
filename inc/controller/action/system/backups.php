@@ -15,6 +15,8 @@ namespace fpcm\controller\action\system;
  */
 class backups extends \fpcm\controller\abstracts\controller {
 
+    use \fpcm\controller\traits\common\dataView;
+    
     protected function getPermissions()
     {
         return ['system' => 'backups'];
@@ -66,54 +68,47 @@ class backups extends \fpcm\controller\abstracts\controller {
     public function process()
     {
         $folderList = new \fpcm\model\files\backuplist();
-        $files = $folderList->getFolderList();
-        $count = count($files);
-
-        rsort($files);
-        
-        $dataView = new \fpcm\components\dataView\dataView('backups');
-        
-        if (!$count) {
-            $dataView->addColumns([
-                (new \fpcm\components\dataView\column('title', 'FILE_LIST_FILENAME'))->setSize(12),
-            ]);
-        }
-        else {
-            $dataView->addColumns([
-                (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
-                (new \fpcm\components\dataView\column('name', 'FILE_LIST_FILENAME')),
-                (new \fpcm\components\dataView\column('size', 'FILE_LIST_FILESIZE'))->setSize(3),
-            ]);            
-        }
-        
-        if (!$count) {
-            $dataView->addRow(
-                new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('title', 'GLOBAL_NOTFOUND2', 'fpcm-ui-padding-md-lr'),
-                ]
-            ));
-        }
-        else {
-            foreach ($files as $file) {
-
-                $url = \fpcm\classes\tools::getFullControllerLink('system/backups', ['save' => urlencode( base64_encode( $this->crypt->encrypt(basename($file)) ) ) ] );
-
-                $dataView->addRow(
-                    new \fpcm\components\dataView\row([
-                        new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\linkButton('download'.md5(basename($file))))->setUrl($url)->setText('GLOBAL_DOWNLOAD')->setIconOnly(true)->setIcon('download') , '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                        new \fpcm\components\dataView\rowCol('name', basename($file)),
-                        new \fpcm\components\dataView\rowCol('size', \fpcm\classes\tools::calcSize(filesize($file)) ),
-                    ]
-                ));
-            }
-        }
-
-        $this->view->addDataView($dataView);
+        $this->items = $folderList->getFolderList();
+        rsort($this->items);
+        $this->initDataView();
         $this->view->assign('headline', 'HL_BACKUPS');
         $this->view->addJsFiles(['backups.js']);
         $this->view->render();
     }
 
+    protected function getDataViewCols()
+    {
+        return [
+            (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('name', 'FILE_LIST_FILENAME')),
+            (new \fpcm\components\dataView\column('size', 'FILE_LIST_FILESIZE'))->setSize(3),
+        ];
+    }
+
+    protected function getDataViewName()
+    {
+        return 'backups';
+    }
+
+    /**
+     * 
+     * @param string $file
+     * @return \fpcm\components\dataView\row
+     */
+    protected function initDataViewRow($file)
+    {
+        $basename = basename($file);
+        
+        $url = \fpcm\classes\tools::getFullControllerLink('system/backups', ['save' => urlencode( base64_encode( $this->crypt->encrypt($basename) ) ) ] );
+
+        return new \fpcm\components\dataView\row([
+            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\linkButton('download'.md5($basename)))->setUrl($url)->setText('GLOBAL_DOWNLOAD')->setIconOnly(true)->setIcon('download') , '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('name', $basename),
+            new \fpcm\components\dataView\rowCol('size', \fpcm\classes\tools::calcSize(filesize($file)) ),
+        ]);
+    }
+
+    
 }
 
 ?>

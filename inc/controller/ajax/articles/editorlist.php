@@ -12,7 +12,6 @@ namespace fpcm\controller\ajax\articles;
 class editorlist extends \fpcm\controller\abstracts\ajaxController {
 
     use \fpcm\controller\traits\comments\lists,
-        \fpcm\controller\traits\common\dataView,
         \fpcm\model\articles\permissions;
 
     /**
@@ -33,6 +32,16 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
      */
     private $article;
 
+    /**
+     * Data view object
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
+
+    /**
+     * 
+     * @return boolean
+     */
     public function request()
     {
         $this->oid      = $this->getRequestVar('id', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);

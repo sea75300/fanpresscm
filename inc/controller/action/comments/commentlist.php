@@ -15,8 +15,13 @@ namespace fpcm\controller\action\comments;
  */
 class commentlist extends \fpcm\controller\abstracts\controller {
 
-    use \fpcm\controller\traits\comments\lists,
-        \fpcm\controller\traits\common\dataView;
+    use \fpcm\controller\traits\comments\lists;
+
+    /**
+     * Data view object
+     * @var \fpcm\components\dataView\dataView
+     */
+    protected $dataView;
 
     protected function getHelpLink()
     {

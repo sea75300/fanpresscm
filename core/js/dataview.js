@@ -74,6 +74,8 @@ fpcm.dataview = {
 
         var rowId           = id + '-dataview-row-' + index;
         var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead' : 'fpcm-ui-dataview-row';
+        baseclass          += row.isNotFound ? ' fpcm-ui-dataview-notfound' : '';
+        var isNotFound      = row.isNotFound;
 
         row.class           = baseclass + (row.class ? ' ' + row.class : '');
 
@@ -82,10 +84,13 @@ fpcm.dataview = {
 
         jQuery.each(row.columns, function (index, rowCol) {
 
-            var rowColumn   = obj.columns[index] ? obj.columns[index] : {};
+            var rowColumn   = obj.columns[index] ? obj.columns[index] : false;
+            if (!rowColumn) {
+                return;
+            }
 
             var style       = 'fpcm-ui-padding-none-lr fpcm-ui-dataview-col fpcm-ui-dataview-align-' + rowColumn.align
-                            + ' fpcm-ui-dataview-size-' + rowColumn.size + ' col col-md-' + rowColumn.size
+                            + (isNotFound ? 'col col-12' : ' fpcm-ui-dataview-size-' + rowColumn.size + ' col col-md-' + rowColumn.size)
                             + ' fpcm-ui-dataview-type' + rowCol.type + ' align-self-center'
                             + (rowCol.class ? ' ' + rowCol.class : '');
 
