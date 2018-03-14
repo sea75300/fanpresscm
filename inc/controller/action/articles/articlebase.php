@@ -231,7 +231,6 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->article->setChangetime($allTimer);
         $this->article->setChangeuser($this->session->getUserId());
         $this->article->setMd5path($this->article->getArticleNicePath());
-        $this->article->prepareDataSave();
 
         $this->article->enableTweetCreation(isset($data['tweet']) ? true : false);
         $res = $this->article->getId() ? $this->article->update() : $this->article->save();

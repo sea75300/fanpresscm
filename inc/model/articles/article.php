@@ -634,7 +634,7 @@ class article extends \fpcm\model\abstracts\dataset {
         $shortenerUrl = 'http://is.gd/create.php?format=simple&url=' . urlencode($this->getElementLink());
 
         if (!\fpcm\classes\baseconfig::canConnect()) {
-            return $this->events->runEvent('articleShortLink', array('artikellink' => urlencode($this->getElementLink()), 'url' => $shortenerUrl))['url'];
+            return $this->events->trigger('article\getShortLink', array('artikellink' => urlencode($this->getElementLink()), 'url' => $shortenerUrl))['url'];
         }
 
         if (defined('FPCM_ARTICLE_DISABLE_SHORTLINKS') && FPCM_ARTICLE_DISABLE_SHORTLINKS) {
@@ -642,12 +642,12 @@ class article extends \fpcm\model\abstracts\dataset {
         } else {
             $remote = fopen($shortenerUrl, 'r');
             if (!$remote) {
-                return $this->events->runEvent('articleShortLink', array('artikellink' => urlencode($this->getElementLink()), 'url' => $shortenerUrl))['url'];
+                return $this->events->trigger('article\getShortLink', array('artikellink' => urlencode($this->getElementLink()), 'url' => $shortenerUrl))['url'];
             }
             $url = fgetss($remote);
         }
 
-        return $this->events->runEvent('articleShortLink', array('artikellink' => urlencode($this->getElementLink()), 'url' => $url))['url'];
+        return $this->events->trigger('article\getShortLink', array('artikellink' => urlencode($this->getElementLink()), 'url' => $url))['url'];
     }
 
     /**
@@ -673,7 +673,7 @@ class article extends \fpcm\model\abstracts\dataset {
         $this->removeBannedTexts();
 
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->runEvent('articleSave', $params);
+        $params = $this->events->trigger('article\save', $params);
 
         if (!$this->dbcon->insert($this->table, $params)) {
             return false;
@@ -684,7 +684,7 @@ class article extends \fpcm\model\abstracts\dataset {
         $this->cleanupCaches();
         $this->createTweet();
 
-        $this->events->runEvent('articleSaveAfter', $this->id);
+        $this->events->trigger('article\sveAfter', $this->id);
 
         return $this->id;
     }
@@ -702,7 +702,7 @@ class article extends \fpcm\model\abstracts\dataset {
         $fields = array_keys($params);
 
         $params[] = $this->getId();
-        $params = $this->events->runEvent('articleUpdate', $params);
+        $params = $this->events->trigger('article\update', $params);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
@@ -713,7 +713,7 @@ class article extends \fpcm\model\abstracts\dataset {
         $this->init();
         $this->createTweet();
 
-        $this->events->runEvent('articleUpdateAfter', $this->id);
+        $this->events->trigger('article\updateAfter', $this->id);
 
         return $return;
     }
@@ -761,7 +761,7 @@ class article extends \fpcm\model\abstracts\dataset {
     {
 
         $content = $this->getPreparedSaveParams();
-        $content = $this->events->runEvent('createRevision', $content);
+        $content = $this->events->trigger('revision/create', $content);
 
         if (!$timer) {
             $timer = $this->changetime;
@@ -803,7 +803,7 @@ class article extends \fpcm\model\abstracts\dataset {
         if (!is_array($revisionSets) || !count($revisionSets)) {
             return [];
         }
-        $revisionFiles = $this->events->runEvent('getRevisionsBefore', $revisionSets);
+        $revisionFiles = $this->events->trigger('revision/getBefore', $revisionSets);
 
         $revisions = [];
         foreach ($revisionSets as $revisionSet) {
@@ -821,7 +821,7 @@ class article extends \fpcm\model\abstracts\dataset {
             $revisions[$revTime] = $full ? $revData : $revData['title'];
         }
 
-        $revisions = $this->events->runEvent('getRevisionsAfter', array('full' => $full, 'revisions' => $revisions))['revisions'];
+        $revisions = $this->events->trigger('revision/getAfter', array('full' => $full, 'revisions' => $revisions))['revisions'];
 
         return $revisions;
     }
@@ -834,9 +834,7 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getRevisionsCount()
     {
 
-        return $this->dbcon->count(
-                        \fpcm\classes\database::tableRevisions, 'id', 'article_id = ? ', [$this->id]
-        );
+        return $this->dbcon->count(\fpcm\classes\database::tableRevisions, 'id', 'article_id = ? ', [$this->id]);
     }
 
     /**
@@ -846,13 +844,12 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function getRevision($revisionTime)
     {
-
         $revision = new revision($this->id, $revisionTime);
         if (!$revision->exists()) {
             return false;
         }
 
-        $revision = $this->events->runEvent('getRevision', $revision);
+        $revision = $this->events->trigger('revision/get', $revision);
         foreach ($revision->getContent() as $key => $value) {
             $this->$key = $value;
         }
@@ -880,17 +877,11 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function deleteRevisions(array $revisionList = array())
     {
-
         if (!count($revisionList)) {
-
-            return $this->dbcon->delete(
-                            \fpcm\classes\database::tableRevisions, 'article_id = ?', array($this->id)
-            );
+            return $this->dbcon->delete(\fpcm\classes\database::tableRevisions, 'article_id = ?', array($this->id));
         }
 
-        return $this->dbcon->delete(
-                        \fpcm\classes\database::tableRevisions, 'article_id = ? AND revision_idx IN (' . implode(',', array_map('intval', $revisionList)) . ')', array($this->id)
-        );
+        return $this->dbcon->delete(\fpcm\classes\database::tableRevisions, 'article_id = ? AND revision_idx IN (' . implode(',', array_map('intval', $revisionList)) . ')', array($this->id));
     }
 
     /**
@@ -900,7 +891,6 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function createTweet($force = false)
     {
-
         if (!\fpcm\classes\baseconfig::canConnect() || (!$this->config->twitter_events['create'] && !$this->config->twitter_events['update'] && !$force)) {
             return false;
         }
@@ -910,7 +900,7 @@ class article extends \fpcm\model\abstracts\dataset {
         }
 
         /* @var $eventResult article */
-        $eventResult = $this->events->runEvent('articleCreateTweet', $this);
+        $eventResult = $this->events->trigger('article\createTweet', $this);
 
         $author = new \fpcm\model\users\author($eventResult->getCreateuser());
 
@@ -930,46 +920,6 @@ class article extends \fpcm\model\abstracts\dataset {
 
         $twitter = new \fpcm\model\system\twitter();
         return $twitter->updateStatus($tpl->parse());
-    }
-
-    /**
-     * Bereitet Daten für Speicherung in Datenbank vor
-     * @param boolean $ignoreEditor
-     * @return boolean
-     */
-    public function prepareDataSave($ignoreEditor = false)
-    {
-        if (!$this->config->system_editor && !$ignoreEditor)
-            return false;
-
-        $this->replaceBr();
-        $this->content = str_replace(array('<br>', '<br />', '<br/>'), '', $this->content);
-        $this->content = nl2br($this->content, false);
-
-        $search = array('p', 'ul', 'li', 'table', 'tr', 'th', 'td', 'div', 'blockquote', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6');
-
-        $eventData = $this->events->runEvent('articlePrepareDataSave', array('content' => $this->content, 'searchParams' => $search));
-
-        $this->content = $eventData['content'];
-        $search = $eventData['searchParams'];
-
-        array_map(array($this, 'replaceDirtyTags'), $search);
-
-        return true;
-    }
-
-    /**
-     * Bereitet Daten nach Laden aus Datenbank vor
-     * @return boolean
-     */
-    public function prepareDataLoad()
-    {
-        if (!$this->config->system_editor)
-            return false;
-
-        $this->replaceBr();
-
-        return true;
     }
 
     /**
@@ -1028,36 +978,14 @@ class article extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * Ersetzt <br>, <br /> bzw. <br/> durch Leerzeichen
-     */
-    private function replaceBr()
-    {
-        $this->content = str_replace(array('<br>', '<br />', '<br/>'), '', $this->content);
-    }
-
-    /**
-     * Ersetzt "kaputte" HTML-Tag-Kombinationen in Zusammenhang mit automatischen <br>-Tags beim Speichern
-     * @param string $htmlTag
-     */
-    private function replaceDirtyTags($htmlTag)
-    {
-        $search = array("<{$htmlTag}><br>", "<{$htmlTag}><br/>", "<{$htmlTag}><br />");
-        $this->content = str_replace($search, "<{$htmlTag}>", $this->content);
-
-        $search = array("</{$htmlTag}><br>", "</{$htmlTag}><br/>", "</{$htmlTag}><br />");
-        $this->content = str_replace($search, "</{$htmlTag}>", $this->content);
-    }
-
-    /**
      * Führt Ersetzung von gesperrten Texten in Artikel-Daten durch
      * @return boolean
      * @since FPCM 3.2.0
      */
     private function removeBannedTexts()
     {
-
         if ($this->wordbanList->checkArticleApproval($this->title) ||
-                $this->wordbanList->checkArticleApproval($this->content)) {
+            $this->wordbanList->checkArticleApproval($this->content)) {
             $this->setApproval(1);
         }
 

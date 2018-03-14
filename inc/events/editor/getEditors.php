@@ -18,6 +18,6 @@ namespace fpcm\events\editor;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/model/events
  */
-final class getEditors extends \fpcm\model\abstracts\event {
-
+final class getEditors extends \fpcm\events\abstracts\event {
+    
 }

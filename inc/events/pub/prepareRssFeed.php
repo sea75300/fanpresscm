@@ -1,65 +1,70 @@
 <?php
-    /**
-     * Module-Event: prepareRssFeed
-     * 
-     * Event wird ausgeführt, wenn RSS-Feed-Struktur aufgebaut wird
-     * Parameter: DOMDocument Objekt
-     * Rückgabe: DOMDocument Objekt
-     * 
-     * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     * @since FPCM 3.4
-     */
-    namespace fpcm\events\pub;
+
+/**
+ * Module-Event: prepareRssFeed
+ * 
+ * Event wird ausgeführt, wenn RSS-Feed-Struktur aufgebaut wird
+ * Parameter: DOMDocument Objekt
+ * Rückgabe: DOMDocument Objekt
+ * 
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @since FPCM 3.4
+ */
+
+namespace fpcm\events\pub;
+
+/**
+ * Module-Event: prepareRssFeed
+ * 
+ * Event wird ausgeführt, wenn RSS-Feed-Struktur aufgebaut wird
+ * Parameter: DOMDocument Objekt
+ * Rückgabe: DOMDocument Objekt
+ * 
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @package fpcm/model/events
+ * @since FPCM 3.4
+ */
+final class prepareRssFeed extends \fpcm\events\abstracts\event {
 
     /**
-     * Module-Event: prepareRssFeed
-     * 
-     * Event wird ausgeführt, wenn RSS-Feed-Struktur aufgebaut wird
-     * Parameter: DOMDocument Objekt
-     * Rückgabe: DOMDocument Objekt
-     * 
-     * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     * @package fpcm/model/events
-     * @since FPCM 3.4
+     * wird ausgeführt, wenn RSS-Feed-Struktur aufgebaut wird
+     * @param array $data
+     * @return array
      */
-    final class prepareRssFeed extends \fpcm\model\abstracts\event {
+    public function run($data = null)
+    {
 
-        /**
-         * wird ausgeführt, wenn RSS-Feed-Struktur aufgebaut wird
-         * @param array $data
-         * @return array
-         */
-        public function run($data = null) {
-            
-            $eventClasses = $this->getEventClasses();
-            
-            if (!count($eventClasses)) return $data;
-            
-            $mdata = $data;
-            foreach ($eventClasses as $eventClass) {
-                
-                $classkey = $this->getModuleKeyByEvent($eventClass);                
-                $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'prepareRssFeed');
-                
-                /**
-                 * @var \fpcm\model\abstracts\event
-                 */
-                $module = new $eventClass();
+        $eventClasses = $this->getEventClasses();
 
-                if (!$this->is_a($module)) continue;
-                
-                $mdata = $module->run($mdata);
-            }
+        if (!count($eventClasses))
+            return $data;
 
-            if (!$mdata || is_a($mdata, '\DOMDocument') ) {
-                return $data;
-            }
+        $mdata = $data;
+        foreach ($eventClasses as $eventClass) {
 
-            return $mdata;
-            
+            $classkey = $this->getModuleKeyByEvent($eventClass);
+            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'prepareRssFeed');
+
+            /**
+             * @var \fpcm\events\event
+             */
+            $module = new $eventClass();
+
+            if (!$this->is_a($module))
+                continue;
+
+            $mdata = $module->run($mdata);
         }
+
+        if (!$mdata || is_a($mdata, '\DOMDocument')) {
+            return $data;
+        }
+
+        return $mdata;
     }
+
+}

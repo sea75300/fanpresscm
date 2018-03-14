@@ -1,61 +1,66 @@
 <?php
-    /**
-     * Module-Event: editorAddLinks
-     * 
-     * Event wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
-     * Parameter: void
-     * Rückgabe: array mit Link-Informationen gemäß dem übergebenen Dummy-Eintrag
-     * 
-     * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     */
-    namespace fpcm\events\editor;
+
+/**
+ * Module-Event: editorAddLinks
+ * 
+ * Event wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
+ * Parameter: void
+ * Rückgabe: array mit Link-Informationen gemäß dem übergebenen Dummy-Eintrag
+ * 
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\events\editor;
+
+/**
+ * Module-Event: editorAddLinks
+ * 
+ * Event wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
+ * Parameter: void
+ * Rückgabe: array mit Link-Informationen gemäß dem übergebenen Dummy-Eintrag
+ * 
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @package fpcm/model/events
+ */
+final class editorAddLinks extends \fpcm\events\abstracts\event {
 
     /**
-     * Module-Event: editorAddLinks
-     * 
-     * Event wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
-     * Parameter: void
-     * Rückgabe: array mit Link-Informationen gemäß dem übergebenen Dummy-Eintrag
-     * 
-     * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     * @package fpcm/model/events
+     * wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
+     * @param void $data
+     * @return array
      */
-    final class editorAddLinks extends \fpcm\model\abstracts\event {
+    public function run($data = null)
+    {
 
-        /**
-         * wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
-         * @param void $data
-         * @return array
-         */
-        public function run($data = null) {
-            
-            $eventClasses = $this->getEventClasses();
-            
-            if (!count($eventClasses)) return [];
-            
-            $mdata = array(array('label' => '','value' => ''));
-            foreach ($eventClasses as $eventClass) {
-                
-                $classkey = $this->getModuleKeyByEvent($eventClass);                
-                $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'editorAddLinks');
-                
-                /**
-                 * @var \fpcm\model\abstracts\event
-                 */
-                $module = new $eventClass();
+        $eventClasses = $this->getEventClasses();
 
-                if (!$this->is_a($module)) continue;
-                
-                $mdata = $module->run($mdata);
-            }
+        if (!count($eventClasses))
+            return [];
 
-            array_shift($mdata);
-            
-            return $mdata;
-            
+        $mdata = array(array('label' => '', 'value' => ''));
+        foreach ($eventClasses as $eventClass) {
+
+            $classkey = $this->getModuleKeyByEvent($eventClass);
+            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'editorAddLinks');
+
+            /**
+             * @var \fpcm\events\event
+             */
+            $module = new $eventClass();
+
+            if (!$this->is_a($module))
+                continue;
+
+            $mdata = $module->run($mdata);
         }
+
+        array_shift($mdata);
+
+        return $mdata;
     }
+
+}

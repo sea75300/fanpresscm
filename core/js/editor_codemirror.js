@@ -110,7 +110,7 @@ if (fpcm.editor) {
             
             return false;
         });
-        
+
         return true;
     };
     

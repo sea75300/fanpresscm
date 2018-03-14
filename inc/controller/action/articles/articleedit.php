@@ -123,7 +123,6 @@ class articleedit extends articlebase {
         $this->handleCommentActions();
 
         if (!$this->revisionId) {
-            $this->article->prepareDataLoad();
             $this->article->enableTweetCreation($this->config->twitter_events['update']);
         }
 

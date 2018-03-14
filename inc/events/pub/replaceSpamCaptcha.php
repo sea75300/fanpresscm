@@ -1,61 +1,68 @@
 <?php
-    /**
-     * Module-Event: publicReplaceSpamCaptcha
-     * 
-     * Event wird ausgeführt, wenn Spam-Captcha in Kommentar-Formular initialisiert werden soll
-     * Parameter: void
-     * Rückgabe: Objekt welche von der Klasse fpcm\model\abstracts\spamCaptcha abgeleitet wurde
-     * 
-     * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     */
-    namespace fpcm\events\pub;
+
+/**
+ * Module-Event: publicReplaceSpamCaptcha
+ * 
+ * Event wird ausgeführt, wenn Spam-Captcha in Kommentar-Formular initialisiert werden soll
+ * Parameter: void
+ * Rückgabe: Objekt welche von der Klasse fpcm\model\abstracts\spamCaptcha abgeleitet wurde
+ * 
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\events\pub;
+
+/**
+ * Module-Event: publicReplaceSpamCaptcha
+ * 
+ * Event wird ausgeführt, wenn Spam-Captcha in Kommentar-Formular initialisiert werden soll
+ * Parameter: void
+ * Rückgabe: Objekt welche von der Klasse fpcm\model\abstracts\spamCaptcha abgeleitet wurde
+ * 
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @package fpcm/model/events
+ */
+final class publicReplaceSpamCaptcha extends \fpcm\events\abstracts\event {
 
     /**
-     * Module-Event: publicReplaceSpamCaptcha
-     * 
-     * Event wird ausgeführt, wenn Spam-Captcha in Kommentar-Formular initialisiert werden soll
-     * Parameter: void
-     * Rückgabe: Objekt welche von der Klasse fpcm\model\abstracts\spamCaptcha abgeleitet wurde
-     * 
-     * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     * @package fpcm/model/events
+     * wird ausgeführt, wenn Spam-Captcha in Kommentar-Formular initialisiert werden soll
+     * @param void $data
+     * @return \model\abstracts\spamCaptcha
      */
-    final class publicReplaceSpamCaptcha extends \fpcm\model\abstracts\event {
+    public function run($data = null)
+    {
+
+        $eventClasses = $this->getEventClasses();
+
+        if (!count($eventClasses))
+            return false;
+
+        $eventClass = array_shift($eventClasses);
+
+        $classkey = $this->getModuleKeyByEvent($eventClass);
+        if (!in_array($classkey, $this->activeModules))
+            return false;
+
+        $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'publicReplaceSpamCaptcha');
 
         /**
-         * wird ausgeführt, wenn Spam-Captcha in Kommentar-Formular initialisiert werden soll
-         * @param void $data
-         * @return \model\abstracts\spamCaptcha
+         * @var \fpcm\events\event
          */
-        public function run($data = null) {
-            
-            $eventClasses = $this->getEventClasses();
-            
-            if (!count($eventClasses)) return false;
-            
-            $eventClass = array_shift($eventClasses);
-                
-            $classkey = $this->getModuleKeyByEvent($eventClass);                
-            if (!in_array($classkey, $this->activeModules)) return false;
+        $module = new $eventClass();
 
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'publicReplaceSpamCaptcha');
+        if (!$this->is_a($module))
+            return false;
 
-            /**
-             * @var \fpcm\model\abstracts\event
-             */
-            $module = new $eventClass();
+        $data = $module->run();
 
-            if (!$this->is_a($module)) return false;
+        if (!is_object($data))
+            return false;
 
-            $data = $module->run();
-            
-            if (!is_object($data)) return false;
-            
-            return $data;
-            
-        }
+        return $data;
     }
+
+}

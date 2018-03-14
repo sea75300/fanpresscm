@@ -1,55 +1,61 @@
 <?php
-    /**
-     * Module-Event: clearCache
-     * 
-     * Event wird ausgeführt, wenn Cache über "Cache leeren" Button geleert wird
-     * Parameter: void
-     * Rückgabe: void
-     * 
-     * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     */
-    namespace fpcm\events;
+
+/**
+ * Module-Event: clearCache
+ * 
+ * Event wird ausgeführt, wenn Cache über "Cache leeren" Button geleert wird
+ * Parameter: void
+ * Rückgabe: void
+ * 
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\events;
+
+/**
+ * Module-Event: clearCache
+ * 
+ * Event wird ausgeführt, wenn Cache über "Cache leeren" Button geleert wird
+ * Parameter: void
+ * Rückgabe: void
+ * 
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @package fpcm/model/events
+ */
+final class clearCache extends \fpcm\events\abstracts\event {
 
     /**
-     * Module-Event: clearCache
-     * 
-     * Event wird ausgeführt, wenn Cache über "Cache leeren" Button geleert wird
-     * Parameter: void
-     * Rückgabe: void
-     * 
-     * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     * @package fpcm/model/events
+     * wird ausgeführt, wenn Cache über "Cache leeren" Button geleert wird
+     * @param void $data
+     * @return void
      */
-    final class clearCache extends \fpcm\model\abstracts\event {
+    public function run($data = null)
+    {
 
-        /**
-         * wird ausgeführt, wenn Cache über "Cache leeren" Button geleert wird
-         * @param void $data
-         * @return void
-         */
-        public function run($data = null) {
-            
-            $eventClasses = $this->getEventClasses();
-            
-            if (!count($eventClasses)) return;
-            
-            foreach ($eventClasses as $eventClass) {
-                
-                $classkey = $this->getModuleKeyByEvent($eventClass);                
-                $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'clearCache');
-                
-                /**
-                 * @var \fpcm\model\abstracts\event
-                 */
-                $module = new $eventClass();
+        $eventClasses = $this->getEventClasses();
 
-                if (!$this->is_a($module)) continue;
-                
-                $module->run();
-            }
+        if (!count($eventClasses))
+            return;
+
+        foreach ($eventClasses as $eventClass) {
+
+            $classkey = $this->getModuleKeyByEvent($eventClass);
+            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'clearCache');
+
+            /**
+             * @var \fpcm\events\event
+             */
+            $module = new $eventClass();
+
+            if (!$this->is_a($module))
+                continue;
+
+            $module->run();
         }
     }
+
+}
