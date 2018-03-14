@@ -45,7 +45,7 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
         $containers = array_map(array($this, 'parseClassname'), glob(\fpcm\classes\dirs::getIncDirPath('model' . DIRECTORY_SEPARATOR . 'dashboard' . DIRECTORY_SEPARATOR . '*.php')));
         $containers = $this->events->runEvent('dashboardContainersLoad', $containers);
 
-        $additional = [];
+        $viewVars   = $this->view->getViewVars();
         foreach ($containers as $container) {
 
             /* @var $containerObj \fpcm\model\abstracts\dashcontainer */
@@ -60,25 +60,23 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
                 continue;
             }
 
+            $pos = $containerObj->getPosition();
+            if (isset($this->containers[$pos])) {
+                trigger_error('Error parse dashboard container, position '.$pos.' already taken!');
+                continue;
+            }
+
             $this->view->addJsFiles($containerObj->getJavascriptFiles());
             $this->view->addJsVars($containerObj->getJavascriptVars());
             $this->view->addJsLangVars($containerObj->getJavascriptLangVars());
 
             $containerViewVars = $containerObj->getControllerViewVars();
-            $viewVars = $this->view->getViewVars();
-            $this->view->setViewVars($viewVars + $containerViewVars);
-
-            $pos = $containerObj->getPosition();
-            if (isset($this->containers[$pos])) {
-                trigger_error('Error parse dashboard container, position '.$pos.' already taken by "'.$container.'"');
-                continue;
-            }
+            $viewVars = array_merge($viewVars, $containerViewVars);
 
             $this->containers[$pos] = $containerObj;
         }
 
-        $this->containers += $additional;
-
+        $this->view->setViewVars($viewVars);
         ksort($this->containers);
     }
 

@@ -172,9 +172,8 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      * @param bool $monthIndex
      * @return array
      */
-    public function getArticlesByCondition($conditions, $monthIndex = false)
+    public function getArticlesByCondition(search $conditions, $monthIndex = false)
     {
-
         $where = [];
         $valueParams = [];
 
@@ -372,11 +371,11 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      * @param search $conditions
      * @return int
      */
-    public function countArticlesByCondition($conditions = array())
+    public function countArticlesByCondition(search $conditions)
     {
         $where = 'id > 0';
-
         $conditions = $conditions->getData();
+
         if (isset($conditions['category'])) {
             $conditions['category'] = (int) $conditions['category'];
             $valueParams[] = "categories " . $this->dbcon->dbLike() . " '{$conditions['category']}'";

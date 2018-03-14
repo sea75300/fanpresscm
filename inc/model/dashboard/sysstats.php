@@ -96,8 +96,7 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     protected function getArticleStats()
     {
         $articleList = new \fpcm\model\articles\articlelist();
-
-        $this->tableContent[] = '<tr><td><span class="fa fa-book fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_ALL') . ':</strong></td><td class="fpcm-ui-center">' . $articleList->countArticlesByCondition() . '</td></tr>';
+        $this->tableContent[] = '<tr><td><span class="fa fa-book fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_ALL') . ':</strong></td><td class="fpcm-ui-center">' . $articleList->countArticlesByCondition(new \fpcm\model\articles\search()) . '</td></tr>';
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->active = 1;
