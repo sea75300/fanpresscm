@@ -63,7 +63,7 @@ class templates extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
-        $editor = new \fpcm\model\editor\htmlEditor();
+        $editor = new \fpcm\components\editor\htmlEditor();
 
         $this->view->addCssFiles($editor->getCssFiles());
 
