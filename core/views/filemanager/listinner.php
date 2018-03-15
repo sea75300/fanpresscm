@@ -1,7 +1,7 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if (!count($files)) : ?>
 
-<p class="fpcm-ui-padding-none fpcm-ui-margin-none"><?php $theView->icon('file-image-o')->setStack('ban fpcm-ui-important-text'); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
+<p class="fpcm-ui-padding-none fpcm-ui-margin-none"><?php $theView->icon('file-image-o')->setStack('ban fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
 
 <?php else : ?>
 

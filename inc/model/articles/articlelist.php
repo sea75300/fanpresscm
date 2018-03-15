@@ -274,7 +274,10 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $where = implode(" {$combination} ", $where);
 
         $where2 = [];
-        $where2[] = $this->dbcon->orderBy(((isset($conditions['orderby'])) ? $conditions['orderby'] : array($this->config->articles_sort . ' ' . $this->config->articles_sort_order)));
+        $where2[] = $this->dbcon->orderBy(
+            (isset($conditions['orderby'])) ? $conditions['orderby']
+                                            : [$this->config->articles_sort . ' ' . $this->config->articles_sort_order]
+        );
 
         if (isset($conditions['limit'])) {
             $where2[] = $this->dbcon->limitQuery($conditions['limit'][0], $conditions['limit'][1]);
@@ -284,7 +287,6 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $where .= ' ' . implode(' ', $where2);
 
         $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', $where, array_values($valueParams)), true);
-
         return $this->createListResult($list, $monthIndex);
     }
 

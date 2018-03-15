@@ -122,7 +122,7 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
         $users = array_flip($userlist->getUsersNameList());
 
         $content = [];
-        $content[] = '<table class="fpcm-ui-table fpcm-ui-articles fpcm-ui-large-td">';
+        $content[] = '<div>';
         foreach ($articles as $article) {
 
             $createInfo = $this->language->translate('EDITOR_AUTHOREDIT', array(
@@ -130,17 +130,18 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
                 '{{time}}' => date($this->config->system_dtmask, $article->getCreatetime())
             ));
 
-            $content[] = '<tr class="fpcm-ui-font-small">';
-            $content[] = '  <td class="fpcm-ui-articlelist-open">';
+            $content[] = '<div class="row fpcm-ui-font-small fpcm-ui-padding-md-tb">';
+            $content[] = '  <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">';
             $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($article)->setTarget('_blank');
             $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($article)->setReadonly($article->getEditPermission() ? false : true);
-            $content[] = '  </td>';
+            $content[] = '  </div>';
 
-            $content[] = '  <td class="fpcm-ui-ellipsis">';
+            $content[] = '  <div class="col-sm-12 col-md-8">';
+            $content[] = '  <div class="fpcm-ui-ellipsis">';
             $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags(rtrim($article->getTitle(), '.!?')))) . '</strong><br>';
             $content[] = '  <span>' . $createInfo . '</span>';
-            $content[] = '  </td>';
-            $content[] = '  <td class="fpcm-ui-dashboard-recentarticles-meta">';
+            $content[] = '  </div></div>';
+            $content[] = '  <div class="col-auto fpcm-ui-metabox fpcm-ui-padding-none-lr">';
 
             if ($article->getPinned()) {
                 $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_PINNED') . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa fa-thumb-tack fa-rotate-90 fa-stack-1x fa-inverse"></span></span>';
@@ -155,11 +156,11 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
                 $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_APPROVAL') . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa fa-thumbs-o-up fa-stack-1x fa-inverse"></span></span>';
             }
 
-            $content[] = '  </td>';
-            $content[] = '</tr>';
+            $content[] = '  </div>';
+            $content[] = '</div>';
         }
 
-        $content[] = '</table>';
+        $content[] = '</div>';
 
         $this->content = implode(PHP_EOL, $content);
 

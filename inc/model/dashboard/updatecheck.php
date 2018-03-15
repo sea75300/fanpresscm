@@ -63,8 +63,8 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
         $this->getSystemUpdateStatus();
         $this->getModuleUpdateStatus();
 
-        $this->tableContent[] = '<tr><td colspan="2" class="fpcm-ui-font-small"><p>' . $this->language->translate('UPDATE_VERSIONCHECK_NOTES') . '</p><td><tr>';
-        return implode(PHP_EOL, array('<table class="fpcm-ui-table fpcm-dashboard-updates fpcm-ui-center">', implode(PHP_EOL, $this->tableContent), '</table>'));
+//        $this->tableContent[] = '<div class="row fpcm-ui-font-small"><div class="col-4"><p>' . $this->language->translate('UPDATE_VERSIONCHECK_NOTES') . '</p><div><div>';
+        return '<div class="fpcm-dashboard-updates fpcm-ui-center">'.implode(PHP_EOL, $this->tableContent).'</div>';
     }
 
     /**
@@ -102,13 +102,15 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     {
         include_once \fpcm\classes\baseconfig::$versionFile;
         if ($this->config->system_version !== $fpcmVersion) {
-            $ctrlParams = ['{{versionlink}}' => \fpcm\classes\tools::getControllerLink('package/sysupdate', ['step' => \fpcm\model\packages\package::FPCMPACKAGE_STEP_UPGRADEDB])];
-            $this->renderTable('fa-refresh', 'fpcm-dashboard-updates-versiondbfile', $this->language->translate('UPDATE_VERSIONCECK_FILEDB_ERR', $ctrlParams));
+            $ctrlParams = ['{{versionlink}}' => \fpcm\classes\tools::getControllerLink('package/sysupdate', [
+                'step' => \fpcm\model\packages\package::FPCMPACKAGE_STEP_UPGRADEDB
+            ])];
+            $this->renderTable('refresh', 'fpcm-dashboard-updates-versiondbfile', $this->language->translate('UPDATE_VERSIONCECK_FILEDB_ERR', $ctrlParams));
         }
 
         $this->systemCheckresult = $this->systemUpdates->checkUpdates();
         if ($this->systemCheckresult === false || $this->systemCheckresult === \fpcm\model\updater\system::SYSTEMUPDATER_FORCE_UPDATE) {
-            $iconClass = 'fa-cloud-download';
+            $iconClass = 'cloud-download';
             $statusClass = 'fpcm-dashboard-updates-outdated';
 
             $replace = array(
@@ -117,7 +119,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
             );
             $statusText = $this->language->translate('UPDATE_VERSIONCHECK_NEW', $replace);
         } elseif ($this->systemCheckresult === \fpcm\model\updater\system::SYSTEMUPDATER_FURLOPEN_ERROR) {
-            $iconClass = 'fa-exclamation-triangle';
+            $iconClass = 'exclamation-triangle';
             $statusClass = 'fpcm-dashboard-updates-checkerror';
             $statusText = $this->language->translate('UPDATE_NOTAUTOCHECK');
 
@@ -125,9 +127,12 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
                 $this->autoCheckFailed = true;
             }
         } else {
-            $iconClass = 'fa-check';
+            $iconClass = 'check';
             $statusClass = 'fpcm-dashboard-updates-current';
-            $statusText = $this->language->translate('UPDATE_VERSIONCHECK_CURRENT', array('{{releaseinfo}}' => $this->systemUpdates->getRemoteData('notice') ? '<a href="' . $this->systemUpdates->getRemoteData('notice') . '">Release-Infos</a>' : '', '{{releasmsg}}' => $this->systemUpdates->getRemoteData('message')));
+            $statusText = $this->language->translate('UPDATE_VERSIONCHECK_CURRENT', [
+                '{{releaseinfo}}' => $this->systemUpdates->getRemoteData('notice') ? '<a href="' . $this->systemUpdates->getRemoteData('notice') . '">Release-Infos</a>' : '',
+                '{{releasmsg}}' => $this->systemUpdates->getRemoteData('message')
+            ]);
         }
 
         $this->renderTable($iconClass, $statusClass, $statusText);
@@ -139,20 +144,19 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
      */
     private function getModuleUpdateStatus()
     {
-
         $moduleUpdates = new \fpcm\model\updater\modules();
         $checkRes = $moduleUpdates->checkUpdates();
 
         if ($checkRes === true) {
-            $iconClass = 'fa-cloud-download';
+            $iconClass = 'cloud-download';
             $statusClass = 'fpcm-dashboard-updates-outdated';
             $statusText = $this->language->translate('UPDATE_MODULECHECK_NEW');
         } elseif ($checkRes === \fpcm\model\updater\system::SYSTEMUPDATER_FURLOPEN_ERROR) {
-            $iconClass = 'fa-exclamation-triangle';
+            $iconClass = 'exclamation-triangle';
             $statusClass = 'fpcm-dashboard-updates-checkerror';
             $statusText = $this->language->translate('UPDATE_MODULECHECK_FAILED');
         } else {
-            $iconClass = 'fa-check';
+            $iconClass = 'check';
             $statusClass = 'fpcm-dashboard-updates-current';
             $statusText = $this->language->translate('UPDATE_MODULECHECK_CURRENT');
         }
@@ -202,12 +206,12 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
      */
     private function renderTable($iconClass, $statusClass, $statusText)
     {
-        $content = '<tr><td>';
-        $content .= '<span class="fa-stack fa-fw fa-2x ' . $statusClass . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa ' . $iconClass . ' fa-stack-1x fa-inverse"></span></span>';
-        $content .= '</td><td>';
-        $content .= $statusText;
-        $content .= '</td></tr>';
-        $this->tableContent[] = $content;
+        $this->tableContent[] = implode(PHP_EOL, [
+            '<div class="row no-gutters">',
+            '<div class="col-3">'.(new \fpcm\view\helper\icon($iconClass.' fa-inverse'))->setSize('2x')->setClass($statusClass)->setStack('square').'</div>',
+            '<div class="col-9 align-self-center">'.$statusText.'</div>',
+            '</div>'
+        ]);
     }
 
 }

@@ -42,6 +42,7 @@ class articlelistactive extends articlelistbase {
         $this->conditionItems->active = -1;
         $this->conditionItems->archived = -1;
         $this->conditionItems->approval = -1;
+        $this->conditionItems->orderby = ['createtime DESC'];
     }
 
     protected function getSearchMode()

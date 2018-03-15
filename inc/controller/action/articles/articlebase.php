@@ -11,8 +11,6 @@ namespace fpcm\controller\action\articles;
 
 class articlebase extends \fpcm\controller\abstracts\controller {
 
-    use \fpcm\controller\traits\articles\editor;
-
     /**
      *
      * @var \fpcm\model\articles\article

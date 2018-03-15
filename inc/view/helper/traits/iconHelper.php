@@ -18,14 +18,14 @@ namespace fpcm\view\helper\traits;
 trait iconHelper {
 
     /**
-     * Input icon
+     * Icon class
      * @var string
      */
     protected $icon = '';
 
     /**
-     * Button text
-     * @var string
+     * Show icon only
+     * @var bool
      */
     protected $iconOnly = false;
 
@@ -34,6 +34,12 @@ trait iconHelper {
      * @var string
      */
     protected $iconStack = '';
+
+    /**
+     * Move stack icon to top
+     * @var bool
+     */
+    protected $stackTop = false;
 
     /**
      * Button text
@@ -93,6 +99,17 @@ trait iconHelper {
         return $this;
     }
 
+    /**
+     * Move stack icon to top
+     * @param bool $stackTop
+     * @return $this
+     */
+    public function setStackTop($stackTop)
+    {
+        $this->stackTop = (bool) $stackTop;
+        return $this;
+    }
+    
     /**
      * Return full icon string
      * @return string

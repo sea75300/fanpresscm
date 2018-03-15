@@ -89,25 +89,26 @@ class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
         $idx = 0;
 
         $content = [];
-        $content[] = '<table class="fpcm-ui-table fpcm-ui-rssnews fpcm-ui-large-td">';
+        $content[] = '<div>';
         foreach ($items as $item) {
             if ($idx >= 10) {
                 break;
             }
 
-            $content[] = '<tr class="fpcm-ui-font-small">';
-            $content[] = '  <td class="fpcm-ui-articlelist-open">';
+            $content[] = '<div class="row fpcm-ui-font-small fpcm-ui-padding-md-tb">';
+            $content[] = '  <div class="col-2 fpcm-ui-padding-none-lr fpcm-ui-center">';
             $content[] = (new \fpcm\view\helper\openButton(uniqid('fpcmNews')))->setUrl(strip_tags($item->link))->setTarget('_blank');
-            $content[] = '  </td>';
-            $content[] = '  <td>';
+            $content[] = '  </div>';
+            $content[] = '  <div class="col-10">';
+            $content[] = '  <div class="fpcm-ui-ellipsis">';
             $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags($item->title))) . '</strong><br>';
             $content[] = '  <span>' . (new \fpcm\view\helper\dateText(strtotime($item->pubDate))) . '</span>';
-            $content[] = '  </td>';
-            $content[] = '</tr>';
+            $content[] = '  </div></div>';
+            $content[] = '</div>';
             $idx++;
         }
 
-        $content[] = '</table>';
+        $content[] = '</div>';
 
         $this->content = implode(PHP_EOL, $content);
 

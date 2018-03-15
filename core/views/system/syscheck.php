@@ -1,19 +1,27 @@
-<table class="fpcm-ui-table fpcm-ui-syscheck">
-    <tr>
-        <th class="fpcm-ui-center"></th>
-        <th></th>
-        <th class="fpcm-ui-center fpcm-ui-syscheck-current"><?php $theView->write('SYSTEM_OPTIONS_SYSCHECK_CURRENT'); ?></th>
-        <th class="fpcm-ui-center"></th>
-    </tr>
-<?php foreach ($checkOptions as $checkOption => $checkResult) : ?>
-    <tr>
-        <td class="fpcm-ui-center"><?php if ($checkResult->getHelplink()) : ?><?php $theView->shorthelpButton($checkOption)->setText('GLOBAL_INFO')->setUrl($checkResult->getHelplink()); ?><?php endif; ?></td>
-        <td>
-            <spam><?php print $checkOption; ?></spam>
-            <?php if ($checkResult->getActionButton() && !$checkResult->getResult()) : ?><?php print $checkResult->getActionButton(); ?><?php endif; ?>
-        </td>
-        <td class="fpcm-ui-center fpcm-ui-syscheck-current"><?php print $checkResult->getCurrent(); ?></td>
-        <td><?php $theView->boolToText(uniqid('checkres'))->setValue($checkResult->getResult())->setText($checkResult->isFolder() && $checkResult->isFolder() ? 'GLOBAL_WRITABLE' : 'GLOBAL_YES'); ?></td>
-    </tr>
-<?php endforeach; ?>
-</table>
+<div class="fpcm-ui-dataview">
+    <div class="row fpcm-ui-dataview-head fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset">
+        <div class="col-1 fpcm-ui-padding-none-lr"></div>
+        <div class="col-5"></div>
+        <div class="col-5"><?php $theView->write('SYSTEM_OPTIONS_SYSCHECK_CURRENT'); ?></div>
+        <div class="col-1 fpcm-ui-padding-none-lr"></div>
+    </div>
+    <?php foreach ($checkOptions as $checkOption => $checkResult) : ?>
+        <div class="row fpcm-ui-dataview-row">
+            <div class="col-1 fpcm-ui-center fpcm-ui-padding-none-lr">
+                <?php if ($checkResult->getHelplink()) : ?>
+                    <?php $theView->shorthelpButton($checkOption)->setText('GLOBAL_INFO')->setUrl($checkResult->getHelplink()); ?>
+                <?php endif; ?>
+            </div>
+            <div class="col-5">
+                <spam><?php print $checkOption; ?></spam>
+                <?php if ($checkResult->getActionButton() && !$checkResult->getResult()) : ?><?php print $checkResult->getActionButton(); ?><?php endif; ?>                
+            </div>
+            <div class="col-5">
+                <?php print $checkResult->getCurrent(); ?>
+            </div>
+            <div class="col-1 fpcm-ui-center fpcm-ui-padding-none-lr">
+                <?php $theView->boolToText(uniqid('checkres'))->setValue($checkResult->getResult())->setText($checkResult->isFolder() && $checkResult->isFolder() ? 'GLOBAL_WRITABLE' : 'GLOBAL_YES'); ?>
+            </div>
+        </div>    
+    <?php endforeach; ?>
+</div>

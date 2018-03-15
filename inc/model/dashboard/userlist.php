@@ -66,7 +66,7 @@ class userlist extends \fpcm\model\abstracts\dashcontainer {
         $userlist = new \fpcm\model\users\userList();
 
         $content = [];
-        $content[] = '<table class="fpcm-ui-table fpcm-ui-users fpcm-ui-large-td">';
+        $content[] = '<div>';
 
         $items = $userlist->getUsersActive();
         /* @var $item \fpcm\model\users\author */
@@ -74,18 +74,18 @@ class userlist extends \fpcm\model\abstracts\dashcontainer {
 
             $emailAddress = (new \fpcm\view\helper\escape($item->getEmail()));
 
-            $content[] = '<tr class="fpcm-ui-font-small">';
-            $content[] = '  <td class="fpcm-ui-editbutton-col">';
+            $content[] = '<div class="row fpcm-ui-font-small fpcm-ui-padding-md-tb">';
+            $content[] = '  <div class="col-2 fpcm-ui-padding-none-lr ">';
             $content[] = (new \fpcm\view\helper\linkButton(uniqid('createMail')))->setUrl('mailto:' . $emailAddress)->setText('GLOBAL_WRITEMAIL')->setTarget('_blank')->setIcon('envelope')->setIconOnly(true);
-            $content[] = '  </td>';
-            $content[] = '  <td>';
-            $content[] = '  <strong>' . (new \fpcm\view\helper\escape($item->getDisplayname())) . '</strong><br>';
-            $content[] = '  <span>' . $emailAddress . '</span>';
-            $content[] = '  </td>';
-            $content[] = '</tr>';
+            $content[] = '  </div>';
+            $content[] = '  <div col="col-10">';
+            $content[] = '      <strong>' . (new \fpcm\view\helper\escape($item->getDisplayname())) . '</strong><br>';
+            $content[] = '      <span>' . $emailAddress . '</span>';
+            $content[] = '  </div>';
+            $content[] = '</div>';
         }
 
-        $content[] = '</table>';
+        $content[] = '</div>';
 
         $this->content = implode(PHP_EOL, $content);
 

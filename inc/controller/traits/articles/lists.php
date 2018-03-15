@@ -208,8 +208,8 @@ trait lists {
         /* @var $article \fpcm\model\articles\article */
         foreach ($this->articleItems as $articleMonth => $articles) {
 
-            $titleStr = $this->lang->writeMonth(date('n', $articleMonth), true);
-            $titleStr .= ' ' . $this->lang->writeMonth(date('Y', $articleMonth), true);
+            $titleStr  = $this->lang->writeMonth(date('n', $articleMonth), true);
+            $titleStr .= ' ' .date('Y', $articleMonth);
             $titleStr .= ' (' . count($articles) . ')';
 
             $this->dataView->addRow(

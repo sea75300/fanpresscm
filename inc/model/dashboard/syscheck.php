@@ -48,7 +48,11 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     public function getContent()
     {
         $this->runCheck();
-        return implode(PHP_EOL, array('<table class="fpcm-ui-table fpcm-ui-font-small" style="overflow:auto;">', implode(PHP_EOL, $this->tableContent), '</table>'));
+        return implode(PHP_EOL, [
+            '<div class="fpcm-ui-font-small" style="overflow:auto;">',
+            implode(PHP_EOL, $this->tableContent),
+            '</div>'
+        ]);
     }
 
     /**
@@ -87,20 +91,29 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
         $sysCheckAction = new \fpcm\controller\ajax\system\syscheck(true);
         $rows = $sysCheckAction->processCli();
 
-        $this->tableContent[] = '<tr><td class="fpcm-td-spacer"></td></tr>';
-
         $options = array_slice($rows, 16, 2);
 
         /* @var $data \fpcm\model\system\syscheckOption */
         foreach ($options as $description => $data) {
             $checkres = (new \fpcm\view\helper\boolToText($description))->setValue($data->getResult());
-            $this->tableContent[] = "<tr><td>{$checkres} {$description}</td></tr>";
+            $dat  = "<div class=\"row fpcm-ui-padding-md-tb\">";
+            $dat .= "<div class=\"col-1 fpcm-ui-padding-none-lr fpcm-ui-center\">{$checkres}</div>";
+            $dat .= "<div class=\"col-11 fpcm-ui-padding-none-lr \">{$description}</div>";
+            $dat .= "</div>";
+
+            $this->tableContent[] = $dat;
         }
 
         $folders = array_slice($rows, -13);
         foreach ($folders as $description => $data) {
             $checkres = (new \fpcm\view\helper\boolToText($description))->setValue($data->getResult())->setText($data->getResult() ? 'GLOBAL_WRITABLE' : 'GLOBAL_NOT_WRITABLE');
-            $this->tableContent[] = "<tr><td>{$checkres} {$description}</td></tr>";
+            
+            $dat  = "<div class=\"row fpcm-ui-padding-md-tb\">";
+            $dat .= "<div class=\"col-1 fpcm-ui-padding-none-lr fpcm-ui-center\">{$checkres}</div>";
+            $dat .= "<div class=\"col-11 fpcm-ui-padding-none-lr \">{$description}</div>";
+            $dat .= "</div>";
+
+            $this->tableContent[] = $dat;
         }
     }
 

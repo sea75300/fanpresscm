@@ -1,3 +1,4 @@
+<?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-content-wrapper">
     <div class="fpcm-tabs-general">
         <ul>
@@ -12,273 +13,740 @@
         </ul>
 
         <div id="tabs-options-general">
-            <table class="fpcm-ui-table fpcm-ui-options">
-                <tr>			
-                    <td><?php $theView->write('GLOBAL_EMAIL'); ?>:</td>
-                    <td><?php fpcm\view\helper::textInput('system_email', '', $globalConfig['system_email']); ?></td>		
-                </tr>			
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_URL'); ?>:</td>
-                    <td><?php fpcm\view\helper::textInput('system_url', '', $globalConfig['system_url']); ?></td>
-                </tr>	
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_LANG'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('system_lang', $languages, $globalConfig['system_lang'], false, false); ?></td>				 
-                </tr>		
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_TIMEZONE'); ?>:</td>
-                    <td><?php fpcm\view\helper::selectGroup('system_timezone', $timezoneAreas, $globalConfig['system_timezone']); ?></td>
-                </tr>						
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_DATETIMEMASK'); ?>:</td>
-                    <td>
-                        <?php fpcm\view\helper::textInput('system_dtmask', '', $globalConfig['system_dtmask']); ?>
-                        <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
-                    </td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_CACHETIMEOUT'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('system_cache_timeout', $theView->translate('SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL'), $globalConfig['system_cache_timeout'], false, false); ?></td>
-                </tr>                               
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_USEMODE'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('system_mode', $systemModes, $globalConfig['system_mode'], false, false); ?></td>		
-                </tr>			 
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_STYLESHEET'); ?>:</td>
-                    <td><?php $theView->textInput('system_css_path')->setValue($globalConfig['system_css_path'], ENT_QUOTES); ?></td>
-                </tr>
-                <tr>
-                    <td><?php $theView->write('SYSTEM_OPTIONS_INCLUDEJQUERY'); ?>:</td>
-                    <td>
-                        <?php $theView->boolSelect('system_loader_jquery')->setSelected($globalConfig['system_loader_jquery']); ?>
-                        <?php $theView->shorthelpButton('jqueryInclude')->setText('SYSTEM_OPTIONS_INCLUDEJQUERY_YES'); ?>
-                    </td>
-                </tr>
-            </table>
+
+            <div class="row fpcm-ui-padding-md-tb fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('GLOBAL_EMAIL'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('system_email')->setValue($globalConfig['system_email']); ?>		
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_URL'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('system_url')->setValue($globalConfig['system_url']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_LANG'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('system_lang')->setOptions($languages)->setSelected($globalConfig['system_lang'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_TIMEZONE'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('system_timezone')->setOptions($timezoneAreas)->setSelected($globalConfig['system_timezone'])->setOptGroup(true); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_DATETIMEMASK'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('system_dtmask')->setValue($globalConfig['system_dtmask']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto fpcm-ui-padding-md-lr">
+                    <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_CACHETIMEOUT'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('system_cache_timeout')->setOptions($theView->translate('SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL'))->setSelected($globalConfig['system_cache_timeout'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_USEMODE'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('system_mode')->setOptions($systemModes)->setSelected($globalConfig['system_mode'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_STYLESHEET'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('system_css_path')->setValue($globalConfig['system_css_path'], ENT_QUOTES); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_INCLUDEJQUERY'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('system_loader_jquery')->setSelected($globalConfig['system_loader_jquery']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                    <?php $theView->shorthelpButton('jqueryInclude')->setText('SYSTEM_OPTIONS_INCLUDEJQUERY_YES'); ?>
+                </div>
+            </div>
+
         </div>
 
         <div id="tabs-options-editor">
-            <table class="fpcm-ui-table fpcm-ui-options">
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('system_editor', $editors, base64_encode($globalConfig['system_editor']), false, false); ?></td>		
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('system_editor_fontsize', $defaultFontsizes, $globalConfig['system_editor_fontsize'], false, false); ?></td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_REVISIONS_ENABLED'); ?>:</td>
-                    <td>
-                        <?php $theView->boolSelect('articles_revisions')->setSelected($globalConfig['articles_revisions']); ?>
-                    </td>		
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('articles_revisions_limit', $theView->translate('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT_LIST'), $globalConfig['articles_revisions_limit'], false, false); ?></td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_NEWS_NEWUPLOADER'); ?>:</td>
-                    <td><?php $theView->boolSelect('file_uploader_new')->setSelected($globalConfig['file_uploader_new']); ?></td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_FILEMANAGER_LIMIT'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('file_list_limit', $articleLimitListAcp, $globalConfig['file_list_limit'], false, false); ?></td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_IMGTOOLS'); ?>:</td>
-                    <td><?php $theView->boolSelect('articles_imageedit_persistence')->setSelected($globalConfig['articles_imageedit_persistence']); ?></td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWIMGTHUMBSIZE'); ?>:</td>
-                    <td>
-                        <div class="fpcm-ui-controlgroup">
-                            <?php fpcm\view\helper::textInput('file_img_thumb_width', 'ui-spinner-input', $globalConfig['file_img_thumb_width'], false, 5, false, false); ?>
-                            <label for="file_img_thumb_width" class="ui-controlgroup-label"><span class="fa fa-times fa-fw"></span></label>                                
-                            <?php fpcm\view\helper::textInput('file_img_thumb_height', 'ui-spinner-input', $globalConfig['file_img_thumb_height'], false, 5, false, false); ?>
-                            <label for="file_img_thumb_height" class="ui-controlgroup-label"><?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEPIXELS'); ?></label>
-                        </div>
-                    </td>	
-                </tr>
-                <tr>			
-                    <td class="fpcm-align-top"><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_CSS'); ?>:</td>
-                    <td><?php $theView->textarea('system_editor_css')->setValue($globalConfig['system_editor_css'], ENT_QUOTES)->setClass('fpcm-ui-textarea-medium'); ?></td>
-                </tr>
-            </table>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('system_editor')->setOptions($editors)->setSelected(base64_encode($globalConfig['system_editor']))->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('system_editor_fontsize')
+                            ->setOptions($defaultFontsizes)
+                            ->setSelected($globalConfig['system_editor_fontsize'])
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_REVISIONS_ENABLED'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('articles_revisions')->setSelected($globalConfig['articles_revisions']); ?>            
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('articles_revisions_limit')
+                            ->setOptions($theView->translate('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT_LIST'))
+                            ->setSelected($globalConfig['articles_revisions_limit'])
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_NEWS_NEWUPLOADER'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('file_uploader_new')->setSelected($globalConfig['file_uploader_new']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_FILEMANAGER_LIMIT'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('file_list_limit')
+                            ->setOptions($articleLimitListAcp)
+                            ->setSelected($globalConfig['file_list_limit'])
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_IMGTOOLS'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('articles_imageedit_persistence')->setSelected($globalConfig['articles_imageedit_persistence']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWIMGTHUMBSIZE'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                    <div class="fpcm-ui-controlgroup">
+                        <?php $theView->textInput('file_img_thumb_width')->setClass('ui-spinner-input')->setValue($globalConfig['file_img_thumb_width'])->setMaxlenght(5)->setWrapper(false); ?>
+                        <label for="file_img_thumb_width" class="ui-controlgroup-label"><span class="fa fa-times fa-fw"></span></label>                                
+                        <?php $theView->textInput('file_img_thumb_height')->setClass('ui-spinner-input')->setValue($globalConfig['file_img_thumb_height'])->setMaxlenght(5)->setWrapper(false); ?>
+                        <label for="file_img_thumb_height" class="ui-controlgroup-label"><?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEPIXELS'); ?></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_CSS'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textarea('system_editor_css')->setValue($globalConfig['system_editor_css'], ENT_QUOTES)->setClass('fpcm-ui-textarea-medium'); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
         </div>
 
         <div id="tabs-options-news">
-            <table class="fpcm-ui-table fpcm-ui-options">
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWLIMIT'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('articles_limit', $articleLimitList, $globalConfig['articles_limit'], false, false); ?></td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_ACPARTICLES_LIMIT'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('articles_acp_limit', $articleLimitListAcp, $globalConfig['articles_acp_limit'], false, false); ?></td>
-                </tr>				
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_ACTIVENEWSTEMPLATE'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('articles_template_active', $articleTemplates, $globalConfig['articles_template_active'], false, false); ?></td>
-                </tr>				
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_ACTIVENEWSTEMPLATESINGLE'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('article_template_active', $articleTemplates, $globalConfig['article_template_active'], false, false); ?></td>		
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_NEWS_SORTING'); ?>:</td>
-                    <td>
-                        <div class="fpcm-ui-controlgroup">
-                            <?php fpcm\view\helper::select('articles_sort', $sorts, $globalConfig['articles_sort'], false, false); ?>
-                            <?php fpcm\view\helper::select('articles_sort_order', $sortsOrders, $globalConfig['articles_sort_order'], false, false); ?>
-                        </div>
-                    </td>		
-                </tr>                        
 
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWSHARELINKS'); ?>:</td>
-                    <td><?php $theView->boolSelect('system_show_share')->setSelected($globalConfig['system_show_share']); ?></td>		
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_NEWS_URLREWRITING'); ?>:</td>
-                    <td><?php $theView->boolSelect('articles_link_urlrewrite')->setSelected($globalConfig['articles_link_urlrewrite']); ?></td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_NEWS_ENABLEFEED'); ?>:</td>
-                    <td><?php $theView->boolSelect('articles_rss')->setSelected($globalConfig['articles_rss']); ?></td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_ARCHIVE_LINK'); ?>:</td>
-                    <td><?php $theView->boolSelect('articles_archive_show')->setSelected($globalConfig['articles_archive_show']); ?></td>		
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT'); ?>:</td>
-                    <td><?php fpcm\view\helper::textInput('articles_archive_datelimit', '', $globalConfig['articles_archive_datelimit'] ? $theView->dateText($globalConfig['articles_archive_datelimit'], 'Y-m-d') : ''); ?>
-                        <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY'); ?>
-                    </td>
-                </tr>
-            </table>                    
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWLIMIT'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('articles_limit')
+                            ->setOptions($articleLimitList)
+                            ->setSelected($globalConfig['articles_limit'])
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_ACPARTICLES_LIMIT'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('articles_acp_limit')
+                            ->setOptions($articleLimitListAcp)
+                            ->setSelected($globalConfig['articles_acp_limit'])
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_ACTIVENEWSTEMPLATE'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('articles_template_active')
+                            ->setOptions($articleTemplates)
+                            ->setSelected($globalConfig['articles_template_active'])
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_ACTIVENEWSTEMPLATESINGLE'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('article_template_active')
+                            ->setOptions($articleTemplates)
+                            ->setSelected($globalConfig['article_template_active'])
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>		
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_NEWS_SORTING'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                    <div class="fpcm-ui-controlgroup">
+                        <?php $theView->select('articles_sort')
+                                ->setOptions($sorts)
+                                ->setSelected($globalConfig['articles_sort'])
+                                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                        <?php $theView->select('articles_sort_order')
+                                ->setOptions($sorts)
+                                ->setSelected($globalConfig['articles_sort_order'])
+                                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWSHARELINKS'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('system_show_share')->setSelected($globalConfig['system_show_share']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_NEWS_URLREWRITING'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('articles_link_urlrewrite')->setSelected($globalConfig['articles_link_urlrewrite']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_NEWS_ENABLEFEED'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('articles_rss')->setSelected($globalConfig['articles_rss']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_ARCHIVE_LINK'); ?>:                    
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('articles_archive_show')->setSelected($globalConfig['articles_archive_show']); ?>		
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('articles_archive_datelimit')->setValue($globalConfig['articles_archive_datelimit'] ? $theView->dateText($globalConfig['articles_archive_datelimit'], 'Y-m-d') : ''); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                    <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY'); ?>
+                </div>
+            </div>
         </div>
 
         <div id="tabs-options-comments">
-            <table class="fpcm-ui-table fpcm-ui-options">
-               <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_COMMENT_ENABLED_GLOBAL'); ?>:</td>
-                    <td><?php $theView->boolSelect('system_comments_enabled')->setSelected($globalConfig['system_comments_enabled']); ?></td>		
-               </tr>                                                
-               <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_ACTIVECOMMENTTEMPLATE'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('comments_template_active', $commentTemplates, $globalConfig['comments_template_active'], false, false); ?></td>
-               </tr>
-               <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_FLOODPROTECTION'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('comments_flood', $theView->translate('SYSTEM_OPTIONS_FLOODPROTECTION_INTERVALS'), $globalConfig['comments_flood'], false, false); ?></td>
-               </tr>		
-               <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_COMMENTEMAIL'); ?>:</td>
-                    <td><?php $theView->boolSelect('comments_email_optional')->setSelected($globalConfig['comments_email_optional']); ?></td>
-               </tr>	
-               <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_COMMENT_APPROVE'); ?>:</td>
-                    <td><?php $theView->boolSelect('comments_confirm')->setSelected($globalConfig['comments_confirm']); ?></td>		
-               </tr>	
-               <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_COMMENT_NOTIFY'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('comments_notify', $notify, $globalConfig['comments_notify'], false, false); ?></td>
-               </tr>	 
-               <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_ANTISPAMQUESTION'); ?>:</td>
-                    <td><?php fpcm\view\helper::textInput('comments_antispam_question', '', $globalConfig['comments_antispam_question']); ?></td>		
-               </tr>			 
-               <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_ANTISPAMANSWER'); ?>:</td>
-                    <td><?php fpcm\view\helper::textInput('comments_antispam_answer', '', $globalConfig['comments_antispam_answer']); ?></td>
-               </tr>	 
-               <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_COMMENT_MARKSPAM_PASTCHECK'); ?>:</td>
-                    <td><?php fpcm\view\helper::textInput('comments_markspam_commentcount', 'fpcm-ui-spinner', $globalConfig['comments_markspam_commentcount'], false, 5, false, false); ?></td>		
-               </tr>	
-           </table>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_COMMENT_ENABLED_GLOBAL'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('system_comments_enabled')->setSelected($globalConfig['system_comments_enabled']); ?>		
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_ACTIVECOMMENTTEMPLATE'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('comments_template_active')
+                            ->setOptions($commentTemplates)
+                            ->setSelected($globalConfig['comments_template_active'])
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_FLOODPROTECTION'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('comments_flood')
+                            ->setOptions($theView->translate('SYSTEM_OPTIONS_FLOODPROTECTION_INTERVALS'))
+                            ->setSelected($globalConfig['comments_flood'])
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_COMMENTEMAIL'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('comments_email_optional')->setSelected($globalConfig['comments_email_optional']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_COMMENT_APPROVE'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('comments_confirm')->setSelected($globalConfig['comments_confirm']); ?>		
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_COMMENT_NOTIFY'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('comments_notify')
+                            ->setOptions($notify)
+                            ->setSelected($globalConfig['comments_notify'])
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_ANTISPAMQUESTION'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('comments_antispam_question')->setValue($globalConfig['comments_antispam_question']); ?>		
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_ANTISPAMANSWER'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('comments_antispam_answer')->setValue($globalConfig['comments_antispam_answer']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_COMMENT_MARKSPAM_PASTCHECK'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('comments_markspam_commentcount')
+                            ->setClass('fpcm-ui-spinner')
+                            ->setValue($globalConfig['comments_markspam_commentcount'])
+                            ->setMaxlenght(5)
+                            ->setWrapper(false); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
         </div>
 
         <div id="tabs-options-security">
-            <table class="fpcm-ui-table fpcm-ui-options">
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_MAINTENANCE'); ?>:</td>
-                    <td><?php $theView->boolSelect('system_maintenance')->setSelected($globalConfig['system_maintenance']); ?></td>		
-                </tr>			 			 
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_SESSIONLENGHT'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('system_session_length', $theView->translate('SYSTEM_OPTIONS_SESSIONLENGHT_INTERVALS'), $globalConfig['system_session_length'], false, false); ?></td>
-                </tr>			 			 
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_LOGIN_MAXATTEMPTS'); ?>:</td>
-                    <td><?php fpcm\view\helper::textInput('system_loginfailed_locked', 'fpcm-ui-spinner', $globalConfig['system_loginfailed_locked'], false, 5, false, false); ?></td>
-                </tr>
-            </table>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_MAINTENANCE'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('system_maintenance')->setSelected($globalConfig['system_maintenance']); ?>		
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_SESSIONLENGHT'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('system_session_length')
+                            ->setOptions($theView->translate('SYSTEM_OPTIONS_SESSIONLENGHT_INTERVALS'))
+                            ->setSelected($globalConfig['system_session_length'])
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_LOGIN_MAXATTEMPTS'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('system_loginfailed_locked')
+                            ->setClass('fpcm-ui-spinner')
+                            ->setValue($globalConfig['system_loginfailed_locked'])
+                            ->setMaxlenght(5)
+                            ->setWrapper(false); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
         </div>
 
         <div id="tabs-options-extended">
-            <table class="fpcm-ui-table fpcm-ui-options">
-                <tr>			
-                     <td><?php $theView->write('SYSTEM_OPTIONS_EXTENDED_EMAILUPDATES'); ?>:</td>
-                     <td><?php $theView->boolSelect('system_updates_emailnotify')->setSelected($globalConfig['system_updates_emailnotify']); ?></td>		
-                </tr>
-                <tr>			
-                     <td><?php $theView->write('SYSTEM_OPTIONS_EXTENDED_DEVUPDATES'); ?>:</td>
-                     <td><?php $theView->boolSelect('system_updates_devcheck')->setSelected($globalConfig['system_updates_devcheck']); ?></td>		
-                </tr>
-                <tr>			
-                     <td><?php $theView->write('SYSTEM_OPTIONS_EXTENDED_UPDATESMANCHK'); ?>:</td>
-                     <td><?php fpcm\view\helper::select('system_updates_manual', $theView->translate('SYSTEM_OPTIONS_UPDATESMANUAL'), $globalConfig['system_updates_manual'], false, false); ?></td>
-                </tr>
-                <?php if ($smtpActive) : ?>
-                <tr class="fpcm-td-spacer"><td colspan="2"></td></tr>
-                <tr>
-                    <th></th>
-                    <th><span class="fa fa-check-square fa-align-right"></span> <?php $theView->write('SYSTEM_OPTIONS_EMAIL_ACTIVE'); ?></th>
-                </tr>
-                <?php endif; ?>
-                <tr>	
-                    <td><?php $theView->write('SYSTEM_OPTIONS_EMAIL_ENABLED'); ?>:</td>
-                    <td>
-                        <?php $theView->boolSelect('smtp_enabled')->setSelected($globalConfig['smtp_enabled']); ?>
-                    </td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('GLOBAL_EMAIL'); ?>:</td>
-                    <td><?php fpcm\view\helper::textInput('smtp_settings[addr]', 'fpcm-ui-options-smtp-input', $globalConfig['smtp_settings']['addr'], ($globalConfig['smtp_enabled'] ? false : true)); ?></td>
-                </tr>
-                <tr>	
-                    <td><?php $theView->write('SYSTEM_OPTIONS_EMAIL_SERVER'); ?>:</td>
-                    <td><?php fpcm\view\helper::textInput('smtp_settings[srvurl]', 'fpcm-ui-options-smtp-input', $globalConfig['smtp_settings']['srvurl'], ($globalConfig['smtp_enabled'] ? false : true)); ?></td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_EMAIL_PORT'); ?>:</td>
-                    <td><?php fpcm\view\helper::textInput('smtp_settings[port]', 'fpcm-ui-options-smtp-input', $globalConfig['smtp_settings']['port'], ($globalConfig['smtp_enabled'] ? false : true)); ?></td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_EMAIL_USERNAME'); ?>:</td>
-                    <td><?php fpcm\view\helper::textInput('smtp_settings[user]', 'fpcm-ui-options-smtp-input', $globalConfig['smtp_settings']['user'], ($globalConfig['smtp_enabled'] ? false : true)); ?></td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_EMAIL_PASSWORD'); ?>:</td>
-                    <td><?php fpcm\view\helper::textInput('smtp_settings[pass]', 'fpcm-ui-options-smtp-input', $globalConfig['smtp_settings']['pass'], ($globalConfig['smtp_enabled'] ? false : true)); ?></td>
-                </tr>
-                <tr>			
-                    <td><?php $theView->write('SYSTEM_OPTIONS_EMAIL_ENCRYPTED'); ?>:</td>
-                    <td><?php fpcm\view\helper::select('smtp_settings[encr]', $smtpEncryption, $globalConfig['smtp_settings']['encr'], true, true, ($globalConfig['smtp_enabled'] ? false : true)); ?></td>
-                </tr>
-           </table>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_EXTENDED_EMAILUPDATES'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('system_updates_emailnotify')->setSelected($globalConfig['system_updates_emailnotify']); ?>		
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_EXTENDED_DEVUPDATES'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('system_updates_devcheck')->setSelected($globalConfig['system_updates_devcheck']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_EXTENDED_UPDATESMANCHK'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('system_updates_manual')
+                            ->setOptions($theView->translate('SYSTEM_OPTIONS_UPDATESMANUAL'))
+                            ->setSelected($globalConfig['system_updates_manual'])
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <?php if ($smtpActive) : ?>
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="col-12">
+                    <?php $theView->icon('envelope')->setStack('check fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?>
+                    <?php $theView->write('SYSTEM_OPTIONS_EMAIL_ACTIVE'); ?>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_EMAIL_ENABLED'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->boolSelect('smtp_enabled')->setSelected($globalConfig['smtp_enabled']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('GLOBAL_EMAIL'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('smtp_settings[addr]')
+                            ->setClass('fpcm-ui-options-smtp-input')
+                            ->setValue($globalConfig['smtp_settings']['addr'])
+                            ->setReadonly(($globalConfig['smtp_enabled'] ? false : true)); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_EMAIL_SERVER'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('smtp_settings[srvurl]')
+                            ->setClass('fpcm-ui-options-smtp-input')
+                            ->setValue($globalConfig['smtp_settings']['srvurl'])
+                            ->setReadonly(($globalConfig['smtp_enabled'] ? false : true)); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_EMAIL_PORT'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('smtp_settings[port]')
+                            ->setClass('fpcm-ui-options-smtp-input')
+                            ->setValue($globalConfig['smtp_settings']['port'])
+                            ->setReadonly(($globalConfig['smtp_enabled'] ? false : true)); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_EMAIL_USERNAME'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('smtp_settings[user]')
+                            ->setClass('fpcm-ui-options-smtp-input')
+                            ->setValue($globalConfig['smtp_settings']['user'])
+                            ->setReadonly(($globalConfig['smtp_enabled'] ? false : true)); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_EMAIL_PASSWORD'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('smtp_settings[pass]')
+                            ->setClass('fpcm-ui-options-smtp-input')
+                            ->setValue($globalConfig['smtp_settings']['pass'])
+                            ->setReadonly(($globalConfig['smtp_enabled'] ? false : true)); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_EMAIL_ENCRYPTED'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->select('smtp_settings[encr]')
+                            ->setOptions($smtpEncryption)
+                            ->setSelected($globalConfig['smtp_settings']['encr'])
+                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                            ->setReadonly(($globalConfig['smtp_enabled'] ? false : true)); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
         </div>
 
         <div id="tabs-options-twitter">
-            <?php include $theView->getIncludePath('system/twitter.php'); ?>
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="col-12 self-align-center">
+                <?php if ($twitterIsActive) : ?>
+                    <?php $theView->icon('twitter-square')->setStack('check fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?>
+                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_ACTIVE', ['{{screenname}}' => $twitterScreenName]); ?>
+                <?php endif; ?>
+                </div>
+                <div class="col-12 self-align-center">
+                <?php if (!$globalConfig['twitter_data']['consumer_key'] || !$globalConfig['twitter_data']['consumer_secret'] || !$twitterIsActive) : ?>
+                    <?php $theView->linkButton('twitterConnect')->setText('SYSTEM_OPTIONS_TWITTER_CONNECT')->setUrl('https://apps.twitter.com/')->setTarget('_blank'); ?>
+                <?php elseif ($globalConfig['twitter_data']['user_token'] && $globalConfig['twitter_data']['user_secret'] && $twitterIsActive) : ?>
+                    <?php $theView->submitButton('twitterDisconnect')->setText('SYSTEM_OPTIONS_TWITTER_DISCONNECT')->setClass('fpcm-ui-button-confirm'); ?>
+                <?php endif; ?>
+
+                <?php $theView->shorthelpButton('twittercon')->setText('HL_HELP')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/help', ['ref' => base64_encode('system_options_twitter_connection')])); ?>
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_EVENTS'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <div class="fpcm-ui-controlgroup">
+                        <?php $theView->checkbox('twitter_events[create]', 'twitter_events_create')->setText('SYSTEM_OPTIONS_TWITTER_EVENTCREATE')->setSelected($globalConfig['twitter_events']['create']); ?>
+                        <?php $theView->checkbox('twitter_events[update]', 'twitter_events_update')->setText('SYSTEM_OPTIONS_TWITTER_EVENTUPDATE')->setSelected($globalConfig['twitter_events']['update']); ?>
+                    </div>        
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('twitter_data[consumer_key]')->setValue($globalConfig['twitter_data']['consumer_key']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('twitter_data[consumer_secret]')->setValue($globalConfig['twitter_data']['consumer_secret']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_TOKEN'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('twitter_data[user_token]')->setValue($globalConfig['twitter_data']['user_token']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
+
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_SECRET'); ?>:
+                </div>
+                <div class="align-self-center col-sm-12 col-md-4">
+                    <?php $theView->textInput('twitter_data[user_secret]')->setValue($globalConfig['twitter_data']['user_secret']); ?>
+                </div>
+                <div class="align-self-center col-sm-12 col-md-auto">
+                </div>
+            </div>
         </div> 
 
         <div id="tabs-options-check"></div>
     </div>
 
-    
+
 </div>

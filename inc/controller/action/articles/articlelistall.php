@@ -43,6 +43,7 @@ class articlelistall extends articlelistbase {
         $this->conditionItems->draft = -1;
         $this->conditionItems->drafts = -1;
         $this->conditionItems->approval = -1;
+        $this->conditionItems->orderby = ['createtime DESC'];
     }
 
 }
