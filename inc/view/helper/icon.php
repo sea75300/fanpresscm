@@ -44,7 +44,7 @@ class icon extends helper {
             ]);
         }
 
-        return $this->getIconString();
+        return "<span class=\"fpcm-ui-icon {$this->icon} {$this->size} \"" . ($this->text ? " title=\"{$this->text}\"" : '') . "></span> ";
     }
 
     /**

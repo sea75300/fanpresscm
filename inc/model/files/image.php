@@ -141,6 +141,15 @@ class image extends \fpcm\model\abstracts\file {
     }
 
     /**
+     * kompletten Thumbnail-Pfad ausgeben
+     * @return string
+     */
+    public function getThumbnailFull()
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $this->getThumbnail());
+    }
+
+    /**
      * Dateimanager-Thumbnail-Pfad ausgeben
      * @return string
      */
@@ -236,7 +245,9 @@ class image extends \fpcm\model\abstracts\file {
      */
     public function save()
     {
-        if ($this->exists(true)) return false;
+        if ($this->exists(true)) {
+            return false;
+        }
 
         $saveValues = $this->getSaveValues();
         $saveValues = $this->events->runEvent('imageSave', $saveValues);
@@ -250,7 +261,9 @@ class image extends \fpcm\model\abstracts\file {
      */
     public function update()
     {
-        if (!$this->exists(true)) return false;
+        if (!$this->exists(true)) {
+            return false;
+        }
 
         $saveValues = $this->getSaveValues();
         $params = $this->events->runEvent('imageUpdate', $saveValues);
@@ -265,7 +278,9 @@ class image extends \fpcm\model\abstracts\file {
     public function delete()
     {
         parent::delete();
-        if (file_exists($this->getFileManagerThumbnail())) unlink($this->getFileManagerThumbnail());
+        if (file_exists($this->getFileManagerThumbnail())) {
+            unlink($this->getFileManagerThumbnail());
+        }
 
         $fileName = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $this->getThumbnail());
         if (file_exists($fileName)) {
@@ -352,7 +367,8 @@ class image extends \fpcm\model\abstracts\file {
         }
 
         $phpImgWsp->resizeInPixel($this->config->file_img_thumb_width, $this->config->file_img_thumb_height);
-        $phpImgWsp->save($this->getFilepath() . dirname($this->getThumbnail()), basename($this->getThumbnail()), true, null, 85);
+        $fullThumbPath = $this->getThumbnailFull();
+        $phpImgWsp->save(dirname($fullThumbPath), basename($fullThumbPath), true, null, 85);
 
         $this->events->runEvent('thumbnailCreate', $this);
         if (!file_exists($this->getFilepath() . $this->getThumbnail())) {
@@ -387,7 +403,8 @@ class image extends \fpcm\model\abstracts\file {
         if ($initDB) {
             $dbData = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'filename = ?', array($this->filename)));
 
-            if (!$dbData) return false;
+            if (!$dbData)
+                return false;
 
             foreach ($dbData as $key => $value) {
                 $this->$key = $value;
@@ -418,19 +435,21 @@ class image extends \fpcm\model\abstracts\file {
      */
     public function createFromDbObject($object)
     {
-        if (!is_object($object)) return false;
+        if (!is_object($object))
+            return false;
 
         $keys = array_keys($this->getPreparedSaveParams());
         $keys[] = 'id';
 
         foreach ($keys as $key) {
-            if (!isset($object->$key)) continue;
+            if (!isset($object->$key))
+                continue;
             $this->$key = $object->$key;
         }
 
         $this->fullpath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $this->filename);
         $this->filepath = dirname($this->fullpath);
-        
+
         $this->init(false);
 
         return true;
@@ -446,7 +465,8 @@ class image extends \fpcm\model\abstracts\file {
         $params = get_object_vars($this);
         unset($params['cache'], $params['config'], $params['dbcon'], $params['events'], $params['id'], $params['nodata'], $params['system'], $params['table'], $params['dbExcludes'], $params['language'], $params['editAction'], $params['objExists'], $params['cacheName']);
 
-        if ($this->nodata) unset($params['data']);
+        if ($this->nodata)
+            unset($params['data']);
 
         return $params;
     }

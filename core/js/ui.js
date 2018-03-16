@@ -727,31 +727,37 @@ fpcm.ui = {
 
         var selectId    = '#pageSelect';
         var selectEl    = jQuery(selectId);
-        for(i=1; i<= fpcm.vars.jsvars.pager.maxPages; i++) {
-            selectEl.append( '<option ' + (fpcm.vars.jsvars.pager.currentPage === i ? 'selected' : '') + ' value="' + i + '">' + fpcm.ui.translate('GLOBAL_PAGER').replace('{{current}}', i).replace('{{total}}', fpcm.vars.jsvars.pager.maxPages) + '</option>');
+        
+        if (fpcm.vars.jsvars.pager.maxPages) {
+            for(i=1; i<= fpcm.vars.jsvars.pager.maxPages; i++) {
+                selectEl.append( '<option ' + (fpcm.vars.jsvars.pager.currentPage === i ? 'selected' : '') + ' value="' + i + '">' + fpcm.ui.translate('GLOBAL_PAGER').replace('{{current}}', i).replace('{{total}}', fpcm.vars.jsvars.pager.maxPages) + '</option>');
+            }
         }
-
-        fpcm.ui.selectmenu(selectId, {
-            width : 'auto',
-            select: function( event, ui ) {
+        
+        if (!params.selectAction) {
+            params.selectAction = function( event, ui ) {
                 if (ui.item.value == '1') {
                     window.location.href = fpcm.vars.actionPath + fpcm.vars.jsvars.currentModule;
                     return true;
                 }
                 window.location.href = fpcm.vars.actionPath + fpcm.vars.jsvars.currentModule + '&page=' + ui.item.value;
-            },
+            };
+        }
+
+        var selectParams = {
+            width : 'auto',
+            select: params.selectAction,
             classes: {
                 'ui-selectmenu-button': 'fpcm-ui-pager-element'
             },
             doRefresh: true
-        });
+        };
+
+        fpcm.ui.selectmenu(selectId, selectParams);
         
     },
     
     relocate: function (url) {
-        
-        console.log(url);
-        
         window.location.href = url;
     }
     

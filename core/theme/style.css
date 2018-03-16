@@ -109,7 +109,6 @@ ol.list-large li {
 /* .CSS-Klassen und #IDs */
 
 div.fpcm-status-info ul.fpcm-menu-top #fpcm-ui-showmenu-li,
-.fpcm-ui-permissions-container,
 .fpcm-ui-progressbar-label,
 .fpcm-updater-list span.fa,
 .fpcm-ui-float-left {
@@ -136,7 +135,6 @@ div.fpcm-navigation ul.fpcm-menu li,
 div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navicon,
 div.fpcm-navigation ul.fpcm-menu li:hover ul,
 #fpcm-filemanager-upload-drop h4:before,
-.fpcm-ui-permissions-container,
 div.fpcm-status-info ul.fpcm-menu-top,
 div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1,
 div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2,
@@ -169,7 +167,6 @@ div.fpcm-status-info ul.fpcm-menu-top li ul,
     position: fixed;
 }
 
-.fpcm-ui-permissions-container,
 .fpcm-ui-position-relative {
     position: relative;
 }
@@ -182,6 +179,13 @@ div.fpcm-navigation ul.fpcm-menu li ul,
 div.fpcm-status-info ul.fpcm-menu-top li ul,
 .fpcm-ui-position-absolute {
     position: absolute;
+}
+
+.fpcm-ui-position-absolute-0 {
+    top:0px;
+    right:0px;
+    bottom:0px;
+    left:0px;
 }
 
 #fpcm-ui-logo {
@@ -302,8 +306,7 @@ div.fpcm-status-info {
     width: 100%;
 }
 
-.fpcm-content-wrapper,
-.fpcm-login-form form {
+.fpcm-content-wrapper {
     padding: 0.5em;
 }
 
@@ -317,10 +320,6 @@ div.fpcm-status-info {
 
 .fpcm-ui-clear             {
     clear: both;
-}
-
-.fpcm-login-form {
-    max-width: 450px;
 }
 
 div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navigation-descr,
@@ -656,7 +655,6 @@ td {
 }
 
 .fpcm-ui-center,
-.fpcm-login-form,
 div.fpcm-filelist-thumb-box {
     text-align: center;
 }
@@ -763,8 +761,7 @@ h3, .fpcm-dashboard-container h3 {
     height: 440px;
 }
 
-.fpcm-dashboard-container .fpcm-dashboard-container-content-wrapper,
-.fpcm-ui-permissions-container .fpcm-ui-permissions-container-inner {
+.fpcm-dashboard-container .fpcm-dashboard-container-content-wrapper {
     padding: 0.3em 0.4em;
     margin: 0.4em 0;
     overflow-x: hidden;
@@ -781,7 +778,7 @@ h3, .fpcm-dashboard-container h3 {
 }
 
 .fpcm-ui-permissions-container .ui-button {
-    margin: 0.2em 0em;
+    margin: 0.3em 0em;
 }
 
 .fpcm-dashboard-message-box {

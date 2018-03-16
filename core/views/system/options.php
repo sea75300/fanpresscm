@@ -62,10 +62,10 @@
                 <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
                     <?php $theView->write('SYSTEM_OPTIONS_DATETIMEMASK'); ?>:
                 </div>
-                <div class="align-self-center col-sm-12 col-md-4">
+                <div class="align-self-center col-sm-11 col-md-4">
                     <?php $theView->textInput('system_dtmask')->setValue($globalConfig['system_dtmask']); ?>
                 </div>
-                <div class="align-self-center col-sm-12 col-md-auto fpcm-ui-padding-md-lr">
+                <div class="align-self-center col-sm-1 col-md-auto fpcm-ui-padding-md-lr">
                     <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
                 </div>
             </div>
@@ -669,13 +669,13 @@
 
         <div id="tabs-options-twitter">
             <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-12 self-align-center">
+                <div class="col-12 align-self-center">
                 <?php if ($twitterIsActive) : ?>
                     <?php $theView->icon('twitter-square')->setStack('check fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?>
                     <?php $theView->write('SYSTEM_OPTIONS_TWITTER_ACTIVE', ['{{screenname}}' => $twitterScreenName]); ?>
                 <?php endif; ?>
                 </div>
-                <div class="col-12 self-align-center">
+                <div class="col-12 align-self-center">
                 <?php if (!$globalConfig['twitter_data']['consumer_key'] || !$globalConfig['twitter_data']['consumer_secret'] || !$twitterIsActive) : ?>
                     <?php $theView->linkButton('twitterConnect')->setText('SYSTEM_OPTIONS_TWITTER_CONNECT')->setUrl('https://apps.twitter.com/')->setTarget('_blank'); ?>
                 <?php elseif ($globalConfig['twitter_data']['user_token'] && $globalConfig['twitter_data']['user_secret'] && $twitterIsActive) : ?>

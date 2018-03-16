@@ -5,7 +5,8 @@
 
 <?php else : ?>
 
-    <?php foreach($files AS $file) : ?>
+<div class="row">
+<?php foreach($files AS $file) : ?>
     <div class="col-sm-6 col-md-5 col-lg-4 fpcm-ui-padding-none-lr fpcm-filelist-thumb-box">
         <div class="fpcm-filelist-thumb-box-inner">
             <div class="fpcm-ui-center">
@@ -32,33 +33,51 @@
             </div> 
 
             <div class="fpcm-filelist-meta fpcm-ui-left fpcm-ui-font-small">
-                <table class="fpcm-ui-table fpcm-ui-nobg">
-                    <tr>
-                        <td><strong><?php $theView->write('FILE_LIST_UPLOAD_DATE'); ?>:</strong></td>
-                        <td><?php $theView->dateText($file->getFiletime()); ?></td>                    
-                    </tr>
-                    <tr>
-                        <td><strong><?php $theView->write('FILE_LIST_UPLOAD_BY'); ?>:</strong></td>
-                        <td><?php print isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayName() : $theView->translate('GLOBAL_NOTFOUND'); ?></td>                    
-                    </tr>
-                    <tr>
-                        <td><strong><?php $theView->write('FILE_LIST_FILESIZE'); ?>:</strong></td>
-                        <td><?php print \fpcm\classes\tools::calcSize($file->getFilesize()); ?></td>                    
-                    </tr>
-                    <tr>
-                        <td><strong><?php $theView->write('FILE_LIST_RESOLUTION'); ?>:</strong></td>
-                        <td><?php print $file->getWidth(); ?> <span class="fa fa-times fa-fw"></span> <?php print $file->getHeight(); ?> <?php $theView->write('FILE_LIST_RESOLUTION_PIXEL'); ?></td>                    
-                    </tr>
-                </table>
+                
+                <div class="row fpcm-ui-padding-md-tb">
+                    <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr">
+                        <?php $theView->icon('calendar')->setText('FILE_LIST_UPLOAD_DATE')->setSize('lg'); ?>
+                    </div>
+                    <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr">
+                        <?php $theView->dateText($file->getFiletime()); ?>
+                    </div>
+                </div>
+                
+                <div class="row fpcm-ui-padding-md-tb">
+                    <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr">
+                        <?php $theView->icon('user')->setText('FILE_LIST_UPLOAD_BY')->setSize('lg'); ?>
+                    </div>
+                    <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr">
+                        <?php print isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayName() : $theView->translate('GLOBAL_NOTFOUND'); ?>
+                    </div>
+                </div>
+                
+                <div class="row fpcm-ui-padding-md-tb">
+                    <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr">
+                        <?php $theView->icon('tachometer')->setText('FILE_LIST_FILESIZE')->setSize('lg'); ?>
+                    </div>
+                    <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr">
+                        <?php print \fpcm\classes\tools::calcSize($file->getFilesize()); ?>
+                    </div>
+                </div>
+                
+                <div class="row fpcm-ui-padding-md-tb">
+                    <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr">
+                        <?php $theView->icon('picture-o')->setText('FILE_LIST_RESOLUTION')->setSize('lg'); ?>
+                    </div>
+                    <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr">
+                        <?php print $file->getWidth(); ?> <span class="fa fa-times fa-fw"></span> <?php print $file->getHeight(); ?> <?php $theView->write('FILE_LIST_RESOLUTION_PIXEL'); ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <?php endforeach; ?>
+</div>
+
+<?php include $theView->getIncludePath('components/pager.php'); ?>
 
 <?php endif; ?>
 
-<div class="fpcm-ui-clear"></div>
 
 <span id="fpcm-filelist-images-finished"></span>
-
-<?php include $theView->getIncludePath('components/pager.php'); ?>

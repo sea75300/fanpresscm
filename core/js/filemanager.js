@@ -25,6 +25,10 @@ fpcm.filemanager = {
             fpcm.filemanager.reloadFiles();
             return false;
         });
+        
+        fpcm.ui.tabs('#fpcm-files-tabs', {
+            addMainToobarToggle: true
+        });
     },
 
     initJqUiWidgets: function () {
@@ -89,22 +93,27 @@ fpcm.filemanager = {
     
     initPagination: function() {
 
-        fpcm.ui.selectmenu('#pageSelect', {
-            select: function( event, ui ) {
+        fpcm.vars.jsvars.pager = {
+            maxPages: 0,
+            showBackButton: true,
+            showNextButton: true,            
+        };
+
+        fpcm.ui.initPager({
+            backAction: function() {
+                var page = jQuery(this).attr('href').split('&page=');
+                fpcm.filemanager.reloadFiles((page[1] === undefined) ? 1 : page[1]);
+                return false;
+            },
+            
+            nextAction: function() {
+                var page = jQuery(this).attr('href').split('&page=');
+                fpcm.filemanager.reloadFiles((page[1] === undefined) ? 1 : page[1]);
+                return false;
+            },
+            selectAction: function( event, ui ) {
                 fpcm.filemanager.reloadFiles(ui.item.value);
             }
-        });
-
-        jQuery('#fpcmpagernext').click(function() {
-            var page = jQuery(this).attr('href').split('&page=');
-            fpcm.filemanager.reloadFiles((page[1] === undefined) ? 1 : page[1]);
-            return false;
-        });
-
-        jQuery('#fpcmpagerback').click(function() {
-            var page = jQuery(this).attr('href').split('&page=');
-            fpcm.filemanager.reloadFiles((page[1] === undefined) ? 1 : page[1]);
-            return false;
         });
 
     },
@@ -129,7 +138,6 @@ fpcm.filemanager = {
                 var fpcmRFDinterval = setInterval(function(){
                     if (jQuery('#fpcm-filelist-images-finished').length == 1) {
                         fpcm.ui.showLoader(false);
-                        fpcm.ui.resize();
                         clearInterval(fpcmRFDinterval);
                         if (page) {
                             jQuery(window).scrollTop(0);

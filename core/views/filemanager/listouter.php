@@ -1,13 +1,13 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-ui-inner-wrapper">
-    <div class="fpcm-tabs-general">
+    <div class="fpcm-tabs-general" id="fpcm-files-tabs">
         <ul>
-            <li id="tabs-files-list-reload"><a href="#tabs-files-list"><?php $theView->write('FILE_LIST_AVAILABLE'); ?></a></li>                
-            <?php if ($permUpload) : ?><li><a href="#tabs-files-upload"><?php $theView->write('FILE_LIST_UPLOADFORM'); ?></a></li><?php endif; ?>                
+            <li data-toolbar-buttons="1" id="tabs-files-list-reload"><a href="#tabs-files-list"><?php $theView->write('FILE_LIST_AVAILABLE'); ?></a></li>                
+            <?php if ($permUpload) : ?><li data-toolbar-buttons="2"><a href="#tabs-files-upload"><?php $theView->write('FILE_LIST_UPLOADFORM'); ?></a></li><?php endif; ?>                
         </ul>
 
         <div id="tabs-files-list">
-            <div class="row" id="tabs-files-list-content"></div>
+            <div id="tabs-files-list-content"></div>
         </div>
 
         <?php if ($permUpload) : ?>
