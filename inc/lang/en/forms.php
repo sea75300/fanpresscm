@@ -165,7 +165,7 @@
         'WORDBAN_ADD'                   => 'Add censored text',
         'WORDBAN_EDIT'                  => 'Edit censored text',
         'WORDBAN_NAME'                  => 'Text',
-        'WORDBAN_ICON_PATH'             => 'Replacement',
+        'WORDBAN_REPLACEMENT_TEXT'             => 'Replacement',
         'WORDBAN_REPLACETEXT'           => 'Replace text',
         'WORDBAN_APPROVE_ARTICLE'       => 'Approval of article required',
         'WORDBAN_APPROVA_COMMENT'       => 'Approval of comment required',

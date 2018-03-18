@@ -4,7 +4,7 @@
         <ul id="fpcm-navigation-ul" class="fpcm-menu col-12">
     <?php foreach ($theView->navigation as $navigationGroup) : ?>
         <?php foreach ($navigationGroup as $groupName => $navigationItem) : ?>     
-            <li id="item<?php print $navigationItem->getId(); ?>" class="col-12 fpcm-menu-level1 fpcm-menu-level1-show fpcm-ui-center <?php if ($navigationItem->hasSubmenu()) : ?>fpcm-menu-level1-hassubmenu<?php endif; ?> <?php if ($navigationItem->isActive()) : ?>fpcm-menu-active<?php endif; ?>">
+            <li id="item<?php print $navigationItem->getId(); ?>" class="col-12 fpcm-menu-level1 fpcm-menu-level1-show fpcm-ui-center fpcm-ui-background-transition <?php if ($navigationItem->hasSubmenu()) : ?>fpcm-menu-level1-hassubmenu<?php endif; ?> <?php if ($navigationItem->isActive()) : ?>fpcm-menu-active<?php endif; ?>">
                 <a href="<?php print $navigationItem->getFullUrl(); ?>" class="<?php print $navigationItem->getClass(); ?> fpcm-loader" id="<?php print $navigationItem->getId(); ?>">
                     <span class="fpcm-ui-center fpcm-navicon <?php print $navigationItem->getIcon(); ?>"></span>
                     <span class="fpcm-ui-center fpcm-navigation-descr">
@@ -16,7 +16,7 @@
                     <ul class="fpcm-submenu col-12">
                         <?php 
                         foreach ($navigationItem->getSubmenu() as $submenuItem) : ?>
-                        <li id="submenu-item<?php print $submenuItem->getId(); ?>" class="col-12 fpcm-menu-level2 <?php if ($submenuItem->isActive()) : ?>fpcm-menu-active<?php endif; ?>">
+                        <li id="submenu-item<?php print $submenuItem->getId(); ?>" class="col-12 fpcm-menu-level2 fpcm-ui-background-transition <?php if ($submenuItem->isActive()) : ?>fpcm-menu-active<?php endif; ?>">
                                 <a href="<?php print $submenuItem->getFullUrl(); ?>" class="<?php print $submenuItem->getClass(); ?> fpcm-loader" id="<?php print $submenuItem->getId(); ?>">
                                     <?php if ($submenuItem->getIcon()) : ?><span class="<?php print $submenuItem->getIcon(); ?>"></span><?php endif; ?>
                                     <span class="fpcm-navigation-descr"><?php print $submenuItem->getDescription(); ?></span>

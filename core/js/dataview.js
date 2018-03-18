@@ -73,7 +73,7 @@ fpcm.dataview = {
         }
 
         var rowId           = id + '-dataview-row-' + index;
-        var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead' : 'fpcm-ui-dataview-row';
+        var baseclass       = row.isheadline ? 'fpcm-ui-dataview-subhead' : 'fpcm-ui-dataview-row fpcm-ui-background-transition';
         baseclass          += row.isNotFound ? ' fpcm-ui-dataview-notfound' : '';
         var isNotFound      = row.isNotFound;
 
@@ -100,8 +100,6 @@ fpcm.dataview = {
 
             rowEl.append('<div class="' + style + '" id="' + rowId + '-dataview-rowcol-' + rowCol.name + index + '">' + valueStr + '</div>');
         });
-
-        rowEl.append('<div class="fpcm-ui-clear"></div>');
     },
     
     updateAndRender: function (id, params) {

@@ -31,13 +31,6 @@
 
                 <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
 
-                <div id="fpcm-footer-left" class="col-md-12 fpcm-footer <?php if (!$theView->loggedIn) : ?>fpcm-ui-position-absolute fpcm-ui-position-bottom-0 <?php endif; ?>fpcm-ui-margintop-lg fpcm-ui-padding-none-lr  fpcm-ui-font-small fpcm-ui-center">
-                    <div class="fpcm-footer-text">
-                        <b>Version</b> <?php print $theView->version; ?><br>
-                        &copy; 2011-<?php print date('Y'); ?> <a href="https://nobody-knows.org/download/fanpress-cm/" target="_blank">nobody-knows.org</a>                    
-                    </div>
-                </div>
-
             </div>
 
             <div class="<?php if ($theView->fullWrapper) : ?>col-sm-12<?php else : ?>col-md-10<?php endif; ?> fpcm-ui-padding-none-lr" id="fpcm-wrapper-right">

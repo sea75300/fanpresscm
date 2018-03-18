@@ -119,7 +119,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
         ];
         
         if ($rollsPerm) {
-            $buttons[] = (new \fpcm\view\helper\linkButton('addRoll'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('USERS_ROLL_ADD')->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden')->setIcon('users');
+            $buttons[] = (new \fpcm\view\helper\linkButton('addRoll'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('USERS_ROLL_ADD')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden')->setIcon('users');
             $buttons[] = (new \fpcm\view\helper\deleteButton('deleteRoll'))->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden fpcm-ui-button-confirm');
         }
 

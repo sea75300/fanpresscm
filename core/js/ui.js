@@ -30,6 +30,11 @@ fpcm.ui = {
         });
         
         jQuery('.fpcm-menu-level1-hassubmenu').hover(function () {
+            
+            if (jQuery(window).width() < 768) {
+                return true;
+            }
+            
             jQuery(this).find('ul.fpcm-submenu').css('left', jQuery('#fpcm-navigation-ul').width());
         });
 

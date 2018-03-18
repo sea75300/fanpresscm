@@ -165,7 +165,7 @@
         'WORDBAN_ADD'                   => 'Begriff hinzufügen',
         'WORDBAN_EDIT'                  => 'Begriff bearbeiten',
         'WORDBAN_NAME'                  => 'Begriff',
-        'WORDBAN_ICON_PATH'             => 'Ersetzung',
+        'WORDBAN_REPLACEMENT_TEXT'             => 'Ersetzung',
         'WORDBAN_REPLACETEXT'           => 'Text ersetzen',
         'WORDBAN_APPROVE_ARTICLE'       => 'Artikel muss überprüft werden',
         'WORDBAN_APPROVA_COMMENT'       => 'Kommentar muss freigeschalten werden',

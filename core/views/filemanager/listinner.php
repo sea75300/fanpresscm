@@ -8,7 +8,7 @@
 <div class="row">
 <?php foreach($files AS $file) : ?>
     <div class="col-sm-6 col-md-5 col-lg-4 fpcm-ui-padding-none-lr fpcm-filelist-thumb-box">
-        <div class="fpcm-filelist-thumb-box-inner">
+        <div class="fpcm-filelist-thumb-box-inner fpcm-ui-background-transition">
             <div class="fpcm-ui-center">
                 <a href="<?php print $file->getImageUrl(); ?>" target="_blank" class="fpcm-link-fancybox" data-fancybox="group" >
                     <img src="<?php if (file_exists($file->getFileManagerThumbnail())) : ?><?php print $file->getFileManagerThumbnailUrl(); ?><?php else : ?><?php print $theView->themePath; ?>dummy.png<?php endif; ?>" width="100" height="100" title="<?php print $file->getFileName(); ?>">
@@ -35,37 +35,37 @@
             <div class="fpcm-filelist-meta fpcm-ui-left fpcm-ui-font-small">
                 
                 <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr">
+                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr">
                         <?php $theView->icon('calendar')->setText('FILE_LIST_UPLOAD_DATE')->setSize('lg'); ?>
                     </div>
-                    <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr">
+                    <div class="col-7 col-sm-8 col-md-10 fpcm-ui-padding-none-lr">
                         <?php $theView->dateText($file->getFiletime()); ?>
                     </div>
                 </div>
                 
                 <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr">
+                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr">
                         <?php $theView->icon('user')->setText('FILE_LIST_UPLOAD_BY')->setSize('lg'); ?>
                     </div>
-                    <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr">
+                    <div class="col-7 col-sm-8 col-md-10 fpcm-ui-padding-none-lr">
                         <?php print isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayName() : $theView->translate('GLOBAL_NOTFOUND'); ?>
                     </div>
                 </div>
                 
                 <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr">
+                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr">
                         <?php $theView->icon('tachometer')->setText('FILE_LIST_FILESIZE')->setSize('lg'); ?>
                     </div>
-                    <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr">
+                    <div class="col-7 col-sm-8 col-md-10 fpcm-ui-padding-none-lr">
                         <?php print \fpcm\classes\tools::calcSize($file->getFilesize()); ?>
                     </div>
                 </div>
                 
                 <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr">
+                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr">
                         <?php $theView->icon('picture-o')->setText('FILE_LIST_RESOLUTION')->setSize('lg'); ?>
                     </div>
-                    <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr">
+                    <div class="col-7 col-sm-8 col-md-10 fpcm-ui-padding-none-lr">
                         <?php print $file->getWidth(); ?> <span class="fa fa-times fa-fw"></span> <?php print $file->getHeight(); ?> <?php $theView->write('FILE_LIST_RESOLUTION_PIXEL'); ?>
                     </div>
                 </div>

@@ -306,6 +306,7 @@ div.fpcm-status-info {
     width: 100%;
 }
 
+div.fpcm-footer,
 .fpcm-content-wrapper {
     padding: 0.5em;
 }
@@ -399,10 +400,6 @@ div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navigation-descr,
 ins,
 .fpcm-message-notice {
     color: #2779aa;
-}
-
-div.fpcm-footer {
-    padding-bottom: 0.8em;
 }
 
 .fpcm-dashboard-updates-checkerror {
@@ -503,6 +500,10 @@ textarea:active,
 textarea.fpcm-ui-textarea-medium {
     height: 150px;
     width: 400px;
+}
+
+.fpcm-ui-background-transition {
+    transition: background-color 0.35s ease;
 }
 
 /* Admin-Bereich Navigation */
