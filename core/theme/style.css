@@ -162,7 +162,6 @@ div.fpcm-status-info ul.fpcm-menu-top li ul,
 }
 
 #fpcm-loader,
-.fpcm-messages,
 .fpcm-ui-position-fixed {
     position: fixed;
 }
@@ -172,7 +171,6 @@ div.fpcm-status-info ul.fpcm-menu-top li ul,
 }
 
 div.fpcm-navigation ul.fpcm-menu li ul,
-.fpcm-message-box .fpcm-msg-close,
 .fpcm-ui-errorbox,
 .fpcm-editor-select,
 .fpcm-editor-dialog iframe,
@@ -295,7 +293,6 @@ div.fpcm-status-info ul.fpcm-menu-top li ul,
 div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navicon,
 div.fpcm-status-info ul.fpcm-menu-top,
 .fpcm-full-width,
-.fpcm-message-box,
 .fpcm-ui-errorbox,
 .fpcm-ui-input-wrapper,
 .fpcm-ui-input-wrapper input,
@@ -337,49 +334,29 @@ div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navigation-descr,
     padding: 0.2em 0.4em;
 }
 
-.fpcm-messages {
-    right: 2.5em;
-    top: 4.5em;
+#fpcm-messages {
+    position: absolute;
+    right: 0;
+    top: 4em;
     z-index: 10000;
     max-width: 66%;
-    min-width: 200px;
+    min-width: 400px;
 }
 
 .fpcm-message-box {
     padding: 0.3em;
-    color: #000000; 
-}
-
-.fpcm-message-box {
-    margin: 0.5em;
+    margin: 0.5em 0;
     box-shadow: 0px 0px 15px #555555;
+    color: #000000; 
 }
 
 .fpcm-message-box a {
     margin-left: 0.3em;
 }
 
-.fpcm-message-box .fpcm-msg-icon,
-.fpcm-message-box .fpcm-msg-text {
-    display: table-cell;
-    padding-right: 0.3em;
-}
-
-.fpcm-message-box .fpcm-msg-icon {
-    font-size: 1.5em;
-}
-
-.fpcm-message-box .fpcm-msg-close {
-    top:  0.3em;
-    right: 0.3em;
-    font-size: 0.4em;
+.fpcm-message-box .fpcm-ui-messages-close {
+    font-size: 0.6em;
     cursor: pointer;
-}
-
-.fpcm-message-notice,
-.fpcm-message-error,
-.fpcm-message-neutral {
-    margin: 0.8em;
 }
 
 .fpcm-message-notice {
@@ -647,7 +624,8 @@ td {
     text-align:left;
 }
 
-.fpcm-ui-right   {
+.fpcm-ui-right,
+div.fpcm-ui-messages-close   {
     text-align:right;
 }
 
@@ -663,11 +641,6 @@ div.fpcm-filelist-thumb-box {
 .fpcm-ui-margin-center {
     margin-left: auto;
     margin-right: auto;
-}
-
-.fpcm-message-box .fpcm-msg-icon,
-.fpcm-message-box .fpcm-msg-text {
-    vertical-align: middle;
 }
 
 .fpcm-half-width {

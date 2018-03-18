@@ -30,7 +30,7 @@ fpcm.fileuploader = {
                 }
 
                 for (var i=0;i<fileList.length;i++) {
-                    fpcm.ui.appendHtml('#fpcm-ui-phpupload-filelist', '<tr><td>' + fileList[i].name +'</td></tr>')
+                    fpcm.ui.appendHtml('#fpcm-ui-phpupload-filelist', '<div class="fpcm-ui-padding-tb">' + fileList[i].name +'</div>')
                 }
                 return false;
             });

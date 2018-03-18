@@ -235,7 +235,6 @@ fpcm.filemanager = {
                 var fpcmRFDinterval = setInterval(function(){
                     if (jQuery('#fpcm-filelist-images-finished').length == 1) {
                         fpcm.ui.showLoader(false);
-                        fpcm.ui.resize();
                         clearInterval(fpcmRFDinterval);
                         if (page) {
                             jQuery(window).scrollTop(0);

@@ -29,7 +29,6 @@ fpcm.dashboard = {
                 var fpcmRFDinterval = setInterval(function(){
                     if (jQuery('#fpcm-dashboard-finished').length == 1) {
                         clearInterval(fpcmRFDinterval);
-                        fpcm.ui.resize();
                         return false;
                     }
                 }, 250);

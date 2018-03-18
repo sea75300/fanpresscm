@@ -14,11 +14,12 @@
 
     <body class="fpcm-body" id="fpcm-body">
 
+        <div id="fpcm-messages"></div>
+
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data"><?php endif; ?>
 
         <div class="row fpcm-ui-position-absolute fpcm-ui-position-left-0 fpcm-ui-position-right-0 fpcm-ui-position-top-0 fpcm-ui-position-bottom-0">
 
-            <div id="fpcm-messages" class="fpcm-messages"></div>
             <?php if (!empty($includeManualCheck)) : ?>
                 <div class="fpcm-editor-dialog" id="fpcm-dialog-manualupdate-check"></div>
             <?php endif; ?>

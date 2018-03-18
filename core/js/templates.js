@@ -8,15 +8,17 @@ if (fpcm === undefined) {
 fpcm.templates = {
     
     init: function() {
-        this.initCodeMirror('article');
-        this.initTemplatePreview();
+
+        fpcm.templates.initCodeMirror('article');
+        fpcm.templates.initTemplatePreview();
+        fpcm.dataview.render('draftfiles', {
+            onRenderAfter: fpcm.ui.assignControlgroups
+        });
 
         fpcm.ui.tabs('.fpcm-tabs-general', {
             addTabScroll: true,
             addMainToobarToggle: true
         });
-
-        fpcm.ui.resize();
         
         jQuery('.fpcm-articletemplates-edit').click(function() {
 

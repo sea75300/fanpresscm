@@ -98,7 +98,6 @@ fpcm.editor_tinymce = {
                 ed.on('init', function() {
                     this.getBody().style.fontSize = fpcm.vars.jsvars.editorDefaultFontsize;
                     jQuery('#' + this.iframeElement.id).removeAttr('title');                 
-                    fpcm.ui.resize();
                 });
             }
         }

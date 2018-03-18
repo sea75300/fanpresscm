@@ -62,3 +62,8 @@ div.fpcm-ui-dataview-size-05 {
 div.fpcm-ui-dataview-col-value {
     padding-right: 0.5em;
 }
+
+div.fpcm-ui-dataview-align-self-start {
+    -ms-flex-item-align: start !important;
+    align-self: flex-start !important;
+}

@@ -17,11 +17,19 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller {
      */
     protected $file;
 
+    /**
+     * 
+     * @return array
+     */
     protected function getPermissions()
     {
         return ['system' => 'templates'];
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function getViewPath()
     {
         return 'templates/articeltpleditor';
@@ -51,11 +59,14 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller {
             return true;
         }
 
-        $newCode = $this->getRequestVar('templatecode', [7]);
+        $newCode = $this->getRequestVar('templatecode', [
+            \fpcm\classes\http::FPCM_REQFILTER_TRIM,
+            \fpcm\classes\http::FPCM_REQFILTER_STRIPSLASHES
+        ]);
+
         if ($this->buttonClicked('saveTemplate') && $newCode) {
 
             $this->file->setContent($newCode);
-
             if ($this->buttonClicked('saveTemplate') && !$this->checkPageToken()) {
                 $this->view->addErrorMessage('CSRF_INVALID');
                 return true;
@@ -82,10 +93,15 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller {
         $this->view->assign('file', $this->file);
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
 
-        $fileLib = new \fpcm\model\system\fileLib();
-        $this->view->addCssFiles($fileLib->getCmCssFiles());
-        $this->view->addJsFiles($fileLib->getCmJsFiles());
-        $this->view->addJsFiles(['editor_codemirror.js', 'templates_articles.js']);
+        $editor = new \fpcm\components\editor\htmlEditor();
+        $this->view->addCssFiles($editor->getCssFiles());
+
+        $jsFiles = $editor->getJsFiles();
+        unset($jsFiles[16], $jsFiles[18]);        
+        $jsFiles[] = 'templates_articles.js';
+        $this->view->addJsFiles($jsFiles);
+        $this->view->addJsVars($editor->getJsVars());
+        $this->view->setFormAction($this->file->getEditLink(),[], true);
 
         $this->view->render();
     }

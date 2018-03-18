@@ -139,7 +139,6 @@ fpcm.articlelist = {
                 });
 
                 fpcm.articlelist.clearArticleCache();
-                fpcm.ui.resize();
                 fpcm.ui.showLoader(false);
             }
         });

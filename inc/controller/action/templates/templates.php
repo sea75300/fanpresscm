@@ -47,14 +47,31 @@ class templates extends \fpcm\controller\abstracts\controller {
      */
     protected $tweetTemplate;
 
+    /**
+     * 
+     * @return array
+     */
     protected function getPermissions()
     {
         return ['system' => 'templates'];
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function getViewPath()
     {
         return 'templates/overview';
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function getHelpLink()
+    {
+        return 'hl_options';
     }
 
     /**
@@ -191,12 +208,10 @@ class templates extends \fpcm\controller\abstracts\controller {
 
         $this->view->addJsVars(['templateId' => 1, 'jqUploadInit' => 0]);
         $this->view->addJsLangVars(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT']);
-
-        $tplfilelist = new \fpcm\model\files\templatefilelist();
-        $this->view->assign('templateFiles', $tplfilelist->getFolderObjectList());
-
         $this->view->addJsFiles(['fileuploader.js', 'templates.js']);
 
+        $this->initDataView();
+        
         $translInfo = array(
             '{{filecount}}' => 1,
             '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
@@ -215,12 +230,39 @@ class templates extends \fpcm\controller\abstracts\controller {
 
         $this->view->render();
     }
-
-    protected function getHelpLink()
+    
+    private function initDataView()
     {
-        return 'hl_options';
-    }
+        $tplfilelist = new \fpcm\model\files\templatefilelist();
 
+        $dataView = new \fpcm\components\dataView\dataView('draftfiles');
+        $dataView->addColumns([
+            (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
+            new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'),
+            (new \fpcm\components\dataView\column('filesize', 'FILE_LIST_FILESIZE'))->setSize(2)
+        ]);
+
+        /* @var $templateFile \fpcm\model\files\tempfile */
+        foreach ($tplfilelist->getFolderObjectList() as $templateFile) {
+
+            $buttons = [
+                '<div class="fpcm-ui-controlgroup">',
+                (new \fpcm\view\helper\linkButton(uniqid()))->setText('GLOBAL_DOWNLOAD')->setUrl($templateFile->getFileUrl())->setIcon('cloud-download')->setIconOnly(true)->setTarget('_blank'),
+                (new \fpcm\view\helper\editButton(uniqid()))->setUrlbyObject($templateFile)->setClass('fpcm-articletemplates-edit'),
+                '</div>'
+            ];
+
+            $dataView->addRow(new \fpcm\components\dataView\row([
+                new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('deltplfiles[]', 'chbx' . md5($templateFile->getFilename()) ))->setClass('fpcm-ui-list-checkbox')->setValue(base64_decode($templateFile->getFilename()) ), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                new \fpcm\components\dataView\rowCol('button', implode('', $buttons) ),
+                new \fpcm\components\dataView\rowCol('filename', new \fpcm\view\helper\escape($templateFile->getFilename()) ),
+                new \fpcm\components\dataView\rowCol('filesize', \fpcm\classes\tools::calcSize($templateFile->getFilesize()) )
+            ]));
+        }
+        
+        $this->view->addDataView($dataView);
+    }
 }
 
 ?>

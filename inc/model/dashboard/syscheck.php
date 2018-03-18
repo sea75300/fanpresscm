@@ -48,11 +48,7 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     public function getContent()
     {
         $this->runCheck();
-        return implode(PHP_EOL, [
-            '<div class="fpcm-ui-font-small" style="overflow:auto;">',
-            implode(PHP_EOL, $this->tableContent),
-            '</div>'
-        ]);
+        return implode(PHP_EOL, $this->tableContent);
     }
 
     /**
@@ -96,7 +92,7 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
         /* @var $data \fpcm\model\system\syscheckOption */
         foreach ($options as $description => $data) {
             $checkres = (new \fpcm\view\helper\boolToText($description))->setValue($data->getResult());
-            $dat  = "<div class=\"row fpcm-ui-padding-md-tb\">";
+            $dat  = "<div class=\"row\">";
             $dat .= "<div class=\"col-1 fpcm-ui-padding-none-lr fpcm-ui-center\">{$checkres}</div>";
             $dat .= "<div class=\"col-11 fpcm-ui-padding-none-lr \">{$description}</div>";
             $dat .= "</div>";
@@ -108,7 +104,7 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
         foreach ($folders as $description => $data) {
             $checkres = (new \fpcm\view\helper\boolToText($description))->setValue($data->getResult())->setText($data->getResult() ? 'GLOBAL_WRITABLE' : 'GLOBAL_NOT_WRITABLE');
             
-            $dat  = "<div class=\"row fpcm-ui-padding-md-tb\">";
+            $dat  = "<div class=\"row\">";
             $dat .= "<div class=\"col-1 fpcm-ui-padding-none-lr fpcm-ui-center\">{$checkres}</div>";
             $dat .= "<div class=\"col-11 fpcm-ui-padding-none-lr \">{$description}</div>";
             $dat .= "</div>";

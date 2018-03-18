@@ -286,7 +286,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     private function getRow1($item)
     {
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('time', $item->time ),
+            new \fpcm\components\dataView\rowCol('time', $item->time, 'fpcm-ui-dataview-align-self-start' ),
             new \fpcm\components\dataView\rowCol('text', str_replace(['&NewLine;', PHP_EOL], '<br>', new \fpcm\view\helper\escape($item->text)) ),
         ]);
     }

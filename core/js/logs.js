@@ -44,8 +44,6 @@ fpcm.logs = {
                 ]
             });
             
-            fpcm.ui.resize();
-
             return false;
         });
 

@@ -1,11 +1,3 @@
-    <form method="post" action="<?php print $file->getEditLink(); ?>" enctype="multipart/form-data">
-        <table class="fpcm-ui-table fpcm-ui-articletemplates">
-            <tr>
-                <td><?php $theView->textarea('templatecode', 'templatecode')->setValue($file->getContent()); ?></td>
-            </tr>  
-        </table>
-
-        <div class="fpcm-ui-hidden"><?php $theView->saveButton('saveTemplate'); ?></div>
-
-        
-    </form>
+<?php /* @var $theView fpcm\view\viewVars */ ?>
+<?php $theView->textarea('templatecode')->setValue($file->getContent(), ENT_QUOTES); ?>
+<?php $theView->saveButton('saveTemplate')->setClass('fpcm-ui-hidden'); ?>

@@ -29,7 +29,6 @@ fpcm.systemcheck = {
                 fpcm.ui.showLoader(false);
                 fpcm.ui.assignHtml("#tabs-options-check", fpcm.ajax.getResult('syscheck'));
                 fpcm.ui.initJqUiWidgets();
-                fpcm.ui.resize();
             }
         });
 

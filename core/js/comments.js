@@ -148,7 +148,6 @@ fpcm.comments = {
                     onRenderAfter: fpcm.ui.assignCheckboxes
                 });
 
-                fpcm.ui.resize();
                 fpcm.ui.showLoader(false);
             }
         });

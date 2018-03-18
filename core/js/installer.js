@@ -135,7 +135,6 @@ fpcm.installer = {
             return false;
         });
 
-        fpcm.ui.resize();
         fpcm.ui.button('.fpcm-ui-button');
     }
 };

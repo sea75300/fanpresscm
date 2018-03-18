@@ -8,29 +8,6 @@
     <input type="file" name="files[]" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
 </div>
 
-<table id="fpcm-ui-phpupload-filelist" class="fpcm-ui-table fpcm-ui-marginbottom-lg fpcm-ui-filelist fpcm-ui-phpupload"></table>
+<div id="fpcm-ui-phpupload-filelist" class="fpcm-ui-table fpcm-ui-marginbottom-lg fpcm-ui-filelist fpcm-ui-phpupload"></div>
 
-<table class="fpcm-ui-table fpcm-ui-articletemplates">
-    <tr>
-        <th class="fpcm-ui-editbutton-col"></th>
-        <th><?php $theView->write('FILE_LIST_FILENAME'); ?></th>
-        <th><?php $theView->write('FILE_LIST_FILESIZE'); ?></th>
-        <th class="fpcm-th-select-row"></th>
-    </tr>
-    <?php fpcm\view\helper::notFoundContainer($templateFiles, 4); ?>
-
-    <tr class="fpcm-td-spacer"><td colspan="4"></td></tr>
-    <?php foreach ($templateFiles as $templateFile) : ?>
-    <tr>
-        <td class="fpcm-ui-editbutton-col fpcm-ui-center">
-            <?php $theView->linkButton(uniqid())->setText('GLOBAL_DOWNLOAD')->setUrl($templateFile->getFileUrl())->setIcon('cloud-download')->setIconOnly(true)->setTarget('_blank'); ?>
-            <?php $theView->editButton(uniqid())->setUrlbyObject($templateFile)->setClass('fpcm-articletemplates-edit'); ?>
-        </td>
-        <td><?php print $templateFile->getFilename(); ?></td>
-        <td><?php print \fpcm\classes\tools::calcSize($templateFile->getFilesize()); ?></td>
-        <td class="fpcm-td-select-row"><?php fpcm\view\helper::checkbox('deltplfiles[]', 'fpcm-ui-list-checkbox', base64_encode($templateFile->getFilename()), '', '', false); ?></td>
-    </tr>
-    <?php endforeach; ?>
-
-    <tr class="fpcm-td-spacer"><td colspan="4"></td></tr>
-</table>
+<div id="fpcm-dataview-draftfiles"></div>

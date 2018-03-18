@@ -50,11 +50,6 @@ fpcm.ui = {
         if (fpcm.vars.jsvars.fieldAutoFocus) {
             fpcm.ui.setFocus(fpcm.vars.jsvars.fieldAutoFocus);
         }
-
-        fpcm.ui.resize();
-        jQuery(window).resize(function() {
-            fpcm.ui.resize();
-        });
     },
 
     initJqUiWidgets: function () {
@@ -194,17 +189,8 @@ fpcm.ui = {
                 heightStyle: "content"
             };
         }
-        
-        if (params.activate === undefined) {
-
-            params.activate = function(event, ui) {
-                fpcm.ui.resize();
-            };
-
-        }
 
         jQuery(elemClassId).accordion(params);
-
     },
     
     tabs: function(elemClassId, params) {
@@ -471,26 +457,27 @@ fpcm.ui = {
         if (window.fpcm.vars.ui.messages === undefined || !fpcm.vars.ui.messages.length) {
             return false;
         }
-        
+
         var msg = null;
         for (var i = 0; i < window.fpcm.vars.ui.messages.length; i++) {
-
             msg = fpcm.vars.ui.messages[i];
-            msgCode  = '<div class="fpcm-message-box fpcm-message-' + msg.type + '" id="msgbox-' + msg.id + '">';
-            msgCode += '    <div class="fpcm-msg-icon">';
-            msgCode += '        <span class="fa-stack fa-lg">';
-            msgCode += '            <span class="fa fa-square fa-stack-2x fa-inverse"></span>';                    
-            msgCode += '            <span class="fa fa-' + msg.icon + ' fa-stack-1x"></span>';
-            msgCode += '        </span>';
+            msgCode  = '<div class="row fpcm-message-box fpcm-message-' + msg.type + '" id="msgbox-' + msg.id + '">';
+            msgCode += '    <div class="col-12 col-sm-11 fpcm-ui-padding-none-lr">';
+            msgCode += '        <div class="row">';
+            msgCode += '            <div class="col-12 col-sm-auto align-self-center fpcm-ui-center fpcm-ui-padding-none-lr">';
+            msgCode += '                <span class="fa-stack fa-2x">';
+            msgCode += '                    <span class="fa fa-square fa-stack-2x fa-inverse"></span>';                    
+            msgCode += '                    <span class="fa fa-' + msg.icon + ' fa-stack-1x"></span>';
+            msgCode += '                </span>';
+            msgCode += '            </div>';
+            msgCode += '            <div class="col-12 col-sm-10 align-self-center fpcm-ui-ellipsis">' + msg.txt +  '</div>';
+            msgCode += '        </div>';
             msgCode += '    </div>';
-            msgCode += '    <div class="fpcm-msg-text">' + msg.txt + '</div>';
-            msgCode += '    <div class="fpcm-msg-close" id="msgclose-' + msg.id + '">';
-            msgCode += '        <span class="fa-stack fa-lg"><span class="fa fa-square fa-stack-2x fa-inverse"></span><span class="fa fa-times fa-stack-1x"></span></span>';
+            msgCode += '    <div class="col-12 col-sm-1 fpcm-ui-padding-none-lr fpcm-ui-messages-close" id="msgclose-' + msg.id + '">';
+            msgCode += '        <span class="fa-stack"><span class="fa fa-square fa-stack-2x fa-inverse"></span><span class="fa fa-times fa-stack-1x"></span></span>';
             msgCode += '    </div>';
             msgCode += '</div>';
-            msgCode += '<div class="fpcm-ui-clear"></div>';
             fpcm.ui.appendHtml('#fpcm-messages', msgCode);
-
         }
         
     },
@@ -541,15 +528,18 @@ fpcm.ui = {
     },
     
     messagesInitClose: function() {
-        jQuery('#fpcm-messages').find('.fpcm-msg-close').click(function () {
+        var msgEl = jQuery('#fpcm-messages');
+        var closeEl = msgEl.find('.fpcm-ui-messages-close');
+        
+        closeEl.click(function () {
             var closeId = jQuery(this).attr('id');
             jQuery('#msgbox-' + closeId.substring(9)).fadeOut('slow');
         }).mouseover(function () {
-            jQuery(this).find('.fa.fa-square').removeClass('fa-inverse');
-            jQuery(this).find('.fa.fa-times').addClass('fa-inverse');
+            closeEl.find('.fa.fa-square').removeClass('fa-inverse');
+            closeEl.find('.fa.fa-times').addClass('fa-inverse');
         }).mouseout(function () {
-            jQuery(this).find('.fa.fa-square').addClass('fa-inverse');
-            jQuery(this).find('.fa.fa-times').removeClass('fa-inverse');
+            closeEl.find('.fa.fa-square').addClass('fa-inverse');
+            closeEl.find('.fa.fa-times').removeClass('fa-inverse');
         });
     },
     

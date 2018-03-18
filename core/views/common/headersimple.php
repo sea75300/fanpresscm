@@ -13,8 +13,8 @@
 
     <body class="fpcm-body fpcm-body-nogradient" id="fpcm-body">
         
-        <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>"><?php endif; ?>
+        <div id="fpcm-messages"></div>
 
-            <div id="fpcm-messages" class="fpcm-messages"></div>
+        <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>"><?php endif; ?>
 
             <div class="wrapper">

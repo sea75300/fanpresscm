@@ -1,76 +1,83 @@
 <?php
-    /**
-     * FanPress CM 4.x
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     */
-    namespace fpcm\model\files;
+
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\model\files;
+
+/**
+ * Article draft template file object
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @package fpcm\model\files
+ * @since FPCM 3.3
+ */
+final class templatefile extends \fpcm\model\abstracts\file {
 
     /**
-     * Article draft template file object
-     * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     * @package fpcm\model\files
-     * @since FPCM 3.3
+     * Erlaubte Dateitypen
+     * @var array
      */
-    final class templatefile extends \fpcm\model\abstracts\file {
+    public static $allowedTypes = array('application/xhtml+xml', 'text/html');
 
-        /**
-         * Erlaubte Dateitypen
-         * @var array
-         */
-        public static $allowedTypes = array('application/xhtml+xml', 'text/html');
-        
-        /**
-         * Erlaubte Dateiendungen
-         * @var array
-         */
-        public static $allowedExts = array('html', 'htm');
+    /**
+     * Erlaubte Dateiendungen
+     * @var array
+     */
+    public static $allowedExts = array('html', 'htm');
 
-        /**
-         * Konstruktor
-         * @param string $filename Dateiname
-         * @param string $filepath Dateipfad
-         * @param string $content Dateiinhalt
-         */
-        public function __construct($filename = '') {
-            parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS, $filename));
-        }
-
-        /**
-         * Liefert eine URL zum Aufrufend er Datei zurück
-         * @return string
-         */
-        public function getFileUrl() {
-            return \fpcm\classes\dirs::getRootUrl(ltrim(ops::removeBaseDir($this->fullpath), DIRECTORY_SEPARATOR));
-        }
-
-        /**
-         * Liefert eine URL für Editor zurück
-         * @return string
-         * @since FPCM 3.5
-         */
-        public function getEditLink() {
-            return \fpcm\classes\tools::getFullControllerLink('templates/templateedit', [
-                'file' => urlencode(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt($this->filename))
-            ]);
-        }
-        
-        /**
-         * Speichert Template in Dateisystem
-         * @return boolean
-         */
-        public function save() {
-
-            if (!$this->exists() || !$this->content || !$this->isWritable()) return false;
-
-            if (!file_put_contents($this->fullpath, $this->content)) {
-                trigger_error('Unable to update template '.$this->fullpath);
-                return false;
-            }
-            
-            return true;
-        }
-        
+    /**
+     * Konstruktor
+     * @param string $filename Dateiname
+     * @param string $filepath Dateipfad
+     * @param string $content Dateiinhalt
+     */
+    public function __construct($filename = '')
+    {
+        parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS, $filename));
     }
+
+    /**
+     * Liefert eine URL zum Aufrufend er Datei zurück
+     * @return string
+     */
+    public function getFileUrl()
+    {
+        return \fpcm\classes\dirs::getRootUrl(ltrim(ops::removeBaseDir($this->fullpath), DIRECTORY_SEPARATOR));
+    }
+
+    /**
+     * Liefert eine URL für Editor zurück
+     * @return string
+     * @since FPCM 3.5
+     */
+    public function getEditLink()
+    {
+        return \fpcm\classes\tools::getFullControllerLink('templates/templateedit', [
+            'file' => urlencode(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt($this->filename))
+        ]);
+    }
+
+    /**
+     * Speichert Template in Dateisystem
+     * @return boolean
+     */
+    public function save()
+    {
+        if (!$this->exists() || !$this->content || !$this->isWritable())
+            return false;
+
+        if (!file_put_contents($this->fullpath, $this->content)) {
+            trigger_error('Unable to update template ' . $this->fullpath);
+            return false;
+        }
+
+        return true;
+    }
+
+}
+
 ?>
