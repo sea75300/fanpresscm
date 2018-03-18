@@ -1,18 +1,22 @@
+<?php /* @var $theView fpcm\view\viewVars */ ?>
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-users-select-delete">  
-    <table class="fpcm-ui-table">
-        <tr>
-            <td><label><?php $theView->write('USERS_ARTICLES_SELECT'); ?>:</label></td>
-        </tr>
-        <tr>
-            <td><?php \fpcm\view\helper::select('articles[action]', $theView->translate('USERS_ARTICLES_LIST'), null, false, false); ?></td>
-        </tr>
-        <tr>
-            <td><label><?php $theView->write('USERS_ARTICLES_USER'); ?>:</label></td>
-        </tr>
-        <tr>
-            <td><?php \fpcm\view\helper::select('articles[user]', $usersListSelect); ?></td>
-        </tr>
-    </table>
+    <div class="row fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+            <?php $theView->write('USERS_ARTICLES_SELECT'); ?>:
+        </div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
+            <?php $theView->select('articles[action]', 'articlesaction')->setOptions($theView->translate('USERS_ARTICLES_LIST'))->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+        </div>
+    </div>
+ 
+    <div class="row fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+            <?php $theView->write('USERS_ARTICLES_USER'); ?>:
+        </div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
+            <?php $theView->select('articles[user]', 'articlesuser')->setOptions($usersListSelect)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+        </div>
+    </div>
 </div>
 
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-users-permissions-edit"></div>

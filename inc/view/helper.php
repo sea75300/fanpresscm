@@ -63,19 +63,6 @@ final class helper {
     }
 
     /**
-     * Erzeugt Link-basierte Bearbeiten-Button
-     * @param string $href Ziel-URL Ziel-URL
-     * @param bool $active Button ist aktiv
-     * @param string $class CSS-Klasse
-     */
-    public static function editButton($href, $active = true, $class = '')
-    {
-        (new helper\editButton(uniqid('_edbtn')))
-                ->setClass($class)->setReadonly($active ? false : true)
-                ->setUrl($href);
-    }
-
-    /**
      * Erzeugt Input
      * @param string $name Name des Buttons
      * @param string $class CSS-Klasse
@@ -99,29 +86,6 @@ final class helper {
     }
 
     /**
-     * Erzeugt Passwort-Input
-     * @param string $name Name des Buttons
-     * @param string $class CSS-Klasse
-     * @param string $value Wert
-     * @param bool $readonly readonly Status
-     * @param int $maxlength maximale Länge für Feld-Eingabe
-     * @param sting $placeholder HTML5-Platzhalter-Text
-     * @param string $wrapper Wrapper-DIV nutzen
-     */
-    public static function passwordInput($name, $class = '', $value = '', $readonly = false, $maxlength = 255, $placeholder = false, $wrapper = true)
-    {
-        (new helper\passwordInput($name))
-                ->setClass($class)
-                ->setValue($value)
-                ->setReadonly($readonly)
-                ->setMaxlenght($maxlength)
-                ->setPlaceholder($placeholder ? true : false)
-                ->setText(is_string($placeholder) ? $placeholder : '')
-                ->setWrapper($wrapper ? true : false)
-                ->setWrapperClass(is_string($wrapper) ? $wrapper : '');
-    }
-
-    /**
      * Erzeugt Checkbox
      * @param string $name Name des Buttons
      * @param string $class CSS-Klasse
@@ -139,18 +103,6 @@ final class helper {
                 ->setText($descr)
                 ->setReadonly($readonly)
                 ->setSelected($selected);
-    }
-
-    /**
-     * Erzeugt Textarea
-     * @param string $name Name des Buttons
-     * @param string $class CSS-Klasse
-     * @param string $value Wert
-     * @param bool $readonly readonly Status
-     */
-    public static function textArea($name, $class = '', $value = '', $readonly = false)
-    {
-        (new helper\textarea($name))->setClass($class)->setValue($value, ENT_QUOTES)->setReadonly($readonly);
     }
 
     /**

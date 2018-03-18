@@ -1,3 +1,4 @@
+<?php /* @var $theView fpcm\view\viewVars */ ?>
 <div class="fpcm-ui-center">
     <h3><span class="fa fa-database"></span> <?php $theView->write('INSTALLER_DBCONNECTION'); ?></h3>
 
@@ -21,7 +22,7 @@
             </tr>
             <tr>
                 <td><?php $theView->write('INSTALLER_DBCONNECTION_PASS'); ?>:</td>
-                <td><?php \fpcm\view\helper::passwordInput('database[DBPASS]', 'fpcm-installer-data'); ?></td>
+                <td><?php $theView->passwordInput('database[DBPASS]')->setClass('fpcm-installer-data'); ?></td>
             </tr>
             <tr>
                 <td><?php $theView->write('INSTALLER_DBCONNECTION_PREF'); ?>:</td>
