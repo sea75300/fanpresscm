@@ -110,6 +110,7 @@
             $this->view->assign('step', $this->step + 1);
             $this->view->assign('showNextButton', true);
             $this->view->assign('showReload', false);
+            $this->view->assign('languages', array_flip($this->lang->getLanguages()));
             $this->view->addJsFiles(['installer.js', 'systemcheck.js', \fpcm\classes\loader::libGetFileUrl('password-generator/password-generator.min.js')]);
 
             if (method_exists($this, 'runAfterStep'.($this->step - 1))) {

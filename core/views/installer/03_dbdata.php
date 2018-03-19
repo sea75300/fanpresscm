@@ -1,33 +1,69 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<div class="fpcm-ui-center">
-    <h3><span class="fa fa-database"></span> <?php $theView->write('INSTALLER_DBCONNECTION'); ?></h3>
+<div class="row align-items-center">
 
-    <div class="fpcm-half-width fpcm-ui-margin-center">
-        <table class="fpcm-ui-table fpcm-ui-middle fpcm-ui-left">
-            <tr>
-                <td><?php $theView->write('INSTALLER_DBCONNECTION_TYPE'); ?>:</td>
-                <td><?php \fpcm\view\helper::select('database[DBTYPE]', $sqlDrivers, null, false, false, false, 'fpcm-installer-data'); ?></td>
-            </tr>
-            <tr>
-                <td><?php $theView->write('INSTALLER_DBCONNECTION_HOST'); ?>:</td>
-                <td><?php \fpcm\view\helper::textInput('database[DBHOST]', 'fpcm-installer-data', 'localhost'); ?></td>
-            </tr>
-            <tr>
-                <td><?php $theView->write('INSTALLER_DBCONNECTION_NAME'); ?>:</td>
-                <td><?php \fpcm\view\helper::textInput('database[DBNAME]', 'fpcm-installer-data'); ?></td>
-            </tr>
-            <tr>
-                <td><?php $theView->write('INSTALLER_DBCONNECTION_USER'); ?>:</td>
-                <td><?php \fpcm\view\helper::textInput('database[DBUSER]', 'fpcm-installer-data'); ?></td>
-            </tr>
-            <tr>
-                <td><?php $theView->write('INSTALLER_DBCONNECTION_PASS'); ?>:</td>
-                <td><?php $theView->passwordInput('database[DBPASS]')->setClass('fpcm-installer-data'); ?></td>
-            </tr>
-            <tr>
-                <td><?php $theView->write('INSTALLER_DBCONNECTION_PREF'); ?>:</td>
-                <td><?php \fpcm\view\helper::textInput('database[DBPREF]', 'fpcm-installer-data', 'fpcm3'); ?></td>
-            </tr>
-        </table>        
+    <div class="col-12">
+        <h3><span class="fa fa-database"></span> <?php $theView->write('INSTALLER_DBCONNECTION'); ?></h3>
     </div>
+
+    <div class="col-12 col-md-6 fpcm-ui-center">
+
+        <div class="row fpcm-ui-padding-md-tb">
+            <div class="col-sm-12 col-md-3">
+                <?php $theView->write('INSTALLER_DBCONNECTION_TYPE'); ?>:                
+            </div>
+            <div class="col-sm-12 col-md-9">
+                <?php $theView->select('database[DBTYPE]')
+                        ->setOptions($sqlDrivers)
+                        ->setClass('fpcm-installer-data')
+                        ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+            </div>
+        </div>
+
+        <div class="row fpcm-ui-padding-md-tb">
+            <div class="col-sm-12 col-md-3">
+                <?php $theView->write('INSTALLER_DBCONNECTION_HOST'); ?>:                
+            </div>
+            <div class="col-sm-12 col-md-9">
+                <?php $theView->textInput('database[DBHOST]')->setValue('localhost')->setClass('fpcm-installer-data'); ?>
+            </div>
+        </div>
+
+        <div class="row fpcm-ui-padding-md-tb">
+            <div class="col-sm-12 col-md-3">
+                <?php $theView->write('INSTALLER_DBCONNECTION_NAME'); ?>:                
+            </div>
+            <div class="col-sm-12 col-md-9">
+                <?php $theView->textInput('database[DBNAME]')->setClass('fpcm-installer-data'); ?>
+            </div>
+        </div>
+
+        <div class="row fpcm-ui-padding-md-tb">
+            <div class="col-sm-12 col-md-3">
+                <?php $theView->write('INSTALLER_DBCONNECTION_USER'); ?>:                
+            </div>
+            <div class="col-sm-12 col-md-9">
+                <?php $theView->textInput('database[DBUSER]')->setClass('fpcm-installer-data'); ?>
+            </div>
+        </div>
+
+        <div class="row fpcm-ui-padding-md-tb">
+            <div class="col-sm-12 col-md-3">
+                <?php $theView->write('INSTALLER_DBCONNECTION_PASS'); ?>:                
+            </div>
+            <div class="col-sm-12 col-md-9">
+                <?php $theView->textInput('database[DBPASS]')->setClass('fpcm-installer-data'); ?>
+            </div>
+        </div>
+
+        <div class="row fpcm-ui-padding-md-tb">
+            <div class="col-sm-12 col-md-3">
+                <?php $theView->write('INSTALLER_DBCONNECTION_PREF'); ?>:                
+            </div>
+            <div class="col-sm-12 col-md-9">
+                <?php $theView->textInput('database[DBPREF]')->setValue('fpcm4')->setClass('fpcm-installer-data'); ?>
+            </div>
+        </div>
+
+    </div>
+
 </div>
