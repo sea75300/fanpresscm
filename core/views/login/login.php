@@ -1,7 +1,13 @@
-<div class="row no-gutters fpcm-ui-position-absolute fpcm-ui-position-absolute-0">
-    <div class="col-sm-12 col-md-5 fpcm-ui-margin-center align-self-center">
+<div class="row no-gutters fpcm-ui-form-login fpcm-ui-position-absolute fpcm-ui-position-absolute-0">
+    <div class="col-sm-8 col-md-4 fpcm-ui-margin-center align-self-center">
         <div class="ui-widget-content ui-corner-all ui-state-normal fpcm-ui-padding-md-tb">
 
+            <div id="fpcm-ui-logo" class="row fpcm-ui-logo fpcm-ui-center fpcm-ui-margin-none">
+                <div class="col-12">
+                    <h1><span class="fpcm-ui-block">FanPress CM</span> <span class="fpcm-ui-block">News System</span></h1>
+                </div>
+            </div>
+            
             <div class="row fpcm-ui-padding-md-tb">
                 <div class="col-12">
                     <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true); ?>
@@ -28,6 +34,12 @@
                 <?php $theView->linkButton('newpass')->setText('LOGIN_NEWPASSWORD')->setUrl($theView->self.'?module='.$theView->currentModule.'&reset')->setClass('fpcm-loader fpcm-passreset-btn')->setIcon('key'); ?>
             <?php endif; ?>
                 </div>
+            </div>
+        </div>
+        
+        <div class="row fpcm-ui-padding-md-tb">
+            <div class="col-12 fpcm-ui-center fpcm-ui-font-small">
+                <?php include $theView->getIncludePath('common/footer_copy.php'); ?>                
             </div>
         </div>
     </div>

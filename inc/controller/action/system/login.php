@@ -167,6 +167,7 @@ class login extends \fpcm\controller\abstracts\controller {
             ));
         }
 
+        $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         $this->view->addJsFiles(['login.js']);
         $this->view->setFormAction('system/login');
         $this->view->render();

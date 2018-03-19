@@ -37,10 +37,6 @@ button {
     font-family: 'Droid Sans', sans-serif !important;
 }
 
-body.fpcm-body-nogradient {
-    background: #ffffff;
-}
-
 label {
     font-weight:bold;
 }
@@ -188,6 +184,14 @@ div.fpcm-status-info ul.fpcm-menu-top li ul,
 
 #fpcm-ui-logo {
     background: url(logo.png) no-repeat center top;
+}
+
+div.fpcm-ui-form-login div.fpcm-ui-logo h1 {
+    text-align: center;
+}
+
+div.fpcm-ui-form-login div.fpcm-ui-logo span {
+    display: inline-block;
 }
 
 #fpcm-loader {
@@ -409,6 +413,7 @@ input, select, textarea, option, button {
 
 .fpcm-ui-input-wrapper,
 .fpcm-ui-input-text,
+.fpcm-ui-input-wrapper-inner input,
 textarea {
     background-color: #fff;
 }

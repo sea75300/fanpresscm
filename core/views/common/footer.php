@@ -1,10 +1,7 @@
             </div>
 
-            <div class="fpcm-ui-clear"></div>
-
-            <div id="fpcm-footer-bottom" class="col-12 fpcm-footer fpcm-ui-font-small fpcm-ui-center fpcm-footer-bottom fpcm-ui-background-white-50p">
-                <b><?php $theView->write('VERSION'); ?>:</b> <?php print $theView->version; ?><br>
-                &copy; 2011-<?php print date('Y'); ?> <a href="https://nobody-knows.org/download/fanpress-cm/" target="_blank">nobody-knows.org</a>
+            <div id="fpcm-footer-bottom" class="col-12  align-self-end fpcm-footer fpcm-ui-font-small fpcm-ui-center fpcm-footer-bottom fpcm-ui-background-white-50p">
+                <?php include $theView->getIncludePath('common/footer_copy.php'); ?>
             </div>
 
         </div>
