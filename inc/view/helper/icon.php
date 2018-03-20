@@ -33,7 +33,7 @@ class icon extends helper {
     {
         if ($this->iconStack) {
             
-            $stack = "<span class=\"fa {$this->iconStack} fa-stack-2x\"></span>";
+            $stack = "<span class=\"fa {$this->iconStack} fa-stack-2x\"{$this->getDataString()}></span>";
             
             return implode(PHP_EOL, [
                 "<span class=\"{$this->class} fa-stack {$this->size}\"" . ($this->text ? " title=\"{$this->text}\"" : '') . ">",
@@ -44,7 +44,7 @@ class icon extends helper {
             ]);
         }
 
-        return "<span class=\"fpcm-ui-icon {$this->icon} {$this->size} \"" . ($this->text ? " title=\"{$this->text}\"" : '') . "></span> ";
+        return "<span class=\"fpcm-ui-icon {$this->icon} {$this->size} \"" . ($this->text ? " title=\"{$this->text}\"" : '') . "{$this->getDataString()}></span> ";
     }
 
     /**

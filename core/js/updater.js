@@ -16,16 +16,16 @@ fpcm.updater = {
 
     init: function () {
 
-        fpcm.updater.startTime   = (new Date().getTime());
-        
-        fpcm.ui.showLoader(true);
-        
-        if (!fpcm.vars.jsvars.fpcmUpdaterProgressbar) {
-            jQuery('.fpcm-updater-progressbar').remove();
-        }
+//        fpcm.updater.startTime   = (new Date().getTime());
+//        
+//        fpcm.ui.showLoader(true);
+//        
+//        if (!fpcm.vars.jsvars.fpcmUpdaterProgressbar) {
+//            jQuery('.fpcm-updater-progressbar').remove();
+//        }
 
-        fpcm.updater.progressbar(0);
-        fpcm.updater.execRequest(fpcm.vars.jsvars.fpcmUpdaterStartStep);
+//        fpcm.updater.progressbar(0);
+//        fpcm.updater.execRequest(fpcm.vars.jsvars.fpcmUpdaterStartStep);
 
     },
 
