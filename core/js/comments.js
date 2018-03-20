@@ -32,7 +32,6 @@ fpcm.comments = {
         }
     
         fpcm.ui.checkboxradio('.fpcm-ui-comments-status');
-    
         fpcm.comments.assignActions();
     },
 
@@ -48,7 +47,7 @@ fpcm.comments = {
 
     initWidgets: function(dialogId) {
 
-        fpcm.ui.autocomplete('#moveToArticle', {
+        fpcm.ui.autocomplete('.fpcm-ui-input-articleid', {
             source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
             appendTo: dialogId,
             minLength: 3
@@ -134,18 +133,16 @@ fpcm.comments = {
         fpcm.ajax.post('comments/search', {
             data: sParams,
             execDone: function () {
-
                 fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
                 fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
 
-                console.log(fpcm.ajax.getResult('comments/search'));
-                result = fpcm.ajax.getResult('comments/search', true);
-                
-                
-
+                var result = fpcm.ajax.getResult('comments/search', true);
                 fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
                 fpcm.dataview.updateAndRender(result.dataViewName, {
-                    onRenderAfter: fpcm.ui.assignCheckboxes
+                    onRenderAfter: function () {
+                        fpcm.ui.assignCheckboxes();
+                        fpcm.ui.assignControlgroups();
+                    }
                 });
 
                 fpcm.ui.showLoader(false);

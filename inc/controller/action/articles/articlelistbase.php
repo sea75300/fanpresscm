@@ -421,7 +421,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         $this->assignFields($fields);
 
         $this->view->assign('massEditCategories', $this->categories);
-        $this->view->addJsLangVars(['SAVE_FAILED_ARTICLES']);
+        $this->view->addJsVars(['massEditSaveFailed' => 'SAVE_FAILED_ARTICLES']);
     }
 
     abstract protected function getArticleCount();

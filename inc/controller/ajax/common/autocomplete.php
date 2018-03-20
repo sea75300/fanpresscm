@@ -18,8 +18,6 @@ namespace fpcm\controller\ajax\common;
  */
 class autocomplete extends \fpcm\controller\abstracts\ajaxController {
 
-    use \fpcm\controller\traits\articles\editor;
-
     /**
      * Modul-String
      * @var string
@@ -70,12 +68,10 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      */
     private function autocompleteArticles()
     {
-
         if (!$this->permissions->check(['article' => ['edit', 'editall']])) {
             $this->returnData = [];
             return false;
         }
-
 
         $list = new \fpcm\model\articles\articlelist();
 

@@ -301,7 +301,7 @@
                                 ->setSelected($globalConfig['articles_sort'])
                                 ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                         <?php $theView->select('articles_sort_order')
-                                ->setOptions($sorts)
+                                ->setOptions($sortsOrders)
                                 ->setSelected($globalConfig['articles_sort_order'])
                                 ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                     </div>

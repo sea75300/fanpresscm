@@ -131,11 +131,13 @@ fpcm.articlelist = {
                 fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
                 fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
 
-                result = fpcm.ajax.getResult('articles/search', true);
-
+                var result = fpcm.ajax.getResult('articles/search', true);
                 fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
                 fpcm.dataview.updateAndRender(result.dataViewName, {
-                    onRenderAfter: fpcm.ui.assignCheckboxes
+                    onRenderAfter: function () {
+                        fpcm.ui.assignCheckboxes();
+                        fpcm.ui.assignControlgroups();
+                    }
                 });
 
                 fpcm.articlelist.clearArticleCache();

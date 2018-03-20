@@ -69,9 +69,9 @@ final class masseditField {
     {
         return implode('', [
             "<div class=\"row fpcm-ui-padding-md-tb\">",
-            "<div class=\"col-1 fpcm-ui-padding-none-lr\">{$this->icon}</div>",
-            "<div class=\"col-3 fpcm-ui-padding-none-lr\">{$this->descr}</div>",
-            "<div class=\"{$this->class}\">{$this->field}</div>",
+            "<div class=\"col-1 fpcm-ui-padding-none-lr align-self-center\">{$this->icon}</div>",
+            "<div class=\"col-3 fpcm-ui-padding-none-lr align-self-center\">{$this->descr}</div>",
+            "<div class=\"{$this->class} align-self-center\">{$this->field}</div>",
             "</div>"
         ]);
     }

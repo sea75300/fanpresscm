@@ -2,9 +2,9 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-massedit-dialog" id="fpcm-dialog-articles-massedit">
     
     <div class="row fpcm-ui-padding-md-tb">
-        <div class="col-1 fpcm-ui-padding-none-lr"><?php $theView->icon('tags')->setSize('lg'); ?></div>
-        <div class="col-3 fpcm-ui-padding-none-lr"><?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?></div>
-        <div class="col-12 fpcm-ui-padding-md-tb fpcm-ui-padding-none-lr">
+        <div class="col-1 fpcm-ui-padding-none-lr align-self-center"><?php $theView->icon('tags')->setSize('lg'); ?></div>
+        <div class="col-3 fpcm-ui-padding-none-lr align-self-center"><?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?></div>
+        <div class="col-8 align-self-center">
             <div class="fpcm-ui-massedit-categories">
                 <div class="fpcm-ui-controlgroup">
                     <?php foreach ($massEditCategories as $name => $id) : ?>

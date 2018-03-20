@@ -32,7 +32,6 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      */
     public function __construct()
     {
-
         $this->table = \fpcm\classes\database::tableArticles;
 
         if (is_object(\fpcm\classes\loader::getObject('\fpcm\model\system\session')) && \fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
@@ -98,7 +97,6 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      */
     public function getArticlesArchived($monthIndex = false, array $limits = array(), $countOnly = false, $dateLimit = false)
     {
-
         $where = 'archived = 1 AND deleted = 0';
         if ($dateLimit && $this->config->articles_archive_datelimit) {
             $where .= ' createtime >= ' . $this->config->articles_archive_datelimit;
@@ -286,12 +284,12 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
 
         $where .= ' ' . implode(' ', $where2);
 
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', $where, array_values($valueParams)), true);
+        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', $where, array_values($valueParams)), true);        
         return $this->createListResult($list, $monthIndex);
     }
 
     /**
-     * Löscht Artikel oder verschiebt sie in Papierkorb
+     * Verschiebt Artikel in Papierkorb
      * @param array $ids
      * @return bool
      */
@@ -301,9 +299,16 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             return false;
         }
 
-        $where = 'id IN (' . implode(', ', $ids) . ')';
-
-        $res = $this->dbcon->update($this->table, array('deleted', 'pinned'), array(1, 0), $where);
+        /* @var $session \fpcm\model\system\session */
+        $session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        $userId  = $session->exists() ? $session->getUserId() : 0;
+        
+        $res = $this->dbcon->update(
+            $this->table,
+            ['deleted', 'pinned', 'changetime', 'changeuser'],
+            [1, 0, time(), $userId],
+            'id IN (' . implode(', ', $ids) . ')'
+        );
 
         if ($res) {
             $commentList = new \fpcm\model\comments\commentList();
@@ -311,7 +316,6 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         }
 
         $this->cache->cleanup();
-
         return $res;
     }
 
@@ -323,7 +327,17 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     public function restoreArticles(array $ids)
     {
         $this->cache->cleanup();
-        return $this->dbcon->update($this->table, array('deleted'), array(0), 'id IN (' . implode(', ', $ids) . ') AND deleted = 1');
+
+        /* @var $session \fpcm\model\system\session */
+        $session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        $userId  = $session->exists() ? $session->getUserId() : 0;
+
+        return $this->dbcon->update(
+            $this->table,
+            ['deleted','changetime', 'changeuser'],
+            [0, time(), $userId],
+            'id IN (' . implode(', ', $ids) . ') AND deleted = 1'
+        );
     }
 
     /**

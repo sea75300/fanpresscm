@@ -1,3 +1,4 @@
+<?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-ui-center">
     <h3><span class="fa fa-cog"></span> <?php $theView->write('INSTALLER_SYSTEMCONFIG'); ?></h3>
     
