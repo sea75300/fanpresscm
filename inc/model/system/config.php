@@ -26,7 +26,7 @@ namespace fpcm\model\system;
  * @property string $system_timezone Zeitzone
  * @property int    $system_cache_timeout Cache-Timeout
  * @property bool   $system_loader_jquery jQuery in Frontend laden
- * @property bool   $system_editor aktiver Editor (0 = TinyMCE, 1= HTML)
+ * @property bool   $system_editor aktiver Editor
  * @property int    $system_editor_fontsize Standard-Schriftgröße im Editor
  * @property bool   $system_maintenance Wartungsmodusaktiv
  * @property int    $system_loginfailed_locked Anzahl fehlgeschlagener Login-Versuche, nach denen Login temporär gesperrt wird
@@ -290,7 +290,6 @@ final class config extends \fpcm\model\abstracts\dataset {
      */
     public function prepareDataSave()
     {
-
         if (isset($this->newConfig['system_editor'])) {
             $this->newConfig['system_editor'] = base64_decode($this->newConfig['system_editor']);
         }

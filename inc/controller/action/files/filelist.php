@@ -144,7 +144,6 @@ class filelist extends \fpcm\controller\abstracts\controller {
     {
         $this->view->addJsVars([
             'fmgrMode' => $this->mode,
-            'editorType' => $this->config->system_editor,
             'jqUploadInit' => $this->config->file_uploader_new ? true : false,
             'fmLoadAjax' => ($this->fileList->getDatabaseFileCount() ? true : false),
             'currentModule' => $this->getRequestVar('module'),
