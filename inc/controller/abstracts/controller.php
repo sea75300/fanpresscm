@@ -134,6 +134,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     {
         if (\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
             return $this->redirect('installer');
+            exit;
         }
 
         if (\fpcm\classes\baseconfig::installerEnabled()) {

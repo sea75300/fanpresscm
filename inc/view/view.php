@@ -147,6 +147,12 @@ class view {
     protected $rendered;
 
     /**
+     * View was already rendered
+     * @var bool
+     */
+    protected $showPageToken = true;
+
+    /**
      * Konstruktor
      * @param string $viewName View-Name, ohne Endung .php
      * @param string $viewPath View-Pfad unterhalb von core/views/
@@ -156,17 +162,19 @@ class view {
         $this->setViewPath($viewName);
 
         $this->showHeader = self::INCLUDE_HEADER_FULL;
-
-        $this->session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
-        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-        $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+        
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
         $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
 
+        if (\fpcm\classes\baseconfig::dbConfigExists()) {
+            $this->session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+            $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+            $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+        }
+
         $this->fileLib = new \fpcm\model\system\fileLib();
         $this->defaultViewVars = new viewVars();
-
         $this->initFileLib();
     }
 
@@ -263,6 +271,10 @@ class view {
      */
     protected function prepareNotifications()
     {
+        if (!\fpcm\classes\baseconfig::dbConfigExists()) {
+            return false;
+        }
+        
         if ($this->config->system_maintenance) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
                     'SYSTEM_OPTIONS_MAINTENANCE', 'fa fa-lightbulb-o fa-lg fa-fw', 'fpcm-ui-important-text'
@@ -546,7 +558,11 @@ class view {
      */
     protected function initAssigns()
     {
-        if ($this->session->exists()) {
+        $this->defaultViewVars->loggedIn = false;
+        
+        $hasDbConfig = \fpcm\classes\baseconfig::dbConfigExists();
+
+        if ($hasDbConfig && $this->session->exists()) {
             $this->addJsLangVars(['SESSION_TIMEOUT']);
             $this->addJsVars(['sessionCheck' => true]);
 
@@ -554,26 +570,35 @@ class view {
             $this->defaultViewVars->loginTime = $this->session->getLogin();
             $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation())->render();
             $this->defaultViewVars->navigationActiveModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
+            $this->defaultViewVars->loggedIn = true;
         }
 
-        $this->defaultViewVars->version = $this->config->system_version;
-        $this->defaultViewVars->dateTimeMask = $this->config->system_dtmask;
-        $this->defaultViewVars->dateTimeZone = $this->config->system_timezone;
+        if ($hasDbConfig) {
+            $this->defaultViewVars->version = $this->config->system_version;
+            $this->defaultViewVars->dateTimeMask = $this->config->system_dtmask;
+            $this->defaultViewVars->dateTimeZone = $this->config->system_timezone;
+            $this->defaultViewVars->frontEndLink = $this->config->system_url;            
+        }
+        else {
+            $this->defaultViewVars->version = \fpcm\classes\baseconfig::getVersionFromFile();
+            $this->defaultViewVars->dateTimeMask = 'd.m.Y H:i';
+            $this->defaultViewVars->dateTimeZone = 'Europe/Berlin';
+        }
+
         $this->defaultViewVars->langCode = $this->language->getLangCode();
         $this->defaultViewVars->self = strip_tags(trim($_SERVER['PHP_SELF']));
-        $this->defaultViewVars->frontEndLink = $this->config->system_url;
         $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
         $this->defaultViewVars->currentModule = \fpcm\classes\http::get('module');
         $this->defaultViewVars->buttons = $this->buttons;
         $this->defaultViewVars->formActionTarget = $this->formAction;
 
-        $this->defaultViewVars->loggedIn = $this->session->exists();
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->defaultViewVars->filesCss = array_unique($this->viewCssFiles);
         $this->defaultViewVars->filesJs = array_unique($this->viewJsFiles);
 
         $this->defaultViewVars->fullWrapper = in_array($this->defaultViewVars->currentModule, ['installer']);
+        $this->defaultViewVars->showPageToken = $this->showPageToken;
 
         $this->jsvars['currentModule'] = $this->defaultViewVars->currentModule;
 
@@ -593,6 +618,10 @@ class view {
 
         /* @var $theView viewVars */
         $this->assign('theView', $this->defaultViewVars);
+
+        if (!$hasDbConfig) {
+            return true;
+        }
 
         helper::init($this->config->system_lang);
 
@@ -685,6 +714,17 @@ class view {
         $this->formAction = \fpcm\classes\tools::getFullControllerLink($controller, $params);
     }
 
+    /**
+     * 
+     * @param bool $showPageToken
+     * @return $this
+     */
+    public function showPageToken($showPageToken)
+    {
+        $this->showPageToken = (bool) $showPageToken;
+        return $this;
+    }
+        
     /**
      * Set form action path
      * @param string $controller

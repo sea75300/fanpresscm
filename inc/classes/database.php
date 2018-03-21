@@ -925,7 +925,7 @@ final class database {
         $content[] = ' */';
         $content[] = '$config = ' . var_export($config, true) . ';';
         $content[] = '?>';
-        file_put_contents(dirs::getDataDirPath(dirs::DATA_CONFIG, 'databse.php'), implode(PHP_EOL, $content));
+        file_put_contents(dirs::getDataDirPath(dirs::DATA_CONFIG, 'database.php'), implode(PHP_EOL, $content));
 
         return true;
     }
@@ -946,16 +946,15 @@ final class database {
      */
     public static function getTableFiles($path = false)
     {
-
         if (!$path) {
-            $path = dirs::getDataDirPath(dirs::DATA_DBSTRUCT);
+            $path = dirs::getDataDirPath(dirs::DATA_DBSTRUCT, '/');
         }
 
         if (!is_dir($path)) {
             trigger_error('Invalid path given, ' . $path . ' is not a directory');
             return [];
         }
-
+        
         $files = glob($path . '*.yml');
         if (!is_array($files) || !count($files)) {
             return [];

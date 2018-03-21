@@ -1,67 +1,78 @@
 <?php
+
+/**
+ * AJAX installer database connection check controller
+ * 
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\ajax\installer;
+
+/**
+ * AJAX-Controller zur Prüfung der eingegebenen Datenbank-Zugangsdaten im Installer
+ * 
+ * @package fpcm\controller\ajax\installer\checkdb
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ */
+class checkdb extends \fpcm\controller\abstracts\ajaxController {
+
     /**
-     * AJAX installer database connection check controller
-     * 
-     * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+     * Konstruktor
      */
-    namespace fpcm\controller\ajax\installer;
-    
-    /**
-     * AJAX-Controller zur Prüfung der eingegebenen Datenbank-Zugangsdaten im Installer
-     * 
-     * @package fpcm\controller\ajax\installer\checkdb
-     * @author Stefan Seehafer <sea75300@yahoo.de>
-     */
-    class checkdb extends \fpcm\controller\abstracts\ajaxController {
-        
-        /**
-         * Konstruktor
-         * @return boolean
-         */
-        public function __construct() {
-            return true;
-        }
-        
-        /**
-         * Request-Handler
-         * @return boolean
-         */
-        public function request() {
-            if (\fpcm\classes\baseconfig::dbConfigExists()) return false;
-            
-            return true;
-        }
-        
-        /**
-         * Controller-Processing
-         */
-        public function process() {
-
-            $databaseInfo = $this->getRequestVar('dbdata');
-
-            try {
-                $db = new \fpcm\classes\database($databaseInfo);                
-            } catch (\PDOException $exc) {
-                trigger_error($exc->getMessage());
-                exit('0');
-            }
-            
-            if (!$db->checkDbVersion()) {
-                trigger_error('Unsupported database system detected. Installed version is '.$db->getDbVersion().', FanPress CM requires version '.$db->getRecommendVersion());
-                exit('0');
-            }
-
-            $db->createDbConfigFile($databaseInfo);
-
-            $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
-            $crypt->initCrypt();
-            
-            \fpcm\classes\security::initSecurityConfig();
-            
-            exit('1');
-        }
-
+    public function __construct()
+    {
+        return true;
     }
+
+    /**
+     * 
+     * @return boolean
+     */
+    public function hasAccess()
+    {
+        return \fpcm\classes\baseconfig::dbConfigExists() ? false : true;
+    }
+
+    /**
+     * Request-Handler
+     * @return boolean
+     */
+    public function request()
+    {
+        return true;
+    }
+
+    /**
+     * Controller-Processing
+     */
+    public function process()
+    {
+        $databaseInfo = $this->getRequestVar('dbdata');
+
+        try {
+            $db = new \fpcm\classes\database($databaseInfo);
+        } catch (\PDOException $exc) {
+            trigger_error($exc->getMessage());
+            exit('0');
+        }
+
+        if (!$db->checkDbVersion()) {
+            trigger_error('Unsupported database system detected. Installed version is ' . $db->getDbVersion() . ', FanPress CM requires version ' . $db->getRecommendVersion());
+            exit('0');
+        }
+
+        $db->createDbConfigFile($databaseInfo);
+
+        $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
+        $crypt->initCrypt();
+
+        \fpcm\classes\security::initSecurityConfig();
+
+        exit('1');
+    }
+
+}
+
 ?>

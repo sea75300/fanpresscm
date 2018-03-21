@@ -53,7 +53,7 @@ abstract class rollbase extends \fpcm\controller\abstracts\controller {
             return true;
         }
         
-        $this->userRoll->setRollName();
+        $this->userRoll->setRollName($rollName);
         $func = $update ? 'update' : 'save';
         $msg  = $update ? 'edited' : 'added';
         if (call_user_func([$this->userRoll, $func])) {

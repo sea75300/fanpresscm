@@ -13,8 +13,8 @@ fpcm.installer = {
     currentDbFileIndex: 0,
 
     init: function() {
-        this.initUi();
-        this.initDatabase();
+        fpcm.installer.initUi();
+        fpcm.installer.initDatabase();
     },
 
     checkDBData: function() {
@@ -34,24 +34,19 @@ fpcm.installer = {
             async: false,
             execDone: function () {
                 
+                jQuery('#fpcm-messages').empty();
+
                 var res = fpcm.ajax.getResult('installer/checkdb');
                 if (res === '1' || res === 1) {
-                    jQuery('#installerform').submit();
+                    jQuery('#fpcm-ui-form').submit();
                     return true;
                 }
 
-                jQuery('#fpcm-messages').empty();
-                window.fpcmMsg = [];
-                window.fpcmMsg.push({
+                fpcm.ui.addMessage({
                     txt  : fpcm.ui.translate('INSTALLER_DBCONNECTION_FAILEDMSG'),
                     type : 'error',
-                    id   : 'errordbtestfailed',
-                    icon : 'exclamation-triangle'
+                    id   : 'errordbtestfailed'
                 });
-
-                fpcm.ui.showMessages();
-                fpcm.ui.prepareMessages();
-                fpcm.ui.messagesInitClose();
 
                 return false;
             }
@@ -62,14 +57,9 @@ fpcm.installer = {
 
     initDatabase: function () {
         
-        if (window.fpcmSqlFiles === undefined) {
+        if (!fpcm.vars.jsvars.sqlFilesCount) {
             return false;
         }
-
-        fpcm.ui.progressbar('.fpcm-installer-progressbar', {
-            max  : fpcmSqlFilesCount,
-            value: fpcm.installer.currentDbFileIndex
-        });
 
         fpcm.installer.execDbFile();
 
@@ -77,13 +67,14 @@ fpcm.installer = {
 
     execDbFile: function() {
 
-        if (window.fpcmSqlFiles[fpcm.installer.currentDbFileIndex] === undefined) {
+        if (fpcm.vars.jsvars.sqlFiles[fpcm.installer.currentDbFileIndex] === undefined) {
             return true;
         }
 
-        var obj = window.fpcmSqlFiles[fpcm.installer.currentDbFileIndex];
+        var obj = fpcm.vars.jsvars.sqlFiles[fpcm.installer.currentDbFileIndex];
+        var rowId = 'installer-tabs-' + fpcm.installer.currentDbFileIndex;
 
-        fpcm.ui.appendHtml('#fpcm-installer-execlist', '<p><span class="fa fa-spinner fa-spin fa-fw"></span> ' + fpcmSqlFileExec.replace('{{tablename}}', obj.descr) + '</p>');
+        fpcm.ui.appendHtml('#fpcm-installer-execlist', '<div class="row no-gutters fpcm-ui-padding-md-tb"><div class="col-12" id="' + rowId + '"><span class="fa fa-spinner fa-spin fa-fw"></span> ' + fpcm.ui.translate('INSTALLER_CREATETABLES_STEP').replace('{{tablename}}', obj.descr) + '</div></div>');
 
         fpcm.ajax.post('installer/initdb', {
             data: {
@@ -93,19 +84,14 @@ fpcm.installer = {
                 jQuery('#fpcm-installer-execlist').find('span.fa-spinner').remove();
 
                 if(fpcm.ajax.getResult('installer/initdb') != 0){
-
+                    fpcm.ui.prependHtml('#' + rowId, '<span class="fa fa-check fa-fw"></span>');
                     fpcm.installer.currentDbFileIndex++;
-
-                    fpcm.ui.progressbar('.fpcm-installer-progressbar', {
-                        value: fpcm.installer.currentDbFileIndex
-                    });
-
                     fpcm.installer.execDbFile();
                     return true;
 
                 }
 
-                fpcm.ui.appendHtml('#fpcm-installer-execlist', "<p class='fpcm-ui-important-text'>FAILED!</p>");
+                fpcm.ui.prependHtml('#' + rowId, '<span class="fa fa-ban fa-fw fpcm-ui-important-text"></span>');
                 fpcm.installer.breakDbInit = false;
 
                 return false;
@@ -117,8 +103,8 @@ fpcm.installer = {
     initUi: function() {
 
         fpcm.ui.tabs('#fpcm-tabs-installer', {
-            disabled: disabledTabs,
-            active  : activeTab,
+            disabled: fpcm.vars.jsvars.disabledTabs,
+            active  : fpcm.vars.jsvars.activeTab,
             beforeActivate: function( event, ui ) {
                 
                 var backLink = ui.newTab.find('a').attr('data-backlink');

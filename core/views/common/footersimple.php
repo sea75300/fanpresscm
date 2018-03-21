@@ -1,6 +1,6 @@
             </div>
         
-        <?php if ($theView->formActionTarget) : ?>
+        <?php if ($theView->formActionTarget && $theView->showPageToken) : ?>
             <?php $theView->pageTokenField('pgtkn'); ?>
         </form>
         <?php endif; ?>

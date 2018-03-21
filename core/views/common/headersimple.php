@@ -15,6 +15,6 @@
         
         <div id="fpcm-messages"></div>
 
-        <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>"><?php endif; ?>
+        <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
             <div class="wrapper">

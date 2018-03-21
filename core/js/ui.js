@@ -564,6 +564,10 @@ fpcm.ui = {
         jQuery(elemId).append(data);
     },
     
+    prependHtml: function(elemId, data) {
+        jQuery(elemId).prepend(data);
+    },
+    
     removeLoaderClass: function(elemId) {
         jQuery(elemId).removeClass('fpcm-loader');
     },

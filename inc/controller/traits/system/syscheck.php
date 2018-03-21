@@ -114,7 +114,7 @@ trait syscheck {
             ($resultMySql ? 1 : 0)
         );
 
-        if (is_object(\fpcm\classes\loader::getObject('\fpcm\classes\database'))) {
+        if (\fpcm\classes\baseconfig::dbConfigExists() && is_object(\fpcm\classes\loader::getObject('\fpcm\classes\database'))) {
 
             $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
 

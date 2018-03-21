@@ -38,7 +38,7 @@
          * data-Array für nicht weiter definierte Eigenschaften
          * @var array
          */
-        protected $data;
+        protected $data = [];
         
         /**
          * Eigenschaften, welche beim Speichern in DB nicht von getPreparedSaveParams() zurückgegeben werden sollen

@@ -1,7 +1,4 @@
-<div class="fpcm-ui-center">
-    <h3><span class="fa fa-medkit"></span> <?php $theView->write('INSTALLER_SYSCHECK'); ?></h3>
-    
-    <div class="fpcm-ui-left">
-        <?php include $theView->getIncludePath('system/syscheck.php'); ?>
-    </div>
+<?php /* @var $theView \fpcm\view\viewVars */ ?>
+<div class="col-12 col-sm-8">
+    <?php include $theView->getIncludePath('system/syscheck.php'); ?>
 </div>

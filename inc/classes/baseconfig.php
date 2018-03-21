@@ -112,14 +112,15 @@ final class baseconfig {
 
         if (self::dbConfigExists()) {
             loader::getObject('\fpcm\classes\database');
+
+            $config  = loader::getObject('\fpcm\model\system\config');
+            $session = loader::getObject('\fpcm\model\system\session');
+            loader::getObject('\fpcm\model\system\config')->setUserSettings();
+            loader::getObject('\fpcm\classes\language', $config->system_lang);
+            loader::getObject('\fpcm\model\theme\notifications');
+            loader::getObject('\fpcm\model\system\permissions', ($session->exists() ? $session->currentUser->getRoll() : 0));
         }
 
-        $config  = loader::getObject('\fpcm\model\system\config');
-        $session = loader::getObject('\fpcm\model\system\session');
-        loader::getObject('\fpcm\model\system\config')->setUserSettings();
-        loader::getObject('\fpcm\classes\language', $config->system_lang);
-        loader::getObject('\fpcm\model\theme\notifications');
-        loader::getObject('\fpcm\model\system\permissions', ($session->exists() ? $session->currentUser->getRoll() : 0));
 
         self::initServers();
     }
@@ -131,8 +132,9 @@ final class baseconfig {
     public static function getDatabaseConfig()
     {
         $path = dirs::getDataDirPath(dirs::DATA_CONFIG, 'database.php');
-        if (!file_exists($path))
+        if (!file_exists($path)) {
             return [];
+        }
 
         include $path;
         return $config;
@@ -146,8 +148,9 @@ final class baseconfig {
     public static function getCryptConfig()
     {
         $path = dirs::getDataDirPath(dirs::DATA_CONFIG, 'crypt.php');
-        if (!file_exists($path))
+        if (!file_exists($path)) {
             return [];
+        }
 
         include $path;
         return $config;
@@ -166,6 +169,17 @@ final class baseconfig {
 
         include $path;
         return $config;
+    }
+
+    /**
+     * Lädt version.php
+     * @return string
+     * @since FPCM 4
+     */
+    public static function getVersionFromFile()
+    {
+        include self::$versionFile;
+        return $fpcmVersion;
     }
 
     /**

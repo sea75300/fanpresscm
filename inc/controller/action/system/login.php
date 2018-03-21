@@ -139,6 +139,10 @@ class login extends \fpcm\controller\abstracts\controller {
      */
     public function hasAccess()
     {
+        if (\fpcm\classes\baseconfig::installerEnabled() || !\fpcm\classes\baseconfig::dbConfigExists()) {
+            return false;
+        }
+
         if (!$this->maintenanceMode(false) && !$this->session->exists()) {
             return false;
         }

@@ -38,6 +38,7 @@ namespace fpcm\view;
  * @property array  $buttons
  * @property bool   $loggedIn
  * @property bool   $fullWrapper
+ * @property bool   $showPageToken
  * @property \fpcm\model\users\author $currentUser
  * @property helper\pager $pager
  * 
