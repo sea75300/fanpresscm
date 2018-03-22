@@ -146,7 +146,7 @@ defaultvalues:
             id: 30
             config_name: "articles_acp_limit"
             config_value: "100"
-        30:
+        31:
             id: 31
             config_name: "articles_archive_datelimit"
             config_value: "0"
