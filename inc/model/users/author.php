@@ -68,12 +68,6 @@
         protected $passwd;
         
         /**
-         * sha256-Hash des Salts
-         * @var string
-         */
-        protected $salt = '';
-        
-        /**
          * Benutezrrolle
          * @var int
          */
@@ -206,25 +200,7 @@
         public function setRoll($roll)
         {
             $this->roll = (int) $roll;
-        }
-        
-        /**
-         * Passwort-Salt auslesen
-         * @return string
-         */
-        public function getSalt()
-        {
-            return $this->salt;
-        }
-
-        /**
-         * Passwort-Salt setzen
-         * @param string $salt
-         */
-        public function setSalt($salt)
-        {
-            $this->salt = $salt;
-        }        
+        }      
         
         /**
          * Status ob Benutzer deaktiviert ist auslesen

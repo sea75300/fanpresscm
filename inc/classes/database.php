@@ -178,6 +178,10 @@ final class database {
     {
         $dbconfig = (is_array($dbconfig) ? $dbconfig : baseconfig::getDatabaseConfig());
 
+        if (!isset($dbconfig['DBTYPE'])) {
+            return;
+        }
+
         $driverClass = '\\fpcm\\drivers\\' . $dbconfig['DBTYPE'];
 
         if (!class_exists($driverClass)) {

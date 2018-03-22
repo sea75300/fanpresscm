@@ -40,4 +40,7 @@ cols:
         type: bool
         length: 
         params: NOT NULL
-indices:     
+indices:
+    sessionid:
+        col: sessionid
+        isUnqiue: true

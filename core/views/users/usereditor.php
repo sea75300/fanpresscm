@@ -53,7 +53,11 @@
         <?php $theView->write('USERS_ROLL'); ?>:
     </div>
     <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-        <?php $theView->select('roll')->setOptions($userRolls)->setSelected($author->getRoll())->setReadonly((isset($inProfile) && $inProfile)); ?>
+        <?php $theView->select('roll')
+                ->setOptions($userRolls)
+                ->setSelected($author->getRoll())
+                ->setReadonly((isset($inProfile) && $inProfile))
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
     </div>
 </div>
 

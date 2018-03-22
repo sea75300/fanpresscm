@@ -6,7 +6,7 @@ engine: InnoDB
 charset: utf8
 autoincrement:
     colname: id
-    start: 1
+    start: 2
 cols:
     id:
         type: bigint

@@ -418,7 +418,11 @@ class main extends \fpcm\controller\abstracts\controller {
             }
         }
 
-        $this->redirect('installer', array('step' => '6', 'msg' => $res, 'language' => $this->langCode));
+        $this->redirect('installer', [
+            'step' => '6',
+            'msg' => $res,
+            'language' => $this->langCode
+        ]);
 
         $this->afterStepResult = false;
         return false;

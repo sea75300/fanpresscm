@@ -6,7 +6,7 @@ engine: InnoDB
 charset: utf8
 autoincrement:
     colname: id
-    start: 1
+    start: 39
 cols:
     id:
         type: bigint
@@ -21,6 +21,9 @@ cols:
         length: 255
         params: NOT NULL
 indices:
+    smileycode:
+        col: smileycode
+        isUnqiue: true
 defaultvalues:
     rows:
         1:

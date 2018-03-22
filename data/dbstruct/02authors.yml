@@ -49,3 +49,6 @@ cols:
         length: 
         params: NOT NULL
 indices:
+    username:
+        col: username
+        isUnqiue: true

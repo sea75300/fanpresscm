@@ -6,7 +6,7 @@ engine: InnoDB
 charset: utf8
 autoincrement:
     colname: id
-    start: 1
+    start: 4
 cols:
     id:
         type: bigint
@@ -21,6 +21,9 @@ cols:
         length: 
         params: NOT NULL
 indices:
+    rollid:
+        col: rollid
+        isUnqiue: true
 defaultvalues:
     rows:
         1:

@@ -23,12 +23,12 @@ class cronasync extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
-            fpcmLogCron('Asynchronous cronjob execution was disabled');
-            return false;
+        if (\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
+            return true;
         }
 
-        return true;
+        fpcmLogCron('Asynchronous cronjob execution was disabled');
+        return false;
     }
 
     /**
@@ -37,7 +37,8 @@ class cronasync extends \fpcm\controller\abstracts\ajaxController {
      */
     public function hasAccess()
     {
-        return true;
+        return  \fpcm\classes\baseconfig::installerEnabled() ||
+                !\fpcm\classes\baseconfig::dbConfigExists() ? false : true;
     }
     
     /**
