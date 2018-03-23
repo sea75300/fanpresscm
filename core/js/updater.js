@@ -11,106 +11,90 @@ if (fpcm === undefined) {
 
 fpcm.updater = {
 
-    startTime   : 0,
-    responseData: '',
+    startTime    : 0,
+    stopTime     : 0,
+    elCount      : [],
+    elements     : [],
+    currentEl    : {},
+    currentIdx   : 0,
+    statusSpinner: 'fa-spinner fa-pulse fpcm-ui-update-iconstatus-spinner',
 
     init: function () {
 
-//        fpcm.updater.startTime   = (new Date().getTime());
-//        
-//        fpcm.ui.showLoader(true);
-//        
-//        if (!fpcm.vars.jsvars.fpcmUpdaterProgressbar) {
-//            jQuery('.fpcm-updater-progressbar').remove();
-//        }
+        fpcm.updater.elements = jQuery('.fpcm-ui-update-icons');
+        fpcm.updater.elCount  = fpcm.updater.elements.length;
 
-//        fpcm.updater.progressbar(0);
-//        fpcm.updater.execRequest(fpcm.vars.jsvars.fpcmUpdaterStartStep);
+        var start = fpcm.updater.elements.first();
+        fpcm.updater.execRequest(start);
 
     },
 
-    execRequest: function(stepName) {
+    execRequest: function(el) {
 
-        if (fpcm.vars.jsvars.fpcmUpdaterStepMap[stepName] === undefined) {
-            return false;
+        fpcm.updater.currentIdx++;
+
+        var params = {
+            step: el.attr('data-step'),
+            func: el.attr('data-func')
+        };
+
+        el.parent().parent().removeClass('fpcm-ui-status-0').addClass('fpcm-ui-status-1');
+
+        if (params.func && typeof fpcm.updater[params.func] === 'function') {
+            fpcm.updater[params.func].call();
         }
 
-        var idx = fpcm.vars.jsvars.fpcmUpdaterStepMap[stepName];        
-        if (idx > fpcm.vars.jsvars.fpcmUpdaterMaxStep) {
+        if (!params.step) {
             return false;
         }
+        
+        el.find('.fpcm-ui-update-iconstatus').removeClass('fa-square-o fpcm-ui-update-iconstatus-0').addClass(fpcm.updater.statusSpinner);
+        fpcm.updater.currentEl = el;
 
-        fpcm.ui.assignHtml('div.fpcm-updater-progressbar div.fpcm-ui-progressbar-label', fpcm.vars.jsvars.fpcmUpdaterMessages[stepName + '_START']);
         fpcm.ajax.post('packagemgr/sysupdater', {
             data: {
-                step : stepName,
-                force: fpcm.vars.jsvars.fpcmUpdaterForce,
+                step : params.step
             },
             execDone: function () {
-                fpcm.updater.responseData = fpcm.ajax.fromJSON(fpcm.ajax.getResult('packagemgr/sysupdater'));
-                if (fpcm.updater.responseData.data === undefined) {
-                    alert(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
+
+                var res = parseInt(fpcm.ajax.getResult('packagemgr/sysupdater'));
+
+                var statusEl = fpcm.updater.currentEl.find('.fpcm-ui-update-iconstatus');
+                statusEl.removeClass(fpcm.updater.statusSpinner);
+
+                if (!res) {
+                    statusEl.addClass('fa-ban fpcm-ui-important-text');
+                    jQuery('#fpcm-ui-update-result-0').removeClass('fpcm-ui-hidden');
+                    fpcm.updater.currentEl = {};
                     return false;
                 }
 
-                fpcm.updater.progressbar(fpcm.updater.responseData.data.current);
+                var afterFunc = fpcm.updater.currentEl.attr('data-after');
+                console.log(afterFunc);
+                if (afterFunc && typeof fpcm.updater[afterFunc] === 'function') {
+                    fpcm.updater[afterFunc].call();
+                }
 
-                var currentIdx = fpcm.vars.jsvars.fpcmUpdaterStepMap[fpcm.updater.responseData.data.current];
-                if (currentIdx < fpcm.vars.jsvars.fpcmUpdaterMaxStep &&
-                    fpcm.updater.responseData.code != fpcm.updater.responseData.data.current + '_' + 1) {
-                    fpcm.ui.showLoader(false);
-                    fpcm.ui.appendHtml('.fpcm-updater-list', '<p class="fpcm-ui-important-text">' + fpcm.vars.jsvars.fpcmUpdaterMessages[fpcm.updater.responseData.code] + '</p>');
+                statusEl.addClass('fa-check fpcm-ui-editor-metainfo').css('opacity', '0.75');
+                if (!fpcm.updater.elements[fpcm.updater.currentIdx]) {
                     return false;
                 }
-                else if (currentIdx === fpcm.vars.jsvars.fpcmUpdaterMaxStep) {
-                    fpcm.ui.appendHtml('.fpcm-updater-list', '<p>' + fpcm.vars.jsvars.fpcmUpdaterMessages[fpcm.updater.responseData.code] + ': ' + fpcm.updater.responseData.data.newver + '</p>');
-                    fpcm.updater.ajaxCallbackFinal(fpcm.updater.responseDataresponseData);
-                }
-                else {
-                    fpcm.ui.appendHtml('.fpcm-updater-list', '<p>' + fpcm.vars.jsvars.fpcmUpdaterMessages[fpcm.updater.responseData.code] + '</p>');
-                }
 
-                if (currentIdx < fpcm.vars.jsvars.fpcmUpdaterMaxStep) {
-                    fpcm.updater.execRequest(fpcm.updater.responseData.data.nextstep);
-                }
-
-                if (currentIdx == fpcm.vars.jsvars.fpcmUpdaterMaxStep) {
-                    fpcm.ui.assignText('div.fpcm-updater-progressbar div.fpcm-ui-progressbar-label', '');
-                }
+                fpcm.updater.execRequest(jQuery(fpcm.updater.elements[fpcm.updater.currentIdx]));
             }
         });
-        
+
         return true;
     },
-
-    ajaxCallbackFinal: function() {
-        jQuery('#fpcm-ui-headspinner').removeClass('fa-spin');
-        fpcm.ui.addMessage({
-            type: 'notice',
-            txt : fpcm.vars.jsvars.fpcmUpdaterMessages['EXIT_1']
-        });
-        fpcm.ui.appendHtml('.fpcm-updater-list', '<p>' + '<span class="fa fa-check-square fa-fw fa-lg fpcm-ui-booltext-yes"></span>'  + fpcm.vars.jsvars.fpcmUpdaterMessages['EXIT_1'] + '</p>');
-        fpcm.ui.showLoader(false);
-        fpcm.updater.addTimer();
-        jQuery('#updaterButtons').show();
-        return true;
+    
+    startTimer: function() {
+        fpcm.updater.startTime = (new Date().getTime());
     },
-
-    addTimer: function() {
-        var updateTimer = ((new Date().getTime()) - fpcm.updater.startTime) / 1000;
-        fpcm.ui.appendHtml('.fpcm-updater-list', '<p>' + fpcmUpdaterProcessTime + ': ' + updateTimer + 'sec</p>');
-        fpcm.ui.showLoader(false);
-        return true;
-    },
-
-    progressbar: function (pgValue) {
-
-        if (!window.fpcmUpdaterProgressbar) return false;  
-
-        fpcm.ui.progressbar('.fpcm-updater-progressbar', {
-            max: parseInt(fpcmUpdaterMaxStep),
-            value: parseInt(fpcmUpdaterStepMap[pgValue])
-        });
-
+    
+    stopTimer: function() {
+        fpcm.updater.stopTime = (new Date().getTime());
+        fpcm.ui.appendHtml('#fpcm-ui-update-timer', ': <strong>' + (fpcm.updater.stopTime - fpcm.updater.startTime) / 1000 + ' sec</strong>');
+        jQuery('#fpcm-ui-update-timer').parent().removeClass('fpcm-ui-hidden');
+        jQuery('#fpcm-ui-update-result-1').removeClass('fpcm-ui-hidden');
     }
 };

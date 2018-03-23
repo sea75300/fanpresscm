@@ -242,9 +242,25 @@ class templates extends \fpcm\controller\abstracts\controller {
             new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'),
             (new \fpcm\components\dataView\column('filesize', 'FILE_LIST_FILESIZE'))->setSize(2)
         ]);
+        
+        $items = $tplfilelist->getFolderObjectList();
+        if (!count($items)) {
+
+            $dataView->addRow(
+                new \fpcm\components\dataView\row([
+                    new \fpcm\components\dataView\rowCol('col', 'GLOBAL_NOTFOUND2', 'fpcm-ui-padding-md-lr'),
+                ],
+                '',
+                false,
+                true
+            ));
+            
+            $this->view->addDataView($dataView);
+            return true;
+        }
 
         /* @var $templateFile \fpcm\model\files\tempfile */
-        foreach ($tplfilelist->getFolderObjectList() as $templateFile) {
+        foreach ($items as $templateFile) {
 
             $buttons = [
                 '<div class="fpcm-ui-controlgroup">',

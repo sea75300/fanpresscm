@@ -403,6 +403,15 @@ del,
     updates: 0.4em 0;
 }
 
+span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-0 {
+    color: transparent;
+}
+
+span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-spinner {
+    color: #e3e3e3;
+    font-weight: 100 !important;
+}
+
 /* Formulare */
 
 input, select, textarea, option, button {

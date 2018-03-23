@@ -12,7 +12,7 @@ fpcm.filemanager = {
 
     init: function() {
 
-        if (fpcm.vars.jsvars.fmLoadAjax) {
+        if (fpcm.vars.jsvars.loadAjax) {
             fpcm.filemanager.reloadFiles();
             fpcm.filemanager.initActionButtons();
         }

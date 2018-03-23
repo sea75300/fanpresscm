@@ -435,11 +435,9 @@ fpcm.editor = {
                 buttons  : [
                     {
                         text: fpcm.ui.translate('ARTICLES_SEARCH'),
-                        icon: "fpcm-search",
                         onclick: function() {
                             var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
                             jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('#opensearch').click();
-                            top.tinymce.activeEditor.windowManager.close();
                         }
                     },
                     {

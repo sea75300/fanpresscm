@@ -142,10 +142,12 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
     public function process()
     {
+        $hasFiles = ($this->fileList->getDatabaseFileCount() ? true : false);
+        
         $this->view->addJsVars([
             'fmgrMode' => $this->mode,
             'jqUploadInit' => $this->config->file_uploader_new ? true : false,
-            'fmLoadAjax' => ($this->fileList->getDatabaseFileCount() ? true : false),
+            'loadAjax' => $hasFiles,
             'currentModule' => $this->getRequestVar('module'),
             'filesLastSearch' => 0,
             'checkboxRefresh' => true
@@ -159,6 +161,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
         ));
 
         $this->view->assign('mode', $this->mode);
+        $this->view->assign('hasFiles', $hasFiles);
         $this->view->assign('newUploader', $this->config->file_uploader_new);
         $this->view->assign('jquploadPath', \fpcm\classes\dirs::getLibUrl('jqupload/'));
         $this->view->addJsFiles(['filemanager.js', 'fileuploader.js']);
