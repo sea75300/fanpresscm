@@ -79,7 +79,7 @@ class cache extends \fpcm\controller\abstracts\ajaxController {
         $this->returnData = [
             'txt' => 'CACHE_CLEARED_OK',
             'type' => 'notice',
-            'icon' => 'recycle'
+            'icon' => 'hdd'
         ];
 
         $this->getSimpleResponse();

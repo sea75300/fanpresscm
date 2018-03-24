@@ -48,7 +48,7 @@
     </div>
 </div>
 
-<div class="row fpcm-ui-padding-md-tb">
+<div class="row fpcm-ui-padding-md-tb <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
     <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
         <?php $theView->write('USERS_ROLL'); ?>:
     </div>
@@ -56,7 +56,7 @@
         <?php $theView->select('roll')
                 ->setOptions($userRolls)
                 ->setSelected($author->getRoll())
-                ->setReadonly((isset($inProfile) && $inProfile))
+                ->setReadonly(($inProfile))
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
     </div>
 </div>
@@ -96,7 +96,12 @@
             <input type="file" name="files" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
         </div>
 
-        <p><?php if ($avatar) : ?><img src="<?php print $avatar; ?>"><?php else: ?><?php $theView->write('GLOBAL_NOTFOUND'); ?><?php endif; ?></p>
+        <?php if ($avatar) : ?>
+            <p><img src="<?php print $avatar; ?>"></p>
+        <?php else: ?>
+            <p class="fpcm-ui-padding-none fpcm-ui-margin-none"><?php $theView->icon('image')->setStack('ban fpcm-ui-important-text')->setStackTop(true); ?>
+            <?php $theView->write('GLOBAL_NOTFOUND'); ?></p>
+        <?php endif; ?>
     </div>
 </div>
 <?php endif; ?>

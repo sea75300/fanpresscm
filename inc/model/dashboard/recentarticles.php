@@ -144,16 +144,16 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
             $content[] = '  <div class="col-auto fpcm-ui-metabox fpcm-ui-padding-none-lr">';
 
             if ($article->getPinned()) {
-                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_PINNED') . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa fa-thumbtack fa-rotate-90 fa-stack-1x fa-inverse"></span></span>';
+                $content[] = (new \fpcm\view\helper\icon('thumbtack fa-rotate-90 fa-inverse'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('EDITOR_STATUS_PINNED');
             }
             if ($article->getDraft()) {
-                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_DRAFT') . '"><span class="fa fa-square fa-stack-2x"></span><span class="far fa-file-alt fa-stack-1x fa-inverse"></span></span>';
+                $content[] = (new \fpcm\view\helper\icon('file-alt fa-inverse', 'far'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('EDITOR_STATUS_DRAFT');
             }
             if ($article->getPostponed()) {
-                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_POSTPONETO') . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa fa-calendar-plus fa-stack-1x fa-inverse"></span></span>';
+                $content[] = (new \fpcm\view\helper\icon('calendar-plus fa-inverse'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('EDITOR_STATUS_POSTPONETO');
             }
             if ($article->getApproval()) {
-                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_APPROVAL') . '"><span class="fa fa-square fa-stack-2x"></span><span class="far fa-thumbs-up fa-stack-1x fa-inverse"></span></span>';
+                $content[] = (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('EDITOR_STATUS_APPROVAL');
             }
 
             $content[] = '  </div>';

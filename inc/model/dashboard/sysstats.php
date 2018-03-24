@@ -96,28 +96,40 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     protected function getArticleStats()
     {
         $articleList = new \fpcm\model\articles\articlelist();
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="fa fa-book fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_ALL') . ':</strong></div><div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition(new \fpcm\model\articles\search()) . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
+                . (new \fpcm\view\helper\icon('book')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_ALL') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition(new \fpcm\model\articles\search()) . '</div>';
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->active = 1;
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="fa fa-newspaper-o fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_ACTIVE') . ':</strong></div><div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
+                . (new \fpcm\view\helper\icon('newspaper', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_ACTIVE') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->archived = 1;
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="fa fa-archive fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_ARCHIVE') . ':</strong></div><div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
+                . (new \fpcm\view\helper\icon('archive')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_ARCHIVE') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->drafts = 1;
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="far fa-file-alt fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_DRAFT') . ':</strong></div><div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
+                . (new \fpcm\view\helper\icon('file-alt', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_DRAFT') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->deleted = 1;
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="far fa-trash fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_TRASH') . ':</strong></div><div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
+                . (new \fpcm\view\helper\icon('trash-alt', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_TRASH') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->approval = 1;
         $count = $articleList->countArticlesByCondition($sObj);
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '"><span class="far thumbs-up fa-fw"></span><strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_APPROVAL') . ':</strong></div><div class="col-4 fpcm-ui-center">' . $count . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '">'
+                . (new \fpcm\view\helper\icon('thumbs-up', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_APPROVAL') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-center">' . $count . '</div>';
     }
 
     /**
@@ -128,22 +140,30 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
         $commentList = new \fpcm\model\comments\commentList();
 
         $sObj = new \fpcm\model\comments\search();
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="fa fa-comments fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_COMMENTS_ALL') . ':</strong></div><div class="col-4 fpcm-ui-center">' . $commentList->countCommentsByCondition($sObj) . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
+                . (new \fpcm\view\helper\icon('comments')).' <strong>' . $this->language->translate('SYSTEM_STATS_COMMENTS_ALL') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-center">' . $commentList->countCommentsByCondition($sObj) . '</div>';
 
         $sObj = new \fpcm\model\comments\search();
         $sObj->unapproved = true;
         $count = $commentList->countCommentsByCondition($sObj);
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '"><span class="fa fa-check-circle-o fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_COMMENTS_UNAPPR') . ':</strong></div><div class="col-4 fpcm-ui-center">' . $count . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '">'
+                . (new \fpcm\view\helper\icon('check-circle', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_COMMENTS_UNAPPR') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-center">' . $count . '</div>';
 
         $sObj = new \fpcm\model\comments\search();
         $sObj->private = true;
         $count = $commentList->countCommentsByCondition($sObj);
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '"><span class="fa fa-eye-slash fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_COMMENTS_PRIVATE') . ':</strong></div><div class="col-4 fpcm-ui-center">' . $count . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '">'
+                . (new \fpcm\view\helper\icon('eye-slash')).' <strong>' . $this->language->translate('SYSTEM_STATS_COMMENTS_PRIVATE') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-center">' . $count . '</div>';
 
         $sObj = new \fpcm\model\comments\search();
         $sObj->spam = true;
         $count = $commentList->countCommentsByCondition($sObj);
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '"><span class="fa fa-flag fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_COMMENTS_SPAM') . ':</strong></div><div class="col-4 fpcm-ui-center">' . $count . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '">'
+                . (new \fpcm\view\helper\icon('flag')).'<span class="fa fa-flag fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_COMMENTS_SPAM') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-center">' . $count . '</div>';
     }
 
     /**
@@ -153,10 +173,14 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     {
         $userCountAll = $this->dbcon->count(\fpcm\classes\database::tableAuthors);
         $userCountAct = $this->dbcon->count(\fpcm\classes\database::tableAuthors, '*', 'disabled = 0');
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="fa fa-users fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_USERS') . ':</strong></div><div class="col-4 fpcm-ui-center">' . $userCountAll . ' (' . $userCountAct . ')</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
+                . (new \fpcm\view\helper\icon('users')).' <strong>' . $this->language->translate('SYSTEM_STATS_USERS') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-center">' . $userCountAll . ' (' . $userCountAct . ')</div>';
 
         $categoryCount = $this->dbcon->count(\fpcm\classes\database::tableCategories);
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="fa fa-file-o fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_CATEGORIES') . ':</strong></div><div class="col-4 fpcm-ui-center">' . $categoryCount . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
+                . (new \fpcm\view\helper\icon('file-alt', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_CATEGORIES') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-center">' . $categoryCount . '</div>';
     }
 
     /**
@@ -166,11 +190,15 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     {
 
         $fileCount = $this->dbcon->count(\fpcm\classes\database::tableFiles, '*');
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="fa fa-files-o fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_UPLOAD_COUNT') . ':</strong></div><div class="col-4 fpcm-ui-center">' . $fileCount . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
+                . (new \fpcm\view\helper\icon('copy', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_UPLOAD_COUNT') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-center">' . $fileCount . '</div>';
 
         $imgList = new \fpcm\model\files\imagelist();
         $folderSize = \fpcm\classes\tools::calcSize($imgList->getUploadFolderSize());
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="fa fa-calculator fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_UPLOAD_SIZE') . ':</strong></div><div class="col-4 fpcm-ui-center">' . $folderSize . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
+                . (new \fpcm\view\helper\icon('calculator')).' <strong>' . $this->language->translate('SYSTEM_STATS_UPLOAD_SIZE') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-center">' . $folderSize . '</div>';
     }
 
     /**
@@ -179,7 +207,9 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     protected function getCacheStats()
     {
         $folderSize = \fpcm\classes\tools::calcSize($this->cache->getSize());
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="fa fa-recycle fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_CACHE_SIZE') . ':</strong></div><div class="col-4 fpcm-ui-center">' . $folderSize . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
+                . (new \fpcm\view\helper\icon('hdd')).' <strong>' . $this->language->translate('SYSTEM_STATS_CACHE_SIZE') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-center">' . $folderSize . '</div>';
     }
 
 }

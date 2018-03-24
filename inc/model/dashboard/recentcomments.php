@@ -151,13 +151,13 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer {
             $content[] = '  <div class="col-auto fpcm-ui-metabox fpcm-ui-padding-none-lr">';
 
             if ($comment->getSpammer()) {
-                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('COMMMENT_SPAM') . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa fa-flag fa-stack-1x fa-inverse"></span></span>';
+                $content[] = (new \fpcm\view\helper\icon('flag fa-inverse'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('COMMMENT_SPAM');
             }
             if ($comment->getApproved()) {
-                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('COMMMENT_APPROVE') . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa fa-check-circle-o fa-rotate-90 fa-stack-1x fa-inverse"></span></span>';
+                $content[] = (new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('COMMMENT_APPROVE');
             }
             if ($comment->getPrivate()) {
-                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('COMMMENT_PRIVATE') . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa fa-eye-slash fa-stack-1x fa-inverse"></span></span>';
+                $content[] = (new \fpcm\view\helper\icon('eye-slash fa-inverse'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('COMMMENT_PRIVATE');
             }
 
             $content[] = '  </div>';

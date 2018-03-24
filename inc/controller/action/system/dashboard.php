@@ -47,7 +47,7 @@ class dashboard extends \fpcm\controller\abstracts\controller {
         if ($this->permissions->check(['system' => 'options'])) {
             $buttons[] = (new \fpcm\view\helper\linkButton('runSyscheck'))
                     ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['syscheck' => 1]))
-                    ->setIcon('refresh')
+                    ->setIcon('sync')
                     ->setText('SYSCHECK_COMPLETE');
         }
 

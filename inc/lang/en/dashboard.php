@@ -8,7 +8,7 @@
  */
 $lang = array(
     'DASHBOARD_LOADING' => 'Loading dashboard containers',
-    'WELCOME_HEADLINE' => '<span class="fa fa-fw fa-user"></span> Welcome {{username}}! <span class="fa fa-fw fa-smile-o"></span>',
+    'WELCOME_HEADLINE' => '<span class="fa fa-fw fa-user"></span> Welcome {{username}}!',
     'WELCOME_CONTENT' => 'You are in the FanPress CM dashboard. Choose an area using the navigation at the left site. ' .
     'Below you\'ll find additional information about you system including statistics. ',
     'RECENT_ARTICLES' => '<span class="fa fa-fw fa-pencil"></span> Recent Articles',

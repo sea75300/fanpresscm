@@ -19,9 +19,9 @@ class icon extends helper {
 
     use traits\iconHelper;
 
-    public function __construct($icon, $useFa = true, $prefix = 'fa')
+    public function __construct($icon, $prefix = 'fa', $useFa = true)
     {
-        $this->setIcon($icon, $useFa, $prefix);
+        $this->setIcon($icon, $prefix, $useFa);
         parent::__construct(uniqid());
     }
 

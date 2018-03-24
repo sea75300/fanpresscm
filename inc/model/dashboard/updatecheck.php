@@ -106,8 +106,8 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     private function getSystemUpdateStatus()
     {
         if ($this->config->system_version !== \fpcm\classes\baseconfig::getVersionFromFile()) {
-            $button = (new \fpcm\view\helper\linkButton('updater'))->setText('PACKAGES_UPDATE')->setIcon('refresh')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate', ['update-db' => 1]));
-            $this->renderTable('refresh', 'fpcm-dashboard-updates-versiondbfile', $this->language->translate('UPDATE_VERSIONCECK_FILEDB_ERR', [ '{{btn}}' => $button ]));
+            $button = (new \fpcm\view\helper\linkButton('updater'))->setText('PACKAGES_UPDATE')->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate', ['update-db' => 1]));
+            $this->renderTable('code-branch', 'fpcm-dashboard-updates-versiondbfile', $this->language->translate('UPDATE_VERSIONCECK_FILEDB_ERR', [ '{{btn}}' => $button ]));
         }
 
         $this->systemCheckresult = $this->systemUpdates->checkUpdates();
@@ -117,7 +117,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
             $statusClass = 'fpcm-dashboard-updates-outdated';
 
             $replace = array(
-                '{{btn}}' => (new \fpcm\view\helper\linkButton('updater'))->setText('PACKAGES_UPDATE')->setIcon('refresh')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate')),
+                '{{btn}}' => (new \fpcm\view\helper\linkButton('updater'))->setText('PACKAGES_UPDATE')->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate')),
                 '{{version}}' => $this->systemUpdates->getRemoteData('version')
             );
 
@@ -155,7 +155,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
         $checkRes = $moduleUpdates->checkUpdates();
 
         if ($checkRes === true) {
-            $iconClass = 'cloud-download';
+            $iconClass = 'download-alt';
             $statusClass = 'fpcm-dashboard-updates-outdated';
             $statusText = $this->language->translate('UPDATE_MODULECHECK_NEW');
         } elseif ($checkRes === \fpcm\model\updater\system::SYSTEMUPDATER_FURLOPEN_ERROR) {

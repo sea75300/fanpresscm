@@ -26,9 +26,12 @@ fpcm.filemanager = {
             return false;
         });
         
-        fpcm.ui.tabs('#fpcm-files-tabs', {
-            addMainToobarToggle: true
-        });
+        if (fpcm.vars.jsvars.fmgrMode === 1) {
+            fpcm.ui.tabs('#fpcm-files-tabs', {
+                addMainToobarToggle: true
+            });
+        }
+        
     },
 
     initJqUiWidgets: function () {

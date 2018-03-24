@@ -14,7 +14,7 @@
             <?php $theView->write('USERS_ARTICLES_USER'); ?>:
         </div>
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-            <?php $theView->select('articles[user]', 'articlesuser')->setOptions($usersListSelect)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+            <?php $theView->select('articles[user]', 'articlesuser')->setOptions($usersListSelect); ?>
         </div>
     </div>
 </div>
