@@ -27,7 +27,7 @@ final class editButton extends linkButton {
         $this->class .= ' fpcm-ui-button-edit fpcm-loader';
         $this->iconOnly = true;
         $this->setText('GLOBAL_EDIT');
-        $this->setIcon('pencil-square-o');
+        $this->setIcon('edit');
     }
 
     /**

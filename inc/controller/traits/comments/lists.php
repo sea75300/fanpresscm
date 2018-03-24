@@ -158,7 +158,7 @@ trait lists {
             );
 
             $fields[] = new \fpcm\components\masseditField(
-                'check-circle-o',
+                ['icon' => 'check-circle', 'prefix' => 'far'],
                 'COMMMENT_APPROVE',
                 (new \fpcm\view\helper\select('isApproved'))
                     ->setOptions($this->yesNoChangeList)
@@ -295,7 +295,7 @@ trait lists {
 
             $metaDataIcons = [];
             $metaDataIcons[] = (new \fpcm\view\helper\icon('flag fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $comment->getSpammer())->setText('COMMMENT_SPAM')->setStack('square');
-            $metaDataIcons[] = (new \fpcm\view\helper\icon('check-circle-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $comment->getApproved())->setText('COMMMENT_APPROVE')->setStack('square');
+            $metaDataIcons[] = (new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $comment->getApproved())->setText('COMMMENT_APPROVE')->setStack('square');
             $metaDataIcons[] = (new \fpcm\view\helper\icon('eye-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $comment->getPrivate())->setText('COMMMENT_PRIVATE')->setStack('square');
 
             $this->dataView->addRow(

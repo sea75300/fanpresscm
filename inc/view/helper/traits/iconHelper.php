@@ -53,9 +53,9 @@ trait iconHelper {
      * @param bool $useFa Auto-add FontAwesome Icon classes
      * @return $this
      */
-    public function setIcon($icon, $useFa = true)
+    public function setIcon($icon, $prefix = 'fa', $useFa = true)
     {
-        $this->icon = ($useFa ? 'fa fa-fw fa-' . $icon : $icon);
+        $this->icon = ($useFa ? $prefix.' fa-fw fa-' . $icon : $icon);
         return $this;
     }
 

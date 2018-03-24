@@ -53,7 +53,7 @@ fpcm.updater = {
             return false;
         }
         
-        el.find('.fpcm-ui-update-iconstatus').removeClass('fa-square-o fpcm-ui-update-iconstatus-0').addClass(fpcm.updater.statusSpinner);
+        el.find('.fpcm-ui-update-iconstatus').removeClass('fa-square fpcm-ui-update-iconstatus-0').addClass(fpcm.updater.statusSpinner);
         fpcm.updater.currentEl = el;
 
         fpcm.ajax.post('packagemgr/sysupdater', {

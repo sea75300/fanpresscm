@@ -264,7 +264,7 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        $this->view = new \fpcm\view\error('MAINTENANCE_MODE_ENABLED', null, 'lightbulb-o');
+        $this->view = new \fpcm\view\error('MAINTENANCE_MODE_ENABLED', null, 'lightbulb');
         $this->view->render($this->moduleCheckExit);
 
         return false;

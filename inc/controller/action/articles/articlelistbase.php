@@ -172,11 +172,11 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         if ($this->listAction !== 'articles/trash') {
 
             if ($this->permissions->check(['article' => 'add'])) {
-                $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pencil')->setIconOnly(true);
+                $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pen-square')->setIconOnly(true);
             }
 
             if ($this->canEdit) {
-                $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('pencil-square-o')->setIconOnly(true);
+                $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true);
             }
 
             $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true);
@@ -361,7 +361,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         }
 
         $fields[] = new \fpcm\components\masseditField(
-            'thumb-tack fa-rotate-90',
+            'thumbtack fa-rotate-90',
             'EDITOR_PINNED',
             (new \fpcm\view\helper\select('pinned'))
                 ->setOptions($this->yesNoChangeList)
@@ -372,7 +372,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         
         if ($this->showDraftStatus) {
             $fields[] = new \fpcm\components\masseditField(
-                'file-text-o',
+                ['icon' => 'file-alt'],
                 'EDITOR_DRAFT',
                 (new \fpcm\view\helper\select('draft'))
                     ->setOptions($this->yesNoChangeList)
@@ -384,7 +384,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         
         if ($this->permissions->check(['article' => 'approve'])) {
             $fields[] = new \fpcm\components\masseditField(
-                'thumbs-o-up',
+                ['icon' => 'thumbs-up', 'prefix' => 'far'],
                 'EDITOR_STATUS_APPROVAL',
                 (new \fpcm\view\helper\select('approval'))
                     ->setOptions($this->yesNoChangeList)
@@ -396,7 +396,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         
         if ($this->config->system_comments_enabled) {
             $fields[] = new \fpcm\components\masseditField(
-                'comments-o',
+                ['icon' => 'comments', 'prefix' => 'far'],
                 'EDITOR_COMMENTS',
                 (new \fpcm\view\helper\select('comments'))
                     ->setOptions($this->yesNoChangeList)

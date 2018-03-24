@@ -49,7 +49,11 @@ final class masseditField {
      */
     public function __construct($icon, $descr, $field, $class = 'col-sm-12 col-md-8')
     {
-        $this->icon = (string) (new \fpcm\view\helper\icon($icon))->setSize('lg');
+        $iconClass = is_array($icon) && isset($icon['icon']) ? $icon['icon'] : $icon;
+        $useFa = is_array($icon) && isset($icon['usefa']) ? $icon['usefa'] : true;
+        $prefix = is_array($icon) && isset($icon['prefix']) ? $icon['prefix'] : 'fas';
+        
+        $this->icon = (string) (new \fpcm\view\helper\icon($iconClass, $prefix, $useFa))->setSize('lg');
         $this->descr = \fpcm\classes\loader::getObject('fpcm\classes\language')->translate($descr);
         $this->class = $class;
         

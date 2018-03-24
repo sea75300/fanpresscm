@@ -19,9 +19,9 @@ class icon extends helper {
 
     use traits\iconHelper;
 
-    public function __construct($icon)
+    public function __construct($icon, $useFa = true, $prefix = 'fa')
     {
-        $this->setIcon($icon);
+        $this->setIcon($icon, $useFa, $prefix);
         parent::__construct(uniqid());
     }
 
@@ -38,7 +38,7 @@ class icon extends helper {
             return implode(PHP_EOL, [
                 "<span class=\"{$this->class} fa-stack {$this->size}\"" . ($this->text ? " title=\"{$this->text}\"" : '') . " {$this->getDataString()}>",
                 !$this->stackTop ? $stack : '',
-                "<span class=\"fa {$this->icon} fa-stack-1x\"></span>",
+                "<span class=\"fpcm-ui-icon {$this->icon} fa-stack-1x\"></span>",
                 $this->stackTop ? $stack : '',
                 "</span>",
             ]);

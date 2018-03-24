@@ -144,16 +144,16 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
             $content[] = '  <div class="col-auto fpcm-ui-metabox fpcm-ui-padding-none-lr">';
 
             if ($article->getPinned()) {
-                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_PINNED') . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa fa-thumb-tack fa-rotate-90 fa-stack-1x fa-inverse"></span></span>';
+                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_PINNED') . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa fa-thumbtack fa-rotate-90 fa-stack-1x fa-inverse"></span></span>';
             }
             if ($article->getDraft()) {
-                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_DRAFT') . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa fa-file-text-o fa-stack-1x fa-inverse"></span></span>';
+                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_DRAFT') . '"><span class="fa fa-square fa-stack-2x"></span><span class="far fa-file-alt fa-stack-1x fa-inverse"></span></span>';
             }
             if ($article->getPostponed()) {
-                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_POSTPONETO') . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa fa-clock-o fa-stack-1x fa-inverse"></span></span>';
+                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_POSTPONETO') . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa fa-calendar-plus fa-stack-1x fa-inverse"></span></span>';
             }
             if ($article->getApproval()) {
-                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_APPROVAL') . '"><span class="fa fa-square fa-stack-2x"></span><span class="fa fa-thumbs-o-up fa-stack-1x fa-inverse"></span></span>';
+                $content[] = '      <span class="fa-stack fa-fw fpcm-ui-status-1" title="' . $this->language->translate('EDITOR_STATUS_APPROVAL') . '"><span class="fa fa-square fa-stack-2x"></span><span class="far fa-thumbs-up fa-stack-1x fa-inverse"></span></span>';
             }
 
             $content[] = '  </div>';

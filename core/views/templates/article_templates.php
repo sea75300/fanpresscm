@@ -3,7 +3,7 @@
 
 <div class="fpcm-ui-controlgroup fpcm-ui-marginbottom-lg" id="article_template_buttons">    
     <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
-    <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('cloud-upload'); ?>
+    <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload'); ?>
     <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>
     <input type="file" name="files[]" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
 </div>

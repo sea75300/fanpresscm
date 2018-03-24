@@ -23,7 +23,7 @@
         private $csslib = array(
             'lib/jquery-ui/jquery-ui.min.css',
             'lib/fancybox/jquery.fancybox.min.css',
-            'lib/font-awesome/css/font-awesome.min.css',
+            'lib/font-awesome/css/fontawesome-all.min.css',
             'lib/bootstrap/bootstrap-grid.min.css',
             'core/theme/style.php'
         );

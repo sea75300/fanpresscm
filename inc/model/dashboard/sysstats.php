@@ -108,16 +108,16 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->drafts = 1;
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="fa fa-file-text-o fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_DRAFT') . ':</strong></div><div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="far fa-file-alt fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_DRAFT') . ':</strong></div><div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->deleted = 1;
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="fa fa-trash-o fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_TRASH') . ':</strong></div><div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr"><span class="far fa-trash fa-fw"></span> <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_TRASH') . ':</strong></div><div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->approval = 1;
         $count = $articleList->countArticlesByCondition($sObj);
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '"><span class="fa fa-thumbs-o-up fa-fw"></span><strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_APPROVAL') . ':</strong></div><div class="col-4 fpcm-ui-center">' . $count . '</div>';
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '"><span class="far thumbs-up fa-fw"></span><strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_APPROVAL') . ':</strong></div><div class="col-4 fpcm-ui-center">' . $count . '</div>';
     }
 
     /**

@@ -9,7 +9,7 @@
         <div id="tabs-files-list">
             <div id="tabs-files-list-content">
                 <?php if (!$hasFiles) : ?>
-                <p class="fpcm-ui-padding-none fpcm-ui-margin-none"><?php $theView->icon('file-image-o')->setStack('ban fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
+                <p class="fpcm-ui-padding-none fpcm-ui-margin-none"><?php $theView->icon('images')->setStack('ban fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
                 <?php endif; ?>
             </div>
         </div>

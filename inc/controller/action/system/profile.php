@@ -149,7 +149,7 @@
             
             $this->view->addButtons([
                 (new \fpcm\view\helper\saveButton('profileSave')),
-                (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('exchange')
+                (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
             ]);
             
             $this->view->setFormAction('system/profile');

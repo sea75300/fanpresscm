@@ -277,7 +277,7 @@ class view {
         
         if ($this->config->system_maintenance) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                    'SYSTEM_OPTIONS_MAINTENANCE', 'fa fa-lightbulb-o fa-lg fa-fw', 'fpcm-ui-important-text'
+                    'SYSTEM_OPTIONS_MAINTENANCE', 'fa fa-lightbulb fa-lg fa-fw', 'fpcm-ui-important-text'
             ));
         }
 

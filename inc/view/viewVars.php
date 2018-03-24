@@ -121,6 +121,10 @@ class viewVars {
             exit('Invalid view helper params found for name of ' . $name);
         }
 
+        if ($name === 'icon') {
+            return new $helperClass($arguments[0], (isset($arguments[1]) ? $arguments[1] : 'fa'), (isset($arguments[2]) ? $arguments[2] : true));
+        }
+
         return new $helperClass($arguments[0], (isset($arguments[1]) ? $arguments[1] : ''));
     }
 

@@ -247,17 +247,17 @@ trait lists {
                     $metaDataIcons[] = $this->getCommentBadge($articleId);
                 }
 
-                $metaDataIcons[] = (new \fpcm\view\helper\icon('thumb-tack fa-rotate-90 fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getPinned())->setText('EDITOR_STATUS_PINNED')->setStack('square');
+                $metaDataIcons[] = (new \fpcm\view\helper\icon('thumbtack fa-rotate-90 fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getPinned())->setText('EDITOR_STATUS_PINNED')->setStack('square');
 
                 if ($this->showDraftStatus) {
-                    $metaDataIcons[] = (new \fpcm\view\helper\icon('file-text-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getDraft())->setText('EDITOR_STATUS_DRAFT')->setStack('square');
+                    $metaDataIcons[] = (new \fpcm\view\helper\icon('file-alt fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getDraft())->setText('EDITOR_STATUS_DRAFT')->setStack('square');
                 }
 
-                $metaDataIcons[] = (new \fpcm\view\helper\icon('calendar-plus-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getPostponed())->setText($desc)->setStack('square');
-                $metaDataIcons[] = (new \fpcm\view\helper\icon('thumbs-o-up fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getApproval())->setText('EDITOR_STATUS_APPROVAL')->setStack('square');
+                $metaDataIcons[] = (new \fpcm\view\helper\icon('calendar-plus fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getPostponed())->setText($desc)->setStack('square');
+                $metaDataIcons[] = (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getApproval())->setText('EDITOR_STATUS_APPROVAL')->setStack('square');
 
                 if ($this->config->system_comments_enabled) {
-                    $metaDataIcons[] = (new \fpcm\view\helper\icon('comments-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getComments())->setText('EDITOR_STATUS_COMMENTS')->setStack('square');
+                    $metaDataIcons[] = (new \fpcm\view\helper\icon('comments fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $article->getComments())->setText('EDITOR_STATUS_COMMENTS')->setStack('square');
                 }
 
                 if ($this->showArchivedStatus) {
@@ -319,7 +319,7 @@ trait lists {
             ]),
             '</span>',
             '<span class="fpcm-ui-font-small fpcm-ui-block">',
-            new \fpcm\view\helper\icon('clock-o'),
+            new \fpcm\view\helper\icon('clock', 'far'),
             $this->lang->translate('EDITOR_LASTEDIT', [
                 '{{username}}' => isset($changeuser[0]) ? $changeuser[0] : $notFound,
                 '{{time}}' => new \fpcm\view\helper\dateText($article->getChangetime())

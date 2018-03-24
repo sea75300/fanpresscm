@@ -4,7 +4,7 @@
         <?php $theView->icon('calendar'); ?>
         <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
         <?php $theView->dateText($comment->getCreatetime()); ?><br>
-        <?php $theView->icon('clock-o'); ?> 
+        <?php $theView->icon('clock', 'far'); ?> 
         <?php print $changeInfo; ?><br>
         <?php $theView->icon('globe'); ?> 
         <strong><?php $theView->write('COMMMENT_IPADDRESS'); ?>:</strong>
@@ -13,7 +13,7 @@
     </div>
     <div class="col-sm-12 col-md-6 fpcm-ui-align-right">
         <?php $theView->icon('flag fa-inverse')->setStack('square')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-'.$comment->getSpammer())->setText('COMMMENT_SPAM'); ?>
-        <?php $theView->icon('check-circle-o fa-inverse')->setStack('square')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-'.$comment->getApproved())->setText('COMMMENT_APPROVE'); ?>
+        <?php $theView->icon('check-circle fa-inverse')->setStack('square')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-'.$comment->getApproved())->setText('COMMMENT_APPROVE'); ?>
         <?php $theView->icon('eye-slash fa-inverse')->setStack('square')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-'.$comment->getPrivate())->setText('COMMMENT_PRIVATE'); ?>
     </div>
 </div>
@@ -39,7 +39,7 @@
     <div class="fpcm-ui-controlgroup">
         <?php if ($canApprove) : ?>
             <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status')->setIcon('flag'); ?>
-            <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status')->setIcon('check-circle-o'); ?>
+            <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status')->setIcon('check-circle', 'far'); ?>
         <?php endif; ?>
         <?php if ($canPrivate) : ?><?php $theView->checkbox('comment[private]', 'private')->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status')->setIcon('eye-slash'); ?><?php endif; ?>
     </div>

@@ -188,11 +188,11 @@ class filelist extends \fpcm\controller\abstracts\controller {
             ]);
 
             if ($this->permissionsData['permRename']) {
-                $this->view->addButton((new \fpcm\view\helper\submitButton('renameFiles'))->setText('FILE_LIST_RENAME')->setIcon('pencil-square')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'));
+                $this->view->addButton((new \fpcm\view\helper\submitButton('renameFiles'))->setText('FILE_LIST_RENAME')->setIcon('edit')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'));
             }
 
             if ($this->permissionsData['permThumbs']) {
-                $this->view->addButton((new \fpcm\view\helper\submitButton('createThumbs'))->setText('FILE_LIST_NEWTHUMBS')->setIcon('file-image-o')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'));
+                $this->view->addButton((new \fpcm\view\helper\submitButton('createThumbs'))->setText('FILE_LIST_NEWTHUMBS')->setIcon('image', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'));
             }
 
             if ($this->permissionsData['permDelete']) {

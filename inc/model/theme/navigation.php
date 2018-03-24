@@ -100,7 +100,7 @@
                         'url'               => 'articles/add',
                         'permission'        => array('article' => 'add'),
                         'description'       => $this->language->translate('HL_ARTICLE_ADD'),
-                        'icon'              => 'fa fa-pencil'
+                        'icon'              => 'fa fa-pen-square'
                     ])
                 ),
                 'editnews'      => array(
@@ -186,7 +186,7 @@
                     'url'               => 'articles/listactive',
                     'permission'        => array('article' => 'edit'),
                     'description'       => $this->language->translate('HL_ARTICLE_EDIT_ACTIVE'),
-                    'icon'              => 'fa fa-newspaper-o fa-fw'
+                    'icon'              => 'far fa-newspaper fa-fw'
                 ]),
                 navigationItem::createItemFromArray([
                     'url'               => 'articles/listarchive',
@@ -200,7 +200,7 @@
                 'url'               => 'articles/trash',
                 'permission'        => array('article' => 'delete'),
                 'description'       => $this->language->translate('ARTICLES_TRASH'),
-                'icon'              => 'fa fa-trash-o fa-fw'
+                'icon'              => 'far fa-trash-alt fa-fw'
             ]);
             
             return $menu;
@@ -244,7 +244,7 @@
                     'permission'        => array('system' => 'categories'),
                     'description'       => $this->language->translate('HL_CATEGORIES_MNG'),
                     'id'                => 'nav-item-categories',
-                    'icon'              => 'fa fa-file-o fa-fw'
+                    'icon'              => 'far fa-file fa-fw'
                 ]),
                 navigationItem::createItemFromArray([
                     'url'               => 'templates/templates',
@@ -257,7 +257,7 @@
                     'permission'        => array('system' => 'smileys'),
                     'description'       => $this->language->translate('HL_OPTIONS_SMILEYS'),
                     'id'                => 'nav-item-smileys',
-                    'icon'              => 'fa fa-smile-o fa-fw'
+                    'icon'              => 'far fa-smile fa-fw'
                 ]),
                 navigationItem::createItemFromArray([
                     'url'               => 'system/crons',

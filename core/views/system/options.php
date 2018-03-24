@@ -671,7 +671,7 @@
             <div class="row fpcm-ui-padding-md-tb">
                 <div class="col-12 align-self-center">
                 <?php if ($twitterIsActive) : ?>
-                    <?php $theView->icon('twitter-square')->setStack('check fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?>
+                    <?php $theView->icon('twitter', 'fab')->setStack('check fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?>
                     <?php $theView->write('SYSTEM_OPTIONS_TWITTER_ACTIVE', ['{{screenname}}' => $twitterScreenName]); ?>
                 <?php endif; ?>
                 </div>
