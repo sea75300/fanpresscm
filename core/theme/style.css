@@ -322,14 +322,16 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
 
 div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navicon,
 div.fpcm-status-info ul.fpcm-menu-top,
-.fpcm-full-width,
+.fpcm-ui-full-width,
 .fpcm-ui-errorbox,
 .fpcm-ui-input-wrapper,
 .fpcm-ui-input-wrapper input,
 .fpcm-ui-progressbar,
 .fpcm-editor-dialog iframe,
 .fpcm-editor-select a,
-div.fpcm-status-info {
+div.fpcm-status-info,
+div.fpcm-editor-dialog .ui-checkboxradio-label,
+div.fpcm-editor-dialog .ui-selectmenu-button {
     width: 100%;
 }
 
@@ -692,12 +694,8 @@ div.fpcm-filelist-thumb-box {
     margin-bottom: 1.2em;
 }
 
-div.fpcm-editor-dialog .ui-checkboxradio-label,
-div.fpcm-editor-dialog .ui-selectmenu-button {
-    width: 100% !important;
-}
-
 .fpcm-ui-button,
+.fpcm-ui-controlgroup > *,
 .ui-selectmenu-button,
 .ui-checkboxradio-label {
     min-height: 18.666666666666666666666667px;

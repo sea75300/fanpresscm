@@ -183,7 +183,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
         if ($this->mode === 1) {
             $this->view->addButtons([
-                (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true),
+                (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
                 (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
             ]);
 

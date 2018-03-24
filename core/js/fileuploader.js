@@ -30,7 +30,7 @@ fpcm.fileuploader = {
                 }
 
                 for (var i=0;i<fileList.length;i++) {
-                    fpcm.ui.appendHtml('#fpcm-ui-phpupload-filelist', '<div class="fpcm-ui-padding-tb">' + fileList[i].name +'</div>')
+                    fpcm.ui.appendHtml('#fpcm-ui-phpupload-filelist', '<div class="row fpcm-ui-padding-md-tb"><div class="col-12">' + fileList[i].name +'</div></div>')
                 }
                 return false;
             });
@@ -79,6 +79,7 @@ fpcm.fileuploader = {
         });
 
         uploaderEl.addClass('fileupload-processing');
+
         jQuery.ajax({
             url: uploaderEl.fileupload('option', 'url'),
             dataType: 'json',

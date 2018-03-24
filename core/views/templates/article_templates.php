@@ -8,6 +8,6 @@
     <input type="file" name="files[]" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
 </div>
 
-<div id="fpcm-ui-phpupload-filelist" class="fpcm-ui-table fpcm-ui-marginbottom-lg fpcm-ui-filelist fpcm-ui-phpupload"></div>
+<div id="fpcm-ui-phpupload-filelist" class="fpcm-ui-marginbottom-lg fpcm-ui-filelist fpcm-ui-phpupload"></div>
 
 <div id="fpcm-dataview-draftfiles"></div>

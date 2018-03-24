@@ -70,14 +70,14 @@
     <div class="row fpcm-ui-padding-md-tb">
         <div class="col-sm-12 col-md-4">
             <?php $theView->textInput('datefrom')
-                    ->setClass('fpcm-articles-search-input fpcm-full-width-date')
+                    ->setClass('fpcm-articles-search-input fpcm-ui-full-width-date')
                     ->setMaxlenght(10)
                     ->setText('ARTICLE_SEARCH_DATE_FROM')
                     ->setPlaceholder(true); ?>
         </div>
         <div class="col-sm-12 col-md-4">
             <?php $theView->textInput('dateto')
-                    ->setClass('fpcm-articles-search-input fpcm-full-width-date')
+                    ->setClass('fpcm-articles-search-input fpcm-ui-full-width-date')
                     ->setMaxlenght(10)
                     ->setText('ARTICLE_SEARCH_DATE_TO')
                     ->setPlaceholder(true); ?>

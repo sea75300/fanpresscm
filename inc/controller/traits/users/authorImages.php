@@ -30,7 +30,6 @@ trait authorImages {
         }
 
         $files = \fpcm\classes\http::getFiles();
-
         if ($this->buttonClicked('uploadFile') && !is_null($files)) {
             $uploader = new \fpcm\model\files\fileuploader($files);
             $res = $uploader->processAuthorImageUpload($author->getImage());

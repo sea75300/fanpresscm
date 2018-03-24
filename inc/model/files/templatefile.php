@@ -21,13 +21,13 @@ final class templatefile extends \fpcm\model\abstracts\file {
      * Erlaubte Dateitypen
      * @var array
      */
-    public static $allowedTypes = array('application/xhtml+xml', 'text/html');
+    public static $allowedTypes = ['application/xhtml+xml', 'text/html', 'text/plain'];
 
     /**
      * Erlaubte Dateiendungen
      * @var array
      */
-    public static $allowedExts = array('html', 'htm');
+    public static $allowedExts = ['html', 'htm', 'txt'];
 
     /**
      * Konstruktor

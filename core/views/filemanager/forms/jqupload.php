@@ -15,11 +15,11 @@
     </div>    
     
     <div class="fpcm-ui-marginbottom-lg fileupload-buttonbar">
-        <div class="fileupload-buttons">
-            <span class="fileinput-button">
+        <div class="fileupload-buttons fpcm-ui-controlgroup">
+            <a class="fileinput-button">
                 <span><?php $theView->write('FILE_FORM_FILEADD'); ?></span>
                 <input type="file" name="files[]" multiple>
-            </span>
+            </a>
             
             <?php $theView->submitButton('start')->setText('FILE_FORM_UPLOADSTART')->setClass('start'); ?>
             <?php $theView->resetButton('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('cancel')->setIcon('', false); ?>
@@ -28,29 +28,30 @@
     </div>
 
     <div id="fpcm-filemanager-upload-drop"><h4 class="fpcm-ui-center"><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4></div>
-    
-    <table role="presentation" class="fpcm-ui-margintop-lg fpcm-ui-table fpcm-ui-uploadlist">
-        <tbody class="files"></tbody>
-    </table>
+
+    <div role="presentation" class="fpcm-ui-margintop-lg">
+        <div class="files"></div>
+    </div>
 
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-upload fade">
-        <td>
-            <span class="name">{%=file.name%}</span>
-            <strong class="error"></strong>
-        </td>
+    <div class="row template-upload fade fpcm-ui-padding-tb">
 
-        <td class="jqupload-row-buttons">
+        <div class="col-12 col-sm-4 col-md-1 fpcm-ui-center jqupload-row-buttons">
             {% if (!i && !o.options.autoUpload) { %}
                 <button class="start jqupload-btn"><?php $theView->write('FILE_FORM_UPLOADSTART'); ?></button>
             {% } %}
             {% if (!i) { %}
                 <button class="cancel jqupload-btn"><?php $theView->write('FILE_FORM_UPLOADCANCEL'); ?></button>
             {% } %}
-        </td>
-    </tr>
+        </div>
+
+        <div class="col-12 col-sm-8 col-md-11 align-self-center">
+            <span class="name">{%=file.name%}</span>
+            <strong class="error"></strong>
+        </div>
+    </div>
 {% } %}
 </script>
 

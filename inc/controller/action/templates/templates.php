@@ -111,10 +111,10 @@ class templates extends \fpcm\controller\abstracts\controller {
             return true;
         }
 
-        $delFiles = $this->getRequestVar('deltplfiles');
+        $delFiles = $this->getRequestVar('deltplfiles', [
+            \fpcm\classes\http::FPCM_REQFILTER_BASE64DECODE
+        ]);
         if ($this->buttonClicked('fileDelete') && is_array($delFiles) && count($delFiles)) {
-
-            $delFiles = array_map('base64_decode', $delFiles);
 
             $deletedOk = [];
             $deletedFailed = [];
@@ -264,13 +264,13 @@ class templates extends \fpcm\controller\abstracts\controller {
 
             $buttons = [
                 '<div class="fpcm-ui-controlgroup">',
-                (new \fpcm\view\helper\linkButton(uniqid()))->setText('GLOBAL_DOWNLOAD')->setUrl($templateFile->getFileUrl())->setIcon('cloud-download')->setIconOnly(true)->setTarget('_blank'),
+                (new \fpcm\view\helper\linkButton(uniqid()))->setText('GLOBAL_DOWNLOAD')->setUrl($templateFile->getFileUrl())->setIcon('download')->setIconOnly(true)->setTarget('_blank'),
                 (new \fpcm\view\helper\editButton(uniqid()))->setUrlbyObject($templateFile)->setClass('fpcm-articletemplates-edit'),
                 '</div>'
             ];
 
             $dataView->addRow(new \fpcm\components\dataView\row([
-                new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('deltplfiles[]', 'chbx' . md5($templateFile->getFilename()) ))->setClass('fpcm-ui-list-checkbox')->setValue(base64_decode($templateFile->getFilename()) ), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('deltplfiles[]', 'chbx' . md5($templateFile->getFilename()) ))->setClass('fpcm-ui-list-checkbox')->setValue(base64_encode($templateFile->getFilename())), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                 new \fpcm\components\dataView\rowCol('button', implode('', $buttons) ),
                 new \fpcm\components\dataView\rowCol('filename', new \fpcm\view\helper\escape($templateFile->getFilename()) ),
                 new \fpcm\components\dataView\rowCol('filesize', \fpcm\classes\tools::calcSize($templateFile->getFilesize()) )

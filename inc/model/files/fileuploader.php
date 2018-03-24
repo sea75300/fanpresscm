@@ -200,7 +200,6 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
      */
     public function processAuthorImageUpload($filename)
     {
-
         if (!isset($this->uploader)) {
             return false;
         }

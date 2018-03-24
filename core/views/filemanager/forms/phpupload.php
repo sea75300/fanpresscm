@@ -7,4 +7,4 @@
     <input type="file" name="files[]" multiple class="fpcm-ui-fileinput-select fpcm-ui-hidden">
 </div>
 
-<table id="fpcm-ui-phpupload-filelist" class="fpcm-ui-table fpcm-ui-phpupload"></table>
+<div id="fpcm-ui-phpupload-filelist" class="fpcm-ui-filelist fpcm-ui-phpupload"></div>

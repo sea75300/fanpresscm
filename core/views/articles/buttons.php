@@ -16,7 +16,7 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-extended">
     <?php if ($showTwitter) : ?>
     <div class="row fpcm-ui-padding-md-tb">
-        <div class="col-sm-12 col-md-3"><?php $theView->checkbox('article[tweet]')->setText('EDITOR_TWEET_ENABLED')->setSelected($article->tweetCreationEnabled())->setIcon('twitter', 'fab')->setClass('fpcm-full-width'); ?></div>
+        <div class="col-sm-12 col-md-3"><?php $theView->checkbox('article[tweet]')->setText('EDITOR_TWEET_ENABLED')->setSelected($article->tweetCreationEnabled())->setIcon('twitter', 'fab')->setClass('fpcm-ui-full-width'); ?></div>
         <div class="col-sm-12 col-md-9"><?php $theView->textInput('article[tweettxt]')->setSize(512)->setText('EDITOR_TWEET_TEXT')->setPlaceholder(true); ?></div>
     </div>
     <div class="row fpcm-ui-padding-md-tb">
