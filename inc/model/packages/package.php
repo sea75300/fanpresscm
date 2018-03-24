@@ -67,48 +67,6 @@
         const FPCMPACKAGE_SERVER_PACKAGEPATH = 'packages/';
         
         /**
-         * Update-Schritt: Paket herunterladen
-         * @since FPCM 3.5
-         */
-        const FPCMPACKAGE_STEP_DOWNLOAD     = 'download';
-
-        /**
-         * Update-Schritt: lokale Daten prüfen, ob beschreibbar
-         * @since FPCM 3.5
-         */
-        const FPCMPACKAGE_STEP_CHECKFILES   = 'checkfiles';
-
-        /**
-         * Update-Schritt: Paket entpacken
-         * @since FPCM 3.5
-         */
-         const FPCMPACKAGE_STEP_EXTRACT      = 'extract';
-
-        /**
-         * Update-Schritt: Paket-Inhalt kopieren
-         * @since FPCM 3.5
-         */
-        const FPCMPACKAGE_STEP_COPY         = 'copy';
-
-        /**
-         * Update-Schritt: Datenbank und Dateisystem aktualisieren
-         * @since FPCM 3.5
-         */
-        const FPCMPACKAGE_STEP_UPGRADEDB    = 'upgradedb';
-
-        /**
-         * Update-Schritt: Aufräumen
-         * @since FPCM 3.5
-         */
-        const FPCMPACKAGE_STEP_CLEANUP      = 'cleanup';
-
-        /**
-         * Update-Schritt: Abschließen
-         * @since FPCM 3.5
-         */
-        const FPCMPACKAGE_STEP_FINISH       = 'finish';
-        
-        /**
          * Pfad auf Paket-Server
          * @var string
          */

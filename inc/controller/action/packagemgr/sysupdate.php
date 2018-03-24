@@ -11,25 +11,26 @@ namespace fpcm\controller\action\packagemgr;
 
 class sysupdate extends \fpcm\controller\abstracts\controller {
 
-    use \fpcm\controller\traits\packagemgr\initialize;
-
     /**
-     * Update-Prüfung aktiv
+     *
      * @var bool
      */
-    protected $updateCheckEnabled = false;
+    protected $updateDb;
 
     /**
-     * Auszuführender Schritt
-     * @var mixed
+     *
+     * @var array
      */
-    protected $forceStep = false;
-
-    /**
-     * Auszuführender Schritt
-     * @var bool
-     */
-    protected $legacy = false;
+    protected $steps = [
+        'checkFs'   => true,
+        'download'  => true,
+        'checkPkg'  => true,
+        'extract'   => true,
+        'updateFs'  => true,
+        'updateDb'  => true,
+        'updateLog' => true,
+        'cleanup'   => true
+    ];
 
     /**
      * 
@@ -55,19 +56,8 @@ class sysupdate extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
-        if ($this->getRequestVar('step')) {
-            $this->forceStep = $this->getRequestVar('step');
-        }
-
-        if ($this->getRequestVar('file')) {
-            $tmpFile = new \fpcm\model\files\tempfile('forceUpdateFile');
-            $tmpFile->setContent($this->getRequestVar('file'));
-            $tmpFile->save();
-        }
-
-        if (!$this->forceStep) {
-//            \fpcm\classes\baseconfig::enableAsyncCronjobs(false);
-        }
+        \fpcm\classes\baseconfig::enableAsyncCronjobs(false);
+        $this->updateDb = ($this->getRequestVar('update-db') !== null);
 
         return parent::request();
     }
@@ -77,31 +67,38 @@ class sysupdate extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
-        $updater = new \fpcm\model\updater\system();
-        $updater->checkUpdates();
-        $remoteFilePath = $updater->getRemoteData('filepath');
+        $jsData = [];
+        
+        if ($this->updateDb) {
+            $this->steps = array_map([$this, 'invert'], $this->steps);
+            $this->steps['updateDb'] = true;
+        }
+        else {
+            $updater = new \fpcm\model\updater\system();
+            $updater->checkUpdates();
+            $jsData['url'] = $updater->getRemoteData('filepath');
+        }
 
-        $params = $this->initPkgManagerData();
-        $params['fpcmUpdaterStartStep'] = ($this->forceStep ? $this->forceStep : (\fpcm\classes\baseconfig::canConnect() ? \fpcm\model\packages\package::FPCMPACKAGE_STEP_DOWNLOAD : \fpcm\model\packages\package::FPCMPACKAGE_STEP_UPGRADEDB));
-
-        $params['fpcmUpdaterForce'] = $this->forceStep ? 1 : 0;
-        $params['fpcmUpdaterMessages'][\fpcm\model\packages\package::FPCMPACKAGE_STEP_DOWNLOAD . '_START'] = $this->lang->translate('PACKAGES_RUN_DOWNLOAD', ['{{pkglink}}' => is_array($remoteFilePath) ? '' : $remoteFilePath]);
-        $params['fpcmUpdaterMessages']['EXIT_1'] = $this->lang->translate('UPDATES_SUCCESS');
-        $params['fpcmUpdaterStepMap'] = [
-            \fpcm\model\packages\package::FPCMPACKAGE_STEP_DOWNLOAD => 1,
-            \fpcm\model\packages\package::FPCMPACKAGE_STEP_EXTRACT => 2,
-            \fpcm\model\packages\package::FPCMPACKAGE_STEP_CHECKFILES => 3,
-            \fpcm\model\packages\package::FPCMPACKAGE_STEP_COPY => 4,
-            \fpcm\model\packages\package::FPCMPACKAGE_STEP_UPGRADEDB => 4,
-            \fpcm\model\packages\package::FPCMPACKAGE_STEP_CLEANUP => 6,
-            \fpcm\model\packages\package::FPCMPACKAGE_STEP_FINISH => 7
-        ];
-        $params['fpcmUpdaterMaxStep'] = count($params['fpcmUpdaterStepMap']);
-
+        $this->view->setViewVars($this->steps);
+        $this->view->addJsVars([
+            'pkgdata' => [
+                'update' => $jsData
+            ]
+        ]);
+        
         $this->view->addButton( (new \fpcm\view\helper\linkButton('backbtn'))->setText('PACKAGES_BACKTODASHBOARD')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/dashboard'))->setIcon('chevron-circle-left') );
-        $this->view->addJsVars($params);
         $this->view->addJsFiles(['updater.js']);
         $this->view->render();
+    }
+
+    /**
+     * 
+     * @param bool $data
+     * @return bool
+     */
+    private function invert($data)
+    {
+        return !$data;
     }
 
 }

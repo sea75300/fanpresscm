@@ -226,6 +226,11 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
     padding-right: 0.5em;
 }
 
+.fpcm-ui-padding-md-tb {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
 .fpcm-ui-padding-md-left {
     padding-left: 0.5em;
 }
@@ -234,9 +239,30 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
     padding-right: 0.5em;
 }
 
-.fpcm-ui-padding-md-tb {
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
+.fpcm-ui-padding-lg-lr {
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.fpcm-ui-padding-lg-tb {
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.fpcm-ui-padding-lg-left {
+    padding-left: 1em;
+}
+
+.fpcm-ui-padding-lg-right {
+    padding-right: 1em;
+}
+
+.fpcm-ui-padding-lg-top {
+    padding-top: 1em;
+}
+
+.fpcm-ui-padding-lg-bottom {
+    padding-bottom: 1em;
 }
 
 .fpcm-ui-margin-none {
@@ -806,6 +832,10 @@ span.fpcm-ui-editor-metainfo {
 
 .fpcm-ui-status-1 {
     opacity: 1.0;
+}
+
+.fpcm-ui-status-075 {
+    opacity: 0.75;
 }
 
 .fpcm-editor-select-button {

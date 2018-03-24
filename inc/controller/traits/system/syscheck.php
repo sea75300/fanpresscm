@@ -94,12 +94,10 @@ trait syscheck {
         $resultPgSql    = in_array(\fpcm\classes\database::DBTYPE_POSTGRES, $dbDrivers);
         $sqlhelp        = 'http://php.net/manual/pdo.getavailabledrivers.php';
 
-        $current        = $resultMySql || $resultPgSql ? true : false;
-
         $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_MYSQL', [
             'value' => 'true'])
         ] = new \fpcm\model\system\syscheckOption(
-            $current ? 'true' : 'false',
+            $resultMySql ? 'true' : 'false',
             $sqlhelp,
             $resultMySql,
             (!$resultMySql && $resultPgSql ? 1 : 0)
@@ -108,15 +106,14 @@ trait syscheck {
         $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_PGSQL', [
             'value' => 'true'])
         ] = new \fpcm\model\system\syscheckOption(
-            $current ? 'true' : 'false',
+            $resultPgSql ? 'true' : 'false',
             $sqlhelp,
             $resultPgSql,
             ($resultMySql ? 1 : 0)
         );
 
-        if (\fpcm\classes\baseconfig::dbConfigExists() && is_object(\fpcm\classes\loader::getObject('\fpcm\classes\database'))) {
-
-            $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        if (\fpcm\classes\baseconfig::dbConfigExists() && is_object($db)) {
 
             $recommend = implode('/', array_intersect($dbDrivers, array_keys(\fpcm\classes\database::$supportedDBMS)));
 

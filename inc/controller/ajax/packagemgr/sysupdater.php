@@ -34,12 +34,18 @@ class sysupdater extends \fpcm\controller\abstracts\ajaxController {
      * @var \fpcm\model\packages\update
      */
     protected $pkg;
-
+    
     /**
-     * Update-Step-Result
-     * @var mixed
+     *
+     * @var bool
      */
     protected $res = false;
+
+    /**
+     *
+     * @var array
+     */
+    protected $pkgdata = [];
 
     /**
      * Version data file
@@ -62,8 +68,7 @@ class sysupdater extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        $this->step = $this->getRequestVar('step');
-
+        $this->step = 'exec'.ucfirst($this->getRequestVar('step'));
         return true;
     }
 
@@ -72,11 +77,27 @@ class sysupdater extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-        sleep(rand(1, 5));
-        $this->returnData = 1;
+        if (!method_exists($this, $this->step)) {
+            trigger_error('Update step '.$this->step.' not defined!');
+            $this->returnData = [
+                'code' => $this->res,
+                'pkgdata' => $this->pkgdata
+            ];
+
+            $this->getSimpleResponse();
+        }
+
+        fpcmLogSystem($this->step);
+        
+        call_user_func([$this, $this->step]);
+        $this->returnData = [
+            'code' => $this->res,
+            'pkgdata' => $this->pkgdata
+        ];
+
         $this->getSimpleResponse();
 
-//            $this->canConnect   = \fpcm\classes\baseconfig::canConnect();
+
 //            
 //            if ($this->canConnect) {
 //                
@@ -103,75 +124,82 @@ class sysupdater extends \fpcm\controller\abstracts\ajaxController {
 //                $signature = isset($remoteData['signature']) ? $remoteData['signature'] : '';
 //                $this->pkg = new \fpcm\model\packages\update('update', $fileInfo, '', $signature);
 //            }
+    }
+
+    private function execMaintenanceOn()
+    {
+        $this->res = $this->config->setMaintenanceMode(true);
+    }
+
+    private function execMaintenanceOff()
+    {
+        $this->res = $this->config->setMaintenanceMode(false) && \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
+    }
+
+    private function execCheckFiles()
+    {
+        $this->res = true;
+        
+//        $this->res = $this->pkg->checkFiles();
 //
-//            $this->returnData['current'] = $this->step;
-//            $fn = 'execStep'.(is_numeric($this->step) ? $this->step : ucfirst($this->step));
+//        if ($this->res === \fpcm\model\packages\package::FPCMPACKAGE_FILESCHECK_ERROR) {
+//            $this->versionDataFile->delete();
+//        }
 //
-//            if (method_exists($this, $fn)) {
-//                call_user_func([$this, $fn]);
-//            }
-//            
-//            $this->returnCode = $this->step.'_'.(int) $this->res;
-//            $this->getResponse();
+//        if ($this->res === true) {
+//            $this->syslog('All local files are writable ' . $this->pkg->getRemoteFile());
+//            $this->returnData['nextstep'] = \fpcm\model\packages\package::FPCMPACKAGE_STEP_COPY;
+//            return true;
+//        }
+//
+//        $this->syslog('A few files in local file system where not writable ' . $this->pkg->getRemoteFile());
+//        $this->syslog(implode(PHP_EOL, $this->pkg->getCopyErrorPaths()));
     }
 
-    private function execStepDownload()
+    private function execDownload()
     {
-
-        $this->res = $this->pkg->download();
-
-        if ($this->res === \fpcm\model\packages\package::FPCMPACKAGE_REMOTEFILE_ERROR) {
-            $this->versionDataFile->delete();
-        }
-
-        if ($this->res === true) {
-            $this->syslog('Downloaded update package successfully from ' . $this->pkg->getRemoteFile());
-            $this->returnData['nextstep'] = \fpcm\model\packages\package::FPCMPACKAGE_STEP_EXTRACT;
-            return true;
-        }
-
-        $this->syslog('Error while downloading update package from ' . $this->pkg->getRemoteFile());
-        $this->returnData['nextstep'] = \fpcm\model\packages\package::FPCMPACKAGE_STEP_CLEANUP;
+        $this->res = true;
+        $this->pkgdata['pkgname'] = 'fpcm4update4.0.1.zip';
+        
+//        $this->res = $this->pkg->download();
+//
+//        if ($this->res === \fpcm\model\packages\package::FPCMPACKAGE_REMOTEFILE_ERROR) {
+//            $this->versionDataFile->delete();
+//        }
+//
+//        if ($this->res === true) {
+//            $this->syslog('Downloaded update package successfully from ' . $this->pkg->getRemoteFile());
+//            return true;
+//        }
+//
+//        $this->syslog('Error while downloading update package from ' . $this->pkg->getRemoteFile());
+    }
+    
+    private function execCheckPkg()
+    {
+        $this->res = true;
     }
 
-    private function execStepCheckfiles()
+    private function execExtract()
     {
-
-        $this->res = $this->pkg->checkFiles();
-
-        if ($this->res === \fpcm\model\packages\package::FPCMPACKAGE_FILESCHECK_ERROR) {
-            $this->versionDataFile->delete();
-        }
-
-        if ($this->res === true) {
-            $this->syslog('All local files are writable ' . $this->pkg->getRemoteFile());
-            $this->returnData['nextstep'] = \fpcm\model\packages\package::FPCMPACKAGE_STEP_COPY;
-            return true;
-        }
-
-        $this->syslog('A few files in local file system where not writable ' . $this->pkg->getRemoteFile());
-        $this->syslog(implode(PHP_EOL, $this->pkg->getCopyErrorPaths()));
-        $this->returnData['nextstep'] = \fpcm\model\packages\package::FPCMPACKAGE_STEP_CLEANUP;
-    }
-
-    private function execStepExtract()
-    {
+        $this->res = true;
+        return;
 
         $this->res = $this->pkg->extract();
         $from = \fpcm\model\files\ops::removeBaseDir($this->pkg->getLocalFile());
 
         if ($this->res === true) {
             $this->syslog('Extracted update package successfully from ' . $from);
-            $this->returnData['nextstep'] = \fpcm\model\packages\package::FPCMPACKAGE_STEP_CHECKFILES;
             return true;
         }
 
         $this->syslog('Error while extracting update package from ' . $from);
-        $this->returnData['nextstep'] = \fpcm\model\packages\package::FPCMPACKAGE_STEP_CLEANUP;
     }
 
-    private function execStepCopy()
+    private function execUpdateFs()
     {
+        $this->res = true;
+        return;
 
         $this->res = $this->pkg->copy();
 
@@ -180,33 +208,36 @@ class sysupdater extends \fpcm\controller\abstracts\ajaxController {
 
         if ($this->res === true) {
             $this->syslog('Moved update package content successfully from ' . $from . ' to ' . $dest);
-            $this->returnData['nextstep'] = \fpcm\model\packages\package::FPCMPACKAGE_STEP_UPGRADEDB;
             return true;
         }
 
         $this->syslog('Error while moving update package content from ' . $from . ' to ' . $dest);
         $this->syslog(implode(PHP_EOL, $this->pkg->getCopyErrorPaths()));
-        $this->returnData['nextstep'] = \fpcm\model\packages\package::FPCMPACKAGE_STEP_CLEANUP;
     }
 
-    private function execStepUpgradedb()
+    private function execUpdateDb()
     {
-
         $finalizer = new \fpcm\model\updater\finalizer();
         $this->res = $finalizer->runUpdate();
 
-        $this->returnData['nextstep'] = $this->forceStep ? \fpcm\model\packages\package::FPCMPACKAGE_STEP_FINISH : \fpcm\model\packages\package::FPCMPACKAGE_STEP_CLEANUP;
-
         if ($this->res === true) {
-            $this->syslog('Run final update steps successfully!');
+            fpcmLogSystem('Run final update steps successfully!');
             return true;
         }
 
-        $this->syslog('Error while running final update steps!');
+        fpcmLogSystem('Databse update failed. See error and database log for further information.');
+    }
+    
+    private function execUpdateLog()
+    {
+        $this->res = true;
+        return;
     }
 
-    private function execStepCleanup()
+    private function execCleanup()
     {
+        $this->res = true;
+        return;
 
         if ($this->canConnect) {
 
@@ -224,144 +255,20 @@ class sysupdater extends \fpcm\controller\abstracts\ajaxController {
             $this->pkglog($this->pkg->getKey() . ' ' . $this->pkg->getVersion(), $list);
         }
 
-        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
+        
         $this->cache->cleanup();
 
         $this->res = true;
-        $this->returnData['nextstep'] = \fpcm\model\packages\package::FPCMPACKAGE_STEP_FINISH;
     }
 
-    private function execStepFinish()
+    private function execGetVersion()
     {
-
-        $this->returnData['newver'] = $this->config->system_version;
+        $this->pkgdata['version'] = $this->config->system_version;
         $this->res = true;
 
-        if ($this->versionDataFile->exists()) {
-            $this->versionDataFile->delete();
-        }
-    }
-
-    private function execStep1()
-    {
-
-        $this->res = $this->pkg->download();
-
-        if ($this->res === \fpcm\model\packages\package::FPCMPACKAGE_REMOTEFILE_ERROR) {
-            $this->versionDataFile->delete();
-        }
-
-        if ($this->res === true) {
-            $this->syslog('Downloaded update package successfully from ' . $this->pkg->getRemoteFile());
-            $this->returnData['nextstep'] = 2;
-            return true;
-        }
-
-        $this->syslog('Error while downloading update package from ' . $this->pkg->getRemoteFile());
-        $this->returnData['nextstep'] = 5;
-    }
-
-    private function execStep2()
-    {
-
-        $this->res = $this->pkg->extract();
-        $from = \fpcm\model\files\ops::removeBaseDir($this->pkg->getLocalFile());
-
-        if ($this->res === true) {
-            $this->syslog('Extracted update package successfully from ' . $from);
-            $this->returnData['nextstep'] = 3;
-            return true;
-        }
-
-        $this->syslog('Error while extracting update package from ' . $from);
-        $this->returnData['nextstep'] = 5;
-    }
-
-    private function execStep3()
-    {
-
-        $this->res = $this->pkg->copy();
-
-        $dest = \fpcm\model\files\ops::removeBaseDir(\fpcm\classes\dirs::getFullDirPath(''));
-        $from = \fpcm\model\files\ops::removeBaseDir($this->pkg->getExtractPath());
-
-        if ($this->res === true) {
-            $this->syslog('Moved update package content successfully from ' . $from . ' to ' . $dest);
-            $this->returnData['nextstep'] = 4;
-            return true;
-        }
-
-        $this->syslog('Error while moving update package content from ' . $from . ' to ' . $dest);
-        $this->syslog(implode('<br>', $this->pkg->getCopyErrorPaths()));
-        $this->returnData['nextstep'] = 5;
-    }
-
-    private function execStep4()
-    {
-
-        $finalizer = new \fpcm\model\updater\finalizer();
-        $this->res = $finalizer->runUpdate();
-        $this->returnData['nextstep'] = $this->forceStep ? 6 : 5;
-
-        if ($this->res === true) {
-            $this->syslog('Run final update steps successfully!');
-            return true;
-        }
-
-        $this->syslog('Error while running final update steps!');
-    }
-
-    private function execStep5()
-    {
-
-        if ($this->canConnect) {
-
-            if (method_exists($this->pkg, 'getProtocol')) {
-                $list = $this->pkg->getProtocol();
-            } else {
-                $this->pkg->loadPackageFileListFromTemp();
-                $list = $this->pkg->getFiles();
-            }
-
-            $this->pkglog($this->pkg->getKey() . ' ' . $this->pkg->getVersion(), $list);
-        }
-
-        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-        $this->cache->cleanup();
-
-        $this->res = true;
-        $this->returnData['nextstep'] = 6;
-    }
-
-    private function execStep6()
-    {
-
-        $this->returnData['newver'] = $this->config->system_version;
-        $this->res = true;
-
-        if ($this->versionDataFile->exists()) {
-            $this->versionDataFile->delete();
-        }
-    }
-
-    private function syslog($data)
-    {
-
-        if (function_exists('fpcmLogSystem')) {
-            return fpcmLogSystem($data);
-        }
-
-        return \fpcm\classes\logs::syslogWrite($data);
-    }
-
-    private function pkglog($packageName, $data)
-    {
-
-        if (function_exists('fpcmLogPackages')) {
-            return fpcmLogPackages($packageName, $data);
-        }
-
-        return \fpcm\classes\logs::pkglogWrite($packageName, $data);
+//        if ($this->versionDataFile->exists()) {
+//            $this->versionDataFile->delete();
+//        }
     }
 
 }

@@ -14,7 +14,7 @@ $lang = array(
     'SYSTEM_OPTIONS_SYSCHECK_PHPMAXEXECTIME' => 'PHP max execution time >= {{value}}',
     'SYSTEM_OPTIONS_SYSCHECK_DBDRV_MYSQL' => 'MySQL/ MariaDB database driver available {{value}}',
     'SYSTEM_OPTIONS_SYSCHECK_DBDRV_PGSQL' => 'Postgres database driver available',
-    'SYSTEM_OPTIONS_SYSCHECK_DBDRV_ACTIVE' => 'Active database driver is',
+    'SYSTEM_OPTIONS_SYSCHECK_DBDRV_ACTIVE' => 'Active database driver',
     'SYSTEM_OPTIONS_SYSCHECK_DBVERSION' => 'Database system version >= {{value}}',
     'SYSTEM_OPTIONS_SYSCHECK_HTTPS' => 'HTTPS is active',
     'SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS' => 'Submit statistical informaton',
