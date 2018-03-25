@@ -545,7 +545,6 @@ fpcm.ui = {
     
     resize: function () {
         fpcm.ui.prepareMessages();
-        jQuery('#fpcm-ui-errorbox').css('top', jQuery(window).height() / 2 - jQuery('#fpcm-ui-errorbox').height() / 2);
     },
     
     setFocus: function(elemId) {

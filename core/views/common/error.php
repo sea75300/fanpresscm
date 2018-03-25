@@ -14,14 +14,15 @@
 
     <body class="fpcm-body" id="fpcm-body">
 
-        <div class="wrapper">
-            <div class="fpcm-ui-center fpcm-ui-errorbox fpcm-ui-background-white-50p" id="fpcm-ui-errorbox">
+        <div class="row fpcm-ui-position-absolute fpcm-ui-position-absolute-0">
+
+            <div class="col-12 align-self-center fpcm-ui-center fpcm-ui-background-white-50p fpcm-ui-padding-lg-tb" id="fpcm-ui-errorbox">
 
                 <?php $theView->icon($icon.' fa-inverse')->setStack('square')->setClass('fa-5x fpcm-ui-important-text'); ?>
                 
                 <p><?php print $errorMessage; ?></p>
                 
-                <p><?php $theView->linkButton('backBtn')->setUrl($backController ? $backController : 'javascript:window.history.back();')->setText('GLOBAL_BACK'); ?></p>
+                <p><?php $theView->linkButton('backBtn')->setUrl($backController ? $backController : 'javascript:window.history.back();')->setText('GLOBAL_BACK')->setIcon('chevron-circle-left'); ?></p>
                 
             </div>
         </div>

@@ -167,7 +167,6 @@ div.fpcm-status-info ul.fpcm-menu-top li ul,
 }
 
 div.fpcm-navigation ul.fpcm-menu li ul,
-.fpcm-ui-errorbox,
 .fpcm-editor-select,
 .fpcm-editor-dialog iframe,
 div.fpcm-status-info ul.fpcm-menu-top li ul,
@@ -337,7 +336,6 @@ fieldset:nth-child(odd) {
 div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navicon,
 div.fpcm-status-info ul.fpcm-menu-top,
 .fpcm-ui-full-width,
-.fpcm-ui-errorbox,
 .fpcm-ui-input-wrapper,
 .fpcm-ui-input-wrapper input,
 .fpcm-ui-progressbar,
@@ -439,10 +437,6 @@ del,
 .fpcm-dashboard-updates-outdated,
 .fpcm-ui-important-text {
     color: #cc0000;
-}
-
-.fpcm-ui-errorbox {
-    updates: 0.4em 0;
 }
 
 span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-0 {

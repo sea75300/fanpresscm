@@ -125,11 +125,6 @@ class login extends \fpcm\controller\abstracts\controller {
             return false;
         }
 
-        $reset = $this->getRequestVar('reset') === null ? false : true;
-        $this->view->assign('userNameField', $reset ? 'username' : 'login[username]');
-        $this->view->assign('resetPasswort', $reset);
-        $this->view->assign('noFullWrapper', true);
-
         return true;
     }
 
@@ -170,6 +165,11 @@ class login extends \fpcm\controller\abstracts\controller {
                 '{{lockeddate}}' => date($this->config->system_dtmask, $this->loginLockedDate)
             ));
         }
+
+        $reset = $this->getRequestVar('reset') === null ? false : true;
+        $this->view->assign('userNameField', $reset ? 'username' : 'login[username]');
+        $this->view->assign('resetPasswort', $reset);
+        $this->view->assign('noFullWrapper', true);
 
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         $this->view->addJsFiles(['login.js']);
