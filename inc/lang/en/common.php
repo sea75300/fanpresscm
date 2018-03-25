@@ -47,6 +47,7 @@ $lang = array(
     'HL_TEMPLATE_PREVIEW' => 'Template Preview',
     'HL_PROFILE' => 'Profile',
     'HL_FRONTEND' => 'Frontend',
+    'HL_ARCHIVE' => 'ArchivE',
     'PROFILE_MENU_LOGGEDINAS' => 'You are logged in as <em>{{username}}</em>',
     'PROFILE_MENU_LOGGEDINSINCE' => 'since',
     'PROFILE_MENU_YOURIP' => 'IP address',
