@@ -21,7 +21,7 @@ final class components {
      */
     public static function getArticleEditor()
     {
-        $class = \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_editor;
+        $class = str_replace('\\\\', '\\', \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_editor);
         if (!class_exists($class) || !is_subclass_of($class, 'fpcm\components\editor\articleEditor')) {
             trigger_error('Error loading article editor component '.$class);
             return false;
