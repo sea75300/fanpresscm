@@ -78,7 +78,7 @@
         <?php $theView->write('USERS_BIOGRAPHY'); ?>:
     </div>
     <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-        <?php $theView->textarea('usrinfo')->setValue($author->getUsrinfo())->setClass('fpcm-ui-textarea-medium') ?>
+        <?php $theView->textarea('usrinfo')->setValue($author->getUsrinfo())->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width') ?>
     </div>
 </div>
 

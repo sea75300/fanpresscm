@@ -42,7 +42,7 @@ namespace fpcm\model\system;
  * @property string $articles_sort Sortierung der Artikel im Frontend
  * @property string $articles_sort_order Reihenfolge der Sortierung der Artikel im Frontend
  * @property bool   $articles_rss RSS-Feed ist aktiv
- * @property int    $articles_acp_limit Anzahl an Artikeln in der ACP-Liste
+ * @property int    $articles_acp_limit Anzahl Element in ACP-Listen
  * @property int    $articles_archive_datelimit Datum, bis zu dem Artikel im Archiv maximal angezeigt werden sollen
  * @property int    $articles_revisions_limit Anzahl Revisionen, bei der alte Revisionen bereinigt werden
  * @property bool   $articles_link_urlrewrite URL-Rewriting aktivieren (ID + Artikel-Titel sind in Artikel-Link enthalten)

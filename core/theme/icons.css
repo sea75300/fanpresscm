@@ -1,7 +1,16 @@
-i.mce-ico.mce-i-fpcm-readmore:before {
-    font-family: 'FontAwesome';
+i.mce-ico.mce-i-fpcm-readmore:before,
+legend:before {
+    font-family: "Font Awesome 5 Free";
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
 }
 
 i.mce-ico.mce-i-fpcm-readmore:before {
     content: '\f0fe';
+}
+
+legend:before {
+    content: "\f054";
+    font-weight: bold;
+    margin-right: 0.25em;
 }

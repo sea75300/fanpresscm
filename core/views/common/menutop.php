@@ -44,7 +44,7 @@
          </li>
          <li class="fpcm-menu-top-level1" id="fpcm-clear-cache" title="<?php $theView->write('GLOBAL_CACHE_CLEAR'); ?>">
              <a href="#" target="_blank">
-                 <?php $theView->icon('recycle')->setSize('lg')->setClass('fpcm-navicon'); ?>
+                 <?php $theView->icon('hdd')->setSize('lg')->setClass('fpcm-navicon'); ?>
              </a>
          </li>
          <li class="fpcm-menu-top-level1" title="<?php $theView->write('GLOBAL_FRONTEND_OPEN'); ?>">

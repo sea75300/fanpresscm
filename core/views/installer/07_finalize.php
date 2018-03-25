@@ -6,5 +6,5 @@
     <p class="fpcm-ui-important-text"><?php $theView->write('INSTALLER_FINALIZE_DIABLED'); ?></p>
     <?php endif; ?>
 
-    <?php $theView->linkButton('toLogin')->setUrl(fpcm\classes\tools::getFullControllerLink('system/login'))->setText('LOGIN_BTN')->setIcon('sign-in'); ?>
+    <?php $theView->linkButton('toLogin')->setUrl(fpcm\classes\tools::getFullControllerLink('system/login'))->setText('LOGIN_BTN')->setIcon('sign-in-alt'); ?>
 </div>

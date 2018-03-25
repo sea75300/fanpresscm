@@ -46,6 +46,7 @@ $lang = array(
     'HL_PACKAGEMGR_SYSUPDATES' => 'FanPress CM aktualisieren',
     'HL_TEMPLATE_PREVIEW' => 'Template-Vorschau',
     'HL_PROFILE' => 'Profil',
+    'HL_FRONTEND' => 'Frontend',
     'PROFILE_MENU_LOGGEDINAS' => 'angemeldet als <em>{{username}}</em>',
     'PROFILE_MENU_LOGGEDINSINCE' => 'seit',
     'PROFILE_MENU_YOURIP' => 'Meine IP-Adresse:',

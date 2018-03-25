@@ -19,3 +19,11 @@
     }
 
 }
+
+@media (max-width: 1024px) {
+    
+    fieldset {
+        margin: 0.5em 0;
+    }
+    
+}

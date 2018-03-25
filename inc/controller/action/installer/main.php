@@ -344,6 +344,7 @@ class main extends \fpcm\controller\abstracts\controller {
         $this->view->assign('showImage', false);
         $this->view->assign('avatar', false);
         $this->view->assign('externalSave', true);
+        $this->view->assign('inProfile', false);
 
         $msg = $this->getRequestVar('msg');
         if ($msg === null) {

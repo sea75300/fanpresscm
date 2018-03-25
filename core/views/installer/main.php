@@ -36,7 +36,7 @@
                             <?php if ($showNextButton) : ?>
                                 <?php $theView->submitButton('submitNext')->setText('GLOBAL_NEXT')->setClass('fpcm-installer-next-'.$currentStep)->setIcon('chevron-circle-right'); ?>
                             <?php elseif($showReload) : ?>
-                                <?php $theView->linkButton('reloadbtn')->setText('GLOBAL_RELOAD')->setUrl($theView->basePath.'installer&step='.$currentStep.($currentStep > 1 ? '&language='.$theView->langCode : ''))->setIcon('refresh'); ?>
+                                <?php $theView->linkButton('reloadbtn')->setText('GLOBAL_RELOAD')->setUrl($theView->basePath.'installer&step='.$currentStep.($currentStep > 1 ? '&language='.$theView->langCode : ''))->setIcon('sync'); ?>
                             <?php endif; ?>
                             </div>
                         </div>

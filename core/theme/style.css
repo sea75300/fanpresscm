@@ -273,6 +273,16 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
     margin-bottom: 0.5em;
 }
 
+.fpcm-ui-marginleft-md,
+fieldset:nth-child(even) {
+    margin-left: 0.5em;
+}
+
+.fpcm-ui-marginright-md,
+fieldset:nth-child(odd) {
+    margin-right: 0.5em;
+}
+
 .fpcm-updater-list p.fpcm-updater-list-with-button span.fa,
 .fpcm-ui-margintop-md {
     margin-top: 0.5em;
@@ -284,6 +294,10 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
 
 .fpcm-ui-margintop-lg {
     margin-top: 1em;
+}
+
+.fpcm-ui-marginleft-none {
+    margin-left: 0 !important;
 }
 
 .fpcm-wrapper {
@@ -489,9 +503,17 @@ textarea[readonly],
 textarea:hover,
 textarea:focus,
 textarea:active,
+fieldset,
 .fpcm-ui-input-wrapper:hover,
 .fpcm-ui-input-wrapper-hover {
     border: 1px solid #79B7E7;
+}
+
+textarea:hover,
+textarea:focus,
+textarea:active,
+.fpcm-ui-input-wrapper:hover,
+.fpcm-ui-input-wrapper-hover {
     box-shadow: #79B7E7 0px 0px 4px;
 }
 
@@ -508,17 +530,8 @@ textarea:active,
     padding-bottom: 0.2em;
 }
 
-.ui-icon-blank {
-    background-position: 16px 16px !important;
-}
-
-.ui-icon-check {
-  background-position: -64px -144px !important;
-}
-
 textarea.fpcm-ui-textarea-medium {
     height: 150px;
-    width: 400px;
 }
 
 .fpcm-ui-background-transition {
@@ -895,13 +908,17 @@ img.fpcm-ui-smileylist-preview {
     margin: 0.3em 0.8em;
 }
 
+legend,
 span.fpcm-ui-badge {
     background: #3399ff;
     color: #fff;
     padding: 0.3em 0.5em;
-    z-index: 999;
     border-radius: 5px;
     text-align: center;
+}
+
+span.fpcm-ui-badge {
+    z-index: 999;
 }
 
 span.fpcm-ui-badge.fpcm-ui-badge-red {
