@@ -524,6 +524,7 @@ class UploadHandler
         if (!$name) {
             $name = str_replace('.', '-', microtime(true));
         }
+
         return $name;
     }
 
@@ -1389,6 +1390,6 @@ class UploadHandler
 
     protected function basename($filepath, $suffix = null) {
         $splited = preg_split('/\//', rtrim ($filepath, '/ '));
-        return substr(basename('X'.$splited[count($splited)-1], $suffix), 1);
+        return \fpcm\classes\tools::escapeFileName( substr(basename('X'.$splited[count($splited)-1], $suffix), 1) );
     }
 }

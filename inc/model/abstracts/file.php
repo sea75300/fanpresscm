@@ -135,9 +135,7 @@ abstract class file {
         $this->filepath = trim($filename) ? dirname($filename) : '';
         $this->fullpath = $filename;
 
-        $this->escapeFileName($this->filename);
-
-        $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        $this->dbcon    = \fpcm\classes\loader::getObject('\fpcm\classes\database');
 
         if (\fpcm\classes\baseconfig::installerEnabled())
             return false;
@@ -349,7 +347,7 @@ abstract class file {
      */
     public function escapeFileName(&$filename)
     {
-        $filename = preg_replace('/[^A-Za-z0-9_.\-]/', '', htmlentities($filename, ENT_COMPAT | ENT_HTML401));
+        $filename = \fpcm\classes\tools::escapeFileName($filename);
     }
 
     /**

@@ -88,6 +88,8 @@ class image extends \fpcm\model\abstracts\file {
     public function __construct($filename = '', $initDB = true, $forceInit = false)
     {
         $this->table = \fpcm\classes\database::tableFiles;
+        
+        $this->escapeFileName($filename);
         parent::__construct($this->basePath($filename));
 
         if ($this->exists() || $forceInit) {

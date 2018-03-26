@@ -618,13 +618,6 @@ class view {
 
         /* @var $theView viewVars */
         $this->assign('theView', $this->defaultViewVars);
-
-        if (!$hasDbConfig) {
-            return true;
-        }
-
-        helper::init($this->config->system_lang);
-
         return true;
     }
 
