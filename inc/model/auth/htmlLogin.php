@@ -24,11 +24,19 @@ namespace fpcm\model\auth;
  */
 final class htmlLogin extends \fpcm\model\abstracts\authProvider {
 
+    /**
+     * Konstruktor
+     */
     public function __construct()
     {
         $this->table = \fpcm\classes\database::tableAuthors;
     }
 
+    /**
+     * 
+     * @param array $param
+     * @return boolean
+     */
     public function authenticate(array $param)
     {
         $userList = \fpcm\classes\loader::getObject('\fpcm\model\users\userList');
@@ -51,6 +59,16 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
 
         return $userid;
     }
+
+    /**
+     * Return template for active auth provider
+     * @return string
+     */
+    public function getLoginTemplate()
+    {
+        return 'login/login';
+    }
+
 }
 
 ?>

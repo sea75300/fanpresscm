@@ -775,7 +775,9 @@ class article extends \fpcm\model\abstracts\dataset {
         $newHash = $revision->createHashSum();
         $revision->setHashsum($newHash);
 
-        if (is_array($this->data['preparedRevision']) && $revision->createHashSum($this->data['preparedRevision']) === $newHash) {
+        if (isset($this->data['preparedRevision']) &&
+            is_array($this->data['preparedRevision']) &&
+            $revision->createHashSum($this->data['preparedRevision']) === $newHash) {
             return true;
         }
 

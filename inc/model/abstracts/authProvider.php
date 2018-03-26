@@ -20,7 +20,14 @@ abstract class authProvider extends model {
     /**
      * Execute authentication
      * @param array $param
+     * @return boolean
      */
     abstract public function authenticate(array $param);
+
+    /**
+     * 
+     * @return string
+     */
+    abstract public function getLoginTemplate();
 
 }

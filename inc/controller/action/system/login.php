@@ -36,96 +36,12 @@ class login extends \fpcm\controller\abstracts\controller {
     protected $loginLockedExpire = 600;
 
     /**
-     * Page Token Prüfung erfolgreich
-     * @var bool
-     */
-    protected $pageTokenOk = true;
-
-    /**
-     * Konstruktor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->loginLockedExpire = session_cache_expire();
-    }
-
-    /**
      * 
      * @return string
      */
     protected function getViewPath()
     {
-        return 'login/login';
-    }
-
-    /**
-     * Request-Handler
-     * @return boolean
-     */
-    public function request()
-    {
-        if ($this->session->exists()) {
-            return $this->redirect('system/dashboard');
-        }
-        session_start();
-
-        $this->pageTokenOk = $this->checkPageToken();
-        $this->loginLocked();
-
-        if ($this->buttonClicked('login') && !is_null($this->getRequestVar('login')) && !$this->loginLocked && $this->pageTokenOk) {
-            $data = $this->getRequestVar('login');
-            $data = $this->events->runEvent('loginBefore', $data);
-
-            $session = new \fpcm\model\system\session();
-            $loginRes = $session->checkUser($data['username'], $data['password']);
-
-            if ($loginRes === \fpcm\model\users\author::AUTHOR_ERROR_DISABLED) {
-                $this->currentAttempts = $this->config->system_loginfailed_locked;
-                $this->view->addErrorMessage('LOGIN_FAILED_DISABLED');
-                if ($this->currentAttempts == $this->config->system_loginfailed_locked) {
-                    $this->loginLocked();
-                }
-            } elseif ($loginRes === true && $session->save() && $session->setCookie()) {
-                session_destroy();
-                $this->redirect('system/dashboard');
-            } else {
-                $this->currentAttempts++;
-                \fpcm\classes\http::setSessionVar('loginAttempts', $this->currentAttempts);
-                $this->view->addErrorMessage('LOGIN_FAILED');
-                if ($this->currentAttempts == $this->config->system_loginfailed_locked) {
-                    $this->loginLocked();
-                }
-            }
-        }
-
-        if ($this->buttonClicked('reset') && !is_null($this->getRequestVar('username')) && !is_null($this->getRequestVar('email')) && !$this->loginLocked && $this->pageTokenOk) {
-
-            $userList = new \fpcm\model\users\userList();
-            $id = $userList->getUserIdByUsername($this->getRequestVar('username'));
-
-            if (!$id)
-                $this->redirect();
-
-            $user = new \fpcm\model\users\author($id);
-
-            if ($user->getEmail() == $this->getRequestVar('email') && $user->resetPassword()) {
-                $this->view->addNoticeMessage('LOGIN_PASSWORD_RESET');
-            } else {
-                fpcmLogSystem("Passwort reset for user id {$user->getUsername()} failed.");
-                $this->view->addErrorMessage('LOGIN_PASSWORD_RESET_FAILED');
-            }
-        }
-
-        if ($this->getRequestVar('nologin')) {
-            $this->view->addErrorMessage('LOGIN_REQUIRED');
-        }
-
-        if ($this->currentAttempts >= $this->config->system_loginfailed_locked) {
-            return false;
-        }
-
-        return true;
+        return \fpcm\components\components::getAuthProvider()->getLoginTemplate();
     }
 
     /**
@@ -150,22 +66,99 @@ class login extends \fpcm\controller\abstracts\controller {
     }
 
     /**
+     * Request-Handler
+     * @return boolean
+     */
+    public function request()
+    {
+        if ($this->session->exists()) {
+            return $this->redirect('system/dashboard');
+        }
+
+        if ($this->getRequestVar('nologin')) {
+            $this->view->addErrorMessage('LOGIN_REQUIRED');
+        }
+
+        session_start();
+
+        $this->loginLocked();
+        $this->showLockedForm();
+
+        $this->checkPageToken();
+
+        $doReset = $this->buttonClicked('reset');
+        $doLogin = $this->buttonClicked('login');
+        
+        if (!$this->checkPageToken && ($doReset || $doLogin)) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+        }
+        
+        $data = $this->getRequestVar('login');
+        if ($doLogin && is_array($data) && $this->checkPageToken) {
+
+            $data = $this->events->runEvent('loginBefore', $data);
+
+            $session = new \fpcm\model\system\session();
+            $loginRes = $session->authenticate($data);
+
+            if ($loginRes === \fpcm\model\users\author::AUTHOR_ERROR_DISABLED) {
+                $this->view = new \fpcm\view\error('LOGIN_FAILED_DISABLED',null, 'sign-in-alt');
+                $this->view->render();
+                exit;
+            }
+
+            if ($loginRes === true && $session->save() && $session->setCookie()) {
+                session_destroy();
+                $this->redirect('system/dashboard');
+                return true;
+            }
+
+            $this->currentAttempts++;
+
+            \fpcm\classes\http::setSessionVar('loginAttempts', $this->currentAttempts);
+            if ($this->currentAttempts == $this->config->system_loginfailed_locked) {
+                $this->loginLocked();
+                $this->showLockedForm();
+            }
+
+            $this->view->addErrorMessage('LOGIN_FAILED');
+
+        }
+
+        $username = $this->getRequestVar('username');
+        $email = $this->getRequestVar('email');
+        if ($doReset && $username && $email) {
+
+            $userList = new \fpcm\model\users\userList();
+            $id = $userList->getUserIdByUsername($username);
+            if (!$id) {
+                $this->redirect();
+                return true;
+            }
+
+            $user = new \fpcm\model\users\author($id);
+            if (filter_var($email, FILTER_VALIDATE_EMAIL) && $user->getEmail() == $email && $user->resetPassword()) {
+                $this->view->addNoticeMessage('LOGIN_PASSWORD_RESET');
+                return true;
+            }
+            
+            fpcmLogSystem("Passwort reset for user id {$user->getUsername()} failed.");
+            $this->view->addErrorMessage('LOGIN_PASSWORD_RESET_FAILED');
+            return true;
+        }
+
+        if ($this->currentAttempts >= $this->config->system_loginfailed_locked) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Controller-Processing
      */
     public function process()
     {
-        if (!$this->pageTokenOk && ($this->buttonClicked('reset') || $this->buttonClicked('login'))) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-        }
-
-        if ($this->loginLocked) {
-            $this->view->addErrorMessage('LOGIN_ATTEMPTS_MAX', array(
-                '{{logincount}}' => $this->currentAttempts,
-                '{{lockedtime}}' => $this->loginLockedExpire / 60,
-                '{{lockeddate}}' => date($this->config->system_dtmask, $this->loginLockedDate)
-            ));
-        }
-
         $reset = $this->getRequestVar('reset') === null ? false : true;
         $this->view->assign('userNameField', $reset ? 'username' : 'login[username]');
         $this->view->assign('resetPasswort', $reset);
@@ -208,6 +201,32 @@ class login extends \fpcm\controller\abstracts\controller {
 
             session_destroy();
         }
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    private function showLockedForm()            
+    {        
+        if (!$this->loginLocked) {
+            return true;
+        }
+
+        $this->view = new \fpcm\view\error(
+            $this->lang->translate('LOGIN_ATTEMPTS_MAX', array(
+                '{{logincount}}' => $this->currentAttempts,
+                '{{lockedtime}}' => $this->loginLockedExpire / 60,
+                '{{lockeddate}}' => date($this->config->system_dtmask, $this->loginLockedDate)
+            )),
+            null,
+            'sign-in-alt'
+        );
+
+        $this->view->render();
+
+        exit;
+
     }
 
 }

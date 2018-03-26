@@ -126,7 +126,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function alterTables()
     {
-        return true;
+        $res = $this->dbcon->alter(\fpcm\classes\database::tableAuthors, 'DROP', 'salt', '', false);
+        return $res;
     }
 
     /**
@@ -144,7 +145,6 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function checkFilesystem()
     {
-
         return true;
     }
 

@@ -52,4 +52,18 @@ final class components {
         include \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'components/massedit.php');
         return true;
     }
+
+    /**
+     * 
+     * @return \fpcm\model\abstracts\authProvider
+     */
+    public static function getAuthProvider()
+    {
+        $class = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('system\getAuthProvider');
+        if (class_exists($class) && is_subclass_of($class, 'fpcm\model\abstracts\authProvider')) {
+            return \fpcm\classes\loader::getObject($class);
+        }
+
+        return \fpcm\classes\loader::getObject('\fpcm\model\auth\htmlLogin');
+    }
 }

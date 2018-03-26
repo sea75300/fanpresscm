@@ -17,6 +17,7 @@ class userListTest extends testBase {
     public function testGetUserIdByUsername() {
         
         $this->createUser();
+        $this->assertArrayHasKey('testArticleId', $GLOBALS);
 
         $id = $this->object->getUserIdByUsername($GLOBALS['userName']);
         $this->assertGreaterThanOrEqual(1, $id);

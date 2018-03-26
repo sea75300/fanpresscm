@@ -220,7 +220,7 @@ class fpcmAPI {
         }
 
         if (isset($credentials['username']) && isset($credentials['password']) && trim($credentials['username']) && trim($credentials['password'])) {
-            $result = $session->checkUser($credentials['username'], $credentials['password'], true);
+            $result = $session->authenticate($credentials, true);
             if ($result === true && $session->save()) {
                 return $session->getSessionId();
             }

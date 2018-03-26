@@ -326,16 +326,16 @@ final class session extends \fpcm\model\abstracts\dataset {
      * @param bool $external
      * @return bool Ja, wenn Benutzer + Passwort vorhanden ist
      */
-    public function checkUser($username, $password, $external = false)
+    public function authenticate($data, $external = false)
     {
-        $userid = (new \fpcm\model\auth\htmlLogin())->authenticate([
-            'username' => $username,
-            'password' => $password,
-        ]);
-        
-        if (!$userid) {
-            trigger_error('Login failed for username ' . $username . '! Wrong username or password. Request was made by ' . \fpcm\classes\http::getIp());
+        $userid = \fpcm\components\components::getAuthProvider()->authenticate($data);
+        if ($userid === false) {
+            trigger_error('Login failed for username ' . $data['username'] . '! Wrong username or password. Request was made by ' . \fpcm\classes\http::getIp());
             return false;
+        }
+
+        if ($userid !== false && $userid < 0) {
+            return $userid;
         }
 
         $timer = time();
