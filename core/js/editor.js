@@ -294,18 +294,17 @@ fpcm.editor = {
     },
     
     initCodeMirror: function() {
-        jQuery('#colorhexcode').colorPicker({
-            rows        : 5,
-            cols        : 8,
-            showCode    : 0,
-            cellWidth   : 15,
-            cellHeight  : 15,
-            top         : 27,
-            left        : 0,
-            colorData   : fpcm.vars.jsvars.editorConfig.colors,            
-            onSelect    : function(colorCode) {
-                jQuery('#colorhexcode').val(colorCode);
+
+        var colorsEl = jQuery('#fpcm-dialog-editor-html-insertcolor').find('div.fpcm-dialog-editor-colors');
+        for (var i = 0;i < fpcm.vars.jsvars.editorConfig.colors.length; i++) {
+            colorsEl.append('<span class="fpcm-ui-padding-md-tb fas fa-square fa-fw fa-lg" style="color:' + fpcm.vars.jsvars.editorConfig.colors[i] + '" data-color="' + fpcm.vars.jsvars.editorConfig.colors[i] + '"></span>');
+            if ((i+1) % 20 == 0) {
+                colorsEl.append('<br>');
             }
+        }
+
+        jQuery('div.fpcm-dialog-editor-colors span').click(function() {
+            jQuery('#colorhexcode').val(jQuery(this).attr('data-color'));
         });
 
         fpcm.editor.cmInstance = fpcm.editor_codemirror.create({

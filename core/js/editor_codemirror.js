@@ -283,7 +283,7 @@ if (fpcm.editor) {
                     execDone: function () {
                         jQuery('#fpcm-dialog-editor-html-insertsmileys').append(fpcm.ajax.getResult('editor/smileys'));
                         jQuery('.fpcm-editor-htmlsmiley').click(function() {
-                            fpcm.editor.insert(' ' + jQuery(this).attr('smileycode') + ' ', '');
+                            fpcm.editor.insert(' ' + jQuery(this).attr('data-smileycode') + ' ', '');
                         });
                     }
                 });
@@ -322,6 +322,7 @@ if (fpcm.editor) {
     };
     
     fpcm.editor.insertColor = function () {
+
         fpcm.ui.dialog({
             id: 'editor-html-insertcolor',
             dlWidth: fpcm.ui.getDialogSizes().width,
@@ -350,7 +351,7 @@ if (fpcm.editor) {
                         jQuery( this ).dialog( "close" );
                     }
                 }
-            ]        
+            ]
         });
     };
     

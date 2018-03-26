@@ -15,7 +15,7 @@ namespace fpcm\model\files;
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-final class smiley extends \fpcm\model\abstracts\file implements \Serializable {
+final class smiley extends \fpcm\model\abstracts\file implements \Serializable, \JsonSerializable {
 
     /**
      * ID von Datei-Eintrag in DB
@@ -27,7 +27,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable {
      * Smiley-Code, der in Artikeln und Kommentaren geparst werden soll
      * @var string
      */
-    protected $smileycode;
+    protected $thiscode;
 
     /**
      * Bild-Breite
@@ -136,11 +136,11 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable {
 
     /**
      * Smiley-Code setzen
-     * @param string $smileycode
+     * @param string $thiscode
      */
-    public function setSmileycode($smileycode)
+    public function setSmileycode($thiscode)
     {
-        $this->smileycode = $smileycode;
+        $this->smileycode = $thiscode;
     }
 
     /**
@@ -199,8 +199,9 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable {
      */
     public function exists($dbOnly = false)
     {
-        if (!$this->smileycode)
+        if (!$this->smileycode) {
             return false;
+        }
 
         $count = $this->dbcon->count($this->table, '*', "smileycode = ?", array($this->smileycode));
         if ($dbOnly) {
@@ -242,16 +243,29 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable {
             }
         }
 
-        if (parent::exists()) {
-            $fileData = getimagesize($this->fullpath);
-
-            if (is_array($fileData)) {
-                $this->width = $fileData[0];
-                $this->height = $fileData[1];
-                $this->whstring = $fileData[3];
-                $this->mimetype = $fileData['mime'];
-            }
+        if (!parent::exists()) {
+            return true;
         }
+        
+        $this->initImageSize();
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    public function initImageSize()
+    {
+        $fileData = getimagesize($this->fullpath);
+
+        if (is_array($fileData)) {
+            $this->width = $fileData[0];
+            $this->height = $fileData[1];
+            $this->whstring = $fileData[3];
+            $this->mimetype = $fileData['mime'];
+        }
+
+        return true;
     }
 
     /**
@@ -284,6 +298,17 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable {
     }
 
     /**
+     * 
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'img' => $this->getEditorImageTag(),
+        ];
+    }
+    
+    /**
      * Gibt Link für Edit-Action zurück
      * @return string
      */
@@ -306,6 +331,16 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable {
     public function getImageTag()
     {
         return "<img src=\"{$this->getSmileyUrl()}\" alt=\"{$this->getFilename()}\" {$this->getWhstring()}>";
+    }
+
+    /**
+     * Returns smiley image tag
+     * @return string
+     * @since FPCM 4
+     */
+    public function getEditorImageTag()
+    {
+        return "<img role=\"option\" data-smileycode=\"{$this->getSmileyCode()}\" class=\"fpcm-editor-htmlsmiley fpcm-ui-padding-md-lr fpcm-ui-padding-md-tb\" src=\"{$this->getSmileyUrl()}\" alt=\"{$this->getFilename()} ({$this->getSmileyCode()})\" title=\"{$this->getFilename()} ({$this->getSmileyCode()})\" {$this->getWhstring()}>";
     }
     
 }

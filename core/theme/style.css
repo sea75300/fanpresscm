@@ -348,7 +348,8 @@ div.fpcm-editor-dialog .ui-selectmenu-button {
 }
 
 div.fpcm-footer,
-.fpcm-content-wrapper {
+.fpcm-content-wrapper,
+.fpcm-ui-padding-md-all {
     padding: 0.5em;
 }
 
@@ -499,7 +500,8 @@ textarea:focus,
 textarea:active,
 fieldset,
 .fpcm-ui-input-wrapper:hover,
-.fpcm-ui-input-wrapper-hover {
+.fpcm-ui-input-wrapper-hover,
+.fpcm-ui-border-blue-light {
     border: 1px solid #79B7E7;
 }
 
@@ -947,11 +949,6 @@ div.fpcm-massedit-dialog div.fpcm-ui-editor-extended-button label {
     padding: 0;
 }
 
-.mce-fpcm-emoticons {    
-    padding: 0.3em !important;
-    width: 350px !important;
-}
-
 .ui-datepicker {
     z-index: 1000 !important;
 }
@@ -1036,4 +1033,8 @@ span.fpcm-ui-button-shorthelp {
 div.row {
     margin-left: 0;
     margin-right: 0;
+}
+
+td.fpcm-tinymce-emoticons img {
+    padding: 0.5em !important;
 }
