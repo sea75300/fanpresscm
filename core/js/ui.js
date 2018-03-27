@@ -480,15 +480,8 @@ fpcm.ui = {
             fpcm.ui.appendHtml('#fpcm-messages', msgCode);
         }
         
-    },
-    
-    prepareMessages: function () {
-        jQuery('div.fpcm-message-box.fpcm-message-notice').delay(2000).fadeOut('slow');
-        jQuery('div.fpcm-message-box.fpcm-message-neutral').delay(2000).fadeOut('slow');
-        jQuery('.fpcm-messages div.fpcm-message-box').draggable({
-            opacity: 0.5,
-            cursor: 'move'
-        });
+        jQuery('div.fpcm-message-box.fpcm-message-notice').delay(1000).fadeOut('slow');
+        jQuery('div.fpcm-message-box.fpcm-message-neutral').delay(1000).fadeOut('slow');        
     },
     
     addMessage: function(value, clear) {
@@ -522,7 +515,6 @@ fpcm.ui = {
 
         fpcm.vars.ui.messages.push(value);
         fpcm.ui.showMessages();
-        fpcm.ui.prepareMessages();
         fpcm.ui.messagesInitClose();
 
     },
@@ -541,10 +533,6 @@ fpcm.ui = {
             closeEl.find('.fa.fa-square').addClass('fa-inverse');
             closeEl.find('.fa.fa-times').removeClass('fa-inverse');
         });
-    },
-    
-    resize: function () {
-        fpcm.ui.prepareMessages();
     },
     
     setFocus: function(elemId) {

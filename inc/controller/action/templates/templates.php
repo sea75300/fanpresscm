@@ -85,7 +85,6 @@ class templates extends \fpcm\controller\abstracts\controller {
         $this->view->addCssFiles($editor->getCssFiles());
 
         $jsFiles = $editor->getJsFiles();
-        unset($jsFiles[16], $jsFiles[18]);
         $this->view->addJsFiles($jsFiles);
 
         $this->articleTemplate = new \fpcm\model\pubtemplates\article($this->config->articles_template_active);
@@ -93,6 +92,7 @@ class templates extends \fpcm\controller\abstracts\controller {
         if ($this->config->articles_template_active != $this->config->article_template_active) {
             $this->articleSingleTemplate = new \fpcm\model\pubtemplates\article($this->config->article_template_active);
         }
+
         $this->commentTemplate = new \fpcm\model\pubtemplates\comment($this->config->comments_template_active);
         $this->commentFormTemplate = new \fpcm\model\pubtemplates\commentform();
         $this->latestNewsTemplate = new \fpcm\model\pubtemplates\latestnews();

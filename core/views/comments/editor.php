@@ -33,7 +33,7 @@
     <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr"><?php $theView->textInput('comment[website]')->setValue($comment->getWebsite()); ?></div>
 </div>
 
-<div class="row fpcm-ui-margintop-lg">
+<div class="row fpcm-ui-margintop-lg fpcm-ui-marginbottom-md">
     <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr">
     <?php if ($canApprove || $canPrivate) : ?>
     <div class="fpcm-ui-controlgroup">
@@ -48,8 +48,6 @@
     </div>
 </div>
 
-<div class="row fpcm-ui-margintop-lg">
-    <div class="col-12 fpcm-ui-padding-none-lr"><?php $theView->textarea('comment[text]', 'commenttext')->setValue(stripslashes($comment->getText()) ); ?></div>
-</div>
+<?php include \fpcm\components\components::getArticleEditor()->getCommentEditorTemplate(); ?>
 
 <?php if ($commentsMode) : ?><?php $theView->saveButton('commentSave')->setClass('fpcm-ui-hidden'); ?><?php endif; ?>

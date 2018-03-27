@@ -85,17 +85,16 @@ class preview extends \fpcm\controller\abstracts\controller {
         $this->view->assign('systemMode', 1);
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
 
-        $jsfiles = [
-            \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.2.1.min.js'),
-            \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
-        ];
-
         $cssfiles = [];
         if (trim($this->config->system_css_path)) {
             $cssfiles[] = trim($this->config->system_css_path);
         }
 
-        $this->view->overrideJsFiles($this->events->trigger('pub/addJsFiles', $jsfiles));
+        $this->view->overrideJsFiles($this->events->trigger('pub/addJsFiles', [
+            \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.3.1.min.js'),
+            \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
+        ]));
+        
         $this->view->overrideCssFiles($this->events->trigger('pub/addCssFiles', $cssfiles));
         $this->view->render();
     }

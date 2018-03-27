@@ -24,7 +24,7 @@ fpcm.editor = {
         fpcm.ui.checkboxradio('.fpcm-ui-editor-categories .fpcm-ui-input-checkbox');
 
         if (!fpcm.vars.jsvars.isRevision) {
-            this[fpcm.vars.jsvars.editorInitFunction].call();
+            fpcm.editor[fpcm.vars.jsvars.editorInitFunction].call();
         }
         else {
             jQuery('.fpcm-ui-editor-categories-revisiondiff .fpcm-ui-input-checkbox').click(function() {

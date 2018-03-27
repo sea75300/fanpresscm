@@ -46,6 +46,9 @@ fpcm.editor_codemirror = {
 if (fpcm.editor) {
     
     fpcm.editor.initToolbar = function () {
+        
+        console.log('fpcm-editor-html-click');
+        
         fpcm.ui.selectmenu('#fpcm-editor-paragraphs', {
             select: function( event, ui ) {
                 if (!ui.item.value) {
@@ -171,17 +174,10 @@ if (fpcm.editor) {
             fpcm.editor.cmInstance.doc.replaceSelection('<p>' + fpcm.editor.cmInstance.doc.getSelection() + '</p>\n');
         }
         else {
-            var cursorPos       = fpcm.editor.cmInstance.doc.getCursor();
-            fpcm.editor.cmInstance.doc.replaceRange('<br>', cursorPos, cursorPos);        
+            var cursorPos = fpcm.editor.cmInstance.doc.getCursor();
+            var eTag      = '<br>\n';
 
-            if(eTag != '') {
-                cursorPos.ch = (eTag.length > cursorPos.ch)
-                             ? cursorPos.ch + aTag.length
-                             : cursorPos.ch - eTag.length;
-
-                fpcm.editor.cmInstance.doc.setCursor(cursorPos);            
-            }
-
+            fpcm.editor.cmInstance.doc.replaceRange(eTag, cursorPos, cursorPos);
             fpcm.editor.cmInstance.focus();
         }
 

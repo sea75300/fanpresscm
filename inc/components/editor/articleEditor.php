@@ -49,6 +49,12 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
     abstract public function getEditorTemplate();
 
     /**
+     * Pfad der Kommentar-Editor-Template-Datei
+     * @return string
+     */
+    abstract public function getCommentEditorTemplate();
+
+    /**
      * Liefert zu ladender Javascript-Dateien für Editor zurück
      * @return array
      */
@@ -85,7 +91,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
      * @since FPCM 3.3
      */
     abstract public function getTemplateDrafts();
-
+    
     /**
      * Editor-Styles initialisieren
      * @return array

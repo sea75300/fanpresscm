@@ -133,18 +133,23 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         if ($mode === 2) {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         }
+        
+        $editorPlugin = \fpcm\components\components::getArticleEditor();
+        if (!$editorPlugin) {
+            $this->view = new \fpcm\view\error('Error loading article editor component '.$this->config->system_editor);
+            $this->view->render();
+        }
 
-        $this->view->addJsFiles([\fpcm\classes\loader::libGetFileUrl('tinymce4/tinymce.min.js'), 'editor_tinymce.js']);
+        $this->view->addCssFiles($editorPlugin->getCssFiles());
 
-        $this->view->addJsVars([
-            'editorConfig' => [
-                'language' => $this->config->system_lang,
-                'plugins' => 'autolink charmap code image link lists media nonbreaking wordcount fpcm_emoticons autoresize',
-                'toolbar' => 'fontsizeselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist blockquote | link unlink anchor image media emoticons charmap | undo redo removeformat searchreplace fullscreen code',
-            ],
-            'editorDefaultFontsize' => $this->config->system_editor_fontsize,
-            'commentsEdit' => 1
-        ]);
+        $viewVars = $editorPlugin->getViewVars();
+        foreach ($viewVars as $key => $value) {
+            $this->view->assign($key, $value);
+        }
+        
+        $this->view->addJsFiles(array_merge(['comments.js', 'comments_editor.js', 'editor_videolinks.js'], $editorPlugin->getJsFiles()));
+        $this->view->addJsLangVars($editorPlugin->getJsLangVars());
+        $this->view->addJsVars(array_merge($editorPlugin->getJsVars()));
 
         if ($this->comment->getChangeuser() && $this->comment->getChangetime()) {
             $changeUser = new \fpcm\model\users\author($this->comment->getChangeuser());
@@ -177,7 +182,6 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         }
 
         $this->view->setFormAction($this->comment->getEditLink(), ['mode' => $mode], true);
-        $this->view->addJsFiles(['comments.js']);
         $this->view->assign('ipWhoisLink', substr($this->comment->getIpaddress(), -1) === '*' ? false : true);
         $this->view->assign('comment', $this->comment);
         $this->view->assign('commentsMode', $mode);

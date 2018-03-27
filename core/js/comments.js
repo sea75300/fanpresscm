@@ -16,11 +16,6 @@ fpcm.comments = {
         if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
             fpcm.comments.initCommentSearch();
         }
-
-        if (window.tinymce && fpcm.vars.jsvars.commentsEdit) {
-            fpcm.editor_tinymce.create(fpcm.vars.jsvars.editorConfig);
-            fpcm.ui.setFocus('commentname');            
-        }
         
         if (fpcm.dataview && fpcm.dataview.exists('commentlist')) {
             fpcm.dataview.render('commentlist', {

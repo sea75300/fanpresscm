@@ -121,7 +121,13 @@ class articlebase extends \fpcm\controller\abstracts\controller {
             $this->view->render();
         }
         
-        $this->view->addJsFiles($this->editorPlugin->getJsFiles());
+        $this->view->addJsFiles(array_merge([
+                'editor.js',
+                'editor_videolinks.js'
+            ],
+            $this->editorPlugin->getJsFiles()
+        ));
+
         $this->view->addCssFiles($this->editorPlugin->getCssFiles());
 
         if (!$this->showRevision) {

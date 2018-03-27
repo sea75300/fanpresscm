@@ -340,7 +340,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
      */
     public function getEditorImageTag()
     {
-        return "<img role=\"option\" data-smileycode=\"{$this->getSmileyCode()}\" class=\"fpcm-editor-htmlsmiley fpcm-ui-padding-md-lr fpcm-ui-padding-md-tb\" src=\"{$this->getSmileyUrl()}\" alt=\"{$this->getFilename()} ({$this->getSmileyCode()})\" title=\"{$this->getFilename()} ({$this->getSmileyCode()})\" {$this->getWhstring()}>";
+        return "<span class=\"fpcm-ui-padding-md-lr fpcm-ui-padding-md-tb\"><img role=\"option\" data-smileycode=\"{$this->getSmileyCode()}\" class=\"fpcm-editor-htmlsmiley\" src=\"{$this->getSmileyUrl()}\" title=\"{$this->getFilename()} ({$this->getSmileyCode()})\" {$this->getWhstring()}></span>";
     }
     
 }

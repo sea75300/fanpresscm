@@ -400,7 +400,7 @@ class view {
             return false;
         }
 
-        array_unshift($this->viewJsFiles, \fpcm\classes\loader::libGetFileUrl('jquery/jquery-3.2.1.min.js'));
+        array_unshift($this->viewJsFiles, \fpcm\classes\loader::libGetFileUrl('jquery/jquery-3.3.1.min.js'));
     }
 
     /**

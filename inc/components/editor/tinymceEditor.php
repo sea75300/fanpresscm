@@ -36,17 +36,21 @@ class tinymceEditor extends articleEditor {
     }
 
     /**
+     * 
+     * @return string
+     */
+    public function getCommentEditorTemplate()
+    {
+        return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/editors/tinymce.php');        
+    }
+
+    /**
      * Liefert zu ladender Javascript-Dateien für Editor zurück
      * @return array
      */
     public function getJsFiles()
     {
-        return [
-            \fpcm\classes\loader::libGetFileUrl('tinymce4/tinymce.min.js'),
-            'editor.js',
-            'editor_tinymce.js',
-            'editor_videolinks.js'
-        ];
+        return [\fpcm\classes\loader::libGetFileUrl('tinymce4/tinymce.min.js'), 'editor_tinymce.js'];
     }
 
     /**

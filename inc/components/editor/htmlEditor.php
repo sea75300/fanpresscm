@@ -40,6 +40,15 @@ class htmlEditor extends articleEditor {
     }
 
     /**
+     * 
+     * @return string
+     */
+    public function getCommentEditorTemplate()
+    {
+        return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/editors/html.php');        
+    }
+
+    /**
      * Liefert zu ladender Javascript-Dateien für Editor zurück
      * @return array
      */
@@ -61,9 +70,7 @@ class htmlEditor extends articleEditor {
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/javascript/javascript.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/css/css.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/htmlmixed/htmlmixed.js'),
-            'editor.js',
-            'editor_codemirror.js',
-            'editor_videolinks.js'
+            'editor_codemirror.js'
         ];
     }
 
