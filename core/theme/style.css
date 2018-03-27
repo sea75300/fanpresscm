@@ -1038,3 +1038,8 @@ div.row {
 td.fpcm-tinymce-emoticons img {
     padding: 0.5em !important;
 }
+
+div.mce-fpcm-ui-emoticons-panel {
+    width: auto !important;
+    height: auto !important;
+}
