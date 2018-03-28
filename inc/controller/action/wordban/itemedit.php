@@ -79,6 +79,7 @@ class itemedit extends \fpcm\controller\abstracts\controller {
         $this->view->setFieldAutofocus('wbitemsearchtext');
         $this->view->setFormAction($this->item->getEditLink(), [], true);
         $this->view->addButton(new \fpcm\view\helper\saveButton('wbitemSave'));
+        $this->view->addJsFiles(['texts.js']);
         $this->view->render();
     }
 

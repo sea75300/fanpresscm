@@ -129,7 +129,7 @@ class itemlist extends \fpcm\controller\abstracts\controller {
         $metaData = [
             (new \fpcm\view\helper\icon('search fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getReplaceTxt())->setText('WORDBAN_REPLACETEXT')->setStack('square'),
             (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getLockArticle())->setText('WORDBAN_APPROVE_ARTICLE')->setStack('square'),
-            (new \fpcm\view\helper\icon('check-circle-o fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getCommentApproval())->setText('WORDBAN_APPROVA_COMMENT')->setStack('square')
+            (new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getCommentApproval())->setText('WORDBAN_APPROVA_COMMENT')->setStack('square')
         ];
 
         return new \fpcm\components\dataView\row([

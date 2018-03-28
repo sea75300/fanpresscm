@@ -22,7 +22,7 @@
     <div class="col-sm-12 col-md-9 fpcm-ui-padding-none-lr">
         <div class="fpcm-ui-controlgroup">
         <?php foreach ($userRolls as $rollname => $rollid) : ?>
-            <?php $theView->checkbox('category[groups][]', 'cat'.$rollid)->setText($rollname)->setValue($rollid)->setSelected(isset($selectedGroups) && in_array($rollid, $selectedGroups) ? true : false); ?>
+            <?php $theView->checkbox('category[groups][]', 'cat'.$rollid)->setText($rollname)->setValue($rollid)->setSelected(isset($selectedGroups) && in_array($rollid, $selectedGroups) ? true : false)->setClass('fpcm-ui-categories-rolls'); ?>
         <?php endforeach; ?>
         </div>
     </div>

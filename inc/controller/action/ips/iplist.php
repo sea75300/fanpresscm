@@ -144,9 +144,9 @@ class iplist extends \fpcm\controller\abstracts\controller {
                     : $this->notfoundStr;
         
         $metaData   = [
-            (new \fpcm\view\helper\icon('comments fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNocomments())->setText('IPLIST_NOCOMMENTS')->setStack('square'),
-            (new \fpcm\view\helper\icon('sign-in fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNologin())->setText('IPLIST_NOLOGIN')->setStack('square'),
-            (new \fpcm\view\helper\icon('toggle-on fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNoaccess())->setText('IPLIST_NOACCESS')->setStack('square')
+            (new \fpcm\view\helper\icon('comment-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNocomments())->setText('IPLIST_NOCOMMENTS')->setStack('square'),
+            (new \fpcm\view\helper\icon('sign-in-alt fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNologin())->setText('IPLIST_NOLOGIN')->setStack('square'),
+            (new \fpcm\view\helper\icon('ban fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNoaccess())->setText('IPLIST_NOACCESS')->setStack('square')
         ];
         
         return new \fpcm\components\dataView\row([

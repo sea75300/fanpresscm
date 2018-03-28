@@ -299,12 +299,6 @@ fieldset:nth-child(odd) {
     margin-left: 0 !important;
 }
 
-.fpcm-wrapper {
-    padding:0;
-    margin: 0;
-    width: 85%;
-}
-
 .fpcm-ui-background-white-50p {
     background: rgba(255,255,255,0.5);
 }
@@ -342,8 +336,8 @@ div.fpcm-status-info ul.fpcm-menu-top,
 .fpcm-editor-dialog iframe,
 .fpcm-editor-select a,
 div.fpcm-status-info,
-div.fpcm-editor-dialog .ui-checkboxradio-label,
-div.fpcm-editor-dialog .ui-selectmenu-button {
+div.fpcm-editor-dialog div.fpcm-editor-dialog-fullwidth-items .ui-checkboxradio-label,
+div.fpcm-editor-dialog div.fpcm-editor-dialog-fullwidth-items .ui-selectmenu-button {
     width: 100%;
 }
 

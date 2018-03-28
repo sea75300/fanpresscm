@@ -79,6 +79,7 @@ class categoryedit extends \fpcm\controller\abstracts\controller {
         $this->view->setFieldAutofocus('categoryname');
         $this->view->setFormAction($this->category->getEditLink(), [], true);
         $this->view->addButton(new \fpcm\view\helper\saveButton('categorySave'));
+        $this->view->addJsFiles(['categories.js']);
         $this->view->render();
     }
 

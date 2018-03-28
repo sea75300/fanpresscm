@@ -12,9 +12,20 @@ if (fpcm === undefined) {
 fpcm.texts = {
 
     init: function() {
-        fpcm.dataview.render('textslist', {
+
+        fpcm.ui.checkboxradio('.fpcm-ui-text-actions', {
+            icon: false
+        });
+
+        var dvName = 'textslist';
+        if (!fpcm.dataview.exists(dvName)) {
+            return true;
+        }
+
+        fpcm.dataview.render(dvName, {
             onRenderAfter: fpcm.ui.assignCheckboxes
         });
+
     },
 
 };

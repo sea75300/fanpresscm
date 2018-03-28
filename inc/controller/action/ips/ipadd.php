@@ -43,6 +43,7 @@ class ipadd extends \fpcm\controller\abstracts\controller {
         $this->view->setFieldAutofocus('ipSave');
         $this->view->setFormAction('ips/add');
         $this->view->addButton(new \fpcm\view\helper\saveButton('ipSave'));
+        $this->view->addJsFiles(['ipadresses.js']);
 
         if ($this->buttonClicked('ipSave') && !$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');

@@ -12,9 +12,20 @@ if (fpcm === undefined) {
 fpcm.ipadresses = {
 
     init: function() {
-        fpcm.dataview.render('iplist', {
+        
+        fpcm.ui.checkboxradio('.fpcm-ui-ipadresses-rolls', {
+            icon: false
+        });
+
+        var dvName = 'iplist';
+        if (!fpcm.dataview.exists(dvName)) {
+            return true;
+        }
+
+        fpcm.dataview.render(dvName, {
             onRenderAfter: fpcm.ui.assignCheckboxes
         });
+
     },
 
 };

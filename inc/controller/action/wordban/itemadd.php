@@ -68,6 +68,7 @@ class itemadd extends \fpcm\controller\abstracts\controller {
         $this->view->setFieldAutofocus('wbitemsearchtext');
         $this->view->setFormAction('wordban/add');
         $this->view->addButton(new \fpcm\view\helper\saveButton('wbitemSave'));
+        $this->view->addJsFiles(['texts.js']);
         $this->view->render();
     }
 

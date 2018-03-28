@@ -244,7 +244,7 @@
                     'permission'        => array('system' => 'categories'),
                     'description'       => $this->language->translate('HL_CATEGORIES_MNG'),
                     'id'                => 'nav-item-categories',
-                    'icon'              => 'far fa-file fa-fw'
+                    'icon'              => 'fa fa-tags fa-fw'
                 ]),
                 navigationItem::createItemFromArray([
                     'url'               => 'templates/templates',

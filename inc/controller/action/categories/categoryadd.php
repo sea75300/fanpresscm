@@ -70,6 +70,7 @@ class categoryadd extends \fpcm\controller\abstracts\controller {
         $this->view->setFieldAutofocus('categoryname');
         $this->view->setFormAction('categories/add');
         $this->view->addButton(new \fpcm\view\helper\saveButton('categorySave'));
+        $this->view->addJsFiles(['categories.js']);
         $this->view->render();
     }
 
