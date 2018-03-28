@@ -293,11 +293,6 @@ trait lists {
                 '</div>'
             ];
 
-            $metaDataIcons = [];
-            $metaDataIcons[] = (new \fpcm\view\helper\icon('flag fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $comment->getSpammer())->setText('COMMMENT_SPAM')->setStack('square');
-            $metaDataIcons[] = (new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $comment->getApproved())->setText('COMMMENT_APPROVE')->setStack('square');
-            $metaDataIcons[] = (new \fpcm\view\helper\icon('eye-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $comment->getPrivate())->setText('COMMMENT_PRIVATE')->setStack('square');
-
             $this->dataView->addRow(
                 new \fpcm\components\dataView\row([
                 new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('ids[' . ($comment->getEditPermission() ? '' : 'ro') . ']', 'chbx' . $commentId))->setClass('fpcm-ui-list-checkbox')->setValue($commentId)->setReadonly(!$comment->getEditPermission()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
@@ -305,7 +300,7 @@ trait lists {
                 new \fpcm\components\dataView\rowCol('name', $comment->getName(), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('email', $comment->getEmail(), 'fpcm-ui-ellipsis'),
                 new \fpcm\components\dataView\rowCol('create', new \fpcm\view\helper\dateText($comment->getCreatetime()), 'fpcm-ui-ellipsis'),
-                new \fpcm\components\dataView\rowCol('metadata', implode('', $metaDataIcons), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                new \fpcm\components\dataView\rowCol('metadata', implode('', $comment->getMetaDataStatusIcons()), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             ]));
         }
 

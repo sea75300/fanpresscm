@@ -104,10 +104,6 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
      */
     private function renderContent()
     {
-
-        $ownPermissions = $this->permissions->check(array('article' => 'edit'));
-        $allPermissions = $this->permissions->check(array('article' => 'editall'));
-
         $articleList = new \fpcm\model\articles\articlelist();
         $userlist = new \fpcm\model\users\userList();
 
@@ -123,6 +119,8 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
 
         $content = [];
         $content[] = '<div>';
+        
+        /* @var $article \fpcm\model\articles\article */
         foreach ($articles as $article) {
 
             $createInfo = $this->language->translate('EDITOR_AUTHOREDIT', array(
@@ -142,20 +140,10 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
             $content[] = '  <span>' . $createInfo . '</span>';
             $content[] = '  </div></div>';
             $content[] = '  <div class="col-auto fpcm-ui-metabox fpcm-ui-padding-none-lr">';
-
-            if ($article->getPinned()) {
-                $content[] = (new \fpcm\view\helper\icon('thumbtack fa-rotate-90 fa-inverse'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('EDITOR_STATUS_PINNED');
-            }
-            if ($article->getDraft()) {
-                $content[] = (new \fpcm\view\helper\icon('file-alt fa-inverse', 'far'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('EDITOR_STATUS_DRAFT');
-            }
-            if ($article->getPostponed()) {
-                $content[] = (new \fpcm\view\helper\icon('calendar-plus fa-inverse'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('EDITOR_STATUS_POSTPONETO');
-            }
-            if ($article->getApproval()) {
-                $content[] = (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('EDITOR_STATUS_APPROVAL');
-            }
-
+            $content[] = $article->getStatusIconPinned();
+            $content[] = $article->getStatusIconDraft();
+            $content[] = $article->getStatusIconPostponed();
+            $content[] = $article->getStatusIconApproval();
             $content[] = '  </div>';
             $content[] = '</div>';
         }

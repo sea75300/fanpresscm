@@ -11,11 +11,7 @@
         <?php print $comment->getIpaddress(); ?>                    
         <?php if ($ipWhoisLink) : ?>(<a href="http://www.whois.com/whois/<?php print $comment->getIpaddress(); ?>" target="_blank">Whois</a>)<?php endif; ?>
     </div>
-    <div class="col-sm-12 col-md-6 fpcm-ui-align-right">
-        <?php $theView->icon('flag fa-inverse')->setStack('square')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-'.$comment->getSpammer())->setText('COMMMENT_SPAM'); ?>
-        <?php $theView->icon('check-circle fa-inverse')->setStack('square')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-'.$comment->getApproved())->setText('COMMMENT_APPROVE'); ?>
-        <?php $theView->icon('eye-slash fa-inverse')->setStack('square')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-'.$comment->getPrivate())->setText('COMMMENT_PRIVATE'); ?>
-    </div>
+    <div class="col-sm-12 col-md-6 fpcm-ui-align-right"><?php print implode(PHP_EOL, $comment->getMetaDataStatusIcons()); ?></div>
 </div>
 
 <div class="row fpcm-ui-margintop-lg">

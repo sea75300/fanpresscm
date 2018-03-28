@@ -980,6 +980,97 @@ class article extends \fpcm\model\abstracts\dataset {
     }
 
     /**
+     * Returns array with all status icons
+     * @param bool $showDraftStatus
+     * @param bool $showCommentsStatus
+     * @param bool $showArchivedStatus
+     * @return array
+     */
+    public function getMetaDataStatusIcons($showDraftStatus, $showCommentsStatus, $showArchivedStatus)
+    {
+        return [
+            $this->getStatusIconPinned(),
+            $showDraftStatus ? $this->getStatusIconDraft() : '',
+            $this->getStatusIconPostponed(),
+            $this->getStatusIconApproval(),
+            $showCommentsStatus ? $this->getStatusIconComments() : '',
+            $showArchivedStatus ? $this->getStatusIconArchive() : '',
+        ];
+
+    }
+
+    /**
+     * Returns pinned status icon
+     * @return \fpcm\view\helper\icon
+     */
+    public function getStatusIconPinned()
+    {
+        return (new \fpcm\view\helper\icon('thumbtack fa-rotate-90 fa-inverse'))
+                ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getPinned())
+                ->setText('EDITOR_STATUS_PINNED')
+                ->setStack('square');
+    }
+
+    /**
+     * Returns draft status icon
+     * @return \fpcm\view\helper\icon
+     */
+    public function getStatusIconDraft()
+    {
+        return (new \fpcm\view\helper\icon('file-alt fa-inverse', 'far'))
+                ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getDraft())
+                ->setText('EDITOR_STATUS_DRAFT')
+                ->setStack('square');
+    }
+
+    /**
+     * Returns postponed status icon
+     * @return \fpcm\view\helper\icon
+     */
+    public function getStatusIconPostponed()
+    {
+        return (new \fpcm\view\helper\icon('calendar-plus fa-inverse'))
+                ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getPostponed())
+                ->setText( $this->language->translate('EDITOR_STATUS_POSTPONETO') . ( $this->getPostponed() ? ' ' . new \fpcm\view\helper\dateText($this->getCreatetime()) : '') )
+                ->setStack('square');
+    }
+
+    /**
+     * 
+     * @return \fpcm\view\helper\icon
+     */
+    public function getStatusIconApproval()
+    {
+        return (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))
+                ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getApproval())
+                ->setText('EDITOR_STATUS_APPROVAL')
+                ->setStack('square');
+    }
+
+    /**
+     * Returns comments enabled status icon
+     * @return \fpcm\view\helper\icon
+     */
+    public function getStatusIconComments()
+    {
+        return (new \fpcm\view\helper\icon('comments fa-inverse', 'far'))
+                ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getComments())
+                ->setText('EDITOR_STATUS_COMMENTS')->setStack('square');
+    }
+
+    /**
+     * Returns archive status icon
+     * @return \fpcm\view\helper\icon
+     */
+    public function getStatusIconArchive()
+    {
+        return (new \fpcm\view\helper\icon('archive fa-inverse'))
+                ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getArchived())
+                ->setText('EDITOR_STATUS_ARCHIVE')
+                ->setStack('square');
+    }
+
+    /**
      * Führt Ersetzung von gesperrten Texten in Artikel-Daten durch
      * @return boolean
      * @since FPCM 3.2.0

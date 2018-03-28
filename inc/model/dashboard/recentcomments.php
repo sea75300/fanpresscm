@@ -110,9 +110,6 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer {
      */
     private function renderContent()
     {
-        $ownPermissions = $this->permissions->check(array('article' => 'edit'), array('comment' => 'edit'));
-        $allPermissions = $this->permissions->check(array('article' => 'editall'), array('comment' => 'editall'));
-
         $commenList = new \fpcm\model\comments\commentList();
 
         $search = new \fpcm\model\comments\search();
@@ -150,15 +147,9 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer {
             $content[] = '  </div></div>';
             $content[] = '  <div class="col-auto fpcm-ui-metabox fpcm-ui-padding-none-lr">';
 
-            if ($comment->getSpammer()) {
-                $content[] = (new \fpcm\view\helper\icon('flag fa-inverse'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('COMMMENT_SPAM');
-            }
-            if ($comment->getApproved()) {
-                $content[] = (new \fpcm\view\helper\icon('check-circle fa-inverse', 'far'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('COMMMENT_APPROVE');
-            }
-            if ($comment->getPrivate()) {
-                $content[] = (new \fpcm\view\helper\icon('eye-slash fa-inverse'))->setStack('square')->setClass('fpcm-ui-status-1')->setText('COMMMENT_PRIVATE');
-            }
+            $content[] = $comment->getStatusIconSpam();
+            $content[] = $comment->getStatusIconApproved();
+            $content[] = $comment->getStatusIconPrivate();
 
             $content[] = '  </div>';
             $content[] = '</div>';

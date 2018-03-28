@@ -13,11 +13,10 @@
                 <?php include $theView->getIncludePath('articles/times.php'); ?>
             </div>
             <div class="col-sm-12">
-                <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
+                <?php print implode(PHP_EOL, $revisionArticle->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
             </div>
         </div>
     </div>
-    
     <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-right">
         <div class="row fpcm-ui-editor-metabox fpcm-ui-padding-md-tb">
             <?php
@@ -30,7 +29,7 @@
                 <?php include $theView->getIncludePath('articles/times.php'); ?>
             </div>
             <div class="col-sm-12">
-                <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
+                <?php print implode(PHP_EOL, $article->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
             </div>
         </div>
     </div>

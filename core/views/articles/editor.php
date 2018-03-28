@@ -35,7 +35,7 @@
                         <?php include $theView->getIncludePath('articles/times.php'); ?>
                     </div>
                     <div class="col-sm-12 col-md-6 fpcm-ui-align-right">
-                        <?php include $theView->getIncludePath('articles/metainfo.php'); ?>
+                        <?php print implode(PHP_EOL, $article->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
                     </div>
                 </div>
                 <?php endif; ?>
