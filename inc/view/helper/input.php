@@ -34,6 +34,12 @@ abstract class input extends helper {
     protected $placeholder = false;
 
     /**
+     * Column with if input uses an icon
+     * @var string
+     */
+    protected $colWidth = '11';
+
+    /**
      * Return element string
      * @return string
      */
@@ -44,8 +50,8 @@ abstract class input extends helper {
         $sizeClass = 'col-12 fpcm-ui-padding-none-lr';
         
         if ($this->icon) {
-            $wrapperStart .= "<div class=\"col-1 fpcm-ui-padding-none-lr\">{$this->getIconString()}</div>";
-            $sizeClass = 'col-11 fpcm-ui-padding-none-lr';
+            $wrapperStart .= "<div class=\"col-1 align-self-center fpcm-ui-padding-none-lr\">{$this->getIconString()}</div>";
+            $sizeClass = "col-{$this->colWidth} fpcm-ui-padding-none-lr";
         }
         
         $wrapperStart .= $this->useWrapper ? "<div class=\"fpcm-ui-input-wrapper $sizeClass {$this->wrapperClass}\"><div class=\"fpcm-ui-input-wrapper-inner\">" : '';
@@ -91,6 +97,16 @@ abstract class input extends helper {
     public function setPlaceholder($placeholder)
     {
         $this->placeholder = (bool) $placeholder;
+        return $this;
+    }
+
+    /**
+     * Set column with if input uses an icon
+     * @return string
+     */
+    public function setInputColWidth($colWidth)
+    {
+        $this->colWidth = $colWidth;
         return $this;
     }
 

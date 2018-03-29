@@ -58,7 +58,6 @@ $lang = array(
     'SAVE_SUCCESS_UPLOADMODULE' => 'The module package file has been uploaded!',
     'SAVE_SUCCESS_UPLOADTPLFILE' => 'The template file has been uploaded!',
     'SAVE_SUCCESS_UPLOADAUTHORIMG' => 'The avatarhas been uploaded!',
-    'SAVE_SUCCESS_APPROVAL_SAVE' => 'To approve this article, click the save button!',
     'SAVE_FAILED_USER' => 'Unable to save the user!',
     'SAVE_FAILED_USER_PROFILE' => 'Unable to save the user profile settings!',
     'SAVE_FAILED_USER_EXISTS' => 'The give username does already exists!',

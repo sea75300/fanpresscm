@@ -71,7 +71,7 @@ fpcm.editor = {
                 dlOnOpen: function (event, ui) {                
                     var appendCode  = fpcm.vars.jsvars.canConnect
                                     ? '<div class="fpcm-ui-input-wrapper"><div class="fpcm-ui-input-wrapper-inner"><input type="text" value="' + link + '"></div></div>'
-                                    : '<iframe class="fpcm-full-width"  src="' + link + '"></iframe>';
+                                    : '<iframe class="fpcm-ui-full-width"  src="' + link + '"></iframe>';
 
                     fpcm.ui.appendHtml(this, appendCode);
                 },
@@ -158,7 +158,7 @@ fpcm.editor = {
         
         var size = fpcm.ui.getDialogSizes();
         
-        fpcm.ui.appendHtml('#fpcm-dialog-editor-comments', '<iframe id="fpcm-editor-comment-frame" name="fpcmeditorcommentframe" class="fpcm-full-width" src="' + layerUrl + '"></iframe>');
+        fpcm.ui.appendHtml('#fpcm-dialog-editor-comments', '<iframe id="fpcm-editor-comment-frame" name="fpcmeditorcommentframe" class="fpcm-ui-full-width" src="' + layerUrl + '"></iframe>');
         jQuery('.fpcm-ui-commentaction-buttons').fadeOut();
 
         var size = fpcm.ui.getDialogSizes(top, 0.75);
@@ -200,7 +200,7 @@ fpcm.editor = {
         
         var size = fpcm.ui.getDialogSizes(top, 0.75);
         
-        fpcm.ui.appendHtml('#fpcm-dialog-editor-html-filemanager', '<iframe id="fpcm-dialog-editor-html-filemanager-frame" class="fpcm-full-width" src="' + fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode + '"></iframe>');
+        fpcm.ui.appendHtml('#fpcm-dialog-editor-html-filemanager', '<iframe id="fpcm-dialog-editor-html-filemanager-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode + '"></iframe>');
         fpcm.ui.dialog({
             id       : 'editor-html-filemanager',
             dlMinWidth : size.width,

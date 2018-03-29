@@ -1,25 +1,29 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 
 <?php if (!$isRevision) : ?>
-
-<fieldset class="fpcm-ui-marginleft-none fpcm-ui-marginright-none">
+<fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
     <legend><?php $theView->write('GLOBAL_EXTENDED'); ?></legend>
 
-    <div class="row no-gutters fpcm-ui-margintop-lg fpcm-ui-marginbottom-md">
+    <div class="row no-gutters fpcm-ui-margin-lg-top fpcm-ui-margin-md-bottom">
         <div class="col-12">
             <div class="fpcm-ui-controlgroup">
             <?php if (!$article->getArchived()) : ?>
-                <?php $theView->checkbox('article[draft]')->setText('EDITOR_DRAFT')->setSelected($article->getDraft())->setIcon('file-alt', 'far'); ?>
                 <?php $theView->checkbox('article[pinned]')->setText('EDITOR_PINNED')->setSelected($article->getPinned())->setIcon('thumbtack fa-rotate-90'); ?>
+                <?php $theView->checkbox('article[draft]')->setText('EDITOR_DRAFT')->setSelected($article->getDraft())->setIcon('file-alt', 'far'); ?>
             <?php endif; ?>
             <?php $theView->checkbox('article[comments]')->setText('EDITOR_COMMENTS')->setSelected($article->getComments())->setIcon('comments', 'far'); ?>
+            <?php if (!$approvalRequired) : ?><?php $theView->checkbox('article[approval]')->setText('EDITOR_STATUS_APPROVAL')->setSelected($article->getApproval())->setIcon('thumbs-up', 'far'); ?><?php endif; ?>
             <?php if ($editorMode) : ?><?php $theView->checkbox('article[archived]')->setText('EDITOR_ARCHIVE')->setSelected($article->getArchived())->setIcon('archive'); ?><?php endif; ?>
             <?php if ($changeAuthor) : ?><?php $theView->select('article[author]')->setOptions($changeuserList)->setSelected($article->getCreateuser())->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?><?php endif; ?>
             </div>
         </div>
     </div>
+</fieldset>
 
-    <?php if (!$editorMode || $article->getPostponed()) : ?>
+<?php if (!$editorMode || $article->getPostponed()) : ?>
+<fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
+    <legend><?php $theView->write('EDITOR_POSTPONETO'); ?></legend>
+
 
     <div class="row fpcm-ui-padding-md-tb fpcm-ui-padding-none-lr-small">
         <div class="col-12 col-md-12 col-lg-3 fpcm-ui-padding-none-left"><?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed())->setIcon('calendar-plus'); ?></div>
@@ -34,8 +38,11 @@
         </div>
     </div>
     <?php endif; ?>
+</fieldset>
 
-    <?php if ($showTwitter) : ?>
+<?php if ($showTwitter) : ?>
+<fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
+    <legend><?php $theView->write('EDITOR_TWEET_ENABLED'); ?></legend>
     <div class="row no-gutters fpcm-ui-padding-md-tb fpcm-editor-dialog-fullwidth-items">
         <div class="col-12 col-md-5 col-lg-3"><?php $theView->checkbox('article[tweet]')->setText('EDITOR_TWEET_ENABLED')->setSelected($article->tweetCreationEnabled())->setIcon('twitter', 'fab')->setClass('fpcm-ui-full-width'); ?></div>
         <div class="col-12 col-md-7 col-lg-9"><?php $theView->textInput('article[tweettxt]')->setSize(512)->setText('EDITOR_TWEET_TEXT')->setPlaceholder(true); ?></div>
@@ -45,16 +52,20 @@
             <?php print $twitterReplacements; ?> <?php $theView->shorthelpButton('tweetHelp')->setText('EDITOR_TWEET_TEXT_REPLACER')->setUrl($theView->basePath.'templates/templates'); ?>
         </div>
     </div>
-    <?php endif; ?>
-    
-    <div class="row fpcm-ui-padding-md-tb">
-        <div class="align-self-center col-2 col-lg-1 fpcm-ui-padding-none-lr"><?php $theView->icon('external-link-alt')->setSize('lg'); ?></div>
-        <div class="col-10 col-lg-11 fpcm-ui-padding-none-lr"><?php $theView->textInput('article[sources]')->setPlaceholder(true)->setText('TEMPLATE_ARTICLE_SOURCES')->setValue($article->getSources()); ?></div>
-    </div>
+</fieldset>
+<?php endif; ?>
 
+<fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
+    <legend><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?></legend>
     <div class="row fpcm-ui-padding-md-tb">
-        <div class="align-self-center col-2 col-lg-1 fpcm-ui-padding-none-lr"><?php $theView->icon('image')->setSize('lg'); ?></div>
-        <div class="col-8 col-lg-10 fpcm-ui-padding-none-left"><?php $theView->textInput('article[imagepath]')->setPlaceholder(true)->setText('TEMPLATE_ARTICLE_ARTICLEIMAGE')->setValue($article->getImagepath())->setMaxlenght(512); ?></div>
+            <?php $theView->textInput('article[sources]')->setPlaceholder(true)->setText('TEMPLATE_ARTICLE_SOURCES')->setValue($article->getSources())->setIcon('external-link-alt')->setSize('lg'); ?>
+    </div>
+</fieldset>
+
+<fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
+    <legend><?php $theView->write('TEMPLATE_ARTICLE_ARTICLEIMAGE'); ?></legend>
+    <div class="row fpcm-ui-padding-md-tb">
+        <?php $theView->textInput('article[imagepath]')->setPlaceholder(true)->setText('TEMPLATE_ARTICLE_ARTICLEIMAGE')->setValue($article->getImagepath())->setMaxlenght(512)->setIcon('image')->setSize('lg')->setInputColWidth(10); ?>
         <div class="col-2 col-lg-1 fpcm-ui-padding-none-lr fpcm-ui-center"><?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true); ?></div>
     </div>
 </fieldset>

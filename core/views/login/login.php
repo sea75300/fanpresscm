@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <div class="fpcm-ui-margin-center fpcm-ui-margintop-md fpcm-ui-marginbottom-md fpcm-ui-center">
+            <div class="fpcm-ui-margin-center fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom fpcm-ui-center">
                 <div class="fpcm-ui-controlgroup">
             <?php if ($resetPasswort) : ?>
                 <?php $theView->submitButton('reset')->setText('GLOBAL_OK')->setClass('fpcm-loader fpcm-ok-button')->setIcon('check'); ?>

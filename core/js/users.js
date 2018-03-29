@@ -150,7 +150,7 @@ fpcm.users = {
                     }                            
                 ],
                 dlOnOpen: function (event, ui) {                
-                    fpcm.ui.appendHtml(this, '<iframe class="fpcm-full-width"  src="' + link + '"></iframe>');
+                    fpcm.ui.appendHtml(this, '<iframe class="fpcm-ui-full-width"  src="' + link + '"></iframe>');
                 },
                 dlOnClose: function( event, ui ) {
                     jQuery(this).empty();

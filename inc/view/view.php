@@ -494,8 +494,10 @@ class view {
         }
 
         $this->defaultViewVars->helpLink = \fpcm\classes\tools::getFullControllerLink('system/help', [
-                    'ref' => base64_encode(strtolower($entry))
+            'ref' => urlencode(base64_encode(strtoupper($entry)))
         ]);
+
+        $this->addJsLangVars(['HL_HELP']);
 
         return true;
     }

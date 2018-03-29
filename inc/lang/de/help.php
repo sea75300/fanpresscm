@@ -7,22 +7,14 @@ Help language file
 */
 -->
 <chapters>
-    <chapter>
-        <headline>
-            HL_DASHBOARD
-        </headline>
-        <text>
+    <chapter ref="HL_DASHBOARD">
         <![CDATA[
-        <p>Im <b>Dashboard</b> findest du verschiedene Informationen u. a. zum Update-Status deiner FanPress CM Installation, etc. Du kannst auch
-            eigene Dashboard-Container erzeugen. Erzeuge dazu eine neue Container-Datei unter "fanpress/inc/dashboard" oder über das entsprechende Modul-Event.</p>
+            <p>Im <b>Dashboard</b> findest du verschiedene Informationen u. a. zum Update-Status deiner FanPress CM Installation, etc. Du kannst auch
+            eigene Dashboard-Container erzeugen.</p>
+            <p>Erzeuge dazu eine neue Container-Datei unter "fanpress/inc/dashboard" oder über das entsprechende Modul-Event.</p>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            ARTICLES_EDITOR
-        </headline>
-        <text>
+    <chapter ref="ARTICLES_EDITOR">
         <![CDATA[
         <p>Mit dem <b>Artikel-Editor</b> kannst du Artikel schreiben und/oder bearbeiten. Hierbei hast du vielfältige Gestaltungsmöglichkeiten, welche
             durch Module erweitert werden können. Du kannst einem Artikel Kategorien zuweisen, ihn "anpinnen", so dass er über allen anderen Artikeln
@@ -87,13 +79,8 @@ Help language file
             über die Systemeinstellungen (de)aktiviert werden. Eine Liste aller Revisionen findest du über den entsprechenden Reiter
             im Editor. Dort kannst du jede Revision einzeln aufrufen bzw. den aktuelle Artikel auf eine Revision zurücksetzen.</p>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_ARTICLE_EDIT
-        </headline>
-        <text>
+    <chapter ref="HL_ARTICLE_EDIT">
         <![CDATA[
         <p>Im Bereich <b>Artikel verwalten</b> kannst findest du alle gespeicherten Artikel in FanPress CM. Über das Aktions-Menü
             kannst du verschiedene Dinge durchführen, bspw. Artikel löschen oder archivieren.</p>
@@ -120,13 +107,8 @@ Help language file
                 Du kannst diese hier wieder herstellen oder vollständig löschen.</li>
         </ul>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_COMMENTS_MNG
-        </headline>
-        <text>
+    <chapter ref="HL_COMMENTS_MNG">
         <![CDATA[
         <p>Im Bereich <b>Kommentare</b> erhältst du - unabhängig von den Artikeln - eine generelle Übersicht über alle
             geschriebenen Kommentare. Hier besteht die Möglichkeit, alle Kommentare zu löschen, ent/sperren, etc.</p>
@@ -153,13 +135,9 @@ Help language file
         <p>Über den Button <span class="fpcm-ui-button">Suche & Filter</span> kannst du mithilfe eines Dialogs die angezeigten Kommentare anhand verschiedener Kriterien
             weiter eingrenzen.</p>
         ]]>
-        </text>
+        
     </chapter>
-    <chapter>
-        <headline>
-            HL_FILES_MNG
-        </headline>
-        <text>
+    <chapter ref="HL_FILES_MNG">
         <![CDATA[
         <p>Im <b>Dateimanager</b> kannst du Bilder hochladen, welche du in deinen Artikeln verwendet willst. Eine vereinfachte Ansicht lässt
             sich auch direkt aus dem Artikel-Editor heraus aufrufen. Er zeigt neben einem Vorschau-Bild noch einige zusätzliche Informationen zur
@@ -177,13 +155,8 @@ Help language file
             ein. Im HTML-Editor kannst du auch einfach anfangen, den Dateinamen einzutippen. Hier öffnet sich dann eine
             Autovervollständigung. In TinyMCE steht im Bild einfügen Dialog auch ein Punkt auch "Image List" zur Verfügung.</p>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_PROFILE
-        </headline>
-        <text>
+    <chapter ref="HL_PROFILE">
         <![CDATA[
         <p>Das eigene <b>Profil</b> können alle Benutzer über das Profil-Menü oben rechts aufrufen. Jeder Benutzer kann dort folgende Dinge
             anpassen:</p>
@@ -201,13 +174,8 @@ Help language file
             <li><em>Avatar:</em> Benutzer-Avatar, Dateiname entspricht dem Muster <em>benutzername.jpg/png/gif/bmp</em></li>
         </ul>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_OPTIONS
-        </headline>
-        <text>
+    <chapter ref="HL_OPTIONS">
         <![CDATA[
 
         <h3>Systemeinstellungen</h3>
@@ -447,114 +415,13 @@ Help language file
         </ul>        
 
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_MODULES
-        </headline>
-        <text>
+    <chapter ref="HL_MODULES">
         <![CDATA[
-        <p>Im Bereich <b>Module</b> kannst du Erweiterungen verwalten, welche die Funktionalität von FanPress CM erweitern können.
-            Je nachdem, welche internen Events der Ersteller eines Moduls verwendet, können diese auch direkt in der Hauptnavigation
-            erscheinen. Die Aktionen, welche ein Benutzer im Module-Manager ausführen kann, hängen von seinen Berechtigungen ab. Benutzer
-            ohne Administrationsrechte sollten i. d. R. keine Möglichkeit haben, Module zu installieren bzw. Änderungen an ihrer
-            Konfiguration vorzunehmen.</p>
-        <p>Über den Buttons am Anfang einer Zeile kannst du Module einzeln verwalten. Um Änderungen an mehren Modulen mit einmal
-            vorzunehmen, aktivieren die Checkbox am Ende jeder Modul-Zeile und wähle die Aktion aus.</p>
-        <p>Am komfortabelsten kannst du Module verwalten, wenn dein Host Verbindungen zu anderen Servern zulässt (siehe Info im Dashboard).
-            Musst du Erweiterungen manuell installieren/aktualisieren, verwende den Tab "Modul manuell installieren". Wähle die entspreche de ZIP-Datei aus
-            und klicke auf <span class="fpcm-ui-button">Upload starten</span>. Die Datei wird nun auf den Server geschoben und automatisch in das richtige Verzeichnis unter
-            "fanpress/inc/modules" entpackt. Ist ein Modul noch nicht installiert werden ggf. zusätzliche Schritte zur Installation
-            durchgeführt. Ist ein Modul bereits installiert, werden definierte Update-Schritte durchgeführt.</p>
-        <p>Für Module lasst sich <b>Abhängigkeiten</b> definieren, d. h. ein Modul kann erst dann aktiviert/ verwendet werden wenn
-            andere Module installiert sind. Wird dir vor einem Modul der Button <span class="fpcm-ui-button"><span class="ui-icon ui-icon-alert"></span></span> angezeigt,
-            so wurden für dieses Modul nicht-erfüllte Abhängigkeiten festgestellt. Werde in diesem Fall einen Blick in die Modul-Informationen.</p>
-        <p>Wenn du selbst ein Modul erstellen willst, schau am Besten in das <a href="https://nobody-knows.org/download/fanpress-cm/tutorial-zum-schreiben-eines-moduls/">Tutorial</a>
-            und besuche die <a href="http://updates.nobody-knows.org/fanpress/docs_fpcm3/">Klassen-Doku</a>.</p>
+        <p>no information yet</p>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_HELP_CACHE
-        </headline>
-        <text>
-        <![CDATA[
-        <ul>
-            <li>FanPress CM besitzt ein Cache-System, welche die Ladenzeiten und System-Belastung deutlich reduzieren, da Daten nicht bei jedem
-                Seiten-Aufruf aus der Datenbank gezogen werden müssen. Bei Aktionen, in denen der Cache-Inhalt als veraltet gilt, wird er i. d. R
-                automatisch geleert.</li>
-            <li>Sollte dies jedoch einmal nicht geschehen, so kann du über <span class="fpcm-ui-button" title="Cache leeren"><span class="fa fa-recycle fa-lg fa-fw"></span></span>
-                neben dem Profil-Menü eine manuelle Löschung des Caches anstoßen.</li>
-        </ul>
-        ]]>
-        </text>
-    </chapter>
-    <chapter>
-        <headline>
-            HL_HELP_INTEGRATION
-        </headline>
-        <text>
-        <![CDATA[
-        <p>Wie du FanPress CM auf deiner Seite verwendest, hängt davon ab wie du den Inhalt in die Seite einbindest.</p>
-        <p>Hilfe bei der Einbindung erhältst du durch das "FanPress CM Integration" Modul, welches du über die Modulverwaltung
-            installieren kannst. Du kannst natürlich auch manuell vorgehen:</p>
-        <p><b>php include:</b></p>
-        <p>Wenn du deine Seite mittels php include verwendest, binde zuerst die API-Datei im FanPress Verzeichnis ein und erzeuge
-            ein neues API-Objekt.</p>
-        <pre>
-                &lt;?php include_once 'fanpress/fpcmapi.php'; ?&gt;
-                &lt;?php $api = new fpcmAPI(); ?&gt;
-        </pre>
-        <p>Anschließend kannst du die verschiedenen Funktionen aufrufen. Das sind im Detail:</p>
-        <ul>
-            <li><strong>$api->showArticles()</strong> zum Anzeigen der Artikel, anhand von Seiten, Archiv und einzeln inkl.
-                Kommentare (entspricht der shownews.php auf FanPress CM 1.x und 2.x)</li>
-            <li><strong>$api->showLatestNews()</strong> zum Anzeigen der zuletzt geschriebenen Artikel</li>
-            <li><strong>$api->showPageNumber()</strong> zum Anzeigen der aktuell aufgerufenen Artikel-Seite. Als Parameter kannst du
-                die Beschreibung für "Seite XYZ" angeben.</li>
-            <li><strong>$api->showTitle()</strong> zum Anzeigen des Titels des aktuell aufgerufenen Artikels im &lt;title&gt;-Tag.
-                Als Parameter kannst du einen Trenner zum restlichen Inhalt des &lt;title&gt;-Tags angeben.</li>
-            <li><strong>$api->legacyRedirect()</strong> bietet dir die Möglichkeit, deine Besucher (v. a. bei vorheriger Nutzung des
-                Importer-Modules) vom alten FanPress CM 1/2-URL-Stil zur entsprechenden Stelle von FanPress CM 3 weiterzuleiten.</li>
-        </ul>
-        <p>Die Ausgabe kannst du zudem über einige PHP-Konstanten beeinflussen:</p>
-        <ul>
-            <li><strong>FPCM_PUB_CATEGORY_LATEST</strong> Kategorie festlegen in $api->showLatestNews()</li>
-            <li><strong>FPCM_PUB_CATEGORY_LISTALL</strong> Kategorie festlegen in $api->showArticles()</li>
-            <li><strong>FPCM_PUB_LIMIT_LISTALL</strong> Anzahl der aktiven Artikel in $api->showArticles()</li>
-            <li><strong>FPCM_PUB_LIMIT_ARCHIVE</strong> Anzahl der archivierten Artikel in $api->showArticles()</li>
-            <li><strong>FPCM_PUB_LIMIT_LATEST</strong> Anzahl der Artikel in $api->showLatestNews()</li>
-            <li><strong>FPCM_PUB_OUTPUT_UTF8</strong> UTF-8-Zeichensatz für Ausgabe de/aktivieren, in $api->showLatestNews(),
-                $api->showArticles() und $api->showTitle(), sollte nur genutzt werden wenn Umlaute, Sonderzeichen, etc. nicht richtig
-                angezeigt werden.</li>
-        </ul>
-
-        <p><b>iframes:</b></p>
-        <p>Solltest du FanPress CM in <i>iframes</i> nutzen, so musst du die entsprechenden Controller direkt aufrufen.</p>
-        <ul>
-            <li><strong>deine-seite.xyz/fanpress/index.php?module=fpcm/list</strong> zum Anzeigen der aktiven Artikel
-                (entspricht der shownews.php auf FanPress CM 1.x und 2.x)</li>
-            <li><strong>deine-seite.xyz/fanpress/index.php?module=fpcm/archive</strong> zum Anzeigen des Artikel-Archives
-                (entspricht der shownews.php auf FanPress CM 1.x und 2.x)</li>
-            <li><strong>deine-seite.xyz/fanpress/index.php?module=fpcm/article&&amp;id=EINE_ZAHL</strong> zum Anzeigen eines ganz bestimmtes
-                Artikels inkl. seiner Kommentare, etc.</li>
-            <li><strong>deine-seite.xyz/fanpress/index.php?module=fpcm/latest</strong> zum Anzeigen der Latest News</li>
-        </ul>
-
-        <p><b>RSS Feed:</b></p>
-        <p>Sofern du auch den RSS-Feed von FanPress CM für deine Besucher zur Verfügung stellen willst, so verlinke einfach auf
-            <strong>deine-seite.xyz/fanpress/index.php?module=fpcm/feed</strong>. Der Link ist unabhängig von der restlichen Integration
-            in deine Seite.</p>
-        ]]>
-        </text>
-    </chapter>
-    <chapter>
-        <headline>
-            SYSTEM_OPTIONS_TWITTER_CONNECTION
-        </headline>
-        <text>
+    <chapter ref="SYSTEM_OPTIONS_TWITTER_CONNECTION">
         <![CDATA[
         <p>FanPress CM bietet dir die Möglichkeit, beim schreiben/aktualisieren eines Artikels automatisch einen Tweet bei Twitter
             erzeugen zu lassen.</p>
@@ -581,13 +448,8 @@ Help language file
         </ol>
         <p>Um die Twitter-Verbindung zu löschen, klicke den Button <span class="fpcm-ui-button">Verbindung zu löschen</span> an.</p>
         ]]>
-        </text> 
     </chapter>
-    <chapter>
-        <headline>
-            HL_HELP_SUPPORT
-        </headline>
-        <text>
+    <chapter ref="HL_HELP_SUPPORT">
         <![CDATA[
         <p>Solltest du weitergehende Hilfe bei technischen Problemen brauchen oder Fragen haben, schreiben eine E-mail an
             <em>fanpress@nobody-knows.org</em> oder <em>sea75300@yahoo.de</em>. Alternativ kannst du auch auf der Download-Seite unter
@@ -596,6 +458,5 @@ Help language file
             zur Verfügung zu stellen. Beachte bitte, dass bereits bei der Installation einen E-Mail mit den Zugangsdaten versendet
             wird.</p>
         ]]>
-        </text> 
     </chapter>
 </chapters>

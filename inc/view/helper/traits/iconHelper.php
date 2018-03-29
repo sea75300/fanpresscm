@@ -80,12 +80,6 @@ trait iconHelper {
         $this->iconStack = ($useFa ? 'fa-' . $iconStack : $iconStack);
         return $this;
     }
-
-    /**
-     * 
-     * @param string $size
-     * @return $this
-     */
     
     /**
      * Set Icon size

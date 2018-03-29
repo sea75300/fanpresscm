@@ -88,7 +88,7 @@
         <?php $theView->write('USERS_AVATAR'); ?>:
     </div>
     <div class="col-sm-12 col-md-9 fpcm-ui-padding-none-lr">
-        <div class="fpcm-ui-controlgroup fpcm-ui-marginbottom-lg" id="user_profile_image_buttons">
+        <div class="fpcm-ui-controlgroup fpcm-ui-margin-lg-bottom" id="user_profile_image_buttons">
             <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
             <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload'); ?>
             <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>

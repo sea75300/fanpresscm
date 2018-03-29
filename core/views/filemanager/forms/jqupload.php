@@ -7,14 +7,14 @@
 
 <form id="fileupload" action="<?php print $actionPath; ?>" method="POST" enctype="multipart/form-data">
 
-    <div class="fpcm-ui-marginbottom-lg fileupload-buttonbar">
+    <div class="fpcm-ui-margin-lg-bottom fileupload-buttonbar">
         <div class="fileupload-progress fade fpcm-ui-hidden">
             <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
             <div class="progress-extended">&nbsp;</div>
         </div>
     </div>    
     
-    <div class="fpcm-ui-marginbottom-lg fileupload-buttonbar">
+    <div class="fpcm-ui-margin-lg-bottom fileupload-buttonbar">
         <div class="fileupload-buttons fpcm-ui-controlgroup">
             <a class="fileinput-button">
                 <span><?php $theView->write('FILE_FORM_FILEADD'); ?></span>
@@ -29,7 +29,7 @@
 
     <div id="fpcm-filemanager-upload-drop"><h4 class="fpcm-ui-center"><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4></div>
 
-    <div role="presentation" class="fpcm-ui-margintop-lg">
+    <div role="presentation" class="fpcm-ui-margin-lg-top">
         <div class="files"></div>
     </div>
 

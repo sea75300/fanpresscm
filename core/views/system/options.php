@@ -244,7 +244,7 @@
                         </div>
                     </fieldset>
                     
-                    <fieldset class="fpcm-ui-marginleft-none fpcm-ui-margintop-md" >
+                    <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-md-top" >
                         <legend><?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWIMGTHUMBSIZE'); ?></legend>
                         
                        <div class="row fpcm-ui-padding-md-tb">
@@ -550,7 +550,7 @@
                         </div>
                     </fieldset>
                     
-                    <fieldset class="fpcm-ui-marginleft-none fpcm-ui-marginright-md fpcm-ui-margintop-md" >
+                    <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-md-right fpcm-ui-margin-md-top" >
                         <legend><?php $theView->write('SYSTEM_OPTIONS_EXTENDED_UPDATES'); ?></legend>
 
                         <div class="row fpcm-ui-padding-md-tb">
@@ -592,7 +592,7 @@
                         <?php if ($smtpActive) : ?>
                         <div class="row fpcm-ui-padding-md-tb">
                             <div class="col-12">
-                                <?php $theView->icon('envelope')->setStack('check fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?>
+                                <?php $theView->icon('envelope')->setStack('check fpcm-ui-editor-metainfo fpcm-ui-status-075')->setSize('lg')->setStackTop(true); ?>
                                 <?php $theView->write('SYSTEM_OPTIONS_EMAIL_ACTIVE'); ?>
                             </div>
                         </div>
@@ -687,79 +687,96 @@
         </div>
 
         <div id="tabs-options-twitter">
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-12 align-self-center">
-                <?php if ($twitterIsActive) : ?>
-                    <?php $theView->icon('twitter', 'fab')->setStack('check fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?>
-                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_ACTIVE', ['{{screenname}}' => $twitterScreenName]); ?>
-                <?php endif; ?>
-                </div>
-                <div class="col-12 align-self-center">
-                <?php if (!$globalConfig['twitter_data']['consumer_key'] || !$globalConfig['twitter_data']['consumer_secret'] || !$twitterIsActive) : ?>
-                    <?php $theView->linkButton('twitterConnect')->setText('SYSTEM_OPTIONS_TWITTER_CONNECT')->setUrl('https://apps.twitter.com/')->setTarget('_blank'); ?>
-                <?php elseif ($globalConfig['twitter_data']['user_token'] && $globalConfig['twitter_data']['user_secret'] && $twitterIsActive) : ?>
-                    <?php $theView->submitButton('twitterDisconnect')->setText('SYSTEM_OPTIONS_TWITTER_DISCONNECT')->setClass('fpcm-ui-button-confirm'); ?>
-                <?php endif; ?>
+            
+            <div class="row no-gutters">
+                <div class="col-12">
+                    <fieldset>
+                        <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSTATE'); ?></legend>
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <div class="col-12 col-md-6 align-self-center fpcm-ui-padding-none-lr">
+                            <?php if (!$globalConfig['twitter_data']['consumer_key'] || !$globalConfig['twitter_data']['consumer_secret'] || !$twitterIsActive) : ?>
+                                <?php $theView->linkButton('twitterConnect')->setText('SYSTEM_OPTIONS_TWITTER_CONNECT')->setUrl('https://apps.twitter.com/')->setTarget('_blank'); ?>
+                            <?php elseif ($globalConfig['twitter_data']['user_token'] && $globalConfig['twitter_data']['user_secret'] && $twitterIsActive) : ?>
+                                <?php $theView->submitButton('twitterDisconnect')->setText('SYSTEM_OPTIONS_TWITTER_DISCONNECT')->setClass('fpcm-ui-button-confirm'); ?>
+                            <?php endif; ?>
 
-                <?php $theView->shorthelpButton('twittercon')->setText('HL_HELP')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/help', ['ref' => base64_encode('system_options_twitter_connection')])); ?>
+                            <?php $theView->shorthelpButton('twittercon')->setText('HL_HELP')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/help', ['ref' => urlencode(base64_encode('SYSTEM_OPTIONS_TWITTER_CONNECTION')) ]))->setClass('fpcm-ui-help-dialog'); ?>
+                            </div>
+                            <div class="col-12 col-md-6 align-self-center">
+                            <?php if ($twitterIsActive) : ?>
+                                <?php $theView->icon('twitter', 'fab')->setStack('check fpcm-ui-editor-metainfo fpcm-ui-status-075')->setSize('lg')->setStackTop(true); ?>
+                                <?php $theView->write('SYSTEM_OPTIONS_TWITTER_ACTIVE', ['{{screenname}}' => $twitterScreenName]); ?>
+                            <?php endif; ?>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
 
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_EVENTS'); ?>:
-                </div>
-                <div class="align-self-center col-sm-12 col-md-auto">
-                    <div class="fpcm-ui-controlgroup">
-                        <?php $theView->checkbox('twitter_events[create]', 'twitter_events_create')->setText('SYSTEM_OPTIONS_TWITTER_EVENTCREATE')->setSelected($globalConfig['twitter_events']['create']); ?>
-                        <?php $theView->checkbox('twitter_events[update]', 'twitter_events_update')->setText('SYSTEM_OPTIONS_TWITTER_EVENTUPDATE')->setSelected($globalConfig['twitter_events']['update']); ?>
-                    </div>        
-                </div>
-                <div class="align-self-center col-sm-12 col-md-auto">
-                </div>
-            </div>
-
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY'); ?>:
-                </div>
-                <div class="align-self-center col-sm-12 col-md-auto">
-                    <?php $theView->textInput('twitter_data[consumer_key]')->setValue($globalConfig['twitter_data']['consumer_key']); ?>
-                </div>
-                <div class="align-self-center col-sm-12 col-md-auto">
+            <div class="row no-gutters fpcm-ui-margin-md-top">
+                <div class="col-12">
+                    <fieldset>
+                        <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_EVENTS'); ?></legend>
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <div class="col-12 align-self-center fpcm-ui-padding-none-lr">
+                                <div class="fpcm-ui-controlgroup">
+                                    <?php $theView->checkbox('twitter_events[create]', 'twitter_events_create')->setText('SYSTEM_OPTIONS_TWITTER_EVENTCREATE')->setSelected($globalConfig['twitter_events']['create'])->setIcon('plus'); ?>
+                                    <?php $theView->checkbox('twitter_events[update]', 'twitter_events_update')->setText('SYSTEM_OPTIONS_TWITTER_EVENTUPDATE')->setSelected($globalConfig['twitter_events']['update'])->setIcon('retweet'); ?>
+                                </div>     
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
+            
+            <div class="row no-gutters fpcm-ui-margin-md-top">
+                <div class="col-12">
+                    <fieldset>
+                        <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CREDENTIALS'); ?></legend>
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                                <?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY'); ?>:
+                            </div>
+                            <div class="align-self-center col-sm-12 col-md-auto">
+                                <?php $theView->textInput('twitter_data[consumer_key]')->setValue($globalConfig['twitter_data']['consumer_key']); ?>
+                            </div>
+                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </div>
+                        </div>
 
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET'); ?>:
-                </div>
-                <div class="align-self-center col-sm-12 col-md-auto">
-                    <?php $theView->textInput('twitter_data[consumer_secret]')->setValue($globalConfig['twitter_data']['consumer_secret']); ?>
-                </div>
-                <div class="align-self-center col-sm-12 col-md-auto">
-                </div>
-            </div>
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                                <?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET'); ?>:
+                            </div>
+                            <div class="align-self-center col-sm-12 col-md-auto">
+                                <?php $theView->textInput('twitter_data[consumer_secret]')->setValue($globalConfig['twitter_data']['consumer_secret']); ?>
+                            </div>
+                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </div>
+                        </div>
 
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_TOKEN'); ?>:
-                </div>
-                <div class="align-self-center col-sm-12 col-md-auto">
-                    <?php $theView->textInput('twitter_data[user_token]')->setValue($globalConfig['twitter_data']['user_token']); ?>
-                </div>
-                <div class="align-self-center col-sm-12 col-md-auto">
-                </div>
-            </div>
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                                <?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_TOKEN'); ?>:
+                            </div>
+                            <div class="align-self-center col-sm-12 col-md-auto">
+                                <?php $theView->textInput('twitter_data[user_token]')->setValue($globalConfig['twitter_data']['user_token']); ?>
+                            </div>
+                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </div>
+                        </div>
 
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_SECRET'); ?>:
-                </div>
-                <div class="align-self-center col-sm-12 col-md-auto">
-                    <?php $theView->textInput('twitter_data[user_secret]')->setValue($globalConfig['twitter_data']['user_secret']); ?>
-                </div>
-                <div class="align-self-center col-sm-12 col-md-auto">
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                                <?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_SECRET'); ?>:
+                            </div>
+                            <div class="align-self-center col-sm-12 col-md-auto">
+                                <?php $theView->textInput('twitter_data[user_secret]')->setValue($globalConfig['twitter_data']['user_secret']); ?>
+                            </div>
+                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
             </div>
         </div> 

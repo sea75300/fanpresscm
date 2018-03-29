@@ -27,7 +27,7 @@ fpcm.templates = {
             var sizes       = fpcm.ui.getDialogSizes(top, 0.75);
             fpcm.ui.dialog({
                 title     : fpcm.ui.translate('TEMPLATE_HL_DRAFTS_EDIT'),
-                content   : '<iframe id="fpcm-articletemplates-editor-frame" src="' + jQuery(this).attr('href') + '" class="fpcm-full-width"></iframe>',
+                content   : '<iframe id="fpcm-articletemplates-editor-frame" src="' + jQuery(this).attr('href') + '" class="fpcm-ui-full-width"></iframe>',
                 dlWidth   : parseInt(sizes.width),
                 dlHeight  : parseInt(sizes.height),
                 resizable : true,
@@ -131,7 +131,7 @@ fpcm.templates = {
 
                 tplId = fpcm.ajax.getWorkData('templates/savetemp');
 
-                fpcm.ui.appendHtml('#fpcm-dialog-templatepreview-layer', '<iframe id="fpcm-dialog-templatepreview-layer-frame" class="fpcm-full-width" src="' + fpcm.vars.actionPath + 'templates/preview&tid=' + tplId + '"></iframe>');
+                fpcm.ui.appendHtml('#fpcm-dialog-templatepreview-layer', '<iframe id="fpcm-dialog-templatepreview-layer-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.actionPath + 'templates/preview&tid=' + tplId + '"></iframe>');
                 fpcm.ui.dialog({
                     id         : 'templatepreview-layer',
                     dlWidth    : fpcm.ui.getDialogSizes(top, 0.75).width,

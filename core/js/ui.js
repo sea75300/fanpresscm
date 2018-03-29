@@ -571,7 +571,7 @@ fpcm.ui = {
         }
       
         if (!params.classes) {
-            params.classes = 'fpcm-full-width';
+            params.classes = 'fpcm-ui-full-width';
         }
       
         if (!params.id) {

@@ -31,6 +31,8 @@ fpcm.options = {
         jQuery('#tabs-options-syscheck').click(function () {
             fpcm.systemcheck.execute();
         });
+        
+        fpcm.ui.checkboxradio('.fpcm-ui-input-checkbox');
 
         jQuery('#syschecksubmitstats').click(function () {
             fpcm.ui.showLoader(true);

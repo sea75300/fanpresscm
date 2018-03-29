@@ -1,6 +1,6 @@
 <p><?php print $maxFilesInfo; ?></p>
 
-<div class="fpcm-ui-controlgroup fpcm-ui-marginbottom-lg">
+<div class="fpcm-ui-controlgroup fpcm-ui-margin-lg-bottom">
     <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
     <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload'); ?>
     <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>

@@ -157,10 +157,6 @@ class articleedit extends articlebase {
 
         $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'COMMENTS_EDIT']);
 
-        if (!$this->permissions->check(array('article' => 'approve')) && $this->article->getApproval()) {
-            $this->view->addMessage('SAVE_SUCCESS_APPROVAL_SAVE');
-        }
-
         if ($this->article->isInEdit()) {
 
             $data = $this->article->getInEdit();

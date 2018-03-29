@@ -238,6 +238,14 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
     padding-right: 0.5em;
 }
 
+.fpcm-ui-padding-md-top {
+    padding-top: 0.5em;
+}
+
+.fpcm-ui-padding-md-bottom {
+    padding-bottom: 0.5em;
+}
+
 .fpcm-ui-padding-lg-lr {
     padding-left: 1em;
     padding-right: 1em;
@@ -264,42 +272,50 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
     padding-bottom: 1em;
 }
 
-.fpcm-ui-margin-none {
-    margin: 0;
-}
-
-.fpcm-ui-marginbottom-md {
+.fpcm-ui-margin-md-bottom {
     margin-bottom: 0.5em;
 }
 
-.fpcm-ui-marginleft-md,
+.fpcm-ui-margin-md-left,
 fieldset:nth-child(even) {
     margin-left: 0.5em;
 }
 
-.fpcm-ui-marginright-md,
+.fpcm-ui-margin-md-right,
 fieldset:nth-child(odd) {
     margin-right: 0.5em;
 }
 
 .fpcm-updater-list p.fpcm-updater-list-with-button span.fa,
-.fpcm-ui-margintop-md {
+.fpcm-ui-margin-md-top {
     margin-top: 0.5em;
 }
 
-.fpcm-ui-marginbottom-lg {
+.fpcm-ui-margin-lg-bottom {
     margin-bottom: 1em;
 }
 
-.fpcm-ui-margintop-lg {
+.fpcm-ui-margin-lg-top {
     margin-top: 1em;
 }
 
-.fpcm-ui-marginleft-none {
+.fpcm-ui-margin-lg-left {
+    margin-left: 1em;
+}
+
+.fpcm-ui-margin-lg-right {
+    margin-right: 1em;
+}
+
+.fpcm-ui-margin-none {
+    margin: 0;
+}
+
+.fpcm-ui-margin-none-left {
     margin-left: 0 !important;
 }
 
-.fpcm-ui-marginright-none {
+.fpcm-ui-margin-none-right {
     margin-right: 0 !important;
 }
 

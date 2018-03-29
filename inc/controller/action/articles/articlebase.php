@@ -54,6 +54,12 @@ class articlebase extends \fpcm\controller\abstracts\controller {
     protected $showRevision = false;
 
     /**
+     *
+     * @var bool
+     */
+    protected $approvalRequired = false;
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -99,6 +105,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
+        $this->approvalRequired = $this->permissions->check(['article' => 'approve']);
         $this->initObject();
 
         if ($this->buttonClicked('doAction') && !$this->checkPageToken()) {
@@ -145,6 +152,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
             $this->view->assign('changeuserList', $changeuserList);
         }
 
+        $this->view->assign('approvalRequired', $this->approvalRequired);
         $this->view->assign('isRevision', false);
         $this->view->assign('article', $this->article);
         $this->view->assign('categories', $this->categoryList->getCategoriesCurrentUser());
@@ -281,7 +289,9 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->article->setPinned(isset($data['pinned']) ? 1 : 0);
         $this->article->setDraft(isset($data['draft']) ? 1 : 0);
         $this->article->setComments(isset($data['comments']) ? 1 : 0);
-        $this->article->setApproval($this->permissions->check(['article' => 'approve']) ? 1 : 0);
+        
+        $approval = $this->permissions->check(['article' => 'approve']) ? 1 : (isset($data['approval']) ? 1 : 0);
+        $this->article->setApproval($approval);
         $this->article->setImagepath(isset($data['imagepath']) ? $data['imagepath'] : '');
         $this->article->setSources(isset($data['sources']) ? $data['sources'] : '');
 

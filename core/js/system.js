@@ -15,6 +15,7 @@ fpcm.system = {
         fpcm.system.runCronsAsync();
         setInterval(fpcm.system.runMinuteIntervals, 60000);
         fpcm.system.initPasswordFieldActions();
+        fpcm.system.showHelpDialog();
     },
     
     initPasswordFieldActions: function() {
@@ -272,12 +273,45 @@ fpcm.system = {
             ],
             dlOnOpen: function (event, ui) {
                 jQuery(this).empty();
-                fpcm.ui.appendHtml(this, '<iframe class="fpcm-full-width" style="height:100%;"  src="' + fpcmManualCheckUrl + '"></iframe>');
+                fpcm.ui.appendHtml(this, '<iframe class="fpcm-ui-full-width" style="height:100%;"  src="' + fpcmManualCheckUrl + '"></iframe>');
             },
             dlOnClose: function( event, ui ) {
                 jQuery(this).empty();
             }
         });
+    },
+    
+    showHelpDialog: function () {
+
+        jQuery('.fpcm-ui-help-dialog').click(function () {+
+
+            fpcm.ui.dialog({
+               id: 'help' ,
+                dlWidth    : fpcm.ui.getDialogSizes(top, 0.75).width,
+                dlHeight   : fpcm.ui.getDialogSizes(top, 0.85).height,
+                resizable  : true,
+                title      : fpcm.ui.translate('HL_HELP'),
+                content    : fpcm.ui.createIFrame({
+                    src    : 'src="' + jQuery(this).attr('href') + '" ',
+                    id     : 'mainhelp'
+                }),
+                dlButtons  : [
+                    {
+                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                        icon: "ui-icon-closethick",                    
+                        click: function() {
+                            jQuery(this).dialog('close');
+                        }
+                    }
+                ],
+                dlOnClose: function( event, ui ) {
+                    jQuery('#fpcm-dialog-mainhelp').remove();
+                }
+            });
+
+            return false;
+        });
+        
     }
 
 };

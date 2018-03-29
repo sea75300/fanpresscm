@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <div class="col-12 fpcm-ui-padding-none-lr">
-    <fieldset class="fpcm-ui-marginleft-none fpcm-ui-marginright-none">
+    <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right">
         <legend><?php $theView->write('HL_CATEGORIES_MNG'); ?></legend>
 
         <div class="fpcm-ui-controlgroup">

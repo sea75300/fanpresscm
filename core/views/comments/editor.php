@@ -14,22 +14,22 @@
     <div class="col-sm-12 col-md-6 fpcm-ui-align-right"><?php print implode(PHP_EOL, $comment->getMetaDataStatusIcons()); ?></div>
 </div>
 
-<div class="row fpcm-ui-margintop-lg">
+<div class="row fpcm-ui-margin-lg-top">
     <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr"><?php $theView->write('COMMMENT_AUTHOR'); ?>:</div>
     <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr"><?php $theView->textInput('comment[name]')->setValue($comment->getName()); ?></div>
 </div>
 
-<div class="row fpcm-ui-margintop-lg">
+<div class="row fpcm-ui-margin-lg-top">
     <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr"><?php $theView->write('GLOBAL_EMAIL'); ?>:</div>
     <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr"><?php $theView->textInput('comment[email]')->setValue($comment->getEmail()); ?></div>
 </div>
 
-<div class="row fpcm-ui-margintop-lg">
+<div class="row fpcm-ui-margin-lg-top">
     <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr"><?php $theView->write('COMMMENT_WEBSITE'); ?>:</div>
     <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr"><?php $theView->textInput('comment[website]')->setValue($comment->getWebsite()); ?></div>
 </div>
 
-<div class="row fpcm-ui-margintop-lg fpcm-ui-marginbottom-md">
+<div class="row fpcm-ui-margin-lg-top fpcm-ui-margin-md-bottom">
     <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr">
     <?php if ($canApprove || $canPrivate) : ?>
     <div class="fpcm-ui-controlgroup">

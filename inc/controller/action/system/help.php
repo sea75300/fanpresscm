@@ -1,52 +1,56 @@
 <?php
-    /**
-     * Help view controller
-     * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     */
-    namespace fpcm\controller\action\system;
-    
-    class help extends \fpcm\controller\abstracts\controller {
 
-        protected function getViewPath() {
-            return 'system/help';
-        }
-        
-        /**
-         * Controller-Processing
-         * @return boolean
-         */
-        public function process() 
-        {
-            $this->cacheName  = 'helpcache_'.$this->config->system_lang;
-            $chapterHeadline  = $this->getRequestVar('ref');
+/**
+ * FanPress CM 4
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
 
-            $contents = $this->cache->read($this->cacheName);
-            if (!is_array($contents)) {
-                $contents = [];
-            }
+namespace fpcm\controller\action\system;
 
-            if ($this->cache->isExpired($this->cacheName)) {
+/**
+ * Help controller
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+class help extends \fpcm\controller\abstracts\controller {
 
-                $xml = simplexml_load_string($this->lang->getHelp());
-                foreach ($xml->chapter as $chapter) {
-                    $headline = trim($chapter->headline);
-                    $contents[$headline] = trim($chapter->text);
-                }
-
-                $this->cache->write($this->cacheName, $contents);
-            }            
-            
-            $contents = $this->events->runEvent('extendHelp', $contents);
-            $this->view->assign('chapters', $contents);
-
-            $pos = $chapterHeadline ? (int) array_search(strtoupper(base64_decode($chapterHeadline)), array_keys($contents)) : 0;
-            $this->view->addJsVars(['fpcmDefaultCapter' => $pos]);
-            $this->view->addJsFiles(['help.js']);
-            
-            $this->view->render();
-        }
-        
+    protected function getViewPath()
+    {
+        return 'system/help';
     }
+
+    /**
+     * Controller-Processing
+     * @return boolean
+     */
+    public function process()
+    {
+        $ref = $this->getRequestVar('ref', [
+            \fpcm\classes\http::FPCM_REQFILTER_URLDECODE,
+            \fpcm\classes\http::FPCM_REQFILTER_BASE64DECODE
+        ]);
+
+        $chapter = $this->getRequestVar('chapter', [
+            \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+        ]);
+        
+        if ($chapter === null) {
+            $chapter = 0;
+        }
+
+        $xml = simplexml_load_string($this->lang->getHelp());
+        $data = $xml->xpath("/chapters/chapter[@ref=\"{$ref}\"]");
+
+        $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
+        $this->view->setViewVars([
+            'headline' => $ref,
+            'content'  => trim($data[$chapter])
+        ]);
+
+        $this->view->render();
+    }
+
+}
+
 ?>
