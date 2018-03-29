@@ -2,47 +2,10 @@
 
 <?php if (!$isRevision) : ?>
 
-<div class="row fpcm-ui-padding-md-tb">
-    <div class="align-self-center col-2 col-lg-1 fpcm-ui-padding-none-lr"><?php $theView->icon('external-link-alt')->setSize('lg'); ?></div>
-    <div class="col-10 col-lg-11 fpcm-ui-padding-none-lr"><?php $theView->textInput('article[sources]')->setPlaceholder(true)->setText('TEMPLATE_ARTICLE_SOURCES')->setValue($article->getSources()); ?></div>
-</div>
+<fieldset class="fpcm-ui-marginleft-none fpcm-ui-marginright-none">
+    <legend><?php $theView->write('GLOBAL_EXTENDED'); ?></legend>
 
-<div class="row fpcm-ui-padding-md-tb">
-    <div class="align-self-center col-2 col-lg-1 fpcm-ui-padding-none-lr"><?php $theView->icon('image')->setSize('lg'); ?></div>
-    <div class="col-8 col-lg-10 fpcm-ui-padding-none-left"><?php $theView->textInput('article[imagepath]')->setPlaceholder(true)->setText('TEMPLATE_ARTICLE_ARTICLEIMAGE')->setValue($article->getImagepath())->setMaxlenght(512); ?></div>
-    <div class="col-2 col-lg-1 fpcm-ui-padding-none-lr fpcm-ui-center"><?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true); ?></div>
-</div>
-        
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-extended">
-    <?php if ($showTwitter) : ?>
-    <div class="row fpcm-ui-padding-md-tb fpcm-editor-dialog-fullwidth-items">
-        <div class="col-sm-12 col-md-3"><?php $theView->checkbox('article[tweet]')->setText('EDITOR_TWEET_ENABLED')->setSelected($article->tweetCreationEnabled())->setIcon('twitter', 'fab')->setClass('fpcm-ui-full-width'); ?></div>
-        <div class="col-sm-12 col-md-9"><?php $theView->textInput('article[tweettxt]')->setSize(512)->setText('EDITOR_TWEET_TEXT')->setPlaceholder(true); ?></div>
-    </div>
-    <div class="row fpcm-ui-padding-md-tb">
-        <div class="col-12 fpcm-ui-center fpcm-ui-font-small">
-            <?php print $twitterReplacements; ?> <?php $theView->shorthelpButton('tweetHelp')->setText('EDITOR_TWEET_TEXT_REPLACER')->setUrl($theView->basePath.'templates/templates'); ?>
-        </div>
-    </div>
-    <?php endif; ?>
-
-    <?php if (!$editorMode || $article->getPostponed()) : ?>
-
-    <div class="row fpcm-ui-padding-md-tb fpcm-editor-dialog-fullwidth-items">
-        <div class="col-sm-12 col-md-3"><?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed())->setIcon('calendar-plus'); ?></div>
-        <div class="col-sm-12 col-md-3">
-            <?php $theView->textInput('article[postponedate]')->setClass('fpcm-ui-datepicker')->setValue($theView->dateText($postponedTimer, 'Y-m-d'))->setWrapperClass('fpcm-ui-datepicker-inputwrapper'); ?>
-        </div>
-        <div class="col-sm-12 col-md-3">
-            <?php $theView->textInput('article[postponehour]')->setClass('fpcm-ui-spinner-hour')->setValue($theView->dateText($postponedTimer, 'H'))->setWrapper(false); ?>
-        </div>
-        <div class="col-sm-12 col-md-3">
-            <?php $theView->textInput('article[postponeminute]')->setClass('fpcm-ui-spinner-minutes')->setValue($theView->dateText($postponedTimer, 'i'))->setWrapper(false); ?>
-        </div>
-    </div>
-    <?php endif; ?>
-
-    <div class="row fpcm-ui-margintop-lg fpcm-ui-marginbottom-md">
+    <div class="row no-gutters fpcm-ui-margintop-lg fpcm-ui-marginbottom-md">
         <div class="col-12">
             <div class="fpcm-ui-controlgroup">
             <?php if (!$article->getArchived()) : ?>
@@ -56,5 +19,44 @@
         </div>
     </div>
 
-</div>
+    <?php if (!$editorMode || $article->getPostponed()) : ?>
+
+    <div class="row fpcm-ui-padding-md-tb fpcm-ui-padding-none-lr-small">
+        <div class="col-12 col-md-12 col-lg-3 fpcm-ui-padding-none-left"><?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed())->setIcon('calendar-plus'); ?></div>
+        <div class="col-12 col-md-4 col-lg-3 fpcm-ui-padding-none-left">
+            <?php $theView->textInput('article[postponedate]')->setClass('fpcm-ui-datepicker')->setValue($theView->dateText($postponedTimer, 'Y-m-d'))->setWrapperClass('fpcm-ui-datepicker-inputwrapper'); ?>
+        </div>
+        <div class="col-12 col-md-4 col-lg-3">
+            <?php $theView->textInput('article[postponehour]')->setClass('fpcm-ui-spinner-hour')->setValue($theView->dateText($postponedTimer, 'H'))->setWrapper(false); ?>
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 fpcm-ui-padding-none-right">
+            <?php $theView->textInput('article[postponeminute]')->setClass('fpcm-ui-spinner-minutes')->setValue($theView->dateText($postponedTimer, 'i'))->setWrapper(false); ?>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <?php if ($showTwitter) : ?>
+    <div class="row no-gutters fpcm-ui-padding-md-tb fpcm-editor-dialog-fullwidth-items">
+        <div class="col-12 col-md-5 col-lg-3"><?php $theView->checkbox('article[tweet]')->setText('EDITOR_TWEET_ENABLED')->setSelected($article->tweetCreationEnabled())->setIcon('twitter', 'fab')->setClass('fpcm-ui-full-width'); ?></div>
+        <div class="col-12 col-md-7 col-lg-9"><?php $theView->textInput('article[tweettxt]')->setSize(512)->setText('EDITOR_TWEET_TEXT')->setPlaceholder(true); ?></div>
+    </div>
+    <div class="row fpcm-ui-padding-md-tb">
+        <div class="col-12 fpcm-ui-center fpcm-ui-font-small">
+            <?php print $twitterReplacements; ?> <?php $theView->shorthelpButton('tweetHelp')->setText('EDITOR_TWEET_TEXT_REPLACER')->setUrl($theView->basePath.'templates/templates'); ?>
+        </div>
+    </div>
+    <?php endif; ?>
+    
+    <div class="row fpcm-ui-padding-md-tb">
+        <div class="align-self-center col-2 col-lg-1 fpcm-ui-padding-none-lr"><?php $theView->icon('external-link-alt')->setSize('lg'); ?></div>
+        <div class="col-10 col-lg-11 fpcm-ui-padding-none-lr"><?php $theView->textInput('article[sources]')->setPlaceholder(true)->setText('TEMPLATE_ARTICLE_SOURCES')->setValue($article->getSources()); ?></div>
+    </div>
+
+    <div class="row fpcm-ui-padding-md-tb">
+        <div class="align-self-center col-2 col-lg-1 fpcm-ui-padding-none-lr"><?php $theView->icon('image')->setSize('lg'); ?></div>
+        <div class="col-8 col-lg-10 fpcm-ui-padding-none-left"><?php $theView->textInput('article[imagepath]')->setPlaceholder(true)->setText('TEMPLATE_ARTICLE_ARTICLEIMAGE')->setValue($article->getImagepath())->setMaxlenght(512); ?></div>
+        <div class="col-2 col-lg-1 fpcm-ui-padding-none-lr fpcm-ui-center"><?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true); ?></div>
+    </div>
+</fieldset>
+
 <?php endif; ?>

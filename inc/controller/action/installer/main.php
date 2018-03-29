@@ -101,6 +101,7 @@ class main extends \fpcm\controller\abstracts\controller {
      */
     public function __construct()
     {
+        session_start();
         return true;
     }
     
@@ -329,9 +330,12 @@ class main extends \fpcm\controller\abstracts\controller {
     protected function runStep6()
     {
         $data = $this->getRequestVar('conf');
-
+        $msg = $this->getRequestVar('msg');
+        
         $user = new \fpcm\model\users\author();
-        $user->setEmail(isset($data['system_email']) ? $data['system_email'] : '');
+        $user->setEmail(isset($data['system_email']) ? $data['system_email'] : (isset($_SESSION['username']) ? $_SESSION['email'] : ''));        
+        $user->setUserName(isset($_SESSION['username']) && $msg !== -5 ? $_SESSION['username'] : '');        
+        $user->setDisplayName(isset($_SESSION['displayname']) ? $_SESSION['displayname'] : '');        
         $user->setRoll(1);
 
         $this->view->assign('author', $user);
@@ -346,7 +350,6 @@ class main extends \fpcm\controller\abstracts\controller {
         $this->view->assign('externalSave', true);
         $this->view->assign('inProfile', false);
 
-        $msg = $this->getRequestVar('msg');
         if ($msg === null) {
             return true;
         }
@@ -379,25 +382,39 @@ class main extends \fpcm\controller\abstracts\controller {
     protected function runAfterStep6()
     {
         $username = $this->getRequestVar('username');
-
+        $email = $this->getRequestVar('email');
+        $displayname = $this->getRequestVar('displayname');
+        
+        $_SESSION['username'] = $username;
+        $_SESSION['email'] = $email;
+        $_SESSION['displayname'] = $displayname;
+        
         foreach ($this->getRequestVar() as $key => $data) {
             if ($data == '' && !in_array($key, array('module', 'step', 'btnSubmitNext', 'language'))) {
-                $this->redirect('installer', array('step' => '6', 'msg' => -6, 'language' => $this->langCode));
+                $this->redirect('installer', [
+                    'step' => '6',
+                    'msg' => -6,
+                    'language' => $this->langCode
+                ]);
                 $this->afterStepResult = false;
                 return false;
             }
         }
 
-        if (in_array($username, array('admin', 'root', 'test', 'support', 'administrator', 'adm'))) {
-            $this->redirect('installer', array('step' => '6', 'msg' => -5, 'language' => $this->langCode));
+        if (in_array($username, FPCM_INSECURE_USERNAMES)) {
+            $this->redirect('installer', [
+                'step' => '6',
+                'msg' => -5,
+                'language' => $this->langCode
+            ]);
             $this->afterStepResult = false;
             return false;
         }
 
         $user = new \fpcm\model\users\author($username);
         $user->setUserName($username);
-        $user->setEmail($this->getRequestVar('email'));
-        $user->setDisplayName($this->getRequestVar('displayname'));
+        $user->setEmail($email);
+        $user->setDisplayName($displayname);
         $user->setRoll(1);
         $user->setUserMeta([]);
         $user->setRegistertime(time());

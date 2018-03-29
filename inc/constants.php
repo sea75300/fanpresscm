@@ -127,3 +127,11 @@
          */
         define ('FPCM_AUTHOR_IMAGE_MAX_SIZE', 32768);
     }
+    
+    if (!defined('FPCM_INSECURE_USERNAMES')) {
+        /**
+         * List of insecure usernams
+         * @since FPCM 3.6
+         */
+        define ('FPCM_INSECURE_USERNAMES', ['admin', 'root', 'test', 'support', 'administrator', 'adm']);
+    }

@@ -27,7 +27,7 @@
             <?php if ($isRevision) : ?>            
                 <?php include $theView->getIncludePath('articles/editors/revisiondiff.php'); ?>
             <?php else : ?>
-                <div class="row fpcm-ui-padding-md-tb"><?php $theView->textInput('article[title]')->setValue($article->getTitle()); ?></div>
+            <div class="row fpcm-ui-padding-md-tb"><?php $theView->textInput('article[title]')->setValue($article->getTitle())->setText('ARTICLE_LIST_TITLE')->setPlaceholder(true); ?></div>
 
                 <?php if ($editorMode) : ?>
                 <div class="row fpcm-ui-editor-metabox fpcm-ui-padding-md-tb">

@@ -527,11 +527,11 @@ fpcm.ui = {
             var closeId = jQuery(this).attr('id');
             jQuery('#msgbox-' + closeId.substring(9)).fadeOut('slow');
         }).mouseover(function () {
-            closeEl.find('.fa.fa-square').removeClass('fa-inverse');
-            closeEl.find('.fa.fa-times').addClass('fa-inverse');
+            jQuery(this).find('.fa.fa-square').removeClass('fa-inverse');
+            jQuery(this).find('.fa.fa-times').addClass('fa-inverse');
         }).mouseout(function () {
-            closeEl.find('.fa.fa-square').addClass('fa-inverse');
-            closeEl.find('.fa.fa-times').removeClass('fa-inverse');
+            jQuery(this).find('.fa.fa-square').addClass('fa-inverse');
+            jQuery(this).find('.fa.fa-times').removeClass('fa-inverse');
         });
     },
     

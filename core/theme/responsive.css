@@ -26,4 +26,9 @@
         margin: 0.5em 0;
     }
     
+    div.fpcm-ui-padding-none-lr-small > div {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
 }

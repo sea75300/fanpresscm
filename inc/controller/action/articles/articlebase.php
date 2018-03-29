@@ -185,10 +185,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->view->addJsVars($this->jsVars);
 
         if (!$this->getRequestVar('rev')) {
-            $this->view->addButtons([
-                (new \fpcm\view\helper\button('editorextended', 'editorextended'))->setText('GLOBAL_EXTENDED')->setIcon('bars')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
-                (new \fpcm\view\helper\saveButton('articleSave'))->setClass('fpcm-ui-maintoolbarbuttons-tab1')
-            ]);
+            $this->view->addButton((new \fpcm\view\helper\saveButton('articleSave'))->setClass('fpcm-ui-maintoolbarbuttons-tab1'));
         }
 
         return true;

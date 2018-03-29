@@ -299,6 +299,10 @@ fieldset:nth-child(odd) {
     margin-left: 0 !important;
 }
 
+.fpcm-ui-marginright-none {
+    margin-right: 0 !important;
+}
+
 .fpcm-ui-background-white-50p {
     background: rgba(255,255,255,0.5);
 }
@@ -335,10 +339,12 @@ div.fpcm-status-info ul.fpcm-menu-top,
 .fpcm-ui-progressbar,
 .fpcm-editor-dialog iframe,
 .fpcm-editor-select a,
-div.fpcm-status-info,
-div.fpcm-editor-dialog div.fpcm-editor-dialog-fullwidth-items .ui-checkboxradio-label,
-div.fpcm-editor-dialog div.fpcm-editor-dialog-fullwidth-items .ui-selectmenu-button {
+div.fpcm-status-info {
     width: 100%;
+}
+
+div.fpcm-ui-datepicker-inputwrapper {
+    max-width: 200px;
 }
 
 div.fpcm-footer,
@@ -925,11 +931,6 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles {
 
 
 /* jQuery UI Hooks */
-#fpcm-dialog-editor-extended.fpcm-editor-dialog .fpcm-ui-editor-postpone div.fpcm-ui-input-wrapper,
-.fpcm-ui-editor-postpone .ui-spinner {
-    width: 3em;
-}
-
 div.fpcm-massedit-dialog div.fpcm-ui-editor-extended-button label {
     line-height: 2em;
 }

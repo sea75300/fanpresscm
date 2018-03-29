@@ -34,39 +34,6 @@ fpcm.editor = {
 
         fpcm.editor.initToolbar();
 
-        jQuery('#editorextended').click(function() {
-
-            var size = fpcm.ui.getDialogSizes(top, 0.75);
-
-            fpcm.ui.dialog({
-                id: 'editor-extended',
-                dlWidth: size.width,
-                title: fpcm.ui.translate('GLOBAL_EXTENDED'),
-                resizable: true,
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",
-                        click: function() {
-                            jQuery(this).dialog('close');
-                        }
-                    }
-                ],
-                dlOnOpen: function (event, ui) {
-                    fpcm.editor.setSelectToDialog(this);
-                },
-                dlOnClose: function (event, ui) {
-                    jQuery(this).dialog('destroy');
-                }
-            });
-
-            jQuery('#btnArticleSave').click(function() {
-                jQuery('#fpcm-dialog-editor-extended').dialog('close');
-            });
-
-            return false;
-        });
-
         fpcm.ui.spinner('input.fpcm-ui-spinner-hour', {
             min: 0,
             max: 23
@@ -124,7 +91,7 @@ fpcm.editor = {
             return false;
         });
 
-        fpcm.ui.checkboxradio('#fpcm-dialog-editor-extended .fpcm-ui-input-checkbox');
+        fpcm.ui.checkboxradio('.fpcm-ui-input-checkbox');
         
         fpcm.ui.tabs('#fpcm-editor-tabs', {
             beforeLoad: function(event, ui) {
