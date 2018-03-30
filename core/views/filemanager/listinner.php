@@ -5,6 +5,8 @@
 
 <?php else : ?>
 
+<?php include $theView->getIncludePath('components/pager.php'); ?>
+
 <div class="row">
 <?php foreach($files AS $file) : ?>
     <div class="col-sm-6 col-md-5 col-lg-4 fpcm-ui-padding-none-lr fpcm-filelist-thumb-box">
@@ -74,8 +76,6 @@
     </div>
     <?php endforeach; ?>
 </div>
-
-<?php include $theView->getIncludePath('components/pager.php'); ?>
 
 <?php endif; ?>
 
