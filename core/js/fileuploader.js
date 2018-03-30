@@ -60,10 +60,9 @@ fpcm.fileuploader = {
             url: fpcm.vars.ajaxActionPath + 'jqupload',
             dropZone: jQuery('#fpcm-filemanager-upload-drop'),
         });
-        
+
         this._uploadsDone = 0;
         uploaderEl.on('fileuploaddone', function (e, data) {
-
             fpcm.filemanager._uploadsDone++;
             if (fpcm.filemanager._uploadsDone < data.getNumberOfFiles()) {
                 return true;

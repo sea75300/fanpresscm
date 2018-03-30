@@ -56,32 +56,31 @@
             
             fpcmLogCron('Fetch database tables for backup...');
             
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableArticles;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableAuthors;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableCategories;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableComments;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableConfig;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableCronjobs;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableFiles;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableIpAdresses;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableModules;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tablePermissions;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableRoll;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableSessions;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableSmileys;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableTexts;
-            $dumpSettings['include-tables'][] = $dbconfig['DBPREF'].'_'.\fpcm\classes\database::tableRevisions;
-            
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableArticles);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableAuthors);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableCategories);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableComments);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableConfig);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableCronjobs);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableFiles);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableIpAdresses);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableModules);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tablePermissions);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableSessions);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableSmileys);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableTexts);
+            $dumpSettings['include-tables'][] = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRevisions);
             $dumpSettings['include-tables']   = $this->events->runEvent('cronjobDbDumpIncludeTables', $dumpSettings['include-tables']);
 
             fpcmLogCron('Create new database dump in "'.\fpcm\model\files\ops::removeBaseDir($this->dumpfile, true).'"...');
             
-            $mysqlDump = new \Ifsnop\Mysqldump\Mysqldump($dbconfig['DBNAME'],
-                                                         $dbconfig['DBUSER'],
-                                                         $dbconfig['DBPASS'],
-                                                         $dbconfig['DBHOST'],
-                                                         $dbconfig['DBTYPE'],
-                                                         $dumpSettings);
+            $mysqlDump = new \Ifsnop\Mysqldump\Mysqldump(
+                $this->dbcon->getPdoDns(),
+                $dbconfig['DBUSER'],
+                $dbconfig['DBPASS'],
+                $dumpSettings
+            );
             $mysqlDump->start($this->dumpfile);
             
             $this->updateLastExecTime();

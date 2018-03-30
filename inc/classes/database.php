@@ -977,4 +977,23 @@ final class database {
         $this->explain = (bool) $explain;
     }
 
+    /**
+     * Returns PDO DNS string
+     * @return string
+     */
+    public function getPdoDns()
+    {
+        $dbconfig = baseconfig::getDatabaseConfig();
+        return $dbconfig['DBTYPE'] . ':' . $this->driver->getPdoDns($dbconfig);
+    }
+
+    /**
+     * Returns PDO options array
+     * @return string
+     */
+    public function getPdoOptions()
+    {
+        return $this->driver->getPdoOptions();
+    }
+
 }

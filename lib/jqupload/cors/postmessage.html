@@ -8,14 +8,14 @@
  * https://blueimp.net
  *
  * Licensed under the MIT license:
- * http://www.opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  */
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <title>jQuery File Upload Plugin postMessage API</title>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <script>
@@ -24,10 +24,10 @@
 'use strict';
 var origin = /^http:\/\/example.org/,
     target = new RegExp('^(http(s)?:)?\\/\\/' + location.host + '\\/');
-jQuery(window).on('message', function (e) {
+$(window).on('message', function (e) {
     e = e.originalEvent;
     var s = e.data,
-        xhr = jQuery.ajaxSettings.xhr(),
+        xhr = $.ajaxSettings.xhr(),
         f;
     if (!origin.test(e.origin)) {
         throw new Error('Origin "' + e.origin + '" does not match ' + origin);
@@ -35,7 +35,7 @@ jQuery(window).on('message', function (e) {
     if (!target.test(e.data.url)) {
         throw new Error('Target "' + e.data.url + '" does not match ' + target);
     }
-    jQuery(xhr.upload).on('progress', function (ev) {
+    $(xhr.upload).on('progress', function (ev) {
         ev = ev.originalEvent;
         e.source.postMessage({
             id: s.id,
@@ -51,12 +51,12 @@ jQuery(window).on('message', function (e) {
     };
     if (!(s.data instanceof Blob)) {
         f = new FormData();
-        jQuery.each(s.data, function (i, v) {
+        $.each(s.data, function (i, v) {
             f.append(v.name, v.value);
         });
         s.data = f;
     }
-    jQuery.ajax(s).always(function (result, statusText, jqXHR) {
+    $.ajax(s).always(function (result, statusText, jqXHR) {
         if (!jqXHR.done) {
             jqXHR = result;
             result = null;

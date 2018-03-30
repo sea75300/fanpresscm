@@ -104,13 +104,24 @@ fpcm.filemanager = {
 
         fpcm.ui.initPager({
             backAction: function() {
-                var page = jQuery(this).attr('href').split('&page=');
+                var link = jQuery(this).attr('href');
+                if (link === '#') {
+                    return false;
+                }
+
+                var page = link.split('&page=');
                 fpcm.filemanager.reloadFiles((page[1] === undefined) ? 1 : page[1]);
                 return false;
             },
             
             nextAction: function() {
-                var page = jQuery(this).attr('href').split('&page=');
+                
+                var link = jQuery(this).attr('href');
+                if (link === '#') {
+                    return false;
+                }
+
+                var page = link.split('&page=');
                 fpcm.filemanager.reloadFiles((page[1] === undefined) ? 1 : page[1]);
                 return false;
             },

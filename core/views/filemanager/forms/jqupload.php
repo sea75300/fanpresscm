@@ -1,3 +1,4 @@
+<?php /* @var $theView fpcm\view\viewVars */ ?>
 <link rel="stylesheet" type="text/css" href="<?php print $jquploadPath ?>css/jquery.fileupload.css">
 <link rel="stylesheet" type="text/css" href="<?php print $jquploadPath ?>css/jquery.fileupload-ui.css">
 <noscript><link rel="stylesheet" type="text/css" href="<?php print $jquploadPath ?>css/jquery.fileupload-noscript.css"></noscript>
@@ -17,17 +18,20 @@
     <div class="fpcm-ui-margin-lg-bottom fileupload-buttonbar">
         <div class="fileupload-buttons fpcm-ui-controlgroup">
             <a class="fileinput-button">
+                <?php $theView->icon('plus'); ?>
                 <span><?php $theView->write('FILE_FORM_FILEADD'); ?></span>
                 <input type="file" name="files[]" multiple>
             </a>
             
-            <?php $theView->submitButton('start')->setText('FILE_FORM_UPLOADSTART')->setClass('start'); ?>
-            <?php $theView->resetButton('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('cancel')->setIcon('', false); ?>
+            <?php $theView->submitButton('start')->setText('FILE_FORM_UPLOADSTART')->setClass('start')->setIcon('upload'); ?>
+            <?php $theView->resetButton('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('cancel')->setIcon('ban'); ?>
             <span class="fileupload-process"></span>
         </div>
     </div>
 
-    <div id="fpcm-filemanager-upload-drop"><h4 class="fpcm-ui-center"><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4></div>
+    <div id="fpcm-filemanager-upload-drop">
+        <h4 class="fpcm-ui-center"><?php $theView->icon('images', 'far')->setSize('4x')->setClass('fpcm-ui-padding-md-bottom fpcm-ui-status-075'); ?><br><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4>
+    </div>
 
     <div role="presentation" class="fpcm-ui-margin-lg-top">
         <div class="files"></div>
@@ -35,19 +39,20 @@
 
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
+    
 {% for (var i=0, file; file=o.files[i]; i++) { %}
-    <div class="row template-upload fade fpcm-ui-padding-tb">
-
-        <div class="col-12 col-sm-4 col-md-1 fpcm-ui-center jqupload-row-buttons">
+    <div class="row template-upload fade fpcm-ui-padding-md-tb">
+        <div class="col-6 col-sm-4 col-md-2 fpcm-ui-center jqupload-row-buttons fpcm-ui-padding-none-lr">
+        
             {% if (!i && !o.options.autoUpload) { %}
-                <button class="start jqupload-btn"><?php $theView->write('FILE_FORM_UPLOADSTART'); ?></button>
+                <?php $theView->button('startlist')->setClass('start')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload')->setIconOnly(true); ?>
             {% } %}
             {% if (!i) { %}
-                <button class="cancel jqupload-btn"><?php $theView->write('FILE_FORM_UPLOADCANCEL'); ?></button>
+                <?php $theView->button('cancellist')->setClass('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban')->setIconOnly(true); ?>
             {% } %}
         </div>
 
-        <div class="col-12 col-sm-8 col-md-11 align-self-center">
+        <div class="col-6 col-sm-8 col-md-10 align-self-center">
             <span class="name">{%=file.name%}</span>
             <strong class="error"></strong>
         </div>
@@ -58,12 +63,7 @@
 <script id="template-download" type="text/x-tmpl">
 </script>
 <script src="<?php print $jquploadPath ?>js/template.js"></script>
-<script src="<?php print $jquploadPath ?>js/jquery.iframe-transport.js"></script>
 <script src="<?php print $jquploadPath ?>js/jquery.fileupload.js"></script>
 <script src="<?php print $jquploadPath ?>js/jquery.fileupload-process.js"></script>
 <script src="<?php print $jquploadPath ?>js/jquery.fileupload-validate.js"></script>
 <script src="<?php print $jquploadPath ?>js/jquery.fileupload-ui.js"></script>
-<script src="<?php print $jquploadPath ?>js/jquery.fileupload-jquery-ui.js"></script>
-<!--[if (gte IE 8)&(lt IE 10)]>
-<script src="<?php print $jquploadPath ?>js/cors/jquery.xdr-transport.js"></script>
-<![endif]-->
