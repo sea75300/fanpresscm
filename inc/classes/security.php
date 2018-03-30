@@ -41,12 +41,6 @@ final class security {
     private static $cookieName;
 
     /**
-     * Session Cookie Name
-     * @since FPCM 3.6
-     */
-    private static $pageTokenName;
-
-    /**
      * Cookie-Name zurückgeben
      * @return string
      */
@@ -77,14 +71,8 @@ final class security {
      */
     public static function getPageTokenFieldName($name = '')
     {
-        if (self::$pageTokenName) {
-            return self::$pageTokenName;
-        }
-
         $conf = baseconfig::getSecurityConfig();
-        self::$pageTokenName = hash(self::defaultHashAlgo, trim($name) ? trim($name) : $conf['pageTokenBase']);
-
-        return self::$pageTokenName;
+        return hash(self::defaultHashAlgo, trim($name) ? trim($name) : $conf['pageTokenBase']);
     }
 
     /**
@@ -150,7 +138,6 @@ final class security {
      */
     public static function createPageToken($overrideModule = '')
     {
-        
         $str = hash(self::defaultHashAlgo, uniqid(true, __FUNCTION__) . mt_rand() . microtime(true));
         $cacheName = self::pageTokenCacheModule . '/' . self::getPageTokenFieldName($overrideModule);
 

@@ -1,10 +1,10 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
+</form>
+
 <link rel="stylesheet" type="text/css" href="<?php print $jquploadPath ?>css/jquery.fileupload.css">
 <link rel="stylesheet" type="text/css" href="<?php print $jquploadPath ?>css/jquery.fileupload-ui.css">
 <noscript><link rel="stylesheet" type="text/css" href="<?php print $jquploadPath ?>css/jquery.fileupload-noscript.css"></noscript>
 <noscript><link rel="stylesheet" type="text/css" href="<?php print $jquploadPath ?>css/jquery.fileupload-ui-noscript.css"></noscript>
-
-</form>
 
 <form id="fileupload" action="<?php print $actionPath; ?>" method="POST" enctype="multipart/form-data">
 
@@ -63,7 +63,11 @@
 <script id="template-download" type="text/x-tmpl">
 </script>
 <script src="<?php print $jquploadPath ?>js/template.js"></script>
+<script src="<?php print $jquploadPath ?>js/jquery.iframe-transport.js"></script>
 <script src="<?php print $jquploadPath ?>js/jquery.fileupload.js"></script>
 <script src="<?php print $jquploadPath ?>js/jquery.fileupload-process.js"></script>
 <script src="<?php print $jquploadPath ?>js/jquery.fileupload-validate.js"></script>
 <script src="<?php print $jquploadPath ?>js/jquery.fileupload-ui.js"></script>
+<!--[if (gte IE 8)&(lt IE 10)]>
+<script src="<?php print $jquploadPath ?>js/cors/jquery.xdr-transport.js"></script>
+<![endif]-->

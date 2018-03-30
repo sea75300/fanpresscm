@@ -28,9 +28,9 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-        require_once \fpcm\classes\loader::libGetFilePath('jqupload/server/UploadHandler.php');
+        require_once \fpcm\classes\loader::libGetFilePath('jqupload/server/fpcmUploadHandler.php');
 
-        (new \UploadHandler([
+        new \fpcmUploadHandler([
             'script_url' => \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'),
             'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, '/'),
             'upload_url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, '/'),
@@ -43,8 +43,13 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController {
                     'max_width' => $this->config->file_img_thumb_width,
                     'max_height' => $this->config->file_img_thumb_height
                 )
-            )
-        ]));
+            ),
+            'min_width' => false,
+            'max_width' => false,
+            'min_height' => false,
+            'max_height' => false
+        ]);
+
     }
 
 }
