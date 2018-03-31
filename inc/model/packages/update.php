@@ -40,7 +40,7 @@ class update extends package {
      */
     public function getLocalDestinationPath()
     {
-        return \fpcm\classes\dirs::getFullDirPath('/');
+        return \fpcm\classes\dirs::getFullDirPath(DIRECTORY_SEPARATOR);
     }
 
     /**
@@ -67,7 +67,7 @@ class update extends package {
      */
     public function getLocalSignature()
     {
-        return hash_file(\fpcm\classes\security::defaultHashAlgo, $this->getLocalPath());
+        return \fpcm\model\files\ops::hashFile($this->getLocalPath());
     }
 
     /**
@@ -93,27 +93,18 @@ class update extends package {
      * @return boolean
      */
     public function checkFiles()
-    {
-        $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt');
-        if (!$path || !file_exists($path)) {
-            return false;
-        }
-
-        $files = file($path, FILE_IGNORE_NEW_LINES);
+    {;
+        $files = $this->getFileList(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt'), 1);
         if (!count($files)) {
             return false;
         }
 
-        $excludes = [
-            'fanpress',
-            'fanpress/data/config/installer.enabled'
-        ];
-        
-        $files = array_slice($files, 0, -2);
+        $excludes = $this->getExcludes();
         $notWritable = [];
+
         foreach ($files as $file) {
 
-            if (in_array($file, $excludes) || is_writable(str_replace('fanpress/', \fpcm\classes\dirs::getFullDirPath('/'), $file))) {
+            if (in_array($file, $excludes) || is_writable($this->replaceFanPressBaseFolder($file))) {
                 continue;
             }
             
@@ -127,6 +118,116 @@ class update extends package {
         }
 
         return true;
+    }
+
+    /**
+     * Kopiert Inhalt von Paket von Quelle nach Ziel
+     * @return boolean
+     */
+    public function copy()
+    {
+        $srcBasePath    = $this->getExtractionPath();        
+        $files          = $this->getFileList($srcBasePath. DIRECTORY_SEPARATOR. 'fanpress'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'files.txt', 1);
+        
+        if (!count($files)) {
+            return self::FILESCOPY_ERROR;
+        }
+        
+        $excludes = $this->getExcludes();
+
+        $proto = [];
+        $failed = [];
+        foreach ($files as $file) {
+
+            if (!trim($file) || in_array($file, $excludes)) {
+                continue;
+            }
+            
+            $src = $srcBasePath.DIRECTORY_SEPARATOR.$file;
+            $dest = $this->replaceFanPressBaseFolder($file);
+
+            if (!trim($src) || !trim($dest)) {
+                continue;
+            }
+            
+            $isDir = is_dir($src);
+            $srcExists = file_exists($src);
+            $destExists = file_exists($dest);
+
+            if ($isDir && $destExists) {
+                continue;
+            }
+
+            if ($isDir && !mkdir($dest, 0777)) {
+                $proto[] = $dest.' new folder failed';
+                $failed++;
+            }
+            
+            if ($isDir) {
+                continue;;
+            }
+
+            if ($destExists) {
+
+                if (\fpcm\model\files\ops::hashFile($src) === \fpcm\model\files\ops::hashFile($dest)) {
+                    $proto[] = $dest.' > file update skipped';
+                    continue;
+                }
+
+                $backFile = $dest.'.back';
+                if (file_exists($backFile)) {
+                    unlink($backFile);
+                }
+
+                if (!copy($dest, $backFile)) {
+                    $failed[] = $backFile.' > backup creation failed';
+                    $proto[] = $backFile.' > backup creation failed';
+                }
+
+            }
+
+            if (!copy($src, $dest)) {
+                $failed[] = $dest.' > file update failed';
+                $proto[] = $dest.' > file update failed';
+                continue;
+            }
+
+            $proto[] = $dest.' > file update OK';
+        }
+
+        $fopt = new \fpcm\model\files\fileOption('updatecopy');
+        $fopt->write($proto);
+        
+        if (count($failed)) {
+            fpcmLogPackages($this->packageName.' - failed files', $failed);
+            return self::FILESCOPY_ERROR;
+        }
+        
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    public function updateLog()
+    {
+        $fopt = new \fpcm\model\files\fileOption('updatecopy');
+        
+        if (!fpcmLogPackages($this->packageName, $fopt->read())) {
+            return false;
+        }
+
+        return $fopt->remove();
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    private function getExcludes()
+    {
+        return ['fanpress'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'installer.enabled'];
     }
 
 }

@@ -142,6 +142,18 @@ abstract class package {
     abstract public function checkFiles();
 
     /**
+     * 
+     * @return bool
+     */
+    abstract public function copy();
+
+    /**
+     * 
+     * @return bool
+     */
+    abstract public function updateLog();
+
+    /**
      * Check if remot path points to trusted server
      * @return boolean
      */
@@ -240,96 +252,10 @@ abstract class package {
 
         return true;
     }
-
+    
     /**
-     * Kopiert Inhalt von Paket von Quelle nach Ziel
+     * Performs clean of update files and cache
      * @return boolean
-     */
-    public function copy()
-    {
-
-        if (!file_exists($this->tempListFile)) {
-            \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-            return false;
-        }
-
-        $this->loadPackageFileListFromTemp();
-
-        if (!count($this->files)) {
-            \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-            return false;
-        }
-
-        $vendorFolder = \fpcm\classes\dirs::getFullDirPath($this->copyDestination . dirname($this->key));
-        if ($this->type == 'module' && !is_dir($vendorFolder) && !mkdir($vendorFolder)) {
-            trigger_error('Unable to create module vendor folder: ' . \fpcm\model\files\ops::removeBaseDir($vendorFolder, true));
-            \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-            return false;
-        }
-
-        $res = true;
-        foreach ($this->files as $zipFile) {
-            $source = $this->extractPath . $zipFile;
-
-            $dest = ($this->type == 'module' ? \fpcm\classes\dirs::getFullDirPath($this->copyDestination . str_replace(basename($this->key) . '/', $this->key . '/', $zipFile)) : dirname(\fpcm\classes\dirs::getFullDirPath('')) . $this->copyDestination . $zipFile);
-
-            $dest = $this->replaceFanpressDirString($dest);
-
-            if (is_dir($source)) {
-                if (!file_exists($dest) && !mkdir($dest, 0777)) {
-                    if (!is_array($res))
-                        $res = [];
-                    $res[] = $dest;
-                }
-                continue;
-            }
-
-            if (file_exists($dest)) {
-
-                if (sha1_file($source) == sha1_file($dest)) {
-                    $this->updateProtocol($zipFile, -1);
-                    continue;
-                }
-
-                $backFile = $dest . '.back';
-                if (file_exists($backFile)) {
-                    unlink($backFile);
-                }
-
-                rename($dest, $backFile);
-            }
-
-            $success = copy($source, $dest);
-            if (!$success) {
-                if (!is_array($res))
-                    $res = [];
-                $res[] = $dest;
-            }
-
-            $this->updateProtocol($zipFile, $success);
-        }
-
-        $this->saveProtocolTemp();
-        return is_array($res) ? self::FILESCOPY_ERROR : $res;
-    }
-
-    /**
-     * Lädt Paket-Dateiliste aus temporärer Datei
-     * @return boolean
-     */
-    public function loadPackageFileListFromTemp()
-    {
-
-        if (count($this->files)) {
-            return true;
-        }
-
-        $this->files = json_decode(base64_decode(file_get_contents($this->tempListFile)), true);
-        return true;
-    }
-
-    /**
-     * Löscht temoräre Dateien
      */
     public function cleanup()
     {
@@ -347,42 +273,13 @@ abstract class package {
     }
 
     /**
-     * Baut Datei-Liste aus Archiv auf
-     */
-    protected function listArchiveFiles()
-    {
-
-        for ($i = 0; $i < $this->archive->numFiles; $i++) {
-            $this->files[] = $this->archive->getNameIndex($i);
-        }
-
-        if (!file_put_contents($this->tempListFile, base64_encode(json_encode($this->files)))) {
-            trigger_error('Failed to create temporary package file list');
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Initialisiert Daten
-     */
-    public function init()
-    {
-        $path = \fpcm\classes\baseconfig::$updateServer . self::SERVER_PACKAGEPATH . $this->filename;
-        $localPath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $this->filename);
-        $this->extractPath = dirname($localPath) . '/' . md5(basename($localPath, '.zip')) . '/';
-        $this->tempListFile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, md5($localPath));
-    }
-
-    /**
      * Ersetzt "fanpress"-Ordnername durch basedir-Daen in einem Pfad
      * @param string $path
      * @return string
      */
-    protected function replaceFanpressDirString($path)
+    protected function replaceFanPressBaseFolder($path)
     {
-        return str_replace('fanpress/', basename(\fpcm\classes\dirs::getFullDirPath('')) . '/', $path);
+        return str_replace('fanpress/', $this->getLocalDestinationPath(), $path);
     }
 
     /**
@@ -410,15 +307,21 @@ abstract class package {
     }
 
     /**
-     * copy-Protokoll in temporäre Datei speichern
-     * @return boolean
-     * @since FPCM 3.6
+     * Fetch array of files from files.txt file
+     * @param string $path
+     * @return array
      */
-    protected function saveProtocolTemp()
+    protected function getFileList($path, $start = 0)
     {
-        $tempfile = new \fpcm\model\files\tempfile('protocol' . $localPath);
-        $tempfile->setContent(base64_encode(json_encode($this->protocol)));
-        return $tempfile->save();
-    }
+        if (!trim($path) || !file_exists($path)) {
+            return [];
+        }
 
+        $files = file($path, FILE_IGNORE_NEW_LINES);
+        if (!count($files)) {
+            return [];
+        }
+
+        return array_slice($files, $start, -2);
+    }
 }

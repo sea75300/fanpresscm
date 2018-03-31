@@ -66,6 +66,15 @@ class fileOption {
     }
 
     /**
+     * Remove file option
+     * @return bool
+     */
+    public function remove()
+    {
+        return unlink($this->path);
+    }
+
+    /**
      * Return extension for cache file
      * @return string
      */
