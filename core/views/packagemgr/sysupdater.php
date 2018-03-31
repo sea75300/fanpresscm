@@ -57,12 +57,13 @@
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
                 <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
                     <?php $theView->icon('cloud-download-alt')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                        'step' => 'download',
-                        'var' => 'url'
+                        'step' => 'download'
                     ]); ?>
                 </div>
                 <div class="col-11 align-self-center fpcm-ui-updater-descr">
-                    <?php $theView->write('PACKAGEMANAGER_DOWNLOAD'); ?>
+                    <?php $theView->write('PACKAGEMANAGER_DOWNLOAD', [
+                        '{{var}}' => $pkgurl
+                    ]); ?>
                 </div>
             </div>
             <?php endif; ?>
@@ -71,12 +72,13 @@
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
                 <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
                     <?php $theView->icon('info')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                        'step' => 'checkPkg',
-                        'var' => 'pkgname'
+                        'step' => 'checkPkg'
                     ]); ?>
                 </div>
                 <div class="col-11 align-self-center fpcm-ui-updater-descr">
-                    <?php $theView->write('PACKAGEMANAGER_CHECKPKG'); ?>
+                    <?php $theView->write('PACKAGEMANAGER_CHECKPKG', [
+                        '{{var}}' => $pkgname
+                    ]); ?>
                 </div>
             </div>
             <?php endif; ?>
@@ -85,12 +87,13 @@
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
                 <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
                     <?php $theView->icon('file-archive', 'far')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                        'step' => 'extract',
-                        'var' => 'pkgname'
+                        'step' => 'extract'
                     ]); ?>
                 </div>
                 <div class="col-11 align-self-center fpcm-ui-updater-descr">
-                    <?php $theView->write('PACKAGEMANAGER_EXTRACT'); ?>
+                    <?php $theView->write('PACKAGEMANAGER_EXTRACT', [
+                        '{{var}}' => $pkgname
+                    ]); ?>
                 </div>
             </div>
             <?php endif; ?>

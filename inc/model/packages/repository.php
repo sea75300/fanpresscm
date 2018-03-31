@@ -18,7 +18,7 @@ final class repository extends \fpcm\model\abstracts\remoteModel {
     const FOPT_UPDATES = 'updates.yml';
 
     const FOPT_MODULES = 'modules.yml';
-    
+
     /**
      *
      * @var array
@@ -55,7 +55,7 @@ final class repository extends \fpcm\model\abstracts\remoteModel {
     {
         foreach ($this->files as $rem => $local) {            
             
-            fpcmLogSystem('Fetch package information from '.$rem);
+            fpcmLogCron('Fetch package information from '.$rem);
 
             $this->remoteServer = $rem;
             $this->current      = $local;

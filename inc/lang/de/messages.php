@@ -140,8 +140,18 @@ $lang = array(
     'UPDATE_VERSIONCHECK_CURRENT' => 'Deine Version von FanPress CM ist <strong>aktuell</strong>!',
     'UPDATE_VERSIONCHECK_NOTES' => 'Release-Notes und weitere Infos zu System- und Modul-Updates findest du in den aktuellen FanPress CM News.',
     'UPDATE_VERSIONCECK_FILEDB_ERR' => 'Die Version im Dateisystem und der Datenbank stimmen nicht überein. {{btn}}',
+    
     'UPDATE_NOTAUTOCHECK' => 'Es konnte keine automatische Update-Prüfung durchgeführt werden! <a class="fpcm-ui-button fpcm-updatecheck-manual" href="#">Manuell prüfen</a>',
     'UPDATE_WRITEERROR' => 'Einige Dateien im Dateisystem sind nicht beschreibbar und können daher nicht ersetzt werden. Prüfe die Rechte der Dateien via FTP, eine Liste findest du im System-Log.',
+    
+    'PACKAGES_FAILED_DOWNLOAD_UNTRUSTED' => 'Die verfügbare Paketdatei wird nicht heruntergeladen, da dem Paket-Server <em>{{var}}</em> nicht vertraut wird.',
+    'PACKAGES_FAILED_ERROR901'           => 'Es konnte keine Verbindung zum Paketserver hergestellt werden!',
+    'PACKAGES_FAILED_ERROR902'          => 'Es konnte keine lokale Paket-Datei erzeugt werden!',
+    'PACKAGES_FAILED_ERROR903'         => 'Beim Schreiben der lokalen Paket-Datei ist ein Fehler aufgetreten!',
+    'PACKAGES_FAILED_ERROR904'        => 'Die lokale Paket-Datei wurde nicht gefunden!',
+    'PACKAGES_FAILED_ERROR906'        => 'Die Archiv-Datei konnte nicht geöffnet werden!',
+    'PACKAGES_FAILED_ERROR907'        => 'Beim Entpacken der Archiv-Datei ist ein Fehler aufgetreten!',   
+    
     'UPDATE_MODULECHECK_NEW' => 'Für einige Module sind Updates verfügbar. <a class="fpcm-ui-button fpcm-loader" href="?module=modules/list">Updates anzeigen</a>',
     'UPDATE_MODULECHECK_CURRENT' => 'Alle installierten Module sind <strong>aktuell</strong>!',
     'UPDATE_MODULECHECK_FAILED' => 'Es konnte keine Update-Prüfung für die installierten Module durchgeführt werden!',

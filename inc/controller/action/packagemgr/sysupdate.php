@@ -75,9 +75,11 @@ class sysupdate extends \fpcm\controller\abstracts\controller {
         }
         else {
             $updater = new \fpcm\model\updater\system();
-            $jsData['url'] = $updater->url;
+            $this->steps['pkgurl'] = $updater->url;
+            $this->steps['pkgname'] = basename($updater->url);
         }
 
+        
         $this->view->setViewVars($this->steps);
         $this->view->addJsVars([
             'pkgdata' => [

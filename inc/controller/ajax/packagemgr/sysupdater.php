@@ -87,48 +87,19 @@ class sysupdater extends \fpcm\controller\abstracts\ajaxController {
             $this->getSimpleResponse();
         }
 
-        fpcmLogSystem($this->step);
-        
         call_user_func([$this, $this->step]);
         $this->returnData = [
             'code' => $this->res,
             'pkgdata' => $this->pkgdata
         ];
 
+        usleep(500000);
         $this->getSimpleResponse();
-
-
-//            
-//            if ($this->canConnect) {
-//                
-//                $this->versionDataFile = new \fpcm\model\files\tempfile('newversion');
-//                if ($this->versionDataFile->exists() && $this->versionDataFile->getContent()) {
-//                    $remoteData = json_decode($this->versionDataFile->getContent(), true);
-//                }
-//                else {
-//                    $updater = new \fpcm\model\updater\system();
-//                    $updater->checkUpdates();
-//
-//                    $remoteData = $updater->getRemoteData();
-//                    $this->versionDataFile->setContent(json_encode($remoteData));
-//                    $this->versionDataFile->save();
-//                }
-//
-//                $fileInfo = pathinfo($remoteData['filepath'], PATHINFO_FILENAME);
-//
-//                $tmpFile = new \fpcm\model\files\tempfile('forceUpdateFile');
-//                if ($tmpFile->exists()) {
-//                    $fileInfo = $tmpFile->getContent();
-//                }
-//
-//                $signature = isset($remoteData['signature']) ? $remoteData['signature'] : '';
-//                $this->pkg = new \fpcm\model\packages\update('update', $fileInfo, '', $signature);
-//            }
     }
 
     private function execMaintenanceOn()
     {
-        $this->res = $this->config->setMaintenanceMode(true);
+        $this->res = $this->config->setMaintenanceMode(true) && \fpcm\classes\baseconfig::enableAsyncCronjobs(false);
     }
 
     private function execMaintenanceOff()
@@ -138,63 +109,72 @@ class sysupdater extends \fpcm\controller\abstracts\ajaxController {
 
     private function execCheckFiles()
     {
-        $this->res = true;
-        
-//        $this->res = $this->pkg->checkFiles();
-//
-//        if ($this->res === \fpcm\model\packages\package::FPCMPACKAGE_FILESCHECK_ERROR) {
-//            $this->versionDataFile->delete();
-//        }
-//
-//        if ($this->res === true) {
-//            $this->syslog('All local files are writable ' . $this->pkg->getRemoteFile());
-//            $this->returnData['nextstep'] = \fpcm\model\packages\package::FPCMPACKAGE_STEP_COPY;
-//            return true;
-//        }
-//
-//        $this->syslog('A few files in local file system where not writable ' . $this->pkg->getRemoteFile());
-//        $this->syslog(implode(PHP_EOL, $this->pkg->getCopyErrorPaths()));
+        $this->init();
+
+        $success = $this->pkg->checkFiles();
+        if ($success === \fpcm\model\packages\package::FILESCHECK_ERROR) {
+            $this->addErrorMessage('UPDATE_WRITEERROR');
+        }
+
+        $this->res = $success === true ? true : false;
+
+        if (!$this->res) {
+            return false;
+        }
+
+        fpcmLogSystem('Local file system check was successful');
     }
 
     private function execDownload()
     {
         $this->init();
-        $this->res = true;
-
         
-//        $this->res = $this->pkg->download();
-//
-//        if ($this->res === \fpcm\model\packages\package::FPCMPACKAGE_REMOTEFILE_ERROR) {
-//            $this->versionDataFile->delete();
-//        }
-//
-//        if ($this->res === true) {
-//            $this->syslog('Downloaded update package successfully from ' . $this->pkg->getRemoteFile());
-//            return true;
-//        }
-//
-//        $this->syslog('Error while downloading update package from ' . $this->pkg->getRemoteFile());
+        if (!$this->pkg->isTrustedPath()) {
+            $this->addErrorMessage('PACKAGES_FAILED_DOWNLOAD_UNTRUSTED', [
+                '{{var}}' => $this->pkg->getRemotePath()
+            ]);
+            $this->res = false;
+            return false;
+        }
+        
+        $this->res = $this->pkg->download();
+        if ($this->res === true) {
+            fpcmLogSystem('Download of package '.$this->pkg->getRemotePath().' was successful.');
+            return true;
+        }
+
+        $this->addErrorMessage('PACKAGES_FAILED_ERROR'.$this->res);
+        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
+        $this->res = false;
     }
     
     private function execCheckPkg()
     {
-        $this->res = true;
+        $this->init();
+
+        $this->res = $this->pkg->checkPackage();
+        if ($this->res === true) {
+            fpcmLogSystem('Package integity check for '.basename($this->pkg->getLocalPath()).' was successful.');
+            return true;
+        }
+
+        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
+        $this->res = false;
     }
 
     private function execExtract()
     {
-        $this->res = true;
-        return;
+        $this->init();
 
         $this->res = $this->pkg->extract();
-        $from = \fpcm\model\files\ops::removeBaseDir($this->pkg->getLocalFile());
-
         if ($this->res === true) {
-            $this->syslog('Extracted update package successfully from ' . $from);
+            fpcmLogSystem('Package extraction for '.basename($this->pkg->getLocalPath()).' was successful.');
             return true;
         }
 
-        $this->syslog('Error while extracting update package from ' . $from);
+        $this->addErrorMessage('PACKAGES_FAILED_ERROR'.$this->res);
+        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
+        $this->res = false;
     }
 
     private function execUpdateFs()
@@ -237,49 +217,30 @@ class sysupdater extends \fpcm\controller\abstracts\ajaxController {
 
     private function execCleanup()
     {
-        $this->res = true;
-        return;
-
-        if ($this->canConnect) {
-
-            $list = [];
-            if (method_exists($this->pkg, 'getProtocol')) {
-                $list = $this->pkg->getProtocol();
-            }
-
-            if (!count($list)) {
-                $this->pkg->loadPackageFileListFromTemp();
-                $list = $this->pkg->getFiles();
-            }
-
-
-            $this->pkglog($this->pkg->getKey() . ' ' . $this->pkg->getVersion(), $list);
-        }
-
-        
-        $this->cache->cleanup();
-
-        $this->res = true;
+        $this->init();
+        $this->res = $this->pkg->cleanup();
+        \fpcm\classes\loader::getObject('\fpcm\classes\cache')->cleanup();
     }
 
     private function execGetVersion()
     {
         $this->pkgdata['version'] = $this->config->system_version;
         $this->res = true;
-
-//        if ($this->versionDataFile->exists()) {
-//            $this->versionDataFile->delete();
-//        }
     }
 
     private function init()
     {
-        $updater = new \fpcm\model\updater\system();
-        $this->pkgdata['pkgname'] = basename($updater->url);
-
-        $this->pkg = new \fpcm\model\packages\update($this->pkgdata['pkgname']);
+        $this->pkg = new \fpcm\model\packages\update(basename((new \fpcm\model\updater\system())->url));
     }
-    
+
+    /**
+     * 
+     * @param string $var
+     */
+    private function addErrorMessage($var, $params = [])
+    {
+        $this->pkgdata['errorMsg'] = $this->lang->translate($var, $params);
+    }
 }
 
 ?>

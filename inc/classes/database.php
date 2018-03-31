@@ -353,7 +353,8 @@ final class database {
      */
     public function alter($table, $methode, $field, $where = "", $checkExists = true)
     {
-        if ($checkExists && $this->fetch($this->select($table, $field)) !== false) {
+        $struct = $this->getTableStructure($table);
+        if ($checkExists && !isset($struct[$field])) {
             return true;
         }
 

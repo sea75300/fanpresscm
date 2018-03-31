@@ -52,7 +52,7 @@ fpcm.updater = {
         if (!params.step) {
             return false;
         }
-        
+
         el.find('.fpcm-ui-update-iconstatus').removeClass('fa-square fpcm-ui-update-iconstatus-0').addClass(fpcm.updater.statusSpinner);
         fpcm.updater.currentEl = el;
 
@@ -70,11 +70,18 @@ fpcm.updater = {
                 if (!res.code) {
                     statusEl.addClass('fa-ban fpcm-ui-important-text');
                     jQuery('#fpcm-ui-update-result-0').removeClass('fpcm-ui-hidden');
+                    
+                    if (res.pkgdata.errorMsg) {
+                        fpcm.ui.addMessage({
+                            txt: res.pkgdata.errorMsg,
+                            type: 'error'
+                        });
+                    }
+
                     fpcm.updater.currentEl = {};
                     return false;
                 }
-                
-                
+
                 if (res.pkgdata instanceof Object) {
                     jQuery.extend(fpcm.vars.jsvars.pkgdata.update, res.pkgdata);
                 }

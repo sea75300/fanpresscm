@@ -181,7 +181,6 @@ final class installer extends \fpcm\model\abstracts\cli {
         $this->output(PHP_EOL . 'Create tables...' . PHP_EOL);
         $files = \fpcm\classes\database::getTableFiles();
 
-        \fpcm\classes\loader::getObject('\fpcm\classes\database') = new \fpcm\classes\database();
         foreach ($files as $file) {
 
             $tabName = substr(basename($file, '.yml'), 2);

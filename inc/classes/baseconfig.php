@@ -81,12 +81,6 @@ final class baseconfig {
     private static $installerEnabledFile;
 
     /**
-     * asynchrone Cronjob-Ausführung Status-Datei
-     * @var string 
-     */
-    private static $cronAsyncFile;
-
-    /**
      * Zwischenspecher für bestimmte Config-Informationen
      * @var array
      * @since FPCM 3.5
@@ -108,7 +102,6 @@ final class baseconfig {
 
         self::$versionFile = dirs::getFullDirPath('version.php');
         self::$installerEnabledFile = dirs::getDataDirPath(dirs::DATA_CONFIG, 'installer.enabled');
-        self::$cronAsyncFile = dirs::getDataDirPath(dirs::DATA_TEMP, 'cronjob.disabled');
 
         if (self::dbConfigExists()) {
             loader::getObject('\fpcm\classes\database');
@@ -330,7 +323,6 @@ final class baseconfig {
      */
     public static function enableInstaller($status)
     {
-
         if (self::installerEnabled() && !$status) {
             return unlink(self::$installerEnabledFile);
         }
@@ -344,7 +336,12 @@ final class baseconfig {
      */
     public static function asyncCronjobsEnabled()
     {
-        return file_exists(self::$cronAsyncFile) ? false : true;
+        $return = (new \fpcm\model\files\fileOption('cronasync'))->read();
+        if ($return === null) {
+            return true;
+        }
+
+        return $return;
     }
 
     /**
@@ -354,17 +351,14 @@ final class baseconfig {
      */
     public static function enableAsyncCronjobs($status)
     {
-        if (self::asyncCronjobsEnabled() && !$status) {
+        $fopt = new \fpcm\model\files\fileOption('cronasync');
+        if ($fopt->write($status) && !$status) {
             fpcmLogSystem('Asynchronous cron job execution disabled.');
-            return file_put_contents(self::$cronAsyncFile, '');
-        }
-
-        if (!file_exists(self::$cronAsyncFile)) {
-            return false;
+            return true;
         }
 
         fpcmLogSystem('Asynchronous cron job execution enabled.');
-        return unlink(self::$cronAsyncFile);
+        return true;
     }
 
     /**

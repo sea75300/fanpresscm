@@ -1,72 +1,71 @@
 <?php
 
 /**
- * Package object
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\model\packages;
 
 /**
- * System package objekt
- * 
- * @package fpcm\model\packages
+ * Package object
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class package {
+abstract class package {
 
     /**
      * Fehler beim Abrufen der Update-Server-Infos
      */
-    const FPCMPACKAGE_REMOTEFILE_ERROR = -1;
+    const REMOTEFILE_ERROR = 901;
 
     /**
      * Fehler beim Öffnen der lokalen Datei
      */
-    const FPCMPACKAGE_LOCALFILE_ERROR = -2;
+    const LOCALFILE_ERROR = 902;
 
     /**
      * Fehler beim Schreiben der Daten in die lokalen Datei
      */
-    const FPCMPACKAGE_LOCALWRITE_ERROR = -3;
+    const LOCALWRITE_ERROR = 903;
 
     /**
      * Prüfung, dass Datei lokal vorhanden ist schlägt fehl
      */
-    const FPCMPACKAGE_LOCALEXISTS_ERROR = -4;
+    const LOCALEXISTS_ERROR = 904;
 
     /**
      * Hash-Wert stimmt nicht überein
      */
-    const FPCMPACKAGE_HASHCHECK_ERROR = -5;
+    const HASHCHECK_ERROR = 905;
 
     /**
      * ZIP-Archiv kann nicht geöffnet werden
      */
-    const FPCMPACKAGE_ZIPOPEN_ERROR = -6;
+    const ZIPOPEN_ERROR = 906;
 
     /**
      * Fehler beim Entpacken des ZIP-Archivs
      */
-    const FPCMPACKAGE_ZIPEXTRACT_ERROR = -7;
+    const ZIPEXTRACT_ERROR = 907;
 
     /**
      * Fehler beim kopieren der Paket-Dateien
      */
-    const FPCMPACKAGE_FILESCOPY_ERROR = -8;
+    const FILESCOPY_ERROR = 908;
 
     /**
      * Fehler bei Schreibrechte-Prüfung vorhandener Dateien
      * @since FPCM 3.5
      */
-    const FPCMPACKAGE_FILESCHECK_ERROR = -9;
+    const FILESCHECK_ERROR = 909;
 
     /**
-     * Packages-Unterordner auf Paket-Server
+     * Fehler bei Schreibrechte-Prüfung vorhandener Dateien
+     * @since FPCM 3.5
      */
-    const FPCMPACKAGE_SERVER_PACKAGEPATH = 'packages/';
+    const REMOTEPATH_UNTRUSTED = 910;
 
     /**
      * Package name
@@ -81,37 +80,91 @@ class package {
     protected $archive;
 
     /**
-     * ZIP-Archiv-Object
-     * @var \fpcm\model\files\fileOption
-     */
-    protected $fileOption;
-
-    /**
      * Konstruktor
      * @param string $type Package-Type
      * @param string $key Package-Key
      * @param string $version Package-Version
      * @param string $signature Package-Signature
      */
-    public function __construct($packageName)
+    final public function __construct($packageName)
     {
         $this->packageName  = $packageName;
         $this->archive      = new \ZipArchive();
+        $this->initObjects();
     }
 
-    abstract function initObjects();
+    /**
+     * 
+     * @return bool
+     */
+    abstract protected function initObjects();
 
-    abstract function getRemotePath();
+    /**
+     * 
+     * @return string
+     */
+    abstract protected function getRemotePath();
 
-    abstract function getRemoteSignature();
+    /**
+     * 
+     * @return string
+     */
+    abstract protected function getRemoteSignature();
 
-    abstract function getLocalPath();
+    /**
+     * 
+     * @return string
+     */
+    abstract protected function getLocalPath();
 
-    abstract function getLocalSignature();
+    /**
+     * 
+     * @return string
+     */
+    abstract protected function getLocalSignature();
 
-    abstract function getLocalDestinationPath();
+    /**
+     * 
+     * @return string
+     */
+    abstract protected function getExtractionPath();
 
-    abstract function getStorageData();
+    /**
+     * 
+     * @return string
+     */
+    abstract protected function getLocalDestinationPath();
+
+    /**
+     * 
+     * @return bool
+     */
+    abstract public function checkFiles();
+
+    /**
+     * Check if remot path points to trusted server
+     * @return boolean
+     */
+    final public function isTrustedPath()
+    {
+        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
+        $trusted = \Spyc::YAMLLoad(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'trustedServers.yml'));
+
+        if (!count($trusted)) {
+            return false;
+        }
+
+        $remotePath = $this->getRemotePath();
+        fpcmLogSystem($remotePath);
+        
+        foreach ($trusted as $path) {
+             if (strpos($remotePath, $path) === 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     /**
      * Lädt Package in Abhängigkeit von Einstellungen herunter
@@ -119,50 +172,49 @@ class package {
      */
     public function download()
     {
-        $handleRemote = fopen($this->remoteFile, 'rb');
+        $remotePath = $this->getRemotePath();
 
-        if (!$handleRemote) {
-            trigger_error('Unable to connect to remote server: ' . $this->remoteFile);
+        $remoteHandle = fopen($remotePath, 'rb');
+
+        if (!$remoteHandle) {
+            trigger_error('Unable to connect to remote server: ' . $remotePath);
             \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-            return self::FPCMPACKAGE_REMOTEFILE_ERROR;
+            return self::REMOTEFILE_ERROR;
         }
 
-        if ($this->type == 'module' && !is_dir(dirname($this->localFile))) {
-            if (!mkdir(dirname($this->localFile))) {
-                trigger_error('Unable to create module vendor folder: ' . dirname($this->localFile));
-                \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-                return self::FPCMPACKAGE_LOCALFILE_ERROR;
-            }
+        $localPath  = $this->getLocalPath();
+        $remoteHandleLocal = fopen($localPath, 'wb');
+        if (!$remoteHandleLocal) {
+            trigger_error('Unable to open local file: ' . $localPath);
+            return self::LOCALFILE_ERROR;
         }
 
-        $handleLocal = fopen($this->localFile, 'wb');
-
-        if (!$handleLocal) {
-            trigger_error('Unable to open local file: ' . $this->localFile);
-            \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-            return self::FPCMPACKAGE_LOCALFILE_ERROR;
+        while (!feof($remoteHandle)) {
+            if (fwrite($remoteHandleLocal, fgets($remoteHandle)) === false) {
+                trigger_error("Error while writing content of {$remotePath} to {$localPath}.");
+                return self::LOCALWRITE_ERROR;
+            }           
         }
 
-        while (!feof($handleRemote)) {
-            if (fwrite($handleLocal, fgets($handleRemote)) === false) {
-                trigger_error("Error while writing content of {$this->remoteFile} to {$this->localFile}.");
-                \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-                return self::FPCMPACKAGE_LOCALEXISTS_ERROR;
-            }
+        fclose($remoteHandle);
+        fclose($remoteHandleLocal);
+
+        if (!file_exists($localPath)) {
+            trigger_error("Downloaded file not found in {$localPath}.");
+            return self::LOCALEXISTS_ERROR;
         }
 
-        fclose($handleRemote);
-        fclose($handleLocal);
-
-        if (!file_exists($this->localFile)) {
-            trigger_error("Downloaded file not found in {$this->localFile}.");
-            \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-            return self::FPCMPACKAGE_LOCALEXISTS_ERROR;
-        }
-
-        $res = $this->checkHashes();
-        if ($res !== true) {
-            return $res;
+        return true;
+    }
+    
+    public function checkPackage()
+    {
+        $hashLocal = $this->getLocalSignature();
+        $hashRemote = $this->getRemoteSignature();
+        
+        if (!trim($hashLocal) || !trim($hashRemote) || $hashLocal !== $hashRemote) {
+            trigger_error("Error while checking package signatures, {$hashLocal} does not match {$hashRemote}");
+            return self::HASHCHECK_ERROR;
         }
 
         return true;
@@ -174,19 +226,16 @@ class package {
      */
     public function extract()
     {
+        $localPath  = $this->getLocalPath();
 
-        if ($this->archive->open($this->localFile) !== true) {
-            trigger_error('Unable to open ZIP archive for extraction: ' . $this->localFile);
-            \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-            return self::FPCMPACKAGE_ZIPOPEN_ERROR;
+        if ($this->archive->open($localPath) !== true) {
+            trigger_error('Unable to open ZIP archive: ' . $localPath);
+            return self::ZIPOPEN_ERROR;
         }
 
-        $this->listArchiveFiles();
-
-        if ($this->archive->extractTo($this->extractPath) !== true) {
-            trigger_error('Unable to extract ZIP archive: ' . $this->localFile);
-            \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-            return self::FPCMPACKAGE_ZIPEXTRACT_ERROR;
+        if ($this->archive->extractTo($this->getExtractionPath()) !== true) {
+            trigger_error('Unable to extract ZIP archive: ' . $localPath);
+            return self::ZIPEXTRACT_ERROR;
         }
 
         return true;
@@ -261,48 +310,7 @@ class package {
         }
 
         $this->saveProtocolTemp();
-        return is_array($res) ? self::FPCMPACKAGE_FILESCOPY_ERROR : $res;
-    }
-
-    /**
-     * Prüft Dateien ob beschreibbar
-     * @return boolean
-     * @since FPCM 3.5
-     */
-    public function checkFiles()
-    {
-
-        if (!file_exists($this->tempListFile)) {
-            \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-            return false;
-        }
-
-        $this->loadPackageFileListFromTemp();
-        if (!count($this->files)) {
-            \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-            return false;
-        }
-
-        $res = [];
-        foreach ($this->files as $zipFile) {
-
-            $source = $this->extractPath . $zipFile;
-
-            $dest = ($this->type == 'module' ? \fpcm\classes\dirs::getFullDirPath($this->copyDestination . str_replace(basename($this->key) . '/', $this->key . '/', $zipFile)) : dirname(\fpcm\classes\dirs::getFullDirPath('')) . $this->copyDestination . $zipFile);
-
-            $dest = $this->replaceFanpressDirString($dest);
-            if (!$dest || file_exists($dest) && !is_writable($dest)) {
-                $res[] = $dest;
-                continue;
-            }
-        }
-
-        if (!count($res)) {
-            return true;
-        }
-
-        $this->copyErrorPaths = $res;
-        return self::FPCMPACKAGE_FILESCHECK_ERROR;
+        return is_array($res) ? self::FILESCOPY_ERROR : $res;
     }
 
     /**
@@ -325,17 +333,17 @@ class package {
      */
     public function cleanup()
     {
-        if (!unlink($this->tempListFile)) {
-            trigger_error('Unable to remove temp list file: ' . \fpcm\model\files\ops::removeBaseDir($this->tempListFile, true));
+        $localPath = $this->getLocalPath();
+        if (!file_exists($localPath) || !unlink($localPath)) {
+            return false;
         }
 
-        if (!unlink($this->localFile)) {
-            trigger_error('Unable to delete local package copy: ' . \fpcm\model\files\ops::removeBaseDir($this->localFile, true));
+        $extractPath = $this->getExtractionPath();
+        if (!file_exists($extractPath) || !\fpcm\model\files\ops::deleteRecursive($extractPath)) {
+            return false;
         }
 
-        if (!\fpcm\model\files\ops::deleteRecursive($this->extractPath)) {
-            trigger_error('Package extraction path still exists in ' . \fpcm\model\files\ops::removeBaseDir($this->extractPath, true));
-        }
+        return true;
     }
 
     /**
@@ -361,50 +369,10 @@ class package {
      */
     public function init()
     {
-        $this->remoteFile = \fpcm\classes\baseconfig::$updateServer . self::FPCMPACKAGE_SERVER_PACKAGEPATH . $this->filename;
-        $this->localFile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $this->filename);
-        $this->extractPath = dirname($this->localFile) . '/' . md5(basename($this->localFile, '.zip')) . '/';
-        $this->tempListFile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, md5($this->localFile));
-    }
-
-    /**
-     * Prüft ob Datei-Hashed und ggf. Datei-Signaturen übereinstimmen
-     * @return boolean
-     */
-    protected function checkHashes()
-    {
-        $this->buildHashes();
-
-        if ($this->remoteHash != $this->localHash) {
-            trigger_error('Remote and local file hash do not match for ' . \fpcm\model\files\ops::removeBaseDir($this->localFile, true));
-            \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-            return self::FPCMPACKAGE_HASHCHECK_ERROR;
-        }
-
-
-        if ($this->remoteSignature != $this->localSignature) {
-            trigger_error('Remote and local file hash do not match for ' . \fpcm\model\files\ops::removeBaseDir($this->localFile, true));
-            \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-            return self::FPCMPACKAGE_HASHCHECK_ERROR;
-        }
-
-        return true;
-    }
-
-    /**
-     * Erzeugt Hashed und loale Datei-Signatur
-     * @return void
-     */
-    protected function buildHashes()
-    {
-        $this->remoteHash = sha1_file($this->remoteFile);
-        $this->localHash = sha1_file($this->localFile);
-
-        if (!$this->remoteSignature) {
-            return;
-        }
-
-        $this->localSignature = '$sig$' . md5_file($this->localFile) . '_' . sha1_file($this->localFile) . '$sig$';
+        $path = \fpcm\classes\baseconfig::$updateServer . self::SERVER_PACKAGEPATH . $this->filename;
+        $localPath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $this->filename);
+        $this->extractPath = dirname($localPath) . '/' . md5(basename($localPath, '.zip')) . '/';
+        $this->tempListFile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, md5($localPath));
     }
 
     /**
@@ -448,7 +416,7 @@ class package {
      */
     protected function saveProtocolTemp()
     {
-        $tempfile = new \fpcm\model\files\tempfile('protocol' . $this->localFile);
+        $tempfile = new \fpcm\model\files\tempfile('protocol' . $localPath);
         $tempfile->setContent(base64_encode(json_encode($this->protocol)));
         return $tempfile->save();
     }

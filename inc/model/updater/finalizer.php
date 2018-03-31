@@ -126,7 +126,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function alterTables()
     {
-        $res = $this->dbcon->alter(\fpcm\classes\database::tableAuthors, 'DROP', 'salt', '', false);
+        $res = $this->dbcon->alter(\fpcm\classes\database::tableAuthors, 'DROP', 'salt', '', true);
         return $res;
     }
 
