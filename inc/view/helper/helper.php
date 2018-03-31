@@ -107,6 +107,17 @@ abstract class helper {
     }
 
     /**
+     * Prevents rendering of view helper at the end of PHP proessing
+     * @param bool $returned
+     * @return $this
+     */
+    public function setReturned($returned)
+    {
+        $this->returned = (bool) $returned;
+        return $this;
+    }
+        
+    /**
      * 
      * @return string
      */

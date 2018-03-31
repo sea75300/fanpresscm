@@ -166,6 +166,7 @@ $lang = array(
     'SYSCHECK_FOLDER_TEMP' => 'global temp folder',
     'SYSCHECK_FOLDER_SHARE' => 'Share button folder',
     'SYSCHECK_FOLDER_MODULES' => 'Modules folder',
+    'SYSCHECK_FOLDER_OPTIONS' => 'Options folder',
     'SYSCHECK_FOLDER_UPLOADS' => 'Upload folder',
     'SYSCHECK_FOLDER_DBDUMPS' => 'Database dump folder',
     'SYSCHECK_FOLDER_DRAFTS' => 'Article template folder',

@@ -19,7 +19,7 @@ fpcm.options = {
         }
 
         fpcm.ui.tabs('.fpcm-tabs-general', {
-            active   : (fpcm.vars.jsvars.runSysCheck ? 7 : 0),
+            active   : (fpcm.vars.jsvars.runSysCheck ? 6 : 0),
             addTabScroll: true,
             addMainToobarToggle: true
         });

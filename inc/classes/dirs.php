@@ -30,6 +30,8 @@ final class dirs {
     const DATA_DRAFTS = 'drafts';
     const DATA_PROFILES = 'profiles';
     const DATA_MODULES = 'modules';
+    const DATA_OPTIONS = 'options';
+
     const CORE_JS = 'js';
     const CORE_THEME = 'theme';
     const CORE_VIEWS = 'views';

@@ -166,6 +166,7 @@ $lang = array(
     'SYSCHECK_FOLDER_TEMP' => 'Temporäre Dateien Order',
     'SYSCHECK_FOLDER_SHARE' => 'Share-Button-Order',
     'SYSCHECK_FOLDER_MODULES' => 'Module-Order',
+    'SYSCHECK_FOLDER_OPTIONS' => 'Optionen-Order',
     'SYSCHECK_FOLDER_UPLOADS' => 'Upload-Order',
     'SYSCHECK_FOLDER_DBDUMPS' => 'Datenbank-Backup-Order',
     'SYSCHECK_FOLDER_DRAFTS' => 'Vorlagen-Order',

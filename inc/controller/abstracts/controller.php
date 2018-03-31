@@ -86,12 +86,6 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected $ipList;
 
     /**
-     * Update-Prüfung aktiv
-     * @var bool
-     */
-    protected $updateCheckEnabled = true;
-
-    /**
      * Cache name
      * @var string
      */

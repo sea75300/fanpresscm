@@ -75,8 +75,7 @@ class sysupdate extends \fpcm\controller\abstracts\controller {
         }
         else {
             $updater = new \fpcm\model\updater\system();
-            $updater->checkUpdates();
-            $jsData['url'] = $updater->getRemoteData('filepath');
+            $jsData['url'] = $updater->url;
         }
 
         $this->view->setViewVars($this->steps);

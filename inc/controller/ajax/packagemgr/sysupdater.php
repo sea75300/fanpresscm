@@ -158,8 +158,9 @@ class sysupdater extends \fpcm\controller\abstracts\ajaxController {
 
     private function execDownload()
     {
+        $this->init();
         $this->res = true;
-        $this->pkgdata['pkgname'] = 'fpcm4update4.0.1.zip';
+
         
 //        $this->res = $this->pkg->download();
 //
@@ -271,6 +272,14 @@ class sysupdater extends \fpcm\controller\abstracts\ajaxController {
 //        }
     }
 
+    private function init()
+    {
+        $updater = new \fpcm\model\updater\system();
+        $this->pkgdata['pkgname'] = basename($updater->url);
+
+        $this->pkg = new \fpcm\model\packages\update($this->pkgdata['pkgname']);
+    }
+    
 }
 
 ?>

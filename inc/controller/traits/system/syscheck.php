@@ -29,9 +29,9 @@ trait syscheck {
 
         if (!\fpcm\classes\baseconfig::installerEnabled() && \fpcm\classes\baseconfig::dbConfigExists()) {
             $updater = new \fpcm\model\updater\system();
-            $updater->checkUpdates();
-            
-            $remoteVersion = $updater->getRemoteData('version');
+            $updater->updateAvailable();
+
+            $remoteVersion = $updater->version;
 
             $result = version_compare($this->config->system_version, $remoteVersion, '>=');
             $option = new \fpcm\model\system\syscheckOption(
@@ -47,7 +47,7 @@ trait syscheck {
                 }
                 elseif ($this->permissions->check(['system' => 'update'])) {
                     $button = new \fpcm\view\helper\linkButton('startUpdate');
-                    $button->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate'))->setText('PACKAGES_UPDATE');
+                    $button->setReturned(true)->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate'))->setText('PACKAGES_UPDATE');
                     $option->setActionButton($button);
                 }
                 
@@ -240,6 +240,7 @@ trait syscheck {
             $this->lang->translate('SYSCHECK_FOLDER_FILEMANAGER') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_FMTMP),
             $this->lang->translate('SYSCHECK_FOLDER_LOGS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_LOGS),
             $this->lang->translate('SYSCHECK_FOLDER_MODULES') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES),
+            $this->lang->translate('SYSCHECK_FOLDER_OPTIONS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_OPTIONS),
             $this->lang->translate('SYSCHECK_FOLDER_SHARE') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SHARE),
             $this->lang->translate('SYSCHECK_FOLDER_SMILEYS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SMILEYS),
             $this->lang->translate('SYSCHECK_FOLDER_STYLES') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES),
