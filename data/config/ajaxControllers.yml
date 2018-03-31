@@ -22,8 +22,7 @@ ajax/dashboard: ajax/system/dashboard
 ajax/syscheck: ajax/system/syscheck
 ajax/cronasync: ajax/system/cronasync
 ajax/croninterval: ajax/system/croninterval
-ajax/packagemgr/sysupdater: ajax/packagemgr/sysupdater
-ajax/packagemgr/sysupdatervc: ajax/packagemgr/sysupdater_versioncheck
+ajax/packagemgr/processUpdate: ajax/packagemgr/processUpdate
 ajax/packagemgr/modinstall: ajax/packagemgr/module_install
 ajax/packagemgr/modupdate: ajax/packagemgr/module_update
 ajax/modules/actions: ajax/modules/moduleactions

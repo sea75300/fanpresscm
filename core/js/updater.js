@@ -56,13 +56,13 @@ fpcm.updater = {
         el.find('.fpcm-ui-update-iconstatus').removeClass('fa-square fpcm-ui-update-iconstatus-0').addClass(fpcm.updater.statusSpinner);
         fpcm.updater.currentEl = el;
 
-        fpcm.ajax.post('packagemgr/sysupdater', {
+        fpcm.ajax.post('packagemgr/processUpdate', {
             data: {
                 step : params.step
             },
             execDone: function () {
 
-                var res = fpcm.ajax.getResult('packagemgr/sysupdater', true);
+                var res = fpcm.ajax.getResult('packagemgr/processUpdate', true);
 
                 var statusEl = fpcm.updater.currentEl.find('.fpcm-ui-update-iconstatus');
                 statusEl.removeClass(fpcm.updater.statusSpinner);
