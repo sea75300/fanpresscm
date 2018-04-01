@@ -182,12 +182,14 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         $viewVars = $editorPlugin->getViewVars();
         
         if (isset($viewVars['editorButtons']) && count($viewVars['editorButtons'])) {
-            unset(
-                $viewVars['editorButtons']['frame'],
-                $viewVars['editorButtons']['readmore'],
-                $viewVars['editorButtons']['drafts'],
-                $viewVars['editorButtons']['restore']
-            );
+            $viewVars['editorButtons']['frame']->setReturned(true);
+            unset($viewVars['editorButtons']['frame']);
+            $viewVars['editorButtons']['readmore']->setReturned(true);
+            unset($viewVars['editorButtons']['readmore']);
+            $viewVars['editorButtons']['drafts']->setReturned(true);
+            unset($viewVars['editorButtons']['drafts']);
+            $viewVars['editorButtons']['restore']->setReturned(true);
+            unset($viewVars['editorButtons']['restore']);
         }
         
         foreach ($viewVars as $key => $value) {
@@ -196,7 +198,28 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         
         $this->view->addJsFiles(array_merge(['comments.js', 'comments_editor.js', 'editor_videolinks.js'], $editorPlugin->getJsFiles()));
         $this->view->addJsLangVars($editorPlugin->getJsLangVars());
-        $this->view->addJsVars(array_merge($editorPlugin->getJsVars()));
+        
+        $jsVars = $editorPlugin->getJsVars();
+        
+        if (isset($jsVars['editorConfig']['plugins']) && isset($jsVars['editorConfig']['toolbar'])) {
+
+            $jsVars['editorConfig']['plugins'] = str_replace([
+                'autosave',
+                'template',
+                'fpcm_readmore',
+            ], '', $jsVars['editorConfig']['plugins']);
+            
+            $jsVars['editorConfig']['toolbar'] = str_replace([
+                'restoredraft',
+                'template',
+                'fpcm_readmore',
+            ], '', $jsVars['editorConfig']['toolbar']);
+            
+            
+            $jsVars['editorConfig']['custom_elements'] = '';
+        }
+
+        $this->view->addJsVars($jsVars);
 
         if ($this->comment->getChangeuser() && $this->comment->getChangetime()) {
             $changeUser = new \fpcm\model\users\author($this->comment->getChangeuser());
