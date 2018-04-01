@@ -314,6 +314,7 @@ abstract class package {
     protected function getFileList($path, $start = 0)
     {
         if (!trim($path) || !file_exists($path)) {
+            trigger_error($path.' was not found on expected path. This is an unexpected behaviour and should NOT be happen. You should contact the developer for further help.');
             return [];
         }
 
