@@ -455,7 +455,6 @@ class main extends \fpcm\controller\abstracts\controller {
 
         if ($this->afterStepResult) {
             $res = \fpcm\classes\baseconfig::enableInstaller(false);
-            $res = $res && \fpcm\model\files\ops::deleteRecursive(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBSTRUCT));
         }
 
         $this->view->assign('disableInstallerMsg', !$res);
