@@ -140,7 +140,7 @@ $lang = array(
     'UPDATE_VERSIONCHECK_CURRENT' => 'Your version of FanPress CM is <strong>up to date</strong>!',
     'UPDATE_VERSIONCHECK_NOTES' => 'Release notes and further information for system and module updates can be found in "Recent FanPress CM news".',
     'UPDATE_VERSIONCECK_FILEDB_ERR' => 'Mismatch of version information in file system and database. {{btn}}',
-    'UPDATE_NOTAUTOCHECK' => 'Automatic update check failed! <a class="fpcm-ui-button fpcm-updatecheck-manual" href="#">Check manually</a>',
+    'UPDATE_NOTAUTOCHECK' => 'Automatic update check failed! {{btn}}',
     'UPDATE_WRITEERROR' => 'Various files in the file system are not writable. Please check the permissions of the files mentioned in system log via FTP access.',
     'UPDATE_DOWNLOAD_UNTRUSTED' => 'The available packeg file will not be downloaded due to an untrusted package server <em>{{var}}</em>.',
     'UPDATE_MODULECHECK_NEW' => 'Module updates are available. <a class="fpcm-ui-button fpcm-loader" href="?module=modules/list">Show updates</a>',

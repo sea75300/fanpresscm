@@ -27,12 +27,12 @@ class help extends \fpcm\controller\abstracts\controller {
     public function process()
     {
         $ref = $this->getRequestVar('ref', [
-            \fpcm\classes\http::FPCM_REQFILTER_URLDECODE,
-            \fpcm\classes\http::FPCM_REQFILTER_BASE64DECODE
+            \fpcm\classes\http::FILTER_URLDECODE,
+            \fpcm\classes\http::FILTER_BASE64DECODE
         ]);
 
         $chapter = $this->getRequestVar('chapter', [
-            \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+            \fpcm\classes\http::FILTER_CASTINT
         ]);
         
         if ($chapter === null) {

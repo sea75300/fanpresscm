@@ -37,11 +37,19 @@ class commentedit extends \fpcm\controller\abstracts\controller {
      */
     protected $ownArticleIds = [];
 
+    /**
+     * 
+     * @return string
+     */
     protected function getViewPath()
     {
         return 'comments/commentedit';
     }
 
+    /**
+     * 
+     * @return array
+     */
     protected function getPermissions()
     {
         return [
@@ -56,16 +64,28 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         ];
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function getHelpLink()
     {
         return 'hl_comments_mng';
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function getActiveNavigationElement()
     {
         return 'itemnav-item-editcomments';
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function request()
     {
         if ($this->permissions) {
@@ -73,11 +93,14 @@ class commentedit extends \fpcm\controller\abstracts\controller {
             $this->private = $this->permissions->check(array('comment' => 'private'));
         }
 
-        if (is_null($this->getRequestVar('commentid'))) {
+        $id = $this->getRequestVar('commentid', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]);
+        if (!$id) {
             $this->redirect('comments/list');
         }
 
-        $this->comment = new \fpcm\model\comments\comment($this->getRequestVar('commentid'));
+        $this->comment = new \fpcm\model\comments\comment($id);
 
         if (!$this->comment->exists()) {
             $this->view = new \fpcm\view\error('LOAD_FAILED_COMMENT', 'comments/list');
@@ -90,8 +113,12 @@ class commentedit extends \fpcm\controller\abstracts\controller {
             return false;
         }
 
-        if ($this->buttonClicked('commentSave') && $this->getRequestVar('comment')) {
-            $commentData = $this->getRequestVar('comment', array(4, 7));
+        $commentData = $this->getRequestVar('comment', [
+            \fpcm\classes\http::FILTER_STRIPSLASHES,
+            \fpcm\classes\http::FILTER_TRIM
+        ]);
+
+        if ($this->buttonClicked('commentSave') && $commentData !== null) {
 
             $this->comment->setText($commentData['text']);
             unset($commentData['text']);
@@ -116,19 +143,29 @@ class commentedit extends \fpcm\controller\abstracts\controller {
             $this->comment->setChangetime(time());
             $this->comment->setChangeuser($this->session->getUserId());
 
+            if (!$this->checkPageToken()) {
+                $this->view->addErrorMessage('CSRF_INVALID');
+                return true;
+            }
+            
             if ($this->comment->update()) {
                 $this->view->addNoticeMessage('SAVE_SUCCESS_COMMENT');
-            } else {
-                $this->view->addErrorMessage('SAVE_FAILED_COMMENT');
+                return true;
             }
+
+            $this->view->addErrorMessage('SAVE_FAILED_COMMENT');
         }
 
         return true;
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function process()
     {
-        $mode = $this->getRequestVar('mode', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
+        $mode = $this->getRequestVar('mode', [\fpcm\classes\http::FILTER_CASTINT]);
 
         if ($mode === 2) {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
@@ -143,6 +180,16 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         $this->view->addCssFiles($editorPlugin->getCssFiles());
 
         $viewVars = $editorPlugin->getViewVars();
+        
+        if (isset($viewVars['editorButtons']) && count($viewVars['editorButtons'])) {
+            unset(
+                $viewVars['editorButtons']['frame'],
+                $viewVars['editorButtons']['readmore'],
+                $viewVars['editorButtons']['drafts'],
+                $viewVars['editorButtons']['restore']
+            );
+        }
+        
         foreach ($viewVars as $key => $value) {
             $this->view->assign($key, $value);
         }
@@ -188,6 +235,8 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         $this->view->assign('canApprove', $this->approve);
         $this->view->assign('canPrivate', $this->private);
         $this->view->render();
+        
+        return true;
     }
 
 }

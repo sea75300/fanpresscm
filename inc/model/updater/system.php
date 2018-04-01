@@ -64,7 +64,7 @@ final class system extends \fpcm\model\abstracts\staticModel {
             return true;
         }
 
-        $this->data = $foptData['default'];
+        $this->data = isset($foptData['default']) ? $foptData['default'] : [];
         return true;
     }
 
@@ -74,6 +74,10 @@ final class system extends \fpcm\model\abstracts\staticModel {
      */
     public function updateAvailable()
     {
+        if (!count($this->data)) {
+            return \fpcm\model\abstracts\remoteModel::FURLOPEN_ERROR;
+        }
+        
         $newVersion = version_compare($this->data['version'], $this->config->system_version, '>');
         if ($newVersion && isset($this->data['phpversion']) && version_compare(phpversion(), $this->data['phpversion'], '<')) {
             fpcmLogSystem('FanPress CM ' . $this->data['version'] . ' is available, but requires PHP ' . $this->data['phpversion'] . ' or higher.');

@@ -255,7 +255,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
     
     protected function getLimitsByPage()
     {
-        $this->page          = $this->getRequestVar('page', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
+        $this->page          = $this->getRequestVar('page', [\fpcm\classes\http::FILTER_CASTINT]);
         $this->listShowStart = \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit);
     }
 

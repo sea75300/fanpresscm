@@ -29,12 +29,6 @@ final class security {
     const defaultHashAlgo = "sha256";
 
     /**
-     * Cache-Modul für Page Tokens
-     * @since FPCM 3.4
-     */
-    const pageTokenCacheModule = "pgtkn";
-
-    /**
      * Session Cookie Name
      * @since FPCM 3.6
      */
@@ -139,12 +133,25 @@ final class security {
     public static function createPageToken($overrideModule = '')
     {
         $str = hash(self::defaultHashAlgo, uniqid(true, __FUNCTION__) . mt_rand() . microtime(true));
-        $cacheName = self::pageTokenCacheModule . '/' . self::getPageTokenFieldName($overrideModule);
 
-        /* @var $cache cache */
-        $cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
-        $cache->cleanup($cacheName);
-        $cache->write($cacheName, \fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt($str));
+        if ($overrideModule) {
+            fpcmLogSystem(__METHOD__.' '.$overrideModule);
+            fpcmLogSystem($overrideModule);
+        }
+        
+        $fopt = new \fpcm\model\files\fileOption(self::getPageTokenFieldName($overrideModule));
+        $fopt->write(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt([
+            'str' => $str,
+            'exp'  => time() + FPCM_PAGETOKENCACHE_TIMEOUT
+        ]));
+        
+        if ($overrideModule) {
+            fpcmLogSystem([
+                self::getPageTokenFieldName($overrideModule),
+                'str' => $str,
+                'exp'  => time() + FPCM_PAGETOKENCACHE_TIMEOUT
+            ]);
+        }
 
         return $str;
     }

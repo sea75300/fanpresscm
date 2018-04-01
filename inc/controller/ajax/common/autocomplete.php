@@ -37,7 +37,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
     public function request()
     {
         $this->module = ucfirst($this->getRequestVar('src'));
-        $this->term = $this->getRequestVar('term', [\fpcm\classes\http::FPCM_REQFILTER_STRIPTAGS, \fpcm\classes\http::FPCM_REQFILTER_STRIPSLASHES, \fpcm\classes\http::FPCM_REQFILTER_TRIM, \fpcm\classes\http::FPCM_REQFILTER_URLDECODE]);
+        $this->term = $this->getRequestVar('term', [\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_STRIPSLASHES, \fpcm\classes\http::FILTER_TRIM, \fpcm\classes\http::FILTER_URLDECODE]);
 
         return true;
     }

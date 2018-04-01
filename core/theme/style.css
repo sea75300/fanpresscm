@@ -726,6 +726,10 @@ div.fpcm-filelist-thumb-box {
     line-height: 18.666666666666666666666667px;
 }
 
+.fpcm-editor-html-click {
+    min-height: 31px;
+}
+
 td.fpcm-td-spacer {
     height: 0.2em;
 }

@@ -87,7 +87,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
             $this->deleteUser();
         }
 
-        $rollId = $this->getRequestVar('rollids', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
+        $rollId = $this->getRequestVar('rollids', [\fpcm\classes\http::FILTER_CASTINT]);
         if ($this->buttonClicked('deleteRoll') && $rollId) {
             $roll = new \fpcm\model\users\userRoll($rollId);
             if (!$roll->delete()) {
@@ -266,7 +266,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
      */
     private function disableUsers()
     {
-        $userId = $this->getRequestVar('userids', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
+        $userId = $this->getRequestVar('userids', [\fpcm\classes\http::FILTER_CASTINT]);
         
         if ($this->userList->countActiveUsers() == 1) {
             $this->view->addErrorMessage('SAVE_FAILED_USER_DISABLE_LAST');
@@ -293,7 +293,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
      */
     private function enableUsers()
     {
-        $userId = $this->getRequestVar('userids', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
+        $userId = $this->getRequestVar('userids', [\fpcm\classes\http::FILTER_CASTINT]);
         if ($userId == $this->session->getUserId()) {
             return;
         }

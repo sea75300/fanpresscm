@@ -40,7 +40,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
     {
         if ($this->getRequestVar('mode')) {
             $this->mode = (int) $this->getRequestVar('mode', [
-                \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+                \fpcm\classes\http::FILTER_CASTINT
             ]);
         }
 
@@ -64,7 +64,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
         $fileList = new \fpcm\model\files\imagelist();
 
         $page = $this->getRequestVar('page', [
-            \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+            \fpcm\classes\http::FILTER_CASTINT
         ]);
         $list = $fileList->getDatabaseList(
                 $this->config->file_list_limit, \fpcm\classes\tools::getPageOffset($page, $this->config->file_list_limit)

@@ -141,7 +141,7 @@ $lang = array(
     'UPDATE_VERSIONCHECK_NOTES' => 'Release-Notes und weitere Infos zu System- und Modul-Updates findest du in den aktuellen FanPress CM News.',
     'UPDATE_VERSIONCECK_FILEDB_ERR' => 'Die Version im Dateisystem und der Datenbank stimmen nicht überein. {{btn}}',
     
-    'UPDATE_NOTAUTOCHECK' => 'Es konnte keine automatische Update-Prüfung durchgeführt werden! <a class="fpcm-ui-button fpcm-updatecheck-manual" href="#">Manuell prüfen</a>',
+    'UPDATE_NOTAUTOCHECK' => 'Es konnte keine automatische Update-Prüfung durchgeführt werden! {{btn}}',
     'UPDATE_WRITEERROR' => 'Einige Dateien im Dateisystem sind nicht beschreibbar und können daher nicht ersetzt werden. Prüfe die Rechte der Dateien via FTP, eine Liste findest du im System-Log.',
     
     'PACKAGES_FAILED_DOWNLOAD_UNTRUSTED' => 'Die verfügbare Paketdatei wird nicht heruntergeladen, da dem Paket-Server <em>{{var}}</em> nicht vertraut wird.',

@@ -137,7 +137,7 @@ class main extends \fpcm\controller\abstracts\controller {
         }
 
         $this->step = $this->getRequestVar('step', [
-            \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+            \fpcm\classes\http::FILTER_CASTINT
         ]);
 
         if (!$this->step) {

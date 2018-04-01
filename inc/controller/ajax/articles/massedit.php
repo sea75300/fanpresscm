@@ -42,17 +42,13 @@ class massedit extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        if (!$this->session->exists()) {
-            return false;
-        }
-
         if (!$this->checkPageToken('articles/massedit')) {
             return false;
         }
 
         $this->articleList = new \fpcm\model\articles\articlelist();
-        $this->articleIds = array_map('intval', $this->getRequestVar('ids', [\fpcm\classes\http::FPCM_REQFILTER_JSON_DECODE, 'object' => false]));
-        $this->data = $this->getRequestVar('fields', [\fpcm\classes\http::FPCM_REQFILTER_JSON_DECODE, 'object' => false]);
+        $this->articleIds = array_map('intval', $this->getRequestVar('ids', [\fpcm\classes\http::FILTER_JSON_DECODE, 'object' => false]));
+        $this->data = $this->getRequestVar('fields', [\fpcm\classes\http::FILTER_JSON_DECODE, 'object' => false]);
 
         return true;
     }

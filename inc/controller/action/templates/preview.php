@@ -41,7 +41,7 @@ class preview extends \fpcm\controller\abstracts\controller {
     public function request()
     {
         $this->tid = $this->getRequestVar('tid', [
-            \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+            \fpcm\classes\http::FILTER_CASTINT
         ]);
 
         if (!$this->tid) {

@@ -44,7 +44,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        $this->oid      = $this->getRequestVar('id', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
+        $this->oid      = $this->getRequestVar('id', [\fpcm\classes\http::FILTER_CASTINT]);
         $this->module   = $this->getRequestVar('view');
         $this->initActionObjects();
 

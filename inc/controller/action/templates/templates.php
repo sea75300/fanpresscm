@@ -112,7 +112,7 @@ class templates extends \fpcm\controller\abstracts\controller {
         }
 
         $delFiles = $this->getRequestVar('deltplfiles', [
-            \fpcm\classes\http::FPCM_REQFILTER_BASE64DECODE
+            \fpcm\classes\http::FILTER_BASE64DECODE
         ]);
         if ($this->buttonClicked('fileDelete') && is_array($delFiles) && count($delFiles)) {
 
@@ -145,8 +145,8 @@ class templates extends \fpcm\controller\abstracts\controller {
             $this->cache->cleanup();
 
             $templateContents = $this->getRequestVar('template', [
-                \fpcm\classes\http::FPCM_REQFILTER_TRIM,
-                \fpcm\classes\http::FPCM_REQFILTER_STRIPSLASHES
+                \fpcm\classes\http::FILTER_TRIM,
+                \fpcm\classes\http::FILTER_STRIPSLASHES
             ]);
 
             $tplSaveError = [];

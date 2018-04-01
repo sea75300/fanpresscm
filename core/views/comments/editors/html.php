@@ -34,5 +34,5 @@
 </div>
 
 <div class="fpcm-ui-padding-md-tb" style="font-size: <?php print $editorDefaultFontsize; ?>">
-    <?php $theView->textarea('comment[text]', 'commenttext')->setValue($comment->getText(), ENT_QUOTES); ?>
+    <?php $theView->textarea('comment[text]')->setClass('fpcm-ui-full-width')->setValue($comment->getText(), ENT_QUOTES); ?>
 </div>

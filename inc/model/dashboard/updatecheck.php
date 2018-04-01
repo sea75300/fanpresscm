@@ -124,7 +124,9 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
         } elseif ($this->systemCheckresult === \fpcm\model\abstracts\remoteModel::FURLOPEN_ERROR) {
             $iconClass = 'exclamation-triangle';
             $statusClass = 'fpcm-dashboard-updates-checkerror';
-            $statusText = $this->language->translate('UPDATE_NOTAUTOCHECK');
+            $statusText = $this->language->translate('UPDATE_NOTAUTOCHECK', [
+                '{{btn}}' => (string) (new \fpcm\view\helper\linkButton('chckmanual'))->setText('PACKAGES_MANUALCHECK')->setIcon('external-link-square-alt ')->setUrl(\fpcm\classes\baseconfig::$updateServerManualLink)->setTarget('_blank'),
+            ]);
 
             if (\fpcm\classes\baseconfig::canConnect()) {
                 $this->autoCheckFailed = true;

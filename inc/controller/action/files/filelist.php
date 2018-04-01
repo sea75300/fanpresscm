@@ -53,7 +53,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
         $styleLeftMargin = true;
         
-        $this->mode = $this->getRequestVar('mode', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
+        $this->mode = $this->getRequestVar('mode', [\fpcm\classes\http::FILTER_CASTINT]);
         if ($this->mode > 1) {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
             $styleLeftMargin = false;

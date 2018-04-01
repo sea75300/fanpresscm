@@ -93,7 +93,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
     protected function initObject()
     {
         $id = $this->getRequestVar('articleid', [
-            \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+            \fpcm\classes\http::FILTER_CASTINT
         ]);
 
         $this->article = new \fpcm\model\articles\article($id);
@@ -218,8 +218,8 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         }
 
         $data = $this->getRequestVar('article', [
-            \fpcm\classes\http::FPCM_REQFILTER_STRIPSLASHES,
-            \fpcm\classes\http::FPCM_REQFILTER_TRIM
+            \fpcm\classes\http::FILTER_STRIPSLASHES,
+            \fpcm\classes\http::FILTER_TRIM
         ]);
 
         $this->assignArticleFormData($data, $allTimer);

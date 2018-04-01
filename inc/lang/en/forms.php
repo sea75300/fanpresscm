@@ -155,6 +155,7 @@ $lang = array(
     'WORDBAN_APPROVE_ARTICLE' => 'Approval of article required',
     'WORDBAN_APPROVA_COMMENT' => 'Approval of comment required',
     'PACKAGES_UPDATE' => 'Start update',
+    'PACKAGES_MANUALCHECK' => 'Check for updates',
     'PACKAGES_BACKTODASHBOARD' => 'Go to dashboard',
     'SYSCHECK_FOLDER_DATA' => 'Data folder',
     'SYSCHECK_FOLDER_CACHE' => 'Cache folder',

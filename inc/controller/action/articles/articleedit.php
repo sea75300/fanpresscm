@@ -86,8 +86,8 @@ class articleedit extends articlebase {
 
         if ($this->buttonClicked('doAction') && !$this->checkPageToken) {
             $data = $this->getRequestVar('article', [
-                \fpcm\classes\http::FPCM_REQFILTER_STRIPSLASHES,
-                \fpcm\classes\http::FPCM_REQFILTER_TRIM
+                \fpcm\classes\http::FILTER_STRIPSLASHES,
+                \fpcm\classes\http::FILTER_TRIM
             ]);
 
             $this->assignArticleFormData($data, time());
@@ -107,7 +107,7 @@ class articleedit extends articlebase {
         }
         
         $added = $this->getRequestVar('added', [
-            \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+            \fpcm\classes\http::FILTER_CASTINT
         ]);
 
         if ($res > 0 || $added === 1) {
@@ -307,7 +307,7 @@ class articleedit extends articlebase {
             $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLEREVRESTORE');
         }
 
-        $revisionIdsArray = $this->getRequestVar('revisionIds', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
+        $revisionIdsArray = $this->getRequestVar('revisionIds', [\fpcm\classes\http::FILTER_CASTINT]);
 
         if ($this->buttonClicked('revisionDelete') && is_array($revisionIdsArray) && !$this->showRevision && $this->checkPageToken) {
             if ($this->article->deleteRevisions($revisionIdsArray)) {
@@ -341,7 +341,7 @@ class articleedit extends articlebase {
         $this->revisionArticle = clone $this->article;
 
         if (!$this->revisionId) {
-            $this->revisionId = $this->getRequestVar('rev', [\fpcm\classes\http::FPCM_REQFILTER_CASTINT]);
+            $this->revisionId = $this->getRequestVar('rev', [\fpcm\classes\http::FILTER_CASTINT]);
         }
 
         $this->showRevision = ($this->revisionArticle->getRevision($this->revisionId) ? true : false);

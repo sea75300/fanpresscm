@@ -81,24 +81,24 @@ class tinymceEditor extends articleEditor {
         $cssClasses = array_merge($editorStyles, $this->getEditorStyles());
 
         return $this->events->runEvent('editorInitTinymce', [
-                    'editorConfig' => [
-                        'language' => $this->config->system_lang,
-                        'plugins' => $pluginFolders,
-                        'custom_elements' => 'readmore',
-                        'toolbar' => 'formatselect fontsizeselect | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify outdent indent | subscript superscript table toc | bullist numlist | fpcm_readmore hr blockquote | link unlink anchor image media | emoticons charmap insertdatetime template | undo redo removeformat searchreplace fullscreen code restoredraft',
-                        'link_class_list' => $cssClasses,
-                        'image_class_list' => $cssClasses,
-                        'link_list' => \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorlinks']),
-                        'image_list' => \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorfiles']),
-                        'textpattern_patterns' => $this->getTextPatterns(),
-                        'templates' => $this->getTemplateDrafts(),
-                        'autosave_prefix' => 'fpcm-editor-as-' . $this->session->getUserId(),
-                        'images_upload_url' => $this->config->articles_imageedit_persistence ? \fpcm\classes\tools::getFullControllerLink('ajax/editor/imgupload') : false,
-                        'automatic_uploads' => $this->config->articles_imageedit_persistence ? 1 : 0,
-                        'autoresize_min_height' => 500
-                    ],
-                    'editorDefaultFontsize' => $this->config->system_editor_fontsize,
-                    'editorInitFunction' => 'initTinyMce'
+            'editorConfig' => [
+                'language' => $this->config->system_lang,
+                'plugins' => $pluginFolders,
+                'custom_elements' => 'readmore',
+                'toolbar' => 'formatselect fontsizeselect | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify outdent indent | subscript superscript table toc | bullist numlist | fpcm_readmore hr blockquote | link unlink anchor image media | emoticons charmap insertdatetime template | undo redo removeformat searchreplace fullscreen code restoredraft',
+                'link_class_list' => $cssClasses,
+                'image_class_list' => $cssClasses,
+                'link_list' => \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorlinks']),
+                'image_list' => \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorfiles']),
+                'textpattern_patterns' => $this->getTextPatterns(),
+                'templates' => $this->getTemplateDrafts(),
+                'autosave_prefix' => 'fpcm-editor-as-' . $this->session->getUserId(),
+                'images_upload_url' => $this->config->articles_imageedit_persistence ? \fpcm\classes\tools::getFullControllerLink('ajax/editor/imgupload') : false,
+                'automatic_uploads' => $this->config->articles_imageedit_persistence ? 1 : 0,
+                'autoresize_min_height' => 500
+            ],
+            'editorDefaultFontsize' => $this->config->system_editor_fontsize,
+            'editorInitFunction' => 'initTinyMce'
         ]);
     }
 

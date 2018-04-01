@@ -34,8 +34,8 @@ class backups extends \fpcm\controller\abstracts\controller {
         }
 
         $filePath = $this->getRequestVar('save', [
-            \fpcm\classes\http::FPCM_REQFILTER_URLDECODE,
-            \fpcm\classes\http::FPCM_REQFILTER_BASE64DECODE
+            \fpcm\classes\http::FILTER_URLDECODE,
+            \fpcm\classes\http::FILTER_BASE64DECODE
         ]);
         
         $filePath = $this->crypt->decrypt($filePath);

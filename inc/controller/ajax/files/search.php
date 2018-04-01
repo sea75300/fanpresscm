@@ -38,7 +38,7 @@
 
             if (!is_null($this->getRequestVar('mode'))) {
                 $this->mode = $this->getRequestVar('mode', [
-                    \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+                    \fpcm\classes\http::FILTER_CASTINT
                 ]);
             }
 

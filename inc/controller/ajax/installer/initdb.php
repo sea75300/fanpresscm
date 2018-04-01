@@ -53,7 +53,7 @@ class initdb extends \fpcm\controller\abstracts\ajaxController {
     public function request()
     {
         $this->filename = base64_decode(str_rot13($this->getRequestVar('file', [
-            \fpcm\classes\http::FPCM_REQFILTER_BASE64DECODE
+            \fpcm\classes\http::FILTER_BASE64DECODE
         ])));
 
         return true;

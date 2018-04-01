@@ -46,7 +46,7 @@ class search extends \fpcm\controller\abstracts\ajaxController {
         $this->initActionVars();
 
         $this->mode = $this->getRequestVar('mode', [
-            \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+            \fpcm\classes\http::FILTER_CASTINT
         ]);
 
         $filter = $this->getRequestVar('filter');

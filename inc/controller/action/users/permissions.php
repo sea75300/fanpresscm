@@ -45,7 +45,7 @@ class permissions extends \fpcm\controller\abstracts\controller {
     public function request()
     {
         $this->rollId = $this->getRequestVar('id', [
-            \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+            \fpcm\classes\http::FILTER_CASTINT
         ]);
 
         $this->view->assign('rollId', $this->rollId);
@@ -63,7 +63,7 @@ class permissions extends \fpcm\controller\abstracts\controller {
         if ($this->buttonClicked('permissionsSave') && !is_null($this->getRequestVar('permissions')) && $checkPageToken) {
 
             $permissionData = $this->getRequestVar('permissions', [
-                \fpcm\classes\http::FPCM_REQFILTER_CASTINT
+                \fpcm\classes\http::FILTER_CASTINT
             ]);
 
             if ($this->rollId == 1) {

@@ -163,7 +163,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param array $filter
      * @return mixed
      */
-    public function getRequestVar($varname = null, array $filter = [\fpcm\classes\http::FPCM_REQFILTER_STRIPTAGS, \fpcm\classes\http::FPCM_REQFILTER_HTMLENTITIES, \fpcm\classes\http::FPCM_REQFILTER_STRIPSLASHES, \fpcm\classes\http::FPCM_REQFILTER_TRIM])
+    public function getRequestVar($varname = null, array $filter = [\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_HTMLENTITIES, \fpcm\classes\http::FILTER_STRIPSLASHES, \fpcm\classes\http::FILTER_TRIM])
     {
         return \fpcm\classes\http::get($varname, $filter);
     }
@@ -263,23 +263,47 @@ class controller implements \fpcm\controller\interfaces\controller {
 
         return false;
     }
-
+    
     /**
-     * Page-Token prüfen
-     * @return boolean
+     * Check page token
+     * @param string $overrideModule
+     * @return bool
      */
-    protected function checkPageToken()
+    protected function checkPageToken($overrideModule = '')
     {
         if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
+            trigger_error('Page token check failed, no referer available or referrer mismatch.');
+            $this->checkPageToken = false;
+            return $this->checkPageToken;
+        }
+        
+        $fopt       = new \fpcm\model\files\fileOption(\fpcm\classes\security::getPageTokenFieldName($overrideModule));
+        $tokenData  = \fpcm\classes\loader::getObject('\fpcm\classes\crypt')->decrypt($fopt->read());
+        $fopt->remove();
+        
+        if (is_string($tokenData)) {
+            $tokenData = json_decode($tokenData);
+        }
+
+        if (time() > $tokenData->exp) {
+            trigger_error('Submitted page token has been expired on '.date('Y-m-d', $tokenData->exp));
             $this->checkPageToken = false;
             return $this->checkPageToken;
         }
 
-        $fieldname = \fpcm\classes\security::pageTokenCacheModule . '/' . \fpcm\classes\security::getPageTokenFieldName();
-        $tokenData = \fpcm\classes\loader::getObject('\fpcm\classes\crypt')->decrypt($this->cache->read($fieldname));
-        $this->cache->cleanup($fieldname);
+        $postToken = \fpcm\classes\http::getPageToken($overrideModule);
+        if ($postToken !== null && $postToken != $tokenData->str) {
+            trigger_error('Submitted page token was inavlid. Token: '.\fpcm\classes\http::getPageToken($overrideModule));
+            $this->checkPageToken = false;
+        }
+        
+        $ajaxToken = \fpcm\classes\http::postOnly('pageTkn');
+        if ($ajaxToken !== null && $ajaxToken != $tokenData->str) {
+            trigger_error('Submitted page token was inavlid. Token: '.$ajaxToken);
+            $this->checkPageToken = false;
+        }
 
-        $this->checkPageToken = (\fpcm\classes\http::getPageToken() == $tokenData ? true : false);
+        $this->checkPageToken = true;
         return $this->checkPageToken;
     }
 
