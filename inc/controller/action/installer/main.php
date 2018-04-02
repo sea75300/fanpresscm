@@ -401,7 +401,8 @@ class main extends \fpcm\controller\abstracts\controller {
             }
         }
 
-        if (in_array($username, FPCM_INSECURE_USERNAMES)) {
+        $insecureUserNamens = json_decode(FPCM_INSECURE_USERNAMES, true);
+        if (in_array($username, $insecureUserNamens)) {
             $this->redirect('installer', [
                 'step' => '6',
                 'msg' => -5,

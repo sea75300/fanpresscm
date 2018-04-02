@@ -250,7 +250,8 @@ final class installer extends \fpcm\model\abstracts\cli {
         $this->output(PHP_EOL . 'Create first user as administrator...' . PHP_EOL);
         usleep(250000);
 
-        if (in_array($this->conf['user']['username'], FPCM_INSECURE_USERNAMES)) {
+        $insecureUserNamens = json_decode(FPCM_INSECURE_USERNAMES, true);
+        if (in_array($this->conf['user']['username'], $insecureUserNamens)) {
             usleep(50000);
             $this->output(PHP_EOL . 'The selected username should not be used due to security problems...' . PHP_EOL);
             if ($this->input('Do you want to proceed with the username? (y/n)') === 'n') {
