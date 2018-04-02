@@ -24,7 +24,7 @@ class backups extends \fpcm\controller\abstracts\controller {
 
     protected function getHelpLink()
     {
-        return 'hl_options';
+        return 'HL_BACKUPS';
     }
 
     public function request()

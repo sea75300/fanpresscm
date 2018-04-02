@@ -15,6 +15,10 @@ namespace fpcm\controller\action\system;
  */
 class help extends \fpcm\controller\abstracts\controller {
 
+    /**
+     * 
+     * @return string
+     */
     protected function getViewPath()
     {
         return 'system/help';

@@ -29,7 +29,7 @@ class smileyadd extends \fpcm\controller\abstracts\controller {
 
     protected function getHelpLink()
     {
-        return 'hl_options';
+        return 'HL_OPTIONS_SMILEYS';
     }
 
     protected function getActiveNavigationElement()

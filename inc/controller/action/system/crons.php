@@ -44,7 +44,7 @@ class crons extends \fpcm\controller\abstracts\controller {
      */
     protected function getHelpLink()
     {
-        return 'hl_options';
+        return 'HL_CRONJOBS';
     }
 
     /**

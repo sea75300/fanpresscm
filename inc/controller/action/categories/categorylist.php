@@ -59,7 +59,7 @@ class categorylist extends \fpcm\controller\abstracts\controller {
      */
     protected function getHelpLink()
     {
-        return 'hl_options';
+        return 'HL_CATEGORIES_MNG';
     }
 
     /**

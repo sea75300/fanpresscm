@@ -71,7 +71,7 @@ class templates extends \fpcm\controller\abstracts\controller {
      */
     protected function getHelpLink()
     {
-        return 'hl_options';
+        return 'HL_OPTIONS_TEMPLATES';
     }
 
     /**

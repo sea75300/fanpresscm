@@ -29,7 +29,7 @@ class useradd extends userbase {
 
     protected function getHelpLink()
     {
-        return 'hl_options';
+        return 'HL_OPTIONS_USERS';
     }
 
     protected function getActiveNavigationElement()

@@ -7,22 +7,13 @@ Help language file
 */
 -->
 <chapters>
-    <chapter>
-        <headline>
-            HL_DASHBOARD
-        </headline>
-        <text>
+    <chapter ref="HL_DASHBOARD">
         <![CDATA[
         <p>The <b>dashboard</b> offers you a first overview about you systems status, updates, recently created articles and more.
             To create an own container, create a file into in "fanpress/inc/dashboard" or using the module event.</p>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            ARTICLES_EDITOR
-        </headline>
-        <text>
+    <chapter ref="ARTICLES_EDITOR">
         <![CDATA[
         <p>The article editor allows you to create and format articles, as well as sort it into categories, postpone or pin it.
             It's possible to extended the editor using various module events.</p>
@@ -77,13 +68,8 @@ Help language file
         <p>FanPress CM has a simple revision system, so you wont loose changes you made to an article. Revisions can be enabled
             in system options and managed in the <i>Revisions</i> tab.</p>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_ARTICLE_EDIT
-        </headline>
-        <text>
+    <chapter ref="HL_ARTICLE_EDIT">
         <![CDATA[
         <p>This area allows you to manager you existing articles. You can edit or delete them as well as set different article
             options.</p>
@@ -110,13 +96,8 @@ Help language file
                 articles or restore them.</li>
         </ul>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_COMMENTS_MNG
-        </headline>
-        <text>
+    <chapter ref="HL_COMMENTS_MNG">
         <![CDATA[
         <p>The <i>Comments</i> area is an extension of the editor <i>Comments</i>-tab. This area lists you all existing articles
             regardless of their related article. Your can manage all articles as you can do in the editor tab, which means edit, delete,
@@ -141,13 +122,8 @@ Help language file
 
         <p>The <span class="fpcm-ui-button">Search & filter</span> button allows you to search or filter you articles by various conditions.</p>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_FILES_MNG
-        </headline>
-        <text>
+    <chapter ref="HL_FILES_MNG">
         <![CDATA[
         <p>The <i>filemanager</i> allows you to manage all uploaded images you are using in your articles. A simplified view is
             available when opend in the article editor. The filemanager shows you a list of all images with a thumbnail and allows
@@ -163,13 +139,8 @@ Help language file
             dialogue. The HTML editor view uses an auto-completion in the source field. Just start typing the file name. TinyMCE includes an
             option called "Image list" where you can select an image.</p>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_PROFILE
-        </headline>
-        <text>
+    <chapter ref="HL_PROFILE">
         <![CDATA[
         <p>The <b>profile</b> contains your personal settings such as:</p>
         <ul>
@@ -187,13 +158,8 @@ Help language file
             <li><em>Avatar:</em> User avatar, filename pattern is <em>username.jpg/png/gif/bmp</em></li>
         </ul>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_OPTIONS
-        </headline>
-        <text>
+    <chapter ref="HL_OPTIONS">
         <![CDATA[
         <h3>System settings</h3>
         <p>Users with permissions to change settings can chose those options:</p>
@@ -391,113 +357,49 @@ Help language file
         </ul>
 
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_MODULES
-        </headline>
-        <text>
+    <chapter ref="HL_OPTIONS_USERS">
         <![CDATA[
-        <p>The <b>Modules</b> area allows you to manage installed and available module including updates and so on.
-            Depending on the amount of used events, classes, etc. modules and extend functionality of FanPress CM.</p>
-        <p>When your host allows external connections to other servers (see dashboard container of system check),
-            managing modules is pretty easy. In case you have to install/ update modules, use the "Install module manually" tab.
-            Simply select the module ZIP archive file and start the upload. The package will be automatically extracted into the correct
-            subfolder in "fanpress/inc/modules". If an uploaded module is not installed, it's install action will be called otherwise
-            the update instructions will be executed.</p>
-        <p>You can manage every module using the buttons in front of the module name. The visible buttons depend on the module
-            manager roll permissions. Non-admin users should NOT have access to settings to manage modules. If you want to perform
-            an action to various modules at the same time, check the boxes at the end on a line and select the action your want to
-            execute at the right bottom.</p>
-        <p>Module authors can define module <b>dependencies</b>, which means a selected module requires other modules to be enabled
-            and usable. The button <span class="fpcm-ui-button"><span class="ui-icon ui-icon-alert"></span></span> at the beginning of a
-            module line informs you about dependency errors. See module description for further information.</p>
-        <p>In case you want to create an own module, check the <a href="https://nobody-knows.org/download/fanpress-cm/tutorial-zum-schreiben-eines-moduls/">Tutorial</a>
-            and our <a href="http://updates.nobody-knows.org/fanpress/docs_fpcm3/">class documentation</a>.
-        </p>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_HELP_CACHE
-        </headline>
-        <text>
+    <chapter ref="HL_OPTIONS_IPBLOCKING">
         <![CDATA[
-        <p> In case it's not, click <span class="fpcm-ui-button">Clear cache</span> at the page top
-            to cleanup the cache manually.</p>
-
-
-        <ul>
-            <li>FanPress CM includes a cache system to reduce load to database, file system and improve speed. If it's content is expired
-                it will be rebuild automatically.</li>
-            <li>In case it's not, click <span class="fpcm-ui-button" title="Cache leeren"><span class="fa fa-recycle fa-lg fa-fw"></span></span>
-                at the page top to cleanup the cache manually.</li>
-        </ul>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            HL_HELP_INTEGRATION
-        </headline>
-        <text>
+    <chapter ref="HL_OPTIONS_WORDBAN">
         <![CDATA[
-        <p>Including FanPress CM depend an how you use the system on your site.</p>
-        <p>An assistant for integration is provided by the "FanPress CM Integration" module which can be found in module manager.
-            If you do it manually, here are further information:</p>
-        <p><b>php include:</b></p>
-        <p>When using php include, fist include the api file and create a new API object.</p>
-        <pre>
-                &lt;?php include_once 'fanpress/fpcmapi.php'; ?&gt;
-                &lt;?php $api = new fpcmAPI(); ?&gt;
-        </pre>                
-        <p>Now you can use the API functions:</p>
-        <ul>
-            <li><strong>$api->showArticles()</strong> to display active articles, a single article or the article archive in
-                front end. (fulfils task of shownews.php from FanPress CM 1.x and 2.x)</li>
-            <li><strong>$api->showLatestNews()</strong> to show recent news list.</li>
-            <li><strong>$api->showPageNumber()</strong> displays current page number, accepts a parameter for page descriptions
-                like "Page XYZ".</li>
-            <li><strong>$api->showTitle()</strong> displayse the article title in HTML &lt;title&gt; , 
-                accepts a parameter for a separator of your text in &lt;title&gt;.</li>
-            <li><strong>$api->legacyRedirect()</strong> redirect visitors which enters your site using an FanPress CM 1/2 article/ page URL style.</li>
-        </ul>
-        <p>You can use a couple of constants for further configuration of the output:</p>
-        <ul>
-            <li><strong>FPCM_PUB_CATEGORY_LATEST</strong> articles from category in $api->showLatestNews()</li>
-            <li><strong>FPCM_PUB_CATEGORY_LISTALL</strong> articles from category in $api->showArticles()</li>
-            <li><strong>FPCM_PUB_LIMIT_LISTALL</strong> amount of active articles in $api->showArticles()</li>
-            <li><strong>FPCM_PUB_LIMIT_ARCHIVE</strong> amount of archived articles in $api->showArticles()</li>
-            <li><strong>FPCM_PUB_LIMIT_LATEST</strong> amount of articles in $api->showLatestNews()</li>
-            <li><strong>FPCM_PUB_OUTPUT_UTF8</strong> enable or disable usage of UTF-8 charset in output of $api->showLatestNews(),
-                $api->showArticles() and $api->showTitle(). Should only be used in case special signs as german umlauts are displayed
-                incorrectly.</li>
-        </ul>              
-        <p><b>iframes:</b></p>
-        <p>In case your're using <i>iframes</i> you have to call the controllers manually.</p>
-        <ul>
-            <li><strong>your-domain.xyz/fanpress/index.php?module=fpcm/list</strong> show all active articles
-                (fulfils task of shownews.php from FanPress CM 1.x and 2.x)</li>
-            <li><strong>your-domain.xyz/fanpress/index.php?module=fpcm/archive</strong> show article archive
-                (fulfils task of shownews.php from FanPress CM 1.x and 2.x)</li>
-            <li><strong>your-domain.xyz/fanpress/index.php?module=fpcm/article&&amp;id=A_DIGIT</strong> show a single article with
-                given id including comments</li>
-            <li><strong>your-domain.xyz/fanpress/index.php?module=fpcm/latest</strong> show latest news</li>
-        </ul>
-
-        <p><b>RSS Feed:</b></p>
-        <p>if you want to provide the RSS feed for your visitors, just create a link to <strong>your-domain.xyz/fanpress/index.php?module=fpcm/feed</strong>.                
-            The link does not depend on the way you're using FanPress CM.</p>
         ]]>
-        </text>
     </chapter>
-    <chapter>
-        <headline>
-            SYSTEM_OPTIONS_TWITTER_CONNECTION
-        </headline>
-        <text>
+    <chapter ref="HL_CATEGORIES_MNG">
+        <![CDATA[
+        ]]>
+    </chapter>
+    <chapter ref="HL_OPTIONS_TEMPLATES">
+        <![CDATA[
+        ]]>
+    </chapter>
+    <chapter ref="HL_OPTIONS_SMILEYS">
+        <![CDATA[
+        ]]>
+    </chapter>
+    <chapter ref="HL_CRONJOBS">
+        <![CDATA[
+        ]]>
+    </chapter>
+    <chapter ref="HL_LOGS">
+        <![CDATA[
+        ]]>
+    </chapter>
+    <chapter ref="HL_BACKUPS">
+        <![CDATA[
+        ]]>
+    </chapter>
+    <chapter ref="HL_MODULES">
+        <![CDATA[
+        <p>no information yet</p>
+        ]]>
+    </chapter>
+    <chapter ref="SYSTEM_OPTIONS_TWITTER_CONNECTION">
         <![CDATA[
         <p>FanPress CM includes a twitter connection interface, so you can directly connect to Twitter and create tweets when
             publishing and/or updating an article.</p>
@@ -522,19 +424,13 @@ Help language file
         </ol>
         <p>To disconnect you system from Twitter, select <span class="fpcm-ui-button">Delete connection</span>.</p>
         ]]>
-        </text> 
     </chapter>
-    <chapter>
-        <headline>
-            HL_HELP_SUPPORT
-        </headline>
-        <text>
+    <chapter ref="HL_HELP_SUPPORT">
         <![CDATA[
         <p>In case you need help with technical issues or further questions, email me at <em>fanpress@nobody-knows.org</em>
             or <em>sea75300@yahoo.de</em>. You also can leave a comment on <a href="https://nobody-knows.org/download/fanpress-cm/">nobody-knows.org</a>.</p>
         <p>A fast and simple way to provide access in case you need support, install <em>FanPress CM Support Module</em> using the
             module manager. However, an e-mail with the created support user and additional information will be send during installation!</p>
         ]]>
-        </text> 
     </chapter>
 </chapters>

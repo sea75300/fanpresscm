@@ -177,8 +177,6 @@ Help language file
     </chapter>
     <chapter ref="HL_OPTIONS">
         <![CDATA[
-
-        <h3>Systemeinstellungen</h3>
         <p>Benutzer mit den entsprechenden Rechten können hier zentrale Einstellungen von FanPress CM ändern.</p>
         <ul>
             <li><b>Allgemein:</b><br>
@@ -306,8 +304,10 @@ Help language file
                 Fall ist, wende sich an deinen Host.
             </li>            
         </ul>
-
-        <h3>Benutzer & Rollen</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_OPTIONS_USERS">
+        <![CDATA[
         <ul>
             <li>Mit den entsprechenden Rechten können Benutzer und Benutzer-Rollen verwaltet werden.</li>
             <li>Ein Benutzer kann lediglich Mitglied einer einzelnen Rolle sein.</li>
@@ -322,8 +322,10 @@ Help language file
                 verweigert werden. Seit Version 3.6 werden Berechtigungen direkt im bereich der Rollen bearbeitet.
             </li>
         </ul>
-
-        <h3>IP-Adressen</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_OPTIONS_IPBLOCKING">
+        <![CDATA[
         <p>Benutzer mit Rechten zur Änderung der Systemeinstellungen können hier IP-Adressen sperren oder Sperren wieder aufheben.
             (z. B. wegen Spam) Pro Eintrag kann festgelegt werden, für welchen Bereich von FanPress CM die Sperren gelten soll:
             keine Kommentare, kein Login, überhaupt kein Zugriff.</p>
@@ -336,8 +338,10 @@ Help language file
                 Artikel, Kommentare, etc. nicht angezeigt. Der weitere Zugriffe auf deine Seite kann von anderen Faktoren
                 abhängen.</li>
         </ul>
-
-        <h3>Textzensur</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_OPTIONS_WORDBAN">
+        <![CDATA[
         <p>Die Textzensur ermöglicht es, bestimmte Wörter, Textgruppen oder Zeichenketten für die Verwendung in Artikeln, Kommentaren, etc. zu sperren.</p>
         <ul>
             <li><em>Text ersetzen:</em> Ist diese Checkbox markiert, so wird die entsprechende Textstelle durch den angegeben
@@ -350,16 +354,20 @@ Help language file
             <li><em>Kommentar muss freigeschalten werden:</em> Analog zur Option <em>Artikel muss überprüft werden</em>, allerdings
                 wird hier der entsprechende Kommentar markiert, dass er manuell freigegeben werden muss.</li>
         </ul>
-
-        <h3>Kategorien</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_CATEGORIES_MNG">
+        <![CDATA[
         <ul>
             <li>Benutzer mit entsprechenden Rechten können hier neue Kategorien, sowie bestehende ändern oder löschen.</li>
             <li>Der Zugriff auf Kategorien kann auf bestimmte Benutzergruppen beschränkt werden.</li>
             <li>Für das "Kategorie-Icon" kann eine Bid-Datei auf einem externen Server oder lokal auf deinem Webspace verwendet
                 werden. In beiden Fällen sollte die vollständige URL angegeben werden.</li>
         </ul>
-
-        <h3>Templates</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_OPTIONS_TEMPLATES">
+        <![CDATA[
         <p>Benutzer mit entsprechenden Rechten können die Templates zur Ausgabe von Artikeln, Kommentaren, etc. bearbeiten.
             Für eine bessere Übersicht bietet der Template-Editor Syntax-Highlighting und eine Liste der verfügbaren Platzhalter.</p>
         <ul>
@@ -373,11 +381,15 @@ Help language file
             <li><em>Tweet:</em> HTML-freies Template für automatisch erzeugte Einträge bei Twitter (Tweets).</li>
             <li><em>Vorlagen:</em> HTML-Vorlagen zu Nutzung im Artikel-Editor. (TinyMCE bzw. HTML-Ansicht)</li>
         </ul>
-
-        <h3>Smileys</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_OPTIONS_SMILEYS">
+        <![CDATA[
         <p>Benutzer mit den entsprechenden Rechten können die nutzbaren Smileys verwalten.</p>
-
-        <h3>Cronjobs</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_CRONJOBS">
+        <![CDATA[
         <ul>
             <li>Cronjobs sind Aufgaben, welche in regelmäßgen Abständen automatisch durch FanPress CM im Hintergrund
                 ausgeführt werden.</li>
@@ -387,8 +399,10 @@ Help language file
                 angepasst wird.</li>
             <li>Beachte bei der Änderung des Intervals, dass Cronjobs u. U. für erhöhte Serverlast führen kann.</li>
         </ul>
-
-        <h3>System-Logs</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_LOGS">
+        <![CDATA[
         <p>Im Bereich der Systemlogs findest du eine Auflistung aller bisherigen Benutzer-Logins, System-Meldungen von FanPress und
             Fehlermeldungen durch PHP selbst oder der Datenbank. Über den Button <i>Log-Datei leeren</i> kannst du Meldungen, etc. löschen
             lassen.</p>
@@ -402,8 +416,10 @@ Help language file
             <li>Im <em>Paket-Manager-Log</em> wird eine Übersicht über installierte Pakete geführt. Dies sind Pakete für System-Updates
                 und Pakete von Modulen.</li>
         </ul>
-
-        <h3>Backupmanager</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_BACKUPS">
+        <![CDATA[
         <ul>
             <li>Im Bereich "Backupmanager" kannst du die automatisch erzeugten Datenbank-Backups herunterladen.</li>
             <li>Die erzeugten Datenbank-Backups sind gepackten SQL-Dateien, deren Struktur vom verwendeten Datenbank-System
@@ -412,8 +428,7 @@ Help language file
                 <a href="https://www.phpmyadmin.net/" target="_blank">phpMyAdmin</a>, <a href="https://www.adminer.org/de" target="_blank">Adminer</a> or
                 <a href="http://phppgadmin.sourceforge.net/doku.php" target="_blank">phpPgAdmin</a> nutzen.
             </li>
-        </ul>        
-
+        </ul>
         ]]>
     </chapter>
     <chapter ref="HL_MODULES">

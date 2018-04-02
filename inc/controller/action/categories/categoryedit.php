@@ -62,7 +62,7 @@ class categoryedit extends \fpcm\controller\abstracts\controller {
 
     protected function getHelpLink()
     {
-        return 'hl_options';
+        return 'HL_CATEGORIES_MNG';
     }
 
     protected function getActiveNavigationElement()
