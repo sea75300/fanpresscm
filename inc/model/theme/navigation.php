@@ -155,13 +155,13 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                     'submenu' => $this->modulesSubmenu()
                 ])
             ),
-            'help' => array(
-                navigationItem::createItemFromArray([
-                    'url' => 'system/help',
-                    'description' => $this->language->translate('HL_HELP'),
-                    'icon' => 'fa fa-question-circle'
-                ])
-            ),
+//            'help' => array(
+//                navigationItem::createItemFromArray([
+//                    'url' => 'system/help',
+//                    'description' => $this->language->translate('HL_HELP'),
+//                    'icon' => 'fa fa-question-circle'
+//                ])
+//            ),
             'after' => []
         );
 

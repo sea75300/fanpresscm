@@ -46,9 +46,10 @@ fpcm.filemanager = {
     initActionButtons : function() {
 
         jQuery('#btnRenameFiles').click(function () {
-            if (fpcm.ui.langvarExists('FILE_LIST_RENAME_NEWNAME')) {
+
+            if (!fpcm.ui.langvarExists('FILE_LIST_RENAME_NEWNAME') || !fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox').length) {
                 fpcm.ui.showLoader(false);
-                return true;
+                return false;
             }
 
             var newName = prompt(fpcm.ui.translate('FILE_LIST_RENAME_NEWNAME'), '');
