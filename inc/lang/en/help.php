@@ -270,8 +270,10 @@ Help language file
                 In case it is not your probably should contact your host.
             </li>            
         </ul>
-
-        <h3>User and rolls</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_OPTIONS_USERS">
+        <![CDATA[
         <ul>
             <li>Here you can manage users and user rolls in your system, including deletion, editing and so on.</li>
             <li>An user can be a member of only one group.</li>
@@ -281,8 +283,10 @@ Help language file
                 should be visible for administrators only! You can't prohibit the Administrator roll to access permission settings.
                 As of FPCM 3.6, permission are directly modified in the user roll management view.</li>
         </ul>
-
-        <h3>IP addresses</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_OPTIONS_IPBLOCKING">
+        <![CDATA[
         <p>Here you can lock IP addresses to prohibit access to FanPress CM because of spam comments, many login failures, etc.</p>
         <ul>
             <li><em>No comment access:</em> The user of this IP address was prohibited reading or writing comments..</li>
@@ -291,24 +295,30 @@ Help language file
             <li><em>No frontend access:</em> The user of this IP address can't read you published articles, comments and so on.
                 Access to other parts of your site may depend of futher factors.</li>
         </ul>
-
-        <h3>Censored texts</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_OPTIONS_WORDBAN">
+        <![CDATA[
         <p>Censored texts prevent certain words, texts, text groups and strings from beeing used in comments, articles, categories, users and user rolls.</p>
         <ul>
             <li><em>Replace text:</em> Censored texts will be replaced by the "Replacement" text, if this option is enabled.</li>
             <li><em>Approval of article required:</em> Article is set to require an user approval, if the phrase is included.</li>
             <li><em>Approval of comment required:</em> Comment is set to require an user approval, if the phrase is included.</li>
         </ul>
-
-        <h3>Categories</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_CATEGORIES_MNG">
+        <![CDATA[
         <ul>
             <li>The area to manage article categories, depending on given permissions.</li>
             <li>The access to a category can be restricted to certain groups.</li>
             <li>The "Category icon" can be a remote image file or somewhere in you local file system. It is recommend to use the
                 full URL of the file in both cases.</li>
         </ul>
-
-        <h3>Templates</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_OPTIONS_TEMPLATES">
+        <![CDATA[
         <p>Edit templates to display articles, comments, the latest news, etc. in front end. The template editor includes
             syntax highlighting and a list of allowed replacements.</p>
         <ul>
@@ -322,19 +332,25 @@ Help language file
             <li><em>Tweet:</em> Template used for generation of a Tweet on Twitter! No HTML code allowed.</li>
             <li><em>Article templates:</em> HTML files which can be used are template in TinyMCE or HTML editor view.</li>
         </ul>
-
-        <h3>Smileys</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_OPTIONS_SMILEYS">
+        <![CDATA[
         <p>Manage smileys available in articles and comments.</p>
-
-        <h3>Cronjobs</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_CRONJOBS">
+        <![CDATA[
         <ul>
             <li>Cronjobs are tasks, executed automatically and regularly by FanPress CM in background.</li>
             <li>The cronjob list shows you when a cronjob was executed last, when it's next execution is planned.</li>
             <li>You can modfify the execution interval by changed the interval time.</li>
             <li>Please be careful when you change the intverval, because a cronjob can cause high system load.</li>
         </ul>
-
-        <h3>System Logs</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_LOGS">
+        <![CDATA[
         <p>This area shows you the system logs of FanPress CM for sessions, system messages, errors and database errors.
             You can clear the logs in case they are to large.</p>
         <ul>
@@ -345,8 +361,10 @@ Help language file
             <li>The <em>Session log</em> lists all logins of users available in FanPress CM.</li>
             <li>The <em>Package manager log</em> is an overview of installed packages from updates and installed modules.</li>
         </ul>
-
-        <h3>Backup manager</h3>
+        ]]>
+    </chapter>
+    <chapter ref="HL_BACKUPS">
+        <![CDATA[
         <ul>
             <li>The "Backup manager" allows you to download the database backups created by the FanPress CM cronjob.</li>
             <li>The created backups are zipped SQL-Files. The structure depends on the database system you're using.</li>
@@ -355,43 +373,6 @@ Help language file
                 <a href="http://phppgadmin.sourceforge.net/doku.php" target="_blank">phpPgAdmin</a>.
             </li>
         </ul>
-
-        ]]>
-    </chapter>
-    <chapter ref="HL_OPTIONS_USERS">
-        <![CDATA[
-        ]]>
-    </chapter>
-    <chapter ref="HL_OPTIONS_IPBLOCKING">
-        <![CDATA[
-        ]]>
-    </chapter>
-    <chapter ref="HL_OPTIONS_WORDBAN">
-        <![CDATA[
-        ]]>
-    </chapter>
-    <chapter ref="HL_CATEGORIES_MNG">
-        <![CDATA[
-        ]]>
-    </chapter>
-    <chapter ref="HL_OPTIONS_TEMPLATES">
-        <![CDATA[
-        ]]>
-    </chapter>
-    <chapter ref="HL_OPTIONS_SMILEYS">
-        <![CDATA[
-        ]]>
-    </chapter>
-    <chapter ref="HL_CRONJOBS">
-        <![CDATA[
-        ]]>
-    </chapter>
-    <chapter ref="HL_LOGS">
-        <![CDATA[
-        ]]>
-    </chapter>
-    <chapter ref="HL_BACKUPS">
-        <![CDATA[
         ]]>
     </chapter>
     <chapter ref="HL_MODULES">
