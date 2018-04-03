@@ -284,6 +284,11 @@ class controller implements \fpcm\controller\interfaces\controller {
         if (is_string($tokenData)) {
             $tokenData = json_decode($tokenData);
         }
+        
+        if (!is_object($tokenData)) {
+            $this->checkPageToken = false;
+            return $this->checkPageToken;
+        }
 
         if (time() > $tokenData->exp) {
             trigger_error('Submitted page token has been expired on '.date('Y-m-d', $tokenData->exp));

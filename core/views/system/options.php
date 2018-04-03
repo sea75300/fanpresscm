@@ -319,19 +319,25 @@
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-12 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-12 col-md-5 fpcm-ui-padding-none-lr fpcm-ui-padding-md-tb">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_SORTING'); ?>:
                             </div>
-                            <div class="align-self-center col-12 fpcm-ui-center">
-                                <div class="fpcm-ui-controlgroup fpcm-ui-padding-md-tb">
-                                    <?php $theView->select('articles_sort')
-                                            ->setOptions($sorts)
-                                            ->setSelected($globalConfig['articles_sort'])
-                                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                            <div class="align-self-center col-12 col-sm-12 col-md-7">
+                                <div class="row no-gutters fpcm-ui-padding-md-tb">
+                                    <div class="align-self-center col-12 col-sm-12 col-md-7">
+                                        <?php $theView->select('articles_sort')
+                                                ->setOptions($sorts)
+                                                ->setSelected($globalConfig['articles_sort'])
+                                                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                                    </div>
+                                </div>
+                                <div class="row no-gutters fpcm-ui-padding-md-tb">
+                                    <div class="align-self-center col-12 col-sm-12 col-md-7">
                                     <?php $theView->select('articles_sort_order')
                                             ->setOptions($sortsOrders)
                                             ->setSelected($globalConfig['articles_sort_order'])
                                             ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -720,8 +726,8 @@
                         <div class="row fpcm-ui-padding-md-tb">
                             <div class="col-12 align-self-center fpcm-ui-padding-none-lr">
                                 <div class="fpcm-ui-controlgroup">
-                                    <?php $theView->checkbox('twitter_events[create]', 'twitter_events_create')->setText('SYSTEM_OPTIONS_TWITTER_EVENTCREATE')->setSelected($globalConfig['twitter_events']['create'])->setIcon('plus'); ?>
-                                    <?php $theView->checkbox('twitter_events[update]', 'twitter_events_update')->setText('SYSTEM_OPTIONS_TWITTER_EVENTUPDATE')->setSelected($globalConfig['twitter_events']['update'])->setIcon('retweet'); ?>
+                                    <?php $theView->checkbox('twitter_events[create]', 'twitter_events_create')->setText('SYSTEM_OPTIONS_TWITTER_EVENTCREATE')->setSelected($globalConfig['twitter_events']['create']); ?>
+                                    <?php $theView->checkbox('twitter_events[update]', 'twitter_events_update')->setText('SYSTEM_OPTIONS_TWITTER_EVENTUPDATE')->setSelected($globalConfig['twitter_events']['update']); ?>
                                 </div>     
                             </div>
                         </div>
@@ -737,7 +743,7 @@
                             <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
                                 <?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY'); ?>:
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            <div class="align-self-center col-sm-12 col-md-6">
                                 <?php $theView->textInput('twitter_data[consumer_key]')->setValue($globalConfig['twitter_data']['consumer_key']); ?>
                             </div>
                             <div class="align-self-center col-sm-12 col-md-auto">
@@ -748,7 +754,7 @@
                             <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
                                 <?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET'); ?>:
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            <div class="align-self-center col-sm-12 col-md-6">
                                 <?php $theView->textInput('twitter_data[consumer_secret]')->setValue($globalConfig['twitter_data']['consumer_secret']); ?>
                             </div>
                             <div class="align-self-center col-sm-12 col-md-auto">
@@ -759,7 +765,7 @@
                             <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
                                 <?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_TOKEN'); ?>:
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            <div class="align-self-center col-sm-12 col-md-6">
                                 <?php $theView->textInput('twitter_data[user_token]')->setValue($globalConfig['twitter_data']['user_token']); ?>
                             </div>
                             <div class="align-self-center col-sm-12 col-md-auto">
@@ -770,7 +776,7 @@
                             <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
                                 <?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_SECRET'); ?>:
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            <div class="align-self-center col-sm-12 col-md-6">
                                 <?php $theView->textInput('twitter_data[user_secret]')->setValue($globalConfig['twitter_data']['user_secret']); ?>
                             </div>
                             <div class="align-self-center col-sm-12 col-md-auto">

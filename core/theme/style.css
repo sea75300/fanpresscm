@@ -61,7 +61,6 @@ h2 {
     background: #deedf7 url("../../lib/jquery-ui/images/ui-bg_glass_100_deedf7_1x400.png") 50% 50% repeat-x;
     font-weight: bold;
     padding: 0.4em;
-    border-radius: 5px;
 }
 
 h2.ui-accordion-header {
@@ -482,7 +481,6 @@ textarea {
 .fpcm-ui-input-wrapper,
 textarea {
     border: 1px solid #aed0ea;
-    border-radius: 5px;
 }
 
 .fpcm-ui-input-wrapper-inner,
@@ -753,14 +751,13 @@ td.fpcm-td-spacer {
     height:110px;
     min-height:110px;
 }
-
+.fpcm-ui-editor-metabox
 h3, .fpcm-dashboard-container h3 {
     border: 1px solid #2694e8;
     background: #3baae3 url("../../lib/jquery-ui/images/ui-bg_glass_50_3baae3_1x400.png") 50% 50% repeat-x;
     color: #FFF;
     font-weight: bold;
     padding: 0.4em;
-    border-radius: 5px;
 }
 
 .fpcm-content-wrapper-installer h3 {
@@ -843,7 +840,6 @@ h3, .fpcm-dashboard-container h3 {
 .fpcm-ui-editor-metabox {
     background: rgba(229,227,239,0.4);
     border: 1px solid #A6C9E2;
-    border-radius: 5px;
 }
 
 .fpcm-ui-metabox,
@@ -928,8 +924,19 @@ span.fpcm-ui-badge {
     background: #3399ff;
     color: #fff;
     padding: 0.3em 0.5em;
-    border-radius: 5px;
     text-align: center;
+}
+
+h2,
+h3,
+fieldset,
+legend,
+textarea,
+span.fpcm-ui-badge,
+.fpcm-dashboard-container h3,
+.fpcm-ui-input-wrapper,
+.fpcm-ui-editor-metabox {
+    border-radius: 5px;
 }
 
 span.fpcm-ui-badge {
@@ -994,6 +1001,14 @@ div.fpcm-massedit-dialog div.fpcm-ui-editor-extended-button label {
     max-height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
+}
+
+.ui-icon-blank {
+    background-position: 16px 16px !important;
+}
+
+.ui-icon-check {
+  background-position: -64px -144px !important;
 }
 
 div.fpcm-accordion-pkgmanager ul {

@@ -27,9 +27,9 @@
                 </div>
                 <div class="col-sm-12 col-md-9 fpcm-ui-padding-none-lr">
                     <div class="fpcm-ui-controlgroup">
-                        <?php $theView->checkbox('nocomments')->setText('IPLIST_NOCOMMENTS')->setClass('fpcm-ui-ipadresses-rolls')->setIcon('comment-slash'); ?>
-                        <?php $theView->checkbox('nologin')->setText('IPLIST_NOLOGIN')->setClass('fpcm-ui-ipadresses-rolls')->setIcon('sign-in-alt'); ?>
-                        <?php $theView->checkbox('noaccess')->setText('IPLIST_NOACCESS')->setClass('fpcm-ui-ipadresses-rolls')->setIcon('ban'); ?>
+                        <?php $theView->checkbox('nocomments')->setText('IPLIST_NOCOMMENTS'); ?>
+                        <?php $theView->checkbox('nologin')->setText('IPLIST_NOLOGIN'); ?>
+                        <?php $theView->checkbox('noaccess')->setText('IPLIST_NOACCESS'); ?>
                     </div>
                 </div>
             </div>

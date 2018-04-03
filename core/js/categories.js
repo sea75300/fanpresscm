@@ -13,10 +13,6 @@ fpcm.categories = {
 
     init: function () {        
 
-        fpcm.ui.checkboxradio('.fpcm-ui-categories-rolls', {
-            icon: false
-        });
-
         var dvName = 'categorylist';
         if (!fpcm.dataview.exists(dvName)) {
             return true;

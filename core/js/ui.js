@@ -12,16 +12,15 @@ fpcm.ui = {
 
     init: function() {
 
-        jQuery(document).tooltip();
-
-        fpcm.ui.initJqUiWidgets();
-        fpcm.ui.initInputShadow();
-        fpcm.ui.spinner('input.fpcm-ui-spinner');
-        fpcm.ui.tabs('.fpcm-tabs-general');
-        fpcm.ui.accordion('.fpcm-tabs-accordion');
         fpcm.ui.highlightModule();
         fpcm.ui.showMessages();
         fpcm.ui.messagesInitClose();
+
+        fpcm.ui.tabs('.fpcm-tabs-general');
+        fpcm.ui.initJqUiWidgets();
+        fpcm.ui.initInputShadow();
+        fpcm.ui.spinner('input.fpcm-ui-spinner');
+        fpcm.ui.accordion('.fpcm-tabs-accordion');
         fpcm.ui.initDateTimeMasks();
 
         jQuery('.fpcm-navigation-noclick').click(function () {
@@ -50,6 +49,8 @@ fpcm.ui = {
         if (fpcm.vars.jsvars.fieldAutoFocus) {
             fpcm.ui.setFocus(fpcm.vars.jsvars.fieldAutoFocus);
         }
+
+        jQuery(document).tooltip();
     },
 
     initJqUiWidgets: function () {
@@ -155,9 +156,7 @@ fpcm.ui = {
     },
     
     assignSelectmenu: function() {
-        
         fpcm.ui.selectmenu('.fpcm-ui-input-select');
-
     },
 
     
@@ -183,6 +182,11 @@ fpcm.ui = {
     
     accordion: function(elemClassId, params) {
         
+        var el = jQuery(elemClassId);
+        if (!el.length) {
+            return;
+        }
+
         if (params === undefined) {
             params = {
                 header: "h2",
@@ -190,14 +194,14 @@ fpcm.ui = {
             };
         }
 
-        jQuery(elemClassId).accordion(params);
+        el.accordion(params);
     },
     
     tabs: function(elemClassId, params) {
     
         if (params === undefined) params = {};
-        var el = jQuery(elemClassId);
         
+        var el = jQuery(elemClassId);
         if (!el.length) {
             return;
         }
@@ -233,13 +237,23 @@ fpcm.ui = {
     },
 
     spinner: function(elemClassId, params) {
+        
+        var el = jQuery(elemClassId);
+        if (!el.length) {
+            return;
+        }
 
         if (params === undefined) params = {};        
-        jQuery(elemClassId).spinner(params);
+        el.spinner(params);
 
     },
 
     datepicker: function(elemClassId, params) {
+
+        var el = jQuery(elemClassId);
+        if (!el.length) {
+            return;
+        }
 
         if (params === undefined) {
             params = {};
@@ -255,8 +269,7 @@ fpcm.ui = {
         params.firstDay          = 1;
         params.dateFormat        = "yy-mm-dd";
 
-        jQuery(elemClassId).datepicker(params);
-
+        el.datepicker(params);
     },
 
     selectmenu: function(elemClassId, params) {
@@ -292,21 +305,26 @@ fpcm.ui = {
     
     checkboxradio: function(elemClassId, params, onClick) {
 
+        var el = jQuery(elemClassId);
+        if (!el.length) {
+            return;
+        }
+
         if (params === undefined) {
             params = {};
         }
         
         if (params.icon === undefined) {
-            params.icon = false;
+            params.icon = true;
         }
 
-        jQuery(elemClassId).checkboxradio(params);
+        el.checkboxradio(params);
 
         if (onClick === undefined) {
             return;
         }
         
-        jQuery(elemClassId).click(onClick);
+        el.click(onClick);
     },
     
     controlgroup: function(elemClassId, params) {
@@ -316,7 +334,6 @@ fpcm.ui = {
         }
 
         var el = jQuery(elemClassId);
-        
         if (!el.length) {
             return false;
         }
@@ -377,7 +394,12 @@ fpcm.ui = {
         if (params.content !== undefined) {
             fpcm.ui.appendHtml('#fpcm-body', '<div class="fpcm-ui-dialog-layer fpcm-editor-dialog" id="' + dialogId + '">' +  params.content + '</div>');
         }
-        
+
+        var el = jQuery('#' + dialogId);
+        if (!el.length) {
+            return false;
+        }
+
         var dlParams = {};
         dlParams.width    = params.dlWidth;        
         dlParams.modal    = params.modal;
@@ -399,18 +421,23 @@ fpcm.ui = {
             dlParams.minHeight   = params.dlMinHeight;            
         }
         
-        jQuery('#' + dialogId).dialog(dlParams);
+        el.dialog(dlParams);
 
         return true;
     },
     
     autocomplete: function(elemClassId, params) {
-        
+
+        var el = jQuery(elemClassId);
+        if (!el.length) {
+            return false;
+        }
+
         if (params.minLength === undefined) {
             params.minLength = 0;
         }
 
-        return jQuery(elemClassId).autocomplete(params);
+        return el.autocomplete(params);
     },
     
     highlightModule: function() {
