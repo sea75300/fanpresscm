@@ -322,6 +322,10 @@ fieldset:nth-child(odd) {
     background: rgba(255,255,255,0.5);
 }
 
+.fpcm-ui-background-white-100 {
+    background: #ffffff;
+}
+
 .fpcm-full-width-date   {
     width: 85%;
 }
@@ -356,6 +360,10 @@ div.fpcm-status-info ul.fpcm-menu-top,
 .fpcm-editor-select a,
 div.fpcm-status-info {
     width: 100%;
+}
+
+.fpcm-ui-full-height {
+    height: 100%;
 }
 
 div.fpcm-ui-datepicker-inputwrapper {

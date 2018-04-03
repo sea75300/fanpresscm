@@ -81,9 +81,9 @@ final class article extends template {
      */
     public function parse()
     {
-
-        if (!count($this->replacementTags) || !$this->content)
+        if (!count($this->replacementTags) || !$this->content) {
             return false;
+        }
 
         $this->replacementTags = $this->events->runEvent('parseTemplateArticle', $this->replacementTags);
 
