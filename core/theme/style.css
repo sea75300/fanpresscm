@@ -547,6 +547,21 @@ textarea.fpcm-ui-textarea-medium {
     transition: background-color 0.35s ease;
 }
 
+div.fileupload-progress.fpcm-ui-fade {
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+}
+
+div.fileupload-progress.in {
+    display: block;
+    opacity: 1;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+}
+
 /* Admin-Bereich Navigation */
 
 div.fpcm-navigation {
@@ -1071,4 +1086,8 @@ td.fpcm-tinymce-emoticons img {
 div.mce-fpcm-ui-emoticons-panel {
     width: auto !important;
     height: auto !important;
+}
+
+.fpcm-ui-box-sizing-none {
+    box-sizing: initial !important;
 }

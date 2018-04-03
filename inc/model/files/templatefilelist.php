@@ -43,7 +43,6 @@ final class templatefilelist extends \fpcm\model\abstracts\filelist {
      */
     public function getFolderList()
     {
-
         $files = parent::getFolderList();
 
         $idxkey = array_search(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS, 'index.html'), $files);
@@ -59,7 +58,6 @@ final class templatefilelist extends \fpcm\model\abstracts\filelist {
      */
     public function getFolderObjectList()
     {
-
         $files = $this->getFolderList();
 
         $ret = [];

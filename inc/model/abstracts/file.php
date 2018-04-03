@@ -131,14 +131,17 @@ abstract class file {
      */
     public function __construct($filename = '')
     {
-        $this->filename = trim($filename) ? basename($filename) : '';
-        $this->filepath = trim($filename) ? dirname($filename) : '';
-        $this->fullpath = $filename;
+        if ($filename) {
+            $this->fullpath = $this->basePath($filename);
+            $this->filepath = dirname($this->fullpath);
+            $this->filename = basename($this->fullpath);
+        }
 
         $this->dbcon    = \fpcm\classes\loader::getObject('\fpcm\classes\database');
 
-        if (\fpcm\classes\baseconfig::installerEnabled())
+        if (\fpcm\classes\baseconfig::installerEnabled()) {
             return false;
+        }
 
         $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
         $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
@@ -146,14 +149,18 @@ abstract class file {
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
 
-        $this->config->setUserSettings();
-
         if ($this->exists()) {
             $ext = pathinfo($this->fullpath, PATHINFO_EXTENSION);
             $this->extension = ($ext) ? $ext : '';
             $this->filesize = filesize($this->fullpath);
         }
     }
+
+    /**
+     * 
+     * @return string
+     */
+    abstract protected function basePath($filename);
 
     /**
      * Magic get
@@ -239,14 +246,15 @@ abstract class file {
      */
     public function rename($newname, $userid = false)
     {
-
-        if (!rename($this->fullpath, $this->filepath . $newname)) {
+        $newFullPath = $this->basePath($newname);
+        
+        if (!rename($this->fullpath, $newFullPath)) {
             trigger_error('Unable to rename file: ' . $this->fullpath);
             return false;
         }
 
         $this->filename = $newname;
-        $this->fullpath = $this->filepath . $newname;
+        $this->fullpath = $newFullPath;
 
         return true;
     }
@@ -321,15 +329,7 @@ abstract class file {
     public function setFilename($filename)
     {
         $this->filename = $filename;
-    }
-
-    /**
-     * Dateipfad setzen
-     * @param string $filepath
-     */
-    public function setFilepath($filepath)
-    {
-        $this->filepath = $filepath;
+        $this->fullpath = $this->basePath($filename);
     }
 
     /**

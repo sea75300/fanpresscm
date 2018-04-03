@@ -188,13 +188,12 @@ class revision extends \fpcm\model\abstracts\dataset {
      */
     public function createHashSum(array $data = array())
     {
-
         if (!count($data)) {
             $data = json_decode($this->content, true);
         }
 
         unset($data['changetime'], $data['changeuser']);
-        return hash(\fpcm\classes\security::defaultHashAlgo, json_encode($data));
+        return \fpcm\classes\tools::getHash(json_encode($data));
     }
 
     /**

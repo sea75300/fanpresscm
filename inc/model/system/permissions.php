@@ -294,7 +294,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
     {
         $res = true;
 
-        $permissionArrayHash = hash(\fpcm\classes\security::defaultHashAlgo, json_encode($permissionArray));
+        $permissionArrayHash = \fpcm\classes\tools::getHash(json_encode($permissionArray));
         if (isset($this->checkedData[$permissionArrayHash])) {
             return $this->checkedData[$permissionArrayHash];
         }

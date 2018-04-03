@@ -30,14 +30,13 @@ final class templatefile extends \fpcm\model\abstracts\file {
     public static $allowedExts = ['html', 'htm', 'txt'];
 
     /**
-     * Konstruktor
-     * @param string $filename Dateiname
-     * @param string $filepath Dateipfad
-     * @param string $content Dateiinhalt
+     * 
+     * @param string $filename
+     * @return string
      */
-    public function __construct($filename = '')
+    protected function basePath($filename)
     {
-        parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS, $filename));
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS, $filename);
     }
 
     /**
@@ -57,7 +56,7 @@ final class templatefile extends \fpcm\model\abstracts\file {
     public function getEditLink()
     {
         return \fpcm\classes\tools::getFullControllerLink('templates/templateedit', [
-            'file' => urlencode(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt($this->filename))
+                    'file' => urlencode(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt($this->filename))
         ]);
     }
 

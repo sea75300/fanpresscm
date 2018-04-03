@@ -96,7 +96,7 @@ class options extends \fpcm\controller\abstracts\controller {
             $this->config->setNewConfig($this->newconfig);
             $this->config->prepareDataSave();
 
-            $this->mailSettingsChanged = (hash(\fpcm\classes\security::defaultHashAlgo, json_encode($this->config->smtp_settings)) === hash(\fpcm\classes\security::defaultHashAlgo, json_encode($this->newconfig['smtp_settings'])) ? false : true);
+            $this->mailSettingsChanged = (\fpcm\classes\tools::getHash(json_encode($this->config->smtp_settings)) === \fpcm\classes\tools::getHash(json_encode($this->newconfig['smtp_settings'])) ? false : true);
 
             if (!$this->config->update()) {
                 $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');

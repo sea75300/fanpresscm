@@ -39,7 +39,7 @@
 
 
 <?php if ($canApprove || $canPrivate) : ?>
-<div class="row fpcm-ui-margin-MD-top fpcm-ui-margin-md-bottom">
+<div class="row fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom">
     <div class="col-12 fpcm-ui-padding-none-lr">
         <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
             <legend><?php $theView->write('GLOBAL_EXTENDED'); ?></legend>

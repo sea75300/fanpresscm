@@ -105,7 +105,7 @@
 
             $data = array_slice($this->processCli(), 0, 18);
             
-            $text  = 'Statistical data '.hash(\fpcm\classes\security::defaultHashAlgo, \fpcm\classes\dirs::getRootUrl()).PHP_EOL.PHP_EOL;
+            $text  = 'Statistical data '.\fpcm\classes\tools::getHash(\fpcm\classes\dirs::getRootUrl()).PHP_EOL.PHP_EOL;
             
             /* @var $value \fpcm\model\system\syscheckOption */
             foreach ($data as $key => $value) {

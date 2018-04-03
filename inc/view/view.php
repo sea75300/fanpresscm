@@ -229,7 +229,7 @@ class view {
             $checks = $this->cache->read($cacheName);
         }
 
-        $hash = hash(\fpcm\classes\security::defaultHashAlgo, $item);
+        $hash = \fpcm\classes\tools::getHash($item);
         if (isset($checks[$hash])) {
             return $checks[$hash];
         }

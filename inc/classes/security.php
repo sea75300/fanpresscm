@@ -66,7 +66,7 @@ final class security {
     public static function getPageTokenFieldName($name = '')
     {
         $conf = baseconfig::getSecurityConfig();
-        return hash(self::defaultHashAlgo, trim($name) ? trim($name) : $conf['pageTokenBase']);
+        return tools::getHash(trim($name) ? trim($name) : $conf['pageTokenBase']);
     }
 
     /**
@@ -90,7 +90,7 @@ final class security {
      */
     public static function createSessionId()
     {
-        return hash(self::defaultHashAlgo, self::getSecureBaseString());
+        return tools::getHash(self::getSecureBaseString());
     }
 
     /**
@@ -122,7 +122,7 @@ final class security {
      */
     public static function createSalt($additional = '')
     {
-        return '$5$' . substr(hash(self::defaultHashAlgo, self::getSecureBaseString()), 0, 16) . '$';
+        return '$5$' . substr(tools::getHash(self::getSecureBaseString()), 0, 16) . '$';
     }
 
     /**
@@ -132,7 +132,7 @@ final class security {
      */
     public static function createPageToken($overrideModule = '')
     {
-        $str = hash(self::defaultHashAlgo, uniqid(true, __FUNCTION__) . mt_rand() . microtime(true));
+        $str = tools::getHash(uniqid(true, __FUNCTION__) . mt_rand() . microtime(true));
 
         $fopt = new \fpcm\model\files\fileOption(self::getPageTokenFieldName($overrideModule));
         $fopt->write(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt([
@@ -156,8 +156,8 @@ final class security {
         }
 
         $secConf = [
-            'cookieName' => hash(self::defaultHashAlgo, 'cookie' . uniqid('fpcm', true) . dirs::getRootUrl()),
-            'pageTokenBase' => hash(self::defaultHashAlgo, 'pgToken' . dirs::getRootUrl() . '$')
+            'cookieName' => tools::getHash('cookie' . uniqid('fpcm', true) . dirs::getRootUrl()),
+            'pageTokenBase' => tools::getHash('pgToken' . dirs::getRootUrl() . '$')
         ];
 
         return file_put_contents(dirs::getDataDirPath(dirs::DATA_CONFIG, 'sec.php'), '<?php' . PHP_EOL . ' $config = ' . var_export($secConf, true) . PHP_EOL . '?>');

@@ -595,7 +595,7 @@ class author extends \fpcm\model\abstracts\dataset {
             $data = [];
         }
 
-        $usernameHash = hash(\fpcm\classes\security::defaultHashAlgo, $author->getUsername());
+        $usernameHash = \fpcm\classes\tools::getHash($author->getUsername());
 
         if (!$cache->isExpired($cacheName) && isset($data[$usernameHash])) {
             return $asUrl ? $data[$usernameHash]['url'] : $data[$usernameHash]['data'];

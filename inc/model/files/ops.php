@@ -63,7 +63,6 @@ final class ops {
      */
     public static function removeBaseDir($path, $keepFanPress = false)
     {
-
         $replacePath = \fpcm\classes\dirs::getFullDirPath('');
         if ($keepFanPress) {
             $replacePath = dirname($replacePath);
@@ -79,7 +78,6 @@ final class ops {
      */
     public static function deleteRecursive($path)
     {
-
         if (!$path || !file_exists($path) || !is_dir($path)) {
             return false;
         }
@@ -103,7 +101,6 @@ final class ops {
      */
     private static function deleteRecursiveExec($path)
     {
-
         if (!is_dir($path)) {
             return -1;
         }

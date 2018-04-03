@@ -30,10 +30,7 @@ class fileOption {
      */
     public function __construct($option)
     {
-        $this->path = \fpcm\classes\dirs::getDataDirPath(
-            $this->getType(),
-            hash(\fpcm\classes\security::defaultHashAlgo, $option).$this->getExt()
-        );
+        $this->path = \fpcm\classes\dirs::getDataDirPath( $this->getType(), \fpcm\classes\tools::getHash($option) . $this->getExt() );
     }
 
     /**
@@ -51,7 +48,7 @@ class fileOption {
 
         return true;
     }
-    
+
     /**
      * Fetch data from file option
      * @return mixed

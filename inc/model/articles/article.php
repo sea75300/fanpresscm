@@ -866,8 +866,10 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function restoreRevision($revisionTime)
     {
-        if (!$this->createRevision(time()))
+        if (!$this->createRevision(time())) {
             return false;
+        }
+
         $this->getRevision($revisionTime);
         return $this->update();
     }
@@ -951,7 +953,6 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function isInEdit()
     {
-
         if (!trim($this->inedit)) {
             return false;
         }
@@ -967,7 +968,6 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function publicIsVisible()
     {
-
         if (!$this->exists() || ($this->getDeleted() && !\fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists())) {
             return false;
         }

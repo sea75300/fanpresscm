@@ -260,7 +260,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function countComments(array $articleIds = [], $private = null, $approved = null, $spam = null, $getCached = true)
     {
-        $cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/' . __FUNCTION__ . hash(\fpcm\classes\security::defaultHashAlgo, json_encode(func_get_args()));
+        $cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/' . __FUNCTION__ . \fpcm\classes\tools::getHash(json_encode(func_get_args()));
 
         if (!$this->cache->isExpired($cacheName) && $getCached) {
             return $this->cache->read($cacheName);
@@ -293,7 +293,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function countUnapprovedPrivateComments(array $articleIds = [])
     {
-        $cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/' . __FUNCTION__ . hash(\fpcm\classes\security::defaultHashAlgo, implode(':', $articleIds));
+        $cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/' . __FUNCTION__ . \fpcm\classes\tools::getHash(implode(':', $articleIds));
         if (!$this->cache->isExpired($cacheName)) {
             return $this->cache->read($cacheName);
         }

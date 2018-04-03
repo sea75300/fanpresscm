@@ -29,7 +29,7 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController {
     public function process()
     {
         require_once \fpcm\classes\loader::libGetFilePath('jqupload/server/fpcmUploadHandler.php');
-
+        
         new \fpcmUploadHandler([
             'script_url' => \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'),
             'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, '/'),

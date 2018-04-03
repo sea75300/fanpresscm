@@ -169,6 +169,16 @@ final class tools {
     {
         return preg_replace('/[^A-Za-z0-9_.\-]/', '', htmlentities($filename, ENT_COMPAT | ENT_HTML401));
     }
+
+    /**
+     * 
+     * @param string $data
+     * @return string
+     */
+    public static function getHash($data)
+    {
+        return hash(security::defaultHashAlgo, $data);
+    }
 }
 
 ?>

@@ -88,9 +88,9 @@ class image extends \fpcm\model\abstracts\file {
     public function __construct($filename = '', $initDB = true, $forceInit = false)
     {
         $this->table = \fpcm\classes\database::tableFiles;
-        
+
         $this->escapeFileName($filename);
-        parent::__construct($this->basePath($filename));
+        parent::__construct($filename);
 
         if ($this->exists() || $forceInit) {
             $this->init($initDB);
@@ -99,7 +99,8 @@ class image extends \fpcm\model\abstracts\file {
 
     /**
      * 
-     * @return type
+     * @param string $filename
+     * @return string
      */
     protected function basePath($filename)
     {
@@ -382,7 +383,10 @@ class image extends \fpcm\model\abstracts\file {
         $phpImgWsp->save(dirname($fullThumbPath), basename($fullThumbPath), true, null, 85);
 
         $this->events->runEvent('thumbnailCreate', $this);
-        if (!file_exists($this->getFilepath() . $this->getThumbnail())) {
+        
+        fpcmDump($this->getFilepath() . $this->getThumbnail(), $fullThumbPath);
+        
+        if (!file_exists($fullThumbPath)) {
             trigger_error('Unable to create filemanager thumbnail: ' . $this->getThumbnail());
             return false;
         }

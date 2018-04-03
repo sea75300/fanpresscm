@@ -24,9 +24,9 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     {
         parent::__construct();
 
-        $this->table    = \fpcm\classes\database::tableFiles;
+        $this->table = \fpcm\classes\database::tableFiles;
         $this->basepath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, '/');
-        $this->exts     = image::$allowedExts;
+        $this->exts = image::$allowedExts;
     }
 
     /**
@@ -43,7 +43,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         }
 
         $images = $this->dbcon->fetch(
-            $this->dbcon->select($this->table, '*', $where), true
+                $this->dbcon->select($this->table, '*', $where), true
         );
 
         $res = [];
@@ -123,8 +123,8 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      */
     public function updateFileIndex($userId)
     {
-        $folderFiles    = $this->getFolderList();
-        $dbFiles        = $this->getDatabaseList();
+        $folderFiles = $this->getFolderList();
+        $dbFiles = $this->getDatabaseList();
 
         if (!$folderFiles || !count($folderFiles) || count($folderFiles) == count($dbFiles)) {
             return;
@@ -133,7 +133,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         foreach ($folderFiles as $folderFile) {
 
             if (isset($dbFiles[$folderFile])) {
-                continue;                
+                continue;
             }
 
             $image = new \fpcm\model\files\image(basename($folderFile), false, true);

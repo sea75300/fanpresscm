@@ -8,13 +8,13 @@
 
 <form id="fileupload" action="<?php print $actionPath; ?>" method="POST" enctype="multipart/form-data">
 
-    <div class="fpcm-ui-margin-lg-bottom fileupload-buttonbar">
-        <div class="fileupload-progress fade fpcm-ui-hidden">
-            <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-            <div class="progress-extended">&nbsp;</div>
+    <div class="fileupload-progress fpcm-ui-fade fpcm-ui-box-sizing-none fpcm-ui-margin-md-bottom fpcm-ui-hidden">
+        <div class="progress active ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+            <div class="ui-progressbar-value ui-corner-left ui-widget-header progress-bar progress-bar-success" style="width:0%;"></div>
         </div>
-    </div>    
-    
+        <div class="progress-extended">&nbsp;</div>        
+    </div>
+
     <div class="fpcm-ui-margin-lg-bottom fileupload-buttonbar">
         <div class="fileupload-buttons fpcm-ui-controlgroup">
             <a class="fileinput-button">
@@ -25,7 +25,6 @@
             
             <?php $theView->submitButton('start')->setText('FILE_FORM_UPLOADSTART')->setClass('start')->setIcon('upload'); ?>
             <?php $theView->resetButton('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('cancel')->setIcon('ban'); ?>
-            <span class="fileupload-process"></span>
         </div>
     </div>
 
@@ -52,7 +51,7 @@
             {% } %}
         </div>
 
-        <div class="col-6 col-sm-8 col-md-10 align-self-center">
+        <div class="col-6 col-sm-8 col-md-10 align-self-center fpcm-ui-ellipsis">
             <span class="name">{%=file.name%}</span>
             <strong class="error"></strong>
         </div>

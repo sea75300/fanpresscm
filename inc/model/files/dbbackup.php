@@ -41,7 +41,7 @@ final class dbbackup extends \fpcm\model\abstracts\file {
      */
     public function __construct($filename = '')
     {
-        parent::__construct(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP, basename($filename)));
+        parent::__construct($filename);
 
         if (!$this->exists()) {
             return false;
@@ -49,6 +49,16 @@ final class dbbackup extends \fpcm\model\abstracts\file {
 
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $this->mimetype = $finfo->file($this->fullpath);
+    }
+
+    /**
+     * 
+     * @param string $filename
+     * @return string
+     */
+    protected function basePath($filename)
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP, $filename);
     }
 
     /**

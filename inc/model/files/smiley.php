@@ -62,13 +62,21 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     {
         $this->table = \fpcm\classes\database::tableSmileys;
 
-        $filename = trim($filename) ? \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SMILEYS, $filename) : '';
-
         parent::__construct($filename);
 
         if ($this->exists()) {
             $this->init($initDB);
         }
+    }
+
+    /**
+     * 
+     * @param string $filename
+     * @return string
+     */
+    protected function basePath($filename)
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SMILEYS, $filename);
     }
 
     /**
@@ -246,7 +254,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
         if (!parent::exists()) {
             return true;
         }
-        
+
         $this->initImageSize();
     }
 
@@ -307,7 +315,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
             'img' => $this->getEditorImageTag(),
         ];
     }
-    
+
     /**
      * Gibt Link für Edit-Action zurück
      * @return string
@@ -315,11 +323,11 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     public function getEditLink()
     {
         return \fpcm\classes\tools::getFullControllerLink('smileys/edit', [
-            'data' => urlencode(base64_encode(json_encode([
-                'filename' => $this->filename,
-                'code' => $this->smileycode,
-                'id' => $this->id
-            ])))
+                    'data' => urlencode(base64_encode(json_encode([
+                        'filename' => $this->filename,
+                        'code' => $this->smileycode,
+                        'id' => $this->id
+                    ])))
         ]);
     }
 
@@ -342,7 +350,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     {
         return "<span class=\"fpcm-ui-padding-md-lr fpcm-ui-padding-md-tb\"><img role=\"option\" data-smileycode=\"{$this->getSmileyCode()}\" class=\"fpcm-editor-htmlsmiley\" src=\"{$this->getSmileyUrl()}\" title=\"{$this->getFilename()} ({$this->getSmileyCode()})\" {$this->getWhstring()}></span>";
     }
-    
+
 }
 
 ?>
