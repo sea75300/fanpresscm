@@ -14,7 +14,7 @@ fpcm.categories = {
     init: function () {        
 
         var dvName = 'categorylist';
-        if (!fpcm.dataview.exists(dvName)) {
+        if (!fpcm.dataview || !fpcm.dataview.exists(dvName)) {
             return true;
         }
 

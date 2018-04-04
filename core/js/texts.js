@@ -14,7 +14,7 @@ fpcm.texts = {
     init: function() {
 
         var dvName = 'textslist';
-        if (!fpcm.dataview.exists(dvName)) {
+        if (!fpcm.dataview || !fpcm.dataview.exists(dvName)) {
             return true;
         }
 

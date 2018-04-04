@@ -676,7 +676,6 @@ div.fpcm-status-info ul.fpcm-menu-top li ul {
     right: 0;
     border-top: 5px solid #00aded;
     min-width: 25%;
-    text-align: left;
 }
 
 div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1,
@@ -899,6 +898,12 @@ span.fpcm-ui-editor-metainfo {
     font-weight: normal;
 }
 
+div.fpcm-status-info ul.fpcm-menu-top li ul,
+div.fpcm-ui-permissions-container label,
+.fpcm-ui-align-left {
+    text-align: left;
+}
+
 .fpcm-ui-align-right,
 .fileInputFormButtons {
     text-align: right;
@@ -947,7 +952,6 @@ span.fpcm-ui-badge {
     background: #3399ff;
     color: #fff;
     padding: 0.3em 0.5em;
-    text-align: center;
 }
 
 h2,

@@ -14,7 +14,7 @@ fpcm.ipadresses = {
     init: function() {
 
         var dvName = 'iplist';
-        if (!fpcm.dataview.exists(dvName)) {
+        if (!fpcm.dataview || !fpcm.dataview.exists(dvName)) {
             return true;
         }
 
