@@ -178,7 +178,7 @@ class feed extends \fpcm\controller\abstracts\pubController {
             }
 
             $dom->appendChild($rss);
-            $dom = $this->events->runEvent('prepareRssFeed', $dom);
+            $dom = $this->events->trigger('prepareRssFeed', $dom);
 
             $content .= $dom->saveXML();
 

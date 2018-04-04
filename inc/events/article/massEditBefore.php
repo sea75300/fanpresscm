@@ -20,7 +20,7 @@ namespace fpcm\events\article;
  * @package fpcm/model/events
  * @since FPCM 3.6
  */
-final class massEditBefore extends \fpcm\events\abstracts\event {
+final class massEditBefore extends \fpcm\events\abstracts\eventReturnArray {
     
     /**
      * 
@@ -34,15 +34,6 @@ final class massEditBefore extends \fpcm\events\abstracts\event {
         }
 
         return $result;
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getReturnType()
-    {
-        return self::FPCM_MODULE_EVENT_RETURNTYPE_ARRAY;
     }
 
 }

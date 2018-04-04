@@ -8,16 +8,17 @@
 namespace fpcm\events\editor;
 
 /**
- * Module-Event: getEditors
+ * Module-Event: initTinymce
  * 
- * Event wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
- * Rückgabe: array mit Link-Informationen gemäß dem übergebenen Dummy-Eintrag
+ * Event wird ausgeführt, wenn TinyMCE als aktiver Editor initialisiert wird
+ * Parameter: array mit Parametern zur Initialisierung von TinyMCE
+ * Rückgabe: array mit Parametern für TinyMCE
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/model/events
  */
-final class getEditors extends \fpcm\events\abstracts\eventReturnArray {
-    
+final class initTinymce extends \fpcm\events\abstracts\eventReturnArray {
+
 }

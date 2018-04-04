@@ -44,7 +44,7 @@
          * @return array
          */
         public function getCsslib() {
-            $modulesFiles = $this->events->runEvent('themeAddCssFiles');
+            $modulesFiles = $this->events->trigger('themeAddCssFiles');
             $modulesFiles = $modulesFiles ? $modulesFiles : array();
             
             return array_map(array($this, 'addRootPath'), array_merge($this->csslib, $modulesFiles));
@@ -55,7 +55,7 @@
          * @return array
          */
         public function getJslib() {
-            $modulesFiles = $this->events->runEvent('themeAddJsFiles');
+            $modulesFiles = $this->events->trigger('themeAddJsFiles');
             $modulesFiles = $modulesFiles ? $modulesFiles : array();
             
             return array_map(array($this, 'addRootPath'), array_merge($this->jslib, $modulesFiles));
@@ -66,7 +66,7 @@
          * @return array
          */
         public function getCssPubliclib() {
-            $modulesFiles = $this->events->runEvent('publicAddCssFiles');
+            $modulesFiles = $this->events->trigger('publicAddCssFiles');
             $modulesFiles = $modulesFiles ? $modulesFiles : array();
             
             return array_merge(array($this->config->system_css_path), $modulesFiles);
@@ -77,7 +77,7 @@
          * @return array
          */
         public function getJsPubliclib() {
-            $modulesFiles = $this->events->runEvent('publicAddJsFiles');
+            $modulesFiles = $this->events->trigger('publicAddJsFiles');
             $modulesFiles = $modulesFiles ? $modulesFiles : array();
             
             return array_merge(

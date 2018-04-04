@@ -172,7 +172,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
         $tables[] = \fpcm\classes\database::tableTexts;
         $tables[] = \fpcm\classes\database::tableRevisions;
 
-        $tables = $this->events->runEvent('updaterAddOptimizeTables', $tables);
+        $tables = $this->events->trigger('updaterAddOptimizeTables', $tables);
         foreach ($tables as $table) {
             $this->dbcon->optimize($table);
         }

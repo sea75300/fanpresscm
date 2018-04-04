@@ -173,7 +173,7 @@ class item extends \fpcm\model\abstracts\dataset {
     {
 
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->runEvent('wordbanItemSave', $params);
+        $params = $this->events->trigger('wordbanItemSave', $params);
 
         $return = false;
         if ($this->dbcon->insert($this->table, $params)) {
@@ -194,7 +194,7 @@ class item extends \fpcm\model\abstracts\dataset {
     public function update()
     {
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->runEvent('wordbanItemUpdate', $params);
+        $params = $this->events->trigger('wordbanItemUpdate', $params);
         $fields = array_keys($params);
 
         $params[] = $this->getId();

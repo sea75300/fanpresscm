@@ -379,11 +379,10 @@ class comment extends \fpcm\model\abstracts\dataset {
      */
     public function save()
     {
-
         $this->removeBannedTexts();
 
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->runEvent('commentSave', $params);
+        $params = $this->events->trigger('comments\save', $params);
 
         if (!$this->dbcon->insert($this->table, $params)) {
             return false;
@@ -400,14 +399,13 @@ class comment extends \fpcm\model\abstracts\dataset {
      */
     public function update()
     {
-
         $this->removeBannedTexts();
 
         $params = $this->getPreparedSaveParams();
         $fields = array_keys($params);
 
         $params[] = $this->getId();
-        $params = $this->events->runEvent('commentUpdate', $params);
+        $params = $this->events->trigger('comment\update', $params);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
@@ -436,7 +434,6 @@ class comment extends \fpcm\model\abstracts\dataset {
      */
     public function prepareDataSave()
     {
-
         $search = ['onload', 'onclick', 'onblur', 'onkey', 'onmouse'];
         $this->text = str_replace($search, 'forbidden', $this->text);
 
@@ -454,7 +451,6 @@ class comment extends \fpcm\model\abstracts\dataset {
             $this->getStatusIconApproved(),
             $this->getStatusIconPrivate()
         ];
-
     }
 
     /**
@@ -483,7 +479,7 @@ class comment extends \fpcm\model\abstracts\dataset {
     {
         return (new \fpcm\view\helper\icon('eye-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getPrivate())->setText('COMMMENT_PRIVATE')->setStack('square');
     }
-    
+
     /**
      * Führt Ersetzung von gesperrten Texten in Kommentar-Daten durch
      * @return boolean
@@ -493,9 +489,9 @@ class comment extends \fpcm\model\abstracts\dataset {
     {
 
         if ($this->wordbanList->checkCommentApproval($this->name) ||
-                $this->wordbanList->checkCommentApproval($this->email) ||
-                $this->wordbanList->checkCommentApproval($this->website) ||
-                $this->wordbanList->checkCommentApproval($this->text)) {
+            $this->wordbanList->checkCommentApproval($this->email) ||
+            $this->wordbanList->checkCommentApproval($this->website) ||
+            $this->wordbanList->checkCommentApproval($this->text)) {
             $this->setApproved(0);
         }
 

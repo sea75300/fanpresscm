@@ -35,7 +35,7 @@ final class prepareRssFeed extends \fpcm\events\abstracts\event {
      * @param array $data
      * @return array
      */
-    public function run($data = null)
+    public function run()
     {
 
         $eventClasses = $this->getEventClasses();

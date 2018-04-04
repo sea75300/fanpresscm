@@ -33,7 +33,7 @@ final class clearCache extends \fpcm\events\abstracts\event {
      * @param void $data
      * @return void
      */
-    public function run($data = null)
+    public function run()
     {
 
         $eventClasses = $this->getEventClasses();

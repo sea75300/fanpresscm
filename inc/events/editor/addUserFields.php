@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Module-Event: editorAddUserFields
+ * Module-Event: addUserFields
  * 
  * Event wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
  * Parameter: Array mit bereits vorhandenen benutzerdefinierten Feldern in der Form Beschreibung als key => Feldparamater als value
@@ -43,7 +43,7 @@
 namespace fpcm\events\editor;
 
 /**
- * Module-Event: editorAddUserFields
+ * Module-Event: addUserFields
  * 
  * Event wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
  * Parameter: Array mit bereits vorhandenen benutzerdefinierten Feldern in der Form Beschreibung als key => Feldparamater als value
@@ -82,14 +82,14 @@ namespace fpcm\events\editor;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/model/events
  */
-final class editorAddUserFields extends \fpcm\events\abstracts\event {
+final class addUserFields extends \fpcm\events\abstracts\event {
 
     /**
      * wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
      * @param void $data
      * @return array
      */
-    public function run($data = null)
+    public function run()
     {
 
         $eventClasses = $this->getEventClasses();
@@ -103,7 +103,7 @@ final class editorAddUserFields extends \fpcm\events\abstracts\event {
         foreach ($eventClasses as $eventClass) {
 
             $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'editorAddUserFields');
+            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'addUserFields');
 
             /**
              * @var \fpcm\events\event

@@ -80,7 +80,7 @@ class tinymceEditor extends articleEditor {
 
         $cssClasses = array_merge($editorStyles, $this->getEditorStyles());
 
-        return $this->events->runEvent('editorInitTinymce', [
+        return $this->events->trigger('editor\initTinymce', [
             'editorConfig' => [
                 'language' => $this->config->system_lang,
                 'plugins' => $pluginFolders,
@@ -129,7 +129,7 @@ class tinymceEditor extends articleEditor {
             $editorStyles[] = array('title' => $class, 'value' => $class);
         }
 
-        return $this->events->runEvent('editorAddStyles', $editorStyles);
+        return $this->events->trigger('editor\addStyles', $editorStyles);
     }
 
     /**
@@ -138,7 +138,7 @@ class tinymceEditor extends articleEditor {
      */
     public function getEditorLinks()
     {
-        $links = $this->events->runEvent('editorAddLinks');
+        $links = $this->events->trigger('editor\addLinks');
         if (!is_array($links) || !count($links)) {
             return [];
         }
@@ -157,7 +157,7 @@ class tinymceEditor extends articleEditor {
             $data[] = array('title' => $image->getFilename(), 'value' => $image->getImageUrl());
         }
 
-        $res = $this->events->runEvent('editorGetFileList', array('label' => 'title', 'files' => $data));
+        $res = $this->events->trigger('editor\getFileList', array('label' => 'title', 'files' => $data));
 
         return isset($res['files']) && count($res['files']) ? $res['files'] : [];
     }

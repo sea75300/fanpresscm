@@ -1,21 +1,14 @@
 <?php
 
 /**
- * Module-Event: editorAddStyles
- * 
- * Event wird ausgeführt, wenn im Artikel-Editor die Liste mit CSS-Klassen zur Nutzung für Bilder, Links, etc. geladen wird
- * Parameter: array mit CSS-Klassen aus den Systemeinstellungen
- * Rückgabe: array mit CSS-Klassen gemäß vorhandener Einträge
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\events\editor;
 
 /**
- * Module-Event: editorAddStyles
+ * Module-Event: addStyles
  * 
  * Event wird ausgeführt, wenn im Artikel-Editor die Liste mit CSS-Klassen zur Nutzung für Bilder, Links, etc. geladen wird
  * Parameter: array mit CSS-Klassen aus den Systemeinstellungen
@@ -26,14 +19,14 @@ namespace fpcm\events\editor;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/model/events
  */
-final class editorAddStyles extends \fpcm\events\abstracts\event {
+final class addStyles extends \fpcm\events\abstracts\event {
 
     /**
      * wird ausgeführt, wenn im Artikel-Editor die Liste mit CSS-Klassen zur Nutzung für Bilder, Links, etc. geladen wird
      * @param array $data
      * @return array
      */
-    public function run($data = null)
+    public function run()
     {
 
         $eventClasses = $this->getEventClasses();
@@ -45,7 +38,7 @@ final class editorAddStyles extends \fpcm\events\abstracts\event {
         foreach ($eventClasses as $eventClass) {
 
             $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'editorAddStyles');
+            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'addStyles');
 
             /**
              * @var \fpcm\events\event

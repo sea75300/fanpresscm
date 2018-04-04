@@ -169,7 +169,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $parsed['articles'] = $this->assignArticleData();
             $parsed['comments'] = $this->assignCommentsData();
 
-            $parsed = $this->events->runEvent('publicShowSingle', $parsed);
+            $parsed = $this->events->trigger('publicShowSingle', $parsed);
 
             if (!$this->session->exists()) {
                 $this->cache->write($this->cacheName, $parsed, $this->config->system_cache_timeout);
@@ -405,7 +405,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     protected function initSpamCaptcha()
     {
-        $this->captcha = $this->events->runEvent('publicReplaceSpamCaptcha');
+        $this->captcha = $this->events->trigger('publicReplaceSpamCaptcha');
 
         if (!is_a($this->captcha, '\fpcm\model\abstracts\spamCaptcha')) {
             $this->captcha = new \fpcm\model\captchas\fpcmDefault();

@@ -80,7 +80,7 @@ class showall extends showcommon {
             }
 
             $parsed[] = $this->createPagination($this->articleList->countArticlesByCondition($countConditions));
-            $parsed = $this->events->runEvent('publicShowAll', $parsed);
+            $parsed = $this->events->trigger('publicShowAll', $parsed);
 
             if (!$this->session->exists()) {
                 $this->cache->write($cacheName, $parsed, $this->config->system_cache_timeout);
@@ -113,7 +113,7 @@ class showall extends showcommon {
             $res = str_replace('</ul>', '<li><a href="?module=fpcm/archive" class="fpcm-pub-pagination-archive">' . $this->lang->translate('ARTICLES_PUBLIC_ARCHIVE') . '</a></li>' . PHP_EOL . '</ul>' . PHP_EOL, $res);
         }
 
-        $res = $this->events->runEvent('publicPageinationShowAll', $res);
+        $res = $this->events->trigger('publicPageinationShowAll', $res);
 
         return $res ? $res : '';
     }

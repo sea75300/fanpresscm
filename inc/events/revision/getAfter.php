@@ -26,11 +26,6 @@ namespace fpcm\events\revision;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/model/events
  */
-final class getAfter extends \fpcm\events\abstracts\event {
-
-    protected function getReturnType()
-    {
-        return self::FPCM_MODULE_EVENT_RETURNTYPE_ARRAY;
-    }
+final class getAfter extends \fpcm\events\abstracts\eventReturnArray {
 
 }

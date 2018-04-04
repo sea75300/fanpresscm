@@ -93,7 +93,7 @@
          */
         private function getCheckOptions()
         {
-            return $this->events->runEvent('runSystemCheck', $this->getCheckOptionsSystem());
+            return $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem());
         }
 
         /**
@@ -140,7 +140,7 @@
 
         public function processCli()
         {
-            return $this->events->runEvent('runSystemCheck', $this->getCheckOptionsSystem());
+            return $this->events->trigger('runSystemCheck', $this->getCheckOptionsSystem());
             
         }
         

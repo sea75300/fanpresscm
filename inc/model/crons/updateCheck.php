@@ -27,7 +27,7 @@ class updateCheck extends \fpcm\model\abstracts\cron {
             trigger_error('Unable to fetch data from package server.');
             return false;
         }
-        
+
         $updater = new \fpcm\model\updater\system();
 
         /* @var $config \fpcm\model\system\config */

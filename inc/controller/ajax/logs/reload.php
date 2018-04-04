@@ -18,7 +18,7 @@ namespace fpcm\controller\ajax\logs;
 class reload extends \fpcm\controller\abstracts\ajaxController {
 
     use \fpcm\controller\traits\common\dataView;
-    
+
     /**
      * System-Logs-Typ
      * @var int
@@ -80,7 +80,6 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
         call_user_func(array($this, 'loadLog' . $this->log));
     }
 
-
     /**
      * Lädt Sessions-Log (Typ 0)
      * @return boolean
@@ -89,10 +88,10 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     {
         $this->items = $this->session->getSessions();
         $this->userList = (new \fpcm\model\users\userList())->getUsersAll();
-        
+
         $this->notfoundStr = $this->lang->translate('GLOBAL_NOTFOUND');
         $this->sessionTimeoutStr = $this->lang->translate('LOGS_LIST_TIMEOUT');
-        
+
         $this->initDataView();
         $this->assignDataViewvars();
         return true;
@@ -118,7 +117,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     {
         return $this->loadLog1();
     }
-    
+
     /**
      * Lädt Datenbank-Log (Typ 3)
      * @return bool
@@ -127,19 +126,19 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     {
         return $this->loadLog1();
     }
-    
+
     /**
      * Lädt Cronjob-Log (Typ 4)
      * @return bool
      */
     private function loadLog4()
     {
-        $this->initView();        
+        $this->initView();
         $logFile = new \fpcm\model\files\logfile($this->log);
         $this->view->assign('items', $logFile->fetchData());
         $this->view->render();
     }
-    
+
     /**
      * Lädt Cronjob-Log (Typ 5)
      * @return bool
@@ -152,7 +151,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     /**
      * 
      * @return boolean
-     */       
+     */
     private function assignDataViewvars()
     {
         $dvVars = $this->dataView->getJsVars();
@@ -162,7 +161,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
         ];
 
         $this->getSimpleResponse();
-        
+
         return true;
     }
 
@@ -185,7 +184,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
             return call_user_func(array($this, 'getCols' . $this->log));
         }
 
-        return $this->events->runEvent('getLogCols', $this->log);
+        return $this->events->trigger('getLogCols', $this->log);
     }
 
     /**
@@ -252,12 +251,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
             return call_user_func(array($this, 'getRow' . $this->log), $item);
         }
 
-        return $this->events->runEvent('getRow', [
+        return $this->events->trigger('getRow', [
             'log' => $this->log,
             'item' => $item
         ]);
     }
-    
+
     /**
      * Lädt System-Log (Typ 0)
      * @param \fpcm\model\system\session $item
@@ -265,16 +264,14 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
      */
     private function getRow0($item)
     {
-        $username   = isset($this->userList[$item->getUserId()])
-                    ? $this->userList[$item->getUserId()]->getDisplayName()
-                    : $this->notfoundStr;
+        $username = isset($this->userList[$item->getUserId()]) ? $this->userList[$item->getUserId()]->getDisplayName() : $this->notfoundStr;
 
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('user', $username),
-            new \fpcm\components\dataView\rowCol('ipaddress', $item->getIp() ),
-            new \fpcm\components\dataView\rowCol('login', new \fpcm\view\helper\dateText($item->getLogin()) ),
-            new \fpcm\components\dataView\rowCol('logout', ($item->getLogout() ? new \fpcm\view\helper\dateText($item->getLogout()) : $this->sessionTimeoutStr) ),
-            new \fpcm\components\dataView\rowCol('external', (new \fpcm\view\helper\boolToText(uniqid('sessext')))->setValue($item->getExternal()) )
+            new \fpcm\components\dataView\rowCol('ipaddress', $item->getIp()),
+            new \fpcm\components\dataView\rowCol('login', new \fpcm\view\helper\dateText($item->getLogin())),
+            new \fpcm\components\dataView\rowCol('logout', ($item->getLogout() ? new \fpcm\view\helper\dateText($item->getLogout()) : $this->sessionTimeoutStr)),
+            new \fpcm\components\dataView\rowCol('external', (new \fpcm\view\helper\boolToText(uniqid('sessext')))->setValue($item->getExternal()))
         ]);
     }
 
@@ -286,8 +283,8 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     private function getRow1($item)
     {
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('time', $item->time, 'fpcm-ui-dataview-align-self-start' ),
-            new \fpcm\components\dataView\rowCol('text', str_replace(['&NewLine;', PHP_EOL], '<br>', new \fpcm\view\helper\escape($item->text)) ),
+            new \fpcm\components\dataView\rowCol('time', $item->time, 'fpcm-ui-dataview-align-self-start'),
+            new \fpcm\components\dataView\rowCol('text', str_replace(['&NewLine;', PHP_EOL], '<br>', new \fpcm\view\helper\escape($item->text))),
         ]);
     }
 
@@ -320,6 +317,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     {
         return $this->getRow1($item);
     }
+
 }
 
 ?>

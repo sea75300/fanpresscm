@@ -240,7 +240,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
     public function save()
     {
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->runEvent('permissionsSave', $params);
+        $params = $this->events->trigger('permissionsSave', $params);
 
         $res = $this->dbcon->insert($this->table, $params);
 
@@ -256,7 +256,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
     public function update()
     {
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->runEvent('permissionsUpdate', $params);
+        $params = $this->events->trigger('permissionsUpdate', $params);
 
         $fields = array_keys($params);
 
@@ -299,7 +299,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             return $this->checkedData[$permissionArrayHash];
         }
 
-        $permissionArray = $this->events->runEvent('permissionsCheck', $permissionArray);
+        $permissionArray = $this->events->trigger('permissionsCheck', $permissionArray);
 
         foreach ($permissionArray as $module => $permission) {
             if (!isset($this->permissiondata[$module])) {
@@ -360,7 +360,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             $res[$dataset->rollid] = json_decode($dataset->permissiondata, true);
         }
 
-        $res = $this->events->runEvent('permissionsGetAll', $res);
+        $res = $this->events->trigger('permissionsGetAll', $res);
 
         return $res;
     }

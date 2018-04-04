@@ -48,7 +48,7 @@ class logs extends \fpcm\controller\abstracts\controller {
     public function process()
     {
 
-        $this->view->assign('customLogs', $this->events->runEvent('logsAddList', []));
+        $this->view->assign('customLogs', $this->events->trigger('logsAddList', []));
         $this->view->assign('reloadBaseLink', \fpcm\classes\tools::getFullControllerLink('ajax/logs/reload', [
                 'log' => ''
         ]));

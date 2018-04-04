@@ -1,21 +1,14 @@
 <?php
 
 /**
- * Module-Event: editorAddLinks
- * 
- * Event wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
- * Parameter: void
- * Rückgabe: array mit Link-Informationen gemäß dem übergebenen Dummy-Eintrag
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\events\editor;
 
 /**
- * Module-Event: editorAddLinks
+ * Module-Event: addLinks
  * 
  * Event wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
  * Parameter: void
@@ -26,14 +19,14 @@ namespace fpcm\events\editor;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/model/events
  */
-final class editorAddLinks extends \fpcm\events\abstracts\event {
+final class addLinks extends \fpcm\events\abstracts\event {
 
     /**
      * wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
      * @param void $data
      * @return array
      */
-    public function run($data = null)
+    public function run()
     {
 
         $eventClasses = $this->getEventClasses();
@@ -45,7 +38,7 @@ final class editorAddLinks extends \fpcm\events\abstracts\event {
         foreach ($eventClasses as $eventClass) {
 
             $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'editorAddLinks');
+            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'addLinks');
 
             /**
              * @var \fpcm\events\event

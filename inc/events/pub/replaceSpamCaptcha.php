@@ -33,7 +33,7 @@ final class publicReplaceSpamCaptcha extends \fpcm\events\abstracts\event {
      * @param void $data
      * @return \model\abstracts\spamCaptcha
      */
-    public function run($data = null)
+    public function run()
     {
 
         $eventClasses = $this->getEventClasses();

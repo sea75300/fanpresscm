@@ -315,7 +315,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
      */
     protected function getUserFields()
     {
-        $fields = $this->events->runEvent('editorAddUserFields');
+        $fields = $this->events->trigger('editor\addUserFields');
 
         if (!is_array($fields) || !count($fields))
             return [];

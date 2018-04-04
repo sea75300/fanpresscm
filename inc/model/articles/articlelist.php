@@ -259,11 +259,11 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
 
         $combination = isset($conditions['combination']) ? $conditions['combination'] : 'AND';
 
-        $eventData = $this->events->trigger('article\getByCondition', array(
+        $eventData = $this->events->trigger('article\getByCondition', [
             'conditions' => $conditions,
             'where' => $where,
             'values' => $valueParams
-        ));
+        ]);
 
         $conditions = $eventData['conditions'];
         $where = $eventData['where'];
@@ -273,8 +273,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
 
         $where2 = [];
         $where2[] = $this->dbcon->orderBy(
-            (isset($conditions['orderby'])) ? $conditions['orderby']
-                                            : [$this->config->articles_sort . ' ' . $this->config->articles_sort_order]
+                (isset($conditions['orderby'])) ? $conditions['orderby'] : [$this->config->articles_sort . ' ' . $this->config->articles_sort_order]
         );
 
         if (isset($conditions['limit'])) {
@@ -284,7 +283,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
 
         $where .= ' ' . implode(' ', $where2);
 
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', $where, array_values($valueParams)), true);        
+        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', $where, array_values($valueParams)), true);
         return $this->createListResult($list, $monthIndex);
     }
 
@@ -301,13 +300,10 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
 
         /* @var $session \fpcm\model\system\session */
         $session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
-        $userId  = $session->exists() ? $session->getUserId() : 0;
-        
+        $userId = $session->exists() ? $session->getUserId() : 0;
+
         $res = $this->dbcon->update(
-            $this->table,
-            ['deleted', 'pinned', 'changetime', 'changeuser'],
-            [1, 0, time(), $userId],
-            'id IN (' . implode(', ', $ids) . ')'
+                $this->table, ['deleted', 'pinned', 'changetime', 'changeuser'], [1, 0, time(), $userId], 'id IN (' . implode(', ', $ids) . ')'
         );
 
         if ($res) {
@@ -330,11 +326,11 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
 
         /* @var $session \fpcm\model\system\session */
         $session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
-        $userId  = $session->exists() ? $session->getUserId() : 0;
+        $userId = $session->exists() ? $session->getUserId() : 0;
 
         return $this->dbcon->update(
             $this->table,
-            ['deleted','changetime', 'changeuser'],
+            ['deleted', 'changetime', 'changeuser'],
             [0, time(), $userId],
             'id IN (' . implode(', ', $ids) . ') AND deleted = 1'
         );
@@ -477,10 +473,11 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $result = $this->dbcon->select($this->table, 'MAX(createtime) AS maxdate, MIN(createtime) AS mindate', $where, $params);
         $data = $this->dbcon->fetch($result);
 
-        return array(
+        return [
             'maxDate' => $data->maxdate === null ? time() : $data->maxdate,
             'minDate' => $data->mindate === null ? 0 : $data->mindate
-        );
+        ];
+
     }
 
     /**
@@ -513,8 +510,13 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             return false;
         }
 
+        $res = $this->dbcon->update(
+            $this->table,
+            ['deleted', 'pinned'],
+            [1, 0, $userId],
+            'createuser = ?'
+        );
 
-        $res = $this->dbcon->update($this->table, array('deleted', 'pinned'), [1, 0, $userId], 'createuser = ?');
         $this->cache->cleanup();
 
         return $res;
@@ -577,13 +579,13 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $result = $this->dbcon->update($this->table, array_keys($fields), array_values($fields), $where);
 
         $this->cache->cleanup();
-        
+
         $result = $this->events->trigger('article\massEditAfter', [
             'result' => $result,
             'fields' => $fields,
             'articleIds' => $articleIds
         ]);
-        
+
         return $result['result'];
     }
 

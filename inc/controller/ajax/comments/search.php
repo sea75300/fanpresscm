@@ -73,7 +73,7 @@ class search extends \fpcm\controller\abstracts\ajaxController {
             $this->conditions->articleid = (int) $filter['articleId'];
 
         $this->conditions->combination = $filter['combination'] ? 'OR' : 'AND';
-        $this->conditions = $this->events->runEvent('commentsPrepareSearch', $this->conditions);
+        $this->conditions = $this->events->trigger('comments\prepareSearch', $this->conditions);
 
         return true;
     }

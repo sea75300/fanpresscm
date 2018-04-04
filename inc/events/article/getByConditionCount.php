@@ -20,11 +20,6 @@ namespace fpcm\events\article;
  * @package fpcm/model/events
  * @since FPCM 3.4
  */
-final class getByConditionCount extends \fpcm\events\abstracts\event {
-    
-    protected function getReturnType()
-    {
-        return self::FPCM_MODULE_EVENT_RETURNTYPE_ARRAY;
-    }
+final class getByConditionCount extends \fpcm\events\abstracts\eventReturnArray {
 
 }

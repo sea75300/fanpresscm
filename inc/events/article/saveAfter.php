@@ -21,9 +21,4 @@ namespace fpcm\events\article;
  */
 final class saveAfter extends \fpcm\events\abstracts\event {
 
-    protected function getReturnType()
-    {
-        return '\fpcm\model\articles\article';
-    }
-
 }

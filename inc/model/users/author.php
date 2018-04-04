@@ -374,7 +374,7 @@ class author extends \fpcm\model\abstracts\dataset {
         $this->disabled = 0;
 
         $params = $this->getPreparedSaveParams();
-        $this->events->runEvent('authorSave', $params);
+        $this->events->trigger('authorSave', $params);
 
         $return = false;
         $insertRes = $this->dbcon->insert($this->table, $params);
@@ -416,7 +416,7 @@ class author extends \fpcm\model\abstracts\dataset {
         $fields = array_keys($params);
 
         $params[] = $this->getId();
-        $this->events->runEvent('authorUpdate', $params);
+        $this->events->trigger('authorUpdate', $params);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {

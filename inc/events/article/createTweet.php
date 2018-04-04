@@ -21,4 +21,9 @@ namespace fpcm\events\article;
  */
 final class createTweet extends \fpcm\events\abstracts\event {
 
+    protected function getReturnType()
+    {
+        return '\fpcm\model\articles\article';
+    }
+
 }

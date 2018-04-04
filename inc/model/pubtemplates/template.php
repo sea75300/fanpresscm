@@ -167,7 +167,7 @@ class template extends \fpcm\model\abstracts\file {
         if (!$this->exists() || !$this->content || !$this->isWritable())
             return false;
 
-        $this->content = $this->events->runEvent('templateSave', array('file' => $this->fullpath, 'content' => $this->content))['content'];
+        $this->content = $this->events->trigger('templateSave', array('file' => $this->fullpath, 'content' => $this->content))['content'];
 
         if (!file_put_contents($this->fullpath, $this->content)) {
             trigger_error('Unable to update template ' . $this->fullpath);
@@ -188,7 +188,7 @@ class template extends \fpcm\model\abstracts\file {
         if (!count($this->replacementTags) || !$this->content)
             return false;
 
-        $this->replacementTags = $this->events->runEvent('parseTemplate', $this->replacementTags);
+        $this->replacementTags = $this->events->trigger('parseTemplate', $this->replacementTags);
 
         $tags = array_merge($this->replacementInternal, $this->replacementTags);
         return str_replace(array_keys($tags), array_values($tags), $this->content);
@@ -259,7 +259,7 @@ class template extends \fpcm\model\abstracts\file {
         }
 
         $this->content = file_get_contents($this->fullpath);
-        $this->allowedTags = $this->events->runEvent('publicTemplateHtmlTags', $this->allowedTags);
+        $this->allowedTags = $this->events->trigger('publicTemplateHtmlTags', $this->allowedTags);
     }
 
     /**

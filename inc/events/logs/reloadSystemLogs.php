@@ -1,14 +1,7 @@
 <?php
 
 /**
- * Module-Event: reloadSystemLogs
- * 
- * Event wird ausgeführt, wenn Systemlogs via AJAX neu geladen werden
- * Parameter: void
- * Rückgabe: void
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -33,7 +26,7 @@ final class reloadSystemLogs extends \fpcm\events\abstracts\event {
      * @param void $data
      * @return void
      */
-    public function run($data = null)
+    public function run()
     {
 
         $eventClasses = $this->getEventClasses();

@@ -50,7 +50,6 @@ class revision extends \fpcm\model\abstracts\dataset {
      */
     public function __construct($articleId = 0, $revisionIdx = 0)
     {
-
         $this->article_id = (int) $articleId;
         $this->revision_idx = (int) $revisionIdx;
 
@@ -150,7 +149,6 @@ class revision extends \fpcm\model\abstracts\dataset {
      */
     public function save()
     {
-
         $params = $this->getPreparedSaveParams();
         if (!$this->dbcon->insert($this->table, $params)) {
             return false;
@@ -175,9 +173,10 @@ class revision extends \fpcm\model\abstracts\dataset {
      */
     public function delete()
     {
-
         return $this->dbcon->delete(
-                        $this->table, 'article_id = ? AND revision_idx = ?', array($this->article_id, $this->revision_idx)
+            $this->table,
+            'article_id = ? AND revision_idx = ?',
+            [$this->article_id, $this->revision_idx]
         );
     }
 
@@ -195,15 +194,18 @@ class revision extends \fpcm\model\abstracts\dataset {
         unset($data['changetime'], $data['changeuser']);
         return \fpcm\classes\tools::getHash(json_encode($data));
     }
-
+    
     /**
-     * Inittiert Objekt mit Daten aus der Datenbank
+     * Initializes object
+     * @return boolean
      */
     public function init()
     {
-
         $result = $this->dbcon->select(
-                $this->table, 'article_id, revision_idx, content', 'article_id = ? AND revision_idx = ?', array($this->article_id, $this->revision_idx)
+            $this->table,
+            'article_id, revision_idx, content',
+            'article_id = ? AND revision_idx = ?',
+            [$this->article_id, $this->revision_idx]
         );
 
         $object = $this->dbcon->fetch($result);

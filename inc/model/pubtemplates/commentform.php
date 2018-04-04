@@ -65,7 +65,7 @@ final class commentform extends template {
             return false;
         }
 
-        $this->replacementTags = $this->events->runEvent('parseTemplateCommentForm', $this->replacementTags);
+        $this->replacementTags = $this->events->trigger('parseTemplateCommentForm', $this->replacementTags);
         $tags = array_merge($this->replacementInternal, $this->replacementTags);
         return str_replace(array_keys($tags), array_values($tags), $this->content);
     }
@@ -80,7 +80,7 @@ final class commentform extends template {
             return false;
         }
 
-        $this->content = $this->events->runEvent('templateSave', array('file' => $this->fullpath, 'content' => $this->content))['content'];
+        $this->content = $this->events->trigger('templateSave', array('file' => $this->fullpath, 'content' => $this->content))['content'];
 
         if (strpos($this->content, '{{submitUrl}}') === false) {
             trigger_error('Unable to update comment form template, {{submitUrl}} replacement is missing!');

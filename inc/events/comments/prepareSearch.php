@@ -8,7 +8,7 @@
 namespace fpcm\events\comments;
 
 /**
- * Module-Event: commentsPrepareSearch
+ * Module-Event: prepareSearch
  * 
  * Event wird ausgeführt, wenn Kommentar-Suche durchgeführt wird
  * Parameter: array mit Liste der Suchparameter aus dem Suchformular
@@ -20,42 +20,11 @@ namespace fpcm\events\comments;
  * @package fpcm/model/events
  * @since FPCM 3.3
  */
-final class commentsPrepareSearch extends \fpcm\events\abstracts\event {
+final class prepareSearch extends \fpcm\events\abstracts\event {
 
-    /**
-     * wird ausgeführt, wenn Kommentar gespeichert wird
-     * @param array $data
-     * @return array
-     */
-    public function run($data = null)
+    protected function getReturnType()
     {
-
-        $eventClasses = $this->getEventClasses();
-
-        if (!count($eventClasses))
-            return $data;
-
-        $mdata = $data;
-        foreach ($eventClasses as $eventClass) {
-
-            $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'commentsPrepareSearch');
-
-            /**
-             * @var \fpcm\events\event
-             */
-            $module = new $eventClass();
-
-            if (!$this->is_a($module))
-                continue;
-
-            $mdata = $module->run($mdata);
-        }
-
-        if (!$mdata)
-            return $data;
-
-        return $mdata;
+        return '\fpcm\model\comments\search';
     }
 
 }

@@ -110,7 +110,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
             $editorStyles[$class] = $class;
         }
 
-        return $this->events->runEvent('editorAddStyles', $editorStyles);
+        return $this->events->trigger('editor\addStyles', $editorStyles);
     }
 
     /**
@@ -119,7 +119,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
      */
     public function getEditorLinks()
     {
-        $links = $this->events->runEvent('editorAddLinks');
+        $links = $this->events->trigger('editor\addLinks');
         if (!is_array($links) || !count($links)) {
             return [];
         }
@@ -138,7 +138,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
             $data[] = array('label' => $image->getFilename(), 'value' => $image->getImageUrl());
         }
 
-        $res = $this->events->runEvent('editorGetFileList', array('label' => 'label', 'files' => $data));
+        $res = $this->events->trigger('editor\getFileList', array('label' => 'label', 'files' => $data));
         return isset($res['files']) && count($res['files']) ? $res['files'] : array();
     }
 

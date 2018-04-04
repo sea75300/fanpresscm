@@ -27,7 +27,7 @@ final class clearSystemLog extends \fpcm\events\abstracts\event {
      * @param string $data Log-ID
      * @return bool true wenn Log geleert
      */
-    public function run($data = null)
+    public function run()
     {
 
         $eventClasses = $this->getEventClasses();

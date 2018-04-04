@@ -71,7 +71,7 @@ class cache extends \fpcm\controller\abstracts\ajaxController {
             $this->cache->cleanup();
         }
 
-        $this->events->runEvent('clearCache', [
+        $this->events->trigger('clearCache', [
             'module' => $this->module,
             'objid' => $this->objid
         ]);

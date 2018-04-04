@@ -80,18 +80,18 @@ class htmlEditor extends articleEditor {
      */
     public function getJsVars()
     {
-        return $this->events->runEvent('editorInitCodemirror', [
-                    'editorConfig' => [
-                        'colors' => [
-                            '#000000', '#993300', '#333300', '#003300', '#003366', '#00007f', '#333398', '#333333',
-                            '#800000', '#ff6600', '#808000', '#007f00', '#007171', '#0000e8', '#5d5d8b', '#6c6c6c',
-                            '#f00000', '#e28800', '#8ebe00', '#2f8e5f', '#30bfbf', '#3060f1', '#770077', '#8d8d8d',
-                            '#f100f1', '#f0c000', '#eeee00', '#00f200', '#00efef', '#00beee', '#8d2f5e', '#b5b5b5',
-                            '#ed8ebe', '#efbf8f', '#e8e88b', '#bbeabb', '#bcebeb', '#89b6e4', '#b88ae6', '#ffffff'
-                        ],
-                        'autosavePref' => 'fpcm-editor-as-' . $this->session->getUserId() . 'draft',
-                    ],
-                    'editorInitFunction' => 'initCodeMirror'
+        return $this->events->trigger('editor\initCodemirrorJs', [
+            'editorConfig' => [
+                'colors' => [
+                    '#000000', '#993300', '#333300', '#003300', '#003366', '#00007f', '#333398', '#333333',
+                    '#800000', '#ff6600', '#808000', '#007f00', '#007171', '#0000e8', '#5d5d8b', '#6c6c6c',
+                    '#f00000', '#e28800', '#8ebe00', '#2f8e5f', '#30bfbf', '#3060f1', '#770077', '#8d8d8d',
+                    '#f100f1', '#f0c000', '#eeee00', '#00f200', '#00efef', '#00beee', '#8d2f5e', '#b5b5b5',
+                    '#ed8ebe', '#efbf8f', '#e8e88b', '#bbeabb', '#bcebeb', '#89b6e4', '#b88ae6', '#ffffff'
+                ],
+                'autosavePref' => 'fpcm-editor-as-' . $this->session->getUserId() . 'draft',
+            ],
+            'editorInitFunction' => 'initCodeMirror'
         ]);
     }
 
@@ -178,7 +178,7 @@ class htmlEditor extends articleEditor {
             ]
         );
 
-        return $this->events->runEvent('editorInitHtml', $vars);
+        return $this->events->trigger('editor\initCodemirrorView', $vars);
     }
 
     /**
@@ -189,7 +189,6 @@ class htmlEditor extends articleEditor {
      */
     public function getTemplateDrafts()
     {
-
         $templatefilelist = new \fpcm\model\files\templatefilelist();
 
         $ret = [];

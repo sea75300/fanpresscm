@@ -166,7 +166,7 @@
             if ($this->check()) return false;
             
             $params = $this->getPreparedSaveParams();
-            $params = $this->events->runEvent('ipaddressSave', $params);
+            $params = $this->events->trigger('ipaddressSave', $params);
 
             $return = false;
             if ($this->dbcon->insert($this->table, $params)) {

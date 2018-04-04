@@ -1,9 +1,7 @@
 <?php
 
 /**
- * FanPress CM Category Model
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,7 +11,9 @@ namespace fpcm\model\categories;
  * Kategorie-Objekt
  * 
  * @package fpcm\model\categories
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class category extends \fpcm\model\abstracts\dataset {
 
@@ -127,7 +127,7 @@ class category extends \fpcm\model\abstracts\dataset {
         $this->removeBannedTexts();
 
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->runEvent('categorySave', $params);
+        $params = $this->events->trigger('category\save', $params);
 
         $return = false;
         if ($this->dbcon->insert($this->table, $params)) {
@@ -152,7 +152,7 @@ class category extends \fpcm\model\abstracts\dataset {
         $fields = array_keys($params);
 
         $params[] = $this->getId();
-        $params = $this->events->runEvent('categoryUpdate', $params);
+        $params = $this->events->trigger('category\update', $params);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
@@ -194,7 +194,7 @@ class category extends \fpcm\model\abstracts\dataset {
      */
     private function removeBannedTexts()
     {
-        $this->name     = $this->wordbanList->replaceItems($this->name);
+        $this->name = $this->wordbanList->replaceItems($this->name);
         $this->iconpath = $this->wordbanList->replaceItems($this->iconpath);
 
         return true;

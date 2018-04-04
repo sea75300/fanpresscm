@@ -1,9 +1,7 @@
 <?php
 
 /**
- * FanPress CM Comment List Model
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,7 +11,9 @@ namespace fpcm\model\comments;
  * Kommentar-Listen-Objekt
  * 
  * @package fpcm\model\comments
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class commentList extends \fpcm\model\abstracts\tablelist {
 
@@ -75,7 +75,6 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function getCommentsByDate($from, $to, $private = 0, $approved = 1, $spam = 0)
     {
-
         $params = [$from, $to, $approved, $private, $spam];
         $where = ['createtime >= ?', 'createtime <= ?', 'approved = ?', 'private = ?', 'spammer = ?'];
 
@@ -93,7 +92,6 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function getCommentsByCondition($articleId, $private = 0, $hideUnapproved = 1, $spam = 0)
     {
-
         $conditions = new search();
         $conditions->articleid = $articleId;
         $conditions->private = $private;
@@ -114,70 +112,68 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $where = ['1=1'];
         $valueParams = [];
 
-        $conditions = $conditions->getData();
-
-        if (isset($conditions['text']) && $conditions['searchtype'] == 0) {
+        if ($conditions->text && $conditions->searchtype == 0) {
             $where[] = "name " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions['text']}%";
+            $valueParams[] = "%{$conditions->text}%";
         }
 
-        if (isset($conditions['text']) && $conditions['searchtype'] == 0) {
+        if ($conditions->text && $conditions->searchtype == 0) {
             $where[] = "email " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions['text']}%";
+            $valueParams[] = "%{$conditions->text}%";
         }
 
-        if (isset($conditions['text']) && $conditions['searchtype'] == 0) {
+        if ($conditions->text && $conditions->searchtype == 0) {
             $where[] = "website " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions['text']}%";
+            $valueParams[] = "%{$conditions->text}%";
         }
 
-        if (isset($conditions['text'])) {
+        if ($conditions->text) {
             $where[] = "text " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions['text']}%";
+            $valueParams[] = "%{$conditions->text}%";
         }
 
-        if ($conditions['searchtype'] == 0) {
+        if ($conditions->searchtype == 0) {
             $where = ['(' . implode(' OR ', $where) . ')'];
         }
 
-        if (isset($conditions['datefrom'])) {
+        if ($conditions->datefrom) {
             $where[] = "createtime >= ?";
-            $valueParams[] = $conditions['datefrom'];
+            $valueParams[] = $conditions->datefrom;
         }
 
-        if (isset($conditions['dateto'])) {
+        if ($conditions->dateto) {
             $where[] = "createtime <= ?";
-            $valueParams[] = $conditions['dateto'];
+            $valueParams[] = $conditions->dateto;
         }
 
-        if (isset($conditions['spam']) && $conditions['spam'] > -1) {
+        if ($conditions->spam && $conditions->spam > -1) {
             $where[] = "spammer = ?";
-            $valueParams[] = $conditions['spam'];
+            $valueParams[] = $conditions->spam;
         }
 
-        if (isset($conditions['private']) && $conditions['private'] > -1) {
+        if ($conditions->private && $conditions->private > -1) {
             $where[] = "private = ?";
-            $valueParams[] = $conditions['private'];
+            $valueParams[] = $conditions->private;
         }
 
-        if (isset($conditions['approved']) && $conditions['approved'] > -1) {
+        if ($conditions->approved && $conditions->approved > -1) {
             $where[] = "approved = ?";
-            $valueParams[] = $conditions['approved'];
+            $valueParams[] = $conditions->approved;
         }
 
-        if (isset($conditions['articleid'])) {
+        if ($conditions->articleid) {
             $where[] = "articleid = ?";
-            $valueParams[] = $conditions['articleid'];
+            $valueParams[] = $conditions->articleid;
         }
 
-        if (isset($conditions['ipaddress'])) {
+        if ($conditions->ipaddress) {
             $where[] = "ipaddress = ?";
-            $valueParams[] = $conditions['ipaddress'];
+            $valueParams[] = $conditions->ipaddress;
         }
 
-        $combination = isset($conditions['combination']) ? $conditions['combination'] : 'AND';
+        $combination = $conditions->combination ? $conditions->combination : 'AND';
 
-        $eventData = $this->events->runEvent('commentsByCondition', array(
+        $eventData = $this->events->trigger('comments\getByCondition', array(
             'conditions' => $conditions,
             'where' => $where,
             'values' => $valueParams
@@ -188,21 +184,16 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $valueParams = $eventData['values'];
 
         $where2 = [];
-        $where2[] = $this->dbcon->orderBy(((isset($conditions['orderby'])) ? $conditions['orderby'] : array('createtime ASC')));
+        $where2[] = $this->dbcon->orderBy( ($conditions->orderby ? $conditions->orderby : ['createtime ASC']) );
 
-        if (isset($conditions['limit'])) {
-            $where2[] = $this->dbcon->limitQuery($conditions['limit'][0], $conditions['limit'][1]);
+        $limit = $conditions->limit;
+        if ($limit) {
+            $where2[] = $this->dbcon->limitQuery($limit[0], $limit[1]);
         }
-
-        unset($conditions['limit'], $conditions['orderby']);
 
         $where .= ' ' . implode(' ', $where2);
 
-        $list = $this->dbcon->fetch(
-                $this->dbcon->select(
-                        $this->table, '*', $where, $valueParams
-                ), true
-        );
+        $list = $this->dbcon->fetch( $this->dbcon->select($this->table, '*', $where, $valueParams), true );
 
         return $this->createCommentResult($list);
     }
@@ -239,7 +230,6 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function deleteCommentsByArticle($article_ids)
     {
-
         if (!is_array($article_ids)) {
             $article_ids = array($article_ids);
         }
@@ -273,8 +263,9 @@ class commentList extends \fpcm\model\abstracts\tablelist {
 
         $articleCounts = $this->dbcon->fetch($this->dbcon->select($this->table, 'articleid, count(id) AS count', "$where GROUP BY articleid"), true);
 
-        if (!count($articleCounts))
+        if (!count($articleCounts)) {
             return [0];
+        }
 
         $res = [];
         foreach ($articleCounts as $articleCount) {
@@ -301,8 +292,9 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $where = count($articleIds) ? "articleid IN (" . implode(',', $articleIds) . ")" : '1=1';
         $articleCounts = $this->dbcon->fetch($this->dbcon->select($this->table, 'articleid, count(id) AS count', "$where AND (private = 1 OR approved = 0) GROUP BY articleid"), true);
 
-        if (!count($articleCounts))
+        if (!count($articleCounts)) {
             return [0];
+        }
 
         $res = [];
         foreach ($articleCounts as $articleCount) {
@@ -321,20 +313,23 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function countCommentsByCondition(search $conditions)
     {
-        $conditions = $conditions->getData();
-
         $where = null;
 
-        if (isset($conditions['private']))
+        if ($conditions->private) {
             $where = 'private = 1';
-        if (isset($conditions['unapproved']))
+        }
+        if ($conditions->unapproved) {
             $where = 'approved = 0';
-        if (isset($conditions['spam']))
+        }
+        if ($conditions->spam) {
             $where = 'spammer = 1';
-
-        $where = $this->events->runEvent('commentsByConditionCount', $where);
-
-        return $this->dbcon->count($this->table, '*', $where);
+        }
+        
+        return $this->dbcon->count(
+            $this->table,
+            '*',
+            $this->events->trigger('comments\getByConditionCount', $where)
+        );
     }
 
     /**
@@ -369,12 +364,11 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function editCommentsByMass(array $commentIds, array $fields)
     {
-
         if (!count($commentIds)) {
             return false;
         }
 
-        $result = $this->events->runEvent('commentsMassEditBefore', [
+        $result = $this->events->trigger('comments\massEditBefore', [
             'fields' => $fields,
             'commentIds' => $commentIds
         ]);

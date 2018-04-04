@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Module-Event: commentSave
+ * Module-Event: save
  * 
  * Event wird ausgeführt, wenn ein Kommentar gespeichert wird
  * Parameter: array mit Kommentardaten
@@ -15,7 +15,7 @@
 namespace fpcm\events\comments;
 
 /**
- * Module-Event: commentSave
+ * Module-Event: save
  * 
  * Event wird ausgeführt, wenn ein Kommentar gespeichert wird
  * Parameter: array mit Kommentardaten
@@ -26,42 +26,6 @@ namespace fpcm\events\comments;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/model/events
  */
-final class commentSave extends \fpcm\events\abstracts\event {
-
-    /**
-     * wird ausgeführt, wenn ein Kommentar gespeichert wird
-     * @param array $data
-     * @return array
-     */
-    public function run($data = null)
-    {
-
-        $eventClasses = $this->getEventClasses();
-
-        if (!count($eventClasses))
-            return $data;
-
-        $mdata = $data;
-        foreach ($eventClasses as $eventClass) {
-
-            $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'commentSave');
-
-            /**
-             * @var \fpcm\events\event
-             */
-            $module = new $eventClass();
-
-            if (!$this->is_a($module))
-                continue;
-
-            $mdata = $module->run($mdata);
-        }
-
-        if (!$mdata)
-            return $data;
-
-        return $mdata;
-    }
+final class save extends \fpcm\events\abstracts\eventReturnArray {
 
 }

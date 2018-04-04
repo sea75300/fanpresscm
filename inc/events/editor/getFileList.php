@@ -1,22 +1,14 @@
 <?php
 
 /**
- * Module-Event: editorGetFileList
- * 
- * Event wird ausgeführt, wenn im Artikel-Editor die Liste vorhandener Upload geladen wird
- * Parameter: array mit Daten im Dateiindex, "label" enthält das Label für die Dateilist je nach aktivem Editor und "files"
- * die eigentliche Dateiliste
- * Rückgabe: array Liste mit Dateien in der obigen Form mit "label" und "files"
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\events\editor;
 
 /**
- * Module-Event: editorGetFileList
+ * Module-Event: getFileList
  * 
  * Event wird ausgeführt, wenn im Artikel-Editor die Liste vorhandener Upload geladen wird
  * Parameter: array mit Daten im Dateiindex, "label" enthält das Label für die Dateilist je nach aktivem Editor und "files"
@@ -28,25 +20,26 @@ namespace fpcm\events\editor;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/model/events
  */
-final class editorGetFileList extends \fpcm\events\abstracts\event {
+final class getFileList extends \fpcm\events\abstracts\event {
 
     /**
      * wird ausgeführt, wenn im Artikel-Editor die Liste vorhandener Upload geladen wird
      * @param array $data
      * @return array
      */
-    public function run($data = null)
+    public function run()
     {
 
         $eventClasses = $this->getEventClasses();
-        if (!count($eventClasses))
-            return $data;
+        if (!count($eventClasses)) {
+            return $data;            
+        }
 
         $mdata = $data;
         foreach ($eventClasses as $eventClass) {
 
             $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'editorGetFileList');
+            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'getFileList');
 
             /**
              * @var \fpcm\events\event

@@ -76,7 +76,7 @@
             $fileList   = new \fpcm\model\files\imagelist();
             $list       = $fileList->getDatabaseListByCondition($sparams);
 
-            $list = $this->events->runEvent('reloadFileList', $list);
+            $list = $this->events->trigger('reloadFileList', $list);
 
             $userList = new \fpcm\model\users\userList();
             $this->initViewAssigns($list, $userList->getUsersAll(), []);

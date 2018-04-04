@@ -184,7 +184,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
             return false;
 
         $saveValues = $this->getSaveValues();
-        $saveValues = $this->events->runEvent('smileySave', $saveValues);
+        $saveValues = $this->events->trigger('smileySave', $saveValues);
 
         $this->cache->cleanup();
 

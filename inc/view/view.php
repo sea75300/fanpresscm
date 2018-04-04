@@ -524,7 +524,7 @@ class view {
 
         $this->initAssigns();
 
-        foreach ($this->events->runEvent('view/renderBefore', $this->viewVars) as $key => $value) {
+        foreach ($this->events->trigger('view/renderBefore', $this->viewVars) as $key => $value) {
             $$key = $value;
         }
 
@@ -548,7 +548,7 @@ class view {
                 break;
         }
 
-        $this->events->runEvent('view/renderAfter');
+        $this->events->trigger('view/renderAfter');
         $this->rendered = true;
 
         return true;

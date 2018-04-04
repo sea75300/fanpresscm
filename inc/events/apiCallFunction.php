@@ -35,7 +35,7 @@ final class apiCallFunction extends \fpcm\events\abstracts\event {
      * @param array $data
      * @return mixed
      */
-    public function run($data = null)
+    public function run()
     {
 
         $functionData = explode('_', $data['name'], 3);

@@ -93,7 +93,7 @@ class showarchive extends showcommon {
 
             $parsed[] = $this->createPagination($this->articleList->countArticlesByCondition($countConditions), 'fpcm/archive');
 
-            $parsed = $this->events->runEvent('publicShowArchive', $parsed);
+            $parsed = $this->events->trigger('publicShowArchive', $parsed);
 
             if (!$this->session->exists()) {
                 $this->cache->write($this->cacheName, $parsed, $this->config->system_cache_timeout);
@@ -123,7 +123,7 @@ class showarchive extends showcommon {
 
         $res = parent::createPagination($count, $action);
         $res = str_replace('</ul>', '<li><a href="?module=fpcm/list" class="fpcm-pub-pagination-page">' . $this->lang->translate('ARTICLES_PUBLIC_ACTIVE') . '</a></li>' . PHP_EOL . '</ul>' . PHP_EOL, $res);
-        $res = $this->events->runEvent('publicPageinationShowArchive', $res);
+        $res = $this->events->trigger('publicPageinationShowArchive', $res);
 
         return $res;
     }

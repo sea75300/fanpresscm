@@ -28,7 +28,6 @@ class clearLogs extends \fpcm\model\abstracts\cron {
      */
     public function run()
     {
-
         $dateStr = date('Ymd') . '.txt';
 
         $logFileSystem = \fpcm\classes\baseconfig::$logFiles['syslog'];

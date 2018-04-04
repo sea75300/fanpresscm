@@ -40,7 +40,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
 
         $navigation = $this->getNavigation();
-        $navigation = $this->events->runEvent('navigationRender', $navigation);
+        $navigation = $this->events->trigger('navigationRender', $navigation);
 
         foreach ($navigation as &$moduleOptions) {
             $moduleOptions = $this->checkPermissions($moduleOptions);
@@ -165,7 +165,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             'after' => []
         );
 
-        $eventResult = $this->events->runEvent('navigationAdd', $navigationArray);
+        $eventResult = $this->events->trigger('navigationAdd', $navigationArray);
         if (!$eventResult)
             return $navigationArray;
 
@@ -306,7 +306,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             ])
         );
 
-        $eventResult = $this->events->runEvent('navigationSubmenuModulesAdd', $items);
+        $eventResult = $this->events->trigger('navigationSubmenuModulesAdd', $items);
         if (count($eventResult) == count($items)) {
             return $items;
         }

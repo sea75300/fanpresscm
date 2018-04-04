@@ -117,7 +117,7 @@ class search extends \fpcm\controller\abstracts\ajaxController {
         $sparams->approval = (int) $filter['approval'];
         $sparams->combination = $filter['combination'] ? 'OR' : 'AND';
 
-        $sparams = $this->events->runEvent('articlesPrepareSearch', $sparams);
+        $sparams = $this->events->trigger('article\prepareSearch', $sparams);
 
         $this->articleItems = $this->articleList->getArticlesByCondition($sparams, true);
 

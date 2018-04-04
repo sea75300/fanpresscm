@@ -20,11 +20,22 @@ namespace fpcm\events\article;
  * @package fpcm/model/events
  * @since FPCM 3.4
  */
-final class getByCondition extends \fpcm\events\abstracts\event {
-    
-    protected function getReturnType()
+final class getByCondition extends \fpcm\events\abstracts\eventReturnArray {
+
+    /**
+     * 
+     * @return array
+     */
+    public function run()
     {
-        return self::FPCM_MODULE_EVENT_RETURNTYPE_ARRAY;
+        $eventData = parent::run();
+        if (!isset($eventData['where']) || !is_array($eventData['where']) ||
+            !isset($eventData['conditions']) || !is_array($eventData['conditions']) ||
+            !isset($eventData['values']) || !is_array($eventData['values'])) {
+            return $this->data;
+        }
+
+        return $eventData;
     }
 
 }

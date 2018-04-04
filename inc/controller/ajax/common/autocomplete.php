@@ -54,7 +54,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
         }
 
         call_user_func([$this, $fn]);
-//            $this->returnData = $this->events->runEvent('autocompleteGetData', [
+//            $this->returnData = $this->events->trigger('autocompleteGetData', [
 //                'module'     => $this->module,
 //                'returnData' => $this->returnData
 //            ]);

@@ -1,14 +1,7 @@
 <?php
 
 /**
- * Module-Event: logsAddList
- * 
- * Event wird ausgeführt, wenn Dateiliste in Dateimanager via AJAX neu geladen wird
- * Parameter: void
- * Rückgabe: array Liste mit Logs
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -26,26 +19,16 @@ namespace fpcm\events\logs;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/model/events
  */
-final class logsAddList extends \fpcm\events\abstracts\event {
-
-    /**
-     * Konstruktor
-     */
-    function __construct()
-    {
-        $this->returnDataType = self::FPCM_MODULE_EVENT_RETURNTYPE_ARRAY;
-        parent::__construct();
-    }
+final class logsAddList extends \fpcm\events\abstracts\eventReturnArray {
 
     /**
      * wird ausgeführt, wenn Systemlogs angezeigt werden
      * @param array $data
      * @return array
      */
-    public function run($data = null)
+    public function run()
     {
-
-        $result = parent::run($data);
+        $result = parent::run();
 
         if (!count($result)) {
             return $data;

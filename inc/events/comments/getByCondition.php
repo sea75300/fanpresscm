@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Module-Event: commentsByCondition
+ * Module-Event: getByCondition
  * 
  * Event wird ausgeführt, wenn Kommentar-Suche ausgeführt wird
  * Parameter: array Suchbedingungen
@@ -16,7 +16,7 @@
 namespace fpcm\events\comments;
 
 /**
- * Module-Event: commentsByCondition
+ * Module-Event: getByCondition
  * 
  * Event wird ausgeführt, wenn Kommentar-Suche ausgeführt wird
  * Parameter: array Suchbedingungen
@@ -28,43 +28,23 @@ namespace fpcm\events\comments;
  * @package fpcm/model/events
  * @since FPCM 3.4
  */
-final class commentsByCondition extends \fpcm\events\abstracts\event {
+final class getByCondition extends \fpcm\events\abstracts\eventReturnArray {
 
     /**
      * wird ausgeführt, wenn Kommentar-Suche ausgeführt wird
      * @param array $data
      * @return array
      */
-    public function run($data = null)
+    public function run()
     {
-
-        $eventClasses = $this->getEventClasses();
-
-        if (!count($eventClasses))
-            return $data;
-
-        $mdata = $data;
-        foreach ($eventClasses as $eventClass) {
-
-            $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'commentsByCondition');
-
-            /**
-             * @var \fpcm\events\event
-             */
-            $module = new $eventClass();
-
-            if (!$this->is_a($module))
-                continue;
-
-            $mdata = $module->run($mdata);
+        $eventData = parent::run();
+        if (!isset($eventData['where']) || !is_array($eventData['where'])
+            || !isset($eventData['conditions']) || !is_array($eventData['conditions'])
+            || !isset($eventData['values']) || !is_array($eventData['values'])) {
+            return $this->data;
         }
 
-        if (!$mdata || !is_array($mdata) || !isset($eventData['where']) || !is_array($eventData['where']) || !isset($eventData['conditions']) || !is_array($eventData['conditions'])) {
-            return $data;
-        }
-
-        return $mdata;
+        return $eventData;
     }
 
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Module-Event: commentsByConditionCount
+ * Module-Event: getByConditionCount
  * 
  * Event wird ausgeführt, wenn Artikel anhand von Bedingungen gezählt werden
  * Parameter: array Zählbedingungen
@@ -16,7 +16,7 @@
 namespace fpcm\events\comments;
 
 /**
- * Module-Event: commentsByConditionCount
+ * Module-Event: getByConditionCount
  * 
  * Event wird ausgeführt, wenn Artikel anhand von Bedingungen gezählt werden
  * Parameter: array Zählbedingungen
@@ -28,6 +28,6 @@ namespace fpcm\events\comments;
  * @package fpcm/model/events
  * @since FPCM 3.4
  */
-final class commentsByConditionCount extends \fpcm\events\abstracts\event {
+final class getByConditionCount extends \fpcm\events\abstracts\event {
     
 }

@@ -19,11 +19,6 @@ namespace fpcm\events\article;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/model/events
  */
-final class update extends \fpcm\events\abstracts\event {
-
-    protected function getReturnType()
-    {
-        return '\fpcm\model\articles\article';
-    }
+final class update extends \fpcm\events\abstracts\eventReturnArray {
 
 }

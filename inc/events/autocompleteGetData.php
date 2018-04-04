@@ -20,26 +20,16 @@ namespace fpcm\events;
  * @package fpcm/model/events
  * @since FPCm 3.6
  */
-final class autocompleteGetData extends \fpcm\events\abstracts\event {
-
-    /**
-     * Konstruktor
-     */
-    function __construct()
-    {
-        $this->returnDataType = self::FPCM_MODULE_EVENT_RETURNTYPE_ARRAY;
-        parent::__construct();
-    }
+final class autocompleteGetData extends \fpcm\events\abstracts\eventReturnArray {
 
     /**
      * wird ausgeführt, wenn autocomplete-Controller aufgerufen wird
      * @param array $data
      * @return array
      */
-    public function run($data = null)
+    public function run()
     {
-
-        $result = parent::run($data);
+        $result = parent::run();
         if (!count($result) || !isset($result['returnData'])) {
             return $data;
         }

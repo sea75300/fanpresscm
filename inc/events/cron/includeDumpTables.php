@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Module-Event: cronjobDbDumpIncludeTables
+ * Module-Event: includeDumpTables
  * 
  * Event wird ausgeführt, wenn Cronjob für automatische Datenbank-Sicherung läuft
  * Parameter: array mit Liste der zu sichernden Tabellen
@@ -16,7 +16,7 @@
 namespace fpcm\events\cron;
 
 /**
- * Module-Event: cronjobDbDumpIncludeTables
+ * Module-Event: includeDumpTables
  * 
  * Event wird ausgeführt, wenn Cronjob für automatische Datenbank-Sicherung läuft
  * Parameter: array mit Liste der zu sichernden Tabellen
@@ -28,42 +28,6 @@ namespace fpcm\events\cron;
  * @package fpcm/model/events
  * @since FPCM 3.1
  */
-final class includeDumpTables extends \fpcm\events\abstracts\event {
-
-    /**
-     * wird ausgeführt, wenn Cronjob für automatische Datenbank-Sicherung läuft
-     * @param array $data
-     * @return array
-     */
-    public function run($data = null)
-    {
-
-        $eventClasses = $this->getEventClasses();
-
-        if (!count($eventClasses))
-            return $data;
-
-        $mdata = $data;
-        foreach ($eventClasses as $eventClass) {
-
-            $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'cronjobDbDumpIncludeTables');
-
-            /**
-             * @var \fpcm\events\event
-             */
-            $module = new $eventClass();
-
-            if (!$this->is_a($module))
-                continue;
-
-            $mdata = $module->run($mdata);
-        }
-
-        if (!$mdata)
-            return $data;
-
-        return $mdata;
-    }
+final class includeDumpTables extends \fpcm\events\abstracts\eventReturnArray {
 
 }

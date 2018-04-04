@@ -151,7 +151,14 @@ class article extends \fpcm\model\abstracts\dataset {
      * Auszuschließende Elemente beim in save/update
      * @var array
      */
-    protected $dbExcludes = array('defaultPermissions', 'forceDelete', 'editPermission', 'tweetOverride', 'tweetCreate', 'crypt');
+    protected $dbExcludes = [
+        'defaultPermissions',
+        'forceDelete',
+        'editPermission',
+        'tweetOverride',
+        'tweetCreate',
+        'crypt'
+    ];
 
     /**
      * Action-String für edit-Action
@@ -200,9 +207,9 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function __construct($id = null)
     {
-        $this->table        = \fpcm\classes\database::tableArticles;
-        $this->wordbanList  = new \fpcm\model\wordban\items();
-        $this->crypt        = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
+        $this->table = \fpcm\classes\database::tableArticles;
+        $this->wordbanList = new \fpcm\model\wordban\items();
+        $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
 
         parent::__construct($id);
     }
@@ -609,7 +616,9 @@ class article extends \fpcm\model\abstracts\dataset {
         $idParam = ($this->config->articles_link_urlrewrite ? $this->getArticleNicePath() : $this->getId());
 
         if (!$this->config->system_mode) {
-            return \fpcm\classes\tools::getFullControllerLink('fpcm/article', array('id' => $idParam));
+            return \fpcm\classes\tools::getFullControllerLink('fpcm/article', [
+                        'id' => $idParam
+            ]);
         }
 
         return $this->config->system_url . '?module=fpcm/article&id=' . $idParam;
@@ -634,7 +643,10 @@ class article extends \fpcm\model\abstracts\dataset {
         $shortenerUrl = 'http://is.gd/create.php?format=simple&url=' . urlencode($this->getElementLink());
 
         if (!\fpcm\classes\baseconfig::canConnect()) {
-            return $this->events->trigger('article\getShortLink', array('artikellink' => urlencode($this->getElementLink()), 'url' => $shortenerUrl))['url'];
+            return $this->events->trigger('article\getShortLink', [
+                        'artikellink' => urlencode($this->getElementLink()),
+                        'url' => $shortenerUrl
+                    ])['url'];
         }
 
         if (defined('FPCM_ARTICLE_DISABLE_SHORTLINKS') && FPCM_ARTICLE_DISABLE_SHORTLINKS) {
@@ -642,12 +654,18 @@ class article extends \fpcm\model\abstracts\dataset {
         } else {
             $remote = fopen($shortenerUrl, 'r');
             if (!$remote) {
-                return $this->events->trigger('article\getShortLink', array('artikellink' => urlencode($this->getElementLink()), 'url' => $shortenerUrl))['url'];
+                return $this->events->trigger('article\getShortLink', [
+                            'artikellink' => urlencode($this->getElementLink()),
+                            'url' => $shortenerUrl
+                        ])['url'];
             }
             $url = fgetss($remote);
         }
 
-        return $this->events->trigger('article\getShortLink', array('artikellink' => urlencode($this->getElementLink()), 'url' => $url))['url'];
+        return $this->events->trigger('article\getShortLink', [
+                    'artikellink' => urlencode($this->getElementLink()),
+                    'url' => $url
+                ])['url'];
     }
 
     /**
@@ -695,7 +713,6 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function update()
     {
-
         $this->removeBannedTexts();
 
         $params = $this->getPreparedSaveParams();
@@ -759,9 +776,8 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function createRevision($timer = 0)
     {
-
         $content = $this->getPreparedSaveParams();
-        $content = $this->events->trigger('revision/create', $content);
+        $content = $this->events->trigger('revision\create', $content);
 
         if (!$timer) {
             $timer = $this->changetime;
@@ -776,8 +792,8 @@ class article extends \fpcm\model\abstracts\dataset {
         $revision->setHashsum($newHash);
 
         if (isset($this->data['preparedRevision']) &&
-            is_array($this->data['preparedRevision']) &&
-            $revision->createHashSum($this->data['preparedRevision']) === $newHash) {
+                is_array($this->data['preparedRevision']) &&
+                $revision->createHashSum($this->data['preparedRevision']) === $newHash) {
             return true;
         }
 
@@ -796,7 +812,6 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function getRevisions($full = false)
     {
-
         $result = $this->dbcon->select(
                 \fpcm\classes\database::tableRevisions, 'article_id, revision_idx, content', 'article_id = ? ' . $this->dbcon->orderBy(array('revision_idx DESC')), array($this->id)
         );
@@ -805,7 +820,7 @@ class article extends \fpcm\model\abstracts\dataset {
         if (!is_array($revisionSets) || !count($revisionSets)) {
             return [];
         }
-        $revisionFiles = $this->events->trigger('revision/getBefore', $revisionSets);
+        $revisionFiles = $this->events->trigger('revision\getBefore', $revisionSets);
 
         $revisions = [];
         foreach ($revisionSets as $revisionSet) {
@@ -823,7 +838,7 @@ class article extends \fpcm\model\abstracts\dataset {
             $revisions[$revTime] = $full ? $revData : $revData['title'];
         }
 
-        $revisions = $this->events->trigger('revision/getAfter', array('full' => $full, 'revisions' => $revisions))['revisions'];
+        $revisions = $this->events->trigger('revision\getAfter', array('full' => $full, 'revisions' => $revisions))['revisions'];
 
         return $revisions;
     }
@@ -835,7 +850,6 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function getRevisionsCount()
     {
-
         return $this->dbcon->count(\fpcm\classes\database::tableRevisions, 'id', 'article_id = ? ', [$this->id]);
     }
 
@@ -851,7 +865,7 @@ class article extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        $revision = $this->events->trigger('revision/get', $revision);
+        $revision = $this->events->trigger('revision\get', $revision);
         foreach ($revision->getContent() as $key => $value) {
             $this->$key = $value;
         }
@@ -968,11 +982,13 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function publicIsVisible()
     {
-        if (!$this->exists() || ($this->getDeleted() && !\fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists())) {
+        $sessionExists = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists();
+
+        if (!$this->exists() || ($this->getDeleted() && !$sessionExists)) {
             return false;
         }
 
-        if (($this->getDraft() || $this->getPostponed()) && !\fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
+        if (($this->getDraft() || $this->getPostponed()) && !$sessionExists) {
             return false;
         }
 
@@ -996,7 +1012,6 @@ class article extends \fpcm\model\abstracts\dataset {
             $showCommentsStatus ? $this->getStatusIconComments() : '',
             $showArchivedStatus ? $this->getStatusIconArchive() : '',
         ];
-
     }
 
     /**
@@ -1006,9 +1021,9 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getStatusIconPinned()
     {
         return (new \fpcm\view\helper\icon('thumbtack fa-rotate-90 fa-inverse'))
-                ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getPinned())
-                ->setText('EDITOR_STATUS_PINNED')
-                ->setStack('square');
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getPinned())
+                        ->setText('EDITOR_STATUS_PINNED')
+                        ->setStack('square');
     }
 
     /**
@@ -1018,9 +1033,9 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getStatusIconDraft()
     {
         return (new \fpcm\view\helper\icon('file-alt fa-inverse', 'far'))
-                ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getDraft())
-                ->setText('EDITOR_STATUS_DRAFT')
-                ->setStack('square');
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getDraft())
+                        ->setText('EDITOR_STATUS_DRAFT')
+                        ->setStack('square');
     }
 
     /**
@@ -1030,9 +1045,9 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getStatusIconPostponed()
     {
         return (new \fpcm\view\helper\icon('calendar-plus fa-inverse'))
-                ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getPostponed())
-                ->setText( $this->language->translate('EDITOR_STATUS_POSTPONETO') . ( $this->getPostponed() ? ' ' . new \fpcm\view\helper\dateText($this->getCreatetime()) : '') )
-                ->setStack('square');
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getPostponed())
+                        ->setText($this->language->translate('EDITOR_STATUS_POSTPONETO') . ( $this->getPostponed() ? ' ' . new \fpcm\view\helper\dateText($this->getCreatetime()) : ''))
+                        ->setStack('square');
     }
 
     /**
@@ -1042,9 +1057,9 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getStatusIconApproval()
     {
         return (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))
-                ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getApproval())
-                ->setText('EDITOR_STATUS_APPROVAL')
-                ->setStack('square');
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getApproval())
+                        ->setText('EDITOR_STATUS_APPROVAL')
+                        ->setStack('square');
     }
 
     /**
@@ -1054,8 +1069,8 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getStatusIconComments()
     {
         return (new \fpcm\view\helper\icon('comments fa-inverse', 'far'))
-                ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getComments())
-                ->setText('EDITOR_STATUS_COMMENTS')->setStack('square');
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getComments())
+                        ->setText('EDITOR_STATUS_COMMENTS')->setStack('square');
     }
 
     /**
@@ -1065,9 +1080,9 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getStatusIconArchive()
     {
         return (new \fpcm\view\helper\icon('archive fa-inverse'))
-                ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getArchived())
-                ->setText('EDITOR_STATUS_ARCHIVE')
-                ->setStack('square');
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getArchived())
+                        ->setText('EDITOR_STATUS_ARCHIVE')
+                        ->setStack('square');
     }
 
     /**
@@ -1078,7 +1093,7 @@ class article extends \fpcm\model\abstracts\dataset {
     private function removeBannedTexts()
     {
         if ($this->wordbanList->checkArticleApproval($this->title) ||
-            $this->wordbanList->checkArticleApproval($this->content)) {
+                $this->wordbanList->checkArticleApproval($this->content)) {
             $this->setApproval(1);
         }
 

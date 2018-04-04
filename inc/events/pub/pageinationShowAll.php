@@ -33,7 +33,7 @@ final class publicPageinationShowAll extends \fpcm\events\abstracts\event {
      * @param string $data
      * @return string
      */
-    public function run($data = null)
+    public function run()
     {
 
         $eventClasses = $this->getEventClasses();

@@ -8,7 +8,7 @@
 namespace fpcm\events\comments;
 
 /**
- * Module-Event: commentsMassEditBefore
+ * Module-Event: massEditBefore
  * 
  * Event wird ausgeführt, bevor Massenbearbeitung von Artikeln ausgeführt wird
  * Parameter: array Felder und Artikel-IDs
@@ -20,28 +20,18 @@ namespace fpcm\events\comments;
  * @package fpcm/model/events
  * @since FPCM 3.6
  */
-final class commentsMassEditBefore extends \fpcm\events\abstracts\event {
-
-    /**
-     * Konstruktor
-     */
-    function __construct()
-    {
-        $this->returnDataType = self::FPCM_MODULE_EVENT_RETURNTYPE_ARRAY;
-        parent::__construct();
-    }
+final class massEditBefore extends \fpcm\events\abstracts\eventReturnArray {
 
     /**
      * wird ausgeführt, bevor Massenbearbeitung von Kommentaren ausgeführt wird
      * @param array $data
      * @return array
      */
-    public function run($data = null)
+    public function run()
     {
-
-        $result = parent::run($data);
+        $result = parent::run();
         if (!count($result) || !isset($result['fields']) || !isset($result['commentIds'])) {
-            return $data;
+            return $this->data;
         }
 
         return $result;

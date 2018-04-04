@@ -262,7 +262,7 @@ class image extends \fpcm\model\abstracts\file {
         }
 
         $saveValues = $this->getSaveValues();
-        $saveValues = $this->events->runEvent('imageSave', $saveValues);
+        $saveValues = $this->events->trigger('image\save', $saveValues);
 
         return $this->dbcon->insert($this->table, $saveValues);
     }
@@ -278,7 +278,7 @@ class image extends \fpcm\model\abstracts\file {
         }
 
         $saveValues = $this->getSaveValues();
-        $params = $this->events->runEvent('imageUpdate', $saveValues);
+        $params = $this->events->trigger('image\update', $saveValues);
 
         return $this->dbcon->update($this->table, $this->dbParams, array_values($saveValues), "filename = ?", array($this->filename));
     }
@@ -312,7 +312,6 @@ class image extends \fpcm\model\abstracts\file {
     public function rename($newname, $userId = false)
     {
         $oldname = $this->filename;
-
         if (!parent::rename($newname)) {
             return false;
         }
@@ -383,7 +382,7 @@ class image extends \fpcm\model\abstracts\file {
         $fullThumbPath = $this->getThumbnailFull();
         $phpImgWsp->save(dirname($fullThumbPath), basename($fullThumbPath), true, null, 85);
 
-        $this->events->runEvent('thumbnailCreate', $this);
+        $this->events->trigger('image\thumbnailCreate', $this);
         if (!file_exists($fullThumbPath)) {
             trigger_error('Unable to create filemanager thumbnail: ' . $this->getThumbnail());
             return false;
@@ -415,9 +414,9 @@ class image extends \fpcm\model\abstracts\file {
     {
         if ($initDB) {
             $dbData = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'filename = ?', array($this->filename)));
-
-            if (!$dbData)
+            if (!$dbData) {
                 return false;
+            }
 
             foreach ($dbData as $key => $value) {
                 $this->$key = $value;
@@ -448,8 +447,9 @@ class image extends \fpcm\model\abstracts\file {
      */
     public function createFromDbObject($object)
     {
-        if (!is_object($object))
+        if (!is_object($object)) {
             return false;
+        }
 
         $keys = array_keys($this->getPreparedSaveParams());
         $keys[] = 'id';

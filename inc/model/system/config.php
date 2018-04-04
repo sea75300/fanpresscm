@@ -149,7 +149,7 @@ final class config extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        $params = $this->events->runEvent('configUpdate', $this->newConfig);
+        $params = $this->events->trigger('configUpdate', $this->newConfig);
 
         $data = [];
         $where = [];
