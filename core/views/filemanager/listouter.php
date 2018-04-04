@@ -1,4 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
+<?php $theView->hiddenInput('newfilename'); ?>
 <div class="fpcm-ui-inner-wrapper">
     <div class="fpcm-tabs-general" id="fpcm-files-tabs">
         <ul>
@@ -24,6 +25,13 @@
 
         </div>
         <?php endif; ?>
+    </div>
+</div>
+
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-rename">
+    <div class="row">
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('FILE_LIST_FILENAME'); ?></div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('newFilenameDialog'); ?></div>
     </div>
 </div>
 

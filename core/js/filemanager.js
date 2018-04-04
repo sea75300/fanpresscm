@@ -47,22 +47,44 @@ fpcm.filemanager = {
 
         jQuery('#btnRenameFiles').click(function () {
 
-            if (!fpcm.ui.langvarExists('FILE_LIST_RENAME_NEWNAME') || !fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox').length) {
+            if (fpcm.filemanager.renameClick) {
+                return true;
+            }
+
+            if (!fpcm.ui.langvarExists('FILE_LIST_RENAME_NEWNAME') ||
+                !fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox').length) {
                 fpcm.ui.showLoader(false);
                 return false;
             }
-
-            var newName = prompt(fpcm.ui.translate('FILE_LIST_RENAME_NEWNAME'), '');
-            if (!newName || newName == '') {
-                jQuery(this).addClass('fpcm-noloader');
-                fpcm.ui.showLoader(false);
-                return false;
-            }
-
-            jQuery('#newfilename').val(newName);
+            
+            fpcm.ui.dialog({
+                id: 'files-rename',
+                dlWidth: fpcm.ui.getDialogSizes().width,
+                title: fpcm.ui.translate('FILE_LIST_RENAME_NEWNAME'),
+                dlButtons: [
+                    {
+                        text: fpcm.ui.translate('GLOBAL_SAVE'),
+                        icon: "ui-icon-check",                        
+                        click: function() {
+                            jQuery( this ).dialog( "close" );
+                            fpcm.filemanager.renameClick = true;
+                            jQuery('#newfilename').val(jQuery('#newFilenameDialog').val());
+                            jQuery('#btnRenameFiles').click();
+                        }
+                    },
+                    {
+                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                        icon: "ui-icon-closethick",                
+                        click: function() {
+                            jQuery( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            });
+            
+            return false;
         });
 
-        
         fpcm.filemanager.refreshSingleCheckboxes();
     },
     

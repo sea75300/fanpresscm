@@ -363,7 +363,6 @@ fpcm.editor = {
                 return true;
             }
 
-
             var orgText = event.clipboardData.getData('Text');            
             var chgText = fpcm.editor_videolinks.replace(orgText);
 
@@ -422,8 +421,6 @@ fpcm.editor = {
         };
 
         fpcm.vars.jsvars.editorConfig.onPaste = function(plugin, args) {
-
-
             var content = fpcm.editor_videolinks.replace(args.content);
             if (content === args.content) {
                 return true;

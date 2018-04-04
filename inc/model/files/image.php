@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Image file object
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -14,6 +12,8 @@ namespace fpcm\model\files;
  * 
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class image extends \fpcm\model\abstracts\file {
 
@@ -319,7 +319,8 @@ class image extends \fpcm\model\abstracts\file {
 
         $this->filetime = time();
         $this->userid = $userId;
-        $res = $this->dbcon->update($this->table, $this->dbParams, array_values($this->getSaveValues()), "filename = ?", array($oldname));
+        $params = array_merge(array_values($this->getSaveValues()), [$oldname]);
+        $res = $this->dbcon->update($this->table, $this->dbParams, $params, "filename = ?");
 
         if (!$res) {
             trigger_error('Unable to update database file info for ' . $oldname);
@@ -383,9 +384,6 @@ class image extends \fpcm\model\abstracts\file {
         $phpImgWsp->save(dirname($fullThumbPath), basename($fullThumbPath), true, null, 85);
 
         $this->events->runEvent('thumbnailCreate', $this);
-        
-        fpcmDump($this->getFilepath() . $this->getThumbnail(), $fullThumbPath);
-        
         if (!file_exists($fullThumbPath)) {
             trigger_error('Unable to create filemanager thumbnail: ' . $this->getThumbnail());
             return false;

@@ -31,21 +31,37 @@ class filelist extends \fpcm\controller\abstracts\controller {
      */
     protected $mode = 1;
 
+    /**
+     * 
+     * @return string
+     */
     protected function getViewPath()
     {
         return 'filemanager/listouter';
     }
 
+    /**
+     * 
+     * @return array
+     */
     protected function getPermissions()
     {
         return ['uploads' => 'visible'];
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function getHelpLink()
     {
         return 'hl_files_mng';
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function request()
     {
         $this->fileList = new \fpcm\model\files\imagelist();

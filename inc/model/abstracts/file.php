@@ -1,10 +1,7 @@
 <?php
 
 /**
- * FanPress CM file model
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -15,7 +12,9 @@ namespace fpcm\model\abstracts;
  * 
  * @package fpcm\model\abstracts
  * @abstract
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class file {
 
@@ -247,7 +246,6 @@ abstract class file {
     public function rename($newname, $userid = false)
     {
         $newFullPath = $this->basePath($newname);
-        
         if (!rename($this->fullpath, $newFullPath)) {
             trigger_error('Unable to rename file: ' . $this->fullpath);
             return false;
