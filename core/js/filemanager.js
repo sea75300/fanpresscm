@@ -76,6 +76,8 @@ fpcm.filemanager = {
                         text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick",                
                         click: function() {
+                            jQuery('#newfilename').val('');
+                            jQuery('#newFilenameDialog').val('');
                             jQuery( this ).dialog( "close" );
                         }
                     }

@@ -312,7 +312,7 @@ class image extends \fpcm\model\abstracts\file {
     public function rename($newname, $userId = false)
     {
         $oldname = $this->filename;
-        if (!parent::rename($newname)) {
+        if (!parent::rename($newname.'.'.$this->getExtension())) {
             return false;
         }
 
@@ -423,20 +423,25 @@ class image extends \fpcm\model\abstracts\file {
             }
         }
 
+        if (!parent::exists()) {
+            return true;            
+        }
+
         $ext = pathinfo($this->fullpath, PATHINFO_EXTENSION);
         $this->extension = ($ext) ? $ext : '';
+
         $this->filesize = filesize($this->fullpath);
 
-        if (parent::exists()) {
-            $fileData = getimagesize($this->fullpath);
+        $fileData = getimagesize($this->fullpath);
 
-            if (is_array($fileData)) {
-                $this->width = $fileData[0];
-                $this->height = $fileData[1];
-                $this->whstring = $fileData[3];
-                $this->mimetype = $fileData['mime'];
-            }
+        if (!is_array($fileData)) {
+            return true;
         }
+
+        $this->width = $fileData[0];
+        $this->height = $fileData[1];
+        $this->whstring = $fileData[3];
+        $this->mimetype = $fileData['mime'];
     }
 
     /**

@@ -130,6 +130,7 @@ $lang = array(
     'FILE_LIST_NEWTHUMBS' => 'Create thumbnails',
     'FILE_LIST_RENAME' => 'Rename',
     'FILE_LIST_RENAME_NEWNAME' => 'Please insert a new filename:',
+    'FILE_LIST_UPLOAD_NOTFOUND' => 'The associated file was not found in upload folder!',
     'FILE_LIST_PHPMAXINFO' => 'No more than {{filecount}} file with {{filesize}}.',
     'FILE_LIST_UPLOADDROP' => 'Drop files to this box for upload',
     'FILE_LIST_ADDTOINDEX' => 'Add file(s) to index...)',

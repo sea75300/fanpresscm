@@ -130,6 +130,7 @@ $lang = array(
     'FILE_LIST_NEWTHUMBS' => 'Thumbnails erzeugen',
     'FILE_LIST_RENAME' => 'Umbenennen',
     'FILE_LIST_RENAME_NEWNAME' => 'Bitte einen neuen Dateiname eingeben:',
+    'FILE_LIST_UPLOAD_NOTFOUND' => 'Die zugehörige Datei wurde im Upload-Ordner nicht gefunden!',
     'FILE_LIST_PHPMAXINFO' => 'Maximal {{filecount}} Dateien mit {{filesize}}.',
     'FILE_LIST_UPLOADDROP' => 'Dateien zum Hochladen hierher ziehen',
     'FILE_LIST_ADDTOINDEX' => 'Datei(en) indizieren...',

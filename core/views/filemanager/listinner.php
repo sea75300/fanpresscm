@@ -1,7 +1,7 @@
-<?php /* @var $theView fpcm\view\viewVars */ ?>
+<?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
 <?php if (!count($files)) : ?>
 
-<p class="fpcm-ui-padding-none fpcm-ui-margin-none"><?php $theView->icon('images', 'far')->setStack('ban fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
+<p class="fpcm-ui-padding-none fpcm-ui-margin-none"><?php $theView->icon('images', 'far')->setStack('ban fpcm-ui-important-text')->setSize('2x')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
 
 <?php else : ?>
 
@@ -36,18 +36,29 @@
 
             <div class="fpcm-filelist-meta fpcm-ui-left fpcm-ui-font-small">
                 
-                <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr">
-                        <?php $theView->icon('calendar-alt', 'far')->setText('FILE_LIST_UPLOAD_DATE')->setSize('lg'); ?>
+                <?php if (!$file->existsFolder() ) : ?>
+                <div class="row fpcm-ui-padding-md-tb fpcm-ui-important-text">
+                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">
+                        <?php $theView->icon('images', 'far')->setStack('ban')->setSize('2x')->setStackTop(true); ?>
                     </div>
-                    <div class="col-7 col-sm-8 col-md-10 fpcm-ui-padding-none-lr">
+                    <div class="col-7 col-sm-8 col-md-10 align-self-center fpcm-ui-padding-none-lr">
+                        <?php $theView->write('FILE_LIST_UPLOAD_NOTFOUND'); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+                
+                <div class="row fpcm-ui-padding-md-tb">
+                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">
+                        <?php $theView->icon('calendar-alt', 'far')->setText('FILE_LIST_UPLOAD_DATE')->setSize('2x'); ?>
+                    </div>
+                    <div class="col-7 col-sm-8 col-md-10 align-self-center fpcm-ui-padding-none-lr">
                         <?php $theView->dateText($file->getFiletime()); ?>
                     </div>
                 </div>
                 
                 <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr">
-                        <?php $theView->icon('user')->setText('FILE_LIST_UPLOAD_BY')->setSize('lg'); ?>
+                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">
+                        <?php $theView->icon('user')->setText('FILE_LIST_UPLOAD_BY')->setSize('2x'); ?>
                     </div>
                     <div class="col-7 col-sm-8 col-md-10 fpcm-ui-padding-none-lr">
                         <?php print isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayName() : $theView->translate('GLOBAL_NOTFOUND'); ?>
@@ -55,20 +66,22 @@
                 </div>
                 
                 <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr">
-                        <?php $theView->icon('weight')->setText('FILE_LIST_FILESIZE')->setSize('lg'); ?>
+                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">
+                        <?php $theView->icon('weight')->setText('FILE_LIST_FILESIZE')->setSize('2x'); ?>
                     </div>
-                    <div class="col-7 col-sm-8 col-md-10 fpcm-ui-padding-none-lr">
+                    <div class="col-7 col-sm-8 col-md-10 align-self-center fpcm-ui-padding-none-lr">
                         <?php print \fpcm\classes\tools::calcSize($file->getFilesize()); ?>
                     </div>
                 </div>
                 
                 <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr">
-                        <?php $theView->icon('expand-arrows-alt')->setText('FILE_LIST_RESOLUTION')->setSize('lg'); ?>
+                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">
+                        <?php $theView->icon('expand-arrows-alt')->setText('FILE_LIST_RESOLUTION')->setSize('2x'); ?>
                     </div>
-                    <div class="col-7 col-sm-8 col-md-10 fpcm-ui-padding-none-lr">
+                    <div class="col-7 col-sm-8 col-md-10 align-self-center fpcm-ui-padding-none-lr">
+                        <?php if ($file->getWidth() && $file->getHeight() ) : ?>
                         <?php print $file->getWidth(); ?> <span class="fa fa-times fa-fw"></span> <?php print $file->getHeight(); ?> <?php $theView->write('FILE_LIST_RESOLUTION_PIXEL'); ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

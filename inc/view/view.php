@@ -217,17 +217,14 @@ class view {
             return null;
         }
 
-        if (strpos($item, \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::CORE_JS)) === 0) {
+        if (strpos($item, \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::CORE_JS) ) === 0 ||
+            strpos($item, \fpcm\classes\dirs::getIncDirPath() ) || substr($item, 0, 4) === 'http') {
             return $item;
         }
 
         $cacheName = 'system/' . __METHOD__;
 
-        $checks = [];
-
-        if (!$this->cache->isExpired($cacheName)) {
-            $checks = $this->cache->read($cacheName);
-        }
+        $checks = $this->cache->isExpired($cacheName) ? [] : $this->cache->read($cacheName);
 
         $hash = \fpcm\classes\tools::getHash($item);
         if (isset($checks[$hash])) {
@@ -235,10 +232,10 @@ class view {
         }
 
         try {
-            if (file_exists(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, $item))) {
+            $coreJsPath = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, $item);
+            if (file_exists($coreJsPath)) {
                 $checks[$hash] = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_JS, $item);
                 $this->cache->write($cacheName, $checks);
-                return $checks[$hash];
             }
         } catch (\Exception $e) {
             trigger_error($e->getMessage());
@@ -246,23 +243,17 @@ class view {
         }
 
         try {
-
-            if (substr($item, 0, 4) !== 'http') {
-                fpcmDump(substr($item, 0, 4), $item);
-            }
-
-            $file_headers = get_headers($item);
-            if (isset($file_headers[0]) && $file_headers[0] === 'HTTP/1.1 200 OK') {
-                $checks[$hash] = $item;
+            $incPath = \fpcm\classes\dirs::getIncDirPath($item);
+            if (file_exists($incPath)) {
+                $checks[$hash] = \fpcm\classes\dirs::getLibUrl($item);
                 $this->cache->write($cacheName, $checks);
-                return $checks[$hash];
             }
         } catch (\Exception $e) {
             trigger_error($e->getMessage());
             return '';
         }
 
-        return '';
+        return $checks[$hash];
     }
 
     /**

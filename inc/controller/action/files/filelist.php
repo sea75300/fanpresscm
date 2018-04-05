@@ -143,8 +143,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
             $image = new \fpcm\model\files\image($fileName, false);
 
             $newname = $this->getRequestVar('newfilename');
-
-            if ($image->rename($newname, $this->session->getUserId())) {
+            if ($newname && $image->rename($newname, $this->session->getUserId())) {
                 $this->view->addNoticeMessage('DELETE_SUCCESS_RENAME', array('{{filename1}}' => $fileName, '{{filename2}}' => $newname));
             } else {
                 $this->view->addErrorMessage('DELETE_FAILED_RENAME', array('{{filename1}}' => $fileName, '{{filename2}}' => $newname));
