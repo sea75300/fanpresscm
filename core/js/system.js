@@ -240,47 +240,6 @@ fpcm.system = {
         return false;        
     },
     
-    openManualCheckFrame: function () {
-
-        if (!fpcm.vars.jsvars.manualCheckUrl) {
-            return false;
-        }
-
-        var size = fpcm.ui.getDialogSizes();
-
-        fpcm.ui.dialog({
-            id         : 'manualupdate-check',
-            dlWidth    : size.width,
-            dlHeight   : size.height,
-            resizable  : true,
-            title      : fpcm.ui.translate('HL_PACKAGEMGR_SYSUPDATES'),
-            dlButtons  : [
-                {
-                    text: fpcm.ui.translate('GLOBAL_OPENNEWWIN'),
-                    icon: "ui-icon-extlink",                    
-                    click: function() {
-                        window.open(fpcm.vars.jsvars.manualCheckUrl);
-                        jQuery(this).dialog('close');
-                    }
-                },
-                {
-                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                    icon: "ui-icon-closethick",                    
-                    click: function() {
-                        jQuery(this).dialog('close');
-                    }
-                }
-            ],
-            dlOnOpen: function (event, ui) {
-                jQuery(this).empty();
-                fpcm.ui.appendHtml(this, '<iframe class="fpcm-ui-full-width" style="height:100%;"  src="' + fpcmManualCheckUrl + '"></iframe>');
-            },
-            dlOnClose: function( event, ui ) {
-                jQuery(this).empty();
-            }
-        });
-    },
-    
     showHelpDialog: function () {
 
         jQuery('.fpcm-ui-help-dialog').click(function () {+

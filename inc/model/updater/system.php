@@ -97,7 +97,11 @@ final class system extends \fpcm\model\abstracts\staticModel {
      */
     public function checkManual()
     {
-        return (time() > filectime(\fpcm\classes\baseconfig::$versionFile) + $this->config->system_updates_manual) ? true : false;
+        if ($this->updateAvailable() !== \fpcm\model\abstracts\remoteModel::FURLOPEN_ERROR) {
+            return false;
+        }
+
+        return (!\fpcm\classes\baseconfig::canConnect() && time() > filectime(\fpcm\classes\baseconfig::$versionFile) + $this->config->system_updates_manual) ? true : false;
     }
 
     /**

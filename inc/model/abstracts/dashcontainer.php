@@ -58,6 +58,15 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     protected $position = 0;
 
     /**
+     * Konstruktor
+     */
+    final public function __construct()
+    {
+        parent::__construct();
+        $this->initObjects();
+    }
+
+    /**
      * Cache-Name zurückgeben
      * @return string
      */
@@ -142,6 +151,15 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     public function getView()
     {
         return '';
+    }
+
+    /**
+     * Initialize objects
+     * @return boolean
+     */
+    protected function initObjects()
+    {
+        return true;
     }
 
     /**

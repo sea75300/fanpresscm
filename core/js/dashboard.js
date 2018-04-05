@@ -18,27 +18,39 @@ fpcm.dashboard = {
             execDone: function() {
                 fpcm.ui.assignHtml('#fpcm-dashboard-containers', fpcm.ajax.getResult('dashboard'));
                 fpcm.ui.initJqUiWidgets();
-
-                jQuery('.fpcm-updatecheck-manual').click(function () {                    
-                    fpcm.system.openManualCheckFrame();
-                    return false;
-                });
-
                 fpcm.ui.showLoader(false);
 
                 var fpcmRFDinterval = setInterval(function(){
                     if (jQuery('#fpcm-dashboard-finished').length == 1) {
                         clearInterval(fpcmRFDinterval);
+                        fpcm.dashboard.forceUpdate();
+                        fpcm.dashboard.openUpdateCheckUrl();
                         return false;
                     }
                 }, 250);
             }
         });
+
+    },
+    
+    forceUpdate: function () {
         
-        if (fpcm.vars.jsvars.autoDialog) {
-            fpcm.system.openManualCheckFrame();
+        if (!fpcm.vars.jsvars.forceUpdate) {
+            return false;
+        }
+        
+        fpcm.ui.relocate(jQuery('#startUpdate').attr('href'));
+        return true;
+    },
+    
+    openUpdateCheckUrl: function () {
+        
+        if (!fpcm.vars.jsvars.openUpdateCheckUrl) {
+            return false;
         }
 
+        window.open(jQuery('#chckmanual').attr('href'), '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
+        return true;
     }
 
 };

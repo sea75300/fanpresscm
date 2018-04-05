@@ -32,7 +32,6 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-
         $this->getClasses();
         $this->view->assign('containers', $this->containers);
     }
@@ -46,6 +45,7 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
         $containers = $this->events->trigger('dashboardContainersLoad', $containers);
 
         $viewVars   = $this->view->getViewVars();
+        $jsFiles   = [];
         foreach ($containers as $container) {
 
             /* @var $containerObj \fpcm\model\abstracts\dashcontainer */
@@ -66,7 +66,8 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
                 continue;
             }
 
-            $this->view->addJsFiles($containerObj->getJavascriptFiles());
+            $jsFiles = array_merge($jsFiles, $containerObj->getJavascriptFiles());
+            
             $this->view->addJsVars($containerObj->getJavascriptVars());
             $this->view->addJsLangVars($containerObj->getJavascriptLangVars());
 
@@ -77,6 +78,7 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
         }
 
         $this->view->setViewVars($viewVars);
+        $this->view->assign('jsFiles', $jsFiles);
         ksort($this->containers);
     }
 

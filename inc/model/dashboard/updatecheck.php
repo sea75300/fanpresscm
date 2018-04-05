@@ -38,11 +38,11 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     private $systemUpdates;
 
     /**
-     * Status, ob automatischer Update-Check fehlgeschlagen ist wenn baseconfig::canConnect = 1 ist
+     * Status if update is forced by repository
      * @var bool
-     * @since FPCM 3.1.3
+     * @since FPCM 4
      */
-    private $autoCheckFailed = false;
+    private $forceUpdate = false;
 
     /**
      * 
@@ -59,7 +59,6 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
      */
     public function getContent()
     {
-        $this->systemUpdates = new \fpcm\model\updater\system();
         $this->getSystemUpdateStatus();
         $this->getModuleUpdateStatus();
 
@@ -100,6 +99,16 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
+     * 
+     * @return boolean
+     */
+    protected function initObjects()
+    {
+        $this->systemUpdates = new \fpcm\model\updater\system();
+        return true;
+    }
+    
+    /**
      * Liefert System-Update-HTML zurück
      * @since FPCM 3.1.0
      */
@@ -107,7 +116,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     {
         if ($this->config->system_version !== \fpcm\classes\baseconfig::getVersionFromFile()) {
             $button = (string) (new \fpcm\view\helper\linkButton('updater'))->setText('PACKAGES_UPDATE')->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate', ['update-db' => 1]));
-            $this->renderTable('code-branch', 'fpcm-dashboard-updates-versiondbfile', $this->language->translate('UPDATE_VERSIONCECK_FILEDB_ERR', [ '{{btn}}' => $button ]));
+            $this->renderTable('code-branch', 'fpcm-dashboard-updates-versiondbfile', $this->language->translate('UPDATE_VERSIONCECK_FILEDB_ERR', [ '{{btn}}' => $button ]));            
         }
 
         $this->systemCheckresult = $this->systemUpdates->updateAvailable();
@@ -117,9 +126,11 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
             $statusClass = 'fpcm-dashboard-updates-outdated';
 
             $statusText = $this->language->translate('UPDATE_VERSIONCHECK_NEW', [
-                '{{btn}}' => (string) (new \fpcm\view\helper\linkButton('updater'))->setText('PACKAGES_UPDATE')->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate')),
+                '{{btn}}' => (string) (new \fpcm\view\helper\linkButton('startUpdate'))->setText('PACKAGES_UPDATE')->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate')),
                 '{{version}}' => $this->systemUpdates->version                
             ]);
+
+            $this->forceUpdate = $this->systemCheckresult === \fpcm\model\updater\system::FORCE_UPDATE ? true : false;
 
         } elseif ($this->systemCheckresult === \fpcm\model\abstracts\remoteModel::FURLOPEN_ERROR) {
             $iconClass = 'exclamation-triangle';
@@ -127,10 +138,6 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
             $statusText = $this->language->translate('UPDATE_NOTAUTOCHECK', [
                 '{{btn}}' => (string) (new \fpcm\view\helper\linkButton('chckmanual'))->setText('PACKAGES_MANUALCHECK')->setIcon('external-link-square-alt ')->setUrl(\fpcm\classes\baseconfig::$updateServerManualLink)->setTarget('_blank'),
             ]);
-
-            if (\fpcm\classes\baseconfig::canConnect()) {
-                $this->autoCheckFailed = true;
-            }
         } else {
             $iconClass = 'check';
             $statusClass = 'fpcm-dashboard-updates-current';
@@ -146,6 +153,8 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
      */
     private function getModuleUpdateStatus()
     {
+        return true;
+        
 //        $moduleUpdates = new \fpcm\model\updater\modules();
 //        $checkRes = $moduleUpdates->checkUpdates();
 
@@ -176,8 +185,8 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     public function getJavascriptVars()
     {
         return [
-            'manualCheckUrl' => $this->autoCheckFailed ? $this->systemUpdates->getManualCheckAddress() : false,
-            'autoDialog' => true
+            'openUpdateCheckUrl' => $this->systemUpdates->checkManual(),
+            'forceUpdate' => $this->forceUpdate
         ];
     }
 
@@ -189,16 +198,6 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     public function getJavascriptLangVars()
     {
         return ['HL_PACKAGEMGR_SYSUPDATES'];
-    }
-
-    /**
-     * Gibt Liste mit zu Variablen zurück, welche an Dashboard-Controller-View übergeben werden sollen
-     * @see \fpcm\model\interfaces\dashcontainer::getControllerViewVars()
-     * @return array
-     */
-    public function getControllerViewVars()
-    {
-        return ['includeManualCheck' => $this->autoCheckFailed ? true : false];
     }
 
     /**
