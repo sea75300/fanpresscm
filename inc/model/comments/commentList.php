@@ -313,16 +313,16 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function countCommentsByCondition(search $conditions)
     {
-        $where = null;
+        $where = [];
 
         if ($conditions->private) {
-            $where = 'private = 1';
+            $where[] = 'private = 1';
         }
         if ($conditions->unapproved) {
-            $where = 'approved = 0';
+            $where[] = 'approved = 0';
         }
         if ($conditions->spam) {
-            $where = 'spammer = 1';
+            $where[] = 'spammer = 1';
         }
         
         return $this->dbcon->count(

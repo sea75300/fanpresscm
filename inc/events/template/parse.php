@@ -1,14 +1,7 @@
 <?php
 
 /**
- * Module-Event: parseTemplate
- * 
- * Event wird ausgeführt, wenn ein Template geparst wird das keine eigene Parse-Funktion besitzt
- * Parameter: array Liste mit Artikel-Platzhaltern und zugewiesenen Daten
- * Rückgabe: array Liste mit Platzhaltern und Daten
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 

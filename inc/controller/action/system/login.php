@@ -96,7 +96,7 @@ class login extends \fpcm\controller\abstracts\controller {
         $data = $this->getRequestVar('login');
         if ($doLogin && is_array($data) && $this->checkPageToken) {
 
-            $data = $this->events->trigger('loginBefore', $data);
+            $data = $this->events->trigger('session\loginBefore', $data);
 
             $session = new \fpcm\model\system\session();
             $loginRes = $session->authenticate($data);

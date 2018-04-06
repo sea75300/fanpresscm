@@ -276,7 +276,7 @@ final class session extends \fpcm\model\abstracts\dataset {
     public function save()
     {
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('sessionCreate', $params);
+        $params = $this->events->trigger('session\create', $params);
 
         $value_params = $this->getPreparedValueParams();
 
@@ -298,7 +298,7 @@ final class session extends \fpcm\model\abstracts\dataset {
         $fields = array_keys($params);
 
         $params[] = $this->getSessionId();
-        $params = $this->events->trigger('sessionUpdate', $params);
+        $params = $this->events->trigger('session\update', $params);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'sessionid = ?')) {

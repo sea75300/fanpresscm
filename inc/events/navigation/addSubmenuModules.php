@@ -1,21 +1,14 @@
 <?php
 
 /**
- * Module-Event: navigationSubmenuModulesAdd
- * 
- * Event wird ausgeführt, wenn Untermenü "Module" der Navogation erzeugt wird
- * Parameter: array Menüstruktur
- * Rückgabe: array Menüstruktur
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\events\navigation;
 
 /**
- * Module-Event: navigationSubmenuModulesAdd
+ * Module-Event: addSubmenuModules
  * 
  * Event wird ausgeführt, wenn Untermenü "Module" der Navogation erzeugt wird
  * Parameter: array Menüstruktur
@@ -26,46 +19,6 @@ namespace fpcm\events\navigation;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/model/events
  */
-final class navigationSubmenuModulesAdd extends \fpcm\events\abstracts\event {
-
-    /**
-     * wird ausgeführt, wenn Untermenü "Module" der Navogation erzeugt wird
-     * @param array $data
-     * @return array
-     */
-    public function run()
-    {
-
-        $eventClasses = $this->getEventClasses();
-
-        if (!count($eventClasses))
-            return $data;
-
-        $mdata = $data;
-        foreach ($eventClasses as $eventClass) {
-
-            $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'navigationSubmenuModulesAdd');
-
-            /**
-             * @var \fpcm\events\event
-             */
-            $module = new $eventClass();
-
-            if (!$this->is_a($module))
-                continue;
-
-            $mdata = $module->run($mdata);
-            if (is_object($mdata) && is_a($mdata, '\\fpcm\\model\\theme\\navigationItem')) {
-                $data[] = $mdata;
-                $mdata = $data;
-            }
-        }
-
-        if (!count($mdata))
-            return $data;
-
-        return $mdata;
-    }
+final class addSubmenuModules extends \fpcm\events\abstracts\eventReturnArray {
 
 }

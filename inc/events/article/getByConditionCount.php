@@ -22,4 +22,19 @@ namespace fpcm\events\article;
  */
 final class getByConditionCount extends \fpcm\events\abstracts\eventReturnArray {
 
+    /**
+     * wird ausgeführt, wenn Kommentar-Suche ausgeführt wird
+     * @param array $data
+     * @return array
+     */
+    public function run()
+    {
+        $eventData = parent::run();
+        if (!isset($eventData['where']) || !is_array($eventData['where']) ||
+            !isset($eventData['values']) || !is_array($eventData['values'])) {
+            return $this->data;
+        }
+
+        return $eventData;
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Module-Event: templateSave
+ * Module-Event: save
  * 
  * Event wird ausgeführt, wenn Template gespeichert wird
  * Parameter: array mit Dateiname in "file" und HTML-Code des Templates "content"
@@ -15,7 +15,7 @@
 namespace fpcm\events\template;
 
 /**
- * Module-Event: templateSave
+ * Module-Event: save
  * 
  * Event wird ausgeführt, wenn Template gespeichert wird
  * Parameter: array mit Dateiname in "file" und HTML-Code des Templates "content"
@@ -26,7 +26,7 @@ namespace fpcm\events\template;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/model/events
  */
-final class templateSave extends \fpcm\events\abstracts\event {
+final class save extends \fpcm\events\abstracts\event {
 
     /**
      * wird ausgeführt, wenn Template gespeichert wird
@@ -45,7 +45,7 @@ final class templateSave extends \fpcm\events\abstracts\event {
         foreach ($eventClasses as $eventClass) {
 
             $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'templateSave');
+            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'save');
 
             /**
              * @var \fpcm\events\event

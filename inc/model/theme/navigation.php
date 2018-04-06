@@ -40,7 +40,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
 
         $navigation = $this->getNavigation();
-        $navigation = $this->events->trigger('navigationRender', $navigation);
+        $navigation = $this->events->trigger('navigation\render', $navigation);
 
         foreach ($navigation as &$moduleOptions) {
             $moduleOptions = $this->checkPermissions($moduleOptions);
@@ -89,8 +89,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      */
     private function getNavigation()
     {
-
-        $navigationArray = array(
+        return $this->events->trigger('navigation\add', [
             'dashboard' => array(
                 navigationItem::createItemFromArray([
                     'url' => 'system/dashboard',
@@ -163,13 +162,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
 //                ])
 //            ),
             'after' => []
-        );
-
-        $eventResult = $this->events->trigger('navigationAdd', $navigationArray);
-        if (!$eventResult)
-            return $navigationArray;
-
-        return array_merge($navigationArray, $eventResult);
+        ]);
     }
 
     /**
@@ -178,8 +171,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      */
     private function editorSubmenu()
     {
-
-        $menu = array(
+        return [
             navigationItem::createItemFromArray([
                 'url' => 'articles/listall',
                 'permission' => array('article' => 'edit', 'article' => 'editall'),
@@ -197,17 +189,14 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 'permission' => array('article' => 'edit', 'article' => 'editall', 'article' => 'archive'),
                 'description' => $this->language->translate('HL_ARTICLE_EDIT_ARCHIVE'),
                 'icon' => 'fa fa-archive fa-fw'
+            ]),
+            navigationItem::createItemFromArray([
+                'url' => 'articles/trash',
+                'permission' => array('article' => 'delete'),
+                'description' => $this->language->translate('ARTICLES_TRASH'),
+                'icon' => 'far fa-trash-alt fa-fw'
             ])
-        );
-
-        $menu[] = navigationItem::createItemFromArray([
-                    'url' => 'articles/trash',
-                    'permission' => array('article' => 'delete'),
-                    'description' => $this->language->translate('ARTICLES_TRASH'),
-                    'icon' => 'far fa-trash-alt fa-fw'
-        ]);
-
-        return $menu;
+        ];
     }
 
     /**
@@ -278,7 +267,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             ])
         );
 
-        if (\fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() == 'mysql') {
+        if (\fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() == \fpcm\classes\database::DBTYPE_MYSQLMARIADB) {
             $data[] = navigationItem::createItemFromArray([
                         'url' => 'system/backups',
                         'permission' => array('system' => 'backups'),
@@ -300,13 +289,13 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         $items = array(
             navigationItem::createItemFromArray([
                 'url' => 'modules/list',
-                'permission' => array('modules' => array('install', 'uninstall', 'configure', 'enable')),
+                'permission' => ['modules' => ['install', 'uninstall', 'configure', 'enable']],
                 'description' => $this->language->translate('HL_MODULES_MNG'),
                 'icon' => 'fa fa-plug fa-fw'
             ])
         );
 
-        $eventResult = $this->events->trigger('navigationSubmenuModulesAdd', $items);
+        $eventResult = $this->events->trigger('navigation\addSubmenuModules', $items);
         if (count($eventResult) == count($items)) {
             return $items;
         }

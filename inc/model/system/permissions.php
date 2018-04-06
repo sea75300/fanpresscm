@@ -40,7 +40,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
      * Nicht in Datenbank zu speichernde Daten
      * @var array
      */
-    protected $dbExcludes = array('defaultPermissions', 'permissionSet', 'checkedData');
+    protected $dbExcludes = ['defaultPermissions', 'permissionSet', 'checkedData'];
 
     /**
      * Standard-Berechtigungsset für Anlegen einer neuen Gruppe
@@ -240,7 +240,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
     public function save()
     {
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('permissionsSave', $params);
+        $params = $this->events->trigger('permission\save', $params);
 
         $res = $this->dbcon->insert($this->table, $params);
 
@@ -256,7 +256,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
     public function update()
     {
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('permissionsUpdate', $params);
+        $params = $this->events->trigger('permission\update', $params);
 
         $fields = array_keys($params);
 
@@ -299,11 +299,11 @@ class permissions extends \fpcm\model\abstracts\dataset {
             return $this->checkedData[$permissionArrayHash];
         }
 
-        $permissionArray = $this->events->trigger('permissionsCheck', $permissionArray);
+        $permissionArray = $this->events->trigger('permission\check', $permissionArray);
 
         foreach ($permissionArray as $module => $permission) {
             if (!isset($this->permissiondata[$module])) {
-                trigger_error("No permissions available  for module \"$module\"!");
+                trigger_error("No permissions available for module \"$module\"!");
                 return false;
             }
 
@@ -360,7 +360,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             $res[$dataset->rollid] = json_decode($dataset->permissiondata, true);
         }
 
-        $res = $this->events->trigger('permissionsGetAll', $res);
+        $res = $this->events->trigger('permission\getAll', $res);
 
         return $res;
     }

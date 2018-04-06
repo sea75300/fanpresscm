@@ -175,89 +175,9 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $where = [];
         $valueParams = [];
 
-        $conditions = $conditions->getData();
+        $this->assignSearchParams($conditions, $where, $valueParams);
 
-        if (isset($conditions['ids'])) {
-            $where[] = "id IN (" . implode(', ', $conditions['ids']) . ")";
-            unset($conditions['ids']);
-        }
-
-        if (isset($conditions['title'])) {
-            $where[] = "title " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions['title']}%";
-        }
-
-        if (isset($conditions['content'])) {
-            $where[] = "content " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions['content']}%";
-        }
-
-        if (isset($conditions['user'])) {
-            $where[] = "createuser = ?";
-            $valueParams[] = $conditions['user'];
-        }
-
-        if (isset($conditions['category'])) {
-            $conditions['category'] = (int) $conditions['category'];
-            $where[] = "(categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ?)";
-            $valueParams[] = "[{$conditions['category']}]";
-            $valueParams[] = "%,{$conditions['category']},%";
-            $valueParams[] = "[{$conditions['category']},%";
-            $valueParams[] = "%,{$conditions['category']}]";
-        }
-
-        if (isset($conditions['datefrom'])) {
-            $where[] = "createtime >= ?";
-            $valueParams[] = $conditions['datefrom'];
-        }
-
-        if (isset($conditions['dateto'])) {
-            $where[] = "createtime <= ?";
-            $valueParams[] = $conditions['dateto'];
-        }
-
-        if (isset($conditions['postponed'])) {
-            $where[] = "postponed = ?";
-            $valueParams[] = $conditions['postponed'];
-        }
-
-        if (isset($conditions['archived'])) {
-            $where[] = "archived = ?";
-            $valueParams[] = $conditions['archived'];
-        }
-
-        if (isset($conditions['pinned'])) {
-            $where[] = "pinned = ?";
-            $valueParams[] = $conditions['pinned'];
-        }
-
-        if (isset($conditions['comments'])) {
-            $where[] = "comments = ?";
-            $valueParams[] = $conditions['comments'];
-        }
-
-        if (isset($conditions['deleted'])) {
-            $where[] = "deleted = ?";
-            $valueParams[] = $conditions['deleted'];
-        } else {
-            $where[] = "deleted = 0";
-        }
-
-        if (isset($conditions['draft']) && $conditions['draft'] > -1) {
-            $where[] = "draft = ?";
-            $valueParams[] = $conditions['draft'];
-        } elseif (!isset($conditions['draft'])) {
-            $where[] = "draft = 0";
-        }
-
-        if (isset($conditions['approval']) && $conditions['approval'] > -1) {
-            $where[] = "approval = ?";
-            $valueParams[] = $conditions['approval'];
-        } elseif (!isset($conditions['approval'])) {
-            $where[] = "approval = 0";
-        }
-
-        $combination = isset($conditions['combination']) ? $conditions['combination'] : 'AND';
+        $combination = $conditions->combination !== null ? $conditions->combination : 'AND';
 
         $eventData = $this->events->trigger('article\getByCondition', [
             'conditions' => $conditions,
@@ -273,17 +193,16 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
 
         $where2 = [];
         $where2[] = $this->dbcon->orderBy(
-                (isset($conditions['orderby'])) ? $conditions['orderby'] : [$this->config->articles_sort . ' ' . $this->config->articles_sort_order]
+            $conditions->orderby !== null ? $conditions->orderby : [$this->config->articles_sort . ' ' . $this->config->articles_sort_order]
         );
 
-        if (isset($conditions['limit'])) {
-            $where2[] = $this->dbcon->limitQuery($conditions['limit'][0], $conditions['limit'][1]);
+        if ($conditions->limit !== null) {
+            $where2[] = $this->dbcon->limitQuery($conditions->limit[0], $conditions->limit[1]);
         }
-        unset($conditions['limit'], $conditions['orderby']);
 
         $where .= ' ' . implode(' ', $where2);
 
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', $where, array_values($valueParams)), true);
+        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', $where, $valueParams), true);
         return $this->createListResult($list, $monthIndex);
     }
 
@@ -385,53 +304,24 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      */
     public function countArticlesByCondition(search $conditions)
     {
-        $where = 'id > 0';
-        $conditions = $conditions->getData();
+        $where = [];
+        $valueParams = [];
 
-        if (isset($conditions['category'])) {
-            $conditions['category'] = (int) $conditions['category'];
-            $valueParams[] = "categories " . $this->dbcon->dbLike() . " '{$conditions['category']}'";
-            $valueParams[] = "categories " . $this->dbcon->dbLike() . " '%;{$conditions['category']}'";
-            $valueParams[] = "categories " . $this->dbcon->dbLike() . " '{$conditions['category']};%'";
+        $this->assignSearchParams($conditions, $where, $valueParams);
 
-            $where .= '(' . implode(' OR ', $valueParams) . ')';
-        }
+        $combination = $conditions->combination !== null ? $conditions->combination : 'AND';
 
-        if (isset($conditions['drafts'])) {
-            $where .= ($conditions['drafts'] === -1 ? '' : ' AND draft = 1');
-        }
+        $eventData = $this->events->trigger('article\getByConditionCount', [
+            'where' => $where,
+            'values' => $valueParams
+        ]);
 
-        if (isset($conditions['active'])) {
-            $where .= ($conditions['active'] === -1 ? ' AND archived = 0' : ' AND archived = 0 AND draft = 0');
-        }
-
-        if (isset($conditions['archived'])) {
-            $where .= ($conditions['archived'] === -1 ? '' : ' AND archived = 1 AND draft = 0');
-        }
-
-        if (isset($conditions['approval'])) {
-            $where .= ($conditions['approval'] === -1 ? '' : ' AND approval = 1 AND draft = 0');
-        }
-        if (isset($conditions['deleted'])) {
-            $where .= ($conditions['deleted'] === -1 ? '' : ' AND deleted = 1');
-        } else {
-            $where .= ' AND deleted = 0';
-        }
-
-        $queryParams = [];
-        if (isset($conditions['datefrom'])) {
-            $where .= ' AND createtime >= ?';
-            $queryParams[] = (int) $conditions['datefrom'];
-        }
-
-        if (isset($conditions['dateto'])) {
-            $where .= ' AND createtime <= ?';
-            $queryParams[] = (int) $conditions['dateto'];
-        }
-
-        $return = $this->dbcon->count($this->table, '*', $this->events->trigger('article\getByConditionCount', $where), $queryParams);
-
-        return $return;
+        return $this->dbcon->count(
+            $this->table,
+            '*',
+            implode(" {$combination} ", $eventData['where']),
+            $eventData['values']
+        );
     }
 
     /**
@@ -615,6 +505,97 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         }
 
         return $res;
+    }
+
+    /**
+     * 
+     * @param \fpcm\model\articles\search $conditions
+     * @param array $where
+     * @param array $valueParams
+     * @return boolean
+     */
+    private function assignSearchParams(search $conditions, array &$where, array &$valueParams)
+    {
+        if ($conditions->ids !== null && is_array($conditions->ids)) {
+            $where[] = "id IN (" . implode(', ', $conditions->ids) . ")";
+        }
+
+        if ($conditions->title !== null) {
+            $where[] = "title " . $this->dbcon->dbLike() . " ?";
+            $valueParams[] = "%{$conditions->title}%";
+        }
+
+        if ($conditions->content !== null) {
+            $where[] = "content " . $this->dbcon->dbLike() . " ?";
+            $valueParams[] = "%{$conditions->content}%";
+        }
+
+        if ($conditions->user !== null) {
+            $where[] = "createuser = ?";
+            $valueParams[] = $conditions->user;
+        }
+
+        if ($conditions->category !== null) {
+            $catId = (int) $conditions->category;
+            $where[] = "(categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ?)";
+            $valueParams[] = "[{$catId}]";
+            $valueParams[] = "%,{$catId},%";
+            $valueParams[] = "[{$catId},%";
+            $valueParams[] = "%,{$catId}]";
+        }
+
+        if ($conditions->datefrom !== null) {
+            $where[] = "createtime >= ?";
+            $valueParams[] = $conditions->datefrom;
+        }
+
+        if ($conditions->dateto !== null) {
+            $where[] = "createtime <= ?";
+            $valueParams[] = $conditions->dateto;
+        }
+
+        if ($conditions->postponed !== null) {
+            $where[] = "postponed = ?";
+            $valueParams[] = $conditions->postponed;
+        }
+
+        if ($conditions->archived !== null) {
+            $where[] = "archived = ?";
+            $valueParams[] = $conditions->archived;
+        }
+
+        if ($conditions->pinned !== null) {
+            $where[] = "pinned = ?";
+            $valueParams[] = $conditions->pinned;
+        }
+
+        if ($conditions->comments !== null) {
+            $where[] = "comments = ?";
+            $valueParams[] = $conditions->comments;
+        }
+
+        if ($conditions->deleted !== null) {
+            $where[] = "deleted = ?";
+            $valueParams[] = $conditions->deleted;
+        } else {
+            $where[] = "deleted = 0";
+        }
+
+        if ($conditions->draft !== null && $conditions->draft > -1) {
+            $where[] = "draft = ?";
+            $valueParams[] = $conditions->draft;
+        } if ($conditions->draft === null) {
+            $where[] = "draft = 0";
+        }
+
+        if ($conditions->approval !== null && $conditions->approval > -1) {
+            $where[] = "approval = ?";
+            $valueParams[] = $conditions->approval;
+        } elseif ($conditions->approval === null) {
+            $where[] = "approval = 0";
+        }
+        
+        return true;
     }
 
 }

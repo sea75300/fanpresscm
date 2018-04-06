@@ -1,14 +1,7 @@
 <?php
 
 /**
- * Module-Event: save
- * 
- * Event wird ausgeführt, wenn ein Kommentar gespeichert wird
- * Parameter: array mit Kommentardaten
- * Rückgabe: array mit Kommentardaten
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 

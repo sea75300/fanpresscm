@@ -1,14 +1,7 @@
 <?php
 
 /**
- * Module-Event: createRevision
- * 
- * Event wird ausgeführt, wenn eine neue Artikel-Revision erzeugt wird
- * Parameter: array Revisionsinformationen
- * Rückgabe: array Revisionsinformationen
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 

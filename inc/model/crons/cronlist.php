@@ -81,11 +81,6 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
      */
     public function registerCronAjax(\fpcm\model\abstracts\cron $cron)
     {
-        if (!is_a($cron, '\fpcm\model\abstracts\cron')) {
-            trigger_error("Cronjob class {$cronName} must be an instance of \"\fpcm\model\abstracts\cron\"!");
-            return false;
-        }
-
         if (!$cron->getRunAsync()) {
             return false;
         }
@@ -111,8 +106,9 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
     {
         $cronFiles = glob(\fpcm\classes\dirs::getIncDirPath('model' . DIRECTORY_SEPARATOR . 'crons' . DIRECTORY_SEPARATOR . '*.php'));
 
-        if (!is_array($cronFiles))
+        if (!is_array($cronFiles)) {
             return [];
+        }
 
         $crons = [];
         foreach ($cronFiles as $cronFile) {
@@ -136,7 +132,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
     {
         $res = \fpcm\classes\loader::getObject('\fpcm\classes\database')->fetch(
                 \fpcm\classes\loader::getObject('\fpcm\classes\database')->select(
-                        \fpcm\classes\database::tableCronjobs, '*', '(lastexec+execinterval) < ?', array(time())
+                        \fpcm\classes\database::tableCronjobs, '*', '(lastexec+execinterval) < ?', [time()]
                 ), true
         );
 
@@ -149,8 +145,9 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
         foreach ($res as $value) {
             $cronName = \fpcm\model\abstracts\cron::getCronNamespace($value->cjname);
 
-            if (!class_exists($cronName))
+            if (!class_exists($cronName)) {
                 continue;
+            }
 
             /**
              * @var \fpcm\model\abstracts\cron

@@ -30,7 +30,7 @@ final class getByCondition extends \fpcm\events\abstracts\eventReturnArray {
     {
         $eventData = parent::run();
         if (!isset($eventData['where']) || !is_array($eventData['where']) ||
-            !isset($eventData['conditions']) || !is_array($eventData['conditions']) ||
+            !isset($eventData['conditions']) || $eventData['conditions'] instanceof \fpcm\model\articles\search ||
             !isset($eventData['values']) || !is_array($eventData['values'])) {
             return $this->data;
         }
