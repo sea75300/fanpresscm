@@ -215,7 +215,6 @@ class filelist extends \fpcm\controller\abstracts\controller {
             }
         }
 
-
         $this->view->setFormAction('files/list', ['mode' => $this->mode]);
         $this->view->render();
     }

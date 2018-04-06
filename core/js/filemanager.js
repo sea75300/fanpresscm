@@ -14,8 +14,9 @@ fpcm.filemanager = {
 
         if (fpcm.vars.jsvars.loadAjax) {
             fpcm.filemanager.reloadFiles();
-            fpcm.filemanager.initActionButtons();
         }
+
+        fpcm.filemanager.initActionButtons();
         
         if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
             fpcm.filemanager.initFilesSearch();

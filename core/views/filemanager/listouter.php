@@ -16,6 +16,7 @@
         </div>
 
         <?php if ($permUpload) : ?>
+        <?php if ($newUploader) : ?></form><?php endif; ?>
         <div id="tabs-files-upload">
             <?php if ($newUploader) : ?>
                 <?php include $theView->getIncludePath('filemanager/forms/jqupload.php'); ?>
@@ -30,12 +31,11 @@
 
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-rename">
     <div class="row">
-        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('FILE_LIST_FILENAME'); ?></div>
+        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('FILE_LIST_FILENAME'); ?>:</div>
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('newFilenameDialog'); ?></div>
     </div>
 </div>
 
 <?php include $theView->getIncludePath('filemanager/searchform.php'); ?>
-
 
 <?php if($mode > 1) : ?><?php $theView->button('opensearch', 'opensearch')->setClass('fpcm-ui-hidden'); ?><?php endif; ?>
