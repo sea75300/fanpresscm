@@ -1,13 +1,18 @@
 <?php
 
 /**
+ * FanPress CM 4
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\action\pub;
+
+/**
  * Public article list controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
-namespace fpcm\controller\action\pub;
 
 class showcommon extends \fpcm\controller\abstracts\pubController {
 
@@ -107,38 +112,57 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
      */
     protected function initActionObjects()
     {
-        $this->articleList  = new \fpcm\model\articles\articlelist();
-        $this->commentList  = new \fpcm\model\comments\commentList();
+        $this->articleList = new \fpcm\model\articles\articlelist();
+        $this->commentList = new \fpcm\model\comments\commentList();
         $this->categoryList = new \fpcm\model\categories\categoryList();
-        $this->template     = new \fpcm\model\pubtemplates\article($this->config->articles_template_active);
-        $this->userList     = \fpcm\classes\loader::getObject('\fpcm\model\users\userList');
+        $this->template = new \fpcm\model\pubtemplates\article($this->config->articles_template_active);
+        $this->userList = \fpcm\classes\loader::getObject('\fpcm\model\users\userList');
         return true;
     }
 
-    
     /**
      * Request-Handler
      * @return boolean
      */
     public function request()
     {
-        if ($this->ipList->ipIsLocked()) {
-            $this->view->addErrorMessage('ERROR_IP_LOCKED');
-            $this->view->assign('systemMode', $this->config->system_mode);
-            $this->view->assign('content', '');
-            $this->view->assign('showToolbars', false);
-            $this->view->render();
-            return false;
-        }
-
         $this->crons->registerCron('postponedArticles');
 
-        $this->page = !is_null($this->getRequestVar('page')) ? (int) $this->getRequestVar('page') : 0;
-        $this->category = defined('FPCM_PUB_CATEGORY_LISTALL') ? FPCM_PUB_CATEGORY_LISTALL : 0;
-        $this->isUtf8 = defined('FPCM_PUB_OUTPUT_UTF8') ? FPCM_PUB_OUTPUT_UTF8 : true;
+        $this->page = $this->getRequestVar('page', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]);
+        
+        if ($this->page === null) {
+            $this->page = 0;
+        }
 
-        if ($this->page > 1)
+        $this->limit = $this->getRequestVar('limit', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]);
+        
+        if ($this->limit === null) {
+            $this->limit = $this->config->articles_limit;
+        }
+
+        $this->category = $this->getRequestVar('category', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]);
+        
+        if ($this->category === null) {
+            $this->category = 0;
+        }
+
+        $this->isUtf8 = $this->getRequestVar('isUtf8', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]);
+        
+        if ($this->isUtf8 === null) {
+            $this->isUtf8 = true;
+        }
+
+        if ($this->page > 1) {
             $this->listShowLimit = ($this->page - 1) * $this->limit;
+        }
 
         return true;
     }
@@ -246,16 +270,17 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
      */
     protected function createPagination($count, $action = 'fpcm/list')
     {
-
         $pageCount = ceil($count / $this->limit);
 
-        if (!$pageCount)
+        if (!$pageCount) {
             return '<ul></ul>';
+        }
 
         $pages = array_fill(1, $pageCount, '');
 
-        if (count($pages) < 2)
+        if (count($pages) < 2) {
             return '<ul></ul>';
+        }
 
         foreach ($pages as $key => &$value) {
 

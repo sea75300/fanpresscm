@@ -134,13 +134,13 @@ final class cache {
     }
 
     /**
-     * Liefert alle *cache-Dateien in cache-ordner zurück
+     * Liefert alle *.cache-Dateien in cache-ordner zurück
      * @return array
      * @since FPCM 3.4
      */
     public function getCacheComplete()
     {
-        return array_merge(glob($this->basePath . '*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE), glob($this->basePath . '*/*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE));
+        return array_merge(glob($this->basePath . '/*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE), glob($this->basePath . '/*/*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE));
     }
 
 }

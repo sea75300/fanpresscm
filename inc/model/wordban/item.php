@@ -171,9 +171,8 @@ class item extends \fpcm\model\abstracts\dataset {
      */
     public function save()
     {
-
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('wordbanItemSave', $params);
+        $params = $this->events->trigger('wordban\save', $params);
 
         $return = false;
         if ($this->dbcon->insert($this->table, $params)) {
@@ -181,7 +180,6 @@ class item extends \fpcm\model\abstracts\dataset {
         }
 
         $this->id = $this->dbcon->getLastInsertId();
-
         $this->cache->cleanup();
 
         return $return;
@@ -194,7 +192,7 @@ class item extends \fpcm\model\abstracts\dataset {
     public function update()
     {
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('wordbanItemUpdate', $params);
+        $params = $this->events->trigger('wordban\update', $params);
         $fields = array_keys($params);
 
         $params[] = $this->getId();
@@ -205,7 +203,6 @@ class item extends \fpcm\model\abstracts\dataset {
         }
 
         $this->cache->cleanup();
-
         $this->init();
 
         return $return;

@@ -374,7 +374,7 @@ class author extends \fpcm\model\abstracts\dataset {
         $this->disabled = 0;
 
         $params = $this->getPreparedSaveParams();
-        $this->events->trigger('authorSave', $params);
+        $this->events->trigger('user\save', $params);
 
         $return = false;
         $insertRes = $this->dbcon->insert($this->table, $params);
@@ -416,7 +416,7 @@ class author extends \fpcm\model\abstracts\dataset {
         $fields = array_keys($params);
 
         $params[] = $this->getId();
-        $this->events->trigger('authorUpdate', $params);
+        $this->events->trigger('user\update', $params);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
@@ -538,7 +538,6 @@ class author extends \fpcm\model\abstracts\dataset {
      */
     private function removeBannedTexts()
     {
-
         $this->username = $this->wordbanList->replaceItems($this->username);
         $this->displayname = $this->wordbanList->replaceItems($this->displayname);
         $this->email = $this->wordbanList->replaceItems($this->email);
@@ -568,9 +567,45 @@ class author extends \fpcm\model\abstracts\dataset {
         $this->createFromDbObject($data);
     }
 
-    public function writeOption()
+    /**
+     * Write content to file option for current user
+     * @param string $opt
+     * @param mixed $data
+     * @return bool
+     */
+    final public function writeOption($opt, $data)
     {
-        
+        return $this->getFileOptionObject($opt)->write($data);
+    }
+
+    /**
+     * Read content from file option for current user
+     * @param string $opt
+     * @return mixed
+     */
+    final public function readOption($opt)
+    {
+        return $this->getFileOptionObject($opt)->read();
+    }
+
+    /**
+     * Removes file option for current user
+     * @param string $opt
+     * @return mixed
+     */
+    final public function removeOption($opt)
+    {
+        return $this->getFileOptionObject($opt)->remove();
+    }
+
+    /**
+     * Generates file option object for current user
+     * @param string $opt
+     * @return string
+     */
+    private function getFileOptionObject($opt)
+    {
+        return new \fpcm\model\files\fileOption('fopt_'.$this->getId().'_'.$opt);
     }
 
     /**

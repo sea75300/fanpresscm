@@ -66,7 +66,7 @@ final class sharebuttons extends \fpcm\model\abstracts\staticModel {
         $sharecode[] = "<li><a href=\"mailto:?subject={$this->description}&amp;body={$this->link}\" target=\"_blank\" title=\"Email\"><img src=\"{$shareButtonPath}default/email.png\" alt=\"Email\"></a></li>";
         $sharecode[] = "<!-- default button icon set powered by http://simplesharingbuttons.com/ -->";
         $params = array('sharebuttons' => $sharecode, 'description' => $this->description, 'link' => $this->link);
-        $sharecode = $this->events->trigger('publicParseShareButtons', $params)['sharebuttons'];
+        $sharecode = $this->events->trigger('pub\parseShareButtons', $params)['sharebuttons'];
 
         $sharecode[] = "</ul>";
 

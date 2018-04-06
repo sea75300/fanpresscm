@@ -1,13 +1,18 @@
 <?php
 
 /**
+ * FanPress CM 4
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\action\pub;
+
+/**
  * Public article list controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
-namespace fpcm\controller\action\pub;
 
 class showlatest extends \fpcm\controller\abstracts\pubController {
 
@@ -64,9 +69,9 @@ class showlatest extends \fpcm\controller\abstracts\pubController {
 
         parent::__construct();
 
-        $this->articleList  = new \fpcm\model\articles\articlelist();
-        $this->userList     = new \fpcm\model\users\userList();
-        $this->template     = new \fpcm\model\pubtemplates\latestnews();
+        $this->articleList = new \fpcm\model\articles\articlelist();
+        $this->userList = new \fpcm\model\users\userList();
+        $this->template = new \fpcm\model\pubtemplates\latestnews();
         $this->view->showHeaderFooter($this->apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);
     }
 

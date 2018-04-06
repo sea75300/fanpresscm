@@ -1,13 +1,18 @@
 <?php
 
 /**
+ * FanPress CM 4
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\action\pub;
+
+/**
  * Public article RSS feed controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
-namespace fpcm\controller\action\pub;
 
 class feed extends \fpcm\controller\abstracts\pubController {
 
@@ -53,18 +58,18 @@ class feed extends \fpcm\controller\abstracts\pubController {
      */
     protected $limit = 0;
 
-    public function __construct($apiMode = false)
+    /**
+     * 
+     * @param bool $apiMode
+     */
+    public function __construct()
     {
-
-        $this->apiMode = $apiMode;
-
         parent::__construct();
 
         if ($this->config->articles_rss) {
-            $this->articleList  = new \fpcm\model\articles\articlelist();
-            $this->userList     = new \fpcm\model\users\userList();
-            $this->template     = new \fpcm\model\pubtemplates\latestnews();
-            $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
+            $this->articleList = new \fpcm\model\articles\articlelist();
+            $this->userList = new \fpcm\model\users\userList();
+            $this->template = new \fpcm\model\pubtemplates\latestnews();
         }
     }
 
@@ -87,10 +92,6 @@ class feed extends \fpcm\controller\abstracts\pubController {
             exit($this->lang->translate('RSSFEED_DISABLED'));
         }
 
-        if ($this->ipList->ipIsLocked()) {
-            return false;
-        }
-
         $this->category = defined('FPCM_PUB_CATEGORY_LATEST') ? FPCM_PUB_CATEGORY_LATEST : 0;
         $this->limit = defined('FPCM_PUB_LIMIT_LATEST') ? FPCM_PUB_LIMIT_LATEST : $this->config->articles_limit;
         $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/articlefeed';
@@ -104,8 +105,9 @@ class feed extends \fpcm\controller\abstracts\pubController {
      */
     public function process()
     {
-
         parent::process();
+        
+        $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
 
         header('Content-type: text/html; charset=utf-8');
         $content = '';
@@ -178,7 +180,7 @@ class feed extends \fpcm\controller\abstracts\pubController {
             }
 
             $dom->appendChild($rss);
-            $dom = $this->events->trigger('prepareRssFeed', $dom);
+            $dom = $this->events->trigger('pub\prepareRssFeed', $dom);
 
             $content .= $dom->saveXML();
 
@@ -190,7 +192,6 @@ class feed extends \fpcm\controller\abstracts\pubController {
         }
 
         $this->view->assign('content', $content);
-        $this->view->setHideMessages(true);
         $this->view->render();
     }
 

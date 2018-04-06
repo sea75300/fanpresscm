@@ -90,12 +90,12 @@ class preview extends \fpcm\controller\abstracts\controller {
             $cssfiles[] = trim($this->config->system_css_path);
         }
 
-        $this->view->overrideJsFiles($this->events->trigger('pub/addJsFiles', [
+        $this->view->overrideJsFiles($this->events->trigger('pub\addJsFiles', [
             \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.3.1.min.js'),
             \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
         ]));
         
-        $this->view->overrideCssFiles($this->events->trigger('pub/addCssFiles', $cssfiles));
+        $this->view->overrideCssFiles($this->events->trigger('pub\addCssFiles', $cssfiles));
         $this->view->render();
     }
 

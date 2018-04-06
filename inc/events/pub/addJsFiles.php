@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Module-Event: publicAddJsFiles
+ * Module-Event: addJsFiles
  * 
  * Event wird ausgeführt, wenn in publicController-View die Liste mit Javascript-Dateien geladen wird
  * Parameter: array Liste mit Javascript-Dateien
@@ -15,7 +15,7 @@
 namespace fpcm\events\pub;
 
 /**
- * Module-Event: publicAddJsFiles
+ * Module-Event: addJsFiles
  * 
  * Event wird ausgeführt, wenn in publicController-View die Liste mit Javascript-Dateien geladen wird
  * Parameter: array Liste mit Javascript-Dateien
@@ -24,41 +24,8 @@ namespace fpcm\events\pub;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @package fpcm/model/events
+ * @package fpcm/events
  */
-final class publicAddJsFiles extends \fpcm\events\abstracts\event {
-
-    /**
-     * wird ausgeführt, wenn in publicController-View die Liste mit Javascript-Dateien geladen wird
-     * @param array $data
-     * @return array
-     */
-    public function run()
-    {
-
-        $eventClasses = $this->getEventClasses();
-
-        if (!count($eventClasses))
-            return [];
-
-        $mdata = [];
-        foreach ($eventClasses as $eventClass) {
-
-            $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'publicAddJsFiles');
-
-            /**
-             * @var \fpcm\events\event
-             */
-            $module = new $eventClass();
-
-            if (!$this->is_a($module))
-                continue;
-
-            $mdata = $module->run($mdata);
-        }
-
-        return $mdata;
-    }
+final class addJsFiles extends \fpcm\events\abstracts\eventReturnArray {
 
 }

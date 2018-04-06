@@ -1,13 +1,18 @@
 <?php
 
 /**
+ * FanPress CM 4
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\action\pub;
+
+/**
  * Public article list controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
-namespace fpcm\controller\action\pub;
 
 class showall extends showcommon {
 
@@ -80,10 +85,10 @@ class showall extends showcommon {
             }
 
             $parsed[] = $this->createPagination($this->articleList->countArticlesByCondition($countConditions));
-            $parsed = $this->events->trigger('publicShowAll', $parsed);
+            $parsed = $this->events->trigger('pub\showAll', $parsed);
 
             if (!$this->session->exists()) {
-                $this->cache->write($cacheName, $parsed, $this->config->system_cache_timeout);
+                $this->cache->write($this->cacheName, $parsed, $this->config->system_cache_timeout);
             }
         } else {
             $parsed = $this->cache->read($this->cacheName);
@@ -107,13 +112,12 @@ class showall extends showcommon {
      */
     protected function createPagination($count, $action = 'fpcm/list')
     {
-
         $res = parent::createPagination($count, $action);
         if ($this->config->articles_archive_show) {
             $res = str_replace('</ul>', '<li><a href="?module=fpcm/archive" class="fpcm-pub-pagination-archive">' . $this->lang->translate('ARTICLES_PUBLIC_ARCHIVE') . '</a></li>' . PHP_EOL . '</ul>' . PHP_EOL, $res);
         }
 
-        $res = $this->events->trigger('publicPageinationShowAll', $res);
+        $res = $this->events->trigger('pub\pageinationShowAll', $res);
 
         return $res ? $res : '';
     }

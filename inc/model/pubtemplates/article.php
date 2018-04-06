@@ -85,7 +85,7 @@ final class article extends template {
             return false;
         }
 
-        $this->replacementTags = $this->events->trigger('parseTemplateArticle', $this->replacementTags);
+        $this->replacementTags = $this->events->trigger('template\parseArticle', $this->replacementTags);
 
         $content = $this->content;
         $tags = array_merge($this->replacementInternal, $this->replacementTags);

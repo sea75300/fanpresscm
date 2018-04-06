@@ -308,7 +308,6 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $valueParams = [];
 
         $this->assignSearchParams($conditions, $where, $valueParams);
-
         $combination = $conditions->combination !== null ? $conditions->combination : 'AND';
 
         $eventData = $this->events->trigger('article\getByConditionCount', [
@@ -559,7 +558,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             $valueParams[] = $conditions->postponed;
         }
 
-        if ($conditions->archived !== null) {
+        if ($conditions->archived !== null) {           
             $where[] = "archived = ?";
             $valueParams[] = $conditions->archived;
         }
@@ -594,7 +593,11 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         } elseif ($conditions->approval === null) {
             $where[] = "approval = 0";
         }
-        
+
+        if ($conditions->active !== null) {
+            $where = [($conditions->active === -1 ? 'archived = 0' : 'archived = 0 AND draft = 0')];
+        }
+
         return true;
     }
 

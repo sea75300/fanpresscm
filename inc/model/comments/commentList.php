@@ -313,7 +313,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function countCommentsByCondition(search $conditions)
     {
-        $where = [];
+        $where = ['id > 0'];
 
         if ($conditions->private) {
             $where[] = 'private = 1';
@@ -325,10 +325,12 @@ class commentList extends \fpcm\model\abstracts\tablelist {
             $where[] = 'spammer = 1';
         }
         
+        $combination = $conditions->combination ? $conditions->combination : 'AND';
+        
         return $this->dbcon->count(
             $this->table,
             '*',
-            $this->events->trigger('comments\getByConditionCount', $where)
+            $this->events->trigger('comments\getByConditionCount', implode(" {$combination} ", $where))
         );
     }
 

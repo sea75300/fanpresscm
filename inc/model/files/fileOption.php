@@ -32,11 +32,10 @@ class fileOption {
     {
         $this->path = \fpcm\classes\dirs::getDataDirPath( $this->getType(), \fpcm\classes\tools::getHash($option) . $this->getExt() );
     }
-
+    
     /**
      * Write content to file option
      * @param mixed $data
-     * @param integer $expires
      * @return boolean
      */
     public function write($data)

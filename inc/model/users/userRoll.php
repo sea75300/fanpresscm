@@ -79,7 +79,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
 
         $this->removeBannedTexts();
 
-        $this->leveltitle = $this->events->trigger('userrollSave', $this->leveltitle);
+        $this->leveltitle = $this->events->trigger('userroll\save', $this->leveltitle);
 
         $newId = $this->dbcon->insert($this->table, ['leveltitle' => $this->leveltitle]);
         if (!$newId) {
@@ -133,7 +133,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
 
         $return = false;
 
-        $this->leveltitle = $this->events->trigger('userrollUpdate', $this->leveltitle);
+        $this->leveltitle = $this->events->trigger('userroll\update', $this->leveltitle);
 
         if ($this->dbcon->update($this->table, array('leveltitle'), array($this->leveltitle, $this->id), 'id = ?')) {
             $return = true;

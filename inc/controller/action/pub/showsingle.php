@@ -1,13 +1,18 @@
 <?php
 
 /**
+ * FanPress CM 4
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\action\pub;
+
+/**
  * Public article list controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
-namespace fpcm\controller\action\pub;
 
 class showsingle extends \fpcm\controller\abstracts\pubController {
 
@@ -92,9 +97,9 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
         $this->view->showHeaderFooter($apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);
 
-        $this->commentList  = new \fpcm\model\comments\commentList();
+        $this->commentList = new \fpcm\model\comments\commentList();
         $this->categoryList = new \fpcm\model\categories\categoryList();
-        $this->userList     = new \fpcm\model\users\userList();
+        $this->userList = new \fpcm\model\users\userList();
     }
 
     /**
@@ -112,16 +117,15 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     public function request()
     {
-        $this->isUtf8 = defined('FPCM_PUB_OUTPUT_UTF8') ? FPCM_PUB_OUTPUT_UTF8 : true;
+        $this->isUtf8 = $this->getRequestVar('isUtf8', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]);
+        
+        if ($this->isUtf8 === null) {
+            $this->isUtf8 = true;
+        }
 
         $this->crons->registerCron('postponedArticles');
-
-        if ($this->ipList->ipIsLocked()) {
-            $this->view->addErrorMessage('ERROR_IP_LOCKED');
-            $this->view->assign('showToolbars', false);
-            $this->view->render();
-            return false;
-        }
 
         if (is_null($this->getRequestVar('id'))) {
             $this->view->addErrorMessage('LOAD_FAILED_ARTICLE');
@@ -169,7 +173,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $parsed['articles'] = $this->assignArticleData();
             $parsed['comments'] = $this->assignCommentsData();
 
-            $parsed = $this->events->trigger('publicShowSingle', $parsed);
+            $parsed = $this->events->trigger('pub\ShowSingle', $parsed);
 
             if (!$this->session->exists()) {
                 $this->cache->write($this->cacheName, $parsed, $this->config->system_cache_timeout);
@@ -336,9 +340,9 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     protected function assignCommentFormData()
     {
-
-        if (!$this->config->system_comments_enabled || !$this->article->getComments())
+        if (!$this->config->system_comments_enabled || !$this->article->getComments()) {
             return '';
+        }
 
         $id = ($this->session->exists()) ? $this->session->getUserId() : null;
 
@@ -405,7 +409,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     protected function initSpamCaptcha()
     {
-        $this->captcha = $this->events->trigger('publicReplaceSpamCaptcha');
+        $this->captcha = $this->events->trigger('pub\replaceSpamCaptcha');
 
         if (!is_a($this->captcha, '\fpcm\model\abstracts\spamCaptcha')) {
             $this->captcha = new \fpcm\model\captchas\fpcmDefault();
@@ -420,7 +424,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     protected function saveComment()
     {
-
         if (!$this->config->system_comments_enabled || !$this->article->getComments()) {
             return true;
         }

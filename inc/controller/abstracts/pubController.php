@@ -1,10 +1,7 @@
 <?php
 
 /**
- * Public base controller
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,21 +10,40 @@ namespace fpcm\controller\abstracts;
 /**
  * Basis für "public"-Controller
  * 
+ * @abstract
  * @package fpcm\controller\abstracts\pubController
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @abstract
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class pubController extends controller {
 
+
+    /**
+     *
+     * @var bool
+     */
+    protected $viewEvents = false;
+
+    /**
+     * 
+     * @return boolean
+     */
     public function hasAccess()
     {
         if (!$this->maintenanceMode(false) && !$this->session->exists()) {
             return false;
         }
 
+        if ($this->ipList->ipIsLocked()) {
+            $this->view = null;
+            print $this->lang->translate('ERROR_IP_LOCKED');
+            return false;
+        }
+
         return $this->hasActiveModule();
     }
-    
+
     /**
      * Controller-Processing
      * @return boolean
@@ -37,7 +53,6 @@ class pubController extends controller {
         if ($this->config->system_mode) {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
         }
-        
 
         $showToolbars = false;
         $permAdd = false;
@@ -62,7 +77,7 @@ class pubController extends controller {
             'permEditAll' => $permEditAll,
             'currentUserId' => $currentUserId,
             'isAdmin' => $isAdmin,
-            'hideDebug' => false           
+            'hideDebug' => false
         ]);
 
         $jsfiles = [];
@@ -76,8 +91,8 @@ class pubController extends controller {
             $cssfiles[] = trim($this->config->system_css_path);
         }
 
-        $this->view->overrideJsFiles($this->events->trigger('pub/addJsFiles', $jsfiles));
-        $this->view->overrideCssFiles($this->events->trigger('pub/addCssFiles', $cssfiles));
+        $this->view->overrideJsFiles($this->events->trigger('pub\addJsFiles', $jsfiles));
+        $this->view->overrideCssFiles($this->events->trigger('pub\addCssFiles', $cssfiles));
 
         return true;
     }

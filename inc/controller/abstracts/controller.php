@@ -122,6 +122,12 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected $execDestruct = true;
 
     /**
+     *
+     * @var bool
+     */
+    protected $viewEvents = 'theme';
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -135,26 +141,25 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        $this->events           = \fpcm\classes\loader::getObject('\fpcm\events\events');
-        $this->cache            = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
-        $this->config           = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-        $this->session          = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
+        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+        $this->session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
         $this->config->setUserSettings();
 
-        $this->notifications    = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
-        $this->ipList           = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
-        $this->crons            = \fpcm\classes\loader::getObject('\fpcm\model\crons\cronlist');
-        $this->enabledModules   = \fpcm\classes\loader::getObject('\fpcm\model\modules\modulelist')->getEnabledInstalledModules();
-        $this->crypt            = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');        
+        $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+        $this->ipList = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
+        $this->crons = \fpcm\classes\loader::getObject('\fpcm\model\crons\cronlist');
+        $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\model\modules\modulelist')->getEnabledInstalledModules();
+        $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
 
-        $rollId                 = $this->session->exists() ? $this->session->currentUser->getRoll() : 0;
+        $rollId = $this->session->exists() ? $this->session->currentUser->getRoll() : 0;
 
-        $this->permissions      = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions', $rollId);
-        $this->lang             = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
+        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions', $rollId);
+        $this->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
 
         $this->initActionObjects();
         $this->initView();
-
     }
 
     /**
@@ -202,7 +207,8 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->view = new \fpcm\view\view($viewPath);
         $this->view->setHelpLink($this->getHelpLink());
         $this->view->setActiveNavigationElement($this->getActiveNavigationElement());
-
+        $this->view->triggerFilesEvents($this->viewEvents);
+        
         return true;
     }
 
@@ -249,11 +255,12 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     protected function maintenanceMode($simplemsg = true)
     {
-        if (!$this->config->system_maintenance || ($this->session->exists() && $this->session->getCurrentUser()->isAdmin()) ) {
+        if (!$this->config->system_maintenance || ($this->session->exists() && $this->session->getCurrentUser()->isAdmin())) {
             return true;
         }
 
         if ($simplemsg) {
+            $this->view = null;
             print $this->lang->translate('MAINTENANCE_MODE_ENABLED');
             return false;
         }
@@ -263,7 +270,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
         return false;
     }
-    
+
     /**
      * Check page token
      * @param string $overrideModule
@@ -276,35 +283,35 @@ class controller implements \fpcm\controller\interfaces\controller {
             $this->checkPageToken = false;
             return $this->checkPageToken;
         }
-        
-        $fopt       = new \fpcm\model\files\fileOption(\fpcm\classes\security::getPageTokenFieldName($overrideModule));
-        $tokenData  = \fpcm\classes\loader::getObject('\fpcm\classes\crypt')->decrypt($fopt->read());
+
+        $fopt = new \fpcm\model\files\fileOption(\fpcm\classes\security::getPageTokenFieldName($overrideModule));
+        $tokenData = \fpcm\classes\loader::getObject('\fpcm\classes\crypt')->decrypt($fopt->read());
         $fopt->remove();
-        
+
         if (is_string($tokenData)) {
             $tokenData = json_decode($tokenData);
         }
-        
+
         if (!is_object($tokenData)) {
             $this->checkPageToken = false;
             return $this->checkPageToken;
         }
 
         if (time() > $tokenData->exp) {
-            trigger_error('Submitted page token has been expired on '.date('Y-m-d', $tokenData->exp));
+            trigger_error('Submitted page token has been expired on ' . date('Y-m-d', $tokenData->exp));
             $this->checkPageToken = false;
             return $this->checkPageToken;
         }
 
         $postToken = \fpcm\classes\http::getPageToken($overrideModule);
         if ($postToken !== null && $postToken != $tokenData->str) {
-            trigger_error('Submitted page token was inavlid. Token: '.\fpcm\classes\http::getPageToken($overrideModule));
+            trigger_error('Submitted page token was inavlid. Token: ' . \fpcm\classes\http::getPageToken($overrideModule));
             $this->checkPageToken = false;
         }
-        
+
         $ajaxToken = \fpcm\classes\http::postOnly('pageTkn');
         if ($ajaxToken !== null && $ajaxToken != $tokenData->str) {
-            trigger_error('Submitted page token was inavlid. Token: '.$ajaxToken);
+            trigger_error('Submitted page token was inavlid. Token: ' . $ajaxToken);
             $this->checkPageToken = false;
         }
 
@@ -459,7 +466,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         if (\fpcm\classes\baseconfig::isCli() || !$this->execDestruct) {
             return;
         }
-        
+
         if ($this->view instanceof \fpcm\view\view && !$this->view->wasRendered()) {
             $this->view->render();
         }

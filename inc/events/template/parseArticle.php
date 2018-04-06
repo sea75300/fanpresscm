@@ -8,7 +8,7 @@
 namespace fpcm\events\template;
 
 /**
- * Module-Event: parseTemplateArticle
+ * Module-Event: parseArticle
  * 
  * Event wird ausgeführt, wenn Artikel-Template geparst wird
  * Parameter: array Liste mit Artikel-Platzhaltern und zugewiesenen Daten
@@ -17,44 +17,8 @@ namespace fpcm\events\template;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @package fpcm/model/events
+ * @package fpcm/events
  */
-final class parseTemplateArticle extends \fpcm\events\abstracts\event {
-
-    /**
-     * wird ausgeführt, wenn Artikel-Template geparst wird
-     * @param array $data
-     * @return array
-     */
-    public function run()
-    {
-
-        $eventClasses = $this->getEventClasses();
-
-        if (!count($eventClasses))
-            return $data;
-
-        $mdata = $data;
-        foreach ($eventClasses as $eventClass) {
-
-            $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'parseTemplateArticle');
-
-            /**
-             * @var \fpcm\events\event
-             */
-            $module = new $eventClass();
-
-            if (!$this->is_a($module))
-                continue;
-
-            $mdata = $module->run($mdata);
-        }
-
-        if (!$mdata)
-            return $data;
-
-        return $mdata;
-    }
+final class parseArticle extends \fpcm\events\abstracts\eventReturnArray {
 
 }

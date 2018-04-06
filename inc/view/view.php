@@ -756,6 +756,22 @@ class view {
     }
 
     /**
+     * TRieggert addJsFiles/addCssFiles events
+     * @param string $type
+     */
+    public function triggerFilesEvents($type = 'theme')
+    {
+        if (!$type) {
+            return false;
+        }
+        
+        $this->viewJsFiles = $this->events->trigger($type.'\addJsFiles', $this->viewJsFiles);
+        $this->viewCssFiles = $this->events->trigger($type.'\addCssFiles', $this->viewCssFiles);    
+
+        return true;
+    }
+
+    /**
      * Checks User Agent for a certain browser
      * @param string $key
      * @return boolean
