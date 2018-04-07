@@ -237,7 +237,7 @@ class preview extends \fpcm\controller\abstracts\controller {
 
         $smileyHtml = [];
         $smileyHtml[] = "<ul class=\"fpcm-pub-smileys\">";
-        foreach ($smileys as $key => $smiley) {
+        foreach ($smileys as $smiley) {
             $smileyHtml[] = '<li><a class="fpcm-pub-commentsmiley" smileycode="' . $smiley->getSmileyCode() . '" href="#"><img src="' . $smiley->getSmileyUrl() . '" alt="' . $smiley->getSmileyCode() . '()" ' . $smiley->getWhstring() . '></a></li>';
         }
         $smileyHtml[] = '</ul>';

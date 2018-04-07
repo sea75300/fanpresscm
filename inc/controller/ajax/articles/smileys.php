@@ -22,7 +22,7 @@ class smileys extends \fpcm\controller\abstracts\ajaxController {
 
     protected function getViewPath()
     {
-        return 'articles/editors/smileys';
+        return $this->getRequestVar('json') ? '' : 'articles/editors/smileys';
     }
 
     /**

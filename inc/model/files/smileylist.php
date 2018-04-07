@@ -44,7 +44,7 @@ final class smileylist extends \fpcm\model\abstracts\filelist {
             $smileyObj->setId($smiley->id);
             $smileyObj->initImageSize();
 
-            $res[$smiley->filename] = $smileyObj;
+            $res[] = $smileyObj;
         }
 
         return $res;

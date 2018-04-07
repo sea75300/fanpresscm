@@ -16,15 +16,14 @@ namespace fpcm\view;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class view {
-    /* @var Include full theme header, including header images, menu and so */
 
     const INCLUDE_HEADER_FULL = 0b00001;
-
-    /* @var Include simple theme header */
     const INCLUDE_HEADER_SIMPLE = 0b00010;
-
-    /* @var Include no theme header */
     const INCLUDE_HEADER_NONE = 0b00100;
+
+    const ROOTURL_CORE_JS = '{$coreJs}';
+    const ROOTURL_CORE_THEME = '{$coreTheme}';
+    const ROOTURL_LIB = '{$lib}';
 
     /**
      * Complete view path
@@ -204,47 +203,33 @@ class view {
      * @param string $item
      * @since FPCM 3.6
      */
-    private function checkJsPath($item)
+    private function addRootPath($item)
     {
-        if (!trim($item)) {
-            return null;
-        }
-
-        if (strpos($item, \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::CORE_JS) ) === 0 ||
-            strpos($item, \fpcm\classes\dirs::getIncDirPath() ) || substr($item, 0, 4) === 'http') {
+        if (!trim($item) || substr($item, 0, 4) === 'http') {
             return $item;
         }
-
-        $cacheName = 'system/' . __METHOD__;
-
-        $checks = $this->cache->isExpired($cacheName) ? [] : $this->cache->read($cacheName);
+        
+        $item = str_replace('//', '/', $item);
+        if (substr($item, 0, 2) !== '{$' && substr($item, -3) === '.js') {
+            $item = self::ROOTURL_CORE_JS.$item;
+        }
+        
+        $cacheName  = 'system/' . __METHOD__;
+        $checks     = $this->cache->isExpired($cacheName) ? [] : $this->cache->read($cacheName);
 
         $hash = \fpcm\classes\tools::getHash($item);
         if (isset($checks[$hash])) {
             return $checks[$hash];
         }
 
-        try {
-            $coreJsPath = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, $item);
-            if (file_exists($coreJsPath)) {
-                $checks[$hash] = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_JS, $item);
-                $this->cache->write($cacheName, $checks);
-            }
-        } catch (\Exception $e) {
-            trigger_error($e->getMessage());
-            return '';
-        }
+        $replace = [
+            self::ROOTURL_LIB => \fpcm\classes\dirs::getLibUrl(''),
+            self::ROOTURL_CORE_JS => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_JS, ''),
+            self::ROOTURL_CORE_THEME => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, ''),
+        ];
 
-        try {
-            $incPath = \fpcm\classes\dirs::getIncDirPath($item);
-            if (file_exists($incPath)) {
-                $checks[$hash] = \fpcm\classes\dirs::getLibUrl($item);
-                $this->cache->write($cacheName, $checks);
-            }
-        } catch (\Exception $e) {
-            trigger_error($e->getMessage());
-            return '';
-        }
+        $checks[$hash] = str_replace(array_keys($replace), array_values($replace), $item);
+        $this->cache->write($cacheName, $checks);
 
         return $checks[$hash];
     }
@@ -281,7 +266,7 @@ class view {
      */
     public function addJsFiles(array $viewJsFiles)
     {
-        $this->viewJsFiles = array_merge($this->viewJsFiles, array_map([$this, 'checkJsPath'], $viewJsFiles));
+        $this->viewJsFiles = array_merge($this->viewJsFiles, array_map([$this, 'addRootPath'], $viewJsFiles));
     }
 
     /**
@@ -290,7 +275,7 @@ class view {
      */
     public function addCssFiles(array $viewCssFiles)
     {
-        $this->viewCssFiles = array_merge($this->viewCssFiles, $viewCssFiles);
+        $this->viewCssFiles = array_merge($this->viewCssFiles, array_map([$this, 'addRootPath'], $viewCssFiles));
     }
 
     /**
@@ -317,7 +302,7 @@ class view {
      */
     public function overrideCssFiles(array $viewCssFiles)
     {
-        $this->viewCssFiles = $viewCssFiles;
+        $this->viewCssFiles = array_map([$this, 'addRootPath'], $viewCssFiles);
     }
 
     /**
@@ -326,7 +311,7 @@ class view {
      */
     public function overrideJsFiles(array $viewJsFiles)
     {
-        $this->viewJsFiles = $viewJsFiles;
+        $this->viewJsFiles = array_map([$this, 'addRootPath'], $viewJsFiles);
     }
 
     /**
@@ -770,14 +755,14 @@ class view {
      */
     private function initCssFiles()
     {
-        $this->viewCssFiles = [
-            'lib/jquery-ui/jquery-ui.min.css',
-            'lib/fancybox/jquery.fancybox.min.css',
-            'lib/font-awesome/css/fontawesome-all.min.css',
-            'lib/bootstrap/bootstrap-grid.min.css',
-            'core/theme/style.php'
-        ];
-        
+        $this->addCssFiles([
+            self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.css',
+            self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.css',
+            self::ROOTURL_LIB.'font-awesome/css/fontawesome-all.min.css',
+            self::ROOTURL_LIB.'bootstrap/bootstrap-grid.min.css',
+            self::ROOTURL_CORE_THEME.'style.php'
+        ]);
+
         return $this->viewCssFiles;
     }
 
@@ -792,12 +777,12 @@ class view {
      */
     private function initJsFiles()
     {
-        $this->viewJsFiles = [
-            'lib/jquery/jquery-3.3.1.min.js',
-            'lib/jquery-ui/jquery-ui.min.js',
-            'lib/fancybox/jquery.fancybox.min.js',
-            'core/js/script.php'
-        ];
+        $this->addJsFiles([
+            self::ROOTURL_LIB.'jquery/jquery-3.3.1.min.js',
+            self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.js',
+            self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
+            self::ROOTURL_CORE_JS.'script.php'
+        ]);
 
         return $this->viewJsFiles;
     }

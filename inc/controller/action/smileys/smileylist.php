@@ -19,16 +19,28 @@ class smileylist extends \fpcm\controller\abstracts\controller {
      */
     protected $smileyList;
 
+    /**
+     * 
+     * @return array
+     */
     protected function getPermissions()
     {
         return ['system' => 'smileys'];
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function getHelpLink()
     {
         return 'HL_OPTIONS_SMILEYS';
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function request()
     {
         $this->smileyList = new \fpcm\model\files\smileylist();
@@ -42,8 +54,11 @@ class smileylist extends \fpcm\controller\abstracts\controller {
             return true;
         }
 
-        if ($this->buttonClicked('deleteSmiley') && $this->getRequestVar('smileyids')) {
-            $deleteItems = array_map('unserialize', array_map('base64_decode', $this->getRequestVar('smileyids')));
+        $ids = $this->getRequestVar('smileyids', [
+            \fpcm\classes\http::FILTER_BASE64DECODE
+        ]);
+        if ($this->buttonClicked('deleteSmiley') && is_array($ids)) {
+            $deleteItems = array_map('unserialize', $ids);
             if ($this->smileyList->deleteSmileys($deleteItems)) {
                 $this->view->addNoticeMessage('DELETE_SUCCESS_SMILEYS');
             } else {
@@ -104,11 +119,12 @@ class smileylist extends \fpcm\controller\abstracts\controller {
     protected function initDataViewRow($smiley)
     {
         $chbxdat = base64_encode(serialize([
-            $smiley->getFilename(), $smiley->getSmileyCode()
+            $smiley->getFilename(),
+            $smiley->getSmileyCode()
         ]));
  
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('smileyids[]', 'chbx' . md5($chbxdat) ))->setClass('fpcm-ui-list-checkbox')->setValue($smiley->getId()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('smileyids[]', 'chbx' . md5($chbxdat) ))->setClass('fpcm-ui-list-checkbox')->setValue($chbxdat), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             new \fpcm\components\dataView\rowCol('image', $smiley->getImageTag()),
             new \fpcm\components\dataView\rowCol('filename', new \fpcm\view\helper\escape($smiley->getFilename()) ),
             new \fpcm\components\dataView\rowCol('code', new \fpcm\view\helper\escape($smiley->getSmileyCode()) )

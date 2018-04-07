@@ -395,7 +395,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
         $html = [];
         $html[] = "<ul class=\"fpcm-pub-smileys\">";
-        foreach ($smileys as $key => $smiley) {
+        foreach ($smileys as $smiley) {
             $html[] = '<li><a class="fpcm-pub-commentsmiley" smileycode="' . $smiley->getSmileyCode() . '" href="#"><img src="' . $smiley->getSmileyUrl() . '" alt="' . $smiley->getSmileyCode() . '()" ' . $smiley->getWhstring() . '></a></li>';
         }
         $html[] = '</ul>';
