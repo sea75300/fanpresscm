@@ -46,27 +46,46 @@ final class repository extends \fpcm\model\abstracts\remoteModel {
 
         return true;
     }
-
+    
     /**
      * 
+     * @param bool $cliOutput
      * @return boolean
      */
-    public function fetchRemoteData()
+    public function fetchRemoteData($cliOutput = false)
     {
         foreach ($this->files as $rem => $local) {            
             
-            fpcmLogCron('Fetch package information from '.$rem);
+            if ($cliOutput) {
+                print 'fpcm@localhost:# Fetch package information from '.$rem.'...'.PHP_EOL;
+            }
+            else {
+                fpcmLogCron('Fetch package information from '.$rem);
+            }
 
             $this->remoteServer = $rem;
             $this->current      = $local;
 
             $success = parent::fetchRemoteData();
+            
+            if ($cliOutput && $success !== true) {
+                exit('fpcm@localhost:# Error while retrieving information from '.$rem.PHP_EOL.PHP_EOL);
+            }
+
             if ($success !== true) {
                 return $success;
             }
 
+            if ($cliOutput) {
+                print 'fpcm@localhost:# Update local package information storage...'.PHP_EOL;
+            }
+
             if (!$this->saveRemoteData()) {
                 return false;
+            }
+
+            if ($cliOutput) {
+                print 'fpcm@localhost:# -- Finished.'.PHP_EOL.PHP_EOL;
             }
         }
 

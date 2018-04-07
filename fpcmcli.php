@@ -35,7 +35,7 @@ class fpcmCLI {
             $this->output($title.' must be run from console!', true);
         }
         
-        $this->output(PHP_EOL.'--- '.$title.' ---');
+        $this->output(PHP_EOL.'--- '.$title.' ---'.PHP_EOL);
 
         if (version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<')) {
             $this->output($title.' requires PHP '.FPCM_PHP_REQUIRED.' or better!', true);

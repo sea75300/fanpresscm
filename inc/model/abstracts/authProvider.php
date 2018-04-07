@@ -29,5 +29,4 @@ abstract class authProvider extends model {
      * @return string
      */
     abstract public function getLoginTemplate();
-
 }

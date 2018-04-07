@@ -23,7 +23,7 @@ final class syscheck extends \fpcm\model\abstracts\cli {
      * @return void
      */
     public function process()
-    {        
+    {
         \fpcm\classes\loader::getObject('\fpcm\classes\language', 'en', false);
 
         $sysCheckAction = new \fpcm\controller\ajax\system\syscheck();
@@ -32,7 +32,7 @@ final class syscheck extends \fpcm\model\abstracts\cli {
         $this->output(PHP_EOL . 'Fetch data for system check...' . PHP_EOL);
 
         $lines = [];
-        
+
         /* @var $data \fpcm\model\system\syscheckOption */
         foreach ($rows as $descr => $data) {
             print '.';

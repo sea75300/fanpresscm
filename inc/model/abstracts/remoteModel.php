@@ -88,7 +88,7 @@ abstract class remoteModel extends staticModel {
             trigger_error('Error while fetching update informations from: ' . $this->remoteServer);
             return self::REMOTECONTENT_ERROR;
         }
-        
+
         return true;
     }
 
@@ -121,5 +121,4 @@ abstract class remoteModel extends staticModel {
     }
 
     abstract protected function saveRemoteData();
-
 }

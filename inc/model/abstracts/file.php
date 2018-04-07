@@ -136,7 +136,7 @@ abstract class file {
             $this->filename = basename($this->fullpath);
         }
 
-        $this->dbcon    = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
 
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return false;
