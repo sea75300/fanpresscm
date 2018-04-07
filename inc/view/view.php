@@ -93,12 +93,6 @@ class view {
     protected $buttons = [];
 
     /**
-     * File library object
-     * @var \fpcm\model\system\fileLib
-     */
-    protected $fileLib;
-
-    /**
      * Notifications
      * @var \fpcm\model\theme\notifications
      */
@@ -173,7 +167,6 @@ class view {
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
         }
 
-        $this->fileLib = new \fpcm\model\system\fileLib();
         $this->defaultViewVars = new viewVars();
         $this->initFileLib();
     }
@@ -188,8 +181,8 @@ class view {
             return true;
         }
 
-        $this->viewCssFiles = $this->fileLib->getCsslib();
-        $this->viewJsFiles = $this->fileLib->getJslib();
+        $this->initCssFiles();
+        $this->initJsFiles();
 
         if (!is_object($this->language)) {
             return true;
@@ -515,7 +508,7 @@ class view {
 
         $this->initAssigns();
 
-        foreach ($this->events->trigger('view/renderBefore', $this->viewVars) as $key => $value) {
+        foreach ($this->events->trigger('view\renderBefore', $this->viewVars) as $key => $value) {
             $$key = $value;
         }
 
@@ -539,7 +532,7 @@ class view {
                 break;
         }
 
-        $this->events->trigger('view/renderAfter');
+        $this->events->trigger('view\renderAfter');
         $this->rendered = true;
 
         return true;
@@ -769,6 +762,44 @@ class view {
         $this->viewCssFiles = $this->events->trigger($type.'\addCssFiles', $this->viewCssFiles);    
 
         return true;
+    }
+
+    /**
+     * Initialize default CSS files
+     * @return array
+     */
+    private function initCssFiles()
+    {
+        $this->viewCssFiles = [
+            'lib/jquery-ui/jquery-ui.min.css',
+            'lib/fancybox/jquery.fancybox.min.css',
+            'lib/font-awesome/css/fontawesome-all.min.css',
+            'lib/bootstrap/bootstrap-grid.min.css',
+            'core/theme/style.php'
+        ];
+        
+        return $this->viewCssFiles;
+    }
+
+    /**
+     * Gibt JS library zurück
+     * @return array
+     */
+    
+    /**
+     * Initialize default JavaScript files
+     * @return array
+     */
+    private function initJsFiles()
+    {
+        $this->viewJsFiles = [
+            'lib/jquery/jquery-3.3.1.min.js',
+            'lib/jquery-ui/jquery-ui.min.js',
+            'lib/fancybox/jquery.fancybox.min.js',
+            'core/js/script.php'
+        ];
+
+        return $this->viewJsFiles;
     }
 
     /**

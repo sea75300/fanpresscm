@@ -20,43 +20,6 @@ namespace fpcm\events;
  * @package fpcm/events
  * @since FPCM 3.3
  */
-final class updaterAddOptimizeTables extends \fpcm\events\abstracts\event {
-
-    /**
-     * wird ausgeführt, wenn Tabellenliste erzeugt wird für Optimierung der Datenbank-Tabellen beim Update
-     * @param array $data
-     * @return array
-     */
-    public function run()
-    {
-
-        $eventClasses = $this->getEventClasses();
-
-        if (!count($eventClasses)) {
-            return $data;
-        }
-
-        $mdata = $data;
-        foreach ($eventClasses as $eventClass) {
-
-            $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'updaterAddOptimizeTables');
-
-            /**
-             * @var \fpcm\events\event
-             */
-            $module = new $eventClass();
-
-            if (!$this->is_a($module))
-                continue;
-
-            $mdata = $module->run($mdata);
-        }
-
-        if (!$mdata)
-            return $data;
-
-        return $mdata;
-    }
+final class updaterAddOptimizeTables extends \fpcm\events\abstracts\eventReturnArray {
 
 }

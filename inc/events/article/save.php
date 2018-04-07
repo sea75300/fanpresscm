@@ -21,9 +21,4 @@ namespace fpcm\events\article;
  */
 final class save extends \fpcm\events\abstracts\eventReturnArray {
 
-    protected function getReturnType()
-    {
-        return \fpcm\events\abstracts\event::FPCM_MODULE_EVENT_RETURNTYPE_ARRAY;
-    }
-
 }

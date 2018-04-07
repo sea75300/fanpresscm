@@ -47,17 +47,16 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-
         $fn = 'autocomplete' . $this->module;
         if (!method_exists($this, $fn)) {
             $this->getSimpleResponse();
         }
 
         call_user_func([$this, $fn]);
-//            $this->returnData = $this->events->trigger('autocompleteGetData', [
-//                'module'     => $this->module,
-//                'returnData' => $this->returnData
-//            ]);
+        $this->returnData = $this->events->trigger('autocompleteGetData', [
+            'module'     => $this->module,
+            'returnData' => $this->returnData
+        ]);
 
         $this->getSimpleResponse();
     }

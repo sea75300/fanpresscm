@@ -8,7 +8,7 @@
 namespace fpcm\events\view;
 
 /**
- * Module-Event: viewRenderAfter
+ * Module-Event: renderAfter
  * 
  * Event wird ausgeführt, nachdem eine View gerendert wird
  * Parameter: void
@@ -19,6 +19,6 @@ namespace fpcm\events\view;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/events
  */
-final class viewRenderAfter extends \fpcm\events\abstracts\event {
+final class renderAfter extends \fpcm\events\abstracts\eventReturnVoid {
 
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * FanPress CM 3.x
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -57,7 +57,9 @@ class fpcmAPI {
      */
     public function showArticles() {
 
-        if ($this->versionFailed) return false;
+        if ($this->versionFailed) {
+            return false;
+        }
 
         $this->registerController();
 
@@ -83,7 +85,9 @@ class fpcmAPI {
             return false;
         }
 
-        if (!$controller->request()) return false;
+        if (!$controller->request()) {
+            return false;
+        }
 
         $controller->process();
     }
@@ -94,7 +98,9 @@ class fpcmAPI {
      */
     public function showLatestNews() {
 
-        if ($this->versionFailed) return false;
+        if ($this->versionFailed) {
+            return false;
+        }
 
         /**
          * @var abstracts\controller
@@ -173,16 +179,10 @@ class fpcmAPI {
      * @since FPCM 3.1.5
      */
     public function __call($name, $arguments) {
-
-        /* @var $eventList fpcm\events\events */
-        $eventList = fpcm\classes\loader::getObject('fpcm\events\events');
-
-        $params = array(
-            'name'   => $name,
-            'args' => $arguments
-        );
-
-        return $eventList->runEvent('apiCallFunction', $params);
+        return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
+            'name' => $name,
+            'args' => $arguments            
+        ]);
     }
 
     /**
@@ -195,15 +195,10 @@ class fpcmAPI {
      * @since FPCM 3.1.5
      */
     public static function __callStatic($name, $arguments) {
-        /* @var $eventList fpcm\events\events */
-        $eventList = fpcm\classes\loader::getObject('fpcm\events\events');
-
-        $params = array(
+        return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
             'name' => $name,
-            'args' => $arguments
-        );
-
-        return $eventList->runEvent('apiCallFunction', $params);
+            'args' => $arguments            
+        ]);
     }
 
     /**

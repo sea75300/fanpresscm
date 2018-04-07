@@ -31,7 +31,7 @@ final class autocompleteGetData extends \fpcm\events\abstracts\eventReturnArray 
     {
         $result = parent::run();
         if (!count($result) || !isset($result['returnData'])) {
-            return $data;
+            return $this->data['returnData'];
         }
 
         return $result['returnData'];

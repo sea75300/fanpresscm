@@ -19,36 +19,6 @@ namespace fpcm\events\logs;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/events
  */
-final class reloadSystemLogs extends \fpcm\events\abstracts\event {
-
-    /**
-     * wird ausgeführt, wenn Systemlogs via AJAX neu geladen werden
-     * @param void $data
-     * @return void
-     */
-    public function run()
-    {
-
-        $eventClasses = $this->getEventClasses();
-
-        if (!count($eventClasses))
-            return;
-
-        foreach ($eventClasses as $eventClass) {
-
-            $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'reloadSystemLogs');
-
-            /**
-             * @var \fpcm\events\event
-             */
-            $module = new $eventClass();
-
-            if (!$this->is_a($module))
-                continue;
-
-            $module->run();
-        }
-    }
+final class reloadSystemLogs extends \fpcm\events\abstracts\eventReturnVoid {
 
 }

@@ -19,12 +19,6 @@ class articlebase extends \fpcm\controller\abstracts\controller {
 
     /**
      *
-     * @var \fpcm\model\system\fileLib
-     */
-    protected $fileLib;
-
-    /**
-     *
      * @var array
      */
     protected $jsVars = [];

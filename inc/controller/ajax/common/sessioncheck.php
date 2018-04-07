@@ -1,12 +1,8 @@
 <?php
 
 /**
- * AJAX session check controller
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.1.0
  */
 
 namespace fpcm\controller\ajax\common;
@@ -14,8 +10,10 @@ namespace fpcm\controller\ajax\common;
 /**
  * AJAX session check controller
  * 
- * @package fpcm\controller\ajax\commom.addmsg
+ * @package fpcm\controller\ajax\commom
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.1.0
  */
 class sessioncheck extends \fpcm\controller\abstracts\ajaxController {

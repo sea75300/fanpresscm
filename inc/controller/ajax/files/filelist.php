@@ -38,12 +38,14 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        if ($this->getRequestVar('mode')) {
-            $this->mode = (int) $this->getRequestVar('mode', [
-                \fpcm\classes\http::FILTER_CASTINT
-            ]);
-        }
+        $this->mode = $this->getRequestVar('mode', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]);
 
+        if ($this->mode === null) {
+            $this->mode = 1;
+        }
+        
         return true;
     }
 
@@ -67,11 +69,11 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
             \fpcm\classes\http::FILTER_CASTINT
         ]);
         $list = $fileList->getDatabaseList(
-                $this->config->file_list_limit, \fpcm\classes\tools::getPageOffset($page, $this->config->file_list_limit)
+            $this->config->file_list_limit, \fpcm\classes\tools::getPageOffset($page, $this->config->file_list_limit)
         );
 
         $pagerData = \fpcm\classes\tools::calcPagination(
-                        $this->config->file_list_limit, $page, $fileList->getDatabaseFileCount(), count($list)
+            $this->config->file_list_limit, $page, $fileList->getDatabaseFileCount(), count($list)
         );
 
         $list = $this->events->trigger('reloadFileList', $list);

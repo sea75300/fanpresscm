@@ -240,7 +240,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
     public function save()
     {
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('permission\save', $params);
+        $params = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('permission\save', $params);
 
         $res = $this->dbcon->insert($this->table, $params);
 
@@ -256,7 +256,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
     public function update()
     {
         $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('permission\update', $params);
+        $params = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('permission\update', $params);
 
         $fields = array_keys($params);
 
@@ -299,7 +299,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             return $this->checkedData[$permissionArrayHash];
         }
 
-        $permissionArray = $this->events->trigger('permission\check', $permissionArray);
+        $permissionArray = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('permission\check', $permissionArray);
 
         foreach ($permissionArray as $module => $permission) {
             if (!isset($this->permissiondata[$module])) {
@@ -360,9 +360,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             $res[$dataset->rollid] = json_decode($dataset->permissiondata, true);
         }
 
-        $res = $this->events->trigger('permission\getAll', $res);
-
-        return $res;
+        return \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('permission\getAll', $res);
     }
 
     /**

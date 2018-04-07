@@ -10,7 +10,7 @@ namespace fpcm\events\abstracts;
 /**
  * Event model base
  * 
- * @package fpcm\model\abstracts
+ * @package fpcm\events\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2018, Stefan Seehafer
@@ -35,6 +35,12 @@ abstract class event implements \fpcm\model\interfaces\event {
      * @since FPCM 4
      */
     const FPCM_MODULE_EVENT_RETURNTYPE_SCALAR = 'scalar';
+
+    /**
+     * Object returntype für Module-Event
+     * @since FPCM 4
+     */
+    const FPCM_MODULE_EVENT_RETURNTYPE_VOID = null;
 
     /**
      * Base instaces a module event has to implement
@@ -79,7 +85,7 @@ abstract class event implements \fpcm\model\interfaces\event {
     public function __construct($dataParams = null)
     {
         $this->data = $dataParams;
-        $this->cache = loader::getObject('\fpcm\classes\cache');
+        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
 
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return false;
@@ -261,7 +267,10 @@ abstract class event implements \fpcm\model\interfaces\event {
         }
 
         $returnDataType = $this->getReturnType();
-        if ($returnDataType === self::FPCM_MODULE_EVENT_RETURNTYPE_ARRAY && !is_array($eventResult)) {
+        if ($returnDataType === self::FPCM_MODULE_EVENT_RETURNTYPE_VOID && $eventResult !== null) {
+            trigger_error('Invalid data type. Returned data type must be null');
+            return null;
+        } elseif ($returnDataType === self::FPCM_MODULE_EVENT_RETURNTYPE_ARRAY && !is_array($eventResult)) {
             trigger_error('Invalid data type. Returned data type must be an array');
             return $this->data;
         } elseif ($returnDataType === self::FPCM_MODULE_EVENT_RETURNTYPE_OBJ && !is_object($eventResult)) {

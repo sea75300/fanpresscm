@@ -21,9 +21,11 @@ final class events {
      * @param string $eventName
      * @param mixed $dataParams
      * @return mixed
+     * @deprecated since version number
      */
     public function runEvent($eventName, $dataParams = null)
     {
+        trigger_error('Event calling via "runEvent" is deprecated, use "trigger" instead!');
         return $this->trigger($eventName, $dataParams);
     }
 
@@ -35,8 +37,6 @@ final class events {
      */
     public function trigger($eventName, $dataParams = null)
     {
-        return $dataParams;
-
         if (!\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled()) {
             return $dataParams;
         }
@@ -65,7 +65,6 @@ final class events {
      */
     public function getSystemEventList()
     {
-
         $list = [];
         foreach (glob($this->getFullPath('*.php')) as $file) {
             if ($file == __FILE__)
@@ -84,8 +83,8 @@ final class events {
     private function getFullPath($path)
     {
         return \fpcm\classes\dirs::getIncDirPath(implode(DIRECTORY_SEPARATOR, [
-                    'events',
-                    str_replace('\\', DIRECTORY_SEPARATOR, $path)
+            'events',
+            str_replace('\\', DIRECTORY_SEPARATOR, $path)
         ]));
     }
 

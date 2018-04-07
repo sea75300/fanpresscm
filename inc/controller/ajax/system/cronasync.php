@@ -37,10 +37,10 @@ class cronasync extends \fpcm\controller\abstracts\ajaxController {
      */
     public function hasAccess()
     {
-        return  \fpcm\classes\baseconfig::installerEnabled() ||
+        return \fpcm\classes\baseconfig::installerEnabled() ||
                 !\fpcm\classes\baseconfig::dbConfigExists() ? false : true;
     }
-    
+
     /**
      * Controller-Processing
      */

@@ -323,11 +323,11 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     public function getEditLink()
     {
         return \fpcm\classes\tools::getFullControllerLink('smileys/edit', [
-                    'data' => urlencode(base64_encode(json_encode([
-                        'filename' => $this->filename,
-                        'code' => $this->smileycode,
-                        'id' => $this->id
-                    ])))
+            'data' => urlencode(base64_encode(json_encode([
+                'filename' => $this->filename,
+                'code' => $this->smileycode,
+                'id' => $this->id
+            ])))
         ]);
     }
 

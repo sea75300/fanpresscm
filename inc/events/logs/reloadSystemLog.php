@@ -20,36 +20,6 @@ namespace fpcm\events\logs;
  * @package fpcm/events
  * @since FPCM 3.3
  */
-final class reloadSystemLog extends \fpcm\events\abstracts\event {
-
-    /**
-     * wird ausgeführt, wenn Systemlogs via AJAX neu geladen werden
-     * @param void $data
-     * @return void
-     */
-    public function run()
-    {
-
-        $eventClasses = $this->getEventClasses();
-
-        if (!count($eventClasses))
-            return;
-
-        foreach ($eventClasses as $eventClass) {
-
-            $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'reloadSystemLog');
-
-            /**
-             * @var \fpcm\events\event
-             */
-            $module = new $eventClass();
-
-            if (!$this->is_a($module))
-                continue;
-
-            $module->run($data);
-        }
-    }
+final class reloadSystemLog extends \fpcm\events\abstracts\eventReturnVoid {
 
 }

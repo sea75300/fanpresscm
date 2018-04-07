@@ -8,7 +8,7 @@
 namespace fpcm\events\abstracts;
 
 /**
- * Event model base with return type array
+ * Event model base with return type void/null
  * 
  * @package fpcm\events\abstracts
  * @abstract
@@ -16,7 +16,7 @@ namespace fpcm\events\abstracts;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class eventReturnArray extends event {
+abstract class eventReturnVoid extends event {
 
     /**
      * Defines type of returned data
@@ -24,7 +24,7 @@ abstract class eventReturnArray extends event {
      */
     final protected function getReturnType()
     {
-        return self::FPCM_MODULE_EVENT_RETURNTYPE_ARRAY;
+        return self::FPCM_MODULE_EVENT_RETURNTYPE_VOID;
     }
 
 }

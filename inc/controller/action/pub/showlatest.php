@@ -64,7 +64,6 @@ class showlatest extends \fpcm\controller\abstracts\pubController {
      */
     public function __construct($apiMode = false)
     {
-
         $this->apiMode = $apiMode;
 
         parent::__construct();

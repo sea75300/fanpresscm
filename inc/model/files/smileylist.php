@@ -57,17 +57,20 @@ final class smileylist extends \fpcm\model\abstracts\filelist {
      */
     public function deleteSmileys(array $items)
     {
-
         $where = [];
+        $values = [];
         foreach ($items as $item) {
+
             $item = array_map('trim', array_map('strip_tags', $item));
 
-            $where[] = "smileycode = '{$item[1]}' AND filename = '{$item[0]}' ";
+            $where[] = "smileycode = ? AND filename = ?";
+            $values[] = $item[1];
+            $values[] = $item[0];
         }
 
         $where = implode(' OR ', $where);
 
-        return $this->dbcon->delete($this->table, $where);
+        return $this->dbcon->delete($this->table, $where, $values);
     }
 
 }

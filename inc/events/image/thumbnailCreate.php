@@ -12,7 +12,7 @@ namespace fpcm\events\image;
  * 
  * Event wird ausgeführt, wenn neuer Thumbnial für ein Bild erzeugt wird
  * Parameter: Objekt vom Type fpcm\model\files\image
- * Rückgabe: void
+ * Rückgabe: \fpcm\model\files\image
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2018, Stefan Seehafer

@@ -13,7 +13,7 @@ namespace fpcm\model\abstracts;
 /**
  * Module event basis
  * 
- * @package fpcm\model\abstracts
+ * @package fpcm\events\abstracts
  * @abstract
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */

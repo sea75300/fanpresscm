@@ -155,24 +155,24 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function optimizeTables()
     {
-        $tables = [];
-        $tables[] = \fpcm\classes\database::tableArticles;
-        $tables[] = \fpcm\classes\database::tableAuthors;
-        $tables[] = \fpcm\classes\database::tableCategories;
-        $tables[] = \fpcm\classes\database::tableComments;
-        $tables[] = \fpcm\classes\database::tableConfig;
-        $tables[] = \fpcm\classes\database::tableCronjobs;
-        $tables[] = \fpcm\classes\database::tableFiles;
-        $tables[] = \fpcm\classes\database::tableIpAdresses;
-        $tables[] = \fpcm\classes\database::tableModules;
-        $tables[] = \fpcm\classes\database::tablePermissions;
-        $tables[] = \fpcm\classes\database::tableRoll;
-        $tables[] = \fpcm\classes\database::tableSessions;
-        $tables[] = \fpcm\classes\database::tableSmileys;
-        $tables[] = \fpcm\classes\database::tableTexts;
-        $tables[] = \fpcm\classes\database::tableRevisions;
+        $tables = $this->events->trigger('updaterAddOptimizeTables', [
+            \fpcm\classes\database::tableArticles,
+            \fpcm\classes\database::tableAuthors,
+            \fpcm\classes\database::tableCategories,
+            \fpcm\classes\database::tableComments,
+            \fpcm\classes\database::tableConfig,
+            \fpcm\classes\database::tableCronjobs,
+            \fpcm\classes\database::tableFiles,
+            \fpcm\classes\database::tableIpAdresses,
+            \fpcm\classes\database::tableModules,
+            \fpcm\classes\database::tablePermissions,
+            \fpcm\classes\database::tableRoll,
+            \fpcm\classes\database::tableSessions,
+            \fpcm\classes\database::tableSmileys,
+            \fpcm\classes\database::tableTexts,
+            \fpcm\classes\database::tableRevisions
+        ]);
 
-        $tables = $this->events->trigger('updaterAddOptimizeTables', $tables);
         foreach ($tables as $table) {
             $this->dbcon->optimize($table);
         }

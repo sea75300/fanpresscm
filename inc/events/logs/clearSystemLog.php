@@ -22,37 +22,4 @@ namespace fpcm\events\logs;
  */
 final class clearSystemLog extends \fpcm\events\abstracts\event {
 
-    /**
-     * wird ausgeführt, wenn über eines der Systemlogs über den Button "Leeren" aufgeräumt wird
-     * @param string $data Log-ID
-     * @return bool true wenn Log geleert
-     */
-    public function run()
-    {
-
-        $eventClasses = $this->getEventClasses();
-
-        if (!count($eventClasses))
-            return;
-
-        $return = true;
-        foreach ($eventClasses as $eventClass) {
-
-            $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, 'clearSystemLog');
-
-            /**
-             * @var \fpcm\events\event
-             */
-            $module = new $eventClass();
-
-            if (!$this->is_a($module))
-                continue;
-
-            $return = $return && $module->run($data);
-        }
-
-        return $return;
-    }
-
 }

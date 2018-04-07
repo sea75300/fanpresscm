@@ -26,20 +26,12 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
     protected $fileList;
 
     /**
-     * Filelibrary-Objekt
-     * @var \fpcm\model\system\fileLib
-     */
-    protected $fileLib;
-
-    /**
      * Konstruktor
      */
     public function __construct()
     {
         parent::__construct();
-
         $this->fileList = new \fpcm\model\files\imagelist();
-        $this->fileLib = new \fpcm\model\system\fileLib();
     }
 
     /**

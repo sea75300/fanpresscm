@@ -405,7 +405,7 @@ class comment extends \fpcm\model\abstracts\dataset {
         $fields = array_keys($params);
 
         $params[] = $this->getId();
-        $params = $this->events->trigger('comment\update', $params);
+        $params = $this->events->trigger('comments\update', $params);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
