@@ -43,6 +43,12 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     protected $class = '';
 
     /**
+     * Wrapper-CSS-Klassen
+     * @var string
+     */
+    protected $wrapperClass = '';
+
+    /**
      * Item-ID
      * @var string
      */
@@ -137,6 +143,15 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
+     * allgemeine Wrapper-CSS-Klassen zurückgeben
+     * @return string
+     */
+    public function getWrapperClass()
+    {
+        return $this->wrapperClass;
+    }
+
+    /**
      * Item-ID zurückgeben
      * @return string
      */
@@ -206,6 +221,15 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     public function setClass($class)
     {
         $this->class = $class;
+    }
+
+    /**
+     * allgemeine WrapperCSS-Klassen setzen
+     * @param string $wrapperClass
+     */
+    public function setWrapperClass($wrapperClass)
+    {
+        $this->wrapperClass = $wrapperClass;
     }
 
     /**
@@ -310,6 +334,10 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
             $item->setClass($data['class']);
         }
 
+        if (isset($data['wrapperClass'])) {
+            $item->setWrapperClass($data['wrapperClass']);
+        }
+
         $item->setPermission(isset($data['permission']) && is_array($data['permission']) ? $data['permission'] : []);
         $item->setSubmenu(isset($data['submenu']) && is_array($data['submenu']) ? $data['submenu'] : []);
 
@@ -325,7 +353,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
         $this->config = null;
         $this->language = null;
 
-        return ['description', 'url', 'icon', 'class', 'id', 'parent', 'permission', 'submenu', 'spacer'];
+        return ['description', 'url', 'icon', 'class', 'id', 'parent', 'permission', 'submenu', 'spacer', 'wrapperClass'];
     }
 
     /**

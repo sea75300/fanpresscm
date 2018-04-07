@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-tabs-general">
+    <div class="fpcm-ui-tabs-general">
         <ul>
             <li><a href="#tabs-modules-list"><?php $theView->write('MODULES_LIST_HEADLINE'); ?></a></li>
             <?php if ($permissionInstall) : ?><li><a href="#tabs-modules-upload"><?php $theView->write('MODULES_LIST_UPLOAD'); ?></a></li><?php endif; ?>

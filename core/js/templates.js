@@ -15,7 +15,7 @@ fpcm.templates = {
             onRenderAfter: fpcm.ui.assignControlgroups
         });
 
-        fpcm.ui.tabs('.fpcm-tabs-general', {
+        fpcm.ui.tabs('.fpcm-ui-tabs-general', {
             addTabScroll: true,
             addMainToobarToggle: true
         });

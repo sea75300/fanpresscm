@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-tabs-general">
+    <div class="fpcm-ui-tabs-general">
         <ul>
             <li><a href="#tabs-category"><?php $theView->write('WORDBAN_EDIT'); ?></a></li>
         </ul>            

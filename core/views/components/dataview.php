@@ -3,7 +3,7 @@
 <p><?php $theView->write(__FILE__.' required to assign variables "$headline" and "$dataViewId"!'); ?></p>
 <?php else: ?>
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-tabs-general">
+    <div class="fpcm-ui-tabs-general">
         <ul>
             <li><a href="#tabs-<?php print $dataViewId; ?>-list"><?php $theView->write($headline); ?></a></li>                
         </ul>

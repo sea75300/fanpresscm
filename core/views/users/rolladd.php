@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-tabs-general">
+    <div class="fpcm-ui-tabs-general">
         <ul>
             <li><a href="#tabs-roll"><?php $theView->write('USERS_ROLL_ADD'); ?></a></li>
         </ul>            

@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php $theView->hiddenInput('newfilename'); ?>
 <div class="fpcm-ui-inner-wrapper">
-    <div class="fpcm-tabs-general" id="fpcm-files-tabs">
+    <div class="fpcm-ui-tabs-general" id="fpcm-files-tabs">
         <ul>
             <li data-toolbar-buttons="1" id="tabs-files-list-reload"><a href="#tabs-files-list"><?php $theView->write('FILE_LIST_AVAILABLE'); ?></a></li>                
             <?php if ($permUpload) : ?><li data-toolbar-buttons="2"><a href="#tabs-files-upload"><?php $theView->write('FILE_LIST_UPLOADFORM'); ?></a></li><?php endif; ?>                

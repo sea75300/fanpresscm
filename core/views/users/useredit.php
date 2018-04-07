@@ -1,6 +1,6 @@
 <div class="fpcm-content-wrapper">
 
-    <div class="fpcm-tabs-general">
+    <div class="fpcm-ui-tabs-general">
         <ul>
             <li><a href="#tabs-user"><?php $theView->write('USERS_EDIT'); ?></a></li>
             <li><a href="#tabs-user-meta"><?php $theView->write('USERS_META_OPTIONS'); ?></a></li>

@@ -90,6 +90,15 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     private function getNavigation()
     {
         return $this->events->trigger('navigation\add', [
+            'showMenu' => array(
+                navigationItem::createItemFromArray([
+                    'url' => '#',
+                    'description' => $this->language->translate('NAVIGATION_SHOW'),
+                    'icon' => 'fa fa-bars',
+                    'id' => 'showMenu',
+                    'class' => 'fpcm-navigation-noclick'
+                ])
+            ),
             'dashboard' => array(
                 navigationItem::createItemFromArray([
                     'url' => 'system/dashboard',

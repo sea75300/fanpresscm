@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-tabs-general">
+    <div class="fpcm-ui-tabs-general">
         <ul>
             <li><a href="#tabs-comments-active"><?php $theView->write('HL_COMMENTS_MNG'); ?></a></li>
         </ul>            

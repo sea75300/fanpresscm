@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-ui-inner-wrapper">
 
-    <div class="fpcm-tabs-general" id="fpcm-tabs-permissions">
+    <div class="fpcm-ui-tabs-general" id="fpcm-tabs-permissions">
         <ul>
             <li><a href="#tabs-permissions-group"><?php $theView->write('HL_OPTIONS_PERMISSIONS'); ?>: <?php print $rollname; ?></a></li>                
         </ul>

@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-content-wrapper">
     
-    <div class="fpcm-tabs-general">
+    <div class="fpcm-ui-tabs-general">
         <ul>
             <li><a href="#tabs-updater-general"><?php $theView->write('HL_PACKAGEMGR_SYSUPDATES'); ?></a></li>
         </ul>

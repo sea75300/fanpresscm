@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-tabs-general">
+    <div class="fpcm-ui-tabs-general">
         <ul>
             <li><a href="#tabs-ip"><?php $theView->write('IPLIST_ADDIP'); ?></a></li>
         </ul>            

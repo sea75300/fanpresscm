@@ -4,7 +4,7 @@
         <ul id="fpcm-navigation-ul" class="fpcm-menu col-12">
     <?php foreach ($theView->navigation as $navigationGroup) : ?>
         <?php foreach ($navigationGroup as $groupName => $navigationItem) : ?>     
-            <li id="item<?php print $navigationItem->getId(); ?>" class="col-12 fpcm-menu-level1 fpcm-menu-level1-show fpcm-ui-center fpcm-ui-background-transition <?php if ($navigationItem->hasSubmenu()) : ?>fpcm-menu-level1-hassubmenu<?php endif; ?> <?php if ($navigationItem->isActive()) : ?>fpcm-menu-active<?php endif; ?>">
+            <li id="item<?php print $navigationItem->getId(); ?>" class="col-12 fpcm-menu-level1 fpcm-menu-level1-show fpcm-ui-center fpcm-ui-background-transition <?php print $navigationItem->getWrapperClass(); ?> <?php if ($navigationItem->hasSubmenu()) : ?>fpcm-menu-level1-hassubmenu<?php endif; ?> <?php if ($navigationItem->isActive()) : ?>fpcm-menu-active<?php endif; ?>">
                 <a href="<?php print $navigationItem->getFullUrl(); ?>" class="<?php print $navigationItem->getClass(); ?> fpcm-loader" id="<?php print $navigationItem->getId(); ?>">
                     <span class="fpcm-ui-center fpcm-navicon <?php print $navigationItem->getIcon(); ?>"></span>
                     <span class="fpcm-ui-center fpcm-navigation-descr">

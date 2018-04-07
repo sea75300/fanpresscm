@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-tabs-general">
+    <div class="fpcm-ui-tabs-general">
         <ul>
             <li data-toolbar-buttons="1"><a href="#tabs-templates-articles" class="fpcm-template-tab" data-tpl="1"><?php $theView->write('TEMPLATE_HL_ARTICLES'); ?></a></li>
             <?php if (isset($contentArticleSingle) && isset($replacementsArticleSingle)) : ?>

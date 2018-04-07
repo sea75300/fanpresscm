@@ -18,7 +18,7 @@ fpcm.options = {
             fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
         }
 
-        fpcm.ui.tabs('.fpcm-tabs-general', {
+        fpcm.ui.tabs('.fpcm-ui-tabs-general', {
             active   : (fpcm.vars.jsvars.runSysCheck ? 6 : 0),
             addTabScroll: true,
             addMainToobarToggle: true

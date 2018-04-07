@@ -127,6 +127,7 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
 
 span.fpcm-ui-badge,
 div.fpcm-navigation ul.fpcm-menu li,
+div.fpcm-navigation ul.fpcm-menu li li,
 div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1 span.fpcm-navicon,
 div.fpcm-navigation ul.fpcm-menu li:hover ul,
 #fpcm-filemanager-upload-drop h4:before,
@@ -135,6 +136,7 @@ div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1,
 div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2,
 div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2-status span,
 div.fpcm-status-info ul.fpcm-menu-top li:hover ul,
+div.fileupload-progress.in,
 .fpcm-ui-permissions-container .ui-button,
 .fpcm-ui-progressbar-label,
 .fpcm-updater-list span.fa,
@@ -193,7 +195,7 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
 }
 
 #fpcm-loader {
-    z-index : 100;
+    z-index : 9999;
     display : none;
 }
 
@@ -538,8 +540,12 @@ textarea:active,
     width: 195px;
 }
 
-.fpcm-tabs-general {
+.fpcm-ui-tabs-general {
     overflow: hidden;
+}
+
+div.ui-tabs {
+    min-height: 500px;
 }
 
 .fpcm-tabs-scroll {
@@ -563,7 +569,6 @@ div.fileupload-progress.fpcm-ui-fade {
 }
 
 div.fileupload-progress.in {
-    display: block;
     opacity: 1;
     -webkit-transition: opacity .15s linear;
     -o-transition: opacity .15s linear;
@@ -659,7 +664,6 @@ div.fpcm-status-info ul li:hover {
 }
 
 div.fpcm-navigation ul.fpcm-menu li li {
-    display:block;
     float:none;
 }
 
@@ -667,7 +671,7 @@ div.fpcm-navigation ul.fpcm-menu li li {
     padding: 0.5em 0.3em;
 }
 
-div.fpcm-status-info ul.fpcm-menu-top #fpcm-ui-showmenu-li {
+#itemshowMenu {
     display: none !important;
 }
 

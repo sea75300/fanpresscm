@@ -1,6 +1,6 @@
 <div class="fpcm-content-wrapper">
     
-    <div class="fpcm-tabs-general">
+    <div class="fpcm-ui-tabs-general">
         <ul>
             <li><a href="#tabs-updater-general"><?php $theView->write($modeHeadline); ?></a></li>
         </ul>

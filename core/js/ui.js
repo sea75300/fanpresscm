@@ -16,12 +16,18 @@ fpcm.ui = {
         fpcm.ui.showMessages();
         fpcm.ui.messagesInitClose();
 
-        fpcm.ui.tabs('.fpcm-tabs-general');
+        fpcm.ui.tabs('.fpcm-ui-tabs-general');
         fpcm.ui.initJqUiWidgets();
         fpcm.ui.initInputShadow();
         fpcm.ui.spinner('input.fpcm-ui-spinner');
         fpcm.ui.accordion('.fpcm-tabs-accordion');
         fpcm.ui.initDateTimeMasks();
+        
+        jQuery('#itemshowMenu').find('a').click(function () {
+            fpcm.ui.showLoader(false);
+            jQuery('div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1-show').toggle();
+            return false;
+        });
 
         jQuery('.fpcm-navigation-noclick').click(function () {
             fpcm.ui.showLoader(false);
@@ -231,7 +237,7 @@ fpcm.ui = {
             });
 
         }
-        
+
         return tabEl;
 
     },

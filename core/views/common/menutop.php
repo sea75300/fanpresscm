@@ -9,12 +9,6 @@
              </a>
          </li>
      <?php endif; ?>
-         <li class="fpcm-menu-top-level1" id="fpcm-ui-showmenu-li">
-             <a href="#" id="fpcm-ui-showmenu">
-                 <?php $theView->icon('bars')->setSize('lg')->setClass('fpcm-navicon'); ?>
-                 <span class="fpcm-navigation-descr"><?php $theView->write('NAVIGATION_SHOW'); ?></span>
-             </a>
-         </li>
          <li class="fpcm-menu-top-level1 fpcm-ui-center" id="fpcm-navigation-profile">
              <a href="#" target="_blank" class="fpcm-navigation-noclick">
                 <?php $theView->icon('user')->setClass('fpcm-navicon'); ?>                

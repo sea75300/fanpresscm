@@ -11,7 +11,7 @@
         </div>
 
         <div class="col-12">
-            <div class="fpcm-tabs-general" id="fpcm-tabs-installer">
+            <div class="fpcm-ui-tabs-general" id="fpcm-tabs-installer">
                 <ul>
                     <?php foreach ($subTabs as $name => $data) : ?>
                     <li><a href="#tabs-installer-<?php print md5($name); ?>" <?php if ($data['back']) : ?>data-backlink="<?php print $theView->basePath.'installer&amp;step='.$data['back'].'&amp;language='.$theView->langCode; ?>"<?php endif; ?>>

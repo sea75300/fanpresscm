@@ -20,6 +20,26 @@
 
 }
 
+@media (max-width: 768px) {
+    
+    div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1-show {
+        display: none;
+    }
+    
+    #itemshowMenu.fpcm-menu-level1-show  {
+        display: block !important;
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1-show {
+        display: block !important;
+    }
+    
+}
+
 @media (max-width: 1024px) {
     
     fieldset {
@@ -29,6 +49,10 @@
     div.fpcm-ui-padding-none-lr-small > div {
         padding-left: 0 !important;
         padding-right: 0 !important;
+    }
+    
+    div.ui-tabs {
+        min-height: 0 !important;
     }
 
 }

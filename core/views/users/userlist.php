@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-tabs-general" id="fpcm-ui-tabs-users">
+    <div class="fpcm-ui-tabs-general" id="fpcm-ui-tabs-users">
         <ul>
             <li data-toolbar-buttons="1"><a href="#tabs-users-active"><?php $theView->write('USERS_LIST'); ?></a></li>
             <?php if ($rollPermissions) : ?><li data-toolbar-buttons="2"><a href="#tabs-users-rolls"><?php $theView->write('USERS_LIST_ROLLS'); ?></a></li><?php endif; ?>

@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-tabs-general" id="fpcm-tabs-logs">
+    <div class="fpcm-ui-tabs-general" id="fpcm-tabs-logs">
         <ul>
             <li id="fpcm-tabs-logs-sessions" data-dataview-list="logs"><a href="#loader" data-href="<?php print $reloadBaseLink; ?>0"><?php $theView->write('HL_LOGS_SESSIONS'); ?></a></li>
             <li data-dataview-list="logs"><a href="<?php print $reloadBaseLink; ?>1"><?php $theView->write('HL_LOGS_SYSTEM'); ?></a></li>

@@ -2,7 +2,7 @@
 <div class="fpcm-content-wrapper">
     <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-comments"></div>
 
-    <div class="fpcm-tabs-general" id="fpcm-editor-tabs">
+    <div class="fpcm-ui-tabs-general" id="fpcm-editor-tabs">
         <ul>
             <?php if ($isRevision) : ?>
             <li><a href="#tabs-article"><?php $theView->write('EDITOR_STATUS_REVISION'); ?></a></li>

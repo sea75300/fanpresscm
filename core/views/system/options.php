@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-tabs-general">
+    <div class="fpcm-ui-tabs-general">
         <ul>
             <li data-toolbar-buttons="1"><a href="#tabs-options-general"><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></a></li>
             <li data-toolbar-buttons="1"><a href="#tabs-options-editor"><?php $theView->write('SYSTEM_HL_OPTIONS_EDITOR'); ?></a></li>

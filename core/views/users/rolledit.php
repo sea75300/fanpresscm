@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-tabs-general">
+    <div class="fpcm-ui-tabs-general">
         <ul>
             <li><a href="#tabs-roll"><?php $theView->write('USERS_ROLL_EDIT'); ?></a></li>
         </ul>            
