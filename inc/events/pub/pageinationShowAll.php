@@ -8,7 +8,7 @@
 namespace fpcm\events\pub;
 
 /**
- * Module-Event: publicPageinationShowAll
+ * Module-Event: pageinationShowAll
  * 
  * Event wird ausgeführt, wenn Seitenavigation in publicController showAll initialisiert wird
  * Parameter: string HTML-Code der Navigation
@@ -19,6 +19,6 @@ namespace fpcm\events\pub;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/events
  */
-final class publicPageinationShowAll extends \fpcm\events\abstracts\event {
+final class pageinationShowAll extends \fpcm\events\abstracts\event {
 
 }

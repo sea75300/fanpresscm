@@ -173,7 +173,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $parsed['articles'] = $this->assignArticleData();
             $parsed['comments'] = $this->assignCommentsData();
 
-            $parsed = $this->events->trigger('pub\ShowSingle', $parsed);
+            $parsed = $this->events->trigger('pub\showSingle', $parsed);
 
             if (!$this->session->exists()) {
                 $this->cache->write($this->cacheName, $parsed, $this->config->system_cache_timeout);

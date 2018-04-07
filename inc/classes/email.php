@@ -205,17 +205,16 @@
          */
         public function submit()
         {
-
-            $eventData = loader::getObject('\fpcm\events\events')->runEvent('emailSubmit', array(
+            $eventData = loader::getObject('\fpcm\events\events')->trigger('emailSubmit', [
                 'headers'     => $this->headers,
-                'maildata'    => array(
+                'maildata'    => [
                     'to'      => $this->to,
                     'from'    => $this->from,
                     'subject' => utf8_decode($this->subject),
                     'text'    => ($this->html ? $this->text : utf8_decode($this->text)),
-                ),
+                ],
                 'attachments' => $this->attachments
-            ));
+            ]);
 
             $this->headers      = $eventData['headers'];
             $this->attachments  = $eventData['attachments'];

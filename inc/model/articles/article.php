@@ -702,7 +702,7 @@ class article extends \fpcm\model\abstracts\dataset {
         $this->cleanupCaches();
         $this->createTweet();
 
-        $this->events->trigger('article\sveAfter', $this->id);
+        $this->events->trigger('article\saveAfter', $this->id);
 
         return $this->id;
     }

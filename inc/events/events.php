@@ -25,7 +25,7 @@ final class events {
      */
     public function runEvent($eventName, $dataParams = null)
     {
-        trigger_error('Event calling via "runEvent" is deprecated, use "trigger" instead!');
+        trigger_error('Event calling via "runEvent" is deprecated, use "trigger" instead! Event: '.$eventName);
         return $this->trigger($eventName, $dataParams);
     }
 

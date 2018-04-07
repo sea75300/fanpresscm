@@ -59,7 +59,7 @@ final class components {
      */
     public static function getAuthProvider()
     {
-        $class = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('system\getAuthProvider');
+        $class = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('getAuthProvider');
         if (class_exists($class) && is_subclass_of($class, 'fpcm\model\abstracts\authProvider')) {
             return \fpcm\classes\loader::getObject($class);
         }
