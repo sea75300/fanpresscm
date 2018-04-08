@@ -84,12 +84,10 @@ class login extends \fpcm\controller\abstracts\controller {
         $this->loginLocked();
         $this->showLockedForm();
 
-        $this->checkPageToken();
-
         $doReset = $this->buttonClicked('reset');
         $doLogin = $this->buttonClicked('login');
         
-        if (!$this->checkPageToken && ($doReset || $doLogin)) {
+        if (($doReset || $doLogin) && !$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
         }
         

@@ -170,7 +170,8 @@ class main extends \fpcm\controller\abstracts\controller {
 
         $this->view->addJsVars([
             'disabledTabs' => $disabledTabs,
-            'activeTab' => $this->step === 1 ? 0 : $this->step - 1
+            'activeTab' => $this->step === 1 ? 0 : $this->step - 1,
+            'noRefresh' => true
         ]);
 
         $this->view->addJsLangVars([

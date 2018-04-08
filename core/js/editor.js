@@ -15,12 +15,6 @@ fpcm.editor = {
     init: function() {
 
         fpcm.ui.setFocus('articletitle');
-
-        if (fpcm.vars.jsvars.articleId) {
-            fpcm.editor.setInEdit();
-            setInterval(fpcm.editor.setInEdit, fpcm.vars.jsvars.checkTimeout);
-        }
-
         fpcm.ui.checkboxradio('.fpcm-ui-editor-categories .fpcm-ui-input-checkbox');
 
         if (!fpcm.vars.jsvars.isRevision) {
@@ -435,44 +429,29 @@ fpcm.editor = {
    
     },
 
-    setInEdit: function(){
-        
-        if (!fpcm.vars.jsvars.sessionCheck) {
-            return false;
+    showInEditDialog: function(result){
+
+        if (fpcm.vars.jsvars.checkLastState == 1 && result.articleCode == 0 && !result.articleUser) {
+
+            fpcm.ui.addMessage({
+                type : 'notice',
+                id   : 'fpcm-editor-notinedit',
+                icon : 'check',
+                txt  : fpcm.ui.translate('EDITOR_STATUS_NOTINEDIT')
+            }, true);
         }
-        
-        fpcm.ajax.post('editor/inedit', {
-            data: {
-                id: fpcm.vars.jsvars.articleId
-            },
-            execDone: function () {
 
-                var res = fpcm.ajax.fromJSON(fpcm.ajax.getResult('editor/inedit'));
-                if (fpcm.vars.jsvars.checkLastState == 1 && res.code == 0) {
+        if (fpcm.vars.jsvars.checkLastState == 0 && result.articleCode == 1 && result.articleUser) {
+            var msg = fpcm.ui.translate('EDITOR_STATUS_INEDIT');
+            fpcm.ui.addMessage({
+                type : 'neutral',
+                id   : 'fpcm-editor-inedit',
+                icon : 'pencil-square',
+                txt  : msg.replace('{{username}}', result.username)
+            }, true);
+        }
 
-                    fpcm.ui.addMessage({
-                        type : 'notice',
-                        id   : 'fpcm-editor-notinedit',
-                        icon : 'check',
-                        txt  : fpcm.ui.translate('EDITOR_STATUS_NOTINEDIT')
-                    }, true);
-                }
-
-                if (fpcm.vars.jsvars.checkLastState == 0 && res.code == 1 && res.username) {
-
-                    var msg = fpcm.ui.translate('EDITOR_STATUS_INEDIT');
-                    fpcm.ui.addMessage({
-                        type : 'neutral',
-                        id   : 'fpcm-editor-inedit',
-                        icon : 'pencil-square',
-                        txt  : msg.replace('{{username}}', res.username)
-                    }, true);
-                }
-
-                fpcm.vars.jsvars.checkLastState = res.code;
-            }
-        });            
-
+        fpcm.vars.jsvars.checkLastState = result.articleCode;
     },
     
     initCommentListActions: function () {

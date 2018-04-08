@@ -12,8 +12,12 @@ if (fpcm === undefined) {
 fpcm.system = {
     
     init: function() {
-        fpcm.system.runCronsAsync();
-        setInterval(fpcm.system.runMinuteIntervals, 60000);
+        
+        if (!fpcm.vars.jsvars.noRefresh) {
+            fpcm.system.doRefresh();
+            setInterval(fpcm.system.doRefresh, 60000);
+        }
+        
         fpcm.system.initPasswordFieldActions();
         fpcm.system.showHelpDialog();
     },
@@ -42,8 +46,6 @@ fpcm.system = {
     },
     
     showSessionCheckDialog: function () {
-        
-        fpcm.vars.jsvars.sessionCheck = false;
 
         fpcm.ui.dialog({
             content: fpcm.ui.translate('SESSION_TIMEOUT'),
@@ -69,40 +71,29 @@ fpcm.system = {
         });
     },
     
-    checkSession: function() {
-        
-        if (!fpcm.vars.jsvars.sessionCheck) {
-            return false;
-        }
+    doRefresh: function() {
 
-        fpcm.ajax.exec('session', {
+        fpcm.ajax.exec('refresh', {
+            data: {
+                articleId: fpcm.vars.jsvars.articleId
+            },
             execDone: function() {                
-                if (fpcm.ajax.getResult('session') != '0') {
-                    return true;
+                
+                var result = fpcm.ajax.getResult('refresh', true);
+
+                if (fpcm.vars.jsvars.articleId == 1) {
+                    fpcm.editor.showInEditDialog(result);
+                }
+                
+                if (result.sessionCode == 0 && fpcm.vars.jsvars.sessionCheck) {
+                    fpcm.system.showSessionCheckDialog();
                 }
 
-                fpcm.system.showSessionCheckDialog();
             },
-            execFail: fpcm.system.showSessionCheckDialog,
-        });
+        })
         
-        return false;
     },
-    
-    runCronsAsync: function() {
-
-        if (fpcm.vars.jsvars.cronAsyncDiabled) {
-            return false;
-        }
-        
-        fpcm.ajax.get('cronasync');
-    },
-    
-    runMinuteIntervals: function() {
-        fpcm.system.runCronsAsync();
-        fpcm.system.checkSession();
-    },
-    
+   
     generatePasswdString: function() {
 
         var randVal = new Int8Array(1);

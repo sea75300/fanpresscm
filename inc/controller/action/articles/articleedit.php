@@ -213,7 +213,7 @@ class articleedit extends articlebase {
         }
         
         if ($this->permissions->check(['article' => 'revisions'])) {
-             $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setClass('fpcm-ui-maintoolbarbuttons-tab3 '.($this->showRevision ? '' : 'fpcm-ui-hidden')));
+             $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setReadonly($this->article->isInEdit())->setClass('fpcm-ui-maintoolbarbuttons-tab3 '.($this->showRevision ? '' : 'fpcm-ui-hidden')));
             if (!$this->showRevision) {
                 $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
                 
@@ -254,7 +254,7 @@ class articleedit extends articlebase {
         $deletePermissions = $this->permissions->check(array('article' => 'delete'));
 
         if ($deletePermissions && !$this->getRequestVar('rev')) {
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm'));
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setReadonly($this->article->isInEdit()));
         }
 
         $this->view->assign('currentUserId', $this->session->getUserId());

@@ -1,25 +1,27 @@
 <?php
 
 /**
- * AJAX cron controller
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\ajax\system;
 
 /**
- * AJAX-Controller - synchrone Ausführung von Cronjobs
- * 
- * @package fpcm\controller\ajax\system\cronasync
+ * Set cron execution interval
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class croninterval extends \fpcm\controller\abstracts\ajaxController {
 
+    /**
+     * 
+     * @return array
+     */
     protected function getPermissions()
     {
-        return ['system' => 'options'];
+        return ['system' => 'crons'];
     }
 
     /**
@@ -27,7 +29,6 @@ class croninterval extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-
         $cronjobId = $this->getRequestVar('cjId');
         $interval = $this->getRequestVar('interval');
 

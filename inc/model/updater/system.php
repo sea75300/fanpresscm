@@ -13,13 +13,12 @@ namespace fpcm\model\updater;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * 
- * @property string
- * @property string $version
- * @property bool $force
- * @property string $url
- * @property string $signature
- * @property string $phpversion
- * @property string $release
+ * @property string $version New system version
+ * @property bool $force Force update to new version
+ * @property string $url URL for package
+ * @property string $signature Package signature
+ * @property string $phpversion Minimum required PHP version
+ * @property string $release Package release
  */
 final class system extends \fpcm\model\abstracts\staticModel {
 

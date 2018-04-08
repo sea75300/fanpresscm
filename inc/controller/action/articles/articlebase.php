@@ -187,7 +187,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->view->addJsVars($this->jsVars);
 
         if (!$this->getRequestVar('rev')) {
-            $this->view->addButton((new \fpcm\view\helper\saveButton('articleSave'))->setClass('fpcm-ui-maintoolbarbuttons-tab1'));
+            $this->view->addButton((new \fpcm\view\helper\saveButton('articleSave'))->setClass('fpcm-ui-maintoolbarbuttons-tab1')->setReadonly($this->article->isInEdit()));
         }
 
         return true;

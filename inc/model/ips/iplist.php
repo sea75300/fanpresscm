@@ -54,6 +54,10 @@ class iplist extends \fpcm\model\abstracts\tablelist {
      */
     public function ipIsLocked($lockType = 'noaccess')
     {
+        $types = ['nocomments', 'nologin', 'noaccess'];
+        if (!in_array($lockType, $types)) {
+            return true;
+        }
 
         $delim = strpos(\fpcm\classes\http::getIp(), ':') !== false ? ':' : '.';
 

@@ -20,6 +20,7 @@ ajax/editor/inedit: ajax/articles/inedit
 ajax/editor/editorlist: ajax/articles/editorlist
 ajax/dashboard: ajax/system/dashboard
 ajax/syscheck: ajax/system/syscheck
+ajax/refresh: ajax/system/refresh
 ajax/cronasync: ajax/system/cronasync
 ajax/croninterval: ajax/system/croninterval
 ajax/packagemgr/processUpdate: ajax/packagemgr/processUpdate

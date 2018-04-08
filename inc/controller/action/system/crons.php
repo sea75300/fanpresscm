@@ -101,8 +101,7 @@ class crons extends \fpcm\controller\abstracts\controller {
             new \fpcm\components\dataView\rowCol('interval', (new \fpcm\view\helper\select('intervals_' . $cronjob->getCronName()))->setOptions($this->intervals)->setSelected($cronjob->getIntervalTime())->setClass('fpcm-cronjoblist-intervals')),
             new \fpcm\components\dataView\rowCol('lastexec', new \fpcm\view\helper\dateText($cronjob->getLastExecTime())),
             new \fpcm\components\dataView\rowCol('nextecec', new \fpcm\view\helper\dateText($cronjob->getNextExecTime()))
-                ], $this->currentTime > ($cronjob->getNextExecTime() - 60) ? 'fpcm-ui-important-text' : ''
-        );
+        ], $this->currentTime > ($cronjob->getNextExecTime() - 60) ? 'fpcm-ui-important-text' : '');
     }
 
 }

@@ -279,7 +279,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected function checkPageToken($overrideModule = '')
     {
         if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
-            trigger_error('Page token check failed, no referer available or referrer mismatch.');
+            trigger_error('Page token check failed, no referer available or referrer mismatch in '. get_class($this));
             $this->checkPageToken = false;
             return $this->checkPageToken;
         }
@@ -298,20 +298,20 @@ class controller implements \fpcm\controller\interfaces\controller {
         }
 
         if (time() > $tokenData->exp) {
-            trigger_error('Submitted page token has been expired on ' . date('Y-m-d', $tokenData->exp));
+            trigger_error('Submitted page token has been expired on ' . date('Y-m-d', $tokenData->exp).' in '. get_class($this));
             $this->checkPageToken = false;
             return $this->checkPageToken;
         }
 
         $postToken = \fpcm\classes\http::getPageToken($overrideModule);
         if ($postToken !== null && $postToken != $tokenData->str) {
-            trigger_error('Submitted page token was inavlid. Token: ' . \fpcm\classes\http::getPageToken($overrideModule));
+            trigger_error('Submitted page token was inavlid. Token: ' . \fpcm\classes\http::getPageToken($overrideModule).' in '. get_class($this));
             $this->checkPageToken = false;
         }
 
         $ajaxToken = \fpcm\classes\http::postOnly('pageTkn');
         if ($ajaxToken !== null && $ajaxToken != $tokenData->str) {
-            trigger_error('Submitted page token was inavlid. Token: ' . $ajaxToken);
+            trigger_error('Submitted page token was inavlid. Token: ' . $ajaxToken.' in '. get_class($this));
             $this->checkPageToken = false;
         }
 
