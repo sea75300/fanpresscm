@@ -1,0 +1,30 @@
+## YAML Template.
+---
+key: nkorg/example
+author: imagine
+name: FPCM 4 Module example
+description: "Import module for FanPress CM 2.5"
+link: https://nobody-knows.org/
+version: 0.0.1
+requirements:
+    system: 4.0.0
+    php: 5.6.0
+tables:
+    add:
+        tab1
+        tab2
+        tab3
+    alter:
+        tab4
+    drop:
+        tab5
+        tab6
+configOptions:
+    add:
+        opt1: 1
+        opt2: 2
+        opt3: 3
+    remove:
+        tab5: 4
+        tab6: 5
+

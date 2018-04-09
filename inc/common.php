@@ -1,30 +1,29 @@
 <?php
-    /**
-     * Common inits
-     * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     */
 
-    error_reporting(E_ALL);
+/**
+ * Common inits
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+error_reporting(E_ALL);
 
-    /**
-     * FanPress CM internal checkpoint
-     */
-    define('IN_FPCM', true);
+/**
+ * FanPress CM internal checkpoint
+ */
+define('IN_FPCM', true);
 
-    include __DIR__.'/classes/dirs.php';
-    include __DIR__.'/classes/baseconfig.php';    
-    include __DIR__.'/classes/timer.php';
-    include __DIR__.'/constants.php';
-    
-    if (FPCM_DEBUG) {
-        fpcm\classes\timer::start();
-    }
+include __DIR__ . '/classes/dirs.php';
+include __DIR__ . '/classes/baseconfig.php';
+include __DIR__ . '/classes/timer.php';
+include __DIR__ . '/constants.php';
 
-    include __DIR__.'/functions.php';
-    
-    \fpcm\classes\dirs::init();
-    \fpcm\classes\baseconfig::init();
-    
+if (FPCM_DEBUG) {
+    fpcm\classes\timer::start();
+}
+
+include __DIR__ . '/functions.php';
+
+\fpcm\classes\dirs::init();
+\fpcm\classes\baseconfig::init();
 ?>
