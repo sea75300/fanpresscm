@@ -36,6 +36,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
     public function runUpdate()
     {
         $res    = true &&
+                $this->dropTables() &&
                 $this->createTables() &&
                 $this->alterTables() &&
                 $this->removeSystemOptions() &&
@@ -129,6 +130,20 @@ final class finalizer extends \fpcm\model\abstracts\model {
         $res = $this->dbcon->alter(\fpcm\classes\database::tableAuthors, 'DROP', 'salt', '', true);
         return $res;
     }
+    /**
+     * Änderungen an Tabellen-Struktur vornehmen
+     * @return bool
+     */
+    private function dropTables()
+    {
+        $res = true;
+
+        if (count($this->dbcon->getTableStructure('modules'))) {
+            $res = $this->dbcon->drop(\fpcm\classes\database::tableModules);
+        }
+
+        return $res;
+    }
 
     /**
      * Neue Tabelle erzeugen
@@ -136,7 +151,12 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function createTables()
     {
-        return true;
+        $res = $this->dbcon->execYaTdl(\fpcm\classes\dirs::getDataDirPath(
+            \fpcm\classes\dirs::DATA_DBSTRUCT,
+            '08modules'
+        ));
+
+        return $res;
     }
 
     /**

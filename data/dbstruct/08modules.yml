@@ -12,7 +12,7 @@ cols:
         type: bigint
         length: 20
         params: NOT NULL
-    module_key:
+    key:
         type: varchar
         length: 255
         params: NOT NULL
@@ -29,6 +29,6 @@ cols:
         length: 
         params: NOT NULL
 indices:
-    module_key:
-        col: module_key
+    key:
+        col: key
         isUnqiue: true

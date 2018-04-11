@@ -40,18 +40,13 @@ class config implements \JsonSerializable {
      */
     public function __construct($moduleKey, $installed = null)
     {
-        include_once loader::libGetFilePath('spyc/Spyc.php');
-        
+        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
+
         $this->basePath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $moduleKey.DIRECTORY_SEPARATOR);
 
-        if ($installed === null) {
-            $this->data = \Spyc::YAMLLoad($this->basePath.'module.yml');
-            
-            return true;
-        }
-
-        $this->data = \Spyc::YAMLLoadString($installed);
-
+        $this->data     = array_merge($this->data, ($installed === null
+                        ? \Spyc::YAMLLoad($this->basePath.'module.yml')
+                        : json_decode($installed, true)));
     }
 
     /**
@@ -63,7 +58,7 @@ class config implements \JsonSerializable {
     {
         $return = isset($this->data[$name]) ? $this->data[$name] : null;
 
-        return  substr($return, 0, 1) === '{' && substr($return, 0, -1) === '}'
+        return  is_string($return) && substr($return, 0, 1) === '{' && substr($return, 0, -1) === '}'
                 ? json_decode($return)
                 : $return;
     }
@@ -84,7 +79,7 @@ class config implements \JsonSerializable {
      */
     public function jsonSerialize()
     {
-        return array_keys($this->data);
+        return $this->data;
     }
 
 }

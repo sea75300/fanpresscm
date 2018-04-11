@@ -917,10 +917,10 @@ final class database {
         $content = [];
         $content[] = '<?php';
         $content[] = '/**';
-        $content[] = ' * FanPress CM databse connection configuration file';
+        $content[] = ' * FanPress CM Database connection configuration file';
         $content[] = ' * Only edit this file, if you know what you are doing!!!';
         $content[] = ' *';
-        $content[] = ' * DBTYPE => databse type, mysql support only so far';
+        $content[] = ' * DBTYPE => Database type, mysql support only so far';
         $content[] = ' * DBHOST => mostly localhost, modify this if you use a different name';
         $content[] = ' * DBNAME => the database to connect to';
         $content[] = ' * DBUSER => user to connect to database';

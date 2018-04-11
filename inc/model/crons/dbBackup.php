@@ -96,7 +96,7 @@ class dbBackup extends \fpcm\model\abstracts\cron {
             '{{dumpfile}}' => \fpcm\model\files\ops::removeBaseDir($this->dumpfile)
         ));
 
-        fpcmLogCron('Create email notification for new databse backup');
+        fpcmLogCron('Create email notification for new Database backup');
 
         $email = new \fpcm\classes\email(
                 \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_email, \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate('CRONJOB_DBBACKUPS_SUBJECT'), $text

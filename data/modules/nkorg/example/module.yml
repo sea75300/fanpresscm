@@ -25,6 +25,6 @@ configOptions:
         opt2: 2
         opt3: 3
     remove:
-        tab5: 4
-        tab6: 5
+        opt5: 5
+        opt6: 6
 

@@ -243,7 +243,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $finalizer = new \fpcm\model\updater\finalizer();
         $success = $finalizer->runUpdate();
         if ($success !== true) {
-            $this->output('An error occurred during databse update. ERROR CODE: '.$success, true);
+            $this->output('An error occurred during Database update. ERROR CODE: '.$success, true);
         }
 
         $this->config->init();

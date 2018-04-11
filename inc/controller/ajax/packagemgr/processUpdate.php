@@ -194,7 +194,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController {
             return true;
         }
 
-        fpcmLogSystem('Databse update failed. See error and database log for further information.');
+        fpcmLogSystem('Database update failed. See error and database log for further information.');
     }
     
     private function execUpdateLog()

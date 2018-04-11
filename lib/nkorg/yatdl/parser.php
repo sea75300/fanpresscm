@@ -112,7 +112,7 @@ final class parser {
      */
     public function setTablePrefix($tablePrefix)
     {
-        $this->yamlArray['name'] .= $tablePrefix . '_';
+        $this->yamlArray['name'] = $tablePrefix . $this->yamlArray['name'];
     }
 
     /**
