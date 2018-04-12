@@ -76,7 +76,7 @@ class module {
      * @param string $key
      * @param bool $init
      */
-    public function __construct($key)
+    final public function __construct($key)
     {
         $this->db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
         $this->systemConfig = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
@@ -86,13 +86,14 @@ class module {
         $this->prefix = str_replace('/', '', $this->key);
 
         $this->init();
+        $this->initObjects();
     }
 
     /**
      * 
      * @return int
      */
-    public function getId()
+    final public function getId()
     {
         return $this->id;
     }
@@ -101,7 +102,7 @@ class module {
      * 
      * @return bool
      */
-    public function isInstalled()
+    final public function isInstalled()
     {
         return (bool) $this->installed;
     }
@@ -110,7 +111,7 @@ class module {
      * 
      * @return bool
      */
-    public function isActive()
+    final public function isActive()
     {
         return (bool) $this->active;
     }
@@ -120,7 +121,7 @@ class module {
      * @param bool $installed
      * @return $this
      */
-    public function setInstalled($installed)
+    final public function setInstalled($installed)
     {
         $this->installed = (int) $installed;
         return $this;
@@ -131,10 +132,19 @@ class module {
      * @param bool $active
      * @return $this
      */
-    public function setActive($active)
+    final public function setActive($active)
     {
         $this->active = (int) $active;
         return $this;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    protected function initObjects()
+    {
+        return true;
     }
 
     /**
@@ -151,7 +161,7 @@ class module {
      * 
      * @return boolean
      */
-    final private function init()
+    private function init()
     {
         if (!trim($this->key)) {
             return false;
@@ -170,7 +180,6 @@ class module {
         $this->installed = isset($result->installed) ? $result->installed : false;
         $this->active = isset($result->active) ? $result->active : false;
         $this->config = new config($this->key, (!count($result) || !$this->installed ? null : $result->data));
-        
 
         return true;
     }
@@ -180,9 +189,19 @@ class module {
      * @param string $key
      * @return string
      */
-    final private function getFullPrefix($key = '')
+    private function getFullPrefix($key = '')
     {
         return 'module_'.$this->prefix.'_'.$key;
+    }
+
+    /**
+     * 
+     * @param string $key
+     * @return string
+     */
+    private function removeFullPrefix($key = '')
+    {
+        return str_replace('module_'.$this->prefix.'_', '', $key);
     }
 
     /**
@@ -190,7 +209,7 @@ class module {
      * @param string $tableFile
      * @return boolean|\fpcm\model\system\yatdl
      */
-    final private function getYaTdlObject($tableFile)
+    private function getYaTdlObject($tableFile)
     {
         $tab = new \fpcm\model\system\yatdl($tableFile);
         $tab->setTablePrefix($this->getFullPrefix());            
@@ -208,7 +227,7 @@ class module {
      * 
      * @return array
      */
-    final private function getTableFiles()
+    private function getTableFiles()
     {
         $files = glob($this->config->basePath.'config'.DIRECTORY_SEPARATOR.'tables'.DIRECTORY_SEPARATOR.'*.yml');
         if (!is_array($files)) {
@@ -222,7 +241,7 @@ class module {
      * 
      * @return array
      */
-    final private function getAllConfigOptions()
+    private function getAllConfigOptions()
     {
         if (!is_array($this->config->configOptions)) {
             return [];
@@ -234,6 +253,30 @@ class module {
         }
         
         return $configOptions;
+    }
+
+    /**
+     * 
+     * @param \fpcm\model\system\yatdl $tab
+     * @return boolean
+     */
+    private function createTable(\fpcm\model\system\yatdl $tab)
+    {
+        $sqlStr = $tab->getSqlString();
+        $tmpFile = \fpcm\classes\dirs::getDataDirPath(
+            \fpcm\classes\dirs::DATA_TEMP,
+            hash(\fpcm\classes\security::defaultHashAlgo, $tab->getArray()['name']).'.sql'
+        );
+
+        if (!trim($sqlStr) || !file_put_contents($tmpFile, $sqlStr)) {
+            trigger_error('Unable to prepare table definition for execution '.$tableFile);
+            return false;
+        }
+
+        $this->db->execSqlFile($tmpFile);
+        unlink($tmpFile);
+
+        return true;
     }
 
     /**
@@ -258,6 +301,10 @@ class module {
         }
 
         if (!$this->addModule()) {
+            return false;
+        }
+
+        if (method_exists($this, 'installAfter') && !$this->installAfter()) {
             return false;
         }
 
@@ -302,23 +349,13 @@ class module {
         foreach ($tableFiles as $tableFile) {
 
             $tab = $this->getYaTdlObject($tableFile);
-
-            $sqlStr = $tab->getSqlString();
-            $tmpFile = \fpcm\classes\dirs::getDataDirPath(
-                \fpcm\classes\dirs::DATA_TEMP,
-                hash(\fpcm\classes\security::defaultHashAlgo, $tab->getArray()['name']).'.sql'
-            );
-
-            if (!trim($sqlStr) || !file_put_contents($tmpFile, $sqlStr)) {
-                trigger_error('Unable to prepare table definition for execution '.$tableFile);
+            if (!$this->createTable($tab)) {
                 return false;
             }
 
-            $this->db->execSqlFile($tmpFile);
-            unlink($tmpFile);
-
-            return true;
         }
+
+        return true;
     }
     
     /**
@@ -353,6 +390,10 @@ class module {
         fpcmLogSystem('Uninstall module '.$this->key);
         $this->cache->cleanup();
 
+        if (!$this->removeTables()) {
+            return false;
+        }
+
         if (!$this->removeConfig()) {
             return false;
         }
@@ -361,7 +402,7 @@ class module {
             return false;
         }
 
-        if (!$this->removeTables()) {
+        if (method_exists($this, 'uninstallAfter') && !$this->uninstallAfter()) {
             return false;
         }
 
@@ -398,8 +439,13 @@ class module {
             $tab = $this->getYaTdlObject($tableFile);
             $tabName = $tab->getArray()['name'];
 
+            $struct = $this->db->getTableStructure($tabName);
+            if (!count($struct)) {
+                continue;
+            }
+
             if (!$this->db->drop($tabName)) {
-                trigger_error('Unable to drop module table '.$tabName);
+                trigger_error('Unable to drop module table '.$tabName.' during uninstalling');
                 return false;
             }
 
@@ -427,4 +473,134 @@ class module {
             array_map([$this, 'getFullPrefix'], array_keys($configOptions))
         );
     }
+
+    /**
+     * 
+     * @return boolean
+     */
+    final public function update()
+    {
+        fpcmLogSystem('update module '.$this->key);
+        $this->cache->cleanup();
+
+        if (!$this->updateTables()) {
+            return false;
+        }
+
+        if (!$this->updateConfig()) {
+            return false;
+        }
+
+        if (!$this->updateModule()) {
+            return false;
+        }
+
+        if (method_exists($this, 'updateAfter') && !$this->updateAfter()) {
+            return false;
+        }
+
+        $this->cache->cleanup();
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean|int
+     */
+    private function updateModule()
+    {
+        fpcmLogSystem('Update modules table with '.$this->key);
+        if (!$this->db->update(\fpcm\classes\database::tableModules, ['data'], [json_encode($this->config), $this->key], 'key = ?')) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    private function updateTables()
+    {
+        $tableFiles = $this->getTableFiles();
+        if (!count($tableFiles)) {
+            return true;
+        }
+
+        fpcmLogSystem('Update modules table for '.$this->key.' during update');
+        
+        $addTables = $this->config->tables['add'];
+        if (!is_array($addTables)) {
+            $addTables = [];
+        }
+
+        $alterTables = $this->config->tables['alter'];
+        if (!is_array($alterTables)) {
+            $alterTables = [];
+        }
+        
+        $dropTables = $this->config->tables['drop'];
+        if (!is_array($dropTables)) {
+            $dropTables = [];
+        }
+
+        foreach ($tableFiles as $tableFile) {
+
+            $tab = $this->getYaTdlObject($tableFile);
+
+            $tableName = $tab->getArray()['name'];
+            $tabBase = $this->removeFullPrefix($tableName);
+
+            if (in_array($tabBase, $dropTables)) {                
+                if (!$this->db->drop($tableName)) {
+                    trigger_error('Unable to drop module table '.$tableName.' during update');
+                    return false;
+                }
+            }
+
+            if (in_array($tabBase, $alterTables)) {
+                if (!$this->db->addTableCols($tab)) {
+                    trigger_error('Unable to alter module table '.$tableName.' during update');
+                    return false;
+                }
+            }
+
+            if (!in_array($tabBase, $addTables)) {
+                continue;
+            }
+
+            if (!$this->createTable($tab)) {
+                trigger_error('Unable to create module table '.$tableName.' during update');
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    private function updateConfig()
+    {
+        $configOptions = $this->getAllConfigOptions();
+        if (!count($configOptions)) {
+            return true;
+        }
+
+        fpcmLogSystem('Add modules config options for '.$this->key);
+        foreach ($configOptions as $key => $value) {
+            $key = $this->getFullPrefix($key);
+            if ($this->systemConfig->add($key, $value) === false) {
+                trigger_error('Unable to create config option '.$key);
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
 }

@@ -32,7 +32,24 @@ class moduleTest extends \PHPUnit_Framework_TestCase {
 
         /* @var $db \fpcm\classes\database */
         $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
-        $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab1', '*')));
+        $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab1', '*')), 'Fetch from table module_nkorgexample_tab1 failed');
+        $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab2', '*')), 'Fetch from table module_nkorgexample_tab2 failed');
+    }
+    
+    public function testUpdate()
+    {
+        /* @var $db \fpcm\classes\database */
+        $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        $dbResult = $db->delete(\fpcm\classes\database::tableConfig, "config_name IN ('module_nkorgexample_opt1', 'module_nkorgexample_opt2', 'module_nkorgexample_opt3')");
+        $this->assertTrue($dbResult);
+
+        $dbResult = $db->drop('module_nkorgexample_tab1');
+        $this->assertTrue($dbResult);
+
+        $module = new fpcm\modules\module('nkorg/example');
+        $success = $module->update();
+
+        $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab1', '*')), 'Fetch from table module_nkorgexample_tab1 failed');
     }
 
     public function testUninstall()

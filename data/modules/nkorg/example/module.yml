@@ -12,13 +12,9 @@ requirements:
 tables:
     add:
         tab1
-        tab2
-        tab3
     alter:
-        tab4
     drop:
-        tab5
-        tab6
+        tab2
 configOptions:
     add:
         opt1: 1

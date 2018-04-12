@@ -847,11 +847,18 @@ final class database {
      */
     public function checkTableStructure($tableFile)
     {
+        return $this->addTableCols(new \fpcm\model\system\yatdl(dirs::getDataDirPath(dirs::DATA_DBSTRUCT, $tableFile . '.yml')));
+    }
 
+    /**
+     * 
+     * @param \fpcm\model\system\yatdl $yatdl
+     * @return boolean
+     */
+    public function addTableCols(\fpcm\model\system\yatdl $yatdl)
+    {
         $isPg = $this->dbtype === 'pgsql' ? true : false;
         $typeMap = $this->driver->getYaTDLDataTypes();
-
-        $yatdl = new \fpcm\model\system\yatdl(dirs::getDataDirPath(dirs::DATA_DBSTRUCT, $tableFile . '.yml'));
 
         $data = $yatdl->getArray();
         $table = $data['name'];
