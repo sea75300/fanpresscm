@@ -72,6 +72,7 @@ class login extends \fpcm\controller\abstracts\controller {
     public function request()
     {
         if ($this->session->exists()) {
+            $this->view = null;
             return $this->redirect('system/dashboard');
         }
 

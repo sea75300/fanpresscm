@@ -50,7 +50,11 @@ final class editButton extends linkButton {
         $this->url = $object->getEditLink() . $paramsString;
 
         if (method_exists($object, 'getEditPermission')) {
-            $this->readonly = $object->getEditPermission() ? false : true;
+            $this->readonly = !$object->getEditPermission();
+        }
+
+        if (method_exists($object, 'isInEdit')) {
+            $this->readonly = $object->isInEdit();
         }
 
         if (method_exists($object, 'getId')) {

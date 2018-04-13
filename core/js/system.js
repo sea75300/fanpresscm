@@ -47,6 +47,10 @@ fpcm.system = {
     
     showSessionCheckDialog: function () {
 
+        if (!fpcm.vars.jsvars.sessionCheck) {
+            return true;
+        }
+
         fpcm.ui.dialog({
             content: fpcm.ui.translate('SESSION_TIMEOUT'),
             dlButtons: buttons = [
@@ -64,11 +68,14 @@ fpcm.system = {
                     click: function() {
                         fpcm.vars.jsvars.sessionCheck = true;
                         jQuery(this).dialog('close');
+                        jQuery(this).remove();
                     }
                 }
             ],
             id: 'sessioncheck'
         });
+        
+        fpcm.vars.jsvars.sessionCheck = false;
     },
     
     doRefresh: function() {
