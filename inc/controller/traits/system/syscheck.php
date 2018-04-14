@@ -177,12 +177,11 @@ trait syscheck {
             (true && $current)
         );
 
-        $current = in_array('openssl', $loadedExtensions);
-        $checkOptions['OpenSSL (' . $this->lang->translate('GLOBAL_OPTIONAL') . ')'] = new \fpcm\model\system\syscheckOption(
+        $current = in_array('openssl', $loadedExtensions) && defined('OPENSSL_ALGO_SHA512');
+        $checkOptions['OpenSSL'] = new \fpcm\model\system\syscheckOption(
             'true',
             'http://php.net/manual/book.openssl.php',
-            (true && $current).
-            true
+            (true && $current)
         );
 
         $current = in_array('curl', $loadedExtensions);

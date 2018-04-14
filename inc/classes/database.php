@@ -857,23 +857,14 @@ final class database {
      */
     public function addTableCols(\fpcm\model\system\yatdl $yatdl)
     {
-        $isPg = $this->dbtype === 'pgsql' ? true : false;
+        $isPg = $this->dbtype === self::DBTYPE_POSTGRES ? true : false;
         $typeMap = $this->driver->getYaTDLDataTypes();
 
         $data = $yatdl->getArray();
         $table = $data['name'];
 
         $structure = $this->getTableStructure($table);
-
-        $lenghtTypes = array('varchar', 'char');
-        if (!$isPg) {
-            $lenghtTypes[] = 'int';
-            $lenghtTypes[] = 'bigint';
-            $lenghtTypes[] = 'bool';
-            $lenghtTypes[] = 'smallint';
-            $lenghtTypes[] = 'float';
-            $lenghtTypes[] = 'double';
-        }
+        $lenghtTypes = $this->getLenghtTypes();
 
         foreach ($data['cols'] as $col => $attr) {
 
@@ -901,6 +892,33 @@ final class database {
                 fpcmLogSql($this->lastQueryString);
                 return false;
             }
+        }
+
+        return true;
+    }
+
+    /**
+     * 
+     * @param \fpcm\model\system\yatdl $yatdl
+     * @return boolean
+     */
+    public function removeTableCols(\fpcm\model\system\yatdl $yatdl)
+    {
+        $data = $yatdl->getArray();
+        $table = $data['name'];
+
+        $structure = $this->getTableStructure($table);
+        foreach ($structure as $col => $attr) {
+
+            if (isset($data['cols'][$col]) || $col === 'id') {
+                continue;
+            }
+
+            if (!$this->alter($table, 'DROP', $col, '', true)) {
+                fpcmLogSql($this->lastQueryString);
+                return false;
+            }
+
         }
 
         return true;
@@ -1002,6 +1020,27 @@ final class database {
     public function getPdoOptions()
     {
         return $this->driver->getPdoOptions();
+    }
+    
+    /**
+     * Return data types with length params
+     * @return array
+     */
+    private function getLenghtTypes() {
+
+        $lenghtTypes = ['varchar', 'char'];
+        if ($this->dbtype === self::DBTYPE_POSTGRES) {
+            return $lenghtTypes;
+        };
+
+        $lenghtTypes[] = 'int';
+        $lenghtTypes[] = 'bigint';
+        $lenghtTypes[] = 'bool';
+        $lenghtTypes[] = 'smallint';
+        $lenghtTypes[] = 'float';
+        $lenghtTypes[] = 'double';
+
+        return $lenghtTypes;
     }
 
 }

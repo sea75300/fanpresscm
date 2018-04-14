@@ -561,7 +561,12 @@ class module {
 
             if (in_array($tabBase, $alterTables)) {
                 if (!$this->db->addTableCols($tab)) {
-                    trigger_error('Unable to alter module table '.$tableName.' during update');
+                    trigger_error('Unable to alter module table '.$tableName.' during update, addition of new columns failed.');
+                    return false;
+                }
+
+                if (!$this->db->removeTableCols($tab)) {
+                    trigger_error('Unable to alter module table '.$tableName.' during update, removal of new columns failed.');
                     return false;
                 }
             }
