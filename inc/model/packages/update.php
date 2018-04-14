@@ -74,6 +74,15 @@ class update extends package {
      * 
      * @return string
      */
+    protected function getPackageKey()
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'package.key');
+    }
+
+    /**
+     * 
+     * @return string
+     */
     public function getRemotePath()
     {
         return $this->updater->url;

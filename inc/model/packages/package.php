@@ -121,6 +121,12 @@ abstract class package {
      * 
      * @return string
      */
+    abstract protected function getPackageKey();
+
+    /**
+     * 
+     * @return string
+     */
     abstract protected function getLocalSignature();
 
     /**
@@ -167,8 +173,6 @@ abstract class package {
         }
 
         $remotePath = $this->getRemotePath();
-        fpcmLogSystem($remotePath);
-        
         foreach ($trusted as $path) {
              if (strpos($remotePath, $path) === 0) {
                 return true;
@@ -218,14 +222,29 @@ abstract class package {
 
         return true;
     }
-    
+
+    /**
+     * 
+     * @return boolean
+     */
     public function checkPackage()
     {
         $hashLocal = $this->getLocalSignature();
         $hashRemote = $this->getRemoteSignature();
-        
-        if (!trim($hashLocal) || !trim($hashRemote) || $hashLocal !== $hashRemote) {
-            trigger_error("Error while checking package signatures, {$hashLocal} does not match {$hashRemote}");
+
+        if (!trim($hashLocal) || !trim($hashRemote)) {
+            trigger_error("Error while checking package signatures, no signature given.");
+            return self::HASHCHECK_ERROR;
+        }
+
+        $keyPath = $this->getPackageKey();
+        if (!$keyPath || !file_exists($keyPath)) {
+            trigger_error("Error while checking package signatures, no package key found.");
+            return self::HASHCHECK_ERROR;
+        }
+
+        if (openssl_verify($hashLocal, base64_decode($hashRemote), file_get_contents($keyPath), OPENSSL_ALGO_SHA512) !== 1) {
+            trigger_error("Verification of package signature failed!");
             return self::HASHCHECK_ERROR;
         }
 
