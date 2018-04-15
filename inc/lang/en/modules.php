@@ -7,7 +7,8 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 $lang = array(
-    'MODULES_LIST_HEADLINE' => 'Installed and Available Modules',
+    'MODULES_LIST_HEADLINE' => 'Installed modules',
+    'MODULES_LIST_AVAILABLE' => 'Available module',
     'MODULES_LIST_INSTALL' => 'Install module/s',
     'MODULES_LIST_UNINSTALL' => 'Uninstall module/s',
     'MODULES_LIST_UPDATE' => 'Update module/s',

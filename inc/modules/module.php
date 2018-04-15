@@ -70,23 +70,31 @@ class module {
      * @var \fpcm\classes\cache
      */
     protected $cache;
-    
+
+    /**
+     *
+     * @var bool
+     */
+    protected $initDb;
+
     /**
      * Konstruktor
      * @param string $key
-     * @param bool $init
+     * @param boolean $initDb
+     * @return boolean
      */
-    final public function __construct($key)
+    final public function __construct($key, $initDb = false)
     {
         $this->db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
         $this->systemConfig = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
         $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+        $this->initDb = $initDb;
 
         $this->key = $key;
         $this->prefix = str_replace('/', '', $this->key);
 
-        $this->init();
         $this->initObjects();
+        $this->init();
     }
 
     /**
@@ -97,7 +105,16 @@ class module {
     {
         return $this->id;
     }
-        
+
+    /**
+     * 
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+       
     /**
      * 
      * @return bool
@@ -159,6 +176,30 @@ class module {
 
     /**
      * 
+     * @return config
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
+        
+    /**
+     * Initialize object with database data
+     * @param object $result
+     * @return boolean
+     */
+    public function createFromDbObject($result)
+    {
+        $this->id = isset($result->id) ? $result->id : false;
+        $this->installed = isset($result->installed) ? $result->installed : false;
+        $this->active = isset($result->active) ? $result->active : false;
+        $this->config = new config($this->key, (!count($result) || !$this->installed ? null : $result->data));
+
+        return true;
+    }
+
+    /**
+     * 
      * @return boolean
      */
     private function init()
@@ -167,21 +208,16 @@ class module {
             return false;
         }
 
-        $result = $this->db->fetch($this->db->select(\fpcm\classes\database::tableModules, '*', 'key = ?', [
-            $this->key
-        ]));
+        $result = ($this->initDb
+                ? $this->db->fetch($this->db->select(\fpcm\classes\database::tableModules, '*', 'key = ?', [$this->key]))
+                : false);
 
         if (!$result) {
             $this->config = new config($this->key);            
             return false;
         }
 
-        $this->id = isset($result->id) ? $result->id : false;
-        $this->installed = isset($result->installed) ? $result->installed : false;
-        $this->active = isset($result->active) ? $result->active : false;
-        $this->config = new config($this->key, (!count($result) || !$this->installed ? null : $result->data));
-
-        return true;
+        return $this->createFromDbObject($result);
     }
 
     /**
@@ -322,7 +358,7 @@ class module {
         fpcmLogSystem('Update modules table with '.$this->key);
         
         $values = get_object_vars($this);
-        unset($values['db'], $values['config'], $values['id'], $values['prefix'], $values['systemConfig'], $values['cache']);
+        unset($values['db'], $values['config'], $values['id'], $values['prefix'], $values['systemConfig'], $values['cache'], $values['initDb']);
         $values['data'] = json_encode($this->config);
 
         if (!$this->db->insert(\fpcm\classes\database::tableModules, $values)) {

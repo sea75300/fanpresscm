@@ -7,21 +7,7 @@
         </ul>
 
         <div id="tabs-modules-list">
-            <div id="modules-list-content">
-                <?php include $theView->getIncludePath('modules/list_inner.php'); ?>
-            </div>
-            
-            <div class="fpcm-ui-list-buttons">                
-                <div class="fpcm-ui-margin-center">
-            <?php if ($moduleManagerMode) : ?>
-                <?php fpcm\view\helper::linkButton('#', 'MODULES_LIST_RELOADPKGLIST', 'fpcm-ui-reloadpkglist', 'fpcm-ui-button-blank fpcm-reload-btn'); ?>
-            <?php else : ?>
-                <?php fpcm\view\helper::linkButton(\fpcm\classes\baseconfig::$moduleServerManualLink, 'MODULES_LIST_EXTERNALLIST', 'fpcm-ui-externalpkglist', 'fpcm-externallink-btn', '_blank'); ?>
-            <?php endif; ?>
-                <?php fpcm\view\helper::select('moduleActions', $moduleActions, '', false, true, false, 'fpcm-ui-input-select-moduleactions'); ?>
-                <?php include $theView->submitButton('doAction')->setText('GLOBAL_OK')->setClass('fpcm-ui-actions-modules'); ?>
-                </div>
-            </div>         
+            <div id="fpcm-dataview-modulelist"></div>       
         </div>
         
         <?php if ($permissionInstall) : ?>

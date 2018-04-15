@@ -84,7 +84,6 @@ abstract class tablelist {
      */
     public function __construct()
     {
-
         $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
         $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
         $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
@@ -100,6 +99,8 @@ abstract class tablelist {
         if (is_object($this->config)) {
             $this->config->setUserSettings();
         }
+
+        return true;
     }
 
     /**
