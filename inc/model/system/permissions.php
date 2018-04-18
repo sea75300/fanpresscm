@@ -83,7 +83,6 @@ class permissions extends \fpcm\model\abstracts\dataset {
         'modules' => array(
             'install' => 0,
             'uninstall' => 0,
-            'enable' => 0,
             'configure' => 0
         ),
         'uploads' => array(
@@ -136,7 +135,6 @@ class permissions extends \fpcm\model\abstracts\dataset {
         'modules' => array(
             'install' => 0,
             'uninstall' => 0,
-            'enable' => 0,
             'configure' => 0
         ),
         'uploads' => array(

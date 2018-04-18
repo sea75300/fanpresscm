@@ -332,10 +332,6 @@ fieldset:nth-child(odd) {
     width: 85%;
 }
 
-.fpcm-wrapper.fpcm-wrapper-fixed  {
-    margin-left: 15%;
-}
-
 .fpcm-ui-position-top-0 {
     top: 0px;
 }

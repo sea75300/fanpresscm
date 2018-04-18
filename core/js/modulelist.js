@@ -14,23 +14,55 @@ fpcm.modulelist = {
     init: function() {
         
         fpcm.dataview.render('modulelist', {
-            onRenderAfter: function() {
-                fpcm.ui.assignCheckboxes();
-                fpcm.ui.assignControlgroups();
-            }
+            onRenderAfter: fpcm.modulelist.initButtons
+        });
+
+    },
+    
+    initButtons: function () {
+
+        fpcm.ui.assignCheckboxes();
+        fpcm.ui.assignControlgroups();
+
+        jQuery('button.fpcm-ui-modulelist-info').click(function() {
+            
+            var btnEl = jQuery(this);
+            console.log(btnEl);
+            
+            
+            fpcm.ui.dialog({
+                id: 'modulelist-infos',
+                title: fpcm.ui.translate('MODULES_LIST_INFORMATIONS'),
+                dlButtons: [
+                    {
+                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                        icon: "ui-icon-closethick",                
+                        click: function() {
+                            jQuery( this ).dialog( "close" );
+                        }
+                    }
+                ],
+                dlOnOpen: function () {
+                    jQuery('#fpcm-modulelist-info-name').text(btnEl.attr('data-name'));
+                    jQuery('#fpcm-modulelist-info-author').text(btnEl.attr('data-author'));
+                    jQuery('#fpcm-modulelist-info-link').text(btnEl.attr('data-link'));
+                    jQuery('#fpcm-modulelist-info-require-system').text(btnEl.attr('data-system'));
+                    jQuery('#fpcm-modulelist-info-require-php').text(btnEl.attr('data-php'));
+                    jQuery('#fpcm-modulelist-info-description').text(btnEl.attr('data-descr'));
+                },
+                dlOnClose: function() {
+                    jQuery('#fpcm-modulelist-info-name').empty();
+                    jQuery('#fpcm-modulelist-info-author').empty();
+                    jQuery('#fpcm-modulelist-info-link').empty();
+                    jQuery('#fpcm-modulelist-info-require-system').empty();
+                    jQuery('#fpcm-modulelist-info-require-php').empty();
+                    jQuery('#fpcm-modulelist-info-description').empty();
+                }
+            });
+            
         });
         
-//        fpcm.modulelist.actionButtons();
-//
-//        jQuery('.fpcm-ui-actions-modules').click(function() {
-//
-//            if (jQuery(this).hasClass('fpcm-noloader')) {
-//                jQuery(this).removeClass('fpcm-noloader');
-//            }
-//            
-//            fpcm.modulelist.initActionButtons()
-//        });
-    },
+    }
     
 //    actionButtons: function() {
 //

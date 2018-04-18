@@ -39,13 +39,13 @@ class module {
      *
      * @var bool
      */
-    protected $installed = false;
+    protected $installed = 0;
 
     /**
      *
      * @var bool
      */
-    protected $active = false;
+    protected $active = 0;
 
     /**
      *
@@ -83,7 +83,7 @@ class module {
      * @param boolean $initDb
      * @return boolean
      */
-    final public function __construct($key, $initDb = false)
+    final public function __construct($key, $initDb = true)
     {
         $this->db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
         $this->systemConfig = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
@@ -317,9 +317,10 @@ class module {
 
     /**
      * 
+     * @param boolean $fromDir
      * @return boolean
      */
-    final public function install()
+    final public function install($fromDir = false)
     {
         fpcmLogSystem('Installation of module '.$this->key);
         
@@ -328,7 +329,7 @@ class module {
 
         $this->cache->cleanup();
 
-        if (!$this->installTables()) {
+        if (!$this->installTables() && !$fromDir) {
             return false;
         }
 
@@ -353,7 +354,7 @@ class module {
      * 
      * @return boolean|int
      */
-    private function addModule()
+    public function addModule()
     {
         fpcmLogSystem('Update modules table with '.$this->key);
         
@@ -642,6 +643,18 @@ class module {
         }
         
         return true;
+    }
+
+    /**
+     * 
+     * @param string $path
+     * @return string
+     */
+    public static function getKeyFromPath($path)
+    {
+        $path = str_replace(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, DIRECTORY_SEPARATOR), '', $path);
+        $path = explode(DIRECTORY_SEPARATOR, $path, 3);
+        return $path[0].'/'.$path[1];
     }
 
 }

@@ -3,14 +3,14 @@
     <div class="fpcm-ui-tabs-general">
         <ul>
             <li><a href="#tabs-modules-list"><?php $theView->write('MODULES_LIST_HEADLINE'); ?></a></li>
-            <?php if ($permissionInstall) : ?><li><a href="#tabs-modules-upload"><?php $theView->write('MODULES_LIST_UPLOAD'); ?></a></li><?php endif; ?>
+            <?php if ($canInstall) : ?><li><a href="#tabs-modules-upload"><?php $theView->write('MODULES_LIST_UPLOAD'); ?></a></li><?php endif; ?>
         </ul>
 
         <div id="tabs-modules-list">
             <div id="fpcm-dataview-modulelist"></div>       
         </div>
         
-        <?php if ($permissionInstall) : ?>
+        <?php if ($canInstall) : ?>
         <div id="tabs-modules-upload">
             <?php include $theView->getIncludePath('filemanager/forms/phpupload.php'); ?>
         </div>
@@ -18,33 +18,47 @@
     </div>
 </div>
 
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden" id="fpcm-dialog-modulelist-infos">  
-    <table class="fpcm-ui-table">
-        <tr>
-            <td class="fpcm-quarter-width"><label><?php $theView->write('MODULES_LIST_KEY'); ?>:</label></td>
-            <td colspan="3" id="fpcm-dialog-modulelist-infos-key"></td>            
-        </tr>
-        <tr>
-            <td class="fpcm-quarter-width"><label><?php $theView->write('MODULES_LIST_DESCRIPTION'); ?>:</label></td>
-            <td colspan="3" id="fpcm-dialog-modulelist-infos-description"></td>
-        </tr>
-        <tr>
-            <td class="fpcm-quarter-width"><label><?php $theView->write('MODULES_LIST_AUTHOR'); ?>:</label></td>
-            <td colspan="3" id="fpcm-dialog-modulelist-infos-author"></td>
-        </tr>
-        <tr>
-            <td class="fpcm-quarter-width"><label><?php $theView->write('MODULES_LIST_LINK'); ?>:</label></td>
-            <td colspan="3" id="fpcm-dialog-modulelist-infos-link"></td>
-        </tr>
-        <tr>
-            <td class="fpcm-quarter-width"><label><?php $theView->write('MODULES_LIST_VERSION_LOCAL'); ?>:</label></td>
-            <td id="fpcm-dialog-modulelist-infos-version" class="fpcm-quarter-width"></td>
-            <td class="fpcm-quarter-width"><label><?php $theView->write('MODULES_LIST_VERSION_REMOTE'); ?>:</label></td>
-            <td id="fpcm-dialog-modulelist-infos-versionrem" class="fpcm-quarter-width"></td>            
-        </tr>
-        <tr>
-            <td class="fpcm-quarter-width"><label><?php $theView->write('MODULES_LIST_DEPENCIES'); ?>:</label></td>
-            <td colspan="3" id="fpcm-dialog-modulelist-infos-dependencies"></td>
-        </tr>
-    </table>
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden" id="fpcm-dialog-modulelist-infos">
+    
+    <div class="row fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-4">
+            <?php $theView->write('MODULES_LIST_NAME'); ?>:
+        </div>
+        <div class="col-sm-12 col-md-8" id="fpcm-modulelist-info-name"></div>
+    </div>
+    
+    <div class="row fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-4">
+            <?php $theView->write('MODULES_LIST_AUTHOR'); ?>:
+        </div>
+        <div class="col-sm-12 col-md-8" id="fpcm-modulelist-info-author"></div>
+    </div>
+    
+    <div class="row fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-4">
+            <?php $theView->write('MODULES_LIST_LINK'); ?>:
+        </div>
+        <div class="col-sm-12 col-md-8" id="fpcm-modulelist-info-link"></div>
+    </div>
+    
+    <div class="row fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-4">
+            <?php $theView->write('MODULES_LIST_REQUIRE_FPCM'); ?>:
+        </div>
+        <div class="col-sm-12 col-md-8" id="fpcm-modulelist-info-require-system"></div>
+    </div>
+    
+    <div class="row fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-4">
+            <?php $theView->write('MODULES_LIST_REQUIRE_PHP'); ?>:
+        </div>
+        <div class="col-sm-12 col-md-8" id="fpcm-modulelist-info-require-php"></div>
+    </div>
+    
+    <div class="row fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-4">
+            <?php $theView->write('MODULES_LIST_DESCRIPTION'); ?>:
+        </div>
+        <div class="col-sm-12 col-md-8" id="fpcm-modulelist-info-description"></div>
+    </div>
 </div>

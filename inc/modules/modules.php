@@ -27,13 +27,13 @@ class modules extends \fpcm\model\abstracts\tablelist {
      * 
      * @return array
      */
-    public function getInstalledModules()
+    public function getFromDatabase()
     {
-        $result = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'installed = 1'), true);
+        $result = $this->dbcon->fetch($this->dbcon->select($this->table, '*'), true);
         if (!$result) {
             return [];
         }
-        
+
         $modules = [];
         foreach ($result as $dataset) {
             $module = new module($dataset->key, false);
@@ -42,6 +42,34 @@ class modules extends \fpcm\model\abstracts\tablelist {
         }
 
         return $modules;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    public function updateFromFilesystem()
+    {
+        $folders = glob(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, '*/*'), GLOB_ONLYDIR);
+        if (!$folders) {
+            return [];
+        }
+
+        $dbList = $this->getFromDatabase();
+        
+        foreach ($folders as $folder) {
+            $key = module::getKeyFromPath($folder);
+            $module = new module( $key, false );
+            if (isset($dbList[$key])) {
+                continue;
+            }
+
+            if (!$module->addModule()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     

@@ -69,6 +69,22 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function updatePermissions()
     {
+        $rolls = (new \fpcm\model\users\userRollList())->getUserRolls();
+
+        foreach ($rolls as $group) {
+            $permissionObj = new \fpcm\model\system\permissions($group->getId());
+            $data = $permissionObj->getPermissionData();
+            if (!isset($data['modules']['enable'])) {
+                continue;
+            }
+
+            unset($data['modules']['enable']);
+            $permissionObj->setPermissionData($data);
+            if (!$permissionObj->update()) {
+                return false;
+            }
+        }
+
         return true;
     }
 

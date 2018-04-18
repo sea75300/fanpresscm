@@ -21,6 +21,12 @@ class modulelist extends \fpcm\controller\abstracts\controller {
     protected $modules;
 
     /**
+     *
+     * @var array
+     */
+    protected $permArr = [];
+
+    /**
      * 
      * @return string
      */
@@ -81,39 +87,80 @@ class modulelist extends \fpcm\controller\abstracts\controller {
      */
     protected function initDataViewRow($item)
     {
-        $key = $item->getConfig()->key;
+        $config = $item->getConfig();
+        
+        $key = $config->key;
+        $hash = \fpcm\classes\tools::getHash($key);
         
         $buttons = [];        
         
         $buttons[] = '<div class="fpcm-ui-controlgroup">';
         
         if ($item->isInstalled()) {
-            $buttons[]  = $item->isActive()
-                        ? (new \fpcm\view\helper\button('disable'.$key))->setText('MODULES_LIST_DISABLE')->setIcon('toggle-off')->setIconOnly(true)
-                        : (new \fpcm\view\helper\button('enable'.$key))->setText('MODULES_LIST_ENABLE')->setIcon('toggle-on')->setIconOnly(true);
+            
+            if ($this->permArr['canConfigure']) {
+                $buttons[]  = $item->isActive()
+                            ? (new \fpcm\view\helper\button('disable'.$hash))->setText('MODULES_LIST_DISABLE')->setIcon('toggle-off')->setIconOnly(true)
+                            : (new \fpcm\view\helper\button('enable'.$hash))->setText('MODULES_LIST_ENABLE')->setIcon('toggle-on')->setIconOnly(true);
+            }
+            
 
-            $buttons[] = (new \fpcm\view\helper\button('uninstall'.$key))->setText('MODULES_LIST_UNINSTALL')->setIcon('minus-circle')->setIconOnly(true);
-            $buttons[] = (new \fpcm\view\helper\button('update'.$key))->setText('MODULES_LIST_UPDATE')->setIcon('sync')->setIconOnly(true);
+            if ($this->permArr['canUninstall']) {
+                $buttons[] = (new \fpcm\view\helper\button('uninstall'.$hash))->setText('MODULES_LIST_UNINSTALL')->setIcon('minus-circle')->setIconOnly(true);
+            }
+
+            if ($this->permArr['canInstall']) {
+                $buttons[] = (new \fpcm\view\helper\button('update'.$hash))->setText('MODULES_LIST_UPDATE')->setIcon('sync')->setIconOnly(true);
+            }
+        }
+        elseif ($this->permArr['canInstall']) {
+            $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly(true);
         }
 
-        $buttons[] = (new \fpcm\view\helper\button('info'.$key))->setText('MODULES_LIST_INFORMATIONS')->setIcon('info-circle')->setIconOnly(true);
+        $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
+            ->setText('MODULES_LIST_INFORMATIONS')
+            ->setIcon('info-circle')
+            ->setClass('fpcm-ui-modulelist-info')
+            ->setIconOnly(true)
+            ->setData([
+                'name' => (string) new \fpcm\view\helper\escape($config->name),
+                'descr' => (string) new \fpcm\view\helper\escape($config->description),
+                'author' => (string) new \fpcm\view\helper\escape($config->author),
+                'link' => $config->link,
+                'php' => $config->requirements['php'],
+                'system' => $config->requirements['system']
+            ]);
+
         $buttons[] = '</div>';
 
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('modulekeys[]', 'chbx' . md5($key) ))->setClass('fpcm-ui-list-checkbox')->setValue($key), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('modulekeys[]', 'chbx'.$hash))->setClass('fpcm-ui-list-checkbox')->setValue($key), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             new \fpcm\components\dataView\rowCol('buttons', implode('', $buttons)),
             new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key) ),
-            new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($item->getConfig()->name ) ),
-            new \fpcm\components\dataView\rowCol('version', new \fpcm\view\helper\escape($item->getConfig()->version) )
+            new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($config->name ) ),
+            new \fpcm\components\dataView\rowCol('version', new \fpcm\view\helper\escape($config->version) )
         ]);
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     protected function initActionObjects()
     {
         $this->modules = new \fpcm\modules\modules();
-        
-        $this->items = $this->modules->getInstalledModules();
+        $this->modules->updateFromFilesystem();
+
+        $this->items = $this->modules->getFromDatabase();
         $this->itemsCount = count($this->items);
+        
+        $this->permArr = [
+            'canInstall' => $this->permissions->check(['modules' => 'install']),
+            'canUninstall' => $this->permissions->check(['modules' => 'uninstall']),
+            'canConfigure' => $this->permissions->check(['modules' => 'configure']),
+        ];
+
+        return true;
     }
 
     public function request()
@@ -148,6 +195,10 @@ class modulelist extends \fpcm\controller\abstracts\controller {
         $this->view->addJsLangVars(['MODULES_LIST_INFORMATIONS']);
         $this->view->addJsFiles(['modulelist.js', 'fileuploader.js']);
         $this->view->addJsVars(['jqUploadInit' => 0]);
+        
+        $this->view->setViewVars(array_merge($this->permArr, [
+            
+        ]));
 
         $this->initDataView();
 
@@ -170,12 +221,11 @@ class modulelist extends \fpcm\controller\abstracts\controller {
 //            unset($this->moduleActions[$this->lang->translate('MODULES_LIST_INSTALL')], $this->moduleActions[$this->lang->translate('MODULES_LIST_UPDATE')]);
 //            $this->view->assign('moduleManagerMode', false);
 //        }
-//
-//        $translInfo = array(
-//            '{{filecount}}' => 1,
-//            '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
-//        );
-//        $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', $translInfo));
+
+        $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', [            
+            '{{filecount}}' => 1,
+            '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
+        ]));
 //        $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('modules/list'));
 //        $this->view->assign('styleLeftMargin', true);
 //        $this->view->assign('moduleActions', $this->moduleActions);
