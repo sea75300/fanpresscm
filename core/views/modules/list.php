@@ -20,42 +20,42 @@
 
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden" id="fpcm-dialog-modulelist-infos">
     
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
         <div class="col-sm-12 col-md-4">
             <?php $theView->write('MODULES_LIST_NAME'); ?>:
         </div>
         <div class="col-sm-12 col-md-8" id="fpcm-modulelist-info-name"></div>
     </div>
     
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
         <div class="col-sm-12 col-md-4">
             <?php $theView->write('MODULES_LIST_AUTHOR'); ?>:
         </div>
         <div class="col-sm-12 col-md-8" id="fpcm-modulelist-info-author"></div>
     </div>
     
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
         <div class="col-sm-12 col-md-4">
             <?php $theView->write('MODULES_LIST_LINK'); ?>:
         </div>
         <div class="col-sm-12 col-md-8" id="fpcm-modulelist-info-link"></div>
     </div>
     
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
         <div class="col-sm-12 col-md-4">
             <?php $theView->write('MODULES_LIST_REQUIRE_FPCM'); ?>:
         </div>
         <div class="col-sm-12 col-md-8" id="fpcm-modulelist-info-require-system"></div>
     </div>
     
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
         <div class="col-sm-12 col-md-4">
             <?php $theView->write('MODULES_LIST_REQUIRE_PHP'); ?>:
         </div>
         <div class="col-sm-12 col-md-8" id="fpcm-modulelist-info-require-php"></div>
     </div>
     
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
         <div class="col-sm-12 col-md-4">
             <?php $theView->write('MODULES_LIST_DESCRIPTION'); ?>:
         </div>

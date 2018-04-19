@@ -16,6 +16,18 @@ namespace fpcm\modules;
  * @package fpcm\modules
  */
 class module {
+    
+    const STATUS_INSTALLED = 1001;
+    const STATUS_UNINSTALLED = 1002;
+    const STATUS_UPDATED = 1003;
+    const STATUS_ENABLED = 1004;
+    const STATUS_DISABLED = 1005;
+    
+    const STATUS_NOT_INSTALLED = -1001;
+    const STATUS_NOT_UNINSTALLED = -1002;
+    const STATUS_NOT_UPDATED = -1003;
+    const STATUS_NOT_ENABLED = -1004;
+    const STATUS_NOT_DISABLED = -1005;
 
     /**
      *
@@ -329,7 +341,7 @@ class module {
 
         $this->cache->cleanup();
 
-        if (!$this->installTables() && !$fromDir) {
+        if (!$this->installTables()) {
             return false;
         }
 
@@ -337,7 +349,7 @@ class module {
             return false;
         }
 
-        if (!$this->addModule()) {
+        if (!$this->addModule($fromDir)) {
             return false;
         }
 
@@ -349,12 +361,13 @@ class module {
 
         return true;
     }
-
+    
     /**
      * 
-     * @return boolean|int
+     * @param boolean $fromDir
+     * @return boolean
      */
-    public function addModule()
+    public function addModule($fromDir = false)
     {
         fpcmLogSystem('Update modules table with '.$this->key);
         
@@ -362,7 +375,11 @@ class module {
         unset($values['db'], $values['config'], $values['id'], $values['prefix'], $values['systemConfig'], $values['cache'], $values['initDb']);
         $values['data'] = json_encode($this->config);
 
-        if (!$this->db->insert(\fpcm\classes\database::tableModules, $values)) {
+        $result = $fromDir
+                ? $this->db->update(\fpcm\classes\database::tableModules, array_keys($values), array_merge(array_values($values), [$this->key]), 'key = ?')
+                : $this->db->insert(\fpcm\classes\database::tableModules, $values);
+        
+        if (!$result) {
             return false;
         }
 

@@ -100,36 +100,36 @@ class modulelist extends \fpcm\controller\abstracts\controller {
             
             if ($this->permArr['canConfigure']) {
                 $buttons[]  = $item->isActive()
-                            ? (new \fpcm\view\helper\button('disable'.$hash))->setText('MODULES_LIST_DISABLE')->setIcon('toggle-off')->setIconOnly(true)
-                            : (new \fpcm\view\helper\button('enable'.$hash))->setText('MODULES_LIST_ENABLE')->setIcon('toggle-on')->setIconOnly(true);
+                            ? (new \fpcm\view\helper\button('disable'.$hash))->setText('MODULES_LIST_DISABLE')->setIcon('toggle-off')->setIconOnly(true)->setData(['key' => $item->getKey()])->setClass('fpcm-ui-modulelist-disable')
+                            : (new \fpcm\view\helper\button('enable'.$hash))->setText('MODULES_LIST_ENABLE')->setIcon('toggle-on')->setIconOnly(true)->setData(['key' => $item->getKey()])->setClass('fpcm-ui-modulelist-enable');
             }
             
 
             if ($this->permArr['canUninstall']) {
-                $buttons[] = (new \fpcm\view\helper\button('uninstall'.$hash))->setText('MODULES_LIST_UNINSTALL')->setIcon('minus-circle')->setIconOnly(true);
+                $buttons[] = (new \fpcm\view\helper\button('uninstall'.$hash))->setText('MODULES_LIST_UNINSTALL')->setIcon('minus-circle')->setIconOnly(true)->setData(['key' => $item->getKey()])->setClass('fpcm-ui-modulelist-uninstall');
             }
 
             if ($this->permArr['canInstall']) {
-                $buttons[] = (new \fpcm\view\helper\button('update'.$hash))->setText('MODULES_LIST_UPDATE')->setIcon('sync')->setIconOnly(true);
+                $buttons[] = (new \fpcm\view\helper\button('update'.$hash))->setText('MODULES_LIST_UPDATE')->setIcon('sync')->setIconOnly(true)->setData(['key' => $item->getKey()])->setClass('fpcm-ui-modulelist-update');
             }
         }
         elseif ($this->permArr['canInstall']) {
-            $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly(true);
+            $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'dir' => true])->setClass('fpcm-ui-modulelist-install');
         }
 
         $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
-            ->setText('MODULES_LIST_INFORMATIONS')
-            ->setIcon('info-circle')
-            ->setClass('fpcm-ui-modulelist-info')
-            ->setIconOnly(true)
-            ->setData([
-                'name' => (string) new \fpcm\view\helper\escape($config->name),
-                'descr' => (string) new \fpcm\view\helper\escape($config->description),
-                'author' => (string) new \fpcm\view\helper\escape($config->author),
-                'link' => $config->link,
-                'php' => $config->requirements['php'],
-                'system' => $config->requirements['system']
-            ]);
+                            ->setText('MODULES_LIST_INFORMATIONS')
+                            ->setIcon('info-circle')
+                            ->setClass('fpcm-ui-modulelist-info')
+                            ->setIconOnly(true)
+                            ->setData([
+                                'name' => (string) new \fpcm\view\helper\escape($config->name),
+                                'descr' => $config->description,
+                                'author' => (string) new \fpcm\view\helper\escape($config->author),
+                                'link' => $config->link,
+                                'php' => $config->requirements['php'],
+                                'system' => $config->requirements['system']
+                            ]);
 
         $buttons[] = '</div>';
 
@@ -194,7 +194,9 @@ class modulelist extends \fpcm\controller\abstracts\controller {
     {
         $this->view->addJsLangVars(['MODULES_LIST_INFORMATIONS']);
         $this->view->addJsFiles(['modulelist.js', 'fileuploader.js']);
-        $this->view->addJsVars(['jqUploadInit' => 0]);
+        $this->view->addJsVars([
+            'jqUploadInit' => 0
+        ]);
         
         $this->view->setViewVars(array_merge($this->permArr, [
             
