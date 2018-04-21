@@ -27,6 +27,7 @@ ajax/packagemgr/processUpdate: ajax/packagemgr/processUpdate
 ajax/packagemgr/modinstall: ajax/packagemgr/module_install
 ajax/packagemgr/modupdate: ajax/packagemgr/module_update
 ajax/modules/exec: ajax/modules/execAction
+ajax/modules/fetch: ajax/modules/fetchList
 ajax/modules/loadpkglist: ajax/modules/loadpkglist
 ajax/installer/checkdb: ajax/installer/checkdb
 ajax/installer/initdb: ajax/installer/initdb

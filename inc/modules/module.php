@@ -39,7 +39,7 @@ class module {
      *
      * @var string
      */
-    protected $key = '';
+    protected $mkey = '';
 
     /**
      *
@@ -102,8 +102,8 @@ class module {
         $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
         $this->initDb = $initDb;
 
-        $this->key = $key;
-        $this->prefix = str_replace('/', '', $this->key);
+        $this->mkey = $key;
+        $this->prefix = str_replace('/', '', $this->mkey);
 
         $this->initObjects();
         $this->init();
@@ -124,7 +124,7 @@ class module {
      */
     public function getKey()
     {
-        return $this->key;
+        return $this->mkey;
     }
        
     /**
@@ -205,7 +205,7 @@ class module {
         $this->id = isset($result->id) ? $result->id : false;
         $this->installed = isset($result->installed) ? $result->installed : false;
         $this->active = isset($result->active) ? $result->active : false;
-        $this->config = new config($this->key, (!count($result) || !$this->installed ? null : $result->data));
+        $this->config = new config($this->mkey, (!count($result) || !$this->installed ? null : $result->data));
 
         return true;
     }
@@ -214,18 +214,50 @@ class module {
      * 
      * @return boolean
      */
-    private function init()
+    public function enable()
     {
-        if (!trim($this->key)) {
+        fpcmLogSystem('Enable module '.$this->mkey);
+
+        $this->setActive(true);
+        if (!$this->db->update(\fpcm\classes\database::tableModules, ['active'], [$this->active, $this->mkey], 'mkey = ?')) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    public function disbale()
+    {
+        fpcmLogSystem('Disable module '.$this->mkey);
+
+        $this->setActive(false);
+        if (!$this->db->update(\fpcm\classes\database::tableModules, ['active'], [$this->active, $this->mkey], 'mkey = ?')) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    protected function init()
+    {
+        if (!trim($this->mkey)) {
             return false;
         }
 
         $result = ($this->initDb
-                ? $this->db->fetch($this->db->select(\fpcm\classes\database::tableModules, '*', 'key = ?', [$this->key]))
+                ? $this->db->fetch($this->db->select(\fpcm\classes\database::tableModules, '*', 'mkey = ?', [$this->mkey]))
                 : false);
 
         if (!$result) {
-            $this->config = new config($this->key);            
+            $this->config = new config($this->mkey);            
             return false;
         }
 
@@ -334,7 +366,7 @@ class module {
      */
     final public function install($fromDir = false)
     {
-        fpcmLogSystem('Installation of module '.$this->key);
+        fpcmLogSystem('Installation of module '.$this->mkey);
         
         $this->installed = 1;
         $this->active = 0;
@@ -369,14 +401,14 @@ class module {
      */
     public function addModule($fromDir = false)
     {
-        fpcmLogSystem('Update modules table with '.$this->key);
+        fpcmLogSystem('Update modules table with '.$this->mkey);
         
         $values = get_object_vars($this);
         unset($values['db'], $values['config'], $values['id'], $values['prefix'], $values['systemConfig'], $values['cache'], $values['initDb']);
         $values['data'] = json_encode($this->config);
 
         $result = $fromDir
-                ? $this->db->update(\fpcm\classes\database::tableModules, array_keys($values), array_merge(array_values($values), [$this->key]), 'key = ?')
+                ? $this->db->update(\fpcm\classes\database::tableModules, array_keys($values), array_merge(array_values($values), [$this->mkey]), 'mkey = ?')
                 : $this->db->insert(\fpcm\classes\database::tableModules, $values);
         
         if (!$result) {
@@ -398,7 +430,7 @@ class module {
             return true;
         }
 
-        fpcmLogSystem('Add modules table for '.$this->key);
+        fpcmLogSystem('Add modules table for '.$this->mkey);
 
         foreach ($tableFiles as $tableFile) {
 
@@ -423,7 +455,7 @@ class module {
             return true;
         }
 
-        fpcmLogSystem('Add modules config options for '.$this->key);
+        fpcmLogSystem('Add modules config options for '.$this->mkey);
         foreach ($configOptions as $key => $value) {
             $key = $this->getFullPrefix($key);
             if ($this->systemConfig->add($key, $value) === false) {
@@ -441,7 +473,7 @@ class module {
      */
     final public function uninstall()
     {
-        fpcmLogSystem('Uninstall module '.$this->key);
+        fpcmLogSystem('Uninstall module '.$this->mkey);
         $this->cache->cleanup();
 
         if (!$this->removeTables()) {
@@ -473,8 +505,8 @@ class module {
      */
     private function removeModule()
     {
-        fpcmLogSystem('Remove modules table entry for '.$this->key);
-        return $this->db->delete(\fpcm\classes\database::tableModules, 'key = ?', [$this->key]);
+        fpcmLogSystem('Remove modules table entry for '.$this->mkey);
+        return $this->db->delete(\fpcm\classes\database::tableModules, 'mkey = ?', [$this->mkey]);
     }
 
     /**
@@ -488,7 +520,7 @@ class module {
             return true;
         }
 
-        fpcmLogSystem('Remove modules table for '.$this->key);
+        fpcmLogSystem('Remove modules table for '.$this->mkey);
         foreach ($tableFiles as $tableFile) {
             $tab = $this->getYaTdlObject($tableFile);
             $tabName = $tab->getArray()['name'];
@@ -519,7 +551,7 @@ class module {
             return true;
         }
 
-        fpcmLogSystem('Remove modules config options for '.$this->key);
+        fpcmLogSystem('Remove modules config options for '.$this->mkey);
 
         return $this->db->delete(
             \fpcm\classes\database::tableConfig,
@@ -534,7 +566,7 @@ class module {
      */
     final public function update()
     {
-        fpcmLogSystem('update module '.$this->key);
+        fpcmLogSystem('update module '.$this->mkey);
         $this->cache->cleanup();
 
         if (!$this->updateTables()) {
@@ -563,8 +595,8 @@ class module {
      */
     private function updateModule()
     {
-        fpcmLogSystem('Update modules table with '.$this->key);
-        if (!$this->db->update(\fpcm\classes\database::tableModules, ['data'], [json_encode($this->config), $this->key], 'key = ?')) {
+        fpcmLogSystem('Update modules table with '.$this->mkey);
+        if (!$this->db->update(\fpcm\classes\database::tableModules, ['data'], [json_encode($this->config), $this->mkey], 'mkey = ?')) {
             return false;
         }
 
@@ -582,7 +614,7 @@ class module {
             return true;
         }
 
-        fpcmLogSystem('Update modules table for '.$this->key.' during update');
+        fpcmLogSystem('Update modules table for '.$this->mkey.' during update');
         
         $addTables = $this->config->tables['add'];
         if (!is_array($addTables)) {
@@ -650,7 +682,7 @@ class module {
             return true;
         }
 
-        fpcmLogSystem('Add modules config options for '.$this->key);
+        fpcmLogSystem('Add modules config options for '.$this->mkey);
         foreach ($configOptions as $key => $value) {
             $key = $this->getFullPrefix($key);
             if ($this->systemConfig->add($key, $value) === false) {

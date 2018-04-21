@@ -90,6 +90,12 @@ final class http {
     const FILTER_BASE64DECODE = 12;
 
     /**
+     * HTTP Filter ucfirst
+     * @since FPCM 4
+     */
+    const FILTER_FIRSTUPPER = 13;
+
+    /**
      * HTTP-Reuqest aus $_REQUEST und $_COOKIE
      * @var array
      */
@@ -112,8 +118,10 @@ final class http {
      */
     public static function get($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
-        if (is_null($varname))
-            return self::$request;
+        if ($varname === null) {
+            return self::$request;           
+        }
+
         return (isset(self::$request[$varname])) ? self::filter(self::$request[$varname], $filter) : null;
     }
 
@@ -126,10 +134,11 @@ final class http {
      */
     public static function postOnly($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
-        if (is_null($varname))
+        if ($varname === null) {
             return $_POST;
-        $returnVal = (isset($_POST[$varname])) ? self::filter($_POST[$varname], $filter) : null;
-        return $returnVal;
+        }
+
+        return (isset($_POST[$varname])) ? self::filter($_POST[$varname], $filter) : null;
     }
 
     /**
@@ -141,10 +150,11 @@ final class http {
      */
     public static function getOnly($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
-        if (is_null($varname))
+        if ($varname === null) {
             return $_GET;
-        $returnVal = (isset($_GET[$varname])) ? self::filter($_GET[$varname], $filter) : null;
-        return $returnVal;
+        }
+
+        return (isset($_GET[$varname])) ? self::filter($_GET[$varname], $filter) : null;
     }
 
     /**
@@ -240,7 +250,6 @@ final class http {
      */
     public static function filter($filterString, array $filters)
     {
-
         if (!$filterString) {
             return $filterString;
         }
@@ -249,11 +258,13 @@ final class http {
             foreach ($filterString as &$value) {
                 $value = static::filter($value, $filters);
             }
+
             return $filterString;
         }
 
         $allowedTags = (isset($filters['allowedtags'])) ? $filters['allowedtags'] : '';
         $htmlMode = isset($filters['mode']) ? $filters['mode'] : (ENT_COMPAT | ENT_HTML401);
+
         foreach ($filters as $filter) {
             $filter = (int) $filter;
             switch ($filter) {
@@ -293,6 +304,9 @@ final class http {
                     break;
                 case self::FILTER_BASE64DECODE :
                     $filterString = base64_decode($filterString);
+                    break;
+                case self::FILTER_FIRSTUPPER :
+                    $filterString = ucfirst($filterString);
                     break;
             }
         }

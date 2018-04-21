@@ -36,11 +36,43 @@ class modules extends \fpcm\model\abstracts\tablelist {
 
         $modules = [];
         foreach ($result as $dataset) {
-            $module = new module($dataset->key, false);
+            $module = new module($dataset->mkey, false);
             $module->createFromDbObject($dataset);
-            $modules[$dataset->key] = $module;
+            $modules[$dataset->mkey] = $module;
         }
 
+        return $modules;
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public function getFromRepository()
+    {
+        $repoData = (new \fpcm\model\updater\modules())->getData();
+        
+        if (!is_array($repoData) || !count($repoData)) {
+            return [];
+        }
+        
+        $modules = [];
+        foreach ($repoData as $key => $value) {
+            
+            $module = new repoModule($key, false);
+            $module->createFromDbObject([
+                'name' => $value['name'],
+                'description' => isset($value['description']) ? $value['description'] : '',
+                'version' => isset($value['version']) ? $value['version'] : '',
+                'author' => isset($value['author']) ?$value['author'] : '',
+                'link' => isset($value['url']) ?$value['url'] : '',
+                'requirements' => isset($value['requirements']) ? $value['requirements'] : []
+            ]);
+            
+            $modules[] = $module;
+
+        }
+        
         return $modules;
     }
 
@@ -71,6 +103,5 @@ class modules extends \fpcm\model\abstracts\tablelist {
 
         return true;
     }
-
     
 }

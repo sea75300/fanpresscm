@@ -43,6 +43,7 @@ class config implements \JsonSerializable {
         include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
 
         $this->basePath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $moduleKey.DIRECTORY_SEPARATOR);
+        $this->key = $moduleKey;
 
         $this->data     = array_merge($this->data, ($installed === null
                         ? \Spyc::YAMLLoad($this->basePath.'module.yml')
@@ -79,7 +80,10 @@ class config implements \JsonSerializable {
      */
     public function jsonSerialize()
     {
-        return $this->data;
+        $return = $this->data;
+        unset($return['basePath'], $return['key']);
+
+        return $return;
     }
 
 }

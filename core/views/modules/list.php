@@ -1,20 +1,14 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-ui-tabs-general">
+    <div class="fpcm-ui-tabs-general" id="fpcm-tabs-modules">
         <ul>
-            <li><a href="#tabs-modules-list"><?php $theView->write('MODULES_LIST_HEADLINE'); ?></a></li>
-            <?php if ($canInstall) : ?><li><a href="#tabs-modules-upload"><?php $theView->write('MODULES_LIST_UPLOAD'); ?></a></li><?php endif; ?>
+            <li data-dataview-list="modulesLocal"><a href="<?php print fpcm\classes\tools::getFullControllerLink('ajax/modules/fetch', ['mode' => 'local']); ?>"><?php $theView->write('MODULES_LIST_HEADLINE'); ?></a></li>
+            <li data-dataview-list="modulesRemote"><a href="<?php print fpcm\classes\tools::getFullControllerLink('ajax/modules/fetch', ['mode' => 'remote']); ?>"><?php $theView->write('MODULES_LIST_HEADLINE2'); ?></a></li>
+            <?php if ($canInstall) : ?><li><a href="<?php print fpcm\classes\tools::getFullControllerLink('modules/upload'); ?>"><?php $theView->write('MODULES_LIST_UPLOAD'); ?></a></li><?php endif; ?>
         </ul>
 
-        <div id="tabs-modules-list">
-            <div id="fpcm-dataview-modulelist"></div>       
-        </div>
-        
-        <?php if ($canInstall) : ?>
-        <div id="tabs-modules-upload">
-            <?php include $theView->getIncludePath('filemanager/forms/phpupload.php'); ?>
-        </div>
-        <?php endif; ?>
+        <div id="loader"></div>
+
     </div>
 </div>
 

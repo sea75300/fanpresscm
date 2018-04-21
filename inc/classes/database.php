@@ -197,7 +197,7 @@ final class database {
 
         try {
             $this->connection = new \PDO($dbconfig['DBTYPE'] . ':' . $this->driver->getPdoDns($dbconfig), $dbconfig['DBUSER'], $dbconfig['DBPASS'], $this->driver->getPdoOptions());
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             fpcmLogSql($e->getMessage());
             if (!$dieOnError) {
                 return;
@@ -469,7 +469,8 @@ final class database {
         try {
             $res = $statement->execute($bindParams);
         } catch (\PDOException $e) {
-            fpcmLogSql($e);
+            fpcmLogSql((string) $e);
+            return false;
         }
 
         if (!$res) {
@@ -510,7 +511,8 @@ final class database {
         try {
             $res = $this->connection->exec($sql);
         } catch (\PDOException $e) {
-            fpcmLogSql($e);
+            fpcmLogSql((string) $e);
+            return false;
         }
 
         if ($res === false) {
@@ -549,7 +551,8 @@ final class database {
         try {
             $res = $this->connection->exec($sql);
         } catch (\PDOException $e) {
-            fpcmLogSql($e);
+            fpcmLogSql((string) $e);
+            return false;
         }
 
         if ($res === false) {
@@ -585,7 +588,8 @@ final class database {
         try {
             $res = $statement->execute($bindParams);
         } catch (\PDOException $e) {
-            fpcmLogSql($e);
+            fpcmLogSql((string) $e);
+            return false;
         }
 
         if (!$res) {
@@ -602,7 +606,6 @@ final class database {
     public function getError()
     {
         fpcmLogSql(print_r($this->connection->errorInfo(), true));
-
         return true;
     }
 
@@ -613,8 +616,14 @@ final class database {
      */
     public function getStatementError(\PDOStatement &$statement)
     {
-        fpcmLogSql(print_r($statement->errorInfo(), true));
+        $info = $statement->errorInfo();
 
+        $err  = 'ERROR MESSAGE: '.$info[2].PHP_EOL;
+        $err .= 'SQL STATE: '.$info[0].PHP_EOL;
+        $err .= $this->getDbtype().' ERROR CODE: '.$info[1].PHP_EOL;
+        $err .= 'Query: '.$statement->queryString.PHP_EOL;
+
+        fpcmLogSql($err);
         return true;
     }
 
