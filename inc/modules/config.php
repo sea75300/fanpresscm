@@ -47,7 +47,7 @@ class config implements \JsonSerializable {
 
         $this->data     = array_merge($this->data, ($installed === null
                         ? \Spyc::YAMLLoad($this->basePath.'module.yml')
-                        : json_decode($installed, true)));
+                        : (is_array($installed) ? $installed :  json_decode($installed, true)) ) );
     }
 
     /**

@@ -25,7 +25,7 @@ class repoModule extends module {
     public function createFromRepoArray(array $result)
     {
         $this->id = isset($result->id) ? $result['id'] : false;
-        $this->config = new config($this->key, $result['config']);
+        $this->config = new config($this->mkey, $result);
 
         return true;
     }

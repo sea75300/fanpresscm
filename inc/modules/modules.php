@@ -77,18 +77,18 @@ class modules extends \fpcm\model\abstracts\tablelist {
         foreach ($repoData as $key => $value) {
             
             $module = new repoModule($key, false);
-            $module->createFromDbObject([
+            $module->createFromRepoArray([
                 'name' => $value['name'],
                 'description' => isset($value['description']) ? $value['description'] : '',
                 'version' => isset($value['version']) ? $value['version'] : '',
                 'author' => isset($value['author']) ?$value['author'] : '',
-                'link' => isset($value['url']) ?$value['url'] : '',
+                'link' => isset($value['link']) ?$value['link'] : '',
                 'requirements' => isset($value['requirements']) ? $value['requirements'] : []
             ]);
             
             $modules[$key] = $module;
-
         }
+        
         
         return $modules;
     }
