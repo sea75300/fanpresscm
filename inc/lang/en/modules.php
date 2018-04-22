@@ -25,7 +25,6 @@ $lang = array(
     'MODULES_LIST_REQUIRE_FPCM' => 'Requires FanPress CM',    
     'MODULES_LIST_INFORMATIONS' => 'Module detail data',
     'MODULES_LIST_UPLOAD' => 'Upload Module Package',
-    'MODULES_LIST_RELOADPKGLIST' => 'Update package list',
     'MODULES_LIST_EXTERNALLIST' => 'Open external module list',
     'MODULES_LIST_BACKTOLIST' => 'Back to module list',
     'MODULES_LIST_INSTALLING' => 'Processing setup for {{modulekey}}',

@@ -46,15 +46,7 @@ fpcm.options = {
             });
         });
 
-        jQuery('#checkUpdate').click(function () {
-            fpcm.ui.showLoader(true);
-            fpcm.ajax.get('cronasync', {
-                data    : {
-                    cjId: 'updateCheck'
-                },
-                execDone: fpcm.ui.showLoader(false)
-            });
-        });
+        fpcm.system.checkForUpdates();
         
         fpcm.ui.selectmenu('#smtp_enabled', {
             change: function( event, data ) {

@@ -246,6 +246,51 @@ class module {
      * 
      * @return boolean
      */
+    public function isInstallable()
+    {
+        if (defined('FPCM_MODULE_IGNORE_DEPENDENCIES')) {
+            return FPCM_MODULE_IGNORE_DEPENDENCIES;
+        }
+        
+        fpcmLogSystem($this->config->requirements);
+        
+        if (version_compare(PHP_VERSION, $this->config->requirements['php']. '<')) {
+            return false;
+        }
+
+        if (version_compare($this->systemConfig->system_version, $this->config->requirements['system']. '<')) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    public function hasUpdates()
+    {
+        $data = \fpcm\classes\loader::getObject('\fpcm\model\updater\modules')->getDataCachedByKey($this->mkey);
+        if ($data === false) {
+            return false;
+        }
+
+        if (version_compare($this->config->version, $data['version'], '>=')) {
+            return false;
+        }
+        
+        if (version_compare(PHP_VERSION, $data['requirements']['php']. '<') || version_compare($this->systemConfig->system_version, $data['requirements']['system']. '<')) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
     protected function init()
     {
         if (!trim($this->mkey)) {

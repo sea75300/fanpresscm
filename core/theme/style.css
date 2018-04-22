@@ -277,13 +277,11 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
     margin-bottom: 0.5em;
 }
 
-.fpcm-ui-margin-md-left,
-fieldset:nth-child(even) {
+.fpcm-ui-margin-md-left {
     margin-left: 0.5em;
 }
 
-.fpcm-ui-margin-md-right,
-fieldset:nth-child(odd) {
+.fpcm-ui-margin-md-right {
     margin-right: 0.5em;
 }
 

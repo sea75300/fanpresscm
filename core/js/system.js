@@ -269,6 +269,20 @@ fpcm.system = {
             return false;
         });
         
+    },
+    
+    checkForUpdates: function () {
+        jQuery('#checkUpdate').click(function () {
+            fpcm.ui.showLoader(true);
+            fpcm.ajax.get('cronasync', {
+                data    : {
+                    cjId: 'updateCheck'
+                },
+                execDone: fpcm.ui.showLoader(false)
+            });
+        });
+
+        return true;
     }
 
 };

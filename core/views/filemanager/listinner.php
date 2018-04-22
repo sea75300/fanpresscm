@@ -60,8 +60,8 @@
                     <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">
                         <?php $theView->icon('user')->setText('FILE_LIST_UPLOAD_BY')->setSize('2x'); ?>
                     </div>
-                    <div class="col-7 col-sm-8 col-md-10 fpcm-ui-padding-none-lr">
-                        <?php print isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayName() : $theView->translate('GLOBAL_NOTFOUND'); ?>
+                    <div class="col-7 col-sm-8 col-md-10 align-self-center fpcm-ui-padding-none-lr">
+                        <?php print isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayName() : $theView->translate('USERS_SYSTEMUSER'); ?>
                     </div>
                 </div>
                 

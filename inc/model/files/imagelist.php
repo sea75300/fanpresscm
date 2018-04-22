@@ -42,7 +42,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         }
 
         $images = $this->dbcon->fetch(
-                $this->dbcon->select($this->table, '*', $where), true
+            $this->dbcon->select($this->table, '*', $where), true
         );
 
         $res = [];

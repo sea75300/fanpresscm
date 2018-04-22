@@ -20,6 +20,12 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      *
+     * @var int
+     */
+    protected $tab;
+
+    /**
+     *
      * @var string
      */
     protected $mode;
@@ -29,6 +35,12 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
      * @var \fpcm\modules\modules
      */
     protected $modules;
+
+    /**
+     *
+     * @var array
+     */
+    protected $installed;
 
     /**
      *
@@ -72,8 +84,8 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
             $this->returnData['exec'] = 0;
             $this->getSimpleResponse();
         }
-        
-        return true;
+
+        return call_user_func([$this, $fn]);
     }
 
     /**
@@ -88,7 +100,8 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
         
         $this->returnData = [
             'dataViewVars' => $dvVars['dataviews'][$dbName],
-            'dataViewName' => $dbName
+            'dataViewName' => $dbName,
+            'loadTab' => $this->tab
         ];
 
         $this->getSimpleResponse();
@@ -100,6 +113,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
      */
     private function fetchLocal()
     {
+        $this->tab = 0;
         $this->modules->updateFromFilesystem();
         $this->items = $this->modules->getFromDatabase();
         $this->itemsCount = count($this->items);
@@ -112,12 +126,17 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
      */
     private function fetchRemote()
     {
+        $this->tab = 1;
+        $this->installed = $this->modules->getInstalledDatabase();
         $this->items = $this->modules->getFromRepository();
         $this->itemsCount = count($this->items);
-
         return true;
     }
-    
+
+    /**
+     * 
+     * @return string
+     */
     protected function getDataViewName()
     {
         return 'modules'.$this->mode;
@@ -129,6 +148,21 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function getDataViewCols()
     {
+        $fn = 'getCols'.$this->mode;
+        if (!method_exists($this, $fn)) {
+            $this->returnData['exec'] = 0;
+            $this->getSimpleResponse();
+        }        
+        
+        return call_user_func([$this, $fn]);
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    private function getColsLocal()
+    {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
             (new \fpcm\components\dataView\column('buttons', ''))->setAlign('center')->setSize(3),
@@ -137,6 +171,21 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
             (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_LOCAL'))->setAlign('center')->setSize(2)
         ];
     }
+
+    /**
+     * 
+     * @return array
+     */
+    private function getColsRemote()
+    {
+        return [
+            (new \fpcm\components\dataView\column('buttons', ''))->setAlign('center')->setSize(2),
+            (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY'))->setAlign('center')->setSize(4),
+            (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME'))->setAlign('center')->setSize(4),
+            (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_REMOTE'))->setAlign('center')->setSize(2)
+        ];
+    }
+
     /**
      * 
      * @param \fpcm\modules\module $item
@@ -144,15 +193,33 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function initDataViewRow($item)
     {
+        $fn = 'initRow'.$this->mode;
+        if (!method_exists($this, $fn)) {
+            $this->returnData['exec'] = 0;
+            $this->getSimpleResponse();
+        }        
+
+        return call_user_func([$this, $fn], $item);
+    }
+
+    /**
+     * 
+     * @param \fpcm\modules\module $item
+     * @return \fpcm\components\dataView\row
+     */
+    protected function initRowLocal($item)
+    {
         $config = $item->getConfig();
         
         $key = $config->key;
         $hash = \fpcm\classes\tools::getHash($key);
         
         $buttons = [];        
-        
-        $buttons[] = '<div class="fpcm-ui-controlgroup">';
+        if (!$item->isInstallable()) {
+            $buttons[] = (new \fpcm\view\helper\icon('exclamation-triangle'))->setText('MODULES_FAILED_DEPENCIES')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text');
+        }
 
+        $buttons[] = '<div class="fpcm-ui-controlgroup">';
         $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
                             ->setText('MODULES_LIST_INFORMATIONS')
                             ->setIcon('info-circle')
@@ -180,12 +247,12 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                 $buttons[] = (new \fpcm\view\helper\button('uninstall'.$hash))->setText('MODULES_LIST_UNINSTALL')->setIcon('minus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'uninstall'])->setClass('fpcm-ui-modulelist-action-local');
             }
 
-//            if ($this->permArr['canInstall']) {
-//                $buttons[] = (new \fpcm\view\helper\button('update'.$hash))->setText('MODULES_LIST_UPDATE')->setIcon('sync')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'update'])->setClass('fpcm-ui-modulelist-action-local');
-//            }
+            if ($this->permArr['canInstall'] && $item->hasUpdates()) {
+                $buttons[] = (new \fpcm\view\helper\button('update'.$hash))->setText('MODULES_LIST_UPDATE')->setIcon('sync')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'update'])->setClass('fpcm-ui-modulelist-action-local');
+            }
         }
         elseif ($this->permArr['canInstall']) {
-            $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'install', 'dir' => true])->setClass('fpcm-ui-modulelist-action-local');
+            $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'install', 'dir' => true])->setClass('fpcm-ui-modulelist-action-local')->setReadonly(!$item->isInstallable());
         }
 
         $buttons[] = '</div>';
@@ -201,16 +268,59 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
+     * @param \fpcm\modules\repoModule $item
+     * @return \fpcm\components\dataView\row
+     */
+    protected function initRowRemote($item)
+    {
+        $config = $item->getConfig();
+        
+        $key = $config->key;
+        $hash = \fpcm\classes\tools::getHash($key);
+        
+        $buttons = [];        
+        if (!$item->isInstallable()) {
+            $buttons[] = (new \fpcm\view\helper\icon('exclamation-triangle'))->setText('MODULES_FAILED_DEPENCIES')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text');
+        }
+
+        $buttons[] = '<div class="fpcm-ui-controlgroup">';
+
+        $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
+                            ->setText('MODULES_LIST_INFORMATIONS')
+                            ->setIcon('info-circle')
+                            ->setClass('fpcm-ui-modulelist-info')
+                            ->setIconOnly(true)
+                            ->setData([
+                                'name' => (string) new \fpcm\view\helper\escape($config->name),
+                                'descr' => $config->description,
+                                'author' => (string) new \fpcm\view\helper\escape($config->author),
+                                'link' => $config->link,
+                                'php' => $config->requirements['php'],
+                                'system' => $config->requirements['system']
+                            ]);
+        
+        if ($this->permArr['canInstall']) {
+            $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'install'])->setClass('fpcm-ui-modulelist-action-remote')->setReadonly($item->isInstalled() || !$item->isInstallable());
+        }
+
+        $buttons[] = '</div>';
+
+        return new \fpcm\components\dataView\row([
+            new \fpcm\components\dataView\rowCol('buttons', implode('', $buttons)),
+            new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key) ),
+            new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($config->name ) ),
+            new \fpcm\components\dataView\rowCol('version', new \fpcm\view\helper\escape($config->version) )
+        ]);
+    }
+
+    /**
+     * 
      * @return boolean
      */
     protected function initActionObjects()
     {
         $this->modules = new \fpcm\modules\modules();
-        $this->modules->updateFromFilesystem();
 
-        $this->items = $this->modules->getFromDatabase();
-        $this->itemsCount = count($this->items);
-        
         $this->permArr = [
             'canInstall' => $this->permissions->check(['modules' => 'install']),
             'canUninstall' => $this->permissions->check(['modules' => 'uninstall']),

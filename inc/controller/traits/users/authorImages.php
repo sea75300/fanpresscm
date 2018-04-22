@@ -24,7 +24,6 @@ trait authorImages {
      */
     protected function uploadImage($author)
     {
-
         if (!$author instanceof \fpcm\model\users\author) {
             return false;
         }

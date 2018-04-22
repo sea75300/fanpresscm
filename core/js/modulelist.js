@@ -12,11 +12,8 @@ if (fpcm === undefined) {
 fpcm.modulelist = {
 
     init: function() {
-        
-//        fpcm.dataview.render('modulelist', {
-//            onRenderAfter: fpcm.modulelist.initButtons
-//        });
 
+        fpcm.system.checkForUpdates();
 
         fpcm.modulelist.tabs = fpcm.ui.tabs('#fpcm-tabs-modules', {
 
@@ -69,6 +66,8 @@ fpcm.modulelist = {
         fpcm.ui.assignControlgroups();
 
         jQuery('button.fpcm-ui-modulelist-action-local').click(function() {
+            
+            fpcm.ui.showLoader(true);
 
             var btnEl = jQuery(this);
             var params = {

@@ -16,6 +16,18 @@ namespace fpcm\model\updater;
 final class modules extends \fpcm\model\abstracts\staticModel {
 
     /**
+     *
+     * @var array
+     */
+    private $list = [];
+
+    /**
+     *
+     * @var \fpcm\model\files\fileOption
+     */
+    private $fileOption;
+
+    /**
      * Initialisiert System Updater
      */
     public function __construct()
@@ -33,6 +45,21 @@ final class modules extends \fpcm\model\abstracts\staticModel {
     {
         include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
         return \Spyc::YAMLLoadString($this->fileOption->read());
+    }
+
+    /**
+     * 
+     * @param string $key
+     * @return array
+     */
+    public function getDataCachedByKey($key)
+    {
+        if (!count($this->list)) {
+            include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
+            $this->list = \Spyc::YAMLLoadString($this->fileOption->read());
+        }
+
+        return isset($this->list[$key]) ? $this->list[$key] : false;
     }
 
 

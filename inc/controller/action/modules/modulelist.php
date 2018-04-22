@@ -65,6 +65,12 @@ class modulelist extends \fpcm\controller\abstracts\controller {
         
         $this->view->addDataView(new \fpcm\components\dataView\dataView('modulesLocal', false));
         $this->view->addDataView(new \fpcm\components\dataView\dataView('modulesRemote', false));
+        
+        if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->check(['modules' => 'install'])) {
+            $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync');
+        }
+        
+        $this->view->addButtons($buttons);
 
 //        $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', [            
 //            '{{filecount}}' => 1,

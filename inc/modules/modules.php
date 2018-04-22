@@ -36,9 +36,26 @@ class modules extends \fpcm\model\abstracts\tablelist {
 
         $modules = [];
         foreach ($result as $dataset) {
-            $module = new module($dataset->mkey, false);
-            $module->createFromDbObject($dataset);
-            $modules[$dataset->mkey] = $module;
+            $this->createResult($dataset, $modules);
+        }
+
+        return $modules;
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public function getInstalledDatabase()
+    {
+        $result = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'installed = 1'), true);
+        if (!$result) {
+            return [];
+        }
+
+        $modules = [];
+        foreach ($result as $dataset) {
+            $this->createResult($dataset, $modules);
         }
 
         return $modules;
@@ -69,7 +86,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
                 'requirements' => isset($value['requirements']) ? $value['requirements'] : []
             ]);
             
-            $modules[] = $module;
+            $modules[$key] = $module;
 
         }
         
@@ -103,5 +120,19 @@ class modules extends \fpcm\model\abstracts\tablelist {
 
         return true;
     }
-    
+
+    /**
+     * 
+     * @param object $dataset
+     * @param array $modules
+     * @return boolean
+     */
+    private function createResult($dataset, array &$modules)
+    {
+        $module = new module($dataset->mkey, false);
+        $module->createFromDbObject($dataset);
+        $modules[$dataset->mkey] = $module;
+        return true;
+    }
+
 }

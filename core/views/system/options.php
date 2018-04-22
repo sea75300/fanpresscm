@@ -15,7 +15,7 @@
             
             <div class="row no-gutters">
                 <div class="col-sm-12 col-lg-6">
-                    <fieldset>
+                    <fieldset class="fpcm-ui-margin-md-right">
                         <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
                         
                         <div class="row fpcm-ui-padding-md-tb fpcm-ui-padding-md-tb">
@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="col-sm-12 col-lg-6">
-                    <fieldset>
+                    <fieldset class="fpcm-ui-margin-md-left">
                         <legend><?php $theView->write('HL_FRONTEND'); ?></legend>
 
                         <div class="row fpcm-ui-padding-md-tb">
@@ -139,7 +139,7 @@
             
             <div class="row no-gutters">
                 <div class="col-sm-12 col-lg-6">
-                    <fieldset>
+                    <fieldset class="fpcm-ui-margin-md-right">
                         <legend><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_SETTINGS'); ?></legend>
 
                         <div class="row fpcm-ui-padding-md-tb">
@@ -215,7 +215,7 @@
                 </div>
                 
                 <div class="col-sm-12 col-lg-6">
-                    <fieldset>
+                    <fieldset class="fpcm-ui-margin-md-left">
                         <legend><?php $theView->write('HL_FILES_MNG'); ?></legend>
 
                         <div class="row fpcm-ui-padding-md-tb">
@@ -244,7 +244,7 @@
                         </div>
                     </fieldset>
                     
-                    <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-md-top" >
+                    <fieldset class="fpcm-ui-margin-md-left fpcm-ui-margin-md-top" >
                         <legend><?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWIMGTHUMBSIZE'); ?></legend>
                         
                        <div class="row fpcm-ui-padding-md-tb">
@@ -273,7 +273,7 @@
 
             <div class="row no-gutters">
                 <div class="col-sm-12 col-lg-6">
-                    <fieldset>
+                    <fieldset class="fpcm-ui-margin-md-right">
                         <legend><?php $theView->write('HL_FRONTEND'); ?></legend>
                         
                         <div class="row fpcm-ui-padding-md-tb">
@@ -378,7 +378,7 @@
                 </div>
 
                 <div class="col-sm-12 col-lg-6">
-                    <fieldset>
+                    <fieldset class="fpcm-ui-margin-md-left">
                         <legend><?php $theView->write('HL_ARCHIVE'); ?></legend>
 
                         <div class="row fpcm-ui-padding-md-tb">
@@ -409,7 +409,7 @@
         <div id="tabs-options-comments">
             <div class="row no-gutters">
                 <div class="col-sm-12 col-lg-6">
-                    <fieldset>
+                    <fieldset class="fpcm-ui-margin-md-right">
                         <legend><?php $theView->write('HL_COMMENTS_MNG'); ?></legend>
 
                         <div class="row fpcm-ui-padding-md-tb">
@@ -478,7 +478,7 @@
                 </div>
                 
                 <div class="col-sm-12 col-lg-6">
-                    <fieldset>
+                    <fieldset class="fpcm-ui-margin-md-left">
                         <legend><?php $theView->write('SYSTEM_OPTIONS_CAPTCHASETTING'); ?></legend>
                         <div class="row fpcm-ui-padding-md-tb">
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
@@ -518,7 +518,7 @@
         <div id="tabs-options-extended">
             <div class="row no-gutters">
                 <div class="col-sm-12 col-lg-6">
-                    <fieldset>
+                    <fieldset class="fpcm-ui-margin-md-right">
                         <legend><?php $theView->write('SYSTEM_HL_OPTIONS_SECURITY'); ?></legend>
                         
                         <div class="row fpcm-ui-padding-md-tb">
@@ -556,7 +556,7 @@
                         </div>
                     </fieldset>
                     
-                    <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-md-right fpcm-ui-margin-md-top" >
+                    <fieldset class="fpcm-ui-margin-md-right fpcm-ui-margin-md-top" >
                         <legend><?php $theView->write('SYSTEM_OPTIONS_EXTENDED_UPDATES'); ?></legend>
 
                         <div class="row fpcm-ui-padding-md-tb">
@@ -592,7 +592,7 @@
                 </div>
                 
                 <div class="col-sm-12 col-lg-6">
-                    <fieldset>
+                    <fieldset class="fpcm-ui-margin-md-left">
                         <legend><?php $theView->write('SYSTEM_OPTIONS_EXTENDED_EMAILSUBMISSION'); ?></legend>
                         
                         <?php if ($smtpActive) : ?>

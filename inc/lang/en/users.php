@@ -7,6 +7,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 $lang = array(
+    'USERS_SYSTEMUSER' => 'FPCM-System',
     'USERS_DISPLAYNAME' => 'Display name',
     'USERS_PASSWORD_CONFIRM' => 'Confirm password',
     'USERS_REQUIREMENTS' => 'Password requires at least six digits including upper and lower case letters and numbers',
