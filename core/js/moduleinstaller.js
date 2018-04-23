@@ -1,150 +1,123 @@
 /**
- * FanPress CM javascript module installer functions
+ * FanPress CM module installer Namespace
  * @article Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2015-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @since FPCM 3.5
  */
+if (fpcm === undefined) {
+    var fpcm = {};
+}
 
-var fpcmModuleInstaller = function () {
-    
-    var self = this;
-    
-    this.responseData = '';    
-    this.startTime = 0;    
-    this.moduleListClass = '';    
-    this.idx = 0;
-    this.key = '';
-    this.type = '';
-    this.moduleIndex = '';
-    this.moduleKeyCount = 0;
-    
-    this.init = function (type) {
+fpcm.modules = {
 
-        if (typeof fpcmUpdaterProgressbar == 'undefined') {
-            jQuery('.fpcm-updater-progressbar').remove();
-        } else {
-            self.progressbar(0);            
+    startTime    : 0,
+    stopTime     : 0,
+    elCount      : [],
+    elements     : [],
+    currentEl    : {},
+    currentIdx   : 0,
+    statusSpinner: 'fa-spinner fa-pulse fpcm-ui-update-iconstatus-spinner',
+
+    init: function () {
+
+//        fpcm.updater.elements = jQuery('.fpcm-ui-update-icons');
+//        fpcm.updater.elCount  = fpcm.updater.elements.length;
+//
+//        var start = fpcm.updater.elements.first();
+//        fpcm.updater.execRequest(start);
+    },
+
+    execRequest: function(el) {
+
+        fpcm.updater.currentIdx++;
+
+        var params = {
+            step: el.attr('data-step'),
+            func: el.attr('data-func'),
+            var: el.attr('data-var'),
+        };
+
+        el.parent().parent().removeClass('fpcm-ui-status-0').addClass('fpcm-ui-status-1');
+        var descrEl = el.parent().parent().find('.fpcm-ui-updater-descr');
+        
+        if (params.var && fpcm.vars.jsvars.pkgdata.update[params.var]) {
+            descrEl.html(descrEl.html().replace('{{var}}', fpcm.vars.jsvars.pkgdata.update[params.var]));
         }
 
-        self.startTime   = (new Date().getTime());
-        self.moduleKeyCount = fpcmModuleKeys.length;
+        if (params.func && typeof fpcm.updater[params.func] === 'function') {
+            fpcm.updater[params.func].call();
+        }
 
-        jQuery('.fpcm-updater-list').empty();
-        fpcm.ui.showLoader(true);
-
-        self.idx = 1;
-        self.progressbar(1);           
-        self.runInstall(fpcmModuleKeys[0], 1, type);
-        
-        return false;
-    };
-    
-    this.runInstall = function (key, moduleIndex, type) {
-
-        self.moduleListClass     = 'fpcm-updater-list-'+ moduleIndex;
-        self.moduleListSpinenrId = self.moduleListClass + '-spinner';
-        
-        fpcm.ui.appendHtml('.fpcm-updater-list', '<div class="' + self.moduleListClass + ' fpcm-ui-modules-installerbox"></div>');
-
-        self.moduleListClass = '.' + self.moduleListClass;
-
-        self.key = key;
-        self.type = type;
-        self.moduleIndex = moduleIndex;
-        
-        self.execRequest(fpcmUpdaterStartStep);
-
-        return true;
-    };
-    
-    this.execRequest = function(idx) {
-
-        if (idx > fpcmUpdaterMaxStep) {
+        if (!params.step) {
             return false;
         }
 
-        var msgText = fpcmUpdaterMessages[idx + '_START'];
+        el.find('.fpcm-ui-update-iconstatus').removeClass('fa-square fpcm-ui-update-iconstatus-0').addClass(fpcm.updater.statusSpinner);
+        fpcm.updater.currentEl = el;
 
-        if (idx == 1) {
-            fpcm.ui.appendHtml(self.moduleListClass, '<p><span id="' + self.moduleListSpinenrId + '" class="fa fa-spinner fa-spin fa-fw fa-lg"></span><strong>' + fpcm.ui.translate('MODULES_LIST_UPDATING').replace('{{modulekey}}', self.key.split('_version')[0]) + '</strong></p>');
-            msgText = msgText.replace('{{pkglink}}', fpcmModuleUrl.replace('{{pkgkey}}', self.key));
-        }
-
-        fpcm.ui.assignHtml('div.fpcm-updater-progressbar div.fpcm-ui-progressbar-label', msgText);
-
-        fpcm.ajax.post('packagemgr/mod' + self.type, {
-
+        fpcm.ajax.post('packagemgr/processUpdate', {
             data: {
-                step : idx,
-                key  : self.key,
-                midx : self.moduleIndex
+                step : params.step
             },
-           
             execDone: function () {
-                self.responseData = fpcm.ajax.fromJSON(fpcm.ajax.getResult('packagemgr/mod' + self.type));
-                if (self.responseData.data === undefined) {
-                    alert(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
-                    return false;
-                }
 
-                if (self.responseData.code != self.responseData.data.current + '_' +1) {
-                    fpcm.ui.showLoader(false);
-                    fpcm.ui.appendHtml(self.moduleListClass, '<p class="fpcm-ui-important-text">' + fpcmUpdaterMessages[self.responseData.code] + '</p>');
-                    return false;
-                }
+                var res = fpcm.ajax.getResult('packagemgr/processUpdate', true);
 
-                fpcm.ui.appendHtml(self.moduleListClass, '<p>' + fpcmUpdaterMessages[self.responseData.code] + '</p>');
+                var statusEl = fpcm.updater.currentEl.find('.fpcm-ui-update-iconstatus');
+                statusEl.removeClass(fpcm.updater.statusSpinner);
 
-                if (self.responseData.code && self.responseData.data.current == fpcmUpdaterMaxStep) {
-                    fpcm.ui.appendHtml(self.moduleListClass, '<p>' + fpcmUpdaterMessages['EXIT_1'] + '</p>');
-                    jQuery('#' + self.moduleListSpinenrId).removeClass('fa-spinner').removeClass('fa-spin').addClass('fa-check');
-
-                    if (self.moduleKeyCount > self.idx) {
-                        self.idx++;
-                        self.progressbar(self.idx);           
-                        self.runInstall(fpcmModuleKeys[(self.idx-1)], self.idx, self.type);            
-                        return true;
+                if (!res.code) {
+                    statusEl.addClass('fa-ban fpcm-ui-important-text');
+                    jQuery('#fpcm-ui-update-result-0').removeClass('fpcm-ui-hidden');
+                    
+                    if (res.pkgdata.errorMsg) {
+                        fpcm.ui.addMessage({
+                            txt: res.pkgdata.errorMsg,
+                            type: 'error'
+                        });
                     }
 
-                    self.addTimer();
-                    return true;
+                    fpcm.updater.currentEl = {};
+                    return false;
                 }
 
-                self.execRequest(self.responseData.data.nextstep);
+                if (res.pkgdata instanceof Object) {
+                    jQuery.extend(fpcm.vars.jsvars.pkgdata.update, res.pkgdata);
+                }
 
-                return true;
+                var afterFunc = fpcm.updater.currentEl.attr('data-after');
+                if (afterFunc && typeof fpcm.updater[afterFunc] === 'function') {
+                    fpcm.updater[afterFunc].call();
+                }
+
+                statusEl.addClass('fa-check fpcm-ui-editor-metainfo fpcm-ui-status-075');
+                if (!fpcm.updater.elements[fpcm.updater.currentIdx]) {
+                    return false;
+                }
+
+                fpcm.updater.execRequest(jQuery(fpcm.updater.elements[fpcm.updater.currentIdx]));
+            },
+            execFail: function () {
+                fpcm.updater.currentEl.find('.fpcm-ui-update-iconstatus').removeClass(fpcm.updater.statusSpinner).addClass('fa-ban fpcm-ui-important-text');
+                jQuery('#fpcm-ui-update-result-0').removeClass('fpcm-ui-hidden');
+                fpcm.updater.currentEl = {};
+                return false;
             }
         });
-        
-        
+
         return true;
-    };
+    },
     
-    this.addTimer = function() {
-        var updateTimer = ((new Date().getTime()) - self.startTime) / 1000;
-        fpcm.ui.appendHtml('.fpcm-updater-list', '<p>' + fpcmUpdaterProcessTime + ': ' + updateTimer + 'sec</p>');
-        fpcm.ui.assignHtml('div.fpcm-updater-progressbar div.fpcm-ui-progressbar-label', '');
-        fpcm.ui.showLoader(false);
-    };
+    startTimer: function() {
+        fpcm.updater.startTime = (new Date().getTime());
+    },
     
-    this.progressbar = function (pgValue) {
-        
-        if (typeof fpcmUpdaterProgressbar == 'undefined') return false;  
-
-        fpcm.ui.progressbar('.fpcm-updater-progressbar', {
-            max: fpcmProgressbarMax,
-            value: pgValue
-        });
-
-    };
-    
-}
-
-fpcm.moduleinstaller = {
-    
-    init: function() {
-        fpcmModuleInstaller = new fpcmModuleInstaller();
-        fpcmModuleInstaller.init(fpcmModulesMode);
+    stopTimer: function() {
+        fpcm.updater.stopTime = (new Date().getTime());
+        fpcm.ui.appendHtml('#fpcm-ui-update-timer', ': ' + (fpcm.updater.stopTime - fpcm.updater.startTime) / 1000 + ' sec');
+        fpcm.ui.appendHtml('#fpcm-ui-update-newver-descr', ': ' + fpcm.vars.jsvars.pkgdata.update.version);
+        jQuery('#fpcm-ui-update-timer').parent().removeClass('fpcm-ui-hidden');
+        jQuery('#fpcm-ui-update-result-1').removeClass('fpcm-ui-hidden');
     }
-    
-}
+};

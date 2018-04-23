@@ -41,7 +41,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function getPermissions()
     {
-        return ['system' => 'options', 'modules' => ['configure', 'install', 'uninstall']];
+        return ['modules' => ['configure', 'install', 'uninstall']];
     }
 
     /**

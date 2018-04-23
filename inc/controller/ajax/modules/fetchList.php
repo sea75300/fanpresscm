@@ -286,21 +286,27 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
         $buttons[] = '<div class="fpcm-ui-controlgroup">';
 
         $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
-                            ->setText('MODULES_LIST_INFORMATIONS')
-                            ->setIcon('info-circle')
-                            ->setClass('fpcm-ui-modulelist-info')
-                            ->setIconOnly(true)
-                            ->setData([
-                                'name' => (string) new \fpcm\view\helper\escape($config->name),
-                                'descr' => $config->description,
-                                'author' => (string) new \fpcm\view\helper\escape($config->author),
-                                'link' => $config->link,
-                                'php' => $config->requirements['php'],
-                                'system' => $config->requirements['system']
-                            ]);
+                    ->setText('MODULES_LIST_INFORMATIONS')
+                    ->setIcon('info-circle')
+                    ->setClass('fpcm-ui-modulelist-info')
+                    ->setIconOnly(true)
+                    ->setData([
+                        'name' => (string) new \fpcm\view\helper\escape($config->name),
+                        'descr' => $config->description,
+                        'author' => (string) new \fpcm\view\helper\escape($config->author),
+                        'link' => $config->link,
+                        'php' => $config->requirements['php'],
+                        'system' => $config->requirements['system']
+                    ]);
         
         if ($this->permArr['canInstall']) {
-            $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'install'])->setClass('fpcm-ui-modulelist-action-remote')->setReadonly($item->isInstalled() || !$item->isInstallable());
+            $buttons[] = (new \fpcm\view\helper\linkButton('install'.$hash))
+                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modinstall', ['key' => $item->getKey()]))
+                    ->setText('MODULES_LIST_INSTALL')
+                    ->setIcon('plus-circle')
+                    ->setIconOnly(true)
+                    ->setClass('fpcm-ui-modulelist-action-remote')
+                    /*->setReadonly($item->isInstalled() || !$item->isInstallable())*/;
         }
 
         $buttons[] = '</div>';
