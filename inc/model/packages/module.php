@@ -1,114 +1,88 @@
 <?php
-    /**
-     * Package object
-     * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
-     */
-    namespace fpcm\model\packages;
+
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\model\packages;
+
+/**
+ * System package objekt
+ * 
+ * @package fpcm\model\packages
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @since FPCM 3.1
+ */
+class module extends package {
 
     /**
-     * System package objekt
-     * 
-     * @package fpcm\model\packages
-     * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @since FPCM 3.1
+     *
+     * @var \fpcm\model\updater\modules
      */
-    class module extends package {
+    protected $repo;
+    /**
+     *
+     * @var \fpcm\model\updater\modules
+     */
+    protected $hashKey;
 
-        /**
-         * Konstruktor
-         * @param string $type Package-Type
-         * @param string $key Package-Key
-         * @param string $version Package-Version
-         * @param string $signature Package-Signature
-         */
-        public function __construct($type, $key, $version = '', $signature = '') {
-            parent::__construct('module', $key, $version, $signature);
-        }
-
-        /**
-         * Kopiert Inhalt von Paket von Quelle nach Ziel
-         * @return boolean
-         */
-        public function copy() {    
-            
-            if (!file_exists($this->tempListFile)) {
-                \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-                return false;
-            }
-            
-            $this->loadPackageFileListFromTemp();
-            
-            if (!count($this->files)) {
-                \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-                return false;
-            }
-            
-            $vendorFolder = \fpcm\classes\dirs::getFullDirPath('', $this->copyDestination.dirname($this->key));
-            if (!is_dir($vendorFolder) && !mkdir($vendorFolder) ) {
-                trigger_error('Unable to create module vendor folder '.\fpcm\model\files\ops::removeBaseDir($vendorFolder, true));
-                \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-                return false;
-            }
-
-            $res = true;
-            foreach ($this->files as $zipFile) {
-                $source = $this->extractPath.$zipFile;
-
-                $dest   = \fpcm\classes\dirs::getFullDirPath('', $this->copyDestination.str_replace(basename($this->key).DIRECTORY_SEPARATOR, $this->key.DIRECTORY_SEPARATOR, $zipFile));
-                $dest   = $this->replaceFanpressDirString($dest);
-                
-                if (is_dir($source)) {
-                    if (!file_exists($dest) && !mkdir($dest, 0777)) {
-                        if (!is_array($res)) $res = [];
-                        $res[] = $dest;
-                    }
-                    continue;
-                }
-                
-                if (file_exists($dest)) {
-                    
-                    if (sha1_file($source) == sha1_file($dest)) {
-                        $this->updateProtocol($zipFile, -1);
-                        continue;
-                    }
-
-                    $backFile = $dest.'.back';
-                    if (file_exists($backFile)) {
-                        unlink($backFile);
-                    }
-
-                    rename($dest, $backFile);
-
-                }
-
-                $success = copy($source, $dest);
-                if (!$success) {
-                    if (!is_array($res)) $res = [];                    
-                    $res[] = $dest;
-                }
-
-                $this->updateProtocol($zipFile, $success);
-            }
-
-            $this->saveProtocolTemp();
-            return is_array($res) ? self::FPCMPACKAGE_FILESCOPY_ERROR : $res;
-        }
-
-        /**
-         * Initialisiert Daten
-         */
-        public function init() {
-            $this->filename     = $this->key.'_version'.$this->version.'.zip';
-
-            $this->remoteFile   = \fpcm\classes\baseconfig::$moduleServer.self::FPCMPACKAGE_SERVER_PACKAGEPATH.$this->filename;
-            $this->localFile    = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $this->filename);
-            $this->extractPath  = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, dirname($this->key).DIRECTORY_SEPARATOR);
-            $this->tempListFile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, md5($this->localFile));
-            
-            $copyDest = str_replace(\fpcm\classes\dirs::getFullDirPath(''), '', \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES));
-            $this->setCopyDestination($copyDest);
-        }
-
+    protected function initObjects()
+    {
+        $this->repo = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->packageName);
+        $this->hashKey = \fpcm\classes\tools::getHash($this->packageName);
+        return true;
     }
+
+    protected function getExtractionPath()
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $this->hashKey);
+    }
+
+    public function getLocalDestinationPath()
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $this->hashKey);
+    }
+
+    public function getLocalPath()
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $this->hashKey);
+    }
+
+    public function getLocalSignature()
+    {
+        return \fpcm\model\files\ops::hashFile($this->getLocalPath());
+    }
+
+    protected function getPackageKey()
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'package.key');
+    }
+
+    public function getRemotePath()
+    {
+        return $this->repo['packageUrl'];
+    }
+
+    public function getRemoteSignature()
+    {
+        return $this->repo['signature'];
+    }
+
+    public function checkFiles()
+    {
+        return true;
+    }
+
+    public function copy()
+    {
+        return true;
+    }
+
+    public function updateLog()
+    {
+        return true;
+    }
+
+
+}

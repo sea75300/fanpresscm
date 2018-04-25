@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\packagemgr;
 
-class install extends \fpcm\controller\abstracts\controller {
+class moduleInstaller extends \fpcm\controller\abstracts\controller {
 
     use \fpcm\controller\traits\packagemgr\initialize;
 
@@ -75,7 +75,11 @@ class install extends \fpcm\controller\abstracts\controller {
         $this->view->setViewVars($this->steps);
         $this->view->addJsVars([
             'pkgdata' => [
-                $this->key => $jsData
+                'module' => $jsData
+            ],
+            'modinstaller' => [
+                'action' => 'install',
+                'key' => $this->key
             ]
         ]);
         

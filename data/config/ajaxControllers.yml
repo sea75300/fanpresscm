@@ -24,8 +24,7 @@ ajax/refresh: ajax/system/refresh
 ajax/cronasync: ajax/system/cronasync
 ajax/croninterval: ajax/system/croninterval
 ajax/packagemgr/processUpdate: ajax/packagemgr/processUpdate
-ajax/packagemgr/modinstall: ajax/packagemgr/module_install
-ajax/packagemgr/modupdate: ajax/packagemgr/module_update
+ajax/packagemgr/moduleInstaller: ajax/packagemgr/moduleInstaller
 ajax/modules/exec: ajax/modules/execAction
 ajax/modules/fetch: ajax/modules/fetchList
 ajax/modules/loadpkglist: ajax/modules/loadpkglist

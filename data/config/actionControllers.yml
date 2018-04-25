@@ -38,7 +38,7 @@ articles/trash: action/articles/articlelisttrash
 comments/edit: action/comments/commentedit
 comments/list: action/comments/commentlist
 package/sysupdate: action/packagemgr/sysupdate
-package/modinstall: action/packagemgr/install
+package/modinstall: action/packagemgr/moduleInstaller
 modules/list: action/modules/modulelist
 ## FanPress CM public action controller file
 fpcm/list: action/pub/showall

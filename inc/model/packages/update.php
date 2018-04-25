@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Package object
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -14,6 +12,8 @@ namespace fpcm\model\packages;
  * 
  * @package fpcm\model\packages
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.1
  */
 class update extends package {
@@ -22,7 +22,7 @@ class update extends package {
      *
      * @var \fpcm\model\updater\system
      */
-    private $updater;
+    protected $updater;
 
     /**
      * Initializes interval objects

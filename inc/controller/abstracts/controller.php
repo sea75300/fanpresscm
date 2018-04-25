@@ -150,7 +150,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
         $this->ipList = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
         $this->crons = \fpcm\classes\loader::getObject('\fpcm\model\crons\cronlist');
-        $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\model\modules\modulelist')->getEnabledInstalledModules();
+        $this->enabledModules = []; //\fpcm\classes\loader::getObject('\fpcm\model\modules\modulelist')->getEnabledInstalledModules();
         $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
 
         $rollId = $this->session->exists() ? $this->session->currentUser->getRoll() : 0;
