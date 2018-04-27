@@ -36,7 +36,7 @@ class module extends package {
 
     protected function getExtractionPath()
     {
-        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $this->hashKey);
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, 'module_'.$this->hashKey);
     }
 
     public function getLocalDestinationPath()
@@ -46,7 +46,7 @@ class module extends package {
 
     public function getLocalPath()
     {
-        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $this->hashKey);
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $this->packageName);
     }
 
     public function getLocalSignature()

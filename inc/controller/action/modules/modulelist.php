@@ -11,8 +11,6 @@ namespace fpcm\controller\action\modules;
 
 class modulelist extends \fpcm\controller\abstracts\controller {
 
-    use \fpcm\controller\traits\modules\moduleactions;
-
     /**
      *
      * @var \fpcm\modules\modules
@@ -39,7 +37,7 @@ class modulelist extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return type
+     * @return array
      */
     protected function getPermissions()
     {
@@ -49,10 +47,25 @@ class modulelist extends \fpcm\controller\abstracts\controller {
         ];
     }
 
+    /**
+     * 
+     * @return boolean
+     */
+    public function request()
+    {
+        $this->uploadModule();
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
     public function process()
     {
         $this->view->addJsLangVars(['MODULES_LIST_INFORMATIONS']);
         $this->view->addJsFiles(['modulelist.js', 'fileuploader.js']);
+        $this->view->setFormAction('modules/list');
         $this->view->addJsVars([
             'jqUploadInit' => 0
         ]);
@@ -72,11 +85,34 @@ class modulelist extends \fpcm\controller\abstracts\controller {
         
         $this->view->addButtons($buttons);
 
-//        $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', [            
-//            '{{filecount}}' => 1,
-//            '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
-//        ]));
+        $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', [            
+            '{{filecount}}' => 1,
+            '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
+        ]));
 
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    private function uploadModule()
+    {
+        $files = \fpcm\classes\http::getFiles();
+        if (!$this->buttonClicked('uploadFile') || !$files) {
+            return true;
+        }
+
+        $uploader = new \fpcm\model\files\fileuploader($files);
+        if ($uploader->processModuleUpload() == true) {
+            $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADMODULE');
+            return true;
+        }
+
+        $this->view->addErrorMessage('SAVE_FAILED_UPLOADMODULE');
+        return true;
+        
     }
 
 }

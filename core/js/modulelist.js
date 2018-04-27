@@ -19,6 +19,11 @@ fpcm.modulelist = {
 
             beforeLoad: function(event, ui) {
                 
+                if (!ui.tab.attr('data-dataview-list')) {
+                    fpcm.ui.showLoader();
+                    return true;
+                }
+                
                 fpcm.ui.showLoader(true);
                 ui.jqXHR.done(function(result) {
                     fpcm.ui.showLoader();
@@ -35,7 +40,12 @@ fpcm.modulelist = {
             },
             load: function( event, ui ) {
 
-                if (!fpcm.vars.jsvars.dataviews.data.modulesList) {
+                var listId = ui.tab.attr('data-dataview-list');
+                if (!listId) {
+                    return false;
+                }
+
+                if (!fpcm.vars.jsvars.dataviews || !fpcm.vars.jsvars.dataviews.data.modulesList) {
                     return true;
                 }
 
@@ -43,7 +53,7 @@ fpcm.modulelist = {
 
                 var result = fpcm.ajax.fromJSON(fpcm.vars.jsvars.dataviews.data.modulesList);
                 ui.panel.empty();
-                ui.panel.append(fpcm.dataview.getDataViewWrapper(ui.tab.attr('data-dataview-list'), 'fpcm-ui-modulelist'));
+                ui.panel.append(fpcm.dataview.getDataViewWrapper(listId, 'fpcm-ui-modulelist'));
 
                 fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
                 fpcm.dataview.updateAndRender(result.dataViewName, {

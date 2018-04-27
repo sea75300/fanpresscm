@@ -4,11 +4,14 @@
         <ul>
             <li data-dataview-list="modulesLocal"><a href="<?php print fpcm\classes\tools::getFullControllerLink('ajax/modules/fetch', ['mode' => 'local']); ?>"><?php $theView->write('MODULES_LIST_HEADLINE'); ?></a></li>
             <li data-dataview-list="modulesRemote"><a href="<?php print fpcm\classes\tools::getFullControllerLink('ajax/modules/fetch', ['mode' => 'remote']); ?>"><?php $theView->write('MODULES_LIST_AVAILABLE'); ?></a></li>
-            <?php if ($canInstall) : ?><li><a href="<?php print fpcm\classes\tools::getFullControllerLink('modules/upload'); ?>"><?php $theView->write('MODULES_LIST_UPLOAD'); ?></a></li><?php endif; ?>
+            <?php if ($canInstall) : ?><li><a href="#tabs-modules-upload"><?php $theView->write('MODULES_LIST_UPLOAD'); ?></a></li><?php endif; ?>
         </ul>
 
-        <div id="loader"></div>
-
+        <?php if ($canInstall) : ?>
+        <div id="tabs-modules-upload">
+            <?php include $theView->getIncludePath('filemanager/forms/phpupload.php'); ?>
+        </div>
+        <?php endif; ?>
     </div>
 </div>
 

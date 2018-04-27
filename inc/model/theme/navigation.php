@@ -155,11 +155,10 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             ),
             'modules' => array(
                 navigationItem::createItemFromArray([
-                    'url' => '#',
-                    'permission' => array('system' => 'options', 'modules' => 'configure'),
+                    'url' => 'modules/list',
+                    'permission' => ['modules' => ['install', 'uninstall', 'configure']],
                     'description' => $this->language->translate('HL_MODULES'),
-                    'icon' => 'fa fa-plug',
-                    'class' => 'fpcm-navigation-noclick',
+                    'icon' => 'fa fa-plug fa-fw',
                     'submenu' => $this->modulesSubmenu()
                 ])
             ),
@@ -278,10 +277,10 @@ class navigation extends \fpcm\model\abstracts\staticModel {
 
         if (\fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() == \fpcm\classes\database::DBTYPE_MYSQLMARIADB) {
             $data[] = navigationItem::createItemFromArray([
-                        'url' => 'system/backups',
-                        'permission' => array('system' => 'backups'),
-                        'description' => $this->language->translate('HL_BACKUPS'),
-                        'icon' => 'fa fa-life-ring fa-fw'
+                'url' => 'system/backups',
+                'permission' => array('system' => 'backups'),
+                'description' => $this->language->translate('HL_BACKUPS'),
+                'icon' => 'fa fa-life-ring fa-fw'
             ]);
         }
 
@@ -294,24 +293,12 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      */
     private function modulesSubmenu()
     {
-
-        $items = array(
-            navigationItem::createItemFromArray([
-                'url' => 'modules/list',
-                'permission' => ['modules' => ['install', 'uninstall', 'configure', 'enable']],
-                'description' => $this->language->translate('HL_MODULES_MNG'),
-                'icon' => 'fa fa-plug fa-fw'
-            ])
-        );
-
-        $eventResult = $this->events->trigger('navigation\addSubmenuModules', $items);
-        if (count($eventResult) == count($items)) {
-            return $items;
+        $items = $this->events->trigger('navigation\addSubmenuModules');
+        if (!count($items)) {
+            return [];
         }
 
-        $eventResult[0]->setSpacer(true);
-
-        return $eventResult;
+        return $items;
     }
 
 }

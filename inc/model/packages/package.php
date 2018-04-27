@@ -68,6 +68,12 @@ abstract class package {
     const REMOTEPATH_UNTRUSTED = 910;
 
     /**
+     * Fehler bei Schreibrechte-Prüfung vorhandener Dateien
+     * @since FPCM 3.5
+     */
+    const DEFAULT_EXTENSION = 'zip';
+
+    /**
      * Package name
      * @var string
      */
@@ -308,7 +314,7 @@ abstract class package {
      */
     public static function explodeModuleFileName($filename)
     {
-        return explode('_version', $filename);
+        return explode('_version', $filename, 2);
     }
 
     /**

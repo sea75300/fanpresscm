@@ -96,61 +96,58 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
      */
     public function processModuleUpload()
     {
-
         $tempNames = $this->uploader['tmp_name'];
         $fileNames = $this->uploader['name'];
         $fileTypes = $this->uploader['type'];
 
         foreach ($tempNames as $key => $value) {
 
-            if (!is_uploaded_file($value) || !isset($fileNames[$key]) || !isset($fileTypes[$key]))
+            if (!is_uploaded_file($value) || !isset($fileNames[$key]) || !isset($fileTypes[$key])) {
                 continue;
-
-            $ext = pathinfo($fileNames[$key], PATHINFO_EXTENSION);
-            $ext = ($ext) ? strtolower($ext) : '';
-
-            if ($ext != 'zip')
-                return false;
-
-            $fileName = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $fileNames[$key]);
-            if (!move_uploaded_file($value, $fileName))
-                return false;
-
-            $data = \fpcm\model\packages\package::explodeModuleFileName(basename($fileNames[$key], '.zip'));
-
-            $package = new \fpcm\model\packages\module('module', $data[0], $data[1]);
-            $res = $package->extract();
-
-            $extractPath = $package->getExtractPath();
-
-            $modulelisteConfigFile = realpath($extractPath . $data[0] . '/config/modulelist.yml');
-
-            if (!file_exists($modulelisteConfigFile)) {
-                return $res;
             }
 
-            include_once loader::libGetFilePath('spyc/Spyc.php');
-            $modulelisteConfig = \Spyc::YAMLLoad($modulelisteConfigFile);
-
-            if ($res !== true)
-                return $res;
-
-            $package->setCopyDestination($modulelisteConfig['vendor'] . '/');
-            $res = $package->copy();
-
-            if ($res !== true)
-                return $res;
-
-            $package->cleanup();
-
-            $moduleClass = \fpcm\model\abstracts\module::getModuleClassName($modulelisteConfig['vendor'] . '/' . $modulelisteConfig['key']);
-            if (class_exists($moduleClass)) {
-                $modObj = new $moduleClass($modulelisteConfig['vendor'] . $modulelisteConfig['key'], '', $data[1]);
-                $res = ($modObj->isInstalled() ? $modObj->runUpdate() : $modObj->runInstall());
-
-                if ($res !== true)
-                    return $res;
+            $fileName = $fileNames[$key];
+            $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+            if (strtolower($ext) !== \fpcm\model\packages\package::DEFAULT_EXTENSION) {
+                return false;
             }
+
+            $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $fileName);
+            if (!move_uploaded_file($value, $path)) {
+                return false;
+            }
+            
+            fpcmDump(__METHOD__, $fileName);
+            
+            $package = new \fpcm\model\packages\module($fileName);
+            $package->extract();
+
+//            $data = \fpcm\model\packages\package::explodeModuleFileName(basename($fileNames[$key], '.zip'));
+//
+//            $package = new \fpcm\model\packages\module(basename($fileNames[$key], '.zip')); // new \fpcm\model\packages\module('module', $data[0], $data[1]);
+//            $res = $package->extract();
+//
+//            $extractPath = $package->getExtractPath();
+//
+//            $modulelisteConfigFile = realpath($extractPath . $data[0] . '/config/modulelist.yml');
+//
+//            if (!file_exists($modulelisteConfigFile)) {
+//                return $res;
+//            }
+//
+//            include_once loader::libGetFilePath('spyc/Spyc.php');
+//            $modulelisteConfig = \Spyc::YAMLLoad($modulelisteConfigFile);
+//
+//            if ($res !== true)
+//                return $res;
+//
+//            $package->setCopyDestination($modulelisteConfig['vendor'] . '/');
+//            $res = $package->copy();
+//
+//            if ($res !== true)
+//                return $res;
+//
+//            $package->cleanup();            
         }
 
         return true;
