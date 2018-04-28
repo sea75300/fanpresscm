@@ -205,7 +205,6 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController {
 
     private function execCleanup()
     {
-        $this->init();
         $this->res = $this->pkg->cleanup();
         \fpcm\classes\loader::getObject('\fpcm\classes\cache')->cleanup();
     }

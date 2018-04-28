@@ -148,81 +148,78 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController {
             $this->res = false;
             return false;
         }
-//        
-//        $this->res = $this->pkg->download();
-//        if ($this->res === true) {
-            $this->res = true;
+        
+        $this->res = $this->pkg->download();
+        if ($this->res === true) {
             fpcmLogSystem('Download of package '.$this->pkg->getRemotePath().' was successful.');
             return true;
-//        }
-//
-//        $this->addErrorMessage('PACKAGES_FAILED_ERROR'.$this->res);
-//        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-//        $this->res = false;
+        }
+
+        $this->addErrorMessage('PACKAGES_FAILED_ERROR'.$this->res);
+        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
+        $this->res = false;
     }
     
     private function execCheckPkg()
     {
-//        $this->res = $this->pkg->checkPackage();
-//        if ($this->res === true) {
-//            fpcmLogSystem('Package integity check for '.basename($this->pkg->getLocalPath()).' was successful.');
-//            return true;
-//        }
-//
-//        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-//        $this->res = false;
+        $this->res = $this->pkg->checkPackage();
+        if ($this->res === true) {
+            fpcmLogSystem('Package integity check for '.basename($this->pkg->getLocalPath()).' was successful.');
+            return true;
+        }
+
+        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
+        $this->res = false;
     }
 
     private function execExtract()
     {
-//        $this->res = $this->pkg->extract();
-//        if ($this->res === true) {
-//            fpcmLogSystem('Package extraction for '.basename($this->pkg->getLocalPath()).' was successful.');
-//            return true;
-//        }
-//
-//        $this->addErrorMessage('PACKAGES_FAILED_ERROR'.$this->res);
-//        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-//        $this->res = false;
+        $this->res = $this->pkg->extract();
+        if ($this->res === true) {
+            fpcmLogSystem('Package extraction for '.basename($this->pkg->getLocalPath()).' was successful.');
+            return true;
+        }
+
+        $this->addErrorMessage('PACKAGES_FAILED_ERROR'.$this->res);
+        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
+        $this->res = false;
     }
 
     private function execUpdateFs()
     {
-//        $this->res = $this->pkg->copy();
-//        if ($this->res === true) {
-//            fpcmLogSystem('File system update from '.basename($this->pkg->getLocalPath()).' was successful.');
-//            return true;
-//        }
-//
-//        $this->addErrorMessage('PACKAGES_FAILED_ERROR'.$this->res);
-//        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
-//        $this->res = false;
+        $this->res = $this->pkg->copy();
+        if ($this->res === true) {
+            fpcmLogSystem('File system update from '.basename($this->pkg->getLocalPath()).' was successful.');
+            return true;
+        }
+
+        $this->addErrorMessage('PACKAGES_FAILED_ERROR'.$this->res);
+        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
+        $this->res = false;
     }
 
     private function execUpdateDb()
     {
-//        $finalizer = new \fpcm\model\updater\finalizer();
-//        $this->res = $finalizer->runUpdate();
-//
-//        if ($this->res === true) {
-//            fpcmLogSystem('Database update was successful!');
-//            return true;
-//        }
-//
-//        fpcmLogSystem('Database update failed. See error and database log for further information.');
+        $this->res = (new \fpcm\modules\module($this->key))->install();
+
+        if ($this->res === true) {
+            fpcmLogSystem('Database update was successful for module '.$this->key.'!');
+            return true;
+        }
+
+        fpcmLogSystem('Database update failed for module '.$this->key.'. See error and database log for further information.');
     }
     
     private function execUpdateLog()
     {
-//        $this->res = $this->pkg->updateLog();
-//        return;
+        $this->res = $this->pkg->updateLog();
+        return;
     }
 
     private function execCleanup()
     {
-//        $this->init();
-//        $this->res = $this->pkg->cleanup();
-//        \fpcm\classes\loader::getObject('\fpcm\classes\cache')->cleanup();
+        $this->res = $this->pkg->cleanup();
+        \fpcm\classes\loader::getObject('\fpcm\classes\cache')->cleanup();
     }
 
     private function init()

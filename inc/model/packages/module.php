@@ -41,6 +41,16 @@ class module extends package {
         $this->hashKey = \fpcm\classes\tools::getHash($this->packageName);
         return true;
     }
+
+    /**
+     * Ersetzt "vendor/modules"-Key durch basedir-Daen in einem Pfad
+     * @param string $path
+     * @return string
+     */
+    protected function replaceFanPressBaseFolder($path)
+    {
+        return str_replace($this->moduleKey, $this->getLocalDestinationPath(), $path);
+    }
     
     protected function getFileListPath()
     {
@@ -59,7 +69,7 @@ class module extends package {
 
     public function getLocalPath()
     {
-        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $this->packageName);
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, basename($this->repo['packageUrl']));
     }
 
     public function getLocalSignature()
@@ -77,16 +87,11 @@ class module extends package {
         return $this->repo['signature'];
     }
 
-    /**
-     * Ersetzt "fanpress"-Ordnername durch basedir-Daen in einem Pfad
-     * @param string $path
-     * @return string
-     */
-    protected function replaceFanPressBaseFolder($path)
+    public function checkPackage()
     {
-        return str_replace($this->moduleKey, $this->getLocalDestinationPath(), $path);
+        return true;
     }
-
+    
     /**
      * 
      * @return boolean
@@ -117,6 +122,10 @@ class module extends package {
         return true;
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function copy()
     {
         $srcBasePath    = $this->getExtractionPath();        
@@ -211,6 +220,10 @@ class module extends package {
         return true;
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function updateLog()
     {
         $fopt = new \fpcm\model\files\fileOption('modulecopy'.$this->hashKey);

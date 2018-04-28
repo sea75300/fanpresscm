@@ -135,6 +135,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
             return false;
         }
 
+        $package->cleanup();
         return true;
     }
 
