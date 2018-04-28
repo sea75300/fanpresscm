@@ -11,6 +11,7 @@ $lang = array(
     'MODULES_LIST_AVAILABLE' => 'Verfügbare Module',
     'MODULES_LIST_INSTALL' => 'Modul installieren',
     'MODULES_LIST_UNINSTALL' => 'Modul deinstallieren',
+    'MODULES_LIST_DELETE' => 'Modul löschen',
     'MODULES_LIST_UPDATE' => 'Modul aktualisieren',
     'MODULES_LIST_ENABLE' => 'Modul aktivieren',
     'MODULES_LIST_DISABLE' => 'Modul deaktivieren',

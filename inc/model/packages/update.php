@@ -74,15 +74,6 @@ class update extends package {
      * 
      * @return string
      */
-    protected function getPackageKey()
-    {
-        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'package.key');
-    }
-
-    /**
-     * 
-     * @return string
-     */
     public function getRemotePath()
     {
         return $this->updater->url;
@@ -102,7 +93,7 @@ class update extends package {
      * @return boolean
      */
     public function checkFiles()
-    {;
+    {
         $files = $this->getFileList(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt'), 1);
         if (!count($files)) {
             return false;
@@ -163,7 +154,7 @@ class update extends package {
             $srcExists = file_exists($src);
             $destExists = file_exists($dest);
 
-            if ($isDir && $destExists) {
+            if ($isDir && $destExists || !$srcExists) {
                 continue;
             }
 
@@ -173,7 +164,7 @@ class update extends package {
             }
             
             if ($isDir) {
-                continue;;
+                continue;
             }
 
             if ($destExists) {

@@ -21,17 +21,30 @@ class module extends package {
      * @var \fpcm\model\updater\modules
      */
     protected $repo;
+
     /**
      *
-     * @var \fpcm\model\updater\modules
+     * @var string
      */
     protected $hashKey;
 
+    /**
+     *
+     * @var string
+     */
+    protected $moduleKey;
+
     protected function initObjects()
     {
-        $this->repo = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->packageName);
+        $this->moduleKey = \fpcm\modules\module::getKeyFromFilename($this->packageName);
+        $this->repo = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->moduleKey);
         $this->hashKey = \fpcm\classes\tools::getHash($this->packageName);
         return true;
+    }
+    
+    protected function getFileListPath()
+    {
+        return $this->getExtractionPath().DIRECTORY_SEPARATOR.$this->moduleKey.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'files.txt';
     }
 
     protected function getExtractionPath()
@@ -41,7 +54,7 @@ class module extends package {
 
     public function getLocalDestinationPath()
     {
-        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $this->hashKey);
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $this->moduleKey);
     }
 
     public function getLocalPath()
@@ -54,11 +67,6 @@ class module extends package {
         return \fpcm\model\files\ops::hashFile($this->getLocalPath());
     }
 
-    protected function getPackageKey()
-    {
-        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'package.key');
-    }
-
     public function getRemotePath()
     {
         return $this->repo['packageUrl'];
@@ -69,19 +77,148 @@ class module extends package {
         return $this->repo['signature'];
     }
 
+    /**
+     * Ersetzt "fanpress"-Ordnername durch basedir-Daen in einem Pfad
+     * @param string $path
+     * @return string
+     */
+    protected function replaceFanPressBaseFolder($path)
+    {
+        return str_replace($this->moduleKey, $this->getLocalDestinationPath(), $path);
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
     public function checkFiles()
     {
+        $files = $this->getFileList($this->getFileListPath(), 1);
+        if (!count($files)) {
+            return false;
+        }
+
+        $notWritable = [];
+        foreach ($files as $file) {
+
+            if (is_writable($this->replaceFanPressBaseFolder($file))) {
+                continue;
+            }
+            
+            $notWritable[] = $file.' > NOT WRIATBLE';
+        }
+
+        if (count($notWritable)) {
+            fpcmLogSystem('Module files check failed due to unwritable files.');
+            fpcmLogSystem(implode(PHP_EOL, $notWritable));
+            return self::FILESCHECK_ERROR;
+        }
+
         return true;
     }
 
     public function copy()
     {
+        $srcBasePath    = $this->getExtractionPath();        
+        $files          = $this->getFileList($this->getFileListPath(), 1);
+        
+        if (!count($files)) {
+            return self::FILESCOPY_ERROR;
+        }
+
+        $proto = [];
+        $failed = [];
+
+        $destinationPath = $this->getLocalDestinationPath();
+
+        $vendorPath = dirname($destinationPath);
+        if (!file_exists($vendorPath) && !mkdir($vendorPath, 0777)) {
+            trigger_error('Unable to create vendor folder '. basename($vendorPath).' for '.$this->moduleKey);
+            return self::FILESCOPY_ERROR;
+        }
+
+        if (!file_exists($destinationPath) && !mkdir($destinationPath, 0777)) {
+            trigger_error('Unable to create vendor subfolder '. basename($destinationPath).' for '.$this->moduleKey);
+            return self::FILESCOPY_ERROR;
+        }
+        
+        foreach ($files as $file) {
+
+            if (!trim($file)) {
+                continue;
+            }
+            
+            $src = $srcBasePath.DIRECTORY_SEPARATOR.$file;
+            $dest = $this->replaceFanPressBaseFolder($file);
+
+            if (!trim($src) || !trim($dest)) {
+                continue;
+            }
+            
+            $isDir = is_dir($src);
+            $srcExists = file_exists($src);
+            $destExists = file_exists($dest);
+
+            if ($isDir && $destExists || !$srcExists) {
+                continue;
+            }
+
+            if ($isDir && !mkdir($dest, 0777)) {
+                $proto[] = $dest.' new folder processing failed';
+                $failed++;
+            }
+            
+            if ($isDir) {
+                continue;
+            }
+
+            if ($destExists) {
+
+                if (\fpcm\model\files\ops::hashFile($src) === \fpcm\model\files\ops::hashFile($dest)) {
+                    $proto[] = $dest.' > file processing skipped';
+                    continue;
+                }
+
+                $backFile = $dest.'.back';
+                if (file_exists($backFile)) {
+                    unlink($backFile);
+                }
+
+                if (!copy($dest, $backFile)) {
+                    $failed[] = $backFile.' > backup creation failed';
+                    $proto[] = $backFile.' > backup creation failed';
+                }
+
+            }
+
+            if (!copy($src, $dest)) {
+                $failed[] = $dest.' > file processing failed';
+                $proto[] = $dest.' > copy processing failed';
+                continue;
+            }
+
+            $proto[] = $dest.' > file processing OK';
+        }
+
+        $fopt = new \fpcm\model\files\fileOption('modulecopy'.$this->hashKey);
+        $fopt->write($proto);
+        
+        if (count($failed)) {
+            fpcmLogPackages($this->packageName.' - failed files', $failed);
+            return self::FILESCOPY_ERROR;
+        }
+        
         return true;
     }
 
     public function updateLog()
     {
-        return true;
+        $fopt = new \fpcm\model\files\fileOption('modulecopy'.$this->hashKey);
+        if (!fpcmLogPackages($this->moduleKey.' - '.$this->packageName, $fopt->read())) {
+            return false;
+        }
+
+        return $fopt->remove();
     }
 
 

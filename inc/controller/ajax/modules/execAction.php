@@ -108,6 +108,19 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      * 
      * @return boolean
      */
+    private function processDelete()
+    {
+        $this->returnData['code']   = (new \fpcm\modules\module($this->key))->uninstall(true)
+                                    ? \fpcm\modules\module::STATUS_UNINSTALLED
+                                    : \fpcm\modules\module::STATUS_NOT_UNINSTALLED;
+
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
     private function processEnable()
     {
         $this->returnData['code']   = (new \fpcm\modules\module($this->key))->enable()

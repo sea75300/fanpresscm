@@ -514,18 +514,19 @@ class module {
 
     /**
      * 
+     * @param boolean $delete
      * @return boolean
      */
-    final public function uninstall()
+    final public function uninstall($delete = false)
     {
         fpcmLogSystem('Uninstall module '.$this->mkey);
         $this->cache->cleanup();
 
-        if (!$this->removeTables()) {
+        if (!$this->removeTables() && !$delete) {
             return false;
         }
 
-        if (!$this->removeConfig()) {
+        if (!$this->removeConfig() && !$delete) {
             return false;
         }
 
@@ -533,7 +534,11 @@ class module {
             return false;
         }
 
-        if (method_exists($this, 'uninstallAfter') && !$this->uninstallAfter()) {
+        if (!$this->removeFiles()) {
+            return false;
+        }
+
+        if (!$delete && method_exists($this, 'uninstallAfter') && !$this->uninstallAfter()) {
             return false;
         }
 
@@ -552,6 +557,16 @@ class module {
     {
         fpcmLogSystem('Remove modules table entry for '.$this->mkey);
         return $this->db->delete(\fpcm\classes\database::tableModules, 'mkey = ?', [$this->mkey]);
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    private function removeFiles()
+    {
+        fpcmLogSystem('Remove modules files from '.\fpcm\model\files\ops::removeBaseDir($this->config->basePath));
+        return \fpcm\model\files\ops::deleteRecursive($this->config->basePath);
     }
 
     /**
@@ -749,6 +764,16 @@ class module {
         $path = str_replace(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, DIRECTORY_SEPARATOR), '', $path);
         $path = explode(DIRECTORY_SEPARATOR, $path, 3);
         return $path[0].'/'.$path[1];
+    }
+
+    /**
+     * 
+     * @param string $path
+     * @return string
+     */
+    public static function getKeyFromFilename($filename)
+    {
+        return str_replace('_', '/', explode('_version', $filename, 2)[0]);
     }
 
 }

@@ -8,11 +8,6 @@
  */
 error_reporting(E_ALL);
 
-/**
- * FanPress CM internal checkpoint
- */
-define('IN_FPCM', true);
-
 include __DIR__ . '/classes/dirs.php';
 include __DIR__ . '/classes/baseconfig.php';
 include __DIR__ . '/classes/timer.php';

@@ -15,8 +15,7 @@ namespace fpcm\controller\ajax\modules;
  */
 class fetchList extends \fpcm\controller\abstracts\ajaxController {
 
-    use \fpcm\controller\traits\modules\moduleactions,
-        \fpcm\controller\traits\common\dataView;
+    use \fpcm\controller\traits\common\dataView;
 
     /**
      *
@@ -251,9 +250,17 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                 $buttons[] = (new \fpcm\view\helper\button('update'.$hash))->setText('MODULES_LIST_UPDATE')->setIcon('sync')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'update'])->setClass('fpcm-ui-modulelist-action-local');
             }
         }
-        elseif ($this->permArr['canInstall']) {
-            $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'install', 'dir' => true])->setClass('fpcm-ui-modulelist-action-local')->setReadonly(!$item->isInstallable());
+        
+        if (!$item->isInstalled()) {
+            if ($this->permArr['canInstall']) {
+                $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'install', 'dir' => true])->setClass('fpcm-ui-modulelist-action-local')->setReadonly(!$item->isInstallable());
+            }            
+
+            if ($this->permArr['canUninstall']) {
+                $buttons[] = (new \fpcm\view\helper\button('delete'.$hash))->setText('MODULES_LIST_DELETE')->setIcon('trash')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'delete'])->setClass('fpcm-ui-modulelist-action-local');
+            }            
         }
+        
 
         $buttons[] = '</div>';
 

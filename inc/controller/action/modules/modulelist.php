@@ -46,13 +46,19 @@ class modulelist extends \fpcm\controller\abstracts\controller {
             'modules' => 'configure'
         ];
     }
-
+    
     /**
      * 
      * @return boolean
      */
     public function request()
-    {
+    {        
+        $this->view->setViewVars([
+            'canInstall' => $this->permissions->check(['modules' => 'install']),
+            'canUninstall' => $this->permissions->check(['modules' => 'uninstall']),
+            'canConfigure' => $this->permissions->check(['modules' => 'configure']),
+        ]);
+
         $this->uploadModule();
         return true;
     }
@@ -68,12 +74,6 @@ class modulelist extends \fpcm\controller\abstracts\controller {
         $this->view->setFormAction('modules/list');
         $this->view->addJsVars([
             'jqUploadInit' => 0
-        ]);
-        
-        $this->view->setViewVars([
-            'canInstall' => $this->permissions->check(['modules' => 'install']),
-            'canUninstall' => $this->permissions->check(['modules' => 'uninstall']),
-            'canConfigure' => $this->permissions->check(['modules' => 'configure']),
         ]);
         
         $this->view->addDataView(new \fpcm\components\dataView\dataView('modulesLocal', false));

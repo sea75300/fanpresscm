@@ -9,8 +9,9 @@
 $lang = array(
     'MODULES_LIST_HEADLINE' => 'Installed modules',
     'MODULES_LIST_AVAILABLE' => 'Available module',
-    'MODULES_LIST_INSTALL' => 'Install module/s',
+    'MODULES_LIST_INSTALL' => 'Install module',
     'MODULES_LIST_UNINSTALL' => 'Uninstall module',
+    'MODULES_LIST_DELETE' => 'Delete module',
     'MODULES_LIST_UPDATE' => 'Update module',
     'MODULES_LIST_ENABLE' => 'Enable module',
     'MODULES_LIST_DISABLE' => 'Disable module',

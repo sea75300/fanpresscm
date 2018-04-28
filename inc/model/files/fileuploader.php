@@ -116,38 +116,23 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
             if (!move_uploaded_file($value, $path)) {
                 return false;
             }
-            
-            fpcmDump(__METHOD__, $fileName);
-            
-            $package = new \fpcm\model\packages\module($fileName);
-            $package->extract();
 
-//            $data = \fpcm\model\packages\package::explodeModuleFileName(basename($fileNames[$key], '.zip'));
-//
-//            $package = new \fpcm\model\packages\module(basename($fileNames[$key], '.zip')); // new \fpcm\model\packages\module('module', $data[0], $data[1]);
-//            $res = $package->extract();
-//
-//            $extractPath = $package->getExtractPath();
-//
-//            $modulelisteConfigFile = realpath($extractPath . $data[0] . '/config/modulelist.yml');
-//
-//            if (!file_exists($modulelisteConfigFile)) {
-//                return $res;
-//            }
-//
-//            include_once loader::libGetFilePath('spyc/Spyc.php');
-//            $modulelisteConfig = \Spyc::YAMLLoad($modulelisteConfigFile);
-//
-//            if ($res !== true)
-//                return $res;
-//
-//            $package->setCopyDestination($modulelisteConfig['vendor'] . '/');
-//            $res = $package->copy();
-//
-//            if ($res !== true)
-//                return $res;
-//
-//            $package->cleanup();            
+            $package = new \fpcm\model\packages\module($fileName);
+            if (!$package->extract()) {
+                return false;
+            }
+
+            if (!$package->copy()) {
+                return false;
+            }
+            
+            break;
+
+        }
+
+        $module = new \fpcm\modules\module(\fpcm\modules\module::getKeyFromFilename($fileName), false );
+        if (!$module->addModule()) {
+            return false;
         }
 
         return true;

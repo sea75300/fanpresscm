@@ -101,6 +101,15 @@ abstract class package {
 
     /**
      * 
+     * @return string
+     */
+    protected function getPackageKey()
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'package.key');
+    }
+
+    /**
+     * 
      * @return bool
      */
     abstract protected function initObjects();
@@ -122,12 +131,6 @@ abstract class package {
      * @return string
      */
     abstract protected function getLocalPath();
-
-    /**
-     * 
-     * @return string
-     */
-    abstract protected function getPackageKey();
 
     /**
      * 
