@@ -27,6 +27,25 @@ class modules extends \fpcm\model\abstracts\tablelist {
      * 
      * @return array
      */
+    public function getKeysFromDatabase()
+    {
+        $result = $this->dbcon->fetch($this->dbcon->select($this->table, 'mkey'), true);
+        if (!$result) {
+            return [];
+        }
+
+        $modules = [];
+        foreach ($result as $dataset) {
+            $modules[] = $dataset->mkey;
+        }
+
+        return $modules;
+    }
+
+    /**
+     * 
+     * @return array
+     */
     public function getFromDatabase()
     {
         $result = $this->dbcon->fetch($this->dbcon->select($this->table, '*'), true);

@@ -248,17 +248,15 @@ class module {
      */
     public function isInstallable()
     {
-        if (defined('FPCM_MODULE_IGNORE_DEPENDENCIES')) {
-            return FPCM_MODULE_IGNORE_DEPENDENCIES;
+        if (defined('FPCM_MODULE_IGNORE_DEPENDENCIES') && FPCM_MODULE_IGNORE_DEPENDENCIES) {
+            return true;
         }
-        
-        fpcmLogSystem($this->config->requirements);
-        
-        if (version_compare(PHP_VERSION, $this->config->requirements['php']. '<')) {
+
+        if (version_compare(PHP_VERSION, $this->config->requirements['php'], '<')) {
             return false;
         }
 
-        if (version_compare($this->systemConfig->system_version, $this->config->requirements['system']. '<')) {
+        if (version_compare($this->systemConfig->system_version, $this->config->requirements['system'], '<')) {
             return false;
         }
 

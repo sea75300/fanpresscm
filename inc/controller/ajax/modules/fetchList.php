@@ -126,7 +126,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
     private function fetchRemote()
     {
         $this->tab = 1;
-        $this->installed = $this->modules->getInstalledDatabase();
+        $this->installed = $this->modules->getKeysFromDatabase();
         $this->items = $this->modules->getFromRepository();
         $this->itemsCount = count($this->items);
         return true;
@@ -305,15 +305,15 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                         'php' => $config->requirements['php'],
                         'system' => $config->requirements['system']
                     ]);
-        
-        if ($this->permArr['canInstall']) {
+
+        if ($this->permArr['canInstall'] && !in_array($item->getKey(), $this->installed) ) {
             $buttons[] = (new \fpcm\view\helper\linkButton('install'.$hash))
                     ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modinstall', ['key' => $item->getKey()]))
                     ->setText('MODULES_LIST_INSTALL')
                     ->setIcon('plus-circle')
                     ->setIconOnly(true)
                     ->setClass('fpcm-ui-modulelist-action-remote')
-                    /*->setReadonly($item->isInstalled() || !$item->isInstallable())*/;
+                    ->setReadonly(!$item->isInstallable());
         }
 
         $buttons[] = '</div>';

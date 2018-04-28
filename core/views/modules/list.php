@@ -9,7 +9,14 @@
 
         <?php if ($canInstall) : ?>
         <div id="tabs-modules-upload">
-            <?php include $theView->getIncludePath('filemanager/forms/phpupload.php'); ?>
+            <p><?php print $maxFilesInfo; ?></p>
+
+            <div class="fpcm-ui-controlgroup fpcm-ui-margin-lg-bottom" id="article_template_buttons">    
+                <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
+                <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload'); ?>
+                <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>
+                <input type="file" name="files[]" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
+            </div>
         </div>
         <?php endif; ?>
     </div>
