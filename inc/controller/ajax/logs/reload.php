@@ -149,6 +149,15 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     }
 
     /**
+     * Lädt Events-Log (Typ 6)
+     * @return bool
+     */
+    private function loadLog6()
+    {
+        return $this->loadLog1();
+    }
+
+    /**
      * 
      * @return boolean
      */
@@ -242,6 +251,15 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
+     * @return array
+     */
+    private function getCols6()
+    {
+        return $this->getCols1();
+    }
+
+    /**
+     * 
      * @param mixed $item
      * @return \fpcm\components\dataView\row
      */
@@ -314,6 +332,16 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
      * @return \fpcm\components\dataView\row
      */
     private function getRow5($item)
+    {
+        return $this->getRow1($item);
+    }
+
+    /**
+     * 
+     * @param \fpcm\model\files\logfile $item
+     * @return \fpcm\components\dataView\row
+     */
+    private function getRow6($item)
     {
         return $this->getRow1($item);
     }

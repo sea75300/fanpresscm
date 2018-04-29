@@ -47,10 +47,25 @@ class logs extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
-        $this->view->assign('customLogs', $this->events->trigger('logs\addToList', []));
-        $this->view->assign('reloadBaseLink', \fpcm\classes\tools::getFullControllerLink('ajax/logs/reload', [
+        $baseUrl = \fpcm\classes\tools::getFullControllerLink('ajax/logs/reload', [
             'log' => ''
-        ]));
+        ]);
+
+        
+        $logs = [
+            (new \fpcm\view\helper\tabItem('logs-sessions'))->setText('HL_LOGS_SESSIONS')->setUrl('#loader')->setData(['href' => $baseUrl.'0']),
+            (new \fpcm\view\helper\tabItem('logs-system'))->setText('HL_LOGS_SYSTEM')->setUrl($baseUrl.'1'),
+            (new \fpcm\view\helper\tabItem('logs-error'))->setText('HL_LOGS_ERROR')->setUrl($baseUrl.'2'),
+            (new \fpcm\view\helper\tabItem('logs-database'))->setText('HL_LOGS_DATABASE')->setUrl($baseUrl.'3'),
+            (new \fpcm\view\helper\tabItem('logs-crons'))->setText('HL_LOGS_CRONJOBS')->setUrl($baseUrl.'5'),
+            (new \fpcm\view\helper\tabItem('logs-package'))->setText('HL_LOGS_PACKAGES')->setUrl($baseUrl.'4')->setDataViewId('')
+        ];
+        
+        if (defined('FPCM_DEBUG_EVENTS') && FPCM_DEBUG_EVENTS) {
+            $logs[] = (new \fpcm\view\helper\tabItem('logs-events'))->setText('HL_LOGS_EVENTS')->setUrl($baseUrl.'6');
+        }
+        
+        $this->view->assign('logs', $this->events->trigger('logs\addToList', $logs));
 
         $this->view->addDataView(new \fpcm\components\dataView\dataView('logs', false));
 

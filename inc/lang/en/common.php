@@ -36,6 +36,7 @@ $lang = array(
     'HL_LOGS_SESSIONS' => 'Session Log',
     'HL_LOGS_PACKAGES' => 'Package Manager Log',
     'HL_LOGS_CRONJOBS' => 'Cron Log',
+    'HL_LOGS_EVENTS' => 'Events Log',
     'HL_CRONJOBS' => 'Cronjobs',
     'HL_COMMENTS_MNG' => 'Comments',
     'HL_CATEGORIES_MNG' => 'Categories',

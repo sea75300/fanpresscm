@@ -138,6 +138,28 @@ function fpcmLogCron($data)
 }
 
 /**
+ * Event-Log
+ * @param mixed $data
+ * @return boolean
+ * @since FPCM 4
+ */
+function fpcmLogEvents($data)
+{
+    if (!defined('FPCM_DEBUG_EVENTS') || !FPCM_DEBUG_EVENTS) {
+        return false;
+    }
+    
+    $data = is_array($data) || is_object($data) ? print_r($data, true) : $data;
+
+    if (file_put_contents(\fpcm\classes\baseconfig::$logFiles['eventslogs'], json_encode(['time' => date('Y-m-d H:i:s'), 'text' => $data]) . PHP_EOL, FILE_APPEND) === false) {
+        trigger_error('Unable to write data to events log');
+        return false;
+    }
+
+    return true;
+}
+
+/**
  * Debug-Ausgabe am Ende der Seite
  */
 function fpcmDebugOutput()

@@ -38,6 +38,13 @@ if (!defined('FPCM_DEBUG_ROUTES')) {
     define('FPCM_DEBUG_ROUTES', false);
 }
 
+if (!defined('FPCM_DEBUG_EVENTS')) {
+    /**
+     * Event-Debug-Modus aktivieren
+     */
+    define('FPCM_DEBUG_EVENTS', false);
+}
+
 if (!defined('FPCM_MODULE_IGNORE_DEPENDENCIES')) {
     /**
      * ModulAbhängigkeiten ignorieren

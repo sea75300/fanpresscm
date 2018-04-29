@@ -150,7 +150,8 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
         $this->ipList = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
         $this->crons = \fpcm\classes\loader::getObject('\fpcm\model\crons\cronlist');
-        $this->enabledModules = []; //\fpcm\classes\loader::getObject('\fpcm\model\modules\modulelist')->getEnabledInstalledModules();
+
+        $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\modules\modules')->getEnabledDatabase();
         $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
 
         $rollId = $this->session->exists() ? $this->session->currentUser->getRoll() : 0;
@@ -478,19 +479,17 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function hasActiveModule()
     {
-        $currentClass = get_class($this);
-        if (strpos($currentClass, 'fpcm\\modules\\') !== false) {
-            $modulename = explode('\\', $currentClass, 3)[2];
-            if (!in_array($modulename, $this->enabledModules)) {
-                $this->execDestruct = false;
-                trigger_error("Request for controller '{$currentClass}' of disabled module '{$modulename}'!");
-                $view = new \fpcm\view\error("The controller '{$this->getRequestVar('module')}' is not enabled for execution!");
-                $view->render($this->moduleCheckExit);
-                return false;
-            }
+        $class = get_class($this);
+        $module = \fpcm\modules\module::getKeyFromClass($class);
+        if ($module === false || in_array($module, $this->enabledModules)) {
+            return true;
         }
 
-        return true;
+        $this->execDestruct = false;
+        trigger_error("Request for controller '{$this->getRequestVar('module')}' of disabled module '{$module}'!");
+        $view = new \fpcm\view\error("The controller '{$this->getRequestVar('module')}' is not enabled for execution!");
+        $view->render($this->moduleCheckExit);
+        return false;
     }
 
 }

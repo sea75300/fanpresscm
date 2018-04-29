@@ -40,10 +40,6 @@ cols:
         type: bigint
         length: 20
         params: NOT NULL
-    md5path:
-        type: varchar
-        length: 20
-        params: NOT NULL
     draft:
         type: bool
         length: 

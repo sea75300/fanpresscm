@@ -269,7 +269,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             '{{commentCount}}' => $commentCount,
             '{{permaLink}}:{{/permaLink}}' => $this->article->getElementLink(),
             '{{commentLink}}:{{/commentLink}}' => $this->article->getElementLink() . '#comments',
-            '<readmore>:</readmore>' => $this->article->getMd5path(),
+            '<readmore>:</readmore>' => $this->article->getId(),
             '{{articleImage}}' => $this->article->getArticleImage(),
             '{{sources}}' => $this->article->getSources()
         );

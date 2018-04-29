@@ -142,6 +142,25 @@ class modules extends \fpcm\model\abstracts\tablelist {
 
     /**
      * 
+     * @return array
+     */
+    public function getEnabledDatabase()
+    {
+        $result = $this->dbcon->fetch($this->dbcon->select($this->table, 'mkey', 'installed = 1 AND active = 1'), true);
+        if (!$result) {
+            return [];
+        }
+
+        $modules = [];
+        foreach ($result as $dataset) {
+            $modules[] = $dataset->mkey;
+        }
+
+        return $modules;
+    }
+
+    /**
+     * 
      * @param object $dataset
      * @param array $modules
      * @return boolean

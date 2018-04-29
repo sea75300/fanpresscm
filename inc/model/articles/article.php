@@ -122,12 +122,6 @@ class article extends \fpcm\model\abstracts\dataset {
     protected $changeuser = 0;
 
     /**
-     * MD5 Pfad
-     * @var string
-     */
-    protected $md5path = '';
-
-    /**
      * Artikel-Quellen
      * @var string
      * @since FPCM 3.4
@@ -333,15 +327,6 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getComments()
     {
         return $this->comments;
-    }
-
-    /**
-     * Gibt Artikel-MD5-Pfad zurück
-     * @return string
-     */
-    public function getMd5path()
-    {
-        return $this->md5path;
     }
 
     /**
@@ -557,15 +542,6 @@ class article extends \fpcm\model\abstracts\dataset {
     public function setForceDelete($forceDelete)
     {
         $this->forceDelete = $forceDelete;
-    }
-
-    /**
-     * MD5-Pfad setztne
-     * @param string $str
-     */
-    public function setMd5path($str)
-    {
-        $this->md5path = md5($str);
     }
 
     /**

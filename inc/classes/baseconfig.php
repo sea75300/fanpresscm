@@ -97,7 +97,8 @@ final class baseconfig {
             'syslog' => dirs::getDataDirPath(dirs::DATA_LOGS, 'syslog.txt'),
             'dblog' => dirs::getDataDirPath(dirs::DATA_LOGS, 'dblog.txt'),
             'pkglog' => dirs::getDataDirPath(dirs::DATA_LOGS, 'packages.txt'),
-            'cronlog' => dirs::getDataDirPath(dirs::DATA_LOGS, 'cronlog.txt')
+            'cronlog' => dirs::getDataDirPath(dirs::DATA_LOGS, 'cronlog.txt'),
+            'eventslogs' => dirs::getDataDirPath(dirs::DATA_LOGS, 'events.txt')
         );
 
         self::$versionFile = dirs::getFullDirPath('version.php');

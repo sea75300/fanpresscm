@@ -16,12 +16,8 @@ namespace fpcm\view\helper;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class linkButton extends button {
-
-    /**
-     * Link URL
-     * @var string
-     */
-    protected $url = '';
+    
+    use traits\urlHelper;
 
     /**
      * Link URL target
@@ -74,17 +70,6 @@ class linkButton extends button {
             ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()}{$this->getDescriptionTextString()}"),
             '</a>'
         ]);
-    }
-
-    /**
-     * Set link url
-     * @param string $url
-     * @return $this
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-        return $this;
     }
 
     /**

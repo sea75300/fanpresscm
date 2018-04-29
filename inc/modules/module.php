@@ -774,4 +774,18 @@ class module {
         return str_replace('_', '/', explode('_version', $filename, 2)[0]);
     }
 
+    /**
+     * 
+     * @param string $path
+     * @return string
+     */
+    public static function getKeyFromClass($class)
+    {
+        if (strpos($class, 'fpcm\\modules\\') === false) {
+            return false;
+        }
+
+        return explode('\\', $class, 3)[2];
+    }
+
 }

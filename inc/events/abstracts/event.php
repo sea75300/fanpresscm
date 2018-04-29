@@ -96,7 +96,7 @@ abstract class event implements \fpcm\model\interfaces\event {
             return;
         }
 
-        $this->activeModules = []; //\fpcm\classes\loader::getObject('\fpcm\model\modules\modulelist')->getEnabledInstalledModules();
+        $this->activeModules = \fpcm\classes\loader::getObject('\fpcm\modules\modules')->getEnabledDatabase();
         $this->cache->write('modules/activeeventscache', $this->activeModules, FPCM_CACHE_DEFAULT_TIMEOUT);
     }
 

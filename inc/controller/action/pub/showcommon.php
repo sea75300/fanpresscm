@@ -241,7 +241,7 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
             '{{commentCount}}' => $commentCount,
             '{{permaLink}}:{{/permaLink}}' => $article->getElementLink(),
             '{{commentLink}}:{{/commentLink}}' => $article->getElementLink() . '#comments',
-            '<readmore>:</readmore>' => $article->getMd5path(),
+            '<readmore>:</readmore>' => $article->getId(),
             '{{articleImage}}' => $article->getArticleImage(),
             '{{sources}}' => $article->getSources()
         );

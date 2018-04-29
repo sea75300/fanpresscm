@@ -44,12 +44,18 @@ final class logfile extends \fpcm\model\abstracts\file {
     const FPCM_LOGFILETYPE_CRON = 5;
 
     /**
+     * Events Log
+     */
+    const FPCM_LOGFILETYPE_EVENTS = 6;
+
+    /**
      * Mapping für Integer-Logtyp auf intere Datei
      * * 1 = Systemlog
      * * 2 = Errorlog
      * * 3 = Sqlog
      * * 4 = Paketmanagerlog
      * * 5 = Cronjobslog
+     * * 6 =Eventslogs
      * @var array
      */
     protected $fileMap = [];
@@ -61,11 +67,12 @@ final class logfile extends \fpcm\model\abstracts\file {
     public function __construct($logFile)
     {
         $this->fileMap = [
-            static::FPCM_LOGFILETYPE_SYSTEM => \fpcm\classes\baseconfig::$logFiles['syslog'],
-            static::FPCM_LOGFILETYPE_PHP => \fpcm\classes\baseconfig::$logFiles['phplog'],
-            static::FPCM_LOGFILETYPE_SQL => \fpcm\classes\baseconfig::$logFiles['dblog'],
-            static::FPCM_LOGFILETYPE_PKGMGR => \fpcm\classes\baseconfig::$logFiles['pkglog'],
-            static::FPCM_LOGFILETYPE_CRON => \fpcm\classes\baseconfig::$logFiles['cronlog']
+            self::FPCM_LOGFILETYPE_SYSTEM => \fpcm\classes\baseconfig::$logFiles['syslog'],
+            self::FPCM_LOGFILETYPE_PHP => \fpcm\classes\baseconfig::$logFiles['phplog'],
+            self::FPCM_LOGFILETYPE_SQL => \fpcm\classes\baseconfig::$logFiles['dblog'],
+            self::FPCM_LOGFILETYPE_PKGMGR => \fpcm\classes\baseconfig::$logFiles['pkglog'],
+            self::FPCM_LOGFILETYPE_CRON => \fpcm\classes\baseconfig::$logFiles['cronlog'],
+            self::FPCM_LOGFILETYPE_EVENTS => \fpcm\classes\baseconfig::$logFiles['eventslogs'],
         ];
 
         if (!isset($this->fileMap[$logFile])) {
@@ -118,7 +125,6 @@ final class logfile extends \fpcm\model\abstracts\file {
      */
     public function fetchData()
     {
-
         if (!$this->exists()) {
             return [];
         }
@@ -138,8 +144,10 @@ final class logfile extends \fpcm\model\abstracts\file {
      */
     public function init()
     {
-        if (!$this->exists())
+        if (!$this->exists()) {
             return;
+        }
+
         $this->loadContent();
     }
 

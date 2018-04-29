@@ -46,6 +46,8 @@ final class events {
             return $dataParams;
         }
 
+        fpcmLogEvents(['Event: '.$eventName, 'Params: ', $dataParams]);
+
         /**
          * @var \fpcm\events\event
          */
