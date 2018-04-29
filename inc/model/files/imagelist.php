@@ -174,9 +174,9 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      */
     public function createFilemanagerThumbs($folderFiles = null)
     {
-        $folderFiles = is_null($folderFiles) ? $this->getFolderList() : $folderFiles;
-        include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop/ImageWorkshop.php');
+        include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop');
 
+        $folderFiles = is_null($folderFiles) ? $this->getFolderList() : $folderFiles;
         $memoryLimit = \fpcm\classes\baseconfig::memoryLimit(true);
 
         $filesizeLimit = $memoryLimit * 0.025;

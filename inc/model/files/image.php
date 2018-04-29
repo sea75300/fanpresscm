@@ -371,7 +371,7 @@ class image extends \fpcm\model\abstracts\file {
      */
     public function createThumbnail()
     {
-        include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop/ImageWorkshop.php');
+        include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop');
 
         $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($this->getFullpath());
         if (memory_get_usage(true) < \fpcm\classes\baseconfig::memoryLimit(true) * 0.5) {
