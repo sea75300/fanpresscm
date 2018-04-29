@@ -1,19 +1,19 @@
 <?php
 
 /**
- * AJAX system updates controller
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\ajax\packagemgr;
 
 /**
- * AJAX-Controller Paketmanager - System-Updater
+ * AJAX module installer controller
  * 
  * @package fpcm\controller\ajax\packagemgr\sysupdater
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class moduleInstaller extends \fpcm\controller\abstracts\ajaxController {
 
@@ -125,18 +125,18 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController {
 
     private function execCheckFiles()
     {
-//        $success = $this->pkg->checkFiles();
-//        if ($success === \fpcm\model\packages\package::FILESCHECK_ERROR) {
-//            $this->addErrorMessage('UPDATE_WRITEERROR');
-//        }
-//
-//        $this->res = $success === true ? true : false;
-//
-//        if (!$this->res) {
-//            return false;
-//        }
-//
-//        fpcmLogSystem('Local file system check was successful');
+        $success = $this->pkg->checkFiles();
+        if ($success === \fpcm\model\packages\package::FILESCHECK_ERROR) {
+            $this->addErrorMessage('UPDATE_WRITEERROR');
+        }
+
+        $this->res = $success === true ? true : false;
+
+        if (!$this->res) {
+            return false;
+        }
+
+        fpcmLogSystem('Local file system check was successful');
     }
 
     private function execDownload()
@@ -200,8 +200,13 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController {
 
     private function execUpdateDb()
     {
-        $this->res = (new \fpcm\modules\module($this->key))->install();
+        $module = new \fpcm\modules\module($this->key);
+        if (!method_exists($module, $this->mode)) {
+            fpcmLogSystem('Undefined function '.$this->mode.' for module database update '.$this->key.'!');
+            return true;
+        }
 
+        $this->res = call_user_func([$module, $this->mode]);
         if ($this->res === true) {
             fpcmLogSystem('Database update was successful for module '.$this->key.'!');
             return true;

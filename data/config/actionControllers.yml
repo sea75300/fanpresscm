@@ -39,6 +39,7 @@ comments/edit: action/comments/commentedit
 comments/list: action/comments/commentlist
 package/sysupdate: action/packagemgr/sysupdate
 package/modinstall: action/packagemgr/moduleInstaller
+package/modupdate: action/packagemgr/moduleUpdater
 modules/list: action/modules/modulelist
 ## FanPress CM public action controller file
 fpcm/list: action/pub/showall

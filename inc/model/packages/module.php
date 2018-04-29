@@ -98,7 +98,8 @@ class module extends package {
      */
     public function checkFiles()
     {
-        $files = $this->getFileList($this->getFileListPath(), 1);
+        $path = $this->getLocalDestinationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'files.txt';
+        $files = $this->getFileList($path, 1);
         if (!count($files)) {
             return false;
         }

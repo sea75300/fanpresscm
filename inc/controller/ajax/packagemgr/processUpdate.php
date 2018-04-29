@@ -1,19 +1,19 @@
 <?php
 
 /**
- * AJAX system updates controller
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\ajax\packagemgr;
 
 /**
- * AJAX-Controller Paketmanager - System-Updater
+ * AJAX system updates controller
  * 
  * @package fpcm\controller\ajax\packagemgr\sysupdater
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class processUpdate extends \fpcm\controller\abstracts\ajaxController {
 

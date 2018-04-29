@@ -59,8 +59,8 @@ fpcm.moduleinstaller = {
         fpcm.ajax.post('packagemgr/moduleInstaller', {
             data: {
                 step: params.step,
-                key : fpcm.vars.jsvars.modinstaller.key,
-                mode: fpcm.vars.jsvars.modinstaller.action
+                key : fpcm.vars.jsvars.pkgdata.key,
+                mode: fpcm.vars.jsvars.pkgdata.action
             },
             execDone: function () {
 
