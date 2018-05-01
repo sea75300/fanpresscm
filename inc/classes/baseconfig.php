@@ -106,13 +106,17 @@ final class baseconfig {
 
         if (self::dbConfigExists()) {
             loader::getObject('\fpcm\classes\database');
+            loader::getObject('\fpcm\classes\crypt');
+            loader::getObject('\fpcm\modules\modules')->getEnabledDatabase();
 
             $config  = loader::getObject('\fpcm\model\system\config');
+            
+            /* @var $session \fpcm\model\system\session */
             $session = loader::getObject('\fpcm\model\system\session');
             loader::getObject('\fpcm\model\system\config')->setUserSettings();
             loader::getObject('\fpcm\classes\language', $config->system_lang);
             loader::getObject('\fpcm\model\theme\notifications');
-            loader::getObject('\fpcm\model\system\permissions', ($session->exists() ? $session->currentUser->getRoll() : 0));
+            loader::getObject('\fpcm\model\system\permissions', ($session->exists() ? $session->getCurrentUser()->getRoll() : 0));
         }
 
 
@@ -158,8 +162,9 @@ final class baseconfig {
     public static function getSecurityConfig()
     {
         $path = dirs::getDataDirPath(dirs::DATA_CONFIG, 'sec.php');
-        if (!file_exists($path))
+        if (!file_exists($path)) {
             return [];
+        }
 
         include $path;
         return $config;

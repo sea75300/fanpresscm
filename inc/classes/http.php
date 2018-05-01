@@ -107,6 +107,11 @@ final class http {
     public static function init()
     {
         self::$request = array_merge($_REQUEST, $_COOKIE);
+        
+        if (!security::getTokenCookieValue() && !setcookie(\fpcm\classes\security::getTokenCookieName(), crypt::getRandomString(), time()+86400, '/', '', false, true)) {
+            trigger_error('Unable to set token cookie!');
+            exit;
+        }
     }
 
     /**
@@ -297,7 +302,7 @@ final class http {
                     break;
                 case self::FILTER_DECRYPT :
                     $crypt = new crypt();
-                    $filterString = $crypt->decrypt($filterString);
+                    $filterString = loader::getObject('\fpcm\classes\crypt')->decrypt($filterString);
                     break;
                 case self::FILTER_URLDECODE :
                     $filterString = urldecode($filterString);

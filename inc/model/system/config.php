@@ -217,22 +217,23 @@ final class config extends \fpcm\model\abstracts\dataset {
      */
     public function setUserSettings()
     {
-        if (!defined('FPCM_USERID') || !FPCM_USERID || $this->userConfigSet) {
+        /* @var $user \fpcm\model\users\author */
+        $user = \fpcm\classes\loader::stackPull('currentUser');
+        if (!$user || !$user->getId() || $this->userConfigSet) {
             return false;
         }
 
-        $cacheName = 'system/configuser' . FPCM_USERID;
+        $cacheName = 'system/configuser' . $user->getId();
 
         $userData = $this->cache->read($cacheName);
         if ($this->cache->isExpired($cacheName) || !$this->useCache || !is_array($userData)) {
-            $userData = $this->dbcon->fetch($this->dbcon->select(\fpcm\classes\database::tableAuthors, 'id, usrmeta', 'id = ?', array(FPCM_USERID)));
-            $userData = json_decode($userData->usrmeta, true);
 
+            $userData = $user->getUserMeta();
             if (!is_array($userData)) {
                 return false;
             }
 
-            $this->cache->write($cacheName, $userData, $this->system_cache_timeout);
+            $this->cache->write($cacheName, $userData, FPCM_CACHE_DEFAULT_TIMEOUT);
         }
 
         foreach ($userData as $key => $value) {

@@ -17,6 +17,18 @@ namespace fpcm\modules;
  */
 class modules extends \fpcm\model\abstracts\tablelist {
 
+    /**
+     *
+     * @var array
+     */
+    private $enabledCache;
+
+    /**
+     *
+     * @var array
+     */
+    private $keyCache;
+
     public function __construct()
     {
         $this->table = \fpcm\classes\database::tableModules;
@@ -29,17 +41,22 @@ class modules extends \fpcm\model\abstracts\tablelist {
      */
     public function getKeysFromDatabase()
     {
+        if (is_array($this->keyCache)) {
+            return $this->keyCache;
+        }
+
+        $this->keyCache = [];
+
         $result = $this->dbcon->fetch($this->dbcon->select($this->table, 'mkey'), true);
         if (!$result) {
-            return [];
+            return $this->keyCache;
         }
 
-        $modules = [];
         foreach ($result as $dataset) {
-            $modules[] = $dataset->mkey;
+            $this->keyCache[] = $dataset->mkey;
         }
 
-        return $modules;
+        return $this->keyCache;
     }
 
     /**
@@ -146,17 +163,22 @@ class modules extends \fpcm\model\abstracts\tablelist {
      */
     public function getEnabledDatabase()
     {
+        if (is_array($this->enabledCache)) {
+            return $this->enabledCache;
+        }
+
+        $this->enabledCache = [];
+
         $result = $this->dbcon->fetch($this->dbcon->select($this->table, 'mkey', 'installed = 1 AND active = 1'), true);
         if (!$result) {
-            return [];
+            return $this->enabledCache;
         }
 
-        $modules = [];
         foreach ($result as $dataset) {
-            $modules[] = $dataset->mkey;
+            $this->enabledCache[] = $dataset->mkey;
         }
 
-        return $modules;
+        return $this->enabledCache;
     }
 
     /**

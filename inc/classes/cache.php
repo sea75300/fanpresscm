@@ -38,6 +38,11 @@ final class cache {
     {
         $this->crypt = loader::getObject('\fpcm\classes\crypt');
         $this->basePath = dirs::getDataDirPath(dirs::DATA_CACHE);
+
+        if (!isset($GLOBALS['fpcm']['stack'])) {
+            $GLOBALS['fpcm']['stack'] = [];
+        }
+
     }
 
     /**
@@ -46,8 +51,9 @@ final class cache {
      */
     public function isExpired($cacheName)
     {
-        if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE)
+        if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) {
             return true;
+        }
 
         $cacheFile = loader::getObject('\fpcm\model\files\cacheFile', $cacheName);
         return $cacheFile->expires() <= time() ? true : false;

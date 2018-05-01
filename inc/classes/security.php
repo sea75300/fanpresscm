@@ -35,17 +35,18 @@ final class security {
     private static $cookieName;
 
     /**
+     * Token Cookie Name
+     * @since FPCM 3.6
+     */
+    private static $cookieTokenName;
+
+    /**
      * Cookie-Name zurückgeben
      * @return string
      */
     public static function getSessionCookieName()
     {
         if (self::$cookieName) {
-            return self::$cookieName;
-        }
-
-        self::$cookieName = 'fpcm_sid' . md5(dirs::getRootUrl() . '_' . date('d-m-Y'));
-        if (isset($_COOKIE[self::$cookieName])) {
             return self::$cookieName;
         }
 
@@ -59,14 +60,47 @@ final class security {
     }
 
     /**
+     * Cookie-Name zurückgeben
+     * @return string
+     */
+    public static function getTokenCookieName()
+    {
+        if (self::$cookieTokenName) {
+            return self::$cookieTokenName;
+        }
+
+        $conf = baseconfig::getSecurityConfig();
+        if (!is_array($conf) || !isset($conf['cookieName'])) {
+            return false;
+        }
+
+        self::$cookieTokenName = 'token' . $conf['cookieName'];
+        return self::$cookieTokenName;
+    }
+
+    /**
      * Page-Token-Feld-Name zurückgeben
-     * @param string $overrideModule
+     * @param string $name
      * @return string
      */
     public static function getPageTokenFieldName($name = '')
     {
         $conf = baseconfig::getSecurityConfig();
-        return tools::getHash(trim($name) ? trim($name) : $conf['pageTokenBase']);
+        return tools::getHash(trim($name) ? trim($name) : $conf['pageTokenBase']).self::getTokenCookieValue();
+    }
+
+    /**
+     * gibt Inhalt von Session cookie zurück
+     * @return string
+     */
+    public static function getTokenCookieValue()
+    {
+        return http::cookieOnly(self::getTokenCookieName(), [
+            http::FILTER_STRIPTAGS,
+            http::FILTER_STRIPSLASHES,
+            http::FILTER_TRIM,
+            http::FILTER_DECRYPT
+        ]);
     }
 
     /**
@@ -75,13 +109,12 @@ final class security {
      */
     public static function getSessionCookieValue()
     {
-        $value = http::cookieOnly(self::getSessionCookieName(), array(1, 4, 7));
-        if (substr($value, 0, 3) !== '_$$') {
-            return $value;
-        }
-
-        $crypt = new crypt();
-        return $crypt->decrypt($value);
+        return http::cookieOnly(self::getSessionCookieName(), [
+            http::FILTER_STRIPTAGS,
+            http::FILTER_STRIPSLASHES,
+            http::FILTER_TRIM,
+            http::FILTER_DECRYPT
+        ]);
     }
 
     /**

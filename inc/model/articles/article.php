@@ -923,7 +923,7 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function setInEdit()
     {
-        return $this->dbcon->update($this->table, ['inedit'], [time() . '-' . FPCM_USERID, $this->id], 'id = ?');
+        return $this->dbcon->update($this->table, ['inedit'], [time() . '-' . \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getId(), $this->id], 'id = ?');
     }
 
     /**
@@ -948,7 +948,7 @@ class article extends \fpcm\model\abstracts\dataset {
         }
 
         $data = explode('-', $this->inedit);
-        return $data[0] > time() - FPCM_ARTICLE_LOCKED_INTERVAL && $data[1] != FPCM_USERID ? true : false;
+        return $data[0] > time() - FPCM_ARTICLE_LOCKED_INTERVAL && $data[1] != \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getId() ? true : false;
     }
 
     /**

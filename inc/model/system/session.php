@@ -89,30 +89,26 @@ final class session extends \fpcm\model\abstracts\dataset {
 
         $this->table = \fpcm\classes\database::tableSessions;
 
-        if (!is_object($this->config)) {
-            $this->config = new config();
+        if (!$init || \fpcm\classes\security::getSessionCookieValue() === null) {
+            return false;
         }
 
-        if ($init && !is_null(\fpcm\classes\security::getSessionCookieValue())) {
-            $this->sessionid = \fpcm\classes\security::getSessionCookieValue();
-            $this->init();
+        $this->sessionid = \fpcm\classes\security::getSessionCookieValue();
+        $this->init();
 
-            if ($this->sessionExists) {
-                if (!defined('FPCM_USERID')) {
-                    /**
-                     * ID des aktuellen Benutzers, nur verfügbar wenn Session existiert
-                     */
-                    define('FPCM_USERID', $this->userid);
-                }
-
-                $this->currentUser = new \fpcm\model\users\author($this->userid);
-                if ($this->lastaction <= time() - 60) {
-                    $this->lastaction = time();
-                    $this->update();
-                    $this->setCookie();
-                }
-            }
+        if (!$this->sessionExists) {
+            return false;
         }
+
+        $this->currentUser = \fpcm\classes\loader::getObject('\fpcm\model\users\author', $this->userid);
+        \fpcm\classes\loader::stackPush('currentUser', $this->currentUser);
+        if ($this->lastaction > time() - 60) {
+            return true;
+        }
+
+        $this->lastaction = time();
+        $this->update();
+        $this->setCookie();
     }
 
     /**

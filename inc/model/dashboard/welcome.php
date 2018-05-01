@@ -42,7 +42,7 @@ class welcome extends \fpcm\model\abstracts\dashcontainer {
     public function getHeadline()
     {
         return $this->language->translate('WELCOME_HEADLINE', [
-            '{{username}}' => \fpcm\classes\loader::getObject('\fpcm\model\system\session')->currentUser->getDisplayname()
+            '{{username}}' => \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getDisplayname()
         ]);
     }
 

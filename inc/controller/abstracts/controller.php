@@ -154,9 +154,11 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\modules\modules')->getEnabledDatabase();
         $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
 
-        $rollId = $this->session->exists() ? $this->session->currentUser->getRoll() : 0;
+        $this->permissions = \fpcm\classes\loader::getObject(
+            '\fpcm\model\system\permissions',
+            $this->session->exists() ? $this->session->getCurrentUser()->getRoll() : 0
+        );
 
-        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions', $rollId);
         $this->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
 
         $this->initActionObjects();

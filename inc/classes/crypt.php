@@ -209,6 +209,17 @@ final class crypt {
         return true;
     }
 
+    /**
+     * Return random string by openssl_random_pseudo_bytes
+     * @param int $length
+     * @return string
+     * @since FPCM 4
+     */
+    public static function getRandomString($length = 32)
+    {
+        return openssl_random_pseudo_bytes($length);
+    }
+
 }
 
 ?>

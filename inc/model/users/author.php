@@ -260,7 +260,7 @@ class author extends \fpcm\model\abstracts\dataset {
     {
         $userMeta = json_decode($this->usrmeta, true);
 
-        if (is_null($valueName)) {
+        if ($valueName === null) {
             return $userMeta;
         }
 

@@ -17,6 +17,8 @@ if (file_exists(dirname(__DIR__) . '/data/config/constants.custom.php')) {
  */
 define('FPCM_PHP_REQUIRED', '5.6.0');
 
+define('FPCM_DATE_SECONDS', 86400);
+
 if (!defined('FPCM_DEBUG')) {
     /**
      * Debug-Modus aktivieren
@@ -70,7 +72,7 @@ if (!defined('FPCM_LANGCACHE_TIMEOUT')) {
     /**
      * Timeout für Sprach-Cache
      */
-    define('FPCM_LANGCACHE_TIMEOUT', 3600 * 24 * 31);
+    define('FPCM_LANGCACHE_TIMEOUT', FPCM_DATE_SECONDS * 31);
 }
 
 if (!defined('FPCM_PAGETOKENCACHE_TIMEOUT')) {
