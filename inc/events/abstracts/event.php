@@ -151,7 +151,7 @@ abstract class event implements \fpcm\model\interfaces\event {
      */
     public function getModuleKeyByEvent($path)
     {
-        return \fpcm\model\abstracts\module::getModuleKeyByFolder($path);
+        return \fpcm\modules\module::getKeyFromPath($path);
     }
 
     /**
