@@ -247,7 +247,11 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
             }
 
             if ($this->permArr['canInstall'] && $item->hasUpdates()) {
-                $buttons[] = (new \fpcm\view\helper\button('update'.$hash))->setText('MODULES_LIST_UPDATE')->setIcon('sync')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'update'])->setClass('fpcm-ui-modulelist-action-local');
+                $buttons[] = (new \fpcm\view\helper\linkButton('update'.$hash))
+                        ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', ['key' => $item->getKey()]))
+                        ->setText('MODULES_LIST_UPDATE')
+                        ->setIcon('sync')
+                        ->setIconOnly(true);
             }
         }
         

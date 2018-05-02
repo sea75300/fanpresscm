@@ -245,20 +245,26 @@ abstract class event implements \fpcm\model\interfaces\event {
     public function run()
     {
         $eventClasses = $this->getEventClasses();
-
         if (!count($eventClasses)) {
             return $this->data;
         }
 
+        $base = $this->getEventClassBase();
         foreach ($eventClasses as $eventClass) {
 
-            $classkey = $this->getModuleKeyByEvent($eventClass);
-            $eventClass = \fpcm\model\abstracts\module::getModuleEventNamespace($classkey, $this->getEventClassBase());
+            $class = \fpcm\modules\module::getEventNamespace(
+                $this->getModuleKeyByEvent($eventClass),
+                $base
+            );
+            
+            if (!class_exists($class)) {
+                continue;
+            }
 
             /**
              * @var \fpcm\events\event
              */
-            $module = new $eventClass($this->data);
+            $module = new $class($this->data);
             if (!$this->is_a($module)) {
                 continue;
             }

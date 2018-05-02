@@ -144,9 +144,15 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
             $newname = $this->getRequestVar('newfilename');
             if ($newname && $image->rename($newname, $this->session->getUserId())) {
-                $this->view->addNoticeMessage('DELETE_SUCCESS_RENAME', array('{{filename1}}' => $fileName, '{{filename2}}' => $newname));
+                $this->view->addNoticeMessage('DELETE_SUCCESS_RENAME', [
+                    '{{filename1}}' => $fileName,
+                    '{{filename2}}' => $newname
+                ]);
             } else {
-                $this->view->addErrorMessage('DELETE_FAILED_RENAME', array('{{filename1}}' => $fileName, '{{filename2}}' => $newname));
+                $this->view->addErrorMessage('DELETE_FAILED_RENAME', [
+                    '{{filename1}}' => $fileName,
+                    '{{filename2}}' => $newname
+                ]);
             }
 
             $this->fileList->createFilemanagerThumbs();
@@ -185,12 +191,10 @@ class filelist extends \fpcm\controller\abstracts\controller {
             $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'));
         } else {
             $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]));
-
-            $translInfo = [
+            $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', [
                 '{{filecount}}' => ini_get("max_file_uploads"),
                 '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
-            ];
-            $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', $translInfo));
+            ]));
         }
 
         $this->initViewAssigns([], [], \fpcm\classes\tools::calcPagination(1, 1, 0, 0));

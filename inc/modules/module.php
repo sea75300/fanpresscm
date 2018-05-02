@@ -278,7 +278,7 @@ class module {
             return false;
         }
         
-        if (version_compare(PHP_VERSION, $data['requirements']['php']. '<') || version_compare($this->systemConfig->system_version, $data['requirements']['system']. '<')) {
+        if (version_compare(PHP_VERSION, $data['requirements']['php'], '<') || version_compare($this->systemConfig->system_version, $data['requirements']['system'], '<')) {
             return false;
         }
 
@@ -424,11 +424,11 @@ class module {
             return false;
         }
 
-        if (!$this->addModule($fromDir)) {
+        if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\installAfter', $this->mkey)) {
             return false;
         }
 
-        if (method_exists($this, 'installAfter') && !$this->installAfter()) {
+        if (!$this->addModule($fromDir)) {
             return false;
         }
 
@@ -532,11 +532,11 @@ class module {
             return false;
         }
 
-        if (!$this->removeFiles()) {
+        if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\uninstallAfter', $this->mkey)) {
             return false;
         }
 
-        if (!$delete && method_exists($this, 'uninstallAfter') && !$this->uninstallAfter()) {
+        if (!$this->removeFiles()) {
             return false;
         }
 
@@ -627,6 +627,7 @@ class module {
         fpcmLogSystem('update module '.$this->mkey);
         $this->cache->cleanup();
 
+        $this->config = new config($this->mkey);
         if (!$this->updateTables()) {
             return false;
         }
@@ -635,11 +636,11 @@ class module {
             return false;
         }
 
-        if (!$this->updateModule()) {
+        if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\updateAfter', $this->mkey)) {
             return false;
         }
 
-        if (method_exists($this, 'updateAfter') && !$this->updateAfter()) {
+        if (!$this->updateModule()) {
             return false;
         }
 
@@ -786,6 +787,16 @@ class module {
         }
 
         return explode('\\', $class, 3)[2];
+    }
+    
+    /**
+     * 
+     * @param string $key
+     * @param string $event
+     * @return string
+     */
+    public static function getEventNamespace($key, $event) {
+        return "\\fpcm\\modules\\".str_replace('/', '\\', $key)."\\events\\{$event}";
     }
 
 }

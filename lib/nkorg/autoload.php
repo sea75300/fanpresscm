@@ -9,7 +9,7 @@
  */
 spl_autoload_register(function($class) {
 
-    if (strpos($class, 'nkorg') === false) {
+    if (strpos($class, 'nkorg') === false || strpos($class, 'modules') !== false) {
         return false;
     }
 

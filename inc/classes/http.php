@@ -108,7 +108,7 @@ final class http {
     {
         self::$request = array_merge($_REQUEST, $_COOKIE);
         
-        if (!security::getTokenCookieValue() && !setcookie(\fpcm\classes\security::getTokenCookieName(), crypt::getRandomString(), time()+86400, '/', '', false, true)) {
+        if (!baseconfig::isCli() && !security::getTokenCookieValue() && !setcookie(\fpcm\classes\security::getTokenCookieName(), crypt::getRandomString(), time()+86400, '/', '', false, true)) {
             trigger_error('Unable to set token cookie!');
             exit;
         }
