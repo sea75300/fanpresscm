@@ -117,6 +117,13 @@ fpcm.filemanager = {
                                     oldName: selectedFile
                                 },
                                 execDone: function () {
+                                    
+                                    var result = fpcm.ajax.getResult('files/rename', true);
+                                    fpcm.ui.addMessage({
+                                        txtComplete: result.message,
+                                        type: result.code < 1 ? 'error' : 'notice'
+                                    });
+                                    
                                     fpcm.filemanager.closeRenameDialog();
                                     fpcm.filemanager.reloadFiles();
                                     fpcm.ui.showLoader();
@@ -175,18 +182,26 @@ fpcm.filemanager = {
 
     },
 
-    reloadFiles: function (page) {
+    reloadFiles: function (page, filter) {
 
         fpcm.ui.showLoader(true);
 
         if (!page) {
             page = 1;
         }
+        
+        if (!filter) {
+            filter = {};
+        }
+        else if (filter) {
+            fpcm.vars.jsvars.filesLastSearch = (new Date()).getTime();
+        }
 
         fpcm.ajax.get('filelist', {
             data: {
                 mode: fpcm.vars.jsvars.fmgrMode,
-                page: page
+                page: page,
+                filter: filter
             },
             execDone: function () {
 
@@ -202,6 +217,7 @@ fpcm.filemanager = {
                         return false;
                     }
                 }, 250);
+
             }
         });
         
@@ -238,15 +254,12 @@ fpcm.filemanager = {
                         icon: "ui-icon-check",                        
                         click: function() {                            
                             var sfields = jQuery('.fpcm-files-search-input');
-                            var sParams = {
-                                mode    : fpcm.vars.jsvars.fmgrMode,
-                                filter  : {}
-                            };
+                            var sParams = {};
+                            var el = {};
 
                             jQuery.each(sfields, function( key, obj ) {
-                                var objVal  = jQuery(obj).val();
-                                var objName = jQuery(obj).attr('name');                                
-                                sParams.filter[objName] = objVal;
+                                el = jQuery(obj);
+                                sParams[el.attr('name')] = el.val();
                             });
 
                             fpcm.filemanager.startFilesSearch(sParams);
@@ -282,26 +295,6 @@ fpcm.filemanager = {
         }
 
         fpcm.ui.showLoader(true);
-        
-        fpcm.ajax.post('files/search', {
-            data: sParams,
-            execDone: function () {
-                fpcm.ui.assignHtml("#tabs-files-list-content", fpcm.ajax.getResult('files/search'));
-                fpcm.ui.initJqUiWidgets();
-                fpcm.filemanager.initJqUiWidgets();
-                var fpcmRFDinterval = setInterval(function(){
-                    if (jQuery('#fpcm-filelist-images-finished').length == 1) {
-                        fpcm.ui.showLoader(false);
-                        clearInterval(fpcmRFDinterval);
-                        if (page) {
-                            jQuery(window).scrollTop(0);
-                        }
-                        return false;
-                    }
-                }, 250);
-            }
-        });
-
-        fpcm.vars.jsvars.filesLastSearch = (new Date()).getTime();
+        fpcm.filemanager.reloadFiles(1, sParams);        
     }
 };

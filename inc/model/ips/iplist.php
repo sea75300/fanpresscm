@@ -17,6 +17,8 @@ namespace fpcm\model\ips;
  */
 class iplist extends \fpcm\model\abstracts\tablelist {
 
+    protected $lockCache = [];
+
     /**
      * Konstruktor
      */
@@ -39,9 +41,11 @@ class iplist extends \fpcm\model\abstracts\tablelist {
 
         foreach ($items as $item) {
             $ipaddress = new ipaddress();
-            if ($ipaddress->createFromDbObject($item)) {
-                $res[$ipaddress->getId()] = $ipaddress;
+            if (!$ipaddress->createFromDbObject($item)) {
+                continue;
             }
+
+            $res[$ipaddress->getId()] = $ipaddress;
         }
 
         return $res;
@@ -59,14 +63,19 @@ class iplist extends \fpcm\model\abstracts\tablelist {
             return true;
         }
 
-        $delim = strpos(\fpcm\classes\http::getIp(), ':') !== false ? ':' : '.';
+        $ip = \fpcm\classes\http::getIp();
+        if (isset($this->lockCache[$ip.'-'.$lockType])) {
+            return $this->lockCache[$ip.'-'.$lockType];
+        }
+        
+        $delim = strpos($ip, ':') !== false ? ':' : '.';
 
-        $ipAddress = explode($delim, \fpcm\classes\http::getIp());
+        $ipAddress = explode($delim, $ip);
 
         $adresses = [];
         $adresses[] = implode($delim, $ipAddress);
 
-        $where = array('ipaddress ' . $this->dbcon->dbLike() . ' ?');
+        $where = ['ipaddress ' . $this->dbcon->dbLike() . ' ?'];
         $counts = count($ipAddress) - 1;
         for ($i = $counts; $i > 0; $i--) {
             $ipAddress[$i] = '*';
@@ -77,8 +86,9 @@ class iplist extends \fpcm\model\abstracts\tablelist {
         $where = "(" . implode(' OR ', $where) . ") AND $lockType = 1";
 
         $result = $this->dbcon->fetch($this->dbcon->select($this->table, 'count(id) AS counted', $where, $adresses));
+        $this->lockCache[$ip.'-'.$lockType] = $result->counted ? true : false;
 
-        return $result->counted ? true : false;
+        return $this->lockCache[$ip.'-'.$lockType];
     }
 
     /**

@@ -7,7 +7,7 @@ ajax/autocomplete: ajax/common/autocomplete
 ajax/logs/clear: ajax/logs/clear
 ajax/logs/reload: ajax/logs/reload
 ajax/filelist: ajax/files/filelist
-ajax/files/search: ajax/files/search
+ajax/files/rename: ajax/files/rename
 ajax/jqupload: ajax/files/jqupload
 ajax/articles/search: ajax/articles/search
 ajax/articles/tweet: ajax/articles/listnewtweets

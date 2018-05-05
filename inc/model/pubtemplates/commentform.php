@@ -39,7 +39,8 @@ final class commentform extends template {
         '{{spampluginField}}' => '',
         '{{privateCheckbox}}' => '',
         '{{submitButton}}' => '',
-        '{{resetButton}}' => ''
+        '{{resetButton}}' => '',
+        '{{privacyComfirmation}}' => '',
     );
 
     /**

@@ -199,13 +199,15 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController {
     
     private function execUpdateLog()
     {
+        fpcmLogSystem('Update package manager logfile!');
         $this->res = $this->pkg->updateLog();
         return;
     }
 
     private function execCleanup()
     {
-        $this->res = $this->pkg->cleanup();
+        fpcmLogSystem('Cleanup of outdated and temporary files!');
+        $this->res = $this->pkg->cleanupFiles() && $this->pkg->cleanup();
         \fpcm\classes\loader::getObject('\fpcm\classes\cache')->cleanup();
     }
 

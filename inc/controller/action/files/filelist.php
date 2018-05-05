@@ -65,7 +65,6 @@ class filelist extends \fpcm\controller\abstracts\controller {
     public function request()
     {
         $this->fileList = new \fpcm\model\files\imagelist();
-        $this->userList = new \fpcm\model\users\userList();
 
         $styleLeftMargin = true;
         
@@ -137,27 +136,6 @@ class filelist extends \fpcm\controller\abstracts\controller {
             }
         }
 
-        if ($this->buttonClicked('renameFiles') && !is_null($this->getRequestVar('filenames') && $this->getRequestVar('newfilename'))) {
-            $fileNames = array_map('base64_decode', $this->getRequestVar('filenames'));
-            $fileName = array_shift($fileNames);
-            $image = new \fpcm\model\files\image($fileName, false);
-
-            $newname = $this->getRequestVar('newfilename');
-            if ($newname && $image->rename($newname, $this->session->getUserId())) {
-                $this->view->addNoticeMessage('DELETE_SUCCESS_RENAME', [
-                    '{{filename1}}' => $fileName,
-                    '{{filename2}}' => $newname
-                ]);
-            } else {
-                $this->view->addErrorMessage('DELETE_FAILED_RENAME', [
-                    '{{filename1}}' => $fileName,
-                    '{{filename2}}' => $newname
-                ]);
-            }
-
-            $this->fileList->createFilemanagerThumbs();
-        }
-
         return true;
     }
 
@@ -202,13 +180,9 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
         if ($this->mode === 1) {
             $this->view->addButtons([
-                (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
+                (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true),
                 (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
             ]);
-
-            if ($this->permissionsData['permRename']) {
-                $this->view->addButton((new \fpcm\view\helper\submitButton('renameFiles'))->setText('FILE_LIST_RENAME')->setIcon('edit')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'));
-            }
 
             if ($this->permissionsData['permThumbs']) {
                 $this->view->addButton((new \fpcm\view\helper\submitButton('createThumbs'))->setText('FILE_LIST_NEWTHUMBS')->setIcon('image', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'));
@@ -217,6 +191,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
             if ($this->permissionsData['permDelete']) {
                 $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteFiles'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab1'));
             }
+
         }
 
         $this->view->setFormAction('files/list', ['mode' => $this->mode]);

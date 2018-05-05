@@ -370,6 +370,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             '{{spampluginQuestion}}' => $this->captcha->createPluginText(),
             '{{spampluginField}}' => $this->captcha->createPluginInput(),
             '{{privateCheckbox}}' => '<input type="checkbox" class="fpcm-pub-checkboxinput" name="newcomment[private]" value="1">',
+            '{{privacyComfirmation}}' => '<input type="checkbox" class="fpcm-pub-checkboxinput" name="newcomment[privacy]" value="1">',
             '{{submitButton}}' => '<button type="submit" name="btnSendComment">' . $this->lang->translate('GLOBAL_SUBMIT') . '</button>',
             '{{resetButton}}' => '<button type="reset">' . $this->lang->translate('GLOBAL_RESET') . '</button>'
         );
@@ -435,13 +436,17 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         $this->commentTemplate = new \fpcm\model\pubtemplates\comment($this->config->comments_template_active);
         $this->commentFormTemplate = new \fpcm\model\pubtemplates\commentform();
 
-        if ($this->buttonClicked('sendComment') && !is_null($this->getRequestVar('newcomment')) && !$this->ipList->ipIsLocked() && !$this->ipList->ipIsLocked('nocomments')) {
-            $newCommentData = $this->getRequestVar('newcomment');
+        $newCommentData = $this->getRequestVar('newcomment');
+        $hasPrivacy = !isset($newCommentData['privacy']) ? null : ($newCommentData['privacy'] == 1 ? true : false);
+
+        if ($this->buttonClicked('sendComment') && $newCommentData !== null && ($hasPrivacy === null || $hasPrivacy === true) && !$this->ipList->ipIsLocked() && !$this->ipList->ipIsLocked('nocomments')) {
 
             $timer = time();
 
             if ($timer <= $this->commentList->getLastCommentTimeByIP() + $this->config->comments_flood) {
-                $this->view->addErrorMessage('PUBLIC_FAILED_FLOOD', array('{{seconds}}' => $this->config->comments_flood));
+                $this->view->addErrorMessage('PUBLIC_FAILED_FLOOD', [
+                    '{{seconds}}' => $this->config->comments_flood
+                ]);
                 return true;
             }
 

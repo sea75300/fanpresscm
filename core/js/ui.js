@@ -518,7 +518,6 @@ fpcm.ui = {
     },
     
     addMessage: function(value, clear) {
-
         if (fpcm.vars.ui.messages === undefined || clear) {
             fpcm.vars.ui.messages = [];
             jQuery('#fpcm-messages').empty();
@@ -544,6 +543,9 @@ fpcm.ui = {
         
         if (fpcm.ui.langvarExists(value.txt)) {
             value.txt = fpcm.ui.translate(value.txt);
+        }
+        else if (value.txtComplete) {
+            value.txt = value.txtComplete;
         }
 
         fpcm.vars.ui.messages.push(value);

@@ -264,6 +264,8 @@ trait lists {
         if ($this->getMode() < 2) {
             $this->conditions->limit = [$this->config->articles_acp_limit, $this->listShowStart];
         }
+        
+        $this->conditions->orderby = ['createtime DESC'];
 
         $comments           = $this->list->getCommentsBySearchCondition($this->conditions);
         $this->commentCount = count($comments);

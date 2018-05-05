@@ -43,7 +43,6 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 $this->addSystemOptions() &&
                 $this->updateSystemOptions() &&
                 $this->updatePermissions() &&
-                $this->checkFilesystem() &&
                 $this->updateVersion() &&
                 $this->optimizeTables();
 
@@ -174,15 +173,6 @@ final class finalizer extends \fpcm\model\abstracts\model {
         ));
 
         return $res;
-    }
-
-    /**
-     * Prüfung von Dateisystem-Strukturen
-     * @return bool
-     */
-    private function checkFilesystem()
-    {
-        return true;
     }
 
     /**

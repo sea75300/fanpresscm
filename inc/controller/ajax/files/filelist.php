@@ -15,6 +15,8 @@ namespace fpcm\controller\ajax\files;
  * 
  * @package fpcm\controller\ajax\files\filelist
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class filelist extends \fpcm\controller\abstracts\ajaxController {
 
@@ -28,9 +30,15 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      *
-     * @var array
+     * @var \fpcm\model\files\search
      */
-    protected $checkPermission = ['article' => 'add', 'article' => 'edit', 'uploads' => 'add'];
+    protected $filter;
+
+    /**
+     *
+     * @var \fpcm\model\files\search
+     */
+    protected $showPager = false;
 
     /**
      * Request-Handler
@@ -44,6 +52,25 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
 
         if ($this->mode === null) {
             $this->mode = 1;
+        }
+
+        $this->filter = new \fpcm\model\files\search();
+
+        $filter = $this->getRequestVar('filter');
+        if (!is_array($filter) || !count($filter)) {
+            $this->showPager = true;
+            return true;
+        }
+
+        $this->filter->filename      = $filter['filename'];
+        $this->filter->combination   = $filter['combination'] ? 'OR' : 'AND';
+
+        if ($filter['datefrom']) {
+            $this->filter->datefrom   = strtotime($filter['datefrom']);
+        }
+
+        if ($filter['dateto']) {
+            $this->filter->dateto     = strtotime($filter['dateto']);
         }
         
         return true;
@@ -59,6 +86,15 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
     }
 
     /**
+     * 
+     * @return array
+     */
+    protected function getPermissions()
+    {
+        return ['article' => 'add', 'article' => 'edit', 'uploads' => 'visible'];
+    }
+    
+    /**
      * Controller-Processing
      */
     public function process()
@@ -68,12 +104,15 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
         $page = $this->getRequestVar('page', [
             \fpcm\classes\http::FILTER_CASTINT
         ]);
-        $list = $fileList->getDatabaseList(
-            $this->config->file_list_limit, \fpcm\classes\tools::getPageOffset($page, $this->config->file_list_limit)
-        );
 
+        $this->filter->limit = [$this->config->file_list_limit, \fpcm\classes\tools::getPageOffset($page, $this->config->file_list_limit)];
+        $list = $fileList->getDatabaseListByCondition($this->filter);
+        
         $pagerData = \fpcm\classes\tools::calcPagination(
-            $this->config->file_list_limit, $page, $fileList->getDatabaseFileCount(), count($list)
+            $this->config->file_list_limit,
+            $page,
+            $fileList->getDatabaseCountByCondition($this->filter),
+            count($list)
         );
 
         $list = $this->events->trigger('reloadFileList', $list);
@@ -82,6 +121,8 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
         $this->initViewAssigns($list, $userList->getUsersAll(), $pagerData);
         $this->initPermissions();
 
+        $this->view->assign('canRename', $this->permissionsData['permRename']);
+        $this->view->assign('showPager', $this->showPager);
         $this->view->render();
     }
 

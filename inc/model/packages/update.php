@@ -220,6 +220,31 @@ class update extends package {
 
         return $fopt->remove();
     }
+    
+    public function cleanupFiles()
+    {
+        $oldList = $this->getFileList(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt.back'), 1);
+        $newList = $this->getFileList(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt'), 1);
+
+        if (!count($oldList) || !count($newList)) {
+            return true;
+        }
+
+        $diff = array_diff($oldList, $newList);
+        foreach ($diff as $file) {
+            
+            if (!file_exists($file) || is_dir($file)) {
+                continue;
+            }
+
+            if (!unlink($this->replaceFanPressBaseFolder($file))) {
+                return false;
+            }
+
+        }
+
+        return true;
+    }
 
     /**
      * 

@@ -56,14 +56,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     }
 
     /**
-     * Gibt Dateiindex in Datenbank zurück
-     * @param int $limit
-     * @param int $offset
-     * @return array:\fpcm\model\files\image
-     */
-
-    /**
-     * Gibt Dateiindex anahdn von bestimmten Bedigungen zurück
+     * Fetch file index by condition
      * @param \fpcm\model\files\search $conditions
      * @return array:\fpcm\model\files\image
      */
@@ -92,7 +85,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         $where = implode(" {$combination} ", $where);
 
         $where2 = [];
-        $where2[] = $this->dbcon->orderBy($conditions->limit ? $conditions->limit : ['filetime DESC']);
+        $where2[] = $this->dbcon->orderBy($conditions->orderby ? $conditions->orderby : ['filetime DESC']);
 
         if (is_array($conditions->limit)) {
             $where2[] = $this->dbcon->limitQuery($conditions->limit[0], $conditions->limit[1]);
@@ -101,9 +94,9 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         $where .= ' ' . implode(' ', $where2);
 
         $images = $this->dbcon->fetch(
-                $this->dbcon->select(
-                        $this->table, '*', $where, $valueParams
-                ), true
+            $this->dbcon->select(
+                    $this->table, '*', $where, $valueParams
+            ), true
         );
 
         $res = [];
@@ -114,6 +107,35 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         }
 
         return $res;
+    }
+
+    /**
+     * Fetch file index by condition
+     * @param \fpcm\model\files\search $conditions
+     * @return array:\fpcm\model\files\image
+     */
+    public function getDatabaseCountByCondition(search $conditions)
+    {
+        $where = array('1=1');
+        $valueParams = [];
+
+        if ($conditions->filename) {
+            $where[] = "filename LIKE ?";
+            $valueParams[] = '%' . $conditions->filename . '%';
+        }
+
+        if ($conditions->datefrom) {
+            $where[] = "filetime >= ?";
+            $valueParams[] = $conditions->datefrom;
+        }
+
+        if ($conditions->dateto) {
+            $where[] = "filetime <= ?";
+            $valueParams[] = $conditions->dateto;
+        }
+
+        $combination = $conditions->combination ? $conditions->combination : 'AND';
+        return $this->dbcon->count($this->table, 'id', implode(" {$combination} ", $where), $valueParams);
     }
 
     /**
