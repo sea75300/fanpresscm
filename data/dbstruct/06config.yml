@@ -207,7 +207,7 @@ defaultvalues:
             config_name: "file_img_thumb_height"
             config_value: "100"
         file_uploader_new:
-            id: 45
+            id: 46
             config_name: "file_uploader_new"
             config_value: "1"
         file_list_limit:

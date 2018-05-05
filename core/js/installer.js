@@ -15,6 +15,8 @@ fpcm.installer = {
     init: function() {
         fpcm.installer.initUi();
         fpcm.installer.initDatabase();
+        
+        jQuery('button.fpcm-installer-next-4').hide();
     },
 
     checkDBData: function() {
@@ -87,8 +89,12 @@ fpcm.installer = {
                     fpcm.ui.prependHtml('#' + rowId, '<span class="fa fa-check fa-fw"></span>');
                     fpcm.installer.currentDbFileIndex++;
                     fpcm.installer.execDbFile();
-                    return true;
+                    
+                    if (fpcm.installer.currentDbFileIndex === fpcm.vars.jsvars.sqlFiles.length) {
+                        jQuery('button.fpcm-installer-next-4').show();
+                    }
 
+                    return true;
                 }
 
                 fpcm.ui.prependHtml('#' + rowId, '<span class="fa fa-ban fa-fw fpcm-ui-important-text"></span>');

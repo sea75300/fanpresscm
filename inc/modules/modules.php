@@ -41,6 +41,10 @@ class modules extends \fpcm\model\abstracts\tablelist {
      */
     public function getKeysFromDatabase()
     {
+        if (\fpcm\classes\baseconfig::installerEnabled()) {
+            return [];
+        }
+        
         if (is_array($this->keyCache)) {
             return $this->keyCache;
         }
@@ -65,6 +69,10 @@ class modules extends \fpcm\model\abstracts\tablelist {
      */
     public function getFromDatabase()
     {
+        if (\fpcm\classes\baseconfig::installerEnabled()) {
+            return [];
+        }
+
         $result = $this->dbcon->fetch($this->dbcon->select($this->table, '*'), true);
         if (!$result) {
             return [];
@@ -84,6 +92,10 @@ class modules extends \fpcm\model\abstracts\tablelist {
      */
     public function getInstalledDatabase()
     {
+        if (\fpcm\classes\baseconfig::installerEnabled()) {
+            return [];
+        }
+
         $result = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'installed = 1'), true);
         if (!$result) {
             return [];
@@ -163,6 +175,10 @@ class modules extends \fpcm\model\abstracts\tablelist {
      */
     public function getEnabledDatabase()
     {
+        if (\fpcm\classes\baseconfig::installerEnabled()) {
+            return [];
+        }
+
         if (is_array($this->enabledCache)) {
             return $this->enabledCache;
         }
