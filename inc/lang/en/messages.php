@@ -174,6 +174,7 @@ $lang = array(
     'PUBLIC_FAILED_NAME' => 'Please insert your name!',
     'PUBLIC_FAILED_EMAIL' => 'Please insert your email-address!',
     'PUBLIC_FAILED_FLOOD' => 'Please wait at least {{seconds}} seconds before you create another comment!',
-    'PUBLIC_ARTICLE_PINNED' => 'This article is pinned and therefore is displayed before any other article.'
+    'PUBLIC_ARTICLE_PINNED' => 'This article is pinned and therefore is displayed before any other article.',
+    'PUBLIC_PRIVACY' => 'You have to accept our privacy policy to create a comments.'
 );
 ?>

@@ -56,6 +56,7 @@ namespace fpcm\model\system;
  * @property string $comments_antispam_answer Spam-Captcha-Antwort
  * @property int    $comments_notify wohin sollen Benachrichtigung bei neuem Kommentar gehen (0 = nur globale E-MailAdresse, 1 = nur Author, 2 = beide)
  * @property int    $comments_markspam_commentcount Anzahl an Spam deklarierter vorhandener Kommentare, über der ein ein neuer Kommentar automatisch als Spam markiert wird
+ * @property bool   $comments_privacy_optin Opt-In beim Absenden eines Kommentars notwendig
  * 
  * @property int    $file_img_thumb_width Breite der Thumbnails
  * @property int    $file_img_thumb_height Höhe der Thumbnails

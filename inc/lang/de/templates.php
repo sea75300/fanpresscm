@@ -64,5 +64,6 @@ $lang = array(
     'TEMPLATE_COMMMENTFORM_PRIVATECHECKBOX' => 'Checkbox für privaten Kommentar',
     'TEMPLATE_COMMMENTFORM_SUBMITBUTTON' => 'Senden-Button',
     'TEMPLATE_COMMMENTFORM_RESETBUTTON' => 'Zurücksetzen-Button',
-    'TEMPLATE_COMMMENTFORM_SUBMITURL' => 'URL des Kommentar-Formulars <b>(wichtig!)</b>'
+    'TEMPLATE_COMMMENTFORM_SUBMITURL' => 'URL des Kommentar-Formulars <b>(wichtig!)</b>',
+    'TEMPLATE_COMMMENTFORM_PRIVACYCOMFIRMATION' => 'Checkbox für zusätzliche Datenschutz-Zustimmung'
 );

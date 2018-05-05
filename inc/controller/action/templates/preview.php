@@ -258,6 +258,7 @@ class preview extends \fpcm\controller\abstracts\controller {
             '{{spampluginQuestion}}' => $captcha->createPluginText(),
             '{{spampluginField}}' => $captcha->createPluginInput(),
             '{{privateCheckbox}}' => '<input type="checkbox" class="fpcm-pub-checkboxinput" name="newcomment[private]" value="1">',
+            '{{privacyComfirmation}}' => '<input type="checkbox" class="fpcm-pub-checkboxinput" name="newcomment[privacy]" value="1">',
             '{{submitButton}}' => '<button type="submit" name="btnSendComment">' . $this->lang->translate('GLOBAL_SUBMIT') . '</button>',
             '{{resetButton}}' => '<button type="reset">' . $this->lang->translate('GLOBAL_RESET') . '</button>'
         );

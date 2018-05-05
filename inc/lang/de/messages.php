@@ -173,6 +173,7 @@ $lang = array(
     'PUBLIC_FAILED_NAME' => 'Bitte gibt deinen Namen ein!',
     'PUBLIC_FAILED_EMAIL' => 'Bitte gibt deine E-Mail-Adresse ein!',
     'PUBLIC_FAILED_FLOOD' => 'Bitte warte mindestens {{seconds}} Sekunden, bevor du einen weiteren Kommentar schreibst!',
-    'PUBLIC_ARTICLE_PINNED' => 'Dieser Artikel ist gepinnt und wird über allen anderen angezeigt.'
+    'PUBLIC_ARTICLE_PINNED' => 'Dieser Artikel ist gepinnt und wird über allen anderen angezeigt.',
+    'PUBLIC_PRIVACY' => 'Du musst unserer Datenschutz-Erklärung zustimmen, um einen Kommentar zu verfassen.'
 );
 ?>

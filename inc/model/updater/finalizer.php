@@ -93,7 +93,25 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function addSystemOptions()
     {
-        return true;
+        $yatdl = new \fpcm\model\system\yatdl(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBSTRUCT, '06config.yml'));
+        $yatdl->parse();
+
+        $data = $yatdl->getArray();
+        if (!isset($data['defaultvalues']['rows']) || !is_array($data['defaultvalues']['rows']) || !count($data['defaultvalues']['rows'])) {
+            return true;
+        }
+
+        $res = true;
+        foreach ($data['defaultvalues']['rows'] as $option) {
+
+            if ($option['config_name'] === 'smtp_setting') {
+                continue;
+            }
+
+            $res = $res && $this->config->add($option['config_name'], trim($option['config_value']));
+        }
+
+        return $res;
     }
 
     /**

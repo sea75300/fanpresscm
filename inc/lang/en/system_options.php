@@ -120,6 +120,7 @@ $lang = array(
     'SYSTEM_OPTIONS_COMMENT_NOTIFY_ALL' => 'global and author email address',
     'SYSTEM_OPTIONS_COMMENT_ENABLED_GLOBAL' => 'Comments are enabled',
     'SYSTEM_OPTIONS_COMMENT_MARKSPAM_PASTCHECK' => 'Automatic "Mark as Spam"',
+    'SYSTEM_OPTIONS_COMMENT_PRIVACYOPTIN' => 'Requires opt-in to privacy policy',
     'SYSTEM_OPTIONS_REVISIONS_ENABLED' => 'Revisions enabled',
     'SYSTEM_OPTIONS_NEWS_SORTING' => 'Sort articles by',
     'SYSTEM_OPTIONS_NEWS_BYWRITTENTIME' => 'Creation date',

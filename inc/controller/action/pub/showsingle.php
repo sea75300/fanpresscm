@@ -437,9 +437,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         $this->commentFormTemplate = new \fpcm\model\pubtemplates\commentform();
 
         $newCommentData = $this->getRequestVar('newcomment');
-        $hasPrivacy = !isset($newCommentData['privacy']) ? null : ($newCommentData['privacy'] == 1 ? true : false);
-
-        if ($this->buttonClicked('sendComment') && $newCommentData !== null && ($hasPrivacy === null || $hasPrivacy === true) && !$this->ipList->ipIsLocked() && !$this->ipList->ipIsLocked('nocomments')) {
+        if ($this->buttonClicked('sendComment') && $newCommentData !== null && !$this->ipList->ipIsLocked() && !$this->ipList->ipIsLocked('nocomments')) {
 
             $timer = time();
 
@@ -452,6 +450,12 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
             if (!$this->captcha->checkAnswer()) {
                 $this->view->addErrorMessage('PUBLIC_FAILED_CAPTCHA');
+                return true;
+            }
+
+            $hasPrivacy = (isset($newCommentData['privacy']) && $this->config->comments_privacy_optin) || !$this->config->comments_privacy_optin ? true : false;
+            if ($this->buttonClicked('sendComment') && !$hasPrivacy) {
+                $this->view->addErrorMessage('PUBLIC_PRIVACY');
                 return true;
             }
 

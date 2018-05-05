@@ -40,6 +40,16 @@ window.onload = function() {
                     return false;
                 });
 
+                if (window.fpcm.vars.ui.messages && fpcm.vars.ui.messages.length) {
+                    var msg = null;
+                    for (var i = 0; i < window.fpcm.vars.ui.messages.length; i++) {
+                        msg = fpcm.vars.ui.messages[i];
+                        jQuery('#fpcm-messages').append('<div class="fpcm-pub-message-box fpcm-pub-message-' + msg.type +
+                                                        '" id="msgbox-' + msg.id + '"><div class="fpcm-pub-message-box-text">' + msg.txt +
+                                                        '</div></div>');
+                    }
+                }
+
             },
 
             insert: function (smiliecode) {

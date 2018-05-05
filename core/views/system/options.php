@@ -474,6 +474,15 @@
                                 <?php $theView->boolSelect('comments_confirm')->setSelected($globalConfig['comments_confirm']); ?>		
                             </div>
                         </div>
+
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                                <?php $theView->write('SYSTEM_OPTIONS_COMMENT_PRIVACYOPTIN'); ?>:
+                            </div>
+                            <div class="align-self-center col-sm-12 col-md-auto">
+                                <?php $theView->boolSelect('comments_privacy_optin')->setSelected($globalConfig['comments_privacy_optin']); ?>		
+                            </div>
+                        </div>
                     </fieldset>
                 </div>
                 
