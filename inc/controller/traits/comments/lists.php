@@ -192,7 +192,7 @@ trait lists {
         }
 
         $this->assignFields($fields);        
-        $this->assignPageToken('coments');
+        $this->assignPageToken('comments');
         $this->view->addJsLangVars(['SAVE_FAILED_COMMENTS']);
     }
 

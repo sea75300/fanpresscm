@@ -86,7 +86,8 @@ final class security {
     public static function getPageTokenFieldName($name = '')
     {
         $conf = baseconfig::getSecurityConfig();
-        return tools::getHash(trim($name) ? trim($name) : $conf['pageTokenBase']).self::getTokenCookieValue();
+        $return = tools::getHash(trim($name) ? trim($name) : $conf['pageTokenBase']).self::getTokenCookieValue();
+        return $return;
     }
 
     /**
