@@ -1,5 +1,4 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<?php $theView->hiddenInput('newfilename'); ?>
 <div class="fpcm-ui-inner-wrapper">
     <div class="fpcm-ui-tabs-general" id="fpcm-files-tabs">
         <ul>

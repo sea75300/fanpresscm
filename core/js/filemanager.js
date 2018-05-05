@@ -16,8 +16,6 @@ fpcm.filemanager = {
             fpcm.filemanager.reloadFiles();
         }
 
-        fpcm.filemanager.initActionButtons();
-        
         if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
             fpcm.filemanager.initFilesSearch();
         }
@@ -29,7 +27,20 @@ fpcm.filemanager = {
         
         if (fpcm.vars.jsvars.fmgrMode === 1) {
             fpcm.ui.tabs('#fpcm-files-tabs', {
-                addMainToobarToggle: true
+                beforeActivate: function( event, ui ) {
+
+                    var hideButtons = jQuery(ui.oldTab).attr('data-toolbar-buttons');
+                    var showButtons = jQuery(ui.newTab).attr('data-toolbar-buttons');
+
+                    fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ hideButtons).addClass('fpcm-ui-hidden');
+                    fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ showButtons).removeClass('fpcm-ui-hidden');
+
+                    jQuery('#fpcm-select-all').checkboxradio('instance').option('classes', {
+                        "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "ui-corner-left")
+                    });
+
+                    fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
+                }
             });
         }
         
@@ -39,56 +50,15 @@ fpcm.filemanager = {
         fpcm.ui.assignCheckboxes();
         fpcm.ui.assignControlgroups();
         fpcm.filemanager.initInsertButtons();
+        fpcm.filemanager.initRenameButtons();
         fpcm.filemanager.refreshSingleCheckboxes();
         fpcm.filemanager.initPagination();
         jQuery('.fpcm-link-fancybox').fancybox();
     },
     
-    initActionButtons : function() {
-
-        jQuery('#btnRenameFiles').click(function () {
-
-            if (fpcm.filemanager.renameClick) {
-                return true;
-            }
-
-            if (!fpcm.ui.langvarExists('FILE_LIST_RENAME_NEWNAME') ||
-                !fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox').length) {
-                fpcm.ui.showLoader(false);
-                return false;
-            }
-            
-            fpcm.ui.dialog({
-                id: 'files-rename',
-                dlWidth: fpcm.ui.getDialogSizes().width,
-                title: fpcm.ui.translate('FILE_LIST_RENAME_NEWNAME'),
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_SAVE'),
-                        icon: "ui-icon-check",                        
-                        click: function() {
-                            jQuery( this ).dialog( "close" );
-                            fpcm.filemanager.renameClick = true;
-                            jQuery('#newfilename').val(jQuery('#newFilenameDialog').val());
-                            jQuery('#btnRenameFiles').click();
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                
-                        click: function() {
-                            jQuery('#newfilename').val('');
-                            jQuery('#newFilenameDialog').val('');
-                            jQuery( this ).dialog( "close" );
-                        }
-                    }
-                ]
-            });
-            
-            return false;
-        });
-
-        fpcm.filemanager.refreshSingleCheckboxes();
+    closeRenameDialog: function() {
+        jQuery('#newfilename').val('');
+        jQuery('#newFilenameDialog').val('');
     },
     
     initInsertButtons: function () {
@@ -118,6 +88,53 @@ fpcm.filemanager = {
         jQuery('.fpcm-filelist-actions-checkbox').find('input[type="checkbox"]').checkboxradio({
             showLabel: false
         }).checkboxradio('refresh');  
+    },
+
+    initRenameButtons: function() {
+        jQuery('.fpcm-filelist-rename').click(function () {
+
+            if (!fpcm.ui.langvarExists('FILE_LIST_RENAME_NEWNAME')) {
+                console.log('FILE_LIST_RENAME_NEWNAME');
+                return false;
+            }
+
+            var selectedFile = jQuery(this).attr('data-file');
+
+            fpcm.ui.dialog({
+                id: 'files-rename',
+                dlWidth: fpcm.ui.getDialogSizes().width,
+                title: fpcm.ui.translate('FILE_LIST_RENAME_NEWNAME'),
+                dlButtons: [
+                    {
+                        text: fpcm.ui.translate('GLOBAL_SAVE'),
+                        icon: "ui-icon-check",                        
+                        click: function() {
+                            jQuery( this ).dialog( "close" );
+                            fpcm.ui.showLoader(true);
+                            fpcm.ajax.exec('files/rename', {
+                                data: {
+                                    newName: jQuery('#newFilenameDialog').val(),
+                                    oldName: selectedFile
+                                },
+                                execDone: function () {
+                                    fpcm.filemanager.closeRenameDialog();
+                                    fpcm.filemanager.reloadFiles();
+                                    fpcm.ui.showLoader();
+                                }
+                            })
+                            
+                        }
+                    },
+                    {
+                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                        icon: "ui-icon-closethick",                
+                        click: fpcm.filemanager.closeRenameDialog
+                    }
+                ]
+            });
+            
+            return false;
+        });
     },
     
     initPagination: function() {
