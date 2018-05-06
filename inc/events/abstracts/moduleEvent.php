@@ -15,7 +15,9 @@ namespace fpcm\model\abstracts;
  * 
  * @package fpcm\events\abstracts
  * @abstract
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class moduleEvent implements \fpcm\model\interfaces\event {
 
@@ -48,7 +50,7 @@ abstract class moduleEvent implements \fpcm\model\interfaces\event {
      * Konstruktor
      * @return boolean
      */
-    public function __construct()
+    final public function __construct()
     {
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return false;            
@@ -57,8 +59,6 @@ abstract class moduleEvent implements \fpcm\model\interfaces\event {
         $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
         $this->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
-
-        $this->config->setUserSettings();
     }
 
     /**

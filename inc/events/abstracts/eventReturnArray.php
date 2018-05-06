@@ -24,7 +24,7 @@ abstract class eventReturnArray extends event {
      */
     final protected function getReturnType()
     {
-        return self::FPCM_MODULE_EVENT_RETURNTYPE_ARRAY;
+        return self::RETURNTYPE_ARRAY;
     }
 
 }

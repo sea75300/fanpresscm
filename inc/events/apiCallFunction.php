@@ -46,7 +46,7 @@ final class apiCallFunction extends \fpcm\events\abstracts\event {
         }
 
         $classkey = $vendorKey . '/' . $moduleKey;
-        $eventClass = \fpcm\modules\module::getEventNamespace($classkey, $this->getEventClassBase());
+        $eventClass = \fpcm\module\module::getEventNamespace($classkey, $this->getEventClassBase());
 
         $this->data['name'] = $functionName;
 

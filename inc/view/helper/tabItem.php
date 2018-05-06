@@ -66,7 +66,11 @@ class tabItem extends helper {
         $this->dataViewId = $dataViewId;
         return $this;
     }
-    
+
+    /**
+     * 
+     * @return string
+     */
     protected function getString()
     {
         $html = [];

@@ -8,7 +8,7 @@
  */
 spl_autoload_register(function($class)
 {
-    if (strpos($class, 'fpcm') === false || strpos($class, 'fpcm/modules') !== false) {
+    if (strpos($class, 'fpcm') === false || strpos($class, 'fpcm\\modules\\') !== false) {
         return false;
     }
 
@@ -23,9 +23,10 @@ spl_autoload_register(function($class)
 
 spl_autoload_register(function($class)
 {
-    if (strpos($class, 'fpcm/modules') === false) {
+    if (strpos($class, 'fpcm\\modules\\') === false) {
         return false;
     }
+
 
     $includePath = \fpcm\classes\dirs::getDataDirPath(
         \fpcm\classes\dirs::DATA_MODULES, str_replace(['fpcm\\modules\\', '\\'], ['', DIRECTORY_SEPARATOR], $class) . '.php'

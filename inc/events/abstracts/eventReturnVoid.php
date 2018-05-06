@@ -24,7 +24,7 @@ abstract class eventReturnVoid extends event {
      */
     final protected function getReturnType()
     {
-        return self::FPCM_MODULE_EVENT_RETURNTYPE_VOID;
+        return self::RETURNTYPE_VOID;
     }
 
 }

@@ -130,7 +130,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
 
         }
 
-        $module = new \fpcm\modules\module(\fpcm\modules\module::getKeyFromFilename($fileName), false );
+        $module = new \fpcm\module\module(\fpcm\module\module::getKeyFromFilename($fileName), false );
         if (!$module->addModule()) {
             return false;
         }

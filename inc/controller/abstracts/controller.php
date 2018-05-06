@@ -151,7 +151,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->ipList = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
         $this->crons = \fpcm\classes\loader::getObject('\fpcm\model\crons\cronlist');
 
-        $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\modules\modules')->getEnabledDatabase();
+        $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
         $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
 
         $this->permissions = \fpcm\classes\loader::getObject(
@@ -482,7 +482,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     final protected function hasActiveModule()
     {
         $class = get_class($this);
-        $module = \fpcm\modules\module::getKeyFromClass($class);
+        $module = \fpcm\module\module::getKeyFromClass($class);
         if ($module === false || in_array($module, $this->enabledModules)) {
             return true;
         }

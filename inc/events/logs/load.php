@@ -8,7 +8,7 @@
 namespace fpcm\events\logs;
 
 /**
- * Module-Event: addToList
+ * Module-Event: load
  * 
  * Event wird ausgeführt, wenn Systemlogs angezeigt werden
  * Parameter: void
@@ -19,6 +19,6 @@ namespace fpcm\events\logs;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/events
  */
-final class addToList extends \fpcm\events\abstracts\eventReturnArray {
+final class load extends \fpcm\events\abstracts\eventReturnArray {
 
 }

@@ -13,7 +13,7 @@ class modulelist extends \fpcm\controller\abstracts\controller {
 
     /**
      *
-     * @var \fpcm\modules\modules
+     * @var \fpcm\module\modules
      */
     protected $modules;
 

@@ -200,7 +200,7 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController {
 
     private function execUpdateDb()
     {
-        $module = new \fpcm\modules\module($this->key);
+        $module = new \fpcm\module\module($this->key);
         if (!method_exists($module, $this->mode)) {
             fpcmLogSystem('Undefined function '.$this->mode.' for module database update '.$this->key.'!');
             return true;

@@ -82,11 +82,11 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processInstall()
     {
-        $module = new \fpcm\modules\module($this->key);
+        $module = new \fpcm\module\module($this->key);
 
-        $this->returnData['code']   = (new \fpcm\modules\module($this->key))->install($this->fromDir)
-                                    ? \fpcm\modules\module::STATUS_INSTALLED
-                                    : \fpcm\modules\module::STATUS_NOT_INSTALLED;
+        $this->returnData['code']   = (new \fpcm\module\module($this->key))->install($this->fromDir)
+                                    ? \fpcm\module\module::STATUS_INSTALLED
+                                    : \fpcm\module\module::STATUS_NOT_INSTALLED;
 
         return true;
     }
@@ -97,9 +97,9 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processUninstall()
     {
-        $this->returnData['code']   = (new \fpcm\modules\module($this->key))->uninstall()
-                                    ? \fpcm\modules\module::STATUS_UNINSTALLED
-                                    : \fpcm\modules\module::STATUS_NOT_UNINSTALLED;
+        $this->returnData['code']   = (new \fpcm\module\module($this->key))->uninstall()
+                                    ? \fpcm\module\module::STATUS_UNINSTALLED
+                                    : \fpcm\module\module::STATUS_NOT_UNINSTALLED;
 
         return true;
     }
@@ -110,9 +110,9 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processDelete()
     {
-        $this->returnData['code']   = (new \fpcm\modules\module($this->key))->uninstall(true)
-                                    ? \fpcm\modules\module::STATUS_UNINSTALLED
-                                    : \fpcm\modules\module::STATUS_NOT_UNINSTALLED;
+        $this->returnData['code']   = (new \fpcm\module\module($this->key))->uninstall(true)
+                                    ? \fpcm\module\module::STATUS_UNINSTALLED
+                                    : \fpcm\module\module::STATUS_NOT_UNINSTALLED;
 
         return true;
     }
@@ -123,9 +123,9 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processEnable()
     {
-        $this->returnData['code']   = (new \fpcm\modules\module($this->key))->enable()
-                                    ? \fpcm\modules\module::STATUS_ENABLED
-                                    : \fpcm\modules\module::STATUS_NOT_ENABLED;
+        $this->returnData['code']   = (new \fpcm\module\module($this->key))->enable()
+                                    ? \fpcm\module\module::STATUS_ENABLED
+                                    : \fpcm\module\module::STATUS_NOT_ENABLED;
         return true;
     }
 
@@ -135,9 +135,9 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processDisable()
     {
-        $this->returnData['code']   = (new \fpcm\modules\module($this->key))->disbale()
-                                    ? \fpcm\modules\module::STATUS_DISABLED
-                                    : \fpcm\modules\module::STATUS_NOT_DISABLED;
+        $this->returnData['code']   = (new \fpcm\module\module($this->key))->disbale()
+                                    ? \fpcm\module\module::STATUS_DISABLED
+                                    : \fpcm\module\module::STATUS_NOT_DISABLED;
         return true;
     }
 

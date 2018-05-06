@@ -73,11 +73,18 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-        if (!method_exists($this, 'loadLog' . $this->log)) {
-            exit;
+        if (method_exists($this, 'loadLog' . $this->log)) {
+            call_user_func(array($this, 'loadLog' . $this->log));
         }
 
-        call_user_func(array($this, 'loadLog' . $this->log));
+        $this->items = $this->events->trigger('logs\load', $this->log);
+        if (!is_array($this->items))  {
+            return true;
+        }
+
+        $this->initDataView();
+        $this->assignDataViewvars();
+        return true;
     }
 
     /**
@@ -193,7 +200,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
             return call_user_func(array($this, 'getCols' . $this->log));
         }
 
-        return $this->events->trigger('getLogCols', $this->log);
+        return $this->events->trigger('logs\getCols', $this->log);
     }
 
     /**
@@ -269,12 +276,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
             return call_user_func(array($this, 'getRow' . $this->log), $item);
         }
 
-        return $this->events->trigger('getRow', [
+        return $this->events->trigger('logs\getRow', [
             'log' => $this->log,
             'item' => $item
         ]);
     }
-
+    
     /**
      * Lädt System-Log (Typ 0)
      * @param \fpcm\model\system\session $item
@@ -343,7 +350,10 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
      */
     private function getRow6($item)
     {
-        return $this->getRow1($item);
+        return new \fpcm\components\dataView\row([
+            new \fpcm\components\dataView\rowCol('time', $item->time, 'fpcm-ui-dataview-align-self-start'),
+            new \fpcm\components\dataView\rowCol('text', str_replace(['&NewLine;', PHP_EOL], '<br>', new \fpcm\view\helper\escape($item->text)), 'pre-box'),
+        ]);
     }
 
 }

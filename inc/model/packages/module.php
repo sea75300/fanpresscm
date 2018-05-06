@@ -36,7 +36,7 @@ class module extends package {
 
     protected function initObjects()
     {
-        $this->moduleKey = \fpcm\modules\module::getKeyFromFilename($this->packageName);
+        $this->moduleKey = \fpcm\module\module::getKeyFromFilename($this->packageName);
         $this->repo = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->moduleKey);
         $this->hashKey = \fpcm\classes\tools::getHash($this->packageName);
         return true;

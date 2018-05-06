@@ -1050,3 +1050,7 @@ div.mce-fpcm-ui-emoticons-panel {
 .fpcm-ui-box-sizing-none {
     box-sizing: initial !important;
 }
+
+.pre-box {
+    white-space: pre;
+}

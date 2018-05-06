@@ -226,7 +226,7 @@ class preview extends \fpcm\controller\abstracts\controller {
         $this->view->assign('article', '');
         $this->view->assign('comments', '');
 
-        $captcha = $this->events->trigger('publicReplaceSpamCaptcha');
+        $captcha = $this->events->trigger('pub\replaceSpamCaptcha');
 
         if (!is_a($captcha, '\fpcm\model\abstracts\spamCaptcha')) {
             $captcha = new \fpcm\model\captchas\fpcmDefault();

@@ -31,7 +31,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      *
-     * @var \fpcm\modules\modules
+     * @var \fpcm\module\modules
      */
     protected $modules;
 
@@ -187,7 +187,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @param \fpcm\modules\module $item
+     * @param \fpcm\module\module $item
      * @return \fpcm\components\dataView\row
      */
     protected function initDataViewRow($item)
@@ -203,7 +203,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @param \fpcm\modules\module $item
+     * @param \fpcm\module\module $item
      * @return \fpcm\components\dataView\row
      */
     protected function initRowLocal($item)
@@ -279,7 +279,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @param \fpcm\modules\repoModule $item
+     * @param \fpcm\module\repoModule $item
      * @return \fpcm\components\dataView\row
      */
     protected function initRowRemote($item)
@@ -336,7 +336,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function initActionObjects()
     {
-        $this->modules = new \fpcm\modules\modules();
+        $this->modules = new \fpcm\module\modules();
 
         $this->permArr = [
             'canInstall' => $this->permissions->check(['modules' => 'install']),

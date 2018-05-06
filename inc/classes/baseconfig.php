@@ -107,7 +107,7 @@ final class baseconfig {
         if (self::dbConfigExists()) {
             loader::getObject('\fpcm\classes\database');
             loader::getObject('\fpcm\classes\crypt');
-            loader::getObject('\fpcm\modules\modules')->getEnabledDatabase();
+            loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
 
             $config  = loader::getObject('\fpcm\model\system\config');
             

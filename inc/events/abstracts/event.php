@@ -16,36 +16,36 @@ namespace fpcm\events\abstracts;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-abstract class event implements \fpcm\model\interfaces\event {
+abstract class event {
 
     /**
      * Array returntype für Module-Event
      * @since FPCM 3.4
      */
-    const FPCM_MODULE_EVENT_RETURNTYPE_ARRAY = 'array';
+    const RETURNTYPE_ARRAY = 'array';
 
     /**
      * Object returntype für Module-Event
      * @since FPCM 3.4
      */
-    const FPCM_MODULE_EVENT_RETURNTYPE_OBJ = 'object';
+    const RETURNTYPE_OBJ = 'object';
 
     /**
      * Object returntype für Module-Event
      * @since FPCM 4
      */
-    const FPCM_MODULE_EVENT_RETURNTYPE_SCALAR = 'scalar';
+    const RETURNTYPE_SCALAR = 'scalar';
 
     /**
      * Object returntype für Module-Event
      * @since FPCM 4
      */
-    const FPCM_MODULE_EVENT_RETURNTYPE_VOID = null;
+    const RETURNTYPE_VOID = null;
 
     /**
      * Base instaces a module event has to implement
      */
-    const EVENT_BASE_INSTANCE = '\\fpcm\\events\\abstracts\\moduleEvent';
+    const EVENT_BASE_INSTANCE = '\\fpcm\\module\\event';
 
     /**
      * Event-Daten
@@ -96,7 +96,7 @@ abstract class event implements \fpcm\model\interfaces\event {
             return;
         }
 
-        $this->activeModules = \fpcm\classes\loader::getObject('\fpcm\modules\modules')->getEnabledDatabase();
+        $this->activeModules = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
         $this->cache->write('modules/activeeventscache', $this->activeModules, FPCM_CACHE_DEFAULT_TIMEOUT);
     }
 
@@ -145,16 +145,6 @@ abstract class event implements \fpcm\model\interfaces\event {
     }
 
     /**
-     * Gibt Module-Key anhand des Event-Datei-Pfades zurück
-     * @param string $path
-     * @return string
-     */
-    public function getModuleKeyByEvent($path)
-    {
-        return \fpcm\modules\module::getKeyFromPath($path);
-    }
-
-    /**
      * Prüft ob spezielle Berechtigungen für Event nötig sind
      * @return boolean
      */
@@ -174,7 +164,7 @@ abstract class event implements \fpcm\model\interfaces\event {
      */
     protected function getReturnType()
     {
-        return self::FPCM_MODULE_EVENT_RETURNTYPE_SCALAR;
+        return self::RETURNTYPE_SCALAR;
     }
 
     /**
@@ -214,15 +204,16 @@ abstract class event implements \fpcm\model\interfaces\event {
 
         $classes = [];
 
-        $eventBaseClass = DIRECTORY_SEPARATOR . 'events' . DIRECTORY_SEPARATOR . $this->getEventClassBase() . '.php';
+        $baseClass = $this->getEventClassBase();
+        $eventBaseClass = DIRECTORY_SEPARATOR . 'events' . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $baseClass) . '.php';
         foreach ($this->activeModules as $module) {
 
-            $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $module, $eventBaseClass);
+            $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $module.$eventBaseClass);
             if (!file_exists($path)) {
                 continue;
             }
 
-            $classes[] = $path;
+            $classes[] = \fpcm\module\module::getEventNamespace($module, $baseClass);
         }
 
         return $classes;
@@ -250,14 +241,12 @@ abstract class event implements \fpcm\model\interfaces\event {
         }
 
         $base = $this->getEventClassBase();
-        foreach ($eventClasses as $eventClass) {
+        $eventResult = null;
 
-            $class = \fpcm\modules\module::getEventNamespace(
-                $this->getModuleKeyByEvent($eventClass),
-                $base
-            );
-            
+        foreach ($eventClasses as $class) {
+
             if (!class_exists($class)) {
+                trigger_error('Undefined event class '.$class);
                 continue;
             }
 
@@ -273,20 +262,20 @@ abstract class event implements \fpcm\model\interfaces\event {
         }
 
         $returnDataType = $this->getReturnType();
-        if ($returnDataType === self::FPCM_MODULE_EVENT_RETURNTYPE_VOID && $eventResult !== null) {
-            trigger_error('Invalid data type. Returned data type must be null');
+        if ($returnDataType === self::RETURNTYPE_VOID && $eventResult !== null) {
+            trigger_error('Invalid data type. Returned data type must be null for '.$base);
             return null;
-        } elseif ($returnDataType === self::FPCM_MODULE_EVENT_RETURNTYPE_ARRAY && !is_array($eventResult)) {
-            trigger_error('Invalid data type. Returned data type must be an array');
+        }
+        elseif ($returnDataType === self::RETURNTYPE_ARRAY && !is_array($eventResult)) {
+            trigger_error('Invalid data type. Returned data type must be an array for '.$base);
             return $this->data;
-        } elseif ($returnDataType === self::FPCM_MODULE_EVENT_RETURNTYPE_OBJ && !is_object($eventResult)) {
-            trigger_error('Invalid data type. Returned data type must be an object');
+        }
+        elseif ($returnDataType === self::RETURNTYPE_OBJ && !is_object($eventResult)) {
+            trigger_error('Invalid data type. Returned data type must be an object for '.$base);
             return $this->data;
-        } elseif ($returnDataType === self::FPCM_MODULE_EVENT_RETURNTYPE_SCALAR && is_scalar($eventResult) ) {
-            trigger_error('Invalid data type. Returned data type must be instance of ' . $returnDataType);
-            return $this->data;
-        } elseif ($returnDataType !== false && !is_array($eventResult) && !is_a($eventResult, $returnDataType)) {
-            trigger_error('Invalid data type. Returned data type must be instance of ' . $returnDataType);
+        }
+        elseif ($returnDataType === self::RETURNTYPE_SCALAR && is_scalar($eventResult) ) {
+            trigger_error('Invalid data type. Returned data type must be instance of ' . $returnDataType.' for '.$base);
             return $this->data;
         }
 

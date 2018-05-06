@@ -21,19 +21,6 @@ final class events {
      * @param string $eventName
      * @param mixed $dataParams
      * @return mixed
-     * @deprecated since version number
-     */
-    public function runEvent($eventName, $dataParams = null)
-    {
-        trigger_error('Event calling via "runEvent" is deprecated, use "trigger" instead! Event: '.$eventName);
-        return $this->trigger($eventName, $dataParams);
-    }
-
-    /**
-     * Run event $eventName with params $dataParams
-     * @param string $eventName
-     * @param mixed $dataParams
-     * @return mixed
      */
     public function trigger($eventName, $dataParams = null)
     {
@@ -69,8 +56,10 @@ final class events {
     {
         $list = [];
         foreach (glob($this->getFullPath('*.php')) as $file) {
-            if ($file == __FILE__)
+            if ($file == __FILE__) {
                 continue;
+            }
+
             $list[] = basename($file, '.php');
         }
 
