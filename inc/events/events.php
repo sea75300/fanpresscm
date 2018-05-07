@@ -33,7 +33,10 @@ final class events {
             return $dataParams;
         }
 
-        fpcmLogEvents(['Event: '.$eventName, 'Params: ', $dataParams]);
+        fpcmLogEvents('Event: '.$eventName);
+        if ($dataParams !== null) {
+            fpcmLogEvents($dataParams);
+        }
 
         /**
          * @var \fpcm\events\event

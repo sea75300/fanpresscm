@@ -18,12 +18,6 @@ namespace fpcm\controller;
 class main {
 
     /**
-     *
-     * @var array
-     */
-    protected $controllers = [];
-
-    /**
      * Konstruktor
      */
     public function __construct()
@@ -40,20 +34,12 @@ class main {
     }
 
     /**
-     * Controller registrieren
-     */
-    public function registerController()
-    {
-        $this->controllers = \fpcm\classes\baseconfig::getControllers();
-    }
-
-    /**
      * Controller-Processing
      * @return boolean
      */
     public function exec()
     {
-        $this->registerController();
+        $controllers = \fpcm\classes\baseconfig::getControllers();
 
         $module = \fpcm\classes\http::get('module');
         if (!$module) {
@@ -61,7 +47,7 @@ class main {
             return true;
         }
 
-        $controllerName = (isset($this->controllers[$module]) ? $this->controllers[$module] : '');
+        $controllerName = (isset($controllers[$module]) ? $controllers[$module] : '');
 
         if (strpos($controllerName, 'fpcm/modules/') === false) {
             $controllerName = "fpcm/controller/" . $controllerName;
@@ -83,8 +69,7 @@ class main {
          * @var abstracts\controller
          */
         $controller = new $controllerName();
-
-        if (!is_a($controller, 'fpcm\controller\abstracts\controller')) {
+        if (!$controller instanceof abstracts\controller) {
             trigger_error("ERROR: The controller for <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>.");
             exit("Controller class <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>. <span class=\"fa fa-frown-o\"></span>");
         }

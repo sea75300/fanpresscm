@@ -7,7 +7,7 @@ description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, nonumy ei
 link: https://nobody-knows.org/
 version: 0.0.1
 requirements:
-    system: 4.0.0
+    system: 4.0.0-a5
     php: 5.6.0
 tables:
     add:

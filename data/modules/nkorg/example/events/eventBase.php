@@ -4,9 +4,9 @@ namespace fpcm\modules\nkorg\example\events;
 
 abstract class eventBase extends \fpcm\module\event {
 
-    private $path;
+    protected $path;
 
-    public function init()
+    final public function init()
     {
         $this->path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_LOGS, 'examplelog.txt');
         return true;
@@ -19,6 +19,11 @@ abstract class eventBase extends \fpcm\module\event {
             date(DATE_RFC2822, time()).'<====>'.(is_array($data) || is_object($data) ? print_r($data, true) : $data).'<===================>',
             FILE_APPEND
         );
+    }
+
+    final protected function cleanupLog()
+    {
+        return file_put_contents($this->path, '') !== false ? true : false;
     }
 
     final protected function getData()

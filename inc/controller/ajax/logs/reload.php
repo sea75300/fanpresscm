@@ -74,7 +74,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     public function process()
     {
         if (method_exists($this, 'loadLog' . $this->log)) {
-            call_user_func(array($this, 'loadLog' . $this->log));
+            return call_user_func(array($this, 'loadLog' . $this->log));
         }
 
         $this->items = $this->events->trigger('logs\load', $this->log);

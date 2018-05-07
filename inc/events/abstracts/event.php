@@ -249,10 +249,8 @@ abstract class event {
                 trigger_error('Undefined event class '.$class);
                 continue;
             }
-
-            /**
-             * @var \fpcm\events\event
-             */
+            
+            /* @var \fpcm\module\event $module */
             $module = new $class($this->data);
             if (!$this->is_a($module)) {
                 continue;
@@ -274,7 +272,7 @@ abstract class event {
             trigger_error('Invalid data type. Returned data type must be an object for '.$base);
             return $this->data;
         }
-        elseif ($returnDataType === self::RETURNTYPE_SCALAR && is_scalar($eventResult) ) {
+        elseif ($returnDataType === self::RETURNTYPE_SCALAR && !is_scalar($eventResult) ) {
             trigger_error('Invalid data type. Returned data type must be instance of ' . $returnDataType.' for '.$base);
             return $this->data;
         }

@@ -42,11 +42,11 @@ class config implements \JsonSerializable {
     {
         include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
 
-        $this->basePath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $moduleKey.DIRECTORY_SEPARATOR);
+        $this->basePath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $moduleKey);
         $this->key = $moduleKey;
 
         $this->data     = array_merge($this->data, ($installed === null
-                        ? \Spyc::YAMLLoad($this->basePath.'module.yml')
+                        ? \Spyc::YAMLLoad($this->basePath.DIRECTORY_SEPARATOR.'module.yml')
                         : (is_array($installed) ? $installed :  json_decode($installed, true)) ) );
     }
 
