@@ -40,6 +40,11 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     const DASHBOARD_HEIGHT_SMALL = 'small';
 
     /**
+     * Container max position
+     */
+    const DASHBOARD_POS_MAX = '{{max}}';
+
+    /**
      * Container-Name
      * @var string
      */

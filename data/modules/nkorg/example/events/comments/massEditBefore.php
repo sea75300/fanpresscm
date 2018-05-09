@@ -1,6 +1,6 @@
 <?php
 
-namespace fpcm\modules\nkorg\example\events\article;
+namespace fpcm\modules\nkorg\example\events\comments;
 
 final class massEditBefore extends \fpcm\modules\nkorg\example\events\eventBase {
 

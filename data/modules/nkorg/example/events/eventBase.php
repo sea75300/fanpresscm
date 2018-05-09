@@ -6,6 +6,13 @@ abstract class eventBase extends \fpcm\module\event {
 
     protected $path;
 
+    public function run()
+    {
+        $this->logEvent(__METHOD__);
+        $this->logEvent($this->data);
+        return $this->data;
+    }
+
     final public function init()
     {
         $this->path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_LOGS, 'examplelog.txt');

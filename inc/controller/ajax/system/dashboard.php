@@ -74,6 +74,10 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
             $containerViewVars = $containerObj->getControllerViewVars();
             $viewVars = array_merge($viewVars, $containerViewVars);
 
+            if ($pos === \fpcm\model\abstracts\dashcontainer::DASHBOARD_POS_MAX) {
+                $pos = count($this->containers);
+            }
+            
             $this->containers[$pos] = $containerObj;
         }
 
