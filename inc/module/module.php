@@ -520,6 +520,10 @@ class module {
         fpcmLogSystem('Uninstall module '.$this->mkey);
         $this->cache->cleanup();
 
+        if (!$delete && !\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\uninstallAfter', $this->mkey)) {
+            return false;
+        }
+
         if (!$this->removeTables() && !$delete) {
             return false;
         }
@@ -529,10 +533,6 @@ class module {
         }
 
         if (!$this->removeModule()) {
-            return false;
-        }
-
-        if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\uninstallAfter', $this->mkey)) {
             return false;
         }
 

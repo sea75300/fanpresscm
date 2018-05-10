@@ -87,11 +87,6 @@ class module extends package {
         return $this->repo['signature'];
     }
 
-    public function checkPackage()
-    {
-        return true;
-    }
-    
     /**
      * 
      * @return boolean

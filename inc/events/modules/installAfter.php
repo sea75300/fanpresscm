@@ -29,14 +29,11 @@ class installAfter extends \fpcm\events\abstracts\event {
     public function run()
     {
         $class = \fpcm\module\module::getEventNamespace($this->data, $this->getEventClassBase());
-        
-        fpcmLogSystem(__METHOD__.' '.$class);
-        
         if (!class_exists($class)) {
             return true;
         }
 
-        $obj = new $class();
+        $obj = new $class($this->data);
         if (!$this->is_a($obj)) {
             return false;
         }

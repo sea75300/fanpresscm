@@ -194,6 +194,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     public function setDescription($description)
     {
         $this->description = $description;
+        return $this;
     }
 
     /**
@@ -203,6 +204,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     public function setUrl($url)
     {
         $this->url = $url;
+        return $this;
     }
 
     /**
@@ -212,6 +214,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     public function setIcon($icon)
     {
         $this->icon = $icon;
+        return $this;
     }
 
     /**
@@ -221,6 +224,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     public function setClass($class)
     {
         $this->class = $class;
+        return $this;
     }
 
     /**
@@ -230,6 +234,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     public function setWrapperClass($wrapperClass)
     {
         $this->wrapperClass = $wrapperClass;
+        return $this;
     }
 
     /**
@@ -239,6 +244,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -248,6 +254,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     public function setParent($parent)
     {
         $this->parent = $parent;
+        return $this;
     }
 
     /**
@@ -257,6 +264,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     public function setPermission(array $permission)
     {
         $this->permission = $permission;
+        return $this;
     }
 
     /**
@@ -266,6 +274,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     public function setSubmenu(array $submenu)
     {
         $this->submenu = $submenu;
+        return $this;
     }
 
     /**
@@ -275,6 +284,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     public function setSpacer($spacer)
     {
         $this->spacer = (bool) $spacer;
+        return $this;
     }
 
     /**
