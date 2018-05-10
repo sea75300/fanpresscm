@@ -101,6 +101,10 @@ final class logfile extends \fpcm\model\abstracts\file {
      */
     public function save()
     {
+        if (!$this->isWritable()) {
+            return false;
+        }
+
         return file_put_contents($this->fullpath, $this->content);
     }
 
@@ -124,7 +128,7 @@ final class logfile extends \fpcm\model\abstracts\file {
      */
     public function fetchData()
     {
-        if (!$this->exists()) {
+        if (!$this->exists() || !$this->isReadable()) {
             return [];
         }
 

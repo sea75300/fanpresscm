@@ -229,6 +229,10 @@ abstract class file {
      */
     public function delete()
     {
+        if (!$this->isReadable() || !$this->isWritable()) {
+            return false;
+        }
+
         if ($this->exists() && !unlink($this->fullpath)) {
             trigger_error('Unable to delete file: ' . $this->fullpath);
             return false;
@@ -245,6 +249,10 @@ abstract class file {
      */
     public function rename($newname, $userid = false)
     {
+        if (!$this->isReadable()) {
+            return false;
+        }
+
         $newFullPath = $this->basePath($newname);
         if (!rename($this->fullpath, $newFullPath)) {
             trigger_error('Unable to rename file: ' . $this->fullpath);
@@ -366,6 +374,10 @@ abstract class file {
      */
     public function loadContent()
     {
+        if (!$this->isReadable()) {
+            return false;
+        }
+        
         $this->content = file_get_contents($this->fullpath);
 
         if (!trim($this->content)) {
