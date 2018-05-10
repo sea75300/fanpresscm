@@ -144,15 +144,15 @@ class view {
      * @var bool
      */
     protected $showPageToken = true;
-
+    
     /**
      * Konstruktor
-     * @param string $viewName View-Name, ohne Endung .php
-     * @param string $viewPath View-Pfad unterhalb von core/views/
+     * @param string $viewName Viewname ohne Endung .php
+     * @param string $module Modulke-Key
      */
-    public function __construct($viewName = '')
+    public function __construct($viewName = '', $module = false)
     {
-        $this->setViewPath($viewName);
+        $this->setViewPath($viewName, $module);
 
         $this->showHeader = self::INCLUDE_HEADER_FULL;
         
@@ -605,11 +605,14 @@ class view {
      * Sets view path
      * @param string $viewName
      */
-    public function setViewPath($viewName)
+    public function setViewPath($viewName, $module = false)
     {
         $viewName .= '.php';
 
-        $this->viewPath = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
+        $this->viewPath = $module
+                        ? \fpcm\module\module::getTemplateDirByKey($module, $viewName)
+                        : \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
+
         $this->viewName = $viewName;
     }
 

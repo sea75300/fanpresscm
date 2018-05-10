@@ -110,7 +110,6 @@ final class logfile extends \fpcm\model\abstracts\file {
      */
     public function clear()
     {
-
         $this->content = '';
         if ($this->save() === false) {
             return false;

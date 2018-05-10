@@ -271,7 +271,6 @@ final class baseconfig {
     public static function getControllers()
     {
         $cacheName = 'system/controllerCache';
-
         $controllerCache = new cache();
 
         if (!$controllerCache->isExpired($cacheName)) {
@@ -289,7 +288,7 @@ final class baseconfig {
         foreach ($controllerFiles as $controllerFile) {
             $controller = array_merge($controller, \Spyc::YAMLLoad($controllerFile));
         }
-
+        
         $controller = array_unique(array_merge($controller, self::initModuleControllers()));
         $controllerCache->write($cacheName, $controller, FPCM_CACHE_DEFAULT_TIMEOUT);
 
@@ -388,19 +387,33 @@ final class baseconfig {
      */
     private static function initModuleControllers()
     {
-        return [];
-
-        $moduleConfigs = glob(dirs::getDataDirPath(dirs::DATA_MODULES, '*/*/config/controllers.yml'));
-        if (!$moduleConfigs || !count($moduleConfigs))
-            return [];
-
         $modules = [];
-        foreach ($moduleConfigs as $moduleConfig) {
-            $modules = array_merge($modules, \Spyc::YAMLLoad($moduleConfig));
+        if (self::installerEnabled() || !self::dbConfigExists()) {
+            return $modules;
+        }
+
+        $activeModules = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
+        if (!count($activeModules)) {
+            return $modules;
+        }
+
+        foreach ($activeModules as $module) {
+
+            $controllers = \Spyc::YAMLLoad(\fpcm\module\module::getConfigByKey($module, 'controller'));
+            if (!count($controllers)) {
+                continue;
+            }
+
+            foreach ($controllers as &$controller) {                
+                $controller = \fpcm\module\module::getControllerNamespace($module, $controller);
+            }
+
+            $modules = array_merge($modules, $controllers);
         }
 
         return $modules;
     }
+    
 
 }
 

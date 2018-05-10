@@ -128,6 +128,12 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected $viewEvents = 'theme';
 
     /**
+     *
+     * @var bool
+     */
+    protected $moduleController = null;
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -160,6 +166,8 @@ class controller implements \fpcm\controller\interfaces\controller {
         );
 
         $this->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
+        
+        $this->hasActiveModule();
 
         $this->initActionObjects();
         $this->initView();
@@ -207,11 +215,10 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        $this->view = new \fpcm\view\view($viewPath);
+        $this->view = new \fpcm\view\view($viewPath, $this->moduleController ? $this->moduleController : false);
         $this->view->setHelpLink($this->getHelpLink());
         $this->view->setActiveNavigationElement($this->getActiveNavigationElement());
         $this->view->triggerFilesEvents($this->viewEvents);
-        
         return true;
     }
 
@@ -422,7 +429,7 @@ class controller implements \fpcm\controller\interfaces\controller {
             $this->view->render($this->moduleCheckExit);
         }
 
-        return $this->hasActiveModule();
+        return $this->moduleController === null ? true : false;
     }
 
     /**
@@ -481,9 +488,14 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function hasActiveModule()
     {
-        $class = get_class($this);
-        $module = \fpcm\module\module::getKeyFromClass($class);
+        $class = \fpcm\module\module::getKeyFromClass(get_class($this));
+
+        $module = ($class !== false)
+                ? str_replace('\\', '/', explode('\\controller', $class, 2)[0])
+                : false;
+
         if ($module === false || in_array($module, $this->enabledModules)) {
+            $this->moduleController = trim($module) && $module !== false ? $module : null;
             return true;
         }
 

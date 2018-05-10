@@ -183,7 +183,8 @@ abstract class event {
      */
     protected function is_a($object)
     {
-        if (is_a($object, self::EVENT_BASE_INSTANCE)) {
+        $base = self::EVENT_BASE_INSTANCE;
+        if ($object instanceof $base) {
             return true;
         }
 

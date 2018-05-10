@@ -48,22 +48,19 @@ class main {
         }
 
         $controllerName = (isset($controllers[$module]) ? $controllers[$module] : '');
-
-        if (strpos($controllerName, 'fpcm/modules/') === false) {
+        if (strpos($controllerName, 'fpcm\\modules\\') === false) {
             $controllerName = "fpcm/controller/" . $controllerName;
         }
 
         $controllerName = str_replace('/', '\\', $controllerName);
-        
         if (defined('FPCM_DEBUG_ROUTES') && FPCM_DEBUG_ROUTES) {
             fpcmLogSystem("Route for {$module} to destionation {$controllerName}");
         }
-        
-        if (!class_exists($controllerName)) {
-            trigger_error('Undefined controller called: ' . $module);
-            $this->errorPage("The requested controller <b>$module</b> does not exist! <span class=\"fa fa-frown-o\"></span>");
-        }
 
+        if (!class_exists($controllerName)) {
+            trigger_error('Undefined controller called: ' . $module.', Class: '.$controllerName);
+            $this->errorPage("The requested controller <b>{$module}</b> does not exist! <span class=\"fa fa-frown-o\"></span>");
+        }
 
         /**
          * @var abstracts\controller
