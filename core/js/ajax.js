@@ -48,7 +48,15 @@ fpcm.ajax = {
             url         : fpcm.vars.ajaxActionPath + action,
             type        : params.method.toUpperCase(),
             data        : params.data,
-            async       : params.async
+            async       : params.async,
+            statusCode: {
+                500: function() {
+                    fpcm.ajax.showAjaxErrorMessage();
+                },
+                404: function() {
+                    fpcm.ajax.showAjaxErrorMessage();
+                }
+            }
         })
         .done(function(result) {
 
@@ -138,6 +146,10 @@ fpcm.ajax = {
         }
 
         return JSON.stringify(data);
+    },
+    
+    showAjaxErrorMessage: function () {
+        fpcm.ui.addMessage({ txt: 'AJAX_RESPONSE_ERROR', type: 'error' }, true);
     }
     
 };

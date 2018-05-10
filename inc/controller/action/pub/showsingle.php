@@ -158,7 +158,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     public function process()
     {
-
         parent::process();
 
         $parsed = [];
@@ -239,9 +238,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $useCache = true;
         }
 
-        $commentCounts = $this->commentList->countComments(
-                [$this->article->getId()], $privateNo, $approvedOnly, $spamNo, $useCache
-        );
+        $commentCounts = $this->commentList->countComments([$this->article->getId()], $privateNo, $approvedOnly, $spamNo, $useCache);
 
         $commentCount = $this->config->system_comments_enabled && $this->article->getComments() ? (isset($commentCounts[$this->article->getId()]) ? (int) $commentCounts[$this->article->getId()] : 0) : '';
 
@@ -410,12 +407,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     protected function initSpamCaptcha()
     {
-        $this->captcha = $this->events->trigger('pub\replaceSpamCaptcha');
-
-        if (!is_a($this->captcha, '\fpcm\model\abstracts\spamCaptcha')) {
-            $this->captcha = new \fpcm\model\captchas\fpcmDefault();
-        }
-
+        $this->captcha = \fpcm\components\components::getChatptchaProvider();
         return $this->captcha;
     }
 

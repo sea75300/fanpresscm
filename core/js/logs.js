@@ -62,6 +62,10 @@ fpcm.logs = {
                 if (tabId[1] == 4) {
                     return true;
                 }
+                
+                ui.jqXHR.fail(function() {
+                    fpcm.ajax.showAjaxErrorMessage();
+                });
 
                 ui.ajaxSettings.dataFilter = function( response ) {
                     fpcm.vars.jsvars.dataviews.data.logs = response;

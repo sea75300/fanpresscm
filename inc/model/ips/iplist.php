@@ -72,18 +72,17 @@ class iplist extends \fpcm\model\abstracts\tablelist {
 
         $ipAddress = explode($delim, $ip);
 
-        $adresses = [];
-        $adresses[] = implode($delim, $ipAddress);
+        $adresses = [implode($delim, $ipAddress)];
+        $where = ['?'];
 
-        $where = ['ipaddress ' . $this->dbcon->dbLike() . ' ?'];
         $counts = count($ipAddress) - 1;
         for ($i = $counts; $i > 0; $i--) {
             $ipAddress[$i] = '*';
             $adresses[] = implode($delim, $ipAddress);
-            $where[] = 'ipaddress ' . $this->dbcon->dbLike() . ' ?';
+            $where[] = '?';
         }
 
-        $where = "(" . implode(' OR ', $where) . ") AND $lockType = 1";
+        $where = "ipaddress IN (" . implode(', ', $where) . ") AND $lockType = 1";
 
         $result = $this->dbcon->fetch($this->dbcon->select($this->table, 'count(id) AS counted', $where, $adresses));
         $this->lockCache[$ip.'-'.$lockType] = $result->counted ? true : false;

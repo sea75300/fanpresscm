@@ -66,4 +66,24 @@ final class components {
 
         return \fpcm\classes\loader::getObject('\fpcm\model\auth\htmlLogin');
     }
+
+    /**
+     * 
+     * @return \fpcm\model\abstracts\authProvider
+     */
+    
+    /**
+     * 
+     * @return \fpcm\model\abstracts\spamCaptcha
+     */
+    public static function getChatptchaProvider()
+    {
+        $class = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('pub\replaceSpamCaptcha');
+        if (class_exists($class) && is_subclass_of($class, '\fpcm\model\abstracts\spamCaptcha')) {
+            return \fpcm\classes\loader::getObject($class);
+        }
+
+        return \fpcm\classes\loader::getObject('\fpcm\model\captchas\fpcmDefault');
+    }
+
 }

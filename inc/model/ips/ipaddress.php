@@ -59,9 +59,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
      */
     public function __construct($id = null)
     {
-
         $this->table = \fpcm\classes\database::tableIpAdresses;
-
         parent::__construct($id);
     }
 
