@@ -209,11 +209,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     private function getCols0()
     {
         return [
-            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER', 'fpcm-ui-padding-md-left'))->setSize(3),
-            (new \fpcm\components\dataView\column('ipaddress', 'LOGS_LIST_IPADDRESS')),
+            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER', 'fpcm-ui-padding-md-left'))->setSize(2),
+            (new \fpcm\components\dataView\column('ipaddress', 'LOGS_LIST_IPADDRESS'))->setSize(2),
             (new \fpcm\components\dataView\column('login', 'LOGS_LIST_LOGIN'))->setSize(2),
             (new \fpcm\components\dataView\column('logout', 'LOGS_LIST_LOGOUT'))->setSize(2),
-            (new \fpcm\components\dataView\column('external', 'GLOBAL_EXTERNAL'))->setSize(1)->setAlign('center')
+            (new \fpcm\components\dataView\column('external', 'GLOBAL_EXTERNAL'))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('useragent', 'LOGS_LIST_USERAGENT'))->setSize(3)->setAlign('center'),
         ];
     }
 
@@ -292,11 +293,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
         $username = isset($this->userList[$item->getUserId()]) ? $this->userList[$item->getUserId()]->getDisplayName() : $this->notfoundStr;
 
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('user', $username),
-            new \fpcm\components\dataView\rowCol('ipaddress', $item->getIp()),
+            new \fpcm\components\dataView\rowCol('user', new \fpcm\view\helper\escape($username)),
+            new \fpcm\components\dataView\rowCol('ipaddress', new \fpcm\view\helper\escape($item->getIp())),
             new \fpcm\components\dataView\rowCol('login', new \fpcm\view\helper\dateText($item->getLogin())),
             new \fpcm\components\dataView\rowCol('logout', ($item->getLogout() ? new \fpcm\view\helper\dateText($item->getLogout()) : $this->sessionTimeoutStr)),
-            new \fpcm\components\dataView\rowCol('external', (new \fpcm\view\helper\boolToText(uniqid('sessext')))->setValue($item->getExternal()))
+            new \fpcm\components\dataView\rowCol('external', (new \fpcm\view\helper\boolToText(uniqid('sessext')))->setValue($item->getExternal())),
+            new \fpcm\components\dataView\rowCol('useragent', new \fpcm\view\helper\escape($item->getUseragent()))
         ]);
     }
 

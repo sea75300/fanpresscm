@@ -169,6 +169,12 @@ final class database {
     private $explain = false;
 
     /**
+     * Table structure cache
+     * @var array
+     */
+    private $structCache = [];
+
+    /**
      * Konstruktor
      * @param array $dbconfig alternative Datenbank-Zugangsdaten, wenn false werden Daten aus FPCM-Config genutzt
      * @param bool $dieOnError wenn Verbindung fehlschlägt, soll Ausführung vollständig abgebrochen werden
@@ -426,7 +432,7 @@ final class database {
      */
     public function drop($table)
     {
-        return $this->exec("DROP TABLE {$this->dbprefix}_{$table}");
+        return $this->exec("DROP TABLE {$this->getTablePrefixed($table)}");
     }
 
     /**
@@ -825,8 +831,12 @@ final class database {
      * @return array
      * @since FPCM 3.3.2
      */
-    public function getTableStructure($table, $field = false)
+    public function getTableStructure($table, $field = false, $cache = true)
     {
+        if ($cache && isset($this->structCache[$table])) {
+            return $this->structCache[$table];
+        }
+        
         $query = $this->driver->getTableStructureQuery($this->dbprefix . '_' . $table, $field);
 
         $result = $this->query($query);
@@ -844,6 +854,7 @@ final class database {
             $this->driver->prepareColRow($colRow, $data);
         }
 
+        $this->structCache[$table] = $data;
         return $data;
     }
 

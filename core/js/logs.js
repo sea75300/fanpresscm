@@ -63,8 +63,12 @@ fpcm.logs = {
                     return true;
                 }
                 
-                ui.jqXHR.fail(function() {
+                ui.jqXHR.fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
+                    console.error('STATUS MESSAGE: ' + textStatus);
+                    console.error('ERROR MESSAGE: ' + errorThrown);
                     fpcm.ajax.showAjaxErrorMessage();
+                    fpcm.ui.showLoader(false);
                 });
 
                 ui.ajaxSettings.dataFilter = function( response ) {

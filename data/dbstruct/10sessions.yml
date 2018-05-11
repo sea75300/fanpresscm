@@ -36,6 +36,10 @@ cols:
         type: varchar
         length: 512
         params: NOT NULL
+    useragent:
+        type: varchar
+        length: 512
+        params: NOT NULL
     external:
         type: bool
         length: 

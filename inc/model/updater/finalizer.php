@@ -25,7 +25,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
     {
         parent::__construct();
 
-        $this->dbcon = new \fpcm\classes\database();
+        $this->dbconcon = new \fpcm\classes\database();
         $this->config = new \fpcm\model\system\config(false, false);
     }
 
@@ -36,8 +36,6 @@ final class finalizer extends \fpcm\model\abstracts\model {
     public function runUpdate()
     {
         $res    = true &&
-                $this->dropTables() &&
-                $this->createTables() &&
                 $this->alterTables() &&
                 $this->removeSystemOptions() &&
                 $this->addSystemOptions() &&
@@ -160,37 +158,78 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function alterTables()
     {
-        $res = true && $this->dbcon->alter(\fpcm\classes\database::tableArticles, 'DROP', 'md5path', '', true);
-        $res = $res && $this->dbcon->alter(\fpcm\classes\database::tableAuthors, 'DROP', 'salt', '', true);
-        return $res;
-    }
-    /**
-     * Änderungen an Tabellen-Struktur vornehmen
-     * @return bool
-     */
-    private function dropTables()
-    {
-        $res = true;
-
-        if (count($this->dbcon->getTableStructure('modules'))) {
-            $res = $this->dbcon->drop(\fpcm\classes\database::tableModules);
+        $tableFiles = $this->dbconcon->getTableFiles();
+        if (!count($tableFiles)) {
+            return true;
         }
 
-        return $res;
-    }
+        $dropTables = [];
+        
+        $isCli = \fpcm\classes\baseconfig::isCli();
 
-    /**
-     * Neue Tabelle erzeugen
-     * @return bool
-     */
-    private function createTables()
-    {
-        $res = $this->dbcon->execYaTdl(\fpcm\classes\dirs::getDataDirPath(
-            \fpcm\classes\dirs::DATA_DBSTRUCT,
-            '08modules'
-        ));
+        foreach ($tableFiles as $tableFile) {
 
-        return $res;
+            $tab = new \fpcm\model\system\yatdl($tableFile);
+
+            $success = $tab->parse();
+            if ($success !== true) {
+                trigger_error('Unable to parse table definition for ' . $tableFile . ', ERROR CODE: ' . $success);
+                return false;
+            }
+
+            $tableName = $tab->getArray()['name'];
+
+            if ($isCli) {
+                print " >> Alter table {$tableName}, add and remove columns...".PHP_EOL;
+            }
+            
+            $struct = $this->dbcon->getTableStructure($tableName);
+            $tabExists = count($struct) ? true : false;
+
+            if ($tabExists && !$this->dbcon->addTableCols($tab) || !$this->dbcon->removeTableCols($tab)) {
+                trigger_error('Failed to alter table ' . $tableName . ' during update.');
+                return false;
+            }
+
+            if (in_array($tableName, $dropTables)) {
+                
+                if ($isCli) {
+                    print "     >> Drop table {$tableName}...".PHP_EOL;
+                }
+
+                $successDrop = false;
+                if (!$tabExists) {
+                    print "     >> Table not found, skipping...".PHP_EOL;
+                }
+                elseif ($successDrop = !$this->dbcon->drop($tableName)) {
+                    trigger_error('Unable to drop table ' . $tableName . ' during update');
+                    return false;
+                }
+
+                if ($successDrop) {
+                    $tabExists = false;
+                }
+                
+                print "     -- FINISHED".PHP_EOL;
+            }
+
+            if (!$tabExists) {
+                
+                if ($isCli) {
+                    print "     >> Add table {$tableName}...".PHP_EOL;
+                }
+
+                if (!$this->dbcon->execYaTdl($tableFile)) {
+                    trigger_error('Unable to create table ' . $tableName . ' during update');
+                    return false;
+                }
+
+                print "     -- FINISHED".PHP_EOL;
+            }
+
+        }
+        
+        return true;
     }
 
     /**
@@ -219,7 +258,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
         ]);
 
         foreach ($tables as $table) {
-            $this->dbcon->optimize($table);
+            $this->dbconcon->optimize($table);
         }
 
         return true;

@@ -62,6 +62,13 @@ final class session extends \fpcm\model\abstracts\dataset {
     protected $external;
 
     /**
+     * Session user agent string
+     * @var string
+     * @since FPCM 4
+     */
+    protected $useragent = '';
+
+    /**
      * Existiert Session
      * @var bool
      */
@@ -176,6 +183,15 @@ final class session extends \fpcm\model\abstracts\dataset {
     }
 
     /**
+     * User agent string
+     * @return string
+     */
+    public function getUseragent()
+    {
+        return $this->useragent;
+    }
+        
+    /**
      * Session-ID-String setzen
      * @param string $sessionid
      */
@@ -239,6 +255,15 @@ final class session extends \fpcm\model\abstracts\dataset {
     }
 
     /**
+     * Set user agent data
+     * @param string $useragent
+     */
+    public function setUseragent($useragent)
+    {
+        $this->useragent = $useragent;
+    }
+
+    /**
      * Session-Status setzen
      * @param bool $sessionExists
      */
@@ -246,7 +271,7 @@ final class session extends \fpcm\model\abstracts\dataset {
     {
         $this->sessionExists = $sessionExists;
     }
-
+    
     /**
      * Gibt aktuellen Benutzer dieser Session zurück
      * @return \fpcm\model\users\author
@@ -343,6 +368,7 @@ final class session extends \fpcm\model\abstracts\dataset {
         $this->sessionid = \fpcm\classes\security::createSessionId();
         $this->ip = \fpcm\classes\http::getIp();
         $this->external = (int) $external;
+        $this->useragent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
         $this->sessionExists = true;
 
         return true;

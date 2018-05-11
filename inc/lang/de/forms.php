@@ -109,6 +109,7 @@ $lang = array(
     'LOGS_LIST_LOGOUT' => 'Logout am',
     'LOGS_LIST_TIME' => 'Zeit',
     'LOGS_LIST_TEXT' => 'Log-Eintrag',
+    'LOGS_LIST_USERAGENT' => 'User-Agent',
     'CRONJOB_LIST_NAME' => 'Cronjob-Name',
     'CRONJOB_LIST_LASTEXEC' => 'Zuletzt ausgeführt',
     'CRONJOB_LIST_NEXTEXEC' => 'nächste Ausführung',
