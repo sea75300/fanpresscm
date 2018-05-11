@@ -113,6 +113,35 @@ class modules extends \fpcm\model\abstracts\tablelist {
      * 
      * @return array
      */
+    public function getInstalledUpdates()
+    {
+        if (\fpcm\classes\baseconfig::installerEnabled()) {
+            return 0;
+        }
+
+        $installed = $this->getInstalledDatabase();
+        if (!count($installed)) {
+            return 0;
+        }
+
+        $list = [];
+        foreach ($installed as $key => $module) {
+            
+            if (!$module->hasUpdates()) {
+                continue;
+            }
+            
+            $list[] = $key;
+            
+        }
+
+        return $list;
+    }
+
+    /**
+     * 
+     * @return array
+     */
     public function getFromRepository()
     {
         $repoData = (new \fpcm\model\updater\modules())->getData();
@@ -149,11 +178,10 @@ class modules extends \fpcm\model\abstracts\tablelist {
     {
         $folders = glob(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, '*/*'), GLOB_ONLYDIR);
         if (!$folders) {
-            return [];
+            return true;
         }
 
         $dbList = $this->getFromDatabase();
-        
         foreach ($folders as $folder) {
             $key = module::getKeyFromPath($folder);
             $module = new module( $key, false );

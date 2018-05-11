@@ -171,4 +171,14 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
         return readline($str . ' ');
     }
 
+    /**
+     * 
+     * @param bool $value
+     * @return string
+     */
+    protected function boolText($value)
+    {
+        return (bool) $value ? 'yes' : 'no';
+    }
+
 }
