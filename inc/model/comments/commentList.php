@@ -393,6 +393,36 @@ class commentList extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
+     * Empty trash bin
+     * @return bool
+     */
+    public function emptyTrash()
+    {
+        $this->cache->cleanup();
+        return $this->dbcon->delete($this->table, 'deleted = 1');
+    }
+
+    /**
+     * Empty trash bin
+     * @return bool
+     */
+    public function retoreComments(array $ids)
+    {
+        $this->cache->cleanup();
+
+        /* @var $session \fpcm\model\system\session */
+        $session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        $userId = $session->exists() ? $session->getUserId() : 0;
+
+        return $this->dbcon->update(
+            $this->table,
+            ['deleted', 'changetime', 'changeuser'],
+            [ 0, time(), $userId, implode(',', array_map('intval', $ids)) ],
+            'id IN (?) AND deleted = 1'
+        );
+    }
+
+    /**
      * Erzeugt Listen-Result-Array
      * @param array $list
      * @return array

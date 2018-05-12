@@ -24,6 +24,12 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
     protected $dataView;
 
     /**
+     * Data view object
+     * @var \fpcm\model\comments\commentList
+     */
+    protected $comments;
+
+    /**
      * 
      * @return string
      */
@@ -40,13 +46,19 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
     {
         return 'comments/trash';
     }
+
+    /**
+     * 
+     * @return array
+     */
+    protected function getPermissions()
+    {
+        return ['comment' => 'delete'];
+    }
     
     protected function initActionObjects()
     {
-        $conditions = new \fpcm\model\comments\search();
-        $conditions->deleted = 1;
-        
-        $this->items = (new \fpcm\model\comments\commentList())->getCommentsBySearchCondition($conditions);
+        $this->comments = new \fpcm\model\comments\commentList();
         return true;
     }
 
@@ -64,6 +76,14 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
             $this->view->addErrorMessage('CSRF_INVALID');
             return true;
         }
+        
+        $action = 'do'.$this->getRequestVar('action', [
+            \fpcm\classes\http::FILTER_FIRSTUPPER
+        ]);
+        
+        if (method_exists($this, $action)) {
+            call_user_func([$this, $action]);
+        }
 
         return true;
     }
@@ -74,6 +94,10 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
+        $conditions = new \fpcm\model\comments\search();
+        $conditions->deleted = 1;
+        $this->items = $this->comments->getCommentsBySearchCondition($conditions);
+
         $this->view->assign('commentsMode', 1);
         $this->view->setFormAction('comments/trash');
         $this->view->addJsFiles(['comments.js']);
@@ -128,7 +152,24 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
         ]);
     }
 
+    /**
+     * Papierkorb leeren
+     * @return boolean
+     */
+    private function doTrash()
+    {
+        return $this->comments->emptyTrash();
+    }
 
+    /**
+     * Retore comments from trash
+     * @param array $ids
+     * @return boolean
+     */
+    private function doRestore()
+    {
+        return $this->comments->retoreComments($this->getRequestVar('ids'));
+    }
 }
 
 ?>

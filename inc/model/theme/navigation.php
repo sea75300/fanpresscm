@@ -124,15 +124,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 ])
             ),
             'comments' => array(
-                navigationItem::createItemFromArray([
-                    'url' => '#',
-                    'permission' => array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit')),
-                    'description' => $this->language->translate('HL_COMMENTS_MNG'),
-                    'icon' => 'fa fa-comments',
-                    'id' => 'nav-item-editcomments',
-                    'submenu' => self::commentsSubmenu(),
-                    'class' => 'fpcm-navigation-noclick'
-                ])
+                $this->commentsNavItem()
             ),
             'filemanager' => array(
                 navigationItem::createItemFromArray([
@@ -204,18 +196,46 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      * Submenu for comments
      * @return array
      */
+    private function commentsNavItem()
+    {
+        if (!$this->permissions->check(['comment' => 'delete'])) {
+            return navigationItem::createItemFromArray([
+                'url' => 'comments/list',
+                'permission' => array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit')),
+                'description' => $this->language->translate('HL_COMMENTS_MNG'),
+                'icon' => 'fa fa-comments',
+                'id' => 'nav-item-editcomments',
+            ]);
+        }
+        
+        return navigationItem::createItemFromArray([
+            'url' => '#',
+            'permission' => array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit')),
+            'description' => $this->language->translate('HL_COMMENTS_MNG'),
+            'icon' => 'fa fa-comments',
+            'id' => 'nav-item-editcomments',
+            'submenu' => self::commentsSubmenu(),
+            'class' => 'fpcm-navigation-noclick'
+        ]);
+
+    }
+
+    /**
+     * Submenu for comments
+     * @return array
+     */
     private function commentsSubmenu()
     {
         return [
             navigationItem::createItemFromArray([
                 'url' => 'comments/list',
-                'permission' => array(),
+                'permission' => [],
                 'description' => $this->language->translate('COMMMENT_HEADLINE'),
                 'icon' => 'far fa-comments fa-fw'
             ]),
             navigationItem::createItemFromArray([
                 'url' => 'comments/trash',
-                'permission' => array(),
+                'permission' => [],
                 'description' => $this->language->translate('ARTICLES_TRASH'),
                 'icon' => 'far fa-trash-alt fa-fw'
             ])

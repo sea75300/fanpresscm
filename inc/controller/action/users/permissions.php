@@ -55,16 +55,16 @@ class permissions extends \fpcm\controller\abstracts\controller {
 
         $this->permissionObj = new \fpcm\model\system\permissions($this->rollId);
 
-        $checkPageToken = $this->checkPageToken();
-        if ($this->buttonClicked('permissionsSave') && !$checkPageToken) {
+        if ($this->buttonClicked('permissionsSave') && !$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
         }
 
-        if ($this->buttonClicked('permissionsSave') && !is_null($this->getRequestVar('permissions')) && $checkPageToken) {
+        $permissionData = $this->getRequestVar('permissions', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]);
+        
 
-            $permissionData = $this->getRequestVar('permissions', [
-                \fpcm\classes\http::FILTER_CASTINT
-            ]);
+        if ($this->buttonClicked('permissionsSave') && is_array($permissionData) && $this->checkPageToken) {
 
             if ($this->rollId == 1) {
                 $permissionData['system']['permissions'] = 1;
@@ -91,7 +91,7 @@ class permissions extends \fpcm\controller\abstracts\controller {
         $this->view->assign('permissions', $this->permissionObj->getPermissionData());
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         $this->view->setFormAction('users/permissions', [
-            'roll' => $this->rollId
+            'id' => $this->rollId
         ]);
 
         $this->view->addJsFiles(['permissions.js']);
