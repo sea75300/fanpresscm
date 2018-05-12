@@ -36,6 +36,12 @@ class login extends \fpcm\controller\abstracts\controller {
     protected $loginLockedExpire = 600;
 
     /**
+     *
+     * @var \fpcm\model\abstracts\spamCaptcha
+     */
+    protected $captcha;
+
+    /**
      * 
      * @return string
      */
@@ -62,6 +68,16 @@ class login extends \fpcm\controller\abstracts\controller {
             return false;
         }
 
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    protected function initActionObjects()
+    {
+        $this->captcha = \fpcm\components\components::getChatptchaProvider();
         return true;
     }
 
@@ -124,9 +140,13 @@ class login extends \fpcm\controller\abstracts\controller {
 
         }
 
+        if ($this->currentAttempts >= $this->config->system_loginfailed_locked) {
+            return false;
+        }
+
         $username = $this->getRequestVar('username');
         $email = $this->getRequestVar('email');
-        if ($doReset && $username && $email) {
+        if ($doReset && $username && $email && $this->captcha->checkAnswer()) {
 
             $userList = new \fpcm\model\users\userList();
             $id = $userList->getUserIdByUsername($username);
@@ -146,10 +166,6 @@ class login extends \fpcm\controller\abstracts\controller {
             return true;
         }
 
-        if ($this->currentAttempts >= $this->config->system_loginfailed_locked) {
-            return false;
-        }
-
         return true;
     }
 
@@ -161,7 +177,7 @@ class login extends \fpcm\controller\abstracts\controller {
         $reset = $this->getRequestVar('reset') === null ? false : true;
         $this->view->assign('userNameField', $reset ? 'username' : 'login[username]');
         $this->view->assign('resetPasswort', $reset);
-        $this->view->assign('noFullWrapper', true);
+        $this->view->assign('captcha', $this->captcha);
 
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         $this->view->addJsFiles(['login.js']);

@@ -24,6 +24,17 @@
                 </div>
             </div>
 
+            <?php if ($resetPasswort) : ?>
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="col-6">
+                    <?php print $captcha->createPluginText(); ?>
+                </div>
+                <div class="col-6">
+                    <?php print $captcha->createPluginInput(true); ?>
+                </div>
+            </div>
+            <?php endif; ?>
+
             <div class="fpcm-ui-margin-center fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom fpcm-ui-center">
                 <div class="fpcm-ui-controlgroup">
             <?php if ($resetPasswort) : ?>

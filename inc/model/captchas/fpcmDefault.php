@@ -73,13 +73,13 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
      * Erzeugen eines Eingabefeldes für Captcha
      * @return string
      */
-    public function createPluginInput()
+    public function createPluginInput($wrap = false)
     {
         if ($this->session->exists()) {
             return '';
         }
 
-        return '<input type="text" class="fpcm-pub-textinput" name="commentCaptcha" value="">';
+        return (string) (new \fpcm\view\helper\textInput('commentCaptcha'))->setClass('fpcm-pub-textinput')->setWrapper($wrap);
     }
 
     /**
