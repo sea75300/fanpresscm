@@ -64,7 +64,7 @@ class commentTest extends testBase {
         $this->assertEquals(0, $object->getApproved());
         $this->assertEquals(1, $object->getArticleid());
     }
-
+    
     public function testDelete() {
 
         /* @var $object \fpcm\model\comments\comment */
@@ -73,8 +73,11 @@ class commentTest extends testBase {
         $result = $object->delete();
         $this->assertTrue($result);
         
-        $object = new fpcm\model\comments\comment($GLOBALS['objectId']);
-        $this->assertFalse($object->exists());
+        if ($object->exists()) {
+            $this->assertEquals(1, $object->getDeleted());
+        } else {
+            $this->assertFalse($object->exists());
+        }
         
         $GLOBALS['objectId'] = null;
         

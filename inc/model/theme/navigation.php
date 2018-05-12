@@ -125,11 +125,13 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             ),
             'comments' => array(
                 navigationItem::createItemFromArray([
-                    'url' => 'comments/list',
+                    'url' => '#',
                     'permission' => array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit')),
                     'description' => $this->language->translate('HL_COMMENTS_MNG'),
                     'icon' => 'fa fa-comments',
-                    'id' => 'nav-item-editcomments'
+                    'id' => 'nav-item-editcomments',
+                    'submenu' => self::commentsSubmenu(),
+                    'class' => 'fpcm-navigation-noclick'
                 ])
             ),
             'filemanager' => array(
@@ -192,6 +194,28 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             navigationItem::createItemFromArray([
                 'url' => 'articles/trash',
                 'permission' => array('article' => 'delete'),
+                'description' => $this->language->translate('ARTICLES_TRASH'),
+                'icon' => 'far fa-trash-alt fa-fw'
+            ])
+        ];
+    }
+
+    /**
+     * Submenu for comments
+     * @return array
+     */
+    private function commentsSubmenu()
+    {
+        return [
+            navigationItem::createItemFromArray([
+                'url' => 'comments/list',
+                'permission' => array(),
+                'description' => $this->language->translate('COMMMENT_HEADLINE'),
+                'icon' => 'far fa-comments fa-fw'
+            ]),
+            navigationItem::createItemFromArray([
+                'url' => 'comments/trash',
+                'permission' => array(),
                 'description' => $this->language->translate('ARTICLES_TRASH'),
                 'icon' => 'far fa-trash-alt fa-fw'
             ])

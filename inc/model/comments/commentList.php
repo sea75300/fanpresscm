@@ -65,24 +65,6 @@ class commentList extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * Liefert ein array mit Kommentaren die zwischen $from und $to verfasst wurden
-     * @param int $from
-     * @param int $to
-     * @param bool $private
-     * @param bool $approved
-     * @param bool $spam
-     * @return array
-     */
-    public function getCommentsByDate($from, $to, $private = 0, $approved = 1, $spam = 0)
-    {
-        $params = [$from, $to, $approved, $private, $spam];
-        $where = ['createtime >= ?', 'createtime <= ?', 'approved = ?', 'private = ?', 'spammer = ?'];
-
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', implode(' AND ', $where) . $this->dbcon->orderBy(array('createtime DESC')), $params), true);
-        return $this->createCommentResult($list);
-    }
-
-    /**
      * Liefert ein array der Kommentare, welcher mit der Bedingung übereinstimmen
      * @param int $articleId Artikel-ID
      * @param bool $private private Kommentare ja/nein
@@ -98,6 +80,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $conditions->spam = $spam;
         $conditions->approved = $hideUnapproved;
         $conditions->searchtype = 0;
+        $conditions->deleted = 0;
 
         return $this->getCommentsBySearchCondition($conditions);
     }
@@ -161,6 +144,11 @@ class commentList extends \fpcm\model\abstracts\tablelist {
             $valueParams[] = $conditions->approved;
         }
 
+        if ($conditions->deleted !== null) {
+            $where[] = "deleted = ?";
+            $valueParams[] = $conditions->deleted;
+        }
+
         if ($conditions->articleid) {
             $where[] = "articleid = ?";
             $valueParams[] = $conditions->articleid;
@@ -199,20 +187,6 @@ class commentList extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * Liefert ein Array mit Kommentaren zurück
-     * @param int $offset
-     * @param int $limit
-     * @param string $order
-     * @return array
-     * @since FPCM 3.1.0
-     */
-    public function getCommentsByLimit($offset, $limit, $order = 'DESC')
-    {
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'id > 0' . $this->dbcon->orderBy(array("createtime {$order}")) . $this->dbcon->limitQuery($offset, $limit)), true);
-        return $this->createCommentResult($list);
-    }
-
-    /**
      * Löscht Kommentare
      * @param array $ids
      * @return bool
@@ -220,7 +194,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
     public function deleteComments(array $ids)
     {
         $this->cache->cleanup();
-        return $this->dbcon->delete($this->table, 'id IN (' . implode(', ', $ids) . ')');
+        return $this->dbcon->update($this->table, ['deleted'], [1, implode(', ', array_map('intval', $ids))], 'id IN (?)');
     }
 
     /**
@@ -235,8 +209,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         }
 
         $this->cache->cleanup();
-
-        return $this->dbcon->delete($this->table, 'articleid IN (' . implode(',', $article_ids) . ')');
+        return $this->dbcon->update($this->table, ['deleted'], [1, implode(', ', array_map('intval', $article_ids))], 'articleid IN (?)');
     }
 
     /**
@@ -260,9 +233,9 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $where .= is_null($private) ? '' : ' AND private = ' . $private;
         $where .= is_null($approved) ? '' : ' AND approved = ' . $approved;
         $where .= is_null($spam) ? '' : ' AND spammer = ' . $spam;
+        $where .= ' AND deleted = 0';
 
-        $articleCounts = $this->dbcon->fetch($this->dbcon->select($this->table, 'articleid, count(id) AS count', "$where GROUP BY articleid"), true);
-
+        $articleCounts = $this->dbcon->fetch($this->dbcon->select($this->table, 'articleid, count(id) AS count', "{$where} GROUP BY articleid"), true);
         if (!count($articleCounts)) {
             return [0];
         }
@@ -290,7 +263,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         }
 
         $where = count($articleIds) ? "articleid IN (" . implode(',', $articleIds) . ")" : '1=1';
-        $articleCounts = $this->dbcon->fetch($this->dbcon->select($this->table, 'articleid, count(id) AS count', "$where AND (private = 1 OR approved = 0) GROUP BY articleid"), true);
+        $articleCounts = $this->dbcon->fetch($this->dbcon->select($this->table, 'articleid, count(id) AS count', "$where AND (private = 1 OR approved = 0) AND deleted = 0 GROUP BY articleid"), true);
 
         if (!count($articleCounts)) {
             return [0];
@@ -318,13 +291,17 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         if ($conditions->private) {
             $where[] = 'private = 1';
         }
+
         if ($conditions->unapproved) {
             $where[] = 'approved = 0';
         }
+
         if ($conditions->spam) {
             $where[] = 'spammer = 1';
         }
-        
+
+        $where[] = ($conditions->deleted ? 'deleted = 1' : 'deleted = 0');
+
         $combination = $conditions->combination ? $conditions->combination : 'AND';
         
         return $this->dbcon->count(
@@ -340,7 +317,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function getLastCommentTimeByIP()
     {
-        $res = $this->dbcon->fetch($this->dbcon->select($this->table, 'createtime', 'ipaddress ' . $this->dbcon->dbLike() . ' ?' . $this->dbcon->orderBy(array('createtime ASC')) . $this->dbcon->limitQuery(0, 1), array(\fpcm\classes\http::getIp())));
+        $res = $this->dbcon->fetch($this->dbcon->select($this->table, 'createtime', 'deleted = 0 AND ipaddress ' . $this->dbcon->dbLike() . ' ?' . $this->dbcon->orderBy(array('createtime ASC')) . $this->dbcon->limitQuery(0, 1), array(\fpcm\classes\http::getIp())));
         return isset($res->createtime) ? $res->createtime : 0;
     }
 
@@ -351,9 +328,18 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function spamExistsbyCommentData(comment $comment)
     {
-        $where = array('name ' . $this->dbcon->dbLike() . ' ?', 'email ' . $this->dbcon->dbLike() . ' ?', 'website ' . $this->dbcon->dbLike() . ' ?', 'ipaddress ' . $this->dbcon->dbLike() . ' ?');
-        $params = array($comment->getName(), '%' . $comment->getEmail() . '%', '%' . $comment->getWebsite() . '%', $comment->getIpaddress());
-        $count = $this->dbcon->count($this->table, 'id', implode(' OR ', $where) . ' AND spammer = 1', $params);
+        $count = $this->dbcon->count($this->table, 'id', implode(' OR ', [            
+            'name ' . $this->dbcon->dbLike() . ' ?',
+            'email ' . $this->dbcon->dbLike() . ' ?',
+            'website ' . $this->dbcon->dbLike() . ' ?',
+            'ipaddress ' . $this->dbcon->dbLike() . ' ?'
+        ]) . ' AND spammer = 1 AND deleted = 0',
+        [            
+            $comment->getName(), '%' .
+            $comment->getEmail() . '%',
+            '%' . $comment->getWebsite() . '%',
+            $comment->getIpaddress()
+        ]);
 
         return $count >= $this->config->comments_markspam_commentcount ? true : false;
     }

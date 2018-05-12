@@ -37,6 +37,7 @@ articles/listarchive: action/articles/articlelistarchive
 articles/trash: action/articles/articlelisttrash
 comments/edit: action/comments/commentedit
 comments/list: action/comments/commentlist
+comments/trash: action/comments/commenttrash
 package/sysupdate: action/packagemgr/sysupdate
 package/modinstall: action/packagemgr/moduleInstaller
 package/modupdate: action/packagemgr/moduleUpdater

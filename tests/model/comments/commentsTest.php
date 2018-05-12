@@ -107,14 +107,6 @@ class commentsTest extends testBase {
 
     }
 
-    public function testGetCommentsByLimit() {
-
-        $data = $this->object->getCommentsByLimit(0, 5);
-        $this->assertTrue(is_array($data));
-        $this->assertGreaterThanOrEqual(0, count($data));
-        $this->assertLessThanOrEqual(5, count($data));
-    }
-
     public function testEditCommentByMass() {
         
         $result = $this->object->editCommentsByMass([$GLOBALS['objectId']], [
@@ -142,6 +134,16 @@ class commentsTest extends testBase {
 
         $result = $this->object->deleteComments([$GLOBALS['objectId']]);
         $this->assertTrue($result);
+        
+        $cond = new \fpcm\model\comments\search();
+        $cond->searchtype = 0;
+        $cond->deleted = 1;
+        
+        $data = $this->object->getCommentsBySearchCondition($cond);
+
+        $this->assertTrue(is_array($data));
+        $this->assertGreaterThanOrEqual(1, count($data));
+        $this->assertArrayHasKey($GLOBALS['objectId'], $data);
     }
     
     private function createComment() {

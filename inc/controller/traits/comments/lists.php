@@ -265,6 +265,7 @@ trait lists {
             $this->conditions->limit = [$this->config->articles_acp_limit, $this->listShowStart];
         }
         
+        $this->conditions->deleted = 0;
         $this->conditions->orderby = ['createtime DESC'];
 
         $comments           = $this->list->getCommentsBySearchCondition($this->conditions);

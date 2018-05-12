@@ -12,6 +12,17 @@ if (fpcm === undefined) {
 fpcm.comments = {
 
     init: function () {
+        
+        if (fpcm.dataview && fpcm.dataview.exists('commenttrash')) {
+            fpcm.dataview.render('commenttrash', {
+                onRenderAfter: function() {
+                    fpcm.ui.assignCheckboxes();
+                    fpcm.ui.assignControlgroups();
+                }
+            });
+            
+            return true;
+        }
 
         if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
             fpcm.comments.initCommentSearch();

@@ -100,6 +100,12 @@ class comment extends \fpcm\model\abstracts\dataset {
     protected $changeuser = 0;
 
     /**
+     * Deleted flag
+     * @var int
+     */
+    protected $deleted = 0;
+
+    /**
      * Action-String für edit-Action
      * @var string
      */
@@ -123,7 +129,13 @@ class comment extends \fpcm\model\abstracts\dataset {
      * Auszuschließende Elemente beim in save/update
      * @var array
      */
-    protected $dbExcludes = array('editPermission');
+    protected $dbExcludes = ['editPermission', 'forceDelete'];
+
+    /**
+     * Force delete from database
+     * @var int
+     */
+    protected $forceDelete = 0;
 
     /**
      * Konstruktor
@@ -246,6 +258,15 @@ class comment extends \fpcm\model\abstracts\dataset {
     }
 
     /**
+     * Deleted/trash flag
+     * @return int
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+    
+    /**
      * Liefert Status, ob Kommentar bearbeitet werden kann zurück
      * @return bool
      * @since FPCM 3.3
@@ -364,6 +385,15 @@ class comment extends \fpcm\model\abstracts\dataset {
     }
 
     /**
+     * Is deleted
+     * @param int $deleted
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = (int) $deleted;
+    }
+        
+    /**
      * Setzt Status, ob Kommentar bearbeitet werden kann
      * @param bool $editPermission
      * @since FPCM 3.3
@@ -416,6 +446,22 @@ class comment extends \fpcm\model\abstracts\dataset {
         $this->init();
 
         return $return;
+    }
+
+    /**
+     * Löscht ein Objekt in der Datenbank
+     * @return bool
+     */
+    public function delete()
+    {
+        $this->cache->cleanup();
+        $this->deleted = 1;
+
+        if (!$this->forceDelete) {
+            return $this->update();
+        }
+
+        return parent::delete();
     }
 
     /**
@@ -478,6 +524,15 @@ class comment extends \fpcm\model\abstracts\dataset {
     public function getStatusIconPrivate()
     {
         return (new \fpcm\view\helper\icon('eye-slash fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getPrivate())->setText('COMMMENT_PRIVATE')->setStack('square');
+    }
+
+    /**
+     * Force comments for drop from database
+     * @param bool $forceDelete
+     */
+    public function setForceDelete($forceDelete)
+    {
+        $this->forceDelete = $forceDelete;
     }
 
     /**

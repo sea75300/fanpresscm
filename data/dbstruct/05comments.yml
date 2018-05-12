@@ -60,6 +60,10 @@ cols:
         type: bigint
         length: 20
         params: NOT NULL
+    deleted:
+        type: bool
+        length: 
+        params: NOT NULL
 indices:
     name:
         col: name

@@ -410,7 +410,7 @@
             <div class="row no-gutters">
                 <div class="col-sm-12 col-lg-6">
                     <fieldset class="fpcm-ui-margin-md-right">
-                        <legend><?php $theView->write('HL_COMMENTS_MNG'); ?></legend>
+                        <legend><?php $theView->write('COMMMENT_HEADLINE'); ?></legend>
 
                         <div class="row fpcm-ui-padding-md-tb">
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">

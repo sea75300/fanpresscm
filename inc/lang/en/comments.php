@@ -7,6 +7,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 $lang = array(
+    'COMMMENT_HEADLINE' => 'Comments',
     'COMMMENT_AUTHOR' => 'Name',
     'COMMMENT_WEBSITE' => 'Website',
     'COMMMENT_CREATEDATE' => 'Created on',

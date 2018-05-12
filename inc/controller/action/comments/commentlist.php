@@ -23,6 +23,10 @@ class commentlist extends \fpcm\controller\abstracts\controller {
      */
     protected $dataView;
 
+    /**
+     * 
+     * @return string
+     */
     protected function getHelpLink()
     {
         return 'hl_comments_mng';
