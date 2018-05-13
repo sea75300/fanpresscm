@@ -202,7 +202,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             return navigationItem::createItemFromArray([
                 'url' => 'comments/list',
                 'permission' => array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit')),
-                'description' => $this->language->translate('HL_COMMENTS_MNG'),
+                'description' => $this->language->translate('COMMMENT_HEADLINE'),
                 'icon' => 'fa fa-comments',
                 'id' => 'nav-item-editcomments',
             ]);

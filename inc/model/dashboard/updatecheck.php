@@ -105,6 +105,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     protected function initObjects()
     {
         $this->systemUpdates = new \fpcm\model\updater\system();
+        $this->m = new \fpcm\model\updater\system();
         return true;
     }
     
@@ -141,7 +142,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
         } else {
             $iconClass = 'check';
             $statusClass = 'fpcm-dashboard-updates-current';
-            $statusText = $this->language->translate('UPDATE_VERSIONCHECK_CURRENT');
+            $statusText = 'UPDATE_VERSIONCHECK_CURRENT';
         }
 
         $this->renderTable($iconClass, $statusClass, $statusText);
@@ -153,28 +154,19 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
      */
     private function getModuleUpdateStatus()
     {
-        return true;
-        
-//        $moduleUpdates = new \fpcm\model\updater\modules();
-//        $checkRes = $moduleUpdates->checkUpdates();
-
-        $checkRes = false;
-        
-        if ($checkRes === true) {
-            $iconClass = 'cloud-download-alt';
-            $statusClass = 'fpcm-dashboard-updates-outdated';
-            $statusText = $this->language->translate('UPDATE_MODULECHECK_NEW');
-        } elseif ($checkRes === \fpcm\model\abstracts\remoteModel::FURLOPEN_ERROR) {
-            $iconClass = 'exclamation-triangle';
-            $statusClass = 'fpcm-dashboard-updates-checkerror';
-            $statusText = $this->language->translate('UPDATE_MODULECHECK_FAILED');
-        } else {
-            $iconClass = 'check';
-            $statusClass = 'fpcm-dashboard-updates-current';
-            $statusText = $this->language->translate('UPDATE_MODULECHECK_CURRENT');
+        $modulesUpdater = new \fpcm\model\updater\modules();
+        if (!\fpcm\classes\baseconfig::canConnect() || !count($modulesUpdater->getData())) {
+            $this->renderTable('exclamation-triangle', 'fpcm-dashboard-updates-checkerror', 'UPDATE_MODULECHECK_FAILED');
+            return false;
         }
 
-        $this->renderTable($iconClass, $statusClass, $statusText);
+        $checkRes = count((new \fpcm\module\modules())->getInstalledUpdates()) ? true : false;
+        if ($checkRes === true) {
+            $this->renderTable('cloud-download-alt', 'fpcm-dashboard-updates-outdated', 'UPDATE_MODULECHECK_NEW');
+            return true;
+        }
+
+        $this->renderTable('check', 'fpcm-dashboard-updates-current', 'UPDATE_MODULECHECK_CURRENT');
     }
 
     /**
@@ -212,7 +204,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
         $this->tableContent[] = implode(PHP_EOL, [
             '<div class="row no-gutters">',
             '<div class="col-3">'.(new \fpcm\view\helper\icon($iconClass.' fa-inverse'))->setSize('2x')->setClass($statusClass)->setStack('square').'</div>',
-            '<div class="col-9 align-self-center">'.$statusText.'</div>',
+            '<div class="col-9 align-self-center">'.$this->language->translate($statusText).'</div>',
             '</div>'
         ]);
     }

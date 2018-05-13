@@ -158,7 +158,13 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
      */
     private function doTrash()
     {
-        return $this->comments->emptyTrash();
+        if (!$this->comments->emptyTrash()) {
+            $this->view->addErrorMessage('DELETE_FAILED_TRASH');
+            return false;
+        }
+
+        $this->view->addNoticeMessage('DELETE_SUCCESS_TRASH');
+        return true;
     }
 
     /**
@@ -168,7 +174,13 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
      */
     private function doRestore()
     {
-        return $this->comments->retoreComments($this->getRequestVar('ids'));
+        if (!$this->comments->retoreComments($this->getRequestVar('ids'))) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLERESTORE');
+            return false;
+        }
+
+        $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLERESTORE');
+        return true;
     }
 }
 
