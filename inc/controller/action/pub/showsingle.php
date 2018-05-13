@@ -431,6 +431,12 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         $newCommentData = $this->getRequestVar('newcomment');
         if ($this->buttonClicked('sendComment') && $newCommentData !== null && !$this->ipList->ipIsLocked() && !$this->ipList->ipIsLocked('nocomments')) {
 
+            $hasPrivacy = (isset($newCommentData['privacy']) && $this->config->comments_privacy_optin) || !$this->config->comments_privacy_optin ? true : false;
+            if ($this->buttonClicked('sendComment') && !$hasPrivacy) {
+                $this->view->addErrorMessage('PUBLIC_PRIVACY');
+                return true;
+            }
+
             $timer = time();
 
             if ($timer <= $this->commentList->getLastCommentTimeByIP() + $this->config->comments_flood) {
@@ -442,12 +448,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
             if (!$this->captcha->checkAnswer()) {
                 $this->view->addErrorMessage('PUBLIC_FAILED_CAPTCHA');
-                return true;
-            }
-
-            $hasPrivacy = (isset($newCommentData['privacy']) && $this->config->comments_privacy_optin) || !$this->config->comments_privacy_optin ? true : false;
-            if ($this->buttonClicked('sendComment') && !$hasPrivacy) {
-                $this->view->addErrorMessage('PUBLIC_PRIVACY');
                 return true;
             }
 

@@ -363,6 +363,10 @@ final class config extends \fpcm\model\abstracts\dataset {
         if (isset($this->newConfig['articles_imageedit_persistence'])) {
             $this->newConfig['articles_imageedit_persistence'] = (int) $this->newConfig['articles_imageedit_persistence'];
         }
+            
+        if (isset($this->newConfig['comments_privacy_optin'])) {
+            $this->newConfig['comments_privacy_optin'] = (int) $this->newConfig['comments_privacy_optin'];
+        }
 
         if (isset($this->newConfig['articles_archive_datelimit'])) {
             $this->newConfig['articles_archive_datelimit'] = $this->newConfig['articles_archive_datelimit'] ? strtotime($this->newConfig['articles_archive_datelimit']) : 0;
