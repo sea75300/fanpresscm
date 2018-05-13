@@ -1,23 +1,25 @@
 <?php
 
-require_once dirname(dirname(__DIR__)).'/testBase.php';
+require_once dirname(dirname(__DIR__)) . '/testBase.php';
 
 class articleTest extends testBase {
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->className = 'articles\\article';
         parent::setUp();
     }
 
-    public function testSave() {
-        
+    public function testSave()
+    {
+
         /* @var $object \fpcm\model\articles\article */
         $object = $this->object;
 
-        $GLOBALS['article_title']   = 'FPCM UnitTest Article '.microtime(true);
-        $GLOBALS['article_content'] =  'FPCM UnitTest Article from https://nobody-knows.org!';
+        $GLOBALS['article_title'] = 'FPCM UnitTest Article ' . microtime(true);
+        $GLOBALS['article_content'] = 'FPCM UnitTest Article from https://nobody-knows.org!';
         $GLOBALS['article_created'] = time();
-        
+
         $object->setTitle($GLOBALS['article_title']);
         $object->setContent($GLOBALS['article_content']);
         $object->setCreatetime($GLOBALS['article_created']);
@@ -29,12 +31,13 @@ class articleTest extends testBase {
 
         $result = $object->save();
         $this->assertGreaterThanOrEqual(1, $result);
-        
+
         $GLOBALS['objectId'] = $result;
     }
 
-    public function testUpdate() {
-        
+    public function testUpdate()
+    {
+
         /* @var $object \fpcm\model\articles\article */
         $object = $this->object;
 
@@ -46,8 +49,9 @@ class articleTest extends testBase {
         $this->assertTrue($result);
     }
 
-    public function testGetArticle() {
-        
+    public function testGetArticle()
+    {
+
         /* @var $object \fpcm\model\articles\article */
         $object = new fpcm\model\articles\article($GLOBALS['objectId']);
 
@@ -59,7 +63,8 @@ class articleTest extends testBase {
         $this->assertEquals(1, $object->getCreateuser());
     }
 
-    public function testCreateRevision() {
+    public function testCreateRevision()
+    {
 
         /* @var $object \fpcm\model\articles\article */
         $object = new fpcm\model\articles\article($GLOBALS['objectId']);
@@ -68,7 +73,8 @@ class articleTest extends testBase {
         $this->assertTrue($result);
     }
 
-    public function testGetRevisions() {
+    public function testGetRevisions()
+    {
 
         /* @var $object \fpcm\model\articles\article */
         $object = new fpcm\model\articles\article($GLOBALS['objectId']);
@@ -78,22 +84,22 @@ class articleTest extends testBase {
         $this->assertGreaterThanOrEqual(1, count($revisions));
     }
 
-    public function testDelete() {
+    public function testDelete()
+    {
 
         /* @var $object \fpcm\model\articles\article */
         $object = new fpcm\model\articles\article($GLOBALS['objectId']);
 
         $result = $object->delete();
         $this->assertTrue($result);
-        
+
         if ($object->exists()) {
             $this->assertEquals(1, $object->getDeleted());
         } else {
             $this->assertFalse($object->exists());
         }
-        
+
         $GLOBALS['objectId'] = null;
-        
     }
 
 }

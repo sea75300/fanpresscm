@@ -229,7 +229,7 @@ class module {
      * 
      * @return boolean
      */
-    public function disbale()
+    public function disable()
     {
         fpcmLogSystem('Disable module ' . $this->mkey);
 

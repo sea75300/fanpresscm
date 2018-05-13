@@ -18,7 +18,7 @@ class moduleTest extends \PHPUnit_Framework_TestCase {
     {
         $module = new fpcm\modules\module('nkorg/example');
         $success = $module->install();
-        
+
         $this->assertTrue($success);
         $this->assertTrue($module->isInstalled());
         $this->assertGreaterThanOrEqual(1, $module->getId());
@@ -35,7 +35,7 @@ class moduleTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab1', '*')), 'Fetch from table module_nkorgexample_tab1 failed');
         $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab2', '*')), 'Fetch from table module_nkorgexample_tab2 failed');
     }
-    
+
     public function testUpdate()
     {
         /* @var $db \fpcm\classes\database */
@@ -51,21 +51,20 @@ class moduleTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab1', '*')), 'Fetch from table module_nkorgexample_tab1 failed');
     }
-    
+
     public function testGetInstalledModules()
     {
         $list = new \fpcm\modules\modules();
         $modules = $list->getInstalledModules();
-        
+
         $key = 'nkorg/example';
-        
+
         $this->assertTrue(is_array($modules));
         $this->assertArrayHasKey($key, $modules);
 
         /* @var $module fpcm\modules\module */
         $module = $modules[$key];
         $this->assertEquals($key, $module->getConfig()->key);
-
     }
 
 //    public function testUninstall()
@@ -90,5 +89,4 @@ class moduleTest extends \PHPUnit_Framework_TestCase {
 //        $db->getTableStructure('module_nkorgexample_tab1');
 //        $this->assertCount(0, $db->getTableStructure('module_nkorgexample_tab1'));
 //    }
-
 }

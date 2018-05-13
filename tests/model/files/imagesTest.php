@@ -1,23 +1,25 @@
 <?php
 
-require_once dirname(dirname(__DIR__)).'/testBase.php';
+require_once dirname(dirname(__DIR__)) . '/testBase.php';
 
 class imagesTest extends testBase {
-    
+
     /**
      * @var fpcm\model\files\imagelist
      */
     protected $object;
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->className = 'files\\imagelist';
         parent::setUp();
     }
 
-    public function testGetDatabaseListByCondition() {
+    public function testGetDatabaseListByCondition()
+    {
 
         $this->createImage();
-        
+
         $cond = new \fpcm\model\files\search();
         $cond->filename = $GLOBALS['imageName'];
 
@@ -35,19 +37,19 @@ class imagesTest extends testBase {
         $this->assertTrue($object->delete());
     }
 
-    private function createImage() {
+    private function createImage()
+    {
 
-        $GLOBALS['imageName']    = 'test'.microtime(true).'.jpg';
-        $GLOBALS['imageUserId']  = 1;
+        $GLOBALS['imageName'] = 'test' . microtime(true) . '.jpg';
+        $GLOBALS['imageUserId'] = 1;
         $GLOBALS['imageCreated'] = time();
 
         /* @var $GLOBALS['imageObj'] \fpcm\model\files\image */
-        $GLOBALS['imageObj']     = new \fpcm\model\files\image($GLOBALS['imageName']);
+        $GLOBALS['imageObj'] = new \fpcm\model\files\image($GLOBALS['imageName']);
         $GLOBALS['imageObj']->setUserid($GLOBALS['imageUserId']);
         $GLOBALS['imageObj']->setFiletime($GLOBALS['imageCreated']);
         $result = $GLOBALS['imageObj']->save();
         $this->assertGreaterThanOrEqual(1, $result);
-
     }
 
 }

@@ -24,39 +24,34 @@ final class module extends \fpcm\model\abstracts\cli {
      */
     public function process()
     {
-
-        $moduleList = new \fpcm\model\modules\modulelist();
-        $list = $moduleList->getModulesLocal();
-
-        $keyData = \fpcm\model\packages\package::explodeModuleFileName($this->funcParams[1]);
-
-        if (!array_key_exists($keyData[0], $list)) {
-            $this->output('The requested module was not found in local module storage. Check your module key.', true);
-        }
-
-        /* @var $module \fpcm\model\modules\listitem */
-        $module = $list[$keyData[0]];
+        $module = new \fpcm\module\module($this->funcParams[1]);
         if (!$module->isInstalled()) {
             $this->output('The selected module is not installed. Exiting...', true);
         }
-
+        
         if ($this->funcParams[0] === self::FPCMCLI_PARAM_ENABLE) {
-            if (!$moduleList->enableModules(array($keyData[0]))) {
-                $this->output('Unable to enable module ' . $keyData[0], true);
+            
+            if (!$module->enable()) {
+                $this->output('Failed to enable module ' . $module->getKey(), true);
             }
 
-            $this->output('Module ' . $keyData[0] . ' was enabled successfully.');
+            $this->output('Module successfully enabled.');
+            return true;
         }
-
-        if ($this->funcParams[0] === self::FPCMCLI_PARAM_DISBALE) {
-            if (!$moduleList->disableModules(array($keyData[0]))) {
-                $this->output('Unable to disable module ' . $keyData[0], true);
+        
+        if ($this->funcParams[0] === self::FPCMCLI_PARAM_DISABLE) {
+            
+            if (!$module->disable()) {
+                $this->output('Failed to disable module ' . $module->getKey(), true);
             }
 
-            $this->output('Module ' . $keyData[0] . ' was disableed successfully.');
+            $this->output('Module successfully disabled.');
+            return true;
         }
-
+        
+        $this->output('Invalid parameters', true);
         return true;
+
     }
 
     /**

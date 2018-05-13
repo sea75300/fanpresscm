@@ -273,7 +273,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      */
     public function emptyTrash()
     {
-        return $this->dbcon->delete($this->table, 'deleted = 1');
+        return $this->dbcon->delete($this->table, 'deleted = ?', [1]);
     }
 
     /**

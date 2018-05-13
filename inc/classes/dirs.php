@@ -69,6 +69,12 @@ final class dirs {
         }
 
         $GLOBALS['fpcm']['urls']['base'] = (baseconfig::canHttps() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
+        
+        $base = basename($GLOBALS['fpcm']['dir']['base']);
+        if (strpos($GLOBALS['fpcm']['urls']['base'], $base ) === false) {
+            $GLOBALS['fpcm']['urls']['base'] = $GLOBALS['fpcm']['urls']['base'].$base .'/';
+        }
+
         $GLOBALS['fpcm']['urls']['data'] = $GLOBALS['fpcm']['urls']['base'] . 'data/';
         $GLOBALS['fpcm']['urls']['core'] = $GLOBALS['fpcm']['urls']['base'] . 'core/';
         $GLOBALS['fpcm']['urls']['lib'] = $GLOBALS['fpcm']['urls']['base'] . 'lib/';

@@ -1,34 +1,37 @@
 <?php
 
-require_once dirname(dirname(__DIR__)).'/testBase.php';
+require_once dirname(dirname(__DIR__)) . '/testBase.php';
 
 class categoryTest extends testBase {
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->className = 'categories\\category';
         parent::setUp();
     }
 
-    public function testSave() {
-        
+    public function testSave()
+    {
+
         /* @var $object \fpcm\model\categories\category */
         $object = $this->object;
 
-        $GLOBALS['categoryName']   = 'UnitTest category '.microtime(true);
-        $GLOBALS['categoryIcon']   = 'icon.pjg';
+        $GLOBALS['categoryName'] = 'UnitTest category ' . microtime(true);
+        $GLOBALS['categoryIcon'] = 'icon.pjg';
         $GLOBALS['categoryGroups'] = '1;2;3';
-        
+
         $object->setName($GLOBALS['categoryName']);
         $object->setGroups($GLOBALS['categoryGroups']);
         $object->setIconPath($GLOBALS['categoryIcon']);
         $result = $object->save();
         $this->assertGreaterThanOrEqual(1, $result);
-        
+
         $GLOBALS['objectId'] = $object->getId();
     }
 
-    public function testUpdate() {
-        
+    public function testUpdate()
+    {
+
         /* @var $object \fpcm\model\categories\category */
         $object = $this->object;
 
@@ -39,8 +42,9 @@ class categoryTest extends testBase {
         $this->assertTrue($result);
     }
 
-    public function testGetcategory() {
-        
+    public function testGetcategory()
+    {
+
         /* @var $object \fpcm\model\categories\category */
         $object = new fpcm\model\categories\category($GLOBALS['objectId']);
 
@@ -50,19 +54,19 @@ class categoryTest extends testBase {
         $this->assertEquals($GLOBALS['categoryIcon'], $object->getIconPath());
     }
 
-    public function testDelete() {
+    public function testDelete()
+    {
 
         /* @var $object \fpcm\model\categories\category */
         $object = new fpcm\model\categories\category($GLOBALS['objectId']);
 
         $result = $object->delete();
         $this->assertTrue($result);
-        
+
         $object = new fpcm\model\categories\category($GLOBALS['objectId']);
         $this->assertFalse($object->exists());
-        
+
         $GLOBALS['objectId'] = null;
-        
     }
 
 }

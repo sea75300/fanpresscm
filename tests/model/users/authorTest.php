@@ -1,19 +1,21 @@
 <?php
 
-require_once dirname(dirname(__DIR__)).'/testBase.php';
+require_once dirname(dirname(__DIR__)) . '/testBase.php';
 
 class authorTest extends testBase {
 
-    public function setUp() {
+    public function setUp()
+    {
         $this->className = 'users\\author';
         parent::setUp();
     }
 
-    public function testSave() {
+    public function testSave()
+    {
 
-        $GLOBALS['userName']  = 'fpcmTestUser'.microtime(true);
+        $GLOBALS['userName'] = 'fpcmTestUser' . microtime(true);
         $GLOBALS['userEmail'] = 'test@nobody-knows.org';
-        
+
         /* @var $object fpcm\model\users\author */
         $object = $this->object;
         $object->setDisplayName($GLOBALS['userName']);
@@ -28,12 +30,13 @@ class authorTest extends testBase {
 
         $result = $object->save();
         $this->assertTrue($result);
-        
+
         $GLOBALS['objectId'] = $object->getId();
     }
 
-    public function testUpdate() {
-        
+    public function testUpdate()
+    {
+
         /* @var $object \fpcm\model\users\author */
         $object = $this->object;
 
@@ -46,8 +49,9 @@ class authorTest extends testBase {
         $this->assertTrue($result);
     }
 
-    public function testGetUser() {
-        
+    public function testGetUser()
+    {
+
         /* @var $object \fpcm\model\users\author */
         $object = new fpcm\model\users\author($GLOBALS['objectId']);
 
@@ -59,18 +63,19 @@ class authorTest extends testBase {
         $this->assertEquals(1, $object->getDisabled());
         $this->assertEquals(3, $object->getRoll());
     }
-    
-    public function getAuthorImage() {
+
+    public function getAuthorImage()
+    {
 
         /* @var $object \fpcm\model\users\author */
         $object = new fpcm\model\users\author($GLOBALS['objectId']);
 
         $img = \fpcm\model\users\author::getAuthorImageDataOrPath($object);
         $this->assertEmpty($img);
-
     }
 
-    public function testDelete() {
+    public function testDelete()
+    {
 
         /* @var $object \fpcm\model\users\author */
         $object = new fpcm\model\users\author($GLOBALS['objectId']);
@@ -79,7 +84,6 @@ class authorTest extends testBase {
         $this->assertTrue($result);
 
         $GLOBALS['objectId'] = null;
-        
     }
 
 }

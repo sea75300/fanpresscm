@@ -135,7 +135,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processDisable()
     {
-        $this->returnData['code']   = (new \fpcm\module\module($this->key))->disbale()
+        $this->returnData['code']   = (new \fpcm\module\module($this->key))->disable()
                                     ? \fpcm\module\module::STATUS_DISABLED
                                     : \fpcm\module\module::STATUS_NOT_DISABLED;
         return true;

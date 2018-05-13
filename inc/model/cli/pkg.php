@@ -73,13 +73,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
             $this->output('Invalid parameter on position 0', true);
         }
         
-        $fn = 'process'. ucfirst( str_replace('-', '', trim($this->funcParams[0])) ). ( isset($this->funcParams[1]) && trim($this->funcParams[1]) ? ucfirst( trim($this->funcParams[1]) ) : '' );
-
-        if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
-            $this->output('> CLI DEBUG: '.$fn.PHP_EOL);
-            $this->output('> CLI DEBUG: '. print_r($this->funcParams, true).PHP_EOL);
-        }
-        
+        $fn = 'process'. ucfirst( str_replace('-', '', trim($this->funcParams[0])) ). ( isset($this->funcParams[1]) && trim($this->funcParams[1]) ? ucfirst( trim($this->funcParams[1]) ) : '' );        
         if (!method_exists($this, $fn)) {
             $this->output('Invalid parameters', true);
         }
@@ -227,7 +221,33 @@ final class pkg extends \fpcm\model\abstracts\cli {
 
         return true;
     }
-    
+
+    /**
+     * Run update finalizer
+     * @return boolean
+     */
+    private function processUpgradedbModule()
+    {
+        $this->initObjects();
+        $this->getModuleKey();
+
+        $this->output('Update module '.$this->modulekey.' database...');
+
+        $success = (new \fpcm\module\module($this->modulekey))->update();
+        if ($success !== true) {
+            $this->output('An error occurred during database update. ERROR CODE: '.$success, true);
+        }
+
+        $this->config->init();
+        $this->output('-- Finished.'.PHP_EOL);
+
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
     private function processListUpdatefs()
     {
         $this->output('Update local module database from file system...');
@@ -434,18 +454,17 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * 
      * @return boolean
      */
-    private function getModuleKey()
+    private function getModuleKey($pos = 2)
     {
-        if (empty($this->funcParams[2])) {
-            $this->output('Invalid module package on position 3', true);
+        if (empty($this->funcParams[$pos])) {
+            $this->output('Invalid module package on position '.($pos+1), true);
         }
-        
-        $this->modulekey = $this->updaterMod->getDataCachedByKey($this->funcParams[2]);
-        if (!$this->modulekey) {
+
+        if (!$this->updaterMod->getDataCachedByKey($this->funcParams[$pos])) {
             $this->output('Invalid module key, key not found', true);
         }
         
-        $this->modulekey = $this->funcParams[2];
+        $this->modulekey = $this->funcParams[$pos];
         return true;
     }
 
@@ -462,6 +481,26 @@ final class pkg extends \fpcm\model\abstracts\cli {
 
         $module = new \fpcm\module\module($this->modulekey);
         if ($module->uninstall() !== true) {
+            $this->output('Failed to remove, see error log for fruther information!', true);
+        }
+        $this->output('-- Finished.'.PHP_EOL);
+
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    private function processDeleteModule()
+    {
+        $this->initObjects();
+
+        $this->getModuleKey();
+        $this->output('Delete module '.$this->modulekey);
+
+        $module = new \fpcm\module\module($this->modulekey);
+        if ($module->uninstall(true) !== true) {
             $this->output('Failed to remove, see error log for fruther information!', true);
         }
         $this->output('-- Finished.'.PHP_EOL);
@@ -488,6 +527,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $lines[] = '      --upgrade-db  performs database changes from given package';
         $lines[] = '      --install     performs setup of a given package (modules only)';
         $lines[] = '      --remove      performs removal of a given package (modules only)';
+        $lines[] = '      --delete      performs deletion of a given package without uninstallation (modules only)';
         $lines[] = '      --info        displays information about a given package (modules only)';
         $lines[] = '      --list        displays list available packages (modules only)';
         $lines[] = '        local       local installed modules';

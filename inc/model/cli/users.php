@@ -62,7 +62,7 @@ final class users extends \fpcm\model\abstracts\cli {
 
                 break;
 
-            case self::FPCMCLI_PARAM_DISBALE :
+            case self::FPCMCLI_PARAM_DISABLE :
 
                 $this->output('Disable user ' . $user->getUsername() . '...');
                 if ($user->disable()) {

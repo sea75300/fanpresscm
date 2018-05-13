@@ -81,7 +81,7 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
     /**
      * CLI param: --disable
      */
-    const FPCMCLI_PARAM_DISBALE = '--disable';
+    const FPCMCLI_PARAM_DISABLE = '--disable';
 
     /**
      * CLI param: --passwd
@@ -112,6 +112,11 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
     {
         parent::__construct();
         $this->funcParams = $funcParams;
+        
+        if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
+            $this->output('> CLI DEBUG: ');
+            $this->debug($this->funcParams);
+        }
     }
 
     /**
