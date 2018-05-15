@@ -164,8 +164,9 @@ class template extends \fpcm\model\abstracts\file {
      */
     public function save()
     {
-        if (!$this->exists() || !$this->content || !$this->isWritable())
+        if (!$this->exists() || !$this->content || !$this->isWritable()) {
             return false;
+        }
 
         $this->content = $this->events->trigger('template\save', ['file' => $this->fullpath, 'content' => $this->content])['content'];
 
@@ -185,8 +186,9 @@ class template extends \fpcm\model\abstracts\file {
      */
     public function parse()
     {
-        if (!count($this->replacementTags) || !$this->content)
+        if (!count($this->replacementTags) || !$this->content) {
             return false;
+        }
 
         $this->replacementTags = $this->events->trigger('template\parse', $this->replacementTags);
 
@@ -202,7 +204,6 @@ class template extends \fpcm\model\abstracts\file {
      */
     public function getReplacementTranslations($prefix)
     {
-
         if (count($this->replacementTranslated)) {
             return $this->replacementTranslated;
         }
@@ -222,7 +223,6 @@ class template extends \fpcm\model\abstracts\file {
      */
     protected function parseSmileys($content)
     {
-
         if ($this->cache->isExpired('smileyCache')) {
             $smileysList = new \fpcm\model\files\smileylist();
             $smileys = $smileysList->getDatabaseList();

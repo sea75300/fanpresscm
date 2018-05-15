@@ -12,42 +12,6 @@ namespace fpcm\controller\action\templates;
 class templates extends \fpcm\controller\abstracts\controller {
 
     /**
-     *
-     * @var \fpcm\model\pubtemplates\article
-     */
-    protected $articleTemplate;
-
-    /**
-     *
-     * @var \fpcm\model\pubtemplates\article
-     */
-    protected $articleSingleTemplate;
-
-    /**
-     *
-     * @var \fpcm\model\pubtemplates\comment
-     */
-    protected $commentTemplate;
-
-    /**
-     *
-     * @var \fpcm\model\pubtemplates\commentform
-     */
-    protected $commentFormTemplate;
-
-    /**
-     *
-     * @var \fpcm\model\pubtemplates\latestnews
-     */
-    protected $latestNewsTemplate;
-
-    /**
-     *
-     * @var \fpcm\model\pubtemplates\tweet
-     */
-    protected $tweetTemplate;
-
-    /**
      * 
      * @return array
      */
@@ -81,99 +45,69 @@ class templates extends \fpcm\controller\abstracts\controller {
     public function request()
     {
         $editor = new \fpcm\components\editor\htmlEditor();
-
         $this->view->addCssFiles($editor->getCssFiles());
+
+        $this->uploadEditorTemplate();
+        $this->deleteEditorTemplate();
 
         $jsFiles = $editor->getJsFiles();
         $this->view->addJsFiles($jsFiles);
-
-        $this->articleTemplate = new \fpcm\model\pubtemplates\article($this->config->articles_template_active);
-
-        if ($this->config->articles_template_active != $this->config->article_template_active) {
-            $this->articleSingleTemplate = new \fpcm\model\pubtemplates\article($this->config->article_template_active);
-        }
-
-        $this->commentTemplate = new \fpcm\model\pubtemplates\comment($this->config->comments_template_active);
-        $this->commentFormTemplate = new \fpcm\model\pubtemplates\commentform();
-        $this->latestNewsTemplate = new \fpcm\model\pubtemplates\latestnews();
-        $this->tweetTemplate = new \fpcm\model\pubtemplates\tweet();
-
-        if ($this->buttonClicked('uploadFile') && \fpcm\classes\http::getFiles()) {
-            $uploader = new \fpcm\model\files\fileuploader(\fpcm\classes\http::getFiles());
-            $res = $uploader->processArticleTemplateUpload();
-
-            if ($res == true) {
-                $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADTPLFILE');
-            } else {
-                $this->view->addErrorMessage('SAVE_FAILED_UPLOADTPLFILE');
-            }
-
+        
+        
+        
+        $tplData = $this->getRequestVar('template');
+        fpcmDump($tplData);
+        if ($this->buttonClicked('saveTemplates') || $tplData === null) {
             return true;
         }
 
-        $delFiles = $this->getRequestVar('deltplfiles', [
-            \fpcm\classes\http::FILTER_BASE64DECODE
-        ]);
-        if ($this->buttonClicked('fileDelete') && is_array($delFiles) && count($delFiles)) {
-
-            $deletedOk = [];
-            $deletedFailed = [];
-
-            foreach ($delFiles as $delFile) {
-
-                $articleTplFile = new \fpcm\model\files\templatefile($delFile);
-                if (!$articleTplFile->delete()) {
-                    $deletedFailed[] = \fpcm\model\files\ops::removeBaseDir($delFile);
-                    continue;
-                }
-
-                $deletedOk[] = \fpcm\model\files\ops::removeBaseDir($delFile);
-            }
-
-            if (count($deletedOk)) {
-                $this->view->addNoticeMessage('DELETE_SUCCESS_FILES', array('{{filenames}}' => implode(', ', $deletedOk)));
-            }
-            if (count($deletedFailed)) {
-                $this->view->addErrorMessage('DELETE_FAILED_FILES', array('{{filenames}}' => implode(', ', $deletedFailed)));
-            }
-
-            return true;
-        }
-
-        if ($this->buttonClicked('saveTemplates') && !is_null($this->getRequestVar('template'))) {
-
-            $this->cache->cleanup();
-
-            $templateContents = $this->getRequestVar('template', [
-                \fpcm\classes\http::FILTER_TRIM,
-                \fpcm\classes\http::FILTER_STRIPSLASHES
-            ]);
-
-            $tplSaveError = [];
-            $tplSaveOk = [];
-            foreach ($templateContents as $templateName => $newContent) {
-                $tplObj = $this->{$templateName . 'Template'};
-                $tplObj->setContent($newContent);
-
-                $res = $tplObj->save();
-
-                if (is_null($res) && $templateName == 'commentForm') {
-                    $this->view->addErrorMessage('SAVE_FAILED_TEMPLATE_CF_URLMISSING');
-                } elseif (!$res) {
-                    $tplSaveError[] = $tplObj->getFilename();
-                } else {
-                    $tplSaveOk[] = $tplObj->getFilename();
-                }
-            }
-
-            if (count($tplSaveError)) {
-                $this->view->addErrorMessage('SAVE_FAILED_TEMPLATE', array('{{filenames}}' => implode(', ', $tplSaveError)));
-            }
-
-            if (count($tplSaveOk)) {
-                $this->view->addNoticeMessage('SAVE_SUCCESS_TEMPLATE', array('{{filenames}}' => implode(', ', $tplSaveOk)));
-            }
-        }
+//
+//        $this->articleTemplate = new \fpcm\model\pubtemplates\article($this->config->articles_template_active);
+//
+//        if ($this->config->articles_template_active != $this->config->article_template_active) {
+//            $this->articleSingleTemplate = new \fpcm\model\pubtemplates\article($this->config->article_template_active);
+//        }
+//
+//        $this->commentTemplate = new \fpcm\model\pubtemplates\comment($this->config->comments_template_active);
+//        $this->commentFormTemplate = new \fpcm\model\pubtemplates\commentform();
+//        $this->latestNewsTemplate = new \fpcm\model\pubtemplates\latestnews();
+//        $this->tweetTemplate = new \fpcm\model\pubtemplates\tweet();
+//
+//
+//        if ($this->buttonClicked('saveTemplates') && !is_null($this->getRequestVar('template'))) {
+//
+//            $this->cache->cleanup();
+//
+//            $templateContents = $this->getRequestVar('template', [
+//                \fpcm\classes\http::FILTER_TRIM,
+//                \fpcm\classes\http::FILTER_STRIPSLASHES
+//            ]);
+//
+//            $tplSaveError = [];
+//            $tplSaveOk = [];
+//            foreach ($templateContents as $templateName => $newContent) {
+//                $tplObj = $this->{$templateName . 'Template'};
+//                $tplObj->setContent($newContent);
+//
+//                $res = $tplObj->save();
+//
+//                if (is_null($res) && $templateName == 'commentForm') {
+//                    $this->view->addErrorMessage('SAVE_FAILED_TEMPLATE_CF_URLMISSING');
+//                } elseif (!$res) {
+//                    $tplSaveError[] = $tplObj->getFilename();
+//                } else {
+//                    $tplSaveOk[] = $tplObj->getFilename();
+//                }
+//            }
+//
+//            if (count($tplSaveError)) {
+//                $this->view->addErrorMessage('SAVE_FAILED_TEMPLATE', array('{{filenames}}' => implode(', ', $tplSaveError)));
+//            }
+//
+//            if (count($tplSaveOk)) {
+//                $this->view->addNoticeMessage('SAVE_SUCCESS_TEMPLATE', array('{{filenames}}' => implode(', ', $tplSaveOk)));
+//            }
+//        }
 
         return true;
     }
@@ -184,39 +118,95 @@ class templates extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
-        $this->view->assign('replacementsArticle', $this->articleTemplate->getReplacementTranslations('TEMPLATE_ARTICLE_'));
-        $this->view->assign('contentArticle', $this->articleTemplate->getContent());
+        $tabs = [
+            (new \fpcm\view\helper\tabItem('tpl-article'))
+                ->setText('TEMPLATE_HL_ARTICLES')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', ['tpl' => 'article']))
+                ->setData(['toolbar-buttons' => 1])
+                ->setDataViewId('')
+                ->setWrapper(false),
 
+        ];
+        
         if ($this->config->articles_template_active != $this->config->article_template_active) {
-            $this->view->assign('replacementsArticleSingle', $this->articleSingleTemplate->getReplacementTranslations('TEMPLATE_ARTICLE_'));
-            $this->view->assign('contentArticleSingle', $this->articleSingleTemplate->getContent());
+            $tabs[] = (new \fpcm\view\helper\tabItem('tpl-articleSingle'))
+                ->setText('TEMPLATE_HL_ARTICLE_SINGLE')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', ['tpl' => 'articleSingle']))
+                ->setData(['toolbar-buttons' => 1])
+                ->setDataViewId('')
+                ->setWrapper(false);
         }
+        
+        $this->view->assign('tabs', array_merge($tabs, [
+            (new \fpcm\view\helper\tabItem('tpl-comment'))
+                ->setText('TEMPLATE_HL_COMMENTS')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', ['tpl' => 'comment']))
+                ->setData(['toolbar-buttons' => 1])
+                ->setDataViewId('')
+                ->setWrapper(false),
 
-        $this->view->assign('replacementsComment', $this->commentTemplate->getReplacementTranslations('TEMPLATE_COMMMENT_'));
-        $this->view->assign('contentComment', $this->commentTemplate->getContent());
+            (new \fpcm\view\helper\tabItem('tpl-commentForm'))
+                ->setText('TEMPLATE_HL_COMMENTFORM')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', ['tpl' => 'commentForm']))
+                ->setData(['toolbar-buttons' => 1])
+                ->setDataViewId('')
+                ->setWrapper(false),
 
-        $this->view->assign('replacementsCommentForm', $this->commentFormTemplate->getReplacementTranslations('TEMPLATE_COMMMENTFORM_'));
-        $this->view->assign('contentCommentForm', $this->commentFormTemplate->getContent());
+            (new \fpcm\view\helper\tabItem('tpl-latestNews'))
+                ->setText('TEMPLATE_HL_LATESTNEWS')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', ['tpl' => 'latestNews']))
+                ->setData(['toolbar-buttons' => 1])
+                ->setDataViewId('')
+                ->setWrapper(false),
 
-        $this->view->assign('replacementsLatestNews', $this->latestNewsTemplate->getReplacementTranslations('TEMPLATE_ARTICLE_'));
-        $this->view->assign('contentLatestNews', $this->latestNewsTemplate->getContent());
+            (new \fpcm\view\helper\tabItem('tpl-tweet'))
+                ->setText('TEMPLATE_HL_TWEET')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', ['tpl' => 'tweet']))
+                ->setData(['toolbar-buttons' => 2])
+                ->setDataViewId('')
+                ->setWrapper(false),
 
-        $this->view->assign('replacementsTweet', $this->tweetTemplate->getReplacementTranslations('TEMPLATE_ARTICLE_'));
-        $this->view->assign('contentTweet', $this->tweetTemplate->getContent());
+            (new \fpcm\view\helper\tabItem('tpl-editor-templates'))
+                ->setText('TEMPLATE_HL_DRAFTS')
+                ->setUrl('#tab-article-editor-templates')
+                ->setData(['toolbar-buttons' => 3])
+                ->setDataViewId('')
+                ->setWrapper(false),
+        ]));
 
-        $this->view->assign('allowedTags', htmlentities($this->articleTemplate->getAllowedTags(', ')));
-
+        
+        
+//        $this->view->assign('replacementsArticle', $this->articleTemplate->getReplacementTranslations('TEMPLATE_ARTICLE_'));
+//        $this->view->assign('contentArticle', $this->articleTemplate->getContent());
+//
+//        if ($this->config->articles_template_active != $this->config->article_template_active) {
+//            $this->view->assign('replacementsArticleSingle', $this->articleSingleTemplate->getReplacementTranslations('TEMPLATE_ARTICLE_'));
+//            $this->view->assign('contentArticleSingle', $this->articleSingleTemplate->getContent());
+//        }
+//
+//        $this->view->assign('replacementsComment', $this->commentTemplate->getReplacementTranslations('TEMPLATE_COMMMENT_'));
+//        $this->view->assign('contentComment', $this->commentTemplate->getContent());
+//
+//        $this->view->assign('replacementsCommentForm', $this->commentFormTemplate->getReplacementTranslations('TEMPLATE_COMMMENTFORM_'));
+//        $this->view->assign('contentCommentForm', $this->commentFormTemplate->getContent());
+//
+//        $this->view->assign('replacementsLatestNews', $this->latestNewsTemplate->getReplacementTranslations('TEMPLATE_ARTICLE_'));
+//        $this->view->assign('contentLatestNews', $this->latestNewsTemplate->getContent());
+//
+//        $this->view->assign('replacementsTweet', $this->tweetTemplate->getReplacementTranslations('TEMPLATE_ARTICLE_'));
+//        $this->view->assign('contentTweet', $this->tweetTemplate->getContent());
+//
+//        $this->view->assign('allowedTags', htmlentities($this->articleTemplate->getAllowedTags(', ')));
+//
         $this->view->addJsVars(['templateId' => 1, 'jqUploadInit' => 0]);
         $this->view->addJsLangVars(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT']);
         $this->view->addJsFiles(['fileuploader.js', 'templates.js']);
-
         $this->initDataView();
-        
-        $translInfo = array(
+
+        $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', [
             '{{filecount}}' => 1,
             '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
-        );
-        $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', $translInfo));
+        ]));
         $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('modules/list'));
         $this->view->assign('styleLeftMargin', true);
 
@@ -278,6 +268,69 @@ class templates extends \fpcm\controller\abstracts\controller {
         }
         
         $this->view->addDataView($dataView);
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    private function uploadEditorTemplate()
+    {
+        $files = \fpcm\classes\http::getFiles();
+        if (!$this->buttonClicked('uploadFile') || !$files) {
+            return false;
+        }
+
+        if (!(new \fpcm\model\files\fileuploader($files))->processArticleTemplateUpload()) {
+            $this->view->addErrorMessage('SAVE_FAILED_UPLOADTPLFILE');
+            return false;
+        }
+
+        $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADTPLFILE');
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    private function deleteEditorTemplate()
+    {
+        $delFiles = $this->getRequestVar('deltplfiles', [
+            \fpcm\classes\http::FILTER_BASE64DECODE
+        ]);
+
+        if (!$this->buttonClicked('fileDelete') || !is_array($delFiles) || !count($delFiles)) {
+            return false;
+        }
+
+        $deletedOk = [];
+        $deletedFailed = [];
+
+        foreach ($delFiles as $delFile) {
+
+            $articleTplFile = new \fpcm\model\files\templatefile($delFile);
+            if (!$articleTplFile->delete()) {
+                $deletedFailed[] = \fpcm\model\files\ops::removeBaseDir($delFile);
+                continue;
+            }
+
+            $deletedOk[] = \fpcm\model\files\ops::removeBaseDir($delFile);
+        }
+
+        if (count($deletedOk)) {
+            $this->view->addNoticeMessage('DELETE_SUCCESS_FILES', [
+                '{{filenames}}' => implode(', ', $deletedOk)
+            ]);
+        }
+
+        if (count($deletedFailed)) {
+            $this->view->addErrorMessage('DELETE_FAILED_FILES', [
+                '{{filenames}}' => implode(', ', $deletedFailed)
+            ]);
+        }
+
+        return true;
     }
 }
 

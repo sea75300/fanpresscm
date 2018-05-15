@@ -9,16 +9,19 @@ fpcm.templates = {
     
     init: function() {
 
-        fpcm.templates.initCodeMirror('article');
-        fpcm.templates.initTemplatePreview();
         fpcm.dataview.render('draftfiles', {
             onRenderAfter: fpcm.ui.assignControlgroups
         });
 
         fpcm.ui.tabs('.fpcm-ui-tabs-general', {
             addTabScroll: true,
-            addMainToobarToggle: true
+            addMainToobarToggle: true,
+            load: function( event, ui ) {
+                fpcm.templates.initEditor();
+            }
         });
+
+        fpcm.templates.initTemplatePreview();
         
         jQuery('.fpcm-articletemplates-edit').click(function() {
 
@@ -58,40 +61,6 @@ fpcm.templates = {
             
         });
         
-    },
-
-    enabledEditors: {
-        ed2: false,
-        ed3: false,
-        ed4: false,
-        ed5: false,
-        ed6: false,
-    },
-
-    getIdClass: function(id) {
-
-        switch (id) {
-            case 1:
-                return 'article';
-                break;
-            case 2:
-                return 'articleSingle';
-                break;
-            case 3:
-                return 'comment';
-                break;
-            case 4:
-                return 'commentForm';
-                break;
-            case 5:
-                return 'latestNews';
-                break;
-            case 6:
-                return 'tweet';
-                break;
-        }
-        
-        return false;
     },
 
     initTemplatePreview: function() {
@@ -157,14 +126,12 @@ fpcm.templates = {
         });
         
     },
-
-    initCodeMirror: function(id) {
-
-        fpcm.templates.enabledEditors['ed' + fpcm.vars.jsvars.templateId] = fpcm.editor_codemirror.create({
-           editorId  : 'tpleditor-' + id,
-           elementId : id,
+    
+    initEditor: function () {
+        fpcm.editor_codemirror.create({
+           editorId  : 'tpleditor',
+           elementId : 'templatecontent'
         });
-
     }
 
 };

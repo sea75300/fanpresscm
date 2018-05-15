@@ -133,7 +133,7 @@ class htmlEditor extends articleEditor {
             'editorStyles' => $editorStyles,
             'cssClasses' => $editorStyles,
             'extraButtons' => array(
-                array('title' => '', 'id' => '', 'class' => '', 'htmltag' => '', 'icon' => '')
+                ['title' => '', 'id' => '', 'class' => '', 'htmltag' => '', 'icon' => '']
             ),
             'editorFontsizes' => array(8, 9, 10, 11, 12, 14, 16, 18, 20, 24),
             'editorParagraphs' => array(

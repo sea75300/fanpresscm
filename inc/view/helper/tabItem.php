@@ -81,7 +81,11 @@ class tabItem extends helper {
             $html[] = 'data-dataview-list="'.$this->dataViewId.'"';
         }
 
-        $html[] = '><a href="'.$this->url.'" '.$this->getDataString().'>'.$this->text.'</a>';
+        if (!$this->useWrapper) {
+            $html[] = $this->getDataString();
+        }
+
+        $html[] = '><a href="'.$this->url.'" '.($this->useWrapper ? $this->getDataString() : '').'>'.$this->text.'</a>';
         $html[] = '</li>';
 
         return implode(' ', $html);

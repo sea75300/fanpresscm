@@ -46,9 +46,7 @@ fpcm.editor_codemirror = {
 if (fpcm.editor) {
     
     fpcm.editor.initToolbar = function () {
-        
-        console.log('fpcm-editor-html-click');
-        
+
         fpcm.ui.selectmenu('#fpcm-editor-paragraphs', {
             select: function( event, ui ) {
                 if (!ui.item.value) {

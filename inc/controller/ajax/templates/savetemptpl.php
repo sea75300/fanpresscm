@@ -1,6 +1,11 @@
 <?php
 
-namespace fpcm\controller\ajax\system;
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\ajax\templates;
 
 /**
  * AJAX save template preview code

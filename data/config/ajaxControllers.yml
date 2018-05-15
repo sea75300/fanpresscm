@@ -31,4 +31,5 @@ ajax/installer/checkdb: ajax/installer/checkdb
 ajax/installer/initdb: ajax/installer/initdb
 ajax/comments/search: ajax/comments/search
 ajax/comments/massedit: ajax/comments/massedit
-ajax/templates/savetemp: ajax/system/savetemptpl
+ajax/templates/savetemp: ajax/templates/savetemptpl
+ajax/templates/fetch: ajax/templates/fetchEditor
