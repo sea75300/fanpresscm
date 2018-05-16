@@ -222,6 +222,10 @@ fpcm.ui = {
                 fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ showButtons).removeClass('fpcm-ui-hidden');
                 
                 fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
+                if (params.addMainToobarToggleAfter) {
+                    params.addMainToobarToggleAfter(event, ui);
+                }
+
             }            
         }
         

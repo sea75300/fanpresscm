@@ -17,6 +17,10 @@ namespace fpcm\model\pubtemplates;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 final class article extends template {
+    
+    const TEMPLATE_ID = 'article';
+
+    const TEMPLATE_ID_SINGLE = 'articleSingle';
 
     /**
      * Template-Platzhalter

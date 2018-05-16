@@ -5,17 +5,17 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\traits\system;
+namespace fpcm\controller\traits\templates;
 
 /**
- * System check trait
+ * Template preview trait
  * 
  * @package fpcm\controller\traits\system.syscheck
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-trait templatepreview {
+trait preview {
 
     /**
      * 
@@ -24,19 +24,18 @@ trait templatepreview {
      */
     protected function getTemplateById($tplId)
     {
-
         $filename = '_preview' . $tplId;
 
         switch ($tplId) {
-            case 1 :
+            case \fpcm\model\pubtemplates\article::TEMPLATE_ID :
                 return new \fpcm\model\pubtemplates\article($filename);
-            case 2 :
+            case \fpcm\model\pubtemplates\article::TEMPLATE_ID_SINGLE :
                 return new \fpcm\model\pubtemplates\article($filename);
-            case 3 :
+            case \fpcm\model\pubtemplates\comment::TEMPLATE_ID :
                 return new \fpcm\model\pubtemplates\comment($filename);
-            case 4 :
+            case \fpcm\model\pubtemplates\commentform::TEMPLATE_ID :
                 return new \fpcm\model\pubtemplates\commentform($filename);
-            case 5 :
+            case \fpcm\model\pubtemplates\latestnews::TEMPLATE_ID :
                 return new \fpcm\model\pubtemplates\latestnews($filename);
         }
 

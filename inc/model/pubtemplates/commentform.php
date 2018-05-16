@@ -17,6 +17,10 @@ namespace fpcm\model\pubtemplates;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 final class commentform extends template {
+    
+    const TEMPLATE_ID = 'commentForm';
+    const SAVE_ERROR_FORMURL = -1001;
+    const SAVE_ERROR_PRIVACY = -1002;
 
     /**
      * Template-Platzhalter
@@ -85,7 +89,12 @@ final class commentform extends template {
 
         if (strpos($this->content, '{{submitUrl}}') === false) {
             trigger_error('Unable to update comment form template, {{submitUrl}} replacement is missing!');
-            return null;
+            return self::SAVE_ERROR_FORMURL;
+        }
+
+        if (strpos($this->content, '{{privacyComfirmation}}') === false) {
+            trigger_error('Unable to update comment form template, {{privacyComfirmation}} replacement is missing!');
+            return self::SAVE_ERROR_PRIVACY;
         }
 
         if (!file_put_contents($this->fullpath, $this->content)) {

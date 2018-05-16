@@ -13,15 +13,33 @@ fpcm.templates = {
             onRenderAfter: fpcm.ui.assignControlgroups
         });
 
-        fpcm.ui.tabs('.fpcm-ui-tabs-general', {
-            addTabScroll: true,
-            addMainToobarToggle: true,
+        fpcm.ui.tabs('#fpcm-tabs-templates', {
+            beforeLoad: function(event, ui) {
+                fpcm.ui.showLoader(true);
+                ui.jqXHR.done(function(result) {
+                    fpcm.ui.showLoader();
+                    return true;
+                });
+            },
             load: function( event, ui ) {
-                fpcm.templates.initEditor();
-            }
+                fpcm.templates.editorInstance = fpcm.editor_codemirror.create({
+                   editorId  : 'tpleditor',
+                   elementId : 'content_' + ui.tab.attr('data-tplId')
+                });
+
+                return true;
+            },
+            addMainToobarToggleAfter: function( event, ui ) {
+                ui.oldPanel.empty();
+            },
+            addTabScroll: true,
+            addMainToobarToggle: true
         });
 
-        fpcm.templates.initTemplatePreview();
+        jQuery('#showpreview').click(function () {
+            fpcm.templates.saveTemplatePreview();
+            return false;
+        });
         
         jQuery('.fpcm-articletemplates-edit').click(function() {
 
@@ -63,44 +81,15 @@ fpcm.templates = {
         
     },
 
-    initTemplatePreview: function() {
-        
-        jQuery('.fpcm-template-tab').click(function () {
-
-            fpcm.vars.jsvars.templateId = jQuery(this).data('tpl');
-
-            var idClass = fpcm.templates.getIdClass(fpcm.vars.jsvars.templateId);
-            if (idClass !== false && !fpcm.templates.enabledEditors['ed' + fpcm.vars.jsvars.templateId]) {
-                fpcm.templates.initCodeMirror(idClass);
-            }
-
-            if (fpcm.vars.jsvars.templateId == 7) {
-                return false;
-            }
-
-            return false;
-        });
-        
-        jQuery('#showpreview').click(function () {
-            fpcm.templates.saveTemplatePreview();
-            return false;
-        });
-        
-    },
-
     saveTemplatePreview: function() {
 
         fpcm.ajax.post('templates/savetemp', {
             data    : {
-                content: fpcm.templates.enabledEditors['ed' + fpcm.vars.jsvars.templateId].getValue(),
-                tplid  : fpcm.vars.jsvars.templateId
+                content: fpcm.templates.editorInstance.getValue(),
+                tplid  : jQuery('#templateid').val()
             },
-            workData: fpcm.vars.jsvars.templateId,
             execDone: function() {
-
-                tplId = fpcm.ajax.getWorkData('templates/savetemp');
-
-                fpcm.ui.appendHtml('#fpcm-dialog-templatepreview-layer', '<iframe id="fpcm-dialog-templatepreview-layer-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.actionPath + 'templates/preview&tid=' + tplId + '"></iframe>');
+                fpcm.ui.appendHtml('#fpcm-dialog-templatepreview-layer', '<iframe id="fpcm-dialog-templatepreview-layer-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.actionPath + 'templates/preview&tid=' + jQuery('#templateid').val() + '"></iframe>');
                 fpcm.ui.dialog({
                     id         : 'templatepreview-layer',
                     dlWidth    : fpcm.ui.getDialogSizes(top, 0.75).width,
@@ -121,17 +110,9 @@ fpcm.templates = {
                         jQuery(this).empty();
                     }
                 });
-
             }
         });
         
-    },
-    
-    initEditor: function () {
-        fpcm.editor_codemirror.create({
-           editorId  : 'tpleditor',
-           elementId : 'templatecontent'
-        });
     }
 
 };

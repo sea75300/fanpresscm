@@ -17,6 +17,8 @@ namespace fpcm\model\pubtemplates;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 final class tweet extends template {
+    
+    const TEMPLATE_ID = 'tweet';
 
     /**
      * Template-Platzhalter

@@ -16,6 +16,8 @@ namespace fpcm\model\pubtemplates;
  * @package fpcm\model\system
  */
 final class comment extends template {
+    
+    const TEMPLATE_ID = 'comment';
 
     /**
      * Template-Platzhalter

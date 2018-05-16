@@ -1,5 +1,5 @@
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-ui-tabs-general">
+    <div class="fpcm-ui-tabs-general" id="fpcm-tabs-templates">
         <ul>
             <?php foreach ($tabs as $tab) : ?><?php print $tab; ?><?php endforeach; ?>
         </ul>

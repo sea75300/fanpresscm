@@ -17,7 +17,7 @@ namespace fpcm\controller\ajax\templates;
  */
 class savetemptpl extends \fpcm\controller\abstracts\ajaxController {
 
-    use \fpcm\controller\traits\system\templatepreview;
+    use \fpcm\controller\traits\templates\preview;
 
     protected function getPermissions()
     {
@@ -29,8 +29,11 @@ class savetemptpl extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-        $tplId = $this->getRequestVar('tplid', [9]);
-        $content = $this->getRequestVar('content', [7, 6]);
+        $tplId = $this->getRequestVar('tplid');
+        $content = $this->getRequestVar('content', [
+            \fpcm\classes\http::FILTER_TRIM,
+            \fpcm\classes\http::FILTER_HTMLENTITY_DECODE
+        ]);
 
         $template = $this->getTemplateById($tplId);
 

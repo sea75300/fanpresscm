@@ -11,7 +11,7 @@ namespace fpcm\controller\action\templates;
 
 class preview extends \fpcm\controller\abstracts\controller {
 
-    use \fpcm\controller\traits\system\templatepreview;
+    use \fpcm\controller\traits\templates\preview;
 
     /**
      *
@@ -40,9 +40,7 @@ class preview extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
-        $this->tid = $this->getRequestVar('tid', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
+        $this->tid = $this->getRequestVar('tid');
 
         if (!$this->tid) {
             return false;
@@ -60,19 +58,19 @@ class preview extends \fpcm\controller\abstracts\controller {
         $this->template = $this->getTemplateById($this->tid);
 
         switch ($this->tid) {
-            case 1 :
+            case \fpcm\model\pubtemplates\article::TEMPLATE_ID :
                 $this->getArticlesPreview();
                 break;
-            case 2 :
+            case \fpcm\model\pubtemplates\article::TEMPLATE_ID_SINGLE :
                 $this->getArticlePreview();
                 break;
-            case 3 :
+            case \fpcm\model\pubtemplates\comment::TEMPLATE_ID :
                 $this->getCommentPreview();
                 break;
-            case 4 :
+            case \fpcm\model\pubtemplates\commentform::TEMPLATE_ID :
                 $this->getCommentFormPreview();
                 break;
-            case 5 :
+            case \fpcm\model\pubtemplates\latestnews::TEMPLATE_ID :
                 $this->getLatestNewsPreview();
                 break;
             default :
@@ -108,7 +106,7 @@ class preview extends \fpcm\controller\abstracts\controller {
         $categoryTexts = array('<span class="fpcm-pub-category-text">Category 1</span>', '<span class="fpcm-pub-category-text">Category 2</span>');
         $shareButtonParser = new \fpcm\model\pubtemplates\sharebuttons($this->config->system_url, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr!');
 
-        $replacements = array(
+        $this->template->setReplacementTags([
             '{{headline}}' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr!',
             '{{text}}' => 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
             '{{author}}' => $this->session->getCurrentUser()->getUsername(),
@@ -128,13 +126,13 @@ class preview extends \fpcm\controller\abstracts\controller {
             '<readmore>:</readmore>' => md5(time()),
             '{{articleImage}}' => '',
             '{{sources}}' => $this->config->system_url
-        );
-        $this->template->setReplacementTags($replacements);
+        ]);
         $parsed[] = $this->template->parse();
 
         $categoryTexts = array('<span class="fpcm-pub-category-text">Category 3</span>', '<span class="fpcm-pub-category-text">Category 4</span>');
         $shareButtonParser = new \fpcm\model\pubtemplates\sharebuttons($this->config->system_url, 'Ut wisi enim ad minim veniam?');
-        $replacements = array(
+
+        $this->template->setReplacementTags([
             '{{headline}}' => 'Ut wisi enim ad minim veniam?',
             '{{text}}' => 'Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. ',
             '{{author}}' => $this->session->getCurrentUser()->getUsername(),
@@ -154,8 +152,7 @@ class preview extends \fpcm\controller\abstracts\controller {
             '<readmore>:</readmore>' => md5(time()),
             '{{articleImage}}' => '',
             '{{sources}}' => ''
-        );
-        $this->template->setReplacementTags($replacements);
+        ]);
         $parsed[] = $this->template->parse();
 
         $this->view->assign('content', implode(PHP_EOL, $parsed));
@@ -169,7 +166,7 @@ class preview extends \fpcm\controller\abstracts\controller {
         $categoryTexts = array('<span class="fpcm-pub-category-text">Category 1</span>', '<span class="fpcm-pub-category-text">Category 2</span>');
         $shareButtonParser = new \fpcm\model\pubtemplates\sharebuttons($this->config->system_url, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr!');
 
-        $replacements = array(
+        $this->template->setReplacementTags([
             '{{headline}}' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr!',
             '{{text}}' => 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
             '{{author}}' => $this->session->getCurrentUser()->getDisplayname(),
@@ -189,9 +186,7 @@ class preview extends \fpcm\controller\abstracts\controller {
             '<readmore>:</readmore>' => md5(time()),
             '{{articleImage}}' => '',
             '{{sources}}' => $this->config->system_url
-        );
-
-        $this->template->setReplacementTags($replacements);
+        ]);
 
         $this->view->assign('article', $this->template->parse());
         $this->view->assign('comments', '');
@@ -203,7 +198,7 @@ class preview extends \fpcm\controller\abstracts\controller {
         $this->view = new \fpcm\view\view('public/showsingle');
         $this->view->assign('article', '');
 
-        $replacements = array(
+        $this->template->setReplacementTags([
             '{{author}}' => $this->session->getCurrentUser()->getDisplayname(),
             '{{email}}' => $this->session->getCurrentUser()->getEmail(),
             '{{website}}' => $this->config->system_url,
@@ -213,9 +208,7 @@ class preview extends \fpcm\controller\abstracts\controller {
             '{{id}}' => 1,
             '{{mentionid}}' => 'id="c1"',
             '{{mention}}:{{/mention}}' => 1
-        );
-
-        $this->template->setReplacementTags($replacements);
+        ]);
         $this->view->assign('comments', $this->template->parse());
         $this->view->assign('commentform', '');
     }
@@ -242,7 +235,7 @@ class preview extends \fpcm\controller\abstracts\controller {
         }
         $smileyHtml[] = '</ul>';
 
-        $replacementTags = array(
+        $this->template->setReplacementTags([
             '{{formHeadline}}' => $this->lang->translate('COMMENTS_PUBLIC_FORMHEADLINE'),
             '{{submitUrl}}' => $this->config->system_url,
             '{{nameDescription}}' => $this->lang->translate('COMMMENT_AUTHOR'),
@@ -261,9 +254,7 @@ class preview extends \fpcm\controller\abstracts\controller {
             '{{privacyComfirmation}}' => '<input type="checkbox" class="fpcm-pub-checkboxinput" name="newcomment[privacy]" value="1">',
             '{{submitButton}}' => '<button type="submit" name="btnSendComment">' . $this->lang->translate('GLOBAL_SUBMIT') . '</button>',
             '{{resetButton}}' => '<button type="reset">' . $this->lang->translate('GLOBAL_RESET') . '</button>'
-        );
-
-        $this->template->setReplacementTags($replacementTags);
+        ]);
         $this->view->assign('commentform', $this->template->parse());
     }
 
@@ -271,26 +262,22 @@ class preview extends \fpcm\controller\abstracts\controller {
     {
         $this->view = new \fpcm\view\view('public/showlatest');
 
-        $replacements = array(
+        $this->template->setReplacementTags([
             '{{headline}}' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr!',
             '{{author}}' => $this->session->getCurrentUser()->getDisplayname(),
             '{{date}}' => date($this->config->system_dtmask, time()),
             '{{permaLink}}:{{/permaLink}}' => $this->config->system_url,
             '{{commentLink}}:{{/commentLink}}' => $this->config->system_url . '#comments'
-        );
-
-        $this->template->setReplacementTags($replacements);
+        ]);
         $parsed[] = $this->template->parse();
 
-        $replacements = array(
+        $this->template->setReplacementTags([
             '{{headline}}' => 'Ut wisi enim ad minim veniam?',
             '{{author}}' => $this->session->getCurrentUser()->getDisplayname(),
             '{{date}}' => date($this->config->system_dtmask, time() - 3600),
             '{{permaLink}}:{{/permaLink}}' => $this->config->system_url,
             '{{commentLink}}:{{/commentLink}}' => $this->config->system_url . '#comments'
-        );
-
-        $this->template->setReplacementTags($replacements);
+        ]);
         $parsed[] = $this->template->parse();
 
         $this->view->assign('content', implode(PHP_EOL, $parsed));

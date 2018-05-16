@@ -17,6 +17,8 @@ namespace fpcm\model\pubtemplates;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 final class latestnews extends template {
+    
+    const TEMPLATE_ID = 'latestNews';
 
     /**
      * Template-Platzhalter
