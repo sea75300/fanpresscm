@@ -29,4 +29,14 @@ abstract class authProvider extends model {
      * @return string
      */
     abstract public function getLoginTemplate();
+
+    /**
+     * 
+     * @param mixed $param
+     * @return boolean
+     */
+    public function twoFactorAuth($param)
+    {
+        return true;
+    }
 }

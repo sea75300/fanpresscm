@@ -27,6 +27,8 @@ $lang = array(
     'USERS_ROLL_EDIT' => 'Edit user roll',
     'USERS_META_OPTIONS' => 'User settings',
     'USERS_PASSGEN' => 'Generate password',
+    'USERS_AUTHTOKEN_SAVE' => 'To enable two factor authentication, scan this QR code with "Google Authenticator" app. '.
+                              'Enter the first code displayed in the app and press save.',
     'USERS_ARTICLES_SELECT' => 'Please select what to do with articles of the selected user',
     'USERS_ARTICLES_USER' => 'Select user',
     'USERS_ARTICLES_LIST' => [

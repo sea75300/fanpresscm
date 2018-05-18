@@ -110,123 +110,127 @@ defaultvalues:
             id: 21
             config_name: "system_updates_manual"
             config_value: "0"
-        articles_revisions:
+        system_2fa_auth:
             id: 22
+            config_name: "system_2fa_auth"
+            config_value: "0"
+        articles_revisions:
+            id: 23
             config_name: "articles_revisions"
             config_value: "1"
         articles_limit:
-            id: 23
+            id: 24
             config_name: "articles_limit"
             config_value: "5"
         articles_template_active:
-            id: 24
+            id: 25
             config_name: "articles_template_active"
             config_value: "articlelist"
         articles_archive_show:
-            id: 25
+            id: 26
             config_name: "articles_archive_show"
             config_value: "1"
         articles_sort:
-            id: 26
+            id: 27
             config_name: "articles_sort"
             config_value: "createtime"
         articles_sort_order:
-            id: 27
+            id: 28
             config_name: "articles_sort_order"
             config_value: "DESC"
         article_template_active:
-            id: 28
+            id: 29
             config_name: "article_template_active"
             config_value: "articlesingle"
         articles_rss:
-            id: 29
+            id: 30
             config_name: "articles_rss"
             config_value: "1"
         articles_acp_limit:
-            id: 30
+            id: 31
             config_name: "articles_acp_limit"
             config_value: "100"
         articles_archive_datelimit:
-            id: 31
+            id: 32
             config_name: "articles_archive_datelimit"
             config_value: "0"
         articles_revisions_limit:
-            id: 32
+            id: 33
             config_name: "articles_revisions_limit"
             config_value: "0"
         articles_link_urlrewrite:
-            id: 33
+            id: 34
             config_name: "articles_link_urlrewrite"
             config_value: "0"
         articles_imageedit_persistence:
-            id: 34
+            id: 35
             config_name: "articles_imageedit_persistence"
             config_value: "0"
         comments_template_active:
-            id: 35
+            id: 36
             config_name: "comments_template_active"
             config_value: "comments"
         comments_flood:
-            id: 36
+            id: 37
             config_name: "comments_flood"
             config_value: "300"
         comments_email_optional:
-            id: 37
+            id: 38
             config_name: "comments_email_optional"
             config_value: "1"
         comments_confirm:
-            id: 38
+            id: 39
             config_name: "comments_confirm"
             config_value: "1"
         comments_antispam_question:
-            id: 39
+            id: 40
             config_name: "comments_antispam_question"
             config_value: ""
         comments_antispam_answer:
-            id: 40
+            id: 41
             config_name: "comments_antispam_answer"
             config_value: ""
         comments_notify:
-            id: 41
+            id: 42
             config_name: "comments_notify"
             config_value: "0"
         comments_markspam_commentcount:
-            id: 42
+            id: 43
             config_name: "comments_markspam_commentcount"
             config_value: "2"
         comments_privacy_optin:
-            id: 43
+            id: 44
             config_name: "comments_privacy_optin"
             config_value: "1"
         file_img_thumb_width:
-            id: 44
+            id: 45
             config_name: "file_img_thumb_width"
             config_value: "100"
         file_img_thumb_height:
-            id: 45
+            id: 46
             config_name: "file_img_thumb_height"
             config_value: "100"
         file_uploader_new:
-            id: 46
+            id: 47
             config_name: "file_uploader_new"
             config_value: "1"
         file_list_limit:
-            id: 47
+            id: 48
             config_name: "file_list_limit"
             config_value: "25"
         twitter_data:
-            id: 48
+            id: 49
             config_name: "twitter_data"
             config_value: '{"consumer_key":"","consumer_secret":"","user_token":"","user_secret":""}'
         twitter_events:
-            id: 49
+            id: 50
             config_name: "twitter_events"
             config_value: '{"create":0,"update":0}'
         smtp_enabled:
-            id: 50
+            id: 51
             config_name: "smtp_enabled"
             config_value: 0
         smtp_settings:
-            id: 51
+            id: 52
             config_name: "smtp_settings"
             config_value: '{"srvurl":"","user":"","pass":"","encr":"","port":"25","addr":""}'

@@ -33,6 +33,7 @@ namespace fpcm\model\system;
  * @property int    $system_updates_devcheck Entwickler-Versionen bei Update-Prüfung anzeigen
  * @property bool   $system_updates_emailnotify E-Mail-Benachrichtigung über Updates
  * @property int    $system_updates_manual Interval für manuelle Update-Prüfung
+ * @property bool   $system_2fa_auth Two factor authentication enabled
  * 
  * @property bool   $articles_revisions Revisionen aktiv
  * @property int    $articles_limit Artikel pro Seite im Fronend

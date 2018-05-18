@@ -97,6 +97,7 @@ $lang = array(
     'SYSTEM_OPTIONS_ANTISPAMANSWER' => 'Antwort auf Captcha-Frage',
     'SYSTEM_OPTIONS_ACPARTICLES_LIMIT' => 'Anzahl Elemente pro Seite im ACP',
     'SYSTEM_OPTIONS_LOGIN_MAXATTEMPTS' => 'Anzahl Login-Versuche vor temporärer Sperre',
+    'SYSTEM_OPTIONS_LOGIN_TWOFACTORAUTH' => 'Zwei-Faktor-Authentifizierung',
     'SYSTEM_OPTIONS_FLOODPROTECTION' => 'Zeitsperre zwischen zwei Kommentaren',
     'SYSTEM_OPTIONS_FLOODPROTECTION_INTERVALS' => array(
         'keine' => 0,

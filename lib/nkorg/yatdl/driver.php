@@ -139,12 +139,12 @@ abstract class driver {
             return false;
         }
 
-        if (!isset($col['length'])) {
+        if (!array_key_exists('length', $col)) {
             trigger_error('Invalid YAML col data, no "isNull" property found!');
             return false;
         }
 
-        if (!isset($col['params'])) {
+        if (!array_key_exists('params', $col)) {
             trigger_error('Invalid YAML col data, no "params" property found!');
             return false;
         }

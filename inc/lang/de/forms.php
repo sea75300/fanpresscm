@@ -55,6 +55,7 @@ $lang = array(
     'GLOBAL_EXTERNAL' => 'Extern',
     'LOGIN_BTN' => 'Anmelden',
     'LOGIN_NEWPASSWORD' => 'Neues Passwort anfordern',
+    'LOGIN_TOKEN' => 'Login-Token',
     'LOGOUT_BTN' => 'Abmelden',
     'NAVIGATION_SHOW' => 'Menü',
     'PROFILE_MENU_OPENPROFILE' => 'Benutzerprofil',

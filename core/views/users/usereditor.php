@@ -121,5 +121,33 @@
         </fieldset>
     </div>
 </div>
+
+<?php if ($twoFaAuth) : ?>
+<div class="row no-gutters">
+    <div class="col-12">
+        <fieldset class="fpcm-ui-margin-md-top">
+            <legend><?php $theView->write('SYSTEM_OPTIONS_LOGIN_TWOFACTORAUTH'); ?></legend>
+
+            <?php if ($secret !== false && $qrCode !== false) : ?>
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="col-12 col-md-3 fpcm-ui-padding-md-bottom fpcm-ui-padding-none-left">
+                    <?php $theView->write('USERS_AUTHTOKEN_SAVE'); ?>:
+                </div>
+                <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-left">
+                    <?php $theView->textInput('authCodeConfirm')->setValue('')->setMaxlenght(6); ?>
+                    <?php $theView->hiddenInput('authSecret')->setValue($secret); ?>
+                </div>
+            </div>
+            <div class="row fpcm-ui-padding-md-tb fpcm-ui-center">
+                <div class="col-sm-12">
+                    <img src="<?php echo $qrCode; ?>">
+                </div>
+            </div>
+            <?php endif; ?>
+        </fieldset>
+    </div>
+</div>
 <?php endif; ?>
 
+
+<?php endif; ?>

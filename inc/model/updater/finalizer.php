@@ -68,18 +68,32 @@ final class finalizer extends \fpcm\model\abstracts\model {
     {
         $rolls = (new \fpcm\model\users\userRollList())->getUserRolls();
 
+        $default = null;
+
         foreach ($rolls as $group) {
+
             $permissionObj = new \fpcm\model\system\permissions($group->getId());
+            
+            if ($default === null) {
+                $default = $permissionObj->getPermissionSet();
+            }
+            
             $data = $permissionObj->getPermissionData();
-            if (!isset($data['modules']['enable'])) {
+            
+            $newData = $data;
+            foreach ($default as $key => $value) {
+                $newData[$key] = array_merge(array_intersect_key($data[$key], $value), array_diff_key($value, $data[$key]));
+            }
+            
+            if (\fpcm\classes\tools::getHash(json_encode($data)) === \fpcm\classes\tools::getHash(json_encode($newData))) {
                 continue;
             }
 
-            unset($data['modules']['enable']);
-            $permissionObj->setPermissionData($data);
+            $permissionObj->setPermissionData($newData);
             if (!$permissionObj->update()) {
                 return false;
             }
+
         }
 
         return true;

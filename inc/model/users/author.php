@@ -94,6 +94,13 @@ class author extends \fpcm\model\abstracts\dataset {
     protected $usrinfo = '';
 
     /**
+     * Two factor auth token
+     * @var string
+     * @since FPCM 4
+     */
+    protected $authtoken = '';
+
+    /**
      * Übersetzter Gruppenname
      * @var string
      * @since FPCM 3.4
@@ -272,6 +279,15 @@ class author extends \fpcm\model\abstracts\dataset {
     }
 
     /**
+     * Fetch auth token
+     * @return string
+     */
+    public function getAuthtoken()
+    {
+        return $this->authtoken;
+    }
+    
+    /**
      * ist Benutzer ein Administrator
      * @return bool
      */
@@ -344,6 +360,15 @@ class author extends \fpcm\model\abstracts\dataset {
         $this->usrinfo = $usrinfo;
     }
 
+    /**
+     * Set auth token data
+     * @param string $authtoken
+     */
+    public function setAuthtoken($authtoken)
+    {
+        $this->authtoken = $authtoken;
+    }
+        
     /**
      * Speichert einen neuen Benutzer in der Datenbank
      * @return boolean

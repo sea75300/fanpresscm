@@ -48,6 +48,10 @@ cols:
         type: text
         length: 
         params: NOT NULL
+    authtoken:
+        type: varchar
+        length: 512
+        params: NULL
 indices:
     username:
         col: username
