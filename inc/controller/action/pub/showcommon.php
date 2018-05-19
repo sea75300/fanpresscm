@@ -188,72 +188,23 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
      */
     protected function assignData(\fpcm\model\articles\article $article)
     {
-        /**
-         * @var \fpcm\model\pubtemplates\article
-         */
-        $tpl = $this->template;
-
-        $categoryTexts = [];
-        $categoryIcons = [];
-
-        foreach ($article->getCategories() as $categoryId) {
-
-            /**
-             * @var \fpcm\model\categories\category
-             */
-            $category = isset($this->categories[$categoryId]) ? $this->categories[$categoryId] : false;
-
-            if (!$category)
-                continue;
-
-            $categoryTexts[] = '<span class="fpcm-pub-category-text">' . $category->getName() . '</span>';
-
-            if (!$category->getIconPath())
-                continue;
-            $categoryIcons[] = $category->getCategoryImage();
-        }
-
-        $shareButtonParser = new \fpcm\model\pubtemplates\sharebuttons($article->getElementLink(), $article->getTitle());
-
-        $commentCount = $this->config->system_comments_enabled && $article->getComments() ? (isset($this->commentCounts[$article->getId()]) ? (int) $this->commentCounts[$article->getId()] : 0) : '';
-
-        $tpl->setCommentsEnabled($this->config->system_comments_enabled && $article->getComments());
-
-        $cuser = isset($this->users[$article->getCreateuser()]) ? $this->users[$article->getCreateuser()] : false;
-        $chuser = isset($this->users[$article->getChangeuser()]) ? $this->users[$article->getChangeuser()] : false;
-
-        $emailAddress = $cuser ? '<a href="mailto:' . $cuser->getEmail() . '">' . $cuser->getDisplayname() . '</a>' : '';
-
-        $replacements = array(
-            '{{headline}}' => $article->getTitle(),
-            '{{text}}' => $article->getContent(),
-            '{{author}}' => $cuser ? $cuser->getDisplayname() : $this->lang->translate('GLOBAL_NOTFOUND'),
-            '{{authorEmail}}' => $emailAddress,
-            '{{authorAvatar}}' => $cuser ? \fpcm\model\users\author::getAuthorImageDataOrPath($cuser, 0) : '',
-            '{{authorInfoText}}' => $cuser ? $cuser->getUsrinfo() : '',
-            '{{date}}' => date($this->config->system_dtmask, $article->getCreatetime()),
-            '{{changeDate}}' => date($this->config->system_dtmask, $article->getChangetime()),
-            '{{changeUser}}' => $chuser ? $chuser->getDisplayname() : $this->lang->translate('GLOBAL_NOTFOUND'),
-            '{{statusPinned}}' => $article->getPinned() ? $this->lang->translate('PUBLIC_ARTICLE_PINNED') : '',
-            '{{shareButtons}}' => $shareButtonParser->parse(),
-            '{{categoryIcons}}' => implode(PHP_EOL, $categoryIcons),
-            '{{categoryTexts}}' => implode(PHP_EOL, $categoryTexts),
-            '{{commentCount}}' => $commentCount,
-            '{{permaLink}}:{{/permaLink}}' => $article->getElementLink(),
-            '{{commentLink}}:{{/commentLink}}' => $article->getElementLink() . '#comments',
-            '<readmore>:</readmore>' => $article->getId(),
-            '{{articleImage}}' => $article->getArticleImage(),
-            '{{sources}}' => $article->getSources()
+        $this->template->setCommentsEnabled($this->config->system_comments_enabled && $article->getComments());
+        $this->template->assignByObject(
+            $article,
+            [
+                'author' => isset($this->users[$article->getCreateuser()]) ? $this->users[$article->getCreateuser()] : false,
+                'changeUser' => isset($this->users[$article->getChangeuser()]) ? $this->users[$article->getChangeuser()] : false
+            ],
+            $this->categoryList->assignPublic($article),
+            isset($this->commentCounts[$article->getId()]) ? $this->commentCounts[$article->getId()] : 0
         );
 
-        $tpl->setReplacementTags($replacements);
-
-        $parsed = $tpl->parse();
+        $parsed = $this->template->parse();
 
         if ($this->session->exists()) {
             $html = [];
             $html[] = '<div class="fpcm-pub-articletoolbar-article fpcm-pub-articletoolbar-article' . $article->getId() . '">';
-            $html[] = '<a href="' . $article->getEditLink() . '">' . $this->lang->translate('HL_ARTICLE_EDIT') . '</a>';
+            $html[] = '<a href="' . $article->getEditLink() . '">' . $this->language->translate('HL_ARTICLE_EDIT') . '</a>';
             $html[] = '</div>';
 
             $parsed = implode(PHP_EOL, $html) . $parsed;

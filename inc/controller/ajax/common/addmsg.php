@@ -25,7 +25,7 @@
             $type = $this->getRequestVar('type');
             $msg  = $this->getRequestVar('msgtxt');
             
-            $str  = $this->lang->translate($msg);
+            $str  = $this->language->translate($msg);
             if (!$str) {
                 $str = $msg;
             }

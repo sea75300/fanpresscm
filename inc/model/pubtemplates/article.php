@@ -136,7 +136,15 @@ final class article extends template {
     {
         $this->commentsEnabled = $commentsEnabled;
     }
-    
+
+    /**
+     * 
+     * @param \fpcm\model\articles\article $article
+     * @param array $users
+     * @param array $categories
+     * @param int $commentCount
+     * @return boolean
+     */
     public function assignByObject(\fpcm\model\articles\article $article, array $users, array $categories, $commentCount)
     {
         $notFoundStr = $this->language->translate('GLOBAL_NOTFOUND');
@@ -153,7 +161,7 @@ final class article extends template {
             '{{date}}' => date($this->config->system_dtmask, $article->getCreatetime()),
             '{{statusPinned}}' => $article->getPinned() ? $this->language->translate('PUBLIC_ARTICLE_PINNED') : '',
             '{{shareButtons}}' => $share->parse(),
-            '{{commentCount}}' => $this->config->system_comments_enabled && $article->getComments() ? $commentCount : 0,
+            '{{commentCount}}' => $this->config->system_comments_enabled && $article->getComments() ? (int) $commentCount : 0,
             '{{author}}' => $users['author'] ? $users['author']->getDisplayname() : $notFoundStr,
             '{{authorEmail}}' => ($users['author'] ? '<a href="mailto:' . $users['author']->getEmail() . '">' . $users['author']->getDisplayname() . '</a>' : ''),
             '{{authorAvatar}}' => $users['author'] ? \fpcm\model\users\author::getAuthorImageDataOrPath($users['author'], 0) : '',

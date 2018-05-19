@@ -89,7 +89,7 @@ class feed extends \fpcm\controller\abstracts\pubController {
     public function request()
     {
         if (!$this->config->articles_rss) {
-            exit($this->lang->translate('RSSFEED_DISABLED'));
+            exit($this->language->translate('RSSFEED_DISABLED'));
         }
 
         $this->category = defined('FPCM_PUB_CATEGORY_LATEST') ? FPCM_PUB_CATEGORY_LATEST : 0;

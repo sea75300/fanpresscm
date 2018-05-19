@@ -114,7 +114,7 @@ class showall extends showcommon {
     {
         $res = parent::createPagination($count, $action);
         if ($this->config->articles_archive_show) {
-            $res = str_replace('</ul>', '<li><a href="?module=fpcm/archive" class="fpcm-pub-pagination-archive">' . $this->lang->translate('ARTICLES_PUBLIC_ARCHIVE') . '</a></li>' . PHP_EOL . '</ul>' . PHP_EOL, $res);
+            $res = str_replace('</ul>', '<li><a href="?module=fpcm/archive" class="fpcm-pub-pagination-archive">' . $this->language->translate('ARTICLES_PUBLIC_ARCHIVE') . '</a></li>' . PHP_EOL . '</ul>' . PHP_EOL, $res);
         }
 
         $res = $this->events->trigger('pub\pageinationShowAll', $res);

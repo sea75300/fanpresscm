@@ -75,11 +75,11 @@
             
             $messages = array('notice' => 0, 'error' => 0);
             if (count($resOk)) {
-                $messages['notice'] = $this->lang->translate('SAVE_SUCCESS_ARTICLENEWTWEET', array('{{titles}}' => implode(', ', $resOk)));
+                $messages['notice'] = $this->language->translate('SAVE_SUCCESS_ARTICLENEWTWEET', array('{{titles}}' => implode(', ', $resOk)));
             }
 
             if (count($resError)) {
-                $messages['error'] = $this->lang->translate('SAVE_FAILED_ARTICLENEWTWEET', array('{{titles}}' => implode(', ', $resError)));
+                $messages['error'] = $this->language->translate('SAVE_FAILED_ARTICLENEWTWEET', array('{{titles}}' => implode(', ', $resError)));
             }
 
             print json_encode($messages);

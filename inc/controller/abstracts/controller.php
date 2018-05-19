@@ -41,7 +41,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * Sprachen
      * @var \fpcm\classes\language
      */
-    protected $lang;
+    protected $language;
 
     /**
      * Berechtigungen
@@ -165,7 +165,7 @@ class controller implements \fpcm\controller\interfaces\controller {
             $this->session->exists() ? $this->session->getCurrentUser()->getRoll() : 0
         );
 
-        $this->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
+        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
         
         $this->hasActiveModule();
 
@@ -271,7 +271,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
         if ($simplemsg) {
             $this->view = null;
-            print $this->lang->translate('MAINTENANCE_MODE_ENABLED');
+            print $this->language->translate('MAINTENANCE_MODE_ENABLED');
             return false;
         }
 

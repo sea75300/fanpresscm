@@ -20,7 +20,7 @@ class main extends \fpcm\controller\abstracts\controller {
      *
      * @var \fpcm\classes\language
      */
-    protected $lang;
+    protected $language;
 
     /**
      *
@@ -149,7 +149,7 @@ class main extends \fpcm\controller\abstracts\controller {
             $this->langCode = FPCM_DEFAULT_LANGUAGE_CODE;
         }
 
-        $this->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->langCode);
+        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->langCode);
         $this->initView();
 
         return true;
@@ -190,7 +190,7 @@ class main extends \fpcm\controller\abstracts\controller {
         $this->view->assign('step', $this->step + 1);
         $this->view->assign('showNextButton', $this->step > 1 ? true : false);
         $this->view->assign('showReload', false);
-        $this->view->assign('languages', array_flip($this->lang->getLanguages()));
+        $this->view->assign('languages', array_flip($this->language->getLanguages()));
         $this->view->addJsFiles(['installer.js', 'systemcheck.js', \fpcm\classes\loader::libGetFileUrl('password-generator/password-generator.min.js')]);
 
         if (method_exists($this, 'runAfterStep' . ($this->step - 1))) {

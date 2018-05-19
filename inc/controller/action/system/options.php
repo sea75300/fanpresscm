@@ -170,7 +170,7 @@ class options extends \fpcm\controller\abstracts\controller {
         $this->view->assign('commentTemplates', $templates->getCommentTemplates());
 
         $this->view->assign('globalConfig', $this->config->getData());
-        $this->view->assign('languages', array_flip($this->lang->getLanguages()));
+        $this->view->assign('languages', array_flip($this->language->getLanguages()));
 
         $notify = array(
             'SYSTEM_OPTIONS_COMMENT_NOTIFY_GLOBAL' => 0,

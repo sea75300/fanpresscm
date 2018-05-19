@@ -51,7 +51,7 @@ class rename extends \fpcm\controller\abstracts\ajaxController {
 
         if (!$this->newFileName || !$this->fileName) {
             $this->returnData['code'] = -1;
-            $this->returnData['message'] = $this->lang->translate('DELETE_FAILED_RENAME', [
+            $this->returnData['message'] = $this->language->translate('DELETE_FAILED_RENAME', [
                 '{{filename1}}' => $this->fileName,
                 '{{filename2}}' => $this->newFileName
             ]);
@@ -75,12 +75,12 @@ class rename extends \fpcm\controller\abstracts\ajaxController {
             (new \fpcm\model\files\imagelist())->createFilemanagerThumbs();
             
             $this->returnData['code'] = 1;
-            $this->returnData['message'] = $this->lang->translate('DELETE_SUCCESS_RENAME', $replace);
+            $this->returnData['message'] = $this->language->translate('DELETE_SUCCESS_RENAME', $replace);
             $this->getSimpleResponse();
         }
 
         $this->returnData['code'] = 0;
-        $this->returnData['message'] = $this->lang->translate('DELETE_FAILED_RENAME', $replace);
+        $this->returnData['message'] = $this->language->translate('DELETE_FAILED_RENAME', $replace);
         $this->getSimpleResponse();
     }
 

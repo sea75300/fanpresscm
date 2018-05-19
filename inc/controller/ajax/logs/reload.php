@@ -96,8 +96,8 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
         $this->items = $this->session->getSessions();
         $this->userList = (new \fpcm\model\users\userList())->getUsersAll();
 
-        $this->notfoundStr = $this->lang->translate('GLOBAL_NOTFOUND');
-        $this->sessionTimeoutStr = $this->lang->translate('LOGS_LIST_TIMEOUT');
+        $this->notfoundStr = $this->language->translate('GLOBAL_NOTFOUND');
+        $this->sessionTimeoutStr = $this->language->translate('LOGS_LIST_TIMEOUT');
 
         $this->initDataView();
         $this->assignDataViewvars();

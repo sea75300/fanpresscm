@@ -208,7 +208,7 @@ trait lists {
         /* @var $article \fpcm\model\articles\article */
         foreach ($this->articleItems as $articleMonth => $articles) {
 
-            $titleStr  = $this->lang->writeMonth(date('n', $articleMonth), true);
+            $titleStr  = $this->language->writeMonth(date('n', $articleMonth), true);
             $titleStr .= ' ' .date('Y', $articleMonth);
             $titleStr .= ' (' . count($articles) . ')';
 
@@ -289,19 +289,19 @@ trait lists {
         $createuser = array_keys($this->users, $article->getCreateuser());
         $changeuser = array_keys($this->users, $article->getChangeuser());
 
-        $notFound = $this->lang->translate('GLOBAL_NOTFOUND');
+        $notFound = $this->language->translate('GLOBAL_NOTFOUND');
 
         return implode('', [
             '<span class="fpcm-ui-font-small fpcm-ui-block fpcm-ui-">',
             new \fpcm\view\helper\icon('calendar'),
-            $this->lang->translate('EDITOR_AUTHOREDIT', [
+            $this->language->translate('EDITOR_AUTHOREDIT', [
                 '{{username}}' => isset($createuser[0]) ? $createuser[0] : $notFound,
                 '{{time}}' => new \fpcm\view\helper\dateText($article->getCreatetime())
             ]),
             '</span>',
             '<span class="fpcm-ui-font-small fpcm-ui-block">',
             new \fpcm\view\helper\icon('clock', 'far'),
-            $this->lang->translate('EDITOR_LASTEDIT', [
+            $this->language->translate('EDITOR_LASTEDIT', [
                 '{{username}}' => isset($changeuser[0]) ? $changeuser[0] : $notFound,
                 '{{time}}' => new \fpcm\view\helper\dateText($article->getChangetime())
             ]),

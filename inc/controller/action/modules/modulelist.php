@@ -85,7 +85,7 @@ class modulelist extends \fpcm\controller\abstracts\controller {
         
         $this->view->addButtons($buttons);
 
-        $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', [            
+        $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [            
             '{{filecount}}' => 1,
             '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
         ]));

@@ -18,6 +18,12 @@ namespace fpcm\model\categories;
 class categoryList extends \fpcm\model\abstracts\tablelist {
 
     /**
+     *
+     * @var array
+     */
+    protected $data = [];
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -134,6 +140,31 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
     {
         $result = $this->dbcon->count($this->table, "id", "name " . $this->dbcon->dbLike() . " ?", array($name));
         return ($result > 0) ? true : false;
+    }
+
+    /**
+     * 
+     * @param \fpcm\model\articles\article $article
+     * @return array
+     */
+    public function assignPublic(\fpcm\model\articles\article $article)
+    {
+        if (!count($this->data)) {
+            $this->data = $this->getCategoriesAll();
+        }
+
+        $result = [];
+        foreach ($article->getCategories() as $categoryId) {
+
+            $category = isset($this->data[$categoryId]) ? $this->data[$categoryId] : false;
+            if (!$category) {
+                continue;
+            }
+
+            $result['<span class="fpcm-pub-category-text">' . $category->getName() . '</span>'] = ($category->getIconPath() ? $category->getCategoryImage() : '');
+        }
+        
+        return $result;
     }
 
 }

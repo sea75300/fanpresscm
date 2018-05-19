@@ -120,6 +120,28 @@ final class comment extends template {
         $content = preg_replace("/@#([0-9])+/", "<a class=\"fpcm-pub-mentionedlink\" href=\"#c$1\">@$1</a>", $content);
     }
 
+    /**
+     * 
+     * @param \fpcm\model\comments\comment $comment
+     * @param int $index
+     * @return boolean
+     */
+    public function assignByObject(\fpcm\model\comments\comment $comment, int $index) : bool
+    {
+        $this->setReplacementTags([
+            '{{author}}' => $comment->getName(),
+            '{{email}}' => $comment->getEmail(),
+            '{{website}}' => $comment->getWebsite(),
+            '{{text}}' => $comment->getText(),
+            '{{date}}' => date($this->config->system_dtmask, $comment->getCreatetime()),
+            '{{id}}' => $comment->getId(),
+            '{{number}}' => $index,
+            '{{mentionid}}' => 'id="c' . $index . '"',
+            '{{mention}}:{{/mention}}' => $index
+        ]);
+        
+        return true;
+    }
 }
 
 ?>

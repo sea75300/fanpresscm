@@ -40,7 +40,7 @@ trait moduleactions {
             $depencyData = [];
             if (count($dependencies)) {
                 foreach ($dependencies as $mkey => $version) {
-                    $depencyData[] = $mkey . ' - ' . $this->lang->translate('VERSION') . ' ' . $version;
+                    $depencyData[] = $mkey . ' - ' . $this->language->translate('VERSION') . ' ' . $version;
                 }
             }
 

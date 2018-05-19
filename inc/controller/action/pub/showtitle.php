@@ -57,14 +57,18 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
         switch ($this->action) {
             case 'page' :
                 $page = $this->getRequestVar('page');
-                if (is_null($page))
+                if (is_null($page)) {
                     return;
+                }
+
                 $content = ' ' . $this->param . ' ' . $page;
                 print $this->isUtf8 ? $content : utf8_decode($content);
                 break;
             case 'title' :
-                if ($this->getRequestVar('module') != 'fpcm/article' || is_null($this->getRequestVar('id')))
+                if ($this->getRequestVar('module') != 'fpcm/article' || is_null($this->getRequestVar('id'))) {
                     return;
+                }
+
                 $article = new \fpcm\model\articles\article($this->getRequestVar('id'));
                 $content = ' ' . $this->param . ' ' . $article->getTitle();
                 print $this->isUtf8 ? $content : utf8_decode($content);

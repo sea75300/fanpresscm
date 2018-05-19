@@ -94,7 +94,7 @@ class iplist extends \fpcm\controller\abstracts\controller {
         $this->items = $this->ipList->getIpAll();
         $this->users = $userList->getUsersAll();
         
-        $this->notfoundStr = $this->lang->translate('GLOBAL_NOTFOUND');
+        $this->notfoundStr = $this->language->translate('GLOBAL_NOTFOUND');
         
         $this->initDataView();
         

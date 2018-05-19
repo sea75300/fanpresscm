@@ -228,7 +228,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController {
      */
     private function addErrorMessage($var, $params = [])
     {
-        $this->pkgdata['errorMsg'] = $this->lang->translate($var, $params);
+        $this->pkgdata['errorMsg'] = $this->language->translate($var, $params);
     }
 }
 

@@ -82,7 +82,7 @@ final class installer extends \fpcm\model\abstracts\cli {
         include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
         $this->conf = \Spyc::YAMLLoad($configFile);
 
-        $this->lang = new \fpcm\classes\language($this->conf['config']['language']);
+        $this->language = new \fpcm\classes\language($this->conf['config']['language']);
         usleep(250000);
 
         return true;

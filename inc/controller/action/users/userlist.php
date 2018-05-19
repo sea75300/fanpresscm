@@ -155,11 +155,11 @@ class userlist extends \fpcm\controller\abstracts\controller {
             (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
         ]);
 
-        $descr = $this->lang->translate('USERS_ROLL');
+        $descr = $this->language->translate('USERS_ROLL');
         foreach($usersInGroups AS $rollId => $users) {
             
             $title  = $descr.': '.isset($userGroups[$rollId])
-                    ? $this->lang->translate($userGroups[$rollId]->getRollName())
+                    ? $this->language->translate($userGroups[$rollId]->getRollName())
                     : 'GLOBAL_NOTFOUND';
             
             $dataView->addRow(

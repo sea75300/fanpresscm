@@ -134,7 +134,6 @@ abstract class tablelist {
     public function __destruct()
     {
         $this->dbcon = false;
-        $this->data = null;
         $this->cache = null;
         $this->events = null;
 

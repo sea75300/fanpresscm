@@ -31,7 +31,7 @@ abstract class moduleEvent implements \fpcm\model\interfaces\event {
      * Sprachobjekt
      * @var \fpcm\classes\language
      */
-    protected $lang;
+    protected $language;
 
     /**
      * Config-Objekt
@@ -57,7 +57,7 @@ abstract class moduleEvent implements \fpcm\model\interfaces\event {
         }
 
         $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-        $this->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
     }
 

@@ -225,12 +225,12 @@ class commentedit extends \fpcm\controller\abstracts\controller {
             $changeUser = new \fpcm\model\users\author($this->comment->getChangeuser());
 
             $this->view->assign(
-                    'changeInfo', $this->lang->translate('COMMMENT_LASTCHANGE', array(
-                        '{{username}}' => $changeUser->exists() ? $changeUser->getDisplayname() : $this->lang->translate('GLOBAL_NOTFOUND'),
+                    'changeInfo', $this->language->translate('COMMMENT_LASTCHANGE', array(
+                        '{{username}}' => $changeUser->exists() ? $changeUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
                         '{{time}}' => date($this->config->system_dtmask, $this->comment->getChangetime())
             )));
         } else {
-            $this->view->assign('changeInfo', $this->lang->translate('GLOBAL_NOCHANGE'));
+            $this->view->assign('changeInfo', $this->language->translate('GLOBAL_NOCHANGE'));
         }
         
         if ($mode === 1) {

@@ -43,7 +43,7 @@ class help extends \fpcm\controller\abstracts\controller {
             $chapter = 0;
         }
 
-        $xml = simplexml_load_string($this->lang->getHelp());
+        $xml = simplexml_load_string($this->language->getHelp());
         $data = $xml->xpath("/chapters/chapter[@ref=\"{$ref}\"]");
 
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);

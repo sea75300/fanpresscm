@@ -43,7 +43,7 @@
 
                     $this->returnData['username'] = $user->exists()
                                                   ? $user->getDisplayname()
-                                                  : $this->lang->translate('GLOBAL_NOTFOUND');
+                                                  : $this->language->translate('GLOBAL_NOTFOUND');
                 }
 
                 $this->getResponse();

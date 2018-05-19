@@ -23,7 +23,7 @@
         public function getTimeZones() {
             $timezones = [];
             
-            foreach ($this->lang->translate('SYSTEM_OPTIONS_TZ') as $timeZoneArea => $timeZoneAreaName) {
+            foreach ($this->language->translate('SYSTEM_OPTIONS_TZ') as $timeZoneArea => $timeZoneAreaName) {
                 $timezones[$timeZoneAreaName] = \DateTimeZone::listIdentifiers($timeZoneArea);
             }
             return $timezones;

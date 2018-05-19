@@ -137,7 +137,7 @@ class templates extends \fpcm\controller\abstracts\controller {
         $this->view->addJsFiles(['fileuploader.js', 'templates.js']);
         $this->initDataView();
 
-        $this->view->assign('maxFilesInfo', $this->lang->translate('FILE_LIST_PHPMAXINFO', [
+        $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [
             '{{filecount}}' => 1,
             '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
         ]));

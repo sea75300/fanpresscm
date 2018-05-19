@@ -158,22 +158,8 @@ class showlatest extends \fpcm\controller\abstracts\pubController {
      */
     protected function assignData(\fpcm\model\articles\article $article)
     {
-        /**
-         * @var \fpcm\model\pubtemplates\article
-         */
-        $tpl = $this->template;
-
-        $replacements = array(
-            '{{headline}}' => $article->getTitle(),
-            '{{author}}' => isset($this->users[$article->getCreateuser()]) ? $this->users[$article->getCreateuser()]->getDisplayname() : $this->lang->translate('GLOBAL_NOTFOUND'),
-            '{{date}}' => date($this->config->system_dtmask, $article->getCreatetime()),
-            '{{permaLink}}:{{/permaLink}}' => $article->getElementLink(),
-            '{{commentLink}}:{{/commentLink}}' => $article->getElementLink() . '#comments'
-        );
-
-        $tpl->setReplacementTags($replacements);
-
-        return $tpl->parse();
+        $this->template->assignByObject($article, isset($this->users[$article->getCreateuser()]) ? $this->users[$article->getCreateuser()] : false);
+        return $this->template->parse();
     }
 
 }

@@ -37,7 +37,7 @@ class pubController extends controller {
 
         if ($this->ipList->ipIsLocked()) {
             $this->view = null;
-            print $this->lang->translate('ERROR_IP_LOCKED');
+            print $this->language->translate('ERROR_IP_LOCKED');
             return false;
         }
 
@@ -77,7 +77,8 @@ class pubController extends controller {
             'permEditAll' => $permEditAll,
             'currentUserId' => $currentUserId,
             'isAdmin' => $isAdmin,
-            'hideDebug' => false
+            'hideDebug' => false,
+            'systemMode' => $this->config->system_mode
         ]);
 
         $jsfiles = [];

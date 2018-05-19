@@ -55,7 +55,7 @@ class articlelistarchive extends articlelistbase {
 
     public function request()
     {
-        unset($this->articleActions[$this->lang->translate('EDITOR_PINNED')], $this->articleActions[$this->lang->translate('EDITOR_ARCHIVE')]);
+        unset($this->articleActions[$this->language->translate('EDITOR_PINNED')], $this->articleActions[$this->language->translate('EDITOR_ARCHIVE')]);
         return parent::request();
     }
 

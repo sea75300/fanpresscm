@@ -102,7 +102,7 @@ trait authorImages {
         }
 
         $secret = $this->gAuth->generateSecret();
-        $this->view->assign('qrCode', \Sonata\GoogleAuthenticator\GoogleQrUrl::generate($this->user->getEmail(), $secret, $this->lang->translate('HEADLINE')));
+        $this->view->assign('qrCode', \Sonata\GoogleAuthenticator\GoogleQrUrl::generate($this->user->getEmail(), $secret, $this->language->translate('HEADLINE')));
         $this->view->assign('secret', $secret);
     }
 

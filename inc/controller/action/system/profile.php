@@ -132,7 +132,7 @@ class profile extends \fpcm\controller\abstracts\controller {
     {
         $userRolls = new \fpcm\model\users\userRollList();
         $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());
-        $this->view->assign('languages', array_flip($this->lang->getLanguages()));
+        $this->view->assign('languages', array_flip($this->language->getLanguages()));
         $this->twoFactorAuthForm();
 
         $timezones = [];

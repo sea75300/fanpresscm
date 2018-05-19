@@ -11,12 +11,18 @@ if (file_exists(dirname(__DIR__) . '/data/config/constants.custom.php')) {
 }
 
 /**
- * Mindest-PHP-Version
+ * Minimum required PHP version
  * @since FPCM 3.5
  * @ignore
  */
-define('FPCM_PHP_REQUIRED', '5.6.0');
+define('FPCM_PHP_REQUIRED', '7.0.0');
 
+
+/**
+ * Constant of seconds per day
+ * @since FPCM 3.5
+ * @ignore
+ */
 define('FPCM_DATE_SECONDS', 86400);
 
 if (!defined('FPCM_DEBUG')) {

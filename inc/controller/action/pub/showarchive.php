@@ -124,7 +124,7 @@ class showarchive extends showcommon {
     protected function createPagination($count, $action = 'fpcm/list')
     {
         $res = parent::createPagination($count, $action);
-        $res = str_replace('</ul>', '<li><a href="?module=fpcm/list" class="fpcm-pub-pagination-page">' . $this->lang->translate('ARTICLES_PUBLIC_ACTIVE') . '</a></li>' . PHP_EOL . '</ul>' . PHP_EOL, $res);
+        $res = str_replace('</ul>', '<li><a href="?module=fpcm/list" class="fpcm-pub-pagination-page">' . $this->language->translate('ARTICLES_PUBLIC_ACTIVE') . '</a></li>' . PHP_EOL . '</ul>' . PHP_EOL, $res);
         $res = $this->events->trigger('pub\pageinationShowArchive', $res);
 
         return $res;

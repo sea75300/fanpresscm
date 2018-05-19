@@ -204,20 +204,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     protected function assignArticleData()
     {
-        $categoriesData = [];
-
-        $categories = $this->categoryList->getCategoriesAll();
-
-        foreach ($this->article->getCategories() as $categoryId) {
-            $category = isset($categories[$categoryId]) ? $categories[$categoryId] : false;
-
-            if (!$category) {
-                continue;
-            }
-
-            $categoriesData['<span class="fpcm-pub-category-text">' . $category->getName() . '</span>'] = ($category->getIconPath() ? $category->getCategoryImage() : '');
-        }
-
         $users = $this->userList->getUsersByIds([
             $this->article->getCreateuser(),
             $this->article->getChangeuser()
@@ -241,7 +227,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
                 'author' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : false,
                 'changeUser' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : false
             ],
-            $categoriesData,
+            $this->categoryList->assignPublic($this->article),
             $this->commentList->countComments([$this->article->getId()], $privateNo, $approvedOnly, $spamNo, $useCache)[$this->article->getId()]
         );
 
@@ -251,7 +237,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         if ($this->session->exists()) {
             $html = [];
             $html[] = '<div class="fpcm-pub-articletoolbar-article fpcm-pub-articletoolbar-article' . $this->articleId . '">';
-            $html[] = '<a href="' . $this->article->getEditLink() . '">' . $this->lang->translate('HL_ARTICLE_EDIT') . '</a>';
+            $html[] = '<a href="' . $this->article->getEditLink() . '">' . $this->language->translate('HL_ARTICLE_EDIT') . '</a>';
             $html[] = '</div>';
 
             $parsed = implode(PHP_EOL, $html) . $parsed;
@@ -280,23 +266,9 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         $parsed = [];
         $i = 1;
         foreach ($comments as $comment) {
-            $tpl = $this->commentTemplate;
-
-            $replacements = array(
-                '{{author}}' => $comment->getName(),
-                '{{email}}' => $comment->getEmail(),
-                '{{website}}' => $comment->getWebsite(),
-                '{{text}}' => $comment->getText(),
-                '{{date}}' => date($this->config->system_dtmask, $comment->getCreatetime()),
-                '{{number}}' => $i,
-                '{{id}}' => $comment->getId(),
-                '{{mentionid}}' => 'id="c' . $i . '"',
-                '{{mention}}:{{/mention}}' => $i
-            );
-
-            $tpl->setReplacementTags($replacements);
-
-            $parsed[] = $tpl->parse();
+            
+            $this->commentTemplate->assignByObject($comment, $i);
+            $parsed[] = $this->commentTemplate->parse();
 
             $i++;
         }
@@ -325,24 +297,24 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         }
 
         $replacementTags = array(
-            '{{formHeadline}}' => $this->lang->translate('COMMENTS_PUBLIC_FORMHEADLINE'),
+            '{{formHeadline}}' => $this->language->translate('COMMENTS_PUBLIC_FORMHEADLINE'),
             '{{submitUrl}}' => $this->article->getElementLink(),
-            '{{nameDescription}}' => $this->lang->translate('COMMMENT_AUTHOR'),
+            '{{nameDescription}}' => $this->language->translate('COMMMENT_AUTHOR'),
             '{{nameField}}' => '<input type="text" class="fpcm-pub-textinput" name="newcomment[name]" value="' . $this->newComment->getName() . '">',
-            '{{emailDescription}}' => $this->lang->translate('GLOBAL_EMAIL'),
+            '{{emailDescription}}' => $this->language->translate('GLOBAL_EMAIL'),
             '{{emailField}}' => '<input type="text" class="fpcm-pub-textinput" name="newcomment[email]" value="' . $this->newComment->getEmail() . '">',
-            '{{websiteDescription}}' => $this->lang->translate('COMMMENT_WEBSITE'),
+            '{{websiteDescription}}' => $this->language->translate('COMMMENT_WEBSITE'),
             '{{websiteField}}' => '<input type="text" class="fpcm-pub-textinput" name="newcomment[website]" value="' . $this->newComment->getWebsite() . '">',
             '{{textfield}}' => '<textarea class="fpcm-pub-textarea" id="newcommenttext" name="newcomment[text]">' . $this->newComment->getText() . '</textarea>',
-            '{{smileysDescription}}' => $this->lang->translate('HL_OPTIONS_SMILEYS'),
+            '{{smileysDescription}}' => $this->language->translate('HL_OPTIONS_SMILEYS'),
             '{{smileys}}' => $this->getSmileyList(),
             '{{tags}}' => htmlentities(\fpcm\model\comments\comment::COMMENT_TEXT_HTMLTAGS_FORM),
             '{{spampluginQuestion}}' => $this->captcha->createPluginText(),
             '{{spampluginField}}' => $this->captcha->createPluginInput(),
             '{{privateCheckbox}}' => '<input type="checkbox" class="fpcm-pub-checkboxinput" name="newcomment[private]" value="1">',
             '{{privacyComfirmation}}' => '<input type="checkbox" class="fpcm-pub-checkboxinput" name="newcomment[privacy]" value="1">',
-            '{{submitButton}}' => '<button type="submit" name="btnSendComment">' . $this->lang->translate('GLOBAL_SUBMIT') . '</button>',
-            '{{resetButton}}' => '<button type="reset">' . $this->lang->translate('GLOBAL_RESET') . '</button>'
+            '{{submitButton}}' => '<button type="submit" name="btnSendComment">' . $this->language->translate('GLOBAL_SUBMIT') . '</button>',
+            '{{resetButton}}' => '<button type="reset">' . $this->language->translate('GLOBAL_RESET') . '</button>'
         );
 
         $this->commentFormTemplate->setReplacementTags($replacementTags);
@@ -457,7 +429,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
             $this->view->addNoticeMessage('SAVE_SUCCESS_COMMENT');
 
-            $text = $this->lang->translate('PUBLIC_COMMENT_EMAIL_TEXT', array(
+            $text = $this->language->translate('PUBLIC_COMMENT_EMAIL_TEXT', array(
                 '{{name}}' => $this->newComment->getName(),
                 '{{email}}' => $this->newComment->getEmail(),
                 '{{commenttext}}' => strip_tags($this->newComment->getText()),
@@ -476,7 +448,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             if (!count($to) || $this->session->exists())
                 return true;
 
-            $email = new \fpcm\classes\email(implode(',', array_unique($to)), $this->lang->translate('PUBLIC_COMMENT_EMAIL_SUBJECT'), $text);
+            $email = new \fpcm\classes\email(implode(',', array_unique($to)), $this->language->translate('PUBLIC_COMMENT_EMAIL_SUBJECT'), $text);
             $email->submit();
         }
     }

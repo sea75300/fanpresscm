@@ -228,7 +228,7 @@ class login extends \fpcm\controller\abstracts\controller {
         }
 
         $this->view = new \fpcm\view\error(
-            $this->lang->translate('LOGIN_ATTEMPTS_MAX', array(
+            $this->language->translate('LOGIN_ATTEMPTS_MAX', array(
                 '{{logincount}}' => $this->currentAttempts,
                 '{{lockedtime}}' => $this->loginLockedExpire / 60,
                 '{{lockeddate}}' => date($this->config->system_dtmask, $this->loginLockedDate)

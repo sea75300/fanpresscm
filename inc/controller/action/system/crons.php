@@ -54,7 +54,7 @@ class crons extends \fpcm\controller\abstracts\controller {
     {
         $this->items = (new \fpcm\model\crons\cronlist())->getCronsData();
 
-        $this->intervals = $this->lang->translate('SYSTEM_OPTIONS_CRONINTERVALS');
+        $this->intervals = $this->language->translate('SYSTEM_OPTIONS_CRONINTERVALS');
         $this->currentTime = time();
 
         $this->initDataView();
@@ -97,7 +97,7 @@ class crons extends \fpcm\controller\abstracts\controller {
     {
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\button($cronjob->getCronName(), $cronjob->getCronName()))->setText('CRONJOB_LIST_EXECDEMAND')->setClass('fpcm-cronjoblist-exec')->setIcon('play-circle')->setIconOnly(true), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-            new \fpcm\components\dataView\rowCol('name', $this->lang->translate($cronjob->getCronNameLangVar())),
+            new \fpcm\components\dataView\rowCol('name', $this->language->translate($cronjob->getCronNameLangVar())),
             new \fpcm\components\dataView\rowCol('interval', (new \fpcm\view\helper\select('intervals_' . $cronjob->getCronName()))->setOptions($this->intervals)->setSelected($cronjob->getIntervalTime())->setClass('fpcm-cronjoblist-intervals')),
             new \fpcm\components\dataView\rowCol('lastexec', new \fpcm\view\helper\dateText($cronjob->getLastExecTime())),
             new \fpcm\components\dataView\rowCol('nextecec', new \fpcm\view\helper\dateText($cronjob->getNextExecTime()))

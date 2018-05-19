@@ -83,6 +83,25 @@ final class latestnews extends template {
         return $content;
     }
 
+    /**
+     * 
+     * @param \fpcm\model\articles\article $article
+     * @param \fpcm\model\users\author $author
+     * @return boolean
+     */
+    public function assignByObject(\fpcm\model\articles\article $article, $author)
+    {
+        $this->setReplacementTags([
+            '{{headline}}' => $article->getTitle(),
+            '{{author}}' => $author instanceof \fpcm\model\users\author ? $author->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+            '{{date}}' => date($this->config->system_dtmask, $article->getCreatetime()),
+            '{{permaLink}}:{{/permaLink}}' => $article->getElementLink(),
+            '{{commentLink}}:{{/commentLink}}' => $article->getElementLink('#comments')
+        ]);
+        
+        return true;
+    }
+
 }
 
 ?>

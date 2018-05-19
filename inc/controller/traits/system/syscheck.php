@@ -53,13 +53,13 @@ trait syscheck {
                 
             }
             
-            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_FPCMVERSION', [
-                'value' => $remoteVersion ? $remoteVersion : $this->lang->translate('GLOBAL_NOTFOUND')])
+            $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_FPCMVERSION', [
+                'value' => $remoteVersion ? $remoteVersion : $this->language->translate('GLOBAL_NOTFOUND')])
             ] = $option;       
             
         }
         
-        $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_PHPVERSION', [
+        $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_PHPVERSION', [
             'value' => FPCM_PHP_REQUIRED])
         ] = new \fpcm\model\system\syscheckOption(
             phpversion(),
@@ -69,7 +69,7 @@ trait syscheck {
 
         $recomVal   = 64;
         $curVal     = \fpcm\classes\baseconfig::memoryLimit();
-        $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_PHPMEMLIMIT', [
+        $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_PHPMEMLIMIT', [
             'value' => $recomVal . ' MiB'])
         ] = new \fpcm\model\system\syscheckOption(
             $curVal . ' MiB',
@@ -80,7 +80,7 @@ trait syscheck {
 
         $recomVal   = 10;
         $curVal     = ini_get('max_execution_time');
-        $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_PHPMAXEXECTIME', [
+        $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_PHPMAXEXECTIME', [
             'value' => $recomVal . 'sec'])
         ] = new \fpcm\model\system\syscheckOption(
             $curVal . 'sec',
@@ -94,7 +94,7 @@ trait syscheck {
         $resultPgSql    = in_array(\fpcm\classes\database::DBTYPE_POSTGRES, $dbDrivers);
         $sqlhelp        = 'http://php.net/manual/pdo.getavailabledrivers.php';
 
-        $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_MYSQL', [
+        $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_MYSQL', [
             'value' => 'true'])
         ] = new \fpcm\model\system\syscheckOption(
             $resultMySql ? 'true' : 'false',
@@ -103,7 +103,7 @@ trait syscheck {
             (!$resultMySql && $resultPgSql ? 1 : 0)
         );
 
-        $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_PGSQL', [
+        $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_PGSQL', [
             'value' => 'true'])
         ] = new \fpcm\model\system\syscheckOption(
             $resultPgSql ? 'true' : 'false',
@@ -117,7 +117,7 @@ trait syscheck {
 
             $recommend = implode('/', array_intersect($dbDrivers, array_keys(\fpcm\classes\database::$supportedDBMS)));
 
-            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_ACTIVE', [
+            $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_DBDRV_ACTIVE', [
                 'value' => $recommend])
             ] = new \fpcm\model\system\syscheckOption(
                 $db->getDbtype(),
@@ -125,7 +125,7 @@ trait syscheck {
                 true
             );
 
-            $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_DBVERSION', [
+            $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_DBVERSION', [
                 'value' => $db->getRecommendVersion()])
             ] = new \fpcm\model\system\syscheckOption(
                 $db->getDbVersion(),
@@ -185,7 +185,7 @@ trait syscheck {
         );
 
         $current = in_array('curl', $loadedExtensions);
-        $checkOptions['cURL (' . $this->lang->translate('GLOBAL_OPTIONAL') . ')'] = new \fpcm\model\system\syscheckOption(
+        $checkOptions['cURL (' . $this->language->translate('GLOBAL_OPTIONAL') . ')'] = new \fpcm\model\system\syscheckOption(
             'true',
             'http://php.net/manual/book.curl.php',
             (true && $current),
@@ -193,7 +193,7 @@ trait syscheck {
         );
 
         $externalCon = \fpcm\classes\baseconfig::canConnect();
-        $checkOptions['allow_url_fopen = 1 (' . $this->lang->translate('GLOBAL_OPTIONAL') . ')'] = new \fpcm\model\system\syscheckOption(
+        $checkOptions['allow_url_fopen = 1 (' . $this->language->translate('GLOBAL_OPTIONAL') . ')'] = new \fpcm\model\system\syscheckOption(
             $externalCon ? 'true' : 'false',
             'http://php.net/manual/filesystem.configuration.php#ini.allow-url-fopen',
             (true && $externalCon),
@@ -201,7 +201,7 @@ trait syscheck {
         );
 
         $https = \fpcm\classes\baseconfig::canHttps();
-        $checkOptions[$this->lang->translate('SYSTEM_OPTIONS_SYSCHECK_HTTPS') . ' (' . $this->lang->translate('GLOBAL_OPTIONAL') . ')']
+        $checkOptions[$this->language->translate('SYSTEM_OPTIONS_SYSCHECK_HTTPS') . ' (' . $this->language->translate('GLOBAL_OPTIONAL') . ')']
             = new \fpcm\model\system\syscheckOption(
                 $https ? 'true' : 'false',
                 'http://php.net/manual/reserved.variables.server.php',
@@ -233,21 +233,21 @@ trait syscheck {
     public function getCheckFolders()
     {
         $checkFolders = array(
-            $this->lang->translate('SYSCHECK_FOLDER_DATA') => \fpcm\classes\dirs::getDataDirPath(''),
-            $this->lang->translate('SYSCHECK_FOLDER_CACHE') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CACHE),
-            $this->lang->translate('SYSCHECK_FOLDER_CONFIG') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG),
-            $this->lang->translate('SYSCHECK_FOLDER_FILEMANAGER') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_FMTMP),
-            $this->lang->translate('SYSCHECK_FOLDER_LOGS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_LOGS),
-            $this->lang->translate('SYSCHECK_FOLDER_MODULES') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES),
-            $this->lang->translate('SYSCHECK_FOLDER_OPTIONS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_OPTIONS),
-            $this->lang->translate('SYSCHECK_FOLDER_SHARE') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SHARE),
-            $this->lang->translate('SYSCHECK_FOLDER_SMILEYS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SMILEYS),
-            $this->lang->translate('SYSCHECK_FOLDER_STYLES') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES),
-            $this->lang->translate('SYSCHECK_FOLDER_TEMP') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP),
-            $this->lang->translate('SYSCHECK_FOLDER_UPLOADS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS),
-            $this->lang->translate('SYSCHECK_FOLDER_DBDUMPS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP),
-            $this->lang->translate('SYSCHECK_FOLDER_DRAFTS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS),
-            $this->lang->translate('SYSCHECK_FOLDER_PROFILES') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_PROFILES),
+            $this->language->translate('SYSCHECK_FOLDER_DATA') => \fpcm\classes\dirs::getDataDirPath(''),
+            $this->language->translate('SYSCHECK_FOLDER_CACHE') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CACHE),
+            $this->language->translate('SYSCHECK_FOLDER_CONFIG') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG),
+            $this->language->translate('SYSCHECK_FOLDER_FILEMANAGER') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_FMTMP),
+            $this->language->translate('SYSCHECK_FOLDER_LOGS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_LOGS),
+            $this->language->translate('SYSCHECK_FOLDER_MODULES') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES),
+            $this->language->translate('SYSCHECK_FOLDER_OPTIONS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_OPTIONS),
+            $this->language->translate('SYSCHECK_FOLDER_SHARE') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SHARE),
+            $this->language->translate('SYSCHECK_FOLDER_SMILEYS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_SMILEYS),
+            $this->language->translate('SYSCHECK_FOLDER_STYLES') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_STYLES),
+            $this->language->translate('SYSCHECK_FOLDER_TEMP') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP),
+            $this->language->translate('SYSCHECK_FOLDER_UPLOADS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS),
+            $this->language->translate('SYSCHECK_FOLDER_DBDUMPS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP),
+            $this->language->translate('SYSCHECK_FOLDER_DRAFTS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS),
+            $this->language->translate('SYSCHECK_FOLDER_PROFILES') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_PROFILES),
         );
 
         natsort($checkFolders);

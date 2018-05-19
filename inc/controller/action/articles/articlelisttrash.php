@@ -44,7 +44,7 @@ class articlelisttrash extends articlelistbase {
 
     public function request()
     {
-        $this->articleActions = [$this->lang->translate('ARTICLE_LIST_RESTOREARTICLE') => 'restore', $this->lang->translate('ARTICLE_LIST_EMPTYTRASH') => 'trash'];
+        $this->articleActions = [$this->language->translate('ARTICLE_LIST_RESTOREARTICLE') => 'restore', $this->language->translate('ARTICLE_LIST_EMPTYTRASH') => 'trash'];
 
         $res = parent::request();
 
