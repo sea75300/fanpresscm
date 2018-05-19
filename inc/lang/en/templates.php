@@ -17,8 +17,7 @@ $lang = array(
     'TEMPLATE_HL_DRAFTS_EDIT' => 'Edit article template',
     'TEMPLATE_REPLACEMENTS' => 'Available replacements',
     'TEMPLATE_EDITOR' => 'Template-Editor',
-    'TEMPLATE_NOTES' => '<strong>Notice:</strong><br>' .
-    '- only use <strong>CSS classes/IDs or inline-"style" values</strong> for styling. HTML-Tags like <em>body, style, etc.</em> create invalid code and could raise problems!<br>' .
+    'TEMPLATE_NOTES' => '- only use <strong>CSS classes/IDs or inline-"style" values</strong> for styling. HTML-Tags like <em>body, style, etc.</em> create invalid code and could raise problems!<br>' .
     '- using markers in the "{{A}}:{{/A}}" form you can replace the colon with own text.<br>',
     'TEMPLATE_ARTICLE_CATEGORYICONS' => 'Category icons',
     'TEMPLATE_ARTICLE_CATEGORYTEXTS' => 'Categories as text',

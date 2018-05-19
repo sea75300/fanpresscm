@@ -42,8 +42,9 @@ class cacheFile {
      */
     public function write($data, $expires)
     {
-        if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE)
+        if (defined('FPCM_INSTALLER_NOCACHE') && FPCM_INSTALLER_NOCACHE) {
             return false;
+        }
 
         $parent = dirname($this->path);
         if ($this->module && !is_dir($parent) && !mkdir($parent)) {

@@ -26,10 +26,26 @@ fpcm.templates = {
                    editorId  : 'tpleditor',
                    elementId : 'content_' + ui.tab.attr('data-tplId')
                 });
+                
+                jQuery('a.fpcm-ui-template-tags').click(function() {
+
+                    var tag = jQuery(this).attr('data-tag');
+                    var doc = fpcm.templates.editorInstance.doc;
+                    var cursorPos = doc.getCursor();
+
+                    doc.replaceRange(tag, cursorPos, cursorPos);
+                    fpcm.templates.editorInstance.focus();
+
+                    return false;
+                });
 
                 return true;
             },
             addMainToobarToggleAfter: function( event, ui ) {
+                if (ui.oldTab.attr('data-noempty')) {
+                    return true;
+                }
+
                 ui.oldPanel.empty();
             },
             addTabScroll: true,

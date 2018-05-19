@@ -31,7 +31,6 @@ final class dirs {
     const DATA_PROFILES = 'profiles';
     const DATA_MODULES = 'modules';
     const DATA_OPTIONS = 'options';
-
     const CORE_JS = 'js';
     const CORE_THEME = 'theme';
     const CORE_VIEWS = 'views';
@@ -69,10 +68,10 @@ final class dirs {
         }
 
         $GLOBALS['fpcm']['urls']['base'] = (baseconfig::canHttps() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
-        
+
         $base = basename($GLOBALS['fpcm']['dir']['base']);
-        if (strpos($GLOBALS['fpcm']['urls']['base'], $base ) === false) {
-            $GLOBALS['fpcm']['urls']['base'] = $GLOBALS['fpcm']['urls']['base'].$base .'/';
+        if (strpos($GLOBALS['fpcm']['urls']['base'], $base) === false) {
+            $GLOBALS['fpcm']['urls']['base'] = $GLOBALS['fpcm']['urls']['base'] . $base . '/';
         }
 
         $GLOBALS['fpcm']['urls']['data'] = $GLOBALS['fpcm']['urls']['base'] . 'data/';

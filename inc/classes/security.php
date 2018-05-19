@@ -86,7 +86,7 @@ final class security {
     public static function getPageTokenFieldName($name = '')
     {
         $conf = baseconfig::getSecurityConfig();
-        $return = tools::getHash(trim($name) ? trim($name) : $conf['pageTokenBase']).self::getTokenCookieValue();
+        $return = tools::getHash(trim($name) ? trim($name) : $conf['pageTokenBase']) . self::getTokenCookieValue();
         return $return;
     }
 
@@ -170,8 +170,8 @@ final class security {
 
         $fopt = new \fpcm\model\files\fileOption(self::getPageTokenFieldName($overrideModule));
         $fopt->write(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt([
-            'str' => $str,
-            'exp'  => time() + FPCM_PAGETOKENCACHE_TIMEOUT
+                    'str' => $str,
+                    'exp' => time() + FPCM_PAGETOKENCACHE_TIMEOUT
         ]));
 
         return $str;

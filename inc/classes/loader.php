@@ -68,7 +68,7 @@ final class loader {
     {
         return dirs::getLibUrl($libPath);
     }
-    
+
     /**
      * 
      * @param string $name
@@ -81,7 +81,7 @@ final class loader {
         if (isset($GLOBALS['fpcm']['stack'][$name]) && !$force) {
             return false;
         }
-        
+
         $GLOBALS['fpcm']['stack'][$name] = $value;
         return true;
     }
@@ -93,7 +93,7 @@ final class loader {
      */
     public static function stackPull($name)
     {
-        return isset($GLOBALS['fpcm']['stack'][$name]) ? $GLOBALS['fpcm']['stack'][$name] :  null;
+        return isset($GLOBALS['fpcm']['stack'][$name]) ? $GLOBALS['fpcm']['stack'][$name] : null;
     }
 
 }

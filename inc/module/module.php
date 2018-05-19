@@ -825,4 +825,25 @@ class module {
         return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $key) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $viewName);
     }
 
+    /**
+     * 
+     * @param string $key
+     * @param string $langKey
+     * @return string
+     */
+    public static function getLanguageFileByKey($key, $langKey)
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $key) . DIRECTORY_SEPARATOR . 'lang' . DIRECTORY_SEPARATOR . $langKey . '.php');
+    }
+
+    /**
+     * 
+     * @param string $key
+     * @return string
+     */
+    public static function getLanguageVarPrefixed($key)
+    {
+        return 'MODULE_'.strtoupper(str_replace(['\\', DIRECTORY_SEPARATOR], '', $key)).'_';
+    }
+
 }

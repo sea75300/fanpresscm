@@ -11,6 +11,7 @@ final class test extends \fpcm\controller\abstracts\controller {
     
     public function process()
     {
+        $this->view->addNoticeMessage('MODULE_NKORGEXAMPLE_DESCRIPTION');
         return true;
     }
 

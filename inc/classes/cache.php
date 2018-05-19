@@ -42,7 +42,6 @@ final class cache {
         if (!isset($GLOBALS['fpcm']['stack'])) {
             $GLOBALS['fpcm']['stack'] = [];
         }
-
     }
 
     /**
@@ -55,8 +54,8 @@ final class cache {
             return true;
         }
 
-        $cacheFile = loader::getObject('\fpcm\model\files\cacheFile', $cacheName);
-        return $cacheFile->expires() <= time() ? true : false;
+        $file = new \fpcm\model\files\cacheFile($cacheName);
+        return $file->expires() <= time() ? true : false;
     }
 
     /**

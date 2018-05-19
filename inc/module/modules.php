@@ -32,7 +32,14 @@ class modules extends \fpcm\model\abstracts\tablelist {
     public function __construct()
     {
         $this->table = \fpcm\classes\database::tableModules;
-        parent::__construct();
+        $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        
+        if (\fpcm\classes\baseconfig::installerEnabled()) {
+            return false;
+        }
+
+        $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
+        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
     }
 
     /**

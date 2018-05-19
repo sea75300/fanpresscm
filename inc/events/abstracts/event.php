@@ -91,13 +91,17 @@ abstract class event {
             return false;
         }
 
+        if (isset($GLOBALS['fpcm']['events']['activeModules']) && count($GLOBALS['fpcm']['events']['activeModules'])) {
+            return;
+        }
+        
         if (!$this->cache->isExpired('modules/activeeventscache')) {
-            $this->activeModules = $this->cache->read('modules/activeeventscache');
+            $GLOBALS['fpcm']['events']['activeModules'] = $this->cache->read('modules/activeeventscache');
             return;
         }
 
-        $this->activeModules = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
-        $this->cache->write('modules/activeeventscache', $this->activeModules, FPCM_CACHE_DEFAULT_TIMEOUT);
+        $GLOBALS['fpcm']['events']['activeModules'] = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
+        $this->cache->write('modules/activeeventscache', $GLOBALS['fpcm']['events']['activeModules'], FPCM_CACHE_DEFAULT_TIMEOUT);
     }
 
     /**
@@ -199,7 +203,7 @@ abstract class event {
      */
     protected function getEventClasses()
     {
-        if (!count($this->activeModules)) {
+        if (!count($GLOBALS['fpcm']['events']['activeModules'])) {
             return [];
         }
 
@@ -207,7 +211,7 @@ abstract class event {
 
         $baseClass = $this->getEventClassBase();
         $eventBaseClass = DIRECTORY_SEPARATOR . 'events' . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $baseClass) . '.php';
-        foreach ($this->activeModules as $module) {
+        foreach ($GLOBALS['fpcm']['events']['activeModules'] as $module) {
 
             $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $module.$eventBaseClass);
             if (!file_exists($path)) {

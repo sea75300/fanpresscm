@@ -109,8 +109,8 @@ final class baseconfig {
             loader::getObject('\fpcm\classes\crypt');
             loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
 
-            $config  = loader::getObject('\fpcm\model\system\config');
-            
+            $config = loader::getObject('\fpcm\model\system\config');
+
             /* @var $session \fpcm\model\system\session */
             $session = loader::getObject('\fpcm\model\system\session');
             loader::getObject('\fpcm\model\system\config')->setUserSettings();
@@ -288,7 +288,7 @@ final class baseconfig {
         foreach ($controllerFiles as $controllerFile) {
             $controller = array_merge($controller, \Spyc::YAMLLoad($controllerFile));
         }
-        
+
         $controller = array_unique(array_merge($controller, self::initModuleControllers()));
         $controllerCache->write($cacheName, $controller, FPCM_CACHE_DEFAULT_TIMEOUT);
 
@@ -404,7 +404,7 @@ final class baseconfig {
                 continue;
             }
 
-            foreach ($controllers as &$controller) {                
+            foreach ($controllers as &$controller) {
                 $controller = \fpcm\module\module::getControllerNamespace($module, $controller);
             }
 
@@ -413,7 +413,6 @@ final class baseconfig {
 
         return $modules;
     }
-    
 
 }
 

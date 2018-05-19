@@ -53,15 +53,17 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
         }
 
         if (!password_verify($param['password'], $user->getPasswd())) {
+            trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given. Request was made by ' . \fpcm\classes\http::getIp());
             return false;
         }
 
-        if (!$user->getAuthtoken() || !$this->config->system_2fa_auth) {
+        if (!$user->getAuthtoken() || !$this->config->system_2fa_auth || (isset($param['external']) && $param['external'])) {
             return $user->getId();
         }
 
         include_once \fpcm\classes\loader::libGetFilePath('sonata-project'.DIRECTORY_SEPARATOR.'GoogleAuthenticator');
         if (!isset($param['authcode']) || !(new \Sonata\GoogleAuthenticator\GoogleAuthenticator())->checkCode($user->getAuthtoken(), $param['authcode'])) {
+            trigger_error('Login failed for username ' . $param['username'] . '! Invalid auth token given. Request was made by ' . \fpcm\classes\http::getIp());
             return false;
         }
 
@@ -74,7 +76,7 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
      */
     public function getLoginTemplate()
     {
-        return 'login/login';
+        return 'system/login';
     }
 
 

@@ -77,11 +77,12 @@ fpcm.logs = {
 
             },
             beforeActivate: function( event, ui ) {
-                jQuery(ui.oldTab).unbind('click');
+                ui.oldTab.unbind('click');
             },
             load: function( event, ui ) {
 
-                jQuery(ui.tab).click(function () {
+                ui.tab.unbind('click');
+                ui.tab.click(function () {
                     fpcm.logs.reloadLogs();
                 });
 

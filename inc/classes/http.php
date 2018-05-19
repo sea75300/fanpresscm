@@ -107,9 +107,9 @@ final class http {
     public static function init()
     {
         self::$request = array_merge($_REQUEST, $_COOKIE);
-        
+
         $preconditions = !baseconfig::installerEnabled() && baseconfig::dbConfigExists() && !baseconfig::isCli();
-        if ($preconditions && !security::getTokenCookieValue() && !setcookie(\fpcm\classes\security::getTokenCookieName(), crypt::getRandomString(), time()+86400, '/', '', false, true)) {
+        if ($preconditions && !security::getTokenCookieValue() && !setcookie(\fpcm\classes\security::getTokenCookieName(), crypt::getRandomString(), time() + 86400, '/', '', false, true)) {
             trigger_error('Unable to set token cookie!');
             exit;
         }
@@ -125,7 +125,7 @@ final class http {
     public static function get($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
         if ($varname === null) {
-            return self::$request;           
+            return self::$request;
         }
 
         return (isset(self::$request[$varname])) ? self::filter(self::$request[$varname], $filter) : null;
@@ -197,7 +197,7 @@ final class http {
      * Gibt Page-Token-Informationen zurück
      * @return string
      */
-    
+
     /**
      * Returns sumitted page token
      * @param string $overrideModule

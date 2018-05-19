@@ -179,6 +179,7 @@ final class tools {
     {
         return hash(security::defaultHashAlgo, $data);
     }
+
 }
 
 ?>

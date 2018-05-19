@@ -27,7 +27,7 @@
             <?php if ($twoFactorAuth) : ?>
             <div class="row fpcm-ui-padding-md-tb">
                 <div class="col-12">
-                <?php $theView->passwordInput('login[authcode]')->setText('LOGIN_AUTHCODE')->setPlaceholder(true); ?>
+                <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')->setPlaceholder(true); ?>
                 </div>
             </div>
             <?php endif; ?>

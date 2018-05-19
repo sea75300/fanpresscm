@@ -127,7 +127,7 @@ class templates extends \fpcm\controller\abstracts\controller {
             (new \fpcm\view\helper\tabItem('tpl-editor-templates'))
                 ->setText('TEMPLATE_HL_DRAFTS')
                 ->setUrl('#tab-article-editor-templates')
-                ->setData(['toolbar-buttons' => 3])
+                ->setData(['toolbar-buttons' => 3, 'noEmpty' => true])
                 ->setDataViewId('')
                 ->setWrapper(false),
         ]));

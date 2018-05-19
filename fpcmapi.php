@@ -214,6 +214,7 @@ class fpcmAPI {
             return true;
         }
 
+        $credentials['external'] = true;
         if (isset($credentials['username']) && isset($credentials['password']) && trim($credentials['username']) && trim($credentials['password'])) {
             $result = $session->authenticate($credentials, true);
             if ($result === true && $session->save()) {

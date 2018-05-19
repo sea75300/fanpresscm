@@ -250,7 +250,7 @@ final class database {
      * @param array $params
      * @return bool|int
      */
-    
+
     /**
      * 
      * @param type $table
@@ -259,10 +259,10 @@ final class database {
      */
     public function insert($table, $values)
     {
-        $fields          = implode(', ', array_keys($values));
-        $vars            = implode(', ', array_fill(0, (int) count($values), '?'));
+        $fields = implode(', ', array_keys($values));
+        $vars = implode(', ', array_fill(0, (int) count($values), '?'));
 
-        $table           = $this->getTablePrefixed($table);
+        $table = $this->getTablePrefixed($table);
         $this->lastTable = $table;
 
         if ($this->exec("INSERT INTO {$table} ({$fields}) VALUES ({$vars});", array_values($values)) === false) {
@@ -282,7 +282,7 @@ final class database {
      */
     public function update($table, array $fields, array $params = [], $where = null)
     {
-        $sql = "UPDATE {$this->getTablePrefixed($table)} SET ".implode(' = ?, ', $fields) . ' = ?';
+        $sql = "UPDATE {$this->getTablePrefixed($table)} SET " . implode(' = ?, ', $fields) . ' = ?';
         if (!is_null($where)) {
             $sql .= " WHERE $where";
         }
@@ -401,7 +401,7 @@ final class database {
      */
     public function reverseBool($table, $field, $where)
     {
-        $sql    = "UPDATE {$this->getTablePrefixed($table)} SET " . $this->driver->getNotQuery($field);
+        $sql = "UPDATE {$this->getTablePrefixed($table)} SET " . $this->driver->getNotQuery($field);
         if (!is_null($where)) {
             $sql .= " WHERE $where";
         }
@@ -415,8 +415,8 @@ final class database {
      */
     public function getMaxTableId($table)
     {
-        $sql    = "SELECT max(id) as maxid from {$this->getTablePrefixed($table)};";
-        $data   = $this->fetch($this->query($sql));
+        $sql = "SELECT max(id) as maxid from {$this->getTablePrefixed($table)};";
+        $data = $this->fetch($this->query($sql));
 
         if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql("MAXID from {$this->getTablePrefixed($table)} is {$data->maxid}.");
@@ -624,10 +624,10 @@ final class database {
     {
         $info = $statement->errorInfo();
 
-        $err  = 'ERROR MESSAGE: '.$info[2].PHP_EOL;
-        $err .= 'SQL STATE: '.$info[0].PHP_EOL;
-        $err .= $this->getDbtype().' ERROR CODE: '.$info[1].PHP_EOL;
-        $err .= 'Query: '.$statement->queryString.PHP_EOL;
+        $err = 'ERROR MESSAGE: ' . $info[2] . PHP_EOL;
+        $err .= 'SQL STATE: ' . $info[0] . PHP_EOL;
+        $err .= $this->getDbtype() . ' ERROR CODE: ' . $info[1] . PHP_EOL;
+        $err .= 'Query: ' . $statement->queryString . PHP_EOL;
 
         fpcmLogSql($err);
         return true;
@@ -836,7 +836,7 @@ final class database {
         if ($cache && isset($this->structCache[$table])) {
             return $this->structCache[$table];
         }
-        
+
         $query = $this->driver->getTableStructureQuery($this->dbprefix . '_' . $table, $field);
 
         $result = $this->query($query);
@@ -938,7 +938,6 @@ final class database {
                 fpcmLogSql($this->lastQueryString);
                 return false;
             }
-
         }
 
         return true;
@@ -1004,7 +1003,7 @@ final class database {
             trigger_error('Invalid path given, ' . $path . ' is not a directory');
             return [];
         }
-        
+
         $files = glob($path . '*.yml');
         if (!is_array($files) || !count($files)) {
             return [];
@@ -1041,12 +1040,13 @@ final class database {
     {
         return $this->driver->getPdoOptions();
     }
-    
+
     /**
      * Return data types with length params
      * @return array
      */
-    private function getLenghtTypes() {
+    private function getLenghtTypes()
+    {
 
         $lenghtTypes = ['varchar', 'char'];
         if ($this->dbtype === self::DBTYPE_POSTGRES) {

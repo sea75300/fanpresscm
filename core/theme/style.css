@@ -874,11 +874,6 @@ img.fpcm-ui-smileylist-preview {
     cursor: pointer;
 }
 
-.fpcm-ui-template-replacements {
-    font-size: 0.9em;
-}
-
-.fpcm-ui-template-replacements dt,
 .fpcm-ui-monospace {
     font: 1em 'Courier New', monospace !important;
 }
