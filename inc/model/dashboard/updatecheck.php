@@ -38,13 +38,6 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     private $systemUpdates;
 
     /**
-     * Status if update is forced by repository
-     * @var bool
-     * @since FPCM 4
-     */
-    private $forceUpdate = false;
-
-    /**
      * 
      * @return string
      */
@@ -105,7 +98,6 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     protected function initObjects()
     {
         $this->systemUpdates = new \fpcm\model\updater\system();
-        $this->m = new \fpcm\model\updater\system();
         return true;
     }
     
@@ -130,9 +122,6 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
                 '{{btn}}' => (string) (new \fpcm\view\helper\linkButton('startUpdate'))->setText('PACKAGES_UPDATE')->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate')),
                 '{{version}}' => $this->systemUpdates->version                
             ]);
-
-            $this->forceUpdate = $this->systemCheckresult === \fpcm\model\updater\system::FORCE_UPDATE ? true : false;
-
         } elseif ($this->systemCheckresult === \fpcm\model\abstracts\remoteModel::FURLOPEN_ERROR) {
             $iconClass = 'exclamation-triangle';
             $statusClass = 'fpcm-dashboard-updates-checkerror';
@@ -178,7 +167,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     {
         return [
             'openUpdateCheckUrl' => $this->systemUpdates->checkManual(),
-            'forceUpdate' => $this->forceUpdate
+            'forceUpdate' => $this->systemUpdates->updateAvailable() === \fpcm\model\updater\system::FORCE_UPDATE ? true : false
         ];
     }
 

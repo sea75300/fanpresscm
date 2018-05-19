@@ -204,27 +204,24 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     protected function assignArticleData()
     {
-        $categoryTexts = [];
-        $categoryIcons = [];
+        $categoriesData = [];
 
         $categories = $this->categoryList->getCategoriesAll();
 
         foreach ($this->article->getCategories() as $categoryId) {
             $category = isset($categories[$categoryId]) ? $categories[$categoryId] : false;
 
-            if (!$category)
+            if (!$category) {
                 continue;
+            }
 
-            $categoryTexts[] = '<span class="fpcm-pub-category-text">' . $category->getName() . '</span>';
-
-            if (!$category->getIconPath())
-                continue;
-            $categoryIcons[] = '<img src="' . $category->getIconPath() . '" alt="' . $category->getName() . '" title="' . $category->getName() . '" class="fpcm-pub-category-icon">';
+            $categoriesData['<span class="fpcm-pub-category-text">' . $category->getName() . '</span>'] = ($category->getIconPath() ? $category->getCategoryImage() : '');
         }
 
-        $shareButtonParser = new \fpcm\model\pubtemplates\sharebuttons($this->article->getElementLink(), $this->article->getTitle());
-
-        $users = $this->userList->getUsersByIds(array($this->article->getCreateuser(), $this->article->getChangeuser()));
+        $users = $this->userList->getUsersByIds([
+            $this->article->getCreateuser(),
+            $this->article->getChangeuser()
+        ]);
 
         if ($this->session->exists()) {
             $approvedOnly = null;
@@ -238,41 +235,17 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $useCache = true;
         }
 
-        $commentCounts = $this->commentList->countComments([$this->article->getId()], $privateNo, $approvedOnly, $spamNo, $useCache);
-
-        $commentCount = $this->config->system_comments_enabled && $this->article->getComments() ? (isset($commentCounts[$this->article->getId()]) ? (int) $commentCounts[$this->article->getId()] : 0) : '';
-
-        $this->articleTemplate->setCommentsEnabled($this->config->system_comments_enabled && $this->article->getComments());
-
-        $cuser = isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : false;
-        $chuser = isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : false;
-
-        $emailAddress = $cuser ? '<a href="mailto:' . $cuser->getEmail() . '">' . $cuser->getDisplayname() . '</a>' : '';
-
-        $replacements = array(
-            '{{headline}}' => $this->article->getTitle(),
-            '{{text}}' => $this->article->getContent(),
-            '{{author}}' => $cuser ? $cuser->getDisplayname() : $this->lang->translate('GLOBAL_NOTFOUND'),
-            '{{authorEmail}}' => $emailAddress,
-            '{{authorAvatar}}' => $cuser ? \fpcm\model\users\author::getAuthorImageDataOrPath($cuser, 0) : '',
-            '{{authorInfoText}}' => $cuser ? $cuser->getUsrinfo() : '',
-            '{{date}}' => date($this->config->system_dtmask, $this->article->getCreatetime()),
-            '{{changeDate}}' => date($this->config->system_dtmask, $this->article->getChangetime()),
-            '{{changeUser}}' => $chuser ? $chuser->getDisplayname() : $this->lang->translate('GLOBAL_NOTFOUND'),
-            '{{statusPinned}}' => $this->article->getPinned() ? $this->lang->translate('PUBLIC_ARTICLE_PINNED') : '',
-            '{{shareButtons}}' => $shareButtonParser->parse(),
-            '{{categoryIcons}}' => implode(PHP_EOL, $categoryIcons),
-            '{{categoryTexts}}' => implode(PHP_EOL, $categoryTexts),
-            '{{commentCount}}' => $commentCount,
-            '{{permaLink}}:{{/permaLink}}' => $this->article->getElementLink(),
-            '{{commentLink}}:{{/commentLink}}' => $this->article->getElementLink() . '#comments',
-            '<readmore>:</readmore>' => $this->article->getId(),
-            '{{articleImage}}' => $this->article->getArticleImage(),
-            '{{sources}}' => $this->article->getSources()
+        $this->articleTemplate->assignByObject(
+            $this->article,
+            [
+                'author' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : false,
+                'changeUser' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : false
+            ],
+            $categoriesData,
+            $this->commentList->countComments([$this->article->getId()], $privateNo, $approvedOnly, $spamNo, $useCache)[$this->article->getId()]
         );
 
-        $this->articleTemplate->setReplacementTags($replacements);
-
+        $this->articleTemplate->setCommentsEnabled($this->config->system_comments_enabled && $this->article->getComments());
         $parsed = $this->articleTemplate->parse();
 
         if ($this->session->exists()) {

@@ -582,22 +582,23 @@ class article extends \fpcm\model\abstracts\dataset {
     {
         return rawurlencode($this->id . '-' . str_replace(array(' ', '---'), '-', strtolower($this->title)));
     }
-
+    
     /**
-     * Gibt Direkt-Link zum Artikel zurück
+     * Return frontend article link
+     * @param string $params
      * @return string
      */
-    public function getElementLink()
+    public function getElementLink($params = '')
     {
         $idParam = ($this->config->articles_link_urlrewrite ? $this->getArticleNicePath() : $this->getId());
 
         if (!$this->config->system_mode) {
             return \fpcm\classes\tools::getFullControllerLink('fpcm/article', [
-                        'id' => $idParam
+                'id' => $idParam
             ]);
         }
 
-        return $this->config->system_url . '?module=fpcm/article&id=' . $idParam;
+        return $this->config->system_url . '?module=fpcm/article&id=' . $idParam.$params;
     }
 
     /**

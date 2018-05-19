@@ -209,7 +209,7 @@ class template extends \fpcm\model\abstracts\file {
         }
 
         foreach ($this->replacementTags as $key => $value) {
-            $data = explode(':', strtoupper(str_replace(array('{{', '}}'), '', $key)));
+            $data = explode(':', strtoupper(str_replace(['{{', '}}'], '', $key)));
             $this->replacementTranslated[$key] = $this->language->translate($prefix . $data[0]);
         }
 

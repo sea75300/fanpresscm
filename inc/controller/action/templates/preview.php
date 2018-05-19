@@ -103,58 +103,39 @@ class preview extends \fpcm\controller\abstracts\controller {
 
         $parsed = [];
 
-        $categoryTexts = array('<span class="fpcm-pub-category-text">Category 1</span>', '<span class="fpcm-pub-category-text">Category 2</span>');
-        $shareButtonParser = new \fpcm\model\pubtemplates\sharebuttons($this->config->system_url, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr!');
+        $article1 = new \fpcm\model\articles\article();
+        $article1->setTitle('Lorem ipsum dolor sit amet, consetetur sadipscing elitr!');
+        $article1->setContent('Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.');
+        $article1->setPinned(0);
+        $article1->setSources($this->config->system_url);
+        $article1->setCategories([1,2,3]);
+        $article1->setCreatetime(time() - 3600);
+        $article1->setChangetime(time());
 
-        $this->template->setReplacementTags([
-            '{{headline}}' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr!',
-            '{{text}}' => 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-            '{{author}}' => $this->session->getCurrentUser()->getUsername(),
-            '{{authorEmail}}' => '<a href="mailto:' . $this->session->getCurrentUser()->getEmail() . '">' . $this->session->getCurrentUser()->getDisplayname() . '</a>',
-            '{{authorAvatar}}' => \fpcm\model\users\author::getAuthorImageDataOrPath($this->session->getCurrentUser(), 0),
-            '{{authorInfoText}}' => $this->session->getCurrentUser()->getUsrinfo(),
-            '{{date}}' => date($this->config->system_dtmask, time()),
-            '{{changeDate}}' => date($this->config->system_dtmask, time()),
-            '{{changeUser}}' => $this->session->getCurrentUser()->getDisplayname(),
-            '{{statusPinned}}' => '',
-            '{{shareButtons}}' => $shareButtonParser->parse(),
-            '{{categoryIcons}}' => '',
-            '{{categoryTexts}}' => implode(PHP_EOL, $categoryTexts),
-            '{{commentCount}}' => 0,
-            '{{permaLink}}:{{/permaLink}}' => $this->config->system_url,
-            '{{commentLink}}:{{/commentLink}}' => $this->config->system_url . '#comments',
-            '<readmore>:</readmore>' => md5(time()),
-            '{{articleImage}}' => '',
-            '{{sources}}' => $this->config->system_url
-        ]);
+        $this->template->assignByObject(
+            $article1,
+            ['author' => $this->session->getCurrentUser(), 'changeUser' => $this->session->getCurrentUser()],
+            ['Category 1' => (new \fpcm\model\categories\category(1))->getCategoryImage()], 0
+        );
+
         $parsed[] = $this->template->parse();
 
-        $categoryTexts = array('<span class="fpcm-pub-category-text">Category 3</span>', '<span class="fpcm-pub-category-text">Category 4</span>');
-        $shareButtonParser = new \fpcm\model\pubtemplates\sharebuttons($this->config->system_url, 'Ut wisi enim ad minim veniam?');
+        $article2 = new \fpcm\model\articles\article();
+        $article2->setTitle('Ut wisi enim ad minim veniam?');
+        $article2->setContent('Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. ');
+        $article2->setPinned(0);
+        $article2->setSources($this->config->system_url);
+        $article2->setCategories([1,2,3]);
+        $article2->setCreatetime(time() - 7200);
+        $article2->setChangetime(time() - 7200);
 
-        $this->template->setReplacementTags([
-            '{{headline}}' => 'Ut wisi enim ad minim veniam?',
-            '{{text}}' => 'Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. ',
-            '{{author}}' => $this->session->getCurrentUser()->getUsername(),
-            '{{authorEmail}}' => '<a href="mailto:' . $this->session->getCurrentUser()->getEmail() . '">' . $this->session->getCurrentUser()->getDisplayname() . '</a>',
-            '{{authorAvatar}}' => '',
-            '{{authorInfoText}}' => '',
-            '{{date}}' => date($this->config->system_dtmask, time() - 3600),
-            '{{changeDate}}' => date($this->config->system_dtmask, time() - 3600),
-            '{{changeUser}}' => $this->session->getCurrentUser()->getDisplayname(),
-            '{{statusPinned}}' => '',
-            '{{shareButtons}}' => $shareButtonParser->parse(),
-            '{{categoryIcons}}' => '',
-            '{{categoryTexts}}' => implode(PHP_EOL, $categoryTexts),
-            '{{commentCount}}' => 0,
-            '{{permaLink}}:{{/permaLink}}' => $this->config->system_url,
-            '{{commentLink}}:{{/commentLink}}' => $this->config->system_url . '#comments',
-            '<readmore>:</readmore>' => md5(time()),
-            '{{articleImage}}' => '',
-            '{{sources}}' => ''
-        ]);
+        $this->template->assignByObject(
+            $article2,
+            ['author' => $this->session->getCurrentUser(), 'changeUser' => $this->session->getCurrentUser()],
+            ['Category 1' => (new \fpcm\model\categories\category(1))->getCategoryImage()], 0
+        );
+
         $parsed[] = $this->template->parse();
-
         $this->view->assign('content', implode(PHP_EOL, $parsed));
         $this->view->assign('commentform', '');
     }
@@ -163,30 +144,20 @@ class preview extends \fpcm\controller\abstracts\controller {
     {
         $this->view = new \fpcm\view\view('public/showsingle');
 
-        $categoryTexts = array('<span class="fpcm-pub-category-text">Category 1</span>', '<span class="fpcm-pub-category-text">Category 2</span>');
-        $shareButtonParser = new \fpcm\model\pubtemplates\sharebuttons($this->config->system_url, 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr!');
+        $article = new \fpcm\model\articles\article();
+        $article->setTitle('Lorem ipsum dolor sit amet, consetetur sadipscing elitr!');
+        $article->setContent('Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.');
+        $article->setPinned(0);
+        $article->setSources($this->config->system_url);
+        $article->setCategories([1,2,3]);
+        $article->setCreatetime(time() - 3600);
+        $article->setChangetime(time());
 
-        $this->template->setReplacementTags([
-            '{{headline}}' => 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr!',
-            '{{text}}' => 'Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.',
-            '{{author}}' => $this->session->getCurrentUser()->getDisplayname(),
-            '{{authorEmail}}' => '<a href="mailto:' . $this->session->getCurrentUser()->getEmail() . '">' . $this->session->getCurrentUser()->getDisplayname() . '</a>',
-            '{{authorAvatar}}' => \fpcm\model\users\author::getAuthorImageDataOrPath($this->session->getCurrentUser(), 0),
-            '{{authorInfoText}}' => $this->session->getCurrentUser()->getUsrinfo(),
-            '{{date}}' => date($this->config->system_dtmask, time()),
-            '{{changeDate}}' => date($this->config->system_dtmask, time()),
-            '{{changeUser}}' => $this->session->getCurrentUser()->getDisplayname(),
-            '{{statusPinned}}' => '',
-            '{{shareButtons}}' => $shareButtonParser->parse(),
-            '{{categoryIcons}}' => '',
-            '{{categoryTexts}}' => implode(PHP_EOL, $categoryTexts),
-            '{{commentCount}}' => 0,
-            '{{permaLink}}:{{/permaLink}}' => $this->config->system_url,
-            '{{commentLink}}:{{/commentLink}}' => $this->config->system_url . '#comments',
-            '<readmore>:</readmore>' => md5(time()),
-            '{{articleImage}}' => '',
-            '{{sources}}' => $this->config->system_url
-        ]);
+        $this->template->assignByObject(
+            $article,
+            ['author' => $this->session->getCurrentUser(), 'changeUser' => $this->session->getCurrentUser()],
+            ['Category 1' => (new \fpcm\model\categories\category(1))->getCategoryImage()], 0
+        );
 
         $this->view->assign('article', $this->template->parse());
         $this->view->assign('comments', '');

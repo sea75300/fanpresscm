@@ -136,6 +136,41 @@ final class article extends template {
     {
         $this->commentsEnabled = $commentsEnabled;
     }
+    
+    public function assignByObject(\fpcm\model\articles\article $article, array $users, array $categories, $commentCount)
+    {
+        $notFoundStr = $this->language->translate('GLOBAL_NOTFOUND');
+        $share = new \fpcm\model\pubtemplates\sharebuttons($article->getElementLink(), $article->getTitle());
+        
+        if (!isset($users['author']) || !isset($users['changeUser'])) {
+            trigger_error('Invalid user data, "author" or "changeUser" missing');
+            return false;
+        }
+
+        $this->setReplacementTags([
+            '{{headline}}' => $article->getTitle(),
+            '{{text}}' => $article->getContent(),
+            '{{date}}' => date($this->config->system_dtmask, $article->getCreatetime()),
+            '{{statusPinned}}' => $article->getPinned() ? $this->language->translate('PUBLIC_ARTICLE_PINNED') : '',
+            '{{shareButtons}}' => $share->parse(),
+            '{{commentCount}}' => $this->config->system_comments_enabled && $article->getComments() ? $commentCount : 0,
+            '{{author}}' => $users['author'] ? $users['author']->getDisplayname() : $notFoundStr,
+            '{{authorEmail}}' => ($users['author'] ? '<a href="mailto:' . $users['author']->getEmail() . '">' . $users['author']->getDisplayname() . '</a>' : ''),
+            '{{authorAvatar}}' => $users['author'] ? \fpcm\model\users\author::getAuthorImageDataOrPath($users['author'], 0) : '',
+            '{{authorInfoText}}' => $users['author'] ? $users['author']->getUsrinfo() : '',
+            '{{changeDate}}' => date($this->config->system_dtmask, $article->getChangetime()),
+            '{{changeUser}}' => $users['changeUser'] ? $users['changeUser']->getDisplayname() : $notFoundStr,
+            '{{categoryIcons}}' => implode(PHP_EOL, array_values($categories)),
+            '{{categoryTexts}}' => implode(PHP_EOL, array_keys($categories)),
+            '{{permaLink}}:{{/permaLink}}' => $article->getElementLink(),
+            '{{commentLink}}:{{/commentLink}}' => $article->getElementLink('#comments'),
+            '<readmore>:</readmore>' => $article->getId(),
+            '{{articleImage}}' => $article->getArticleImage(),
+            '{{sources}}' => $article->getSources()
+        ]);
+        
+        return true;
+    }
 
     /**
      * Tags aufräumen

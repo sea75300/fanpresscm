@@ -235,18 +235,18 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $where .= is_null($spam) ? '' : ' AND spammer = ' . $spam;
         $where .= ' AND deleted = 0';
 
+        $res = array_combine($articleIds, array_fill(0, count($articleIds), 0));
+        
         $articleCounts = $this->dbcon->fetch($this->dbcon->select($this->table, 'articleid, count(id) AS count', "{$where} GROUP BY articleid"), true);
         if (!count($articleCounts)) {
-            return [0];
+            return $res;
         }
 
-        $res = [];
         foreach ($articleCounts as $articleCount) {
             $res[$articleCount->articleid] = $articleCount->count;
         }
 
         $this->cache->write($cacheName, $res, $this->config->system_cache_timeout);
-
         return $res;
     }
 
