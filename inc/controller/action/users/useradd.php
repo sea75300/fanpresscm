@@ -46,6 +46,7 @@ class useradd extends userbase {
         $this->view->assign('showDisableButton', false);
         $this->view->assign('showExtended', false);
         $this->view->assign('showImage', false);
+        $this->view->assign('twoFaAuth', false);
 
         $this->view->render();
     }

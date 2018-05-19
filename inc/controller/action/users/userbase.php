@@ -149,6 +149,10 @@ class userbase extends \fpcm\controller\abstracts\controller {
             $this->user->disablePasswordSecCheck();
         }
 
+        if ($this->getRequestVar('disable2Fa', [\fpcm\classes\http::FILTER_CASTINT]) === 1) {
+            $this->user->setAuthtoken('');
+        }
+
         if ($save) {
             $res = ( $this->userId ? $this->user->update() : $this->user->save() );
 

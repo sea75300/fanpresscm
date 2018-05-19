@@ -151,13 +151,28 @@ class userList extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
+     * Return a author object by user name
+     * @param string $username
+     * @return author
+     */
+    public function getUserByUsername($username)
+    {
+        $result = $this->dbcon->fetch($this->dbcon->select($this->table, "*", "username = ?", [$username]));
+
+        /* @var $user author */
+        $user = \fpcm\classes\loader::getObject('\fpcm\model\users\author');
+        $user->createFromDbObject($result);
+
+        return $user;
+    }
+
+    /**
      * Gibt array mit Benutzern der übergebenen IDs zurück
      * @param array $ids
      * @return array
      */
     public function getUsersByIds(array $ids)
     {
-
         $item = $this->dbcon->getTablePrefixed($this->table) . '.*, ';
         $item .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll) . '.leveltitle AS groupname';
 

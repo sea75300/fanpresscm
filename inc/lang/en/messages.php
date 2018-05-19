@@ -27,6 +27,7 @@ $lang = array(
     'CSRF_INVALID' => 'The CSRF token is invalid. The action was not executed!',
     'SESSION_TIMEOUT' => 'Your current session has reached it maximum life time. Do you want to proceed to login screen? (select "no" to stay on this site)',
     'FILE_NOT_WRITABLE' => 'The selected file is not writable. Please check file permissions within the server.',
+    'USERS_AUTHTOKEN_ACTIVE' => 'Two factor authentication is enabled.',
     'SAVE_SUCCESS_ADDUSER' => 'The user has been saved!',
     'SAVE_SUCCESS_USER_DISABLE' => 'The user has been disabled!',
     'SAVE_SUCCESS_USER_ENABLE' => 'The user has been enabled!',

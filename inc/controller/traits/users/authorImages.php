@@ -18,6 +18,12 @@ namespace fpcm\controller\traits\users;
 trait authorImages {
 
     /**
+     *
+     * @var \Sonata\GoogleAuthenticator\GoogleAuthenticator
+     */
+    protected $gAuth;
+
+    /**
      * Author-Avatar hochlanden
      * @param \fpcm\model\users\author $author
      * @return boolean
@@ -79,6 +85,25 @@ trait authorImages {
 
         $this->view->addErrorMessage('DELETE_FAILED_FILEAUTHORIMG');
         return false;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    protected function twoFactorAuthForm()
+    {
+        $this->view->assign('twoFaAuth', $this->config->system_2fa_auth);
+        
+        if ($this->user->getAuthtoken()) {
+            $this->view->assign('qrCode', false);
+            $this->view->assign('secret', false);
+            return true;
+        }
+
+        $secret = $this->gAuth->generateSecret();
+        $this->view->assign('qrCode', \Sonata\GoogleAuthenticator\GoogleQrUrl::generate($this->user->getEmail(), $secret, $this->lang->translate('HEADLINE')));
+        $this->view->assign('secret', $secret);
     }
 
 }

@@ -44,6 +44,11 @@ class useredit extends userbase {
             exit;
         }
         
+        if ($this->config->system_2fa_auth) {
+            include_once \fpcm\classes\loader::libGetFilePath('sonata-project'.DIRECTORY_SEPARATOR.'GoogleAuthenticator');
+            $this->gAuth = new \Sonata\GoogleAuthenticator\GoogleAuthenticator();
+        }
+        
         $this->view->setFormAction($this->user->getEditLink(), [], true);
         $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
 
@@ -76,7 +81,8 @@ class useredit extends userbase {
 
         $userList = new \fpcm\model\users\userList();
         $showDisableButton = (!$this->user->getDisabled() && ($this->userId == $this->session->getUserId() || $userList->countActiveUsers() == 1)) ? false : true;
-
+        
+        $this->twoFactorAuthForm();
         $this->view->assign('showDisableButton', $showDisableButton);
         $this->view->assign('showExtended', true);
         $this->view->assign('showImage', true);
@@ -85,7 +91,8 @@ class useredit extends userbase {
             (new \fpcm\view\helper\saveButton('userSave')),
             (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
         ]);
-
+        
+        $this->view->addJsFiles(['useredit.js']);
         $this->view->render();
     }
 

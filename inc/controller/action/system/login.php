@@ -122,7 +122,7 @@ class login extends \fpcm\controller\abstracts\controller {
                 exit;
             }
 
-            if ($loginRes === true && $session->save() && $session->setCookie()) {
+            if ($loginRes === true && $session->save() && $session->setCookie()) {               
                 session_destroy();
                 $this->redirect('system/dashboard');
                 return true;
@@ -148,14 +148,13 @@ class login extends \fpcm\controller\abstracts\controller {
         $email = $this->getRequestVar('email');
         if ($doReset && $username && $email && $this->captcha->checkAnswer()) {
 
-            $userList = new \fpcm\model\users\userList();
-            $id = $userList->getUserIdByUsername($username);
-            if (!$id) {
+            /* @var $user \fpcm\model\users\author */
+            $user = \fpcm\classes\loader::getObject('\fpcm\model\users\userList')->getUserByUsername($username);
+            if (!$user || !$user->exists() ) {
                 $this->redirect();
                 return true;
             }
 
-            $user = new \fpcm\model\users\author($id);
             if (filter_var($email, FILTER_VALIDATE_EMAIL) && $user->getEmail() == $email && $user->resetPassword()) {
                 $this->view->addNoticeMessage('LOGIN_PASSWORD_RESET');
                 return true;
@@ -178,7 +177,7 @@ class login extends \fpcm\controller\abstracts\controller {
         $this->view->assign('userNameField', $reset ? 'username' : 'login[username]');
         $this->view->assign('resetPasswort', $reset);
         $this->view->assign('captcha', $this->captcha);
-
+        $this->view->assign('twoFactorAuth', $this->config->system_2fa_auth && !$reset);
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         $this->view->addJsFiles(['login.js']);
         $this->view->setFormAction('system/login');

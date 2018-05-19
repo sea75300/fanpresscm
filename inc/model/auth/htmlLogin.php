@@ -29,6 +29,7 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
      */
     public function __construct()
     {
+        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
         $this->table = \fpcm\classes\database::tableAuthors;
     }
 
@@ -39,15 +40,13 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
      */
     public function authenticate(array $param)
     {
-        $userList = \fpcm\classes\loader::getObject('\fpcm\model\users\userList');
-
-        $userid = $userList->getUserIdByUsername($param['username']);
-        if (!$userid) {
+        /* @var $user \fpcm\model\users\author */
+        $user = \fpcm\classes\loader::getObject('\fpcm\model\users\userList')->getUserByUsername($param['username']);
+        if (!$user || !$user->exists() ) {
             trigger_error('Login failed for username ' . $param['username'] . '! User not found. Request was made by ' . \fpcm\classes\http::getIp());
             return false;
         }
 
-        $user = new \fpcm\model\users\author($userid);
         if ($user->getDisabled()) {
             trigger_error('Login failed for username ' . $param['username'] . '! User is disabled. Request was made by ' . \fpcm\classes\http::getIp());
             return \fpcm\model\users\author::AUTHOR_ERROR_DISABLED;
@@ -57,7 +56,16 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
             return false;
         }
 
-        return $userid;
+        if (!$user->getAuthtoken() || !$this->config->system_2fa_auth) {
+            return $user->getId();
+        }
+
+        include_once \fpcm\classes\loader::libGetFilePath('sonata-project'.DIRECTORY_SEPARATOR.'GoogleAuthenticator');
+        if (!isset($param['authcode']) || !(new \Sonata\GoogleAuthenticator\GoogleAuthenticator())->checkCode($user->getAuthtoken(), $param['authcode'])) {
+            return false;
+        }
+
+        return $user->getId();
     }
 
     /**
