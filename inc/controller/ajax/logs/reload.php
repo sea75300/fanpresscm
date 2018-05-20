@@ -50,6 +50,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     private $sessionTimeoutStr = '';
 
     /**
+     *
+     * @var int
+     */
+    private $logsize = '';
+
+    /**
      * Request-Handler
      * @return boolean
      */
@@ -110,7 +116,10 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
      */
     private function loadLog1()
     {
-        $this->items = (new \fpcm\model\files\logfile($this->log))->fetchData();
+        $log = (new \fpcm\model\files\logfile($this->log));
+        $this->items = $log->fetchData();
+        $this->logsize = \fpcm\classes\tools::calcSize($log->getFilesize());
+
         $this->initDataView();
         $this->assignDataViewvars();
         return true;
@@ -141,8 +150,9 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     private function loadLog4()
     {
         $this->initView();
-        $logFile = new \fpcm\model\files\logfile($this->log);
-        $this->view->assign('items', $logFile->fetchData());
+        $log = new \fpcm\model\files\logfile($this->log);
+        $this->view->assign('items', $log->fetchData());
+        $this->view->assign('size', \fpcm\classes\tools::calcSize($log->getFilesize()));
         $this->view->render();
     }
 
@@ -173,7 +183,8 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
         $dvVars = $this->dataView->getJsVars();
         $this->returnData = [
             'dataViewVars' => $dvVars['dataviews']['logs'],
-            'dataViewName' => 'logs'
+            'dataViewName' => 'logs',
+            'logsize' => $this->logsize
         ];
 
         $this->getSimpleResponse();

@@ -32,6 +32,12 @@ final class escape {
     protected $mode = 0;
 
     /**
+     * Element already returned
+     * @var string
+     */
+    protected $returned = false;
+
+    /**
      * Konstruktor
      * @param string $name
      * @param string $id

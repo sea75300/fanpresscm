@@ -70,7 +70,7 @@ class logs extends \fpcm\controller\abstracts\controller {
         $this->view->addDataView(new \fpcm\components\dataView\dataView('logs', false));
 
         $this->view->addJsFiles(['logs.js']);
-        $this->view->addJsLangVars(['LOGS_CLEARED_LOG_OK', 'LOGS_CLEARED_LOG_FAILED']);
+        $this->view->addJsLangVars(['LOGS_CLEARED_LOG_OK', 'LOGS_CLEARED_LOG_FAILED', 'FILE_LIST_FILESIZE']);
         $this->view->addButton((new \fpcm\view\helper\button('fpcm-logs-clear_0'))->setText('LOGS_CLEARLOG')->setClass('fpcm-logs-clear fpcm-clear-btn')->setIcon('trash'));
 
         $this->view->render();

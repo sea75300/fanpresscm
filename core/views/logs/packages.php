@@ -16,3 +16,10 @@
     <?php endforeach; ?>
 </div>
 <?php endif; ?>
+<div class="row fpcm-ui-font-small fpcm-ui-margin-lg-top">
+    <div class="col-12 align-self-center fpcm-ui-padding-none-left">
+        <?php $theView->icon('weight')->setSize('lg'); ?>
+        <?php $theView->write('FILE_LIST_FILESIZE'); ?>:
+        <?php $theView->escape($size); ?>
+    </div>
+</div>

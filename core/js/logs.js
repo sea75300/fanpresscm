@@ -100,6 +100,11 @@ fpcm.logs = {
 
                     fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
                     fpcm.dataview.updateAndRender(result.dataViewName);
+
+                    if (result.logsize) {
+                        jQuery('.fpcm-ui-logslist').append('<div class="row fpcm-ui-font-small fpcm-ui-margin-lg-top"><div class="col-12 align-self-center fpcm-ui-padding-none-left"> <span class="fpcm-ui-icon fpcm-ui-icon-single fa fa-fw fa-weight fa-lg "></span>  ' + fpcm.ui.translate('FILE_LIST_FILESIZE') + ': ' + result.logsize + '</div></div>');
+                    }
+                    
                 }
 
                 fpcm.ui.accordion('.fpcm-accordion-pkgmanager');
