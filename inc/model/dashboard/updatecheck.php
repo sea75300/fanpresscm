@@ -151,7 +151,9 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
 
         $checkRes = count((new \fpcm\module\modules())->getInstalledUpdates()) ? true : false;
         if ($checkRes === true) {
-            $this->renderTable('cloud-download-alt', 'fpcm-dashboard-updates-outdated', 'UPDATE_MODULECHECK_NEW');
+            $this->renderTable('cloud-download-alt', 'fpcm-dashboard-updates-outdated', $this->language->translate('UPDATE_MODULECHECK_NEW', [
+                '{{btn}}' => (string) (new \fpcm\view\helper\linkButton('showModuleUpdates'))->setText('PACKAGES_UPDATES_LIST')->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))
+            ]));
             return true;
         }
 

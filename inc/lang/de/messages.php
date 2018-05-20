@@ -152,7 +152,7 @@ $lang = array(
     'PACKAGES_FAILED_ERROR906' => 'Die Archiv-Datei konnte nicht geöffnet werden!',
     'PACKAGES_FAILED_ERROR907' => 'Beim Entpacken der Archiv-Datei ist ein Fehler aufgetreten!',
     'PACKAGES_FAILED_ERROR908' => 'Beim Aktualisieren der lokalen Dateien ist ein Fehler aufgetreten! Weitere Informationen enthält das Paket-Manager-Log.',
-    'UPDATE_MODULECHECK_NEW' => 'Für einige Module sind Updates verfügbar. <a class="fpcm-ui-button fpcm-loader" href="?module=modules/list">Updates anzeigen</a>',
+    'UPDATE_MODULECHECK_NEW' => 'Für einige Module sind Updates verfügbar. {{btn}}',
     'UPDATE_MODULECHECK_CURRENT' => 'Alle installierten Module sind <strong>aktuell</strong>!',
     'UPDATE_MODULECHECK_FAILED' => 'Es konnte keine Update-Prüfung für die installierten Module durchgeführt werden!',
     'PACKAGEMANAGER_SUCCESS' => 'Die Installation des Pakets wurde erfolgreich durchgeführt.',

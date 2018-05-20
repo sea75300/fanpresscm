@@ -159,6 +159,7 @@ $lang = array(
     'WORDBAN_APPROVA_COMMENT' => 'Kommentar muss freigeschalten werden',
     'PACKAGES_UPDATE' => 'Aktualisierung starten',
     'PACKAGES_MANUALCHECK' => 'Auf Aktualisierung prüfen',
+    'PACKAGES_UPDATES_LIST' => 'Aktualisierungen anzeigen',
     'PACKAGES_BACKTODASHBOARD' => 'Zurück zum Dashboard',
     'SYSCHECK_FOLDER_DATA' => 'Data-Ordner',
     'SYSCHECK_FOLDER_CACHE' => 'Cache-Ordner',

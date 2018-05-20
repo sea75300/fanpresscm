@@ -75,6 +75,17 @@ trait edit {
      * 
      * @return boolean
      */
+    protected function getshareButtonsTemplate()
+    {
+        $this->template = new \fpcm\model\pubtemplates\sharebuttons();
+        $this->prefix = 'TEMPLATE_SHAREBUTTONS_';
+        return true;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
     protected function getLatestNewsTemplate()
     {
         $this->template = new \fpcm\model\pubtemplates\latestnews();

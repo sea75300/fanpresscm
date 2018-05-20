@@ -105,6 +105,14 @@ class templates extends \fpcm\controller\abstracts\controller {
                 ->setData(['toolbar-buttons' => 1, 'tplId' => \fpcm\model\pubtemplates\commentform::TEMPLATE_ID])
                 ->setDataViewId('')
                 ->setWrapper(false),
+            (new \fpcm\view\helper\tabItem('tpl-shareButtons'))
+                ->setText('TEMPLATE_HL_SHAREBUTTONS')
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [
+                    'tpl' => \fpcm\model\pubtemplates\sharebuttons::TEMPLATE_ID
+                ]))
+                ->setData(['toolbar-buttons' => 1, 'tplId' => \fpcm\model\pubtemplates\sharebuttons::TEMPLATE_ID])
+                ->setDataViewId('')
+                ->setWrapper(false),
 
             (new \fpcm\view\helper\tabItem('tpl-latestNews'))
                 ->setText('TEMPLATE_HL_LATESTNEWS')

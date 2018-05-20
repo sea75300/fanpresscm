@@ -153,7 +153,7 @@ $lang = array(
     'PACKAGES_FAILED_ERROR907' => 'An error occurred while extracting the package archive!',
     'PACKAGES_FAILED_ERROR908' => 'An error accurred while updating the local file system. See package manager log for further information.',
     'UPDATE_DOWNLOAD_UNTRUSTED' => 'The available packeg file will not be downloaded due to an untrusted package server <em>{{var}}</em>.',
-    'UPDATE_MODULECHECK_NEW' => 'Module updates are available. <a class="fpcm-ui-button fpcm-loader" href="?module=modules/list">Show updates</a>',
+    'UPDATE_MODULECHECK_NEW' => 'Module updates are available. {{btn}}',
     'UPDATE_MODULECHECK_CURRENT' => 'All installed modules are <strong>up to date</strong>!',
     'UPDATE_MODULECHECK_FAILED' => 'Update check for installed modules failed!',
     'PACKAGEMANAGER_SUCCESS' => 'Installation of the package has been successful.',

@@ -1,23 +1,41 @@
 <?php
 
 /**
- * Share button object
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\model\pubtemplates;
 
 /**
- * Share Button Template Objekt
+ * Share button template object
  * 
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-final class sharebuttons extends \fpcm\model\abstracts\staticModel {
+final class sharebuttons extends template {
 
+    const TEMPLATE_ID = 'shareButtons';
+
+    /**
+     * Template-Platzhalter
+     * @var array
+     */
+    protected $replacementTags = [
+        '{{facebook}}' => '',
+        '{{twitter}}' => '',
+        '{{googlePlus}}' => '',
+        '{{tumblr}}' => '',
+        '{{pinterest}}' => '',
+        '{{reddit}}' => '',
+        '{{email}}' => '',
+        '{{link}}' => '',
+        '{{description}}' => '',
+        '{{credits}}' => ''
+    ];
+    
     /**
      * zu teilender Link
      * @var string
@@ -35,14 +53,15 @@ final class sharebuttons extends \fpcm\model\abstracts\staticModel {
      * @param string $link Artikel-Link
      * @param string $description Artikel-Beschreibung
      */
-    public function __construct($link, $description)
+    public function __construct($fileName = null)
     {
-        parent::__construct();
+        if (!$fileName) {
+            $fileName = 'sharebuttons';
+        }
 
-        $this->link = rawurlencode($link);
-        $this->description = $description;
+        parent::__construct('common' . DIRECTORY_SEPARATOR . $fileName . '.html');
     }
-
+    
     /**
      * Share-Buttons parsen
      * @return string
@@ -53,27 +72,73 @@ final class sharebuttons extends \fpcm\model\abstracts\staticModel {
             return '';
         }
 
-        $shareButtonPath = \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SHARE, '');
+        $tags = $this->events->trigger('pub\parseShareButtons', array_merge($this->replacementInternal, [
+            '{{facebook}}' => [
+                'link' => "https://www.facebook.com/sharer/sharer.php?u={$this->link}&amp;t={$this->description}",
+                'icon' => "default/facebook.png",
+                'text' => "Facebook",
+            ],
+            '{{twitter}}' => [
+                'link' => "https://twitter.com/intent/tweet?source={$this->link}&amp;text={$this->description}",
+                'icon' => "default/twitter.png",
+                'text' => "Twitter",
+            ],
+            '{{googlePlus}}' => [
+                'link' => "https://plus.google.com/share?url={$this->link}",
+                'icon' => "default/googleplus.png",
+                'text' => "Google+",
+            ],
+            '{{tumblr}}' => [
+                'link' => "http://www.tumblr.com/share?v=3&amp;u={$this->link}&amp;t={$this->description}&amp;s=",
+                'icon' => "default/tumblr.png",
+                'text' => "Share on Tumblr",
+            ],
+            '{{pinterest}}' => [
+                'link' => "http://pinterest.com/pin/create/button/?url={$this->link}&amp;description={$this->description}",
+                'icon' => "default/pinterest.png",
+                'text' => "Pin it",
+            ],
+            '{{reddit}}' => [
+                'link' => "http://www.reddit.com/submit?url={$this->link}&amp;title={$this->description}",
+                'icon' => "default/reddit.png",
+                'text' => "Submit to Reddit",
+            ],
+            '{{email}}' => [
+                'link' => "mailto:?subject={$this->description}&amp;body={$this->link}",
+                'icon' => "default/email.png",
+                'text' => "Share via E-Mail",
+            ],
+            '{{link}}' => $this->link,
+            '{{description}}' => $this->description,
+            '{{credits}}' => "<!-- default button icon set powered by http://simplesharingbuttons.com/ -->"
+        ]));
 
-        $sharecode = [];
-        $sharecode[] = "<ul class=\"fpcm-pub-sharebuttons\">";
-        $sharecode[] = "<li><a href=\"https://www.facebook.com/sharer/sharer.php?u={$this->link}&amp;t={$this->description}\" target=\"_blank\"><img src=\"{$shareButtonPath}default/facebook.png\" alt=\"Facebook\"></a></li>";
-        $sharecode[] = "<li><a href=\"https://twitter.com/intent/tweet?source={$this->link}&amp;text={$this->description}\" target=\"_blank\" title=\"Tweet\"><img src=\"{$shareButtonPath}default/twitter.png\" alt=\"Twitter\"></a></li>";
-        $sharecode[] = "<li><a href=\"https://plus.google.com/share?url={$this->link}\" target=\"_blank\" title=\"Share on Google+\"><img src=\"{$shareButtonPath}default/googleplus.png\" alt=\"Google+\"></a></li>";
-        $sharecode[] = "<li><a href=\"http://www.tumblr.com/share?v=3&amp;u={$this->link}&amp;t={$this->description}&amp;s=\" target=\"_blank\" title=\"Post to Tumblr\"><img src=\"{$shareButtonPath}default/tumblr.png\" alt=\"Tumblr\"></a></li>";
-        $sharecode[] = "<li><a href=\"http://pinterest.com/pin/create/button/?url={$this->link}&amp;description={$this->description}\" target=\"_blank\" title=\"Pin it\"><img src=\"{$shareButtonPath}default/pinterest.png\" alt=\"Pinterest\"></a></li>";
-        $sharecode[] = "<li><a href=\"http://www.reddit.com/submit?url={$this->link}&amp;title={$this->description}\" target=\"_blank\" title=\"Submit to Reddit\"><img src=\"{$shareButtonPath}default/reddit.png\" alt=\"Reddit\"></a></li>";
-        $sharecode[] = "<li><a href=\"mailto:?subject={$this->description}&amp;body={$this->link}\" target=\"_blank\" title=\"Email\"><img src=\"{$shareButtonPath}default/email.png\" alt=\"Email\"></a></li>";
-        $sharecode[] = "<!-- default button icon set powered by http://simplesharingbuttons.com/ -->";
-        $params = array('sharebuttons' => $sharecode, 'description' => $this->description, 'link' => $this->link);
-        $sharecode = $this->events->trigger('pub\parseShareButtons', $params)['sharebuttons'];
+        $content = "<!-- Start FanPress CM Share Buttons -->".PHP_EOL.$this->content.PHP_EOL."<!-- Stop FanPress CM Share Buttons -->";
+        foreach ($tags as $replacement => $value) {
+            
+            if (!is_array($value)) {
+                $content = str_replace($replacement, $value, $content);
+                continue;
+            }
 
-        $sharecode[] = "</ul>";
+            $value['icon'] = \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SHARE, $value['icon']);
+            $content = str_replace($replacement, "<a href=\"{$value['link']}\"><img src=\"{$value['icon']}\" alt=\"{$value['text']}\"></a>", $content);
+        }
 
-        array_unshift($sharecode, PHP_EOL . "<!-- Start FanPress CM Share Buttons -->");
-        $sharecode[] = "<!-- Stop FanPress CM Share Buttons -->" . PHP_EOL;
-
-        return implode(PHP_EOL, $sharecode);
+        return $content;
+    }
+    
+    /**
+     * 
+     * @param string $link
+     * @param string $description
+     * @return bool
+     */
+    public function assignData(string $link, string $description) : bool
+    {
+        $this->link = rawurlencode($link);
+        $this->description = $description;
+        return true;
     }
 
 }

@@ -11,6 +11,7 @@ $lang = array(
     'TEMPLATE_HL_ARTICLE_SINGLE' => 'Artikel-Einzel-Ansicht',
     'TEMPLATE_HL_COMMENTS' => 'Kommentar',
     'TEMPLATE_HL_COMMENTFORM' => 'Kommentar-Formular',
+    'TEMPLATE_HL_SHAREBUTTONS' => 'Share-Buttons',
     'TEMPLATE_HL_LATESTNEWS' => 'Latest News',
     'TEMPLATE_HL_TWEET' => 'Tweet',
     'TEMPLATE_HL_DRAFTS' => 'Artikel-Vorlagen',
@@ -64,5 +65,16 @@ $lang = array(
     'TEMPLATE_COMMMENTFORM_SUBMITBUTTON' => 'Senden-Button',
     'TEMPLATE_COMMMENTFORM_RESETBUTTON' => 'Zurücksetzen-Button',
     'TEMPLATE_COMMMENTFORM_SUBMITURL' => 'URL des Kommentar-Formulars <b>(wichtig!)</b>',
-    'TEMPLATE_COMMMENTFORM_PRIVACYCOMFIRMATION' => 'Checkbox für zusätzliche Datenschutz-Zustimmung'
+    'TEMPLATE_COMMMENTFORM_PRIVACYCOMFIRMATION' => 'Checkbox für zusätzliche Datenschutz-Zustimmung',
+    'TEMPLATE_SHAREBUTTONS_FACEBOOK' => 'Button für Facevook',
+    'TEMPLATE_SHAREBUTTONS_TWITTER' => 'Button für Twitter',
+    'TEMPLATE_SHAREBUTTONS_GOOGLEPLUS' => 'Button für Google+',
+    'TEMPLATE_SHAREBUTTONS_TUMBLR' => 'Button für Tumblr',
+    'TEMPLATE_SHAREBUTTONS_PINTEREST' => 'Button für Pinterest',
+    'TEMPLATE_SHAREBUTTONS_REDDIT' => 'Button für Reddit',
+    'TEMPLATE_SHAREBUTTONS_EMAIL' => 'Button für E-Mail',
+    'TEMPLATE_SHAREBUTTONS_LINK' => 'Ziel-Link (für eigene Buttons)',
+    'TEMPLATE_SHAREBUTTONS_DESCRIPTION' => 'Beschreibung (für eigene Buttons',
+    'TEMPLATE_SHAREBUTTONS_CREDITS' => 'Credit-Tag für Icons, etc.',
+
 );

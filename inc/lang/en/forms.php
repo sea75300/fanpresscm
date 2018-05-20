@@ -160,6 +160,7 @@ $lang = array(
     'PACKAGES_UPDATE' => 'Start update',
     'PACKAGES_MANUALCHECK' => 'Check for updates',
     'PACKAGES_BACKTODASHBOARD' => 'Go to dashboard',
+    'PACKAGES_UPDATES_LIST' => 'Show available updates',
     'SYSCHECK_FOLDER_DATA' => 'Data folder',
     'SYSCHECK_FOLDER_CACHE' => 'Cache folder',
     'SYSCHECK_FOLDER_CONFIG' => 'Config folder',

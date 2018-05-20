@@ -147,13 +147,16 @@ final class article extends template {
      */
     public function assignByObject(\fpcm\model\articles\article $article, array $users, array $categories, $commentCount)
     {
-        $notFoundStr = $this->language->translate('GLOBAL_NOTFOUND');
-        $share = new \fpcm\model\pubtemplates\sharebuttons($article->getElementLink(), $article->getTitle());
-        
+
         if (!isset($users['author']) || !isset($users['changeUser'])) {
             trigger_error('Invalid user data, "author" or "changeUser" missing');
             return false;
         }
+
+        $notFoundStr = $this->language->translate('GLOBAL_NOTFOUND');
+        /* @var $share sharebuttons */
+        $share = \fpcm\classes\loader::getObject('\fpcm\model\pubtemplates\sharebuttons');
+        $share->assignData($article->getElementLink(), $article->getTitle());
 
         $this->setReplacementTags([
             '{{headline}}' => $article->getTitle(),

@@ -233,6 +233,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                                 'system' => $config->requirements['system']
                             ]);
         
+        $hasUpdates = $this->permArr['canInstall'] && $item->hasUpdates();
         if ($item->isInstalled()) {
             
             if ($this->permArr['canConfigure']) {
@@ -246,7 +247,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                 $buttons[] = (new \fpcm\view\helper\button('uninstall'.$hash))->setText('MODULES_LIST_UNINSTALL')->setIcon('minus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'uninstall'])->setClass('fpcm-ui-modulelist-action-local');
             }
 
-            if ($this->permArr['canInstall'] && $item->hasUpdates()) {
+            if ($hasUpdates) {
                 $buttons[] = (new \fpcm\view\helper\linkButton('update'.$hash))
                         ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', ['key' => $item->getKey()]))
                         ->setText('MODULES_LIST_UPDATE')
@@ -268,12 +269,14 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
 
         $buttons[] = '</div>';
 
+        $class = ($hasUpdates ? 'fpcm-ui-important-text' : '');
+        
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('modulekeys[]', 'chbx'.$hash))->setClass('fpcm-ui-list-checkbox')->setValue($key), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             new \fpcm\components\dataView\rowCol('buttons', implode('', $buttons)),
-            new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key) ),
-            new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($config->name ) ),
-            new \fpcm\components\dataView\rowCol('version', new \fpcm\view\helper\escape($config->version) )
+            new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key), $class ),
+            new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($config->name ), $class ),
+            new \fpcm\components\dataView\rowCol('version', new \fpcm\view\helper\escape($config->version), $class )
         ]);
     }
 
