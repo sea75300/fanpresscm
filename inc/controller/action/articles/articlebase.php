@@ -160,14 +160,10 @@ class articlebase extends \fpcm\controller\abstracts\controller {
 
         $twitterReplacements = '';
         if ($twitterOk) {
-            $tweetTpl = new \fpcm\model\pubtemplates\tweet();
-            $tags = $tweetTpl->getReplacementTranslations('TEMPLATE_ARTICLE_');
-
             $twitterReplacements = [];
-            foreach ($tags as $tag => $descr) {
+            foreach ((new \fpcm\model\pubtemplates\tweet())->getReplacementTranslations('TEMPLATE_ARTICLE_') as $tag => $descr) {
                 $twitterReplacements[] = $descr . ': ' . $tag;
             }
-
 
             $twitterReplacements = implode(' &bull; ' . PHP_EOL . ' ', $twitterReplacements);
         }

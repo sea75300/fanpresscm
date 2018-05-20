@@ -93,7 +93,11 @@ trait authorImages {
      */
     protected function twoFactorAuthForm()
     {
-        $this->view->assign('twoFaAuth', $this->config->system_2fa_auth);
+        $enabled = $this->config->system_2fa_auth;
+        $this->view->assign('twoFaAuth', $enabled);
+        if (!$enabled) {
+            return false;
+        }
         
         if ($this->user->getAuthtoken()) {
             $this->view->assign('qrCode', false);
@@ -104,6 +108,7 @@ trait authorImages {
         $secret = $this->gAuth->generateSecret();
         $this->view->assign('qrCode', \Sonata\GoogleAuthenticator\GoogleQrUrl::generate($this->user->getEmail(), $secret, $this->language->translate('HEADLINE')));
         $this->view->assign('secret', $secret);
+        return true;
     }
 
 }

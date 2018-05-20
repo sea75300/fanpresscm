@@ -25,7 +25,7 @@ window.onload = function() {
                 });
 
                 jQuery('.fpcm-pub-commentsmiley').click(function () {
-                    fpcm.pub.insert(' ' + jQuery(this).attr('smileycode') + ' ');
+                    fpcm.pub.insert(' ' + jQuery(this).attr('data-code') + ' ');
                     return false;
                 });
 
@@ -56,6 +56,7 @@ window.onload = function() {
                 aTag = smiliecode;
                 eTag = "";
                 var input = jQuery('#newcommenttext')[0];
+
                 input.focus();
                 /* für Internet Explorer */
                 if (typeof document.selection != 'undefined') {

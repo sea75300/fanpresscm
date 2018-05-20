@@ -252,7 +252,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     protected function assignCommentsData()
     {
-
         if (!$this->config->system_comments_enabled || !$this->article->getComments())
             return '';
 
@@ -286,38 +285,13 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             return '';
         }
 
-        $id = ($this->session->exists()) ? $this->session->getUserId() : null;
-
-        $author = new \fpcm\model\users\author($id);
-
         if (!$this->buttonClicked('sendComment') && is_null($this->getRequestVar('newcomment')) && $this->session->exists()) {
-            $this->newComment->setName($author->getDisplayname());
-            $this->newComment->setEmail($author->getEmail());
+            $this->newComment->setName($this->session->getCurrentUser()->getDisplayname());
+            $this->newComment->setEmail($this->session->getCurrentUser()->getEmail());
             $this->newComment->setWebsite(\fpcm\classes\http::getHttpHost());
         }
-
-        $replacementTags = array(
-            '{{formHeadline}}' => $this->language->translate('COMMENTS_PUBLIC_FORMHEADLINE'),
-            '{{submitUrl}}' => $this->article->getElementLink(),
-            '{{nameDescription}}' => $this->language->translate('COMMMENT_AUTHOR'),
-            '{{nameField}}' => '<input type="text" class="fpcm-pub-textinput" name="newcomment[name]" value="' . $this->newComment->getName() . '">',
-            '{{emailDescription}}' => $this->language->translate('GLOBAL_EMAIL'),
-            '{{emailField}}' => '<input type="text" class="fpcm-pub-textinput" name="newcomment[email]" value="' . $this->newComment->getEmail() . '">',
-            '{{websiteDescription}}' => $this->language->translate('COMMMENT_WEBSITE'),
-            '{{websiteField}}' => '<input type="text" class="fpcm-pub-textinput" name="newcomment[website]" value="' . $this->newComment->getWebsite() . '">',
-            '{{textfield}}' => '<textarea class="fpcm-pub-textarea" id="newcommenttext" name="newcomment[text]">' . $this->newComment->getText() . '</textarea>',
-            '{{smileysDescription}}' => $this->language->translate('HL_OPTIONS_SMILEYS'),
-            '{{smileys}}' => $this->getSmileyList(),
-            '{{tags}}' => htmlentities(\fpcm\model\comments\comment::COMMENT_TEXT_HTMLTAGS_FORM),
-            '{{spampluginQuestion}}' => $this->captcha->createPluginText(),
-            '{{spampluginField}}' => $this->captcha->createPluginInput(),
-            '{{privateCheckbox}}' => '<input type="checkbox" class="fpcm-pub-checkboxinput" name="newcomment[private]" value="1">',
-            '{{privacyComfirmation}}' => '<input type="checkbox" class="fpcm-pub-checkboxinput" name="newcomment[privacy]" value="1">',
-            '{{submitButton}}' => '<button type="submit" name="btnSendComment">' . $this->language->translate('GLOBAL_SUBMIT') . '</button>',
-            '{{resetButton}}' => '<button type="reset">' . $this->language->translate('GLOBAL_RESET') . '</button>'
-        );
-
-        $this->commentFormTemplate->setReplacementTags($replacementTags);
+        
+        $this->commentFormTemplate->assignByObject($this->article, $this->newComment, $this->captcha);
         $parsed = $this->commentFormTemplate->parse();
 
         if (!$this->isUtf8) {
@@ -325,25 +299,6 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         }
 
         return $parsed;
-    }
-
-    /**
-     * Smiley-Liste initialisieren
-     * @return string
-     */
-    protected function getSmileyList()
-    {
-        $smileyList = new \fpcm\model\files\smileylist();
-        $smileys = $smileyList->getDatabaseList();
-
-        $html = [];
-        $html[] = "<ul class=\"fpcm-pub-smileys\">";
-        foreach ($smileys as $smiley) {
-            $html[] = '<li><a class="fpcm-pub-commentsmiley" smileycode="' . $smiley->getSmileyCode() . '" href="#"><img src="' . $smiley->getSmileyUrl() . '" alt="' . $smiley->getSmileyCode() . '()" ' . $smiley->getWhstring() . '></a></li>';
-        }
-        $html[] = '</ul>';
-
-        return implode(PHP_EOL, $html);
     }
 
     /**

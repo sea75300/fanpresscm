@@ -72,7 +72,18 @@ final class smileylist extends \fpcm\model\abstracts\filelist {
 
         return $this->dbcon->delete($this->table, $where, $values);
     }
+    
+    public function getSmileysPublic()
+    {
+        $html = [];
+        $html[] = "<ul class=\"fpcm-pub-smileys\">";
+        foreach ($this->getDatabaseList() as $smiley) {           
+            $html[] = '<li><a class="fpcm-pub-commentsmiley" data-code="' . $smiley->getSmileyCode() . '" href="#">'.$smiley->getImageTag().'</a></li>';
+        }
+        $html[] = '</ul>';
 
+        return implode(PHP_EOL, $html);
+    }
 }
 
 ?>

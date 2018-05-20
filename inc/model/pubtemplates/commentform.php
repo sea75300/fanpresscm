@@ -105,6 +105,37 @@ final class commentform extends template {
         return true;
     }
 
+    public function assignByObject(\fpcm\model\articles\article $article, \fpcm\model\comments\comment $comment, $captcha) : bool
+    {
+        if (!$captcha instanceof \fpcm\model\abstracts\spamCaptcha) {
+            trigger_error('$captcha must be an instance of \fpcm\model\abstracts\spamCaptcha');
+            return false;
+        }
+
+        $this->setReplacementTags([
+            '{{formHeadline}}' => $this->language->translate('COMMENTS_PUBLIC_FORMHEADLINE'),
+            '{{submitUrl}}' => $article->getElementLink(),
+            '{{nameDescription}}' => $this->language->translate('COMMMENT_AUTHOR'),
+            '{{nameField}}' => (string) (new \fpcm\view\helper\textInput('newcomment[name]'))->setClass('fpcm-pub-textinput')->setValue($comment->getName())->setWrapper(false),
+            '{{emailDescription}}' => $this->language->translate('GLOBAL_EMAIL'),
+            '{{emailField}}' => (string) (new \fpcm\view\helper\textInput('newcomment[email]'))->setClass('fpcm-pub-textinput')->setValue($comment->getEmail())->setWrapper(false),
+            '{{websiteDescription}}' => $this->language->translate('COMMMENT_WEBSITE'),
+            '{{websiteField}}' => (string) (new \fpcm\view\helper\textInput('newcomment[website]'))->setClass('fpcm-pub-textinput')->setValue($comment->getWebsite())->setWrapper(false),
+            '{{textfield}}' => (string) (new \fpcm\view\helper\textarea('newcomment[text]', 'newcommenttext'))->setClass('fpcm-pub-textarea')->setValue($comment->getText()),
+            '{{smileysDescription}}' => $this->language->translate('HL_OPTIONS_SMILEYS'),
+            '{{smileys}}' => (new \fpcm\model\files\smileylist())->getSmileysPublic(),
+            '{{tags}}' => htmlentities(\fpcm\model\comments\comment::COMMENT_TEXT_HTMLTAGS_FORM),
+            '{{spampluginQuestion}}' => $captcha->createPluginText(),
+            '{{spampluginField}}' => $captcha->createPluginInput(),
+            '{{privateCheckbox}}' => (string) (new \fpcm\view\helper\checkbox('newcomment[private]'))->setClass('fpcm-pub-checkboxinput'),
+            '{{privacyComfirmation}}' => (string) (new \fpcm\view\helper\checkbox('newcomment[privacy]'))->setClass('fpcm-pub-checkboxinput'),
+            '{{submitButton}}' => (string) (new \fpcm\view\helper\submitButton('sendComment'))->setText('GLOBAL_SUBMIT'),
+            '{{resetButton}}' => (string) new \fpcm\view\helper\resetButton('resetComment')
+        ]);
+        
+        return true;
+    }
+
 }
 
 ?>

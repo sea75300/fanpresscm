@@ -182,8 +182,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
             foreach ($users as $userId => $user) {
 
                 $noRb   = $user->getId() == $currentUser ? true : false;
-                
-                
+
                 $metadata = [
                     (new \fpcm\view\helper\badge('art'.$userId))->setValue(isset($articleCount[$userId]) ? $articleCount[$userId] : 0)->setText('USERS_ARTICLE_COUNT')->setIcon('book')->setClass('fpcm-ui-badge-userarticles'),
                     (new \fpcm\view\helper\icon('toggle-off fa-inverse'))->setText('USERS_DISABLED')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $user->getDisabled())->setStack('square')

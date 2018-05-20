@@ -59,12 +59,14 @@ final class logfile extends \fpcm\model\abstracts\file {
      * @var array
      */
     protected $fileMap = [];
-
+    
     /**
-     * Konstruktor
-     * @param int $logFile Dateiname
+     * 
+     * @param int $logFile
+     * @param bool $init
+     * @return boolean
      */
-    public function __construct($logFile)
+    public function __construct($logFile, bool $init = true)
     {
         $this->fileMap = [
             self::FPCM_LOGFILETYPE_SYSTEM => \fpcm\classes\baseconfig::$logFiles['syslog'],
@@ -81,6 +83,10 @@ final class logfile extends \fpcm\model\abstracts\file {
         }
 
         parent::__construct($this->fileMap[$logFile]);
+
+        if (!$init) {
+            return;
+        }
 
         $this->init();
     }

@@ -57,7 +57,7 @@ class clear extends \fpcm\controller\abstracts\ajaxController {
             if ($this->log < 1) {
                 $res = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->clearSessions();
             } else {
-                $logfile = new \fpcm\model\files\logfile($this->log);
+                $logfile = new \fpcm\model\files\logfile($this->log, false);
                 $res = $logfile->clear();
             }
         } else {
