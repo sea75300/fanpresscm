@@ -169,4 +169,38 @@ final class ops {
         return hash_file(\fpcm\classes\security::defaultHashAlgo, $path);
     }
 
+    /**
+     * Creates SHA256 file hash
+     * @param string $path
+     * @return string
+     */
+    public static function getUploadPath($path = DIRECTORY_SEPARATOR, $includeTime = true)
+    {
+        if (!$includeTime) {
+            return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $path);
+        }
+
+        return \fpcm\classes\dirs::getDataDirPath(
+            \fpcm\classes\dirs::DATA_UPLOADS,
+            str_replace(DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR, date('Y-m').DIRECTORY_SEPARATOR. $path)
+        );
+    }
+
+    /**
+     * Creates SHA256 file hash
+     * @param string $path
+     * @return string
+     */
+    public static function getUploadUrl($path = '/', $includeTime = true)
+    {
+        if (!$includeTime) {
+            return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $path);
+        }
+
+        return \fpcm\classes\dirs::getDataUrl(
+            \fpcm\classes\dirs::DATA_UPLOADS,
+            str_replace('//', '/', date('Y-m').'/'.$path)
+        );
+    }
+
 }

@@ -59,10 +59,11 @@ namespace fpcm\model\system;
  * @property int    $comments_markspam_commentcount Anzahl an Spam deklarierter vorhandener Kommentare, über der ein ein neuer Kommentar automatisch als Spam markiert wird
  * @property bool   $comments_privacy_optin Opt-In beim Absenden eines Kommentars notwendig
  * 
- * @property int    $file_img_thumb_width Breite der Thumbnails
- * @property int    $file_img_thumb_height Höhe der Thumbnails
- * @property bool   $file_uploader_new jQuery-Uploader aktiv
- * @property int    $file_list_limit Anzahl an Dateien pro Seite in Dateimanager
+ * @property int    $file_img_thumb_width Thumbnail width
+ * @property int    $file_img_thumb_height Thumbnail height
+ * @property bool   $file_uploader_new Use jQuery base uplaoder
+ * @property int    $file_list_limit Numer of files per page
+ * @property bool   $file_subfolders Create subfolder of form YYYY-MM
  * 
  * @property array  $twitter_data Daten für Twitter-Verbindung
  * @property array  $twitter_events Events, wenn Tweets erzeugt werden sollen

@@ -36,7 +36,7 @@ class smileys extends \fpcm\controller\abstracts\ajaxController {
             $this->returnData = $values;
             $this->getSimpleResponse();
         }
-        
+
         $this->view->assign('smileys', $values);
     }
 

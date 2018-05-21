@@ -29,6 +29,17 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     }
 
     /**
+     * Return list of files in file system
+     * @return array
+     */
+    public function getFolderList()
+    {
+        $res = parent::getFolderList();
+        $this->pathprefix = '????-??'.DIRECTORY_SEPARATOR;
+        return array_merge($res, parent::getFolderList());
+    }
+
+    /**
      * Gibt Dateiindex in Datenbank zurück
      * @param int $limit
      * @param int $offset
@@ -145,19 +156,20 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     public function updateFileIndex($userId)
     {
         $folderFiles = $this->getFolderList();
-        $dbFiles = $this->getDatabaseList();
 
+        $dbFiles = $this->getDatabaseList();
         if (!$folderFiles || !count($folderFiles) || count($folderFiles) == count($dbFiles)) {
             return;
         }
 
         foreach ($folderFiles as $folderFile) {
 
+            $this->removeBasePath($folderFile);
             if (isset($dbFiles[$folderFile])) {
                 continue;
             }
 
-            $image = new \fpcm\model\files\image(basename($folderFile), false, true);
+            $image = new \fpcm\model\files\image($folderFile, false, true);
             $image->setFiletime(time());
             $image->setUserid($userId);
 
@@ -212,7 +224,8 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
             }
 
             $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($folderFile);
-            $image = new \fpcm\model\files\image(basename($folderFile));
+            $this->removeBasePath($folderFile);
+            $image = new \fpcm\model\files\image($folderFile);
             if (file_exists($image->getFileManagerThumbnail())) {
                 $image = null;
                 $phpImgWsp = null;

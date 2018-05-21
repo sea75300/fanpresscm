@@ -1,63 +1,66 @@
 <?php
 
-    namespace fpcm\controller\ajax\articles;
-    
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\ajax\articles;
+
+/**
+ * Änderungen an Bildern in TinyMCE auf Server Speichern
+ * 
+ * @package fpcm\controller\ajax\articles\removeeditortags
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @since FPCM 3.5
+ */
+class imgupload extends \fpcm\controller\abstracts\ajaxController {
+
     /**
-     * Änderungen an Bildern in TinyMCE auf Server Speichern
      * 
-     * @package fpcm\controller\ajax\articles\removeeditortags
-     * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @since FPCM 3.5
+     * @return array
      */
-    class imgupload extends \fpcm\controller\abstracts\ajaxController {
-
-        /**
-         * Request-Handler
-         * @return bool
-         */
-        public function request() {
-
-            if ($this->session->exists() && is_object($this->permissions) && $this->permissions->check(['uploads' => 'add'])) {
-                return true;
-            }
-
-            header("HTTP/1.0 500 Server Error");
-            return false;
-        }
-
-        /**
-         * Controller-Processing
-         */
-        public function process() {
-
-            
-
-            if (isset($_FILES['file'])) {
-                $data = $_FILES['file'];
-
-                $name = $data['name'];
-                if (file_exists(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $name))) {
-                    $name     = explode('.', $data['name']);
-                    $name[0] .= '_cropped'. date('Ymd').$this->session->getUserId();
-                    $name     = implode('.', $name);
-                }
-
-                $uploader = new \fpcm\model\files\fileuploader([
-                    'tmp_name'  => [$data['tmp_name']],
-                    'name'      => [$name],
-                    'type'      => [$data['type']],
-                ]);
-
-                $result = $uploader->processUpload($this->session->getUserId());
-
-                if (!count($result['error']) && count($result['success'])) {
-                    exit(json_encode(['location' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $name)]));
-                }
-
-            }
-
-            header("HTTP/1.0 500 Server Error");
-
-        }
+    protected function getPermissions() : array
+    {
+        return ['uploads' => 'add'];
     }
+
+    /**
+     * Controller-Processing
+     */
+    public function process()
+    {
+        if (!isset($_FILES['file'])) {
+            header("HTTP/1.0 500 Server Error");
+            exit;
+        }
+
+        $data = $_FILES['file'];
+        $name = $data['name'];
+
+        $localPtah = \fpcm\model\files\ops::getUploadPath($name, $this->config->file_subfolders);
+        if (file_exists($localPtah)) {
+            $name = explode('.', $name);
+            $name[0] .= '_cropped' . date('Ymd') . $this->session->getUserId();
+            $name = implode('.', $name);
+        }
+
+        $uploader = new \fpcm\model\files\fileuploader([
+            'tmp_name' => [$data['tmp_name']],
+            'name' => [$name],
+            'type' => [$data['type']],
+        ]);
+
+        $result = $uploader->processUpload($this->session->getUserId());
+
+        if (!count($result['error']) && count($result['success'])) {
+            $this->returnData = ['location' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $uploader->getUploadFileName($name))];
+            $this->getSimpleResponse();
+        }
+
+        header("HTTP/1.0 500 Server Error");
+    }
+
+}
+
 ?>

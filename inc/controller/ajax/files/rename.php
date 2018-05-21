@@ -69,7 +69,7 @@ class rename extends \fpcm\controller\abstracts\ajaxController {
     {
         $image = new \fpcm\model\files\image($this->fileName, false);
         
-        $replace = ['{{filename1}}' => $this->fileName, '{{filename2}}' => $this->newFileName];
+        $replace = ['{{filename1}}' => basename($this->fileName), '{{filename2}}' => basename($this->newFileName)];
         if ($image->rename($this->newFileName, $this->session->getUserId())) {
 
             (new \fpcm\model\files\imagelist())->createFilemanagerThumbs();

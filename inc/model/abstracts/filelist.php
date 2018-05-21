@@ -81,4 +81,15 @@ abstract class filelist extends tablelist {
         $this->pathprefix = $pathprefix;
     }
 
+    /**
+     * 
+     * @param string $path
+     * @return boolean
+     */
+    public function removeBasePath(string &$path) : bool
+    {
+        $path = str_replace($this->basepath, '', $path);
+        return true;
+    }
+
 }

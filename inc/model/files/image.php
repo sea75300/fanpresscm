@@ -89,8 +89,21 @@ class image extends \fpcm\model\abstracts\file {
     {
         $this->table = \fpcm\classes\database::tableFiles;
 
-        $this->escapeFileName($filename);
+        $filename = explode('/', $filename, 2);
+
+        $fn = (isset($filename[1]) ? $filename[1] : $filename[0]);
+        $this->escapeFileName($fn);
+        if (isset($filename[1])) {
+            $filename[1] = $fn;
+        }
+        else {
+            $filename[0] = $fn;
+        }
+
+        $filename = implode('/', $filename);
         parent::__construct($filename);
+
+        $this->filename = $filename;
 
         if ($this->exists() || $forceInit) {
             $this->init($initDB);
@@ -149,6 +162,11 @@ class image extends \fpcm\model\abstracts\file {
      */
     public function getThumbnail()
     {
+        $fnArr = explode('/', $this->filename, 2);
+        if (count($fnArr) == 2) {
+            return $fnArr[0].'/thumbs/'.$fnArr[1];
+        }
+                
         return 'thumbs/' . $this->filename;
     }
 
@@ -261,10 +279,7 @@ class image extends \fpcm\model\abstracts\file {
             return false;
         }
 
-        $saveValues = $this->getSaveValues();
-        $saveValues = $this->events->trigger('image\save', $saveValues);
-
-        return $this->dbcon->insert($this->table, $saveValues);
+        return $this->dbcon->insert($this->table, $this->events->trigger('image\save', $this->getSaveValues()));
     }
 
     /**
@@ -278,7 +293,7 @@ class image extends \fpcm\model\abstracts\file {
         }
 
         $saveValues = $this->getSaveValues();
-        $params = $this->events->trigger('image\update', $saveValues);
+        $saveValues = $this->events->trigger('image\update', $saveValues);
 
         return $this->dbcon->update($this->table, $this->dbParams, array_values($saveValues), "filename = ?", array($this->filename));
     }
@@ -298,9 +313,8 @@ class image extends \fpcm\model\abstracts\file {
         if (file_exists($fileName)) {
             unlink($fileName);
         }
-        return $this->dbcon->delete($this->table, 'filename = ?', array($this->filename));
 
-        return false;
+        return $this->dbcon->delete($this->table, 'filename = ?', array($this->filename));
     }
 
     /**
@@ -312,6 +326,10 @@ class image extends \fpcm\model\abstracts\file {
     public function rename($newname, $userId = false)
     {
         $oldname = $this->filename;
+        if (strpos($oldname, '/') !== false) {
+            $newname = dirname($oldname).DIRECTORY_SEPARATOR.$newname;
+        }
+
         if (!parent::rename($newname.'.'.$this->getExtension())) {
             return false;
         }
@@ -460,8 +478,10 @@ class image extends \fpcm\model\abstracts\file {
         $keys[] = 'id';
 
         foreach ($keys as $key) {
-            if (!isset($object->$key))
+            if (!isset($object->$key)) {
                 continue;
+            }
+
             $this->$key = $object->$key;
         }
 

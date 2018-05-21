@@ -44,8 +44,8 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        $this->oid      = $this->getRequestVar('id', [\fpcm\classes\http::FILTER_CASTINT]);
-        $this->module   = $this->getRequestVar('view');
+        $this->oid = $this->getRequestVar('id', [\fpcm\classes\http::FILTER_CASTINT]);
+        $this->module = $this->getRequestVar('view');
         $this->initActionObjects();
 
         return true;
@@ -68,7 +68,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
     {
         return '';
     }
-    
+
     /**
      * Controller-Processing
      */
@@ -88,9 +88,9 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
      * @return boolean
      */
     private function processComments()
-    {        
-        $this->conditions->articleid    = $this->oid;
-        $this->conditions->searchtype   = 0;
+    {
+        $this->conditions->articleid = $this->oid;
+        $this->conditions->searchtype = 0;
 
         $this->commentDataView();
         $dvVars = $this->dataView->getJsVars();
@@ -113,7 +113,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
         }
 
         $revision = $this->article->getRevisions();
-        $count    = $this->article->getRevisionsCount();
+        $count = $this->article->getRevisionsCount();
 
         $cols = [(new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE'))->setSize(12)];
 
@@ -125,23 +125,22 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
                 (new \fpcm\components\dataView\column('date', 'EDITOR_REVISION_DATE'))->setSize('auto')
             ];
         }
-        
+
         $this->dataView = new \fpcm\components\dataView\dataView('revisionslist');
         $this->dataView->addColumns($cols);
 
         foreach ($revision as $revisionTime => $revisionTitle) {
-            
-            $button = (new \fpcm\view\helper\linkButton('rev'.$revisionTime))->setUrl($this->article->getEditLink().'&rev='.$revisionTime)->setText('EDITOR_STATUS_REVISION_SHOW')->setIcon('play')->setIconOnly(true);
+
+            $button = (new \fpcm\view\helper\linkButton('rev' . $revisionTime))->setUrl($this->article->getEditLink() . '&rev=' . $revisionTime)->setText('EDITOR_STATUS_REVISION_SHOW')->setIcon('play')->setIconOnly(true);
 
             $this->dataView->addRow(
-                new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('revisionIds[]', 'chbx' . $revisionTime))->setClass('fpcm-ui-list-checkbox')->setValue($revisionTime), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                    new \fpcm\components\dataView\rowCol('button', $button, 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                    new \fpcm\components\dataView\rowCol('title', new \fpcm\view\helper\escape(strip_tags($revisionTitle)), 'fpcm-ui-ellipsis'),
-                    new \fpcm\components\dataView\rowCol('date',  new \fpcm\view\helper\dateText($revisionTime), 'fpcm-ui-ellipsis')
-                ]
+                    new \fpcm\components\dataView\row([
+                new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('revisionIds[]', 'chbx' . $revisionTime))->setClass('fpcm-ui-list-checkbox')->setValue($revisionTime), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                new \fpcm\components\dataView\rowCol('button', $button, 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                new \fpcm\components\dataView\rowCol('title', new \fpcm\view\helper\escape(strip_tags($revisionTitle)), 'fpcm-ui-ellipsis'),
+                new \fpcm\components\dataView\rowCol('date', new \fpcm\view\helper\dateText($revisionTime), 'fpcm-ui-ellipsis')
+                    ]
             ));
-            
         }
 
         $dvVars = $this->dataView->getJsVars();
@@ -149,9 +148,8 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
             'dataViewVars' => $dvVars['dataviews']['revisionslist'],
             'dataViewName' => 'revisionslist'
         ];
-        
-        return true;
 
+        return true;
     }
 
     /**
@@ -173,14 +171,13 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
             return true;
         }
 
-        $fn = 'initObjects' . ucfirst($this->module);   
+        $fn = 'initObjects' . ucfirst($this->module);
         if (!method_exists($this, $fn) || !$this->oid) {
             exit;
         }
 
-        return call_user_func([$this, $fn]);        
+        return call_user_func([$this, $fn]);
     }
-
 
     /**
      * 

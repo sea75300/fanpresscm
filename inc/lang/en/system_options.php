@@ -71,6 +71,7 @@ $lang = array(
     'SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE' => 'Default editor font size',
     'SYSTEM_OPTIONS_NEWS_EDITOR_IMGTOOLS' => 'Save image changes in TinyMCE in file system',
     'SYSTEM_OPTIONS_NEWS_NEWUPLOADER' => 'Use jQuery uploader',
+    'SYSTEM_OPTIONS_NEWS_SUBFOLDERS' => 'Upload files into sub folders',
     'SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT' => 'Show articles in archiv from',
     'SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY' => 'keep empty for no limit',
     'SYSTEM_OPTIONS_NEWS_URLREWRITING' => 'Enable URL rwriting for article links',

@@ -39,6 +39,10 @@ fpcm.fileuploader = {
 
         });
 
+        jQuery('#btnUploadFile').click(function () {
+            fpcm.ui.showLoader(true);
+        });
+
         jQuery('#btnCancelUpload').click(function () {
             jQuery('#fpcm-ui-phpupload-filelist').empty();
             jQuery('.fpcm-ui-fileinput-select').empty();

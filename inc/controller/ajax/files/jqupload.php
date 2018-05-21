@@ -32,13 +32,13 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController {
         
         new \fpcmUploadHandler([
             'script_url' => \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'),
-            'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, '/'),
-            'upload_url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, '/'),
+            'upload_dir' => \fpcm\model\files\ops::getUploadPath(),
+            'upload_url' => \fpcm\model\files\ops::getUploadUrl(),
             'accept_file_types' => '/\.(gif|jpe?g|png|bmp)$/i',
             'image_versions' => array(
                 'thumbnail' => array(
-                    'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, 'thumbs' . DIRECTORY_SEPARATOR),
-                    'upload_url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, 'thumbs' . DIRECTORY_SEPARATOR),
+                    'upload_dir' => \fpcm\model\files\ops::getUploadPath(DIRECTORY_SEPARATOR.'thumbs'.DIRECTORY_SEPARATOR),
+                    'upload_url' => \fpcm\model\files\ops::getUploadUrl('/thumbs/'),
                     'crop' => false,
                     'max_width' => $this->config->file_img_thumb_width,
                     'max_height' => $this->config->file_img_thumb_height

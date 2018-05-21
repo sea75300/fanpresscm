@@ -46,12 +46,13 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
         $fileNames = $this->uploader['name'];
         $fileTypes = $this->uploader['type'];
 
-        $res = array('error' => array(), 'success' => array());
+        $res = ['error' => [], 'success' => []];
 
         foreach ($tempNames as $key => $value) {
 
-            if (!is_uploaded_file($value) || !isset($fileNames[$key]) || !isset($fileTypes[$key]))
+            if (!is_uploaded_file($value) || !isset($fileNames[$key]) || !isset($fileTypes[$key])) {
                 continue;
+            }
 
             $ext = pathinfo($fileNames[$key], PATHINFO_EXTENSION);
             $ext = ($ext) ? strtolower($ext) : '';
@@ -62,8 +63,14 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
                 continue;
             }
 
-            $fileName = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $fileNames[$key]);
-            $image = new image($fileNames[$key]);
+            $fileName = ops::getUploadPath($fileNames[$key], $this->config->file_subfolders);
+            $fileName = ( $this->config->file_subfolders
+                      ? basename(dirname($fileName)).'/'.basename($fileName)
+                      : basename($fileName) );
+
+            $this->getUploadFileName($fileNames[$key]);
+            
+            $image = new image($fileName);
             if (!$image->moveUploadedFile($value)) {
                 trigger_error('Unable to move uploaded to to uploader folder! ' . $fileNames[$key]);
                 $res['error'][$key] = $fileNames[$key];
@@ -85,7 +92,10 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
             $res['success'][$key] = $fileNames[$key];
         }
 
-        $this->events->trigger('fileupload\phpAfter', array('uploader' => $this->uploader, 'results' => $res));
+        $this->events->trigger('fileupload\phpAfter', [
+            'uploader' => $this->uploader,
+            'results' => $res
+        ]);
 
         return $res;
     }
@@ -106,7 +116,8 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
                 continue;
             }
 
-            $fileName = $fileNames[$key];
+            $fileName = $this->getUploadFileName($fileNames[$key]);
+
             $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
             if (strtolower($ext) !== \fpcm\model\packages\package::DEFAULT_EXTENSION) {
                 return false;
@@ -210,6 +221,22 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
         }
 
         return true;
+    }
+
+    /**
+     * 
+     * @param string $fileName
+     * @return boolean
+     */
+    public function getUploadFileName(string $fileName) : string
+    {
+        $fileName = ops::getUploadPath($fileName, $this->config->file_subfolders);
+
+        if ($this->config->file_subfolders) {
+            return basename(dirname($fileName)).'/'.basename($fileName);
+        }
+
+        return basename($fileName);
     }
 
 }

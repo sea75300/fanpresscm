@@ -71,6 +71,7 @@ $lang = array(
     'SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE' => 'Standard-Schriftgröße im Editor',
     'SYSTEM_OPTIONS_NEWS_EDITOR_IMGTOOLS' => 'Bilder-Änderungen in TinyMCE auf Server speichern',
     'SYSTEM_OPTIONS_NEWS_NEWUPLOADER' => 'jQuery Dateiupload verwenden',
+    'SYSTEM_OPTIONS_NEWS_SUBFOLDERS' => 'Dateien beim Upload in Unterordner organisieren',
     'SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT' => 'Artikel in Archiv anzeigen ab',
     'SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY' => 'leer lassen für kein Limit',
     'SYSTEM_OPTIONS_NEWS_URLREWRITING' => 'URL-Rewriting für Artikel-Links aktivieren',

@@ -103,11 +103,11 @@ class search extends \fpcm\controller\abstracts\ajaxController {
         if ($this->mode != -1) {
             $sparams->archived = (int) $this->mode;
         }
-        
+
         switch ($this->mode) {
             case 1 :
                 $this->showArchivedStatus = false;
-                $this->showDraftStatus    = false;
+                $this->showDraftStatus = false;
                 break;
             case 0 :
                 $this->showArchivedStatus = false;
