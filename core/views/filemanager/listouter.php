@@ -1,4 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
+<?php if($mode > 1) : ?><?php include_once $theView->getIncludePath('common/buttons.php'); ?><?php endif; ?>
 <div class="fpcm-ui-inner-wrapper">
     <div class="fpcm-ui-tabs-general" id="fpcm-files-tabs">
         <ul>
@@ -36,5 +37,3 @@
 </div>
 
 <?php include $theView->getIncludePath('filemanager/searchform.php'); ?>
-
-<?php if($mode > 1) : ?><?php $theView->button('opensearch', 'opensearch')->setClass('fpcm-ui-hidden'); ?><?php endif; ?>

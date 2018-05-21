@@ -178,20 +178,19 @@ class filelist extends \fpcm\controller\abstracts\controller {
         $this->initViewAssigns([], [], \fpcm\classes\tools::calcPagination(1, 1, 0, 0));
         $this->initPermissions();
 
-        if ($this->mode === 1) {
-            $this->view->addButtons([
-                (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true),
-                (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
-            ]);
+        $hiddenClass = ($this->mode === 1 ? '' : ' fpcm-ui-hidden');
 
-            if ($this->permissionsData['permThumbs']) {
-                $this->view->addButton((new \fpcm\view\helper\submitButton('createThumbs'))->setText('FILE_LIST_NEWTHUMBS')->setIcon('image', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'));
-            }
+        $this->view->addButtons([
+            (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setClass($hiddenClass),
+            (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'.$hiddenClass)
+        ]);
 
-            if ($this->permissionsData['permDelete']) {
-                $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteFiles'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab1'));
-            }
+        if ($this->permissionsData['permThumbs']) {
+            $this->view->addButton((new \fpcm\view\helper\submitButton('createThumbs', 'createThumbs'))->setText('FILE_LIST_NEWTHUMBS')->setIcon('image', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'.$hiddenClass));
+        }
 
+        if ($this->permissionsData['permDelete']) {
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteFiles', 'deleteFiles'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab1'.$hiddenClass));
         }
 
         $this->view->setFormAction('files/list', ['mode' => $this->mode]);

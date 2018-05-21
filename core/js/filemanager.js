@@ -99,6 +99,7 @@ fpcm.filemanager = {
             }
 
             var selectedFile = jQuery(this).attr('data-file');
+            jQuery('#newFilenameDialog').val(jQuery(this).attr('data-oldname'));
 
             fpcm.ui.dialog({
                 id: 'files-rename',
@@ -135,7 +136,10 @@ fpcm.filemanager = {
                     {
                         text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick",                
-                        click: fpcm.filemanager.closeRenameDialog
+                        click: function () {
+                            fpcm.filemanager.closeRenameDialog();
+                            jQuery(this).dialog('close');
+                        }
                     }
                 ]
             });

@@ -211,6 +211,20 @@ fpcm.editor = {
                     }
                 },
                 {
+                    text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
+                    icon: "ui-icon-image",
+                    click: function() {
+                        jQuery(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#createThumbs').click();
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('GLOBAL_DELETE'),
+                    icon: "ui-icon-trash",
+                    click: function() {
+                        jQuery(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#deleteFiles').click();
+                    }
+                },
+                {
                     text: fpcm.ui.translate('GLOBAL_CLOSE'),
                     icon: "ui-icon-closethick",                    
                     click: function() {
@@ -397,6 +411,20 @@ fpcm.editor = {
                         onclick: function() {
                             var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
                             jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('#opensearch').click();
+                        }
+                    },
+                    {
+                        text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
+                        onclick: function() {
+                            var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
+                            jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('#createThumbs').click();
+                        }
+                    },
+                    {
+                        text: fpcm.ui.translate('GLOBAL_DELETE'),
+                        onclick: function() {
+                            var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
+                            jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('#deleteFiles').click();
                         }
                     },
                     {

@@ -158,7 +158,6 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $twitter    = new \fpcm\model\system\twitter();
         $twitterOk  = $twitter->checkRequirements();
 
-        $twitterReplacements = '';
         if ($twitterOk) {
             $twitterReplacements = [];
             foreach ((new \fpcm\model\pubtemplates\tweet())->getReplacementTranslations('TEMPLATE_ARTICLE_') as $tag => $descr) {
@@ -166,6 +165,9 @@ class articlebase extends \fpcm\controller\abstracts\controller {
             }
 
             $twitterReplacements = implode(' &bull; ' . PHP_EOL . ' ', $twitterReplacements);
+        }
+        else {
+            $twitterReplacements = '';
         }
 
         $this->view->assign('twitterReplacements', $twitterReplacements);
@@ -179,7 +181,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
             'filemanagerMode' => 2
         );
 
-        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH'], $this->editorPlugin->getJsLangVars()));
+        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE'], $this->editorPlugin->getJsLangVars()));
         $this->view->addJsVars($this->jsVars);
 
         if (!$this->getRequestVar('rev')) {

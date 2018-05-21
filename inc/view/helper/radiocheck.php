@@ -56,9 +56,11 @@ abstract class radiocheck extends helper {
      */
     protected function getString()
     {
+        $labelClass = (strpos($this->class, 'fpcm-ui-hidden') !== false) ? $this->getClassString() : '';
+        
         if ($this->iconOnly) {            
             return implode(' ', [
-                "<label for=\"{$this->id}\" title=\"{$this->text}\">",
+                "<label for=\"{$this->id}\" title=\"{$this->text}\" {$labelClass}>",
                 $this->getIconString(),
                 "<input type=\"{$this->type}\"",
                 $this->getNameIdString(),
@@ -73,7 +75,7 @@ abstract class radiocheck extends helper {
         }
         
         return implode(' ', [
-            "<label for=\"{$this->id}\">",
+            "<label for=\"{$this->id}\" {$labelClass}>",
             $this->getIconString(),
             $this->getDescriptionTextString(),
             "<input type=\"{$this->type}\"",
