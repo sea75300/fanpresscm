@@ -213,14 +213,18 @@ class update extends package {
     public function updateLog()
     {
         $fopt = new \fpcm\model\files\fileOption('updatecopy');
-        
-        if (!fpcmLogPackages($this->packageName, $fopt->read())) {
+        $data = array_map('\fpcm\model\files\ops::removeBaseDir', $fopt->read());
+        if (!fpcmLogPackages($this->packageName, $data)) {
             return false;
         }
 
         return $fopt->remove();
     }
-    
+
+    /**
+     * 
+     * @return boolean
+     */
     public function cleanupFiles()
     {
         $oldList = $this->getFileList(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt.back'), 1);

@@ -60,4 +60,8 @@ abstract class eventBase extends \fpcm\module\event {
         return $items;
     }
 
+    final protected function getSize()
+    {
+        return filesize($this->path);
+    }
 }

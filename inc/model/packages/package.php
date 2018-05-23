@@ -86,6 +86,12 @@ abstract class package {
     protected $archive;
 
     /**
+     *
+     * @var mixed
+     */
+    protected $data;
+
+    /**
      * Konstruktor
      * @param string $type Package-Type
      * @param string $key Package-Key

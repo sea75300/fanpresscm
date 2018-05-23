@@ -34,6 +34,10 @@ class module extends package {
      */
     protected $moduleKey;
 
+    /**
+     * 
+     * @return boolean
+     */
     protected function initObjects()
     {
         $this->moduleKey = \fpcm\module\module::getKeyFromFilename($this->packageName);
@@ -64,7 +68,12 @@ class module extends package {
 
     public function getLocalDestinationPath()
     {
-        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $this->moduleKey);
+        if ($this->data) {
+            return $this->data;
+        }
+
+        $this->data = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $this->moduleKey);
+        return $this->data;
     }
 
     public function getLocalPath()
@@ -223,12 +232,23 @@ class module extends package {
     public function updateLog()
     {
         $fopt = new \fpcm\model\files\fileOption('modulecopy'.$this->hashKey);
-        if (!fpcmLogPackages($this->moduleKey.' - '.$this->packageName, $fopt->read())) {
+        $data = array_map([$this, 'removeModuleBaseDir'], $fopt->read());        
+        
+        if (!fpcmLogPackages($this->moduleKey.' - '.$this->packageName, $data)) {
             return false;
         }
 
         return $fopt->remove();
     }
 
+    /**
+     * 
+     * @param string $item
+     * @return string
+     */
+    private function removeModuleBaseDir($item)
+    {
+        return $this->moduleKey.str_replace($this->getLocalDestinationPath(), '', $item);
+    }
 
 }

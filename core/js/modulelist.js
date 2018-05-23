@@ -77,9 +77,8 @@ fpcm.modulelist = {
 
         jQuery('button.fpcm-ui-modulelist-action-local').click(function() {
             
-            fpcm.ui.showLoader(true);
-
             var btnEl = jQuery(this);
+
             var params = {
                 action: btnEl.attr('data-action'),
                 key: btnEl.attr('data-key'),
@@ -90,14 +89,36 @@ fpcm.modulelist = {
                 params.fromDir = fromDir;
             }
 
-            fpcm.ajax.exec('modules/exec', {
-                data: params,
-                execDone: function () {
-                    var result = fpcm.ajax.getResult('modules/exec', true);
-                    fpcm.modulelist.tabs.tabs('load', 0);
+            fpcm.ui.dialog({
+                title: fpcm.ui.translate('GLOBAL_CONFIRM'),
+                content: fpcm.ui.translate('CONFIRM_MESSAGE'),
+                dlWidth: fpcm.ui.getDialogSizes(top, 0.35).width,
+                dlButtons: [
+                    {
+                        text: fpcm.ui.translate('GLOBAL_YES'),
+                        icon: "ui-icon-check",                    
+                        click: function () {
+                            fpcm.ui.showLoader(true);
+                            fpcm.ajax.exec('modules/exec', {
+                                data: params,
+                                execDone: function () {
+                                    var result = fpcm.ajax.getResult('modules/exec', true);
+                                    fpcm.modulelist.tabs.tabs('load', 0);
+                                }
+                            });
+
+                            jQuery( this ).dialog( "close" );
+                        }
+                    },
+                    {
+                        text: fpcm.ui.translate('GLOBAL_NO'),
+                        icon: "ui-icon-closethick",
+                        click: function () {
+                    jQuery( this ).dialog( "close" );
                 }
+                    }
+                ]
             });
-        
         });
 
         jQuery('button.fpcm-ui-modulelist-info').click(function() {

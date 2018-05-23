@@ -83,6 +83,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
             return call_user_func(array($this, 'loadLog' . $this->log));
         }
 
+        $this->logsize = (int) $this->events->trigger('logs\getLogSize', $this->log);
         $this->items = $this->events->trigger('logs\load', $this->log);
         if (!is_array($this->items))  {
             return true;
@@ -118,7 +119,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     {
         $log = (new \fpcm\model\files\logfile($this->log));
         $this->items = $log->fetchData();
-        $this->logsize = \fpcm\classes\tools::calcSize($log->getFilesize());
+        $this->logsize = $log->getFilesize();
 
         $this->initDataView();
         $this->assignDataViewvars();
@@ -184,7 +185,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
         $this->returnData = [
             'dataViewVars' => $dvVars['dataviews']['logs'],
             'dataViewName' => 'logs',
-            'logsize' => $this->logsize
+            'logsize' => \fpcm\classes\tools::calcSize($this->logsize)
         ];
 
         $this->getSimpleResponse();
