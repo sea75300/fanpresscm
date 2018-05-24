@@ -296,8 +296,11 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
         $keys[] = 'id';
 
         foreach ($keys as $key) {
-            if (!isset($object->$key))
+
+            if (!isset($object->$key)) {
                 continue;
+            }
+
             $this->$key = $object->$key;
         }
 

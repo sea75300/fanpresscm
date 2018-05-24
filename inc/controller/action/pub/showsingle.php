@@ -192,6 +192,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $this->view->assign('comments', $parsed['comments']);
             $this->view->assign('commentform', $this->assignCommentFormData());
         } else {
+            $this->view->assign('comments', '');
             $this->view->assign('commentform', false);
         }
 

@@ -38,16 +38,22 @@ final class sharebuttons extends template {
     ];
     
     /**
-     * zu teilender Link
+     * Link to share
      * @var string
      */
     protected $link;
 
     /**
-     * Beschreibung für Share-EIntrag
+     * Share description
      * @var string
      */
     protected $description;
+
+    /**
+     * Article id
+     * @var int
+     */
+    protected $articleId;
 
     /**
      * Konstruktor
@@ -90,7 +96,8 @@ final class sharebuttons extends template {
                 }
             }
 
-            $content = str_replace($replacement, "<a href=\"{$value['link']}\" {$dataStr}><img src=\"{$value['icon']}\" alt=\"{$value['text']}\"></a>", $content);
+            $itemName = trim($replacement, '{}');
+            $content = str_replace($replacement, "<a class=\"fpcm-pub-sharebutton fpcm-pub-sharebutton-{$itemName}\" href=\"{$value['link']}\" {$dataStr}><img src=\"{$value['icon']}\" alt=\"{$value['text']}\"></a>", $content);
         }
 
         return $content;
@@ -102,10 +109,11 @@ final class sharebuttons extends template {
      * @param string $description
      * @return bool
      */
-    public function assignData(string $link, string $description) : bool
+    public function assignData(string $link, string $description, int $articleId) : bool
     {
         $this->link = rawurlencode($link);
         $this->description = $description;
+        $this->articleId = (int) $articleId;
         return true;
     }
 
@@ -120,51 +128,74 @@ final class sharebuttons extends template {
                 'link' => "https://www.facebook.com/sharer/sharer.php?u={$this->link}&amp;t={$this->description}",
                 'icon' => "default/facebook.png",
                 'text' => "Facebook",
-                'data' => []
+                'data' => [
+                    'onclick' => 'facebook',
+                    'oid' => $this->articleId
+                ]
             ],
             '{{twitter}}' => [
                 'link' => "https://twitter.com/intent/tweet?source={$this->link}&amp;text={$this->description}",
                 'icon' => "default/twitter.png",
                 'text' => "Twitter",
-                'data' => []
+                'data' => [
+                    'onclick' => 'twitter',
+                    'oid' => $this->articleId
+                ]
             ],
             '{{googlePlus}}' => [
                 'link' => "https://plus.google.com/share?url={$this->link}",
                 'icon' => "default/googleplus.png",
                 'text' => "Google+",
-                'data' => []
+                'data' => [
+                    'onclick' => 'googleplus',
+                    'oid' => $this->articleId
+                ]
             ],
             '{{tumblr}}' => [
                 'link' => "http://www.tumblr.com/share?v=3&amp;u={$this->link}&amp;t={$this->description}&amp;s=",
                 'icon' => "default/tumblr.png",
                 'text' => "Share on Tumblr",
-                'data' => []
+                'data' => [
+                    'onclick' => 'tumblr',
+                    'oid' => $this->articleId
+                ]
             ],
             '{{pinterest}}' => [
                 'link' => "http://pinterest.com/pin/create/button/?url={$this->link}&amp;description={$this->description}",
                 'icon' => "default/pinterest.png",
                 'text' => "Pin it",
-                'data' => []
+                'data' => [
+                    'onclick' => 'pinterest',
+                    'oid' => $this->articleId
+                ]
             ],
             '{{reddit}}' => [
                 'link' => "http://www.reddit.com/submit?url={$this->link}&amp;title={$this->description}",
                 'icon' => "default/reddit.png",
                 'text' => "Submit to Reddit",
-                'data' => []
+                'data' => [
+                    'onclick' => 'reddit',
+                    'oid' => $this->articleId
+                ]
             ],
             '{{whatsapp}}' => [
                 'link' => "whatsapp://send?text={$this->description}: {$this->link}",
                 'icon' => "default/whatsapp.png",
                 'text' => "Share on WhatsApp",
                 'data' => [
-                    'action' => 'share/whatsapp/share'
+                    'action' => 'share/whatsapp/share',
+                    'onclick' => 'whatsapp',
+                    'oid' => $this->articleId
                 ]
             ],
             '{{email}}' => [
                 'link' => "mailto:?subject={$this->description}&amp;body={$this->link}",
                 'icon' => "default/email.png",
                 'text' => "Share via E-Mail",
-                'data' => []
+                'data' => [
+                    'onclick' => 'email',
+                    'oid' => $this->articleId
+                ]
             ],
             '{{link}}' => $this->link,
             '{{description}}' => $this->description,

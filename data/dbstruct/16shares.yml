@@ -1,0 +1,42 @@
+## article shares table definition
+---
+name: shares
+primarykey: id
+engine: InnoDB
+charset: utf8
+autoincrement:
+    colname: id
+    start: 1
+cols:
+    id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    article_id:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    sharecount:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    shareitem:
+        type: varchar
+        length: 64
+        params: NOT NULL
+    lastshare:
+        type: bigint
+        length: 20
+        params: NOT NULL
+indices:
+    article_id:
+        col: article_id
+        isUnqiue: false
+    shareitem:
+        col: shareitem
+        isUnqiue: false
+    article_id_shareitem_idx:
+        col:
+            article_id
+            shareitem
+        isUnqiue: true

@@ -40,6 +40,19 @@ window.onload = function() {
                     return false;
                 });
 
+                jQuery('a.fpcm-pub-sharebutton').click(function () {
+                    jQuery.ajax({
+                        url: fpcm.vars.ajaxActionPath + 'shareClick',
+                        type: 'POST',
+                        data: {
+                            oid: jQuery(this).attr('data-oid'),
+                            item: jQuery(this).attr('data-onclick')
+                        }
+                    });
+                    
+                    return false;
+                });
+
                 if (window.fpcm.vars.ui.messages && fpcm.vars.ui.messages.length) {
                     var msg = null;
                     for (var i = 0; i < window.fpcm.vars.ui.messages.length; i++) {

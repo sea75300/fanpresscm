@@ -77,6 +77,11 @@ final class database {
     const tableSessions = 'sessions';
 
     /**
+     * Share-Count-Tabelle
+     */
+    const tableShares = 'shares';
+
+    /**
      * Smiley-Tabelle
      */
     const tableSmileys = 'smileys';
