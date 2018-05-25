@@ -48,12 +48,6 @@ class template extends \fpcm\model\abstracts\file {
     protected $replacementTranslated = [];
 
     /**
-     * Smiley-Cache
-     * @var \fpcm\classes\cache
-     */
-    protected $smileyCache;
-
-    /**
      * 
      * Konstruktor
      * @param string $filename

@@ -70,4 +70,17 @@
     </div>
 </fieldset>
 
+<?php if ($showShares && count($shares)) : ?>
+<fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
+    <legend><?php $theView->write('EDITOR_SHARES'); ?></legend>
+    <div class="row fpcm-ui-padding-md-tb">
+        <ul class="fpcm-ui-list-style-none fpcm-ui-padding-none fpcm-ui-margin-none">
+            <?php foreach ($shares as $share) : ?>
+            <li class="fpcm-ui-padding-md-top fpcm-ui-padding-md-bottom"><?php print $share; ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</fieldset>
+<?php endif; ?>
+
 <?php endif; ?>

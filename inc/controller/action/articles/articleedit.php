@@ -179,6 +179,7 @@ class articleedit extends articlebase {
             $this->view->assign('isRevision', true);
             $this->view->assign('showRevisions', false);
             $this->view->assign('showComments', false);
+            $this->view->assign('showShares', false);
             $this->view->setFormAction($this->article->getEditLink(), ['rev' => $this->revisionId], true);
 
             $this->view->addButton((new \fpcm\view\helper\linkButton('backToArticel'))->setUrl($this->article->getEditLink())->setText('EDITOR_BACKTOCURRENT')->setIcon('chevron-circle-left'), 2);
@@ -210,6 +211,11 @@ class articleedit extends articlebase {
             if ($this->article->getImagepath()) {
                 $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly(true)->setClass('fpcm-editor-articleimage'));
             }
+
+            $shares = (new \fpcm\model\shares\shares())->getByArticleId($this->article->getId());
+
+            $this->view->assign('shares', $shares);
+            $this->view->assign('showShares', $this->config->system_share_count);
         }
         
         if ($this->permissions->check(['article' => 'revisions'])) {

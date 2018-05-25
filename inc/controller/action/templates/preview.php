@@ -73,6 +73,9 @@ class preview extends \fpcm\controller\abstracts\controller {
             case \fpcm\model\pubtemplates\latestnews::TEMPLATE_ID :
                 $this->getLatestNewsPreview();
                 break;
+            case \fpcm\model\pubtemplates\sharebuttons::TEMPLATE_ID :
+                $this->getShareButtonPreview();
+                break;
             default :
                 $this->view = new \fpcm\view\error('Invalid template data');
                 return;
@@ -223,6 +226,13 @@ class preview extends \fpcm\controller\abstracts\controller {
         $parsed[] = $this->template->parse();
 
         $this->view->assign('content', implode(PHP_EOL, $parsed));
+    }
+    
+    private function getShareButtonPreview()
+    {
+        $this->view = new \fpcm\view\view('public/showlatest');
+        $this->template->assignData($this->config->system_url, 'Lorem ipsum dolor sit amet', 1);
+        $this->view->assign('content', $this->template->parse());
     }
 
 }

@@ -23,6 +23,7 @@ namespace fpcm\model\system;
  * @property bool   $system_mode Frontend-Modus (0 = iframe, 1= phpinclude)
  * @property string $system_css_path Pfad zur CSS-Datei
  * @property bool   $system_show_share Share-Buttons anzeigen
+ * @property bool   $system_share_count Click auf Share-Buttons zählen
  * @property string $system_timezone Zeitzone
  * @property int    $system_cache_timeout Cache-Timeout
  * @property bool   $system_loader_jquery jQuery in Frontend laden

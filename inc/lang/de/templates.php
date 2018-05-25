@@ -72,9 +72,11 @@ $lang = array(
     'TEMPLATE_SHAREBUTTONS_TUMBLR' => 'Button für Tumblr',
     'TEMPLATE_SHAREBUTTONS_PINTEREST' => 'Button für Pinterest',
     'TEMPLATE_SHAREBUTTONS_REDDIT' => 'Button für Reddit',
+    'TEMPLATE_SHAREBUTTONS_WHATSAPP' => 'Button für WhatsApp',
     'TEMPLATE_SHAREBUTTONS_EMAIL' => 'Button für E-Mail',
     'TEMPLATE_SHAREBUTTONS_LINK' => 'Ziel-Link (für eigene Buttons)',
-    'TEMPLATE_SHAREBUTTONS_DESCRIPTION' => 'Beschreibung (für eigene Buttons',
+    'TEMPLATE_SHAREBUTTONS_DESCRIPTION' => 'Beschreibung (für eigene Buttons)',
+    'TEMPLATE_SHAREBUTTONS_ARTICLEID' => 'Article-ID (für eigene Buttons)',
     'TEMPLATE_SHAREBUTTONS_CREDITS' => 'Credit-Tag für Icons, etc.',
 
 );

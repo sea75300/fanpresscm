@@ -59,6 +59,7 @@ $lang = array(
     'SYSTEM_OPTIONS_ACTIVENEWSTEMPLATESINGLE' => 'Single article template',
     'SYSTEM_OPTIONS_LATESTNEWSTEMPLATE' => '&quot;Lastest News&quot; Template',
     'SYSTEM_OPTIONS_NEWSSHOWSHARELINKS' => 'Show share buttons',
+    'SYSTEM_OPTIONS_NEWSSHARECOUNT' => 'Count number of shared content',
     'SYSTEM_OPTIONS_NEWSSHOWIMGTHUMBSIZE' => 'Thumbnail size',
     'SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH' => 'Width in pixel',
     'SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT' => 'Height in pixal',

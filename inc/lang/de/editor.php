@@ -86,5 +86,14 @@ $lang = array(
     'EDITOR_HTML_BUTTONS_SYMBOL' => 'Symbol einfügen',
     'EDITOR_HTML_BUTTONS_ARTICLETPL' => 'Vorlage einfügen',
     'EDITOR_HTML_BUTTONS_REMOVESTYLE' => 'HTML-Tags entfernen',
-    'EDITOR_HTML_BUTTONS_LITEXT' => 'Element-Text:'
+    'EDITOR_HTML_BUTTONS_LITEXT' => 'Element-Text:',
+    'EDITOR_SHARES' => 'Geteilte Inhalte',
+    'EDITOR_SHARES_FACEBOOK' => 'Geteilt via Facevook',
+    'EDITOR_SHARES_TWITTER' => 'Geteilt via Twitter',
+    'EDITOR_SHARES_GOOGLEPLUS' => 'Geteilt via Google+',
+    'EDITOR_SHARES_TUMBLR' => 'Geteilt via Tumblr',
+    'EDITOR_SHARES_PINTEREST' => 'Geteilt via Pinterest',
+    'EDITOR_SHARES_REDDIT' => 'Geteilt via Reddit',
+    'EDITOR_SHARES_WHATSAPP' => 'Geteilt via WhatsApp',
+    'EDITOR_SHARES_EMAIL' => 'Geteilt via E-Mail',
 );

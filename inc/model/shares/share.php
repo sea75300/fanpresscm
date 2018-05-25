@@ -163,5 +163,18 @@ class share extends \fpcm\model\abstracts\dataset {
         $this->sharecount++;
     }
 
+    /**
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
+        $icon = \fpcm\model\pubtemplates\sharebuttons::getShareItemClass($this->shareitem);
+
+        $icon = new \fpcm\view\helper\icon($icon['icon'], $icon['prefix']);
+        $icon->setSize('lg');
+
+        return $icon.' '.$this->language->translate('EDITOR_SHARES_'.strtoupper($this->shareitem)).': '.$this->sharecount;
+    }
 
 }

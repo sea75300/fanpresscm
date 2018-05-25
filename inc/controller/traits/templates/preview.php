@@ -37,6 +37,8 @@ trait preview {
                 return new \fpcm\model\pubtemplates\commentform($filename);
             case \fpcm\model\pubtemplates\latestnews::TEMPLATE_ID :
                 return new \fpcm\model\pubtemplates\latestnews($filename);
+            case \fpcm\model\pubtemplates\sharebuttons::TEMPLATE_ID :
+                return new \fpcm\model\pubtemplates\sharebuttons($filename);
         }
 
         return false;

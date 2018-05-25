@@ -86,5 +86,14 @@ $lang = array(
     'EDITOR_HTML_BUTTONS_SYMBOL' => 'Insert Symbol',
     'EDITOR_HTML_BUTTONS_ARTICLETPL' => 'Insert draft template',
     'EDITOR_HTML_BUTTONS_REMOVESTYLE' => 'Remove HTML and style tags',
-    'EDITOR_HTML_BUTTONS_LITEXT' => 'Element text:'
+    'EDITOR_HTML_BUTTONS_LITEXT' => 'Element text:',
+    'EDITOR_SHARES' => 'Shared content',
+    'EDITOR_SHARES_FACEBOOK' => 'Shares on Facevook',
+    'EDITOR_SHARES_TWITTER' => 'Shares on Twitter',
+    'EDITOR_SHARES_GOOGLEPLUS' => 'Shares on Google+',
+    'EDITOR_SHARES_TUMBLR' => 'Shares on Tumblr',
+    'EDITOR_SHARES_PINTEREST' => 'Shares on Pinterest',
+    'EDITOR_SHARES_REDDIT' => 'Shares on Reddit',
+    'EDITOR_SHARES_WHATSAPP' => 'Shares via WhatsApp',
+    'EDITOR_SHARES_EMAIL' => 'Shares via E-Mail',
 );

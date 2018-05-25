@@ -34,6 +34,7 @@ final class sharebuttons extends template {
         '{{email}}' => '',
         '{{link}}' => '',
         '{{description}}' => '',
+        '{{articleId}}' => '',
         '{{credits}}' => ''
     ];
     
@@ -54,6 +55,12 @@ final class sharebuttons extends template {
      * @var int
      */
     protected $articleId;
+
+    /**
+     * Data stack
+     * @var array
+     */
+    protected $stack = [];
 
     /**
      * Konstruktor
@@ -79,7 +86,19 @@ final class sharebuttons extends template {
             return '';
         }
 
+        $cacheName = 'sharebtn/article'.$this->articleId;
+        if (!$this->cache->isExpired($cacheName)) {
+            return $this->cache->read($cacheName);
+        }
+
         $content = "<!-- Start FanPress CM Share Buttons -->".PHP_EOL.$this->content.PHP_EOL."<!-- Stop FanPress CM Share Buttons -->";
+
+        $this->stack['class'] = "pcm-pub-sharebutton";
+
+        if ($this->config->system_share_count) {
+            $this->stack['class'] .= ' fpcm-pub-sharebutton-count';
+        }
+        
         foreach ($this->initTags() as $replacement => $value) {
             
             if (!is_array($value)) {
@@ -88,6 +107,10 @@ final class sharebuttons extends template {
             }
 
             $value['icon'] = \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SHARE, $value['icon']);
+            
+            if (!isset($value['target'])) {
+                $value['target'] = '_blank';
+            }
 
             $dataStr = '';
             if (count($value['data'])) {
@@ -96,9 +119,14 @@ final class sharebuttons extends template {
                 }
             }
 
-            $itemName = trim($replacement, '{}');
-            $content = str_replace($replacement, "<a class=\"fpcm-pub-sharebutton fpcm-pub-sharebutton-{$itemName}\" href=\"{$value['link']}\" {$dataStr}><img src=\"{$value['icon']}\" alt=\"{$value['text']}\"></a>", $content);
+            if (!isset($this->stack[$replacement]['class'])) {
+                $this->stack[$replacement]['class'] = $this->stack['class'].' fpcm-pub-sharebutton-'.trim($replacement, '{}');
+            }
+            
+            $content = str_replace($replacement, "<a class=\"{$this->stack[$replacement]['class']}\" href=\"{$value['link']}\" target=\"{$value['target']}\" {$dataStr}><img src=\"{$value['icon']}\" alt=\"{$value['text']}\"></a>", $content);
         }
+
+        $this->cache->write($cacheName, $this->config->system_cache_timeout);
 
         return $content;
     }
@@ -182,6 +210,7 @@ final class sharebuttons extends template {
                 'link' => "whatsapp://send?text={$this->description}: {$this->link}",
                 'icon' => "default/whatsapp.png",
                 'text' => "Share on WhatsApp",
+                'target' => '_self',
                 'data' => [
                     'action' => 'share/whatsapp/share',
                     'onclick' => 'whatsapp',
@@ -199,10 +228,31 @@ final class sharebuttons extends template {
             ],
             '{{link}}' => $this->link,
             '{{description}}' => $this->description,
+            '{{articleId}}' => $this->articleId,
             '{{credits}}' => "<!-- Icon set powered by http://simplesharingbuttons.com and https://whatsappbrand.com/ -->"
         ]));
     }
 
+    public static function getShareItemClass($item)
+    {
+        $prefix = 'fab';
+
+        switch ($item) {
+            case 'googleplus' :
+                $item = 'google-plus';
+                break;
+            case 'email' :
+                $item = 'envelope-square';
+                $prefix = 'fas';
+                break;
+        }
+
+        return [
+            'icon' => $item,
+            'prefix' => $prefix
+        ];
+    }
+    
 }
 
 ?>

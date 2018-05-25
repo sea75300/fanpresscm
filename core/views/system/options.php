@@ -362,6 +362,17 @@
 
                         <div class="row fpcm-ui-padding-md-tb">
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                                <?php $theView->write('SYSTEM_OPTIONS_NEWSSHARECOUNT'); ?>:
+                            </div>
+                            <div class="align-self-center col-sm-12 col-md-auto">
+                                <?php $theView->boolSelect('system_share_count')->setSelected($globalConfig['system_share_count']); ?>
+                            </div>
+                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </div>
+                        </div>
+
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_URLREWRITING'); ?>:
                             </div>
                             <div class="align-self-center col-sm-12 col-md-auto">

@@ -551,8 +551,13 @@ div.fpcm-status-info li {
 }
 
 div.fpcm-status-info ul,
-div.fpcm-navigation ul.fpcm-menu {
+div.fpcm-navigation ul.fpcm-menu,
+.fpcm-ui-list-style-none {
     list-style:none;
+}
+
+div.fpcm-status-info ul,
+div.fpcm-navigation ul.fpcm-menu {
     margin: 0;
     padding: 0;
 }

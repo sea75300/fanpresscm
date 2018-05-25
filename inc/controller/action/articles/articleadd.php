@@ -43,6 +43,7 @@ class articleadd extends articlebase {
         $this->view->assign('editorMode', 0);
         $this->view->assign('showComments', false);
         $this->view->assign('showRevisions', false);
+        $this->view->assign('showShares', false);
         $this->view->assign('postponedTimer', time());
         $this->view->render();
     }

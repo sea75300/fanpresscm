@@ -40,17 +40,32 @@ window.onload = function() {
                     return false;
                 });
 
-                jQuery('a.fpcm-pub-sharebutton').click(function () {
+                if (!fpcm.pub.shares) {
+                    fpcm.pub.shares = {};
+                }
+
+                jQuery('a.fpcm-pub-sharebutton-count').click(function () {
+
+                    var item = jQuery(this).attr('data-onclick');
+                    if (fpcm.pub.shares[item] && (new Date()).getTime() - fpcm.pub.shares[item] < 30000) {
+                        return false;
+                    }
+
+                    if (!fpcm.pub.shares[item]) {
+                        fpcm.pub.shares[item] = 0;
+                    }
+
+                    fpcm.pub.shares[item] = (new Date()).getTime();
                     jQuery.ajax({
                         url: fpcm.vars.ajaxActionPath + 'shareClick',
                         type: 'POST',
                         data: {
                             oid: jQuery(this).attr('data-oid'),
-                            item: jQuery(this).attr('data-onclick')
+                            item: item
                         }
                     });
                     
-                    return false;
+                    return true;
                 });
 
                 if (window.fpcm.vars.ui.messages && fpcm.vars.ui.messages.length) {
