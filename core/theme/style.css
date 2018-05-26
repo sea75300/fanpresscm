@@ -818,7 +818,8 @@ h3, .fpcm-dashboard-container h3 {
 
 .fpcm-ui-metabox,
 div.fpcm-ui-editor-metabox strong,
-span.fpcm-ui-editor-metainfo {
+span.fpcm-ui-editor-metainfo,
+.fpcm-ui-color-blue-light {
     color:#3399ff;
 }
 

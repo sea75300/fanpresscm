@@ -129,6 +129,11 @@ class share extends \fpcm\model\abstracts\dataset {
      */
     public function save()
     {
+        if (!shares::getRegisteredShares($this->shareitem)) {
+            trigger_error('Failed to update share count for "'.$this->shareitem.'", item ist not defined. You might call event "pub\registerShares".');
+            return false;
+        }
+
         if (!$this->dbcon->insert($this->table, $this->getPreparedSaveParams())) {
             return false;
         }
@@ -143,6 +148,11 @@ class share extends \fpcm\model\abstracts\dataset {
      */
     public function update()
     {
+        if (!shares::getRegisteredShares($this->shareitem)) {
+            trigger_error('Failed to update share count for "'.$this->shareitem.'", item ist not defined. You might call event "pub\registerShares".');
+            return false;
+        }
+
         $params = $this->getPreparedSaveParams();
         $fields = array_keys($params);
 
@@ -167,14 +177,19 @@ class share extends \fpcm\model\abstracts\dataset {
      * 
      * @return string
      */
-    public function __toString()
+    public function getDescription() : string
+    {
+        return $this->language->translate('EDITOR_SHARES_'.strtoupper($this->shareitem));
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getIcon() : string
     {
         $icon = \fpcm\model\pubtemplates\sharebuttons::getShareItemClass($this->shareitem);
-
-        $icon = new \fpcm\view\helper\icon($icon['icon'], $icon['prefix']);
-        $icon->setSize('lg');
-
-        return $icon.' '.$this->language->translate('EDITOR_SHARES_'.strtoupper($this->shareitem)).': '.$this->sharecount;
+        return (string) (new \fpcm\view\helper\icon($icon['icon'], $icon['prefix']))->setSize('2x');
     }
 
 }

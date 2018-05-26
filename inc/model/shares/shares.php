@@ -58,4 +58,24 @@ class shares extends \fpcm\model\abstracts\tablelist {
 
         return $list;
     }
+
+    /**
+     * Check if a certain share item is registered
+     * @param string $item
+     * @return string
+     */
+    public static function getRegisteredShares($item) : string
+    {
+        $item = strtolower($item);
+        
+        $shares = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('pub\registerShares', [
+            'facebook', 'twitter', 'googleplus', 'tumblr', 'pinterest', 'reddit', 'whatsapp', 'email',
+        ]);
+        
+        if (in_array($item, $shares)) {
+            return $item;
+        }
+        
+        return '';
+    }
 }

@@ -24,7 +24,6 @@
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
     <legend><?php $theView->write('EDITOR_POSTPONETO'); ?></legend>
 
-
     <div class="row fpcm-ui-padding-md-tb fpcm-ui-padding-none-lr-small">
         <div class="col-12 col-md-12 col-lg-3 fpcm-ui-padding-none-left"><?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed()); ?></div>
         <div class="col-12 col-md-4 col-lg-3 fpcm-ui-padding-none-left">
@@ -73,13 +72,14 @@
 <?php if ($showShares && count($shares)) : ?>
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
     <legend><?php $theView->write('EDITOR_SHARES'); ?></legend>
-    <div class="row fpcm-ui-padding-md-tb">
-        <ul class="fpcm-ui-list-style-none fpcm-ui-padding-none fpcm-ui-margin-none">
-            <?php foreach ($shares as $share) : ?>
-            <li class="fpcm-ui-padding-md-top fpcm-ui-padding-md-bottom"><?php print $share; ?></li>
-            <?php endforeach; ?>
-        </ul>
+    <?php foreach ($shares as $share) : ?>
+    <div class="row no-gutters fpcm-ui-padding-md-tb align-self-center">
+        <div class="col-2 col-lg-1"><?php print $share->getIcon(); ?></div>
+        <div class="col-6 col-lg-2"><?php print $share->getDescription(); ?>:</div>
+        <div class="col-4 col-lg-1 fpcm-ui-center"><?php print $share->getSharecount(); ?></div>
+        <div class="col-12 col-lg-auto"><?php $theView->icon('clock', 'far')->setText('EDITOR_SHARES_LAST'); ?> <?php $theView->dateText($share->getLastshare()); ?></div>
     </div>
+    <?php endforeach; ?>
 </fieldset>
 <?php endif; ?>
 

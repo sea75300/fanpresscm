@@ -101,8 +101,15 @@ final class sharebuttons extends template {
         
         foreach ($this->initTags() as $replacement => $value) {
             
+            $item = trim($replacement, '{}');
+            
             if (!is_array($value)) {
                 $content = str_replace($replacement, $value, $content);
+                continue;
+            }
+            
+            if (!\fpcm\model\shares\shares::getRegisteredShares($item)) {
+                trigger_error('Failed to parse share button "'.$replacement.'", item ist not defined. You might call event "pub\registerShares".');
                 continue;
             }
 
@@ -120,7 +127,7 @@ final class sharebuttons extends template {
             }
 
             if (!isset($this->stack[$replacement]['class'])) {
-                $this->stack[$replacement]['class'] = $this->stack['class'].' fpcm-pub-sharebutton-'.trim($replacement, '{}');
+                $this->stack[$replacement]['class'] = $this->stack['class'].' fpcm-pub-sharebutton-'.$item;
             }
             
             $content = str_replace($replacement, "<a class=\"{$this->stack[$replacement]['class']}\" href=\"{$value['link']}\" target=\"{$value['target']}\" {$dataStr}><img src=\"{$value['icon']}\" alt=\"{$value['text']}\"></a>", $content);
@@ -236,6 +243,14 @@ final class sharebuttons extends template {
     public static function getShareItemClass($item)
     {
         $prefix = 'fab';
+
+        if (!\fpcm\model\shares\shares::getRegisteredShares($item)) {
+            trigger_error('Failed to get share icon data for "'.$item.'", item ist not defined. You might call event "pub\registerShares".');
+            return [
+                'icon' => $item,
+                'prefix' => $prefix
+            ];
+        }
 
         switch ($item) {
             case 'googleplus' :
