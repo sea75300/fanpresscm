@@ -157,7 +157,7 @@ class share extends \fpcm\model\abstracts\dataset {
         $fields = array_keys($params);
 
         $params[] = $this->getId();
-        if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
+        if (!$this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
             return false;
         }
 

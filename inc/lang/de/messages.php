@@ -27,6 +27,7 @@ $lang = array(
     'CSRF_INVALID' => 'Das CSRF-Token ist ungültig. Die Aktion wurde nicht durchgeführt!',
     'SESSION_TIMEOUT' => 'Es wurde festgestellt, dass deine aktuelle Session abgelaufen ist. Willst du zur Login-Seite gehen? (wähle "Nein" um auf der aktuellen Seite zu bleiben)',
     'FILE_NOT_WRITABLE' => 'Die ausgewählte Datei ist nicht beschreibbar, bitte prüfe die Berechtigungen auf dem Server.',
+    'TEMPLATE_NOT_WRITABLE' => 'Das ausgewählte Template ist nicht beschreibbar, bitte prüfe die Berechtigungen auf dem Server.',
     'USERS_AUTHTOKEN_ACTIVE' => 'Die Zwei-Faktor-Authentifizierung ist aktiv.',
     'SAVE_SUCCESS_ADDUSER' => 'Der Benutzer wurde gespeichert!',
     'SAVE_SUCCESS_USER_DISABLE' => 'Der Benutzer wurde deaktiviert!',

@@ -1,4 +1,12 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
+<?php if (!$isWritable) : ?>
+<div class="row no-gutters fpcm-ui-padding-md-tb">
+    <div class="col-12">
+        <?php $theView->icon('edit')->setStack('ban fpcm-ui-important-text')->setStackTop(true)->setSize('2x'); ?>
+        <?php $theView->write('TEMPLATE_NOT_WRITABLE'); ?>
+    </div>
+</div>
+<?php endif; ?>
 <div class="row no-gutters fpcm-ui-padding-md-tb">
     <div class="col-12">
         <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
