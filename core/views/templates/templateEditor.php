@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<?php if ($isWritable) : ?>
+<?php if (!$isWritable) : ?>
 <div class="row no-gutters fpcm-ui-padding-md-tb">
     <div class="col-5 col-md-1 align-self-center"><?php $theView->icon('lock ')->setSize('2x'); ?></div>
     <div class="col-7 col-md-11 align-self-center">
