@@ -124,7 +124,7 @@ defaultvalues:
             filename: "ouch.gif"
         25:
             id: 25
-            smileycode: ":/"
+            smileycode: ":sad:"
             filename: "sad.gif"
         26:
             id: 26

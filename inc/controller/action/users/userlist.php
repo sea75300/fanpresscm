@@ -29,21 +29,37 @@ class userlist extends \fpcm\controller\abstracts\controller {
      */
     protected $articleList;
 
+    /**
+     * 
+     * @return string
+     */
     protected function getViewPath()
     {
         return 'users/userlist';
     }
 
+    /**
+     * 
+     * @return array
+     */
     protected function getPermissions()
     {
         return ['system' => 'users'];
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function getHelpLink()
     {
         return 'HL_OPTIONS_USERS';
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     protected function initActionObjects()
     {
         $this->userList     = new \fpcm\model\users\userList();
@@ -52,6 +68,10 @@ class userlist extends \fpcm\controller\abstracts\controller {
         return true;
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function request()
     {
         if ($this->getRequestVar('added') == 1) {
@@ -101,6 +121,10 @@ class userlist extends \fpcm\controller\abstracts\controller {
         return true;
     }
 
+    /**
+     * 
+     * @return boolean
+     */
     public function process()
     {
         $rollsPerm = $this->permissions->check(['system' => 'rolls']);
@@ -131,6 +155,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
         }
 
         $this->view->render();
+        return true;
     }
 
     /**
@@ -185,7 +210,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
 
                 $metadata = [
                     (new \fpcm\view\helper\badge('art'.$userId))->setValue(isset($articleCount[$userId]) ? $articleCount[$userId] : 0)->setText('USERS_ARTICLE_COUNT')->setIcon('book')->setClass('fpcm-ui-badge-userarticles'),
-                    (new \fpcm\view\helper\icon('toggle-off fa-inverse'))->setText('USERS_DISABLED')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $user->getDisabled())->setStack('square')
+                    (new \fpcm\view\helper\icon('user-slash fa-inverse'))->setText('USERS_DISABLED')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $user->getDisabled())->setStack('square')
                 ];
                 
                 $buttons = [

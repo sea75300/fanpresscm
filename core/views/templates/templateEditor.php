@@ -1,8 +1,8 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<?php if (!$isWritable) : ?>
+<?php if ($isWritable) : ?>
 <div class="row no-gutters fpcm-ui-padding-md-tb">
-    <div class="col-12">
-        <?php $theView->icon('edit')->setStack('ban fpcm-ui-important-text')->setStackTop(true)->setSize('2x'); ?>
+    <div class="col-5 col-md-1 align-self-center"><?php $theView->icon('lock ')->setSize('2x'); ?></div>
+    <div class="col-7 col-md-11 align-self-center">
         <?php $theView->write('TEMPLATE_NOT_WRITABLE'); ?>
     </div>
 </div>
@@ -10,8 +10,8 @@
 <div class="row no-gutters fpcm-ui-padding-md-tb">
     <div class="col-12">
         <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
-            <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>
-            <?php $theView->write('TEMPLATE_NOTES'); ?>
+        <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>
+        <?php $theView->write('TEMPLATE_NOTES'); ?>
     </div>
 </div>
 <div class="row no-gutters fpcm-ui-padding-md-tb">
