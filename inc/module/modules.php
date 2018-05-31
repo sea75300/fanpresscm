@@ -18,17 +18,21 @@ namespace fpcm\module;
 class modules extends \fpcm\model\abstracts\tablelist {
 
     /**
-     *
+     * Enabled modules cache
      * @var array
      */
     private $enabledCache;
 
     /**
-     *
+     * Module key cache
      * @var array
      */
     private $keyCache;
 
+    /**
+     * Konstruktor
+     * @return boolean
+     */
     public function __construct()
     {
         $this->table = \fpcm\classes\database::tableModules;
@@ -43,7 +47,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * 
+     * Module keys from database
      * @return array
      */
     public function getKeysFromDatabase()
@@ -71,7 +75,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * 
+     * Fetch modules from database
      * @return array
      */
     public function getFromDatabase()
@@ -94,7 +98,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * 
+     * Fetch installed modules from database
      * @return array
      */
     public function getInstalledDatabase()
@@ -117,7 +121,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * 
+     * Get installed modules with updates
      * @return array
      */
     public function getInstalledUpdates()
@@ -146,7 +150,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * 
+     * Fetch module data from repository
      * @return array
      */
     public function getFromRepository()
@@ -178,7 +182,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * 
+     * Fetch modul data from file system
      * @return boolean
      */
     public function updateFromFilesystem()
@@ -205,7 +209,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * 
+     * Fetch installed and enabled modules from database
      * @return array
      */
     public function getEnabledDatabase()
@@ -233,7 +237,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * 
+     * Create module result
      * @param object $dataset
      * @param array $modules
      * @return boolean

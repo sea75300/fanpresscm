@@ -31,7 +31,7 @@ class repoModule extends module {
     }
 
     /**
-     * 
+     * Initialize repo module
      * @return boolean
      */
     public function init()

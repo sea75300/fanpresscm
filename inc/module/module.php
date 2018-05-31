@@ -29,61 +29,61 @@ class module {
     const STATUS_NOT_DISABLED = -1005;
 
     /**
-     *
+     * Dataset id
      * @var int
      */
     protected $id = 0;
 
     /**
-     *
+     * Module key
      * @var string
      */
     protected $mkey = '';
 
     /**
-     *
+     * Module prefix VENDOR_KEY
      * @var string
      */
     protected $prefix = '';
 
     /**
-     *
+     * Module installed status
      * @var bool
      */
     protected $installed = 0;
 
     /**
-     *
+     * Module active status
      * @var bool
      */
     protected $active = 0;
 
     /**
-     *
+     * Module configuration
      * @var config
      */
     protected $config;
 
     /**
-     *
+     * System config object
      * @var \fpcm\model\system\config
      */
     protected $systemConfig;
 
     /**
-     *
+     * Databse object
      * @var \fpcm\classes\database
      */
     protected $db;
 
     /**
-     *
+     * Cache object
      * @var \fpcm\classes\cache
      */
     protected $cache;
 
     /**
-     *
+     * Initialize object from database
      * @var bool
      */
     protected $initDb;
@@ -109,7 +109,7 @@ class module {
     }
 
     /**
-     * 
+     * Fetch dataset ID
      * @return int
      */
     final public function getId()
@@ -118,7 +118,7 @@ class module {
     }
 
     /**
-     * 
+     * Return module key
      * @return string
      */
     public function getKey()
@@ -127,7 +127,7 @@ class module {
     }
 
     /**
-     * 
+     * Return installed status
      * @return bool
      */
     final public function isInstalled()
@@ -136,7 +136,7 @@ class module {
     }
 
     /**
-     * 
+     * Return active status
      * @return bool
      */
     final public function isActive()
@@ -145,7 +145,7 @@ class module {
     }
 
     /**
-     * 
+     * Set installed status
      * @param bool $installed
      * @return $this
      */
@@ -156,7 +156,7 @@ class module {
     }
 
     /**
-     * 
+     * Set active status
      * @param bool $active
      * @return $this
      */
@@ -167,7 +167,7 @@ class module {
     }
 
     /**
-     * 
+     * Initialize objects
      * @return boolean
      */
     protected function initObjects()
@@ -176,7 +176,7 @@ class module {
     }
 
     /**
-     * 
+     * Fetch system config options
      * @param string $key
      * @return mixed
      */
@@ -186,7 +186,7 @@ class module {
     }
 
     /**
-     * 
+     * Fetch module config
      * @return config
      */
     public function getConfig()
@@ -210,7 +210,7 @@ class module {
     }
 
     /**
-     * 
+     * Enable module
      * @return boolean
      */
     public function enable()
@@ -226,7 +226,7 @@ class module {
     }
 
     /**
-     * 
+     * Disable module
      * @return boolean
      */
     public function disable()
@@ -242,7 +242,7 @@ class module {
     }
 
     /**
-     * 
+     * Check if module is installed
      * @return boolean
      */
     public function isInstallable()
@@ -263,7 +263,7 @@ class module {
     }
 
     /**
-     * 
+     * Check if module has updates
      * @return boolean
      */
     public function hasUpdates()
@@ -285,7 +285,7 @@ class module {
     }
 
     /**
-     * 
+     * Initialize module object
      * @return boolean
      */
     protected function init()
@@ -307,7 +307,7 @@ class module {
     }
 
     /**
-     * 
+     * Fetch complete module prefix
      * @param string $key
      * @return string
      */
@@ -317,7 +317,7 @@ class module {
     }
 
     /**
-     * 
+     * Remove module prefix
      * @param string $key
      * @return string
      */
@@ -327,7 +327,7 @@ class module {
     }
 
     /**
-     * 
+     * Fetch \fpcm\model\system\yatdl object
      * @param string $tableFile
      * @return boolean|\fpcm\model\system\yatdl
      */
@@ -346,7 +346,7 @@ class module {
     }
 
     /**
-     * 
+     * Return list of table files from module
      * @return array
      */
     private function getTableFiles()
@@ -360,7 +360,7 @@ class module {
     }
 
     /**
-     * 
+     * Fetch module system config options
      * @return array
      */
     private function getAllConfigOptions()
@@ -378,7 +378,7 @@ class module {
     }
 
     /**
-     * 
+     * Create module config
      * @param \fpcm\model\system\yatdl $tab
      * @return boolean
      */
@@ -391,7 +391,7 @@ class module {
         );
 
         if (!trim($sqlStr) || !file_put_contents($tmpFile, $sqlStr)) {
-            trigger_error('Unable to prepare table definition for execution ' . $tableFile);
+            trigger_error('Unable to prepare table definition for execution ' . $tab->getArray()['name']);
             return false;
         }
 
@@ -402,7 +402,7 @@ class module {
     }
 
     /**
-     * 
+     * Install module
      * @param boolean $fromDir
      * @return boolean
      */
@@ -437,7 +437,7 @@ class module {
     }
 
     /**
-     * 
+     * Add module entry to database
      * @param boolean $fromDir
      * @return boolean
      */
@@ -460,7 +460,7 @@ class module {
     }
 
     /**
-     * 
+     * Create module tables
      * @return boolean
      */
     private function installTables()
@@ -484,7 +484,7 @@ class module {
     }
 
     /**
-     * 
+     * Create module config options
      * @return boolean
      */
     private function installConfig()
@@ -507,7 +507,7 @@ class module {
     }
 
     /**
-     * 
+     * Uninstall module
      * @param boolean $delete
      * @return boolean
      */
@@ -544,7 +544,7 @@ class module {
     }
 
     /**
-     * 
+     * Remove module database entry
      * @return boolean
      */
     private function removeModule()
@@ -554,7 +554,7 @@ class module {
     }
 
     /**
-     * 
+     * Remove module files
      * @return boolean
      */
     private function removeFiles()
@@ -564,7 +564,7 @@ class module {
     }
 
     /**
-     * 
+     * Remove module tables
      * @return boolean
      */
     private function removeTables()
@@ -594,7 +594,7 @@ class module {
     }
 
     /**
-     * 
+     * Remove module config
      * @return boolean
      */
     private function removeConfig()
@@ -612,7 +612,7 @@ class module {
     }
 
     /**
-     * 
+     * Update module
      * @return boolean
      */
     final public function update()
@@ -642,7 +642,7 @@ class module {
     }
 
     /**
-     * 
+     * Update module databse entry
      * @return boolean|int
      */
     private function updateModule()
@@ -656,7 +656,7 @@ class module {
     }
 
     /**
-     * 
+     * Update module tables
      * @return boolean
      */
     private function updateTables()
@@ -723,7 +723,7 @@ class module {
     }
 
     /**
-     * 
+     * Update module config
      * @return boolean
      */
     private function updateConfig()
@@ -746,7 +746,7 @@ class module {
     }
 
     /**
-     * 
+     * fetch module key from filepath
      * @param string $path
      * @return string
      */
@@ -758,7 +758,7 @@ class module {
     }
 
     /**
-     * 
+     * fetch module key from filename
      * @param string $path
      * @return string
      */
@@ -768,7 +768,7 @@ class module {
     }
 
     /**
-     * 
+     * fetch module key from class name
      * @param string $path
      * @return string
      */
@@ -782,7 +782,7 @@ class module {
     }
 
     /**
-     * 
+     * Get module event class name
      * @param string $key
      * @param string $event
      * @return string
@@ -793,7 +793,7 @@ class module {
     }
 
     /**
-     * 
+     * Get module controller class name
      * @param string $key
      * @param string $event
      * @return string
@@ -804,7 +804,7 @@ class module {
     }
 
     /**
-     * 
+     * Get config file path
      * @param string $key
      * @param string $config
      * @return string
@@ -815,9 +815,9 @@ class module {
     }
 
     /**
-     * 
+     * Get template file path
      * @param string $key
-     * @param string $config
+     * @param string $viewName
      * @return string
      */
     public static function getTemplateDirByKey($key, $viewName)
@@ -826,7 +826,7 @@ class module {
     }
 
     /**
-     * 
+     * Get language file path
      * @param string $key
      * @param string $langKey
      * @return string
@@ -837,7 +837,7 @@ class module {
     }
 
     /**
-     * 
+     * Assign module language variable prefix
      * @param string $key
      * @return string
      */
