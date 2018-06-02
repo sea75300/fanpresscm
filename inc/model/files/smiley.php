@@ -168,10 +168,11 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
      */
     public function delete()
     {
-        if (!$this->exists(true))
+        if (!$this->exists(true)) {
             return false;
+        }
 
-        return $this->dbcon->delete($this->table, "smileycode = ?", array($this->smileycode));
+        return $this->dbcon->delete($this->table, "smileycode = ?", [$this->smileycode]);
     }
 
     /**
@@ -180,8 +181,9 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
      */
     public function save()
     {
-        if ($this->exists(true))
+        if ($this->exists(true)) {
             return false;
+        }
 
         $saveValues = $this->getSaveValues();
         $saveValues = $this->events->trigger('smileySave', $saveValues);
@@ -211,7 +213,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
             return false;
         }
 
-        $count = $this->dbcon->count($this->table, '*', "smileycode = ?", array($this->smileycode));
+        $count = $this->dbcon->count($this->table, '*', "smileycode = ?", [$this->smileycode]);
         if ($dbOnly) {
             return $count > 0 ? true : false;
         }
@@ -241,10 +243,11 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     protected function init($initDB)
     {
         if ($initDB) {
-            $dbData = $this->dbcon->fetch($this->dbcon->select($this->table, 'id, smileycode, filename', "smileycode " . $this->dbcon->dbLike() . " ?", array($this->smileycode)));
+            $dbData = $this->dbcon->fetch($this->dbcon->select($this->table, 'id, smileycode, filename', "smileycode = ?", [$this->smileycode]));
 
-            if (!$dbData)
+            if (!$dbData) {
                 return false;
+            }
 
             foreach ($dbData as $key => $value) {
                 $this->$key = $value;
