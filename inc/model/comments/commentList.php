@@ -131,27 +131,27 @@ class commentList extends \fpcm\model\abstracts\tablelist {
 
         if ($conditions->spam && $conditions->spam > -1) {
             $where[] = "spammer = ?";
-            $valueParams[] = $conditions->spam;
+            $valueParams[] = (int) $conditions->spam;
         }
 
         if ($conditions->private && $conditions->private > -1) {
             $where[] = "private = ?";
-            $valueParams[] = $conditions->private;
+            $valueParams[] = (int) $conditions->private;
         }
 
         if ($conditions->approved && $conditions->approved > -1) {
             $where[] = "approved = ?";
-            $valueParams[] = $conditions->approved;
+            $valueParams[] = (int) $conditions->approved;
         }
 
         if ($conditions->deleted !== null) {
             $where[] = "deleted = ?";
-            $valueParams[] = $conditions->deleted;
+            $valueParams[] = (int) $conditions->deleted;
         }
 
         if ($conditions->articleid) {
             $where[] = "articleid = ?";
-            $valueParams[] = $conditions->articleid;
+            $valueParams[] = (int) $conditions->articleid;
         }
 
         if ($conditions->ipaddress) {

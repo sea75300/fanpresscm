@@ -87,8 +87,8 @@ class textTest extends testBase {
         /* @var $GLOBALS['articleObj'] \fpcm\model\articles\article */
         $GLOBALS['articleObj'] = new \fpcm\model\articles\article();
 
-        $GLOBALS['articleObj']->setTitle('FPCM UnitTest Article ' . microtime(true) . ' ' . $GLOBALS['text_search']);
-        $GLOBALS['articleObj']->setContent('FPCM UnitTest Article from https://nobody-knows.org!' . PHP_EOL . $GLOBALS['text_search']);
+        $GLOBALS['articleObj']->setTitle('FPCM UnitTest Article Title ' . microtime(true) . ' ' . $GLOBALS['text_search']);
+        $GLOBALS['articleObj']->setContent('FPCM UnitTest Article Content from https://nobody-knows.org!' . PHP_EOL . $GLOBALS['text_search']);
         $GLOBALS['articleObj']->setCreatetime(time());
         $GLOBALS['articleObj']->setCreateuser(1);
         $GLOBALS['articleObj']->setCategories([1]);

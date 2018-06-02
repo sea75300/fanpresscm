@@ -85,8 +85,8 @@ class items extends \fpcm\model\abstracts\tablelist {
             }
 
             foreach ($items as $value) {
-                $data['search'] = $value->searchtext;
-                $data['replace'] = $value->replacementtext;
+                $data['search'][] = $value->searchtext;
+                $data['replace'][] = $value->replacementtext;
             }
 
 

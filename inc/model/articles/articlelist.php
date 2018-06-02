@@ -573,29 +573,22 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             $valueParams[] = $conditions->comments;
         }
 
-        if ($conditions->deleted !== null) {
-            $where[] = "deleted = ?";
-            $valueParams[] = $conditions->deleted;
-        } else {
-            $where[] = "deleted = 0";
-        }
+        $where[] = "deleted = ?";
+        $valueParams[] = $conditions->deleted !== null ? $conditions->deleted : 0;
 
-        if ($conditions->draft !== null && $conditions->draft > -1) {
+        if ($conditions->draft !== null) {
             $where[] = "draft = ?";
-            $valueParams[] = $conditions->draft;
-        } if ($conditions->draft === null) {
-            $where[] = "draft = 0";
+            $valueParams[] = $conditions->draft > -1 ? $conditions->draft : 0;
         }
 
-        if ($conditions->approval !== null && $conditions->approval > -1) {
+        if ($conditions->approval !== null) {
             $where[] = "approval = ?";
-            $valueParams[] = $conditions->approval;
-        } elseif ($conditions->approval === null) {
-            $where[] = "approval = 0";
+            $valueParams[] = $conditions->approval > -1 ? $conditions->approval : 0;
         }
 
         if ($conditions->active !== null) {
-            $where = [($conditions->active === -1 ? 'archived = 0' : 'archived = 0 AND draft = 0')];
+            $where = [($conditions->active === -1 ? 'archived = ?' : 'archived = ? AND draft = ß')];
+            $valueParams = ($conditions->active === -1 ? [0] : [0, 0]);
         }
 
         return true;
