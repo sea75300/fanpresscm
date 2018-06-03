@@ -181,9 +181,13 @@ class commentList extends \fpcm\model\abstracts\tablelist {
 
         $where .= ' ' . implode(' ', $where2);
 
-        $list = $this->dbcon->fetch( $this->dbcon->select($this->table, '*', $where, $valueParams), true );
+        $obj = (new \fpcm\model\dbal\selectParams())
+                ->setTable($this->table)
+                ->setFetchAll(true)
+                ->setWhere($where)
+                ->setParams($valueParams);
 
-        return $this->createCommentResult($list);
+        return $this->createCommentResult($this->dbcon->selectFetch($obj));
     }
 
     /**

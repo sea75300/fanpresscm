@@ -27,7 +27,6 @@ class commentsTest extends testBase {
 
     public function testGetCommentsAll()
     {
-
         $data = $this->object->getCommentsAll();
 
         $this->assertTrue(is_array($data));
@@ -66,7 +65,6 @@ class commentsTest extends testBase {
 
     public function testGetCommentsByCondition()
     {
-
         $data = $this->object->getCommentsByCondition(1, 1, 0, 1);
 
         $this->assertTrue(is_array($data));
@@ -86,7 +84,6 @@ class commentsTest extends testBase {
 
     public function testCommentsBySearchCondition()
     {
-
         $cond = new \fpcm\model\comments\search();
         $cond->articleid = 1;
         $cond->private = 1;
@@ -112,7 +109,6 @@ class commentsTest extends testBase {
 
     public function testEditCommentByMass()
     {
-
         $result = $this->object->editCommentsByMass([$GLOBALS['objectId']], [
             'spammer' => 0,
             'approved' => 1,
@@ -158,7 +154,7 @@ class commentsTest extends testBase {
         $search = new \fpcm\model\comments\search();
         $search->deleted = 1;
 
-        $data = $this->object->getCommentsByCondition($search);
+        $data = $this->object->getCommentsBySearchCondition($search);
 
         $this->assertTrue(is_array($data));
         $this->assertEquals(0, count($data));
@@ -166,7 +162,6 @@ class commentsTest extends testBase {
 
     private function createComment()
     {
-
         /* @var $GLOBALS['commentObj'] \fpcm\model\comments\comment */
         $GLOBALS['commentObj'] = new \fpcm\model\comments\comment();
 

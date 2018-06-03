@@ -248,16 +248,26 @@ final class database {
     }
 
     /**
-     * Führt INSERT-Befehl auf DB aus
-     * @param string $table
-     * @param string $fields
-     * @param string $values
-     * @param array $params
-     * @return bool|int
+     * 
+     * @param \fpcm\model\dbal\selectParams $obj
+     * @return \PDOStatement|array
      */
+    public function selectFetch(\fpcm\model\dbal\selectParams $obj)
+    {
+        $sql    = $obj->getDistinct() ? 'SELECT DISTINCT' : 'SELECT';
+        $sql   .= " {$obj->getItem()} FROM {$this->getTablePrefixed($obj->getTable())}";                
+        $sql   .= $obj->getWhere() ?  " WHERE {$obj->getWhere()}" : "";
+        
+        $result = $this->query($sql, $obj->getParams());
+        if ($obj->getReturnResult()) {
+            return $result;
+        }
+
+        return $this->fetch($result, $obj->getFetchAll());
+    }
 
     /**
-     * 
+     * Execute insert query
      * @param type $table
      * @param type $values
      * @return int
@@ -306,7 +316,6 @@ final class database {
      */
     public function updateMultiple($table, array $fields, array $params = [], array $where = [])
     {
-
         if ($this->dbtype === self::DBTYPE_POSTGRES) {
             $this->connection->setAttribute(\PDO::ATTR_EMULATE_PREPARES, true);
         }

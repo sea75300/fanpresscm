@@ -52,15 +52,17 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     {
         $where = 'draft = 0 AND deleted = 0';
 
-        if ($countOnly)
+        if ($countOnly) {
             return (int) $this->dbcon->count($this->table, 'id', $where);
+        }
 
         $where .= $this->dbcon->orderBy(array('createtime DESC'));
 
-        if (count($limits))
+        if (count($limits)) {
             $where .= $this->dbcon->limitQuery($limits[0], $limits[1]);
+        }
 
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', $where), true);
+        $list = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())->setTable($this->table)->setFetchAll(true)->setWhere($where));
         return $this->createListResult($list, $monthIndex);
     }
 
@@ -75,15 +77,17 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     {
         $where = 'archived = 0 AND deleted = 0';
 
-        if ($countOnly)
+        if ($countOnly) {
             return (int) $this->dbcon->count($this->table, 'id', $where);
+        }
 
         $where .= $this->dbcon->orderBy(array('createtime DESC'));
 
-        if (count($limits))
+        if (count($limits)) {
             $where .= $this->dbcon->limitQuery($limits[0], $limits[1]);
+        }
 
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', $where), true);
+        $list = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())->setTable($this->table)->setFetchAll(true)->setWhere($where));
         return $this->createListResult($list, $monthIndex);
     }
 
@@ -108,10 +112,11 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
 
         $where .= $this->dbcon->orderBy(array('createtime DESC'));
 
-        if (count($limits))
+        if (count($limits)) {
             $where .= $this->dbcon->limitQuery($limits[0], $limits[1]);
+        }
 
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', $where), true);
+        $list = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())->setTable($this->table)->setFetchAll(true)->setWhere($where));
         return $this->createListResult($list, $monthIndex);
     }
 
@@ -122,8 +127,13 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      */
     public function getArticlesPostponed($monthIndex = false)
     {
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'postponed = 1 AND approval = 0 AND createtime <= ? AND deleted = 0 AND draft = 0' . $this->dbcon->orderBy(array('createtime DESC')), array(time())), true);
-        return $this->createListResult($list, $monthIndex);
+        $obj = (new \fpcm\model\dbal\selectParams())
+                ->setTable($this->table)
+                ->setFetchAll(true)
+                ->setWhere('postponed = 1 AND approval = 0 AND createtime <= ? AND deleted = 0 AND draft = 0' . $this->dbcon->orderBy(['createtime DESC']))
+                ->setParams([time()]);
+
+        return $this->createListResult($this->dbcon->selectFetch($obj), $monthIndex);
     }
 
     /**
@@ -132,7 +142,14 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      */
     public function getArticlesPostponedIDs()
     {
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table, 'id', 'postponed = 1 AND approval = 0 AND createtime <= ? AND deleted = 0 AND draft = 0' . $this->dbcon->orderBy(array('createtime DESC')), array(time())), true);
+        $obj = (new \fpcm\model\dbal\selectParams())
+                ->setTable($this->table)
+                ->setItem('id')
+                ->setFetchAll(true)
+                ->setWhere('postponed = 1 AND approval = 0 AND createtime <= ? AND deleted = 0 AND draft = 0' . $this->dbcon->orderBy(['createtime DESC']))
+                ->setParams([time()]);
+
+        $list = $this->dbcon->selectFetch($obj);
 
         $ids = [];
         foreach ($list as $item) {
@@ -149,8 +166,12 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      */
     public function getArticlesDeleted($monthIndex = false)
     {
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'deleted = 1' . $this->dbcon->orderBy(array('createtime DESC'))), true);
-        return $this->createListResult($list, $monthIndex);
+        $obj = (new \fpcm\model\dbal\selectParams())
+                ->setTable($this->table)
+                ->setFetchAll(true)
+                ->setWhere('deleted = 1' . $this->dbcon->orderBy(['createtime DESC']));
+
+        return $this->createListResult($this->dbcon->selectFetch($obj), $monthIndex);
     }
 
     /**
@@ -160,8 +181,12 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      */
     public function getArticlesDraft($monthIndex = false)
     {
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'draft = 1 AND deleted = 0' . $this->dbcon->orderBy(array('createtime DESC'))), true);
-        return $this->createListResult($list, $monthIndex);
+        $obj = (new \fpcm\model\dbal\selectParams())
+                ->setTable($this->table)
+                ->setFetchAll(true)
+                ->setWhere('draft = 1 AND deleted = 0' . $this->dbcon->orderBy(['createtime DESC']));
+
+        return $this->createListResult($this->dbcon->selectFetch($obj), $monthIndex);
     }
 
     /**
@@ -202,8 +227,13 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
 
         $where .= ' ' . implode(' ', $where2);
 
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table, '*', $where, $valueParams), true);
-        return $this->createListResult($list, $monthIndex);
+        $obj = (new \fpcm\model\dbal\selectParams())
+                ->setTable($this->table)
+                ->setFetchAll(true)
+                ->setWhere($where)
+                ->setParams($valueParams);
+
+        return $this->createListResult($this->dbcon->selectFetch($obj), $monthIndex);
     }
 
     /**
@@ -222,7 +252,9 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $userId = $session->exists() ? $session->getUserId() : 0;
 
         $res = $this->dbcon->update(
-                $this->table, ['deleted', 'pinned', 'changetime', 'changeuser'], [1, 0, time(), $userId], 'id IN (' . implode(', ', $ids) . ')'
+            $this->table,
+            ['deleted', 'pinned', 'changetime', 'changeuser'],
+            [1, 0, time(), $userId], 'id IN (' . implode(', ', $ids) . ')'
         );
 
         if ($res) {
@@ -283,12 +315,21 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      */
     public function countArticlesByUsers(array $userIds = array())
     {
-        $where = count($userIds) ? "createuser IN (" . implode(',', $userIds) . ")" : '1=1';
-        $articleCounts = $this->dbcon->fetch($this->dbcon->select($this->table, 'createuser, count(id) AS count', "$where AND deleted = 0 GROUP BY createuser"), true);
+        $where = count($userIds) ? "createuser IN (?)" : '1=1';
+
+        $obj = (new \fpcm\model\dbal\selectParams())
+                ->setTable($this->table)
+                ->setFetchAll(true)
+                ->setWhere("{$where} AND deleted = 0 GROUP BY createuser")
+                ->setParams([implode(',', $userIds)])
+                ->setItem('createuser, count(id) AS count');
+
+        $articleCounts = $this->dbcon->selectFetch($obj);
 
         $res = [];
-        if (!count($articleCounts))
+        if (!count($articleCounts)) {
             return $res;
+        }
 
         foreach ($articleCounts as $articleCount) {
             $res[$articleCount->createuser] = (int) $articleCount->count;
@@ -330,11 +371,19 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      */
     public function getArticleIDsByUser($userId)
     {
-        $articles = $this->dbcon->fetch($this->dbcon->select($this->table, 'id', "createuser = ? AND deleted = 0", array($userId)), true);
+        $obj = (new \fpcm\model\dbal\selectParams())
+                ->setTable($this->table)
+                ->setFetchAll(true)
+                ->setItem('id')
+                ->setWhere('createuser = ? AND deleted = 0')
+                ->setParams([$userId]);
+
+        $articles = $this->dbcon->selectFetch($obj);
 
         $res = [];
-        if (!count($articles))
+        if (!count($articles)) {
             return $res;
+        }
 
         foreach ($articles as $article) {
             $res[] = (int) $article->id;
@@ -359,8 +408,13 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             $params[] = (int) $archived;
         }
 
-        $result = $this->dbcon->select($this->table, 'MAX(createtime) AS maxdate, MIN(createtime) AS mindate', $where, $params);
-        $data = $this->dbcon->fetch($result);
+        $obj = (new \fpcm\model\dbal\selectParams())
+                ->setTable($this->table)
+                ->setItem('MAX(createtime) AS maxdate, MIN(createtime) AS mindate')
+                ->setWhere($where)
+                ->setParams($params);
+
+        $data = $this->dbcon->selectFetch($obj);
 
         return [
             'maxDate' => $data->maxdate === null ? time() : $data->maxdate,
@@ -382,7 +436,18 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             return false;
         }
 
-        $return = $this->dbcon->update($this->table, ['createuser'], [$userIdTo, $userIdFrom], 'createuser = ?');
+        $return = $this->dbcon->update(
+            $this->table, [
+                'createuser', 'changeuser', 'changetime'
+            ], [
+                $userIdTo,
+                \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getUserId(),
+                time(),
+                $userIdFrom
+            ],
+            'createuser = ?'
+        );
+
         $this->cache->cleanup();
         return $return;
     }
@@ -486,6 +551,10 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      */
     private function createListResult($list, $monthIndex)
     {
+        if (!is_array($list)) {
+            return [];
+        }
+
         $res = [];
         foreach ($list as $item) {
             $article = new article();
@@ -498,9 +567,10 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             if ($monthIndex) {
                 $index = mktime(0, 0, 0, date('m', $article->getCreatetime()), 1, date('Y', $article->getCreatetime()));
                 $res[$index][$article->getId()] = $article;
-            } else {
-                $res[$article->getId()] = $article;
+                continue;
             }
+
+            $res[$article->getId()] = $article;
         }
 
         return $res;
