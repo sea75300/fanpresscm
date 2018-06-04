@@ -20,8 +20,9 @@ window.onload = function() {
                 jQuery.noConflict();
 
                 jQuery.ajax({
-                    url: fpcm.vars.ajaxActionPath + 'cronasync',
-                    type: 'GET'
+                    url: fpcm.vars.ajaxActionPath + 'refresh',
+                    type: 'GET',
+                    data: { t: 1 }
                 });
 
                 jQuery('.fpcm-pub-commentsmiley').click(function () {

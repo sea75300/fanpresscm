@@ -7,6 +7,8 @@
 
 namespace fpcm\controller\ajax\pub;
 
+define('FPCM_NOTOKEN', true);
+
 /**
  * AJAX controller zum Cache leeren 
  * 

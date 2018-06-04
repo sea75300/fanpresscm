@@ -657,7 +657,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         }
 
         if ($conditions->active !== null) {
-            $where = [($conditions->active === -1 ? 'archived = ?' : 'archived = ? AND draft = ß')];
+            $where = [($conditions->active === -1 ? 'archived = ?' : 'archived = ? AND draft = ?')];
             $valueParams = ($conditions->active === -1 ? [0] : [0, 0]);
         }
 

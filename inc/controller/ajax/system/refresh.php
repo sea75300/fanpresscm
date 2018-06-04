@@ -8,7 +8,7 @@
 namespace fpcm\controller\ajax\system;
 
 /**
- * AJAX controlelr for refresh actions (async crons, session check, article inedit mode)
+ * AJAX controller for refresh actions (async crons, session check, article inedit mode)
  * 
  * @package fpcm\controller\ajax\system\
  * AJAX cron controller

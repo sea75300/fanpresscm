@@ -93,7 +93,7 @@ final class sharebuttons extends template {
 
         $content = "<!-- Start FanPress CM Share Buttons -->".PHP_EOL.$this->content.PHP_EOL."<!-- Stop FanPress CM Share Buttons -->";
 
-        $this->stack['class'] = "pcm-pub-sharebutton";
+        $this->stack['class'] = "fpcm-pub-sharebutton";
 
         if ($this->config->system_share_count) {
             $this->stack['class'] .= ' fpcm-pub-sharebutton-count';

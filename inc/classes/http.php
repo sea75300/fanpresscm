@@ -107,8 +107,10 @@ final class http {
     public static function init()
     {
         self::$request = array_merge($_REQUEST, $_COOKIE);
+        
+        $preconditions = baseconfig::dbConfigExists() && !baseconfig::installerEnabled() &&
+                         !baseconfig::isCli() && !baseconfig::noToken();
 
-        $preconditions = !baseconfig::installerEnabled() && baseconfig::dbConfigExists() && !baseconfig::isCli();
         if ($preconditions && !security::getTokenCookieValue() && !setcookie(\fpcm\classes\security::getTokenCookieName(), crypt::getRandomString(), time() + 86400, '/', '', false, true)) {
             trigger_error('Unable to set token cookie!');
             exit;

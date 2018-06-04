@@ -236,6 +236,25 @@ final class baseconfig {
     }
 
     /**
+     * Aufruf über CLI
+     * @return bool
+     * @since FPCM 4.0
+     */
+    public static function noToken()
+    {
+        if (!isset(self::$cfgDat[__FUNCTION__])) {
+
+            $noToken = http::getOnly('t', [
+                http::FILTER_CASTINT
+            ]);
+
+            self::$cfgDat[__FUNCTION__] = (strpos(http::getOnly('module'), 'fpcm/') !== false || $noToken ? true : false);
+        }
+
+        return self::$cfgDat[__FUNCTION__];
+    }
+
+    /**
      * PHP Memory Limit
      * @param bool $inByte Ausgabe in Byte oder Mbyte
      * @return int

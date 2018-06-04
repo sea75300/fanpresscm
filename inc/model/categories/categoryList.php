@@ -38,7 +38,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
      */
     public function getCategoriesAll()
     {
-        $list = $this->dbcon->fetch($this->dbcon->select($this->table), true);
+        $list = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())->setTable($this->table)->setFetchAll(true));
 
         $res = [];
 
@@ -59,7 +59,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
      */
     public function getCategoriesNameListAll()
     {
-        $categories = $this->dbcon->fetch($this->dbcon->select($this->table, 'id, name'), true);
+        $categories = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())->setTable($this->table)->setItem('id, name')->setFetchAll(true));
 
         $res = [];
         foreach ($categories as $category) {
@@ -84,13 +84,11 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
         $valueParams[] = "{$groupId};%";
         $valueParams[] = "%;{$groupId}";
 
-        $list = $this->dbcon->fetch(
-            $this->dbcon->select($this->table, '*', $where, $valueParams), true
-        );
+        $obj = (new \fpcm\model\dbal\selectParams())->setTable($this->table)->setWhere($where)->setParams($valueParams)->setFetchAll(true);
 
         $res = [];
 
-        foreach ($list as $listItem) {
+        foreach ($this->dbcon->selectFetch($obj) as $listItem) {
             $object = new category();
             if ($object->createFromDbObject($listItem)) {
                 $res[$object->getId()] = $object;
