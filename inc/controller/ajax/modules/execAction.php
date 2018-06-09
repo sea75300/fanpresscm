@@ -73,6 +73,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
         }
         
         call_user_func([$this, $function]);
+        $this->cache->cleanup();
         $this->getSimpleResponse();
     }
 

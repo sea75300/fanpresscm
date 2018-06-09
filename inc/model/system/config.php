@@ -237,7 +237,7 @@ final class config extends \fpcm\model\abstracts\dataset {
                 return false;
             }
 
-            $this->cache->write($cacheName, $userData, FPCM_CACHE_DEFAULT_TIMEOUT);
+            $this->cache->write($cacheName, $userData);
         }
 
         foreach ($userData as $key => $value) {
@@ -280,7 +280,7 @@ final class config extends \fpcm\model\abstracts\dataset {
             $this->data['twitter_events'] = json_decode($this->data['twitter_events'], true);
             $this->data['smtp_settings'] = json_decode($this->data['smtp_settings'], true);
 
-            $this->cache->write($this->cacheName, $this->data, $this->data['system_cache_timeout']);
+            $this->cache->write($this->cacheName, $this->data);
 
             return;
         }

@@ -84,7 +84,9 @@ final class cache {
         }
 
         $file = new \fpcm\model\files\cacheFile($cacheName);
-        return $file->read();
+        $content = $file->read();
+
+        return substr($content, 0, 2) == 'a:' || substr($content, 0, 2) == 'o:' ? unserialize($content) : $content;
     }
 
     /**

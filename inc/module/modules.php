@@ -37,6 +37,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
     {
         $this->table = \fpcm\classes\database::tableModules;
         $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
         
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return false;
@@ -50,7 +51,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
      * Module keys from database
      * @return array
      */
-    public function getKeysFromDatabase()
+    public function getKeysFromDatabase() : array
     {
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return [];
@@ -78,7 +79,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
      * Fetch modules from database
      * @return array
      */
-    public function getFromDatabase()
+    public function getFromDatabase() : array
     {
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return [];
@@ -101,7 +102,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
      * Fetch installed modules from database
      * @return array
      */
-    public function getInstalledDatabase()
+    public function getInstalledDatabase() : array
     {
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return [];
@@ -124,7 +125,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
      * Get installed modules with updates
      * @return array
      */
-    public function getInstalledUpdates()
+    public function getInstalledUpdates() : array
     {
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return 0;
@@ -153,7 +154,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
      * Fetch module data from repository
      * @return array
      */
-    public function getFromRepository()
+    public function getFromRepository() : array
     {
         $repoData = (new \fpcm\model\updater\modules())->getData();
         
@@ -185,7 +186,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
      * Fetch modul data from file system
      * @return boolean
      */
-    public function updateFromFilesystem()
+    public function updateFromFilesystem() : bool
     {
         $folders = glob(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, '*/*'), GLOB_ONLYDIR);
         if (!$folders) {
@@ -212,7 +213,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
      * Fetch installed and enabled modules from database
      * @return array
      */
-    public function getEnabledDatabase()
+    public function getEnabledDatabase() : array
     {
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return [];
@@ -221,18 +222,26 @@ class modules extends \fpcm\model\abstracts\tablelist {
         if (is_array($this->enabledCache)) {
             return $this->enabledCache;
         }
+        
+        $cacheName = 'modules/'. __FUNCTION__;
+        
+        if (!$this->cache->isExpired($cacheName)) {
+            $this->enabledCache = $this->cache->read($cacheName);
+            return $this->enabledCache;
+        }
 
         $this->enabledCache = [];
-
-        $result = $this->dbcon->fetch($this->dbcon->select($this->table, 'mkey', 'installed = 1 AND active = 1'), true);
+        $result = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())->setTable($this->table)->setItem('mkey')->setWhere('installed = 1 AND active = 1')->setFetchAll(true));
         if (!$result) {
+            $this->cache->write($cacheName, []);
             return $this->enabledCache;
         }
 
         foreach ($result as $dataset) {
             $this->enabledCache[] = $dataset->mkey;
         }
-
+        
+        $this->cache->write($cacheName, $this->enabledCache);
         return $this->enabledCache;
     }
 
@@ -242,7 +251,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
      * @param array $modules
      * @return boolean
      */
-    private function createResult($dataset, array &$modules)
+    private function createResult($dataset, array &$modules) : bool
     {
         $module = new module($dataset->mkey, false);
         $module->createFromDbObject($dataset);

@@ -309,7 +309,7 @@ final class baseconfig {
         }
 
         $controller = array_unique(array_merge($controller, self::initModuleControllers()));
-        $controllerCache->write($cacheName, $controller, FPCM_CACHE_DEFAULT_TIMEOUT);
+        $controllerCache->write($cacheName, $controller);
 
         return $controller;
     }

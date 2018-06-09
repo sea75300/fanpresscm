@@ -101,7 +101,7 @@ abstract class event {
         }
 
         $GLOBALS['fpcm']['events']['activeModules'] = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
-        $this->cache->write('modules/activeeventscache', $GLOBALS['fpcm']['events']['activeModules'], FPCM_CACHE_DEFAULT_TIMEOUT);
+        $this->cache->write('modules/activeeventscache', $GLOBALS['fpcm']['events']['activeModules']);
     }
 
     /**

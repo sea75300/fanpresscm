@@ -90,8 +90,8 @@ class cacheFile {
      * @return mixed|null
      */
     public function expires()
-    {
-        if (file_exists($this->path)) {
+    {        
+        if (!file_exists($this->path)) {
             return 0;
         }
 

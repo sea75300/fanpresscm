@@ -133,6 +133,9 @@ div.fpcm-status-info ul.fpcm-menu-top li ul,
 
 #fpcm-ui-logo {
     background: url(logo.png) no-repeat center top;
+}
+
+#fpcm-wrapper-left div.fpcm-ui-logo {
     margin-top: -20px;
 }
 

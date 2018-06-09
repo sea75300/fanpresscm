@@ -214,8 +214,12 @@ class view {
             $item = self::ROOTURL_CORE_JS.$item;
         }
         
-        $cacheName  = 'system/' . __METHOD__;
-        $checks     = $this->cache->isExpired($cacheName) ? [] : $this->cache->read($cacheName);
+        $cacheName  = 'system/rootpaths';
+        $checks     =  $this->cache->read($cacheName);
+        
+        if ($this->cache->isExpired($cacheName) || !is_array($checks)) {
+            $checks = [];
+        }
 
         $hash = \fpcm\classes\tools::getHash($item);
         if (isset($checks[$hash])) {
