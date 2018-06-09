@@ -215,10 +215,10 @@ trait lists {
             $this->dataView->addRow(
                     new \fpcm\components\dataView\row([
                         new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('fpcm-ui-list-checkbox-sub', 'fpcm-ui-list-checkbox-sub' . $articleMonth))->setClass('fpcm-ui-list-checkbox-sub')->setValue($articleMonth), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                        new \fpcm\components\dataView\rowCol('button', ''),
+                        new \fpcm\components\dataView\rowCol('button', '', 'd-none d-lg-block'),
                         new \fpcm\components\dataView\rowCol('title', $titleStr),
-                        new \fpcm\components\dataView\rowCol('categories', ''),
-                        new \fpcm\components\dataView\rowCol('metadata', ''),
+                        new \fpcm\components\dataView\rowCol('categories', '', 'd-none d-lg-block'),
+                        new \fpcm\components\dataView\rowCol('metadata', '', 'd-none d-lg-block'),
                     ],
                     'fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset',
                     true

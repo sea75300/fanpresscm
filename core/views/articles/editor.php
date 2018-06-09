@@ -29,16 +29,7 @@
             <?php else : ?>
             <div class="row fpcm-ui-padding-md-tb"><?php $theView->textInput('article[title]')->setValue($article->getTitle())->setText('ARTICLE_LIST_TITLE')->setPlaceholder(true); ?></div>
 
-                <?php if ($editorMode) : ?>
-                <div class="row fpcm-ui-editor-metabox fpcm-ui-padding-md-tb">
-                    <div class="col-sm-12 col-md-6 fpcm-ui-font-small">
-                        <?php include $theView->getIncludePath('articles/times.php'); ?>
-                    </div>
-                    <div class="col-sm-12 col-md-6 fpcm-ui-align-right">
-                        <?php print implode(PHP_EOL, $article->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
-                    </div>
-                </div>
-                <?php endif; ?>
+                <?php if ($editorMode) : ?><?php include $theView->getIncludePath('articles/times.php'); ?><?php endif; ?>
 
                 <div class="row fpcm-ui-padding-md-tb fpcm-ui-editor-categories">
                     <?php $fieldname = 'article[categories][]'; ?>

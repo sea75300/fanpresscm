@@ -133,6 +133,7 @@ div.fpcm-status-info ul.fpcm-menu-top li ul,
 
 #fpcm-ui-logo {
     background: url(logo.png) no-repeat center top;
+    margin-top: -20px;
 }
 
 div.fpcm-ui-form-login div.fpcm-ui-logo h1 {
@@ -309,6 +310,10 @@ div.fpcm-status-info {
 
 .fpcm-ui-full-height {
     height: 100%;
+}
+
+.fpcm-content-wrapper.fpcm-ui-full-height {
+    height: calc(100% - 42px);
 }
 
 div.fpcm-ui-datepicker-inputwrapper {
@@ -488,7 +493,7 @@ textarea:active,
 }
 
 div.ui-tabs {
-    min-height: 500px;
+    height: 100%;
 }
 
 .fpcm-tabs-scroll {
@@ -725,7 +730,7 @@ td.fpcm-td-spacer {
     height:110px;
     min-height:110px;
 }
-.fpcm-ui-editor-metabox
+
 h3, .fpcm-dashboard-container h3 {
     border: 1px solid #2694e8;
     background: #3baae3 url("../../lib/jquery-ui/images/ui-bg_glass_50_3baae3_1x400.png") 50% 50% repeat-x;
@@ -809,11 +814,6 @@ h3, .fpcm-dashboard-container h3 {
 .fpcm-ui-permissions-container h2,
 .fpcm-editor-dialog h2 {
     margin:0px 0px 5px 0px;
-}
-
-.fpcm-ui-editor-metabox {
-    background: rgba(229,227,239,0.4);
-    border: 1px solid #A6C9E2;
 }
 
 .fpcm-ui-metabox,
@@ -909,8 +909,7 @@ legend,
 textarea,
 span.fpcm-ui-badge,
 .fpcm-dashboard-container h3,
-.fpcm-ui-input-wrapper,
-.fpcm-ui-editor-metabox {
+.fpcm-ui-input-wrapper {
     border-radius: 5px;
 }
 

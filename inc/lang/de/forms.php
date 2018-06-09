@@ -53,6 +53,7 @@ $lang = array(
     'GLOBAL_CONFIRM' => 'Bitte bestätigen',
     'GLOBAL_ACTION_PERFORM' => 'Auszuführende Aktion',
     'GLOBAL_EXTERNAL' => 'Extern',
+    'GLOBAL_METADATA' => 'Meta-Informationen',
     'LOGIN_BTN' => 'Anmelden',
     'LOGIN_NEWPASSWORD' => 'Neues Passwort anfordern',
     'LOGIN_AUTHCODE' => 'Code aus Google Authenticator',

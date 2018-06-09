@@ -189,12 +189,12 @@ class userlist extends \fpcm\controller\abstracts\controller {
             
             $dataView->addRow(
                 new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('select', '', ''),
-                    new \fpcm\components\dataView\rowCol('button', ''),
+                    new \fpcm\components\dataView\rowCol('select', '', '', 'd-none d-lg-block'),
+                    new \fpcm\components\dataView\rowCol('button', '', 'd-none d-lg-block'),
                     new \fpcm\components\dataView\rowCol('username', $title),
-                    new \fpcm\components\dataView\rowCol('email', ''),
-                    new \fpcm\components\dataView\rowCol('registered', ''),
-                    new \fpcm\components\dataView\rowCol('metadata', ''),
+                    new \fpcm\components\dataView\rowCol('email', '', 'd-none d-lg-block'),
+                    new \fpcm\components\dataView\rowCol('registered', '', 'd-none d-lg-block'),
+                    new \fpcm\components\dataView\rowCol('metadata', '', 'd-none d-lg-block'),
                 ],
                 'fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset',
                 true

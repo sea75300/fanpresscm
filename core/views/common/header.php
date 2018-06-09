@@ -18,18 +18,29 @@
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
+        <?php include_once $theView->getIncludePath('common/menutop.php'); ?>
+            
         <div class="row">
 
             <div class="<?php if ($theView->fullWrapper) : ?>fpcm-ui-hidden<?php else : ?>col-sm-12 col-md-2<?php endif; ?> fpcm-ui-padding-none-lr fpcm-ui-background-white-50p" id="fpcm-wrapper-left">
 
-                <div id="fpcm-ui-logo" class="fpcm-ui-logo fpcm-ui-center fpcm-ui-margin-none">
-                    <h1><span class="fpcm-ui-block">FanPress CM</span> <span class="fpcm-ui-block">News System</span></h1>
-                </div>
+                <div class="row no-gutters fpcm-ui-full-height">
+                    <div class="col-12">
+                        <div id="fpcm-ui-logo" class="fpcm-ui-logo fpcm-ui-center fpcm-ui-margin-none">
+                            <h1><span class="fpcm-ui-block">FanPress CM</span> <span class="fpcm-ui-block">News System</span></h1>
+                        </div>
 
-                <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
+                        <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
+                        
+                        <div id="fpcm-footer-bottom" class="fpcm-footer fpcm-ui-font-small fpcm-ui-center fpcm-footer-bottom">
+                            <?php include $theView->getIncludePath('common/footer_copy.php'); ?>
+                        </div>
+                        
+                    </div>
+                </div>
+                
 
             </div>
 
             <div class="<?php if ($theView->fullWrapper) : ?>col-sm-12<?php else : ?>col-md-10<?php endif; ?> fpcm-ui-padding-none-lr" id="fpcm-wrapper-right">
-                <?php include_once $theView->getIncludePath('common/menutop.php'); ?>
                 <?php include_once $theView->getIncludePath('common/buttons.php'); ?>

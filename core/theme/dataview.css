@@ -53,10 +53,12 @@ div.fpcm-ui-dataview-align-justify {
     text-align: justify;
 }
 
-div.fpcm-ui-dataview-size-05 {
-    -ms-flex: 0 0 4.166666666%;
-    flex: 0 0 4.166666666%;
-    max-width: 4.166666666%;
+@media (min-width: 1024px) {
+    div.fpcm-ui-dataview-size-05 {
+        -ms-flex: 0 0 4.166666666%;
+        flex: 0 0 4.166666666%;
+        max-width: 4.166666666%;
+    }
 }
 
 div.fpcm-ui-dataview-col-value {
@@ -66,4 +68,13 @@ div.fpcm-ui-dataview-col-value {
 div.fpcm-ui-dataview-align-self-start {
     -ms-flex-item-align: start !important;
     align-self: flex-start !important;
+}
+
+@media (max-width: 1024px) {
+
+    div.fpcm-ui-dataview-head > *,
+    div.fpcm-ui-dataview-subhead > * {
+        text-align: center;
+    }
+
 }

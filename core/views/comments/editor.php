@@ -1,17 +1,33 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="row fpcm-ui-editor-metabox fpcm-ui-padding-md-tb">
-    <div class="col-sm-12 col-md-6 fpcm-ui-font-small">
-        <?php $theView->icon('calendar'); ?>
-        <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
-        <?php $theView->dateText($comment->getCreatetime()); ?><br>
-        <?php $theView->icon('clock', 'far'); ?> 
-        <?php print $changeInfo; ?><br>
-        <?php $theView->icon('globe'); ?> 
-        <strong><?php $theView->write('COMMMENT_IPADDRESS'); ?>:</strong>
-        <?php print $comment->getIpaddress(); ?>                    
-        <?php if ($ipWhoisLink) : ?>(<a href="http://www.whois.com/whois/<?php print $comment->getIpaddress(); ?>" target="_blank">Whois</a>)<?php endif; ?>
+<div class="row no-gutters fpcm-ui-editor-metabox">
+    <div class="col-12">
+        <fieldset>
+            <legend><?php $theView->write('GLOBAL_METADATA'); ?></legend>
+
+            <div class="row no-gutters">                
+                <div class="col-sm-12 col-md-6">
+                    <?php $theView->icon('calendar'); ?>
+                    <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
+                    <?php $theView->dateText($comment->getCreatetime()); ?><br>
+                    <?php $theView->icon('clock', 'far'); ?> 
+                    <?php print $changeInfo; ?><br>
+                    <?php $theView->icon('globe'); ?> 
+                    <strong><?php $theView->write('COMMMENT_IPADDRESS'); ?>:</strong>
+                    <?php print $comment->getIpaddress(); ?>                    
+                    <?php if ($ipWhoisLink) : ?>(<a href="http://www.whois.com/whois/<?php print $comment->getIpaddress(); ?>" target="_blank">Whois</a>)<?php endif; ?>
+                </div>
+
+                <div class="col-sm-12 col-md-6 fpcm-ui-align-right">
+                    <div class="fpcm-ui-controlgroup">
+                        <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setReadonly(!$canApprove)->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status'); ?>
+                        <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setReadonly(!$canApprove)->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status'); ?>
+                        <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$canPrivate)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status'); ?>
+                    </div>
+                </div>
+            </div>
+            
+        </fieldset>
     </div>
-    <div class="col-sm-12 col-md-6 fpcm-ui-align-right"><?php print implode(PHP_EOL, $comment->getMetaDataStatusIcons()); ?></div>
 </div>
 
 <div class="row fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom">
@@ -36,29 +52,6 @@
         </fieldset>
     </div>
 </div>
-
-
-<?php if ($canApprove || $canPrivate) : ?>
-<div class="row fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom">
-    <div class="col-12 fpcm-ui-padding-none-lr">
-        <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
-            <legend><?php $theView->write('GLOBAL_EXTENDED'); ?></legend>
-
-            <div class="row no-gutters fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom">
-                <div class="col-12">
-                    <div class="fpcm-ui-controlgroup">
-                        <?php if ($canApprove) : ?>
-                            <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status'); ?>
-                            <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status'); ?>
-                        <?php endif; ?>
-                        <?php if ($canPrivate) : ?><?php $theView->checkbox('comment[private]', 'private')->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status'); ?><?php endif; ?>                
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-    </div>
-</div>
-<?php endif; ?>
 
 <?php include \fpcm\components\components::getArticleEditor()->getCommentEditorTemplate(); ?>
 
