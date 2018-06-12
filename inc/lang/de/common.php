@@ -12,6 +12,7 @@ $lang = array(
     'UPDATER' => 'Update-Assistent',
     'VERSION' => 'Version',
     'HL_DASHBOARD' => 'Dashboard',
+    'HL_ARTICLES' => 'Artikel',
     'HL_ARTICLE_ADD' => 'Artikel schreiben',
     'HL_ARTICLE_EDIT' => 'Artikel verwalten',
     'HL_ARTICLE_EDIT_ALL' => 'Alle Artikel',

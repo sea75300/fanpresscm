@@ -89,73 +89,92 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     {
         return $this->events->trigger('navigation\add', [
             'showMenu' => array(
-                navigationItem::createItemFromArray([
-                    'url' => '#',
-                    'description' => $this->language->translate('NAVIGATION_SHOW'),
-                    'icon' => 'fa fa-bars',
-                    'id' => 'showMenu',
-                    'class' => 'fpcm-navigation-noclick'
-                ])
+                (new navigationItem())->setUrl('#')
+                    ->setDescription('NAVIGATION_SHOW')
+                    ->setIcon('bars')
+                    ->setId('showMenu')
+                    ->setClass('fpcm-navigation-noclick')
             ),
             'dashboard' => array(
-                navigationItem::createItemFromArray([
-                    'url' => 'system/dashboard',
-                    'description' => $this->language->translate('HL_DASHBOARD'),
-                    'icon' => 'fa fa-home',
-                ])
+                (new navigationItem())->setUrl('system/dashboard')->setDescription('HL_DASHBOARD')->setIcon('home')
             ),
             'addnews' => array(
-                navigationItem::createItemFromArray([
-                    'url' => 'articles/add',
-                    'permission' => array('article' => 'add'),
-                    'description' => $this->language->translate('HL_ARTICLE_ADD'),
-                    'icon' => 'fa fa-pen-square'
-                ])
+                (new navigationItem())->setUrl('articles/add')
+                    ->setDescription('HL_ARTICLE_ADD')
+                    ->setIcon('pen-square')
+                    ->setPermission(['article' => 'add'])
             ),
             'editnews' => array(
-                navigationItem::createItemFromArray([
-                    'url' => '#',
-                    'permission' => array('article' => 'edit'),
-                    'description' => $this->language->translate('HL_ARTICLE_EDIT'),
-                    'icon' => 'fa fa-book',
-                    'submenu' => self::editorSubmenu(),
-                    'class' => 'fpcm-navigation-noclick',
-                    'id' => 'nav-id-editnews'
-                ])
+                (new navigationItem())->setUrl('#')
+                    ->setDescription('HL_ARTICLE_EDIT')
+                    ->setIcon('book')
+                    ->setSubmenu(self::editorSubmenu())
+                    ->setPermission(['article' => 'edit'])
+                    ->setId('nav-id-editnews')
+                    ->setClass('fpcm-navigation-noclick')
             ),
             'comments' => array(
-                $this->commentsNavItem()
+                (new navigationItem())->setUrl('comments/list')
+                    ->setDescription('COMMMENT_HEADLINE')
+                    ->setIcon('comments')
+                    ->setPermission([
+                        'article' => ['editall', 'edit'],
+                        'comment' => ['editall', 'edit']
+                    ])
             ),
             'filemanager' => array(
-                navigationItem::createItemFromArray([
-                    'url' => 'files/list&mode=1',
-                    'permission' => array('uploads' => 'visible'),
-                    'description' => $this->language->translate('HL_FILES_MNG'),
-                    'icon' => 'fa fa-folder-open'
-                ])
+                (new navigationItem())->setUrl('files/list&mode=1')
+                    ->setDescription('HL_FILES_MNG')
+                    ->setIcon('folder-open')
+                    ->setPermission(['uploads' => 'visible'])
             ),
             'options' => array(
-                navigationItem::createItemFromArray([
-                    'url' => '#',
-                    'permission' => array('system' => 'options'),
-                    'description' => $this->language->translate('HL_OPTIONS'),
-                    'icon' => 'fa fa-cog',
-                    'class' => 'fpcm-navigation-noclick',
-                    'id' => 'fpcm-options-submenu',
-                    'submenu' => $this->optionSubmenu()
-                ])
+                (new navigationItem())->setUrl('#')
+                    ->setDescription('HL_OPTIONS')
+                    ->setIcon('cog')
+                    ->setSubmenu($this->optionSubmenu())
+                    ->setPermission(['system' => 'options'])
+                    ->setId('fpcm-options-submenu')
+                    ->setClass('fpcm-navigation-noclick')
             ),
             'modules' => array(
-                navigationItem::createItemFromArray([
-                    'url' => 'modules/list',
-                    'permission' => ['modules' => ['install', 'uninstall', 'configure']],
-                    'description' => $this->language->translate('HL_MODULES'),
-                    'icon' => 'fa fa-plug fa-fw',
-                    'submenu' => $this->modulesSubmenu()
-                ])
+                (new navigationItem())->setUrl('modules/list')
+                    ->setDescription('HL_MODULES')
+                    ->setIcon('plug')
+                    ->setSubmenu($this->modulesSubmenu())
+                    ->setPermission(['modules' => [
+                        'install', 'uninstall', 'configure'
+                    ]])
             ),
+            'trashes' => $this->addTrashItem(),
             'after' => []
         ]);
+    }
+
+    private function addTrashItem()
+    {
+        $submenu = [];
+        
+        if ($this->permissions->check(['article' => 'delete'])) {
+            $submenu[] = (new navigationItem())->setUrl('articles/trash')->setDescription('HL_ARTICLES')->setIcon('book');
+        }
+
+        if ($this->permissions->check(['comment' => 'delete'])) {
+            $submenu[] = (new navigationItem())->setUrl('comments/trash')->setDescription('COMMMENT_HEADLINE')->setIcon('comments');
+        }
+
+        if (!count($submenu)) {
+            return $submenu;
+        }
+
+        return [
+            (new navigationItem())->setUrl('#')
+                ->setDescription('ARTICLES_TRASH')
+                ->setIcon('trash-alt')
+                ->setId('nav-id-trashmain')
+                ->setClass('fpcm-navigation-noclick')
+                ->setSubmenu($submenu)
+        ];
     }
 
     /**
@@ -182,62 +201,6 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 'permission' => array('article' => 'edit', 'article' => 'editall', 'article' => 'archive'),
                 'description' => $this->language->translate('HL_ARTICLE_EDIT_ARCHIVE'),
                 'icon' => 'fa fa-archive fa-fw'
-            ]),
-            navigationItem::createItemFromArray([
-                'url' => 'articles/trash',
-                'permission' => array('article' => 'delete'),
-                'description' => $this->language->translate('ARTICLES_TRASH'),
-                'icon' => 'far fa-trash-alt fa-fw'
-            ])
-        ];
-    }
-
-    /**
-     * Submenu for comments
-     * @return array
-     */
-    private function commentsNavItem()
-    {
-        if (!$this->permissions->check(['comment' => 'delete'])) {
-            return navigationItem::createItemFromArray([
-                'url' => 'comments/list',
-                'permission' => array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit')),
-                'description' => $this->language->translate('COMMMENT_HEADLINE'),
-                'icon' => 'fa fa-comments',
-                'id' => 'nav-item-editcomments',
-            ]);
-        }
-        
-        return navigationItem::createItemFromArray([
-            'url' => '#',
-            'permission' => array('article' => array('editall', 'edit'), 'comment' => array('editall', 'edit')),
-            'description' => $this->language->translate('HL_COMMENTS_MNG'),
-            'icon' => 'fa fa-comments',
-            'id' => 'nav-item-editcomments',
-            'submenu' => self::commentsSubmenu(),
-            'class' => 'fpcm-navigation-noclick'
-        ]);
-
-    }
-
-    /**
-     * Submenu for comments
-     * @return array
-     */
-    private function commentsSubmenu()
-    {
-        return [
-            navigationItem::createItemFromArray([
-                'url' => 'comments/list',
-                'permission' => [],
-                'description' => $this->language->translate('COMMMENT_HEADLINE'),
-                'icon' => 'far fa-comments fa-fw'
-            ]),
-            navigationItem::createItemFromArray([
-                'url' => 'comments/trash',
-                'permission' => [],
-                'description' => $this->language->translate('ARTICLES_TRASH'),
-                'icon' => 'far fa-trash-alt fa-fw'
             ])
         ];
     }

@@ -193,7 +193,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description = $this->language->translate($description);
         return $this;
     }
 
@@ -210,10 +210,13 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     /**
      * CSS-Klassen für Icon setzen
      * @param string $icon
+     * @param string $prefix
+     * @param bool $useFa
+     * @return $this
      */
-    public function setIcon($icon)
+    public function setIcon(string $icon, string $prefix = 'fa', bool $useFa = true)
     {
-        $this->icon = $icon;
+        $this->icon = (string) new \fpcm\view\helper\icon($icon);
         return $this;
     }
 
@@ -330,7 +333,6 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
      */
     public static function createItemFromArray(array $data)
     {
-
         $item = new navigationItem();
         $item->setUrl(isset($data['url']) ? $data['url'] : '#');
         $item->setDescription(isset($data['description']) ? $data['description'] : '');
