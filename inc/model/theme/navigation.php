@@ -108,7 +108,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 (new navigationItem())->setUrl('#')
                     ->setDescription('HL_ARTICLE_EDIT')
                     ->setIcon('book')
-                    ->setSubmenu(self::editorSubmenu())
+                    ->setSubmenu($this->editorSubmenu())
                     ->setPermission(['article' => 'edit'])
                     ->setId('nav-id-editnews')
                     ->setClass('fpcm-navigation-noclick')
@@ -170,7 +170,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         return [
             (new navigationItem())->setUrl('#')
                 ->setDescription('ARTICLES_TRASH')
-                ->setIcon('trash-alt')
+                ->setIcon('trash-alt', 'far')
                 ->setId('nav-id-trashmain')
                 ->setClass('fpcm-navigation-noclick')
                 ->setSubmenu($submenu)
@@ -184,24 +184,18 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     private function editorSubmenu()
     {
         return [
-            navigationItem::createItemFromArray([
-                'url' => 'articles/listall',
-                'permission' => array('article' => 'edit', 'article' => 'editall'),
-                'description' => $this->language->translate('HL_ARTICLE_EDIT_ALL'),
-                'icon' => 'fa fa-book fa-fw'
-            ]),
-            navigationItem::createItemFromArray([
-                'url' => 'articles/listactive',
-                'permission' => array('article' => 'edit'),
-                'description' => $this->language->translate('HL_ARTICLE_EDIT_ACTIVE'),
-                'icon' => 'far fa-newspaper fa-fw'
-            ]),
-            navigationItem::createItemFromArray([
-                'url' => 'articles/listarchive',
-                'permission' => array('article' => 'edit', 'article' => 'editall', 'article' => 'archive'),
-                'description' => $this->language->translate('HL_ARTICLE_EDIT_ARCHIVE'),
-                'icon' => 'fa fa-archive fa-fw'
-            ])
+            (new navigationItem())->setUrl('articles/listall')
+                ->setDescription('HL_ARTICLE_EDIT_ALL')
+                ->setIcon('book')
+                ->setPermission(['article' => 'edit', 'article' => 'editall']),
+            (new navigationItem())->setUrl('articles/listactive')
+                ->setDescription('HL_ARTICLE_EDIT_ACTIVE')
+                ->setIcon('newspaper', 'far')
+                ->setPermission(['article' => 'edit']),
+            (new navigationItem())->setUrl('articles/listarchive')
+                ->setDescription('HL_ARTICLE_EDIT_ARCHIVE')
+                ->setIcon('archive')
+                ->setPermission(['article' => 'edit', 'article' => 'editall', 'article' => 'archive'])
         ];
     }
 
@@ -212,74 +206,54 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     private function optionSubmenu()
     {
         $data = array(
-            navigationItem::createItemFromArray([
-                'url' => 'system/options',
-                'permission' => array('system' => 'options'),
-                'description' => $this->language->translate('HL_OPTIONS_SYSTEM'),
-                'icon' => 'fa fa-cog fa-fw'
-            ]),
-            navigationItem::createItemFromArray([
-                'url' => 'users/list',
-                'permission' => array('system' => 'users', 'system' => 'rolls'),
-                'description' => $this->language->translate('HL_OPTIONS_USERS'),
-                'id' => 'nav-item-users',
-                'icon' => 'fa fa-users fa-fw'
-            ]),
-            navigationItem::createItemFromArray([
-                'url' => 'ips/list',
-                'permission' => array('system' => 'ipaddr'),
-                'description' => $this->language->translate('HL_OPTIONS_IPBLOCKING'),
-                'id' => 'nav-item-ips',
-                'icon' => 'fa fa-globe fa-fw'
-            ]),
-            navigationItem::createItemFromArray([
-                'url' => 'wordban/list',
-                'permission' => array('system' => 'wordban'),
-                'description' => $this->language->translate('HL_OPTIONS_WORDBAN'),
-                'id' => 'nav-item-wordban',
-                'icon' => 'fa fa-ban fa-fw'
-            ]),
-            navigationItem::createItemFromArray([
-                'url' => 'categories/list',
-                'permission' => array('system' => 'categories'),
-                'description' => $this->language->translate('HL_CATEGORIES_MNG'),
-                'id' => 'nav-item-categories',
-                'icon' => 'fa fa-tags fa-fw'
-            ]),
-            navigationItem::createItemFromArray([
-                'url' => 'templates/templates',
-                'permission' => array('system' => 'templates'),
-                'description' => $this->language->translate('HL_OPTIONS_TEMPLATES'),
-                'icon' => 'fa fa-code fa-fw'
-            ]),
-            navigationItem::createItemFromArray([
-                'url' => 'smileys/list',
-                'permission' => array('system' => 'smileys'),
-                'description' => $this->language->translate('HL_OPTIONS_SMILEYS'),
-                'id' => 'nav-item-smileys',
-                'icon' => 'far fa-smile fa-fw'
-            ]),
-            navigationItem::createItemFromArray([
-                'url' => 'system/crons',
-                'permission' => array('system' => 'crons'),
-                'description' => $this->language->translate('HL_CRONJOBS'),
-                'icon' => 'fa fa-history fa-fw'
-            ]),
-            navigationItem::createItemFromArray([
-                'url' => 'system/logs',
-                'permission' => array('system' => 'logs'),
-                'description' => $this->language->translate('HL_LOGS'),
-                'icon' => 'fa fa-exclamation-triangle fa-fw'
-            ])
+            (new navigationItem())->setUrl('system/options')
+                ->setDescription('HL_OPTIONS_SYSTEM')
+                ->setIcon('cog')
+                ->setPermission(['system' => 'options']),
+            (new navigationItem())->setUrl('users/list')
+                ->setDescription('HL_OPTIONS_USERS')
+                ->setIcon('users')
+                ->setId('nav-item-users')
+                ->setPermission(['system' => 'users', 'system' => 'rolls']),
+            (new navigationItem())->setUrl('ips/list')
+                ->setDescription('HL_OPTIONS_IPBLOCKING')
+                ->setIcon('globe')
+                ->setId('nav-item-users')
+                ->setPermission(['system' => 'ipaddr']),
+            (new navigationItem())->setUrl('wordban/list')
+                ->setDescription('HL_OPTIONS_WORDBAN')
+                ->setIcon('ban')
+                ->setId('nav-item-wordban')
+                ->setPermission(['system' => 'wordban']),
+            (new navigationItem())->setUrl('categories/list')
+                ->setDescription('HL_CATEGORIES_MNG')
+                ->setIcon('tags')
+                ->setId('nav-item-categories')
+                ->setPermission(['system' => 'categories']),
+            (new navigationItem())->setUrl('templates/templates')
+                ->setDescription('HL_OPTIONS_TEMPLATES')
+                ->setIcon('code')
+                ->setPermission(['system' => 'templates']),
+            (new navigationItem())->setUrl('smileys/list')
+                ->setDescription('HL_OPTIONS_SMILEYS')
+                ->setIcon('smile', 'far')
+                ->setId('nav-item-smileys')
+                ->setPermission(['system' => 'smileys']),
+            (new navigationItem())->setUrl('system/crons')
+                ->setDescription('HL_CRONJOBS')
+                ->setIcon('history')
+                ->setPermission(['system' => 'crons']),
+            (new navigationItem())->setUrl('system/logs')
+                ->setDescription('HL_LOGS')
+                ->setIcon('exclamation-triangle')
+                ->setPermission(['system' => 'logs']),
         );
 
         if (\fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() == \fpcm\classes\database::DBTYPE_MYSQLMARIADB) {
-            $data[] = navigationItem::createItemFromArray([
-                'url' => 'system/backups',
-                'permission' => array('system' => 'backups'),
-                'description' => $this->language->translate('HL_BACKUPS'),
-                'icon' => 'fa fa-life-ring fa-fw'
-            ]);
+            $data[] = (new navigationItem())->setUrl('system/backups')
+                ->setDescription('HL_BACKUPS')
+                ->setIcon('life-ring')
+                ->setPermission(['system' => 'backups']);
         }
 
         return $data;

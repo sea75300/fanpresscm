@@ -216,7 +216,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
      */
     public function setIcon(string $icon, string $prefix = 'fa', bool $useFa = true)
     {
-        $this->icon = (string) new \fpcm\view\helper\icon($icon);
+        $this->icon = (string) new \fpcm\view\helper\icon($icon, $prefix, $useFa);
         return $this;
     }
 
