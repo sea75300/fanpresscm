@@ -316,12 +316,13 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     public function countArticlesByUsers(array $userIds = array())
     {
         $where = count($userIds) ? "createuser IN (?)" : '1=1';
+        $params = count($userIds) ? [implode(',', $userIds)] : [];
 
         $obj = (new \fpcm\model\dbal\selectParams())
                 ->setTable($this->table)
                 ->setFetchAll(true)
                 ->setWhere("{$where} AND deleted = 0 GROUP BY createuser")
-                ->setParams([implode(',', $userIds)])
+                ->setParams($params)
                 ->setItem('createuser, count(id) AS count');
 
         $articleCounts = $this->dbcon->selectFetch($obj);

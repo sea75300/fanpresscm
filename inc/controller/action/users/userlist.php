@@ -180,6 +180,8 @@ class userlist extends \fpcm\controller\abstracts\controller {
             (new \fpcm\components\dataView\column('metadata', ''))->setAlign('center'),
         ]);
 
+        $articleCount = $this->articleList->countArticlesByUsers();
+
         $descr = $this->language->translate('USERS_ROLL');
         foreach($usersInGroups AS $rollId => $users) {
             
@@ -201,7 +203,6 @@ class userlist extends \fpcm\controller\abstracts\controller {
             ));
             
             $currentUser = $this->session->getUserId();
-            $articleCount = $this->articleList->countArticlesByUsers();
             
             /* @var $user \fpcm\model\users\author */
             foreach ($users as $userId => $user) {
