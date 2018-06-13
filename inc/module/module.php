@@ -186,6 +186,15 @@ class module {
     }
 
     /**
+     * Fetch system config options
+     * @return array
+     */
+    final public function getOptions() : array
+    {
+        return $this->systemConfig->getModuleOptions($this->getFullPrefix());
+    }
+
+    /**
      * Fetch module config
      * @return config
      */
@@ -282,6 +291,15 @@ class module {
         }
 
         return true;
+    }
+
+    /**
+     * Check if configure action should be displayed
+     * @return bool
+     */
+    public function hasConfigure() : bool
+    {
+        return file_exists(\fpcm\module\module::getTemplateDirByKey($this->mkey, 'configure'));
     }
 
     /**

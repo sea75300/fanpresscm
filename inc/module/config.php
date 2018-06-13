@@ -17,6 +17,7 @@ namespace fpcm\module;
  * @property string $link Module key
  * @property string $version Module version
  * @property string $basePath Module base path
+ * @property string $help Help item
  * @property array $requirements Module requirements array
  * @property array $tables Module tables data
  * @property array $configOptions Module config data

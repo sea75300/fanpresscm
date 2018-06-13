@@ -15,6 +15,7 @@ $lang = array(
     'MODULES_LIST_UPDATE' => 'Update module',
     'MODULES_LIST_ENABLE' => 'Enable module',
     'MODULES_LIST_DISABLE' => 'Disable module',
+    'MODULES_LIST_CONFIGURE' => 'Configure module',
     'MODULES_LIST_KEY' => 'Key',
     'MODULES_LIST_NAME' => 'Name',
     'MODULES_LIST_VERSION_LOCAL' => 'Version (local)',

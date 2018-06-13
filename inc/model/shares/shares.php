@@ -39,12 +39,13 @@ class shares extends \fpcm\model\abstracts\tablelist {
             $search['shareitem'] = $item;
         }
 
-        $result = $this->dbcon->select($this->table, '*', implode(' = ? AND ', array_keys($search)).' = ?', array_values($search));
-        if (!$result) {
-            return [];
-        }
+        $obj = (new \fpcm\model\dbal\selectParams())
+                ->setTable($this->table)
+                ->setParams(array_values($search))
+                ->setWhere( implode(' = ? AND ', array_keys($search)).' = ? '.$this->dbcon->orderBy(['lastshare DESC']) )
+                ->setFetchAll(TRUE);
         
-        $result = $this->dbcon->fetch($result, true);
+        $result = $this->dbcon->selectFetch($obj);
         if (!$result) {
             return [];
         }

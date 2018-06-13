@@ -42,6 +42,7 @@ package/sysupdate: action/packagemgr/sysupdate
 package/modinstall: action/packagemgr/moduleInstaller
 package/modupdate: action/packagemgr/moduleUpdater
 modules/list: action/modules/modulelist
+modules/configure: action/modules/moduleConfig
 ## FanPress CM public action controller file
 fpcm/list: action/pub/showall
 fpcm/archive: action/pub/showarchive

@@ -379,6 +379,29 @@ final class config extends \fpcm\model\abstracts\dataset {
     }
 
     /**
+     * Returns config options by module key
+     * @param string $key
+     * @return array
+     * @since FPCM 4
+     */
+    public function getModuleOptions(string $key) : array
+    {
+        $obj = (new \fpcm\model\dbal\selectParams())->setTable($this->table)->setWhere("config_name " . $this->dbcon->dbLike() . " ?")->setParams([$key.'%']);
+
+        $result = $this->dbcon->selectFetch($obj);
+        if (!$result) {
+            return [];
+        }
+
+        $data = [];
+        foreach ($result as $row) {
+            $data[$row->config_name] = $row->config_value;
+        }
+
+        return $data;
+    }
+
+    /**
      * Config-Refresh
      */
     private function refresh()

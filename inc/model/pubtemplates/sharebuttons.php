@@ -217,7 +217,6 @@ final class sharebuttons extends template {
                 'link' => "whatsapp://send?text={$this->description}: {$this->link}",
                 'icon' => "default/whatsapp.png",
                 'text' => "Share on WhatsApp",
-                'target' => '_self',
                 'data' => [
                     'action' => 'share/whatsapp/share',
                     'onclick' => 'whatsapp',

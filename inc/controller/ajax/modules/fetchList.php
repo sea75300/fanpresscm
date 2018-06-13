@@ -237,9 +237,22 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
         if ($item->isInstalled()) {
             
             if ($this->permArr['canConfigure']) {
-                $buttons[]  = $item->isActive()
-                            ? (new \fpcm\view\helper\button('disable'.$hash))->setText('MODULES_LIST_DISABLE')->setIcon('toggle-off')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'disable'])->setClass('fpcm-ui-modulelist-action-local')
-                            : (new \fpcm\view\helper\button('enable'.$hash))->setText('MODULES_LIST_ENABLE')->setIcon('toggle-on')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'enable'])->setClass('fpcm-ui-modulelist-action-local');
+                
+                if ($item->isActive()) {
+                    $buttons[]  = (new \fpcm\view\helper\linkButton('configure'.$hash))
+                                    ->setText('MODULES_LIST_CONFIGURE')
+                                    ->setIcon('cogs')
+                                    ->setIconOnly(true)
+                                    ->setClass('fpcm-ui-modulelist-action-local')
+                                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/configure', ['key' => $item->getKey()]));
+                    
+                    $buttons[]  = (new \fpcm\view\helper\button('disable'.$hash))->setText('MODULES_LIST_DISABLE')->setIcon('toggle-off')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'disable'])->setClass('fpcm-ui-modulelist-action-local');
+                }
+                else {
+                    
+                    $buttons[]  = (new \fpcm\view\helper\button('enable'.$hash))->setText('MODULES_LIST_ENABLE')->setIcon('toggle-on')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'enable'])->setClass('fpcm-ui-modulelist-action-local');
+                }
+                
             }
             
 
