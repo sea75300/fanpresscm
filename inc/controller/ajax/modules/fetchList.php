@@ -239,12 +239,15 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
             if ($this->permArr['canConfigure']) {
                 
                 if ($item->isActive()) {
-                    $buttons[]  = (new \fpcm\view\helper\linkButton('configure'.$hash))
-                                    ->setText('MODULES_LIST_CONFIGURE')
-                                    ->setIcon('cogs')
-                                    ->setIconOnly(true)
-                                    ->setClass('fpcm-ui-modulelist-action-local')
-                                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/configure', ['key' => $item->getKey()]));
+                    
+                    if ($item->hasConfigure()) {
+                        $buttons[]  = (new \fpcm\view\helper\linkButton('configure'.$hash))
+                                        ->setText('MODULES_LIST_CONFIGURE')
+                                        ->setIcon('cogs')
+                                        ->setIconOnly(true)
+                                        ->setClass('fpcm-ui-modulelist-action-local')
+                                        ->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/configure', ['key' => $item->getKey()]));
+                    }
                     
                     $buttons[]  = (new \fpcm\view\helper\button('disable'.$hash))->setText('MODULES_LIST_DISABLE')->setIcon('toggle-off')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'disable'])->setClass('fpcm-ui-modulelist-action-local');
                 }

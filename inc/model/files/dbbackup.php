@@ -98,15 +98,6 @@ final class dbbackup extends \fpcm\model\abstracts\file {
     }
 
     /**
-     * Löscht Datei-Eintrag in Datenbank und Datei in Dateisystem
-     * @return boolean
-     */
-    public function delete()
-    {
-        return false;
-    }
-
-    /**
      * Benennt eine Datei um
      * @param string $newname
      * @param int $userId

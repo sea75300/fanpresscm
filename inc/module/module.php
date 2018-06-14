@@ -299,7 +299,7 @@ class module {
      */
     public function hasConfigure() : bool
     {
-        return file_exists(\fpcm\module\module::getTemplateDirByKey($this->mkey, 'configure'));
+        return file_exists(\fpcm\module\module::getTemplateDirByKey($this->mkey, 'configure.php'));
     }
 
     /**

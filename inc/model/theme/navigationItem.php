@@ -18,6 +18,17 @@ namespace fpcm\model\theme;
  */
 class navigationItem extends \fpcm\model\abstracts\staticModel {
 
+    const AREA_MENU = 'showMenu';
+    const AREA_DASHBOARD = 'dashboard';
+    const AREA_ADDNEWS = 'addnews';
+    const AREA_EDITNEWS = 'editnews';
+    const AREA_COMMENTS = 'comments';
+    const AREA_FILEMANAGER = 'filemanager';
+    const AREA_OPTIONS = 'options';
+    const AREA_MODULES = 'modules';
+    const AREA_TRASH = 'trashes';
+    const AREA_AFTER = 'after';
+    
     /**
      * im Navigation angezeigte Beschreibung
      * @var string

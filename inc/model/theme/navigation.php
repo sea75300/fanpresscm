@@ -88,23 +88,23 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     private function getNavigation()
     {
         return $this->events->trigger('navigation\add', [
-            'showMenu' => array(
+            navigationItem::AREA_MENU => array(
                 (new navigationItem())->setUrl('#')
                     ->setDescription('NAVIGATION_SHOW')
                     ->setIcon('bars')
                     ->setId('showMenu')
                     ->setClass('fpcm-navigation-noclick')
             ),
-            'dashboard' => array(
+            navigationItem::AREA_DASHBOARD => array(
                 (new navigationItem())->setUrl('system/dashboard')->setDescription('HL_DASHBOARD')->setIcon('home')
             ),
-            'addnews' => array(
+            navigationItem::AREA_ADDNEWS => array(
                 (new navigationItem())->setUrl('articles/add')
                     ->setDescription('HL_ARTICLE_ADD')
                     ->setIcon('pen-square')
                     ->setPermission(['article' => 'add'])
             ),
-            'editnews' => array(
+            navigationItem::AREA_EDITNEWS => array(
                 (new navigationItem())->setUrl('#')
                     ->setDescription('HL_ARTICLE_EDIT')
                     ->setIcon('book')
@@ -113,7 +113,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                     ->setId('nav-id-editnews')
                     ->setClass('fpcm-navigation-noclick')
             ),
-            'comments' => array(
+            navigationItem::AREA_COMMENTS => array(
                 (new navigationItem())->setUrl('comments/list')
                     ->setDescription('COMMMENT_HEADLINE')
                     ->setIcon('comments')
@@ -122,13 +122,13 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                         'comment' => ['editall', 'edit']
                     ])
             ),
-            'filemanager' => array(
+            navigationItem::AREA_FILEMANAGER => array(
                 (new navigationItem())->setUrl('files/list&mode=1')
                     ->setDescription('HL_FILES_MNG')
                     ->setIcon('folder-open')
                     ->setPermission(['uploads' => 'visible'])
             ),
-            'options' => array(
+            navigationItem::AREA_OPTIONS => array(
                 (new navigationItem())->setUrl('#')
                     ->setDescription('HL_OPTIONS')
                     ->setIcon('cog')
@@ -137,7 +137,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                     ->setId('fpcm-options-submenu')
                     ->setClass('fpcm-navigation-noclick')
             ),
-            'modules' => array(
+            navigationItem::AREA_MODULES => array(
                 (new navigationItem())->setUrl('modules/list')
                     ->setDescription('HL_MODULES')
                     ->setIcon('plug')
@@ -146,8 +146,8 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                         'install', 'uninstall', 'configure'
                     ]])
             ),
-            'trashes' => $this->addTrashItem(),
-            'after' => []
+            navigationItem::AREA_TRASH => $this->addTrashItem(),
+            navigationItem::AREA_AFTER => []
         ]);
     }
 
@@ -205,7 +205,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      */
     private function optionSubmenu()
     {
-        $data = array(
+        $data = [
             (new navigationItem())->setUrl('system/options')
                 ->setDescription('HL_OPTIONS_SYSTEM')
                 ->setIcon('cog')
@@ -247,7 +247,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 ->setDescription('HL_LOGS')
                 ->setIcon('exclamation-triangle')
                 ->setPermission(['system' => 'logs']),
-        );
+        ];
 
         if (\fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() == \fpcm\classes\database::DBTYPE_MYSQLMARIADB) {
             $data[] = (new navigationItem())->setUrl('system/backups')

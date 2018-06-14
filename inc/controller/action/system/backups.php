@@ -17,6 +17,10 @@ class backups extends \fpcm\controller\abstracts\controller {
 
     use \fpcm\controller\traits\common\dataView;
     
+    protected $i = 0;
+
+    protected $deletePrevent = 5;
+
     protected function getPermissions()
     {
         return ['system' => 'backups'];
@@ -29,16 +33,45 @@ class backups extends \fpcm\controller\abstracts\controller {
 
     public function request()
     {
+        if ($this->buttonClicked('delete')) {
+            
+            $deleteFile = $this->getRequestVar('files', [
+                \fpcm\classes\http::FILTER_URLDECODE,
+                \fpcm\classes\http::FILTER_BASE64DECODE,
+                \fpcm\classes\http::FILTER_DECRYPT
+            ]);
+
+            $file = new \fpcm\model\files\dbbackup($deleteFile);
+            if (!$file->exists()) {
+                $this->view = new \fpcm\view\error('GLOBAL_NOTFOUND_FILE');
+                return false;
+            }
+
+            if (!$file->delete()) {
+                $this->view->addErrorMessage('DELETE_FAILED_FILES', [
+                    '{{filenames}}' => $deleteFile
+                ]);
+
+                return true;
+            }
+
+            $this->view->addNoticeMessage('DELETE_SUCCESS_FILES', [
+                '{{filenames}}' => $deleteFile
+            ]);
+
+            return true;
+        }
+
         if (!$this->getRequestVar('save')) {
             return true;
         }
 
         $filePath = $this->getRequestVar('save', [
             \fpcm\classes\http::FILTER_URLDECODE,
-            \fpcm\classes\http::FILTER_BASE64DECODE
+            \fpcm\classes\http::FILTER_BASE64DECODE,
+            \fpcm\classes\http::FILTER_DECRYPT
         ]);
-        
-        $filePath = $this->crypt->decrypt($filePath);
+
         $file = new \fpcm\model\files\dbbackup($filePath);
 
         if (!$file->exists()) {
@@ -68,14 +101,17 @@ class backups extends \fpcm\controller\abstracts\controller {
         $this->initDataView();
         $this->view->assign('headline', 'HL_BACKUPS');
         $this->view->addJsFiles(['backups.js']);
+        $this->view->addButton((new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm'));
+        $this->view->setFormAction('system/backups');
         $this->view->render();
     }
 
     protected function getDataViewCols()
     {
         return [
+            (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('name', 'FILE_LIST_FILENAME')),
+            (new \fpcm\components\dataView\column('name', 'FILE_LIST_FILENAME'))->setSize(7),
             (new \fpcm\components\dataView\column('size', 'FILE_LIST_FILESIZE'))->setSize(3),
         ];
     }
@@ -93,11 +129,19 @@ class backups extends \fpcm\controller\abstracts\controller {
     protected function initDataViewRow($file)
     {
         $basename = basename($file);
+        $hash = md5($basename);
         
-        $url = \fpcm\classes\tools::getFullControllerLink('system/backups', ['save' => urlencode( base64_encode( $this->crypt->encrypt($basename) ) ) ] );
+        $val = urlencode(base64_encode( $this->crypt->encrypt($basename)));
 
+        $url = \fpcm\classes\tools::getFullControllerLink('system/backups', [
+            'save' => $val
+        ]);
+
+        $this->i++;
+        
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\linkButton('download'.md5($basename)))->setUrl($url)->setText('GLOBAL_DOWNLOAD')->setIconOnly(true)->setIcon('download') , '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('files', 'files'.$hash))->setValue($val)->setReadonly($this->i > $this->deletePrevent ? false : true), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\linkButton('download'.$hash))->setUrl($url)->setText('GLOBAL_DOWNLOAD')->setIconOnly(true)->setIcon('download') , '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             new \fpcm\components\dataView\rowCol('name', $basename),
             new \fpcm\components\dataView\rowCol('size', \fpcm\classes\tools::calcSize(filesize($file)) ),
         ]);

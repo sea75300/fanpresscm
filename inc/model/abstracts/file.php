@@ -230,6 +230,7 @@ abstract class file {
     public function delete()
     {
         if (!$this->isReadable() || !$this->isWritable()) {
+            trigger_error('Unable to delete file, invalid read and/or write permissions: ' . $this->fullpath);
             return false;
         }
 
