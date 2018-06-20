@@ -8,14 +8,14 @@
 namespace fpcm\controller\ajax\files;
 
 /**
- * AJAX Controller to rename file list
+ * AJAX Controller to delete single file
  * 
  * @package fpcm\controller\ajax\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class rename extends \fpcm\controller\abstracts\ajaxController {
+class delete extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      *
@@ -35,7 +35,7 @@ class rename extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function getPermissions()
     {
-        return ['uploads' => 'rename'];
+        return ['uploads' => 'delete'];
     }
     
     /**
@@ -44,20 +44,9 @@ class rename extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        $this->newFileName = $this->getRequestVar('newName');
-        $this->fileName = $this->getRequestVar('oldName', [
+        $this->fileName = $this->getRequestVar('filename', [
             \fpcm\classes\http::FILTER_BASE64DECODE
         ]);
-
-        if (!$this->newFileName || !$this->fileName) {
-            $this->returnData['code'] = -1;
-            $this->returnData['message'] = $this->language->translate('DELETE_FAILED_RENAME', [
-                '{{filename1}}' => $this->fileName,
-                '{{filename2}}' => $this->newFileName
-            ]);
-
-            $this->getSimpleResponse();
-        }
 
         return true;
     }
@@ -67,20 +56,15 @@ class rename extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-        $image = new \fpcm\model\files\image($this->fileName, false);
-        
         $replace = ['{{filename1}}' => basename($this->fileName), '{{filename2}}' => basename($this->newFileName)];
-        if ($image->rename($this->newFileName, $this->session->getUserId())) {
-
-            (new \fpcm\model\files\imagelist())->createFilemanagerThumbs();
-            
+        if ((new \fpcm\model\files\image($this->fileName, false))->delete()) {
             $this->returnData['code'] = 1;
-            $this->returnData['message'] = $this->language->translate('DELETE_SUCCESS_RENAME', $replace);
+            $this->returnData['message'] = $this->language->translate('DELETE_SUCCESS_FILES', $replace);
             $this->getSimpleResponse();
         }
 
         $this->returnData['code'] = 0;
-        $this->returnData['message'] = $this->language->translate('DELETE_FAILED_RENAME', $replace);
+        $this->returnData['message'] = $this->language->translate('DELETE_FAILED_FILES', $replace);
         $this->getSimpleResponse();
     }
 

@@ -55,7 +55,8 @@ class permissions extends \fpcm\model\abstracts\dataset {
             'archive' => 0,
             'approve' => 0,
             'revisions' => 0,
-            'authors' => 0
+            'authors' => 0,
+            'massedit' => 0
         ),
         'comment' => array(
             'edit' => 1,
@@ -63,7 +64,8 @@ class permissions extends \fpcm\model\abstracts\dataset {
             'delete' => 0,
             'approve' => 1,
             'private' => 1,
-            'move' => 0
+            'move' => 0,
+            'massedit' => 0
         ),
         'system' => array(
             'categories' => 0,
@@ -107,7 +109,8 @@ class permissions extends \fpcm\model\abstracts\dataset {
             'archive' => 0,
             'approve' => 0,
             'revisions' => 0,
-            'authors' => 0
+            'authors' => 0,
+            'massedit' => 0
         ),
         'comment' => array(
             'edit' => 0,
@@ -116,6 +119,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             'approve' => 0,
             'private' => 0,
             'move' => 0,
+            'massedit' => 0
         ),
         'system' => array(
             'categories' => 0,

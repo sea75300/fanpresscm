@@ -175,7 +175,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
                 $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pen-square')->setIconOnly(true);
             }
 
-            if ($this->canEdit) {
+            if ($this->canEdit && $this->permissions->check(['article' => 'massedit'])) {
                 $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true);
             }
 

@@ -110,6 +110,7 @@ trait lists {
         $this->permissionsArray['canPrivate'] = $this->permissions->check(['comment' => 'private']);
         $this->permissionsArray['canMove'] = $this->permissions->check(['comment' => 'move']);
         $this->permissionsArray['canDelete'] = $this->permissions->check(['comment' => 'delete']);
+        $this->permissionsArray['canMassEdit'] = $this->permissions->check(['comment' => 'massedit']);
 
         foreach ($this->permissionsArray as $key => $value) {
             $this->view->assign($key, $value);

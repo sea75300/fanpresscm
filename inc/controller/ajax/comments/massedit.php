@@ -40,7 +40,7 @@ class massedit extends \fpcm\controller\abstracts\ajaxController {
     protected function getPermissions()
     {
         return  [
-            'article' => ['editall', 'edit'],
+            'article' => ['editall', 'edit', 'massedit'],
             'comment' => ['editall', 'edit', 'approve', 'private']
         ];
     }

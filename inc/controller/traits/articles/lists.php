@@ -127,6 +127,7 @@ trait lists {
 
         $this->view->assign('permEditOwn', $this->permissions->check(array('article' => 'edit')));
         $this->view->assign('permEditAll', $this->permissions->check(array('article' => 'editall')));
+        $this->view->assign('permMassEdit', $this->permissions->check(['article' => 'massedit']));
         $this->view->assign('currentUserId', $this->session->getUserId());
         $this->view->assign('isAdmin', $this->session->getCurrentUser()->isAdmin());
 

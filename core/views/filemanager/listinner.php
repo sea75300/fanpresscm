@@ -32,6 +32,9 @@
                     <?php if ($canRename) : ?>
                         <?php $theView->button(uniqid('rename'))->setText('FILE_LIST_RENAME')->setIcon('edit')->setIconOnly(true)->setData(['file' => base64_encode($file->getFilename()), 'oldname' => basename($file->getFilename(), '.'.$file->getExtension())])->setClass('fpcm-filelist-rename'); ?>
                     <?php endif; ?>
+                    <?php if ($permDelete) : ?>
+                        <?php $theView->button(uniqid('delete'))->setText('GLOBAL_DELETE')->setIcon('trash')->setIconOnly(true)->setData(['file' => base64_encode($file->getFilename())])->setClass('fpcm-filelist-delete'); ?>
+                    <?php endif; ?>
                 </div>
 
                 <div class="fpcm-ui-clear"></div>

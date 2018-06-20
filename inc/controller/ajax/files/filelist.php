@@ -1,19 +1,16 @@
 <?php
 
 /**
- * AJAX inner file list controller
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\ajax\files;
 
 /**
- * AJAX Controller zum Laden der Dateiliste im Dateimanager
+ * AJAX Controller to load files
  * 
- * @package fpcm\controller\ajax\files\filelist
+ * @package fpcm\controller\ajax\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3

@@ -8,6 +8,7 @@ ajax/logs/clear: ajax/logs/clear
 ajax/logs/reload: ajax/logs/reload
 ajax/filelist: ajax/files/filelist
 ajax/files/rename: ajax/files/rename
+ajax/files/delete: ajax/files/delete
 ajax/jqupload: ajax/files/jqupload
 ajax/articles/search: ajax/articles/search
 ajax/articles/tweet: ajax/articles/listnewtweets

@@ -13,7 +13,7 @@
             </div>
 
             <?php include $theView->getIncludePath('articles/searchform.php'); ?>
-            <?php if ($canEdit) : ?><?php include $theView->getIncludePath('articles/massedit.php'); ?><?php endif; ?>
+            <?php if ($canEdit && $permMassEdit) : ?><?php include $theView->getIncludePath('articles/massedit.php'); ?><?php endif; ?>
         </div>
     </div>
 </div>

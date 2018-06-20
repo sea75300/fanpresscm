@@ -11,13 +11,17 @@
 namespace fpcm\controller\ajax\files;
 
 /**
- * AJAX Controller für jQuery Datei uploader
+ * AJAX Controller for jQuery uploader
  * 
- * @package fpcm\controller\ajax\files\jqupload
+ * @package fpcm\controller\ajax\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 class jqupload extends \fpcm\controller\abstracts\ajaxController {
 
+    /**
+     * 
+     * @return array
+     */
     protected function getPermissions()
     {
         return ['uploads' => 'add'];

@@ -67,7 +67,7 @@ final class dirs {
             return false;
         }
 
-        $GLOBALS['fpcm']['urls']['base'] = (baseconfig::canHttps() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
+        $GLOBALS['fpcm']['urls']['base'] = '//' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
 
         $base = basename($GLOBALS['fpcm']['dir']['base']);
         if (strpos($GLOBALS['fpcm']['urls']['base'], $base) === false) {

@@ -51,6 +51,7 @@ fpcm.filemanager = {
         fpcm.ui.assignControlgroups();
         fpcm.filemanager.initInsertButtons();
         fpcm.filemanager.initRenameButtons();
+        fpcm.filemanager.initDeleteButtons();
         fpcm.filemanager.refreshSingleCheckboxes();
         fpcm.filemanager.initPagination();
         jQuery('.fpcm-link-fancybox').fancybox();
@@ -144,6 +145,22 @@ fpcm.filemanager = {
                 ]
             });
             
+            return false;
+        });
+    },
+
+    initDeleteButtons: function() {
+        jQuery('.fpcm-filelist-delete').click(function () {
+            fpcm.ajax.exec('files/delete', {
+                data: {
+                    filename: jQuery(this).attr('data-file')
+                },
+                execDone: function () {
+                    fpcm.filemanager.reloadFiles();
+                    fpcm.ui.showLoader();
+                }
+            });
+
             return false;
         });
     },
