@@ -190,7 +190,8 @@ class view {
         $this->addJsLangVars([
             'GLOBAL_CONFIRM', 'GLOBAL_CLOSE', 'GLOBAL_OK', 'GLOBAL_YES', 'GLOBAL_NO', 'GLOBAL_SAVE', 'GLOBAL_CLOSE',
             'GLOBAL_OPENNEWWIN', 'GLOBAL_EXTENDED', 'GLOBAL_EDIT_SELECTED', 'GLOBAL_NOTFOUND', 'SAVE_FAILED_ARTICLES',
-            'AJAX_REQUEST_ERROR', 'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK', 'SELECT_ITEMS_MSG'
+            'AJAX_REQUEST_ERROR', 'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK', 'SELECT_ITEMS_MSG',
+            'HL_HELP'
         ]);
 
         $this->jsLangVars['calendar']['days'] = $this->language->getDays();
@@ -214,7 +215,7 @@ class view {
             $item = self::ROOTURL_CORE_JS.$item;
         }
         
-        $cacheName  = 'system/rootpaths';
+        $cacheName  = 'system/rootpaths'.\fpcm\classes\baseconfig::canHttps();
         $checks     =  $this->cache->read($cacheName);
         
         if ($this->cache->isExpired($cacheName) || !is_array($checks)) {

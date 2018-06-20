@@ -241,9 +241,8 @@ fpcm.system = {
     showHelpDialog: function () {
 
         jQuery('.fpcm-ui-help-dialog').click(function () {+
-
             fpcm.ui.dialog({
-               id: 'help' ,
+                id: 'help' ,
                 dlWidth    : fpcm.ui.getDialogSizes(top, 0.75).width,
                 dlHeight   : fpcm.ui.getDialogSizes(top, 0.85).height,
                 resizable  : true,
@@ -258,11 +257,12 @@ fpcm.system = {
                         icon: "ui-icon-closethick",                    
                         click: function() {
                             jQuery(this).dialog('close');
+                            return false;
                         }
                     }
                 ],
                 dlOnClose: function( event, ui ) {
-                    jQuery('#fpcm-dialog-mainhelp').remove();
+                    jQuery(this).remove();
                 }
             });
 

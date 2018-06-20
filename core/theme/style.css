@@ -311,6 +311,11 @@ div.fpcm-status-info {
     width: 100%;
 }
 
+#fpcm-dialog-help,
+#mainhelp {
+    width: 100% !important;
+}
+
 .fpcm-ui-full-height {
     height: 100%;
 }
@@ -497,6 +502,10 @@ textarea:active,
 
 div.ui-tabs {
     height: 100%;
+}
+
+div.ui-tabs.fpcm-ui-tabs-help {
+    min-height: 300px !important;
 }
 
 .fpcm-tabs-scroll {
