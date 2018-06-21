@@ -66,11 +66,6 @@ final class components {
 
         return \fpcm\classes\loader::getObject('\fpcm\model\auth\htmlLogin');
     }
-
-    /**
-     * 
-     * @return \fpcm\model\abstracts\authProvider
-     */
     
     /**
      * 
@@ -84,6 +79,18 @@ final class components {
         }
 
         return \fpcm\classes\loader::getObject('\fpcm\model\captchas\fpcmDefault');
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    public static function getFilemanagerViews()
+    {
+        return [
+            'SYSTEM_OPTIONS_FILEMANAGER_VIEWCARDS' => 'cards',
+            'SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST' => 'list'
+        ];
     }
 
 }

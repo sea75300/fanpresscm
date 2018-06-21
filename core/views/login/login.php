@@ -1,4 +1,4 @@
-<div class="row no-gutters fpcm-ui-form-login fpcm-ui-full-height">
+<div class="row no-gutters fpcm-ui-form-login fpcm-ui-position-absolute fpcm-ui-position-absolute-0">
     <div class="col-sm-8 col-md-4 fpcm-ui-margin-center align-self-center">
         <div class="ui-widget-content ui-corner-all ui-state-normal fpcm-ui-padding-md-tb">
 
@@ -23,14 +23,6 @@
                 <?php endif; ?>
                 </div>
             </div>
-            
-            <?php if ($twoFactorAuth) : ?>
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-12">
-                <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')->setPlaceholder(true); ?>
-                </div>
-            </div>
-            <?php endif; ?>
 
             <?php if ($resetPasswort) : ?>
             <div class="row fpcm-ui-padding-md-tb">

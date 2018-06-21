@@ -17,5 +17,5 @@
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
-        <div class="row">
+        <div class="row fpcm-ui-position-absolute fpcm-ui-position-absolute-0">
             <div class="col-12 fpcm-ui-padding-none-lr">

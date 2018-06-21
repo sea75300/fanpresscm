@@ -79,7 +79,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function getViewPath()
     {
-        return 'filemanager/listinner';
+        return 'filemanager/'.$this->config->file_fiew;
     }
 
     /**

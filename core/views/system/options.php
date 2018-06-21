@@ -251,6 +251,17 @@
                                     <div class="align-self-center col-sm-12 col-md-auto">
                                     </div>
                                 </div>
+                                
+                                <div class="row fpcm-ui-padding-md-tb">
+                                    <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                                        <?php $theView->write('SYSTEM_OPTIONS_FILEMANAGER_VIEW'); ?>:
+                                    </div>
+                                    <div class="align-self-center col-sm-12 col-md-auto">
+                                        <?php $theView->select('file_fiew')->setOptions($filemanagerViews)->setSelected($globalConfig['file_fiew'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                                    </div>
+                                    <div class="align-self-center col-sm-12 col-md-auto">
+                                    </div>
+                                </div>
                             </fieldset>
 
                             <fieldset class="fpcm-ui-margin-md-left fpcm-ui-margin-md-top" >

@@ -143,11 +143,10 @@ class options extends \fpcm\controller\abstracts\controller {
 
         $this->view->assign('timezoneAreas', $timezones);
 
-        $modes = array(
+        $this->view->assign('systemModes', [
             'SYSTEM_OPTIONS_USEMODE_IFRAME' => 0,
             'SYSTEM_OPTIONS_USEMODE_PHPINCLUDE' => 1
-        );
-        $this->view->assign('systemModes', $modes);
+        ]);
         $this->view->assign('editors', \fpcm\components\components::getArticleEditors());
 
         $sorts = array(
@@ -172,19 +171,19 @@ class options extends \fpcm\controller\abstracts\controller {
         $this->view->assign('globalConfig', $this->config->getData());
         $this->view->assign('languages', array_flip($this->language->getLanguages()));
 
-        $notify = array(
+        $this->view->assign('notify', [
             'SYSTEM_OPTIONS_COMMENT_NOTIFY_GLOBAL' => 0,
             'SYSTEM_OPTIONS_COMMENT_NOTIFY_AUTHOR' => 1,
             'SYSTEM_OPTIONS_COMMENT_NOTIFY_ALL' => 2
-        );
-        $this->view->assign('notify', $notify);
+        ]);
 
-        $smtpEncryption = array(
+        $this->view->assign('smtpEncryption', [
             'SSL' => 'ssl',
             'TLS' => 'tls',
             'Auto' => 'auto'
-        );
-        $this->view->assign('smtpEncryption', $smtpEncryption);
+        ]);
+
+        $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());
 
         $this->view->assign('articleLimitList', \fpcm\model\system\config::getArticleLimits());
         $this->view->assign('articleLimitListAcp', \fpcm\model\system\config::getAcpArticleLimits());
