@@ -213,7 +213,7 @@ class module {
         $this->id = isset($result->id) ? $result->id : false;
         $this->installed = isset($result->installed) ? $result->installed : false;
         $this->active = isset($result->active) ? $result->active : false;
-        $this->config = new config($this->mkey, (!count($result) || !$this->installed ? null : $result->data));
+        $this->config = new config($this->mkey, (!is_array($result) || !count($result) || !$this->installed ? null : $result->data));
 
         return true;
     }
