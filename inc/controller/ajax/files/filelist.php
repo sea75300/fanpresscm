@@ -79,7 +79,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function getViewPath()
     {
-        return 'filemanager/'.$this->config->file_fiew;
+        return 'filemanager/'.$this->getListView();
     }
 
     /**
@@ -121,6 +121,15 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
         $this->view->assign('canRename', $this->permissionsData['permRename']);
         $this->view->assign('showPager', $this->showPager);
         $this->view->render();
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    private function getListView() : string
+    {
+        return in_array($this->config->file_fiew, \fpcm\components\components::getFilemanagerViews()) ? $this->config->file_fiew : 'cards';
     }
 
 }

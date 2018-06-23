@@ -128,12 +128,12 @@ class modules extends \fpcm\model\abstracts\tablelist {
     public function getInstalledUpdates() : array
     {
         if (\fpcm\classes\baseconfig::installerEnabled()) {
-            return 0;
+            return [];
         }
 
         $installed = $this->getInstalledDatabase();
         if (!count($installed)) {
-            return 0;
+            return [];
         }
 
         $list = [];
