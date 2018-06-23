@@ -266,7 +266,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     private function modulesSubmenu()
     {
         $items = $this->events->trigger('navigation\addSubmenuModules');
-        if (!count($items)) {
+        if (!is_array($items) || !count($items)) {
             return [];
         }
 
