@@ -162,6 +162,10 @@ final class finalizer extends \fpcm\model\abstracts\model {
         if ($this->config->articles_trash) {
             $res = $res && $this->config->remove('articles_trash');
         }
+
+        if ($this->config->file_fiew) {
+            $res = $res && $this->config->remove('file_fiew');
+        }
         
         return $res;
     }

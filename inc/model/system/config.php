@@ -65,7 +65,7 @@ namespace fpcm\model\system;
  * @property bool   $file_uploader_new Use jQuery base uplaoder
  * @property int    $file_list_limit Numer of files per page
  * @property bool   $file_subfolders Create subfolder of form YYYY-MM
- * @property string $file_fiew File manager view
+ * @property string $file_view File manager view
  * 
  * @property array  $twitter_data Daten für Twitter-Verbindung
  * @property array  $twitter_events Events, wenn Tweets erzeugt werden sollen

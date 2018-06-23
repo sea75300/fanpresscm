@@ -129,7 +129,12 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
      */
     private function getListView() : string
     {
-        return in_array($this->config->file_fiew, \fpcm\components\components::getFilemanagerViews()) ? $this->config->file_fiew : 'cards';
+        $view = $this->getRequestVar('view');
+        if (!$view) {
+            $view = $this->config->file_view;
+        }
+        
+        return in_array($view, \fpcm\components\components::getFilemanagerViews()) ? $view : 'cards';
     }
 
 }

@@ -226,9 +226,9 @@ defaultvalues:
             id: 50
             config_name: "file_subfolders"
             config_value: "1"
-        file_fiew:
+        file_view:
             id: 51
-            config_name: "file_fiew"
+            config_name: "file_view"
             config_value: "cards"
         twitter_data:
             id: 52

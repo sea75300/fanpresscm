@@ -257,7 +257,7 @@
                                         <?php $theView->write('SYSTEM_OPTIONS_FILEMANAGER_VIEW'); ?>:
                                     </div>
                                     <div class="align-self-center col-sm-12 col-md-auto">
-                                        <?php $theView->select('file_fiew')->setOptions($filemanagerViews)->setSelected($globalConfig['file_fiew'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                                        <?php $theView->select('file_view')->setOptions($filemanagerViews)->setSelected($globalConfig['file_view'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                                     </div>
                                     <div class="align-self-center col-sm-12 col-md-auto">
                                     </div>

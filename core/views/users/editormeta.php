@@ -86,9 +86,9 @@
                     <?php $theView->write('SYSTEM_OPTIONS_FILEMANAGER_VIEW'); ?>:
                 </div>
                 <div class="col-sm-12 col-md-8 fpcm-ui-padding-none-lr">
-                    <?php $theView->select('usermeta[file_fiew]')
+                    <?php $theView->select('usermeta[file_view]')
                             ->setOptions($filemanagerViews)
-                            ->setSelected($author->getUserMeta('file_fiew'))
+                            ->setSelected($author->getUserMeta('file_view'))
                             ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                 </div>
             </div>
