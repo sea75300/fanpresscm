@@ -21,7 +21,6 @@ $lang = array(
     'SYSTEM_STATS_ARTICLES_ACTIVE' => 'Article active',
     'SYSTEM_STATS_ARTICLES_ARCHIVE' => 'Article archived',
     'SYSTEM_STATS_ARTICLES_DRAFT' => 'Article drafts',
-    'SYSTEM_STATS_ARTICLES_TRASH' => 'Articles in trash',
     'SYSTEM_STATS_ARTICLES_APPROVAL' => 'Articles waiting for approval',
     'SYSTEM_STATS_COMMENTS_ALL' => 'Comment count',
     'SYSTEM_STATS_COMMENTS_UNAPPR' => 'Comments approved',
@@ -32,6 +31,7 @@ $lang = array(
     'SYSTEM_STATS_UPLOAD_COUNT' => 'uploaded files',
     'SYSTEM_STATS_UPLOAD_SIZE' => 'Upload folder size',
     'SYSTEM_STATS_CACHE_SIZE' => 'Cache size',
+    'SYSTEM_STATS_TRASHCOUNT' => 'Deleted elements',
     'RECENT_FPCMNEWS' => '<span class="fa fa-fw fa-rss"></span> Recent FanPress CM News',
     'DASHBOARD_USERLIST' => '<span class="fa fa-fw fa-users"></span> Team Contacts'
 );

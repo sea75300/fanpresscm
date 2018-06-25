@@ -24,6 +24,12 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     protected $tableContent = [];
 
     /**
+     *
+     * @var int
+     */
+    protected $deletedCount = 0;
+
+    /**
      * 
      * @return string
      */
@@ -98,8 +104,6 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
         $articleList = new \fpcm\model\articles\articlelist();
 
         $sObj = new \fpcm\model\articles\search();
-        $sObj->draft = -1;
-        $sObj->approval = -1;
         $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
                 . (new \fpcm\view\helper\icon('book')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_ALL') . ':</strong></div>'
                 . '<div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
@@ -129,9 +133,7 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
         $sObj->deleted = 1;
         $sObj->approval = -1;
         $sObj->draft = -1;
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
-                . (new \fpcm\view\helper\icon('trash-alt', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_TRASH') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
+        $this->deletedCount += $articleList->countArticlesByCondition($sObj);
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->approval = 1;
@@ -173,6 +175,10 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
         $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '">'
                 . (new \fpcm\view\helper\icon('flag')).' <strong>' . $this->language->translate('SYSTEM_STATS_COMMENTS_SPAM') . ':</strong></div>'
                 . '<div class="col-4 fpcm-ui-center">' . $count . '</div>';
+
+        $sObj = new \fpcm\model\comments\search();
+        $sObj->deleted = true;
+        $this->deletedCount += $commentList->countCommentsByCondition($sObj);
     }
 
     /**
@@ -219,6 +225,10 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
         $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
                 . (new \fpcm\view\helper\icon('hdd')).' <strong>' . $this->language->translate('SYSTEM_STATS_CACHE_SIZE') . ':</strong></div>'
                 . '<div class="col-4 fpcm-ui-center">' . $folderSize . '</div>';
+
+        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
+                . (new \fpcm\view\helper\icon('flag')).' <strong>' . $this->language->translate('SYSTEM_STATS_TRASHCOUNT') . ':</strong></div>'
+                . '<div class="col-4 fpcm-ui-center">' . $this->deletedCount . '</div>';
     }
 
 }

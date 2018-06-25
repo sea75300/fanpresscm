@@ -40,9 +40,6 @@ class articlelistall extends articlelistbase {
     protected function getConditionItem()
     {
         $this->conditionItems = new \fpcm\model\articles\search();
-        $this->conditionItems->draft = -1;
-        $this->conditionItems->drafts = -1;
-        $this->conditionItems->approval = -1;
         $this->conditionItems->orderby = ['createtime DESC'];
     }
 

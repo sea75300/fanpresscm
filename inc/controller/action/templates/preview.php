@@ -114,6 +114,7 @@ class preview extends \fpcm\controller\abstracts\controller {
         $article1->setCategories([1,2,3]);
         $article1->setCreatetime(time() - 3600);
         $article1->setChangetime(time());
+        $article1->setId(1);
 
         $this->template->assignByObject(
             $article1,
@@ -131,6 +132,7 @@ class preview extends \fpcm\controller\abstracts\controller {
         $article2->setCategories([1,2,3]);
         $article2->setCreatetime(time() - 7200);
         $article2->setChangetime(time() - 7200);
+        $article2->setId(2);
 
         $this->template->assignByObject(
             $article2,
@@ -155,6 +157,7 @@ class preview extends \fpcm\controller\abstracts\controller {
         $article->setCategories([1,2,3]);
         $article->setCreatetime(time() - 3600);
         $article->setChangetime(time());
+        $article->setId(1);
 
         $this->template->assignByObject(
             $article,
@@ -211,6 +214,7 @@ class preview extends \fpcm\controller\abstracts\controller {
         $article1->setCategories([1,2,3]);
         $article1->setCreatetime(time() - 3600);
         $article1->setChangetime(time());
+        $article1->setId(1);
         $this->template->assignByObject($article1, $this->session->getCurrentUser());
         $parsed[] = $this->template->parse();
 
@@ -222,6 +226,7 @@ class preview extends \fpcm\controller\abstracts\controller {
         $article2->setCategories([1,2,3]);
         $article2->setCreatetime(time() - 7200);
         $article2->setChangetime(time() - 7200);
+        $article2->setId(2);
         $this->template->assignByObject($article1, $this->session->getCurrentUser());
         $parsed[] = $this->template->parse();
 

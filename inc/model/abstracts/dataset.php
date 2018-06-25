@@ -242,6 +242,15 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     }
 
     /**
+     * Set dataset id
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = (int) $id;
+    }
+   
+    /**
      * Prüft ob Objekt existiert
      * @return bool
      */

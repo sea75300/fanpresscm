@@ -22,7 +22,6 @@ $lang = array(
     'SYSTEM_STATS_ARTICLES_ACTIVE' => 'Artikel aktiv',
     'SYSTEM_STATS_ARTICLES_ARCHIVE' => 'Artikel archiviert',
     'SYSTEM_STATS_ARTICLES_DRAFT' => 'Artikel-Entwürfe',
-    'SYSTEM_STATS_ARTICLES_TRASH' => 'Artikel im Papierkorb',
     'SYSTEM_STATS_ARTICLES_APPROVAL' => 'freizugebende Artikel',
     'SYSTEM_STATS_COMMENTS_ALL' => 'Kommentare gesamt',
     'SYSTEM_STATS_COMMENTS_UNAPPR' => 'Kommentare nicht genehmigt',
@@ -33,6 +32,7 @@ $lang = array(
     'SYSTEM_STATS_UPLOAD_COUNT' => 'hochgeladene Dateien',
     'SYSTEM_STATS_UPLOAD_SIZE' => 'Größe des Upload-Ordners',
     'SYSTEM_STATS_CACHE_SIZE' => 'Größe des Caches',
+    'SYSTEM_STATS_TRASHCOUNT' => 'Gelöschte Elemente',
     'RECENT_FPCMNEWS' => '<span class="fa fa-fw fa-rss"></span> Aktuelle FanPress CM News',
     'DASHBOARD_USERLIST' => '<span class="fa fa-fw fa-users"></span> Team-Kontakte'
 );

@@ -108,8 +108,6 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
         $userlist = new \fpcm\model\users\userList();
 
         $conditions = new \fpcm\model\articles\search();
-        $conditions->draft = -1;
-        $conditions->approval = -1;
         $conditions->limit = [10, 0];
         $conditions->orderby = ['createtime DESC'];
 
@@ -134,7 +132,7 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
             $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($article)->setReadonly($article->getEditPermission() ? false : true);
             $content[] = '  </div>';
 
-            $content[] = '  <div class="col-sm-12 col-md-8">';
+            $content[] = '  <div class="col-sm-12 col-md-7">';
             $content[] = '  <div class="fpcm-ui-ellipsis">';
             $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags(rtrim($article->getTitle(), '.!?')))) . '</strong><br>';
             $content[] = '  <span>' . $createInfo . '</span>';
@@ -144,6 +142,7 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
             $content[] = $article->getStatusIconDraft();
             $content[] = $article->getStatusIconPostponed();
             $content[] = $article->getStatusIconApproval();
+            $content[] = $article->getStatusIconComments();
             $content[] = '  </div>';
             $content[] = '</div>';
         }
