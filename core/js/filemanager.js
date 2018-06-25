@@ -27,8 +27,16 @@ fpcm.filemanager = {
 
         if (fpcm.vars.jsvars.fmgrMode === 1) {
             fpcm.ui.checkboxradio('.fpcm-ui-listeview-setting', {}, function () {
+
                 fpcm.filemanager.activeView = jQuery(this).val();
-               fpcm.filemanager.reloadFiles();
+                fpcm.ajax.post('setconfig', {
+                    data: {
+                        var: 'file_view',
+                        value: fpcm.filemanager.activeView
+                    }
+                });
+
+                fpcm.filemanager.reloadFiles();
             });
 
             fpcm.ui.tabs('#fpcm-files-tabs', {
@@ -41,7 +49,15 @@ fpcm.filemanager = {
                     fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ showButtons).removeClass('fpcm-ui-hidden');
 
                     jQuery('#fpcm-select-all').checkboxradio('instance').option('classes', {
-                        "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "ui-corner-left")
+                        "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "")
+                    });
+
+                    jQuery('#listViewCards').checkboxradio('instance').option('classes', {
+                        "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "")
+                    });
+
+                    jQuery('#listViewList').checkboxradio('instance').option('classes', {
+                        "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "")
                     });
 
                     fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
@@ -228,7 +244,7 @@ fpcm.filemanager = {
                 mode: fpcm.vars.jsvars.fmgrMode,
                 page: page,
                 filter: filter,
-                view: fpcm.filemanager.activeView ? fpcm.filemanager.activeView : false
+                view: fpcm.filemanager.activeView ? fpcm.filemanager.activeView : null
             },
             execDone: function () {
 
