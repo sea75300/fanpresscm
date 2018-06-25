@@ -27,16 +27,13 @@ fpcm.filemanager = {
 
         if (fpcm.vars.jsvars.fmgrMode === 1) {
             fpcm.ui.checkboxradio('.fpcm-ui-listeview-setting', {}, function () {
-
-                fpcm.filemanager.activeView = jQuery(this).val();
                 fpcm.ajax.post('setconfig', {
                     data: {
                         var: 'file_view',
-                        value: fpcm.filemanager.activeView
-                    }
+                        value: jQuery(this).val()
+                    },
+                    execDone: fpcm.filemanager.reloadFiles
                 });
-
-                fpcm.filemanager.reloadFiles();
             });
 
             fpcm.ui.tabs('#fpcm-files-tabs', {
@@ -243,8 +240,7 @@ fpcm.filemanager = {
             data: {
                 mode: fpcm.vars.jsvars.fmgrMode,
                 page: page,
-                filter: filter,
-                view: fpcm.filemanager.activeView ? fpcm.filemanager.activeView : null
+                filter: filter
             },
             execDone: function () {
 

@@ -24,12 +24,11 @@ class articlelistactive extends articlelistbase {
     
     protected function getArticleCount()
     {
-        $this->articleCount = $this->articleList->countArticlesByCondition($this->conditionItems);        
+        $this->articleCount = $this->articleList->countArticlesByCondition($this->conditionItems);
     }
 
     protected function getArticleItems()
     {
-        $this->conditionItems->archived = 0;
         $this->conditionItems->limit = [$this->config->articles_acp_limit, $this->listShowStart];
         $this->articleItems = $this->articleList->getArticlesByCondition($this->conditionItems, true);
     }
@@ -37,11 +36,8 @@ class articlelistactive extends articlelistbase {
     protected function getConditionItem()
     {
         $this->conditionItems = new \fpcm\model\articles\search();
-        $this->conditionItems->draft = -1;
-        $this->conditionItems->drafts = -1;
-        $this->conditionItems->active = -1;
-        $this->conditionItems->archived = -1;
-        $this->conditionItems->approval = -1;
+        $this->conditionItems->archived = 0;
+        $this->conditionItems->deleted = 0;
         $this->conditionItems->orderby = ['createtime DESC'];
     }
 

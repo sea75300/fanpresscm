@@ -33,7 +33,7 @@ final class users extends \fpcm\model\abstracts\cli {
         $user = new \fpcm\model\users\author($userId);
 
         if (!$user->exists()) {
-            $this->output('No user foudn give id ' . $userId, true);
+            $this->output('No user found for given id ' . $userId, true);
         }
 
         switch ($this->funcParams[0]) {
@@ -121,7 +121,7 @@ final class users extends \fpcm\model\abstracts\cli {
         $lines = [];
         $lines[] = '> Users:';
         $lines[] = '';
-        $lines[] = 'Usage: php (path to FanPress CM/)fpcmcli.php users <user_id> <user_id>';
+        $lines[] = 'Usage: php (path to FanPress CM/)fpcmcli.php users <action> <user_id>';
         $lines[] = '';
         $lines[] = '    Action params:';
         $lines[] = '';

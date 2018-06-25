@@ -33,7 +33,6 @@ namespace fpcm\model\articles;
  * @property bool $deleted nur gelöschte Artikel
  * @property bool $draft nur Entwürfe
  * @property bool $drafts nur Entwürfe
- * @property bool $active nur aktive Artikel
  * @property bool $approval nur freizugebende Artikel
  * @property array $limit Abfrage einschränken
  * @property array $orderby Array von Sortierungen in SQL-Syntax

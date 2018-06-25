@@ -109,8 +109,10 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
                 . '<div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
 
         $sObj = new \fpcm\model\articles\search();
-        $sObj->active = 1;
         $sObj->approval = -1;
+        $sObj->draft = 0;
+        $sObj->archived = 0;
+        $sObj->deleted = 0;
         $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
                 . (new \fpcm\view\helper\icon('newspaper', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_ACTIVE') . ':</strong></div>'
                 . '<div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
@@ -131,8 +133,6 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->deleted = 1;
-        $sObj->approval = -1;
-        $sObj->draft = -1;
         $this->deletedCount += $articleList->countArticlesByCondition($sObj);
 
         $sObj = new \fpcm\model\articles\search();

@@ -63,8 +63,11 @@ class showall extends showcommon {
 
             $conditions = new \fpcm\model\articles\search();
             $conditions->limit = [$this->limit, $this->listShowLimit];
-            $conditions->archived = 0;
+            $conditions->draft = 0;
+            $conditions->approval = 0;
+            $conditions->deleted = 0;
             $conditions->postponed = 0;
+            $conditions->archived = 0;
             $conditions->orderby = ['pinned DESC, ' . $this->config->articles_sort . ' ' . $this->config->articles_sort_order];
 
             if ($this->category !== 0) {
@@ -79,7 +82,11 @@ class showall extends showcommon {
             }
 
             $countConditions = new \fpcm\model\articles\search();
-            $countConditions->active = 1;
+            $countConditions->draft = 0;
+            $countConditions->approval = 0;
+            $countConditions->deleted = 0;
+            $countConditions->postponed = 0;
+            $countConditions->archived = 0;
             if ($this->category !== 0) {
                 $countConditions->category = $this->category;
             }

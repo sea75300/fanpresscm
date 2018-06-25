@@ -30,17 +30,21 @@ class articlelistarchive extends articlelistbase {
 
     protected function getArticleCount()
     {
-        $this->articleCount = $this->articleList->getArticlesArchived(false, [], true);
+        $this->articleCount = $this->articleList->countArticlesByCondition($this->conditionItems);
     }
 
     protected function getArticleItems()
     {
-        $this->articleItems = $this->articleList->getArticlesArchived(true, [$this->config->articles_acp_limit, $this->listShowStart]);
+        $this->conditionItems->limit = [$this->config->articles_acp_limit, $this->listShowStart];
+        $this->articleItems = $this->articleList->getArticlesByCondition($this->conditionItems, true);
     }
 
     protected function getConditionItem()
     {
-        return null;
+        $this->conditionItems = new \fpcm\model\articles\search();
+        $this->conditionItems->archived = 1;
+        $this->conditionItems->deleted = 0;
+        $this->conditionItems->orderby = ['createtime DESC'];
     }
 
     protected function getListAction()

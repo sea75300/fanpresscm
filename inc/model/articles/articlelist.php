@@ -233,7 +233,9 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
                 ->setWhere($where)
                 ->setParams($valueParams);
 
-        return $this->createListResult($this->dbcon->selectFetch($obj), $monthIndex);
+        $return = $this->createListResult($this->dbcon->selectFetch($obj), $monthIndex);
+
+        return $return;
     }
 
     /**
@@ -655,11 +657,6 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         if ($conditions->approval !== null) {
             $where[] = "approval = ?";
             $valueParams[] = $conditions->approval > -1 ? $conditions->approval : 0;
-        }
-
-        if ($conditions->active !== null) {
-            $where = [($conditions->active === -1 ? 'archived = ?' : 'archived = ? AND draft = ?')];
-            $valueParams = ($conditions->active === -1 ? [0] : [0, 0]);
         }
 
         return true;
