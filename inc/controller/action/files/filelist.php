@@ -193,8 +193,10 @@ class filelist extends \fpcm\controller\abstracts\controller {
             $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles', 'deleteFiles'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab1'.$hiddenClass);
         }
 
-        $buttons[] = (new \fpcm\view\helper\radiobutton('listView', 'listViewCards'))->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEWCARDS')->setClass('fpcm-ui-listeview-setting')->setValue('cards')->setSelected($this->config->file_view);
-        $buttons[] = (new \fpcm\view\helper\radiobutton('listView', 'listViewList'))->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST')->setClass('fpcm-ui-listeview-setting')->setValue('list')->setSelected($this->config->file_view);
+        if ($this->mode === 1) {
+            $buttons[] = (new \fpcm\view\helper\radiobutton('listView', 'listViewCards'))->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEWCARDS')->setClass('fpcm-ui-listeview-setting')->setValue('cards')->setSelected($this->config->file_view);
+            $buttons[] = (new \fpcm\view\helper\radiobutton('listView', 'listViewList'))->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST')->setClass('fpcm-ui-listeview-setting')->setValue('list')->setSelected($this->config->file_view);
+        }
 
         $this->view->addButtons($buttons);
         $this->view->setFormAction('files/list', ['mode' => $this->mode]);

@@ -9,103 +9,159 @@ Help language file
 <chapters>
     <chapter ref="HL_DASHBOARD">
         <![CDATA[
-            <p>Im <b>Dashboard</b> findest du verschiedene Informationen u. a. zum Update-Status deiner FanPress CM Installation, etc. Du kannst auch
-            eigene Dashboard-Container erzeugen.</p>
-            <p>Erzeuge dazu eine neue Container-Datei unter "fanpress/inc/dashboard" oder über das entsprechende Modul-Event.</p>
+            <p>Im <b>Dashboard</b> findest du verschiedene Informationen zu deiner FanPress CM Installation, etc. Eigene Dashboard-Container
+            können durch Module bzw. neue Datei unter "fanpress/inc/dashboard" erzeugt werden.</p>
+            <dl>
+                <dt><strong>Zuletzt geschriebene News:</strong></dt>
+                <dd class="fpcm-ui-padding-md-bottom">Hier findest die eine Übersicht der zuletzt verfassten Artikel.</dd>
+                <dt><strong>Zuletzt geschriebene Kommentare:</strong></dt>
+                <dd class="fpcm-ui-padding-md-bottom">Hier findest die eine Übersicht der zuletzt verfassten Kommentare.</dd>
+                <dt><strong>Verfügbare Updates:</strong></dt>
+                <dd class="fpcm-ui-padding-md-bottom">Dieser Container beinhaltet Informationen zum Update-Status des Systems und von Modulen.</dd>
+                <dt><strong>Systemprüfung:</strong></dt>
+                <dd class="fpcm-ui-padding-md-bottom">Diese Box enthält grundlegende Status-Informationen zu deiner Installation.</dd>
+                <dt><strong>Statistiken:</strong></dt>
+                <dd class="fpcm-ui-padding-md-bottom">In diesem Bereich werden statistische Informationen ausgegeben, u. a. zur Anzahl verfasster
+                Artikel oder Kommentare.</dd>
+                <dt><strong>Aktuelle FanPress CM News:</strong></dt>
+                <dd class="fpcm-ui-padding-md-bottom">Dieser Container beinhaltet News rund vom FanPress CM, bspw. über neue Versionen.</dd>
+                <dt><strong>Team-Kontakte:</strong></dt>
+                <dd class="fpcm-ui-padding-md-bottom">Dieser Container beinhaltet eine Liste aller aktiven Benutzer mit der Möglichkeit, dies eine
+                E-Mail zu verfassen.</dd>
+            </dl>
+
+            <p>Über den Button <strong>Mein Profil öffnen</strong> kannst du dein Benutzerprofil aufrufen. Der Button
+            <strong>Vollständige Systemprüfung</strong> ruft die Systemprüfung in den Systemeinstellungen auf.</p>
         ]]>
     </chapter>
     <chapter ref="ARTICLES_EDITOR">
         <![CDATA[
+        <h3>Editor</h3>
+        
         <p>Mit dem <b>Artikel-Editor</b> kannst du Artikel schreiben und/oder bearbeiten. Hierbei hast du vielfältige Gestaltungsmöglichkeiten, welche
             durch Module erweitert werden können. Du kannst einem Artikel Kategorien zuweisen, ihn "anpinnen", so dass er über allen anderen Artikeln
             dargestellt wird und verschiedene weitere Einstellungen vornehmen.</p>
-        <p>Der Artikel-Editor hat zwei verschiedene Ansichten:</p>
-        <ul>
-            <li><b>WYSIWYG-Ansicht:</b><br>
-                Diese basiert auf TinyMCE 4 und zeigt dir direkt alle Formatierungen an, welche du vornimmst. Über den Button
-                <i>HTML</i> in der Format-Leiste kannst du eine einfache HTML-Ansicht öffnen.
-            </li>
-            <li><b>HTML-Ansicht:</b><br>
-                Die HTML-Ansicht ist ein reiner HTML-Editor, welcher neben verschiedenen Formatierungsmöglichkeiten u. a. auch Syntax-Highlighting
-                bietet.        
-            </li>
-        </ul>
-        <p>Die Ansicht des Editors kannst du in den Systemeinstellungen ändern.</p>
+
+        <dl>
+            <dt><strong>TinyMCE:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dieser WYSIWYG-Editor zeigt alle Formatierungen und Änderungen direkt an. Außerdem
+            bietet er diverse zusätzliche Informationen u. a. zur Bearbeitung von Bildern.</dd>
+            <dt><strong>CodeMirror:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dieser Editor ist ein reiner HTML-Editor, welcher verschiedene Formatierungsmöglichkeiten
+            bietet sowie zusätzliche Funktionen wie Syntax-Highlighting.</dd>
+        </dl>        
 
         <p>Über den Button <span class="fpcm-ui-button">Kurzlink</span> am oberen Kopf des Artikel-Editors ist es bei gespeicherten Artikeln möglich, die URL über den Dienst
             <a href=http://is.gd>is.gd</a> kürzen zu lassen. Der genutzte Dienst kann über ein Modul-Event geändert werden</p>
 
-        <p>Sofern es dein Host zulässt, kannst du in den Systemeinstellungen FanPress CM direkt mit Twitter verbinden. Somit werden Artikel beim
-            Veröffentlichen oder über das Aktions-Menü unter <i>Artikel bearbeiten</i> direkt bei Twitter bekannt gemacht werden.</p>
-
-        <p><span class="fpcm-ui-button">Erweitert</span>-Menü:</p>
-        <ul>
-            <li><em>Artikelbild:</em> Mit dem Artikelbild kannst du einen Artikel eine zusätzliche Dekoration, optische
-                Beschreibung, etc. geben. Die Position und Größe des Artikelbildes kann über das Artikel-Template festgelegt werden.
-            </li>
-            <li><em>Quellenverzeichnis:</em> Der Inhalt dieses Feldes wird durch den Template-Tag "{{sources}}" dargestellt. Hier kannst du Links zu deinen Informationsquellen,
-                Quellen von Bildern, Videos, etc. oder zu weiterführenden Informationen angeben. Links werden so weit es geht automatisch in HTML-Links umgewandelt.</li>
-            <li><em>Tweet erzeugen:</em> Über diese Option kann die Erzeugung eines Tweets bei aktiver Twitter-Verbindung manuell
-                deaktiviert werden, wenn sie in den Systemoptionen aktiviert wurde.</li>
-            <li><em>Twitter-Beitrag-Text:</em> Über dieses Textfeld kann das Standard-Template für einen Beitrag bei Twitter
-                überschrieben und durch einen eigenen Text ersetzt werden. Der Inhalt dieses Feldes wird nicht gespeichert.</li>
-            <li><em>Artikel freischalten:</em> Mittels dieser Option kannst du einen neuen Artikel verfassen und zu einem bestimmten
-                Zeitpunkt automatisch veröffentlichen lassen. Der Zeitpunkt kann maximal zwei Monate in der Zukunft liegen.</li>                
-            <li><em>Artikel als Entwurf speichern:</em> Wird diese Option aktiviert, so wird der Artikel beim Speichern nicht als
+        <dl>
+            <dt><strong>Artikelbild:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Mit dem Artikelbild kannst du einen Artikel eine zusätzliche Dekoration, optische
+                Beschreibung, etc. geben. Die Position und Größe des Artikelbildes kann über das Artikel-Template festgelegt werden.</dd>
+            <dt><strong>Quellenverzeichnis:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Der Inhalt dieses Feldes wird durch den Template-Tag "{{sources}}" dargestellt. Hier kannst du Links zu deinen Informationsquellen,
+                Quellen von Bildern, Videos, etc. oder zu weiterführenden Informationen angeben. Links werden so weit es geht automatisch in HTML-Links umgewandelt.</dd>
+            <dt><strong>Tweet erzeugen:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diese Option kann die Erzeugung eines Tweets bei aktiver Twitter-Verbindung manuell
+                deaktiviert werden, wenn sie in den Systemoptionen aktiviert wurde.</dd>
+            <dt><strong>Twitter-Beitrag-Text:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über dieses Textfeld kann das Standard-Template für einen Beitrag bei Twitter
+                überschrieben und durch einen eigenen Text ersetzt werden. Der Inhalt dieses Feldes wird nicht gespeichert.</dd>
+            <dt><strong>Artikel freischalten:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Mittels dieser Option kannst du einen neuen Artikel verfassen und zu einem bestimmten
+                Zeitpunkt automatisch veröffentlichen lassen. Der Zeitpunkt kann maximal zwei Monate in der Zukunft liegen.</dd>
+            <dt><strong>Artikel als Entwurf speichern:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Wird diese Option aktiviert, so wird der Artikel beim Speichern nicht als
                 Entwurf abgelegt. Entwürfe werden nicht sofort veröffentlicht, sondern sind nur für angemeldete Benutzer sichtbar
-                und können vor der Veröffentlichung noch bearbeitet werden.</li>
-            <li><em>Artikel pinnen:</em> "Gepinnte" Artikel werden im Frontend vor allen anderen verfügbaren Artikeln angezeigt, auch
-                auch wenn das Datum ihrer Veröffentlichung vor neueren Artikeln liegt.</li>
-            <li><em>Kommentare aktiv:</em> Über diese Option kann das Kommentar-System für einen einzelnen Artikel gesteuert werden.
-                ist die Option nicht aktiv, so können keine Kommentare auf der Artikel verfasst werden.</li>
-            <li><em>Artikel archivieren:</em> Bestehende Artikel können über diese Option in's Archiv verschoben werden bzw.
-                herausgenommen werden.</li>
-            <li><em>Autor ändern:</em> Benutzer mit entsprechenden Rechten können hierüber den Verfasser eines Artikeln ändern.</li>
-        </ul>
-
+                und können vor der Veröffentlichung noch bearbeitet werden.</dd>
+            <dt><strong>Artikel pinnen:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">"Gepinnte" Artikel werden im Frontend vor allen anderen verfügbaren Artikeln angezeigt, auch
+                auch wenn das Datum ihrer Veröffentlichung vor neueren Artikeln liegt.</dd>
+            <dt><strong>Kommentare aktiv:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diese Option kann das Kommentar-System für einen einzelnen Artikel gesteuert werden.
+                ist die Option nicht aktiv, so können keine Kommentare auf der Artikel verfasst werden.</dd>
+            <dt><strong>Artikel archivieren:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Bestehende Artikel können über diese Option in's Archiv verschoben werden bzw.
+                herausgenommen werden.</dd>
+            <dt><strong>Autor ändern:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer mit entsprechenden Rechten können hierüber den Verfasser eines Artikeln ändern.</dd>
+            <dt><strong>Geteilte Inhalte:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Sofern das Zählen von Klicks auf die Share-Buttons aktiviert wurde, wird in diesem Bereich
+            die aktuelle Anzahl pro Modul angezeigt.</dd>
+        </dl>
+ 
         <p>In FanPress CM kannst du über den <strong>&lt;readmore&gt;</strong>-Tag ein Stück Text einfügen, das beim Aufruf der Seite
-            nicht angezeigt wird. (bspw. für Spoiler, etc.)</p>
+        nicht angezeigt wird. (bspw. für Spoiler, etc.)</p>
 
-        <p>Der Artikel-Editor kann am oberen Rand bis zu drei Tabs enthalten. Immer angezeigt wird der Tab <i>Artikel-Editor</i>, welcher den Editor
-            an sich umfasst. Als weitere Tabs können <i>Kommentare</i> und/oder <i>Revisionen</i> folgen.</p>
+        <p>Der Artikel-Editor kann am oberen Rand bis zu drei Tabs enthalten.</p>
 
-        <p>Unter <i>Kommentare</i> erhältst du eine Auflistung aller Kommentare, welche zu zum ausgewählten Artikel geschrieben wurden. Die Liste
-            bietet dir die Möglichkeit, einzelne Kommentare zu löschen. Über einen Klick auf den Namen des Verfassern kannst du in einem einfachen
-            Editor die Kommentare bearbeiten, freischalten, auf privat setzen, etc. Den Zugriff auf die Kommentare können du über die
-            Berechtigungen geregelt werden.</p>
+        <dl>
+            <dt><strong>Artikel-Editor:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dieser Tab wird immer angezeigt und beinhaltet den Editor an sich.</dd>
+            <dt><strong>Kommentare:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dieses register beinhaltet Auflistung aller Kommentare, welche zu zum ausgewählten Artikel
+            geschrieben wurden. Die Liste bietet dir die Möglichkeit, einzelne Kommentare zu löschen. Über einen Klick auf den Namen des
+            Verfassern kannst du in einem einfachen Editor die Kommentare bearbeiten, freischalten, auf privat setzen, etc. Den Zugriff auf
+            die Kommentare können du über die Berechtigungen geregelt werden.</dd>
+            <dt><strong>Revisionen:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">FanPress CM besitzt ein Revisions-System, d. h. bei Änderungen wird der vorherige Zustand
+            gesichert und kann jederzeit wiederhergestellt werden. Die Revisionen können über die Systemeinstellungen (de)aktiviert werden.
+            Eine Liste aller Revisionen findest du über den entsprechenden Reiter im Editor. Dort kannst du jede Revision einzeln aufrufen
+            bzw. den aktuelle Artikel auf eine Revision zurücksetzen.</dd>
+        </dl>
 
-        <p>FanPress CM besitzt ein Revisions-System, d. h. bei Änderungen wird der vorherige Zustand gesichert und kann
-            jederzeit wiederhergestellt werden. Die Revisionen kannst du über den Tab <i>Revisionen</i> verwalten. Die Revisionen können
-            über die Systemeinstellungen (de)aktiviert werden. Eine Liste aller Revisionen findest du über den entsprechenden Reiter
-            im Editor. Dort kannst du jede Revision einzeln aufrufen bzw. den aktuelle Artikel auf eine Revision zurücksetzen.</p>
+        <h3>Bild in Artikel einfügen</h3>
+
+        <p>Um den Pfad eines Bildes direkt in den "Bild einfügen"-Formular zu kopieren, klicke auf die Buttons
+        <strong>Thumbnail-Pfad in Quelle einfügen</strong> bzw. <strong>Datei-Pfad in Quelle einfügen</strong>
+        zwischen dem Thumbnail und den Meta-Informationen des jeweiligen Bildes, je nachdem was du nutzen möchtest.</p>
+
+        <p>Alternativ mache in der Dateiliste einen Rechtsklick auf den Bild- und/oder Thumbnail öffnen Button. Wähle nun im Kontext-Menü des
+        jeweiligen Browsers "Link-Adresse kopieren", "Verknüpfung kopieren", o. ä. Füge den Pfad anschließend in das Feld "Quelle" im Editor
+        ein. Im HTML-Editor kannst du auch einfach anfangen, den Dateinamen einzutippen. Hier öffnet sich dann eine
+        Autovervollständigung. In TinyMCE steht im Bild einfügen Dialog auch ein Punkt auch "Image List" zur Verfügung.</p>
         ]]>
     </chapter>
     <chapter ref="HL_ARTICLE_EDIT">
         <![CDATA[
-        <p>Im Bereich <b>Artikel verwalten</b> kannst findest du alle gespeicherten Artikel in FanPress CM. Über das Aktions-Menü
-            kannst du verschiedene Dinge durchführen, bspw. Artikel löschen oder archivieren.</p>
-        <ul>
-            <li><em>Ausgewählte Bearbeiten:</em> Massenbearbeitung für die ausgewählten Artikel aufrufen. Die auswählbaren Optionen
-                entsprechen denen im Artikel-Editor.</li>
-            <li><em>Neuen Tweet erzeugen:</em> Für den bzw. die ausgewählten Artikel neue Posts bei Twitter erzeugen, wenn Verbindung
-                zu Twitter eingerichtet wurde.</li>
-            <li><em>Löschen:</em> Den bzw. die ausgewählten Artikel löschen. Wurde in den Systemeinstellungen der Papierkorb aktiviert,
-                so werden die Artikel zuerst in den Papierkorb verschoben, an sonsten werden sie sofort gelöscht.</li>
-            <li><em>Artikel wiederherstellen:</em> Den bzw. die ausgewählten Artikel aus dem Papierkorb wiederherstellen.</li>
-            <li><em>Papierkorb leeren:</em> Die im Papierkorb vorhandenen Artikel endgültig löschen.</li>
-        </ul>
-        <p>Über den Button <span class="fpcm-ui-button">Suche & Filter</span> kannst du mithilfe eines Dialogs die angezeigten Artikel anhand verschiedener Kriterien
-            weiter eingrenzen. Über die Hauptnavigation kannst du bereits eine Vorauswahl treffen, welche Artikel dir angezeigt werden sollen.</p>
-        <p>Die Listen des Bereichs umfassen verschiedene Datensätze:</p>
-        <ul>
-            <li><em>Alle Artikel:</em> Diese Liste umfasst alle verfassten Artikel, inkl. aktiver und archivierter Artikel,
-                sowie Entwürfe.</li>
-            <li><em>Aktive Artikel:</em> Diese Liste umfasst ausschließlich Artikel, welche aktiv sind und entsprechend auf deiner
-                Webseite angezeigt werden sowie Entwürfe.</li>
-            <li><em>Archivierte Artikel:</em> Hier werden all diejenigen Artikel aufgeführt, welche archiviert wurden.</li>
-            <li><em>Papierkorb:</em> Sofern aktiv ist diese Option aktiv. Hier findest du eine Übersicht aller gelöschten Artikel.
-                Du kannst diese hier wieder herstellen oder vollständig löschen.</li>
-        </ul>
+        <p>Im Bereich <b>Artikel verwalten</b> kannst findest du alle gespeicherten Artikel in FanPress CM.</p>
+        
+        <h3>Bereiche</h3>
+        
+        <dl>
+            <dt><strong>Alle Artikel:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Diese Liste umfasst alle verfassten Artikel, inkl. aktiver und archivierter Artikel,
+            sowie Entwürfe.</dd>
+            <dt><strong>Aktive Artikel:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Diese Liste umfasst ausschließlich Artikel, welche aktiv sind und entsprechend auf deiner
+            Webseite angezeigt werden sowie Entwürfe.</dd>
+            <dt><strong>Archivierte Artikel:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Hier werden all diejenigen Artikel aufgeführt, welche archiviert wurden.</dd>
+            <dt><strong>Papierkorb:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Sofern aktiv ist diese Option aktiv. Hier findest du eine Übersicht aller gelöschten Artikel.
+            Du kannst diese hier wieder herstellen oder vollständig löschen.</dd>
+        </dl>
+
+        <h3>Aktionen</h3>
+        
+        <dl>
+            <dt><strong>Bearbeiten:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über die Massenbearbeitung können alle ausgewählten Artikel auf einmal bearbeitet werden.
+            Die auswählbaren Optionen entsprechen denen im Artikel-Editor.</dd>
+            <dt><strong>Suche und Filter:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Artikel anhand
+            verschiedener Kriterien weiter eingrenzen. Über die Hauptnavigation kannst du bereits eine Vorauswahl treffen, welche Artikel
+            dir angezeigt werden sollen.</dd>
+            <dt><strong>Neuen Tweet erzeugen:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Für den bzw. die ausgewählten Artikel neue Posts bei Twitter erzeugen, wenn Verbindung
+            zu Twitter eingerichtet wurde.</dd>
+            <dt><strong>Löschen:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Den bzw. die ausgewählten Artikel löschen. Wurde in den Systemeinstellungen der Papierkorb
+            aktiviert, so werden die Artikel zuerst in den Papierkorb verschoben, an sonsten werden sie sofort gelöscht.</dd>
+            <dt><strong>Elemente wiederherstellen / Papierkorb leeren:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Diese Optionen stehen im Papierkorb zur Verfügung. Die ausgewählten Artikel aus dem
+            Papierkorb können hierüber wiederhergestellt oder endgültig gelöscht werden.</dd>
+        </dl>
         ]]>
     </chapter>
     <chapter ref="HL_COMMENTS_MNG">
@@ -114,26 +170,31 @@ Help language file
             geschriebenen Kommentare. Hier besteht die Möglichkeit, alle Kommentare zu löschen, ent/sperren, etc.</p>
         <p>Willst du nur die Artikel zu einem bestimmten Artikel anzeigen lassen, geht das wie gewohnt über die Liste
             auf dem Kommentar-Tab im Artikel-Editor.</p>
-        <ul>
-            <li><em>Ausgewählte Bearbeiten:</em> Massenbearbeitung für die ausgewählten Kommentare aufrufen. Die auswählbaren
-                Optionen entsprechen denen im Kommentar-Editor.
-                <ul>
-                    <li><em>Kommentar ist privat:</em> Private Kommentare werden nicht öffentlich angezeigt, sondern sind nur
-                        für Benutzer innerhalb von FanPress CM sichtbar</li>
-                    <li><em>Kommentar ist genehmigt:</em> Genehmigte Kommentare werden öffentlich angezeigt und können von
-                        deinen Besuchern gelesen und beantwortet werden. Nicht genehmigte Kommentare verhalten sich wie
-                        private Kommentare und sind nicht sichtbar. Diese Funktion kann in den Systemeinstellungen deaktiviert
-                        werden.</li>
-                    <li><em>Kommentar ist Spam:</em> Kommentare, welche als Spam markiert wurden, werden nicht öffentlich
-                        angezeigt. Ihre Daten werden zur Verbesserung der Spam-Erkennung genutzt, sofern du sie nicht löscht.</li>
-                    <li><em>Kommentar zu Artikel mit ID verschieben:</em> Die ausgewählten Kommentare zur eingetragenen Artikel-ID
-                        verschieben. Das Eingabefeld unterstützt die Suche nach Artikeln mittel Autovervollständigung.</li>
-                </ul>
-            </li>    
-            <li><em>Löschen:</em> Ausgewählte Kommentare löschen. Achtung, für Kommentare existiert kein Papierkorb!</li>
-        </ul>
-        <p>Über den Button <span class="fpcm-ui-button">Suche & Filter</span> kannst du mithilfe eines Dialogs die angezeigten Kommentare anhand verschiedener Kriterien
-            weiter eingrenzen.</p>
+        
+        <dl>
+            <dt><strong>Bearbeiten:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Massenbearbeitung für die ausgewählten Kommentare aufrufen. Die auswählbaren
+                Optionen entsprechen denen im Kommentar-Editor.</dd>
+            <dt><strong>Kommentar ist privat:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Private Kommentare werden nicht öffentlich angezeigt, sondern sind nur
+            für Benutzer innerhalb von FanPress CM sichtbar.</dd>
+            <dt><strong>Kommentar ist genehmigt:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Genehmigte Kommentare werden öffentlich angezeigt und können von
+            deinen Besuchern gelesen und beantwortet werden. Nicht genehmigte Kommentare verhalten sich wie
+            private Kommentare und sind nicht sichtbar. Diese Funktion kann in den Systemeinstellungen deaktiviert
+            werden.</dd>
+            <dt><strong>Kommentar ist Spam:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Kommentare, welche als Spam markiert wurden, werden nicht öffentlich
+            angezeigt. Ihre Daten werden zur Verbesserung der Spam-Erkennung genutzt, sofern du sie nicht löscht.</dd>
+            <dt><strong>Kommentar zu Artikel mit ID verschieben:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die ausgewählten Kommentare zur eingetragenen Artikel-ID
+                        verschieben. Das Eingabefeld unterstützt die Suche nach Artikeln mittel Autovervollständigung.</dd>
+            <dt><strong>Löschen:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Ausgewählte Kommentare können gelöscht werden.</dd>
+            <dt><strong>Suche und Filter:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Kommentare anhand
+            verschiedener Kriterien weiter eingrenzen.</dd>
+        </dl>
         ]]>
         
     </chapter>
@@ -142,37 +203,79 @@ Help language file
         <p>Im <b>Dateimanager</b> kannst du Bilder hochladen, welche du in deinen Artikeln verwendet willst. Eine vereinfachte Ansicht lässt
             sich auch direkt aus dem Artikel-Editor heraus aufrufen. Er zeigt neben einem Vorschau-Bild noch einige zusätzliche Informationen zur
             hochgeladenen Datei an.</p>
-        <p>Der Dateimanager bietet zwei verschiedene Modi. Einmal die klassischen Version, welche mittels HTML-Formularen arbeitet und vor allem
-            für ältere Browser zu empfehlen ist. Alternativ steht der - standardmäßig aktive - Dateimanager auf Basis von jQuery zu Verfügung.
-            Dieser bietet mehr Komfort und unterliegt weniger Beschränkungen v. a. beim Hochladen mehrerer Dateien.</p>
-        <p>Welcher Modus genutzt wird, kann über die Systemeinstellungen festgelegt werden.</p>
-        <p><b>Ich möchte ein Bild in einen Artikel einfügen, wie geht das?</b></p>
-        <p>Um den Pfad eines Bildes direkt in den "Bild einfügen"-Formular zu kopieren, klicke auf die Buttons
-            <span class="fpcm-ui-button">Thumbnail-Pfad in Quelle einfügen</span> bzw. <span class="fpcm-ui-button">Datei-Pfad in Quelle einfügen</span>
-            zwischen dem Thumbnail und den Meta-Informationen des jeweiligen Bildes, je nachdem was du nutzen möchtest.</p>
-        <p>Alternativ mache in der Dateiliste einen Rechtsklick auf den Bild- und/oder Thumbnail öffnen Button. Wähle nun im Kontext-Menü des
-            jeweiligen Browsers "Link-Adresse kopieren", "Verknüpfung kopieren", o. ä. Füge den Pfad anschließend in das Feld "Quelle" im Editor
-            ein. Im HTML-Editor kannst du auch einfach anfangen, den Dateinamen einzutippen. Hier öffnet sich dann eine
-            Autovervollständigung. In TinyMCE steht im Bild einfügen Dialog auch ein Punkt auch "Image List" zur Verfügung.</p>
+
+        <dl>
+            <dt><strong>Suche und Filter:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Artikel anhand
+            verschiedener Kriterien weiter eingrenzen. Über die Hauptnavigation kannst du bereits eine Vorauswahl treffen, welche Artikel
+            dir angezeigt werden sollen.</dd>
+            <dt><strong>Thumbnails erzeugen:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Für ausgewählte Dateien kann das Thumbnial neu erzeugt werden.</dd>
+            <dt><strong>Löschen:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die ausgewählten Dateien können gelöscht werden. Wichtig! Für Dateien existiert kein Papierkorb.</dd>
+            <dt><strong>Umbenennen:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über den Button kann die Datei umbenannt werden, die Dateiendung muss dabei nicht angehangen werden.</dd>
+            <dt><strong>Thumbnail öffnen:</strong> (nur Dateimanager)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Öffnen des Thumbnails.</dd>
+            <dt><strong>Bild öffnen:</strong> (nur Dateimanager)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Öffnen des eigentlichen Bildes.</dd>
+            <dt><strong>Artikel-Bild festlegen:</strong> (nur Editor)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Ausgewählte Datei als Artikel-Bild festlegen.</dd>
+            <dt><strong>Thumbnail-URL einfügen:</strong> (nur Editor)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Thumbnail-URL der ausgewählten Datei in Dialog übernehmen.</dd>
+            <dt><strong>Bild-URL einfügen:</strong> (nur Editor)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Bild-URL der ausgewählten Datei in Dialog übernehmen.</dd>
+            <dt><strong>Karten / Liste:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
+            die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
+        </dl>
+        
+        <p>Zum Upload von Dateien bietet der Dateimanager zwei Methoden: die klassische Version mittels HTML-Formularen und für ältere Browser
+        zu empfehlen ist. Alternativ steht der - standardmäßig aktive - Dateimanager auf Basis von jQuery zu Verfügung.</p>
         ]]>
     </chapter>
     <chapter ref="HL_PROFILE">
         <![CDATA[
         <p>Das eigene <b>Profil</b> können alle Benutzer über das Profil-Menü oben rechts aufrufen. Jeder Benutzer kann dort folgende Dinge
             anpassen:</p>
-        <ul>
-            <li><em>Passwort</em> zum Login</li>
-            <li><em>Name</em> welcher in den Artikel als Autor-Name angezeigt wird</li>
-            <li><em>E-Mail-Adresse</em> an die bspw. ein zurückgesetztes Passwort gesendet wird</li>
-            <li><em>Sprache</em> des FanPress CM Admin-Bereichs</li>
-            <li><em>Zeitzone</em> welche für die Umrechnung von Zeitangaben genutzt wird</li>
-            <li><em>Datum- und Zeitanzeige</em>, welche für die Darstellung von Zeitangaben genutzt wird</li>
-            <li><em>Anzahl an Artikeln im ACP</em>, legt die Anzahl an Artikeln fest, welche unter "Artikel bearbeiten" pro Seite angezeigt werden</li>
-            <li><em>Standard-Schriftgröße im Editor:</em> Schriftgröße, die standardmäßig im Artikel-Editor genutzt wird</li>
-            <li><em>jQuery Dateiupload verwenden:</em> Nutzung des modernen AJAX-Uploads oder klassischer PHP-Upload</li>
-            <li><em>Biografie / Sonstiges:</em> Kurzer Info-Text zum Autor, der in den News angezeigt werden kann (optional).</li>
-            <li><em>Avatar:</em> Benutzer-Avatar, Dateiname entspricht dem Muster <em>benutzername.jpg/png/gif/bmp</em></li>
-        </ul>
+        
+        <h3>Profil</h3>
+        
+        <dl>
+            <dt><strong>Angezeigter Name:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Name, welcher öffentlich angezeigt wird. Wird nicht für den Login verwendet.</dd>
+            <dt><strong>Benutzername:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Name für den Login.</dd>
+            <dt><strong>Passwort:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Zeichenkette welches für den Login verwendet wird.</dd>
+            <dt><strong>E-Mail-Adresse:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">E-Mail-Adresse für Benachrichtigungen, ein neu gesetztes Passwort, etc.</dd>
+            <dt><strong>Biografie / Sonstiges:</strong> (optional)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Kurzer Info-Text zum Autor, der in den News angezeigt werden kann.</dd>            
+            <dt><strong>Avatar:</strong> (optional)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer-Avatar, Dateiname entspricht dem Muster <em>benutzername.jpg/png/gif/bmp</em></dd>            
+        </dl>
+
+        <h3>Benutzereinstellungen</h3>
+        <dl>
+            <dt><strong>Zeitzone:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Zeitzone für Datums- und Zeit-Angaben.</dd>
+            <dt><strong>Sprache:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Sprach-Einstellung für das FanPress-ACP.</dd>
+            <dt><strong>Datum- und Zeitanzeige:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Muster, in welcher Art Datums- und Zeitangaben dargestellt werden.</dd>
+            <dt><strong>Anzahl Elemente pro Seite im ACP:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Anzahl an dargestellten Elementen pro Seite im ACP</dd>
+            <dt><strong>Standard-Schriftgröße im Editor:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Schriftgröße, die standardmäßig im Artikel-Editor genutzt wird</dd>
+            <dt><strong>jQuery Dateiupload verwenden:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Nutzung des AJAX- oder HTML-Uploads</dd>
+            <dt><strong>Dateimanager-Ansicht:</strong></dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
+            die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
+        </dl>
+        
+        <p>Über den Button <strong>Zurücksetzen</strong> können die Einstellungen auf die systemweiten Vorgaben zurücksetzen.</p>
         ]]>
     </chapter>
     <chapter ref="HL_OPTIONS">

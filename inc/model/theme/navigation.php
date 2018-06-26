@@ -115,7 +115,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             ),
             navigationItem::AREA_COMMENTS => array(
                 (new navigationItem())->setUrl('comments/list')
-                    ->setDescription('COMMMENT_HEADLINE')
+                    ->setDescription('HL_COMMENTS_MNG')
                     ->setIcon('comments')
                     ->setPermission([
                         'article' => ['editall', 'edit'],
