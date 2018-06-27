@@ -133,15 +133,7 @@ class options extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
-        $timezones = [];
-
-        foreach ($this->getTimeZones() as $area => $zones) {
-            foreach ($zones as $zone) {
-                $timezones[$area][$zone] = $zone;
-            }
-        }
-
-        $this->view->assign('timezoneAreas', $timezones);
+        $this->view->assign('timezoneAreas', $this->getTimeZonesAreas());
 
         $this->view->assign('systemModes', [
             'SYSTEM_OPTIONS_USEMODE_IFRAME' => 0,

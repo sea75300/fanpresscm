@@ -420,7 +420,7 @@ class author extends \fpcm\model\abstracts\dataset {
     public function update()
     {
         $this->removeBannedTexts();
-        if (!$this->passwordSecCheckDisabled()) {
+        if (!$this->passwordSecCheckDisabled() && $this->passwd !== null) {
             if (!$this->checkPasswordSecure()) {
                 return self::AUTHOR_ERROR_PASSWORDINSECURE;
             }

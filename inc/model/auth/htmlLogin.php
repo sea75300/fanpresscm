@@ -53,8 +53,11 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
         }
 
         if (!password_verify($param['password'], $user->getPasswd())) {
-            trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given. Request was made by ' . \fpcm\classes\http::getIp());
-            return false;
+            trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given, check simple hash. Request was made by ' . \fpcm\classes\http::getIp());
+            if (!md5($param['password']) !== $user->getPasswd()) {
+                trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given. Request was made by ' . \fpcm\classes\http::getIp());
+                return false;                
+            }
         }
 
         if (!$user->getAuthtoken() || !$this->config->system_2fa_auth || (isset($param['external']) && $param['external'])) {

@@ -288,14 +288,7 @@ class main extends \fpcm\controller\abstracts\controller {
             $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
         }
 
-        $timezones = [];
-        foreach ($this->getTimeZones() as $area => $zones) {
-            foreach ($zones as $zone) {
-                $timezones[$area][$zone] = $zone;
-            }
-        }
-
-        $this->view->assign('timezoneAreas', $timezones);
+        $this->view->assign('timezoneAreas', $this->getTimeZonesAreas());
         $this->view->assign('systemModes', [
             'SYSTEM_OPTIONS_USEMODE_IFRAME' => 0,
             'SYSTEM_OPTIONS_USEMODE_PHPINCLUDE' => 1

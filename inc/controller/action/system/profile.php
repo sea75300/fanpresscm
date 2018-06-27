@@ -60,6 +60,7 @@ class profile extends \fpcm\controller\abstracts\controller {
         if ($this->buttonClicked('resetProfileSettings') && $this->checkPageToken) {
             $this->user->setUserMeta([]);
             $this->user->disablePasswordSecCheck();
+            $this->user->setPassword(null);
 
             if ($this->user->update() === false) {
                 $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
@@ -135,15 +136,7 @@ class profile extends \fpcm\controller\abstracts\controller {
         $this->view->assign('languages', array_flip($this->language->getLanguages()));
         $this->twoFactorAuthForm();
 
-        $timezones = [];
-
-        foreach ($this->getTimeZones() as $area => $zones) {
-            foreach ($zones as $zone) {
-                $timezones[$area][$zone] = $zone;
-            }
-        }
-
-        $this->view->assign('timezoneAreas', $timezones);
+        $this->view->assign('timezoneAreas', $this->getTimeZonesAreas());
         $this->view->assign('externalSave', true);
         $this->view->assign('inProfile', true);
         $this->view->assign('showExtended', true);
