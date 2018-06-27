@@ -194,8 +194,9 @@ class filelist extends \fpcm\controller\abstracts\controller {
         }
 
         if ($this->mode === 1) {
-            $buttons[] = (new \fpcm\view\helper\radiobutton('listView', 'listViewCards'))->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEWCARDS')->setClass('fpcm-ui-listeview-setting')->setValue('cards')->setSelected($this->config->file_view);
-            $buttons[] = (new \fpcm\view\helper\radiobutton('listView', 'listViewList'))->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEWLIST')->setClass('fpcm-ui-listeview-setting')->setValue('list')->setSelected($this->config->file_view);
+            foreach (\fpcm\components\components::getFilemanagerViews() as $descr => $view) {
+                $buttons[] = (new \fpcm\view\helper\radiobutton('listView', 'listView'. ucfirst($view)))->setText($descr)->setClass('fpcm-ui-listeview-setting')->setValue($view)->setSelected($this->config->file_view);
+            }
         }
 
         $this->view->addButtons($buttons);
