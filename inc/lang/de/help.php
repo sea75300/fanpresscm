@@ -12,20 +12,20 @@ Help language file
             <p>Im <b>Dashboard</b> findest du verschiedene Informationen zu deiner FanPress CM Installation, etc. Eigene Dashboard-Container
             können durch Module bzw. neue Datei unter "fanpress/inc/dashboard" erzeugt werden.</p>
             <dl>
-                <dt><strong>Zuletzt geschriebene News:</strong></dt>
+                <dt>Zuletzt geschriebene News:</dt>
                 <dd class="fpcm-ui-padding-md-bottom">Hier findest die eine Übersicht der zuletzt verfassten Artikel.</dd>
-                <dt><strong>Zuletzt geschriebene Kommentare:</strong></dt>
+                <dt>Zuletzt geschriebene Kommentare:</dt>
                 <dd class="fpcm-ui-padding-md-bottom">Hier findest die eine Übersicht der zuletzt verfassten Kommentare.</dd>
-                <dt><strong>Verfügbare Updates:</strong></dt>
+                <dt>Verfügbare Updates:</dt>
                 <dd class="fpcm-ui-padding-md-bottom">Dieser Container beinhaltet Informationen zum Update-Status des Systems und von Modulen.</dd>
-                <dt><strong>Systemprüfung:</strong></dt>
+                <dt>Systemprüfung:</dt>
                 <dd class="fpcm-ui-padding-md-bottom">Diese Box enthält grundlegende Status-Informationen zu deiner Installation.</dd>
-                <dt><strong>Statistiken:</strong></dt>
+                <dt>Statistiken:</dt>
                 <dd class="fpcm-ui-padding-md-bottom">In diesem Bereich werden statistische Informationen ausgegeben, u. a. zur Anzahl verfasster
                 Artikel oder Kommentare.</dd>
-                <dt><strong>Aktuelle FanPress CM News:</strong></dt>
+                <dt>Aktuelle FanPress CM News:</dt>
                 <dd class="fpcm-ui-padding-md-bottom">Dieser Container beinhaltet News rund vom FanPress CM, bspw. über neue Versionen.</dd>
-                <dt><strong>Team-Kontakte:</strong></dt>
+                <dt>Team-Kontakte:</dt>
                 <dd class="fpcm-ui-padding-md-bottom">Dieser Container beinhaltet eine Liste aller aktiven Benutzer mit der Möglichkeit, dies eine
                 E-Mail zu verfassen.</dd>
             </dl>
@@ -43,10 +43,10 @@ Help language file
             dargestellt wird und verschiedene weitere Einstellungen vornehmen.</p>
 
         <dl>
-            <dt><strong>TinyMCE:</strong></dt>
+            <dt>TinyMCE:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieser WYSIWYG-Editor zeigt alle Formatierungen und Änderungen direkt an. Außerdem
             bietet er diverse zusätzliche Informationen u. a. zur Bearbeitung von Bildern.</dd>
-            <dt><strong>CodeMirror:</strong></dt>
+            <dt>CodeMirror:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieser Editor ist ein reiner HTML-Editor, welcher verschiedene Formatierungsmöglichkeiten
             bietet sowie zusätzliche Funktionen wie Syntax-Highlighting.</dd>
         </dl>        
@@ -55,37 +55,38 @@ Help language file
             <a href=http://is.gd>is.gd</a> kürzen zu lassen. Der genutzte Dienst kann über ein Modul-Event geändert werden</p>
 
         <dl>
-            <dt><strong>Artikelbild:</strong></dt>
+            <dt>Artikelbild:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Mit dem Artikelbild kannst du einen Artikel eine zusätzliche Dekoration, optische
-                Beschreibung, etc. geben. Die Position und Größe des Artikelbildes kann über das Artikel-Template festgelegt werden.</dd>
-            <dt><strong>Quellenverzeichnis:</strong></dt>
+                Beschreibung, etc. geben. Die Position und Größe des Artikelbildes kann über das Artikel-Template festgelegt werden. Über den Button rechts neben dem
+            Eingabefeld kannst du ein bereits hochgeladenes Bild auswählen und weitere Bilder hochladen.</dd>
+            <dt>Quellenverzeichnis:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Der Inhalt dieses Feldes wird durch den Template-Tag "{{sources}}" dargestellt. Hier kannst du Links zu deinen Informationsquellen,
                 Quellen von Bildern, Videos, etc. oder zu weiterführenden Informationen angeben. Links werden so weit es geht automatisch in HTML-Links umgewandelt.</dd>
-            <dt><strong>Tweet erzeugen:</strong></dt>
+            <dt>Tweet erzeugen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diese Option kann die Erzeugung eines Tweets bei aktiver Twitter-Verbindung manuell
                 deaktiviert werden, wenn sie in den Systemoptionen aktiviert wurde.</dd>
-            <dt><strong>Twitter-Beitrag-Text:</strong></dt>
+            <dt>Twitter-Beitrag-Text:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über dieses Textfeld kann das Standard-Template für einen Beitrag bei Twitter
                 überschrieben und durch einen eigenen Text ersetzt werden. Der Inhalt dieses Feldes wird nicht gespeichert.</dd>
-            <dt><strong>Artikel freischalten:</strong></dt>
+            <dt>Artikel freischalten:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Mittels dieser Option kannst du einen neuen Artikel verfassen und zu einem bestimmten
                 Zeitpunkt automatisch veröffentlichen lassen. Der Zeitpunkt kann maximal zwei Monate in der Zukunft liegen.</dd>
-            <dt><strong>Artikel als Entwurf speichern:</strong></dt>
+            <dt>Artikel als Entwurf speichern:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Wird diese Option aktiviert, so wird der Artikel beim Speichern nicht als
                 Entwurf abgelegt. Entwürfe werden nicht sofort veröffentlicht, sondern sind nur für angemeldete Benutzer sichtbar
                 und können vor der Veröffentlichung noch bearbeitet werden.</dd>
-            <dt><strong>Artikel pinnen:</strong></dt>
+            <dt>Artikel pinnen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">"Gepinnte" Artikel werden im Frontend vor allen anderen verfügbaren Artikeln angezeigt, auch
                 auch wenn das Datum ihrer Veröffentlichung vor neueren Artikeln liegt.</dd>
-            <dt><strong>Kommentare aktiv:</strong></dt>
+            <dt>Kommentare aktiv:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diese Option kann das Kommentar-System für einen einzelnen Artikel gesteuert werden.
                 ist die Option nicht aktiv, so können keine Kommentare auf der Artikel verfasst werden.</dd>
-            <dt><strong>Artikel archivieren:</strong></dt>
+            <dt>Artikel archivieren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Bestehende Artikel können über diese Option in's Archiv verschoben werden bzw.
                 herausgenommen werden.</dd>
-            <dt><strong>Autor ändern:</strong></dt>
+            <dt>Autor ändern:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer mit entsprechenden Rechten können hierüber den Verfasser eines Artikeln ändern.</dd>
-            <dt><strong>Geteilte Inhalte:</strong></dt>
+            <dt>Geteilte Inhalte:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Sofern das Zählen von Klicks auf die Share-Buttons aktiviert wurde, wird in diesem Bereich
             die aktuelle Anzahl pro Modul angezeigt.</dd>
         </dl>
@@ -93,17 +94,19 @@ Help language file
         <p>In FanPress CM kannst du über den <strong>&lt;readmore&gt;</strong>-Tag ein Stück Text einfügen, das beim Aufruf der Seite
         nicht angezeigt wird. (bspw. für Spoiler, etc.)</p>
 
+        <h3>Register</h3>
+
         <p>Der Artikel-Editor kann am oberen Rand bis zu drei Tabs enthalten.</p>
 
         <dl>
-            <dt><strong>Artikel-Editor:</strong></dt>
+            <dt>Artikel-Editor:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieser Tab wird immer angezeigt und beinhaltet den Editor an sich.</dd>
-            <dt><strong>Kommentare:</strong></dt>
+            <dt>Kommentare:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieses register beinhaltet Auflistung aller Kommentare, welche zu zum ausgewählten Artikel
             geschrieben wurden. Die Liste bietet dir die Möglichkeit, einzelne Kommentare zu löschen. Über einen Klick auf den Namen des
             Verfassern kannst du in einem einfachen Editor die Kommentare bearbeiten, freischalten, auf privat setzen, etc. Den Zugriff auf
             die Kommentare können du über die Berechtigungen geregelt werden.</dd>
-            <dt><strong>Revisionen:</strong></dt>
+            <dt>Revisionen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">FanPress CM besitzt ein Revisions-System, d. h. bei Änderungen wird der vorherige Zustand
             gesichert und kann jederzeit wiederhergestellt werden. Die Revisionen können über die Systemeinstellungen (de)aktiviert werden.
             Eine Liste aller Revisionen findest du über den entsprechenden Reiter im Editor. Dort kannst du jede Revision einzeln aufrufen
@@ -112,14 +115,14 @@ Help language file
 
         <h3>Bild in Artikel einfügen</h3>
 
-        <p>Um den Pfad eines Bildes direkt in den "Bild einfügen"-Formular zu kopieren, klicke auf die Buttons
+        <p>Um den Pfad eines Bildes direkt in den <em>Bild einfügen</em>-Formular zu kopieren, klicke auf die Buttons
         <strong>Thumbnail-Pfad in Quelle einfügen</strong> bzw. <strong>Datei-Pfad in Quelle einfügen</strong>
         zwischen dem Thumbnail und den Meta-Informationen des jeweiligen Bildes, je nachdem was du nutzen möchtest.</p>
 
         <p>Alternativ mache in der Dateiliste einen Rechtsklick auf den Bild- und/oder Thumbnail öffnen Button. Wähle nun im Kontext-Menü des
-        jeweiligen Browsers "Link-Adresse kopieren", "Verknüpfung kopieren", o. ä. Füge den Pfad anschließend in das Feld "Quelle" im Editor
+        jeweiligen Browsers <strong>Link-Adresse kopieren / Verknüpfung kopieren / o. ä.</strong>. Füge den Pfad anschließend in das Feld <em>Quelle</em> im Editor
         ein. Im HTML-Editor kannst du auch einfach anfangen, den Dateinamen einzutippen. Hier öffnet sich dann eine
-        Autovervollständigung. In TinyMCE steht im Bild einfügen Dialog auch ein Punkt auch "Image List" zur Verfügung.</p>
+        Autovervollständigung. In TinyMCE steht im Bild einfügen Dialog auch ein Punkt <strong>Image List</strong> zur Verfügung.</p>
         ]]>
     </chapter>
     <chapter ref="HL_ARTICLE_EDIT">
@@ -129,15 +132,15 @@ Help language file
         <h3>Bereiche</h3>
         
         <dl>
-            <dt><strong>Alle Artikel:</strong></dt>
+            <dt>Alle Artikel:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Diese Liste umfasst alle verfassten Artikel, inkl. aktiver und archivierter Artikel,
             sowie Entwürfe.</dd>
-            <dt><strong>Aktive Artikel:</strong></dt>
+            <dt>Aktive Artikel:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Diese Liste umfasst ausschließlich Artikel, welche aktiv sind und entsprechend auf deiner
             Webseite angezeigt werden sowie Entwürfe.</dd>
-            <dt><strong>Archivierte Artikel:</strong></dt>
+            <dt>Archivierte Artikel:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Hier werden all diejenigen Artikel aufgeführt, welche archiviert wurden.</dd>
-            <dt><strong>Papierkorb:</strong></dt>
+            <dt>Papierkorb:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Sofern aktiv ist diese Option aktiv. Hier findest du eine Übersicht aller gelöschten Artikel.
             Du kannst diese hier wieder herstellen oder vollständig löschen.</dd>
         </dl>
@@ -145,20 +148,20 @@ Help language file
         <h3>Aktionen</h3>
         
         <dl>
-            <dt><strong>Bearbeiten:</strong></dt>
+            <dt>Bearbeiten:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über die Massenbearbeitung können alle ausgewählten Artikel auf einmal bearbeitet werden.
             Die auswählbaren Optionen entsprechen denen im Artikel-Editor.</dd>
-            <dt><strong>Suche und Filter:</strong></dt>
+            <dt>Suche und Filter:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Artikel anhand
             verschiedener Kriterien weiter eingrenzen. Über die Hauptnavigation kannst du bereits eine Vorauswahl treffen, welche Artikel
             dir angezeigt werden sollen.</dd>
-            <dt><strong>Neuen Tweet erzeugen:</strong></dt>
+            <dt>Neuen Tweet erzeugen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Für den bzw. die ausgewählten Artikel neue Posts bei Twitter erzeugen, wenn Verbindung
             zu Twitter eingerichtet wurde.</dd>
-            <dt><strong>Löschen:</strong></dt>
+            <dt>Löschen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Den bzw. die ausgewählten Artikel löschen. Wurde in den Systemeinstellungen der Papierkorb
             aktiviert, so werden die Artikel zuerst in den Papierkorb verschoben, an sonsten werden sie sofort gelöscht.</dd>
-            <dt><strong>Elemente wiederherstellen / Papierkorb leeren:</strong></dt>
+            <dt>Elemente wiederherstellen / Papierkorb leeren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Diese Optionen stehen im Papierkorb zur Verfügung. Die ausgewählten Artikel aus dem
             Papierkorb können hierüber wiederhergestellt oder endgültig gelöscht werden.</dd>
         </dl>
@@ -171,30 +174,42 @@ Help language file
         <p>Willst du nur die Artikel zu einem bestimmten Artikel anzeigen lassen, geht das wie gewohnt über die Liste
             auf dem Kommentar-Tab im Artikel-Editor.</p>
         
+        <h3>Eigenschaften</h3>
+        
         <dl>
-            <dt><strong>Bearbeiten:</strong></dt>
+            <dt>Bearbeiten:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Massenbearbeitung für die ausgewählten Kommentare aufrufen. Die auswählbaren
                 Optionen entsprechen denen im Kommentar-Editor.</dd>
-            <dt><strong>Kommentar ist privat:</strong></dt>
+            <dt>Kommentar ist privat:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Private Kommentare werden nicht öffentlich angezeigt, sondern sind nur
             für Benutzer innerhalb von FanPress CM sichtbar.</dd>
-            <dt><strong>Kommentar ist genehmigt:</strong></dt>
+            <dt>Kommentar ist genehmigt:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Genehmigte Kommentare werden öffentlich angezeigt und können von
             deinen Besuchern gelesen und beantwortet werden. Nicht genehmigte Kommentare verhalten sich wie
             private Kommentare und sind nicht sichtbar. Diese Funktion kann in den Systemeinstellungen deaktiviert
             werden.</dd>
-            <dt><strong>Kommentar ist Spam:</strong></dt>
+            <dt>Kommentar ist Spam:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Kommentare, welche als Spam markiert wurden, werden nicht öffentlich
             angezeigt. Ihre Daten werden zur Verbesserung der Spam-Erkennung genutzt, sofern du sie nicht löscht.</dd>
-            <dt><strong>Kommentar zu Artikel mit ID verschieben:</strong></dt>
+            <dt>Kommentar zu Artikel mit ID verschieben:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die ausgewählten Kommentare zur eingetragenen Artikel-ID
                         verschieben. Das Eingabefeld unterstützt die Suche nach Artikeln mittel Autovervollständigung.</dd>
-            <dt><strong>Löschen:</strong></dt>
+            <dt>Löschen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Ausgewählte Kommentare können gelöscht werden.</dd>
-            <dt><strong>Suche und Filter:</strong></dt>
+            <dt>Suche und Filter:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Kommentare anhand
             verschiedener Kriterien weiter eingrenzen.</dd>
         </dl>
+        
+        <h3>Kommentar-Editor</h3>
+        
+        <p>Der Editor bietet genau wie der Artikel-Editor die Auswahl zwischen TinyMCE und CodeMirror, besitzt jedoch nicht alle Funktionen des Artikel-Editors. Oberhalb des Editors
+        werden noch zusätzliche Informationen angezeigt, u. a. von welcher IP-Adresse der Kommentar geschrieben wurde. Diese Information kann zur Vermeidung von Spam, bei Straftaten, etc.
+        wichtig sein.</p>
+        
+        <p>Aus Datenschutz-Gründen wird die IP-Adresse mittels den Cronjob <em>IP-Adressen aus Kommentaren anonymisieren</em> per default einmal im Monat anonymisiert. Die Anonymisierung
+        erfolgt nicht für Kommentare, welche als Spam eingestuft wurden, da entsprechende Kommentare später auch zur Spam-Erkennung herangezogen werden.</p>
+        
         ]]>
         
     </chapter>
@@ -205,27 +220,27 @@ Help language file
             hochgeladenen Datei an.</p>
 
         <dl>
-            <dt><strong>Suche und Filter:</strong></dt>
+            <dt>Suche und Filter:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Artikel anhand
             verschiedener Kriterien weiter eingrenzen. Über die Hauptnavigation kannst du bereits eine Vorauswahl treffen, welche Artikel
             dir angezeigt werden sollen.</dd>
-            <dt><strong>Thumbnails erzeugen:</strong></dt>
+            <dt>Thumbnails erzeugen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Für ausgewählte Dateien kann das Thumbnial neu erzeugt werden.</dd>
-            <dt><strong>Löschen:</strong></dt>
+            <dt>Löschen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die ausgewählten Dateien können gelöscht werden. Wichtig! Für Dateien existiert kein Papierkorb.</dd>
-            <dt><strong>Umbenennen:</strong></dt>
+            <dt>Umbenennen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über den Button kann die Datei umbenannt werden, die Dateiendung muss dabei nicht angehangen werden.</dd>
-            <dt><strong>Thumbnail öffnen:</strong> (nur Dateimanager)</dt>
+            <dt>Thumbnail öffnen:</strong> (nur Dateimanager)</dt>
             <dd class="fpcm-ui-padding-md-bottom">Öffnen des Thumbnails.</dd>
-            <dt><strong>Bild öffnen:</strong> (nur Dateimanager)</dt>
+            <dt>Bild öffnen:</strong> (nur Dateimanager)</dt>
             <dd class="fpcm-ui-padding-md-bottom">Öffnen des eigentlichen Bildes.</dd>
-            <dt><strong>Artikel-Bild festlegen:</strong> (nur Editor)</dt>
+            <dt>Artikel-Bild festlegen:</strong> (nur Editor)</dt>
             <dd class="fpcm-ui-padding-md-bottom">Ausgewählte Datei als Artikel-Bild festlegen.</dd>
-            <dt><strong>Thumbnail-URL einfügen:</strong> (nur Editor)</dt>
+            <dt>Thumbnail-URL einfügen:</strong> (nur Editor)</dt>
             <dd class="fpcm-ui-padding-md-bottom">Thumbnail-URL der ausgewählten Datei in Dialog übernehmen.</dd>
-            <dt><strong>Bild-URL einfügen:</strong> (nur Editor)</dt>
+            <dt>Bild-URL einfügen:</strong> (nur Editor)</dt>
             <dd class="fpcm-ui-padding-md-bottom">Bild-URL der ausgewählten Datei in Dialog übernehmen.</dd>
-            <dt><strong>Karten / Liste:</strong></dt>
+            <dt>Karten / Liste:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
             die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
         </dl>
@@ -242,35 +257,41 @@ Help language file
         <h3>Profil</h3>
         
         <dl>
-            <dt><strong>Angezeigter Name:</strong></dt>
+            <dt>Angezeigter Name:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Name, welcher öffentlich angezeigt wird. Wird nicht für den Login verwendet.</dd>
-            <dt><strong>Benutzername:</strong></dt>
-            <dd class="fpcm-ui-padding-md-bottom">Name für den Login.</dd>
-            <dt><strong>Passwort:</strong></dt>
-            <dd class="fpcm-ui-padding-md-bottom">Zeichenkette welches für den Login verwendet wird.</dd>
-            <dt><strong>E-Mail-Adresse:</strong></dt>
+            <dt>Benutzername:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dein Name für den Login. Deinen Benutzernamen kannst du nicht selbst ändern. Wende dich hierfür an einen Administrator.</dd>
+            <dt>Passwort:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Zeichenkette welches für den Login verwendet wird. Neben dem Eingabefeld findest du den Button <strong>Password generieren</strong>.
+            Über diesen kannst du eine zufällige Zeichenkette erzeugen lassen und als Passwort abspeichern.</dd>
+            <dt>E-Mail-Adresse:</dt>
             <dd class="fpcm-ui-padding-md-bottom">E-Mail-Adresse für Benachrichtigungen, ein neu gesetztes Passwort, etc.</dd>
-            <dt><strong>Biografie / Sonstiges:</strong> (optional)</dt>
+            <dt>Biografie / Sonstiges:</strong> (optional)</dt>
             <dd class="fpcm-ui-padding-md-bottom">Kurzer Info-Text zum Autor, der in den News angezeigt werden kann.</dd>            
-            <dt><strong>Avatar:</strong> (optional)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer-Avatar, Dateiname entspricht dem Muster <em>benutzername.jpg/png/gif/bmp</em></dd>            
+            <dt>Avatar:</strong> (optional)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer-Avatar, Dateiname entspricht dem Muster <em>benutzername.jpg/png/gif/bmp</em></dd>
+            <dt>Zwei-Faktor-Authentifizierung:</strong> (optional)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist
+            optional und kann durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels der App "Google Authenticator" auf deinem Smartphone
+            realiisert. Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den angezeigten QR Code mit deinem Smartphone mit der App. Trage im Anschluss den ersten Zahlencode
+            in das Eingabefeld ein und speicher den Vorgang.</dd>
         </dl>
 
         <h3>Benutzereinstellungen</h3>
         <dl>
-            <dt><strong>Zeitzone:</strong></dt>
+            <dt>Zeitzone:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Zeitzone für Datums- und Zeit-Angaben.</dd>
-            <dt><strong>Sprache:</strong></dt>
+            <dt>Sprache:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Sprach-Einstellung für das FanPress-ACP.</dd>
-            <dt><strong>Datum- und Zeitanzeige:</strong></dt>
+            <dt>Datum- und Zeitanzeige:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Muster, in welcher Art Datums- und Zeitangaben dargestellt werden.</dd>
-            <dt><strong>Anzahl Elemente pro Seite im ACP:</strong></dt>
+            <dt>Anzahl Elemente pro Seite im ACP:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Anzahl an dargestellten Elementen pro Seite im ACP</dd>
-            <dt><strong>Standard-Schriftgröße im Editor:</strong></dt>
+            <dt>Standard-Schriftgröße im Editor:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Schriftgröße, die standardmäßig im Artikel-Editor genutzt wird</dd>
-            <dt><strong>jQuery Dateiupload verwenden:</strong></dt>
+            <dt>jQuery Dateiupload verwenden:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Nutzung des AJAX- oder HTML-Uploads</dd>
-            <dt><strong>Dateimanager-Ansicht:</strong></dt>
+            <dt>Dateimanager-Ansicht:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
             die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
         </dl>
@@ -494,39 +515,78 @@ Help language file
     <chapter ref="HL_CRONJOBS">
         <![CDATA[
         <ul>
-            <li>Cronjobs sind Aufgaben, welche in regelmäßgen Abständen automatisch durch FanPress CM im Hintergrund
-                ausgeführt werden.</li>
-            <li>Die Cronjob-Übersicht zeigt eine Liste aller verfügbaren Cronjobs, wenn sie zuletzt ausgeführt wurden,
-                sowie den Zeitpunkt der nächsten voraussichtlichen Ausführung.</li>
-            <li>Die Häufigkeit der Ausführung eines Cronjobs kannst du anpassen, indem der Wert für das Intervall-Zeit
-                angepasst wird.</li>
+            <li>Cronjobs sind Aufgaben, welche in regelmäßgen Abständen automatisch durch FanPress CM im Hintergrund ausgeführt werden.</li>
+            <li>Die Cronjob-Übersicht zeigt eine Liste aller verfügbaren Cronjobs, wenn sie zuletzt ausgeführt wurden, sowie den Zeitpunkt der
+            nächsten voraussichtlichen Ausführung.</li>
+            <li>Die Häufigkeit der Ausführung eines Cronjobs kannst du anpassen, indem der Wert für das Intervall-Zeit angepasst wird.</li>
             <li>Beachte bei der Änderung des Intervals, dass Cronjobs u. U. für erhöhte Serverlast führen kann.</li>
         </ul>
+
+        <dl>
+            <dt>Artikel-Revisionen bereinigen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Wurde die Option <em>Alte Revisionen löschen, wenn älter als</em> auf einen Wert ungleich <em>Nie</em> gesetzt,
+            bereinigt dieser Cronjob die Artikel-Revisionen im eingestellten Interval. Standardmäßig erfolgt dies einmal im MOnat.</dd>
+            <dt>Dateiindex neu aufbauen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Standardmäßig einmal pro Tag wird der Dateiindex, d. h. die Informationen über hochgeladene Bilder
+            neu aufgebaut. Hierbei werden gelöschte Dateien entfernt und ggf. neu hochgeladene Bilder erfasst, sollte dies beim Upload nicht automatisch erfolgt sein.</dd>
+            <dt>Dateimanager-Thumbnails erzeugen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dieser Cronjob erzeugt die Vorschaubilder im Dateimanager neu. (Standard: einmal pro Woche)</dd>
+            <dt>geplante Artikel veröffentlichen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dieser Cronjob wird im Standard aller zehn Minuten ausgeführt und sorgt für die automatische Veröffentlichung von
+            geplanten Artikeln. Wurde dieser Cronjob deaktiviert, müssen alle Artikel - auch solche die im Editor oder den Listen als geplant angezeigt werden - manuell
+            veröffentlicht werden.</dd>
+            <dt>IP-Adressen aus Kommentaren anonymisieren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Cronjob erfolgt die regelmäßig Anonymisierung der IP-Adressen in Kommentaren. Hierdurch wird die Personenbindung
+            aufgehoben, allerdings lässt sich dann auch nicht mehr erkennen, woher der Kommentar genau kam. Die Ausführung erfolgt per default einmal im Monat.</dd>
+            <dt>Prüfung auf Updates:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die Prüfung auf System- und Modul-Updates wird durch diesen Cronjob durchgeführt. Die Ausführung erfolgt nur, wenn FanPress CM
+            sich zum Update-Server verbinden kann. Die Prüfung erfolgt standardmäßig einmal täglich.</dd>
+            <dt>System-Datenbank sichern:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die Sicherung der System-Datenbank dient dieser Cronjob. Die erzeugten backups werden im Verzeichnis <em>/data/dbdump</em> abgelegt
+            und können über den Backup-Manager verwaltet werden. Im Standard erfolgt die Sicherung einmal pro Woche. Bei hohem Artikel-Aufkommen sollte das Interval entsprechend
+            reduziert werden.</dd>
+            <dt>Systemlogs leeren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die Log-Dateien können unter Umständen sehr groß werden, daher werden diese (im Standard monatlich) auf ihre Dateigröße geprüft und
+            bei Überschreitung einer Größe von 1 MB bereinigt. Das vorherige Log wird gespeichert. Die Bereinigung des Session-Logs erfolgt unabhängig von der Anzahl der Einträge.</dd>
+            <dt>temporäre Dateien aufräumen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Bei Updates, sowie in der täglichen Arbeit fallen immer wieder temporäre Dateien an, welche unter Umständen nicht sofort bereinigt werden
+            (können). Dieser Cronjob prüft auf entsprechende Dateien und löscht diese; im Standard einmal pro Woche.</dd>
+        </dl>
         ]]>
     </chapter>
     <chapter ref="HL_LOGS">
         <![CDATA[
         <p>Im Bereich der Systemlogs findest du eine Auflistung aller bisherigen Benutzer-Logins, System-Meldungen von FanPress und
-            Fehlermeldungen durch PHP selbst oder der Datenbank. Über den Button <i>Log-Datei leeren</i> kannst du Meldungen, etc. löschen
+            Fehlermeldungen durch PHP selbst oder der Datenbank. Über den Button <strong>Leeren</strong> kannst du Meldungen, etc. löschen
             lassen.</p>
-        <ul>
-            <li>Das <em>System-Log</em> beinhaltet allgemeine Meldungen von FanPress CM.</li>
-            <li>Das <em>PHP-Fehler-Log</em> beinhaltet einen Übersicht über Fehlermeldungen, die aufgrund von Fehlern bei der
-                Server-seitigen Ausführung des FanPress CM Codes auftreten.</li>
-            <li>Im <em>Datenbank-Log</em> werden Fehler- und Hinweismeldungen geführt, welche bei der Ausführung von Datenbank-Zugriffen
-                auftreten.</li>
-            <li>Das <em>Session-Log</em> ist eine Übersicht über durchgeführte Logins aller vorhandenen Benutzern.</li>
-            <li>Im <em>Paket-Manager-Log</em> wird eine Übersicht über installierte Pakete geführt. Dies sind Pakete für System-Updates
-                und Pakete von Modulen.</li>
-        </ul>
+        
+        <dl>
+            <dt>Session-Log:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dieses Protokoll zeigt eine Übersicht über die Logins aller Benutzer, abgesehen von aktuell aktiven Sessions, z. B. deiner eigenen.
+            Angezeigt werden alle relevanten Informationen, d. h. wer hat sich wann ein- bzw. ausgeloggt. Externe Logins erfolgten über die Funktionen der FanPress CM-API. Der
+            User-Agent enthält Informationen, mit welchem Browser oder Programm der Login erfolgte.</dd>
+            <dt>System-Log:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dieses Log beinhaltet allgemeine Meldungen von FanPress CM, Status-Meldungen und falls nötig Diagnose-Informationen.</dd>
+            <dt>Fehler-Log:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">In diesem Protokoll werden allen von Fehlern, welche im Betrieb, bei Updates, Änderungen der Systemkonfiguration, etc. auftreten.
+            Fatale PHP_Fehler können hier unter Umständen nicht angezeigt werden, da die System-Protokollierung zu diesem Zeitpunkt noch nicht greift. Nicht alle Einträge sind
+            zwangsläufig kritisch. Bei Fragen lassen uns einfach eine Nachricht zukommen.</dd>
+            <dt>Datenbank-Log:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Das Datenbank-Log enthält weitergehende Informationen zu Ereignissen auf Datenbank-Seite, z. B. fehlschlagende Abfragen, fehlschlagende
+            Verbindungen zum Datenbank-Server, etc.</dd>
+            <dt>Cron-Log:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Hier werden Status-Informationen, Laufzeiten, etc. zu ausgeführten Cronjobs protokolliert. Dieses Log kann in Abhängigkeit von der
+            Cronjob-Konfiguration sehr schnell stark wachsen und sollte daher regelmäßig bereinigt werden.</dd>
+            <dt>Paket-Manager-Log:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Das Paket-Manager-Log beinhaltet Status-Informationen zu System-Updates, sowie Installation oder Updates von Modulen.</dd>
+        </dl>
         ]]>
     </chapter>
     <chapter ref="HL_BACKUPS">
         <![CDATA[
         <ul>
-            <li>Im Bereich "Backupmanager" kannst du die automatisch erzeugten Datenbank-Backups herunterladen.</li>
-            <li>Die erzeugten Datenbank-Backups sind gepackten SQL-Dateien, deren Struktur vom verwendeten Datenbank-System
-                abhängt.</li>
+            <li>Dieser Bereich ermöglicht dir die Verwaltung der automatisch erzeugten Datenbank-Backups. Du kannst diese herunterladen oder löschen.</li>
+            <li>Die erzeugten Datenbank-Backups sind gepackte SQL-Dateien, deren Struktur vom verwendeten Datenbank-System abhängt.</li>
             <li>Um ein Backup bei Bedarf wiederherzustellen, kannst du Werkzeuge wie
                 <a href="https://www.phpmyadmin.net/" target="_blank">phpMyAdmin</a>, <a href="https://www.adminer.org/de" target="_blank">Adminer</a> or
                 <a href="http://phppgadmin.sourceforge.net/doku.php" target="_blank">phpPgAdmin</a> nutzen.

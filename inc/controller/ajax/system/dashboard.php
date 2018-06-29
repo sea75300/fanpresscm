@@ -60,7 +60,7 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
                 continue;
             }
 
-            $pos = $containerObj->getPosition();
+            $pos = $containerObj->getPosition().'_'.$containerObj->getName();
             if (isset($this->containers[$pos])) {
                 trigger_error('Error parse dashboard container, position ' . $pos . ' already taken!');
                 continue;
@@ -74,10 +74,6 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
             $containerViewVars = $containerObj->getControllerViewVars();
             $viewVars = array_merge($viewVars, $containerViewVars);
 
-            if ($pos === \fpcm\model\abstracts\dashcontainer::DASHBOARD_POS_MAX) {
-                $pos = count($this->containers);
-            }
-            
             $this->containers[$pos] = $containerObj;
         }
 

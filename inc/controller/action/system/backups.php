@@ -43,8 +43,8 @@ class backups extends \fpcm\controller\abstracts\controller {
 
             $file = new \fpcm\model\files\dbbackup($deleteFile);
             if (!$file->exists()) {
-                $this->view = new \fpcm\view\error('GLOBAL_NOTFOUND_FILE');
-                return false;
+                $this->view->addErrorMessage('GLOBAL_NOTFOUND_FILE');
+                return true;
             }
 
             if (!$file->delete()) {

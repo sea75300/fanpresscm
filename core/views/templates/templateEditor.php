@@ -21,7 +21,7 @@
 
             <dl class="fpcm-ui-monospace">
             <?php foreach ($replacements as $tag => $descr) : ?>
-                <dt><a href="#" data-tag="<?php print $tag; ?>" class="fpcm-ui-template-tags fpcm-ui-float-left fpcm-ui-block fpcm-ui-padding-md-right"><?php $theView->icon('plus-square ')->setSize('lg'); ?></a> <strong><?php print $tag; ?></strong></dt>
+                <dt><a href="#" data-tag="<?php print $tag; ?>" class="fpcm-ui-template-tags fpcm-ui-float-left fpcm-ui-block fpcm-ui-padding-md-right"><?php $theView->icon('plus-square ')->setSize('lg'); ?></a> <?php print $tag; ?></dt>
                 <dd class="fpcm-ui-padding-md-bottom"><?php print $descr; ?></dd>
             <?php endforeach; ?>
             </dl>

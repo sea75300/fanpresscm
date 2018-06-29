@@ -16,7 +16,6 @@ h2 {
     color: #2779aa;
     border: 1px solid #aed0ea;
     background: #deedf7 url("../../lib/jquery-ui/images/ui-bg_glass_100_deedf7_1x400.png") 50% 50% repeat-x;
-    font-weight: bold;
     padding: 0.4em;
 }
 
@@ -31,14 +30,22 @@ h3 {
 }
 
 a, a:visited, a.fpcm-link {
-    font-weight: bold;
     text-decoration: none;  
     color: #0048a9;
 }
 
 a:hover, a:focus, a:active {
-    font-weight: bold;
     text-decoration: none;
+}
+
+b,
+strong,
+dt,
+a, a:visited, a.fpcm-link,
+a:hover, a:focus, a:active,
+h2,
+h3, .fpcm-dashboard-container h3 {
+    font-weight: bold;
 }
 
 i, em {
@@ -51,7 +58,6 @@ ol.list-large li {
 }
 
 /* .CSS-Klassen und #IDs */
-
 div.fpcm-status-info ul.fpcm-menu-top #fpcm-ui-showmenu-li,
 .fpcm-ui-progressbar-label,
 .fpcm-updater-list span.fa,
@@ -747,7 +753,6 @@ h3, .fpcm-dashboard-container h3 {
     border: 1px solid #2694e8;
     background: #3baae3 url("../../lib/jquery-ui/images/ui-bg_glass_50_3baae3_1x400.png") 50% 50% repeat-x;
     color: #FFF;
-    font-weight: bold;
     padding: 0.4em;
 }
 
