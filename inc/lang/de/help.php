@@ -251,8 +251,8 @@ Help language file
     </chapter>
     <chapter ref="HL_PROFILE">
         <![CDATA[
-        <p>Das eigene <b>Profil</b> können alle Benutzer über das Profil-Menü oben rechts aufrufen. Jeder Benutzer kann dort folgende Dinge
-            anpassen:</p>
+        <p>Das eigene <b>Profil</b> können alle Benutzer über das Profil-Menü oben rechts aufrufen. Über den Button <strong>Zurücksetzen</strong>
+        können die Einstellungen auf die systemweiten Vorgaben zurücksetzen.</p>
         
         <h3>Profil</h3>
         
@@ -295,8 +295,7 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
             die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
         </dl>
-        
-        <p>Über den Button <strong>Zurücksetzen</strong> können die Einstellungen auf die systemweiten Vorgaben zurücksetzen.</p>
+
         ]]>
     </chapter>
     <chapter ref="HL_OPTIONS">
@@ -483,33 +482,93 @@ Help language file
     <chapter ref="HL_CATEGORIES_MNG">
         <![CDATA[
         <ul>
-            <li>Benutzer mit entsprechenden Rechten können hier neue Kategorien, sowie bestehende ändern oder löschen.</li>
+            <li>Kategorien ermöglichen die Einsortierung von Artikeln nach bestimmten Stichworten bzw. Themengebieten. Insbesondere bei der Suche
+            nach Artikeln ermöglicht dies eine Beschleunigung der Suche.</li>
+            <li>Benutzer mit entsprechenden Rechten können neue Kategorien anlegen, sowie bestehende ändern oder auch löschen.</li>
             <li>Der Zugriff auf Kategorien kann auf bestimmte Benutzergruppen beschränkt werden.</li>
-            <li>Für das "Kategorie-Icon" kann eine Bid-Datei auf einem externen Server oder lokal auf deinem Webspace verwendet
-                werden. In beiden Fällen sollte die vollständige URL angegeben werden.</li>
+            <li></li>
         </ul>
+        
+        <dl>
+            <dt>Kategorie-Name:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Der Kategorie-Name wird im Artikel-Editor angezeigt und kann zudem über den Platzhalter
+            <em>{{categoryTexts}}</em> im Frontend ausgegeben werden.</dd>
+            <dt>Kategorie-Icon:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Hierfür kann eine Bid-Datei auf einem externen Server oder lokal auf deinem Webspace verwendet
+            werden. In beiden Fällen sollte die vollständige URL angegeben werden. Die Anzeige der vergebenen Icons erfolgt im Frontend über
+            den Platzhalter <em>{{categoryIcons}}</em>.</dd>
+            <dt>Verfügbar für Rollen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diese Einstellung wird festgelegt, welche Benutzer eine bestimmte Kategorie nutzen kann.</dd>
+        </dl>
         ]]>
     </chapter>
     <chapter ref="HL_OPTIONS_TEMPLATES">
         <![CDATA[
         <p>Benutzer mit entsprechenden Rechten können die Templates zur Ausgabe von Artikeln, Kommentaren, etc. bearbeiten.
-            Für eine bessere Übersicht bietet der Template-Editor Syntax-Highlighting und eine Liste der verfügbaren Platzhalter.</p>
+        Für eine bessere Übersicht bietet der Template-Editor Syntax-Highlighting und eine Liste der verfügbaren Platzhalter.</p>
+
+        <h3>Templates</h3>
+        
+        <dl>
+            <dt>Artikel-Liste:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Template für Anzeige von Artikeln in der Artikel-Liste.</dd>
+            <dt>Artikel-Einzel-Ansicht:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Template für Anzeige eines einzelnen Artikels inkl. dessen Kommentaren, dem
+            Kommentar-Formular, etc. Dieser Tab wird nicht angezeigt, wenn für <em>Artikel-Liste</em> und <em>Artikel-Einzel-Ansicht</em>
+            das gleiche Template genutzt wird.</dd>
+            <dt>Kommentar:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Template für die Anzeige eines einzelnen Kommentarsim Frontend.</dd>
+            <dt>Kommentar-Formular:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Template für das Formular zum Verfassen eines Kommentars.</dd>
+            <dt>Share-Buttons:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Template für die Darstellung der Sharebuttons in Artikeln.</dd>
+            <dt>Latest News:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Template für die einzelnen Zeilen in den "Latest News".</dd>
+            <dt>Tweet:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">HTML-freies Template für automatisch erzeugte Einträge bei Twitter (Tweets).</dd>
+            <dt>Vorlagen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">HTML-Vorlagen zu Nutzung im Artikel-Editor. (TinyMCE bzw. HTML-Ansicht).</dd>
+        </dl>
+        
+        <h3>Editor</h3>
+        
+        <dl>
+            <dt>Verwendbare Platzhalter:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die Verwendbaren Platzhalter können durch einen Klick auf das Plus-Icon in das ausgewählte
+            Template eingefügt werden. Die Platzhalter werden später durch die entsprechenden Inhalte ersetzt.</dd>
+            <dt>Erlaubte HTML-Tags:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die erlaubte HTML-Tags umfasst die HTML-Elemente, welche in Templates genutzt werden können.
+            Alle anderen Templates werden beim Speichern gefiltert.</dd>
+            <dt>Editor:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Der Editor basiert ebenfalls auf CodeMirror und arbeitet ähnlich wie der Artikel-Editor.</dd>
+            <dt>Vorschau anzeigen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Der Button "Vorschau anzeigen" ermöglicht es, vom im Editor vorhandenen Template-Inhalt
+            eine Vorschau anzuzeigen lassen.</dd>
+        </dl>
+        
+        <h3>Vorlagen</h3>
+        
         <ul>
-            <li><em>Artikel-Liste:</em> Template für Anzeige von Artikeln in der Artikel-Liste</li>
-            <li><em>Artikel-Einzel-Ansicht:</em> Template für Anzeige eines einzelnen Artikels inkl.
-                dessen Kommentaren, dem Kommentar-Formular, etc. Dieser Tab wird nicht angezeigt, wenn für
-                <em>Artikel-Liste</em> und <em>Artikel-Einzel-Ansicht</em> das gleiche Template genutzt wird.</li>
-            <li><em>Kommentar:</em> Template für einen einzelnen Kommentar</li>
-            <li><em>Kommentar-Formular:</em> Template für das Formular zum Verfassen eines Kommentars</li>
-            <li><em>Latest News:</em> Template für die einzelnen Zeilen in den "Latest News"</li>
-            <li><em>Tweet:</em> HTML-freies Template für automatisch erzeugte Einträge bei Twitter (Tweets).</li>
-            <li><em>Vorlagen:</em> HTML-Vorlagen zu Nutzung im Artikel-Editor. (TinyMCE bzw. HTML-Ansicht)</li>
+            <li>Vorlagen sind HTML-Dateien, deren Inhalt Inhalt im Artikel-Editor verwendet werden kann.</li>
+            <li>Hiermit können wiederkehrende Artikel-Inhalte gesichert und immer in der gleichen Art wiederverwendet werden.</li>
+            <li>Die Vorlagen können durch den Klick auf den Button <strong>Bearbeiten</strong> über einen CodeMirror-basierten Editor
+            angepasst werden. Weitere können bei Bedarf ins System hochgeladen werden.</li>
         </ul>
+
         ]]>
     </chapter>
     <chapter ref="HL_OPTIONS_SMILEYS">
         <![CDATA[
         <p>Benutzer mit den entsprechenden Rechten können die nutzbaren Smileys verwalten.</p>
+        <dl>
+            <dt>Smiley-Code:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Der Smiley-Code wird in Artikeln und Kommentaren als Platzhalter für die entsprechende
+            Grafik verwendet. Die Ersetzung erfolgt beim Parsen eines Artikels bzw. Kommentars im Frontend. Jeder Smiley-Code kann nur
+            einmal angelegt werden.</dd>
+            <dt>Dateiname:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dieses Feld umfasst nur den Dateiname der entsprechenden Smiley-Grafik, welche unter
+            <em>/data/smileys</em> abgelegt wurden.</dd>
+        </dl>
         ]]>
     </chapter>
     <chapter ref="HL_CRONJOBS">
@@ -525,7 +584,7 @@ Help language file
         <dl>
             <dt>Artikel-Revisionen bereinigen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Wurde die Option <em>Alte Revisionen löschen, wenn älter als</em> auf einen Wert ungleich <em>Nie</em> gesetzt,
-            bereinigt dieser Cronjob die Artikel-Revisionen im eingestellten Interval. Standardmäßig erfolgt dies einmal im MOnat.</dd>
+            bereinigt dieser Cronjob die Artikel-Revisionen im eingestellten Interval. Standardmäßig erfolgt dies einmal im Monat.</dd>
             <dt>Dateiindex neu aufbauen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Standardmäßig einmal pro Tag wird der Dateiindex, d. h. die Informationen über hochgeladene Bilder
             neu aufgebaut. Hierbei werden gelöschte Dateien entfernt und ggf. neu hochgeladene Bilder erfasst, sollte dies beim Upload nicht automatisch erfolgt sein.</dd>
