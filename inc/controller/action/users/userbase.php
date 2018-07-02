@@ -181,6 +181,8 @@ class userbase extends \fpcm\controller\abstracts\controller {
         $this->user->setUserMeta(isset($data['usermeta']) ? $data['usermeta'] : []);
         $this->user->setUsrinfo(isset($data['usrinfo']) ? $data['usrinfo'] : '');
         $this->user->setDisabled(isset($data['disabled']) ? $data['disabled'] : 0);
+        $this->user->setChangeTime(time());
+        $this->user->setChangeUser((int) $this->session->getUserId());
 
         return true;
     }

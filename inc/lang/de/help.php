@@ -54,6 +54,8 @@ Help language file
         <p>Über den Button <span class="fpcm-ui-button">Kurzlink</span> am oberen Kopf des Artikel-Editors ist es bei gespeicherten Artikeln möglich, die URL über den Dienst
             <a href=http://is.gd>is.gd</a> kürzen zu lassen. Der genutzte Dienst kann über ein Modul-Event geändert werden</p>
 
+        <h3>Eigenschaften</h3>
+        
         <dl>
             <dt>Artikelbild:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Mit dem Artikelbild kannst du einen Artikel eine zusätzliche Dekoration, optische
@@ -144,6 +146,8 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Sofern aktiv ist diese Option aktiv. Hier findest du eine Übersicht aller gelöschten Artikel.
             Du kannst diese hier wieder herstellen oder vollständig löschen.</dd>
         </dl>
+        
+        <p>Die verfügbaren Eigenschaften werden im Artikel-Editor näher beschrieben.</p>
 
         <h3>Aktionen</h3>
         
@@ -159,8 +163,7 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Für den bzw. die ausgewählten Artikel neue Posts bei Twitter erzeugen, wenn Verbindung
             zu Twitter eingerichtet wurde.</dd>
             <dt>Löschen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Den bzw. die ausgewählten Artikel löschen. Wurde in den Systemeinstellungen der Papierkorb
-            aktiviert, so werden die Artikel zuerst in den Papierkorb verschoben, an sonsten werden sie sofort gelöscht.</dd>
+            <dd class="fpcm-ui-padding-md-bottom">Den bzw. die ausgewählten Artikel löschen.</dd>
             <dt>Elemente wiederherstellen / Papierkorb leeren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Diese Optionen stehen im Papierkorb zur Verfügung. Die ausgewählten Artikel aus dem
             Papierkorb können hierüber wiederhergestellt oder endgültig gelöscht werden.</dd>
@@ -177,9 +180,6 @@ Help language file
         <h3>Eigenschaften</h3>
         
         <dl>
-            <dt>Bearbeiten:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Massenbearbeitung für die ausgewählten Kommentare aufrufen. Die auswählbaren
-                Optionen entsprechen denen im Kommentar-Editor.</dd>
             <dt>Kommentar ist privat:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Private Kommentare werden nicht öffentlich angezeigt, sondern sind nur
             für Benutzer innerhalb von FanPress CM sichtbar.</dd>
@@ -194,11 +194,22 @@ Help language file
             <dt>Kommentar zu Artikel mit ID verschieben:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die ausgewählten Kommentare zur eingetragenen Artikel-ID
                         verschieben. Das Eingabefeld unterstützt die Suche nach Artikeln mittel Autovervollständigung.</dd>
-            <dt>Löschen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Ausgewählte Kommentare können gelöscht werden.</dd>
+        </dl>
+
+        <h3>Aktionen</h3>
+        
+        <dl>
+            <dt>Bearbeiten:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über die Massenbearbeitung können alle ausgewählten Kommentare auf einmal bearbeitet werden.
+            Die auswählbaren Optionen entsprechen denen im Kommentar-Editor.</dd>
             <dt>Suche und Filter:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Kommentare anhand
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Kommenare anhand
             verschiedener Kriterien weiter eingrenzen.</dd>
+            <dt>Löschen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Den bzw. die ausgewählten Kommentare löschen.</dd>
+            <dt>Elemente wiederherstellen / Papierkorb leeren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Diese Optionen stehen im Papierkorb zur Verfügung. Die ausgewählten Kommentare aus dem
+            Papierkorb können hierüber wiederhergestellt oder endgültig gelöscht werden.</dd>
         </dl>
         
         <h3>Kommentar-Editor</h3>
@@ -431,52 +442,169 @@ Help language file
     </chapter>
     <chapter ref="HL_OPTIONS_USERS">
         <![CDATA[
+
+        <p>Mit den entsprechenden Rechten können Benutzer und Benutzer-Rollen verwaltet werden.</p>
+
+        <h3>Benutzer</h3>
+        
         <ul>
-            <li>Mit den entsprechenden Rechten können Benutzer und Benutzer-Rollen verwaltet werden.</li>
-            <li>Ein Benutzer kann lediglich Mitglied einer einzelnen Rolle sein.</li>
+            <li>Über Benutzer wird der Zugriff auf den Administratonsbereich gesteuert, sowie dokumentiert wer welchen Artikel,
+            Kommentar, etc. verfasst oder bearbeitet hat.</li>
             <li>Benutzer können deaktiviert werden. Dabei wird der Login gesperrt und somit der Zugriff auf den
-                Administratonsbereich gesperrt. Die Erstellten Artikel, etc. bleiben erhalten. Dies kann nützlich sein, wenn
-                der Benutzer das Team deiner Seite verlassen hat, aus ihm ausgeschlossen wurde oder der Account irgendwie
-                missbraucht wurde.</li>
-            <li>Die änderbaren Informationen in den Benutzern entsprechen denen im Benutzer-Profil.</li>
-            <li><strong>Berechtigungen:</strong> Benutzer mit entsprechenden Rechten können hier die Zugriffsrechte
-                auf verschiedene Dinge von FanPress CM ändern und den Zugriff einschränken. Der Bereich sollte nur von
-                Administratoren nutzbar sein! Der Rolle "Administrator" kann der Zugriff auf die Rechte-Einstellungen nicht
-                verweigert werden. Seit Version 3.6 werden Berechtigungen direkt im bereich der Rollen bearbeitet.
-            </li>
+            Administratonsbereich gesperrt. Die erstellten Artikel, etc. bleiben erhalten. Dies kann nützlich sein, wenn
+            der Benutzer das Team deiner Seite verlassen hat, aus ihm ausgeschlossen wurde oder der Account irgendwie
+            missbraucht wurde.</li>
+            <li>Die änderbaren Informationen in den Benutzern entsprechen denen im Benutzer-Profil. Die von einem Benutzer
+            getroffenen Einstellungen können hier auf die systemweiten Einstellungen zurückgesetzt oder angepasst werden.</li>
+
         </ul>
+
+        <h3>Benutzer-Rollen</h3>
+        
+        <p>Ein Benutzer ist immer Mitglied einer Rolle, über deren Berechtigungen der Zugriff des Benutzers auf bestimmte Funktionen
+        gesteuert wird.</p>
+        
+        <h3>Berechtigungen</h3>
+
+        <p>Benutzer mit entsprechenden Rechten können hier die Zugriffsrechte auf verschiedene Dinge von FanPress CM ändern und
+        den Zugriff einschränken. Der Bereich sollte nur von Administratoren nutzbar sein! Der Rolle "Administrator" kann der
+        Zugriff auf die Rechte-Einstellungen nicht verweigert werden.</p>
+        
+        <dl>
+            <dt>Artikel schreiben</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Funktion zum Artikel verfassen freigeben</dd>
+            <dt>Eigene Artikel Bearbeiten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann nur eigene Artikel bearbeiten</dd>
+            <dt>Aktive Artikel Bearbeiten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann aktive Artikel bearbeiten</dd>
+            <dt>Artikel löschen</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Artikel löschen</dd>
+            <dt>Artikel archivieren und im Archiv bearbeiten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Artikel archiviert und danach noch bearbeiten</dd>
+            <dt>Artikel müssen freigeschalten werden</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Artikel der Benutzer müssen vor der Veröffentlichung geprüft werden</dd>
+            <dt>Revisionen verwalten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer können Revisionen löschen/wiederherstellen</dd>
+            <dt>Artikel-Autor ändern</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer können Autor eines Artikels ändern</dd>
+            <dt>Artikel in Masse bearbeiten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer können Artikel in Masse bearbeiten</dd>
+            <dt>Kommentare auf eigene Artikel bearbeiten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann nur Kommentare auf eigene Artikel
+            bearbeiten</dd>
+            <dt>Kommentare auf alle Artikel bearbeiten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann nur Kommentare auf alle Artikel
+            bearbeiten</dd>
+            <dt>Kommentare löschen</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Kommentare löschen</dd>
+            <dt>Kommentare genehmigen</dt>
+            <dt>Kommentare auf "Privat" setzen</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Der Benutzer kann den Kommentar-Status auf
+            für Spam, Genehmigt und Privat ändern.</dd>
+            <dt>Kommentare zu anderem Artikel verschieben</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Kommentare können vom aktuellen zu einem anderen
+            Artikel verschieben</dd>
+            <dt>Kommentare in Masse bearbeiten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer können Kommentrae in Masse bearbeiten</dd>
+            <dd class="fpcm-ui-padding-md-bottom"></dd>
+            <dt>Systemeinstellungen verwalten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Diese Berechtigung legt zentral fest, ob der Benutzer auf
+            die Systemeinstellungen zugreifen kann.</dd>
+            <dt>Benutzer verwalten</dt>
+            <dt>Benutzer-Rollen verwalten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Benutzer und Rollen verwalten</dd>
+            <dt>Kategorien verwalten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann neue Kategorien anlegen oder
+            bestehende bearbeiten/ löschen</dd>
+            <dt>Berechtigungen verwalten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Hierüber kann geregelt werden, ob ein Benutzer
+            die Berechtigungen ändern kann. Für die Gruppe "Administratoren" kann dieses Recht
+            nicht entzogen werden.</dd>
+            <dt>Templates verwalten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann die Tempaltes und Vorlagen bearbeiten</dd>
+            <dt>Smileys verwalten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Smileys neu definieren und bestehende löschen</dd>
+            <dt>Updates durchführen</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann verfügbare Updates installieren.</dd>
+            <dt>System-Logs verwalten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann die Systemlogs einsehen und bei Bedarf bereinigen</dd>
+            <dt>Cronjobs verwalten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Cronjobs verwalten</dd>
+            <dt>Backups verwalten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Datenbank-Backups verwalten</dd>
+            <dt>Textzensur verwalten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Begriffe der Textzensur verwalten</dd>
+            <dt>IP-Adressen verwalten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann IP-Adress-Sperren verwalten</dd>
+            <dt>Module aktivieren/deaktivieren</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann aktivieren und deaktivieren</dd>
+            <dt>Module installieren</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann installieren und aktualisieren</dd>
+            <dt>Module deinstallieren</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann deinstallieren</dd>
+            <dt>Dateimanager ist sichtbar</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Der Dateimanager ist für die Benutzer sichtbar und kann
+            über den Editor aufgerufen werden.</dd>
+            <dt>Dateien hochladen</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann neue Dateien hochladen</dd>
+            <dt>Dateien löschen</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Dateien löschen</dd>
+            <dt>Thumbnails erzeugen</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Thumbnails für vorhandene
+            Dateien neu erzeugen</dd>
+            <dt>Dateien umbenennen</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Dateien umbenennen</dd>
+        </dl>
         ]]>
     </chapter>
     <chapter ref="HL_OPTIONS_IPBLOCKING">
         <![CDATA[
-        <p>Benutzer mit Rechten zur Änderung der Systemeinstellungen können hier IP-Adressen sperren oder Sperren wieder aufheben.
-            (z. B. wegen Spam) Pro Eintrag kann festgelegt werden, für welchen Bereich von FanPress CM die Sperren gelten soll:
-            keine Kommentare, kein Login, überhaupt kein Zugriff.</p>
+
         <ul>
-            <li><em>Keine Kommentare schreiben:</em> Der Besucher mit der angegebenen IP-Adresse kann keine
-                Kommentare verfassen, wenn diese nicht für den Artikel oder genrell deaktiviert sind.</li>
-            <li><em>Kein ACP-Login:</em> Der Besucher mit der angegebenen IP-Adresse kann sich nicht in FanPress-CM
-                einloggen bzw. hat keinen Zugriff auf die Login-Maske.</li>
-            <li><em>Kein Frontend-Zugriff:</em> Dem Besucher mit der angegebenen IP-Adresse werden veröffentlichte
-                Artikel, Kommentare, etc. nicht angezeigt. Der weitere Zugriffe auf deine Seite kann von anderen Faktoren
-                abhängen.</li>
+            <li>Benutzer mit Rechten zur Änderung der Systemeinstellungen können hier IP-Adressen sperren oder Sperren wieder aufheben.
+            (z. B. wegen Spam)</li>
+            <li>Durch die Nutzung von Proxy-Servern, privaten Netzwerken, dynamischen IP-Adressen, etc. kann es passieren, dass von der
+            Sperrung einer IP-Adresse nicht nur ein einzelner, sondern viele Nutzer (ungewollt) betroffen sind.</li>
+            <li>Pro Eintrag kann festgelegt werden, für welchen Bereich von FanPress CM die Sperren gelten soll.</li>
+            <li>Durch entsprechende Muster können ganze IP-Adress-Bereiche gesperrt werden, Beispiele werden sind im Editor angezeigt. Dies
+            kann nötig werden, wenn zum Beispiel Bots (Spam, Suchmaschinen, etc.) häufig ihre IP-Adresse wechseln.</li>
         </ul>
+        
+        <dl>
+            <dt>Keine Kommentare schreiben</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Der Besucher mit der angegebenen IP-Adresse kann keine
+            Kommentare verfassen, wenn diese nicht für den Artikel oder genrell deaktiviert sind.</dd>
+            <dt>Kein ACP-Login</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Der Besucher mit der angegebenen IP-Adresse kann sich nicht in FanPress-CM
+                einloggen bzw. hat keinen Zugriff auf die Login-Maske.</dd>
+            <dt>Kein Frontend-Zugriff</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dem Besucher mit der angegebenen IP-Adresse werden veröffentlichte Artikel, Kommentare,
+            etc. nicht angezeigt. Der weitere Zugriffe auf deine Seite kann von anderen Faktoren abhängen.</dd>
+        </dl>
         ]]>
     </chapter>
     <chapter ref="HL_OPTIONS_WORDBAN">
         <![CDATA[
-        <p>Die Textzensur ermöglicht es, bestimmte Wörter, Textgruppen oder Zeichenketten für die Verwendung in Artikeln, Kommentaren, etc. zu sperren.</p>
+
         <ul>
-            <li><em>Text ersetzen:</em> Ist diese Checkbox markiert, so wird die entsprechende Textstelle durch den angegeben
-                Text ersetzt. Die Textzensur wird beim Erstellen von Kommentaren, Artikeln, Kategorien, Benutzern und
-                Benutzer-Rollen ausgeführt.
-            </li>
-            <li><em>Artikel muss überprüft werden:</em> Durch diese Option wird beim Speichern eines Artikels geprüft, ob die
-                entsprechende Phrase enthalten ist. In diesem Fall wird - unabhängig von den eingestellten Berechtigungen - der
-                Artikel markiert, dass er freigeschalten werden muss.</li>
-            <li><em>Kommentar muss freigeschalten werden:</em> Analog zur Option <em>Artikel muss überprüft werden</em>, allerdings
-                wird hier der entsprechende Kommentar markiert, dass er manuell freigegeben werden muss.</li>
+            <li>Die Textzensur ermöglicht es, bestimmte Wörter, Textgruppen oder Zeichenketten für die Verwendung in Artikeln, Kommentaren, etc. zu
+            sperren.</li>
+            <li>Hierüber kann vermieden werden, dass Beleidigungen, Spam, usw. öffentlich auf der Seite veröffentlicht werden und/oder
+            falsche/unvollständige Angaben erneut veröffentlicht werden.</li>
         </ul>
+        
+        <dl>
+            <dt>Text ersetzen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Ist diese Checkbox markiert, so wird die entsprechende Textstelle durch den angegeben
+            Text ersetzt. Die Textzensur wird beim Erstellen von Kommentaren, Artikeln, Kategorien, Benutzern und Benutzer-Rollen ausgeführt.</dd>
+            <dt>Artikel muss überprüft werden:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Durch diese Option wird beim Speichern eines Artikels geprüft, ob die entsprechende Phrase
+            enthalten ist. In diesem Fall wird - unabhängig von den eingestellten Berechtigungen - der Artikel markiert, dass er freigeschalten
+            werden muss.</dd>
+            <dt>Kommentar muss freigeschalten werden:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Analog zur Option <em>Artikel muss überprüft werden</em>, allerdings wird hier der
+            entsprechende Kommentar markiert, dass er manuell freigegeben werden muss.</dd>
+        </dl>
         ]]>
     </chapter>
     <chapter ref="HL_CATEGORIES_MNG">
@@ -486,7 +614,6 @@ Help language file
             nach Artikeln ermöglicht dies eine Beschleunigung der Suche.</li>
             <li>Benutzer mit entsprechenden Rechten können neue Kategorien anlegen, sowie bestehende ändern oder auch löschen.</li>
             <li>Der Zugriff auf Kategorien kann auf bestimmte Benutzergruppen beschränkt werden.</li>
-            <li></li>
         </ul>
         
         <dl>

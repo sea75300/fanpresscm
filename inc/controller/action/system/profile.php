@@ -77,6 +77,8 @@ class profile extends \fpcm\controller\abstracts\controller {
             $metaData = $this->getRequestVar('usermeta');
             $this->user->setUserMeta($metaData);
             $this->user->setUsrinfo($this->getRequestVar('usrinfo'));
+            $this->user->setChangeTime(time());
+            $this->user->setChangeUser((int) $this->session->getUserId());
 
             $newpass = $this->getRequestVar('password');
             $newpass_confirm = $this->getRequestVar('password_confirm');

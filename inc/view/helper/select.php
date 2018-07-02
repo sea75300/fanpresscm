@@ -159,6 +159,10 @@ class select extends helper {
         }
 
         $this->value = '';
+        
+        if (!is_array($options)) {
+            return '';
+        }
 
         foreach ($options as $key => $value) {
             $this->value = $this->escapeVal($value, ENT_QUOTES);

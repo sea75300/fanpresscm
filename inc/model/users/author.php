@@ -101,6 +101,18 @@ class author extends \fpcm\model\abstracts\dataset {
     protected $authtoken = '';
 
     /**
+     * Time of last change
+     * @var int
+     */
+    protected $changetime = 0;
+
+    /**
+     * User of last change
+     * @var int
+     */
+    protected $changeuser = 0;
+
+    /**
      * Übersetzter Gruppenname
      * @var string
      * @since FPCM 3.4
@@ -131,7 +143,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * Eigenschaften, welche beim Speichern in DB nicht von getPreparedSaveParams() zurückgegeben werden sollen
      * @var array
      */
-    protected $dbExcludes = array('groupname', 'image');
+    protected $dbExcludes = ['groupname', 'image'];
 
     /**
      * Konstruktor
@@ -221,6 +233,24 @@ class author extends \fpcm\model\abstracts\dataset {
         return $this->disabled;
     }
 
+    /**
+     * Returns change time
+     * @return int
+     */
+    public function getChangeTime() : int
+    {
+        return $this->changetime;
+    }
+
+    /**
+     * Return change user
+     * @return int
+     */
+    public function getChangeUser() : int
+    {
+        return $this->changeuser;
+    }
+    
     /**
      * Übersetzter Gruppenname
      * @return string
@@ -358,6 +388,28 @@ class author extends \fpcm\model\abstracts\dataset {
     public function setUsrinfo($usrinfo)
     {
         $this->usrinfo = $usrinfo;
+    }
+
+    /**
+     * 
+     * @param int $changetime
+     * @return $this
+     */
+    public function setChangeTime(int $changetime)
+    {
+        $this->changetime = $changetime;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param int $changeuser
+     * @return $this
+     */
+    public function setChangeUser(int $changeuser)
+    {
+        $this->changeuser = $changeuser;
+        return $this;
     }
 
     /**

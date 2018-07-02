@@ -52,6 +52,14 @@ cols:
         type: varchar
         length: 512
         params: NULL
+    changetime:
+        type: bigint
+        length: 20
+        params: NOT NULL
+    changeuser:
+        type: bigint
+        length: 20
+        params: NOT NULL
 indices:
     username:
         col: username
