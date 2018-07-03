@@ -54,7 +54,7 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
 
         if (!password_verify($param['password'], $user->getPasswd())) {
             trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given, check simple hash. Request was made by ' . \fpcm\classes\http::getIp());
-            if (md5($param['password']) !== $user->getPasswd()) {
+            if (!hash_equals($user->getPasswd(), md5($param['password']))) {
                 trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given. Request was made by ' . \fpcm\classes\http::getIp());
                 return false;                
             }
