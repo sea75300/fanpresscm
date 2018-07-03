@@ -97,9 +97,9 @@ final class security {
     public static function getTokenCookieValue()
     {
         return http::cookieOnly(self::getTokenCookieName(), [
-            http::FILTER_STRIPTAGS,
-            http::FILTER_STRIPSLASHES,
+            http::FILTER_BASE64DECODE,
             http::FILTER_TRIM,
+            http::FILTER_STRIPTAGS,
             http::FILTER_DECRYPT
         ]);
     }
