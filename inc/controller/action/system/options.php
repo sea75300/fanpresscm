@@ -183,7 +183,6 @@ class options extends \fpcm\controller\abstracts\controller {
 
         $twitter = new \fpcm\model\system\twitter();
 
-        $showTwitter = $twitter->checkRequirements();
         $this->view->assign('twitterIsActive', $twitter->checkConnection());
         $this->view->assign('twitterScreenName', $twitter->getUsername());
 

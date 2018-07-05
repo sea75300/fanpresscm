@@ -4,18 +4,11 @@
  * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-/**
- * Session object
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
- * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- */
 
 namespace fpcm\model\auth;
 
 /**
- * Session Objekt
+ * HTML authProvider class 
  * 
  * @package fpcm\model\auth
  * @author Stefan Seehafer <sea75300@yahoo.de>
@@ -52,7 +45,14 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
             return \fpcm\model\users\author::AUTHOR_ERROR_DISABLED;
         }
 
-        if (!password_verify($param['password'], $user->getPasswd())) {
+        if (!password_verify("{$param['password']}", "{$user->getPasswd()}" )) {
+            trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given, check simple hash. Request was made by ' . \fpcm\classes\http::getIp());
+            
+            if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_LOGIN')) {
+                trigger_error('Password hash information:  ');
+                trigger_error(password_get_info($user->getPasswd()));
+            }
+
             trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given, check simple hash. Request was made by ' . \fpcm\classes\http::getIp());
             if (!hash_equals($user->getPasswd(), md5($param['password']))) {
                 trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given. Request was made by ' . \fpcm\classes\http::getIp());

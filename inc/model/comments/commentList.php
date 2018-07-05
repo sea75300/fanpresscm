@@ -198,7 +198,17 @@ class commentList extends \fpcm\model\abstracts\tablelist {
     public function deleteComments(array $ids)
     {
         $this->cache->cleanup();
-        return $this->dbcon->update($this->table, ['deleted'], [1, implode(', ', array_map('intval', $ids))], 'id IN (?)');
+
+        /* @var $session \fpcm\model\system\session */
+        $session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        $userId = $session->exists() ? $session->getUserId() : 0;
+
+        return $this->dbcon->update(
+            $this->table,
+            ['deleted', 'changetime', 'changeuser'],
+            [1, time(), $userId, implode(', ', array_map('intval', $ids)) ],
+            'id IN (?)'
+        );
     }
 
     /**
@@ -209,11 +219,21 @@ class commentList extends \fpcm\model\abstracts\tablelist {
     public function deleteCommentsByArticle($article_ids)
     {
         if (!is_array($article_ids)) {
-            $article_ids = array($article_ids);
+            $article_ids = [$article_ids];
         }
 
         $this->cache->cleanup();
-        return $this->dbcon->update($this->table, ['deleted'], [1, implode(', ', array_map('intval', $article_ids))], 'articleid IN (?)');
+
+        /* @var $session \fpcm\model\system\session */
+        $session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        $userId = $session->exists() ? $session->getUserId() : 0;
+
+        return $this->dbcon->update(
+            $this->table,
+            ['deleted', 'changetime', 'changeuser'],
+            [1, time(), $userId, implode(', ', array_map('intval', $article_ids))],
+            'articleid IN (?)'
+        );
     }
 
     /**
@@ -406,10 +426,22 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      * Empty trash bin
      * @return bool
      */
-    public function emptyTrash()
+    public function emptyTrash() : bool
     {
         $this->cache->cleanup();
         return $this->dbcon->delete($this->table, 'deleted = 1');
+    }
+
+    /**
+     * Empty trash by date
+     * @return bool
+     */
+    public function emptyTrashByDate() : bool
+    {
+        $this->cache->cleanup();
+        return $this->dbcon->delete($this->table, 'deleted = ? AND changetime <= ?', [
+            1, time() - $this->config->system_trash_cleanup * FPCM_DATE_SECONDS
+        ]);
     }
 
     /**

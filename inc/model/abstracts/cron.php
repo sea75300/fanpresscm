@@ -215,7 +215,6 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      */
     public function getNextExecTime()
     {
-
         if (!$this->lastExecTime) {
             return time();
         }

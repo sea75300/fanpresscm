@@ -78,3 +78,8 @@ defaultvalues:
             cjname: "removeRevisions"
             lastexec: 0
             execinterval: 2419200
+        10:
+            id: 10
+            cjname: "cleanupTrash"
+            lastexec: 0
+            execinterval: 86400

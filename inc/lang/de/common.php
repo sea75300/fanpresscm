@@ -67,6 +67,7 @@ $lang = array(
     'CRONJOB_UPDATECHECK' => 'Prüfung auf Updates',
     'CRONJOB_DBBACKUP' => 'System-Datenbank sichern',
     'CRONJOB_FILEINDEX' => 'Dateiindex neu aufbauen',
-    'CRONJOB_REMOVEREVISIONS' => 'Artikel-Revisionen bereinigen'
+    'CRONJOB_REMOVEREVISIONS' => 'Artikel-Revisionen bereinigen',
+    'CRONJOB_CLEANUPTRASH' => 'Papierkorb bereinigen'
 );
 ?>

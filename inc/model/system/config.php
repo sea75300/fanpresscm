@@ -35,6 +35,7 @@ namespace fpcm\model\system;
  * @property bool   $system_updates_emailnotify E-Mail-Benachrichtigung über Updates
  * @property int    $system_updates_manual Interval für manuelle Update-Prüfung
  * @property bool   $system_2fa_auth Two factor authentication enabled
+ * @property int    $system_trash_cleanup Age of datasets in trash to cleanup
  * 
  * @property bool   $articles_revisions Revisionen aktiv
  * @property int    $articles_limit Artikel pro Seite im Fronend
@@ -371,6 +372,10 @@ final class config extends \fpcm\model\abstracts\dataset {
         if (isset($this->newConfig['comments_privacy_optin'])) {
             $this->newConfig['comments_privacy_optin'] = (int) $this->newConfig['comments_privacy_optin'];
         }
+            
+        if (isset($this->newConfig['system_trash_cleanup'])) {
+            $this->newConfig['system_trash_cleanup'] = (int) $this->newConfig['system_trash_cleanup'];
+        }
 
         if (isset($this->newConfig['articles_archive_datelimit'])) {
             $this->newConfig['articles_archive_datelimit'] = $this->newConfig['articles_archive_datelimit'] ? strtotime($this->newConfig['articles_archive_datelimit']) : 0;
@@ -434,7 +439,7 @@ final class config extends \fpcm\model\abstracts\dataset {
      */
     public static function getAcpArticleLimits()
     {
-        return array(
+        return [
             10 => 10,
             25 => 25,
             50 => 50,
@@ -444,7 +449,7 @@ final class config extends \fpcm\model\abstracts\dataset {
             150 => 150,
             200 => 200,
             250 => 250
-        );
+        ];
     }
 
     /**
@@ -454,7 +459,7 @@ final class config extends \fpcm\model\abstracts\dataset {
      */
     public static function getArticleLimits()
     {
-        return array(
+        return [
             1 => 1,
             2 => 2,
             3 => 3,
@@ -467,7 +472,7 @@ final class config extends \fpcm\model\abstracts\dataset {
             30 => 30,
             40 => 40,
             50 => 50
-        );
+        ];
     }
 
 }

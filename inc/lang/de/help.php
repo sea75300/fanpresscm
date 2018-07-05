@@ -813,6 +813,21 @@ Help language file
         <p>Um die Twitter-Verbindung zu löschen, klicke den Button <span class="fpcm-ui-button">Verbindung zu löschen</span> an.</p>
         ]]>
     </chapter>
+    <chapter ref="ARTICLES_TRASH">
+        <![CDATA[
+        <p>Im Papierkorb werden Elemente beim Löschen abgelegt, so dass sie bei Bedarf wiederherstellt werden können. Elemente im
+        Papierkorb sollten nicht bearbeitet werden.</p>
+        <p>Die Papierkörbe werden regelmäßig automatisch geleert.</p>
+        <dl>
+            <dt>Element wiederherstellen</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diese Option können die ausgewählten Elemente wiederherstellt werden. Dabei wird jeweils
+            die letzte Version eines Artikelns bzw. Kommentars wiederhergestellt.</dd>
+            <dt>Papierkorb leeren</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über die Auswahl dieser Option wird der Papierkorb komplett geleert. Eine Lösung einzelner
+            Elemente ist nicht vorgesehen.</dd>
+        </dl>
+        ]]>
+    </chapter>
     <chapter ref="HL_HELP_SUPPORT">
         <![CDATA[
         <p>Solltest du weitergehende Hilfe bei technischen Problemen brauchen oder Fragen haben, schreiben eine E-mail an

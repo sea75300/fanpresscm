@@ -120,7 +120,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
             $crons[] = basename($cronFile, '.php');
         }
 
-        return $this->events->trigger('crons\getList', $crons);
+        return $this->events->trigger('cron\getList', $crons);
     }
 
     /**

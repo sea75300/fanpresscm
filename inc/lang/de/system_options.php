@@ -48,6 +48,17 @@ $lang = array(
         '6 Tage' => 518400,
         '1 Woche' => 604800
     ),
+    'SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS' => 'Vorhaltezeit für gelöschte Elemente',
+    'SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS_LIST' => array(
+        '3 Tage' => 3,
+        '7 Tage' => 8,
+        '10 Tage' => 10,
+        '14 Tage' => 14,
+        '21 Tage' => 21,
+        '30 Tage' => 30,
+        '60 Tage' => 60,
+        '90 Tage' => 90
+    ),
     'SYSTEM_OPTIONS_USEMODE' => 'Verwendung per',
     'SYSTEM_OPTIONS_USEMODE_IFRAME' => 'iframe',
     'SYSTEM_OPTIONS_USEMODE_PHPINCLUDE' => 'phpinclude',

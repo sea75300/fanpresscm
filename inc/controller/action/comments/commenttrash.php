@@ -35,7 +35,7 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
      */
     protected function getHelpLink()
     {
-        return 'hl_comments_mng';
+        return 'articles_trash';
     }
 
     /**

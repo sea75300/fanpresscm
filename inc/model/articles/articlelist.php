@@ -249,6 +249,8 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             return false;
         }
 
+        $this->cache->cleanup();
+
         /* @var $session \fpcm\model\system\session */
         $session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
         $userId = $session->exists() ? $session->getUserId() : 0;
@@ -264,7 +266,6 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             $commentList->deleteCommentsByArticle($ids);
         }
 
-        $this->cache->cleanup();
         return $res;
     }
 
@@ -301,13 +302,25 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * Leert Papierkorb
-     * @param array $ids
+     * Empty trash
      * @return bool
      */
-    public function emptyTrash()
+    public function emptyTrash() : bool
     {
+        $this->cache->cleanup();
         return $this->dbcon->delete($this->table, 'deleted = ?', [1]);
+    }
+
+    /**
+     * Empty trash by date
+     * @return bool
+     */
+    public function emptyTrashByDate() : bool
+    {
+        $this->cache->cleanup();
+        return $this->dbcon->delete($this->table, 'deleted = ? AND changetime <= ?', [
+            1, time() - $this->config->system_trash_cleanup * FPCM_DATE_SECONDS
+        ]);
     }
 
     /**

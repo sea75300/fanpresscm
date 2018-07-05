@@ -16,6 +16,7 @@
                 <div id="tabs-options-general">
 
                     <div class="row no-gutters">
+
                         <div class="col-sm-12 col-lg-6">
                             <fieldset class="fpcm-ui-margin-md-right">
                                 <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
@@ -92,6 +93,17 @@
                                     </div>
                                     <div class="align-self-center col-sm-12 col-md-auto">
                                         <?php $theView->select('system_cache_timeout')->setOptions($theView->translate('SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL'))->setSelected($globalConfig['system_cache_timeout'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                                    </div>
+                                    <div class="align-self-center col-sm-12 col-md-auto">
+                                    </div>
+                                </div>
+
+                                <div class="row fpcm-ui-padding-md-tb">
+                                    <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                                        <?php $theView->write('SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS'); ?>:
+                                    </div>
+                                    <div class="align-self-center col-sm-12 col-md-auto">
+                                        <?php $theView->select('system_trash_cleanup')->setOptions($theView->translate('SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS_LIST'))->setSelected($globalConfig['system_trash_cleanup'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                                     </div>
                                     <div class="align-self-center col-sm-12 col-md-auto">
                                     </div>

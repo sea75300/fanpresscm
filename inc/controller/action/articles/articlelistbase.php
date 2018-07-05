@@ -420,8 +420,18 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
         $this->assignFields($fields);
 
+        $this->view->assign('tabHeadline', $this->getTabHeadline());
         $this->view->assign('massEditCategories', $this->categories);
         $this->view->addJsVars(['massEditSaveFailed' => 'SAVE_FAILED_ARTICLES']);
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function getTabHeadline() : string
+    {
+        return 'HL_ARTICLE_EDIT';
     }
 
     abstract protected function getArticleCount();

@@ -418,8 +418,7 @@ class comment extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        $this->cache->cleanup(false, \fpcm\model\articles\article::CACHE_ARTICLE_MODULE);
-
+        $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/'.\fpcm\classes\cache::CLEAR_ALL);
         return $this->dbcon->getLastInsertId();
     }
 
@@ -442,7 +441,7 @@ class comment extends \fpcm\model\abstracts\dataset {
             $return = true;
         }
 
-        $this->cache->cleanup(false, \fpcm\model\articles\article::CACHE_ARTICLE_MODULE);
+        $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/'.\fpcm\classes\cache::CLEAR_ALL);
         $this->init();
 
         return $return;

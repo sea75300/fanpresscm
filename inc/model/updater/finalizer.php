@@ -123,6 +123,16 @@ final class finalizer extends \fpcm\model\abstracts\model {
             $res = $res && $this->config->add($option['config_name'], trim($option['config_value']));
         }
 
+        if ($this->dbcon->count(\fpcm\classes\database::tableCronjobs, '*', 'cjname = ?', ['cleanupTrash']) == 0) {
+            $id = $this->dbcon->insert(\fpcm\classes\database::tableCronjobs, [
+                'cjname' => 'cleanupTrash',
+                'lastexec' => 0,
+                'execinterval' => 86400
+            ]);
+
+            $res = $id ? $res && true : false;
+        }
+
         return $res;
     }
 

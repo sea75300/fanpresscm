@@ -12,24 +12,9 @@ namespace fpcm\controller\action\articles;
 
 class articlelisttrash extends articlelistbase {
 
-    protected function getPermissions()
-    {
-        return ['article' => 'edit', 'article' => 'editall'];
-    }
-
-    protected function getArticleCount()
-    {
-        return 0;
-    }
-
     protected function getArticleItems()
     {
         $this->articleItems = $this->articleList->getArticlesDeleted(true);
-    }
-
-    protected function getConditionItem()
-    {
-        return false;
     }
 
     protected function getListAction()
@@ -37,9 +22,58 @@ class articlelisttrash extends articlelistbase {
         $this->listAction = 'articles/trash';
     }
 
+    /**
+     * 
+     * @return array
+     */
+    protected function getPermissions()
+    {
+        return ['article' => 'edit', 'article' => 'editall'];
+    }
+
+    /**
+     * 
+     * @return int
+     */
+    protected function getArticleCount()
+    {
+        return 0;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    protected function getConditionItem()
+    {
+        return false;
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
     protected function getSearchMode()
     {
         return false;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function getHelpLink(): string
+    {
+        return 'articles_trash';
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function getTabHeadline(): string
+    {
+        return 'ARTICLES_TRASH';
     }
 
     public function request()

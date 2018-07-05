@@ -103,11 +103,11 @@ class login extends \fpcm\controller\abstracts\controller {
 
         $doReset = $this->buttonClicked('reset');
         $doLogin = $this->buttonClicked('login');
-        
+
         if (($doReset || $doLogin) && !$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
         }
-        
+
         $data = $this->getRequestVar('login');
         if ($doLogin && is_array($data) && $this->checkPageToken) {
 
@@ -117,12 +117,12 @@ class login extends \fpcm\controller\abstracts\controller {
             $loginRes = $session->authenticate($data);
 
             if ($loginRes === \fpcm\model\users\author::AUTHOR_ERROR_DISABLED) {
-                $this->view = new \fpcm\view\error('LOGIN_FAILED_DISABLED',null, 'sign-in-alt');
+                $this->view = new \fpcm\view\error('LOGIN_FAILED_DISABLED', null, 'sign-in-alt');
                 $this->view->render();
                 exit;
             }
 
-            if ($loginRes === true && $session->save() && $session->setCookie()) {               
+            if ($loginRes === true && $session->save() && $session->setCookie()) {
                 session_destroy();
                 $this->redirect('system/dashboard');
                 return true;
@@ -137,7 +137,6 @@ class login extends \fpcm\controller\abstracts\controller {
             }
 
             $this->view->addErrorMessage('LOGIN_FAILED');
-
         }
 
         if ($this->currentAttempts >= $this->config->system_loginfailed_locked) {
@@ -150,7 +149,7 @@ class login extends \fpcm\controller\abstracts\controller {
 
             /* @var $user \fpcm\model\users\author */
             $user = \fpcm\classes\loader::getObject('\fpcm\model\users\userList')->getUserByUsername($username);
-            if (!$user || !$user->exists() ) {
+            if (!$user || !$user->exists()) {
                 $this->redirect();
                 return true;
             }
@@ -159,7 +158,7 @@ class login extends \fpcm\controller\abstracts\controller {
                 $this->view->addNoticeMessage('LOGIN_PASSWORD_RESET');
                 return true;
             }
-            
+
             fpcmLogSystem("Passwort reset for user id {$user->getUsername()} failed.");
             $this->view->addErrorMessage('LOGIN_PASSWORD_RESET_FAILED');
             return true;
@@ -221,26 +220,23 @@ class login extends \fpcm\controller\abstracts\controller {
      * 
      * @return boolean
      */
-    private function showLockedForm()            
-    {        
+    private function showLockedForm()
+    {
         if (!$this->loginLocked) {
             return true;
         }
 
         $this->view = new \fpcm\view\error(
-            $this->language->translate('LOGIN_ATTEMPTS_MAX', array(
-                '{{logincount}}' => $this->currentAttempts,
-                '{{lockedtime}}' => $this->loginLockedExpire / 60,
-                '{{lockeddate}}' => date($this->config->system_dtmask, $this->loginLockedDate)
-            )),
-            null,
-            'sign-in-alt'
+                $this->language->translate('LOGIN_ATTEMPTS_MAX', array(
+                    '{{logincount}}' => $this->currentAttempts,
+                    '{{lockedtime}}' => $this->loginLockedExpire / 60,
+                    '{{lockeddate}}' => date($this->config->system_dtmask, $this->loginLockedDate)
+                )), null, 'sign-in-alt'
         );
 
         $this->view->render();
 
         exit;
-
     }
 
 }
