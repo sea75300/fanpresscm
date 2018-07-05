@@ -33,8 +33,10 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController {
         $usrmeta = $this->session->currentUser->getUserMeta();
         $usrmeta[$var] = $this->getRequestVar('value');
 
+        $this->session->currentUser->disablePasswordSecCheck();
+        $this->session->currentUser->setPassword(null);
         $this->session->currentUser->setUserMeta($usrmeta);
-        return $this->session->currentUser->update();
+        return $this->session->currentUser->update() === true ? true : false;
     }
 
 }
