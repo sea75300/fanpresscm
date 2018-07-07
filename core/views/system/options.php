@@ -767,7 +767,7 @@
                                         <?php $theView->submitButton('twitterDisconnect')->setText('SYSTEM_OPTIONS_TWITTER_DISCONNECT')->setClass('fpcm-ui-button-confirm'); ?>
                                     <?php endif; ?>
 
-                                    <?php $theView->shorthelpButton('twittercon')->setText('HL_HELP')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/help', ['ref' => urlencode(base64_encode('SYSTEM_OPTIONS_TWITTER_CONNECTION')) ]))->setClass('fpcm-ui-help-dialog'); ?>
+                                    <?php $theView->shorthelpButton('twittercon')->setText('HL_HELP')->setUrl('#')->setData(['ref' => urlencode(base64_encode('SYSTEM_OPTIONS_TWITTER_CONNECTION'))])->setClass('fpcm-ui-help-dialog'); ?>
                                     </div>
                                     <div class="col-12 col-md-6 align-self-center">
                                     <?php if ($twitterIsActive) : ?>

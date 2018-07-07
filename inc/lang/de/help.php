@@ -84,7 +84,7 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Über diese Option kann das Kommentar-System für einen einzelnen Artikel gesteuert werden.
                 ist die Option nicht aktiv, so können keine Kommentare auf der Artikel verfasst werden.</dd>
             <dt>Artikel archivieren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Bestehende Artikel können über diese Option in's Archiv verschoben werden bzw.
+            <dd class="fpcm-ui-padding-md-bottom">Bestehende Artikel können über diese Option ins Archiv verschoben werden bzw.
                 herausgenommen werden.</dd>
             <dt>Autor ändern:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer mit entsprechenden Rechten können hierüber den Verfasser eines Artikeln ändern.</dd>
@@ -104,7 +104,7 @@ Help language file
             <dt>Artikel-Editor:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieser Tab wird immer angezeigt und beinhaltet den Editor an sich.</dd>
             <dt>Kommentare:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieses register beinhaltet Auflistung aller Kommentare, welche zu zum ausgewählten Artikel
+            <dd class="fpcm-ui-padding-md-bottom">Dieses Register beinhaltet Auflistung aller Kommentare, welche zu zum ausgewählten Artikel
             geschrieben wurden. Die Liste bietet dir die Möglichkeit, einzelne Kommentare zu löschen. Über einen Klick auf den Namen des
             Verfassern kannst du in einem einfachen Editor die Kommentare bearbeiten, freischalten, auf privat setzen, etc. Den Zugriff auf
             die Kommentare können du über die Berechtigungen geregelt werden.</dd>
@@ -193,7 +193,7 @@ Help language file
             angezeigt. Ihre Daten werden zur Verbesserung der Spam-Erkennung genutzt, sofern du sie nicht löscht.</dd>
             <dt>Kommentar zu Artikel mit ID verschieben:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die ausgewählten Kommentare zur eingetragenen Artikel-ID
-                        verschieben. Das Eingabefeld unterstützt die Suche nach Artikeln mittel Autovervollständigung.</dd>
+                        verschieben. Das Eingabefeld unterstützt die Suche nach Artikeln mittels Autovervollständigung.</dd>
         </dl>
 
         <h3>Aktionen</h3>
@@ -203,7 +203,7 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Über die Massenbearbeitung können alle ausgewählten Kommentare auf einmal bearbeitet werden.
             Die auswählbaren Optionen entsprechen denen im Kommentar-Editor.</dd>
             <dt>Suche und Filter:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Kommenare anhand
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Kommentare anhand
             verschiedener Kriterien weiter eingrenzen.</dd>
             <dt>Löschen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Den bzw. die ausgewählten Kommentare löschen.</dd>
@@ -263,7 +263,7 @@ Help language file
     <chapter ref="HL_PROFILE">
         <![CDATA[
         <p>Das eigene <b>Profil</b> können alle Benutzer über das Profil-Menü oben rechts aufrufen. Über den Button <strong>Zurücksetzen</strong>
-        können die Einstellungen auf die systemweiten Vorgaben zurücksetzen.</p>
+        können die Einstellungen auf die Systemweiten Vorgaben zurücksetzen.</p>
         
         <h3>Profil</h3>
         
@@ -284,7 +284,7 @@ Help language file
             <dt>Zwei-Faktor-Authentifizierung:</strong> (optional)</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist
             optional und kann durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels der App "Google Authenticator" auf deinem Smartphone
-            realiisert. Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den angezeigten QR Code mit deinem Smartphone mit der App. Trage im Anschluss den ersten Zahlencode
+            realisiert. Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den angezeigten QR Code mit deinem Smartphone mit der App. Trage im Anschluss den ersten Zahlencode
             in das Eingabefeld ein und speicher den Vorgang.</dd>
         </dl>
 
@@ -311,133 +311,237 @@ Help language file
     </chapter>
     <chapter ref="HL_OPTIONS">
         <![CDATA[
-        <p>Benutzer mit den entsprechenden Rechten können hier zentrale Einstellungen von FanPress CM ändern.</p>
-        <ul>
-            <li><b>Allgemein:</b><br>
-                Dieser Tab enthält allgemeine Einstellungen.
-                <ul>
-                    <li><em>E-Mail-Adresse:</em> Zentrale E-Mail-Adresse für Systembenachrichtigungen.</li>
-                    <li><em>URL für Artikellinks:</em> Basis-URL für Artikel-Links im Frontend, wichtig v. a. bei der Nutzung
-                        von phpinclude. Entspricht in vielen Fällen der <em>deine-domain.xyz/index.php</em> oder der Datei, in der
-                        <em>fpcmapi.php</em> includiert ist.</li>
-                    <li><em>Sprache:</em> Globale Spracheinstellung, kann durch Profileinstellung überschrieben werden.</li>
-                    <li><em>Zeitzone:</em> Globale Zeitzone, kann durch Profileinstellung überschrieben werden.</li>
-                    <li><em>Datum- und Zeitanzeige:</em> Maske für die Anzeige von Datums- und Zeitangaben, kann durch
-                        Profileinstellung überschrieben werden.</li>
-                    <li><em>Zeit bis zum Verfall des Cache-Inhaltes:</em> Zeit bis der Cache-Inhalt von
-                        FanPress CM automatisch verworfen und der Cache neu aufgebaut wird.</li>
-                    <li><em>Verwendung per:</em> Nutzung von FanPress CM via phpinclude oder in einem iframe.</li>
-                    <li><em>Pfad zu deiner CSS-Datei:</em> Pfad zu deiner CSS-Datei mit deinen eigenen Style-Angaben. Wichtig
-                        wenn du FanPress CM via iframe nutzt.</li>
-                    <li><em>jQuery Bibliothek laden:</em> Soll jQuery bei Nutzung von phpinclude geladen werden oder nicht.
-                        Wichtig wenn du jQuery nicht anderweitig in deiner Seite eingebunden hast.</li>                                        
-                </ul>
-            </li>
-            <li><b>Editor & Dateimanager:</b><br>
-                Der Tab umfasst Einstellungen zum Artikel-Editor und Dateimanager.
-                <ul>
-                    <li><em>Editor auswählen:</em> Welcher Editor soll genutzt werden, die reine HTML-Ansicht oder der auf
-                        Basis von TinyMCE 4.</li>
-                    <li><em>Standard-Schriftgröße im Editor:</em> Schriftgröße, die standardmäßig im Artikel-Editor genutzt wird</li>
-                    <li><em>Revisionen aktivieren:</em> Soll FanPress CM Revisionen beim Speichern eines Artikels anlegen.</li>
-                    <li><em>Alte Revisionen löschen, wenn älter als:</em> Revisionen die älter als der angebene
-                        Wert sind, werden beim nächsten Durchlauf des zugehörigen Cronjobs auf der Datenbank entfernt, wenn Wert ungleich "Nie"</li>
-                    <li><em>Papierkorb aktivieren:</em> Artikel nicht direkt löschen sondern zuerst in Papierkorb verschieben, können bei Bedarf wiederherstellt werden.</li>
-                    <li><em>jQuery Dateiupload verwenden:</em> Soll der moderne AJAX-Uploader genutzt werden, mit dem
-                        mehrere Dateien auf einmal hochgeladen werden können. Oder den klassischen PHP-Uploader nutzten.</li>
-                    <li><em>Anzahl Bilder pro Seite:</em> Anzahl an Bildern, die im Dateimanager pro Seite angezeigt werden.</li>                        
-                    <li><em>Bilder-Änderungen in TinyMCE auf Server speichern:</em> Änderungen durch Bild-Bearbeitung in TinyMCE
-                        als Datei im Upload-Ordner speichern.</li>
-                    <li><em>Maximale Größe des Vorschaubildes:</em> Größe der von FanPress CM erzeugten Thumbnails.</li>
-                    <li><em>CSS-Klassen im Editor:</em> CSS-Klassen zur Nutzung im FanPress CM Editor.</li>
-                </ul>
-            </li>            
-            <li><b>Artikel:</b><br>
-                Der Tab enthält verschiedene Einstellungen zur Artikel-Ausgabe.
-                <ul>
-                    <li><em>Anzahl Artikel pro öffentlicher Seite:</em> Anzahl an Artikeln, die im Frontend ausgegeben werden sollen.</li>
-                    <li><em>Anzahl an Artikeln im ACP:</em> Anzahl an Artikeln, die im ACP ausgegeben werden sollen,
-                        kann durch Benutzer-Einstellung überschrieben werden</li>
-                    <li><em>Template für Artikel-Liste::</em> Template, welches für Artikel-Liste genutzt werden soll.</li>
-                    <li><em>Template für einzelnen Artikel:</em> Template, welches für die Anzeige eines einzelnen Artikels
-                        genutzt werden soll.</li>
-                    <li><em>News sortieren nach:</em> Reihenfolge, nach der Artikel im Frontend sortiert werden sollen.</li>
-                    <li><em>Share-Buttons anzeigen:</em> Sollen Share-Buttons angezeigt werden.</li>
-                    <li><em>RSS-Feed ist aktiv:</em> RSS-Feed aktivieren.</li>
-                    <li><em>URL-Rewriting für Artikel-Links aktivieren:</em> statt der klassischen Artikel-URL mit der Artikel-ID wird eine erweiterte Version erzeugt, welche um den
-                        Artikel-Titel erweitert wird und sich daher nachträglich ändern kann</li>
-                    <li><em>Archiv-Link anzeigen:</em> Soll Link zu Archiv in der Navigation im Frontend angezeigt werden.</li>
-                    <li><em>Artikel in Archiv anzeigen ab:</em> vor dem Datum angegebenen Datum veröffentlichte Artikel im Archiv nicht für Besucher anzeigen, wenn leer werden alle
-                        angezeigt</li>
-                </ul>
-            </li>
-            <li><b>Kommentare:</b><br>
-                Der Tab enthält verschiedene Einstellungen zur Ausgabe von Artikel-Kommentaren und deren Verwaltung.
-                <ul>
-                    <li><em>Kommentar-System ist aktiv:</em> Kommentar-System global de/aktivieren.</li>
-                    <li><em>Kommentar-Template:</em> Template für die Anzeige von Kommentaren.</li>
-                    <li><em>Anti-Spam-Frage:</em> Frage für das Standard-Spam-Plugin.</li>
-                    <li><em>Antwort auf Anti-Spam-Frage:</em> Antwort für das Standard-Spam-Plugin.</li>
-                    <li><em>Zeitsperre zwischen zwei Kommentaren:</em> Zeit in Sekunden, die zwischen zwei Kommentaren von
-                        der selben IP-Adresse vergangen sein muss.</li>
-                    <li><em>Muss E-Mail Adresse angegeben werden:</em> Muss E-Mail-Adresse beim Schreiben eines Kommentars
-                        angegeben werden oder nicht.</li>
-                    <li><em>Müssen Kommentare freigeschalten werden:</em> Kommentare sind sofort sichtbar oder
-                        müssen manuell durch den Autor oder einen Admin freigegeben werden.</li>
-                    <li><em>Benachrichtigung bei neuem Kommentare an:</em> E-Mail-Adresse festlegen, an welche die
-                        Benachrichtigungen über neue Kommentare gehen. (nur an Autor, nur an globale Adresse oder an beide)</li>
-                    <li><em>Automatische Spam-Markierung:</em> Sind vom aktuellen Kommentar-Autor bereits diese Anzahl an Kommentaren
-                        als Spam markiert im System vorhanden, so wird der neue Kommentar automatisch als Spam markiert.</li>
-                </ul>
-            </li>
-            <li><b>Twitter-Verbindung:</b><br>
-                Sofern dieser Tab angezeigt wird, kannst du eine direkte Verbindung zu Twitter herstelen.
-                Siehe letzter Hilfe-Abschnitt ganz unten zur Einrichtung.
-            </li>
-            <li><b>Sicherheit & Wartung:</b><br>
-                Dieser Tab enthält Einstellungen zur Wartungs und System-Sicherheit:
-                <ul>
-                    <li><em>Wartungsmodus aktiv:</em> Wurde der Wartungsmodus aktiviert, so haben nur angemeldete Benutzer Zugriff auf FanPress CM.
-                        Besucher deiner Seite, etc. erhalten eine Hinweis-Meldung.</li>
-                    <li><em>Maximale Länge einer Admin-Sitzung:</em> Länge einer Session im FanPress-CM Adminbereich.</li>
-                    <li><em>Anzahl Login-Versuche vor temporärer Sperre:</em> Hiermit kannst du Anzahl der Fehlgeschlagenen Logins einstellen,
-                        bis der Login vorübergehend gesperrt wird. Diese Option hilft dabei, die Übernahme von FanPress CM Accounts
-                        zu erschweren.</li>
-                </ul>
-            </li>
-            <li><b>Erweitert:</b><br>
-                Der "Erweitert"-Tab enthält verschiedene Einstellungen, welche nur mit Bedacht geändert werden sollten.
-                <ul>
-                    <li><em>E-Mail-Benachrichtigung, wenn Updates verfügbar:</em> Diese Option ermöglicht es, die Benachrichtigung über
-                        verfügbare Updates durch den Update-Cronjob zu de/aktivieren.</li>
-                    <li><em>Entwickler-Versionen bei Update-Check anzeigen:</em> Neben den offizielle Releases gibt es immer
-                        wieder Entwickler- und Test-Versionen. Aktivieren diese Option, um solche Versionen beim Update-Check
-                        ebenfalls anzuzeigen. <b>Achtung: Entwickler- und Test-Versionen können Fehler enthalten oder
-                            unvollständige Änderungen enthalten, welche zu Problemen führen können!</b></li>
-                    <li><em>Update-Check-Intervall, wenn externe Server-Verbindungen nicht möglich:</em> Kann deine
-                        FanPress CM Installation keine direkte Verbindung zum Update herstellen, so wird dir in regelmäßigem
-                        Abstand ein Dialog angezeigt, welcher die Download-Seite auf
-                        <a href="https://Nobody-Knows.org">Nobody-Knows.org</a> angezeigt. Mit dieser Einstellung kann
-                        festgelegt werden, in welchem zeitlichen Abstand dies passiert.</li>
+        <p>Benutzer mit den entsprechenden Rechten können hier zentrale Einstellungen von FanPress CM ändern. Die hier getroffenen Einstellungen
+        gelten grundsätzlich für alle Benutzer, sofern diese nicht in den Benutzer-Einstellungen verändert wurden. Entsprechende Änderungen
+        können bei Bedarf im Profil oder der Benutzer-Verwaltung zurückgesetzt werden.</p>
+        
+        <p>Einige Bereiche besitzen eine <em>Frontend</em>-Box. Die entsprechenden Einstellungen beeinflussen, wie sich FanPress CM
+        in den veröffentlichen Bereichen verhält, welche auf deiner Webseite angezeigt werden.</p>
 
-                    <li><em>E-Mails via SMTP versenden:</em> Wenn diese Option aktiv ist, erfolgt der E-Mail-Versand unter
-                        Nutzung der E-Mail-Kontos, welche durch die SMTP-Zugangsdaten definiert wird.</li>
-                    <li><em>E-Mail-Adresse:</em> E-Mail-Server, die als Absender-Konto verwendet wird</li>
-                    <li><em>SMTP-Server-Adresse:</em> E-Mail-Server-Adresse</li>
-                    <li><em>SMTP-Server-Port:</em> E-Mail-Server-Port</li>
-                    <li><em>SMTP-Benutzername:</em> Benutzername</li>
-                    <li><em>SMTP-Passwort:</em> Passwort für das E-mail-Konto</li>
-                    <li><em>SMTP-Verschlüsselung:</em> Verschlüsslung für Verbindung zum E-Mail-Server aktivieren,
-                        muss vom Server unterstützt werden</li>
-                </ul>
-            </li>
-            <li><b>Systemprüfung:</b><br>
-                Auf diesem Tab erhältst du eine Übersicht über den aktuelle Update-Status deines FanPress CM-Systems sowie
-                der verfügbaren Funktionen, etc. deines Servers. Bei allen <i>nicht-optionalen</i> Werten sollte ein blauer
-                Haken wie <span class="fa fa-check-square fpcm-ui-booltext-yes"></span> zu sehen sein. Wenn dies nicht der
-                Fall ist, wende sich an deinen Host.
-            </li>            
-        </ul>
+        <p>Über den Button <strong>Auf Aktualisierung prüfen</strong> in der Toolbar kannst du die Prüfung auf System-Updates manuell starten.</p>
+        
+        <h3>Allgemein</h3>
+        
+        <dl>
+            <dt>Allgemein - E-Mail-Adresse:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Zentrale E-Mail-Adresse für Systembenachrichtigungen.</dd>
+            <dt>Allgemein - Basis-URL für Artikellinks:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Basis-URL für Artikel-Links im Frontend, wichtig v. a. bei der Nutzung
+            von phpinclude. Entspricht in vielen Fällen der <em>deine-domain.xyz/index.php</em> oder der Datei, in der
+            <em>fpcmapi.php</em> includiert ist.</dd>
+            <dt>Allgemein - Datum- und Zeitanzeige:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Maske für die Anzeige von Datums- und Zeitangaben.</dd>
+            <dt>Allgemein - Zeitzone:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Globale Zeitzone, kann durch Profileinstellung überschrieben werden.</dd>
+            <dt>Allgemein - Sprache:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Globale Spracheinstellung für alle Benutzer sowie im Frontend.</dd>
+            <dt>Allgemein - Anzahl Elemente pro Seite im ACP:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Anzahl an Elementen im Admin-Bereich, wenn die Liste die Möglichkeit bietet,
+            durch Seiten zu blättern (z. B. Artikel- und Kommentar-Listen)</dd>
+            <dt>Allgemein - Zeit bis zum Cache-Timeout:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Zeitraum, nachdem der Inhalt des Caches als abgelaufen betrachtet wird und der Inhalt
+            neu aufgebaut wird. Diese Einstellung ist vor allem für den Frontend-Inhalt wichtig.</dd>
+            <dt>Allgemein - Vorhaltezeit für gelöschte Elemente:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Anzahl an Tagen, bis Elemente im Papierkorb automatisch gelöscht werden.</dd>
+            <dt><em>Frontend</em> - Pfad zu deiner CSS-Datei:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Pfad zu deiner CSS-Datei mit deinen eigenen Style-Angaben. Wichtig
+            wenn du FanPress CM via iframe oder die Template-Vorschau nutzt.</dd>
+            <dt><em>Frontend</em> - Verwendung per:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Nutzung von FanPress CM via phpinclude oder in einem iframe. Diese Einstellung beeinflusst,
+            wie sich das System im Frontend verhält und welche zusätzlichen Daten beim Aufruf von Artikel-Listen, etc. geladen werden.</dd>
+            <dt><em>Frontend</em> - jQuery Bibliothek im Frontend laden:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Soll jQuery bei Nutzung von phpinclude geladen werden oder nicht. Wichtig wenn du phpinclude
+            verwendest und jQuery nicht bereits anderweitig in deiner Seite eingebunden ist. Ohne jQuery stehen einige Frontend-Funktionen nicht
+            zur Verfügung. Beim Aufruf des Frontend wird automatisch geprüft ob jQuery zur Verfügung steht. Ist dies nicht der Fall,
+            so wird eine entsprechende Fehlermeldung ausgegeben.</dd>
+        </dl>
+        
+        <h3>Editor & Dateimanager</h3>
+        
+        <dl>
+            <dt>Editor - Editor auswählen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Standardmäßig kann hier zwischen TinyMCE und CodeMirror gewählt werden.
+            Zusätzliche Editoren können über Module bereitgestellt werden. Diese Einstellung gilt für Artikel- und Kommentar-Editor im Admin-Bereich.</dd>
+            <dt>Editor - Standard-Schriftgröße im Editor:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Schriftgröße, die standardmäßig im aktiven Editor genutzt wird.</dd>
+            <dt>Editor - Revisionen aktivieren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Soll FanPress CM Revisionen beim Speichern eines Artikels anlegen. Sind die Revisionen nicht aktiv,
+            so werden Artikel beim Speichern sofort überschrieben und der bisherige Stand ist verloren.</dd>
+            <dt>Editor - Alte Revisionen löschen, wenn älter als:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Revisionen, welche älter als der angegebene Wert sind, werden beim nächsten Durchlauf des
+            zugehörigen Cronjobs aus der Datenbank entfernt. Wurde der Wert "Nie" ausgewählt, so bleiben alle Revisionen erhalten, bis sie
+            irgendwann manuell gelöscht werden.</dd>
+            <dt>Editor - Bilder-Änderungen in TinyMCE auf Server speichern:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Werden in TinyMCE Änderungen an Bildern vorgenommen, so werden die Änderungen bei Aktivierung dieser
+            Option als neue Datei im Upload-Ordner abgelegt und können später auch im Dateimanager ausgewählt werden.</dd>
+            <dt>Editor - CSS-Klassen im Editor:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">CSS-Klassen zur Nutzung im FanPress CM Editor. bei den CSS-Klassen handelt es sich in der Regel
+            um solche, die du auch auf deiner Webseite verwendest.</dd>
+            <dt>Dateimanager - jQuery Dateiupload verwenden:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Soll der moderne AJAX-Uploader genutzt werden, mit dem mehrere Dateien auf einmal hochgeladen
+            werden können oder soll der klassische PHP-Uploader aktiviert werden. Der PHP-Uploader kann notwendig werden, wenn du einen
+            älteren Browser verwendest, JavaScript deaktiviert bzw. teilweise geblockt ist.</dd>
+            <dt>Dateimanager - Dateien beim Upload in Unterordner organisieren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diese Option kannst du festlegen, dass Dateien beim Upload in Unterordnern abgelegt werden.
+            Diese besitzen immer das Muster <em>YYYY-MM</em> (vierstellige Jahreszahl - zweistelliger Monat). </dd>
+            <dt>Dateimanager - Anzahl Bilder pro Seite:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Anzahl an Bildern, die im Dateimanager pro Seite angezeigt werden.</dd>
+            <dt>Dateimanager - Dateimanager-Ansicht:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diese Option kann ausgewählt werden, ob die Dateien im Dateimanager nebeneinander als Karten
+            oder untereinander in einer Listenform angezeigt werden. Die dargestellten Informationen bleiben die gleichen.</dd>
+            
+            <dt>Vorschaubild-Größe - Breite in Pixel:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die maximale Bereite von erzeugten Thumbnails.</dd>
+            <dt>Vorschaubild-Größe - Höhe in Pixel:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die maximale Höhe von erzeugten Thumbnails.</dd>
+        </dl>
+
+        <h3>Artikel</h3>
+        
+        <dl>
+            <dt><em>Frontend</em> - Anzahl Artikel pro öffentlicher Seite:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Anzahl an Artikeln, die im Frontend ausgegeben werden sollen. Diese Option beeinflusst die Anzahl
+            an Artikeln in der öffentlichen Liste der aktiven Artikel, des öffentlichen Archives sowie im RSS-Feed.</dd>
+            <dt><em>Frontend</em> - Template für Artikel-Liste:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Template, welches für die Artikel-Liste genutzt werden soll.</dd>
+            <dt><em>Frontend</em> - Template für einzelnen Artikel:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Template, welches für einen einzelnen Artikel verwendet werden soll. Die hier getroffene
+            Auswahl beeinflusst die angezeigten Register im Template-Editor</dd>
+            <dt><em>Frontend</em> - News sortieren nach:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Reihenfolge, nach der Artikel im Frontend sortiert werden sollen. Die erste Auswahl legt fest,
+            nach welchem Kriterium die Sortierung erfolgt (im Standard den Zeitpunkt der Veröffentlichung), die zweite Auswahl die Richtung.</dd>
+            <dt><em>Frontend</em> - Share-Buttons anzeigen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Hierüber können die Share-Buttons deaktiviert werden. Wurde der entsprechende Platzhalter in
+            einem Template verwendet, so wird er bei der Einstellung "Nein" aus der Frontend-Anzeige entfernt.</dd>
+            <dt><em>Frontend</em> - Geteilte Artikel über Share-Buttons zählen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Diese Option ermöglicht es zu zählen, wie oft ein Artikel über die Share-Buttons bereits geteilt
+            wurde. Diese Option wie oft ein Artikel geteilt wurde und wann dies zuletzt erfolgte. Es erfolgt keine Erfassung, von welcher IP, etc.
+            dies erfolgte.</dd>
+            <dt><em>Frontend</em> - URL-Rewriting für Artikel-Links aktivieren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Statt der klassischen Artikel-URL mit der Artikel-ID wird eine erweiterte Version erzeugt,
+            welche um den Artikel-Titel erweitert wird. Bei Änderung am Titel kann sich diese URL daher nachträglich ändern. Die klassische Variante
+            steht weiterhin zur Verfügung.</dd>
+            <dt><em>Frontend</em> - RSS-Feed ist aktiv:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diese Option kann der RSS-Feed aktiviert werden.</dd>
+            <dt>Archiv - Archiv-Link anzeigen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Diese Einstellung ermöglicht es, dass öffentliche Artikel-Archiv für deine Benutzer zu deaktivieren.
+            Somit sind nur die Artikel sichtbar, welche in den aktiven Artikeln im Admin-Bereich ausgelistet werden.</dd>
+            <dt>Archiv - Artikel in Archiv anzeigen ab:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Vor dem Datum angegebenen Datum veröffentlichte Artikel, welche im Archiv abgelegt wurden,
+            werden nicht für Besucher deiner Webseite angezeigt. ist dieses Feld leer, so werden alle archivierten Artikel angezeigt.</dd>
+        </dl>
+        
+        <h3>Kommentare</h3>
+        
+        <dl>
+            <dt>Kommentare - Kommentar-System ist aktiv:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Kommentar-System komplett aktivieren bzw. deaktivieren.</dd>
+            <dt>Kommentare - Zustimmung zur Datenschutz-Erklärung erforderlich:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Diese Option aktiviert eine zusätzliche Prüfung, ob die Checkbox für die Zustimmung
+            zur Speicherung personenbezogener Daten nach dem Verfassen eines Kommentars angehakt wurde. Diese Option sollte aktiv sein,
+            wenn du das Kommentar-System verwendest und deine Webseite Besucher aus dem Raum der Europäische Union hat.</dd>
+            <dt>Kommentare - Kommentar-Benachrichtigung an:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Auswahl, an welche E-Mail-Adresse die Benachrichtigung über einen neuen Kommentar geht
+            (Autor des Artikels, globale E-Mail-Adresse aus den Systemeinstellungen oder an beide).</dd>
+            <dt>Kommentare - Kommentar-Template:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Template für die Anzeige von Kommentaren im Frontend.</dd>
+            <dt>Kommentare - Zeitsperre zwischen zwei Kommentaren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Zeitspanne die zwischen zwei Kommentaren von der selben IP-Adresse vergangen
+            sein muss.</dd>
+            <dt>Kommentare - E-Mail-Adresse erforderlich:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Muss E-Mail-Adresse beim Schreiben eines Kommentars
+            angegeben werden oder nicht.</dd>
+            <dt>Kommentare - Kommentar-Freigabe erforderlich:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Kommentare sind sofort sichtbar oder müssen manuell durch den Autor oder einen
+            Admin freigegeben werden. Ob Artikel freigegeben werden können, hängt von den Berechtigungen des Benutzers ab</dd>
+
+            <dt>Captcha-Einstellungen - Captcha-Frage:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Frage für das Standard-Captcha.</dd>
+            <dt>Captcha-Einstellungen - Antwort auf Captcha-Frage:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Antwort für das Standard-Spam-Plugin.</dd>
+            <dt>Captcha-Einstellungen - Automatische Spam-Markierung:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Wurden Kommentare eines Kommentar-Autor so oft wie eingestellt als Spam markiert,
+            so werden neue Kommentar automatisch als Spam deklariert.</dd>
+        </dl>
+        
+        <h3>Erweitert</h3>
+        
+        <dl>
+            <dt>Sicherheit & Wartung - Wartungsmodus aktiv:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Wurde der Wartungsmodus aktiviert, so haben nur angemeldete Benutzer Zugriff auf FanPress CM.
+            Besucher deiner Seite, etc. erhalten eine Hinweis-Meldung. Nur bereits angemeldete Benutzer können in diesem Status Änderungen
+            am System vornehmen.</dd>
+            <dt>Sicherheit & Wartung - Maximale Länge einer Admin-Sitzung:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Länge einer Session Admin-Bereich. Eine Session läuft automatisch ab, wenn innerhalb der angegebenen
+            Zeit keine Aktion im Admin-Bereich erfolgte bzw. der Check der Session fehlgeschlagen ist.</dd>
+            <dt>Sicherheit & Wartung - Anzahl Login-Versuche vor temporärer Sperre:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Hiermit kann die Anzahl der Fehlgeschlagenen Logins einstellen, bis der Login vorübergehend
+            gesperrt wird. Diese Option erschwert die Übernahme von Benutzer-Accounts durch massenweises Durchprobieren von Passwörtern, etc.</dd>
+            <dt>Sicherheit & Wartung - Zwei-Faktor-Authentifizierung:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz von Benutzer-Konten gegen Fishing,
+            Bots und ähnliches. Die Nutzung ist optional und wird durch jeden Benutzer selbst festgelegt. Der zweite Faktor zum Login wird mittels
+            der App "Google Authenticator" auf dem Smartphone des Benutzers realisiert. Wurde die Zwei-Faktor-Authentifizierung aktiviert, so erscheint
+            initial ein QR-Code, welcher eingescannt und bestätigt werden muss.</dd>
+            
+            <dt>Update-Einstellungen - E-Mail-Benachrichtigung, wenn Updates verfügbar:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Diese Option ermöglicht es, die Benachrichtigung über
+            verfügbare Updates durch den Update-Cronjob zu de/aktivieren. Die Benachrichtigung erfolgt dabei immer an die globale
+            E-Mail-Adresse in den Systemeinstellungen.</dd>
+            <dt>Update-Einstellungen - Entwickler-Versionen bei Update-Check anzeigen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Neben den offizielle Releases gibt es immer wieder Entwickler- und Test-Versionen.
+            Nach Aktivierung dieser Option werden solche Versionen beim Update-Check angezeigt. <b>Achtung: Entwickler- und Test-Versionen
+            können Fehler oder unvollständige Änderungen enthalten! Nutze diese Versionen daher nur, wenn du dazu aufgefordert wurdest oder dir
+            bei Problemen, Datenverlust, o. ä. notfalls selbst helfen kannst.</b></dd>
+            <dt>Update-Einstellungen - Update-Check-Intervall, wenn externe Server-Verbindungen nicht möglich:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Kann deine FanPress CM Installation keine direkte Verbindung zum Update herstellen,
+            so wird dir in regelmäßigem Abstand ein Dialog angezeigt, welcher die Download-Seite auf
+            <a href="https://Nobody-Knows.org">Nobody-Knows.org</a> angezeigt. Mit dieser Einstellung kann festgelegt werden, in welchem
+            zeitlichen Abstand dies passiert.</dd>
+
+            <dt>E-Mail-Versand - E-Mails via SMTP versenden:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Wenn diese Option aktiv ist, erfolgt der E-Mail-Versand unter
+            welche durch die SMTP-Zugangsdaten definiert wird. Zur Nutzung des SMTP-Versands muss dein Host die Verbindung zu anderen Servern
+            zulassen. Standardmäßig erfolgt der Versand von E-Mails über die PHP-eigenen Funktionen.</dd>
+            <dt>E-Mail-Versand - E-Mail-Adresse:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">E-Mail-Server, die als Absender-Konto verwendet wird</dd>
+            <dt>E-Mail-Versand - SMTP-Server-Adresse:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">E-Mail-Server-Adresse</dd>
+            <dt>E-Mail-Versand - SMTP-Server-Port:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">E-Mail-Server-Port. Der Port ist abhängig davon, ob eine verschlüsselte Verbindung verwendet wird
+            oder nicht.</dd>
+            <dt>E-Mail-Versand - SMTP-Benutzername:</dt>
+            <dt>E-Mail-Versand - SMTP-Passwort:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzername und Passwort für das zu verwendende E-Mail-Konto</dd>
+            <dt>E-Mail-Versand - SMTP-Verschlüsselung:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Legt fest, ob die Verbindung zum E-Mail-Server verschlüsselt erfolgen soll oder nicht. Die
+            gewählte Verschlüsselung muss vom E-Mail-Server unterstützt werden. Bei Aktivierung von "Auto" wird versucht, dies automatisch zu
+            erkennen.</dd>
+        </dl>
+
+        <h3>Twitter-Verbindung</h3>
+        
+        <p>Dieses Register dient der Einrichtung und Überwachung der Twitter-Anbindung von FanPress-CM. Die Anleitung zur Einrichtung erreichst
+        du über das Hilfe-Icon neben dem Button <strong>API-Schlüssel und/oder Token anfordern</strong>.</p>
+        
+        <dl>
+            <dt>Verbindungsstatus:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">In diesem Bereich sieht du, ob bereits eine Verbindung zu Twitter hergestellt wurde oder ob diese
+            noch eingerichtet werden muss. Wurde die Verbindung noch die aktiviert, so findest du hier den Button
+            <strong>API-Schlüssel und/oder Token anfordern</strong>. Ansonsten steht hier, welcher Benutzername bei Twitter verwendet wird und die
+            Verbindung kann hier deaktiviert werden.</dd>
+            <dt>Tweet zu Artikel erzeugen beim:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über die beiden Punkte kann festgelegt werden, wann neue Tweets nur beim Veröffentlichen bzw. Ändern
+            eines Artikeln oder beiden Aktionen erzeugt werden sollen.</dd>
+            <dt>Zugangsdaten:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Diese Eingabe-Felder beinhalten die Informationen, welche für den erfolgreichen Zugriff auf die
+            Twitter-API benötigt werden. Welche Daten hier eingetragen werden müssen, erfährst du in der Hilfe zur Einrichtung.</dd>
+        </dl>
+
+        <h3>Systemprüfung</h3>
+        
+        <p>Über die Systemprüfung kannst du deine aktuelle Installation auf mögliche Fehlkonfigurationen prüfen lassen. Sofern alle Icons am rechten
+        Haken blau sind, wurden keine Probleme gefunden. Punkte, welche mit <em>optional</em> gekennzeichnet sind, müssen nicht zwangsläufig einen
+        blauen Haken besitzen.</p>
         ]]>
     </chapter>
     <chapter ref="HL_OPTIONS_USERS">
@@ -448,14 +552,14 @@ Help language file
         <h3>Benutzer</h3>
         
         <ul>
-            <li>Über Benutzer wird der Zugriff auf den Administratonsbereich gesteuert, sowie dokumentiert wer welchen Artikel,
+            <li>Über Benutzer wird der Zugriff auf den Admin-Bereich gesteuert, sowie dokumentiert wer welchen Artikel,
             Kommentar, etc. verfasst oder bearbeitet hat.</li>
             <li>Benutzer können deaktiviert werden. Dabei wird der Login gesperrt und somit der Zugriff auf den
-            Administratonsbereich gesperrt. Die erstellten Artikel, etc. bleiben erhalten. Dies kann nützlich sein, wenn
+            Admin-Bereich gesperrt. Die erstellten Artikel, etc. bleiben erhalten. Dies kann nützlich sein, wenn
             der Benutzer das Team deiner Seite verlassen hat, aus ihm ausgeschlossen wurde oder der Account irgendwie
             missbraucht wurde.</li>
             <li>Die änderbaren Informationen in den Benutzern entsprechen denen im Benutzer-Profil. Die von einem Benutzer
-            getroffenen Einstellungen können hier auf die systemweiten Einstellungen zurückgesetzt oder angepasst werden.</li>
+            getroffenen Einstellungen können hier auf die System-weiten Einstellungen zurückgesetzt oder angepasst werden.</li>
 
         </ul>
 
@@ -505,7 +609,7 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Kommentare können vom aktuellen zu einem anderen
             Artikel verschieben</dd>
             <dt>Kommentare in Masse bearbeiten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer können Kommentrae in Masse bearbeiten</dd>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer können Kommentare in Masse bearbeiten</dd>
             <dd class="fpcm-ui-padding-md-bottom"></dd>
             <dt>Systemeinstellungen verwalten</dt>
             <dd class="fpcm-ui-padding-md-bottom">Diese Berechtigung legt zentral fest, ob der Benutzer auf
@@ -521,13 +625,13 @@ Help language file
             die Berechtigungen ändern kann. Für die Gruppe "Administratoren" kann dieses Recht
             nicht entzogen werden.</dd>
             <dt>Templates verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann die Tempaltes und Vorlagen bearbeiten</dd>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann die Templates und Vorlagen bearbeiten</dd>
             <dt>Smileys verwalten</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Smileys neu definieren und bestehende löschen</dd>
             <dt>Updates durchführen</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer kann verfügbare Updates installieren.</dd>
             <dt>System-Logs verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann die Systemlogs einsehen und bei Bedarf bereinigen</dd>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann die vom System erzeugten Log-Dateien einsehen und bei Bedarf bereinigen</dd>
             <dt>Cronjobs verwalten</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Cronjobs verwalten</dd>
             <dt>Backups verwalten</dt>
@@ -573,7 +677,7 @@ Help language file
         <dl>
             <dt>Keine Kommentare schreiben</dt>
             <dd class="fpcm-ui-padding-md-bottom">Der Besucher mit der angegebenen IP-Adresse kann keine
-            Kommentare verfassen, wenn diese nicht für den Artikel oder genrell deaktiviert sind.</dd>
+            Kommentare verfassen, wenn diese nicht für den Artikel oder generell deaktiviert sind.</dd>
             <dt>Kein ACP-Login</dt>
             <dd class="fpcm-ui-padding-md-bottom">Der Besucher mit der angegebenen IP-Adresse kann sich nicht in FanPress-CM
                 einloggen bzw. hat keinen Zugriff auf die Login-Maske.</dd>
@@ -621,7 +725,7 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Der Kategorie-Name wird im Artikel-Editor angezeigt und kann zudem über den Platzhalter
             <em>{{categoryTexts}}</em> im Frontend ausgegeben werden.</dd>
             <dt>Kategorie-Icon:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Hierfür kann eine Bid-Datei auf einem externen Server oder lokal auf deinem Webspace verwendet
+            <dd class="fpcm-ui-padding-md-bottom">Hierfür kann eine Bild-Datei auf einem externen Server oder lokal auf deinem Webspace verwendet
             werden. In beiden Fällen sollte die vollständige URL angegeben werden. Die Anzeige der vergebenen Icons erfolgt im Frontend über
             den Platzhalter <em>{{categoryIcons}}</em>.</dd>
             <dt>Verfügbar für Rollen:</dt>
@@ -644,11 +748,11 @@ Help language file
             Kommentar-Formular, etc. Dieser Tab wird nicht angezeigt, wenn für <em>Artikel-Liste</em> und <em>Artikel-Einzel-Ansicht</em>
             das gleiche Template genutzt wird.</dd>
             <dt>Kommentar:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Template für die Anzeige eines einzelnen Kommentarsim Frontend.</dd>
+            <dd class="fpcm-ui-padding-md-bottom">Template für die Anzeige eines einzelnen Kommentars im Frontend.</dd>
             <dt>Kommentar-Formular:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Template für das Formular zum Verfassen eines Kommentars.</dd>
             <dt>Share-Buttons:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Template für die Darstellung der Sharebuttons in Artikeln.</dd>
+            <dd class="fpcm-ui-padding-md-bottom">Template für die Darstellung der Share-Buttons in Artikeln.</dd>
             <dt>Latest News:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Template für die einzelnen Zeilen in den "Latest News".</dd>
             <dt>Tweet:</dt>
@@ -669,8 +773,8 @@ Help language file
             <dt>Editor:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Der Editor basiert ebenfalls auf CodeMirror und arbeitet ähnlich wie der Artikel-Editor.</dd>
             <dt>Vorschau anzeigen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Der Button "Vorschau anzeigen" ermöglicht es, vom im Editor vorhandenen Template-Inhalt
-            eine Vorschau anzuzeigen lassen.</dd>
+            <dd class="fpcm-ui-padding-md-bottom">Der Button <strong>Vorschau anzeigen</strong> ermöglicht es, den im Editor vorhandenen Template-Inhalt
+            als Vorschau anzeigen zu lassen und somit die Wirkung, Formatierungsfehler, etc. sofort zu erkennen.</dd>
         </dl>
         
         <h3>Vorlagen</h3>
@@ -701,17 +805,17 @@ Help language file
     <chapter ref="HL_CRONJOBS">
         <![CDATA[
         <ul>
-            <li>Cronjobs sind Aufgaben, welche in regelmäßgen Abständen automatisch durch FanPress CM im Hintergrund ausgeführt werden.</li>
+            <li>Cronjobs sind Aufgaben, welche in regelmäßigen Abständen automatisch durch FanPress CM im Hintergrund ausgeführt werden.</li>
             <li>Die Cronjob-Übersicht zeigt eine Liste aller verfügbaren Cronjobs, wenn sie zuletzt ausgeführt wurden, sowie den Zeitpunkt der
             nächsten voraussichtlichen Ausführung.</li>
             <li>Die Häufigkeit der Ausführung eines Cronjobs kannst du anpassen, indem der Wert für das Intervall-Zeit angepasst wird.</li>
-            <li>Beachte bei der Änderung des Intervals, dass Cronjobs u. U. für erhöhte Serverlast führen kann.</li>
+            <li>Beachte bei der Änderung des Intervall, dass Cronjobs u. U. für erhöhte Serverlast führen kann.</li>
         </ul>
 
         <dl>
             <dt>Artikel-Revisionen bereinigen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Wurde die Option <em>Alte Revisionen löschen, wenn älter als</em> auf einen Wert ungleich <em>Nie</em> gesetzt,
-            bereinigt dieser Cronjob die Artikel-Revisionen im eingestellten Interval. Standardmäßig erfolgt dies einmal im Monat.</dd>
+            bereinigt dieser Cronjob die Artikel-Revisionen im eingestellten Intervall. Standardmäßig erfolgt dies einmal im Monat.</dd>
             <dt>Dateiindex neu aufbauen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Standardmäßig einmal pro Tag wird der Dateiindex, d. h. die Informationen über hochgeladene Bilder
             neu aufgebaut. Hierbei werden gelöschte Dateien entfernt und ggf. neu hochgeladene Bilder erfasst, sollte dies beim Upload nicht automatisch erfolgt sein.</dd>
@@ -728,10 +832,10 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Die Prüfung auf System- und Modul-Updates wird durch diesen Cronjob durchgeführt. Die Ausführung erfolgt nur, wenn FanPress CM
             sich zum Update-Server verbinden kann. Die Prüfung erfolgt standardmäßig einmal täglich.</dd>
             <dt>System-Datenbank sichern:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Sicherung der System-Datenbank dient dieser Cronjob. Die erzeugten backups werden im Verzeichnis <em>/data/dbdump</em> abgelegt
-            und können über den Backup-Manager verwaltet werden. Im Standard erfolgt die Sicherung einmal pro Woche. Bei hohem Artikel-Aufkommen sollte das Interval entsprechend
+            <dd class="fpcm-ui-padding-md-bottom">Die Sicherung der System-Datenbank dient dieser Cronjob. Die erzeugten Backups werden im Verzeichnis <em>/data/dbdump</em> abgelegt
+            und können über den Backup-Manager verwaltet werden. Im Standard erfolgt die Sicherung einmal pro Woche. Bei hohem Artikel-Aufkommen sollte das Intervall entsprechend
             reduziert werden.</dd>
-            <dt>Systemlogs leeren:</dt>
+            <dt>System-Logs leeren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die Log-Dateien können unter Umständen sehr groß werden, daher werden diese (im Standard monatlich) auf ihre Dateigröße geprüft und
             bei Überschreitung einer Größe von 1 MB bereinigt. Das vorherige Log wird gespeichert. Die Bereinigung des Session-Logs erfolgt unabhängig von der Anzahl der Einträge.</dd>
             <dt>temporäre Dateien aufräumen:</dt>
@@ -742,7 +846,7 @@ Help language file
     </chapter>
     <chapter ref="HL_LOGS">
         <![CDATA[
-        <p>Im Bereich der Systemlogs findest du eine Auflistung aller bisherigen Benutzer-Logins, System-Meldungen von FanPress und
+        <p>Im Bereich der System-Logs findest du eine Auflistung aller bisherigen Benutzer-Logins, System-Meldungen von FanPress und
             Fehlermeldungen durch PHP selbst oder der Datenbank. Über den Button <strong>Leeren</strong> kannst du Meldungen, etc. löschen
             lassen.</p>
         
@@ -773,9 +877,12 @@ Help language file
         <ul>
             <li>Dieser Bereich ermöglicht dir die Verwaltung der automatisch erzeugten Datenbank-Backups. Du kannst diese herunterladen oder löschen.</li>
             <li>Die erzeugten Datenbank-Backups sind gepackte SQL-Dateien, deren Struktur vom verwendeten Datenbank-System abhängt.</li>
-            <li>Um ein Backup bei Bedarf wiederherzustellen, kannst du Werkzeuge wie
-                <a href="https://www.phpmyadmin.net/" target="_blank">phpMyAdmin</a>, <a href="https://www.adminer.org/de" target="_blank">Adminer</a> or
-                <a href="http://phppgadmin.sourceforge.net/doku.php" target="_blank">phpPgAdmin</a> nutzen.
+            <li>Um ein Backup bei Bedarf wiederherzustellen, kannst du folgende Werkzeuge nutzen:
+                <ul>
+                    <li><a href="https://www.phpmyadmin.net/" target="_blank">phpMyAdmin</a></li>
+                    <li><a href="https://www.adminer.org/de" target="_blank">Adminer</a></li>
+                    <li><a href="http://phppgadmin.sourceforge.net/doku.php" target="_blank">phpPgAdmin</a></li>
+                </ul>
             </li>
         </ul>
         ]]>
