@@ -431,6 +431,14 @@ fpcm.ui = {
             dlParams.minHeight   = params.dlMinHeight;            
         }
         
+        if (params.dlMaxWidth !== undefined) {
+            dlParams.maxWidth   = params.dlMaxWidth;            
+        }
+        
+        if (params.dlMaxHeight !== undefined) {
+            dlParams.maxHeight   = params.dlMaxHeight;            
+        }
+        
         el.dialog(dlParams);
 
         return true;

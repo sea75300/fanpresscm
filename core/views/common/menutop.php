@@ -5,7 +5,7 @@
         <ul class="fpcm-menu-top">
         <?php if ($theView->helpLink) : ?>
             <li class="fpcm-menu-top-level1 fpcm-ui-helplink">
-                <a href="<?php print $theView->helpLink; ?>" title="<?php $theView->write('HELP_BTN_OPEN'); ?>" class="fpcm-ui-help-dialog">
+                <a href="#" title="<?php $theView->write('HELP_BTN_OPEN'); ?>" class="fpcm-ui-help-dialog" data-ref="<?php print $theView->helpLink['ref']; ?>" data-chapter="<?php print $theView->helpLink['chapter']; ?>">
                     <?php $theView->icon('question-circle')->setSize('lg'); ?>
                 </a>
             </li>

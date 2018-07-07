@@ -240,29 +240,41 @@ fpcm.system = {
     
     showHelpDialog: function () {
 
-        jQuery('.fpcm-ui-help-dialog').click(function () {+
-            fpcm.ui.dialog({
-                id: 'help' ,
-                dlWidth    : fpcm.ui.getDialogSizes(top, 0.75).width,
-                dlHeight   : fpcm.ui.getDialogSizes(top, 0.85).height,
-                resizable  : true,
-                title      : fpcm.ui.translate('HL_HELP'),
-                content    : fpcm.ui.createIFrame({
-                    src    : 'src="' + jQuery(this).attr('href') + '" ',
-                    id     : 'mainhelp'
-                }),
-                dlButtons  : [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                    
-                        click: function() {
-                            jQuery(this).dialog('close');
-                            return false;
+        jQuery('.fpcm-ui-help-dialog').click(function () {
+            var el = jQuery(this);
+            
+            fpcm.ajax.get('help', {
+                data: {
+                    ref: el.attr('data-ref'),
+                    chapter: el.attr('data-chapter'),
+                },
+                execDone: function (result) {
+
+                    var sizes = fpcm.ui.getDialogSizes(top, 0.90);
+
+                    fpcm.ui.dialog({
+                        id: 'help' ,
+                        dlWidth    : sizes.width,
+                        dlMaxHeight: sizes.height,
+                        resizable  : false,
+                        title      : fpcm.ui.translate('HL_HELP'),
+                        content    : result,
+                        dlButtons  : [
+                            {
+                                text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                                icon: "ui-icon-closethick",                    
+                                click: function() {
+                                    jQuery(this).dialog('close');
+                                    return false;
+                                }
+                            }
+                        ],
+                        dlOnClose: function( event, ui ) {
+                            jQuery(this).remove();
                         }
-                    }
-                ],
-                dlOnClose: function( event, ui ) {
-                    jQuery(this).remove();
+                    });
+                    
+                    fpcm.ui.tabs('#fpcm-ui-tabs-help');
                 }
             });
 

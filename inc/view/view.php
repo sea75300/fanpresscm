@@ -457,22 +457,23 @@ class view {
     }
 
     /**
-     * Set link for help button
+     * Set help link data
      * @param string $entry
-     * @since FPCM 3.5
+     * @param int $chapter
+     * @return bool
      */
-    public function setHelpLink($entry)
+    public function setHelpLink(string $entry, int $chapter = 0) : bool
     {
         if (!trim($entry)) {
             return false;
         }
 
-        $this->defaultViewVars->helpLink = \fpcm\classes\tools::getFullControllerLink('system/help', [
-            'ref' => urlencode(base64_encode(strtoupper($entry)))
-        ]);
+        $this->defaultViewVars->helpLink = [
+            'ref' => urlencode(base64_encode(strtoupper($entry))),
+            'chapter' => $chapter
+        ];
 
         $this->addJsLangVars(['HL_HELP']);
-
         return true;
     }
 

@@ -81,7 +81,7 @@ fpcm.ajax = {
             }
 
             if (typeof params.execDone == 'function') {
-                params.execDone.call();
+                params.execDone(result);
             }
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
@@ -94,7 +94,7 @@ fpcm.ajax = {
             }
 
             if (typeof params.execFail == 'function') {
-                params.execFail.call();
+                params.execFail();
             }
         });   
 
