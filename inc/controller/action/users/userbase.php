@@ -138,6 +138,7 @@ class userbase extends \fpcm\controller\abstracts\controller {
             }
         } else {
             $this->user->disablePasswordSecCheck();
+            $this->user->setPassword(null);
         }
 
         if ($this->getRequestVar('disable2Fa', [\fpcm\classes\http::FILTER_CASTINT]) === 1) {

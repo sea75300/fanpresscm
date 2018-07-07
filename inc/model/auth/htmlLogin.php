@@ -50,7 +50,7 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
             
             if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_LOGIN')) {
                 trigger_error('Password hash information:  ');
-                trigger_error(password_get_info($user->getPasswd()));
+                trigger_error(print_r(password_get_info($user->getPasswd()), true));
             }
 
             trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given, check simple hash. Request was made by ' . \fpcm\classes\http::getIp());
