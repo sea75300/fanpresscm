@@ -875,7 +875,8 @@ Help language file
     <chapter ref="HL_BACKUPS">
         <![CDATA[
         <ul>
-            <li>Dieser Bereich ermöglicht dir die Verwaltung der automatisch erzeugten Datenbank-Backups. Du kannst diese herunterladen oder löschen.</li>
+            <li>Dieser Bereich ermöglicht dir die Verwaltung der automatisch erzeugten Datenbank-Backups. Du kannst diese herunterladen
+            oder löschen.</li>
             <li>Die erzeugten Datenbank-Backups sind gepackte SQL-Dateien, deren Struktur vom verwendeten Datenbank-System abhängt.</li>
             <li>Um ein Backup bei Bedarf wiederherzustellen, kannst du folgende Werkzeuge nutzen:
                 <ul>
@@ -889,7 +890,76 @@ Help language file
     </chapter>
     <chapter ref="HL_MODULES">
         <![CDATA[
-        <p>no information yet</p>
+        <p>Durch Module kann die Funktionalität von FanPress CM umfangreich erweitert werden. Die Verwaltung von verfügbaren und/oder
+        installierten Modulen erfolgt in diesem Bereich.</p>
+
+        <h3>Register</h3>
+
+        <dl>
+            <dt>Installierte Module:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">In diesem Register werden alle Module angezeigt, die im System verfügbar sind. Dies können
+            Module aus dem öffentlichen Repository oder eigene Modul sein, welche dort noch nicht verfügbar sind.</dd>
+            <dt>Verfügbare Module:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die verfügbaren Module listen alle Modul auf, welche im öffentlichen Repository verfügbar sind.
+            Diese Module werden vor der Veröffentlichung geprüft. Über das öffentliche Repository werden auch Aktualisierungen zur Verfügung 
+            gestellt. Wurde ein Modul bereits installiert, so wird dieses in der Übersicht weiterhin angezeigt.</dd>
+            <dt>Modul-Paketdatei hochladen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über dieses Register können Module aus externen Quellen ins System hochgeladen werden. Die
+            als ZIP-Archive gepackten Module werden bei diesem Vorgang automatisch entpackt. Die Nutzung der Upload-Funktion kann notwendig
+            werden, wenn dein Host keine Verbindung zu externen Servern zulässt.</dd>
+        </dl>
+        
+        <h3>Aktionen</h3>
+
+        <dl>
+            <dt>Modul-Detail-Informationen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die Detail-Informationen zum Modul (siehe unten) können über diesen
+            angezeigt werden.</dd>
+            <dt>Modul installieren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kann ein Modul installiert werden.</dd>
+            <dt>Modul deinstallieren:</dt>
+            <dt>Modul löschen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die Deinstallation eines Moduls entfernt alle durch das Modul angelegten
+            Tabellen, Konfigurationsoptionen, etc. Die Dateien selbst werden dabei nicht gelöscht. Dies muss durch den
+            Button <strong>Modul löschen</strong> erfolgen.</dd>
+            <dt>Modul aktualisieren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Ist im öffentlichen Repository eine neuere Version des Modules
+            verfügbar, so kann die Aktualisierung des Moduls über diesen Button erfolgen.</dd>
+            <dt>Modul aktivieren:</dt>
+            <dt>Modul deaktivieren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Nach der Installation eines Moduls muss dies aktiviert werden, so
+            dass definierte Events, Aktionen, etc. zur Verfügung stehen. Die Deaktivierung ermöglicht es, die Ausführung
+            z. B. bei auftretenden Fehlern zu beenden ohne das Modul komplett zu deaktivieren.</dd>
+            <dt>Modul konfigurieren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dieser Button wird angezeigt, wenn das Modul das Template <em>configure.php</em>
+            beinhaltet..</dd>
+        </dl>
+
+        <h3>Modul-Detail-Informationen</h3>
+
+        <dl>
+            <dt>Schlüssel:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dies ist die interne Bezeichnung des Moduls. Der Schlüssel muss einmalig sein.</dd>
+            <dt>Name:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Der Name ist eine nicht-technische Bezeichnung und gibt eine kurze Informationen,
+            welchem Zweck das Modul dient.</dd>
+            <dt>Version (lokal):</dt>
+            <dt>Version (Server):</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Hier wird die Version angezeigt, welche lokal installiert und ggf. im öffentlichen
+            Repository verfügbar ist. Beide Angaben können unterschiedliche Werte besitzen, in der Regel sollte der Wert der lokalen
+            Version dem der Server-Version entsprechen.</dd>
+            <dt>Autor:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die Autor-Angabe entspricht dem Entwickler des Moduls, dies kann ein Name,
+            E-Mail-Adresse o.ä. sein.</dd>
+            <dt>Info-Link:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Diese Angabe enthält eine URL für weiteren Informationen zum Modul.</dd>
+            <dt>Beschreibung:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dieser Wert beinhaltet eine erweiterte Kurzbeschreibung zum Modul.</dd>
+            <dt>Erfordert PHP:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Module können eine bestimmte PHP-Version voraussetzen, diese wird hier angegeben.</dd>
+            <dt>Erfordert FanPress CM:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Module können eine bestimmte FanPress CM -Version voraussetzen, diese wird hier angegeben.</dd>
+        </dl>
         ]]>
     </chapter>
     <chapter ref="SYSTEM_OPTIONS_TWITTER_CONNECTION">

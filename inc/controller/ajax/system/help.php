@@ -49,7 +49,7 @@ class help extends \fpcm\controller\abstracts\controller {
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
         $this->view->setViewVars([
             'headline' => $ref,
-            'content'  => trim($data[$chapter])
+            'content'  => count($data) && isset($data[$chapter]) ? trim($data[$chapter]) : $this->language->translate('GLOBAL_NOTFOUND2')
         ]);
 
         $this->view->render();
