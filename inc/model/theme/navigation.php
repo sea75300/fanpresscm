@@ -236,7 +236,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 ->setPermission(['system' => 'templates']),
             (new navigationItem())->setUrl('smileys/list')
                 ->setDescription('HL_OPTIONS_SMILEYS')
-                ->setIcon('smile', 'far')
+                ->setIcon('smile-beam')
                 ->setId('nav-item-smileys')
                 ->setPermission(['system' => 'smileys']),
             (new navigationItem())->setUrl('system/crons')

@@ -4,18 +4,21 @@
     <div class="row">
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('EDITOR_LINKURL'); ?></div>
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('links[url]', 'linksurl')->setValue('http://'); ?></div>
-        
+    </div>
+    <div class="row">    
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('EDITOR_LINKTXT'); ?></div>
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('links[text]', 'linkstext'); ?></div>
-        
+    </div>
+    <div class="row">            
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('EDITOR_LINKTXT'); ?></div>
         <div class="col-6 fpcm-ui-padding-md-tb"><?php $theView->select('links[target]', 'linkstarget')->setOptions($targets); ?></div>
-        
-        <?php if (count($cssClasses)) : ?>
+    </div>
+    <?php if (count($cssClasses)) : ?>
+    <div class="row">            
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('EDITOR_CSS_CLASS'); ?></div>
         <div class="col-6 fpcm-ui-padding-md-tb"><?php $theView->select('links[css]', 'linkscss')->setOptions($cssClasses); ?></div>
-        <?php endif; ?>
     </div>
+    <?php endif; ?>
 </div>
 
 <!-- Bild einfügen -->  
@@ -23,18 +26,21 @@
     <div class="row">
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('EDITOR_IMGPATH'); ?></div>
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('images[path]', 'imagespath')->setValue('http://'); ?></div>
-        
+    </div>
+    <div class="row">    
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('EDITOR_IMGALTTXT'); ?></div>
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('images[alt]', 'imagesalt'); ?></div>
-        
+    </div>
+    <div class="row">    
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('EDITOR_IMGALIGN'); ?></div>
         <div class="col-6 fpcm-ui-padding-md-tb"><?php $theView->select('images[align]', 'imagesalign')->setOptions($aligns); ?></div>
-        
-        <?php if (count($cssClasses)) : ?>
+    </div>
+    <?php if (count($cssClasses)) : ?>
+    <div class="row">    
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('EDITOR_CSS_CLASS'); ?></div>
         <div class="col-6 fpcm-ui-padding-md-tb"><?php $theView->select('images[css]', 'imagescss')->setOptions($cssClasses); ?></div>
-        <?php endif; ?>
     </div>
+    <?php endif; ?>
 </div>
 
 <!-- Tabelle einfügen -->  
@@ -42,7 +48,8 @@
     <div class="row">
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('EDITOR_INSERTTABLE_ROWS'); ?></div>
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('table[rows]', 'tablerows')->setValue(1)->setMaxlenght(5)->setWrapper(false); ?></div>
-        
+    </div>
+    <div class="row">
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('EDITOR_INSERTTABLE_COLS'); ?></div>
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('table[cols]', 'tablecols')->setValue(1)->setMaxlenght(5)->setWrapper(false); ?></div>
     </div>
@@ -61,17 +68,19 @@
     <div class="row">
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('EDITOR_IMGPATH'); ?></div>
         <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('media[path]', 'mediapath'); ?></div>
-        
-        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb">
-            <?php $theView->radiobutton('mediatype', 'mediatypea')->setText('EDITOR_INSERTMEDIA_AUDIO')->setClass('fpcm-editor-mediatype')->setValue('audio')->setSelected(true); ?>
-        </div>
-        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb">
-            <?php $theView->radiobutton('mediatype', 'mediatypev')->setText('EDITOR_INSERTMEDIA_VIDEO')->setClass('fpcm-editor-mediatype')->setValue('video'); ?>
+    </div>
+    
+    <div class="row">        
+        <div class="col-12 fpcm-ui-padding-md-tb fpcm-ui-center">
+            <div id="fpcm-ui-editor-media-controlgroup">
+                <?php $theView->radiobutton('mediatype', 'mediatypea')->setText('EDITOR_INSERTMEDIA_AUDIO')->setClass('fpcm-editor-mediatype')->setValue('audio')->setSelected(true); ?>
+                <?php $theView->radiobutton('mediatype', 'mediatypev')->setText('EDITOR_INSERTMEDIA_VIDEO')->setClass('fpcm-editor-mediatype')->setValue('video'); ?>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- Tabelle einfügen -->
+<!-- Farben einfügen -->
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertcolor">
     <div class="row no-gutters fpcm-ui-padding-md-tb">
         <div class="col-sm-12 col-md-6 align-self-center"><?php $theView->write('EDITOR_INSERTCOLOR_HEXCODE'); ?></div>
@@ -83,11 +92,11 @@
     </div>
     
     <div class="row no-gutters fpcm-ui-padding-md-tb">
-        <div class="align-self-center col-12 col-md-6 fpcm-ui-center">
-            <?php $theView->radiobutton('color_mode', 'color_mode1')->setText('EDITOR_INSERTCOLOR_TEXT')->setClass('fpcm-ui-editor-colormode')->setValue('color')->setSelected(true); ?>
-        </div>
-        <div class="align-self-center col-12 col-md-6 fpcm-ui-center">
-            <?php $theView->radiobutton('color_mode', 'color_mode2')->setText('EDITOR_INSERTCOLOR_BACKGROUND')->setClass('fpcm-ui-editor-colormode')->setValue('background'); ?>
+        <div class="col-12 fpcm-ui-padding-md-tb fpcm-ui-center">
+            <div id="fpcm-ui-editor-color-controlgroup">
+                <?php $theView->radiobutton('color_mode', 'color_mode1')->setText('EDITOR_INSERTCOLOR_TEXT')->setClass('fpcm-ui-editor-colormode')->setValue('color')->setSelected(true); ?>
+                <?php $theView->radiobutton('color_mode', 'color_mode2')->setText('EDITOR_INSERTCOLOR_BACKGROUND')->setClass('fpcm-ui-editor-colormode')->setValue('background'); ?>
+            </div>
         </div>
     </div>
 </div>

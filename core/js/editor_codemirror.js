@@ -345,7 +345,12 @@ if (fpcm.editor) {
                         jQuery( this ).dialog( "close" );
                     }
                 }
-            ]
+            ],
+            onCreate: function (event, ui) {
+                fpcm.ui.controlgroup('#fpcm-ui-editor-color-controlgroup', {
+                    onlyVisible: false
+                });
+            }
         });
     };
     
@@ -468,7 +473,12 @@ if (fpcm.editor) {
                         jQuery( this ).dialog( "close" );
                     }
                 }
-            ]        
+            ],
+            onCreate: function (event, ui) {
+                fpcm.ui.controlgroup('#fpcm-ui-editor-media-controlgroup', {
+                    onlyVisible: false
+                });
+            }
         });
     };
     
