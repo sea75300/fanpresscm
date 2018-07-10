@@ -59,6 +59,7 @@ $lang = array(
     'HL_HELP_CACHE' => 'Cache',
     'HL_HELP_INTEGRATION' => 'Integration in deine Seite',
     'HL_HELP_SUPPORT' => 'Kontakt & Support',
+    'HL_HELP_LICENCE' => 'Lizenzinformationen',
     'CRONJOB_ANONYMIZEIPS' => 'IP-Adressen aus Kommentaren anonymisieren',
     'CRONJOB_CLEARLOGS' => 'Systemlogs leeren',
     'CRONJOB_CLEARTEMP' => 'temporäre Dateien aufräumen',

@@ -3,6 +3,11 @@
 <div class="row no-gutters fpcm-status-info fpcm-ui-background-white-50p">
     <div class="col-12">        
         <ul class="fpcm-menu-top">
+        <li class="fpcm-menu-top-level1 fpcm-ui-helplink">
+            <a href="<?php print fpcm\classes\tools::getFullControllerLink('system/info'); ?>" title="<?php $theView->write('HL_HELP_SUPPORT'); ?>">
+                <?php $theView->icon('info-circle')->setSize('lg'); ?>
+            </a>
+        </li>
         <?php if ($theView->helpLink) : ?>
             <li class="fpcm-menu-top-level1 fpcm-ui-helplink">
                 <a href="#" title="<?php $theView->write('HELP_BTN_OPEN'); ?>" class="fpcm-ui-help-dialog" data-ref="<?php print $theView->helpLink['ref']; ?>" data-chapter="<?php print $theView->helpLink['chapter']; ?>">
@@ -12,19 +17,19 @@
         <?php endif; ?>
             <li class="fpcm-menu-top-level1 fpcm-ui-center" id="fpcm-navigation-profile">
                 <a href="#" target="_blank" class="fpcm-navigation-noclick">
-                   <?php $theView->icon('user')->setClass('fpcm-navicon'); ?>                
+                   <?php $theView->icon('user-circle')->setClass('fpcm-navicon')->setSize('lg'); ?>                
                    <?php $theView->write('PROFILE_MENU_LOGGEDINAS',  ['{{username}}' => $theView->currentUser->getDisplayName()]); ?>
-                   <?php $theView->icon('angle-down')->setClass('fpcm-navicon'); ?>
+                   <?php $theView->icon('angle-down')->setClass('fpcm-navicon')->setSize('lg'); ?>
                 </a>
                 <ul class="fpcm-submenu">
                     <li class="fpcm-menu-top-level2">
-                        <a href="<?php print $theView->basePath; ?>system/profile" class="fpcm-loader">
+                        <a href="<?php print $theView->basePath; ?>system/profile" class="fpcm-loader fpcm-ui-full-width">
                             <?php $theView->icon('wrench'); ?>
                             <span class="fpcm-navigation-descr"><?php $theView->write('PROFILE_MENU_OPENPROFILE'); ?></span>
                         </a>
                     </li>
                     <li class="fpcm-menu-top-level2">
-                        <a href="<?php print $theView->basePath; ?>system/logout" class="fpcm-loader">
+                        <a href="<?php print $theView->basePath; ?>system/logout" class="fpcm-loader fpcm-ui-full-width">
                             <?php $theView->icon('sign-out-alt'); ?>
                             <span class="fpcm-navigation-descr"><?php $theView->write('LOGOUT_BTN'); ?></span>
                         </a>

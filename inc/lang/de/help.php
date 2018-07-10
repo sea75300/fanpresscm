@@ -1007,12 +1007,14 @@ Help language file
     </chapter>
     <chapter ref="HL_HELP_SUPPORT">
         <![CDATA[
-        <p>Solltest du weitergehende Hilfe bei technischen Problemen brauchen oder Fragen haben, schreiben eine E-mail an
-            <em>fanpress@nobody-knows.org</em> oder <em>sea75300@yahoo.de</em>. Alternativ kannst du auch auf der Download-Seite unter
-            <a href="https://nobody-knows.org/download/fanpress-cm/">nobody-knows.org</a> einen Kommentar hinterlassen.</p>
-        <p>Das Module <em>FanPress CM Support Module</em> kann installiert werden, um einen einfachen, temporären Zugang
-            zur Verfügung zu stellen. Beachte bitte, dass bereits bei der Installation einen E-Mail mit den Zugangsdaten versendet
-            wird.</p>
+        <p>Sollten du Fragen haben oder (technische) Hilfe benötigen, so kannst du über verschiedene Wege Kontakt aufzunehmen.</p>
+        <p>Unseren Bugtracker findest du auf <a href="https://github.com/sea75300/fanpresscm4/issues">GitHub.com</a>. Hier werden sowohl
+        Weiterentwicklungen, als auch Bugfixes und sonstige Fragen entgegengenommen. Alternativ schreiben eine E-Mail an
+        <em>fanpress@nobody-knows.org</em> oder <em>sea75300@yahoo.de</em> oder hinterlasse unter
+        <a href="https://nobody-knows.org/download/fanpress-cm/">Nobody-Knows.org</a> einen Kommentar auf der Projekt-Seite.</p>
+
+        <p>Das Modul <em>FanPress CM Support</em> stellt nach der Installation einen Benutzer-Zugang zur deiner FanPress CM zur Verfügung.
+        Dieser wird während der Installation angelegt und einige grundlegende System-Informationen übermittelt.</p>
         ]]>
     </chapter>
 </chapters>
