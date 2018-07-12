@@ -112,7 +112,7 @@ class module {
      * Fetch dataset ID
      * @return int
      */
-    final public function getId()
+    final public function getId() : int
     {
         return $this->id;
     }
@@ -121,7 +121,7 @@ class module {
      * Return module key
      * @return string
      */
-    public function getKey()
+    public function getKey() : string
     {
         return $this->mkey;
     }
@@ -130,7 +130,7 @@ class module {
      * Return installed status
      * @return bool
      */
-    final public function isInstalled()
+    final public function isInstalled() : bool
     {
         return (bool) $this->installed;
     }
@@ -139,7 +139,7 @@ class module {
      * Return active status
      * @return bool
      */
-    final public function isActive()
+    final public function isActive() : bool
     {
         return (bool) $this->active;
     }
@@ -149,7 +149,7 @@ class module {
      * @param bool $installed
      * @return $this
      */
-    final public function setInstalled($installed)
+    final public function setInstalled($installed) : module
     {
         $this->installed = (int) $installed;
         return $this;
@@ -160,7 +160,7 @@ class module {
      * @param bool $active
      * @return $this
      */
-    final public function setActive($active)
+    final public function setActive($active) : module
     {
         $this->active = (int) $active;
         return $this;
@@ -170,7 +170,17 @@ class module {
      * Initialize objects
      * @return boolean
      */
-    protected function initObjects()
+    protected function initObjects() : bool
+    {
+        return true;
+    }
+
+    /**
+     * Prepares module config options before saving
+     * @param array $options
+     * @return bool
+     */
+    public function prepareSaveOptions(array &$options) : bool
     {
         return true;
     }
@@ -195,10 +205,26 @@ class module {
     }
 
     /**
+     * Fetch system config options
+     * @return array
+     */
+    
+    /**
+     * 
+     * @param array $options
+     * @return array
+     */
+    final public function setOptions(array $options) : bool
+    {
+        $this->systemConfig->setNewConfig($options);
+        return $this->systemConfig->update();
+    }
+
+    /**
      * Fetch module config
      * @return config
      */
-    public function getConfig()
+    public function getConfig() : config
     {
         return $this->config;
     }
@@ -208,7 +234,7 @@ class module {
      * @param object $result
      * @return boolean
      */
-    public function createFromDbObject($result)
+    public function createFromDbObject($result) : bool
     {
         $this->id = isset($result->id) ? $result->id : false;
         $this->installed = isset($result->installed) ? $result->installed : false;
@@ -222,7 +248,7 @@ class module {
      * Enable module
      * @return boolean
      */
-    public function enable()
+    public function enable() : bool
     {
         fpcmLogSystem('Enable module ' . $this->mkey);
 
@@ -238,7 +264,7 @@ class module {
      * Disable module
      * @return boolean
      */
-    public function disable()
+    public function disable() : bool
     {
         fpcmLogSystem('Disable module ' . $this->mkey);
 
@@ -254,7 +280,7 @@ class module {
      * Check if module is installed
      * @return boolean
      */
-    public function isInstallable()
+    public function isInstallable() : bool
     {
         if (defined('FPCM_MODULE_IGNORE_DEPENDENCIES') && FPCM_MODULE_IGNORE_DEPENDENCIES) {
             return true;
@@ -275,7 +301,7 @@ class module {
      * Check if module has updates
      * @return boolean
      */
-    public function hasUpdates()
+    public function hasUpdates() : bool
     {
         $data = \fpcm\classes\loader::getObject('\fpcm\model\updater\modules')->getDataCachedByKey($this->mkey);
         if ($data === false) {
@@ -306,7 +332,7 @@ class module {
      * Initialize module object
      * @return boolean
      */
-    protected function init()
+    protected function init() : bool
     {
         if (!trim($this->mkey)) {
             return false;
@@ -329,7 +355,7 @@ class module {
      * @param string $key
      * @return string
      */
-    private function getFullPrefix($key = '')
+    private function getFullPrefix($key = '') : string
     {
         return 'module_' . $this->prefix . '_' . $key;
     }
@@ -339,7 +365,7 @@ class module {
      * @param string $key
      * @return string
      */
-    private function removeFullPrefix($key = '')
+    private function removeFullPrefix($key = '') : string
     {
         return str_replace('module_' . $this->prefix . '_', '', $key);
     }
@@ -367,7 +393,7 @@ class module {
      * Return list of table files from module
      * @return array
      */
-    private function getTableFiles()
+    private function getTableFiles() : array
     {
         $files = glob($this->config->basePath . 'config' . DIRECTORY_SEPARATOR . 'tables' . DIRECTORY_SEPARATOR . '*.yml');
         if (!is_array($files)) {
@@ -381,7 +407,7 @@ class module {
      * Fetch module system config options
      * @return array
      */
-    private function getAllConfigOptions()
+    private function getAllConfigOptions() : array
     {
         if (!is_array($this->config->configOptions)) {
             return [];
@@ -400,7 +426,7 @@ class module {
      * @param \fpcm\model\system\yatdl $tab
      * @return boolean
      */
-    private function createTable(\fpcm\model\system\yatdl $tab)
+    private function createTable(\fpcm\model\system\yatdl $tab) : bool
     {
         $sqlStr = $tab->getSqlString();
         $tmpFile = \fpcm\classes\dirs::getDataDirPath(
@@ -424,7 +450,7 @@ class module {
      * @param boolean $fromDir
      * @return boolean
      */
-    final public function install($fromDir = false)
+    final public function install($fromDir = false) : bool
     {
         fpcmLogSystem('Installation of module ' . $this->mkey);
 
@@ -459,7 +485,7 @@ class module {
      * @param boolean $fromDir
      * @return boolean
      */
-    public function addModule($fromDir = false)
+    public function addModule($fromDir = false) : bool
     {
         fpcmLogSystem('Update modules table with ' . $this->mkey);
 
@@ -481,7 +507,7 @@ class module {
      * Create module tables
      * @return boolean
      */
-    private function installTables()
+    private function installTables() : bool
     {
         $tableFiles = $this->getTableFiles();
         if (!count($tableFiles)) {
@@ -505,7 +531,7 @@ class module {
      * Create module config options
      * @return boolean
      */
-    private function installConfig()
+    private function installConfig() : bool
     {
         $configOptions = $this->getAllConfigOptions();
         if (!count($configOptions)) {
@@ -529,7 +555,7 @@ class module {
      * @param boolean $delete
      * @return boolean
      */
-    final public function uninstall($delete = false)
+    final public function uninstall($delete = false) : bool
     {
         fpcmLogSystem('Uninstall module ' . $this->mkey);
         $this->cache->cleanup();
@@ -565,7 +591,7 @@ class module {
      * Remove module database entry
      * @return boolean
      */
-    private function removeModule()
+    private function removeModule() : bool
     {
         fpcmLogSystem('Remove modules table entry for ' . $this->mkey);
         return $this->db->delete(\fpcm\classes\database::tableModules, 'mkey = ?', [$this->mkey]);
@@ -575,7 +601,7 @@ class module {
      * Remove module files
      * @return boolean
      */
-    private function removeFiles()
+    private function removeFiles() : bool
     {
         fpcmLogSystem('Remove modules files from ' . \fpcm\model\files\ops::removeBaseDir($this->config->basePath));
         return \fpcm\model\files\ops::deleteRecursive($this->config->basePath);
@@ -585,7 +611,7 @@ class module {
      * Remove module tables
      * @return boolean
      */
-    private function removeTables()
+    private function removeTables() : bool
     {
         $tableFiles = $this->getTableFiles();
         if (!count($tableFiles)) {
@@ -615,7 +641,7 @@ class module {
      * Remove module config
      * @return boolean
      */
-    private function removeConfig()
+    private function removeConfig() : bool
     {
         $configOptions = $this->getAllConfigOptions();
         if (!count($configOptions)) {
@@ -633,7 +659,7 @@ class module {
      * Update module
      * @return boolean
      */
-    final public function update()
+    final public function update() : bool
     {
         fpcmLogSystem('update module ' . $this->mkey);
         $this->cache->cleanup();
@@ -663,7 +689,7 @@ class module {
      * Update module databse entry
      * @return boolean|int
      */
-    private function updateModule()
+    private function updateModule() : bool
     {
         fpcmLogSystem('Update modules table with ' . $this->mkey);
         if (!$this->db->update(\fpcm\classes\database::tableModules, ['data'], [json_encode($this->config), $this->mkey], 'mkey = ?')) {
@@ -677,7 +703,7 @@ class module {
      * Update module tables
      * @return boolean
      */
-    private function updateTables()
+    private function updateTables() : bool
     {
         $tableFiles = $this->getTableFiles();
         if (!count($tableFiles)) {
@@ -744,7 +770,7 @@ class module {
      * Update module config
      * @return boolean
      */
-    private function updateConfig()
+    private function updateConfig() : bool
     {
         $configOptions = $this->getAllConfigOptions();
         if (!count($configOptions)) {
@@ -768,7 +794,7 @@ class module {
      * @param string $path
      * @return string
      */
-    public static function getKeyFromPath($path)
+    public static function getKeyFromPath($path) : string
     {
         $path = str_replace(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, DIRECTORY_SEPARATOR), '', $path);
         $path = explode(DIRECTORY_SEPARATOR, $path, 3);
@@ -780,7 +806,7 @@ class module {
      * @param string $path
      * @return string
      */
-    public static function getKeyFromFilename($filename)
+    public static function getKeyFromFilename($filename) : string
     {
         return str_replace('_', '/', explode('_version', $filename, 2)[0]);
     }
@@ -805,7 +831,7 @@ class module {
      * @param string $event
      * @return string
      */
-    public static function getEventNamespace($key, $event)
+    public static function getEventNamespace($key, $event) : string
     {
         return "\\fpcm\\modules\\" . str_replace('/', '\\', $key) . "\\events\\{$event}";
     }
@@ -816,7 +842,7 @@ class module {
      * @param string $event
      * @return string
      */
-    public static function getControllerNamespace($key, $event)
+    public static function getControllerNamespace($key, $event) : string
     {
         return "\\fpcm\\modules\\" . str_replace('/', '\\', $key) . "\\controller\\{$event}";
     }
@@ -827,7 +853,7 @@ class module {
      * @param string $config
      * @return string
      */
-    public static function getConfigByKey($key, $config)
+    public static function getConfigByKey($key, $config) : string
     {
         return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $key) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR .$config. '.yml');
     }
@@ -838,7 +864,7 @@ class module {
      * @param string $viewName
      * @return string
      */
-    public static function getTemplateDirByKey($key, $viewName)
+    public static function getTemplateDirByKey($key, $viewName) : string
     {
         return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $key) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $viewName);
     }
@@ -849,7 +875,7 @@ class module {
      * @param string $langKey
      * @return string
      */
-    public static function getLanguageFileByKey($key, $langKey)
+    public static function getLanguageFileByKey($key, $langKey) : string
     {
         return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $key) . DIRECTORY_SEPARATOR . 'lang' . DIRECTORY_SEPARATOR . $langKey . '.php');
     }
@@ -859,7 +885,7 @@ class module {
      * @param string $key
      * @return string
      */
-    public static function getLanguageVarPrefixed($key)
+    public static function getLanguageVarPrefixed($key) : string
     {
         return 'MODULE_'.strtoupper(str_replace(['\\', DIRECTORY_SEPARATOR], '', $key)).'_';
     }

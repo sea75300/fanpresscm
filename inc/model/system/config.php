@@ -160,9 +160,10 @@ final class config extends \fpcm\model\abstracts\dataset {
         $data = [];
         $where = [];
 
+        $installedEnabled = \fpcm\classes\baseconfig::installerEnabled();
         foreach ($params as $key => $value) {
 
-            if (!array_key_exists($key, $this->data) && !\fpcm\classes\baseconfig::installerEnabled()) {
+            if (!array_key_exists($key, $this->data) && !$installedEnabled) {
                 continue;
             }
 
@@ -392,7 +393,7 @@ final class config extends \fpcm\model\abstracts\dataset {
      */
     public function getModuleOptions(string $key) : array
     {
-        $obj = (new \fpcm\model\dbal\selectParams())->setTable($this->table)->setWhere("config_name " . $this->dbcon->dbLike() . " ?")->setParams([$key.'%']);
+        $obj = (new \fpcm\model\dbal\selectParams())->setTable($this->table)->setWhere('config_name '.$this->dbcon->dbLike().' ?')->setParams([$key.'%']);
 
         $result = $this->dbcon->selectFetch($obj);
         if (!$result) {

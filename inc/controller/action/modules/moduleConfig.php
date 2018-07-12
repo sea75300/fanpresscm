@@ -36,6 +36,12 @@ class moduleConfig extends \fpcm\controller\abstracts\controller {
         
         $this->moduleController = $this->key;
         $this->module = new \fpcm\module\module($this->key);
+        
+        if (!$this->module->isInstalled() || !$this->module->isActive()) {
+            $view = new \fpcm\view\error("The module '{$this->key}' is not installed or enabled!");
+            $view->render();
+        }
+        
         return true;
     }
     
@@ -90,7 +96,22 @@ class moduleConfig extends \fpcm\controller\abstracts\controller {
             return false;
         }
 
-        
+        if (!$this->buttonClicked('save')) {
+            return true;
+        }
+
+        $options = $this->getRequestVar('config');
+        if (!is_array($options)) {
+            $this->view->addErrorMessage('SAVE_FAILED_OPTIONS_MODULES');
+            return true;
+        }
+
+        if (!$this->module->prepareSaveOptions($options) || !$this->module->setOptions($options)) {
+            $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
+            return true;
+        }
+
+        $this->view->addNoticeMessage('SAVE_SUCCESS_OPTIONS');
         return true;
     }
 

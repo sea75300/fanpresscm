@@ -261,7 +261,6 @@ final class baseconfig {
      */
     public static function memoryLimit($inByte = false)
     {
-
         if (!isset(self::$cfgDat[__FUNCTION__])) {
             self::$cfgDat[__FUNCTION__] = (int) substr(ini_get('memory_limit'), 0, -1);
         }
@@ -289,12 +288,17 @@ final class baseconfig {
      */
     public static function getControllers()
     {
+        if (isset(self::$cfgDat[__FUNCTION__]) && is_array(self::$cfgDat[__FUNCTION__])) {
+            return self::$cfgDat[__FUNCTION__];
+        }
+
         $cacheName = 'system/controllerCache';
         $controllerCache = new cache();
 
         if (!$controllerCache->isExpired($cacheName)) {
             $controllerList = $controllerCache->read($cacheName);
             if (is_array($controllerList)) {
+                self::$cfgDat[__FUNCTION__] = $controllerList;
                 return $controllerList;
             }
         }
@@ -311,6 +315,7 @@ final class baseconfig {
         $controller = array_unique(array_merge($controller, self::initModuleControllers()));
         $controllerCache->write($cacheName, $controller);
 
+        self::$cfgDat[__FUNCTION__] = $controller;
         return $controller;
     }
 
@@ -337,7 +342,11 @@ final class baseconfig {
             return FPCM_INSTALLER_ENABLED;
         }
 
-        return file_exists(self::$installerEnabledFile);
+        if (!isset(self::$cfgDat[__FUNCTION__])) {
+            self::$cfgDat[__FUNCTION__] = file_exists(self::$installerEnabledFile);
+        }
+
+        return self::$cfgDat[__FUNCTION__];
     }
 
     /**
