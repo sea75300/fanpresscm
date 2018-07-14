@@ -472,6 +472,11 @@ final class database {
      */
     public function exec($command, array $bindParams = [])
     {
+        if (!trim($command)) {
+            trigger_error('Invalid SQL command detected, query was empty!');
+            return false;
+        }
+
         $this->queryCount++;
 
         if ($this->explain) {
@@ -479,6 +484,10 @@ final class database {
         }
 
         $statement = $this->connection->prepare($command);
+        if (!trim($statement->queryString)) {
+            trigger_error('Invalid SQL command detected, query was empty!');
+            return false;
+        }
 
         if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($statement->queryString);
@@ -591,6 +600,11 @@ final class database {
      */
     public function query($command, array $bindParams = [])
     {
+        if (!trim($command)) {
+            trigger_error('Invalid SQL command detected, query was empty!');
+            return false;
+        }
+
         $this->queryCount++;
 
         if ($this->explain) {
@@ -598,6 +612,10 @@ final class database {
         }
 
         $statement = $this->connection->prepare($command);
+        if (!trim($statement->queryString)) {
+            trigger_error('Invalid SQL command detected, query was empty!');
+            return false;
+        }
 
         if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($statement->queryString);

@@ -216,8 +216,19 @@ class module {
      */
     final public function setOptions(array $options) : bool
     {
+        $this->systemConfig->init();
+
         $this->systemConfig->setNewConfig($options);
-        return $this->systemConfig->update();
+        $res = $this->systemConfig->update();
+        
+        if (!$res) {
+            return false;
+        }
+        
+        $this->systemConfig->init();
+        $this->cache->cleanup();
+
+        return true;
     }
 
     /**
@@ -395,10 +406,11 @@ class module {
      */
     private function getTableFiles() : array
     {
-        $files = glob($this->config->basePath . 'config' . DIRECTORY_SEPARATOR . 'tables' . DIRECTORY_SEPARATOR . '*.yml');
+        $files = glob(rtrim($this->config->basePath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'tables' . DIRECTORY_SEPARATOR . '*.yml');
         if (!is_array($files)) {
             return [];
         }
+        
 
         return $files;
     }
@@ -454,16 +466,15 @@ class module {
     {
         fpcmLogSystem('Installation of module ' . $this->mkey);
 
-        $this->installed = 1;
-        $this->active = 0;
-
         $this->cache->cleanup();
 
         if (!$this->installTables()) {
+            trigger_error('Error while installing module tables!');
             return false;
         }
 
         if (!$this->installConfig()) {
+            trigger_error('Error while installing module config options!');
             return false;
         }
 
@@ -471,12 +482,14 @@ class module {
             return false;
         }
 
+        $this->installed = 1;
+        $this->active = 0;
+
         if (!$this->addModule($fromDir)) {
             return false;
         }
 
-        $this->cache->cleanup();
-
+        $this->cache->cleanup();        
         return true;
     }
 
@@ -493,9 +506,12 @@ class module {
         unset($values['db'], $values['config'], $values['id'], $values['prefix'], $values['systemConfig'], $values['cache'], $values['initDb']);
         $values['data'] = json_encode($this->config);
 
-        $result = $fromDir ? $this->db->update(\fpcm\classes\database::tableModules, array_keys($values), array_merge(array_values($values), [$this->mkey]), 'mkey = ?') : $this->db->insert(\fpcm\classes\database::tableModules, $values);
+        $result = $fromDir
+                ? $this->db->update(\fpcm\classes\database::tableModules, array_keys($values), array_merge(array_values($values), [$this->mkey]), 'mkey = ?')
+                : $this->db->insert(\fpcm\classes\database::tableModules, $values);
 
         if (!$result) {
+            trigger_error('Error while running update of module table! $fromDir: '.$fromDir);
             return false;
         }
 
@@ -537,12 +553,14 @@ class module {
         if (!count($configOptions)) {
             return true;
         }
-
+        
         fpcmLogSystem('Add modules config options for ' . $this->mkey);
+        
+        $sysConfig = new \fpcm\model\system\config(false);
         foreach ($configOptions as $key => $value) {
             $key = $this->getFullPrefix($key);
-            if ($this->systemConfig->add($key, $value) === false) {
-                trigger_error('Unable to create config option ' . $key);
+            if ($sysConfig->add($key, $value) === false) {
+                trigger_error('Unable to create config option ' . $key.', error code: '.$res);
                 return false;
             }
         }
@@ -564,11 +582,11 @@ class module {
             return false;
         }
 
-        if (!$this->removeTables() && !$delete) {
+        if (!$this->removeConfig() && !$delete) {
             return false;
         }
 
-        if (!$this->removeConfig() && !$delete) {
+        if (!$this->removeTables() && !$delete) {
             return false;
         }
 
@@ -648,10 +666,8 @@ class module {
             return true;
         }
 
-        fpcmLogSystem('Remove modules config options for ' . $this->mkey);
-
         return $this->db->delete(
-                        \fpcm\classes\database::tableConfig, 'config_name IN (' . implode(', ', array_fill(0, count($configOptions), '?')) . ')', array_map([$this, 'getFullPrefix'], array_keys($configOptions))
+            \fpcm\classes\database::tableConfig, 'config_name IN (' . implode(', ', array_fill(0, count($configOptions), '?')) . ')', array_map([$this, 'getFullPrefix'], array_keys($configOptions))
         );
     }
 

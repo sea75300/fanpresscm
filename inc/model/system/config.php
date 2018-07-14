@@ -171,9 +171,11 @@ final class config extends \fpcm\model\abstracts\dataset {
             $where[$key] = 'config_name = ?';
         }
 
-        $this->dbcon->updateMultiple($this->table, ['config_value'], $data, $where);
-        $this->refresh();
+        if (!$this->dbcon->updateMultiple($this->table, ['config_value'], $data, $where)) {
+            return false;
+        }
 
+        $this->refresh();
         return true;
     }
 
@@ -194,7 +196,6 @@ final class config extends \fpcm\model\abstracts\dataset {
                     : $keyvalue;
 
         $res = $this->dbcon->insert($this->table, ['config_name' => $keyname, 'config_value' => $keyvalue]);
-
         $this->refresh();
 
         return $res;
@@ -211,7 +212,7 @@ final class config extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        $res = $this->dbcon->delete($this->table, "config_name " . $this->dbcon->dbLike() . " ?", array($keyname));
+        $res = $this->dbcon->delete($this->table, "config_name " . $this->dbcon->dbLike() . " ?", [$keyname]);
 
         $this->refresh();
 
@@ -274,8 +275,11 @@ final class config extends \fpcm\model\abstracts\dataset {
         $this->cacheName = 'system/config';
 
         if ($this->cache->isExpired($this->cacheName) || !$this->useCache) {
-            $configData = $this->dbcon->fetch($this->dbcon->select($this->table), true);
-            foreach ($configData as $data) {
+
+            $obj = new \fpcm\model\dbal\selectParams();
+            $obj->setTable($this->table);
+            $obj->setFetchAll(true);
+            foreach ($this->dbcon->selectFetch($obj) as $data) {
                 $this->data[$data->config_name] = $data->config_value;
             }
 

@@ -45,7 +45,7 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
     $errorLog = dirname(__DIR__) . '/data/logs/phplog.txt';
 
     if (file_exists($errorLog) && !is_writable($errorLog)) {
-        trigger_error($errorLog . ' is not writable', E_USER_ERROR);
+        trigger_error($errorLog . ' is not writable');
         return false;
     }
 
@@ -55,13 +55,38 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
         $efile . ', line ' .
         $eline,
         'ERROR CODE: ' .
-        $ecode
+        $ecode,
     ];
+    
+    if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
+
+        $text[] = 'Bebug Backtrace: '.implode(PHP_EOL, array_map(function(array $item) {
+
+            if (isset($item['function'])) {
+                $return[] = 'Function: '.$item['function'];
+            }
+
+            if (isset($item['class'])) {
+                $return[] = 'Class: '.$item['class'];
+            }
+
+            if (isset($item['line'])) {
+                $return[] = 'on line: '.$item['line'];
+            }
+
+            if (isset($item['file'])) {
+                $return[] = 'in file: '.$item['file'];
+            }
+
+            return '    > '.implode(' ', $return);
+        }, debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 5)) );
+    }
 
     $LogLine = json_encode([
         'time' => date('Y-m-d H:i:s'),
         'text' => implode(PHP_EOL, $text)
     ]);
+
     file_put_contents($errorLog, $LogLine . PHP_EOL, FILE_APPEND);
 
     return true;
