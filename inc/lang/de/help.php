@@ -51,9 +51,6 @@ Help language file
             bietet sowie zusätzliche Funktionen wie Syntax-Highlighting.</dd>
         </dl>        
 
-        <p>Über den Button <span class="fpcm-ui-button">Kurzlink</span> am oberen Kopf des Artikel-Editors ist es bei gespeicherten Artikeln möglich, die URL über den Dienst
-            <a href=http://is.gd>is.gd</a> kürzen zu lassen. Der genutzte Dienst kann über ein Modul-Event geändert werden</p>
-
         <h3>Eigenschaften</h3>
         
         <dl>
@@ -114,6 +111,34 @@ Help language file
             Eine Liste aller Revisionen findest du über den entsprechenden Reiter im Editor. Dort kannst du jede Revision einzeln aufrufen
             bzw. den aktuelle Artikel auf eine Revision zurücksetzen.</dd>
         </dl>
+        
+        <h3>Buttons und Aktionen</h3>
+        
+        <dl>
+            <dt>Löschen-Buttons</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Je nach geöffnetem Register werden unterschiedlichen Löschen-Buttons angezeigt. Diese dienen dazu, entsprechende Elemente des
+            angezeigten Tabs zu löschen.</dd>
+            <dt>Artikel auf Webseite anzeigen</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button wird der aktuell im Editor geöffnete Artikel im Frontend, d. h. auf deiner Webseite geöffnet.</dd>
+            <dt>Kurzlink</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a href=http://is.gd>is.gd</a> kürzen
+            zu lassen und bei Twitter, etc. zu nutzen. Der genutzte Dienst kann über ein Modul-Event geändert werden.</dd>
+            <dt>Artikel-Bild anzeigen</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Wurde für den Artikel ein Artikel-Bild definiert, so kann dieses über diese Schaltfläche angezeigt werden.</dd>
+            <dt>Bearbeiten (Kommentare)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die Schaltfläche <strong>Bearbeiten</strong> ind er Toolbar des Kommentar-Registers öffnen einen Massenbearbeitung-Dialog analog der
+            globalen Kommentar-Liste. Hierüber kommen bestimmte Status der ausgewählten Kommentare verändert werden. Die gleiche Schaltfläche in der Kommentar-Liste
+            öffnet des ausgewählten Kommentar in einem Dialog, wo dieser komplett bearbeitet werden kann.</dd>
+            <dt>Revision wiederherstellen (Revisionen)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Diese Schaltfläche ermöglicht es, den aktuellen Artikel auf die ausgewählte Artikel-Revision zurückzusetzen. Beim Zurücksetzen wird
+            automatisch eine neue Revision des aktuellen Stands erzeugt, bevor die ältere Version wiederhergestellt wird.</dd>
+            <dt>Revision öffnen (Revisionen)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kann eine bestimmte Revision geöffnet werden. Du erhälst dann eine Vergleichansicht zwischen der ausgewählten
+            Revision (linke Seite) und dem aktuellen Zustand des Artikels (rechte Seite). Der Artikel-Text selbst wird in einer DIFF-Ansicht dargestellt, d. h. Veränderungen werden
+            innerhalb des Textes dargestellt.</dd>
+            <dt>Zurück zur aktuellen Ansicht (Revisionen)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Wurde eine Revision geöffnet, so gelangst du durch diese Schaltfläche zurück in den aktuellen Artikel.</dd>
+        </dl>
 
         <h3>Bild in Artikel einfügen</h3>
 
@@ -142,9 +167,6 @@ Help language file
             Webseite angezeigt werden sowie Entwürfe.</dd>
             <dt>Archivierte Artikel:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Hier werden all diejenigen Artikel aufgeführt, welche archiviert wurden.</dd>
-            <dt>Papierkorb:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Sofern aktiv ist diese Option aktiv. Hier findest du eine Übersicht aller gelöschten Artikel.
-            Du kannst diese hier wieder herstellen oder vollständig löschen.</dd>
         </dl>
         
         <p>Die verfügbaren Eigenschaften werden im Artikel-Editor näher beschrieben.</p>
@@ -193,7 +215,7 @@ Help language file
             angezeigt. Ihre Daten werden zur Verbesserung der Spam-Erkennung genutzt, sofern du sie nicht löscht.</dd>
             <dt>Kommentar zu Artikel mit ID verschieben:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die ausgewählten Kommentare zur eingetragenen Artikel-ID
-                        verschieben. Das Eingabefeld unterstützt die Suche nach Artikeln mittels Autovervollständigung.</dd>
+            verschieben. Das Eingabefeld unterstützt die Suche nach Artikeln mittels Autovervollständigung.</dd>
         </dl>
 
         <h3>Aktionen</h3>
@@ -207,9 +229,12 @@ Help language file
             verschiedener Kriterien weiter eingrenzen.</dd>
             <dt>Löschen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Den bzw. die ausgewählten Kommentare löschen.</dd>
-            <dt>Elemente wiederherstellen / Papierkorb leeren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Diese Optionen stehen im Papierkorb zur Verfügung. Die ausgewählten Kommentare aus dem
-            Papierkorb können hierüber wiederhergestellt oder endgültig gelöscht werden.</dd>
+            <dt>Zugehörigen Artikel bearbeiten:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Durch diesen Button gelangst du direkt in Artikel-Editor, in welchem der zum ausgewählten Kommentar zugehörige
+            Artikel geöffnet wurde.</dd>
+            <dt>Whois:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du eine Whois-Abfrage auf die IP-Adresse durchführen, um bspw. den etwaigen Standort
+            herauszufinden.</dd>
         </dl>
         
         <h3>Kommentar-Editor</h3>

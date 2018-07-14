@@ -77,7 +77,7 @@ class feed extends \fpcm\controller\abstracts\pubController {
      * @see \fpcm\controller\abstracts\controller::getViewPath
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'public/feed';
     }

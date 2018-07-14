@@ -69,7 +69,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
      * 
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return $this->log == 4 ? 'logs/packages' : '';
     }

@@ -63,7 +63,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
      * 
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return '';
     }

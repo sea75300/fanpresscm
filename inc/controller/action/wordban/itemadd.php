@@ -13,7 +13,7 @@ class itemadd extends \fpcm\controller\abstracts\controller {
 
     protected $item;
 
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'wordban/itemadd';
     }

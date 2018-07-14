@@ -33,7 +33,7 @@ trait dataView {
      * @see controller::getViewPath
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'components/dataview';
     }

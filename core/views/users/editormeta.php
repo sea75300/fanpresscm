@@ -25,7 +25,7 @@
                     <?php $theView->write('SYSTEM_OPTIONS_DATETIMEMASK'); ?>:
                 </div>
                 <div class="col-sm-11 col-md-auto fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('system_dtmask')->setValue($author->getUserMeta('system_dtmask')); ?>
+                    <?php $theView->textInput('usermeta[system_dtmask]')->setValue($author->getUserMeta('system_dtmask')); ?>
                 </div>
                 <div class="align-self-center col-sm-1 col-md-1 fpcm-ui-padding-md-lr">
                     <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>

@@ -22,7 +22,7 @@ class useradd extends userbase {
         return ['system' => 'users'];
     }
 
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'users/useradd';
     }

@@ -173,6 +173,13 @@ fpcm.editor = {
                     }
                 },
                 {
+                    text: fpcm.ui.translate('Whois'),
+                    icon: "ui-icon-home",                        
+                    click: function() {
+                        window.open(jQuery(this).children('#fpcm-editor-comment-frame').contents().find('#whoisIp').attr('href'), '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
+                    }
+                },
+                {
                     text: fpcm.ui.translate('GLOBAL_CLOSE'),
                     icon: "ui-icon-closethick",                    
                     click: function() {

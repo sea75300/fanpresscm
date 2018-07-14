@@ -77,7 +77,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
      * Get view path for controller
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'filemanager/'.$this->getListView();
     }

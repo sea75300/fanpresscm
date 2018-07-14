@@ -273,7 +273,7 @@ trait lists {
         $privateUnapproved = (isset($this->commentPrivateUnapproved[$articleId]) && $this->commentPrivateUnapproved[$articleId] ? true : false);
 
         $badge->setClass(($privateUnapproved ? 'fpcm-ui-badge-red fpcm-ui-badge-comments' : 'fpcm-ui-badge-comments'))
-                ->setText(($privateUnapproved ? 'ARTICLE_LIST_COMMENTNOTICE' : 'HL_COMMENTS_MNG'))
+                ->setText(($privateUnapproved ? 'ARTICLE_LIST_COMMENTNOTICE' : 'COMMMENT_HEADLINE'))
                 ->setValue((isset($this->commentCount[$articleId]) ? $this->commentCount[$articleId] : 0))
                 ->setIcon('comments');
 

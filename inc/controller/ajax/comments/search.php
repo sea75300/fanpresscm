@@ -42,7 +42,7 @@ class search extends \fpcm\controller\abstracts\ajaxController {
      * @see controller::getViewPath
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return '';
     }

@@ -33,7 +33,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
      * 
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'users/userlist';
     }

@@ -22,7 +22,7 @@ class repoModule extends module {
      * @param object $result
      * @return boolean
      */
-    public function createFromRepoArray(array $result)
+    public function createFromRepoArray(array $result) : bool
     {
         $this->id = isset($result->id) ? $result['id'] : false;
         $this->config = new config($this->mkey, $result);
@@ -34,7 +34,7 @@ class repoModule extends module {
      * Initialize repo module
      * @return boolean
      */
-    public function init()
+    public function init() : bool
     {
         return true;
     }

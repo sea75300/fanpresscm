@@ -30,7 +30,7 @@ class showarchive extends showcommon {
      * @see \fpcm\controller\abstracts\controller::getViewPath
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'public/showall';
     }

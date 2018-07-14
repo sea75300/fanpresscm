@@ -75,7 +75,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
      * see \fpcm\controller\abstracts\controller::getViewPath
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'articles/editor';
     }

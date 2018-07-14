@@ -58,7 +58,7 @@ class moduleConfig extends \fpcm\controller\abstracts\controller {
      * 
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'configure';
     }

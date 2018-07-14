@@ -35,7 +35,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
      * 
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'filemanager/listouter';
     }

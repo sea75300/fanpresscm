@@ -42,7 +42,7 @@ class options extends \fpcm\controller\abstracts\controller {
         return ['system' => 'options'];
     }
 
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'system/options';
     }

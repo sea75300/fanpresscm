@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="row no-gutters fpcm-ui-full-height">
+<div class="row no-gutters <?php if($commentsMode === 1) : ?>fpcm-ui-full-height<?php endif; ?>">
     <div class="col-12">
-        <div class="fpcm-content-wrapper fpcm-ui-full-height">
+        <div class="fpcm-content-wrapper <?php if($commentsMode === 1) : ?>fpcm-ui-full-height<?php endif; ?>">
             <div class="fpcm-ui-tabs-general">
                 <ul>
                     <li><a href="#tabs-comment"><?php $theView->write('COMMENTS_EDIT'); ?></a></li>

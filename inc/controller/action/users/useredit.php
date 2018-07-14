@@ -15,7 +15,7 @@ class useredit extends userbase {
      * 
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'users/useredit';
     }

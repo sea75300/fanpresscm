@@ -20,12 +20,12 @@ class info extends \fpcm\controller\abstracts\controller {
      * Get view path for controller
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'system/info';
     }
 
-    public function process(): boolean
+    public function process() : bool
     {
         $this->view->setViewVars([
             'content' => simplexml_load_string($this->language->getHelp())->xpath("/chapters/chapter[@ref=\"HL_HELP_SUPPORT\"]")[0],

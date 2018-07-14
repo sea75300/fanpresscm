@@ -17,7 +17,7 @@ class smileyadd extends \fpcm\controller\abstracts\controller {
      */
     protected $smiley;
 
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'smileys/add';
     }

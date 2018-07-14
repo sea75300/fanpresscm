@@ -333,7 +333,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * Get view path for controller
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return '';
     }

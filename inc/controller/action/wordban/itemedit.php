@@ -17,7 +17,7 @@ class itemedit extends \fpcm\controller\abstracts\controller {
      */
     protected $item;
 
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'wordban/itemedit';
     }

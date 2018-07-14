@@ -17,7 +17,7 @@ class ipadd extends \fpcm\controller\abstracts\controller {
      */
     protected $ipaddress;
 
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'ips/ipadd';
     }

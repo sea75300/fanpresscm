@@ -41,7 +41,7 @@ class commentedit extends \fpcm\controller\abstracts\controller {
      * 
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'comments/commentedit';
     }
@@ -225,19 +225,20 @@ class commentedit extends \fpcm\controller\abstracts\controller {
             $changeUser = new \fpcm\model\users\author($this->comment->getChangeuser());
 
             $this->view->assign(
-                    'changeInfo', $this->language->translate('COMMMENT_LASTCHANGE', array(
-                        '{{username}}' => $changeUser->exists() ? $changeUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
-                        '{{time}}' => date($this->config->system_dtmask, $this->comment->getChangetime())
+                'changeInfo', $this->language->translate('COMMMENT_LASTCHANGE', array(
+                    '{{username}}' => $changeUser->exists() ? $changeUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+                    '{{time}}' => date($this->config->system_dtmask, $this->comment->getChangetime())
             )));
         } else {
             $this->view->assign('changeInfo', $this->language->translate('GLOBAL_NOCHANGE'));
         }
+
+        $hiddenClass = $mode === 2 ? 'fpcm-ui-hidden' : '';
+        
+        $buttons     = [];
+        $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass);
         
         if ($mode === 1) {
-            
-            $buttons     = [];
-            $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'));
-
             $article     = new \fpcm\model\articles\article($this->comment->getArticleid());
             $articleList = new \fpcm\model\articles\articlelist();
             $articleList->checkEditPermissions($article);
@@ -246,13 +247,13 @@ class commentedit extends \fpcm\controller\abstracts\controller {
                 $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE');
             }
             
-            $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget('_blank');
-            
-            $this->view->addButtons($buttons);
+            $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget('_blank');           
         }
 
+        $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")->setTarget('_blank')->setText('Whois')->setIcon('home')->setClass($hiddenClass);
+        $this->view->addButtons($buttons);
+
         $this->view->setFormAction($this->comment->getEditLink(), ['mode' => $mode], true);
-        $this->view->assign('ipWhoisLink', substr($this->comment->getIpaddress(), -1) === '*' ? false : true);
         $this->view->assign('comment', $this->comment);
         $this->view->assign('commentsMode', $mode);
         $this->view->assign('canApprove', $this->approve);

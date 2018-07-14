@@ -1,4 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
+<?php if($commentsMode === 2) : ?><?php include_once $theView->getIncludePath('common/buttons.php'); ?><?php endif; ?>
 <div class="row no-gutters fpcm-ui-editor-metabox">
     <div class="col-12">
         <fieldset>
@@ -13,8 +14,7 @@
                     <?php print $changeInfo; ?><br>
                     <?php $theView->icon('globe'); ?> 
                     <strong><?php $theView->write('COMMMENT_IPADDRESS'); ?>:</strong>
-                    <?php print $comment->getIpaddress(); ?>                    
-                    <?php if ($ipWhoisLink) : ?>(<a href="http://www.whois.com/whois/<?php print $comment->getIpaddress(); ?>" target="_blank">Whois</a>)<?php endif; ?>
+                    <?php print $comment->getIpaddress(); ?>
                 </div>
 
                 <div class="col-sm-12 col-md-6 fpcm-ui-align-right">
@@ -54,5 +54,3 @@
 </div>
 
 <?php include \fpcm\components\components::getArticleEditor()->getCommentEditorTemplate(); ?>
-
-<?php if ($commentsMode) : ?><?php $theView->saveButton('commentSave')->setClass('fpcm-ui-hidden'); ?><?php endif; ?>

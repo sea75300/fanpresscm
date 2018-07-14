@@ -209,7 +209,7 @@ class articleedit extends articlebase {
             ]);
 
             if ($this->article->getImagepath()) {
-                $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly(true)->setClass('fpcm-editor-articleimage'));
+                $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly(true)->setClass('fpcm-editor-articleimage fpcm-ui-maintoolbarbuttons-tab1'));
             }
 
             $shares = (new \fpcm\model\shares\shares())->getByArticleId($this->article->getId());

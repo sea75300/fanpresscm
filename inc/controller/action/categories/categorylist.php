@@ -39,7 +39,7 @@ class categorylist extends \fpcm\controller\abstracts\controller {
      * 
      * @return string
      */
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'components/dataview';
     }

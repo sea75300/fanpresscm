@@ -11,7 +11,7 @@ namespace fpcm\controller\action\users;
 
 class rolladd extends rollbase {
 
-    protected function getViewPath()
+    protected function getViewPath() : string
     {
         return 'users/rolladd';
     }
