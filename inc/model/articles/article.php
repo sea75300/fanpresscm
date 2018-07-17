@@ -869,7 +869,7 @@ class article extends \fpcm\model\abstracts\dataset {
      * @param array $revisionList Liste von Revisions-IDs
      * @return boolean
      */
-    public function deleteRevisions(array $revisionList = array())
+    public function deleteRevisions(array $revisionList = [])
     {
         if (!count($revisionList)) {
             return $this->dbcon->delete(\fpcm\classes\database::tableRevisions, 'article_id = ?', array($this->id));

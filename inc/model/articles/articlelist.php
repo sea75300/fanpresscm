@@ -48,7 +48,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      * @param bool $countOnly Verfügbare Artikel nur zählen
      * @return array
      */
-    public function getArticlesAll($monthIndex = false, array $limits = array(), $countOnly = false)
+    public function getArticlesAll($monthIndex = false, array $limits = [], $countOnly = false)
     {
         $where = 'draft = 0 AND deleted = 0';
 
@@ -73,7 +73,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      * @param bool $countOnly Verfügbare Artikel nur zählen
      * @return array
      */
-    public function getArticlesActive($monthIndex = false, array $limits = array(), $countOnly = false)
+    public function getArticlesActive($monthIndex = false, array $limits = [], $countOnly = false)
     {
         $where = 'archived = 0 AND deleted = 0';
 
@@ -99,7 +99,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      * @param bool $dateLimit Einschränkung auf nach Datum
      * @return array
      */
-    public function getArticlesArchived($monthIndex = false, array $limits = array(), $countOnly = false, $dateLimit = false)
+    public function getArticlesArchived($monthIndex = false, array $limits = [], $countOnly = false, $dateLimit = false)
     {
         $where = 'archived = 1 AND deleted = 0';
         if ($dateLimit && $this->config->articles_archive_datelimit) {
@@ -258,7 +258,8 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $res = $this->dbcon->update(
             $this->table,
             ['deleted', 'pinned', 'changetime', 'changeuser'],
-            [1, 0, time(), $userId], 'id IN (' . implode(', ', $ids) . ')'
+            [1, 0, time(), $userId],
+            'id IN (' . implode(', ', $ids) . ')'
         );
 
         if ($res) {
@@ -328,7 +329,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      * @param array $userIds
      * @return array
      */
-    public function countArticlesByUsers(array $userIds = array())
+    public function countArticlesByUsers(array $userIds = [])
     {
         $where = count($userIds) ? "createuser IN (?)" : '1=1';
         $params = count($userIds) ? [implode(',', $userIds)] : [];

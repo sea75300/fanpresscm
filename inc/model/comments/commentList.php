@@ -197,6 +197,10 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function deleteComments(array $ids)
     {
+        if (!count($ids)) {
+            return false;
+        }
+
         $this->cache->cleanup();
 
         /* @var $session \fpcm\model\system\session */
@@ -206,8 +210,8 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         return $this->dbcon->update(
             $this->table,
             ['deleted', 'changetime', 'changeuser'],
-            [1, time(), $userId, implode(', ', array_map('intval', $ids)) ],
-            'id IN (?)'
+            [1, time(), $userId],
+            'id IN ('.implode(', ', array_map('intval', $ids)).')'
         );
     }
 
@@ -231,8 +235,8 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         return $this->dbcon->update(
             $this->table,
             ['deleted', 'changetime', 'changeuser'],
-            [1, time(), $userId, implode(', ', array_map('intval', $article_ids))],
-            'articleid IN (?)'
+            [1, time(), $userId],
+            'articleid IN ('.implode(', ', array_map('intval', $article_ids)).')'
         );
     }
 
@@ -459,8 +463,8 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         return $this->dbcon->update(
             $this->table,
             ['deleted', 'changetime', 'changeuser'],
-            [ 0, time(), $userId, implode(',', array_map('intval', $ids)) ],
-            'id IN (?) AND deleted = 1'
+            [ 0, time(), $userId],
+            'id IN ('.implode(',', array_map('intval', $ids)).') AND deleted = 1'
         );
     }
 

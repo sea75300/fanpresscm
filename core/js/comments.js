@@ -39,6 +39,10 @@ fpcm.comments = {
     
         fpcm.ui.checkboxradio('.fpcm-ui-comments-status');
         fpcm.comments.assignActions();
+
+        if (parent.fpcm.editor.editorTabs && fpcm.vars.jsvars.reloadList) {
+            parent.fpcm.editor.editorTabs.tabs('load', 1);
+        }
     },
 
     assignActions: function() {

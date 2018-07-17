@@ -87,7 +87,7 @@ fpcm.editor = {
 
         fpcm.ui.checkboxradio('.fpcm-ui-input-checkbox');
         
-        fpcm.ui.tabs('#fpcm-editor-tabs', {
+        fpcm.editor.editorTabs = fpcm.ui.tabs('#fpcm-editor-tabs', {
             beforeLoad: function(event, ui) {
                 fpcm.ui.showLoader(true);        
                 

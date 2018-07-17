@@ -22,7 +22,7 @@ final class ops {
      * @param string $destination
      * @param array $exclude
      */
-    public static function copyRecursive($source, $destination, $exclude = array())
+    public static function copyRecursive($source, $destination, $exclude = [])
     {
         $dir = opendir($source);
 

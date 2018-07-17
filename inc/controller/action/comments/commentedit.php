@@ -38,6 +38,12 @@ class commentedit extends \fpcm\controller\abstracts\controller {
     protected $ownArticleIds = [];
 
     /**
+     *
+     * @var int
+     */
+    protected $mode = 1;
+
+    /**
      * 
      * @return string
      */
@@ -88,6 +94,8 @@ class commentedit extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
+        $this->mode = $this->getRequestVar('mode', [\fpcm\classes\http::FILTER_CASTINT]);
+
         if ($this->permissions) {
             $this->approve = $this->permissions->check(array('comment' => 'approve'));
             $this->private = $this->permissions->check(array('comment' => 'private'));
@@ -147,7 +155,9 @@ class commentedit extends \fpcm\controller\abstracts\controller {
                 $this->view->addErrorMessage('CSRF_INVALID');
                 return true;
             }
-            
+
+            $this->view->addJsVars([ 'reloadList' => $this->mode === 2 ? true : false ]);
+
             if ($this->comment->update()) {
                 $this->view->addNoticeMessage('SAVE_SUCCESS_COMMENT');
                 return true;
@@ -165,9 +175,7 @@ class commentedit extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
-        $mode = $this->getRequestVar('mode', [\fpcm\classes\http::FILTER_CASTINT]);
-
-        if ($mode === 2) {
+        if ($this->mode === 2) {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         }
         
@@ -233,12 +241,12 @@ class commentedit extends \fpcm\controller\abstracts\controller {
             $this->view->assign('changeInfo', $this->language->translate('GLOBAL_NOCHANGE'));
         }
 
-        $hiddenClass = $mode === 2 ? 'fpcm-ui-hidden' : '';
+        $hiddenClass = $this->mode === 2 ? 'fpcm-ui-hidden' : '';
         
         $buttons     = [];
         $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass);
         
-        if ($mode === 1) {
+        if ($this->mode === 1) {
             $article     = new \fpcm\model\articles\article($this->comment->getArticleid());
             $articleList = new \fpcm\model\articles\articlelist();
             $articleList->checkEditPermissions($article);
@@ -253,9 +261,9 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")->setTarget('_blank')->setText('Whois')->setIcon('home')->setClass($hiddenClass);
         $this->view->addButtons($buttons);
 
-        $this->view->setFormAction($this->comment->getEditLink(), ['mode' => $mode], true);
+        $this->view->setFormAction($this->comment->getEditLink(), ['mode' => $this->mode], true);
         $this->view->assign('comment', $this->comment);
-        $this->view->assign('commentsMode', $mode);
+        $this->view->assign('commentsMode', $this->mode);
         $this->view->assign('canApprove', $this->approve);
         $this->view->assign('canPrivate', $this->private);
         $this->view->render();

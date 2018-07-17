@@ -185,7 +185,7 @@ class revision extends \fpcm\model\abstracts\dataset {
      * @param array $data
      * @since FPCM 3.4
      */
-    public function createHashSum(array $data = array())
+    public function createHashSum(array $data = [])
     {
         if (!count($data)) {
             $data = json_decode($this->content, true);
