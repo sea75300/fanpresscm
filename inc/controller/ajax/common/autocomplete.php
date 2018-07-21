@@ -79,6 +79,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
         $conditions->approval = -1;
         $conditions->limit = [200, 0];
         $conditions->orderby = ['createtime DESC'];
+        $conditions->metaOnly = true;
 
         $result = $list->getArticlesByCondition($conditions);
         if (!$result || !count($result)) {

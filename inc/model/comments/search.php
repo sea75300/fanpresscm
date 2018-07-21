@@ -28,6 +28,7 @@ namespace fpcm\model\comments;
  * @property bool $approved nur als Freigegeben markierte Kommentare
  * @property bool $unapproved nur als nicht Freigegeben markierte Kommentare
  * @property bool $deleted nur als nicht Freigegeben markierte Kommentare
+ * @property bool $metaOnly Kommentar-Text nicht abrufen
  * @property array $limit Abfrage einschränken
  * @property array $orderby Array von Sortierungen in SQL-Syntax
  */

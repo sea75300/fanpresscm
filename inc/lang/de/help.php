@@ -186,9 +186,10 @@ Help language file
             zu Twitter eingerichtet wurde.</dd>
             <dt>Löschen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Den bzw. die ausgewählten Artikel löschen.</dd>
-            <dt>Elemente wiederherstellen / Papierkorb leeren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Diese Optionen stehen im Papierkorb zur Verfügung. Die ausgewählten Artikel aus dem
-            Papierkorb können hierüber wiederhergestellt oder endgültig gelöscht werden.</dd>
+            <dt>Artikel-Cache leeren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diese Aktion kann bei Bedarf geziehlt der Cache eines einzelnen bzw. der ausgewählten Artikel geleert und somit
+            beim Öffnen des Frontends ein erneuten Rendern der entsprechenden Artikel erzwungen werden. Dies ist hilfreich, wenn Änderungen an Artikeln nicht sofort übernommen
+            werden.</dd>
         </dl>
         ]]>
     </chapter>

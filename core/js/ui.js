@@ -56,7 +56,6 @@ fpcm.ui = {
             fpcm.ui.setFocus(fpcm.vars.jsvars.fieldAutoFocus);
         }
 
-        jQuery(document).tooltip();
     },
 
     initJqUiWidgets: function () {

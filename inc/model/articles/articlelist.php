@@ -227,8 +227,13 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
 
         $where .= ' ' . implode(' ', $where2);
 
+        $item   = $conditions->metaOnly
+                ? 'id, title, categories, createtime, createuser, changetime, changeuser, draft, archived, pinned, postponed, deleted, comments, approval, imagepath, sources, inedit'
+                : '*';
+
         $obj = (new \fpcm\model\dbal\selectParams())
                 ->setTable($this->table)
+                ->setItem($item)
                 ->setFetchAll(true)
                 ->setWhere($where)
                 ->setParams($valueParams);
