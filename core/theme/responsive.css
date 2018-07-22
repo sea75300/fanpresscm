@@ -70,5 +70,9 @@
     div.ui-tabs {
         min-height: 0 !important;
     }
+    
+    #fpcm-wrapper-left div.fpcm-ui-logo {
+        margin-top: 0 !important;
+    }
 
 }

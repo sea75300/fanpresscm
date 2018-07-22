@@ -16,14 +16,14 @@ fpcm.editor_tinymce = {
             selector            : 'textarea',
             skin                : 'fpcm',
             theme               : 'modern',
+            default_link_target : '_blank',
             menubar             : false,
             relative_urls       : false,
             image_advtab        : true,
             resize              : true,
             convert_urls        : true,
             browser_spellcheck  : true,
-            default_link_target : '_blank',
-            branding            : false,    
+            branding            : false
         };
         
         if (config.language !== undefined) {
@@ -118,8 +118,16 @@ fpcm.editor_tinymce = {
             params.custom_elements = config.custom_elements;
         }
 
-        tinymce.init(params);
+        if (config.mobileConfig) {
+            params.mobile = {
+                theme: 'mobile',
+                resize: 'both',
+                plugins: config.mobileConfig.plugins,
+                toolbar: config.mobileConfig.toolbar
+            }
+        }
 
+        tinymce.init(params);
     }
 
 };

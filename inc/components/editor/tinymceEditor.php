@@ -65,14 +65,15 @@ class tinymceEditor extends articleEditor {
             $pluginFolders = FPCM_TINYMCE_PLUGINS;
 
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                    'EDITOR_TINYMCE_PLUGIN_OVERRIDE', 'fa fa-plug fa-lg fa-fw'
+                'EDITOR_TINYMCE_PLUGIN_OVERRIDE',
+                'fa fa-plug fa-lg fa-fw'
             ));
         } elseif ($this->cache->isExpired('tinymce_plugins')) {
 
             $path = dirname(\fpcm\classes\loader::libGetFilePath('tinymce4/tinymce.min.js'));
             $path .= '/plugins/*';
 
-            $pluginFolders = implode(' ', array_map('basename', glob($path, GLOB_ONLYDIR)));
+            $pluginFolders = array_map('basename', glob($path, GLOB_ONLYDIR));
             $this->cache->write('tinymce_plugins', $pluginFolders, $this->config->system_cache_timeout);
         } else {
             $pluginFolders = $this->cache->read('tinymce_plugins');
@@ -95,7 +96,15 @@ class tinymceEditor extends articleEditor {
                 'autosave_prefix' => 'fpcm-editor-as-' . $this->session->getUserId(),
                 'images_upload_url' => $this->config->articles_imageedit_persistence ? \fpcm\classes\tools::getFullControllerLink('ajax/editor/imgupload') : false,
                 'automatic_uploads' => $this->config->articles_imageedit_persistence ? 1 : 0,
-                'autoresize_min_height' => 500
+                'autoresize_min_height' => 500,
+                'mobileConfig' => [
+                    'toolbar' => [
+                        'styleselect', 'bold', 'italic', 'underline',
+                        'bullist', 'numlist', 'link', 'unlink', 'image',
+                        'undo', 'redo'
+                    ],
+                    'plugins' => $pluginFolders
+                ]
             ],
             'editorDefaultFontsize' => $this->config->system_editor_fontsize,
             'editorInitFunction' => 'initTinyMce'
