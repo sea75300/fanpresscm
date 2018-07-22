@@ -120,7 +120,7 @@
                                         <?php $theView->write('SYSTEM_OPTIONS_STYLESHEET'); ?>:
                                     </div>
                                     <div class="align-self-center col-sm-12 col-md-7">
-                                        <?php $theView->textInput('system_css_path')->setValue($globalConfig['system_css_path'], ENT_QUOTES); ?>
+                                        <?php $theView->textInput('system_css_path')->setValue($globalConfig['system_css_path'], ENT_QUOTES)->setText('http://'.$_SERVER['HTTP_HOST'].'/style/style.css')->setPlaceholder(true); ?>
                                     </div>
                                 </div>
 
@@ -438,10 +438,7 @@
                                         <?php $theView->write('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT'); ?>:
                                     </div>
                                     <div class="align-self-center col-md-12 col-lg-6">
-                                        <?php $theView->textInput('articles_archive_datelimit')->setValue($globalConfig['articles_archive_datelimit'] ? $theView->dateText($globalConfig['articles_archive_datelimit'], 'Y-m-d') : ''); ?>
-                                    </div>
-                                    <div class="align-self-center col-md-12 col-lg-1">
-                                        <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY'); ?>
+                                        <?php $theView->textInput('articles_archive_datelimit')->setValue($globalConfig['articles_archive_datelimit'] ? $theView->dateText($globalConfig['articles_archive_datelimit'], 'Y-m-d') : '')->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY')->setPlaceholder(true); ?>
                                     </div>
                                 </div>
                             </fieldset>
@@ -684,7 +681,9 @@
                                         <?php $theView->textInput('smtp_settings[addr]')
                                                 ->setClass('fpcm-ui-options-smtp-input')
                                                 ->setValue($globalConfig['smtp_settings']['addr'])
-                                                ->setReadonly(($globalConfig['smtp_enabled'] ? false : true)); ?>
+                                                ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
+                                                ->setText('mail@example.com')
+                                                ->setPlaceholder(true); ?>
                                     </div>
                                 </div>
 
@@ -696,7 +695,9 @@
                                         <?php $theView->textInput('smtp_settings[srvurl]')
                                                 ->setClass('fpcm-ui-options-smtp-input')
                                                 ->setValue($globalConfig['smtp_settings']['srvurl'])
-                                                ->setReadonly(($globalConfig['smtp_enabled'] ? false : true)); ?>
+                                                ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
+                                                ->setText('mail.example.com')
+                                                ->setPlaceholder(true); ?>
                                     </div>
                                 </div>
 
@@ -708,7 +709,9 @@
                                         <?php $theView->textInput('smtp_settings[port]')
                                                 ->setClass('fpcm-ui-options-smtp-input')
                                                 ->setValue($globalConfig['smtp_settings']['port'])
-                                                ->setReadonly(($globalConfig['smtp_enabled'] ? false : true)); ?>
+                                                ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
+                                                ->setText('25')
+                                                ->setPlaceholder(true); ?>
                                     </div>
                                 </div>
 
@@ -720,7 +723,9 @@
                                         <?php $theView->textInput('smtp_settings[user]')
                                                 ->setClass('fpcm-ui-options-smtp-input')
                                                 ->setValue($globalConfig['smtp_settings']['user'])
-                                                ->setReadonly(($globalConfig['smtp_enabled'] ? false : true)); ?>
+                                                ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
+                                                ->setText('mail@example.com')
+                                                ->setPlaceholder(true); ?>
                                     </div>
                                 </div>
 
@@ -729,7 +734,7 @@
                                         <?php $theView->write('SYSTEM_OPTIONS_EMAIL_PASSWORD'); ?>:
                                     </div>
                                     <div class="align-self-center col-sm-12 col-md-8">
-                                        <?php $theView->textInput('smtp_settings[pass]')
+                                        <?php $theView->passwordInput('smtp_settings[pass]')
                                                 ->setClass('fpcm-ui-options-smtp-input')
                                                 ->setValue($globalConfig['smtp_settings']['pass'])
                                                 ->setReadonly(($globalConfig['smtp_enabled'] ? false : true)); ?>
