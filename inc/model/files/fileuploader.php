@@ -86,7 +86,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
                 continue;
             }
 
-            $fmThumbs = new \fpcm\model\crons\fmThumbs('fmThumbs');
+            $fmThumbs = new \fpcm\model\crons\fmThumbs();
             $fmThumbs->run();
 
             $res['success'][$key] = $fileNames[$key];

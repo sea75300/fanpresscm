@@ -42,7 +42,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
         /**
          * @var \fpcm\model\abstracts\cron
          */
-        $cron = new $cronName($cronName);
+        $cron = new $cronName();
         if (!is_a($cron, '\fpcm\model\abstracts\cron')) {
             trigger_error("Cronjob class {$cronName} must be an instance of \"\fpcm\model\abstracts\cron\"!");
             return false;
@@ -152,7 +152,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
             /**
              * @var \fpcm\model\abstracts\cron
              */
-            $cron = new $cronName($value->cjname, false);
+            $cron = new $cronName(false);
 
             if (!is_a($cron, '\fpcm\model\abstracts\cron')) {
                 trigger_error("Cronjob class {$cronName} must be an instance of \"\fpcm\model\abstracts\cron\"!");
@@ -191,7 +191,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
             /**
              * @var \fpcm\model\abstracts\cron
              */
-            $cron = new $cronName($value->cjname, false);
+            $cron = new $cronName(false);
 
             if (!is_a($cron, '\fpcm\model\abstracts\cron')) {
                 trigger_error("Cronjob class {$cronName} must be an instance of \"\fpcm\model\abstracts\cron\"!");

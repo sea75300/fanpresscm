@@ -248,7 +248,10 @@ final class baseconfig {
                 http::FILTER_CASTINT
             ]);
 
-            self::$cfgDat[__FUNCTION__] = (strpos(http::getOnly('module'), 'fpcm/') !== false || $noToken ? true : false);
+            $module = http::getOnly('module');
+            $blacklist = ['ajax/refresh'];
+
+            self::$cfgDat[__FUNCTION__] = (strpos($module, 'fpcm/') !== false || in_array($module, $blacklist) || $noToken ? true : false);
         }
 
         return self::$cfgDat[__FUNCTION__];

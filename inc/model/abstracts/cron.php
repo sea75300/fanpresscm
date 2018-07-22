@@ -60,22 +60,23 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      * @var bool
      */
     protected $asyncCurrent = false;
-
+    
     /**
      * Konstruktor
-     * @param string $cronName Cronjob-Name
-     * @param bool $init Objekt mit Daten aus Datenbank-Tabelle initialisieren
+     * @param bool $init
      */
-    public function __construct($cronName, $init = true)
+    public function __construct($init = true)
     {
         $this->table = \fpcm\classes\database::tableCronjobs;
         $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
         $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
-        $this->cronName = basename(str_replace('\\', DIRECTORY_SEPARATOR, $cronName));
+        $this->cronName = basename(str_replace('\\', DIRECTORY_SEPARATOR, get_class($this)));
 
-        if ($init) {
-            $this->init();
+        if (!$init) {
+            return;
         }
+
+        $this->init();
     }
 
     /**
@@ -106,8 +107,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     public function updateLastExecTime()
     {
         $this->lastExecTime = time();
-        $Res = $this->dbcon->update($this->table, array('lastexec'), array($this->lastExecTime, $this->cronName), 'cjname ' . $this->dbcon->dbLike() . ' ?');
-        return $Res;
+        return $this->dbcon->update($this->table, ['lastexec'], [$this->lastExecTime, $this->cronName], 'cjname=?');
     }
 
     /**
@@ -187,7 +187,13 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      */
     public function init()
     {
-        $res = $this->dbcon->fetch($this->dbcon->select($this->table, 'lastexec, execinterval', 'cjname ' . $this->dbcon->dbLike() . ' ?', array($this->cronName)));
+        $res = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())
+            ->setTable($this->table)
+            ->setItem('lastexec, execinterval')
+            ->setWhere('cjname = ?')
+            ->setParams([$this->cronName]
+        ));
+
         $this->lastExecTime = isset($res->lastexec) ? $res->lastexec : 0;
     }
 
@@ -237,7 +243,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      */
     public function update()
     {
-        return $this->dbcon->update($this->table, array('execinterval'), array($this->execinterval, $this->cronName), 'cjname ' . $this->dbcon->dbLike() . ' ?');
+        return $this->dbcon->update($this->table, ['execinterval'], [$this->execinterval, $this->cronName], 'cjname = ?');
     }
 
     /**
