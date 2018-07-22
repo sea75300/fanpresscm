@@ -364,7 +364,6 @@ fpcm.ui = {
         }
         
         jQuery(elemClassId).click(onClick);
-
     },
     
     progressbar: function(elemClassId, params){
@@ -442,9 +441,10 @@ fpcm.ui = {
             dlParams.create   = params.onCreate; 
         }
         
-        el.dialog(dlParams);
+        dlParams.show = true;
+        dlParams.hide = true;
 
-        return true;
+        return el.dialog(dlParams);
     },
     
     autocomplete: function(elemClassId, params) {
