@@ -32,7 +32,7 @@
 
                         <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
                         
-                        <div id="fpcm-footer-bottom" class="fpcm-footer fpcm-ui-font-small fpcm-ui-center fpcm-footer-bottom">
+                        <div class="fpcm-footer fpcm-ui-font-small fpcm-ui-center fpcm-footer-bottom d-none d-md-block">
                             <?php include $theView->getIncludePath('common/footer_copy.php'); ?>
                         </div>
                         
