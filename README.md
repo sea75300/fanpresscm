@@ -23,6 +23,7 @@ $api->showLatestNews() to show recent news list.
 $api->showPageNumber() displays current page number, accepts a parameter for page descriptions like "Page XYZ".
 $api->showTitle() displayse the article title in HTML <title> , accepts a parameter for a seperator of your text in <title>.
 $api->legacyRedirect() redirect visitors which enters your site using an FanPress CM 1/2 article/ page url style.
+```
 
 ## iframes
 
