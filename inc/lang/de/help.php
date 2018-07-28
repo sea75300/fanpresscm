@@ -282,8 +282,8 @@ Help language file
             die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
         </dl>
         
-        <p>Zum Upload von Dateien bietet der Dateimanager zwei Methoden: die klassische Version mittels HTML-Formularen und für ältere Browser
-        zu empfehlen ist. Alternativ steht der - standardmäßig aktive - Dateimanager auf Basis von jQuery zu Verfügung.</p>
+        <p>Zum Upload von Dateien bietet der Dateimanager zwei Methoden: die klassische Version mittels HTML-Formularen. Diese ist für ältere Browser
+        zu empfehlen. Alternativ steht der - standardmäßig aktive - Dateimanager auf Basis von jQuery zu Verfügung.</p>
         ]]>
     </chapter>
     <chapter ref="HL_PROFILE">
