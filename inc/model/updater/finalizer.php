@@ -192,6 +192,9 @@ final class finalizer extends \fpcm\model\abstracts\model {
         }
 
         $dropTables = [];
+        if (version_compare($this->config->system_version, '4.0.0-b11', '<')) {
+            $dropTables[] = \fpcm\classes\database::tableModules;
+        }
         
         $isCli = \fpcm\classes\baseconfig::isCli();
 
