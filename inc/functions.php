@@ -60,7 +60,7 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
     
     if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
 
-        $text[] = 'Bebug Backtrace: '.implode(PHP_EOL, array_map(function(array $item) {
+        $text[] = 'Bebug Backtrace: '.PHP_EOL.implode(PHP_EOL, array_map(function(array $item) {
 
             if (isset($item['function'])) {
                 $return[] = 'Function: '.$item['function'];
@@ -79,7 +79,7 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
             }
 
             return '    > '.implode(' ', $return);
-        }, debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 5)) );
+        }, array_slice(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 7), 2)) );
     }
 
     $LogLine = json_encode([

@@ -4,19 +4,19 @@ namespace fpcm\modules\nkorg\example\controller;
 
 final class test extends \fpcm\controller\abstracts\controller {
 
-    protected function getViewPath()
+    protected function getViewPath(): string
     {
         return 'test';
-    }
-    
-    public function process()
-    {
-        $this->view->addNoticeMessage('MODULE_NKORGEXAMPLE_DESCRIPTION');
-        return true;
     }
 
     public function hasAccess()
     {
+        return true;
+    }
+
+    public function process()
+    {
+        $this->view->addNoticeMessage('MODULE_NKORGEXAMPLE_DESCRIPTION');
         return true;
     }
 
