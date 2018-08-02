@@ -24,13 +24,18 @@ final class help extends \fpcm\model\abstracts\cli {
      */
     public function process()
     {
+        $module = isset($this->funcParams[0]) ? $this->funcParams[0] : false;
 
         $files = glob(__DIR__ . '/*.php');
 
-        $lines = array_merge([''], $this->help());
+        $lines = $module && $module !== 'help' ?  [] : array_merge([''], $this->help());
         foreach ($files as $file) {
 
             $file = basename($file, '.php');
+            
+            if ($module !== false && $file !== $module) {
+                continue;
+            }
 
             $moduleClass = '\\fpcm\model\\cli\\' . $file;
             if (!class_exists($moduleClass) || $file === 'help') {
@@ -40,6 +45,10 @@ final class help extends \fpcm\model\abstracts\cli {
             $cli = new $moduleClass([]);
             $lines = array_merge($lines, $cli->help());
             $lines[] = '';
+        }
+        
+        if (!count($lines)) {
+            $this->output('Invalid module name, no help data found.', true);
         }
 
         $lines[] = '';
@@ -74,6 +83,7 @@ final class help extends \fpcm\model\abstracts\cli {
         $lines[] = '> Example:';
         $lines[] = '';
         $lines[] = '      php fpcmcli.php help';
+        $lines[] = '      php fpcmcli.php help <module>';
         $lines[] = '';
         return $lines;
     }

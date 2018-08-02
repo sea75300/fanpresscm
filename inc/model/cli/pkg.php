@@ -530,6 +530,9 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $lines[] = '      --delete      performs deletion of a given package without uninstallation (modules only)';
         $lines[] = '      --info        displays information about a given package (modules only)';
         $lines[] = '      --list        displays list available packages (modules only)';
+        $lines[] = '';
+        $lines[] = '> List action params:';
+        $lines[] = '';
         $lines[] = '        local       local installed modules';
         $lines[] = '        updatefs    update local installed modules from file system';
         $lines[] = '        remote      modules in package repository';
