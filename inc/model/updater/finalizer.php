@@ -44,6 +44,10 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 $this->updateVersion() &&
                 $this->optimizeTables();
 
+        if (\fpcm\classes\baseconfig::canConnect()) {
+            (new \fpcm\model\crons\updateCheck())->run();
+        }
+
         return $res;
     }
 
