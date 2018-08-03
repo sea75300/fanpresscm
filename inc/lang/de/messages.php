@@ -136,6 +136,7 @@ $lang = array(
     'DELETE_FAILED_COMMENTS' => 'Die Kommentare konnten nicht gelöscht werden!',
     'LOAD_FAILED_ARTICLE' => 'Der gesuchte Artikel wurde nicht gefunden.',
     'LOAD_FAILED_COMMENT' => 'Der gesuchte Kommentar wurde nicht gefunden.',
+    'LOAD_FAILED_COMMENT_ARTICLE' => 'Der zu diesem Kommentar gehörige Artikel wurde nicht gefunden. Der Kommentar muss zu einem anderen Artikel verschoben werden, um im Frontend sichtbar zu sein.',
     'LOAD_FAILED_USER' => 'Der gesuchte Benutzer wurde nicht gefunden.',
     'LOAD_FAILED_ROLL' => 'Die gesuchte Benutzerrolle wurde nicht gefunden.',
     'LOAD_FAILED_CATEGORY' => 'Die gesuchte Kategorie wurde nicht gefunden.',

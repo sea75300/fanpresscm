@@ -251,11 +251,17 @@ class commentedit extends \fpcm\controller\abstracts\controller {
             $articleList = new \fpcm\model\articles\articlelist();
             $articleList->checkEditPermissions($article);
 
-            if ($article->exists() && $article->getEditPermission()) {
-                $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE');
+            if ($article->exists()) {
+
+                if ($article->getEditPermission()) {
+                    $buttons[] = (new \fpcm\view\helper\editButton('editArticle'))->setUrlbyObject($article)->setText('COMMENTS_EDITARTICLE');
+                }
+
+                $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget('_blank');           
             }
-            
-            $buttons[] = (new \fpcm\view\helper\openButton('commentfe'))->setUrlbyObject($this->comment)->setTarget('_blank');           
+            else {
+                $this->view->addErrorMessage('LOAD_FAILED_COMMENT_ARTICLE');
+            }
         }
 
         $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")->setTarget('_blank')->setText('Whois')->setIcon('home')->setClass($hiddenClass);
