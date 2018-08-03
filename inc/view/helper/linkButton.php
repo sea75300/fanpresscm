@@ -51,6 +51,9 @@ class linkButton extends button {
     protected function getString()
     {
         if ($this->readonly) {
+            
+            $this->class .= ' fpcm-ui-readonly';
+            
             $this->class = str_replace('fpcm-loader', '', $this->class);
             return implode(' ', [
                 "<a href=\"#\"",

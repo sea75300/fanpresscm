@@ -33,7 +33,7 @@ trait permissions {
             return true;
         }
 
-        if (!is_array($this->ownArticleIds)) {
+        if (!is_array($this->ownArticleIds) || !count($this->ownArticleIds)) {
             $this->articleList = new \fpcm\model\articles\articlelist();
             $this->ownArticleIds = $this->articleList->getArticleIDsByUser(\fpcm\classes\loader::getObject('\fpcm\model\system\session')->getUserId());
         }
@@ -46,8 +46,8 @@ trait permissions {
             $comment->setEditPermission(true);
             return true;
         }
-
-        if (!$isAdmin && !$permEditAll && $permEditOwn && in_array($comment->getArticleid(), $this->ownArticleIds)) {
+        
+        if ($permEditOwn && in_array($comment->getArticleid(), $this->ownArticleIds)) {
             $comment->setEditPermission(true);
             return true;
         }

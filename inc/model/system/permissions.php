@@ -302,28 +302,30 @@ class permissions extends \fpcm\model\abstracts\dataset {
         }
 
         $permissionArray = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('permission\check', $permissionArray);
-
         foreach ($permissionArray as $module => $permission) {
+
             if (!isset($this->permissiondata[$module])) {
                 trigger_error("No permissions available for module \"$module\"!");
                 return false;
             }
 
             if (is_array($permission)) {
-                foreach ($permission as $permissionItem) {
-                    $itemCheck = isset($this->permissiondata[$module][$permissionItem]) ? $this->permissiondata[$module][$permissionItem] : false;
 
-                    $check = isset($check) ? ($check || $itemCheck) : $itemCheck;
+                foreach ($permission as $permissionItem) {
+
+                    if ((isset($this->permissiondata[$module][$permissionItem]) ? $this->permissiondata[$module][$permissionItem] : false)) {
+                        $check = true;
+                        break;
+                    }
                 }
             } else {
-                $check = isset($this->permissiondata[$module][$permission]) ? $this->permissiondata[$module][$permission] : false;
+                $check = isset($this->permissiondata[$module][$permission]) ? (bool) $this->permissiondata[$module][$permission] : false;
             }
 
             $res = $res && $check;
         }
 
         $this->checkedData[$permissionArrayHash] = $res;
-
         return $res;
     }
 

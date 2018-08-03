@@ -44,7 +44,7 @@ class articleedit extends articlebase {
      */
     protected function getPermissions()
     {
-        return ['article' => 'edit'];
+        return ['article' => ['edit', 'editall']];
     }
 
     /**

@@ -43,8 +43,7 @@ trait permissions {
             return true;
         }
 
-        if (!$isAdmin && !$permEditAll && $permEditOwn &&
-                $article->getCreateuser() == $session->getUserId()) {
+        if ($permEditOwn && $article->getCreateuser() == $session->getUserId()) {
             $article->setEditPermission(true);
             return true;
         }
