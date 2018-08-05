@@ -236,9 +236,12 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 if (!$tabExists) {
                     print "     >> Table not found, skipping...".PHP_EOL;
                 }
-                elseif ($successDrop = !$this->dbcon->drop($tableName)) {
+                elseif (!$this->dbcon->drop($tableName)) {
                     trigger_error('Unable to drop table ' . $tableName . ' during update');
                     return false;
+                }
+                else {
+                    $successDrop = true;
                 }
 
                 if ($successDrop) {
