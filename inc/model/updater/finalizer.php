@@ -245,7 +245,9 @@ final class finalizer extends \fpcm\model\abstracts\model {
                     $tabExists = false;
                 }
                 
-                print "     -- FINISHED".PHP_EOL;
+                if ($isCli) {
+                    print "     -- FINISHED".PHP_EOL;
+                }
             }
 
             if (!$tabExists) {
