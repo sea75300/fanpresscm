@@ -71,11 +71,6 @@ fpcm.ajax = {
             }
 
             fpcm.ajax.result[action] = result;
-            
-            if (_legacy) {
-                _legacy.result = result;
-            }
-
             if (typeof params.execDone == 'string') {
                 eval(params.execDone);
             }
