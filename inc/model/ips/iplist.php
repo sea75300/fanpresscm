@@ -82,10 +82,13 @@ class iplist extends \fpcm\model\abstracts\tablelist {
             $where[] = '?';
         }
 
-        $where = "ipaddress IN (" . implode(', ', $where) . ") AND $lockType = 1";
-
-        $result = $this->dbcon->fetch($this->dbcon->select($this->table, 'count(id) AS counted', $where, $adresses));
-        $this->lockCache[$ip.'-'.$lockType] = $result->counted ? true : false;
+        $result = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())
+            ->setTable($this->table)
+            ->setWhere("ipaddress IN (" . implode(', ', $where) . ") AND {$lockType} = 1")
+            ->setItem('count(id) AS counted')
+            ->setParams($adresses));
+            
+        $this->lockCache[$ip.'-'.$lockType] = is_object($result) && isset($result->counted) && $result->counted ? true : false;
 
         return $this->lockCache[$ip.'-'.$lockType];
     }

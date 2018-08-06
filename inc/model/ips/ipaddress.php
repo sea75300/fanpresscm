@@ -190,6 +190,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
         }
 
         $this->cache->cleanup();
+        $this->id = $this->dbcon->getLastInsertId();
 
         return $return;
     }
