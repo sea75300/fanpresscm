@@ -347,10 +347,7 @@ final class email {
      */
     private function getMailerObj()
     {
-
-        require_once loader::libGetFilePath('PHPMailer/PHPMailer.php');
-        require_once loader::libGetFilePath('PHPMailer/SMTP.php');
-        require_once loader::libGetFilePath('PHPMailer/Exception.php');
+        require_once loader::libGetFilePath('PHPMailer');
 
         $this->mailer = new \PHPMailer\PHPMailer\PHPMailer();
         $this->mailer->isHTML($this->html);
@@ -358,6 +355,20 @@ final class email {
         $this->mailer->setLanguage($this->config->system_lang);
 
         return true;
+    }
+
+    /**
+     * Return SMTP encryption modes
+     * @return array
+     * @since FPCM 4
+     */
+    public static function getEncryptions() : array
+    {
+        return [
+            'SSL' => 'ssl',
+            'TLS' => 'tls',
+            'Auto' => 'auto'
+        ];
     }
 
 }

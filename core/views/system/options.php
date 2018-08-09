@@ -4,13 +4,7 @@
         <div class="fpcm-content-wrapper fpcm-ui-full-height">
             <div class="fpcm-ui-tabs-general">
                 <ul>
-                    <li data-toolbar-buttons="1"><a href="#tabs-options-general"><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></a></li>
-                    <li data-toolbar-buttons="1"><a href="#tabs-options-editor"><?php $theView->write('SYSTEM_HL_OPTIONS_EDITOR'); ?></a></li>
-                    <li data-toolbar-buttons="1"><a href="#tabs-options-news"><?php $theView->write('SYSTEM_HL_OPTIONS_ARTICLES'); ?></a></li>
-                    <li data-toolbar-buttons="1"><a href="#tabs-options-comments"><?php $theView->write('SYSTEM_HL_OPTIONS_COMMENTS'); ?></a></li>
-                    <li data-toolbar-buttons="1"><a href="#tabs-options-twitter"><?php $theView->write('SYSTEM_HL_OPTIONS_TWITTER'); ?></a></li>
-                    <li data-toolbar-buttons="1"><a href="#tabs-options-extended"><?php $theView->write('GLOBAL_EXTENDED'); ?></a></li>
-                    <li data-toolbar-buttons="2" id="tabs-options-syscheck"><a href="#tabs-options-check"><?php $theView->write('SYSTEM_HL_OPTIONS_SYSCHECK'); ?></a></li>
+                    <?php foreach ($tabs as $tab) : ?><?php print $tab; ?><?php endforeach; ?>
                 </ul>
 
                 <div id="tabs-options-general">
@@ -853,7 +847,6 @@
                     </div>
                 </div> 
 
-                <div id="tabs-options-check"></div>
             </div>
         </div>
     </div>

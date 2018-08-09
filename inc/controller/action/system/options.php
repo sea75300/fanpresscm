@@ -169,11 +169,7 @@ class options extends \fpcm\controller\abstracts\controller {
             'SYSTEM_OPTIONS_COMMENT_NOTIFY_ALL' => 2
         ]);
 
-        $this->view->assign('smtpEncryption', [
-            'SSL' => 'ssl',
-            'TLS' => 'tls',
-            'Auto' => 'auto'
-        ]);
+        $this->view->assign('smtpEncryption', \fpcm\classes\email::getEncryptions());
 
         $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());
 
@@ -213,6 +209,30 @@ class options extends \fpcm\controller\abstracts\controller {
         if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->check(['system' => 'update'])) {
             $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync');
         }
+
+        $this->view->assign('tabs', [
+            (new \fpcm\view\helper\tabItem('general'))->setText('SYSTEM_HL_OPTIONS_GENERAL')->setWrapper(false)->setUrl('#tabs-options-general')->setData([
+                'toolbar-buttons' => 1
+            ]),
+            (new \fpcm\view\helper\tabItem('editor'))->setText('SYSTEM_HL_OPTIONS_EDITOR')->setWrapper(false)->setUrl('#tabs-options-editor')->setData([
+                'toolbar-buttons' => 1
+            ]),
+            (new \fpcm\view\helper\tabItem('articles'))->setText('SYSTEM_HL_OPTIONS_ARTICLES')->setWrapper(false)->setUrl('#tabs-options-news')->setData([
+                'toolbar-buttons' => 1
+            ]),
+            (new \fpcm\view\helper\tabItem('comments'))->setText('SYSTEM_HL_OPTIONS_COMMENTS')->setWrapper(false)->setUrl('#tabs-options-comments')->setData([
+                'toolbar-buttons' => 1
+            ]),
+            (new \fpcm\view\helper\tabItem('twitter'))->setText('SYSTEM_HL_OPTIONS_TWITTER')->setWrapper(false)->setUrl('#tabs-options-twitter')->setData([
+                'toolbar-buttons' => 1
+            ]),
+            (new \fpcm\view\helper\tabItem('extended'))->setText('GLOBAL_EXTENDED')->setWrapper(false)->setUrl('#tabs-options-extended')->setData([
+                'toolbar-buttons' => 1
+            ]),
+            (new \fpcm\view\helper\tabItem('syscheck'))->setText('SYSTEM_HL_OPTIONS_SYSCHECK')->setWrapper(false)->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/syscheck'))->setData([
+                'toolbar-buttons' => 2
+            ]),
+        ]);
         
         $this->view->addButtons($buttons);
         $this->view->render();

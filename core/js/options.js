@@ -27,10 +27,6 @@ fpcm.options = {
         fpcm.ui.datepicker('#articles_archive_datelimit', {
             maxDate: "-3m"
         });
-
-        jQuery('#tabs-options-syscheck').click(function () {
-            fpcm.systemcheck.execute();
-        });
         
         fpcm.ui.checkboxradio('.fpcm-ui-input-checkbox');
 
