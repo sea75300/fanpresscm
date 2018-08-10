@@ -132,7 +132,7 @@ if (!defined('FPCM_ARTICLE_DISABLE_SHORTLINKS')) {
      * Erstellung von Artikel-Shortlink über is.gd deaktivieren
      * @since FPCM 3.5
      */
-    define('FPCM_ARTICLE_DISABLE_SHORTLINKS', 60);
+    define('FPCM_ARTICLE_DISABLE_SHORTLINKS', false);
 }
 
 if (!defined('FPCM_AUTHOR_IMAGE_MAX_SIZE')) {

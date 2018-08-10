@@ -616,32 +616,33 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function getArticleShortLink()
     {
-        $shortenerUrl = 'http://is.gd/create.php?format=simple&url=' . urlencode($this->getElementLink());
+        $elLink = $this->getElementLink();
+        $elLinkEncode = urlencode($elLink);
+        
+        $external = !\fpcm\classes\baseconfig::canConnect() || (defined('FPCM_ARTICLE_DISABLE_SHORTLINKS') && FPCM_ARTICLE_DISABLE_SHORTLINKS) ? false : true;
+        
+        $return = $this->events->trigger('article\getShortLink', [
+            'url' => $elLink,
+            'encoded' => $elLinkEncode,
+            'active' => $external,
+            'default' => true,
+        ]);
 
-        if (!\fpcm\classes\baseconfig::canConnect()) {
-            return $this->events->trigger('article\getShortLink', [
-                        'artikellink' => urlencode($this->getElementLink()),
-                        'url' => $shortenerUrl
-                    ])['url'];
+        if (!$external) {
+            return $elLink;
         }
 
-        if (defined('FPCM_ARTICLE_DISABLE_SHORTLINKS') && FPCM_ARTICLE_DISABLE_SHORTLINKS) {
-            $url = $shortenerUrl;
-        } else {
-            $remote = fopen($shortenerUrl, 'r');
-            if (!$remote) {
-                return $this->events->trigger('article\getShortLink', [
-                            'artikellink' => urlencode($this->getElementLink()),
-                            'url' => $shortenerUrl
-                        ])['url'];
-            }
-            $url = fgetss($remote);
+        if (!$return['default']) {
+            return $return['url'];
         }
 
-        return $this->events->trigger('article\getShortLink', [
-                    'artikellink' => urlencode($this->getElementLink()),
-                    'url' => $url
-                ])['url'];
+        $shortened = file_get_contents('http://is.gd/create.php?format=simple&url=' . $elLinkEncode, false);
+        if($shortened === false) {
+            trigger_error('Unable to fetch short link data for '.$elLink.' , return with default article link.');
+            return $elLink;
+        }
+
+        return $shortened;
     }
 
     /**
