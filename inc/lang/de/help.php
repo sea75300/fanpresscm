@@ -1033,14 +1033,14 @@ Help language file
     </chapter>
     <chapter ref="HL_HELP_SUPPORT">
         <![CDATA[
-        <p>Sollten du Fragen haben oder (technische) Hilfe benötigen, so kannst du über verschiedene Wege Kontakt aufzunehmen.</p>
-        <p>Unseren Bugtracker findest du auf <a href="https://github.com/sea75300/fanpresscm4/issues">GitHub.com</a>. Hier werden sowohl
-        Weiterentwicklungen, als auch Bugfixes und sonstige Fragen entgegengenommen. Alternativ schreiben eine E-Mail an
+        <p>Solltest du Fragen haben oder (technische) Hilfe benötigen, kannst du über verschiedene Wege Kontakt aufzunehmen.</p>
+        <p>Unseren Bugtracker findest du auf <a href="https://github.com/sea75300/fanpresscm4/issues">GitHub.com</a>, hier werden
+        Weiterentwicklungen, Bugfixes und sonstige Fragen entgegen genommen. Alternativ schreibe eine E-Mail an
         <em>fanpress@nobody-knows.org</em> oder <em>sea75300@yahoo.de</em> oder hinterlasse unter
         <a href="https://nobody-knows.org/download/fanpress-cm/">Nobody-Knows.org</a> einen Kommentar auf der Projekt-Seite.</p>
 
-        <p>Das Modul <em>FanPress CM Support</em> stellt nach der Installation einen Benutzer-Zugang zur deiner FanPress CM zur Verfügung.
-        Dieser wird während der Installation angelegt und einige grundlegende System-Informationen übermittelt.</p>
+        <p>Das Modul <em>FanPress CM Support</em> erstellt während der Installation einen Benutzer-Zugang zur deiner FanPress CM Installation
+        und übermittelt einige grundlegende System-Informationen.</p>
         ]]>
     </chapter>
 </chapters>

@@ -26,7 +26,7 @@ class notificationItem {
 
     /**
      * CSS-Klassen für Icon
-     * @var string
+     * @var \fpcm\view\helper\icon
      */
     protected $icon = '';
 
@@ -50,44 +50,22 @@ class notificationItem {
 
     /**
      * Konstruktor
-     * @param string $description Sprachvariable der Beschreibung
-     * @param string $icon Icon
-     * @param string $class CSS-Klasse (optional)
-     * @param string $id ID des Elements
+     * @param \fpcm\view\helper\icon $icon
+     * @param string $id
+     * @param string $callback
      */
-    function __construct($description, $icon, $class = false, $id = false, $callback = false)
+    function __construct(\fpcm\view\helper\icon $icon, string $id = '', string $callback = '')
     {
-        $this->description = \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate($description);
         $this->icon = $icon;
-        $this->class = trim($class) ? ' ' . trim($class) : '';
         $this->id = trim($id) ? trim($id) : uniqid('fpcm-notification-item');
         $this->callback = $callback;
     }
 
     /**
-     * Beschreibung zurückgeben
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Beschreibung anpassen, inkl. Platzhalter
-     * @param string $description
-     * @param array $params
-     */
-    public function setDescription($description, array $params = [])
-    {
-        $this->description = \fpcm\classes\loader::getObject('\fpcm\classes\language')->translate($description, $params);
-    }
-
-    /**
      * CSS-Klassen für Icon zurückgeben
-     * @return string
+     * @return \fpcm\view\helper\icon
      */
-    public function getIcon()
+    public function getIcon() : \fpcm\view\helper\icon
     {
         return $this->icon;
     }
@@ -96,7 +74,7 @@ class notificationItem {
      * CSS-Klassen zurückgeben
      * @return string
      */
-    public function getClass()
+    public function getClass() : string
     {
         return $this->class;
     }
@@ -105,7 +83,7 @@ class notificationItem {
      * Item-ID zurückgeben
      * @return string
      */
-    public function getId()
+    public function getId() : string
     {
         return $this->id;
     }
@@ -114,15 +92,19 @@ class notificationItem {
      * Objekt als String zurückgeben
      * @return string
      */
-    public function __toString()
+    public function __toString() : string
     {
+        $this->icon->setSize('lg');
+        
         if ($this->callback && strpos($this->callback, 'http') === 0) {
-            return "<li title=\"{$this->description}\" id=\"{$this->id}\" class=\"fpcm-menu-top-level1 fpcm-notification-item\"><a href=\"{$this->callback}\"><span class=\"{$this->icon}{$this->class}\" title=\"{$this->description}\"></span></a></li>";
-        } elseif ($this->callback) {
-            return "<li title=\"{$this->description}\" id=\"{$this->id}\" data-callback=\"{$this->callback}\" class=\"fpcm-menu-top-level1 fpcm-notification-item\"><a href=\"#\"><span class=\"{$this->icon}{$this->class}\" title=\"{$this->description}\"></span></a></li>";
+            return "<li title=\"{$this->description}\" id=\"{$this->id}\" class=\"fpcm-menu-top-level1 fpcm-notification-item\"><a href=\"{$this->callback}\">" . $this->icon . "</a></li>";
         }
 
-        return "<li title=\"{$this->description}\" id=\"{$this->id}\" class=\"fpcm-menu-top-level1 fpcm-notification-item\"><span class=\"{$this->icon}{$this->class}\" title=\"{$this->description}\"></span></li>";
+        if ($this->callback) {
+            return "<li title=\"{$this->description}\" id=\"{$this->id}\" data-callback=\"{$this->callback}\" class=\"fpcm-menu-top-level1 fpcm-notification-item\"><a href=\"#\">" . $this->icon . "</a></li>";
+        }
+
+        return "<li title=\"{$this->description}\" id=\"{$this->id}\" class=\"fpcm-menu-top-level1 fpcm-notification-item\">" . $this->icon . "</li>";
     }
 
 }

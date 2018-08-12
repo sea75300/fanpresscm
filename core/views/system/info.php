@@ -14,6 +14,12 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-12">
+                            <h3 class="fpcm-ui-margin-lg-bottom"><?php $theView->write('VERSION'); ?></h3>
+                            <p><?php print $theView->version; ?></p>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-12 fpcm-ui-full-height fpcm-ui-padding-lg-bottom">
                             <h3 class="fpcm-ui-margin-lg-bottom"><?php $theView->write('HL_HELP_LICENCE'); ?></h3>
                             <?php print nl2br($theView->escapeVal($licence)); ?>

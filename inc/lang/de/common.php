@@ -11,6 +11,7 @@ $lang = array(
     'INSTALLER' => 'Installations-Assistent',
     'UPDATER' => 'Update-Assistent',
     'VERSION' => 'Version',
+    'DEBUG_MODE' => 'Debug-Modus aktiv',
     'HL_DASHBOARD' => 'Dashboard',
     'HL_ARTICLES' => 'Artikel',
     'HL_ARTICLE_ADD' => 'Artikel schreiben',

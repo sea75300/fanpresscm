@@ -48,7 +48,6 @@ class notifications {
      */
     public function getNotificationsString()
     {
-
         if (!count($this->notifications)) {
             return '';
         }
