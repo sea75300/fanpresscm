@@ -11,26 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-/**
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at.
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 namespace Sonata\GoogleAuthenticator;
 
 /**
  * @see https://github.com/google/google-authenticator/wiki/Key-Uri-Format
  */
-final class GoogleAuthenticator
+final class GoogleAuthenticator implements GoogleAuthenticatorInterface
 {
     /**
      * @var int
@@ -73,8 +59,6 @@ final class GoogleAuthenticator
     /**
      * @param string $secret
      * @param string $code
-     *
-     * @return bool
      */
     public function checkCode($secret, $code): bool
     {
@@ -107,8 +91,6 @@ final class GoogleAuthenticator
      *
      * @param string                                   $secret
      * @param float|string|int|null|\DateTimeInterface $time
-     *
-     * @return string
      */
     public function getCode($secret, /* \DateTimeInterface */$time = null): string
     {
@@ -148,8 +130,6 @@ final class GoogleAuthenticator
      * @param string $hostname
      * @param string $secret
      *
-     * @return string
-     *
      * @deprecated deprecated as of 2.1 and will be removed in 3.0. Use Sonata\GoogleAuthenticator\GoogleQrUrl::generate() instead.
      */
     public function getUrl($user, $hostname, $secret): string
@@ -173,9 +153,6 @@ final class GoogleAuthenticator
         return $url;
     }
 
-    /**
-     * @return string
-     */
     public function generateSecret(): string
     {
         return (new FixedBitNotation(5, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567', true, true))
@@ -185,8 +162,6 @@ final class GoogleAuthenticator
     /**
      * @param string $bytes
      * @param int    $start
-     *
-     * @return int
      */
     private function hashToInt(string $bytes, int $start): int
     {
