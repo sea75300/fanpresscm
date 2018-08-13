@@ -13,14 +13,12 @@ spl_autoload_register(function($class) {
         return false;
     }
 
-    $class = str_replace('\\', DIRECTORY_SEPARATOR, $class);
-    $path = dirname(__DIR__) . DIRECTORY_SEPARATOR . $class . '.php';
-
+    $path = dirname(__DIR__) . DIRECTORY_SEPARATOR . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
     if (file_exists($path)) {
         include $path;
         return true;
     }
 
-    throw new \Exception('class ' . $class . ' not found in ' . $path);
-    return false;
+    throw new \Exception('nkorg Autoloader: class ' . $class . ' not found in ' . $path);
+    return true;
 });

@@ -27,7 +27,6 @@ spl_autoload_register(function($class)
         return false;
     }
 
-
     $includePath = \fpcm\classes\dirs::getDataDirPath(
         \fpcm\classes\dirs::DATA_MODULES, str_replace(['fpcm\\modules\\', '\\'], ['', DIRECTORY_SEPARATOR], $class) . '.php'
     );
