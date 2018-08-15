@@ -50,7 +50,6 @@ class useredit extends userbase {
         }
         
         $this->view->setFormAction($this->user->getEditLink(), [], true);
-        $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
 
         if (!$this->checkPageToken) {
             return true;
@@ -86,6 +85,7 @@ class useredit extends userbase {
         $this->view->assign('showDisableButton', $showDisableButton);
         $this->view->assign('showExtended', true);
         $this->view->assign('showImage', true);
+        $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
 
         $this->view->addButtons([
             (new \fpcm\view\helper\saveButton('userSave')),

@@ -148,5 +148,5 @@ if (!defined('FPCM_INSECURE_USERNAMES')) {
      * List of insecure usernams
      * @since FPCM 3.6
      */
-    define('FPCM_INSECURE_USERNAMES', json_encode(['admin', 'root', 'test', 'support', 'administrator', 'adm']));
+    define('FPCM_INSECURE_USERNAMES', ['admin', 'root', 'test', 'support', 'administrator', 'adm']);
 }

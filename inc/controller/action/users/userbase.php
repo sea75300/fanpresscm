@@ -121,14 +121,12 @@ class userbase extends \fpcm\controller\abstracts\controller {
             return true;
         }
 
-        $this->initFormData();
+        $data = $this->initFormData();
         if (!$this->userId) {
             $this->user->setRegistertime(time());
         }
 
         $save = true;
-
-        $data = $this->getRequestVar();
         if ($data['password'] && $data['password_confirm']) {
             if (md5($data['password']) == md5($data['password_confirm'])) {
                 $this->user->setPassword($data['password']);
@@ -171,13 +169,13 @@ class userbase extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return array
      */
-    protected function initFormData()
+    protected function initFormData() : array
     {
-        $data = $this->getRequestVar();
+        $data = $this->getRequestVar('data');
         if (!isset($data['username'])) {
-            return true;
+            return [];
         }
 
         $this->user->setUserName($data['username']);
@@ -190,7 +188,7 @@ class userbase extends \fpcm\controller\abstracts\controller {
         $this->user->setChangeTime(time());
         $this->user->setChangeUser((int) $this->session->getUserId());
 
-        return true;
+        return $data;
     }
 
 }

@@ -375,28 +375,27 @@ class main extends \fpcm\controller\abstracts\controller {
      */
     protected function runAfterStep6()
     {
-        $username = $this->getRequestVar('username');
-        $email = $this->getRequestVar('email');
-        $displayname = $this->getRequestVar('displayname');
+        $data = $this->getRequestVar('data');
+        $_SESSION['username'] = $data['username'];
+        $_SESSION['email'] = $data['email'];
+        $_SESSION['displayname'] = $data['displayname'];
         
-        $_SESSION['username'] = $username;
-        $_SESSION['email'] = $email;
-        $_SESSION['displayname'] = $displayname;
-        
-        foreach ($this->getRequestVar() as $key => $data) {
-            if ($data == '' && !in_array($key, array('module', 'step', 'btnSubmitNext', 'language'))) {
-                $this->redirect('installer', [
-                    'step' => '6',
-                    'msg' => -6,
-                    'language' => $this->langCode
-                ]);
-                $this->afterStepResult = false;
-                return false;
+        foreach ($data as $key => $val) {
+
+            if (trim($val)) {
+                continue;
             }
+
+            $this->redirect('installer', [
+                'step' => '6',
+                'msg' => -6,
+                'language' => $this->langCode
+            ]);
+            $this->afterStepResult = false;
+            return false;
         }
 
-        $insecureUserNamens = json_decode(FPCM_INSECURE_USERNAMES, true);
-        if (in_array($username, $insecureUserNamens)) {
+        if (in_array($data['username'], FPCM_INSECURE_USERNAMES)) {
             $this->redirect('installer', [
                 'step' => '6',
                 'msg' => -5,
@@ -406,19 +405,18 @@ class main extends \fpcm\controller\abstracts\controller {
             return false;
         }
 
-        $user = new \fpcm\model\users\author($username);
-        $user->setUserName($username);
-        $user->setEmail($email);
-        $user->setDisplayName($displayname);
+        $user = new \fpcm\model\users\author();
+        $user->setUserName($data['username']);
+        $user->setEmail($data['email']);
+        $user->setDisplayName($data['displayname']);
         $user->setRoll(1);
         $user->setUserMeta([]);
         $user->setRegistertime(time());
-
-        $newpass = $this->getRequestVar('password');
-        $newpass_confirm = $this->getRequestVar('password_confirm');
-
-        if ($newpass && $newpass_confirm && (md5($newpass) == md5($newpass_confirm))) {
-            $user->setPassword($newpass);
+        $user->setChangeTime(time());
+        $user->setChangeUser(1);
+        
+        if ($data['password'] && $data['password_confirm'] && (md5($data['password']) == md5($data['password_confirm']))) {
+            $user->setPassword($data['password']);
         } else {
             $res = -4;
             $this->afterStepResult = false;

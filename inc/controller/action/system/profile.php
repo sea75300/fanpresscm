@@ -71,22 +71,22 @@ class profile extends \fpcm\controller\abstracts\controller {
         }
 
         if ($this->buttonClicked('profileSave') && $this->checkPageToken) {
-            $this->user->setEmail($this->getRequestVar('email'));
-            $this->user->setDisplayName($this->getRequestVar('displayname'));
+            
+            $saveData = $this->getRequestVar('data');
+            
+            $this->user->setEmail($saveData['email']);
+            $this->user->setDisplayName($saveData['displayname']);
 
             $metaData = $this->getRequestVar('usermeta');
             $this->user->setUserMeta($metaData);
-            $this->user->setUsrinfo($this->getRequestVar('usrinfo'));
+            $this->user->setUsrinfo($saveData['usrinfo']);
             $this->user->setChangeTime(time());
             $this->user->setChangeUser((int) $this->session->getUserId());
 
-            $newpass = $this->getRequestVar('password');
-            $newpass_confirm = $this->getRequestVar('password_confirm');
-
             $save = true;
-            if ($newpass && $newpass_confirm) {
-                if (md5($newpass) == md5($newpass_confirm)) {
-                    $this->user->setPassword($newpass);
+            if ($saveData['password'] && $saveData['password_confirm']) {
+                if (md5($saveData['password']) == md5($saveData['password_confirm'])) {
+                    $this->user->setPassword($saveData['password']);
                 } else {
                     $save = false;
                     $this->view->addErrorMessage('SAVE_FAILED_PASSWORD_MATCH');
@@ -99,10 +99,11 @@ class profile extends \fpcm\controller\abstracts\controller {
                 $this->user->setAuthtoken('');
             }
 
-            $confirmCode = $this->getRequestVar('authCodeConfirm');
-            $authSecret = $this->getRequestVar('authSecret');
-            if ($this->config->system_2fa_auth && trim($confirmCode) && trim($authSecret) && $this->gAuth->checkCode($authSecret, $confirmCode)) {
-                $this->user->setAuthtoken($authSecret);
+            if ($this->config->system_2fa_auth &&
+                trim($saveData['authCodeConfirm']) &&
+                trim($saveData['authSecret']) &&
+                $this->gAuth->checkCode($saveData['authSecret'], $saveData['authCodeConfirm'])) {
+                $this->user->setAuthtoken($saveData['authSecret']);
             }
 
             if ($save) {

@@ -9,7 +9,7 @@
                     <?php $theView->write('USERS_DISPLAYNAME'); ?>:
                 </div>
                 <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('displayname')->setValue($author->getDisplayName()); ?>
+                    <?php $theView->textInput('data[displayname]')->setValue($author->getDisplayName()); ?>
                 </div>
             </div>
 
@@ -18,7 +18,7 @@
                     <?php $theView->write('GLOBAL_USERNAME'); ?>:
                 </div>
                 <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('username')->setValue($author->getUserName())->setReadonly((isset($inProfile) && $inProfile)); ?>
+                    <?php $theView->textInput('data[username]')->setValue($author->getUserName())->setReadonly((isset($inProfile) && $inProfile)); ?>
                 </div>
             </div>
 
@@ -27,7 +27,7 @@
                     <?php $theView->write('GLOBAL_PASSWORD'); ?>:
                 </div>
                 <div class="col-sm-11 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('password'); ?>
+                    <?php $theView->textInput('data[password]', 'password'); ?>
                 </div>
                 <div class="col-auto">
                     <?php $theView->button('genPasswd', 'genPasswd')->setText('USERS_PASSGEN')->setIcon('key')->setIconOnly(true); ?>
@@ -40,7 +40,7 @@
                     <?php $theView->write('USERS_PASSWORD_CONFIRM'); ?>:
                 </div>
                 <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('password_confirm'); ?>
+                    <?php $theView->textInput('data[password_confirm]', 'password_confirm'); ?>
                 </div>
             </div>
 
@@ -49,7 +49,7 @@
                     <?php $theView->write('GLOBAL_EMAIL'); ?>:
                 </div>
                 <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('email')->setValue($author->getEmail()); ?>
+                    <?php $theView->textInput('data[email]')->setValue($author->getEmail()); ?>
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
                     <?php $theView->write('USERS_ROLL'); ?>:
                 </div>
                 <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->select('roll')
+                    <?php $theView->select('data[roll]')
                             ->setOptions($userRolls)
                             ->setSelected($author->getRoll())
                             ->setReadonly(($inProfile))
@@ -72,7 +72,7 @@
                     <?php $theView->write('GLOBAL_DISABLE'); ?>:
                 </div>
                 <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->boolSelect('disabled')->setSelected($author->getDisabled()); ?>
+                    <?php $theView->boolSelect('data[disabled]')->setSelected($author->getDisabled()); ?>
                 </div>
             </div>
             <?php endif; ?>
@@ -91,7 +91,7 @@
                     <?php $theView->write('USERS_BIOGRAPHY'); ?>:
                 </div>
                 <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textarea('usrinfo')->setValue($author->getUsrinfo())->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width') ?>
+                    <?php $theView->textarea('data[usrinfo]')->setValue($author->getUsrinfo())->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width') ?>
                 </div>
             </div>
 
@@ -134,8 +134,8 @@
                     <?php $theView->write('USERS_AUTHTOKEN_SAVE'); ?>:
                 </div>
                 <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-left">
-                    <?php $theView->textInput('authCodeConfirm')->setValue('')->setMaxlenght(6); ?>
-                    <?php $theView->hiddenInput('authSecret')->setValue($secret); ?>
+                    <?php $theView->textInput('data[authCodeConfirm]', 'authCodeConfirm')->setValue('')->setMaxlenght(6); ?>
+                    <?php $theView->hiddenInput('data[authSecret]', 'authSecret')->setValue($secret); ?>
                 </div>
             </div>
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-center">

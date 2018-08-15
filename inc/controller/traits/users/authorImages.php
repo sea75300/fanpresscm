@@ -39,7 +39,7 @@ trait authorImages {
             $uploader = new \fpcm\model\files\fileuploader($files);
             $res = $uploader->processAuthorImageUpload($author->getImage());
 
-            $this->cache->cleanup('authorImages', 'system');
+            $this->cache->cleanup('system/author' . $author->getImage() . '_image');
             if ($res == true) {
                 $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADAUTHORIMG');
                 return true;
@@ -77,7 +77,7 @@ trait authorImages {
             $res = $res && $authorImage->delete();
         }
 
-        $this->cache->cleanup('authorImages', 'system');
+        $this->cache->cleanup('system/author' . $author->getImage() . '_image');
         if ($res == true) {
             $this->view->addNoticeMessage('DELETE_SUCCESS_FILEAUTHORIMG');
             return true;

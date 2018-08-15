@@ -34,7 +34,7 @@ final class authorImage extends image {
      */
     protected function basePath($filename)
     {
-        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_PROFILES, $filename);
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_PROFILES, 'images/' . $filename);
     }
 
     /**
