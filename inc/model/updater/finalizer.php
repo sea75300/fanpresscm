@@ -42,7 +42,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 $this->updateSystemOptions() &&
                 $this->updatePermissions() &&
                 $this->updateVersion() &&
-                $this->optimizeTables();
+                $this->optimizeTables() &&
+                $this->createTemplates();
 
         if (\fpcm\classes\baseconfig::canConnect()) {
             (new \fpcm\model\crons\updateCheck())->run();
@@ -316,6 +317,35 @@ final class finalizer extends \fpcm\model\abstracts\model {
     private function checkVersion($version, $option = '<')
     {
         return version_compare($this->config->system_version, $version, $option);
+    }
+
+    /**
+     * 
+     * @return boolean
+     */
+    private function createTemplates()
+    {
+        $tpl = new \fpcm\model\pubtemplates\sharebuttons();
+        if ($tpl->exists()) {
+            fpcmLogSystem('Skip creation of new template '.$tpl->getFilename());
+            return true;
+        }
+
+        $res = file_put_contents($tpl->getFullpath(), implode(PHP_EOL, [
+            '<ul class="fpcm-pub-sharebuttons">',
+            '    <li>{{facebook}}</li>',
+            '    <li>{{twitter}}</li>',
+            '    <li>{{googlePlus}}</li>',
+            '    <li>{{tumblr}}</li>',
+            '    <li>{{pinterest}}</li>',
+            '    <li>{{reddit}}</li>',
+            '    <li>{{whatsapp}}</li>',
+            '    <li>{{email}}</li>',
+            '</ul>',
+            '{{credits}}'
+        ]));
+
+        return $res ? true : false;
     }
 
 }
