@@ -52,7 +52,7 @@ final class loader {
             trigger_error('Lib path ' . $path . ' does not exists!');
         }
 
-        if (substr($libPath, -4) !== '.php' && file_exists($path . DIRECTORY_SEPARATOR . 'autoload.php')) {
+        if (is_dir($path) && file_exists($path . DIRECTORY_SEPARATOR . 'autoload.php')) {
             return $path . DIRECTORY_SEPARATOR . 'autoload.php';
         }
 
