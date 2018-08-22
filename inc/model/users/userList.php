@@ -19,6 +19,18 @@ namespace fpcm\model\users;
 class userList extends \fpcm\model\abstracts\tablelist {
 
     /**
+     *
+     * @var array
+     */
+    protected $userNameList = [];
+
+    /**
+     *
+     * @var array
+     */
+    protected $userEmailList = [];
+
+    /**
      * Konstruktor
      * @param int $id
      */
@@ -28,11 +40,6 @@ class userList extends \fpcm\model\abstracts\tablelist {
 
         parent::__construct();
     }
-
-    /**
-     * Liefert ein array aller Benutzer
-     * @return array
-     */
 
     /**
      * Return a list of all users
@@ -54,7 +61,6 @@ class userList extends \fpcm\model\abstracts\tablelist {
         }
 
         return $this->getUserListResult($users, $byGroup);
-
     }
 
     /**
@@ -63,15 +69,16 @@ class userList extends \fpcm\model\abstracts\tablelist {
      */
     public function getUsersNameList()
     {
-        $users = $this->dbcon->fetch($this->dbcon->select($this->table, 'id, displayname'), true);
-
-        $res = [];
-
-        foreach ($users as $user) {
-            $res[$user->displayname] = $user->id;
+        if (count($this->userNameList)) {
+            return $this->userNameList;
         }
 
-        return $res;
+        $users = $this->dbcon->fetch($this->dbcon->select($this->table, 'id, displayname'), true);
+        foreach ($users as $user) {
+            $this->userNameList[$user->displayname] = $user->id;
+        }
+
+        return $this->userNameList;
     }
 
     /**
@@ -80,15 +87,16 @@ class userList extends \fpcm\model\abstracts\tablelist {
      */
     public function getUsersEmailList()
     {
-        $users = $this->dbcon->fetch($this->dbcon->select($this->table, 'id, email'), true);
-
-        $res = [];
-
-        foreach ($users as $user) {
-            $res[$user->email] = $user->id;
+        if (count($this->userEmailList)) {
+            return $this->userEmailList;
         }
 
-        return $res;
+        $users = $this->dbcon->fetch($this->dbcon->select($this->table, 'id, email'), true);
+        foreach ($users as $user) {
+            $this->userEmailList[$user->email] = $user->id;
+        }
+
+        return $this->userEmailList;
     }
 
     /**
