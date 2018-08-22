@@ -107,7 +107,6 @@ final class session extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        $this->currentUser = \fpcm\classes\loader::getObject('\fpcm\model\users\author', $this->userid);
         \fpcm\classes\loader::stackPush('currentUser', $this->currentUser);
         if ($this->lastaction > time() - 60) {
             return true;
@@ -433,19 +432,43 @@ final class session extends \fpcm\model\abstracts\dataset {
      */
     public function init()
     {
-
         $lastaction = time() + $this->config->system_session_length;
-        $data = $this->dbcon->fetch($this->dbcon->select($this->table, '*', "sessionid = ? AND logout = 0 AND lastaction <= ? " . $this->dbcon->limitQuery(1, 0), array($this->sessionid, $lastaction)));
+        $this->currentUser = new \fpcm\model\users\author();
+        
+        $cols = [];
+        foreach (array_keys($this->getPreparedSaveParams()) as $col) {
+            $cols[] = 'sess.'.$col.' as sess_'.$col;
+        }
+        
+        foreach (array_keys($this->currentUser->getPreparedSaveParams()) as $col) {
+            $cols[] = 'usr.'.$col.' as usr_'.$col;
+        }
+
+        $obj = (new \fpcm\model\dbal\selectParams())
+            ->setItem('sess.id as sess_id, usr.id as usr_id, '. implode(', ', $cols))
+            ->setTable(\fpcm\classes\database::tableAuthors.' usr JOIN '.$this->dbcon->getTablePrefixed($this->table).' sess ON (sess.userid = usr.id)')
+            ->setWhere("sess.sessionid = ? AND sess.logout = 0 AND sess.lastaction <= ? " . $this->dbcon->limitQuery(1, 0))
+            ->setParams([$this->sessionid, $lastaction]);
+
+        $data = $this->dbcon->selectFetch($obj);
 
         if ($data === false) {
             $this->sessionExists = false;
             return;
         }
 
+        $userData = new \stdClass();
         foreach ($data as $key => $value) {
-            $this->$key = $value;
+
+            if (substr($key, 0, 3) === 'usr') {
+                $userData->{substr($key, 4)} = $value;
+                continue;
+            }
+
+            $this->{substr($key, 5)} = $value;
         }
 
+        $this->currentUser->createFromDbObject($userData);
         $this->sessionExists = true;
     }
 
