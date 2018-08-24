@@ -433,6 +433,27 @@ final class session extends \fpcm\model\abstracts\dataset {
     public function init()
     {
         $lastaction = time() + $this->config->system_session_length;
+
+        if (version_compare($this->config->system_version, '4.0.0', '<')) {
+            $lastaction = time() + $this->config->system_session_length;
+            $data = $this->dbcon->fetch($this->dbcon->select($this->table, '*', "sessionid = ? AND logout = 0 AND lastaction <= ? " . $this->dbcon->limitQuery(1, 0), array($this->sessionid, $lastaction)));
+            
+            if ($data === false) {
+                $this->sessionExists = false;
+                return;
+            }
+
+            foreach ($data as $key => $value) {
+                $this->$key = $value;
+            }
+
+            $this->currentUser = new \fpcm\model\users\author($this->userid);
+            $this->sessionExists = true;
+
+            return true;
+        }
+        
+        
         $this->currentUser = new \fpcm\model\users\author();
         
         $cols = [];
