@@ -38,14 +38,13 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
      * @param string $action
      * @param string $param
      */
-    public function __construct($action, $param)
+    public function __construct($action, $param, $isUtf8 = true)
     {
         parent::__construct();
 
         $this->action = $action;
         $this->param = $param;
-
-        $this->isUtf8 = defined('FPCM_PUB_OUTPUT_UTF8') ? FPCM_PUB_OUTPUT_UTF8 : true;
+        $this->isUtf8 = $isUtf8;
     }
 
     /**
@@ -56,7 +55,9 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
     {
         switch ($this->action) {
             case 'page' :
-                $page = $this->getRequestVar('page');
+                $page = $this->getRequestVar('page', [
+                    \fpcm\classes\http::FILTER_CASTINT
+                ]);
                 if (is_null($page)) {
                     return;
                 }
@@ -65,11 +66,15 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
                 print $this->isUtf8 ? $content : utf8_decode($content);
                 break;
             case 'title' :
-                if ($this->getRequestVar('module') != 'fpcm/article' || is_null($this->getRequestVar('id'))) {
+
+                $id = $this->getRequestVar('id', [
+                    \fpcm\classes\http::FILTER_CASTINT
+                ]);
+                if ($this->getRequestVar('module') != 'fpcm/article' || $id === null) {
                     return;
                 }
 
-                $article = new \fpcm\model\articles\article($this->getRequestVar('id'));
+                $article = new \fpcm\model\articles\article($id);
                 $content = ' ' . $this->param . ' ' . $article->getTitle();
                 print $this->isUtf8 ? $content : utf8_decode($content);
                 break;

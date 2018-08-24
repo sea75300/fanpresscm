@@ -13,26 +13,13 @@ namespace fpcm\controller\action\pub;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
 class showall extends showcommon {
-
-    /**
-     * Konstruktor
-     * @param bool $apiMode API-Modus
-     */
-    public function __construct($apiMode = false)
-    {
-        $this->apiMode = $apiMode;
-        parent::__construct();
-
-        $this->view->showHeaderFooter($this->apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-    }
 
     /**
      * @see \fpcm\controller\abstracts\controller::getViewPath
      * @return string
      */
-    protected function getViewPath() : string
+    protected function getViewPath(): string
     {
         return 'public/showall';
     }
@@ -43,9 +30,7 @@ class showall extends showcommon {
      */
     public function request()
     {
-        $this->limit = defined('FPCM_PUB_LIMIT_LISTALL') ? FPCM_PUB_LIMIT_LISTALL : $this->config->articles_limit;
         $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/articlelist' . $this->page . $this->category;
-
         return parent::request();
     }
 

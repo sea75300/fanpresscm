@@ -13,7 +13,6 @@ namespace fpcm\controller\action\pub;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
 class showsingle extends \fpcm\controller\abstracts\pubController {
 
     /**
@@ -83,11 +82,22 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
     protected $isUtf8 = true;
 
     /**
-     * Konstruktor
-     * @param bool $apiMode API-Modus
+     * Article template to use
+     * @var bool
      */
-    public function __construct($apiMode = false)
+    protected $templateString = '';
+
+    /**
+     * 
+     * Konstruktor
+     * @param array $params
+     */
+    public function __construct(array $params = [])
     {
+        $this->templateString = isset($params['template']) && trim($params['template']) ? $params['template'] : false;
+        $this->apiMode = isset($params['apiMode']) ? (bool) $params['apiMode'] : false;
+        $this->isUtf8 = isset($params['isUtf8']) ? (bool) $params['isUtf8'] : true;
+
         parent::__construct();
 
         $this->view->assign('article', '');
@@ -95,7 +105,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         $this->view->assign('commentform', '');
         $this->view->assign('systemMode', $this->config->system_mode);
 
-        $this->view->showHeaderFooter($apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);
+        $this->view->showHeaderFooter($this->apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);
 
         $this->commentList = new \fpcm\model\comments\commentList();
         $this->categoryList = new \fpcm\model\categories\categoryList();
@@ -106,7 +116,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      * @see \fpcm\controller\abstracts\controller::getViewPath
      * @return string
      */
-    protected function getViewPath() : string
+    protected function getViewPath(): string
     {
         return 'public/showsingle';
     }
@@ -116,23 +126,14 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      * @return boolean
      */
     public function request()
-    {
-        $this->isUtf8 = $this->getRequestVar('isUtf8', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
-        
-        if ($this->isUtf8 === null) {
-            $this->isUtf8 = true;
-        }
+    {        $this->crons->registerCron('postponedArticles');
 
-        $this->crons->registerCron('postponedArticles');
-
-        if (is_null($this->getRequestVar('id'))) {
+        $this->articleId = $this->getRequestVar('id');
+        if (!$this->articleId) {
             $this->view->addErrorMessage('LOAD_FAILED_ARTICLE');
             return true;
         }
 
-        $this->articleId = $this->getRequestVar('id');
         $srcData = explode('-', $this->articleId, 2);
         $this->articleId = (int) $srcData[0];
 
@@ -145,7 +146,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         }
 
         $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/' . \fpcm\model\articles\article::CACHE_ARTICLE_SINGLE . $this->articleId;
-        $this->articleTemplate = new \fpcm\model\pubtemplates\article($this->config->article_template_active);
+        $this->articleTemplate = new \fpcm\model\pubtemplates\article($this->templateString ? $this->templateString : $this->config->article_template_active);
 
         $this->saveComment();
 
@@ -223,13 +224,10 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         }
 
         $this->articleTemplate->assignByObject(
-            $this->article,
-            [
-                'author' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : false,
-                'changeUser' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : false
-            ],
-            $this->categoryList->assignPublic($this->article),
-            $this->commentList->countComments([$this->article->getId()], $privateNo, $approvedOnly, $spamNo, $useCache)[$this->article->getId()]
+                $this->article, [
+            'author' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : false,
+            'changeUser' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : false
+                ], $this->categoryList->assignPublic($this->article), $this->commentList->countComments([$this->article->getId()], $privateNo, $approvedOnly, $spamNo, $useCache)[$this->article->getId()]
         );
 
         $this->articleTemplate->setCommentsEnabled($this->config->system_comments_enabled && $this->article->getComments());
@@ -266,7 +264,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         $parsed = [];
         $i = 1;
         foreach ($comments as $comment) {
-            
+
             $this->commentTemplate->assignByObject($comment, $i);
             $parsed[] = $this->commentTemplate->parse();
 
@@ -286,12 +284,13 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             return '';
         }
 
-        if (!$this->buttonClicked('sendComment') && is_null($this->getRequestVar('newcomment')) && $this->session->exists()) {
+        $data = $this->getRequestVar('newcomment');
+        if (!$this->buttonClicked('sendComment') && !$data && $this->session->exists()) {
             $this->newComment->setName($this->session->getCurrentUser()->getDisplayname());
             $this->newComment->setEmail($this->session->getCurrentUser()->getEmail());
             $this->newComment->setWebsite(\fpcm\classes\http::getHttpHost());
         }
-        
+
         $this->commentFormTemplate->assignByObject($this->article, $this->newComment, $this->captcha);
         $parsed = $this->commentFormTemplate->parse();
 

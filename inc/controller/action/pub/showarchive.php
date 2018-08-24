@@ -13,24 +13,13 @@ namespace fpcm\controller\action\pub;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
 class showarchive extends showcommon {
-
-    /**
-     * Konstruktor
-     * @param API-Modus $apiMode
-     */
-    public function __construct($apiMode = false)
-    {
-        parent::__construct();
-        $this->view->showHeaderFooter($apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-    }
 
     /**
      * @see \fpcm\controller\abstracts\controller::getViewPath
      * @return string
      */
-    protected function getViewPath() : string
+    protected function getViewPath(): string
     {
         return 'public/showall';
     }
@@ -46,7 +35,6 @@ class showarchive extends showcommon {
         }
 
         $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/articlearchive' . $this->page;
-
         return parent::request();
     }
 

@@ -13,7 +13,6 @@ namespace fpcm\controller\action\pub;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
 class showcommon extends \fpcm\controller\abstracts\pubController {
 
     /**
@@ -107,6 +106,29 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
     protected $isUtf8 = true;
 
     /**
+     * Template to use
+     * @var bool
+     */
+    protected $templateString = false;
+
+    /**
+     * 
+     * Konstruktor
+     * @param array $params
+     */
+    public function __construct(array $params = [])
+    {
+        $this->apiMode = isset($params['apiMode']) ? (bool) $params['apiMode'] : false;
+        $this->category = isset($params['category']) ? $params['category'] : 0;
+        $this->isUtf8 = isset($params['isUtf8']) ? (bool) $params['isUtf8'] : true;
+        $this->templateString = isset($params['template']) && trim($params['template']) ? $params['template'] : false;
+
+        parent::__construct();
+        $this->limit = isset($params['count']) ? (int) $params['count'] : $this->config->articles_limit;
+        $this->view->showHeaderFooter($this->apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);
+    }
+
+    /**
      * 
      * @return boolean
      */
@@ -115,7 +137,7 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
         $this->articleList = new \fpcm\model\articles\articlelist();
         $this->commentList = new \fpcm\model\comments\commentList();
         $this->categoryList = new \fpcm\model\categories\categoryList();
-        $this->template = new \fpcm\model\pubtemplates\article($this->config->articles_template_active);
+        $this->template = new \fpcm\model\pubtemplates\article($this->templateString ? $this->templateString : $this->config->articles_template_active);
         $this->userList = \fpcm\classes\loader::getObject('\fpcm\model\users\userList');
         return true;
     }
@@ -131,39 +153,17 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
         $this->page = $this->getRequestVar('page', [
             \fpcm\classes\http::FILTER_CASTINT
         ]);
-        
+
         if ($this->page === null) {
             $this->page = 0;
         }
 
-        $this->limit = $this->getRequestVar('limit', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
-        
-        if ($this->limit === null) {
-            $this->limit = $this->config->articles_limit;
+        if ($this->page < 2) {
+            $this->listShowLimit = 0;
+            return true;
         }
 
-        $this->category = $this->getRequestVar('category', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
-        
-        if ($this->category === null) {
-            $this->category = 0;
-        }
-
-        $this->isUtf8 = $this->getRequestVar('isUtf8', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
-        
-        if ($this->isUtf8 === null) {
-            $this->isUtf8 = true;
-        }
-
-        if ($this->page > 1) {
-            $this->listShowLimit = ($this->page - 1) * $this->limit;
-        }
-
+        $this->listShowLimit = $this->page * $this->limit;
         return true;
     }
 
@@ -190,13 +190,10 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
     {
         $this->template->setCommentsEnabled($this->config->system_comments_enabled && $article->getComments());
         $this->template->assignByObject(
-            $article,
-            [
-                'author' => isset($this->users[$article->getCreateuser()]) ? $this->users[$article->getCreateuser()] : false,
-                'changeUser' => isset($this->users[$article->getChangeuser()]) ? $this->users[$article->getChangeuser()] : false
-            ],
-            $this->categoryList->assignPublic($article),
-            isset($this->commentCounts[$article->getId()]) ? $this->commentCounts[$article->getId()] : 0
+                $article, [
+            'author' => isset($this->users[$article->getCreateuser()]) ? $this->users[$article->getCreateuser()] : false,
+            'changeUser' => isset($this->users[$article->getChangeuser()]) ? $this->users[$article->getChangeuser()] : false
+                ], $this->categoryList->assignPublic($article), isset($this->commentCounts[$article->getId()]) ? $this->commentCounts[$article->getId()] : 0
         );
 
         $parsed = $this->template->parse();

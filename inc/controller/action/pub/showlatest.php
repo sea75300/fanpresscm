@@ -13,7 +13,6 @@ namespace fpcm\controller\action\pub;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
 class showlatest extends \fpcm\controller\abstracts\pubController {
 
     /**
@@ -59,14 +58,19 @@ class showlatest extends \fpcm\controller\abstracts\pubController {
     protected $isUtf8 = true;
 
     /**
+     * 
      * Konstruktor
-     * @param bool $apiMode API-Modus
+     * @param array $params
      */
-    public function __construct($apiMode = false)
+    public function __construct(array $params = [])
     {
-        $this->apiMode = $apiMode;
+        $this->apiMode = isset($params['apiMode']) ? $params['apiMode'] : false;
+        $this->category = isset($params['category']) ? $params['category'] : 0;
+        $this->isUtf8 = isset($params['isUtf8']) ? $params['isUtf8'] : true;
 
         parent::__construct();
+
+        $this->limit = isset($params['count']) ? $params['count'] : $this->config->articles_limit;
 
         $this->articleList = new \fpcm\model\articles\articlelist();
         $this->userList = new \fpcm\model\users\userList();
@@ -78,7 +82,7 @@ class showlatest extends \fpcm\controller\abstracts\pubController {
      * @see \fpcm\controller\abstracts\controller::getViewPath
      * @return string
      */
-    protected function getViewPath() : string
+    protected function getViewPath(): string
     {
         return 'public/showlatest';
     }
@@ -97,11 +101,7 @@ class showlatest extends \fpcm\controller\abstracts\pubController {
             return false;
         }
 
-        $this->category = defined('FPCM_PUB_CATEGORY_LATEST') ? FPCM_PUB_CATEGORY_LATEST : 0;
-        $this->limit = defined('FPCM_PUB_LIMIT_LATEST') ? FPCM_PUB_LIMIT_LATEST : $this->config->articles_limit;
-        $this->isUtf8 = defined('FPCM_PUB_OUTPUT_UTF8') ? FPCM_PUB_OUTPUT_UTF8 : true;
         $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/articlelatest';
-
         return true;
     }
 

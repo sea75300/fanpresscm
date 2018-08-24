@@ -1,11 +1,11 @@
 <?php
+
 /**
  * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
-require_once __DIR__.'/inc/controller/main.php';
-require_once __DIR__.'/inc/common.php';
+require_once __DIR__ . '/inc/controller/main.php';
+require_once __DIR__ . '/inc/common.php';
 
 /**
  * FanPress CM API class
@@ -15,14 +15,14 @@ require_once __DIR__.'/inc/common.php';
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- */    
+ */
 class fpcmAPI {
 
     /**
      * API-Controller
      * @var array
      */
-    protected $controllers = array();
+    protected $controllers = [];
 
     /**
      * Ausführung unter PHP 5.4+
@@ -34,20 +34,20 @@ class fpcmAPI {
      * Konstruktor, prüft PHP-Version, Installer-Status und Datenbank-Config-Status
      * @return void
      */
-    public function __construct() {
-
+    public function __construct()
+    {
         if (version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<') || !\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled()) {
             $this->versionFailed = true;
             return;
-        }            
-
-        \fpcm\classes\http::init();        
+        }
     }
 
     /**
      * Lädt FPCM-Controller
      */
-    public function registerController() {
+    public function registerController()
+    {
+        \fpcm\classes\http::init();
         $this->controllers = \fpcm\classes\baseconfig::getControllers();
     }
 
@@ -55,30 +55,33 @@ class fpcmAPI {
      * Artikel anzeigen
      * @return boolean
      */
-    public function showArticles() {
-
+    public function showArticles(array $params = [])
+    {
         if ($this->versionFailed) {
             return false;
         }
 
         $this->registerController();
 
-        $module = (!is_null(\fpcm\classes\http::get('module'))) ? \fpcm\classes\http::get('module', array(1,4,7)) : 'fpcm/list';
-        if (strpos($module, 'fpcm/') === false || !in_array($module, array('fpcm/list', 'fpcm/article', 'fpcm/archive'))) return false;
+        $module = (!is_null(\fpcm\classes\http::get('module'))) ? \fpcm\classes\http::get('module', array(1, 4, 7)) : 'fpcm/list';
+        if (strpos($module, 'fpcm/') === false || !in_array($module, array('fpcm/list', 'fpcm/article', 'fpcm/archive')))
+            return false;
 
-        $controllerName  = "fpcm/controller/";        
+        $controllerName = "fpcm/controller/";
         $controllerName .= (isset($this->controllers[$module])) ? $this->controllers[$module] : ($module ? $module : 'action\system\login');
-        $controllerName  = str_replace('/', '\\', $controllerName);       
+        $controllerName = str_replace('/', '\\', $controllerName);
 
         if (!class_exists($controllerName)) {
-            trigger_error('Undefined controller called: '.$module);
+            trigger_error('Undefined controller called: ' . $module);
             return false;
         }
+
+        $params['apiMode'] = true;
 
         /**
          * @var abstracts\controller
          */
-        $controller = new $controllerName(true);    
+        $controller = new $controllerName($params);
 
         if (!is_a($controller, 'fpcm\controller\abstracts\controller')) {
             exit("ERROR: The controller for <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>. ;)");
@@ -93,26 +96,31 @@ class fpcmAPI {
     }
 
     /**
+     * 
      * Latest News anzeigen
+     * @param array $params
      * @return boolean
      */
-    public function showLatestNews() {
-
+    public function showLatestNews(array $params = [])
+    {
         if ($this->versionFailed) {
             return false;
         }
 
+        $params['apiMode'] = true;
+
         /**
          * @var abstracts\controller
          */
-        $controller = new \fpcm\controller\action\pub\showlatest(true);
+        $controller = new \fpcm\controller\action\pub\showlatest($params);
 
         if (!is_a($controller, 'fpcm\controller\abstracts\controller')) {
             exit("ERROR: The controller for <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>. ;)");
             return false;
         }
 
-        if (!$controller->request()) return false;
+        if (!$controller->request())
+            return false;
 
         $controller->process();
     }
@@ -121,18 +129,26 @@ class fpcmAPI {
      * aktuelle Seitennummer anzeigen
      * @param string $divider
      */
-    public function showPageNumber($divider = "&bull; Page") {            
-        $controller = new fpcm\controller\action\pub\showtitle('page', $divider);
-        $controller->process();
+    public function showPageNumber($divider = "&bull; Page", $isUtf8 = true)
+    {
+        if ($this->versionFailed) {
+            return false;
+        }
+
+        (new fpcm\controller\action\pub\showtitle('page', $divider, $isUtf8))->process();
     }
 
     /**
      * Title des aktuellen Artikels anzeigen
      * @param string $divider
      */
-    public function showTitle($divider = "&bull;") {            
-        $controller = new fpcm\controller\action\pub\showtitle('title', $divider);
-        $controller->process();
+    public function showTitle($divider = "&bull;", $isUtf8 = true)
+    {
+        if ($this->versionFailed) {
+            return false;
+        }
+
+        (new fpcm\controller\action\pub\showtitle('title', $divider, $isUtf8))->process();
     }
 
     /**
@@ -141,7 +157,11 @@ class fpcmAPI {
      * @return boolean
      * @since 3.0.3
      */
-    public function legacyRedirect($articlesPerPage = 5) {
+    public function legacyRedirect($articlesPerPage = 5)
+    {
+        if ($this->versionFailed) {
+            return false;
+        }
 
         if (isset($_GET['fn']) && trim($_GET['fn']) == 'cmt' && isset($_GET['nid'])) {
             $aricleId = (int) $_GET['nid'];
@@ -152,7 +172,7 @@ class fpcmAPI {
 
         if (isset($_GET['fn']) && trim($_GET['fn']) == 'archive') {
             $page = isset($_GET['apid']) ? (int) $_GET['apid'] / $articlesPerPage : 1;
-            $page = ($page > 1 ? '&page='.$page : '');
+            $page = ($page > 1 ? '&page=' . $page : '');
             header("HTTP/1.1 302 Temporary Redirect");
             header("Location: index.php?module=fpcm/archive{$page}#contentmarker");
             return true;
@@ -160,7 +180,7 @@ class fpcmAPI {
 
         if (isset($_GET['npid'])) {
             $page = (int) $_GET['npid'] / $articlesPerPage;
-            $page = ($page > 1 ? '&page='.$page : '');
+            $page = ($page > 1 ? '&page=' . $page : '');
             header("HTTP/1.1 302 Temporary Redirect");
             header("Location: index.php?module=fpcm/list{$page}#contentmarker");
             return true;
@@ -178,10 +198,15 @@ class fpcmAPI {
      * @return mixed
      * @since FPCM 3.1.5
      */
-    public function __call($name, $arguments) {
+    public function __call($name, $arguments)
+    {
+        if ($this->versionFailed) {
+            return false;
+        }
+
         return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
-            'name' => $name,
-            'args' => $arguments            
+                    'name' => $name,
+                    'args' => $arguments
         ]);
     }
 
@@ -194,10 +219,15 @@ class fpcmAPI {
      * @return mixed
      * @since FPCM 3.1.5
      */
-    public static function __callStatic($name, $arguments) {
+    public static function __callStatic($name, $arguments)
+    {
+        if ($this->versionFailed) {
+            return false;
+        }
+
         return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
-            'name' => $name,
-            'args' => $arguments            
+                    'name' => $name,
+                    'args' => $arguments
         ]);
     }
 
@@ -207,7 +237,11 @@ class fpcmAPI {
      * @return boolean|string
      * @since FPCM 3.4
      */
-    public function loginExternal(array $credentials) {
+    public function loginExternal(array $credentials)
+    {
+        if ($this->versionFailed) {
+            return false;
+        }
 
         $session = new \fpcm\model\system\session(false);
         if (isset($credentials['sessionId']) && trim($credentials['sessionId']) && $session->pingExternal($credentials['sessionId'])) {
@@ -224,7 +258,6 @@ class fpcmAPI {
 
         trigger_error('Invalid login credentials');
         return false;
-
     }
 
     /**
@@ -233,7 +266,11 @@ class fpcmAPI {
      * @return boolean|string
      * @since FPCM 3.4
      */
-    public function logoutExternal($sessionId) {
+    public function logoutExternal($sessionId)
+    {
+        if ($this->versionFailed) {
+            return false;
+        }
 
         $session = new \fpcm\model\system\session(false);
         if (!trim($sessionId) || !$session->pingExternal($sessionId)) {
@@ -245,7 +282,6 @@ class fpcmAPI {
         $session->update();
 
         return true;
-
     }
 
     /**
@@ -254,9 +290,13 @@ class fpcmAPI {
      * @return string
      * @since FPCM 3.5
      */
-    public function fpcmEnCrypt($value) {
-        $crypt = new \fpcm\classes\crypt();
-        return $crypt->encrypt($value);
+    public function fpcmEnCrypt($value)
+    {
+        if ($this->versionFailed) {
+            return false;
+        }
+
+        return fpcm\classes\loader::getObject('fpcm\classes\crypt')->encrypt($value);
     }
 
     /**
@@ -265,9 +305,13 @@ class fpcmAPI {
      * @return string
      * @since FPCM 3.5
      */
-    public function fpcmDeCrypt($value) {
-        $crypt = new \fpcm\classes\crypt();
-        return $crypt->decrypt($value);
+    public function fpcmDeCrypt($value)
+    {
+        if ($this->versionFailed) {
+            return false;
+        }
+
+        return fpcm\classes\loader::getObject('fpcm\classes\crypt')->decrypt($value);
     }
 
 }

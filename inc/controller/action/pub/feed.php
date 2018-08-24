@@ -13,7 +13,6 @@ namespace fpcm\controller\action\pub;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-
 class feed extends \fpcm\controller\abstracts\pubController {
 
     /**
@@ -59,8 +58,7 @@ class feed extends \fpcm\controller\abstracts\pubController {
     protected $limit = 0;
 
     /**
-     * 
-     * @param bool $apiMode
+     * Konstruktor
      */
     public function __construct()
     {
@@ -77,7 +75,7 @@ class feed extends \fpcm\controller\abstracts\pubController {
      * @see \fpcm\controller\abstracts\controller::getViewPath
      * @return string
      */
-    protected function getViewPath() : string
+    protected function getViewPath(): string
     {
         return 'public/feed';
     }
@@ -106,7 +104,7 @@ class feed extends \fpcm\controller\abstracts\pubController {
     public function process()
     {
         parent::process();
-        
+
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
 
         header('Content-type: text/html; charset=utf-8');
