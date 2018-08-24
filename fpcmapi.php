@@ -25,7 +25,7 @@ class fpcmAPI {
     protected $controllers = [];
 
     /**
-     * Ausführung unter PHP 5.4+
+     * Ausführung unter PHP 7+
      * @var bool
      */
     protected $versionFailed = false;
@@ -40,6 +40,8 @@ class fpcmAPI {
             $this->versionFailed = true;
             return;
         }
+
+        \fpcm\classes\http::init();
     }
 
     /**
@@ -47,7 +49,6 @@ class fpcmAPI {
      */
     public function registerController()
     {
-        \fpcm\classes\http::init();
         $this->controllers = \fpcm\classes\baseconfig::getControllers();
     }
 

@@ -163,7 +163,7 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
             return true;
         }
 
-        $this->listShowLimit = $this->page * $this->limit;
+        $this->listShowLimit = ($this->page-1) * $this->limit;
         return true;
     }
 

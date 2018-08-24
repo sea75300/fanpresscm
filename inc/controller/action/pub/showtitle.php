@@ -48,37 +48,57 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
     }
 
     /**
+     * 
+     * @return boolean
+     */
+    public function hasAccess()
+    {
+        if (!$this->maintenanceMode(false)) {
+            return false;
+        }
+
+        if ($this->ipList->ipIsLocked()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Controller ausführen
      * @return boolean
      */
     public function process()
     {
+        $content = '';
         switch ($this->action) {
             case 'page' :
                 $page = $this->getRequestVar('page', [
                     \fpcm\classes\http::FILTER_CASTINT
                 ]);
-                if (is_null($page)) {
-                    return;
+
+                if (!$page) {
+                    return '';
                 }
 
                 $content = ' ' . $this->param . ' ' . $page;
-                print $this->isUtf8 ? $content : utf8_decode($content);
                 break;
             case 'title' :
 
                 $id = $this->getRequestVar('id', [
                     \fpcm\classes\http::FILTER_CASTINT
                 ]);
+
                 if ($this->getRequestVar('module') != 'fpcm/article' || $id === null) {
                     return;
                 }
 
                 $article = new \fpcm\model\articles\article($id);
                 $content = ' ' . $this->param . ' ' . $article->getTitle();
-                print $this->isUtf8 ? $content : utf8_decode($content);
                 break;
         }
+        
+        print $this->isUtf8 ? $content : utf8_decode($content);
     }
 
 }
