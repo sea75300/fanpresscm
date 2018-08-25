@@ -18,6 +18,8 @@ namespace fpcm\model\pubtemplates;
 final class sharebuttons extends template {
 
     const TEMPLATE_ID = 'shareButtons';
+    
+    const CACHE_MODULE = 'sharebtn';
 
     /**
      * Template-Platzhalter
@@ -86,7 +88,7 @@ final class sharebuttons extends template {
             return '';
         }
 
-        $cacheName = 'sharebtn/article'.$this->articleId;
+        $cacheName = self::CACHE_MODULE.'/article'.$this->articleId;
         if (!$this->cache->isExpired($cacheName)) {
             return $this->cache->read($cacheName);
         }
