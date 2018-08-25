@@ -1088,8 +1088,9 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     private function cleanupCaches()
     {
-        $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/*');
-        $this->cache->cleanup(\fpcm\model\abstracts\dashcontainer::CACHE_M0DULE_DASHBOARD . '/*');
+        $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/'.\fpcm\classes\cache::CLEAR_ALL);
+        $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_SINGLE . '/'.\fpcm\classes\cache::CLEAR_ALL);
+        $this->cache->cleanup(\fpcm\model\abstracts\dashcontainer::CACHE_M0DULE_DASHBOARD . '/'.\fpcm\classes\cache::CLEAR_ALL);
     }
 
 }

@@ -109,12 +109,23 @@ final class cache {
      */
     public function cleanup($cacheName = null)
     {
-        if ($cacheName !== null && substr($cacheName, -2) !== '/*') {
+        $isModuleCleanup = substr($cacheName, -1) === \fpcm\classes\cache::CLEAR_ALL ? true : false;
+        if ($cacheName !== null && !$isModuleCleanup) {
             $file = new \fpcm\model\files\cacheFile($cacheName);
             return $file->cleanup();
         }
 
-        $cacheFiles = (substr($cacheName, -2) === '/*' ? glob($this->basePath . substr($cacheName, 0, -2) . \fpcm\model\files\cacheFile::EXTENSION_CACHE) : $this->getCacheComplete());
+        if ($isModuleCleanup) {
+            $cacheName = strtolower(substr($cacheName, 0, -2));
+            if (!defined('FPCM_CACHEMODULE_DEBUG') || !FPCM_CACHEMODULE_DEBUG) {
+                $cacheName = md5($cacheName);
+            }
+
+            $cacheFiles = glob($this->basePath . DIRECTORY_SEPARATOR . $cacheName . DIRECTORY_SEPARATOR . '*' . \fpcm\model\files\cacheFile::EXTENSION_CACHE);
+        } else {
+            $cacheFiles = $this->getCacheComplete();
+        }
+
         if (!is_array($cacheFiles) || !count($cacheFiles)) {
             return false;
         }
@@ -122,6 +133,11 @@ final class cache {
         foreach ($cacheFiles as $cacheFile) {
 
             if (!file_exists($cacheFile)) {
+                continue;
+            }
+
+            if (!is_writable($cacheFile)) {
+                trigger_error('Unable to delete cache file '.$cacheFile.', cache file is not writable.');
                 continue;
             }
 
