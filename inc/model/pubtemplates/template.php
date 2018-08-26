@@ -282,6 +282,21 @@ class template extends \fpcm\model\abstracts\file {
         return $content;
     }
 
+    /**
+     * 
+     * @return boolean
+     * @ignore
+     */
+    protected function parseReplacement()
+    {
+        $re = '/^(\{\{)([a-zA-Z]+)(\s)(.+)(\}\})$/m';
+        $str = '{{privacyComfirmation test="bla" test2="lalala"}}';
+
+        preg_match_all($re, $str, $matches);
+        fpcmDump($matches);
+        return true;
+    }
+
 }
 
 ?>
