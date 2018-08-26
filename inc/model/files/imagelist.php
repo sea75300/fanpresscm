@@ -170,7 +170,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
             }
 
             $image = new \fpcm\model\files\image($folderFile, false, true);
-            $image->setFiletime(time());
+            $image->setFiletime($image->getModificationTime());
             $image->setUserid($userId);
 
             if (!in_array($image->getMimetype(), image::$allowedTypes) || !in_array(strtolower($image->getExtension()), image::$allowedExts)) {

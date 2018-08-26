@@ -276,6 +276,15 @@ abstract class file {
     }
 
     /**
+     * Return file upload time in file system
+     * @return bool
+     */
+    public function getModificationTime()
+    {
+        return filemtime($this->fullpath);
+    }
+
+    /**
      * Dateiname
      * @return string
      */

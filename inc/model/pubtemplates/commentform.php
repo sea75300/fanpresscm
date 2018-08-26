@@ -130,7 +130,7 @@ final class commentform extends template {
             '{{privateCheckbox}}' => (string) (new \fpcm\view\helper\checkbox('newcomment[private]'))->setClass('fpcm-pub-checkboxinput'),
             '{{privacyComfirmation}}' => (string) (new \fpcm\view\helper\checkbox('newcomment[privacy]'))->setClass('fpcm-pub-checkboxinput'),
             '{{submitButton}}' => (string) (new \fpcm\view\helper\submitButton('sendComment'))->setText('GLOBAL_SUBMIT'),
-            '{{resetButton}}' => (string) new \fpcm\view\helper\resetButton('resetComment')
+            '{{resetButton}}' => (string) (new \fpcm\view\helper\resetButton('resetComment'))->setIcon('', '', false)
         ]);
         
         return true;
