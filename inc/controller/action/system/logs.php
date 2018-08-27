@@ -66,6 +66,7 @@ class logs extends \fpcm\controller\abstracts\controller {
         }
         
         $this->view->assign('logs', $this->events->trigger('logs\addToList', $logs));
+        $this->view->assign('fullheight', true);
 
         $this->view->addDataView(new \fpcm\components\dataView\dataView('logs', false));
 
