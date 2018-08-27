@@ -16,26 +16,18 @@ namespace fpcm\controller\action\pub;
 class showarchive extends showcommon {
 
     /**
+     * Cache name
+     * @var string
+     */
+    protected $cacheName = 'articlearchive';
+
+    /**
      * @see \fpcm\controller\abstracts\controller::getViewPath
      * @return string
      */
     protected function getViewPath(): string
     {
         return 'public/showall';
-    }
-
-    /**
-     * @see \fpcm\controller\abstracts\controller::request()
-     * @return boolean
-     */
-    public function request()
-    {
-        if (!$this->maintenanceMode()) {
-            return false;
-        }
-
-        $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/articlearchive' . $this->page;
-        return parent::request();
     }
 
     /**
@@ -53,7 +45,7 @@ class showarchive extends showcommon {
         if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
 
             $conditions = new \fpcm\model\articles\search();
-            $conditions->limit = [$this->limit, $this->listShowLimit];
+            $conditions->limit = [$this->limit, $this->offset];
             $conditions->archived = 1;
             $conditions->postponed = 0;
 

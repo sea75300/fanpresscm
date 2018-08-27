@@ -124,7 +124,7 @@ final class sharebuttons extends template {
             $dataStr = '';
             if (count($value['data'])) {
                 foreach ($value['data'] as $key => $dataValue) {
-                    $dataStr .= 'data-'.$key.'="'.$dataValue.'"';
+                    $dataStr .= ' data-'.$key.'="'.$dataValue.'"';
                 }
             }
 

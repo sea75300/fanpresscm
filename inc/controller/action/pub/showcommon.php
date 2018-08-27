@@ -79,7 +79,7 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
      * Aktueller Listen-Offset
      * @var int
      */
-    protected $listShowLimit = 0;
+    protected $offset = 0;
 
     /**
      * APi-Modus
@@ -155,15 +155,17 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
         ]);
 
         if ($this->page === null) {
-            $this->page = 0;
+            $this->page = 1;
         }
 
         if ($this->page < 2) {
-            $this->listShowLimit = 0;
+            $this->offset = 0;
             return true;
         }
 
-        $this->listShowLimit = ($this->page-1) * $this->limit;
+        $this->offset = ($this->page-1) * $this->limit;
+        $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/'.$this->cacheName . $this->page;
+
         return true;
     }
 
@@ -174,7 +176,6 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
     public function process()
     {
         parent::process();
-
         if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
             $this->categories = $this->categoryList->getCategoriesAll();
             $this->commentCounts = ($this->config->system_comments_enabled) ? $this->commentList->countComments([], 0, 1) : [];
@@ -219,7 +220,6 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
     protected function createPagination($count, $action = 'fpcm/list')
     {
         $pageCount = ceil($count / $this->limit);
-
         if (!$pageCount) {
             return '<ul></ul>';
         }

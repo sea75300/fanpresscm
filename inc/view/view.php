@@ -324,6 +324,18 @@ class view {
     {
         $this->viewJsFiles = array_map([$this, 'addRootPath'], $viewJsFiles);
     }
+    
+    /**
+     * Overrides new JS language vars
+     * @param array $jsvars
+     */
+    public function overrideJsLangVars(array $jsvars)
+    {
+        $keys = array_values($jsvars);
+        $values = array_map([$this->language, 'translate'], array_values($jsvars));
+
+        $this->jsLangVars = array_combine($keys, $values);
+    }
 
     /**
      * Add new JS language vars

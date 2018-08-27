@@ -16,22 +16,18 @@ namespace fpcm\controller\action\pub;
 class showall extends showcommon {
 
     /**
+     * Cache name
+     * @var string
+     */
+    protected $cacheName = 'articlelist';
+
+    /**
      * @see \fpcm\controller\abstracts\controller::getViewPath
      * @return string
      */
     protected function getViewPath(): string
     {
         return 'public/showall';
-    }
-
-    /**
-     * Request-Handler
-     * @return boolean
-     */
-    public function request()
-    {
-        $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/articlelist' . $this->page . $this->category;
-        return parent::request();
     }
 
     /**
@@ -43,11 +39,10 @@ class showall extends showcommon {
         parent::process();
 
         $parsed = [];
-
         if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
 
             $conditions = new \fpcm\model\articles\search();
-            $conditions->limit = [$this->limit, $this->listShowLimit];
+            $conditions->limit = [$this->limit, $this->offset];
             $conditions->draft = 0;
             $conditions->approval = 0;
             $conditions->deleted = 0;
