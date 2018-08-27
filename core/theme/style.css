@@ -326,8 +326,13 @@ div.fpcm-status-info {
     height: 100%;
 }
 
+.fpcm-ui-full-min-height {
+    height: auto;
+    min-height: 100%;
+}
+
 .fpcm-content-wrapper.fpcm-ui-full-height {
-    height: calc(100% - 42px);
+    height: auto;
 }
 
 div.fpcm-ui-datepicker-inputwrapper {

@@ -185,7 +185,8 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
         $this->returnData = [
             'dataViewVars' => $dvVars['dataviews']['logs'],
             'dataViewName' => 'logs',
-            'logsize' => \fpcm\classes\tools::calcSize($this->logsize)
+            'logsize' => \fpcm\classes\tools::calcSize($this->logsize),
+            'fullheight' => $this->logsize > 1048576 ? false : true
         ];
 
         $this->getSimpleResponse();
