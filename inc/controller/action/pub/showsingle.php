@@ -88,6 +88,12 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
     protected $templateString = '';
 
     /**
+     * Article template to use
+     * @var bool
+     */
+    protected $viewVars = [];
+
+    /**
      * 
      * Konstruktor
      * @param array $params
@@ -100,13 +106,14 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
         parent::__construct();
 
-        $this->view->assign('article', '');
-        $this->view->assign('comments', '');
-        $this->view->assign('commentform', '');
-        $this->view->assign('systemMode', $this->config->system_mode);
+        $this->viewVars = [
+            'article' => '',
+            'comments' => '',
+            'commentform' => '',
+            'systemMode' => $this->config->system_mode
+        ];
 
         $this->view->showHeaderFooter($this->apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-
         $this->commentList = new \fpcm\model\comments\commentList();
         $this->categoryList = new \fpcm\model\categories\categoryList();
         $this->userList = new \fpcm\model\users\userList();
@@ -126,7 +133,8 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      * @return boolean
      */
     public function request()
-    {        $this->crons->registerCron('postponedArticles');
+    {
+        $this->crons->registerCron('postponedArticles');
 
         $this->articleId = $this->getRequestVar('id');
         if (!$this->articleId) {
@@ -160,10 +168,8 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
     public function process()
     {
         parent::process();
-
-        $parsed = [];
-
         if (!$this->article) {
+            $this->view->setViewVars(array_merge($this->viewVars, $this->view->getViewVars()));
             $this->view->render();
             return false;
         }
@@ -187,16 +193,13 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $parsed['comments'] = utf8_decode($parsed['comments']);
         }
 
-        $this->view->assign('article', $parsed['articles']);
-
+        $this->viewVars['article'] = $parsed['articles'];
         if ($this->config->system_comments_enabled && $this->article->getComments() && !$this->ipList->ipIsLocked('nocomments')) {
-            $this->view->assign('comments', $parsed['comments']);
-            $this->view->assign('commentform', $this->assignCommentFormData());
-        } else {
-            $this->view->assign('comments', '');
-            $this->view->assign('commentform', false);
+            $this->viewVars['comments'] = $parsed['comments'];
+            $this->viewVars['commentform'] = $this->assignCommentFormData();
         }
 
+        $this->view->setViewVars(array_merge($this->viewVars, $this->view->getViewVars()));
         $this->view->render();
     }
 
@@ -224,10 +227,10 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         }
 
         $this->articleTemplate->assignByObject(
-                $this->article, [
-            'author' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : false,
-            'changeUser' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : false
-                ], $this->categoryList->assignPublic($this->article), $this->commentList->countComments([$this->article->getId()], $privateNo, $approvedOnly, $spamNo, $useCache)[$this->article->getId()]
+            $this->article, [
+                'author' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : false,
+                'changeUser' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : false
+            ], $this->categoryList->assignPublic($this->article), $this->commentList->countComments([$this->article->getId()], $privateNo, $approvedOnly, $spamNo, $useCache)[$this->article->getId()]
         );
 
         $this->articleTemplate->setCommentsEnabled($this->config->system_comments_enabled && $this->article->getComments());
