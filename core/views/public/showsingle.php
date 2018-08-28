@@ -2,6 +2,7 @@
 <?php if ($systemMode == 1) : ?>
     <?php include $theView->getIncludePath('/common/includefiles.php'); ?>
     <?php include $theView->getIncludePath('/common/vars.php'); ?>
+    <div id="fpcm-messages"></div>
 <?php endif; ?>
 <?php if ($showToolbars) : ?><?php include $theView->getIncludePath('public/toolbar.php'); ?><?php endif; ?>
 
