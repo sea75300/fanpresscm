@@ -158,14 +158,14 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
             $this->page = 1;
         }
 
+        $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/'.$this->getCacheNameString() . $this->page;
+
         if ($this->page < 2) {
             $this->offset = 0;
             return true;
         }
 
         $this->offset = ($this->page-1) * $this->limit;
-        $this->cacheName = \fpcm\model\articles\article::CACHE_ARTICLE_MODULE . '/'.$this->cacheName . $this->page;
-
         return true;
     }
 
@@ -254,6 +254,15 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
         }
 
         return '<ul class="fpcm-pub-pagination">' . PHP_EOL . implode(PHP_EOL, $pages) . PHP_EOL . '</ul>';
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function getCacheNameString() : string
+    {
+        return '';
     }
 
 }

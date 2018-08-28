@@ -16,18 +16,21 @@ namespace fpcm\controller\action\pub;
 class showall extends showcommon {
 
     /**
-     * Cache name
-     * @var string
-     */
-    protected $cacheName = 'articlelist';
-
-    /**
      * @see \fpcm\controller\abstracts\controller::getViewPath
      * @return string
      */
     protected function getViewPath(): string
     {
         return 'public/showall';
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function getCacheNameString() : string
+    {
+        return 'articlelist';
     }
 
     /**
