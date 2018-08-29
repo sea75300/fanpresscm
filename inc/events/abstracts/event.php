@@ -246,7 +246,7 @@ abstract class event {
         }
 
         $base = $this->getEventClassBase();
-        $eventResult = null;
+        $eventResult = $this->data;
 
         foreach ($eventClasses as $class) {
 
@@ -256,7 +256,7 @@ abstract class event {
             }
             
             /* @var \fpcm\module\event $module */
-            $module = new $class($this->data);
+            $module = new $class($eventResult);
             if (!$this->is_a($module)) {
                 continue;
             }

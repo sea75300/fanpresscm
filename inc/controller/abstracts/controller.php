@@ -429,7 +429,7 @@ class controller implements \fpcm\controller\interfaces\controller {
             $this->view->render($this->moduleCheckExit);
         }
 
-        return $this->moduleController === null ? true : false;
+        return $this->moduleController === null ? true : in_array($this->moduleController, $this->enabledModules);
     }
 
     /**
