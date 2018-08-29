@@ -25,18 +25,19 @@ class counter extends \fpcm\model\abstracts\tablelist {
         
         $where .= (trim($start) ? ' AND createtime >= '.strtotime($start) : '');
         $where .= (trim($stop)  ? ' AND createtime < '.strtotime($stop) : '');
-        
-        $result = $this->dbcon->select(
-            \fpcm\classes\database::tableArticles,
-            "count(id) AS counted, ".call_user_func([$this, 'getSelectItem'.ucfirst($this->dbcon->getDbtype())]),
-            $where.' GROUP BY dtstr '.$this->dbcon->orderBy(['dtstr ASC'])
+
+        $values = $this->dbcon->selectFetch(
+            (new \fpcm\model\dbal\selectParams())
+            ->setTable(\fpcm\classes\database::tableArticles)
+            ->setItem("count(id) AS counted, ".call_user_func([$this, 'getSelectItem'.ucfirst($this->dbcon->getDbtype())]))
+            ->setWhere($where.' GROUP BY dtstr '.$this->dbcon->orderBy(['dtstr ASC']))
+            ->setFetchAll(true)
         );
-        
-        if (!$result) {
+
+        if (!$values) {
             return [];
         }
 
-        $values       = $this->dbcon->fetch($result, true);
         $this->months = $this->language->translate('SYSTEM_MONTHS');
         
         $labels = [];
@@ -112,7 +113,7 @@ class counter extends \fpcm\model\abstracts\tablelist {
         
         switch ($this->mode) {
             case self::MODE_DAY :
-                return "to_char(to_timestamp(createtime), 'YYYY-MM_DD') AS dtstr";
+                return "to_char(to_timestamp(createtime), 'YYYY-MM-DD') AS dtstr";
                 break;
             case self::MODE_YEAR :
                 return "to_char(to_timestamp(createtime), 'YYYY') AS dtstr";

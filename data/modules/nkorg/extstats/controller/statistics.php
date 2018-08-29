@@ -58,8 +58,8 @@ final class statistics extends \fpcm\controller\abstracts\controller {
         }
         
         $this->view->addButtons([
-            (new \fpcm\view\helper\select('chartMode'))->setClass('fpcm-ui-input-select-articleactions')->setOptions($chartModes)->setSelected($chartMode),
-            (new \fpcm\view\helper\select('chartType'))->setClass('fpcm-ui-input-select-articleactions')->setOptions($chartTypes)->setSelected($chartType),
+            (new \fpcm\view\helper\select('chartMode'))->setClass('fpcm-ui-input-select-articleactions')->setOptions($chartModes)->setSelected($chartMode)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
+            (new \fpcm\view\helper\select('chartType'))->setClass('fpcm-ui-input-select-articleactions')->setOptions($chartTypes)->setSelected($chartType)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
             (new \fpcm\view\helper\submitButton('setdatespan'))->setText('GLOBAL_OK')
         ]);
         
