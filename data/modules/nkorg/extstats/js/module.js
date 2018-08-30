@@ -4,9 +4,9 @@ if (fpcm === undefined) {
 
 fpcm.extStats = {
 
-    init: function() {
+    init: function () {
         fpcm.extStats.drawChart(fpcm.vars.jsvars.extStats.chartType);
-        
+
         fpcm.ui.datepicker('#dateFrom', {
             changeMonth: true,
             changeYear: true,
@@ -16,52 +16,52 @@ fpcm.extStats = {
             changeMonth: true,
             changeYear: true
         });
-        
+
         fpcm.ui.selectmenu('#chartType', {
             change: function () {
                 jQuery('#fpcm-nkorg-extendedstats-chart').empty();
                 fpcm.extStats.drawChart(jQuery(this).val());
             }
-            
+
         });
 
     },
-    
+
     drawChart: function (type) {
-        
+
         if (window.chart) {
             window.chart.destroy();
         }
 
         fpcm.vars.jsvars.extStats.chartValues.datasets[0].borderWidth = (type === 'line' ? 5 : 0);
-        
+
         var isBarOrLine = (type === 'line' || type === 'bar');
-        
+
         var chartOptions = {
             legend: {
-                display : (isBarOrLine ? false : true),
+                display: (isBarOrLine ? false : true),
                 position: 'bottom',
-                labels  : {
+                labels: {
                     boxWidth: 25,
-                    fontSize: 10                    
+                    fontSize: 10
                 }
             },
             responsive: true
         }
-        
+
         if (isBarOrLine) {
 
             chartOptions.scales = {
                 yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }],
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
                 xAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }],
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
             };
 
         }

@@ -61,9 +61,9 @@ class selectParams {
 
     /**
      * 
-     * @return string
+     * @return string|array
      */
-    public function getTable() : string
+    public function getTable()
     {
         return $this->table;
     }
@@ -124,10 +124,10 @@ class selectParams {
 
     /**
      * 
-     * @param string $table
+     * @param string|array $table
      * @return $this
      */
-    public function setTable(string $table)
+    public function setTable($table)
     {
         $this->table = $table;
         return $this;

@@ -16,4 +16,7 @@ $lang = [
     'TYPEPIE' => 'Tortendiagramm',
     'TYPEDOUGHNUT' => 'Ringdiagramm',
     'TYPEPOLAR' => 'Polar-Bereichs-Diagramm',
+    'FROMARTICLES' => 'Artikel',
+    'FROMCOMMENTS' => 'Kommentare',
+    'FROMSHARES' => 'Geteilte Inhalte',
 ];
