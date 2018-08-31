@@ -25,12 +25,35 @@ fpcm.extStats = {
 
         });
 
+        fpcm.ui.selectmenu('#chartMode', {
+            classes: {
+                'ui-selectmenu-button' : fpcm.vars.jsvars.extStats.showMode ? '' : 'fpcm-ui-hidden'
+            }
+        });
+
+        fpcm.ui.selectmenu('#source', {
+            change: function (event, ui) {
+                if (ui.item.value === 'shares') {
+                    jQuery('#chartMode-button').hide();
+                }
+                else {
+                    jQuery('#chartMode-button').show();
+                }
+                
+                fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
+            }
+        });
+
     },
 
     drawChart: function (type) {
 
         if (window.chart) {
             window.chart.destroy();
+        }
+
+        if (!fpcm.vars.jsvars.extStats.chartValues.datasets) {
+            return true;
         }
 
         fpcm.vars.jsvars.extStats.chartValues.datasets[0].borderWidth = (type === 'line' ? 5 : 0);

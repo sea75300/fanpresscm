@@ -8,9 +8,9 @@
  */
 $lang = [
     'HEADLINE' => 'Erweiterte Statistiken',
-    'BYMONTH' => 'Erweiterte Statistiken nach Monat',
-    'BYYEAR' => 'Erweiterte Statistiken nach Jahr',
-    'BYDAY' => 'Erweiterte Statistiken nach Tag',
+    'BYMONTH' => 'nach Monat',
+    'BYYEAR' => 'nach Jahr',
+    'BYDAY' => 'nach Tag',
     'TYPEBAR' => 'Balkendiagramm',
     'TYPELINE' => 'Liniendiagramm',
     'TYPEPIE' => 'Tortendiagramm',
@@ -19,4 +19,5 @@ $lang = [
     'FROMARTICLES' => 'Artikel',
     'FROMCOMMENTS' => 'Kommentare',
     'FROMSHARES' => 'Geteilte Inhalte',
+    'FROMFILES' => 'Dateien',
 ];

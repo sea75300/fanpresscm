@@ -3,7 +3,7 @@
     <div class="fpcm-ui-tabs-general">
 
         <ul>
-            <li><a href="#maintab"><?php $theView->write('MODULE_NKORGEXTSTATS_BY' . $modeStr); ?></a></li>
+            <li><a href="#maintab"><?php $theView->write($sourceStr); ?><?php if ($modeStr) : ?> <?php $theView->write('MODULE_NKORGEXTSTATS_BY' . $modeStr); ?><?php endif; ?></a></li>
         </ul>
 
         <div id="maintab">

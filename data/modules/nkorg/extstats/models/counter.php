@@ -10,6 +10,7 @@ class counter extends \fpcm\model\abstracts\tablelist {
     const SRC_ARTICLES = 'articles';
     const SRC_COMMENTS = 'comments';
     const SRC_SHARES = 'shares';
+    const SRC_FILES = 'files';
 
     protected $mode;
     protected $months;
@@ -25,6 +26,13 @@ class counter extends \fpcm\model\abstracts\tablelist {
     public function fetchComments($start, $stop, $mode = 1)
     {
         $this->table = \fpcm\classes\database::tableComments;
+        return $this->fetchData($start, $stop, $mode);
+    }
+
+    public function fetchFIles($start, $stop, $mode = 1)
+    {
+        $this->table = \fpcm\classes\database::tableFiles;
+        $this->createTimeVar = 'filetime';
         return $this->fetchData($start, $stop, $mode);
     }
 

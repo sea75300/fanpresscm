@@ -47,7 +47,7 @@ abstract class event {
 
     /**
      * Initialize event
-     * @return mixed
+     * @return bool
      */
     abstract public function init();
 

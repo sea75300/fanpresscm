@@ -2,7 +2,7 @@
 
 namespace fpcm\modules\nkorg\extstats\events\navigation;
 
-final class add extends \fpcm\modules\nkorg\example\events\eventBase {
+final class add extends \fpcm\module\event {
 
     public function run()
     {
@@ -12,6 +12,11 @@ final class add extends \fpcm\modules\nkorg\example\events\eventBase {
                 ->setUrl('extstats/statistics');
 
         return $this->data;
+    }
+
+    public function init()
+    {
+        return true;
     }
 
 }

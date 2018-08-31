@@ -31,8 +31,9 @@ final class statistics extends \fpcm\controller\abstracts\controller {
 
         $dataSource = [
             $this->addLangVarPrefix('FROMARTICLES') => \fpcm\modules\nkorg\extstats\models\counter::SRC_ARTICLES,
+            $this->addLangVarPrefix('FROMSHARES') => \fpcm\modules\nkorg\extstats\models\counter::SRC_SHARES,
             $this->addLangVarPrefix('FROMCOMMENTS') => \fpcm\modules\nkorg\extstats\models\counter::SRC_COMMENTS,
-            $this->addLangVarPrefix('FROMSHARES') => \fpcm\modules\nkorg\extstats\models\counter::SRC_SHARES
+            $this->addLangVarPrefix('FROMFILES') => \fpcm\modules\nkorg\extstats\models\counter::SRC_FILES
         ];
 
         $source = \fpcm\classes\http::postOnly('source');
@@ -55,16 +56,29 @@ final class statistics extends \fpcm\controller\abstracts\controller {
         $start = \fpcm\classes\http::postOnly('dateFrom');
         $stop = \fpcm\classes\http::postOnly('dateTo');
 
-        $this->view->assign('modeStr', strtoupper($modeStr));
+        $this->view->assign('modeStr', $source !== \fpcm\modules\nkorg\extstats\models\counter::SRC_SHARES ? strtoupper($modeStr) : '');
+        $this->view->assign('sourceStr', array_search($source, $dataSource));
         $this->view->assign('start', trim($start) ? $start : '');
         $this->view->assign('stop', trim($stop) ? $stop : '');
 
-
         $this->view->addButtons([
-            (new \fpcm\view\helper\select('source'))->setClass('fpcm-ui-input-select-articleactions')->setOptions($dataSource)->setSelected($source)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
-            (new \fpcm\view\helper\select('chartMode'))->setClass('fpcm-ui-input-select-articleactions')->setOptions($chartModes)->setSelected($chartMode)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
-            (new \fpcm\view\helper\select('chartType'))->setClass('fpcm-ui-input-select-articleactions')->setOptions($chartTypes)->setSelected($chartType)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
-            (new \fpcm\view\helper\submitButton('setdatespan'))->setText('GLOBAL_OK')
+            (new \fpcm\view\helper\select('source'))
+                ->setClass('fpcm-ui-input-select-articleactions')
+                ->setOptions($dataSource)->setSelected($source)
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
+
+            (new \fpcm\view\helper\select('chartMode'))
+                ->setClass('fpcm-ui-input-select-articleactions ')
+                ->setOptions($chartModes)->setSelected($chartMode)
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
+
+            (new \fpcm\view\helper\select('chartType'))
+                ->setClass('fpcm-ui-input-select-articleactions')
+                ->setOptions($chartTypes)->setSelected($chartType)
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
+
+            (new \fpcm\view\helper\submitButton('setdatespan'))
+                ->setText('GLOBAL_OK')
         ]);
 
         $counter = new \fpcm\modules\nkorg\extstats\models\counter();
@@ -81,7 +95,8 @@ final class statistics extends \fpcm\controller\abstracts\controller {
             'extStats' => [
                 'chartValues' => call_user_func([$counter, $fn], $start, $stop, $chartMode),
                 'chartType' => trim($chartType) ? $chartType : 'bar',
-                'minDate' => date('Y-m-d', $minMax['minDate'])
+                'minDate' => date('Y-m-d', $minMax['minDate']),
+                'showMode' => $source === \fpcm\modules\nkorg\extstats\models\counter::SRC_SHARES ? false : true
             ]
         ]);
 

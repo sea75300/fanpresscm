@@ -1,14 +1,14 @@
 ## Module config file
 ---
-key: nkorg/example
+key: nkorg/extstats
 author: imagine
 name: Extended statistics
 description: "Extended statistics for articles, shares, coments and more."
 link: https://nobody-knows.org/
-version: 3.0.1
+version: 4.0.0-beta
 help: 
 requirements:
-    system: 4.0.0-rc11
+    system: 4.0.0-rc14
     php: 7.0.0
 tables:
 configOptions:
