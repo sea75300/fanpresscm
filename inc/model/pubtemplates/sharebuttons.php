@@ -135,7 +135,7 @@ final class sharebuttons extends template {
             $content = str_replace($replacement, "<a class=\"{$this->stack[$replacement]['class']}\" href=\"{$value['link']}\" target=\"{$value['target']}\" {$dataStr}><img src=\"{$value['icon']}\" alt=\"{$value['text']}\"></a>", $content);
         }
 
-        $this->cache->write($cacheName, $this->config->system_cache_timeout);
+        $this->cache->write($cacheName, $content, $this->config->system_cache_timeout);
 
         return $content;
     }
