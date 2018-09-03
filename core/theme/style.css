@@ -332,7 +332,7 @@ div.fpcm-status-info {
 }
 
 .fpcm-content-wrapper.fpcm-ui-full-height {
-    height: auto;
+    height: 100%;
 }
 
 div.fpcm-ui-datepicker-inputwrapper {

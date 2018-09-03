@@ -280,11 +280,9 @@ fpcm.filemanager = {
                 minLength: 3
             });
 
-            var size = fpcm.ui.getDialogSizes();
-
             fpcm.ui.dialog({
                 id      : 'files-search',
-                dlWidth: size.width,
+                dlWidth: fpcm.ui.getDialogSizes(top, 0.75).width,
                 resizable: true,
                 title    : fpcm.ui.translate('ARTICLES_SEARCH'),
                 dlButtons  : [

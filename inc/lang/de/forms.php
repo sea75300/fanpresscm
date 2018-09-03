@@ -102,6 +102,7 @@ $lang = array(
     'COMMENTS_EDITARTICLE' => 'Zugehörigen Artikel bearbeiten',
     'COMMENTS_PUBLIC_FORMHEADLINE' => 'Hinterlasse einen Kommentar',
     'COMMENTS_SEARCH_TYPE_TEXT' => 'nur Text durchsuchen',
+    'COMMENTS_SEARCH_TYPE_NAMEMAILWEB' => 'Name/ E-Mail/ Webseite durchsuchen',
     'COMMENTS_SEARCH_TYPE_ALL' => 'Alles durchsuchen',
     'LOGS_CLEARLOG' => 'Leeren',
     'LOGS_LIST_TIMEOUT' => 'Session-Timeout',

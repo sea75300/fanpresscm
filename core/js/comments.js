@@ -40,7 +40,7 @@ fpcm.comments = {
         fpcm.ui.checkboxradio('.fpcm-ui-comments-status');
         fpcm.comments.assignActions();
 
-        if (parent.fpcm.editor.editorTabs && fpcm.vars.jsvars.reloadList) {
+        if (parent.fpcm.editor && parent.fpcm.editor.editorTabs && fpcm.vars.jsvars.reloadList) {
             parent.fpcm.editor.editorTabs.tabs('load', 1);
         }
     },
@@ -83,11 +83,9 @@ fpcm.comments = {
                 minLength: 3
             });
 
-            var size = fpcm.ui.getDialogSizes();
-
             fpcm.ui.dialog({
                 id      : 'comments-search',
-                dlWidth: size.width,
+                dlWidth: fpcm.ui.getDialogSizes(top, 0.75).width,
                 resizable: true,
                 title    : fpcm.ui.translate('ARTICLES_SEARCH'),
                 dlButtons  : [

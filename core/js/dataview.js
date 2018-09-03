@@ -64,6 +64,8 @@ fpcm.dataview = {
             params.onRenderAfter.call();
         }
         
+        fpcm.vars.jsvars.dataviews[id].dataViewHeight = jQuery('#' + obj.fullId).height() + 'px';
+        
     },
 
     addRow: function(id, index, row, obj) {

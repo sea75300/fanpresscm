@@ -97,8 +97,9 @@ class commentlist extends \fpcm\controller\abstracts\controller {
     private function initSearchForm()
     {
         $this->view->assign('searchTypes', [
-            'COMMENTS_SEARCH_TYPE_ALL' => 0,
-            'COMMENTS_SEARCH_TYPE_TEXT' => 1
+            'COMMENTS_SEARCH_TYPE_ALL' => \fpcm\model\comments\search::TYPE_ALL,
+            'COMMENTS_SEARCH_TYPE_TEXT' => \fpcm\model\comments\search::TYPE_TEXT,
+            'COMMENTS_SEARCH_TYPE_NAMEMAILWEB' => \fpcm\model\comments\search::TYPE_NAMEMAILWEB
         ]);
 
         $this->view->assign('searchApproval', array(

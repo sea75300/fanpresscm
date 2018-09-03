@@ -39,5 +39,9 @@ namespace fpcm\model\articles;
  * @property array $orderby Array von Sortierungen in SQL-Syntax
  */
 class search extends \fpcm\model\abstracts\searchWrapper {
-    
+
+    const TYPE_TITLE = 0;
+    const TYPE_CONTENT = 1;
+    const TYPE_COMBINED = 2;
+
 }

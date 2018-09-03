@@ -55,10 +55,10 @@ class search extends \fpcm\controller\abstracts\ajaxController {
 
         if (trim($filter['text'])) {
             switch ($filter['searchtype']) {
-                case 0 :
+                case \fpcm\model\articles\search::TYPE_TITLE :
                     $sparams->title = $filter['text'];
                     break;
-                case 1 :
+                case \fpcm\model\articles\search::TYPE_CONTENT :
                     $sparams->content = $filter['text'];
                     break;
                 default:

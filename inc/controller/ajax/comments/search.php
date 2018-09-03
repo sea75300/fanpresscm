@@ -42,7 +42,7 @@ class search extends \fpcm\controller\abstracts\ajaxController {
      * @see controller::getViewPath
      * @return string
      */
-    protected function getViewPath() : string
+    protected function getViewPath(): string
     {
         return '';
     }
@@ -57,27 +57,39 @@ class search extends \fpcm\controller\abstracts\ajaxController {
 
         $this->conditions->searchtype = (int) $filter['searchtype'];
 
-        if (trim($filter['text']))
+        if (trim($filter['text'])) {
             $this->conditions->text = $filter['text'];
-        if ($filter['datefrom'])
+        }
+
+        if ($filter['datefrom']) {
             $this->conditions->datefrom = strtotime($filter['datefrom']);
-        if ($filter['dateto'])
+        }
+
+        if ($filter['dateto']) {
             $this->conditions->dateto = strtotime($filter['dateto']);
-        if ($filter['spam'] > -1)
+        }
+
+        if ($filter['spam'] > -1) {
             $this->conditions->spam = (int) $filter['spam'];
-        if ($filter['private'] > -1)
+        }
+
+        if ($filter['private'] > -1) {
             $this->conditions->private = (int) $filter['private'];
-        if ($filter['approved'] > -1)
+        }
+
+        if ($filter['approved'] > -1) {
             $this->conditions->approved = (int) $filter['approved'];
-        if ($filter['articleId'] > 0)
+        }
+
+        if ($filter['articleId'] > 0) {
             $this->conditions->articleid = (int) $filter['articleId'];
+        }
 
         $this->conditions->combination = $filter['combination'] ? 'OR' : 'AND';
         $this->conditions = $this->events->trigger('comments\prepareSearch', $this->conditions);
-
         return true;
     }
-    
+
     public function process()
     {
         $this->initDataView();

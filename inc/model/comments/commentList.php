@@ -92,20 +92,21 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function getCommentsBySearchCondition(search $conditions)
     {
-        $where = ['1=1'];
+        $where = [];
         $valueParams = [];
 
-        if ($conditions->text && $conditions->searchtype == 0) {
+        $searchTypeAllNmw = in_array($conditions->searchtype, [\fpcm\model\comments\search::TYPE_ALL, \fpcm\model\comments\search::TYPE_NAMEMAILWEB]);
+        if ($conditions->text && $searchTypeAllNmw) {
             $where[] = "name " . $this->dbcon->dbLike() . " ?";
             $valueParams[] = "%{$conditions->text}%";
         }
 
-        if ($conditions->text && $conditions->searchtype == 0) {
+        if ($conditions->text && $searchTypeAllNmw) {
             $where[] = "email " . $this->dbcon->dbLike() . " ?";
             $valueParams[] = "%{$conditions->text}%";
         }
 
-        if ($conditions->text && $conditions->searchtype == 0) {
+        if ($conditions->text && $searchTypeAllNmw) {
             $where[] = "website " . $this->dbcon->dbLike() . " ?";
             $valueParams[] = "%{$conditions->text}%";
         }
@@ -115,7 +116,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
             $valueParams[] = "%{$conditions->text}%";
         }
 
-        if ($conditions->searchtype == 0) {
+        if (count($where) && $searchTypeAllNmw) {
             $where = ['(' . implode(' OR ', $where) . ')'];
         }
 
@@ -158,14 +159,18 @@ class commentList extends \fpcm\model\abstracts\tablelist {
             $where[] = "ipaddress = ?";
             $valueParams[] = $conditions->ipaddress;
         }
+        
+        if (!count($where)) {
+            $where = ['1=1'];
+        }
 
         $combination = $conditions->combination ? $conditions->combination : 'AND';
 
-        $eventData = $this->events->trigger('comments\getByCondition', array(
+        $eventData = $this->events->trigger('comments\getByCondition', [
             'conditions' => $conditions,
             'where' => $where,
             'values' => $valueParams
-        ));
+        ]);
 
         $where = $eventData['where'];
         $where = implode(" {$combination} ", $where);

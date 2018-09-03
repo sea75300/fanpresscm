@@ -34,6 +34,10 @@ namespace fpcm\model\comments;
  */
 class search extends \fpcm\model\abstracts\searchWrapper {
 
+    const TYPE_ALL = 0;
+    const TYPE_TEXT = 1;
+    const TYPE_NAMEMAILWEB = 2;
+
     /**
      * Liefert Daten zurück, die über Eigenschaften erzeugt wurden
      * @return array
