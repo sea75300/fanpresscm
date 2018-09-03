@@ -7,6 +7,6 @@
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-$fpcmVersion = '4.0.0-rc15';
+$fpcmVersion = '4.0.0-rc16';
 
 ?>
