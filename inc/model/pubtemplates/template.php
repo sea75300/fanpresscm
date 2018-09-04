@@ -219,7 +219,7 @@ class template extends \fpcm\model\abstracts\file {
     {
         if ($this->cache->isExpired('smileyCache')) {
             $smileysList = new \fpcm\model\files\smileylist();
-            $smileys = $smileysList->getDatabaseList();
+            $smileys = $smileysList->getDatabaseList(true);
             $this->cache->write('smileyCache', $smileys, $this->config->system_cache_timeout);
         } else {
             $smileys = $this->cache->read('smileyCache');

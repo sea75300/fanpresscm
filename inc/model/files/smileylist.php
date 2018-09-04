@@ -33,9 +33,17 @@ final class smileylist extends \fpcm\model\abstracts\filelist {
      * Gibt Smiley-Liste in Datenbank zurück
      * @return array
      */
-    public function getDatabaseList()
+    public function getDatabaseList($cached = false)
     {
-        $smileys = $this->dbcon->fetch($this->dbcon->select($this->table), true);
+        if ($cached) {
+            $stackName = 'smileysCached';
+            $stack = \fpcm\classes\loader::stackPull($stackName);
+            if (count($stack)) {
+                return $stack;
+            }
+        }
+
+        $smileys = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())->setTable($this->table)->setFetchAll(true));
 
         $res = [];
         foreach ($smileys as $smiley) {
@@ -46,7 +54,12 @@ final class smileylist extends \fpcm\model\abstracts\filelist {
 
             $res[] = $smileyObj;
         }
+        
+        if (!$cached) {
+            return $res;
+        }
 
+        \fpcm\classes\loader::stackPush($stackName, $res);
         return $res;
     }
 
@@ -72,12 +85,16 @@ final class smileylist extends \fpcm\model\abstracts\filelist {
 
         return $this->dbcon->delete($this->table, $where, $values);
     }
-    
+
+    /**
+     * 
+     * @return string
+     */
     public function getSmileysPublic()
     {
         $html = [];
         $html[] = "<ul class=\"fpcm-pub-smileys\">";
-        foreach ($this->getDatabaseList() as $smiley) {           
+        foreach ($this->getDatabaseList(true) as $smiley) {           
             $html[] = '<li><a class="fpcm-pub-commentsmiley" data-code="' . $smiley->getSmileyCode() . '" href="#">'.$smiley->getImageTag().'</a></li>';
         }
         $html[] = '</ul>';
