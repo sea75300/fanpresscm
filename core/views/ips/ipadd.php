@@ -9,9 +9,12 @@
 
                 <div id="tabs-ip">          
 
-                    <div class="row fpcm-ui-padding-md-tb fpcm-ui-editor-metabox">
+                    <div class="row no-gutters fpcm-ui-padding-md-tb">
                         <div class="col-12">
-                            <?php $theView->write('IPLIST_DESCRIPTION'); ?>
+                            <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
+                                <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>
+                                <?php $theView->write('IPLIST_DESCRIPTION'); ?>
+                            </fieldset>
                         </div>
                     </div>
 

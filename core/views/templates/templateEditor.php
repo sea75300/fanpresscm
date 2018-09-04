@@ -10,8 +10,9 @@
 <div class="row no-gutters fpcm-ui-padding-md-tb">
     <div class="col-12">
         <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
-        <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>
-        <?php $theView->write('TEMPLATE_NOTES'); ?>
+            <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>
+            <?php $theView->write('TEMPLATE_NOTES'); ?>
+        </fieldset>
     </div>
 </div>
 <div class="row no-gutters fpcm-ui-padding-md-tb">

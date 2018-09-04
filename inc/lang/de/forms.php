@@ -143,7 +143,7 @@ $lang = array(
     'FILE_FORM_FILEADD' => 'Datei(en) auswählen',
     'FILE_FORM_UPLOADSTART' => 'Upload starten',
     'FILE_FORM_UPLOADCANCEL' => 'Upload abbrechen',
-    'IPLIST_DESCRIPTION' => '<strong>Hinweis:</strong><br>Um eine einzelne IP-Adresse zu sperren, trage sie komplett in das folgende Feld ein. (z. B. 192.168.1.2)<br>' .
+    'IPLIST_DESCRIPTION' => 'Um eine einzelne IP-Adresse zu sperren, trage sie komplett in das folgende Feld ein. (z. B. 192.168.1.2)<br>' .
     'Um einen Bereich zu sperren (z. B. 192.168.2.X), ersetzte die letzte(n) Zahl(en) durch einen *. (z. B. 192.168.2.* oder 192.168.*.*)',
     'IPLIST_ADDIP' => 'IP-Adresse sperren',
     'IPLIST_IPADDRESS' => 'IP-Adresse',
