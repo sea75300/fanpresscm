@@ -99,6 +99,10 @@ class articleedit extends articlebase {
         $res = false;
         if (!$this->showRevision && $this->checkPageToken && !$this->article->isInEdit()) {
             $res = $this->saveArticle();
+                
+            if ($this->emptyTitleContent) {
+                return true;
+            }
 
             if (!$res) {
                 $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');

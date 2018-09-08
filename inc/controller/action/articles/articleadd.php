@@ -21,7 +21,7 @@ class articleadd extends articlebase {
         if (parent::request()) {
             $id = $this->saveArticle();
 
-            if ($id === false) {
+            if ($id === false && !$this->emptyTitleContent) {
                 $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');
             } elseif ($id > 0) {
                 $this->redirect('articles/edit', [

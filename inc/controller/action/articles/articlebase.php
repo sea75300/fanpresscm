@@ -54,6 +54,12 @@ class articlebase extends \fpcm\controller\abstracts\controller {
     protected $approvalRequired = false;
 
     /**
+     *
+     * @var bool
+     */
+    protected $emptyTitleContent = false;
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -218,6 +224,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
 
         if (!$this->article->getTitle() || !$this->article->getContent()) {
             $this->view->addErrorMessage('SAVE_FAILED_ARTICLE_EMPTY');
+            $this->emptyTitleContent = true;
             return false;
         }
 
