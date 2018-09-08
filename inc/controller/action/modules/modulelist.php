@@ -68,11 +68,20 @@ class modulelist extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
-        $this->view->addJsLangVars(['MODULES_LIST_INFORMATIONS']);
+        $this->view->addJsLangVars([
+            'MODULES_LIST_INFORMATIONS', 'MODULES_FAILED_ENABLE', 'MODULES_FAILED_DISABLE',
+            'MODULES_FAILED_INSTALL', 'MODULES_FAILED_UNINSTALL'
+        ]);
         $this->view->addJsFiles(['modulelist.js', 'fileuploader.js']);
         $this->view->setFormAction('modules/list');
         $this->view->addJsVars([
-            'jqUploadInit' => 0
+            'jqUploadInit' => 0,
+            'codes' => [
+                'installFailed' => \fpcm\module\module::STATUS_NOT_INSTALLED,
+                'uninstallFailed' => \fpcm\module\module::STATUS_NOT_UNINSTALLED,
+                'enabledFailed' => \fpcm\module\module::STATUS_NOT_ENABLED,
+                'disabledFailed' => \fpcm\module\module::STATUS_NOT_DISABLED,
+            ]
         ]);
         
         $this->view->addDataView(new \fpcm\components\dataView\dataView('modulesLocal', false));

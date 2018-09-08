@@ -19,12 +19,10 @@ class module {
 
     const STATUS_INSTALLED = 1001;
     const STATUS_UNINSTALLED = 1002;
-    const STATUS_UPDATED = 1003;
     const STATUS_ENABLED = 1004;
     const STATUS_DISABLED = 1005;
     const STATUS_NOT_INSTALLED = -1001;
     const STATUS_NOT_UNINSTALLED = -1002;
-    const STATUS_NOT_UPDATED = -1003;
     const STATUS_NOT_ENABLED = -1004;
     const STATUS_NOT_DISABLED = -1005;
 

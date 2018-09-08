@@ -103,6 +103,29 @@ fpcm.modulelist = {
                                 data: params,
                                 execDone: function () {
                                     var result = fpcm.ajax.getResult('modules/exec', true);
+                                    if (result.code !== undefined && result.code < 1) {
+                                        var msg = '';
+                                        switch (result.code) {
+                                            case fpcm.vars.jsvars.codes.installFailed :
+                                                msg = 'MODULES_FAILED_INSTALL';
+                                                break;
+                                            case fpcm.vars.jsvars.codes.uninstallFailed :
+                                                msg = 'MODULES_FAILED_UNINSTALL';
+                                                break;
+                                            case fpcm.vars.jsvars.codes.enabledFailed :
+                                                msg = 'MODULES_FAILED_ENABLE';
+                                                break;
+                                            case fpcm.vars.jsvars.codes.disabledFailed :
+                                                msg = 'MODULES_FAILED_DISABLE';
+                                                break;
+                                        }
+
+                                        fpcm.ui.addMessage({
+                                            txt: msg,
+                                            type: 'error'
+                                        }, true);
+                                    }
+                                    
                                     fpcm.modulelist.tabs.tabs('load', 0);
                                 }
                             });
