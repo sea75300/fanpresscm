@@ -89,12 +89,6 @@ fpcm.editor = {
                 "Shift-Ctrl-Z"    : function() {
                     jQuery('#fpcm-dialog-editor-html-insertmedia-btn').click();
                 },
-                "Ctrl-F"    : function() {
-                    jQuery('#fpcm-editor-html-insertiframe-btn').click();
-                },
-                "Ctrl-M"    : function() {
-                    jQuery('#fpcm-editor-html-insertmore-btn').click();
-                },
                 "Shift-Ctrl-T"    : function() {
                     jQuery('#fpcm-dialog-editor-html-inserttable-btn').click();
                 },

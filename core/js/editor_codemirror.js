@@ -192,25 +192,6 @@ if (fpcm.editor) {
         fpcm.editor.insert(aTag, '</p>');
     };
     
-    fpcm.editor.insertFrame = function(url, params, returnOnly) {
-        
-        if (url === undefined) {
-            url = 'http://';
-        }
-        
-        if (params === undefined) {
-            params = [];
-        }
-
-        var code = '<iframe src="' + url + '" class="fpcm-articletext-iframe" ' + params.join(' ') + '></iframe>';
-        if (!returnOnly) {
-            fpcm.editor.insert(code, '');
-            return true;
-        }
-
-        return code;
-    };
-    
     fpcm.editor.insertList = function (listtype) {
 
         fpcm.ui.spinner('#listrows', {
@@ -682,10 +663,6 @@ if (fpcm.editor) {
                 fileOpenMode = 0;
             }
         });
-    };
-    
-    fpcm.editor.insertIframe = function () {
-        fpcm.editor.insertFrame();
     };
     
     fpcm.editor.insertReadMore = function () {

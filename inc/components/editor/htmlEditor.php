@@ -155,7 +155,7 @@ class htmlEditor extends articleEditor {
                 'underline' => (new \fpcm\view\helper\button('editor-html-buttonunderline'))->setText('EDITOR_HTML_BUTTONS_UNDERLINE')->setIcon('underline')->setData(['htmltag' => 'u']),
                 'strike' => (new \fpcm\view\helper\button('editor-html-buttonstrike'))->setText('EDITOR_HTML_BUTTONS_STRIKE')->setIcon('strikethrough')->setData(['htmltag' => 's']),
                 'color' => (new \fpcm\view\helper\button('editor-html-buttoninsertcolor'))->setText('EDITOR_INSERTCOLOR')->setIcon('palette')->setData(['action' => 'insertColor']),
-                'sup' => (new \fpcm\view\helper\button('editor-html-buttonsup'))->setText('EDITOR_HTML_BUTTONS_SUP')->setIcon('subscript')->setData(['htmltag' => 'sup']),
+                'sup' => (new \fpcm\view\helper\button('editor-html-buttonsup'))->setText('EDITOR_HTML_BUTTONS_SUP')->setIcon('superscript')->setData(['htmltag' => 'sup']),
                 'sub' => (new \fpcm\view\helper\button('editor-html-buttonsub'))->setText('EDITOR_HTML_BUTTONS_SUB')->setIcon('subscript')->setData(['htmltag' => 'sub']),
                 'aleft' => (new \fpcm\view\helper\button('editor-html-buttonaleft'))->setText('EDITOR_HTML_BUTTONS_ALEFT')->setIcon('align-left')->setData(['htmltag' => 'left', 'action' => 'insertAlignTags']),
                 'acenter' => (new \fpcm\view\helper\button('editor-html-buttonacenter'))->setText('EDITOR_HTML_BUTTONS_ACENTER')->setIcon('align-center')->setData(['htmltag' => 'center', 'action' => 'insertAlignTags']),

@@ -155,4 +155,5 @@ if (fpcm.editor) {
 
         top.tinymce.activeEditor.windowManager.close();    
     };
+
 }

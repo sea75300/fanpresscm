@@ -10,17 +10,18 @@ if (fpcm === undefined) {
 
 fpcm.editor_videolinks = {
 
-    replace: function(text) {
+    replace: function (text) {
 
         if (text.search('youtube.com') >= 0 && text.search('watch') >= 0) {
-            return text.replace('watch?v=', 'embed/');            
+            text = text.replace('watch?v=', 'embed/');
+            return text.replace('youtube.com', 'youtube-nocookie.com');
         }
 
-        if (text.search('vimeo.com') >= 0) {            
+        if (text.search('vimeo.com') >= 0) {
             return text.replace('vimeo.com', 'player.vimeo.com/video');
         }
 
-        if (text.search('dailymotion.com/video/') >= 0) {            
+        if (text.search('dailymotion.com/video/') >= 0) {
             return text.replace('/video', '/embed/video');
         }
 
@@ -30,11 +31,10 @@ fpcm.editor_videolinks = {
         }
 
         return text;
-
     },
-    
+
     createFrame: function (url, returnOnly) {
-        return fpcm.editor.insertFrame(url, ['width="500"', 'height="300"', 'frameborder="0"', 'allowfullscreen'], returnOnly);
+        return fpcm.editor.insertIFrame(url, ['width="500"', 'height="300"', 'frameborder="0"', 'allowfullscreen'], returnOnly);
     }
 
 };
