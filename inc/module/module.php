@@ -423,7 +423,15 @@ class module {
             return [];
         }
 
-        $configOptions = array_unique(array_merge($this->config->configOptions['add'], $this->config->configOptions['remove']));
+        $addcfg = isset($this->config->configOptions['add']) && is_array($this->config->configOptions['add'])
+                ? $this->config->configOptions['add']
+                : [];
+
+        $delcfg = isset($this->config->configOptions['remove']) && is_array($this->config->configOptions['remove'])
+                ? $this->config->configOptions['remove']
+                : [];
+
+        $configOptions = array_unique(array_merge($addcfg, $delcfg));
         if (!count($configOptions)) {
             return [];
         }
