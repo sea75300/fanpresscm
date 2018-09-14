@@ -1,6 +1,14 @@
 # FanPress CM News System version 4
 
-The FanPress CM News System version 4 is a lightweight but powerful content management system for small and mid-size websites. Based on the stable version 3, this version includes major improvements in functionality, code quality, speed and more.
+![FanPress CM 4 Logo](/core/theme/logo.svg)
+
+The FanPress CM News System version 4 is a lightweight but powerful content management system for small and mid-size websites. Based on the stable FanPress CM 3.x, this version includes major improvements in functionality, code quality, speed and more.
+
+## Base Requirements
+
+* PHP 7.0 or better
+* MySQL/ Maria DB 7 or Postgres 9.4
+* complete requirements check will be performed during setup.
 
 The inclusion into a website depends an how you use the system. An assistant for integration is provided. If you do it manually, here are further information:
 
