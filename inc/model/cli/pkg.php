@@ -66,14 +66,14 @@ final class pkg extends \fpcm\model\abstracts\cli {
         if (!in_array($this->funcParams[0], $this->noMaintenanceMode)) {
             $this->output('Enable maintenance mode...');
             $this->config->setMaintenanceMode(true);
-            $this->output('-- Finished.'.PHP_EOL);
+            $this->output('-- Finished.' . PHP_EOL);
         }
 
         if (!trim($this->funcParams[0])) {
             $this->output('Invalid parameter on position 0', true);
         }
-        
-        $fn = 'process'. ucfirst( str_replace('-', '', trim($this->funcParams[0])) ). ( isset($this->funcParams[1]) && trim($this->funcParams[1]) ? ucfirst( trim($this->funcParams[1]) ) : '' );        
+
+        $fn = 'process' . ucfirst(str_replace('-', '', trim($this->funcParams[0]))) . ( isset($this->funcParams[1]) && trim($this->funcParams[1]) ? ucfirst(trim($this->funcParams[1])) : '' );
         if (!method_exists($this, $fn)) {
             $this->output('Invalid parameters', true);
         }
@@ -85,7 +85,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         if (!in_array($this->funcParams[0], $this->noMaintenanceMode)) {
             $this->output('Disable maintenance mode...');
             $this->config->setMaintenanceMode(false);
-            $this->output('-- Finished.'.PHP_EOL);
+            $this->output('-- Finished.' . PHP_EOL);
         }
 
         return true;
@@ -98,7 +98,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
     private function processUpdate()
     {
         $this->initObjects();
-        
+
         $this->output('Fetch package information from repository...');
         $repository = new \fpcm\model\packages\repository();
         $successRepo = $repository->fetchRemoteData(true);
@@ -121,20 +121,20 @@ final class pkg extends \fpcm\model\abstracts\cli {
 
         $modules = new \fpcm\module\modules();
         $updates = $modules->getInstalledUpdates();
-        
-        $this->output('-- successfull!');       
-        $this->output('FanPress CM '.$this->updaterSys->version.' version was relesed on ' . $this->updaterSys->release);
+
+        $this->output('-- successfull!');
+        $this->output('FanPress CM ' . $this->updaterSys->data['version'] . ' version was relesed on ' . $this->updaterSys->data['release']);
         if ($successSys === \fpcm\model\updater\system::FORCE_UPDATE) {
             $this->output('-- This released is forced to be installed, you should run fpcmcli.php pkg --update system as soon as possible.');
         }
 
-        if ($successSys && $this->updaterSys->phpversion && version_compare(phpversion(), $this->updaterSys->phpversion, '<') ) {
-            $this->output('-- This released requires PHP '.$this->updaterSys->phpversion.' or better, you current PHP version is '.phpversion());
+        if ($successSys && $this->updaterSys->phpversion && version_compare(phpversion(), $this->updaterSys->phpversion, '<')) {
+            $this->output('-- This released requires PHP ' . $this->updaterSys->phpversion . ' or better, you current PHP version is ' . phpversion());
         }
 
         $count = count($updates);
-        $this->output('Modules: '. $count.' module updates are available.'.($count ? '-- Module keys are:'.PHP_EOL.implode(', ', $updates) : ''));
-                
+        $this->output('Modules: ' . $count . ' module updates are available.' . ($count ? '-- Module keys are:' . PHP_EOL . implode(', ', $updates) : ''));
+
         return true;
     }
 
@@ -150,55 +150,55 @@ final class pkg extends \fpcm\model\abstracts\cli {
 
         $this->output('Check local file system...');
         $success = $pkg->checkFiles();
-        
+
         if ($success !== true) {
             $this->output('Local file system check failed, one or more files are not wriatble. ERROR CODE: ' . (int) $success, true);
-        }        
-        $this->output('-- Finished.'.PHP_EOL);
+        }
+        $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Download package from ' . $pkg->getRemotePath() . '...');
         $success = $pkg->download();
         if ($success !== true) {
             $this->output('Download failed. ERROR CODE: ' . $success, true);
         }
-        $this->output('-- Finished.'.PHP_EOL);
-        
+        $this->output('-- Finished.' . PHP_EOL);
+
         $this->output('Check package integity ' . basename($pkg->getLocalPath()) . '...');
         $success = $pkg->checkPackage();
         if ($success !== true) {
-            $this->output('Package integity check for '.basename($pkg->getLocalPath()).' failed. ERROR CODE: '.$success, true);
+            $this->output('Package integity check for ' . basename($pkg->getLocalPath()) . ' failed. ERROR CODE: ' . $success, true);
         }
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Unpacking package file ' . basename($pkg->getLocalPath()) . '...');
         $success = $pkg->extract();
         if ($success !== true) {
-            $this->output('Package extraction for '.basename($pkg->getLocalPath()).' was not successful. ERROR CODE: '.$success, true);
+            $this->output('Package extraction for ' . basename($pkg->getLocalPath()) . ' was not successful. ERROR CODE: ' . $success, true);
         }
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Update files in local file systems...');
         $success = $pkg->copy();
         if ($success !== true) {
-            $this->output('Update of local file system from '.basename($pkg->getLocalPath()).' was not successful. ERROR CODE: '.$success, true);
+            $this->output('Update of local file system from ' . basename($pkg->getLocalPath()) . ' was not successful. ERROR CODE: ' . $success, true);
         }
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
         $this->processUpgradedbSystem();
 
         $this->output('Update package manager logfile...');
         $success = $pkg->updateLog();
         if ($success !== true) {
-            $this->output('Package manager log update failed. ERROR CODE: '.$success, true);
+            $this->output('Package manager log update failed. ERROR CODE: ' . $success, true);
         }
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Perform system cleanup after update...');
         $pkg->cleanup();
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
-        $this->output('System update successful. New version: ' . $this->config->system_version.PHP_EOL);
-        $this->output('Please check error log and data folder permissions.'.PHP_EOL);
+        $this->output('System update successful. New version: ' . $this->config->system_version . PHP_EOL);
+        $this->output('Please check error log and data folder permissions.' . PHP_EOL);
         return true;
     }
 
@@ -209,15 +209,15 @@ final class pkg extends \fpcm\model\abstracts\cli {
     private function processUpgradedbSystem()
     {
         $this->output('Update local database...');
-        
+
         $finalizer = new \fpcm\model\updater\finalizer();
         $success = $finalizer->runUpdate();
         if ($success !== true) {
-            $this->output('An error occurred during Database update. ERROR CODE: '.$success, true);
+            $this->output('An error occurred during Database update. ERROR CODE: ' . $success, true);
         }
 
         $this->config->init();
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
         return true;
     }
@@ -231,15 +231,15 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->initObjects();
         $this->getModuleKey();
 
-        $this->output('Update module '.$this->modulekey.' database...');
+        $this->output('Update module ' . $this->modulekey . ' database...');
 
         $success = (new \fpcm\module\module($this->modulekey))->update();
         if ($success !== true) {
-            $this->output('An error occurred during database update. ERROR CODE: '.$success, true);
+            $this->output('An error occurred during database update. ERROR CODE: ' . $success, true);
         }
 
         $this->config->init();
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
         return true;
     }
@@ -252,12 +252,12 @@ final class pkg extends \fpcm\model\abstracts\cli {
     {
         $this->output('Update local module database from file system...');
         $modules = new \fpcm\module\modules();
-        
+
         if (!$modules->updateFromFilesystem()) {
             $this->output('Failed to update module database from file system ', true);
         }
 
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
         return true;
     }
 
@@ -271,11 +271,11 @@ final class pkg extends \fpcm\model\abstracts\cli {
         if (!count($list)) {
             $this->output('No modules installed, exit...', true);
         }
-        
+
         /* @var $module \fpcm\module\module */
         foreach ($list as $module) {
             $this->moduleslIstDetails($module, true);
-            $this->output('     Update available: '.$this->boolText($module->hasUpdates()));
+            $this->output('     Update available: ' . $this->boolText($module->hasUpdates()));
             $this->output(PHP_EOL);
         }
 
@@ -292,7 +292,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         if (!count($list)) {
             $this->output('No modules installed, exit...', true);
         }
-        
+
         /* @var $module \fpcm\module\repoModule */
         foreach ($list as $module) {
             $this->moduleslIstDetails($module, true);
@@ -323,20 +323,20 @@ final class pkg extends \fpcm\model\abstracts\cli {
      */
     private function moduleslIstDetails($module, $remote = false, $descr = false)
     {
-        $this->output('>> '.$module->getConfig()->name);
-        $this->output($module->getKey().' - '.$module->getConfig()->version.' - '.$module->getConfig()->author.' - '.$module->getConfig()->link.PHP_EOL);
+        $this->output('>> ' . $module->getConfig()->name);
+        $this->output($module->getKey() . ' - ' . $module->getConfig()->version . ' - ' . $module->getConfig()->author . ' - ' . $module->getConfig()->link . PHP_EOL);
 
         if ($descr) {
-            $this->output('-- Description:'.PHP_EOL.wordwrap(strip_tags($module->getConfig()->description)).PHP_EOL);
+            $this->output('-- Description:' . PHP_EOL . wordwrap(strip_tags($module->getConfig()->description)) . PHP_EOL);
             $this->output('-- Required: ');
-            $this->output('     System: '.$module->getConfig()->requirements['system']);
-            $this->output('     PHP: '.$module->getConfig()->requirements['php']);
+            $this->output('     System: ' . $module->getConfig()->requirements['system']);
+            $this->output('     PHP: ' . $module->getConfig()->requirements['php']);
         }
 
         $this->output('-- Status: ');
-        $this->output('     Installable: '.$this->boolText($module->isInstallable()).( $remote && !$module->isInstalled() ? ', Command: fpcmcli.php pkg --install module '.$module->getKey() :  '') );
-        $this->output('     Installed: '.$this->boolText($module->isInstalled()));
-        
+        $this->output('     Installable: ' . $this->boolText($module->isInstallable()) . ( $remote && !$module->isInstalled() ? ', Command: fpcmcli.php pkg --install module ' . $module->getKey() : ''));
+        $this->output('     Installed: ' . $this->boolText($module->isInstalled()));
+
         return true;
     }
 
@@ -349,10 +349,10 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->initObjects();
 
         $this->getModuleKey();
-        $this->output('Start installation of module '.$this->modulekey);
+        $this->output('Start installation of module ' . $this->modulekey);
 
         $this->processModulePackage('install');
-        $this->output('Installation of module '.$this->modulekey.' successfull.'.PHP_EOL);
+        $this->output('Installation of module ' . $this->modulekey . ' successfull.' . PHP_EOL);
 
         return true;
     }
@@ -366,10 +366,10 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->initObjects();
 
         $this->getModuleKey();
-        $this->output('Start update of module '.$this->modulekey);
+        $this->output('Start update of module ' . $this->modulekey);
 
         $this->processModulePackage('update', true);
-        $this->output('Update of module '.$this->modulekey.' successfull.'.PHP_EOL);
+        $this->output('Update of module ' . $this->modulekey . ' successfull.' . PHP_EOL);
 
         return true;
     }
@@ -383,15 +383,15 @@ final class pkg extends \fpcm\model\abstracts\cli {
     private function processModulePackage($mode, $checkFiles = false)
     {
         $pkg = new \fpcm\model\packages\module($this->modulekey);
-        
+
         if ($checkFiles) {
             $this->output('Check local file system...');
             $success = $pkg->checkFiles();
 
             if ($success !== true) {
                 $this->output('Local file system check failed, one or more files are not wriatble. ERROR CODE: ' . (int) $success, true);
-            }        
-            $this->output('-- Finished.'.PHP_EOL);
+            }
+            $this->output('-- Finished.' . PHP_EOL);
         }
 
 
@@ -400,53 +400,53 @@ final class pkg extends \fpcm\model\abstracts\cli {
         if ($success !== true) {
             $this->output('Download failed. ERROR CODE: ' . $success, true);
         }
-        $this->output('-- Finished.'.PHP_EOL);
-        
+        $this->output('-- Finished.' . PHP_EOL);
+
         $this->output('Check package integity ' . basename($pkg->getLocalPath()) . '...');
         $success = $pkg->checkPackage();
         if ($success !== true) {
-            $this->output('Package integity check for '.basename($pkg->getLocalPath()).' failed. ERROR CODE: '.$success, true);
+            $this->output('Package integity check for ' . basename($pkg->getLocalPath()) . ' failed. ERROR CODE: ' . $success, true);
         }
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Unpacking package file ' . basename($pkg->getLocalPath()) . '...');
         $success = $pkg->extract();
         if ($success !== true) {
-            $this->output('Package extraction for '.basename($pkg->getLocalPath()).' was not successful. ERROR CODE: '.$success, true);
+            $this->output('Package extraction for ' . basename($pkg->getLocalPath()) . ' was not successful. ERROR CODE: ' . $success, true);
         }
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Update files in local file systems...');
         $success = $pkg->copy();
         if ($success !== true) {
-            $this->output('Update of local file system from '.basename($pkg->getLocalPath()).' was not successful. ERROR CODE: '.$success, true);
+            $this->output('Update of local file system from ' . basename($pkg->getLocalPath()) . ' was not successful. ERROR CODE: ' . $success, true);
         }
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Update local database...');
         $module = new \fpcm\module\module($this->modulekey);
         if (!method_exists($module, $mode)) {
-            fpcmLogSystem('Undefined function '.$mode.' for module database update '.$this->modulekey.'!');
+            fpcmLogSystem('Undefined function ' . $mode . ' for module database update ' . $this->modulekey . '!');
             return true;
         }
 
         $success = call_user_func([$module, $mode]);
         if ($success !== true) {
-            $this->output('An error occurred during Database update. ERROR CODE: '.$success, true);
+            $this->output('An error occurred during Database update. ERROR CODE: ' . $success, true);
         }
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Update package manager logfile...');
         $success = $pkg->updateLog();
         if ($success !== true) {
-            $this->output('Package manager log update failed. ERROR CODE: '.$success, true);
+            $this->output('Package manager log update failed. ERROR CODE: ' . $success, true);
         }
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Perform system cleanup after update...');
         $pkg->cleanup();
-        $this->output('-- Finished.'.PHP_EOL);
-        
+        $this->output('-- Finished.' . PHP_EOL);
+
         return true;
     }
 
@@ -457,13 +457,13 @@ final class pkg extends \fpcm\model\abstracts\cli {
     private function getModuleKey($pos = 2)
     {
         if (empty($this->funcParams[$pos])) {
-            $this->output('Invalid module package on position '.($pos+1), true);
+            $this->output('Invalid module package on position ' . ($pos + 1), true);
         }
 
         if (!$this->updaterMod->getDataCachedByKey($this->funcParams[$pos])) {
             $this->output('Invalid module key, key not found', true);
         }
-        
+
         $this->modulekey = $this->funcParams[$pos];
         return true;
     }
@@ -477,13 +477,13 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->initObjects();
 
         $this->getModuleKey();
-        $this->output('Remove module '.$this->modulekey);
+        $this->output('Remove module ' . $this->modulekey);
 
         $module = new \fpcm\module\module($this->modulekey);
         if ($module->uninstall() !== true) {
             $this->output('Failed to remove, see error log for fruther information!', true);
         }
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
         return true;
     }
@@ -497,13 +497,13 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->initObjects();
 
         $this->getModuleKey();
-        $this->output('Delete module '.$this->modulekey);
+        $this->output('Delete module ' . $this->modulekey);
 
         $module = new \fpcm\module\module($this->modulekey);
         if ($module->uninstall(true) !== true) {
             $this->output('Failed to remove, see error log for fruther information!', true);
         }
-        $this->output('-- Finished.'.PHP_EOL);
+        $this->output('-- Finished.' . PHP_EOL);
 
         return true;
     }
