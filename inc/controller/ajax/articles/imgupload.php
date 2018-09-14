@@ -39,6 +39,9 @@ class imgupload extends \fpcm\controller\abstracts\ajaxController {
         $name = $data['name'];
 
         $localPtah = \fpcm\model\files\ops::getUploadPath($name, $this->config->file_subfolders);
+        
+        fpcmLogSystem(__METHOD__.' '.$localPtah );
+        
         if (file_exists($localPtah)) {
             $name = explode('.', $name);
             $name[0] .= '_cropped' . date('Ymd') . $this->session->getUserId();

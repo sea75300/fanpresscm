@@ -63,13 +63,13 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
                 continue;
             }
 
-            $fileName = ops::getUploadPath($fileNames[$key], $this->config->file_subfolders);
-            $fileName = ( $this->config->file_subfolders
-                      ? basename(dirname($fileName)).'/'.basename($fileName)
-                      : basename($fileName) );
+            $fileName = $this->getUploadFileName($fileNames[$key]);
+            $uploadParent = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, dirname($fileName));
+            if ($this->config->file_subfolders && !is_dir($uploadParent) && !mkdir($uploadParent)) {
+                trigger_error('Failed to create month-based upload parent folder');
+                return false;                
+            }
 
-            $this->getUploadFileName($fileNames[$key]);
-            
             $image = new image($fileName);
             if (!$image->moveUploadedFile($value)) {
                 trigger_error('Unable to move uploaded to to uploader folder! ' . $fileNames[$key]);
