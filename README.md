@@ -1,10 +1,8 @@
-# FanPress CM News System version 3
+# FanPress CM News System version 4
 
-__Please note, this version is still in beta developement, so it is not ready for use in live envoirments!__
+The FanPress CM News System version 4 is a lightweight but powerful content management system for small and mid-size websites. Based on the stable version 3, this version includes major improvements in functionality, code quality, speed and more.
 
-The FanPress CM News System version 4 is a lightwight but powerfull content management system for small and mide size websites. Based on the stable version 3, this version includes major improvements in functionality, code quality, speed and more.
-
-The inclusion into a website depends an how you use the system. An assistent for integration is provided. If you do it manually, here are further information:
+The inclusion into a website depends an how you use the system. An assistant for integration is provided. If you do it manually, here are further information:
 
 ## php include
 
@@ -26,29 +24,35 @@ The following functions are available:
     * `$params` is an array to further customize the out of the function
         * _category_: select articles of a a single category, default is 0
         * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
-
 * `$api->showPageNumber($divider, $isUtf8)`: displays current page number.
     * _divider_: parameter for page descriptions like "Page XYZ"
     * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
 * `$api->showTitle($divider, $isUtf8)`: displays article title in HTML <title>
-    * _divider_: parameter for a seperator of your text in <title>
+    * _divider_: parameter for a separator of your text in <title>
     * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
-
-* `$api->legacyRedirect($articlesPerPage)`: perform redirect of articles opend in FanPress CM 1/2 article url style.
+* `$api->legacyRedirect($articlesPerPage)`: perform redirect of article urls  in FanPress CM 1/2 style.
 
 ## iframes
 
-In case your're using iframes you have to call the controllers manually.
+In case you are using iframes you have to call the controllers manually.
 
-* your-domain.xyz/fanpress/index.php?module=fpcm/list
-    * show all active articles (fulfils task of shownews.php from FanPress CM 1.x and 2.x)
-* your-domain.xyz/fanpress/index.php?module=fpcm/archive
-    * show article archive (fulfils task of shownews.php from FanPress CM 1.x and 2.x)
-* your-domain.xyz/fanpress/index.php?module=fpcm/article&&id=A_DIGIT
+* **your-domain.xyz/fanpress/index.php?module=fpcm/list**
+    * show all active articles
+* **your-domain.xyz/fanpress/index.php?module=fpcm/archive**
+    * show article archive
+* **your-domain.xyz/fanpress/index.php?module=fpcm/article&&id=A_DIGIT**
     * show a single article with given id including comments
-* your-domain.xyz/fanpress/index.php?module=fpcm/latest
+* **your-domain.xyz/fanpress/index.php?module=fpcm/latest**
     * show latest news
 
 ## RSS Feed
 
-If you want to provide the RSS feed for your visitors, just create a link to your-domain.xyz/fanpress/index.php?module=fpcm/feed. The link does not depend on the way you're using FanPress CM.
+If you want to provide the RSS feed for your visitors, just create a link to **your-domain.xyz/fanpress/index.php?module=fpcm/feed**. The link does not depend on the way you're using FanPress CM.
+
+## Licence
+
+FanPress CM 4 is provided under the GPL v3 and is free to use. Support is provided via GitHub.
+
+## Contribution
+
+Any kind of contribution to general development (code, feature requests/ ideas), translation into various languages, testing and so on is greatly appreciated. Feel free to leave a message.
