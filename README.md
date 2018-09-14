@@ -15,14 +15,28 @@ When using php include, fist include the api file and create a new API object.
 <?php $api = new fpcmAPI(); ?>
 ```
 
-Now you can use the API functions:
+The following functions are available:
 
 ```php
-$api->showArticles() to display active articles, a single article or the article archive in front end. (fulfils task of shownews.php from FanPress CM 1.x and 2.x)
-$api->showLatestNews() to show recent news list.
-$api->showPageNumber() displays current page number, accepts a parameter for page descriptions like "Page XYZ".
-$api->showTitle() displayse the article title in HTML <title> , accepts a parameter for a seperator of your text in <title>.
-$api->legacyRedirect() redirect visitors which enters your site using an FanPress CM 1/2 article/ page url style.
+* ** $api->showArticles(array $params)**: Display active articles, a single article or article archive in front end
+    * `$params` is an array to further customize the out of the function
+        * _category_: select articles of a a single category, default is 0
+        * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
+        * _template_: change used template to display articles in frontend
+* ** $api->showLatestNews(array $params)**: Display recent recent news list
+    * `$params` is an array to further customize the out of the function
+        * _category_: select articles of a a single category, default is 0
+        * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
+
+* **$api->showPageNumber($divider, $isUtf8)**: displays current page number.
+    * _divider_: parameter for page descriptions like "Page XYZ"
+    * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
+* **$api->showTitle($divider, $isUtf8)**: displays article title in HTML <title>
+    * _divider_: parameter for a seperator of your text in <title>
+    * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
+
+* **$api->legacyRedirect($articlesPerPage)**: perform redirect of articles opend in FanPress CM 1/2 article url style.
+
 ```
 
 ## iframes
