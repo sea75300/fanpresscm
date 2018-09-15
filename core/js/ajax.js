@@ -136,7 +136,7 @@ fpcm.ajax = {
 
         var isArray = data instanceof Array ? true : false;
         var isObject = data instanceof Object ? true : false;
-        if (!isArray || !isObject) {
+        if (!isArray && !isObject) {
             return '';
         }
 

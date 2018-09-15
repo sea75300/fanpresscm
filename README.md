@@ -25,11 +25,13 @@ The following functions are available:
 
 * `$api->showArticles(array $params)`: Display active articles, a single article or article archive in front end
     * `$params` is an array to further customize the out of the function
+        * _count_: number of articles per page
         * _category_: select articles of a a single category, default is 0
         * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
         * _template_: change used template to display articles in frontend
 * `$api->showLatestNews(array $params)`: Display recent recent news list
     * `$params` is an array to further customize the out of the function
+        * _count_: number of articles per page
         * _category_: select articles of a a single category, default is 0
         * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
 * `$api->showPageNumber($divider, $isUtf8)`: displays current page number.

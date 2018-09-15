@@ -199,7 +199,7 @@ fpcm.ui = {
             };
         }
 
-        el.accordion(params);
+        return el.accordion(params);
     },
     
     tabs: function(elemClassId, params) {
