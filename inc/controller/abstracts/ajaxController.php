@@ -81,6 +81,16 @@ class ajaxController extends controller {
         exit(json_encode($this->returnData));
     }
 
+    /**
+     * Redirect if user is not logged in
+     * @return boolean
+     */
+    protected function redirectNoSession()
+    {
+        header('HTTP/1.1 401 Unauthorized');
+        exit;
+    }
+
 }
 
 ?>

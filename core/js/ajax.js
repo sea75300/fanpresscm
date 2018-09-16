@@ -53,6 +53,10 @@ fpcm.ajax = {
                 500: function() {
                     fpcm.ajax.showAjaxErrorMessage();
                 },
+                401: function() {
+                    fpcm.system.showSessionCheckDialog();
+                    fpcm.ui.showLoader();
+                },
                 404: function() {
                     fpcm.ajax.showAjaxErrorMessage();
                 }
