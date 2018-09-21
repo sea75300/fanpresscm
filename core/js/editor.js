@@ -85,6 +85,15 @@ fpcm.editor = {
             return false;
         });
 
+        fpcm.editor.tweetTextInput = jQuery('#articletweettxt');
+        fpcm.ui.selectmenu('#twitterReplacements', {
+            change: function( event, ui ) {
+                fpcm.editor.tweetTextInput.val(fpcm.editor.tweetTextInput.val() + ' ' + ui.item.value);
+                this.selectedIndex = 0;
+                jQuery(this).selectmenu('refresh');
+            }
+        });
+
         fpcm.ui.checkboxradio('.fpcm-ui-input-checkbox');
         
         fpcm.editor.editorTabs = fpcm.ui.tabs('#fpcm-editor-tabs', {

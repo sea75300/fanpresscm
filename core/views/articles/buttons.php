@@ -39,17 +39,13 @@
     <?php endif; ?>
 </fieldset>
 
-<?php if ($showTwitter) : ?>
+<?php if ($showTwitter && !empty($twitterReplacements)) : ?>
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
     <legend><?php $theView->write('EDITOR_TWEET_ENABLED'); ?></legend>
     <div class="row no-gutters fpcm-ui-padding-md-tb fpcm-editor-dialog-fullwidth-items">
         <div class="col-12 col-md-5 col-lg-3"><?php $theView->checkbox('article[tweet]')->setText('EDITOR_TWEET_ENABLED')->setSelected($article->tweetCreationEnabled())->setClass('fpcm-ui-full-width'); ?></div>
-        <div class="col-12 col-md-7 col-lg-9"><?php $theView->textInput('article[tweettxt]')->setSize(512)->setText('EDITOR_TWEET_TEXT')->setPlaceholder(true); ?></div>
-    </div>
-    <div class="row fpcm-ui-padding-md-tb">
-        <div class="col-12 fpcm-ui-center fpcm-ui-font-small">
-            <?php print $twitterReplacements; ?> <?php $theView->shorthelpButton('tweetHelp')->setText('EDITOR_TWEET_TEXT_REPLACER')->setUrl($theView->basePath.'templates/templates'); ?>
-        </div>
+        <div class="col-12 col-md-3 col-lg-6"><?php $theView->textInput('article[tweettxt]')->setSize(512)->setText('EDITOR_TWEET_TEXT')->setPlaceholder(true); ?></div>
+        <div class="col-12 col-md-3 col-lg-3 fpcm-ui-center"><?php $theView->select('twitterReplacements')->setOptions($twitterReplacements); ?></div>
     </div>
 </fieldset>
 <?php endif; ?>
