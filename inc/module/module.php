@@ -203,6 +203,16 @@ class module {
     }
 
     /**
+     * Return additional vars for configure view
+     * @return array
+     */
+    public function getConfigViewVars() : array
+    {
+        $res = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\configure', $this->mkey);
+        return is_array($res) && count($res) ? $res : [];
+    }
+
+    /**
      * Fetch system config options
      * @return array
      */

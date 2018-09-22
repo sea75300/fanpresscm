@@ -125,7 +125,12 @@ class moduleConfig extends \fpcm\controller\abstracts\controller {
             'key' => $this->key
         ]);
 
-        $this->view->assign('options', $this->module->getOptions());
+        $this->view->setViewVars(array_merge(
+            $this->module->getConfigViewVars(),
+            [
+                'options' => $this->module->getOptions()
+            ]
+        ));
         $this->view->addButton(new \fpcm\view\helper\saveButton('save'));
         $this->view->render();
     }
