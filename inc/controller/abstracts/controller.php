@@ -394,7 +394,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Request processing
-     * @return boolean, false prevent execution of @see process()
+     * @return bool, false prevent execution of @see process()
      */
     public function request()
     {
