@@ -305,7 +305,8 @@ class permissions extends \fpcm\model\abstracts\dataset {
         foreach ($permissionArray as $module => $permission) {
 
             if (!isset($this->permissiondata[$module])) {
-                trigger_error("No permissions available for module \"$module\"!");
+                trigger_error("No permissions available for module \"$module\"!". PHP_EOL.
+                              "   > Permission-Debug: ".PHP_EOL.implode(PHP_EOL, $permission));
                 return false;
             }
 
