@@ -277,11 +277,16 @@ abstract class file {
 
     /**
      * Return file upload time in file system
-     * @return bool
+     * @return int
      */
     public function getModificationTime()
     {
-        return filemtime($this->fullpath);
+        $ts = filemtime($this->fullpath);
+        if (!$ts) {
+            $ts = filectime($this->fullpath);
+        }
+
+        return $ts;
     }
 
     /**
