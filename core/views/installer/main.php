@@ -1,16 +1,17 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="fpcm-ui-inner-wrapper fpcm-ui-position-absolute fpcm-ui-position-absolute-0">
-    <div class="row no-gutters fpcm-ui-form-login">
-        
-        <div class="col-12">
-            <div id="fpcm-ui-logo" class="row fpcm-ui-logo fpcm-ui-center fpcm-ui-margin-none">
-                <div class="col-12">
-                    <h1><span class="fpcm-ui-block">FanPress CM</span> <span class="fpcm-ui-block">News System</span></h1>
-                </div>
-            </div>            
-        </div>
+<div class="row no-gutters fpcm-ui-form-login">
+    <div class="col-12">
+        <div id="fpcm-ui-logo" class="row fpcm-ui-logo fpcm-ui-center fpcm-ui-margin-none">
+            <div class="col-12">
+                <h1><span class="fpcm-ui-block">FanPress CM</span> <span class="fpcm-ui-block">News System</span></h1>
+            </div>
+        </div>            
+    </div>
+</div>
 
-        <div class="col-12">
+<div class="row no-gutters fpcm-ui-full-height">
+    <div class="col-12">
+        <div class="fpcm-content-wrapper fpcm-ui-full-height">
             <div class="fpcm-ui-tabs-general" id="fpcm-tabs-installer">
                 <ul>
                     <?php foreach ($subTabs as $name => $data) : ?>
