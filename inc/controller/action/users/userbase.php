@@ -60,6 +60,7 @@ class userbase extends \fpcm\controller\abstracts\controller {
     protected function initActionObjects()
     {
         $this->user = new \fpcm\model\users\author($this->userId);
+        $this->user->overrideConfig();
         return true;
     }
 
@@ -178,11 +179,16 @@ class userbase extends \fpcm\controller\abstracts\controller {
             return [];
         }
 
+        $userMeta = $this->getRequestVar('usermeta');
+        if (!is_array($userMeta)) {
+            $userMeta = [];
+        }
+        
         $this->user->setUserName($data['username']);
         $this->user->setEmail($data['email']);
         $this->user->setDisplayName($data['displayname']);
         $this->user->setRoll($data['roll']);
-        $this->user->setUserMeta(isset($data['usermeta']) ? $data['usermeta'] : []);
+        $this->user->setUserMeta($userMeta);
         $this->user->setUsrinfo(isset($data['usrinfo']) ? $data['usrinfo'] : '');
         $this->user->setDisabled(isset($data['disabled']) ? $data['disabled'] : 0);
         $this->user->setChangeTime(time());

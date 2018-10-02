@@ -738,4 +738,12 @@ class author extends \fpcm\model\abstracts\dataset {
         return $asUrl ? $data[$usernameHash]['url'] : $data[$usernameHash]['data'];
     }
 
+    /**
+     * Override config object with global settings
+     * @param \fpcm\model\system\config $cnfg
+     */
+    public function overrideConfig()
+    {
+        $this->config = new \fpcm\model\system\config();
+    }
 }

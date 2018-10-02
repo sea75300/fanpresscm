@@ -58,9 +58,6 @@ class useredit extends userbase {
         $this->uploadImage($this->user);
         if ($this->buttonClicked('resetProfileSettings')) {
             $this->deleteImage($this->user);
-        }
-
-        if ($this->buttonClicked('resetProfileSettings')) {
             $this->user->setUserMeta([]);
             $this->user->disablePasswordSecCheck();
             if ($this->user->update() === false) {
