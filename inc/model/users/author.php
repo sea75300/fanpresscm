@@ -682,7 +682,7 @@ class author extends \fpcm\model\abstracts\dataset {
      */
     private function getFileOptionObject($opt)
     {
-        return new \fpcm\model\files\fileOption('fopt_'.$this->getId().'_'.$opt);
+        return new \fpcm\model\files\fileOption('user'.$this->getId().'/fopt_'.$opt);
     }
 
     /**

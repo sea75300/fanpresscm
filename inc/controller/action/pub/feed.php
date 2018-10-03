@@ -77,7 +77,7 @@ class feed extends \fpcm\controller\abstracts\pubController {
      */
     protected function getViewPath(): string
     {
-        return 'public/feed';
+        return $this->config->articles_rss ? 'public/feed' : '';
     }
 
     /**
