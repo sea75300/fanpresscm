@@ -39,11 +39,9 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
             return false;
         }
 
-        /**
-         * @var \fpcm\model\abstracts\cron
-         */
+        /* @var $cron \fpcm\model\abstracts\cron */
         $cron = new $cronName();
-        if (!is_a($cron, '\fpcm\model\abstracts\cron')) {
+        if (!($cron instanceof \fpcm\model\abstracts\cron)) {
             trigger_error("Cronjob class {$cronName} must be an instance of \"\fpcm\model\abstracts\cron\"!");
             return false;
         }
@@ -55,13 +53,19 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
         if (!$cron->checkTime()) {
             return null;
         }
+        
+        if ($cron->isRunning()) {
+            fpcmLogCron('Skip execution "' . $cron->getCronName() . '", cronjob already running...');
+            return true;
+        }
 
         fpcmLogCron('Start cronjob "' . $cron->getCronName() . '"...');
         \fpcm\classes\timer::start(__METHOD__);
 
         $cron->setAsyncCurrent($async);
+        $cron->setRunning();
         $cron->run();
-
+        $cron->setFinished();
         $cron->updateLastExecTime();
 
         fpcmLogCron('Finished cronjob "' . $cron->getCronName() . '" in ' . \fpcm\classes\timer::cal(__METHOD__) . ' sec');
@@ -85,12 +89,18 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
             return false;
         }
 
+        if ($cron->isRunning()) {
+            fpcmLogCron('Skip execution "' . $cron->getCronName() . '", cronjob already running...');
+            return true;
+        }
+
         fpcmLogCron('Start cronjob "' . $cron->getCronName() . '" via AJAX...');
         \fpcm\classes\timer::start(__METHOD__);
 
+        $cron->setRunning();
         $cron->run();
+        $cron->setFinished();
         $cron->updateLastExecTime();
-
         usleep(500000);
 
         fpcmLogCron('Finished cronjob "' . $cron->getCronName() . '" via AJAX in ' . \fpcm\classes\timer::cal(__METHOD__) . ' sec');

@@ -60,6 +60,12 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      * @var bool
      */
     protected $asyncCurrent = false;
+
+    /**
+     * Wird Cronjob aktuell asynchron ausgeführt
+     * @var \fpcm\model\files\fileOption
+     */
+    protected $fopt;
     
     /**
      * Konstruktor
@@ -71,6 +77,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
         $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
         $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
         $this->cronName = basename(str_replace('\\', DIRECTORY_SEPARATOR, get_class($this)));
+        $this->fopt = new \fpcm\model\files\fileOption('crons/'.$this->cronName);
 
         if (!$init) {
             return;
@@ -177,7 +184,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      * Setzt Interval des Cronjobs
      * @param int $execinterval
      */
-    function setExecinterval($execinterval)
+    public function setExecinterval($execinterval)
     {
         $this->execinterval = (int) $execinterval;
     }
@@ -244,6 +251,33 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     public function update()
     {
         return $this->dbcon->update($this->table, ['execinterval'], [$this->execinterval, $this->cronName], 'cjname = ?');
+    }
+
+    /**
+     * Check is cronjob is running
+     * @return boolean
+     */
+    public function isRunning()
+    {
+        return $this->fopt->read() == 1 ? true : false;
+    }
+
+    /**
+     * Set file option, that cronjob is running
+     * @return boolean
+     */
+    public function setRunning()
+    {
+        return $this->fopt->write(1);
+    }
+
+    /**
+     * Removes file option for running cronjon
+     * @return boolean
+     */
+    public function setFinished()
+    {
+        return $this->fopt->remove();
     }
 
     /**

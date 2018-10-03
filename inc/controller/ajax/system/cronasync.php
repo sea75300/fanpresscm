@@ -31,24 +31,25 @@ class cronasync extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-        $cjId = $this->getRequestVar('cjId');
-        if (!$cjId) {
+        $cronName = $this->getRequestVar('cjId');
+        if (!$cronName) {
             return true;
         }
 
-        $cjClassName = \fpcm\model\abstracts\cron::getCronNamespace($cjId);
-
-        /* @var $cronjob \fpcm\model\abstracts\cron */
-        $cronjob = new $cjClassName($cjId);
-
-        if (!is_a($cronjob, '\fpcm\model\abstracts\cron')) {
-            trigger_error("Cronjob class {$cjId} must be an instance of \"\fpcm\model\abstracts\cron\"!");
+        $cronName = \fpcm\model\abstracts\cron::getCronNamespace($cronName);
+        if (!class_exists($cronName)) {
+            trigger_error("Undefined cronjon {$cronName} called");
             return false;
         }
 
-        $cronjob->run();
-        $cronjob->updateLastExecTime();
-        return true;
+        /* @var $cron \fpcm\model\abstracts\cron */
+        $cron = new $cronName();
+        if (!($cron instanceof \fpcm\model\abstracts\cron)) {
+            trigger_error("Cronjob class {$cronName} must be an instance of \"\fpcm\model\abstracts\cron\"!");
+            return false;
+        }
+
+        return (new \fpcm\model\crons\cronlist())->registerCronAjax($cron);
     }
 
 }

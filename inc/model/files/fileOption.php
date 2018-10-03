@@ -30,7 +30,33 @@ class fileOption {
      */
     public function __construct($option)
     {
-        $this->path = \fpcm\classes\dirs::getDataDirPath( $this->getType(), \fpcm\classes\tools::getHash($option) . $this->getExt() );
+        $option = explode('/', $option, 2);
+        $hasSubdir = isset($option[1]) && count($option) === 2 ? true : false;
+
+        if ($hasSubdir) {
+            $subdir = $option[0].DIRECTORY_SEPARATOR;
+            $name = $option[1];
+        }
+        else {
+            $subdir = '';
+            $name = $option[0];
+        }
+
+        $this->path = \fpcm\classes\dirs::getDataDirPath( $this->getType(), $subdir.\fpcm\classes\tools::getHash($name) . $this->getExt() );
+        if (!$hasSubdir) {
+            return;
+        }
+
+        $parent = dirname($this->path);
+        if (is_dir($parent)) {
+            return;
+        }
+
+        if (mkdir($parent)) {
+            return;
+        }
+
+        trigger_error('Unable to create option parent "'.$parent.'" for option '. implode('/', $option));
     }
     
     /**
