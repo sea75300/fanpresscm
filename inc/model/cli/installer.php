@@ -53,6 +53,8 @@ final class installer extends \fpcm\model\abstracts\cli {
      */
     private function checkPreconditions()
     {
+        $this->output('Check preconditions...');
+        
         if (!\fpcm\classes\baseconfig::installerEnabled()) {
             $this->output('Installer is not enabled. Run fpcmcli.php config --enable installer to enable installer.', true);
         }
@@ -72,7 +74,7 @@ final class installer extends \fpcm\model\abstracts\cli {
      */
     private function loadConfig()
     {
-        $this->output(PHP_EOL . 'Load installer config file...' . PHP_EOL);
+        $this->output('Load installer config file...');
 
         $configFile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'installer.yml');
         if (!file_exists($configFile)) {
@@ -94,44 +96,38 @@ final class installer extends \fpcm\model\abstracts\cli {
      */
     private function runSystemCheck()
     {
-        $this->output(PHP_EOL . 'Executing system check...' . PHP_EOL);
+        $this->output('Executing system check...');
 
         $rows = $this->getCheckOptionsSystem();
 
         $checkFailed = false;
 
-        $lines = [];
+        $lines = [PHP_EOL];
         foreach ($rows as $descr => $data) {
 
             print '.';
-
-            $line = array(
-                '> ' . strip_tags($descr),
-                '   current value     : ' . (string) $data['current'],
-                '   recommended value : ' . (string) $data['recommend'],
-                '   result            : ' . ($data['result'] ? 'OK' : '!!'),
-                '   optional          : ' . ($data['optional'] ? 'yes' : 'no'),
-                isset($data['notice']) && trim($data['notice']) ? ' ' . $data['notice'] . PHP_EOL : ''
-            );
-
-            $lines[] = implode(PHP_EOL, $line);
+            $lines[] = $data->asString(strip_tags($descr));
 
             usleep(50000);
-            if ($data['optional'] || $data['result'])
+            if ($data->getOptional() || $data->getResult()) {
                 continue;
+            }
+
             $checkFailed = true;
         }
+        
+        print PHP_EOL . PHP_EOL;
 
-        $this->output(PHP_EOL . PHP_EOL . 'System check executed, results are:' . PHP_EOL);
+        $this->output('System check executed, results are:');
         usleep(250000);
 
         $this->output($lines);
 
         if ($checkFailed) {
-            $this->output(PHP_EOL . 'System check failed, FanPress CM cannot be installed.' . PHP_EOL, true);
+            $this->output('System check failed, FanPress CM cannot be installed.' . PHP_EOL, true);
         }
 
-        $this->input('Press any key to proceed...');
+        $this->input(PHP_EOL . 'Press any key to proceed...');
 
         return true;
     }
@@ -142,7 +138,7 @@ final class installer extends \fpcm\model\abstracts\cli {
      */
     private function initDatabase()
     {
-        $this->output(PHP_EOL . 'Init database connection...' . PHP_EOL);
+        $this->output('Init database connection...');
 
         $databaseInfo = array_combine(array_map('strtoupper', array_keys($this->conf['database'])), array_map('trim', array_values($this->conf['database'])));
         usleep(250000);
@@ -155,19 +151,20 @@ final class installer extends \fpcm\model\abstracts\cli {
         }
 
         if (!$db->checkDbVersion()) {
-            $this->output(PHP_EOL . 'Unsupported database system detected. Installed version is ' . $db->getDbVersion() . ', FanPress CM requires version ' . $db->getRecommendVersion() . PHP_EOL, true);
+            $this->output('Unsupported database system detected. Installed version is ' . $db->getDbVersion() . ', FanPress CM requires version ' . $db->getRecommendVersion() . PHP_EOL, true);
         }
 
         $db->createDbConfigFile($databaseInfo);
         usleep(250000);
 
-        $this->output(PHP_EOL . 'Init system encryption...' . PHP_EOL);
+        $this->output('Init system encryption...');
         usleep(250000);
 
         $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
         $crypt->initCrypt();
 
         usleep(250000);
+        $this->input(PHP_EOL . 'Press any key to proceed...');
 
         return true;
     }
@@ -178,13 +175,15 @@ final class installer extends \fpcm\model\abstracts\cli {
      */
     private function createTables()
     {
-        $this->output(PHP_EOL . 'Create tables...' . PHP_EOL);
+        \fpcm\classes\loader::getObject('\fpcm\classes\database', null, false);
+        
+        $this->output('Create tables...' . PHP_EOL);
         $files = \fpcm\classes\database::getTableFiles();
 
         foreach ($files as $file) {
 
             $tabName = substr(basename($file, '.yml'), 2);
-            $this->output(PHP_EOL . 'Create table ' . $tabName);
+            $this->output('Create table ' . $tabName);
             print '...';
             usleep(50000);
 
@@ -192,13 +191,15 @@ final class installer extends \fpcm\model\abstracts\cli {
             print '.';
             usleep(50000);
 
-            print '.';
-            if (!$res)
-                $this->output(PHP_EOL . 'Failed to create table table ' . $tabName . PHP_EOL, true);
+            print '.'.PHP_EOL;
+            if (!$res) {
+                $this->output('Failed to create table table ' . $tabName . PHP_EOL, true);
+            }
+
             usleep(50000);
         }
 
-        print PHP_EOL . PHP_EOL;
+        print PHP_EOL;
 
         return true;
     }
@@ -209,7 +210,7 @@ final class installer extends \fpcm\model\abstracts\cli {
      */
     private function initSystemConfig()
     {
-        $this->output(PHP_EOL . 'Initialize system configuration...' . PHP_EOL);
+        $this->output('Initialize system configuration...' . PHP_EOL);
         usleep(250000);
 
         $newconfig = [
@@ -232,10 +233,10 @@ final class installer extends \fpcm\model\abstracts\cli {
         usleep(250000);
 
         if (!$config->update()) {
-            $this->output(PHP_EOL . 'Error while updating system configuration ' . PHP_EOL, true);
+            $this->output('Error while updating system configuration ' . PHP_EOL, true);
         }
 
-        $this->output(PHP_EOL . 'System configuration updated successful' . PHP_EOL);
+        $this->output('System configuration updated successful' . PHP_EOL);
         usleep(250000);
 
         return true;
@@ -247,13 +248,12 @@ final class installer extends \fpcm\model\abstracts\cli {
      */
     private function createUserAccount()
     {
-        $this->output(PHP_EOL . 'Create first user as administrator...' . PHP_EOL);
+        $this->output('Create first user as administrator...' . PHP_EOL);
         usleep(250000);
 
-        $insecureUserNamens = json_decode(FPCM_INSECURE_USERNAMES, true);
-        if (in_array($this->conf['user']['username'], $insecureUserNamens)) {
+        if (in_array($this->conf['user']['username'], FPCM_INSECURE_USERNAMES)) {
             usleep(50000);
-            $this->output(PHP_EOL . 'The selected username should not be used due to security problems...' . PHP_EOL);
+            $this->output('The selected username should not be used due to security problems...' . PHP_EOL);
             if ($this->input('Do you want to proceed with the username? (y/n)') === 'n') {
                 $this->conf['user']['username'] = $this->input('Please enter a new username?');
                 return false;
@@ -272,10 +272,10 @@ final class installer extends \fpcm\model\abstracts\cli {
         usleep(250000);
 
         if ($res !== true) {
-            $this->output(PHP_EOL . 'Unable to create a user with the given data, return code was ' . $res . PHP_EOL, true);
+            $this->output('Unable to create a user with the given data, return code was ' . $res . PHP_EOL, true);
         }
 
-        $this->output(PHP_EOL . 'User created successfully...' . PHP_EOL);
+        $this->output('User created successfully...' . PHP_EOL);
     }
 
     /**
@@ -284,23 +284,17 @@ final class installer extends \fpcm\model\abstracts\cli {
      */
     private function cleanupSystem()
     {
-        $this->output(PHP_EOL . 'Cleanup system...' . PHP_EOL);
+        $this->output('Cleanup system...' . PHP_EOL);
 
-        $this->output(PHP_EOL . 'Disable installer...' . PHP_EOL);
+        $this->output('Disable installer...' . PHP_EOL);
         if (!\fpcm\classes\baseconfig::enableInstaller(false)) {
-            $this->output(PHP_EOL . 'Failed, Run fpcmcli.php config --disable installer to enable installer.' . PHP_EOL);
+            $this->output('Failed, Run fpcmcli.php config --disable installer to enable installer.' . PHP_EOL);
         }
         usleep(75000);
 
-        $this->output(PHP_EOL . 'Cleanup cache...' . PHP_EOL);
+        $this->output('Cleanup cache...' . PHP_EOL);
         $cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
         $cache->cleanup();
-        usleep(75000);
-
-        $this->output(PHP_EOL . 'Remove database table structure files...' . PHP_EOL);
-        if (!\fpcm\model\files\ops::deleteRecursive(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBSTRUCT))) {
-            $this->output(PHP_EOL . 'Failed, please delete folder ' . \fpcm\model\files\ops::removeBaseDir(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBSTRUCT)) . ' ...' . PHP_EOL);
-        }
         usleep(75000);
 
         return true;

@@ -40,7 +40,7 @@ final class syscheck extends \fpcm\model\abstracts\cli {
             usleep(50000);
         }
 
-        $this->output(PHP_EOL . PHP_EOL . 'System check successfully. Here yare the results:' . PHP_EOL);
+        $this->output(PHP_EOL . PHP_EOL . 'System check successfully. Here are the results:' . PHP_EOL);
         usleep(250000);
 
         $this->output($lines);
