@@ -840,7 +840,8 @@ class module {
      */
     public static function getKeyFromFilename($filename) : string
     {
-        return str_replace('_', '/', explode('_version', $filename, 2)[0]);
+        $key = explode('_version', $filename, 2)[0];
+        return implode('/', explode('_', $key, 1));
     }
 
     /**
