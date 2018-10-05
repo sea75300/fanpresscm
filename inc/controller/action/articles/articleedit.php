@@ -250,7 +250,7 @@ class articleedit extends articlebase {
             $this->initCommentPermissions();
             
             $this->view->addJsFiles(['comments.js']);
-            if ($this->permissionsArray['canEditComments']) {
+            if ($this->permissionsArray['canEditComments'] && $this->permissionsArray['canMassEdit']) {
                 $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden'));
             }
 
