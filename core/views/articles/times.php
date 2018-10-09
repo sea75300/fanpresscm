@@ -4,8 +4,8 @@
         <fieldset>
             <legend><?php $theView->write('GLOBAL_METADATA'); ?></legend>
 
-            <div class="row no-gutters">                
-                <div class="col-sm-12 col-md-6 fpcm-ui-font-small">
+            <div class="row no-gutters">
+                <div class="col-sm-12 <?php if (!$isRevision) : ?>col-md-6<?php endif; ?> fpcm-ui-font-small">
 
                     <div class="<?php if ($isRevision) : ?>row <?php endif; ?> fpcm-ui-editor-metabox-left">
 
@@ -28,12 +28,13 @@
                         <?php endif; ?>
                     </div>
 
-
                 </div>
 
-                <div class="col-sm-12 col-md-6 fpcm-ui-align-right">
+                <?php if ($isRevision) : ?><div class="row no-gutters"><?php endif; ?>
+                <div class="col-12 <?php if (!$isRevision) : ?>col-md-6<?php endif; ?> fpcm-ui-align-right">
                     <?php print implode(PHP_EOL, $article->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
                 </div>
+                <?php if ($isRevision) : ?></div><?php endif; ?>
             </div>
             
         </fieldset>

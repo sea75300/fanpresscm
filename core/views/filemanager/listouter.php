@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if($mode > 1) : ?><?php include_once $theView->getIncludePath('common/buttons.php'); ?><?php endif; ?>
-<div class="fpcm-ui-inner-wrapper">
+<div class="fpcm-ui-inner-wrapper fpcm-ui-full-height">
     <div class="fpcm-ui-tabs-general" id="fpcm-files-tabs">
         <ul>
             <li data-toolbar-buttons="1" id="tabs-files-list-reload"><a href="#tabs-files-list"><?php $theView->write('FILE_LIST_AVAILABLE'); ?></a></li>                

@@ -9,11 +9,8 @@
                 $createInfo = $createInfoOrg;
                 $changeInfo = $changeInfoOrg;
             ?>
-            <div class="col-sm-12 fpcm-ui-font-small">
+            <div class="col-sm-12 fpcm-ui-padding-none-lr">
                 <?php include $theView->getIncludePath('articles/times.php'); ?>
-            </div>
-            <div class="col-sm-12">
-                <?php print implode(PHP_EOL, $revisionArticle->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
             </div>
         </div>
     </div>
@@ -25,11 +22,8 @@
                 $createInfo = $createInfoRev;
                 $changeInfo = $changeInfoRev;
             ?>        
-            <div class="col-sm-12 fpcm-ui-font-small">
+            <div class="col-sm-12 fpcm-ui-padding-none-lr">
                 <?php include $theView->getIncludePath('articles/times.php'); ?>
-            </div>
-            <div class="col-sm-12">
-                <?php print implode(PHP_EOL, $article->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
             </div>
         </div>
     </div>
