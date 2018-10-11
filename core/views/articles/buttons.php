@@ -45,7 +45,7 @@
     <div class="row no-gutters fpcm-ui-padding-md-tb fpcm-editor-dialog-fullwidth-items">
         <div class="col-12 col-md-5 col-lg-3"><?php $theView->checkbox('article[tweet]')->setText('EDITOR_TWEET_ENABLED')->setSelected($article->tweetCreationEnabled())->setClass('fpcm-ui-full-width'); ?></div>
         <div class="col-12 col-md-3 col-lg-6"><?php $theView->textInput('article[tweettxt]')->setSize(512)->setText('EDITOR_TWEET_TEXT')->setPlaceholder(true); ?></div>
-        <div class="col-12 col-md-3 col-lg-3 fpcm-ui-center"><?php $theView->select('twitterReplacements')->setOptions($twitterReplacements); ?></div>
+        <div class="col-12 col-md-3 col-lg-3 fpcm-ui-center"><?php $theView->select('twitterReplacements')->setOptions($twitterReplacements)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?></div>
     </div>
 </fieldset>
 <?php endif; ?>
