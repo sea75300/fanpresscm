@@ -96,7 +96,7 @@ fpcm.dataview = {
             }
 
             var style       = 'fpcm-ui-padding-none-lr fpcm-ui-dataview-col ' + rowColumn.class + ' fpcm-ui-dataview-align-' + rowColumn.align
-                            + (isNotFound ? 'col col-12' : ' fpcm-ui-dataview-size-' + rowColumn.size + ' col col-12 col-lg-' + rowColumn.size)
+                            + (isNotFound ? ' col col-12' : ' fpcm-ui-dataview-size-' + rowColumn.size + ' col col-12 col-lg-' + rowColumn.size)
                             + ' fpcm-ui-dataview-type' + rowCol.type + ' align-self-center'
                             + (rowCol.class ? ' ' + rowCol.class : '');
 

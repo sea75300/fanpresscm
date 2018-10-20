@@ -53,6 +53,10 @@ div.fpcm-ui-dataview-align-justify {
     text-align: justify;
 }
 
+div.fpcm-ui-dataview-align-notfound {
+    text-align: left !important;
+}
+
 @media (min-width: 1024px) {
     div.fpcm-ui-dataview-size-05 {
         -ms-flex: 0 0 4.166666666%;
