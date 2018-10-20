@@ -16,7 +16,7 @@ namespace fpcm\components;
 final class components {
 
     /**
-     * 
+     * Return selected article editor object
      * @return editor\articleEditor
      */
     public static function getArticleEditor()
@@ -31,7 +31,7 @@ final class components {
     }
 
     /**
-     * 
+     * Returns lsit of available article editor objects
      * @return array
      */
     public static function getArticleEditors()
@@ -43,7 +43,7 @@ final class components {
     }
 
     /**
-     * 
+     * Return list of mass edit fields in view
      * @param array $masseditFields
      * @return boolean
      */
@@ -54,7 +54,7 @@ final class components {
     }
 
     /**
-     * 
+     * Returns auth provider object for login process
      * @return \fpcm\model\abstracts\authProvider
      */
     public static function getAuthProvider()
@@ -68,7 +68,7 @@ final class components {
     }
     
     /**
-     * 
+     * Returns captcha object in view and captcha-check
      * @return \fpcm\model\abstracts\spamCaptcha
      */
     public static function getChatptchaProvider()
@@ -82,7 +82,7 @@ final class components {
     }
 
     /**
-     * 
+     * Returns list of file manager view modes
      * @return array
      */
     public static function getFilemanagerViews()

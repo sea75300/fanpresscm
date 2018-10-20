@@ -391,7 +391,7 @@ class author extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Returns time of last change
      * @param int $changetime
      * @return $this
      */
@@ -402,7 +402,7 @@ class author extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Returns user of last change
      * @param int $changeuser
      * @return $this
      */

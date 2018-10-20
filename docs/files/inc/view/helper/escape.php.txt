@@ -36,11 +36,11 @@ final class escape {
      * @var string
      */
     protected $returned = false;
-
+    
     /**
      * Konstruktor
-     * @param string $name
-     * @param string $id
+     * @param mixed $value
+     * @param int $mode
      */
     final public function __construct($value, $mode = null)
     {
@@ -51,6 +51,7 @@ final class escape {
     /**
      * 
      * @return string
+     * @ignore
      */
     final public function __toString()
     {
@@ -59,8 +60,9 @@ final class escape {
     }
 
     /**
-     * 
+     * Destructor
      * @return void
+     * @ignore
      */
     final public function __destruct()
     {

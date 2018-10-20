@@ -105,6 +105,13 @@ final class commentform extends template {
         return true;
     }
 
+    /**
+     * Assigns template variables by object of type @see \fpcm\model\articles\article
+     * @param \fpcm\model\articles\article $article
+     * @param \fpcm\model\comments\comment $comment
+     * @param \fpcm\model\abstracts\spamCaptcha $captcha
+     * @return bool
+     */
     public function assignByObject(\fpcm\model\articles\article $article, \fpcm\model\comments\comment $comment, $captcha) : bool
     {
         if (!$captcha instanceof \fpcm\model\abstracts\spamCaptcha) {

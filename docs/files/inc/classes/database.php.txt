@@ -855,11 +855,12 @@ final class database {
     {
         return $this->driver->getRecommendVersion();
     }
-
+    
     /**
-     * Liefert Struktur-Infos für eine Bestimmte Tabelle und ggf. Spalte zurück
+     * Returns database structure for certain table and/or column
      * @param string $table
      * @param string $field
+     * @param string $cache
      * @return array
      * @since FPCM 3.3.2
      */
@@ -903,7 +904,7 @@ final class database {
     }
 
     /**
-     * 
+     * Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl 
      * @param \fpcm\model\system\yatdl $yatdl
      * @return boolean
      */
@@ -950,7 +951,7 @@ final class database {
     }
 
     /**
-     * 
+     * Removes columns to database table by definition in object of type @see \fpcm\model\system\yatdl 
      * @param \fpcm\model\system\yatdl $yatdl
      * @return boolean
      */

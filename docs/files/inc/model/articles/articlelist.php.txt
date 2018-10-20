@@ -599,11 +599,11 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * 
+     * Assigns search params from search object to where condition
      * @param \fpcm\model\articles\search $conditions
      * @param array $where
      * @param array $valueParams
-     * @return boolean
+     * @return bool
      */
     private function assignSearchParams(search $conditions, array &$where, array &$valueParams)
     {

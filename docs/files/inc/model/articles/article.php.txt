@@ -1028,7 +1028,7 @@ class article extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Returns approval status icon
      * @return \fpcm\view\helper\icon
      */
     public function getStatusIconApproval()

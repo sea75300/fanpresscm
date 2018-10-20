@@ -28,7 +28,7 @@ final class system extends \fpcm\model\abstracts\staticModel {
     const FORCE_UPDATE = 1001;
 
     /**
-     *
+     * File option object for repo data
      * @var \fpcm\model\files\fileOption
      */
     private $fileOption;

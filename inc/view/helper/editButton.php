@@ -29,10 +29,11 @@ final class editButton extends linkButton {
         $this->setText('GLOBAL_EDIT');
         $this->setIcon('edit');
     }
-
+    
     /**
      * Set URL by given object
      * @param \fpcm\model\abstracts\dataset $object
+     * @param string $paramsString
      * @return $this
      */
     final public function setUrlbyObject($object, $paramsString = '')

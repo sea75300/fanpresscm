@@ -28,7 +28,7 @@ final class tempfile extends \fpcm\model\abstracts\file {
     }
 
     /**
-     * 
+     * Returns file data base path
      * @param string $filename
      * @return string
      */

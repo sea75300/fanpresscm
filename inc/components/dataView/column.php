@@ -45,6 +45,12 @@ final class column implements \JsonSerializable {
      */
     protected $class    = '';
 
+    /**
+     * Konstruktor
+     * @param string $name
+     * @param string $descr
+     * @param string $class
+     */
     public function __construct($name, $descr, $class = '')
     {
         $this->name  = $name;
@@ -53,7 +59,7 @@ final class column implements \JsonSerializable {
     }
 
     /**
-     * 
+     * Returns column name
      * @return string
      */
     public function getName()
@@ -62,7 +68,7 @@ final class column implements \JsonSerializable {
     }
 
     /**
-     * 
+     * Returns column size
      * @return string
      */
     public function getSize()
@@ -71,7 +77,7 @@ final class column implements \JsonSerializable {
     }
 
     /**
-     * 
+     * Returns column Description
      * @return string
      */
     public function getDescr()
@@ -80,7 +86,7 @@ final class column implements \JsonSerializable {
     }
 
     /**
-     * 
+     * Returns column aligment
      * @return string
      */
     public function getAlign()
@@ -89,7 +95,7 @@ final class column implements \JsonSerializable {
     }
 
     /**
-     * 
+     * Set column name
      * @param string $name
      * @return $this
      */
@@ -100,7 +106,7 @@ final class column implements \JsonSerializable {
     }
 
     /**
-     * 
+     * Set column size
      * @param string $size
      * @return $this
      */
@@ -111,7 +117,7 @@ final class column implements \JsonSerializable {
     }
 
     /**
-     * 
+     * Set column description
      * @param string $descr
      * @return $this
      */
@@ -122,7 +128,7 @@ final class column implements \JsonSerializable {
     }
 
     /**
-     * 
+     * Set column alignment
      * @param string $align
      * @return $this
      */
@@ -135,6 +141,7 @@ final class column implements \JsonSerializable {
     /**
      * 
      * @return array
+     * @ignore
      */
     public function jsonSerialize()
     {

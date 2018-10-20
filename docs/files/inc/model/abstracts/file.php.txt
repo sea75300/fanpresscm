@@ -19,12 +19,6 @@ namespace fpcm\model\abstracts;
 abstract class file {
 
     /**
-     * Flag für $content-Parameter, um gespeicherten Inhalt zu laden
-     * @since FPCM 3.5
-     */
-    const FPCM_FILE_LOADCONTENT = '###fpcmLdStg###';
-
-    /**
      * Tabellen-Name
      * @var string
      */
@@ -121,12 +115,11 @@ abstract class file {
      * @since FPCM 3.4
      */
     protected $cacheModule = '';
-
+    
     /**
      * Konstruktor
-     * @param string $filename
-     * @param string $filepath
-     * @param string $content
+     * @param strong $filename
+     * @return boolean
      */
     public function __construct($filename = '')
     {

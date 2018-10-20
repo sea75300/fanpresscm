@@ -118,7 +118,7 @@ abstract class helper {
     }
         
     /**
-     * 
+     * @ignore
      * @return string
      */
     final public function __toString()
@@ -128,7 +128,7 @@ abstract class helper {
     }
 
     /**
-     * 
+     * @ignore
      * @return void
      */
     final public function __destruct()
@@ -141,7 +141,7 @@ abstract class helper {
     }
 
     /**
-     * 
+     * @ignore
      * @param string $name
      * @param string $arguments
      * @return $this

@@ -23,7 +23,7 @@ namespace fpcm\events\article;
 final class massEditBefore extends \fpcm\events\abstracts\eventReturnArray {
     
     /**
-     * 
+     * Esxecutes a certain event
      * @return array
      */
     public function run()

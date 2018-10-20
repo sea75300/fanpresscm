@@ -84,7 +84,7 @@ final class latestnews extends template {
     }
 
     /**
-     * 
+     * Assigns template variables by object of type @see \fpcm\model\articles\article
      * @param \fpcm\model\articles\article $article
      * @param \fpcm\model\users\author $author
      * @return boolean

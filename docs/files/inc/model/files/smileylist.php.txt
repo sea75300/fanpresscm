@@ -28,10 +28,11 @@ final class smileylist extends \fpcm\model\abstracts\filelist {
 
         parent::__construct();
     }
-
+    
     /**
      * Gibt Smiley-Liste in Datenbank zurück
-     * @return array
+     * @param type $cached
+     * @return array[]
      */
     public function getDatabaseList($cached = false)
     {

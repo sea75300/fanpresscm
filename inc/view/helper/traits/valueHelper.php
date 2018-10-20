@@ -41,7 +41,7 @@ trait valueHelper {
      * Return value string
      * @return string
      */
-    protected function getValueString($value = null)
+    protected function getValueString()
     {
         return "value=\"{$this->value}\"";
     }

@@ -17,7 +17,7 @@ namespace fpcm\model\dashboard;
 class userlist extends \fpcm\model\abstracts\dashcontainer {
 
     /**
-     * 
+     * Returns name
      * @return string
      */
     public function getName()
@@ -26,7 +26,7 @@ class userlist extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns content
      * @return string
      */
     public function getContent()
@@ -49,7 +49,7 @@ class userlist extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container position
      * @return int
      */
     public function getPosition()

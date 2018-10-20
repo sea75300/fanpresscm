@@ -37,13 +37,13 @@ final class rowCol implements \JsonSerializable {
     protected $class    = '';
 
     /**
-     * Column class
+     * Column type, rowCol::COLTYPE_VALUE or rowCol::COLTYPE_ELEMENT
      * @var int
      */
     protected $type     = 0;
 
     /**
-     * 
+     * Konstruktor
      * @param type $name
      * @param type $value
      * @param type $class
@@ -57,7 +57,7 @@ final class rowCol implements \JsonSerializable {
     }
 
     /**
-     * 
+     * @ignore
      * @return array
      */
     public function jsonSerialize()

@@ -63,11 +63,10 @@ final class sharebuttons extends template {
      * @var array
      */
     protected $stack = [];
-
+    
     /**
      * Konstruktor
-     * @param string $link Artikel-Link
-     * @param string $description Artikel-Beschreibung
+     * @param string $fileName
      */
     public function __construct($fileName = null)
     {
@@ -141,7 +140,7 @@ final class sharebuttons extends template {
     }
     
     /**
-     * 
+     * Assigns template data
      * @param string $link
      * @param string $description
      * @return bool
@@ -241,6 +240,11 @@ final class sharebuttons extends template {
         ]));
     }
 
+    /**
+     * Returns share button type mapping
+     * @param string $item
+     * @return array
+     */
     public static function getShareItemClass($item)
     {
         $prefix = 'fab';

@@ -54,9 +54,10 @@ final class row implements \JsonSerializable {
         $this->isNotFound   = (bool) $isNotFound;
     }
 
-        /**
+    /**
      * 
      * @return array
+     * @ignore
      */
     public function jsonSerialize()
     {

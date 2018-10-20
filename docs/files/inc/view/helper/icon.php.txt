@@ -19,6 +19,12 @@ class icon extends helper {
 
     use traits\iconHelper;
 
+    /**
+     * Konstruktor
+     * @param string $icon
+     * @param string $prefix
+     * @param bool $useFa
+     */
     public function __construct($icon, $prefix = 'fa', $useFa = true)
     {
         $this->setIcon($icon, $prefix, $useFa);

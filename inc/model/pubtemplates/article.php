@@ -17,7 +17,7 @@ namespace fpcm\model\pubtemplates;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 final class article extends template {
-    
+
     const TEMPLATE_ID = 'article';
 
     const TEMPLATE_ID_SINGLE = 'articleSingle';
@@ -138,7 +138,7 @@ final class article extends template {
     }
 
     /**
-     * 
+     * Assigns template variables by object of type @see \fpcm\model\articles\article
      * @param \fpcm\model\articles\article $article
      * @param array $users
      * @param array $categories

@@ -19,13 +19,13 @@ namespace fpcm\model\users;
 class userList extends \fpcm\model\abstracts\tablelist {
 
     /**
-     *
+     * User name cache
      * @var array
      */
     protected $userNameList = [];
 
     /**
-     *
+     * user e-mail cache
      * @var array
      */
     protected $userEmailList = [];

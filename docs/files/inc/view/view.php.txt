@@ -297,10 +297,11 @@ class view {
     {
         $this->jsvars = array_merge($this->jsvars, $jsvars);
     }
-
+    
     /**
      * Merge new JS vars
-     * @param mixed $jsvars
+     * @param string $jsVar
+     * @param array $jsvars
      */
     protected function mergeJsVars($jsVar, array $jsvars)
     {
@@ -496,8 +497,11 @@ class view {
     }
 
     /**
-     * Include header and footer into view
-     * @param int $showHeader, valid values are \fpcm\view\view::INCLUDE_HEADER_FULL, \fpcm\view\view::INCLUDE_HEADER_SIMPLE, \fpcm\view\view::INCLUDE_HEADER_NONE
+     * Include header and footer into view,
+     * @see \fpcm\view\view::INCLUDE_HEADER_FULL
+     * @see \fpcm\view\view::INCLUDE_HEADER_SIMPLE
+     * @see \fpcm\view\view::INCLUDE_HEADER_NONE
+     * @param int $showHeader
      */
     public function showHeaderFooter($showHeader)
     {
@@ -624,10 +628,11 @@ class view {
     {
         return $this->viewPath;
     }
-
+    
     /**
      * Sets view path
      * @param string $viewName
+     * @param string $module
      */
     public function setViewPath($viewName, $module = false)
     {
@@ -639,10 +644,11 @@ class view {
 
         $this->viewName = $viewName;
     }
-
+    
     /**
      * Return assigned view vars
-     * @return array
+     * @param string $var
+     * @return mixed
      */
     public function getViewVars($var = false)
     {
@@ -694,6 +700,8 @@ class view {
      * Set form action path
      * @param string $controller
      * @param array $params
+     * @param bool $isLink
+     * @return type
      */
     public function setFormAction($controller, array $params = [], $isLink = false)
     {
@@ -706,7 +714,7 @@ class view {
     }
 
     /**
-     * 
+     * Enables output of page token field
      * @param bool $showPageToken
      * @return $this
      */
@@ -720,6 +728,11 @@ class view {
      * Set form action path
      * @param string $controller
      * @param array $params
+     */
+    
+    /**
+     * Adds dataview object to view variables
+     * @param \fpcm\components\dataView\dataView $dataView
      */
     public function addDataView(\fpcm\components\dataView\dataView $dataView)
     {
@@ -747,11 +760,10 @@ class view {
         }
 
     }
-
+    
     /**
      * Add pager to view
-     * @param string $controller
-     * @param array $params
+     * @param \fpcm\view\helper\pager $pager
      */
     public function addPager(helper\pager $pager)
     {
@@ -761,7 +773,7 @@ class view {
     }
 
     /**
-     * TRieggert addJsFiles/addCssFiles events
+     * Triggers events addJsFiles/addCssFiles for given type
      * @param string $type
      */
     public function triggerFilesEvents($type = 'theme')

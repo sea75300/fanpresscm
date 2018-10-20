@@ -40,7 +40,7 @@ class htmlEditor extends articleEditor {
     }
 
     /**
-     * 
+     * Pfad der Kommentar-Editor-Template-Datei
      * @return string
      */
     public function getCommentEditorTemplate()

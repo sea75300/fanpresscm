@@ -38,10 +38,11 @@ final class dataView {
      * @var bool
      */
     protected $init     = '';
-
+    
     /**
      * Konstruktor
      * @param string $name
+     * @param bool $init
      */
     public function __construct($name, $init = true)
     {
@@ -50,7 +51,7 @@ final class dataView {
     }
     
     /**
-     * 
+     * Returns dataview columns
      * @return array
      */
     public function getColumns()
@@ -59,7 +60,7 @@ final class dataView {
     }
 
     /**
-     * 
+     * Returns dataview rowns
      * @return array
      */
     public function getRows()
@@ -68,7 +69,7 @@ final class dataView {
     }
 
     /**
-     * 
+     * Returns dataview name
      * @return string
      */
     public function getName()
@@ -77,7 +78,7 @@ final class dataView {
     }
 
     /**
-     * 
+     * Set dataview rowns
      * @param array $rows
      */
     public function setRows(array $rows)
@@ -86,7 +87,7 @@ final class dataView {
     }
 
     /**
-     * 
+     * Set dataview name
      * @param string $name
      */
     public function setName($name)
@@ -95,7 +96,7 @@ final class dataView {
     }
 
     /**
-     * 
+     * Add single dataview row
      * @param array $row
      */
     public function addRow(row $row)
@@ -104,7 +105,7 @@ final class dataView {
     }
 
     /**
-     * 
+     * Add dataview colunms
      * @param array $columns
      */
     public function addColumns(array $columns)
@@ -115,7 +116,7 @@ final class dataView {
     }
 
     /**
-     * 
+     * Add single dataview colunm
      * @param \fpcm\components\dataView\column $column
      */
     public function addColumn(column $column)
@@ -124,7 +125,7 @@ final class dataView {
     }
 
     /**
-     * 
+     * Get dataview JavaScript components
      * @return array
      */
     public function getJsFiles()
@@ -133,7 +134,7 @@ final class dataView {
     }
 
     /**
-     * 
+     * Get dataview JavaScript variables array
      * @return array
      */
     public function getJsVars()
@@ -155,7 +156,7 @@ final class dataView {
     }
 
     /**
-     * 
+     * Returns dataview JavaScript language variables
      * @return array
      */
     public function getJsLangVars()

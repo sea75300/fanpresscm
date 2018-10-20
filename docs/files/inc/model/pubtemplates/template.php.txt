@@ -59,7 +59,7 @@ class template extends \fpcm\model\abstracts\file {
     }
 
     /**
-     * 
+     * Returns styles base path
      * @param string $filename
      * @return string
      */
@@ -283,7 +283,7 @@ class template extends \fpcm\model\abstracts\file {
     }
 
     /**
-     * 
+     * Parses replacements for attributes
      * @return boolean
      * @ignore
      */

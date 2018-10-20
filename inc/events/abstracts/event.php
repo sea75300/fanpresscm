@@ -234,7 +234,7 @@ abstract class event {
     }
 
     /**
-     * Executed a certain events
+     * Esxecutes a certain event
      * @param array $data
      * @return array
      */

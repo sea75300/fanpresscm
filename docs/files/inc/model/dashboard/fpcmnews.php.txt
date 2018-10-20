@@ -18,7 +18,7 @@ namespace fpcm\model\dashboard;
 class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
 
     /**
-     * 
+     * Returns name
      * @return string
      */
     public function getName()
@@ -27,7 +27,7 @@ class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns content
      * @return string
      */
     public function getContent()
@@ -50,7 +50,7 @@ class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container position
      * @return int
      */
     public function getPosition()
@@ -59,7 +59,7 @@ class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container height
      * @return string
      */
     public function getHeight()

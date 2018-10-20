@@ -455,6 +455,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
 
     /**
      * Empty trash bin
+     * @param ARARY $ids Description
      * @return bool
      */
     public function retoreComments(array $ids)
