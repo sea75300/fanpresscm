@@ -30,14 +30,15 @@ namespace fpcm\module;
 class config implements \JsonSerializable {
 
     /**
-     *
+     * Module config data
      * @var bool
      */
     protected $data = [];
 
     /**
      * Konstruktor
-     * @param string $moduleKey
+     * @param string $moduleKey Module key string
+     * @param mixed $installed config data as array or JSOn string
      */
     public function __construct($moduleKey, $installed = null)
     {
@@ -55,6 +56,7 @@ class config implements \JsonSerializable {
      * 
      * @param string $name
      * @return mixed|null
+     * @ignore
      */
     public function __get($name)
     {
@@ -69,6 +71,7 @@ class config implements \JsonSerializable {
      * 
      * @param string $name
      * @param mixed $value
+     * @ignore
      */
     public function __set($name, $value)
     {
@@ -78,6 +81,7 @@ class config implements \JsonSerializable {
     /**
      * 
      * @return array
+     * @ignore
      */
     public function jsonSerialize()
     {

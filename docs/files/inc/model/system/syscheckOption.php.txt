@@ -1,0 +1,177 @@
+<?php
+
+/**
+ * Configuration object
+ * 
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\model\system;
+
+/**
+ * System config Objekt
+ * 
+ * @package fpcm\model\system
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ */
+final class syscheckOption {
+
+    /**
+     * Current value
+     * @var string
+     */
+    protected $current  = '';
+    
+    /**
+     * Help link
+     * @var string
+     */
+    protected $helplink = '';
+    
+    /**
+     * Check result
+     * @var bool
+     */
+    protected $result   = false;
+    
+    /**
+     * Option is not required
+     * @var bool
+     */
+    protected $optional = false;
+    
+    /**
+     * Option is checked folder
+     * @var bool
+     */
+    protected $isFolder = false;
+    
+    /**
+     * Option is checked folder
+     * @var \fpcm\view\helper\linkButton
+     */
+    protected $actionButton;
+    
+    /**
+     * Add Notice
+     * @var string
+     */
+    protected $notice       = '';
+
+    /**
+     * Konstruktor
+     * @param string $current
+     * @param string $helplink
+     * @param bool $result
+     * @param bool $optional
+     * @param bool $isFolder
+     */
+    public function __construct($current, $helplink, $result, $optional = false, $isFolder = false)
+    {
+        $this->current  = $current;
+        $this->helplink = $helplink;
+        $this->result   = (bool) $result;
+        $this->optional = (bool) $optional;
+        $this->isFolder = (bool) $isFolder;
+    }
+
+    /**
+     * Return button code
+     * @return string
+     */
+    public function getActionButton()
+    {
+        return $this->actionButton;
+    }
+
+    /**
+     * Set Action Button
+     * @param \fpcm\view\helper\linkButton $actionButton
+     */
+    public function setActionButton(\fpcm\view\helper\linkButton $actionButton)
+    {
+        $this->actionButton = $actionButton;
+    }
+
+    /**
+     * Returns notice
+     * @return string
+     */
+    public function getNotice()
+    {
+        return $this->notice;
+    }
+
+    /**
+     * Set notice
+     * @param string $notice
+     */
+    public function setNotice($notice)
+    {
+        $this->notice = $notice;
+    }
+        
+    /**
+     * 
+     * @return string
+     */
+    public function getCurrent()
+    {
+        return $this->current;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getHelplink()
+    {
+        return $this->helplink;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getOptional()
+    {
+        return $this->optional;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function isFolder()
+    {
+        return $this->isFolder;
+    }
+
+    /**
+     * Returns check string for cli
+     * @param string $descr
+     * @return string
+     */
+    public function asString($descr)
+    {
+        $line       = "> {$descr} : {$this->current}".($this->result ? '' : ' !!!');
+        if (!$this->notice) {
+            return $line;
+        }
+
+        return $line.PHP_EOL.$this->notice;
+    }
+
+}
+

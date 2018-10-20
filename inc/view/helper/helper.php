@@ -320,6 +320,7 @@ abstract class helper {
     /**
      * Optional init function
      * @return void
+     * @ignore
      */
     protected function init()
     {

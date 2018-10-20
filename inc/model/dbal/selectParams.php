@@ -60,7 +60,7 @@ class selectParams {
     private $fetchAll = false;
 
     /**
-     * 
+     * Returns database name(s)
      * @return string|array
      */
     public function getTable()
@@ -69,7 +69,7 @@ class selectParams {
     }
 
     /**
-     * 
+     * Returns items
      * @return string
      */
     public function getItem() : string
@@ -78,7 +78,7 @@ class selectParams {
     }
 
     /**
-     * 
+     * Returns where clause
      * @return string
      */
     public function getWhere() : string
@@ -87,7 +87,7 @@ class selectParams {
     }
 
     /**
-     * 
+     * Returns elect params
      * @return array
      */
     public function getParams() : array
@@ -96,7 +96,7 @@ class selectParams {
     }
 
     /**
-     * 
+     * return Distinct select mode
      * @return bool
      */
     public function getDistinct() : bool
@@ -105,7 +105,7 @@ class selectParams {
     }
 
     /**
-     * 
+     * Returns mode of result return
      * @return bool
      */
     public function getReturnResult() : bool
@@ -114,7 +114,7 @@ class selectParams {
     }
 
     /**
-     * 
+     * Returns fetch mode
      * @return bool
      */
     public function getFetchAll() : bool
@@ -123,7 +123,7 @@ class selectParams {
     }
 
     /**
-     * 
+     * Set database table name(s)
      * @param string|array $table
      * @return $this
      */
@@ -134,7 +134,7 @@ class selectParams {
     }
 
     /**
-     * 
+     * Set select items
      * @param string $item
      * @return $this
      */
@@ -145,7 +145,7 @@ class selectParams {
     }
 
     /**
-     * 
+     * Set Where clause
      * @param string $where
      * @return $this
      */
@@ -156,7 +156,7 @@ class selectParams {
     }
 
     /**
-     * 
+     * Set select data params for where clause
      * @param array $params
      * @return $this
      */
@@ -167,7 +167,7 @@ class selectParams {
     }
 
     /**
-     * 
+     * Set distinct select mode
      * @param bool $distinct
      * @return $this
      */
@@ -178,7 +178,7 @@ class selectParams {
     }
 
     /**
-     * 
+     * Set return of raw result
      * @param bool $returnResult
      * @return $this
      */
@@ -189,7 +189,7 @@ class selectParams {
     }
 
     /**
-     * 
+     * Set fetch mode to all or single mode
      * @param bool $fetchAll
      * @return $this
      */

@@ -248,7 +248,7 @@ final class database {
     }
 
     /**
-     * 
+     * Executes select and fetch in one function
      * @param \fpcm\model\dbal\selectParams $obj
      * @return \PDOStatement|array
      */

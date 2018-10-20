@@ -19,8 +19,9 @@ final class loader {
 
     /**
      * Globaler Generator für Objekte
-     * @param string $class
-     * @param mixed $params
+     * @param string $class Class name including namespace
+     * @param mixed $params Params for construct
+     * @param bool $cache Load object from globals cache
      * @return object
      */
     public static function getObject($class, $params = null, $cache = true)
@@ -40,7 +41,7 @@ final class loader {
     }
 
     /**
-     * 
+     * Returns library file path
      * @param string $libPath
      * @param boolean $exists
      * @return string
@@ -60,7 +61,7 @@ final class loader {
     }
 
     /**
-     * 
+     * Returns library file URL
      * @param string $libPath
      * @return string
      */
@@ -70,7 +71,7 @@ final class loader {
     }
 
     /**
-     * 
+     * Push data to globals stack cache
      * @param string $name
      * @param mixed $value
      * @param bool $force
@@ -87,7 +88,7 @@ final class loader {
     }
 
     /**
-     * 
+     * Pull data to globals stack cache
      * @param string $name
      * @return mixed
      */

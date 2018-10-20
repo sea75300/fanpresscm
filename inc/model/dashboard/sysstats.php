@@ -24,13 +24,13 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     protected $tableContent = [];
 
     /**
-     *
+     * Coutn of deleted items
      * @var int
      */
     protected $deletedCount = 0;
 
     /**
-     * 
+     * Returns name
      * @return string
      */
     public function getName()
@@ -39,7 +39,7 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns content
      * @return string
      */
     public function getContent()
@@ -59,7 +59,7 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container position
      * @return int
      */
     public function getPosition()
@@ -68,7 +68,7 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container height
      * @return string
      */
     public function getHeight()

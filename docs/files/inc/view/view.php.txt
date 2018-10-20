@@ -1,0 +1,834 @@
+<?php
+
+/**
+ * FanPress CM 4
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\view;
+
+/**
+ * Default view object
+ * 
+ * @package fpcm\view
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+class view {
+
+    const INCLUDE_HEADER_FULL = 0b00001;
+    const INCLUDE_HEADER_SIMPLE = 0b00010;
+    const INCLUDE_HEADER_NONE = 0b00100;
+
+    const ROOTURL_CORE_JS = '{$coreJs}';
+    const ROOTURL_CORE_THEME = '{$coreTheme}';
+    const ROOTURL_LIB = '{$lib}';
+
+    /**
+     * Complete view path
+     * @var string
+     */
+    protected $viewPath = '';
+
+    /**
+     * View file name
+     * @var string
+     */
+    protected $viewName = '';
+
+    /**
+     * Form action path
+     * @var string
+     */
+    protected $formAction = '';
+
+    /**
+     * Include header and footer in view::render
+     * @var int
+     */
+    protected $showHeader;
+
+    /**
+     * View vars
+     * @var array
+     */
+    protected $viewVars = [];
+
+    /**
+     * View JS files
+     * @var array
+     */
+    protected $viewJsFiles = [];
+
+    /**
+     * View CSS files
+     * @var array
+     */
+    protected $viewCssFiles = [];
+
+    /**
+     * View messages
+     * @var array
+     */
+    protected $messages = [];
+
+    /**
+     * View JS vars
+     * @var array
+     */
+    protected $jsvars = [];
+
+    /**
+     * View JS language vars
+     * @var array
+     */
+    protected $jsLangVars = [];
+
+    /**
+     * Toolbar buttons
+     * @var array
+     */
+    protected $buttons = [];
+
+    /**
+     * Notifications
+     * @var \fpcm\model\theme\notifications
+     */
+    protected $notifications;
+
+    /**
+     * Default vars object
+     * @var viewVars
+     */
+    protected $defaultViewVars;
+
+    /**
+     * Cache object
+     * @var \fpcm\classes\cache
+     */
+    protected $cache;
+
+    /**
+     * Session object
+     * @var \fpcm\model\system\session
+     */
+    protected $session;
+
+    /**
+     * Config
+     * @var \fpcm\model\system\config
+     */
+    protected $config;
+
+    /**
+     * Events
+     * @var \fpcm\events\events
+     */
+    protected $events;
+
+    /**
+     * Config
+     * @var \fpcm\classes\language
+     */
+    protected $language;
+
+    /**
+     * View was already rendered
+     * @var bool
+     */
+    protected $rendered;
+
+    /**
+     * View was already rendered
+     * @var bool
+     */
+    protected $showPageToken = true;
+    
+    /**
+     * Konstruktor
+     * @param string $viewName Viewname ohne Endung .php
+     * @param string $module Modulke-Key
+     */
+    public function __construct($viewName = '', $module = false)
+    {
+        $this->setViewPath($viewName, $module);
+
+        $this->showHeader = self::INCLUDE_HEADER_FULL;
+        
+        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+        $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
+
+        if (\fpcm\classes\baseconfig::dbConfigExists()) {
+            $this->session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+            $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+            $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+        }
+
+        $this->defaultViewVars = new viewVars();
+        $this->initFileLib();
+    }
+
+    /**
+     * Inits file library
+     * @return boolean
+     */
+    protected function initFileLib()
+    {
+        if ($this->showHeader === self::INCLUDE_HEADER_NONE) {
+            return true;
+        }
+
+        $this->initCssFiles();
+        $this->initJsFiles();
+
+        if (!is_object($this->language)) {
+            return true;
+        }
+
+        $this->addJsLangVars([
+            'GLOBAL_CONFIRM', 'GLOBAL_CLOSE', 'GLOBAL_OK', 'GLOBAL_YES', 'GLOBAL_NO', 'GLOBAL_SAVE', 'GLOBAL_CLOSE',
+            'GLOBAL_OPENNEWWIN', 'GLOBAL_EXTENDED', 'GLOBAL_EDIT_SELECTED', 'GLOBAL_NOTFOUND', 'SAVE_FAILED_ARTICLES',
+            'AJAX_REQUEST_ERROR', 'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK', 'SELECT_ITEMS_MSG',
+            'HL_HELP'
+        ]);
+
+        $this->jsLangVars['calendar']['days'] = $this->language->getDays();
+        $this->jsLangVars['calendar']['daysShort'] = $this->language->getDaysShort();
+        $this->jsLangVars['calendar']['months'] = array_values($this->language->getMonths());
+    }
+
+    /**
+     * Checks item if included system paths
+     * @param string $item
+     * @since FPCM 3.6
+     */
+    private function addRootPath($item)
+    {
+        if (!trim($item) || substr($item, 0, 4) === 'http') {
+            return $item;
+        }
+        
+        $item = str_replace('//', '/', $item);
+        if (substr($item, 0, 2) !== '{$' && substr($item, -3) === '.js') {
+            $item = self::ROOTURL_CORE_JS.$item;
+        }
+        
+        $cacheName  = 'system/rootpaths'.\fpcm\classes\baseconfig::canHttps();
+        $checks     =  $this->cache->read($cacheName);
+        
+        if ($this->cache->isExpired($cacheName) || !is_array($checks)) {
+            $checks = [];
+        }
+
+        $hash = \fpcm\classes\tools::getHash($item);
+        if (isset($checks[$hash])) {
+            return $checks[$hash];
+        }
+
+        $replace = [
+            self::ROOTURL_LIB => \fpcm\classes\dirs::getLibUrl(''),
+            self::ROOTURL_CORE_JS => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_JS, ''),
+            self::ROOTURL_CORE_THEME => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, ''),
+        ];
+
+        $checks[$hash] = str_replace(array_keys($replace), array_values($replace), $item);
+        $this->cache->write($cacheName, $checks);
+
+        return $checks[$hash];
+    }
+
+    /**
+     * Initializes notifications
+     * @return boolean
+     */
+    protected function prepareNotifications()
+    {
+        if (!\fpcm\classes\baseconfig::dbConfigExists()) {
+            return false;
+        }
+        
+        if ($this->config->system_maintenance) {
+            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
+                (new helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE')->setClass('fpcm-ui-important-text')
+            ));
+        }
+
+        if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
+            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
+                (new helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS')->setClass('fpcm-ui-important-text')
+            ));
+        }
+        
+        if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
+            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
+                (new helper\icon('terminal'))->setText('DEBUG_MODE')->setClass('fpcm-ui-important-text')
+            ));
+        }
+
+        $this->defaultViewVars->notificationString = $this->notifications->getNotificationsString();
+        return true;
+    }
+
+    /**
+     * Add JavScript files to view
+     * @param array $viewJsFiles
+     */
+    public function addJsFiles(array $viewJsFiles)
+    {
+        $this->viewJsFiles = array_merge($this->viewJsFiles, array_map([$this, 'addRootPath'], $viewJsFiles));
+    }
+
+    /**
+     * Add CSS files variable to view
+     * @param array $viewCssFiles
+     */
+    public function addCssFiles(array $viewCssFiles)
+    {
+        $this->viewCssFiles = array_merge($this->viewCssFiles, array_map([$this, 'addRootPath'], $viewCssFiles));
+    }
+
+    /**
+     * Add new JS vars
+     * @param mixed $jsvars
+     */
+    public function addJsVars(array $jsvars)
+    {
+        $this->jsvars = array_merge($this->jsvars, $jsvars);
+    }
+
+    /**
+     * Merge new JS vars
+     * @param mixed $jsvars
+     */
+    protected function mergeJsVars($jsVar, array $jsvars)
+    {
+        $this->jsvars[$jsVar] = array_merge($this->jsvars[$jsVar], $jsvars[$jsVar]);
+    }
+
+    /**
+     * Overrides CSS files variable to view
+     * @param array $viewCssFiles
+     */
+    public function overrideCssFiles(array $viewCssFiles)
+    {
+        $this->viewCssFiles = array_map([$this, 'addRootPath'], $viewCssFiles);
+    }
+
+    /**
+     * Overrides new JS vars
+     * @param mixed $viewJsFiles
+     */
+    public function overrideJsFiles(array $viewJsFiles)
+    {
+        $this->viewJsFiles = array_map([$this, 'addRootPath'], $viewJsFiles);
+    }
+    
+    /**
+     * Overrides new JS language vars
+     * @param array $jsvars
+     */
+    public function overrideJsLangVars(array $jsvars)
+    {
+        $keys = array_values($jsvars);
+        $values = array_map([$this->language, 'translate'], array_values($jsvars));
+
+        $this->jsLangVars = array_combine($keys, $values);
+    }
+
+    /**
+     * Add new JS language vars
+     * @param mixed $jsvars
+     */
+    public function addJsLangVars(array $jsvars)
+    {
+        $keys = array_values($jsvars);
+        $values = array_map([$this->language, 'translate'], array_values($jsvars));
+
+        $this->jsLangVars = array_merge($this->jsLangVars, array_combine($keys, $values));
+    }
+
+    /**
+     * Add array of buttons to toolbar
+     * @param array[fpcm/view/helper/helper] $buttons
+     */
+    public function addButtons(array $buttons)
+    {
+        foreach ($buttons as $button) {
+            $this->addButton($button);
+        }
+    }
+
+    /**
+     * Add button to toolbar
+     * @param \fpcm\view\helper\button $button
+     * @param type $pos
+     * @return void
+     */
+    public function addButton($button, $pos = false)
+    {
+        if (!$button instanceof helper\helper) {
+            trigger_error('Invalid parameter, $button must be an instance of /fpcm/view/helper.');
+            return;
+        }
+
+        if ($pos) {
+            $this->buttons[$pos] = $button;
+            ksort($this->buttons);
+            return;
+        }
+
+        $this->buttons[] = $button;
+    }
+
+    /**
+     * Force to load jQuery in Pub-Controllers before other JS-Files if not already done
+     * @since FPCM 3.2.0
+     */
+    public function prependjQuery()
+    {
+        if ($this->config->system_loader_jquery) {
+            return false;
+        }
+
+        array_unshift($this->viewJsFiles, \fpcm\classes\loader::libGetFileUrl('jquery/jquery-3.3.1.min.js'));
+    }
+
+    /**
+     * Assign new variable to view
+     * @param string $varName
+     * @param mixes $varValue
+     */
+    public function assign($varName, $varValue)
+    {
+        $this->viewVars[$varName] = $varValue;
+    }
+
+    /**
+     * Add red error message
+     * @param string $messageText
+     * @param string $params
+     * @return void
+     */
+    public function addErrorMessage($messageText, $params = [])
+    {
+        $msg = $this->language->translate($messageText, $params);
+        if (!$msg) {
+            $msg = $messageText;
+        }
+
+        $type = 'error';
+
+        $this->messages[] = array(
+            'txt' => $msg,
+            'type' => $type,
+            'id' => md5($type . $msg),
+            'icon' => 'exclamation-triangle'
+        );
+    }
+
+    /**
+     * Add blue notification message
+     * @param string $messageText
+     * @param string $params
+     * @return void
+     */
+    public function addNoticeMessage($messageText, $params = [])
+    {
+        $msg = $this->language->translate($messageText, $params);
+        if (!$msg) {
+            $msg = $messageText;
+        }
+
+        $type = 'notice';
+
+        $this->messages[] = array(
+            'txt' => $msg,
+            'type' => $type,
+            'id' => md5($type . $msg),
+            'icon' => 'check'
+        );
+    }
+
+    /**
+     * Add yellow message
+     * @param string $messageText
+     * @param string $params
+     * @return void
+     */
+    public function addMessage($messageText, $params = [])
+    {
+        $msg = $this->language->translate($messageText, $params);
+        if (!$msg) {
+            $msg = $messageText;
+        }
+
+        $type = 'neutral';
+
+        $this->messages[] = array(
+            'txt' => $msg,
+            'type' => $type,
+            'id' => md5($type . $msg),
+            'icon' => 'info-circle'
+        );
+    }
+
+    /**
+     * Set help link data
+     * @param string $entry
+     * @param int $chapter
+     * @return bool
+     */
+    public function setHelpLink(string $entry, int $chapter = 0) : bool
+    {
+        if (!trim($entry)) {
+            return false;
+        }
+
+        $this->defaultViewVars->helpLink = [
+            'ref' => urlencode(base64_encode(strtoupper($entry))),
+            'chapter' => $chapter
+        ];
+
+        $this->addJsLangVars(['HL_HELP']);
+        return true;
+    }
+
+    /**
+     * Include header and footer into view
+     * @param int $showHeader, valid values are \fpcm\view\view::INCLUDE_HEADER_FULL, \fpcm\view\view::INCLUDE_HEADER_SIMPLE, \fpcm\view\view::INCLUDE_HEADER_NONE
+     */
+    public function showHeaderFooter($showHeader)
+    {
+        $this->showHeader = $showHeader;
+    }
+
+    /**
+     * Renders a set up view
+     * @return bool
+     */
+    public function render()
+    {
+        if (!file_exists($this->viewPath)) {
+            trigger_error("View file {$this->viewName} not found!");
+            exit("View file {$this->viewName} not found!");
+        }
+
+        $this->initAssigns();
+
+        foreach ($this->events->trigger('view\renderBefore', $this->viewVars) as $key => $value) {
+            $$key = $value;
+        }
+
+        switch ($this->showHeader) {
+            case self::INCLUDE_HEADER_FULL :
+                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/header.php');
+                break;
+            case self::INCLUDE_HEADER_SIMPLE :
+                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/headersimple.php');
+                break;
+        }
+
+        include_once $this->viewPath;
+
+        switch ($this->showHeader) {
+            case self::INCLUDE_HEADER_FULL :
+                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/footer.php');
+                break;
+            case self::INCLUDE_HEADER_SIMPLE :
+                include_once \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'common/footersimple.php');
+                break;
+        }
+
+        $this->events->trigger('view\renderAfter');
+        $this->rendered = true;
+
+        return true;
+    }
+
+    /**
+     * Initializes basic view vars
+     * @return boolean
+     */
+    protected function initAssigns()
+    {
+        $this->defaultViewVars->loggedIn = false;
+        
+        $hasDbConfig = \fpcm\classes\baseconfig::dbConfigExists();
+
+        if ($hasDbConfig && $this->session->exists()) {
+            $this->addJsLangVars(['SESSION_TIMEOUT']);
+            $this->addJsVars(['sessionCheck' => true]);
+
+            $this->defaultViewVars->currentUser = $this->session->getCurrentUser();
+            $this->defaultViewVars->loginTime = $this->session->getLogin();
+            $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation())->render();
+            $this->defaultViewVars->navigationActiveModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
+            $this->defaultViewVars->loggedIn = true;
+        }
+
+        if ($hasDbConfig) {
+            $this->defaultViewVars->version = $this->config->system_version;
+            $this->defaultViewVars->dateTimeMask = $this->config->system_dtmask;
+            $this->defaultViewVars->dateTimeZone = $this->config->system_timezone;
+            $this->defaultViewVars->frontEndLink = $this->config->system_url;            
+        }
+        else {
+            $this->defaultViewVars->version = \fpcm\classes\baseconfig::getVersionFromFile();
+            $this->defaultViewVars->dateTimeMask = 'd.m.Y H:i';
+            $this->defaultViewVars->dateTimeZone = 'Europe/Berlin';
+        }
+
+        $this->defaultViewVars->langCode = $this->language->getLangCode();
+        $this->defaultViewVars->self = strip_tags(trim($_SERVER['PHP_SELF']));
+        $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
+        $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
+        $this->defaultViewVars->currentModule = \fpcm\classes\http::get('module');
+        $this->defaultViewVars->buttons = $this->buttons;
+        $this->defaultViewVars->formActionTarget = $this->formAction;
+
+        $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
+        $this->defaultViewVars->filesCss = array_unique($this->viewCssFiles);
+        $this->defaultViewVars->filesJs = array_unique($this->viewJsFiles);
+
+        $this->defaultViewVars->fullWrapper = in_array($this->defaultViewVars->currentModule, ['installer']);
+        $this->defaultViewVars->showPageToken = $this->showPageToken;
+
+        $this->jsvars['currentModule'] = $this->defaultViewVars->currentModule;
+
+        $this->defaultViewVars->varsJs = [
+            'vars' => [
+                'ui' => [
+                    'messages' => $this->messages,
+                    'lang' => $this->jsLangVars,
+                ],
+                'jsvars' => $this->jsvars,
+                'actionPath' => \fpcm\classes\tools::getFullControllerLink(''),
+                'ajaxActionPath' => \fpcm\classes\tools::getFullControllerLink('ajax/'),
+            ]
+        ];
+
+        $this->prepareNotifications();
+
+        /* @var $theView viewVars */
+        $this->assign('theView', $this->defaultViewVars);
+        return true;
+    }
+
+    /**
+     * Returns view path
+     * @return string
+     */
+    public function getViewPath()
+    {
+        return $this->viewPath;
+    }
+
+    /**
+     * Sets view path
+     * @param string $viewName
+     */
+    public function setViewPath($viewName, $module = false)
+    {
+        $viewName .= '.php';
+
+        $this->viewPath = $module
+                        ? \fpcm\module\module::getTemplateDirByKey($module, $viewName)
+                        : \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
+
+        $this->viewName = $viewName;
+    }
+
+    /**
+     * Return assigned view vars
+     * @return array
+     */
+    public function getViewVars($var = false)
+    {
+        return $var ? $this->viewVars[$var] : $this->viewVars;
+    }
+
+    /**
+     * Overrides assigned view vars
+     * @param array $viewVars
+     */
+    public function setViewVars(array $viewVars)
+    {
+        $this->viewVars = $viewVars;
+    }
+
+    /**
+     * Auto focus element
+     * @param string $elementId
+     */
+    public function setFieldAutofocus($elementId)
+    {
+        $this->jsvars['fieldAutoFocus'] = (string) $elementId;
+    }
+
+    /**
+     * Set active navigation item
+     * @param string $elementId
+     * @return boolean
+     */
+    public function setActiveNavigationElement($elementId)
+    {
+        if (!trim($elementId)) {
+            return false;
+        }
+
+        $this->jsvars['navigationActive'] = (string) $elementId;
+    }
+
+    /**
+     * Check if view was already rendered
+     * @return bool
+     */
+    public function wasRendered()
+    {
+        return $this->rendered;
+    }
+
+    /**
+     * Set form action path
+     * @param string $controller
+     * @param array $params
+     */
+    public function setFormAction($controller, array $params = [], $isLink = false)
+    {
+        if ($isLink) {
+            $this->formAction = $controller . (count($params) ? '&' . http_build_query($params) : '');
+            return;
+        }
+
+        $this->formAction = \fpcm\classes\tools::getFullControllerLink($controller, $params);
+    }
+
+    /**
+     * 
+     * @param bool $showPageToken
+     * @return $this
+     */
+    public function showPageToken($showPageToken)
+    {
+        $this->showPageToken = (bool) $showPageToken;
+        return $this;
+    }
+        
+    /**
+     * Set form action path
+     * @param string $controller
+     * @param array $params
+     */
+    public function addDataView(\fpcm\components\dataView\dataView $dataView)
+    {
+        $this->assign('dataViewId', $dataView->getName());
+
+        $vars = $dataView->getJsVars();
+        
+        if (count($vars)) {
+            if (isset($this->jsvars['dataviews'])) {
+                $this->mergeJsVars('dataviews', $vars);
+            }
+            else {
+                $this->addJsVars($vars);
+            }
+        }
+
+        $files = $dataView->getJsFiles();
+        if (count($files)) {
+            $this->addJsFiles($files);
+        }
+
+        $langVars = $dataView->getJsLangVars();
+        if (count($langVars)) {
+            $this->addJsLangVars($langVars);
+        }
+
+    }
+
+    /**
+     * Add pager to view
+     * @param string $controller
+     * @param array $params
+     */
+    public function addPager(helper\pager $pager)
+    {
+        $this->defaultViewVars->pager = $pager;
+        $this->addJsVars(['pager' => $pager->getJsVars()]);
+        $this->addJsLangVars($pager->getJsLangVars());
+    }
+
+    /**
+     * TRieggert addJsFiles/addCssFiles events
+     * @param string $type
+     */
+    public function triggerFilesEvents($type = 'theme')
+    {
+        if (!$type) {
+            return false;
+        }
+        
+        $this->viewJsFiles = $this->events->trigger($type.'\addJsFiles', $this->viewJsFiles);
+        $this->viewCssFiles = $this->events->trigger($type.'\addCssFiles', $this->viewCssFiles);    
+
+        return true;
+    }
+
+    /**
+     * Initialize default CSS files
+     * @return array
+     */
+    private function initCssFiles()
+    {
+        $this->addCssFiles([
+            self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.css',
+            self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.css',
+            self::ROOTURL_LIB.'font-awesome/css/fontawesome-all.min.css',
+            self::ROOTURL_LIB.'bootstrap/bootstrap-grid.min.css',
+            self::ROOTURL_CORE_THEME.'style.php'
+        ]);
+
+        return $this->viewCssFiles;
+    }
+
+    /**
+     * Gibt JS library zurück
+     * @return array
+     */
+    
+    /**
+     * Initialize default JavaScript files
+     * @return array
+     */
+    private function initJsFiles()
+    {
+        $this->addJsFiles([
+            self::ROOTURL_LIB.'jquery/jquery-3.3.1.min.js',
+            self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.js',
+            self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
+            self::ROOTURL_CORE_JS.'script.php'
+        ]);
+
+        return $this->viewJsFiles;
+    }
+
+    /**
+     * Checks User Agent for a certain browser
+     * @param string $key
+     * @return boolean
+     * @static
+     */
+    public static function isBrowser($key)
+    {
+        if (!isset($_SERVER['HTTP_USER_AGENT'])) {
+            return true;
+        }
+
+        return preg_match("/($key)/is", $_SERVER['HTTP_USER_AGENT']) === 1 ? true : false;
+    }
+
+}
+
+?>

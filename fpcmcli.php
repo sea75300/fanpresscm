@@ -4,6 +4,7 @@
  * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
+
 require_once __DIR__ . '/inc/common.php';
 
 /**

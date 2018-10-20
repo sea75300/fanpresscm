@@ -171,7 +171,7 @@ final class tools {
     }
 
     /**
-     * 
+     * Create Hash of $data with @see security::defaultHashAlgo
      * @param string $data
      * @return string
      */

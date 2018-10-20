@@ -17,6 +17,10 @@ namespace fpcm\model\ips;
  */
 class iplist extends \fpcm\model\abstracts\tablelist {
 
+    /**
+     * IP-locks check cache
+     * @var array
+     */
     protected $lockCache = [];
 
     /**

@@ -16,13 +16,13 @@ namespace fpcm\model\updater;
 final class modules extends \fpcm\model\abstracts\staticModel {
 
     /**
-     *
+     * Data cache
      * @var array
      */
     private $list = [];
 
     /**
-     *
+     * File option object for repo data
      * @var \fpcm\model\files\fileOption
      */
     private $fileOption;
@@ -38,7 +38,7 @@ final class modules extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * 
+     * Returns module repo data
      * @return array
      */
     public function getData()
@@ -48,7 +48,7 @@ final class modules extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * 
+     * Returns module repo data by key
      * @param string $key
      * @return array
      */

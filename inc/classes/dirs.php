@@ -35,6 +35,9 @@ final class dirs {
     const CORE_THEME = 'theme';
     const CORE_VIEWS = 'views';
 
+    /**
+     * @ignore
+     */
     public static function init()
     {
         self::initDirs();
@@ -130,7 +133,6 @@ final class dirs {
 
     /**
      * Komplette URL ausgehend vom root-Ebene ermitteln
-     * @param string $type
      * @param string $path
      * @return string
      */

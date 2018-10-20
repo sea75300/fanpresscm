@@ -225,7 +225,7 @@ abstract class event {
     }
 
     /**
-     * Liefert
+     * Returns event base class data
      * @return string
      */
     protected function getEventClassBase()

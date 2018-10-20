@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\module;
+
+/**
+ * Module base model
+ * 
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @package fpcm\module
+ */
+class repoModule extends module {
+
+    /**
+     * Initialize object with database data
+     * @param object $result
+     * @return boolean
+     */
+    public function createFromRepoArray(array $result) : bool
+    {
+        $this->id = isset($result->id) ? $result['id'] : false;
+        $this->config = new config($this->mkey, $result);
+
+        return true;
+    }
+
+    /**
+     * Initialize repo module
+     * @return boolean
+     */
+    public function init() : bool
+    {
+        return true;
+    }
+
+}
+

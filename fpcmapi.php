@@ -4,6 +4,7 @@
  * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
+
 require_once __DIR__ . '/inc/controller/main.php';
 require_once __DIR__ . '/inc/common.php';
 
@@ -54,6 +55,7 @@ class fpcmAPI {
 
     /**
      * Artikel anzeigen
+     * @param array $params params @see \fpcm\controller\action\pub\showcommon
      * @return boolean
      */
     public function showArticles(array $params = [])
@@ -99,7 +101,7 @@ class fpcmAPI {
     /**
      * 
      * Latest News anzeigen
-     * @param array $params
+     * @param array $params params @see \fpcm\controller\action\pub\showlatest
      * @return boolean
      */
     public function showLatestNews(array $params = [])
@@ -129,6 +131,7 @@ class fpcmAPI {
     /**
      * aktuelle Seitennummer anzeigen
      * @param string $divider
+     * @param bool $isUtf8
      */
     public function showPageNumber($divider = "&bull; Page", $isUtf8 = true)
     {
@@ -142,6 +145,7 @@ class fpcmAPI {
     /**
      * Title des aktuellen Artikels anzeigen
      * @param string $divider
+     * @param bool $isUtf8
      */
     public function showTitle($divider = "&bull;", $isUtf8 = true)
     {

@@ -46,6 +46,7 @@ final class cache {
 
     /**
      * Ist Cache-Inhalt veraltet
+     * @param string $cacheName Cache-Name
      * @return bool
      */
     public function isExpired($cacheName)
@@ -60,8 +61,10 @@ final class cache {
 
     /**
      * Cache-Inhalt schreiben
+     * @param string $cacheName Cache-Name
      * @param mixed $data
      * @param int $expires
+     * @return bool
      */
     public function write($cacheName, $data, $expires = 0)
     {
@@ -75,7 +78,9 @@ final class cache {
 
     /**
      * Cache-Inhalt lesen
+     * @param string $cacheName Cache-Name
      * @return string
+     * @return mixed
      */
     public function read($cacheName)
     {
@@ -91,6 +96,7 @@ final class cache {
 
     /**
      * Cache-Inhalt lesen
+     * @param string $cacheName Cache-Name
      * @return string
      */
     public function getExpirationTime($cacheName)

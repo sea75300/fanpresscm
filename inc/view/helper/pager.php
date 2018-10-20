@@ -67,6 +67,7 @@ class pager extends helper {
 
     /**
      * Konstruktor
+     * @param string $actionLink
      * @param int $currentPage
      * @param int $currentPageItemsCount
      * @param int $itemsPerPage
@@ -84,7 +85,7 @@ class pager extends helper {
     }
 
     /**
-     * 
+     * @ignore
      * @return boolean
      */
     protected function init()
@@ -115,6 +116,7 @@ class pager extends helper {
     }
 
     /**
+     * Returns optional JavaScript vars
      * @see helper::getJsVars
      * @return array
      */
@@ -133,6 +135,7 @@ class pager extends helper {
     }
 
     /**
+     * Returns optional JavaScript language vars
      * @see helper::getJsLangVars
      * @return array
      */
@@ -142,7 +145,8 @@ class pager extends helper {
     }
 
     /**
-     * @see Return element string
+     * Return element string
+     * @see helper::getString
      * @return string
      */
     protected function getString()

@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/fpcm.html">\fpcm</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">359</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-2089619460"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-2089619460" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-682848897"></a>
+                                <a href="../namespaces/fpcm.html" style="margin-left: 30px; padding-left: 0">fpcm</a>
+            </div>
+            <div id="namespace-682848897" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1286141284"></a>
+                                <a href="../namespaces/fpcm.classes.html" style="margin-left: 30px; padding-left: 0">classes</a>
+            </div>
+            <div id="namespace-1286141284" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.classes.baseconfig.html">baseconfig</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.classes.cache.html">cache</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.classes.crypt.html">crypt</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.classes.database.html">database</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.classes.dirs.html">dirs</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.classes.email.html">email</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.classes.http.html">http</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.classes.language.html">language</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.classes.loader.html">loader</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.classes.security.html">security</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.classes.timer.html">timer</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.classes.tools.html">tools</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1972298431"></a>
+                                <a href="../namespaces/fpcm.components.html" style="margin-left: 30px; padding-left: 0">components</a>
+            </div>
+            <div id="namespace-1972298431" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1864828010"></a>
+                                <a href="../namespaces/fpcm.components.dataView.html" style="margin-left: 30px; padding-left: 0">dataView</a>
+            </div>
+            <div id="namespace-1864828010" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.components.dataView.column.html">column</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.components.dataView.dataView.html">dataView</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.components.dataView.row.html">row</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.components.dataView.rowCol.html">rowCol</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1148093661"></a>
+                                <a href="../namespaces/fpcm.components.editor.html" style="margin-left: 30px; padding-left: 0">editor</a>
+            </div>
+            <div id="namespace-1148093661" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.components.editor.articleEditor.html">articleEditor</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.components.editor.htmlEditor.html">htmlEditor</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.components.editor.tinymceEditor.html">tinymceEditor</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.components.components.html">components</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.components.masseditField.html">masseditField</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1792484981"></a>
+                                <a href="../namespaces/fpcm.drivers.html" style="margin-left: 30px; padding-left: 0">drivers</a>
+            </div>
+            <div id="namespace-1792484981" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/fpcm.drivers.sqlDriver.html">sqlDriver</a></li>
+                                                                                                    <li class="class"><a href="../classes/fpcm.drivers.mysql.html">mysql</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.drivers.pgsql.html">pgsql</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-331259574"></a>
+                                <a href="../namespaces/fpcm.events.html" style="margin-left: 30px; padding-left: 0">events</a>
+            </div>
+            <div id="namespace-331259574" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2083266582"></a>
+                                <a href="../namespaces/fpcm.events.abstracts.html" style="margin-left: 30px; padding-left: 0">abstracts</a>
+            </div>
+            <div id="namespace-2083266582" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.abstracts.event.html">event</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.abstracts.eventReturnArray.html">eventReturnArray</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.abstracts.eventReturnVoid.html">eventReturnVoid</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-943997959"></a>
+                                <a href="../namespaces/fpcm.events.article.html" style="margin-left: 30px; padding-left: 0">article</a>
+            </div>
+            <div id="namespace-943997959" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.article.createTweet.html">createTweet</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.article.getByCondition.html">getByCondition</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.article.getByConditionCount.html">getByConditionCount</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.article.getShortLink.html">getShortLink</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.article.massEditAfter.html">massEditAfter</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.article.massEditBefore.html">massEditBefore</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.article.prepareSearch.html">prepareSearch</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.article.save.html">save</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.article.saveAfter.html">saveAfter</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.article.update.html">update</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.article.updateAfter.html">updateAfter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2138030424"></a>
+                                <a href="../namespaces/fpcm.events.category.html" style="margin-left: 30px; padding-left: 0">category</a>
+            </div>
+            <div id="namespace-2138030424" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.category.save.html">save</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.category.update.html">update</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1645306890"></a>
+                                <a href="../namespaces/fpcm.events.comments.html" style="margin-left: 30px; padding-left: 0">comments</a>
+            </div>
+            <div id="namespace-1645306890" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.comments.getByCondition.html">getByCondition</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.comments.getByConditionCount.html">getByConditionCount</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.comments.massEditBefore.html">massEditBefore</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.comments.prepareSearch.html">prepareSearch</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.comments.save.html">save</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.comments.update.html">update</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-305650794"></a>
+                                <a href="../namespaces/fpcm.events.cron.html" style="margin-left: 30px; padding-left: 0">cron</a>
+            </div>
+            <div id="namespace-305650794" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.cron.getList.html">getList</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.cron.includeDumpTables.html">includeDumpTables</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1547289192"></a>
+                                <a href="../namespaces/fpcm.events.editor.html" style="margin-left: 30px; padding-left: 0">editor</a>
+            </div>
+            <div id="namespace-1547289192" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.editor.addLinks.html">addLinks</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.editor.addStyles.html">addStyles</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.editor.addUserFields.html">addUserFields</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.editor.getEditors.html">getEditors</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.editor.getFileList.html">getFileList</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.editor.initCodemirrorJs.html">initCodemirrorJs</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.editor.initCodemirrorView.html">initCodemirrorView</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.editor.initTinymce.html">initTinymce</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1297034599"></a>
+                                <a href="../namespaces/fpcm.events.fileupload.html" style="margin-left: 30px; padding-left: 0">fileupload</a>
+            </div>
+            <div id="namespace-1297034599" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.fileupload.phpAfter.html">phpAfter</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.fileupload.phpBefore.html">phpBefore</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-707037781"></a>
+                                <a href="../namespaces/fpcm.events.image.html" style="margin-left: 30px; padding-left: 0">image</a>
+            </div>
+            <div id="namespace-707037781" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.image.save.html">save</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.image.thumbnailCreate.html">thumbnailCreate</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.image.update.html">update</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-61213181"></a>
+                                <a href="../namespaces/fpcm.events.logs.html" style="margin-left: 30px; padding-left: 0">logs</a>
+            </div>
+            <div id="namespace-61213181" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.logs.addToList.html">addToList</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.logs.clearSystemLog.html">clearSystemLog</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.logs.clearSystemLogs.html">clearSystemLogs</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.logs.getCols.html">getCols</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.logs.getLogSize.html">getLogSize</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.logs.getRow.html">getRow</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.logs.load.html">load</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.logs.reloadSystemLog.html">reloadSystemLog</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.logs.reloadSystemLogs.html">reloadSystemLogs</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-539535939"></a>
+                                <a href="../namespaces/fpcm.events.modules.html" style="margin-left: 30px; padding-left: 0">modules</a>
+            </div>
+            <div id="namespace-539535939" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.modules.configure.html">configure</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.modules.installAfter.html">installAfter</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.modules.uninstallAfter.html">uninstallAfter</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.modules.updateAfter.html">updateAfter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1732419035"></a>
+                                <a href="../namespaces/fpcm.events.navigation.html" style="margin-left: 30px; padding-left: 0">navigation</a>
+            </div>
+            <div id="namespace-1732419035" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.navigation.add.html">add</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.navigation.addSubmenuModules.html">addSubmenuModules</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.navigation.render.html">render</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1643180045"></a>
+                                <a href="../namespaces/fpcm.events.permission.html" style="margin-left: 30px; padding-left: 0">permission</a>
+            </div>
+            <div id="namespace-1643180045" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.permission.check.html">check</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.permission.getAll.html">getAll</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.permission.save.html">save</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.permission.update.html">update</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2040703912"></a>
+                                <a href="../namespaces/fpcm.events.pub.html" style="margin-left: 30px; padding-left: 0">pub</a>
+            </div>
+            <div id="namespace-2040703912" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.pub.addCssFiles.html">addCssFiles</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.pub.addJsFiles.html">addJsFiles</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.pub.pageinationShowAll.html">pageinationShowAll</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.pub.pageinationShowArchive.html">pageinationShowArchive</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.pub.parseShareButtons.html">parseShareButtons</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.pub.prepareRssFeed.html">prepareRssFeed</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.pub.registerShares.html">registerShares</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.pub.replaceSpamCaptcha.html">replaceSpamCaptcha</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.pub.showAll.html">showAll</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.pub.showArchive.html">showArchive</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.pub.showSingle.html">showSingle</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.pub.templateHtmlTags.html">templateHtmlTags</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-772513517"></a>
+                                <a href="../namespaces/fpcm.events.revision.html" style="margin-left: 30px; padding-left: 0">revision</a>
+            </div>
+            <div id="namespace-772513517" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.revision.create.html">create</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.revision.get.html">get</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.revision.getAfter.html">getAfter</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.revision.getBefore.html">getBefore</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-557313630"></a>
+                                <a href="../namespaces/fpcm.events.session.html" style="margin-left: 30px; padding-left: 0">session</a>
+            </div>
+            <div id="namespace-557313630" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.session.create.html">create</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.session.loginBefore.html">loginBefore</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.session.update.html">update</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1941434847"></a>
+                                <a href="../namespaces/fpcm.events.template.html" style="margin-left: 30px; padding-left: 0">template</a>
+            </div>
+            <div id="namespace-1941434847" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.template.parse.html">parse</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.template.parseArticle.html">parseArticle</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.template.parseComment.html">parseComment</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.template.parseCommentForm.html">parseCommentForm</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.template.parseTweet.html">parseTweet</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.template.save.html">save</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1496881573"></a>
+                                <a href="../namespaces/fpcm.events.theme.html" style="margin-left: 30px; padding-left: 0">theme</a>
+            </div>
+            <div id="namespace-1496881573" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.theme.addCssFiles.html">addCssFiles</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.theme.addJsFiles.html">addJsFiles</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1816799708"></a>
+                                <a href="../namespaces/fpcm.events.user.html" style="margin-left: 30px; padding-left: 0">user</a>
+            </div>
+            <div id="namespace-1816799708" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.user.save.html">save</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.user.update.html">update</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-724411915"></a>
+                                <a href="../namespaces/fpcm.events.userroll.html" style="margin-left: 30px; padding-left: 0">userroll</a>
+            </div>
+            <div id="namespace-724411915" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.userroll.save.html">save</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.userroll.update.html">update</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-670479751"></a>
+                                <a href="../namespaces/fpcm.events.view.html" style="margin-left: 30px; padding-left: 0">view</a>
+            </div>
+            <div id="namespace-670479751" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.view.renderAfter.html">renderAfter</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.view.renderBefore.html">renderBefore</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2115445143"></a>
+                                <a href="../namespaces/fpcm.events.wordban.html" style="margin-left: 30px; padding-left: 0">wordban</a>
+            </div>
+            <div id="namespace-2115445143" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.wordban.save.html">save</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.wordban.update.html">update</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.events.apiCallFunction.html">apiCallFunction</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.autocompleteGetData.html">autocompleteGetData</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.clearCache.html">clearCache</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.configUpdate.html">configUpdate</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.controllerRedirect.html">controllerRedirect</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.dashboardContainersLoad.html">dashboardContainersLoad</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.emailSubmit.html">emailSubmit</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.events.html">events</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.getAuthProvider.html">getAuthProvider</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.ipaddressSave.html">ipaddressSave</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.reloadFileList.html">reloadFileList</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.runSystemCheck.html">runSystemCheck</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.smileySave.html">smileySave</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.events.updaterAddOptimizeTables.html">updaterAddOptimizeTables</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-863964226"></a>
+                                <a href="../namespaces/fpcm.model.html" style="margin-left: 30px; padding-left: 0">model</a>
+            </div>
+            <div id="namespace-863964226" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-480569459"></a>
+                                <a href="../namespaces/fpcm.model.abstracts.html" style="margin-left: 30px; padding-left: 0">abstracts</a>
+            </div>
+            <div id="namespace-480569459" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.authProvider.html">authProvider</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.cli.html">cli</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.cron.html">cron</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.dashcontainer.html">dashcontainer</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.dataset.html">dataset</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.file.html">file</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.filelist.html">filelist</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.model.html">model</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.moduleEvent.html">moduleEvent</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.remoteModel.html">remoteModel</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.searchWrapper.html">searchWrapper</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.spamCaptcha.html">spamCaptcha</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.staticModel.html">staticModel</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.abstracts.tablelist.html">tablelist</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-220653159"></a>
+                                <a href="../namespaces/fpcm.model.articles.html" style="margin-left: 30px; padding-left: 0">articles</a>
+            </div>
+            <div id="namespace-220653159" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/fpcm.model.articles.permissions.html">permissions</a></li>
+                                                                            <li class="class"><a href="../classes/fpcm.model.articles.article.html">article</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.articles.articlelist.html">articlelist</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.articles.revision.html">revision</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.articles.search.html">search</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-214409930"></a>
+                                <a href="../namespaces/fpcm.model.auth.html" style="margin-left: 30px; padding-left: 0">auth</a>
+            </div>
+            <div id="namespace-214409930" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.auth.htmlLogin.html">htmlLogin</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1875382244"></a>
+                                <a href="../namespaces/fpcm.model.captchas.html" style="margin-left: 30px; padding-left: 0">captchas</a>
+            </div>
+            <div id="namespace-1875382244" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.captchas.fpcmDefault.html">fpcmDefault</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1386470586"></a>
+                                <a href="../namespaces/fpcm.model.categories.html" style="margin-left: 30px; padding-left: 0">categories</a>
+            </div>
+            <div id="namespace-1386470586" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.categories.category.html">category</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.categories.categoryList.html">categoryList</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1457138491"></a>
+                                <a href="../namespaces/fpcm.model.cli.html" style="margin-left: 30px; padding-left: 0">cli</a>
+            </div>
+            <div id="namespace-1457138491" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.cli.cache.html">cache</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.cli.config.html">config</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.cli.cron.html">cron</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.cli.help.html">help</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.cli.installer.html">installer</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.cli.logs.html">logs</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.cli.module.html">module</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.cli.pkg.html">pkg</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.cli.syscheck.html">syscheck</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.cli.users.html">users</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1951169405"></a>
+                                <a href="../namespaces/fpcm.model.comments.html" style="margin-left: 30px; padding-left: 0">comments</a>
+            </div>
+            <div id="namespace-1951169405" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/fpcm.model.comments.permissions.html">permissions</a></li>
+                                                                            <li class="class"><a href="../classes/fpcm.model.comments.comment.html">comment</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.comments.commentList.html">commentList</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.comments.search.html">search</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-485469181"></a>
+                                <a href="../namespaces/fpcm.model.crons.html" style="margin-left: 30px; padding-left: 0">crons</a>
+            </div>
+            <div id="namespace-485469181" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.crons.anonymizeIps.html">anonymizeIps</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.crons.cleanupTrash.html">cleanupTrash</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.crons.clearLogs.html">clearLogs</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.crons.clearTemp.html">clearTemp</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.crons.cronlist.html">cronlist</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.crons.dbBackup.html">dbBackup</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.crons.fileindex.html">fileindex</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.crons.fmThumbs.html">fmThumbs</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.crons.postponedArticles.html">postponedArticles</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.crons.removeRevisions.html">removeRevisions</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.crons.updateCheck.html">updateCheck</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1058657819"></a>
+                                <a href="../namespaces/fpcm.model.dashboard.html" style="margin-left: 30px; padding-left: 0">dashboard</a>
+            </div>
+            <div id="namespace-1058657819" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.dashboard.fpcmnews.html">fpcmnews</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.dashboard.recentarticles.html">recentarticles</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.dashboard.recentcomments.html">recentcomments</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.dashboard.syscheck.html">syscheck</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.dashboard.sysstats.html">sysstats</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.dashboard.updatecheck.html">updatecheck</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.dashboard.userlist.html">userlist</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.dashboard.welcome.html">welcome</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2036989920"></a>
+                                <a href="../namespaces/fpcm.model.dbal.html" style="margin-left: 30px; padding-left: 0">dbal</a>
+            </div>
+            <div id="namespace-2036989920" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.dbal.selectParams.html">selectParams</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-271996639"></a>
+                                <a href="../namespaces/fpcm.model.files.html" style="margin-left: 30px; padding-left: 0">files</a>
+            </div>
+            <div id="namespace-271996639" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.files.authorImage.html">authorImage</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.backuplist.html">backuplist</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.cacheFile.html">cacheFile</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.dbbackup.html">dbbackup</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.fileOption.html">fileOption</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.fileuploader.html">fileuploader</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.image.html">image</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.imagelist.html">imagelist</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.logfile.html">logfile</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.ops.html">ops</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.search.html">search</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.smiley.html">smiley</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.smileylist.html">smileylist</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.sqldump.html">sqldump</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.tempfile.html">tempfile</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.templatefile.html">templatefile</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.files.templatefilelist.html">templatefilelist</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1256180619"></a>
+                                <a href="../namespaces/fpcm.model.interfaces.html" style="margin-left: 30px; padding-left: 0">interfaces</a>
+            </div>
+            <div id="namespace-1256180619" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/fpcm.model.interfaces.cron.html">cron</a></li>
+                                                    <li class="interface"><a href="../classes/fpcm.model.interfaces.dashcontainer.html">dashcontainer</a></li>
+                                                    <li class="interface"><a href="../classes/fpcm.model.interfaces.dataset.html">dataset</a></li>
+                                                    <li class="interface"><a href="../classes/fpcm.model.interfaces.model.html">model</a></li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-693127159"></a>
+                                <a href="../namespaces/fpcm.model.ips.html" style="margin-left: 30px; padding-left: 0">ips</a>
+            </div>
+            <div id="namespace-693127159" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.ips.ipaddress.html">ipaddress</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.ips.iplist.html">iplist</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-240804291"></a>
+                                <a href="../namespaces/fpcm.model.packages.html" style="margin-left: 30px; padding-left: 0">packages</a>
+            </div>
+            <div id="namespace-240804291" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.packages.module.html">module</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.packages.package.html">package</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.packages.repository.html">repository</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.packages.update.html">update</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1028515269"></a>
+                                <a href="../namespaces/fpcm.model.pubtemplates.html" style="margin-left: 30px; padding-left: 0">pubtemplates</a>
+            </div>
+            <div id="namespace-1028515269" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.pubtemplates.article.html">article</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.pubtemplates.comment.html">comment</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.pubtemplates.commentform.html">commentform</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.pubtemplates.latestnews.html">latestnews</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.pubtemplates.sharebuttons.html">sharebuttons</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.pubtemplates.template.html">template</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.pubtemplates.templatelist.html">templatelist</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.pubtemplates.tweet.html">tweet</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1690726428"></a>
+                                <a href="../namespaces/fpcm.model.shares.html" style="margin-left: 30px; padding-left: 0">shares</a>
+            </div>
+            <div id="namespace-1690726428" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.shares.share.html">share</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.shares.shares.html">shares</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2084541341"></a>
+                                <a href="../namespaces/fpcm.model.system.html" style="margin-left: 30px; padding-left: 0">system</a>
+            </div>
+            <div id="namespace-2084541341" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.system.config.html">config</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.system.permissions.html">permissions</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.system.session.html">session</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.system.syscheckOption.html">syscheckOption</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.system.twitter.html">twitter</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.system.yatdl.html">yatdl</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1443943649"></a>
+                                <a href="../namespaces/fpcm.model.theme.html" style="margin-left: 30px; padding-left: 0">theme</a>
+            </div>
+            <div id="namespace-1443943649" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.theme.navigation.html">navigation</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.theme.navigationItem.html">navigationItem</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.theme.notificationItem.html">notificationItem</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.theme.notifications.html">notifications</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1816627903"></a>
+                                <a href="../namespaces/fpcm.model.updater.html" style="margin-left: 30px; padding-left: 0">updater</a>
+            </div>
+            <div id="namespace-1816627903" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.updater.finalizer.html">finalizer</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.updater.modules.html">modules</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.updater.system.html">system</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-475532826"></a>
+                                <a href="../namespaces/fpcm.model.users.html" style="margin-left: 30px; padding-left: 0">users</a>
+            </div>
+            <div id="namespace-475532826" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.users.author.html">author</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.users.userList.html">userList</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.users.userRoll.html">userRoll</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.users.userRollList.html">userRollList</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-371304864"></a>
+                                <a href="../namespaces/fpcm.model.wordban.html" style="margin-left: 30px; padding-left: 0">wordban</a>
+            </div>
+            <div id="namespace-371304864" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.model.wordban.item.html">item</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.model.wordban.items.html">items</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1716306883"></a>
+                                <a href="../namespaces/fpcm.module.html" style="margin-left: 30px; padding-left: 0">module</a>
+            </div>
+            <div id="namespace-1716306883" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.module.config.html">config</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.module.event.html">event</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.module.module.html">module</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.module.modules.html">modules</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.module.repoModule.html">repoModule</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1296201374"></a>
+                                <a href="../namespaces/fpcm.view.html" style="margin-left: 30px; padding-left: 0">view</a>
+            </div>
+            <div id="namespace-1296201374" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-239131736"></a>
+                                <a href="../namespaces/fpcm.view.helper.html" style="margin-left: 30px; padding-left: 0">helper</a>
+            </div>
+            <div id="namespace-239131736" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1014147058"></a>
+                                <a href="../namespaces/fpcm.view.helper.traits.html" style="margin-left: 30px; padding-left: 0">traits</a>
+            </div>
+            <div id="namespace-1014147058" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/fpcm.view.helper.traits.escapeHelper.html">escapeHelper</a></li>
+                                                    <li class="trait"><a href="../classes/fpcm.view.helper.traits.iconHelper.html">iconHelper</a></li>
+                                                    <li class="trait"><a href="../classes/fpcm.view.helper.traits.selectedHelper.html">selectedHelper</a></li>
+                                                    <li class="trait"><a href="../classes/fpcm.view.helper.traits.typeHelper.html">typeHelper</a></li>
+                                                    <li class="trait"><a href="../classes/fpcm.view.helper.traits.urlHelper.html">urlHelper</a></li>
+                                                    <li class="trait"><a href="../classes/fpcm.view.helper.traits.valueHelper.html">valueHelper</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.view.helper.badge.html">badge</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.boolSelect.html">boolSelect</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.boolToText.html">boolToText</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.button.html">button</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.checkbox.html">checkbox</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.clearArticleCacheButton.html">clearArticleCacheButton</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.dateText.html">dateText</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.deleteButton.html">deleteButton</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.editButton.html">editButton</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.escape.html">escape</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.helper.html">helper</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.hiddenInput.html">hiddenInput</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.icon.html">icon</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.input.html">input</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.linkButton.html">linkButton</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.openButton.html">openButton</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.pager.html">pager</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.pageTokenField.html">pageTokenField</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.passwordInput.html">passwordInput</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.radiobutton.html">radiobutton</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.radiocheck.html">radiocheck</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.resetButton.html">resetButton</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.saveButton.html">saveButton</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.select.html">select</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.shorthelpButton.html">shorthelpButton</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.submitButton.html">submitButton</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.tabItem.html">tabItem</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.textarea.html">textarea</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.helper.textInput.html">textInput</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcm.view.error.html">error</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.view.html">view</a></li>
+                                                    <li class="class"><a href="../classes/fpcm.view.viewVars.html">viewVars</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/fpcmAPI.html">fpcmAPI</a></li>
+                                                    <li class="class"><a href="../classes/fpcmCLI.html">fpcmCLI</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/fpcm.events.comments.html">\fpcm\events\comments</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\fpcm\events\comments</small>getByConditionCount</h1>
+                    <p><em>Module-Event: getByConditionCount</em></p>
+                    <p>Event wird ausgeführt, wenn Artikel anhand von Bedingungen gezählt werden
+Parameter: array Zählbedingungen
+Rückgabe: array Zählbedingungen</p>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#method___get" class="">__get()</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#method___set" class="">__set()</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#method___call" class="">__call()</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#method___callStatic" class="">__callStatic()</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#method_checkPermissions" class="">checkPermissions()</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#method_run" class="">run()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#constant_RETURNTYPE_ARRAY" class="">RETURNTYPE_ARRAY</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#constant_RETURNTYPE_OBJ" class="">RETURNTYPE_OBJ</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#constant_RETURNTYPE_SCALAR" class="">RETURNTYPE_SCALAR</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#constant_RETURNTYPE_VOID" class="">RETURNTYPE_VOID</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#constant_EVENT_BASE_INSTANCE" class="">EVENT_BASE_INSTANCE</a><br />
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#method_getReturnType" class="">getReturnType()</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#method_getEventPermissons" class="">getEventPermissons()</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#method_is_a" class="">is_a()</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#method_getEventClasses" class="">getEventClasses()</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#method_getEventClassBase" class="">getEventClassBase()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#property_data" class="">$data</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#property_modules" class="">$modules</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#property_activeModules" class="">$activeModules</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#property_cache" class="">$cache</a><br />
+                                                                    <a href="../classes/fpcm.events.abstracts.event.html#property_permissions" class="">$permissions</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <em>No private methods found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No private properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                                                <span class="label label-info">final</span>
+                    
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/inc.events.comments.getByConditionCount.html"><div class="path-wrapper">inc/events/comments/getByConditionCount.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">fpcm/events</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                
+                                        <div class="namespace-wrapper"><a href="../classes/fpcm.events.abstracts.event.html">\fpcm\events\abstracts\event</a></div>
+                                                                                                    <div class="namespace-wrapper">\fpcm\events\comments\getByConditionCount</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Stefan Seehafer aka imagine <a href="mailto:fanpress@nobody-knows.org">fanpress@nobody-knows.org</a></p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                copyright
+                            </th>
+                            <td>
+                                                                    <p>(c) 2011-2018, Stefan Seehafer</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                license
+                            </th>
+                            <td>
+                                                                    <p><a href="http://www.gnu.org/licenses/gpl.txt">http://www.gnu.org/licenses/gpl.txt</a> GPLv3</p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                since
+                            </th>
+                            <td>
+                                                                    <p>FPCM 3.4</p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                                    <a id="constants" name="constants"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Constants</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_RETURNTYPE_ARRAY" name="constant_RETURNTYPE_ARRAY" class="anchor"></a>
+            <article id="constant_RETURNTYPE_ARRAY" class="constant">
+                <h3 class="">RETURNTYPE_ARRAY</h3>
+                <pre class="signature">RETURNTYPE_ARRAY</pre>
+                <p><em>Array returntype für Module-Event</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            <p>FPCM 3.4</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_RETURNTYPE_OBJ" name="constant_RETURNTYPE_OBJ" class="anchor"></a>
+            <article id="constant_RETURNTYPE_OBJ" class="constant">
+                <h3 class="">RETURNTYPE_OBJ</h3>
+                <pre class="signature">RETURNTYPE_OBJ</pre>
+                <p><em>Object returntype für Module-Event</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            <p>FPCM 3.4</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_RETURNTYPE_SCALAR" name="constant_RETURNTYPE_SCALAR" class="anchor"></a>
+            <article id="constant_RETURNTYPE_SCALAR" class="constant">
+                <h3 class="">RETURNTYPE_SCALAR</h3>
+                <pre class="signature">RETURNTYPE_SCALAR</pre>
+                <p><em>Object returntype für Module-Event</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            <p>FPCM 4</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_RETURNTYPE_VOID" name="constant_RETURNTYPE_VOID" class="anchor"></a>
+            <article id="constant_RETURNTYPE_VOID" class="constant">
+                <h3 class="">RETURNTYPE_VOID</h3>
+                <pre class="signature">RETURNTYPE_VOID</pre>
+                <p><em>Object returntype für Module-Event</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                            <p>FPCM 4</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_EVENT_BASE_INSTANCE" name="constant_EVENT_BASE_INSTANCE" class="anchor"></a>
+            <article id="constant_EVENT_BASE_INSTANCE" class="constant">
+                <h3 class="">EVENT_BASE_INSTANCE</h3>
+                <pre class="signature">EVENT_BASE_INSTANCE</pre>
+                <p><em>Base instaces a module event has to implement</em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_data" name="property_data" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$data</h3>
+                <pre class="signature">$data : array</pre>
+                <p><em>Event-Daten</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_modules" name="property_modules" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$modules</h3>
+                <pre class="signature">$modules : array</pre>
+                <p><em>Events mit aktuellem Event</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_activeModules" name="property_activeModules" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$activeModules</h3>
+                <pre class="signature">$activeModules : array</pre>
+                <p><em>Liste mit aktiven Modulen</em></p>
+                
+
+                                <h4>Type</h4>
+                array
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_cache" name="property_cache" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$cache</h3>
+                <pre class="signature">$cache : \fpcm\classes\cache</pre>
+                <p><em>Event-Cache</em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/fpcm.classes.cache.html">\fpcm\classes\cache</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_permissions" name="property_permissions" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$permissions</h3>
+                <pre class="signature">$permissions : \fpcm\model\system\permissions</pre>
+                <p><em>Berechtigungen</em></p>
+                
+
+                                <h4>Type</h4>
+                <a href="../classes/fpcm.model.system.permissions.html">\fpcm\model\system\permissions</a>
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(mixed  <span class="argument">$dataParams = null</span>) : boolean</pre>
+                <p><em>Konstruktor</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$dataParams </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___get" name="method___get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__get(string  <span class="argument">$name</span>) : mixed</pre>
+                <p><em>Magic get</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    mixed
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___set" name="method___set" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__set()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__set(mixed  <span class="argument">$name</span>, mixed  <span class="argument">$value</span>) </pre>
+                <p><em>Magic set</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___call" name="method___call" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__call()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__call(string  <span class="argument">$name</span>, mixed  <span class="argument">$arguments</span>) : boolean</pre>
+                <p><em>Magische Methode für nicht vorhandene Methoden</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$arguments </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___callStatic" name="method___callStatic" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__callStatic()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__callStatic(string  <span class="argument">$name</span>, mixed  <span class="argument">$arguments</span>) : boolean</pre>
+                <p><em>Magische Methode für nicht vorhandene, statische Methoden</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>string</td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$arguments </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_checkPermissions" name="method_checkPermissions" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">checkPermissions()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">checkPermissions() : boolean</pre>
+                <p><em>Prüft ob spezielle Berechtigungen für Event nötig sind</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_run" name="method_run" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">run()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">run() : array</pre>
+                <p><em>Executed a certain events</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getReturnType" name="method_getReturnType" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getReturnType()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getReturnType() : string|boolean</pre>
+                <p><em>Defines type of returned data</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string|boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getEventPermissons" name="method_getEventPermissons" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getEventPermissons()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getEventPermissons() : mixed|boolean</pre>
+                <p><em>Defines type of returned data</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    mixed|boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_is_a" name="method_is_a" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">is_a()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">is_a(mixed  <span class="argument">$object</span>) : boolean</pre>
+                <p><em>Checks if module event class has implemented \fpcm\events\abstracts\moduleEvent</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>mixed</td>
+                                <td>$object </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    boolean
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getEventClasses" name="method_getEventClasses" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getEventClasses()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getEventClasses() : array</pre>
+                <p><em>Liefert Array mit Event-Klassen in installierten Modulen zurück</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            since
+                        </th>
+                        <td>
+                                                                                            <p>FPCM 3.3</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getEventClassBase" name="method_getEventClassBase" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getEventClassBase()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getEventClassBase() : string</pre>
+                <p><em>Returns event base class data</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    string
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/fpcm.events.abstracts.event.html"><div class="path-wrapper">\fpcm\events\abstracts\event</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">getByConditionCount.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/inc/events/comments/getByConditionCount.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/fpcm.html">\fpcm</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on October 20th, 2018 at 18:16.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
