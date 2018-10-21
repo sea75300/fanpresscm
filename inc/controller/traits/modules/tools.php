@@ -17,10 +17,22 @@ namespace fpcm\controller\traits\modules;
  */
 trait tools {
 
+    protected function getModuleKey()
+    {
+        $class = get_class($this);
+        $stack = \fpcm\classes\loader::stackPull('modulekeys');
+        if (isset($stack[$class])) {
+            return $stack[$class];
+        }
+
+        $stack[$class] = explode('\\controller', \fpcm\module\module::getKeyFromClass(get_class($this)), 2)[0];
+        \fpcm\classes\loader::stackPush('modulekeys', $stack);
+        return $stack[$class];
+    }
+
     protected function addLangVarPrefix($var)
     {
-        $key = explode('\\controller', \fpcm\module\module::getKeyFromClass(get_class($this)), 2)[0];
-        return \fpcm\module\module::getLanguageVarPrefixed($key).strtoupper($var);
+        return \fpcm\module\module::getLanguageVarPrefixed($this->getModuleKey()).strtoupper($var);
     }
     
 }
