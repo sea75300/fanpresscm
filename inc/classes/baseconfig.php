@@ -81,13 +81,6 @@ final class baseconfig {
     private static $installerEnabledFile;
 
     /**
-     * Zwischenspecher für bestimmte Config-Informationen
-     * @var array
-     * @since FPCM 3.5
-     */
-    private static $cfgDat = [];
-
-    /**
      * Initiiert Grundsystem
      */
     public static function init()
@@ -187,11 +180,11 @@ final class baseconfig {
      */
     public static function canConnect()
     {
-        if (!isset(self::$cfgDat[__FUNCTION__])) {
-            self::$cfgDat[__FUNCTION__] = (ini_get('allow_url_fopen') == 1) ? true : false;
+        if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
+            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = (ini_get('allow_url_fopen') == 1) ? true : false;
         }
 
-        return self::$cfgDat[__FUNCTION__];
+        return $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];
     }
 
     /**
@@ -200,11 +193,11 @@ final class baseconfig {
      */
     public static function canCrypt()
     {
-        if (!isset(self::$cfgDat[__FUNCTION__])) {
-            self::$cfgDat[__FUNCTION__] = function_exists('openssl_encrypt') && function_exists('openssl_decrypt');
+        if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
+            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = function_exists('openssl_encrypt') && function_exists('openssl_decrypt');
         }
 
-        return self::$cfgDat[__FUNCTION__];
+        return $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];
     }
 
     /**
@@ -214,11 +207,11 @@ final class baseconfig {
      */
     public static function canHttps()
     {
-        if (!isset(self::$cfgDat[__FUNCTION__])) {
-            self::$cfgDat[__FUNCTION__] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? true : false);
+        if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
+            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? true : false);
         }
 
-        return self::$cfgDat[__FUNCTION__];
+        return $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];
     }
 
     /**
@@ -228,11 +221,11 @@ final class baseconfig {
      */
     public static function isCli()
     {
-        if (!isset(self::$cfgDat[__FUNCTION__])) {
-            self::$cfgDat[__FUNCTION__] = (php_sapi_name() === 'cli' ? true : false);
+        if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
+            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = (php_sapi_name() === 'cli' ? true : false);
         }
 
-        return self::$cfgDat[__FUNCTION__];
+        return $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];
     }
 
     /**
@@ -242,7 +235,7 @@ final class baseconfig {
      */
     public static function noToken()
     {
-        if (!isset(self::$cfgDat[__FUNCTION__])) {
+        if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
 
             $noToken = http::getOnly('t', [
                 http::FILTER_CASTINT
@@ -251,10 +244,10 @@ final class baseconfig {
             $module = http::getOnly('module');
             $blacklist = ['ajax/refresh'];
 
-            self::$cfgDat[__FUNCTION__] = (strpos($module, 'fpcm/') !== false || in_array($module, $blacklist) || $noToken ? true : false);
+            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = (strpos($module, 'fpcm/') !== false || in_array($module, $blacklist) || $noToken ? true : false);
         }
 
-        return self::$cfgDat[__FUNCTION__];
+        return $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];
     }
 
     /**
@@ -264,11 +257,11 @@ final class baseconfig {
      */
     public static function memoryLimit($inByte = false)
     {
-        if (!isset(self::$cfgDat[__FUNCTION__])) {
-            self::$cfgDat[__FUNCTION__] = (int) substr(ini_get('memory_limit'), 0, -1);
+        if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
+            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = (int) substr(ini_get('memory_limit'), 0, -1);
         }
 
-        return $inByte ? self::$cfgDat[__FUNCTION__] * 1024 * 1024 : self::$cfgDat[__FUNCTION__];
+        return $inByte ? $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] * 1024 * 1024 : $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];
     }
 
     /**
@@ -278,11 +271,11 @@ final class baseconfig {
      */
     public static function uploadFilesizeLimit($inByte = false)
     {
-        if (!isset(self::$cfgDat[__FUNCTION__])) {
-            self::$cfgDat[__FUNCTION__] = (int) substr(ini_get('upload_max_filesize'), 0, -1);
+        if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
+            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = (int) substr(ini_get('upload_max_filesize'), 0, -1);
         }
 
-        return $inByte ? self::$cfgDat[__FUNCTION__] * 1024 * 1024 : self::$cfgDat[__FUNCTION__];
+        return $inByte ? $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] * 1024 * 1024 : $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];
     }
 
     /**
@@ -291,8 +284,8 @@ final class baseconfig {
      */
     public static function getControllers()
     {
-        if (isset(self::$cfgDat[__FUNCTION__]) && is_array(self::$cfgDat[__FUNCTION__])) {
-            return self::$cfgDat[__FUNCTION__];
+        if (isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__]) && is_array($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
+            return $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];
         }
 
         $cacheName = 'system/controllerCache';
@@ -301,7 +294,7 @@ final class baseconfig {
         if (!$controllerCache->isExpired($cacheName)) {
             $controllerList = $controllerCache->read($cacheName);
             if (is_array($controllerList)) {
-                self::$cfgDat[__FUNCTION__] = $controllerList;
+                $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = $controllerList;
                 return $controllerList;
             }
         }
@@ -318,7 +311,7 @@ final class baseconfig {
         $controller = array_unique(array_merge($controller, self::initModuleControllers()));
         $controllerCache->write($cacheName, $controller);
 
-        self::$cfgDat[__FUNCTION__] = $controller;
+        $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = $controller;
         return $controller;
     }
 
@@ -328,11 +321,11 @@ final class baseconfig {
      */
     public static function dbConfigExists()
     {
-        if (!isset(self::$cfgDat[__FUNCTION__])) {
-            self::$cfgDat[__FUNCTION__] = count(self::getDatabaseConfig()) ? true : false;
+        if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
+            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = count(self::getDatabaseConfig()) ? true : false;
         }
 
-        return self::$cfgDat[__FUNCTION__];
+        return $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];
     }
 
     /**
@@ -345,11 +338,11 @@ final class baseconfig {
             return FPCM_INSTALLER_ENABLED;
         }
 
-        if (!isset(self::$cfgDat[__FUNCTION__])) {
-            self::$cfgDat[__FUNCTION__] = file_exists(self::$installerEnabledFile);
+        if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
+            $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = file_exists(self::$installerEnabledFile);
         }
 
-        return self::$cfgDat[__FUNCTION__];
+        return $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__];
     }
 
     /**

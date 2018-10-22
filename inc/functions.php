@@ -194,11 +194,10 @@ function fpcmDebugOutput()
     }
 
     $html = array();
-    $html[] = 'Memory usage: ' . round(memory_get_usage(true) / 1024 / 1024, 2) . 'MB';
-    $html[] = 'Memorypeak: ' . round(memory_get_peak_usage(true) / 1024 / 1024, 2) . 'MB';
-    $html[] = 'Basedir: ' . \fpcm\classes\dirs::getFullDirPath('');
-    $html[] = 'PHP version: ' . PHP_VERSION;
-    $html[] = 'Runtime: ' . fpcm\classes\timer::cal() . ' sec';
+    $html[] = 'Memory usage: ' . fpcm\classes\tools::calcSize(memory_get_usage(true), 3);
+    $html[] = 'Memory usage peak: ' . fpcm\classes\tools::calcSize(memory_get_peak_usage(true), 3);
+    $html[] = 'Base directory: ' . \fpcm\classes\dirs::getFullDirPath('');
+    $html[] = 'Execution time: ' . fpcm\classes\timer::cal() . ' sec';
     $html[] = 'Database queries: ' . \fpcm\classes\loader::getObject('\fpcm\classes\database')->getQueryCount();
     print '<div class="fpcm-debug-data d-none d-md-block">' . implode("<br>\n", $html) . '</div>' . PHP_EOL . PHP_EOL;
 }
