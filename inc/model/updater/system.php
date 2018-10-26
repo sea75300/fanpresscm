@@ -34,40 +34,6 @@ final class system extends \fpcm\model\abstracts\staticModel {
     private $fileOption;
 
     /**
-     * Initialisiert System Updater
-     * @param int $init
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->fileOption = new \fpcm\model\files\fileOption(\fpcm\model\packages\repository::FOPT_UPDATES);
-
-        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
-        $foptData = \Spyc::YAMLLoadString($this->fileOption->read());
-        
-        $currentVersionComplete = $this->config->system_version;
-        $currentVersionMinor    = implode('.', array_slice(explode('.', $currentVersionComplete), 0, 2));
-
-        if ($this->config->system_updates_devcheck) {
-            $currentVersionComplete .= '-dev';
-            $currentVersionMinor .= '-dev';
-        }
-
-        if (isset($foptData[$currentVersionComplete])) {
-            $this->data = $foptData[$currentVersionComplete];
-            return true;
-        }
-
-        if (isset($foptData[$currentVersionMinor]) ) {
-            $this->data = $foptData[$currentVersionMinor];
-            return true;
-        }
-
-        $this->data = isset($foptData['default']) ? $foptData['default'] : [];
-        return true;
-    }
-
-    /**
      * Prüft ob Updates verfügbar sind
      * @return boolean
      */
@@ -110,6 +76,39 @@ final class system extends \fpcm\model\abstracts\staticModel {
     public function getManualCheckAddress()
     {
         return \fpcm\classes\baseconfig::$updateServerManualLink;
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    public function init()
+    {
+        $this->fileOption = new \fpcm\model\files\fileOption(\fpcm\model\packages\repository::FOPT_UPDATES);
+
+        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
+        $foptData = \Spyc::YAMLLoadString($this->fileOption->read());
+        
+        $currentVersionComplete = $this->config->system_version;
+        $currentVersionMinor    = implode('.', array_slice(explode('.', $currentVersionComplete), 0, 2));
+
+        if ($this->config->system_updates_devcheck) {
+            $currentVersionComplete .= '-dev';
+            $currentVersionMinor .= '-dev';
+        }
+
+        if (isset($foptData[$currentVersionComplete])) {
+            $this->data = $foptData[$currentVersionComplete];
+            return true;
+        }
+
+        if (isset($foptData[$currentVersionMinor]) ) {
+            $this->data = $foptData[$currentVersionMinor];
+            return true;
+        }
+
+        $this->data = isset($foptData['default']) ? $foptData['default'] : [];
+        return true;
     }
 
 }

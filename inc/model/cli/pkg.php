@@ -108,6 +108,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
 
         $this->output('Check for updates...');
+        $this->updaterSys->init();
         $successSys = $this->updaterSys->updateAvailable();
 
         if (!$successRepo) {
@@ -123,7 +124,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $updates = $modules->getInstalledUpdates();
 
         $this->output('-- successfull!');
-        $this->output('FanPress CM ' . $this->updaterSys->data['version'] . ' version was relesed on ' . $this->updaterSys->data['release']);
+        $this->output('FanPress CM ' . $this->updaterSys->version . ' version was relesed on ' . $this->updaterSys->release);
         if ($successSys === \fpcm\model\updater\system::FORCE_UPDATE) {
             $this->output('-- This released is forced to be installed, you should run fpcmcli.php pkg --update system as soon as possible.');
         }

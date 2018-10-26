@@ -105,6 +105,11 @@ abstract class staticModel {
         }
 
         $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
+        
+        if (method_exists($this, 'init')) {
+            $this->init();
+        }
+
     }
 
     /**

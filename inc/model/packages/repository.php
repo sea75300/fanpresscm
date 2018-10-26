@@ -85,7 +85,6 @@ final class repository extends \fpcm\model\abstracts\remoteModel {
             }
             
             if ($cliOutput) {
-                $this->data = array_merge($this->data, $this->remoteData);
                 print 'fpcm@localhost:# -- Finished.'.PHP_EOL.PHP_EOL;
             }
         }
