@@ -42,7 +42,7 @@ class templates extends \fpcm\controller\abstracts\controller {
 
     /**
      * Request-Handler
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -60,7 +60,7 @@ class templates extends \fpcm\controller\abstracts\controller {
 
     /**
      * Controller-Processing
-     * @return boolean
+     * @return bool
      */
     public function process()
     {
@@ -163,7 +163,7 @@ class templates extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function initDataView()
     {
@@ -222,7 +222,7 @@ class templates extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function uploadEditorTemplate()
     {
@@ -242,7 +242,7 @@ class templates extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function deleteEditorTemplate()
     {
@@ -285,7 +285,7 @@ class templates extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function save()
     {

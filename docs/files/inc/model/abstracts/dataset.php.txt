@@ -171,7 +171,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      * Magische Methode für nicht vorhandene Methoden
      * @param string $name
      * @param mixed $arguments
-     * @return boolean
+     * @return bool
      */
     public function __call($name, $arguments)
     {
@@ -183,7 +183,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      * Magische Methode für nicht vorhandene, statische Methoden
      * @param string $name
      * @param mixed $arguments
-     * @return boolean
+     * @return bool
      */
     public static function __callStatic($name, $arguments)
     {
@@ -292,7 +292,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     /**
      * Füllt Objekt mit Daten aus Datenbank-Result
      * @param object $object
-     * @return boolean
+     * @return bool
      */
     public function createFromDbObject($object)
     {
@@ -354,7 +354,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
 
     /**
      * Bereitet Daten für Speicherung in Datenbank vor
-     * @return boolean
+     * @return bool
      * @since FPCM 3.6
      */
     public function prepareDataSave()

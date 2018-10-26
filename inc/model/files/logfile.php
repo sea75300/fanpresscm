@@ -61,10 +61,10 @@ final class logfile extends \fpcm\model\abstracts\file {
     protected $fileMap = [];
     
     /**
-     * 
+     * Konstruktor
      * @param int $logFile
      * @param bool $init
-     * @return boolean
+     * @return bool
      */
     public function __construct($logFile, bool $init = true)
     {
@@ -92,7 +92,7 @@ final class logfile extends \fpcm\model\abstracts\file {
     }
 
     /**
-     * 
+     * Returns base path for file
      * @param string $filename
      * @return string
      */

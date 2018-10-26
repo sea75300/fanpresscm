@@ -19,25 +19,25 @@ namespace fpcm\model\cli;
 final class pkg extends \fpcm\model\abstracts\cli {
 
     /**
-     *
+     * System updater object
      * @var \fpcm\model\updater\system
      */
     private $updaterSys;
 
     /**
-     *
+     * Module updater object
      * @var \fpcm\model\updater\modules
      */
     private $updaterMod;
 
     /**
-     *
+     * Moduel key string
      * @var string
      */
     private $modulekey;
 
     /**
-     *
+     * List of actions without maintenace mode enabled
      * @var array
      */
     private $noMaintenanceMode = [
@@ -47,8 +47,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
     ];
 
     /**
-     * 
-     * @return boolean
+     * Initialize objects
+     * @return bool
      */
     private function initObjects()
     {
@@ -92,8 +92,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
-     * @return boolean
+     * Process update check
+     * @return bool
      */
     private function processUpdate()
     {
@@ -140,8 +140,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
-     * @return boolean
+     * Process full system update
+     * @return bool
      */
     private function processUpgradeSystem()
     {
@@ -204,8 +204,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * Run update finalizer
-     * @return boolean
+     * Run system database update
+     * @return bool
      */
     private function processUpgradedbSystem()
     {
@@ -225,7 +225,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
 
     /**
      * Run update finalizer
-     * @return boolean
+     * @return bool
      */
     private function processUpgradedbModule()
     {
@@ -246,8 +246,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
-     * @return boolean
+     * Process local file system for new modules
+     * @return bool
      */
     private function processListUpdatefs()
     {
@@ -263,8 +263,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
-     * @return boolean
+     * Process local module list output
+     * @return bool
      */
     private function processListLocal()
     {
@@ -284,8 +284,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
-     * @return boolean
+     * Process remote module list output
+     * @return bool
      */
     private function processListRemote()
     {
@@ -304,8 +304,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
-     * @return boolean
+     * Displays information for given module key
+     * @return bool
      */
     private function processInfoModule()
     {
@@ -317,12 +317,12 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
+     * Displays information for given module
      * @param \fpcm\module\module $module
      * @param bool $remote
      * @param bool $descr
      */
-    private function moduleslIstDetails($module, $remote = false, $descr = false)
+    private function moduleslIstDetails(\fpcm\module\module $module, $remote = false, $descr = false)
     {
         $this->output('>> ' . $module->getConfig()->name);
         $this->output($module->getKey() . ' - ' . $module->getConfig()->version . ' - ' . $module->getConfig()->author . ' - ' . $module->getConfig()->link . PHP_EOL);
@@ -342,8 +342,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
-     * @return boolean
+     * Process module installation
+     * @return bool
      */
     private function processInstallModule()
     {
@@ -359,8 +359,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
-     * @return boolean
+     * Process module update
+     * @return bool
      */
     private function processUpgradeModule()
     {
@@ -376,10 +376,10 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
+     * Process module package actions
      * @param string $mode
      * @param bool $checkFiles
-     * @return boolean
+     * @return bool
      */
     private function processModulePackage($mode, $checkFiles = false)
     {
@@ -452,8 +452,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
-     * @return boolean
+     * Returns module key by cli params and run check for existance
+     * @return bool
      */
     private function getModuleKey($pos = 2)
     {
@@ -470,8 +470,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
-     * @return boolean
+     * Process complete modul removal
+     * @return bool
      */
     private function processRemoveModule()
     {
@@ -490,8 +490,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
-     * @return boolean
+     * Process complete modul deletion
+     * @return bool
      */
     private function processDeleteModule()
     {

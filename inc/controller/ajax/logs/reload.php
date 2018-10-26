@@ -57,7 +57,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * Request-Handler
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -96,7 +96,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * Lädt Sessions-Log (Typ 0)
-     * @return boolean
+     * @return bool
      */
     private function loadLog0()
     {
@@ -113,7 +113,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * Lädt System-Log (Typ 1)
-     * @return boolean
+     * @return bool
      */
     private function loadLog1()
     {
@@ -177,7 +177,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function assignDataViewvars()
     {

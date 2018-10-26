@@ -28,7 +28,7 @@ class checkdb extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function hasAccess()
     {
@@ -37,7 +37,7 @@ class checkdb extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * Request-Handler
-     * @return boolean
+     * @return bool
      */
     public function request()
     {

@@ -25,7 +25,7 @@ class moduleConfig extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function initActionObjects()
     {
@@ -74,7 +74,7 @@ class moduleConfig extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function hasAccess()
     {
@@ -88,7 +88,7 @@ class moduleConfig extends \fpcm\controller\abstracts\controller {
 
     /**
      * Request-Handler
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -117,7 +117,7 @@ class moduleConfig extends \fpcm\controller\abstracts\controller {
 
     /**
      * Controller-Processing
-     * @return boolean
+     * @return bool
      */
     public function process()
     {        

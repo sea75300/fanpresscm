@@ -75,7 +75,7 @@ final class loader {
      * @param string $name
      * @param mixed $value
      * @param bool $force
-     * @return boolean
+     * @return bool
      */
     public static function stackPush($name, $value, $force = false)
     {

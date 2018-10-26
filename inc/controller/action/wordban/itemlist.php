@@ -43,7 +43,7 @@ class itemlist extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -77,7 +77,7 @@ class itemlist extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function process()
     {

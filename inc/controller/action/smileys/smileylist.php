@@ -39,7 +39,7 @@ class smileylist extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function request()
     {

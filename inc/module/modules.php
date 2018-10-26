@@ -31,7 +31,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
 
     /**
      * Konstruktor
-     * @return boolean
+     * @return bool
      */
     public function __construct()
     {
@@ -184,7 +184,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
 
     /**
      * Fetch modul data from file system
-     * @return boolean
+     * @return bool
      */
     public function updateFromFilesystem() : bool
     {
@@ -249,7 +249,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
      * Create module result
      * @param object $dataset
      * @param array $modules
-     * @return boolean
+     * @return bool
      */
     private function createResult($dataset, array &$modules) : bool
     {

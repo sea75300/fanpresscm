@@ -50,7 +50,7 @@ trait dataView {
 
     /**
      * Initialize Data view object
-     * @return boolean
+     * @return bool
      */
     protected function initDataView()
     {

@@ -686,7 +686,7 @@ class article extends \fpcm\model\abstracts\dataset {
 
     /**
      * Aktualisiert einen Artikel in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -749,7 +749,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Erzeugt eine Revision des Artikels
      * @param int $timer
-     * @return boolean
+     * @return bool
      */
     public function createRevision($timer = 0)
     {
@@ -833,7 +833,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Lädt Revision eines Artikels
      * @param int $revisionTime Revisions-ID
-     * @return boolean
+     * @return bool
      */
     public function getRevision($revisionTime)
     {
@@ -853,7 +853,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Stellt Revision eines Artikels wieder her
      * @param int $revisionTime Revisions-ID
-     * @return boolean
+     * @return bool
      */
     public function restoreRevision($revisionTime)
     {
@@ -868,7 +868,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Löscht Revisionen
      * @param array $revisionList Liste von Revisions-IDs
-     * @return boolean
+     * @return bool
      */
     public function deleteRevisions(array $revisionList = [])
     {
@@ -882,7 +882,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Erzeugt einen Tweet bei Twitter, wenn Verbindung aktiv und Events ausgewählt
      * @param bool $force
-     * @return boolean
+     * @return bool
      */
     public function createTweet($force = false)
     {
@@ -954,7 +954,7 @@ class article extends \fpcm\model\abstracts\dataset {
 
     /**
      * Prüft, ob Artikel öffentlich sichtbar ist
-     * @return boolean
+     * @return bool
      * @since FPCM 3.5
      */
     public function publicIsVisible()
@@ -1064,7 +1064,7 @@ class article extends \fpcm\model\abstracts\dataset {
 
     /**
      * Führt Ersetzung von gesperrten Texten in Artikel-Daten durch
-     * @return boolean
+     * @return bool
      * @since FPCM 3.2.0
      */
     private function removeBannedTexts()

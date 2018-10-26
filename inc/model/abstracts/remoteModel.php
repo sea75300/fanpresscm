@@ -70,7 +70,7 @@ abstract class remoteModel extends staticModel {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function fetchRemoteData()
     {
@@ -104,7 +104,7 @@ abstract class remoteModel extends staticModel {
 
     /**
      * Prüft, ob Update-Server verfügbar ist
-     * @return boolean
+     * @return bool
      */
     protected function remoteAvailable()
     {

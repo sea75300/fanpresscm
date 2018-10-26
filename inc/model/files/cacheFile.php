@@ -18,10 +18,28 @@ class cacheFile {
 
     const EXTENSION_CACHE = '.cache';
 
+    /**
+     * fulle cache file path
+     * @var string
+     */
     private $path;
+
+    /**
+     *
+     * @var Cache file module
+     */
     private $module;
+
+    /**
+     *
+     * @var Cache file expiration time
+     */
     private $expires = null;
 
+    /**
+     * Konstruktor
+     * @param string $cacheName
+     */
     public function __construct($cacheName)
     {
         $cacheName = explode('/', $cacheName, 2);
@@ -29,16 +47,16 @@ class cacheFile {
         $this->module = isset($cacheName[1]) && trim($cacheName[1]) ? $cacheName[0] : '';
 
         $this->path = \fpcm\classes\dirs::getDataDirPath(
-                        $this->getType(), $this->initCacheModule($this->module) .
-                        $this->initCacheName($this->module ? $cacheName[1] : $cacheName[0])
-                ) . $this->getExt();
+                $this->getType(), $this->initCacheModule($this->module) .
+                $this->initCacheName($this->module ? $cacheName[1] : $cacheName[0])
+        ) . $this->getExt();
     }
 
     /**
      * Inhalt in Cache-Datei schreiben
      * @param mixed $data
      * @param integer $expires
-     * @return boolean
+     * @return bool
      */
     public function write($data, $expires)
     {
@@ -102,7 +120,7 @@ class cacheFile {
 
     /**
      * Cache-Datei bereinigen
-     * @return boolean
+     * @return bool
      */
     public function cleanup()
     {
@@ -114,7 +132,7 @@ class cacheFile {
     }
 
     /**
-     * Cache-Name verschlüsseln
+     * Initialize cache name
      * @param string $cacheName
      * @return string
      */
@@ -131,7 +149,7 @@ class cacheFile {
     }
 
     /**
-     * Cache-Modul verschlüsseln
+     * Initialize cache module name
      * @param string $module
      * @return string
      * @since FPCM 3.4

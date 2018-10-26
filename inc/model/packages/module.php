@@ -36,7 +36,7 @@ class module extends package {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function initObjects()
     {
@@ -98,7 +98,7 @@ class module extends package {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function checkFiles()
     {
@@ -129,7 +129,7 @@ class module extends package {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function copy()
     {
@@ -227,7 +227,7 @@ class module extends package {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function updateLog()
     {

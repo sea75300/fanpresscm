@@ -88,7 +88,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
 
     /**
      * Häufigkeit der Ausführung einschränken
-     * @return boolean
+     * @return bool
      */
     public function checkTime()
     {
@@ -246,7 +246,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
 
     /**
      * Aktualisiert einen Artikel in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -255,7 +255,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
 
     /**
      * Check is cronjob is running
-     * @return boolean
+     * @return bool
      */
     public function isRunning()
     {
@@ -264,7 +264,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
 
     /**
      * Set file option, that cronjob is running
-     * @return boolean
+     * @return bool
      */
     public function setRunning()
     {
@@ -273,7 +273,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
 
     /**
      * Removes file option for running cronjon
-     * @return boolean
+     * @return bool
      */
     public function setFinished()
     {

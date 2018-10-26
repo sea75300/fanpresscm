@@ -58,7 +58,7 @@ class articleedit extends articlebase {
 
     /**
      * @see \fpcm\controller\abstracts\controller::request()
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -273,7 +273,7 @@ class articleedit extends articlebase {
 
     /**
      * Kommentar-Aktionen ausführen
-     * @return boolean
+     * @return bool
      */
     protected function handleCommentActions()
     {
@@ -286,7 +286,7 @@ class articleedit extends articlebase {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function handleDeleteAction()
     {
@@ -309,7 +309,7 @@ class articleedit extends articlebase {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function handleRevisionActions()
     {

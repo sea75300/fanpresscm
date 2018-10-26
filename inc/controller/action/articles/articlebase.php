@@ -194,7 +194,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function saveArticle()
     {
@@ -248,7 +248,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
      * 
      * @param array $data
      * @param int $allTimer
-     * @return boolean
+     * @return bool
      */
     private function assignArticleFormData(array $data, $allTimer)
     {

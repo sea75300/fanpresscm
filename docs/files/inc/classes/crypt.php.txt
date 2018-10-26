@@ -64,7 +64,7 @@ final class crypt {
 
     /**
      * Konstruktor
-     * @return boolean
+     * @return bool
      */
     public function __construct()
     {
@@ -197,7 +197,7 @@ final class crypt {
 
     /**
      * Check ob Konfiguration vollständig
-     * @return boolean
+     * @return bool
      */
     private function hasCompleteConfig()
     {

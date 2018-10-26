@@ -62,7 +62,7 @@ final class commentform extends template {
 
     /**
      * Parst Template-Platzhalter
-     * @return boolean
+     * @return bool
      */
     public function parse()
     {
@@ -77,7 +77,7 @@ final class commentform extends template {
 
     /**
      * Speichert Template in Dateisystem
-     * @return boolean
+     * @return bool
      */
     public function save()
     {

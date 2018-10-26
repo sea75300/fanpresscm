@@ -160,7 +160,7 @@ class revision extends \fpcm\model\abstracts\dataset {
 
     /**
      * Revision kann nicht verändert werden
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -197,7 +197,7 @@ class revision extends \fpcm\model\abstracts\dataset {
     
     /**
      * Initializes object
-     * @return boolean
+     * @return bool
      */
     public function init()
     {

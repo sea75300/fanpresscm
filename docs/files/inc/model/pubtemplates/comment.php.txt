@@ -46,7 +46,7 @@ final class comment extends template {
 
     /**
      * Parst Template-Platzhalter
-     * @return boolean
+     * @return bool
      */
     public function parse()
     {
@@ -124,7 +124,7 @@ final class comment extends template {
      * Assigns template variables by object of type @see \fpcm\model\comments\comment 
      * @param \fpcm\model\comments\comment $comment
      * @param int $index
-     * @return boolean
+     * @return bool
      */
     public function assignByObject(\fpcm\model\comments\comment $comment, int $index) : bool
     {

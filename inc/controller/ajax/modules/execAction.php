@@ -46,7 +46,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * Request-Handler
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -79,7 +79,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function processInstall()
     {
@@ -94,7 +94,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function processUninstall()
     {
@@ -107,7 +107,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function processDelete()
     {
@@ -120,7 +120,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function processEnable()
     {
@@ -132,7 +132,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function processDisable()
     {

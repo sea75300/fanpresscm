@@ -43,7 +43,7 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
     protected $isAdmin = false;
 
     /**
-     * 
+     * Returns container name
      * @return string
      */
     public function getName()
@@ -52,7 +52,7 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container content
      * @return string
      */
     public function getContent()
@@ -82,7 +82,7 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container position
      * @return int
      */
     public function getPosition()
@@ -91,7 +91,7 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container width
      * @return int
      */
     public function getWidth()

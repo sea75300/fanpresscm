@@ -40,7 +40,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -85,7 +85,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function processComments()
     {
@@ -104,7 +104,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function processRevisions()
     {

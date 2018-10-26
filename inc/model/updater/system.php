@@ -35,7 +35,7 @@ final class system extends \fpcm\model\abstracts\staticModel {
 
     /**
      * Prüft ob Updates verfügbar sind
-     * @return boolean
+     * @return bool
      */
     public function updateAvailable()
     {
@@ -79,7 +79,7 @@ final class system extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * 
+     * Initialize class data
      * @return bool
      */
     public function init()

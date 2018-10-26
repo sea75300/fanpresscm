@@ -26,7 +26,7 @@ class initdb extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * Konstruktor
-     * @return boolean
+     * @return bool
      */
     public function __construct()
     {
@@ -35,7 +35,7 @@ class initdb extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function hasAccess()
     {
@@ -48,7 +48,7 @@ class initdb extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * Request-Handler
-     * @return boolean
+     * @return bool
      */
     public function request()
     {

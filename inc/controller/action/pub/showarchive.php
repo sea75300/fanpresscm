@@ -35,7 +35,7 @@ class showarchive extends showcommon {
 
     /**
      * Controller ausführen
-     * @return boolean
+     * @return bool
      */
     public function process()
     {

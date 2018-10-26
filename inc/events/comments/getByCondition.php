@@ -23,7 +23,7 @@ namespace fpcm\events\comments;
 final class getByCondition extends \fpcm\events\abstracts\eventReturnArray {
 
     /**
-     * wird ausgeführt, wenn Kommentar-Suche ausgeführt wird
+     * Executes a certain event
      * @param array $data
      * @return array
      */

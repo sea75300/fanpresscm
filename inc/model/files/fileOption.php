@@ -62,7 +62,7 @@ class fileOption {
     /**
      * Write content to file option
      * @param mixed $data
-     * @return boolean
+     * @return bool
      */
     public function write($data)
     {

@@ -80,7 +80,7 @@ abstract class event {
     /**
      * Konstruktor
      * @param mixed $dataParams
-     * @return boolean
+     * @return bool
      */
     public function __construct($dataParams = null)
     {
@@ -108,6 +108,7 @@ abstract class event {
      * Magic get
      * @param string $name
      * @return mixed
+     * @ignore
      */
     public function __get($name)
     {
@@ -118,6 +119,7 @@ abstract class event {
      * Magic set
      * @param mixed $name
      * @param mixed $value
+     * @ignore
      */
     public function __set($name, $value)
     {
@@ -128,7 +130,8 @@ abstract class event {
      * Magische Methode für nicht vorhandene Methoden
      * @param string $name
      * @param mixed $arguments
-     * @return boolean
+     * @return bool
+     * @ignore
      */
     public function __call($name, $arguments)
     {
@@ -140,7 +143,8 @@ abstract class event {
      * Magische Methode für nicht vorhandene, statische Methoden
      * @param string $name
      * @param mixed $arguments
-     * @return boolean
+     * @return bool
+     * @ignore
      */
     public static function __callStatic($name, $arguments)
     {
@@ -150,7 +154,7 @@ abstract class event {
 
     /**
      * Prüft ob spezielle Berechtigungen für Event nötig sind
-     * @return boolean
+     * @return bool
      */
     public function checkPermissions()
     {
@@ -183,7 +187,7 @@ abstract class event {
     /**
      * Checks if module event class has implemented \fpcm\events\abstracts\moduleEvent
      * @param mixed $object
-     * @return boolean
+     * @return bool
      */
     protected function is_a($object)
     {
@@ -234,7 +238,7 @@ abstract class event {
     }
 
     /**
-     * Esxecutes a certain event
+     * Executes a certain event
      * @param array $data
      * @return array
      */

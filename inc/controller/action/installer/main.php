@@ -116,7 +116,7 @@ class main extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function hasAccess()
     {
@@ -125,7 +125,7 @@ class main extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function request()
     {

@@ -23,7 +23,7 @@ namespace fpcm\events\modules;
 class configure extends \fpcm\events\abstracts\eventReturnArray {
 
     /**
-     * 
+     * Executes a certain event
      * @return array
      */
     public function run()

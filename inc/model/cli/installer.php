@@ -49,7 +49,7 @@ final class installer extends \fpcm\model\abstracts\cli {
 
     /**
      * Prüfung, ob Installer aktiv ist
-     * @return boolean
+     * @return bool
      */
     private function checkPreconditions()
     {
@@ -70,7 +70,7 @@ final class installer extends \fpcm\model\abstracts\cli {
 
     /**
      * Installer YML Konfiguration auslesen
-     * @return boolean
+     * @return bool
      */
     private function loadConfig()
     {
@@ -92,7 +92,7 @@ final class installer extends \fpcm\model\abstracts\cli {
 
     /**
      * System Check ausführen
-     * @return boolean
+     * @return bool
      */
     private function runSystemCheck()
     {
@@ -134,7 +134,7 @@ final class installer extends \fpcm\model\abstracts\cli {
 
     /**
      * Konfiguration für DB-Verbindung erzeugen
-     * @return boolean
+     * @return bool
      */
     private function initDatabase()
     {
@@ -171,7 +171,7 @@ final class installer extends \fpcm\model\abstracts\cli {
 
     /**
      * Datenbank-Tabellen erzeugen
-     * @return boolean
+     * @return bool
      */
     private function createTables()
     {
@@ -206,7 +206,7 @@ final class installer extends \fpcm\model\abstracts\cli {
 
     /**
      * System-Konfiguration erzeugen
-     * @return boolean
+     * @return bool
      */
     private function initSystemConfig()
     {
@@ -244,7 +244,7 @@ final class installer extends \fpcm\model\abstracts\cli {
 
     /**
      * Ersten Benutzer erzeugen
-     * @return boolean
+     * @return bool
      */
     private function createUserAccount()
     {
@@ -280,7 +280,7 @@ final class installer extends \fpcm\model\abstracts\cli {
 
     /**
      * System bereinigung
-     * @return boolean
+     * @return bool
      */
     private function cleanupSystem()
     {

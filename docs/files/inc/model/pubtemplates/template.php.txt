@@ -116,7 +116,7 @@ class template extends \fpcm\model\abstracts\file {
 
     /**
      * nicht verwendet
-     * @return boolean
+     * @return bool
      */
     public function delete()
     {
@@ -127,7 +127,7 @@ class template extends \fpcm\model\abstracts\file {
      * nicht verwendet
      * @param string $newname
      * @param int $userId
-     * @return boolean
+     * @return bool
      */
     public function rename($newname, $userId = false)
     {
@@ -154,7 +154,7 @@ class template extends \fpcm\model\abstracts\file {
 
     /**
      * Speichert Template in Dateisystem
-     * @return boolean
+     * @return bool
      */
     public function save()
     {
@@ -284,7 +284,7 @@ class template extends \fpcm\model\abstracts\file {
 
     /**
      * Parses replacements for attributes
-     * @return boolean
+     * @return bool
      * @ignore
      */
     protected function parseReplacement()

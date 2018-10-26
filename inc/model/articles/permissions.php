@@ -21,7 +21,7 @@ trait permissions {
     /**
      * Führt Prüfung durch, ob Artikel bearbeitet werden kann
      * @param \fpcm\model\articles\article $article
-     * @return boolean
+     * @return bool
      */
     public function checkEditPermissions(article &$article)
     {

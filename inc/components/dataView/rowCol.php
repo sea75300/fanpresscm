@@ -26,7 +26,7 @@ final class rowCol implements \JsonSerializable {
 
     /**
      * Column value
-     * @var int
+     * @var mixed
      */
     protected $value    = '';
 
@@ -41,12 +41,13 @@ final class rowCol implements \JsonSerializable {
      * @var int
      */
     protected $type     = 0;
-
+    
     /**
-     * Konstruktor
-     * @param type $name
-     * @param type $value
-     * @param type $class
+     * 
+     * @param string $name
+     * @param mixed $value
+     * @param string $class
+     * @param string $type
      */
     public function __construct($name, $value = '', $class = '', $type = self::COLTYPE_VALUE)
     {

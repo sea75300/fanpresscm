@@ -176,7 +176,7 @@ abstract class package {
 
     /**
      * Check if remot path points to trusted server
-     * @return boolean
+     * @return bool
      */
     final public function isTrustedPath()
     {
@@ -199,7 +199,7 @@ abstract class package {
 
     /**
      * Lädt Package in Abhängigkeit von Einstellungen herunter
-     * @return boolean
+     * @return bool
      */
     public function download()
     {
@@ -240,7 +240,7 @@ abstract class package {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function checkPackage()
     {
@@ -268,7 +268,7 @@ abstract class package {
 
     /**
      * Package entpacken
-     * @return boolean
+     * @return bool
      */
     public function extract()
     {
@@ -289,7 +289,7 @@ abstract class package {
     
     /**
      * Performs clean of update files and cache
-     * @return boolean
+     * @return bool
      */
     public function cleanup()
     {
@@ -330,7 +330,7 @@ abstract class package {
      * copy-Protokoll
      * @param string $file
      * @param bool $success
-     * @return boolean
+     * @return bool
      * @see package::copy
      * @since FPCM 3.6
      */

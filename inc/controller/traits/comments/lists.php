@@ -120,7 +120,7 @@ trait lists {
     /**
      * Kommentar-Aktionen ausführen
      * @param \fpcm\model\comments\commentList $commentList
-     * @return boolean
+     * @return bool
      */
     protected function processCommentActions(\fpcm\model\comments\commentList $commentList)
     {
@@ -199,7 +199,7 @@ trait lists {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function initActionObjects()
     {
@@ -233,7 +233,7 @@ trait lists {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function initDataView()
     {
@@ -242,7 +242,7 @@ trait lists {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function commentObjects()
     {
@@ -255,7 +255,7 @@ trait lists {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function commentDataView()
     {

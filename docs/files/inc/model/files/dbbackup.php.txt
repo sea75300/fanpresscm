@@ -52,7 +52,7 @@ final class dbbackup extends \fpcm\model\abstracts\file {
     }
 
     /**
-     * 
+     * Returns base path for file
      * @param string $filename
      * @return string
      */
@@ -81,7 +81,7 @@ final class dbbackup extends \fpcm\model\abstracts\file {
 
     /**
      * Speichert einen neuen Datei-Eintrag in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function save()
     {
@@ -90,7 +90,7 @@ final class dbbackup extends \fpcm\model\abstracts\file {
 
     /**
      * Aktualisiert einen Datei-Eintrag in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -101,7 +101,7 @@ final class dbbackup extends \fpcm\model\abstracts\file {
      * Benennt eine Datei um
      * @param string $newname
      * @param int $userId
-     * @return boolean
+     * @return bool
      */
     public function rename($newname, $userId = false)
     {

@@ -160,7 +160,7 @@ trait lists {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function initActionObjects()
     {
@@ -174,7 +174,7 @@ trait lists {
 
     /**
      * Init action vars
-     * @return boolean
+     * @return bool
      */
     protected function initActionVars()
     {
@@ -188,7 +188,7 @@ trait lists {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function initDataView()
     {

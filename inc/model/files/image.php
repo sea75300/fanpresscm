@@ -111,7 +111,7 @@ class image extends \fpcm\model\abstracts\file {
     }
 
     /**
-     * 
+     * Returns base path for file
      * @param string $filename
      * @return string
      */
@@ -271,7 +271,7 @@ class image extends \fpcm\model\abstracts\file {
 
     /**
      * Speichert einen neuen Datei-Eintrag in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function save()
     {
@@ -284,7 +284,7 @@ class image extends \fpcm\model\abstracts\file {
 
     /**
      * Aktualisiert einen Datei-Eintrag in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -300,7 +300,7 @@ class image extends \fpcm\model\abstracts\file {
 
     /**
      * Löscht Datei-Eintrag in Datenbank und Datei in Dateisystem
-     * @return boolean
+     * @return bool
      */
     public function delete()
     {
@@ -321,7 +321,7 @@ class image extends \fpcm\model\abstracts\file {
      * Benennt eine Datei um
      * @param string $newname
      * @param int $userId
-     * @return boolean
+     * @return bool
      */
     public function rename($newname, $userId = false)
     {
@@ -385,7 +385,7 @@ class image extends \fpcm\model\abstracts\file {
 
     /**
      * Erzeugt ein Thumbnail für das aktuelle Bild
-     * @return boolean
+     * @return bool
      */
     public function createThumbnail()
     {
@@ -426,7 +426,7 @@ class image extends \fpcm\model\abstracts\file {
     /**
      * initialisiert Bild-Objekt
      * @param bool $initDB
-     * @return boolean
+     * @return bool
      */
     protected function init($initDB)
     {
@@ -465,7 +465,7 @@ class image extends \fpcm\model\abstracts\file {
     /**
      * Füllt Objekt mit Daten aus Datenbank-Result
      * @param object $object
-     * @return boolean
+     * @return bool
      * @since FPCM 3.1.2
      */
     public function createFromDbObject($object)

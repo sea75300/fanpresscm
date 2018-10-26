@@ -130,7 +130,7 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function initActionObjects()
     {
@@ -144,7 +144,7 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
 
     /**
      * Request-Handler
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -171,7 +171,7 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
 
     /**
      * Controller ausführen
-     * @return boolean
+     * @return bool
      */
     public function process()
     {

@@ -35,7 +35,7 @@ class main {
 
     /**
      * Controller-Processing
-     * @return boolean
+     * @return bool
      */
     public function exec()
     {

@@ -48,7 +48,7 @@ abstract class moduleEvent implements \fpcm\model\interfaces\event {
 
     /**
      * Konstruktor
-     * @return boolean
+     * @return bool
      */
     final public function __construct()
     {
@@ -85,7 +85,7 @@ abstract class moduleEvent implements \fpcm\model\interfaces\event {
      * Magische Methode für nicht vorhandene Methoden
      * @param string $name
      * @param mixed $arguments
-     * @return boolean
+     * @return bool
      */
     public function __call($name, $arguments)
     {
@@ -97,7 +97,7 @@ abstract class moduleEvent implements \fpcm\model\interfaces\event {
      * Magische Methode für nicht vorhandene, statische Methoden
      * @param string $name
      * @param mixed $arguments
-     * @return boolean
+     * @return bool
      */
     public static function __callStatic($name, $arguments)
     {

@@ -70,7 +70,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * Request-Handler
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -108,7 +108,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function fetchLocal()
     {
@@ -121,7 +121,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function fetchRemote()
     {
@@ -351,7 +351,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function initActionObjects()
     {

@@ -58,7 +58,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function initActionObjects()
     {
@@ -70,7 +70,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -123,7 +123,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function process()
     {
@@ -160,7 +160,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
 
     /**
      * Benutzer-Dataview erzeugen
-     * @return boolean
+     * @return bool
      */
     private function createUsersView()
     {
@@ -242,7 +242,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
 
     /**
      * Benutzer-Dataview erzeugen
-     * @return boolean
+     * @return bool
      */
     private function createRollsView()
     {

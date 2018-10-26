@@ -128,7 +128,7 @@ class select extends helper {
 
     /**
      * Return first option string
-     * @return boolean
+     * @return bool
      */
     protected function getFirstOption()
     {

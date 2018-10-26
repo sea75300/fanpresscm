@@ -144,20 +144,22 @@ class viewVars {
 
         return $path;
     }
-
+    
     /**
+     * 
      * Write result of language variable
      * @param string $var
-     * @param array $param
+     * @param array $params
      */
     public function write($var, array $params = [])
     {
         print $this->translate($var, $params);
     }
-
+    
     /**
+     * 
      * Returns result of language variable
-     * @param type $var
+     * @param string $var
      * @param array $params
      * @return string
      */
@@ -165,12 +167,12 @@ class viewVars {
     {
         return $this->lang->translate($var, $params);
     }
-
+    
+    
     /**
-     * Returns language code
-     * @param type $var
-     * @param array $params
-     * @return string
+     * Displays month name by ID
+     * @param int $monthId
+     * @see \fpcm\classes\language::writeMonth
      */
     public function writeMonth($monthId)
     {

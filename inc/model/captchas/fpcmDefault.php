@@ -28,7 +28,7 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
 
     /**
      * Captcha-Antwort prüfen
-     * @return boolean
+     * @return bool
      */
     public function checkAnswer()
     {

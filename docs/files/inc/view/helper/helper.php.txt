@@ -75,7 +75,7 @@ abstract class helper {
     protected $wrapperClass = '';
 
     /**
-     *
+     * Language object
      * @var \fpcm\classes\language
      */
     protected $language;

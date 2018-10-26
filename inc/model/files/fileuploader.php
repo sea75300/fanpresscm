@@ -25,7 +25,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
 
     /**
      * Konstruktor
-     * @param array $uploader $_FILES array
+     * @param array $uploader includes $_FILES array
      */
     public function __construct(array $uploader)
     {
@@ -102,7 +102,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
 
     /**
      * Führt Upload von Module-Package via HTML-Form + PHP sowie Installation aus Modulmanager durch
-     * @return boolean
+     * @return bool
      */
     public function processModuleUpload()
     {
@@ -153,7 +153,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
     /**
      * Führt Upload von HTML-Template für Artikle-Editor via HTML-Form + PHP durch
      * @since FPCM 3.3
-     * @return boolean
+     * @return bool
      */
     public function processArticleTemplateUpload()
     {
@@ -189,7 +189,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
      * Führt Upload eines Artikel-Bildes aus
      * @param string $filename
      * @since FPCM 3.6
-     * @return boolean
+     * @return bool
      */
     public function processAuthorImageUpload($filename)
     {
@@ -224,9 +224,9 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * 
+     * Returns complete file name which includes sub folder name for uploaded images
      * @param string $fileName
-     * @return boolean
+     * @return string
      */
     public function getUploadFileName(string $fileName) : string
     {

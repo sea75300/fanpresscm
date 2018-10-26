@@ -37,7 +37,7 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer {
     protected $isAdmin = false;
 
     /**
-     * 
+     * Returns container name
      * @return string
      */
     public function getName()
@@ -46,7 +46,7 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container permissions
      * @return array
      */
     public function getPermissions()
@@ -58,7 +58,7 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container content
      * @return string
      */
     public function getContent()

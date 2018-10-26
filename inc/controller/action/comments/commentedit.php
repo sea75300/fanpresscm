@@ -90,7 +90,7 @@ class commentedit extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -171,7 +171,7 @@ class commentedit extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function process()
     {

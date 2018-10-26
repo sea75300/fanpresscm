@@ -29,7 +29,7 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
     /**
      * 
      * @param array $param
-     * @return boolean
+     * @return bool
      */
     public function authenticate(array $param)
     {

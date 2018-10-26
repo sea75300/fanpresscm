@@ -42,7 +42,7 @@ class articlelisttrash extends articlelistbase {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function getConditionItem()
     {
@@ -51,7 +51,7 @@ class articlelisttrash extends articlelistbase {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function getSearchMode()
     {

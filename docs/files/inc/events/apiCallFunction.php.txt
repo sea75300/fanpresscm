@@ -23,8 +23,8 @@ namespace fpcm\events;
 final class apiCallFunction extends \fpcm\events\abstracts\event {
 
     /**
-     * 
-     * @return boolean|mixed
+     * Executes a certain event
+     * @return bool|mixed
      */
     public function run()
     {

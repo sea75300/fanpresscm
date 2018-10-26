@@ -40,7 +40,7 @@ class permissions extends \fpcm\controller\abstracts\controller {
 
     /**
      * Request-Handler
-     * @return boolean
+     * @return bool
      */
     public function request()
     {

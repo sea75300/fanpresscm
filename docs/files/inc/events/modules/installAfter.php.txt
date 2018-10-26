@@ -23,8 +23,8 @@ namespace fpcm\events\modules;
 class installAfter extends \fpcm\events\abstracts\event {
 
     /**
-     * 
-     * @return boolean
+     * Executes a certain event
+     * @return bool
      */
     public function run()
     {

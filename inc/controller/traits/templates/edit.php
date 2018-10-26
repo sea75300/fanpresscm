@@ -31,7 +31,7 @@ trait edit {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function getArticleTemplate()
     {
@@ -41,7 +41,7 @@ trait edit {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function getArticleSingleTemplate()
     {
@@ -51,7 +51,7 @@ trait edit {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function getCommentTemplate()
     {
@@ -62,7 +62,7 @@ trait edit {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function getCommentFormTemplate()
     {
@@ -73,7 +73,7 @@ trait edit {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function getshareButtonsTemplate()
     {
@@ -84,7 +84,7 @@ trait edit {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function getLatestNewsTemplate()
     {
@@ -94,7 +94,7 @@ trait edit {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function getTweetTemplate()
     {

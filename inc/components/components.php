@@ -45,7 +45,7 @@ final class components {
     /**
      * Return list of mass edit fields in view
      * @param array $masseditFields
-     * @return boolean
+     * @return bool
      */
     public static function getMassEditFields(array $masseditFields = [])
     {

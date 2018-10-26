@@ -63,7 +63,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * Autocomplete von Artikeln
-     * @return boolean
+     * @return bool
      */
     private function autocompleteArticles()
     {
@@ -100,7 +100,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * Autocomplete der Bild-Liste im Editor
-     * @return boolean
+     * @return bool
      */
     private function autocompleteEditorfiles()
     {
@@ -110,7 +110,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * Autocomplete der Link-Liste im Editor
-     * @return boolean
+     * @return bool
      */
     private function autocompleteEditorlinks()
     {

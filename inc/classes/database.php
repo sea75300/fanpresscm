@@ -387,7 +387,7 @@ final class database {
      * @param string $countitem Welche Spalte soll gezählt werden
      * @param string $where Nach welchen Filterkriterien soll gezählt werden
      * @param array $params
-     * @return boolean
+     * @return bool
      */
     public function count($table, $countitem = '*', $where = null, array $params = [])
     {
@@ -513,7 +513,7 @@ final class database {
     /**
      * Führt SQL-Datei aus
      * @param string $path
-     * @return boolean
+     * @return bool
      * @since FPCM 3.2.0
      */
     public function execSqlFile($path)
@@ -555,7 +555,7 @@ final class database {
     /**
      * Parst YaTDL-Datei und führt SQL-Statement aus
      * @param string $path
-     * @return boolean
+     * @return bool
      * @since FPCM 3.2.0
      */
     public function execYaTdl($path)
@@ -639,7 +639,7 @@ final class database {
 
     /**
      * Schreibt letzte Fehlermeldung der DB-Verbindung in DB-Log
-     * @return boolean
+     * @return bool
      */
     public function getError()
     {
@@ -650,7 +650,7 @@ final class database {
     /**
      * Schreibt letzte Fehlermeldung des ausgefühtren Statements in DB-Log
      * @param \PDOStatement $statement
-     * @return boolean
+     * @return bool
      */
     public function getStatementError(\PDOStatement &$statement)
     {
@@ -895,7 +895,7 @@ final class database {
      * Vergleicht die aktuelle Struktur der Tabelle in der DB mit der Struktur der YML-Datei und 
      *  fügt ggf. fehlende Spalten zur Tabelle in der DB hinzu
      * @param string $tableFile
-     * @return boolean
+     * @return bool
      * @since FPCM 3.3.2
      */
     public function checkTableStructure($tableFile)
@@ -906,7 +906,7 @@ final class database {
     /**
      * Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl 
      * @param \fpcm\model\system\yatdl $yatdl
-     * @return boolean
+     * @return bool
      */
     public function addTableCols(\fpcm\model\system\yatdl $yatdl)
     {
@@ -953,7 +953,7 @@ final class database {
     /**
      * Removes columns to database table by definition in object of type @see \fpcm\model\system\yatdl 
      * @param \fpcm\model\system\yatdl $yatdl
-     * @return boolean
+     * @return bool
      */
     public function removeTableCols(\fpcm\model\system\yatdl $yatdl)
     {
@@ -979,7 +979,7 @@ final class database {
     /**
      * Datei data/config/database.php erzeugen
      * @param array $data
-     * @return boolean
+     * @return bool
      * @since FPCM 3.5.1
      */
     public function createDbConfigFile(array $data)

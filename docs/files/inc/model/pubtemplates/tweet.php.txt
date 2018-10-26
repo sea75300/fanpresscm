@@ -43,7 +43,7 @@ final class tweet extends template {
 
     /**
      * Parst Template-Platzhalter
-     * @return boolean
+     * @return bool
      */
     public function parse()
     {
@@ -66,7 +66,7 @@ final class tweet extends template {
 
     /**
      * Speichert Template in Dateisystem
-     * @return boolean
+     * @return bool
      */
     public function save()
     {

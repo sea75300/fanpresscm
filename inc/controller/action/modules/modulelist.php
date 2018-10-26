@@ -48,7 +48,7 @@ class modulelist extends \fpcm\controller\abstracts\controller {
     
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function request()
     {        
@@ -64,7 +64,7 @@ class modulelist extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function process()
     {
@@ -103,7 +103,7 @@ class modulelist extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function uploadModule()
     {

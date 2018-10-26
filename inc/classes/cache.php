@@ -111,7 +111,7 @@ final class cache {
     /**
      * Cachew bereinigen
      * @param string $cacheName
-     * @return boolean
+     * @return bool
      */
     public function cleanup($cacheName = null)
     {

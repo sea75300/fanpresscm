@@ -173,7 +173,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
 
     /**
      * Speichert einen neuen IP-Datensatz in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function save()
     {
@@ -197,7 +197,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
 
     /**
      * nicht verfügbar
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -206,7 +206,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
 
     /**
      * Prüft ob IP-Adresse gesperrt ist
-     * @return boolean
+     * @return bool
      */
     public function check()
     {

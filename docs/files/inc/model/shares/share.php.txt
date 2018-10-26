@@ -125,7 +125,7 @@ class share extends \fpcm\model\abstracts\dataset {
 
     /**
      * 
-     * @return boolean|int
+     * @return bool|int
      */
     public function save()
     {

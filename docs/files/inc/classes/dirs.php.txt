@@ -46,7 +46,7 @@ final class dirs {
 
     /**
      * Initialisiert Basis-Ordner
-     * @return boolean
+     * @return bool
      */
     private static function initDirs()
     {
@@ -61,7 +61,7 @@ final class dirs {
 
     /**
      * Initialisiert Basis-URLs
-     * @return boolean
+     * @return bool
      */
     private static function initUrls()
     {

@@ -172,7 +172,7 @@ class view {
 
     /**
      * Inits file library
-     * @return boolean
+     * @return bool
      */
     protected function initFileLib()
     {
@@ -241,7 +241,7 @@ class view {
 
     /**
      * Initializes notifications
-     * @return boolean
+     * @return bool
      */
     protected function prepareNotifications()
     {
@@ -553,7 +553,7 @@ class view {
 
     /**
      * Initializes basic view vars
-     * @return boolean
+     * @return bool
      */
     protected function initAssigns()
     {
@@ -676,7 +676,7 @@ class view {
     /**
      * Set active navigation item
      * @param string $elementId
-     * @return boolean
+     * @return bool
      */
     public function setActiveNavigationElement($elementId)
     {
@@ -829,7 +829,7 @@ class view {
     /**
      * Checks User Agent for a certain browser
      * @param string $key
-     * @return boolean
+     * @return bool
      * @static
      */
     public static function isBrowser($key)

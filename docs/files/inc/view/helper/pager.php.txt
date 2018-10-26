@@ -86,7 +86,7 @@ class pager extends helper {
 
     /**
      * @ignore
-     * @return boolean
+     * @return bool
      */
     protected function init()
     {

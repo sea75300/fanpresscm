@@ -130,7 +130,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
     /**
      * Request-Handler
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -163,7 +163,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
     /**
      * Controller ausführen
-     * @return boolean
+     * @return bool
      */
     public function process()
     {
@@ -316,7 +316,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
     /**
      * Neuen Kommentar speichern
-     * @return boolean
+     * @return bool
      */
     protected function saveComment()
     {

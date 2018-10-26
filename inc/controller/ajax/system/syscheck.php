@@ -52,7 +52,7 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -66,7 +66,7 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * @see \fpcm\controller\abstracts\controller::hasAccess()
-     * @return boolean
+     * @return bool
      */
     public function hasAccess()
     {
@@ -101,7 +101,7 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function submitStatsData()
     {

@@ -20,7 +20,7 @@ class sessioncheck extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function hasAccess()
     {

@@ -94,7 +94,7 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
 /**
  * Systemlog schreiben
  * @param mixed $data
- * @return boolean
+ * @return bool
  * @since FPCM 3.6
  */
 function fpcmLogSystem($data)
@@ -112,7 +112,7 @@ function fpcmLogSystem($data)
 /**
  * Datenbanklog schreiben
  * @param mixed $data
- * @return boolean
+ * @return bool
  * @since FPCM 3.6
  */
 function fpcmLogSql($data)
@@ -131,7 +131,7 @@ function fpcmLogSql($data)
  * Paketmanagerlog schreiben
  * @param string $packageName
  * @param mixed $data
- * @return boolean
+ * @return bool
  * @since FPCM 3.6
  */
 function fpcmLogPackages($packageName, array $data)
@@ -147,7 +147,7 @@ function fpcmLogPackages($packageName, array $data)
 /**
  * Cronlog schreiben
  * @param mixed $data
- * @return boolean
+ * @return bool
  * @since FPCM 3.6
  */
 function fpcmLogCron($data)
@@ -165,7 +165,7 @@ function fpcmLogCron($data)
 /**
  * Event-Log
  * @param mixed $data
- * @return boolean
+ * @return bool
  * @since FPCM 4
  */
 function fpcmLogEvents($data)

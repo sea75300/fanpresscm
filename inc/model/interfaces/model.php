@@ -18,7 +18,7 @@
         
         /**
          * Initialisiert Objekt
-         * @return boolean
+         * @return bool
          */
         public function init();
         

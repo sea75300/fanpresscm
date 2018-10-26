@@ -90,7 +90,7 @@ class module {
      * Konstruktor
      * @param string $key
      * @param boolean $initDb
-     * @return boolean
+     * @return bool
      */
     final public function __construct($key, $initDb = true)
     {
@@ -166,7 +166,7 @@ class module {
 
     /**
      * Initialize objects
-     * @return boolean
+     * @return bool
      */
     protected function initObjects() : bool
     {
@@ -251,7 +251,7 @@ class module {
     /**
      * Initialize object with database data
      * @param object $result
-     * @return boolean
+     * @return bool
      */
     public function createFromDbObject($result) : bool
     {
@@ -265,7 +265,7 @@ class module {
 
     /**
      * Enable module
-     * @return boolean
+     * @return bool
      */
     public function enable() : bool
     {
@@ -281,7 +281,7 @@ class module {
 
     /**
      * Disable module
-     * @return boolean
+     * @return bool
      */
     public function disable() : bool
     {
@@ -297,7 +297,7 @@ class module {
 
     /**
      * Check if module is installed
-     * @return boolean
+     * @return bool
      */
     public function isInstallable() : bool
     {
@@ -318,7 +318,7 @@ class module {
 
     /**
      * Check if module has updates
-     * @return boolean
+     * @return bool
      */
     public function hasUpdates() : bool
     {
@@ -349,7 +349,7 @@ class module {
 
     /**
      * Initialize module object
-     * @return boolean
+     * @return bool
      */
     protected function init() : bool
     {
@@ -392,7 +392,7 @@ class module {
     /**
      * Fetch \fpcm\model\system\yatdl object
      * @param string $tableFile
-     * @return boolean|\fpcm\model\system\yatdl
+     * @return bool|\fpcm\model\system\yatdl
      */
     private function getYaTdlObject($tableFile)
     {
@@ -452,7 +452,7 @@ class module {
     /**
      * Create module config
      * @param \fpcm\model\system\yatdl $tab
-     * @return boolean
+     * @return bool
      */
     private function createTable(\fpcm\model\system\yatdl $tab) : bool
     {
@@ -476,7 +476,7 @@ class module {
     /**
      * Install module
      * @param boolean $fromDir
-     * @return boolean
+     * @return bool
      */
     final public function install($fromDir = false) : bool
     {
@@ -512,7 +512,7 @@ class module {
     /**
      * Add module entry to database
      * @param boolean $fromDir
-     * @return boolean
+     * @return bool
      */
     public function addModule($fromDir = false) : bool
     {
@@ -537,7 +537,7 @@ class module {
 
     /**
      * Create module tables
-     * @return boolean
+     * @return bool
      */
     private function installTables() : bool
     {
@@ -561,7 +561,7 @@ class module {
 
     /**
      * Create module config options
-     * @return boolean
+     * @return bool
      */
     private function installConfig() : bool
     {
@@ -587,7 +587,7 @@ class module {
     /**
      * Uninstall module
      * @param boolean $delete
-     * @return boolean
+     * @return bool
      */
     final public function uninstall($delete = false) : bool
     {
@@ -623,7 +623,7 @@ class module {
 
     /**
      * Remove module database entry
-     * @return boolean
+     * @return bool
      */
     private function removeModule() : bool
     {
@@ -633,7 +633,7 @@ class module {
 
     /**
      * Remove module files
-     * @return boolean
+     * @return bool
      */
     private function removeFiles() : bool
     {
@@ -643,7 +643,7 @@ class module {
 
     /**
      * Remove module tables
-     * @return boolean
+     * @return bool
      */
     private function removeTables() : bool
     {
@@ -673,7 +673,7 @@ class module {
 
     /**
      * Remove module config
-     * @return boolean
+     * @return bool
      */
     private function removeConfig() : bool
     {
@@ -689,7 +689,7 @@ class module {
 
     /**
      * Update module
-     * @return boolean
+     * @return bool
      */
     final public function update() : bool
     {
@@ -719,7 +719,7 @@ class module {
 
     /**
      * Update module databse entry
-     * @return boolean|int
+     * @return bool|int
      */
     private function updateModule() : bool
     {
@@ -733,7 +733,7 @@ class module {
 
     /**
      * Update module tables
-     * @return boolean
+     * @return bool
      */
     private function updateTables() : bool
     {
@@ -800,7 +800,7 @@ class module {
 
     /**
      * Update module config
-     * @return boolean
+     * @return bool
      */
     private function updateConfig() : bool
     {

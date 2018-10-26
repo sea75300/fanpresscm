@@ -23,7 +23,7 @@ namespace fpcm\events\comments;
 final class massEditBefore extends \fpcm\events\abstracts\eventReturnArray {
 
     /**
-     * wird ausgeführt, bevor Massenbearbeitung von Kommentaren ausgeführt wird
+     * Executes a certain event
      * @param array $data
      * @return array
      */

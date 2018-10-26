@@ -119,7 +119,7 @@ abstract class file {
     /**
      * Konstruktor
      * @param strong $filename
-     * @return boolean
+     * @return bool
      */
     public function __construct($filename = '')
     {
@@ -149,8 +149,10 @@ abstract class file {
     }
 
     /**
-     * 
+     * Returns base path for file
+     * @param string $filename File name
      * @return string
+     * @abstract
      */
     abstract protected function basePath($filename);
 
@@ -158,6 +160,7 @@ abstract class file {
      * Magic get
      * @param string $name
      * @return mixed
+     * @ignore
      */
     public function __get($name)
     {
@@ -168,6 +171,7 @@ abstract class file {
      * Magic set
      * @param mixed $name
      * @param mixed $value
+     * @ignore
      */
     public function __set($name, $value)
     {
@@ -177,6 +181,7 @@ abstract class file {
     /**
      * Magic string
      * @return string
+     * @ignore
      */
     public function __toString()
     {
@@ -187,7 +192,8 @@ abstract class file {
      * Magische Methode für nicht vorhandene Methoden
      * @param string $name
      * @param mixed $arguments
-     * @return boolean
+     * @return bool
+     * @ignore
      */
     public function __call($name, $arguments)
     {
@@ -199,7 +205,8 @@ abstract class file {
      * Magische Methode für nicht vorhandene, statische Methoden
      * @param string $name
      * @param mixed $arguments
-     * @return boolean
+     * @return bool
+     * @ignore
      */
     public static function __callStatic($name, $arguments)
     {
@@ -377,7 +384,7 @@ abstract class file {
 
     /**
      * Lädt Inhalt von gespeicherter Datei
-     * @return boolean
+     * @return bool
      * @since FPCM 3.5
      */
     public function loadContent()
@@ -397,7 +404,7 @@ abstract class file {
 
     /**
      * ist Datei beschreibbar
-     * @return boolean
+     * @return bool
      * @since FPCM 3.5
      */
     public function isWritable()
@@ -407,7 +414,7 @@ abstract class file {
 
     /**
      * ist Datei lesbar
-     * @return boolean
+     * @return bool
      * @since FPCM 3.5
      */
     public function isReadable()

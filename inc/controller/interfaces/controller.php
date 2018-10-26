@@ -20,19 +20,19 @@
 
         /**
          * Request processing
-         * @return boolean, false prevent execution of @see process()
+         * @return bool, false prevent execution of @see process()
          */ 
         public function request();
 
         /**
          * Access check processing
-         * @return boolean, false prevent execution of @see request() @see process()
+         * @return bool, false prevent execution of @see request() @see process()
          */ 
         public function hasAccess();
 
         /**
          * Controller-Processing
-         * @return boolean
+         * @return bool
          */ 
         public function process();
 

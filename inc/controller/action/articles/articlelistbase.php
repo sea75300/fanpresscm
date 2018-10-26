@@ -83,7 +83,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
     /**
      * Request-Handler
-     * @return boolean
+     * @return bool
      */
     public function request()
     {   
@@ -137,7 +137,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function init()
     {
@@ -152,7 +152,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
     /**
      * Controller-Processing
-     * @return boolean
+     * @return bool
      */
     public function process()
     {
@@ -215,7 +215,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
     /**
      * Artikel löschen
      * @param array $ids
-     * @return boolean
+     * @return bool
      */
     protected function doDelete(array $ids)
     {
@@ -228,7 +228,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
     /**
      * Papierkorb leeren
-     * @return boolean
+     * @return bool
      */
     protected function doTrash()
     {
@@ -242,7 +242,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
     /**
      * Artikel aus Papierkorb wiederherstellen
      * @param array $ids
-     * @return boolean
+     * @return bool
      */
     protected function doRestore(array $ids)
     {

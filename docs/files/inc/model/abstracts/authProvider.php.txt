@@ -33,7 +33,7 @@ abstract class authProvider extends model {
     /**
      * 
      * @param mixed $param
-     * @return boolean
+     * @return bool
      */
     public function twoFactorAuth($param)
     {

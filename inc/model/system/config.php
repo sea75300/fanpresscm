@@ -101,7 +101,7 @@ final class config extends \fpcm\model\abstracts\dataset {
      * Konstruktor
      * @param bool $initUserSettings Benutzereinstellungen laden
      * @param bool $useCache Configuration aus Cache laden
-     * @return boolean
+     * @return bool
      */
     function __construct($useCache = true)
     {
@@ -129,7 +129,7 @@ final class config extends \fpcm\model\abstracts\dataset {
 
     /**
      * not used
-     * @return boolean
+     * @return bool
      */
     public function save()
     {
@@ -138,7 +138,7 @@ final class config extends \fpcm\model\abstracts\dataset {
 
     /**
      * not used
-     * @return boolean
+     * @return bool
      */
     public function delete()
     {
@@ -147,7 +147,7 @@ final class config extends \fpcm\model\abstracts\dataset {
 
     /**
      * Konfiguration aktualisieren
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -183,7 +183,7 @@ final class config extends \fpcm\model\abstracts\dataset {
      * Neuen Config-Key erzeugen
      * @param string $keyname
      * @param string $keyvalue
-     * @return boolean
+     * @return bool
      */
     public function add($keyname, $keyvalue)
     {
@@ -204,7 +204,7 @@ final class config extends \fpcm\model\abstracts\dataset {
     /**
      * Config Key löschen
      * @param string $keyname
-     * @return boolean
+     * @return bool
      */
     public function remove($keyname)
     {
@@ -297,7 +297,7 @@ final class config extends \fpcm\model\abstracts\dataset {
 
     /**
      * Bereitet Daten für Speicherung in Datenbank vor
-     * @return boolean
+     * @return bool
      * @since FPCM 3.6
      */
     public function prepareDataSave()

@@ -28,7 +28,7 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * Controller-Processing
-     * @return boolean
+     * @return bool
      */
     public function process()
     {

@@ -23,7 +23,7 @@ namespace fpcm\events;
 final class autocompleteGetData extends \fpcm\events\abstracts\eventReturnArray {
 
     /**
-     * wird ausgeführt, wenn autocomplete-Controller aufgerufen wird
+     * Executes a certain event
      * @param array $data
      * @return array
      */

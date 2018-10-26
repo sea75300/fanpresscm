@@ -136,7 +136,7 @@ abstract class staticModel {
      * Magische Methode für nicht vorhandene Methoden
      * @param string $name
      * @param mixed $arguments
-     * @return boolean
+     * @return bool
      */
     public function __call($name, $arguments)
     {
@@ -148,7 +148,7 @@ abstract class staticModel {
      * Magische Methode für nicht vorhandene, statische Methoden
      * @param string $name
      * @param mixed $arguments
-     * @return boolean
+     * @return bool
      */
     public static function __callStatic($name, $arguments)
     {

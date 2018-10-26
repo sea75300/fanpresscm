@@ -35,7 +35,7 @@ class showall extends showcommon {
 
     /**
      * Controller-Processing
-     * @return boolean
+     * @return bool
      */
     public function process()
     {

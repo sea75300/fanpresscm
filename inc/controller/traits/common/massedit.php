@@ -26,7 +26,7 @@ trait massedit {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function assignNoChangeYesNo()
     {
@@ -38,7 +38,7 @@ trait massedit {
     /**
      * 
      * @param string $name
-     * @return boolean
+     * @return bool
      */
     protected function assignPageToken($module)
     {
@@ -52,7 +52,7 @@ trait massedit {
     /**
      * 
      * @param string $name
-     * @return boolean
+     * @return bool
      */
     protected function assignFields(array $fields)
     {

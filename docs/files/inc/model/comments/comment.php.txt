@@ -424,7 +424,7 @@ class comment extends \fpcm\model\abstracts\dataset {
 
     /**
      * Aktualisiert einen Kommentar in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -474,7 +474,7 @@ class comment extends \fpcm\model\abstracts\dataset {
 
     /**
      * Bereitet Daten für Speicherung in Datenbank vor
-     * @return boolean
+     * @return bool
      * @since FPCM 3.6
      */
     public function prepareDataSave()
@@ -536,7 +536,7 @@ class comment extends \fpcm\model\abstracts\dataset {
 
     /**
      * Führt Ersetzung von gesperrten Texten in Kommentar-Daten durch
-     * @return boolean
+     * @return bool
      * @since FPCM 3.2.0
      */
     private function removeBannedTexts()

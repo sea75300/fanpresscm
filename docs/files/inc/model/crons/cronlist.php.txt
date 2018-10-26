@@ -29,7 +29,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
      * Cronjob zur Ausführung registrieren
      * @param string $cronName
      * @param bool $async
-     * @return boolean
+     * @return bool
      */
     public function registerCron($cronName, $async = false)
     {
@@ -80,7 +80,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
     /**
      * Cronjob zur Ausführung via AJAX registrieren
      * @param \fpcm\model\abstracts\cron $cron
-     * @return boolean
+     * @return bool
      * @since FPCM 3.2.0
      */
     public function registerCronAjax(\fpcm\model\abstracts\cron $cron)

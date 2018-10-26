@@ -30,7 +30,7 @@ final class templatefile extends \fpcm\model\abstracts\file {
     public static $allowedExts = ['html', 'htm', 'txt'];
 
     /**
-     * 
+     * Returns base path for file
      * @param string $filename
      * @return string
      */
@@ -62,7 +62,7 @@ final class templatefile extends \fpcm\model\abstracts\file {
 
     /**
      * Speichert Template in Dateisystem
-     * @return boolean
+     * @return bool
      */
     public function save()
     {

@@ -203,7 +203,7 @@ final class email {
 
     /**
      * Versendet E-Mail
-     * @return boolean
+     * @return bool
      */
     public function submit()
     {
@@ -257,7 +257,7 @@ final class email {
 
     /**
      * SMTP-Zugangsdaten testen
-     * @return boolean
+     * @return bool
      * @since FPCM 3.5
      */
     public function checkSmtp()
@@ -295,7 +295,7 @@ final class email {
 
     /**
      * E-Mail versenden via PHP versenden
-     * @return boolean
+     * @return bool
      * @since FPCM 3.5
      */
     private function submitPhp()
@@ -342,7 +342,7 @@ final class email {
 
     /**
      * Erzeugt neues PHPMailer-Objekt
-     * @return boolean
+     * @return bool
      * @since FPCM 3.5
      */
     private function getMailerObj()

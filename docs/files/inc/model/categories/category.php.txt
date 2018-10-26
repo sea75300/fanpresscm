@@ -169,7 +169,7 @@ class category extends \fpcm\model\abstracts\dataset {
     /**
      * existiert Kategorie?
      * @param string $name
-     * @return boolean
+     * @return bool
      */
     private function categoryExists($name)
     {
@@ -189,7 +189,7 @@ class category extends \fpcm\model\abstracts\dataset {
 
     /**
      * Führt Ersetzung von gesperrten Texten in Kommentar-Daten durch
-     * @return boolean
+     * @return bool
      * @since FPCM 3.2.0
      */
     private function removeBannedTexts()

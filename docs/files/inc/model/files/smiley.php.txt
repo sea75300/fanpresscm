@@ -70,7 +70,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     }
 
     /**
-     * 
+     * Returns base path for file
      * @param string $filename
      * @return string
      */
@@ -155,7 +155,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
      * nicht verwendet
      * @param string $newname
      * @param string $userid
-     * @return boolean
+     * @return bool
      */
     public function rename($newname, $userid = false)
     {
@@ -164,7 +164,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
 
     /**
      * Smiley löschen
-     * @return boolean
+     * @return bool
      */
     public function delete()
     {
@@ -177,7 +177,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
 
     /**
      * Speichert einen neuen Smiley-Eintrag in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function save()
     {
@@ -195,7 +195,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
 
     /**
      * nicht verwendet
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -238,7 +238,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     /**
      * initialisiert Bild-Objekt
      * @param bool $initDB
-     * @return boolean
+     * @return bool
      */
     protected function init($initDB)
     {
@@ -263,7 +263,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function initImageSize()
     {

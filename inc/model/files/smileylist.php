@@ -88,7 +88,7 @@ final class smileylist extends \fpcm\model\abstracts\filelist {
     }
 
     /**
-     * 
+     * Returns front end smiley list string
      * @return string
      */
     public function getSmileysPublic()

@@ -67,7 +67,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
     /**
      * aktualisiert Berechtigungen
-     * @return boolean
+     * @return bool
      */
     private function updatePermissions()
     {
@@ -278,7 +278,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
     /**
      * Führt Optimierung der Datenbank-Tabellen durch
      * @since FPCM 3.3
-     * @return boolean
+     * @return bool
      */
     private function optimizeTables()
     {
@@ -320,8 +320,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
     }
 
     /**
-     * 
-     * @return boolean
+     * Creates missing templates druing update if not template not exists
+     * @return bool
      */
     private function createTemplates()
     {

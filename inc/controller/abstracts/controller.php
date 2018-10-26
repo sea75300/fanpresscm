@@ -206,7 +206,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Initialises view object
-     * @return boolean
+     * @return bool
      */
     protected function initView()
     {
@@ -224,7 +224,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Redirect if user is not logged in
-     * @return boolean
+     * @return bool
      */
     protected function redirectNoSession()
     {
@@ -261,7 +261,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     /**
      * Hinweis das Wartungsmodus aktiv ist
      * @param boolean $simplemsg
-     * @return boolean
+     * @return bool
      */
     protected function maintenanceMode($simplemsg = true)
     {
@@ -385,7 +385,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Controller-Processing
-     * @return boolean
+     * @return bool
      */
     public function process()
     {
@@ -403,7 +403,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Access check processing
-     * @return boolean, false prevent execution of @see request() @see process()
+     * @return bool, false prevent execution of @see request() @see process()
      */
     public function hasAccess()
     {
@@ -447,7 +447,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * Magische Methode für nicht vorhandene Methoden
      * @param string $name
      * @param mixed $arguments
-     * @return boolean
+     * @return bool
      */
     public function __call($name, $arguments)
     {
@@ -459,7 +459,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * Magische Methode für nicht vorhandene, statische Methoden
      * @param string $name
      * @param mixed $arguments
-     * @return boolean
+     * @return bool
      */
     public static function __callStatic($name, $arguments)
     {
@@ -484,7 +484,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Check if active module was called
-     * @return boolean
+     * @return bool
      */
     final protected function hasActiveModule()
     {

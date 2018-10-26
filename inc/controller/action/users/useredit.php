@@ -22,7 +22,7 @@ class useredit extends userbase {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function request()
     {

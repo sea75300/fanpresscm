@@ -21,13 +21,13 @@ abstract class spamCaptcha extends staticModel {
 
     /**
      * Captcha-Antwort prüfen
-     * @return boolean, true wenn Antwort richtig
+     * @return bool, true wenn Antwort richtig
      */
     abstract public function checkAnswer();
 
     /**
      * Weitere Prüfungen durchführen nach Antwort auf Spam-Frage
-     * @return boolean
+     * @return bool
      */
     abstract public function checkExtras();
 

@@ -26,7 +26,7 @@ trait authorImages {
     /**
      * Author-Avatar hochlanden
      * @param \fpcm\model\users\author $author
-     * @return boolean
+     * @return bool
      */
     protected function uploadImage($author)
     {
@@ -53,7 +53,7 @@ trait authorImages {
     /**
      * Author-Avatar löschen
      * @param \fpcm\model\users\author $author
-     * @return boolean
+     * @return bool
      */
     protected function deleteImage($author)
     {
@@ -89,7 +89,7 @@ trait authorImages {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function twoFactorAuthForm()
     {

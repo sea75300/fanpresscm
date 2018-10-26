@@ -89,7 +89,7 @@ class showlatest extends \fpcm\controller\abstracts\pubController {
 
     /**
      * Request-Handler
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -107,7 +107,7 @@ class showlatest extends \fpcm\controller\abstracts\pubController {
 
     /**
      * Controller ausführen
-     * @return boolean
+     * @return bool
      */
     public function process()
     {

@@ -26,7 +26,7 @@ class update extends package {
 
     /**
      * Initializes interval objects
-     * @return boolean
+     * @return bool
      */
     public function initObjects()
     {
@@ -90,7 +90,7 @@ class update extends package {
 
     /**
      * Check if local files are writable
-     * @return boolean
+     * @return bool
      */
     public function checkFiles()
     {
@@ -122,7 +122,7 @@ class update extends package {
 
     /**
      * Kopiert Inhalt von Paket von Quelle nach Ziel
-     * @return boolean
+     * @return bool
      */
     public function copy()
     {
@@ -208,7 +208,7 @@ class update extends package {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function updateLog()
     {
@@ -223,7 +223,7 @@ class update extends package {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function cleanupFiles()
     {

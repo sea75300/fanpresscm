@@ -24,13 +24,13 @@
         
         /**
          * Initialisiert Objekt mit Daten aus Datenbank
-         * @return boolean
+         * @return bool
          */
         public function init();
         
         /**
          * Existiert Objekt in Datenbank
-         * @return boolean
+         * @return bool
          */
         public function exists();
         

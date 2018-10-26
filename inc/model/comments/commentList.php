@@ -363,7 +363,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
     /**
      * Prüft ob für die in Daten eines neuen Kommentars bereits Kommentare als Spam markiert wurden
      * @param \fpcm\model\comments\comment $comment
-     * @return boolean true, wenn Anzahl größer als in $this->config->comments_markspam_commentcount definiert
+     * @return bool true, wenn Anzahl größer als in $this->config->comments_markspam_commentcount definiert
      */
     public function spamExistsbyCommentData(comment $comment)
     {

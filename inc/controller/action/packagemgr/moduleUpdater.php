@@ -13,7 +13,7 @@ class moduleUpdater extends moduleBase {
 
     /**
      * Controller-Processing
-     * @return boolean
+     * @return bool
      */
     public function process()
     {

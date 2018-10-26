@@ -23,7 +23,7 @@ namespace fpcm\events\article;
 final class getByCondition extends \fpcm\events\abstracts\eventReturnArray {
 
     /**
-     * 
+     * Executes a certain event
      * @return array
      */
     public function run()

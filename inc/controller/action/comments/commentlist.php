@@ -43,7 +43,7 @@ class commentlist extends \fpcm\controller\abstracts\controller {
 
     /**
      * @see \fpcm\controller\abstracts\controller::request()
-     * @return boolean
+     * @return bool
      */
     public function request()
     {

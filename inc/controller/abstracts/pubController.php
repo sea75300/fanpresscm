@@ -27,7 +27,7 @@ class pubController extends controller {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function hasAccess()
     {
@@ -46,7 +46,7 @@ class pubController extends controller {
 
     /**
      * Controller-Processing
-     * @return boolean
+     * @return bool
      */
     public function process()
     {

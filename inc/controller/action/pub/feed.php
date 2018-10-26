@@ -82,7 +82,7 @@ class feed extends \fpcm\controller\abstracts\pubController {
 
     /**
      * @see \fpcm\controller\abstracts\controller::request()
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -99,7 +99,7 @@ class feed extends \fpcm\controller\abstracts\pubController {
 
     /**
      * Controller ausführen
-     * @return boolean
+     * @return bool
      */
     public function process()
     {

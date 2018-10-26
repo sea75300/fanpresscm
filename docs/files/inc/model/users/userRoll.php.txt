@@ -69,7 +69,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
 
     /**
      * Speichert einen neuen Kommentar in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function save()
     {
@@ -98,7 +98,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
 
     /**
      * Löscht eine Benutzer-Rolle in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function delete()
     {
@@ -120,7 +120,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
 
     /**
      * Aktualisiert eine Benutzer-Rolle in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -157,7 +157,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
 
     /**
      * Führt Ersetzung von gesperrten Texten in Kommentar-Daten durch
-     * @return boolean
+     * @return bool
      * @since FPCM 3.2.0
      */
     private function removeBannedTexts()

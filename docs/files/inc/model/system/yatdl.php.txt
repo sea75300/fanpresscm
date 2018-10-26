@@ -55,7 +55,7 @@ class yatdl extends \fpcm\model\abstracts\staticModel {
 
     /**
      * Parst Array aus YAML-String in SQL-String
-     * @return boolean
+     * @return bool
      */
     public function parse()
     {

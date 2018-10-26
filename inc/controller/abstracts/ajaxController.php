@@ -44,7 +44,7 @@ class ajaxController extends controller {
 
     /**
      * Initialises view object
-     * @return boolean
+     * @return bool
      */
     protected function initView()
     {
@@ -83,7 +83,7 @@ class ajaxController extends controller {
 
     /**
      * Redirect if user is not logged in
-     * @return boolean
+     * @return bool
      */
     protected function redirectNoSession()
     {

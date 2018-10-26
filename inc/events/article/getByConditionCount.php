@@ -23,7 +23,7 @@ namespace fpcm\events\article;
 final class getByConditionCount extends \fpcm\events\abstracts\eventReturnArray {
 
     /**
-     * wird ausgeführt, wenn Kommentar-Suche ausgeführt wird
+     * Executes a certain event
      * @param array $data
      * @return array
      */

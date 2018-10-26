@@ -29,8 +29,8 @@ final class authorImage extends image {
     }
 
     /**
-     * 
-     * @return type
+     * Returns base path for file
+     * @return string
      */
     protected function basePath($filename)
     {
@@ -75,7 +75,7 @@ final class authorImage extends image {
 
     /**
      * Speichert einen neuen Datei-Eintrag in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function save()
     {
@@ -84,7 +84,7 @@ final class authorImage extends image {
 
     /**
      * Aktualisiert einen Datei-Eintrag in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -93,7 +93,7 @@ final class authorImage extends image {
 
     /**
      * Löscht Datei-Eintrag in Datenbank und Datei in Dateisystem
-     * @return boolean
+     * @return bool
      */
     public function delete()
     {
@@ -104,7 +104,7 @@ final class authorImage extends image {
      * Benennt eine Datei um
      * @param string $newname
      * @param int $userId
-     * @return boolean
+     * @return bool
      */
     public function rename($newname, $userId = false)
     {
@@ -123,7 +123,7 @@ final class authorImage extends image {
 
     /**
      * Erzeugt ein Thumbnail für das aktuelle Bild
-     * @return boolean
+     * @return bool
      */
     public function createThumbnail()
     {
@@ -142,7 +142,7 @@ final class authorImage extends image {
     /**
      * initialisiert Bild-Objekt
      * @param bool $initDB
-     * @return boolean
+     * @return bool
      */
     protected function init($initDB)
     {
@@ -167,7 +167,7 @@ final class authorImage extends image {
     /**
      * Füllt Objekt mit Daten aus Datenbank-Result
      * @param object $object
-     * @return boolean
+     * @return bool
      * @since FPCM 3.1.2
      */
     public function createFromDbObject($object)

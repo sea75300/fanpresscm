@@ -45,7 +45,7 @@ final class masseditField {
      * @param string $descr
      * @param \fpcm\view\helper\helper $field
      * @param type $class
-     * @return boolean
+     * @return bool
      */
     public function __construct($icon, $descr, $field, $class = 'col-sm-12 col-md-8')
     {

@@ -23,7 +23,7 @@ namespace fpcm\events\article;
 final class massEditAfter extends \fpcm\events\abstracts\eventReturnArray {
 
     /**
-     * wird ausgeführt, bevor Massenbearbeitung von Artikeln ausgeführt wird
+     * Executes a certain event
      * @param array $data
      * @return array
      */

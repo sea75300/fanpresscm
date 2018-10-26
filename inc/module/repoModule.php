@@ -20,7 +20,7 @@ class repoModule extends module {
     /**
      * Initialize object with database data
      * @param object $result
-     * @return boolean
+     * @return bool
      */
     public function createFromRepoArray(array $result) : bool
     {
@@ -32,7 +32,7 @@ class repoModule extends module {
 
     /**
      * Initialize repo module
-     * @return boolean
+     * @return bool
      */
     public function init() : bool
     {

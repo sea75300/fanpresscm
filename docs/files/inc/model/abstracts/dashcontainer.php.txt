@@ -160,7 +160,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
 
     /**
      * Initialize objects
-     * @return boolean
+     * @return bool
      */
     protected function initObjects()
     {

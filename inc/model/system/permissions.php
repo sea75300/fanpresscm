@@ -237,7 +237,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
 
     /**
      * Speichert einen neuen Rechte-Datensatz in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function save()
     {
@@ -253,7 +253,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
 
     /**
      * Aktualisiert einen Rechte-Datensatz in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -277,7 +277,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
 
     /**
      * Löschen Berechtigungsdatensatz aus DB
-     * @return boolean
+     * @return bool
      */
     public function delete()
     {
@@ -290,7 +290,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
     /**
      * Prüft ob Benutzer Berechtigung hat
      * @param array $permissionArray
-     * @return boolean
+     * @return bool
      */
     public function check(array $permissionArray)
     {

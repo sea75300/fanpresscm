@@ -20,7 +20,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * @see \fpcm\controller\abstracts\controller::hasAccess()
-     * @return boolean
+     * @return bool
      */
     public function hasAccess()
     {
@@ -29,7 +29,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -50,7 +50,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function runCrons()
     {
@@ -76,7 +76,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function runSessionCheck()
     {
@@ -96,7 +96,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function runArticleInEdit()
     {

@@ -22,7 +22,7 @@ namespace fpcm\events\editor;
 final class addLinks extends \fpcm\events\abstracts\eventReturnArray {
 
     /**
-     * wird ausgeführt, wenn im Artikel-Editor die Link-Liste für den "Link einfügen"-Dialog geladen wird
+     * Executes a certain event
      * @param void $data
      * @return array
      */

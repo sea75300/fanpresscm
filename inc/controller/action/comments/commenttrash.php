@@ -64,7 +64,7 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
 
     /**
      * @see \fpcm\controller\abstracts\controller::request()
-     * @return boolean
+     * @return bool
      */
     public function request()
     {
@@ -154,7 +154,7 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
 
     /**
      * Papierkorb leeren
-     * @return boolean
+     * @return bool
      */
     private function doTrash()
     {
@@ -170,7 +170,7 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
     /**
      * Retore comments from trash
      * @param array $ids
-     * @return boolean
+     * @return bool
      */
     private function doRestore()
     {

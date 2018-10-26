@@ -31,7 +31,7 @@ class cache extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function hasAccess()
     {
@@ -86,7 +86,7 @@ class cache extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function cleanupArticle()
     {
@@ -96,7 +96,7 @@ class cache extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     private function cleanupArticles()
     {

@@ -22,7 +22,7 @@
         
         /**
          * Request-Handler
-         * @return boolean
+         * @return bool
          */
         public function request()
         {   

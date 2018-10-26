@@ -338,15 +338,14 @@ final class session extends \fpcm\model\abstracts\dataset {
     {
         return;
     }
-
+    
     /**
-     * Prüft ob Kombination Benutzer und Passwort existiert
-     * @param string $username
-     * @param string $password
+     * Check if authentication information in $data matchs data of active \fpcm\model\abstracts\authProvider object
+     * @param array $data
      * @param bool $external
-     * @return bool Ja, wenn Benutzer + Passwort vorhanden ist
+     * @return bool
      */
-    public function authenticate($data, $external = false)
+    public function authenticate(array $data, $external = false)
     {
         $userid = \fpcm\components\components::getAuthProvider()->authenticate($data);
         if ($userid === false) {
@@ -535,7 +534,7 @@ final class session extends \fpcm\model\abstracts\dataset {
     /**
      * Prüft ob übergebene Session-ID existiert und noch gültig ist
      * @param string $sessionId
-     * @return boolean
+     * @return bool
      * @since FPCM 3.4
      */
     public function pingExternal($sessionId)

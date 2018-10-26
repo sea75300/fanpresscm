@@ -93,7 +93,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     protected function initObjects()
     {

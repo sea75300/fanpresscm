@@ -82,9 +82,9 @@ abstract class filelist extends tablelist {
     }
 
     /**
-     * 
+     * Removes base path from give path
      * @param string $path
-     * @return boolean
+     * @return bool
      */
     public function removeBasePath(string &$path) : bool
     {

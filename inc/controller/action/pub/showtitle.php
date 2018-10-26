@@ -49,7 +49,7 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
 
     /**
      * 
-     * @return boolean
+     * @return bool
      */
     public function hasAccess()
     {
@@ -66,7 +66,7 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
 
     /**
      * Controller ausführen
-     * @return boolean
+     * @return bool
      */
     public function process()
     {

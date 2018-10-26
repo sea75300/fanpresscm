@@ -81,7 +81,7 @@ final class article extends template {
 
     /**
      * Parst Template-Platzhalter
-     * @return boolean
+     * @return bool
      */
     public function parse()
     {
@@ -143,7 +143,7 @@ final class article extends template {
      * @param array $users
      * @param array $categories
      * @param int $commentCount
-     * @return boolean
+     * @return bool
      */
     public function assignByObject(\fpcm\model\articles\article $article, array $users, array $categories, $commentCount)
     {

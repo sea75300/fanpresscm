@@ -423,7 +423,7 @@ class author extends \fpcm\model\abstracts\dataset {
         
     /**
      * Speichert einen neuen Benutzer in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function save()
     {
@@ -467,7 +467,7 @@ class author extends \fpcm\model\abstracts\dataset {
 
     /**
      * Aktualisiert einen Benutzer in der Datenbank
-     * @return boolean
+     * @return bool
      */
     public function update()
     {
@@ -547,7 +547,7 @@ class author extends \fpcm\model\abstracts\dataset {
     /**
      * Passwort für Benutzer zurücksetzen
      * @param bool $resetOnly (@since FPCM3.4)
-     * @return boolean
+     * @return bool
      */
     public function resetPassword($resetOnly = false)
     {
@@ -578,7 +578,7 @@ class author extends \fpcm\model\abstracts\dataset {
     /**
      * Füllt Objekt mit Daten aus Datenbank-Result
      * @param object $object
-     * @return boolean
+     * @return bool
      */
     public function createFromDbObject($object)
     {
@@ -601,7 +601,7 @@ class author extends \fpcm\model\abstracts\dataset {
 
     /**
      * Prüft, ob Passwort den minimalen Anforderungen entspricht
-     * @return boolean
+     * @return bool
      */
     private function checkPasswordSecure()
     {
@@ -610,7 +610,7 @@ class author extends \fpcm\model\abstracts\dataset {
 
     /**
      * Führt Ersetzung von gesperrten Texten in Benutzer-Daten durch
-     * @return boolean
+     * @return bool
      * @since FPCM 3.2.0
      */
     private function removeBannedTexts()

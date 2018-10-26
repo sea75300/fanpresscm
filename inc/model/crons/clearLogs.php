@@ -64,7 +64,7 @@ class clearLogs extends \fpcm\model\abstracts\cron {
     /**
      * Log-Datei leeren
      * @param int $log
-     * @return boolean
+     * @return bool
      */
     private function clear($log)
     {

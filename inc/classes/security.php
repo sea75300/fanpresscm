@@ -179,7 +179,7 @@ final class security {
 
     /**
      * Config für Sicherheitsconfig
-     * @return boolean
+     * @return bool
      * @since FPCM 3.6
      */
     public static function initSecurityConfig()

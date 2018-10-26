@@ -50,7 +50,7 @@ final class language {
     /**
      * Konstruktor
      * @param string $langCode
-     * @return boolean
+     * @return bool
      */
     public function __construct($langCode = FPCM_DEFAULT_LANGUAGE_CODE)
     {
