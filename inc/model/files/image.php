@@ -76,12 +76,10 @@ class image extends \fpcm\model\abstracts\file {
      * @var array
      */
     protected $dbParams = ['userid', 'filename', 'filetime'];
-
+    
     /**
      * Konstruktor
-     * @param string $filename Dateiname
-     * @param string $filepath Dateipfad
-     * @param string $content Dateiinhalt
+     * @param string $filename file name including sub path
      * @param bool $initDB Datenbank-Eintrag initialisieren
      * @param bool $forceInit Initialisierung erzwingen
      */

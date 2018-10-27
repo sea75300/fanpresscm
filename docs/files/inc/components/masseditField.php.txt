@@ -16,25 +16,25 @@ namespace fpcm\components;
 final class masseditField {
 
     /**
-     *
+     * Icon class string
      * @var string
      */
     protected $icon     = '';
 
     /**
-     *
+     * Desciption string
      * @var string
      */
     protected $descr    = '';
 
     /**
-     *
+     * field object
      * @var \fpcm\view\helper\helper
      */
     protected $field    = null;
 
     /**
-     *
+     * Additional CSS class string
      * @var string
      */
     protected $class    = '';
@@ -68,6 +68,7 @@ final class masseditField {
     /**
      * 
      * @return string
+     * @ignore
      */
     public function __toString()
     {

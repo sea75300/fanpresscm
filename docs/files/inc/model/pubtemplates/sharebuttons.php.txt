@@ -140,9 +140,11 @@ final class sharebuttons extends template {
     }
     
     /**
+     * 
      * Assigns template data
      * @param string $link
      * @param string $description
+     * @param int $articleId
      * @return bool
      */
     public function assignData(string $link, string $description, int $articleId) : bool
@@ -154,7 +156,7 @@ final class sharebuttons extends template {
     }
 
     /**
-     * 
+     * Initialize tag data
      * @return array
      */
     private function initTags() : array

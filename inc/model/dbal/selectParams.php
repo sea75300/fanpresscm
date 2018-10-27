@@ -18,43 +18,43 @@ namespace fpcm\model\dbal;
 class selectParams {
 
     /**
-     *
+     * Database table name
      * @var string
      */
     private $table = '';
 
     /**
-     *
+     * Select item string
      * @var string
      */
     private $item = '*';
 
     /**
-     *
+     * Where clause
      * @var string
      */
     private $where = '';
 
     /**
-     *
+     * Select params
      * @var array 
      */    
     private $params = [];
 
     /**
-     *
+     * SELECT DISTINCT flag
      * @var bool
      */
     private $distinct = false;
 
     /**
-     *
+     * Return raw result flag
      * @var bool
      */
     private $returnResult = false;
 
     /**
-     *
+     * Fetch all mode
      * @var bool
      */
     private $fetchAll = false;

@@ -218,7 +218,7 @@ class module {
      */
     
     /**
-     * 
+     * Updates module options
      * @param array $options
      * @return array
      */
@@ -835,7 +835,7 @@ class module {
 
     /**
      * fetch module key from filename
-     * @param string $path
+     * @param string $filename
      * @return string
      */
     public static function getKeyFromFilename($filename) : string
@@ -846,7 +846,7 @@ class module {
 
     /**
      * fetch module key from class name
-     * @param string $path
+     * @param string $class
      * @return string
      */
     public static function getKeyFromClass($class)

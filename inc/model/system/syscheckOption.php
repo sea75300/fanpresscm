@@ -1,10 +1,7 @@
 <?php
 
 /**
- * Configuration object
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -15,6 +12,8 @@ namespace fpcm\model\system;
  * 
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class syscheckOption {
 
@@ -114,7 +113,7 @@ final class syscheckOption {
     }
         
     /**
-     * 
+     * Returns current value
      * @return string
      */
     public function getCurrent()
@@ -123,7 +122,7 @@ final class syscheckOption {
     }
 
     /**
-     * 
+     * Returns info/help link
      * @return string
      */
     public function getHelplink()
@@ -132,7 +131,7 @@ final class syscheckOption {
     }
 
     /**
-     * 
+     * Returns check value
      * @return string
      */
     public function getResult()
@@ -141,8 +140,8 @@ final class syscheckOption {
     }
 
     /**
-     * 
-     * @return string
+     * Returns optional flasg
+     * @return bool
      */
     public function getOptional()
     {
@@ -150,7 +149,7 @@ final class syscheckOption {
     }
 
     /**
-     * 
+     * Returns if folder was checked
      * @return string
      */
     public function isFolder()

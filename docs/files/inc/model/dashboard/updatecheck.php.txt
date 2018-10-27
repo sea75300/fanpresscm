@@ -38,7 +38,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     private $systemUpdates;
 
     /**
-     * 
+     * Returns name
      * @return string
      */
     public function getName()
@@ -47,7 +47,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns content
      * @return string
      */
     public function getContent()
@@ -65,7 +65,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns permissions
      * @return array
      */
     public function getPermissions()
@@ -83,7 +83,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container position
      * @return int
      */
     public function getPosition()
@@ -92,7 +92,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Initialize internal objects
      * @return bool
      */
     protected function initObjects()
@@ -161,8 +161,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
-     * @see \fpcm\model\interfaces\dashcontainer::getJavascriptVars()
+     * Returns JavaScript variables
      * @return array
      */
     public function getJavascriptVars()
@@ -174,8 +173,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
-     * @see \fpcm\model\interfaces\dashcontainer::getJavascriptLangVars()
+     * Returns JavaScript language variables
      * @return array
      */
     public function getJavascriptLangVars()
@@ -184,7 +182,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * Tabellenzeile rendern
+     * Renders table row and cells
      * @param string $iconClass
      * @param string $statusClass
      * @param string $statusText

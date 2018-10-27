@@ -88,7 +88,7 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container position
      * @return int
      */
     public function getPosition()
@@ -97,7 +97,7 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container width
      * @return int
      */
     public function getWidth()

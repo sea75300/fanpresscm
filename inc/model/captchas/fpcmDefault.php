@@ -68,9 +68,10 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
 
         return false;
     }
-
+    
     /**
-     * Erzeugen eines Eingabefeldes für Captcha
+     * Create input field for Captcha
+     * @param bool $wrap
      * @return string
      */
     public function createPluginInput($wrap = false)

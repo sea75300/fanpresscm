@@ -17,25 +17,25 @@ namespace fpcm\model\packages;
 class module extends package {
 
     /**
-     *
+     * Repository object
      * @var \fpcm\model\updater\modules
      */
     protected $repo;
 
     /**
-     *
+     * Hash value of module key
      * @var string
      */
     protected $hashKey;
 
     /**
-     *
+     * Module key
      * @var string
      */
     protected $moduleKey;
 
     /**
-     * 
+     * Initialize objects
      * @return bool
      */
     protected function initObjects()
@@ -47,7 +47,7 @@ class module extends package {
     }
 
     /**
-     * Ersetzt "vendor/modules"-Key durch basedir-Daen in einem Pfad
+     * Replaces "vendor/modules" key by module base path
      * @param string $path
      * @return string
      */
@@ -55,17 +55,29 @@ class module extends package {
     {
         return str_replace($this->moduleKey, $this->getLocalDestinationPath(), $path);
     }
-    
+
+    /**
+     * Returns files.txt path
+     * @return string
+     */
     protected function getFileListPath()
     {
         return $this->getExtractionPath().DIRECTORY_SEPARATOR.$this->moduleKey.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'files.txt';
     }
 
+    /**
+     * Returns local path to extract archive
+     * @return string
+     */
     protected function getExtractionPath()
     {
         return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, 'module_'.$this->hashKey);
     }
 
+    /**
+     * Returns local destination path for packeg content
+     * @return type
+     */
     public function getLocalDestinationPath()
     {
         if ($this->data) {
@@ -76,28 +88,44 @@ class module extends package {
         return $this->data;
     }
 
+    /**
+     * Returns local path for package file
+     * @return string
+     */
     public function getLocalPath()
     {
         return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, basename($this->repo['packageUrl']));
     }
 
+    /**
+     * Returns local package hash
+     * @return string
+     */
     public function getLocalSignature()
     {
         return \fpcm\model\files\ops::hashFile($this->getLocalPath());
     }
 
+    /**
+     * Returns remote package path
+     * @return string
+     */
     public function getRemotePath()
     {
         return $this->repo['packageUrl'];
     }
 
+    /**
+     * Returns remote package signature string
+     * @return string
+     */
     public function getRemoteSignature()
     {
         return $this->repo['signature'];
     }
 
     /**
-     * 
+     * Checks local filesystem if files are writable
      * @return bool
      */
     public function checkFiles()
@@ -128,7 +156,7 @@ class module extends package {
     }
 
     /**
-     * 
+     * Updates files in local file system
      * @return bool
      */
     public function copy()
@@ -226,7 +254,7 @@ class module extends package {
     }
 
     /**
-     * 
+     * Updates local package manager log
      * @return bool
      */
     public function updateLog()
@@ -242,7 +270,8 @@ class module extends package {
     }
 
     /**
-     * 
+     * Removes base folder from local package filepath
+     * @see \fpcm\module\module::getLocalDestinationPath
      * @param string $item
      * @return string
      */

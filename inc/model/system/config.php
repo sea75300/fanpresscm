@@ -1,10 +1,7 @@
 <?php
 
 /**
- * Configuration object
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -76,6 +73,8 @@ namespace fpcm\model\system;
  * 
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class config extends \fpcm\model\abstracts\dataset {
 
@@ -99,7 +98,6 @@ final class config extends \fpcm\model\abstracts\dataset {
 
     /**
      * Konstruktor
-     * @param bool $initUserSettings Benutzereinstellungen laden
      * @param bool $useCache Configuration aus Cache laden
      * @return bool
      */

@@ -30,6 +30,11 @@ final class clearArticleCacheButton extends button {
         $this->setIcon('recycle');
     }
 
+    /**
+     * Set Button data by object
+     * @param \fpcm\model\articles\article $object
+     * @return $this
+     */
     final public function setDatabyObject(\fpcm\model\articles\article $object)
     {
         $this->data = $object->getArticleCacheParams();

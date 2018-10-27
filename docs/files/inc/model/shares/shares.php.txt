@@ -19,7 +19,6 @@ class shares extends \fpcm\model\abstracts\tablelist {
 
     /**
      * Konstruktor
-     * @param int $id
      */
     public function __construct()
     {
@@ -28,8 +27,9 @@ class shares extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * 
+     * Ftech share count by article id, item can be give via $item
      * @param int $articleId
+     * @param string $item
      * @return array
      */
     public function getByArticleId(int $articleId, $item = null) : array

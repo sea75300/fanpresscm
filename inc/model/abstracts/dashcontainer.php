@@ -73,6 +73,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
 
     /**
      * Cache-Name zurückgeben
+     * @param string $addName
      * @return string
      */
     public function getCacheName($addName = '')

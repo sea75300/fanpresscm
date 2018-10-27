@@ -50,6 +50,7 @@ trait iconHelper {
     /**
      * Set icon
      * @param string $icon Icon CSS classes
+     * @param string $prefix Icon prefix
      * @param bool $useFa Auto-add FontAwesome Icon classes
      * @return $this
      */
@@ -73,6 +74,7 @@ trait iconHelper {
     /**
      * Set if icon is stacked
      * @param string $iconStack
+     * @param bool $useFa Auto-add FontAwesome Icon classes
      * @return $this
      */
     public function setStack($iconStack, $useFa = true)
@@ -84,7 +86,7 @@ trait iconHelper {
     /**
      * Set Icon size
      * @param string $size
-     * @param bool $useFa
+     * @param bool $useFa Auto-add FontAwesome Icon classes
      * @return $this
      */
     public function setSize($size, $useFa = true)

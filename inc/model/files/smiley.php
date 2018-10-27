@@ -262,7 +262,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     }
 
     /**
-     * 
+     * Fetch image dimensions from file
      * @return bool
      */
     public function initImageSize()
@@ -282,6 +282,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     /**
      * Serialisiert Smiley-Objekt für Cache-Speicherung
      * @return string
+     * @ignore
      */
     public function serialize()
     {
@@ -298,6 +299,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     /**
      * Unserialisiert Smiley-Objekt aus Cache-Speicherung
      * @param string $serialized
+     * @ignore
      */
     public function unserialize($serialized)
     {
@@ -311,6 +313,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     /**
      * 
      * @return array
+     * @ignore
      */
     public function jsonSerialize()
     {

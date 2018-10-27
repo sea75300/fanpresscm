@@ -91,6 +91,7 @@ class notificationItem {
     /**
      * Objekt als String zurückgeben
      * @return string
+     * @ignore
      */
     public function __toString() : string
     {

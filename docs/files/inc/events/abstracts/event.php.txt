@@ -153,7 +153,7 @@ abstract class event {
     }
 
     /**
-     * Prüft ob spezielle Berechtigungen für Event nötig sind
+     * Check permissions for event
      * @return bool
      */
     public function checkPermissions()
@@ -168,7 +168,7 @@ abstract class event {
 
     /**
      * Defines type of returned data
-     * @return string|bool
+     * @return string|bool|null
      */
     protected function getReturnType()
     {

@@ -18,7 +18,7 @@ namespace fpcm\model\categories;
 class categoryList extends \fpcm\model\abstracts\tablelist {
 
     /**
-     *
+     * Internal chache
      * @var array
      */
     protected $data = [];
@@ -141,7 +141,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * 
+     * Assign category data for frontend output
      * @param \fpcm\model\articles\article $article
      * @return array
      */

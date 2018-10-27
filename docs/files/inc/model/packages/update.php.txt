@@ -19,7 +19,7 @@ namespace fpcm\model\packages;
 class update extends package {
 
     /**
-     *
+     * Repository object
      * @var \fpcm\model\updater\system
      */
     protected $updater;
@@ -35,7 +35,7 @@ class update extends package {
     }
 
     /**
-     * 
+     * Returns local destination path for packeg content
      * @return string
      */
     public function getLocalDestinationPath()
@@ -44,7 +44,7 @@ class update extends package {
     }
 
     /**
-     * 
+     * Returns local path for package file
      * @return string
      */
     public function getLocalPath()
@@ -53,7 +53,7 @@ class update extends package {
     }
 
     /**
-     * 
+     * Returns local path to extract archive
      * @return string
      */
     protected function getExtractionPath()
@@ -62,7 +62,7 @@ class update extends package {
     }
 
     /**
-     * 
+     * Returns local package hash
      * @return string
      */
     public function getLocalSignature()
@@ -71,7 +71,7 @@ class update extends package {
     }
 
     /**
-     * 
+     * Returns remote package path
      * @return string
      */
     public function getRemotePath()
@@ -80,7 +80,7 @@ class update extends package {
     }
 
     /**
-     * 
+     * Returns remote package signature string
      * @return string
      */
     public function getRemoteSignature()
@@ -121,7 +121,7 @@ class update extends package {
     }
 
     /**
-     * Kopiert Inhalt von Paket von Quelle nach Ziel
+     * Updates files in local file system
      * @return bool
      */
     public function copy()
@@ -207,7 +207,7 @@ class update extends package {
     }
 
     /**
-     * 
+     * Updates local package manager log
      * @return bool
      */
     public function updateLog()
@@ -222,7 +222,7 @@ class update extends package {
     }
 
     /**
-     * 
+     * Performs cleanup of update files and cache
      * @return bool
      */
     public function cleanupFiles()
@@ -251,7 +251,7 @@ class update extends package {
     }
 
     /**
-     * 
+     * Returns list of files not to check or change
      * @return array
      */
     private function getExcludes()

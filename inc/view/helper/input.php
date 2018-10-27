@@ -102,7 +102,8 @@ abstract class input extends helper {
 
     /**
      * Set column with if input uses an icon
-     * @return string
+     * @param mixed $colWidth
+     * @return $this
      */
     public function setInputColWidth($colWidth)
     {

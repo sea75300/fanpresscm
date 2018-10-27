@@ -37,7 +37,7 @@ class tabItem extends helper {
     protected $dataViewId = 'logs';
 
     /**
-     * 
+     * Returns item id
      * @return string
      */
     public function getDataViewId()
@@ -46,7 +46,7 @@ class tabItem extends helper {
     }
 
     /**
-     * 
+     * Set tab URL
      * @param string $url
      * @return $this
      */
@@ -57,7 +57,7 @@ class tabItem extends helper {
     }
 
     /**
-     * 
+     * Set item ID
      * @param string $dataViewId
      * @return $this
      */
@@ -68,7 +68,7 @@ class tabItem extends helper {
     }
 
     /**
-     * 
+     * Return item string
      * @return string
      */
     protected function getString()

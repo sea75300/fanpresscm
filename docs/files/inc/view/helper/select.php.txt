@@ -106,7 +106,7 @@ class select extends helper {
 
     /**
      * Enables opt group for select element
-     * @param bool $hasOptGroup
+     * @param bool $hasGroup
      * @return $this
      */
     public function setOptGroup($hasGroup)
@@ -146,6 +146,7 @@ class select extends helper {
 
     /**
      * Create options string
+     * @param array $options
      * @return string|void
      */
     protected function getOptionsString($options)

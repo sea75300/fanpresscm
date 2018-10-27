@@ -19,7 +19,7 @@ namespace fpcm\model\theme;
 class notifications {
 
     /**
-     *
+     * List of notificatio objects
      * @var array
      */
     private $notifications = [];
@@ -57,7 +57,7 @@ class notifications {
     }
 
     /**
-     * 
+     * returns item as string
      * @param \fpcm\model\theme\notificationItem $item
      * @return string
      */

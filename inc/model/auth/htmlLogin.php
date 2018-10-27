@@ -27,7 +27,7 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
     }
 
     /**
-     * 
+     * Execute authentication
      * @param array $param
      * @return bool
      */

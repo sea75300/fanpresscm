@@ -30,6 +30,7 @@ final class authorImage extends image {
 
     /**
      * Returns base path for file
+     * @param string $filename
      * @return string
      */
     protected function basePath($filename)

@@ -452,7 +452,9 @@ final class pkg extends \fpcm\model\abstracts\cli {
     }
 
     /**
+     * 
      * Returns module key by cli params and run check for existance
+     * @param int $pos
      * @return bool
      */
     private function getModuleKey($pos = 2)

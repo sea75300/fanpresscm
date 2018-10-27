@@ -20,7 +20,7 @@ abstract class eventReturnArray extends event {
 
     /**
      * Defines type of returned data
-     * @return string|bool
+     * @return string
      */
     final protected function getReturnType()
     {

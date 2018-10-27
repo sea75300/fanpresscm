@@ -1,5 +1,4 @@
 <?php
-
 /**
  * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -19,7 +18,7 @@ class fileOption {
     const EXTENSION_CACHE = '.fpcm';
 
     /**
-     *
+     * Complete file path
      * @var string
      */
     private $path;

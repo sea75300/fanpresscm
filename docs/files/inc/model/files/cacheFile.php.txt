@@ -53,7 +53,7 @@ class cacheFile {
     }
 
     /**
-     * Inhalt in Cache-Datei schreiben
+     * Write content to cache file
      * @param mixed $data
      * @param integer $expires
      * @return bool
@@ -90,7 +90,8 @@ class cacheFile {
     }
 
     /**
-     * Inhalt aus Cache-Datei lesen
+     * Read cache file content
+     * @param bool $raw
      * @return mixed|null
      */
     public function read($raw = false)
@@ -104,7 +105,7 @@ class cacheFile {
     }
 
     /**
-     * Ablaufzeit aus Cache-Datei lesen
+     * Fetch expiration time
      * @return mixed|null
      */
     public function expires()
@@ -119,7 +120,7 @@ class cacheFile {
     }
 
     /**
-     * Cache-Datei bereinigen
+     * Cleanup cache file
      * @return bool
      */
     public function cleanup()

@@ -18,25 +18,25 @@ namespace fpcm\model\shares;
 class share extends \fpcm\model\abstracts\dataset {
 
     /**
-     *
+     * ARtciel id
      * @var int
      */
     protected $article_id = 0;
 
     /**
-     *
+     * Share count
      * @var int 
      */
     protected $sharecount = 0;
 
     /**
-     *
+     * Share item string
      * @var int
      */
     protected $shareitem = '';
 
     /**
-     *
+     * Timestamp of last share
      * @var int
      */
     protected $lastshare = 0;
@@ -52,7 +52,7 @@ class share extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Returns article id
      * @return int
      */
     public function getArticleId()
@@ -61,7 +61,7 @@ class share extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Returns share count
      * @return int
      */
     public function getSharecount()
@@ -70,7 +70,7 @@ class share extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Returns share item string
      * @return int
      */
     public function getShareitem()
@@ -79,7 +79,7 @@ class share extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Returns last share timestamp
      * @return int
      */
     public function getLastshare()
@@ -88,7 +88,7 @@ class share extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Set article id
      * @param int $articleId
      */
     public function setArticleId($articleId)
@@ -97,7 +97,7 @@ class share extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Set share count
      * @param int $sharecount
      */
     public function setSharecount($sharecount)
@@ -106,7 +106,7 @@ class share extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Set share item string
      * @param int $shareitem
      */
     public function setShareitem($shareitem)
@@ -115,7 +115,7 @@ class share extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Set last share timestamp
      * @param int $lastshare
      */
     public function setLastshare($lastshare)
@@ -124,7 +124,7 @@ class share extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Save object
      * @return bool|int
      */
     public function save()
@@ -143,7 +143,7 @@ class share extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Update object
      * @return bool
      */
     public function update()
@@ -165,7 +165,7 @@ class share extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Increase share count
      * @return bool
      */
     public function increase()
@@ -174,7 +174,7 @@ class share extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Returns share item description
      * @return string
      */
     public function getDescription() : string
@@ -183,7 +183,8 @@ class share extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * 
+     * Returns share item icon
+     * @see \fpcm\model\pubtemplates\sharebuttons::getShareItemClass
      * @return string
      */
     public function getIcon() : string

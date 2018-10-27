@@ -69,7 +69,7 @@ abstract class remoteModel extends staticModel {
     }
 
     /**
-     * 
+     * Ftech data from remote source
      * @return bool
      */
     public function fetchRemoteData()
@@ -120,5 +120,9 @@ abstract class remoteModel extends staticModel {
         return true;
     }
 
+    /**
+     * Writes remote repository data to local storage
+     * @return bool
+     */
     abstract protected function saveRemoteData();
 }

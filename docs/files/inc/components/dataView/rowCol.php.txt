@@ -43,7 +43,7 @@ final class rowCol implements \JsonSerializable {
     protected $type     = 0;
     
     /**
-     * 
+     * Konstruktor
      * @param string $name
      * @param mixed $value
      * @param string $class
@@ -58,8 +58,8 @@ final class rowCol implements \JsonSerializable {
     }
 
     /**
-     * @ignore
      * @return array
+     * @ignore
      */
     public function jsonSerialize()
     {

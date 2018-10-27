@@ -24,7 +24,7 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     protected $tableContent = [];
 
     /**
-     * 
+     * Returns name
      * @return string
      */
     public function getName()
@@ -33,7 +33,7 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns permissions
      * @return array
      */
     public function getPermissions()
@@ -42,7 +42,7 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns content
      * @return string
      */
     public function getContent()
@@ -61,7 +61,7 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container position
      * @return int
      */
     public function getPosition()
@@ -70,7 +70,7 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container height
      * @return string
      */
     public function getHeight()

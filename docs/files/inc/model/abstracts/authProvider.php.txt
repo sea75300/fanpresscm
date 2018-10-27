@@ -25,13 +25,13 @@ abstract class authProvider extends model {
     abstract public function authenticate(array $param);
 
     /**
-     * 
+     * Return template for active auth provider
      * @return string
      */
     abstract public function getLoginTemplate();
 
     /**
-     * 
+     * Runs additional two 2FA-checks
      * @param mixed $param
      * @return bool
      */

@@ -37,8 +37,8 @@ final class dateText {
 
     /**
      * Konstruktor
-     * @param string $name
-     * @param string $id
+     * @param string $timestamp
+     * @param string $format
      */
     final public function __construct($timestamp, $format = false)
     {
@@ -50,6 +50,7 @@ final class dateText {
     /**
      * 
      * @return string
+     * @ignore
      */
     final public function __toString()
     {
@@ -60,6 +61,7 @@ final class dateText {
     /**
      * 
      * @return void
+     * @ignore
      */
     final public function __destruct()
     {

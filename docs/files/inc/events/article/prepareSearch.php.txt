@@ -24,7 +24,7 @@ final class prepareSearch extends \fpcm\events\abstracts\event {
 
     /**
      * Defines type of returned data
-     * @return string|bool
+     * @return string
      */
     protected function getReturnType()
     {

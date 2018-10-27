@@ -86,17 +86,15 @@ abstract class package {
     protected $archive;
 
     /**
-     *
+     * Internal cache
      * @var mixed
      */
     protected $data;
 
+    
     /**
      * Konstruktor
-     * @param string $type Package-Type
-     * @param string $key Package-Key
-     * @param string $version Package-Version
-     * @param string $signature Package-Signature
+     * @param string $packageName
      */
     final public function __construct($packageName)
     {
@@ -106,7 +104,7 @@ abstract class package {
     }
 
     /**
-     * 
+     * Returns full /data/config/package.key file path
      * @return string
      */
     protected function getPackageKey()
@@ -115,67 +113,67 @@ abstract class package {
     }
 
     /**
-     * 
+     * Initialize objects
      * @return bool
      */
     abstract protected function initObjects();
 
     /**
-     * 
+     * Returns remote package path
      * @return string
      */
     abstract protected function getRemotePath();
 
     /**
-     * 
+     * Returns remote package signature string
      * @return string
      */
     abstract protected function getRemoteSignature();
 
     /**
-     * 
+     * Returns local path for package file
      * @return string
      */
     abstract protected function getLocalPath();
 
     /**
-     * 
+     * Returns local package hash
      * @return string
      */
     abstract protected function getLocalSignature();
 
     /**
-     * 
+     * Returns local path to extract archive
      * @return string
      */
     abstract protected function getExtractionPath();
 
     /**
-     * 
+     * Returns local destination path for packeg content
      * @return string
      */
     abstract protected function getLocalDestinationPath();
 
     /**
-     * 
+     * Checks local filesystem if files are writable
      * @return bool
      */
     abstract public function checkFiles();
 
     /**
-     * 
+     * Updates files in local file system
      * @return bool
      */
     abstract public function copy();
 
     /**
-     * 
+     * Updates local package manager log
      * @return bool
      */
     abstract public function updateLog();
 
     /**
-     * Check if remot path points to trusted server
+     * Check if remote path points to trusted server
      * @return bool
      */
     final public function isTrustedPath()
@@ -198,7 +196,7 @@ abstract class package {
     }
 
     /**
-     * Lädt Package in Abhängigkeit von Einstellungen herunter
+     * fetch package content from package server
      * @return bool
      */
     public function download()
@@ -239,7 +237,7 @@ abstract class package {
     }
 
     /**
-     * 
+     * Validates package signature
      * @return bool
      */
     public function checkPackage()
@@ -267,7 +265,7 @@ abstract class package {
     }
 
     /**
-     * Package entpacken
+     * Extract package file
      * @return bool
      */
     public function extract()
@@ -288,7 +286,7 @@ abstract class package {
     }
     
     /**
-     * Performs clean of update files and cache
+     * Performs cleanup of update files and cache
      * @return bool
      */
     public function cleanup()
@@ -307,7 +305,7 @@ abstract class package {
     }
 
     /**
-     * Ersetzt "fanpress"-Ordnername durch basedir-Daen in einem Pfad
+     * Replaces "fanpress" base folder name in given path
      * @param string $path
      * @return string
      */
@@ -317,7 +315,7 @@ abstract class package {
     }
 
     /**
-     * Dateiname/ Key der Form modulkey_versionX.Y.Z aufsplitten
+     * Split filename for module key
      * @param string $filename
      * @return array
      */
@@ -327,7 +325,7 @@ abstract class package {
     }
 
     /**
-     * copy-Protokoll
+     * Updates protocoll data for file system update
      * @param string $file
      * @param bool $success
      * @return bool
@@ -341,8 +339,9 @@ abstract class package {
     }
 
     /**
-     * Fetch array of files from files.txt file
+     * Fetch array of local file system files from "files.txt" file
      * @param string $path
+     * @param int $start
      * @return array
      */
     protected function getFileList($path, $start = 0)

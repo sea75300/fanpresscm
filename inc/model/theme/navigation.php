@@ -151,6 +151,10 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         ]);
     }
 
+    /**
+     * Add trash navigation items depending on delete permissions
+     * @return array
+     */
     private function addTrashItem()
     {
         $submenu = [];

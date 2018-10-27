@@ -17,10 +17,30 @@ namespace fpcm\view;
  */
 final class error extends \fpcm\view\view {
 
+    /**
+     * Error message
+     * @var string
+     */
     protected $errorMessage;
+
+    /**
+     * Destination controller for "Back" button
+     * @var string
+     */
     protected $backController;
+
+    /**
+     * Icon class name
+     * @var string
+     */
     protected $icon;
 
+    /**
+     * Konstruktor
+     * @param string $errorMessage
+     * @param string $backController
+     * @param string $icon
+     */
     public function __construct($errorMessage, $backController = null, $icon = null)
     {
         parent::__construct('common/error');
@@ -30,6 +50,11 @@ final class error extends \fpcm\view\view {
         $this->showHeaderFooter(view::INCLUDE_HEADER_NONE);
     }
 
+    /**
+     * Renders view
+     * @param bool $exit
+     * @return boolean
+     */
     public function render($exit = true)
     {
         $this->assign('errorMessage', $this->errorMessage);

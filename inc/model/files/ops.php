@@ -21,6 +21,7 @@ final class ops {
      * @param string $source
      * @param string $destination
      * @param array $exclude
+     * @return bool
      */
     public static function copyRecursive($source, $destination, $exclude = [])
     {
@@ -168,10 +169,11 @@ final class ops {
     {
         return hash_file(\fpcm\classes\security::defaultHashAlgo, $path);
     }
-
+    
     /**
-     * Creates SHA256 file hash
+     * Creates upload filepath
      * @param string $path
+     * @param bool $includeTime
      * @return string
      */
     public static function getUploadPath($path = DIRECTORY_SEPARATOR, $includeTime = true)
@@ -189,6 +191,13 @@ final class ops {
     /**
      * Creates SHA256 file hash
      * @param string $path
+     * @return string
+     */
+    
+    /**
+     * Creates upload url
+     * @param string $path
+     * @param bool $includeTime
      * @return string
      */
     public static function getUploadUrl($path = '/', $includeTime = true)

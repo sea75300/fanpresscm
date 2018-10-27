@@ -20,7 +20,7 @@ abstract class eventReturnVoid extends event {
 
     /**
      * Defines type of returned data
-     * @return string|bool
+     * @return null
      */
     final protected function getReturnType()
     {

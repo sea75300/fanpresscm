@@ -18,7 +18,7 @@ namespace fpcm\model\dashboard;
 class welcome extends \fpcm\model\abstracts\dashcontainer {
 
     /**
-     * 
+     * Returns name
      * @return string
      */
     public function getName()
@@ -27,7 +27,7 @@ class welcome extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns content
      * @return string
      */
     public function getContent()
@@ -47,7 +47,7 @@ class welcome extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * 
+     * Returns container position
      * @return int
      */
     public function getPosition()

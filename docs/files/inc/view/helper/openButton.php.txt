@@ -30,6 +30,12 @@ final class openButton extends linkButton {
         $this->setIcon('play');
     }
 
+    /**
+     * Set URL by given object
+     * @param \fpcm\model\abstracts\dataset $object
+     * @param string $paramsString
+     * @return $this
+     */
     final public function setUrlbyObject(\fpcm\model\abstracts\dataset $object, $paramsString = '')
     {
         if (!method_exists($object, 'getElementLink')) {

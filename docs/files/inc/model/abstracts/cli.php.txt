@@ -132,7 +132,7 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
     abstract public function help();
 
     /**
-     * CLI Ausgabe
+     * CLI output
      * @param string $str
      * @param bool $exit
      */
@@ -152,7 +152,7 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * CLI Ausgabe
+     * CLI debug output
      * @param string $str
      * @param bool $exit
      */
@@ -167,7 +167,7 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * CLI Eingabe
+     * CLI input
      * @param string $str
      * @param mixed
      */
@@ -177,7 +177,7 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * 
+     * Returns text by bool value
      * @param bool $value
      * @return string
      */

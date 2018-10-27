@@ -24,9 +24,8 @@ trait selectedHelper {
     protected $selected = '';
 
     /**
-     * Set input value
-     * @param mixed $value
-     * @param int $escapeMode
+     * Set preselected value
+     * @param string|int $selected
      * @return $this
      */
     public function setSelected($selected)

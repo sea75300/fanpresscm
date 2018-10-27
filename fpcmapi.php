@@ -1,7 +1,9 @@
 <?php
 
 /**
- * FanPress CM 4.x
+ * FanPress CM 4
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -9,8 +11,7 @@ require_once __DIR__ . '/inc/controller/main.php';
 require_once __DIR__ . '/inc/common.php';
 
 /**
- * FanPress CM API class
- * Class for integration of FanPress CM into a website
+ * FanPress CM API, class for integration into a website
  * 
  * @package fpcmapi
  * @author Stefan Seehafer <sea75300@yahoo.de>

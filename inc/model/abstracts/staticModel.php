@@ -116,6 +116,7 @@ abstract class staticModel {
      * Magic get
      * @param string $name
      * @return mixed
+     * @ignore
      */
     public function __get($name)
     {
@@ -126,6 +127,7 @@ abstract class staticModel {
      * Magic set
      * @param mixed $name
      * @param mixed $value
+     * @ignore
      */
     public function __set($name, $value)
     {
@@ -137,6 +139,7 @@ abstract class staticModel {
      * @param string $name
      * @param mixed $arguments
      * @return bool
+     * @ignore
      */
     public function __call($name, $arguments)
     {
@@ -149,15 +152,17 @@ abstract class staticModel {
      * @param string $name
      * @param mixed $arguments
      * @return bool
+     * @ignore
      */
     public static function __callStatic($name, $arguments)
     {
         print "Static function '{$name}' not found in " . get_class($this) . '<br>';
         return false;
     }
-
+    
     /**
      * Cache-Name zurückgeben
+     * @param string $addName
      * @return string
      */
     public function getCacheName($addName = '')
