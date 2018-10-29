@@ -37,7 +37,9 @@ final class pgsql implements sqlDriver {
      */
     public function getPdoOptions()
     {
-        return [];
+        return [
+            \PDO::ATTR_PERSISTENT => true
+        ];
     }
 
     /**

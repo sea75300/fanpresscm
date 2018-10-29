@@ -7,6 +7,6 @@
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-$fpcmVersion = '4.0.2';
+$fpcmVersion = '4.0.3-dev';
 
 ?>
