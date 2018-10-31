@@ -994,26 +994,26 @@ Help language file
             erzeugen zu lassen.</p>
         <p>Um die Verbindung zu Twitter herzustellen, folge einfach der Anleitung.</p>
         <ol class="list-large">
-            <li>Logge dich zuerst über die Twitter-Webseite ganz normal ein. <a href="https://twitter.com/login" class="fpcm-ui-button">zum Login</a></li>
+            <li>Logge dich zuerst über die Twitter-Webseite ganz normal ein. <a href="https://twitter.com/login" class="ui-button ui-corner-all ui-widget fpcm-ui-button">zum Login</a></li>
             <li>Öffne die Einstellungen der Twitter-Verbindungen über <strong>Optionen &rarr; Systemeinstellungen &rarr;
                     Twitter-Verbindung</strong>.</li>
-            <li><strong>API-Schlüssel:</strong> Klicke auf den Button <span class="fpcm-ui-button">API-Schlüssel
+            <li><strong>API-Schlüssel:</strong> Klicke auf den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">API-Schlüssel
                     anzufordern</span>, du wirst zur AppVerwaltung von Twitter weitergeleitet.</li>
-            <li>Wähle den Button <span class="fpcm-ui-button">Create new app</span>.</li>
-            <li>Fülle das angezeigte Formular aus und bestätige mit <span class="fpcm-ui-button">Create your Twitter application</span>.</li>
+            <li>Wähle den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Create new app</span>.</li>
+            <li>Fülle das angezeigte Formular aus und bestätige mit <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Create your Twitter application</span>.</li>
             <li>Öffne den Tab <strong>Keys and Access Tokens</strong> und kopiere von dort <strong>Consumer Key (API Key)</strong>
                 und <strong>Consumer Secret (API Secret)</strong> in die Felder in den Systemeinstellungen.</li>
             <li>Um Tweets erzeugen zu können, stelle den <strong>Access Level</strong> über den Reiter <strong>Permissions</strong>
                 von <strong>Read-only</strong> auf <strong>Read and Write</strong>.</li>
             <li><strong>Access Token:</strong> Nach dem API-Key musst du nun einen Access Token erzeugen. Scrolle dafür runter zum
-                Punkt <strong>Your Access Token</strong> und klicke auf den Button <span class="fpcm-ui-button">Create my access
+                Punkt <strong>Your Access Token</strong> und klicke auf den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Create my access
                     token</span>. Kopiere anschließend <strong>Access Token</strong> und <strong>Access Token Secret</strong> in
                 in die Felder in den Systemeinstellungen.</li>
 
             <li>Klicke nun in den <strong>Systemeinstellungen</strong> auf Speichern, um die Daten zu speichern.</li>
             <li>Wurden alle Schritte richtig durchgeführt, so erhältst du einen entsprechenden Hinweis.</li>
         </ol>
-        <p>Um die Twitter-Verbindung zu löschen, klicke den Button <span class="fpcm-ui-button">Verbindung zu löschen</span> an.</p>
+        <p>Um die Twitter-Verbindung zu löschen, klicke auf den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Verbindung löschen</span>.</p>
         ]]>
     </chapter>
     <chapter ref="ARTICLES_TRASH">
