@@ -5,6 +5,9 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
+/**
+ * Include of base files
+ */
 require_once __DIR__ . '/inc/common.php';
 
 /**
