@@ -66,7 +66,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function checkConnection()
     {
-        $this->cacheName = 'system/' . __METHOD__;
+        $this->cacheName = 'twitter/checkConnection';
 
         if (!$this->cache->isExpired($this->cacheName)) {
             return $this->cache->read($this->cacheName);
@@ -139,6 +139,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
 
         if (isset($responseData['screen_name'])) {
             $this->username = $responseData['screen_name'];
+            $this->cache->write('twitter/getUsername', $this->username, $this->config->system_cache_timeout);
         }
 
         return true;
@@ -150,6 +151,12 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function getUsername()
     {
+        $this->cacheName = 'twitter/getUsername';
+
+        if (!$this->cache->isExpired($this->cacheName) && !trim($this->username)) {
+            $this->username = $this->cache->read($this->cacheName);
+        }
+
         return $this->username;
     }
 

@@ -66,7 +66,7 @@ final class system extends \fpcm\model\abstracts\staticModel {
             return false;
         }
 
-        return (!\fpcm\classes\baseconfig::canConnect() && time() > filectime(\fpcm\classes\baseconfig::$versionFile) + $this->config->system_updates_manual) ? true : false;
+        return (!\fpcm\classes\baseconfig::canConnect() && time() > filectime(\fpcm\classes\baseconfig::getVersionFromFile()) + $this->config->system_updates_manual) ? true : false;
     }
 
     /**

@@ -69,12 +69,6 @@ final class baseconfig {
     ];
 
     /**
-     * Version-Datei
-     * @var string
-     */
-    public static $versionFile;
-
-    /**
      * Installer aktiv Status-Datei
      * @var string
      */
@@ -94,7 +88,6 @@ final class baseconfig {
             'eventslogs' => dirs::getDataDirPath(dirs::DATA_LOGS, 'events.txt')
         );
 
-        self::$versionFile = dirs::getFullDirPath('version.php');
         self::$installerEnabledFile = dirs::getDataDirPath(dirs::DATA_CONFIG, 'installer.enabled');
 
         if (self::dbConfigExists()) {
@@ -164,14 +157,13 @@ final class baseconfig {
     }
 
     /**
-     * Lädt version.php
+     * Lädt version.txt
      * @return string
      * @since FPCM 4
      */
     public static function getVersionFromFile()
     {
-        include self::$versionFile;
-        return $fpcmVersion;
+        return file_get_contents(dirs::getFullDirPath('version.txt'));
     }
 
     /**
