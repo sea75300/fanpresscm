@@ -68,6 +68,16 @@ class userRoll extends \fpcm\model\abstracts\dataset {
     }
 
     /**
+     * Returns translates roll name
+     * @return string
+     * @since FPCM 4.0.3
+     */
+    public function getRollNameTranslated() : string
+    {
+        return $this->language->translate($this->leveltitle);
+    }
+
+    /**
      * Speichert einen neuen Kommentar in der Datenbank
      * @return bool
      */

@@ -25,7 +25,7 @@ final class cron extends \fpcm\model\abstracts\cli {
     public function process()
     {
 
-        if ($this->funcParams[0] === self::FPCMCLI_PARAM_EXEC) {
+        if ($this->funcParams[0] === self::PARAM_EXEC) {
 
             $cjClassName = "\\fpcm\\model\\crons\\{$this->funcParams[1]}";
 

@@ -24,7 +24,35 @@ final class users extends \fpcm\model\abstracts\cli {
      */
     public function process()
     {
+        if ($this->funcParams[0] === self::PARAM_LISTROLLS) {
+            $this->output('Fetch user rolls from system...');
 
+            /* @var $roll \fpcm\model\users\userRoll */
+            foreach ((new \fpcm\model\users\userRollList())->getUserRolls() as $roll) {
+                $this->output($roll->getRollNameTranslated(). ' (ID: '.$roll->getId().')');
+            }
+
+            return true;
+        }
+
+        if ($this->funcParams[0] === self::PARAM_LIST) {
+            $this->output('Fetch users from system...');
+
+            /* @var $user \fpcm\model\users\author */
+            foreach ((new \fpcm\model\users\userList())->getUsersAll() as $user) {
+                $this->output('ID           : '.$user->getId());
+                $this->output('Username     : '.$user->getUsername());
+                $this->output('Display name : '.$user->getDisplayname());
+                $this->output('Roll id      : '.$user->getRoll());
+                $this->output('Is active    : '.$this->boolText($user->getDisabled()));
+                $this->output('Created on   : '. date('Y-m-d H:i:s', $user->getRegistertime()) );
+                $this->output('----------'.PHP_EOL);
+            }
+
+            return true;
+        }
+        
+        
         if (!isset($this->funcParams[1])) {
             $this->output('Invalid params, no user id set', true);
         }
@@ -38,7 +66,7 @@ final class users extends \fpcm\model\abstracts\cli {
 
         switch ($this->funcParams[0]) {
 
-            case self::FPCMCLI_PARAM_PASSWD :
+            case self::PARAM_PASSWD :
 
                 $this->output('Create new password for user ' . $user->getUsername() . '...');
                 $success = $user->resetPassword(true);
@@ -51,7 +79,7 @@ final class users extends \fpcm\model\abstracts\cli {
 
                 break;
 
-            case self::FPCMCLI_PARAM_ENABLE :
+            case self::PARAM_ENABLE :
 
                 $this->output('Enable user ' . $user->getUsername() . '...');
                 if ($user->enable()) {
@@ -62,7 +90,7 @@ final class users extends \fpcm\model\abstracts\cli {
 
                 break;
 
-            case self::FPCMCLI_PARAM_DISABLE :
+            case self::PARAM_DISABLE :
 
                 $this->output('Disable user ' . $user->getUsername() . '...');
                 if ($user->disable()) {
@@ -73,7 +101,24 @@ final class users extends \fpcm\model\abstracts\cli {
 
                 break;
 
-            case self::FPCMCLI_PARAM_REMOVE :
+            case self::PARAM_CHGROLL :
+
+                $gid = (int) $this->input('Enter new roll id for ' . $user->getUsername() . ':');
+                $roll = new \fpcm\model\users\userRoll($gid);
+                if (!$roll->exists()) {
+                    $this->output('Failed to change user roll to '.$gid.', roll does not exists.', true);
+                }
+                
+                $user->setRoll($gid);
+                if ($user->update()) {
+                    $this->output('Change of user roll to '.$roll->getRollNameTranslated().' was successfull!');
+                } else {
+                    $this->output('Failed to change user roll to '.$roll->getRollNameTranslated(), true);
+                }
+
+                break;
+
+            case self::PARAM_REMOVE :
 
                 $this->output('Delete user ' . $user->getUsername() . '...');
 
@@ -129,6 +174,11 @@ final class users extends \fpcm\model\abstracts\cli {
         $lines[] = '      --enable      enable the selected user';
         $lines[] = '      --disable     disable the selected user';
         $lines[] = '      --remove      delete the selected user';
+        $lines[] = '      --chgroll     change user roll of selected user';
+        $lines[] = '      --remove      delete the selected user';
+        $lines[] = '';
+        $lines[] = '      --list        list all users in system, includes disabled users, no user_id param required';
+        $lines[] = '      --listrolls   list all user-rolls in system, no user_id param required';
         return $lines;
     }
 

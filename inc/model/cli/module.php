@@ -29,7 +29,7 @@ final class module extends \fpcm\model\abstracts\cli {
             $this->output('The selected module is not installed. Exiting...', true);
         }
         
-        if ($this->funcParams[0] === self::FPCMCLI_PARAM_ENABLE) {
+        if ($this->funcParams[0] === self::PARAM_ENABLE) {
             
             if (!$module->enable()) {
                 $this->output('Failed to enable module ' . $module->getKey(), true);
@@ -39,7 +39,7 @@ final class module extends \fpcm\model\abstracts\cli {
             return true;
         }
         
-        if ($this->funcParams[0] === self::FPCMCLI_PARAM_DISABLE) {
+        if ($this->funcParams[0] === self::PARAM_DISABLE) {
             
             if (!$module->disable()) {
                 $this->output('Failed to disable module ' . $module->getKey(), true);

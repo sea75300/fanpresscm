@@ -34,24 +34,24 @@ final class cache extends \fpcm\model\abstracts\cli {
         $cacheModule = !isset($this->funcParams[2]) || $this->funcParams[2] === 'all' ? '*' : $this->funcParams[2];
         $cacheName = $cacheModule . '/' . $cacheName;
 
-        if ($this->funcParams[0] === self::FPCMCLI_PARAM_CLEAN) {
+        if ($this->funcParams[0] === self::PARAM_CLEAN) {
             $this->cache->cleanup($cacheName);
             $this->output('Cache was cleared!');
             return true;
         }
 
-        if ($this->funcParams[0] === self::FPCMCLI_PARAM_INFO) {
+        if ($this->funcParams[0] === self::PARAM_INFO) {
             $this->output('Cache expiration interval: ' . date('Y-m-d H:i:s', $this->cache->getExpirationTime($cacheName)));
             $this->output('Cache is expired: ' . (int) $this->cache->isExpired($cacheName));
             return true;
         }
 
-        if ($this->funcParams[0] === self::FPCMCLI_PARAM_SIZE) {
+        if ($this->funcParams[0] === self::PARAM_SIZE) {
             $this->output('Cache total size: ' . \fpcm\classes\tools::calcSize($this->cache->getSize($cacheName)));
             return true;
         }
 
-        if ($this->funcParams[0] === self::FPCMCLI_PARAM_LIST) {
+        if ($this->funcParams[0] === self::PARAM_LIST) {
             $this->output('Cache structur: ');
             $this->output($this->cache->getCacheComplete());
             return true;

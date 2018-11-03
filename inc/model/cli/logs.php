@@ -37,7 +37,7 @@ final class logs extends \fpcm\model\abstracts\cli {
             $this->output('Logfile ' . \fpcm\model\files\ops::removeBaseDir($path, true) . ' not found!', true);
         }
 
-        if ($this->funcParams[0] === self::FPCMCLI_PARAM_CLEAR && !file_put_contents($path, '') === false) {
+        if ($this->funcParams[0] === self::PARAM_CLEAR && !file_put_contents($path, '') === false) {
             $this->output('Unable to clear logfile ' . \fpcm\model\files\ops::removeBaseDir($path, true) . '!', true);
         }
 
@@ -54,7 +54,7 @@ final class logs extends \fpcm\model\abstracts\cli {
         $rows = array_map('json_decode', $rows);
 
         $is_pkg_log = ($path === \fpcm\classes\baseconfig::$logFiles['pkglog'] ? true : false);
-        if ($this->funcParams[0] === self::FPCMCLI_PARAM_LIST) {
+        if ($this->funcParams[0] === self::PARAM_LIST) {
 
             foreach ($rows as $row) {
 

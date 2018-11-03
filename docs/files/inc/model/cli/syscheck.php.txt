@@ -31,7 +31,7 @@ final class syscheck extends \fpcm\model\abstracts\cli {
 
         $this->output(PHP_EOL . 'Fetch data for system check...' . PHP_EOL);
 
-        $lines = [];
+        $lines = [PHP_EOL];
 
         /* @var $data \fpcm\model\system\syscheckOption */
         foreach ($rows as $descr => $data) {

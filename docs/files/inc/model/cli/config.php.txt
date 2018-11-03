@@ -31,7 +31,7 @@ final class config extends \fpcm\model\abstracts\cli {
 
         switch ($this->funcParams[0]) {
 
-            case self::FPCMCLI_PARAM_ENABLE :
+            case self::PARAM_ENABLE :
 
                 switch ($this->funcParams[1]) {
                     case 'cronjobs' :
@@ -72,7 +72,7 @@ final class config extends \fpcm\model\abstracts\cli {
 
                 break;
 
-            case self::FPCMCLI_PARAM_DISABLE :
+            case self::PARAM_DISABLE :
 
                 switch ($this->funcParams[1]) {
                     case 'cronjobs' :

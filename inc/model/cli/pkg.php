@@ -41,9 +41,9 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * @var array
      */
     private $noMaintenanceMode = [
-        self::FPCMCLI_PARAM_UPDATE,
-        self::FPCMCLI_PARAM_LIST,
-        self::FPCMCLI_PARAM_INFO
+        self::PARAM_UPDATE,
+        self::PARAM_LIST,
+        self::PARAM_INFO
     ];
 
     /**
