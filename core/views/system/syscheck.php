@@ -8,7 +8,9 @@
     <?php foreach ($checkOptions as $checkOption => $checkResult) : ?>
         <div class="row fpcm-ui-dataview-row">
             <div class="col-1 fpcm-ui-center fpcm-ui-padding-none-lr align-self-center">
-                <?php if ($checkResult->getHelplink()) : ?>
+                <?php if ($checkResult->isFolder()) : ?>
+                    <?php print (new \fpcm\view\helper\icon('folder')); ?>
+                <?php elseif ($checkResult->getHelplink()) : ?>
                     <?php $theView->shorthelpButton($checkOption)->setText('GLOBAL_INFO')->setUrl($checkResult->getHelplink()); ?>
                 <?php endif; ?>
             </div>
