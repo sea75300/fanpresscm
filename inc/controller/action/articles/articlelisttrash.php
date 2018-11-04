@@ -28,7 +28,7 @@ class articlelisttrash extends articlelistbase {
      */
     protected function getPermissions()
     {
-        return ['article' => 'edit', 'article' => 'editall'];
+        return ['article' => ['edit', 'editall']];
     }
 
     /**
