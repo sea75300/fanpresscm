@@ -17,7 +17,6 @@ class userRollsTest extends testBase {
 
     public function testGetUserRolls()
     {
-
         $this->createRoll();
 
         $data = $this->object->getUserRolls();
@@ -32,7 +31,7 @@ class userRollsTest extends testBase {
 
     public function testGetRollsbyIdsTranslated()
     {
-        $data = $this->object->getRollsbyIdsTranslated([$GLOBALS['objectId']]);
+        $data = $this->object->getRollsbyIdString($GLOBALS['objectId']);
         $this->assertTrue(in_array($GLOBALS['objectId'], $data));
     }
 

@@ -153,7 +153,7 @@ class categorylist extends \fpcm\controller\abstracts\controller {
      */
     protected function initDataViewRow($category)
     {
-        $rolls = $this->rollList->getRollsbyIdsTranslated(explode(';', $category->getGroups()));
+        $rolls = $this->rollList->getRollsbyIdString($category->getGroups());
 
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('ids', 'ids' . $category->getId()))->setValue($category->getId())->setReadonly($this->countReadOnly), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
