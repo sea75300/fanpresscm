@@ -76,6 +76,7 @@ class sysupdate extends \fpcm\controller\abstracts\controller {
         else {
             $updater = new \fpcm\model\updater\system();
             $this->steps['pkgurl'] = $updater->url;
+            $this->steps['pkgsize'] = $updater->size ? '('.\fpcm\classes\tools::calcSize($updater->size).')' : '';
             $this->steps['pkgname'] = basename($updater->url);
         }
 
