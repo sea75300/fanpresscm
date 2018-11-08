@@ -42,7 +42,8 @@
                 </div>
                 <div class="col-11 align-self-center fpcm-ui-updater-descr">
                     <?php $theView->write('PACKAGEMANAGER_DOWNLOAD', [
-                        '{{var}}' => $pkgurl
+                        '{{var}}' => $pkgurl,
+                        '{{var2}}' => $pkgsize,
                     ]); ?>
                 </div>
             </div>
