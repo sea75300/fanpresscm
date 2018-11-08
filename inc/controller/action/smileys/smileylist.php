@@ -96,9 +96,9 @@ class smileylist extends \fpcm\controller\abstracts\controller {
     {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
-            (new \fpcm\components\dataView\column('image', ''))->setAlign('center'),
-            (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'))->setSize(5),
-            (new \fpcm\components\dataView\column('code', 'FILE_LIST_SMILEYCODE'))->setSize(4)
+            (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'))->setSize(4),
+            (new \fpcm\components\dataView\column('code', 'FILE_LIST_SMILEYCODE'))->setSize(3),
+            (new \fpcm\components\dataView\column('image', ''))->setAlign('center')->setSize(4),
         ];
     }
 
@@ -125,9 +125,9 @@ class smileylist extends \fpcm\controller\abstracts\controller {
  
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('smileyids[]', 'chbx' . md5($chbxdat) ))->setClass('fpcm-ui-list-checkbox')->setValue($chbxdat), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-            new \fpcm\components\dataView\rowCol('image', $smiley->getImageTag()),
             new \fpcm\components\dataView\rowCol('filename', new \fpcm\view\helper\escape($smiley->getFilename()) ),
-            new \fpcm\components\dataView\rowCol('code', new \fpcm\view\helper\escape($smiley->getSmileyCode()) )
+            new \fpcm\components\dataView\rowCol('code', new \fpcm\view\helper\escape($smiley->getSmileyCode()) ),
+            new \fpcm\components\dataView\rowCol('image', $smiley->getImageTag()),
         ]);
     }
 
