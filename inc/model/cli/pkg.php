@@ -157,7 +157,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
         $this->output('-- Finished.' . PHP_EOL);
 
-        $this->output('Download package from ' . $pkg->getRemotePath() . '...');
+        $this->output('Download package from ' . $pkg->getRemotePath() . ($this->updaterSys->size ? '('.\fpcm\classes\tools::calcSize($this->updaterSys->size).')' : ''). '...');
         $success = $pkg->download();
         if ($success !== true) {
             $this->output('Download failed. ERROR CODE: ' . $success, true);
