@@ -191,7 +191,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             (new navigationItem())->setUrl('articles/listall')
                 ->setDescription('HL_ARTICLE_EDIT_ALL')
                 ->setIcon('book')
-                ->setPermission(['article' => 'edit', 'article' => 'editall']),
+                ->setPermission(['article' => ['edit', 'editall']]),
             (new navigationItem())->setUrl('articles/listactive')
                 ->setDescription('HL_ARTICLE_EDIT_ACTIVE')
                 ->setIcon('newspaper', 'far')
@@ -199,7 +199,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             (new navigationItem())->setUrl('articles/listarchive')
                 ->setDescription('HL_ARTICLE_EDIT_ARCHIVE')
                 ->setIcon('archive')
-                ->setPermission(['article' => 'edit', 'article' => 'editall', 'article' => 'archive'])
+                ->setPermission(['article' => ['edit', 'editall', 'archive']])
         ];
     }
 

@@ -19,6 +19,7 @@ namespace fpcm\model\updater;
  * @property string $signature Package signature
  * @property string $phpversion Minimum required PHP version
  * @property string $release Package release
+ * @property int $size Package size
  */
 final class system extends \fpcm\model\abstracts\staticModel {
 
@@ -99,15 +100,25 @@ final class system extends \fpcm\model\abstracts\staticModel {
 
         if (isset($foptData[$currentVersionComplete])) {
             $this->data = $foptData[$currentVersionComplete];
+            if (!isset($this->size)) {
+                $this->size = 0;
+            }
             return true;
         }
 
         if (isset($foptData[$currentVersionMinor]) ) {
             $this->data = $foptData[$currentVersionMinor];
+            if (!isset($this->size)) {
+                $this->size = 0;
+            }
             return true;
         }
 
         $this->data = isset($foptData['default']) ? $foptData['default'] : [];
+        if (!isset($this->size)) {
+            $this->size = 0;
+        }
+
         return true;
     }
 
