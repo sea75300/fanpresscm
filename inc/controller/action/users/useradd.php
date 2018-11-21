@@ -41,13 +41,15 @@ class useradd extends userbase {
     {
         parent::process();
         
-        $this->view->addButton((new \fpcm\view\helper\saveButton('userSave')));
+        $this->view->addButtons([
+            new \fpcm\view\helper\saveButton('userSave'),
+            (new \fpcm\view\helper\checkbox('data[passInfoUser]'))->setText('USERS_SENDUSERINFO')
+        ]);
         $this->view->setFormAction('users/add');
         $this->view->assign('showDisableButton', false);
         $this->view->assign('showExtended', false);
         $this->view->assign('showImage', false);
         $this->view->assign('twoFaAuth', false);
-
         $this->view->render();
     }
 

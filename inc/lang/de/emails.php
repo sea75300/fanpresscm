@@ -10,6 +10,9 @@ $lang = array(
     'PASSWORD_RESET_SUBJECT' => 'Neues Passwort angefordert',
     'PASSWORD_RESET_TEXT' => 'Für dich wurde ein neues Passwort angefordert. Dies lautet <b>{{newpass}}</b>. Hast du dies '
     . 'nicht selbst veranlasst, so kontaktiere am Besten einen Administrator.',
+    'PASSWORD_NEWPASSWORDSET_SUBJECT' => 'Neues Passwort festgelegt',
+    'PASSWORD_NEWPASSWORDSET_TEXT' => 'Für deinen FanPress CM-Account <b>{{username}}</b> wurde das Passwort <b>{{newpass}}</b> festgelegt. Mit diesen Daten '.
+    'kannst du dich anmelden und auch ein eigenes Passwort vergeben.',
     'PUBLIC_COMMENT_EMAIL_SUBJECT' => 'Es wurde ein neuer Kommentar geschrieben',
     'PUBLIC_COMMENT_EMAIL_TEXT' => "Von {{name}} (E-Mail-Adresse: {{email}}) wurde ein Kommentar auf den Artikel {{articleurl}} geschrieben.\n\n{{commenttext}}\n\nLogge dich ein um den Kommentar zu moderieren. {{systemurl}}",
     'CRONJOB_UPDATES_NEWVERSION' => 'Neue FanPress CM Version verfügbar',

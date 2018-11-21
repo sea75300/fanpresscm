@@ -146,6 +146,21 @@ class userbase extends \fpcm\controller\abstracts\controller {
 
         if ($save) {
             $res = ( $this->userId ? $this->user->update() : $this->user->save() );
+            
+            if (isset($data['passInfoUser']) && $data['password'] && $data['password_confirm'] && filter_var($this->user->getEmail(), FILTER_VALIDATE_EMAIL)) {
+                $msg = (new \fpcm\classes\email(
+                    $this->user->getEmail(),
+                    $this->language->translate('PASSWORD_NEWPASSWORDSET_SUBJECT'),
+                    $this->language->translate('PASSWORD_NEWPASSWORDSET_TEXT', [
+                        'username' => $this->user->getUsername(),
+                        'newpass' => $data['password']
+                    ]),
+                    false,
+                    true
+                ));
+
+                $msg->submit();
+            }
 
             if ($res === false) {
                 $this->view->addErrorMessage('SAVE_FAILED_USER');

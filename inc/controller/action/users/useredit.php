@@ -84,10 +84,16 @@ class useredit extends userbase {
         $this->view->assign('showImage', true);
         $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
 
-        $this->view->addButtons([
+        $buttons = [
             (new \fpcm\view\helper\saveButton('userSave')),
             (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
-        ]);
+        ];
+        
+        if ($this->userId != $this->session->getUserId()) {
+            $buttons[] = (new \fpcm\view\helper\checkbox('data[passInfoUser]'))->setText('USERS_PASSWORD_SENDUSERINFO');
+        }
+
+        $this->view->addButtons($buttons);
         
         $this->view->addJsFiles(['useredit.js']);
         $this->view->render();
