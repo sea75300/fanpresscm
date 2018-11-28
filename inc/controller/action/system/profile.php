@@ -145,7 +145,7 @@ class profile extends \fpcm\controller\abstracts\controller {
         $this->view->assign('showExtended', true);
         $this->view->assign('showImage', true);
 
-        $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH']);
+        $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH', 'SAVE_FAILED_PASSWORD_SECURITY']);
         $this->view->addJsVars(array(
             'dtMasks' => $this->getDateTimeMasks(),
             'reloadPage' => $this->reloadSite,

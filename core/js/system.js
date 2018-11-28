@@ -32,8 +32,27 @@ fpcm.system = {
                 fpcm.ui.addMessage({
                     type: 'error',
                     txt : fpcm.ui.translate('SAVE_FAILED_PASSWORD_MATCH')
-                });
+                }, true);
             }
+            
+            fpcm.ajax.post('passcheck', {
+                data: {
+                    password: password
+                },
+                execDone: function (result) {
+                    
+                    if (parseInt(result) === 0) {
+                        return false;
+                    }
+                    
+                    fpcm.ui.addMessage({
+                        type: 'error',
+                        txt : fpcm.ui.translate('SAVE_FAILED_PASSWORD_SECURITY')
+                    }, true);
+
+                    return false;
+                }
+            });
 
             return false;
         });

@@ -41,6 +41,12 @@ abstract class remoteModel extends staticModel {
     protected $remoteServer = '';
 
     /**
+     * Server port
+     * @var string
+     */
+    protected $remotePort = 80;
+
+    /**
      * Datenparameter
      * @var array
      */
@@ -83,7 +89,6 @@ abstract class remoteModel extends staticModel {
         }
 
         $this->remoteData = file_get_contents($this->remoteServer);
-
         if (!$this->remoteData) {
             trigger_error('Error while fetching update informations from: ' . $this->remoteServer);
             return self::REMOTECONTENT_ERROR;
@@ -108,7 +113,7 @@ abstract class remoteModel extends staticModel {
      */
     protected function remoteAvailable()
     {
-        $remoteTest = @fsockopen(parse_url($this->remoteServer, PHP_URL_HOST), '80');
+        $remoteTest = @fsockopen(parse_url($this->remoteServer, PHP_URL_HOST), $this->remotePort);
 
         if (!$remoteTest) {
             trigger_error('Unable to connect to remote server: ' . $this->remoteUrl);

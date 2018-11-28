@@ -69,6 +69,7 @@ $lang = array(
     'SAVE_FAILED_CATEGORY' => 'Die Kategorie konnte nicht gespeichert werden!',
     'SAVE_FAILED_PASSWORD_SECURITY' => 'Ein Password muss Groß- und Kleinbuchstaben sowie Zahlen enthalten und min. 6 Zeichen lang sein.',
     'SAVE_FAILED_PASSWORD_MATCH' => 'Die eingegebenen Passwörter stimmen nicht überein.',
+    'SAVE_FAILED_PASSWORD_SECURITY' => 'Das eingegebene Passwort wird sehr häufig verwendet und ist daher potentiell gefährlich! Es sollte daher nicht verwendet werden.',
     'SAVE_FAILED_USER_SECURITY' => 'Der eingegebene Benutzername ist potentiell gefährlich und kann daher nicht verwendet werden!',
     'SAVE_FAILED_OPTIONS' => 'Die Änderungen an der Konfiguration konnten nicht gespeichert werden!',
     'SAVE_FAILED_OPTIONS_MODULES' => 'Die Änderungen an der Konfiguration konnten nicht gespeichert werden, da keine Daten im Feld "config" gefunden wurden.!',
