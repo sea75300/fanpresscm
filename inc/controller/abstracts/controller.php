@@ -1,10 +1,7 @@
 <?php
 
 /**
- * Base controller
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,8 +10,10 @@ namespace fpcm\controller\abstracts;
 /**
  * Allgemeine Basis einen Controller
  * 
- * @package fpcm\controller\abstracts\controller
+ * @package fpcm\controller\abstracts
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @abstract
  */
 class controller implements \fpcm\controller\interfaces\controller {
@@ -38,7 +37,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected $config;
 
     /**
-     * Sprachen
+     * Language object
      * @var \fpcm\classes\language
      */
     protected $language;
@@ -104,31 +103,31 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected $enabledModules = [];
 
     /**
-     *
+     * View object
      * @var \fpcm\view\view
      */
     protected $view;
 
     /**
-     *
+     * Page token check result
      * @var bool
      */
     protected $checkPageToken = true;
 
     /**
-     *
+     * Execute defined actions on __destruct
      * @var bool
      */
     protected $execDestruct = true;
 
     /**
-     *
+     * View events namespace
      * @var bool
      */
     protected $viewEvents = 'theme';
 
     /**
-     *
+     * Check if controller was defined in module
      * @var bool
      */
     protected $moduleController = null;
@@ -179,7 +178,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param array $filter
      * @return mixed
      */
-    public function getRequestVar($varname = null, array $filter = [\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_HTMLENTITIES, \fpcm\classes\http::FILTER_STRIPSLASHES, \fpcm\classes\http::FILTER_TRIM])
+    final public function getRequestVar($varname = null, array $filter = [\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_HTMLENTITIES, \fpcm\classes\http::FILTER_STRIPSLASHES, \fpcm\classes\http::FILTER_TRIM])
     {
         return \fpcm\classes\http::get($varname, $filter);
     }
@@ -189,7 +188,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param string $buttonName
      * @return string
      */
-    public function buttonClicked($buttonName)
+    final public function buttonClicked($buttonName)
     {
         $btnName = 'btn' . ucfirst($buttonName);
         return !is_null(\fpcm\classes\http::postOnly($btnName)) && is_null(\fpcm\classes\http::getOnly($btnName));
@@ -199,7 +198,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * Session zurückgeben
      * @return \model\session
      */
-    public function getSession()
+    final public function getSession()
     {
         return $this->session;
     }
@@ -263,7 +262,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param boolean $simplemsg
      * @return bool
      */
-    protected function maintenanceMode($simplemsg = true)
+    final protected function maintenanceMode($simplemsg = true)
     {
         if (!$this->config->system_maintenance || ($this->session->exists() && $this->session->getCurrentUser()->isAdmin())) {
             return true;
@@ -286,7 +285,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param string $overrideModule
      * @return bool
      */
-    protected function checkPageToken($overrideModule = '')
+    final protected function checkPageToken($overrideModule = '')
     {
         if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
             trigger_error('Page token check failed, no referer available or referrer mismatch in '. get_class($this));
@@ -437,6 +436,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param string $filterString
      * @param array $filters
      * @return string
+     * @deprecated since version 4.1
      */
     public static function filterRequest($filterString, array $filters)
     {
@@ -488,24 +488,30 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function hasActiveModule()
     {
-        $class = \fpcm\module\module::getKeyFromClass(get_class($this));
+        $class = get_class($this);
 
-        $module = ($class !== false)
-                ? str_replace('\\', '/', explode('\\controller', $class, 2)[0])
-                : false;
-
-        if ($module === false || in_array($module, $this->enabledModules)) {
-            $this->moduleController = trim($module) && $module !== false ? $module : null;
+        $module = \fpcm\module\module::getKeyFromControllerClass($class);
+        if ($module === false) {
+            $this->moduleController = null;
             return true;
         }
 
-        $this->execDestruct = false;
-        trigger_error("Request for controller '{$this->getRequestVar('module')}' of disabled module '{$module}'!");
-        $view = new \fpcm\view\error("The controller '{$this->getRequestVar('module')}' is not enabled for execution!");
-        $view->render($this->moduleCheckExit);
-        return false;
+        if (!in_array($module, $this->enabledModules)) {
+            $this->execDestruct = false;
+            trigger_error("Request for controller '{$this->getRequestVar('module')}' of disabled module '{$module}'!");
+            $view = new \fpcm\view\error("The controller '{$this->getRequestVar('module')}' is not enabled for execution!");
+            $view->render($this->moduleCheckExit);
+            return false;
+        }
+        
+        $parent = get_parent_class($class);        
+        if ($module && in_array($parent, ['fpcm\controller\abstracts\controller', 'fpcm\controller\abstracts\ajaxController']) ) {
+            trigger_error("The use of \"{$parent}\" for module-defined controllers is deprecated as of FPCM 4.1! ".
+                          "\"{$class}\" should be an instance of ". str_replace("controller\\abstracts\\", "controller\\abstracts\\module\\", $parent)." instead.");
+        }
+
+        $this->moduleController = trim($module) && $module !== false ? $module : null;
+        return true;
     }
 
 }
-
-?>

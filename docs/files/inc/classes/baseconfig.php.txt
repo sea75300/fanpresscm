@@ -163,7 +163,7 @@ final class baseconfig {
      */
     public static function getVersionFromFile()
     {
-        return file_get_contents(dirs::getFullDirPath('version.txt'));
+        return trim(file_get_contents(dirs::getFullDirPath('version.txt')));
     }
 
     /**

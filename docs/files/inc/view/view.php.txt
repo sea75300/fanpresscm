@@ -520,10 +520,7 @@ class view {
         }
 
         $this->initAssigns();
-
-        foreach ($this->events->trigger('view\renderBefore', $this->viewVars) as $key => $value) {
-            $$key = $value;
-        }
+        extract($this->events->trigger('view\renderBefore', $this->viewVars));
 
         switch ($this->showHeader) {
             case self::INCLUDE_HEADER_FULL :

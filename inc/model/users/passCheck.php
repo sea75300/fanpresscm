@@ -8,7 +8,7 @@
 namespace fpcm\model\users;
 
 /**
- * Password check model
+ * pwnedpasswords.com password check model 
  * @package fpcm\model\user
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2018, Stefan Seehafer
@@ -43,20 +43,29 @@ class passCheck extends \fpcm\model\abstracts\remoteModel {
     {
         parent::__construct();
         $this->passHash = sha1($pass);
+        $this->cacheName = 'passec/'.$this->passHash;
     }
 
-    protected function saveRemoteData(): bool
+    /**
+     * Writes remote repository data to local storage
+     * @return bool
+     */
+    protected function saveRemoteData() : bool
     {
-        return $this->cache->write('passec/'.$this->passHash, $this->remoteData);
+        return $this->cache->write($this->cacheName, $this->remoteData);
     }
 
-    public function isPowned()
+    /**
+     * Checks password string against pwnedpasswords.com, transfers an 5-char SHA1 hash
+     * @return bool true if password is not in returned list or count is then 100
+     */
+    public function isPowned() : bool
     {
-        $this->remoteData = $this->cache->read('passec/'.$this->passHash);
-        if (!trim($this->remoteData) || $this->cache->isExpired('passec/'.$this->passHash)) {
+        $this->remoteData = $this->cache->read($this->cacheName);
+        if (!trim($this->remoteData) || $this->cache->isExpired($this->cacheName)) {
             $this->remoteServer = 'https://api.pwnedpasswords.com/range/' . strtoupper(substr($this->passHash, 0, $this->passLimit));
             $this->fetchRemoteData();
-            $this->cache->write('passec/'.$this->passHash, $this->remoteData);
+            $this->cache->write($this->cacheName, $this->remoteData);
         }
 
         $matches = [];

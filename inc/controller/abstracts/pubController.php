@@ -18,16 +18,15 @@ namespace fpcm\controller\abstracts;
  */
 class pubController extends controller {
 
-
     /**
-     *
+     * View events namespace
      * @var bool
      */
     protected $viewEvents = false;
 
     /**
-     * 
-     * @return bool
+     * Access check processing
+     * @return bool, false prevent execution of @see request() @see process()
      */
     public function hasAccess()
     {

@@ -53,6 +53,7 @@ class userList extends \fpcm\model\abstracts\tablelist {
 
         $where = $this->dbcon->getTablePrefixed($this->table) . '.roll = ';
         $where .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll) . '.id';
+        $where .= $this->dbcon->orderBy(['registertime ASC']);
         $result = $this->dbcon->select(array($this->table, \fpcm\classes\database::tableRoll), $item, $where);
         $users = $this->dbcon->fetch($result, true);
 

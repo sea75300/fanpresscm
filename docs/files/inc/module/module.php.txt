@@ -859,6 +859,22 @@ class module {
     }
 
     /**
+     * Fetch modul key from controller class
+     * @param string $class
+     * @return string|bool
+     * @since FPCM 4.1
+     */
+    public static function getKeyFromControllerClass($class)
+    {
+        $key = self::getKeyFromClass($class);
+        if (!$key) {
+            return false;
+        }
+        
+        return implode('/', array_slice(explode('\\', str_replace(['\\controller\\module', '\\controller'], '', $key), 3), 0, 2));
+    }
+
+    /**
      * Get module event class name
      * @param string $key
      * @param string $event
