@@ -53,14 +53,33 @@
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
     <legend><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?></legend>
     <div class="row fpcm-ui-padding-md-tb">
-        <?php $theView->textInput('article[sources]')->setPlaceholder(true)->setText('TEMPLATE_ARTICLE_SOURCES')->setValue($article->getSources())->setIcon('external-link-alt')->setSize('lg'); ?>
+        <?php $theView->textInput('article[sources]')
+                ->setWrapper(false)
+                ->setText('TEMPLATE_ARTICLE_SOURCES')
+                ->setValue($article->getSources())
+                ->setIcon('external-link-alt')
+                ->setSize('lg')
+                ->setClass('col-10 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner')
+                ->setLabelClass('col-2 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height'); ?>
     </div>
 </fieldset>
 
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
     <legend><?php $theView->write('TEMPLATE_ARTICLE_ARTICLEIMAGE'); ?></legend>
     <div class="row fpcm-ui-padding-md-tb">
-        <?php $theView->textInput('article[imagepath]')->setPlaceholder(true)->setText('TEMPLATE_ARTICLE_ARTICLEIMAGE')->setValue($article->getImagepath())->setMaxlenght(512)->setIcon('image')->setSize('lg')->setInputColWidth(10); ?>
+        <div class="col-10 col-lg-11 fpcm-ui-padding-none-lr">
+            <div class="row fpcm-ui-padding-none">
+                <?php $theView->textInput('article[imagepath]')
+                        ->setWrapper(false)
+                        ->setText('TEMPLATE_ARTICLE_ARTICLEIMAGE')
+                        ->setValue($article->getImagepath())
+                        ->setMaxlenght(512)
+                        ->setIcon('image')
+                        ->setSize('lg')
+                        ->setClass('col-10 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner')
+                        ->setLabelClass('col-2 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height'); ?>                
+            </div>
+        </div>
         <div class="col-2 col-lg-1 fpcm-ui-padding-none-lr fpcm-ui-center"><?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true); ?></div>
     </div>
 </fieldset>

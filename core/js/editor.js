@@ -91,6 +91,7 @@ fpcm.editor = {
                 fpcm.editor.tweetTextInput.val(fpcm.editor.tweetTextInput.val() + ' ' + ui.item.value);
                 this.selectedIndex = 0;
                 jQuery(this).selectmenu('refresh');
+                return false;
             }
         });
 

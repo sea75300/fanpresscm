@@ -48,6 +48,10 @@ h3, .fpcm-dashboard-container h3 {
     font-weight: bold;
 }
 
+label {
+    font-weight: normal;
+}
+
 i, em {
     color:#0048a9;
 }
@@ -503,6 +507,22 @@ textarea:active,
     box-shadow: #79B7E7 0px 0px 4px;
 }
 
+.fpcm-ui-border-none-top {
+    border-top: none;
+}
+
+.fpcm-ui-border-none-right {
+    border-right: none;
+}
+
+.fpcm-ui-border-none-bottom {
+    border-bottom: none;
+}
+
+.fpcm-ui-border-none-top {
+    border-top: none;
+}
+
 .ui-spinner {
     width: 195px;
 }
@@ -663,12 +683,14 @@ div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2 {
     padding: 0.4em;
 }
 
-div.fpcm-filelist-thumb-box:nth-child(odd) div.fpcm-filelist-thumb-box-inner
+div.fpcm-filelist-thumb-box:nth-child(odd) div.fpcm-filelist-thumb-box-inner,
+label.fpcm-ui-label-bg-grey
 {
     background: #f8f8f8;
 }
 
-div.fpcm-filelist-thumb-box:hover div.fpcm-filelist-thumb-box-inner
+div.fpcm-filelist-thumb-box:hover div.fpcm-filelist-thumb-box-inner,
+label.fpcm-ui-label-bg-blue
 {
     background: #DFEFFC;
 }
@@ -721,7 +743,8 @@ div.fpcm-filelist-thumb-box {
 .fpcm-ui-button,
 .fpcm-ui-controlgroup > *,
 .ui-selectmenu-button,
-.ui-checkboxradio-label {
+.ui-checkboxradio-label,
+.fpcm-ui-element-min-height {
     min-height: 18.666666666666666666666667px;
     line-height: 18.666666666666666666666667px;
 }
@@ -933,6 +956,14 @@ span.fpcm-ui-badge,
 .fpcm-dashboard-container h3,
 .fpcm-ui-input-wrapper {
     border-radius: 5px;
+}
+
+.fpcm-ui-border-radius-right {
+    border-radius: 0 5px 5px 0;
+}
+
+.fpcm-ui-border-radius-left {
+    border-radius: 5px 0 0 5px;
 }
 
 span.fpcm-ui-badge {

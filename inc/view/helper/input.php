@@ -37,7 +37,14 @@ abstract class input extends helper {
      * Column with if input uses an icon
      * @var string
      */
-    protected $colWidth = '11';
+    protected $colWidth = '12';
+
+    /**
+     * CS class for label
+     * @var string
+     * @since FPCM 4.1
+     */
+    protected $labelClass = '';
 
     /**
      * Return element string
@@ -46,26 +53,19 @@ abstract class input extends helper {
     protected function getString()
     {
         $wrapperStart = '';
-        
-        $sizeClass = 'col-12 fpcm-ui-padding-none-lr';
-        
-        if ($this->icon) {
-            $wrapperStart .= "<div class=\"col-1 align-self-center fpcm-ui-padding-none-lr\">{$this->getIconString()}</div>";
-            $sizeClass = "col-{$this->colWidth} fpcm-ui-padding-none-lr";
-        }
-        
-        $wrapperStart .= $this->useWrapper ? "<div class=\"fpcm-ui-input-wrapper $sizeClass {$this->wrapperClass}\"><div class=\"fpcm-ui-input-wrapper-inner\">" : '';
+        $wrapperEnd = '';
 
-        $wrapperEnd = $this->useWrapper ? "</div></div>" : '';
+        if ($this->useWrapper) {
+            $wrapperStart = "<div class=\"fpcm-ui-input-wrapper col-{$this->colWidth} {$this->wrapperClass} fpcm-ui-padding-none-lr\"><div class=\"fpcm-ui-input-wrapper-inner\">";
+            $wrapperEnd = "</div></div>";
+        }
 
         $input = "<input type=\"{$this->type}\" {$this->getNameIdString()}{$this->getClassString()} {$this->getValueString()} {$this->getReadonlyString()} maxlength=\"{$this->maxlenght}\" {$this->getPlaceholderString()} {$this->getDataString()}>";
-
         if (!$this->text) {
             return $wrapperStart . $input . $wrapperEnd;
         }
 
-        $description = $this->placeholder ? "" : "<label>{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
-
+        $description = $this->placeholder ? "" : "<label class=\"{$this->labelClass}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
         return $wrapperStart . $description . $input . $wrapperEnd;
     }
 
@@ -76,6 +76,7 @@ abstract class input extends helper {
     protected function init()
     {
         $this->class = 'fpcm-ui-input';
+        $this->labelClass = 'align-self-center';
     }
 
     /**
@@ -111,6 +112,18 @@ abstract class input extends helper {
         return $this;
     }
 
+    /**
+     * Set label class CSS string
+     * @param string $labelClass
+     * @return $this
+     * @since FPCM 4.1
+     */
+    public function setLabelClass(string $labelClass)
+    {
+        $this->labelClass .= ' '. trim($labelClass);
+        return $this;
+    }
+    
     /**
      * Placeholder string
      * @return string
