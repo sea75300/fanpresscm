@@ -40,13 +40,6 @@ abstract class input extends helper {
     protected $colWidth = '12';
 
     /**
-     * CS class for label
-     * @var string
-     * @since FPCM 4.1
-     */
-    protected $labelClass = '';
-
-    /**
      * Return element string
      * @return string
      */
@@ -65,7 +58,10 @@ abstract class input extends helper {
             return $wrapperStart . $input . $wrapperEnd;
         }
 
-        $description = $this->placeholder ? "" : "<label class=\"{$this->labelClass}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
+        $description    = $this->placeholder
+                        ? ($this->icon ? "<label class=\"{$this->labelClass}\" for=\"{$this->id}\">{$this->getIconString()}</label>" : '')
+                        : "<label class=\"{$this->labelClass}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
+
         return $wrapperStart . $description . $input . $wrapperEnd;
     }
 
@@ -109,18 +105,6 @@ abstract class input extends helper {
     public function setInputColWidth($colWidth)
     {
         $this->colWidth = $colWidth;
-        return $this;
-    }
-
-    /**
-     * Set label class CSS string
-     * @param string $labelClass
-     * @return $this
-     * @since FPCM 4.1
-     */
-    public function setLabelClass(string $labelClass)
-    {
-        $this->labelClass .= ' '. trim($labelClass);
         return $this;
     }
     

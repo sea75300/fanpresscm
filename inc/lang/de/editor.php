@@ -55,6 +55,7 @@ $lang = array(
     'EDITOR_ARTICLEIMAGE' => 'Artikel-Bild festlegen',
     'EDITOR_ARTICLEIMAGE_SHOW' => 'Artikel-Bild anzeigen',
     'EDITOR_TWEET_ENABLED' => 'Tweet erzeugen',
+    'EDITOR_POSTPONED_DATE' => 'Fälligkeit',
     'EDITOR_TWEET_TEXT' => 'Twitter-Beitrag-Text (überschreibt Tweet-Template)',
     'EDITOR_TWEET_TEXT_REPLACER' => 'Platzhalter aus Tweet-Template nutzbar!',
     'EDITOR_STATUS_DRAFT' => 'Artikel als Entwurf gespeichert',

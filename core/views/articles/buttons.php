@@ -25,16 +25,19 @@
     <legend><?php $theView->write('EDITOR_POSTPONETO'); ?></legend>
 
     <div class="row fpcm-ui-padding-md-tb fpcm-ui-padding-none-lr-small">
-        <div class="col-12 col-md-12 col-lg-3 fpcm-ui-padding-none-left"><?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed()); ?></div>
-        <div class="col-12 col-md-4 col-lg-3 fpcm-ui-padding-none-left">
-            <?php $theView->textInput('article[postponedate]')->setClass('fpcm-ui-datepicker')->setValue($theView->dateText($postponedTimer, 'Y-m-d'))->setWrapperClass('fpcm-ui-datepicker-inputwrapper'); ?>
-        </div>
-        <div class="col-12 col-md-4 col-lg-3">
-            <?php $theView->textInput('article[postponehour]')->setClass('fpcm-ui-spinner-hour')->setValue($theView->dateText($postponedTimer, 'H'))->setWrapper(false); ?>
-        </div>
-        <div class="col-12 col-md-4 col-lg-3 fpcm-ui-padding-none-right">
-            <?php $theView->textInput('article[postponeminute]')->setClass('fpcm-ui-spinner-minutes')->setValue($theView->dateText($postponedTimer, 'i'))->setWrapper(false); ?>
-        </div>
+        <?php $theView->textInput('article[postponedate]')
+                ->setWrapper(false)
+                ->setPlaceholder(true)
+                ->setText('EDITOR_POSTPONED_DATE')
+                ->setValue($theView->dateText($postponedTimer, 'Y-m-d'))
+                ->setIcon('calendar-plus')
+                ->setSize('lg')
+                ->setClass('col-6 col-md-7 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md fpcm-ui-datepicker')
+                ->setLabelClass('col-6 col-md-1 fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+
+        <?php $theView->textInput('article[postponehour]')->setClass('fpcm-ui-spinner-hour')->setValue($theView->dateText($postponedTimer, 'H'))->setWrapper(false); ?>
+        <?php $theView->textInput('article[postponeminute]')->setClass('fpcm-ui-spinner-minutes')->setValue($theView->dateText($postponedTimer, 'i'))->setWrapper(false); ?>
+        <?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed())->setLabelClass('fpcm-ui-margin-md-left')->setIconOnly(true); ?>
     </div>
     <?php endif; ?>
 </fieldset>
@@ -42,10 +45,21 @@
 <?php if ($showTwitter && !empty($twitterReplacements)) : ?>
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
     <legend><?php $theView->write('EDITOR_TWEET_ENABLED'); ?></legend>
-    <div class="row no-gutters fpcm-ui-padding-md-tb fpcm-editor-dialog-fullwidth-items">
-        <div class="col-12 col-md-5 col-lg-3"><?php $theView->checkbox('article[tweet]')->setText('EDITOR_TWEET_ENABLED')->setSelected($article->tweetCreationEnabled())->setClass('fpcm-ui-full-width'); ?></div>
-        <div class="col-12 col-md-3 col-lg-6"><?php $theView->textInput('article[tweettxt]')->setSize(512)->setText('EDITOR_TWEET_TEXT')->setPlaceholder(true); ?></div>
-        <div class="col-12 col-md-3 col-lg-3 fpcm-ui-center"><?php $theView->select('twitterReplacements')->setOptions($twitterReplacements)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?></div>
+    <div class="row fpcm-ui-padding-md-tb fpcm-editor-dialog-fullwidth-items">
+
+        <?php $theView->textInput('article[tweettxt]')
+                ->setWrapper(false)
+                ->setPlaceholder(true)
+                ->setText('EDITOR_TWEET_TEXT')
+                ->setValue('')
+                ->setSize(280)
+                ->setIcon('twitter', 'fab')
+                ->setSize('lg')
+                ->setClass('col-6 col-md-7 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
+                ->setLabelClass('col-6 col-md-1 fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+
+        <?php $theView->select('twitterReplacements')->setOptions($twitterReplacements)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)->setLabelClass('fpcm-ui-margin-lg-left'); ?>
+        <?php $theView->checkbox('article[tweet]')->setText('EDITOR_TWEET_ENABLED')->setSelected($article->tweetCreationEnabled())->setLabelClass('fpcm-ui-margin-md-left')->setIconOnly(true); ?>
     </div>
 </fieldset>
 <?php endif; ?>
@@ -55,32 +69,30 @@
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('article[sources]')
                 ->setWrapper(false)
+                ->setPlaceholder(true)
                 ->setText('TEMPLATE_ARTICLE_SOURCES')
                 ->setValue($article->getSources())
                 ->setIcon('external-link-alt')
                 ->setSize('lg')
-                ->setClass('col-10 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner')
-                ->setLabelClass('col-2 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height'); ?>
+                ->setClass('col-6 col-md-11 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
+                ->setLabelClass('col-6 col-md-1 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
     </div>
 </fieldset>
 
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
     <legend><?php $theView->write('TEMPLATE_ARTICLE_ARTICLEIMAGE'); ?></legend>
     <div class="row fpcm-ui-padding-md-tb">
-        <div class="col-10 col-lg-11 fpcm-ui-padding-none-lr">
-            <div class="row fpcm-ui-padding-none">
-                <?php $theView->textInput('article[imagepath]')
-                        ->setWrapper(false)
-                        ->setText('TEMPLATE_ARTICLE_ARTICLEIMAGE')
-                        ->setValue($article->getImagepath())
-                        ->setMaxlenght(512)
-                        ->setIcon('image')
-                        ->setSize('lg')
-                        ->setClass('col-10 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner')
-                        ->setLabelClass('col-2 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height'); ?>                
-            </div>
-        </div>
-        <div class="col-2 col-lg-1 fpcm-ui-padding-none-lr fpcm-ui-center"><?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true); ?></div>
+        <?php $theView->textInput('article[imagepath]')
+                ->setWrapper(false)
+                ->setPlaceholder(true)
+                ->setText('TEMPLATE_ARTICLE_ARTICLEIMAGE')
+                ->setValue($article->getImagepath())
+                ->setMaxlenght(512)
+                ->setIcon('image')
+                ->setSize('lg')
+                ->setClass('col-6 col-md-10 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner')
+                ->setLabelClass('col-6 col-md-1 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+        <?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true)->setClass('fpcm-ui-margin-lg-left'); ?>
     </div>
 </fieldset>
 

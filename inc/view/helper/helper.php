@@ -75,6 +75,13 @@ abstract class helper {
     protected $wrapperClass = '';
 
     /**
+     * CS class for label
+     * @var string
+     * @since FPCM 4.1
+     */
+    protected $labelClass = '';
+
+    /**
      * Language object
      * @var \fpcm\classes\language
      */
@@ -273,6 +280,18 @@ abstract class helper {
     public function setWrapperClass($wrapperClass)
     {
         $this->wrapperClass = $wrapperClass;
+        return $this;
+    }
+
+    /**
+     * Set label class CSS string
+     * @param string $labelClass
+     * @return $this
+     * @since FPCM 4.1
+     */
+    public function setLabelClass(string $labelClass)
+    {
+        $this->labelClass .= ' '. trim($labelClass);
         return $this;
     }
 

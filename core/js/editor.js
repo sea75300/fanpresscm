@@ -30,12 +30,18 @@ fpcm.editor = {
 
         fpcm.ui.spinner('input.fpcm-ui-spinner-hour', {
             min: 0,
-            max: 23
+            max: 23,
+            classes: {
+                "ui-spinner": 'ui-corner-all fpcm-ui-margin-md-left col-6 col-md-1'
+            }
         });
 
         fpcm.ui.spinner('input.fpcm-ui-spinner-minutes', {
             min: 0,
-            max: 59
+            max: 59,
+            classes: {
+                "ui-spinner": 'ui-corner-all fpcm-ui-margin-md-left col-6 col-md-1'
+            }
         });
 
         fpcm.ui.datepicker('input.fpcm-ui-datepicker', {
@@ -83,6 +89,15 @@ fpcm.editor = {
             fpcm.editor.showFileManager();
             fpcm.vars.jsvars.filemanagerMode = 2;
             return false;
+        });
+
+        fpcm.ui.autocomplete('#articleimagepath', {
+            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=editorfiles',
+            minLength: 3,
+            position: {
+                my: "left bottom",
+                at: "left top"
+            }
         });
 
         fpcm.editor.tweetTextInput = jQuery('#articletweettxt');

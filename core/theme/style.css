@@ -240,7 +240,8 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
     margin-bottom: 0.5em;
 }
 
-.fpcm-ui-margin-md-left {
+.fpcm-ui-margin-md-left,
+#twitterReplacements-button {
     margin-left: 0.5em;
 }
 
@@ -747,6 +748,11 @@ div.fpcm-filelist-thumb-box {
 .fpcm-ui-element-min-height {
     min-height: 18.666666666666666666666667px;
     line-height: 18.666666666666666666666667px;
+}
+
+.fpcm-ui-element-min-height-md {
+    min-height: 21.3333px;
+    line-height: 21.3333px;
 }
 
 .fpcm-editor-html-click {
