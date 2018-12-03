@@ -606,6 +606,15 @@
                                         <?php $theView->boolSelect('system_2fa_auth')->setSelected($globalConfig['system_2fa_auth']); ?>
                                     </div>
                                 </div>
+
+                                <div class="row fpcm-ui-padding-md-tb">
+                                    <div class="align-self-center col-sm-12 col-lg-6 fpcm-ui-padding-none-lr">
+                                        <?php $theView->write('SYSTEM_OPTIONS_USERS_PASSCHECK'); ?>:
+                                    </div>
+                                    <div class="align-self-center col-sm-12 col-lg-6">
+                                        <?php $theView->boolSelect('system_passcheck_enabled')->setSelected($globalConfig['system_passcheck_enabled']); ?>
+                                    </div>
+                                </div>
                             </fieldset>
 
                             <fieldset class="fpcm-ui-margin-md-right fpcm-ui-margin-md-top" >

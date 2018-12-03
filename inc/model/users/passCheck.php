@@ -61,6 +61,10 @@ class passCheck extends \fpcm\model\abstracts\remoteModel {
      */
     public function isPowned() : bool
     {
+        if (!$this->config->system_passcheck_enabled) {
+            return true;
+        }
+
         $this->remoteData = $this->cache->read($this->cacheName);
         if (!trim($this->remoteData) || $this->cache->isExpired($this->cacheName)) {
             $this->remoteServer = 'https://api.pwnedpasswords.com/range/' . strtoupper(substr($this->passHash, 0, $this->passLimit));
@@ -75,12 +79,7 @@ class passCheck extends \fpcm\model\abstracts\remoteModel {
             return false;
         }
 
-        if ((int) $matches[3] < 100) {
-            return false;
-        }
-        
-        return true;
-        
+        return (int) $matches[3] < 100 ? false : true;
     }
 
 }

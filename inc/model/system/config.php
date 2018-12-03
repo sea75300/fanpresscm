@@ -33,6 +33,7 @@ namespace fpcm\model\system;
  * @property int    $system_updates_manual Interval für manuelle Update-Prüfung
  * @property bool   $system_2fa_auth Two factor authentication enabled
  * @property int    $system_trash_cleanup Age of datasets in trash to cleanup
+ * @property bool   $system_passcheck_enabled Password check enabled
  * 
  * @property bool   $articles_revisions Revisionen aktiv
  * @property int    $articles_limit Artikel pro Seite im Fronend
@@ -338,6 +339,10 @@ final class config extends \fpcm\model\abstracts\dataset {
 
         if (isset($this->newConfig['system_loginfailed_locked'])) {
             $this->newConfig['system_loginfailed_locked'] = (int) $this->newConfig['system_loginfailed_locked'];
+        }
+
+        if (isset($this->newConfig['system_passcheck_enabled'])) {
+            $this->newConfig['system_passcheck_enabled'] = (int) $this->newConfig['system_passcheck_enabled'];
         }
 
         if (isset($this->newConfig['comments_markspam_commentcount'])) {
