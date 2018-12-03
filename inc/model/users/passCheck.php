@@ -62,7 +62,7 @@ class passCheck extends \fpcm\model\abstracts\remoteModel {
     public function isPowned() : bool
     {
         if (!$this->config->system_passcheck_enabled) {
-            return true;
+            return false;
         }
 
         $this->remoteData = $this->cache->read($this->cacheName);
