@@ -14,3 +14,7 @@ legend:before {
     font-weight: bold;
     margin-right: 0.25em;
 }
+
+.fa-stack {
+    width: 2em;
+}
