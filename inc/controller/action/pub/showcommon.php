@@ -177,7 +177,6 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
     {
         parent::process();
         if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
-            $this->categories = $this->categoryList->getCategoriesAll();
             $this->commentCounts = ($this->config->system_comments_enabled) ? $this->commentList->countComments([], 0, 1) : [];
         }
     }

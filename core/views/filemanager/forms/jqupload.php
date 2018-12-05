@@ -65,6 +65,3 @@
 <script src="<?php print $jquploadPath ?>js/jquery.fileupload-process.js"></script>
 <script src="<?php print $jquploadPath ?>js/jquery.fileupload-validate.js"></script>
 <script src="<?php print $jquploadPath ?>js/jquery.fileupload-ui.js"></script>
-<!--[if (gte IE 8)&(lt IE 10)]>
-<script src="<?php print $jquploadPath ?>js/cors/jquery.xdr-transport.js"></script>
-<![endif]-->
