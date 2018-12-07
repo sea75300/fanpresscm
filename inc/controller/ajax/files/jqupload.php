@@ -36,8 +36,8 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController {
         
         new \fpcmUploadHandler([
             'script_url' => \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'),
-            'upload_dir' => \fpcm\model\files\ops::getUploadPath(),
-            'upload_url' => \fpcm\model\files\ops::getUploadUrl(),
+            'upload_dir' => \fpcm\model\files\ops::getUploadPath(DIRECTORY_SEPARATOR, $this->config->file_subfolders),
+            'upload_url' => \fpcm\model\files\ops::getUploadUrl('/', $this->config->file_subfolders),
             'accept_file_types' => '/\.(gif|jpe?g|png|bmp)$/i',
             'image_versions' => array(
                 'thumbnail' => array(

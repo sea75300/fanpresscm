@@ -58,6 +58,10 @@ abstract class radiocheck extends helper {
     {
         $labelClass = (strpos($this->class, 'fpcm-ui-hidden') !== false) ? $this->getClassString() : '';
         
+        if (!$labelClass && trim($this->labelClass)) {
+            $labelClass = " class=\"{$this->labelClass}\"";
+        }
+
         if ($this->iconOnly) {            
             return implode(' ', [
                 "<label for=\"{$this->id}\" title=\"{$this->text}\" {$labelClass}>",

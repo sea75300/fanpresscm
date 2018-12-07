@@ -221,8 +221,13 @@ class permissions extends \fpcm\model\abstracts\dataset {
             return true;
         }
 
-        $data = $this->dbcon->fetch($this->dbcon->select($this->table, '*', "rollid = ?", [$this->rollid]));
-
+        $data = $this->dbcon->selectFetch(
+            (new \fpcm\model\dbal\selectParams())
+                ->setTable($this->table)
+                ->setWhere('rollid = ?')
+                ->setParams([$this->rollid])
+        );
+        
         if (!is_object($data)) {
             return false;
         }

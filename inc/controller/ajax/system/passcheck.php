@@ -18,6 +18,19 @@ namespace fpcm\controller\ajax\system;
 class passcheck extends \fpcm\controller\abstracts\ajaxController {
 
     /**
+     * Check controlelr acccess
+     * @return boolean
+     */
+    public function hasAccess()
+    {
+        if (\fpcm\classes\baseconfig::installerEnabled()) {
+            return true;
+        }
+
+        return parent::hasAccess();
+    }
+
+    /**
      * Controller-Processing
      */
     public function process()
