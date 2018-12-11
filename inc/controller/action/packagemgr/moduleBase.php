@@ -73,6 +73,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller {
     public function process()
     {        
         $updater = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->key);
+        $this->steps['pkgKey'] = $this->key;
         $this->steps['pkgurl'] = $updater['packageUrl'];
         $this->steps['pkgname'] = basename($updater['packageUrl']);
         $this->steps['pkgsize'] = isset($updater->size) && $updater->size ? '('.\fpcm\classes\tools::calcSize($updater->size).')' : '';

@@ -3,7 +3,7 @@
     
     <div class="fpcm-ui-tabs-general">
         <ul>
-            <li><a href="#tabs-updater-general"><?php $theView->write('MODULES_LIST_INSTALL'); ?></a></li>
+            <li><a href="#tabs-updater-general"><?php $theView->write($tabHeadline); ?>: <?php $theView->write($pkgKey); ?></a></li>
         </ul>
 
         <div id="tabs-updater-general">

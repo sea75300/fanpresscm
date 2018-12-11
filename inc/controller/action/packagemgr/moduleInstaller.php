@@ -17,6 +17,8 @@ class moduleInstaller extends moduleBase {
      */
     public function process()
     {
+        $this->steps['tabHeadline'] = 'MODULES_LIST_INSTALL';
+
         $this->jsVars = [
             'pkgdata' => [
                 'action' => 'install',

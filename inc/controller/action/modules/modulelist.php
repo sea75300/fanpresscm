@@ -72,6 +72,7 @@ class modulelist extends \fpcm\controller\abstracts\controller {
             'MODULES_LIST_INFORMATIONS', 'MODULES_FAILED_ENABLE', 'MODULES_FAILED_DISABLE',
             'MODULES_FAILED_INSTALL', 'MODULES_FAILED_UNINSTALL'
         ]);
+
         $this->view->addJsFiles(['modulelist.js', 'fileuploader.js']);
         $this->view->setFormAction('modules/list');
         $this->view->addJsVars([
@@ -87,10 +88,18 @@ class modulelist extends \fpcm\controller\abstracts\controller {
         $this->view->addDataView(new \fpcm\components\dataView\dataView('modulesLocal', false));
         $this->view->addDataView(new \fpcm\components\dataView\dataView('modulesRemote', false));
         
+        $buttons = [];
         if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->check(['modules' => 'install'])) {
             $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync');
+            
+            $updatesAvailable = (new \fpcm\module\modules())->getInstalledUpdates();
+            if (count($updatesAvailable)) {
+                $this->view->addJsVars(['updateAllkeys' => $updatesAvailable]);
+                $buttons[] = (new \fpcm\view\helper\button('runUpdateAll', 'runUpdateAll'))->setText('MODULES_LIST_UPDATE_ALL')->setIcon('sync');
+            }
+            
         }
-        
+
         $this->view->addButtons($buttons);
 
         $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [            

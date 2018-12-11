@@ -17,6 +17,7 @@ class moduleUpdater extends moduleBase {
      */
     public function process()
     {
+        $this->steps['tabHeadline'] = 'MODULES_LIST_UPDATE';
         $this->steps['checkFs'] = true;
         
         $this->jsVars = [

@@ -795,6 +795,10 @@ fpcm.ui = {
     
     relocate: function (url) {
         window.location.href = url;
+    },
+
+    openWindow: function (url) {
+        return window.open(url);
     }
     
 };

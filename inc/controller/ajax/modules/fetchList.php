@@ -268,7 +268,8 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                         ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', ['key' => $item->getKey()]))
                         ->setText('MODULES_LIST_UPDATE')
                         ->setIcon('sync')
-                        ->setIconOnly(true);
+                        ->setIconOnly(true)
+                        ->setClass('fpcm-ui-modulelist-action-local-update');
             }
         }
         

@@ -14,6 +14,24 @@ fpcm.modulelist = {
     init: function() {
 
         fpcm.system.checkForUpdates();
+        var btnUpdateAll = jQuery('#runUpdateAll');
+        if (btnUpdateAll.length && fpcm.vars.jsvars.updateAllkeys && fpcm.vars.jsvars.updateAllkeys.length) {
+            btnUpdateAll.click(function (){
+
+                fpcm.ui.confirmDialog({
+                    clickYes: function () {
+                        var url = fpcm.vars.actionPath + 'package/modupdate&key=';
+                        jQuery.each(fpcm.vars.jsvars.updateAllkeys, function( index, value ) {
+                            fpcm.ui.openWindow(url + value);
+                        });
+                    },
+                    clickNo: function () {
+                        jQuery(this).dialog("close");
+                    }
+                });
+
+            });
+        }
 
         fpcm.modulelist.tabs = fpcm.ui.tabs('#fpcm-tabs-modules', {
 
@@ -74,6 +92,24 @@ fpcm.modulelist = {
 
         fpcm.ui.assignCheckboxes();
         fpcm.ui.assignControlgroups();
+
+        jQuery('a.fpcm-ui-modulelist-action-local-update').click(function() {
+
+            var destUrl = jQuery(this).attr('href');
+
+            fpcm.ui.confirmDialog({
+                clickYes: function () {
+                    fpcm.ui.relocate(destUrl);
+                    return false;
+                },
+                clickNo: function () {
+                    jQuery(this).dialog("close");
+                    return false;
+                }
+            });
+            
+            return false;
+        });
 
         jQuery('button.fpcm-ui-modulelist-action-local').click(function() {
             
