@@ -258,8 +258,7 @@ class module {
         $this->id = isset($result->id) ? $result->id : false;
         $this->installed = isset($result->installed) ? $result->installed : false;
         $this->active = isset($result->active) ? $result->active : false;
-        $this->config = new config($this->mkey, (!is_array($result) || !count($result) || !$this->installed ? null : $result->data));
-
+        $this->config = new config($this->mkey, (isset($this->installed) && $this->installed ? $result->data : null));
         return true;
     }
 
@@ -358,7 +357,7 @@ class module {
         }
 
         $result = ($this->initDb
-                ? $this->db->fetch($this->db->select(\fpcm\classes\database::tableModules, '*', 'mkey = ?', [$this->mkey]))
+                ? $this->db->selectFetch((new \fpcm\model\dbal\selectParams())->setTable(\fpcm\classes\database::tableModules)->setWhere('mkey = ?')->setParams([$this->mkey]))
                 : false);
 
         if (!$result) {

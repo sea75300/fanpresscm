@@ -71,11 +71,11 @@ class moduleBase extends \fpcm\controller\abstracts\controller {
      * @return bool
      */
     public function process()
-    {
+    {        
         $updater = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->key);
         $this->steps['pkgurl'] = $updater['packageUrl'];
         $this->steps['pkgname'] = basename($updater['packageUrl']);
-        $this->steps['pkgsize'] = $updater->size ? '('.\fpcm\classes\tools::calcSize($updater->size).')' : '';
+        $this->steps['pkgsize'] = isset($updater->size) && $updater->size ? '('.\fpcm\classes\tools::calcSize($updater->size).')' : '';
 
         $this->view->setViewVars($this->steps);
         $this->view->addJsVars($this->jsVars);
@@ -84,5 +84,5 @@ class moduleBase extends \fpcm\controller\abstracts\controller {
         $this->view->addJsFiles(['moduleinstaller.js']);
         $this->view->render();
     }
-
+    
 }
