@@ -15,21 +15,30 @@ fpcm.dashboard = {
 
         fpcm.ui.showLoader(true, '<strong>' + fpcm.ui.translate('DASHBOARD_LOADING') + '</strong>');
         fpcm.ajax.exec('dashboard', {
-            execDone: function() {
-                fpcm.ui.assignHtml('#fpcm-dashboard-containers', fpcm.ajax.getResult('dashboard'));
+            execDone: function(result) {
+                fpcm.ui.assignHtml('#fpcm-dashboard-containers', result);
                 fpcm.ui.initJqUiWidgets();
                 fpcm.ui.showLoader(false);
-
-                var fpcmRFDinterval = setInterval(function(){
-                    if (jQuery('#fpcm-dashboard-finished').length == 1) {
-                        clearInterval(fpcmRFDinterval);
-                        fpcm.dashboard.forceUpdate();
-                        fpcm.dashboard.openUpdateCheckUrl();
-                        return false;
+                fpcm.dashboard.forceUpdate();
+                fpcm.dashboard.openUpdateCheckUrl();
+                jQuery('#fpcm-dashboard-containers').sortable({
+                    items: 'div.fpcm-dashboard-container',
+                    handle: 'span.fpcm-dashboard-container-move',
+                    opacity: 0.5,
+                    update: function ( event, ui ) {
+                        
+                        var pos = ui.item.index();
+                        var name = ui.item.attr('data-container');
+                        
+                        console.log(name + ' : ' + pos);
+                        
+                        
                     }
-                }, 250);
+                });
+                return false;
             }
         });
+        
 
     },
     

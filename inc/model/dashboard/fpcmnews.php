@@ -64,7 +64,7 @@ class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
      */
     public function getHeight()
     {
-        return self::DASHBOARD_HEIGHT_MEDIUM;
+        return self::DASHBOARD_HEIGHT_SMALL_MEDIUM;
     }
 
     /**
