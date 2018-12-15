@@ -296,7 +296,6 @@ class author extends \fpcm\model\abstracts\dataset {
     public function getUserMeta($valueName = null)
     {
         $userMeta = json_decode($this->usrmeta, true);
-
         if ($valueName === null) {
             return $userMeta;
         }
@@ -551,21 +550,24 @@ class author extends \fpcm\model\abstracts\dataset {
      */
     public function resetPassword($resetOnly = false)
     {
-
         $this->disablePasswordSecCheck();
 
         $password = substr(str_shuffle(ucfirst(sha1($this->username) . uniqid())), 0, rand(10, 16));
         $this->passwd = \fpcm\classes\security::createUserPasswordHash($password);
 
         if ($resetOnly) {
-            return array(
+            return [
                 'updateOk' => $this->update(),
                 'password' => $password
-            );
+            ];
         }
 
-        $text = $this->language->translate('PASSWORD_RESET_TEXT', ['{{newpass}}' => $password]);
-        $email = new \fpcm\classes\email($this->email, $this->language->translate('PASSWORD_RESET_SUBJECT'), $text);
+        $email = new \fpcm\classes\email(
+            $this->email,
+            $this->language->translate('PASSWORD_RESET_SUBJECT'),
+            $this->language->translate('PASSWORD_RESET_TEXT', ['{{newpass}}' => $password])
+        );
+
         $email->setHtml(true);
 
         if ($email->submit()) {
@@ -633,7 +635,14 @@ class author extends \fpcm\model\abstracts\dataset {
         $where = $this->dbcon->getTablePrefixed($this->table) . '.roll = ';
         $where .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll) . '.id AND ';
         $where .= $this->dbcon->getTablePrefixed($this->table) . '.id = ?';
-        $data = $this->dbcon->fetch($this->dbcon->select(array($this->table, \fpcm\classes\database::tableRoll), $item, $where, array($this->id)));
+
+        $data = $this->dbcon->selectFetch(
+            (new \fpcm\model\dbal\selectParams())
+                ->setTable([$this->table, \fpcm\classes\database::tableRoll])
+                ->setItem($item)
+                ->setWhere($where)
+                ->setParams([$this->id])
+        );
 
         if (!$data) {
             trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!');

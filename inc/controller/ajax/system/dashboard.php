@@ -60,7 +60,8 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
                 continue;
             }
 
-            $pos = $containerObj->getPosition().'_'.$containerObj->getName();
+            $savedPos = $containerObj->getStoredPosition();
+            $pos = ($savedPos ? $savedPos : $containerObj->getPosition()).'_'.$containerObj->getName();
             if (isset($this->containers[$pos])) {
                 trigger_error('Error parse dashboard container, position ' . $pos . ' already taken!');
                 continue;

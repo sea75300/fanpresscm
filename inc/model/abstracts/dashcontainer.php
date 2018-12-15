@@ -111,6 +111,17 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     }
 
     /**
+     * Returns stored container position
+     * @return int|bool
+     * @since FPCM 4.1
+     */
+    final public function getStoredPosition()
+    {
+        $conf = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getUserMeta('dashboardpos');
+        return is_array($conf) && isset($conf[$this->getName()]) ? $conf[$this->getName()] : false;
+    }
+
+    /**
      * Container-Berechtigungen, die geprüft werden müssen, zurückgeben
      * @return string
      */

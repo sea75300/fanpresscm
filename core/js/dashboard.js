@@ -12,7 +12,10 @@ if (fpcm === undefined) {
 fpcm.dashboard = {
 
     init: function () {
-
+        fpcm.dashboard.load();
+    },
+    
+    load: function () {
         fpcm.ui.showLoader(true, '<strong>' + fpcm.ui.translate('DASHBOARD_LOADING') + '</strong>');
         fpcm.ajax.exec('dashboard', {
             execDone: function(result) {
@@ -26,19 +29,24 @@ fpcm.dashboard = {
                     handle: 'span.fpcm-dashboard-container-move',
                     opacity: 0.5,
                     update: function ( event, ui ) {
-                        
-                        var pos = ui.item.index();
-                        var name = ui.item.attr('data-container');
-                        
-                        console.log(name + ' : ' + pos);
-                        
-                        
+
+                        var saveItems = {};
+                        jQuery.each(ui.item.parent().children(), function (pos, item) {
+                            saveItems[jQuery(item).attr('data-container')] = parseInt(pos) + 1;
+                        });
+
+                        fpcm.ajax.post('setconfig', {
+                            data: {
+                                var: 'dashboardpos',
+                                value: saveItems
+                            }
+                        });
+
                     }
                 });
                 return false;
             }
         });
-        
 
     },
     

@@ -17,7 +17,7 @@ namespace fpcm\controller\ajax\common;
  */
 class setConfig extends \fpcm\controller\abstracts\ajaxController {
 
-    private $whiteList = ['file_view'];
+    private $whiteList = ['file_view', 'dashboardpos'];
 
     /**
      * Controller-Processing

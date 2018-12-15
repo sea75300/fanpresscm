@@ -60,11 +60,25 @@ class useredit extends userbase {
             $this->deleteImage($this->user);
             $this->user->setUserMeta([]);
             $this->user->disablePasswordSecCheck();
+            $this->user->setPassword(null);
             if ($this->user->update() === false) {
                 $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
             } else {
                 $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
                 $this->view->assign('reloadSite', true);
+            }
+        }
+
+        if ($this->buttonClicked('resetDashboardSettings')) {
+            $meta = $this->user->getUserMeta();
+            $meta['dashboardpos'] = [];
+            $this->user->setUserMeta($meta);
+            $this->user->disablePasswordSecCheck();
+            $this->user->setPassword(null);
+            if ($this->user->update() === false) {
+                $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
+            } else {
+                $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
             }
         }
 
@@ -86,7 +100,8 @@ class useredit extends userbase {
 
         $buttons = [
             (new \fpcm\view\helper\saveButton('userSave')),
-            (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
+            (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo'),
+            (new \fpcm\view\helper\submitButton('resetDashboardSettings'))->setText('USERS_META_RESET_DASHBOARD')->setIcon('home')
         ];
         
         if ($this->userId != $this->session->getUserId()) {

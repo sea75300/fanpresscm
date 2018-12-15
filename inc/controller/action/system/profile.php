@@ -70,6 +70,19 @@ class profile extends \fpcm\controller\abstracts\controller {
             }
         }
 
+        if ($this->buttonClicked('resetDashboardSettings') && $this->checkPageToken) {
+            $meta = $this->user->getUserMeta();
+            $meta['dashboardpos'] = [];
+            $this->user->setUserMeta($meta);
+            $this->user->disablePasswordSecCheck();
+            $this->user->setPassword(null);
+            if ($this->user->update() === false) {
+                $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
+            } else {
+                $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
+            }
+        }
+
         if ($this->buttonClicked('profileSave') && $this->checkPageToken) {
             
             $saveData = $this->getRequestVar('data');
@@ -163,7 +176,8 @@ class profile extends \fpcm\controller\abstracts\controller {
 
         $this->view->addButtons([
             (new \fpcm\view\helper\saveButton('profileSave')),
-            (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
+            (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo'),
+            (new \fpcm\view\helper\submitButton('resetDashboardSettings'))->setText('USERS_META_RESET_DASHBOARD')->setIcon('home')
         ]);
 
         $this->view->setFormAction('system/profile');
