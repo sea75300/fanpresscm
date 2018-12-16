@@ -70,7 +70,7 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
             $jsFiles = array_merge($jsFiles, $containerObj->getJavascriptFiles());
 
             $this->view->addJsVars($containerObj->getJavascriptVars());
-            $this->view->addJsLangVars($containerObj->getJavascriptLangVars());
+            $this->view->addJsLangVars(['DASHBOARD_LOADING'] + $containerObj->getJavascriptLangVars());
 
             $containerViewVars = $containerObj->getControllerViewVars();
             $viewVars = array_merge($viewVars, $containerViewVars);

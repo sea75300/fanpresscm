@@ -39,7 +39,8 @@ fpcm.dashboard = {
                             data: {
                                 var: 'dashboardpos',
                                 value: saveItems
-                            }
+                            },
+                            execDone: fpcm.dashboard.load
                         });
 
                     }

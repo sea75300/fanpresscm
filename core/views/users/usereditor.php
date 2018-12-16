@@ -81,82 +81,81 @@
 </div>
 
 <?php if ($showExtended) : ?>
-<div class="row no-gutters">
-    <div class="col-12">
-        <fieldset class="fpcm-ui-margin-md-top">
-            <legend><?php $theView->write('GLOBAL_EXTENDED'); ?></legend>
-            
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('USERS_BIOGRAPHY'); ?>:
-                </div>
-                <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textarea('data[usrinfo]')->setValue($author->getUsrinfo())->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width') ?>
-                </div>
-            </div>
+    <div class="row no-gutters">
+        <div class="col-12">
+            <fieldset class="fpcm-ui-margin-md-top">
+                <legend><?php $theView->write('GLOBAL_EXTENDED'); ?></legend>
 
-            <?php if ($showImage) : ?>
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('USERS_AVATAR'); ?>:
-                </div>
-                <div class="col-sm-12 col-md-9 fpcm-ui-padding-none-lr">
-                    <div class="fpcm-ui-controlgroup fpcm-ui-margin-lg-bottom" id="user_profile_image_buttons">
-                        <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
-                        <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload'); ?>
-                        <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>
-                        <?php if ($avatar) : ?><?php $theView->deleteButton('fileDelete')->setClass('fpcm-ui-button-confirm'); ?><?php endif; ?>
-                        <input type="file" name="files" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
+                <div class="row fpcm-ui-padding-md-tb">
+                    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                        <?php $theView->write('USERS_BIOGRAPHY'); ?>:
                     </div>
-
-                    <?php if ($avatar) : ?>
-                        <p><img src="<?php print $avatar; ?>"></p>
-                    <?php else: ?>
-                        <p class="fpcm-ui-padding-none fpcm-ui-margin-none"><?php $theView->icon('image')->setStack('ban fpcm-ui-important-text')->setStackTop(true); ?>
-                        <?php $theView->write('GLOBAL_NOTFOUND'); ?></p>
-                    <?php endif; ?>
+                    <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
+                        <?php $theView->textarea('data[usrinfo]')->setValue($author->getUsrinfo())->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width') ?>
+                    </div>
                 </div>
-            </div>
-            <?php endif; ?>
-        </fieldset>
+
+                <?php if ($showImage) : ?>
+                <div class="row fpcm-ui-padding-md-tb">
+                    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                        <?php $theView->write('USERS_AVATAR'); ?>:
+                    </div>
+                    <div class="col-sm-12 col-md-9 fpcm-ui-padding-none-lr">
+                        <div class="fpcm-ui-controlgroup fpcm-ui-margin-lg-bottom" id="user_profile_image_buttons">
+                            <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
+                            <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload'); ?>
+                            <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>
+                            <?php if ($avatar) : ?><?php $theView->deleteButton('fileDelete')->setClass('fpcm-ui-button-confirm'); ?><?php endif; ?>
+                            <input type="file" name="files" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
+                        </div>
+
+                        <?php if ($avatar) : ?>
+                            <p><img src="<?php print $avatar; ?>"></p>
+                        <?php else: ?>
+                            <p class="fpcm-ui-padding-none fpcm-ui-margin-none"><?php $theView->icon('image')->setStack('ban fpcm-ui-important-text')->setStackTop(true); ?>
+                            <?php $theView->write('GLOBAL_NOTFOUND'); ?></p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+            </fieldset>
+        </div>
     </div>
-</div>
 
-<?php if ($twoFaAuth) : ?>
-<div class="row no-gutters">
-    <div class="col-12">
-        <fieldset class="fpcm-ui-margin-md-top">
-            <legend><?php $theView->write('SYSTEM_OPTIONS_LOGIN_TWOFACTORAUTH'); ?></legend>
+    <?php if ($twoFaAuth) : ?>
+    <div class="row no-gutters">
+        <div class="col-12">
+            <fieldset class="fpcm-ui-margin-md-top">
+                <legend><?php $theView->write('SYSTEM_OPTIONS_LOGIN_TWOFACTORAUTH'); ?></legend>
 
-            <?php if ($secret !== false && $qrCode !== false) : ?>
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-12 col-md-3 fpcm-ui-padding-md-bottom fpcm-ui-padding-none-left">
-                    <?php $theView->write('USERS_AUTHTOKEN_SAVE'); ?>:
+                <?php if ($secret !== false && $qrCode !== false) : ?>
+                <div class="row fpcm-ui-padding-md-tb">
+                    <div class="col-12 col-md-3 fpcm-ui-padding-md-bottom fpcm-ui-padding-none-left">
+                        <?php $theView->write('USERS_AUTHTOKEN_SAVE'); ?>:
+                    </div>
+                    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-left">
+                        <?php $theView->textInput('data[authCodeConfirm]', 'authCodeConfirm')->setValue('')->setMaxlenght(6); ?>
+                        <?php $theView->hiddenInput('data[authSecret]', 'authSecret')->setValue($secret); ?>
+                    </div>
                 </div>
-                <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-left">
-                    <?php $theView->textInput('data[authCodeConfirm]', 'authCodeConfirm')->setValue('')->setMaxlenght(6); ?>
-                    <?php $theView->hiddenInput('data[authSecret]', 'authSecret')->setValue($secret); ?>
+                <div class="row fpcm-ui-padding-md-tb fpcm-ui-center">
+                    <div class="col-sm-12">
+                        <img src="<?php echo $qrCode; ?>">
+                    </div>
                 </div>
-            </div>
-            <div class="row fpcm-ui-padding-md-tb fpcm-ui-center">
-                <div class="col-sm-12">
-                    <img src="<?php echo $qrCode; ?>">
+                <?php else : ?>
+                <div class="row fpcm-ui-padding-md-tb">
+                    <div class="col-12">
+                        <?php $theView->icon('user-secret')->setStack('check fpcm-ui-editor-metainfo fpcm-ui-status-075')->setSize('lg')->setStackTop(true); ?>
+                        <?php $theView->write('USERS_AUTHTOKEN_ACTIVE'); ?>
+                        <?php $theView->checkbox('disable2Fa')->setText('GLOBAL_DISABLE'); ?>
+
+                    </div>
                 </div>
-            </div>
-            <?php else : ?>
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-12">
-                    <?php $theView->icon('user-secret')->setStack('check fpcm-ui-editor-metainfo fpcm-ui-status-075')->setSize('lg')->setStackTop(true); ?>
-                    <?php $theView->write('USERS_AUTHTOKEN_ACTIVE'); ?>
-                    <?php $theView->checkbox('disable2Fa')->setText('GLOBAL_DISABLE'); ?>
-                    
-                </div>
-            </div>
-            <?php endif; ?>
-        </fieldset>
+                <?php endif; ?>
+            </fieldset>
+        </div>
     </div>
-</div>
-<?php endif; ?>
-
+    <?php endif; ?>
 
 <?php endif; ?>

@@ -28,7 +28,7 @@ $lang = array(
     'USERS_ROLL_ADD' => 'Benutzerrolle anlegen',
     'USERS_ROLL_EDIT' => 'Benutzerrolle bearbeiten',
     'USERS_META_OPTIONS' => 'Benutzereinstellungen',
-    'USERS_META_RESET_DASHBOARD' => 'Dashboard-Container zurücksetzen',
+    'USERS_META_RESET_DASHBOARD' => 'Container-Positionen zurücksetzen',
     'USERS_PASSGEN' => 'Passwort generieren',
     'USERS_AUTHTOKEN_SAVE' => 'Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den folgenden QR Code mit deinem Smartphone mit der App "Google Authenticator". '.
                               'Trage im Anschluss den ersten Zahlencode ein und wähle "Speichern"',

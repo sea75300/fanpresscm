@@ -331,6 +331,9 @@ Help language file
             <dt>Dateimanager-Ansicht:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
             die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
+            <dt>Container-Positionen zurücksetzen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über den Button können die Positionen der Dashboard-Conatiner
+            auf die Standard-Einstellungen zurücksetzen.</dd>
         </dl>
 
         ]]>

@@ -578,6 +578,34 @@ class author extends \fpcm\model\abstracts\dataset {
     }
 
     /**
+     * Reset Profile settings
+     * @return bool
+     * @since FPCM 4.1
+     */
+    public function resetProfileSettings()
+    {
+        $this->setUserMeta([]);
+        $this->disablePasswordSecCheck();
+        $this->setPassword(null);
+        return $this->update();
+    }
+
+    /**
+     * Reset Dashboard container settings
+     * @return bool
+     * @since FPCM 4.1
+     */
+    public function resetDashboard()
+    {
+        $meta = $this->getUserMeta();
+        $meta['dashboardpos'] = [];
+        $this->setUserMeta($meta);
+        $this->disablePasswordSecCheck();
+        $this->setPassword(null);
+        return $this->update();
+    }
+
+    /**
      * Füllt Objekt mit Daten aus Datenbank-Result
      * @param object $object
      * @return bool

@@ -58,11 +58,7 @@ class profile extends \fpcm\controller\abstracts\controller {
 
         $this->reloadSite = 0;
         if ($this->buttonClicked('resetProfileSettings') && $this->checkPageToken) {
-            $this->user->setUserMeta([]);
-            $this->user->disablePasswordSecCheck();
-            $this->user->setPassword(null);
-
-            if ($this->user->update() === false) {
+            if ($this->user->resetProfileSettings() === false) {
                 $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
             } else {
                 $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
@@ -71,15 +67,10 @@ class profile extends \fpcm\controller\abstracts\controller {
         }
 
         if ($this->buttonClicked('resetDashboardSettings') && $this->checkPageToken) {
-            $meta = $this->user->getUserMeta();
-            $meta['dashboardpos'] = [];
-            $this->user->setUserMeta($meta);
-            $this->user->disablePasswordSecCheck();
-            $this->user->setPassword(null);
-            if ($this->user->update() === false) {
-                $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
+            if ($this->user->resetDashboard() === false) {
+                $this->view->addErrorMessage('SAVE_FAILED_USER_RESETDASHCONTAINER');
             } else {
-                $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
+                $this->view->addNoticeMessage('SAVE_SUCCESS_RESETDASHCONTAINER');
             }
         }
 
@@ -176,8 +167,7 @@ class profile extends \fpcm\controller\abstracts\controller {
 
         $this->view->addButtons([
             (new \fpcm\view\helper\saveButton('profileSave')),
-            (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo'),
-            (new \fpcm\view\helper\submitButton('resetDashboardSettings'))->setText('USERS_META_RESET_DASHBOARD')->setIcon('home')
+            (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
         ]);
 
         $this->view->setFormAction('system/profile');

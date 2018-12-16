@@ -95,3 +95,17 @@
         </fieldset>
     </div>
 </div>
+
+<div class="row no-gutters">
+    <div class="col-12">
+        <fieldset class="fpcm-ui-margin-md-top">
+            <legend><?php $theView->write('HL_DASHBOARD'); ?></legend>
+            
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="align-self-center col-12 fpcm-ui-padding-none-lr">        
+                    <?php $theView->submitButton('resetDashboardSettings')->setText('USERS_META_RESET_DASHBOARD')->setIcon('undo'); ?>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

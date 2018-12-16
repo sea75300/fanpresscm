@@ -56,12 +56,10 @@ class useredit extends userbase {
         }
 
         $this->uploadImage($this->user);
+        $this->deleteImage($this->user);
+
         if ($this->buttonClicked('resetProfileSettings')) {
-            $this->deleteImage($this->user);
-            $this->user->setUserMeta([]);
-            $this->user->disablePasswordSecCheck();
-            $this->user->setPassword(null);
-            if ($this->user->update() === false) {
+            if ($this->user->resetProfileSettings() === false) {
                 $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
             } else {
                 $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
@@ -70,15 +68,10 @@ class useredit extends userbase {
         }
 
         if ($this->buttonClicked('resetDashboardSettings')) {
-            $meta = $this->user->getUserMeta();
-            $meta['dashboardpos'] = [];
-            $this->user->setUserMeta($meta);
-            $this->user->disablePasswordSecCheck();
-            $this->user->setPassword(null);
-            if ($this->user->update() === false) {
-                $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
+            if ($this->user->resetDashboard() === false) {
+                $this->view->addErrorMessage('SAVE_FAILED_USER_RESETDASHCONTAINER');
             } else {
-                $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
+                $this->view->addNoticeMessage('SAVE_SUCCESS_RESETDASHCONTAINER');
             }
         }
 
@@ -100,8 +93,7 @@ class useredit extends userbase {
 
         $buttons = [
             (new \fpcm\view\helper\saveButton('userSave')),
-            (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo'),
-            (new \fpcm\view\helper\submitButton('resetDashboardSettings'))->setText('USERS_META_RESET_DASHBOARD')->setIcon('home')
+            (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
         ];
         
         if ($this->userId != $this->session->getUserId()) {
