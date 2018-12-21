@@ -344,6 +344,16 @@ abstract class file {
     }
 
     /**
+     * File SHA256 hash
+     * @return string
+     * @since FPCM 4.1
+     */
+    public function getFileHash() : string
+    {
+        return \fpcm\model\files\ops::hashFile($this->fullpath);
+    }
+
+    /**
      * Dateiname setzen
      * @param string $filename
      */

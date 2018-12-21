@@ -70,6 +70,7 @@ fpcm.filemanager = {
         fpcm.filemanager.initInsertButtons();
         fpcm.filemanager.initRenameButtons();
         fpcm.filemanager.initDeleteButtons();
+        fpcm.filemanager.initPropertiesButton();
         fpcm.filemanager.refreshSingleCheckboxes();
         fpcm.filemanager.initPagination();
         jQuery('.fpcm-link-fancybox').fancybox();
@@ -183,6 +184,64 @@ fpcm.filemanager = {
         });
     },
     
+
+    initPropertiesButton: function() {
+
+        fpcm.filemanager.propertiesDialog = [
+            'filetime',
+            'fileuser',
+            'filesize',
+            'resulution',
+            'filehash',
+            'filemime'
+        ];
+
+        jQuery('.fpcm-filelist-properties').click(function () {
+            
+            var el = jQuery(this);
+            
+            
+            fpcm.ui.dialog({
+                id: 'files-properties',
+                title: fpcm.ui.translate('GLOBAL_PROPERTIES'),
+                dlOnOpen: function () {
+
+                    var val = '';
+                    jQuery.each(fpcm.filemanager.propertiesDialog, function (idx, prop) {
+                        
+                        switch (prop) {
+                            case 'resulution' :
+                                jQuery('#fpcm-dialog-files-properties-' + prop).html(el.attr('data-fileresx') + '<span class="fa fa-times fa-fw"></span>' + el.attr('data-fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL'));
+                                break;
+                            default:
+                                jQuery('#fpcm-dialog-files-properties-' + prop).text(el.attr('data-' + prop));
+                                break;
+                        }
+                        
+                    });
+                },
+                dlOnClose: function() {
+                    var val = '';
+                    jQuery.each(fpcm.filemanager.propertiesDialog, function (idx, prop) {
+                        jQuery('#fpcm-dialog-files-properties-' + prop).empty();
+                    });
+                },
+                dlButtons: [
+                    {
+                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                        icon: "ui-icon-closethick",                
+                        click: function() {
+                            jQuery( this ).dialog( "close" );
+                        }
+                    }
+                ]
+            })
+            
+
+            return false;
+        });
+    },
+    
     initPagination: function() {
 
         fpcm.vars.jsvars.pager = {
@@ -242,9 +301,9 @@ fpcm.filemanager = {
                 page: page,
                 filter: filter
             },
-            execDone: function () {
+            execDone: function (result) {
 
-                fpcm.ui.assignHtml("#tabs-files-list-content", fpcm.ajax.getResult('filelist'));
+                fpcm.ui.assignHtml("#tabs-files-list-content", result);
                 fpcm.filemanager.initJqUiWidgets();
                 var fpcmRFDinterval = setInterval(function(){
                     if (jQuery('#fpcm-filelist-images-finished').length == 1) {

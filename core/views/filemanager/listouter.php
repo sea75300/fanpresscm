@@ -37,3 +37,48 @@
 </div>
 
 <?php include $theView->getIncludePath('filemanager/searchform.php'); ?>
+
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-properties">
+    
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-1">
+            <?php $theView->icon('calendar-alt', 'far')->setText('FILE_LIST_UPLOAD_DATE')->setSize('lg'); ?>
+        </div>
+        <div class="col-sm-12 col-md-8" id="fpcm-dialog-files-properties-filetime"></div>
+    </div>
+    
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-1">
+            <?php $theView->icon('user')->setText('FILE_LIST_UPLOAD_BY')->setSize('lg'); ?>
+        </div>
+        <div class="col-sm-12 col-md-8" id="fpcm-dialog-files-properties-fileuser"></div>
+    </div>
+    
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-1">
+            <?php $theView->icon('weight')->setText('FILE_LIST_FILESIZE')->setSize('lg'); ?>
+        </div>
+        <div class="col-sm-12 col-md-8" id="fpcm-dialog-files-properties-filesize"></div>
+    </div>
+    
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-1">
+            <?php $theView->icon('expand-arrows-alt')->setText('FILE_LIST_RESOLUTION')->setSize('lg'); ?>
+        </div>
+        <div class="col-sm-12 col-md-8" id="fpcm-dialog-files-properties-resulution"></div>
+    </div>
+    
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-1">
+            <?php $theView->icon('file-alt ')->setText('FILE_LIST_FILETYPE')->setSize('lg'); ?>
+        </div>
+        <div class="col-sm-12 col-md-8" id="fpcm-dialog-files-properties-filemime"></div>
+    </div>
+    
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
+        <div class="col-sm-12 col-md-1">
+            <?php $theView->icon('hashtag')->setText('FILE_LIST_FILEHASH')->setSize('lg'); ?>
+        </div>
+        <div class="col-sm-12 col-md-8" id="fpcm-dialog-files-properties-filehash"></div>
+    </div>
+</div>

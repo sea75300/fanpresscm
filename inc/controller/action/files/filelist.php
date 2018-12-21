@@ -152,7 +152,10 @@ class filelist extends \fpcm\controller\abstracts\controller {
             'checkboxRefresh' => true
         ]);
 
-        $this->view->addJsLangVars(['FILE_LIST_RENAME_NEWNAME', 'SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START', 'FILE_LIST_ADDTOINDEX']);
+        $this->view->addJsLangVars(['FILE_LIST_RENAME_NEWNAME', 'SEARCH_WAITMSG', 'ARTICLES_SEARCH',
+            'ARTICLE_SEARCH_START', 'FILE_LIST_ADDTOINDEX', 'GLOBAL_PROPERTIES',
+            'FILE_LIST_RESOLUTION_PIXEL'
+        ]);
 
         $this->view->assign('searchCombination', array(
             'ARTICLE_SEARCH_LOGICAND' => 0,

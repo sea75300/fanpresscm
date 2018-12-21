@@ -15,6 +15,19 @@
                 <a href="<?php print $file->getImageUrl(); ?>" target="_blank" class="fpcm-link-fancybox" data-fancybox="group" >
                     <img src="<?php if (file_exists($file->getFileManagerThumbnail())) : ?><?php print $file->getFileManagerThumbnailUrl(); ?><?php else : ?><?php print $theView->themePath; ?>dummy.png<?php endif; ?>" width="100" height="100" title="<?php print $file->getFileName(); ?>">
                 </a>
+                
+                <p class="fpcm-ui-padding-md-tb fpcm-ui-margin-none"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
+                
+                <?php if (!$file->existsFolder()) : ?>
+                <div class="row fpcm-ui-padding-md-tb fpcm-ui-important-text align-self-center">
+                    <div class="col-12 col-md-2">
+                        <?php $theView->icon('images', 'far')->setStack('ban')->setSize('lg')->setStackTop(true); ?>
+                    </div>
+                    <div class="col-12 col-md-10 align-self-center">
+                        <?php $theView->write('FILE_LIST_UPLOAD_NOTFOUND'); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
             </div>
 
             <div class="fpcm-filelist-actions-box fpcm-ui-center fpcm-ui-font-small">
@@ -29,67 +42,28 @@
                         <?php $theView->linkButton(uniqid('thumbs'))->setUrl($file->getThumbnailUrl())->setText('FILE_LIST_OPEN_THUMB')->setClass('fpcm-filelist-link-thumb')->setIcon('image', 'far')->setIconOnly(true)->setTarget('_blank'); ?>
                         <?php $theView->linkButton(uniqid('imgurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_OPEN_FULL')->setClass('fpcm-filelist-link-full fpcm-file-list-link')->setIcon('search-plus')->setIconOnly(true)->setTarget('_blank'); ?>
                     <?php endif; ?>
-                    <?php if ($canRename) : ?>
+                    <?php if ($canRename && $file->existsFolder()) : ?>
                         <?php $theView->button(uniqid('rename'))->setText('FILE_LIST_RENAME')->setIcon('edit')->setIconOnly(true)->setData(['file' => base64_encode($file->getFilename()), 'oldname' => basename($file->getFilename(), '.'.$file->getExtension())])->setClass('fpcm-filelist-rename'); ?>
                     <?php endif; ?>
                     <?php if ($permDelete) : ?>
                         <?php $theView->button(uniqid('delete'))->setText('GLOBAL_DELETE')->setIcon('trash')->setIconOnly(true)->setData(['file' => base64_encode($file->getFilename())])->setClass('fpcm-filelist-delete'); ?>
                     <?php endif; ?>
+                    
+                    <?php if ($file->existsFolder()) : ?>
+                        <?php $theView->button(uniqid('properties'))->setText('GLOBAL_PROPERTIES')->setIcon('info-circle')->setIconOnly(true)->setData([
+                            'filename' => $file->getFilename(),
+                            'filetime' => (string) $theView->dateText($file->getFiletime()),
+                            'fileuser' => isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayName() : $theView->translate('USERS_SYSTEMUSER'),
+                            'filesize' => \fpcm\classes\tools::calcSize($file->getFilesize()),
+                            'fileresx' => $file->getWidth(),
+                            'fileresy' => $file->getHeight(),
+                            'filehash' => $file->getFileHash(),
+                            'filemime' => $file->getMimetype(),
+                        ])->setClass('fpcm-filelist-properties'); ?>
+                    <?php endif; ?>
                 </div>
 
                 <div class="fpcm-ui-clear"></div>
-            </div> 
-
-            <div class="fpcm-filelist-meta fpcm-ui-left fpcm-ui-font-small">
-                
-                <?php if (!$file->existsFolder() ) : ?>
-                <div class="row fpcm-ui-padding-md-tb fpcm-ui-important-text">
-                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">
-                        <?php $theView->icon('images', 'far')->setStack('ban')->setSize('2x')->setStackTop(true); ?>
-                    </div>
-                    <div class="col-7 col-sm-8 col-md-10 align-self-center fpcm-ui-padding-none-lr">
-                        <?php $theView->write('FILE_LIST_UPLOAD_NOTFOUND'); ?>
-                    </div>
-                </div>
-                <?php endif; ?>
-                
-                <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">
-                        <?php $theView->icon('calendar-alt', 'far')->setText('FILE_LIST_UPLOAD_DATE')->setSize('2x'); ?>
-                    </div>
-                    <div class="col-7 col-sm-8 col-md-10 align-self-center fpcm-ui-padding-none-lr">
-                        <?php $theView->dateText($file->getFiletime()); ?>
-                    </div>
-                </div>
-                
-                <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">
-                        <?php $theView->icon('user')->setText('FILE_LIST_UPLOAD_BY')->setSize('2x'); ?>
-                    </div>
-                    <div class="col-7 col-sm-8 col-md-10 align-self-center fpcm-ui-padding-none-lr">
-                        <?php print isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayName() : $theView->translate('USERS_SYSTEMUSER'); ?>
-                    </div>
-                </div>
-                
-                <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">
-                        <?php $theView->icon('weight')->setText('FILE_LIST_FILESIZE')->setSize('2x'); ?>
-                    </div>
-                    <div class="col-7 col-sm-8 col-md-10 align-self-center fpcm-ui-padding-none-lr">
-                        <?php print \fpcm\classes\tools::calcSize($file->getFilesize()); ?>
-                    </div>
-                </div>
-                
-                <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-5 col-sm-4 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">
-                        <?php $theView->icon('expand-arrows-alt')->setText('FILE_LIST_RESOLUTION')->setSize('2x'); ?>
-                    </div>
-                    <div class="col-7 col-sm-8 col-md-10 align-self-center fpcm-ui-padding-none-lr">
-                        <?php if ($file->getWidth() && $file->getHeight() ) : ?>
-                        <?php print $file->getWidth(); ?> <span class="fa fa-times fa-fw"></span> <?php print $file->getHeight(); ?> <?php $theView->write('FILE_LIST_RESOLUTION_PIXEL'); ?>
-                        <?php endif; ?>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
