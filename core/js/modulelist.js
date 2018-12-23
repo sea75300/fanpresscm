@@ -22,7 +22,7 @@ fpcm.modulelist = {
                     clickYes: function () {
                         var url = fpcm.vars.actionPath + 'package/modupdate&key=';
                         jQuery.each(fpcm.vars.jsvars.updateAllkeys, function( index, value ) {
-                            fpcm.ui.openWindow(url + value);
+                            fpcm.ui.openWindow(url + value + '&keepMaintenance=' + (index == fpcm.vars.jsvars.updateAllkeys.length - 1 ? 0 : 1) );
                         });
                     },
                     clickNo: function () {

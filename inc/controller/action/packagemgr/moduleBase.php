@@ -20,6 +20,12 @@ class moduleBase extends \fpcm\controller\abstracts\controller {
     protected $key;
 
     /**
+     * Keep maintenance mode
+     * @var bool
+     */
+    protected $keepMaintenance = false;
+
+    /**
      * 
      * @var array
      */
@@ -30,21 +36,22 @@ class moduleBase extends \fpcm\controller\abstracts\controller {
      * @var array
      */
     protected $steps = [
-        'checkFs'   => false,
-        'download'  => true,
-        'checkPkg'  => true,
-        'extract'   => true,
-        'updateFs'  => true,
-        'updateDb'  => true,
+        'checkFs' => false,
+        'download' => true,
+        'checkPkg' => true,
+        'extract' => true,
+        'updateFs' => true,
+        'updateDb' => true,
         'updateLog' => true,
-        'cleanup'   => true
+        'cleanup' => true,
+        'keepMaintenance' => false
     ];
 
     /**
      * 
      * @return string
      */
-    protected function getViewPath() : string
+    protected function getViewPath(): string
     {
         return 'packagemgr/modules';
     }
@@ -63,6 +70,10 @@ class moduleBase extends \fpcm\controller\abstracts\controller {
             \fpcm\classes\http::FILTER_URLDECODE
         ]);
 
+        $this->keepMaintenance = $this->getRequestVar('keepMaintenance', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]);
+
         return trim($this->key) ? true : false;
     }
 
@@ -71,19 +82,19 @@ class moduleBase extends \fpcm\controller\abstracts\controller {
      * @return bool
      */
     public function process()
-    {        
+    {
         $updater = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->key);
         $this->steps['pkgKey'] = $this->key;
         $this->steps['pkgurl'] = $updater['packageUrl'];
         $this->steps['pkgname'] = basename($updater['packageUrl']);
-        $this->steps['pkgsize'] = isset($updater->size) && $updater->size ? '('.\fpcm\classes\tools::calcSize($updater->size).')' : '';
+        $this->steps['pkgsize'] = isset($updater->size) && $updater->size ? '(' . \fpcm\classes\tools::calcSize($updater->size) . ')' : '';
 
         $this->view->setViewVars($this->steps);
         $this->view->addJsVars($this->jsVars);
-        
-        $this->view->addButton( (new \fpcm\view\helper\linkButton('backbtn'))->setText('MODULES_LIST_BACKTOLIST')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))->setIcon('chevron-circle-left') );
+
+        $this->view->addButton((new \fpcm\view\helper\linkButton('backbtn'))->setText('MODULES_LIST_BACKTOLIST')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))->setIcon('chevron-circle-left'));
         $this->view->addJsFiles(['moduleinstaller.js']);
         $this->view->render();
     }
-    
+
 }

@@ -20,6 +20,10 @@ class moduleUpdater extends moduleBase {
         $this->steps['tabHeadline'] = 'MODULES_LIST_UPDATE';
         $this->steps['checkFs'] = true;
         
+        if ($this->keepMaintenance) {
+            $this->steps['keepMaintenance'] = true;
+        }
+        
         $this->jsVars = [
             'pkgdata' => [
                 'action' => 'update',
