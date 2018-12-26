@@ -449,7 +449,6 @@ class image extends \fpcm\model\abstracts\file {
         $this->filesize = filesize($this->fullpath);
 
         $fileData = getimagesize($this->fullpath);
-
         if (!is_array($fileData)) {
             return true;
         }

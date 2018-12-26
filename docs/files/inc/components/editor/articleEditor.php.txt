@@ -127,7 +127,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
     {
         $data = [];
         foreach ($this->fileList->getDatabaseList() as $image) {
-            $data[] = ['label' => $image->getFilename(), 'value' => $image->getImageUrl()];
+            $data[] = ['label' => basename($image->getFilename()), 'value' => $image->getImageUrl()];
         }
 
         $res = $this->events->trigger('editor\getFileList', ['label' => 'label', 'files' => $data]);

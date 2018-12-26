@@ -35,6 +35,7 @@ namespace fpcm\model\articles;
  * @property bool $drafts nur Entwürfe
  * @property bool $approval nur freizugebende Artikel
  * @property bool $metaOnly Artikel-Text nicht abrufen
+ * @property bool $multipleQuery Multiple select queries
  * @property array $limit Abfrage einschränken
  * @property array $orderby Array von Sortierungen in SQL-Syntax
  */

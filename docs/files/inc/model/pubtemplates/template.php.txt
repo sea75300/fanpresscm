@@ -48,6 +48,20 @@ class template extends \fpcm\model\abstracts\file {
     protected $replacementTranslated = [];
 
     /**
+     * List of previously parsed attributes
+     * @var array
+     * @since FPCM 4.1
+     */
+    protected $replacementAttributes = [];
+
+    /**
+     * List of attributes by replacement tag
+     * @var array
+     * @since FPCM 4.1
+     */
+    protected $replacementAttributesMap = [];
+
+    /**
      * 
      * Konstruktor
      * @param string $filename
@@ -96,6 +110,15 @@ class template extends \fpcm\model\abstracts\file {
         return $this->replacementInternal;
     }
 
+    /**
+     * Returns attribute map for replacement tags
+     * @return array
+     */
+    public function getReplacementAttributesMap() : array
+    {
+        return $this->replacementAttributesMap;
+    }
+        
     /**
      * Fügt erlaubte HTML-Tags hinzu
      * @param array $allowedTags
@@ -283,18 +306,57 @@ class template extends \fpcm\model\abstracts\file {
     }
 
     /**
-     * Parses replacements for attributes
-     * @return bool
-     * @ignore
+     * Parses replacement attributes
+     * @param string $var
+     * @return array
+     * @since FPCM 4.1
      */
-    protected function parseReplacement()
+    protected function parseAttributes(string $var) : array
     {
-        $re = '/^(\{\{)([a-zA-Z]+)(\s)(.+)(\}\})$/m';
-        $str = '{{privacyComfirmation test="bla" test2="lalala"}}';
+        $var = '{{'.$var.'}}';
+        if (!isset($this->replacementAttributesMap[$var])) {
+            trigger_error('No replacement attributes defined for "'.$var.'"!');
+            return [];
+        }
+        
+        if (count($this->replacementAttributes)) {
+            return $this->replacementAttributes;
+        }
+        
+        $matches = [];
+        if (!preg_match_all("/(\{\{)({$var})(\s)(.+)(\}\})/m", $this->content, $matches)) {
+            return [];
+        }
 
-        preg_match_all($re, $str, $matches);
-        fpcmDump($matches);
-        return true;
+        if (!isset($matches[4])) {
+            return [];
+        }
+
+        foreach ($matches[4] as $i => $value) {
+
+            $dest = $matches[0][$i];
+
+            $matchesAttr = [];
+            if (!preg_match_all('/('. implode('|', $this->replacementAttributesMap[$var]).')(\=\")([\w\d\.\:\/\,\-\_\;\=\+\#\(\)\{\}\s]+)\"/m', $value, $matchesAttr)) {
+                continue;
+            }
+
+            if (!isset($matchesAttr[1])) {
+                continue;
+            }
+
+            foreach ($matchesAttr[1] as $y => $value) {
+
+                if (!trim($value)) {
+                    continue;
+                }
+
+                $this->replacementAttributes[$dest][$value] = isset($matchesAttr[3][$y]) ? $matchesAttr[3][$y] : null;
+            }
+
+        }
+
+        return $this->replacementAttributes;
     }
 
 }

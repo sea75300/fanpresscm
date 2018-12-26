@@ -27,12 +27,22 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     /**
      * Container height big
      */
+    const DASHBOARD_HEIGHT_VERYBIG = 'very-big';
+
+    /**
+     * Container height big
+     */
     const DASHBOARD_HEIGHT_BIG = 'big';
 
     /**
      * Container height medium
      */
     const DASHBOARD_HEIGHT_MEDIUM = 'middle';
+
+    /**
+     * Container height medium
+     */
+    const DASHBOARD_HEIGHT_SMALL_MEDIUM = 'small-medium';
 
     /**
      * Container height SMALL
@@ -98,6 +108,17 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     public function getHeight()
     {
         return self::DASHBOARD_HEIGHT_SMALL;
+    }
+
+    /**
+     * Returns stored container position
+     * @return int|bool
+     * @since FPCM 4.1
+     */
+    final public function getStoredPosition()
+    {
+        $conf = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getUserMeta('dashboardpos');
+        return is_array($conf) && isset($conf[$this->getName()]) ? $conf[$this->getName()] : false;
     }
 
     /**
@@ -181,14 +202,12 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     final public function __toString()
     {
         $html = [];
-        $html[] = '<div class="fpcm-dashboard-container fpcm-dashboard-container-' . $this->getName() . ' col-sm-12 col-md-' . $this->getWidth() . ' fpcm-dashboard-container-width-' . $this->getWidth() . ' fpcm-dashboard-container-height-' . $this->getHeight() . ' fpcm-ui-padding-none-lr">';
+        $html[] = '<div id="fpcm-dashboard-container-' . $this->getName() . '" class="fpcm-dashboard-container fpcm-dashboard-container-' . $this->getName() . ' col-sm-12 col-md-' . $this->getWidth() . ' fpcm-dashboard-container-width-' . $this->getWidth() . ' fpcm-dashboard-container-height-' . $this->getHeight() . ' fpcm-ui-padding-none-lr" data-container="' . $this->getName() . '">';
         $html[] = ' <div class="fpcm-dashboard-container-inner ui-widget-content ui-corner-all ui-state-normal">';
         $html[] = '     <div class="fpcm-dashboard-container-header">';
-        $html[] = '         <h3 class="fpcm-dashboard-container-headline ui-corner-top ui-corner-all">' . $this->language->translate($this->getHeadline()) . '</h3>';
+        $html[] = '         <h3 class="fpcm-dashboard-container-headline ui-corner-top ui-corner-all">' . $this->language->translate($this->getHeadline()) . ' '.(new \fpcm\view\helper\icon('arrows-alt'))->setClass('fpcm-dashboard-container-move fpcm-ui-float-right').'</h3>';
         $html[] = '     </div>';
-        $html[] = '     <div class="fpcm-dashboard-container-content-wrapper">';
-        $html[] = '         <div class="fpcm-dashboard-container-content">' . $this->getContent() . '</div>';
-        $html[] = '     </div>';
+        $html[] = '     <div class="fpcm-dashboard-container-content">' . $this->getContent() . '</div>';
         $html[] = ' </div>';
         $html[] = '</div>';
 

@@ -307,10 +307,11 @@ class template extends \fpcm\model\abstracts\file {
 
     /**
      * Parses replacement attributes
+     * @param string $var
      * @return array
      * @since FPCM 4.1
      */
-    protected function parseAttributes($var) : array
+    protected function parseAttributes(string $var) : array
     {
         $var = '{{'.$var.'}}';
         if (!isset($this->replacementAttributesMap[$var])) {

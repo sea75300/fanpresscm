@@ -4,7 +4,7 @@
     </ul>
     <div id="tabs-help-general">
         
-        <h3><?php $theView->write('GLOBAL_TABLE_OF_CONTENT'); ?></h3>
+        <h3 id="fpcm-ui-help-toc-headline"><?php $theView->write('GLOBAL_TABLE_OF_CONTENT'); ?></h3>
         <ol id="fpcm-ui-help-toc"></ol>
         
         <?php print $content.PHP_EOL.PHP_EOL; ?>

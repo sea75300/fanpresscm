@@ -55,7 +55,7 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
      */
     public function getHeadline()
     {
-        return 'SYSTEM_stats';
+        return 'SYSTEM_STATS';
     }
 
     /**
@@ -73,7 +73,7 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
      */
     public function getHeight()
     {
-        return self::DASHBOARD_HEIGHT_MEDIUM;
+        return self::DASHBOARD_HEIGHT_SMALL_MEDIUM;
     }
 
     /**
