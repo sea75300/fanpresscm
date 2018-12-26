@@ -76,7 +76,7 @@ final class article extends template {
      * @since FPCM 4.1
      */
     protected $replacementAttributesMap = [
-        '{{sources}}' => ['descr', 'descrAlt']
+        '{{sources}}' => ['descr', 'descrAlt', 'hideEmpty']
     ];
 
     /**
@@ -125,23 +125,24 @@ final class article extends template {
                         'rel' => 'noopener noreferrer'
                     ]);
 
-                    $attributes = $this->parseAttributes('sources');
-                    if (count($attributes)) {
-                        
-                        $newVal = '';
-                        foreach ($attributes as $attrWithTags => $tagAttributes) {
-                            
-                            if (isset($tagAttributes['descr']) && trim($tagAttributes['descr'])) {
-                                $newVal .= $tagAttributes['descr'];
-                            }
+                    $this->processAttributes('sources', $value, $replacementData, function($attr, $value, $newVal) {
 
-                            if (isset($tagAttributes['descrAlt']) && trim($tagAttributes['descrAlt']) && !trim($value)) {
-                                $newVal .= $tagAttributes['descrAlt'];
-                            }
-
-                            $replacementData[$attrWithTags] = $newVal.$value;
+                        $isEmpty = trim($value) ? false : true;
+                        if (isset($attr['hideEmpty']) && $isEmpty) {
+                            return '';
                         }
-                    }
+
+                        if (isset($attr['descr']) && trim($attr['descr'])) {
+                            $newVal .= $attr['descr'];
+                        }
+
+                        if (isset($attr['descrAlt']) && trim($attr['descrAlt']) && $isEmpty) {
+                            $newVal .= $attr['descrAlt'];
+                        }
+
+                        return $newVal.$value;
+                    });
+                    
 
                     break;
             }
@@ -211,7 +212,7 @@ final class article extends template {
     }
 
     /**
-     * Tags aufräumen
+     * Cleanup tags
      * @param string $values
      * @return string
      */
@@ -220,6 +221,28 @@ final class article extends template {
         return str_replace(array_keys($this->cleanups), array_values($this->cleanups), $values);
     }
 
+    /**
+     * Fetch and replace tag attributes
+     * @param string $tag
+     * @param mixed $value
+     * @param array $replacementData
+     * @param callable $callback
+     * @return bool
+     * @since FPCM 4.1
+     */
+    private function processAttributes(string $tag, $value, array &$replacementData, callable $callback) : bool
+    {
+        $attributes = $this->parseAttributes($tag);
+        if (!count($attributes)) {
+            return false;
+        }
+
+        foreach ($attributes as $tag => $attr) {
+            $replacementData[$tag] = call_user_func($callback, $attr, $value, '');
+        }
+
+        return true;
+    }
 }
 
 ?>

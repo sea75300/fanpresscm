@@ -128,7 +128,7 @@ class preview extends \fpcm\controller\abstracts\controller {
         $article2->setTitle('Ut wisi enim ad minim veniam?');
         $article2->setContent('Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. ');
         $article2->setPinned(0);
-        $article2->setSources($this->config->system_url);
+        $article2->setSources('');
         $article2->setCategories([1,2,3]);
         $article2->setCreatetime(time() - 7200);
         $article2->setChangetime(time() - 7200);

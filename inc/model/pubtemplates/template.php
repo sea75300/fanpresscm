@@ -313,8 +313,8 @@ class template extends \fpcm\model\abstracts\file {
      */
     protected function parseAttributes(string $var) : array
     {
-        $var = '{{'.$var.'}}';
-        if (!isset($this->replacementAttributesMap[$var])) {
+        $tagVar = '{{'.$var.'}}';
+        if (!isset($this->replacementAttributesMap[$tagVar])) {
             trigger_error('No replacement attributes defined for "'.$var.'"!');
             return [];
         }
@@ -322,11 +322,12 @@ class template extends \fpcm\model\abstracts\file {
         if (count($this->replacementAttributes)) {
             return $this->replacementAttributes;
         }
-        
+
         $matches = [];
         if (!preg_match_all("/(\{\{)({$var})(\s)(.+)(\}\})/m", $this->content, $matches)) {
             return [];
         }
+        
 
         if (!isset($matches[4])) {
             return [];
@@ -337,7 +338,7 @@ class template extends \fpcm\model\abstracts\file {
             $dest = $matches[0][$i];
 
             $matchesAttr = [];
-            if (!preg_match_all('/('. implode('|', $this->replacementAttributesMap[$var]).')(\=\")([\w\d\.\:\/\,\-\_\;\=\+\#\(\)\{\}\s]+)\"/m', $value, $matchesAttr)) {
+            if (!preg_match_all('/('. implode('|', $this->replacementAttributesMap[$tagVar]).')(\=\")([\w\d\.\:\/\,\-\_\;\=\+\#\(\)\{\}\s]+)\"/m', $value, $matchesAttr)) {
                 continue;
             }
 
@@ -345,13 +346,13 @@ class template extends \fpcm\model\abstracts\file {
                 continue;
             }
 
-            foreach ($matchesAttr[1] as $y => $value) {
+            foreach ($matchesAttr[1] as $y => $valueInner) {
 
-                if (!trim($value)) {
+                if (!trim($valueInner)) {
                     continue;
                 }
 
-                $this->replacementAttributes[$dest][$value] = isset($matchesAttr[3][$y]) ? $matchesAttr[3][$y] : null;
+                $this->replacementAttributes[$dest][$valueInner] = isset($matchesAttr[3][$y]) ? $matchesAttr[3][$y] : null;
             }
 
         }

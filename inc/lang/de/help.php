@@ -837,6 +837,11 @@ Help language file
                     <dt>descrAlt:</dt>
                     <dd class="fpcm-ui-padding-md-bottom">Alternativer Wert für die Ausgabe, wenn im Quellenverzeichnis keine Daten eingetragen sind.</dd>
                 </dl>
+                <dl>
+                    <dt>hideEmpty:</dt>
+                    <dd class="fpcm-ui-padding-md-bottom">Quellenverzeichnis-Ausgabe unterdrücken, wenn im Quellenverzeichnis keine Daten eingetragen sind,
+                    muss immer mit Wert "1" angegeben werden.</dd>
+                </dl>
             </dd>
         </dl>
 
