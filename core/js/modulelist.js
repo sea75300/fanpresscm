@@ -21,9 +21,18 @@ fpcm.modulelist = {
                 fpcm.ui.confirmDialog({
                     clickYes: function () {
                         var url = fpcm.vars.actionPath + 'package/modupdate&key=';
+                        var urls = [];
+                        
                         jQuery.each(fpcm.vars.jsvars.updateAllkeys, function( index, value ) {
-                            fpcm.ui.openWindow(url + value + '&keepMaintenance=' + (index == fpcm.vars.jsvars.updateAllkeys.length - 1 ? 0 : 1) );
+                            urls[index] = url + value + '&keepMaintenance=' + (index == fpcm.vars.jsvars.updateAllkeys.length - 1 ? 0 : 1);
                         });
+                        
+                        urls = urls.reverse();
+                        
+                        jQuery.each(urls, function (i, dest) {
+                            fpcm.ui.openWindow(dest);
+                        });
+
                     },
                     clickNo: function () {
                         jQuery(this).dialog("close");

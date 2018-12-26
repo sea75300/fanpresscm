@@ -293,6 +293,16 @@ fpcm.system = {
                         }
                     });
                     
+                    var listEl = jQuery('#fpcm-ui-help-toc');
+                    jQuery.each(jQuery('#tabs-help-general').find('h3'), function (i, val) {
+
+                        if (!i) {
+                            return true;
+                        }
+
+                        listEl.append('<li><strong>' + val.innerText + '</strong></li>');
+                    });
+
                     fpcm.ui.tabs('#fpcm-ui-tabs-help');
                 }
             });

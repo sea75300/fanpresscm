@@ -18,6 +18,7 @@ $lang = array(
     'TEMPLATE_HL_DRAFTS_EDIT' => 'Artikel-Vorlage bearbeiten',
     'TEMPLATE_REPLACEMENTS' => 'Verwendbare Platzhalter',
     'TEMPLATE_EDITOR' => 'Template-Editor',
+    'TEMPLATE_ATTRIBUTES' => 'Verfügbare Attribute',
     'TEMPLATE_NOTES' => '- In Templates darf die Gestaltung nur über <strong>CSS-Klassen/IDs oder Inline-"style"-Angaben</strong> erfolgen. HTML-Tags wie <em>body, style, etc.</em> machen den Code invalide und können Probleme verursachen!<br>' .
     '- Bei Platzhaltern mit einem öffnenden und schließendem Tag in der Form "{{A}}:{{/A}}" kann der Doppelpunkt durch einen eigenen Text ersetzt werden.<br>',
     'TEMPLATE_ARTICLE_CATEGORYICONS' => 'Kategorie-Icons',

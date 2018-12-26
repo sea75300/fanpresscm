@@ -3,6 +3,10 @@
         <li><a href="#tabs-help-general"><?php $theView->write($headline); ?></a></li>
     </ul>
     <div id="tabs-help-general">
+        
+        <h3><?php $theView->write('GLOBAL_TABLE_OF_CONTENT'); ?></h3>
+        <ol id="fpcm-ui-help-toc"></ol>
+        
         <?php print $content.PHP_EOL.PHP_EOL; ?>
     </div>
 </div>

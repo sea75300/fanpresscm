@@ -23,7 +23,10 @@
             <dl class="fpcm-ui-monospace">
             <?php foreach ($replacements as $tag => $descr) : ?>
                 <dt><a href="#" data-tag="<?php print $tag; ?>" class="fpcm-ui-template-tags fpcm-ui-float-left fpcm-ui-block fpcm-ui-padding-md-right"><?php $theView->icon('plus-square ')->setSize('lg'); ?></a> <?php print $tag; ?></dt>
-                <dd class="fpcm-ui-padding-md-bottom"><?php print $descr; ?></dd>
+                <dd<?php if (!isset($attributes[$tag])) : ?> class="fpcm-ui-padding-md-bottom"<?php endif; ?>><?php print $descr; ?></dd>
+                <?php if (isset($attributes[$tag])) : ?>
+                <dd class="fpcm-ui-padding-md-bottom fpcm-ui-font-small"><?php $theView->write('TEMPLATE_ATTRIBUTES') ?>: <?php print implode(', ', $attributes[$tag]); ?></dd>
+                <?php endif; ?>
             <?php endforeach; ?>
             </dl>
         </fieldset>

@@ -820,6 +820,26 @@ Help language file
             angepasst werden. Weitere können bei Bedarf ins System hochgeladen werden.</li>
         </ul>
 
+        <h3>Verfügbare Attribute</h3>
+        
+        <p>Die Template-Platzhalter können seit Version 4.1 <em>Attribute</em> besitzen, welche die Frontend-Ausgabe weiter beeinflussen. Attribute werden in der Form
+        <em>AttributeName="AttributeWert"</em> angegeben. Platzhalter können mehrere Attribute besitzen, wobei mehrere gleichezitig verwendet werden können.
+        Attribute können sich gegenseitig erfordern oder ausschließen.</p>
+        
+        <dl>
+            <dt>Artikel-Templates - {{sources}}:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">
+                <dl>
+                    <dt>descr:</dt>
+                    <dd class="fpcm-ui-padding-md-bottom">Beschreibung vor der Ausgabe der Links aus dem Quellenverzeichnis.</dd>
+                </dl>
+                <dl>
+                    <dt>descrAlt:</dt>
+                    <dd class="fpcm-ui-padding-md-bottom">Alternativer Wert für die Ausgabe, wenn im Quellenverzeichnis keine Daten eingetragen sind.</dd>
+                </dl>
+            </dd>
+        </dl>
+
         ]]>
     </chapter>
     <chapter ref="HL_OPTIONS_SMILEYS">

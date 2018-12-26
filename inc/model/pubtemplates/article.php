@@ -71,6 +71,15 @@ final class article extends template {
     );
 
     /**
+     * List of attributes by replacement tag
+     * @var array
+     * @since FPCM 4.1
+     */
+    protected $replacementAttributesMap = [
+        '{{sources}}' => ['descr', 'descrAlt']
+    ];
+
+    /**
      * Konstruktor
      * @param string $fileName Template-Datei unterhalb von data/styles/articles
      */
@@ -90,42 +99,61 @@ final class article extends template {
         }
 
         $this->replacementTags = $this->events->trigger('template\parseArticle', $this->replacementTags);
-
-        $content = $this->content;
         $tags = array_merge($this->replacementInternal, $this->replacementTags);
+        
+        $replacementData = [];
         foreach ($tags as $replacement => $value) {
 
             $replacement = explode(':', $replacement);
-            $values = [];
 
             switch ($replacement[0]) {
                 case '{{permaLink}}' :
-                    $keys = $replacement;
-                    $values = array("<a href=\"$value\" class=\"fpcm-pub-permalink\">", '</a>');
+                    $value = "<a href=\"$value\" class=\"fpcm-pub-permalink\">";
+                    $value1 = '</a>';
                     break;
                 case '{{commentLink}}' :
-                    $keys = $replacement;
-                    $values = $this->commentsEnabled ? array("<a href=\"$value\" class=\"fpcm-pub-commentlink\">", '</a>') : array('', '');
+                    $value = $this->commentsEnabled ? "<a href=\"$value\" class=\"fpcm-pub-commentlink\">" : '';
+                    $value1 = $this->commentsEnabled ? '</a>' : '';
                     break;
                 case '<readmore>' :
-                    $keys = $replacement;
-                    $values = array('<a href="#" class="fpcm-pub-readmore-link" id="' . $value . '">' . $this->language->translate('ARTICLES_PUBLIC_READMORE') . '</a><div class="fpcm-pub-readmore-text" id="fpcm-pub-readmore-text-' . $value . '">', '</div>');
+                    $value = '<a href="#" class="fpcm-pub-readmore-link" id="' . $value . '">' . $this->language->translate('ARTICLES_PUBLIC_READMORE') . '</a><div class="fpcm-pub-readmore-text" id="fpcm-pub-readmore-text-' . $value . '">';
+                    $value1 = '</div>';
                     break;
                 case '{{sources}}' :
-                    $keys = $replacement;
-                    $this->parseLinks($value, array('rel' => 'noopener noreferrer'));
-                    $values = array($value);
-                    break;
-                default:
-                    $keys = $replacement;
-                    $values = array($value);
+
+                    $this->parseLinks($value, [
+                        'rel' => 'noopener noreferrer'
+                    ]);
+
+                    $attributes = $this->parseAttributes('sources');
+                    if (count($attributes)) {
+                        
+                        $newVal = '';
+                        foreach ($attributes as $attrWithTags => $tagAttributes) {
+                            
+                            if (isset($tagAttributes['descr']) && trim($tagAttributes['descr'])) {
+                                $newVal .= $tagAttributes['descr'];
+                            }
+
+                            if (isset($tagAttributes['descrAlt']) && trim($tagAttributes['descrAlt']) && !trim($value)) {
+                                $newVal .= $tagAttributes['descrAlt'];
+                            }
+
+                            $replacementData[$attrWithTags] = $newVal.$value;
+                        }
+                    }
+
                     break;
             }
-
-            $content = str_replace($keys, $this->cleanup($values), $content);
+            
+            $replacementData[$replacement[0]] = $value;
+            
+            if(isset($replacement[1])) {
+                $replacementData[$replacement[1]] = $value1;
+            }
         }
 
-        return $this->parseSmileys($content);
+        return $this->parseSmileys(str_replace(array_keys($replacementData), $this->cleanup(array_values($replacementData)), $this->content));
     }
 
     /**

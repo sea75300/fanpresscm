@@ -55,6 +55,7 @@ $lang = array(
     'GLOBAL_EXTERNAL' => 'Extern',
     'GLOBAL_METADATA' => 'Meta-Informationen',
     'GLOBAL_PROPERTIES' => 'Eigenschaften',
+    'GLOBAL_TABLE_OF_CONTENT' => 'Inhaltsverzeichnis',
     'LOGIN_BTN' => 'Anmelden',
     'LOGIN_NEWPASSWORD' => 'Neues Passwort anfordern',
     'LOGIN_AUTHCODE' => 'Code aus Google Authenticator',
