@@ -86,19 +86,7 @@ class image extends \fpcm\model\abstracts\file {
     public function __construct($filename = '', $initDB = true, $forceInit = false)
     {
         $this->table = \fpcm\classes\database::tableFiles;
-
-        $filename = explode('/', $filename, 2);
-
-        $fn = (isset($filename[1]) ? $filename[1] : $filename[0]);
-        $this->escapeFileName($fn);
-        if (isset($filename[1])) {
-            $filename[1] = $fn;
-        }
-        else {
-            $filename[0] = $fn;
-        }
-
-        $filename = implode('/', $filename);
+        $filename = $this->splitFilename($filename);
         parent::__construct($filename);
 
         $this->filename = $filename;
@@ -323,12 +311,15 @@ class image extends \fpcm\model\abstracts\file {
      */
     public function rename($newname, $userId = false)
     {
+        $newname = $this->splitFilename($newname);
+
         $oldname = $this->filename;
         if (strpos($oldname, '/') !== false) {
             $newname = dirname($oldname).DIRECTORY_SEPARATOR.$newname;
         }
 
-        if (!parent::rename($newname.'.'.$this->getExtension())) {
+        $newnameExt = $newname.'.'.$this->getExtension();
+        if (!$this->isValidDataFolder($this->getFilepath().DIRECTORY_SEPARATOR. dirname($newname), \fpcm\classes\dirs::DATA_UPLOADS) || !parent::rename($newnameExt)) {
             return false;
         }
 
@@ -504,6 +495,28 @@ class image extends \fpcm\model\abstracts\file {
             unset($params['data']);
 
         return $params;
+    }
+
+    /**
+     * Splits filename with possible folder
+     * @param string $filename
+     * @return string
+     * @since FPCM 4.1
+     */
+    protected function splitFilename(string $filename) : string
+    {
+        $filename = explode('/', $filename, 2);
+
+        $fn = (isset($filename[1]) ? $filename[1] : $filename[0]);
+        $this->escapeFileName($fn);
+        if (isset($filename[1])) {
+            $filename[1] = $fn;
+        }
+        else {
+            $filename[0] = $fn;
+        }
+
+        return implode('/', $filename);;
     }
 
 }

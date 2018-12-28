@@ -13,11 +13,11 @@ spl_autoload_register(function($class)
     }
 
     $includePath = \fpcm\classes\dirs::getIncDirPath(str_replace(['fpcm\\', '\\'], ['', DIRECTORY_SEPARATOR], $class) . '.php');
-    if (file_exists($includePath)) {
-        require $includePath;
+    if (!file_exists($includePath)) {
         return true;
     }
 
+    require $includePath;
     return true;
 });
 
@@ -31,11 +31,11 @@ spl_autoload_register(function($class)
         \fpcm\classes\dirs::DATA_MODULES, str_replace(['fpcm\\modules\\', '\\'], ['', DIRECTORY_SEPARATOR], $class) . '.php'
     );
 
-    if (file_exists($includePath)) {
-        require $includePath;
+    if (!file_exists($includePath)) {
         return true;
     }
 
+    require $includePath;
     return true;
 });
 
@@ -87,7 +87,6 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
     ]);
 
     file_put_contents($errorLog, $LogLine . PHP_EOL, FILE_APPEND);
-
     return true;
 });
 

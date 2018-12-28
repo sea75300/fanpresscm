@@ -432,5 +432,28 @@ abstract class file {
         return is_readable($this->fullpath) ? true : false;
     }
 
+    /**
+     * 
+     * Check if fullpath is valid path in /data folder structure
+     * @param string $path
+     * @param string $type
+     * @return bool
+     * @since FPCM 4.1
+     */
+    public function isValidDataFolder(string $path = '', string $type = '/') : bool
+    {
+        if (!trim($path)) {
+            $path = $this->fullpath;
+        }
+
+        $dataPath = \fpcm\classes\dirs::getDataDirPath($type);
+        if (strpos(realpath($path), $dataPath) === 0) {
+            return true;
+        }
+        
+        trigger_error('Invalid data path found: '.$path);
+        return false;
+    }
+
 }
 
