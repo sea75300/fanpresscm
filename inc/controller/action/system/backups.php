@@ -47,7 +47,7 @@ class backups extends \fpcm\controller\abstracts\controller {
                 return true;
             }
 
-            if (!$file->delete()) {
+            if (!$file->isValidDataFolder('', \fpcm\classes\dirs::DATA_DBDUMP) || !$file->delete()) {
                 $this->view->addErrorMessage('DELETE_FAILED_FILES', [
                     '{{filenames}}' => $deleteFile
                 ]);

@@ -170,11 +170,21 @@ fpcm.filemanager = {
 
     initDeleteButtons: function() {
         jQuery('.fpcm-filelist-delete').click(function () {
+            
+            var clearFileName = jQuery(this).attr('data-filename');
+
             fpcm.ajax.exec('files/delete', {
                 data: {
                     filename: jQuery(this).attr('data-file')
                 },
-                execDone: function () {
+                execDone: function (result) {
+                    
+                    result = fpcm.ajax.fromJSON(result);
+                    fpcm.ui.addMessage({
+                        txt: result.message.replace('{{filenames}}', clearFileName),
+                        type: result.code == 0 ? 'error' : 'notice'
+                    });
+
                     fpcm.filemanager.reloadFiles();
                     fpcm.ui.showLoader();
                 }

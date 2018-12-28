@@ -57,7 +57,9 @@ class delete extends \fpcm\controller\abstracts\ajaxController {
     public function process()
     {
         $replace = ['{{filename1}}' => basename($this->fileName), '{{filename2}}' => basename($this->newFileName)];
-        if ((new \fpcm\model\files\image($this->fileName, false))->delete()) {
+        
+        $img = new \fpcm\model\files\image($this->fileName, false);
+        if ($img->isValidDataFolder('', \fpcm\classes\dirs::DATA_UPLOADS) && $img->delete()) {
             $this->returnData['code'] = 1;
             $this->returnData['message'] = $this->language->translate('DELETE_SUCCESS_FILES', $replace);
             $this->getSimpleResponse();
