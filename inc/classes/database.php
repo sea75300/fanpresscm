@@ -460,7 +460,7 @@ final class database {
      */
     public function createIndex($table, $indexName, $field, $isUnique = false)
     {
-        $sql = $this->driver->createIndexString("{$this->dbprefix}_{$table}", $indexName, $field, $isUnique);
+        $sql = $this->driver->createIndexString($this->getTablePrefixed($table), $indexName, $field, $isUnique);
         return $this->exec($sql);
     }
 
@@ -866,11 +866,12 @@ final class database {
      */
     public function getTableStructure($table, $field = false, $cache = true)
     {
-        if ($cache && isset($this->structCache[$table])) {
-            return $this->structCache[$table];
+        $cacheName = $table.'_struct';
+        if ($cache && isset($this->structCache[$cacheName])) {
+            return $this->structCache[$cacheName];
         }
 
-        $query = $this->driver->getTableStructureQuery($this->dbprefix . '_' . $table, $field);
+        $query = $this->driver->getTableStructureQuery($this->getTablePrefixed($table), $field);
 
         $result = $this->query($query);
         if ($result === false) {
@@ -887,20 +888,8 @@ final class database {
             $this->driver->prepareColRow($colRow, $data);
         }
 
-        $this->structCache[$table] = $data;
+        $this->structCache[$cacheName] = $data;
         return $data;
-    }
-
-    /**
-     * Vergleicht die aktuelle Struktur der Tabelle in der DB mit der Struktur der YML-Datei und 
-     *  fügt ggf. fehlende Spalten zur Tabelle in der DB hinzu
-     * @param string $tableFile
-     * @return bool
-     * @since FPCM 3.3.2
-     */
-    public function checkTableStructure($tableFile)
-    {
-        return $this->addTableCols(new \fpcm\model\system\yatdl(dirs::getDataDirPath(dirs::DATA_DBSTRUCT, $tableFile . '.yml')));
     }
 
     /**
@@ -971,6 +960,41 @@ final class database {
                 fpcmLogSql($this->lastQueryString);
                 return false;
             }
+        }
+
+        return true;
+    }
+    /**
+     * Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl 
+     * @param \fpcm\model\system\yatdl $yatdl
+     * @return bool
+     */
+    public function addTableIndices(\fpcm\model\system\yatdl $yatdl)
+    {
+        $data = $yatdl->getArray();
+        $table = $data['name'];
+
+        if (!is_array($data['indices']) || !count($data['indices'])) {
+            return true;
+        }
+
+        $existingIndices = $this->getTableIndices($table);
+        if (!is_array($existingIndices) || !count($existingIndices)) {
+            return true;
+        }
+
+        foreach ($data['indices'] as $idxName => $idxValue) {
+
+            $fullIdxName = $this->getTablePrefixed($table).'_'.$idxName;
+            if (array_key_exists($fullIdxName, $existingIndices)) {
+                continue;
+            }
+
+            if (!$this->createIndex($table, $idxName, $idxValue['col'], $idxValue['isUnqiue'])) {
+                trigger_error("Unable to create index {$fullIdxName} on table {$table}, see database log for further information.");
+                return false;
+            }
+
         }
 
         return true;
@@ -1072,6 +1096,42 @@ final class database {
     public function getPdoOptions()
     {
         return $this->driver->getPdoOptions();
+    }
+
+    /**
+     * 
+     * @param string $table
+     * @param string $field
+     * @param bool $cache
+     * @return array
+     * @since FPCm 4.1
+     */
+    public function getTableIndices(string $table, $field = false, bool $cache = true) : array
+    {
+        $cacheName = $table.'_indices';
+        if ($cache && isset($this->structCache[$cacheName])) {
+            return $this->structCache[$cacheName];
+        }
+
+        $query = $this->driver->getTableIndexQuery($this->getTablePrefixed($table), $field);
+
+        $result = $this->query($query);
+        if ($result === false) {
+            return [];
+        }
+
+        $colRows = $this->fetch($result, true);
+        if (!is_array($colRows) || !count($colRows)) {
+            return [];
+        }
+
+        $data = [];
+        foreach ($colRows as $colRow) {
+            $this->driver->prepareIndexRow($this->getTablePrefixed($table), $colRow, $data);
+        }
+
+        $this->structCache[$cacheName] = $data;
+        return $data;
     }
 
     /**

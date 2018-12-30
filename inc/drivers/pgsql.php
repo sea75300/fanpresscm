@@ -124,6 +124,10 @@ final class pgsql implements sqlDriver {
      */
     public function createIndexString($table, $indexName, $field, $isUnique)
     {
+        if (is_array($field)) {
+            $field = implode(',', $field);
+        }
+
         $index = ($isUnique ? 'UNIQUE INDEX' : 'INDEX');
         return "CREATE {$index} {$table}_{$indexName} ON {$table} USING btree ({$field});";
     }
@@ -146,8 +150,7 @@ final class pgsql implements sqlDriver {
      */
     public function getYaTDLDataTypes()
     {
-
-        return array(
+        return [
             'int' => 'int',
             'bigint' => 'bigint',
             'varchar' => 'character varying',
@@ -160,7 +163,7 @@ final class pgsql implements sqlDriver {
             'float' => 'real',
             'double' => 'decimal',
             'char' => 'char'
-        );
+        ];
     }
 
     /**
@@ -170,14 +173,14 @@ final class pgsql implements sqlDriver {
      */
     public function getRecommendVersion()
     {
-        return '9.1';
+        return '9.6';
     }
 
     /**
      * Liefert Struktur-Infos für eine Bestimmte Tabelle und ggf. Spalte zurück
      * @param string $table
      * @param string $field
-     * @return array
+     * @return string
      * @since FPCM 3.3.2
      */
     public function getTableStructureQuery($table, $field = false)
@@ -195,16 +198,48 @@ final class pgsql implements sqlDriver {
      * Bereitet Treiber-spezifische Struktur von Tabelle-Struktur-Infos aus
      * @param object $colRow
      * @param array $data
-     * @return array
+     * @return bool
      * @since FPCM 3.3.2
      */
     public function prepareColRow($colRow, array &$data)
     {
-
         $data[$colRow->column_name] = array(
             'type' => $colRow->data_type,
             'length' => (int) $colRow->character_maximum_length
         );
+
+        return true;
+    }
+
+    /**
+     * Returns information of indices of given table
+     * @param string $table
+     * @param string $field
+     * @return string
+     * @since FPCM 4.1
+     */
+    public function getTableIndexQuery(string $table, $field = false): string
+    {
+        $query = "SELECT * FROM pg_indexes WHERE tablename = '{$table}'";
+        if ($field !== false && trim($field)) {
+            $query .= " AND COLUMN_NAME = '{$field}'";
+        }
+
+        return $query;
+    }
+
+    /**
+     * Prepares database specific information of indices for further use
+     * @param string $table
+     * @param object $colRow
+     * @param array $data
+     * @return bool
+     * @since FPCM 4.1
+     */
+    public function prepareIndexRow(string $table, $row, array &$data): bool
+    {
+        $data[$row->indexname] = strpos($row->indexdef, 'UNIQUE') === false ? false : true;
+        return true;
     }
 
 }

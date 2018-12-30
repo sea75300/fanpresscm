@@ -216,12 +216,12 @@ final class finalizer extends \fpcm\model\abstracts\model {
             $tableName = $tab->getArray()['name'];
 
             if ($isCli) {
-                print " >> Alter table {$tableName}, add and remove columns...".PHP_EOL;
+                print " >> Alter table structure {$tableName}...".PHP_EOL;
             }
             
             $struct = $this->dbcon->getTableStructure($tableName);
-            $tabExists = count($struct) ? true : false;
 
+            $tabExists = count($struct) ? true : false;
             if ($tabExists && !$this->dbcon->addTableCols($tab) || !$this->dbcon->removeTableCols($tab)) {
                 trigger_error('Failed to alter table ' . $tableName . ' during update.');
                 return false;
@@ -248,10 +248,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 if ($successDrop) {
                     $tabExists = false;
                 }
-                
-                if ($isCli) {
-                    print "     -- FINISHED".PHP_EOL;
-                }
+
             }
 
             if (!$tabExists) {
@@ -265,9 +262,14 @@ final class finalizer extends \fpcm\model\abstracts\model {
                     return false;
                 }
 
-                if ($isCli) {
-                    print "     -- FINISHED".PHP_EOL;
-                }
+            }
+
+            if ($tabExists) {
+                $this->dbcon->addTableIndices($tab);
+            }
+
+            if ($isCli) {
+                print "     -- FINISHED".PHP_EOL;
             }
 
         }

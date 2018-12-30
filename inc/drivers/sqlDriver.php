@@ -134,4 +134,23 @@ interface sqlDriver {
      * @since FPCM 3.4
      */
     public function getRecommendVersion();
+
+    /**
+     * Returns information of indices of given table
+     * @param string $table
+     * @param string $field
+     * @return string
+     * @since FPCM 4.1
+     */
+    public function getTableIndexQuery(string $table, $field = false) : string;
+
+    /**
+     * Prepares database specific information of indices for further use
+     * @param string $table
+     * @param object $colRow
+     * @param array $data
+     * @return bool
+     * @since FPCM 4.1
+     */
+    public function prepareIndexRow(string $table, $colRow, array &$data) : bool;
 }
