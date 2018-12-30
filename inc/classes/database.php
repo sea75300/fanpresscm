@@ -254,10 +254,10 @@ final class database {
      */
     public function selectFetch(\fpcm\model\dbal\selectParams $obj)
     {
-        $sql    = $obj->getDistinct() ? 'SELECT DISTINCT' : 'SELECT';
-        $sql   .= " {$obj->getItem()} FROM {$this->getTablePrefixed($obj->getTable())}";                
-        $sql   .= $obj->getWhere() ?  " WHERE {$obj->getWhere()}" : "";
-        
+        $sql = $obj->getDistinct() ? 'SELECT DISTINCT' : 'SELECT';
+        $sql .= " {$obj->getItem()} FROM {$this->getTablePrefixed($obj->getTable())}";
+        $sql .= $obj->getWhere() ? " WHERE {$obj->getWhere()}" : "";
+
         $result = $this->query($sql, $obj->getParams());
         if ($obj->getReturnResult()) {
             return $result;
@@ -855,7 +855,7 @@ final class database {
     {
         return $this->driver->getRecommendVersion();
     }
-    
+
     /**
      * Returns database structure for certain table and/or column
      * @param string $table
@@ -866,7 +866,7 @@ final class database {
      */
     public function getTableStructure($table, $field = false, $cache = true)
     {
-        $cacheName = $table.'_struct';
+        $cacheName = $table . '_struct';
         if ($cache && isset($this->structCache[$cacheName])) {
             return $this->structCache[$cacheName];
         }
@@ -964,6 +964,7 @@ final class database {
 
         return true;
     }
+
     /**
      * Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl 
      * @param \fpcm\model\system\yatdl $yatdl
@@ -985,7 +986,7 @@ final class database {
 
         foreach ($data['indices'] as $idxName => $idxValue) {
 
-            $fullIdxName = $this->getTablePrefixed($table).'_'.$idxName;
+            $fullIdxName = $this->getTablePrefixed($table) . '_' . $idxName;
             if (array_key_exists($fullIdxName, $existingIndices)) {
                 continue;
             }
@@ -994,7 +995,6 @@ final class database {
                 trigger_error("Unable to create index {$fullIdxName} on table {$table}, see database log for further information.");
                 return false;
             }
-
         }
 
         return true;
@@ -1099,16 +1099,16 @@ final class database {
     }
 
     /**
-     * 
+     * Returns indices defined for the certain table and or column
      * @param string $table
      * @param string $field
      * @param bool $cache
      * @return array
      * @since FPCm 4.1
      */
-    public function getTableIndices(string $table, $field = false, bool $cache = true) : array
+    public function getTableIndices(string $table, $field = false, bool $cache = true): array
     {
-        $cacheName = $table.'_indices';
+        $cacheName = $table . '_indices';
         if ($cache && isset($this->structCache[$cacheName])) {
             return $this->structCache[$cacheName];
         }

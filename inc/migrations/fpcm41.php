@@ -16,6 +16,7 @@ namespace fpcm\migrations;
  * @package fpcm\migrations
  * @since FPCM 4.1
  * @see migration
+ * @ignore
  */
 class fpcm41 extends migration {
 

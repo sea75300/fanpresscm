@@ -135,11 +135,27 @@ abstract class migration {
         return \fpcm\classes\baseconfig::getVersionFromFile();
     }
 
-    abstract protected function updateTables();
+    /**
+     * Execute database table update
+     * @return bool
+     */
+    abstract protected function updateTables() : bool;
 
-    abstract protected function updateFileSystem();
+    /**
+     * Execute additional file system updates
+     * @return bool
+     */
+    abstract protected function updateFileSystem() : bool;
 
-    abstract protected function updateSystemConfig();
+    /**
+     * Execute system config updates
+     * @return bool
+     */
+    abstract protected function updateSystemConfig() : bool;
 
-    abstract protected function updatePermissions();
+    /**
+     * Execute permission updates
+     * @return bool
+     */
+    abstract protected function updatePermissions() : bool;
 }

@@ -147,10 +147,10 @@ interface sqlDriver {
     /**
      * Prepares database specific information of indices for further use
      * @param string $table
-     * @param object $colRow
+     * @param object $row
      * @param array $data
      * @return bool
      * @since FPCM 4.1
      */
-    public function prepareIndexRow(string $table, $colRow, array &$data) : bool;
+    public function prepareIndexRow(string $table, $row, array &$data) : bool;
 }

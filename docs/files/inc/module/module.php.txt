@@ -778,6 +778,11 @@ class module {
                     return false;
                 }
 
+                if (!$this->db->addTableIndices($tab)) {
+                    trigger_error('Unable to alter module table ' . $tableName . ' during update, addition of new indices failed.');
+                    return false;
+                }
+
                 if (!$this->db->removeTableCols($tab)) {
                     trigger_error('Unable to alter module table ' . $tableName . ' during update, removal of new columns failed.');
                     return false;

@@ -234,7 +234,7 @@ final class mysql implements sqlDriver {
     /**
      * Prepares database specific information of indices for further use
      * @param string $table
-     * @param object $colRow
+     * @param object $row
      * @param array $data
      * @return bool
      * @since FPCM 4.1
