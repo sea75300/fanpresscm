@@ -404,50 +404,6 @@ class comment extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * Speichert einen neuen Kommentar in der Datenbank
-     * @return int
-     */
-    public function save()
-    {
-        $this->removeBannedTexts();
-
-        $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('comments\save', $params);
-
-        if (!$this->dbcon->insert($this->table, $params)) {
-            return false;
-        }
-
-        $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/'.\fpcm\classes\cache::CLEAR_ALL);
-        return $this->dbcon->getLastInsertId();
-    }
-
-    /**
-     * Aktualisiert einen Kommentar in der Datenbank
-     * @return bool
-     */
-    public function update()
-    {
-        $this->removeBannedTexts();
-
-        $params = $this->getPreparedSaveParams();
-        $fields = array_keys($params);
-
-        $params[] = $this->getId();
-        $params = $this->events->trigger('comments\update', $params);
-
-        $return = false;
-        if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
-            $return = true;
-        }
-
-        $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/'.\fpcm\classes\cache::CLEAR_ALL);
-        $this->init();
-
-        return $return;
-    }
-
-    /**
      * Löscht ein Objekt in der Datenbank
      * @return bool
      */
@@ -539,7 +495,7 @@ class comment extends \fpcm\model\abstracts\dataset {
      * @return bool
      * @since FPCM 3.2.0
      */
-    private function removeBannedTexts()
+    protected function removeBannedTexts()
     {
 
         if ($this->wordbanList->checkCommentApproval($this->name) ||
@@ -554,6 +510,42 @@ class comment extends \fpcm\model\abstracts\dataset {
         $this->website = $this->wordbanList->replaceItems($this->website);
         $this->text = $this->wordbanList->replaceItems($this->text);
 
+        return true;
+    }
+
+    /**
+     * Returns event base string
+     * @see \fpcm\model\abstracts\dataset::getEventModule
+     * @return string
+     * @since FPCM 4.1
+     */
+    protected function getEventModule(): string
+    {
+        return 'comments';
+    }
+
+    /**
+     * Is triggered after successfull database insert
+     * @see \fpcm\model\abstracts\dataset::afterSaveInternal
+     * @return bool
+     * @since FPCM 4.1
+     */
+    protected function afterSaveInternal(): bool
+    {
+        $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/'.\fpcm\classes\cache::CLEAR_ALL);
+        return true;
+    }
+
+    /**
+     * Is triggered after successfull database update
+     * @see \fpcm\model\abstracts\dataset::afterUpdateInternal
+     * @return bool
+     * @since FPCM 4.1
+     */
+    protected function afterUpdateInternal(): bool
+    {
+        $this->cache->cleanup(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE.'/'.\fpcm\classes\cache::CLEAR_ALL);
+        $this->init();
         return true;
     }
 

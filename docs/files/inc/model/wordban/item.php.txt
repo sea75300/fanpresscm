@@ -166,46 +166,49 @@ class item extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * Speichert Wortsperre
+     * Executes save process to database and events
      * @return bool
+     * @see \fpcm\model\abstracts\dataset::save
      */
     public function save()
     {
-        $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('wordban\save', $params);
-
-        $return = false;
-        if ($this->dbcon->insert($this->table, $params)) {
-            $return = true;
-        }
-
-        $this->id = $this->dbcon->getLastInsertId();
-        $this->cache->cleanup();
-
-        return $return;
+        return parent::save() === false ? false : true;
     }
 
     /**
-     * Aktualisiert Wortsperre
-     * @return bool
+     * Returns event base string
+     * @see \fpcm\model\abstracts\dataset::getEventModule
+     * @return string
+     * @since FPCM 4.1
      */
-    public function update()
+    protected function getEventModule(): string
     {
-        $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('wordban\update', $params);
-        $fields = array_keys($params);
+        return 'wordban';
+    }
 
-        $params[] = $this->getId();
+    /**
+     * Returns event base string
+     * @see \fpcm\model\abstracts\dataset::afterSaveInternal
+     * @return bool
+     * @since FPCM 4.1
+     */
+    protected function afterSaveInternal(): bool
+    {
+        $this->cache->cleanup();
+        return true;
+    }
 
-        $return = false;
-        if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
-            $return = true;
-        }
-
+    /**
+     * Is triggered after successfull database update
+     * @see \fpcm\model\abstracts\dataset::afterUpdateInternal
+     * @return bool
+     * @since FPCM 4.1
+     */
+    protected function afterUpdateInternal(): bool
+    {
         $this->cache->cleanup();
         $this->init();
-
-        return $return;
+        return true;
     }
 
 }

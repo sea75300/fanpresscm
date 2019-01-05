@@ -60,6 +60,15 @@ class selectParams {
     private $fetchAll = false;
 
     /**
+     * Constructor method, as of FPCm 4.1 the destination table(s) can be set directly
+     * @param string|array $table (@since FPCM 4.1)
+     */
+    public function __construct($table = '')
+    {
+        $this->table = $table;
+    }
+
+        /**
      * Returns database name(s)
      * @return string|array
      */

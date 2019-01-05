@@ -79,6 +79,8 @@ namespace fpcm\model\system;
  */
 final class config extends \fpcm\model\abstracts\dataset {
 
+    use \fpcm\model\traits\eventModuleEmpty;
+
     /**
      * Neue Konfiguration
      * @var array

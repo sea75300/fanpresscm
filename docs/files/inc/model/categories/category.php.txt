@@ -115,61 +115,11 @@ class category extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * Speichert ein Objekt in der Datenbank
-     * @return bool
-     */
-    public function save()
-    {
-        if ($this->categoryExists($this->name)) {
-            return false;
-        }
-
-        $this->removeBannedTexts();
-
-        $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('category\save', $params);
-
-        $return = false;
-        if ($this->dbcon->insert($this->table, $params)) {
-            $return = true;
-        }
-
-        $this->id = $this->dbcon->getLastInsertId();
-        $this->cache->cleanup();
-
-        return $return;
-    }
-
-    /**
-     * Aktualisiert ein Objekt in der Datenbank
-     * @return bool
-     */
-    public function update()
-    {
-        $this->removeBannedTexts();
-
-        $params = $this->getPreparedSaveParams();
-        $fields = array_keys($params);
-
-        $params[] = $this->getId();
-        $params = $this->events->trigger('category\update', $params);
-
-        $return = false;
-        if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
-            $return = true;
-        }
-
-        $this->cache->cleanup();
-
-        $this->init();
-
-        return $return;
-    }
-
-    /**
      * existiert Kategorie?
      * @param string $name
      * @return bool
+     * @since FPCM
+     * @deprecated since version FPCM 4.1
      */
     private function categoryExists($name)
     {
@@ -192,11 +142,47 @@ class category extends \fpcm\model\abstracts\dataset {
      * @return bool
      * @since FPCM 3.2.0
      */
-    private function removeBannedTexts()
+    protected function removeBannedTexts()
     {
         $this->name = $this->wordbanList->replaceItems($this->name);
         $this->iconpath = $this->wordbanList->replaceItems($this->iconpath);
 
+        return true;
+    }
+
+    /**
+     * Returns event base string
+     * @see \fpcm\model\abstracts\dataset::getEventModule
+     * @return string
+     * @since FPCM 4.1
+     */
+    protected function getEventModule(): string
+    {
+        return 'category';
+    }
+
+    /**
+     * Is triggered after successfull database insert
+     * @see \fpcm\model\abstracts\dataset::afterSaveInternal
+     * @return bool
+     * @since FPCM 4.1
+     */
+    protected function afterSaveInternal(): bool
+    {
+        $this->cache->cleanup();
+        return true;
+    }
+
+    /**
+     * Is triggered after successfull database update
+     * @see \fpcm\model\abstracts\dataset::afterUpdateInternal
+     * @return bool
+     * @since FPCM 4.1
+     */
+    protected function afterUpdateInternal(): bool
+    {
+        $this->cache->cleanup();
+        $this->init();
         return true;
     }
 

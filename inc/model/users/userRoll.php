@@ -1,10 +1,7 @@
 <?php
 
 /**
- * FanPress CM User Roll Model
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -14,9 +11,13 @@ namespace fpcm\model\users;
  * Benutzerrolle Objekt
  * 
  * @package fpcm\model\user
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class userRoll extends \fpcm\model\abstracts\dataset {
+
+    use \fpcm\model\traits\eventModuleEmpty;
 
     /**
      * Bezeichnung der Benutzer-Rolle
@@ -170,7 +171,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
      * @return bool
      * @since FPCM 3.2.0
      */
-    private function removeBannedTexts()
+    protected function removeBannedTexts()
     {
         $this->leveltitle = $this->wordbanList->replaceItems($this->leveltitle);
         return true;

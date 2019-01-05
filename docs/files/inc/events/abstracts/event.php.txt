@@ -237,6 +237,7 @@ abstract class event {
         return str_replace('fpcm\\events\\', '', get_class($this));
     }
 
+
     /**
      * Executes a certain event
      * @param array $data
@@ -287,6 +288,16 @@ abstract class event {
         }
 
         return $eventResult;
+    }
+
+    /**
+     * Returns full event namespace
+     * @param string $event
+     * @return string
+     */
+    final public static function getEventNamespace(string $event) : string
+    {
+        return 'fpcm\\events\\'.$event;
     }
 
 }

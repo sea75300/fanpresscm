@@ -60,7 +60,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      */
     public function getCommentsAll()
     {
-        $list = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams())->setTable($this->table)->setWhere( '1=1'.$this->dbcon->orderBy( ['createtime DESC'] ))->setFetchAll(true) );
+        $list = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setWhere( '1=1'.$this->dbcon->orderBy( ['createtime DESC'] ))->setFetchAll(true) );
         return $this->createCommentResult($list);
     }
 
@@ -186,8 +186,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
 
         $where .= ' ' . implode(' ', $where2);
 
-        $obj = (new \fpcm\model\dbal\selectParams())
-                ->setTable($this->table)
+        $obj = (new \fpcm\model\dbal\selectParams($this->table))
                 ->setFetchAll(true)
                 ->setWhere($where)
                 ->setParams($valueParams);
@@ -270,7 +269,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
 
         $res = array_combine($articleIds, array_fill(0, count($articleIds), 0));
 
-        $obj = (new \fpcm\model\dbal\selectParams())->setTable($this->table)->setItem('articleid, count(id) AS count')->setWhere("{$where} GROUP BY articleid")->setFetchAll(true);        
+        $obj = (new \fpcm\model\dbal\selectParams($this->table))->setItem('articleid, count(id) AS count')->setWhere("{$where} GROUP BY articleid")->setFetchAll(true);        
         $articleCounts = $this->dbcon->selectFetch($obj);
         if (!count($articleCounts)) {
             return $res;
@@ -299,7 +298,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $where = count($articleIds) ? "articleid IN (" . implode(',', $articleIds) . ")" : '1=1';
         $where .= " AND (private = 1 OR approved = 0) AND deleted = 0 GROUP BY articleid";
 
-        $obj = (new \fpcm\model\dbal\selectParams())->setTable($this->table)->setItem('articleid, count(id) AS count')->setWhere($where)->setFetchAll(true);        
+        $obj = (new \fpcm\model\dbal\selectParams($this->table))->setItem('articleid, count(id) AS count')->setWhere($where)->setFetchAll(true);        
         $articleCounts = $this->dbcon->selectFetch($obj);
         if (!count($articleCounts)) {
             return [0];
@@ -354,7 +353,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
     public function getLastCommentTimeByIP()
     {
         $where = 'deleted = 0 AND ipaddress ' . $this->dbcon->dbLike() . ' ?' . $this->dbcon->orderBy(array('createtime ASC')) . $this->dbcon->limitQuery(0, 1);
-        $obj = (new \fpcm\model\dbal\selectParams())->setTable($this->table)->setItem('createtime')->setWhere($where)->setParams([\fpcm\classes\http::getIp()]);
+        $obj = (new \fpcm\model\dbal\selectParams($this->table))->setItem('createtime')->setWhere($where)->setParams([\fpcm\classes\http::getIp()]);
         $res = $this->dbcon->selectFetch($obj);
 
         return isset($res->createtime) ? $res->createtime : 0;

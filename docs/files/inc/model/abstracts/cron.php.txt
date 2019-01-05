@@ -194,8 +194,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      */
     public function init()
     {
-        $res = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())
-            ->setTable($this->table)
+        $res = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))
             ->setItem('lastexec, execinterval')
             ->setWhere('cjname = ?')
             ->setParams([$this->cronName]

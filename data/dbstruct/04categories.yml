@@ -25,6 +25,9 @@ cols:
         length: 1024
         params: NOT NULL
 indices:
+    name:
+        col: name
+        isUnqiue: true
 defaultvalues:
     rows:
         1:

@@ -16,8 +16,8 @@ class textTest extends testBase {
         /* @var $object fpcm\model\wordban\item */
         $object = $this->object;
 
-        $GLOBALS['text_search'] = 'UnitTestSearch ABC';
-        $GLOBALS['text_replace'] = 'UnitTestReplace DEF';
+        $GLOBALS['text_search'] = 'UnitTestSearch ABC'. microtime(true);
+        $GLOBALS['text_replace'] = 'UnitTestReplace DEF'. microtime(true);
 
         $object->setSearchtext($GLOBALS['text_search']);
         $object->setReplacementtext($GLOBALS['text_replace']);

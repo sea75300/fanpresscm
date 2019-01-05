@@ -1,10 +1,7 @@
 <?php
 
 /**
- * Permission object
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -15,6 +12,8 @@ namespace fpcm\model\system;
  * 
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class permissions extends \fpcm\model\abstracts\dataset {
 
@@ -46,7 +45,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
      * Standard-Berechtigungsset für Anlegen einer neuen Gruppe
      * @var array
      */
-    protected $defaultPermissions = array(
+    protected $defaultPermissions = [
         'article' => array(
             'add' => 1,
             'edit' => 1,
@@ -94,13 +93,13 @@ class permissions extends \fpcm\model\abstracts\dataset {
             'thumbs' => 1,
             'rename' => 0
         ),
-    );
+    ];
 
     /**
      * Standard-Berechtigungsset beim Aktualisieren der Brechtigungen
      * @var array
      */
-    protected $permissionSet = array(
+    protected $permissionSet = [
         'article' => array(
             'add' => 0,
             'edit' => 0,
@@ -148,7 +147,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             'thumbs' => 0,
             'rename' => 0
         ),
-    );
+    ];
 
     /**
      * Konstruktor
@@ -207,7 +206,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function setPermissionData(array $permissiondata)
     {
-        $this->permissiondata = json_encode($permissiondata);
+        $this->permissiondata = json_encode(array_merge($this->permissionSet, $permissiondata));
     }
 
     /**
@@ -222,8 +221,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
         }
 
         $data = $this->dbcon->selectFetch(
-            (new \fpcm\model\dbal\selectParams())
-                ->setTable($this->table)
+            (new \fpcm\model\dbal\selectParams($this->table))
                 ->setWhere('rollid = ?')
                 ->setParams([$this->rollid])
         );
@@ -246,14 +244,11 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function save()
     {
-        $params = $this->getPreparedSaveParams();
-        $params = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('permission\save', $params);
-
-        $res = $this->dbcon->insert($this->table, $params);
-
-        $this->cache->cleanup();
-
-        return $res;
+        if (!($this->events instanceof \fpcm\events\events)) {
+            $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
+        }
+        
+        return parent::save() === false ? false : true;
     }
 
     /**
@@ -262,8 +257,12 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function update()
     {
+        if (!($this->events instanceof \fpcm\events\events)) {
+            $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
+        }
+
         $params = $this->getPreparedSaveParams();
-        $params = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('permission\update', $params);
+        $params = $this->events->trigger($this->getEventName('update'), $params);
 
         $fields = array_keys($params);
 
@@ -286,7 +285,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function delete()
     {
-        $this->dbcon->delete($this->table, 'rollid = ?', array($this->rollid));
+        $this->dbcon->delete($this->table, 'rollid = ?', [$this->rollid]);
         $this->cache->cleanup();
 
         return true;
@@ -400,6 +399,29 @@ class permissions extends \fpcm\model\abstracts\dataset {
         }
 
         parent::__set($name, $value);
+    }
+
+    /**
+     * Returns event base string
+     * @see \fpcm\model\abstracts\dataset::getEventModule
+     * @return string
+     * @since FPCM 4.1
+     */
+    protected function getEventModule(): string
+    {
+        return 'permission';
+    }
+
+    /**
+     * Is triggered after successfull database insert
+     * @see \fpcm\model\abstracts\dataset::afterSaveInternal
+     * @return bool
+     * @since FPCM 4.1
+     */
+    protected function afterSaveInternal(): bool
+    {
+        $this->cache->cleanup();
+        return true;
     }
 
 }

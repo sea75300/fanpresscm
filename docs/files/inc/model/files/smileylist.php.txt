@@ -44,7 +44,7 @@ final class smileylist extends \fpcm\model\abstracts\filelist {
             }
         }
 
-        $smileys = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())->setTable($this->table)->setFetchAll(true));
+        $smileys = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setFetchAll(true));
 
         $res = [];
         foreach ($smileys as $smiley) {

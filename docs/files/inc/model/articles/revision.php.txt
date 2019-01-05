@@ -18,6 +18,8 @@ namespace fpcm\model\articles;
  */
 class revision extends \fpcm\model\abstracts\dataset {
 
+    use \fpcm\model\traits\eventModuleEmpty;
+
     /**
      * Article id
      * @var string

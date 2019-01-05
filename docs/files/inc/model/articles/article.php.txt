@@ -660,59 +660,6 @@ class article extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * Speichert eine neuen Artikel in der Datenbank
-     * @return int
-     */
-    public function save()
-    {
-        $this->removeBannedTexts();
-
-        $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('article\save', $params);
-
-        if (!$this->dbcon->insert($this->table, $params)) {
-            return false;
-        }
-
-        $this->id = $this->dbcon->getLastInsertId();
-
-        $this->cleanupCaches();
-        $this->createTweet();
-
-        $this->events->trigger('article\saveAfter', $this->id);
-
-        return $this->id;
-    }
-
-    /**
-     * Aktualisiert einen Artikel in der Datenbank
-     * @return bool
-     */
-    public function update()
-    {
-        $this->removeBannedTexts();
-
-        $params = $this->getPreparedSaveParams();
-        $fields = array_keys($params);
-
-        $params[] = $this->getId();
-        $params = $this->events->trigger('article\update', $params);
-
-        $return = false;
-        if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
-            $return = true;
-        }
-
-        $this->cleanupCaches();
-        $this->init();
-        $this->createTweet();
-
-        $this->events->trigger('article\updateAfter', $this->id);
-
-        return $return;
-    }
-
-    /**
      * Löscht News in der Datenbank
      * @return bool
      */
@@ -1067,7 +1014,7 @@ class article extends \fpcm\model\abstracts\dataset {
      * @return bool
      * @since FPCM 3.2.0
      */
-    private function removeBannedTexts()
+    protected function removeBannedTexts()
     {
         if ($this->wordbanList->checkArticleApproval($this->title) ||
                 $this->wordbanList->checkArticleApproval($this->content)) {
@@ -1094,5 +1041,42 @@ class article extends \fpcm\model\abstracts\dataset {
         $this->cache->cleanup(\fpcm\model\abstracts\dashcontainer::CACHE_M0DULE_DASHBOARD . '/'.\fpcm\classes\cache::CLEAR_ALL);
     }
 
-}
+    /**
+     * Returns event base string
+     * @see \fpcm\model\abstracts\dataset::getEventModule
+     * @return string
+     * @since FPCM 4.1
+     */
+    protected function getEventModule() : string
+    {
+        return 'article';
+    }
 
+    /**
+     * Is triggered after successfull database insert
+     * @see \fpcm\model\abstracts\dataset::afterSaveInternal
+     * @return bool
+     * @since FPCM 4.1
+     */
+    protected function afterSaveInternal(): bool
+    {
+        $this->cleanupCaches();
+        $this->createTweet();
+        return true;
+    }
+
+    /**
+     * Is triggered after successfull database update
+     * @see \fpcm\model\abstracts\dataset::afterUpdateInternal
+     * @return bool
+     * @since FPCM 4.1
+     */
+    protected function afterUpdateInternal(): bool
+    {
+        $this->cleanupCaches();
+        $this->init();
+        $this->createTweet();
+        return true;
+    }
+
+}

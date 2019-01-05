@@ -271,14 +271,14 @@ class userList extends \fpcm\model\abstracts\tablelist {
             return [];
         }
 
-        $data = [];
+        $this->data = [];
         foreach ($users as $value) {
             $usr = new author();
             $usr->createFromDbObject($value);
-            $data[$usr->getId()] = $usr;
+            $this->data[$usr->getId()] = $usr;
         }
 
-        return $data;
+        return $this->data;
     }
 
     /**

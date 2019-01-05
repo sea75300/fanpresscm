@@ -17,6 +17,8 @@ namespace fpcm\model\ips;
  */
 class ipaddress extends \fpcm\model\abstracts\dataset {
 
+    use \fpcm\model\traits\eventModuleEmpty;
+
     /**
      * IP-Adresse
      * @var string

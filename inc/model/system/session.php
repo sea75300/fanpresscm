@@ -1,10 +1,7 @@
 <?php
 
 /**
- * Session object
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -15,8 +12,12 @@ namespace fpcm\model\system;
  * 
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class session extends \fpcm\model\abstracts\dataset {
+
+    use \fpcm\model\traits\eventModuleEmpty;
 
     /**
      * Session-ID
@@ -189,7 +190,7 @@ final class session extends \fpcm\model\abstracts\dataset {
     {
         return $this->useragent;
     }
-        
+
     /**
      * Session-ID-String setzen
      * @param string $sessionid
@@ -270,7 +271,7 @@ final class session extends \fpcm\model\abstracts\dataset {
     {
         $this->sessionExists = $sessionExists;
     }
-    
+
     /**
      * Gibt aktuellen Benutzer dieser Session zurück
      * @return \fpcm\model\users\author
@@ -295,17 +296,16 @@ final class session extends \fpcm\model\abstracts\dataset {
      */
     public function save()
     {
-        $params = $this->getPreparedSaveParams();
-        $params = $this->events->trigger('session\create', $params);
-
-        $value_params = $this->getPreparedValueParams();
-
-        $return = false;
-        if ($this->dbcon->insert($this->table, $params)) {
-            $return = true;
+        if ($this->dbcon->insert(
+                $this->table, $this->events->trigger(
+                    'session\create', $this->getPreparedSaveParams()
+                )
+            )
+        ) {
+            return true;
         }
 
-        return $return;
+        return false;
     }
 
     /**
@@ -338,7 +338,7 @@ final class session extends \fpcm\model\abstracts\dataset {
     {
         return;
     }
-    
+
     /**
      * Check if authentication information in $data matchs data of active \fpcm\model\abstracts\authProvider object
      * @param array $data
@@ -436,7 +436,7 @@ final class session extends \fpcm\model\abstracts\dataset {
         if (version_compare($this->config->system_version, '4.0.0', '<')) {
             $lastaction = time() + $this->config->system_session_length;
             $data = $this->dbcon->fetch($this->dbcon->select($this->table, '*', "sessionid = ? AND logout = 0 AND lastaction <= ? " . $this->dbcon->limitQuery(1, 0), array($this->sessionid, $lastaction)));
-            
+
             if ($data === false) {
                 $this->sessionExists = false;
                 return;
@@ -451,24 +451,23 @@ final class session extends \fpcm\model\abstracts\dataset {
 
             return true;
         }
-        
-        
+
+
         $this->currentUser = new \fpcm\model\users\author();
-        
+
         $cols = [];
         foreach (array_keys($this->getPreparedSaveParams()) as $col) {
-            $cols[] = 'sess.'.$col.' as sess_'.$col;
-        }
-        
-        foreach (array_keys($this->currentUser->getPreparedSaveParams()) as $col) {
-            $cols[] = 'usr.'.$col.' as usr_'.$col;
+            $cols[] = 'sess.' . $col . ' as sess_' . $col;
         }
 
-        $obj = (new \fpcm\model\dbal\selectParams())
-            ->setItem('sess.id as sess_id, usr.id as usr_id, '. implode(', ', $cols))
-            ->setTable(\fpcm\classes\database::tableAuthors.' usr JOIN '.$this->dbcon->getTablePrefixed($this->table).' sess ON (sess.userid = usr.id)')
-            ->setWhere("sess.sessionid = ? AND sess.logout = 0 AND sess.lastaction <= ? " . $this->dbcon->limitQuery(1, 0))
-            ->setParams([$this->sessionid, $lastaction]);
+        foreach (array_keys($this->currentUser->getPreparedSaveParams()) as $col) {
+            $cols[] = 'usr.' . $col . ' as usr_' . $col;
+        }
+
+        $obj = (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableAuthors . ' usr JOIN ' . $this->dbcon->getTablePrefixed($this->table) . ' sess ON (sess.userid = usr.id)'))
+                ->setItem('sess.id as sess_id, usr.id as usr_id, ' . implode(', ', $cols))
+                ->setWhere("sess.sessionid = ? AND sess.logout = 0 AND sess.lastaction <= ? " . $this->dbcon->limitQuery(1, 0))
+                ->setParams([$this->sessionid, $lastaction]);
 
         $data = $this->dbcon->selectFetch($obj);
 

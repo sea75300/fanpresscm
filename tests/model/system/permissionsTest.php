@@ -20,9 +20,9 @@ class permissionsTest extends testBase {
         $roll = new fpcm\model\users\userRoll();
         $roll->setRollName(__CLASS__ . ' ' . microtime(true));
         $res = $roll->save();
-        $this->assertGreaterThan(3, $res);
+        $this->assertGreaterThan(3, $roll->getId());
 
-        $GLOBALS['roll_id'] = $res;
+        $GLOBALS['roll_id'] = $roll->getId();
 
         $this->object = new fpcm\model\system\permissions($GLOBALS['roll_id']);
 

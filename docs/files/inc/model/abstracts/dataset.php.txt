@@ -219,7 +219,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      */
     public function init()
     {
-        $data = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())->setTable($this->table)->setWhere('id = ?')->setParams([$this->id]));
+        $data = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setWhere('id = ?')->setParams([$this->id]));
         if (!$data) {
             trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!');
             return false;
@@ -249,7 +249,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     {
         $this->id = (int) $id;
     }
-   
+
     /**
      * Prüft ob Objekt existiert
      * @return bool
@@ -278,6 +278,77 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     }
 
     /**
+     * Executes save process to database and events
+     * @return bool|int
+     * @since FPCM 4.1
+     */
+    public function save()
+    {
+        if (method_exists($this, 'removeBannedTexts')) {
+            $this->removeBannedTexts();
+        }
+
+        if (!$this->dbcon->insert(
+                        $this->table, $this->events->trigger(
+                                $this->getEventName('save'),
+                                $this->getPreparedSaveParams()
+                        )
+                )
+        ) {
+            return false;
+        }
+
+        $this->id = $this->dbcon->getLastInsertId();
+        
+        $this->afterUpdateInternal();
+        
+        $afterEvent = $this->getEventName('saveAfter');
+        if (class_exists(\fpcm\events\abstracts\event::getEventNamespace($afterEvent))) {
+            $this->events->trigger($afterEvent, $this->id);
+        }
+
+        return $this->id;
+    }
+
+    /**
+     * Executes update process to database and events
+     * @return bool|int
+     * @since FPCM 4.1
+     */
+    public function update()
+    {
+        if (method_exists($this, 'removeBannedTexts')) {
+            $this->removeBannedTexts();
+        }
+
+        $params = $this->getPreparedSaveParams();
+        $fields = array_keys($params);
+
+        $params[] = $this->getId();
+        $params = $this->events->trigger($this->getEventName('update'), $params);
+
+        $return = false;
+        if ($this->dbcon->update(
+                $this->table,
+                $fields,
+                array_values($params),
+                'id = ?'
+            )
+        ) {
+            $return = true;
+        }
+
+        $this->afterUpdateInternal();
+
+        $afterEvent = $this->getEventName('updateAfter');
+        if (class_exists(\fpcm\events\abstracts\event::getEventNamespace($afterEvent))) {
+            $this->events->trigger($afterEvent, $this->id);
+        }
+
+        return $return;
+    }
+
+    /**
      * Löscht ein Objekt in der Datenbank
      * @return bool
      */
@@ -285,7 +356,6 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     {
         $this->dbcon->delete($this->table, 'id = ?', [$this->id]);
         $this->cache->cleanup();
-
         return true;
     }
 
@@ -371,5 +441,42 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
         return \fpcm\classes\dirs::getRootUrl('index.php?module=' . $this->editAction . $this->id);
     }
 
+    /**
+     * Returns full event name string
+     * @param string $event
+     * @return string
+     * @since FPCM 4.1
+     */
+    final protected function getEventName(string $event) : string
+    {
+        return $this->getEventModule() . '\\' . $event;
+    }
+
+    /**
+     * Returns event base string
+     * @return string
+     * @since FPCM 4.1
+     */
+    abstract protected function getEventModule() : string;
+
+    /**
+     * Is triggered after successfull database insert
+     * @return bool
+     * @since FPCM 4.1
+     */
+    protected function afterSaveInternal() : bool
+    {
+        return true;
+    }
+
+    /**
+     * Is triggered after successfull database update
+     * @return bool
+     * @since FPCM 4.1
+     */
+    protected function afterUpdateInternal() : bool
+    {
+        return true;
+    }
 }
 

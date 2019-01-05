@@ -1,10 +1,7 @@
 <?php
 
 /**
- * FanPress CM Author/ User Model
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -14,7 +11,9 @@ namespace fpcm\model\users;
  * Benutzer Objekt
  * 
  * @package fpcm\model\user
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class author extends \fpcm\model\abstracts\dataset {
 
@@ -449,19 +448,7 @@ class author extends \fpcm\model\abstracts\dataset {
         $this->passwd = \fpcm\classes\security::createUserPasswordHash($this->passwd);
         $this->disabled = 0;
 
-        $params = $this->getPreparedSaveParams();
-        $this->events->trigger('user\save', $params);
-
-        $return = false;
-        $insertRes = $this->dbcon->insert($this->table, $params);
-        if ($insertRes) {
-            $return = true;
-        }
-
-        $this->id = $this->dbcon->getLastInsertId();
-        $this->cache->cleanup();
-
-        return $return;
+        return parent::save() === false ? false : true;
     }
 
     /**
@@ -492,7 +479,7 @@ class author extends \fpcm\model\abstracts\dataset {
         $fields = array_keys($params);
 
         $params[] = $this->getId();
-        $this->events->trigger('user\update', $params);
+        $this->events->trigger($this->getEventName('update'), $params);
 
         $return = false;
         if ($this->dbcon->update($this->table, $fields, array_values($params), 'id = ?')) {
@@ -643,7 +630,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * @return bool
      * @since FPCM 3.2.0
      */
-    private function removeBannedTexts()
+    protected function removeBannedTexts()
     {
         $this->username = $this->wordbanList->replaceItems($this->username);
         $this->displayname = $this->wordbanList->replaceItems($this->displayname);
@@ -783,5 +770,29 @@ class author extends \fpcm\model\abstracts\dataset {
     {
         $this->config = new \fpcm\model\system\config();
     }
+
+    /**
+     * Returns event base string
+     * @see \fpcm\model\abstracts\dataset::getEventModule
+     * @return string
+     * @since FPCM 4.1
+     */
+    protected function getEventModule(): string
+    {
+        return 'user';
+    }
+
+    /**
+     * Is triggered after successfull database insert
+     * @see \fpcm\model\abstracts\dataset::afterSaveInternal
+     * @return bool
+     * @since FPCM 4.1
+     */
+    protected function afterSaveInternal(): bool
+    {
+        $this->cache->cleanup();
+        return true;
+    }
+
 }
 

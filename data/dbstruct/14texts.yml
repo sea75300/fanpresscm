@@ -32,4 +32,14 @@ cols:
         type: bool
         length: 
         params: NOT NULL
-indices:     
+indices:
+    searchtext:
+        col: searchtext
+        isUnqiue: true        
+    searchtext_replacetxt_lockarticle_commentapproval_idx:
+        col:
+            searchtext
+            replacetxt
+            lockarticle
+            commentapproval
+        isUnqiue: true

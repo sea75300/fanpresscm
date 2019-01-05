@@ -39,20 +39,22 @@ class iplist extends \fpcm\model\abstracts\tablelist {
      */
     public function getIpAll()
     {
-        $items = $this->dbcon->fetch($this->dbcon->select($this->table), true);
+        $items = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setFetchAll(true));
+        if (!$items) {
+            return [];
+        }
 
-        $res = [];
-
+        $this->data = [];
         foreach ($items as $item) {
             $ipaddress = new ipaddress();
             if (!$ipaddress->createFromDbObject($item)) {
                 continue;
             }
 
-            $res[$ipaddress->getId()] = $ipaddress;
+            $this->data[$ipaddress->getId()] = $ipaddress;
         }
 
-        return $res;
+        return $this->data;
     }
 
     /**
@@ -86,8 +88,7 @@ class iplist extends \fpcm\model\abstracts\tablelist {
             $where[] = '?';
         }
 
-        $result = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())
-            ->setTable($this->table)
+        $result = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))
             ->setWhere("ipaddress IN (" . implode(', ', $where) . ") AND {$lockType} = 1")
             ->setItem('count(id) AS counted')
             ->setParams($adresses));

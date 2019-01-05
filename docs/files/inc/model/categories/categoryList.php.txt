@@ -18,12 +18,6 @@ namespace fpcm\model\categories;
 class categoryList extends \fpcm\model\abstracts\tablelist {
 
     /**
-     * Internal chache
-     * @var array
-     */
-    protected $data = [];
-
-    /**
      * Konstruktor
      */
     public function __construct()
@@ -38,7 +32,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
      */
     public function getCategoriesAll()
     {
-        $list = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())->setTable($this->table)->setFetchAll(true));
+        $list = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setFetchAll(true));
 
         $res = [];
 
@@ -59,7 +53,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
      */
     public function getCategoriesNameListAll()
     {
-        $categories = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams())->setTable($this->table)->setItem('id, name')->setFetchAll(true));
+        $categories = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setItem('id, name')->setFetchAll(true));
 
         $res = [];
         foreach ($categories as $category) {
@@ -84,7 +78,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
         $valueParams[] = "{$groupId};%";
         $valueParams[] = "%;{$groupId}";
 
-        $obj = (new \fpcm\model\dbal\selectParams())->setTable($this->table)->setWhere($where)->setParams($valueParams)->setFetchAll(true);
+        $obj = (new \fpcm\model\dbal\selectParams($this->table))->setWhere($where)->setParams($valueParams)->setFetchAll(true);
 
         $res = [];
 

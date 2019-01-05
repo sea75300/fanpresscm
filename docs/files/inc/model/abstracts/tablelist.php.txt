@@ -78,6 +78,13 @@ abstract class tablelist {
     protected $cacheModule = '';
 
     /**
+     * Data array
+     * @var array
+     * @since FPCM 4.1
+     */
+    protected $data = [];
+
+    /**
      * Konstruktor
      * @param int $id
      * @return void

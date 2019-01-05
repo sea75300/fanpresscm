@@ -17,6 +17,8 @@ namespace fpcm\model\shares;
  */
 class share extends \fpcm\model\abstracts\dataset {
 
+    use \fpcm\model\traits\eventModuleEmpty;
+
     /**
      * ARtciel id
      * @var int
