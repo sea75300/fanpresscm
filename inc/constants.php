@@ -150,3 +150,11 @@ if (!defined('FPCM_INSECURE_USERNAMES')) {
      */
     define('FPCM_INSECURE_USERNAMES', ['admin', 'root', 'test', 'support', 'administrator', 'adm']);
 }
+
+if (!defined('FPCM_ARTICLES_SOURCES_AUTOCOMPLETE')) {
+    /**
+     * Number of sources entries saved in file options
+     * @since FPCM 4.1
+     */
+    define('FPCM_ARTICLES_SOURCES_AUTOCOMPLETE', 25);
+}

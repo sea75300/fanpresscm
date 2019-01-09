@@ -99,6 +99,34 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
     }
 
     /**
+     * Autocomplete for article sources
+     * @return bool
+     */
+    private function autocompleteArticlesources()
+    {
+        if (!$this->permissions->check(['article' => ['edit', 'editall']])) {
+            $this->returnData = [];
+            return false;
+        }
+
+        $data = \fpcm\model\articles\article::fetchSourcesAutocomplete();
+        if (!$this->term) {
+            $this->returnData = $data;
+            return true;
+        }
+
+        foreach ($data as $value) {
+            if (stripos($value, $this->term) === false) {
+                continue;
+            }
+
+            $this->returnData[] = $value;
+        }
+        
+        return true;
+    }
+
+    /**
      * Autocomplete der Bild-Liste im Editor
      * @return bool
      */

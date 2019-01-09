@@ -215,6 +215,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
             $tableName = $tab->getArray()['name'];
 
+            fpcmLogSql("Alter table structure {$tableName}...");
             if ($isCli) {
                 print " >> Alter table structure {$tableName}...".PHP_EOL;
             }
@@ -228,7 +229,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
             }
 
             if (in_array($tableName, $dropTables)) {
-                
+
+                fpcmLogSql("Drop table {$tableName}...");
                 if ($isCli) {
                     print "     >> Drop table {$tableName}...".PHP_EOL;
                 }
@@ -252,6 +254,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
             }
 
             if (!$tabExists) {
+                
+                fpcmLogSql("Add table {$tableName}...");
                 
                 if ($isCli) {
                     print "     >> Add table {$tableName}...".PHP_EOL;

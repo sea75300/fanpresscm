@@ -241,6 +241,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
             $this->article->createRevision();
         }
 
+        \fpcm\model\articles\article::addSourcesAutocomplete($this->article->getSources());
         return $res;
     }
 
@@ -315,7 +316,6 @@ class articlebase extends \fpcm\controller\abstracts\controller {
 
         return $fields;
     }
-
 }
 
 ?>

@@ -100,6 +100,15 @@ fpcm.editor = {
             }
         });
 
+        fpcm.ui.autocomplete('#articlesources', {
+            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articlesources',
+            minLength: 3,
+            position: {
+                my: "left bottom",
+                at: "left top"
+            }
+        });
+
         fpcm.editor.tweetTextInput = jQuery('#articletweettxt');
         fpcm.ui.selectmenu('#twitterReplacements', {
             change: function( event, ui ) {
