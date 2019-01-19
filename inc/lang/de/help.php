@@ -664,8 +664,8 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Smileys neu definieren und bestehende löschen</dd>
             <dt>Updates durchführen</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer kann verfügbare Updates installieren.</dd>
-            <dt>System-Logs verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann die vom System erzeugten Log-Dateien einsehen und bei Bedarf bereinigen</dd>
+            <dt>System-Protokollee verwalten</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann die vom System erzeugten Protokolledateien einsehen und bei Bedarf bereinigen</dd>
             <dt>Cronjobs verwalten</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Cronjobs verwalten</dd>
             <dt>Backups verwalten</dt>
@@ -894,9 +894,9 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Die Sicherung der System-Datenbank dient dieser Cronjob. Die erzeugten Backups werden im Verzeichnis <em>/data/dbdump</em> abgelegt
             und können über den Backup-Manager verwaltet werden. Im Standard erfolgt die Sicherung einmal pro Woche. Bei hohem Artikel-Aufkommen sollte das Intervall entsprechend
             reduziert werden.</dd>
-            <dt>System-Logs leeren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Log-Dateien können unter Umständen sehr groß werden, daher werden diese (im Standard monatlich) auf ihre Dateigröße geprüft und
-            bei Überschreitung einer Größe von 1 MB bereinigt. Das vorherige Log wird gespeichert. Die Bereinigung des Session-Logs erfolgt unabhängig von der Anzahl der Einträge.</dd>
+            <dt>System-Protokollee leeren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die Protokoll-Dateien können unter Umständen sehr groß werden, daher werden diese (im Standard monatlich) auf ihre Dateigröße geprüft und
+            bei Überschreitung einer Größe von 1 MB bereinigt. Das vorherige Log wird gespeichert. Die Bereinigung des Session-Protokolls erfolgt unabhängig von der Anzahl der Einträge.</dd>
             <dt>temporäre Dateien aufräumen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Bei Updates, sowie in der täglichen Arbeit fallen immer wieder temporäre Dateien an, welche unter Umständen nicht sofort bereinigt werden
             (können). Dieser Cronjob prüft auf entsprechende Dateien und löscht diese; im Standard einmal pro Woche.</dd>
@@ -905,29 +905,29 @@ Help language file
     </chapter>
     <chapter ref="HL_LOGS">
         <![CDATA[
-        <p>Im Bereich der System-Logs findest du eine Auflistung aller bisherigen Benutzer-Logins, System-Meldungen von FanPress und
+        <p>Im Bereich <em>Protokollee</em> findest du eine Auflistung aller bisherigen Benutzer-Logins, System-Meldungen von FanPress und
             Fehlermeldungen durch PHP selbst oder der Datenbank. Über den Button <strong>Leeren</strong> kannst du Meldungen, etc. löschen
             lassen.</p>
         
         <dl>
-            <dt>Session-Log:</dt>
+            <dt>Sessions:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieses Protokoll zeigt eine Übersicht über die Logins aller Benutzer, abgesehen von aktuell aktiven Sessions, z. B. deiner eigenen.
             Angezeigt werden alle relevanten Informationen, d. h. wer hat sich wann ein- bzw. ausgeloggt. Externe Logins erfolgten über die Funktionen der FanPress CM-API. Der
             User-Agent enthält Informationen, mit welchem Browser oder Programm der Login erfolgte.</dd>
-            <dt>System-Log:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieses Log beinhaltet allgemeine Meldungen von FanPress CM, Status-Meldungen und falls nötig Diagnose-Informationen.</dd>
-            <dt>Fehler-Log:</dt>
+            <dt>Sonstige:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dieses Protokoll beinhaltet allgemeine Meldungen von FanPress CM, Status-Meldungen und falls nötig Diagnose-Informationen.</dd>
+            <dt>Ereignisse:</dt>
             <dd class="fpcm-ui-padding-md-bottom">In diesem Protokoll werden allen von Fehlern, welche im Betrieb, bei Updates, Änderungen der Systemkonfiguration, etc. auftreten.
             Fatale PHP_Fehler können hier unter Umständen nicht angezeigt werden, da die System-Protokollierung zu diesem Zeitpunkt noch nicht greift. Nicht alle Einträge sind
             zwangsläufig kritisch. Bei Fragen lassen uns einfach eine Nachricht zukommen.</dd>
-            <dt>Datenbank-Log:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Das Datenbank-Log enthält weitergehende Informationen zu Ereignissen auf Datenbank-Seite, z. B. fehlschlagende Abfragen, fehlschlagende
+            <dt>Datenbank:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die Datenbank-Protokolldatei enthält weitergehende Informationen zu Ereignissen auf Datenbank-Seite, z. B. fehlschlagende Abfragen, fehlschlagende
             Verbindungen zum Datenbank-Server, etc.</dd>
-            <dt>Cron-Log:</dt>
+            <dt>Cronjobs:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Hier werden Status-Informationen, Laufzeiten, etc. zu ausgeführten Cronjobs protokolliert. Dieses Log kann in Abhängigkeit von der
             Cronjob-Konfiguration sehr schnell stark wachsen und sollte daher regelmäßig bereinigt werden.</dd>
-            <dt>Paket-Manager-Log:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Das Paket-Manager-Log beinhaltet Status-Informationen zu System-Updates, sowie Installation oder Updates von Modulen.</dd>
+            <dt>Paketmanager:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Dieses Protokolle beinhaltet Status-Informationen zu System-Updates, sowie Installation oder Updates von Modulen.</dd>
         </dl>
         ]]>
     </chapter>
