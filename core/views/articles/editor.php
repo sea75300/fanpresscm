@@ -10,6 +10,7 @@
                     <li><a href="#tabs-article"><?php $theView->write('EDITOR_STATUS_REVISION'); ?></a></li>
                     <?php else : ?>
                     <li id="fpcm-editor-tabs-editorregister" data-toolbar-buttons="1"><a href="#tabs-article"><?php $theView->write('ARTICLES_EDITOR'); ?></a></li>
+                    <li id="fpcm-editor-tabs-editorextended" data-toolbar-buttons="1"><a href="#tabs-extended"><?php $theView->write('GLOBAL_EXTENDED'); ?></a></li>
                     <?php endif; ?>
                     <?php if ($showComments && !$isRevision) : ?>
                     <li data-toolbar-buttons="2" data-dataview-list="commentlist"><a href="<?php print \fpcm\classes\tools::getFullControllerLink('ajax/editor/editorlist', ['id' => $article->getId(), 'view' => 'comments']); ?>">
@@ -39,9 +40,14 @@
                         </div>
 
                         <?php include \fpcm\components\components::getArticleEditor()->getEditorTemplate(); ?>
-                        <?php include $theView->getIncludePath('articles/buttons.php'); ?>
                     <?php endif; ?>
                 </div>
+
+                <?php if (!$isRevision) : ?>            
+                <div id="tabs-extended"> 
+                        <?php include $theView->getIncludePath('articles/buttons.php'); ?>
+                </div>
+                <?php endif; ?>
 
 
             </div>

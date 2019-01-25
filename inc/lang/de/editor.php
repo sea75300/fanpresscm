@@ -98,4 +98,5 @@ $lang = array(
     'EDITOR_SHARES_REDDIT' => 'Geteilt via Reddit',
     'EDITOR_SHARES_WHATSAPP' => 'Geteilt via WhatsApp',
     'EDITOR_SHARES_EMAIL' => 'Geteilt via E-Mail',
+    'EDITOR_SHARES_LIKEBUTTON' => 'Gefällt mir',
 );

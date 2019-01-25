@@ -26,6 +26,7 @@ final class sharebuttons extends template {
      * @var array
      */
     protected $replacementTags = [
+        '{{likeButton}}' => '',
         '{{facebook}}' => '',
         '{{twitter}}' => '',
         '{{googlePlus}}' => '',
@@ -162,6 +163,16 @@ final class sharebuttons extends template {
     private function initTags() : array
     {
         return $this->events->trigger('pub\parseShareButtons', array_merge($this->replacementInternal, [
+            '{{likeButton}}' => [
+                'link' => "#",
+                'icon' => "default/likebutton.png",
+                'text' => "Like-Button",
+                'target' => "",
+                'data' => [
+                    'onclick' => 'likebutton',
+                    'oid' => $this->articleId
+                ]
+            ],
             '{{facebook}}' => [
                 'link' => "https://www.facebook.com/sharer/sharer.php?u={$this->link}&amp;t={$this->description}",
                 'icon' => "default/facebook.png",

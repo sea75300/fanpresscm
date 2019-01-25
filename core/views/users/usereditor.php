@@ -9,7 +9,7 @@
                     <?php $theView->write('USERS_DISPLAYNAME'); ?>:
                 </div>
                 <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('data[displayname]')->setValue($author->getDisplayName()); ?>
+                    <?php $theView->textInput('data[displayname]')->setValue($author->getDisplayName())->setAutocomplete(false); ?>
                 </div>
             </div>
 
@@ -18,7 +18,7 @@
                     <?php $theView->write('GLOBAL_USERNAME'); ?>:
                 </div>
                 <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('data[username]')->setValue($author->getUserName())->setReadonly((isset($inProfile) && $inProfile)); ?>
+                    <?php $theView->textInput('data[username]')->setValue($author->getUserName())->setReadonly((isset($inProfile) && $inProfile))->setAutocomplete(false); ?>
                 </div>
             </div>
 
@@ -27,7 +27,7 @@
                     <?php $theView->write('GLOBAL_PASSWORD'); ?>:
                 </div>
                 <div class="col-sm-11 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('data[password]', 'password'); ?>
+                    <?php $theView->textInput('data[password]', 'password')->setAutocomplete(false); ?>
                 </div>
                 <div class="col-auto">
                     <?php $theView->button('genPasswd', 'genPasswd')->setText('USERS_PASSGEN')->setIcon('key')->setIconOnly(true); ?>
@@ -37,10 +37,10 @@
 
             <div class="row fpcm-ui-padding-md-tb">
                 <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('USERS_PASSWORD_CONFIRM'); ?>:
+                    <?php $theView->write('USERS_PASSWORD_CONFIRM') ?>:
                 </div>
                 <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('data[password_confirm]', 'password_confirm'); ?>
+                    <?php $theView->textInput('data[password_confirm]', 'password_confirm')->setAutocomplete(false);; ?>
                 </div>
             </div>
 

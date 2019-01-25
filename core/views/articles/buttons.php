@@ -20,6 +20,21 @@
     </div>
 </fieldset>
 
+<fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
+    <legend><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?></legend>
+    <div class="row fpcm-ui-padding-md-tb">
+        <?php $theView->textInput('article[sources]')
+                ->setWrapper(false)
+                ->setPlaceholder(true)
+                ->setText('TEMPLATE_ARTICLE_SOURCES')
+                ->setValue($article->getSources())
+                ->setIcon('external-link-alt')
+                ->setSize('lg')
+                ->setClass('col-6 col-md-8 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
+                ->setLabelClass('col-6 col-md-1 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+    </div>
+</fieldset>
+
 <?php if (!$editorMode || $article->getPostponed()) : ?>
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
     <legend><?php $theView->write('EDITOR_POSTPONETO'); ?></legend>
@@ -32,7 +47,7 @@
                 ->setValue($theView->dateText($postponedTimer, 'Y-m-d'))
                 ->setIcon('calendar-plus')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-7 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md fpcm-ui-datepicker')
+                ->setClass('col-6 col-md-8 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md fpcm-ui-datepicker')
                 ->setLabelClass('col-6 col-md-1 fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
 
         <?php $theView->textInput('article[postponehour]')->setClass('fpcm-ui-spinner-hour')->setValue($theView->dateText($postponedTimer, 'H'))->setWrapper(false); ?>
@@ -55,7 +70,7 @@
                 ->setSize(280)
                 ->setIcon('twitter', 'fab')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-7 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
+                ->setClass('col-6 col-md-8 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
                 ->setLabelClass('col-6 col-md-1 fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
 
         <?php $theView->select('twitterReplacements')->setOptions($twitterReplacements)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)->setLabelClass('fpcm-ui-margin-lg-left'); ?>
@@ -63,21 +78,6 @@
     </div>
 </fieldset>
 <?php endif; ?>
-
-<fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
-    <legend><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?></legend>
-    <div class="row fpcm-ui-padding-md-tb">
-        <?php $theView->textInput('article[sources]')
-                ->setWrapper(false)
-                ->setPlaceholder(true)
-                ->setText('TEMPLATE_ARTICLE_SOURCES')
-                ->setValue($article->getSources())
-                ->setIcon('external-link-alt')
-                ->setSize('lg')
-                ->setClass('col-6 col-md-11 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
-                ->setLabelClass('col-6 col-md-1 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
-    </div>
-</fieldset>
 
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
     <legend><?php $theView->write('TEMPLATE_ARTICLE_ARTICLEIMAGE'); ?></legend>
@@ -90,7 +90,7 @@
                 ->setMaxlenght(512)
                 ->setIcon('image')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-10 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner')
+                ->setClass('col-6 col-md-8 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner')
                 ->setLabelClass('col-6 col-md-1 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
         <?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true)->setClass('fpcm-ui-margin-lg-left'); ?>
     </div>

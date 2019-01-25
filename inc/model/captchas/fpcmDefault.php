@@ -80,7 +80,7 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
             return '';
         }
 
-        return (string) (new \fpcm\view\helper\textInput('commentCaptcha'))->setClass('fpcm-pub-textinput')->setWrapper($wrap);
+        return (string) (new \fpcm\view\helper\textInput('commentCaptcha'))->setClass('fpcm-pub-textinput')->setWrapper($wrap)->setAutocomplete(false);
     }
 
     /**

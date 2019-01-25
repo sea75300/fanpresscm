@@ -34,6 +34,13 @@ abstract class input extends helper {
     protected $placeholder = false;
 
     /**
+     * Enables default browser autocompletion
+     * @var string
+     * @since FPCM 4.1
+     */
+    protected $autocomplete = true;
+
+    /**
      * Column with if input uses an icon
      * @var string
      */
@@ -53,7 +60,7 @@ abstract class input extends helper {
             $wrapperEnd = "</div></div>";
         }
 
-        $input = "<input type=\"{$this->type}\" {$this->getNameIdString()}{$this->getClassString()} {$this->getValueString()} {$this->getReadonlyString()} maxlength=\"{$this->maxlenght}\" {$this->getPlaceholderString()} {$this->getDataString()}>";
+        $input = "<input type=\"{$this->type}\" {$this->getNameIdString()}{$this->getClassString()} {$this->getValueString()} {$this->getReadonlyString()} maxlength=\"{$this->maxlenght}\" {$this->getAutocompleteString()} {$this->getPlaceholderString()}  {$this->getDataString()}>";
         if (!$this->text) {
             return $wrapperStart . $input . $wrapperEnd;
         }
@@ -107,6 +114,18 @@ abstract class input extends helper {
         $this->colWidth = $colWidth;
         return $this;
     }
+
+    /**
+     * Enables/disables browser autocompletion
+     * @param bool $autocomplete
+     * @return $this
+     * @since FPCM 4.1
+     */
+    public function setAutocomplete($autocomplete)
+    {
+        $this->autocomplete = (bool) $autocomplete;
+        return $this;
+    }
     
     /**
      * Placeholder string
@@ -116,6 +135,17 @@ abstract class input extends helper {
     {
         return ($this->placeholder ? "placeholder=\"{$this->text}\"" : '');
     }
+    
+    /**
+     * Browser autocomplete string
+     * @return string
+     * @since FPCM 4.1
+     */
+    protected function getAutocompleteString()
+    {
+        return ($this->autocomplete ? '' : "autocomplete=\"off\"");
+    }
+
 
 }
 

@@ -71,6 +71,7 @@ class shares extends \fpcm\model\abstracts\tablelist {
         
         $shares = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('pub\registerShares', [
             'facebook', 'twitter', 'googleplus', 'tumblr', 'pinterest', 'reddit', 'whatsapp', 'email',
+            'likebutton'
         ]);
         
         if (in_array($item, $shares)) {

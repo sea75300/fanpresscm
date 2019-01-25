@@ -10,16 +10,16 @@
             
             <div class="row fpcm-ui-padding-md-tb">
                 <div class="col-12">
-                    <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true); ?>
+                    <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true)->setAutocomplete(false); ?>
                 </div>
             </div>
 
             <div class="row fpcm-ui-padding-md-tb">
                 <div class="col-12">
                 <?php if ($resetPasswort) : ?>
-                    <?php $theView->textInput('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true); ?>
+                    <?php $theView->textInput('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true)->setAutocomplete(false); ?>
                 <?php else : ?>
-                    <?php $theView->passwordInput('login[password]')->setText('GLOBAL_PASSWORD')->setPlaceholder(true); ?>
+                    <?php $theView->passwordInput('login[password]')->setText('GLOBAL_PASSWORD')->setPlaceholder(true)->setAutocomplete(false); ?>
                 <?php endif; ?>
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <?php if ($twoFactorAuth) : ?>
             <div class="row fpcm-ui-padding-md-tb">
                 <div class="col-12">
-                <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')->setPlaceholder(true); ?>
+                <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')->setPlaceholder(true)->setAutocomplete(false); ?>
                 </div>
             </div>
             <?php endif; ?>

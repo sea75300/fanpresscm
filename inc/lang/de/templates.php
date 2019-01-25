@@ -75,6 +75,7 @@ $lang = array(
     'TEMPLATE_SHAREBUTTONS_REDDIT' => 'Button für Reddit',
     'TEMPLATE_SHAREBUTTONS_WHATSAPP' => 'Button für WhatsApp',
     'TEMPLATE_SHAREBUTTONS_EMAIL' => 'Button für E-Mail',
+    'TEMPLATE_SHAREBUTTONS_LIKEBUTTON' => 'Button um Beitrag "Gefällt mir" zu vergeben, öffnet keinen externen Dienst',
     'TEMPLATE_SHAREBUTTONS_LINK' => 'Ziel-Link (für eigene Buttons)',
     'TEMPLATE_SHAREBUTTONS_DESCRIPTION' => 'Beschreibung (für eigene Buttons)',
     'TEMPLATE_SHAREBUTTONS_ARTICLEID' => 'Article-ID (für eigene Buttons)',
