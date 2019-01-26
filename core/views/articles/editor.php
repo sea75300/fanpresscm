@@ -60,3 +60,5 @@
     <!-- Shortlink layer -->  
     <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-shortlink"></div>
 <?php endif; ?>
+
+<?php $theView->hiddenInput('editorActiveTab', 0); ?>

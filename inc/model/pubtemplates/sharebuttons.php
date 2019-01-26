@@ -278,6 +278,10 @@ final class sharebuttons extends template {
                 $item = 'envelope-square';
                 $prefix = 'fas';
                 break;
+            case 'likebutton' :
+                $item = 'heart';
+                $prefix = 'fas';
+                break;
         }
 
         return [

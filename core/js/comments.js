@@ -46,6 +46,12 @@ fpcm.comments = {
     },
 
     assignActions: function() {
+            
+        if (fpcm.vars.jsvars.activeTab) {
+            fpcm.vars.jsvars.massEdit = {
+                relocateParams: '&rg=' + fpcm.vars.jsvars.activeTab
+            }
+        }
 
         jQuery('#massEdit').click(function () {
             fpcm.system.initMassEditDialog('comments/massedit', 'comments-massedit', fpcm.comments);

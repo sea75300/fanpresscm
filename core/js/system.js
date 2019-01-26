@@ -217,7 +217,7 @@ fpcm.system = {
                 var res = fpcm.ajax.fromJSON(fpcm.ajax.getResult(func));
 
                 if (res !== null && res.code == 1) {
-                    fpcm.ui.relocate(window.location.href);
+                    fpcm.ui.relocate(window.location.href + (fpcm.vars.jsvars.massEdit && fpcm.vars.jsvars.massEdit.relocateParams ? fpcm.vars.jsvars.massEdit.relocateParams : ''));
                     return true;
                 }
 
