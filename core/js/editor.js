@@ -157,10 +157,10 @@ fpcm.editor = {
 
                 fpcm.ui.showLoader(false);
             },
+            active: fpcm.vars.jsvars.activeTab !== undefined ? fpcm.vars.jsvars.activeTab : 0,
             addMainToobarToggle: true,
             addTabScroll: true,
-            saveActiveTab: true,
-            active: fpcm.vars.jsvars.activeTab !== undefined ? fpcm.vars.jsvars.activeTab : 0
+            saveActiveTab: true
         });
 
         jQuery('#fpcm-editor-tabs-editorregister').click(function() {
