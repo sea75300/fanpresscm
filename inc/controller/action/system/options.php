@@ -192,11 +192,13 @@ class options extends \fpcm\controller\abstracts\controller {
             $this->view->addNoticeMessage('SYSTEM_OPTIONS_EMAIL_ACTIVE');
         }
 
+        $this->view->assign('activeTab', $this->getActiveTab());
         $this->view->assign('smtpActive', $smtpActive);
         $this->view->addJsFiles(['options.js', 'systemcheck.js']);
         $this->view->addJsVars([
             'runSysCheck' => $this->syscheck,
-            'dtMasks' => $this->getDateTimeMasks()
+            'dtMasks' => $this->getDateTimeMasks(),
+            'activeTab' => $this->syscheck ? 6 : $this->getActiveTab()
         ]);
 
         $this->view->setFormAction('system/options');

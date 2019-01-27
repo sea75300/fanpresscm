@@ -85,9 +85,10 @@ Help language file
                 herausgenommen werden.</dd>
             <dt>Autor ändern:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer mit entsprechenden Rechten können hierüber den Verfasser eines Artikeln ändern.</dd>
-            <dt>Geteilte Inhalte:</dt>
+            <dt>Geteilte Inhalte und LIkes:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Sofern das Zählen von Klicks auf die Share-Buttons aktiviert wurde, wird in diesem Bereich
-            die aktuelle Anzahl pro Modul angezeigt.</dd>
+            die aktuelle Anzahl pro Artikel angezeigt, diese umfasst sowohl Teilungen bei den verfügbaren sozialen Netzwerken als auch Klicks auf den
+            FanPress CM-eigenen "Gefällt mir"-Button.</dd>
         </dl>
  
         <p>In FanPress CM kannst du über den <strong>&lt;readmore&gt;</strong>-Tag ein Stück Text einfügen, das beim Aufruf der Seite

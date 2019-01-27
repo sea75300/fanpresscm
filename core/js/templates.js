@@ -49,7 +49,9 @@ fpcm.templates = {
                 ui.oldPanel.empty();
             },
             addTabScroll: true,
-            addMainToobarToggle: true
+            addMainToobarToggle: true,
+            saveActiveTab: true,
+            active: fpcm.vars.jsvars.activeTab
         });
 
         jQuery('#showpreview').click(function () {

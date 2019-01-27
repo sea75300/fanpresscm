@@ -153,9 +153,11 @@ class profile extends \fpcm\controller\abstracts\controller {
         $this->view->addJsVars(array(
             'dtMasks' => $this->getDateTimeMasks(),
             'reloadPage' => $this->reloadSite,
-            'jqUploadInit' => 0
+            'jqUploadInit' => 0,
+            'activeTab' => $this->getActiveTab()
         ));
 
+        $this->view->assign('activeTab', $this->getActiveTab());
         $this->view->assign('articleLimitList', \fpcm\model\system\config::getAcpArticleLimits());
         $this->view->assign('defaultFontsizes', \fpcm\model\system\config::getDefaultFontsizes());
         $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());

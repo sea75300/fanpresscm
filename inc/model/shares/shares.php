@@ -18,6 +18,13 @@ namespace fpcm\model\shares;
 class shares extends \fpcm\model\abstracts\tablelist {
 
     /**
+     * Articles shares count cache
+     * @var array
+     * @since FPCm 4.1
+     */
+    protected $sharesCache = [];
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -27,7 +34,7 @@ class shares extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
-     * Ftech share count by article id, item can be give via $item
+     * Fetch share count by article id, item can be give via $item
      * @param int $articleId
      * @param string $item
      * @return array
@@ -39,8 +46,7 @@ class shares extends \fpcm\model\abstracts\tablelist {
             $search['shareitem'] = $item;
         }
 
-        $obj = (new \fpcm\model\dbal\selectParams())
-                ->setTable($this->table)
+        $obj = (new \fpcm\model\dbal\selectParams($this->table))
                 ->setParams(array_values($search))
                 ->setWhere( implode(' = ? AND ', array_keys($search)).' = ? '.$this->dbcon->orderBy(['lastshare DESC']) )
                 ->setFetchAll(TRUE);
@@ -58,6 +64,42 @@ class shares extends \fpcm\model\abstracts\tablelist {
         }
 
         return $list;
+    }
+
+    /**
+     * Fetch share count sum for all articles
+     * @param array $ids
+     * @return array
+     * @since FPCm 4.1
+     */
+    public function getSharesCountByArticles(array $ids = []) : array
+    {
+        if (count($this->sharesCache)) {
+            return $this->sharesCache;
+        }
+
+        $obj = (new \fpcm\model\dbal\selectParams($this->table))
+                ->setItem('SUM(sharecount) AS counted, article_id')
+                ->setFetchAll(true);
+
+        if (count($ids)) {
+            $obj->setWhere('article_id IN(?) GROUP BY article_id');
+            $obj->setParams(implode(',', array_map('intval', $ids)));
+        }
+        else {
+            $obj->setWhere('1=1 GROUP BY article_id');
+        }
+
+        $result = $this->dbcon->selectFetch($obj);
+        if (!$result) {
+            return $this->sharesCache;
+        }
+
+        foreach ($result as $dataSet) {
+            $this->sharesCache[$dataSet->article_id] = $dataSet->counted;
+        }
+
+        return $this->sharesCache;
     }
 
     /**

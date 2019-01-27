@@ -266,9 +266,9 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         }
 
         $this->canEdit = $this->permissions->check(['article' => ['edit', 'editall', 'approve', 'archive']]);
+        $this->deleteActions = $this->permissions->check(['article' => 'delete']);
 
         $this->view->assign('canEdit', $this->canEdit);
-        $this->deleteActions = $this->permissions->check(['article' => 'delete']);
 
         $tweet = new \fpcm\model\system\twitter();
 

@@ -140,7 +140,13 @@ class templates extends \fpcm\controller\abstracts\controller {
                 ->setWrapper(false),
         ]));
 
-        $this->view->addJsVars(['templateId' => 1, 'jqUploadInit' => 0]);
+        $this->view->assign('activeTab', $this->getActiveTab());
+        $this->view->addJsVars([
+            'templateId' => 1,
+            'jqUploadInit' => 0,
+            'activeTab' => $this->getActiveTab()
+        ]);
+
         $this->view->addJsLangVars(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT']);
         $this->view->addJsFiles(['fileuploader.js', 'templates.js']);
         $this->initDataView();
@@ -173,7 +179,7 @@ class templates extends \fpcm\controller\abstracts\controller {
         $dataView->addColumns([
             (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
-            new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'),
+            (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'))->setSize(7),
             (new \fpcm\components\dataView\column('filesize', 'FILE_LIST_FILESIZE'))->setSize(2)
         ]);
         

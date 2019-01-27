@@ -20,6 +20,11 @@ fpcm.profile = {
             }, 1500);
         }
 
+        fpcm.ui.tabs('.fpcm-ui-tabs-general', {
+            active: fpcm.vars.jsvars.activeTab,
+            saveActiveTab: true
+        });
+
     }
 
 };

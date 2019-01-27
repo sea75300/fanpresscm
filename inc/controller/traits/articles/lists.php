@@ -73,6 +73,12 @@ trait lists {
 
     /**
      *
+     * @var array
+     */
+    protected $sharesCounts = [];
+
+    /**
+     *
      * @var int
      */
     protected $listShowLimit = 0;
@@ -180,9 +186,18 @@ trait lists {
     {
         $this->users = $this->userList->getUsersNameList();
         $this->categories = $this->categoryList->getCategoriesNameListCurrent();
-        $this->commentCount = $this->commentList->countComments($this->getArticleListIds());
-        $this->commentPrivateUnapproved = $this->commentList->countUnapprovedPrivateComments($this->getArticleListIds());
 
+        $this->commentCount = $this->config->system_comments_enabled
+                            ? $this->commentList->countComments($this->getArticleListIds())
+                            : [];
+
+        $this->commentPrivateUnapproved = $this->config->system_comments_enabled
+                                        ? $this->commentList->countUnapprovedPrivateComments($this->getArticleListIds())
+                                        : [];
+
+        $this->sharesCounts = $this->config->system_share_count
+                            ? (new \fpcm\model\shares\shares())->getSharesCountByArticles()
+                            : [];
         return true;
     }
 
@@ -232,6 +247,8 @@ trait lists {
             ));
             
             $showCommentsStatus = $this->config->system_comments_enabled;
+            $showSharesCount = $this->config->system_share_count;
+
             foreach ($articles as $articleId => $article) {
 
                 $buttons = [
@@ -249,6 +266,7 @@ trait lists {
 
                 $metaDataIcons = array_merge(
                     [$showCommentsStatus ? $this->getCommentBadge($articleId) : ''],
+                    [$showSharesCount ? $this->getSharesBadge($articleId) : ''],
                     $article->getMetaDataStatusIcons($this->showDraftStatus, $showCommentsStatus,$this->showArchivedStatus)
                 );
 
@@ -284,6 +302,19 @@ trait lists {
                 ->setIcon('comments');
 
         return $badge;
+    }
+
+    /**
+     * 
+     * @param int $articleId
+     * @return \fpcm\view\helper\badge
+     */
+    private function getSharesBadge($articleId)
+    {
+        return (new \fpcm\view\helper\badge('badge' . $articleId))->setClass('fpcm-ui-badge-comments')
+            ->setText('EDITOR_SHARES')
+            ->setValue((isset($this->sharesCounts[$articleId]) ? $this->sharesCounts[$articleId] : 0))
+            ->setIcon('share');
     }
 
     /**

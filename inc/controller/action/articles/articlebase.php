@@ -173,11 +173,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
 
         $this->view->assign('twitterReplacements', $twitterReplacements);
         $this->view->assign('showTwitter', $twitterOk);
-
-        $activeTab = $this->getRequestVar('rg');
-        if ($activeTab === null) {
-            $activeTab = $this->getRequestVar('editorActiveTab');
-        }
+        $this->view->assign('activeTab', $this->getActiveTab());
 
         $this->jsVars  = $this->editorPlugin->getJsVars();
         $this->jsVars += array(
@@ -185,7 +181,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
                 'mode' => ''
             ]),
             'filemanagerMode' => 2,
-            'activeTab' => $activeTab !== null ? (int) $activeTab : 0
+            'activeTab' => $this->getActiveTab()
         );
 
         $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE'], $this->editorPlugin->getJsLangVars()));

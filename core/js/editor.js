@@ -157,13 +157,9 @@ fpcm.editor = {
 
                 fpcm.ui.showLoader(false);
             },
-            activate: function(event, ui) {
-                fpcm.vars.jsvars.activeTab = jQuery(this).tabs('option', 'active');
-                jQuery('#editorActiveTab').val(fpcm.vars.jsvars.activeTab);
-                fpcm.ui.updateMainToolbar(ui);
-            },
             addMainToobarToggle: true,
             addTabScroll: true,
+            saveActiveTab: true,
             active: fpcm.vars.jsvars.activeTab !== undefined ? fpcm.vars.jsvars.activeTab : 0
         });
 

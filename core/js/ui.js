@@ -221,6 +221,17 @@ fpcm.ui = {
             }            
         }
         
+        if (params.saveActiveTab) {
+            params.activate = function(event, ui) {
+                fpcm.vars.jsvars.activeTab = jQuery(this).tabs('option', 'active');
+                jQuery('#activeTab').val(fpcm.vars.jsvars.activeTab);
+                fpcm.ui.updateMainToolbar(ui);
+                if (params.saveActiveTabAfter) {
+                    params.saveActiveTabAfter(event, ui);
+                }
+            }
+        }
+        
         var tabEl = el.tabs(params);
         
         if (params.addTabScroll) {
