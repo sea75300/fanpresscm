@@ -107,6 +107,10 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
      */
     private function getSystemUpdateStatus()
     {
+        if (!$this->systemUpdates->filesListExists()) {
+            $this->renderTable('exclamation-triangle', 'fpcm-dashboard-updates-outdated', 'UPDATE_VERSIONCECK_FILETXT_ERR');            
+        }
+
         if ($this->config->system_version !== \fpcm\classes\baseconfig::getVersionFromFile()) {
             $button = (string) (new \fpcm\view\helper\linkButton('updater'))->setText('PACKAGES_UPDATE')->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate', ['update-db' => 1]));
             $this->renderTable('code-branch', 'fpcm-dashboard-updates-versiondbfile', $this->language->translate('UPDATE_VERSIONCECK_FILEDB_ERR', [ '{{btn}}' => $button ]));            

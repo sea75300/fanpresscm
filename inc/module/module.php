@@ -347,6 +347,16 @@ class module {
     }
 
     /**
+     * Check if config/files.txt file exists
+     * @return bool
+     * @since FÜPCM 4.1
+     */
+    final public function hasFilesListFile() : bool
+    {
+        return file_exists(rtrim($this->config->basePath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'files.txt' );
+    }
+
+    /**
      * Initialize module object
      * @return bool
      */

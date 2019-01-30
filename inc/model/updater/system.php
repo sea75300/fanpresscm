@@ -122,6 +122,16 @@ final class system extends \fpcm\model\abstracts\staticModel {
         return true;
     }
 
+    /**
+     * Check if data/config/files.txt path exists
+     * @return bool
+     * @since FPCM 4.1
+     */
+    final public function filesListExists() : bool
+    {
+        return file_exists(\fpcm\model\packages\update::getFilesListPath());
+    }
+
 }
 
 ?>
