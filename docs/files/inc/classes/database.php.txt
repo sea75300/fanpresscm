@@ -975,6 +975,7 @@ final class database {
         $data = $yatdl->getArray();
         $table = $data['name'];
 
+        fpcmLogSql("Check indices for table {$table}...");
         if (!is_array($data['indices']) || !count($data['indices'])) {
             return true;
         }
@@ -991,6 +992,7 @@ final class database {
                 continue;
             }
 
+            fpcmLogSql("Create index {$fullIdxName} on table {$table}...");
             if (!$this->createIndex($table, $idxName, $idxValue['col'], $idxValue['isUnqiue'])) {
                 trigger_error("Unable to create index {$fullIdxName} on table {$table}, see database log for further information.");
                 return false;

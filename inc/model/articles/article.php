@@ -1087,6 +1087,7 @@ class article extends \fpcm\model\abstracts\dataset {
 
     /**
      * Add sources string to auto-complete file option, max. 25 values saved
+     * @param string $sources
      * @return bool
      * @since FPCM 4.1
      */

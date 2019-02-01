@@ -94,7 +94,7 @@ class update extends package {
      */
     public function checkFiles()
     {
-        $files = $this->getFileList(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt'), 1);
+        $files = $this->getFileList(self::getFilesListPath(), 1);
         if (!count($files)) {
             return false;
         }
@@ -227,8 +227,8 @@ class update extends package {
      */
     public function cleanupFiles()
     {
-        $oldList = $this->getFileList(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt.back'), 1);
-        $newList = $this->getFileList(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt'), 1);
+        $oldList = $this->getFileList(self::getFilesListPath() . '.back', 1);
+        $newList = $this->getFileList(self::getFilesListPath(), 1);
 
         if (!count($oldList) || !count($newList)) {
             return true;
@@ -257,6 +257,16 @@ class update extends package {
     private function getExcludes()
     {
         return ['fanpress'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'installer.enabled'];
+    }
+
+    /**
+     * Get data/config/files.txt path
+     * @return string
+     * @since FPCM 4.1
+     */
+    final public static function getFilesListPath() : string
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt');
     }
 
 }

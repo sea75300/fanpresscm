@@ -514,4 +514,24 @@ class controller implements \fpcm\controller\interfaces\controller {
         return true;
     }
 
+    /**
+     * Returns active tab ID, jQuery UI zero-based index
+     * @return int
+     * @since FPCM 4.1
+     */
+    final protected function getActiveTab() : int
+    {
+        $activeTab = $this->getRequestVar('rg');
+        if ($activeTab !== null) {
+            return (int) $activeTab;
+        }
+
+        $activeTab = $this->getRequestVar('activeTab');
+        if ($activeTab !== null) {
+            return (int) $activeTab;
+        }
+        
+        return 0;
+    }
+
 }
