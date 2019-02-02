@@ -25,7 +25,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
     {
         parent::__construct();
 
-        $this->dbconcon = new \fpcm\classes\database();
+        $this->dbcon = new \fpcm\classes\database();
         $this->config = new \fpcm\model\system\config(false, false);
     }
 
@@ -191,7 +191,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function alterTables()
     {
-        $tableFiles = $this->dbconcon->getTableFiles();
+        $tableFiles = $this->dbcon->getTableFiles();
         if (!count($tableFiles)) {
             return true;
         }
@@ -307,7 +307,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
         ]);
 
         foreach ($tables as $table) {
-            $this->dbconcon->optimize($table);
+            $this->dbcon->optimize($table);
         }
 
         return true;
