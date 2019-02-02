@@ -202,6 +202,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
         }
         
         $isCli = \fpcm\classes\baseconfig::isCli();
+        $addIndeices = method_exists($this->dbcon, 'addTableIndices');
 
         foreach ($tableFiles as $tableFile) {
 
@@ -267,8 +268,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 }
 
             }
-
-            if ($tabExists) {
+            
+            if ($tabExists && $addIndeices) {
                 $this->dbcon->addTableIndices($tab);
             }
 
@@ -277,7 +278,11 @@ final class finalizer extends \fpcm\model\abstracts\model {
             }
 
         }
-        
+
+        if (!$addIndeices && $isCli) {
+            print "     ++ Important!! Table indices could not be added during database update. Please run \"fpcmcli.php pkg " . \fpcm\model\abstracts\cli::PARAM_UPGRADE_DB. " system\" after auto-update was finished." .PHP_EOL;
+        }
+
         return true;
     }
 
