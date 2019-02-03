@@ -698,7 +698,7 @@ class view {
      * @param string $controller
      * @param array $params
      * @param bool $isLink
-     * @return type
+     * @return void
      */
     public function setFormAction($controller, array $params = [], $isLink = false)
     {
@@ -708,6 +708,19 @@ class view {
         }
 
         $this->formAction = \fpcm\classes\tools::getFullControllerLink($controller, $params);
+    }
+
+    /**
+     * Set Active tab
+     * @param int $tab
+     * @return void
+     * @since FPCM 4.1
+     */
+    public function setActiveTab(int $tab)
+    {
+        $this->jsvars['activeTab'] = $tab;
+        $this->viewVars['activeTab'] = $tab;
+        return true;
     }
 
     /**

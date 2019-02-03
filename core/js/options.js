@@ -12,7 +12,7 @@ fpcm.options = {
 
     init: function () {
 
-        fpcm.ui.tabs('.fpcm-ui-tabs-general', {
+        fpcm.ui.tabs('#fpcm-options-tabs', {
             active: fpcm.vars.jsvars.activeTab,
             addTabScroll: true,
             addMainToobarToggle: true,

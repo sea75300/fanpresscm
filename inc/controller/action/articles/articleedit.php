@@ -364,22 +364,22 @@ class articleedit extends articlebase {
         ]);
         
         $this->view->assign('createInfoOrg', $this->language->translate('EDITOR_AUTHOREDIT', [
-            '{{username}}' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()]->getDisplayname() : $theView->translate('GLOBAL_NOTFOUND'),
+            '{{username}}' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())           
         ]));
 
         $this->view->assign('changeInfoOrg', $this->language->translate('EDITOR_LASTEDIT', [
-            '{{username}}' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()]->getDisplayname() : $theView->translate('GLOBAL_NOTFOUND'),
+            '{{username}}' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
         ]));
         
         $this->view->assign('createInfoRev', $this->language->translate('EDITOR_AUTHOREDIT', [
-            '{{username}}' => isset($users[$this->revisionArticle->getCreateuser()]) ? $users[$this->revisionArticle->getCreateuser()]->getDisplayname() : $theView->translate('GLOBAL_NOTFOUND'),
+            '{{username}}' => isset($users[$this->revisionArticle->getCreateuser()]) ? $users[$this->revisionArticle->getCreateuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->revisionArticle->getCreatetime())           
         ]));
 
         $this->view->assign('changeInfoRev', $this->language->translate('EDITOR_LASTEDIT', [
-            '{{username}}' => isset($users[$this->revisionArticle->getChangeuser()]) ? $users[$this->revisionArticle->getChangeuser()]->getDisplayname() : $theView->translate('GLOBAL_NOTFOUND'),
+            '{{username}}' => isset($users[$this->revisionArticle->getChangeuser()]) ? $users[$this->revisionArticle->getChangeuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
             '{{time}}'     => new \fpcm\view\helper\dateText($this->revisionArticle->getChangetime())
         ]));
         

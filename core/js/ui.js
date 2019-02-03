@@ -229,6 +229,13 @@ fpcm.ui = {
                 if (params.saveActiveTabAfter) {
                     params.saveActiveTabAfter(event, ui);
                 }
+            };
+
+            params.create = function(event, ui) {
+                fpcm.ui.updateMainToolbar(ui);
+                if (params.saveActiveTabAfterInit) {
+                    params.saveActiveTabAfterInit(event, ui);
+                }
             }
         }
         
@@ -806,8 +813,11 @@ fpcm.ui = {
     },
     
     updateMainToolbar: function (ui) {
-        var hideButtons = jQuery(ui.oldTab).attr('data-toolbar-buttons');
-        var showButtons = jQuery(ui.newTab).attr('data-toolbar-buttons');
+        
+        var tabEl = ui.newTab ? ui.newTab : ui.tab;
+        
+        var hideButtons = ui.oldTab ? jQuery(ui.oldTab).attr('data-toolbar-buttons') : 1;
+        var showButtons = jQuery(tabEl).attr('data-toolbar-buttons');
 
         fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ hideButtons).addClass('fpcm-ui-hidden');
         fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ showButtons).removeClass('fpcm-ui-hidden');

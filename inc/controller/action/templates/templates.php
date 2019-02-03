@@ -140,11 +140,10 @@ class templates extends \fpcm\controller\abstracts\controller {
                 ->setWrapper(false),
         ]));
 
-        $this->view->assign('activeTab', $this->getActiveTab());
+        $this->view->setActiveTab($this->getActiveTab());
         $this->view->addJsVars([
             'templateId' => 1,
-            'jqUploadInit' => 0,
-            'activeTab' => $this->getActiveTab()
+            'jqUploadInit' => 0
         ]);
 
         $this->view->addJsLangVars(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT']);

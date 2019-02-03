@@ -2,7 +2,7 @@
 <div class="row no-gutters fpcm-ui-full-height">
     <div class="col-12">
         <div class="fpcm-content-wrapper fpcm-ui-full-height">
-            <div class="fpcm-ui-tabs-general">
+            <div id="fpcm-options-tabs">
                 <ul>
                     <?php foreach ($tabs as $tab) : ?><?php print $tab; ?><?php endforeach; ?>
                 </ul>
