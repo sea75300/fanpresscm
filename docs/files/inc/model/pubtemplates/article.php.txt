@@ -122,7 +122,8 @@ final class article extends template {
                 case '{{sources}}' :
 
                     $this->parseLinks($value, [
-                        'rel' => 'noopener noreferrer'
+                        'rel' => 'noopener noreferrer,external',
+                        'target' => '_blank',
                     ]);
 
                     $this->processAttributes('sources', $value, $replacementData, function($attr, $value, $newVal) {

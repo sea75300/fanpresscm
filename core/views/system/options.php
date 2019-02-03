@@ -770,7 +770,7 @@
                                 <div class="row fpcm-ui-padding-md-tb">
                                     <div class="col-12 col-md-6 align-self-center fpcm-ui-padding-none-lr">
                                     <?php if (!$globalConfig['twitter_data']['consumer_key'] || !$globalConfig['twitter_data']['consumer_secret'] || !$twitterIsActive) : ?>
-                                        <?php $theView->linkButton('twitterConnect')->setText('SYSTEM_OPTIONS_TWITTER_CONNECT')->setUrl('https://apps.twitter.com/')->setTarget('_blank')->setIcon('trash'); ?>
+                                        <?php $theView->linkButton('twitterConnect')->setText('SYSTEM_OPTIONS_TWITTER_CONNECT')->setUrl('https://apps.twitter.com/')->setTarget('_blank')->setIcon('twitter', 'fab'); ?>
                                     <?php elseif ($globalConfig['twitter_data']['user_token'] && $globalConfig['twitter_data']['user_secret'] && $twitterIsActive) : ?>
                                         <?php $theView->submitButton('twitterDisconnect')->setText('SYSTEM_OPTIONS_TWITTER_DISCONNECT')->setClass('fpcm-ui-button-confirm')->setIcon('trash'); ?>
                                     <?php endif; ?>

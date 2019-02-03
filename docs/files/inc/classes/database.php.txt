@@ -969,6 +969,7 @@ final class database {
      * Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl 
      * @param \fpcm\model\system\yatdl $yatdl
      * @return bool
+     * @since FPCm 4.1
      */
     public function addTableIndices(\fpcm\model\system\yatdl $yatdl)
     {
