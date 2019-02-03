@@ -296,8 +296,12 @@ class permissions extends \fpcm\model\abstracts\dataset {
      * @param array $permissionArray
      * @return bool
      */
-    public function check(array $permissionArray)
+    public function check(array $permissionArray) : bool
     {
+        if (!count($this->permissiondata)) {
+            return false;
+        }
+
         $res = true;
 
         $permissionArrayHash = \fpcm\classes\tools::getHash(json_encode($permissionArray));
@@ -309,7 +313,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
         foreach ($permissionArray as $module => $permission) {
 
             if (!isset($this->permissiondata[$module])) {
-                trigger_error("No permissions available for module \"$module\"!". PHP_EOL.
+                trigger_error("No permissions available for module \"{$module}\" and roll \"{$this->rollid}\"!". PHP_EOL.
                               "   > Permission-Debug: ".PHP_EOL.(is_array($permission) ? implode(PHP_EOL, $permission) : $permission) );
                 return false;
             }

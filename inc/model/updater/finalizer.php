@@ -18,6 +18,13 @@ namespace fpcm\model\updater;
 final class finalizer extends \fpcm\model\abstracts\model {
 
     /**
+     * Run in command line mode
+     * @var bool
+     * @since FPCM 4.1
+     */
+    private $isCli = false;
+
+    /**
      * Initialisiert System Update
      * @param int $init
      */
@@ -27,6 +34,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
         $this->dbcon = new \fpcm\classes\database();
         $this->config = new \fpcm\model\system\config(false, false);
+        $this->isCli = \fpcm\classes\baseconfig::isCli();
     }
 
     /**
@@ -71,6 +79,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function updatePermissions()
     {
+        $this->cliOutput(" >> Update system permissions");
+        
         $rolls = (new \fpcm\model\users\userRollList())->getUserRolls();
 
         $default = null;
@@ -110,6 +120,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function addSystemOptions()
     {
+        $this->cliOutput(" >> Add new system config...");
+        
         $yatdl = new \fpcm\model\system\yatdl(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBSTRUCT, '06config.yml'));
         $yatdl->parse();
 
@@ -147,6 +159,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function updateSystemOptions()
     {
+        $this->cliOutput(" >> Update existing system config...");
+        
         $newConfig = [];
 
         if (is_numeric($this->config->system_editor)) {
@@ -173,6 +187,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function removeSystemOptions()
     {
+        $this->cliOutput(" >> Cleanup system config...");
+        
         $res = true;
         if ($this->config->articles_trash) {
             $res = $res && $this->config->remove('articles_trash');
@@ -201,7 +217,6 @@ final class finalizer extends \fpcm\model\abstracts\model {
             $dropTables[] = \fpcm\classes\database::tableModules;
         }
         
-        $isCli = \fpcm\classes\baseconfig::isCli();
         $addIndeices = method_exists($this->dbcon, 'addTableIndices');
 
         foreach ($tableFiles as $tableFile) {
@@ -215,15 +230,11 @@ final class finalizer extends \fpcm\model\abstracts\model {
             }
 
             $tableName = $tab->getArray()['name'];
+            $this->cliOutput(" >> Alter table structure {$tableName}...");
 
-            fpcmLogSql("Alter table structure {$tableName}...");
-            if ($isCli) {
-                print " >> Alter table structure {$tableName}...".PHP_EOL;
-            }
-            
             $struct = $this->dbcon->getTableStructure($tableName);
-
             $tabExists = count($struct) ? true : false;
+
             if ($tabExists && !$this->dbcon->addTableCols($tab) || !$this->dbcon->removeTableCols($tab)) {
                 trigger_error('Failed to alter table ' . $tableName . ' during update.');
                 return false;
@@ -232,15 +243,14 @@ final class finalizer extends \fpcm\model\abstracts\model {
             if (in_array($tableName, $dropTables)) {
 
                 fpcmLogSql("Drop table {$tableName}...");
-                if ($isCli) {
-                    print "     >> Drop table {$tableName}...".PHP_EOL;
-                }
+                $this->cliOutput("     >> Drop table {$tableName}...");
 
                 $successDrop = false;
                 if (!$tabExists) {
-                    print "     >> Table not found, skipping...".PHP_EOL;
+                    $this->cliOutput("     >> Table not found, skipping...");
                 }
                 elseif (!$this->dbcon->drop($tableName)) {
+                    $this->cliOutput("     -- FAILED");
                     trigger_error('Unable to drop table ' . $tableName . ' during update');
                     return false;
                 }
@@ -257,12 +267,10 @@ final class finalizer extends \fpcm\model\abstracts\model {
             if (!$tabExists) {
                 
                 fpcmLogSql("Add table {$tableName}...");
-                
-                if ($isCli) {
-                    print "     >> Add table {$tableName}...".PHP_EOL;
-                }
+                $this->cliOutput("     >> Add table {$tableName}...");
 
                 if (!$this->dbcon->execYaTdl($tableFile)) {
+                    $this->cliOutput("     -- FAILED");
                     trigger_error('Unable to create table ' . $tableName . ' during update');
                     return false;
                 }
@@ -273,14 +281,11 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 $this->dbcon->addTableIndices($tab);
             }
 
-            if ($isCli) {
-                print "     -- FINISHED".PHP_EOL;
-            }
-
+            $this->cliOutput("     -- FINISHED");
         }
 
-        if (!$addIndeices && $isCli) {
-            print "     ++ Important!! Table indices could not be added during database update. Please run \"fpcmcli.php pkg " . \fpcm\model\abstracts\cli::PARAM_UPGRADE_DB. " system\" after auto-update was finished." .PHP_EOL;
+        if (!$addIndeices) {
+            $this->cliOutput("     ++ Important!! Table indices could not be added during database update. Please run \"fpcmcli.php pkg " . \fpcm\model\abstracts\cli::PARAM_UPGRADE_DB. " system\" after auto-update was finished.");
         }
 
         return true;
@@ -293,6 +298,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function optimizeTables()
     {
+        $this->cliOutput(" >> Optimize tables...");
+        
         $tables = $this->events->trigger('updaterAddOptimizeTables', [
             \fpcm\classes\database::tableArticles,
             \fpcm\classes\database::tableAuthors,
@@ -344,6 +351,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
         $res = file_put_contents($tpl->getFullpath(), implode(PHP_EOL, [
             '<ul class="fpcm-pub-sharebuttons">',
+            '    <li>{{likeButton}}</li>',
             '    <li>{{facebook}}</li>',
             '    <li>{{twitter}}</li>',
             '    <li>{{googlePlus}}</li>',
@@ -357,6 +365,20 @@ final class finalizer extends \fpcm\model\abstracts\model {
         ]));
 
         return $res ? true : false;
+    }
+
+    /**
+     * Print text in command line mode
+     * @param string $str
+     * @since FPCM 4.1
+     */
+    private function cliOutput(string $str)
+    {
+        if (!$this->isCli) {
+            return false;
+        }
+
+        print $str.PHP_EOL;
     }
 
 }
