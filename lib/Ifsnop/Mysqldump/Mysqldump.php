@@ -81,6 +81,7 @@ class Mysqldump
     private $pdoSettings = array();
     private $version;
     private $tableColumnTypes = array();
+    private $transformColumnValueCallable;
     /**
      * database name, parsed from dsn
      * @var string
@@ -352,8 +353,13 @@ class Mysqldump
             }
         }
 
-        // Get table, view and trigger structures from database
-        $this->getDatabaseStructure();
+        // Get table, view, trigger, procedures and events
+        // structures from database
+        $this->getDatabaseStructureTables();
+        $this->getDatabaseStructureViews();
+        $this->getDatabaseStructureTriggers();
+        $this->getDatabaseStructureProcedures();
+        $this->getDatabaseStructureEvents();
 
         if ($this->dumpSettings['databases']) {
             $this->compressManager->write(
@@ -432,12 +438,12 @@ class Mysqldump
     }
 
     /**
-     * Reads table and views names from database.
+     * Reads table names from database.
      * Fills $this->tables array so they will be dumped later.
      *
      * @return null
      */
-    private function getDatabaseStructure()
+    private function getDatabaseStructureTables()
     {
         // Listing all tables from database
         if (empty($this->dumpSettings['include-tables'])) {
@@ -458,7 +464,17 @@ class Mysqldump
                 }
             }
         }
+        return;
+    }
 
+    /**
+     * Reads view names from database.
+     * Fills $this->tables array so they will be dumped later.
+     *
+     * @return null
+     */
+    private function getDatabaseStructureViews()
+    {
         // Listing all views from database
         if (empty($this->dumpSettings['include-views'])) {
             // include all views for now, blacklisting happens later
@@ -478,27 +494,58 @@ class Mysqldump
                 }
             }
         }
+        return;
+    }
 
+    /**
+     * Reads trigger names from database.
+     * Fills $this->tables array so they will be dumped later.
+     *
+     * @return null
+     */
+    private function getDatabaseStructureTriggers()
+    {
         // Listing all triggers from database
         if (false === $this->dumpSettings['skip-triggers']) {
             foreach ($this->dbHandler->query($this->typeAdapter->show_triggers($this->dbName)) as $row) {
                 array_push($this->triggers, $row['Trigger']);
             }
         }
+        return;
+    }
 
+    /**
+     * Reads procedure names from database.
+     * Fills $this->tables array so they will be dumped later.
+     *
+     * @return null
+     */
+    private function getDatabaseStructureProcedures()
+    {
         // Listing all procedures from database
         if ($this->dumpSettings['routines']) {
             foreach ($this->dbHandler->query($this->typeAdapter->show_procedures($this->dbName)) as $row) {
                 array_push($this->procedures, $row['procedure_name']);
             }
         }
+        return;
+    }
 
+    /**
+     * Reads event names from database.
+     * Fills $this->tables array so they will be dumped later.
+     *
+     * @return null
+     */
+    private function getDatabaseStructureEvents()
+    {
         // Listing all events from database
         if ($this->dumpSettings['events']) {
             foreach ($this->dbHandler->query($this->typeAdapter->show_events($this->dbName)) as $row) {
                 array_push($this->events, $row['event_name']);
             }
         }
+        return;
     }
 
     /**
@@ -507,7 +554,8 @@ class Mysqldump
      * @param $arr array with strings or patterns
      * @return bool
      */
-    private function matches($table, $arr) {
+    private function matches($table, $arr)
+    {
         $match = false;
 
         foreach ($arr as $pattern) {
@@ -537,7 +585,7 @@ class Mysqldump
             $this->getTableStructure($table);
             if (false === $this->dumpSettings['no-data']) { // don't break compatibility with old trigger
                 $this->listValues($table);
-            } else if (true === $this->dumpSettings['no-data']
+            } elseif (true === $this->dumpSettings['no-data']
                  || $this->matches($table, $this->dumpSettings['no-data'])) {
                 continue;
             } else {
@@ -651,7 +699,8 @@ class Mysqldump
      * @return array type column types detailed
      */
 
-    private function getTableColumnTypes($tableName) {
+    private function getTableColumnTypes($tableName)
+    {
         $columnTypes = array();
         $columns = $this->dbHandler->query(
             $this->typeAdapter->show_columns($tableName)
@@ -711,7 +760,8 @@ class Mysqldump
      * @param string $viewName  Name of view to export
      * @return string create statement
      */
-    function createStandInTable($viewName) {
+    public function createStandInTable($viewName)
+    {
         $ret = array();
         foreach ($this->tableColumnTypes[$viewName] as $k => $v) {
             $ret[] = "`${k}` ${v['type_sql']}";
@@ -834,10 +884,10 @@ class Mysqldump
      */
     private function prepareColumnValues($tableName, $row)
     {
-        $ret = [];
+        $ret = array();
         $columnTypes = $this->tableColumnTypes[$tableName];
         foreach ($row as $colName => $colValue) {
-            $colValue = $this->hookTransformColumnValue($tableName, $colName, $colValue);
+            $colValue = $this->hookTransformColumnValue($tableName, $colName, $colValue, $row);
             $ret[] = $this->escape($colValue, $columnTypes[$colName]);
         }
 
@@ -870,6 +920,18 @@ class Mysqldump
     }
 
     /**
+     * Set a callable that will will be used to transform column values.
+     *
+     * @param callable $callable
+     *
+     * @return void
+     */
+    public function setTransformColumnValueHook($callable)
+    {
+        $this->transformColumnValueCallable = $callable;
+    }
+
+    /**
      * Give extending classes an opportunity to transform column values
      *
      * @param string $tableName Name of table which contains rows
@@ -878,12 +940,18 @@ class Mysqldump
      *
      * @return string
      */
-    protected function hookTransformColumnValue(
-        /** @scrutinizer ignore-unused */ $tableName,
-        /** @scrutinizer ignore-unused */ $colName,
-        $colValue)
+    protected function hookTransformColumnValue($tableName, $colName, $colValue, $row)
     {
-        return $colValue;
+        if (! $this->transformColumnValueCallable) {
+            return $colValue;
+        }
+
+        return call_user_func_array($this->transformColumnValueCallable, array(
+            $tableName,
+            $colName,
+            $colValue,
+            $row
+        ));
     }
 
     /**
@@ -917,10 +985,11 @@ class Mysqldump
 
         $ignore = $this->dumpSettings['insert-ignore'] ? '  IGNORE' : '';
 
+        $count = 0;
         foreach ($resultSet as $row) {
+            $count++;
             $vals = $this->prepareColumnValues($tableName, $row);
             if ($onlyOnce || !$this->dumpSettings['extended-insert']) {
-
                 if ($this->dumpSettings['complete-insert']) {
                     $lineSize += $this->compressManager->write(
                         "INSERT$ignore INTO `$tableName` (".
@@ -948,7 +1017,7 @@ class Mysqldump
             $this->compressManager->write(";".PHP_EOL);
         }
 
-        $this->endListValues($tableName);
+        $this->endListValues($tableName, $count);
     }
 
     /**
@@ -958,7 +1027,7 @@ class Mysqldump
      *
      * @return null
      */
-    function prepareListValues($tableName)
+    public function prepareListValues($tableName)
     {
         if (!$this->dumpSettings['skip-comments']) {
             $this->compressManager->write(
@@ -1003,10 +1072,11 @@ class Mysqldump
      * Table rows extractor, close locks and commits after dump
      *
      * @param string $tableName  Name of table to export
+     * @param int $count         Number of rows inserted
      *
      * @return null
      */
-    function endListValues($tableName)
+    public function endListValues($tableName, $count = 0)
     {
         if ($this->dumpSettings['disable-keys']) {
             $this->compressManager->write(
@@ -1037,6 +1107,14 @@ class Mysqldump
 
         $this->compressManager->write(PHP_EOL);
 
+        if (!$this->dumpSettings['skip-comments']) {
+            $this->compressManager->write(
+                "-- Dumped table `$tableName` with $count row(s)".PHP_EOL.
+                "--".PHP_EOL.PHP_EOL
+            );
+        }
+
+
         return;
     }
 
@@ -1045,17 +1123,17 @@ class Mysqldump
      *
      * @param string $tableName  Name of table to get columns
      *
-     * @return array SQL sentence with columns
+     * @return array SQL sentence with columns for select
      */
-    function getColumnStmt($tableName)
+    public function getColumnStmt($tableName)
     {
         $colStmt = array();
         foreach ($this->tableColumnTypes[$tableName] as $colName => $colType) {
             if ($colType['type'] == 'bit' && $this->dumpSettings['hex-blob']) {
                 $colStmt[] = "LPAD(HEX(`${colName}`),2,'0') AS `${colName}`";
-            } else if ($colType['is_blob'] && $this->dumpSettings['hex-blob']) {
+            } elseif ($colType['is_blob'] && $this->dumpSettings['hex-blob']) {
                 $colStmt[] = "HEX(`${colName}`) AS `${colName}`";
-            } else if ($colType['is_virtual']) {
+            } elseif ($colType['is_virtual']) {
                 $this->dumpSettings['complete-insert'] = true;
                 continue;
             } else {
@@ -1071,12 +1149,12 @@ class Mysqldump
      *
      * @param string $tableName  Name of table to get columns
      *
-     * @return string SQL sentence with columns
+     * @return array columns for sql sentence for insert
      */
-    function getColumnNames($tableName)
+    public function getColumnNames($tableName)
     {
         $colNames = array();
-        foreach($this->tableColumnTypes[$tableName] as $colName => $colType) {
+        foreach ($this->tableColumnTypes[$tableName] as $colName => $colType) {
             if ($colType['is_virtual']) {
                 $this->dumpSettings['complete-insert'] = true;
                 continue;
@@ -1613,7 +1691,7 @@ class TypeAdapterMysql extends TypeAdapterFactory
     {
         $ret = "";
         if (!isset($row['Create View'])) {
-                throw new Exception("Error getting view structure, unknown output");
+            throw new Exception("Error getting view structure, unknown output");
         }
 
         $viewStmt = $row['Create View'];
@@ -1803,7 +1881,6 @@ class TypeAdapterMysql extends TypeAdapterFactory
         $this->check_parameters(func_num_args(), $expected_num_args = 1, __METHOD__);
         $args = func_get_args();
         return $this->dbHandler->exec("LOCK TABLES `${args[0]}` READ LOCAL");
-
     }
 
     public function unlock_table()
@@ -1903,7 +1980,7 @@ class TypeAdapterMysql extends TypeAdapterFactory
         if ($fparen = strpos($colParts[0], "(")) {
             $colInfo['type'] = substr($colParts[0], 0, $fparen);
             $colInfo['length'] = str_replace(")", "", substr($colParts[0], $fparen + 1));
-            $colInfo['attributes'] = isset($colParts[1]) ? $colParts[1] : NULL;
+            $colInfo['attributes'] = isset($colParts[1]) ? $colParts[1] : null;
         } else {
             $colInfo['type'] = $colParts[0];
         }
