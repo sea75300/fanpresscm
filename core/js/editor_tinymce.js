@@ -14,9 +14,8 @@ fpcm.editor_tinymce = {
 
         params = {
             selector            : 'textarea',
-            skin                : 'fpcm',
-            theme               : 'modern',
             default_link_target : '_blank',
+            theme               : config.theme,
             menubar             : false,
             relative_urls       : false,
             image_advtab        : true,
@@ -25,6 +24,14 @@ fpcm.editor_tinymce = {
             browser_spellcheck  : true,
             branding            : false
         };
+        
+        if (config.skin !== undefined) {
+            params.skin = config.skin;
+        }
+        
+        if (config.width !== undefined) {
+            params.width = config.width;
+        }
         
         if (config.language !== undefined) {
             params.language = config.language;
@@ -106,8 +113,8 @@ fpcm.editor_tinymce = {
             params.autoresize_min_height = config.autoresize_min_height ? config.autoresize_min_height : '250';
         }
         
-        if (config.autoresize_min_height !== undefined) {
-            params.autoresize_min_height = config.autoresize_min_height ? config.autoresize_min_height : '250';
+        if (config.min_height !== undefined) {
+            params.min_height = config.min_height ? config.min_height : '250';
         }
         
         if (config.onPaste !== undefined) {
@@ -116,6 +123,10 @@ fpcm.editor_tinymce = {
         
         if (config.custom_elements) {
             params.custom_elements = config.custom_elements;
+        }
+        
+        if (config.file_picker_types) {
+            params.file_picker_types = config.file_picker_types;
         }
 
         if (config.mobileConfig) {

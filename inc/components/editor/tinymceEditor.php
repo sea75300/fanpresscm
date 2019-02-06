@@ -83,6 +83,8 @@ class tinymceEditor extends articleEditor {
 
         return $this->events->trigger('editor\initTinymce', [
             'editorConfig' => [
+                'skin' => 'fpcm',
+                'theme' => 'modern',
                 'language' => $this->config->system_lang,
                 'plugins' => $pluginFolders,
                 'custom_elements' => 'readmore',

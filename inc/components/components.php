@@ -36,10 +36,17 @@ final class components {
      */
     public static function getArticleEditors()
     {
-        return array_map('base64_encode', \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('editor\getEditors', [
+        $list = [
             'SYSTEM_OPTIONS_NEWS_EDITOR_STD' => '\fpcm\components\editor\tinymceEditor',
+            'SYSTEM_OPTIONS_NEWS_EDITOR_TINYMCE5' => '\fpcm\components\editor\tinymceEditor5',
             'SYSTEM_OPTIONS_NEWS_EDITOR_CLASSIC' => '\fpcm\components\editor\htmlEditor'
-        ]));
+        ];
+        
+        if (!defined('FPCM_DEBUG') || !FPCM_DEBUG) {
+            unset($list['SYSTEM_OPTIONS_NEWS_EDITOR_TINYMCE5']);
+        }
+        
+        return array_map('base64_encode', \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('editor\getEditors', $list));
     }
 
     /**
