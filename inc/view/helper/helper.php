@@ -57,6 +57,13 @@ abstract class helper {
     protected $readonly = false;
 
     /**
+     * Element is autoFocused
+     * @var bool
+     * @since FPCm 4.1
+     */
+    protected $autoFocused = false;
+
+    /**
      * Element prefix
      * @var string
      */
@@ -261,6 +268,26 @@ abstract class helper {
         return $this;
     }
 
+    /**
+     * Make helper auto focused
+     * @param bool $autofocus
+     * @return $this
+     * @since FPCm 4.1
+     */
+    public function setAutoFocused($autoFocused) {
+        $this->autoFocused = (bool) $autoFocused;
+        return $this;
+    }
+
+    /**
+     * Return autofocused string
+     * @return string
+     */
+    protected function getAutoFocusedString()
+    {
+        return $this->autoFocused ? 'autofocus' : '';
+    }
+    
     /**
      * Use div wrapper around input field
      * @param bool $useWrapper

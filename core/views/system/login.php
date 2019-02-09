@@ -1,3 +1,4 @@
+<?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="row no-gutters fpcm-ui-form-login fpcm-ui-full-height">
     <div class="col-sm-8 col-md-4 fpcm-ui-margin-center align-self-center">
         <div class="ui-widget-content ui-corner-all ui-state-normal fpcm-ui-padding-md-tb">
@@ -10,7 +11,7 @@
             
             <div class="row fpcm-ui-padding-md-tb">
                 <div class="col-12">
-                    <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true)->setAutocomplete(false); ?>
+                    <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true); ?>
                 </div>
             </div>
 
@@ -25,7 +26,7 @@
             </div>
             
             <?php if ($twoFactorAuth) : ?>
-            <div class="row fpcm-ui-padding-md-tb">
+            <div class="row fpcm-ui-padding-md-tb fpcm-ui-hidden" id="fpcm-loginauthcode-box">
                 <div class="col-12">
                 <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')->setPlaceholder(true)->setAutocomplete(false); ?>
                 </div>

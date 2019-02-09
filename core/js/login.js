@@ -11,7 +11,34 @@ if (fpcm === undefined) {
 fpcm.login = {
 
     init: function() {
-        fpcm.ui.setFocus('loginusername');
+
+        var _passCodeField = jQuery('#loginpassword');
+        var _authCodeField = jQuery('#loginauthcode');
+
+        if (!_authCodeField.length || _authCodeField.hasClass('fpcm-ui-hidden')) {
+            return true;
+        }
+
+        _passCodeField.focusout(function () {
+            fpcm.login.showAuthCodeField();
+        });
+
+        jQuery('#btnLogin').click(function () {
+            if (!_authCodeField.hasClass('fpcm-ui-hidden')) {
+                return true;
+            }
+
+            fpcm.login.showAuthCodeField();
+            return false;
+        });
+
+        return true;
+    },
+    
+    showAuthCodeField: function () {
+        jQuery('#fpcm-loginauthcode-box').fadeIn();
+        fpcm.ui.setFocus('loginauthcode');
+        return true;
     }
 
 };
