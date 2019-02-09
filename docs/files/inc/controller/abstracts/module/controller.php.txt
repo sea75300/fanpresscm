@@ -8,7 +8,7 @@
 namespace fpcm\controller\abstracts\module;
 
 /**
- * Allgemeine Basis einen Controller
+ * Module controller base
  * 
  * @package fpcm\module
  * @author Stefan Seehafer <sea75300@yahoo.de>
