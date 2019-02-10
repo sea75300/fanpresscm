@@ -29,7 +29,7 @@ trait tools {
             return $stack[$class];
         }
 
-        $stack[$class] = \fpcm\module\module::getKeyFromControllerClass($class);
+        $stack[$class] = \fpcm\module\module::getKeyFromClass($class);
         \fpcm\classes\loader::stackPush('modulekeys', $stack);
         return $stack[$class];
     }

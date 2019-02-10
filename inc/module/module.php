@@ -865,27 +865,11 @@ class module {
      */
     public static function getKeyFromClass($class)
     {
-        if (strpos($class, 'fpcm\\modules\\') === false) {
+        if (strpos($class, 'fpcm\\modules\\') === false || !preg_match('/(\\\\?)(fpcm\\\\modules\\\\)([a-z]*\\\\[a-zA-Z_-]+)\\\\(.+)/i', $class, $matches)) {
             return false;
         }
 
-        return explode('\\', $class, 3)[2];
-    }
-
-    /**
-     * Fetch modul key from controller class
-     * @param string $class
-     * @return string|bool
-     * @since FPCM 4.1
-     */
-    public static function getKeyFromControllerClass($class)
-    {
-        $key = self::getKeyFromClass($class);
-        if (!$key) {
-            return false;
-        }
-        
-        return implode('/', array_slice(explode('\\', str_replace(['\\controller\\module', '\\controller'], '', $key), 3), 0, 2));
+        return empty($matches[3]) ? false : str_replace('\\', '/', $matches[3]);
     }
 
     /**
