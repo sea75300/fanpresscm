@@ -830,22 +830,27 @@ h3, .fpcm-dashboard-container h3 {
 
 .fpcm-dashboard-container.fpcm-dashboard-container-height-small {
     height: 25%;
+    max-height: 300px;
 }
 
 .fpcm-dashboard-container.fpcm-dashboard-container-height-small-medium {
     height: 33%;
+    max-height: 425px;
 }
 
 .fpcm-dashboard-container.fpcm-dashboard-container-height-middle {
     height: 50%;
+    max-height: 650px;
 }
 
 .fpcm-dashboard-container.fpcm-dashboard-container-height-big {
     height: 75%;
+    max-height: 950px;
 }
 
 .fpcm-dashboard-container.fpcm-dashboard-container-height-very-big {
     height: 100%;
+    max-height: 12800px;
 }
 
 .fpcm-dashboard-container .fpcm-dashboard-container-content-wrapper {
