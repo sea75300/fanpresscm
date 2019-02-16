@@ -42,55 +42,19 @@ fpcm.modulelist = {
             });
         }
 
-        fpcm.modulelist.tabs = fpcm.ui.tabs('#fpcm-tabs-modules', {
-
-            beforeLoad: function(event, ui) {
-                
-                if (!ui.tab.attr('data-dataview-list')) {
-                    fpcm.ui.showLoader();
-                    return true;
-                }
-                
-                fpcm.ui.showLoader(true);
-                ui.jqXHR.done(function(result) {
-                    fpcm.ui.showLoader();
-                    return true;
-                });
-
-                ui.ajaxSettings.dataFilter = function( response ) {
-                    fpcm.vars.jsvars.dataviews.data.modulesList = response;
-                };
-
-            },
+        fpcm.modulelist.tabs = fpcm.ui.tabs('#fpcm-tabs-modules',
+        {
+            addTabScroll: true,
+            initDataViewJson: true,         
+            hideLoaderOnRequestDone: true,
+            dataViewWrapperClass: 'fpcm-ui-modulelist',
+            initDataViewOnRenderAfter: fpcm.modulelist.initButtons,
+            initDataViewJsonBefore:function(event, ui) {
+                jQuery('.fpcm-ui-modulelist').remove();
+            },            
             beforeActivate: function( event, ui ) {
                 jQuery(ui.oldTab).unbind('click');
             },
-            load: function( event, ui ) {
-
-                var listId = ui.tab.attr('data-dataview-list');
-                if (!listId) {
-                    return false;
-                }
-
-                if (!fpcm.vars.jsvars.dataviews || !fpcm.vars.jsvars.dataviews.data.modulesList) {
-                    return true;
-                }
-
-                jQuery('.fpcm-ui-modulelist').remove();
-
-                var result = fpcm.ajax.fromJSON(fpcm.vars.jsvars.dataviews.data.modulesList);
-                ui.panel.empty();
-                ui.panel.append(fpcm.dataview.getDataViewWrapper(listId, 'fpcm-ui-modulelist'));
-
-                fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
-                fpcm.dataview.updateAndRender(result.dataViewName, {
-                    onRenderAfter: fpcm.modulelist.initButtons
-                });
-
-                return true;
-
-            },
-            addTabScroll: true
         });
         
         fpcm.modulelist.tabs.tabs('load', 0);

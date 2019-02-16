@@ -121,46 +121,22 @@ fpcm.editor = {
 
         fpcm.ui.checkboxradio('.fpcm-ui-input-checkbox');
         
-        fpcm.editor.editorTabs = fpcm.ui.tabs('#fpcm-editor-tabs', {
-            beforeLoad: function(event, ui) {
-                fpcm.ui.showLoader(true);        
-                
-                tabList = ui.tab.attr('data-dataview-list');                
-                if (!tabList) {
-                    return true;
-                }
-
-                ui.ajaxSettings.dataFilter = function( response ) {
-                    fpcm.vars.jsvars.dataviews.data[tabList] = response;
-                };
-            },
-            load: function(event, ui) {
-                var tabList = ui.tab.attr('data-dataview-list');                
-                if (!tabList) {
-                    return true;
-                }
-
-                jQuery('.fpcm-ui-editor-editlist').remove();
-
-                var result = fpcm.ajax.fromJSON(fpcm.vars.jsvars.dataviews.data[tabList]);
-                ui.panel.empty();
-                ui.panel.append(fpcm.dataview.getDataViewWrapper(ui.tab.attr('data-dataview-list'), 'fpcm-ui-editor-editlist'));
-
-                fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
-                fpcm.dataview.updateAndRender(result.dataViewName, {
-                    onRenderAfter: function () {
-                        fpcm.ui.assignCheckboxes();
-                        fpcm.ui.assignControlgroups(),
-                        fpcm.editor.initCommentListActions();
-                    } 
-                });
-
-                fpcm.ui.showLoader(false);
-            },
-            active: fpcm.vars.jsvars.activeTab !== undefined ? fpcm.vars.jsvars.activeTab : 0,
+        fpcm.editor.editorTabs = fpcm.ui.tabs('#fpcm-editor-tabs',
+        {
+            dataViewWrapperClass: 'fpcm-ui-editor-editlist',
+            initDataViewJson: true,
             addMainToobarToggle: true,
             addTabScroll: true,
-            saveActiveTab: true
+            saveActiveTab: true,
+            initDataViewJsonBefore:function(event, ui) {
+                jQuery('.fpcm-ui-editor-editlist').remove();
+            },            
+            initDataViewOnRenderAfter: function () {
+                fpcm.ui.assignCheckboxes();
+                fpcm.ui.assignControlgroups(),
+                fpcm.editor.initCommentListActions();
+            },
+            active: fpcm.vars.jsvars.activeTab !== undefined ? fpcm.vars.jsvars.activeTab : 0
         });
 
         jQuery('#fpcm-editor-tabs-editorregister').click(function() {
