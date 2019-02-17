@@ -60,7 +60,7 @@ abstract class input extends helper {
             $wrapperEnd = "</div></div>";
         }
 
-        $input = "<input type=\"{$this->type}\" {$this->getNameIdString()}{$this->getClassString()} {$this->getValueString()} {$this->getReadonlyString()} maxlength=\"{$this->maxlenght}\" {$this->getAutocompleteString()} {$this->getPlaceholderString()}  {$this->getDataString()}>";
+        $input = "<input type=\"{$this->type}\" {$this->getNameIdString()}{$this->getClassString()} {$this->getValueString()} {$this->getReadonlyString()} maxlength=\"{$this->maxlenght}\" {$this->getAutocompleteString()}  {$this->getAutoFocusedString()} {$this->getPlaceholderString()}  {$this->getDataString()}>";
         if (!$this->text) {
             return $wrapperStart . $input . $wrapperEnd;
         }

@@ -26,6 +26,13 @@ class linkButton extends button {
     protected $target = '';
 
     /**
+     * rel-Attribute
+     * @var string
+     * @since FPCM 4.1
+     */
+    protected $rel = '';
+
+    /**
      * Optional init function
      * @return void
      */
@@ -42,6 +49,17 @@ class linkButton extends button {
     protected function getNameIdString()
     {
         return "id=\"{$this->id}\" ";
+    }
+
+    /**
+     * Returns name and ID string
+     * @param string $prefix
+     * @return string
+     * @since FPCM 4.1
+     */
+    protected function getRelString()
+    {
+        return trim($this->rel) ? "rel=\"{$this->rel}\" ": '';
     }
 
     /**
@@ -69,6 +87,7 @@ class linkButton extends button {
             $this->target ? "target=\"{$this->target}\"" : '',
             "id=\"{$this->id}\"",
             $this->getClassString(),
+            $this->getRelString(),
             $this->getDataString(),
             ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()}{$this->getDescriptionTextString()}"),
             '</a>'
@@ -86,6 +105,15 @@ class linkButton extends button {
         return $this;
     }
 
-}
+    /**
+     * Set "rel" attribute value
+     * @param string $rel
+     * @return $this
+     * @since FPCM 4.1
+     */
+    public function setRel(string $rel) {
+        $this->rel = $rel;
+        return $this;
+    }
 
-?>
+}

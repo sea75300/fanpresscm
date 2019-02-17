@@ -26,6 +26,7 @@ class shorthelpButton extends linkButton {
         $this->class = 'fpcm-ui-button-shorthelp';
         $this->iconOnly = true;
         $this->target = '_blank';
+        $this->rel = 'noreferrer,noopener,external';
         $this->setIcon('question-circle');
     }
 
@@ -39,7 +40,7 @@ class shorthelpButton extends linkButton {
             return "<span {$this->getClassString()} title=\"{$this->text}\">{$this->getIconString()}</span>";
         }
 
-        return "<a href=\"{$this->url}\" target=\"{$this->target}\" {$this->getNameIdString()} {$this->getClassString()} title=\"{$this->text}\" {$this->getDataString()}>{$this->getIconString()}</a>";
+        return "<a href=\"{$this->url}\" target=\"{$this->target}\" {$this->getNameIdString()} {$this->getClassString()} title=\"{$this->text}\" {$this->getRelString()} {$this->getDataString()}>{$this->getIconString()}</a>";
     }
 
 }

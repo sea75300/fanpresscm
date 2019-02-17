@@ -270,7 +270,7 @@ abstract class helper {
 
     /**
      * Make helper auto focused
-     * @param bool $autofocus
+     * @param bool $autoFocused
      * @return $this
      * @since FPCm 4.1
      */

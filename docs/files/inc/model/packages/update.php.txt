@@ -235,13 +235,19 @@ class update extends package {
         }
 
         $diff = array_diff($oldList, $newList);
+        if (!count($diff)) {
+            return true;
+        }
+
         foreach ($diff as $file) {
             
             if (!file_exists($file) || is_dir($file)) {
                 continue;
             }
 
-            if (!unlink($this->replaceFanPressBaseFolder($file))) {
+            $delPath = $this->replaceFanPressBaseFolder($file);
+            if (!unlink($delPath)) {
+                trigger_error('Unable to remove file '.$delPath);
                 return false;
             }
 

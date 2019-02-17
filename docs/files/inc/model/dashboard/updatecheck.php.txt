@@ -130,7 +130,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
             $iconClass = 'exclamation-triangle';
             $statusClass = 'fpcm-dashboard-updates-checkerror';
             $statusText = $this->language->translate('UPDATE_NOTAUTOCHECK', [
-                '{{btn}}' => (string) (new \fpcm\view\helper\linkButton('chckmanual'))->setText('PACKAGES_MANUALCHECK')->setIcon('external-link-square-alt ')->setUrl(\fpcm\classes\baseconfig::$updateServerManualLink)->setTarget('_blank'),
+                '{{btn}}' => (string) (new \fpcm\view\helper\linkButton('chckmanual'))->setText('PACKAGES_MANUALCHECK')->setIcon('external-link-square-alt ')->setUrl(\fpcm\classes\baseconfig::$updateServerManualLink)->setTarget('_blank')->setRel('noreferrer,noopener,external'),
             ]);
         } else {
             $iconClass = 'check';

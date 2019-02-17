@@ -490,7 +490,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     {
         $class = get_class($this);
 
-        $module = \fpcm\module\module::getKeyFromControllerClass($class);
+        $module = \fpcm\module\module::getKeyFromClass($class);
         if ($module === false) {
             $this->moduleController = null;
             return true;
