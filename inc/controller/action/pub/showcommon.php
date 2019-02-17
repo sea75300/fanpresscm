@@ -176,6 +176,7 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
     public function process()
     {
         parent::process();
+        $this->view->addJsLangVars(['PUBLIC_SHARE_LIKE', 'AJAX_RESPONSE_ERROR']);
         if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
             $this->commentCounts = ($this->config->system_comments_enabled) ? $this->commentList->countComments([], 0, 1) : [];
         }

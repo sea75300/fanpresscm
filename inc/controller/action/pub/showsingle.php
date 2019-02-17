@@ -199,6 +199,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $this->viewVars['commentform'] = $this->assignCommentFormData();
         }
 
+        $this->view->addJsLangVars(['PUBLIC_SHARE_LIKE', 'AJAX_RESPONSE_ERROR']);
         $this->view->setViewVars(array_merge($this->viewVars, $this->view->getViewVars()));
         $this->view->render();
     }

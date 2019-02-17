@@ -264,7 +264,7 @@ class commentedit extends \fpcm\controller\abstracts\controller {
             }
         }
 
-        $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")->setTarget('_blank')->setText('Whois')->setIcon('home')->setClass($hiddenClass);
+        $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")->setTarget('_blank')->setText('Whois')->setIcon('home')->setClass($hiddenClass)->setRel('noreferrer,noopener,external');
         $this->view->addButtons($buttons);
 
         $this->view->setFormAction($this->comment->getEditLink(), ['mode' => $this->mode], true);

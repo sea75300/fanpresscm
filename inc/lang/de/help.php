@@ -122,7 +122,7 @@ Help language file
             <dt>Artikel auf Webseite anzeigen</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diesen Button wird der aktuell im Editor geöffnete Artikel im Frontend, d. h. auf deiner Webseite geöffnet.</dd>
             <dt>Kurzlink</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a rel="noopener" href=http://is.gd>is.gd</a> kürzen
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a rel="noreferrer,noopener,external" href=http://is.gd>is.gd</a> kürzen
             zu lassen und bei Twitter, etc. zu nutzen. Der genutzte Dienst kann über ein Modul-Event geändert werden.</dd>
             <dt>Artikel-Bild anzeigen</dt>
             <dd class="fpcm-ui-padding-md-bottom">Wurde für den Artikel ein Artikel-Bild definiert, so kann dieses über diese Schaltfläche angezeigt werden.</dd>
@@ -514,7 +514,7 @@ Help language file
             initial ein QR-Code, welcher eingescannt und bestätigt werden muss.</dd>
             <dt>Sicherheit & Wartung - Benutzer-Passwörter gegen Pwned Passwords prüfen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Bei Aktivierung dieser Option werden eingegebene Benutzer-Passwörter in einen SHA1-Hash umgewandet
-            und dessen erste fünf Zeichen an den Dienst <a rel="noopener" href="https://haveibeenpwned.com/Passwords" target="_blank">Pwned Passwords</a>
+            und dessen erste fünf Zeichen an den Dienst <a rel="noreferrer,noopener,external" href="https://haveibeenpwned.com/Passwords" target="_blank">Pwned Passwords</a>
             übermittelt. Ist das Passwort in dieser Datenbank enthalten und bereits mehr als 100-mal geknackt worden, so wird eine Meldung ausgegeben.
             </dd>
             
@@ -530,7 +530,7 @@ Help language file
             <dt>Update-Einstellungen - Update-Check-Intervall, wenn externe Server-Verbindungen nicht möglich:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Kann deine FanPress CM Installation keine direkte Verbindung zum Update herstellen,
             so wird dir in regelmäßigem Abstand ein Dialog angezeigt, welcher die Download-Seite auf
-            <a rel="noopener" href="https://Nobody-Knows.org">Nobody-Knows.org</a> angezeigt. Mit dieser Einstellung kann festgelegt werden, in welchem
+            <a rel="noreferrer,noopener,external" href="https://Nobody-Knows.org">Nobody-Knows.org</a> angezeigt. Mit dieser Einstellung kann festgelegt werden, in welchem
             zeitlichen Abstand dies passiert.</dd>
 
             <dt>E-Mail-Versand - E-Mails via SMTP versenden:</dt>
@@ -940,9 +940,9 @@ Help language file
             <li>Die erzeugten Datenbank-Backups sind gepackte SQL-Dateien, deren Struktur vom verwendeten Datenbank-System abhängt.</li>
             <li>Um ein Backup bei Bedarf wiederherzustellen, kannst du folgende Werkzeuge nutzen:
                 <ul>
-                    <li><a rel="noopener" href="https://www.phpmyadmin.net/" target="_blank">phpMyAdmin</a></li>
-                    <li><a rel="noopener" href="https://www.adminer.org/de" target="_blank">Adminer</a></li>
-                    <li><a rel="noopener" href="http://phppgadmin.sourceforge.net/doku.php" target="_blank">phpPgAdmin</a></li>
+                    <li><a rel="noreferrer,noopener,external" href="https://www.phpmyadmin.net/" target="_blank">phpMyAdmin</a></li>
+                    <li><a rel="noreferrer,noopener,external" href="https://www.adminer.org/de" target="_blank">Adminer</a></li>
+                    <li><a rel="noreferrer,noopener,external" href="http://phppgadmin.sourceforge.net/doku.php" target="_blank">phpPgAdmin</a></li>
                 </ul>
             </li>
         </ul>
@@ -1028,7 +1028,7 @@ Help language file
             erzeugen zu lassen.</p>
         <p>Um die Verbindung zu Twitter herzustellen, folge einfach der Anleitung.</p>
         <ol class="list-large">
-            <li>Logge dich zuerst über die Twitter-Webseite ganz normal ein. <a rel="noopener" href="https://twitter.com/login" class="ui-button ui-corner-all ui-widget fpcm-ui-button">zum Login</a></li>
+            <li>Logge dich zuerst über die Twitter-Webseite ganz normal ein. <a rel="noreferrer,noopener,external" href="https://twitter.com/login" class="ui-button ui-corner-all ui-widget fpcm-ui-button">zum Login</a></li>
             <li>Öffne die Einstellungen der Twitter-Verbindungen über <strong>Optionen &rarr; Systemeinstellungen &rarr;
                     Twitter-Verbindung</strong>.</li>
             <li><strong>API-Schlüssel:</strong> Klicke auf den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">API-Schlüssel
@@ -1068,10 +1068,10 @@ Help language file
     <chapter ref="HL_HELP_SUPPORT">
         <![CDATA[
         <p>Solltest du Fragen haben oder (technische) Hilfe benötigen, kannst du über verschiedene Wege Kontakt aufzunehmen.</p>
-        <p>Unseren Bugtracker findest du auf <a rel="noopener" href="https://github.com/sea75300/fanpresscm4/issues">GitHub.com</a>, hier werden
+        <p>Unseren Bugtracker findest du auf <a rel="noreferrer,noopener,external" href="https://github.com/sea75300/fanpresscm4/issues" target="_blank">GitHub.com</a>, hier werden
         Weiterentwicklungen, Bugfixes und sonstige Fragen entgegen genommen. Alternativ schreibe eine E-Mail an
         <em>fanpress@nobody-knows.org</em> oder <em>sea75300@yahoo.de</em> oder hinterlasse unter
-        <a rel="noopener" href="https://nobody-knows.org/download/fanpress-cm/">Nobody-Knows.org</a> einen Kommentar auf der Projekt-Seite.</p>
+        <a rel="noreferrer,noopener,external" href="https://nobody-knows.org/download/fanpress-cm/" target="_blank">Nobody-Knows.org</a> einen Kommentar auf der Projekt-Seite.</p>
 
         <p>Das Modul <em>FanPress CM Support</em> erstellt während der Installation einen Benutzer-Zugang zur deiner FanPress CM Installation
         und übermittelt einige grundlegende System-Informationen.</p>

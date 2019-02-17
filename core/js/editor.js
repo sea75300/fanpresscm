@@ -181,6 +181,7 @@ fpcm.editor = {
                     icon: "ui-icon-disk",                        
                     click: function() {
                         jQuery(this).children('#fpcm-editor-comment-frame').contents().find('#btnCommentSave').trigger('click');
+                        fpcm.editor.editorTabs.tabs('load', 2);
                         fpcm.ui.showLoader(false);
                     }
                 },

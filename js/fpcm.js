@@ -18,11 +18,17 @@ window.onload = function() {
             init: function () {
 
                 jQuery.noConflict();
+                
+                if (!window.fpcm.vars.ui.messages) {
+                    window.fpcm.vars.ui.messages = [];
+                }
 
                 jQuery.ajax({
                     url: fpcm.vars.ajaxActionPath + 'refresh',
                     type: 'GET',
-                    data: { t: 1 }
+                    data: {
+                        t: 1
+                    }
                 });
 
                 jQuery('.fpcm-pub-commentsmiley').click(function () {
@@ -64,18 +70,34 @@ window.onload = function() {
                             oid: jQuery(this).attr('data-oid'),
                             item: item
                         }
+                    })
+                    .done(function(result) {
+
+                        if (result.search('FATAL ERROR:') === 3) {
+                            console.error(fpcm.vars.ui.lang['AJAX_RESPONSE_ERROR']);
+                            console.error('ERROR MESSAGE: ' + errorThrown);
+                        }
+
+                        if (item !== 'likebutton') {
+                            return true;
+                        }
+
+                        fpcm.pub.addMessage({
+                            type: 'notice',
+                            id: (new Date()).getTime(),
+                            txt: fpcm.vars.ui.lang['PUBLIC_SHARE_LIKE']
+                        });
+
+                        return false;
                     });
-                    
-                    return true;
+
+                    return item === 'likebutton' ? false : true;
                 });
 
-                if (window.fpcm.vars.ui.messages && fpcm.vars.ui.messages.length) {
+                if (fpcm.vars.ui.messages.length) {
                     var msg = null;
                     for (var i = 0; i < window.fpcm.vars.ui.messages.length; i++) {
-                        msg = fpcm.vars.ui.messages[i];
-                        jQuery('#fpcm-messages').append('<div class="fpcm-pub-message-box fpcm-pub-message-' + msg.type +
-                                                        '" id="msgbox-' + msg.id + '"><div class="fpcm-pub-message-box-text">' + msg.txt +
-                                                        '</div></div>');
+                        fpcm.pub.addMessage(fpcm.vars.ui.messages[i]);
                     }
                 }
 
@@ -137,6 +159,13 @@ window.onload = function() {
                 }
             },
 
+            addMessage: function (msg) {
+                jQuery('#fpcm-messages').append(
+                    '<div class="fpcm-pub-message-box fpcm-pub-message-' + msg.type +
+                    '" id="msgbox-' + msg.id + '"><div class="fpcm-pub-message-box-text">' + msg.txt +
+                    '</div></div>'
+                );
+            }
         }
 
         fpcm.pub.init();

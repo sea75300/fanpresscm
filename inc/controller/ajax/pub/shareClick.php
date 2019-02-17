@@ -52,6 +52,11 @@ class shareClick extends \fpcm\controller\abstracts\ajaxController {
 
         $this->oid = $this->getRequestVar('oid', [\fpcm\classes\http::FILTER_CASTINT]);
         $this->item = $this->getRequestVar('item');
+        
+        if (!$this->oid || !$this->item) {
+            return false;
+        }
+
         return true;
     }
 
