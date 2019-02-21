@@ -114,7 +114,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
     {
         $this->tab = 0;
         $this->modules->updateFromFilesystem();
-        $this->items = $this->modules->getFromDatabase();
+        $this->items = $this->modules->getFromDatabase(true);
         $this->itemsCount = count($this->items);
         return true;
     }

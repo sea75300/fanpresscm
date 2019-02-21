@@ -63,7 +63,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
 
         $this->keyCache = [];
 
-        $result = $this->dbcon->fetch($this->dbcon->select($this->table, 'mkey'), true);
+        $result = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setItem('mkey')->setFetchAll(true) );
         if (!$result) {
             return $this->keyCache;
         }
@@ -74,18 +74,20 @@ class modules extends \fpcm\model\abstracts\tablelist {
 
         return $this->keyCache;
     }
-
+    
     /**
      * Fetch modules from database
+     * @param type $sort
      * @return array
      */
-    public function getFromDatabase() : array
+    public function getFromDatabase($sort = false) : array
     {
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return [];
         }
 
-        $result = $this->dbcon->fetch($this->dbcon->select($this->table, '*'), true);
+        $where = $sort ? '1=1 '.$this->dbcon->orderBy(['installed DESC, active DESC, mkey ASC']) : '';
+        $result = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setFetchAll(true)->setWhere($where) );
         if (!$result) {
             return [];
         }
@@ -108,7 +110,7 @@ class modules extends \fpcm\model\abstracts\tablelist {
             return [];
         }
 
-        $result = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'installed = 1'), true);
+        $result = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setWhere('installed = 1')->setFetchAll(true) );        
         if (!$result) {
             return [];
         }
