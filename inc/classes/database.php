@@ -989,7 +989,9 @@ final class database {
         foreach ($data['indices'] as $idxName => $idxValue) {
 
             $fullIdxName = $this->getTablePrefixed($table) . '_' . $idxName;
-            if (array_key_exists($fullIdxName, $existingIndices)) {
+            $fullIdxName64 = substr($fullIdxName, 0, 63);
+
+            if (array_key_exists($fullIdxName, $existingIndices) || array_key_exists($fullIdxName64, $existingIndices)) {
                 continue;
             }
 
