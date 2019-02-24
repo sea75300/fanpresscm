@@ -84,7 +84,10 @@ class pubController extends controller {
         if ($this->config->system_loader_jquery) {
             $jsfiles[] = \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.3.1.min.js');
         }
-        $jsfiles[] = \fpcm\classes\dirs::getRootUrl('js/fpcm.js');
+        
+        $jsfiles[]  =  defined('FPCM_DEBUG') && FPCM_DEBUG || !file_exists(\fpcm\classes\dirs::getFullDirPath('js/fpcm.min.js'))
+                    ? \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
+                    : \fpcm\classes\dirs::getRootUrl('js/fpcm.min.js');
 
         $cssfiles = [];
         if ($this->config->system_mode == 0 && trim($this->config->system_css_path)) {

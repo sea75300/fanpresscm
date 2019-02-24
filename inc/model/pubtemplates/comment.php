@@ -42,6 +42,10 @@ final class comment extends template {
     public function __construct($fileName)
     {
         parent::__construct('comments' . DIRECTORY_SEPARATOR . $fileName . '.html');
+        $this->allowedTags[] = '<header>';
+        $this->allowedTags[] = '<article>';
+        $this->allowedTags[] = '<section>';
+        $this->allowedTags[] = '<footer>';
     }
 
     /**
