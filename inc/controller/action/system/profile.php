@@ -54,80 +54,142 @@ class profile extends \fpcm\controller\abstracts\controller {
             $this->view->addErrorMessage('CSRF_INVALID');
         }
 
-        $this->deleteImage($this->user);
-
         $this->reloadSite = 0;
-        if ($this->buttonClicked('resetProfileSettings') && $this->checkPageToken) {
-            if ($this->user->resetProfileSettings() === false) {
-                $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
-            } else {
-                $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
-                $this->reloadSite = 1;
-            }
-        }
 
-        if ($this->buttonClicked('resetDashboardSettings') && $this->checkPageToken) {
-            if ($this->user->resetDashboard() === false) {
-                $this->view->addErrorMessage('SAVE_FAILED_USER_RESETDASHCONTAINER');
-            } else {
-                $this->view->addNoticeMessage('SAVE_SUCCESS_RESETDASHCONTAINER');
-            }
-        }
-
-        if ($this->buttonClicked('profileSave') && $this->checkPageToken) {
-            
-            $saveData = $this->getRequestVar('data');
-            
-            $this->user->setEmail($saveData['email']);
-            $this->user->setDisplayName($saveData['displayname']);
-
-            $metaData = $this->getRequestVar('usermeta');
-            $this->user->setUserMeta($metaData);
-            $this->user->setUsrinfo($saveData['usrinfo']);
-            $this->user->setChangeTime(time());
-            $this->user->setChangeUser((int) $this->session->getUserId());
-
-            $save = true;
-            if ($saveData['password'] && $saveData['password_confirm']) {
-                if (md5($saveData['password']) == md5($saveData['password_confirm'])) {
-                    $this->user->setPassword($saveData['password']);
-                } else {
-                    $save = false;
-                    $this->view->addErrorMessage('SAVE_FAILED_PASSWORD_MATCH');
-                }
-            } else {
-                $this->user->disablePasswordSecCheck();
-            }
-
-            if ($this->getRequestVar('disable2Fa', [\fpcm\classes\http::FILTER_CASTINT]) === 1) {
-                $this->user->setAuthtoken('');
-            }
-
-            if ($this->config->system_2fa_auth &&
-                trim($saveData['authCodeConfirm']) &&
-                trim($saveData['authSecret']) &&
-                $this->gAuth->checkCode($saveData['authSecret'], $saveData['authCodeConfirm'])) {
-                $this->user->setAuthtoken($saveData['authSecret']);
-            }
-
-            if ($save) {
-                $res = $this->user->update();
-
-                if ($res === false) {
-                    $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
-                } elseif ($res === true) {
-                    $this->reloadSite = ($metaData['system_lang'] != $this->config->system_lang ? 1 : 0);
-                    $this->view->addNoticeMessage('SAVE_SUCCESS_EDITUSER_PROFILE');
-                } elseif ($res === \fpcm\model\users\author::AUTHOR_ERROR_PASSWORDINSECURE) {
-                    $this->view->addErrorMessage('SAVE_FAILED_PASSWORD_SECURITY');
-                } elseif ($res === \fpcm\model\users\author::AUTHOR_ERROR_NOEMAIL) {
-                    $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILEEMAIL');
-                }
-            }
-        }
+        $this->deleteImage($this->user);
+        $this->resetProfileSettings();
+        $this->resetDashboardSettings();
+        $this->saveProfile();
 
         $this->view->assign('author', $this->user);
         $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
+        return true;
+    }
+    
+    /**
+     * Reset profile settings
+     * @return bool
+     */
+    private function resetProfileSettings() : bool
+    {
+        if (!$this->buttonClicked('resetProfileSettings') || !$this->checkPageToken) {
+            return false;
+        }
+
+        if ($this->user->resetProfileSettings() === false) {
+            $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
+            return false;
+        }
+
+        $this->view->addNoticeMessage('SAVE_SUCCESS_RESETPROFILE');
+        $this->reloadSite = 1;
+        return true;
+    }
+    
+    /**
+     * Reset dashboard container positions
+     * @return bool
+     */
+    private function resetDashboardSettings() : bool
+    {
+        if (!$this->buttonClicked('resetDashboardSettings') || !$this->checkPageToken) {
+            return false;
+        }
+
+        if ($this->user->resetDashboard() === false) {
+            $this->view->addErrorMessage('SAVE_FAILED_USER_RESETDASHCONTAINER');
+            return false;
+        }
+
+        $this->view->addNoticeMessage('SAVE_SUCCESS_RESETDASHCONTAINER');
+        return true;
+    }
+    
+    /**
+     * Execute save process
+     * @return bool
+     */
+    private function saveProfile() : bool
+    {
+        if (!$this->buttonClicked('profileSave') || !$this->checkPageToken) {
+            return true;
+        }
+
+        $saveData = $this->getRequestVar('data');
+        if ($saveData['email'] !== $this->user->getEmail() && !$this->checkCurrentPass($saveData['current_pass'])) {
+            return false;
+        }
+
+        $this->user->setEmail($saveData['email']);
+        $this->user->setDisplayName($saveData['displayname']);
+
+        $metaData = $this->getRequestVar('usermeta');
+        $this->user->setUserMeta($metaData);
+        $this->user->setUsrinfo($saveData['usrinfo']);
+        $this->user->setChangeTime(time());
+        $this->user->setChangeUser((int) $this->session->getUserId());
+
+        $save = true;
+        if ($saveData['password'] && $saveData['password_confirm']) {
+
+            if (!$this->checkCurrentPass($saveData['current_pass'])) {
+                return false;
+            }
+
+            if (\fpcm\classes\tools::getHash($saveData['password']) !==
+                \fpcm\classes\tools::getHash($saveData['password_confirm'])) {
+                $this->view->addErrorMessage('SAVE_FAILED_PASSWORD_MATCH');
+                return false;
+            }
+
+            $this->user->setPassword($saveData['password']);
+        } else {
+            $this->user->disablePasswordSecCheck();
+        }
+
+        if ($this->getRequestVar('disable2Fa', [\fpcm\classes\http::FILTER_CASTINT]) === 1) {
+            $this->user->setAuthtoken('');
+        }
+
+        if ($this->config->system_2fa_auth &&
+            trim($saveData['authCodeConfirm']) &&
+            trim($saveData['authSecret']) &&
+            $this->gAuth->checkCode($saveData['authSecret'], $saveData['authCodeConfirm'])) {
+            $this->user->setAuthtoken($saveData['authSecret']);
+        }
+
+        $res = $this->user->update();
+        if ($res === false) {
+            $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILE');
+            return false;
+        }
+
+        if ($res === \fpcm\model\users\author::AUTHOR_ERROR_PASSWORDINSECURE) {
+            $this->view->addErrorMessage('SAVE_FAILED_PASSWORD_SECURITY');
+            return false;
+        }
+
+        if ($res === \fpcm\model\users\author::AUTHOR_ERROR_NOEMAIL) {
+            $this->view->addErrorMessage('SAVE_FAILED_USER_PROFILEEMAIL');
+            return false;
+        }
+
+        $this->reloadSite = ($metaData['system_lang'] != $this->config->system_lang ? 1 : 0);
+        $this->view->addNoticeMessage('SAVE_SUCCESS_EDITUSER_PROFILE');        
+        return true;
+    }
+
+    /**
+     * Validates current password
+     * @param string $currentPass
+     * @return bool
+     */
+    private function checkCurrentPass(string $currentPass) : bool
+    {
+        if (!password_verify("{$currentPass}", "{$this->user->getPasswd()}")) {
+            $this->view->addErrorMessage('SAVE_FAILED_PASSWORD_MATCH_CURRENT');
+            return false;
+        }
 
         return true;
     }
@@ -149,7 +211,7 @@ class profile extends \fpcm\controller\abstracts\controller {
         $this->view->assign('showExtended', true);
         $this->view->assign('showImage', true);
 
-        $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH', 'SAVE_FAILED_PASSWORD_SECURITY']);
+        $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH', 'SAVE_FAILED_PASSWORD_SECURITY', 'SAVE_FAILED_PASSWORD_SECURITY_PWNDPASS']);
         $this->view->addJsVars(array(
             'dtMasks' => $this->getDateTimeMasks(),
             'reloadPage' => $this->reloadSite,

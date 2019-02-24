@@ -24,7 +24,12 @@ fpcm.profile = {
             active: fpcm.vars.jsvars.activeTab,
             saveActiveTab: true
         });
-
+        
+        jQuery('#dataemail').focusout(function () {
+            fpcm.ui.showCurrentPasswordConfirmation();
+            
+        });
+        
     }
 
 };

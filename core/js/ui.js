@@ -902,6 +902,16 @@ fpcm.ui = {
         fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ showButtons).removeClass('fpcm-ui-hidden');
 
         fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
+    },
+    
+    showCurrentPasswordConfirmation: function () {
+        var el = jQuery('#fpcm-ui-currentpass-box');
+        if (!el.length) {
+            return false;
+        }
+
+        el.removeClass('fpcm-ui-hidden');
+        return true;
     }
     
 };

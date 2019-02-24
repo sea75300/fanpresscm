@@ -37,10 +37,10 @@
 
             <div class="row fpcm-ui-padding-md-tb">
                 <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('USERS_PASSWORD_CONFIRM') ?>:
+                    <?php $theView->write('USERS_PASSWORD_CONFIRM'); ?>:
                 </div>
                 <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('data[password_confirm]', 'password_confirm')->setAutocomplete(false);; ?>
+                    <?php $theView->textInput('data[password_confirm]', 'password_confirm')->setAutocomplete(false); ?>
                 </div>
             </div>
 
@@ -65,6 +65,18 @@
                             ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                 </div>
             </div>
+            
+            <?php if($inProfile) : ?>
+            <div id="fpcm-ui-currentpass-box" class="row fpcm-ui-padding-md-tb fpcm-ui-hidden">
+                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
+                    <?php $theView->icon('exclamation-triangle ')->setClass('fpcm-ui-important-text')->setSize('lg'); ?>
+                    <?php $theView->write('GLOBAL_PASSWORD_CONFIRM'); ?>:
+                </div>
+                <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
+                    <?php $theView->textInput('data[current_pass]')->setAutocomplete(false); ?>
+                </div>
+            </div>
+            <?php endif; ?>
 
             <?php if ($showDisableButton) : ?>
             <div class="row fpcm-ui-padding-md-tb">

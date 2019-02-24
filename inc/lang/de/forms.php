@@ -26,6 +26,7 @@ $lang = array(
     'GLOBAL_DISABLE' => 'Deaktivieren',
     'GLOBAL_USERNAME' => 'Benutzername',
     'GLOBAL_PASSWORD' => 'Passwort',
+    'GLOBAL_PASSWORD_CONFIRM' => 'Aktuelles Passwort zur Bestätigung eingeben',
     'GLOBAL_EMAIL' => 'E-Mail-Adresse',
     'GLOBAL_SUBMIT' => 'Absenden',
     'GLOBAL_RESET' => 'Zurücksetzen',

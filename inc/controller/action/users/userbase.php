@@ -108,7 +108,7 @@ class userbase extends \fpcm\controller\abstracts\controller {
             'jqUploadInit' => 0
         ]);
 
-        $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH', 'SAVE_FAILED_PASSWORD_SECURITY']);
+        $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH', 'SAVE_FAILED_PASSWORD_SECURITY', 'SAVE_FAILED_PASSWORD_SECURITY_PWNDPASS']);
         $this->view->setFieldAutofocus('username');
     }
 

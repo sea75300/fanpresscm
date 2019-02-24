@@ -34,6 +34,8 @@ fpcm.system = {
                     txt: fpcm.ui.translate('SAVE_FAILED_PASSWORD_MATCH')
                 }, true);
             }
+            
+            fpcm.ui.showCurrentPasswordConfirmation();
 
             fpcm.ajax.post('passcheck', {
                 data: {
@@ -47,7 +49,7 @@ fpcm.system = {
 
                     fpcm.ui.addMessage({
                         type: 'error',
-                        txt: fpcm.ui.translate('SAVE_FAILED_PASSWORD_SECURITY')
+                        txt: fpcm.ui.translate('SAVE_FAILED_PASSWORD_SECURITY_PWNDPASS')
                     }, true);
 
                     return false;
