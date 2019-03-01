@@ -24,4 +24,16 @@ cols:
         type: bigint
         length: 20
         params: NOT NULL
-indices:     
+    filesize:
+        type: bigint
+        length: 20
+        params: NOT NULL
+indices:
+    filename:
+        col: filename
+        isUnqiue: false
+    file_name_time:
+        col:
+            filename
+            filetime
+        isUnqiue: false

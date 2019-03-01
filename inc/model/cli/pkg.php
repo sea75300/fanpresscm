@@ -50,8 +50,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Initialize objects
      * @return bool
      */
-    private function initObjects()
-    {
+    private function initObjects() {
         $this->updaterSys = new \fpcm\model\updater\system();
         $this->updaterMod = new \fpcm\model\updater\modules();
         return true;
@@ -61,8 +60,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Modul ausführen
      * @return void
      */
-    public function process()
-    {
+    public function process() {
         if (!in_array($this->funcParams[0], $this->noMaintenanceMode)) {
             $this->output('Enable maintenance mode...');
             $this->config->setMaintenanceMode(true);
@@ -95,8 +93,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Process update check
      * @return bool
      */
-    private function processUpdate()
-    {
+    private function processUpdate() {
         $this->initObjects();
 
         $this->output('Fetch package information from repository...');
@@ -124,7 +121,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $updates = $modules->getInstalledUpdates();
 
         $this->output('-- successfull!');
-        $this->output('FanPress CM ' . $this->updaterSys->version . ' version was relesed on ' . $this->updaterSys->release);
+        $this->output('FanPress CM ' . $this->updaterSys->version . ' was relesed on ' . $this->updaterSys->release . ' width size of ' . \fpcm\classes\tools::calcSize($this->updaterSys->size));
         if ($successSys === \fpcm\model\updater\system::FORCE_UPDATE) {
             $this->output('-- This released is forced to be installed, you should run fpcmcli.php pkg --update system as soon as possible.');
         }
@@ -143,8 +140,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Process full system update
      * @return bool
      */
-    private function processUpgradeSystem()
-    {
+    private function processUpgradeSystem() {
         $this->output('Start system update...');
 
         $pkg = new \fpcm\model\packages\update(basename($this->updaterSys->url));
@@ -157,7 +153,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
         $this->output('-- Finished.' . PHP_EOL);
 
-        $this->output('Download package from ' . $pkg->getRemotePath() . ($this->updaterSys->size ? '('.\fpcm\classes\tools::calcSize($this->updaterSys->size).')' : ''). '...');
+        $this->output('Download package from ' . $pkg->getRemotePath() . ($this->updaterSys->size ? '(' . \fpcm\classes\tools::calcSize($this->updaterSys->size) . ')' : '') . '...');
         $success = $pkg->download();
         if ($success !== true) {
             $this->output('Download failed. ERROR CODE: ' . $success, true);
@@ -207,8 +203,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Run system database update
      * @return bool
      */
-    private function processUpgradedbSystem()
-    {
+    private function processUpgradedbSystem() {
         $this->output('Update local database...');
 
         $finalizer = new \fpcm\model\updater\finalizer();
@@ -227,8 +222,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Run update finalizer
      * @return bool
      */
-    private function processUpgradedbModule()
-    {
+    private function processUpgradedbModule() {
         $this->initObjects();
         $this->getModuleKey();
 
@@ -249,8 +243,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Process local file system for new modules
      * @return bool
      */
-    private function processListUpdatefs()
-    {
+    private function processListUpdatefs() {
         $this->output('Update local module database from file system...');
         $modules = new \fpcm\module\modules();
 
@@ -266,8 +259,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Process local module list output
      * @return bool
      */
-    private function processListLocal()
-    {
+    private function processListLocal() {
         $list = (new \fpcm\module\modules())->getFromDatabase();
         if (!count($list)) {
             $this->output('No modules installed, exit...', true);
@@ -287,8 +279,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Process remote module list output
      * @return bool
      */
-    private function processListRemote()
-    {
+    private function processListRemote() {
         $list = (new \fpcm\module\modules())->getFromRepository();
         if (!count($list)) {
             $this->output('No modules installed, exit...', true);
@@ -307,8 +298,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Displays information for given module key
      * @return bool
      */
-    private function processInfoModule()
-    {
+    private function processInfoModule() {
         $this->initObjects();
 
         $this->getModuleKey();
@@ -322,8 +312,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * @param bool $remote
      * @param bool $descr
      */
-    private function moduleslIstDetails(\fpcm\module\module $module, $remote = false, $descr = false)
-    {
+    private function moduleslIstDetails(\fpcm\module\module $module, $remote = false, $descr = false) {
         $this->output('>> ' . $module->getConfig()->name);
         $this->output($module->getKey() . ' - ' . $module->getConfig()->version . ' - ' . $module->getConfig()->author . ' - ' . $module->getConfig()->link . PHP_EOL);
 
@@ -345,8 +334,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Process module installation
      * @return bool
      */
-    private function processInstallModule()
-    {
+    private function processInstallModule() {
         $this->initObjects();
 
         $this->getModuleKey();
@@ -362,8 +350,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Process module update
      * @return bool
      */
-    private function processUpgradeModule()
-    {
+    private function processUpgradeModule() {
         $this->initObjects();
 
         $this->getModuleKey();
@@ -381,8 +368,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * @param bool $checkFiles
      * @return bool
      */
-    private function processModulePackage($mode, $checkFiles = false)
-    {
+    private function processModulePackage($mode, $checkFiles = false) {
         $pkg = new \fpcm\model\packages\module($this->modulekey);
 
         if ($checkFiles) {
@@ -457,8 +443,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * @param int $pos
      * @return bool
      */
-    private function getModuleKey($pos = 2)
-    {
+    private function getModuleKey($pos = 2) {
         if (empty($this->funcParams[$pos])) {
             $this->output('Invalid module package on position ' . ($pos + 1), true);
         }
@@ -475,8 +460,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Process complete modul removal
      * @return bool
      */
-    private function processRemoveModule()
-    {
+    private function processRemoveModule() {
         $this->initObjects();
 
         $this->getModuleKey();
@@ -495,8 +479,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Process complete modul deletion
      * @return bool
      */
-    private function processDeleteModule()
-    {
+    private function processDeleteModule() {
         $this->initObjects();
 
         $this->getModuleKey();
@@ -515,8 +498,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Hilfe-Text zurückgeben ausführen
      * @return array
      */
-    public function help()
-    {
+    public function help() {
         $lines = [];
         $lines[] = '> Package manager:';
         $lines[] = '';

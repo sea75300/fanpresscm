@@ -75,7 +75,7 @@ class image extends \fpcm\model\abstracts\file {
      * Felder die in Datenbank gespeichert werden können
      * @var array
      */
-    protected $dbParams = ['userid', 'filename', 'filetime'];
+    protected $dbParams = ['userid', 'filename', 'filetime', 'filesize'];
     
     /**
      * Konstruktor
@@ -279,9 +279,10 @@ class image extends \fpcm\model\abstracts\file {
         }
 
         $saveValues = $this->getSaveValues();
+        $saveValues[] = $this->filename;
         $saveValues = $this->events->trigger('image\update', $saveValues);
 
-        return $this->dbcon->update($this->table, $this->dbParams, array_values($saveValues), "filename = ?", array($this->filename));
+        return $this->dbcon->update($this->table, $this->dbParams, array_values($saveValues), "filename = ?");
     }
 
     /**
@@ -437,7 +438,9 @@ class image extends \fpcm\model\abstracts\file {
         $ext = pathinfo($this->fullpath, PATHINFO_EXTENSION);
         $this->extension = ($ext) ? $ext : '';
 
-        $this->filesize = filesize($this->fullpath);
+        if (!$this->filesize) {
+            $this->filesize = filesize($this->fullpath);
+        }
 
         $fileData = getimagesize($this->fullpath);
         if (!is_array($fileData)) {
