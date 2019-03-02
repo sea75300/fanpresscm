@@ -12,19 +12,31 @@ fpcm.login = {
 
     init: function() {
 
-        var _passCodeField = jQuery('#loginpassword');
-        var _authCodeField = jQuery('#loginauthcode');
-
-        if (!_authCodeField.length || _authCodeField.hasClass('fpcm-ui-hidden')) {
+        var _authCodeFieldBox = jQuery('#fpcm-loginauthcode-box');
+        if (!_authCodeFieldBox.length || !fpcm.ui.isHidden(_authCodeFieldBox)) {
             return true;
         }
 
-        _passCodeField.focusout(function () {
+        jQuery('form').keydown(function(event) {
+            if (event.which === 13 && fpcm.ui.isHidden('#fpcm-loginauthcode-box')) {
+                fpcm.login.showAuthCodeField();
+                return false;
+            }
+
+            return true;
+        });
+
+        jQuery('#loginpassword').focusout(function () {
+            if (!fpcm.ui.isHidden('#fpcm-loginauthcode-box')) {
+                return true;
+            }
+
             fpcm.login.showAuthCodeField();
+            return false;
         });
 
         jQuery('#btnLogin').click(function () {
-            if (!_authCodeField.hasClass('fpcm-ui-hidden')) {
+            if (!fpcm.ui.isHidden('#fpcm-loginauthcode-box')) {
                 return true;
             }
 
@@ -36,7 +48,7 @@ fpcm.login = {
     },
     
     showAuthCodeField: function () {
-        jQuery('#fpcm-loginauthcode-box').fadeIn();
+        jQuery('#fpcm-loginauthcode-box').removeClass('fpcm-ui-hidden');
         fpcm.ui.setFocus('loginauthcode');
         return true;
     }

@@ -912,6 +912,15 @@ fpcm.ui = {
 
         el.removeClass('fpcm-ui-hidden');
         return true;
+    },
+
+    isHidden: function (element) {
+
+        if (!(element instanceof Object)) {
+            element = jQuery(element);
+        }
+
+        return element.hasClass('fpcm-ui-hidden') ? true : false;
     }
-    
+
 };
