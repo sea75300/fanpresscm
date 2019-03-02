@@ -100,7 +100,7 @@ final class system extends \fpcm\model\abstracts\staticModel {
 
         if (isset($foptData[$currentVersionComplete])) {
             $this->data = $foptData[$currentVersionComplete];
-            if (!isset($this->size)) {
+            if ($this->size === null) {
                 $this->size = 0;
             }
             return true;
@@ -108,14 +108,14 @@ final class system extends \fpcm\model\abstracts\staticModel {
 
         if (isset($foptData[$currentVersionMinor]) ) {
             $this->data = $foptData[$currentVersionMinor];
-            if (!isset($this->size)) {
+            if ($this->size === null) {
                 $this->size = 0;
             }
             return true;
         }
 
         $this->data = isset($foptData['default']) ? $foptData['default'] : [];
-        if (!isset($this->size)) {
+        if ($this->size === null) {
             $this->size = 0;
         }
 

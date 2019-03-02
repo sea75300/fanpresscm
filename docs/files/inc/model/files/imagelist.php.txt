@@ -158,7 +158,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         $folderFiles = $this->getFolderList();
 
         $dbFiles = $this->getDatabaseList();
-        if (!$folderFiles || !count($folderFiles) || count($folderFiles) == count($dbFiles)) {
+        if (!$folderFiles || !count($folderFiles)) {
             return;
         }
 
@@ -166,6 +166,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
 
             $this->removeBasePath($folderFile);
             if (isset($dbFiles[$folderFile])) {
+                $dbFiles[$folderFile]->update();
                 continue;
             }
 
@@ -254,7 +255,12 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      */
     public function getUploadFolderSize()
     {
-        return array_sum(array_map('filesize', $this->getFolderList()));
+        $result = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setItem('SUM(filesize) as sizesum'));
+        if (!is_object($result) || !isset($result->sizesum)) {
+            return 0;
+        }
+
+        return $result->sizesum;
     }
 
 }
