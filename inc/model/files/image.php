@@ -265,7 +265,10 @@ class image extends \fpcm\model\abstracts\file {
             return false;
         }
 
-        return $this->dbcon->insert($this->table, $this->events->trigger('image\save', $this->getSaveValues()));
+        $saveValues = $this->getSaveValues();
+        $saveValues['filesize'] = (int) $saveValues['filesize'];
+
+        return $this->dbcon->insert($this->table, $this->events->trigger('image\save', $saveValues));
     }
 
     /**
@@ -279,6 +282,8 @@ class image extends \fpcm\model\abstracts\file {
         }
 
         $saveValues = $this->getSaveValues();
+        $saveValues['filesize'] = (int) $saveValues['filesize'];
+
         $saveValues[] = $this->filename;
         $saveValues = $this->events->trigger('image\update', $saveValues);
 

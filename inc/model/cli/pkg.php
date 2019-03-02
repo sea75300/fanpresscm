@@ -37,6 +37,12 @@ final class pkg extends \fpcm\model\abstracts\cli {
     private $modulekey;
 
     /**
+     * Internal execution via system
+     * @var bool
+     */
+    private $exSystem;
+
+    /**
      * List of actions without maintenace mode enabled
      * @var array
      */
@@ -61,14 +67,19 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * @return void
      */
     public function process() {
-        if (!in_array($this->funcParams[0], $this->noMaintenanceMode)) {
-            $this->output('Enable maintenance mode...');
-            $this->config->setMaintenanceMode(true);
-            $this->output('-- Finished.' . PHP_EOL);
-        }
 
         if (!trim($this->funcParams[0])) {
             $this->output('Invalid parameter on position 0', true);
+        }
+
+        $this->exSystem = isset($this->funcParams[2]) && $this->funcParams[2] === self::PARAM_EXECSYSTEM
+                        ? true
+                        : false;
+
+        if (!in_array($this->funcParams[0], $this->noMaintenanceMode) && !$this->exSystem) {
+            $this->output('Enable maintenance mode...');
+            $this->config->setMaintenanceMode(true);
+            $this->output('-- Finished.' . PHP_EOL);
         }
 
         $fn = 'process' . ucfirst(str_replace('-', '', trim($this->funcParams[0]))) . ( isset($this->funcParams[1]) && trim($this->funcParams[1]) ? ucfirst(trim($this->funcParams[1])) : '' );
@@ -80,7 +91,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
             $this->output('Processing error, see error log for further information.', true);
         }
 
-        if (!in_array($this->funcParams[0], $this->noMaintenanceMode)) {
+        if (!in_array($this->funcParams[0], $this->noMaintenanceMode) && !$this->exSystem) {
             $this->output('Disable maintenance mode...');
             $this->config->setMaintenanceMode(false);
             $this->output('-- Finished.' . PHP_EOL);
@@ -141,8 +152,10 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * @return bool
      */
     private function processUpgradeSystem() {
+        
         $this->output('Start system update...');
 
+        $this->updaterSys = new \fpcm\model\updater\system();
         $pkg = new \fpcm\model\packages\update(basename($this->updaterSys->url));
 
         $this->output('Check local file system...');
@@ -153,7 +166,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
         $this->output('-- Finished.' . PHP_EOL);
 
-        $this->output('Download package from ' . $pkg->getRemotePath() . ($this->updaterSys->size ? '(' . \fpcm\classes\tools::calcSize($this->updaterSys->size) . ')' : '') . '...');
+        $this->output('Download package from ' . $pkg->getRemotePath() . ($this->updaterSys->size ? ' (' . \fpcm\classes\tools::calcSize($this->updaterSys->size) . ')' : '') . '...');
         $success = $pkg->download();
         if ($success !== true) {
             $this->output('Download failed. ERROR CODE: ' . $success, true);
@@ -181,7 +194,13 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
         $this->output('-- Finished.' . PHP_EOL);
 
-        $this->processUpgradedbSystem();
+        system('php '. \fpcm\classes\dirs::getFullDirPath('fpcmcli.php'). ' pkg '.self::PARAM_UPGRADE_DB.' system '.self::PARAM_EXECSYSTEM);
+        $fopt = new \fpcm\model\files\fileOption('cliDbUpgrade');
+        $success = $fopt->read();
+        $fopt->remove();
+        if ($success === false) {
+            exit;
+        }
 
         $this->output('Update package manager logfile...');
         $success = $pkg->updateLog();
@@ -208,13 +227,17 @@ final class pkg extends \fpcm\model\abstracts\cli {
 
         $finalizer = new \fpcm\model\updater\finalizer();
         $success = $finalizer->runUpdate();
+
+        if ($this->exSystem) {
+            (new \fpcm\model\files\fileOption('cliDbUpgrade'))->write($success);
+        }
+
         if ($success !== true) {
             $this->output('An error occurred during Database update. ERROR CODE: ' . $success, true);
         }
 
         $this->config->init();
         $this->output('-- Finished.' . PHP_EOL);
-
         return true;
     }
 

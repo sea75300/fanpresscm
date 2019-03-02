@@ -99,6 +99,12 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
     const PARAM_LISTROLLS = '--listrolls';
 
     /**
+     * CLI param: --exsystem
+     * @ignore
+     */
+    const PARAM_EXECSYSTEM = '--exsystem';
+
+    /**
      * CLI param: package manager type: system
      */
     const PARAM_TYPE_SYSTEM = 'system';
