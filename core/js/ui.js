@@ -643,7 +643,7 @@ fpcm.ui = {
         }
         
         if (!value.id) {
-            value.id = (new Date()).getTime();
+            value.id = fpcm.ui.getUniqueID();
         }
         
         if (fpcm.ui.langvarExists(value.txt)) {
@@ -715,10 +715,12 @@ fpcm.ui = {
         }
       
         if (!params.id) {
-            params.id = jQuery.uniqueId();
+            params.id = fpcm.ui.getUniqueID();
         }
 
-        return '<iframe ' + params.src + ' id="' + params.id + '" class="' + params.classes + '"></iframe>';
+        params.style = params.style ? 'style="' + params.style + '"' : '';
+
+        return '<iframe src="' + params.src + '" id="' + params.id + '" class="' + params.classes + '" ' + params.style + '></iframe>';
         
     },
     
@@ -921,6 +923,10 @@ fpcm.ui = {
         }
 
         return element.hasClass('fpcm-ui-hidden') ? true : false;
+    },
+    
+    getUniqueID: function (descr) {
+        return (new Date()).getMilliseconds() + Math.random().toString(36).substr(2, 9) + (descr ? descr : '');
     }
 
 };

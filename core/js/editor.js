@@ -481,12 +481,16 @@ fpcm.editor = {
         fpcm.vars.jsvars.editorConfig.file_picker = function(callback, value, meta) {
 
             tinymce.activeEditor.windowManager.open({
-                title           : fpcm.ui.translate('HL_FILES_MNG'),
-                body            : {
+                title: fpcm.ui.translate('HL_FILES_MNG') + ' - dummy dialog!',
+                size: 'large',
+                body: {
                     type: 'panel',
                     items: [{
                         type: 'htmlpanel',
-                        html: '<p>File picker is not supported yet.</p>'
+                        html: fpcm.ui.createIFrame({
+                            src: fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode,
+                            style: 'width:100%;height:100%;'
+                        })
                     }]
                 },
                 buttons: [

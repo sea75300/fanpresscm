@@ -1145,3 +1145,8 @@ div.mce-fpcm-ui-emoticons-panel {
 .pre-box {
     white-space: pre-line;
 }
+
+.tox .tox-dialog__body-content div[role=presentation] {
+    height: 100%;
+    overflow: hidden;
+}
