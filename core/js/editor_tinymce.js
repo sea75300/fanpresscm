@@ -150,7 +150,8 @@ if (fpcm.editor) {
     };
     
     fpcm.editor.insertThumbByEditor = function (url, title) {
-        top.tinymce.activeEditor.windowManager.getParams().oninsert(url, {
+
+        fpcm.editor.filePickerCallback(url, {
             alt: title,
             text: title
         });
@@ -159,12 +160,13 @@ if (fpcm.editor) {
     };
 
     fpcm.editor.insertFullByEditor = function (url, title) {
-        top.tinymce.activeEditor.windowManager.getParams().oninsert(url, {
+
+        fpcm.editor.filePickerCallback(url, {
             alt: title,
             text: title
         });
 
-        top.tinymce.activeEditor.windowManager.close();    
+        top.tinymce.activeEditor.windowManager.close();
     };
 
 }

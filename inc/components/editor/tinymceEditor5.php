@@ -23,7 +23,7 @@ class tinymceEditor5 extends tinymceEditor {
      */
     public function getJsFiles()
     {
-        return [\fpcm\classes\loader::libGetFileUrl('tinymce5/tinymce.min.js'), 'editor_tinymce.js'];
+        return [\fpcm\classes\loader::libGetFileUrl('tinymce5/tinymce.min.js'), 'editor_tinymce.js', 'editor_tinymce5.js'];
     }
 
     /**
@@ -75,7 +75,7 @@ class tinymceEditor5 extends tinymceEditor {
                 'file_picker_types' => ['image', 'file']
             ],
             'editorDefaultFontsize' => $this->config->system_editor_fontsize,
-            'editorInitFunction' => 'initTinyMce5'
+            'editorInitFunction' => 'initTinyMce'
         ]);
     }
 
