@@ -17,7 +17,7 @@ fpcm.editor.initTinyMce = function() {
         fpcm.editor.filePickerCallback = callback;
 
         tinymce.activeEditor.windowManager.open({
-            title: fpcm.ui.translate('HL_FILES_MNG') + ' - dummy dialog!',
+            title: fpcm.ui.translate('HL_FILES_MNG'),
             size: 'large',
             body: {
                 type: 'panel',
@@ -25,44 +25,36 @@ fpcm.editor.initTinyMce = function() {
                     type: 'htmlpanel',
                     html: fpcm.ui.createIFrame({
                         src: fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode,
-                        style: 'width:100%;height:100%;'
+                        style: 'width:100%;height:100%;',
+                        id: 'fpcm-dialog-editor-tinymce-filemanager'
                     })
                 }]
             },
             buttons: [
-//                {
-//                    type:  'custom',
-//                    name: 'fmSearch',
-//                    text: fpcm.ui.translate('ARTICLES_SEARCH'),
-//                    disabled: false,
-//                    primary: false,
-//                    onAction: function() {
-//                        var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
-//                        jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('#deleteFiles').click();
-//                    }
-//                },
-//                {
-//                    type:  'custom',
-//                    name: 'fmNewThumbs',
-//                    text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
-//                    disabled: false,
-//                    primary: false,
-//                    onAction: function() {
-//                        var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
-//                        jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('#createThumbs').click();
-//                    }
-//                },
-//                {
-//                    type:  'custom',
-//                    name: 'fmDelete',
-//                    text: fpcm.ui.translate('GLOBAL_DELETE'),
-//                    disabled: false,
-//                    primary: false,
-//                    onAction: function() {
-//                        var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
-//                        jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('#deleteFiles').click();
-//                    }
-//                },
+                {
+                    type:  'custom',
+                    name: 'fmSearch',
+                    text: fpcm.ui.translate('ARTICLES_SEARCH'),
+                    disabled: false,
+                    primary: false,
+                    align: 'start'
+                },
+                {
+                    type:  'custom',
+                    name: 'fmNewThumbs',
+                    text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
+                    disabled: false,
+                    primary: false,
+                    align: 'start'
+                },
+                {
+                    type:  'custom',
+                    name: 'fmDelete',
+                    text: fpcm.ui.translate('GLOBAL_DELETE'),
+                    disabled: false,
+                    primary: false,
+                    align: 'start'
+                },
                 {
                     type:  'cancel',
                     name: 'fmClose',
@@ -70,7 +62,21 @@ fpcm.editor.initTinyMce = function() {
                     disabled: false,
                     primary: true
                 },                          
-            ]
+            ],
+            initialData: {
+                fmSearch: 'opensearch',
+                fmNewThumbs: 'createThumbs',
+                fmDelete: 'deleteFiles'
+            },
+            onAction: function(api, action) {
+
+                if (!this.initialData[action.name]) {
+                    return false;
+                }
+
+                jQuery('#fpcm-dialog-editor-tinymce-filemanager').contents().find('#' + this.initialData[action.name]).click();
+                
+            }
         });
 
         return true;
@@ -85,6 +91,22 @@ fpcm.editor.initTinyMce = function() {
         fpcm.ui.showLoader(true);
         args.content = fpcm.editor_videolinks.createFrame(content, true);
         fpcm.ui.showLoader(false);
+    };
+
+    fpcm.vars.jsvars.editorConfig.onInitAfterStd = function(editor) {
+
+        editor.ui.registry.addButton('fpcm_emoticons', {
+            icon: 'emoticons',
+            tooltip: 'Insert Current Date',
+            disabled: false,
+            onAction: function () {
+                debugger;
+            },
+            onSetup: function (buttonApi) {
+                
+            }
+        });
+
     };
 
     fpcm.editor_tinymce.create(fpcm.vars.jsvars.editorConfig);

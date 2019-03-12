@@ -195,6 +195,7 @@ class tinymceEditor extends articleEditor {
 
             $ret[] = array(
                 "title" => $basename,
+                "description" => $basename,
                 "url" => \fpcm\classes\dirs::getRootUrl(\fpcm\model\files\ops::removeBaseDir($file))
             );
         }

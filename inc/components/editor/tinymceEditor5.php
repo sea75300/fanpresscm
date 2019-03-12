@@ -57,10 +57,10 @@ class tinymceEditor5 extends tinymceEditor {
         return $this->events->trigger('editor\initTinymce', [
             'editorConfig' => [
                 'theme' => 'silver',
-                'language' => 'en', //$this->config->system_lang,
+                'language' => $this->config->system_lang,
                 'plugins' => $pluginFolders,
                 'custom_elements' => 'readmore',
-                'toolbar' => 'formatselect fontsizeselect | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify outdent indent | subscript superscript table toc | bullist numlist | fpcm_readmore hr blockquote | link unlink anchor image media | emoticons charmap insertdatetime template | undo redo removeformat searchreplace fullscreen code restoredraft',
+                'toolbar' => 'formatselect fontsizeselect | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify outdent indent | subscript superscript table toc | bullist numlist | fpcm_readmore hr blockquote | link unlink anchor image media | emoticons fpcm_emoticons charmap insertdatetime template | undo redo removeformat searchreplace fullscreen code restoredraft',
                 'link_class_list' => $cssClasses,
                 'image_class_list' => $cssClasses,
                 'link_list' => \fpcm\classes\tools::getFullControllerLink('ajax/autocomplete', ['src' => 'editorlinks']),

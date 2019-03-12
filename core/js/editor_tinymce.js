@@ -15,6 +15,16 @@ fpcm.editor_tinymce = {
         params = {
             selector            : 'textarea',
             default_link_target : '_blank',
+            insertdatetime_formats: [
+                "%H:%M:%S",
+                "%H:%M",
+                "%r",
+                "%I:%M %p",
+                "%d.%m.%Y",
+                "%d. %b %Y",
+                "%Y-%m-%d",
+                "%D",
+            ],
             theme               : config.theme,
             menubar             : false,
             relative_urls       : false,
@@ -101,11 +111,14 @@ fpcm.editor_tinymce = {
             params.setup = config.onInit;
         }
         else {
-            params.setup = function(ed) {
-                ed.on('init', function() {
-                    this.getBody().style.fontSize = fpcm.vars.jsvars.editorDefaultFontsize;
-                    jQuery('#' + this.iframeElement.id).removeAttr('title');                 
-                });
+            params.setup = function(editor) {
+                editor.on('init', function() {
+                    this.getBody().style.fontSize = fpcm.vars.jsvars.editorDefaultFontsize;           
+                });    
+
+                if (config.onInitAfterStd) {
+                    config.onInitAfterStd(editor);
+                }
             }
         }
         
@@ -127,6 +140,10 @@ fpcm.editor_tinymce = {
         
         if (config.file_picker_types) {
             params.file_picker_types = config.file_picker_types;
+        }
+        
+        if (config.emoticons_append) {
+            params.emoticons_append = config.emoticons_append;
         }
 
         if (config.mobileConfig) {
