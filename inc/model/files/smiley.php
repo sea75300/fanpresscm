@@ -319,6 +319,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     {
         return [
             'img' => $this->getEditorImageTag(),
+            'code' => $this->getSmileyCode()
         ];
     }
 

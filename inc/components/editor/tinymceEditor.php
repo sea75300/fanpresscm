@@ -211,7 +211,7 @@ class tinymceEditor extends articleEditor {
      */
     public function getJsLangVars()
     {
-        return ['EDITOR_HTML_BUTTONS_READMORE'];
+        return ['EDITOR_HTML_BUTTONS_READMORE', 'EDITOR_INSERTSMILEY'];
     }
 
 }

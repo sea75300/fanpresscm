@@ -96,14 +96,64 @@ fpcm.editor.initTinyMce = function() {
     fpcm.vars.jsvars.editorConfig.onInitAfterStd = function(editor) {
 
         editor.ui.registry.addButton('fpcm_emoticons', {
-            icon: 'emoticons',
-            tooltip: 'Insert Current Date',
+            icon: 'emoji',
+            tooltip: fpcm.ui.translate('EDITOR_INSERTSMILEY'),
             disabled: false,
             onAction: function () {
-                debugger;
+                
+                tinymce.activeEditor.windowManager.open({
+                    title: fpcm.ui.translate('EDITOR_INSERTSMILEY'),
+                    size: 'medium',
+                    body: {
+                        type: 'panel',
+                        items: [{
+                            type: 'collection',
+                            name: 'smileyList'
+                        }]
+                    },
+                    buttons: [
+                        {
+                            type:  'cancel',
+                            text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                            disabled: false,
+                            primary: true
+                        },                          
+                    ],
+                    initialData: {
+                        smileyList: fpcm.vars.jsvars.editorConfig.fpcmEmoticons
+                    },
+                    onAction: function (api, data) {
+
+                        if (data.value) {
+                            editor.insertContent(data.value);
+                        }
+
+                        api.close();
+                    }
+                });
+
             },
             onSetup: function (buttonApi) {
-                
+                fpcm.ajax.get('editor/smileys', {
+                    data: {
+                        json: true
+                    },
+                    execDone: function (result) {
+                        
+                        var items = fpcm.ajax.fromJSON(result);
+                        fpcm.vars.jsvars.editorConfig.fpcmEmoticons = [];
+
+                        for(var x = 0;x < items.length; x++) {
+                            fpcm.vars.jsvars.editorConfig.fpcmEmoticons.push({
+                                text: items[x].code,
+                                value: ' ' + items[x].code + ' ',
+                                icon: items[x].img
+                            }   
+                            );
+                        }
+
+                    }
+                });
             }
         });
 
