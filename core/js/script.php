@@ -26,10 +26,17 @@ if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled(
     
     $jsFiles = $cache->read(fpcm\view\view::JS_FILES_CACHE.$unique);
     if (!is_array($jsFiles)) {
-        exit;
+        $jsFiles = [];
     }
-    
-    foreach ($jsFiles as $jsFile) {
+
+    $jsFilesDefault = [
+        __DIR__.DIRECTORY_SEPARATOR.'ajax.js',
+        __DIR__.DIRECTORY_SEPARATOR.'ui.js',
+        __DIR__.DIRECTORY_SEPARATOR.'notifications.js',
+        __DIR__.DIRECTORY_SEPARATOR.'system.js'
+    ];
+
+    foreach (array_merge($jsFilesDefault, $jsFiles) as $jsFile) {
 
         $fileContent = file_get_contents($jsFile);
         if (!trim($fileContent)) {

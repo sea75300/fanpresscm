@@ -191,7 +191,7 @@ class main extends \fpcm\controller\abstracts\controller {
         $this->view->assign('showNextButton', $this->step > 1 ? true : false);
         $this->view->assign('showReload', false);
         $this->view->assign('languages', array_flip($this->language->getLanguages()));
-        $this->view->addJsFiles(['installer.js', 'systemcheck.js', \fpcm\classes\loader::libGetFileUrl('password-generator/password-generator.min.js')]);
+        $this->view->addJsFiles(['{$coreJs}installer.js', '{$coreJs}systemcheck.js', \fpcm\classes\loader::libGetFileUrl('password-generator/password-generator.min.js')]);
 
         if (method_exists($this, 'runAfterStep' . ($this->step - 1))) {
             call_user_func(array($this, 'runAfterStep' . ($this->step - 1)));
