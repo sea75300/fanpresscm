@@ -347,7 +347,7 @@ class view {
      */
     public function overrideCssFiles(array $viewCssFiles)
     {
-        $this->viewCssFiles = viewCssFiles;
+        $this->viewCssFiles = $viewCssFiles;
     }
 
     /**
