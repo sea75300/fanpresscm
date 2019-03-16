@@ -25,6 +25,11 @@ class view {
     const ROOTURL_CORE_THEME = '{$coreTheme}';
     const ROOTURL_LIB = '{$lib}';
 
+    const JS_FILETYP_URL  = 0b100;
+    const JS_FILETYP_FILE = 0b010;
+    const JS_FILETYP_FILE_EXT = 0b001;
+    const JS_FILES_CACHE = 'themejsfiles/';
+
     /**
      * Complete view path
      * @var string
@@ -36,6 +41,12 @@ class view {
      * @var string
      */
     protected $viewName = '';
+
+    /**
+     * View file path hash
+     * @var string
+     */
+    protected $viewHash = '';
 
     /**
      * Form action path
@@ -60,6 +71,13 @@ class view {
      * @var array
      */
     protected $viewJsFiles = [];
+
+    /**
+     * Local view files in core/js
+     * @var array
+     * @since FPCm 4.1
+     */
+    protected $viewJsFilesLocal = [];
 
     /**
      * View CSS files
@@ -144,6 +162,13 @@ class view {
      * @var bool
      */
     protected $showPageToken = true;
+
+    /**
+     * Root urls for replacements
+     * @var array
+     * @since FPCm 4.1
+     */
+    protected $rootUrls = [];
     
     /**
      * Konstruktor
@@ -165,6 +190,12 @@ class view {
             $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
             $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
         }
+
+        $this->rootUrls = [
+            self::ROOTURL_LIB => \fpcm\classes\dirs::getLibUrl(''),
+            self::ROOTURL_CORE_JS => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_JS, ''),
+            self::ROOTURL_CORE_THEME => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, '')
+        ];
 
         $this->defaultViewVars = new viewVars();
         $this->initFileLib();
@@ -206,37 +237,39 @@ class view {
      */
     private function addRootPath($item)
     {
-        if (!trim($item) || substr($item, 0, 4) === 'http') {
-            return $item;
+        if (!$item) {
+            return '';
+        }
+
+        $jsCorePath = '';
+
+        $type = $this->getJsFileType($item, $jsCorePath);
+        if ($type === self::JS_FILETYP_FILE) {
+            $this->viewJsFilesLocal[] = $jsCorePath;
+            return $jsCorePath;
+        }
+
+        return str_replace(array_keys($this->rootUrls), array_values($this->rootUrls), $item);
+    }
+
+    /**
+     * Checks path type of given JS file
+     * @param string $item
+     * @since FPCM 4.1
+     */
+    private function getJsFileType(string $item, &$jsCorePath) : int
+    {
+        $item = trim($item);
+        if (!$item || substr($item, -3) !== '.js' || substr($item, 0, 4) === 'http' || substr($item, 0, 2) === '//') {
+            return self::JS_FILETYP_URL;
         }
         
-        $item = str_replace('//', '/', $item);
-        if (substr($item, 0, 2) !== '{$' && substr($item, -3) === '.js') {
-            $item = self::ROOTURL_CORE_JS.$item;
+        $jsCorePath = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_JS, $item);
+        if (file_exists($jsCorePath)) {
+            return self::JS_FILETYP_FILE;
         }
         
-        $cacheName  = 'system/rootpaths'.\fpcm\classes\baseconfig::canHttps();
-        $checks     =  $this->cache->read($cacheName);
-        
-        if ($this->cache->isExpired($cacheName) || !is_array($checks)) {
-            $checks = [];
-        }
-
-        $hash = \fpcm\classes\tools::getHash($item);
-        if (isset($checks[$hash])) {
-            return $checks[$hash];
-        }
-
-        $replace = [
-            self::ROOTURL_LIB => \fpcm\classes\dirs::getLibUrl(''),
-            self::ROOTURL_CORE_JS => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_JS, ''),
-            self::ROOTURL_CORE_THEME => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, ''),
-        ];
-
-        $checks[$hash] = str_replace(array_keys($replace), array_values($replace), $item);
-        $this->cache->write($cacheName, $checks);
-
-        return $checks[$hash];
+        return self::JS_FILETYP_FILE_EXT;
     }
 
     /**
@@ -277,7 +310,7 @@ class view {
      */
     public function addJsFiles(array $viewJsFiles)
     {
-        $this->viewJsFiles = array_merge($this->viewJsFiles, array_map([$this, 'addRootPath'], $viewJsFiles));
+        $this->viewJsFiles = array_merge($this->viewJsFiles, $viewJsFiles);
     }
 
     /**
@@ -286,7 +319,7 @@ class view {
      */
     public function addCssFiles(array $viewCssFiles)
     {
-        $this->viewCssFiles = array_merge($this->viewCssFiles, array_map([$this, 'addRootPath'], $viewCssFiles));
+        $this->viewCssFiles = array_merge($this->viewCssFiles, $viewCssFiles);
     }
 
     /**
@@ -314,7 +347,7 @@ class view {
      */
     public function overrideCssFiles(array $viewCssFiles)
     {
-        $this->viewCssFiles = array_map([$this, 'addRootPath'], $viewCssFiles);
+        $this->viewCssFiles = viewCssFiles;
     }
 
     /**
@@ -323,7 +356,7 @@ class view {
      */
     public function overrideJsFiles(array $viewJsFiles)
     {
-        $this->viewJsFiles = array_map([$this, 'addRootPath'], $viewJsFiles);
+        $this->viewJsFiles = $viewJsFiles;
     }
     
     /**
@@ -513,7 +546,7 @@ class view {
      * @return bool
      */
     public function render()
-    {
+    {        
         if (!file_exists($this->viewPath)) {
             trigger_error("View file {$this->viewName} not found!");
             exit("View file {$this->viewName} not found!");
@@ -588,10 +621,12 @@ class view {
         $this->defaultViewVars->currentModule = \fpcm\classes\http::get('module');
         $this->defaultViewVars->buttons = $this->buttons;
         $this->defaultViewVars->formActionTarget = $this->formAction;
-
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-        $this->defaultViewVars->filesCss = array_unique($this->viewCssFiles);
-        $this->defaultViewVars->filesJs = array_unique($this->viewJsFiles);
+
+        $this->defaultViewVars->filesCss = array_unique(array_map([$this, 'addRootPath'], $this->viewCssFiles));
+        $this->defaultViewVars->filesJs = array_unique(array_diff(array_map([$this, 'addRootPath'], $this->viewJsFiles), $this->viewJsFilesLocal));
+
+        $this->cache->write(self::JS_FILES_CACHE.$this->getViewHash(), array_unique($this->viewJsFilesLocal));
 
         $this->defaultViewVars->fullWrapper = in_array($this->defaultViewVars->currentModule, ['installer']);
         $this->defaultViewVars->showPageToken = $this->showPageToken;
@@ -640,6 +675,7 @@ class view {
                         : \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
 
         $this->viewName = $viewName;
+        $this->viewHash = \fpcm\classes\tools::getHash($this->viewPath.uniqid());
     }
     
     /**
@@ -691,6 +727,16 @@ class view {
     public function wasRendered()
     {
         return $this->rendered;
+    }
+
+    /**
+     * Returns Sha256-hash on view path
+     * @return string
+     * @since FPCM 4.1
+     */
+    public function getViewHash() : string
+    {
+        return $this->viewHash;
     }
 
     /**
@@ -816,11 +862,6 @@ class view {
     }
 
     /**
-     * Gibt JS library zurück
-     * @return array
-     */
-    
-    /**
      * Initialize default JavaScript files
      * @return array
      */
@@ -830,7 +871,11 @@ class view {
             self::ROOTURL_LIB.'jquery/jquery-3.3.1.min.js',
             self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.js',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
-            self::ROOTURL_CORE_JS.'script.php'
+            self::ROOTURL_CORE_JS.'script.php?uq='.$this->getViewHash(),
+            'ajax.js',
+            'ui.js',
+            'notifications.js',
+            'system.js'
         ]);
 
         return $this->viewJsFiles;
