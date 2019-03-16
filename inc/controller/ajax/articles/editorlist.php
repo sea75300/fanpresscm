@@ -166,6 +166,24 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
+     * @return bool
+     */
+    private function processShortlink()
+    {
+        if (!$this->article->exists()) {
+            exit;
+        }
+
+        $this->returnData = [
+            'shortend' => $this->article->getArticleShortLink(),
+            'permalink' => \fpcm\classes\baseconfig::canConnect()
+        ];
+
+        return true;
+    }
+
+    /**
+     * 
      * @return int
      */
     protected function getMode()
@@ -208,6 +226,15 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
     {
         $this->article = new \fpcm\model\articles\article($this->oid);
         return true;
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    protected function initObjectsShortlink()
+    {
+        return $this->initObjectsRevisions();
     }
 
 }

@@ -159,7 +159,7 @@ class articleedit extends articlebase {
             'checkLastState' => -1
         ]);
 
-        $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'COMMENTS_EDIT']);
+        $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'COMMENTS_EDIT', 'EDITOR_ARTICLE_SHORTLINK']);
 
         if ($this->article->isInEdit()) {
 
@@ -209,7 +209,14 @@ class articleedit extends articlebase {
             
             $this->view->addButtons([
                 (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($this->article)->setTarget('_blank')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
-                (new \fpcm\view\helper\linkButton('shortlink'))->setUrl($this->article->getArticleShortLink())->setText('EDITOR_ARTICLE_SHORTLINK')->setIcon('external-link-square-alt')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
+                (new \fpcm\view\helper\button('shortlink'))
+                    ->setText('EDITOR_ARTICLE_SHORTLINK')
+                    ->setIcon('external-link-square-alt')
+                    ->setIconOnly(true)
+                    ->setClass('fpcm-ui-maintoolbarbuttons-tab1')
+                    ->setData([
+                        'article' => $this->article->getId()
+                    ]),
             ]);
 
             if ($this->article->getImagepath()) {

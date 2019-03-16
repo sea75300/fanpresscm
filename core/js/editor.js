@@ -49,36 +49,50 @@ fpcm.editor = {
             minDate: "-0d"
         });   
 
-        jQuery('#shortlink').click(function () {
-            var text = jQuery(this).text();
-            var link = jQuery(this).attr('href');
+        jQuery('#btnShortlink').click(function (event, handler) {
 
-            var size = fpcm.ui.getDialogSizes();
+            fpcm.ui.showLoader(true);
 
-            fpcm.ui.dialog({
-                id: 'editor-shortlink',
-                dlWidth: size.width,
-                title: text,
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                        
-                        click: function() {
-                            jQuery( this ).dialog( "close" );
-                        }
-                    }
-                ],
-                dlOnOpen: function (event, ui) {                
-                    var appendCode  = fpcm.vars.jsvars.canConnect
-                                    ? '<div class="fpcm-ui-input-wrapper"><div class="fpcm-ui-input-wrapper-inner"><input type="text" value="' + link + '"></div></div>'
-                                    : '<iframe class="fpcm-ui-full-width"  src="' + link + '"></iframe>';
-
-                    fpcm.ui.appendHtml(this, appendCode);
+            fpcm.ajax.get('editor/editorlist',{
+                data: {
+                    id: jQuery(this).data().article,
+                    view: 'shortlink'
                 },
-                dlOnClose: function( event, ui ) {
-                    jQuery(this).empty();
+                execDone: function (result) {
+
+                    result = fpcm.ajax.fromJSON(result);
+
+                    fpcm.ui.dialog({
+                        id: 'editor-shortlink',
+                        dlWidth: fpcm.ui.getDialogSizes().width,
+                        title: fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK'),
+                        resizable: true,
+                        dlButtons: [
+                            {
+                                text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                                icon: "ui-icon-closethick",                        
+                                click: function() {
+                                    jQuery( this ).dialog( "close" );
+                                }
+                            }
+                        ],
+                        dlOnOpen: function (event, ui) {                
+                            fpcm.ui.appendHtml(
+                                this, 
+                                result.permalink
+                                    ? '<iframe class="fpcm-ui-full-width"  src="http://is.gd/create.php?format=simple&url=' + result.shortend + '"></iframe>'
+                                    : '<div class="fpcm-ui-input-wrapper"><div class="fpcm-ui-input-wrapper-inner"><input type="text" value="' + result.shortend + '"></div></div>'
+                            );
+                        },
+                        dlOnClose: function( event, ui ) {
+                            jQuery(this).empty();
+                        }
+                     });
+                     
+                     fpcm.ui.showLoader(false);
                 }
-             });
+            });
+
              return false;
         });
 
