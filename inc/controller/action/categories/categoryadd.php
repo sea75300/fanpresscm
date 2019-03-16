@@ -43,10 +43,13 @@ class categoryadd extends \fpcm\controller\abstracts\controller {
 
             $res = $this->category->save();
 
-            if ($res === false)
+            if ($res === false) {
                 $this->view->addErrorMessage('SAVE_FAILED_CATEGORY');
-            if ($res === true)
-                $this->redirect('categories/list', array('added' => 1));
+                return true;
+            }
+
+            $this->redirect('categories/list', array('added' => 1));
+            return true;
         }
 
         return true;
