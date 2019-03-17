@@ -244,7 +244,7 @@ fpcm.ui = {
             params.beforeLoad = function(event, ui) {
                 fpcm.ui.showLoader(true);        
                 
-                tabList = ui.tab.attr('data-dataview-list');                
+                tabList = ui.tab.data('dataview-list');                
                 if (!tabList) {
                     return true;
                 }
@@ -283,7 +283,7 @@ fpcm.ui = {
 
             params.load = function(event, ui) {
 
-                var tabList = ui.tab.attr('data-dataview-list');                
+                var tabList = ui.tab.data('dataview-list');                
                 if (!tabList) {
                     return true;
                 }
@@ -383,7 +383,7 @@ fpcm.ui = {
         }
 
         if (elemClassId.substr(1,1) === '#') {
-            var dataWidth = jQuery(elemClassId).attr('data-width');
+            var dataWidth = jQuery(elemClassId).data('width');
             if (dataWidth) {
                 params.width = dataWidth;
             }
@@ -770,11 +770,11 @@ fpcm.ui = {
             tabsCurrentWidth += jQuery(item).width() + 5;
         });
 
-        if (tabNav.attr('data-fpcmtabsscrollinit') && !isResize) {
+        if (tabNav.data('fpcmtabsscrollinit') && !isResize) {
             return true;
         }
 
-        tabNav.attr('data-fpcmtabsscrollinit', 1);
+        tabNav.data('fpcmtabsscrollinit', 1);
         if (tabsCurrentWidth <= tabsMaxWidth) {
             tabNav.width('auto');
             return false;
@@ -897,8 +897,8 @@ fpcm.ui = {
         
         var tabEl = ui.newTab ? ui.newTab : ui.tab;
         
-        var hideButtons = ui.oldTab ? jQuery(ui.oldTab).attr('data-toolbar-buttons') : 1;
-        var showButtons = jQuery(tabEl).attr('data-toolbar-buttons');
+        var hideButtons = ui.oldTab ? jQuery(ui.oldTab).data('toolbar-buttons') : 1;
+        var showButtons = jQuery(tabEl).data('toolbar-buttons');
 
         fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ hideButtons).addClass('fpcm-ui-hidden');
         fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ showButtons).removeClass('fpcm-ui-hidden');

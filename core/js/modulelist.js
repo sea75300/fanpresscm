@@ -89,11 +89,11 @@ fpcm.modulelist = {
             var btnEl = jQuery(this);
 
             var params = {
-                action: btnEl.attr('data-action'),
-                key: btnEl.attr('data-key'),
+                action: btnEl.data('action'),
+                key: btnEl.data('key'),
             };
 
-            var fromDir = btnEl.attr('data-dir');
+            var fromDir = btnEl.data('dir');
             if (fromDir) {
                 params.fromDir = fromDir;
             }
@@ -170,14 +170,14 @@ fpcm.modulelist = {
                 ],
                 dlOnOpen: function () {
                     
-                    var link = btnEl.attr('data-link');
+                    var link = btnEl.data('link');
 
-                    jQuery('#fpcm-modulelist-info-name').text(btnEl.attr('data-name'));
-                    jQuery('#fpcm-modulelist-info-author').text(btnEl.attr('data-author'));
+                    jQuery('#fpcm-modulelist-info-name').text(btnEl.data('name'));
+                    jQuery('#fpcm-modulelist-info-author').text(btnEl.data('author'));
                     jQuery('#fpcm-modulelist-info-link').html('<a href="' + link + '" target="_blank">' + link + '</a>');
-                    jQuery('#fpcm-modulelist-info-require-system').text(btnEl.attr('data-system'));
-                    jQuery('#fpcm-modulelist-info-require-php').text(btnEl.attr('data-php'));
-                    jQuery('#fpcm-modulelist-info-description').html(btnEl.attr('data-descr'));
+                    jQuery('#fpcm-modulelist-info-require-system').text(btnEl.data('system'));
+                    jQuery('#fpcm-modulelist-info-require-php').text(btnEl.data('php'));
+                    jQuery('#fpcm-modulelist-info-description').html(btnEl.data('descr'));
                 },
                 dlOnClose: function() {
                     jQuery('#fpcm-modulelist-info-name').empty();

@@ -204,8 +204,6 @@ class commentedit extends \fpcm\controller\abstracts\controller {
             $this->view->assign($key, $value);
         }
         
-        $this->view->addJsFiles(array_merge(['comments.js', 'comments_editor.js', 'editor_videolinks.js'], $editorPlugin->getJsFiles()));
-        $this->view->addJsLangVars($editorPlugin->getJsLangVars());
         
         $jsVars = $editorPlugin->getJsVars();
         
@@ -227,7 +225,15 @@ class commentedit extends \fpcm\controller\abstracts\controller {
             $jsVars['editorConfig']['custom_elements'] = '';
         }
 
+        $jsVars += array(
+            'filemanagerUrl' => \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => '']),
+            'filemanagerMode' => 2
+        );
+
         $this->view->addJsVars($jsVars);
+        $this->view->addJsFiles(array_merge(['comments.js', 'comments_editor.js', 'editor_videolinks.js'], $editorPlugin->getJsFiles()));
+        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE'], $editorPlugin->getJsLangVars()));
+        
 
         if ($this->comment->getChangeuser() && $this->comment->getChangetime()) {
             $changeUser = new \fpcm\model\users\author($this->comment->getChangeuser());

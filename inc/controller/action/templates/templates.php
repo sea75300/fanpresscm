@@ -54,6 +54,8 @@ class templates extends \fpcm\controller\abstracts\controller {
         $this->save();
 
         $jsFiles = $editor->getJsFiles();
+        unset($jsFiles[15]);  
+
         $this->view->addJsFiles($jsFiles);
         return true;
     }

@@ -266,8 +266,8 @@ fpcm.system = {
 
             fpcm.ajax.get('help', {
                 data: {
-                    ref: el.attr('data-ref'),
-                    chapter: el.attr('data-chapter'),
+                    ref: el.data('ref'),
+                    chapter: el.data('chapter'),
                 },
                 execDone: function (result) {
 

@@ -39,8 +39,8 @@ fpcm.filemanager = {
             fpcm.ui.tabs('#fpcm-files-tabs', {
                 beforeActivate: function( event, ui ) {
 
-                    var hideButtons = jQuery(ui.oldTab).attr('data-toolbar-buttons');
-                    var showButtons = jQuery(ui.newTab).attr('data-toolbar-buttons');
+                    var hideButtons = jQuery(ui.oldTab).data('toolbar-buttons');
+                    var showButtons = jQuery(ui.newTab).data('toolbar-buttons');
 
                     fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ hideButtons).addClass('fpcm-ui-hidden');
                     fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ showButtons).removeClass('fpcm-ui-hidden');
@@ -84,12 +84,12 @@ fpcm.filemanager = {
     initInsertButtons: function () {
 
         jQuery('.fpcm-filelist-tinymce-thumb').click(function () {
-            parent.fpcm.editor.insertThumbByEditor(jQuery(this).attr('href'), jQuery(this).attr('data-imgtext'));
+            parent.fpcm.editor.insertThumbByEditor(jQuery(this).attr('href'), jQuery(this).data('imgtext'));
             return false;
         });
 
         jQuery('.fpcm-filelist-tinymce-full').click(function () {
-            parent.fpcm.editor.insertFullByEditor(jQuery(this).attr('href'), jQuery(this).attr('data-imgtext'));
+            parent.fpcm.editor.insertFullByEditor(jQuery(this).attr('href'), jQuery(this).data('imgtext'));
             return false;
         });
 
@@ -118,8 +118,8 @@ fpcm.filemanager = {
                 return false;
             }
 
-            var selectedFile = jQuery(this).attr('data-file');
-            jQuery('#newFilenameDialog').val(jQuery(this).attr('data-oldname'));
+            var selectedFile = jQuery(this).data('file');
+            jQuery('#newFilenameDialog').val(jQuery(this).data('oldname'));
 
             fpcm.ui.dialog({
                 id: 'files-rename',
@@ -171,11 +171,11 @@ fpcm.filemanager = {
     initDeleteButtons: function() {
         jQuery('.fpcm-filelist-delete').click(function () {
             
-            var clearFileName = jQuery(this).attr('data-filename');
+            var clearFileName = jQuery(this).data('filename');
 
             fpcm.ajax.exec('files/delete', {
                 data: {
-                    filename: jQuery(this).attr('data-file')
+                    filename: jQuery(this).data('file')
                 },
                 execDone: function (result) {
                     
@@ -221,10 +221,10 @@ fpcm.filemanager = {
                         
                         switch (prop) {
                             case 'resulution' :
-                                jQuery('#fpcm-dialog-files-properties-' + prop).html(el.attr('data-fileresx') + '<span class="fa fa-times fa-fw"></span>' + el.attr('data-fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL'));
+                                jQuery('#fpcm-dialog-files-properties-' + prop).html(el.data('fileresx') + '<span class="fa fa-times fa-fw"></span>' + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL'));
                                 break;
                             default:
-                                jQuery('#fpcm-dialog-files-properties-' + prop).text(el.attr('data-' + prop));
+                                jQuery('#fpcm-dialog-files-properties-' + prop).text(el.data('' + prop));
                                 break;
                         }
                         

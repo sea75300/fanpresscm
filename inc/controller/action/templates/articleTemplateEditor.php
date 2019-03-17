@@ -97,7 +97,8 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller {
         $this->view->addCssFiles($editor->getCssFiles());
 
         $jsFiles = $editor->getJsFiles();
-        unset($jsFiles[16], $jsFiles[18]);        
+        unset($jsFiles[15]);  
+  
         $jsFiles[] = 'templates_articles.js';
         $this->view->addJsFiles($jsFiles);
         $this->view->addJsVars($editor->getJsVars());

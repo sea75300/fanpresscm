@@ -93,10 +93,10 @@ if (fpcm.editor) {
         });
 
         jQuery('.fpcm-editor-html-click').click(function() {
-            
+
             var el      = jQuery(this);
-            var tag     = el.attr('data-htmltag');
-            var action  = el.attr('data-action');
+            var tag     = el.data('htmltag');
+            var action  = el.data('action');
 
             if (tag && !action) {
                 fpcm.editor.insert('<' + tag + '>', '</' + tag + '>');
@@ -107,15 +107,13 @@ if (fpcm.editor) {
             else if (action) {
                 fpcm.editor[action].call();
             }
-                
-            
+
             return false;
         });
 
         return true;
     };
-    
-    
+
     fpcm.editor.insertThumbByEditor = function (url, title) {
         if (parent.fileOpenMode == 1) {
             parent.document.getElementById('linksurl').value  = url;
@@ -258,7 +256,7 @@ if (fpcm.editor) {
                     execDone: function () {
                         jQuery('#fpcm-dialog-editor-html-insertsmileys').append(fpcm.ajax.getResult('editor/smileys'));
                         jQuery('.fpcm-editor-htmlsmiley').click(function() {
-                            fpcm.editor.insert(' ' + jQuery(this).attr('data-smileycode') + ' ', '');
+                            fpcm.editor.insert(' ' + jQuery(this).data('smileycode') + ' ', '');
                         });
                     }
                 });
@@ -291,7 +289,7 @@ if (fpcm.editor) {
         });
 
         jQuery('.fpcm-editor-htmlsymbol').click(function() {
-            fpcm.editor.insert(jQuery(this).attr('data-symbolcode'), '');
+            fpcm.editor.insert(jQuery(this).data('symbolcode'), '');
             return false;
         });
     };

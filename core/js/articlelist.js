@@ -204,8 +204,8 @@ fpcm.articlelist = {
             
             var obj = jQuery(this);
             
-            var cache = obj.attr('data-cache') ? obj.attr('data-cache') : '';
-            var objid = obj.attr('data-objid') ? obj.attr('data-objid') : 0;
+            var cache = obj.data('cache') ? obj.data('cache') : '';
+            var objid = obj.data('objid') ? obj.data('objid') : 0;
 
             fpcm.system.clearCache({
                 cache: cache,

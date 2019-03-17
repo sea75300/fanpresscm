@@ -28,7 +28,7 @@ fpcm.editor = {
         }
 
         jQuery('div.fpcm-dialog-editor-colors span').click(function() {
-            jQuery('#colorhexcode').val(jQuery(this).attr('data-color'));
+            jQuery('#colorhexcode').val(jQuery(this).data('color'));
         });
 
         fpcm.editor.cmInstance = fpcm.editor_codemirror.create({

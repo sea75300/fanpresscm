@@ -14,7 +14,7 @@ fpcm.notifications = {
 
         jQuery('li.fpcm-notification-item a').click(function() {
             
-            var callback = jQuery(this).parent('li').attr('data-callback');
+            var callback = jQuery(this).parent('li').data('callback');
             if (!callback) {
                 return true;
             }

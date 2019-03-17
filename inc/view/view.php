@@ -628,7 +628,10 @@ class view {
         $this->viewJsFilesLocal = array_unique($this->viewJsFilesLocal);
 
         $this->viewHash = \fpcm\classes\tools::getHash($this->viewPath.json_encode($this->viewJsFilesLocal));
-        $this->viewJsFiles[3] = str_replace('{$unique}', $this->viewHash, $this->viewJsFiles[3]);
+        if (isset($this->viewJsFiles[3])) {
+            $this->viewJsFiles[3] = str_replace('{$unique}', $this->viewHash, $this->viewJsFiles[3]);
+        }
+        
         $this->defaultViewVars->filesJs = $this->viewJsFiles;
         $this->cache->write(self::JS_FILES_CACHE.$this->getViewHash(), $this->viewJsFilesLocal);
 

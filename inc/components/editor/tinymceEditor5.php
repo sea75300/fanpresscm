@@ -23,7 +23,7 @@ class tinymceEditor5 extends tinymceEditor {
      */
     public function getJsFiles()
     {
-        return [\fpcm\classes\loader::libGetFileUrl('tinymce5/tinymce.min.js'), 'editor_tinymce.js', 'editor_tinymce5.js'];
+        return [\fpcm\classes\loader::libGetFileUrl('tinymce5/tinymce.min.js'), 'editor_tinymce.js', 'editor_tinymce5.js', 'editor_filemanager.js'];
     }
 
     /**

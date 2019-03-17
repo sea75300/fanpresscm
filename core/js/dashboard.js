@@ -32,7 +32,7 @@ fpcm.dashboard = {
 
                         var saveItems = {};
                         jQuery.each(ui.item.parent().children(), function (pos, item) {
-                            saveItems[jQuery(item).attr('data-container')] = parseInt(pos) + 1;
+                            saveItems[jQuery(item).data('container')] = parseInt(pos) + 1;
                         });
 
                         fpcm.ajax.post('setconfig', {
