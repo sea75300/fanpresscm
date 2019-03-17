@@ -115,30 +115,40 @@ if (fpcm.editor) {
     };
 
     fpcm.editor.insertThumbByEditor = function (url, title) {
-        if (parent.fileOpenMode == 1) {
-            parent.document.getElementById('linksurl').value  = url;
-            parent.document.getElementById('linkstext').value = title;
-        }            
-        if (parent.fileOpenMode == 2) {
-            parent.document.getElementById('imagespath').value = url;
-            parent.document.getElementById('imagesalt').value  = title;                
-        }
-
-        window.parent.jQuery("#fpcm-dialog-editor-html-filemanager").dialog('close');
-        window.parent.jQuery('#fpcm-dialog-editor-html-filemanager').empty();
+        fpcm.editor._insertToFields(url, title);
+        return false;
     };
 
     fpcm.editor.insertFullByEditor = function (url, title) {
-        if (parent.fileOpenMode == 1) {
-            parent.document.getElementById('linksurl').value  = url;
-            parent.document.getElementById('linkstext').value = title;
-        }            
-        if (parent.fileOpenMode == 2) {
-            parent.document.getElementById('imagespath').value = url;
-            parent.document.getElementById('imagesalt').value  = title;
+        fpcm.editor._insertToFields(url, title);
+        return false;
+    };
+
+    fpcm.editor._insertToFields = function (url, title) {
+        
+        if (!url || !title) {
+            self.jQuery("#fpcm-dialog-editor-html-filemanager").dialog('close').empty();
+            return false;
         }
 
-        window.parent.jQuery("#fpcm-dialog-editor-html-filemanager").dialog('close');  
+        switch (self.fileOpenMode) {
+            case 1 :
+                var urlField = 'linksurl';
+                var titleField = 'linkstext';
+                break;                
+            case 2 :
+                var urlField = 'imagespath';
+                var titleField = 'imagesalt';
+                break;
+        }
+
+        if (urlField && titleField) {
+            self.document.getElementById(urlField).value = url;
+            self.document.getElementById(titleField).value  = title;
+        }
+
+        self.jQuery("#fpcm-dialog-editor-html-filemanager").dialog('close').empty();
+        return true;
     };
 
     fpcm.editor.insert = function(aTag, eTag) {    
