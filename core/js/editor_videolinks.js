@@ -34,7 +34,7 @@ fpcm.editor_videolinks = {
     },
 
     createFrame: function (url, returnOnly) {
-        return fpcm.editor.insertFrame(url, ['width="500"', 'height="300"', 'frameborder="0"', 'allowfullscreen'], returnOnly);
+        return fpcm.editor.insertIFrame(url, ['width="500"', 'height="300"', 'frameborder="0"', 'allowfullscreen'], returnOnly);
     }
 
 };
