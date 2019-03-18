@@ -9,5 +9,3 @@
  * @deprecated 4.0.3
  */
 $fpcmVersion = file_get_contents(__DIR__.DIRECTORY_SEPARATOR.'version.txt');
-
-?>
