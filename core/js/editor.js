@@ -81,7 +81,7 @@ fpcm.editor = {
                                 this, 
                                 result.permalink
                                     ? '<div class="fpcm-ui-input-wrapper"><div class="fpcm-ui-input-wrapper-inner"><input type="text" value="' + result.shortend + '"></div></div>'
-                                    : '<iframe class="fpcm-ui-full-width"  src="https://is.gd/create.php?format=simple&url= '+ result.shortend + '"></iframe>'
+                                    : '<iframe class="fpcm-ui-full-width" src="https://is.gd/create.php?format=simple&url= '+ result.shortend + '"></iframe>'
                             );
                         },
                         dlOnClose: function( event, ui ) {
