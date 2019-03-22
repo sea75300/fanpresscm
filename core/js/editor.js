@@ -80,8 +80,8 @@ fpcm.editor = {
                             fpcm.ui.appendHtml(
                                 this, 
                                 result.permalink
-                                    ? '<iframe class="fpcm-ui-full-width"  src="http://is.gd/create.php?format=simple&url=' + result.shortend + '"></iframe>'
-                                    : '<div class="fpcm-ui-input-wrapper"><div class="fpcm-ui-input-wrapper-inner"><input type="text" value="' + result.shortend + '"></div></div>'
+                                    ? '<div class="fpcm-ui-input-wrapper"><div class="fpcm-ui-input-wrapper-inner"><input type="text" value="' + result.shortend + '"></div></div>'
+                                    : '<iframe class="fpcm-ui-full-width"  src="http://is.gd/create.php?format=simple&url=' + result.shortend + '"></iframe>'
                             );
                         },
                         dlOnClose: function( event, ui ) {
