@@ -24,6 +24,7 @@ class view {
     const ROOTURL_CORE_JS = '{$coreJs}';
     const ROOTURL_CORE_THEME = '{$coreTheme}';
     const ROOTURL_LIB = '{$lib}';
+    const ROOTURL_UNIQUE = '{$unique}';
 
     const JS_FILETYP_URL  = 0b100;
     const JS_FILETYP_FILE = 0b010;
@@ -173,7 +174,7 @@ class view {
     /**
      * Konstruktor
      * @param string $viewName Viewname ohne Endung .php
-     * @param string $module Modulke-Key
+     * @param string $module Module-Key
      */
     public function __construct($viewName = '', $module = false)
     {
@@ -627,10 +628,10 @@ class view {
         $this->viewJsFiles = array_unique(array_diff(array_map([$this, 'addRootPath'], $this->viewJsFiles), $this->viewJsFilesLocal));
         $this->viewJsFilesLocal = array_unique($this->viewJsFilesLocal);
 
-        $this->viewHash = \fpcm\classes\tools::getHash($this->viewPath.json_encode($this->viewJsFilesLocal));
-        if (isset($this->viewJsFiles[3])) {
-            $this->viewJsFiles[3] = str_replace('{$unique}', $this->viewHash, $this->viewJsFiles[3]);
-        }
+        $this->viewHash = \fpcm\classes\tools::getHash($this->viewPath.$this->viewHash. implode('-', $this->viewJsFilesLocal));
+        $this->viewJsFiles = array_map(function($item) {
+            return str_replace(self::ROOTURL_UNIQUE, $this->viewHash, $item);
+        }, $this->viewJsFiles);
         
         $this->defaultViewVars->filesJs = $this->viewJsFiles;
         $this->cache->write(self::JS_FILES_CACHE.$this->getViewHash(), $this->viewJsFilesLocal);
@@ -743,6 +744,22 @@ class view {
     public function getViewHash() : string
     {
         return $this->viewHash;
+    }
+
+    /**
+     * Returns Sha256-hash on view path
+     * @return string
+     * @since FPCM 4.1
+     */
+    public function setViewHashDefault($viewHash) : bool
+    {
+        if (trim($this->viewHash)) {
+            trigger_error('View hash value was already set');
+            return false;
+        }
+        
+        $this->viewHash = $viewHash;
+        return false;
     }
 
     /**

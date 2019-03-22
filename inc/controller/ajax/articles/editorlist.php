@@ -176,7 +176,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
 
         $this->returnData = [
             'shortend' => $this->article->getArticleShortLink(),
-            'permalink' => \fpcm\classes\baseconfig::canConnect()
+            'permalink' => \fpcm\classes\baseconfig::canConnect() || (defined('FPCM_ARTICLE_DISABLE_SHORTLINKS') && FPCM_ARTICLE_DISABLE_SHORTLINKS) ? true : false
         ];
 
         return true;
