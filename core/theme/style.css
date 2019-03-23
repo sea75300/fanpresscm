@@ -520,8 +520,8 @@ textarea:active,
     border-bottom: none;
 }
 
-.fpcm-ui-border-none-top {
-    border-top: none;
+.fpcm-ui-border-none-left {
+    border-left: none;
 }
 
 .ui-spinner {
@@ -890,10 +890,6 @@ h3, .fpcm-dashboard-container h3 {
     padding: 0.2em 1.3em;
 }
 
-.cm-s-mdn-like.CodeMirror {
-    color: #000000 !important;
-}
-
 .fpcm-ui-permissions-container h2,
 .fpcm-editor-dialog h2 {
     margin:0px 0px 5px 0px;
@@ -1149,4 +1145,13 @@ div.mce-fpcm-ui-emoticons-panel {
 .tox .tox-dialog__body-content div[role=presentation] {
     height: 100%;
     overflow: hidden;
+}
+
+.cm-s-mdn-like.CodeMirror {
+    color: #000000 !important;
+}
+
+.CodeMirror {
+    height: auto;
+    min-height: 500px;
 }
