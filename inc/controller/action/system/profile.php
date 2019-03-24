@@ -186,12 +186,13 @@ class profile extends \fpcm\controller\abstracts\controller {
      */
     private function checkCurrentPass(string $currentPass) : bool
     {
-        if (!password_verify("{$currentPass}", "{$this->user->getPasswd()}")) {
-            $this->view->addErrorMessage('SAVE_FAILED_PASSWORD_MATCH_CURRENT');
-            return false;
+        if (password_verify("{$currentPass}", "{$this->user->getPasswd()}") ||
+            hash_equals($this->user->getPasswd(), md5($currentPass) ) ) {
+            return true;
         }
 
-        return true;
+        $this->view->addErrorMessage('SAVE_FAILED_PASSWORD_MATCH_CURRENT');
+        return false;
     }
 
     /**
