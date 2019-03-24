@@ -256,6 +256,7 @@ class view {
     /**
      * Checks path type of given JS file
      * @param string $item
+     * @param string $jsCorePath
      * @since FPCM 4.1
      */
     private function getJsFileType(string $item, &$jsCorePath) : int
@@ -748,10 +749,11 @@ class view {
 
     /**
      * Returns Sha256-hash on view path
-     * @return string
+     * @param string $viewHash
+     * @return bool
      * @since FPCM 4.1
      */
-    public function setViewHashDefault($viewHash) : bool
+    public function setViewHashDefault(string $viewHash) : bool
     {
         if (trim($this->viewHash)) {
             trigger_error('View hash value was already set');

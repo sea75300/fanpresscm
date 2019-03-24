@@ -50,7 +50,7 @@ class tinymceEditor extends articleEditor {
      */
     public function getJsFiles()
     {
-        return [\fpcm\classes\loader::libGetFileUrl('tinymce4/tinymce.min.js'), 'editor_tinymce.js'];
+        return [\fpcm\classes\loader::libGetFileUrl('tinymce4/tinymce.min.js'), 'editor_tinymce.js', 'editor_tinymce4.js', 'editor_filemanager.js'];
     }
 
     /**
@@ -195,6 +195,7 @@ class tinymceEditor extends articleEditor {
 
             $ret[] = array(
                 "title" => $basename,
+                "description" => $basename,
                 "url" => \fpcm\classes\dirs::getRootUrl(\fpcm\model\files\ops::removeBaseDir($file))
             );
         }
@@ -210,7 +211,7 @@ class tinymceEditor extends articleEditor {
      */
     public function getJsLangVars()
     {
-        return ['EDITOR_HTML_BUTTONS_READMORE'];
+        return ['EDITOR_HTML_BUTTONS_READMORE', 'EDITOR_INSERTSMILEY'];
     }
 
 }

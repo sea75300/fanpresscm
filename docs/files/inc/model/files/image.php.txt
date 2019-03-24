@@ -325,7 +325,7 @@ class image extends \fpcm\model\abstracts\file {
         }
 
         $newnameExt = $newname.'.'.$this->getExtension();
-        if (!$this->isValidDataFolder($this->getFilepath().DIRECTORY_SEPARATOR. dirname($newname), \fpcm\classes\dirs::DATA_UPLOADS) || !parent::rename($newnameExt)) {
+        if (!$this->isValidDataFolder($this->getFilepath(), \fpcm\classes\dirs::DATA_UPLOADS) || !parent::rename($newnameExt)) {
             return false;
         }
 
