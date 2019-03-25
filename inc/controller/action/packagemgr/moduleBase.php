@@ -33,6 +33,12 @@ class moduleBase extends \fpcm\controller\abstracts\controller {
 
     /**
      *
+     * @var bool
+     */
+    protected $updateDb;
+
+    /**
+     *
      * @var array
      */
     protected $steps = [
@@ -73,6 +79,8 @@ class moduleBase extends \fpcm\controller\abstracts\controller {
         $this->keepMaintenance = $this->getRequestVar('keepMaintenance', [
             \fpcm\classes\http::FILTER_CASTINT
         ]);
+
+        $this->updateDb = ($this->getRequestVar('update-db') !== null);
 
         return trim($this->key) ? true : false;
     }

@@ -18,8 +18,14 @@ class moduleUpdater extends moduleBase {
     public function process()
     {
         $this->steps['tabHeadline'] = 'MODULES_LIST_UPDATE';
-        $this->steps['checkFs'] = true;
-        
+        if ($this->updateDb) {
+            $this->steps = array_map([$this, 'setFalse'], $this->steps);
+            $this->steps['updateDb'] = true;
+        }
+        else {
+            $this->steps['checkFs'] = true;
+        }
+
         if ($this->keepMaintenance) {
             $this->steps['keepMaintenance'] = true;
         }
@@ -32,6 +38,16 @@ class moduleUpdater extends moduleBase {
         ];
         
         parent::process();
+    }
+
+    /**
+     *
+     * @param bool $data
+     * @return bool
+     */
+    private function setFalse($data)
+    {
+        return false;
     }
 
 }

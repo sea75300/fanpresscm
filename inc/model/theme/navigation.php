@@ -222,7 +222,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             (new navigationItem())->setUrl('ips/list')
                 ->setDescription('HL_OPTIONS_IPBLOCKING')
                 ->setIcon('globe')
-                ->setId('nav-item-users')
+                ->setId('nav-item-ips')
                 ->setPermission(['system' => 'ipaddr']),
             (new navigationItem())->setUrl('wordban/list')
                 ->setDescription('HL_OPTIONS_WORDBAN')

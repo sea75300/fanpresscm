@@ -152,8 +152,8 @@ class profile extends \fpcm\controller\abstracts\controller {
         }
 
         if ($this->config->system_2fa_auth &&
-            trim($saveData['authCodeConfirm']) &&
-            trim($saveData['authSecret']) &&
+            !empty($saveData['authCodeConfirm']) && trim($saveData['authCodeConfirm']) &&
+            !empty($saveData['authSecret']) && trim($saveData['authSecret']) &&
             $this->gAuth->checkCode($saveData['authSecret'], $saveData['authCodeConfirm'])) {
             $this->user->setAuthtoken($saveData['authSecret']);
         }

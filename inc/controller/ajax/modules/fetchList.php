@@ -236,10 +236,11 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                                 'php' => $config->requirements['php'],
                                 'system' => $config->requirements['system']
                             ]);
-        
+
         $hasUpdates = $this->permArr['canInstall'] && $item->hasUpdates();
+        $hasLocalUpdates = $this->permArr['canInstall'] && $item->hasLocalUpdates();
         if ($item->isInstalled()) {
-            
+
             if ($this->permArr['canConfigure']) {
                 
                 if ($item->isActive()) {
@@ -274,6 +275,15 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                         ->setIcon('sync')
                         ->setIconOnly(true)
                         ->setClass('fpcm-ui-modulelist-action-local-update');
+            }
+
+            if ($hasLocalUpdates) {
+                $buttons[] = (new \fpcm\view\helper\linkButton('update'.$hash))
+                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', ['key' => $item->getKey(), 'update-db' => 1]))
+                    ->setText('MODULES_LIST_UPDATE')
+                    ->setIcon('sync')
+                    ->setIconOnly(true)
+                    ->setClass('fpcm-ui-modulelist-action-local-update');
             }
         }
         
