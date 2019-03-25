@@ -41,7 +41,7 @@ fpcm.comments = {
         fpcm.comments.assignActions();
 
         if (parent.fpcm.editor && parent.fpcm.editor.editorTabs && fpcm.vars.jsvars.reloadList) {
-            parent.fpcm.editor.editorTabs.tabs('load', 1);
+            parent.fpcm.editor.editorTabs.tabs('load', 2);
         }
     },
 
@@ -122,7 +122,7 @@ fpcm.comments = {
                         }
                     }                            
                 ],
-                dlOnOpen: function( event, ui ) {
+                dlOnOpen: function() {
                     jQuery('#text').focus();
                 }
             });
