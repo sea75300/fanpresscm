@@ -268,8 +268,8 @@ final class database {
 
     /**
      * Execute insert query
-     * @param type $table
-     * @param type $values
+     * @param string $table
+     * @param string $values
      * @return int
      */
     public function insert($table, $values)
@@ -1111,7 +1111,7 @@ final class database {
      * @return array
      * @since FPCm 4.1
      */
-    public function getTableIndices(string $table, $field = false, bool $cache = true): array
+    public function getTableIndices(string $table, $field = false, $cache = true) : array
     {
         $cacheName = $table . '_indices';
         if ($cache && isset($this->structCache[$cacheName])) {
