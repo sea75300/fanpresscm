@@ -51,18 +51,22 @@ class ipadd extends \fpcm\controller\abstracts\controller {
         }
 
         if ($this->buttonClicked('ipSave')) {
-            $this->ipaddress->setIpaddress($this->getRequestVar('ipaddress'));
+
+            $ipAddr = $this->getRequestVar('ipaddress');
+
+            $this->ipaddress->setIpaddress($ipAddr);
             $this->ipaddress->setIptime(time());
             $this->ipaddress->setUserid($this->session->getUserId());
             $this->ipaddress->setNoaccess($this->getRequestVar('noaccess') ? true : false);
             $this->ipaddress->setNocomments($this->getRequestVar('nocomments') ? true : false);
             $this->ipaddress->setNologin($this->getRequestVar('nologin') ? true : false);
 
-            if ($this->getRequestVar('ipaddress') && $this->ipaddress->save() && $this->getRequestVar('ipaddress') != \fpcm\classes\http::getIp()) {
+            if ($this->ipaddress->save() && $ipAddr != \fpcm\classes\http::getIp()) {
                 $this->redirect('ips/list', array('added' => 1));
-            } else {
-                $this->view->addErrorMessage('SAVE_FAILED_IPADDRESS');
+                return true;
             }
+
+            $this->view->addErrorMessage('SAVE_FAILED_IPADDRESS');
         }
 
         return true;

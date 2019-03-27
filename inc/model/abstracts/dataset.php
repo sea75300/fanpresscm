@@ -175,7 +175,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      */
     public function __call($name, $arguments)
     {
-        print "Function '{$name}' not found in " . get_class($this) . '<br>';
+        print "Function '{$name}' not found in " . get_called_class() . '<br>';
         return false;
     }
 
@@ -187,7 +187,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      */
     public static function __callStatic($name, $arguments)
     {
-        print "Static function '{$name}' not found in " . get_class($this) . '<br>';
+        print "Static function '{$name}' not found in " . get_called_class() . '<br>';
         return false;
     }
 
@@ -201,7 +201,6 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
         $this->data = null;
         $this->cache = null;
         $this->events = null;
-
         return;
     }
 

@@ -38,12 +38,5 @@ cols:
         params: NOT NULL
 indices:
     ipaddress:
-        col:
-            ipaddress
-            nocomments
-            nologin
-            noaccess
-        isUnqiue: true
-    ipaddress:
         col: ipaddress
         isUnqiue: false
