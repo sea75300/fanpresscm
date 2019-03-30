@@ -165,7 +165,7 @@
                 ->setIcon('eye-dropper')
                 ->setSize('lg')
                 ->setClass('col-6 col-md-4 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+                ->setLabelClass('col-6 col-md-8 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
     </div>    
 
     <div class="row no-gutters fpcm-ui-padding-md-tb">

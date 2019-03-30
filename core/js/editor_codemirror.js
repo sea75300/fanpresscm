@@ -413,7 +413,8 @@ if (fpcm.editor) {
 
         fpcm.ui.dialog({
             id: 'editor-html-insertcolor',
-            dlWidth: fpcm.ui.getDialogSizes().width,
+            dlWidth: 'auto',
+            dlMaxWidth: 550,
             title: fpcm.ui.translate('EDITOR_INSERTCOLOR'),
             dlButtons: [
                 {
