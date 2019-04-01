@@ -293,7 +293,7 @@ class template extends \fpcm\model\abstracts\file {
             $attrs .= " {$attribute}=\"{$value}\"";
         }
 
-        $regEx = '/((http|https?):\/\/\S+[^\s.,>)\]\"\'<\/])/is';
+        $regEx = '/((http|https?):\/\/\S+[^\s.,>)\]\"\'<\/])/i';
 
         if ($returnOnly) {
             preg_match_all($regEx, $content, $matches);

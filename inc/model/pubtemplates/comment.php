@@ -70,7 +70,9 @@ final class comment extends template {
 
             foreach ($links[0] as $link) {
 
-                if (strpos($tags['{{text}}'], 'href="' . $link) !== false || strpos($tags['{{text}}'], "href='" . $link) !== false) {
+
+                if (strpos($tags['{{text}}'], 'src="' . $link) !== false ||
+                    strpos($tags['{{text}}'], "href='" . $link) !== false) {
                     continue;
                 }
 
@@ -78,7 +80,7 @@ final class comment extends template {
                     $link = substr($link, 0, -3);
                 }
 
-                $tags['{{text}}'] = preg_replace('/(' . addcslashes($link, '/') . ')/is', "<a href=\"{$link}\">{$link}</a>", $tags['{{text}}']);
+                $tags['{{text}}'] = preg_replace('/(' . addcslashes($link, '/?&=') . ')/is', "<a href=\"{$link}\">{$link}</a>", $tags['{{text}}']);
             }
         }
 
