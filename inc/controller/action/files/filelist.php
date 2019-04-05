@@ -113,29 +113,6 @@ class filelist extends \fpcm\controller\abstracts\controller {
             }
         }
 
-        if ($this->buttonClicked('createThumbs') && !is_null($this->getRequestVar('filenames'))) {
-            $fileNames = array_map('base64_decode', $this->getRequestVar('filenames'));
-
-            $success = [];
-            $failed = [];
-            foreach ($fileNames as $fileName) {
-                $image = new \fpcm\model\files\image($fileName, false);
-
-                if ($image->createThumbnail()) {
-                    $success[] = $fileName;
-                } else {
-                    $deletedFailed[] = $fileName;
-                }
-            }
-
-            if (count($success)) {
-                $this->view->addNoticeMessage('DELETE_SUCCESS_NEWTHUMBS', array('{{filenames}}' => implode(', ', $success)));
-            }
-            if (count($failed)) {
-                $this->view->addErrorMessage('DELETE_FAILED_NEWTHUMBS', array('{{filenames}}' => implode(', ', $failed)));
-            }
-        }
-
         return true;
     }
 

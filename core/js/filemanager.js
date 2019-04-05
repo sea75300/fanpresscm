@@ -19,6 +19,8 @@ fpcm.filemanager = {
         if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
             fpcm.filemanager.initFilesSearch();
         }
+
+        fpcm.filemanager.initNewThumbButton();
     
         jQuery('#tabs-files-list-reload').click(function () {
             fpcm.filemanager.reloadFiles();
@@ -71,7 +73,6 @@ fpcm.filemanager = {
         fpcm.filemanager.initRenameButtons();
         fpcm.filemanager.initDeleteButtons();
         fpcm.filemanager.initPropertiesButton();
-        fpcm.filemanager.refreshSingleCheckboxes();
         fpcm.filemanager.initPagination();
         jQuery('.fpcm-link-fancybox').fancybox();
     },
@@ -102,12 +103,6 @@ fpcm.filemanager = {
 
             return false;
         });
-    },
-
-    refreshSingleCheckboxes: function() {
-        jQuery('.fpcm-filelist-actions-checkbox').find('input[type="checkbox"]').checkboxradio({
-            showLabel: false
-        }).checkboxradio('refresh');  
     },
 
     initRenameButtons: function() {
@@ -193,7 +188,46 @@ fpcm.filemanager = {
             return false;
         });
     },
-    
+
+    initNewThumbButton: function() {
+
+        var el = jQuery('#createThumbs');
+        if (!el.length) {
+            return false;
+        }
+
+        el.click(function (event, ui) {
+            
+            var items = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+            if (!items || !items.length) {
+                return false;
+            }
+
+            fpcm.ui.showLoader(true);
+            fpcm.ajax.exec('files/createthumbs', {
+                data: {
+                    items: items
+                },
+                execDone: function (result) {
+                    
+                    result = fpcm.ajax.fromJSON(result);
+                    
+                    jQuery.each(result.message, function (i, value) {
+                        fpcm.ui.addMessage({
+                            txt: value,
+                            type: result.code[i] ? 'notice' : 'error'
+                        }, i == 1 ? true : false);
+                    })
+
+                    fpcm.filemanager.reloadFiles();
+                    fpcm.ui.showLoader();
+                }
+            });
+
+            return false;
+        })
+
+    },
 
     initPropertiesButton: function() {
 
@@ -209,8 +243,7 @@ fpcm.filemanager = {
         jQuery('.fpcm-filelist-properties').click(function () {
             
             var el = jQuery(this);
-            
-            
+
             fpcm.ui.dialog({
                 id: 'files-properties',
                 title: fpcm.ui.translate('GLOBAL_PROPERTIES'),
