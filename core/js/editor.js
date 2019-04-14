@@ -192,7 +192,7 @@ fpcm.editor = {
             dlButtons  : [
                 {
                     text: fpcm.ui.translate('GLOBAL_SAVE'),
-                    icon: "ui-icon-disk",                        
+                    icon: "ui-icon-disk",
                     click: function() {
                         jQuery(this).children('#fpcm-editor-comment-frame').contents().find('#btnCommentSave').trigger('click');
                         fpcm.editor.editorTabs.tabs('load', 2);
@@ -200,8 +200,16 @@ fpcm.editor = {
                     }
                 },
                 {
+                    text: fpcm.ui.translate('COMMMENT_LOCKIP'),
+                    icon: "ui-icon-locked",
+                    disabled: fpcm.vars.jsvars.lkIp ? false : true,
+                    click: function() {
+                        jQuery(this).children('#fpcm-editor-comment-frame').contents().find('#btnLockIp').trigger('click');
+                    }
+                },
+                {
                     text: fpcm.ui.translate('Whois'),
-                    icon: "ui-icon-home",                        
+                    icon: "ui-icon-home",
                     click: function() {
                         window.open(jQuery(this).children('#fpcm-editor-comment-frame').contents().find('#whoisIp').attr('href'), '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
                     }

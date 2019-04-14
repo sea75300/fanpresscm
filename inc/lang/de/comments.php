@@ -20,4 +20,5 @@ $lang = array(
     'COMMMENT_MOVE' => 'Kommentar zu Artikel mit ID verschieben',
     'COMMMENT_SELETDEST' => 'Bitte den Ziel-Artikel auswählen',
     'COMMMENT_SEARCH_ARTICLE' => 'Suche in Artikel mit ID',
+    'COMMMENT_LOCKIP' => 'IP-Adresse sperren',
 );

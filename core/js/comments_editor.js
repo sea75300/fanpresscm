@@ -15,6 +15,38 @@ fpcm.editor = {
         fpcm.editor[fpcm.vars.jsvars.editorInitFunction].call();
         fpcm.editor.initToolbar();
         fpcm.ui.setFocus('commentname');
+
+        jQuery('#btnLockIp').click(function (event, ui) {
+
+            var cid = jQuery(event.currentTarget).data('commentid');
+
+            fpcm.ui.showLoader(true);
+            fpcm.ajax.post('comments/lockip', {
+                data: {
+                    cid: cid
+                },
+                execDone: function (result) {
+
+                    fpcm.ui.showLoader(false);
+
+                    result = fpcm.ajax.fromJSON(result);
+                    if (!result.code) {
+                        fpcm.ui.addMessage({
+                            type: 'error',
+                            txt: result.data
+                        });
+                        return false;
+                    }
+
+                    fpcm.ui.addMessage({
+                        type: 'notice',
+                        txt: result.data
+                    });
+                }
+            });
+
+            return false;
+        });
     },
 
     initCodeMirror: function() {

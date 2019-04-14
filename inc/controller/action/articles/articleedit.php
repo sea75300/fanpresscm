@@ -156,10 +156,11 @@ class articleedit extends articlebase {
             'canConnect' => \fpcm\classes\baseconfig::canConnect() ? 1 : 0,
             'articleId' => $this->article->getId(),
             'checkTimeout' => FPCM_ARTICLE_LOCKED_INTERVAL * 1000,
-            'checkLastState' => -1
+            'checkLastState' => -1,
+            'lkIp' => $this->permissions->check(['system' => 'ipaddr']) ? 1 : 0
         ]);
 
-        $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'COMMENTS_EDIT', 'EDITOR_ARTICLE_SHORTLINK']);
+        $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'EDITOR_ARTICLE_SHORTLINK', 'COMMENTS_EDIT', 'COMMMENT_LOCKIP']);
 
         if ($this->article->isInEdit()) {
 
