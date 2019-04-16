@@ -148,7 +148,7 @@ abstract class event {
      */
     public static function __callStatic($name, $arguments)
     {
-        print "Static function '{$name}' not found in " . get_class($this) . '<br>';
+        print "Static function '{$name}' not found in " . get_called_class() . '<br>';
         return false;
     }
 

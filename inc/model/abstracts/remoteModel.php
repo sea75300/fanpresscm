@@ -10,6 +10,8 @@
 
 namespace fpcm\model\abstracts;
 
+use fpcm\classes\baseconfig;
+
 /**
  * Remote data model
  * 
@@ -71,7 +73,7 @@ abstract class remoteModel extends staticModel {
     public function __construct()
     {
         parent::__construct();
-        $this->canConnect = \fpcm\classes\baseconfig::canConnect();
+        $this->canConnect = baseconfig::canConnect();
     }
 
     /**

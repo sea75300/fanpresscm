@@ -7,6 +7,10 @@
 
 namespace fpcm\model\updater;
 
+use fpcm\classes\loader;
+use fpcm\model\files\fileOption;
+use fpcm\model\packages\repository;
+
 /**
  * Module Updater Objekt
  * 
@@ -33,7 +37,7 @@ final class modules extends \fpcm\model\abstracts\staticModel {
     public function __construct()
     {
         parent::__construct();
-        $this->fileOption = new \fpcm\model\files\fileOption(\fpcm\model\packages\repository::FOPT_MODULES);
+        $this->fileOption = new fileOption(repository::FOPT_MODULES);
         return true;
     }
 
@@ -43,7 +47,7 @@ final class modules extends \fpcm\model\abstracts\staticModel {
      */
     public function getData()
     {
-        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
+        include_once loader::libGetFilePath('spyc/Spyc.php');
         return \Spyc::YAMLLoadString($this->fileOption->read());
     }
 
@@ -55,7 +59,7 @@ final class modules extends \fpcm\model\abstracts\staticModel {
     public function getDataCachedByKey($key)
     {
         if (!count($this->list)) {
-            include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
+            include_once loader::libGetFilePath('spyc/Spyc.php');
             $this->list = \Spyc::YAMLLoadString($this->fileOption->read());
         }
 

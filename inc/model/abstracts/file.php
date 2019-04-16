@@ -7,6 +7,11 @@
 
 namespace fpcm\model\abstracts;
 
+use fpcm\classes\dirs;
+use fpcm\classes\loader;
+use fpcm\classes\tools;
+use fpcm\model\files\ops;
+
 /**
  * File model base
  * 
@@ -129,17 +134,17 @@ abstract class file {
             $this->filename = basename($this->fullpath);
         }
 
-        $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        $this->dbcon = loader::getObject('\fpcm\classes\database');
 
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return false;
         }
 
-        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
-        $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
-        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-        $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+        $this->cache = loader::getObject('\fpcm\classes\cache');
+        $this->events = loader::getObject('\fpcm\events\events');
+        $this->config = loader::getObject('\fpcm\model\system\config');
+        $this->language = loader::getObject('\fpcm\classes\language');
+        $this->notifications = loader::getObject('\fpcm\model\theme\notifications');
 
         if ($this->exists()) {
             $ext = pathinfo($this->fullpath, PATHINFO_EXTENSION);
@@ -210,7 +215,7 @@ abstract class file {
      */
     public static function __callStatic($name, $arguments)
     {
-        print "Static function '{$name}' not found in " . get_class($this) . '<br>';
+        print "Static function '{$name}' not found in " . get_called_class() . '<br>';
         return false;
     }
 
@@ -350,7 +355,7 @@ abstract class file {
      */
     public function getFileHash() : string
     {
-        return \fpcm\model\files\ops::hashFile($this->fullpath);
+        return ops::hashFile($this->fullpath);
     }
 
     /**
@@ -378,7 +383,7 @@ abstract class file {
      */
     public function escapeFileName(&$filename)
     {
-        $filename = \fpcm\classes\tools::escapeFileName($filename);
+        $filename = tools::escapeFileName($filename);
     }
 
     /**
@@ -446,7 +451,7 @@ abstract class file {
             $path = $this->fullpath;
         }
 
-        $dataPath = \fpcm\classes\dirs::getDataDirPath($type);
+        $dataPath = dirs::getDataDirPath($type);
         if (strpos(realpath($path), $dataPath) === 0) {
             return true;
         }

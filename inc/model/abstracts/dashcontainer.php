@@ -10,6 +10,8 @@
 
 namespace fpcm\model\abstracts;
 
+use fpcm\classes\loader;
+
 /**
  * Dashboard container model base
  * 
@@ -117,7 +119,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
      */
     final public function getStoredPosition()
     {
-        $conf = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getUserMeta('dashboardpos');
+        $conf = loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getUserMeta('dashboardpos');
         return is_array($conf) && isset($conf[$this->getName()]) ? $conf[$this->getName()] : false;
     }
 

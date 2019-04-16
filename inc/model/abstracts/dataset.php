@@ -10,6 +10,12 @@
 
 namespace fpcm\model\abstracts;
 
+use fpcm\classes\baseconfig;
+use fpcm\classes\dirs;
+use fpcm\classes\loader;
+use fpcm\events\abstracts\event;
+use fpcm\model\dbal\selectParams;
+
 /**
  * Model base object
  * 
@@ -116,26 +122,28 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      */
     public function __construct($id = null)
     {
-        $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
-        $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
-        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
-        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+        $this->dbcon = loader::getObject('\fpcm\classes\database');
+        $this->events = loader::getObject('\fpcm\events\events');
+        $this->cache = loader::getObject('\fpcm\classes\cache');
+        $this->config = loader::getObject('\fpcm\model\system\config');
 
-        if (\fpcm\classes\baseconfig::installerEnabled()) {
-            return false;
+        if (baseconfig::installerEnabled()) {
+            return;
         }
 
-        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-        $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+        $this->language = loader::getObject('\fpcm\classes\language');
+        $this->notifications = loader::getObject('\fpcm\model\theme\notifications');
 
         if (is_object($this->config)) {
             $this->config->setUserSettings();
         }
 
-        if (!is_null($id)) {
-            $this->id = (int) $id;
-            $this->init();
+        if (is_null($id)) {
+            return;
         }
+
+        $this->id = (int) $id;
+        $this->init();
     }
 
     /**
@@ -218,7 +226,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      */
     public function init()
     {
-        $data = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setWhere('id = ?')->setParams([$this->id]));
+        $data = $this->dbcon->selectFetch((new selectParams($this->table))->setWhere('id = ?')->setParams([$this->id]));
         if (!$data) {
             trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!');
             return false;
@@ -302,7 +310,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
         $this->afterUpdateInternal();
         
         $afterEvent = $this->getEventName('saveAfter');
-        if (class_exists(\fpcm\events\abstracts\event::getEventNamespace($afterEvent))) {
+        if (class_exists(event::getEventNamespace($afterEvent))) {
             $this->events->trigger($afterEvent, $this->id);
         }
 
@@ -340,7 +348,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
         $this->afterUpdateInternal();
 
         $afterEvent = $this->getEventName('updateAfter');
-        if (class_exists(\fpcm\events\abstracts\event::getEventNamespace($afterEvent))) {
+        if (class_exists(event::getEventNamespace($afterEvent))) {
             $this->events->trigger($afterEvent, $this->id);
         }
 
@@ -437,7 +445,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      */
     public function getEditLink()
     {
-        return \fpcm\classes\dirs::getRootUrl('index.php?module=' . $this->editAction . $this->id);
+        return dirs::getRootUrl('index.php?module=' . $this->editAction . $this->id);
     }
 
     /**
