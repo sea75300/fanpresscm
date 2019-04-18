@@ -277,7 +277,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                         ->setClass('fpcm-ui-modulelist-action-local-update');
             }
 
-            if ($hasLocalUpdates) {
+            if ($hasLocalUpdates && !$hasUpdates) {
                 $buttons[] = (new \fpcm\view\helper\linkButton('update'.$hash))
                     ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', ['key' => $item->getKey(), 'update-db' => 1]))
                     ->setText('MODULES_LIST_UPDATE')
