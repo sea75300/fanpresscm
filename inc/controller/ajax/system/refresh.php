@@ -44,6 +44,10 @@ class refresh extends \fpcm\controller\abstracts\ajaxController {
         $this->runCrons();
         $this->runSessionCheck();
         $this->runArticleInEdit();
+        if ($this->getRequestVar('t') !== null) {
+            exit('{}');
+        }
+
         $this->getSimpleResponse();
         return true;
     }
