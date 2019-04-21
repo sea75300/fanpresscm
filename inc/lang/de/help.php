@@ -88,7 +88,7 @@ Help language file
             <dt>Geteilte Inhalte und LIkes:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Sofern das Zählen von Klicks auf die Share-Buttons aktiviert wurde, wird in diesem Bereich
             die aktuelle Anzahl pro Artikel angezeigt, diese umfasst sowohl Teilungen bei den verfügbaren sozialen Netzwerken als auch Klicks auf den
-            FanPress CM-eigenen "Gefällt mir"-Button.</dd>
+            FanPress CM-eigenen "Gefällt mir"-Button. Eine Summe über alle geteilten Inhalte pro Artikel wird in den Artikel-Listen neben der Kommentar-Anzahl angezeigt.</dd>
         </dl>
  
         <p>In FanPress CM kannst du über den <strong>&lt;readmore&gt;</strong>-Tag ein Stück Text einfügen, das beim Aufruf der Seite
@@ -101,6 +101,9 @@ Help language file
         <dl>
             <dt>Artikel-Editor:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieser Tab wird immer angezeigt und beinhaltet den Editor an sich.</dd>
+            <dt>Erweietrt:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Der zweite Tab umfasst die verschiedenen Status-Optionen wie Gepinnt, Entwurf, Artikel-Freigabe,
+            Artikelbild, usw.</dd>
             <dt>Kommentare:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieses Register beinhaltet Auflistung aller Kommentare, welche zu zum ausgewählten Artikel
             geschrieben wurden. Die Liste bietet dir die Möglichkeit, einzelne Kommentare zu löschen. Über einen Klick auf den Namen des
@@ -237,6 +240,9 @@ Help language file
             <dt>Whois:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du eine Whois-Abfrage auf die IP-Adresse durchführen, um bspw. den etwaigen Standort
             herauszufinden.</dd>
+            <dt>Ip-Adresse sperren:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kann für die gespeicherte IP-Adresse eine Sperre eingerichtet werden. Hierzu wird das entsprechende
+            Recht zu verwalten von IP-Adressen benötigt. Die Sperren können unter <strong>Optionen > IP-Adressen</strong> aufgehoben werden.</dd>
         </dl>
         
         <h3>Kommentar-Editor</h3>
@@ -245,7 +251,7 @@ Help language file
         werden noch zusätzliche Informationen angezeigt, u. a. von welcher IP-Adresse der Kommentar geschrieben wurde. Diese Information kann zur Vermeidung von Spam, bei Straftaten, etc.
         wichtig sein.</p>
         
-        <p>Aus Datenschutz-Gründen wird die IP-Adresse mittels den Cronjob <em>IP-Adressen aus Kommentaren anonymisieren</em> per default einmal im Monat anonymisiert. Die Anonymisierung
+        <p>Aus Datenschutz-Gründen wird die IP-Adresse durch den Cronjob <em>IP-Adressen aus Kommentaren anonymisieren</em> per default einmal im Monat anonymisiert. Die Anonymisierung
         erfolgt nicht für Kommentare, welche als Spam eingestuft wurden, da entsprechende Kommentare später auch zur Spam-Erkennung herangezogen werden.</p>
         
         ]]>
@@ -595,7 +601,11 @@ Help language file
             missbraucht wurde.</li>
             <li>Die änderbaren Informationen in den Benutzern entsprechen denen im Benutzer-Profil. Die von einem Benutzer
             getroffenen Einstellungen können hier auf die System-weiten Einstellungen zurückgesetzt oder angepasst werden.</li>
-
+            <li>Wird ein Benutzer gelöscht, so wird der Eintrag komplett aus dem System entfernt, ein Login ist im Anschluss nicht
+            mehr möglich. Für Artikel besteht die Möglichkeit, diese zu einem anderen Benutzer zu Verschieben oder ebenfalls
+            löschen zu lassen. Wurde ein Benutzer gelöscht, so wird bei allen verweisen auf den Benutzer angezeigt, dass er
+            nicht gefunden wurde.</li>
+            <li>Über den Button <strong>E-Mail verfassen</strong> kann aus dem von euch festgelegten Standard-E-Mail-Programm eine Nachricht versendet werden.</li>
         </ul>
 
         <h3>Benutzer-Rollen</h3>
@@ -984,7 +994,9 @@ Help language file
             Button <strong>Modul löschen</strong> erfolgen.</dd>
             <dt>Modul aktualisieren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Ist im öffentlichen Repository eine neuere Version des Modules
-            verfügbar, so kann die Aktualisierung des Moduls über diesen Button erfolgen.</dd>
+            verfügbar, so kann die Aktualisierung des Moduls über diesen Button erfolgen. Der Button erscheint ebenfalls, wenn die Modul-Version in der
+            Datenbank und im Dateisystem des Servers nicht übereinstimmen. Das kann nach manuellen Änderungen an Modul-Code passieren. Durch die
+            Ausführung wird sichergestellt, dass die Datenbank dem Stand entspricht, welcher vom Modul funktional erwartet wird.</dd>
             <dt>Modul aktivieren:</dt>
             <dt>Modul deaktivieren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Nach der Installation eines Moduls muss dies aktiviert werden, so
