@@ -32,7 +32,8 @@ fpcm.editor_tinymce = {
             resize              : true,
             convert_urls        : true,
             browser_spellcheck  : true,
-            branding            : false
+            branding            : false,
+            element_format      : 'html'
         };
         
         if (config.skin !== undefined) {

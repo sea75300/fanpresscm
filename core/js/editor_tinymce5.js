@@ -16,20 +16,10 @@ fpcm.editor.initTinyMce = function() {
 
         fpcm.editor.filePickerCallback = callback;
 
-        tinymce.activeEditor.windowManager.open({
+        tinymce.activeEditor.windowManager.openUrl({
             title: fpcm.ui.translate('HL_FILES_MNG'),
             size: 'large',
-            body: {
-                type: 'panel',
-                items: [{
-                    type: 'htmlpanel',
-                    html: fpcm.ui.createIFrame({
-                        src: fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode,
-                        style: 'width:100%;height:100%;',
-                        id: 'fpcm-dialog-editor-tinymce-filemanager'
-                    })
-                }]
-            },
+            url: fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode,
             buttons: [
                 {
                     type:  'custom',

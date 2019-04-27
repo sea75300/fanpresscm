@@ -11,10 +11,8 @@ if (fpcm === undefined) {
 fpcm.editor_videolinks = {
 
     replace: function (text) {
-
         if (text.search('youtube.com') >= 0 && text.search('watch') >= 0) {
-            text = text.replace('watch?v=', 'embed/');
-            return text.replace('youtube.com', 'youtube-nocookie.com');
+            return text.replace('watch?v=', 'embed/').replace('youtube.com', 'youtube-nocookie.com').replace(/(&amp;).*/i, '').replace(/\&.*/i, '');
         }
 
         if (text.search('vimeo.com') >= 0) {
