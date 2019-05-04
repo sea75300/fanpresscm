@@ -26,25 +26,10 @@ fpcm.ui = {
         fpcm.ui.spinner('input.fpcm-ui-spinner');
         fpcm.ui.accordion('.fpcm-tabs-accordion');
         fpcm.ui.initDateTimeMasks();
-        
-        jQuery('#itemshowMenu').find('a').click(function () {
-            fpcm.ui.showLoader(false);
-            jQuery('div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1-show').toggle();
-            return false;
-        });
 
         jQuery('.fpcm-navigation-noclick').click(function () {
             fpcm.ui.showLoader(false);
             return false;
-        });
-        
-        jQuery('.fpcm-menu-level1-hassubmenu').hover(function () {
-            
-            if (jQuery(window).width() < 768) {
-                return true;
-            }
-            
-            jQuery(this).find('ul.fpcm-submenu').css('left', jQuery('#fpcm-navigation-ul').width());
         });
 
         jQuery('#fpcm-clear-cache').click(function () {

@@ -11,7 +11,7 @@
 
     </head>     
 
-    <body class="fpcm-body" id="fpcm-body">
+    <body class="fpcm-body fpcm-body-simple <?php print $theView->bodyClass; ?>" id="fpcm-body">
         
         <div id="fpcm-messages"></div>
 

@@ -1,0 +1,199 @@
+/* ------ Main navigation menu */
+#fpcm-navigation {
+    width: 100%;
+    font-size: 0.85rem;
+    position: relative;
+    z-index: 100;
+}
+
+#fpcm-navigation a {
+    font-weight: normal !important;
+}
+
+#fpcm-navigation ul,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links {
+    position: relative;
+}
+
+#fpcm-navigation,
+#fpcm-navigation li,
+#fpcm-navigation a,
+#fpcm-navigation a span.fpcm-ui-nav-icon,
+#fpcm-navigation a span.fpcm-ui-nav-descr {
+    display: block;
+}
+
+#fpcm-navigation li {
+    float: left;
+    min-width: 200px;
+}
+
+#fpcm-navigation > ul.fpcm-ui-menu:first-child > li {
+    width: 16.6666666666666666666666666666666666667%;
+}
+
+#fpcm-navigation li:hover,
+div.fpcm-status-info ul li:hover,
+#btnHiddenMenu:hover {
+    background: rgba(255, 239, 143, 0.5);
+}
+
+#fpcm-navigation > ul.fpcm-ui-menu:first-child > li > a {
+    background: none;
+}
+
+#fpcm-navigation ul.fpcm-ui-menu li,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links li {
+    max-width: 200px;
+}
+
+#fpcm-navigation ul.fpcm-ui-menu ul.fpcm-ui-sub-menu,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links ul.fpcm-ui-sub-menu {
+    z-index: 125;   
+}
+    
+#fpcm-navigation ul.fpcm-ui-menu:first-child li ul.fpcm-ui-sub-menu li {
+    text-align: left;
+    max-width: 200px;
+}
+
+#fpcm-navigation ul.fpcm-ui-menu li a {
+    padding: 10px 5px 5px 5px;
+}
+
+#fpcm-navigation ul.fpcm-ui-sub-menu li a,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links li a {
+    padding: 8px;
+}
+
+#fpcm-navigation,
+#fpcm-navigation a,
+#btnHiddenMenu {
+    color: #000000;
+}
+
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links {
+    right: 2rem;
+}
+
+#fpcm-navigation ul,
+#fpcm-navigation li {
+    padding: 0;
+}
+
+#fpcm-navigation ul,
+#fpcm-navigation li,
+#fpcm-navigation a,
+#btnHiddenMenu {
+    margin: 0;
+}
+
+#fpcm-navigation a,
+#fpcm-navigation a:hover,
+#fpcm-navigation > ul.fpcm-ui-menu:first-child > li,
+#fpcm-navigation > ul.fpcm-ui-menu:first-child > li:hover {
+    transition: 1s ease;
+}
+
+#fpcm-navigation .fpcm-menu-item-active {
+    border-bottom: 5px solid #00aded;
+}
+
+#btnHiddenMenu {
+    border: 0 !important;
+    background: none;
+    padding: 22.5px 10px 22.5px 10px;
+}
+
+/* ------ Top navigation menu */
+div.fpcm-status-info ul.fpcm-menu-top ul.fpcm-ui-sub-menu {
+    z-index: 99999;
+}
+
+div.fpcm-status-info a,
+div.fpcm-status-info a:link,
+div.fpcm-status-info a:visited,
+div.fpcm-status-info a:hover,
+div.fpcm-status-info a:active,
+div.fpcm-status-info a:focus,
+div.fpcm-status-info li {
+    color: #000;
+}
+
+div.fpcm-status-info,
+div.fpcm-status-info a,
+div.fpcm-status-info li {
+    font-weight: normal !important;
+}
+
+div.fpcm-status-info ul.fpcm-menu-top li ul {
+    margin-top: 0.3rem;
+    right: 1rem;
+    min-width: 25%;
+}
+
+div.fpcm-status-info ul li {
+    padding: 0.5em;
+}
+
+div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2 {
+    padding: 0.4em;
+}
+
+/*------ Main toolbar */
+#fpcm-ui-toolbar {
+    padding: 0.75rem;
+    border-radius: 0 0 10px 10px;
+}
+
+/* ------ Top and main navigation and toolbar common styles */
+#fpcm-navigation li ul.fpcm-ui-sub-menu,
+div.fpcm-status-info ul.fpcm-menu-top li ul {
+    border-top: 5px solid #00aded;
+}
+
+#fpcm-navigation ul.fpcm-ui-menu li a,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links li a,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links a,
+div.fpcm-status-info ul.fpcm-menu-top {
+    width: 100%;
+}
+
+#fpcm-navigation li ul.fpcm-ui-sub-menu,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links,
+div.fpcm-status-info ul.fpcm-menu-top li ul {
+    position: absolute;
+}
+
+#fpcm-navigation li ul,
+#fpcm-navigation li ul li,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links li,
+div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2 {
+    float: none;
+}
+
+#fpcm-navigation li ul,
+#fpcm-navigation li ul li,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links li,
+#fpcm-navigation ul.fpcm-ui-menu li.fpcm-menu-has-submenu:hover ul.fpcm-ui-sub-menu,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links li.fpcm-menu-has-submenu:hover ul.fpcm-ui-sub-menu,
+div.fpcm-status-info ul.fpcm-menu-top,
+div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1,
+div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2,
+div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2-status span,
+div.fpcm-status-info ul.fpcm-menu-top li:hover ul {
+    display: block;
+}
+
+#fpcm-navigation li ul.fpcm-ui-sub-menu,
+div.fpcm-status-info ul.fpcm-menu-top li ul,
+body.fpcm-ui-hide-toolbar #fpcm-ui-toolbar {
+    display: none;
+}
+
+#fpcm-navigation ul,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links,
+div.sidebar div.sidebar-forum ul {
+    list-style-type: none;
+    list-style-image: none;
+}

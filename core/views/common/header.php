@@ -12,35 +12,31 @@
 
     </head>    
 
-    <body class="fpcm-body" id="fpcm-body">
+    <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
 
         <div id="fpcm-messages"></div>
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
-        <?php include_once $theView->getIncludePath('common/menutop.php'); ?>
-            
-        <div class="row">
-
-            <div class="<?php if ($theView->fullWrapper) : ?>fpcm-ui-hidden<?php else : ?>col-sm-12 col-md-2<?php endif; ?> fpcm-ui-padding-none-lr fpcm-ui-background-white-50p" id="fpcm-wrapper-left">
-
-                <div class="row no-gutters fpcm-ui-full-height">
-                    <div class="col-12">
-                        <div id="fpcm-ui-logo" class="fpcm-ui-logo fpcm-ui-center fpcm-ui-margin-none">
-                            <h1><span class="fpcm-ui-block">FanPress CM</span> <span class="fpcm-ui-block">News System</span></h1>
-                        </div>
-
-                        <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
-                        
-                        <div class="fpcm-footer fpcm-ui-font-small fpcm-ui-center fpcm-footer-bottom d-none d-md-block">
-                            <?php include $theView->getIncludePath('common/footer_copy.php'); ?>
-                        </div>
-                        
-                    </div>
+        <header>
+            <div class="row no-gutters fpcm-ui-background-white-50p">
+                <div class="col-12 col-md-6 fpcm-ui-ellipsis">
+                    <h1 class="fpcm-ui-padding-lg-lr"><?php $theView->icon('chevron-right '); ?> <span>FanPress CM</span> <span>News System</span></h1>
                 </div>
-                
-
+                <div class="col-12 col-md-6 align-self-center">
+                    <?php include_once $theView->getIncludePath('common/menutop.php'); ?>
+                </div>                
             </div>
+        </header>
+            
+        <nav>
+            <div class="row no-gutters align-self-center">
+                <div class="col-12">
+                    <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
+                </div>
+            </div>
+        </nav>
 
-            <div class="<?php if ($theView->fullWrapper) : ?>col-sm-12<?php else : ?>col-md-10<?php endif; ?> fpcm-ui-padding-none-lr" id="fpcm-wrapper-right">
+        <div class="row">
+            <div class="col-sm-12">
                 <?php include_once $theView->getIncludePath('common/buttons.php'); ?>

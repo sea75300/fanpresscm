@@ -33,6 +33,24 @@
     div.fpcm-ui-logo h1 span {
         display: inline !important;
     }
+    
+    
+    #fpcm-navigation li,
+    #btnHiddenMenu {
+        width: 100%;
+        min-width: 100%;
+    }
+    
+    #fpcm-navigation ul.fpcm-ui-menu li.fpcm-menu-has-submenu:hover ul.fpcm-ui-sub-menu,
+    #fpcm-navigation ul.fpcm-ui-nav-hidden-links,
+    #fpcm-navigation ul.fpcm-ui-nav-hidden-links li.fpcm-menu-has-submenu:hover ul.fpcm-ui-sub-menu {
+        left: 1rem;
+        right: 1rem;
+    }
+    
+    #btnHiddenMenu {
+        padding: 15px 10px;
+    }
 
 }
 

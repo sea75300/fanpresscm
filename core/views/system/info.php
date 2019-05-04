@@ -1,5 +1,5 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<div class="row no-gutters fpcm-ui-full-height">
+<div class="row no-gutters">
     <div class="col-12">
         <div class="fpcm-content-wrapper">
             <div class="fpcm-ui-tabs-general">
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 fpcm-ui-full-height fpcm-ui-padding-lg-bottom">
+                        <div class="col-12 fpcm-ui-padding-lg-bottom">
                             <h3 class="fpcm-ui-margin-lg-bottom"><?php $theView->write('HL_HELP_LICENCE'); ?></h3>
                             <?php print nl2br($theView->escapeVal($licence)); ?>
                         </div>

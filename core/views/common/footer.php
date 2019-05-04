@@ -7,9 +7,14 @@
         </form>
         <?php endif; ?>
         
-        <div class="fpcm-footer fpcm-ui-font-small fpcm-ui-center fpcm-footer-bottom d-md-none">
-            <?php include $theView->getIncludePath('common/footer_copy.php'); ?>
+        <div class="row no-gutters fpcm-ui-margin-lg-top">
+            <div class="col-12 fpcm-ui-font-small fpcm-ui-center fpcm-ui-background-white-50p fpcm-ui-padding-md-tb">
+                <b><?php $theView->write('VERSION'); ?>:</b> <?php print $theView->version; ?><br>
+                &copy; 2011-<?php print date('Y'); ?> <a href="https://nobody-knows.org/download/fanpress-cm/" target="_blank" rel="noreferrer,noopener,external">nobody-knows.org</a>                
+            </div>
         </div>
+
+        <?php if ($theView->loggedIn) : ?><?php fpcmDebugOutput(); ?><?php endif; ?>
 
     </body>
 </html>

@@ -21,6 +21,7 @@ body {
    -webkit-hyphens: auto;
    -ms-hyphens: auto;
    -hyphens: auto;
+    scroll-behavior: smooth;
 }
 
 body,
@@ -47,4 +48,41 @@ table {
 
 img {
     border:0;
+}
+
+h3 {
+    font-size:1.2em;
+    padding: 0.3em 0em;
+    margin: 0.2em 0em;    
+}
+
+a, a:visited, a.fpcm-link {
+    text-decoration: none;  
+    color: #0048a9;
+}
+
+a:hover, a:focus, a:active {
+    text-decoration: none;
+}
+
+b,
+strong,
+dt,
+a, a:visited, a.fpcm-link,
+a:hover, a:focus, a:active,
+h2,
+h3, .fpcm-dashboard-container h3 {
+    font-weight: bold;
+}
+
+label {
+    font-weight: normal;
+}
+
+i, em {
+    color:#0048a9;
+}
+
+td {
+    vertical-align: top;
 }

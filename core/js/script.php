@@ -32,6 +32,7 @@ if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled(
     $jsFilesDefault = [
         __DIR__.DIRECTORY_SEPARATOR.'ajax.js',
         __DIR__.DIRECTORY_SEPARATOR.'ui.js',
+        __DIR__.DIRECTORY_SEPARATOR.'ui_navigation.js',
         __DIR__.DIRECTORY_SEPARATOR.'notifications.js',
         __DIR__.DIRECTORY_SEPARATOR.'system.js'
     ];

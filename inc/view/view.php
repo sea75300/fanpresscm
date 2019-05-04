@@ -56,6 +56,13 @@ class view {
     protected $formAction = '';
 
     /**
+     * <body> CSS class
+     * @var string
+     * @since FPCM 4.2
+     */
+    protected $bodyClass = '';
+
+    /**
      * Include header and footer in view::render
      * @var int
      */
@@ -623,6 +630,7 @@ class view {
         $this->defaultViewVars->currentModule = \fpcm\classes\http::get('module');
         $this->defaultViewVars->buttons = $this->buttons;
         $this->defaultViewVars->formActionTarget = $this->formAction;
+        $this->defaultViewVars->bodyClass = $this->bodyClass;
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->defaultViewVars->filesCss = array_unique(array_map([$this, 'addRootPath'], $this->viewCssFiles));
 
@@ -791,7 +799,17 @@ class view {
     {
         $this->jsvars['activeTab'] = $tab;
         $this->viewVars['activeTab'] = $tab;
-        return true;
+    }
+
+    /**
+     * Set <body>-tag CSS class
+     * @param int $bodyClass
+     * @return void
+     * @since FPCM 4.2
+     */
+    public function setBodyClass(string $bodyClass)
+    {
+        $this->bodyClass = $bodyClass;
     }
 
     /**

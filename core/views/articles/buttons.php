@@ -31,7 +31,7 @@
                 ->setIcon('external-link-alt')
                 ->setSize('lg')
                 ->setClass('col-6 col-md-8 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
-                ->setLabelClass('col-6 col-md-1 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+                ->setLabelClass('col-6 col-md-1 fpcm-ui-padding-none-right fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
     </div>
 </fieldset>
 
@@ -91,7 +91,7 @@
                 ->setIcon('image')
                 ->setSize('lg')
                 ->setClass('col-6 col-md-8 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner')
-                ->setLabelClass('col-6 col-md-1 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+                ->setLabelClass('col-6 col-md-1 fpcm-ui-padding-none-right fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
         <?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true)->setClass('fpcm-ui-margin-lg-left'); ?>
     </div>
 </fieldset>
