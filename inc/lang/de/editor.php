@@ -94,7 +94,6 @@ $lang = array(
     'EDITOR_SHARES_LAST' => 'Zuletzt geteilt am',
     'EDITOR_SHARES_FACEBOOK' => 'Geteilt via Facebook',
     'EDITOR_SHARES_TWITTER' => 'Geteilt via Twitter',
-    'EDITOR_SHARES_GOOGLEPLUS' => 'Geteilt via Google+',
     'EDITOR_SHARES_TUMBLR' => 'Geteilt via Tumblr',
     'EDITOR_SHARES_PINTEREST' => 'Geteilt via Pinterest',
     'EDITOR_SHARES_REDDIT' => 'Geteilt via Reddit',

@@ -69,7 +69,6 @@ $lang = array(
     'TEMPLATE_COMMMENTFORM_PRIVACYCOMFIRMATION' => 'Checkbox für zusätzliche Datenschutz-Zustimmung',
     'TEMPLATE_SHAREBUTTONS_FACEBOOK' => 'Button für Facebook',
     'TEMPLATE_SHAREBUTTONS_TWITTER' => 'Button für Twitter',
-    'TEMPLATE_SHAREBUTTONS_GOOGLEPLUS' => 'Button für Google+',
     'TEMPLATE_SHAREBUTTONS_TUMBLR' => 'Button für Tumblr',
     'TEMPLATE_SHAREBUTTONS_PINTEREST' => 'Button für Pinterest',
     'TEMPLATE_SHAREBUTTONS_REDDIT' => 'Button für Reddit',
