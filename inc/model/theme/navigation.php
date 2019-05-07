@@ -110,6 +110,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 (new navigationItem())->setUrl('comments/list')
                     ->setDescription('HL_COMMENTS_MNG')
                     ->setIcon('comments fa-lg')
+                    ->setId('nav-item-editcomments')
                     ->setPermission([
                         'article' => ['editall', 'edit'],
                         'comment' => ['editall', 'edit']

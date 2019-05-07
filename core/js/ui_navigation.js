@@ -15,6 +15,7 @@ fpcm.ui_navigation = {
     init: function() {
 
         fpcm.ui_navigation.initGreedyEl();
+        fpcm.ui_navigation.highlightModule();
 
         fpcm.ui_navigation._vars.btn = jQuery('#btnHiddenMenu');
         fpcm.ui_navigation._vars.greedy = jQuery('div.greedy ul.fpcm-ui-menu:first-child');
@@ -82,6 +83,18 @@ fpcm.ui_navigation = {
 
         fpcm.ui_navigation._vars.nav = jQuery('div.greedy');
         return true;
+    },
+    
+    highlightModule: function() {
+
+        if (fpcm.vars.jsvars.navigationActive) {
+            jQuery('#' + fpcm.vars.jsvars.navigationActive).addClass('fpcm-menu-item-active').parents('li.fpcm-menu-level1').addClass('fpcm-menu-item-active');
+            return true;
+        }
+
+        jQuery('#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active').parents('li.fpcm-menu-level1').addClass('fpcm-menu-item-active');
+        return true;
+
     }
 
 };

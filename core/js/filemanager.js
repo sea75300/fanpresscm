@@ -325,7 +325,9 @@ fpcm.filemanager = {
 
     reloadFiles: function (page, filter) {
 
-        fpcm.ui.showLoader(true);
+        if (!jQuery('div.fpcm-ui-inline-loader').length) {
+            fpcm.ui.showLoader(true);
+        }
 
         if (!page) {
             page = 1;

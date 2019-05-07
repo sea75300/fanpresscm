@@ -10,7 +10,7 @@
                     <span class="fpcm-ui-center fpcm-ui-nav-icon"><?php print $navigationItem->getIcon(); ?></span>
                     <span class="fpcm-ui-center fpcm-ui-nav-descr">
                         <?php print $navigationItem->getDescription(); ?>                    
-                        <?php if ($navigationItem->hasSubmenu()) : ?>&nbsp;<span class="fa fa-angle-right"></span><?php endif; ?>
+                        <?php if ($navigationItem->hasSubmenu()) : ?>&nbsp;<?php $theView->icon('chevron-down'); ?><?php endif; ?>
                     </span>
                 </a>
                 <?php if ($navigationItem->hasSubmenu()) : ?>

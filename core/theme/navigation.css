@@ -25,11 +25,7 @@
 
 #fpcm-navigation li {
     float: left;
-    min-width: 200px;
-}
-
-#fpcm-navigation > ul.fpcm-ui-menu:first-child > li {
-    width: 16.6666666666666666666666666666666666667%;
+    width: 150px;
 }
 
 #fpcm-navigation li:hover,
@@ -59,6 +55,7 @@ div.fpcm-status-info ul li:hover,
 
 #fpcm-navigation ul.fpcm-ui-menu li a {
     padding: 10px 5px 5px 5px;
+    line-height: 25px;
 }
 
 #fpcm-navigation ul.fpcm-ui-sub-menu li a,
@@ -95,8 +92,12 @@ div.fpcm-status-info ul li:hover,
     transition: 1s ease;
 }
 
-#fpcm-navigation .fpcm-menu-item-active {
+#fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active {
     border-bottom: 5px solid #00aded;
+}
+
+#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active {
+    border-left: 5px solid #00aded;
 }
 
 #btnHiddenMenu {
@@ -149,7 +150,7 @@ div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2 {
 /* ------ Top and main navigation and toolbar common styles */
 #fpcm-navigation li ul.fpcm-ui-sub-menu,
 div.fpcm-status-info ul.fpcm-menu-top li ul {
-    border-top: 5px solid #00aded;
+    border-top: 2px dotted #00aded;
 }
 
 #fpcm-navigation ul.fpcm-ui-menu li a,
@@ -177,11 +178,17 @@ div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2 {
 #fpcm-navigation ul.fpcm-ui-nav-hidden-links li,
 #fpcm-navigation ul.fpcm-ui-menu li.fpcm-menu-has-submenu:hover ul.fpcm-ui-sub-menu,
 #fpcm-navigation ul.fpcm-ui-nav-hidden-links li.fpcm-menu-has-submenu:hover ul.fpcm-ui-sub-menu,
+#fpcm-navigation ul.fpcm-ui-menu li.fpcm-menu-has-submenu:focus ul.fpcm-ui-sub-menu,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links li.fpcm-menu-has-submenu:focus ul.fpcm-ui-sub-menu,
+#fpcm-navigation ul.fpcm-ui-menu li.fpcm-menu-has-submenu:active ul.fpcm-ui-sub-menu,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links li.fpcm-menu-has-submenu:active ul.fpcm-ui-sub-menu,
 div.fpcm-status-info ul.fpcm-menu-top,
 div.fpcm-status-info ul.fpcm-menu-top li.fpcm-menu-top-level1,
 div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2,
 div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2-status span,
-div.fpcm-status-info ul.fpcm-menu-top li:hover ul {
+div.fpcm-status-info ul.fpcm-menu-top li:hover ul,
+div.fpcm-status-info ul.fpcm-menu-top li:focus ul,
+div.fpcm-status-info ul.fpcm-menu-top li:active ul {
     display: block;
 }
 

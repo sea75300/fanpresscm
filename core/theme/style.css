@@ -396,10 +396,7 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
 
 div.ui-tabs {
     height: 100%;
-}
-
-div.ui-tabs.fpcm-ui-tabs-help {
-    min-height: 300px !important;
+    min-height: 50vh;
 }
 
 .fpcm-tabs-scroll {
@@ -527,6 +524,12 @@ h3, .fpcm-dashboard-container h3 {
     margin: 0.8em 0;
 }
 
+div.fpcm-ui-inline-loader {
+    height: 50vh;
+    max-height: 1024px;
+    color: #0048a9;
+}
+
 .fpcm-dashboard-container {
     margin-bottom: 0.3em;
 }
@@ -562,43 +565,28 @@ h3, .fpcm-dashboard-container h3 {
 }
 
 .fpcm-dashboard-container.fpcm-dashboard-container-height-small {
-    height: 25%;
+    height: 125vh;
     max-height: 300px;
 }
 
 .fpcm-dashboard-container.fpcm-dashboard-container-height-small-medium {
-    height: 33%;
+    height: 133vh;
     max-height: 425px;
 }
 
 .fpcm-dashboard-container.fpcm-dashboard-container-height-middle {
-    height: 50%;
+    height: 150vh;
     max-height: 650px;
 }
 
 .fpcm-dashboard-container.fpcm-dashboard-container-height-big {
-    height: 75%;
+    height: 175vh;
     max-height: 950px;
 }
 
 .fpcm-dashboard-container.fpcm-dashboard-container-height-very-big {
-    height: 100%;
+    height: 200vh;
     max-height: 12800px;
-}
-
-.fpcm-dashboard-container .fpcm-dashboard-container-content-wrapper {
-    height: 100%;
-}
-
-#fpcm-dashboard-containers {
-    height: 100%;
-    margin: 0 0.15em;
-}
-
-.fpcm-dashboard-container .fpcm-dashboard-container-content-wrapper {
-    margin: 0.5em 0.2em;
-    overflow-x: hidden;
-    overflow-y: auto;
 }
 
 .fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content {

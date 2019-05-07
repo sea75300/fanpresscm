@@ -15,28 +15,29 @@
     <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
 
         <div id="fpcm-messages"></div>
+        
+        <div class="fpcm-ui-wrapper">
 
-        <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
+            <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
-        <header>
-            <div class="row no-gutters fpcm-ui-background-white-50p">
-                <div class="col-12 col-md-6 fpcm-ui-ellipsis">
-                    <h1 class="fpcm-ui-padding-lg-lr"><?php $theView->icon('chevron-right '); ?> <span>FanPress CM</span> <span>News System</span></h1>
+            <header>
+                <div class="row no-gutters fpcm-ui-background-white-50p">
+                    <div class="col-12 col-md-6 fpcm-ui-ellipsis">
+                        <h1 class="fpcm-ui-padding-lg-lr"><?php $theView->icon('chevron-right '); ?> <span>FanPress CM</span> <span>News System</span></h1>
+                    </div>
+                    <div class="col-12 col-md-6 align-self-center">
+                        <?php include_once $theView->getIncludePath('common/menutop.php'); ?>
+                    </div>                
                 </div>
-                <div class="col-12 col-md-6 align-self-center">
-                    <?php include_once $theView->getIncludePath('common/menutop.php'); ?>
-                </div>                
-            </div>
-        </header>
-            
-        <nav>
-            <div class="row no-gutters align-self-center">
-                <div class="col-12">
-                    <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
-                </div>
-            </div>
-        </nav>
+            </header>
 
-        <div class="row">
-            <div class="col-sm-12">
-                <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
+            <nav>
+                <div class="row no-gutters align-self-center">
+                    <div class="col-12">
+                        <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                    <?php include_once $theView->getIncludePath('common/buttons.php'); ?>

@@ -16,7 +16,6 @@ fpcm.ui = {
 
         fpcm.ui._intVars.msgEl = jQuery('#fpcm-messages');
 
-        fpcm.ui.highlightModule();
         fpcm.ui.showMessages();
         fpcm.ui.messagesInitClose();
 
@@ -538,19 +537,6 @@ fpcm.ui = {
         }
 
         return el.autocomplete(params);
-    },
-    
-    highlightModule: function() {
-
-        if (fpcm.vars.jsvars.navigationActive !== undefined) {
-            jQuery('#' + fpcm.vars.jsvars.navigationActive).addClass('fpcm-menu-active');
-        }
-
-        var active_submenu_items = jQuery('#fpcm-navigation-ul ul.fpcm-submenu').find('li.fpcm-menu-active');
-        if (active_submenu_items.length !== undefined && active_submenu_items.length) {
-            jQuery(active_submenu_items[0]).parent().parent().addClass('fpcm-menu-active');
-        }
-
     },
     
     getDialogSizes: function(el, scale_factor) {

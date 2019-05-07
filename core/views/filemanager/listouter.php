@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if($mode > 1) : ?><?php include_once $theView->getIncludePath('common/buttons.php'); ?><?php endif; ?>
-<div class="fpcm-ui-inner-wrapper">
+<div class="fpcm-content-wrapper">
     <div class="fpcm-ui-tabs-general" id="fpcm-files-tabs">
         <ul>
             <li data-toolbar-buttons="1" id="tabs-files-list-reload"><a href="#tabs-files-list"><?php $theView->write('FILE_LIST_AVAILABLE'); ?></a></li>                
@@ -11,6 +11,12 @@
             <div id="tabs-files-list-content">
                 <?php if (!$hasFiles) : ?>
                 <p class="fpcm-ui-padding-none fpcm-ui-margin-none"><?php $theView->icon('images', 'far')->setStack('ban fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
+                <?php else : ?>
+                <div class="row no-gutters align-self-center fpcm-ui-inline-loader">
+                    <div class="col-12 fpcm-ui-center align-self-center">
+                        <?php $theView->icon('spinner fa-pulse fa-inverse')->setStack('circle')->setSize('2x'); ?>
+                    </div>
+                </div>
                 <?php endif; ?>
             </div>
         </div>
