@@ -1,3 +1,21 @@
+body {
+    font-size: 10pt;
+    text-align: left;
+    color: #0048a9;
+    background-color: #ebe7f2;
+    background-size: cover;
+    margin:0;
+    padding:0;
+    height: 100%;
+   -moz-hyphens: auto;
+   -o-hyphens: auto;
+   -webkit-hyphens: auto;
+   -ms-hyphens: auto;
+   -hyphens: auto;
+    scroll-behavior: smooth;
+}
+
+
 h1 {
     font-family: 'Raleway', 'Droid Sans', sans-serif !important;
     font-size: 2rem !important;
@@ -267,6 +285,10 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
     height: 100%;
 }
 
+.fpcm-ui-full-view-height {
+    height: 100vh;
+}
+
 .fpcm-ui-full-min-height {
     height: auto;
     min-height: 100%;
@@ -396,7 +418,7 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
 
 div.ui-tabs {
     height: 100%;
-    min-height: 50vh;
+    min-height: 66vh;
 }
 
 .fpcm-tabs-scroll {
@@ -651,7 +673,6 @@ span.fpcm-ui-editor-metainfo,
     font-weight: normal;
 }
 
-div.fpcm-status-info ul.fpcm-menu-top li ul,
 div.fpcm-ui-permissions-container label,
 .fpcm-ui-align-left {
     text-align: left;

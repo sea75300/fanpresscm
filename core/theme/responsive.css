@@ -40,6 +40,7 @@
     
     
     #fpcm-navigation li,
+    div.fpcm-status-info ul.fpcm-menu-top li ul,
     #btnHiddenMenu {
         width: 100% !important;
         min-width: 100% !important;
@@ -47,7 +48,8 @@
     
     #fpcm-navigation ul.fpcm-ui-menu li.fpcm-menu-has-submenu:hover ul.fpcm-ui-sub-menu,
     #fpcm-navigation ul.fpcm-ui-nav-hidden-links,
-    #fpcm-navigation ul.fpcm-ui-nav-hidden-links li.fpcm-menu-has-submenu:hover ul.fpcm-ui-sub-menu {
+    #fpcm-navigation ul.fpcm-ui-nav-hidden-links li.fpcm-menu-has-submenu:hover ul.fpcm-ui-sub-menu,
+    div.fpcm-status-info ul.fpcm-menu-top li ul {
         left: 0rem;
         right: 0rem;
     }
@@ -67,13 +69,20 @@
     #itemshowMenu.fpcm-menu-level1-show  {
         display: block !important;
     }
-
+    
+    body {
+        background-image: url(bg_small.svg);
+    }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
 
     div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1-show {
         display: block !important;
+    }
+
+    body {
+        background-image: url(bg_large.svg);
     }
     
 }

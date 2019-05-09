@@ -129,16 +129,12 @@ div.fpcm-status-info li {
 
 div.fpcm-status-info ul.fpcm-menu-top li ul {
     margin-top: 0.3rem;
-    right: 1rem;
-    min-width: 25%;
+    right: 0rem;
+    width: 300px;
 }
 
 div.fpcm-status-info ul li {
     padding: 0.5em;
-}
-
-div.fpcm-status-info ul.fpcm-menu-top li li.fpcm-menu-top-level2 {
-    padding: 0.4em;
 }
 
 /*------ Main toolbar */

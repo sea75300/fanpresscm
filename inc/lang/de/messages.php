@@ -7,6 +7,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 $lang = array(
+    'GUI_VIEWPORT_SIZE' => 'Achtung! Auch wenn viel Wert auf eine gute mobile Nutzung gelegt wurde, kann es unter der aktuellen Auflösung zu Einschränkungen bei der Benutzerbeikeit der Software kommen.',
     'LOGIN_FAILED' => 'Der Benutzername oder das Passwort ist falsch. Bitte versuche es erneut.',
     'LOGIN_FAILED_DISABLED' => 'Der angegebene Benutzername wurde deaktiviert.',
     'LOGIN_REQUIRED' => 'Bitte melde dich an, um die angeforderte Seite aufrufen zu können!',
