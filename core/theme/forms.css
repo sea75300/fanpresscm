@@ -5,18 +5,6 @@ input, select, textarea, option, button {
     font-size: 1em;
 }
 
-.fpcm-ui-input-wrapper,
-.fpcm-ui-input-text,
-.fpcm-ui-input-wrapper-inner input,
-textarea {
-    background-color: #fff;
-}
-
-.fpcm-ui-input-wrapper,
-textarea {
-    border: 1px solid #aed0ea;
-}
-
 .fpcm-ui-input-wrapper-inner,
 textarea {
     padding: 0.3em 0.4em;
@@ -36,24 +24,6 @@ input[type="text"][readonly],
 textarea[readonly],
 .fpcm-ui-readonly {
     opacity: 0.35;
-}
-
-textarea:hover,
-textarea:focus,
-textarea:active,
-fieldset,
-.fpcm-ui-input-wrapper:hover,
-.fpcm-ui-input-wrapper-hover,
-.fpcm-ui-border-blue-light {
-    border: 1px solid #79B7E7;
-}
-
-textarea:hover,
-textarea:focus,
-textarea:active,
-.fpcm-ui-input-wrapper:hover,
-.fpcm-ui-input-wrapper-hover {
-    box-shadow: #79B7E7 0px 0px 4px;
 }
 
 textarea.fpcm-ui-textarea-medium {
@@ -83,9 +53,6 @@ textarea.fpcm-ui-textarea-medium {
     overflow-y: auto;
     overflow-x: hidden;
     margin-bottom: 3px;
-}
-.ui-controlgroup-label.ui-widget-content:last-child {
-    border-right: 1px solid #aed0ea;
 }
 
 .ui-selectmenu-button {

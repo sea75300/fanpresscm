@@ -14,7 +14,7 @@
 
     <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
 
-        <div id="fpcm-messages"></div>
+        <div id="fpcm-messages" class="fpcm-ui-position-absolute fpcm-ui-position-right-0"></div>
         
         <div class="fpcm-ui-wrapper">
 

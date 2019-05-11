@@ -1,7 +1,6 @@
 /* ------ Main navigation menu */
 #fpcm-navigation {
     width: 100%;
-    font-size: 0.85rem;
     position: relative;
     z-index: 100;
 }
@@ -25,21 +24,12 @@
 
 #fpcm-navigation li {
     float: left;
-    width: 150px;
-}
-
-#fpcm-navigation li:hover,
-div.fpcm-status-info ul li:hover,
-#btnHiddenMenu:hover {
-    background: rgba(255, 239, 143, 0.5);
-}
-
-#fpcm-navigation > ul.fpcm-ui-menu:first-child > li > a {
-    background: none;
+    width: 200px;
 }
 
 #fpcm-navigation ul.fpcm-ui-menu li,
-#fpcm-navigation ul.fpcm-ui-nav-hidden-links li {
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links li,
+#fpcm-navigation ul.fpcm-ui-menu:first-child li ul.fpcm-ui-sub-menu li {
     max-width: 200px;
 }
 
@@ -50,7 +40,6 @@ div.fpcm-status-info ul li:hover,
     
 #fpcm-navigation ul.fpcm-ui-menu:first-child li ul.fpcm-ui-sub-menu li {
     text-align: left;
-    max-width: 200px;
 }
 
 #fpcm-navigation ul.fpcm-ui-menu li a {
@@ -61,12 +50,6 @@ div.fpcm-status-info ul li:hover,
 #fpcm-navigation ul.fpcm-ui-sub-menu li a,
 #fpcm-navigation ul.fpcm-ui-nav-hidden-links li a {
     padding: 8px;
-}
-
-#fpcm-navigation,
-#fpcm-navigation a,
-#btnHiddenMenu {
-    color: #000000;
 }
 
 #fpcm-navigation ul.fpcm-ui-nav-hidden-links {
@@ -92,33 +75,14 @@ div.fpcm-status-info ul li:hover,
     transition: 1s ease;
 }
 
-#fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active {
-    border-bottom: 5px solid #00aded;
-}
-
-#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active {
-    border-left: 5px solid #00aded;
-}
-
 #btnHiddenMenu {
     border: 0 !important;
-    background: none;
     padding: 22.5px 10px 22.5px 10px;
 }
 
 /* ------ Top navigation menu */
 div.fpcm-status-info ul.fpcm-menu-top ul.fpcm-ui-sub-menu {
     z-index: 99999;
-}
-
-div.fpcm-status-info a,
-div.fpcm-status-info a:link,
-div.fpcm-status-info a:visited,
-div.fpcm-status-info a:hover,
-div.fpcm-status-info a:active,
-div.fpcm-status-info a:focus,
-div.fpcm-status-info li {
-    color: #000;
 }
 
 div.fpcm-status-info,
@@ -144,11 +108,6 @@ div.fpcm-status-info ul li {
 }
 
 /* ------ Top and main navigation and toolbar common styles */
-#fpcm-navigation li ul.fpcm-ui-sub-menu,
-div.fpcm-status-info ul.fpcm-menu-top li ul {
-    border-top: 2px dotted #00aded;
-}
-
 #fpcm-navigation ul.fpcm-ui-menu li a,
 #fpcm-navigation ul.fpcm-ui-nav-hidden-links li a,
 #fpcm-navigation ul.fpcm-ui-nav-hidden-links a,

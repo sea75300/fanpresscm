@@ -1,13 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="row no-gutters fpcm-ui-form-login">
-    <div class="col-12">
-        <div id="fpcm-ui-logo" class="row fpcm-ui-logo fpcm-ui-center fpcm-ui-margin-none">
-            <div class="col-12">
-                <h1><span class="fpcm-ui-block">FanPress CM</span> <span class="fpcm-ui-block">News System</span></h1>
-            </div>
-        </div>            
-    </div>
-</div>
+<h1 class="fpcm-ui-margin-md-bottom"><?php $theView->icon('chevron-right'); ?> <span>FanPress CM</span> <span>News System</span></h1>
 
 <div class="row no-gutters fpcm-ui-full-height">
     <div class="col-12">

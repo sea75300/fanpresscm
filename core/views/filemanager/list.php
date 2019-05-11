@@ -8,7 +8,7 @@
 <?php include $theView->getIncludePath('components/pager.php'); ?>
 
 <?php foreach($files AS $file) : ?>
-<div class="row fpcm-filelist-thumb-box">
+<div class="row fpcm-filelist-thumb-box fpcm-ui-center">
     <div class="col-12 fpcm-ui-padding-md-tb">
         <div class="row fpcm-filelist-thumb-box-inner fpcm-ui-background-transition">
  
@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-lg-3 align-self-center fpcm-filelist-meta fpcm-ui-left">
+            <div class="col-12 col-lg-3 align-self-center fpcm-filelist-meta fpcm-ui-align-left">
                 
                 <?php if (!$file->existsFolder() ) : ?>
                 <div class="row fpcm-ui-padding-md-tb fpcm-ui-important-text">

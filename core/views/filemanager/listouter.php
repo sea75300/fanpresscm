@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if($mode > 1) : ?><?php include_once $theView->getIncludePath('common/buttons.php'); ?><?php endif; ?>
-<div class="fpcm-content-wrapper">
-    <div class="fpcm-ui-tabs-general" id="fpcm-files-tabs">
+<div class="<?php if($mode > 1) : ?>fpcm-ui-inner-wrapper<?php else : ?>fpcm-content-wrapper<?php endif; ?>">
+    <div class="fpcm-ui-tabs-general <?php if($mode > 1) : ?>fpcm-ui-full-view-min-height<?php endif; ?>" id="fpcm-files-tabs">
         <ul>
             <li data-toolbar-buttons="1" id="tabs-files-list-reload"><a href="#tabs-files-list"><?php $theView->write('FILE_LIST_AVAILABLE'); ?></a></li>                
             <?php if ($permUpload) : ?><li data-toolbar-buttons="2"><a href="#tabs-files-upload"><?php $theView->write('FILE_LIST_UPLOADFORM'); ?></a></li><?php endif; ?>                

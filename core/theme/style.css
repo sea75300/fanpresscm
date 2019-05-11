@@ -1,128 +1,27 @@
-body {
-    font-size: 10pt;
-    text-align: left;
-    color: #0048a9;
-    background-color: #ebe7f2;
-    background-size: cover;
-    margin:0;
-    padding:0;
-    height: 100%;
-   -moz-hyphens: auto;
-   -o-hyphens: auto;
-   -webkit-hyphens: auto;
-   -ms-hyphens: auto;
-   -hyphens: auto;
-    scroll-behavior: smooth;
+/* ------ Text aligns */
+.fpcm-ui-ellipsis    {
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-
-h1 {
-    font-family: 'Raleway', 'Droid Sans', sans-serif !important;
-    font-size: 2rem !important;
-    font-weight: 300;
-    color: #00aded;
-    padding: 0.5rem 0;
-    margin: 0;
+.fpcm-ui-align-left {
+    text-align:left;
 }
 
-h1 span:nth-child(even) {
-    letter-spacing: -3px;
-    color: #000000;
+.fpcm-ui-align-right {
+    text-align:right;
 }
 
-h2 {
-    font-size:1.35em;
-    color: #2779aa;
-    border: 1px solid #aed0ea;
-    background: #deedf7 url("../../lib/jquery-ui/images/ui-bg_glass_100_deedf7_1x400.png") 50% 50% repeat-x;
-    padding: 0.4em;
+.fpcm-ui-align-justify {
+    text-align:justify;
 }
 
-h2.ui-accordion-header {
-    box-shadow:none;
-}
-
-ul.list-large li,
-ol.list-large li {
-    padding: 0.5em 0;
-}
-
-/* .CSS-Klassen und #IDs */
-.fpcm-ui-progressbar-label,
-.fpcm-updater-list span.fa,
-.fpcm-ui-float-left {
-    float: left;
-}
-
-span.fpcm-ui-badge,
-.fpcm-ui-float-right {
-    float: right;
-}
-
-.fpcm-ui-iplist-metabox-right,
-span.fpcm-ui-badge.fpcm-ui-badge-comments,
-span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
-.fpcm-ui-float-none {
-    float: none;
-}
-
-span.fpcm-ui-badge,
-#fpcm-filemanager-upload-drop h4:before,
-div.fileupload-progress.in,
-.fpcm-ui-permissions-container .ui-button,
-.fpcm-ui-progressbar-label,
-.fpcm-updater-list span.fa,
-.fpcm-ui-block {
-    display: block;
-}
-
-span.fpcm-ui-badge.fpcm-ui-badge-comments,
-span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
-.fpcm-ui-input-wrapper,
-.fpcm-ui-inline-block {
-    display: inline-block;
-}
-
-.fpcm-editor-select,
-.fpcm-ui-hidden {
-    display: none;
-}
-
-#fpcm-loader,
-.fpcm-ui-position-fixed {
-    position: fixed;
-}
-
-.fpcm-ui-position-relative {
-    position: relative;
-}
-
-.fpcm-editor-select,
-.fpcm-editor-dialog iframe,
-.fpcm-ui-position-absolute {
-    position: absolute;
-}
-
-.fpcm-ui-position-absolute-0 {
-    top:0px;
-    right:0px;
-    bottom:0px;
-    left:0px;
-}
-
-div.fpcm-ui-form-login div.fpcm-ui-logo h1 {
+.fpcm-ui-center,
+.fpcm-ui-align-center {
     text-align: center;
 }
 
-div.fpcm-ui-form-login div.fpcm-ui-logo span {
-    display: inline-block;
-}
-
-#fpcm-loader {
-    z-index : 9999;
-    display : none;
-}
-
+/* ------ Paddings and margins */
 .fpcm-ui-padding-none-left {
     padding-left: 0;
 }
@@ -136,9 +35,12 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
     padding-right: 0;
 }
 
-.fpcm-dashboard-container ul,
 .fpcm-ui-padding-none {
     padding: 0em;
+}
+
+.fpcm-ui-padding-md-all {
+    padding: 0.5em;
 }
 
 .fpcm-ui-padding-md-lr {
@@ -206,7 +108,6 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
     margin-right: 0.5em;
 }
 
-.fpcm-updater-list p.fpcm-updater-list-with-button span.fa,
 .fpcm-ui-margin-md-top {
     margin-top: 0.5em;
 }
@@ -239,34 +140,111 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
     margin-right: 0 !important;
 }
 
-.fpcm-ui-background-white-50p {
-    background: rgba(255,255,255,0.75);
+.fpcm-ui-margin-center {
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.fpcm-ui-background-white-100 {
-    background: #ffffff;
+div.row {
+    margin-left: 0;
+    margin-right: 0;
 }
 
-.fpcm-full-width-date   {
-    width: 85%;
+/* ------ Positions */
+.fpcm-ui-position-fixed {
+    position: fixed;
 }
 
-.fpcm-ui-position-top-0 {
+.fpcm-ui-position-relative {
+    position: relative;
+}
+
+.fpcm-ui-position-absolute,
+.fpcm-editor-select,
+.fpcm-editor-dialog iframe {
+    position: absolute;
+}
+
+.fpcm-ui-position-top-0,
+.fpcm-ui-position-absolute-0 {
     top: 0px;
 }
 
-.fpcm-ui-position-bottom-0 {
+.fpcm-ui-position-bottom-0,
+.fpcm-ui-position-absolute-0 {
     bottom: 0px;
 }
 
-.fpcm-ui-position-left-0 {
+.fpcm-ui-position-left-0,
+.fpcm-ui-position-absolute-0 {
     left: 0px;
 }
 
-.fpcm-ui-position-right-0 {
+.fpcm-ui-position-right-0,
+.fpcm-ui-position-absolute-0 {
     right: 0px;
 }
 
+/* ------ General floats and displays */
+.fpcm-ui-progressbar-label,
+.fpcm-ui-float-left {
+    float: left;
+}
+
+span.fpcm-ui-badge,
+.fpcm-ui-float-right {
+    float: right;
+}
+
+span.fpcm-ui-badge.fpcm-ui-badge-comments,
+span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
+.fpcm-ui-float-none {
+    float: none;
+}
+
+.fpcm-ui-clear {
+    clear: both;
+}
+
+span.fpcm-ui-badge,
+#fpcm-filemanager-upload-drop h4:before,
+div.fileupload-progress.in,
+.fpcm-ui-permissions-container .ui-button,
+.fpcm-ui-progressbar-label,
+.fpcm-ui-block {
+    display: block;
+}
+
+span.fpcm-ui-badge.fpcm-ui-badge-comments,
+span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
+.fpcm-ui-input-wrapper,
+.fpcm-ui-inline-block {
+    display: inline-block;
+}
+
+.fpcm-ui-hidden,
+.fpcm-editor-select {
+    display: none;
+}
+
+/* ------ General borders */
+.fpcm-ui-border-none-top {
+    border-top: none;
+}
+
+.fpcm-ui-border-none-right {
+    border-right: none !important;
+}
+
+.fpcm-ui-border-none-bottom {
+    border-bottom: none !important;
+}
+
+.fpcm-ui-border-none-left {
+    border-left: none !important;
+}
+
+/* ------ Widths and heights */
 .fpcm-ui-full-width,
 .fpcm-ui-input-wrapper,
 .fpcm-ui-input-wrapper input,
@@ -289,212 +267,21 @@ div.fpcm-ui-form-login div.fpcm-ui-logo span {
     height: 100vh;
 }
 
+.fpcm-ui-full-view-min-height {
+    min-height: 100vh !important;
+}
+
 .fpcm-ui-full-min-height {
     height: auto;
     min-height: 100%;
-}
-
-div.fpcm-ui-datepicker-inputwrapper {
-    max-width: 200px;
-}
-
-.fpcm-ui-padding-md-all {
-    padding: 0.5em;
-}
-
-.fpcm-ui-inner-wrapper     {
-    margin: 0.5em;
-}
-
-.fpcm-dialog-wrapper    {
-    padding: 0em 0.6em 0em 0em;
-}
-
-.fpcm-ui-clear             {
-    clear: both;
-}
-
-.fpcm-debug-data,
-.fpcm-ui-font-small {
-    font-size: 0.85em;
-}
-
-.fpcm-debug-data {
-    background: rgba(200,200,200,0.5);
-}
-
-.fpcm-debug-data div {
-    padding: 0.2em 0.4em;
-}
-
-#fpcm-messages {
-    position: absolute;
-    right: 0;
-    top: 4em;
-    z-index: 10000;
-    max-width: 66%;
-    min-width: 400px;
-}
-
-.fpcm-message-box {
-    padding: 0.3em;
-    margin: 0.5em 0;
-    box-shadow: 0px 0px 15px #555555;
-    color: #000000; 
-}
-
-.fpcm-message-box a {
-    margin-left: 0.3em;
-}
-
-.fpcm-message-box .fpcm-ui-messages-close {
-    font-size: 0.6em;
-    cursor: pointer;
-}
-
-.fpcm-message-notice {
-    background:rgba(204, 233, 244, 0.9);
-    border-left: 5px solid #69BDDD;
-}
-
-.fpcm-message-neutral {
-    background: rgba(251, 236, 136, 0.9);
-    border-left: 5px solid #FAD42E;
-}
-
-.fpcm-message-error {
-    background:rgba(230, 168, 168, 0.9);
-    border-left: 5px solid #cc0000;
-}
-
-ins,
-.fpcm-message-notice {
-    color: #2779aa;
-}
-
-.fpcm-dashboard-updates-checkerror {
-    color: #666666;
-}
-
-.fpcm-dashboard-updates-versiondbfile,
-.fpcm-message-neutral {
-    color: #363636;
-}
-
-del,
-.fpcm-message-error,
-.fpcm-dashboard-updates-outdated,
-.fpcm-ui-important-text {
-    color: #cc0000;
-}
-
-span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-0 {
-    color: transparent;
-}
-
-span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-spinner {
-    color: #e3e3e3;
-}
-
-.fpcm-ui-border-none-top {
-    border-top: none;
-}
-
-.fpcm-ui-border-none-right {
-    border-right: none;
-}
-
-.fpcm-ui-border-none-bottom {
-    border-bottom: none;
-}
-
-.fpcm-ui-border-none-left {
-    border-left: none;
-}
-
-.fpcm-ui-tabs-general {
-    overflow: hidden;
-}
-
-div.ui-tabs {
-    height: 100%;
-    min-height: 66vh;
-}
-
-.fpcm-tabs-scroll {
-    overflow: auto;
-    padding-bottom: 0.2em;
-}
-
-.fpcm-ui-background-transition {
-    transition: background-color 0.35s ease;
-}
-
-div.fileupload-progress.fpcm-ui-fade {
-    opacity: 0;
-    -webkit-transition: opacity .15s linear;
-    -o-transition: opacity .15s linear;
-    transition: opacity .15s linear;
-}
-
-div.fileupload-progress.in {
-    opacity: 1;
-    -webkit-transition: opacity .15s linear;
-    -o-transition: opacity .15s linear;
-    transition: opacity .15s linear;
-}
-
-div.fpcm-filelist-thumb-box:nth-child(odd) div.fpcm-filelist-thumb-box-inner,
-label.fpcm-ui-label-bg-grey
-{
-    background: #f8f8f8;
-}
-
-div.fpcm-filelist-thumb-box:hover div.fpcm-filelist-thumb-box-inner,
-label.fpcm-ui-label-bg-blue
-{
-    background: #DFEFFC;
 }
 
 .fpcm-quarter-width {
     width: 25%;
 }
 
-.fpcm-ui-ellipsis    {
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-
-.fpcm-ui-left    {
-    text-align:left;
-}
-
-.fpcm-ui-right,
-div.fpcm-ui-messages-close   {
-    text-align:right;
-}
-
-.fpcm-ui-justify {
-    text-align:justify;
-}
-
-.fpcm-ui-center,
-div.fpcm-filelist-thumb-box {
-    text-align: center;
-}
-
-.fpcm-ui-margin-center {
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .fpcm-half-width {
     width: 50% !important;
-}
-
-.fpcm-ui-modules-installerbox {
-    border-bottom: 1px dotted #c3c3c3;
-    margin-bottom: 1.2em;
 }
 
 .fpcm-ui-button,
@@ -515,6 +302,103 @@ div.fpcm-filelist-thumb-box {
     min-height: 31px;
 }
 
+div.fpcm-ui-inline-loader {
+    height: 50vh;
+    max-height: 1024px;
+}
+
+/* ------ Message box styles */
+#fpcm-messages {
+    top: 4em;
+    z-index: 10000;
+    max-width: 66%;
+    min-width: 400px;
+}
+
+.fpcm-message-box {
+    padding: 0.3em;
+    margin: 0.5em 0;
+}
+
+.fpcm-message-box a {
+    margin-left: 0.3em;
+}
+
+.fpcm-message-box .fpcm-ui-messages-close {
+    font-size: 0.6em;
+    cursor: pointer;
+}
+
+/* ------ Opacities */
+.fpcm-ui-status-0 {
+    opacity: 0.2;
+}
+
+.fpcm-ui-status-1 {
+    opacity: 1.0;
+}
+
+.fpcm-ui-status-075 {
+    opacity: 0.75;
+}
+
+div.fileupload-progress.fpcm-ui-fade {
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+}
+
+div.fileupload-progress.in {
+    opacity: 1;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+}
+
+/* ------ Badge styles */
+span.fpcm-ui-badge {
+    z-index: 999;
+}
+
+span.fpcm-ui-badge.fpcm-ui-badge-comments,
+span.fpcm-ui-badge.fpcm-ui-badge-userarticles {
+    font-size: 0.9em;
+    min-width: 4em;
+    line-height: 2em;
+    padding: 0em 0.5em;
+}
+
+
+/* ------ General classes and ids */
+
+#fpcm-loader {
+    z-index : 9999;
+    display : none;
+}
+
+div.fpcm-ui-datepicker-inputwrapper {
+    max-width: 200px;
+}
+
+.fpcm-ui-inner-wrapper {
+    margin: 0.5em;
+}
+
+.fpcm-debug-data,
+.fpcm-ui-font-small {
+    font-size: 0.85em;
+}
+
+.fpcm-ui-tabs-general {
+    overflow: hidden;
+}
+
+.fpcm-tabs-scroll {
+    overflow: auto;
+    padding-bottom: 0.2em;
+}
+
 .fpcm-editor-dialog iframe {
     border: 0;
     margin: 0;
@@ -530,109 +414,6 @@ div.fpcm-filelist-thumb-box {
     min-height:50px;
 }
 
-#fpcm-dialog-manualupdate-check iframe {
-    height:110px;
-    min-height:110px;
-}
-
-h3, .fpcm-dashboard-container h3 {
-    border: 1px solid #2694e8;
-    background: #3baae3 url("../../lib/jquery-ui/images/ui-bg_glass_50_3baae3_1x400.png") 50% 50% repeat-x;
-    color: #FFF;
-    padding: 0.4em;
-}
-
-.fpcm-content-wrapper-installer h3 {
-    margin: 0.8em 0;
-}
-
-div.fpcm-ui-inline-loader {
-    height: 50vh;
-    max-height: 1024px;
-    color: #0048a9;
-}
-
-.fpcm-dashboard-container {
-    margin-bottom: 0.3em;
-}
-
-.fpcm-dashboard-container ul {
-    margin: 0em 0.8em 0em 1.3em;
-}
-
-.fpcm-dashboard-container .fpcm-dashboard-container-inner {
-    height: 100%;
-    margin: 0.3em 0.15em;
-}
-    
-.fpcm-dashboard-container .fpcm-dashboard-container-header,
-.fpcm-dashboard-container .fpcm-dashboard-container-content {
-    position: relative;
-    left: 0;
-    right: 0;
-}
-
-.fpcm-dashboard-container .fpcm-dashboard-container-header {
-    height: 50px;
-    padding: 0.2em 0.3em;
-}
-
-.fpcm-dashboard-container .fpcm-dashboard-container-content {
-    padding: 0.1em 0.5em;
-    bottom: 0px;
-    top: 0px;
-    height: calc(100% - 55px);
-    overflow-X: hidden;
-    overflow-y: auto;
-}
-
-.fpcm-dashboard-container.fpcm-dashboard-container-height-small {
-    height: 125vh;
-    max-height: 300px;
-}
-
-.fpcm-dashboard-container.fpcm-dashboard-container-height-small-medium {
-    height: 133vh;
-    max-height: 425px;
-}
-
-.fpcm-dashboard-container.fpcm-dashboard-container-height-middle {
-    height: 150vh;
-    max-height: 650px;
-}
-
-.fpcm-dashboard-container.fpcm-dashboard-container-height-big {
-    height: 175vh;
-    max-height: 950px;
-}
-
-.fpcm-dashboard-container.fpcm-dashboard-container-height-very-big {
-    height: 200vh;
-    max-height: 12800px;
-}
-
-.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content {
-    line-height: 1.5em;
-}
-
-.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-ui-font-small {
-    line-height: 1.25em;
-}
-
-.fpcm-ui-permissions-container .ui-button {
-    margin: 0.3em 0em;
-}
-
-.fpcm-dashboard-message-box {
-    font-size: 0.9em;
-    padding: 0.4em; 
-    margin-bottom: 0.9em;
-}
-
-.fpcm-ui-notfound-msg {
-    padding: 0.2em 1.3em;
-}
-
 .fpcm-ui-permissions-container h2,
 .fpcm-editor-dialog h2 {
     margin:0px 0px 5px 0px;
@@ -645,22 +426,6 @@ span.fpcm-ui-editor-metainfo,
     color:#3399ff;
 }
 
-.fpcm-ui-status-0 {
-    opacity: 0.2;
-}
-
-.fpcm-ui-status-1 {
-    opacity: 1.0;
-}
-
-.fpcm-ui-status-075 {
-    opacity: 0.75;
-}
-
-.fpcm-editor-select-button {
-    min-width: 125px;
-}
-
 .fpcm-editor-select {
     min-width: 125px !important;
     max-width: 250px;
@@ -671,16 +436,6 @@ span.fpcm-ui-editor-metainfo,
 .fpcm-editor-select a {
     line-height: 1.4em;
     font-weight: normal;
-}
-
-div.fpcm-ui-permissions-container label,
-.fpcm-ui-align-left {
-    text-align: left;
-}
-
-.fpcm-ui-align-right,
-.fileInputFormButtons {
-    text-align: right;
 }
 
 #fpcm-dialog-editor-html-insertsmileys {
@@ -701,37 +456,13 @@ img.fpcm-ui-smileylist-preview {
     cursor: pointer;
 }
 
-.fpcm-ui-monospace {
-    font: 1em 'Courier New', monospace !important;
-}
-
 .fpcm-ui-progressbar {
     margin: 0 auto;
     overflow: hidden;
 }
 
 .fpcm-ui-progressbar-label {
-    color: #000000;
-    text-shadow: 0px 0px 2px #ececec;
     margin: 0.3em 0.8em;
-}
-
-legend,
-span.fpcm-ui-badge {
-    background: #3399ff;
-    color: #fff;
-    padding: 0.3em 0.5em;
-}
-
-h2,
-h3,
-fieldset,
-legend,
-textarea,
-span.fpcm-ui-badge,
-.fpcm-dashboard-container h3,
-.fpcm-ui-input-wrapper {
-    border-radius: 5px;
 }
 
 .fpcm-ui-border-radius-right {
@@ -740,43 +471,6 @@ span.fpcm-ui-badge,
 
 .fpcm-ui-border-radius-left {
     border-radius: 5px 0 0 5px;
-}
-
-span.fpcm-ui-badge {
-    z-index: 999;
-}
-
-span.fpcm-ui-badge.fpcm-ui-badge-red {
-    background: #cc0000;
-}
-
-span.fpcm-ui-badge.fpcm-ui-badge-comments,
-span.fpcm-ui-badge.fpcm-ui-badge-userarticles {
-    font-size: 0.9em;
-    min-width: 4em;
-    line-height: 2em;
-    padding: 0em 0.5em;
-}
-
-
-/* jQuery UI Hooks */
-div.fpcm-massedit-dialog div.fpcm-ui-editor-extended-button label {
-    line-height: 2em;
-}
-
-
-.ui-widget,
-.ui-controlgroup .ui-controlgroup-label span {
-    font-size: 1em;
-}
-
-
-.ui-icon-blank {
-    background-position: 16px 16px !important;
-}
-
-.ui-icon-check {
-  background-position: -64px -144px !important;
 }
 
 div.fpcm-accordion-pkgmanager ul {
@@ -795,27 +489,6 @@ div.fpcm-filelist-actions-box {
 div.fpcm-filelist-thumb-box img {
     width: 100px !important;
     height: 100px !important;
-    border: 5px solid #A6C9E2;
-}
-
-span.fpcm-ui-booltext-no {
-    color: #cc0000;
-}
-
-a:hover, a:focus, a:active,
-.fpcm-dashboard-updates-current,
-div.fpcm-status-info ul.fpcm-menu-top li.fpcm-ui-helplink a,
-span.fpcm-ui-button-shorthelp:hover,
-span.fpcm-ui-booltext-yes {
-    color: #3399ff;
-}
-
-span.fpcm-ui-button-shorthelp {
-    color: #0048A9;
-}
-
-#fpcm-filemanager-upload-drop {
-    background: rgba(223, 239, 252, 0.35);
 }
 
 #fpcm-filemanager-upload-drop h4 {
@@ -827,9 +500,33 @@ span.fpcm-ui-button-shorthelp {
     padding-bottom: 0.1em;
 }
 
-div.row {
-    margin-left: 0;
-    margin-right: 0;
+.pre-box {
+    white-space: pre-line;
+}
+
+/* ------ Third party library hooks */
+.ui-widget,
+.ui-controlgroup .ui-controlgroup-label span {
+    font-size: 1em;
+}
+
+div.ui-tabs {
+    height: 100%;
+    min-height: 66vh;
+}
+
+.fpcm-ui-permissions-container .ui-button {
+    margin: 0.3em 0em;
+}
+
+.tox .tox-dialog__body-content div[role=presentation] {
+    height: 100%;
+    overflow: hidden;
+}
+
+.CodeMirror {
+    height: auto;
+    min-height: 50hv;
 }
 
 td.fpcm-tinymce-emoticons img {
@@ -843,22 +540,4 @@ div.mce-fpcm-ui-emoticons-panel {
 
 .fpcm-ui-box-sizing-none {
     box-sizing: initial !important;
-}
-
-.pre-box {
-    white-space: pre-line;
-}
-
-.tox .tox-dialog__body-content div[role=presentation] {
-    height: 100%;
-    overflow: hidden;
-}
-
-.cm-s-mdn-like.CodeMirror {
-    color: #000000 !important;
-}
-
-.CodeMirror {
-    height: auto;
-    min-height: 500px;
 }

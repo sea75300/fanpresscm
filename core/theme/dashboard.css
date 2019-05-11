@@ -1,0 +1,68 @@
+/* ------ Dashboard conatienr styles */
+.fpcm-dashboard-container {
+    margin-bottom: 0.3em;
+}
+
+.fpcm-dashboard-container ul {
+    padding: 0em;
+    margin: 0em 0.8em 0em 1.3em;
+}
+
+.fpcm-dashboard-container .fpcm-dashboard-container-inner {
+    height: 100%;
+    margin: 0.3em 0.15em;
+}
+    
+.fpcm-dashboard-container .fpcm-dashboard-container-header,
+.fpcm-dashboard-container .fpcm-dashboard-container-content {
+    position: relative;
+    left: 0;
+    right: 0;
+}
+
+.fpcm-dashboard-container .fpcm-dashboard-container-header {
+    height: 50px;
+    padding: 0.2em 0.3em;
+}
+
+.fpcm-dashboard-container .fpcm-dashboard-container-content {
+    padding: 0.1em 0.5em;
+    bottom: 0px;
+    top: 0px;
+    height: calc(100% - 55px);
+    overflow-X: hidden;
+    overflow-y: auto;
+}
+
+.fpcm-dashboard-container.fpcm-dashboard-container-height-small {
+    height: 125vh;
+    max-height: 300px;
+}
+
+.fpcm-dashboard-container.fpcm-dashboard-container-height-small-medium {
+    height: 133vh;
+    max-height: 425px;
+}
+
+.fpcm-dashboard-container.fpcm-dashboard-container-height-middle {
+    height: 150vh;
+    max-height: 650px;
+}
+
+.fpcm-dashboard-container.fpcm-dashboard-container-height-big {
+    height: 175vh;
+    max-height: 950px;
+}
+
+.fpcm-dashboard-container.fpcm-dashboard-container-height-very-big {
+    height: 200vh;
+    max-height: 12800px;
+}
+
+.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content {
+    line-height: 1.5em;
+}
+
+.fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-ui-font-small {
+    line-height: 1.25em;
+}

@@ -21,14 +21,6 @@
     div.fpcm-ui-messages-close   {
         text-align:center !important;
     }
-
-    #fpcm-ui-logo {
-        background: none !important;
-    }
-
-    #fpcm-wrapper-left div.fpcm-ui-logo {
-        margin-top: 0 !important;
-    }
     
     div.fpcm-ui-logo h1 {
         padding: 0.75em 0 !important;

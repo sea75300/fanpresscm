@@ -1,9 +1,10 @@
 @import url(droid_sans/stylesheet.css);
 @import url(raleway/stylesheet.css);
 
+/* ------ General common styles */
+
 body {
     font-size: 10pt;
-    text-align: left;
     margin:0;
     padding:0;
     height: 100%;
@@ -29,16 +30,28 @@ button {
     font-family: 'Droid Sans', sans-serif !important;
 }
 
-label {
-    font-weight:bold;
+.fpcm-ui-monospace {
+    font: 1em 'Courier New', monospace !important;
 }
 
-table {
-    border-spacing: 0;
+h1 {
+    font-family: 'Raleway', 'Droid Sans', sans-serif !important;
+    font-size: 2rem !important;
+    font-weight: 300;
+    padding: 0.5rem 0;
+    margin: 0;
 }
 
-img {
-    border:0;
+h1 span:nth-child(even) {
+    letter-spacing: -3px;
+}
+
+h2 {
+    font-size:1.35em;
+}
+
+h2.ui-accordion-header {
+    box-shadow:none;
 }
 
 h3 {
@@ -47,9 +60,14 @@ h3 {
     margin: 0.2em 0em;    
 }
 
+h2,
+h3,
+.fpcm-dashboard-container h3 {
+    padding: 0.4em;
+}
+
 a, a:visited, a.fpcm-link {
     text-decoration: none;  
-    color: #0048a9;
 }
 
 a:hover, a:focus, a:active {
@@ -66,14 +84,34 @@ h3, .fpcm-dashboard-container h3 {
     font-weight: bold;
 }
 
-label {
-    font-weight: normal;
-}
-
-i, em {
-    color:#0048a9;
+table {
+    border-spacing: 0;
 }
 
 td {
     vertical-align: top;
+}
+
+img {
+    border:0;
+}
+
+label {
+    font-weight: normal;
+}
+
+legend,
+span.fpcm-ui-badge {
+    padding: 0.3em 0.5em;
+}
+
+h2,
+h3,
+fieldset,
+legend,
+textarea,
+span.fpcm-ui-badge,
+.fpcm-dashboard-container h3,
+.fpcm-ui-input-wrapper {
+    border-radius: 5px;
 }

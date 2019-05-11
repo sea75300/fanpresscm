@@ -1,0 +1,232 @@
+/* ------ General colors */
+body {
+    background-color: #ebe7f2;
+    background-size: cover;
+}
+
+body,
+span.fpcm-ui-button-shorthelp
+div.fpcm-ui-inline-loader,
+a, a:visited, a.fpcm-link
+i, em {
+    color: #0048a9;
+}
+
+h1 {
+    color: #00aded;
+}
+
+h1 span:nth-child(even),
+.fpcm-message-box,
+.fpcm-ui-progressbar-label,
+.cm-s-mdn-like.CodeMirror,
+#fpcm-navigation,
+#fpcm-navigation a,
+#btnHiddenMenu,
+div.fpcm-status-info a,
+div.fpcm-status-info a:link,
+div.fpcm-status-info a:visited,
+div.fpcm-status-info a:hover,
+div.fpcm-status-info a:active,
+div.fpcm-status-info a:focus,
+div.fpcm-status-info li {
+    color: #000;
+}
+
+h2 {
+    background: #deedf7 url("../../lib/jquery-ui/images/ui-bg_glass_100_deedf7_1x400.png") 50% 50% repeat-x;
+}
+
+h2,
+ins,
+div.fpcm-ui-dataview-rowcolpadding,
+.fpcm-message-notice {
+    color: #2779aa;
+}
+
+h2,
+textarea,
+.fpcm-ui-input-wrapper {
+    border: 1px solid #aed0ea;
+}
+
+h3,
+.fpcm-dashboard-container h3 {
+    border: 1px solid #2694e8;
+    background: #3baae3 url("../../lib/jquery-ui/images/ui-bg_glass_50_3baae3_1x400.png") 50% 50% repeat-x;
+    color: #FFF;
+}
+
+.fpcm-ui-background-white-50p {
+    background: rgba(255,255,255,0.75);
+}
+
+.fpcm-debug-data {
+    background: rgba(200,200,200,0.5);
+}
+
+
+.fpcm-message-box {
+    box-shadow: 0px 0px 15px #555555;
+}
+
+.fpcm-message-notice {
+    background:rgba(204, 233, 244, 0.9);
+    border-left: 5px solid #69BDDD;
+}
+
+.fpcm-message-neutral {
+    background: rgba(251, 236, 136, 0.9);
+    border-left: 5px solid #FAD42E;
+}
+
+.fpcm-message-error {
+    background:rgba(230, 168, 168, 0.9);
+    border-left: 5px solid #cc0000;
+}
+
+.fpcm-dashboard-updates-checkerror {
+    color: #666666;
+}
+
+.fpcm-dashboard-updates-versiondbfile,
+.fpcm-message-neutral {
+    color: #363636;
+}
+
+del,
+.fpcm-message-error,
+.fpcm-dashboard-updates-outdated,
+.fpcm-ui-important-text,
+span.fpcm-ui-booltext-no {
+    color: #cc0000;
+}
+
+span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-0 {
+    color: transparent;
+}
+
+span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-spinner {
+    color: #e3e3e3;
+}
+
+.fpcm-ui-background-transition {
+    transition: background-color 0.35s ease;
+}
+
+label.fpcm-ui-label-bg-grey,
+div.fpcm-filelist-thumb-box:nth-child(odd) div.fpcm-filelist-thumb-box-inner,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(odd)
+{
+    background: #f8f8f8;
+}
+
+label.fpcm-ui-label-bg-blue,
+div.fpcm-filelist-thumb-box:hover div.fpcm-filelist-thumb-box-inner,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row:hover 
+{
+    background: #DFEFFC;
+}
+
+.fpcm-ui-progressbar-label {
+    text-shadow: 0px 0px 2px #ececec;
+}
+
+legend,
+span.fpcm-ui-badge {
+    background: #3399ff;
+    color: #fff;
+}
+
+span.fpcm-ui-badge.fpcm-ui-badge-red {
+    background: #cc0000;
+}
+
+a:hover,
+a:focus,
+a:active,
+div.fpcm-status-info ul.fpcm-menu-top li.fpcm-ui-helplink a,
+div.fpcm-ui-editor-metabox strong,
+span.fpcm-ui-button-shorthelp:hover,
+span.fpcm-ui-booltext-yes,
+span.fpcm-ui-editor-metainfo,
+.fpcm-dashboard-updates-current,
+.fpcm-ui-metabox,
+.fpcm-ui-color-blue-light {
+    color: #3399ff;
+}
+
+#fpcm-filemanager-upload-drop {
+    background: rgba(223, 239, 252, 0.35);
+}
+
+div.fpcm-filelist-thumb-box img {
+    border: 5px solid #A6C9E2;
+}
+
+/* ------ Main navigation menu */
+#fpcm-navigation li:hover,
+div.fpcm-status-info ul li:hover,
+#btnHiddenMenu:hover {
+    background: rgba(255, 239, 143, 0.5);
+}
+
+#btnHiddenMenu,
+#fpcm-navigation > ul.fpcm-ui-menu:first-child > li > a {
+    background: none;
+}
+
+#fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active {
+    border-bottom: 5px solid #00aded;
+}
+
+#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active {
+    border-left: 5px solid #00aded;
+}
+
+/* ------ Top and main navigation and toolbar common styles */
+#fpcm-navigation li ul.fpcm-ui-sub-menu,
+div.fpcm-status-info ul.fpcm-menu-top li ul {
+    border-top: 2px dotted #00aded;
+}
+
+/* ------ Forms styles */
+
+textarea,
+.fpcm-ui-input-wrapper,
+.fpcm-ui-input-text,
+.fpcm-ui-input-wrapper-inner input,
+.fpcm-ui-background-white-100 {
+    background: #ffffff;
+}
+
+textarea:hover,
+textarea:focus,
+textarea:active,
+fieldset,
+.fpcm-ui-input-wrapper:hover,
+.fpcm-ui-input-wrapper-hover,
+.fpcm-ui-border-blue-light {
+    border: 1px solid #79B7E7;
+}
+
+textarea:hover,
+textarea:focus,
+textarea:active,
+.fpcm-ui-input-wrapper:hover,
+.fpcm-ui-input-wrapper-hover {
+    box-shadow: #79B7E7 0px 0px 4px;
+}
+
+/* ------ jQuery UI Hooks */
+.ui-icon-blank {
+    background-position: 16px 16px !important;
+}
+
+.ui-icon-check {
+    background-position: -64px -144px !important;
+}
+
+.ui-controlgroup-label.ui-widget-content:last-child {
+    border-right: 1px solid #aed0ea;
+}
