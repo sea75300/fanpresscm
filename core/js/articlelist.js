@@ -19,15 +19,17 @@ fpcm.articlelist = {
             return false;
         });
 
+        fpcm.articlelist.initArticleSearch();
+        fpcm.articlelist.clearArticleCache();
+    },
+    
+    initAfter: function() {
         fpcm.dataview.render('articlelist', {
             onRenderAfter: function() {
                 fpcm.ui.assignCheckboxes();
                 fpcm.ui.assignControlgroups();
             }
         });
-
-        fpcm.articlelist.initArticleSearch();
-        fpcm.articlelist.clearArticleCache();
     },
     
     assignActions: function() {
