@@ -6,11 +6,15 @@ input, select, textarea, option, button {
 }
 
 .fpcm-ui-input-wrapper-inner,
+.fpcm-ui-field-label-general,
+.fpcm-ui-field-input-nowrapper-general,
 textarea {
     padding: 0.3em 0.4em;
 }
 
-.fpcm-ui-input-wrapper-inner {
+.fpcm-ui-input-wrapper-inner,
+.fpcm-ui-field-label-general,
+.fpcm-ui-field-input-nowrapper-general {
     width: auto;
     height: auto;
 }

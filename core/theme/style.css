@@ -26,7 +26,8 @@
     padding-left: 0;
 }
 
-.fpcm-ui-padding-none-right {
+.fpcm-ui-padding-none-right,
+.fpcm-ui-field-label-general {
     padding-right: 0;
 }
 
@@ -232,7 +233,8 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
     border-top: none;
 }
 
-.fpcm-ui-border-none-right {
+.fpcm-ui-border-none-right,
+.fpcm-ui-field-label-general {
     border-right: none !important;
 }
 
@@ -293,7 +295,9 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
     line-height: 18.666666666666666666666667px;
 }
 
-.fpcm-ui-element-min-height-md {
+.fpcm-ui-element-min-height-md,
+.fpcm-ui-field-input-nowrapper-general,
+.fpcm-ui-field-label-general {
     min-height: 21.3333px;
     line-height: 21.3333px;
 }
@@ -465,11 +469,13 @@ img.fpcm-ui-smileylist-preview {
     margin: 0.3em 0.8em;
 }
 
-.fpcm-ui-border-radius-right {
+.fpcm-ui-border-radius-right,
+.fpcm-ui-field-input-nowrapper-general {
     border-radius: 0 5px 5px 0;
 }
 
-.fpcm-ui-border-radius-left {
+.fpcm-ui-border-radius-left,
+.fpcm-ui-field-label-general {
     border-radius: 5px 0 0 5px;
 }
 

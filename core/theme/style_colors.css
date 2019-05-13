@@ -5,7 +5,7 @@ body {
 }
 
 body,
-span.fpcm-ui-button-shorthelp
+span.fpcm-ui-button-shorthelp,
 div.fpcm-ui-inline-loader,
 a, a:visited, a.fpcm-link
 i, em {
@@ -115,6 +115,7 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
 }
 
 label.fpcm-ui-label-bg-grey,
+.fpcm-ui-field-label-general,
 div.fpcm-filelist-thumb-box:nth-child(odd) div.fpcm-filelist-thumb-box-inner,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(odd)
 {
@@ -206,7 +207,9 @@ textarea:active,
 fieldset,
 .fpcm-ui-input-wrapper:hover,
 .fpcm-ui-input-wrapper-hover,
-.fpcm-ui-border-blue-light {
+.fpcm-ui-border-blue-light,
+.fpcm-ui-field-label-general,
+.fpcm-ui-field-input-nowrapper-general {
     border: 1px solid #79B7E7;
 }
 
