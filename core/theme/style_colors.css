@@ -1,7 +1,9 @@
 /* ------ General colors */
 body {
+    background-image: url(bgmain.svg);
     background-color: #ebe7f2;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 body,

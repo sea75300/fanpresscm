@@ -22,14 +22,16 @@
     display: block;
 }
 
-#fpcm-navigation li {
+#fpcm-navigation li,
+#btnHiddenMenu {
     float: left;
     width: 200px;
 }
 
 #fpcm-navigation ul.fpcm-ui-menu li,
 #fpcm-navigation ul.fpcm-ui-nav-hidden-links li,
-#fpcm-navigation ul.fpcm-ui-menu:first-child li ul.fpcm-ui-sub-menu li {
+#fpcm-navigation ul.fpcm-ui-menu:first-child li ul.fpcm-ui-sub-menu li,
+#btnHiddenMenu {
     max-width: 200px;
 }
 

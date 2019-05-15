@@ -55,11 +55,11 @@ fpcm.ui_navigation = {
         numOfVisibleItems = fpcm.ui_navigation._vars.greedy.children().length;
         requiredSpace = fpcm.ui_navigation._vars.breakWidths[numOfVisibleItems - 1];
 
-        if (requiredSpace >= availableSpace) {
+        if (requiredSpace + 200 >= availableSpace) {
             fpcm.ui_navigation._vars.greedy.children().last().prependTo(fpcm.ui_navigation._vars.hlinks);
             numOfVisibleItems -= 1;
             fpcm.ui_navigation._checkGreedy();
-        } else if (availableSpace > fpcm.ui_navigation._vars.breakWidths[numOfVisibleItems]) {
+        } else if (availableSpace > fpcm.ui_navigation._vars.breakWidths[numOfVisibleItems] + 200) {
             fpcm.ui_navigation._vars.hlinks.children().first().appendTo(fpcm.ui_navigation._vars.greedy);
             numOfVisibleItems += 1;
         }

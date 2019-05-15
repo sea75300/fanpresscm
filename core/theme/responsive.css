@@ -46,8 +46,13 @@
         right: 0rem;
     }
     
+    #fpcm-navigation ul.fpcm-ui-nav-hidden-links {
+        top: 70px;
+    }
+    
     #btnHiddenMenu {
-        padding: 15px 10px;
+        height: 75px;
+        line-height: 37.5px;
     }
 
 }
@@ -61,20 +66,13 @@
     #itemshowMenu.fpcm-menu-level1-show  {
         display: block !important;
     }
-    
-    body {
-        background-image: url(bg_small.svg);
-    }
+
 }
 
 @media (min-width: 769px) {
 
     div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1-show {
         display: block !important;
-    }
-
-    body {
-        background-image: url(bg_large.svg);
     }
     
 }
