@@ -42,6 +42,12 @@ class main extends \fpcm\controller\abstracts\controller {
 
     /**
      *
+     * @var bool
+     */
+    protected $showReloadBtn = false;
+
+    /**
+     *
      * @var array
      */
     protected $subTemplates = array(
@@ -180,16 +186,13 @@ class main extends \fpcm\controller\abstracts\controller {
             'SAVE_FAILED_PASSWORD_MATCH',
             'INSTALLER_DBCONNECTION_FAILEDMSG'
         ]);
-
+        
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         $this->view->assign('tabCounter', 1);
         $this->view->assign('subTabs', $this->subTabs);
         $this->view->assign('subTemplate', $this->subTemplates[$this->step]);
         $this->view->assign('maxStep', $maxStep);
-        $this->view->assign('currentStep', $this->step);
         $this->view->assign('step', $this->step + 1);
-        $this->view->assign('showNextButton', $this->step > 1 ? true : false);
-        $this->view->assign('showReload', false);
         $this->view->assign('languages', array_flip($this->language->getLanguages()));
         $this->view->addJsFiles(['{$coreJs}installer.js', '{$coreJs}systemcheck.js', \fpcm\classes\loader::libGetFileUrl('password-generator/password-generator.min.js')]);
 
@@ -206,6 +209,18 @@ class main extends \fpcm\controller\abstracts\controller {
             'language' => $this->langCode
         ]);
 
+        $buttons = [];
+        if ($this->showReloadBtn) {
+            $buttons[] = (new \fpcm\view\helper\linkButton('reloadbtn'))->setText('GLOBAL_RELOAD')->setUrl(\fpcm\classes\tools::getControllerLink('installer', [
+                'step' => $this->step,
+                'language' => $this->step > 1 ? $this->langCode : ''
+            ]))->setIcon('sync');
+        }
+        elseif ($this->step < count($this->subTemplates)) {
+            $buttons[] = (new \fpcm\view\helper\submitButton('submitNext'))->setText('GLOBAL_NEXT')->setClass('fpcm-installer-next-'.$this->step)->setIcon('chevron-circle-right');
+        }
+
+        $this->view->addButtons($buttons);
         $this->view->showPageToken(false);
         $this->view->render();
     }
@@ -230,8 +245,7 @@ class main extends \fpcm\controller\abstracts\controller {
         }
 
         if (!$isOk) {
-            $this->view->assign('showReload', true);
-            $this->view->assign('showNextButton', false);
+            $this->showReloadBtn = true;
             $this->view->addErrorMessage('INSTALLER_SYSCHECK_FAILEDMSG');
         }
 
@@ -452,7 +466,6 @@ class main extends \fpcm\controller\abstracts\controller {
         }
 
         $this->view->assign('disableInstallerMsg', !$res);
-        $this->view->assign('showNextButton', false);
 
         $cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
         $cache->cleanup();
