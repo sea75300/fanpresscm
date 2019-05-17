@@ -72,6 +72,14 @@ fpcm.ui_navigation = {
         }
         
         fpcm.ui_navigation._vars.btn.removeClass('fpcm-ui-hidden');
+        
+        console.log(numOfVisibleItems, fpcm.ui_navigation._vars.btn.offset().left);
+        
+        if (numOfVisibleItems > 1 && fpcm.ui_navigation._vars.btn.offset().left > 0) {
+            fpcm.ui_navigation._vars.hlinks.css('left', fpcm.ui_navigation._vars.btn.offset().left); 
+            fpcm.ui_navigation._vars.hlinks.css('top', fpcm.ui_navigation._vars.btn.innerHeight()); 
+        }
+
         return true;
     },
     
