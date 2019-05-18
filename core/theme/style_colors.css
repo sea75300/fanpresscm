@@ -11,28 +11,17 @@ span.fpcm-ui-button-shorthelp,
 div.fpcm-ui-inline-loader,
 a, a:visited, a.fpcm-link
 i, em {
-    color: #0048a9;
+    color: #362b36;
 }
 
 h1 {
     color: #00aded;
 }
 
-h1 span:nth-child(even),
 .fpcm-message-box,
 .fpcm-ui-progressbar-label,
-.cm-s-mdn-like.CodeMirror,
-#fpcm-navigation,
-#fpcm-navigation a,
-#btnHiddenMenu,
-div.fpcm-status-info a,
-div.fpcm-status-info a:link,
-div.fpcm-status-info a:visited,
-div.fpcm-status-info a:hover,
-div.fpcm-status-info a:active,
-div.fpcm-status-info a:focus,
-div.fpcm-status-info li {
-    color: #000;
+.cm-s-mdn-like.CodeMirror {
+    color: #fefefe !important;
 }
 
 h2 {
@@ -56,17 +45,26 @@ h3,
 .fpcm-dashboard-container h3 {
     border: 1px solid #2694e8;
     background: #3baae3 url("../../lib/jquery-ui/images/ui-bg_glass_50_3baae3_1x400.png") 50% 50% repeat-x;
-    color: #FFF;
+    color: #fff;
 }
 
 .fpcm-ui-background-white-50p {
     background: rgba(255,255,255,0.75);
 }
 
+div.fpcm-filelist-thumb-box div.fpcm-filelist-thumb-box-inner,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row {
+    background: rgba(254,254,254,0.7);
+}
+
+div.fpcm-filelist-thumb-box:nth-child(even) div.fpcm-filelist-thumb-box-inner,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even) {
+    background: rgba(254,254,254,0.5);
+}
+
 .fpcm-debug-data {
     background: rgba(200,200,200,0.5);
 }
-
 
 .fpcm-message-box {
     box-shadow: 0px 0px 15px #555555;
@@ -91,14 +89,22 @@ h3,
     color: #666666;
 }
 
-.fpcm-dashboard-updates-versiondbfile,
+.fpcm-ui-color-grey-dark,
 .fpcm-message-neutral {
     color: #363636;
 }
 
+.fpcm-ui-color-blue-light,
+.fpcm-ui-metabox,
+div.fpcm-ui-editor-metabox strong,
+span.fpcm-ui-editor-metainfo,
+span.fpcm-ui-button-shorthelp:hover,
+span.fpcm-ui-booltext-yes {
+    color:#3399ff;
+}
+
 del,
 .fpcm-message-error,
-.fpcm-dashboard-updates-outdated,
 .fpcm-ui-important-text,
 span.fpcm-ui-booltext-no {
     color: #cc0000;
@@ -117,17 +123,12 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
 }
 
 label.fpcm-ui-label-bg-grey,
-.fpcm-ui-field-label-general,
-div.fpcm-filelist-thumb-box:nth-child(odd) div.fpcm-filelist-thumb-box-inner,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(odd)
+.fpcm-ui-field-label-general
 {
     background: #f8f8f8;
 }
 
-label.fpcm-ui-label-bg-blue,
-div.fpcm-filelist-thumb-box:hover div.fpcm-filelist-thumb-box-inner,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row:hover 
-{
+label.fpcm-ui-label-bg-blue {
     background: #DFEFFC;
 }
 
@@ -145,22 +146,8 @@ span.fpcm-ui-badge.fpcm-ui-badge-red {
     background: #cc0000;
 }
 
-a:hover,
-a:focus,
-a:active,
-div.fpcm-status-info ul.fpcm-menu-top li.fpcm-ui-helplink a,
-div.fpcm-ui-editor-metabox strong,
-span.fpcm-ui-button-shorthelp:hover,
-span.fpcm-ui-booltext-yes,
-span.fpcm-ui-editor-metainfo,
-.fpcm-dashboard-updates-current,
-.fpcm-ui-metabox,
-.fpcm-ui-color-blue-light {
-    color: #3399ff;
-}
-
 #fpcm-filemanager-upload-drop {
-    background: rgba(223, 239, 252, 0.35);
+    border: 1px dotted #00aded;
 }
 
 div.fpcm-filelist-thumb-box img {
@@ -170,7 +157,11 @@ div.fpcm-filelist-thumb-box img {
 /* ------ Main navigation menu */
 #fpcm-navigation li:hover,
 div.fpcm-status-info ul li:hover,
-#btnHiddenMenu:hover {
+#btnHiddenMenu:hover,
+div.fpcm-filelist-thumb-box:hover div.fpcm-filelist-thumb-box-inner,
+div.fpcm-filelist-thumb-box:nth-child(even):hover div.fpcm-filelist-thumb-box-inner,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row:hover ,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even):hover {
     background: rgba(255, 239, 143, 0.5);
 }
 
@@ -194,13 +185,13 @@ div.fpcm-status-info ul.fpcm-menu-top li ul {
 }
 
 /* ------ Forms styles */
-
+fieldset,
 textarea,
 .fpcm-ui-input-wrapper,
 .fpcm-ui-input-text,
 .fpcm-ui-input-wrapper-inner input,
 .fpcm-ui-background-white-100 {
-    background: #ffffff;
+    background: #fefefe;
 }
 
 textarea:hover,
@@ -234,4 +225,9 @@ textarea:active,
 
 .ui-controlgroup-label.ui-widget-content:last-child {
     border-right: 1px solid #aed0ea;
+}
+
+.ui-widget-content {
+    color: inherit !important;
+    background-color: rgba(255,255,255,0.75);
 }

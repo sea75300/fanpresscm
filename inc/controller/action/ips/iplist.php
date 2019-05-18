@@ -115,7 +115,7 @@ class iplist extends \fpcm\controller\abstracts\controller {
     protected function getDataViewCols()
     {
         return [
-            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('ipaddress', 'IPLIST_IPADDRESS'))->setSize(3),
             (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER'))->setSize(3),
             (new \fpcm\components\dataView\column('time', 'IPLIST_IPTIME'))->setSize(3),

@@ -111,7 +111,7 @@ class itemlist extends \fpcm\controller\abstracts\controller {
     protected function getDataViewCols()
     {
         return [
-            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('subject', 'WORDBAN_NAME'))->setSize(4),
             (new \fpcm\components\dataView\column('replacement', 'WORDBAN_REPLACEMENT_TEXT'))->setSize(4),

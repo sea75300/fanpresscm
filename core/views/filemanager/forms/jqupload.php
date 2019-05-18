@@ -26,9 +26,12 @@
         </div>
     </div>
 
-    <div id="fpcm-filemanager-upload-drop">
-        <h4 class="fpcm-ui-center"><?php $theView->icon('images', 'far')->setSize('4x')->setClass('fpcm-ui-padding-md-bottom fpcm-ui-status-075'); ?><br><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4>
+    <div class="row no-gutters align-self-center justify-content-center">        
+        <div id="fpcm-filemanager-upload-drop" class="col-12 col-sm-8 col-md-4 fpcm-ui-background-white-100">
+            <h4 class="fpcm-ui-center"><?php $theView->icon('images', 'far')->setSize('4x')->setClass('fpcm-ui-padding-md-bottom fpcm-ui-status-075'); ?><br><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4>
+        </div>
     </div>
+    
 
     <div role="presentation" class="fpcm-ui-margin-lg-top">
         <div class="files"></div>

@@ -109,7 +109,7 @@ class backups extends \fpcm\controller\abstracts\controller {
     protected function getDataViewCols()
     {
         return [
-            (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('name', 'FILE_LIST_FILENAME'))->setSize(7),
             (new \fpcm\components\dataView\column('size', 'FILE_LIST_FILESIZE'))->setSize(3),

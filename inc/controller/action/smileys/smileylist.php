@@ -95,7 +95,7 @@ class smileylist extends \fpcm\controller\abstracts\controller {
     protected function getDataViewCols()
     {
         return [
-            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'))->setSize(4),
             (new \fpcm\components\dataView\column('code', 'FILE_LIST_SMILEYCODE'))->setSize(3),
             (new \fpcm\components\dataView\column('image', ''))->setAlign('center')->setSize(4),

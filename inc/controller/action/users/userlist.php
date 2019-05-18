@@ -172,7 +172,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
         $dataView = new \fpcm\components\dataView\dataView('userlist');
         
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
             (new \fpcm\components\dataView\column('username', 'GLOBAL_USERNAME'))->setSize(3),
             (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL'))->setSize(3),
@@ -251,7 +251,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
         $dataView = new \fpcm\components\dataView\dataView('rollslist');
         
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
             (new \fpcm\components\dataView\column('title', 'USERS_ROLLS_NAME'))->setSize('auto'),
         ]);

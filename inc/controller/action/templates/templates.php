@@ -178,7 +178,7 @@ class templates extends \fpcm\controller\abstracts\controller {
 
         $dataView = new \fpcm\components\dataView\dataView('draftfiles');
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
             (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'))->setSize(7),
             (new \fpcm\components\dataView\column('filesize', 'FILE_LIST_FILESIZE'))->setSize(2)

@@ -423,13 +423,6 @@ div.fpcm-ui-datepicker-inputwrapper {
     margin:0px 0px 5px 0px;
 }
 
-.fpcm-ui-metabox,
-div.fpcm-ui-editor-metabox strong,
-span.fpcm-ui-editor-metainfo,
-.fpcm-ui-color-blue-light {
-    color:#3399ff;
-}
-
 .fpcm-editor-select {
     min-width: 125px !important;
     max-width: 250px;
@@ -510,6 +503,10 @@ div.fpcm-filelist-thumb-box img {
     white-space: pre-line;
 }
 
+div.fpcm-ui-form-login {
+    max-width: 500px
+}
+
 /* ------ Third party library hooks */
 .ui-widget,
 .ui-controlgroup .ui-controlgroup-label span {
@@ -531,8 +528,7 @@ div.ui-tabs {
 }
 
 .CodeMirror {
-    height: auto;
-    min-height: 50hv;
+    height: 50vh !important;
 }
 
 td.fpcm-tinymce-emoticons img {

@@ -21,7 +21,7 @@
             <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
             <header>
-                <div class="row no-gutters fpcm-ui-background-white-50p">
+                <div class="row no-gutters fpcm-ui-background-white-100">
                     <div class="col-12 col-md-6 fpcm-ui-ellipsis">
                         <h1 class="fpcm-ui-padding-lg-lr"><?php $theView->icon('chevron-right '); ?> <span>FanPress CM</span> <span>News System</span></h1>
                     </div>
