@@ -7,10 +7,16 @@ body {
 }
 
 body,
+a, a:visited, a.fpcm-link
+i, em,
 span.fpcm-ui-button-shorthelp,
 div.fpcm-ui-inline-loader,
-a, a:visited, a.fpcm-link
-i, em {
+.fpcm-ui-color-grey-dark,
+.fpcm-message-neutral,
+#btnHiddenMenu,
+#btnHiddenMenu:hover,
+#btnHiddenMenu:focus,
+#btnHiddenMenu:active {
     color: #362b36;
 }
 
@@ -18,7 +24,6 @@ h1 {
     color: #00aded;
 }
 
-.fpcm-message-box,
 .fpcm-ui-progressbar-label,
 .cm-s-mdn-like.CodeMirror {
     color: #fefefe !important;
@@ -87,11 +92,6 @@ div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even) {
 
 .fpcm-dashboard-updates-checkerror {
     color: #666666;
-}
-
-.fpcm-ui-color-grey-dark,
-.fpcm-message-neutral {
-    color: #363636;
 }
 
 .fpcm-ui-color-blue-light,
@@ -212,22 +212,4 @@ textarea:active,
 .fpcm-ui-input-wrapper:hover,
 .fpcm-ui-input-wrapper-hover {
     box-shadow: #79B7E7 0px 0px 4px;
-}
-
-/* ------ jQuery UI Hooks */
-.ui-icon-blank {
-    background-position: 16px 16px !important;
-}
-
-.ui-icon-check {
-    background-position: -64px -144px !important;
-}
-
-.ui-controlgroup-label.ui-widget-content:last-child {
-    border-right: 1px solid #aed0ea;
-}
-
-.ui-widget-content {
-    color: inherit !important;
-    background-color: rgba(255,255,255,0.75);
 }

@@ -894,9 +894,9 @@ class view {
     private function initCssFiles()
     {
         $this->addCssFiles([
-            //self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.css',
-            self::ROOTURL_LIB.'jquery-ui/jquery-ui.structure.min.css',
-            self::ROOTURL_LIB.'jquery-ui/jquery-ui.theme.css',
+            self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.css',
+            //self::ROOTURL_LIB.'jquery-ui/jquery-ui.structure.min.css',
+            //self::ROOTURL_LIB.'jquery-ui/jquery-ui.theme.css',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.css',
             self::ROOTURL_LIB.'font-awesome/css/fontawesome-all.min.css',
             self::ROOTURL_LIB.'bootstrap/bootstrap-grid.min.css',

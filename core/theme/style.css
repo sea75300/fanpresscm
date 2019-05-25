@@ -507,39 +507,6 @@ div.fpcm-ui-form-login {
     max-width: 500px
 }
 
-/* ------ Third party library hooks */
-.ui-widget,
-.ui-controlgroup .ui-controlgroup-label span {
-    font-size: 1em;
-}
-
-div.ui-tabs {
-    height: 100%;
-    min-height: 66vh;
-}
-
-.fpcm-ui-permissions-container .ui-button {
-    margin: 0.3em 0em;
-}
-
-.tox .tox-dialog__body-content div[role=presentation] {
-    height: 100%;
-    overflow: hidden;
-}
-
-.CodeMirror {
-    height: 50vh !important;
-}
-
-td.fpcm-tinymce-emoticons img {
-    padding: 0.5em !important;
-}
-
-div.mce-fpcm-ui-emoticons-panel {
-    width: auto !important;
-    height: auto !important;
-}
-
 .fpcm-ui-box-sizing-none {
     box-sizing: initial !important;
 }

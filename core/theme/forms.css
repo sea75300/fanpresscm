@@ -34,41 +34,6 @@ textarea.fpcm-ui-textarea-medium {
     height: 150px;
 }
 
-/* ------ jQuery UI Hooks */
-.ui-spinner input,
-.ui-spinner input:hover,
-.ui-spinner input:focus,
-.ui-spinner input:active {
-    border: 0 !important;
-    box-shadow: none !important;
-    padding: 0;
-}
-
-.ui-spinner {
-    padding: 0.2em;
-    width: 195px;
-}
-
-.ui-datepicker {
-    z-index: 1000 !important;
-}
-.ui-selectmenu-menu {
-    max-height: 225px !important;
-    overflow-y: auto;
-    overflow-x: hidden;
-    margin-bottom: 3px;
-}
-
-.ui-selectmenu-button {
-    text-align: center !important;
-}
-
-.ui-accordion.ui-state-disabled {
-    opacity: 1;
-}
-
-.ui-autocomplete {
-    max-height: 300px;
-    overflow-y: auto;
-    overflow-x: hidden;
+.fpcm-ui-box-sizing-none {
+    box-sizing: initial !important;
 }
