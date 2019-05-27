@@ -316,7 +316,8 @@ if (fpcm.editor) {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
-                    icon: "ui-icon-check",                        
+                    icon: "ui-icon-check",    
+                    class: "highlight",
                     click: function() {
 
                         var rowCount = jQuery('#listrows').val();

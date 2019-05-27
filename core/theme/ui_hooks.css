@@ -35,15 +35,12 @@ div.ui-tabs {
 .ui-datepicker {
     z-index: 1000 !important;
 }
+
 .ui-selectmenu-menu {
     max-height: 225px !important;
     overflow-y: auto;
     overflow-x: hidden;
     margin-bottom: 3px;
-}
-
-.ui-selectmenu-button {
-    text-align: center !important;
 }
 
 .ui-accordion.ui-state-disabled {

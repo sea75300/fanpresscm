@@ -17,10 +17,10 @@ div.fpcm-ui-inline-loader,
 #btnHiddenMenu:hover,
 #btnHiddenMenu:focus,
 #btnHiddenMenu:active {
-    color: #362b36;
+    color: #454545;
 }
 
-h1 {
+h1 span:nth-child(odd) {
     color: #00aded;
 }
 
@@ -29,27 +29,18 @@ h1 {
     color: #fefefe !important;
 }
 
-h2 {
-    background: #deedf7 url("../../lib/jquery-ui/images/ui-bg_glass_100_deedf7_1x400.png") 50% 50% repeat-x;
-}
-
-h2,
 ins,
 div.fpcm-ui-dataview-rowcolpadding,
 .fpcm-message-notice {
     color: #2779aa;
 }
 
-h2,
-textarea,
-.fpcm-ui-input-wrapper {
-    border: 1px solid #aed0ea;
-}
-
 h3,
-.fpcm-dashboard-container h3 {
-    border: 1px solid #2694e8;
-    background: #3baae3 url("../../lib/jquery-ui/images/ui-bg_glass_50_3baae3_1x400.png") 50% 50% repeat-x;
+.fpcm-dashboard-container h3,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-head,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-subhead {
+    background: #0073ea url("../../images/ui-bg_highlight-soft_25_0073ea_1x100.png") 50% 50% repeat-x;
+    font-weight: normal;
     color: #fff;
 }
 
@@ -138,7 +129,7 @@ label.fpcm-ui-label-bg-blue {
 
 legend,
 span.fpcm-ui-badge {
-    background: #3399ff;
+    background: #0073ea;
     color: #fff;
 }
 
@@ -151,37 +142,52 @@ span.fpcm-ui-badge.fpcm-ui-badge-red {
 }
 
 div.fpcm-filelist-thumb-box img {
-    border: 5px solid #A6C9E2;
+    border: 5px solid #0073ea;
 }
 
 /* ------ Main navigation menu */
-#fpcm-navigation li:hover,
 div.fpcm-status-info ul li:hover,
-#btnHiddenMenu:hover,
-div.fpcm-filelist-thumb-box:hover div.fpcm-filelist-thumb-box-inner,
-div.fpcm-filelist-thumb-box:nth-child(even):hover div.fpcm-filelist-thumb-box-inner,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row:hover ,
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even):hover {
+div.fpcm-status-info ul li:focus,
+div.fpcm-status-info ul li:active {
     background: rgba(255, 239, 143, 0.5);
 }
+
+
+#fpcm-navigation li:hover,
+#fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active:hover,
+#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active:hover,
+#btnHiddenMenu:hover {
+    background: rgba(0, 115, 234, 0.75);
+}
+
+#fpcm-navigation li:hover > a,
+#fpcm-navigation li:focus > a,
+#fpcm-navigation li:active > a {
+    color: #fff !important;
+}
+
 
 #btnHiddenMenu,
 #fpcm-navigation > ul.fpcm-ui-menu:first-child > li > a {
     background: none;
 }
 
+#fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active,
+#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active {
+    background: rgba(255, 255, 255, 0.5);
+}
+    
 #fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active {
-    border-bottom: 5px solid #00aded;
+    border-bottom: 5px solid #79B7E7;
 }
 
 #fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active {
-    border-left: 5px solid #00aded;
+    border-left: 5px solid #79B7E7;
 }
 
 /* ------ Top and main navigation and toolbar common styles */
-#fpcm-navigation li ul.fpcm-ui-sub-menu,
 div.fpcm-status-info ul.fpcm-menu-top li ul {
-    border-top: 2px dotted #00aded;
+    border-top: 2px dotted #79B7E7;
 }
 
 /* ------ Forms styles */
@@ -194,15 +200,21 @@ textarea,
     background: #fefefe;
 }
 
+fieldset,
+textarea,
+.fpcm-ui-input-wrapper,
+.fpcm-ui-input-wrapper-hover,
+.fpcm-ui-field-label-general,
+.fpcm-ui-field-input-nowrapper-general {
+    border: 1px solid #ddd;
+}
+
 textarea:hover,
 textarea:focus,
 textarea:active,
-fieldset,
 .fpcm-ui-input-wrapper:hover,
-.fpcm-ui-input-wrapper-hover,
-.fpcm-ui-border-blue-light,
-.fpcm-ui-field-label-general,
-.fpcm-ui-field-input-nowrapper-general {
+.fpcm-ui-field-input-nowrapper-general:hover,
+.fpcm-ui-border-blue-light {
     border: 1px solid #79B7E7;
 }
 
@@ -210,6 +222,14 @@ textarea:hover,
 textarea:focus,
 textarea:active,
 .fpcm-ui-input-wrapper:hover,
-.fpcm-ui-input-wrapper-hover {
+.fpcm-ui-input-wrapper-hover,
+.fpcm-ui-field-input-nowrapper-general:hover {
     box-shadow: #79B7E7 0px 0px 4px;
+}
+
+div.fpcm-filelist-thumb-box:hover div.fpcm-filelist-thumb-box-inner,
+div.fpcm-filelist-thumb-box:nth-child(even):hover div.fpcm-filelist-thumb-box-inner,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row:hover ,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even):hover {
+    background: rgba(255, 239, 143, 0.5);
 }

@@ -3,6 +3,7 @@
     width: 100%;
     position: relative;
     z-index: 100;
+    font-size: 9pt;
 }
 
 #fpcm-navigation a {
@@ -67,11 +68,9 @@
     margin: 0;
 }
 
-#fpcm-navigation a,
-#fpcm-navigation a:hover,
 #fpcm-navigation > ul.fpcm-ui-menu:first-child > li,
 #fpcm-navigation > ul.fpcm-ui-menu:first-child > li:hover {
-    transition: 1s ease;
+    transition: 0.5s ease;
 }
 
 #btnHiddenMenu {

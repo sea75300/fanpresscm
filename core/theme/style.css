@@ -109,7 +109,8 @@
     margin-right: 0.5em;
 }
 
-.fpcm-ui-margin-md-top {
+.fpcm-ui-margin-md-top,
+.fpcm-body.fpcm-content-nobuttons div.fpcm-content-wrapper {
     margin-top: 0.5em;
 }
 
