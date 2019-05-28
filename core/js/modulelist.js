@@ -19,6 +19,7 @@ fpcm.modulelist = {
             btnUpdateAll.click(function (){
 
                 fpcm.ui.confirmDialog({
+                    defaultNo: true,
                     clickYes: function () {
                         var url = fpcm.vars.actionPath + 'package/modupdate&key=';
                         var urls = [];
@@ -71,6 +72,7 @@ fpcm.modulelist = {
             var destUrl = jQuery(this).attr('href');
 
             fpcm.ui.confirmDialog({
+                defaultNo: true,
                 clickYes: function () {
                     fpcm.ui.relocate(destUrl);
                     return false;

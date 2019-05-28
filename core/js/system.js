@@ -158,9 +158,11 @@ fpcm.system = {
                 {
                     text: fpcm.ui.translate('GLOBAL_SAVE'),
                     icon: "ui-icon-check",
+                    class: 'fpcm-ui-button-primary',
                     click: function () {
 
                         fpcm.ui.confirmDialog({
+                            defaultYes: true,
                             clickYes: function () {
 
                                 var objectIDs = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');

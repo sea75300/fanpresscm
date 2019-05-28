@@ -787,12 +787,14 @@ fpcm.ui = {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_YES'),
-                    icon: "ui-icon-check",                    
+                    icon: "ui-icon-check",
+                    class: (params.defaultYes ? 'fpcm-ui-button-primary' : ''),
                     click: params.clickYes
                 },
                 {
                     text: fpcm.ui.translate('GLOBAL_NO'),
                     icon: "ui-icon-closethick",
+                    class: (params.defaultNo ? 'fpcm-ui-button-primary' : ''),
                     click: params.clickNo
                 }
             ]

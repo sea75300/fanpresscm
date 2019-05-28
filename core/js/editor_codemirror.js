@@ -316,8 +316,8 @@ if (fpcm.editor) {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
-                    icon: "ui-icon-check",    
-                    class: "highlight",
+                    icon: "ui-icon-check",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
 
                         var rowCount = jQuery('#listrows').val();
@@ -420,7 +420,8 @@ if (fpcm.editor) {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
-                    icon: "ui-icon-check",                        
+                    icon: "ui-icon-check",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
 
                         var mode    = jQuery('.fpcm-ui-editor-colormode:checked').val();
@@ -463,7 +464,8 @@ if (fpcm.editor) {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
-                    icon: "ui-icon-copy",                        
+                    icon: "ui-icon-copy",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
 
                         var item = jQuery('#tpldraft').val();
@@ -546,7 +548,8 @@ if (fpcm.editor) {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
-                    icon: "ui-icon-check",                        
+                    icon: "ui-icon-check",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
 
                         var tagName = jQuery('.fpcm-editor-mediatype:checked').val();
@@ -608,7 +611,8 @@ if (fpcm.editor) {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
-                    icon: "ui-icon-check",                        
+                    icon: "ui-icon-check",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
 
                         var tablerows = jQuery('#tablerows').val();
@@ -654,7 +658,8 @@ if (fpcm.editor) {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
-                    icon: "ui-icon-check",                        
+                    icon: "ui-icon-check",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
 
                         var pic_path = jQuery('#imagespath').val();
@@ -735,6 +740,7 @@ if (fpcm.editor) {
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
                     icon: "ui-icon-check",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
                         var lnk_url = jQuery('#linksurl').val();
                         var lnk_txt = jQuery('#linkstext').val();

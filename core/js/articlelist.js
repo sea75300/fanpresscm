@@ -76,7 +76,8 @@ fpcm.articlelist = {
                 dlButtons  : [
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
-                        icon: "ui-icon-check",
+                        icon: 'ui-icon-check',
+                        class: 'fpcm-ui-button-primary',
                         click: function() {                            
                             var sfields = jQuery('.fpcm-articles-search-input');
                             var sParams = {
@@ -150,6 +151,7 @@ fpcm.articlelist = {
     
     articleActionsTweet: function() {
         fpcm.ui.confirmDialog({
+            defaultNo: true,
             clickYes: function() {
                 var articleIds = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
                 if (articleIds.length == 0) {

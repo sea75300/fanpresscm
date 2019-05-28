@@ -230,7 +230,7 @@ class profile extends \fpcm\controller\abstracts\controller {
         ]);
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\saveButton('profileSave')),
+            (new \fpcm\view\helper\saveButton('profileSave'))->setClass('fpcm-ui-button-primary'),
             (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
         ]);
 

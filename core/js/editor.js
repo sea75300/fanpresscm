@@ -193,6 +193,7 @@ fpcm.editor = {
                 {
                     text: fpcm.ui.translate('GLOBAL_SAVE'),
                     icon: "ui-icon-disk",
+                    class: 'fpcm-ui-button-primary',
                     click: function() {
                         jQuery(this).children('#fpcm-editor-comment-frame').contents().find('#btnCommentSave').trigger('click');
                         fpcm.editor.editorTabs.tabs('load', 2);

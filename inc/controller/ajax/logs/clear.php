@@ -62,7 +62,6 @@ class clear extends \fpcm\controller\abstracts\ajaxController {
             }
         } else {
             $res = $this->events->trigger('logs\clearSystemLog', $this->log);
-            fpcmLogEvents(__METHOD__.' '.$res);
         }
 
         $this->events->trigger('logs\clearSystemLogs');

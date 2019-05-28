@@ -1,4 +1,4 @@
-/* ------ jQuery ui */
+/* ------ jQuery UI */
 h2.ui-accordion-header {
     box-shadow:none;
 }
@@ -17,7 +17,6 @@ div.ui-tabs {
     margin: 0.3em 0em;
 }
 
-/* ------ jQuery UI Hooks */
 .ui-spinner input,
 .ui-spinner input:hover,
 .ui-spinner input:focus,
@@ -53,7 +52,6 @@ div.ui-tabs {
     overflow-x: hidden;
 }
 
-/* ------ jQuery UI Hooks */
 .ui-icon-blank {
     background-position: 16px 16px !important;
 }
@@ -69,6 +67,24 @@ div.ui-tabs {
 .ui-tabs.ui-widget-content {
     color: inherit !important;
     background-color: rgba(255,255,255,0.65);
+}
+
+.ui-checkboxradio-icon,
+.ui-checkboxradio-icon.ui-state-active,
+.ui-checkboxradio-icon.ui-state-checked {
+    background-color: #fff;
+}
+
+.ui-checkboxradio-label:hover .ui-checkboxradio-icon {
+    background-image: url("../../lib/jquery-ui/images/ui-icons_666666_256x240.png");
+}
+
+.ui-button.fpcm-ui-button-primary {
+    background-image: url("../../lib/jquery-ui/images/ui-bg_highlight-soft_25_0073ea_1x100.png");
+}
+
+.ui-button.fpcm-ui-button-primary .ui-icon {
+    background-image: url("../../lib/jquery-ui/images/ui-icons_ffffff_256x240.png") !important;
 }
 
 

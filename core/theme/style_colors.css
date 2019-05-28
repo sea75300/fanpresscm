@@ -39,7 +39,7 @@ h3,
 .fpcm-dashboard-container h3,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-head,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-subhead {
-    background: #0073ea url("../../images/ui-bg_highlight-soft_25_0073ea_1x100.png") 50% 50% repeat-x;
+    background: #0073ea url("../../lib/jquery-ui/images/ui-bg_highlight-soft_25_0073ea_1x100.png") 50% 50% repeat-x;
     font-weight: normal;
     color: #fff;
 }
@@ -127,10 +127,20 @@ label.fpcm-ui-label-bg-blue {
     text-shadow: 0px 0px 2px #ececec;
 }
 
+.fpcm-ui-button-primary {
+    border-color: #0073ea;
+    background-color: #0073ea;
+}
+
+legend,
+span.fpcm-ui-badge,
+.fpcm-ui-button-primary {
+    color: #fff;
+}
+
 legend,
 span.fpcm-ui-badge {
-    background: #0073ea;
-    color: #fff;
+    background-color: #0073ea;
 }
 
 span.fpcm-ui-badge.fpcm-ui-badge-red {
@@ -178,16 +188,16 @@ div.fpcm-status-info ul li:active {
 }
     
 #fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active {
-    border-bottom: 5px solid #79B7E7;
+    border-bottom: 5px solid #0073ea;
 }
 
 #fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active {
-    border-left: 5px solid #79B7E7;
+    border-left: 5px solid #0073ea;
 }
 
 /* ------ Top and main navigation and toolbar common styles */
 div.fpcm-status-info ul.fpcm-menu-top li ul {
-    border-top: 2px dotted #79B7E7;
+    border-top: 2px dotted #0073ea;
 }
 
 /* ------ Forms styles */
@@ -215,7 +225,7 @@ textarea:active,
 .fpcm-ui-input-wrapper:hover,
 .fpcm-ui-field-input-nowrapper-general:hover,
 .fpcm-ui-border-blue-light {
-    border: 1px solid #79B7E7;
+    border: 1px solid #0073ea;
 }
 
 textarea:hover,
@@ -224,7 +234,7 @@ textarea:active,
 .fpcm-ui-input-wrapper:hover,
 .fpcm-ui-input-wrapper-hover,
 .fpcm-ui-field-input-nowrapper-general:hover {
-    box-shadow: #79B7E7 0px 0px 4px;
+    box-shadow: #0073ea 0px 0px 4px;
 }
 
 div.fpcm-filelist-thumb-box:hover div.fpcm-filelist-thumb-box-inner,
