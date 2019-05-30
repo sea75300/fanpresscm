@@ -352,7 +352,7 @@ jQuery(document).ready(function () {
     });
 
     jQuery.each(fpcm, function (idx, object) {
-        if (!object.initAfter || typeof object.init !== 'function') {
+        if (!object.initAfter || typeof object.initAfter !== 'function') {
             return true;
         }
 
