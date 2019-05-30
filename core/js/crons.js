@@ -17,8 +17,8 @@ fpcm.crons = {
             onRenderAfter: function () {
 
                 jQuery('.fpcm-cronjoblist-exec').click(function () {
-                    var cjId = jQuery(this).attr('id');
-                    fpcm.crons.execCronjobDemand(cjId);
+                    var data = jQuery(this).data();
+                    fpcm.crons.execCronjobDemand(data.cjid, data.cjdescr);
                     return false;
                 });
                 
@@ -36,8 +36,8 @@ fpcm.crons = {
 
     },
 
-    execCronjobDemand : function(cronjobId) {
-        fpcm.ui.showLoader(true);
+    execCronjobDemand : function(cronjobId, descr) {
+        fpcm.ui.showLoader(true, fpcm.ui.translate('CRONJOB_ECEDUTING').replace('{{cjname}}', descr) );
         fpcm.ajax.get('cronasync', {
             data    : {
                 cjId: cronjobId

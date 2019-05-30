@@ -60,8 +60,17 @@ div.ui-tabs {
     background-position: -64px -144px !important;
 }
 
-.ui-controlgroup-label.uiwidget-content:last-child {
-    border-right: 1px solid #aed0ea;
+.ui-controlgroup-label.ui-widget-content:last-child {
+    border-right: 1px solid;
+}
+
+.ui-tabs .ui-tabs-nav {
+    border-bottom: 1px solid #00aded;
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
 }
 
 .ui-tabs.ui-widget-content {

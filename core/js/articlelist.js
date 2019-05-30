@@ -20,7 +20,6 @@ fpcm.articlelist = {
         });
 
         fpcm.articlelist.initArticleSearch();
-        fpcm.articlelist.clearArticleCache();
     },
     
     initAfter: function() {
@@ -30,6 +29,8 @@ fpcm.articlelist = {
                 fpcm.ui.assignControlgroups();
             }
         });
+
+        fpcm.articlelist.clearArticleCache();
     },
     
     assignActions: function() {

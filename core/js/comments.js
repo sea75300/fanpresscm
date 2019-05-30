@@ -12,6 +12,20 @@ if (fpcm === undefined) {
 fpcm.comments = {
 
     init: function () {
+
+        if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
+            fpcm.comments.initCommentSearch();
+        }
+    
+        fpcm.ui.checkboxradio('.fpcm-ui-comments-status');
+        fpcm.comments.assignActions();
+
+        if (parent.fpcm.editor && parent.fpcm.editor.editorTabs && fpcm.vars.jsvars.reloadList) {
+            parent.fpcm.editor.editorTabs.tabs('load', 2);
+        }
+    },
+    
+    initAfter: function() {
         
         if (fpcm.dataview && fpcm.dataview.exists('commenttrash')) {
             fpcm.dataview.render('commenttrash', {
@@ -23,10 +37,6 @@ fpcm.comments = {
             
             return true;
         }
-
-        if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
-            fpcm.comments.initCommentSearch();
-        }
         
         if (fpcm.dataview && fpcm.dataview.exists('commentlist')) {
             fpcm.dataview.render('commentlist', {
@@ -36,13 +46,7 @@ fpcm.comments = {
                 }
             });
         }
-    
-        fpcm.ui.checkboxradio('.fpcm-ui-comments-status');
-        fpcm.comments.assignActions();
-
-        if (parent.fpcm.editor && parent.fpcm.editor.editorTabs && fpcm.vars.jsvars.reloadList) {
-            parent.fpcm.editor.editorTabs.tabs('load', 2);
-        }
+        
     },
 
     assignActions: function() {

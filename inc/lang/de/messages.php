@@ -30,6 +30,7 @@ $lang = array(
     'FILE_NOT_WRITABLE' => 'Die ausgewählte Datei ist nicht beschreibbar, bitte prüfe die Berechtigungen auf dem Server.',
     'TEMPLATE_NOT_WRITABLE' => 'Das ausgewählte Template ist nicht beschreibbar, bitte prüfe die Berechtigungen auf dem Server.',
     'USERS_AUTHTOKEN_ACTIVE' => 'Die Zwei-Faktor-Authentifizierung ist aktiv.',
+    'CRONJOB_ECEDUTING' => 'Cronjob <em>{{cjname}}</em> wird ausgeführt, bitte warten...',
     'SAVE_SUCCESS_ADDUSER' => 'Der Benutzer wurde gespeichert!',
     'SAVE_SUCCESS_USER_DISABLE' => 'Der Benutzer wurde deaktiviert!',
     'SAVE_SUCCESS_USER_ENABLE' => 'Der Benutzer wurde aktiviert!',

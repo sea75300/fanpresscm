@@ -12,10 +12,6 @@ fpcm.filemanager = {
 
     init: function() {
 
-        if (fpcm.vars.jsvars.loadAjax) {
-            fpcm.filemanager.reloadFiles();
-        }
-
         if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
             fpcm.filemanager.initFilesSearch();
         }
@@ -26,6 +22,14 @@ fpcm.filemanager = {
             fpcm.filemanager.reloadFiles();
             return false;
         });
+        
+    },
+    
+    initAfter: function() {
+
+        if (fpcm.vars.jsvars.loadAjax) {
+            fpcm.filemanager.reloadFiles();
+        }
 
         if (fpcm.vars.jsvars.fmgrMode === 1) {
             fpcm.ui.checkboxradio('.fpcm-ui-listeview-setting', {}, function () {
