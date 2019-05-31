@@ -14,8 +14,25 @@ fpcm.editor = {
 
     init: function() {
 
-        fpcm.ui.setFocus('articletitle');
-        fpcm.ui.checkboxradio('.fpcm-ui-editor-categories .fpcm-ui-input-checkbox');
+        fpcm.editor.initToolbar();
+
+        fpcm.editor.editorTabs = fpcm.ui.tabs('#fpcm-editor-tabs',
+        {
+            dataViewWrapperClass: 'fpcm-ui-editor-editlist',
+            initDataViewJson: true,
+            addMainToobarToggle: true,
+            addTabScroll: true,
+            saveActiveTab: true,
+            initDataViewJsonBefore:function(event, ui) {
+                jQuery('.fpcm-ui-editor-editlist').remove();
+            },            
+            initDataViewOnRenderAfter: function () {
+                fpcm.ui.assignCheckboxes();
+                fpcm.ui.assignControlgroups(),
+                fpcm.editor.initCommentListActions();
+            },
+            active: fpcm.vars.jsvars.activeTab !== undefined ? fpcm.vars.jsvars.activeTab : 0
+        });
 
         if (!fpcm.vars.jsvars.isRevision) {
             fpcm.editor[fpcm.vars.jsvars.editorInitFunction].call();
@@ -26,7 +43,27 @@ fpcm.editor = {
             });
         }
 
-        fpcm.editor.initToolbar();
+        /**
+         * Keycodes
+         * http://www.brain4.de/programmierecke/js/tastatur.php
+         */
+        jQuery(document).keypress(function(thekey) {
+
+            if (thekey.ctrlKey && thekey.which == 115) {
+                if(jQuery("#btnArticleSave")) {
+                    jQuery("#btnArticleSave").click();
+                    return false;
+                }
+            }
+
+        });
+
+    },
+    
+    initAfter: function() {
+
+        fpcm.ui.setFocus('articletitle');
+        jQuery('.fpcm-editor-articleimage').fancybox();
 
         fpcm.ui.spinner('input.fpcm-ui-spinner-hour', {
             min: 0,
@@ -47,7 +84,38 @@ fpcm.editor = {
         fpcm.ui.datepicker('input.fpcm-ui-datepicker', {
             maxDate: "+2m",
             minDate: "-0d"
-        });   
+        });
+
+        jQuery('#insertarticleimg').click(function () {
+            fpcm.vars.jsvars.filemanagerMode = 3;
+            fpcm.editor.showFileManager();
+            fpcm.vars.jsvars.filemanagerMode = 2;
+            return false;
+        });
+
+        fpcm.ui.autocomplete('#articleimagepath', {
+            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=editorfiles',
+            minLength: 3,
+            position: {
+                my: "left bottom",
+                at: "left top"
+            }
+        });
+
+        fpcm.ui.autocomplete('#articlesources', {
+            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articlesources',
+            minLength: 3
+        });
+
+        fpcm.editor.tweetTextInput = jQuery('#articletweettxt');
+        fpcm.ui.selectmenu('#twitterReplacements', {
+            change: function( event, ui ) {
+                fpcm.editor.tweetTextInput.val(fpcm.editor.tweetTextInput.val() + ' ' + ui.item.value);
+                this.selectedIndex = 0;
+                jQuery(this).selectmenu('refresh');
+                return false;
+            }
+        });
 
         jQuery('#btnShortlink').click(function (event, handler) {
 
@@ -94,78 +162,6 @@ fpcm.editor = {
             });
 
              return false;
-        });
-
-        jQuery('.fpcm-editor-articleimage').fancybox();
-
-        jQuery('#insertarticleimg').click(function () {
-            fpcm.vars.jsvars.filemanagerMode = 3;
-            fpcm.editor.showFileManager();
-            fpcm.vars.jsvars.filemanagerMode = 2;
-            return false;
-        });
-
-        fpcm.ui.autocomplete('#articleimagepath', {
-            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=editorfiles',
-            minLength: 3,
-            position: {
-                my: "left bottom",
-                at: "left top"
-            }
-        });
-
-        fpcm.ui.autocomplete('#articlesources', {
-            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articlesources',
-            minLength: 3
-        });
-
-        fpcm.editor.tweetTextInput = jQuery('#articletweettxt');
-        fpcm.ui.selectmenu('#twitterReplacements', {
-            change: function( event, ui ) {
-                fpcm.editor.tweetTextInput.val(fpcm.editor.tweetTextInput.val() + ' ' + ui.item.value);
-                this.selectedIndex = 0;
-                jQuery(this).selectmenu('refresh');
-                return false;
-            }
-        });
-
-        fpcm.ui.checkboxradio('.fpcm-ui-input-checkbox');
-        
-        fpcm.editor.editorTabs = fpcm.ui.tabs('#fpcm-editor-tabs',
-        {
-            dataViewWrapperClass: 'fpcm-ui-editor-editlist',
-            initDataViewJson: true,
-            addMainToobarToggle: true,
-            addTabScroll: true,
-            saveActiveTab: true,
-            initDataViewJsonBefore:function(event, ui) {
-                jQuery('.fpcm-ui-editor-editlist').remove();
-            },            
-            initDataViewOnRenderAfter: function () {
-                fpcm.ui.assignCheckboxes();
-                fpcm.ui.assignControlgroups(),
-                fpcm.editor.initCommentListActions();
-            },
-            active: fpcm.vars.jsvars.activeTab !== undefined ? fpcm.vars.jsvars.activeTab : 0
-        });
-
-        jQuery('#fpcm-editor-tabs-editorregister').click(function() {
-            fpcm.ui.initJqUiWidgets();
-        });
-
-        /**
-         * Keycodes
-         * http://www.brain4.de/programmierecke/js/tastatur.php
-         */
-        jQuery(document).keypress(function(thekey) {
-
-            if (thekey.ctrlKey && thekey.which == 115) {
-                if(jQuery("#btnArticleSave")) {
-                    jQuery("#btnArticleSave").click();
-                    return false;
-                }
-            }
-
         });
 
     },

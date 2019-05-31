@@ -96,19 +96,23 @@
     padding-bottom: 1em;
 }
 
+.fpcm-ui-margin-md-all,
 .fpcm-ui-margin-md-bottom {
     margin-bottom: 0.5em;
 }
 
+.fpcm-ui-margin-md-all,
 .fpcm-ui-margin-md-left,
 #twitterReplacements-button {
     margin-left: 0.5em;
 }
 
+.fpcm-ui-margin-md-all,
 .fpcm-ui-margin-md-right {
     margin-right: 0.5em;
 }
 
+.fpcm-ui-margin-md-all,
 .fpcm-ui-margin-md-top,
 .fpcm-body.fpcm-content-nobuttons div.fpcm-content-wrapper {
     margin-top: 0.5em;
@@ -481,11 +485,6 @@ div.fpcm-accordion-pkgmanager ul {
     padding-left: 1.2em;
 }
 
-div.fpcm-filelist-thumb-box-inner {
-    padding: 0.8em;
-    margin: 0.4em;
-}
-
 div.fpcm-filelist-actions-box {
     margin: 0.5em 0em;
 }
@@ -493,6 +492,10 @@ div.fpcm-filelist-actions-box {
 div.fpcm-filelist-thumb-box img {
     width: 100px !important;
     height: 100px !important;
+}
+
+#fpcm-filemanager-upload-drop {
+    cursor: copy;
 }
 
 #fpcm-filemanager-upload-drop h4 {

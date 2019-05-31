@@ -9,8 +9,8 @@
 
 <?php foreach($files AS $file) : ?>
 <div class="row fpcm-filelist-thumb-box fpcm-ui-center">
-    <div class="col-12 fpcm-ui-padding-md-tb">
-        <div class="row fpcm-filelist-thumb-box-inner fpcm-ui-background-transition">
+    <div class="col-12 fpcm-ui-padding-none">
+        <div class="row fpcm-filelist-thumb-box-inner fpcm-ui-background-transition fpcm-ui-padding-md-all fpcm-ui-margin-none">
  
             <div class="col-12 col-lg-3 align-self-center fpcm-ui-padding-none-lr fpcm-ui-center">
                 <a href="<?php print $file->getImageUrl(); ?>" target="_blank" class="fpcm-link-fancybox" data-fancybox="group" >

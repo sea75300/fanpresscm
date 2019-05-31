@@ -73,8 +73,11 @@
                 ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
                 ->setLabelClass('col-6 col-md-1 fpcm-ui-field-label-general'); ?>
 
-        <?php $theView->select('twitterReplacements')->setOptions($twitterReplacements)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)->setLabelClass('fpcm-ui-margin-lg-left'); ?>
-        <?php $theView->checkbox('article[tweet]')->setText('EDITOR_TWEET_ENABLED')->setSelected($article->tweetCreationEnabled())->setLabelClass('fpcm-ui-margin-md-left')->setIconOnly(true); ?>
+        <div class="fpcm-ui-controlgroup">
+            <?php $theView->select('twitterReplacements')->setOptions($twitterReplacements)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)->setLabelClass('fpcm-ui-margin-lg-left'); ?>
+            <?php $theView->checkbox('article[tweet]')->setText('EDITOR_TWEET_ENABLED')->setSelected($article->tweetCreationEnabled())->setLabelClass('fpcm-ui-margin-md-left')->setIconOnly(true); ?>
+        </div>
+        
     </div>
 </fieldset>
 <?php endif; ?>

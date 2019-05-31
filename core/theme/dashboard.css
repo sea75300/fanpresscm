@@ -66,3 +66,7 @@
 .fpcm-dashboard-container .fpcm-dashboard-container-inner .fpcm-dashboard-container-content .fpcm-ui-font-small {
     line-height: 1.25em;
 }
+
+.fpcm-dashboard-container .fpcm-dashboard-container-header .fpcm-dashboard-container-move {
+    cursor: move;
+}
