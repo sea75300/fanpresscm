@@ -3,11 +3,16 @@
     <div class="fpcm-ui-tabs-general">
         <ul>
             <li><a href="#tabs-user"><?php $theView->write('USERS_EDIT'); ?></a></li>
+            <?php if ($showExtended) : ?><li><a href="#tabs-user-extended"><?php $theView->write('GLOBAL_EXTENDED'); ?></a></li><?php endif; ?>
             <li><a href="#tabs-user-meta"><?php $theView->write('USERS_META_OPTIONS'); ?></a></li>
         </ul>            
 
         <div id="tabs-user">                
            <?php include $theView->getIncludePath('users/usereditor.php'); ?>
+        </div>
+
+        <div id="tabs-user-extended">                
+           <?php include $theView->getIncludePath('users/usereditor_extended.php'); ?>
         </div>
 
         <div id="tabs-user-meta">                

@@ -378,7 +378,7 @@ fpcm.ui = {
         }
         
         if (params.width === undefined) {
-            params.width = 200;
+            params.width = 300;
         }
 
         var el = jQuery(elemClassId).selectmenu(params);

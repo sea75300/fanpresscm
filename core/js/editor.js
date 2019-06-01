@@ -64,6 +64,8 @@ fpcm.editor = {
 
         fpcm.ui.setFocus('articletitle');
         jQuery('.fpcm-editor-articleimage').fancybox();
+        
+        fpcm.ui.checkboxradio('#articlepostponed');
 
         fpcm.ui.spinner('input.fpcm-ui-spinner-hour', {
             min: 0,
