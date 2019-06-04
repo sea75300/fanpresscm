@@ -142,6 +142,7 @@ $lang = array(
     'FILE_LIST_UPLOAD_NOTFOUND' => 'Die zugehörige Datei wurde im Upload-Ordner nicht gefunden!',
     'FILE_LIST_PHPMAXINFO' => 'Maximal {{filecount}} Dateien mit {{filesize}}.',
     'FILE_LIST_UPLOADDROP' => 'Dateien zum Hochladen hierher ziehen',
+    'FILE_LIST_UPLOADSELECTED' => 'Zum Hochladen ausgewählte Dateien',
     'FILE_LIST_ADDTOINDEX' => 'Datei(en) indizieren...',
     'FILE_LIST_SMILEYCODE' => 'Smiley-Code',
     'FILE_LIST_SMILEYADD' => 'Smiley hinzufügen',

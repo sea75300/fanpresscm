@@ -23,6 +23,17 @@ fpcm.filemanager = {
             return false;
         });
         
+        window.addEventListener('message', function (event) {
+
+            if (!event.data || !event.data.cmd) {
+                return false;
+            }
+
+            if (event.data.mceAction === 'clickFmgrBtn') {
+                jQuery('#' + event.data.cmd).click()
+            }
+
+        });
     },
     
     initAfter: function() {

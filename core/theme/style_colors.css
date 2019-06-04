@@ -40,7 +40,6 @@ h3,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-head,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-subhead {
     background: #0073ea url("../../lib/jquery-ui/images/ui-bg_highlight-soft_25_0073ea_1x100.png") 50% 50% repeat-x;
-    font-weight: normal;
     color: #fff;
 }
 
@@ -94,6 +93,10 @@ span.fpcm-ui-booltext-yes {
     color:#3399ff;
 }
 
+span.fpcm-ui-badge  {
+    background-color: #3399ff;
+}
+
 del,
 .fpcm-message-error,
 .fpcm-ui-important-text,
@@ -106,7 +109,7 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
 }
 
 span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-spinner {
-    color: #e3e3e3;
+    color: #aaaaaa;
 }
 
 .fpcm-ui-background-transition {
@@ -119,17 +122,12 @@ label.fpcm-ui-label-bg-grey,
     background: #f8f8f8;
 }
 
-label.fpcm-ui-label-bg-blue {
-    background: #DFEFFC;
-}
-
 .fpcm-ui-progressbar-label {
     text-shadow: 0px 0px 2px #ececec;
 }
 
 .fpcm-ui-button-primary {
     border-color: #0073ea;
-    background-color: #0073ea;
 }
 
 legend,
@@ -139,7 +137,7 @@ span.fpcm-ui-badge,
 }
 
 legend,
-span.fpcm-ui-badge {
+.fpcm-ui-button-primary {
     background-color: #0073ea;
 }
 

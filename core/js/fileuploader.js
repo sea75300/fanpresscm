@@ -23,15 +23,16 @@ fpcm.fileuploader = {
             jQuery('.fpcm-ui-fileinput-select').change(function () {
 
                 jQuery('#fpcm-ui-phpupload-filelist').empty();
-
-                var fileList = jQuery(this)[0].files;
-                if (fileList === undefined) {
+                if (!jQuery(this)[0] || !jQuery(this)[0].files) {
                     return false;
                 }
 
+                var fileList = jQuery(this)[0].files;
                 for (var i=0;i<fileList.length;i++) {
-                    fpcm.ui.appendHtml('#fpcm-ui-phpupload-filelist', '<div class="row fpcm-ui-padding-md-tb"><div class="col-12">' + fileList[i].name +'</div></div>')
+                    fpcm.ui.appendHtml('#fpcm-ui-phpupload-filelist', '<div class="row no-gutters fpcm-ui-padding-md-tb"><div class="col-12 fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom"><span class="far fa-fw fa-lg fa-file-image"></span>' + fileList[i].name +'</div></div>')
                 }
+                
+                jQuery('#fpcm-ui-fileupload-list').fadeIn();
                 return false;
             });
 
@@ -44,6 +45,7 @@ fpcm.fileuploader = {
         });
 
         jQuery('#btnCancelUpload').click(function () {
+            jQuery('#fpcm-ui-fileupload-list').fadeOut();
             jQuery('#fpcm-ui-phpupload-filelist').empty();
             jQuery('.fpcm-ui-fileinput-select').empty();
         });
