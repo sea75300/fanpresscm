@@ -210,8 +210,9 @@ textarea,
 .fpcm-ui-input-wrapper,
 .fpcm-ui-input-wrapper-hover,
 .fpcm-ui-field-label-general,
-.fpcm-ui-field-input-nowrapper-general {
-    border: 1px solid #ddd;
+.fpcm-ui-field-input-nowrapper-general,
+.fpcm-ui-border-grey-medium {
+    border: 1px solid #bbb;
 }
 
 textarea:hover,

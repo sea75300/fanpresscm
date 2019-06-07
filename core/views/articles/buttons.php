@@ -20,21 +20,6 @@
     </div>
 </fieldset>
 
-<fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
-    <legend><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?></legend>
-    <div class="row fpcm-ui-padding-md-tb">
-        <?php $theView->textInput('article[sources]')
-                ->setWrapper(false)
-                ->setPlaceholder(true)
-                ->setText('TEMPLATE_ARTICLE_SOURCES')
-                ->setValue($article->getSources())
-                ->setIcon('external-link-alt')
-                ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-1 fpcm-ui-field-label-general'); ?>
-    </div>
-</fieldset>
-
 <?php if (!$editorMode || $article->getPostponed()) : ?>
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
     <legend><?php $theView->write('EDITOR_POSTPONETO'); ?></legend>
@@ -48,14 +33,32 @@
                 ->setValue($theView->dateText($postponedTimer, 'Y-m-d'))
                 ->setIcon('calendar-plus')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general fpcm-ui-datepicker')
-                ->setLabelClass('col-6 col-md-1 fpcm-ui-field-label-general'); ?>
+                ->setClass('col-12 col-sm-6 col-md-3 col-lg-2 col-xl-1 fpcm-ui-field-input-nowrapper-general fpcm-ui-datepicker')
+                ->setLabelClass('col-12 col-sm-4 col-md-1 fpcm-ui-field-label-general'); ?>
 
-        <?php $theView->textInput('article[postponehour]')->setClass('fpcm-ui-spinner-hour')->setValue($theView->dateText($postponedTimer, 'H'))->setWrapper(false); ?>
-        <?php $theView->textInput('article[postponeminute]')->setClass('fpcm-ui-spinner-minutes')->setValue($theView->dateText($postponedTimer, 'i'))->setWrapper(false); ?>
-        <?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed())->setLabelClass('fpcm-ui-margin-md-left')->setIconOnly(true); ?>
+        
+        <div class="fpcm-ui-controlgroup mt-2 mt-md-0 ml-0 ml-md-2">
+            <?php $theView->textInput('article[postponehour]')->setClass('fpcm-ui-spinner-hour ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'H'))->setWrapper(false); ?>
+            <?php $theView->textInput('article[postponeminute]')->setClass('fpcm-ui-spinner-minutes ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'i'))->setWrapper(false); ?>
+            <?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed())->setLabelClass('fpcm-ui-margin-md-left')->setIconOnly(true); ?>
+        </div>
     </div>
-    <?php endif; ?>
+</fieldset>
+<?php endif; ?>
+
+<fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
+    <legend><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?></legend>
+    <div class="row fpcm-ui-padding-md-tb">
+        <?php $theView->textInput('article[sources]')
+                ->setWrapper(false)
+                ->setPlaceholder(true)
+                ->setText('TEMPLATE_ARTICLE_SOURCES')
+                ->setValue($article->getSources())
+                ->setIcon('external-link-alt')
+                ->setSize('lg')
+                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
+                ->setLabelClass('col-6 col-md-1 fpcm-ui-field-label-general'); ?>
+    </div>
 </fieldset>
 
 <?php if ($showTwitter && !empty($twitterReplacements)) : ?>

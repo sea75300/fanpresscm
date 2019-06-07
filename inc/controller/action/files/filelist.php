@@ -64,6 +64,8 @@ class filelist extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
+        $this->initPermissions();
+        
         $this->fileList = new \fpcm\model\files\imagelist();
 
         $styleLeftMargin = true;
@@ -77,7 +79,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
         $this->view->assign('styleLeftMargin', $styleLeftMargin);
 
-        if (!is_null(\fpcm\classes\http::getFiles())) {
+        if ($this->permissionsData['permUpload'] && !is_null(\fpcm\classes\http::getFiles())) {
             $uploader = new \fpcm\model\files\fileuploader(\fpcm\classes\http::getFiles());
             $result = $uploader->processUpload($this->session->getUserId());
 
@@ -90,7 +92,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
             }
         }
 
-        if ($this->buttonClicked('deleteFiles') && !is_null($this->getRequestVar('filenames'))) {
+        if ($this->permissionsData['permDelete'] && $this->buttonClicked('deleteFiles') && !is_null($this->getRequestVar('filenames'))) {
 
             $fileNames = array_map('base64_decode', $this->getRequestVar('filenames'));
 
@@ -146,10 +148,12 @@ class filelist extends \fpcm\controller\abstracts\controller {
         $this->view->assign('jquploadPath', \fpcm\classes\dirs::getLibUrl('jqupload/'));
         $this->view->addJsFiles(['filemanager.js', 'fileuploader.js']);
 
+        $actionPath = \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]);
+        
         if ($this->config->file_uploader_new) {
             $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'));
         } else {
-            $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]));
+            $this->view->assign('actionPath', $actionPath);
             $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [
                 '{{filecount}}' => ini_get("max_file_uploads"),
                 '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
@@ -157,7 +161,6 @@ class filelist extends \fpcm\controller\abstracts\controller {
         }
 
         $this->initViewAssigns([], [], \fpcm\classes\tools::calcPagination(1, 1, 0, 0));
-        $this->initPermissions();
 
         $buttons = [
             (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true),
@@ -170,6 +173,10 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
         if ($this->permissionsData['permDelete']) {
             $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles', 'deleteFiles'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab1');
+        }
+
+        if ($this->permissionsData['permUpload']) {
+            $buttons[] = (new \fpcm\view\helper\linkButton('back'))->setUrl($actionPath)->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
         }
 
         if ($this->mode === 1) {

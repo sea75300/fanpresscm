@@ -64,23 +64,15 @@ fpcm.editor = {
 
         fpcm.ui.setFocus('articletitle');
         jQuery('.fpcm-editor-articleimage').fancybox();
-        
-        fpcm.ui.checkboxradio('#articlepostponed');
 
         fpcm.ui.spinner('input.fpcm-ui-spinner-hour', {
             min: 0,
-            max: 23,
-            classes: {
-                "ui-spinner": 'ui-corner-all fpcm-ui-margin-md-left col-6 col-md-1'
-            }
+            max: 23
         });
 
         fpcm.ui.spinner('input.fpcm-ui-spinner-minutes', {
             min: 0,
-            max: 59,
-            classes: {
-                "ui-spinner": 'ui-corner-all fpcm-ui-margin-md-left col-6 col-md-1'
-            }
+            max: 59
         });
 
         fpcm.ui.datepicker('input.fpcm-ui-datepicker', {
