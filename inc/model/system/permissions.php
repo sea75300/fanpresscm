@@ -318,6 +318,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
                 return false;
             }
 
+            $check = false;
             if (is_array($permission)) {
 
                 foreach ($permission as $permissionItem) {

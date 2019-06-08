@@ -69,7 +69,6 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             }
 
             if ($value->hasPermission()) {
-
                 if ($this->permissions->check($value->getPermission())) {
                     continue;
                 }
@@ -199,7 +198,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             (new navigationItem())->setUrl('articles/listarchive')
                 ->setDescription('HL_ARTICLE_EDIT_ARCHIVE')
                 ->setIcon('archive')
-                ->setPermission(['article' => ['edit', 'editall', 'archive']])
+                ->setPermission(['article' => ['edit', 'editall'], 'article' => 'archive'])
         ];
     }
 

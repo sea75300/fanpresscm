@@ -25,7 +25,7 @@ class articlelistarchive extends articlelistbase {
 
     protected function getPermissions()
     {
-        return ['article' => ['edit', 'editall', 'archive']];
+        return ['article' => ['edit', 'editall'], 'article' => 'archive'];
     }
 
     protected function getArticleCount()

@@ -64,6 +64,8 @@ class filelist extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
+        $this->initPermissions();
+        
         $this->fileList = new \fpcm\model\files\imagelist();
 
         $styleLeftMargin = true;
@@ -76,10 +78,20 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
         $this->view->assign('styleLeftMargin', $styleLeftMargin);
 
-        if (!is_null(\fpcm\classes\http::getFiles())) {
-            $uploader = new \fpcm\model\files\fileuploader(\fpcm\classes\http::getFiles());
-            $result = $uploader->processUpload($this->session->getUserId());
+        $this->uploadPhpForm();
+        $this->deleteFiles();
 
+        return true;
+    }
+    
+    private function uploadPhpForm() : bool
+    {
+        $files = \fpcm\classes\http::getFiles();
+        if (!$this->permissionsData['permUpload'] || $files === null) {
+            return false;
+        }
+
+        $result = (new \fpcm\model\files\fileuploader($files))->processUpload($this->session->getUserId());
             if (count($result['success'])) {
                 $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['success'])));
             }
@@ -87,31 +99,39 @@ class filelist extends \fpcm\controller\abstracts\controller {
             if (count($result['error'])) {
                 $this->view->addErrorMessage('SAVE_FAILED_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['error'])));
             }
+
+        return true;
         }
 
-        if ($this->buttonClicked('deleteFiles') && !is_null($this->getRequestVar('filenames'))) {
+    private function deleteFiles() : bool
+    {
+        $fileNames = $this->getRequestVar('filenames',[
+            \fpcm\classes\http::FILTER_BASE64DECODE
+        ]);
 
-            $fileNames = array_map('base64_decode', $this->getRequestVar('filenames'));
+        if (!$this->permissionsData['permDelete'] || !$this->buttonClicked('deleteFiles') || !is_array($fileNames) || !count($fileNames)) {
+            return false;
+        }
 
             $deletedOk = [];
             $deletedFailed = [];
             foreach ($fileNames as $fileName) {
-                $image = new \fpcm\model\files\image($fileName, false);
 
-                if ($image->delete()) {
+            if ((new \fpcm\model\files\image($fileName, false))->delete()) {
                     $deletedOk[] = $fileName;
-                } else {
+                continue;
+            }
+
                     $deletedFailed[] = $fileName;
                 }
-            }
 
             if (count($deletedOk)) {
                 $this->view->addNoticeMessage('DELETE_SUCCESS_FILES', array('{{filenames}}' => implode(', ', $deletedOk)));
             }
+
             if (count($deletedFailed)) {
                 $this->view->addErrorMessage('DELETE_FAILED_FILES', array('{{filenames}}' => implode(', ', $deletedFailed)));
             }
-        }
 
         return true;
     }
@@ -145,10 +165,12 @@ class filelist extends \fpcm\controller\abstracts\controller {
         $this->view->assign('jquploadPath', \fpcm\classes\dirs::getLibUrl('jqupload/'));
         $this->view->addJsFiles(['filemanager.js', 'fileuploader.js']);
 
+        $actionPath = \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]);
+        
         if ($this->config->file_uploader_new) {
             $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'));
         } else {
-            $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]));
+            $this->view->assign('actionPath', $actionPath);
             $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [
                 '{{filecount}}' => ini_get("max_file_uploads"),
                 '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
@@ -156,7 +178,6 @@ class filelist extends \fpcm\controller\abstracts\controller {
         }
 
         $this->initViewAssigns([], [], \fpcm\classes\tools::calcPagination(1, 1, 0, 0));
-        $this->initPermissions();
 
         $hiddenClass = ($this->mode === 1 ? '' : ' fpcm-ui-hidden');
 
@@ -171,6 +192,10 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
         if ($this->permissionsData['permDelete']) {
             $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles', 'deleteFiles'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab1'.$hiddenClass);
+        }
+
+        if ($this->permissionsData['permUpload']) {
+            $buttons[] = (new \fpcm\view\helper\linkButton('back'))->setUrl($actionPath)->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
         }
 
         if ($this->mode === 1) {
