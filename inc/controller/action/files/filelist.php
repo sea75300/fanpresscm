@@ -79,41 +79,59 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
         $this->view->assign('styleLeftMargin', $styleLeftMargin);
 
-        if ($this->permissionsData['permUpload'] && !is_null(\fpcm\classes\http::getFiles())) {
-            $uploader = new \fpcm\model\files\fileuploader(\fpcm\classes\http::getFiles());
-            $result = $uploader->processUpload($this->session->getUserId());
+        $this->uploadPhpForm();
+        $this->deleteFiles();
 
-            if (count($result['success'])) {
-                $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['success'])));
-            }
-
-            if (count($result['error'])) {
-                $this->view->addErrorMessage('SAVE_FAILED_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['error'])));
-            }
+        return true;
+    }
+    
+    private function uploadPhpForm() : bool
+    {
+        $files = \fpcm\classes\http::getFiles();
+        if (!$this->permissionsData['permUpload'] || $files === null) {
+            return false;
         }
 
-        if ($this->permissionsData['permDelete'] && $this->buttonClicked('deleteFiles') && !is_null($this->getRequestVar('filenames'))) {
+        $result = (new \fpcm\model\files\fileuploader($files))->processUpload($this->session->getUserId());
+        if (count($result['success'])) {
+            $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['success'])));
+        }
 
-            $fileNames = array_map('base64_decode', $this->getRequestVar('filenames'));
+        if (count($result['error'])) {
+            $this->view->addErrorMessage('SAVE_FAILED_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['error'])));
+        }
 
-            $deletedOk = [];
-            $deletedFailed = [];
-            foreach ($fileNames as $fileName) {
-                $image = new \fpcm\model\files\image($fileName, false);
+        return true;
+    }
+    
+    private function deleteFiles() : bool
+    {
+        $fileNames = $this->getRequestVar('filenames',[
+            \fpcm\classes\http::FILTER_BASE64DECODE
+        ]);
 
-                if ($image->delete()) {
-                    $deletedOk[] = $fileName;
-                } else {
-                    $deletedFailed[] = $fileName;
-                }
+        if (!$this->permissionsData['permDelete'] || !$this->buttonClicked('deleteFiles') || !is_array($fileNames) || !count($fileNames)) {
+            return false;
+        }
+
+        $deletedOk = [];
+        $deletedFailed = [];
+        foreach ($fileNames as $fileName) {
+
+            if ((new \fpcm\model\files\image($fileName, false))->delete()) {
+                $deletedOk[] = $fileName;
+                continue;
             }
 
-            if (count($deletedOk)) {
-                $this->view->addNoticeMessage('DELETE_SUCCESS_FILES', array('{{filenames}}' => implode(', ', $deletedOk)));
-            }
-            if (count($deletedFailed)) {
-                $this->view->addErrorMessage('DELETE_FAILED_FILES', array('{{filenames}}' => implode(', ', $deletedFailed)));
-            }
+            $deletedFailed[] = $fileName;
+        }
+
+        if (count($deletedOk)) {
+            $this->view->addNoticeMessage('DELETE_SUCCESS_FILES', array('{{filenames}}' => implode(', ', $deletedOk)));
+        }
+
+        if (count($deletedFailed)) {
+            $this->view->addErrorMessage('DELETE_FAILED_FILES', array('{{filenames}}' => implode(', ', $deletedFailed)));
         }
 
         return true;
