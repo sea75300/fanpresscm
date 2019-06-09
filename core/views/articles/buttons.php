@@ -90,6 +90,7 @@
     <legend><?php $theView->write('TEMPLATE_ARTICLE_ARTICLEIMAGE'); ?></legend>
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('article[imagepath]')
+                ->setType('url')
                 ->setWrapper(false)
                 ->setPlaceholder(true)
                 ->setText('TEMPLATE_ARTICLE_ARTICLEIMAGE')

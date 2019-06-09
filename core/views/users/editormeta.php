@@ -35,23 +35,6 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="row fpcm-ui-padding-md-tb no-gutters">
-                <div class="col-12 col-sm-6">
-                    <div class="row">
-                        <?php $theView->textInput('data[system_dtmask]')
-                                ->setValue($author->getUserMeta('system_dtmask'))
-                                ->setAutocomplete(false)
-                                ->setWrapper(false)
-                                ->setText('SYSTEM_OPTIONS_DATETIMEMASK')
-                                ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
-                                ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-auto mt-2 ml-0 mt-sm-0 ml-sm-3 align-self-center">
-                    <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
-                </div>
-            </div>
 
             <div class="row fpcm-ui-padding-md-tb">
                 <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
@@ -66,6 +49,23 @@
                                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                         </div>
                     </div>
+                </div>
+            </div>
+            
+            <div class="row fpcm-ui-padding-md-tb no-gutters">
+                <div class="col-12 col-sm-6 col-lg-5">
+                    <div class="row">
+                        <?php $theView->textInput('data[system_dtmask]')
+                                ->setValue($author->getUserMeta('system_dtmask'))
+                                ->setAutocomplete(false)
+                                ->setWrapper(false)
+                                ->setText('SYSTEM_OPTIONS_DATETIMEMASK')
+                                ->setClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-input-nowrapper-general')
+                                ->setLabelClass('col-12 col-sm-6 fpcm-ui-field-label-general'); ?>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-auto mt-2 ml-0 mt-sm-0 ml-sm-3 align-self-center">
+                    <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
                 </div>
             </div>
         </fieldset>

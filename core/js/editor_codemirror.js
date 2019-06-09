@@ -545,6 +545,7 @@ if (fpcm.editor) {
             id: 'editor-html-insertmedia',
             dlWidth: fpcm.ui.getDialogSizes().width,
             title: fpcm.ui.translate('EDITOR_INSERTMEDIA'),
+            resizable: true,
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
@@ -556,12 +557,15 @@ if (fpcm.editor) {
                         
                         var elPath = jQuery('#mediapath');
                         var elPathAlt = jQuery('#mediapath2');
+                        var elFormatVal = jQuery('#mediaformat').val();
+                        var elFormatAltVal = jQuery('#mediaformat2').val();
+                        var elAutoplay = jQuery('#autoplay:checked');
 
                         var aTag = '<' + tagName + '>';
-                        aTag += '<source src="' + elPath.val() + '">';
+                        aTag += '<source src="' + elPath.val() + '"' + (elFormatVal ? ' type="' + elFormatVal + '"' : '') + (elAutoplay.length && elAutoplay.val() ? ' autoplay' : '') + '>';
 
                         if (elPathAlt.val()) {
-                            aTag += '<source src="' + elPathAlt.val() + '">';
+                            aTag += '<source src="' + elPathAlt.val() + '"' + (elFormatAltVal ? ' type="' + elFormatAltVal + '"' : '') + '>';
                         }
 
                         fpcm.editor.insert(aTag, '</' + tagName + '>');
@@ -581,10 +585,21 @@ if (fpcm.editor) {
                     onlyVisible: false
                 });
             },
+            dlOnOpen: function () {
+
+                fpcm.ui.selectmenu('.fpcm-editor-mediaformat',{
+                    appendTo: '#fpcm-dialog-editor-html-insertmedia'
+                });
+
+            },
             dlOnClose: function() {
-                jQuery('#mediapath').val('http://');
                 jQuery('.fpcm-editor-mediatype').removeAttr('checked');    
-                jQuery('#mediatypea').prop( "checked", true );
+                jQuery('#autoplay').prop('checked', false).checkboxradio('refresh');
+                jQuery('#mediapath').val('');
+                jQuery('#mediapath2').val('');
+                jQuery('#mediatypea').prop('checked', true );
+                jQuery('#mediaformat').val('').selectmenu('refresh');
+                jQuery('#mediaformat2').val('').selectmenu('refresh');
             }
         });
     };
@@ -665,9 +680,11 @@ if (fpcm.editor) {
                         var pic_path = jQuery('#imagespath').val();
                         var pic_align = jQuery('#imagesalign').val();
                         var pic_atxt = jQuery('#imagesalt').val();
+                        var pic_css = jQuery('#imagescss').val();
 
-                        if(jQuery('#imagescss') != null) {
-                            var pic_css = jQuery('#imagescss').value;
+                        var elCss = jQuery('#imagescss');
+                        if(elCss) {
+                            var pic_css = elCss.val();
                         }
 
                         if (pic_align == "right" || pic_align == "left") {
@@ -719,7 +736,7 @@ if (fpcm.editor) {
                 fpcm.editor.setSelectToDialog(this);
             },
             dlOnClose: function() {
-                jQuery('#imagespath').val('http://');
+                jQuery('#imagespath').val('');
                 jQuery('#imagesalign').val('');
                 jQuery('#imagesalt').val('');
                 jQuery('#imagescss').val('');
@@ -796,7 +813,7 @@ if (fpcm.editor) {
                 fpcm.editor.setSelectToDialog(this);
             },
             dlOnClose: function () {
-                jQuery('#linksurl').val('http://');
+                jQuery('#linksurl').val('');
                 jQuery('#linkstext').val('');
                 jQuery('#linkstarget').val('');
                 jQuery('#linkscss').val('');

@@ -40,6 +40,11 @@ fpcm.ui = {
             fpcm.ui.showLoader(true);
         });
         
+        jQuery('#fpcm-ui-form').submit(function () {
+            fpcm.ui.showLoader(true);
+            return true;
+        });
+        
         if (fpcm.vars.jsvars.fieldAutoFocus) {
             fpcm.ui.setFocus(fpcm.vars.jsvars.fieldAutoFocus);
         }
@@ -425,8 +430,16 @@ fpcm.ui = {
             return false;
         }
 
-        return el.controlgroup(params);
+        var elResult = el.controlgroup(params);
+        if (params.removeLeftBorderRadius) {
+            elResult.find('.ui-controlgroup-item').first().removeClass('ui-corner-left');
+        }
 
+        if (params.removeRightBorderRadius) {
+            elResult.find('.ui-controlgroup-item').first().removeClass('ui-corner-right');
+        }
+        
+        return elResult;
     },
     
     button: function(elemClassId, params, onClick) {

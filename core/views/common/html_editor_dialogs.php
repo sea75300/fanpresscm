@@ -3,7 +3,8 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertlink">
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('links[url]', 'linksurl')
-                ->setValue('http://')
+                ->setType('url')
+                ->setValue('')
                 ->setWrapper(false)
                 ->setText('EDITOR_LINKURL')
                 ->setIcon('external-link-alt')
@@ -42,7 +43,8 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertimage">
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('images[path]', 'imagespath')
-                ->setValue('http://')
+                ->setType('url')
+                ->setValue('')
                 ->setWrapper(false)
                 ->setText('EDITOR_IMGPATH')
                 ->setIcon('image')
@@ -122,25 +124,41 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertmedia">
     
     <div class="row fpcm-ui-padding-md-tb">
-        <?php $theView->textInput('media[path]', 'mediapath')
-                ->setValue('http://')
-                ->setWrapper(false)
-                ->setText('EDITOR_IMGPATH')
-                ->setIcon('film ')
-                ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
+        <div class="col-12 col-md-8 fpcm-ui-padding-none-lr">
+            <div class="row">
+                <?php $theView->textInput('media[path]', 'mediapath')
+                        ->setType('url')
+                        ->setValue('')
+                        ->setWrapper(false)
+                        ->setText('EDITOR_IMGPATH')
+                        ->setIcon('film ')
+                        ->setSize('lg')
+                        ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
+                        ->setLabelClass('col-6 col-md-4 col-lg-3 fpcm-ui-field-label-general'); ?>
+            </div>
+        </div>
+        <div class="col-12 col-md-4 mt-2 mt-md-0 fpcm-ui-padding-none-lr">
+            <?php $theView->select('media[format]', 'mediaformat')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat'); ?>
+        </div>
     </div> 
     
     <div class="row fpcm-ui-padding-md-tb">
-        <?php $theView->textInput('media[path2]', 'mediapath2')
-                ->setValue('')
-                ->setWrapper(false)
-                ->setText('EDITOR_IMGPATH_ALT')
-                ->setIcon('file-video')
-                ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
+        <div class="col-12 col-md-8 fpcm-ui-padding-none-lr">
+            <div class="row">
+                <?php $theView->textInput('media[path]', 'mediapath2')
+                        ->setType('url')
+                        ->setValue('')
+                        ->setWrapper(false)
+                        ->setText('EDITOR_IMGPATH_ALT')
+                        ->setIcon('file-video')
+                        ->setSize('lg')
+                        ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
+                        ->setLabelClass('col-6 col-md-4 col-lg-3 fpcm-ui-field-label-general'); ?>
+            </div>
+        </div>
+        <div class="col-12 col-md-4 mt-2 mt-md-0 fpcm-ui-padding-none-lr">
+            <?php $theView->select('media[format2]', 'mediaformat2')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat'); ?>
+        </div>
     </div> 
     
     <div class="row fpcm-ui-padding-md-tb">        
@@ -148,6 +166,7 @@
             <div id="fpcm-ui-editor-media-controlgroup">
                 <?php $theView->radiobutton('mediatype', 'mediatypea')->setText('EDITOR_INSERTMEDIA_AUDIO')->setClass('fpcm-editor-mediatype')->setValue('audio')->setSelected(true); ?>
                 <?php $theView->radiobutton('mediatype', 'mediatypev')->setText('EDITOR_INSERTMEDIA_VIDEO')->setClass('fpcm-editor-mediatype')->setValue('video'); ?>
+                <?php $theView->checkbox('autoplay', 'autoplay')->setText('EDITOR_INSERTMEDIA_AUTOPLAY')->setValue(1); ?>
             </div>
         </div>
     </div>
@@ -159,6 +178,7 @@
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('colorhexcode')
                 ->setValue('#000000')
+                ->setType('color')
                 ->setWrapper(false)
                 ->setMaxlenght(7)
                 ->setText('EDITOR_INSERTCOLOR_HEXCODE')

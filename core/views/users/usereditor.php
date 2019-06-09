@@ -67,6 +67,7 @@
                 <div class="col-12 col-sm-6">
                     <div class="row">
                         <?php $theView->textInput('data[email]')
+                            ->setType('email')
                             ->setValue($author->getEmail())
                             ->setWrapper(false)
                             ->setText('GLOBAL_EMAIL')
@@ -98,7 +99,7 @@
             <div id="fpcm-ui-currentpass-box" class="row no-gutters fpcm-ui-padding-md-tb fpcm-ui-hidden">
                 <div class="col-12 col-sm-6">
                     <div class="row">
-                        <?php $theView->textInput('data[current_pass]')
+                        <?php $theView->passwordInput('data[current_pass]')
                             ->setAutocomplete(false)
                             ->setWrapper(false)
                             ->setText('GLOBAL_PASSWORD_CONFIRM')

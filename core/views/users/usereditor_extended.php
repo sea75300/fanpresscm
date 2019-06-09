@@ -2,7 +2,7 @@
 <?php if ($showExtended) : ?>
     <div class="row no-gutters">
         <div class="col-12">
-            <fieldset class="fpcm-ui-margin-md-top">
+            <fieldset>
                 <legend><?php $theView->write('USERS_AVATAR'); ?></legend>
 
                 <?php if ($showImage) : ?>

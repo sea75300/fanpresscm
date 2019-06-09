@@ -137,7 +137,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
 
         $buttons = [
             (new \fpcm\view\helper\linkButton('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/add'))->setText('USERS_ADD')->setClass('fpcm-loader fpcm-ui-maintoolbarbuttons-tab1')->setIcon('user-plus'),
-            (new \fpcm\view\helper\submitButton('disableUser'))->setText('GLOBAL_DISABLE')->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setIcon('user-slash'),
+            (new \fpcm\view\helper\submitButton('disableUser'))->setText('GLOBAL_DISABLE')->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setIcon('user-lock'),
             (new \fpcm\view\helper\submitButton('enableUser'))->setText('GLOBAL_ENABLE')->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setIcon('user-check'),
             (new \fpcm\view\helper\deleteButton('deleteUser'))->setClass('fpcm-ui-maintoolbarbuttons-tab1')            
         ];

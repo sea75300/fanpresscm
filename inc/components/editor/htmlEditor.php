@@ -136,6 +136,7 @@ class htmlEditor extends articleEditor {
             'extraButtons' => array(
                 ['title' => '', 'id' => '', 'class' => '', 'htmltag' => '', 'icon' => '']
             ),
+            'playerFormats' => $this->language->translate('EDITOR_INSERTMEDIA_FORMATS'),
             'editorFontsizes' => array(8, 9, 10, 11, 12, 14, 16, 18, 20, 24),
             'editorParagraphs' => array(
                 $this->language->translate('EDITOR_PARAGRAPH') => 'p',
@@ -174,7 +175,7 @@ class htmlEditor extends articleEditor {
                 'smileys' => (new \fpcm\view\helper\button('editor-html-buttonsmileys'))->setText('HL_OPTIONS_SMILEYS')->setIcon('smile-beam')->setData(['action' => 'insertSmilies']),
                 'drafts' => (new \fpcm\view\helper\button('editor-html-buttondrafts'))->setText('EDITOR_HTML_BUTTONS_ARTICLETPL')->setIcon('file-alt', 'far')->setData(['action' => 'insertDrafts']),
                 'symbol' => (new \fpcm\view\helper\button('editor-html-buttonsymbol'))->setText('EDITOR_HTML_BUTTONS_SYMBOL')->setIcon('font')->setData(['action' => 'insertSymbol']),
-                'removestyles' => (new \fpcm\view\helper\button('editor-html-buttonremstyles'))->setText('EDITOR_HTML_BUTTONS_REMOVESTYLE')->setIcon('eraser')->setData(['action' => 'removeTags']),
+                'removestyles' => (new \fpcm\view\helper\button('editor-html-buttonremstyles'))->setText('EDITOR_HTML_BUTTONS_REMOVESTYLE')->setIcon('remove-format')->setData(['action' => 'removeTags']),
                 'restore' => (new \fpcm\view\helper\button('editor-html-buttonrestore', 'editor-html-buttonrestore'))->setText('EDITOR_AUTOSAVE_RESTORE')->setIcon('undo')->setData(['action' => 'restoreSave'])->setReadonly(true)
             ]
         );

@@ -239,3 +239,8 @@ div.fpcm-ui-dataview div.fpcm-ui-dataview-row:hover ,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even):hover {
     background: rgba(255, 239, 143, 0.5);
 }
+
+.fpcm-ui-input-text:invalid,
+.fpcm-ui-input-text:required {
+    border-left: 5px solid #f00;
+}

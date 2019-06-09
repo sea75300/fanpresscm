@@ -37,3 +37,9 @@ textarea.fpcm-ui-textarea-medium {
 .fpcm-ui-box-sizing-none {
     box-sizing: initial !important;
 }
+
+.fpcm-ui-input-text:invalid,
+.fpcm-ui-input-text:required {
+    box-shadow: none;
+    padding-left: 0.3rem;
+}

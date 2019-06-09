@@ -45,6 +45,15 @@ $lang = array(
     'EDITOR_INSERTMEDIA' => 'Audio-/Video-Player einfügen',
     'EDITOR_INSERTMEDIA_AUDIO' => 'als Audio-Player',
     'EDITOR_INSERTMEDIA_VIDEO' => 'als Video-Player',
+    'EDITOR_INSERTMEDIA_AUTOPLAY' => 'Autoplay aktivieren',
+    'EDITOR_INSERTMEDIA_FORMATS' => [
+        'MP4 Video' => 'video/mp4',
+        'WebM Video' => 'video/webm',
+        'OGG Video' => 'video/ogg',
+        'MP3 Audio' => 'audio/mpeg',
+        'OGG Audio' => 'audio/ogg',
+        'WAV Audio' => 'audio/wav'
+    ],
     'EDITOR_CSS_CLASS' => 'CSS-Klasse',
     'EDITOR_REVISION_DATE' => 'Revisionsdatum',
     'EDITOR_BACKTOCURRENT' => 'Zurück zur aktuellen Version',

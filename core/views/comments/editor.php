@@ -42,12 +42,12 @@
 
             <div class="row fpcm-ui-margin-lg-top">
                 <div class="align-self-center col-sm-12 col-md-2 fpcm-ui-padding-none-lr"><?php $theView->write('GLOBAL_EMAIL'); ?>:</div>
-                <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr"><?php $theView->textInput('comment[email]')->setValue($comment->getEmail()); ?></div>
+                <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr"><?php $theView->textInput('comment[email]')->setValue($comment->getEmail())->setType('email'); ?></div>
             </div>
 
             <div class="row fpcm-ui-margin-lg-top">
                 <div class="align-self-center col-sm-12 col-md-2 fpcm-ui-padding-none-lr"><?php $theView->write('COMMMENT_WEBSITE'); ?>:</div>
-                <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr"><?php $theView->textInput('comment[website]')->setValue($comment->getWebsite()); ?></div>
+                <div class="col-sm-12 col-md-10 fpcm-ui-padding-none-lr"><?php $theView->textInput('comment[website]')->setValue($comment->getWebsite())->setType('url'); ?></div>
             </div>
         </fieldset>
     </div>

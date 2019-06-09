@@ -18,7 +18,7 @@
                                 <?php $theView->write('GLOBAL_EMAIL'); ?>:
                             </div>
                             <div class="align-self-center col-sm-12 col-md-7">
-                                <?php $theView->textInput('system_email')->setValue($globalConfig['system_email']); ?>		
+                                <?php $theView->textInput('system_email')->setValue($globalConfig['system_email'])->setType('email'); ?>
                             </div>
                         </div>
 
@@ -27,7 +27,7 @@
                                 <?php $theView->write('SYSTEM_OPTIONS_URL'); ?>:
                             </div>
                             <div class="align-self-center col-sm-12 col-md-7">
-                                <?php $theView->textInput('system_url')->setValue($globalConfig['system_url']); ?>
+                                <?php $theView->textInput('system_url')->setValue($globalConfig['system_url'])->setType('url'); ?>
                             </div>
                         </div>
 
@@ -112,7 +112,7 @@
                                 <?php $theView->write('SYSTEM_OPTIONS_STYLESHEET'); ?>:
                             </div>
                             <div class="align-self-center col-sm-12 col-md-7">
-                                <?php $theView->textInput('system_css_path')->setValue($globalConfig['system_css_path'], ENT_QUOTES)->setText('http://'.$_SERVER['HTTP_HOST'].'/style/style.css')->setPlaceholder(true); ?>
+                                <?php $theView->textInput('system_css_path')->setValue($globalConfig['system_css_path'], ENT_QUOTES)->setText('http://'.$_SERVER['HTTP_HOST'].'/style/style.css')->setPlaceholder(true)->setType('url'); ?>
                             </div>
                         </div>
 
@@ -680,6 +680,7 @@
                             </div>
                             <div class="align-self-center col-sm-12 col-md-8">
                                 <?php $theView->textInput('smtp_settings[addr]')
+                                        ->setType('email')
                                         ->setClass('fpcm-ui-options-smtp-input')
                                         ->setValue($globalConfig['smtp_settings']['addr'])
                                         ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
