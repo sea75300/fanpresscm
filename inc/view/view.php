@@ -435,7 +435,7 @@ class view {
             return false;
         }
 
-        array_unshift($this->viewJsFiles, \fpcm\classes\loader::libGetFileUrl('jquery/jquery-3.3.1.min.js'));
+        array_unshift($this->viewJsFiles, \fpcm\classes\loader::libGetFileUrl('jquery/jquery-3.4.1.min.js'));
     }
 
     /**
@@ -911,7 +911,7 @@ class view {
     private function initJsFiles()
     {
         $this->addJsFiles([
-            self::ROOTURL_LIB.'jquery/jquery-3.3.1.min.js',
+            self::ROOTURL_LIB.'jquery/jquery-3.4.1.min.js',
             self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.js',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
             self::ROOTURL_CORE_JS.'script.php?uq={$unique}'

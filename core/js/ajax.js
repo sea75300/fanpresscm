@@ -52,6 +52,7 @@ fpcm.ajax = {
             statusCode: {
                 500: function() {
                     fpcm.ajax.showAjaxErrorMessage();
+                    fpcm.ui.showLoader();
                 },
                 401: function() {
                     fpcm.system.showSessionCheckDialog();
@@ -59,6 +60,7 @@ fpcm.ajax = {
                 },
                 404: function() {
                     fpcm.ajax.showAjaxErrorMessage();
+                    fpcm.ui.showLoader();
                 }
             }
         })
@@ -67,6 +69,7 @@ fpcm.ajax = {
             if (result.search('FATAL ERROR:') === 3) {
                 console.error(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
                 console.error('ERROR MESSAGE: ' + errorThrown);
+                fpcm.ui.showLoader();
             }
 
             if (result.cmd !== undefined) {
@@ -87,6 +90,7 @@ fpcm.ajax = {
             console.error(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
             console.error('STATUS MESSAGE: ' + textStatus);
             console.error('ERROR MESSAGE: ' + errorThrown);
+            fpcm.ui.showLoader();
 
             if (typeof params.execFail == 'string') {
                 eval(params.execFail);

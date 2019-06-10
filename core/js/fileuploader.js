@@ -79,7 +79,7 @@ fpcm.fileuploader = {
                 data    : {
                     cjId: 'fileindex'
                 },
-                execDone: 'fpcm.ui.showLoader(false);'
+                execDone: fpcm.ui.showLoader
             });
         });
 
