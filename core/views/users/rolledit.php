@@ -2,18 +2,22 @@
 <div class="fpcm-content-wrapper">
     <div class="fpcm-ui-tabs-general">
         <ul>
-            <li><a href="#tabs-roll"><?php $theView->write('USERS_ROLL_EDIT'); ?></a></li>
+            <li><a href="#tabs-roll"><?php $theView->write($tabsHeadline); ?></a></li>
         </ul>            
 
         <div id="tabs-roll">
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('USERS_ROLLS_NAME'); ?>
+            <div class="row fpcm-ui-padding-md-tb no-gutters">
+                <div class="col-12 col-sm-6">
+                    <div class="row">
+                        <?php $theView->textInput('rollname')
+                            ->setValue($userRoll->getRollName())
+                            ->setWrapper(false)
+                            ->setText('USERS_ROLLS_NAME')
+                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
+                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
+                    </div>
                 </div>
-                <div class="col-sm-12 col-md-9 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('rollname')->setValue($userRoll->getRollName()); ?>
-                </div>
-            </div>
+            </div>            
         </div>
     </div>
 </div>

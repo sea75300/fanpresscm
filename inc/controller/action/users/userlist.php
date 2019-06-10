@@ -133,6 +133,9 @@ class userlist extends \fpcm\controller\abstracts\controller {
         $this->view->assign('rollPermissions', $rollsPerm);
         $this->view->addJsFiles(['users.js']);
         $this->view->addJsLangVars(['USERS_ARTICLES_SELECT', 'HL_OPTIONS_PERMISSIONS']);
+        $this->view->addJsVars([
+            'activeTab' => $this->getActiveTab()
+        ]);
         $this->view->setFormAction('users/list');
 
         $buttons = [

@@ -166,12 +166,10 @@ class filelist extends \fpcm\controller\abstracts\controller {
         $this->view->assign('jquploadPath', \fpcm\classes\dirs::getLibUrl('jqupload/'));
         $this->view->addJsFiles(['filemanager.js', 'fileuploader.js']);
 
-        $actionPath = \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]);
-        
         if ($this->config->file_uploader_new) {
             $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'));
         } else {
-            $this->view->assign('actionPath', $actionPath);
+            $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]));
             $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [
                 '{{filecount}}' => ini_get("max_file_uploads"),
                 '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
@@ -194,7 +192,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
         }
 
         if ($this->permissionsData['permUpload']) {
-            $buttons[] = (new \fpcm\view\helper\linkButton('back'))->setUrl($actionPath)->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
+            $buttons[] = (new \fpcm\view\helper\button('fmgrUploadBack'))->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
         }
 
         if ($this->mode === 1) {

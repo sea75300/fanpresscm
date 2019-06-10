@@ -5,7 +5,9 @@
 
 <?php else : ?>
 
-<?php include $theView->getIncludePath('components/pager.php'); ?>
+<div class="fpcm-ui-margin-md-bottom">
+    <?php include $theView->getIncludePath('components/pager.php'); ?>
+</div>
 
 <?php foreach($files AS $file) : ?>
 <div class="row fpcm-filelist-thumb-box fpcm-ui-center">

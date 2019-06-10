@@ -1,3 +1,46 @@
+Version 5.0.7 (2019-06-05)
+    Added new toolbar button and menu item for inserting tables via dialog #TINY-3636
+    Added new API for adding/removing/changing tabs in the Help dialog #TINY-3535
+    Added highlighting of matched text in autocompleter items #TINY-3687
+    Added the ability for autocompleters to work with matches that include spaces #TINY-3704
+    Added new `imagetools_fetch_image` callback to allow custom implementations for cors loading of images #TINY-3658
+    Added `'http'` and `https` options to `link_assume_external_targets` to prepend `http://` or `https://` prefixes when URL does not contain a protocol prefix. Patch contributed by francoisfreitag. #GH-4335
+    Changed annotations navigation to work the same as inline boundaries #TINY-3396
+    Changed tabpanel API by adding a `name` field and changing relevant methods to use it #TINY-3535
+    Fixed text color not updating all color buttons when choosing a color #TINY-3602
+    Fixed the autocompleter not working with fragmented text #TINY-3459
+    Fixed the autosave plugin no longer overwrites window.onbeforeunload #TINY-3688
+    Fixed infinite loop in the paste plugin when IE11 takes a long time to process paste events. Patch contributed by lRawd. #GH-4987
+    Fixed image handle locations when using `fixed_toolbar_container`. Patch contributed by t00. #GH-4966
+    Fixed the autoresize plugin not firing `ResizeEditor` events #TINY-3587
+    Fixed editor in fullscreen mode not extending to the bottom of the screen #TINY-3701
+    Fixed list removal when pressing backspace after the start of the list item #TINY-3697
+    Fixed autocomplete not triggering from compositionend events #TINY-3711
+    Fixed `file_picker_callback` could not set the caption field on the insert image dialog #TINY-3172
+    Fixed the autocompleter menu showing up after a selection had been made #TINY-3718
+    Fixed an exception being thrown when a file or number input has focus during initialization. Patch contributed by t00 #GH-2194
+Version 5.0.6 (2019-05-22)
+    Added `icons_url` editor settings to enable icon packs to be loaded from a custom url #TINY-3585
+    Added `image_uploadtab` editor setting to control the visibility of the upload tab in the image dialog #TINY-3606
+    Added new api endpoints to the wordcount plugin and improved character count logic #TINY-3578
+    Changed plugin, language and icon loading errors to log in the console instead of a notification #TINY-3585
+    Fixed the textpattern plugin not working with fragmented text #TINY-3089
+    Fixed various toolbar drawer accessibility issues and added an animation #TINY-3554
+    Fixed issues with selection and ui components when toggling readonly mode #TINY-3592
+    Fixed so readonly mode works with inline editors #TINY-3592
+    Fixed docked inline toolbar positioning when scrolled #TINY-3621
+    Fixed initial value not being set on bespoke select in quickbars and toolbar drawer #TINY-3591
+    Fixed so that nbsp entities aren't trimmed in white-space: pre-line elements #TINY-3642
+    Fixed `mceInsertLink` command inserting spaces instead of url encoded characters #GH-4990
+    Fixed text content floating on top of dialogs in IE11 #TINY-3640
+Version 5.0.5 (2019-05-09)
+    Added menu items to match the forecolor/backcolor toolbar buttons #TINY-2878
+    Added default directionality based on the configured language #TINY-2621
+    Added styles, icons and tests for rtl mode #TINY-2621
+    Fixed autoresize not working with floating elements or when media elements finished loading #TINY-3545
+    Fixed incorrect vertical caret positioning in IE 11 #TINY-3188
+    Fixed submenu anchoring hiding overflowed content #TINY-3564
+    Removed unused and hidden validation icons to avoid displaying phantom tooltips #TINY-2329
 Version 5.0.4 (2019-04-23)
     Added back URL dialog functionality, which is now available via `editor.windowManager.openUrl()` #TINY-3382
     Added the missing throbber functionality when calling `editor.setProgressState(true)` #TINY-3453

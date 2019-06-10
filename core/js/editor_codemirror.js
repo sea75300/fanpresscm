@@ -541,6 +541,7 @@ if (fpcm.editor) {
     };
     
     fpcm.editor.insertMedia = function () {
+        
         fpcm.ui.dialog({
             id: 'editor-html-insertmedia',
             dlWidth: fpcm.ui.getDialogSizes().width,
@@ -588,8 +589,12 @@ if (fpcm.editor) {
             dlOnOpen: function () {
 
                 fpcm.ui.selectmenu('.fpcm-editor-mediaformat',{
-                    appendTo: '#fpcm-dialog-editor-html-insertmedia'
+                    appendTo: '#fpcm-dialog-editor-html-insertmedia',
+                    width: '100%'
                 });
+                
+                jQuery( "#mediaformat" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
+                jQuery( "#mediaformat2" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
 
             },
             dlOnClose: function() {
@@ -665,7 +670,8 @@ if (fpcm.editor) {
     fpcm.editor.insertPicture = function () {
         
         jQuery( "#imagesalign" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
-        
+        jQuery( "#imagescss" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );        
+
         fpcm.ui.dialog({
             id: 'editor-html-insertimage',
             dlWidth: fpcm.ui.getDialogSizes().width,
@@ -748,6 +754,7 @@ if (fpcm.editor) {
     fpcm.editor.insertLink = function() {
 
         jQuery( "#linkstarget" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
+        jQuery( "#linkscss" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
         
         fpcm.ui.dialog({
             id: 'editor-html-insertlink',

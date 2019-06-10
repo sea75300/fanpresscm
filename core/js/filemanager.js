@@ -10,6 +10,8 @@ if (fpcm === undefined) {
 
 fpcm.filemanager = {
 
+    tabsObj: {},
+
     init: function() {
 
         if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
@@ -53,7 +55,7 @@ fpcm.filemanager = {
                 });
             });
 
-            fpcm.ui.tabs('#fpcm-files-tabs', {
+            fpcm.filemanager.tabsObj = fpcm.ui.tabs('#fpcm-files-tabs', {
                 beforeActivate: function( event, ui ) {
 
                     var hideButtons = jQuery(ui.oldTab).data('toolbar-buttons');
@@ -78,6 +80,10 @@ fpcm.filemanager = {
                 }
             });
         }
+
+        jQuery('#btnFmgrUploadBack').click(function () {
+            fpcm.filemanager.tabsObj.tabs('option', 'active', 0);
+        });
         
     },
 

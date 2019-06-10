@@ -11,16 +11,18 @@ namespace fpcm\controller\action\users;
 
 class rolladd extends rollbase {
 
-    protected function getViewPath() : string
-    {
-        return 'users/rolladd';
-    }
+    /**
+     *
+     * @var string
+     */
+    protected $headlineVar = 'USERS_ROLL_ADD';
 
     public function request()
     {
-        $this->view->setFormAction('users/addroll');
-        $this->userRoll = new \fpcm\model\users\userRoll();
+        $this->getRollObject();
         $this->save();
+
+        $this->view->setFormAction('users/addroll');
         
         return parent::request();
     }

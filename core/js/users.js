@@ -18,7 +18,8 @@ fpcm.users = {
         });
         
         fpcm.ui.tabs('#fpcm-ui-tabs-users', {
-            addMainToobarToggle: true
+            addMainToobarToggle: true,
+            active: fpcm.vars.jsvars.activeTab
         });
 
         if (fpcm.dataview.exists('userlist')) {

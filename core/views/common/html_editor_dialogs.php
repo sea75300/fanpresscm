@@ -137,8 +137,11 @@
                         ->setLabelClass('col-6 col-md-4 col-lg-3 fpcm-ui-field-label-general'); ?>
             </div>
         </div>
-        <div class="col-12 col-md-4 mt-2 mt-md-0 fpcm-ui-padding-none-lr">
-            <?php $theView->select('media[format]', 'mediaformat')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat'); ?>
+        <div class="col-1 col-md-auto fpcm-ui-field-label-general">
+            <?php $theView->icon('photo-video')->setClass('fpcm-ui-margin-md-right')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(true)->setSize('lg'); ?>
+        </div>
+        <div class="col-11 col-md-3 mt-2 mt-md-0 fpcm-ui-padding-none-lr">
+            <?php $theView->select('media[format]', 'mediaformat')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat')->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
     </div> 
     
@@ -156,8 +159,11 @@
                         ->setLabelClass('col-6 col-md-4 col-lg-3 fpcm-ui-field-label-general'); ?>
             </div>
         </div>
-        <div class="col-12 col-md-4 mt-2 mt-md-0 fpcm-ui-padding-none-lr">
-            <?php $theView->select('media[format2]', 'mediaformat2')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat'); ?>
+        <div class="col-1 col-md-auto fpcm-ui-field-label-general">
+            <?php $theView->icon('photo-video')->setClass('fpcm-ui-margin-md-right')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(true)->setSize('lg'); ?>
+        </div>
+        <div class="col-11 col-md-3 mt-2 mt-md-0 fpcm-ui-padding-none-lr">
+            <?php $theView->select('media[format2]', 'mediaformat2')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat')->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
     </div> 
     
