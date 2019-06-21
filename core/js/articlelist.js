@@ -65,10 +65,6 @@ fpcm.articlelist = {
                 appendTo: '#fpcm-dialog-articles-search'
             });
 
-            fpcm.ui.datepicker('.fpcm-ui-full-width-date', {
-                minDate: fpcm.vars.jsvars.articleSearchMinDate
-            });
-
             fpcm.ui.dialog({
                 id      : 'articles-search',
                 dlWidth: fpcm.ui.getDialogSizes(top, 0.75).width,

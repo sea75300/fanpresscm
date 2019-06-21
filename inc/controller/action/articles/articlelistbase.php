@@ -190,12 +190,8 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         }
         
         $this->view->addButtons($buttons);
-        
-        $minMax = $this->articleList->getMinMaxDate(1);
-        $this->view->addJsVars([
-            'articleSearchMode'   => $this->getSearchMode(),
-            'articleSearchMinDate' => date('Y-m-d', $minMax['minDate'])
-        ]);
+        $this->view->addJsVars(['articleSearchMode' => $this->getSearchMode()]);
+        $this->view->assign('searchMinDate', date('Y-m-d', $this->articleList->getMinMaxDate(1)['minDate']));
 
         $formActionParams = [];
         if ($this->page) {

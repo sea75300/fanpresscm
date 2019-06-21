@@ -75,11 +75,6 @@ fpcm.editor = {
             max: 59
         });
 
-        fpcm.ui.datepicker('input.fpcm-ui-datepicker', {
-            maxDate: "+2m",
-            minDate: "-0d"
-        });
-
         jQuery('#insertarticleimg').click(function () {
             fpcm.vars.jsvars.filemanagerMode = 3;
             fpcm.editor.showFileManager();
@@ -104,7 +99,13 @@ fpcm.editor = {
         fpcm.editor.tweetTextInput = jQuery('#articletweettxt');
         fpcm.ui.selectmenu('#twitterReplacements', {
             change: function( event, ui ) {
-                fpcm.editor.tweetTextInput.val(fpcm.editor.tweetTextInput.val() + ' ' + ui.item.value);
+
+                if (ui.item.value) {
+                    var currentText = fpcm.editor.tweetTextInput.val();
+                    var currentpos = jQuery(fpcm.editor.tweetTextInput).prop('selectionStart');
+                    fpcm.editor.tweetTextInput.val(currentText.substring(0, currentpos) + ui.item.value +  currentText.substring(currentpos));
+                }
+
                 this.selectedIndex = 0;
                 jQuery(this).selectmenu('refresh');
                 return false;

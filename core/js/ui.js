@@ -23,6 +23,7 @@ fpcm.ui = {
         fpcm.ui.initJqUiWidgets();
         fpcm.ui.initInputShadow();
         fpcm.ui.spinner('input.fpcm-ui-spinner');
+        fpcm.ui.datepicker('input.fpcm-ui-datetime-picker');
         fpcm.ui.accordion('.fpcm-tabs-accordion');
         fpcm.ui.initDateTimeMasks();
 
@@ -360,6 +361,15 @@ fpcm.ui = {
         params.dayNamesMin       = fpcm.vars.ui.lang.calendar.daysShort;
         params.firstDay          = 1;
         params.dateFormat        = "yy-mm-dd";
+
+        var elData = el.data();
+        if (elData.mindate) {
+            params.minDate = elData.mindate;
+        }
+
+        if (elData.maxdate) {
+            params.maxDate = elData.maxdate;
+        }
 
         el.datepicker(params);
     },

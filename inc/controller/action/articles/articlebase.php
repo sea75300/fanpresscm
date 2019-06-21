@@ -163,13 +163,19 @@ class articlebase extends \fpcm\controller\abstracts\controller {
 
         $twitter    = new \fpcm\model\system\twitter();
         $twitterOk  = $twitter->checkRequirements();
+        $twitterReplacements = ['TEMPLATE_REPLACEMENTS' => '', 'tplCode' => ''];
 
         if ($twitterOk) {
-            $twitterReplacements = ['TEMPLATE_REPLACEMENTS' => ''];
-            foreach ((new \fpcm\model\pubtemplates\tweet())->getReplacementTranslations('TEMPLATE_ARTICLE_') as $tag => $descr) {
+            $twitterTpl = new \fpcm\model\pubtemplates\tweet();
+            foreach ($twitterTpl->getReplacementTranslations('TEMPLATE_ARTICLE_') as $tag => $descr) {
                 $twitterReplacements[$descr.': '.$tag] = $tag;
             }
+
+            $twitterReplacements['tplCode'] = $twitterTpl->getContent();
         }
+
+        $this->view->assign('twitterTplPlaceholder', $twitterReplacements['tplCode']);
+        unset($twitterReplacements['tplCode']);
 
         $this->view->assign('twitterReplacements', $twitterReplacements);
         $this->view->assign('showTwitter', $twitterOk);

@@ -430,7 +430,11 @@
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT'); ?>:
                             </div>
                             <div class="align-self-center col-md-12 col-lg-6">
-                                <?php $theView->textInput('articles_archive_datelimit')->setValue($globalConfig['articles_archive_datelimit'] ? $theView->dateText($globalConfig['articles_archive_datelimit'], 'Y-m-d') : '')->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY')->setPlaceholder(true); ?>
+                                <?php $theView->dateTimeInput('articles_archive_datelimit')
+                                        ->setValue($globalConfig['articles_archive_datelimit'] ? $theView->dateText($globalConfig['articles_archive_datelimit'], 'Y-m-d') : '')
+                                        ->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY')
+                                        ->setPlaceholder(true)
+                                        ->setData(['maxDate' => '-3m']); ?>
                             </div>
                         </div>
                     </fieldset>

@@ -26,15 +26,16 @@
 
     <div class="row fpcm-ui-padding-md-tb fpcm-ui-padding-none-lr-small">
 
-        <?php $theView->textInput('article[postponedate]')
+        <?php $theView->dateTimeInput('article[postponedate]')
                 ->setWrapper(false)
-                ->setPlaceholder(true)
                 ->setText('EDITOR_POSTPONED_DATE')
+                ->setPlaceholder((string) $theView->dateText($postponedTimer, 'Y-m-d'))
                 ->setValue($theView->dateText($postponedTimer, 'Y-m-d'))
                 ->setIcon('calendar-plus')
                 ->setSize('lg')
-                ->setClass('col-12 col-sm-6 col-md-3 col-lg-2 col-xl-1 fpcm-ui-field-input-nowrapper-general fpcm-ui-datepicker')
-                ->setLabelClass('col-12 col-sm-4 col-md-1 fpcm-ui-field-label-general'); ?>
+                ->setClass('col-12 col-sm-6 col-md-3 col-lg-2 col-xl-1 fpcm-ui-field-input-nowrapper-general')
+                ->setLabelClass('col-12 col-sm-4 col-md-2 fpcm-ui-field-label-general')
+                ->setData(['mindate' => '0d', 'maxdate' => '+2m']); ?>
 
         
         <div class="fpcm-ui-controlgroup mt-2 mt-md-0 ml-0 ml-md-2">
@@ -51,13 +52,13 @@
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('article[sources]')
                 ->setWrapper(false)
-                ->setPlaceholder(true)
+                ->setPlaceholder('http://')
                 ->setText('TEMPLATE_ARTICLE_SOURCES')
                 ->setValue($article->getSources())
                 ->setIcon('external-link-alt')
                 ->setSize('lg')
                 ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-1 fpcm-ui-field-label-general'); ?>
+                ->setLabelClass('col-6 col-md-2 fpcm-ui-field-label-general'); ?>
     </div>
 </fieldset>
 
@@ -68,14 +69,14 @@
 
         <?php $theView->textInput('article[tweettxt]')
                 ->setWrapper(false)
-                ->setPlaceholder(true)
+                ->setPlaceholder($twitterTplPlaceholder)
                 ->setText('EDITOR_TWEET_TEXT')
                 ->setValue('')
                 ->setSize(280)
                 ->setIcon('twitter', 'fab')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-1 fpcm-ui-field-label-general'); ?>
+                ->setClass('col-6 col-md-7 fpcm-ui-field-input-nowrapper-general')
+                ->setLabelClass('col-6 col-md-2 fpcm-ui-field-label-general'); ?>
 
         <div class="fpcm-ui-controlgroup">
             <?php $theView->select('twitterReplacements')->setOptions($twitterReplacements)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)->setLabelClass('fpcm-ui-margin-lg-left'); ?>
@@ -92,14 +93,14 @@
         <?php $theView->textInput('article[imagepath]')
                 ->setType('url')
                 ->setWrapper(false)
-                ->setPlaceholder(true)
+                ->setPlaceholder('http://')
                 ->setText('TEMPLATE_ARTICLE_ARTICLEIMAGE')
                 ->setValue($article->getImagepath())
                 ->setMaxlenght(512)
                 ->setIcon('image')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-1 fpcm-ui-field-label-general'); ?>
+                ->setClass('col-6 col-md-7 fpcm-ui-field-input-nowrapper-general')
+                ->setLabelClass('col-6 col-md-2 fpcm-ui-field-label-general'); ?>
         <?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true)->setClass('fpcm-ui-margin-lg-left'); ?>
     </div>
 </fieldset>

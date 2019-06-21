@@ -397,8 +397,6 @@ fpcm.filemanager = {
                 appendTo: '#fpcm-dialog-files-search'
             });
 
-            fpcm.ui.datepicker('.fpcm-ui-full-width-date');
-            
             fpcm.ui.autocomplete('#articleId', {
                 source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
                 appendTo: '#fpcm-dialog-files-search',

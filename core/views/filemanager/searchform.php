@@ -8,10 +8,10 @@
     
     <div class="row fpcm-ui-padding-md-tb">
         <div class="col-sm-6">
-            <?php $theView->textInput('datefrom')->setMaxlenght(10)->setText('ARTICLE_SEARCH_DATE_FROM')->setPlaceholder(true)->setClass('fpcm-files-search-input fpcm-ui-full-width-date'); ?>
+            <?php $theView->dateTimeInput('datefrom')->setMaxlenght(10)->setText('ARTICLE_SEARCH_DATE_FROM')->setPlaceholder(true)->setClass('fpcm-files-search-input fpcm-ui-full-width-date'); ?>
         </div>
         <div class="col-sm-6">
-            <?php $theView->textInput('dateto')->setMaxlenght(10)->setText('ARTICLE_SEARCH_DATE_TO')->setPlaceholder(true)->setClass('fpcm-files-search-input fpcm-ui-full-width-date'); ?>
+            <?php $theView->dateTimeInput('dateto')->setMaxlenght(10)->setText('ARTICLE_SEARCH_DATE_TO')->setPlaceholder(true)->setClass('fpcm-files-search-input fpcm-ui-full-width-date'); ?>
         </div>
     </div>
     

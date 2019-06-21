@@ -84,8 +84,6 @@ fpcm.comments = {
                 width: '100%',
                 appendTo: '#fpcm-dialog-comments-search'
             });
-
-            fpcm.ui.datepicker('.fpcm-ui-full-width-date');
             
             fpcm.ui.autocomplete('#articleId', {
                 source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
