@@ -31,6 +31,7 @@ fpcm.articlelist = {
         });
 
         fpcm.articlelist.clearArticleCache();
+        fpcm.articlelist.deleteSingleArticle();
     },
     
     assignActions: function() {
@@ -124,12 +125,13 @@ fpcm.articlelist = {
 
         fpcm.ajax.post('articles/search', {
             data: sParams,
-            execDone: function () {
+            execDone: function (result) {
+
+                result = fpcm.ajax.fromJSON(result);
 
                 fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
                 fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
 
-                var result = fpcm.ajax.getResult('articles/search', true);
                 fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
                 fpcm.dataview.updateAndRender(result.dataViewName, {
                     onRenderAfter: function () {
@@ -139,6 +141,7 @@ fpcm.articlelist = {
                 });
 
                 fpcm.articlelist.clearArticleCache();
+                fpcm.articlelist.deleteSingleArticle();
                 fpcm.ui.showLoader(false);
             }
         });
@@ -213,6 +216,35 @@ fpcm.articlelist = {
                 objid: objid
             });
             
+            return false;
+        });
+
+    },
+
+    deleteSingleArticle: function() {
+        
+        jQuery('.fpcm-ui-button-delete-article-single').click(function() {
+
+            var articleId = jQuery(this).data('articleid');
+            
+            fpcm.ui.confirmDialog({
+                
+                clickYes: function () {
+                    fpcm.ui.showLoader(true);
+                    fpcm.ajax.exec('articles/delete', {
+                        data: {
+                            id: articleId
+                        },
+                        execDone: function (result) {
+                            window.location.reload();
+                        }
+                    });
+                    jQuery(this).dialog("close");
+                },
+                clickNoDefault: true
+                
+            });
+
             return false;
         });
 

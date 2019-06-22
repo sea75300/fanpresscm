@@ -14,7 +14,7 @@
                 <?php else : ?>
                 <div class="row no-gutters align-self-center fpcm-ui-inline-loader">
                     <div class="col-12 fpcm-ui-center align-self-center">
-                        <?php $theView->icon('spinner fa-pulse fa-inverse')->setStack('circle')->setSize('2x'); ?>
+                        <?php $theView->icon('spinner fa-inverse')->setSpinner('pulse')->setStack('circle')->setSize('2x'); ?>
                     </div>
                 </div>
                 <?php endif; ?>

@@ -378,6 +378,11 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles {
     padding: 0em 0.5em;
 }
 
+div.fpcm-ui-editor-metabox span.fpcm-ui-editor-metainfo {
+    font-size: 1.1rem;
+}
+
+
 
 /* ------ General classes and ids */
 

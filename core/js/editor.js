@@ -76,9 +76,7 @@ fpcm.editor = {
         });
 
         jQuery('#insertarticleimg').click(function () {
-            fpcm.vars.jsvars.filemanagerMode = 3;
-            fpcm.editor.showFileManager();
-            fpcm.vars.jsvars.filemanagerMode = 2;
+            fpcm.editor.showFileManager(3);
             return false;
         });
 
@@ -111,6 +109,10 @@ fpcm.editor = {
                 return false;
             }
         });
+
+        if (!fpcm.vars.jsvars.articleId) {
+            return true;
+        }
 
         jQuery('#btnShortlink').click(function (event, handler) {
 
@@ -159,6 +161,10 @@ fpcm.editor = {
              return false;
         });
 
+        jQuery('input.fpcm-ui-editor-metainfo-checkbox').click(function () {
+            jQuery('span.fpcm-ui-editor-metainfo-' + jQuery(this).data('icon')).toggleClass('fpcm-ui-status-1 fpcm-ui-status-0');
+            return true;
+        });
     },
     
     showCommentLayer: function(layerUrl) {

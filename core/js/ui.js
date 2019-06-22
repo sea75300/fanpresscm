@@ -809,6 +809,13 @@ fpcm.ui = {
     confirmDialog: function(params) {
 
         var size  = fpcm.ui.getDialogSizes(top, 0.35);
+        
+        if (params.clickNoDefault) {
+            params.clickNo = function () {
+                jQuery(this).dialog("close");
+                return false;
+            }
+        }
 
         fpcm.ui.dialog({
             title: fpcm.ui.translate('GLOBAL_CONFIRM'),

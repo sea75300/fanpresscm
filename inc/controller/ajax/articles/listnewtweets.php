@@ -19,6 +19,14 @@ namespace fpcm\controller\ajax\articles;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 class listnewtweets extends \fpcm\controller\abstracts\ajaxController {
+    /**
+     * 
+     * @return array
+     */
+    protected function getPermissions()
+    {
+        return ['article' => ['add', 'edit', 'editall']];
+    }
 
     /**
      * Artikel-Listen-objekt
@@ -38,11 +46,6 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-
-        if (!$this->session->exists()) {
-            return false;
-        }
-
         if (is_null($this->getRequestVar('ids'))) {
             return false;
         }
@@ -61,8 +64,6 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-
-
         $resOk = [];
         $resError = [];
 

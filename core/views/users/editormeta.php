@@ -8,6 +8,7 @@
                 <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+                            <?php $theView->icon('globe'); ?>
                             <?php $theView->write('SYSTEM_OPTIONS_TIMEZONE'); ?>:
                         </label>
                         <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
@@ -24,6 +25,7 @@
                 <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+                            <?php $theView->icon('language'); ?>
                             <?php $theView->write('SYSTEM_OPTIONS_LANG'); ?>:
                         </label>
                         <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
@@ -40,6 +42,7 @@
                 <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+                            <?php $theView->icon('list'); ?>
                             <?php $theView->write('SYSTEM_OPTIONS_ACPARTICLES_LIMIT'); ?>:
                         </label>
                         <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
@@ -60,6 +63,7 @@
                                 ->setAutocomplete(false)
                                 ->setWrapper(false)
                                 ->setText('SYSTEM_OPTIONS_DATETIMEMASK')
+                                ->setIcon('calendar')
                                 ->setClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-input-nowrapper-general')
                                 ->setLabelClass('col-12 col-sm-6 fpcm-ui-field-label-general'); ?>
                     </div>
@@ -81,6 +85,7 @@
                 <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+                            <?php $theView->icon('text-height'); ?>
                             <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE'); ?>:
                         </label>
                         <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
@@ -97,6 +102,7 @@
                 <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+                            <?php $theView->icon('file-upload'); ?>
                             <?php $theView->write('SYSTEM_OPTIONS_NEWS_NEWUPLOADER'); ?>:
                         </label>
                         <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
@@ -110,6 +116,7 @@
                 <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+                            <?php $theView->icon('folder-open'); ?>
                             <?php $theView->write('SYSTEM_OPTIONS_FILEMANAGER_LIMIT'); ?>:
                         </label>
                         <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
@@ -126,6 +133,7 @@
                 <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+                            <?php $theView->icon('grip-horizontal'); ?>
                             <?php $theView->write('SYSTEM_OPTIONS_FILEMANAGER_VIEW'); ?>:
                         </label>
                         <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">

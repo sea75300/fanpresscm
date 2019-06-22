@@ -16,24 +16,33 @@
                 </div>
             </div>
 
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('IPLIST_IPADDRESS'); ?>
-                </div>
-                <div class="col-sm-12 col-md-9 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('ipaddress'); ?>
+            <div class="row fpcm-ui-padding-md-tb no-gutters">
+                <div class="col-12">
+                    <div class="row">
+                        <?php $theView->textInput('ipaddress')
+                            ->setWrapper(false)
+                            ->setText('IPLIST_IPADDRESS')
+                            ->setIcon('network-wired')
+                            ->setClass('col-12 col-md-10 fpcm-ui-field-input-nowrapper-general')
+                            ->setLabelClass('col-12 col-md-2 fpcm-ui-field-label-general'); ?>
+                    </div>
                 </div>
             </div>
 
             <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('IPLIST_BLOCKTYPE'); ?>
-                </div>
-                <div class="col-sm-12 col-md-9 fpcm-ui-padding-none-lr">
-                    <div class="fpcm-ui-controlgroup">
-                        <?php $theView->checkbox('nocomments')->setText('IPLIST_NOCOMMENTS'); ?>
-                        <?php $theView->checkbox('nologin')->setText('IPLIST_NOLOGIN'); ?>
-                        <?php $theView->checkbox('noaccess')->setText('IPLIST_NOACCESS'); ?>
+                <div class="col-12 fpcm-ui-padding-none-lr">
+                    <div class="row">
+                        <label class="col-12 col-md-2 fpcm-ui-field-label-general">
+                            <?php $theView->icon('lock'); ?>
+                            <?php $theView->write('IPLIST_BLOCKTYPE'); ?>:
+                        </label>
+                        <div class="col-12 col-md-10 fpcm-ui-padding-none-lr">
+                            <div class="fpcm-ui-controlgroup">
+                                <?php $theView->checkbox('nocomments')->setText('IPLIST_NOCOMMENTS'); ?>
+                                <?php $theView->checkbox('nologin')->setText('IPLIST_NOLOGIN'); ?>
+                                <?php $theView->checkbox('noaccess')->setText('IPLIST_NOACCESS'); ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

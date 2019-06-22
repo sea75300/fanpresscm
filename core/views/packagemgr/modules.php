@@ -52,7 +52,7 @@
             <?php if ($checkPkg) : ?>
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
                 <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
-                    <?php $theView->icon('info')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
+                    <?php $theView->icon('file-signature')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
                         'step' => 'checkPkg'
                     ]); ?>
                 </div>

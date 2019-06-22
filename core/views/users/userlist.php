@@ -7,6 +7,13 @@
         </ul>            
 
         <div id="tabs-users-active">
+
+            <div id="fpcm-dataview-userlist-spinner" class="row no-gutters align-self-center fpcm-ui-inline-loader fpcm-ui-background-white-50p">
+                <div class="col-12 fpcm-ui-center align-self-center">
+                    <?php $theView->icon('spinner fa-inverse')->setSpinner('pulse')->setStack('circle')->setSize('2x'); ?>
+                </div>
+            </div>              
+            
             <div id="fpcm-dataview-userlist"></div>
         </div>
 

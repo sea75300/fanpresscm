@@ -35,6 +35,7 @@ fpcm.dataview = {
             return false;
         }
 
+        var spinner     = jQuery('#fpcm-dataview-' + id + '-spinner');
         var obj         = fpcm.vars.jsvars.dataviews[id];
         var style       = '';
 
@@ -65,7 +66,10 @@ fpcm.dataview = {
         }
         
         fpcm.vars.jsvars.dataviews[id].dataViewHeight = jQuery('#' + obj.fullId).height() + 'px';
-        
+
+        if (spinner) {
+            spinner.remove();
+        }
     },
 
     addRow: function(id, index, row, obj) {

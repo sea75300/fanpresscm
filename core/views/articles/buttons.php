@@ -8,12 +8,12 @@
         <div class="col-12">
             <div class="fpcm-ui-controlgroup">
             <?php if (!$article->getArchived()) : ?>
-                <?php $theView->checkbox('article[pinned]')->setText('EDITOR_PINNED')->setSelected($article->getPinned()); ?>
-                <?php $theView->checkbox('article[draft]')->setText('EDITOR_DRAFT')->setSelected($article->getDraft()); ?>
+                <?php $theView->checkbox('article[pinned]')->setText('EDITOR_PINNED')->setSelected($article->getPinned())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'pinned']); ?>
+                <?php $theView->checkbox('article[draft]')->setText('EDITOR_DRAFT')->setSelected($article->getDraft())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'draft']); ?>
             <?php endif; ?>
-            <?php $theView->checkbox('article[comments]')->setText('EDITOR_COMMENTS')->setSelected($article->getComments()); ?>
-            <?php if (!$approvalRequired) : ?><?php $theView->checkbox('article[approval]')->setText('EDITOR_STATUS_APPROVAL')->setSelected($article->getApproval()); ?><?php endif; ?>
-            <?php if ($editorMode) : ?><?php $theView->checkbox('article[archived]')->setText('EDITOR_ARCHIVE')->setSelected($article->getArchived()); ?><?php endif; ?>
+            <?php $theView->checkbox('article[comments]')->setText('EDITOR_COMMENTS')->setSelected($article->getComments())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'comments']); ?>
+            <?php if (!$approvalRequired) : ?><?php $theView->checkbox('article[approval]')->setText('EDITOR_STATUS_APPROVAL')->setSelected($article->getApproval())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'approval']); ?><?php endif; ?>
+            <?php if ($editorMode) : ?><?php $theView->checkbox('article[archived]')->setText('EDITOR_ARCHIVE')->setSelected($article->getArchived())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'archived']); ?><?php endif; ?>
             <?php if ($changeAuthor) : ?><?php $theView->select('article[author]')->setOptions($changeuserList)->setSelected($article->getCreateuser())->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?><?php endif; ?>
             </div>
         </div>
@@ -41,7 +41,7 @@
         <div class="fpcm-ui-controlgroup mt-2 mt-md-0 ml-0 ml-md-2">
             <?php $theView->textInput('article[postponehour]')->setClass('fpcm-ui-spinner-hour ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'H'))->setWrapper(false); ?>
             <?php $theView->textInput('article[postponeminute]')->setClass('fpcm-ui-spinner-minutes ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'i'))->setWrapper(false); ?>
-            <?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed())->setLabelClass('fpcm-ui-margin-md-left')->setIconOnly(true); ?>
+            <?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'postponed'])->setLabelClass('fpcm-ui-margin-md-left')->setIconOnly(true); ?>
         </div>
     </div>
 </fieldset>
@@ -57,7 +57,7 @@
                 ->setValue($article->getSources())
                 ->setIcon('external-link-alt')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
+                ->setClass('col-6 col-md-7 fpcm-ui-field-input-nowrapper-general')
                 ->setLabelClass('col-6 col-md-2 fpcm-ui-field-label-general'); ?>
     </div>
 </fieldset>

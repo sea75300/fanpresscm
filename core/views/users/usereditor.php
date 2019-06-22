@@ -12,6 +12,7 @@
                             ->setAutocomplete(false)
                             ->setWrapper(false)
                             ->setText('USERS_DISPLAYNAME')
+                            ->setIcon('signature')
                             ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
                             ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
                     </div>
@@ -27,6 +28,7 @@
                             ->setAutocomplete(false)
                             ->setWrapper(false)
                             ->setText('GLOBAL_USERNAME')
+                            ->setIcon('user')
                             ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
                             ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
                     </div>
@@ -40,6 +42,7 @@
                             ->setAutocomplete(false)
                             ->setWrapper(false)
                             ->setText('GLOBAL_PASSWORD')
+                            ->setIcon('passport')
                             ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
                             ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
                     </div>
@@ -57,6 +60,7 @@
                             ->setAutocomplete(false)
                             ->setWrapper(false)
                             ->setText('USERS_PASSWORD_CONFIRM')
+                            ->setIcon('passport')
                             ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
                             ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
                     </div>
@@ -71,6 +75,7 @@
                             ->setValue($author->getEmail())
                             ->setWrapper(false)
                             ->setText('GLOBAL_EMAIL')
+                            ->setIcon('at')
                             ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
                             ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
                     </div>
@@ -81,6 +86,7 @@
                 <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+                            <?php $theView->icon('users'); ?>
                             <?php $theView->write('USERS_ROLL'); ?>:
                         </label>
                         <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
@@ -117,6 +123,7 @@
                 <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+                            <?php $theView->icon('user-slash'); ?>
                             <?php $theView->write('GLOBAL_DISABLE'); ?>:
                         </label>
                         <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">

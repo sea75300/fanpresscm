@@ -12,6 +12,12 @@ namespace fpcm\controller\action\articles;
 
 class articlelisttrash extends articlelistbase {
 
+    /**
+     *
+     * @var bool
+     */
+    protected $isTrash = true;
+
     protected function getArticleItems()
     {
         $this->articleItems = $this->articleList->getArticlesDeleted(true);

@@ -12,6 +12,15 @@ namespace fpcm\controller\ajax\articles;
 class draft extends \fpcm\controller\abstracts\ajaxController {
 
     /**
+     * 
+     * @return array
+     */
+    protected function getPermissions()
+    {
+        return ['article' => ['add', 'edit', 'editall']];
+    }
+
+    /**
      * Controller-Processing
      */
     public function process()

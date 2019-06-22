@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\articles;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since FPCM 3.5
  */
-class inedit extends \fpcm\controller\abstracts\ajaxController {
+class delete extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
@@ -17,7 +17,7 @@ class inedit extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function getPermissions()
     {
-        return ['article' => ['add', 'edit', 'editall']];
+        return ['article' => 'delete'];
     }
 
     /**
@@ -29,26 +29,12 @@ class inedit extends \fpcm\controller\abstracts\ajaxController {
             \fpcm\classes\http::FILTER_CASTINT
         ]));
 
-        $this->returnCode = 0;
-        if (!$article->exists()) {
-            $this->getResponse();
-        }
-
-        if ($article->isInEdit()) {
+        if ($article->exists() && $article->delete()) {
             $this->returnCode = 1;
-
-            $data = $article->getInEdit();
-
-            if (is_array($data)) {
-                $user = new \fpcm\model\users\author($data[1]);
-
-                $this->returnData['username'] = $user->exists() ? $user->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND');
-            }
-
             $this->getResponse();
         }
 
-        $article->setInEdit();
+        $this->returnCode = 0;
         $this->getResponse();
     }
 
