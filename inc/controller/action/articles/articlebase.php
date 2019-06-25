@@ -60,6 +60,12 @@ class articlebase extends \fpcm\controller\abstracts\controller {
     protected $emptyTitleContent = false;
 
     /**
+     *
+     * @var bool
+     */
+    protected $canChangeAuthor = false;
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -105,6 +111,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
+        $this->canChangeAuthor = $this->permissions->check(['article' => 'authors']);
         $this->approvalRequired = $this->permissions->check(['article' => 'approve']);
         $this->initObject();
 
@@ -144,9 +151,8 @@ class articlebase extends \fpcm\controller\abstracts\controller {
             }            
         }
 
-        $changeAuthor = $this->permissions->check(['article' => 'authors']);
-        $this->view->assign('changeAuthor', $changeAuthor);
-        if ($changeAuthor) {
+        $this->view->assign('changeAuthor', $this->canChangeAuthor);
+        if ($this->canChangeAuthor) {
             $userlist = new \fpcm\model\users\userList();
             $changeuserList = ['EDITOR_CHANGEAUTHOR' => ''] + $userlist->getUsersNameList();
             $this->view->assign('changeuserList', $changeuserList);
@@ -291,7 +297,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->article->setDraft(isset($data['draft']) ? 1 : 0);
         $this->article->setComments(isset($data['comments']) ? 1 : 0);
         
-        $approval = $this->permissions->check(['article' => 'approve']) ? 1 : (isset($data['approval']) ? 1 : 0);
+        $approval = $this->approvalRequired ? 1 : (isset($data['approval']) ? 1 : 0);
         $this->article->setApproval($approval);
         $this->article->setImagepath(isset($data['imagepath']) ? $data['imagepath'] : '');
         $this->article->setSources(isset($data['sources']) ? $data['sources'] : '');
@@ -302,7 +308,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
             $this->article->setDraft(0);
         }
         
-        $authorId = (isset($data['author']) && trim($data['author']) ? $data['author'] : $this->session->getUserId());
+        $authorId = (isset($data['author']) && trim($data['author']) && $this->canChangeAuthor ? $data['author'] : $this->session->getUserId());
         $this->article->setCreateuser($authorId);
 
         return true;

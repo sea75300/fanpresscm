@@ -10,7 +10,7 @@ namespace fpcm\controller\ajax\system;
 /**
  * Check if password is powned
  * 
- * @package fpcm\controller\ajax\system\cronasync
+ * @package fpcm\controller\ajax\system\passcheck
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
