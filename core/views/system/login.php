@@ -5,6 +5,15 @@
 
             <h1 class="fpcm-ui-margin-md-bottom"><?php $theView->icon('chevron-right'); ?> <span>FanPress CM</span> <span>News System</span></h1>
             
+            <?php if ($twoFactorAuth) : ?>
+            <div class="row no-gutters fpcm-ui-padding-md-tb">
+                <div class="col-12">
+                <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')->setPlaceholder(true)->setAutocomplete(false); ?>
+                <?php $theView->hiddenInput('login[username]')->setValue($username); ?>
+                <?php $theView->hiddenInput('login[password]')->setValue($password); ?>
+                </div>
+            </div>
+            <?php else : ?>
             <div class="row no-gutters fpcm-ui-padding-md-tb">
                 <div class="col-12">
                     <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true); ?>
@@ -18,13 +27,6 @@
                 <?php else : ?>
                     <?php $theView->passwordInput('login[password]')->setText('GLOBAL_PASSWORD')->setPlaceholder(true)->setAutocomplete(false); ?>
                 <?php endif; ?>
-                </div>
-            </div>
-            
-            <?php if ($twoFactorAuth) : ?>
-            <div class="row no-gutters fpcm-ui-padding-md-tb fpcm-ui-hidden" id="fpcm-loginauthcode-box">
-                <div class="col-12">
-                <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')->setPlaceholder(true)->setAutocomplete(false); ?>
                 </div>
             </div>
             <?php endif; ?>
@@ -46,6 +48,9 @@
                 <div class="fpcm-ui-controlgroup">
             <?php if ($resetPasswort) : ?>
                 <?php $theView->submitButton('reset')->setText('GLOBAL_OK')->setClass('fpcm-loader fpcm-ok-button')->setIcon('check'); ?>
+                <?php $theView->linkButton('loginback')->setText('GLOBAL_BACK')->setUrl($theView->self.'?module='.$theView->currentModule)->setClass('fpcm-loader fpcm-back-button')->setIcon('chevron-circle-left'); ?>
+            <?php elseif ($twoFactorAuth) : ?>
+                <?php $theView->submitButton('login')->setText('GLOBAL_OK')->setClass('fpcm-loader fpcm-login-btn')->setIcon('sign-in-alt'); ?>
                 <?php $theView->linkButton('loginback')->setText('GLOBAL_BACK')->setUrl($theView->self.'?module='.$theView->currentModule)->setClass('fpcm-loader fpcm-back-button')->setIcon('chevron-circle-left'); ?>
             <?php else : ?>
                 <?php $theView->submitButton('login')->setText('LOGIN_BTN')->setClass('fpcm-loader fpcm-login-btn')->setIcon('sign-in-alt'); ?>

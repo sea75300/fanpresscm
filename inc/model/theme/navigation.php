@@ -102,7 +102,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                     ->setDescription('HL_ARTICLE_EDIT')
                     ->setIcon('book fa-lg')
                     ->setSubmenu($this->editorSubmenu())
-                    ->setPermission(['article' => 'edit'])
+                    ->setPermission(['article' => ['editall', 'edit', 'archive']])
                     ->setId('nav-id-editnews')
                     ->setClass('fpcm-navigation-noclick')
             ),
@@ -193,7 +193,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             (new navigationItem())->setUrl('articles/listarchive')
                 ->setDescription('HL_ARTICLE_EDIT_ARCHIVE')
                 ->setIcon('archive')
-                ->setPermission(['article' => ['edit', 'editall', 'archive']])
+                ->setPermission(['article' => 'archive'])
         ];
     }
 

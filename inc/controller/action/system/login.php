@@ -42,6 +42,12 @@ class login extends \fpcm\controller\abstracts\controller {
     protected $captcha;
 
     /**
+     * Two factor authentication
+     * @var bool
+     */
+    protected $twoFaAuth = false;
+
+    /**
      * 
      * @return string
      */
@@ -115,10 +121,10 @@ class login extends \fpcm\controller\abstracts\controller {
         $reset = $this->getRequestVar('reset') === null ? false : true;
         $this->view->assign('userNameField', $reset ? 'username' : 'login[username]');
         $this->view->assign('resetPasswort', $reset);
+        $this->view->assign('twoFactorAuth', $this->twoFaAuth);
         $this->view->assign('captcha', $this->captcha);
-        $this->view->assign('twoFactorAuth', $this->config->system_2fa_auth && !$reset);
+//        $this->view->assign('twoFactorAuth', $this->config->system_2fa_auth && !$reset);
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-        $this->view->addJsFiles(['login.js']);
         $this->view->setFormAction('system/login');
         $this->view->render();
     }
@@ -144,6 +150,10 @@ class login extends \fpcm\controller\abstracts\controller {
             return false;
         }
         
+        if ($this->showTwoFactorForm($data)) {
+            return true;
+        }
+
         $data = $this->events->trigger('session\loginBefore', $data);
 
         $session = new \fpcm\model\system\session();
@@ -171,6 +181,28 @@ class login extends \fpcm\controller\abstracts\controller {
         }
 
         $this->view->addErrorMessage('LOGIN_FAILED');
+        return true;
+    }
+
+    /**
+     * 
+     * @param array $data
+     * @return bool
+     */
+    private function showTwoFactorForm(array $data) : bool
+    {
+        if (!$this->config->system_2fa_auth || isset($data['authcode'])) {
+            return false;
+        }
+            
+        $user = (new \fpcm\model\users\userList())->getUserByUsername($data['username']);
+        if (!$user->getAuthtoken()) {
+            return false;
+        }
+
+        $this->twoFaAuth = true;
+        $this->view->assign('username', $data['username']);
+        $this->view->assign('password', $data['password']);
         return true;
     }
 
