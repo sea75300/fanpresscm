@@ -23,7 +23,7 @@
                             ->setWrapper(false)
                             ->setText('IPLIST_IPADDRESS')
                             ->setIcon('network-wired')
-                            ->setClass('col-12 col-md-10 fpcm-ui-field-input-nowrapper-general')
+                            ->setClass('col-12 col-md-5 fpcm-ui-field-input-nowrapper-general')
                             ->setLabelClass('col-12 col-md-2 fpcm-ui-field-label-general'); ?>
                     </div>
                 </div>

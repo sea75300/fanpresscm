@@ -139,9 +139,8 @@ fpcm.system = {
         var dialogIdCom = '#fpcm-dialog-' + dialogId;
 
         fpcm.ui.selectmenu('.fpcm-ui-input-select-massedit', {
-            width: '100%',
             appendTo: dialogIdCom
-        });
+        }).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
 
         if (typeof list.initWidgets === 'function') {
             list.initWidgets(dialogIdCom);

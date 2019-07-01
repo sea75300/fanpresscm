@@ -11,11 +11,11 @@ if (fpcm === undefined) {
 fpcm.articlelist = {
 
     init: function() {
-
-        fpcm.ui.checkboxradio('.fpcm-ui-massedit-categories .fpcm-ui-input-checkbox');
-
         jQuery('#massEdit').click(function () {
             fpcm.system.initMassEditDialog('articles/massedit', 'articles-massedit', fpcm.articlelist);
+            fpcm.ui.controlgroup('.fpcm-ui-massedit-categories', {
+                removeLeftBorderRadius: true
+            });
             return false;
         });
 

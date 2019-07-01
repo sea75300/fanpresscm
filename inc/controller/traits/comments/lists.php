@@ -186,9 +186,10 @@ trait lists {
                 'clipboard',
                 'COMMMENT_MOVE',
                 (new \fpcm\view\helper\textInput('moveToArticle'))
-                    ->setClass('fpcm-ui-input-massedit fpcm-ui-input-articleid')
-                    ->setMaxlenght(20),
-                    'col-sm-6 col-md-4'
+                    ->setClass('fpcm-ui-input-massedit fpcm-ui-input-articleid fpcm-ui-field-input-nowrapper-general')
+                    ->setMaxlenght(20)
+                    ->setWrapper(false),
+                'col-sm-6 col-md-4 '
             );
         }
 

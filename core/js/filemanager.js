@@ -186,24 +186,27 @@ fpcm.filemanager = {
     },
 
     initDeleteButtons: function() {
+
         jQuery('.fpcm-filelist-delete').click(function () {
-            
-            var clearFileName = jQuery(this).data('filename');
+
+            var filename = jQuery(this).data('filename');
+            var path = jQuery(this).data('file');
 
             fpcm.ajax.exec('files/delete', {
                 data: {
-                    filename: jQuery(this).data('file')
+                    filename: path
                 },
                 execDone: function (result) {
-                    
+
                     result = fpcm.ajax.fromJSON(result);
                     fpcm.ui.addMessage({
-                        txt: result.message.replace('{{filenames}}', clearFileName),
+                        txt: result.message.replace('{{filenames}}', filename),
                         type: result.code == 0 ? 'error' : 'notice'
                     });
 
                     fpcm.filemanager.reloadFiles();
                     fpcm.ui.showLoader();
+                    return false;
                 }
             });
 
