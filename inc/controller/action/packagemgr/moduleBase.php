@@ -55,6 +55,14 @@ class moduleBase extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
+     * @return array
+     */
+    protected function getPermissions() {
+        return ['modules' => 'install'];
+    }
+
+    /**
+     * 
      * @return string
      */
     protected function getViewPath(): string

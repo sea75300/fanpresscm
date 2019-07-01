@@ -69,7 +69,6 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             }
 
             if ($value->hasPermission()) {
-
                 if ($this->permissions->check($value->getPermission())) {
                     continue;
                 }

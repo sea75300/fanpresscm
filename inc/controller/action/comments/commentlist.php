@@ -47,6 +47,8 @@ class commentlist extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
+        $this->initCommentPermissions();
+        
         if (!$this->buttonClicked('deleteComment')) {
             return true;
         }
@@ -66,8 +68,6 @@ class commentlist extends \fpcm\controller\abstracts\controller {
     public function process()
     {
         $this->view->assign('commentsMode', 1);
-        
-        $this->initCommentPermissions();
         $this->initSearchForm();
         $this->initCommentMassEditForm(1);
 

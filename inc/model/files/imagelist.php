@@ -223,10 +223,16 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
                 fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath} because of image dimension. You may reduce file size?");
                 continue;
             }
+            
+            if (pathinfo($folderFile, PATHINFO_EXTENSION) == 'bmp' || substr($folderFile, -4) === '.bmp') {
+                $msgPath = ops::removeBaseDir($folderFile);
+                fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath}, \"".pathinfo($folderFile, PATHINFO_EXTENSION)."\" is no supported. You may use another image type?");
+                continue;
+            }
 
             $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($folderFile);
-            $this->removeBasePath($folderFile);
             $image = new \fpcm\model\files\image($folderFile);
+            $this->removeBasePath($folderFile);
             if (file_exists($image->getFileManagerThumbnail())) {
                 $image = null;
                 $phpImgWsp = null;

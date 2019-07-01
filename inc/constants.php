@@ -60,13 +60,6 @@ if (!defined('FPCM_MODULE_IGNORE_DEPENDENCIES')) {
     define('FPCM_MODULE_IGNORE_DEPENDENCIES', false);
 }
 
-if (!defined('FPCM_IGNORE_INSTALLER_DISABLED')) {
-    /**
-     * aktiven Installer ignorieren
-     */
-    define('FPCM_IGNORE_INSTALLER_DISABLED', true);
-}
-
 if (!defined('FPCM_CACHE_DEFAULT_TIMEOUT')) {
     /**
      * Timeout für Sprach-Cache

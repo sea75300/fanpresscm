@@ -75,6 +75,7 @@ class articleedit extends articlebase {
             return false;
         }
 
+        $this->initPermissions();
         $this->checkEditPermissions($this->article);
         if (!$this->article->getEditPermission()) {
             $this->view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
@@ -175,8 +176,6 @@ class articleedit extends articlebase {
 
             $this->view->addMessage('EDITOR_STATUS_INEDIT', ['{{username}}' => $username]);
         }
-
-        $this->initPermissions();
 
         if ($this->showRevision) {
             $this->view->assign('revisionArticle', $this->revisionArticle);

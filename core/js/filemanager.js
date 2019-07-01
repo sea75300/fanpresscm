@@ -19,7 +19,8 @@ fpcm.filemanager = {
         }
 
         fpcm.filemanager.initNewThumbButton();
-    
+        fpcm.filemanager.initDeleteMultipleButton();
+
         jQuery('#tabs-files-list-reload').click(function () {
             fpcm.filemanager.reloadFiles();
             return false;
@@ -241,7 +242,46 @@ fpcm.filemanager = {
                     })
 
                     fpcm.filemanager.reloadFiles();
-                    fpcm.ui.showLoader();
+                }
+            });
+
+            return false;
+        })
+
+    },
+
+    initDeleteMultipleButton: function() {
+
+        var el = jQuery('#deleteFiles');
+        if (!el.length) {
+            return false;
+        }
+
+        el.click(function (event, ui) {
+            
+            var items = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+            if (!items || !items.length) {
+                return false;
+            }
+
+            fpcm.ui.showLoader(true);
+            fpcm.ajax.exec('files/delete', {
+                data: {
+                    filename: items,
+                    multiple: 1
+                },
+                execDone: function (result) {
+                    
+                    result = fpcm.ajax.fromJSON(result);
+
+                    jQuery.each(result.message, function (i, value) {
+                        fpcm.ui.addMessage({
+                            txt: value,
+                            type: result.code[i] ? 'notice' : 'error'
+                        }, i == 1 ? true : false);
+                    })
+
+                    fpcm.filemanager.reloadFiles();
                 }
             });
 

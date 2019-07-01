@@ -81,7 +81,6 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
         $this->uploadPhpForm();
         $this->deleteFiles();
-
         return true;
     }
     
@@ -166,10 +165,12 @@ class filelist extends \fpcm\controller\abstracts\controller {
         $this->view->assign('jquploadPath', \fpcm\classes\dirs::getLibUrl('jqupload/'));
         $this->view->addJsFiles(['filemanager.js', 'fileuploader.js']);
 
+        $actionPath = \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]);
+        
         if ($this->config->file_uploader_new) {
             $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'));
         } else {
-            $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]));
+            $this->view->assign('actionPath', $actionPath);
             $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [
                 '{{filecount}}' => ini_get("max_file_uploads"),
                 '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)

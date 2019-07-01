@@ -88,7 +88,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function getPermissions()
     {
-        return ['article' => 'add', 'article' => 'edit', 'uploads' => 'visible'];
+        return ['uploads' => 'visible'];
     }
     
     /**

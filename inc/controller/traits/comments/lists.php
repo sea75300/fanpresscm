@@ -130,7 +130,7 @@ trait lists {
             return true;
         }
 
-        if ($commentList->deleteComments($ids)) {
+        if ($this->permissionsArray['canDelete'] && $commentList->deleteComments($ids)) {
             $this->view->addNoticeMessage('DELETE_SUCCESS_COMMENTS');
             return true;
         }
