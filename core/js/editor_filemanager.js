@@ -8,11 +8,15 @@ if (fpcm === undefined) {
     var fpcm = {};
 }
 
-fpcm.editor.showFileManager = function() {
+fpcm.editor.showFileManager = function(fmgrMode) {
+        
+    if (fmgrMode === undefined) {
+        fmgrMode = fpcm.vars.jsvars.filemanagerMode;
+    }
         
     var size = fpcm.ui.getDialogSizes(top, 0.75);
 
-    fpcm.ui.appendHtml('#fpcm-dialog-editor-html-filemanager', '<iframe id="fpcm-dialog-editor-html-filemanager-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode + '"></iframe>');
+    fpcm.ui.appendHtml('#fpcm-dialog-editor-html-filemanager', '<iframe id="fpcm-dialog-editor-html-filemanager-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.jsvars.filemanagerUrl + fmgrMode + '"></iframe>');
     fpcm.ui.dialog({
         id       : 'editor-html-filemanager',
         dlMinWidth : size.width,

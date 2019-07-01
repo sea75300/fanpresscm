@@ -44,13 +44,13 @@ class icon extends helper {
             return implode(PHP_EOL, [
                 "<span class=\"{$this->class} fa-stack {$this->size}\"" . ($this->text ? " title=\"{$this->text}\"" : '') . " {$this->getDataString()}>",
                 !$this->stackTop ? $stack : '',
-                "<span class=\"fpcm-ui-icon {$this->icon} fa-stack-1x\"></span>",
+                "<span class=\"fpcm-ui-icon {$this->icon} {$this->spinner} fa-stack-1x\"></span>",
                 $this->stackTop ? $stack : '',
                 "</span>",
             ]);
         }
 
-        return "<span class=\"fpcm-ui-icon {$this->class} {$this->icon} {$this->size} \"" . ($this->text ? " title=\"{$this->text}\"" : '') . "{$this->getDataString()}></span> ";
+        return "<span class=\"fpcm-ui-icon {$this->class} {$this->icon} {$this->size} {$this->spinner}\"" . ($this->text ? " title=\"{$this->text}\"" : '') . "{$this->getDataString()}></span> ";
     }
 
     /**

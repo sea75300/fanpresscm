@@ -12,12 +12,12 @@ namespace fpcm\controller\ajax\articles;
 class inedit extends \fpcm\controller\abstracts\ajaxController {
 
     /**
-     * Request-Handler
-     * @return bool
+     * 
+     * @return array
      */
-    public function request()
+    protected function getPermissions()
     {
-        return $this->session->exists();
+        return ['article' => ['add', 'edit', 'editall']];
     }
 
     /**
@@ -25,10 +25,9 @@ class inedit extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-
-
-
-        $article = new \fpcm\model\articles\article($this->getRequestVar('id', [9]));
+        $article = new \fpcm\model\articles\article($this->getRequestVar('id', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]));
 
         $this->returnCode = 0;
         if (!$article->exists()) {

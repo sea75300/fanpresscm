@@ -256,8 +256,19 @@ trait lists {
                     (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget('_blank'),
                     (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article),
                     (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article),
-                    '</div>'
                 ];
+
+                $isTrash = $this->isTrash ?? false;
+                if ($this->deleteActions && !$isTrash) {
+                    $buttons[] = (new \fpcm\view\helper\button('delete'.$articleId))
+                            ->setText('GLOBAL_DELETE')
+                            ->setIcon('trash')
+                            ->setIconOnly(true)
+                            ->setClass('fpcm-ui-button-delete fpcm-ui-button-delete-article-single')
+                            ->setData(['articleid' => $articleId]);
+                }
+
+                $buttons[] = '</div>';
 
                 $title = [
                     '<strong>' . strip_tags($article->getTitle()) . '</strong>',
@@ -368,7 +379,7 @@ trait lists {
     protected function getDataViewCols()
     {
         return [
-            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2),
             (new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE'))->setSize(4),
             (new \fpcm\components\dataView\column('categories', 'HL_CATEGORIES_MNG'))->setSize(3)->setAlign('center'),

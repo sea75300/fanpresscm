@@ -42,7 +42,7 @@ class useradd extends userbase {
         parent::process();
         
         $this->view->addButtons([
-            new \fpcm\view\helper\saveButton('userSave'),
+            (new \fpcm\view\helper\saveButton('userSave'))->setClass('fpcm-ui-button-primary'),
             (new \fpcm\view\helper\checkbox('data[passInfoUser]'))->setText('USERS_SENDUSERINFO')
         ]);
         $this->view->setFormAction('users/add');

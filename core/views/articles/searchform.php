@@ -69,14 +69,15 @@
 
     <div class="row fpcm-ui-padding-md-tb">
         <div class="col-sm-12 col-md-4">
-            <?php $theView->textInput('datefrom')
+            <?php $theView->dateTimeInput('datefrom')
                     ->setClass('fpcm-articles-search-input fpcm-ui-full-width-date')
                     ->setMaxlenght(10)
                     ->setText('ARTICLE_SEARCH_DATE_FROM')
-                    ->setPlaceholder(true); ?>
+                    ->setPlaceholder(true)
+                    ->setData(['mindate' => $searchMinDate]); ?>
         </div>
         <div class="col-sm-12 col-md-4">
-            <?php $theView->textInput('dateto')
+            <?php $theView->dateTimeInput('dateto')
                     ->setClass('fpcm-articles-search-input fpcm-ui-full-width-date')
                     ->setMaxlenght(10)
                     ->setText('ARTICLE_SEARCH_DATE_TO')

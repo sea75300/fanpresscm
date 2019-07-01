@@ -1,0 +1,246 @@
+/* ------ General colors */
+body {
+    background-image: url(bgmain.svg);
+    background-color: #ebe7f2;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+body,
+a, a:visited, a.fpcm-link
+i, em,
+span.fpcm-ui-button-shorthelp,
+div.fpcm-ui-inline-loader,
+.fpcm-ui-color-grey-dark,
+.fpcm-message-neutral,
+#btnHiddenMenu,
+#btnHiddenMenu:hover,
+#btnHiddenMenu:focus,
+#btnHiddenMenu:active {
+    color: #454545;
+}
+
+h1 span:nth-child(odd) {
+    color: #00aded;
+}
+
+.fpcm-ui-progressbar-label,
+.cm-s-mdn-like.CodeMirror {
+    color: #fefefe !important;
+}
+
+ins,
+div.fpcm-ui-dataview-rowcolpadding,
+.fpcm-message-notice {
+    color: #2779aa;
+}
+
+h3,
+.fpcm-dashboard-container h3,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-head,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-subhead {
+    background: #0073ea url("../../lib/jquery-ui/images/ui-bg_highlight-soft_25_0073ea_1x100.png") 50% 50% repeat-x;
+    color: #fff;
+}
+
+.fpcm-ui-background-white-50p {
+    background: rgba(255,255,255,0.75);
+}
+
+div.fpcm-filelist-thumb-box div.fpcm-filelist-thumb-box-inner,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row {
+    background: rgba(254,254,254,0.7);
+}
+
+div.fpcm-filelist-thumb-box:nth-child(even) div.fpcm-filelist-thumb-box-inner,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even) {
+    background: rgba(254,254,254,0.5);
+}
+
+.fpcm-debug-data {
+    background: rgba(200,200,200,0.5);
+}
+
+.fpcm-message-box {
+    box-shadow: 0px 0px 15px #555555;
+}
+
+.fpcm-message-notice {
+    background:rgba(204, 233, 244, 0.9);
+    border-left: 5px solid #69BDDD;
+}
+
+.fpcm-message-neutral {
+    background: rgba(251, 236, 136, 0.9);
+    border-left: 5px solid #FAD42E;
+}
+
+.fpcm-message-error {
+    background:rgba(230, 168, 168, 0.9);
+    border-left: 5px solid #cc0000;
+}
+
+.fpcm-dashboard-updates-checkerror {
+    color: #666666;
+}
+
+.fpcm-ui-color-blue-light,
+.fpcm-ui-metabox,
+div.fpcm-ui-editor-metabox strong,
+span.fpcm-ui-editor-metainfo,
+span.fpcm-ui-button-shorthelp:hover,
+span.fpcm-ui-booltext-yes {
+    color:#3399ff;
+}
+
+span.fpcm-ui-badge  {
+    background-color: #3399ff;
+}
+
+del,
+.fpcm-message-error,
+.fpcm-ui-important-text,
+span.fpcm-ui-booltext-no {
+    color: #cc0000;
+}
+
+span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-0 {
+    color: transparent;
+}
+
+span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-spinner {
+    color: #aaaaaa;
+}
+
+.fpcm-ui-background-transition {
+    transition: background-color 0.35s ease;
+}
+
+label.fpcm-ui-label-bg-grey,
+.fpcm-ui-field-label-general
+{
+    background: #f8f8f8;
+}
+
+.fpcm-ui-progressbar-label {
+    text-shadow: 0px 0px 2px #ececec;
+}
+
+.fpcm-ui-button-primary {
+    border-color: #0073ea;
+}
+
+legend,
+span.fpcm-ui-badge,
+.fpcm-ui-button-primary {
+    color: #fff;
+}
+
+legend,
+.fpcm-ui-button-primary {
+    background-color: #0073ea;
+}
+
+span.fpcm-ui-badge.fpcm-ui-badge-red {
+    background: #cc0000;
+}
+
+#fpcm-filemanager-upload-drop,
+div.fpcm-filelist-thumb-box img {
+    border: 1px dotted #00aded;
+}
+
+/* ------ Main navigation menu */
+div.fpcm-status-info ul li:hover,
+div.fpcm-status-info ul li:focus,
+div.fpcm-status-info ul li:active {
+    background: rgba(255, 239, 143, 0.5);
+}
+
+
+#fpcm-navigation li:hover,
+#fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active:hover,
+#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active:hover,
+#btnHiddenMenu:hover {
+    background: rgba(0, 115, 234, 0.75);
+}
+
+#fpcm-navigation li:hover > a,
+#fpcm-navigation li:focus > a,
+#fpcm-navigation li:active > a {
+    color: #fff !important;
+}
+
+
+#btnHiddenMenu,
+#fpcm-navigation > ul.fpcm-ui-menu:first-child > li > a {
+    background: none;
+}
+
+#fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active,
+#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active {
+    background: rgba(255, 255, 255, 0.5);
+}
+    
+#fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active {
+    border-bottom: 5px solid #0073ea;
+}
+
+#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active {
+    border-left: 5px solid #0073ea;
+}
+
+/* ------ Top and main navigation and toolbar common styles */
+div.fpcm-status-info ul.fpcm-menu-top li ul {
+    border-top: 2px dotted #0073ea;
+}
+
+/* ------ Forms styles */
+fieldset,
+textarea,
+.fpcm-ui-input-wrapper,
+.fpcm-ui-input-text,
+.fpcm-ui-input-wrapper-inner input,
+.fpcm-ui-background-white-100 {
+    background: #fefefe;
+}
+
+fieldset,
+textarea,
+.fpcm-ui-input-wrapper,
+.fpcm-ui-input-wrapper-hover,
+.fpcm-ui-field-label-general,
+.fpcm-ui-field-input-nowrapper-general,
+.fpcm-ui-border-grey-medium {
+    border: 1px solid #bbb;
+}
+
+textarea:hover,
+textarea:focus,
+textarea:active,
+.fpcm-ui-input-wrapper:hover,
+.fpcm-ui-field-input-nowrapper-general:hover,
+.fpcm-ui-border-blue-light {
+    border: 1px solid #0073ea;
+}
+
+textarea:hover,
+textarea:focus,
+textarea:active,
+.fpcm-ui-input-wrapper:hover,
+.fpcm-ui-input-wrapper-hover,
+.fpcm-ui-field-input-nowrapper-general:hover {
+    box-shadow: #0073ea 0px 0px 4px;
+}
+
+div.fpcm-filelist-thumb-box:hover div.fpcm-filelist-thumb-box-inner,
+div.fpcm-filelist-thumb-box:nth-child(even):hover div.fpcm-filelist-thumb-box-inner,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row:hover ,
+div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even):hover {
+    background: rgba(255, 239, 143, 0.5);
+}
+
+.fpcm-ui-input-text:invalid,
+.fpcm-ui-input-text:required {
+    border-left: 5px solid #f00;
+}

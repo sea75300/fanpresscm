@@ -172,7 +172,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         if ($this->listAction !== 'articles/trash') {
 
             if ($this->permissions->check(['article' => 'add'])) {
-                $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pen-square')->setIconOnly(true);
+                $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pen-square')->setIconOnly(true)->setClass('fpcm-loader');
             }
 
             if ($this->canEdit && $this->permissions->check(['article' => 'massedit'])) {
@@ -190,12 +190,8 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         }
         
         $this->view->addButtons($buttons);
-        
-        $minMax = $this->articleList->getMinMaxDate(1);
-        $this->view->addJsVars([
-            'articleSearchMode'   => $this->getSearchMode(),
-            'articleSearchMinDate' => date('Y-m-d', $minMax['minDate'])
-        ]);
+        $this->view->addJsVars(['articleSearchMode' => $this->getSearchMode()]);
+        $this->view->assign('searchMinDate', date('Y-m-d', $this->articleList->getMinMaxDate(1)['minDate']));
 
         $formActionParams = [];
         if ($this->page) {

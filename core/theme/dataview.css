@@ -4,7 +4,6 @@ div.fpcm-ui-dataview {
 
 div.fpcm-ui-dataview-rowcolpadding {
     margin: 0.5em 0em;
-    color: #2779aa;
 }
 
 div.fpcm-ui-dataview-head {
@@ -22,14 +21,6 @@ div.fpcm-ui-dataview div.fpcm-ui-dataview-subhead,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-row {
     line-height: 1.5em;
     padding: 0.35em 0;
-}
-
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(odd) {
-    background: #f8f8f8;
-}
-
-div.fpcm-ui-dataview div.fpcm-ui-dataview-row:hover {
-    background: #DFEFFC;
 }
 
 div.fpcm-ui-dataview-head,

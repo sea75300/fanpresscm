@@ -73,13 +73,14 @@ class filelist extends \fpcm\controller\abstracts\controller {
         $this->mode = $this->getRequestVar('mode', [\fpcm\classes\http::FILTER_CASTINT]);
         if ($this->mode > 1) {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
+            $this->view->setBodyClass('fpcm-ui-hide-toolbar');
             $styleLeftMargin = false;
         }
 
         $this->view->assign('styleLeftMargin', $styleLeftMargin);
 
         $this->uploadPhpForm();
-
+        $this->deleteFiles();
         return true;
     }
     
@@ -91,13 +92,46 @@ class filelist extends \fpcm\controller\abstracts\controller {
         }
 
         $result = (new \fpcm\model\files\fileuploader($files))->processUpload($this->session->getUserId());
-            if (count($result['success'])) {
-                $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['success'])));
+        if (count($result['success'])) {
+            $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['success'])));
+        }
+
+        if (count($result['error'])) {
+            $this->view->addErrorMessage('SAVE_FAILED_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['error'])));
+        }
+
+        return true;
+    }
+    
+    private function deleteFiles() : bool
+    {
+        $fileNames = $this->getRequestVar('filenames',[
+            \fpcm\classes\http::FILTER_BASE64DECODE
+        ]);
+
+        if (!$this->permissionsData['permDelete'] || !$this->buttonClicked('deleteFiles') || !is_array($fileNames) || !count($fileNames)) {
+            return false;
+        }
+
+        $deletedOk = [];
+        $deletedFailed = [];
+        foreach ($fileNames as $fileName) {
+
+            if ((new \fpcm\model\files\image($fileName, false))->delete()) {
+                $deletedOk[] = $fileName;
+                continue;
             }
 
-            if (count($result['error'])) {
-                $this->view->addErrorMessage('SAVE_FAILED_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['error'])));
-            }
+            $deletedFailed[] = $fileName;
+        }
+
+        if (count($deletedOk)) {
+            $this->view->addNoticeMessage('DELETE_SUCCESS_FILES', array('{{filenames}}' => implode(', ', $deletedOk)));
+        }
+
+        if (count($deletedFailed)) {
+            $this->view->addErrorMessage('DELETE_FAILED_FILES', array('{{filenames}}' => implode(', ', $deletedFailed)));
+        }
 
         return true;
     }
@@ -145,23 +179,21 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
         $this->initViewAssigns([], [], \fpcm\classes\tools::calcPagination(1, 1, 0, 0));
 
-        $hiddenClass = ($this->mode === 1 ? '' : ' fpcm-ui-hidden');
-
         $buttons = [
-            (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setClass($hiddenClass),
-            (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'.$hiddenClass)
+            (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true),
+            (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
         ];
 
         if ($this->permissionsData['permThumbs']) {
-            $buttons[] = (new \fpcm\view\helper\submitButton('createThumbs', 'createThumbs'))->setText('FILE_LIST_NEWTHUMBS')->setIcon('image', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'.$hiddenClass);
+            $buttons[] = (new \fpcm\view\helper\submitButton('createThumbs', 'createThumbs'))->setText('FILE_LIST_NEWTHUMBS')->setIcon('image', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1');
         }
 
         if ($this->permissionsData['permDelete']) {
-            $buttons[] = (new \fpcm\view\helper\button('deleteFiles', 'deleteFiles'))->setText('GLOBAL_DELETE')->setClass('fpcm-ui-button-delete fpcm-ui-maintoolbarbuttons-tab1'.$hiddenClass)->setIcon('trash')->setIconOnly(true);
+            $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles', 'deleteFiles'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab1');
         }
 
         if ($this->permissionsData['permUpload']) {
-            $buttons[] = (new \fpcm\view\helper\linkButton('back'))->setUrl($actionPath)->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
+            $buttons[] = (new \fpcm\view\helper\button('fmgrUploadBack'))->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
         }
 
         if ($this->mode === 1) {

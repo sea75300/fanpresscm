@@ -42,6 +42,12 @@ class login extends \fpcm\controller\abstracts\controller {
     protected $captcha;
 
     /**
+     * Two factor authentication
+     * @var bool
+     */
+    protected $twoFaAuth = false;
+
+    /**
      * 
      * @return string
      */
@@ -97,72 +103,12 @@ class login extends \fpcm\controller\abstracts\controller {
         }
 
         session_start();
-
+        
         $this->loginLocked();
         $this->showLockedForm();
-
-        $doReset = $this->buttonClicked('reset');
-        $doLogin = $this->buttonClicked('login');
-
-        if (($doReset || $doLogin) && !$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-        }
-
-        $data = $this->getRequestVar('login');
-        if ($doLogin && is_array($data) && $this->checkPageToken) {
-
-            $data = $this->events->trigger('session\loginBefore', $data);
-
-            $session = new \fpcm\model\system\session();
-            $loginRes = $session->authenticate($data);
-
-            if ($loginRes === \fpcm\model\users\author::AUTHOR_ERROR_DISABLED) {
-                $this->view = new \fpcm\view\error('LOGIN_FAILED_DISABLED', null, 'sign-in-alt');
-                $this->view->render();
-                exit;
-            }
-
-            if ($loginRes === true && $session->save() && $session->setCookie()) {
-                session_destroy();
-                $this->redirect('system/dashboard');
-                return true;
-            }
-
-            $this->currentAttempts++;
-
-            \fpcm\classes\http::setSessionVar('loginAttempts', $this->currentAttempts);
-            if ($this->currentAttempts == $this->config->system_loginfailed_locked) {
-                $this->loginLocked();
-                $this->showLockedForm();
-            }
-
-            $this->view->addErrorMessage('LOGIN_FAILED');
-        }
-
-        if ($this->currentAttempts >= $this->config->system_loginfailed_locked) {
-            return false;
-        }
-
-        $username = $this->getRequestVar('username');
-        $email = $this->getRequestVar('email');
-        if ($doReset && $username && $email && $this->captcha->checkAnswer()) {
-
-            /* @var $user \fpcm\model\users\author */
-            $user = \fpcm\classes\loader::getObject('\fpcm\model\users\userList')->getUserByUsername($username);
-            if (!$user || !$user->exists()) {
-                $this->redirect();
-                return true;
-            }
-
-            if (filter_var($email, FILTER_VALIDATE_EMAIL) && $user->getEmail() == $email && $user->resetPassword()) {
-                $this->view->addNoticeMessage('LOGIN_PASSWORD_RESET');
-                return true;
-            }
-
-            fpcmLogSystem("Passwort reset for user id {$user->getUsername()} failed.");
-            $this->view->addErrorMessage('LOGIN_PASSWORD_RESET_FAILED');
-            return true;
-        }
+        
+        $this->resetPassword();
+        $this->processLogin();
 
         return true;
     }
@@ -175,12 +121,136 @@ class login extends \fpcm\controller\abstracts\controller {
         $reset = $this->getRequestVar('reset') === null ? false : true;
         $this->view->assign('userNameField', $reset ? 'username' : 'login[username]');
         $this->view->assign('resetPasswort', $reset);
+        $this->view->assign('twoFactorAuth', $this->twoFaAuth);
         $this->view->assign('captcha', $this->captcha);
-        $this->view->assign('twoFactorAuth', $this->config->system_2fa_auth && !$reset);
+//        $this->view->assign('twoFactorAuth', $this->config->system_2fa_auth && !$reset);
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-        $this->view->addJsFiles(['login.js']);
         $this->view->setFormAction('system/login');
         $this->view->render();
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    private function processLogin() : bool
+    {
+        if (!$this->buttonClicked('login')) {
+            return false;
+        }
+
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return false;
+        }        
+
+        $data = $this->getRequestVar('login');
+        if (!is_array($data) || !count($data)) {
+            $this->view->addErrorMessage('LOGIN_FAILED');
+            return false;
+        }
+        
+        if ($this->showTwoFactorForm($data)) {
+            return true;
+        }
+
+        $data = $this->events->trigger('session\loginBefore', $data);
+
+        $session = new \fpcm\model\system\session();
+        $loginRes = $session->authenticate($data);
+
+        if ($loginRes === \fpcm\model\users\author::AUTHOR_ERROR_DISABLED) {
+            $this->view = new \fpcm\view\error('LOGIN_FAILED_DISABLED', null, 'sign-in-alt');
+            $this->view->render();
+            exit;
+        }
+
+        if ($loginRes === true && $session->save() && $session->setCookie()) {
+            session_destroy();
+            $this->redirect('system/dashboard');
+            return true;
+        }
+
+        $this->currentAttempts++;
+
+        \fpcm\classes\http::setSessionVar('loginAttempts', $this->currentAttempts);
+        if ($this->currentAttempts >= $this->config->system_loginfailed_locked) {
+            $this->loginLocked();
+            $this->showLockedForm();
+            return true;
+        }
+
+        $this->view->addErrorMessage('LOGIN_FAILED');
+        return true;
+    }
+
+    /**
+     * 
+     * @param array $data
+     * @return bool
+     */
+    private function showTwoFactorForm(array $data) : bool
+    {
+        if (!$this->config->system_2fa_auth || isset($data['authcode'])) {
+            return false;
+        }
+            
+        $user = (new \fpcm\model\users\userList())->getUserByUsername($data['username']);
+        if (!$user->getAuthtoken()) {
+            return false;
+        }
+
+        $this->twoFaAuth = true;
+        $this->view->assign('username', $data['username']);
+        $this->view->assign('password', $data['password']);
+        return true;
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    private function resetPassword() : bool
+    {
+        if (!$this->buttonClicked('reset')) {
+            return false;
+        }
+
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return false;
+        }
+        
+        $username = $this->getRequestVar('username');
+        $email = $this->getRequestVar('email');
+        if (!trim($username) || !trim($email) || !$this->captcha->checkAnswer()) {
+            fpcmLogSystem("Passwort reset for user id {$user->getUsername()} failed, empty data or captcha failed.");
+            $this->view->addErrorMessage('LOGIN_PASSWORD_RESET_FAILED');
+            return false;
+        }
+
+        /* @var $user \fpcm\model\users\author */
+        $user = \fpcm\classes\loader::getObject('\fpcm\model\users\userList')->getUserByUsername($username);
+        if (!$user || !$user->exists()) {
+            fpcmLogSystem("Passwort reset for user id {$user->getUsername()} failed, user not found.");
+            $this->redirect();
+            return false;
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $user->getEmail() === $email) {
+            fpcmLogSystem("Passwort reset for user id {$user->getUsername()} failed, invalid e-mail address.");
+            $this->view->addErrorMessage('LOGIN_PASSWORD_RESET_FAILED');
+            return false;
+        }
+
+        if (!$user->resetPassword()) {
+            fpcmLogSystem("Passwort reset for user id {$user->getUsername()} failed.");
+            $this->view->addErrorMessage('LOGIN_PASSWORD_RESET_FAILED');
+            return false;
+        }
+
+        $this->view->addNoticeMessage('LOGIN_PASSWORD_RESET');
+        return true;
     }
 
     /**

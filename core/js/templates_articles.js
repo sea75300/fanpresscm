@@ -12,7 +12,7 @@ fpcm.templates_articles = {
            editorId  : 'templatecode',
            elementId : 'templatecode'
         });
-        jQuery('div.CodeMirror').height('auto');
+        jQuery('div.CodeMirror').addClass('fpcm-ui-full-view-min-height');
     }
 
 };

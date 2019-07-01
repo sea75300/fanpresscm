@@ -73,7 +73,8 @@ fpcm.templates = {
                 dlButtons : [
                     {
                         text: fpcm.ui.translate('GLOBAL_SAVE'),
-                        icon: "ui-icon-disk",                        
+                        icon: "ui-icon-disk",
+                        class: 'fpcm-ui-button-primary',
                         click: function() {
                             jQuery(this).children('#fpcm-articletemplates-editor-frame').contents().find('#btnSaveTemplate').trigger('click');
                             fpcm.ui.showLoader(false);

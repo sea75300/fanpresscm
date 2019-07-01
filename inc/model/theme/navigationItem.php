@@ -18,7 +18,6 @@ namespace fpcm\model\theme;
  */
 class navigationItem extends \fpcm\model\abstracts\staticModel {
 
-    const AREA_MENU = 'showMenu';
     const AREA_DASHBOARD = 'dashboard';
     const AREA_ADDNEWS = 'addnews';
     const AREA_EDITNEWS = 'editnews';

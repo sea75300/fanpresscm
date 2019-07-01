@@ -30,8 +30,9 @@ $lang = array(
     'USERS_META_OPTIONS' => 'Benutzereinstellungen',
     'USERS_META_RESET_DASHBOARD' => 'Container-Positionen zurücksetzen',
     'USERS_PASSGEN' => 'Passwort generieren',
-    'USERS_AUTHTOKEN_SAVE' => 'Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den folgenden QR Code mit deinem Smartphone mit der App "Google Authenticator". '.
+    'USERS_AUTHTOKEN_SAVE' => 'Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den folgenden QR Code mit einer App wie "Google Authenticator" auf deinem Smartphone.'.
                               'Trage im Anschluss den ersten Zahlencode ein und wähle "Speichern"',
+    'USERS_AUTHTOKEN_SAVE2' => 'Zahlencode zur Aktivierung',
     'USERS_ARTICLES_SELECT' => 'Bitte wähle aus, was mit Artikeln dieses Benutzer passieren soll',
     'USERS_ARTICLES_USER' => 'Benutzer auswählen',
     'USERS_ARTICLES_LIST' => [

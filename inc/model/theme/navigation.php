@@ -87,35 +87,29 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     private function getNavigation()
     {
         return $this->events->trigger('navigation\add', [
-            navigationItem::AREA_MENU => array(
-                (new navigationItem())->setUrl('#')
-                    ->setDescription('NAVIGATION_SHOW')
-                    ->setIcon('bars')
-                    ->setId('showMenu')
-                    ->setClass('fpcm-navigation-noclick')
-            ),
             navigationItem::AREA_DASHBOARD => array(
-                (new navigationItem())->setUrl('system/dashboard')->setDescription('HL_DASHBOARD')->setIcon('home')
+                (new navigationItem())->setUrl('system/dashboard')->setDescription('HL_DASHBOARD')->setIcon('home fa-lg')
             ),
             navigationItem::AREA_ADDNEWS => array(
                 (new navigationItem())->setUrl('articles/add')
                     ->setDescription('HL_ARTICLE_ADD')
-                    ->setIcon('pen-square')
+                    ->setIcon('pen-square fa-lg')
                     ->setPermission(['article' => 'add'])
             ),
             navigationItem::AREA_EDITNEWS => array(
                 (new navigationItem())->setUrl('#')
                     ->setDescription('HL_ARTICLE_EDIT')
-                    ->setIcon('book')
+                    ->setIcon('book fa-lg')
                     ->setSubmenu($this->editorSubmenu())
-                    ->setPermission(['article' => 'edit'])
+                    ->setPermission(['article' => ['editall', 'edit', 'archive']])
                     ->setId('nav-id-editnews')
                     ->setClass('fpcm-navigation-noclick')
             ),
             navigationItem::AREA_COMMENTS => array(
                 (new navigationItem())->setUrl('comments/list')
                     ->setDescription('HL_COMMENTS_MNG')
-                    ->setIcon('comments')
+                    ->setIcon('comments fa-lg')
+                    ->setId('nav-item-editcomments')
                     ->setPermission([
                         'article' => ['editall', 'edit'],
                         'comment' => ['editall', 'edit']
@@ -124,13 +118,13 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             navigationItem::AREA_FILEMANAGER => array(
                 (new navigationItem())->setUrl('files/list&mode=1')
                     ->setDescription('HL_FILES_MNG')
-                    ->setIcon('folder-open')
+                    ->setIcon('folder-open fa-lg')
                     ->setPermission(['uploads' => 'visible'])
             ),
             navigationItem::AREA_OPTIONS => array(
                 (new navigationItem())->setUrl('#')
                     ->setDescription('HL_OPTIONS')
-                    ->setIcon('cog')
+                    ->setIcon('cog fa-lg')
                     ->setSubmenu($this->optionSubmenu())
                     ->setPermission(['system' => 'options'])
                     ->setId('fpcm-options-submenu')
@@ -139,7 +133,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             navigationItem::AREA_MODULES => array(
                 (new navigationItem())->setUrl('modules/list')
                     ->setDescription('HL_MODULES')
-                    ->setIcon('plug')
+                    ->setIcon('plug fa-lg')
                     ->setSubmenu($this->modulesSubmenu())
                     ->setPermission(['modules' => [
                         'install', 'uninstall', 'configure'
@@ -198,7 +192,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             (new navigationItem())->setUrl('articles/listarchive')
                 ->setDescription('HL_ARTICLE_EDIT_ARCHIVE')
                 ->setIcon('archive')
-                ->setPermission(['article' => ['edit', 'editall'], 'article' => 'archive'])
+                ->setPermission(['article' => 'archive'])
         ];
     }
 

@@ -19,10 +19,6 @@ fpcm.options = {
             saveActiveTab: true
         });
 
-        fpcm.ui.datepicker('#articles_archive_datelimit', {
-            maxDate: "-3m"
-        });
-        
         fpcm.ui.checkboxradio('.fpcm-ui-input-checkbox');
 
         jQuery('#syschecksubmitstats').click(function () {

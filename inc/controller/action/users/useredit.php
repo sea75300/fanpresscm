@@ -92,7 +92,7 @@ class useredit extends userbase {
         $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
 
         $buttons = [
-            (new \fpcm\view\helper\saveButton('userSave')),
+            (new \fpcm\view\helper\saveButton('userSave'))->setClass('fpcm-ui-button-primary'),
             (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
         ];
         

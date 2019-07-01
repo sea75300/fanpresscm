@@ -56,6 +56,13 @@ class view {
     protected $formAction = '';
 
     /**
+     * <body> CSS class
+     * @var string
+     * @since FPCM 4.2
+     */
+    protected $bodyClass = '';
+
+    /**
      * Include header and footer in view::render
      * @var int
      */
@@ -428,7 +435,7 @@ class view {
             return false;
         }
 
-        array_unshift($this->viewJsFiles, \fpcm\classes\loader::libGetFileUrl('jquery/jquery-3.3.1.min.js'));
+        array_unshift($this->viewJsFiles, \fpcm\classes\loader::libGetFileUrl('jquery/jquery-3.4.1.min.js'));
     }
 
     /**
@@ -623,6 +630,7 @@ class view {
         $this->defaultViewVars->currentModule = \fpcm\classes\http::get('module');
         $this->defaultViewVars->buttons = $this->buttons;
         $this->defaultViewVars->formActionTarget = $this->formAction;
+        $this->defaultViewVars->bodyClass = $this->bodyClass;
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
         $this->defaultViewVars->filesCss = array_unique(array_map([$this, 'addRootPath'], $this->viewCssFiles));
 
@@ -791,7 +799,17 @@ class view {
     {
         $this->jsvars['activeTab'] = $tab;
         $this->viewVars['activeTab'] = $tab;
-        return true;
+    }
+
+    /**
+     * Set <body>-tag CSS class
+     * @param int $bodyClass
+     * @return void
+     * @since FPCM 4.2
+     */
+    public function setBodyClass(string $bodyClass)
+    {
+        $this->bodyClass = $bodyClass;
     }
 
     /**
@@ -893,7 +911,7 @@ class view {
     private function initJsFiles()
     {
         $this->addJsFiles([
-            self::ROOTURL_LIB.'jquery/jquery-3.3.1.min.js',
+            self::ROOTURL_LIB.'jquery/jquery-3.4.1.min.js',
             self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.js',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
             self::ROOTURL_CORE_JS.'script.php?uq={$unique}'

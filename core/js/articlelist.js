@@ -19,6 +19,10 @@ fpcm.articlelist = {
             return false;
         });
 
+        fpcm.articlelist.initArticleSearch();
+    },
+    
+    initAfter: function() {
         fpcm.dataview.render('articlelist', {
             onRenderAfter: function() {
                 fpcm.ui.assignCheckboxes();
@@ -26,8 +30,8 @@ fpcm.articlelist = {
             }
         });
 
-        fpcm.articlelist.initArticleSearch();
         fpcm.articlelist.clearArticleCache();
+        fpcm.articlelist.deleteSingleArticle();
     },
     
     assignActions: function() {
@@ -62,10 +66,6 @@ fpcm.articlelist = {
                 appendTo: '#fpcm-dialog-articles-search'
             });
 
-            fpcm.ui.datepicker('.fpcm-ui-full-width-date', {
-                minDate: fpcm.vars.jsvars.articleSearchMinDate
-            });
-
             fpcm.ui.dialog({
                 id      : 'articles-search',
                 dlWidth: fpcm.ui.getDialogSizes(top, 0.75).width,
@@ -74,7 +74,8 @@ fpcm.articlelist = {
                 dlButtons  : [
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
-                        icon: "ui-icon-check",
+                        icon: 'ui-icon-check',
+                        class: 'fpcm-ui-button-primary',
                         click: function() {                            
                             var sfields = jQuery('.fpcm-articles-search-input');
                             var sParams = {
@@ -124,12 +125,13 @@ fpcm.articlelist = {
 
         fpcm.ajax.post('articles/search', {
             data: sParams,
-            execDone: function () {
+            execDone: function (result) {
+
+                result = fpcm.ajax.fromJSON(result);
 
                 fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
                 fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
 
-                var result = fpcm.ajax.getResult('articles/search', true);
                 fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
                 fpcm.dataview.updateAndRender(result.dataViewName, {
                     onRenderAfter: function () {
@@ -139,6 +141,7 @@ fpcm.articlelist = {
                 });
 
                 fpcm.articlelist.clearArticleCache();
+                fpcm.articlelist.deleteSingleArticle();
                 fpcm.ui.showLoader(false);
             }
         });
@@ -148,6 +151,7 @@ fpcm.articlelist = {
     
     articleActionsTweet: function() {
         fpcm.ui.confirmDialog({
+            defaultNo: true,
             clickYes: function() {
                 var articleIds = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
                 if (articleIds.length == 0) {
@@ -212,6 +216,35 @@ fpcm.articlelist = {
                 objid: objid
             });
             
+            return false;
+        });
+
+    },
+
+    deleteSingleArticle: function() {
+        
+        jQuery('.fpcm-ui-button-delete-article-single').click(function() {
+
+            var articleId = jQuery(this).data('articleid');
+            
+            fpcm.ui.confirmDialog({
+                
+                clickYes: function () {
+                    fpcm.ui.showLoader(true);
+                    fpcm.ajax.exec('articles/delete', {
+                        data: {
+                            id: articleId
+                        },
+                        execDone: function (result) {
+                            window.location.reload();
+                        }
+                    });
+                    jQuery(this).dialog("close");
+                },
+                clickNoDefault: true
+                
+            });
+
             return false;
         });
 

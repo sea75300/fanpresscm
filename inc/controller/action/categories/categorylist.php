@@ -129,7 +129,7 @@ class categorylist extends \fpcm\controller\abstracts\controller {
     protected function getDataViewCols()
     {
         return [
-            (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('name', 'CATEGORIES_NAME'))->setSize(3),
             (new \fpcm\components\dataView\column('groups', 'CATEGORIES_ROLLS'))->setSize(3),

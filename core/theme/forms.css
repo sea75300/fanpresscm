@@ -1,0 +1,45 @@
+/* ------ Forms common */
+input, select, textarea, option, button {
+    border: 0;
+    outline: 0;
+    font-size: 1em;
+}
+
+.fpcm-ui-input-wrapper-inner,
+.fpcm-ui-field-label-general,
+.fpcm-ui-field-input-nowrapper-general,
+textarea {
+    padding: 0.3em 0.4em;
+}
+
+.fpcm-ui-input-wrapper-inner,
+.fpcm-ui-field-label-general,
+.fpcm-ui-field-input-nowrapper-general {
+    width: auto;
+    height: auto;
+}
+
+.fpcm-ui-input-wrapper,
+.fpcm-ui-input-wrapper input {
+    height: auto;
+}
+
+input[type="text"][readonly],
+textarea[readonly],
+.fpcm-ui-readonly {
+    opacity: 0.35;
+}
+
+textarea.fpcm-ui-textarea-medium {
+    height: 150px;
+}
+
+.fpcm-ui-box-sizing-none {
+    box-sizing: initial !important;
+}
+
+.fpcm-ui-input-text:invalid,
+.fpcm-ui-input-text:required {
+    box-shadow: none;
+    padding-left: 0.3rem;
+}

@@ -316,7 +316,8 @@ if (fpcm.editor) {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
-                    icon: "ui-icon-check",                        
+                    icon: "ui-icon-check",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
 
                         var rowCount = jQuery('#listrows').val();
@@ -419,7 +420,8 @@ if (fpcm.editor) {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
-                    icon: "ui-icon-check",                        
+                    icon: "ui-icon-check",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
 
                         var mode    = jQuery('.fpcm-ui-editor-colormode:checked').val();
@@ -462,7 +464,8 @@ if (fpcm.editor) {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
-                    icon: "ui-icon-copy",                        
+                    icon: "ui-icon-copy",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
 
                         var item = jQuery('#tpldraft').val();
@@ -538,26 +541,32 @@ if (fpcm.editor) {
     };
     
     fpcm.editor.insertMedia = function () {
+        
         fpcm.ui.dialog({
             id: 'editor-html-insertmedia',
             dlWidth: fpcm.ui.getDialogSizes().width,
             title: fpcm.ui.translate('EDITOR_INSERTMEDIA'),
+            resizable: true,
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
-                    icon: "ui-icon-check",                        
+                    icon: "ui-icon-check",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
 
                         var tagName = jQuery('.fpcm-editor-mediatype:checked').val();
                         
                         var elPath = jQuery('#mediapath');
                         var elPathAlt = jQuery('#mediapath2');
+                        var elFormatVal = jQuery('#mediaformat').val();
+                        var elFormatAltVal = jQuery('#mediaformat2').val();
+                        var elAutoplay = jQuery('#autoplay:checked');
 
                         var aTag = '<' + tagName + '>';
-                        aTag += '<source src="' + elPath.val() + '">';
+                        aTag += '<source src="' + elPath.val() + '"' + (elFormatVal ? ' type="' + elFormatVal + '"' : '') + (elAutoplay.length && elAutoplay.val() ? ' autoplay' : '') + '>';
 
                         if (elPathAlt.val()) {
-                            aTag += '<source src="' + elPathAlt.val() + '">';
+                            aTag += '<source src="' + elPathAlt.val() + '"' + (elFormatAltVal ? ' type="' + elFormatAltVal + '"' : '') + '>';
                         }
 
                         fpcm.editor.insert(aTag, '</' + tagName + '>');
@@ -577,10 +586,25 @@ if (fpcm.editor) {
                     onlyVisible: false
                 });
             },
+            dlOnOpen: function () {
+
+                fpcm.ui.selectmenu('.fpcm-editor-mediaformat',{
+                    appendTo: '#fpcm-dialog-editor-html-insertmedia',
+                    width: '100%'
+                });
+                
+                jQuery( "#mediaformat" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
+                jQuery( "#mediaformat2" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
+
+            },
             dlOnClose: function() {
-                jQuery('#mediapath').val('http://');
                 jQuery('.fpcm-editor-mediatype').removeAttr('checked');    
-                jQuery('#mediatypea').prop( "checked", true );
+                jQuery('#autoplay').prop('checked', false).checkboxradio('refresh');
+                jQuery('#mediapath').val('');
+                jQuery('#mediapath2').val('');
+                jQuery('#mediatypea').prop('checked', true );
+                jQuery('#mediaformat').val('').selectmenu('refresh');
+                jQuery('#mediaformat2').val('').selectmenu('refresh');
             }
         });
     };
@@ -607,7 +631,8 @@ if (fpcm.editor) {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
-                    icon: "ui-icon-check",                        
+                    icon: "ui-icon-check",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
 
                         var tablerows = jQuery('#tablerows').val();
@@ -645,7 +670,8 @@ if (fpcm.editor) {
     fpcm.editor.insertPicture = function () {
         
         jQuery( "#imagesalign" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
-        
+        jQuery( "#imagescss" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );        
+
         fpcm.ui.dialog({
             id: 'editor-html-insertimage',
             dlWidth: fpcm.ui.getDialogSizes().width,
@@ -653,15 +679,18 @@ if (fpcm.editor) {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
-                    icon: "ui-icon-check",                        
+                    icon: "ui-icon-check",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
 
                         var pic_path = jQuery('#imagespath').val();
                         var pic_align = jQuery('#imagesalign').val();
                         var pic_atxt = jQuery('#imagesalt').val();
+                        var pic_css = jQuery('#imagescss').val();
 
-                        if(jQuery('#imagescss') != null) {
-                            var pic_css = jQuery('#imagescss').value;
+                        var elCss = jQuery('#imagescss');
+                        if(elCss) {
+                            var pic_css = elCss.val();
                         }
 
                         if (pic_align == "right" || pic_align == "left") {
@@ -713,7 +742,7 @@ if (fpcm.editor) {
                 fpcm.editor.setSelectToDialog(this);
             },
             dlOnClose: function() {
-                jQuery('#imagespath').val('http://');
+                jQuery('#imagespath').val('');
                 jQuery('#imagesalign').val('');
                 jQuery('#imagesalt').val('');
                 jQuery('#imagescss').val('');
@@ -725,6 +754,7 @@ if (fpcm.editor) {
     fpcm.editor.insertLink = function() {
 
         jQuery( "#linkstarget" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
+        jQuery( "#linkscss" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
         
         fpcm.ui.dialog({
             id: 'editor-html-insertlink',
@@ -734,6 +764,7 @@ if (fpcm.editor) {
                 {
                     text: fpcm.ui.translate('GLOBAL_INSERT'),
                     icon: "ui-icon-check",
+                    class: "fpcm-ui-button-primary",
                     click: function() {
                         var lnk_url = jQuery('#linksurl').val();
                         var lnk_txt = jQuery('#linkstext').val();
@@ -789,7 +820,7 @@ if (fpcm.editor) {
                 fpcm.editor.setSelectToDialog(this);
             },
             dlOnClose: function () {
-                jQuery('#linksurl').val('http://');
+                jQuery('#linksurl').val('');
                 jQuery('#linkstext').val('');
                 jQuery('#linkstarget').val('');
                 jQuery('#linkscss').val('');

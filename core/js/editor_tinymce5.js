@@ -15,11 +15,17 @@ fpcm.editor.initTinyMce = function() {
     fpcm.vars.jsvars.editorConfig.file_picker = function(callback, value, meta) {
 
         fpcm.editor.filePickerCallback = callback;
+        fpcm.editor.filePickerActions = {
+            fmSearch: 'opensearch',
+            fmNewThumbs: 'createThumbs',
+            fmDelete: 'deleteFiles'
+        };
 
         tinymce.activeEditor.windowManager.openUrl({
             title: fpcm.ui.translate('HL_FILES_MNG'),
             size: 'large',
             url: fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode,
+            id: 'fpcm-dialog-editor-tinymce-filemanager',
             buttons: [
                 {
                     type:  'custom',
@@ -53,19 +59,16 @@ fpcm.editor.initTinyMce = function() {
                     primary: true
                 },                          
             ],
-            initialData: {
-                fmSearch: 'opensearch',
-                fmNewThumbs: 'createThumbs',
-                fmDelete: 'deleteFiles'
-            },
             onAction: function(api, action) {
 
-                if (!this.initialData[action.name]) {
+                if (!fpcm.editor.filePickerActions[action.name]) {
                     return false;
                 }
 
-                jQuery('#fpcm-dialog-editor-tinymce-filemanager').contents().find('#' + this.initialData[action.name]).click();
-                
+                api.sendMessage({
+                    mceAction: 'clickFmgrBtn',
+                    cmd: fpcm.editor.filePickerActions[action.name]
+                });
             }
         });
 

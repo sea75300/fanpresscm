@@ -186,7 +186,10 @@ class articleedit extends articlebase {
             $this->view->assign('showShares', false);
             $this->view->setFormAction($this->article->getEditLink(), ['rev' => $this->revisionId], true);
 
-            $this->view->addButton((new \fpcm\view\helper\linkButton('backToArticel'))->setUrl($this->article->getEditLink())->setText('EDITOR_BACKTOCURRENT')->setIcon('chevron-circle-left'), 2);
+            $this->view->addButton((new \fpcm\view\helper\linkButton('backToArticel'))
+                    ->setUrl($this->article->getEditLink())
+                    ->setText('EDITOR_BACKTOCURRENT')
+                    ->setIcon('chevron-circle-left'), 2);
         } else {
 
             $users = $this->userList->getUsersByIds([

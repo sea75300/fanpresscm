@@ -92,7 +92,7 @@ class preview extends \fpcm\controller\abstracts\controller {
         }
 
         $this->view->overrideJsFiles($this->events->trigger('pub\addJsFiles', [
-            \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.3.1.min.js'),
+            \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.4.1.min.js'),
             \fpcm\classes\dirs::getRootUrl('js/fpcm.js')
         ]));
         
