@@ -122,6 +122,7 @@ $lang = array(
     'CRONJOB_LIST_EXECDEMAND' => 'Cronjob jetzt ausführen',
     'CRONJOB_LIST_INTERVAL' => 'Zeit-Intervall',
     'BACKUPS_TAB_DATABASE' => 'Datenbank',
+    'BACKUPS_TOP_DESCRIPTION' => 'Die erzeugten Backups kannst du via FTP/ SSH, etc. aus dem Verzeichnis <em>{{path}}</em> herunterladen.',
     'FILE_LIST_AVAILABLE' => 'Vorhandene Dateien',
     'FILE_LIST_UPLOADFORM' => 'Dateien hochladen',
     'FILE_LIST_FILENAME' => 'Dateiname',

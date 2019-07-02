@@ -41,7 +41,7 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
      * IP-Adresse für Kommentare gesperrt
      * @var bool
      */
-    protected $nocomments = 1;
+    protected $nocomments = 0;
 
     /**
      * IP-Adresse für ACP-Login gesperrt
@@ -54,6 +54,12 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
      * @var bool
      */
     protected $noaccess = 0;
+
+    /**
+     * Action-String für edit-Action
+     * @var string
+     */
+    protected $editAction = 'ips/edit&id=';
 
     /**
      * Konstruktor
@@ -203,7 +209,22 @@ class ipaddress extends \fpcm\model\abstracts\dataset {
      */
     public function update()
     {
-        return false;
+        if (!$this->check()) {
+            return false;
+        }
+
+        $params = $this->getPreparedSaveParams();
+        $params = $this->events->trigger('ipaddressUpdate', $params);        
+        $fields = array_keys($params);
+        $params[] = $this->getId();
+
+        $return = false;
+        if ( $this->dbcon->update($this->table, $fields, array_values($params), 'id = ?') ) {
+            $return = true;
+        }
+
+        $this->cache->cleanup();
+        return $return;
     }
 
     /**

@@ -102,7 +102,12 @@ class backups extends \fpcm\controller\abstracts\controller {
         $this->view->assign('headline', 'HL_BACKUPS');
         $this->view->addJsFiles(['backups.js']);
         $this->view->addButton((new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm'));
-        $this->view->setFormAction('system/backups');
+        $this->view->setFormAction('system/backups');        
+        $this->view->assign('topDescription', $this->language->translate(
+            'BACKUPS_TOP_DESCRIPTION',
+            ['path' => \fpcm\model\files\ops::removeBaseDir(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP), true)]
+        ));
+
         $this->view->render();
     }
 
@@ -110,7 +115,6 @@ class backups extends \fpcm\controller\abstracts\controller {
     {
         return [
             (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('name', 'FILE_LIST_FILENAME'))->setSize(7),
             (new \fpcm\components\dataView\column('size', 'FILE_LIST_FILESIZE'))->setSize(3),
         ];
@@ -141,7 +145,6 @@ class backups extends \fpcm\controller\abstracts\controller {
         
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('files', 'files'.$hash))->setValue($val)->setReadonly($this->i > $this->deletePrevent ? false : true), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\linkButton('download'.$hash))->setUrl($url)->setText('GLOBAL_DOWNLOAD')->setIconOnly(true)->setIcon('download') , '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             new \fpcm\components\dataView\rowCol('name', $basename),
             new \fpcm\components\dataView\rowCol('size', \fpcm\classes\tools::calcSize(filesize($file)) ),
         ]);

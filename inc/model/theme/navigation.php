@@ -240,18 +240,15 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 ->setDescription('HL_CRONJOBS')
                 ->setIcon('history')
                 ->setPermission(['system' => 'crons']),
+            (new navigationItem())->setUrl('system/backups')
+                ->setDescription('HL_BACKUPS')
+                ->setIcon('life-ring')
+                ->setPermission(['system' => 'backups']),
             (new navigationItem())->setUrl('system/logs')
                 ->setDescription('HL_LOGS')
                 ->setIcon('exclamation-triangle')
                 ->setPermission(['system' => 'logs']),
         ];
-
-        if (\fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() == \fpcm\classes\database::DBTYPE_MYSQLMARIADB) {
-            $data[] = (new navigationItem())->setUrl('system/backups')
-                ->setDescription('HL_BACKUPS')
-                ->setIcon('life-ring')
-                ->setPermission(['system' => 'backups']);
-        }
 
         return $data;
     }

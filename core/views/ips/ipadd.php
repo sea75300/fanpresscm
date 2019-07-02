@@ -21,6 +21,7 @@
                     <div class="row">
                         <?php $theView->textInput('ipaddress')
                             ->setWrapper(false)
+                            ->setValue($object->getIpaddress())
                             ->setText('IPLIST_IPADDRESS')
                             ->setIcon('network-wired')
                             ->setClass('col-12 col-md-5 fpcm-ui-field-input-nowrapper-general')
@@ -38,9 +39,9 @@
                         </label>
                         <div class="col-12 col-md-10 fpcm-ui-padding-none-lr">
                             <div class="fpcm-ui-controlgroup">
-                                <?php $theView->checkbox('nocomments')->setText('IPLIST_NOCOMMENTS'); ?>
-                                <?php $theView->checkbox('nologin')->setText('IPLIST_NOLOGIN'); ?>
-                                <?php $theView->checkbox('noaccess')->setText('IPLIST_NOACCESS'); ?>
+                                <?php $theView->checkbox('nocomments')->setText('IPLIST_NOCOMMENTS')->setSelected($object->getNocomments()); ?>
+                                <?php $theView->checkbox('nologin')->setText('IPLIST_NOLOGIN')->setSelected($object->getNologin()); ?>
+                                <?php $theView->checkbox('noaccess')->setText('IPLIST_NOACCESS')->setSelected($object->getNoaccess()); ?>
                             </div>
                         </div>
                     </div>

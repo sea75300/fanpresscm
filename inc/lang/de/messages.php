@@ -46,6 +46,7 @@ $lang = array(
     'SAVE_SUCCESS_PERMISSIONS' => 'Die Änderungen an den Berechtigungen wurde gespeichert!',
     'SAVE_SUCCESS_SMILEY' => 'Der Smiley wurde gespeichert!',
     'SAVE_SUCCESS_IPADDRESS' => 'Die IP-Adresse wurde gesperrt!',
+    'SAVE_SUCCESS_IPADDRESS_CHG' => 'Die Änderungen an der IP-Adresse-Sperre wurden gespeichert!',
     'SAVE_SUCCESS_WORDBAN' => 'Der Begriff wurde gespeichert!',
     'SAVE_SUCCESS_UPLOADPHP' => 'Die Dateien wurden hochgeladen!<br>{{filenames}}',
     'SAVE_SUCCESS_TEMPLATE' => 'Das Template {{filename}} wurde gespeichert!<br>',
