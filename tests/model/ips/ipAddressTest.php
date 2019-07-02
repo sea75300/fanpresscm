@@ -21,14 +21,27 @@ class ipAddressTest extends testBase {
         $object->setIpaddress($GLOBALS['test_ip_address']);
         $object->setIptime($GLOBALS['test_ctime']);
         $object->setNoaccess(1);
-        $object->setNocomments(1);
-        $object->setNologin(1);
+        $object->setNocomments(0);
+        $object->setNologin(0);
         $object->setUserid(1);
 
         $result = $object->save();
         $this->assertTrue($result);
 
         $GLOBALS['objectId'] = $object->getId();
+    }
+
+    public function testUpdate()
+    {
+        /* @var $object fpcm\model\ips\ipaddress */
+        $object = $this->object;
+
+        $object->setNoaccess(1);
+        $object->setNocomments(1);
+        $object->setNologin(1);
+        
+        $result = $object->update();
+        $this->assertTrue($result);
     }
 
     public function testGetItem()
