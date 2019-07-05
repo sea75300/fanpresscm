@@ -16,7 +16,6 @@ fpcm.dashboard = {
     },
     
     load: function () {
-        fpcm.ui.showLoader(true, '<strong>' + fpcm.ui.translate('DASHBOARD_LOADING') + '</strong>');
         fpcm.ajax.exec('dashboard', {
             execDone: function(result) {
                 fpcm.ui.assignHtml('#fpcm-dashboard-containers', result);
@@ -24,7 +23,9 @@ fpcm.dashboard = {
                 fpcm.ui.showLoader(false);
                 fpcm.dashboard.forceUpdate();
                 fpcm.dashboard.openUpdateCheckUrl();
-                jQuery('#fpcm-dashboard-containers').sortable({
+                
+                var el = jQuery('#fpcm-dashboard-containers');
+                el.sortable({
                     items: 'div.fpcm-dashboard-container',
                     handle: 'span.fpcm-dashboard-container-move',
                     opacity: 0.5,

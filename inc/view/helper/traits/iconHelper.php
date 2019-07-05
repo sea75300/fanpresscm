@@ -48,6 +48,13 @@ trait iconHelper {
     protected $size = '';
 
     /**
+     * Spinner class for icon
+     * @var string
+     * @since FPCM 4.2
+     */
+    protected $spinner = '';
+
+    /**
      * Set icon
      * @param string $icon Icon CSS classes
      * @param string $prefix Icon prefix
@@ -91,7 +98,7 @@ trait iconHelper {
      */
     public function setSize($size, $useFa = true)
     {
-        $this->size = ($size ? 'fa-' . $size : $size);
+        $this->size = ($useFa ? 'fa-' . $size : $size);
         return $this;
     }
 
@@ -105,6 +112,17 @@ trait iconHelper {
         $this->stackTop = (bool) $stackTop;
         return $this;
     }
+
+    /**
+     * Set flag icon has spinner
+     * @param string $spinner
+     * @return $this
+     */
+    public function setSpinner($spinner, $useFa = true)
+    {
+        $this->spinner = ($useFa ? 'fa-' . $spinner : $spinner);
+        return $this;
+    }
     
     /**
      * Return full icon string
@@ -116,7 +134,7 @@ trait iconHelper {
             return '';
         }
 
-        return "<span class=\"fpcm-ui-icon {$this->icon} {$this->size}\"></span> ";
+        return "<span class=\"fpcm-ui-icon {$this->icon} {$this->size} {$this->spinner}\"></span> ";
     }
 
 }

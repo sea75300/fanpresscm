@@ -198,7 +198,7 @@ function fpcmDebugOutput()
     $html[] = 'Base directory: ' . \fpcm\classes\dirs::getFullDirPath('');
     $html[] = 'Execution time: ' . fpcm\classes\timer::cal() . ' sec';
     $html[] = 'Database queries: ' . \fpcm\classes\loader::getObject('\fpcm\classes\database')->getQueryCount();
-    print '<div class="fpcm-debug-data d-none d-md-block">' . implode("<br>\n", $html) . '</div>' . PHP_EOL . PHP_EOL;
+    print '<div class="fpcm-debug-data d-none d-md-block p-2">' . implode("<br>\n", $html) . '</div>' . PHP_EOL . PHP_EOL;
 }
 
 /**

@@ -3,13 +3,14 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertlink">
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('links[url]', 'linksurl')
-                ->setValue('http://')
+                ->setType('url')
+                ->setValue('')
                 ->setWrapper(false)
                 ->setText('EDITOR_LINKURL')
                 ->setIcon('external-link-alt')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
+                ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
     </div>
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('links[text]', 'linkstext')
@@ -17,11 +18,11 @@
                 ->setText('EDITOR_LINKTXT')
                 ->setIcon('keyboard')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
+                ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
     </div>   
     <div class="row fpcm-ui-padding-md-tb">            
-        <label class="col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md">
+        <label class="col-6 col-md-4 fpcm-ui-field-label-general">
             <?php $theView->icon('window-restore')->setSize('lg'); ?>
             <?php $theView->write('EDITOR_LINKTARGET'); ?>
         </label>
@@ -29,7 +30,7 @@
     </div>
     <?php if (count($cssClasses)) : ?>
     <div class="row fpcm-ui-padding-md-tb">            
-        <label class="col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md">
+        <label class="col-6 col-md-4 fpcm-ui-field-label-general">
             <?php $theView->icon('paint-roller')->setSize('lg'); ?>
             <?php $theView->write('EDITOR_CSS_CLASS'); ?>
         </label>
@@ -42,13 +43,14 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertimage">
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('images[path]', 'imagespath')
-                ->setValue('http://')
+                ->setType('url')
+                ->setValue('')
                 ->setWrapper(false)
                 ->setText('EDITOR_IMGPATH')
                 ->setIcon('image')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
+                ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
     </div>
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('images[alt]', 'imagesalt')
@@ -56,11 +58,11 @@
                 ->setText('EDITOR_IMGALTTXT')
                 ->setIcon('keyboard')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
+                ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
     </div>   
     <div class="row fpcm-ui-padding-md-tb">            
-        <label class="col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md">
+        <label class="col-6 col-md-4 fpcm-ui-field-label-general">
             <?php $theView->icon('align-center')->setSize('lg'); ?>
             <?php $theView->write('EDITOR_IMGALIGN'); ?>
         </label>
@@ -68,7 +70,7 @@
     </div>
     <?php if (count($cssClasses)) : ?>
     <div class="row fpcm-ui-padding-md-tb">            
-        <label class="col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md">
+        <label class="col-6 col-md-4 fpcm-ui-field-label-general">
             <?php $theView->icon('paint-roller')->setSize('lg'); ?>
             <?php $theView->write('EDITOR_CSS_CLASS'); ?>
         </label>
@@ -85,7 +87,7 @@
                 ->setWrapper(false)->setText('EDITOR_INSERTTABLE_ROWS')
                 ->setIcon('arrow-down')
                 ->setSize('lg')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+                ->setLabelClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-label-general'); ?>
     </div>
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('table[rows]', 'tablecols')
@@ -93,7 +95,7 @@
                 ->setWrapper(false)->setText('EDITOR_INSERTTABLE_COLS')
                 ->setIcon('arrow-right')
                 ->setSize('lg')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+                ->setLabelClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-label-general'); ?>
     </div>
 </div>
 
@@ -105,7 +107,7 @@
                 ->setWrapper(false)->setText('EDITOR_INSERTTABLE_ROWS')
                 ->setIcon('keyboard')
                 ->setSize('lg')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+                ->setLabelClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-label-general'); ?>
     </div>
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('list[type]', 'listtype')
@@ -113,8 +115,8 @@
                 ->setWrapper(false)->setText('EDITOR_INSERTLIST_TYPESIGN')
                 ->setIcon('list-ul')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-4 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+                ->setClass('col-6 col-md-4 fpcm-ui-field-input-nowrapper-general')
+                ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
     </div>
 </div>
 
@@ -122,25 +124,47 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertmedia">
     
     <div class="row fpcm-ui-padding-md-tb">
-        <?php $theView->textInput('media[path]', 'mediapath')
-                ->setValue('http://')
-                ->setWrapper(false)
-                ->setText('EDITOR_IMGPATH')
-                ->setIcon('film ')
-                ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+        <div class="col-12 col-md-8 fpcm-ui-padding-none-lr">
+            <div class="row">
+                <?php $theView->textInput('media[path]', 'mediapath')
+                        ->setType('url')
+                        ->setValue('')
+                        ->setWrapper(false)
+                        ->setText('EDITOR_IMGPATH')
+                        ->setIcon('film ')
+                        ->setSize('lg')
+                        ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
+                        ->setLabelClass('col-6 col-md-4 col-lg-3 fpcm-ui-field-label-general'); ?>
+            </div>
+        </div>
+        <div class="col-1 col-md-auto fpcm-ui-field-label-general">
+            <?php $theView->icon('photo-video')->setClass('fpcm-ui-margin-md-right')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(true)->setSize('lg'); ?>
+        </div>
+        <div class="col-11 col-md-3 mt-2 mt-md-0 fpcm-ui-padding-none-lr">
+            <?php $theView->select('media[format]', 'mediaformat')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat')->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+        </div>
     </div> 
     
     <div class="row fpcm-ui-padding-md-tb">
-        <?php $theView->textInput('media[path2]', 'mediapath2')
-                ->setValue('')
-                ->setWrapper(false)
-                ->setText('EDITOR_IMGPATH_ALT')
-                ->setIcon('file-video')
-                ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+        <div class="col-12 col-md-8 fpcm-ui-padding-none-lr">
+            <div class="row">
+                <?php $theView->textInput('media[path]', 'mediapath2')
+                        ->setType('url')
+                        ->setValue('')
+                        ->setWrapper(false)
+                        ->setText('EDITOR_IMGPATH_ALT')
+                        ->setIcon('file-video')
+                        ->setSize('lg')
+                        ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
+                        ->setLabelClass('col-6 col-md-4 col-lg-3 fpcm-ui-field-label-general'); ?>
+            </div>
+        </div>
+        <div class="col-1 col-md-auto fpcm-ui-field-label-general">
+            <?php $theView->icon('photo-video')->setClass('fpcm-ui-margin-md-right')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(true)->setSize('lg'); ?>
+        </div>
+        <div class="col-11 col-md-3 mt-2 mt-md-0 fpcm-ui-padding-none-lr">
+            <?php $theView->select('media[format2]', 'mediaformat2')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat')->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+        </div>
     </div> 
     
     <div class="row fpcm-ui-padding-md-tb">        
@@ -148,6 +172,7 @@
             <div id="fpcm-ui-editor-media-controlgroup">
                 <?php $theView->radiobutton('mediatype', 'mediatypea')->setText('EDITOR_INSERTMEDIA_AUDIO')->setClass('fpcm-editor-mediatype')->setValue('audio')->setSelected(true); ?>
                 <?php $theView->radiobutton('mediatype', 'mediatypev')->setText('EDITOR_INSERTMEDIA_VIDEO')->setClass('fpcm-editor-mediatype')->setValue('video'); ?>
+                <?php $theView->checkbox('autoplay', 'autoplay')->setText('EDITOR_INSERTMEDIA_AUTOPLAY')->setValue(1); ?>
             </div>
         </div>
     </div>
@@ -159,13 +184,14 @@
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('colorhexcode')
                 ->setValue('#000000')
+                ->setType('color')
                 ->setWrapper(false)
                 ->setMaxlenght(7)
                 ->setText('EDITOR_INSERTCOLOR_HEXCODE')
                 ->setIcon('eye-dropper')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-4 fpcm-ui-border-blue-light fpcm-ui-border-radius-right fpcm-ui-input-wrapper-inner fpcm-ui-element-min-height-md')
-                ->setLabelClass('col-6 col-md-8 fpcm-ui-padding-none-lr fpcm-ui-border-blue-light fpcm-ui-border-none-right fpcm-ui-label-bg-grey fpcm-ui-input-wrapper-inner fpcm-ui-border-radius-left fpcm-ui-element-min-height-md'); ?>
+                ->setClass('col-6 col-md-4 fpcm-ui-field-input-nowrapper-general')
+                ->setLabelClass('col-6 col-md-8 fpcm-ui-field-label-general'); ?>
     </div>    
 
     <div class="row no-gutters fpcm-ui-padding-md-tb">

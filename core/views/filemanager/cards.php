@@ -9,8 +9,8 @@
 
 <div class="row">
 <?php foreach($files AS $file) : ?>
-    <div class="col-12 col-sm-6 col-lg-4 fpcm-ui-padding-none-lr fpcm-filelist-thumb-box">
-        <div class="fpcm-filelist-thumb-box-inner fpcm-ui-background-transition">
+    <div class="col-12 col-sm-6 col-lg-4 fpcm-ui-padding-none-lr fpcm-filelist-thumb-box fpcm-ui-center">
+        <div class="fpcm-filelist-thumb-box-inner fpcm-ui-background-transition fpcm-ui-padding-md-all fpcm-ui-margin-md-all">
             <div class="fpcm-ui-center">
                 <a href="<?php print $file->getImageUrl(); ?>" target="_blank" class="fpcm-link-fancybox" data-fancybox="group" >
                     <img src="<?php if (file_exists($file->getFileManagerThumbnail())) : ?><?php print $file->getFileManagerThumbnailUrl(); ?><?php else : ?><?php print $theView->themePath; ?>dummy.png<?php endif; ?>" width="100" height="100" title="<?php print $file->getFileName(); ?>">

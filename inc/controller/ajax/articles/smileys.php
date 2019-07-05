@@ -20,6 +20,15 @@ namespace fpcm\controller\ajax\articles;
  */
 class smileys extends \fpcm\controller\abstracts\ajaxController {
 
+    /**
+     * 
+     * @return array
+     */
+    protected function getPermissions()
+    {
+        return ['article' => ['add', 'edit', 'editall']];
+    }
+
     protected function getViewPath() : string
     {
         return $this->getRequestVar('json') ? '' : 'articles/editors/smileys';

@@ -1,26 +1,19 @@
 @import url(droid_sans/stylesheet.css);
 @import url(raleway/stylesheet.css);
 
+/* ------ General common styles */
+
 body {
     font-size: 10pt;
-    text-align: left;
-    color: #0048a9;
-    background: #ffffff;
     margin:0;
     padding:0;
     height: 100%;
-    background: -moz-linear-gradient(top, #ffffff 0%, #d0e3ed 50%, #d7e8f2 51%, #ffffff 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#d0e3ed), color-stop(51%,#d7e8f2), color-stop(100%,#ffffff));
-    background: -webkit-linear-gradient(top, #ffffff 0%,#d0e3ed 50%,#d7e8f2 51%,#ffffff 100%);
-    background: -ms-linear-gradient(top, #ffffff 0%,#d0e3ed 50%,#d7e8f2 51%,#ffffff 100%);
-    background: linear-gradient(to bottom, #ffffff 0%,#d0e3ed 50%,#d7e8f2 51%,#ffffff 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );
-    background-attachment: fixed;
    -moz-hyphens: auto;
    -o-hyphens: auto;
    -webkit-hyphens: auto;
    -ms-hyphens: auto;
    -hyphens: auto;
+    scroll-behavior: smooth;
 }
 
 body,
@@ -37,14 +30,85 @@ button {
     font-family: 'Droid Sans', sans-serif !important;
 }
 
-label {
-    font-weight:bold;
+.fpcm-ui-monospace {
+    font: 1em 'Courier New', monospace !important;
+}
+
+h1 {
+    font-family: 'Raleway', 'Droid Sans', sans-serif !important;
+    font-size: 2rem !important;
+    font-weight: 300;
+    padding: 0.5rem 0;
+    margin: 0;
+}
+
+h1 span:nth-child(even) {
+    letter-spacing: -3px;
+}
+
+h2 {
+    font-size:1.35em;
+}
+
+h3 {
+    font-size:1.2em;
+    padding: 0.3em 0em;
+    margin: 0.2em 0em;    
+}
+
+h2,
+h3,
+.fpcm-dashboard-container h3 {
+    padding: 0.4em;
+}
+
+a, a:visited, a.fpcm-link {
+    text-decoration: none;  
+}
+
+a:hover, a:focus, a:active {
+    text-decoration: none;
+}
+
+b,
+strong,
+dt,
+a, a:visited, a.fpcm-link,
+a:hover, a:focus, a:active,
+h2,
+h3, .fpcm-dashboard-container h3 {
+    font-weight: bold;
 }
 
 table {
     border-spacing: 0;
 }
 
+td {
+    vertical-align: top;
+}
+
 img {
     border:0;
+}
+
+label {
+    font-weight: normal;
+}
+
+legend,
+span.fpcm-ui-badge {
+    padding: 0.3em 0.5em;
+}
+
+h2,
+h3,
+fieldset,
+legend,
+textarea,
+span.fpcm-ui-badge,
+.fpcm-dashboard-container h3,
+.fpcm-ui-input-wrapper,
+.fpcm-ui-border-radius-all {
+    border-radius: 5px;
 }

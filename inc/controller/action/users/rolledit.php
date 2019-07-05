@@ -11,19 +11,24 @@ namespace fpcm\controller\action\users;
 
 class rolledit extends rollbase {
 
-    protected function getViewPath() : string
-    {
-        return 'users/rolledit';
-    }
+    /**
+     *
+     * @var string
+     */
+    protected $headlineVar = 'USERS_ROLL_EDIT';
 
     public function request()
     {
-        if (is_null($this->getRequestVar('id'))) {
+        $id = $this->getRequestVar('id', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]);
+
+        if (!$id || $id <= 3) {
             $this->redirect('users/list');
             return false;
         }
 
-        $this->userRoll = new \fpcm\model\users\userRoll($this->getRequestVar('id'));
+        $this->getRollObject($id);
         $this->view->setFormAction($this->userRoll->getEditLink(), [], true);
 
         if (!$this->userRoll->exists()) {
@@ -32,10 +37,8 @@ class rolledit extends rollbase {
         }
 
         $this->save(true);
-
         return parent::request();
     }
-
 }
 
 ?>

@@ -133,11 +133,14 @@ class userlist extends \fpcm\controller\abstracts\controller {
         $this->view->assign('rollPermissions', $rollsPerm);
         $this->view->addJsFiles(['users.js']);
         $this->view->addJsLangVars(['USERS_ARTICLES_SELECT', 'HL_OPTIONS_PERMISSIONS']);
+        $this->view->addJsVars([
+            'activeTab' => $this->getActiveTab()
+        ]);
         $this->view->setFormAction('users/list');
 
         $buttons = [
             (new \fpcm\view\helper\linkButton('addUser'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/add'))->setText('USERS_ADD')->setClass('fpcm-loader fpcm-ui-maintoolbarbuttons-tab1')->setIcon('user-plus'),
-            (new \fpcm\view\helper\submitButton('disableUser'))->setText('GLOBAL_DISABLE')->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setIcon('user-slash'),
+            (new \fpcm\view\helper\submitButton('disableUser'))->setText('GLOBAL_DISABLE')->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setIcon('user-lock'),
             (new \fpcm\view\helper\submitButton('enableUser'))->setText('GLOBAL_ENABLE')->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setIcon('user-check'),
             (new \fpcm\view\helper\deleteButton('deleteUser'))->setClass('fpcm-ui-maintoolbarbuttons-tab1')            
         ];
@@ -172,7 +175,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
         $dataView = new \fpcm\components\dataView\dataView('userlist');
         
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
             (new \fpcm\components\dataView\column('username', 'GLOBAL_USERNAME'))->setSize(3),
             (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL'))->setSize(3),
@@ -251,7 +254,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
         $dataView = new \fpcm\components\dataView\dataView('rollslist');
         
         $dataView->addColumns([
-            (new \fpcm\components\dataView\column('select', ''))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', ''))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2)->setAlign('center'),
             (new \fpcm\components\dataView\column('title', 'USERS_ROLLS_NAME'))->setSize('auto'),
         ]);

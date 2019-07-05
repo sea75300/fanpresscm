@@ -29,6 +29,7 @@ smileys/list: action/smileys/smileylist
 smileys/add: action/smileys/smileyadd
 ips/list: action/ips/iplist
 ips/add: action/ips/ipadd
+ips/edit: action/ips/ipedit
 articles/add: action/articles/articleadd
 articles/edit: action/articles/articleedit
 articles/listall: action/articles/articlelistall

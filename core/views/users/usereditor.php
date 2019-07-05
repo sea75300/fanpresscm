@@ -4,87 +4,132 @@
         <fieldset>
             <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
             
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('USERS_DISPLAYNAME'); ?>:
-                </div>
-                <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('data[displayname]')->setValue($author->getDisplayName())->setAutocomplete(false); ?>
-                </div>
-            </div>
-
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('GLOBAL_USERNAME'); ?>:
-                </div>
-                <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('data[username]')->setValue($author->getUserName())->setReadonly((isset($inProfile) && $inProfile))->setAutocomplete(false); ?>
+            <div class="row fpcm-ui-padding-md-tb no-gutters">
+                <div class="col-12 col-sm-6">
+                    <div class="row">
+                        <?php $theView->textInput('data[displayname]')
+                            ->setValue($author->getDisplayName())
+                            ->setAutocomplete(false)
+                            ->setWrapper(false)
+                            ->setText('USERS_DISPLAYNAME')
+                            ->setIcon('signature')
+                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
+                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
+                    </div>
                 </div>
             </div>
-
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('GLOBAL_PASSWORD'); ?>:
+            
+            <div class="row fpcm-ui-padding-md-tb no-gutters">
+                <div class="col-12 col-sm-6">
+                    <div class="row">
+                        <?php $theView->textInput('data[username]')
+                            ->setValue($author->getUserName())
+                            ->setReadonly((isset($inProfile) && $inProfile))
+                            ->setAutocomplete(false)
+                            ->setWrapper(false)
+                            ->setText('GLOBAL_USERNAME')
+                            ->setIcon('user')
+                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
+                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
+                    </div>
                 </div>
-                <div class="col-sm-11 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('data[password]', 'password')->setAutocomplete(false); ?>
+            </div>
+            
+            <div class="row fpcm-ui-padding-md-tb no-gutters">
+                <div class="col-12 col-sm-6">
+                    <div class="row">
+                        <?php $theView->textInput('data[password]', 'password')
+                            ->setAutocomplete(false)
+                            ->setWrapper(false)
+                            ->setText('GLOBAL_PASSWORD')
+                            ->setIcon('passport')
+                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
+                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
+                    </div>
                 </div>
-                <div class="col-auto">
+                <div class="col-12 col-sm-auto mt-2 ml-0 mt-sm-0 ml-sm-3">
                     <?php $theView->button('genPasswd', 'genPasswd')->setText('USERS_PASSGEN')->setIcon('key')->setIconOnly(true); ?>
                     <?php $theView->shorthelpButton('dtmask')->setText('USERS_REQUIREMENTS'); ?>
                 </div>
             </div>
-
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('USERS_PASSWORD_CONFIRM'); ?>:
-                </div>
-                <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('data[password_confirm]', 'password_confirm')->setAutocomplete(false); ?>
-                </div>
-            </div>
-
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('GLOBAL_EMAIL'); ?>:
-                </div>
-                <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('data[email]')->setValue($author->getEmail()); ?>
+            
+            <div class="row fpcm-ui-padding-md-tb no-gutters">
+                <div class="col-12 col-sm-6">
+                    <div class="row">
+                        <?php $theView->textInput('data[password_confirm]', 'password_confirm')
+                            ->setAutocomplete(false)
+                            ->setWrapper(false)
+                            ->setText('USERS_PASSWORD_CONFIRM')
+                            ->setIcon('passport')
+                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
+                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
+                    </div>
                 </div>
             </div>
-
+            
+            <div class="row fpcm-ui-padding-md-tb no-gutters">
+                <div class="col-12 col-sm-6">
+                    <div class="row">
+                        <?php $theView->textInput('data[email]')
+                            ->setType('email')
+                            ->setValue($author->getEmail())
+                            ->setWrapper(false)
+                            ->setText('GLOBAL_EMAIL')
+                            ->setIcon('at')
+                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
+                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
+                    </div>
+                </div>
+            </div>
+            
             <div class="row fpcm-ui-padding-md-tb <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
-                <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('USERS_ROLL'); ?>:
-                </div>
-                <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->select('data[roll]')
-                            ->setOptions($userRolls)
-                            ->setSelected($author->getRoll())
-                            ->setReadonly(($inProfile))
-                            ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
+                    <div class="row">
+                        <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+                            <?php $theView->icon('users'); ?>
+                            <?php $theView->write('USERS_ROLL'); ?>:
+                        </label>
+                        <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <?php $theView->select('data[roll]')
+                                    ->setOptions($userRolls)
+                                    ->setSelected($author->getRoll())
+                                    ->setReadonly((isset($inProfile) && $inProfile))
+                                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <?php if($inProfile) : ?>
-            <div id="fpcm-ui-currentpass-box" class="row fpcm-ui-padding-md-tb fpcm-ui-hidden">
-                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->icon('exclamation-triangle ')->setClass('fpcm-ui-important-text')->setSize('lg'); ?>
-                    <?php $theView->write('GLOBAL_PASSWORD_CONFIRM'); ?>:
-                </div>
-                <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->textInput('data[current_pass]')->setAutocomplete(false); ?>
+            
+            <div id="fpcm-ui-currentpass-box" class="row no-gutters fpcm-ui-padding-md-tb fpcm-ui-hidden">
+                <div class="col-12 col-sm-6">
+                    <div class="row">
+                        <?php $theView->passwordInput('data[current_pass]')
+                            ->setAutocomplete(false)
+                            ->setWrapper(false)
+                            ->setText('GLOBAL_PASSWORD_CONFIRM')
+                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
+                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general')
+                            ->setIcon('exclamation-triangle fpcm-ui-important-text')
+                            ->setSize('lg'); ?>
+                    </div>
                 </div>
             </div>
             <?php endif; ?>
 
             <?php if ($showDisableButton) : ?>
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                    <?php $theView->write('GLOBAL_DISABLE'); ?>:
-                </div>
-                <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                    <?php $theView->boolSelect('data[disabled]')->setSelected($author->getDisabled()); ?>
+            <div class="row fpcm-ui-padding-md-tb <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
+                <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
+                    <div class="row">
+                        <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+                            <?php $theView->icon('user-slash'); ?>
+                            <?php $theView->write('GLOBAL_DISABLE'); ?>:
+                        </label>
+                        <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <?php $theView->boolSelect('data[disabled]')->setSelected($author->getDisabled()); ?>
+                        </div>
+                    </div>
                 </div>
             </div>
             <?php endif; ?>
@@ -92,82 +137,52 @@
     </div>
 </div>
 
-<?php if ($showExtended) : ?>
-    <div class="row no-gutters">
-        <div class="col-12">
-            <fieldset class="fpcm-ui-margin-md-top">
-                <legend><?php $theView->write('GLOBAL_EXTENDED'); ?></legend>
+<?php if ($twoFaAuth) : ?>
+<div class="row no-gutters">
+    <div class="col-12">
+        <fieldset class="fpcm-ui-margin-md-top">
+            <legend><?php $theView->write('SYSTEM_OPTIONS_LOGIN_TWOFACTORAUTH'); ?></legend>
 
-                <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                        <?php $theView->write('USERS_BIOGRAPHY'); ?>:
-                    </div>
-                    <div class="col-sm-12 col-md-6 fpcm-ui-padding-none-lr">
-                        <?php $theView->textarea('data[usrinfo]')->setValue($author->getUsrinfo())->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width') ?>
-                    </div>
+            <?php if ($secret !== false && $qrCode !== false) : ?>
+            <div class="row no-gutters fpcm-ui-padding-md-tb">
+                <div class="col-12">
+                    <?php $theView->write('USERS_AUTHTOKEN_SAVE'); ?>:
                 </div>
+            </div>
 
-                <?php if ($showImage) : ?>
-                <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                        <?php $theView->write('USERS_AVATAR'); ?>:
-                    </div>
-                    <div class="col-sm-12 col-md-9 fpcm-ui-padding-none-lr">
-                        <div class="fpcm-ui-controlgroup fpcm-ui-margin-lg-bottom" id="user_profile_image_buttons">
-                            <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
-                            <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload'); ?>
-                            <?php $theView->resetButton('cancelUpload')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban'); ?>
-                            <?php if ($avatar) : ?><?php $theView->deleteButton('fileDelete')->setClass('fpcm-ui-button-confirm'); ?><?php endif; ?>
-                            <input type="file" name="files" class="fpcm-ui-fileinput-select fpcm-ui-hidden">
-                        </div>
+            <div class="row no-gutters fpcm-ui-padding-md-tb">
+                <div class="col-12 col-sm-6">
+                    <div class="row">
+                        <?php $theView->textInput('data[authCodeConfirm]', 'authCodeConfirm')
+                            ->setValue('')
+                            ->setMaxlenght(6)
+                            ->setAutocomplete(false)
+                            ->setWrapper(false)
+                            ->setText('USERS_AUTHTOKEN_SAVE2')
+                            ->setClass('col-12 col-sm-3 fpcm-ui-field-input-nowrapper-general')
+                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general')
+                            ->setIcon('exclamation-triangle fpcm-ui-important-text')
+                            ->setSize('lg'); ?>                    
 
-                        <?php if ($avatar) : ?>
-                            <p><img src="<?php print $avatar; ?>"></p>
-                        <?php else: ?>
-                            <p class="fpcm-ui-padding-none fpcm-ui-margin-none"><?php $theView->icon('image')->setStack('ban fpcm-ui-important-text')->setStackTop(true); ?>
-                            <?php $theView->write('GLOBAL_NOTFOUND'); ?></p>
-                        <?php endif; ?>
-                    </div>
-                </div>
-                <?php endif; ?>
-            </fieldset>
-        </div>
-    </div>
-
-    <?php if ($twoFaAuth) : ?>
-    <div class="row no-gutters">
-        <div class="col-12">
-            <fieldset class="fpcm-ui-margin-md-top">
-                <legend><?php $theView->write('SYSTEM_OPTIONS_LOGIN_TWOFACTORAUTH'); ?></legend>
-
-                <?php if ($secret !== false && $qrCode !== false) : ?>
-                <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-12 col-md-3 fpcm-ui-padding-md-bottom fpcm-ui-padding-none-left">
-                        <?php $theView->write('USERS_AUTHTOKEN_SAVE'); ?>:
-                    </div>
-                    <div class="col-sm-12 col-md-3 fpcm-ui-padding-none-left">
-                        <?php $theView->textInput('data[authCodeConfirm]', 'authCodeConfirm')->setValue('')->setMaxlenght(6); ?>
                         <?php $theView->hiddenInput('data[authSecret]', 'authSecret')->setValue($secret); ?>
                     </div>
                 </div>
-                <div class="row fpcm-ui-padding-md-tb fpcm-ui-center">
-                    <div class="col-sm-12">
-                        <img src="<?php echo $qrCode; ?>">
-                    </div>
+            </div>
+            <div class="row no-gutters fpcm-ui-padding-md-tb fpcm-ui-center">
+                <div class="col-12 col-sm-6">
+                    <img src="<?php echo $qrCode; ?>">
                 </div>
-                <?php else : ?>
-                <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-12">
-                        <?php $theView->icon('user-secret')->setStack('check fpcm-ui-editor-metainfo fpcm-ui-status-075')->setSize('lg')->setStackTop(true); ?>
-                        <?php $theView->write('USERS_AUTHTOKEN_ACTIVE'); ?>
-                        <?php $theView->checkbox('disable2Fa')->setText('GLOBAL_DISABLE'); ?>
-
-                    </div>
+            </div>
+            <?php else : ?>
+            <div class="row fpcm-ui-padding-md-tb">
+                <div class="col-12">
+                    <?php $theView->icon('user-secret')->setStack('check fpcm-ui-editor-metainfo fpcm-ui-status-075')->setSize('lg')->setStackTop(true); ?>
+                    <?php $theView->write('USERS_AUTHTOKEN_ACTIVE'); ?>
+                    <?php $theView->checkbox('disable2Fa')->setText('GLOBAL_DISABLE'); ?>
                 </div>
-                <?php endif; ?>
-            </fieldset>
-        </div>
+            </div>
+            <?php endif; ?>
+        </fieldset>
     </div>
-    <?php endif; ?>
-
+</div>
 <?php endif; ?>

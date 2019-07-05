@@ -19,6 +19,8 @@ fpcm.modulelist = {
             btnUpdateAll.click(function (){
 
                 fpcm.ui.confirmDialog({
+                    defaultNo: true,
+                    clickNoDefault: true,
                     clickYes: function () {
                         var url = fpcm.vars.actionPath + 'package/modupdate&key=';
                         var urls = [];
@@ -33,9 +35,6 @@ fpcm.modulelist = {
                             fpcm.ui.openWindow(dest);
                         });
 
-                    },
-                    clickNo: function () {
-                        jQuery(this).dialog("close");
                     }
                 });
 
@@ -71,12 +70,10 @@ fpcm.modulelist = {
             var destUrl = jQuery(this).attr('href');
 
             fpcm.ui.confirmDialog({
+                defaultNo: true,
+                clickNoDefault: true,
                 clickYes: function () {
                     fpcm.ui.relocate(destUrl);
-                    return false;
-                },
-                clickNo: function () {
-                    jQuery(this).dialog("close");
                     return false;
                 }
             });

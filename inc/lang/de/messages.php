@@ -7,6 +7,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 $lang = array(
+    'GUI_VIEWPORT_SIZE' => 'Achtung! Auch wenn viel Wert auf eine gute mobile Nutzung gelegt wurde, kann es unter der aktuellen Auflösung zu Einschränkungen bei der Benutzerbeikeit der Software kommen.',
     'LOGIN_FAILED' => 'Der Benutzername oder das Passwort ist falsch. Bitte versuche es erneut.',
     'LOGIN_FAILED_DISABLED' => 'Der angegebene Benutzername wurde deaktiviert.',
     'LOGIN_REQUIRED' => 'Bitte melde dich an, um die angeforderte Seite aufrufen zu können!',
@@ -29,6 +30,7 @@ $lang = array(
     'FILE_NOT_WRITABLE' => 'Die ausgewählte Datei ist nicht beschreibbar, bitte prüfe die Berechtigungen auf dem Server.',
     'TEMPLATE_NOT_WRITABLE' => 'Das ausgewählte Template ist nicht beschreibbar, bitte prüfe die Berechtigungen auf dem Server.',
     'USERS_AUTHTOKEN_ACTIVE' => 'Die Zwei-Faktor-Authentifizierung ist aktiv.',
+    'CRONJOB_ECEDUTING' => 'Cronjob <em>{{cjname}}</em> wird ausgeführt, bitte warten...',
     'SAVE_SUCCESS_ADDUSER' => 'Der Benutzer wurde gespeichert!',
     'SAVE_SUCCESS_USER_DISABLE' => 'Der Benutzer wurde deaktiviert!',
     'SAVE_SUCCESS_USER_ENABLE' => 'Der Benutzer wurde aktiviert!',
@@ -44,6 +46,7 @@ $lang = array(
     'SAVE_SUCCESS_PERMISSIONS' => 'Die Änderungen an den Berechtigungen wurde gespeichert!',
     'SAVE_SUCCESS_SMILEY' => 'Der Smiley wurde gespeichert!',
     'SAVE_SUCCESS_IPADDRESS' => 'Die IP-Adresse wurde gesperrt!',
+    'SAVE_SUCCESS_IPADDRESS_CHG' => 'Die Änderungen an der IP-Adresse-Sperre wurden gespeichert!',
     'SAVE_SUCCESS_WORDBAN' => 'Der Begriff wurde gespeichert!',
     'SAVE_SUCCESS_UPLOADPHP' => 'Die Dateien wurden hochgeladen!<br>{{filenames}}',
     'SAVE_SUCCESS_TEMPLATE' => 'Das Template {{filename}} wurde gespeichert!<br>',

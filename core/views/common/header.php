@@ -12,35 +12,35 @@
 
     </head>    
 
-    <body class="fpcm-body" id="fpcm-body">
+    <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
 
-        <div id="fpcm-messages"></div>
+        <div id="fpcm-messages" class="fpcm-ui-position-absolute fpcm-ui-position-right-0"></div>
+        
+        <div class="fpcm-ui-wrapper">
 
-        <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
+            <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
-        <?php include_once $theView->getIncludePath('common/menutop.php'); ?>
-            
-        <div class="row">
+            <header>
+                <div class="row no-gutters fpcm-ui-background-white-100">
+                    <div class="col-12 col-md-6 fpcm-ui-ellipsis">
+                        <h1 class="fpcm-ui-padding-lg-lr"><?php $theView->icon('chevron-right '); ?> <span>FanPress CM</span> <span>News System</span></h1>
+                    </div>
+                    <div class="col-12 col-md-6 fpcm-ui-ellipsis d-block d-sm-none">
+                        <p class="fpcm-ui-center fpcm-ui-padding-md-lr fpcm-ui-font-small"><?php $theView->icon('exclamation-circle'); ?> <?php $theView->write('GUI_VIEWPORT_SIZE'); ?></p>
+                    </div>
+                    <div class="col-12 col-md-6 align-self-center">
+                        <?php include_once $theView->getIncludePath('common/menutop.php'); ?>
+                    </div>                
+                </div>
+            </header>
 
-            <div class="<?php if ($theView->fullWrapper) : ?>fpcm-ui-hidden<?php else : ?>col-sm-12 col-md-2<?php endif; ?> fpcm-ui-padding-none-lr fpcm-ui-background-white-50p" id="fpcm-wrapper-left">
-
-                <div class="row no-gutters fpcm-ui-full-height">
+            <nav>
+                <div class="row no-gutters align-self-center">
                     <div class="col-12">
-                        <div id="fpcm-ui-logo" class="fpcm-ui-logo fpcm-ui-center fpcm-ui-margin-none">
-                            <h1><span class="fpcm-ui-block">FanPress CM</span> <span class="fpcm-ui-block">News System</span></h1>
-                        </div>
-
                         <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
-                        
-                        <div class="fpcm-footer fpcm-ui-font-small fpcm-ui-center fpcm-footer-bottom d-none d-md-block">
-                            <?php include $theView->getIncludePath('common/footer_copy.php'); ?>
-                        </div>
-                        
                     </div>
                 </div>
-                
+            </nav>
 
-            </div>
-
-            <div class="<?php if ($theView->fullWrapper) : ?>col-sm-12<?php else : ?>col-md-10<?php endif; ?> fpcm-ui-padding-none-lr" id="fpcm-wrapper-right">
-                <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
+            <div class="container-fluid">
+                    <?php include_once $theView->getIncludePath('common/buttons.php'); ?>

@@ -16,7 +16,6 @@ fpcm.ui = {
 
         fpcm.ui._intVars.msgEl = jQuery('#fpcm-messages');
 
-        fpcm.ui.highlightModule();
         fpcm.ui.showMessages();
         fpcm.ui.messagesInitClose();
 
@@ -24,27 +23,13 @@ fpcm.ui = {
         fpcm.ui.initJqUiWidgets();
         fpcm.ui.initInputShadow();
         fpcm.ui.spinner('input.fpcm-ui-spinner');
+        fpcm.ui.datepicker('input.fpcm-ui-datetime-picker');
         fpcm.ui.accordion('.fpcm-tabs-accordion');
         fpcm.ui.initDateTimeMasks();
-        
-        jQuery('#itemshowMenu').find('a').click(function () {
-            fpcm.ui.showLoader(false);
-            jQuery('div.fpcm-navigation ul.fpcm-menu li.fpcm-menu-level1-show').toggle();
-            return false;
-        });
 
         jQuery('.fpcm-navigation-noclick').click(function () {
             fpcm.ui.showLoader(false);
             return false;
-        });
-        
-        jQuery('.fpcm-menu-level1-hassubmenu').hover(function () {
-            
-            if (jQuery(window).width() < 768) {
-                return true;
-            }
-            
-            jQuery(this).find('ul.fpcm-submenu').css('left', jQuery('#fpcm-navigation-ul').width());
         });
 
         jQuery('#fpcm-clear-cache').click(function () {
@@ -54,6 +39,11 @@ fpcm.ui = {
         jQuery('.fpcm-loader').click(function () {
             if (jQuery(this).hasClass('fpcm-noloader') || jQuery(this).hasClass('fpcm-navigation-noclick')) return false;
             fpcm.ui.showLoader(true);
+        });
+        
+        jQuery('#fpcm-ui-form').submit(function () {
+            fpcm.ui.showLoader(true);
+            return true;
         });
         
         if (fpcm.vars.jsvars.fieldAutoFocus) {
@@ -372,6 +362,15 @@ fpcm.ui = {
         params.firstDay          = 1;
         params.dateFormat        = "yy-mm-dd";
 
+        var elData = el.data();
+        if (elData.mindate) {
+            params.minDate = elData.mindate;
+        }
+
+        if (elData.maxdate) {
+            params.maxDate = elData.maxdate;
+        }
+
         el.datepicker(params);
     },
 
@@ -394,7 +393,7 @@ fpcm.ui = {
         }
         
         if (params.width === undefined) {
-            params.width = 200;
+            params.width = 300;
         }
 
         var el = jQuery(elemClassId).selectmenu(params);
@@ -441,8 +440,16 @@ fpcm.ui = {
             return false;
         }
 
-        return el.controlgroup(params);
+        var elResult = el.controlgroup(params);
+        if (params.removeLeftBorderRadius) {
+            elResult.find('.ui-controlgroup-item').first().removeClass('ui-corner-left');
+        }
 
+        if (params.removeRightBorderRadius) {
+            elResult.find('.ui-controlgroup-item').first().removeClass('ui-corner-right');
+        }
+        
+        return elResult;
     },
     
     button: function(elemClassId, params, onClick) {
@@ -555,19 +562,6 @@ fpcm.ui = {
         return el.autocomplete(params);
     },
     
-    highlightModule: function() {
-
-        if (fpcm.vars.jsvars.navigationActive !== undefined) {
-            jQuery('#' + fpcm.vars.jsvars.navigationActive).addClass('fpcm-menu-active');
-        }
-
-        var active_submenu_items = jQuery('#fpcm-navigation-ul ul.fpcm-submenu').find('li.fpcm-menu-active');
-        if (active_submenu_items.length !== undefined && active_submenu_items.length) {
-            jQuery(active_submenu_items[0]).parent().parent().addClass('fpcm-menu-active');
-        }
-
-    },
-    
     getDialogSizes: function(el, scale_factor) {
 
         if (el === undefined) {
@@ -623,7 +617,7 @@ fpcm.ui = {
             msgCode += '            <div class="col-12 col-sm-10 align-self-center fpcm-ui-ellipsis">' + msg.txt +  '</div>';
             msgCode += '        </div>';
             msgCode += '    </div>';
-            msgCode += '    <div class="col-12 col-sm-1 fpcm-ui-padding-none-lr fpcm-ui-messages-close" id="msgclose-' + msg.id + '">';
+            msgCode += '    <div class="col-12 col-sm-1 fpcm-ui-padding-none-lr fpcm-ui-messages-close fpcm-ui-align-right" id="msgclose-' + msg.id + '">';
             msgCode += '        <span class="fa-stack"><span class="fa fa-square fa-stack-2x fa-inverse"></span><span class="fa fa-times fa-stack-1x"></span></span>';
             msgCode += '    </div>';
             msgCode += '</div>';
@@ -731,23 +725,29 @@ fpcm.ui = {
         params.style = params.style ? 'style="' + params.style + '"' : '';
 
         return '<iframe src="' + params.src + '" id="' + params.id + '" class="' + params.classes + '" ' + params.style + '></iframe>';
-        
     },
     
     showLoader: function(show, addtext) {
 
         if (!show) {
             jQuery('#fpcm-loader').fadeOut('fast', function(){
-                jQuery(this).remove();
+                jQuery(this).fadeOut(100).remove();
             });
             return false;
         }
+        
+        var html = [
+            '<div id="fpcm-loader" class="row no-gutters fpcm-ui-position-fixed fpcm-ui-position-left-0 fpcm-ui-position-right-0 fpcm-ui-position-bottom-0 fpcm-ui-position-top-0 align-self-center">',
+            '   <div class="fpcm-ui-position-absolute fpcm-ui-position-top-0 fpcm-ui-background-white-50p fpcm-ui-full-width fpcm-ui-full-height"></div>',
+            '   <div class="fpcm-ui-position-relative fpcm-ui-align-center fpcm-loader-icon">\n\n',
+            '       <span class="fa-stack fa-fw ' + (addtext ? 'fa-lg' : 'fa-2x') + '"><span class="fa fa-circle fa-stack-2x fpcm-ui-status-075"></span><span class="fa fa-spinner fa-pulse fa-stack-1x fa-inverse fa-fw"></span></span> ',
+                    (addtext ? '<span>' + addtext + '</span>' : ''),
+            '   </div>',
+            '</div>'            
+        ];
 
-        fpcm.ui.appendHtml('#fpcm-body', '<div class="fpcm-loader" id="fpcm-loader" style="' + window.spinnerParams + '"><span class="fa-stack fa-fw ' + (addtext ? 'fa-lg' : 'fa-2x') + '"><span class="fa fa-circle fa-stack-2x fpcm-ui-status-075"></span><span class="fa fa-spinner fa-pulse fa-stack-1x fa-inverse fa-fw"></span></span> ' + (addtext ? '<span>' + addtext + '</span>' : '') + '</div>');
-
-        jQuery('#fpcm-loader').css('top',  ( parseInt( (jQuery(window).height() * 0.5) - (jQuery('#fpcm-loader').height() / 2) ) + 'px' ) )
-                              .css('left', ( parseInt( (jQuery(window).width() * 0.5) - (jQuery('#fpcm-loader').width() / 2) ) + 'px' ) )
-                              .fadeIn(100);
+        fpcm.ui.appendHtml('#fpcm-body', html.join(''));
+        jQuery('#fpcm-loader').fadeIn(100);
 
         return true;
     },
@@ -809,6 +809,13 @@ fpcm.ui = {
     confirmDialog: function(params) {
 
         var size  = fpcm.ui.getDialogSizes(top, 0.35);
+        
+        if (params.clickNoDefault) {
+            params.clickNo = function () {
+                jQuery(this).dialog("close");
+                return false;
+            }
+        }
 
         fpcm.ui.dialog({
             title: fpcm.ui.translate('GLOBAL_CONFIRM'),
@@ -817,12 +824,14 @@ fpcm.ui = {
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_YES'),
-                    icon: "ui-icon-check",                    
+                    icon: "ui-icon-check",
+                    class: (params.defaultYes ? 'fpcm-ui-button-primary' : ''),
                     click: params.clickYes
                 },
                 {
                     text: fpcm.ui.translate('GLOBAL_NO'),
                     icon: "ui-icon-closethick",
+                    class: (params.defaultNo ? 'fpcm-ui-button-primary' : ''),
                     click: params.clickNo
                 }
             ]

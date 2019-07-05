@@ -60,6 +60,12 @@ class articlebase extends \fpcm\controller\abstracts\controller {
     protected $emptyTitleContent = false;
 
     /**
+     *
+     * @var bool
+     */
+    protected $canChangeAuthor = false;
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -105,6 +111,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
+        $this->canChangeAuthor = $this->permissions->check(['article' => 'authors']);
         $this->approvalRequired = $this->permissions->check(['article' => 'approve']);
         $this->initObject();
 
@@ -144,9 +151,8 @@ class articlebase extends \fpcm\controller\abstracts\controller {
             }            
         }
 
-        $changeAuthor = $this->permissions->check(['article' => 'authors']);
-        $this->view->assign('changeAuthor', $changeAuthor);
-        if ($changeAuthor) {
+        $this->view->assign('changeAuthor', $this->canChangeAuthor);
+        if ($this->canChangeAuthor) {
             $userlist = new \fpcm\model\users\userList();
             $changeuserList = ['EDITOR_CHANGEAUTHOR' => ''] + $userlist->getUsersNameList();
             $this->view->assign('changeuserList', $changeuserList);
@@ -163,13 +169,19 @@ class articlebase extends \fpcm\controller\abstracts\controller {
 
         $twitter    = new \fpcm\model\system\twitter();
         $twitterOk  = $twitter->checkRequirements();
+        $twitterReplacements = ['TEMPLATE_REPLACEMENTS' => '', 'tplCode' => ''];
 
         if ($twitterOk) {
-            $twitterReplacements = ['TEMPLATE_REPLACEMENTS' => ''];
-            foreach ((new \fpcm\model\pubtemplates\tweet())->getReplacementTranslations('TEMPLATE_ARTICLE_') as $tag => $descr) {
+            $twitterTpl = new \fpcm\model\pubtemplates\tweet();
+            foreach ($twitterTpl->getReplacementTranslations('TEMPLATE_ARTICLE_') as $tag => $descr) {
                 $twitterReplacements[$descr.': '.$tag] = $tag;
             }
+
+            $twitterReplacements['tplCode'] = $twitterTpl->getContent();
         }
+
+        $this->view->assign('twitterTplPlaceholder', $twitterReplacements['tplCode']);
+        unset($twitterReplacements['tplCode']);
 
         $this->view->assign('twitterReplacements', $twitterReplacements);
         $this->view->assign('showTwitter', $twitterOk);
@@ -185,7 +197,9 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->view->addJsVars($this->jsVars);
 
         if (!$this->getRequestVar('rev')) {
-            $this->view->addButton((new \fpcm\view\helper\saveButton('articleSave'))->setClass('fpcm-ui-maintoolbarbuttons-tab1')->setReadonly($this->article->isInEdit()));
+            $this->view->addButton((new \fpcm\view\helper\saveButton('articleSave'))
+                    ->setClass( 'fpcm-ui-maintoolbarbuttons-tab1'.($this->article->getId() ? ' fpcm-ui-button-primary' : '') )
+                    ->setReadonly($this->article->isInEdit()));
         }
 
         return true;
@@ -283,7 +297,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->article->setDraft(isset($data['draft']) ? 1 : 0);
         $this->article->setComments(isset($data['comments']) ? 1 : 0);
         
-        $approval = $this->permissions->check(['article' => 'approve']) ? 1 : (isset($data['approval']) ? 1 : 0);
+        $approval = $this->approvalRequired ? 1 : (isset($data['approval']) ? 1 : 0);
         $this->article->setApproval($approval);
         $this->article->setImagepath(isset($data['imagepath']) ? $data['imagepath'] : '');
         $this->article->setSources(isset($data['sources']) ? $data['sources'] : '');
@@ -294,7 +308,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
             $this->article->setDraft(0);
         }
         
-        $authorId = (isset($data['author']) && trim($data['author']) ? $data['author'] : $this->session->getUserId());
+        $authorId = (isset($data['author']) && trim($data['author']) && $this->canChangeAuthor ? $data['author'] : $this->session->getUserId());
         $this->article->setCreateuser($authorId);
 
         return true;

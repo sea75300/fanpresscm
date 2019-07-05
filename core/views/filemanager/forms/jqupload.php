@@ -13,22 +13,37 @@
         <div class="progress-extended">&nbsp;</div>        
     </div>
 
-    <div class="fpcm-ui-margin-lg-bottom fileupload-buttonbar">
-        <div class="fileupload-buttons fpcm-ui-controlgroup">
-            <a class="fileinput-button">
-                <?php $theView->icon('plus'); ?>
-                <span><?php $theView->write('FILE_FORM_FILEADD'); ?></span>
-                <input type="file" name="files[]" multiple>
-            </a>
-            
-            <?php $theView->submitButton('start')->setText('FILE_FORM_UPLOADSTART')->setClass('start')->setIcon('upload'); ?>
-            <?php $theView->resetButton('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('cancel')->setIcon('ban'); ?>
+    <div class="row no-gutters">
+        
+        <div class="col-12 col-xl-6 pr-0 pr-xl-1">
+            <fieldset class="fpcm-ui-margin-lg-bottom">
+                <legend><?php $theView->write('FILE_LIST_UPLOADFORM'); ?></legend>
+
+                <div class="fpcm-ui-padding-md-tb fileupload-buttonbar">
+                    <div class="fileupload-buttons fpcm-ui-controlgroup">
+                        <a class="fileinput-button">
+                            <?php $theView->icon('plus'); ?>
+                            <span><?php $theView->write('FILE_FORM_FILEADD'); ?></span>
+                            <input type="file" name="files[]" multiple>
+                        </a>
+
+                        <?php $theView->submitButton('start')->setText('FILE_FORM_UPLOADSTART')->setClass('start')->setIcon('upload'); ?>
+                        <?php $theView->resetButton('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('cancel')->setIcon('ban'); ?>
+                    </div>
+                </div>
+            </fieldset>
         </div>
+
+        <div class="col-12 col-xl-6 pl-0 pl-xl-1">
+            <div class="row no-gutters align-self-center justify-content-center">        
+                <div id="fpcm-filemanager-upload-drop" class="col-12 fpcm-ui-background-white-100">
+                    <h4 class="fpcm-ui-center"><?php $theView->icon('file-upload')->setSize('4x')->setClass('fpcm-ui-padding-md-bottom fpcm-ui-status-075'); ?><br><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4>
+                </div>
+            </div>
+        </div>
+        
     </div>
 
-    <div id="fpcm-filemanager-upload-drop">
-        <h4 class="fpcm-ui-center"><?php $theView->icon('images', 'far')->setSize('4x')->setClass('fpcm-ui-padding-md-bottom fpcm-ui-status-075'); ?><br><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4>
-    </div>
 
     <div role="presentation" class="fpcm-ui-margin-lg-top">
         <div class="files"></div>
@@ -36,10 +51,10 @@
 
 <!-- The template to display files available for upload -->
 <script id="template-upload" type="text/x-tmpl">
-    
+
 {% for (var i=0, file; file=o.files[i]; i++) { %}
-    <div class="row template-upload fade fpcm-ui-padding-md-tb">
-        <div class="col-6 col-sm-4 col-md-2 fpcm-ui-center jqupload-row-buttons fpcm-ui-padding-none-lr">
+    <div class="row template-upload fade fpcm-ui-padding-md-tb fpcm-ui-background-white-50p fpcm-ui-border-radius-all fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom">
+        <div class="col-12 col-sm-auto fpcm-ui-center jqupload-row-buttons">
         
             {% if (!i && !o.options.autoUpload) { %}
                 <?php $theView->button('startlist')->setClass('start')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload')->setIconOnly(true); ?>
@@ -49,7 +64,7 @@
             {% } %}
         </div>
 
-        <div class="col-6 col-sm-8 col-md-10 align-self-center fpcm-ui-ellipsis">
+        <div class="col-12 col-sm-auto align-self-center fpcm-ui-ellipsis pt-3 pt-sm-0">
             <span class="name">{%=file.name%}</span>
             <strong class="error"></strong>
         </div>

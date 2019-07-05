@@ -11,7 +11,7 @@
                 <?php if ($checkResult->isFolder()) : ?>
                     <?php print (new \fpcm\view\helper\icon('folder')); ?>
                 <?php elseif ($checkResult->getHelplink()) : ?>
-                    <?php $theView->shorthelpButton($checkOption)->setText('GLOBAL_INFO')->setUrl($checkResult->getHelplink()); ?>
+                    <?php $theView->shorthelpButton($checkOption)->setText('GLOBAL_INFO')->setUrl($checkResult->getHelplink())->setSize('lg'); ?>
                 <?php endif; ?>
             </div>
             <div class="col-5 align-self-center">
@@ -22,7 +22,7 @@
                 <?php print $checkResult->getCurrent(); ?>
             </div>
             <div class="col-1 fpcm-ui-center fpcm-ui-padding-none-lr align-self-center">
-                <?php $theView->boolToText(uniqid('checkres'))->setValue($checkResult->getResult())->setText($checkResult->isFolder() && $checkResult->isFolder() ? 'GLOBAL_WRITABLE' : 'GLOBAL_YES'); ?>
+                <?php $theView->boolToText(uniqid('checkres'))->setValue($checkResult->getResult())->setText($checkResult->isFolder() && $checkResult->isFolder() ? 'GLOBAL_WRITABLE' : 'GLOBAL_YES')->setSize('lg'); ?>
             </div>
         </div>    
     <?php endforeach; ?>

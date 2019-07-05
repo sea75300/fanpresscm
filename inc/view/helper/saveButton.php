@@ -25,7 +25,7 @@ final class saveButton extends submitButton {
     {
         parent::init();
         $this->type = 'submit';
-        $this->class .= ' fpcm-ui-button-save fpcm-loader';
+        $this->class .= ' fpcm-ui-button-save';
         $this->setIcon('save');
         $this->setText('GLOBAL_SAVE');
     }

@@ -29,6 +29,12 @@ class search extends \fpcm\controller\abstracts\ajaxController {
     protected $mode = -1;
 
     /**
+     *
+     * @var bool
+     */
+    protected $deleteActions = false;
+
+    /**
      * @see controller::getViewPath
      * @return string
      */
@@ -43,6 +49,7 @@ class search extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
+        $this->deleteActions = $this->permissions->check(['article' => 'delete']);
         $this->initActionVars();
 
         $this->mode = $this->getRequestVar('mode', [

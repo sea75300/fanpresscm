@@ -65,9 +65,8 @@ abstract class input extends helper {
             return $wrapperStart . $input . $wrapperEnd;
         }
 
-        $description    = $this->placeholder
-                        ? ($this->icon ? "<label class=\"{$this->labelClass}\" for=\"{$this->id}\">{$this->getIconString()}</label>" : '')
-                        : "<label class=\"{$this->labelClass}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
+        $description = $this->placeholder !== true ? $this->getDescriptionTextString() : '';        
+        $description = "<label class=\"{$this->labelClass}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
 
         return $wrapperStart . $description . $input . $wrapperEnd;
     }
@@ -95,12 +94,12 @@ abstract class input extends helper {
 
     /**
      * Use label text as placeholder
-     * @param bool $placeholder
+     * @param bool|string $placeholder
      * @return $this
      */
     public function setPlaceholder($placeholder)
     {
-        $this->placeholder = (bool) $placeholder;
+        $this->placeholder = $placeholder;
         return $this;
     }
 
@@ -133,7 +132,15 @@ abstract class input extends helper {
      */
     protected function getPlaceholderString()
     {
-        return ($this->placeholder ? "placeholder=\"{$this->text}\"" : '');
+        if ($this->placeholder === true) {
+            return "placeholder=\"{$this->text}\"";
+        }
+
+        if (is_string($this->placeholder) && trim($this->placeholder)) {
+            return "placeholder=\"{$this->placeholder}\"";
+        }
+
+        return '';
     }
     
     /**

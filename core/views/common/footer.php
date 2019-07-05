@@ -1,14 +1,22 @@
             </div>
-        </div>
 
-        <?php if ($theView->formActionTarget && $theView->showPageToken) : ?>
-            <?php $theView->pageTokenField('pgtkn'); ?>
-            <?php $theView->hiddenInput('activeTab')->setValue((isset($activeTab) ? $activeTab : 0)); ?>
-        </form>
-        <?php endif; ?>
+            <?php if ($theView->formActionTarget && $theView->showPageToken) : ?>
+                <?php $theView->pageTokenField('pgtkn'); ?>
+                <?php $theView->hiddenInput('activeTab')->setValue((isset($activeTab) ? $activeTab : 0)); ?>
+            </form>
+            <?php endif; ?>
+
+            <div class="row fpcm-ui-margin-lg-top">
+                <div class="col-12 col-sm-6 fpcm-ui-align-left fpcm-ui-background-white-50p fpcm-ui-padding-lg-tb">
+                    &copy; 2011-<?php print date('Y'); ?> <a href="https://nobody-knows.org/download/fanpress-cm/" target="_blank" rel="noreferrer,noopener,external">nobody-knows.org</a>                
+                </div>
+                <div class="col-12 col-sm-6 fpcm-ui-align-right fpcm-ui-background-white-50p fpcm-ui-padding-lg-tb">
+                    <b><?php $theView->write('VERSION'); ?>:</b> <?php print $theView->version; ?><br>
+                </div>
+            </div>
+
+            <?php if ($theView->loggedIn) : ?><?php fpcmDebugOutput(); ?><?php endif; ?>
         
-        <div class="fpcm-footer fpcm-ui-font-small fpcm-ui-center fpcm-footer-bottom d-md-none">
-            <?php include $theView->getIncludePath('common/footer_copy.php'); ?>
         </div>
 
     </body>

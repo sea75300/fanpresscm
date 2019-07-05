@@ -139,9 +139,8 @@ fpcm.system = {
         var dialogIdCom = '#fpcm-dialog-' + dialogId;
 
         fpcm.ui.selectmenu('.fpcm-ui-input-select-massedit', {
-            width: '100%',
             appendTo: dialogIdCom
-        });
+        }).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
 
         if (typeof list.initWidgets === 'function') {
             list.initWidgets(dialogIdCom);
@@ -158,9 +157,11 @@ fpcm.system = {
                 {
                     text: fpcm.ui.translate('GLOBAL_SAVE'),
                     icon: "ui-icon-check",
+                    class: 'fpcm-ui-button-primary',
                     click: function () {
 
                         fpcm.ui.confirmDialog({
+                            defaultYes: true,
                             clickYes: function () {
 
                                 var objectIDs = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
@@ -342,10 +343,19 @@ jQuery(document).ready(function () {
 
     jQuery.each(fpcm, function (idx, object) {
 
-        if (typeof object.init === 'function') {
-            object.init();
+        if (!object.init || typeof object.init !== 'function') {
+            return true;
         }
 
+        object.init();
+    });
+
+    jQuery.each(fpcm, function (idx, object) {
+        if (!object.initAfter || typeof object.initAfter !== 'function') {
+            return true;
+        }
+
+        object.initAfter();
     });
 
 });

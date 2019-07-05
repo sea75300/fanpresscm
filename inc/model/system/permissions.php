@@ -322,9 +322,8 @@ class permissions extends \fpcm\model\abstracts\dataset {
             if (is_array($permission)) {
 
                 foreach ($permission as $permissionItem) {
-
-                    if ((isset($this->permissiondata[$module][$permissionItem]) ? $this->permissiondata[$module][$permissionItem] : false)) {
-                        $check = true;
+                    $check = isset($this->permissiondata[$module][$permissionItem]) ? $this->permissiondata[$module][$permissionItem] : false;
+                    if ($check) {
                         break;
                     }
                 }

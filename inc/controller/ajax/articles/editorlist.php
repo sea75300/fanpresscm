@@ -116,7 +116,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
         $count = $this->article->getRevisionsCount();
 
         $cols = [
-            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(1),
             (new \fpcm\components\dataView\column('title', 'ARTICLE_LIST_TITLE'))->setSize(8),
             (new \fpcm\components\dataView\column('date', 'EDITOR_REVISION_DATE'))->setSize('auto')

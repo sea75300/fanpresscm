@@ -186,9 +186,10 @@ trait lists {
                 'clipboard',
                 'COMMMENT_MOVE',
                 (new \fpcm\view\helper\textInput('moveToArticle'))
-                    ->setClass('fpcm-ui-input-massedit fpcm-ui-input-articleid')
-                    ->setMaxlenght(20),
-                    'col-sm-6 col-md-4'
+                    ->setClass('fpcm-ui-input-massedit fpcm-ui-input-articleid fpcm-ui-field-input-nowrapper-general')
+                    ->setMaxlenght(20)
+                    ->setWrapper(false),
+                'col-sm-6 col-md-4 '
             );
         }
 
@@ -213,7 +214,7 @@ trait lists {
     protected function getDataViewCols()
     {
         return [
-            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
+            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
             (new \fpcm\components\dataView\column('button', ''))->setSize(2),
             (new \fpcm\components\dataView\column('name', 'COMMMENT_AUTHOR'))->setSize(2),
             (new \fpcm\components\dataView\column('email', 'GLOBAL_EMAIL'))->setSize(3),

@@ -177,6 +177,7 @@ class commentedit extends \fpcm\controller\abstracts\controller {
     {
         if ($this->mode === 2) {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
+            $this->view->setBodyClass('fpcm-ui-hide-toolbar');
         }
         
         $editorPlugin = \fpcm\components\components::getArticleEditor();
@@ -250,7 +251,7 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         $hiddenClass = $this->mode === 2 ? 'fpcm-ui-hidden' : '';
         
         $buttons     = [];
-        $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass);
+        $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass.' fpcm-ui-button-primary');
         
         if ($this->mode === 1) {
             $article     = new \fpcm\model\articles\article($this->comment->getArticleid());

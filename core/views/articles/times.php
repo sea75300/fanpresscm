@@ -5,7 +5,7 @@
             <legend><?php $theView->write('GLOBAL_METADATA'); ?></legend>
 
             <div class="row no-gutters">
-                <div class="col-sm-12 <?php if (!$isRevision) : ?>col-md-6<?php endif; ?> fpcm-ui-font-small">
+                <div class="col-sm-12 <?php if (!$isRevision) : ?>col-md-6 align-self-center <?php endif; ?> fpcm-ui-font-small">
 
                     <div class="<?php if ($isRevision) : ?>row <?php endif; ?> fpcm-ui-editor-metabox-left">
 

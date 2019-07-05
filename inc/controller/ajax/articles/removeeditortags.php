@@ -19,6 +19,15 @@ namespace fpcm\controller\ajax\articles;
 class removeeditortags extends \fpcm\controller\abstracts\ajaxController {
 
     /**
+     * 
+     * @return array
+     */
+    protected function getPermissions()
+    {
+        return ['article' => ['add', 'edit', 'editall']];
+    }
+
+    /**
      * Request-Handler
      * @return bool
      */

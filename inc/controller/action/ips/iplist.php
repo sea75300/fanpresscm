@@ -66,6 +66,10 @@ class iplist extends \fpcm\controller\abstracts\controller {
             $this->view->addNoticeMessage('SAVE_SUCCESS_IPADDRESS');
         }
 
+        if ($this->getRequestVar('added') == 2) {
+            $this->view->addNoticeMessage('SAVE_SUCCESS_IPADDRESS_CHG');
+        }
+
         if ($this->buttonClicked('delete') && !$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return true;
@@ -115,10 +119,11 @@ class iplist extends \fpcm\controller\abstracts\controller {
     protected function getDataViewCols()
     {
         return [
-            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize('05')->setAlign('center'),
-            (new \fpcm\components\dataView\column('ipaddress', 'IPLIST_IPADDRESS'))->setSize(3),
-            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER'))->setSize(3),
-            (new \fpcm\components\dataView\column('time', 'IPLIST_IPTIME'))->setSize(3),
+            (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('ipaddress', 'IPLIST_IPADDRESS'))->setSize(4),
+            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER'))->setSize(2),
+            (new \fpcm\components\dataView\column('time', 'IPLIST_IPTIME'))->setSize(2),
             (new \fpcm\components\dataView\column('metadata', '')),
         ];
     }
@@ -148,9 +153,10 @@ class iplist extends \fpcm\controller\abstracts\controller {
             (new \fpcm\view\helper\icon('sign-in-alt fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNologin())->setText('IPLIST_NOLOGIN')->setStack('square'),
             (new \fpcm\view\helper\icon('ban fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $item->getNoaccess())->setText('IPLIST_NOACCESS')->setStack('square')
         ];
-        
+
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('ipids[]', 'chbx' . $item->getId()))->setClass('fpcm-ui-list-checkbox')->setValue($item->getId()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\editButton('ipedit'.$item->getId()))->setUrlbyObject($item) ),
             new \fpcm\components\dataView\rowCol('ipaddress', new \fpcm\view\helper\escape($item->getIpaddress()) ),
             new \fpcm\components\dataView\rowCol('user', new \fpcm\view\helper\escape($userName) ),
             new \fpcm\components\dataView\rowCol('time', new \fpcm\view\helper\dateText($item->getIptime()) ),

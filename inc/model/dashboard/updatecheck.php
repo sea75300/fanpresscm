@@ -108,19 +108,19 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     private function getSystemUpdateStatus()
     {
         if (!$this->systemUpdates->filesListExists()) {
-            $this->renderTable('exclamation-triangle', 'fpcm-dashboard-updates-outdated', 'UPDATE_VERSIONCECK_FILETXT_ERR');            
+            $this->renderTable('exclamation-triangle', 'fpcm-dashboard-updates-outdated fpcm-ui-important-text', 'UPDATE_VERSIONCECK_FILETXT_ERR');            
         }
 
         if ($this->config->system_version !== \fpcm\classes\baseconfig::getVersionFromFile()) {
             $button = (string) (new \fpcm\view\helper\linkButton('updater'))->setText('PACKAGES_UPDATE')->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate', ['update-db' => 1]));
-            $this->renderTable('code-branch', 'fpcm-dashboard-updates-versiondbfile', $this->language->translate('UPDATE_VERSIONCECK_FILEDB_ERR', [ '{{btn}}' => $button ]));            
+            $this->renderTable('code-branch', 'fpcm-dashboard-updates-versiondbfile fpcm-ui-color-grey-dark', $this->language->translate('UPDATE_VERSIONCECK_FILEDB_ERR', [ '{{btn}}' => $button ]));            
         }
 
         $this->systemCheckresult = $this->systemUpdates->updateAvailable();
         if ($this->systemCheckresult === true || $this->systemCheckresult === \fpcm\model\updater\system::FORCE_UPDATE) {
 
             $iconClass = 'cloud-download-alt';
-            $statusClass = 'fpcm-dashboard-updates-outdated';
+            $statusClass = 'fpcm-dashboard-updates-outdated fpcm-ui-important-text';
 
             $statusText = $this->language->translate('UPDATE_VERSIONCHECK_NEW', [
                 '{{btn}}' => (string) (new \fpcm\view\helper\linkButton('startUpdate'))->setText('PACKAGES_UPDATE')->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate')),
@@ -134,7 +134,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
             ]);
         } else {
             $iconClass = 'check';
-            $statusClass = 'fpcm-dashboard-updates-current';
+            $statusClass = 'fpcm-dashboard-updates-current fpcm-ui-color-blue-light';
             $statusText = 'UPDATE_VERSIONCHECK_CURRENT';
         }
 
@@ -155,13 +155,13 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
 
         $checkRes = count((new \fpcm\module\modules())->getInstalledUpdates()) ? true : false;
         if ($checkRes === true) {
-            $this->renderTable('cloud-download-alt', 'fpcm-dashboard-updates-outdated', $this->language->translate('UPDATE_MODULECHECK_NEW', [
+            $this->renderTable('cloud-download-alt', 'fpcm-dashboard-updates-outdated fpcm-ui-important-text', $this->language->translate('UPDATE_MODULECHECK_NEW', [
                 '{{btn}}' => (string) (new \fpcm\view\helper\linkButton('showModuleUpdates'))->setText('PACKAGES_UPDATES_LIST')->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))
             ]));
             return true;
         }
 
-        $this->renderTable('check', 'fpcm-dashboard-updates-current', 'UPDATE_MODULECHECK_CURRENT');
+        $this->renderTable('check', 'fpcm-dashboard-updates-current fpcm-ui-color-blue-light', 'UPDATE_MODULECHECK_CURRENT');
     }
 
     /**

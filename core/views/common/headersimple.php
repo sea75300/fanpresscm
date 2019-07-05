@@ -11,11 +11,11 @@
 
     </head>     
 
-    <body class="fpcm-body" id="fpcm-body">
+    <body class="fpcm-body fpcm-body-simple <?php print $theView->bodyClass; ?>" id="fpcm-body">
         
-        <div id="fpcm-messages"></div>
+        <div id="fpcm-messages" class="fpcm-ui-position-absolute fpcm-ui-position-right-0"></div>
 
         <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
-        <div class="row fpcm-ui-position-absolute fpcm-ui-position-absolute-0">
+        <div class="row fpcm-ui-full-view-height">
             <div class="col-12 fpcm-ui-padding-none-lr">

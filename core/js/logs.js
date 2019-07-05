@@ -18,37 +18,26 @@ fpcm.logs = {
 
     init: function () {
 
-        jQuery('.fpcm-logs-clear').click(function () {
-            var logId = jQuery(this).attr('id');
-            var size  = fpcm.ui.getDialogSizes(top, 0.35);
-            fpcm.ui.dialog({
-                title: fpcm.ui.translate('GLOBAL_CONFIRM'),
-                content: fpcm.ui.translate('CONFIRM_MESSAGE'),
-                dlWidth: size.width,
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_YES'),
-                        icon: "ui-icon-check",                    
-                        click: function() {
-                            fpcm.logs.clearLogs(logId);
-                            jQuery(this).dialog('close');
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_NO'),
-                        icon: "ui-icon-closethick",
-                        click: function() {
-                            jQuery(this).dialog('close');
-                        }
-                    }
-                ]
+        jQuery('#btnCleanLogs').click(function () {
+            
+            var logId = jQuery(this).data('logid');
+            
+            fpcm.ui.confirmDialog({
+                defaultNo: true,
+                clickYes: function () {
+                    fpcm.logs.clearLogs(logId);
+                    jQuery(this).dialog('close');
+                    return true;
+                },
+                clickNo: function() {
+                    jQuery(this).dialog('close');
+                }
             });
             
             return false;
         });
 
         var tabs = fpcm.ui.tabs('#fpcm-tabs-logs', {
-
             beforeLoad: function(event, ui) {
                 
                 fpcm.ui.showLoader(true);
@@ -58,7 +47,7 @@ fpcm.logs = {
                 });
 
                 var tabId = ui.ajaxSettings.url.split(fpcm.logs.delimiter);
-                jQuery('button.fpcm-logs-clear').attr('id', 'fpcm-logs-clear_' + tabId[1]);
+                jQuery('#btnCleanLogs').data('logid', tabId[1]);
                 if (tabId[1] == 4) {
                     return true;
                 }
@@ -101,12 +90,14 @@ fpcm.logs = {
                     fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
                     fpcm.dataview.updateAndRender(result.dataViewName);
 
+                    var logSizeEl = result.logsize ? 'fpcm-logs-size-row-' + result.dataViewName : false;
+
                     if (result.logsize) {
-                        jQuery('.fpcm-ui-logslist').append('<div class="row fpcm-ui-font-small fpcm-ui-margin-lg-top"><div class="col-12 align-self-center fpcm-ui-padding-none-left"> <span class="fpcm-ui-icon fpcm-ui-icon-single fa fa-fw fa-weight fa-lg "></span>  ' + fpcm.ui.translate('FILE_LIST_FILESIZE') + ': ' + result.logsize + '</div></div>');
+                        jQuery('.fpcm-ui-logslist').append('<div id="' + logSizeEl + '" class="row fpcm-ui-font-small fpcm-ui-margin-lg-top"><div class="col-12 align-self-center fpcm-ui-padding-none-left"> <span class="fpcm-ui-icon fpcm-ui-icon-single fa fa-fw fa-weight fa-lg "></span>  ' + fpcm.ui.translate('FILE_LIST_FILESIZE') + ': ' + result.logsize + '</div></div>');
                     }
 
                     if (result.fullheight) {
-                        ui.panel.height(fpcm.vars.jsvars.dataviews[result.dataViewName].dataViewHeight);
+                        ui.panel.height(fpcm.vars.jsvars.dataviews[result.dataViewName].dataViewHeight + (logSizeEl ? jQuery('#' + logSizeEl).height() : 0) );
                     }
                 }
 
@@ -128,13 +119,10 @@ fpcm.logs = {
 
     clearLogs: function(id) {
 
-        fpcm.ui.showLoader(true);
-        var logType = id.split('_');
-
         fpcm.ajax.get('logs/clear', {
             workData: id,
             data: {
-                log: logType[1]
+                log: id
             },
             execDone: function() {
                 fpcm.ui.showLoader(false);
