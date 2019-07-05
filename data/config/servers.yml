@@ -2,5 +2,5 @@
 ---
 updates: "https://updates.nobody-knows.org/fanpress/system/"
 modules: "https://updates.nobody-knows.org/fanpress/modules/"
-updatesManual: "https://nobody-knows.org/download/fanpress-cm/#cmtoc_anchor_id_4"
-modulesManual: "https://nobody-knows.org/download/fanpress-cm/module/"
+updatesManual: "https://github.com/sea75300/fanpresscm4/releases"
+modulesManual: "https://github.com/sea75300/fanpresscm4_modules/releases"
