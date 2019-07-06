@@ -221,11 +221,32 @@
 </div>
 
 <!-- Vorlage einfügen -->
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertdraft">
-    <div class="row">
-        <div class="col-sm-6 fpcm-ui-padding-md-tb"><?php $theView->select('tpldraft')->setOptions($editorTemplatesList); ?></div>
-        <div class="col-sm-12 fpcm-ui-padding-md-tb">
-            <pre id="fpcm-dialog-editor-html-insertdraft-preview" class="CodeMirror cm-s-fpcm CodeMirror-wrap"></pre>
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertquote">
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
+        <div class="col-12 fpcm-ui-padding-md-bottom">
+            <label for="quotetext">
+                <?php $theView->icon('keyboard')->setSize('lg'); ?>
+                <?php $theView->write('EDITOR_HTML_BUTTONS_QUOTE_TEXT'); ?>:
+            </label>
+        </div>
+        <div class="col-12 fpcm-ui-padding-md-bottom"><?php $theView->textarea('quote[text]')->setPlaceholder(true)->setText('EDITOR_HTML_BUTTONS_QUOTE')->setClass('fpcm-ui-full-width fpcm-ui-textarea-medium'); ?></div>
+    </div>
+    <div class="row fpcm-ui-padding-md-tb">
+        <?php $theView->textInput('quote[src]')
+                ->setValue('')
+                ->setWrapper(false)
+                ->setText('TEMPLATE_ARTICLE_SOURCES')
+                ->setIcon('external-link-alt')
+                ->setSize('lg')
+                ->setClass('col-6 col-md-8 col-lg-9 fpcm-ui-field-input-nowrapper-general')
+                ->setLabelClass('col-6 col-md-4 col-lg-3 fpcm-ui-field-label-general'); ?>
+    </div>   
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
+        <div class="col-12 fpcm-ui-padding-md-tb fpcm-ui-center">
+            <div id="fpcm-ui-editor-quote-controlgroup">
+                <?php $theView->radiobutton('quote[type]', 'quotetype1')->setText('EDITOR_HTML_BUTTONS_QUOTE_BLOCK')->setClass('fpcm-ui-editor-quotemode')->setValue('blockquote')->setSelected(true); ?>
+                <?php $theView->radiobutton('quote[type]', 'quotetype2')->setText('EDITOR_HTML_BUTTONS_QUOTE_INLINE')->setClass('fpcm-ui-editor-quotemode')->setValue('q'); ?>
+            </div>
         </div>
     </div>
 </div>

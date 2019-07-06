@@ -107,7 +107,8 @@ class htmlEditor extends articleEditor {
         return [
             'GLOBAL_INSERT', 'EDITOR_INSERTPIC', 'EDITOR_INSERTLINK', 'EDITOR_INSERTTABLE',
             'EDITOR_INSERTCOLOR', 'EDITOR_INSERTMEDIA', 'EDITOR_INSERTSMILEY', 'EDITOR_INSERTSYMBOL',
-            'EDITOR_HTML_BUTTONS_ARTICLETPL', 'EDITOR_HTML_BUTTONS_LISTUL', 'EDITOR_HTML_BUTTONS_LISTOL'
+            'EDITOR_HTML_BUTTONS_ARTICLETPL', 'EDITOR_HTML_BUTTONS_LISTUL', 'EDITOR_HTML_BUTTONS_LISTOL',
+            'EDITOR_HTML_BUTTONS_QUOTE'
         ];
     }
 
@@ -165,7 +166,7 @@ class htmlEditor extends articleEditor {
                 'ajustify' => (new \fpcm\view\helper\button('editor-html-buttonajustify'))->setText('EDITOR_HTML_BUTTONS_AJUSTIFY')->setIcon('align-justify')->setData(['htmltag' => 'justify', 'action' => 'insertAlignTags']),
                 'listul' => (new \fpcm\view\helper\button('editor-html-buttoninsertlist'))->setText('EDITOR_HTML_BUTTONS_LISTUL')->setIcon('list-ul')->setData(['htmltag' => 'ul', 'action' => 'insertList']),
                 'listol' => (new \fpcm\view\helper\button('editor-html-buttoninsertlistnum'))->setText('EDITOR_HTML_BUTTONS_LISTOL')->setIcon('list-ol')->setData(['htmltag' => 'ol', 'action' => 'insertList']),
-                'quote' => (new \fpcm\view\helper\button('editor-html-buttonquote'))->setText('EDITOR_HTML_BUTTONS_QUOTE')->setIcon('quote-left')->setData(['htmltag' => 'blockquote']),
+                'quote' => (new \fpcm\view\helper\button('editor-html-buttonquote'))->setText('EDITOR_HTML_BUTTONS_QUOTE')->setIcon('quote-left')->setData(['action' => 'insertQuote']),
                 'link' => (new \fpcm\view\helper\button('editor-html-buttoninsertlink'))->setText('EDITOR_INSERTLINK')->setIcon('link')->setData(['action' => 'insertLink']),
                 'image' => (new \fpcm\view\helper\button('editor-html-buttoninsertimage'))->setText('EDITOR_INSERTPIC')->setIcon('images')->setData(['action' => 'insertPicture']),
                 'media' => (new \fpcm\view\helper\button('editor-html-buttoninsertmedia'))->setText('EDITOR_INSERTMEDIA')->setIcon('play')->setData(['action' => 'insertMedia']),

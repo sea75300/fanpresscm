@@ -838,6 +838,68 @@ fpcm.ui = {
         });
 
     },
+
+    insertDialog: function(params) {
+
+        var dialogParams = {
+            id: params.id,
+            title: fpcm.ui.translate(params.title),
+            dlWidth: params.dlWidth,
+        };
+
+        if (params.dlHeight !== undefined) {
+            dialogParams.dlHeight = params.dlHeight;
+        }
+        
+        if (params.resizable !== undefined) {
+            dialogParams.resizable = params.resizable;
+        }
+
+        dialogParams.dlButtons = [];
+
+        if (params.insertAction) {
+            dialogParams.dlButtons.push({
+                text: fpcm.ui.translate('GLOBAL_INSERT'),
+                icon: "ui-icon-check",
+                class: "fpcm-ui-button-primary",
+                click: params.insertAction
+            });
+        }
+
+        if (params.fileManagerAction) {
+            dialogParams.dlButtons.push({
+                text: fpcm.ui.translate('HL_FILES_MNG'),
+                icon: "ui-icon-folder-open",
+                click: params.fileManagerAction
+            });
+        }
+ 
+        if (!params.closeAction) {
+            params.closeAction = function () {
+                jQuery(this).dialog("close");
+            }
+        }
+        
+        dialogParams.dlButtons.push({
+            text: fpcm.ui.translate('GLOBAL_CLOSE'),
+            icon: "ui-icon-closethick", 
+            click: params.closeAction
+        });
+        
+        if (params.dlOnOpen) {
+            dialogParams.dlOnOpen = params.dlOnOpen;
+        }
+        
+        if (params.dlOnClose) {
+            dialogParams.dlOnClose = params.dlOnClose;
+        }
+        
+        if (params.onCreate) {
+            dialogParams.onCreate = params.onCreate;
+        }
+
+        return fpcm.ui.dialog(dialogParams);
+    },
     
     initPager: function(params) {
 
@@ -923,6 +985,14 @@ fpcm.ui = {
         fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ showButtons).removeClass('fpcm-ui-hidden');
 
         fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
+    },
+
+    resetSelectMenuSelection: function (elId) {
+        var selectEl = jQuery(elId);
+        selectEl.prop('selectedIndex', 0);
+        selectEl.val('');
+        selectEl.selectmenu("refresh");
+        return true;
     },
     
     showCurrentPasswordConfirmation: function () {

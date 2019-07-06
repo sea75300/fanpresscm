@@ -20,12 +20,12 @@ class comment extends \fpcm\model\abstracts\dataset {
     /**
      * Erlaubte HTML-Tags in einem Kommentar, für Formular
      */
-    const COMMENT_TEXT_HTMLTAGS_FORM = '<b>, <strong>, <i>, <em>, <u>, <a href="">, <blockquote>, <p>, <span>, <div>, <ul>, <ol>, <li>, <img>';
+    const COMMENT_TEXT_HTMLTAGS_FORM = '<b>, <strong>, <i>, <em>, <u>, <a href="">, <blockquote>, <q>, <p>, <span>, <div>, <ul>, <ol>, <li>, <img>';
 
     /**
      * Erlaubte HTML-Tags in einem Kommentar, interne Prüfung
      */
-    const COMMENT_TEXT_HTMLTAGS_CHECK = '<b><strong><i><em><u><a><blockquote><p><span><div><ul><ol><li><img>';
+    const COMMENT_TEXT_HTMLTAGS_CHECK = '<b><strong><i><em><u><a><blockquote><q><p><span><div><ul><ol><li><img>';
 
     /**
      * Article-ID

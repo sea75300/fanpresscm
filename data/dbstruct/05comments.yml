@@ -65,6 +65,9 @@ cols:
         length: 
         params: NOT NULL
 indices:
+    aid:
+        col: articleid
+        isUnqiue: false
     name:
         col: name
         isUnqiue: false
@@ -85,4 +88,7 @@ indices:
         isUnqiue: false
     createtime:
         col: createtime
+        isUnqiue: false
+    delcom:
+        col: deleted
         isUnqiue: false

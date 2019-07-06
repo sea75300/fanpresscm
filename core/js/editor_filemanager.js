@@ -13,6 +13,8 @@ fpcm.editor.showFileManager = function(fmgrMode) {
     if (fmgrMode === undefined) {
         fmgrMode = fpcm.vars.jsvars.filemanagerMode;
     }
+    
+    fileOpenMode = fmgrMode;
         
     var size = fpcm.ui.getDialogSizes(top, 0.75);
 
