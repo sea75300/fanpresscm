@@ -30,12 +30,12 @@
             <?php else : ?>
             <div class="row fpcm-ui-padding-md-tb"><?php $theView->textInput('article[title]')->setValue($article->getTitle())->setText('ARTICLE_LIST_TITLE')->setPlaceholder(true); ?></div>
 
-                <?php if ($editorMode) : ?><?php include $theView->getIncludePath('articles/times.php'); ?><?php endif; ?>
-
                 <div class="row fpcm-ui-padding-md-tb fpcm-ui-editor-categories">
                     <?php $fieldname = 'article[categories][]'; ?>
                     <?php include $theView->getIncludePath('articles/categories.php'); ?>
                 </div>
+
+                <?php if ($editorMode) : ?><?php include $theView->getIncludePath('articles/times.php'); ?><?php endif; ?>
 
                 <?php include \fpcm\components\components::getArticleEditor()->getEditorTemplate(); ?>
             <?php endif; ?>

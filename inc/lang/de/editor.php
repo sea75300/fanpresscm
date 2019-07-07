@@ -7,6 +7,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 $lang = array(
+    'EDITOR_CATEGORIES_SEARCH' => 'Kategorien suchen und auswählen...',
     'EDITOR_ARTICLEURL' => 'Artikel-URL',
     'EDITOR_DRAFT' => 'Artikel ist Entwurf',
     'EDITOR_PINNED' => 'Artikel pinnen',

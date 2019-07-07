@@ -136,13 +136,18 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         }
         
         $this->view->addJsFiles(array_merge([
+                \fpcm\classes\loader::libGetFileUrl('selectize_js/dist/js/selectize.min.js'),
                 'editor.js',
-                'editor_videolinks.js'
+                'editor_videolinks.js',
             ],
             $this->editorPlugin->getJsFiles()
         ));
 
-        $this->view->addCssFiles($this->editorPlugin->getCssFiles());
+        $this->view->addCssFiles(array_merge([
+                \fpcm\classes\loader::libGetFileUrl('selectize_js/dist/css/selectize.default.css'),
+            ],
+            $this->editorPlugin->getCssFiles()
+        ));
 
         if (!$this->showRevision) {
             $viewVars = $this->editorPlugin->getViewVars();
@@ -193,7 +198,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
             'filemanagerMode' => 2
         );
 
-        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE'], $this->editorPlugin->getJsLangVars()));
+        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'EDITOR_CATEGORIES_SEARCH'], $this->editorPlugin->getJsLangVars()));
         $this->view->addJsVars($this->jsVars);
 
         if (!$this->getRequestVar('rev')) {
@@ -271,7 +276,10 @@ class articlebase extends \fpcm\controller\abstracts\controller {
 
         $cats = $this->categoryList->getCategoriesCurrentUser();
 
-        $categories = isset($data['categories']) && is_array($data['categories']) ? array_map('intval', $data['categories']) : [array_shift($cats)->getId()];
+        $categories = isset($data['categories']) && is_array($data['categories'])
+                    ? array_intersect( array_keys($cats), array_map('intval', $data['categories']) )
+                    : [array_shift($cats)->getId()];
+
         $this->article->setCategories($categories);
 
         if (isset($data['postponed']) && !isset($data['archived'])) {

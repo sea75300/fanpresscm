@@ -338,7 +338,7 @@ if (fpcm.editor) {
     
     fpcm.editor.insertSmilies = function () {
         
-        fpcm.ui.insert{Dialog(}{
+        fpcm.ui.insertDialog({
             id: 'editor-html-insertsmileys',
             dlWidth: fpcm.ui.getDialogSizes().width,
             title: 'EDITOR_INSERTSMILEY',

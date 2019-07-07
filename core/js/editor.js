@@ -109,6 +109,11 @@ fpcm.editor = {
                 return false;
             }
         });
+        
+        jQuery('#articlecategories').selectize({
+            placeholder: fpcm.ui.translate('EDITOR_CATEGORIES_SEARCH'),
+            searchField: ['text', 'value']
+        });
 
         if (!fpcm.vars.jsvars.articleId) {
             return true;

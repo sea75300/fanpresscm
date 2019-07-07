@@ -70,7 +70,8 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
      */
     public function getCategoriesByGroup($groupId)
     {
-        $where = "groups = ? OR groups " . $this->dbcon->dbLike() . " ? OR groups " . $this->dbcon->dbLike() . " ? OR groups " . $this->dbcon->dbLike() . " ?";
+        $where = "(groups = ? OR groups " . $this->dbcon->dbLike() . " ? OR groups " . $this->dbcon->dbLike() . " ? OR groups " . $this->dbcon->dbLike() . " ?) ";
+        $where .= $this->dbcon->orderBy(['id ASC']);
 
         $valueParams = [];
         $valueParams[] = "{$groupId}";

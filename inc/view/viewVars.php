@@ -168,7 +168,7 @@ class viewVars {
      * @param array $params
      * @return string
      */
-    public function translate($var, array $params = []) : string
+    public function translate($var, array $params = [])
     {
         return $this->lang->translate($var, $params);
     }

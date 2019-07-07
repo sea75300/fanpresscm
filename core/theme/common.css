@@ -110,5 +110,5 @@ span.fpcm-ui-badge,
 .fpcm-dashboard-container h3,
 .fpcm-ui-input-wrapper,
 .fpcm-ui-border-radius-all {
-    border-radius: 5px;
+    border-radius: 5px !important;
 }

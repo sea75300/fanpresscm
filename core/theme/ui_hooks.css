@@ -134,3 +134,9 @@ div.mce-fpcm-ui-emoticons-panel {
 .CodeMirror {
     height: 50vh !important;
 }
+
+/* ------ Selectize.js */
+.selectize-input.items {
+    border-radius: 5px !important;
+    font-size: 1em;
+}
