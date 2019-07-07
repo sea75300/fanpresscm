@@ -19,13 +19,19 @@ trait selectedHelper {
 
     /**
      * Element value
-     * @var string
+     * @var string|array
      */
     protected $selected = '';
 
     /**
+     * Select multiple options
+     * @var boolean
+     */
+    protected $isMultiple = false;
+
+    /**
      * Set preselected value
-     * @param string|int $selected
+     * @param string|int|array $selected
      * @return $this
      */
     public function setSelected($selected)
@@ -35,11 +41,26 @@ trait selectedHelper {
     }
 
     /**
+     * Enable multiple selection
+     * @param bool $isMultiple
+     * @return $this
+     */    
+    public function setIsMultiple($isMultiple)
+    {
+        $this->isMultiple = (bool) $isMultiple;
+        return $this;
+    }
+
+    /**
      * Return selected string
      * @return string
      */
     protected function getSelectedString()
     {
+        if ($this->isMultiple) {
+            return in_array($this->value, $this->selected) ? 'selected' : '';
+        }
+
         return $this->value == $this->selected ? 'selected' : '';
     }
 

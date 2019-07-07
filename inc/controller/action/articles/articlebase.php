@@ -166,7 +166,7 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->view->assign('approvalRequired', $this->approvalRequired);
         $this->view->assign('isRevision', false);
         $this->view->assign('article', $this->article);
-        $this->view->assign('categories', $this->categoryList->getCategoriesCurrentUser());
+        $this->view->assign('categories', $this->showRevision ? $this->categoryList->getCategoriesCurrentUser() : $this->categoryList->getCategoriesNameListCurrent());
         $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
         $this->view->assign('showArchiveStatus', true);
         $this->view->assign('showDraftStatus', true);

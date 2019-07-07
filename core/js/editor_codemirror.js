@@ -621,6 +621,7 @@ if (fpcm.editor) {
                 jQuery( this ).dialog( "close" );
             },
             fileManagerAction: function () {
+                fileOpenMode = 2;
                 fpcm.editor.showFileManager(2);
             }
         });
@@ -679,6 +680,7 @@ if (fpcm.editor) {
                 jQuery(this).dialog( "close" );
             },
             fileManagerAction: function () {
+                fileOpenMode = 1;
                 fpcm.editor.showFileManager(2);
             }
         });

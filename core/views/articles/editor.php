@@ -28,14 +28,31 @@
             <?php if ($isRevision) : ?>            
                 <?php include $theView->getIncludePath('articles/editors/revisiondiff.php'); ?>
             <?php else : ?>
-            <div class="row fpcm-ui-padding-md-tb"><?php $theView->textInput('article[title]')->setValue($article->getTitle())->setText('ARTICLE_LIST_TITLE')->setPlaceholder(true); ?></div>
+            <div class="row fpcm-ui-padding-md-tb">
+                
+                <div class="col-12 fpcm-ui-padding-none-lr">                
+                    <div class="row fpcm-ui-padding-md-tb">
+                        <div class="col-12 fpcm-ui-padding-none-lr">
+                            <fieldset>
+                                <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
 
-                <div class="row fpcm-ui-padding-md-tb fpcm-ui-editor-categories">
-                    <?php $fieldname = 'article[categories][]'; ?>
-                    <?php include $theView->getIncludePath('articles/categories.php'); ?>
+                                    <div class="row fpcm-ui-padding-md-tb fpcm-ui-editor-categories">
+                                        <div class="col-12 fpcm-ui-padding-none-lr">
+                                            <?php $theView->textInput('article[title]')->setValue($article->getTitle())->setText('ARTICLE_LIST_TITLE')->setPlaceholder(true); ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="row fpcm-ui-padding-md-tb fpcm-ui-editor-categories">
+                                        <div class="col-12 fpcm-ui-padding-none-lr">
+                                            <?php $theView->select('article[categories][]')->setIsMultiple(true)->setOptions($categories)->setSelected($article->getCategories()); ?>
+                                        </div>
+                                    </div>
+                            </fieldset>
+                        </div>                    
+                    </div>                    
+                    <?php if ($editorMode) : ?><?php include $theView->getIncludePath('articles/times.php'); ?><?php endif; ?>
                 </div>
-
-                <?php if ($editorMode) : ?><?php include $theView->getIncludePath('articles/times.php'); ?><?php endif; ?>
+            </div>
 
                 <?php include \fpcm\components\components::getArticleEditor()->getEditorTemplate(); ?>
             <?php endif; ?>
