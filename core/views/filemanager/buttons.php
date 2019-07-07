@@ -20,7 +20,7 @@
         'filename' => $file->getFilename(),
         'filetime' => (string) $theView->dateText($file->getFiletime()),
         'fileuser' => isset($users[$file->getUserid()]) ? $users[$file->getUserid()]->getDisplayName() : $theView->translate('USERS_SYSTEMUSER'),
-        'filesize' => \fpcm\classes\tools::calcSize($file->getFilesize()),
+        'filesize' => $theView->calcSize($file->getFilesize()),
         'fileresx' => $file->getWidth(),
         'fileresy' => $file->getHeight(),
         'filehash' => $file->getFileHash(),

@@ -32,7 +32,7 @@
             </ul>
         </li>
         <li class="fpcm-menu-top-level1 fpcm-ui-float-right fpcm-ui-helplink fpcm-ui-border-radius-all">
-            <a href="<?php print fpcm\classes\tools::getFullControllerLink('system/info'); ?>" title="<?php $theView->write('HL_HELP_SUPPORT'); ?>">
+            <a href="<?php print $theView->controllerLink('system/info'); ?>" title="<?php $theView->write('HL_HELP_SUPPORT'); ?>">
                 <?php $theView->icon('info-circle')->setSize('lg'); ?>
             </a>
         </li>

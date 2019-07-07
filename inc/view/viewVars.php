@@ -138,7 +138,7 @@ class viewVars {
      * @param string $view
      * @return string
      */
-    public function getIncludePath($view)
+    public function getIncludePath($view) : string
     {
         $path = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $view);
 
@@ -168,12 +168,11 @@ class viewVars {
      * @param array $params
      * @return string
      */
-    public function translate($var, array $params = [])
+    public function translate($var, array $params = []) : string
     {
         return $this->lang->translate($var, $params);
     }
-    
-    
+
     /**
      * Displays month name by ID
      * @param int $monthId
@@ -182,6 +181,34 @@ class viewVars {
     public function writeMonth($monthId)
     {
         $this->lang->writeMonth($monthId);
+    }
+    
+    /**
+     * Returns controller link
+     * @param string $controller
+     * @param array $params
+     * @return string
+     * @see \fpcm\classes\tools::getControllerLink
+     * @since FPCM 4.2
+     */
+    public function controllerLink(string $controller, array $params = []) : string
+    {
+        return \fpcm\classes\tools::getControllerLink($controller, $params);
+    }
+
+    /**
+     * Calculates bytes sizes 
+     * @param int $value
+     * @param int $decimals
+     * @param string $delimDec
+     * @param string $delimTousands
+     * @return string
+     * @see \fpcm\classes\tools::calcSize
+     * @since FPCM 4.2
+     */
+    public function calcSize(int $value, int $decimals = 2, string $delimDec = ',', string $delimTousands = '.') : string
+    {
+        return \fpcm\classes\tools::calcSize($value, $decimals, $delimDec, $delimTousands);
     }
 
 }
