@@ -107,8 +107,11 @@ class moduleBase extends \fpcm\controller\abstracts\controller {
 
         $this->view->setViewVars($this->steps);
         $this->view->addJsVars($this->jsVars);
-
-        $this->view->addButton((new \fpcm\view\helper\linkButton('backbtn'))->setText('MODULES_LIST_BACKTOLIST')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))->setIcon('chevron-circle-left'));
+        $this->view->addButtons([
+            (new \fpcm\view\helper\linkButton('backbtn'))->setText('MODULES_LIST_BACKTOLIST')->setUrl(\fpcm\classes\tools::getFullControllerLink('modules/list'))->setIcon('chevron-circle-left'),
+            (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget('_blank'),
+        ]);        
+        
         $this->view->addJsFiles(['moduleinstaller.js']);
         $this->view->render();
     }

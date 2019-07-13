@@ -88,7 +88,11 @@ class sysupdate extends \fpcm\controller\abstracts\controller {
             ]
         ]);
         
-        $this->view->addButton( (new \fpcm\view\helper\linkButton('backbtn'))->setText('PACKAGES_BACKTODASHBOARD')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/dashboard'))->setIcon('chevron-circle-left') );
+        $this->view->addButtons([
+            (new \fpcm\view\helper\linkButton('backbtn'))->setText('PACKAGES_BACKTODASHBOARD')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/dashboard'))->setIcon('chevron-circle-left'),
+            (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget('_blank'),
+        ]);
+
         $this->view->addJsFiles(['updater.js']);
         $this->view->render();
     }
