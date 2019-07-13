@@ -52,4 +52,22 @@ abstract class item {
         return true;
     }
 
+    /**
+     * Checks if Property exists
+     * @param string $name
+     * @return bool
+     */
+    final public function hasProperty(string $name) : bool
+    {
+        return array_key_exists($name, $this->data);
+    }
+
+    /**
+     * Dump item data
+     * @return mixes
+     */
+    final public function dump()
+    {
+        return var_export($this->data, true);
+    }
 }

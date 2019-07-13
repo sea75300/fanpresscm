@@ -148,7 +148,7 @@ abstract class driver {
             return false;
         }
 
-        if ($col->params === null) {
+        if ($col->params === null && !$col->hasProperty('params')) {
             trigger_error('Invalid YAML col data, no "params" property found!');
             return false;
         }
