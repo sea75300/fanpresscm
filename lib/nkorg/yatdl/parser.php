@@ -8,9 +8,9 @@ namespace nkorg\yatdl;
  * 
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2016-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @version YaTDL2.0
+ * @version YaTDL3.0
  */
 final class parser {
 
@@ -90,7 +90,6 @@ final class parser {
      */
     public function __construct(array $yamlArray, $driver, array $dataTypes)
     {
-
         $drvPath = __DIR__ . DIRECTORY_SEPARATOR . $driver . '.php';
         if (!file_exists($drvPath)) {
             throw new \Exception('Unsupported database driver ' . $driver);
@@ -202,17 +201,18 @@ final class parser {
      */
     private function createAutoincrement()
     {
-        if (!isset($this->yamlArray['autoincrement']['start'])) {
+        $aiItem = new autoIncrementItem($this->yamlArray['autoincrement']);
+        if ($aiItem->start === null) {
             trigger_error('Invalid YAML autoincrement data, no "start" property found!');
             return false;
         }
 
-        if (!isset($this->yamlArray['autoincrement']['colname'])) {
+        if ($aiItem->colname === null) {
             trigger_error('Invalid YAML autoincrement data, no "colname" property found!');
             return false;
         }
 
-        return $this->driver->createAutoincrement($this->sqlArray);
+        return $this->driver->createAutoincrement($this->sqlArray, $aiItem);
     }
 
     /**
@@ -221,10 +221,6 @@ final class parser {
      */
     private function createPrimaryKey()
     {
-        if (!trim($this->yamlArray['primarykey'])) {
-            return true;
-        }
-
         return $this->driver->createPrimaryKey($this->sqlArray);
     }
 
@@ -308,9 +304,7 @@ final class parser {
             return false;
         }
 
-        if (!array_key_exists('autoincrement', $this->yamlArray) ||
-                !isset($this->yamlArray['autoincrement']['colname']) ||
-                !isset($this->yamlArray['autoincrement']['start'])) {
+        if (!array_key_exists('autoincrement', $this->yamlArray)) {
             trigger_error('Invalid YAML data, no "autoincrement" property found!');
             return false;
         }

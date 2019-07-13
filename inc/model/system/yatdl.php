@@ -26,9 +26,9 @@ class yatdl extends \fpcm\model\abstracts\staticModel {
      * @since FPCM 3.6
      */
     protected $parser;
-
+    
     /**
-     * Konstruktor
+     * Constructore
      * @param string $filePath
      */
     public function __construct($filePath)

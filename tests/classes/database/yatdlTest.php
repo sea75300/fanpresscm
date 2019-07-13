@@ -7,11 +7,10 @@ class yatdlTest extends testBase {
 
     public function setUp()
     {
-
         $this->object = new fpcm\model\system\yatdl(__DIR__ . '/test.yml');
 
         $GLOBALS['check_cols'] = [
-            'id_bigint',
+            'id',
             'int_col',
             'char_col',
             'varchar_col',
@@ -28,15 +27,14 @@ class yatdlTest extends testBase {
 
     public function testGetArray()
     {
-
         $data = $this->object->getArray();
         $this->assertTrue(is_array($data));
 
         $this->assertEquals('sample', $data['name']);
-        $this->assertEquals('id_bigint', $data['primarykey']);
+        $this->assertEquals('id', $data['primarykey']);
         $this->assertEquals('utf8', $data['charset']);
         $this->assertEquals('InnoDB', $data['engine']);
-        $this->assertEquals('id_bigint', $data['autoincrement']['colname']);
+        $this->assertEquals('id', $data['autoincrement']['colname']);
         $this->assertEquals(1, $data['autoincrement']['start']);
         $this->assertTrue(is_array($data['indices']));
         $this->assertTrue(isset($data['indices']['int_colidx']));
@@ -51,30 +49,34 @@ class yatdlTest extends testBase {
 
     public function testParse()
     {
+        try {
+            $result = (int) $this->object->parse();
+        } catch (\Error $exc) {
+            echo $exc->getTraceAsString();
+        }
 
-        $haystack = [
+        $this->assertFalse(in_array($result, [
             \nkorg\yatdl\parser::ERROR_YAMLCHECK_FAILED,
             \nkorg\yatdl\parser::ERROR_YAMLPARSER_COLS,
             \nkorg\yatdl\parser::ERROR_YAMLPARSER_AUTOINCREMENT,
             \nkorg\yatdl\parser::ERROR_YAMLPARSER_INDICES,
             0
-        ];
-
-        $result = (int) $this->object->parse();
-        $this->assertFalse(in_array($result, $haystack));
+        ]));
     }
 
     public function testGetSqlString()
     {
-
-        $this->assertTrue($this->object->parse());
+        try {
+            $this->assertTrue($this->object->parse());
+        } catch (\Error $exc) {
+            echo $exc->getTraceAsString();
+        }        
 
         $data = $this->object->getSqlString();
 
         if (fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() === 'pgsql') {
-
             $this->assertContains('CREATE TABLE {{dbpref}}_sample', $data, 'Invalid create table data', true);
-            $this->assertContains('id_bigint bigint ', $data, 'Invalid "id_bigint" col', true);
+            $this->assertContains('id bigint ', $data, 'Invalid "id" col', true);
             $this->assertContains('int_col int ', $data, 'Invalid "int_col" col', true);
             $this->assertContains('char_col char(255) ', $data, 'Invalid "char_col" col', true);
             $this->assertContains('varchar_col character varying(255) ', $data, 'Invalid "varchar_col" col', true);
@@ -86,11 +88,12 @@ class yatdlTest extends testBase {
             $this->assertContains('lbin_col bytea ', $data, 'Invalid "lbin_col" col', true);
             $this->assertContains('float_col real ', $data, 'Invalid "float_col" col', true);
             $this->assertContains('double_col decimal ', $data, 'Invalid "double_col" col', true);
+            $this->assertContains('DEFAULT \'YaTDL Parser Char\'', $data, 'Invalid "DEFAULT" data', true);
         }
-        if (fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() === 'mysql') {
 
+        if (fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() === 'mysql') {
             $this->assertContains('CREATE TABLE IF NOT EXISTS `{{dbpref}}_sample`', $data, 'Invalid create table data', true);
-            $this->assertContains('`id_bigint` bigint(20) ', $data, 'Invalid "id_bigint" col', true);
+            $this->assertContains('`id` bigint(20) ', $data, 'Invalid "id" col', true);
             $this->assertContains('`int_col` int(11) ', $data, 'Invalid "int_col" col', true);
             $this->assertContains('`char_col` char(255) ', $data, 'Invalid "char_col" col', true);
             $this->assertContains('`varchar_col` varchar(255) ', $data, 'Invalid "varchar_col" col', true);
@@ -102,7 +105,21 @@ class yatdlTest extends testBase {
             $this->assertContains('`lbin_col` longblob ', $data, 'Invalid "lbin_col" col', true);
             $this->assertContains('`float_col` float(11) ', $data, 'Invalid "float_col" col', true);
             $this->assertContains('`double_col` decimal(11) ', $data, 'Invalid "double_col" col', true);
+            $this->assertContains('DEFAULT \'YaTDL Parser Char\'', $data, 'Invalid "DEFAULT" data', true);
         }
+    }
+    
+    public function testExec()
+    {
+        try {
+            $db = new fpcm\classes\database();
+            $this->assertTrue($db->execYaTdl(__DIR__ . '/test.yml'));
+            $this->assertTrue($db->drop('sample'));
+            
+        } catch (\Error $exc) {
+            echo $exc->getTraceAsString();
+        }         
+        
     }
 
 }

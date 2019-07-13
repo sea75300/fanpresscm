@@ -10,9 +10,9 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'driver.php';
  * 
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2016-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @version YaTDL2.0
+ * @version YaTDL3.0
  */
 class mysql extends driver {
 
@@ -22,9 +22,7 @@ class mysql extends driver {
      */
     public function __construct(array $types)
     {
-
         parent::__construct($types);
-
         $this->lenghtTypes[] = 'int';
         $this->lenghtTypes[] = 'bigint';
         $this->lenghtTypes[] = 'bool';
@@ -38,7 +36,6 @@ class mysql extends driver {
      */
     public function createTableString(&$sqlArray)
     {
-
         $sqlArray[] = "CREATE TABLE IF NOT EXISTS `{{dbpref}}_{$this->yamlArray['name']}` (";
         return true;
     }
@@ -48,9 +45,12 @@ class mysql extends driver {
      */
     public function createTableEndline(&$sqlArray)
     {
-
-        $sqlArray[] = ") ENGINE={$this->yamlArray['engine']} DEFAULT CHARSET={$this->yamlArray['charset']}" .
-                " AUTO_INCREMENT={$this->yamlArray['autoincrement']['start']};";
+        if (!isset($this->yamlArray['autoincrement'])) {
+            return true;
+        }
+        
+        $aiItem = new autoIncrementItem($this->yamlArray['autoincrement']);
+        $sqlArray[] = ") ENGINE={$this->yamlArray['engine']} DEFAULT CHARSET={$this->yamlArray['charset']} AUTO_INCREMENT={$aiItem->start};";
         return true;
     }
 
@@ -60,21 +60,25 @@ class mysql extends driver {
      */
     public function createColRows(&$sqlArray)
     {
-
         foreach ($this->yamlArray['cols'] as $colName => $col) {
-
+            
+            $col = new columnItem($col);
             if (!$this->checkYamlColRow($colName, $col)) {
                 return false;
-            }
+            }            
 
             $colName = strtolower($colName);
             $sql = "`{$colName}`";
 
-            $sql .= " {$this->colTypes[$col['type']]}";
-            $sql .= ($col['length'] && in_array($col['type'], $this->lenghtTypes)) ? "({$col['length']}) " : " ";
+            $sql .= " {$this->colTypes[$col->type]}";
+            $sql .= ($col->length && in_array($col->type, $this->lenghtTypes)) ? "({$col->length}) " : " ";
 
-            if ($col['params']) {
-                $sql .= $col['params'];
+            if ($col->params) {
+                $sql .= $col->params;
+            }
+
+            if ($col->defaultValue) {
+                $sql .= " DEFAULT '{$col->defaultValue}'";
             }
 
             $sqlArray['cols'][$colName] = $sql;
@@ -85,12 +89,13 @@ class mysql extends driver {
 
     /**
      * Auto Increment Angaben übersetzen
+     * @param array $sqlArray SQL array data
+     * @param autoIncrementItem $params Auto increment params
      * @return boolean
      */
-    public function createAutoincrement(&$sqlArray)
+    public function createAutoincrement(array &$sqlArray, autoIncrementItem $column)
     {
-
-        $sqlArray['cols'][$this->yamlArray['autoincrement']['colname']] .= ' AUTO_INCREMENT';
+        $sqlArray['cols'][$column->colname] .= ' AUTO_INCREMENT';
         return true;
     }
 
@@ -100,9 +105,7 @@ class mysql extends driver {
      */
     public function createPrimaryKey(&$sqlArray)
     {
-
         $sqlArray['cols'][] = "PRIMARY KEY (`{$this->yamlArray['primarykey']}`)";
-
         return true;
     }
 
@@ -112,19 +115,19 @@ class mysql extends driver {
      */
     public function createIndices(&$sqlArray)
     {
-
         foreach ($this->yamlArray['indices'] as $rowName => $row) {
-
+            
+            $row = new indiceItem($row);
             if (!$this->checkYamlIndiceRow($rowName, $row)) {
                 return false;
             }
 
-            if (is_array($row['col'])) {
-                $row['col'] = implode('`,`', $row['col']);
+            if (is_array($row->col)) {
+                $row->col = implode('`,`', $row->col);
             }
 
-            $index = ($row['isUnqiue'] ? 'UNIQUE' : 'INDEX');
-            $sql = "ALTER TABLE {{dbpref}}_{$this->yamlArray['name']} ADD {$index} `{$rowName}` ( `{$row['col']}` );";
+            $index = ($row->isUnqiue ? 'UNIQUE' : 'INDEX');
+            $sql = "ALTER TABLE {{dbpref}}_{$this->yamlArray['name']} ADD {$index} `{$rowName}` ( `{$row->col}` );";
 
             $sqlArray[] = $sql;
         }

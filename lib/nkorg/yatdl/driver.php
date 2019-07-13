@@ -8,9 +8,9 @@ namespace nkorg\yatdl;
  * 
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2016-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @version YaTDL2.0
+ * @version YaTDL3.0
  */
 abstract class driver {
 
@@ -38,7 +38,6 @@ abstract class driver {
      */
     public function __construct($types)
     {
-
         $this->colTypes = $types;
         $this->lenghtTypes = ['varchar', 'char'];
     }
@@ -72,9 +71,11 @@ abstract class driver {
 
     /**
      * Auto Increment Angaben übersetzen
+     * @param array $sqlArray SQL array data
+     * @param autoIncrementItem $params Auto increment params
      * @return boolean
      */
-    abstract public function createAutoincrement(&$sqlArray);
+    abstract public function createAutoincrement(array &$sqlArray, autoIncrementItem $column);
 
     /**
      * Primary Key angabe anlegen
@@ -91,24 +92,28 @@ abstract class driver {
     /**
      * Index-Zeile prüfen, ob alle nötigen Daten vorhanden sind
      * @param string $rowName
-     * @param array $row
+     * @param indiceItem $row
      * @return boolean
      */
-    protected function checkYamlIndiceRow($rowName, array $row)
+    protected function checkYamlIndiceRow($rowName, indiceItem $row)
     {
-
-        if (!isset($row['col']) || (is_array($row['col']) && !count($row['col'])) || (!is_array($row['col']) && !trim($row['col']))) {
-            trigger_error('Invalid YAML indice row data, no "col" property found!');
-            return false;
-        }
-
         if (!$rowName) {
             trigger_error('Invalid YAML indice row data, key must include column name!');
             return false;
         }
 
-        if (!isset($row['isUnqiue'])) {
-            trigger_error('Invalid YAML indice row data, no "name" property found!');
+        if ($row->col === null || (!is_array($row->col) && !trim($row->col))) {
+            trigger_error('Invalid YAML indice row data, no "col" property found or property is empty!');
+            return false;
+        }
+
+        if (is_array($row->col) && !count($row->col) ) {
+            trigger_error('Invalid YAML indice row data, "col" property found as list but missing items!');
+            return false;
+        }
+
+        if ($row->isUnqiue === null || !in_array($row->isUnqiue, [true, false, 0 , 1, 'true', 'false'])) {
+            trigger_error('Invalid YAML indice row data, no "inUique" property found!');
             return false;
         }
 
@@ -118,34 +123,38 @@ abstract class driver {
     /**
      * Spalten-Zeile prüfen, ob alle nötigen Daten vorhanden sind
      * @param string $colName
-     * @param array $col
+     * @param columnItem $col
      * @return boolean
      */
-    protected function checkYamlColRow($colName, array $col)
+    protected function checkYamlColRow($colName, columnItem $col)
     {
-
         if (!$colName) {
             trigger_error('Invalid YAML col data, key must include column name!');
             return false;
         }
 
-        if (!isset($col['type']) || (is_array($col['type']) && !count($col['type']))) {
+        if ($col->type === null || is_array($col->type) || !trim($col->type)) {
             trigger_error('Invalid YAML col data, no "type" property found!');
             return false;
         }
 
-        if (!isset($this->colTypes[$col['type']])) {
+        if (!isset($this->colTypes[$col->type])) {
             trigger_error('Invalid YAML col data, undefined col type found!');
             return false;
         }
 
-        if (!array_key_exists('length', $col)) {
-            trigger_error('Invalid YAML col data, no "isNull" property found!');
+        if ($col->length === null) {
+            trigger_error('Invalid YAML col data, no "Lenght" property found!');
             return false;
         }
 
-        if (!array_key_exists('params', $col)) {
+        if ($col->params === null) {
             trigger_error('Invalid YAML col data, no "params" property found!');
+            return false;
+        }
+
+        if ($col->defaultValue !== null && !is_scalar($col->defaultValue)) {
+            trigger_error('Invalid YAML col data, "defaultValue" property must be a scalar value (like string, char, integer, float)!');
             return false;
         }
 

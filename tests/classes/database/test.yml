@@ -1,14 +1,14 @@
 ## YAML Template.
 ---
 name: sample
-primarykey: id_bigint
+primarykey: id
 engine: InnoDB
 charset: utf8
 autoincrement:
-    colname: id_bigint
+    colname: id
     start: 1
 cols:
-    id_bigint:
+    id:
         type: bigint
         length: 20
         params: NOT NULL
@@ -16,10 +16,12 @@ cols:
         type: int
         length: 11
         params: NOT NULL
+        defaultValue: 100
     char_col:
         type: char
         length: 255
         params: NOT NULL
+        defaultValue: 'YaTDL Parser Char'
     varchar_col:
         type: varchar
         length: 255
@@ -40,6 +42,7 @@ cols:
         type: bool
         length: 4
         params: NOT NULL
+        defaultValue: 1
     bin_col:
         type: bin
         length: 
@@ -52,6 +55,7 @@ cols:
         type: float
         length: 11
         params: NOT NULL
+        defaultValue: 99.99
     double_col:
         type: double
         length: 11

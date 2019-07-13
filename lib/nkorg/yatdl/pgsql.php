@@ -10,9 +10,9 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . 'driver.php';
  * 
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2016-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @version YaTDL2.0
+ * @version YaTDL3.0
  */
 class pgsql extends driver {
 
@@ -21,7 +21,6 @@ class pgsql extends driver {
      */
     public function createTableString(&$sqlArray)
     {
-
         $sqlArray[] = "CREATE TABLE {{dbpref}}_{$this->yamlArray['name']} (";
         return true;
     }
@@ -31,7 +30,6 @@ class pgsql extends driver {
      */
     public function createTableEndline(&$sqlArray)
     {
-
         $sqlArray[] = ");";
         return true;
     }
@@ -42,9 +40,9 @@ class pgsql extends driver {
      */
     public function createColRows(&$sqlArray)
     {
-
         foreach ($this->yamlArray['cols'] as $colName => $col) {
 
+            $col = new columnItem($col);
             if (!$this->checkYamlColRow($colName, $col)) {
                 return false;
             }
@@ -52,11 +50,15 @@ class pgsql extends driver {
             $colName = strtolower($colName);
             $sql = "{$colName}";
 
-            $sql .= " {$this->colTypes[$col['type']]}";
-            $sql .= ($col['length'] && in_array($col['type'], $this->lenghtTypes)) ? "({$col['length']}) " : " ";
+            $sql .= " {$this->colTypes[$col->type]}";
+            $sql .= ($col->length && in_array($col->type, $this->lenghtTypes)) ? "({$col->length}) " : " ";
 
-            if ($col['params']) {
-                $sql .= $col['params'];
+            if ($col->params) {
+                $sql .= $col->params;
+            }
+
+            if ($col->defaultValue) {
+                $sql .= " DEFAULT '{$col->defaultValue}'";
             }
 
             $sqlArray['cols'][$colName] = $sql;
@@ -67,22 +69,23 @@ class pgsql extends driver {
 
     /**
      * Auto Increment Angaben übersetzen
+     * @param array $sqlArray SQL array data
+     * @param autoIncrementItem $params Auto increment params
      * @return boolean
      */
-    public function createAutoincrement(&$sqlArray)
+    public function createAutoincrement(array &$sqlArray, autoIncrementItem $column)
     {
-
-        $seqName = "{{dbpref}}_{$this->yamlArray['name']}_{$this->yamlArray['autoincrement']['colname']}_seq";
+        $seqName = "{{dbpref}}_{$this->yamlArray['name']}_{$column->colname}_seq";
 
         $seq = "CREATE SEQUENCE {$seqName}";
-        $seq .= " START WITH {$this->yamlArray['autoincrement']['start']}";
+        $seq .= " START WITH {$column->start}";
         $seq .= " INCREMENT BY 1";
         $seq .= " NO MINVALUE";
         $seq .= " NO MAXVALUE";
         $seq .= " CACHE 1;";
 
         $sqlArray[] = $seq;
-        $sqlArray[] = "ALTER SEQUENCE {$seqName} OWNED BY {{dbpref}}_{$this->yamlArray['name']}.{$this->yamlArray['autoincrement']['colname']};";
+        $sqlArray[] = "ALTER SEQUENCE {$seqName} OWNED BY {{dbpref}}_{$this->yamlArray['name']}.{$column->colname};";
         $sqlArray[] = "ALTER TABLE ONLY {{dbpref}}_{$this->yamlArray['name']} ALTER COLUMN id SET DEFAULT nextval('{$seqName}'::regclass);";
 
         return true;
@@ -104,23 +107,23 @@ class pgsql extends driver {
      */
     public function createIndices(&$sqlArray)
     {
-
         if (!is_array($this->yamlArray['indices']) || !count($this->yamlArray['indices'])) {
             return true;
         }
 
         foreach ($this->yamlArray['indices'] as $rowName => $row) {
 
+            $row = new indiceItem($row);
             if (!$this->checkYamlIndiceRow($rowName, $row)) {
                 return false;
             }
 
-            if (is_array($row['col'])) {
-                $row['col'] = implode(',', $row['col']);
+            if (is_array($row->col)) {
+                $row->col = implode(',', $row->col);
             }
 
-            $index = ($row['isUnqiue'] ? 'UNIQUE INDEX' : 'INDEX');
-            $sql = "CREATE {$index} {{dbpref}}_{$this->yamlArray['name']}_{$rowName} ON {{dbpref}}_{$this->yamlArray['name']} USING btree ({$row['col']});";
+            $index = ($row->isUnqiue ? 'UNIQUE INDEX' : 'INDEX');
+            $sql = "CREATE {$index} {{dbpref}}_{$this->yamlArray['name']}_{$rowName} ON {{dbpref}}_{$this->yamlArray['name']} USING btree ({$row->col});";
 
             $sqlArray[] = $sql;
         }
