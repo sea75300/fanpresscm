@@ -12,7 +12,7 @@ shipped with it.
 * MariaDB
 * PosgreSQL
 
-## php include
+## Licence
 
 nkorg/yatdl is provided under GPLv3.
 

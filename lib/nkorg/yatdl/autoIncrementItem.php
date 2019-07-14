@@ -4,7 +4,7 @@ namespace nkorg\yatdl;
 
 /**
  * YaML Table Definition Language Parser Libary\n
- * Indice item
+ * Auto increment item
  * 
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
