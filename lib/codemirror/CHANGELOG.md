@@ -1,3 +1,47 @@
+## 5.48.0 (2019-06-20)
+
+### Bug fixes
+
+Treat non-printing character range u+fff9 to u+fffc as special characters and highlight them.
+
+[show-hint addon](https://codemirror.net/doc/manual.html#addon_show-hint): Fix positioning when the dialog is placed in a scrollable container.
+
+### New features
+
+Add [`selectLeft`](https://codemirror.net/doc/manual.html#mark_selectLeft)/[`selectRight`](https://codemirror.net/doc/manual.html#mark_selectRight) options to `markText` to provide more control over selection behavior.
+
+## 5.47.0 (2019-05-21)
+
+### Bug fixes
+
+[python mode](https://codemirror.net/mode/python/): Properly handle `...` syntax.
+
+[ruby mode](https://codemirror.net/mode/ruby): Fix indenting before closing brackets.
+
+[vim bindings](https://codemirror.net/demo/vim.html): Fix repeat for `C-v I`, fix handling of fat cursor `C-v c Esc` and `0`, fix `@@`, fix block-wise yank.
+
+### New features
+
+[vim bindings](https://codemirror.net/demo/vim.html): Add support for `` ` `` text object.
+
+## 5.46.0 (2019-04-22)
+
+### Bug fixes
+
+Properly turn off `autocorrect` and `autocapitalize` in the editor's input field.
+
+Fix issue where calling [`swapDoc`](https://codemirror.net/doc/manual.html#swapDoc) during a mouse drag would cause an error.
+
+Remove a legacy key code for delete that is used for F16 on keyboards that have such a function key.
+
+[matchesonscrollbar addon](https://codemirror.net/doc/manual.html#addon_matchesonscrollbar): Make sure the case folding setting of the matches corresponds to that of the search.
+
+[swift mode](https://codemirror.net/mode/swift): Fix handling of empty strings.
+
+### New features
+
+Allow [gutters](https://codemirror.net/doc/manual.html#option_gutters) to specify direct CSS strings.
+
 ## 5.45.0 (2019-03-20)
 
 ### Bug fixes
