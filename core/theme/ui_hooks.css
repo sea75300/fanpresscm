@@ -140,3 +140,8 @@ div.mce-fpcm-ui-emoticons-panel {
     border-radius: 5px !important;
     font-size: 1em;
 }
+
+.selectize-input {
+    border: 1px solid #bbb !important;
+    box-shadow: none !important;
+}

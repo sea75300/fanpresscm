@@ -81,7 +81,7 @@ defaultvalues:
         system_editor:
             id: 14
             config_name: "system_editor"
-            config_value: "\\fpcm\\components\\editor\\tinymceEditor"
+            config_value: "\\fpcm\\components\\editor\\tinymceEditor5"
         system_editor_css:
             id: 15
             config_name: "system_editor_css"
