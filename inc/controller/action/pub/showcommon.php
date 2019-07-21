@@ -252,6 +252,10 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
             $nextPage = $this->page < 2 ? 2 : $this->page + 1;
             array_push($pages, '<li><a href="?module=' . $action . '&amp;page=' . $nextPage . '" class="fpcm-pub-pagination-prev">&rarr;</a></li>');
         }
+        
+        if ($this->page > $pageCount) {
+            $this->view->addErrorMessage('LOAD_FAILED_ARTICLE_LIST');
+        }
 
         return '<ul class="fpcm-pub-pagination">' . PHP_EOL . implode(PHP_EOL, $pages) . PHP_EOL . '</ul>';
     }
