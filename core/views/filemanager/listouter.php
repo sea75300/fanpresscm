@@ -49,10 +49,11 @@
     <div class="row no-gutters fpcm-ui-padding-md-tb">
         <div class="col-12 fpcm-ui-padding-none-lr">
             <div class="row">
-                <label class="col-12 col-md-1 fpcm-ui-field-label-general">
-                    <?php $theView->icon('calendar-alt', 'far')->setText('FILE_LIST_UPLOAD_DATE')->setSize('lg'); ?>
+                <label class="col-12 col-md-4 fpcm-ui-field-label-general">
+                    <?php $theView->icon('calendar-alt', 'far')->setSize('lg'); ?>
+                    <?php $theView->write('FILE_LIST_UPLOAD_DATE'); ?>
                 </label>
-                <div class="align-self-center col-sm-12 col-md-8 fpcm-ui-padding-none-lr fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-filetime"></div>
+                <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-padding-none-lr fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-filetime"></div>
             </div>
         </div>
     </div>
@@ -60,10 +61,11 @@
     <div class="row no-gutters fpcm-ui-padding-md-tb">
         <div class="col-12 fpcm-ui-padding-none-lr">
             <div class="row">
-                <label class="col-12 col-md-1 fpcm-ui-field-label-general">
-                    <?php $theView->icon('user')->setText('FILE_LIST_UPLOAD_BY')->setSize('lg'); ?>
+                <label class="col-12 col-md-4 fpcm-ui-field-label-general">
+                    <?php $theView->icon('user')->setSize('lg'); ?>
+                    <?php $theView->write('FILE_LIST_UPLOAD_BY'); ?>
                 </label>
-                <div class="align-self-center col-sm-12 col-md-8 fpcm-ui-padding-none-lr fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-fileuser"></div>
+                <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-padding-none-lr fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-fileuser"></div>
             </div>
         </div>
     </div>
@@ -71,10 +73,11 @@
     <div class="row no-gutters fpcm-ui-padding-md-tb">
         <div class="col-12 fpcm-ui-padding-none-lr">
             <div class="row">
-                <label class="col-12 col-md-1 fpcm-ui-field-label-general">
-                    <?php $theView->icon('weight')->setText('FILE_LIST_FILESIZE')->setSize('lg'); ?>
+                <label class="col-12 col-md-4 fpcm-ui-field-label-general">
+                    <?php $theView->icon('weight')->setSize('lg'); ?>
+                    <?php $theView->write('FILE_LIST_FILESIZE'); ?>
                 </label>
-                <div class="align-self-center col-sm-12 col-md-8 fpcm-ui-padding-none-lr fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-filesize"></div>
+                <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-padding-none-lr fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-filesize"></div>
             </div>
         </div>
     </div>
@@ -82,10 +85,11 @@
     <div class="row no-gutters fpcm-ui-padding-md-tb">
         <div class="col-12 fpcm-ui-padding-none-lr">
             <div class="row">
-                <label class="col-12 col-md-1 fpcm-ui-field-label-general">
-                    <?php $theView->icon('expand-arrows-alt')->setText('FILE_LIST_RESOLUTION')->setSize('lg'); ?>
+                <label class="col-12 col-md-4 fpcm-ui-field-label-general">
+                    <?php $theView->icon('expand-arrows-alt')->setSize('lg'); ?>
+                    <?php $theView->write('FILE_LIST_RESOLUTION'); ?>
                 </label>
-                <div class="align-self-center col-sm-12 col-md-8 fpcm-ui-padding-none-lr fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-resulution"></div>
+                <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-padding-none-lr fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-resulution"></div>
             </div>
         </div>
     </div>
@@ -93,10 +97,11 @@
     <div class="row no-gutters fpcm-ui-padding-md-tb">
         <div class="col-12 fpcm-ui-padding-none-lr">
             <div class="row">
-                <label class="col-12 col-md-1 fpcm-ui-field-label-general">
-                    <?php $theView->icon('file-alt ')->setText('FILE_LIST_FILETYPE')->setSize('lg'); ?>
+                <label class="col-12 col-md-4 fpcm-ui-field-label-general">
+                    <?php $theView->icon('file-alt ')->setSize('lg'); ?>
+                    <?php $theView->write('FILE_LIST_FILETYPE'); ?>
                 </label>
-                <div class="align-self-center col-sm-12 col-md-8 fpcm-ui-padding-none-lr fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-filemime"></div>
+                <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-padding-none-lr fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-filemime"></div>
             </div>
         </div>
     </div>
@@ -104,10 +109,11 @@
     <div class="row no-gutters fpcm-ui-padding-md-tb">
         <div class="col-12 fpcm-ui-padding-none-lr">
             <div class="row">
-                <label class="col-12 col-md-1 fpcm-ui-field-label-general">
-                    <?php $theView->icon('hashtag')->setText('FILE_LIST_FILEHASH')->setSize('lg'); ?>
+                <label class="col-12 col-md-4 fpcm-ui-field-label-general">
+                    <?php $theView->icon('hashtag')->setSize('lg'); ?>
+                    <?php $theView->write('FILE_LIST_FILEHASH'); ?>
                 </label>
-                <div class="align-self-center col-sm-12 col-md-8 fpcm-ui-padding-none-lr fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-filehash"></div>
+                <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-padding-none-lr fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all fpcm-ui-ellipsis" id="fpcm-dialog-files-properties-filehash"></div>
             </div>
         </div>
     </div>

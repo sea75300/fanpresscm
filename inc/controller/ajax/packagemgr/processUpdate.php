@@ -207,8 +207,10 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController {
     private function execCleanup()
     {
         fpcmLogSystem('Cleanup of outdated and temporary files!');
-        $this->res = $this->pkg->cleanupFiles() && $this->pkg->cleanup();
+        $this->pkg->cleanupFiles();
+        $this->pkg->cleanup();
         \fpcm\classes\loader::getObject('\fpcm\classes\cache')->cleanup();
+        $this->res = true;
     }
 
     private function execGetVersion()

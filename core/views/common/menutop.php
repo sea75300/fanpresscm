@@ -32,13 +32,13 @@
             </ul>
         </li>
         <li class="fpcm-menu-top-level1 fpcm-ui-float-right fpcm-ui-helplink fpcm-ui-border-radius-all">
-            <a href="<?php print $theView->controllerLink('system/info'); ?>" title="<?php $theView->write('HL_HELP_SUPPORT'); ?>">
+            <a href="<?php print $theView->controllerLink('system/info'); ?>" title="<?php $theView->write('HL_HELP_SUPPORT'); ?>" rel="license">
                 <?php $theView->icon('info-circle')->setSize('lg'); ?>
             </a>
         </li>
     <?php if ($theView->helpLink) : ?>
         <li class="fpcm-menu-top-level1 fpcm-ui-float-right fpcm-ui-helplink fpcm-ui-border-radius-all">
-            <a href="#" title="<?php $theView->write('HELP_BTN_OPEN'); ?>" class="fpcm-ui-help-dialog" data-ref="<?php print $theView->helpLink['ref']; ?>" data-chapter="<?php print $theView->helpLink['chapter']; ?>">
+            <a href="#" title="<?php $theView->write('HELP_BTN_OPEN'); ?>" rel="help" class="fpcm-ui-help-dialog" data-ref="<?php print $theView->helpLink['ref']; ?>" data-chapter="<?php print $theView->helpLink['chapter']; ?>">
                 <?php $theView->icon('question-circle')->setSize('lg'); ?>
             </a>
         </li>

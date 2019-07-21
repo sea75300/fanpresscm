@@ -13,6 +13,14 @@
 <div class="row fpcm-filelist-thumb-box fpcm-ui-center">
     <div class="col-12 fpcm-ui-padding-none">
         <div class="row fpcm-filelist-thumb-box-inner fpcm-ui-background-transition fpcm-ui-padding-md-all fpcm-ui-margin-none">
+
+            <div class="col-12 col-lg-3 align-self-center fpcm-ui-padding-none-lr">
+                <div class="fpcm-filelist-actions-box fpcm-ui-center fpcm-ui-font-small">
+                    <div class="fpcm-filelist-actions fpcm-ui-controlgroup fpcm-filelist-actions-checkbox">
+                        <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
+                    </div>
+                </div>
+            </div>
  
             <div class="col-12 col-lg-3 align-self-center fpcm-ui-padding-none-lr fpcm-ui-center">
                 <a href="<?php print $file->getImageUrl(); ?>" target="_blank" class="fpcm-link-fancybox" data-fancybox="group" >
@@ -22,14 +30,6 @@
 
             <div class="col-12 col-lg-3 align-self-center fpcm-ui-padding-none-lr fpcm-ui-center">
                 <?php print $theView->escapeVal(basename($file->getFilename())); ?>
-            </div>
-
-            <div class="col-12 col-lg-3 align-self-center fpcm-ui-padding-none-lr">
-                <div class="fpcm-filelist-actions-box fpcm-ui-center fpcm-ui-font-small">
-                    <div class="fpcm-filelist-actions fpcm-ui-controlgroup fpcm-filelist-actions-checkbox">
-                        <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
-                    </div>
-                </div>
             </div>
 
             <div class="col-12 col-lg-3 align-self-center fpcm-filelist-meta fpcm-ui-align-left">

@@ -97,7 +97,7 @@ class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
 
             $content[] = '<div class="row fpcm-ui-font-small fpcm-ui-padding-md-tb">';
             $content[] = '  <div class="col-2 fpcm-ui-padding-none-lr fpcm-ui-center">';
-            $content[] = (new \fpcm\view\helper\openButton(uniqid('fpcmNews')))->setUrl(strip_tags($item->link))->setTarget('_blank');
+            $content[] = (new \fpcm\view\helper\openButton(uniqid('fpcmNews')))->setUrl(strip_tags($item->link))->setTarget('_blank')->setRel('external');
             $content[] = '  </div>';
             $content[] = '  <div class="col-10">';
             $content[] = '  <div class="fpcm-ui-ellipsis">';

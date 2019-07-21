@@ -313,24 +313,29 @@ fpcm.filemanager = {
                 title: fpcm.ui.translate('GLOBAL_PROPERTIES'),
                 dlOnOpen: function () {
 
-                    var val = '';
+                    var titleTxt = '';
+                    var titleHtml = '';
+
                     jQuery.each(fpcm.filemanager.propertiesDialog, function (idx, prop) {
                         
                         switch (prop) {
                             case 'resulution' :
-                                jQuery('#fpcm-dialog-files-properties-' + prop).html(el.data('fileresx') + '<span class="fa fa-times fa-fw"></span>' + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL'));
+                                titleTxt = el.data('fileresx') + ' X ' + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
+                                titleHtml = el.data('fileresx') + '<span class="fa fa-times fa-fw"></span>' + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
+                                jQuery('#fpcm-dialog-files-properties-' + prop).attr('title', titleTxt).html(titleHtml);
                                 break;
                             default:
-                                jQuery('#fpcm-dialog-files-properties-' + prop).text(el.data('' + prop));
+                                titleTxt = el.data('' + prop);
+                                titleHtml = el.data('' + prop);
                                 break;
                         }
-                        
+
+                        jQuery('#fpcm-dialog-files-properties-' + prop).html(titleHtml).attr('title', el.data('' + prop));
                     });
                 },
                 dlOnClose: function() {
-                    var val = '';
                     jQuery.each(fpcm.filemanager.propertiesDialog, function (idx, prop) {
-                        jQuery('#fpcm-dialog-files-properties-' + prop).empty();
+                        jQuery('#fpcm-dialog-files-properties-' + prop).empty().attr('title', '');
                     });
                 },
                 dlButtons: [
