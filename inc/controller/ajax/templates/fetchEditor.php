@@ -78,7 +78,7 @@ class fetchEditor extends \fpcm\controller\abstracts\ajaxController {
 
         $this->view->assign('replacements', $this->template->getReplacementTranslations($this->prefix));
         $this->view->assign('attributes', $this->template->getReplacementAttributesMap());
-        $this->view->assign('allowedTags', htmlentities($this->template->getAllowedTags(', ')));
+        $this->view->assign('allowedTags', $this->template->getAllowedTagsArray());
         $this->view->assign('content', $this->template->getContent());
         $this->view->assign('isWritable', $this->template->isWritable());
         $this->view->assign('tplId', $this->templateId);

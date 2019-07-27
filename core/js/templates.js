@@ -39,6 +39,23 @@ fpcm.templates = {
                     return false;
                 });
 
+                jQuery('.fpcm-editor-html-click').click(function() {
+
+                    var el      = jQuery(this);
+                    var tag     = el.data('htmltag');
+
+                    fpcm.editor_codemirror.initToInstance(
+                        fpcm.templates.editorInstance,
+                        '<' + tag + '>',
+                        '</' + tag + '>'
+                    );
+
+                    return false;
+                });
+
+                
+                fpcm.ui.assignControlgroups();
+
                 return true;
             },
             addMainToobarToggleAfter: function( event, ui ) {

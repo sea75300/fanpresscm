@@ -93,6 +93,16 @@ class template extends \fpcm\model\abstracts\file {
     }
 
     /**
+     * Returns raw allowed HTML tags list
+     * @return array
+     * @since FPCM 4.2
+     */
+    public function getAllowedTagsArray()
+    {
+        return $this->allowedTags;
+    }
+
+    /**
      * Liefert Platzhalter zurück
      * @return array
      */

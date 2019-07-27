@@ -118,6 +118,28 @@ fpcm.editor_codemirror = {
 
     highlight: function(config) {
         return CodeMirror.runMode(config.input, 'text/html', document.getElementById(config.outputId));
+    },
+
+    initToInstance: function (cmEditinstance, aTag, eTag) {
+
+        if(cmEditinstance.doc.somethingSelected()) {
+            cmEditinstance.doc.replaceSelection(aTag + cmEditinstance.doc.getSelection() + eTag);
+            return true;
+        }
+
+        var cursorPos       = cmEditinstance.doc.getCursor();
+        cmEditinstance.doc.replaceRange(aTag + '' + eTag, cursorPos, cursorPos);        
+
+        if(eTag != '') {
+            cursorPos.ch = (eTag.length > cursorPos.ch)
+                         ? cursorPos.ch + aTag.length
+                         : cursorPos.ch - eTag.length;
+
+            cmEditinstance.doc.setCursor(cursorPos);            
+        }
+
+        cmEditinstance.focus();
+        return true;  
     }
 
 };
@@ -248,25 +270,7 @@ if (fpcm.editor) {
 
     fpcm.editor.insert = function(aTag, eTag) {    
 
-        if(fpcm.editor.cmInstance.doc.somethingSelected()) {
-            fpcm.editor.cmInstance.doc.replaceSelection(aTag + fpcm.editor.cmInstance.doc.getSelection() + eTag);
-        }
-        else {
-            var cursorPos       = fpcm.editor.cmInstance.doc.getCursor();
-            fpcm.editor.cmInstance.doc.replaceRange(aTag + '' + eTag, cursorPos, cursorPos);        
-
-            if(eTag != '') {
-                cursorPos.ch = (eTag.length > cursorPos.ch)
-                             ? cursorPos.ch + aTag.length
-                             : cursorPos.ch - eTag.length;
-
-                fpcm.editor.cmInstance.doc.setCursor(cursorPos);            
-            }
-
-            fpcm.editor.cmInstance.focus();
-        }
-
-        return false;  
+        return fpcm.editor_codemirror.initToInstance(fpcm.editor.cmInstance, aTag, eTag);
     };
 
     fpcm.editor.insertBr = function() {    
@@ -729,15 +733,17 @@ if (fpcm.editor) {
         });
     };
     
-    fpcm.editor.removeTags = function () {        
+    fpcm.editor.removeTags = function () {
+
         fpcm.ajax.post('editor/cleartags', {
             data: {
                 text: fpcm.editor.cmInstance.doc.getValue()
             },
-            execDone: function () {
-                fpcm.editor.cmInstance.doc.setValue(fpcm.ajax.getResult('editor/cleartags'));
+            execDone: function (result) {
+                fpcm.editor.cmInstance.doc.setValue(result ? result : '');
             }
         });
+
     };
     
     fpcm.editor.restoreSave = function () {

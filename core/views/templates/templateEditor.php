@@ -7,7 +7,8 @@
     </div>
 </div>
 <?php endif; ?>
-<div class="row no-gutters fpcm-ui-padding-md-tb">
+
+<div class="row no-gutters mt-2 mb-3">
     <div class="col-12">
         <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
             <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>
@@ -15,6 +16,7 @@
         </fieldset>
     </div>
 </div>
+
 <div class="row no-gutters fpcm-ui-padding-md-tb">
     <div class="col-12">
         <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
@@ -33,19 +35,19 @@
     </div>
 </div>
 
-<div class="row no-gutters fpcm-ui-padding-md-bottom">
-    <div class="col-12">
-        <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
-            <legend><?php $theView->write('GLOBAL_HTMLTAGS_ALLOWED'); ?></legend>
-
-            <p class="fpcm-ui-monospace fpcm-ui-margin-none"><?php print $allowedTags; ?> </p>
-        </fieldset>
-    </div>
+<?php if (count($allowedTags)) : ?>
+<div class="row ui-widget-content ui-corner-all ui-state-normal fpcm-ui-padding-md-lr fpcm-ui-padding-md-tb">
+    <div class="fpcm-ui-controlgroup">
+        <?php foreach ($allowedTags as $tag) : ?>
+            <?php $theView->button('tpl-editor-'.substr($tag, 1, -1))->setText(htmlentities($tag))->setClass('fpcm-editor-html-click')->setData(['htmltag' => substr($tag, 1, -1)]); ?>
+        <?php endforeach; ?>
+    </div>                
 </div>
+<?php endif; ?>
 
 <div class="row no-gutters fpcm-ui-padding-md-tb">
     <div class="col-12">
-        <?php $theView->textarea('template[content]', 'content_'.$tplId)->setValue($content, ENT_QUOTES)->setClass('fpcm-ui-template-textarea'); ?>
+        <?php $theView->textarea('template[content]', 'content_'.$tplId)->setValue($content, ENT_QUOTES)->setClass('fpcm-editor-html-click'); ?>
     </div>
 </div>
 

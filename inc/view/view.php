@@ -449,6 +449,16 @@ class view {
     }
 
     /**
+     * Adds top description
+     * @param string $descr
+     * @since FPCM 4.2
+     */
+    public function addTopDescription(string $descr, array $params = [])
+    {
+        $this->viewVars['topDescription'] = $this->language->translate($descr, $params);
+    }
+
+    /**
      * Add red error message
      * @param string $messageText
      * @param string $params

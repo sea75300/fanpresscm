@@ -8,7 +8,7 @@
             <?php if ($twoFactorAuth) : ?>
             <div class="row no-gutters fpcm-ui-padding-md-tb">
                 <div class="col-12">
-                <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')->setPlaceholder(true)->setAutocomplete(false); ?>
+                <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true); ?>
                 <?php $theView->hiddenInput('login[username]')->setValue($username); ?>
                 <?php $theView->hiddenInput('login[password]')->setValue($password); ?>
                 </div>
@@ -23,7 +23,7 @@
             <div class="row no-gutters fpcm-ui-padding-md-tb">
                 <div class="col-12">
                 <?php if ($resetPasswort) : ?>
-                    <?php $theView->textInput('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true)->setAutocomplete(false); ?>
+                    <?php $theView->textInput('email')->setType('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true); ?>
                 <?php else : ?>
                     <?php $theView->passwordInput('login[password]')->setText('GLOBAL_PASSWORD')->setPlaceholder(true)->setAutocomplete(false); ?>
                 <?php endif; ?>

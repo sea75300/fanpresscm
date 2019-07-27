@@ -102,11 +102,11 @@ class backups extends \fpcm\controller\abstracts\controller {
         $this->view->assign('headline', 'HL_BACKUPS');
         $this->view->addJsFiles(['backups.js']);
         $this->view->addButton((new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm'));
-        $this->view->setFormAction('system/backups');        
-        $this->view->assign('topDescription', $this->language->translate(
+        $this->view->setFormAction('system/backups');
+        $this->view->addTopDescription(
             'BACKUPS_TOP_DESCRIPTION',
             ['path' => \fpcm\model\files\ops::removeBaseDir(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP), true)]
-        ));
+        );
 
         $this->view->render();
     }
