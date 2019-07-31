@@ -116,11 +116,6 @@ div.ui-tabs {
 }
 
 /* ------ TinyMCE */
-.tox .tox-dialog__body-content div[role=presentation] {
-    height: 100%;
-    overflow: hidden;
-}
-
 td.fpcm-tinymce-emoticons img {
     padding: 0.5em !important;
 }

@@ -72,10 +72,7 @@ class tinymceEditor5 extends tinymceEditor {
                 'automatic_uploads' => $this->config->articles_imageedit_persistence ? 1 : 0,
                 'width' => '100%',
                 'min_height' => 500,
-                'file_picker_types' => ['image', 'file'],
-                'imagetools_cors_hosts' => [
-                    parse_url(\fpcm\classes\dirs::getRootUrl(),  PHP_URL_HOST)
-                ]
+                'file_picker_types' => ['image', 'file']
             ],
             'editorDefaultFontsize' => $this->config->system_editor_fontsize,
             'editorInitFunction' => 'initTinyMce'
