@@ -1,6 +1,6 @@
 <?php include $theView->getIncludePath('articles/editors/html_dialogs.php'); ?>
 
-<div class="row ui-widget-content ui-corner-all ui-state-normal fpcm-ui-padding-md-lr fpcm-ui-padding-md-tb">
+<div class="row ui-widget-content ui-corner-all ui-state-normal fpcm-ui-padding-md-lr fpcm-ui-padding-md-tb fpcm-ui-border-radius-top">
     
     <div class="fpcm-ui-controlgroup fpcm-ui-editor-buttons">
 
@@ -33,6 +33,6 @@
     </div>                
 </div>
 
-<div class="fpcm-ui-padding-md-tb" style="font-size: <?php print $editorDefaultFontsize; ?>">
+<div style="font-size: <?php print $editorDefaultFontsize; ?>">
     <?php $theView->textarea('article[content]')->setClass('fpcm-ui-full-width')->setValue($article->getContent(), ENT_QUOTES); ?>
 </div>

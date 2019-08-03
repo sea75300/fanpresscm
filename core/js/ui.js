@@ -236,6 +236,7 @@ fpcm.ui = {
         if (params.initDataViewJson) {
 
             params.beforeLoad = function(event, ui) {
+
                 fpcm.ui.showLoader(true);        
                 
                 tabList = ui.tab.data('dataview-list');                
@@ -247,12 +248,27 @@ fpcm.ui = {
                     params.initDataViewJsonBefore(event, ui);
                 }
 
-                if (params.hideLoaderOnRequestDone) {
-                    ui.jqXHR.done(function(result) {
-                        fpcm.ui.showLoader();
-                        return true;
-                    });
+                if (!params.dataFilterParams) {
+                    params.dataFilterParams = function( response ) {
+                        return fpcm.ajax.fromJSON(response);
+                    }
                 }
+
+                ui.ajaxSettings.dataFilter = params.dataFilterParams;
+
+                ui.jqXHR.done(function(jqXHR) {
+
+                    if (!jqXHR.dataViewVars) {
+                        return true;
+                    }
+
+                    fpcm.vars.jsvars.dataviews[tabList] = jqXHR.dataViewVars;
+                    if (params.initbeforeLoadDone) {
+                        params.initbeforeLoadDone(jqXHR);
+                    }
+                    
+                    return true;
+                });
 
                 ui.jqXHR.fail(function(jqXHR, textStatus, errorThrown) {
                     console.error(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
@@ -261,18 +277,6 @@ fpcm.ui = {
                     fpcm.ajax.showAjaxErrorMessage();
                     fpcm.ui.showLoader(false);
                 });
-
-                ui.ajaxSettings.dataFilter = function( response ) {
-                    var result = fpcm.ajax.fromJSON(response);
-                    if (!result.dataViewName || !result.dataViewVars) {
-                        console.error('Invalid JSON response, dataViewName and dataViewVars not found');
-                        return false;
-                    }
-
-                    fpcm.vars.jsvars.dataviews.data[tabList] = result.dataViewName;
-                    fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
-                    return false;
-                };
             };
 
             params.load = function(event, ui) {
@@ -282,7 +286,7 @@ fpcm.ui = {
                     return true;
                 }
 
-                if (!fpcm.vars.jsvars.dataviews.data[tabList]) {
+                if (!fpcm.vars.jsvars.dataviews[tabList]) {
                     return false;
                 }
 
@@ -290,25 +294,23 @@ fpcm.ui = {
                     params.initDataViewJsonBefore(event, ui);
                 }
 
-                ui.panel.empty();
                 ui.panel.append(fpcm.dataview.getDataViewWrapper(tabList, params.dataViewWrapperClass ? params.dataViewWrapperClass : ''));
-
-                if (!fpcm.vars.jsvars.dataviews.data[tabList]) {
+                if (!fpcm.vars.jsvars.dataviews[tabList]) {
                     return false;
                 }
 
                 fpcm.dataview.updateAndRender(
-                    fpcm.vars.jsvars.dataviews.data[tabList],
+                    tabList,
                     {
                         onRenderAfter: params.initDataViewOnRenderAfter
-                    }
-                );
+                });
 
                 if (params.initDataViewJsonAfter) {
                     params.initDataViewJsonAfter(event, ui);
                 }
 
                 fpcm.ui.showLoader(false);
+                return true;
             };
         }
         

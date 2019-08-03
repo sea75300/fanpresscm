@@ -44,7 +44,6 @@ fpcm.modulelist = {
         {
             addTabScroll: true,
             initDataViewJson: true,         
-            hideLoaderOnRequestDone: true,
             dataViewWrapperClass: 'fpcm-ui-modulelist',
             initDataViewOnRenderAfter: fpcm.modulelist.initButtons,
             initDataViewJsonBefore:function(event, ui) {

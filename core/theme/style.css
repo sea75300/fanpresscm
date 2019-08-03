@@ -486,6 +486,14 @@ img.fpcm-ui-smileylist-preview {
     border-radius: 5px 0 0 5px;
 }
 
+.fpcm-ui-border-radius-top {
+    border-radius: 5px 5px 0 0;
+}
+
+.fpcm-ui-border-radius-bottom {
+    border-radius: 0 0 5px 5px;
+}
+
 div.fpcm-accordion-pkgmanager ul {
     padding-left: 1.2em;
 }

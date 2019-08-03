@@ -1,6 +1,6 @@
 <?php include $theView->getIncludePath('comments/editors/html_dialogs.php'); ?>
 
-<div class="row ui-widget-content ui-corner-all ui-state-normal fpcm-ui-padding-md-lr fpcm-ui-padding-md-tb">
+<div class="row ui-widget-content ui-corner-all ui-state-normal fpcm-ui-padding-md-lr fpcm-ui-padding-md-top fpcm-ui-border-radius-top">
     
     <div class="fpcm-ui-controlgroup fpcm-ui-editor-buttons">
 
@@ -33,8 +33,8 @@
     </div>                
 </div>
 
-<div class="fpcm-ui-padding-md-tb" style="font-size: <?php print $editorDefaultFontsize; ?>">
+<div style="font-size: <?php print $editorDefaultFontsize; ?>">
     <?php $theView->textarea('comment[text]')->setClass('fpcm-ui-full-width')->setValue($comment->getText(), ENT_QUOTES); ?>
 </div>
 
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-filemanager"></div>     
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-filemanager"></div>

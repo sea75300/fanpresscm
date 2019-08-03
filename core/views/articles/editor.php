@@ -31,7 +31,7 @@
             <div class="row fpcm-ui-padding-md-tb">
                 
                 <div class="col-12 fpcm-ui-padding-none-lr">                
-                    <div class="row fpcm-ui-padding-md-tb">
+                    <div class="row fpcm-ui-padding-md-bottom">
                         <div class="col-12 fpcm-ui-padding-none-lr">
                             <fieldset>
                                 <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
