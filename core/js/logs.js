@@ -23,14 +23,11 @@ fpcm.logs = {
             var logId = jQuery(this).data('logid');
             
             fpcm.ui.confirmDialog({
-                defaultNo: true,
+                clickNoDefault: true,
                 clickYes: function () {
                     fpcm.logs.clearLogs(logId);
                     jQuery(this).dialog('close');
                     return true;
-                },
-                clickNo: function() {
-                    jQuery(this).dialog('close');
                 }
             });
             

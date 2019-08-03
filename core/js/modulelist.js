@@ -19,22 +19,21 @@ fpcm.modulelist = {
             btnUpdateAll.click(function (){
 
                 fpcm.ui.confirmDialog({
-                    defaultNo: true,
                     clickNoDefault: true,
                     clickYes: function () {
                         var url = fpcm.vars.actionPath + 'package/modupdate&key=';
                         var urls = [];
-                        
+
                         jQuery.each(fpcm.vars.jsvars.updateAllkeys, function( index, value ) {
                             urls[index] = url + value + '&keepMaintenance=' + (index == fpcm.vars.jsvars.updateAllkeys.length - 1 ? 0 : 1);
                         });
-                        
+
                         urls = urls.reverse();
-                        
                         jQuery.each(urls, function (i, dest) {
                             fpcm.ui.openWindow(dest);
                         });
 
+                        jQuery(this).dialog("close");
                     }
                 });
 
@@ -66,11 +65,8 @@ fpcm.modulelist = {
         fpcm.ui.assignControlgroups();
 
         jQuery('a.fpcm-ui-modulelist-action-local-update').click(function() {
-
             var destUrl = jQuery(this).attr('href');
-
             fpcm.ui.confirmDialog({
-                defaultNo: true,
                 clickNoDefault: true,
                 clickYes: function () {
                     fpcm.ui.relocate(destUrl);

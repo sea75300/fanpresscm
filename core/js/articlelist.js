@@ -151,7 +151,7 @@ fpcm.articlelist = {
     
     articleActionsTweet: function() {
         fpcm.ui.confirmDialog({
-            defaultNo: true,
+            clickNoDefault: true,
             clickYes: function() {
                 var articleIds = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
                 if (articleIds.length == 0) {
@@ -160,9 +160,6 @@ fpcm.articlelist = {
                 }
 
                 fpcm.articlelist.execNewTweet(articleIds);
-                jQuery(this).dialog('close');
-            },
-            clickNo: function() {
                 jQuery(this).dialog('close');
             }
         });
