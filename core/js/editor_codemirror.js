@@ -726,9 +726,6 @@ if (fpcm.editor) {
 
                 fpcm.editor.insert('<' + values.type + ' class="fpcm-articletext-quote"' + (values.sources ? ' cite="' + values.sources + '"' : '') + '>' + values.text, '</' + values.type + '>');
                 jQuery(this).dialog( "close" );
-            },
-            fileManagerAction: function () {
-                fpcm.editor.showFileManager(2);
             }
         });
     };
