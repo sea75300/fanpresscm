@@ -12,92 +12,97 @@
                 <div class="col-sm-12 col-lg-6">
                     <fieldset class="fpcm-ui-margin-md-right">
                         <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
-
-                        <div class="row fpcm-ui-padding-md-tb fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
-                                <?php $theView->write('GLOBAL_EMAIL'); ?>:
+                        
+                        <div class="row fpcm-ui-padding-md-tb no-gutters">
+                            <div class="col-12">
+                                <div class="row">
+                                    <?php $theView->textInput('system_email')
+                                        ->setValue($globalConfig['system_email'])                                        
+                                        ->setWrapper(false)
+                                        ->setText('GLOBAL_EMAIL')
+                                        ->setType('email')
+                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
+                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                </div>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-7">
-                                <?php $theView->textInput('system_email')->setValue($globalConfig['system_email'])->setType('email'); ?>
+                        </div>
+                        
+                        <div class="row fpcm-ui-padding-md-tb no-gutters">
+                            <div class="col-12">
+                                <div class="row">
+                                    <?php $theView->textInput('system_url')
+                                        ->setValue($globalConfig['system_url'])                                        
+                                        ->setWrapper(false)
+                                        ->setText('SYSTEM_OPTIONS_URL')
+                                        ->setType('url')
+                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
+                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row fpcm-ui-padding-md-tb no-gutters">
+                            <div class="col-12">
+                                <div class="row">
+                                    <?php $theView->textInput('system_dtmask')
+                                        ->setValue($globalConfig['system_dtmask'])                                        
+                                        ->setWrapper(false)
+                                        ->setText('SYSTEM_OPTIONS_DATETIMEMASK')
+                                        ->setClass('col-12 col-md-5 fpcm-ui-field-input-nowrapper-general')
+                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                    
+                                    <div class="align-self-center col-sm-1 col-md-1 fpcm-ui-padding-md-lr">
+                                        <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
-                                <?php $theView->write('SYSTEM_OPTIONS_URL'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-7">
-                                <?php $theView->textInput('system_url')->setValue($globalConfig['system_url'])->setType('url'); ?>
-                            </div>
-                        </div>
-
-                        <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
-                                <?php $theView->write('SYSTEM_OPTIONS_DATETIMEMASK'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-11 col-md-auto">
-                                <?php $theView->textInput('system_dtmask')->setValue($globalConfig['system_dtmask']); ?>
-                            </div>
-                            <div class="align-self-center col-sm-1 col-md-1 fpcm-ui-padding-md-lr">
-                                <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
-                            </div>
-                        </div>
-
-                        <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_TIMEZONE'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->select('system_timezone')->setOptions($timezoneAreas)->setSelected($globalConfig['system_timezone'])->setOptGroup(true); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_LANG'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->select('system_lang')->setOptions($languages)->setSelected($globalConfig['system_lang'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_ACPARTICLES_LIMIT'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->select('articles_acp_limit')
                                         ->setOptions($articleLimitListAcp)
                                         ->setSelected($globalConfig['articles_acp_limit'])
                                         ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_CACHETIMEOUT'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->select('system_cache_timeout')->setOptions($theView->translate('SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL'))->setSelected($globalConfig['system_cache_timeout'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->select('system_trash_cleanup')->setOptions($theView->translate('SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS_LIST'))->setSelected($globalConfig['system_trash_cleanup'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
                             </div>
                         </div>
                     </fieldset>
@@ -108,30 +113,34 @@
                         <legend><?php $theView->write('HL_FRONTEND'); ?></legend>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_STYLESHEET'); ?>:
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-7">
-                                <?php $theView->textInput('system_css_path')->setValue($globalConfig['system_css_path'], ENT_QUOTES)->setText('http://'.$_SERVER['HTTP_HOST'].'/style/style.css')->setPlaceholder(true)->setType('url'); ?>
+                            <div class="align-self-center col-sm-12 col-md-7 mx-0 px-0">
+                                <?php $theView->textInput('system_css_path')
+                                        ->setValue($globalConfig['system_css_path'], ENT_QUOTES)
+                                        ->setText('http://'.$_SERVER['HTTP_HOST'].'/style/style.css')
+                                        ->setType('url')
+                                        ->setPlaceholder(true)
+                                        ->setWrapper(false)
+                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general'); ?>
                             </div>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-lg-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_USEMODE'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-lg-4">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->select('system_mode')->setOptions($systemModes)->setSelected($globalConfig['system_mode'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-lg-3">
-                            </div>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_INCLUDEJQUERY'); ?>:
-                            </div>
-                            <div class="align-self-center col-md-12 col-lg-auto">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->boolSelect('system_loader_jquery')->setSelected($globalConfig['system_loader_jquery']); ?>
                                 <?php $theView->shorthelpButton('jqueryInclude')->setText('SYSTEM_OPTIONS_INCLUDEJQUERY_YES'); ?>
                             </div>
@@ -149,74 +158,69 @@
                         <legend><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_SETTINGS'); ?></legend>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->select('system_editor')->setOptions($editors)->setSelected(base64_encode($globalConfig['system_editor']))->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
-                        </div>
+                        </div>                        
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE'); ?>:
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                                <?php $theView->select('system_editor')->setOptions($editors)->setSelected(base64_encode($globalConfig['system_editor']))->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                        </div>                        
+
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+                                <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR'); ?>:
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->select('system_editor_fontsize')
                                         ->setOptions($defaultFontsizes)
                                         ->setSelected($globalConfig['system_editor_fontsize'])
                                         ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
-                        </div>
+                        </div>                        
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_REVISIONS_ENABLED'); ?>:
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                                <?php $theView->boolSelect('articles_revisions')->setSelected($globalConfig['articles_revisions']); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                                <?php $theView->boolSelect('articles_revisions')->setSelected($globalConfig['articles_revisions']); ?>            
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
-                        </div>
+                        </div>                        
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->select('articles_revisions_limit')
                                         ->setOptions($theView->translate('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT_LIST'))
                                         ->setSelected($globalConfig['articles_revisions_limit'])
                                         ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
-                        </div>
+                        </div>                        
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_IMGTOOLS'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->boolSelect('articles_imageedit_persistence')->setSelected($globalConfig['articles_imageedit_persistence']); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
-                        </div>
-
-                        <div class="row fpcm-ui-padding-md-tb">
-                            <div class="col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
-                                <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_CSS'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-7">
-                                <?php $theView->textarea('system_editor_css')->setValue($globalConfig['system_editor_css'], ENT_QUOTES)->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width'); ?>
-                            </div>
-                        </div>
+                        </div>                        
+                    </fieldset>
+                    
+                    <fieldset class="fpcm-ui-margin-md-right fpcm-ui-margin-md-top">
+                        <legend><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_CSS'); ?></legend>
+                        <?php $theView->textarea('system_editor_css')->setValue($globalConfig['system_editor_css'], ENT_QUOTES)->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width'); ?>
                     </fieldset>
                 </div>
 
@@ -225,47 +229,43 @@
                         <legend><?php $theView->write('HL_FILES_MNG'); ?></legend>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_NEWUPLOADER'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->boolSelect('file_uploader_new')->setSelected($globalConfig['file_uploader_new']); ?>
                             </div>
-                        </div>
+                        </div>                          
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_SUBFOLDERS'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->boolSelect('file_subfolders')->setSelected($globalConfig['file_subfolders']); ?>
                             </div>
-                        </div>
+                        </div>                          
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_FILEMANAGER_LIMIT'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->select('file_list_limit')
                                         ->setOptions($articleLimitListAcp)
                                         ->setSelected($globalConfig['file_list_limit'])
                                         ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
-                        </div>
+                        </div>                          
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_FILEMANAGER_VIEW'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
                                 <?php $theView->select('file_view')->setOptions($filemanagerViews)->setSelected($globalConfig['file_view'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
-                        </div>
+                        </div>                          
                     </fieldset>
 
                     <fieldset class="fpcm-ui-margin-md-left fpcm-ui-margin-md-top" >
@@ -417,24 +417,26 @@
                         <legend><?php $theView->write('HL_ARCHIVE'); ?></legend>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
-                                <?php $theView->write('SYSTEM_OPTIONS_ARCHIVE_LINK'); ?>:                    
+                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+                                <?php $theView->write('SYSTEM_OPTIONS_ARCHIVE_LINK'); ?>:
+                            </label>
+                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                                <?php $theView->boolSelect('articles_archive_show')->setSelected($globalConfig['articles_archive_show']); ?>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                                <?php $theView->boolSelect('articles_archive_show')->setSelected($globalConfig['articles_archive_show']); ?>		
-                            </div>
-                        </div>
+                        </div> 
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-padding-none-lr">
+                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT'); ?>:
                             </div>
-                            <div class="align-self-center col-md-12 col-lg-6">
+                            <div class="align-self-center col-md-12 col-lg-6 mx-0 px-0">
                                 <?php $theView->dateTimeInput('articles_archive_datelimit')
                                         ->setValue($globalConfig['articles_archive_datelimit'] ? $theView->dateText($globalConfig['articles_archive_datelimit'], 'Y-m-d') : '')
                                         ->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY')
+                                        ->setWrapper(false)
                                         ->setPlaceholder(true)
-                                        ->setData(['maxDate' => '-3m']); ?>
+                                        ->setData(['maxDate' => '-3m'])
+                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general'); ?>
                             </div>
                         </div>
                     </fieldset>
@@ -525,21 +527,30 @@
                 <div class="col-sm-12 col-lg-6">
                     <fieldset class="fpcm-ui-margin-md-left">
                         <legend><?php $theView->write('SYSTEM_OPTIONS_CAPTCHASETTING'); ?></legend>
-                        <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
-                                <?php $theView->write('SYSTEM_OPTIONS_ANTISPAMQUESTION'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-7">
-                                <?php $theView->textInput('comments_antispam_question')->setValue($globalConfig['comments_antispam_question']); ?>		
+                        
+                        <div class="row fpcm-ui-padding-md-tb no-gutters">
+                            <div class="col-12">
+                                <div class="row">
+                                    <?php $theView->textInput('comments_antispam_question')
+                                        ->setValue($globalConfig['comments_antispam_question'])                                        
+                                        ->setWrapper(false)
+                                        ->setText('SYSTEM_OPTIONS_ANTISPAMQUESTION')
+                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
+                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-padding-none-lr">
-                                <?php $theView->write('SYSTEM_OPTIONS_ANTISPAMANSWER'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-7">
-                                <?php $theView->textInput('comments_antispam_answer')->setValue($globalConfig['comments_antispam_answer']); ?>
+                        <div class="row fpcm-ui-padding-md-tb no-gutters">
+                            <div class="col-12">
+                                <div class="row">
+                                    <?php $theView->textInput('comments_antispam_answer')
+                                        ->setValue($globalConfig['comments_antispam_answer'])                                        
+                                        ->setWrapper(false)
+                                        ->setText('SYSTEM_OPTIONS_ANTISPAMANSWER')
+                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
+                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                </div>
                             </div>
                         </div>
 
@@ -679,71 +690,76 @@
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-4 fpcm-ui-padding-none-lr">
+                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('GLOBAL_EMAIL'); ?>:
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-8">
+                            <div class="align-self-center col-md-12 col-lg-6 mx-0 px-0">
                                 <?php $theView->textInput('smtp_settings[addr]')
                                         ->setType('email')
-                                        ->setClass('fpcm-ui-options-smtp-input')
                                         ->setValue($globalConfig['smtp_settings']['addr'])
                                         ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                         ->setText('mail@example.com')
-                                        ->setPlaceholder(true); ?>
+                                        ->setPlaceholder(true)
+                                        ->setWrapper(false)
+                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general fpcm-ui-options-smtp-input'); ?>                                
                             </div>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-4 fpcm-ui-padding-none-lr">
+                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_EMAIL_SERVER'); ?>:
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-8">
+                            <div class="align-self-center col-md-12 col-lg-6 mx-0 px-0">
                                 <?php $theView->textInput('smtp_settings[srvurl]')
-                                        ->setClass('fpcm-ui-options-smtp-input')
                                         ->setValue($globalConfig['smtp_settings']['srvurl'])
                                         ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                         ->setText('mail.example.com')
-                                        ->setPlaceholder(true); ?>
+                                        ->setPlaceholder(true)
+                                        ->setWrapper(false)
+                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general fpcm-ui-options-smtp-input'); ?>                                
                             </div>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-4 fpcm-ui-padding-none-lr">
+                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_EMAIL_PORT'); ?>:
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-8">
+                            <div class="align-self-center col-md-12 col-lg-6 mx-0 px-0">
                                 <?php $theView->textInput('smtp_settings[port]')
-                                        ->setClass('fpcm-ui-options-smtp-input')
                                         ->setValue($globalConfig['smtp_settings']['port'])
                                         ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                         ->setText('25')
-                                        ->setPlaceholder(true); ?>
+                                        ->setPlaceholder(true)
+                                        ->setWrapper(false)
+                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general fpcm-ui-options-smtp-input'); ?>                                
                             </div>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-4 fpcm-ui-padding-none-lr">
+                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_EMAIL_USERNAME'); ?>:
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-8">
+                            <div class="align-self-center col-md-12 col-lg-6 mx-0 px-0">
                                 <?php $theView->textInput('smtp_settings[user]')
-                                        ->setClass('fpcm-ui-options-smtp-input')
                                         ->setValue($globalConfig['smtp_settings']['user'])
                                         ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                         ->setText('mail@example.com')
-                                        ->setPlaceholder(true); ?>
+                                        ->setPlaceholder(true)
+                                        ->setWrapper(false)
+                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general fpcm-ui-options-smtp-input'); ?>                                
                             </div>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-4 fpcm-ui-padding-none-lr">
+                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_EMAIL_PASSWORD'); ?>:
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-8">
+                            <div class="align-self-center col-md-12 col-lg-6 mx-0 px-0">
                                 <?php $theView->passwordInput('smtp_settings[pass]')
-                                        ->setClass('fpcm-ui-options-smtp-input')
                                         ->setValue($globalConfig['smtp_settings']['pass'])
-                                        ->setReadonly(($globalConfig['smtp_enabled'] ? false : true)); ?>
+                                        ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
+                                        ->setWrapper(false)
+                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general fpcm-ui-options-smtp-input'); ?>                                
                             </div>
                         </div>
 
@@ -811,47 +827,56 @@
                 <div class="col-12">
                     <fieldset>
                         <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CREDENTIALS'); ?></legend>
-                        <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                                <?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY'); ?>:
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-6">
-                                <?php $theView->textInput('twitter_data[consumer_key]')->setValue($globalConfig['twitter_data']['consumer_key']); ?>
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
-                        </div>
 
-                        <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                                <?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET'); ?>:
+                        <div class="row fpcm-ui-padding-md-tb no-gutters">
+                            <div class="col-12">
+                                <div class="row">
+                                    <?php $theView->textInput('twitter_data[consumer_key]')
+                                        ->setValue($globalConfig['twitter_data']['consumer_key'])                                        
+                                        ->setWrapper(false)
+                                        ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY')
+                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
+                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                </div>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-6">
-                                <?php $theView->textInput('twitter_data[consumer_secret]')->setValue($globalConfig['twitter_data']['consumer_secret']); ?>
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
-                        </div>
+                        </div>                        
 
-                        <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                                <?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_TOKEN'); ?>:
+                        <div class="row fpcm-ui-padding-md-tb no-gutters">
+                            <div class="col-12">
+                                <div class="row">
+                                    <?php $theView->textInput('twitter_data[consumer_secret]')
+                                        ->setValue($globalConfig['twitter_data']['consumer_secret'])                                        
+                                        ->setWrapper(false)
+                                        ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET')
+                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
+                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                </div>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-6">
-                                <?php $theView->textInput('twitter_data[user_token]')->setValue($globalConfig['twitter_data']['user_token']); ?>
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
-                            </div>
-                        </div>
+                        </div>                        
 
-                        <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-3 fpcm-ui-padding-none-lr">
-                                <?php $theView->write('SYSTEM_OPTIONS_TWITTER_USER_SECRET'); ?>:
+                        <div class="row fpcm-ui-padding-md-tb no-gutters">
+                            <div class="col-12">
+                                <div class="row">
+                                    <?php $theView->textInput('twitter_data[user_token]')
+                                        ->setValue($globalConfig['twitter_data']['user_token'])                                        
+                                        ->setWrapper(false)
+                                        ->setText('SYSTEM_OPTIONS_TWITTER_USER_TOKEN')
+                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
+                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                </div>
                             </div>
-                            <div class="align-self-center col-sm-12 col-md-6">
-                                <?php $theView->textInput('twitter_data[user_secret]')->setValue($globalConfig['twitter_data']['user_secret']); ?>
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-auto">
+                        </div>                        
+
+                        <div class="row fpcm-ui-padding-md-tb no-gutters">
+                            <div class="col-12">
+                                <div class="row">
+                                    <?php $theView->textInput('twitter_data[user_secret]')
+                                        ->setValue($globalConfig['twitter_data']['user_secret'])                                        
+                                        ->setWrapper(false)
+                                        ->setText('SYSTEM_OPTIONS_TWITTER_USER_SECRET')
+                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
+                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                </div>
                             </div>
                         </div>
                     </fieldset>

@@ -45,5 +45,7 @@ fpcm.options = {
                 return true;
             }
         });
+        
+        jQuery('.fpcm-ui-input-select').selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
     }
 };
