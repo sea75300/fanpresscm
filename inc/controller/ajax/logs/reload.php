@@ -117,7 +117,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
      */
     private function loadLog1()
     {
-        $log = (new \fpcm\model\files\logfile($this->log));
+        $log = new \fpcm\model\files\logfile($this->log, false);
         $this->items = $log->fetchData();
         $this->logsize = $log->getFilesize();
 
