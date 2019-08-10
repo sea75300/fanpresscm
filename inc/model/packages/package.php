@@ -303,7 +303,7 @@ abstract class package {
         }
 
         $extractPath = $this->getExtractionPath();
-        if (!\fpcm\model\files\ops::deleteRecursive($extractPath)) {
+        if (!file_exists($extractPath)) {
             trigger_error("Package cleanup error, extract path {$extractPath} was not found!");
             return false;
         }
