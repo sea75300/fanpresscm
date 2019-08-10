@@ -47,5 +47,6 @@ fpcm.options = {
         });
         
         jQuery('.fpcm-ui-input-select').selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
+        jQuery('.fpcm-ui-spinner').spinner( "option", "classes.ui-spinner", "fpcm-ui-border-radius-right" );
     }
 };

@@ -1,6 +1,6 @@
 <?php include $theView->getIncludePath('comments/editors/html_dialogs.php'); ?>
 
-<div class="row ui-widget-content ui-corner-all ui-state-normal fpcm-ui-padding-md-lr fpcm-ui-padding-md-top fpcm-ui-border-radius-top">
+<div class="row ui-widget-content ui-corner-all ui-state-normal fpcm-ui-padding-md-lr fpcm-ui-padding-md-tb fpcm-ui-border-radius-top">
     
     <div class="fpcm-ui-controlgroup fpcm-ui-editor-buttons">
 
