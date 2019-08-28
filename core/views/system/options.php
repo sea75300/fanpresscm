@@ -277,7 +277,7 @@
 
                         <div class="row fpcm-ui-padding-md-tb">
                             <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
-                                <?php $theView->write('SYSTEM_OPTIONS_COMMENT_MARKSPAM_PASTCHECK'); ?>
+                                <?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT'); ?>
                             </div>
                             <div class="align-self-center col-md-12 col-lg-7 mx-0 px-0">
                                 <?php $theView->textInput('file_img_thumb_height')
