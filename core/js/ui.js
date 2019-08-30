@@ -37,7 +37,12 @@ fpcm.ui = {
         });
 
         jQuery('.fpcm-loader').click(function () {
-            if (jQuery(this).hasClass('fpcm-noloader') || jQuery(this).hasClass('fpcm-navigation-noclick')) return false;
+
+            var el = jQuery(this);
+            if (el.hasClass('fpcm-navigation-noclick') || el.data('hidespinner')) {
+                return false;
+            }
+
             fpcm.ui.showLoader(true);
         });
         
@@ -54,6 +59,8 @@ fpcm.ui = {
 
     initJqUiWidgets: function () {
 
+        jQuery('.fpcm-ui-button.fpcm-ui-button-confirm').unbind('click');
+
         fpcm.ui.mainToolbar = fpcm.ui.controlgroup('#fpcm-ui-toolbar div.fpcm-ui-toolbar', {
             onlyVisible: true
         });
@@ -61,12 +68,17 @@ fpcm.ui = {
         fpcm.ui.assignControlgroups();
 
         jQuery('.fpcm-ui-button.fpcm-ui-button-confirm').click(function() {
+
             fpcm.ui.showLoader(false);
             if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
                 fpcm.ui.showLoader(false);
                 return false;
             }
-            fpcm.ui.showLoader(true);
+            
+            if (!jQuery(this).data('hidespinner')) {
+                fpcm.ui.showLoader(true);
+            }
+
         });
 
         fpcm.ui.selectmenu('.fpcm-ui-input-select');
@@ -74,8 +86,6 @@ fpcm.ui = {
         fpcm.ui.assignCheckboxes();
         fpcm.ui.articleActionsOkButton();
         fpcm.ui.initPager();
-        
-        noActionButtonAssign = false;
     },
     
     translate: function(langVar) {
@@ -88,9 +98,10 @@ fpcm.ui = {
     
     articleActionsOkButton: function () {
 
-        if (window.noActionButtonAssign) return false;
+        var el = jQuery('.fpcm-ui-articleactions-ok');
 
-        jQuery('.fpcm-ui-articleactions-ok').click(function () {
+        el.unbind('click');
+        el.click(function () {
 
             for (var object in fpcm) {
                 if (typeof fpcm[object].assignActions === 'function' && fpcm[object].assignActions() === -1) {
@@ -98,9 +109,7 @@ fpcm.ui = {
                 }
             }
 
-            fpcm.ui.removeLoaderClass(this);
             if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
-                jQuery(this).addClass('fpcm-noloader');
                 return false;
             }
 

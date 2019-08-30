@@ -44,9 +44,9 @@ fpcm.articlelist = {
         var action = jQuery('#actionsaction').val();
         if (action == articleActions.newtweet) {
             fpcm.articlelist.articleActionsTweet();
-            fpcm.ui.removeLoaderClass(this);
             return -1;
         }
+
         if (action == articleActions.clearcache) {
             fpcm.system.clearCache({
                 cache: fpcm.vars.jsvars.artCacheMod,
@@ -159,8 +159,9 @@ fpcm.articlelist = {
                     return false;
                 }
 
-                fpcm.articlelist.execNewTweet(articleIds);
                 jQuery(this).dialog('close');
+                fpcm.ui.showLoader(true);
+                fpcm.articlelist.execNewTweet(articleIds);
             }
         });
 
