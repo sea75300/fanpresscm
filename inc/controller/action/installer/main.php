@@ -357,6 +357,7 @@ class main extends \fpcm\controller\abstracts\controller {
         $this->view->assign('avatar', false);
         $this->view->assign('externalSave', true);
         $this->view->assign('inProfile', false);
+        $this->view->assign('twoFaAuth', false);
         $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_SECURITY', 'SAVE_FAILED_PASSWORD_SECURITY_PWNDPASS']);
 
         if ($msg === null) {

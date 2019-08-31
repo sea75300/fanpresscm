@@ -52,7 +52,7 @@ if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled(
 }
 
 header("Content-Type: application/javascript");
-if (!FPCM_NOJSCSSPHP_FILESIZE_HEADER) {
-    header("Content-Length: ".$data['filesize']);
-}
+//if (!FPCM_NOJSCSSPHP_FILESIZE_HEADER) {
+header("Content-Length: ".$data['filesize']);
+//}
 exit($data['content']);

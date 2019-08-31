@@ -17,25 +17,22 @@ if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled(
 
     foreach (glob(__DIR__.'/*.css') as $cssFile) {
 
-        $fileContent = '/* '.\fpcm\model\files\ops::removeBaseDir($cssFile).' */'.PHP_EOL.file_get_contents($cssFile).PHP_EOL.PHP_EOL;        
-        $contentSize = strlen($fileContent);
-        
+        $fileContent = file_get_contents($cssFile);
         if (!$fileContent) {
             continue;
         }
 
-        $data['content']  .= $fileContent;
-        $data['filesize'] += (filesize($cssFile) + $contentSize);
-
+        $data['content']  .= '/* '.\fpcm\model\files\ops::removeBaseDir($cssFile).' */'.PHP_EOL.$fileContent.PHP_EOL.PHP_EOL;
     }
 
-    $cache->write($cacheName, $data, FPCM_LANGCACHE_TIMEOUT);
+    $data['filesize']  = strlen($data['content']);
+    $cache->write($cacheName, $data);
 } else {
     $data = $cache->read($cacheName);
 }
 
 header("Content-Type: text/css");
-if (!FPCM_NOJSCSSPHP_FILESIZE_HEADER) {
-    header("Content-Length: ".$data['filesize']);
-}
+//if (!FPCM_NOJSCSSPHP_FILESIZE_HEADER) {
+header("Content-Length: ".$data['filesize']);
+//}
 exit($data['content']);
