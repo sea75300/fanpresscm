@@ -118,6 +118,10 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
      */
     public function __construct(array $params = [])
     {
+        $this->requestExit([
+            'module'
+        ]);
+
         $this->apiMode = isset($params['apiMode']) ? (bool) $params['apiMode'] : false;
         $this->category = isset($params['category']) ? $params['category'] : 0;
         $this->isUtf8 = isset($params['isUtf8']) ? (bool) $params['isUtf8'] : true;

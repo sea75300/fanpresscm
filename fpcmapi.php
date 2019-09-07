@@ -7,6 +7,8 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
+define('FPCM_FE', true);
+
 /**
  * Include of base files
  */
@@ -48,13 +50,28 @@ class fpcmAPI {
 
         \fpcm\classes\http::init();
     }
-
+    
     /**
-     * Lädt FPCM-Controller
+     * Initializes controllers
+     * @return bool
      */
-    public function registerController()
+    private function registerController() : bool
     {
         $this->controllers = \fpcm\classes\baseconfig::getControllers();
+        return true;
+    }
+
+    private function initObjects() : bool
+    {
+        \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
+        \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
+
+        \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        \fpcm\classes\loader::getObject('\fpcm\model\system\config')->setUserSettings();
+        \fpcm\classes\loader::getObject('\fpcm\classes\language', \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_lang);
+        \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+        return true;
     }
 
     /**
@@ -69,6 +86,7 @@ class fpcmAPI {
         }
 
         $this->registerController();
+        $this->initObjects();
 
         $module = (!is_null(\fpcm\classes\http::get('module'))) ? \fpcm\classes\http::get('module', array(1, 4, 7)) : 'fpcm/list';
         if (strpos($module, 'fpcm/') === false || !in_array($module, array('fpcm/list', 'fpcm/article', 'fpcm/archive')))
@@ -115,6 +133,7 @@ class fpcmAPI {
         }
 
         $params['apiMode'] = true;
+        $this->initObjects();
 
         /**
          * @var abstracts\controller
@@ -143,6 +162,8 @@ class fpcmAPI {
             return false;
         }
 
+        $this->initObjects();
+
         (new fpcm\controller\action\pub\showtitle('page', $divider, $isUtf8))->process();
     }
 
@@ -156,6 +177,8 @@ class fpcmAPI {
         if ($this->versionFailed) {
             return false;
         }
+
+        $this->initObjects();
 
         (new fpcm\controller\action\pub\showtitle('title', $divider, $isUtf8))->process();
     }
@@ -213,6 +236,8 @@ class fpcmAPI {
             return false;
         }
 
+        $this->initObjects();
+
         return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
                     'name' => $name,
                     'args' => $arguments
@@ -233,6 +258,8 @@ class fpcmAPI {
         if ($this->versionFailed) {
             return false;
         }
+
+        $this->initObjects();
 
         return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
                     'name' => $name,

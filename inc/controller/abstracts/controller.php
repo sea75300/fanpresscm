@@ -329,6 +329,51 @@ class controller implements \fpcm\controller\interfaces\controller {
     }
 
     /**
+     * Additional frontend request check
+     * @param array $vars
+     * @return bool
+     */
+    final protected function requestExit(array $vars) : bool
+    {
+        if (!defined('FPCM_REQUEST_EXIT') || !FPCM_REQUEST_EXIT) {
+            return true;
+        }
+
+        define(
+            'FPCM_EXITREQUEST_REGEX',
+            '/('.implode('|', ['SELECT', 'CHR', 'UPPER', 'INFORMATION_SCHEMA',
+                               '\sAND', '\sOR', 'UNION', 'CONCAT', 'THEN']).')+/'
+        );
+        
+        $result = array_map(function($var) {
+
+                $varData = $this->getRequestVar($var);
+                if (is_array($varData)) {
+                    return 0;
+                }
+
+                $res = preg_match_all(FPCM_EXITREQUEST_REGEX, $varData);
+                return ($res === false || $res === 0) ? 0 : 1;
+            },
+            $vars
+        );
+
+        if (!is_array($result)) {
+            return false;
+        }
+        
+        $count = count(array_keys($result, 1));
+        if ($count) {
+            sleep($count > 30 ? 30 : $count);
+            print date(DATE_W3C).' - Bad request';
+            http_response_code(400);
+            exit;
+        }
+
+        return true;
+    }
+
+    /**
      * Get view path for controller
      * @return string
      */

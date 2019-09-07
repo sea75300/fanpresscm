@@ -62,6 +62,10 @@ class feed extends \fpcm\controller\abstracts\pubController {
      */
     public function __construct()
     {
+        $this->requestExit([
+            'module'
+        ]);
+
         parent::__construct();
 
         if ($this->config->articles_rss) {

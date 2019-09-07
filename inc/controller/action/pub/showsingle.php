@@ -100,6 +100,11 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     public function __construct(array $params = [])
     {
+        $this->requestExit([
+            'id',
+            'module'
+        ]);
+
         $this->templateString = isset($params['template']) && trim($params['template']) ? $params['template'] : false;
         $this->apiMode = isset($params['apiMode']) ? (bool) $params['apiMode'] : false;
         $this->isUtf8 = isset($params['isUtf8']) ? (bool) $params['isUtf8'] : true;

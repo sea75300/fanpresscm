@@ -151,3 +151,11 @@ if (!defined('FPCM_ARTICLES_SOURCES_AUTOCOMPLETE')) {
      */
     define('FPCM_ARTICLES_SOURCES_AUTOCOMPLETE', 25);
 }
+
+if (!defined('FPCM_REQUEST_EXIT')) {
+    /**
+     * Enable extended request check
+     * @since FPCM 4.2.1
+     */
+    define('FPCM_REQUEST_EXIT', true);
+}
