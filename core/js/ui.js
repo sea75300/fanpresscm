@@ -408,6 +408,10 @@ fpcm.ui = {
         }
 
         var el = jQuery(elemClassId).selectmenu(params);
+        if (params.removeCornerLeft || (elemClassId.substr(1,1) === '#' && el.data('remove_corner_left'))) {
+            el.selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
+        }
+
         if (params.doRefresh) {
             el.selectmenu('refresh');
         }

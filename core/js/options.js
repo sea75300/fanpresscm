@@ -45,8 +45,11 @@ fpcm.options = {
                 return true;
             }
         });
-        
-        jQuery('.fpcm-ui-input-select').selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
+
+        fpcm.ui.selectmenu('.fpcm-ui-input-select', {
+            removeCornerLeft: true
+        })
+
         jQuery('.fpcm-ui-spinner').spinner( "option", "classes.ui-spinner", "fpcm-ui-border-radius-right" );
     }
 };

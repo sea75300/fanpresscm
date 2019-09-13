@@ -485,12 +485,9 @@ if (fpcm.editor) {
 
                 fpcm.ui.selectmenu('.fpcm-editor-mediaformat',{
                     appendTo: '#fpcm-dialog-editor-html-insertmedia',
-                    width: '100%'
+                    width: '100%',
+                    removeCornerLeft: true
                 });
-                
-                jQuery( "#mediaformat" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
-                jQuery( "#mediaformat2" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
-
             },
             dlOnClose: function() {
                 jQuery('.fpcm-editor-mediatype').removeAttr('checked');    
@@ -568,15 +565,17 @@ if (fpcm.editor) {
     };
     
     fpcm.editor.insertPicture = function () {
-        
-        jQuery( "#imagesalign" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
-        jQuery( "#imagescss" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );        
+
+        fpcm.ui.selectmenu('#imagesalign',{
+            removeCornerLeft: true
+        });
 
         fpcm.ui.insertDialog({
             id: 'editor-html-insertimage',
             dlWidth: fpcm.ui.getDialogSizes(top, 0.35).width,
             title: 'EDITOR_INSERTPIC',
             dlOnOpen: function () {
+                
                 fpcm.ajax.exec('autocomplete&src=editorfiles', {
                     execDone: function () {
                         fpcm.ui.autocomplete('#imagespath', {
@@ -633,9 +632,10 @@ if (fpcm.editor) {
     
     fpcm.editor.insertLink = function() {
 
-        jQuery( "#linkstarget" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
-        jQuery( "#linkscss" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
-        
+        fpcm.ui.selectmenu('#linkstarget',{
+            removeCornerLeft: true
+        });
+
         fpcm.ui.insertDialog({
             id: 'editor-html-insertlink',
             dlWidth: fpcm.ui.getDialogSizes().width,
@@ -695,9 +695,7 @@ if (fpcm.editor) {
     };
 
     fpcm.editor.insertQuote = function () {
-        jQuery( "#linkstarget" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
-        jQuery( "#linkscss" ).selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
-        
+
         fpcm.ui.insertDialog({
             id: 'editor-html-insertquote',
             dlWidth: fpcm.ui.getDialogSizes().width,

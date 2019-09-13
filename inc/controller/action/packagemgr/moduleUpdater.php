@@ -17,7 +17,6 @@ class moduleUpdater extends moduleBase {
      */
     public function process()
     {
-        $this->steps['tabHeadline'] = 'MODULES_LIST_UPDATE';
         if ($this->updateDb) {
             $this->steps = array_map([$this, 'setFalse'], $this->steps);
             $this->steps['updateDb'] = true;
@@ -29,6 +28,8 @@ class moduleUpdater extends moduleBase {
         if ($this->keepMaintenance) {
             $this->steps['keepMaintenance'] = true;
         }
+
+        $this->steps['tabHeadline'] = 'MODULES_LIST_UPDATE';
         
         $this->jsVars = [
             'pkgdata' => [
@@ -36,7 +37,7 @@ class moduleUpdater extends moduleBase {
                 'key' => $this->key
             ]
         ];
-        
+
         parent::process();
     }
 
