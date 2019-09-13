@@ -583,7 +583,7 @@ class view {
                 break;
         }
 
-        include_once $this->viewPath;
+        include $this->viewPath;
 
         switch ($this->showHeader) {
             case self::INCLUDE_HEADER_FULL :
