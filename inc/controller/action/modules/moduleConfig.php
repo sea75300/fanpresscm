@@ -131,6 +131,13 @@ class moduleConfig extends \fpcm\controller\abstracts\controller {
                 'options' => $this->module->getOptions()
             ]
         ));
+
+        if (file_exists( \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $this->key . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'moduleConfig.js') )) {
+            $this->view->addJsFiles([ 
+                \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_MODULES, $this->key . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'moduleConfig.js')    
+            ]);            
+        }
+
         $this->view->addButton(new \fpcm\view\helper\saveButton('save'));
         $this->view->render();
     }
