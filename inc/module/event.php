@@ -32,7 +32,7 @@ abstract class event {
      */
     final public function __construct($data)
     {
-        $this->key = explode('\\events', module::getKeyFromClass(get_class($this)), 2)[0];
+        $this->key = module::getKeyFromClass(get_called_class());
         $this->data = $data;
 
         $this->init();
