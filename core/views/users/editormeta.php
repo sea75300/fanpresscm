@@ -66,10 +66,12 @@
                                 ->setIcon('calendar')
                                 ->setClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-input-nowrapper-general')
                                 ->setLabelClass('col-12 col-sm-6 fpcm-ui-field-label-general'); ?>
+
+                        <?php $theView->shorthelpButton('dtmask')
+                                ->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')
+                                ->setUrl('http://php.net/manual/function.date.php')
+                                ->setClass('col-12 col-sm-auto align-self-center'); ?>
                     </div>
-                </div>
-                <div class="col-12 col-sm-auto mt-2 ml-0 mt-sm-0 ml-sm-3 align-self-center">
-                    <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
                 </div>
             </div>
         </fieldset>

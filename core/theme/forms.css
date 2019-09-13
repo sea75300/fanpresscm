@@ -54,3 +54,7 @@ textarea.fpcm-ui-textarea-medium {
     box-shadow: none;
     padding-left: 0.3rem;
 }
+
+.fpcm-ui-input-wrapper.fpcm-ui-input-wrapper-number .fpcm-ui-input-wrapper-inner {
+    padding-right: 0;
+}

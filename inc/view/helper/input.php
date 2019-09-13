@@ -56,11 +56,10 @@ abstract class input extends helper {
         $wrapperEnd = '';
 
         if ($this->useWrapper) {
+            $this->wrapperClass .= ' fpcm-ui-input-wrapper-'.$this->type;
             $wrapperStart = "<div class=\"fpcm-ui-input-wrapper col-{$this->colWidth} {$this->wrapperClass} fpcm-ui-padding-none-lr\"><div class=\"fpcm-ui-input-wrapper-inner\">";
             $wrapperEnd = "</div></div>";
         }
-        
-        $this->class .= ' fpcm-ui-input-text-'.$this->type;
 
         $input = "<input type=\"{$this->type}\" {$this->getNameIdString()}{$this->getClassString()} {$this->getValueString()} {$this->getReadonlyString()} maxlength=\"{$this->maxlenght}\" {$this->getAutocompleteString()}  {$this->getAutoFocusedString()} {$this->getPlaceholderString()}  {$this->getDataString()}>";
         if (!$this->text) {
