@@ -34,8 +34,6 @@
                 <div class="fpcm-filelist-actions fpcm-ui-controlgroup fpcm-filelist-actions-checkbox">
                     <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
                 </div>
-
-                <div class="fpcm-ui-clear"></div>
             </div>
         </div>
     </div>

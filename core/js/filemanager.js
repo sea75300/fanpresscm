@@ -301,7 +301,8 @@ fpcm.filemanager = {
             'filesize',
             'resulution',
             'filehash',
-            'filemime'
+            'filemime',
+            'credits'
         ];
 
         jQuery('.fpcm-filelist-properties').click(function () {
@@ -328,6 +329,11 @@ fpcm.filemanager = {
                                 titleTxt = el.data('' + prop);
                                 titleHtml = el.data('' + prop);
                                 break;
+                        }
+
+
+                        if (!titleHtml) {
+                            titleHtml = '&nbsp';
                         }
 
                         jQuery('#fpcm-dialog-files-properties-' + prop).html(titleHtml).attr('title', el.data('' + prop));

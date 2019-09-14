@@ -117,4 +117,18 @@
             </div>
         </div>
     </div>
+
+    <div class="row no-gutters fpcm-ui-padding-md-tb">
+        <div class="col-12 fpcm-ui-padding-none-lr">
+            <div class="row">
+                <label class="col-12 col-md-4 fpcm-ui-field-label-general">
+                    <?php $theView->icon('copyright')->setSize('lg'); ?>
+                    <?php $theView->write('FILE_LIST_FILECREDITS'); ?>
+                </label>
+                <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-padding-none-lr fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all fpcm-ui-ellipsis pre-box" id="fpcm-dialog-files-properties-credits">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

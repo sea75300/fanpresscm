@@ -72,6 +72,12 @@ class image extends \fpcm\model\abstracts\file {
     protected $mimetype;
 
     /**
+     * Exif/ IPCT data
+     * @var string
+     */
+    protected $iptcStr;
+
+    /**
      * Felder die in Datenbank gespeichert werden können
      * @var array
      */
@@ -228,6 +234,14 @@ class image extends \fpcm\model\abstracts\file {
         return $this->mimetype;
     }
 
+    /**
+     * Returns IPTC credit string
+     * @return string
+     */
+    public function getIptcStr() {
+        return $this->iptcStr;
+    }
+    
     /**
      * Datensatz-ID setzen
      * @param int $id
@@ -447,7 +461,7 @@ class image extends \fpcm\model\abstracts\file {
             $this->filesize = filesize($this->fullpath);
         }
 
-        $fileData = getimagesize($this->fullpath);
+        $fileData = getimagesize($this->fullpath, $metaInfo);
         if (!is_array($fileData)) {
             return true;
         }
@@ -456,6 +470,8 @@ class image extends \fpcm\model\abstracts\file {
         $this->height = $fileData[1];
         $this->whstring = $fileData[3];
         $this->mimetype = $fileData['mime'];
+
+        $this->parseIptc($metaInfo);
     }
 
     /**
@@ -525,6 +541,45 @@ class image extends \fpcm\model\abstracts\file {
         }
 
         return implode('/', $filename);;
+    }
+
+    /**
+     * reads IPTC data from file
+     * @param array $info
+     * @return bool
+     * @since FPCm 4.2.1 
+     */
+    public function parseIptc($info)
+    {
+        if (trim($this->iptcStr)) {
+            return true;
+        }
+        
+        if (!function_exists('iptcparse') || !is_array($info) || !count($info)) {
+            return false;
+        }
+
+        $this->iptcStr = [];
+        array_map(function ($item) {
+
+            $iptc = iptcparse($item);
+            if (!is_array($iptc) || !count($iptc)) {
+                return [];
+            }
+
+            foreach (array_keys($iptc) as $s) {             
+                $c = count ($iptc[$s]);
+                for ($i=0; $i <$c; $i++) {
+                    $this->iptcStr[$s] = $iptc[$s][$i];
+                }
+            }  
+
+            $this->iptcStr = array_intersect_key($this->iptcStr, ['2#080' => 1, '2#110' => 1, '2#116' => 1]);
+
+        }, $info);
+
+        $this->iptcStr = utf8_encode(implode(PHP_EOL, $this->iptcStr));
+        return true;
     }
 
 }

@@ -129,6 +129,7 @@ $lang = array(
     'FILE_LIST_FILESIZE' => 'Dateigröße',
     'FILE_LIST_FILEHASH' => 'Dateihash',
     'FILE_LIST_FILETYPE' => 'MIME-Typ',
+    'FILE_LIST_FILECREDITS' => 'Credits',
     'FILE_LIST_RESOLUTION' => 'Auflösung',
     'FILE_LIST_RESOLUTION_PIXEL' => 'Pixel',
     'FILE_LIST_UPLOAD_DATE' => 'Zuletzt geändert am',

@@ -25,5 +25,6 @@
         'fileresy' => $file->getHeight(),
         'filehash' => $file->getFileHash(),
         'filemime' => $file->getMimetype(),
+        'credits' => $file->getIptcStr()
     ])->setClass('fpcm-filelist-properties'); ?>
 <?php endif; ?>
