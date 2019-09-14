@@ -25,10 +25,20 @@ class delete extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-        $article = new \fpcm\model\articles\article($this->getRequestVar('id', [
+        $isMultiple = $this->getRequestVar('multiple', [
             \fpcm\classes\http::FILTER_CASTINT
-        ]));
+        ]);
+        
+        $id = $this->getRequestVar('id', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]);
 
+        if ($isMultiple) {
+            $this->returnCode = (new \fpcm\model\articles\articlelist())->deleteArticles($id) ? 1 : 0;
+            $this->getResponse();            
+        }
+        
+        $article = new \fpcm\model\articles\article($id);
         if ($article->exists() && $article->delete()) {
             $this->returnCode = 1;
             $this->getResponse();

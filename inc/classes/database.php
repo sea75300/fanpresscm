@@ -752,6 +752,19 @@ final class database {
     }
 
     /**
+     * Creates IN-Query for prepared statement
+     * @param string $field
+     * @param array $values
+     * @param bool $notId
+     * @return string
+     * @since FPCm 4.2.1
+     */
+    public function inQuery(string $field, array $values, bool $notId = false) : string
+    {
+        return $field.($notId ? ' NOT ' : '').' IN ('. implode(', ', array_fill(0, count($values), '?')).')';
+    }
+
+    /**
      * Erzeugt LIKE-SQL-String
      * @return string
      * @since FPCM 3.2.0

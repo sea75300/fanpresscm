@@ -258,8 +258,8 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $res = $this->dbcon->update(
             $this->table,
             ['deleted', 'pinned', 'changetime', 'changeuser'],
-            [1, 0, time(), $userId],
-            'id IN (' . implode(', ', $ids) . ')'
+            array_merge([1, 0, time(), $userId], $ids),
+            $this->dbcon->inQuery('id', $ids)
         );
 
         if ($res) {
@@ -286,8 +286,8 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         return $this->dbcon->update(
             $this->table,
             ['deleted', 'changetime', 'changeuser'],
-            [0, time(), $userId],
-            'id IN (' . implode(', ', $ids) . ') AND deleted = 1'
+            array_merge([0, time(), $userId], $ids),
+            $this->dbcon->inQuery('id', $ids) . ' AND deleted = 1'
         );
     }
 
@@ -299,7 +299,12 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     public function publishPostponedArticles(array $ids)
     {
         $this->cache->cleanup();
-        return $this->dbcon->update($this->table, array('postponed'), array(0), 'id IN (' . implode(', ', $ids) . ') AND postponed = 1 AND approval = 0 AND deleted = 0 AND draft = 0');
+        return $this->dbcon->update(
+            $this->table,
+            ['postponed'],
+            array_merge([0], $ids),
+            $this->dbcon->inQuery('id', $ids) . ') AND postponed = 1 AND approval = 0 AND deleted = 0 AND draft = 0'
+        );
     }
 
     /**

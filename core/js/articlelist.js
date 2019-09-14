@@ -35,26 +35,27 @@ fpcm.articlelist = {
     },
     
     assignActions: function() {
-
-        var articleActions = {
-            newtweet    : 'newtweet',
-            clearcache  : 'articlecache'
-        }
         
         var action = jQuery('#actionsaction').val();
-        if (action == articleActions.newtweet) {
+        if (action == 'newtweet') {
             fpcm.articlelist.articleActionsTweet();
             return -1;
         }
 
-        if (action == articleActions.clearcache) {
+        if (action == 'articlecache') {
             fpcm.system.clearCache({
                 cache: fpcm.vars.jsvars.artCacheMod,
                 objid: 0
             });
+            fpcm.articlelist.resetActionsMenu();
             return -1;
         }
-        
+
+        if (action == 'delete') {
+            fpcm.articlelist.deleteMultipleArticle();
+            return -1;
+        }
+
         return true;
     },
     
@@ -176,8 +177,7 @@ fpcm.articlelist = {
             async   : false,
             execDone: function(result) {
 
-                jQuery('#actionsaction').prop('selectedIndex',0);
-                jQuery('#actionsaction').selectmenu('refresh');
+                fpcm.articlelist.resetActionsMenu();
 
                 fpcm.ui.showLoader(false);
                 result = fpcm.ajax.fromJSON(fpcm.ajax.getResult('articles/tweet'));
@@ -234,7 +234,18 @@ fpcm.articlelist = {
                             id: articleId
                         },
                         execDone: function (result) {
-                            window.location.reload();
+
+                            result = fpcm.ajax.fromJSON(result);
+
+                            if (result.code == 1) {
+                                window.location.reload();
+                                return true;
+                            }
+
+                            fpcm.ui.addMessage({
+                                txt: 'DELETE_FAILED_ARTICLE',
+                                type: 'error',
+                            }, true);
                         }
                     });
                     jQuery(this).dialog("close");
@@ -246,5 +257,57 @@ fpcm.articlelist = {
             return false;
         });
 
+    },
+
+    deleteMultipleArticle: function() {
+
+        var articleIds = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+        if (articleIds.length == 0) {
+            fpcm.ui.showLoader(false);
+            return false;
+        }
+
+        fpcm.ui.confirmDialog({
+
+            clickYes: function () {
+                fpcm.ui.showLoader(true);
+                fpcm.ajax.exec('articles/delete', {
+                    data: {
+                        id: articleIds,
+                        multiple: 1
+                    },
+                    execDone: function (result) {
+
+                        fpcm.articlelist.resetActionsMenu();
+
+                        result = fpcm.ajax.fromJSON(result);
+
+                        if (result.code == 1) {
+                            window.location.reload();
+                            return true;
+                        }
+
+                        fpcm.ui.addMessage({
+                            txt: 'DELETE_FAILED_ARTICLE',
+                            type: 'error',
+                        }, true);
+                    }
+                });
+
+                jQuery(this).dialog("close");
+            },
+            clickNoDefault: true
+
+        });
+
+        return true;
+
+    },
+    
+    resetActionsMenu: function () {
+        var el = jQuery('#actionsaction');
+        el.prop('selectedIndex',0);
+        el.selectmenu('refresh');
+        return true;
     }
 };

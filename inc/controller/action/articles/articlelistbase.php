@@ -211,20 +211,6 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
     }
 
     /**
-     * Artikel löschen
-     * @param array $ids
-     * @return bool
-     */
-    protected function doDelete(array $ids)
-    {
-        if (!$this->deleteActions) {
-            return false;
-        }
-
-        return $this->articleList->deleteArticles($ids);
-    }
-
-    /**
      * Papierkorb leeren
      * @return bool
      */
@@ -334,7 +320,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
             'ARTICLE_SEARCH_LOGICOR' => 1
         ]);
 
-        $this->view->addJsLangVars(['SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START']);
+        $this->view->addJsLangVars(['SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START', 'DELETE_FAILED_ARTICLE']);
         $this->view->addJsVars(['articlesLastSearch' => 0]);
     }
 

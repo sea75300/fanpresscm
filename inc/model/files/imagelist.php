@@ -77,7 +77,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         $valueParams = [];
 
         if ($conditions->filename) {
-            $where[] = "filename LIKE ?";
+            $where[] = "filename ".$this->dbcon->dbLike()." ?";
             $valueParams[] = '%' . $conditions->filename . '%';
         }
 
@@ -131,7 +131,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         $valueParams = [];
 
         if ($conditions->filename) {
-            $where[] = "filename LIKE ?";
+            $where[] = "filename ".$this->dbcon->dbLike()." ?";
             $valueParams[] = '%' . $conditions->filename . '%';
         }
 
