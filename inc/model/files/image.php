@@ -177,6 +177,9 @@ class image extends \fpcm\model\abstracts\file {
      */
     public function getFileManagerThumbnail()
     {
+        fpcmLogSystem(__METHOD__);
+        fpcmLogSystem($this->filename);
+        
         return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_FMTMP, $this->filename);
     }
 

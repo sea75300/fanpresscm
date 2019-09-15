@@ -89,6 +89,7 @@ fpcm.filemanager = {
     },
 
     initJqUiWidgets: function () {
+        jQuery('#fpcm-select-all').prop('checked', false).checkboxradio('refresh');
         fpcm.ui.assignCheckboxes();
         fpcm.ui.assignControlgroups();
         fpcm.filemanager.initInsertButtons();

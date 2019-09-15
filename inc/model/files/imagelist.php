@@ -231,8 +231,8 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
             }
 
             $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($folderFile);
-            $image = new \fpcm\model\files\image($folderFile);
             $this->removeBasePath($folderFile);
+            $image = new \fpcm\model\files\image($folderFile);
             if (file_exists($image->getFileManagerThumbnail())) {
                 $image = null;
                 $phpImgWsp = null;
