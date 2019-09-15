@@ -105,8 +105,8 @@ fpcm.dataview = {
                             + (rowCol.class ? ' ' + rowCol.class : '');
 
             var valueStr    = ( rowCol.type == fpcm.vars.jsvars.dataviews.rolColTypes.coltypeValue
-                            ? '<div class="fpcm-ui-dataview-col-value">' + (rowCol.value ? fpcm.ui.translate(rowCol.value) : '&nbsp;') + '</div>'
-                            : (rowCol.value ? fpcm.ui.translate(rowCol.value) : '&nbsp;') );
+                            ? '<div class="fpcm-ui-dataview-col-value">' + (rowCol.value !== '' ? fpcm.ui.translate(rowCol.value) : '&nbsp;') + '</div>'
+                            : (rowCol.value !== '' ? fpcm.ui.translate(rowCol.value) : '&nbsp;') );
 
             rowEl.append('<div class="' + style + '" id="' + rowId + '-dataview-rowcol-' + rowCol.name + index + '">' + valueStr + '</div>');
         });

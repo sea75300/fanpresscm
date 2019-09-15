@@ -344,6 +344,10 @@ class module {
      */
     public function hasLocalUpdates() : bool
     {
+        if (defined('FPCM_MODULE_DEV') && FPCM_MODULE_DEV) {
+            return true;
+        }
+
         return version_compare((new config($this->mkey, null))->version, $this->config->version, '=') ? false : true;
     }
 

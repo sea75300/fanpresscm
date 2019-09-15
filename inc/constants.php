@@ -159,3 +159,11 @@ if (!defined('FPCM_REQUEST_EXIT')) {
      */
     define('FPCM_REQUEST_EXIT', true);
 }
+
+if (!defined('FPCM_MODULE_DEV')) {
+    /**
+     * Enable module developement
+     * @since FPCM 4.2.1
+     */
+    define('FPCM_MODULE_DEV', false);
+}

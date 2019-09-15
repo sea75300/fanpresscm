@@ -262,7 +262,6 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                 }
                 
             }
-            
 
             if ($this->permArr['canUninstall'] && !$item->isActive()) {
                 $buttons[] = (new \fpcm\view\helper\button('uninstall'.$hash))->setText('MODULES_LIST_UNINSTALL')->setIcon('minus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'uninstall'])->setClass('fpcm-ui-modulelist-action-local');
