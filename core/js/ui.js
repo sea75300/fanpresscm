@@ -929,6 +929,9 @@ fpcm.ui = {
         var backEl = jQuery('#pagerBack');
         var nextEl = jQuery('#pagerNext');
 
+        backEl.unbind('click');
+        nextEl.unbind('click');
+
         if (!params.backAction) {
             params.backAction = function () {
                 jQuery(this).attr('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showBackButton) );
@@ -951,6 +954,7 @@ fpcm.ui = {
 
         var selectId    = '#pageSelect';
         var selectEl    = jQuery(selectId);
+        selectEl.unbind('select');
         
         if (fpcm.vars.jsvars.pager.maxPages) {
             for(i=1; i<= fpcm.vars.jsvars.pager.maxPages; i++) {

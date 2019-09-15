@@ -57,6 +57,7 @@ fpcm.comments = {
             }
         }
 
+        jQuery('#massEdit').unbind('click');
         jQuery('#massEdit').click(function () {
             fpcm.system.initMassEditDialog('comments/massedit', 'comments-massedit', fpcm.comments);
             return false;
@@ -78,6 +79,7 @@ fpcm.comments = {
     
     initCommentSearch: function() {
 
+        jQuery('#opensearch').unbind('click');
         jQuery('#opensearch').click(function () {
 
             fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch', {
