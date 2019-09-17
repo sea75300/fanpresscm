@@ -561,6 +561,7 @@ class author extends \fpcm\model\abstracts\dataset {
             return $this->update();
         }
 
+        trigger_error('Unable to reset user password, failed to submit email to '.$this->email);
         return false;
     }
 

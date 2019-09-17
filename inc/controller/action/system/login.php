@@ -48,6 +48,12 @@ class login extends \fpcm\controller\abstracts\controller {
     protected $twoFaAuth = false;
 
     /**
+     * Reset password flag
+     * @var bool
+     */
+    protected $reset = false;
+
+    /**
      * 
      * @return string
      */
@@ -101,6 +107,8 @@ class login extends \fpcm\controller\abstracts\controller {
         if ($this->getRequestVar('nologin')) {
             $this->view->addErrorMessage('LOGIN_REQUIRED');
         }
+        
+        $this->reset = $this->getRequestVar('reset') !== null || $this->getRequestVar('username') !== null ? true : false;
 
         session_start();
         
@@ -118,12 +126,10 @@ class login extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
-        $reset = $this->getRequestVar('reset') === null ? false : true;
-        $this->view->assign('userNameField', $reset ? 'username' : 'login[username]');
-        $this->view->assign('resetPasswort', $reset);
+        $this->view->assign('userNameField', $this->reset ? 'username' : 'login[username]');
+        $this->view->assign('resetPasswort', $this->reset);
         $this->view->assign('twoFactorAuth', $this->twoFaAuth);
         $this->view->assign('captcha', $this->captcha);
-//        $this->view->assign('twoFactorAuth', $this->config->system_2fa_auth && !$reset);
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         $this->view->setFormAction('system/login');
         $this->view->render();
@@ -191,7 +197,7 @@ class login extends \fpcm\controller\abstracts\controller {
      */
     private function showTwoFactorForm(array $data) : bool
     {
-        if (!$this->config->system_2fa_auth || isset($data['authcode'])) {
+        if ($this->reset || !$this->config->system_2fa_auth || isset($data['authcode'])) {
             return false;
         }
             
@@ -237,7 +243,7 @@ class login extends \fpcm\controller\abstracts\controller {
             return false;
         }
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $user->getEmail() === $email) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $user->getEmail() !== $email) {
             fpcmLogSystem("Passwort reset for user id {$user->getUsername()} failed, invalid e-mail address.");
             $this->view->addErrorMessage('LOGIN_PASSWORD_RESET_FAILED');
             return false;
