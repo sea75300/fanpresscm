@@ -41,3 +41,4 @@ ajax/templates/fetch: ajax/templates/fetchEditor
 ajax/shareClick: ajax/pub/shareClick
 ajax/help: ajax/system/help
 ajax/passcheck: ajax/system/passcheck
+ajax/testing: ajax/system/testing

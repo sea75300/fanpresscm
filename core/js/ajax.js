@@ -14,7 +14,7 @@ fpcm.ajax = {
     result   : [],
     workData : [],
     
-    exec: function(action, params, _legacy) {
+    exec: function(action, params) {
 
         if (!params) {
             params = {};
@@ -50,6 +50,7 @@ fpcm.ajax = {
             data        : params.data,
             async       : params.async,
             dataType    : params.dataType ? params.dataType : null,
+            cache       : params.cache !== undefined ? params.cache : true,
             statusCode: {
                 500: function() {
                     fpcm.ajax.showAjaxErrorMessage();
@@ -88,6 +89,12 @@ fpcm.ajax = {
             }
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
+            
+            if (textStatus == 'parsererror') {
+                fpcm.ajax.showAjaxErrorMessage();
+                fpcm.ui.showLoader();
+            }
+
             console.error(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
             console.error('STATUS MESSAGE: ' + textStatus);
             console.error('ERROR MESSAGE: ' + errorThrown);
@@ -100,7 +107,7 @@ fpcm.ajax = {
             if (typeof params.execFail == 'function') {
                 params.execFail();
             }
-        });   
+        });
 
     },
     

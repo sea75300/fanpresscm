@@ -1035,6 +1035,40 @@ fpcm.ui = {
     
     getUniqueID: function (descr) {
         return (new Date()).getMilliseconds() + Math.random().toString(36).substr(2, 9) + (descr ? descr : '');
+    },
+
+    testing: function (_params) {
+        
+        if (!_params) {
+            _params = {};
+        }
+        
+        if (!_params.step) {
+            _params.step = 1;
+        }
+        
+        fpcm.ajax.get('testing', {
+            data: {
+                timestamp: (new Date()).getTime(),
+                step: _params.step
+            },
+            cache: false,
+            dataType: 'json',
+            execDone: function (result) {
+                console.log(result);
+                
+                if (result.res == 2) {
+                    return false;
+                }
+                
+                
+                fpcm.ui.testing({
+                    step: result.step
+                });
+            }
+        })
+        
+        
     }
 
 };

@@ -139,5 +139,3 @@ class refresh extends \fpcm\controller\abstracts\ajaxController {
     }
 
 }
-
-?>
