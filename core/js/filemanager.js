@@ -188,30 +188,40 @@ fpcm.filemanager = {
 
     initDeleteButtons: function() {
 
+        jQuery('.fpcm-filelist-delete').unbind('click');
         jQuery('.fpcm-filelist-delete').click(function () {
 
             var filename = jQuery(this).data('filename');
             var path = jQuery(this).data('file');
 
-            fpcm.ajax.exec('files/delete', {
-                dataType: 'json',
-                data: {
-                    filename: path
-                },
-                execDone: function (result) {
+            fpcm.ui.confirmDialog({
+                clickNoDefault: true,
+                clickYes: function () {
 
-                    fpcm.ui.addMessage({
-                        txt: result.message.replace('{{filenames}}', filename),
-                        type: result.code == 0 ? 'error' : 'notice'
+                    jQuery( this ).dialog( "close" );
+                    fpcm.ajax.exec('files/delete', {
+                        dataType: 'json',
+                        data: {
+                            filename: path
+                        },
+                        execDone: function (result) {
+
+                            fpcm.ui.addMessage({
+                                txt: result.message.replace('{{filenames}}', filename),
+                                type: result.code == 0 ? 'error' : 'notice'
+                            });
+
+                            fpcm.filemanager.reloadFiles();
+                            fpcm.ui.showLoader();
+                            return false;
+                        }
                     });
 
-                    fpcm.filemanager.reloadFiles();
-                    fpcm.ui.showLoader();
-                    return false;
+                    return false;  
                 }
             });
 
-            return false;
+            return false;  
         });
     },
 
@@ -260,6 +270,7 @@ fpcm.filemanager = {
             return false;
         }
 
+        el.unbind('click');
         el.click(function (event, ui) {
             
             var items = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
@@ -267,28 +278,36 @@ fpcm.filemanager = {
                 return false;
             }
 
-            fpcm.ui.showLoader(true);
-            fpcm.ajax.exec('files/delete', {
-                dataType: 'json',
-                data: {
-                    filename: items,
-                    multiple: 1
-                },
-                execDone: function (result) {
+            fpcm.ui.confirmDialog({
+                clickNoDefault: true,
+                clickYes: function () {
 
-                    jQuery.each(result.message, function (i, value) {
-                        fpcm.ui.addMessage({
-                            txt: value,
-                            type: result.code[i] ? 'notice' : 'error'
-                        }, i == 1 ? true : false);
-                    })
+                    jQuery( this ).dialog( "close" );
+                    fpcm.ajax.exec('files/delete', {
+                        dataType: 'json',
+                        data: {
+                            filename: items,
+                            multiple: 1
+                        },
+                        execDone: function (result) {
 
-                    fpcm.filemanager.reloadFiles();
+                            jQuery.each(result.message, function (i, value) {
+                                fpcm.ui.addMessage({
+                                    txt: value,
+                                    type: result.code[i] ? 'notice' : 'error'
+                                }, i == 1 ? true : false);
+                            })
+
+                            fpcm.filemanager.reloadFiles();
+                        }
+                    });
+
+                    return false;  
                 }
-            });
+            });            
 
             return false;
-        })
+        });
 
     },
 

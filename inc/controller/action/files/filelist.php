@@ -80,7 +80,6 @@ class filelist extends \fpcm\controller\abstracts\controller {
         $this->view->assign('styleLeftMargin', $styleLeftMargin);
 
         $this->uploadPhpForm();
-        $this->deleteFiles();
         return true;
     }
     
@@ -98,39 +97,6 @@ class filelist extends \fpcm\controller\abstracts\controller {
 
         if (count($result['error'])) {
             $this->view->addErrorMessage('SAVE_FAILED_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['error'])));
-        }
-
-        return true;
-    }
-    
-    private function deleteFiles() : bool
-    {
-        $fileNames = $this->getRequestVar('filenames',[
-            \fpcm\classes\http::FILTER_BASE64DECODE
-        ]);
-
-        if (!$this->permissionsData['permDelete'] || !$this->buttonClicked('deleteFiles') || !is_array($fileNames) || !count($fileNames)) {
-            return false;
-        }
-
-        $deletedOk = [];
-        $deletedFailed = [];
-        foreach ($fileNames as $fileName) {
-
-            if ((new \fpcm\model\files\image($fileName, false))->delete()) {
-                $deletedOk[] = $fileName;
-                continue;
-            }
-
-            $deletedFailed[] = $fileName;
-        }
-
-        if (count($deletedOk)) {
-            $this->view->addNoticeMessage('DELETE_SUCCESS_FILES', array('{{filenames}}' => implode(', ', $deletedOk)));
-        }
-
-        if (count($deletedFailed)) {
-            $this->view->addErrorMessage('DELETE_FAILED_FILES', array('{{filenames}}' => implode(', ', $deletedFailed)));
         }
 
         return true;
@@ -189,7 +155,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
         }
 
         if ($this->permissionsData['permDelete']) {
-            $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles', 'deleteFiles'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab1');
+            $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles', 'deleteFiles'))->setClass('fpcm-ui-maintoolbarbuttons-tab1');
         }
 
         if ($this->permissionsData['permUpload']) {
