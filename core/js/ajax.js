@@ -49,6 +49,7 @@ fpcm.ajax = {
             type        : params.method.toUpperCase(),
             data        : params.data,
             async       : params.async,
+            dataType    : params.dataType ? params.dataType : null,
             statusCode: {
                 500: function() {
                     fpcm.ajax.showAjaxErrorMessage();
@@ -66,7 +67,7 @@ fpcm.ajax = {
         })
         .done(function(result) {
 
-            if (result.search('FATAL ERROR:') === 3) {
+            if (result.search && result.search('FATAL ERROR:') === 3) {
                 console.error(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
                 console.error('ERROR MESSAGE: ' + errorThrown);
                 fpcm.ui.showLoader();

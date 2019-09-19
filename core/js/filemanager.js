@@ -194,12 +194,12 @@ fpcm.filemanager = {
             var path = jQuery(this).data('file');
 
             fpcm.ajax.exec('files/delete', {
+                dataType: 'json',
                 data: {
                     filename: path
                 },
                 execDone: function (result) {
 
-                    result = fpcm.ajax.fromJSON(result);
                     fpcm.ui.addMessage({
                         txt: result.message.replace('{{filenames}}', filename),
                         type: result.code == 0 ? 'error' : 'notice'
@@ -231,13 +231,12 @@ fpcm.filemanager = {
 
             fpcm.ui.showLoader(true);
             fpcm.ajax.exec('files/createthumbs', {
+                dataType: 'json',
                 data: {
                     items: items
                 },
                 execDone: function (result) {
-                    
-                    result = fpcm.ajax.fromJSON(result);
-                    
+
                     jQuery.each(result.message, function (i, value) {
                         fpcm.ui.addMessage({
                             txt: value,
@@ -270,13 +269,12 @@ fpcm.filemanager = {
 
             fpcm.ui.showLoader(true);
             fpcm.ajax.exec('files/delete', {
+                dataType: 'json',
                 data: {
                     filename: items,
                     multiple: 1
                 },
                 execDone: function (result) {
-                    
-                    result = fpcm.ajax.fromJSON(result);
 
                     jQuery.each(result.message, function (i, value) {
                         fpcm.ui.addMessage({

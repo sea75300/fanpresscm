@@ -216,9 +216,8 @@ fpcm.system = {
     execMassEdit: function (func, params) {
         fpcm.ajax.post(func, {
             data: params,
-            execDone: function () {
-
-                var res = fpcm.ajax.fromJSON(fpcm.ajax.getResult(func));
+            dataType: 'json',
+            execDone: function (res) {
 
                 if (res !== null && res.code == 1) {
                     fpcm.ui.relocate(window.location.href + (fpcm.vars.jsvars.massEdit && fpcm.vars.jsvars.massEdit.relocateParams ? fpcm.vars.jsvars.massEdit.relocateParams : ''));

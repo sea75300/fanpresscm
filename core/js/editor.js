@@ -124,13 +124,12 @@ fpcm.editor = {
             fpcm.ui.showLoader(true);
 
             fpcm.ajax.get('editor/editorlist',{
+                dataType: 'json',
                 data: {
                     id: jQuery(this).data().article,
                     view: 'shortlink'
                 },
                 execDone: function (result) {
-
-                    result = fpcm.ajax.fromJSON(result);
 
                     fpcm.ui.dialog({
                         id: 'editor-shortlink',

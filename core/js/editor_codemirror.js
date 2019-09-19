@@ -428,13 +428,13 @@ if (fpcm.editor) {
                         }
 
                         fpcm.ajax.exec('editor/draft', {
+                            dataType: 'json',
                             data    : {
                                 path: item
                             },
                             execDone: function (result) {
-                                var responseData = fpcm.ajax.fromJSON(result);
                                 fpcm.editor_codemirror.highlight({
-                                    input   : responseData.data,
+                                    input   : result.data,
                                     outputId : 'fpcm-dialog-editor-html-insertdraft-preview'
                                 });
                             }
@@ -456,12 +456,12 @@ if (fpcm.editor) {
                 }
 
                 fpcm.ajax.exec('editor/draft', {
+                    dataType: 'json',
                     data    : {
                         path: item
                     },
-                    execDone: function (result) {                                    
-                        var responseData = fpcm.ajax.fromJSON(result);
-                        fpcm.editor.cmInstance.doc.setValue(responseData.data);
+                    execDone: function (result) {
+                        fpcm.editor.cmInstance.doc.setValue(result.data);
                         jQuery('#fpcm-dialog-editor-html-insertdraft').dialog('close');
                     }
                 });
@@ -577,9 +577,10 @@ if (fpcm.editor) {
             dlOnOpen: function () {
                 
                 fpcm.ajax.exec('autocomplete&src=editorfiles', {
-                    execDone: function () {
+                    dataType: 'json',
+                    execDone: function (result) {
                         fpcm.ui.autocomplete('#imagespath', {
-                            source: fpcm.ajax.fromJSON(fpcm.ajax.getResult('autocomplete&src=editorfiles')),
+                            source: result,
                             minLength: 2,
                             appendTo: "#fpcm-dialog-editor-html-insertimage",
                             select: function( event, ui ) {
@@ -642,9 +643,10 @@ if (fpcm.editor) {
             title: 'EDITOR_INSERTLINK',
             dlOnOpen: function () {
                 fpcm.ajax.exec('autocomplete&src=editorlinks', {
+                    dataType: 'json',
                     execDone: function () {
                         fpcm.ui.autocomplete('#linksurl', {
-                            source: fpcm.ajax.fromJSON(fpcm.ajax.getResult('autocomplete&src=editorlinks')),
+                            source: result,
                             minLength: 2,
                             appendTo: "#fpcm-dialog-editor-html-insertlink",
                             select: function( event, ui ) {

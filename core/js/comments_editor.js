@@ -22,14 +22,13 @@ fpcm.editor = {
 
             fpcm.ui.showLoader(true);
             fpcm.ajax.post('comments/lockip', {
+                dataType: 'json',
                 data: {
                     cid: cid
                 },
                 execDone: function (result) {
 
                     fpcm.ui.showLoader(false);
-
-                    result = fpcm.ajax.fromJSON(result);
                     if (!result.code) {
                         fpcm.ui.addMessage({
                             type: 'error',

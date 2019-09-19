@@ -128,12 +128,12 @@ fpcm.editor.initTinyMce = function() {
             },
             onSetup: function (buttonApi) {
                 fpcm.ajax.get('editor/smileys', {
+                    dataType: 'json',
                     data: {
                         json: true
                     },
-                    execDone: function (result) {
-                        
-                        var items = fpcm.ajax.fromJSON(result);
+                    execDone: function (items) {
+
                         fpcm.vars.jsvars.editorConfig.fpcmEmoticons = [];
 
                         for(var x = 0;x < items.length; x++) {

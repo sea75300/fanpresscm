@@ -126,9 +126,8 @@ fpcm.articlelist = {
 
         fpcm.ajax.post('articles/search', {
             data: sParams,
+            dataType: 'json',
             execDone: function (result) {
-
-                result = fpcm.ajax.fromJSON(result);
 
                 fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
                 fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
@@ -175,12 +174,12 @@ fpcm.articlelist = {
                 ids : fpcm.ajax.toJSON(articleIds)
             },
             async   : false,
+            dataType: 'json',
             execDone: function(result) {
 
                 fpcm.articlelist.resetActionsMenu();
 
                 fpcm.ui.showLoader(false);
-                result = fpcm.ajax.fromJSON(fpcm.ajax.getResult('articles/tweet'));
                 if (result.notice != 0) {
                     fpcm.ui.addMessage({
                         type: 'notice',
@@ -230,12 +229,11 @@ fpcm.articlelist = {
                 clickYes: function () {
                     fpcm.ui.showLoader(true);
                     fpcm.ajax.exec('articles/delete', {
+                        dataType: 'json',
                         data: {
                             id: articleId
                         },
                         execDone: function (result) {
-
-                            result = fpcm.ajax.fromJSON(result);
 
                             if (result.code == 1) {
                                 window.location.reload();
@@ -272,6 +270,7 @@ fpcm.articlelist = {
             clickYes: function () {
                 fpcm.ui.showLoader(true);
                 fpcm.ajax.exec('articles/delete', {
+                    dataType: 'json',
                     data: {
                         id: articleIds,
                         multiple: 1
@@ -279,8 +278,6 @@ fpcm.articlelist = {
                     execDone: function (result) {
 
                         fpcm.articlelist.resetActionsMenu();
-
-                        result = fpcm.ajax.fromJSON(result);
 
                         if (result.code == 1) {
                             window.location.reload();
