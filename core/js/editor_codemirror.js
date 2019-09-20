@@ -366,18 +366,20 @@ if (fpcm.editor) {
     fpcm.editor.insertSymbol = function () {
         
         var sizeLarge = fpcm.ui.getDialogSizes();
-        
-        fpcm.ui.insertDialog({
+
+        var el = fpcm.ui.insertDialog({
             id: 'editor-html-insertsymbol',
             dlWidth: sizeLarge.width,
             dlHeight: sizeLarge.height,
             title: 'EDITOR_INSERTSYMBOL'
         });
 
-        jQuery('.fpcm-editor-htmlsymbol').click(function() {
-            fpcm.editor.insert(jQuery(this).data('symbolcode'), '');
+        nkorgJSCharMap.createList('#' + el.attr('id'));
+        nkorgJSCharMap.addClickEvent(function() {
+            fpcm.editor.insert(jQuery(this).data('code'), '');
             return false;
         });
+
     };
     
     fpcm.editor.insertColor = function () {

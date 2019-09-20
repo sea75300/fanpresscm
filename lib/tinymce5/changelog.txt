@@ -1,3 +1,34 @@
+Version 5.0.15 (2019-09-02)
+    Added a dark `content_css` skin to go with the dark UI skin #TINY-3743
+    Changed the enabled state on toolbar buttons so they don't get the hover effect #TINY-3974
+    Fixed missing CSS active state on toolbar buttons #TINY-3966
+    Fixed `onChange` callback not firing for the colorinput dialog component #TINY-3968
+    Fixed context toolbars not showing in fullscreen mode #TINY-4023
+Version 5.0.14 (2019-08-19)
+    Added an API to reload the autocompleter menu with additional fetch metadata #MENTIONS-17
+    Fixed missing toolbar button border styling options #TINY-3965
+    Fixed image upload progress notification closing before the upload is complete #TINY-3963
+    Fixed inline dialogs not closing on escape when no dialog component is in focus #TINY-3936
+    Fixed plugins not being filtered when defaulting to mobile on phones #TINY-3537
+    Fixed toolbar more drawer showing the content behind it when transitioning between opened and closed states #TINY-3878
+    Fixed focus not returning to the dialog after pressing the "Replace all" button in the search and replace dialog #TINY-3961
+    Removed Oxide variable `@menubar-select-disabled-border-color` and replaced it with `@menubar-select-disabled-border` #TINY-3965
+Version 5.0.13 (2019-08-06)
+    Changed modal dialogs to prevent dragging by default and added new `draggable_modal` setting to restore dragging #TINY-3873
+    Changed the nonbreaking plugin to insert nbsp characters wrapped in spans to aid in filtering. This can be disabled using the `nonbreaking_wrap` setting #TINY-3647
+    Changed backspace behaviour in lists to outdent nested list items when the cursor is at the start of the list item #TINY-3651
+    Fixed sidebar growing beyond editor bounds in IE 11 #TINY-3937
+    Fixed issue with being unable to keyboard navigate disabled toolbar buttons #TINY-3350
+    Fixed issues with backspace and delete in nested contenteditable true and false elements #TINY-3868
+    Fixed issue with losing keyboard navigation in dialogs due to disabled buttons #TINY-3914
+    Fixed `MouseEvent.mozPressure is deprecated` warning in Firefox #TINY-3919
+    Fixed `default_link_target` not being respected when `target_list` is disabled #TINY-3757
+    Fixed mobile plugin filter to only apply to the mobile theme, rather than all mobile platforms #TINY-3405
+    Fixed focus switching to another editor during mode changes #TINY-3852
+    Fixed an exception being thrown when clicking on an uninitialized inline editor #TINY-3925
+    Fixed unable to keyboard navigate to dialog menu buttons #TINY-3933
+    Fixed dialogs being able to be dragged outside the window viewport #TINY-3787
+    Fixed inline dialogs appearing above modal dialogs #TINY-3932
 Version 5.0.12 (2019-07-18)
     Added ability to utilize UI dialog panels inside other panels #TINY-3305
     Added help dialog tab explaining keyboard navigation of the editor #TINY-3603

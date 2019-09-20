@@ -26,7 +26,7 @@ class htmlEditor extends articleEditor {
         return [
             \fpcm\classes\dirs::getLibUrl('codemirror/lib/codemirror.css'),
             \fpcm\classes\dirs::getLibUrl('codemirror/theme/fpcm.css'),
-            \fpcm\classes\dirs::getLibUrl('codemirror/addon/hint/show-hint.css'),
+            \fpcm\classes\dirs::getLibUrl('codemirror/addon/hint/show-hint.css')
         ];
     }
 
@@ -70,6 +70,7 @@ class htmlEditor extends articleEditor {
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/javascript/javascript.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/css/css.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/htmlmixed/htmlmixed.js'),
+            \fpcm\classes\dirs::getLibUrl('jscharmap/charmap.js'),
             'editor_filemanager.js',
             'editor_codemirror.js'
         ];

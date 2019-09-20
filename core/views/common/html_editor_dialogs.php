@@ -212,13 +212,7 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertsmileys"></div>
 
 <!-- Symbol einfügen -->
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertsymbol">
-    <div class="row no-gutters">
-        <?php for($i=161;$i<=450;$i++) : ?>        
-        <div class="col-1"><a class="fpcm-editor-htmlsymbol" data-symbolcode="&#<?php print $i; ?>;" href="#">&#<?php print $i; ?>;</a></div>
-        <?php endfor; ?>
-    </div>
-</div>
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertsymbol"></div>
 
 <!-- Vorlage einfügen -->
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertquote">
