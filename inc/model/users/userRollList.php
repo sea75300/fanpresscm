@@ -75,15 +75,17 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
      */
     public function getUserRollsTranslated()
     {
-        $rollList = [];
-        foreach ($this->getUserRolls() as $roll) {
-            $descr = $this->language->translate($roll->getRollName());
-            $descr = $descr ? $descr : $roll->getRollName();
-
-            $rollList[$descr] = $roll->getId();
+        if (isset($this->data['translatedRolls']) &&
+            is_array($this->data['translatedRolls']) &&
+            count($this->data['translatedRolls'])) {
+            return $this->data['translatedRolls'];
         }
+        
+        array_walk($this->getUserRolls(), function(userRoll $obj) {
+            $this->data['translatedRolls'][$this->language->translate($obj->getRollName())] = $obj->getId();
+        });
 
-        return $rollList;
+        return $this->data['translatedRolls'];
     }
 
     /**
@@ -93,15 +95,18 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
      */
     public function getRollsbyIdsTranslated(array $ids)
     {
-        $rollList = [];
-        foreach ($this->getUserRollsByIds($ids) as $roll) {
-            $descr = $this->language->translate($roll->getRollName());
-            $descr = is_null($descr) ? $roll->getRollName() : $descr;
-
-            $rollList[$descr] = $roll->getId();
+        
+        if (isset($this->data['translatedRollsByID']) &&
+            is_array($this->data['translatedRollsByID']) &&
+            count($this->data['translatedRollsByID'])) {
+            return $this->data['translatedRollsByID'];
         }
+        
+        array_walk($this->getUserRollsByIds($ids), function(userRoll $obj) {
+            $this->data['translatedRollsByID'][$this->language->translate($obj->getRollName())] = $obj->getId();
+        });
 
-        return $rollList;
+        return $this->data['translatedRollsByID'];
     }
     
     /**

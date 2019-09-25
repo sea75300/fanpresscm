@@ -53,14 +53,12 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
      */
     public function getCategoriesNameListAll()
     {
-        $categories = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setItem('id, name')->setFetchAll(true));
-
-        $res = [];
-        foreach ($categories as $category) {
-            $res[$category->name] = $category->id;
+        $categories = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setItem('name, id')->setFetchAll(true)->setFetchStyle(\PDO::FETCH_KEY_PAIR) );
+        if (!is_array($categories)) {
+            return [];
         }
-
-        return $res;
+        
+        return $categories;
     }
 
     /**

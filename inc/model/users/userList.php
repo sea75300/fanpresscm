@@ -74,11 +74,7 @@ class userList extends \fpcm\model\abstracts\tablelist {
             return $this->userNameList;
         }
 
-        $users = $this->dbcon->fetch($this->dbcon->select($this->table, 'id, displayname'), true);
-        foreach ($users as $user) {
-            $this->userNameList[$user->displayname] = $user->id;
-        }
-
+        $this->userNameList = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setItem('displayname, id')->setFetchAll(true)->setFetchStyle(\PDO::FETCH_KEY_PAIR) );
         return $this->userNameList;
     }
 
@@ -91,12 +87,8 @@ class userList extends \fpcm\model\abstracts\tablelist {
         if (count($this->userEmailList)) {
             return $this->userEmailList;
         }
-
-        $users = $this->dbcon->fetch($this->dbcon->select($this->table, 'id, email'), true);
-        foreach ($users as $user) {
-            $this->userEmailList[$user->email] = $user->id;
-        }
-
+        
+        $this->userEmailList = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setItem('email, id')->setFetchAll(true)->setFetchStyle(\PDO::FETCH_KEY_PAIR) );
         return $this->userEmailList;
     }
 

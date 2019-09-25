@@ -263,7 +263,7 @@ final class database {
             return $result;
         }
 
-        return $this->fetch($result, $obj->getFetchAll());
+        return $this->fetch($result, $obj->getFetchAll(), $obj->getFetchStyle());
     }
 
     /**
@@ -664,20 +664,21 @@ final class database {
         fpcmLogSql($err);
         return true;
     }
-
+    
     /**
-     * Liefert eine Zeile des results als Objekt zurück
-     * @param PDOStatement $result Resultset
-     * @param bool $getAll soll fetchAll() erzwungen werden
-     * @return array
+     * Returns result set from database query
+     * @param \PDOStatement $result
+     * @param bool $getAll
+     * @param int $style
+     * @return mixed
      */
-    public function fetch(\PDOStatement $result, $getAll = false)
+    public function fetch(\PDOStatement $result, $getAll = false, $style = \PDO::FETCH_OBJ)
     {
         if ($result->rowCount() > 1 || $getAll == true) {
-            return $result->fetchAll(\PDO::FETCH_OBJ);
+            return $result->fetchAll($style);
         }
 
-        return $result->fetch(\PDO::FETCH_OBJ);
+        return $result->fetch($style);
     }
 
     /**
