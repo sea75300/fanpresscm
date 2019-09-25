@@ -81,7 +81,8 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
             return $this->data['translatedRolls'];
         }
         
-        array_walk($this->getUserRolls(), function(userRoll $obj) {
+        $arr = $this->getUserRolls();
+        array_walk($arr, function(userRoll $obj) {
             $this->data['translatedRolls'][$this->language->translate($obj->getRollName())] = $obj->getId();
         });
 
@@ -102,7 +103,8 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
             return $this->data['translatedRollsByID'];
         }
         
-        array_walk($this->getUserRollsByIds($ids), function(userRoll $obj) {
+        $arr = $this->getUserRollsByIds($ids);
+        array_walk($arr, function(userRoll $obj) {
             $this->data['translatedRollsByID'][$this->language->translate($obj->getRollName())] = $obj->getId();
         });
 
