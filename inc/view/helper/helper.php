@@ -20,6 +20,9 @@ namespace fpcm\view\helper;
  */
 abstract class helper {
 
+    /*  @since FPCM 4.2.2 */
+    const TEXT_DEFAULT_LABEL = 'LABEL_FIELD_';
+
     /**
      * Element data
      * @var array
@@ -117,6 +120,7 @@ abstract class helper {
         $this->init();
 
         $this->name = $this->prefix ? $this->prefix . ucfirst($name) : $name;
+        $this->text = self::TEXT_DEFAULT_LABEL.strtoupper(preg_replace('/([^A-Za-z0-9\_]+)/', '_', rtrim($this->name, ']')));
         $this->id = trim($id) ? $id : $this->getCleanName();
     }
 
