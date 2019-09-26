@@ -217,7 +217,9 @@ abstract class helper {
      */
     final protected function initLabel()
     {
-        if (trim($this->text) || $this instanceof radiocheck) {
+        if (trim($this->text) ||
+            $this instanceof radiocheck ||
+            $this instanceof icon) {
             return false;
         }
         
