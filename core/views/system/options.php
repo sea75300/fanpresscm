@@ -268,6 +268,7 @@
                             </div>
                             <div class="align-self-center col-md-12 col-lg-7 mx-0 px-0">
                                 <?php $theView->textInput('file_img_thumb_width')
+                                        ->setText('')
                                         ->setValue($globalConfig['file_img_thumb_width'])
                                         ->setMaxlenght(5)
                                         ->setWrapper(false)
@@ -281,6 +282,7 @@
                             </div>
                             <div class="align-self-center col-md-12 col-lg-7 mx-0 px-0">
                                 <?php $theView->textInput('file_img_thumb_height')
+                                        ->setText('')
                                         ->setValue($globalConfig['file_img_thumb_height'])
                                         ->setMaxlenght(5)
                                         ->setWrapper(false)
@@ -545,6 +547,7 @@
                             </div>
                             <div class="align-self-center col-md-12 col-lg-7 mx-0 px-0">
                                 <?php $theView->textInput('comments_markspam_commentcount')
+                                        ->setText('')
                                         ->setValue($globalConfig['comments_markspam_commentcount'])
                                         ->setMaxlenght(5)
                                         ->setWrapper(false)
@@ -589,6 +592,7 @@
                             </div>
                             <div class="align-self-center col-md-12 col-lg-7 mx-0 px-0">
                                 <?php $theView->textInput('system_loginfailed_locked')
+                                        ->setText('')
                                         ->setValue($globalConfig['system_loginfailed_locked'])
                                         ->setMaxlenght(5)
                                         ->setWrapper(false)
@@ -739,6 +743,7 @@
                             </div>
                             <div class="align-self-center col-md-12 col-lg-6 mx-0 px-0">
                                 <?php $theView->passwordInput('smtp_settings[pass]')
+                                        ->setText('')
                                         ->setValue($globalConfig['smtp_settings']['pass'])
                                         ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                         ->setWrapper(false)

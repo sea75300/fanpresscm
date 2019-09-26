@@ -127,6 +127,8 @@ fpcm.installer = {
             return false;
         });
 
-        fpcm.ui.button('.fpcm-ui-button');
+        fpcm.ui.selectmenu('.fpcm-ui-input-select', {
+            removeCornerLeft: true
+        });
     }
 };

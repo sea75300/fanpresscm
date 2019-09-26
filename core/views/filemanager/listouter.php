@@ -36,10 +36,15 @@
 </div>
 
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-rename">
-    <div class="row">
-        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb align-self-center"><?php $theView->write('FILE_LIST_FILENAME'); ?>:</div>
-        <div class="col-sm-12 col-md-6 fpcm-ui-padding-md-tb"><?php $theView->textInput('newFilenameDialog'); ?></div>
-    </div>
+    <div class="row fpcm-ui-padding-md-tb">
+            <?php $theView->textInput('newFilenameDialog')
+                    ->setWrapper(false)
+                    ->setText('FILE_LIST_FILENAME')
+                    ->setValue('')
+                    ->setIcon('edit')
+                    ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
+                    ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+    </div>    
 </div>
 
 <?php include $theView->getIncludePath('filemanager/searchform.php'); ?>

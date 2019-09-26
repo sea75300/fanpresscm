@@ -39,8 +39,8 @@
 
         
         <div class="fpcm-ui-controlgroup mt-2 mt-md-0 ml-0 ml-md-2">
-            <?php $theView->textInput('article[postponehour]')->setClass('fpcm-ui-spinner-hour ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'H'))->setWrapper(false); ?>
-            <?php $theView->textInput('article[postponeminute]')->setClass('fpcm-ui-spinner-minutes ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'i'))->setWrapper(false); ?>
+            <?php $theView->textInput('article[postponehour]')->setText('')->setClass('fpcm-ui-spinner-hour ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'H'))->setWrapper(false); ?>
+            <?php $theView->textInput('article[postponeminute]')->setText('')->setClass('fpcm-ui-spinner-minutes ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'i'))->setWrapper(false); ?>
             <?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'postponed'])->setLabelClass('fpcm-ui-margin-md-left')->setIconOnly(true); ?>
         </div>
     </div>
