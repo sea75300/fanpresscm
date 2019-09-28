@@ -23,9 +23,6 @@ fpcm.editor = {
             addMainToobarToggle: true,
             addTabScroll: true,
             saveActiveTab: true,
-            initDataViewJsonBefore:function(event, ui) {
-                jQuery('.fpcm-ui-editor-editlist').remove();
-            },            
             initDataViewOnRenderAfter: function () {
                 fpcm.ui.assignCheckboxes();
                 fpcm.ui.assignControlgroups(),

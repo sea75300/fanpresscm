@@ -91,6 +91,17 @@ class ajaxController extends controller {
         exit;
     }
 
+    /**
+     * Sets Header to return JSON data
+     * @return boolean
+     * @since FPCm 4.2.2
+     */
+    protected function setReturnJson()
+    {
+        header('Content-Type: application/json');
+        return true;
+    }
+
 }
 
 ?>

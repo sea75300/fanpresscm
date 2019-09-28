@@ -53,9 +53,8 @@ fpcm.modulelist = {
                 jQuery(ui.oldTab).unbind('click');
             },
         });
-        
-        fpcm.modulelist.tabs.tabs('load', 0);
 
+        fpcm.modulelist.tabs.tabs('load', 0);
     },
     
     initButtons: function () {

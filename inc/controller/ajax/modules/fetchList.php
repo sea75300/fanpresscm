@@ -74,6 +74,8 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
+        $this->setReturnJson();
+
         $this->mode = $this->getRequestVar('mode', [
             \fpcm\classes\http::FILTER_FIRSTUPPER
         ]);

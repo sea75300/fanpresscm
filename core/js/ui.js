@@ -246,7 +246,7 @@ fpcm.ui = {
 
             params.beforeLoad = function(event, ui) {
 
-                fpcm.ui.showLoader(true);        
+                fpcm.ui.showLoader(true);   
                 
                 tabList = ui.tab.data('dataview-list');                
                 if (!tabList) {
@@ -259,15 +259,19 @@ fpcm.ui = {
 
                 if (!params.dataFilterParams) {
                     params.dataFilterParams = function( response ) {
-                        return fpcm.ajax.fromJSON(response);
-                    }
+                        this.dataTypes = ['html', 'text'];
+                        return response;
+                    };
+                    
                 }
 
+                ui.ajaxSettings.dataTypes = ['json'];
+                ui.ajaxSettings.accepts = 'application/json';
                 ui.ajaxSettings.dataFilter = params.dataFilterParams;
 
                 ui.jqXHR.done(function(jqXHR) {
 
-                    if (!jqXHR.dataViewVars) {
+                    if (typeof jqXHR !== 'object' || !jqXHR.dataViewVars) {
                         return true;
                     }
 
@@ -304,9 +308,6 @@ fpcm.ui = {
                 }
 
                 ui.panel.append(fpcm.dataview.getDataViewWrapper(tabList, params.dataViewWrapperClass ? params.dataViewWrapperClass : ''));
-                if (!fpcm.vars.jsvars.dataviews[tabList]) {
-                    return false;
-                }
 
                 fpcm.dataview.updateAndRender(
                     tabList,
@@ -319,7 +320,7 @@ fpcm.ui = {
                 }
 
                 fpcm.ui.showLoader(false);
-                return true;
+                return false;
             };
         }
         

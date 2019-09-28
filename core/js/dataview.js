@@ -25,7 +25,7 @@ fpcm.dataview = {
             console.log('Dataview ' + id + ' does not exists in fpcm.vars.jsvars.dataviews!');
             return false;
         }
-        
+
         if (!fpcm.vars.jsvars.dataviews[id].init) {
             return false;
         }
