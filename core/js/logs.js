@@ -18,7 +18,9 @@ fpcm.logs = {
 
     init: function () {
 
-        jQuery('#btnCleanLogs').click(function () {
+        var cleanEl = jQuery('#btnCleanLogs');
+        cleanEl.unbind('click');
+        cleanEl.click(function () {
             
             var logId = jQuery(this).data('logid');
             
@@ -144,7 +146,8 @@ fpcm.logs = {
     },
     
     reloadLogs: function() {
-        jQuery('#fpcm-tabs-logs').tabs('load', jQuery('#fpcm-tabs-logs').tabs( "option", "active" ));
+        var tabEl = jQuery('#fpcm-tabs-logs');
+        tabEl.tabs('load', tabEl.tabs( "option", "active" ));
         return false;
     }
 
