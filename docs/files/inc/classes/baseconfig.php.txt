@@ -88,6 +88,10 @@ final class baseconfig {
             'eventslogs' => dirs::getDataDirPath(dirs::DATA_LOGS, 'events.txt')
         );
 
+        if (defined('FPCM_FE') && FPCM_FE) {
+            return true;
+        }
+        
         self::$installerEnabledFile = dirs::getDataDirPath(dirs::DATA_CONFIG, 'installer.enabled');
 
         if (self::dbConfigExists()) {

@@ -354,7 +354,6 @@ final class finalizer extends \fpcm\model\abstracts\model {
             '    <li>{{likeButton}}</li>',
             '    <li>{{facebook}}</li>',
             '    <li>{{twitter}}</li>',
-            '    <li>{{googlePlus}}</li>',
             '    <li>{{tumblr}}</li>',
             '    <li>{{pinterest}}</li>',
             '    <li>{{reddit}}</li>',

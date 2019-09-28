@@ -477,8 +477,8 @@ class author extends \fpcm\model\abstracts\dataset {
         }
 
         $fields = array_keys($params);
-
         $params[] = $this->getId();
+
         $this->events->trigger($this->getEventName('update'), $params);
 
         $return = false;
@@ -561,6 +561,7 @@ class author extends \fpcm\model\abstracts\dataset {
             return $this->update();
         }
 
+        trigger_error('Unable to reset user password, failed to submit email to '.$this->email);
         return false;
     }
 

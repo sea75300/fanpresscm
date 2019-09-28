@@ -40,7 +40,7 @@ class shorthelpButton extends linkButton {
             return "<span {$this->getClassString()} title=\"{$this->text}\">{$this->getIconString()}</span>";
         }
 
-        return "<a href=\"{$this->url}\" target=\"{$this->target}\" {$this->getNameIdString()} {$this->getClassString()} title=\"{$this->text}\" {$this->getRelString()} {$this->getDataString()}>{$this->getIconString()}</a>";
+        return "<a href=\"{$this->url}\" rel=\"help noopener\" target=\"{$this->target}\" {$this->getNameIdString()} {$this->getClassString()} title=\"{$this->text}\" {$this->getRelString()} {$this->getDataString()}>{$this->getIconString()}</a>";
     }
 
 }

@@ -116,9 +116,10 @@ trait iconHelper {
     /**
      * Set flag icon has spinner
      * @param string $spinner
+     * @param bool $useFa
      * @return $this
      */
-    public function setSpinner($spinner, $useFa = true)
+    public function setSpinner($spinner, bool $useFa = true)
     {
         $this->spinner = ($useFa ? 'fa-' . $spinner : $spinner);
         return $this;

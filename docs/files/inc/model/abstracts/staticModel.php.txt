@@ -10,6 +10,9 @@
 
 namespace fpcm\model\abstracts;
 
+use fpcm\classes\baseconfig;
+use fpcm\classes\loader;
+
 /**
  * Statisches Model ohen DB-Verbindung
  * 
@@ -88,23 +91,23 @@ abstract class staticModel {
      */
     public function __construct()
     {
-        $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
-        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+        $this->events = loader::getObject('\fpcm\events\events');
+        $this->cache = loader::getObject('\fpcm\classes\cache');
 
-        if (!\fpcm\classes\baseconfig::dbConfigExists()) {
+        if (!baseconfig::dbConfigExists()) {
             return;
         }
 
-        $this->session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
-        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-        $this->notifications = \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+        $this->session = loader::getObject('\fpcm\model\system\session');
+        $this->config = loader::getObject('\fpcm\model\system\config');
+        $this->language = loader::getObject('\fpcm\classes\language');
+        $this->notifications = loader::getObject('\fpcm\model\theme\notifications');
 
         if (is_object($this->config)) {
             $this->config->setUserSettings();
         }
 
-        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
+        $this->permissions = loader::getObject('\fpcm\model\system\permissions');
         
         if (method_exists($this, 'init')) {
             $this->init();
@@ -156,7 +159,7 @@ abstract class staticModel {
      */
     public static function __callStatic($name, $arguments)
     {
-        print "Static function '{$name}' not found in " . get_class($this) . '<br>';
+        print "Static function '{$name}' not found in " . get_called_class() . '<br>';
         return false;
     }
     

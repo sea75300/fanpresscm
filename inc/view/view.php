@@ -451,6 +451,7 @@ class view {
     /**
      * Adds top description
      * @param string $descr
+     * @param array $params
      * @since FPCM 4.2
      */
     public function addTopDescription(string $descr, array $params = [])

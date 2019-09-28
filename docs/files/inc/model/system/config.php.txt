@@ -7,6 +7,13 @@
 
 namespace fpcm\model\system;
 
+use fpcm\classes\baseconfig;
+use fpcm\classes\database;
+use fpcm\classes\loader;
+use fpcm\model\abstracts\dataset;
+use fpcm\model\dbal\selectParams;
+use fpcm\model\traits\eventModuleEmpty;
+
 /**
  * System config Objekt
  * 
@@ -77,9 +84,9 @@ namespace fpcm\model\system;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-final class config extends \fpcm\model\abstracts\dataset {
+final class config extends dataset {
 
-    use \fpcm\model\traits\eventModuleEmpty;
+    use eventModuleEmpty;
 
     /**
      * Neue Konfiguration
@@ -106,17 +113,18 @@ final class config extends \fpcm\model\abstracts\dataset {
      */
     function __construct($useCache = true)
     {
-        $this->table    = \fpcm\classes\database::tableConfig;
-        $this->dbcon    = \fpcm\classes\loader::getObject('\fpcm\classes\database');
-        $this->events   = \fpcm\classes\loader::getObject('\fpcm\events\events');
-        $this->cache    = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+        $this->table    = database::tableConfig;
+        $this->dbcon    = loader::getObject('\fpcm\classes\database');
+        $this->events   = loader::getObject('\fpcm\events\events');
+        $this->cache    = loader::getObject('\fpcm\classes\cache');
         $this->useCache = $useCache;
 
-        if (\fpcm\classes\baseconfig::installerEnabled()) {
+        if (baseconfig::installerEnabled()) {
             return false;
         }
 
         $this->init();
+        return true;
     }
 
     /**
@@ -161,7 +169,7 @@ final class config extends \fpcm\model\abstracts\dataset {
         $data = [];
         $where = [];
 
-        $installedEnabled = \fpcm\classes\baseconfig::installerEnabled();
+        $installedEnabled = baseconfig::installerEnabled();
         foreach ($params as $key => $value) {
 
             if (!array_key_exists($key, $this->data) && !$installedEnabled) {
@@ -222,12 +230,12 @@ final class config extends \fpcm\model\abstracts\dataset {
 
     /**
      * Überschreibt systemweite Einstellungen mit Benutzer-Einstellungen
-     * @return void
+     * @return bool
      */
     public function setUserSettings()
     {
         /* @var $user \fpcm\model\users\author */
-        $user = \fpcm\classes\loader::stackPull('currentUser');
+        $user = loader::stackPull('currentUser');
         if (!$user || !$user->getId() || $this->userConfigSet) {
             return false;
         }
@@ -249,8 +257,9 @@ final class config extends \fpcm\model\abstracts\dataset {
             $this->data[$key] = $value;
         }
 
-        \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->system_lang, false);
+        loader::getObject('\fpcm\classes\language', $this->system_lang, false);
         $this->userConfigSet = true;
+        return true;
     }
 
     /**
@@ -269,7 +278,7 @@ final class config extends \fpcm\model\abstracts\dataset {
      */
     public function init()
     {
-        if (\fpcm\classes\baseconfig::installerEnabled()) {
+        if (baseconfig::installerEnabled()) {
             return false;
         }
 
@@ -290,10 +299,11 @@ final class config extends \fpcm\model\abstracts\dataset {
 
             $this->cache->write($this->cacheName, $this->data);
 
-            return;
+            return true;
         }
 
         $this->data = $this->cache->read($this->cacheName);
+        return true;
     }
 
     /**
@@ -402,7 +412,7 @@ final class config extends \fpcm\model\abstracts\dataset {
      */
     public function getModuleOptions(string $key) : array
     {
-        $obj = (new \fpcm\model\dbal\selectParams())->setTable($this->table)->setWhere('config_name '.$this->dbcon->dbLike().' ?')->setParams([$key.'%'])->setFetchAll(true);
+        $obj = (new selectParams())->setTable($this->table)->setWhere('config_name '.$this->dbcon->dbLike().' ?')->setParams([$key.'%'])->setFetchAll(true);
 
         $result = $this->dbcon->selectFetch($obj);
         if (!$result) {
@@ -415,6 +425,17 @@ final class config extends \fpcm\model\abstracts\dataset {
         }
 
         return $data;
+    }
+
+    /**
+     * Returns minor version string as Number
+     * @return string
+     * @since FPCm 4.1
+     */
+    public function getVersionNumberString() : string
+    {
+        preg_match('/([0-9]).([0-9])/i', $this->data['system_version'], $matches);
+        return $matches[1].$matches[2];
     }
 
     /**

@@ -17,7 +17,8 @@ namespace fpcm\view\helper;
  */
 final class boolToText extends helper {
 
-    use traits\valueHelper;
+    use traits\valueHelper,
+        traits\iconHelper;
 
     /**
      * Return element string
@@ -25,21 +26,23 @@ final class boolToText extends helper {
      */
     protected function getString()
     {
-        $this->class = 'fa';
-
         if ($this->value) {
-            if (!$this->text) {
-                $this->setText('GLOBAL_YES');
-            }
-            $this->class .= ' fa-check-square fpcm-ui-booltext-yes';
+            $this->text = $this->text ?? $this->setText('GLOBAL_YES');
+
+            $this->setIcon('check-square');
+            $this->setClass('fpcm-ui-booltext-yes');
+            
         } else {
-            if (!$this->text) {
-                $this->setText('GLOBAL_NO');
-            }
-            $this->class .= ' fa-minus-square fpcm-ui-booltext-no';
+            $this->text = $this->text ?? $this->setText('GLOBAL_NO');
+
+            $this->setClass('fpcm-ui-booltext-no');
+            $this->setIcon('minus-square');
         }
 
-        return "<span {$this->getIdString()}{$this->getClassString()} title=\"{$this->text}\"></span>";
+        return str_replace(
+            ["class=\"", '></span>'],
+            ["class=\"{$this->class} ", "{$this->getIdString()} title=\"{$this->text}\"></span>"],
+            $this->getIconString());
     }
 
 }

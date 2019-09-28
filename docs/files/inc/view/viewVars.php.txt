@@ -27,6 +27,7 @@ namespace fpcm\view;
  * @property string $helpLink
  * @property string $formActionTarget
  * @property string $langCode
+ * @property string $bodyClass
  * @property int    $loginTime
  * 
  * @property array  $navigation
@@ -49,6 +50,7 @@ namespace fpcm\view;
  * @method helper\checkbox          checkbox(string $name , string $id)
  * @method helper\clearArticleCacheButton clearArticleCacheButton(string $name , string $id)
  * @method helper\dateText          dateText(int $timespan , string $format)
+ * @method helper\dateTimeInput     dateTimeInput(string $name , string $id)
  * @method helper\deleteButton      deleteButton(string $name , string $id)
  * @method helper\editButton        editButton(string $name , string $id)
  * @method helper\escape            escape(mixed $value , int $mode)
@@ -58,13 +60,16 @@ namespace fpcm\view;
  * @method helper\linkButton        linkButton(string $name , string $id)
  * @method helper\openButton        openButton(string $name , string $id)
  * @method helper\pageTokenField    pageTokenField(string $name , string $id)
+ * @method helper\pager             pager(string $actionLink, int $currentPage, int $currentPageItemsCount, int $itemsPerPage, int $maxItemCount)
  * @method helper\passwordInput     passwordInput(string $name , string $id)
  * @method helper\radiobutton       radiobutton(string $name , string $id)
+ * @method helper\radiocheck        radiocheck(string $name , string $id)
  * @method helper\resetButton       resetButton(string $name , string $id)
  * @method helper\saveButton        saveButton(string $name , string $id)
  * @method helper\select            select(string $name , string $id)
  * @method helper\shorthelpButton   shorthelpButton(string $name , string $id)
  * @method helper\submitButton      submitButton(string $name , string $id)
+ * @method helper\tabItem           tabItem(string $name , string $id)
  * @method helper\textInput         textInput(string $name , string $id)
  * @method helper\textarea          textarea(string $name , string $id)
  */
@@ -133,7 +138,7 @@ class viewVars {
      * @param string $view
      * @return string
      */
-    public function getIncludePath($view)
+    public function getIncludePath($view) : string
     {
         $path = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $view);
 
@@ -167,8 +172,7 @@ class viewVars {
     {
         return $this->lang->translate($var, $params);
     }
-    
-    
+
     /**
      * Displays month name by ID
      * @param int $monthId
@@ -177,6 +181,34 @@ class viewVars {
     public function writeMonth($monthId)
     {
         $this->lang->writeMonth($monthId);
+    }
+    
+    /**
+     * Returns controller link
+     * @param string $controller
+     * @param array $params
+     * @return string
+     * @see \fpcm\classes\tools::getControllerLink
+     * @since FPCM 4.2
+     */
+    public function controllerLink(string $controller, array $params = []) : string
+    {
+        return \fpcm\classes\tools::getControllerLink($controller, $params);
+    }
+
+    /**
+     * Calculates bytes sizes 
+     * @param int $value
+     * @param int $decimals
+     * @param string $delimDec
+     * @param string $delimTousands
+     * @return string
+     * @see \fpcm\classes\tools::calcSize
+     * @since FPCM 4.2
+     */
+    public function calcSize(int $value, int $decimals = 2, string $delimDec = ',', string $delimTousands = '.') : string
+    {
+        return \fpcm\classes\tools::calcSize($value, $decimals, $delimDec, $delimTousands);
     }
 
 }

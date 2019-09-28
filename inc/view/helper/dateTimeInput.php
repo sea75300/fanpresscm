@@ -30,26 +30,44 @@ final class dateTimeInput extends input {
         $this->type = 'text';
         $this->class .= ' '.self::DEFAULT_CLASS;
     }
-    
+
+    /**
+     * Enables native browser date selection field input
+     * @return void
+     */
     public function setNativeDate()
     {
         $this->type = 'date';
         $this->replaceDefaultCssClass('fpcm-ui-input-date-native');
     }
-    
+
+    /**
+     * Enables native browser time selection field input
+     * @return void
+     */
     public function setNativeTime()
     {
         $this->type = 'time';
         $this->replaceDefaultCssClass('fpcm-ui-input-time-native');
     }
-    
+
+    /**
+     * Enables native browser datetime-local selection field input
+     * @return void
+     */
     public function setNativeDateTime()
     {
         $this->type = 'datetime-local';
         $this->replaceDefaultCssClass('fpcm-ui-input-datetime-native');
     }
-    
-    private function replaceDefaultCssClass($newClass)
+
+    /**
+     * 
+     * Replaces default css-classes within native date/time/datetime fields
+     * @param string $newClass
+     * @return void
+     */
+    private function replaceDefaultCssClass(string $newClass)
     {
         $this->class = str_replace(self::DEFAULT_CLASS, $newClass, $this->class);
     }

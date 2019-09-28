@@ -98,14 +98,14 @@ class notificationItem {
         $this->icon->setSize('lg');
         
         if ($this->callback && strpos($this->callback, 'http') === 0) {
-            return "<li title=\"{$this->description}\" id=\"{$this->id}\" class=\"fpcm-menu-top-level1 fpcm-notification-item\"><a href=\"{$this->callback}\">" . $this->icon . "</a></li>";
+            return "<li title=\"{$this->description}\" id=\"{$this->id}\" class=\"fpcm-menu-top-level1 fpcm-ui-float-right fpcm-notification-item fpcm-ui-border-radius-all\"><a href=\"{$this->callback}\">" . $this->icon . "</a></li>";
         }
 
         if ($this->callback) {
-            return "<li title=\"{$this->description}\" id=\"{$this->id}\" data-callback=\"{$this->callback}\" class=\"fpcm-menu-top-level1 fpcm-notification-item\"><a href=\"#\">" . $this->icon . "</a></li>";
+            return "<li title=\"{$this->description}\" id=\"{$this->id}\" data-callback=\"{$this->callback}\" class=\"fpcm-menu-top-level1 fpcm-ui-float-right fpcm-notification-item fpcm-ui-border-radius-all\"><a href=\"#\">" . $this->icon . "</a></li>";
         }
 
-        return "<li title=\"{$this->description}\" id=\"{$this->id}\" class=\"fpcm-menu-top-level1 fpcm-notification-item\">" . $this->icon . "</li>";
+        return "<li title=\"{$this->description}\" id=\"{$this->id}\" class=\"fpcm-menu-top-level1 fpcm-ui-float-right fpcm-notification-item fpcm-ui-border-radius-all\">" . $this->icon . "</li>";
     }
 
 }

@@ -21,6 +21,12 @@ final class tweet extends template {
     const TEMPLATE_ID = 'tweet';
 
     /**
+     * erlaubte Template-Tags
+     * @var array
+     */
+    protected $allowedTags = [];
+
+    /**
      * Template-Platzhalter
      * @var array
      */

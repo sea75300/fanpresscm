@@ -7,13 +7,17 @@
 
 namespace fpcm\model\packages;
 
+use fpcm\classes\baseconfig;
+use fpcm\model\abstracts\remoteModel;
+use fpcm\model\files\fileOption;
+
 /**
  * Repository class
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-final class repository extends \fpcm\model\abstracts\remoteModel {
+final class repository extends remoteModel {
 
     const FOPT_UPDATES = 'updates.yml';
 
@@ -27,7 +31,7 @@ final class repository extends \fpcm\model\abstracts\remoteModel {
 
     /**
      * Current repo source
-     * @var array
+     * @var string
      */
     private $current = '';
 
@@ -39,9 +43,13 @@ final class repository extends \fpcm\model\abstracts\remoteModel {
     {
         parent::__construct();
 
+        $minorVer = $this->config->getVersionNumberString();
+
         $this->files = [
-            \fpcm\classes\baseconfig::$updateServer.'release.yml' => self::FOPT_UPDATES,
-            \fpcm\classes\baseconfig::$moduleServer.'release.yml' => self::FOPT_MODULES
+            baseconfig::$updateServer.'release.yml' => self::FOPT_UPDATES,
+            baseconfig::$updateServer.'release'.$minorVer.'.yml' => self::FOPT_UPDATES,
+            baseconfig::$moduleServer.'release.yml' => self::FOPT_MODULES,
+            baseconfig::$moduleServer.'release'.$minorVer.'.yml' => self::FOPT_MODULES
         ];
 
         return true;
@@ -54,13 +62,19 @@ final class repository extends \fpcm\model\abstracts\remoteModel {
      */
     public function fetchRemoteData($cliOutput = false)
     {
-        foreach ($this->files as $rem => $local) {            
-            
+        clearstatcache();
+        foreach ($this->files as $rem => $local) {
+
+
             if ($cliOutput) {
                 print 'fpcm@localhost:# Fetch package information from '.$rem.'...'.PHP_EOL;
             }
             else {
                 fpcmLogCron('Fetch package information from '.$rem);
+            }
+
+            if (strpos(get_headers($rem)[0], 'HTTP/1.1 404 Not Found') !== false) {
+                continue;
             }
 
             $this->remoteServer = $rem;
@@ -98,7 +112,7 @@ final class repository extends \fpcm\model\abstracts\remoteModel {
      */
     protected function saveRemoteData()
     {
-        $storage = new \fpcm\model\files\fileOption($this->current);
+        $storage = new fileOption($this->current);
         return $storage->write($this->remoteData);
     }
 

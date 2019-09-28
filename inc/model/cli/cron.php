@@ -50,7 +50,7 @@ final class cron extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
+     * Executed cronjob
      * @param \fpcm\model\abstracts\cron $cronjob
      */
     private function execCron($cronjob)
@@ -62,7 +62,7 @@ final class cron extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * 
+     * Resets cronjob execution state data
      * @param \fpcm\model\abstracts\cron $cronjob
      */
     private function resetCron($cronjob)
@@ -74,7 +74,7 @@ final class cron extends \fpcm\model\abstracts\cli {
     }
 
     /**
-     * Hilfe-Text zurückgeben ausführen
+     * Returns help text array
      * @return array
      */
     public function help()
@@ -87,6 +87,7 @@ final class cron extends \fpcm\model\abstracts\cli {
         $lines[] = '    Action params:';
         $lines[] = '';
         $lines[] = '      --exec        executes given cronjob';
+        $lines[] = '      --reset       resets cronjob running state data';
         return $lines;
     }
 

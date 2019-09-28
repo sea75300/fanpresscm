@@ -7,6 +7,10 @@
 
 namespace fpcm\model\cli;
 
+use fpcm\model\packages\repository;
+use fpcm\model\updater\modules;
+use fpcm\model\updater\system;
+
 /**
  * FanPress CM cli help module
  * 
@@ -57,8 +61,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * @return bool
      */
     private function initObjects() {
-        $this->updaterSys = new \fpcm\model\updater\system();
-        $this->updaterMod = new \fpcm\model\updater\modules();
+        $this->updaterSys = new system();
+        $this->updaterMod = new modules();
         return true;
     }
 
@@ -108,7 +112,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->initObjects();
 
         $this->output('Fetch package information from repository...');
-        $repository = new \fpcm\model\packages\repository();
+        $repository = new repository();
         $successRepo = $repository->fetchRemoteData(true);
 
         if (!$successRepo) {
@@ -133,7 +137,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
 
         $this->output('-- successfull!');
         $this->output('FanPress CM ' . $this->updaterSys->version . ' was relesed on ' . $this->updaterSys->release . ' width size of ' . \fpcm\classes\tools::calcSize($this->updaterSys->size));
-        if ($successSys === \fpcm\model\updater\system::FORCE_UPDATE) {
+        if ($successSys === system::FORCE_UPDATE) {
             $this->output('-- This released is forced to be installed, you should run fpcmcli.php pkg --update system as soon as possible.');
         }
 
@@ -162,7 +166,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $success = $pkg->checkFiles();
 
         if ($success !== true) {
-            $this->output('Local file system check failed, one or more files are not wriatble. ERROR CODE: ' . (int) $success, true);
+            $this->output('Local file system check failed, one or more files are not writable. ERROR CODE: ' . (int) $success, true);
         }
         $this->output('-- Finished.' . PHP_EOL);
 

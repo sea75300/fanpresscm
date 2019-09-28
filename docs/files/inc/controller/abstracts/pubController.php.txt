@@ -82,7 +82,7 @@ class pubController extends controller {
 
         $jsfiles = [];
         if ($this->config->system_loader_jquery) {
-            $jsfiles[] = \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.3.1.min.js');
+            $jsfiles[] = \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.4.1.min.js');
         }
         
         $jsfiles[]  =  defined('FPCM_DEBUG') && FPCM_DEBUG || !file_exists(\fpcm\classes\dirs::getFullDirPath('js/fpcm.min.js'))

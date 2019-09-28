@@ -29,7 +29,6 @@ final class sharebuttons extends template {
         '{{likeButton}}' => '',
         '{{facebook}}' => '',
         '{{twitter}}' => '',
-        '{{googlePlus}}' => '',
         '{{tumblr}}' => '',
         '{{pinterest}}' => '',
         '{{reddit}}' => '',
@@ -191,15 +190,6 @@ final class sharebuttons extends template {
                     'oid' => $this->articleId
                 ]
             ],
-            '{{googlePlus}}' => [
-                'link' => "https://plus.google.com/share?url={$this->link}",
-                'icon' => "default/googleplus.png",
-                'text' => "Google+",
-                'data' => [
-                    'onclick' => 'googleplus',
-                    'oid' => $this->articleId
-                ]
-            ],
             '{{tumblr}}' => [
                 'link' => "http://www.tumblr.com/share?v=3&amp;u={$this->link}&amp;t={$this->description}&amp;s=",
                 'icon' => "default/tumblr.png",
@@ -271,9 +261,6 @@ final class sharebuttons extends template {
         }
 
         switch ($item) {
-            case 'googleplus' :
-                $item = 'google-plus';
-                break;
             case 'email' :
                 $item = 'envelope-square';
                 $prefix = 'fas';

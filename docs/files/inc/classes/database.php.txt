@@ -263,13 +263,13 @@ final class database {
             return $result;
         }
 
-        return $this->fetch($result, $obj->getFetchAll());
+        return $this->fetch($result, $obj->getFetchAll(), $obj->getFetchStyle());
     }
 
     /**
      * Execute insert query
-     * @param type $table
-     * @param type $values
+     * @param string $table
+     * @param string $values
      * @return int
      */
     public function insert($table, $values)
@@ -664,20 +664,21 @@ final class database {
         fpcmLogSql($err);
         return true;
     }
-
+    
     /**
-     * Liefert eine Zeile des results als Objekt zurück
-     * @param PDOStatement $result Resultset
-     * @param bool $getAll soll fetchAll() erzwungen werden
-     * @return array
+     * Returns result set from database query
+     * @param \PDOStatement $result
+     * @param bool $getAll
+     * @param int $style
+     * @return mixed
      */
-    public function fetch(\PDOStatement $result, $getAll = false)
+    public function fetch(\PDOStatement $result, $getAll = false, $style = \PDO::FETCH_OBJ)
     {
         if ($result->rowCount() > 1 || $getAll == true) {
-            return $result->fetchAll(\PDO::FETCH_OBJ);
+            return $result->fetchAll($style);
         }
 
-        return $result->fetch(\PDO::FETCH_OBJ);
+        return $result->fetch($style);
     }
 
     /**
@@ -749,6 +750,19 @@ final class database {
     public function implodeCols($delim, array $fields)
     {
         return $this->driver->implodeCols($delim, $fields);
+    }
+
+    /**
+     * Creates IN-Query for prepared statement
+     * @param string $field
+     * @param array $values
+     * @param bool $notId
+     * @return string
+     * @since FPCm 4.2.1
+     */
+    public function inQuery(string $field, array $values, bool $notId = false) : string
+    {
+        return $field.($notId ? ' NOT ' : '').' IN ('. implode(', ', array_fill(0, count($values), '?')).')';
     }
 
     /**
@@ -1111,7 +1125,7 @@ final class database {
      * @return array
      * @since FPCm 4.1
      */
-    public function getTableIndices(string $table, $field = false, bool $cache = true): array
+    public function getTableIndices(string $table, $field = false, $cache = true) : array
     {
         $cacheName = $table . '_indices';
         if ($cache && isset($this->structCache[$cacheName])) {

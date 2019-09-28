@@ -951,7 +951,7 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getStatusIconPinned()
     {
         return (new \fpcm\view\helper\icon('thumbtack fa-rotate-90 fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getPinned())
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-pinned fpcm-ui-status-' . $this->getPinned())
                         ->setText('EDITOR_STATUS_PINNED')
                         ->setStack('square');
     }
@@ -963,7 +963,7 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getStatusIconDraft()
     {
         return (new \fpcm\view\helper\icon('file-alt fa-inverse', 'far'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getDraft())
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-draft fpcm-ui-status-' . $this->getDraft())
                         ->setText('EDITOR_STATUS_DRAFT')
                         ->setStack('square');
     }
@@ -975,7 +975,7 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getStatusIconPostponed()
     {
         return (new \fpcm\view\helper\icon('calendar-plus fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getPostponed())
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-postponed fpcm-ui-status-' . $this->getPostponed())
                         ->setText($this->language->translate('EDITOR_STATUS_POSTPONETO') . ( $this->getPostponed() ? ' ' . new \fpcm\view\helper\dateText($this->getCreatetime()) : ''))
                         ->setStack('square');
     }
@@ -987,7 +987,7 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getStatusIconApproval()
     {
         return (new \fpcm\view\helper\icon('thumbs-up fa-inverse', 'far'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getApproval())
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-approval fpcm-ui-status-' . $this->getApproval())
                         ->setText('EDITOR_STATUS_APPROVAL')
                         ->setStack('square');
     }
@@ -999,8 +999,9 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getStatusIconComments()
     {
         return (new \fpcm\view\helper\icon('comments fa-inverse', 'far'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getComments())
-                        ->setText('EDITOR_STATUS_COMMENTS')->setStack('square');
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-comments fpcm-ui-status-' . $this->getComments())
+                        ->setText('EDITOR_STATUS_COMMENTS')
+                        ->setStack('square');
     }
 
     /**
@@ -1010,7 +1011,7 @@ class article extends \fpcm\model\abstracts\dataset {
     public function getStatusIconArchive()
     {
         return (new \fpcm\view\helper\icon('archive fa-inverse'))
-                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getArchived())
+                        ->setClass('fpcm-ui-editor-metainfo fpcm-ui-editor-metainfo-archived fpcm-ui-status-' . $this->getArchived())
                         ->setText('EDITOR_STATUS_ARCHIVE')
                         ->setStack('square');
     }

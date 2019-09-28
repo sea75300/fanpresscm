@@ -84,6 +84,12 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
     const PARAM_DISABLE = '--disable';
 
     /**
+     * CLI param: --exsystem
+     * @ignore
+     */
+    const PARAM_RESET = '--reset';
+
+    /**
      * CLI param: --passwd
      */
     const PARAM_PASSWD = '--passwd';

@@ -2,11 +2,12 @@
 
 /**
  * FanPress CM 4
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
+/**
+ * FPCM frontend api flag
+ */
 define('FPCM_FE', true);
 
 /**
@@ -61,6 +62,11 @@ class fpcmAPI {
         return true;
     }
 
+    /**
+     * Initialized objects required by system
+     * @return bool
+     * @since FPCM 4.2.1
+     */
     private function initObjects() : bool
     {
         \fpcm\classes\loader::getObject('\fpcm\classes\database');
@@ -122,7 +128,7 @@ class fpcmAPI {
 
     /**
      * 
-     * Latest News anzeigen
+     * Exec Latest News display
      * @param array $params params @see \fpcm\controller\action\pub\showlatest
      * @return boolean
      */
@@ -152,7 +158,7 @@ class fpcmAPI {
     }
 
     /**
-     * aktuelle Seitennummer anzeigen
+     * Display current page number
      * @param string $divider
      * @param bool $isUtf8
      */
@@ -168,7 +174,7 @@ class fpcmAPI {
     }
 
     /**
-     * Title des aktuellen Artikels anzeigen
+     * Display title of currently requested article
      * @param string $divider
      * @param bool $isUtf8
      */
@@ -184,10 +190,11 @@ class fpcmAPI {
     }
 
     /**
-     * Weiterleitung für alte Artikel-Liste bis FanPress CM 2.5.x
+     * Executes article redirect for article urls of FanPress CM 2.5.x and older
      * @param int $articlesPerPage Artikel pro Seite
      * @return boolean
      * @since 3.0.3
+     * @deprecated FPCm 4.2.2
      */
     public function legacyRedirect($articlesPerPage = 5)
     {

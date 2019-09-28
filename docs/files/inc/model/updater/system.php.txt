@@ -7,6 +7,14 @@
 
 namespace fpcm\model\updater;
 
+use fpcm\classes\baseconfig;
+use fpcm\classes\loader;
+use fpcm\model\abstracts\remoteModel;
+use fpcm\model\abstracts\staticModel;
+use fpcm\model\files\fileOption;
+use fpcm\model\packages\repository;
+use fpcm\model\packages\update;
+
 /**
  * System updater object
  * @author Stefan Seehafer <sea75300@yahoo.de>
@@ -21,7 +29,7 @@ namespace fpcm\model\updater;
  * @property string $release Package release
  * @property int $size Package size
  */
-final class system extends \fpcm\model\abstracts\staticModel {
+final class system extends staticModel {
 
     /**
      * Status, dass Update erzwungen wird
@@ -40,10 +48,10 @@ final class system extends \fpcm\model\abstracts\staticModel {
      */
     public function updateAvailable()
     {
-        if (!count($this->data)) {
-            return \fpcm\model\abstracts\remoteModel::FURLOPEN_ERROR;
+        if (count($this->data) < 2) {
+            return remoteModel::FURLOPEN_ERROR;
         }
-        
+
         $newVersion = version_compare($this->data['version'], $this->config->system_version, '>');
         if ($newVersion && isset($this->data['phpversion']) && version_compare(phpversion(), $this->data['phpversion'], '<')) {
             fpcmLogSystem('FanPress CM ' . $this->data['version'] . ' is available, but requires PHP ' . $this->data['phpversion'] . ' or higher.');
@@ -63,11 +71,11 @@ final class system extends \fpcm\model\abstracts\staticModel {
      */
     public function checkManual()
     {
-        if ($this->updateAvailable() !== \fpcm\model\abstracts\remoteModel::FURLOPEN_ERROR) {
+        if ($this->updateAvailable() !== remoteModel::FURLOPEN_ERROR) {
             return false;
         }
 
-        return (!\fpcm\classes\baseconfig::canConnect() && time() > filectime(\fpcm\classes\baseconfig::getVersionFromFile()) + $this->config->system_updates_manual) ? true : false;
+        return (!baseconfig::canConnect() && time() > filectime(baseconfig::getVersionFromFile()) + $this->config->system_updates_manual) ? true : false;
     }
 
     /**
@@ -76,7 +84,7 @@ final class system extends \fpcm\model\abstracts\staticModel {
      */
     public function getManualCheckAddress()
     {
-        return \fpcm\classes\baseconfig::$updateServerManualLink;
+        return baseconfig::$updateServerManualLink;
     }
 
     /**
@@ -85,9 +93,9 @@ final class system extends \fpcm\model\abstracts\staticModel {
      */
     public function init()
     {
-        $this->fileOption = new \fpcm\model\files\fileOption(\fpcm\model\packages\repository::FOPT_UPDATES);
+        $this->fileOption = new fileOption(repository::FOPT_UPDATES);
 
-        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
+        include_once loader::libGetFilePath('spyc/Spyc.php');
         $foptData = \Spyc::YAMLLoadString($this->fileOption->read());
         
         $currentVersionComplete = $this->config->system_version;
@@ -129,7 +137,7 @@ final class system extends \fpcm\model\abstracts\staticModel {
      */
     final public function filesListExists() : bool
     {
-        return file_exists(\fpcm\model\packages\update::getFilesListPath());
+        return file_exists(update::getFilesListPath());
     }
 
 }

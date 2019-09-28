@@ -60,13 +60,6 @@ if (!defined('FPCM_MODULE_IGNORE_DEPENDENCIES')) {
     define('FPCM_MODULE_IGNORE_DEPENDENCIES', false);
 }
 
-if (!defined('FPCM_IGNORE_INSTALLER_DISABLED')) {
-    /**
-     * aktiven Installer ignorieren
-     */
-    define('FPCM_IGNORE_INSTALLER_DISABLED', false);
-}
-
 if (!defined('FPCM_CACHE_DEFAULT_TIMEOUT')) {
     /**
      * Timeout für Sprach-Cache
@@ -157,4 +150,20 @@ if (!defined('FPCM_ARTICLES_SOURCES_AUTOCOMPLETE')) {
      * @since FPCM 4.1
      */
     define('FPCM_ARTICLES_SOURCES_AUTOCOMPLETE', 25);
+}
+
+if (!defined('FPCM_REQUEST_EXIT')) {
+    /**
+     * Enable extended request check
+     * @since FPCM 4.2.1
+     */
+    define('FPCM_REQUEST_EXIT', true);
+}
+
+if (!defined('FPCM_MODULE_DEV')) {
+    /**
+     * Enable module developement
+     * @since FPCM 4.2.1
+     */
+    define('FPCM_MODULE_DEV', false);
 }

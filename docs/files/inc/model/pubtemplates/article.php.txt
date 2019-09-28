@@ -201,7 +201,7 @@ final class article extends template {
             '{{author}}' => $users['author'] ? $users['author']->getDisplayname() : $notFoundStr,
             '{{authorEmail}}' => ($users['author'] ? '<a href="mailto:' . $users['author']->getEmail() . '">' . $users['author']->getDisplayname() . '</a>' : ''),
             '{{authorAvatar}}' => $users['author'] ? \fpcm\model\users\author::getAuthorImageDataOrPath($users['author'], 0) : '',
-            '{{authorInfoText}}' => $users['author'] ? $users['author']->getUsrinfo() : '',
+            '{{authorInfoText}}' => $users['author'] ? nl2br($users['author']->getUsrinfo(), false) : '',
             '{{changeDate}}' => date($this->config->system_dtmask, $article->getChangetime()),
             '{{changeUser}}' => $users['changeUser'] ? $users['changeUser']->getDisplayname() : $notFoundStr,
             '{{categoryIcons}}' => implode(PHP_EOL, array_values($categories)),

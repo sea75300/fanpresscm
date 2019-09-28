@@ -60,8 +60,12 @@ class select extends helper {
      */
     protected function getString()
     {
+        if ($this->isMultiple) {
+            $this->class = str_replace('fpcm-ui-input-select', 'fpcm-ui-input-select-multiple', $this->class);        
+        }
+        
         return implode(' ', [
-            "<select",
+            "<select".($this->isMultiple ? ' multiple' : ''),
             $this->getNameIdString(),
             $this->getClassString(),
             $this->getReadonlyString(),

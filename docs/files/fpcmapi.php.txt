@@ -2,10 +2,13 @@
 
 /**
  * FanPress CM 4
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
+
+/**
+ * FPCM frontend api flag
+ */
+define('FPCM_FE', true);
 
 /**
  * Include of base files
@@ -48,13 +51,33 @@ class fpcmAPI {
 
         \fpcm\classes\http::init();
     }
-
+    
     /**
-     * Lädt FPCM-Controller
+     * Initializes controllers
+     * @return bool
      */
-    public function registerController()
+    private function registerController() : bool
     {
         $this->controllers = \fpcm\classes\baseconfig::getControllers();
+        return true;
+    }
+
+    /**
+     * Initialized objects required by system
+     * @return bool
+     * @since FPCM 4.2.1
+     */
+    private function initObjects() : bool
+    {
+        \fpcm\classes\loader::getObject('\fpcm\classes\database');
+        \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
+        \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
+
+        \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        \fpcm\classes\loader::getObject('\fpcm\model\system\config')->setUserSettings();
+        \fpcm\classes\loader::getObject('\fpcm\classes\language', \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_lang);
+        \fpcm\classes\loader::getObject('\fpcm\model\theme\notifications');
+        return true;
     }
 
     /**
@@ -69,6 +92,7 @@ class fpcmAPI {
         }
 
         $this->registerController();
+        $this->initObjects();
 
         $module = (!is_null(\fpcm\classes\http::get('module'))) ? \fpcm\classes\http::get('module', array(1, 4, 7)) : 'fpcm/list';
         if (strpos($module, 'fpcm/') === false || !in_array($module, array('fpcm/list', 'fpcm/article', 'fpcm/archive')))
@@ -104,7 +128,7 @@ class fpcmAPI {
 
     /**
      * 
-     * Latest News anzeigen
+     * Exec Latest News display
      * @param array $params params @see \fpcm\controller\action\pub\showlatest
      * @return boolean
      */
@@ -115,6 +139,7 @@ class fpcmAPI {
         }
 
         $params['apiMode'] = true;
+        $this->initObjects();
 
         /**
          * @var abstracts\controller
@@ -133,7 +158,7 @@ class fpcmAPI {
     }
 
     /**
-     * aktuelle Seitennummer anzeigen
+     * Display current page number
      * @param string $divider
      * @param bool $isUtf8
      */
@@ -143,11 +168,13 @@ class fpcmAPI {
             return false;
         }
 
+        $this->initObjects();
+
         (new fpcm\controller\action\pub\showtitle('page', $divider, $isUtf8))->process();
     }
 
     /**
-     * Title des aktuellen Artikels anzeigen
+     * Display title of currently requested article
      * @param string $divider
      * @param bool $isUtf8
      */
@@ -157,14 +184,17 @@ class fpcmAPI {
             return false;
         }
 
+        $this->initObjects();
+
         (new fpcm\controller\action\pub\showtitle('title', $divider, $isUtf8))->process();
     }
 
     /**
-     * Weiterleitung für alte Artikel-Liste bis FanPress CM 2.5.x
+     * Executes article redirect for article urls of FanPress CM 2.5.x and older
      * @param int $articlesPerPage Artikel pro Seite
      * @return boolean
      * @since 3.0.3
+     * @deprecated FPCm 4.2.2
      */
     public function legacyRedirect($articlesPerPage = 5)
     {
@@ -213,6 +243,8 @@ class fpcmAPI {
             return false;
         }
 
+        $this->initObjects();
+
         return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
                     'name' => $name,
                     'args' => $arguments
@@ -233,6 +265,8 @@ class fpcmAPI {
         if ($this->versionFailed) {
             return false;
         }
+
+        $this->initObjects();
 
         return fpcm\classes\loader::getObject('fpcm\events\events')->trigger('apiCallFunction', [
                     'name' => $name,

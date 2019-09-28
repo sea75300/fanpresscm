@@ -338,6 +338,20 @@ class module {
     }
 
     /**
+     * Checks if file system version number matches module.yml data
+     * @return bool
+     * @since FPCM 4.1
+     */
+    public function hasLocalUpdates() : bool
+    {
+        if (defined('FPCM_MODULE_DEV') && FPCM_MODULE_DEV) {
+            return true;
+        }
+
+        return version_compare((new config($this->mkey, null))->version, $this->config->version, '=') ? false : true;
+    }
+
+    /**
      * Check if configure action should be displayed
      * @return bool
      */
@@ -753,17 +767,19 @@ class module {
 
         fpcmLogSystem('Update modules table for ' . $this->mkey . ' during update');
 
-        $addTables = $this->config->tables['add'];
+        $tables = $this->config->tables;
+
+        $addTables = $tables['add'] ?? [];
         if (!is_array($addTables)) {
             $addTables = [];
         }
 
-        $alterTables = $this->config->tables['alter'];
+        $alterTables = $tables['alter'] ?? [];
         if (!is_array($alterTables)) {
             $alterTables = [];
         }
 
-        $dropTables = $this->config->tables['drop'];
+        $dropTables = $tables['drop'] ?? [];
         if (!is_array($dropTables)) {
             $dropTables = [];
         }

@@ -100,15 +100,18 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function updateStatus($text)
     {
-        if (!trim($text))
+        if (!trim($text)) {
+            fpcmLogSystem('Create tweet failed, no text given!');
             return false;
+        }
 
         $code = $this->oAuth->request(
                 'POST', $this->oAuth->url('1.1/statuses/update'), array('status' => $text)
         );
-
+        
         $this->log();
 
+        fpcmLogSystem('Create tweet retuned code: '.$code);
         return ($code != 200 ? false : true);
     }
 
@@ -127,6 +130,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
             foreach ($responseData['errors'] as $value) {
 
                 if ($value['code'] == 187) {
+                    fpcmLogSystem("Twitter retuned Code {$value['code']}: {$value['message']}");
                     continue;
                 }
 

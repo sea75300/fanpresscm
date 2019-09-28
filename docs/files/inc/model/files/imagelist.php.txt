@@ -77,7 +77,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         $valueParams = [];
 
         if ($conditions->filename) {
-            $where[] = "filename LIKE ?";
+            $where[] = "filename ".$this->dbcon->dbLike()." ?";
             $valueParams[] = '%' . $conditions->filename . '%';
         }
 
@@ -131,7 +131,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         $valueParams = [];
 
         if ($conditions->filename) {
-            $where[] = "filename LIKE ?";
+            $where[] = "filename ".$this->dbcon->dbLike()." ?";
             $valueParams[] = '%' . $conditions->filename . '%';
         }
 
@@ -221,6 +221,12 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
             if (filesize($folderFile) >= $filesizeLimit) {
                 $msgPath = ops::removeBaseDir($folderFile);
                 fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath} because of image dimension. You may reduce file size?");
+                continue;
+            }
+            
+            if (pathinfo($folderFile, PATHINFO_EXTENSION) == 'bmp' || substr($folderFile, -4) === '.bmp') {
+                $msgPath = ops::removeBaseDir($folderFile);
+                fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath}, \"".pathinfo($folderFile, PATHINFO_EXTENSION)."\" is no supported. You may use another image type?");
                 continue;
             }
 

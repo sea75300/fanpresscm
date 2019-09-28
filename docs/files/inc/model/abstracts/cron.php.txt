@@ -10,6 +10,11 @@
 
 namespace fpcm\model\abstracts;
 
+use fpcm\classes\database;
+use fpcm\classes\loader;
+use fpcm\model\dbal\selectParams;
+use fpcm\model\files\fileOption;
+
 /**
  * Cronjob model base
  * 
@@ -73,11 +78,11 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      */
     public function __construct($init = true)
     {
-        $this->table = \fpcm\classes\database::tableCronjobs;
-        $this->dbcon = \fpcm\classes\loader::getObject('\fpcm\classes\database');
-        $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
+        $this->table = database::tableCronjobs;
+        $this->dbcon = loader::getObject('\fpcm\classes\database');
+        $this->events = loader::getObject('\fpcm\events\events');
         $this->cronName = basename(str_replace('\\', DIRECTORY_SEPARATOR, get_class($this)));
-        $this->fopt = new \fpcm\model\files\fileOption('crons/'.$this->cronName);
+        $this->fopt = new fileOption('crons/'.$this->cronName);
 
         if (!$init) {
             return;
@@ -194,7 +199,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      */
     public function init()
     {
-        $res = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))
+        $res = $this->dbcon->selectFetch((new selectParams($this->table))
             ->setItem('lastexec, execinterval')
             ->setWhere('cjname = ?')
             ->setParams([$this->cronName]

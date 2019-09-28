@@ -123,7 +123,7 @@ class category extends \fpcm\model\abstracts\dataset {
      */
     private function categoryExists($name)
     {
-        $counted = $this->dbcon->count("categories", 'id', "name like '$name'");
+        $counted = $this->dbcon->count("categories", 'id', "name ".$this->dbcon->dbLike()." ?", [$name]);
         return ($counted > 0) ? true : false;
     }
 

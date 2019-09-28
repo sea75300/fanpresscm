@@ -292,12 +292,24 @@ abstract class package {
     public function cleanup()
     {
         $localPath = $this->getLocalPath();
-        if (!file_exists($localPath) || !unlink($localPath)) {
+        if (!file_exists($localPath)) {
+            trigger_error("Package cleanup error, local package path {$localPath} was not found!");
+            return false;
+        }
+        
+        if (!unlink($localPath)) {
+            trigger_error("Package cleanup error, cannot remove local package {$localPath} from file system!");
             return false;
         }
 
         $extractPath = $this->getExtractionPath();
-        if (!file_exists($extractPath) || !\fpcm\model\files\ops::deleteRecursive($extractPath)) {
+        if (!file_exists($extractPath)) {
+            trigger_error("Package cleanup error, extract path {$extractPath} was not found!");
+            return false;
+        }
+
+        if (!\fpcm\model\files\ops::deleteRecursive($extractPath)) {
+            trigger_error("Package cleanup error, cannot remove extract path {$extractPath} from file system!");
             return false;
         }
 

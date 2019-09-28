@@ -39,7 +39,7 @@ final class smileylist extends \fpcm\model\abstracts\filelist {
         if ($cached) {
             $stackName = 'smileysCached';
             $stack = \fpcm\classes\loader::stackPull($stackName);
-            if (count($stack)) {
+            if (is_array($stack) && count($stack)) {
                 return $stack;
             }
         }
