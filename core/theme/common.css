@@ -34,8 +34,11 @@ button {
     font: 1em 'Courier New', monospace !important;
 }
 
-h1 {
+h1,
+.fpcm-dashboard-container h3 {
     font-family: Raleway, 'Droid Sans', sans-serif !important;
+}
+h1 {
     font-size: 2rem !important;
     font-weight: 300;
     padding: 0.5rem 0;
