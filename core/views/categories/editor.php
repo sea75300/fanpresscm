@@ -7,8 +7,7 @@
                 ->setWrapper(false)
                 ->setText('CATEGORIES_NAME')
                 ->setIcon('tag')
-                ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                ->setDisplaySizesDefault(); ?>
         </div>
     </div>
 </div>
@@ -22,8 +21,7 @@
                 ->setWrapper(false)
                 ->setText('CATEGORIES_ICON_PATH')
                 ->setIcon('link')
-                ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                ->setDisplaySizesDefault(); ?>
         </div>
     </div>
 </div>

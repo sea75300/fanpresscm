@@ -42,8 +42,7 @@
                         ->setValue($comment->getName())
                         ->setIcon('signature')
                         ->setSize('lg')
-                        ->setClass('col-6 col-md-10 fpcm-ui-field-input-nowrapper-general')
-                        ->setLabelClass('col-6 col-md-2 fpcm-ui-field-label-general'); ?>
+                        ->setDisplaySizes(['xs' => 6, 'sm' => 3, 'md' => 2], ['xs' => 6, 'sm' => 9, 'md' => 10]); ?>
             </div>            
             <div class="row fpcm-ui-padding-md-tb">
                 <?php $theView->textInput('comment[email]')
@@ -53,8 +52,7 @@
                         ->setType('email')
                         ->setIcon('at')
                         ->setSize('lg')
-                        ->setClass('col-6 col-md-10 fpcm-ui-field-input-nowrapper-general')
-                        ->setLabelClass('col-6 col-md-2 fpcm-ui-field-label-general'); ?>
+                        ->setDisplaySizes(['xs' => 6, 'sm' => 3, 'md' => 2], ['xs' => 6, 'sm' => 9, 'md' => 10]); ?>
             </div>            
             <div class="row fpcm-ui-padding-md-tb">
                 <?php $theView->textInput('comment[website]')
@@ -64,8 +62,7 @@
                         ->setType('url')
                         ->setIcon('home')
                         ->setSize('lg')
-                        ->setClass('col-6 col-md-10 fpcm-ui-field-input-nowrapper-general')
-                        ->setLabelClass('col-6 col-md-2 fpcm-ui-field-label-general'); ?>
+                        ->setDisplaySizes(['xs' => 6, 'sm' => 3, 'md' => 2], ['xs' => 6, 'sm' => 9, 'md' => 10]); ?>
             </div>            
         </fieldset>
     </div>

@@ -21,7 +21,6 @@ fpcm.ui = {
 
         fpcm.ui.tabs('.fpcm-ui-tabs-general');
         fpcm.ui.initJqUiWidgets();
-        fpcm.ui.initInputShadow();
         fpcm.ui.spinner('input.fpcm-ui-spinner');
         fpcm.ui.datepicker('input.fpcm-ui-datetime-picker');
         fpcm.ui.accordion('.fpcm-tabs-accordion');
@@ -165,27 +164,6 @@ fpcm.ui = {
     
     assignSelectmenu: function() {
         fpcm.ui.selectmenu('.fpcm-ui-input-select');
-    },
-
-    
-    initInputShadow: function() {
-        jQuery('.fpcm-ui-input-wrapper input[type=text]').focus(function () {
-            jQuery(this).parent().parent().addClass('fpcm-ui-input-wrapper-hover');
-        }).blur(function () {
-            jQuery(this).parent().parent().removeClass('fpcm-ui-input-wrapper-hover');
-        });
-
-        jQuery('.fpcm-ui-input-wrapper input[type=password]').focus(function () {
-            jQuery(this).parent().parent().addClass('fpcm-ui-input-wrapper-hover');
-        }).blur(function () {
-            jQuery(this).parent().parent().removeClass('fpcm-ui-input-wrapper-hover');
-        });
-
-        jQuery('.fpcm-ui-input-wrapper textarea').focus(function () {
-            jQuery(this).parent().parent().addClass('fpcm-ui-input-wrapper-hover');
-        }).blur(function () {
-            jQuery(this).parent().parent().removeClass('fpcm-ui-input-wrapper-hover');
-        });  
     },
     
     accordion: function(elemClassId, params) {

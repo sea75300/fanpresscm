@@ -6,8 +6,7 @@
                 ->setWrapper(false)
                 ->setText('FILE_LIST_SMILEYCODE')
                 ->setIcon('bookmark')
-                ->setClass('col-12 col-md-10 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-12 col-md-2 fpcm-ui-field-label-general'); ?>
+                ->setDisplaySizes(['xs' => 12, 'md' => 2], ['xs' => 12, 'md' => 10]); ?>
         </div>
     </div>
 </div>
@@ -20,8 +19,7 @@
                 ->setWrapper(false)
                 ->setText('FILE_LIST_FILENAME')
                 ->setIcon('link')
-                ->setClass('col-12 col-md-10 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-12 col-md-2 fpcm-ui-field-label-general'); ?>
+                ->setDisplaySizes(['xs' => 12, 'md' => 2], ['xs' => 12, 'md' => 10]); ?>
         </div>
     </div>
 </div>

@@ -64,8 +64,7 @@
                                 ->setWrapper(false)
                                 ->setText('SYSTEM_OPTIONS_DATETIMEMASK')
                                 ->setIcon('calendar')
-                                ->setClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-input-nowrapper-general')
-                                ->setLabelClass('col-12 col-sm-6 fpcm-ui-field-label-general'); ?>
+                                ->setDisplaySizes(['xs' => 12, 'sm' => 6], ['xs' => 12, 'sm' => 6, 'lg' => 4]); ?>
 
                         <?php $theView->shorthelpButton('dtmask')
                                 ->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')

@@ -33,8 +33,7 @@
                 ->setValue($theView->dateText($postponedTimer, 'Y-m-d'))
                 ->setIcon('calendar-plus')
                 ->setSize('lg')
-                ->setClass('col-12 col-sm-6 col-md-3 col-lg-2 col-xl-1 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-12 col-sm-4 col-md-2 fpcm-ui-field-label-general')
+                ->setDisplaySizes(['xs' => 12, 'sm' => 4, 'md' => 2, 'xl' => 1], ['xs' => 12, 'sm' => 6, 'md' => 3, 'lg' => 2, 'xl' => 1])
                 ->setData(['mindate' => '0d', 'maxdate' => '+2m']); ?>
 
         
@@ -57,8 +56,7 @@
                 ->setValue($article->getSources())
                 ->setIcon('external-link-alt')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-2 fpcm-ui-field-label-general'); ?>
+                ->setDisplaySizes(['xs' => 6, 'md' => 2], ['xs' => 6, 'md' => 7]); ?>
     </div>
 </fieldset>
 
@@ -75,8 +73,7 @@
                 ->setSize(280)
                 ->setIcon('twitter', 'fab')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-2 fpcm-ui-field-label-general'); ?>
+                ->setDisplaySizes(['xs' => 6, 'md' => 2], ['xs' => 6, 'md' => 7]); ?>
 
         <div class="fpcm-ui-controlgroup">
             <?php $theView->select('twitterReplacements')->setOptions($twitterReplacements)->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)->setLabelClass('fpcm-ui-margin-lg-left'); ?>
@@ -99,8 +96,8 @@
                 ->setMaxlenght(512)
                 ->setIcon('image')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-2 fpcm-ui-field-label-general'); ?>
+                ->setDisplaySizes(['xs' => 6, 'md' => 2], ['xs' => 6, 'md' => 7]); ?>
+
         <?php $theView->button('insertarticleimg', 'insertarticleimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true)->setClass('fpcm-ui-margin-lg-left'); ?>
     </div>
 </fieldset>

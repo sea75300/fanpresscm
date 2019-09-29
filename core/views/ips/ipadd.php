@@ -24,8 +24,7 @@
                             ->setValue($object->getIpaddress())
                             ->setText('IPLIST_IPADDRESS')
                             ->setIcon('network-wired')
-                            ->setClass('col-12 col-md-5 fpcm-ui-field-input-nowrapper-general')
-                            ->setLabelClass('col-12 col-md-2 fpcm-ui-field-label-general'); ?>
+                            ->setDisplaySizes(['xs' => 12, 'md' => 2], ['xs' => 12, 'md' => 10]); ?>
                     </div>
                 </div>
             </div>

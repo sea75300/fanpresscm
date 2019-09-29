@@ -2,10 +2,10 @@
 <div class="col-12 col-sm-8 col-md-6">
 
     <div class="row fpcm-ui-padding-md-tb">
-        <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
+        <label class="col-12 col-sm-6 col-md-5 fpcm-ui-field-label-general">
             <?php $theView->write('INSTALLER_DBCONNECTION_TYPE'); ?>
         </label>
-        <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+        <div class="col-12 col-sm-6 col-md-7 fpcm-ui-padding-none-lr">
             <?php $theView->select('database[DBTYPE]')
                     ->setText('INSTALLER_DBCONNECTION_TYPE')
                     ->setOptions($sqlDrivers)
@@ -20,8 +20,7 @@
                     ->setText('INSTALLER_DBCONNECTION_HOST')
                     ->setValue('localhost')
                     ->setClass('fpcm-installer-data')
-                    ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                    ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                    ->setDisplaySizesDefault(); ?>
     </div>
 
     <div class="row fpcm-ui-padding-md-tb">
@@ -29,8 +28,7 @@
                     ->setWrapper(false)
                     ->setText('INSTALLER_DBCONNECTION_NAME')
                     ->setClass('fpcm-installer-data')
-                    ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                    ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                    ->setDisplaySizesDefault(); ?>
     </div>
 
     <div class="row fpcm-ui-padding-md-tb">
@@ -38,8 +36,7 @@
                     ->setWrapper(false)
                     ->setText('INSTALLER_DBCONNECTION_USER')
                     ->setClass('fpcm-installer-data')
-                    ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                    ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                    ->setDisplaySizesDefault(); ?>
     </div>
 
     <div class="row fpcm-ui-padding-md-tb">
@@ -47,8 +44,7 @@
                     ->setWrapper(false)
                     ->setText('INSTALLER_DBCONNECTION_PASS')
                     ->setClass('fpcm-installer-data')
-                    ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                    ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                    ->setDisplaySizesDefault(); ?>
     </div>
 
     <div class="row fpcm-ui-padding-md-tb">
@@ -57,8 +53,7 @@
                     ->setText('INSTALLER_DBCONNECTION_PREF')
                     ->setValue('fpcm4')
                     ->setClass('fpcm-installer-data')
-                    ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                    ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                    ->setDisplaySizesDefault(); ?>
     </div>
 
 </div>

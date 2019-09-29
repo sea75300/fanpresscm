@@ -21,8 +21,7 @@
                                         ->setWrapper(false)
                                         ->setText('GLOBAL_EMAIL')
                                         ->setType('email')
-                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                        ->setDisplaySizesDefault(); ?>
                                 </div>
                             </div>
                         </div>
@@ -35,8 +34,7 @@
                                         ->setWrapper(false)
                                         ->setText('SYSTEM_OPTIONS_URL')
                                         ->setType('url')
-                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                        ->setDisplaySizesDefault(); ?>
                                 </div>
                             </div>
                         </div>
@@ -48,8 +46,7 @@
                                         ->setValue($globalConfig['system_dtmask'])                                        
                                         ->setWrapper(false)
                                         ->setText('SYSTEM_OPTIONS_DATETIMEMASK')
-                                        ->setClass('col-12 col-md-5 fpcm-ui-field-input-nowrapper-general')
-                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                        ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 5]); ?>
                                     
                                     <div class="align-self-center col-sm-1 col-md-1 fpcm-ui-padding-md-lr">
                                         <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
@@ -522,8 +519,7 @@
                                         ->setValue($globalConfig['comments_antispam_question'])                                        
                                         ->setWrapper(false)
                                         ->setText('SYSTEM_OPTIONS_ANTISPAMQUESTION')
-                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                        ->setDisplaySizesDefault(); ?>
                                 </div>
                             </div>
                         </div>
@@ -535,8 +531,7 @@
                                         ->setValue($globalConfig['comments_antispam_answer'])                                        
                                         ->setWrapper(false)
                                         ->setText('SYSTEM_OPTIONS_ANTISPAMANSWER')
-                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                                        ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                                        ->setDisplaySizesDefault(); ?>
                                 </div>
                             </div>
                         </div>
@@ -677,78 +672,53 @@
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
-                                <?php $theView->write('GLOBAL_EMAIL'); ?>
-                            </div>
-                            <div class="align-self-center col-md-12 col-lg-6 mx-0 px-0">
-                                <?php $theView->textInput('smtp_settings[addr]')
-                                        ->setType('email')
-                                        ->setValue($globalConfig['smtp_settings']['addr'])
-                                        ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
-                                        ->setText('mail@example.com')
-                                        ->setPlaceholder(true)
-                                        ->setWrapper(false)
-                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general fpcm-ui-options-smtp-input'); ?>                                
-                            </div>
+                            <?php $theView->textInput('smtp_settings[addr]')
+                                    ->setType('email')
+                                    ->setValue($globalConfig['smtp_settings']['addr'])
+                                    ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
+                                    ->setText('GLOBAL_EMAIL')
+                                    ->setPlaceholder('mail@example.com')
+                                    ->setWrapper(false)
+                                    ->setDisplaySizesDefault(); ?>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
-                                <?php $theView->write('SYSTEM_OPTIONS_EMAIL_SERVER'); ?>
-                            </div>
-                            <div class="align-self-center col-md-12 col-lg-6 mx-0 px-0">
-                                <?php $theView->textInput('smtp_settings[srvurl]')
-                                        ->setValue($globalConfig['smtp_settings']['srvurl'])
-                                        ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
-                                        ->setText('mail.example.com')
-                                        ->setPlaceholder(true)
-                                        ->setWrapper(false)
-                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general fpcm-ui-options-smtp-input'); ?>                                
-                            </div>
+                            <?php $theView->textInput('smtp_settings[srvurl]')
+                                    ->setValue($globalConfig['smtp_settings']['srvurl'])
+                                    ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
+                                    ->setText('SYSTEM_OPTIONS_EMAIL_SERVER')
+                                    ->setPlaceholder('mail.example.com')
+                                    ->setWrapper(false)
+                                    ->setDisplaySizesDefault(); ?>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
-                                <?php $theView->write('SYSTEM_OPTIONS_EMAIL_PORT'); ?>
-                            </div>
-                            <div class="align-self-center col-md-12 col-lg-6 mx-0 px-0">
-                                <?php $theView->textInput('smtp_settings[port]')
-                                        ->setValue($globalConfig['smtp_settings']['port'])
-                                        ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
-                                        ->setText('25')
-                                        ->setPlaceholder(true)
-                                        ->setWrapper(false)
-                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general fpcm-ui-options-smtp-input'); ?>                                
-                            </div>
+                            <?php $theView->textInput('smtp_settings[port]')
+                                    ->setValue($globalConfig['smtp_settings']['port'])
+                                    ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
+                                    ->setText('SYSTEM_OPTIONS_EMAIL_PORT')
+                                    ->setPlaceholder('25')
+                                    ->setWrapper(false)
+                                    ->setDisplaySizesDefault(); ?>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
-                                <?php $theView->write('SYSTEM_OPTIONS_EMAIL_USERNAME'); ?>
-                            </div>
-                            <div class="align-self-center col-md-12 col-lg-6 mx-0 px-0">
-                                <?php $theView->textInput('smtp_settings[user]')
-                                        ->setValue($globalConfig['smtp_settings']['user'])
-                                        ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
-                                        ->setText('mail@example.com')
-                                        ->setPlaceholder(true)
-                                        ->setWrapper(false)
-                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general fpcm-ui-options-smtp-input'); ?>                                
-                            </div>
+                            <?php $theView->textInput('smtp_settings[user]')
+                                    ->setValue($globalConfig['smtp_settings']['user'])
+                                    ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
+                                    ->setText('SYSTEM_OPTIONS_EMAIL_USERNAME')
+                                    ->setPlaceholder('mail@example.com')
+                                    ->setWrapper(false)
+                                    ->setDisplaySizesDefault(); ?>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
-                                <?php $theView->write('SYSTEM_OPTIONS_EMAIL_PASSWORD'); ?>
-                            </div>
-                            <div class="align-self-center col-md-12 col-lg-6 mx-0 px-0">
-                                <?php $theView->passwordInput('smtp_settings[pass]')
-                                        ->setText('')
-                                        ->setValue($globalConfig['smtp_settings']['pass'])
-                                        ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
-                                        ->setWrapper(false)
-                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general fpcm-ui-options-smtp-input'); ?>                                
-                            </div>
+                            <?php $theView->passwordInput('smtp_settings[pass]')
+                                    ->setText('SYSTEM_OPTIONS_EMAIL_PASSWORD')
+                                    ->setValue($globalConfig['smtp_settings']['pass'])
+                                    ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
+                                    ->setWrapper(false)
+                                    ->setDisplaySizesDefault(); ?>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
@@ -823,8 +793,7 @@
                                         ->setValue($globalConfig['twitter_data']['consumer_key'])                                        
                                         ->setWrapper(false)
                                         ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY')
-                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                                        ->setLabelClass('col-12 col-md-3 fpcm-ui-field-label-general'); ?>
+                                        ->setDisplaySizes(['xs' => 12, 'md' => 3], ['xs' => 12, 'md' => 9]); ?>
                                 </div>
                             </div>
                         </div>                        
@@ -836,8 +805,7 @@
                                         ->setValue($globalConfig['twitter_data']['consumer_secret'])                                        
                                         ->setWrapper(false)
                                         ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET')
-                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                                        ->setLabelClass('col-12 col-md-3 fpcm-ui-field-label-general'); ?>
+                                        ->setDisplaySizes(['xs' => 12, 'md' => 3], ['xs' => 12, 'md' => 9]); ?>
                                 </div>
                             </div>
                         </div>                        
@@ -849,8 +817,7 @@
                                         ->setValue($globalConfig['twitter_data']['user_token'])                                        
                                         ->setWrapper(false)
                                         ->setText('SYSTEM_OPTIONS_TWITTER_USER_TOKEN')
-                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                                        ->setLabelClass('col-12 col-md-3 fpcm-ui-field-label-general'); ?>
+                                        ->setDisplaySizes(['xs' => 12, 'md' => 3], ['xs' => 12, 'md' => 9]); ?>
                                 </div>
                             </div>
                         </div>                        
@@ -862,8 +829,7 @@
                                         ->setValue($globalConfig['twitter_data']['user_secret'])                                        
                                         ->setWrapper(false)
                                         ->setText('SYSTEM_OPTIONS_TWITTER_USER_SECRET')
-                                        ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                                        ->setLabelClass('col-12 col-md-3 fpcm-ui-field-label-general'); ?>
+                                        ->setDisplaySizes(['xs' => 12, 'md' => 3], ['xs' => 12, 'md' => 9]); ?>
                                 </div>
                             </div>
                         </div>

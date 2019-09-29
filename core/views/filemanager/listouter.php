@@ -42,8 +42,7 @@
                     ->setText('FILE_LIST_FILENAME')
                     ->setValue('')
                     ->setIcon('edit')
-                    ->setClass('col-12 col-md-7 fpcm-ui-field-input-nowrapper-general')
-                    ->setLabelClass('col-12 col-md-5 fpcm-ui-field-label-general'); ?>
+                    ->setDisplaySizesDefault(); ?>
     </div>    
 </div>
 

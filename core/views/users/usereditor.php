@@ -13,8 +13,7 @@
                             ->setWrapper(false)
                             ->setText('USERS_DISPLAYNAME')
                             ->setIcon('signature')
-                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
-                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
+                            ->setDisplaySizes([12, 5], [12, 7]); ?>
                     </div>
                 </div>
             </div>
@@ -29,8 +28,7 @@
                             ->setWrapper(false)
                             ->setText('GLOBAL_USERNAME')
                             ->setIcon('user')
-                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
-                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
+                            ->setDisplaySizes([12, 5], [12, 7]); ?>
                     </div>
                 </div>
             </div>
@@ -43,8 +41,7 @@
                             ->setWrapper(false)
                             ->setText('GLOBAL_PASSWORD')
                             ->setIcon('passport')
-                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
-                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
+                            ->setDisplaySizes([12, 5], [12, 7]); ?>
                     </div>
                 </div>
                 <div class="col-12 col-sm-auto mt-2 ml-0 mt-sm-0 ml-sm-3">
@@ -61,8 +58,7 @@
                             ->setWrapper(false)
                             ->setText('USERS_PASSWORD_CONFIRM')
                             ->setIcon('passport')
-                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
-                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
+                            ->setDisplaySizes([12, 5], [12, 7]); ?>
                     </div>
                 </div>
             </div>
@@ -76,8 +72,7 @@
                             ->setWrapper(false)
                             ->setText('GLOBAL_EMAIL')
                             ->setIcon('at')
-                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
-                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
+                            ->setDisplaySizes([12, 5], [12, 7]); ?>
                     </div>
                 </div>
             </div>
@@ -109,10 +104,9 @@
                             ->setAutocomplete(false)
                             ->setWrapper(false)
                             ->setText('GLOBAL_PASSWORD_CONFIRM')
-                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
-                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general')
                             ->setIcon('exclamation-triangle fpcm-ui-important-text')
-                            ->setSize('lg'); ?>
+                            ->setSize('lg')
+                            ->setDisplaySizes([12, 5], [12, 7]); ?>
                     </div>
                 </div>
             </div>
@@ -159,10 +153,9 @@
                             ->setAutocomplete(false)
                             ->setWrapper(false)
                             ->setText('USERS_AUTHTOKEN_SAVE2')
-                            ->setClass('col-12 col-sm-3 fpcm-ui-field-input-nowrapper-general')
-                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general')
                             ->setIcon('exclamation-triangle fpcm-ui-important-text')
-                            ->setSize('lg'); ?>                    
+                            ->setSize('lg')
+                            ->setDisplaySizes([12, 5], [12, 5]); ?>                    
 
                         <?php $theView->hiddenInput('data[authSecret]', 'authSecret')->setValue($secret); ?>
                     </div>

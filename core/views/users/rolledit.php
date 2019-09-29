@@ -13,8 +13,7 @@
                             ->setValue($userRoll->getRollName())
                             ->setWrapper(false)
                             ->setText('USERS_ROLLS_NAME')
-                            ->setClass('col-12 col-sm-7 fpcm-ui-field-input-nowrapper-general')
-                            ->setLabelClass('col-12 col-sm-5 fpcm-ui-field-label-general'); ?>
+                            ->setDisplaySizesDefault(); ?>
                     </div>
                 </div>
             </div>            
