@@ -334,6 +334,24 @@ fpcm.system = {
         });
 
         return true;
+    },
+    
+    domFromId: function (_str) {
+        
+        if (!_str) {
+            return false;
+        }
+
+        return jQuery('#' + _str);
+    },
+    
+    domFromClass: function (_str) {
+        
+        if (!_str) {
+            return false;
+        }
+
+        return jQuery('.' + _str);
     }
 
 };
