@@ -21,15 +21,15 @@ class fpcmUploadHandler extends UploadHandler
     }
     
     protected function get_query_param($id) {
-        return isset($_GET[$id]) ? $_GET[$id] : null;
+        return $_GET[$id] ?? null;
     }
     
     protected function get_server_var($id) {
-        return isset($_SERVER[$id]) ? $_SERVER[$id] : null;
+        return $_SERVER[$id] ?? null;
     }
 
     protected function get_post_param($id) {
-        return isset($_POST[$id]) ? $_POST[$id] : null;
+        return $_POST[$id] ?? null;
     }
 
 }

@@ -16,7 +16,7 @@ class UploadHandler
     protected $options;
 
     // PHP File Upload error message codes:
-    // http://php.net/manual/en/features.file-upload.errors.php
+    // https://php.net/manual/en/features.file-upload.errors.php
     protected $error_messages = array(
         1 => 'The uploaded file exceeds the upload_max_filesize directive in php.ini',
         2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form',
@@ -324,7 +324,7 @@ class UploadHandler
 
     protected function is_valid_file_object($file_name) {
         $file_path = $this->get_upload_path($file_name);
-        if (is_file($file_path) && $file_name[0] !== '.') {
+        if (strlen($file_name) > 0 && $file_name[0] !== '.' && is_file($file_path)) {
             return true;
         }
         return false;
@@ -1118,7 +1118,7 @@ class UploadHandler
         }
         if (count($failed_versions)) {
             $file->error = $this->get_error_message('image_resize')
-                .' ('.implode($failed_versions, ', ').')';
+                .' ('.implode(', ', $failed_versions).')';
         }
         // Free memory:
         $this->destroy_image_object($file_path);
@@ -1440,7 +1440,7 @@ class UploadHandler
         $response = array();
         foreach ($file_names as $file_name) {
             $file_path = $this->get_upload_path($file_name);
-            $success = is_file($file_path) && $file_name[0] !== '.' && unlink($file_path);
+            $success = strlen($file_name) > 0 && $file_name[0] !== '.' && is_file($file_path) && unlink($file_path);
             if ($success) {
                 foreach ($this->options['image_versions'] as $version => $options) {
                     if (!empty($version)) {
