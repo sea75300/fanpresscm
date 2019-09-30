@@ -83,7 +83,7 @@ final class users extends \fpcm\model\abstracts\cli {
 
                 $this->output('Enable user ' . $user->getUsername() . '...');
                 if ($user->enable()) {
-                    $this->output('User successfully enabled!');
+                    $this->output('User successfuly enabled!');
                 } else {
                     $this->output('Failed to enable user!');
                 }
@@ -94,7 +94,7 @@ final class users extends \fpcm\model\abstracts\cli {
 
                 $this->output('Disable user ' . $user->getUsername() . '...');
                 if ($user->disable()) {
-                    $this->output('User successfully disabled!');
+                    $this->output('User successfuly disabled!');
                 } else {
                     $this->output('Failed to disable user!');
                 }
@@ -111,7 +111,7 @@ final class users extends \fpcm\model\abstracts\cli {
                 
                 $user->setRoll($gid);
                 if ($user->update()) {
-                    $this->output('Change of user roll to '.$roll->getRollNameTranslated().' was successfull!');
+                    $this->output('Change of user roll to '.$roll->getRollNameTranslated().' was successful!');
                 } else {
                     $this->output('Failed to change user roll to '.$roll->getRollNameTranslated(), true);
                 }

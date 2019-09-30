@@ -135,7 +135,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $modules = new \fpcm\module\modules();
         $updates = $modules->getInstalledUpdates();
 
-        $this->output('-- successfull!');
+        $this->output('-- successful!');
         $this->output('FanPress CM ' . $this->updaterSys->version . ' was relesed on ' . $this->updaterSys->release . ' width size of ' . \fpcm\classes\tools::calcSize($this->updaterSys->size));
         if ($successSys === system::FORCE_UPDATE) {
             $this->output('-- This released is forced to be installed, you should run fpcmcli.php pkg --update system as soon as possible.');
@@ -368,7 +368,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->output('Start installation of module ' . $this->modulekey);
 
         $this->processModulePackage('install');
-        $this->output('Installation of module ' . $this->modulekey . ' successfull.' . PHP_EOL);
+        $this->output('Installation of module ' . $this->modulekey . ' successful.' . PHP_EOL);
 
         return true;
     }
@@ -384,7 +384,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->output('Start update of module ' . $this->modulekey);
 
         $this->processModulePackage('update', true);
-        $this->output('Update of module ' . $this->modulekey . ' successfull.' . PHP_EOL);
+        $this->output('Update of module ' . $this->modulekey . ' successful.' . PHP_EOL);
 
         return true;
     }

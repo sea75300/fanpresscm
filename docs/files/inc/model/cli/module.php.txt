@@ -35,7 +35,7 @@ final class module extends \fpcm\model\abstracts\cli {
                 $this->output('Failed to enable module ' . $module->getKey(), true);
             }
 
-            $this->output('Module successfully enabled.');
+            $this->output('Module successfuly enabled.');
             return true;
         }
         
@@ -45,7 +45,7 @@ final class module extends \fpcm\model\abstracts\cli {
                 $this->output('Failed to disable module ' . $module->getKey(), true);
             }
 
-            $this->output('Module successfully disabled.');
+            $this->output('Module successfuly disabled.');
             return true;
         }
         

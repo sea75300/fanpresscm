@@ -19,7 +19,8 @@ abstract class input extends helper {
 
     use traits\iconHelper,
         traits\valueHelper,
-        traits\typeHelper;
+        traits\typeHelper,
+        traits\labelFieldSize;
 
     /**
      * Maximum input lenght
@@ -60,14 +61,19 @@ abstract class input extends helper {
             $wrapperStart = "<div class=\"fpcm-ui-input-wrapper col-{$this->colWidth} {$this->wrapperClass} fpcm-ui-padding-none-lr\"><div class=\"fpcm-ui-input-wrapper-inner\">";
             $wrapperEnd = "</div></div>";
         }
+        else {
+            $this->class .= ' fpcm-ui-field-input-nowrapper-general'.$this->getFieldSize();
+        }
 
         $input = "<input type=\"{$this->type}\" {$this->getNameIdString()}{$this->getClassString()} {$this->getValueString()} {$this->getReadonlyString()} maxlength=\"{$this->maxlenght}\" {$this->getAutocompleteString()}  {$this->getAutoFocusedString()} {$this->getPlaceholderString()}  {$this->getDataString()}>";
         if (!$this->text) {
             return $wrapperStart . $input . $wrapperEnd;
         }
 
-        $description = $this->placeholder !== true ? $this->getDescriptionTextString() : '';        
-        $description = "<label class=\"{$this->labelClass}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
+        $description = $this->placeholder !== true ? $this->getDescriptionTextString() : '';
+        if ($this->getIconString() || trim($description)) {
+            $description = "<label class=\"fpcm-ui-field-label-general {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
+        }
 
         return $wrapperStart . $description . $input . $wrapperEnd;
     }

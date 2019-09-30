@@ -14,7 +14,7 @@ namespace fpcm\view\helper\traits;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.2.2
+ * @since FPCM 4.3
  */
 trait labelFieldSize {
 
@@ -47,16 +47,30 @@ trait labelFieldSize {
         'xl' => 'col-xl-',
     ];
 
+    /**
+     * Fetch label size classes
+     * @return string
+     */
     public function getLabelSize()
     {
         return $this->labelSize;
     }
 
+    /**
+     * Fetch field size classes
+     * @return string
+     */
     public function getFieldSize()
     {
         return $this->fieldSize;
     }
 
+    /**
+     * Sets default label and field sizes values,
+     * Label: xs: 12, sm: 6, md: 5
+     * Fields: xs: 12, sm: 6, md: 7
+     * @return $this
+     */
     public function setDisplaySizesDefault()
     {
         return $this->setDisplaySizes(
@@ -65,6 +79,12 @@ trait labelFieldSize {
         );
     }
 
+    /**
+     * Sets label and field sizes
+     * @param array $label
+     * @param array $field
+     * @return $this
+     */
     public function setDisplaySizes(array $label, array $field)
     {
         $this->setLabelSize($label);
@@ -72,6 +92,11 @@ trait labelFieldSize {
         return $this;
     }
 
+    /**
+     * Sets label sizes only
+     * @param array $labelSizes
+     * @return $this
+     */
     public function setLabelSize(array $labelSizes)
     {
         array_walk($labelSizes, [$this, 'mapSizes']);
@@ -79,6 +104,11 @@ trait labelFieldSize {
         return $this;
     }
 
+    /**
+     * Sets field sizes only
+     * @param array $fieldSizes
+     * @return $this
+     */
     public function setFieldSize(array $fieldSizes)
     {
         array_walk($fieldSizes, [$this, 'mapSizes']);
@@ -86,6 +116,12 @@ trait labelFieldSize {
         return $this;
     }
 
+    /**
+     * Maps indices to sizeMap
+     * @param string|int $size
+     * @param string|int $index
+     * @return bool
+     */
     private function mapSizes(&$size, $index)
     {
         if (!isset($this->sizeMap[$index])) {

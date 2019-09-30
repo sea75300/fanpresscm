@@ -94,7 +94,7 @@ class ajaxController extends controller {
     /**
      * Sets Header to return JSON data
      * @return boolean
-     * @since FPCm 4.2.2
+     * @since FPCm 4.3.0
      */
     protected function setReturnJson()
     {

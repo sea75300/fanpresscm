@@ -44,7 +44,7 @@ final class installer extends \fpcm\model\abstracts\cli {
         $this->createUserAccount();
         $this->cleanupSystem();
 
-        $this->output('FanPress CM has been installed successfully.');
+        $this->output('FanPress CM has been installed successfuly.');
     }
 
     /**
@@ -275,7 +275,7 @@ final class installer extends \fpcm\model\abstracts\cli {
             $this->output('Unable to create a user with the given data, return code was ' . $res . PHP_EOL, true);
         }
 
-        $this->output('User created successfully...' . PHP_EOL);
+        $this->output('User created successfuly...' . PHP_EOL);
     }
 
     /**

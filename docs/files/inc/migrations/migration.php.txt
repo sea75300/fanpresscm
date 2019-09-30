@@ -11,11 +11,10 @@ namespace fpcm\migrations;
  * Migration base class
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\migrations
- * @since FPCM 4.1
- * @ignore
+ * @since FPCM 4.3
  */
 abstract class migration {
 
@@ -23,7 +22,7 @@ abstract class migration {
      * Database object
      * @var \fpcm\classes\database
      */
-    protected $db;
+    private $db;
 
     /**
      * System config object
@@ -35,7 +34,13 @@ abstract class migration {
      * CLI execution flag
      * @var bool
      */
-    private $isCli;
+    private $isCli = null;
+
+    /**
+     * Result of pre-executed migration, false if one failed
+     * @var bool
+     */
+    protected $requiredResult = true;
 
     /**
      * Constructor method
@@ -43,8 +48,7 @@ abstract class migration {
      */
     final public function __construct()
     {
-        $this->db = new \fpcm\classes\database();
-        $this->isCli = \fpcm\classes\baseconfig::isCli();
+        $this->init();
         return true;
     }
 
@@ -60,6 +64,32 @@ abstract class migration {
 
         return $this->config;
     }
+    
+    /**
+     * Config object getter
+     * @return \fpcm\model\system\config
+     */
+    final protected function getDB() : \fpcm\classes\database
+    {
+        if ( !($this->db instanceof \fpcm\classes\database) ) {
+            $this->db = new \fpcm\model\system\config(false);
+        }
+
+        return $this->db;
+    }
+    
+    /**
+     * Config object getter
+     * @return \fpcm\model\system\config
+     */
+    final protected function isCli() : bool
+    {
+        if ( $this->isCli === null ) {
+            $this->isCli = \fpcm\classes\baseconfig::isCli();
+        }
+
+        return $this->isCli;
+    }
 
     /**
      * Migration execution required due to system version
@@ -67,63 +97,86 @@ abstract class migration {
      */
     final public function isRequired() : bool
     {
-        return version_compare($this->getNewVersion(), $this->getConfig()->system_version, '<');
+        return true; version_compare($this->getNewVersion(), $this->getConfig()->system_version, '<');
     }
 
     /**
-     * Process migration
+     * Execute migrations
      * @return bool
      */
     final public function process() : bool
     {
-        if (!$this->updateTables()) {
-            trigger_error('Migration '.get_class($this).': failed to update database tables.');
+        $required = $this->required();
+        if (count($required)) {
+            
+            array_map(function($version) {
+
+                $className = self::getNamespace($version);
+
+                if (!$this->requiredResult) {
+                    $this->output('Processing of a previously executed migration failed. Skipping migration '.$className, true);
+                    return false;
+                }
+
+                /* @var $obj migration */
+                $obj = new $className;
+                if (!$obj->isRequired()) {
+                    return true;
+                }
+
+                $this->requiredResult = $obj->process();
+
+                if (!$this->requiredResult) {
+                    $this->output('Error while processing migration '.$className, true);
+                    return false;
+                }
+
+                return true;
+            }, $required);
+
+        }
+
+        $cn = get_called_class();
+        $this->output('Processing migration '.$cn);
+
+        if (!$this->alterTablesAfter()) {
             return false;
         }
 
-        if (!$this->updateFileSystem()) {
-            trigger_error('Migration '.get_class($this).': failed to update local filesystem.');
+        if (!$this->updatePermissionsAfter()) {
             return false;
         }
 
         if (!$this->updateSystemConfig()) {
-            trigger_error('Migration '.get_class($this).': failed to update system config.');
             return false;
         }
 
-        if (!$this->updatePermissions()) {
-            trigger_error('Migration '.get_class($this).': failed to update permission settings.');
+        if (!$this->updateFileSystem()) {
             return false;
         }
 
-        if (!$this->updateVersion()) {
-            trigger_error('Migration '.get_class($this).': failed to update version.');
-            return false;
-        }
-
+        $this->output('Processing of migration '.$cn.' successful.');
         return true;
     }
 
     /**
-     * Update system version
-     * @return bool
+     * 
+     * Output of migration messages
+     * @param string $str
+     * @param bool $error
+     * @return void
+     * @since FPCM 4.3
      */
-    final protected function updateVersion() : bool
+    final protected function output(string $str, $error = false)
     {
-        $newVersion = $this->getNewVersion();
-        $this->getConfig()->setNewConfig([
-            'system_version' => $newVersion
-        ]);
+        if ($error) trigger_error($str);
+        else fpcmLogSystem($str);
 
-        if (!$this->getConfig()->update()) {
-            return false;
+        if (!$this->isCli) {
+            return;
         }
 
-        if (!version_compare($this->getConfig()->system_version, $newVersion, '=')) {
-            return false;
-        }
-
-        return true;
+        print $str.PHP_EOL;
     }
 
     /**
@@ -136,27 +189,69 @@ abstract class migration {
     }
 
     /**
-     * Execute database table update
+     * Pre-Initializing
      * @return bool
      */
-    abstract protected function updateTables() : bool;
+    protected function init() : bool
+    {
+        return true;
+    }
+
+    /**
+     * Returns a list of migrations which have to be executed before
+     * @return array
+     */
+    protected function required() : array
+    {
+        return [];
+    }
+
+    /**
+     * Execute additional database table changes
+     * @return bool
+     */
+    protected function alterTablesAfter() : bool
+    {
+        return true;
+    }
+
+    /**
+     * Executes additional permission updates
+     * @return bool
+     */
+    protected function updatePermissionsAfter() : bool
+    {
+        return true;
+    }
 
     /**
      * Execute additional file system updates
      * @return bool
      */
-    abstract protected function updateFileSystem() : bool;
+    protected function updateFileSystem() : bool
+    {
+        return true;
+    }
 
     /**
-     * Execute system config updates
+     * Execute additional system config updates
      * @return bool
      */
-    abstract protected function updateSystemConfig() : bool;
+    protected function updateSystemConfig() : bool
+    {
+        return true;
+    }
 
     /**
-     * Execute permission updates
-     * @return bool
+     * Returns migration class namespace
+     * @param string $version
+     * @return string
+     * @static
      */
-    abstract protected function updatePermissions() : bool;
+    public static function getNamespace(string $version) : string
+    {
+        return 'fpcm\\migrations\\v'.preg_replace('/([^0-9a-z])/i', '', $version);
+    }
+
 }
 

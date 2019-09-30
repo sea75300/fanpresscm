@@ -467,7 +467,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     abstract protected function getEventModule() : string;
 
     /**
-     * Is triggered after successfull database insert
+     * Is triggered after successful database insert
      * @return bool
      * @since FPCM 4.1
      */
@@ -477,7 +477,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     }
 
     /**
-     * Is triggered after successfull database update
+     * Is triggered after successful database update
      * @return bool
      * @since FPCM 4.1
      */

@@ -20,7 +20,7 @@ namespace fpcm\view\helper;
  */
 abstract class helper {
 
-    /*  @since FPCM 4.2.2 */
+    /*  @since FPCM 4.3.0 */
     const TEXT_DEFAULT_LABEL = 'LABEL_FIELD_';
 
     /**
@@ -213,7 +213,7 @@ abstract class helper {
     /**
      * Initialized default label by field name
      * @return boolean
-     * @since FPCM 4.2.2
+     * @since FPCM 4.3.0
      */
     final protected function initLabel()
     {
