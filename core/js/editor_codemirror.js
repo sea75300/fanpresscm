@@ -15,43 +15,43 @@ fpcm.editor_codemirror = {
             fpcm.editor.insertBr();
         },
         "Ctrl-B"    : function() {
-            jQuery('#btnEditor-html-buttonbold').click();
+            fpcm.dom.fromId('btnEditor-html-buttonbold').click();
         },
         "Ctrl-I"    : function() {
-            jQuery('#btnEditor-html-buttonitalic').click();
+            fpcm.dom.fromId('btnEditor-html-buttonitalic').click();
         },
         "Ctrl-U"    : function() {
-            jQuery('#btnEditor-html-buttonunderline').click();
+            fpcm.dom.fromId('btnEditor-html-buttonunderline').click();
         },
         "Ctrl-O"    : function() {
-            jQuery('#btnEditor-html-buttonstrike').click();
+            fpcm.dom.fromId('btnEditor-html-buttonstrike').click();
         },
         "Shift-Ctrl-F"    : function() {
             fpcm.editor.insertColor();
         },
         "Ctrl-Y"    : function() {
-            jQuery('#btnEditor-html-buttonsup').click();
+            fpcm.dom.fromId('btnEditor-html-buttonsup').click();
         },
         "Shift-Ctrl-Y"    : function() {
-            jQuery('#btnEditor-html-buttonsub').click();
+            fpcm.dom.fromId('btnEditor-html-buttonsub').click();
         },
         "Shift-Ctrl-L"    : function() {
-            jQuery('#btnEditor-html-buttonaleft').click();
+            fpcm.dom.fromId('btnEditor-html-buttonaleft').click();
         },
         "Shift-Ctrl-C"    : function() {
-            jQuery('#btnEditor-html-buttonacenter').click();
+            fpcm.dom.fromId('btnEditor-html-buttonacenter').click();
         },
         "Shift-Ctrl-R"    : function() {
-            jQuery('#btnEditor-html-buttonaright').click();
+            fpcm.dom.fromId('btnEditor-html-buttonaright').click();
         },
         "Shift-Ctrl-J"    : function() {
-            jQuery('#btnEditor-html-buttonajustify').click();
+            fpcm.dom.fromId('btnEditor-html-buttonajustify').click();
         },
         "Ctrl-Alt-N"    : function() {
-            jQuery('#btnEditor-html-buttoninsertlist').click();
+            fpcm.dom.fromId('btnEditor-html-buttoninsertlist').click();
         },
         "Shift-Ctrl-N"    : function() {
-            jQuery('#btnEditor-html-buttoninsertlistnum').click();
+            fpcm.dom.fromId('btnEditor-html-buttoninsertlistnum').click();
         },
         "Shift-Ctrl-Q"    : function() {
             fpcm.editor.insertQuote();
@@ -159,7 +159,7 @@ if (fpcm.editor) {
             change: function( event, ui ) {            
                 this.selectedIndex = 0;
                 this.value = '';
-                jQuery(this).selectmenu("refresh");
+                fpcm.dom.fromTag(this).selectmenu("refresh");
             }
         });
 
@@ -174,7 +174,7 @@ if (fpcm.editor) {
             change: function( event, ui ) {            
                 this.selectedIndex = 0;
                 this.value = '';
-                jQuery(this).selectmenu("refresh");
+                fpcm.dom.fromTag(this).selectmenu("refresh");
             }
         });
 
@@ -189,13 +189,13 @@ if (fpcm.editor) {
             change: function( event, ui ) {            
                 this.selectedIndex = 0;
                 this.value = '';
-                jQuery(this).selectmenu("refresh");
+                fpcm.dom.fromTag(this).selectmenu("refresh");
             }
         });
 
-        jQuery('.fpcm-editor-html-click').click(function() {
+        fpcm.dom.fromClass('fpcm-editor-html-click').click(function() {
 
-            var el      = jQuery(this);
+            var el      = fpcm.dom.fromTag(this);
             var tag     = el.data('htmltag');
             var action  = el.data('action');
 
@@ -212,7 +212,7 @@ if (fpcm.editor) {
             return false;
         });
 
-        var colorsEl = jQuery('#fpcm-dialog-editor-html-insertcolor').find('div.fpcm-dialog-editor-colors');
+        var colorsEl = fpcm.dom.fromId('fpcm-dialog-editor-html-insertcolor').find('div.fpcm-dialog-editor-colors');
         if (colorsEl.length) {
 
             for (var i = 0;i < fpcm.vars.jsvars.editorConfig.colors.length; i++) {
@@ -222,8 +222,8 @@ if (fpcm.editor) {
                 }
             }
 
-            jQuery('div.fpcm-dialog-editor-colors span').click(function() {
-                jQuery('#colorhexcode').val(jQuery(this).data('color'));
+            fpcm.dom.fromTag('div.fpcm-dialog-editor-colors span').click(function() {
+                fpcm.dom.fromId('colorhexcode').val(fpcm.dom.fromTag(this).data('color'));
             });
 
         }
@@ -244,7 +244,7 @@ if (fpcm.editor) {
     fpcm.editor._insertToFields = function (url, title) {
         
         if (!url || !title) {
-            self.jQuery("#fpcm-dialog-editor-html-filemanager").dialog('close').empty();
+            self.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager").dialog('close').empty();
             return false;
         }
 
@@ -264,7 +264,7 @@ if (fpcm.editor) {
             self.document.getElementById(titleField).value  = title;
         }
 
-        self.jQuery("#fpcm-dialog-editor-html-filemanager").dialog('close').empty();
+        self.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager").dialog('close').empty();
         return true;
     };
 
@@ -321,12 +321,12 @@ if (fpcm.editor) {
                 fpcm.editor.setSelectToDialog(this);
             },
             dlOnClose: function() {
-                jQuery('#listrows').val('1');
-                jQuery('#listtype').val('');
+                fpcm.dom.fromId('listrows').val('1');
+                fpcm.dom.fromId('listtype').val('');
             },
             insertAction: function() {
-                var rowCount = jQuery('#listrows').val();
-                var cssType = jQuery('#listtype').val();
+                var rowCount = fpcm.dom.fromId('listrows').val();
+                var cssType = fpcm.dom.fromId('listtype').val();
 
                 aTag = '<' + listtype + (cssType ? ' style="list-style-type:' + cssType + '"' : '') + '>\n';
                 for (i=0;i<rowCount;i++) {
@@ -335,7 +335,7 @@ if (fpcm.editor) {
 
                 fpcm.editor.insert(aTag, '</' + listtype + '>');
 
-                jQuery( this ).dialog( "close" );
+                fpcm.dom.fromTag(this).dialog( "close" );
             }
         });
     };
@@ -349,15 +349,15 @@ if (fpcm.editor) {
             dlOnOpen: function () {
                 fpcm.ajax.exec('editor/smileys', {
                     execDone: function (result) {
-                        jQuery('#fpcm-dialog-editor-html-insertsmileys').append(result);
-                        jQuery('.fpcm-editor-htmlsmiley').click(function() {
-                            fpcm.editor.insert(' ' + jQuery(this).data('smileycode') + ' ', '');
+                        fpcm.dom.fromId('fpcm-dialog-editor-html-insertsmileys').append(result);
+                        fpcm.dom.fromClass('fpcm-editor-htmlsmiley').click(function() {
+                            fpcm.editor.insert(' ' + fpcm.dom.fromTag(this).data('smileycode') + ' ', '');
                         });
                     }
                 });
             },
             dlOnClose: function() {
-                jQuery(this).empty();
+                fpcm.dom.fromTag(this).empty();
             }
         });        
 
@@ -376,7 +376,7 @@ if (fpcm.editor) {
 
         nkorgJSCharMap.createList('#' + el.attr('id'));
         nkorgJSCharMap.addClickEvent(function() {
-            fpcm.editor.insert(jQuery(this).data('code'), '');
+            fpcm.editor.insert(fpcm.dom.fromTag(this).data('code'), '');
             return false;
         });
 
@@ -395,15 +395,15 @@ if (fpcm.editor) {
                 });
             },
             insertAction: function() {
-                var mode    = jQuery('.fpcm-ui-editor-colormode:checked').val();
-                var color   = jQuery('#colorhexcode').val();
+                var mode    = fpcm.dom.fromClass('fpcm-ui-editor-colormode:checked').val();
+                var color   = fpcm.dom.fromId('colorhexcode').val();
                 fpcm.editor.insert('<span style="' + (mode === undefined ? 'color' : mode) + ':' + (color == '' ? '#000000' : color) + ';">', '</span>');
 
-                jQuery('#colorhexcode').val('');
-                jQuery('#color_mode1').prop( "checked", true ).checkboxradio('refresh');
-                jQuery('#color_mode2').prop( "checked", false ).checkboxradio('refresh');
+                fpcm.dom.fromId('colorhexcode').val('');
+                fpcm.dom.fromId('color_mode1').prop( "checked", true ).checkboxradio('refresh');
+                fpcm.dom.fromId('color_mode2').prop( "checked", false ).checkboxradio('refresh');
 
-                jQuery( this ).dialog( "close" );
+                fpcm.dom.fromTag(this).dialog( "close" );
             }
         });
     };
@@ -423,9 +423,9 @@ if (fpcm.editor) {
                     appendTo: '#fpcm-dialog-editor-html-insertdraft',
                     change: function( event, ui ) {
 
-                        var item = jQuery(this).val();
+                        var item = fpcm.dom.fromTag(this).val();
                         if (!item) {
-                            jQuery('#fpcm-dialog-editor-html-insertdraft-preview').empty();
+                            fpcm.dom.fromId('fpcm-dialog-editor-html-insertdraft-preview').empty();
                             return false;
                         }
 
@@ -447,13 +447,13 @@ if (fpcm.editor) {
                 });
             },
             dlOnClose: function() {
-                jQuery('#fpcm-dialog-editor-html-insertdraft-preview').empty();
+                fpcm.dom.fromId('fpcm-dialog-editor-html-insertdraft-preview').empty();
                 fpcm.ui.resetSelectMenuSelection('#tpldraft');
             },
             insertAction: function() {
-                var item = jQuery('#tpldraft').val();
+                var item = fpcm.dom.fromId('tpldraft').val();
                 if (!item) {
-                    jQuery( this ).dialog( "close" );
+                    fpcm.dom.fromTag(this).dialog( "close" );
                     return false;
                 }
 
@@ -464,7 +464,7 @@ if (fpcm.editor) {
                     },
                     execDone: function (result) {
                         fpcm.editor.cmInstance.doc.setValue(result.data);
-                        jQuery('#fpcm-dialog-editor-html-insertdraft').dialog('close');
+                        fpcm.dom.fromId('fpcm-dialog-editor-html-insertdraft').dialog('close');
                     }
                 });
             }
@@ -492,22 +492,22 @@ if (fpcm.editor) {
                 });
             },
             dlOnClose: function() {
-                jQuery('.fpcm-editor-mediatype').removeAttr('checked');    
-                jQuery('#autoplay').prop('checked', false).checkboxradio('refresh');
-                jQuery('#mediapath').val('');
-                jQuery('#mediapath2').val('');
-                jQuery('#mediatypea').prop('checked', true );
-                jQuery('#mediaformat').val('').selectmenu('refresh');
-                jQuery('#mediaformat2').val('').selectmenu('refresh');
+                fpcm.dom.fromClass('fpcm-editor-mediatype').removeAttr('checked');    
+                fpcm.dom.fromId('autoplay').prop('checked', false).checkboxradio('refresh');
+                fpcm.dom.fromId('mediapath').val('');
+                fpcm.dom.fromId('mediapath2').val('');
+                fpcm.dom.fromId('mediatypea').prop('checked', true );
+                fpcm.dom.fromId('mediaformat').val('').selectmenu('refresh');
+                fpcm.dom.fromId('mediaformat2').val('').selectmenu('refresh');
             },
             insertAction: function() {
-                var tagName = jQuery('.fpcm-editor-mediatype:checked').val();
+                var tagName = fpcm.dom.fromClass('fpcm-editor-mediatype:checked').val();
 
-                var elPath = jQuery('#mediapath');
-                var elPathAlt = jQuery('#mediapath2');
-                var elFormatVal = jQuery('#mediaformat').val();
-                var elFormatAltVal = jQuery('#mediaformat2').val();
-                var elAutoplay = jQuery('#autoplay:checked');
+                var elPath = fpcm.dom.fromId('mediapath');
+                var elPathAlt = fpcm.dom.fromId('mediapath2');
+                var elFormatVal = fpcm.dom.fromId('mediaformat').val();
+                var elFormatAltVal = fpcm.dom.fromId('mediaformat2').val();
+                var elAutoplay = fpcm.dom.fromId('autoplay:checked');
 
                 var aTag = '<' + tagName + '>';
                 aTag += '<source src="' + elPath.val() + '"' + (elFormatVal ? ' type="' + elFormatVal + '"' : '') + (elAutoplay.length && elAutoplay.val() ? ' autoplay' : '') + '>';
@@ -517,7 +517,7 @@ if (fpcm.editor) {
                 }
 
                 fpcm.editor.insert(aTag, '</' + tagName + '>');
-                jQuery( this ).dialog( "close" );
+                fpcm.dom.fromTag(this).dialog( "close" );
             }
         });
     };
@@ -546,12 +546,12 @@ if (fpcm.editor) {
                 fpcm.editor.setSelectToDialog(this);
             },
             dlOnClose: function() {
-                jQuery('#tablerows').val('1');
-                jQuery('#tablecols').val('1');
+                fpcm.dom.fromId('tablerows').val('1');
+                fpcm.dom.fromId('tablecols').val('1');
             },
             insertAction: function() {
-                var tablerows = jQuery('#tablerows').val();
-                var tablecols = jQuery('#tablecols').val();
+                var tablerows = fpcm.dom.fromId('tablerows').val();
+                var tablecols = fpcm.dom.fromId('tablecols').val();
                 var aTag = '<table>\n'
 
                 for (i=0;i<tablerows;i++) {        
@@ -561,7 +561,7 @@ if (fpcm.editor) {
                 }
                 fpcm.editor.insert(aTag + '</table>', '');
 
-                jQuery( this ).dialog( "close" );
+                fpcm.dom.fromTag(this).dialog( "close" );
             }
         });
     };
@@ -586,7 +586,7 @@ if (fpcm.editor) {
                             minLength: 2,
                             appendTo: "#fpcm-dialog-editor-html-insertimage",
                             select: function( event, ui ) {
-                                jQuery('#imagesalt').val(ui.item.label);
+                                fpcm.dom.fromId('imagesalt').val(ui.item.label);
                             }
                         });
                     }
@@ -594,18 +594,18 @@ if (fpcm.editor) {
                 fpcm.editor.setSelectToDialog(this);
             },
             dlOnClose: function() {
-                jQuery('#imagespath').val('');
-                jQuery('#imagesalign').val('');
-                jQuery('#imagesalt').val('');
-                jQuery('#imagescss').val('');
+                fpcm.dom.fromId('imagespath').val('');
+                fpcm.dom.fromId('imagesalign').val('');
+                fpcm.dom.fromId('imagesalt').val('');
+                fpcm.dom.fromId('imagescss').val('');
             },
             insertAction: function() {
-                var pic_path = jQuery('#imagespath').val();
-                var pic_align = jQuery('#imagesalign').val();
-                var pic_atxt = jQuery('#imagesalt').val();
-                var pic_css = jQuery('#imagescss').val();
+                var pic_path = fpcm.dom.fromId('imagespath').val();
+                var pic_align = fpcm.dom.fromId('imagesalign').val();
+                var pic_atxt = fpcm.dom.fromId('imagesalt').val();
+                var pic_css = fpcm.dom.fromId('imagescss').val();
 
-                var elCss = jQuery('#imagescss');
+                var elCss = fpcm.dom.fromId('imagescss');
                 if(elCss) {
                     var pic_css = elCss.val();
                 }
@@ -624,7 +624,7 @@ if (fpcm.editor) {
                     fpcm.editor.insert(aTag + ' />', ' ');
                 }
 
-                jQuery( this ).dialog( "close" );
+                fpcm.dom.fromTag(this).dialog( "close" );
             },
             fileManagerAction: function () {
                 fileOpenMode = 2;
@@ -652,7 +652,7 @@ if (fpcm.editor) {
                             minLength: 2,
                             appendTo: "#fpcm-dialog-editor-html-insertlink",
                             select: function( event, ui ) {
-                                jQuery('#linkstext').val(ui.item.label);
+                                fpcm.dom.fromId('linkstext').val(ui.item.label);
                             }
                         });
                     }
@@ -660,18 +660,18 @@ if (fpcm.editor) {
                 fpcm.editor.setSelectToDialog(this);
             },
             dlOnClose: function () {
-                jQuery('#linksurl').val('');
-                jQuery('#linkstext').val('');
-                jQuery('#linkstarget').val('');
-                jQuery('#linkscss').val('');
+                fpcm.dom.fromId('linksurl').val('');
+                fpcm.dom.fromId('linkstext').val('');
+                fpcm.dom.fromId('linkstarget').val('');
+                fpcm.dom.fromId('linkscss').val('');
             },
             insertAction: function() {
-                var lnk_url = jQuery('#linksurl').val();
-                var lnk_txt = jQuery('#linkstext').val();
-                var lnk_tgt = jQuery('#linkstarget').val();
+                var lnk_url = fpcm.dom.fromId('linksurl').val();
+                var lnk_txt = fpcm.dom.fromId('linkstext').val();
+                var lnk_tgt = fpcm.dom.fromId('linkstarget').val();
 
-                var cssInputEl = jQuery('#linkscss');
-                var lnk_css = cssInputEl.length ? jQuery('#linkscss').val() : '';
+                var cssInputEl = fpcm.dom.fromId('linkscss');
+                var lnk_css = cssInputEl.length ? fpcm.dom.fromId('linkscss').val() : '';
 
                 if (lnk_tgt != "") {
                     aTag = '<a href=\"' + lnk_url + '"\ target=\"' + lnk_tgt + '\"';
@@ -685,7 +685,7 @@ if (fpcm.editor) {
                 }
 
                 fpcm.editor.insert(aTag, '</a>');
-                jQuery(this).dialog( "close" );
+                fpcm.dom.fromTag(this).dialog( "close" );
             },
             fileManagerAction: function () {
                 fileOpenMode = 1;
@@ -710,16 +710,16 @@ if (fpcm.editor) {
                 });
             },
             dlOnClose: function () {
-                jQuery('#quotetext').val('');
-                jQuery('#quotesrc').val('');
-                jQuery('#quotetype2').prop('checked', false).checkboxradio('refresh');
-                jQuery('#quotetype1').prop('checked', true ).checkboxradio('refresh');
+                fpcm.dom.fromId('quotetext').val('');
+                fpcm.dom.fromId('quotesrc').val('');
+                fpcm.dom.fromId('quotetype2').prop('checked', false).checkboxradio('refresh');
+                fpcm.dom.fromId('quotetype1').prop('checked', true ).checkboxradio('refresh');
             },
             insertAction: function() {
                 var values = {
-                    text: jQuery('#quotetext').val(),
-                    sources: jQuery('#quotesrc').val(),
-                    type: jQuery('input.fpcm-ui-editor-quotemode:checked').val()
+                    text: fpcm.dom.fromId('quotetext').val(),
+                    sources: fpcm.dom.fromId('quotesrc').val(),
+                    type: fpcm.dom.fromTag('input.fpcm-ui-editor-quotemode:checked').val()
                 };
 
                 if (values.type === 'blockquote') {
@@ -727,7 +727,7 @@ if (fpcm.editor) {
                 }
 
                 fpcm.editor.insert('<' + values.type + ' class="fpcm-articletext-quote"' + (values.sources ? ' cite="' + values.sources + '"' : '') + '>' + values.text, '</' + values.type + '>');
-                jQuery(this).dialog( "close" );
+                fpcm.dom.fromTag(this).dialog( "close" );
             }
         });
     };

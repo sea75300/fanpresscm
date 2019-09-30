@@ -18,17 +18,17 @@ fpcm.logs = {
 
     init: function () {
 
-        var cleanEl = jQuery('#btnCleanLogs');
+        var cleanEl = fpcm.dom.fromId('btnCleanLogs');
         cleanEl.unbind('click');
         cleanEl.click(function () {
             
-            var logId = jQuery(this).data('logid');
+            var logId = fpcm.dom.fromTag(this).data('logid');
             
             fpcm.ui.confirmDialog({
                 clickNoDefault: true,
                 clickYes: function () {
                     fpcm.logs.clearLogs(logId);
-                    jQuery(this).dialog('close');
+                    fpcm.dom.fromTag(this).dialog('close');
                     return true;
                 }
             });
@@ -45,7 +45,7 @@ fpcm.logs = {
                 var tabId = ui.ajaxSettings.url.split(fpcm.logs.delimiter);
                 tabId = tabId[1] !== undefined ? tabId[1] : 0;
 
-                jQuery('#btnCleanLogs').data('logid', tabId);
+                fpcm.dom.fromId('btnCleanLogs').data('logid', tabId);
                 
                 ui.ajaxSettings.dataFilter = function( response ) {
 
@@ -98,18 +98,18 @@ fpcm.logs = {
                     return true;
                 }
 
-                jQuery('.fpcm-ui-logslist').remove();
+                fpcm.dom.fromClass('fpcm-ui-logslist').remove();
 
                 ui.panel.append(fpcm.dataview.getDataViewWrapper(ui.tab.attr('data-dataview-list'), 'fpcm-ui-logslist'));
                 fpcm.dataview.updateAndRender(fpcm.vars.jsvars.dataviews.extSettings.name);
 
                 var logSizeEl = fpcm.vars.jsvars.dataviews.extSettings.logSize ? 'fpcm-logs-size-row-' + fpcm.vars.jsvars.dataviews.extSettings.name : false;
                 if (fpcm.vars.jsvars.dataviews.extSettings.logSize) {
-                    jQuery('.fpcm-ui-logslist').append('<div id="' + logSizeEl + '" class="row fpcm-ui-font-small fpcm-ui-margin-lg-top"><div class="col-12 align-self-center fpcm-ui-padding-none-left"> <span class="fpcm-ui-icon fpcm-ui-icon-single fa fa-fw fa-weight fa-lg "></span>  ' + fpcm.ui.translate('FILE_LIST_FILESIZE') + ': ' + fpcm.vars.jsvars.dataviews.extSettings.logSize + '</div></div>');
+                    fpcm.dom.fromClass('fpcm-ui-logslist').append('<div id="' + logSizeEl + '" class="row fpcm-ui-font-small fpcm-ui-margin-lg-top"><div class="col-12 align-self-center fpcm-ui-padding-none-left"> <span class="fpcm-ui-icon fpcm-ui-icon-single fa fa-fw fa-weight fa-lg "></span>  ' + fpcm.ui.translate('FILE_LIST_FILESIZE') + ': ' + fpcm.vars.jsvars.dataviews.extSettings.logSize + '</div></div>');
                 }
 
                 if (fpcm.vars.jsvars.dataviews.extSettings.fullheight) {
-                    ui.panel.height(fpcm.vars.jsvars.dataviews[fpcm.vars.jsvars.dataviews.extSettings.name].dataViewHeight + (logSizeEl ? jQuery('#' + logSizeEl).height() : 0) );
+                    ui.panel.height(fpcm.vars.jsvars.dataviews[fpcm.vars.jsvars.dataviews.extSettings.name].dataViewHeight + (logSizeEl ? fpcm.dom.fromId('' + logSizeEl).height() : 0) );
                 }
 
                 fpcm.ui.showLoader();
@@ -119,7 +119,7 @@ fpcm.logs = {
             addTabScroll: true
         });
         
-        var linkEl = jQuery('#fpcm-tabs-logs-sessions').find('a');
+        var linkEl = fpcm.dom.fromId('fpcm-tabs-logs-sessions').find('a');
         
         linkEl.attr('href', linkEl.attr('data-href'));
         linkEl.removeAttr('data-href');
@@ -146,7 +146,7 @@ fpcm.logs = {
     },
     
     reloadLogs: function() {
-        var tabEl = jQuery('#fpcm-tabs-logs');
+        var tabEl = fpcm.dom.fromId('fpcm-tabs-logs');
         tabEl.tabs('load', tabEl.tabs( "option", "active" ));
         return false;
     }

@@ -25,7 +25,7 @@ fpcm.profile = {
             saveActiveTab: true
         });
         
-        jQuery('#dataemail').focusout(function () {
+        fpcm.dom.fromId('dataemail').focusout(function () {
             fpcm.ui.showCurrentPasswordConfirmation();
             
         });

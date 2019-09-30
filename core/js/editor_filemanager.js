@@ -16,7 +16,7 @@ fpcm.editor.showFileManager = function(fmgrMode) {
         
     var size = fpcm.ui.getDialogSizes(top, 0.75);
 
-    fpcm.ui.appendHtml('#fpcm-dialog-editor-html-filemanager', '<iframe id="fpcm-dialog-editor-html-filemanager-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.jsvars.filemanagerUrl + fmgrMode + '"></iframe>');
+    fpcm.dom.appendHtml('#fpcm-dialog-editor-html-filemanager', '<iframe id="fpcm-dialog-editor-html-filemanager-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.jsvars.filemanagerUrl + fmgrMode + '"></iframe>');
     fpcm.ui.dialog({
         id       : 'editor-html-filemanager',
         dlMinWidth : size.width,
@@ -29,39 +29,39 @@ fpcm.editor.showFileManager = function(fmgrMode) {
                 text: fpcm.ui.translate('ARTICLES_SEARCH'),
                 icon: "ui-icon-search",
                 click: function() {
-                    jQuery(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#opensearch').click();
+                    fpcm.dom.fromTag(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#opensearch').click();
                 }
             },
             {
                 text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
                 icon: "ui-icon-image",
                 click: function() {
-                    jQuery(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#createThumbs').click();
+                    fpcm.dom.fromTag(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#createThumbs').click();
                 }
             },
             {
                 text: fpcm.ui.translate('GLOBAL_DELETE'),
                 icon: "ui-icon-trash",
                 click: function() {
-                    jQuery(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#deleteFiles').click();
+                    fpcm.dom.fromTag(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#deleteFiles').click();
                 }
             },
             {
                 text: fpcm.ui.translate('GLOBAL_CLOSE'),
                 icon: "ui-icon-closethick",                    
                 click: function() {
-                    jQuery(this).dialog('close');
+                    fpcm.dom.fromTag(this).dialog('close');
                 }
             }                            
         ],
         dlOnClose: function( event, ui ) {
-            jQuery(this).empty();
+            fpcm.dom.fromTag(this).empty();
         }
     });   
 };
     
 fpcm.editor.setSelectToDialog = function(obj) {
-    jQuery(obj).find('.fpcm-ui-input-select').selectmenu({
-        appendTo: "#" + jQuery(obj).attr('id')
+    fpcm.dom.fromTag(obj).find('.fpcm-ui-input-select').selectmenu({
+        appendTo: "#" + fpcm.dom.fromTag(obj).attr('id')
     });
 };

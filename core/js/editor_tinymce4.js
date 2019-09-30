@@ -27,21 +27,21 @@ fpcm.editor.initTinyMce = function() {
                     text: fpcm.ui.translate('ARTICLES_SEARCH'),
                     onclick: function() {
                         var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
-                        jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('#opensearch').click();
+                        fpcm.dom.fromId(tinyMceWins[1]._id).find('iframe').contents().find('#opensearch').click();
                     }
                 },
                 {
                     text: fpcm.ui.translate('FILE_LIST_NEWTHUMBS'),
                     onclick: function() {
                         var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
-                        jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('#createThumbs').click();
+                        fpcm.dom.fromId(tinyMceWins[1]._id).find('iframe').contents().find('#createThumbs').click();
                     }
                 },
                 {
                     text: fpcm.ui.translate('GLOBAL_DELETE'),
                     onclick: function() {
                         var tinyMceWins = top.tinymce.activeEditor.windowManager.getWindows();
-                        jQuery('#'+ tinyMceWins[1]._id).find('iframe').contents().find('#deleteFiles').click();
+                        fpcm.dom.fromId(tinyMceWins[1]._id).find('iframe').contents().find('#deleteFiles').click();
                     }
                 },
                 {

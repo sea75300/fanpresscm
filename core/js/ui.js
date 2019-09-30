@@ -14,7 +14,7 @@ fpcm.ui = {
 
     init: function() {
 
-        fpcm.ui._intVars.msgEl = jQuery('#fpcm-messages');
+        fpcm.ui._intVars.msgEl = fpcm.dom.fromId('fpcm-messages');
 
         fpcm.ui.showMessages();
         fpcm.ui.messagesInitClose();
@@ -26,18 +26,18 @@ fpcm.ui = {
         fpcm.ui.accordion('.fpcm-tabs-accordion');
         fpcm.ui.initDateTimeMasks();
 
-        jQuery('.fpcm-navigation-noclick').click(function () {
+        fpcm.dom.fromClass('fpcm-navigation-noclick').click(function () {
             fpcm.ui.showLoader(false);
             return false;
         });
 
-        jQuery('#fpcm-clear-cache').click(function () {
+        fpcm.dom.fromId('fpcm-clear-cache').click(function () {
             return fpcm.system.clearCache();
         });
 
-        jQuery('.fpcm-loader').click(function () {
+        fpcm.dom.fromClass('fpcm-loader').click(function () {
 
-            var el = jQuery(this);
+            var el = fpcm.dom.fromTag(this);
             if (el.hasClass('fpcm-navigation-noclick') || el.data('hidespinner')) {
                 return false;
             }
@@ -45,7 +45,7 @@ fpcm.ui = {
             fpcm.ui.showLoader(true);
         });
         
-        jQuery('#fpcm-ui-form').submit(function () {
+        fpcm.dom.fromId('fpcm-ui-form').submit(function () {
             fpcm.ui.showLoader(true);
             return true;
         });
@@ -58,7 +58,7 @@ fpcm.ui = {
 
     initJqUiWidgets: function () {
 
-        jQuery('.fpcm-ui-button.fpcm-ui-button-confirm').unbind('click');
+        fpcm.dom.fromClass('fpcm-ui-button.fpcm-ui-button-confirm').unbind('click');
 
         fpcm.ui.mainToolbar = fpcm.ui.controlgroup('#fpcm-ui-toolbar div.fpcm-ui-toolbar', {
             onlyVisible: true
@@ -66,7 +66,7 @@ fpcm.ui = {
 
         fpcm.ui.assignControlgroups();
 
-        jQuery('.fpcm-ui-button.fpcm-ui-button-confirm').click(function() {
+        fpcm.dom.fromClass('fpcm-ui-button.fpcm-ui-button-confirm').click(function() {
 
             fpcm.ui.showLoader(false);
             if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
@@ -74,7 +74,7 @@ fpcm.ui = {
                 return false;
             }
             
-            if (!jQuery(this).data('hidespinner')) {
+            if (!fpcm.dom.fromTag(this).data('hidespinner')) {
                 fpcm.ui.showLoader(true);
             }
 
@@ -97,7 +97,7 @@ fpcm.ui = {
     
     articleActionsOkButton: function () {
 
-        var el = jQuery('.fpcm-ui-articleactions-ok');
+        var el = fpcm.dom.fromClass('fpcm-ui-articleactions-ok');
 
         el.unbind('click');
         el.click(function () {
@@ -124,22 +124,23 @@ fpcm.ui = {
     
     assignCheckboxes: function() {
         
-        var checkboxAll = jQuery('#fpcm-select-all');
+        var checkboxAll = fpcm.dom.fromId('fpcm-select-all');
         if (!checkboxAll.length) {
             return false;
         }
 
+        checkboxAll.unbind('click');
         checkboxAll.click(function() {
             
-            var el0 = jQuery('.fpcm-ui-list-checkbox-sub');
+            var el0 = fpcm.dom.fromClass('fpcm-ui-list-checkbox-sub');
             el0.prop('checked', false);
             if (fpcm.vars.jsvars.checkboxRefresh) {
                el0.checkboxradio('refresh');
             }
             
-            var el1 = jQuery('.fpcm-ui-list-checkbox');
+            var el1 = fpcm.dom.fromClass('fpcm-ui-list-checkbox');
             el1.prop('checked', (
-                jQuery(this).prop('checked') ? true : false
+                fpcm.dom.fromTag(this).prop('checked') ? true : false
             ));
 
             if (fpcm.vars.jsvars.checkboxRefresh) {
@@ -147,14 +148,15 @@ fpcm.ui = {
             }
         });
 
-        var checkboxSub = jQuery('.fpcm-ui-list-checkbox-sub');
+        var checkboxSub = fpcm.dom.fromClass('fpcm-ui-list-checkbox-sub');
         if (!checkboxSub.length) {
             return false;
         }
 
+        checkboxSub.unbind('click');
         checkboxSub.click(function() {
-            var el2 = jQuery('.fpcm-ui-list-checkbox-subitem' + jQuery(this).val());
-            el2.prop('checked', ( jQuery(this).prop('checked') ? true : false ));
+            var el2 = fpcm.dom.fromClass('fpcm-ui-list-checkbox-subitem' + fpcm.dom.fromTag(this).val());
+            el2.prop('checked', ( fpcm.dom.fromTag(this).prop('checked') ? true : false ));
             
             if (fpcm.vars.jsvars.checkboxRefresh) {
                 el2.checkboxradio('refresh');
@@ -168,7 +170,7 @@ fpcm.ui = {
     
     accordion: function(elemClassId, params) {
         
-        var el = jQuery(elemClassId);
+        var el = fpcm.dom.fromTag(elemClassId);
         if (!el.length) {
             return;
         }
@@ -187,7 +189,7 @@ fpcm.ui = {
     
         if (params === undefined) params = {};
         
-        var el = jQuery(elemClassId);
+        var el = fpcm.dom.fromTag(elemClassId);
         if (!el.length) {
             return;
         }
@@ -204,8 +206,8 @@ fpcm.ui = {
         
         if (params.saveActiveTab) {
             params.activate = function(event, ui) {
-                fpcm.vars.jsvars.activeTab = jQuery(this).tabs('option', 'active');
-                jQuery('#activeTab').val(fpcm.vars.jsvars.activeTab);
+                fpcm.vars.jsvars.activeTab = fpcm.dom.fromTag(this).tabs('option', 'active');
+                fpcm.dom.fromId('activeTab').val(fpcm.vars.jsvars.activeTab);
                 fpcm.ui.updateMainToolbar(ui);
                 if (params.saveActiveTabAfter) {
                     params.saveActiveTabAfter(event, ui);
@@ -309,7 +311,7 @@ fpcm.ui = {
             el.find('ul.ui-tabs-nav').wrap('<div class="fpcm-tabs-scroll"></div>');
             fpcm.ui.initTabsScroll(elemClassId);
             
-            jQuery(window).resize(function() {
+            fpcm.dom.fromWindow().resize(function() {
                 fpcm.ui.initTabsScroll(elemClassId, true);
             });
 
@@ -321,19 +323,25 @@ fpcm.ui = {
 
     spinner: function(elemClassId, params) {
         
-        var el = jQuery(elemClassId);
+        var el = fpcm.dom.fromTag(elemClassId);
         if (!el.length) {
             return;
         }
 
-        if (params === undefined) params = {};        
-        el.spinner(params);
+        if (params === undefined) params = {};
 
+        if (params.removeCornerLeft) {
+            params.classes = {
+                'ui-spinner': "fpcm-ui-border-radius-right"
+            }
+        }
+
+        el.spinner(params);
     },
 
     datepicker: function(elemClassId, params) {
 
-        var el = jQuery(elemClassId);
+        var el = fpcm.dom.fromTag(elemClassId);
         if (!el.length) {
             return;
         }
@@ -366,7 +374,7 @@ fpcm.ui = {
 
     selectmenu: function(elemClassId, params) {
 
-        var el = jQuery(elemClassId);
+        var el = fpcm.dom.fromTag(elemClassId);
         if (!el.length) {
             return false;
         }
@@ -376,7 +384,7 @@ fpcm.ui = {
         }
 
         if (elemClassId.substr(1,1) === '#') {
-            var dataWidth = jQuery(elemClassId).data('width');
+            var dataWidth = fpcm.dom.fromTag(elemClassId).data('width');
             if (dataWidth) {
                 params.width = dataWidth;
             }
@@ -386,7 +394,7 @@ fpcm.ui = {
             params.width = 300;
         }
 
-        var el = jQuery(elemClassId).selectmenu(params);
+        var el = fpcm.dom.fromTag(elemClassId).selectmenu(params);
         if (params.removeCornerLeft || (elemClassId.substr(1,1) === '#' && el.data('remove_corner_left'))) {
             el.selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
         }
@@ -401,7 +409,7 @@ fpcm.ui = {
     
     checkboxradio: function(elemClassId, params, onClick) {
 
-        var el = jQuery(elemClassId);
+        var el = fpcm.dom.fromTag(elemClassId);
         if (!el.length) {
             return;
         }
@@ -429,7 +437,7 @@ fpcm.ui = {
             params = {};
         }
 
-        var el = jQuery(elemClassId);
+        var el = fpcm.dom.fromTag(elemClassId);
         if (!el.length) {
             return false;
         }
@@ -452,13 +460,13 @@ fpcm.ui = {
             params = {};
         }
 
-        jQuery(elemClassId).button(params);
+        fpcm.dom.fromTag(elemClassId).button(params);
         
         if (onClick === undefined) {
             return;
         }
         
-        jQuery(elemClassId).click(onClick);
+        fpcm.dom.fromTag(elemClassId).click(onClick);
     },
     
     progressbar: function(elemClassId, params){
@@ -467,7 +475,7 @@ fpcm.ui = {
             params = {};
         }
 
-        jQuery(elemClassId).progressbar(params);
+        fpcm.dom.fromTag(elemClassId).progressbar(params);
     },
     
     dialog: function(params) {
@@ -495,12 +503,26 @@ fpcm.ui = {
         
         var dialogId = 'fpcm-dialog-'+  params.id;
         if (params.content !== undefined) {
-            fpcm.ui.appendHtml('#fpcm-body', '<div class="fpcm-ui-dialog-layer fpcm-editor-dialog" id="' + dialogId + '">' +  params.content + '</div>');
+            fpcm.dom.appendHtml('#fpcm-body', '<div class="fpcm-ui-dialog-layer fpcm-editor-dialog" id="' + dialogId + '">' +  params.content + '</div>');
         }
 
-        var el = jQuery('#' + dialogId);
+        var el = fpcm.dom.fromId(dialogId);
         if (!el.length) {
             return false;
+        }
+
+        if (params.defaultCloseEmpty) {
+            params.dlOnClose = function () {
+                fpcm.dom.fromTag(this).dialog("close");
+                fpcm.dom.fromTag(this).empty();
+                return false;
+            }
+        }
+        else if (params.defaultClose) {
+            params.dlOnClose = function () {
+                fpcm.dom.fromTag(this).dialog("close");
+                return false;
+            }
         }
 
         var dlParams = {};
@@ -544,7 +566,7 @@ fpcm.ui = {
     
     autocomplete: function(elemClassId, params) {
 
-        var el = jQuery(elemClassId);
+        var el = fpcm.dom.fromTag(elemClassId);
         if (!el.length) {
             return false;
         }
@@ -562,7 +584,7 @@ fpcm.ui = {
             el = top;
         }
 
-        win_with = jQuery(el).width();
+        win_with = fpcm.dom.fromTag(el).width();
         
         if (win_with <= 700) {
             scale_factor = 0.95;
@@ -575,8 +597,8 @@ fpcm.ui = {
         }
 
         var ret = {
-            width : jQuery(top).width() * scale_factor,
-            height: jQuery(top).height() * scale_factor
+            width : fpcm.dom.fromTag(top).width() * scale_factor,
+            height: fpcm.dom.fromTag(top).height() * scale_factor
         }
 
         return ret;
@@ -595,7 +617,7 @@ fpcm.ui = {
 
             msg = fpcm.vars.ui.messages[i];
             msgBoxid = 'msgbox-' + msg.id;
-            if (jQuery('#' + msgBoxid).length > 0) {
+            if (fpcm.dom.fromId(msgBoxid).length > 0) {
                 continue;
             }
 
@@ -615,11 +637,11 @@ fpcm.ui = {
             msgCode += '        <span class="fa-stack"><span class="fa fa-square fa-stack-2x fa-inverse"></span><span class="fa fa-times fa-stack-1x"></span></span>';
             msgCode += '    </div>';
             msgCode += '</div>';
-            fpcm.ui.appendHtml('#fpcm-messages', msgCode);
+            fpcm.dom.appendHtml('#fpcm-messages', msgCode);
         }
-        
-        jQuery('div.fpcm-message-box.fpcm-message-notice').delay(1000).fadeOut('slow');
-        jQuery('div.fpcm-message-box.fpcm-message-neutral').delay(1000).fadeOut('slow');        
+
+        fpcm.dom.fromTag('div.fpcm-message-box.fpcm-message-notice').delay(1000).fadeOut('slow');
+        fpcm.dom.fromTag('div.fpcm-message-box.fpcm-message-neutral').delay(1000).fadeOut('slow');        
     },
     
     addMessage: function(value, clear) {
@@ -662,49 +684,49 @@ fpcm.ui = {
     
     messagesInitClose: function() {
         fpcm.ui._intVars.msgEl.find('.fpcm-ui-messages-close').click(function () {
-            var closeId = jQuery(this).attr('id');
-            jQuery('#msgbox-' + closeId.substring(9)).fadeOut('slow');
+            var closeId = fpcm.dom.fromTag(this).attr('id');
+            fpcm.dom.fromId('msgbox-' + closeId.substring(9)).fadeOut('slow');
         }).mouseover(function (event, ui) {
-            jQuery(this).find('.fa.fa-square').removeClass('fa-inverse');
-            jQuery(this).find('.fa.fa-times').addClass('fa-inverse');
+            fpcm.dom.fromTag(this).find('.fa.fa-square').removeClass('fa-inverse');
+            fpcm.dom.fromTag(this).find('.fa.fa-times').addClass('fa-inverse');
         }).mouseout(function (event, ui) {
-            jQuery(this).find('.fa.fa-square').addClass('fa-inverse');
-            jQuery(this).find('.fa.fa-times').removeClass('fa-inverse');
+            fpcm.dom.fromTag(this).find('.fa.fa-square').addClass('fa-inverse');
+            fpcm.dom.fromTag(this).find('.fa.fa-times').removeClass('fa-inverse');
         });
     },
     
     setFocus: function(elemId) {
-        jQuery('#' + elemId).focus();
+        fpcm.dom.setFocus(elemId);
     },
     
     assignHtml: function(elemId, data) {
-        jQuery(elemId).html(data);
+        fpcm.dom.assignHtml(elemId, data);
     },
     
     assignText: function(elemId, data) {
-        jQuery(elemId).text(data);
+        fpcm.dom.assignText(elemId, data);
     },
     
     appendHtml: function(elemId, data) {
-        jQuery(elemId).append(data);
+        fpcm.dom.appendHtml(elemId, data);
     },
     
     prependHtml: function(elemId, data) {
-        jQuery(elemId).prepend(data);
+        fpcm.dom.prependHtml(elemId, data);
     },
     
     removeLoaderClass: function(elemId) {
-        jQuery(elemId).removeClass('fpcm-loader');
+        fpcm.dom.fromTag(_id).removeClass('fpcm-loader');
     },
     
     isReadonly: function(elemId, state) {
-        jQuery(elemId).prop('readonly', state);
+        fpcm.dom.isReadonly(elemId, state);
     },
     
     createIFrame: function(params) {
       
         if (!params.src) {
-            console.warn('fpcm.ui.createIFrame requires a set and non-empty value.');
+            console.warn('fpcm.ui.createIFrame requires a non-empty value.');
             return '';
         }
       
@@ -724,8 +746,8 @@ fpcm.ui = {
     showLoader: function(show, addtext) {
 
         if (!show) {
-            jQuery('#fpcm-loader').fadeOut('fast', function(){
-                jQuery(this).fadeOut(100).remove();
+            fpcm.dom.fromId('fpcm-loader').fadeOut('fast', function(){
+                fpcm.dom.fromTag(this).fadeOut(100).remove();
             });
             return false;
         }
@@ -740,8 +762,8 @@ fpcm.ui = {
             '</div>'            
         ];
 
-        fpcm.ui.appendHtml('#fpcm-body', html.join(''));
-        jQuery('#fpcm-loader').fadeIn(100);
+        fpcm.dom.appendHtml('#fpcm-body', html.join(''));
+        fpcm.dom.fromId('fpcm-loader').fadeIn(100);
 
         return true;
     },
@@ -763,7 +785,7 @@ fpcm.ui = {
     
     initTabsScroll: function(elemClassId, isResize) {
         
-        var el = jQuery(elemClassId);        
+        var el = fpcm.dom.fromTag(elemClassId);        
         var tabNav       = el.find('ul.ui-tabs-nav');
         var tabsMaxWidth = el.find('div.fpcm-tabs-scroll').width();
         
@@ -771,7 +793,7 @@ fpcm.ui = {
         var tabsCurrentWidth = 0;
 
         jQuery.each(liElements, function(key, item) {
-            tabsCurrentWidth += jQuery(item).width() + 5;
+            tabsCurrentWidth += fpcm.dom.fromTag(item).width() + 5;
         });
 
         if (tabNav.data('fpcmtabsscrollinit') && !isResize) {
@@ -792,12 +814,28 @@ fpcm.ui = {
     getCheckboxCheckedValues: function(id) {
         
         var data = [];
-        jQuery(id + ':checked').map(function (idx, item) {
-            data.push(jQuery(item).val());
+        fpcm.dom.fromTag(id + ':checked').map(function (idx, item) {
+            data.push(item.value);
         });
 
         return data;
 
+    },
+
+    getValuesByClass: function(_class) {
+        
+        var _fields = fpcm.dom.fromClass(_class);
+        if (!_fields.length) {
+            return {};
+        }
+
+        _data = {};
+        _fields.map(function (idx, item) {
+            var el = fpcm.dom.fromTag(item);
+            _data[el.attr('name')] = el.val();
+        });     
+
+        return _data;
     },
     
     confirmDialog: function(params) {
@@ -806,7 +844,7 @@ fpcm.ui = {
         
         if (params.clickNoDefault) {
             params.clickNo = function () {
-                jQuery(this).dialog("close");
+                fpcm.dom.fromTag(this).dialog("close");
                 return false;
             }
         }
@@ -870,7 +908,7 @@ fpcm.ui = {
  
         if (!params.closeAction) {
             params.closeAction = function () {
-                jQuery(this).dialog("close");
+                fpcm.dom.fromTag(this).dialog("close");
             }
         }
         
@@ -905,21 +943,21 @@ fpcm.ui = {
             return false;
         }
 
-        var backEl = jQuery('#pagerBack');
-        var nextEl = jQuery('#pagerNext');
+        var backEl = fpcm.dom.fromId('pagerBack');
+        var nextEl = fpcm.dom.fromId('pagerNext');
 
         backEl.unbind('click');
         nextEl.unbind('click');
 
         if (!params.backAction) {
             params.backAction = function () {
-                jQuery(this).attr('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showBackButton) );
+                fpcm.dom.fromTag(this).attr('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showBackButton) );
             };
         }
 
         if (!params.nextAction) {
             params.nextAction = function () {
-                jQuery(this).attr('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showNextButton) );
+                fpcm.dom.fromTag(this).attr('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showNextButton) );
             };
         }
 
@@ -931,8 +969,8 @@ fpcm.ui = {
             nextEl.click(params.nextAction);
         }
 
-        var selectId    = '#pageSelect';
-        var selectEl    = jQuery(selectId);
+        var selectId    = 'pageSelect';
+        var selectEl    = fpcm.dom.fromId(selectId);
         selectEl.unbind('select');
         
         if (fpcm.vars.jsvars.pager.maxPages) {
@@ -960,7 +998,7 @@ fpcm.ui = {
             doRefresh: true
         };
 
-        fpcm.ui.selectmenu(selectId, selectParams);
+        fpcm.ui.selectmenu('#' + selectId, selectParams);
         
     },
     
@@ -976,8 +1014,8 @@ fpcm.ui = {
         
         var tabEl = ui.newTab ? ui.newTab : ui.tab;
         
-        var hideButtons = ui.oldTab ? jQuery(ui.oldTab).data('toolbar-buttons') : 1;
-        var showButtons = jQuery(tabEl).data('toolbar-buttons');
+        var hideButtons = ui.oldTab ? fpcm.dom.fromTag(ui.oldTab).data('toolbar-buttons') : 1;
+        var showButtons = fpcm.dom.fromTag(tabEl).data('toolbar-buttons');
 
         fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ hideButtons).addClass('fpcm-ui-hidden');
         fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ showButtons).removeClass('fpcm-ui-hidden');
@@ -986,7 +1024,7 @@ fpcm.ui = {
     },
 
     resetSelectMenuSelection: function (elId) {
-        var selectEl = jQuery(elId);
+        var selectEl = fpcm.dom.fromTag(elId);
         selectEl.prop('selectedIndex', 0);
         selectEl.val('');
         selectEl.selectmenu("refresh");
@@ -994,7 +1032,7 @@ fpcm.ui = {
     },
     
     showCurrentPasswordConfirmation: function () {
-        var el = jQuery('#fpcm-ui-currentpass-box');
+        var el = fpcm.dom.fromId('fpcm-ui-currentpass-box');
         if (!el.length) {
             return false;
         }
@@ -1006,7 +1044,7 @@ fpcm.ui = {
     isHidden: function (element) {
 
         if (!(element instanceof Object)) {
-            element = jQuery(element);
+            element = fpcm.dom.fromTag(element);
         }
 
         return element.hasClass('fpcm-ui-hidden') ? true : false;

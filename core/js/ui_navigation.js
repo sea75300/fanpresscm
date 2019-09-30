@@ -17,9 +17,9 @@ fpcm.ui_navigation = {
         fpcm.ui_navigation.initGreedyEl();
         fpcm.ui_navigation.highlightModule();
 
-        fpcm.ui_navigation._vars.btn = jQuery('#btnHiddenMenu');
-        fpcm.ui_navigation._vars.greedy = jQuery('div.greedy ul.fpcm-ui-menu:first-child');
-        fpcm.ui_navigation._vars.hlinks = jQuery('div.greedy ul.fpcm-ui-nav-hidden-links');
+        fpcm.ui_navigation._vars.btn = fpcm.dom.fromId('btnHiddenMenu');
+        fpcm.ui_navigation._vars.greedy = fpcm.dom.fromTag('div.greedy ul.fpcm-ui-menu:first-child');
+        fpcm.ui_navigation._vars.hlinks = fpcm.dom.fromTag('div.greedy ul.fpcm-ui-nav-hidden-links');
 
         fpcm.ui_navigation._vars.numOfItems = 0;
         fpcm.ui_navigation._vars.totalSpace = 0;
@@ -33,7 +33,7 @@ fpcm.ui_navigation = {
             fpcm.ui_navigation._vars.breakWidths.push(fpcm.ui_navigation._vars.totalSpace);
         });
 
-        jQuery(window).resize(function() {
+        fpcm.dom.fromWindow().resize(function() {
             fpcm.ui_navigation._checkGreedy();
         });
 
@@ -86,18 +86,18 @@ fpcm.ui_navigation = {
             return true;
         }
 
-        fpcm.ui_navigation._vars.nav = jQuery('div.greedy');
+        fpcm.ui_navigation._vars.nav = fpcm.dom.fromTag('div.greedy');
         return true;
     },
     
     highlightModule: function() {
 
         if (fpcm.vars.jsvars.navigationActive) {
-            jQuery('#' + fpcm.vars.jsvars.navigationActive).addClass('fpcm-menu-item-active').parents('li.fpcm-menu-level1').addClass('fpcm-menu-item-active');
+            fpcm.dom.fromId('' + fpcm.vars.jsvars.navigationActive).addClass('fpcm-menu-item-active').parents('li.fpcm-menu-level1').addClass('fpcm-menu-item-active');
             return true;
         }
 
-        jQuery('#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active').parents('li.fpcm-menu-level1').addClass('fpcm-menu-item-active');
+        fpcm.dom.fromId('fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active').parents('li.fpcm-menu-level1').addClass('fpcm-menu-item-active');
         return true;
 
     }

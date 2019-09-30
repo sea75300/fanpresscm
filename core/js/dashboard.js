@@ -24,7 +24,7 @@ fpcm.dashboard = {
                 fpcm.dashboard.forceUpdate();
                 fpcm.dashboard.openUpdateCheckUrl();
                 
-                var el = jQuery('#fpcm-dashboard-containers');
+                var el = fpcm.dom.fromId('fpcm-dashboard-containers');
                 el.sortable({
                     items: 'div.fpcm-dashboard-container',
                     handle: 'span.fpcm-dashboard-container-move',
@@ -33,7 +33,7 @@ fpcm.dashboard = {
 
                         var saveItems = {};
                         jQuery.each(ui.item.parent().children(), function (pos, item) {
-                            saveItems[jQuery(item).data('container')] = parseInt(pos) + 1;
+                            saveItems[fpcm.dom.fromTag(item).data('container')] = parseInt(pos) + 1;
                         });
 
                         fpcm.ajax.post('setconfig', {
@@ -58,7 +58,7 @@ fpcm.dashboard = {
             return false;
         }
         
-        fpcm.ui.relocate(jQuery('#startUpdate').attr('href'));
+        fpcm.ui.relocate(fpcm.dom.fromId('startUpdate').attr('href'));
         return true;
     },
     
@@ -68,7 +68,7 @@ fpcm.dashboard = {
             return false;
         }
 
-        window.open(jQuery('#chckmanual').attr('href'), '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
+        window.open(fpcm.dom.fromId('chckmanual').attr('href'), '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
         return true;
     }
 

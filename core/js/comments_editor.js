@@ -16,9 +16,9 @@ fpcm.editor = {
         fpcm.editor.initToolbar();
         fpcm.ui.setFocus('commentname');
 
-        jQuery('#btnLockIp').click(function (event, ui) {
+        fpcm.dom.fromId('btnLockIp').click(function (event, ui) {
 
-            var cid = jQuery(event.currentTarget).data('commentid');
+            var cid = fpcm.dom.fromTag(event.currentTarget).data('commentid');
 
             fpcm.ui.showLoader(true);
             fpcm.ajax.post('comments/lockip', {

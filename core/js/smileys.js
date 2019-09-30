@@ -28,7 +28,7 @@ fpcm.smileys = {
 
             acObject.autocomplete('instance').
             _renderItem = function( ul, item ) {
-                return  jQuery('<li>').
+                return  fpcm.dom.fromTag('<li>').
                         addClass('fpcm-ui-smileylist-preview').
                         append('<div><img src="' + item.label + '" class="fpcm-ui-smileylist-preview"><span>' + item.value + '</span></div>').
                         appendTo(ul);

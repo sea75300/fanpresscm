@@ -21,7 +21,7 @@ fpcm.moduleinstaller = {
 
     init: function () {
 
-        fpcm.moduleinstaller.elements = jQuery('.fpcm-ui-update-icons');
+        fpcm.moduleinstaller.elements = fpcm.dom.fromClass('fpcm-ui-update-icons');
         fpcm.moduleinstaller.elCount  = fpcm.moduleinstaller.elements.length;
 
         var start = fpcm.moduleinstaller.elements.first();
@@ -71,7 +71,7 @@ fpcm.moduleinstaller = {
 
                 if (!res.code) {
                     statusEl.addClass('fa-ban fpcm-ui-important-text');
-                    jQuery('#fpcm-ui-update-result-0').removeClass('fpcm-ui-hidden');
+                    fpcm.dom.fromId('fpcm-ui-update-result-0').removeClass('fpcm-ui-hidden');
                     
                     if (res.pkgdata.errorMsg) {
                         fpcm.ui.addMessage({
@@ -102,7 +102,7 @@ fpcm.moduleinstaller = {
             },
             execFail: function () {
                 fpcm.moduleinstaller.currentEl.find('.fpcm-ui-update-iconstatus').removeClass(fpcm.moduleinstaller.statusSpinner).addClass('fa-ban fpcm-ui-important-text');
-                jQuery('#fpcm-ui-update-result-0').removeClass('fpcm-ui-hidden');
+                fpcm.dom.fromId('fpcm-ui-update-result-0').removeClass('fpcm-ui-hidden');
                 fpcm.moduleinstaller.currentEl = {};
                 return false;
             }
@@ -117,9 +117,9 @@ fpcm.moduleinstaller = {
     
     stopTimer: function() {
         fpcm.moduleinstaller.stopTime = (new Date().getTime());
-        fpcm.ui.appendHtml('#fpcm-ui-update-timer', ': ' + (fpcm.moduleinstaller.stopTime - fpcm.moduleinstaller.startTime) / 1000 + ' sec');
-        fpcm.ui.appendHtml('#fpcm-ui-update-newver-descr', ': ' + fpcm.vars.jsvars.pkgdata.module.version);
-        jQuery('#fpcm-ui-update-timer').parent().removeClass('fpcm-ui-hidden');
-        jQuery('#fpcm-ui-update-result-1').removeClass('fpcm-ui-hidden');
+        fpcm.dom.appendHtml('#fpcm-ui-update-timer', ': ' + (fpcm.moduleinstaller.stopTime - fpcm.moduleinstaller.startTime) / 1000 + ' sec');
+        fpcm.dom.appendHtml('#fpcm-ui-update-newver-descr', ': ' + fpcm.vars.jsvars.pkgdata.module.version);
+        fpcm.dom.fromId('fpcm-ui-update-timer').parent().removeClass('fpcm-ui-hidden');
+        fpcm.dom.fromId('fpcm-ui-update-result-1').removeClass('fpcm-ui-hidden');
     }
 };

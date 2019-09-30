@@ -12,9 +12,9 @@ fpcm.notifications = {
 
     init: function () {
 
-        jQuery('li.fpcm-notification-item a').click(function() {
+        fpcm.dom.fromTag('li.fpcm-notification-item a').click(function() {
             
-            var callback = jQuery(this).parent('li').data('callback');
+            var callback = fpcm.dom.fromTag(this).parent('li').data('callback');
             if (!callback) {
                 return true;
             }

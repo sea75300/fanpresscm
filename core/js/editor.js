@@ -35,7 +35,7 @@ fpcm.editor = {
             fpcm.editor[fpcm.vars.jsvars.editorInitFunction].call();
         }
         else {
-            jQuery('.fpcm-ui-editor-categories-revisiondiff .fpcm-ui-input-checkbox').click(function() {
+            fpcm.dom.fromClass('fpcm-ui-editor-categories-revisiondiff .fpcm-ui-input-checkbox').click(function() {
                 return false;
             });
         }
@@ -44,11 +44,13 @@ fpcm.editor = {
          * Keycodes
          * http://www.brain4.de/programmierecke/js/tastatur.php
          */
-        jQuery(document).keypress(function(thekey) {
+        fpcm.dom.fromTag(document).keydown(function(thekey) {
 
-            if (thekey.ctrlKey && thekey.which == 115) {
-                if(jQuery("#btnArticleSave")) {
-                    jQuery("#btnArticleSave").click();
+            if (thekey.ctrlKey && thekey.which == 83) {
+                
+                var _saveBtnEl = fpcm.dom.fromId('btnArticleSave');
+                if(_saveBtnEl) {
+                    _saveBtnEl.click();
                     return false;
                 }
             }
@@ -60,7 +62,7 @@ fpcm.editor = {
     initAfter: function() {
 
         fpcm.ui.setFocus('articletitle');
-        jQuery('.fpcm-editor-articleimage').fancybox();
+        fpcm.dom.fromClass('fpcm-editor-articleimage').fancybox();
 
         fpcm.ui.spinner('input.fpcm-ui-spinner-hour', {
             min: 0,
@@ -72,7 +74,7 @@ fpcm.editor = {
             max: 59
         });
 
-        jQuery('#insertarticleimg').click(function () {
+        fpcm.dom.fromId('insertarticleimg').click(function () {
             fpcm.editor.showFileManager(3);
             return false;
         });
@@ -91,23 +93,23 @@ fpcm.editor = {
             minLength: 3
         });
 
-        fpcm.editor.tweetTextInput = jQuery('#articletweettxt');
+        fpcm.editor.tweetTextInput = fpcm.dom.fromId('articletweettxt');
         fpcm.ui.selectmenu('#twitterReplacements', {
             change: function( event, ui ) {
 
                 if (ui.item.value) {
                     var currentText = fpcm.editor.tweetTextInput.val();
-                    var currentpos = jQuery(fpcm.editor.tweetTextInput).prop('selectionStart');
+                    var currentpos = fpcm.dom.fromTag(fpcm.editor.tweetTextInput).prop('selectionStart');
                     fpcm.editor.tweetTextInput.val(currentText.substring(0, currentpos) + ui.item.value +  currentText.substring(currentpos));
                 }
 
                 this.selectedIndex = 0;
-                jQuery(this).selectmenu('refresh');
+                fpcm.dom.fromTag(this).selectmenu('refresh');
                 return false;
             }
         });
         
-        jQuery('#articlecategories').selectize({
+        fpcm.dom.fromId('articlecategories').selectize({
             placeholder: fpcm.ui.translate('EDITOR_CATEGORIES_SEARCH'),
             searchField: ['text', 'value']
         });
@@ -116,14 +118,14 @@ fpcm.editor = {
             return true;
         }
 
-        jQuery('#btnShortlink').click(function (event, handler) {
+        fpcm.dom.fromId('btnShortlink').click(function (event, handler) {
 
             fpcm.ui.showLoader(true);
 
             fpcm.ajax.get('editor/editorlist',{
                 dataType: 'json',
                 data: {
-                    id: jQuery(this).data().article,
+                    id: fpcm.dom.fromTag(this).data().article,
                     view: 'shortlink'
                 },
                 execDone: function (result) {
@@ -138,12 +140,12 @@ fpcm.editor = {
                                 text: fpcm.ui.translate('GLOBAL_CLOSE'),
                                 icon: "ui-icon-closethick",                        
                                 click: function() {
-                                    jQuery( this ).dialog( "close" );
+                                    fpcm.dom.fromTag(this).dialog( "close" );
                                 }
                             }
                         ],
                         dlOnOpen: function (event, ui) {                
-                            fpcm.ui.appendHtml(
+                            fpcm.dom.appendHtml(
                                 this, 
                                 result.permalink
                                     ? '<div class="fpcm-ui-input-wrapper"><div class="fpcm-ui-input-wrapper-inner"><input type="text" value="' + result.shortend + '"></div></div>'
@@ -151,7 +153,7 @@ fpcm.editor = {
                             );
                         },
                         dlOnClose: function( event, ui ) {
-                            jQuery(this).empty();
+                            fpcm.dom.fromTag(this).empty();
                         }
                      });
                      
@@ -162,8 +164,8 @@ fpcm.editor = {
              return false;
         });
 
-        jQuery('input.fpcm-ui-editor-metainfo-checkbox').click(function () {
-            jQuery('span.fpcm-ui-editor-metainfo-' + jQuery(this).data('icon')).toggleClass('fpcm-ui-status-1 fpcm-ui-status-0');
+        fpcm.dom.fromTag('input.fpcm-ui-editor-metainfo-checkbox').click(function () {
+            fpcm.dom.fromTag('span.fpcm-ui-editor-metainfo-' + fpcm.dom.fromTag(this).data('icon')).toggleClass('fpcm-ui-status-1 fpcm-ui-status-0');
             return true;
         });
     },
@@ -172,8 +174,8 @@ fpcm.editor = {
         
         var size = fpcm.ui.getDialogSizes();
         
-        fpcm.ui.appendHtml('#fpcm-dialog-editor-comments', '<iframe id="fpcm-editor-comment-frame" name="fpcmeditorcommentframe" class="fpcm-ui-full-width" src="' + layerUrl + '"></iframe>');
-        jQuery('.fpcm-ui-commentaction-buttons').fadeOut();
+        fpcm.dom.appendHtml('#fpcm-dialog-editor-comments', '<iframe id="fpcm-editor-comment-frame" name="fpcmeditorcommentframe" class="fpcm-ui-full-width" src="' + layerUrl + '"></iframe>');
+        fpcm.dom.fromClass('fpcm-ui-commentaction-buttons').fadeOut();
 
         var size = fpcm.ui.getDialogSizes(top, 0.75);
 
@@ -183,13 +185,14 @@ fpcm.editor = {
             dlHeight   : size.height,
             resizable: true,
             title    : fpcm.ui.translate('COMMENTS_EDIT'),
+            defaultCloseEmpty: true,
             dlButtons  : [
                 {
                     text: fpcm.ui.translate('GLOBAL_SAVE'),
                     icon: "ui-icon-disk",
                     class: 'fpcm-ui-button-primary',
                     click: function() {
-                        jQuery(this).children('#fpcm-editor-comment-frame').contents().find('#btnCommentSave').trigger('click');
+                        fpcm.dom.fromTag(this).children('#fpcm-editor-comment-frame').contents().find('#btnCommentSave').trigger('click');
                         fpcm.editor.editorTabs.tabs('load', 2);
                         fpcm.ui.showLoader(false);
                     }
@@ -199,29 +202,26 @@ fpcm.editor = {
                     icon: "ui-icon-locked",
                     disabled: fpcm.vars.jsvars.lkIp ? false : true,
                     click: function() {
-                        jQuery(this).children('#fpcm-editor-comment-frame').contents().find('#btnLockIp').trigger('click');
+                        fpcm.dom.fromTag(this).children('#fpcm-editor-comment-frame').contents().find('#btnLockIp').trigger('click');
                     }
                 },
                 {
                     text: fpcm.ui.translate('Whois'),
                     icon: "ui-icon-home",
                     click: function() {
-                        window.open(jQuery(this).children('#fpcm-editor-comment-frame').contents().find('#whoisIp').attr('href'), '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
+                        window.open(fpcm.dom.fromTag(this).children('#fpcm-editor-comment-frame').contents().find('#whoisIp').attr('href'), '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
                     }
                 },
                 {
                     text: fpcm.ui.translate('GLOBAL_CLOSE'),
                     icon: "ui-icon-closethick",                    
                     click: function() {
-                        jQuery(this).dialog('close');
+                        fpcm.dom.fromTag(this).dialog('close');
                         fpcm.ui.showLoader(false);
-                        jQuery('.fpcm-ui-commentaction-buttons').fadeIn();
+                        fpcm.dom.fromClass('fpcm-ui-commentaction-buttons').fadeIn();
                     }
                 }                            
-            ],
-            dlOnClose: function( event, ui ) {
-                jQuery(this).empty();
-            }
+            ]
         });
         fpcm.ui.showLoader(false);
         return false;
@@ -316,9 +316,9 @@ fpcm.editor = {
         
         fpcm.comments.assignActions();
         
-        jQuery('.fpcm-ui-commentlist-link').click(function () {
+        fpcm.dom.fromClass('fpcm-ui-commentlist-link').click(function () {
             fpcm.ui.showLoader(false);
-            fpcm.editor.showCommentLayer(jQuery(this).attr('href'));
+            fpcm.editor.showCommentLayer(fpcm.dom.fromTag(this).attr('href'));
             return false;
         });
 

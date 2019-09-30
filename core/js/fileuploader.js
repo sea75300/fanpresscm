@@ -17,22 +17,22 @@ fpcm.fileuploader = {
     
     initUploadButtons: function() {
 
-        jQuery('#btnAddFile').click(function () {
-            jQuery('#fpcm-ui-phpupload-filelist').empty();
-            jQuery(this).parent().find('.fpcm-ui-fileinput-select').trigger('click');
-            jQuery('.fpcm-ui-fileinput-select').change(function () {
+        fpcm.dom.fromId('btnAddFile').click(function () {
+            fpcm.dom.fromId('fpcm-ui-phpupload-filelist').empty();
+            fpcm.dom.fromTag(this).parent().find('.fpcm-ui-fileinput-select').trigger('click');
+            fpcm.dom.fromClass('fpcm-ui-fileinput-select').change(function () {
 
-                jQuery('#fpcm-ui-phpupload-filelist').empty();
-                if (!jQuery(this)[0] || !jQuery(this)[0].files) {
+                fpcm.dom.fromId('fpcm-ui-phpupload-filelist').empty();
+                if (!fpcm.dom.fromTag(this)[0] || !fpcm.dom.fromTag(this)[0].files) {
                     return false;
                 }
 
-                var fileList = jQuery(this)[0].files;
+                var fileList = fpcm.dom.fromTag(this)[0].files;
                 for (var i=0;i<fileList.length;i++) {
                     fpcm.ui.appendHtml('#fpcm-ui-phpupload-filelist', '<div class="row no-gutters fpcm-ui-padding-md-tb"><div class="col-12 fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom"><span class="far fa-fw fa-lg fa-file-image"></span>' + fileList[i].name +'</div></div>')
                 }
                 
-                jQuery('#fpcm-ui-fileupload-list').fadeIn();
+                fpcm.dom.fromId('fpcm-ui-fileupload-list').fadeIn();
                 return false;
             });
 
@@ -40,14 +40,14 @@ fpcm.fileuploader = {
 
         });
 
-        jQuery('#btnUploadFile').click(function () {
+        fpcm.dom.fromId('btnUploadFile').click(function () {
             fpcm.ui.showLoader(true);
         });
 
-        jQuery('#btnCancelUpload').click(function () {
-            jQuery('#fpcm-ui-fileupload-list').fadeOut();
-            jQuery('#fpcm-ui-phpupload-filelist').empty();
-            jQuery('.fpcm-ui-fileinput-select').empty();
+        fpcm.dom.fromId('btnCancelUpload').click(function () {
+            fpcm.dom.fromId('fpcm-ui-fileupload-list').fadeOut();
+            fpcm.dom.fromId('fpcm-ui-phpupload-filelist').empty();
+            fpcm.dom.fromClass('fpcm-ui-fileinput-select').empty();
         });
 
     },
@@ -60,11 +60,11 @@ fpcm.fileuploader = {
 
         'use strict';
 
-        var uploaderEl = jQuery('#fileupload');
+        var uploaderEl = fpcm.dom.fromId('fileupload');
 
         uploaderEl.fileupload({
             url: fpcm.vars.ajaxActionPath + 'jqupload',
-            dropZone: jQuery('#fpcm-filemanager-upload-drop'),
+            dropZone: fpcm.dom.fromId('fpcm-filemanager-upload-drop'),
         });
 
         this._uploadsDone = 0;
@@ -90,13 +90,13 @@ fpcm.fileuploader = {
             dataType: 'json',
             context: uploaderEl[0]
         }).always(function () {
-            jQuery(this).removeClass('fileupload-processing');
+            fpcm.dom.fromTag(this).removeClass('fileupload-processing');
         }).done(function (result) {
-            jQuery(this).fileupload('option', 'done').call(this, jQuery.Event('done'), {result: result});
+            fpcm.dom.fromTag(this).fileupload('option', 'done').call(this, jQuery.Event('done'), {result: result});
         });
         
         jQuery(document).bind('dragover', function (e) {
-            var dropZone = jQuery('#fpcm-filemanager-upload-drop'), timeout = window.dropZoneTimeout;
+            var dropZone = fpcm.dom.fromId('fpcm-filemanager-upload-drop'), timeout = window.dropZoneTimeout;
 
             if (!timeout) {
                 dropZone.addClass('in');

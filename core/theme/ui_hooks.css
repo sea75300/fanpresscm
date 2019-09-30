@@ -29,6 +29,7 @@ div.ui-tabs {
 .ui-spinner {
     padding: 0.2em;
     width: 195px;
+    max-height: 31.3333px !important;
 }
 
 .ui-datepicker {

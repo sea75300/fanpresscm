@@ -21,7 +21,7 @@ fpcm.options = {
 
         fpcm.ui.checkboxradio('.fpcm-ui-input-checkbox');
 
-        jQuery('#syschecksubmitstats').click(function () {
+        fpcm.dom.fromId('syschecksubmitstats').click(function () {
             fpcm.ui.showLoader(true);
             fpcm.ajax.get('syscheck', {
                 data: {
@@ -48,8 +48,10 @@ fpcm.options = {
 
         fpcm.ui.selectmenu('.fpcm-ui-input-select', {
             removeCornerLeft: true
-        })
+        });
 
-        jQuery('.fpcm-ui-spinner').spinner( "option", "classes.ui-spinner", "fpcm-ui-border-radius-right" );
+        fpcm.ui.spinner('.fpcm-ui-spinner', {
+            removeCornerLeft: true
+        });
     }
 };

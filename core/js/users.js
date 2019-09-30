@@ -13,7 +13,7 @@ fpcm.users = {
 
     init: function() {
 
-        jQuery('#btnDeleteUser').click(function() {
+        fpcm.dom.fromId('btnDeleteUser').click(function() {
             return fpcm.users.initMoveDeleteArticles();
         });
         
@@ -60,7 +60,7 @@ fpcm.users = {
                     icon: "ui-icon-check",                    
                     click: function() {
                         
-                        jQuery(this).dialog('close');
+                        fpcm.dom.fromTag(this).dialog('close');
 
                         fpcm.ui.dialog({
                             title: fpcm.ui.translate('GLOBAL_CONFIRM'),
@@ -72,17 +72,17 @@ fpcm.users = {
                                     icon: "ui-icon-check",                    
                                     click: function() {
                                         fpcm.users.continueDelete = true;
-                                        jQuery('#btnDeleteUser').trigger('click');
-                                        jQuery(this).dialog('close');
+                                        fpcm.dom.fromId('btnDeleteUser').trigger('click');
+                                        fpcm.dom.fromTag(this).dialog('close');
                                     }
                                 },
                                 {
                                     text: fpcm.ui.translate('GLOBAL_NO'),
                                     icon: "ui-icon-closethick",
                                     click: function() {
-                                        jQuery(this).dialog('close');
-                                        jQuery('#articlesaction').val('').selectmenu("refresh");
-                                        jQuery('#articlesuser').val('').selectmenu("refresh");
+                                        fpcm.dom.fromTag(this).dialog('close');
+                                        fpcm.dom.fromId('articlesaction').val('').selectmenu("refresh");
+                                        fpcm.dom.fromId('articlesuser').val('').selectmenu("refresh");
                                     }
                                 }
                             ]
@@ -93,9 +93,9 @@ fpcm.users = {
                     text: fpcm.ui.translate('GLOBAL_CLOSE'),
                     icon: "ui-icon-closethick",                    
                     click: function() {
-                        jQuery(this).dialog('close');
-                        jQuery('#articlesaction').val('').selectmenu("refresh");
-                        jQuery('#articlesuser').val('').selectmenu("refresh");
+                        fpcm.dom.fromTag(this).dialog('close');
+                        fpcm.dom.fromId('articlesaction').val('').selectmenu("refresh");
+                        fpcm.dom.fromId('articlesuser').val('').selectmenu("refresh");
                         fpcm.ui.showLoader(false);
                     }
                 }                            
@@ -112,7 +112,7 @@ fpcm.users = {
 
             },
             dlOnClose: function (event, ui) {
-                jQuery(this).dialog('destroy');
+                fpcm.dom.fromTag(this).dialog('destroy');
             }
         });
 
@@ -121,10 +121,10 @@ fpcm.users = {
     },
     
     initPermissionEdit: function () {
-        jQuery('.fpcm-ui-rolllist-permissionedit').click(function() {
+        fpcm.dom.fromClass('fpcm-ui-rolllist-permissionedit').click(function() {
 
             var sizes = fpcm.ui.getDialogSizes(top, 0.75);
-            var link  = jQuery(this).attr('href');
+            var link  = fpcm.dom.fromTag(this).attr('href');
 
             fpcm.ui.dialog({
                 id       : 'users-permissions-edit',
@@ -132,12 +132,13 @@ fpcm.users = {
                 dlHeight : fpcm.ui.getDialogSizes(top, 0.75).height,
                 resizable: true,
                 title    : fpcm.ui.translate('HL_OPTIONS_PERMISSIONS'),
+                defaultCloseEmpty: true,
                 dlButtons  : [
                     {
                         text: fpcm.ui.translate('GLOBAL_SAVE'),
                         icon: "ui-icon-disk",                        
                         click: function() {
-                            jQuery(this).children('iframe').contents().find('#btnPermissionsSave').trigger('click');
+                            fpcm.dom.fromTag(this).children('iframe').contents().find('#btnPermissionsSave').trigger('click');
                             fpcm.ui.showLoader(false);
                         }
                     },
@@ -145,16 +146,15 @@ fpcm.users = {
                         text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick",                    
                         click: function() {
-                            jQuery(this).dialog('close');
+                            fpcm.dom.fromTag(this).dialog('close');
                             fpcm.ui.showLoader(false);
                         }
                     }                            
                 ],
                 dlOnOpen: function (event, ui) {                
-                    fpcm.ui.appendHtml(this, '<iframe class="fpcm-ui-full-width"  src="' + link + '"></iframe>');
-                },
-                dlOnClose: function( event, ui ) {
-                    jQuery(this).empty();
+                    fpcm.dom.appendHtml(this, fpcm.ui.createIFrame({
+                        src: link,
+                    }));
                 }
             });
 

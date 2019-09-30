@@ -14,7 +14,7 @@ fpcm.modulelist = {
     init: function() {
 
         fpcm.system.checkForUpdates();
-        var btnUpdateAll = jQuery('#runUpdateAll');
+        var btnUpdateAll = fpcm.dom.fromId('runUpdateAll');
         if (btnUpdateAll.length && fpcm.vars.jsvars.updateAllkeys && fpcm.vars.jsvars.updateAllkeys.length) {
             btnUpdateAll.click(function (){
 
@@ -33,7 +33,7 @@ fpcm.modulelist = {
                             fpcm.ui.openWindow(dest);
                         });
 
-                        jQuery(this).dialog("close");
+                        fpcm.dom.fromTag(this).dialog("close");
                     }
                 });
 
@@ -47,10 +47,10 @@ fpcm.modulelist = {
             dataViewWrapperClass: 'fpcm-ui-modulelist',
             initDataViewOnRenderAfter: fpcm.modulelist.initButtons,
             initDataViewJsonBefore:function(event, ui) {
-                jQuery('.fpcm-ui-modulelist').remove();
+                fpcm.dom.fromClass('fpcm-ui-modulelist').remove();
             },            
             beforeActivate: function( event, ui ) {
-                jQuery(ui.oldTab).unbind('click');
+                fpcm.dom.fromTag(ui.oldTab).unbind('click');
             },
         });
 
@@ -59,11 +59,10 @@ fpcm.modulelist = {
     
     initButtons: function () {
 
-        fpcm.ui.assignCheckboxes();
         fpcm.ui.assignControlgroups();
 
-        jQuery('a.fpcm-ui-modulelist-action-local-update').click(function() {
-            var destUrl = jQuery(this).attr('href');
+        fpcm.dom.fromTag('a.fpcm-ui-modulelist-action-local-update').click(function() {
+            var destUrl = fpcm.dom.fromTag(this).attr('href');
             fpcm.ui.confirmDialog({
                 clickNoDefault: true,
                 clickYes: function () {
@@ -75,9 +74,9 @@ fpcm.modulelist = {
             return false;
         });
 
-        jQuery('button.fpcm-ui-modulelist-action-local').click(function() {
+        fpcm.dom.fromTag('button.fpcm-ui-modulelist-action-local').click(function() {
             
-            var btnEl = jQuery(this);
+            var btnEl = fpcm.dom.fromTag(this);
 
             var params = {
                 action: btnEl.data('action'),
@@ -130,22 +129,22 @@ fpcm.modulelist = {
                                 }
                             });
 
-                            jQuery( this ).dialog( "close" );
+                            fpcm.dom.fromTag(this).dialog( "close" );
                         }
                     },
                     {
                         text: fpcm.ui.translate('GLOBAL_NO'),
                         icon: "ui-icon-closethick",
                         click: function () {
-                    jQuery( this ).dialog( "close" );
-                }
+                            fpcm.dom.fromTag(this).dialog( "close" );
+                        }
                     }
                 ]
             });
         });
 
-        jQuery('button.fpcm-ui-modulelist-info').click(function() {
-            var btnEl = jQuery(this);
+        fpcm.dom.fromTag('button.fpcm-ui-modulelist-info').click(function() {
+            var btnEl = fpcm.dom.fromTag(this);
             fpcm.ui.dialog({
                 id: 'modulelist-infos',
                 title: fpcm.ui.translate('MODULES_LIST_INFORMATIONS'),
@@ -155,7 +154,7 @@ fpcm.modulelist = {
                         text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick",                
                         click: function() {
-                            jQuery( this ).dialog( "close" );
+                            fpcm.dom.fromTag(this).dialog( "close" );
                         }
                     }
                 ],
@@ -163,20 +162,20 @@ fpcm.modulelist = {
                     
                     var link = btnEl.data('link');
 
-                    jQuery('#fpcm-modulelist-info-name').text(btnEl.data('name'));
-                    jQuery('#fpcm-modulelist-info-author').text(btnEl.data('author'));
-                    jQuery('#fpcm-modulelist-info-link').html('<a href="' + link + '" target="_blank">' + link + '</a>');
-                    jQuery('#fpcm-modulelist-info-require-system').text(btnEl.data('system'));
-                    jQuery('#fpcm-modulelist-info-require-php').text(btnEl.data('php'));
-                    jQuery('#fpcm-modulelist-info-description').html(btnEl.data('descr'));
+                    fpcm.dom.fromId('fpcm-modulelist-info-name').text(btnEl.data('name'));
+                    fpcm.dom.fromId('fpcm-modulelist-info-author').text(btnEl.data('author'));
+                    fpcm.dom.fromId('fpcm-modulelist-info-link').html('<a href="' + link + '" target="_blank">' + link + '</a>');
+                    fpcm.dom.fromId('fpcm-modulelist-info-require-system').text(btnEl.data('system'));
+                    fpcm.dom.fromId('fpcm-modulelist-info-require-php').text(btnEl.data('php'));
+                    fpcm.dom.fromId('fpcm-modulelist-info-description').html(btnEl.data('descr'));
                 },
                 dlOnClose: function() {
-                    jQuery('#fpcm-modulelist-info-name').empty();
-                    jQuery('#fpcm-modulelist-info-author').empty();
-                    jQuery('#fpcm-modulelist-info-link').empty();
-                    jQuery('#fpcm-modulelist-info-require-system').empty();
-                    jQuery('#fpcm-modulelist-info-require-php').empty();
-                    jQuery('#fpcm-modulelist-info-description').empty();
+                    fpcm.dom.fromId('fpcm-modulelist-info-name').empty();
+                    fpcm.dom.fromId('fpcm-modulelist-info-author').empty();
+                    fpcm.dom.fromId('fpcm-modulelist-info-link').empty();
+                    fpcm.dom.fromId('fpcm-modulelist-info-require-system').empty();
+                    fpcm.dom.fromId('fpcm-modulelist-info-require-php').empty();
+                    fpcm.dom.fromId('fpcm-modulelist-info-description').empty();
                 }
             });
             

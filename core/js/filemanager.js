@@ -21,7 +21,7 @@ fpcm.filemanager = {
         fpcm.filemanager.initNewThumbButton();
         fpcm.filemanager.initDeleteMultipleButton();
 
-        jQuery('#tabs-files-list-reload').click(function () {
+        fpcm.dom.fromId('tabs-files-list-reload').click(function () {
             fpcm.filemanager.reloadFiles();
             return false;
         });
@@ -33,7 +33,7 @@ fpcm.filemanager = {
             }
 
             if (event.data.mceAction === 'clickFmgrBtn') {
-                jQuery('#' + event.data.cmd).click()
+                fpcm.dom.fromId('' + event.data.cmd).click()
             }
 
         });
@@ -50,7 +50,7 @@ fpcm.filemanager = {
                 fpcm.ajax.post('setconfig', {
                     data: {
                         var: 'file_view',
-                        value: jQuery(this).val()
+                        value: fpcm.dom.fromTag(this).val()
                     },
                     execDone: fpcm.filemanager.reloadFiles
                 });
@@ -59,21 +59,21 @@ fpcm.filemanager = {
             fpcm.filemanager.tabsObj = fpcm.ui.tabs('#fpcm-files-tabs', {
                 beforeActivate: function( event, ui ) {
 
-                    var hideButtons = jQuery(ui.oldTab).data('toolbar-buttons');
-                    var showButtons = jQuery(ui.newTab).data('toolbar-buttons');
+                    var hideButtons = fpcm.dom.fromTag(ui.oldTab).data('toolbar-buttons');
+                    var showButtons = fpcm.dom.fromTag(ui.newTab).data('toolbar-buttons');
 
                     fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ hideButtons).addClass('fpcm-ui-hidden');
                     fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ showButtons).removeClass('fpcm-ui-hidden');
 
-                    jQuery('#fpcm-select-all').checkboxradio('instance').option('classes', {
+                    fpcm.dom.fromId('fpcm-select-all').checkboxradio('instance').option('classes', {
                         "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "")
                     });
 
-                    jQuery('#listViewCards').checkboxradio('instance').option('classes', {
+                    fpcm.dom.fromId('listViewCards').checkboxradio('instance').option('classes', {
                         "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "")
                     });
 
-                    jQuery('#listViewList').checkboxradio('instance').option('classes', {
+                    fpcm.dom.fromId('listViewList').checkboxradio('instance').option('classes', {
                         "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "")
                     });
 
@@ -82,14 +82,14 @@ fpcm.filemanager = {
             });
         }
 
-        jQuery('#btnFmgrUploadBack').click(function () {
+        fpcm.dom.fromId('btnFmgrUploadBack').click(function () {
             fpcm.filemanager.tabsObj.tabs('option', 'active', 0);
         });
         
     },
 
     initJqUiWidgets: function () {
-        jQuery('#fpcm-select-all').prop('checked', false).checkboxradio('refresh');
+        fpcm.dom.fromId('fpcm-select-all').prop('checked', false).checkboxradio('refresh');
         fpcm.ui.assignCheckboxes();
         fpcm.ui.assignControlgroups();
         fpcm.filemanager.initInsertButtons();
@@ -97,47 +97,48 @@ fpcm.filemanager = {
         fpcm.filemanager.initDeleteButtons();
         fpcm.filemanager.initPropertiesButton();
         fpcm.filemanager.initPagination();
-        jQuery('.fpcm-link-fancybox').fancybox();
+        fpcm.dom.fromClass('fpcm-link-fancybox').fancybox();
     },
     
     closeRenameDialog: function() {
-        jQuery('#newfilename').val('');
-        jQuery('#newFilenameDialog').val('');
+        fpcm.dom.fromId('newfilename').val('');
+        fpcm.dom.fromId('newFilenameDialog').val('');
     },
     
     initInsertButtons: function () {
 
-        jQuery('.fpcm-filelist-tinymce-thumb').click(function () {
-            parent.fpcm.editor.insertThumbByEditor(jQuery(this).attr('href'), jQuery(this).data('imgtext'));
+        fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').click(function () {
+            parent.fpcm.editor.insertThumbByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
             return false;
         });
 
-        jQuery('.fpcm-filelist-tinymce-full').click(function () {
-            parent.fpcm.editor.insertFullByEditor(jQuery(this).attr('href'), jQuery(this).data('imgtext'));
+        fpcm.dom.fromClass('fpcm-filelist-tinymce-full').click(function () {
+            parent.fpcm.editor.insertFullByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
             return false;
         });
 
-        jQuery('.fpcm-filelist-articleimage').click(function () {
+        fpcm.dom.fromClass('fpcm-filelist-articleimage').click(function () {
 
-            var url   = jQuery(this).attr('href');
+            var url   = fpcm.dom.fromTag(this).attr('href');
             parent.document.getElementById('articleimagepath').value  = url;
-            window.parent.jQuery("#fpcm-dialog-editor-html-filemanager").dialog('close');
-            window.parent.jQuery('#fpcm-dialog-editor-html-filemanager').empty();
-
+            var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
+            
+            dialogEl.dialog('close');
+            dialogEl.empty();
             return false;
         });
     },
 
     initRenameButtons: function() {
-        jQuery('.fpcm-filelist-rename').click(function () {
+        fpcm.dom.fromClass('fpcm-filelist-rename').click(function () {
 
             if (!fpcm.ui.langvarExists('FILE_LIST_RENAME_NEWNAME')) {
                 console.log('FILE_LIST_RENAME_NEWNAME');
                 return false;
             }
 
-            var selectedFile = jQuery(this).data('file');
-            jQuery('#newFilenameDialog').val(jQuery(this).data('oldname'));
+            var selectedFile = fpcm.dom.fromTag(this).data('file');
+            fpcm.dom.fromId('newFilenameDialog').val(fpcm.dom.fromTag(this).data('oldname'));
 
             fpcm.ui.dialog({
                 id: 'files-rename',
@@ -148,11 +149,11 @@ fpcm.filemanager = {
                         text: fpcm.ui.translate('GLOBAL_SAVE'),
                         icon: "ui-icon-check",                        
                         click: function() {
-                            jQuery( this ).dialog( "close" );
+                            fpcm.dom.fromTag(this).dialog( "close" );
                             fpcm.ui.showLoader(true);
                             fpcm.ajax.exec('files/rename', {
                                 data: {
-                                    newName: jQuery('#newFilenameDialog').val(),
+                                    newName: fpcm.dom.fromId('newFilenameDialog').val(),
                                     oldName: selectedFile
                                 },
                                 execDone: function () {
@@ -176,7 +177,7 @@ fpcm.filemanager = {
                         icon: "ui-icon-closethick",                
                         click: function () {
                             fpcm.filemanager.closeRenameDialog();
-                            jQuery(this).dialog('close');
+                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     }
                 ]
@@ -188,17 +189,18 @@ fpcm.filemanager = {
 
     initDeleteButtons: function() {
 
-        jQuery('.fpcm-filelist-delete').unbind('click');
-        jQuery('.fpcm-filelist-delete').click(function () {
+        fpcm.dom.fromClass('fpcm-filelist-delete').unbind('click');
+        fpcm.dom.fromClass('fpcm-filelist-delete').click(function () {
 
-            var filename = jQuery(this).data('filename');
-            var path = jQuery(this).data('file');
+            var el = fpcm.dom.fromTag(this);
+            var filename = el.data('filename');
+            var path = el.data('file');
 
             fpcm.ui.confirmDialog({
                 clickNoDefault: true,
                 clickYes: function () {
 
-                    jQuery( this ).dialog( "close" );
+                    fpcm.dom.fromTag(this).dialog( "close" );
                     fpcm.ajax.exec('files/delete', {
                         dataType: 'json',
                         data: {
@@ -227,7 +229,7 @@ fpcm.filemanager = {
 
     initNewThumbButton: function() {
 
-        var el = jQuery('#createThumbs');
+        var el = fpcm.dom.fromId('createThumbs');
         if (!el.length) {
             return false;
         }
@@ -265,7 +267,7 @@ fpcm.filemanager = {
 
     initDeleteMultipleButton: function() {
 
-        var el = jQuery('#deleteFiles');
+        var el = fpcm.dom.fromId('deleteFiles');
         if (!el.length) {
             return false;
         }
@@ -282,7 +284,7 @@ fpcm.filemanager = {
                 clickNoDefault: true,
                 clickYes: function () {
 
-                    jQuery( this ).dialog( "close" );
+                    fpcm.dom.fromTag(this).dialog( "close" );
                     fpcm.ajax.exec('files/delete', {
                         dataType: 'json',
                         data: {
@@ -323,9 +325,9 @@ fpcm.filemanager = {
             'credits'
         ];
 
-        jQuery('.fpcm-filelist-properties').click(function () {
+        fpcm.dom.fromClass('fpcm-filelist-properties').click(function () {
             
-            var el = jQuery(this);
+            var el = fpcm.dom.fromTag(this);
 
             fpcm.ui.dialog({
                 id: 'files-properties',
@@ -341,7 +343,7 @@ fpcm.filemanager = {
                             case 'resulution' :
                                 titleTxt = el.data('fileresx') + ' X ' + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
                                 titleHtml = el.data('fileresx') + '<span class="fa fa-times fa-fw"></span>' + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
-                                jQuery('#fpcm-dialog-files-properties-' + prop).attr('title', titleTxt).html(titleHtml);
+                                fpcm.dom.fromId('fpcm-dialog-files-properties-' + prop).attr('title', titleTxt).html(titleHtml);
                                 break;
                             default:
                                 titleTxt = el.data('' + prop);
@@ -354,12 +356,12 @@ fpcm.filemanager = {
                             titleHtml = '&nbsp';
                         }
 
-                        jQuery('#fpcm-dialog-files-properties-' + prop).html(titleHtml).attr('title', el.data('' + prop));
+                        fpcm.dom.fromId('fpcm-dialog-files-properties-' + prop).html(titleHtml).attr('title', el.data('' + prop));
                     });
                 },
                 dlOnClose: function() {
                     jQuery.each(fpcm.filemanager.propertiesDialog, function (idx, prop) {
-                        jQuery('#fpcm-dialog-files-properties-' + prop).empty().attr('title', '');
+                        fpcm.dom.fromId('fpcm-dialog-files-properties-' + prop).empty().attr('title', '');
                     });
                 },
                 dlButtons: [
@@ -367,7 +369,7 @@ fpcm.filemanager = {
                         text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick",                
                         click: function() {
-                            jQuery( this ).dialog( "close" );
+                            fpcm.dom.fromTag(this).dialog( "close" );
                         }
                     }
                 ]
@@ -388,7 +390,7 @@ fpcm.filemanager = {
 
         fpcm.ui.initPager({
             backAction: function() {
-                var link = jQuery(this).attr('href');
+                var link = fpcm.dom.fromTag(this).attr('href');
                 if (link === '#') {
                     return false;
                 }
@@ -400,7 +402,7 @@ fpcm.filemanager = {
             
             nextAction: function() {
                 
-                var link = jQuery(this).attr('href');
+                var link = fpcm.dom.fromTag(this).attr('href');
                 if (link === '#') {
                     return false;
                 }
@@ -418,7 +420,7 @@ fpcm.filemanager = {
 
     reloadFiles: function (page, filter) {
 
-        if (!jQuery('div.fpcm-ui-inline-loader').length) {
+        if (!fpcm.dom.fromTag('div.fpcm-ui-inline-loader').length) {
             fpcm.ui.showLoader(true);
         }
 
@@ -444,11 +446,11 @@ fpcm.filemanager = {
                 fpcm.ui.assignHtml("#tabs-files-list-content", result);
                 fpcm.filemanager.initJqUiWidgets();
                 var fpcmRFDinterval = setInterval(function(){
-                    if (jQuery('#fpcm-filelist-images-finished').length == 1) {
+                    if (fpcm.dom.fromId('fpcm-filelist-images-finished').length == 1) {
                         fpcm.ui.showLoader(false);
                         clearInterval(fpcmRFDinterval);
                         if (page) {
-                            jQuery(window).scrollTop(0);
+                            fpcm.dom.fromWindow().scrollTop(0);
                         }
                         return false;
                     }
@@ -462,7 +464,7 @@ fpcm.filemanager = {
     
     initFilesSearch: function() {
 
-        jQuery('#opensearch').click(function () {
+        fpcm.dom.fromId('opensearch').click(function () {
 
             fpcm.ui.selectmenu('.fpcm-ui-input-select-filesearch', {
                 width: '100%',
@@ -486,29 +488,29 @@ fpcm.filemanager = {
                         icon: "ui-icon-check",
                         class: 'fpcm-ui-button-primary',
                         click: function() {                            
-                            var sfields = jQuery('.fpcm-files-search-input');
+                            var sfields = fpcm.dom.fromClass('fpcm-files-search-input');
                             var sParams = {};
                             var el = {};
 
                             jQuery.each(sfields, function( key, obj ) {
-                                el = jQuery(obj);
+                                el = fpcm.dom.fromTag(obj);
                                 sParams[el.attr('name')] = el.val();
                             });
 
                             fpcm.filemanager.startFilesSearch(sParams);
-                            jQuery(this).dialog('close');
+                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     },                    
                     {
                         text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick",                        
                         click: function() {
-                            jQuery(this).dialog('close');
+                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     }                            
                 ],
                 dlOnOpen: function( event, ui ) {
-                    jQuery('#text').focus();
+                    fpcm.dom.fromId('text').focus();
                 }
             });
 

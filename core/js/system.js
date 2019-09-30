@@ -24,9 +24,9 @@ fpcm.system = {
 
     initPasswordFieldActions: function () {
 
-        jQuery('#password_confirm').focusout(function () {
-            var password = jQuery('#password').val();
-            var confirm = jQuery(this).val();
+        fpcm.dom.fromId('password_confirm').focusout(function () {
+            var password = fpcm.dom.fromId('password').val();
+            var confirm = fpcm.dom.fromTag(this).val();
 
             if (password != confirm) {
                 fpcm.ui.addMessage({
@@ -59,7 +59,7 @@ fpcm.system = {
             return false;
         });
 
-        jQuery("#genPasswd").click(function () {
+        fpcm.dom.fromId('genPasswd').click(function () {
             fpcm.system.generatePasswdString();
             return false;
         });
@@ -80,7 +80,7 @@ fpcm.system = {
                     icon: "ui-icon-check",
                     click: function () {
                         fpcm.ui.relocate(fpcm.vars.actionPath + 'system/login');
-                        jQuery(this).dialog('close');
+                        fpcm.dom.fromTag(this).dialog('close');
                     }
                 },
                 {
@@ -88,8 +88,8 @@ fpcm.system = {
                     icon: "ui-icon-closethick",
                     click: function () {
                         fpcm.vars.jsvars.sessionCheck = true;
-                        jQuery(this).dialog('close');
-                        jQuery(this).remove();
+                        fpcm.dom.fromTag(this).dialog('close');
+                        fpcm.dom.fromTag(this).remove();
                     }
                 }
             ],
@@ -128,8 +128,8 @@ fpcm.system = {
         crypto.getRandomValues(randVal);
         var passwd = generatePassword(12, false, /[\w\d\?\-]/) + randVal[0];
 
-        jQuery('#password').val(passwd);
-        jQuery('#password_confirm').val(passwd);
+        fpcm.dom.fromId('password').val(passwd);
+        fpcm.dom.fromId('password_confirm').val(passwd);
 
         return false;
     },
@@ -171,28 +171,21 @@ fpcm.system = {
                                     return false;
                                 }
 
-                                var mefields = jQuery('.fpcm-ui-input-massedit');
                                 var params = {
-                                    fields: {},
+                                    fields: fpcm.ui.getValuesByClass('fpcm-ui-input-massedit'),
                                     ids: fpcm.ajax.toJSON(objectIDs),
                                     pageTkn: fpcm.vars.jsvars.masseditPageToken
                                 };
 
-                                jQuery.each(mefields, function (key, obj) {
-                                    var objVal = jQuery(obj).val();
-                                    var objName = jQuery(obj).attr('name');
-                                    params.fields[objName] = objVal;
-                                });
-
                                 params.fields.categories = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-input-massedit-categories');
                                 fpcm.system.execMassEdit(func, params);
 
-                                jQuery(this).dialog('close');
+                                fpcm.dom.fromTag(this).dialog('close');
 
                             },
 
                             clickNo: function () {
-                                jQuery(this).dialog('close');
+                                fpcm.dom.fromTag(this).dialog('close');
                             }
                         });
                     }
@@ -201,7 +194,7 @@ fpcm.system = {
                     text: fpcm.ui.translate('GLOBAL_CLOSE'),
                     icon: "ui-icon-closethick",
                     click: function () {
-                        jQuery(this).dialog('close');
+                        fpcm.dom.fromTag(this).dialog('close');
                     }
                 }
             ],
@@ -262,8 +255,8 @@ fpcm.system = {
 
     showHelpDialog: function () {
 
-        jQuery('.fpcm-ui-help-dialog').click(function () {
-            var el = jQuery(this);
+        fpcm.dom.fromClass('fpcm-ui-help-dialog').click(function () {
+            var el = fpcm.dom.fromTag(this);
 
             fpcm.ajax.get('help', {
                 data: {
@@ -286,25 +279,25 @@ fpcm.system = {
                                 text: fpcm.ui.translate('GLOBAL_CLOSE'),
                                 icon: "ui-icon-closethick",
                                 click: function () {
-                                    jQuery(this).dialog('close');
+                                    fpcm.dom.fromTag(this).dialog('close');
                                     return false;
                                 }
                             }
                         ],
                         dlOnClose: function (event, ui) {
-                            jQuery(this).remove();
+                            fpcm.dom.fromTag(this).remove();
                         }
                     });
 
                     fpcm.ui.tabs('#fpcm-ui-tabs-help');
 
-                    var headlines = jQuery('#tabs-help-general').find('h3');
+                    var headlines = fpcm.dom.fromId('tabs-help-general').find('h3');
                     if (headlines.length < 2) {
-                        jQuery('#fpcm-ui-help-toc-headline').addClass('fpcm-ui-hidden');
+                        fpcm.dom.fromId('fpcm-ui-help-toc-headline').addClass('fpcm-ui-hidden');
                         return true;
                     }
 
-                    var listEl = jQuery('#fpcm-ui-help-toc');
+                    var listEl = fpcm.dom.fromId('fpcm-ui-help-toc');
                     jQuery.each(headlines, function (i, val) {
 
                         if (!i) {
@@ -323,7 +316,7 @@ fpcm.system = {
     },
 
     checkForUpdates: function () {
-        jQuery('#checkUpdate').click(function () {
+        fpcm.dom.fromId('checkUpdate').click(function () {
             fpcm.ui.showLoader(true);
             fpcm.ajax.get('cronasync', {
                 data: {
@@ -342,7 +335,7 @@ fpcm.system = {
             return false;
         }
 
-        return jQuery('#' + _str);
+        return fpcm.dom.fromId('' + _str);
     },
     
     domFromClass: function (_str) {
@@ -351,7 +344,7 @@ fpcm.system = {
             return false;
         }
 
-        return jQuery('.' + _str);
+        return fpcm.dom.fromClass('' + _str);
     }
 
 };

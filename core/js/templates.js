@@ -27,9 +27,9 @@ fpcm.templates = {
                    elementId : 'content_' + ui.tab.attr('data-tplId')
                 });
                 
-                jQuery('a.fpcm-ui-template-tags').click(function() {
+                fpcm.dom.fromTag('a.fpcm-ui-template-tags').click(function() {
 
-                    var tag = jQuery(this).attr('data-tag');
+                    var tag = fpcm.dom.fromTag(this).attr('data-tag');
                     var doc = fpcm.templates.editorInstance.doc;
                     var cursorPos = doc.getCursor();
 
@@ -39,11 +39,9 @@ fpcm.templates = {
                     return false;
                 });
 
-                jQuery('.fpcm-editor-html-click').click(function() {
+                fpcm.dom.fromClass('fpcm-editor-html-click').click(function() {
 
-                    var el      = jQuery(this);
-                    var tag     = el.data('htmltag');
-
+                    var tag     = fpcm.dom.fromTag(this).data('htmltag');
                     fpcm.editor_codemirror.initToInstance(
                         fpcm.templates.editorInstance,
                         '<' + tag + '>',
@@ -71,29 +69,33 @@ fpcm.templates = {
             active: fpcm.vars.jsvars.activeTab
         });
 
-        jQuery('#showpreview').click(function () {
+        fpcm.dom.fromId('showpreview').click(function () {
             fpcm.templates.saveTemplatePreview();
             return false;
         });
         
-        jQuery('.fpcm-articletemplates-edit').click(function() {
+        fpcm.dom.fromClass('fpcm-articletemplates-edit').click(function() {
 
             fpcm.ui.showLoader();
 
             var sizes       = fpcm.ui.getDialogSizes(top, 0.75);
             fpcm.ui.dialog({
                 title     : fpcm.ui.translate('TEMPLATE_HL_DRAFTS_EDIT'),
-                content   : '<iframe id="fpcm-articletemplates-editor-frame" src="' + jQuery(this).attr('href') + '" class="fpcm-ui-full-width"></iframe>',
+                content   : fpcm.ui.createIFrame({
+                    src: fpcm.dom.fromTag(this).attr('href'),
+                    id: 'fpcm-articletemplates-editor-frame'
+                }),
                 dlWidth   : parseInt(sizes.width),
                 dlHeight  : parseInt(sizes.height),
                 resizable : true,
+                defaultCloseEmpty: true,
                 dlButtons : [
                     {
                         text: fpcm.ui.translate('GLOBAL_SAVE'),
                         icon: "ui-icon-disk",
                         class: 'fpcm-ui-button-primary',
                         click: function() {
-                            jQuery(this).children('#fpcm-articletemplates-editor-frame').contents().find('#btnSaveTemplate').trigger('click');
+                            fpcm.dom.fromTag(this).children('#fpcm-articletemplates-editor-frame').contents().find('#btnSaveTemplate').trigger('click');
                             fpcm.ui.showLoader(false);
                         }
                     },
@@ -101,14 +103,11 @@ fpcm.templates = {
                         text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick",                    
                         click: function() {
-                            jQuery(this).dialog('close');
+                            fpcm.dom.fromTag(this).dialog('close');
                             fpcm.ui.showLoader(false);
                         }
                     }
-                ],
-                dlOnClose: function() {
-                    jQuery(this).remove();
-                }
+                ]
             });
             
             return false;
@@ -122,29 +121,27 @@ fpcm.templates = {
         fpcm.ajax.post('templates/savetemp', {
             data    : {
                 content: fpcm.templates.editorInstance.getValue(),
-                tplid  : jQuery('#templateid').val()
+                tplid  : fpcm.dom.fromId('templateid').val()
             },
             execDone: function() {
-                fpcm.ui.appendHtml('#fpcm-dialog-templatepreview-layer', '<iframe id="fpcm-dialog-templatepreview-layer-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.actionPath + 'templates/preview&tid=' + jQuery('#templateid').val() + '"></iframe>');
+                fpcm.dom.appendHtml('#fpcm-dialog-templatepreview-layer', '<iframe id="fpcm-dialog-templatepreview-layer-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.actionPath + 'templates/preview&tid=' + fpcm.dom.fromId('templateid').val() + '"></iframe>');
                 fpcm.ui.dialog({
                     id         : 'templatepreview-layer',
                     dlWidth    : fpcm.ui.getDialogSizes(top, 0.75).width,
                     dlHeight   : fpcm.ui.getDialogSizes(top, 0.75).height,
-                    resizable  : true,
                     title      : fpcm.ui.translate('HL_TEMPLATE_PREVIEW'),
+                    resizable  : true,
+                    defaultCloseEmpty: true,
                     dlButtons  : [
                         {
                             text: fpcm.ui.translate('GLOBAL_CLOSE'),
                             icon: "ui-icon-closethick",                    
                             click: function() {
-                                jQuery(this).dialog('close');
-                                jQuery('.fpcm-dialog-templatepreview-layer-frame').remove();
+                                fpcm.dom.fromTag(this).dialog('close');
+                                fpcm.dom.fromClass('fpcm-dialog-templatepreview-layer-frame').remove();
                             }
                         }                            
-                    ],
-                    dlOnClose: function( event, ui ) {
-                        jQuery(this).empty();
-                    }
+                    ]
                 });
             }
         });

@@ -57,8 +57,8 @@ fpcm.comments = {
             }
         }
 
-        jQuery('#massEdit').unbind('click');
-        jQuery('#massEdit').click(function () {
+        fpcm.dom.fromId('massEdit').unbind('click');
+        fpcm.dom.fromId('massEdit').click(function () {
             fpcm.system.initMassEditDialog('comments/massedit', 'comments-massedit', fpcm.comments);
             return false;
         });
@@ -79,8 +79,8 @@ fpcm.comments = {
     
     initCommentSearch: function() {
 
-        jQuery('#opensearch').unbind('click');
-        jQuery('#opensearch').click(function () {
+        fpcm.dom.fromId('opensearch').unbind('click');
+        fpcm.dom.fromId('opensearch').click(function () {
 
             fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch', {
                 width: '100%',
@@ -104,7 +104,7 @@ fpcm.comments = {
                         icon: 'ui-icon-check',
                         class: 'fpcm-ui-button-primary',
                         click: function() {                            
-                            var sfields = jQuery('.fpcm-comments-search-input');
+                            var sfields = fpcm.dom.fromId('.fpcm-comments-search-input');
                             var sParams = {
                                 filter: {}
                             };
@@ -116,19 +116,19 @@ fpcm.comments = {
                             });
 
                             fpcm.comments.startCommentSearch(sParams);
-                            jQuery(this).dialog('close');
+                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     },                    
                     {
                         text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick",                        
                         click: function() {
-                            jQuery(this).dialog('close');
+                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     }                            
                 ],
                 dlOnOpen: function() {
-                    jQuery('#text').focus();
+                    fpcm.dom.fromId('text').focus();
                 }
             });
 

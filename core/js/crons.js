@@ -16,17 +16,16 @@ fpcm.crons = {
         fpcm.dataview.render('cronlist', {
             onRenderAfter: function () {
 
-                jQuery('.fpcm-cronjoblist-exec').click(function () {
-                    var data = jQuery(this).data();
+                fpcm.dom.fromClass('fpcm-cronjoblist-exec').click(function () {
+                    var data = fpcm.dom.fromTag(this).data();
                     fpcm.crons.execCronjobDemand(data.cjid, data.cjdescr);
                     return false;
                 });
                 
                 fpcm.ui.selectmenu(".fpcm-cronjoblist-intervals", {
                     change: function(event, ui) {
-                        var cronjob  = jQuery(this).attr('id').split('_');
-                        var interval = jQuery(this).val();
-                        fpcm.crons.setCronjobInterval(cronjob[1], interval);
+                        var cronjob  = fpcm.dom.fromTag(this).attr('id').split('_');
+                        fpcm.crons.setCronjobInterval(cronjob[1], this.value);
                         return false;
                     }
                 });
@@ -42,7 +41,7 @@ fpcm.crons = {
             data    : {
                 cjId: cronjobId
             },
-            execDone: 'fpcm.ui.showLoader(false);'
+            execDone: 'fpcm.ui.showLoader();'
         });
     },
     
@@ -53,7 +52,7 @@ fpcm.crons = {
                 cjId:cronjobId,
                 interval:cronjobInterval
             },
-            execDone: 'fpcm.ui.showLoader(false);'
+            execDone: 'fpcm.ui.showLoader();'
         });
     }
 

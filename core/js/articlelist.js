@@ -11,7 +11,7 @@ if (fpcm === undefined) {
 fpcm.articlelist = {
 
     init: function() {
-        jQuery('#massEdit').click(function () {
+        fpcm.dom.fromId('massEdit').click(function () {
             fpcm.system.initMassEditDialog('articles/massedit', 'articles-massedit', fpcm.articlelist);
             fpcm.ui.controlgroup('.fpcm-ui-massedit-categories', {
                 removeLeftBorderRadius: true
@@ -36,7 +36,7 @@ fpcm.articlelist = {
     
     assignActions: function() {
         
-        var action = jQuery('#actionsaction').val();
+        var action = fpcm.dom.fromId('actionsaction').val();
         if (action == 'newtweet') {
             fpcm.articlelist.articleActionsTweet();
             return -1;
@@ -60,7 +60,7 @@ fpcm.articlelist = {
     },
     
     initArticleSearch: function() {
-        jQuery('#opensearch').click(function () {
+        fpcm.dom.fromId('opensearch').click(function () {
 
             fpcm.ui.selectmenu('.fpcm-ui-input-select-articlesearch', {
                 width: '100%',
@@ -78,32 +78,31 @@ fpcm.articlelist = {
                         icon: 'ui-icon-check',
                         class: 'fpcm-ui-button-primary',
                         click: function() {                            
-                            var sfields = jQuery('.fpcm-articles-search-input');
+                            var sfields = fpcm.dom.fromClass('fpcm-articles-search-input');
                             var sParams = {
                                 mode: fpcm.vars.jsvars.articleSearchMode,
                                 filter: {}
                             };
                             
                             jQuery.each(sfields, function( key, obj ) {
-                                var objVal  = jQuery(obj).val();
-                                var objName = jQuery(obj).attr('name');                                
-                                sParams.filter[objName] = objVal;
+                                var objName = fpcm.dom.fromTag(obj).attr('name');                                
+                                sParams.filter[objName] = obj.value;
                             });
 
                             fpcm.articlelist.startSearch(sParams);
-                            jQuery(this).dialog('close');
+                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     },                    
                     {
                         text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick" ,                        
                         click: function() {
-                            jQuery(this).dialog('close');
+                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     }                            
                 ],
                 dlOnOpen: function( event, ui ) {
-                    jQuery('#text').focus();
+                    fpcm.dom.setFocus('#text');
                 }
             });
 
@@ -159,7 +158,7 @@ fpcm.articlelist = {
                     return false;
                 }
 
-                jQuery(this).dialog('close');
+                fpcm.dom.fromTag(this).dialog('close');
                 fpcm.ui.showLoader(true);
                 fpcm.articlelist.execNewTweet(articleIds);
             }
@@ -201,9 +200,9 @@ fpcm.articlelist = {
 
     clearArticleCache: function() {
         
-        jQuery('.fpcm-article-cache-clear').click(function() {
+        fpcm.dom.fromClass('fpcm-article-cache-clear').click(function() {
             
-            var obj = jQuery(this);
+            var obj = fpcm.dom.fromTag(this);
             
             var cache = obj.data('cache') ? obj.data('cache') : '';
             var objid = obj.data('objid') ? obj.data('objid') : 0;
@@ -220,9 +219,9 @@ fpcm.articlelist = {
 
     deleteSingleArticle: function() {
         
-        jQuery('.fpcm-ui-button-delete-article-single').click(function() {
+        fpcm.dom.fromClass('fpcm-ui-button-delete-article-single').click(function() {
 
-            var articleId = jQuery(this).data('articleid');
+            var articleId = fpcm.dom.fromTag(this).data('articleid');
             
             fpcm.ui.confirmDialog({
                 
@@ -246,7 +245,7 @@ fpcm.articlelist = {
                             }, true);
                         }
                     });
-                    jQuery(this).dialog("close");
+                    fpcm.dom.fromTag(this).dialog("close");
                 },
                 clickNoDefault: true
                 
@@ -291,7 +290,7 @@ fpcm.articlelist = {
                     }
                 });
 
-                jQuery(this).dialog("close");
+                fpcm.dom.fromTag(this).dialog("close");
             },
             clickNoDefault: true
 
@@ -302,7 +301,7 @@ fpcm.articlelist = {
     },
     
     resetActionsMenu: function () {
-        var el = jQuery('#actionsaction');
+        var el = fpcm.dom.fromId('actionsaction');
         el.prop('selectedIndex',0);
         el.selectmenu('refresh');
         return true;
