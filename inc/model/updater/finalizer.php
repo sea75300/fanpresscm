@@ -52,6 +52,20 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 $this->updateVersion() &&
                 $this->optimizeTables() &&
                 $this->createTemplates();
+        
+        $class = \fpcm\migrations\migration::getNamespace(\fpcm\classes\baseconfig::getVersionFromFile());
+        
+        fpcmLogSystem(__METHOD__.' '.$class);
+        
+        if (class_exists($class)) {
+
+            /* @var $obj migration */
+            $obj = new $class;
+            if ($obj->isRequired()) {
+                $res = $res && $obj->process();
+            }
+
+        }
 
         if (\fpcm\classes\baseconfig::canConnect()) {
             (new \fpcm\model\crons\updateCheck())->run();

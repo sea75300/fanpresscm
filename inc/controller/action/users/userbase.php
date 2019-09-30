@@ -166,7 +166,7 @@ class userbase extends \fpcm\controller\abstracts\controller {
                 $this->view->addErrorMessage('SAVE_FAILED_USER');
                 fpcmLogSystem('Failed to save changes made to user '.$this->user->getUsername().'.');
             } elseif ($res === true) {
-                fpcmLogSystem('Changes made to user '.$this->user->getUsername().' successfull.');
+                fpcmLogSystem('Changes made to user '.$this->user->getUsername().' successful.');
                 $this->redirect('users/list', array('edited' => 1));
             } elseif ($res === \fpcm\model\users\author::AUTHOR_ERROR_PASSWORDINSECURE) {
                 fpcmLogSystem('Failed to save changes made to user '.$this->user->getUsername().' due to insecure password.');

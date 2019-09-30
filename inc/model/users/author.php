@@ -784,7 +784,7 @@ class author extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * Is triggered after successfull database insert
+     * Is triggered after successful database insert
      * @see \fpcm\model\abstracts\dataset::afterSaveInternal
      * @return bool
      * @since FPCM 4.1
