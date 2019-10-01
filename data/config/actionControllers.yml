@@ -27,6 +27,7 @@ wordban/list: action/wordban/itemlist
 files/list: action/files/filelist
 smileys/list: action/smileys/smileylist
 smileys/add: action/smileys/smileyadd
+smileys/edit: action/smileys/smileyedit
 ips/list: action/ips/iplist
 ips/add: action/ips/ipadd
 ips/edit: action/ips/ipedit

@@ -64,9 +64,12 @@ Help language file
             <dt>Tweet erzeugen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diese Option kann die Erzeugung eines Tweets bei aktiver Twitter-Verbindung manuell
                 deaktiviert werden, wenn sie in den Systemoptionen aktiviert wurde.</dd>
-            <dt>Twitter-Beitrag-Text:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über dieses Textfeld kann das Standard-Template für einen Beitrag bei Twitter
-                überschrieben und durch einen eigenen Text ersetzt werden. Der Inhalt dieses Feldes wird nicht gespeichert.</dd>
+            <dt>Tweet erzeugen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über das Textfeld kann das Standard-Template für einen Beitrag bei Twitter
+                überschrieben und durch einen eigenen Text ersetzt werden. Der Inhalt dieses Feldes wird nicht gespeichert.
+                Das Dropdown bietet eine Schnellzugriff auf die Template-Platzhalter. Über die Checkbox am Ende kann zudem festgelegt werden,
+                ob beim nächsten Speicher-Vorgang der Tweet erzeugt wird oder nicht.
+            </dd>
             <dt>Artikel freischalten:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Mittels dieser Option kannst du einen neuen Artikel verfassen und zu einem bestimmten
                 Zeitpunkt automatisch veröffentlichen lassen. Der Zeitpunkt kann maximal zwei Monate in der Zukunft liegen.</dd>
@@ -240,7 +243,7 @@ Help language file
             <dt>Whois:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du eine Whois-Abfrage auf die IP-Adresse durchführen, um bspw. den etwaigen Standort
             herauszufinden.</dd>
-            <dt>Ip-Adresse sperren:</dt>
+            <dt>IP-Adresse sperren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kann für die gespeicherte IP-Adresse eine Sperre eingerichtet werden. Hierzu wird das entsprechende
             Recht zu verwalten von IP-Adressen benötigt. Die Sperren können unter <strong>Optionen > IP-Adressen</strong> aufgehoben werden.</dd>
         </dl>
@@ -310,10 +313,8 @@ Help language file
             Über diesen kannst du eine zufällige Zeichenkette erzeugen lassen und als Passwort abspeichern.</dd>
             <dt>E-Mail-Adresse:</dt>
             <dd class="fpcm-ui-padding-md-bottom">E-Mail-Adresse für Benachrichtigungen, ein neu gesetztes Passwort, etc.</dd>
-            <dt>Biografie / Sonstiges:</strong> (optional)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Kurzer Info-Text zum Autor, der in den News angezeigt werden kann.</dd>            
-            <dt>Avatar:</strong> (optional)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer-Avatar, Dateiname entspricht dem Muster <em>benutzername.jpg/png/gif/bmp</em></dd>
+            <dt>Aktuelles Passwort zur Bestätigung eingeben:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Zur Änderung des Passwortes und bestimmter anderer Einstellungen ist eine Bestätigung per Passwort nötig.</dd>
             <dt>Zwei-Faktor-Authentifizierung:</strong> (optional)</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist
             optional und kann durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels der App "Google Authenticator" auf deinem Smartphone
@@ -321,6 +322,14 @@ Help language file
             in das Eingabefeld ein und speicher den Vorgang.</dd>
         </dl>
 
+        <h3>Erweitert</h3>
+        <dl>
+            <dt>Biografie / Sonstiges:</strong> (optional)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Kurzer Info-Text zum Autor, der in den News angezeigt werden kann.</dd>            
+            <dt>Avatar:</strong> (optional)</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer-Avatar, Dateiname entspricht dem Muster <em>benutzername.jpg/png/gif/bmp</em></dd>
+        </dl>
+        
         <h3>Benutzereinstellungen</h3>
         <dl>
             <dt>Zeitzone:</dt>
@@ -945,8 +954,7 @@ Help language file
     <chapter ref="HL_BACKUPS">
         <![CDATA[
         <ul>
-            <li>Dieser Bereich ermöglicht dir die Verwaltung der automatisch erzeugten Datenbank-Backups. Du kannst diese herunterladen
-            oder löschen.</li>
+            <li>Dieser Bereich ermöglicht dir die Verwaltung der automatisch erzeugten Datenbank-Backups. Du kannst diese löschen.</li>
             <li>Die erzeugten Datenbank-Backups sind gepackte SQL-Dateien, deren Struktur vom verwendeten Datenbank-System abhängt.</li>
             <li>Um ein Backup bei Bedarf wiederherzustellen, kannst du folgende Werkzeuge nutzen:
                 <ul>

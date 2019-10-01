@@ -148,6 +148,7 @@ $lang = array(
     'FILE_LIST_ADDTOINDEX' => 'Datei(en) indizieren...',
     'FILE_LIST_SMILEYCODE' => 'Smiley-Code',
     'FILE_LIST_SMILEYADD' => 'Smiley hinzufügen',
+    'FILE_LIST_SMILEYEDIT' => 'Smiley bearbeiten',
     'FILE_FORM_FILEADD' => 'Datei(en) auswählen',
     'FILE_FORM_UPLOADSTART' => 'Upload starten',
     'FILE_FORM_UPLOADCANCEL' => 'Upload abbrechen',

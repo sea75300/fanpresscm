@@ -45,7 +45,7 @@ class smileylist extends \fpcm\controller\abstracts\controller {
     {
         $this->smileyList = new \fpcm\model\files\smileylist();
 
-        if ($this->getRequestVar('added')) {
+        if ($this->getRequestVar('saved')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_SMILEY');
         }
 
@@ -96,7 +96,8 @@ class smileylist extends \fpcm\controller\abstracts\controller {
     {
         return [
             (new \fpcm\components\dataView\column('select', (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setClass('fpcm-select-all')))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'))->setSize(4),
+            (new \fpcm\components\dataView\column('buttons', ''))->setSize(1),
+            (new \fpcm\components\dataView\column('filename', 'FILE_LIST_FILENAME'))->setSize(3),
             (new \fpcm\components\dataView\column('code', 'FILE_LIST_SMILEYCODE'))->setSize(3),
             (new \fpcm\components\dataView\column('image', ''))->setAlign('center')->setSize(4),
         ];
@@ -123,8 +124,13 @@ class smileylist extends \fpcm\controller\abstracts\controller {
             $smiley->getSmileyCode()
         ]));
  
+        $url = \fpcm\classes\tools::getControllerLink('smileys/edit', [
+            'id' => $smiley->getId()
+        ]);
+
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('smileyids[]', 'chbx' . md5($chbxdat) ))->setClass('fpcm-ui-list-checkbox')->setValue($chbxdat), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('buttons', (new \fpcm\view\helper\editButton('smiley'.$smiley->getId()))->setUrl($url)  ),
             new \fpcm\components\dataView\rowCol('filename', new \fpcm\view\helper\escape($smiley->getFilename()) ),
             new \fpcm\components\dataView\rowCol('code', new \fpcm\view\helper\escape($smiley->getSmileyCode()) ),
             new \fpcm\components\dataView\rowCol('image', $smiley->getImageTag()),

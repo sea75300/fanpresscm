@@ -40,12 +40,13 @@ class imagesTest extends testBase {
     private function createImage()
     {
 
-        $GLOBALS['imageName'] = 'test' . microtime(true) . '.jpg';
+        $GLOBALS['imageName'] = 'test' . date('Y-m-d_h-m-s') . '.gif';
         $GLOBALS['imageUserId'] = 1;
         $GLOBALS['imageCreated'] = time();
 
         /* @var $GLOBALS['imageObj'] \fpcm\model\files\image */
         $GLOBALS['imageObj'] = new \fpcm\model\files\image($GLOBALS['imageName']);
+        file_put_contents($GLOBALS['imageObj']->getFullpath(), ' data:image/gif;base64,R0lGODlhDQANAJEAAAAAABAQEOfn5wAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFlgAAACwAAAAADQANAAACJoQxmccj/wZDsErjosibQsdtYfWNpBgpSqpZkcdlF5y8DTk3KlMAACH5BAUKAAAALAAAAAANAA0AAAIlhDGZxyP/BkOwSuOqpdEl+GlaKIKZgnbRGHGZcB5neMnjhKFMAQA7');
         $GLOBALS['imageObj']->setUserid($GLOBALS['imageUserId']);
         $GLOBALS['imageObj']->setFiletime($GLOBALS['imageCreated']);
         $result = $GLOBALS['imageObj']->save();

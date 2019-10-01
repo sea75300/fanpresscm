@@ -64,9 +64,11 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
 
         parent::__construct($filename);
 
-        if ($this->exists()) {
-            $this->init($initDB);
+        if (!$this->exists()) {
+            return;
         }
+
+        $this->init($initDB);
     }
 
     /**
@@ -181,7 +183,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
      */
     public function save()
     {
-        if ($this->exists(true)) {
+        if (!parent::exists() || !$this->isValidDataFolder($this->fullpath)) {
             return false;
         }
 
@@ -189,7 +191,6 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
         $saveValues = $this->events->trigger('smileySave', $saveValues);
 
         $this->cache->cleanup();
-
         return $this->dbcon->insert($this->table, $saveValues);
     }
 
@@ -199,7 +200,18 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
      */
     public function update()
     {
-        return false;
+        if (!parent::exists() || !$this->isValidDataFolder($this->fullpath)) {
+            return false;
+        }
+
+        $saveValues = $this->getSaveValues();
+        $saveValues = $this->events->trigger('smileyUpdate', $saveValues);
+        
+        $fields = array_keys($saveValues);
+        $saveValues[] = $this->getId();
+
+        $this->cache->cleanup();
+        return $this->dbcon->update($this->table, $fields, array_values($saveValues), 'id = ?');
     }
 
     /**
@@ -243,8 +255,13 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
     protected function init($initDB)
     {
         if ($initDB) {
-            $dbData = $this->dbcon->fetch($this->dbcon->select($this->table, 'id, smileycode, filename', "smileycode = ?", [$this->smileycode]));
+            
+            $obj = (new \fpcm\model\dbal\selectParams($this->table))
+                    ->setWhere('smileycode = ?')
+                    ->setParams([$this->smileycode])
+                    ->setItem('id, smileycode, filename');
 
+            $dbData = $this->dbcon->selectFetch($obj);
             if (!$dbData) {
                 return false;
             }
@@ -258,6 +275,26 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
             return true;
         }
 
+        $this->initImageSize();
+    }
+    
+    public function initById()
+    {
+        $obj = (new \fpcm\model\dbal\selectParams($this->table))
+                ->setWhere('id = ?')
+                ->setParams([$this->id])
+                ->setItem('id, smileycode, filename');
+
+        $dbData = $this->dbcon->selectFetch($obj);
+        if (!$dbData) {
+            return false;
+        }
+
+        foreach ($dbData as $key => $value) {
+            $this->$key = $value;
+        }
+
+        $this->setFilename($this->filename);
         $this->initImageSize();
     }
 
