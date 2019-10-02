@@ -23,9 +23,8 @@ window.onload = function() {
                     window.fpcm.vars.ui.messages = [];
                 }
 
-                jQuery.ajax({
-                    url: fpcm.vars.ajaxActionPath + 'refresh',
-                    type: 'GET',
+                fpcm.pub.doAjax({
+                    action: 'refresh',
                     data: {
                         t: 1
                     }
@@ -63,33 +62,28 @@ window.onload = function() {
                     }
 
                     fpcm.pub.shares[item] = (new Date()).getTime();
-                    jQuery.ajax({
-                        url: fpcm.vars.ajaxActionPath + 'shareClick',
+                    fpcm.pub.doAjax({
+                        action: 'shareClick',
                         type: 'POST',
                         data: {
                             oid: jQuery(this).attr('data-oid'),
                             item: item
+                        },
+                        execDone: function(result) {
+
+                            if (item !== 'likebutton') {
+                                return true;
+                            }
+
+                            fpcm.pub.addMessage({
+                                type: 'notice',
+                                id: (new Date()).getTime(),
+                                txt: fpcm.vars.ui.lang['PUBLIC_SHARE_LIKE']
+                            });
+
+                            return false;
                         }
-                    })
-                    .done(function(result) {
-
-                        if (result.search('FATAL ERROR:') === 3) {
-                            console.error(fpcm.vars.ui.lang['AJAX_RESPONSE_ERROR']);
-                            console.error('ERROR MESSAGE: ' + errorThrown);
-                        }
-
-                        if (item !== 'likebutton') {
-                            return true;
-                        }
-
-                        fpcm.pub.addMessage({
-                            type: 'notice',
-                            id: (new Date()).getTime(),
-                            txt: fpcm.vars.ui.lang['PUBLIC_SHARE_LIKE']
-                        });
-
-                        return false;
-                    });
+                    });                    
 
                     return item === 'likebutton' ? false : true;
                 });
@@ -99,7 +93,7 @@ window.onload = function() {
                     for (var i = 0; i < window.fpcm.vars.ui.messages.length; i++) {
                         fpcm.pub.addMessage(fpcm.vars.ui.messages[i]);
                     }
-                }
+                } 
 
             },
 
@@ -165,10 +159,64 @@ window.onload = function() {
                     '" id="msgbox-' + msg.id + '"><div class="fpcm-pub-message-box-text">' + msg.txt +
                     '</div></div>'
                 );
+            },
+            
+            doAjax: function (config) {
+
+                var _params = {
+                    url: fpcm.vars.ajaxActionPath + config.action,
+                    async: config.async !== undefined ? config.async : true,
+                    type: config.method ? config.method.toUpperCase() : 'GET'
+                }
+
+                if (config.data) {
+                    _params.data = config.data;
+                }
+
+                if (config.dataType) {
+                    _params.dataType = config.dataType;                    
+                }
+
+                jQuery.ajax(_params).done(function (result) {
+
+                    if (result.search && result.search('FATAL ERROR:') === 3) {
+                        console.error('ERROR MESSAGE: ' + errorThrown);
+                    }
+
+                    if (typeof config.execDone != 'function') {
+                        return true;
+                    }
+
+                    config.execDone(result);
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+
+                    console.error('STATUS MESSAGE: ' + textStatus);
+                    console.error('ERROR MESSAGE: ' + errorThrown);
+
+                    if (typeof config.execFail != 'function') {
+                        return true;
+                    }
+
+                    config.execFail();
+                });
             }
         }
 
         fpcm.pub.init();
+
+        if (fpcm.pub.modules) {
+
+            jQuery.each(fpcm.modules, function (idx, object) {
+
+                if (!object.initAfter || typeof object.initAfter !== 'function') {
+                    return true;
+                }
+
+                object.init();
+            });
+
+        }
 
     } else {
         console.error('jQuery is no loaded! Check if you included the libary in your page header or enable inclusion in FanPress CM ACP.');

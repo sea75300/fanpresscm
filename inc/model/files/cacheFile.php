@@ -98,7 +98,7 @@ class cacheFile {
     {
         if (file_exists($this->path)) {
             $return = json_decode(file_get_contents($this->path));
-            return $raw ? $return : (isset($return->data) ? $return->data : null);
+            return $raw ? $return : ($return->data ?? null);
         }
 
         return null;
@@ -109,13 +109,13 @@ class cacheFile {
      * @return mixed|null
      */
     public function expires()
-    {        
+    {
         if (!file_exists($this->path)) {
             return 0;
         }
 
         $data = $this->read(true);
-        $this->expires = isset($data->expires) ? $data->expires : 0;
+        $this->expires = $data->expires ?? 0;
         return $this->expires;
     }
 
@@ -125,6 +125,7 @@ class cacheFile {
      */
     public function cleanup()
     {
+        clearstatcache();
         if (!file_exists($this->path)) {
             return true;
         }
