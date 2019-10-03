@@ -275,7 +275,7 @@ class image extends \fpcm\model\abstracts\file {
      */
     public function save()
     {
-        if ($this->exists(true) || !$this->isValidDataFolder(dirname($this->fullpath))) {
+        if ($this->exists(true) || !$this->isValidDataFolder($this->filepath)) {
             return false;
         }
 
@@ -291,7 +291,7 @@ class image extends \fpcm\model\abstracts\file {
      */
     public function update()
     {
-        if (!$this->exists(true) || !$this->isValidDataFolder(dirname($this->fullpath))) {
+        if (!$this->exists(true) || !$this->isValidDataFolder()) {
             return false;
         }
 
@@ -310,7 +310,7 @@ class image extends \fpcm\model\abstracts\file {
      */
     public function delete()
     {
-        if (!$this->isValidDataFolder(dirname($this->fullpath))) {
+        if (!$this->isValidDataFolder()) {
             return false;
         }
         
@@ -383,11 +383,7 @@ class image extends \fpcm\model\abstracts\file {
             return $count > 0 ? true : false;
         }
 
-        if (!$this->isValidDataFolder(dirname($this->fullpath))) {
-            return false;
-        }
-
-        return (parent::exists() && $count > 0) ? true : false;
+        return (parent::exists() && $this->isValidDataFolder($this->filepath) && $count > 0) ? true : false;
     }
 
     /**
@@ -397,7 +393,7 @@ class image extends \fpcm\model\abstracts\file {
      */
     public function existsFolder()
     {
-        if (!$this->isValidDataFolder(dirname($this->fullpath))) {
+        if (!$this->isValidDataFolder($this->filepath)) {
             return false;
         }
 

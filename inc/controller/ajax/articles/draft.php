@@ -26,17 +26,21 @@ class draft extends \fpcm\controller\abstracts\ajaxController {
     public function process()
     {
         $draftPath = $this->getRequestVar('path');
-
-        $file = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS, $draftPath);
-        if (!trim($draftPath) || !file_exists($file)) {
+        if (!trim($draftPath)) {
             $this->returnCode = -1;
             $this->returnData = '';
             $this->getResponse();
         }
 
-        $this->returnData = file_get_contents($file);
-        $this->returnCode = 1;
+        $file = new \fpcm\model\files\templatefile($draftPath);
+        if (!$file->exists() || !$file->loadContent()) {
+            $this->returnCode = -1;
+            $this->returnData = '';
+            $this->getResponse();
+        }
 
+        $this->returnData = $file->getContent();
+        $this->returnCode = 1;
         $this->getResponse();
     }
 

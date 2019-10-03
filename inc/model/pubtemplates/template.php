@@ -196,8 +196,7 @@ class template extends \fpcm\model\abstracts\file {
         }
 
         $this->content = $this->events->trigger('template\save', ['file' => $this->fullpath, 'content' => $this->content])['content'];
-
-        if (!file_put_contents($this->fullpath, $this->content)) {
+        if (!$this->writeContent()) {
             trigger_error('Unable to update template ' . $this->fullpath);
             return false;
         }
@@ -284,8 +283,8 @@ class template extends \fpcm\model\abstracts\file {
         if (!$this->exists()) {
             return false;
         }
-
-        $this->content = file_get_contents($this->fullpath);
+        
+        $this->loadContent();
         $this->allowedTags = $this->events->trigger('pub\templateHtmlTags', $this->allowedTags);
     }
 

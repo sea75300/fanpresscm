@@ -394,6 +394,10 @@ abstract class file {
      */
     public function moveUploadedFile($uploadedPath)
     {
+        if (!$this->isValidDataFolder($this->filepath)) {
+            return false;
+        }
+
         return move_uploaded_file($uploadedPath, $this->fullpath);
     }
 
@@ -404,7 +408,7 @@ abstract class file {
      */
     public function loadContent()
     {
-        if (!$this->isReadable()) {
+        if (!$this->isValidDataFolder() || !$this->isReadable()) {
             return false;
         }
         
@@ -415,6 +419,20 @@ abstract class file {
         }
 
         return true;
+    }
+
+    /**
+     * Lädt Inhalt von gespeicherter Datei
+     * @return bool
+     * @since FPCM 4.2
+     */
+    public function writeContent()
+    {
+        if (!$this->isValidDataFolder() || !$this->isWritable()) {
+            return false;
+        }
+
+        return file_put_contents($this->fullpath, $this->content);
     }
 
     /**
