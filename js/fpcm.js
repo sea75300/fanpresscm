@@ -6,29 +6,28 @@
  */
 
 if (fpcm === undefined) {
-    var fpcm = {};
+    var fpcm = {
+        vars: {
+            jsvars: {},
+            ui: {
+                messages: []
+            }
+        },
+        modules: {}
+    };
 }
 
 window.onload = function() {
     
     if (typeof jQuery !== 'undefined') {
+
+        jQuery.noConflict();
         
         fpcm.pub = {
 
             init: function () {
 
-                jQuery.noConflict();
-                
-                if (!window.fpcm.vars.ui.messages) {
-                    window.fpcm.vars.ui.messages = [];
-                }
-
-                fpcm.pub.doAjax({
-                    action: 'refresh',
-                    data: {
-                        t: 1
-                    }
-                });
+                fpcm.pub.doRefresh();
 
                 jQuery('.fpcm-pub-commentsmiley').click(function () {
                     fpcm.pub.insert(' ' + jQuery(this).attr('data-code') + ' ');
@@ -88,12 +87,7 @@ window.onload = function() {
                     return item === 'likebutton' ? false : true;
                 });
 
-                if (fpcm.vars.ui.messages.length) {
-                    var msg = null;
-                    for (var i = 0; i < window.fpcm.vars.ui.messages.length; i++) {
-                        fpcm.pub.addMessage(fpcm.vars.ui.messages[i]);
-                    }
-                } 
+                fpcm.pub.showMessages();
 
             },
 
@@ -161,10 +155,46 @@ window.onload = function() {
                 );
             },
             
+            showMessages: function() {
+
+                if (!fpcm.vars.ui || !fpcm.vars.ui.messages || !fpcm.vars.ui.messages.length) {
+                    return false;
+                }   
+
+                var msg = null;
+                for (var i = 0; i < fpcm.vars.ui.messages.length; i++) {
+                    fpcm.pub.addMessage(fpcm.vars.ui.messages[i]);
+                }
+
+                return true;
+            },
+            
+            doRefresh: function() {
+                
+                if (!fpcm.vars.ajaxActionPath) {
+                    return false;
+                }
+                
+                fpcm.pub.doAjax({
+                    action: 'refresh',
+                    data: {
+                        t: 1
+                    }
+                });
+
+                return true;
+            },
+            
             doAjax: function (config) {
 
+                if (!fpcm.vars.ajaxActionPath && !config.ajaxActionPath) {
+                    console.error('Unable to execute AJAX request due to missing request destination!');
+                    console.error(config);
+                    return false;
+                }
+
                 var _params = {
-                    url: fpcm.vars.ajaxActionPath + config.action,
+                    url: (config.ajaxActionPath ? config.ajaxActionPath : fpcm.vars.ajaxActionPath) + config.action,
                     async: config.async !== undefined ? config.async : true,
                     type: config.method ? config.method.toUpperCase() : 'GET'
                 }
@@ -175,6 +205,10 @@ window.onload = function() {
 
                 if (config.dataType) {
                     _params.dataType = config.dataType;                    
+                }
+
+                if (config.onCode) {
+                    _params.statusCode = config.onCode;                    
                 }
 
                 jQuery.ajax(_params).done(function (result) {
@@ -205,11 +239,11 @@ window.onload = function() {
 
         fpcm.pub.init();
 
-        if (fpcm.pub.modules) {
+        if (fpcm.modules) {
 
             jQuery.each(fpcm.modules, function (idx, object) {
 
-                if (!object.initAfter || typeof object.initAfter !== 'function') {
+                if (!object.init || typeof object.init !== 'function') {
                     return true;
                 }
 
