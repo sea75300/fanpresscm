@@ -102,6 +102,12 @@ final class http {
     const FILTER_REGEX = 14;
 
     /**
+     * Regex replace filter
+     * @since FPCM 4.3
+     */
+    const FILTER_REGEX_REPLACE = 15;
+
+    /**
      * HTTP-Reuqest aus $_REQUEST und $_COOKIE
      * @var array
      */
@@ -325,6 +331,9 @@ final class http {
                 case self::FILTER_REGEX :
                     preg_match($filters['regex'] ?? '', $filterString, $match);
                     $filterString = $match;
+                    break;
+                case self::FILTER_REGEX_REPLACE :
+                    $filterString = preg_filter($filters['regex'] ?? '', $filters['regexReplace'] ?? '', $filterString);
                     break;
             }
         }

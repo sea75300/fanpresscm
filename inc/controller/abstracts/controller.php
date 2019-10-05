@@ -578,5 +578,30 @@ class controller implements \fpcm\controller\interfaces\controller {
         
         return 0;
     }
+    
+    /**
+     * Executes function by param from GET-request in current controller
+     * @param string $prefix
+     * @param string $actionFrom
+     * @return real|bool
+     * @since FPCM 4.3
+     */
+    final protected function processByParam(string $prefix = 'process', string $actionFrom = 'fn')
+    {
+        $actionName = $this->getRequestVar($actionFrom, [
+            \fpcm\classes\http::FILTER_REGEX_REPLACE,
+            \fpcm\classes\http::FILTER_FIRSTUPPER,
+            'regex' => '/([A-Za-z0-9\_]{3,})/',
+            'regexReplace' => '$0'
+        ]);
+
+        $fn = trim($prefix.$actionName);
+        if (!method_exists($this, $fn)) {
+            trigger_error('Request for undefined function '.$fn);
+            return 0x404;
+        }
+
+        return call_user_func([$this, $fn]);
+    }
 
 }

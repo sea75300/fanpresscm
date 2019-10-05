@@ -38,7 +38,6 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
     {
         $this->module = ucfirst($this->getRequestVar('src'));
         $this->term = $this->getRequestVar('term', [\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_STRIPSLASHES, \fpcm\classes\http::FILTER_TRIM, \fpcm\classes\http::FILTER_URLDECODE]);
-
         return true;
     }
 
@@ -47,12 +46,10 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-        $fn = 'autocomplete' . $this->module;
-        if (!method_exists($this, $fn)) {
+        if ($this->processByParam('autocomplete', 'src') === 0x404) {
             $this->getSimpleResponse();
         }
 
-        call_user_func([$this, $fn]);
         $this->returnData = $this->events->trigger('autocompleteGetData', [
             'module'     => $this->module,
             'returnData' => $this->returnData
@@ -65,7 +62,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      * Autocomplete von Artikeln
      * @return bool
      */
-    private function autocompleteArticles()
+    protected function autocompleteArticles()
     {
         if (!$this->permissions->check(['article' => ['edit', 'editall']])) {
             $this->returnData = [];
@@ -102,7 +99,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      * Autocomplete for article sources
      * @return bool
      */
-    private function autocompleteArticlesources()
+    protected function autocompleteArticlesources()
     {
         if (!$this->permissions->check(['article' => ['edit', 'editall']])) {
             $this->returnData = [];
@@ -130,8 +127,13 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      * Autocomplete der Bild-Liste im Editor
      * @return bool
      */
-    private function autocompleteEditorfiles()
+    protected function autocompleteEditorfiles()
     {
+        if (!$this->permissions->check(['article' => ['edit', 'editall']])) {
+            $this->returnData = [];
+            return false;
+        }
+
         $this->returnData = \fpcm\components\components::getArticleEditor()->getFileList();
         return true;
     }
@@ -140,8 +142,13 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      * Autocomplete der Link-Liste im Editor
      * @return bool
      */
-    private function autocompleteEditorlinks()
+    protected function autocompleteEditorlinks()
     {
+        if (!$this->permissions->check(['article' => ['edit', 'editall']])) {
+            $this->returnData = [];
+            return false;
+        }
+
         $this->returnData = \fpcm\components\components::getArticleEditor()->getEditorLinks();
         return true;
     }
