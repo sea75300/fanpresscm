@@ -638,7 +638,10 @@ class view {
         $this->defaultViewVars->self = strip_tags(trim($_SERVER['PHP_SELF']));
         $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
-        $this->defaultViewVars->currentModule = \fpcm\classes\http::get('module');
+        $this->defaultViewVars->currentModule = \fpcm\classes\http::get('module', [
+            \fpcm\classes\http::FILTER_REGEX,
+            'regex' => '/^([a-z0-9]+)\/{1}([a-z0-9]+)\/?([a-z0-9]*)/i'
+        ]);
         $this->defaultViewVars->buttons = $this->buttons;
         $this->defaultViewVars->formActionTarget = $this->formAction;
         $this->defaultViewVars->bodyClass = $this->bodyClass;

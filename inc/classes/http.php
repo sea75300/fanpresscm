@@ -96,6 +96,12 @@ final class http {
     const FILTER_FIRSTUPPER = 13;
 
     /**
+     * Regex filter
+     * @since FPCM 4.3
+     */
+    const FILTER_REGEX = 14;
+
+    /**
      * HTTP-Reuqest aus $_REQUEST und $_COOKIE
      * @var array
      */
@@ -263,6 +269,7 @@ final class http {
         }
 
         if (is_array($filterString)) {
+
             foreach ($filterString as &$value) {
                 $value = static::filter($value, $filters);
             }
@@ -270,14 +277,13 @@ final class http {
             return $filterString;
         }
 
-        $allowedTags = (isset($filters['allowedtags'])) ? $filters['allowedtags'] : '';
-        $htmlMode = isset($filters['mode']) ? $filters['mode'] : (ENT_COMPAT | ENT_HTML401);
+        $htmlMode = $filters['mode'] ?? (ENT_COMPAT | ENT_HTML401);
 
         foreach ($filters as $filter) {
             $filter = (int) $filter;
             switch ($filter) {
                 case self::FILTER_STRIPTAGS :
-                    $filterString = strip_tags($filterString, $allowedTags);
+                    $filterString = strip_tags($filterString, $filters['allowedtags'] ?? '');
                     break;
                 case self::FILTER_HTMLSPECIALCHARS :
                     $filterString = htmlspecialchars($filterString, $htmlMode);
@@ -315,6 +321,10 @@ final class http {
                     break;
                 case self::FILTER_FIRSTUPPER :
                     $filterString = ucfirst($filterString);
+                    break;
+                case self::FILTER_REGEX :
+                    preg_match($filters['regex'] ?? '', $filterString, $match);
+                    $filterString = $match;
                     break;
             }
         }
