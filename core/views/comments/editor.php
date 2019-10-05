@@ -42,7 +42,7 @@
                         ->setValue($comment->getName())
                         ->setIcon('signature')
                         ->setSize('lg')
-                        ->setDisplaySizes(['xs' => 6, 'sm' => 3, 'md' => 2], ['xs' => 6, 'sm' => 9, 'md' => 10]); ?>
+                        ->setDisplaySizesDefault(); ?>
             </div>            
             <div class="row fpcm-ui-padding-md-tb">
                 <?php $theView->textInput('comment[email]')
@@ -52,7 +52,7 @@
                         ->setType('email')
                         ->setIcon('at')
                         ->setSize('lg')
-                        ->setDisplaySizes(['xs' => 6, 'sm' => 3, 'md' => 2], ['xs' => 6, 'sm' => 9, 'md' => 10]); ?>
+                        ->setDisplaySizesDefault(); ?>
             </div>            
             <div class="row fpcm-ui-padding-md-tb">
                 <?php $theView->textInput('comment[website]')
@@ -62,7 +62,7 @@
                         ->setType('url')
                         ->setIcon('home')
                         ->setSize('lg')
-                        ->setDisplaySizes(['xs' => 6, 'sm' => 3, 'md' => 2], ['xs' => 6, 'sm' => 9, 'md' => 10]); ?>
+                        ->setDisplaySizesDefault(); ?>
             </div>            
         </fieldset>
     </div>

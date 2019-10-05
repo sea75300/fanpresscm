@@ -232,7 +232,7 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         );
 
         $this->view->addJsVars($jsVars);
-        $this->view->addJsFiles(array_merge(['comments.js', 'comments_editor.js', 'editor_videolinks.js'], $editorPlugin->getJsFiles()));
+        $this->view->addJsFiles(array_merge(['comments/module.js', 'comments/editor.js', 'editor/editor_videolinks.js'], $editorPlugin->getJsFiles()));
         $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE'], $editorPlugin->getJsLangVars()));
         
 

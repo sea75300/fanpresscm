@@ -164,6 +164,7 @@ $lang = array(
     'WORDBAN_ADD' => 'Begriff hinzufügen',
     'WORDBAN_EDIT' => 'Begriff bearbeiten',
     'WORDBAN_NAME' => 'Begriff',
+    'WORDBAN_FORM' => 'Zensur für diesen Text',
     'WORDBAN_REPLACEMENT_TEXT' => 'Ersetzung',
     'WORDBAN_REPLACETEXT' => 'Text ersetzen',
     'WORDBAN_APPROVE_ARTICLE' => 'Artikel muss überprüft werden',

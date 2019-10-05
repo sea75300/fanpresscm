@@ -137,8 +137,8 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         
         $this->view->addJsFiles(array_merge([
                 \fpcm\classes\loader::libGetFileUrl('selectize_js/dist/js/selectize.min.js'),
-                'editor.js',
-                'editor_videolinks.js',
+                'editor/editor.js',
+                'editor/editor_videolinks.js',
             ],
             $this->editorPlugin->getJsFiles()
         ));

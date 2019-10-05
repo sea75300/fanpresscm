@@ -16,7 +16,7 @@
                             ->setText('FILE_LIST_SMILEYCODE')
                             ->setIcon('bookmark')
                             ->setAutoFocused(true)
-                            ->setDisplaySizes(['xs' => 12, 'md' => 2], ['xs' => 12, 'md' => 10]); ?>
+                            ->setDisplaySizesDefault(); ?>
                     </div>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                             ->setWrapper(false)
                             ->setText('FILE_LIST_FILENAME')
                             ->setIcon('link')
-                            ->setDisplaySizes(['xs' => 12, 'md' => 2], ['xs' => 12, 'md' => 10]); ?>
+                            ->setDisplaySizesDefault(); ?>
                     </div>
                 </div>
             </div>

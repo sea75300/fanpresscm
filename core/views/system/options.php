@@ -21,7 +21,7 @@
                                         ->setWrapper(false)
                                         ->setText('GLOBAL_EMAIL')
                                         ->setType('email')
-                                        ->setDisplaySizesDefault(); ?>
+                                        ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 5]); ?>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                         ->setWrapper(false)
                                         ->setText('SYSTEM_OPTIONS_URL')
                                         ->setType('url')
-                                        ->setDisplaySizesDefault(); ?>
+                                        ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 5]); ?>
                                 </div>
                             </div>
                         </div>
@@ -537,10 +537,10 @@
                         </div>
                         
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
+                            <div class="align-self-center col-12 col-md-3 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_COMMENT_MARKSPAM_PASTCHECK'); ?>
                             </div>
-                            <div class="align-self-center col-md-12 col-lg-7 mx-0 px-0">
+                            <div class="align-self-center col-12 col-md-9 mx-0 px-0">
                                 <?php $theView->textInput('comments_markspam_commentcount')
                                         ->setText('')
                                         ->setValue($globalConfig['comments_markspam_commentcount'])
@@ -663,10 +663,10 @@
                         <?php endif; ?>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
+                            <div class="align-self-center col-12 col-sm-6 col-md-3 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_EMAIL_ENABLED'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-6 col-sm-9 fpcm-ui-padding-none-lr">
                                 <?php $theView->boolSelect('smtp_enabled')->setSelected($globalConfig['smtp_enabled']); ?>
                             </div>
                         </div>
@@ -678,6 +678,7 @@
                                     ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                     ->setText('GLOBAL_EMAIL')
                                     ->setPlaceholder('mail@example.com')
+                                    ->setClass('fpcm-ui-options-smtp-input')
                                     ->setWrapper(false)
                                     ->setDisplaySizesDefault(); ?>
                         </div>
@@ -688,6 +689,7 @@
                                     ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                     ->setText('SYSTEM_OPTIONS_EMAIL_SERVER')
                                     ->setPlaceholder('mail.example.com')
+                                    ->setClass('fpcm-ui-options-smtp-input')
                                     ->setWrapper(false)
                                     ->setDisplaySizesDefault(); ?>
                         </div>
@@ -698,6 +700,7 @@
                                     ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                     ->setText('SYSTEM_OPTIONS_EMAIL_PORT')
                                     ->setPlaceholder('25')
+                                    ->setClass('fpcm-ui-options-smtp-input')
                                     ->setWrapper(false)
                                     ->setDisplaySizesDefault(); ?>
                         </div>
@@ -708,6 +711,7 @@
                                     ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                     ->setText('SYSTEM_OPTIONS_EMAIL_USERNAME')
                                     ->setPlaceholder('mail@example.com')
+                                    ->setClass('fpcm-ui-options-smtp-input')
                                     ->setWrapper(false)
                                     ->setDisplaySizesDefault(); ?>
                         </div>
@@ -717,15 +721,16 @@
                                     ->setText('SYSTEM_OPTIONS_EMAIL_PASSWORD')
                                     ->setValue($globalConfig['smtp_settings']['pass'])
                                     ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
+                                    ->setClass('fpcm-ui-options-smtp-input')
                                     ->setWrapper(false)
                                     ->setDisplaySizesDefault(); ?>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
+                            <div class="align-self-center col-12 col-sm-6 col-md-3 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_EMAIL_ENCRYPTED'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-6 col-sm-9 fpcm-ui-padding-none-lr">
                                 <?php $theView->select('smtp_settings[encr]')
                                         ->setOptions($smtpEncryption)
                                         ->setSelected($globalConfig['smtp_settings']['encr'])

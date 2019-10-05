@@ -149,7 +149,7 @@ class templates extends \fpcm\controller\abstracts\controller {
         ]);
 
         $this->view->addJsLangVars(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT']);
-        $this->view->addJsFiles(['fileuploader.js', 'templates.js']);
+        $this->view->addJsFiles(['fileuploader.js', 'templates/module.js']);
         $this->initDataView();
 
         $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [

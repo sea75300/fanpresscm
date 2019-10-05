@@ -7,7 +7,7 @@
 
         <div id="tabs-roll">
             <div class="row fpcm-ui-padding-md-tb no-gutters">
-                <div class="col-12 col-sm-6">
+                <div class="col-12">
                     <div class="row">
                         <?php $theView->textInput('rollname')
                             ->setValue($userRoll->getRollName())

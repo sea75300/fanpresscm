@@ -22,12 +22,6 @@ fpcm.categories = {
             onRenderAfter: fpcm.ui.assignCheckboxes
         });
 
-    },
-    
-    initAfter: function () {
-        fpcm.ui.controlgroup('.fpcm-ui-controlgroup', {
-            removeLeftBorderRadius: true
-        });
     }
 
 };

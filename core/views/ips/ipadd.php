@@ -16,34 +16,42 @@
                 </div>
             </div>
 
-            <div class="row fpcm-ui-padding-md-tb no-gutters">
+            <div class="row no-gutters fpcm-ui-padding-md-tb">
                 <div class="col-12">
-                    <div class="row">
-                        <?php $theView->textInput('ipaddress')
-                            ->setWrapper(false)
-                            ->setValue($object->getIpaddress())
-                            ->setText('IPLIST_IPADDRESS')
-                            ->setIcon('network-wired')
-                            ->setDisplaySizes(['xs' => 12, 'md' => 2], ['xs' => 12, 'md' => 10]); ?>
-                    </div>
-                </div>
-            </div>
+                    <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
+                        <legend><?php $theView->write('IPLIST_ADDIP'); ?></legend>
 
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-12 fpcm-ui-padding-none-lr">
-                    <div class="row">
-                        <label class="col-12 col-md-2 fpcm-ui-field-label-general">
-                            <?php $theView->icon('lock'); ?>
-                            <?php $theView->write('IPLIST_BLOCKTYPE'); ?>:
-                        </label>
-                        <div class="col-12 col-md-10 fpcm-ui-padding-none-lr">
-                            <div class="fpcm-ui-controlgroup">
-                                <?php $theView->checkbox('nocomments')->setText('IPLIST_NOCOMMENTS')->setSelected($object->getNocomments()); ?>
-                                <?php $theView->checkbox('nologin')->setText('IPLIST_NOLOGIN')->setSelected($object->getNologin()); ?>
-                                <?php $theView->checkbox('noaccess')->setText('IPLIST_NOACCESS')->setSelected($object->getNoaccess()); ?>
+                        <div class="row fpcm-ui-padding-md-tb no-gutters">
+                            <div class="col-12">
+                                <div class="row">
+                                    <?php $theView->textInput('ipaddress')
+                                        ->setWrapper(false)
+                                        ->setValue($object->getIpaddress())
+                                        ->setText('IPLIST_IPADDRESS')
+                                        ->setIcon('network-wired')
+                                        ->setDisplaySizesDefault(); ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <div class="col-12 fpcm-ui-padding-none-lr">
+                                <div class="row">
+                                    <label class="col-12 col-sm-6 col-md-3 fpcm-ui-field-label-general">
+                                        <?php $theView->icon('lock'); ?>
+                                        <?php $theView->write('IPLIST_BLOCKTYPE'); ?>:
+                                    </label>
+                                    <div class="col-12 col-sm-6 col-md-9 fpcm-ui-padding-none-lr">
+                                        <div class="fpcm-ui-controlgroup fpcm-ui-borderradius-remove-left">
+                                            <?php $theView->checkbox('nocomments')->setText('IPLIST_NOCOMMENTS')->setSelected($object->getNocomments()); ?>
+                                            <?php $theView->checkbox('nologin')->setText('IPLIST_NOLOGIN')->setSelected($object->getNologin()); ?>
+                                            <?php $theView->checkbox('noaccess')->setText('IPLIST_NOACCESS')->setSelected($object->getNoaccess()); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                        
+                    </fieldset>
                 </div>
             </div>
         </div>

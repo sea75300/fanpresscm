@@ -100,7 +100,7 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
 
         $this->view->assign('commentsMode', 1);
         $this->view->setFormAction('comments/trash');
-        $this->view->addJsFiles(['comments.js']);
+        $this->view->addJsFiles(['comments/module.js']);
 
         $this->view->addButtons([    
             (new \fpcm\view\helper\select('action'))->setOptions(['ARTICLE_LIST_RESTOREARTICLE' => 'restore', 'ARTICLE_LIST_EMPTYTRASH' => 'trash']),

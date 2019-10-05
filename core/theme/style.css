@@ -316,6 +316,10 @@ div.fpcm-ui-inline-loader {
     max-height: 1024px;
 }
 
+.fpcm-ui-controlgroup.fpcm-ui-borderradius-remove-left > .ui-button:first-child {
+    border-radius: 0 !important;
+}
+
 /* ------ Message box styles */
 #fpcm-messages {
     top: 4em;
