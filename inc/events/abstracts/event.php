@@ -185,7 +185,7 @@ abstract class event {
     }
 
     /**
-     * Checks if module event class has implemented \fpcm\events\abstracts\moduleEvent
+     * Checks if module event class has implemented \fpcm\module\event
      * @param mixed $object
      * @return bool
      */
