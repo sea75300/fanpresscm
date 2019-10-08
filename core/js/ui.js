@@ -812,7 +812,7 @@ fpcm.ui = {
     },
     
     getCheckboxCheckedValues: function(id) {
-        
+
         var data = [];
         fpcm.dom.fromTag(id + ':checked').map(function (idx, item) {
             data.push(item.value);
@@ -822,17 +822,24 @@ fpcm.ui = {
 
     },
 
-    getValuesByClass: function(_class) {
+    getValuesByClass: function(_class, _indexed) {
         
         var _fields = fpcm.dom.fromClass(_class);
         if (!_fields.length) {
             return {};
         }
 
-        _data = {};
+        _data = _indexed ? [] : {};
         _fields.map(function (idx, item) {
+
             var el = fpcm.dom.fromTag(item);
+            if (_indexed) {
+                _data.push(el.val());
+                return true;
+            }
+
             _data[el.attr('name')] = el.val();
+            return true;
         });     
 
         return _data;

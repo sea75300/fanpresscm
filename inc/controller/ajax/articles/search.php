@@ -59,8 +59,27 @@ class search extends \fpcm\controller\abstracts\ajaxController {
         $filter = $this->getRequestVar('filter');
 
         $sparams = new \fpcm\model\articles\search();
+        $sparams->setMultiple(true);
+
+        if ( isset($filter['combinations']) && count($filter['combinations']) ) {
+            
+            foreach ($filter['combinations'] as $key => $value) {
+
+                if ($value == -1) {
+                    continue;
+                }
+
+                $sparams->$key = (int) $value;
+            }
+
+        }
 
         if (trim($filter['text'])) {
+
+            $filter['text'] = \fpcm\classes\http::filter($filter['text'], [
+                \fpcm\classes\http::FILTER_HTMLENTITY_DECODE
+            ]);
+
             switch ($filter['searchtype']) {
                 case \fpcm\model\articles\search::TYPE_TITLE :
                     $sparams->title = $filter['text'];
@@ -68,7 +87,13 @@ class search extends \fpcm\controller\abstracts\ajaxController {
                 case \fpcm\model\articles\search::TYPE_CONTENT :
                     $sparams->content = $filter['text'];
                     break;
+                case \fpcm\model\articles\search::TYPE_COMBINED_OR :
+                    $sparams->combination   = 'OR';
+                    $sparams->title = $filter['text'];
+                    $sparams->content = $filter['text'];
+                    break;
                 default:
+                    $sparams->combination   = 'AND';
                     $sparams->title = $filter['text'];
                     $sparams->content = $filter['text'];
                     break;
@@ -107,6 +132,10 @@ class search extends \fpcm\controller\abstracts\ajaxController {
             $sparams->draft = (int) $filter['draft'];
         }
 
+        if ($filter['approval'] > -1) {
+            $sparams->approval = (int) $filter['approval'];
+        }
+
         if ($this->mode != -1) {
             $sparams->archived = (int) $this->mode;
         }
@@ -121,8 +150,7 @@ class search extends \fpcm\controller\abstracts\ajaxController {
                 break;
         }
 
-        $sparams->approval = (int) $filter['approval'];
-        $sparams->combination = $filter['combination'] ? 'OR' : 'AND';
+        $sparams->combinationDeleted = 0;
 
         $sparams = $this->events->trigger('article\prepareSearch', $sparams);
 

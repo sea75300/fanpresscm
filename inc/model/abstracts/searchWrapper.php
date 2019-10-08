@@ -19,6 +19,13 @@ namespace fpcm\model\abstracts;
 abstract class searchWrapper extends staticModel {
 
     /**
+     * Multiple search flag
+     * @var bool
+     * @since FPCM 4.3
+     */
+    protected $isMultiple = false;
+
+    /**
      * Liefert Daten zurück, die über Eigenschaften erzeugt wurden
      * @return array
      */
@@ -34,6 +41,47 @@ abstract class searchWrapper extends staticModel {
     public function hasParams()
     {
         return count($this->data) ? true : false;
+    }
+
+    /**
+     * Is multiple flag set
+     * @return bool
+     * @since FPCM 4.2
+     */
+    public function isMultiple() : bool
+    {
+        return $this->isMultiple;
+    }
+
+    /**
+     * Sets multiple lag
+     * @param bool $isMultiple
+     * @return $this
+     * @since FPCM 4.3
+     */
+    public function setMultiple(bool $isMultiple)
+    {
+        $this->isMultiple = $isMultiple;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param int $value
+     * @return string
+     */
+    public function getCondition(string $condition, string $query)
+    {
+        $value = $this->{'combination'.ucfirst($condition)};
+        if ($value === 0) {
+            return ' AND '.$query;
+        }
+
+        if ($value === 1) {
+            return ' OR '.$query;
+        }
+        
+        return $query;
     }
 
 }

@@ -196,9 +196,14 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $where = [];
         $valueParams = [];
 
-        $this->assignSearchParams($conditions, $where, $valueParams);
-
-        $combination = $conditions->combination !== null ? $conditions->combination : 'AND';
+        if ( $conditions->isMultiple() ) {
+            $this->assignMultipleSearchParams($conditions, $where, $valueParams);
+            $combination = '';
+        }
+        else {
+            $this->assignSearchParams($conditions, $where, $valueParams);
+            $combination = $conditions->combination !== null ? $conditions->combination : 'AND';
+        }
 
         $eventData = $this->events->trigger('article\getByCondition', [
             'conditions' => $conditions,
@@ -234,7 +239,6 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
                 ->setParams($valueParams);
 
         $return = $this->createListResult($this->dbcon->selectFetch($obj), $monthIndex);
-
         return $return;
     }
 
@@ -605,7 +609,8 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     private function assignSearchParams(search $conditions, array &$where, array &$valueParams)
     {
         if ($conditions->ids !== null && is_array($conditions->ids)) {
-            $where[] = "id IN (" . implode(', ', $conditions->ids) . ")";
+            $where[] = $this->dbcon->inQuery('id', $valueParams);
+            $valueParams = array_merge($valueParams, $conditions->ids);
         }
 
         if ($conditions->title !== null) {
@@ -674,6 +679,82 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             $where[] = "approval = ?";
             $valueParams[] = $conditions->approval > -1 ? $conditions->approval : 0;
         }
+
+        return true;
+    }
+    
+    private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams) : bool
+    {
+        if ($conditions->title !== null && $conditions->content !== null && $conditions->combination !== null) {
+            $where[] = "(title " . $this->dbcon->dbLike() . " ? {$conditions->combination} content " . $this->dbcon->dbLike() . " ?)";
+            $valueParams[] = "%{$conditions->title}%";
+            $valueParams[] = "%{$conditions->content}%";
+        }
+        elseif ($conditions->title !== null) {
+            $where[] = "title " . $this->dbcon->dbLike() . " ?";
+            $valueParams[] = "%{$conditions->title}%";
+        }
+        elseif ($conditions->content !== null) {
+            $where[] = "content " . $this->dbcon->dbLike() . " ?";
+            $valueParams[] = "%{$conditions->content}%";
+        }
+
+        if ($conditions->user !== null) {
+            $where[] = $conditions->getCondition('userid', 'createuser = ?');
+            $valueParams[] = $conditions->user;
+        }
+
+        if ($conditions->category !== null) {
+            $catId = (int) $conditions->category;
+            $where[] = $conditions->getCondition('categoryid', "(categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ?)");
+            $valueParams[] = "[{$catId}]";
+            $valueParams[] = "%,{$catId},%";
+            $valueParams[] = "[{$catId},%";
+            $valueParams[] = "%,{$catId}]";
+        }
+
+        if ($conditions->datefrom !== null) {
+            $where[] = $conditions->getCondition('datefrom', 'createtime >= ?');
+            $valueParams[] = $conditions->datefrom;
+        }
+
+        if ($conditions->dateto !== null) {
+            $where[] = $conditions->getCondition('dateto', 'createtime <= ?');
+            $valueParams[] = $conditions->dateto;
+        }
+
+        if ($conditions->postponed !== null) {
+            $where[] = $conditions->getCondition('postponed', 'postponed = ?');
+            $valueParams[] = $conditions->postponed;
+        }
+
+        if ($conditions->archived !== null) {           
+            $where[] = $conditions->getCondition('archived', 'archived = ?');
+            $valueParams[] = $conditions->archived;
+        }
+
+        if ($conditions->pinned !== null) {
+            $where[] = $conditions->getCondition('pinned', 'pinned = ?');
+            $valueParams[] = $conditions->pinned;
+        }
+
+        if ($conditions->comments !== null) {
+            $where[] = $conditions->getCondition('comments', 'comments = ?');
+            $valueParams[] = $conditions->comments;
+        }
+
+        if ($conditions->draft !== null) {
+            $where[] = $conditions->getCondition('draft', 'draft = ?');
+            $valueParams[] = $conditions->draft > -1 ? $conditions->draft : 0;
+        }
+
+        if ($conditions->approval !== null) {
+            $where[] = $conditions->getCondition('approval', 'approval = ?');
+            $valueParams[] = $conditions->approval > -1 ? $conditions->approval : 0;
+        }
+
+        $where[] = $conditions->getCondition('deleted', "deleted = ?");
+        $valueParams[] = $conditions->deleted !== null ? $conditions->deleted : 0;
 
         return true;
     }

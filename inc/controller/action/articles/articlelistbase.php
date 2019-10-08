@@ -281,8 +281,9 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
         $this->view->assign('searchTypes', [
             'ARTICLE_SEARCH_TYPE_ALL' => -1,
+            'ARTICLE_SEARCH_TYPE_ALLOR' => 3,
             'ARTICLE_SEARCH_TYPE_TITLE' => 0,
-            'ARTICLE_SEARCH_TYPE_TEXT' => 1
+            'ARTICLE_SEARCH_TYPE_TEXT' => 1,
         ]);
 
         $this->view->assign('searchPinned', [
@@ -316,8 +317,9 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         ]);
 
         $this->view->assign('searchCombination', [
+            'ARTICLE_SEARCH_LOGICNONE' => -1,
             'ARTICLE_SEARCH_LOGICAND' => 0,
-            'ARTICLE_SEARCH_LOGICOR' => 1
+            'ARTICLE_SEARCH_LOGICOR' => 1,
         ]);
 
         $this->view->addJsLangVars(['SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START', 'DELETE_FAILED_ARTICLE']);

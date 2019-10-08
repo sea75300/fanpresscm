@@ -67,9 +67,13 @@ fpcm.articlelist = {
                 appendTo: '#fpcm-dialog-articles-search'
             });
 
+            fpcm.ui.selectmenu('.fpcm-ui-input-select-articlesearch-combination', {
+                width: '100%',
+                appendTo: '#fpcm-dialog-articles-search'
+            });
+
             fpcm.ui.dialog({
                 id      : 'articles-search',
-                dlWidth: fpcm.ui.getDialogSizes(top, 0.75).width,
                 resizable: true,
                 title    : fpcm.ui.translate('ARTICLES_SEARCH'),
                 dlButtons  : [
@@ -78,17 +82,12 @@ fpcm.articlelist = {
                         icon: 'ui-icon-check',
                         class: 'fpcm-ui-button-primary',
                         click: function() {                            
-                            var sfields = fpcm.dom.fromClass('fpcm-articles-search-input');
                             var sParams = {
                                 mode: fpcm.vars.jsvars.articleSearchMode,
-                                filter: {}
+                                filter: fpcm.ui.getValuesByClass('fpcm-articles-search-input')
                             };
                             
-                            jQuery.each(sfields, function( key, obj ) {
-                                var objName = fpcm.dom.fromTag(obj).attr('name');                                
-                                sParams.filter[objName] = obj.value;
-                            });
-
+                            sParams.filter.combinations = fpcm.ui.getValuesByClass('fpcm-ui-input-select-articlesearch-combination');
                             fpcm.articlelist.startSearch(sParams);
                             fpcm.dom.fromTag(this).dialog('close');
                         }
