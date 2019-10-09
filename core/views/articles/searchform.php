@@ -1,13 +1,13 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden" id="fpcm-dialog-articles-search">
 
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row my-3">
         
         <div class="col-12 col-md-4 my-2 my-md-0">
             <?php $theView->select('searchtype')
                     ->setOptions($searchTypes)
                     ->setClass('fpcm-articles-search-input fpcm-ui-input-select-articlesearch')
-                    ->setSelected(-1)
+                    ->setSelected(fpcm\model\articles\search::TYPE_COMBINED)
                     ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
 
@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row my-3">
         
         <div class="col-12 col-md-4 my-2 my-md-0">
             <?php $theView->select('combinationDatefrom')
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row my-3">
         
         <div class="col-12 col-md-4 my-2 my-md-0">
             <?php $theView->select('combinationDateto')
@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row my-3">
         
         <div class="col-12 col-md-4 my-2 my-md-0">
             <?php $theView->select('combinationUserid')
@@ -71,7 +71,7 @@
         </div>
     </div>
 
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row my-3">
         
         <div class="col-12 col-md-4 my-2 my-md-0">
             <?php $theView->select('combinationCategoryid')
@@ -88,7 +88,7 @@
         </div>
     </div>
 
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row my-3">
         
         <div class="col-12 col-md-4 my-2 my-md-0">
             <?php $theView->select('combinationPinned')
@@ -105,7 +105,7 @@
         </div>
     </div>
 
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row my-3">
         
         <div class="col-12 col-md-4 my-2 my-md-0">
             <?php $theView->select('combinationPostponed')
@@ -122,7 +122,7 @@
         </div>
     </div>
 
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row my-3">
         
         <div class="col-12 col-md-4 my-2 my-md-0">
             <?php $theView->select('combinationComments')
@@ -139,7 +139,7 @@
         </div>
     </div>
 
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row my-3">
         
         <div class="col-12 col-md-4 my-2 my-md-0">
             <?php $theView->select('combinationApproval')
@@ -156,7 +156,7 @@
         </div>
     </div>
 
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row my-3">
         
         <div class="col-12 col-md-4 my-2 my-md-0">
             <?php $theView->select('combinationDraft')

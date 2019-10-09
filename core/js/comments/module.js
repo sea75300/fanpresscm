@@ -87,6 +87,11 @@ fpcm.comments = {
                 appendTo: '#fpcm-dialog-comments-search'
             });
             
+            fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch-combination', {
+                width: '100%',
+                appendTo: '#fpcm-dialog-articles-search'
+            });
+            
             fpcm.ui.autocomplete('#articleId', {
                 source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
                 appendTo: '#fpcm-dialog-comments-search',
@@ -95,7 +100,6 @@ fpcm.comments = {
 
             fpcm.ui.dialog({
                 id      : 'comments-search',
-                dlWidth: fpcm.ui.getDialogSizes(top, 0.75).width,
                 resizable: true,
                 title    : fpcm.ui.translate('ARTICLES_SEARCH'),
                 dlButtons  : [
@@ -103,17 +107,14 @@ fpcm.comments = {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
                         icon: 'ui-icon-check',
                         class: 'fpcm-ui-button-primary',
-                        click: function() {                            
-                            var sfields = fpcm.dom.fromId('.fpcm-comments-search-input');
+                        click: function() {
+                            
                             var sParams = {
-                                filter: {}
+                                mode: fpcm.vars.jsvars.articleSearchMode,
+                                filter: fpcm.ui.getValuesByClass('fpcm-comments-search-input')
                             };
                             
-                            jQuery.each(sfields, function( key, obj ) {
-                                var objVal  = jQuery(obj).val();
-                                var objName = jQuery(obj).attr('name');                                
-                                sParams.filter[objName] = objVal;
-                            });
+                            sParams.filter.combinations = fpcm.ui.getValuesByClass('fpcm-ui-input-select-commentsearch-combination');
 
                             fpcm.comments.startCommentSearch(sParams);
                             fpcm.dom.fromTag(this).dialog('close');

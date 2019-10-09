@@ -14,7 +14,7 @@
                     </span>
                 </a>
                 <?php if ($navigationItem->hasSubmenu()) : ?>
-                    <ul class="fpcm-ui-sub-menu col-12 fpcm-ui-background-white-50p">
+                    <ul class="fpcm-ui-sub-menu col-12 fpcm-ui-background-white-90p">
                         <?php 
                         foreach ($navigationItem->getSubmenu() as $submenuItem) : ?>
                         <li id="submenu-item<?php print $submenuItem->getId(); ?>" class="col-12 fpcm-menu-level2 fpcm-ui-ellipsis <?php if ($submenuItem->isActive()) : ?>fpcm-menu-item-active<?php endif; ?>">

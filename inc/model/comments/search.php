@@ -19,6 +19,13 @@ namespace fpcm\model\comments;
  * @property int $articleid Artikel-ID
  * @property int $datefrom seit Datum X.Y.Z
  * @property int $dateto bis Datum X.Y.Z
+ * @property int $combinationDatefrom AND/OR for datefrom
+ * @property int $combinationDateto AND/OR for dateto
+ * @property int $combinationArticleid AND/OR for articleid
+ * @property int $combinationPrivate AND/OR for private
+ * @property int $combinationApproved AND/OR for approved
+ * @property int $combinationSpam AND/OR for spam
+ * @property int $combinationDeleted AND/OR for deleted
  * @property string $text via Kommentar-Text, Name, Webseite und E-Mail-Adresse
  * @property string $combination logische Verknüpfung AND/OR
  * @property string $ipaddress IP-Adresse
@@ -37,6 +44,8 @@ class search extends \fpcm\model\abstracts\searchWrapper {
     const TYPE_ALL = 0;
     const TYPE_TEXT = 1;
     const TYPE_NAMEMAILWEB = 2;
+    const TYPE_ALLOR = 3;
+    const TYPE_NAMEMAILWEB_OR = 4;
 
     /**
      * Liefert Daten zurück, die über Eigenschaften erzeugt wurden

@@ -21,7 +21,8 @@ namespace fpcm\controller\ajax\comments;
  */
 class search extends \fpcm\controller\abstracts\ajaxController {
 
-    use \fpcm\controller\traits\comments\lists;
+    use \fpcm\controller\traits\comments\lists,
+        \fpcm\controller\traits\common\searchParams;
 
     /**
      * Data view object
@@ -55,10 +56,15 @@ class search extends \fpcm\controller\abstracts\ajaxController {
     {
         $filter = $this->getRequestVar('filter');
 
+        $this->conditions->setMultiple(true);
+        $this->assignParamsVars( ($filter['combinations'] ?? []) , $this->conditions);
+
         $this->conditions->searchtype = (int) $filter['searchtype'];
 
         if (trim($filter['text'])) {
-            $this->conditions->text = $filter['text'];
+            $this->conditions->text = \fpcm\classes\http::filter($filter['text'], [
+                \fpcm\classes\http::FILTER_HTMLENTITY_DECODE
+            ]);
         }
 
         if ($filter['datefrom']) {
@@ -85,8 +91,9 @@ class search extends \fpcm\controller\abstracts\ajaxController {
             $this->conditions->articleid = (int) $filter['articleId'];
         }
 
-        $this->conditions->combination = $filter['combination'] ? 'OR' : 'AND';
+        $this->conditions->combinationDeleted = 0;
         $this->conditions = $this->events->trigger('comments\prepareSearch', $this->conditions);
+
         return true;
     }
 

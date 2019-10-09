@@ -15,7 +15,8 @@ namespace fpcm\controller\action\comments;
  */
 class commentlist extends \fpcm\controller\abstracts\controller {
 
-    use \fpcm\controller\traits\comments\lists;
+    use \fpcm\controller\traits\comments\lists,
+        \fpcm\controller\traits\common\searchParams;
 
     /**
      * Data view object
@@ -96,10 +97,14 @@ class commentlist extends \fpcm\controller\abstracts\controller {
      */
     private function initSearchForm()
     {
+        $this->assignSearchFromVars();
+
         $this->view->assign('searchTypes', [
             'COMMENTS_SEARCH_TYPE_ALL' => \fpcm\model\comments\search::TYPE_ALL,
+            'COMMENTS_SEARCH_TYPE_ALLOR' => \fpcm\model\comments\search::TYPE_ALLOR,
             'COMMENTS_SEARCH_TYPE_TEXT' => \fpcm\model\comments\search::TYPE_TEXT,
-            'COMMENTS_SEARCH_TYPE_NAMEMAILWEB' => \fpcm\model\comments\search::TYPE_NAMEMAILWEB
+            'COMMENTS_SEARCH_TYPE_NAMEMAILWEB' => \fpcm\model\comments\search::TYPE_NAMEMAILWEB,
+            'COMMENTS_SEARCH_TYPE_NAMEMAILWEB_OR' => \fpcm\model\comments\search::TYPE_NAMEMAILWEB_OR
         ]);
 
         $this->view->assign('searchApproval', array(
@@ -118,10 +123,6 @@ class commentlist extends \fpcm\controller\abstracts\controller {
             'COMMMENT_PRIVATE' => -1,
             'GLOBAL_YES' => 1,
             'GLOBAL_NO' => 0
-        ));
-        $this->view->assign('searchCombination', array(
-            'ARTICLE_SEARCH_LOGICAND' => 0,
-            'ARTICLE_SEARCH_LOGICOR' => 1
         ));
 
         $this->view->addJsLangVars(['SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START']);

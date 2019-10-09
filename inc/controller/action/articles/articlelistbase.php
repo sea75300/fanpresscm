@@ -12,7 +12,8 @@ namespace fpcm\controller\action\articles;
 abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
     use \fpcm\controller\traits\articles\lists,
-        \fpcm\controller\traits\common\massedit;
+        \fpcm\controller\traits\common\massedit,
+        \fpcm\controller\traits\common\searchParams;
 
 
     /**
@@ -278,12 +279,14 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
     {
         $this->view->assign('searchUsers', ['ARTICLE_SEARCH_USER' => -1] + $this->users);
         $this->view->assign('searchCategories', ['ARTICLE_SEARCH_CATEGORY' => -1] + $this->categories);
+        
+        $this->assignSearchFromVars();
 
         $this->view->assign('searchTypes', [
-            'ARTICLE_SEARCH_TYPE_ALL' => -1,
-            'ARTICLE_SEARCH_TYPE_ALLOR' => 3,
-            'ARTICLE_SEARCH_TYPE_TITLE' => 0,
-            'ARTICLE_SEARCH_TYPE_TEXT' => 1,
+            'ARTICLE_SEARCH_TYPE_ALL' => \fpcm\model\articles\search::TYPE_COMBINED,
+            'ARTICLE_SEARCH_TYPE_ALLOR' => \fpcm\model\articles\search::TYPE_COMBINED_OR,
+            'ARTICLE_SEARCH_TYPE_TITLE' => \fpcm\model\articles\search::TYPE_TITLE,
+            'ARTICLE_SEARCH_TYPE_TEXT' => \fpcm\model\articles\search::TYPE_CONTENT
         ]);
 
         $this->view->assign('searchPinned', [
@@ -316,13 +319,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
             'GLOBAL_NO' => 0
         ]);
 
-        $this->view->assign('searchCombination', [
-            'ARTICLE_SEARCH_LOGICNONE' => -1,
-            'ARTICLE_SEARCH_LOGICAND' => 0,
-            'ARTICLE_SEARCH_LOGICOR' => 1,
-        ]);
-
-        $this->view->addJsLangVars(['SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START', 'DELETE_FAILED_ARTICLE']);
+        $this->view->addJsLangVars(['DELETE_FAILED_ARTICLE']);
         $this->view->addJsVars(['articlesLastSearch' => 0]);
     }
 

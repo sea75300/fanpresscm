@@ -20,7 +20,8 @@ namespace fpcm\controller\ajax\articles;
  */
 class search extends \fpcm\controller\abstracts\ajaxController {
 
-    use \fpcm\controller\traits\articles\lists;
+    use \fpcm\controller\traits\articles\lists,
+        \fpcm\controller\traits\common\searchParams;
 
     /**
      * Suchmodus
@@ -60,19 +61,8 @@ class search extends \fpcm\controller\abstracts\ajaxController {
 
         $sparams = new \fpcm\model\articles\search();
         $sparams->setMultiple(true);
-
-        if ( isset($filter['combinations']) && count($filter['combinations']) ) {
-            
-            foreach ($filter['combinations'] as $key => $value) {
-
-                if ($value == -1) {
-                    continue;
-                }
-
-                $sparams->$key = (int) $value;
-            }
-
-        }
+        
+        $this->assignParamsVars( ($filter['combinations'] ?? []) , $sparams);
 
         if (trim($filter['text'])) {
 

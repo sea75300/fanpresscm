@@ -47,6 +47,10 @@ div.fpcm-ui-dataview div.fpcm-ui-dataview-subhead {
     background: rgba(255,255,255,0.75);
 }
 
+.fpcm-ui-background-white-90p {
+    background: rgba(255,255,255,0.90);
+}
+
 div.fpcm-filelist-thumb-box div.fpcm-filelist-thumb-box-inner,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-row {
     background: rgba(254,254,254,0.7);
