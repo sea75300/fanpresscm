@@ -393,6 +393,7 @@ div.fpcm-ui-editor-metabox span.fpcm-ui-editor-metainfo {
 #fpcm-loader {
     z-index : 9999;
     display : none;
+    backdrop-filter: blur(5px);
 }
 
 #fpcm-loader > div.fpcm-loader-icon {
