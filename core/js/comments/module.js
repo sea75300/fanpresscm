@@ -89,7 +89,7 @@ fpcm.comments = {
             
             fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch-combination', {
                 width: '100%',
-                appendTo: '#fpcm-dialog-articles-search'
+                appendTo: '#fpcm-dialog-comments-search',
             });
             
             fpcm.ui.autocomplete('#articleId', {

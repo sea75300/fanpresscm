@@ -79,6 +79,16 @@ div.ui-tabs {
     background-color: rgba(255,255,255,0.65);
 }
 
+.ui-autocomplete.ui-widget-content {
+    color: inherit !important;
+    background-color: rgba(255,255,255,0.85);
+}
+
+.ui-autocomplete.ui-widget-content,
+.ui-widget-overlay.ui-front {
+    backdrop-filter: blur(5px);
+}
+
 .ui-checkboxradio-icon,
 .ui-checkboxradio-icon.ui-state-active,
 .ui-checkboxradio-icon.ui-state-checked {

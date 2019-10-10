@@ -13,45 +13,33 @@
                     <fieldset class="fpcm-ui-margin-md-right">
                         <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
                         
-                        <div class="row fpcm-ui-padding-md-tb no-gutters">
-                            <div class="col-12">
-                                <div class="row">
-                                    <?php $theView->textInput('system_email')
-                                        ->setValue($globalConfig['system_email'])                                        
-                                        ->setWrapper(false)
-                                        ->setText('GLOBAL_EMAIL')
-                                        ->setType('email')
-                                        ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 5]); ?>
-                                </div>
-                            </div>
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <?php $theView->textInput('system_email')
+                                ->setValue($globalConfig['system_email'])                                        
+                                ->setWrapper(false)
+                                ->setText('GLOBAL_EMAIL')
+                                ->setType('email')
+                                ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 5]); ?>
                         </div>
                         
-                        <div class="row fpcm-ui-padding-md-tb no-gutters">
-                            <div class="col-12">
-                                <div class="row">
-                                    <?php $theView->textInput('system_url')
-                                        ->setValue($globalConfig['system_url'])                                        
-                                        ->setWrapper(false)
-                                        ->setText('SYSTEM_OPTIONS_URL')
-                                        ->setType('url')
-                                        ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 5]); ?>
-                                </div>
-                            </div>
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <?php $theView->textInput('system_url')
+                                ->setValue($globalConfig['system_url'])                                        
+                                ->setWrapper(false)
+                                ->setText('SYSTEM_OPTIONS_URL')
+                                ->setType('url')
+                                ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 5]); ?>
                         </div>
                         
-                        <div class="row fpcm-ui-padding-md-tb no-gutters">
-                            <div class="col-12">
-                                <div class="row">
-                                    <?php $theView->textInput('system_dtmask')
-                                        ->setValue($globalConfig['system_dtmask'])                                        
-                                        ->setWrapper(false)
-                                        ->setText('SYSTEM_OPTIONS_DATETIMEMASK')
-                                        ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 5]); ?>
-                                    
-                                    <div class="align-self-center col-sm-1 col-md-1 fpcm-ui-padding-md-lr">
-                                        <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
-                                    </div>
-                                </div>
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <?php $theView->textInput('system_dtmask')
+                                ->setValue($globalConfig['system_dtmask'])                                        
+                                ->setWrapper(false)
+                                ->setText('SYSTEM_OPTIONS_DATETIMEMASK')
+                                ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 5]); ?>
+
+                            <div class="align-self-center col-sm-1 col-md-1 fpcm-ui-padding-md-lr">
+                                <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
                             </div>
                         </div>
 
@@ -110,18 +98,13 @@
                         <legend><?php $theView->write('HL_FRONTEND'); ?></legend>
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
-                                <?php $theView->write('SYSTEM_OPTIONS_STYLESHEET'); ?>
-                            </div>
-                            <div class="align-self-center col-sm-12 col-md-7 mx-0 px-0">
-                                <?php $theView->textInput('system_css_path')
-                                        ->setValue($globalConfig['system_css_path'], ENT_QUOTES)
-                                        ->setText('http://'.$_SERVER['HTTP_HOST'].'/style/style.css')
-                                        ->setType('url')
-                                        ->setPlaceholder(true)
-                                        ->setWrapper(false)
-                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general'); ?>
-                            </div>
+                            <?php $theView->textInput('system_css_path')
+                                    ->setValue($globalConfig['system_css_path'], ENT_QUOTES)
+                                    ->setText($theView->translate('SYSTEM_OPTIONS_STYLESHEET'))
+                                    ->setType('url')
+                                    ->setPlaceholder('http://'.$_SERVER['HTTP_HOST'].'/style/style.css')
+                                    ->setWrapper(false)
+                                    ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 7]); ?>
                         </div>
 
                         <div class="row fpcm-ui-padding-md-tb">
@@ -208,7 +191,7 @@
                     
                     <fieldset class="fpcm-ui-margin-md-right fpcm-ui-margin-md-top">
                         <legend><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_CSS'); ?></legend>
-                        <?php $theView->textarea('system_editor_css')->setValue($globalConfig['system_editor_css'], ENT_QUOTES)->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width'); ?>
+                        <?php $theView->textarea('system_editor_css')->setValue($globalConfig['system_editor_css'], ENT_QUOTES)->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width mt-2'); ?>
                     </fieldset>
                 </div>
 
@@ -410,18 +393,13 @@
                         </div> 
 
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="align-self-center col-md-12 col-lg-5 fpcm-ui-field-label-general">
-                                <?php $theView->write('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT'); ?>
-                            </div>
-                            <div class="align-self-center col-md-12 col-lg-6 mx-0 px-0">
-                                <?php $theView->dateTimeInput('articles_archive_datelimit')
-                                        ->setValue($globalConfig['articles_archive_datelimit'] ? $theView->dateText($globalConfig['articles_archive_datelimit'], 'Y-m-d') : '')
-                                        ->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY')
-                                        ->setWrapper(false)
-                                        ->setPlaceholder(true)
-                                        ->setData(['maxDate' => '-3m'])
-                                        ->setClass('fpcm-ui-full-width fpcm-ui-field-input-nowrapper-general'); ?>
-                            </div>
+                            <?php $theView->dateTimeInput('articles_archive_datelimit')
+                                    ->setValue($globalConfig['articles_archive_datelimit'] ? $theView->dateText($globalConfig['articles_archive_datelimit'], 'Y-m-d') : '')
+                                    ->setText('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT')
+                                    ->setWrapper(false)
+                                    ->setPlaceholder($theView->translate('SYSTEM_OPTIONS_NEWS_ARCHIVELIMIT_EMPTY'))
+                                    ->setData(['maxDate' => '-3m'])
+                                    ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 7]); ?>
                         </div>
                     </fieldset>
                 </div>
@@ -512,28 +490,20 @@
                     <fieldset class="fpcm-ui-margin-md-left">
                         <legend><?php $theView->write('SYSTEM_OPTIONS_CAPTCHASETTING'); ?></legend>
                         
-                        <div class="row fpcm-ui-padding-md-tb no-gutters">
-                            <div class="col-12">
-                                <div class="row">
-                                    <?php $theView->textInput('comments_antispam_question')
-                                        ->setValue($globalConfig['comments_antispam_question'])                                        
-                                        ->setWrapper(false)
-                                        ->setText('SYSTEM_OPTIONS_ANTISPAMQUESTION')
-                                        ->setDisplaySizesDefault(); ?>
-                                </div>
-                            </div>
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <?php $theView->textInput('comments_antispam_question')
+                                ->setValue($globalConfig['comments_antispam_question'])                                        
+                                ->setWrapper(false)
+                                ->setText('SYSTEM_OPTIONS_ANTISPAMQUESTION')
+                                ->setDisplaySizesDefault(); ?>
                         </div>
 
-                        <div class="row fpcm-ui-padding-md-tb no-gutters">
-                            <div class="col-12">
-                                <div class="row">
+                        <div class="row fpcm-ui-padding-md-tb">
                                     <?php $theView->textInput('comments_antispam_answer')
                                         ->setValue($globalConfig['comments_antispam_answer'])                                        
                                         ->setWrapper(false)
                                         ->setText('SYSTEM_OPTIONS_ANTISPAMANSWER')
                                         ->setDisplaySizesDefault(); ?>
-                                </div>
-                            </div>
                         </div>
                         
                         <div class="row fpcm-ui-padding-md-tb">
@@ -791,52 +761,36 @@
                     <fieldset>
                         <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CREDENTIALS'); ?></legend>
 
-                        <div class="row fpcm-ui-padding-md-tb no-gutters">
-                            <div class="col-12">
-                                <div class="row">
-                                    <?php $theView->textInput('twitter_data[consumer_key]')
-                                        ->setValue($globalConfig['twitter_data']['consumer_key'])                                        
-                                        ->setWrapper(false)
-                                        ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY')
-                                        ->setDisplaySizes(['xs' => 12, 'md' => 3], ['xs' => 12, 'md' => 9]); ?>
-                                </div>
-                            </div>
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <?php $theView->textInput('twitter_data[consumer_key]')
+                                ->setValue($globalConfig['twitter_data']['consumer_key'])                                        
+                                ->setWrapper(false)
+                                ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_KEY')
+                                ->setDisplaySizes(['xs' => 12, 'md' => 3], ['xs' => 12, 'md' => 9]); ?>
                         </div>                        
 
-                        <div class="row fpcm-ui-padding-md-tb no-gutters">
-                            <div class="col-12">
-                                <div class="row">
-                                    <?php $theView->textInput('twitter_data[consumer_secret]')
-                                        ->setValue($globalConfig['twitter_data']['consumer_secret'])                                        
-                                        ->setWrapper(false)
-                                        ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET')
-                                        ->setDisplaySizes(['xs' => 12, 'md' => 3], ['xs' => 12, 'md' => 9]); ?>
-                                </div>
-                            </div>
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <?php $theView->textInput('twitter_data[consumer_secret]')
+                                ->setValue($globalConfig['twitter_data']['consumer_secret'])                                        
+                                ->setWrapper(false)
+                                ->setText('SYSTEM_OPTIONS_TWITTER_CONSUMER_SECRET')
+                                ->setDisplaySizes(['xs' => 12, 'md' => 3], ['xs' => 12, 'md' => 9]); ?>
                         </div>                        
 
-                        <div class="row fpcm-ui-padding-md-tb no-gutters">
-                            <div class="col-12">
-                                <div class="row">
-                                    <?php $theView->textInput('twitter_data[user_token]')
-                                        ->setValue($globalConfig['twitter_data']['user_token'])                                        
-                                        ->setWrapper(false)
-                                        ->setText('SYSTEM_OPTIONS_TWITTER_USER_TOKEN')
-                                        ->setDisplaySizes(['xs' => 12, 'md' => 3], ['xs' => 12, 'md' => 9]); ?>
-                                </div>
-                            </div>
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <?php $theView->textInput('twitter_data[user_token]')
+                                ->setValue($globalConfig['twitter_data']['user_token'])                                        
+                                ->setWrapper(false)
+                                ->setText('SYSTEM_OPTIONS_TWITTER_USER_TOKEN')
+                                ->setDisplaySizes(['xs' => 12, 'md' => 3], ['xs' => 12, 'md' => 9]); ?>
                         </div>                        
 
-                        <div class="row fpcm-ui-padding-md-tb no-gutters">
-                            <div class="col-12">
-                                <div class="row">
-                                    <?php $theView->textInput('twitter_data[user_secret]')
-                                        ->setValue($globalConfig['twitter_data']['user_secret'])                                        
-                                        ->setWrapper(false)
-                                        ->setText('SYSTEM_OPTIONS_TWITTER_USER_SECRET')
-                                        ->setDisplaySizes(['xs' => 12, 'md' => 3], ['xs' => 12, 'md' => 9]); ?>
-                                </div>
-                            </div>
+                        <div class="row fpcm-ui-padding-md-tb">
+                            <?php $theView->textInput('twitter_data[user_secret]')
+                                ->setValue($globalConfig['twitter_data']['user_secret'])                                        
+                                ->setWrapper(false)
+                                ->setText('SYSTEM_OPTIONS_TWITTER_USER_SECRET')
+                                ->setDisplaySizes(['xs' => 12, 'md' => 3], ['xs' => 12, 'md' => 9]); ?>
                         </div>
                     </fieldset>
                 </div>

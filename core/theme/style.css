@@ -351,6 +351,10 @@ div.fpcm-ui-inline-loader {
     opacity: 1.0;
 }
 
+.fpcm-ui-blurring {
+    backdrop-filter: blur(5px);
+}
+
 .fpcm-ui-status-075 {
     opacity: 0.75;
 }
@@ -386,14 +390,11 @@ div.fpcm-ui-editor-metabox span.fpcm-ui-editor-metainfo {
     font-size: 1.1rem;
 }
 
-
-
 /* ------ General classes and ids */
 
 #fpcm-loader {
     z-index : 9999;
     display : none;
-    backdrop-filter: blur(5px);
 }
 
 #fpcm-loader > div.fpcm-loader-icon {
