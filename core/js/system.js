@@ -177,7 +177,11 @@ fpcm.system = {
                                     pageTkn: fpcm.vars.jsvars.masseditPageToken
                                 };
 
-                                params.fields.categories = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-input-massedit-categories');
+                                var catEl = fpcm.dom.fromId('categories');
+                                if (catEl) {
+                                    params.fields.categories = catEl.val();
+                                }
+
                                 fpcm.system.execMassEdit(func, params);
 
                                 fpcm.dom.fromTag(this).dialog('close');

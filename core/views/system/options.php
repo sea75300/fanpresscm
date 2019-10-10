@@ -19,7 +19,7 @@
                                 ->setWrapper(false)
                                 ->setText('GLOBAL_EMAIL')
                                 ->setType('email')
-                                ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 5]); ?>
+                                ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 7]); ?>
                         </div>
                         
                         <div class="row fpcm-ui-padding-md-tb">
@@ -28,7 +28,7 @@
                                 ->setWrapper(false)
                                 ->setText('SYSTEM_OPTIONS_URL')
                                 ->setType('url')
-                                ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 5]); ?>
+                                ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 7]); ?>
                         </div>
                         
                         <div class="row fpcm-ui-padding-md-tb">

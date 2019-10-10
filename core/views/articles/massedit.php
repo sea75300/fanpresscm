@@ -6,12 +6,9 @@
             <?php $theView->icon('tags')->setSize('lg'); ?>
             <?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?>
         </label>
-        <div class="col-12 col-md-auto fpcm-ui-padding-none-lr">
-            <div class="fpcm-ui-massedit-categories">
-                <?php foreach ($massEditCategories as $name => $id) : ?>
-                <?php $theView->checkbox('categories[]', 'cat'.$id)->setClass('fpcm-ui-input-massedit-categories')->setText($name)->setValue($id); ?>
-                <?php endforeach; ?>
-            </div>
+        
+        <div class="col-12 col-md-8 fpcm-ui-padding-none-lr fpcm-ui-editor-categories fpcm-ui-editor-categories-massedit">
+            <?php $theView->select('categories[]')->setIsMultiple(true)->setOptions($massEditCategories)->setSelected([]); ?>
         </div>
     </div>
     

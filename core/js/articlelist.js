@@ -13,9 +13,6 @@ fpcm.articlelist = {
     init: function() {
         fpcm.dom.fromId('massEdit').click(function () {
             fpcm.system.initMassEditDialog('articles/massedit', 'articles-massedit', fpcm.articlelist);
-            fpcm.ui.controlgroup('.fpcm-ui-massedit-categories', {
-                removeLeftBorderRadius: true
-            });
             return false;
         });
 
@@ -32,6 +29,11 @@ fpcm.articlelist = {
 
         fpcm.articlelist.clearArticleCache();
         fpcm.articlelist.deleteSingleArticle();
+        
+        fpcm.dom.fromId('categories').selectize({
+            placeholder: fpcm.ui.translate('EDITOR_CATEGORIES_SEARCH'),
+            searchField: ['text', 'value']
+        });
     },
     
     assignActions: function() {
