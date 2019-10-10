@@ -566,8 +566,8 @@ class view {
      * @return bool
      */
     public function render()
-    {        
-        if (!file_exists($this->viewPath)) {
+    {
+        if (!file_exists($this->viewPath) || strpos(realpath($this->viewPath), \fpcm\classes\dirs::getFullDirPath('') ) !== 0) {
             trigger_error("View file {$this->viewName} not found!");
             exit("View file {$this->viewName} not found!");
         }
