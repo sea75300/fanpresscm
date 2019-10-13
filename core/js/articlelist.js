@@ -62,19 +62,10 @@ fpcm.articlelist = {
     },
     
     initArticleSearch: function() {
+
         fpcm.dom.fromId('opensearch').click(function () {
 
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-articlesearch', {
-                width: '100%',
-                appendTo: '#fpcm-dialog-articles-search'
-            });
-
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-articlesearch-combination', {
-                width: '100%',
-                appendTo: '#fpcm-dialog-articles-search'
-            });
-
-            fpcm.ui.dialog({
+            var sDlg = fpcm.ui.dialog({
                 id      : 'articles-search',
                 resizable: true,
                 title    : fpcm.ui.translate('ARTICLES_SEARCH'),
@@ -105,6 +96,16 @@ fpcm.articlelist = {
                 dlOnOpen: function( event, ui ) {
                     fpcm.dom.setFocus('#text');
                 }
+            });
+
+            fpcm.ui.selectmenu('.fpcm-ui-input-select-articlesearch', {
+                width: '100%',
+                appendTo: '#' + sDlg.attr('id')
+            });
+
+            fpcm.ui.selectmenu('.fpcm-ui-input-select-articlesearch-combination', {
+                width: '100%',
+                appendTo: '#' + sDlg.attr('id')
             });
 
             return false;

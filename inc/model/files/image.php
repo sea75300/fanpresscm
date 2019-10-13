@@ -448,7 +448,7 @@ class image extends \fpcm\model\abstracts\file {
     protected function init($initDB)
     {
         if ($initDB) {
-            $dbData = $this->dbcon->fetch($this->dbcon->select($this->table, '*', 'filename = ?', array($this->filename)));
+            $dbData = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setWhere('filename = ?')->setParams([$this->filename]));
             if (!$dbData) {
                 return false;
             }

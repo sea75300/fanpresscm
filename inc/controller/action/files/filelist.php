@@ -11,7 +11,8 @@ namespace fpcm\controller\action\files;
 
 class filelist extends \fpcm\controller\abstracts\controller {
 
-    use \fpcm\controller\traits\files\lists;
+    use \fpcm\controller\traits\files\lists,
+        \fpcm\controller\traits\common\searchParams;
 
     /**
      * Dateiliste
@@ -114,16 +115,12 @@ class filelist extends \fpcm\controller\abstracts\controller {
             'filesLastSearch' => 0,
             'checkboxRefresh' => true
         ]);
+        
+        $this->assignSearchFromVars();
 
-        $this->view->addJsLangVars(['FILE_LIST_RENAME_NEWNAME', 'SEARCH_WAITMSG', 'ARTICLES_SEARCH',
-            'ARTICLE_SEARCH_START', 'FILE_LIST_ADDTOINDEX', 'GLOBAL_PROPERTIES',
-            'FILE_LIST_RESOLUTION_PIXEL'
+        $this->view->addJsLangVars(['FILE_LIST_RENAME_NEWNAME', 'FILE_LIST_ADDTOINDEX',
+            'GLOBAL_PROPERTIES', 'FILE_LIST_RESOLUTION_PIXEL'
         ]);
-
-        $this->view->assign('searchCombination', array(
-            'ARTICLE_SEARCH_LOGICAND' => 0,
-            'ARTICLE_SEARCH_LOGICOR' => 1
-        ));
 
         $this->view->assign('mode', $this->mode);
         $this->view->assign('hasFiles', $hasFiles);

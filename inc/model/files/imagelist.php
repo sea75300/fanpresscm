@@ -52,8 +52,9 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
             $where .= ' ' . $this->dbcon->limitQuery($limit, $offset);
         }
 
-        $images = $this->dbcon->fetch(
-            $this->dbcon->select($this->table, '*', $where), true
+        $images = $this->dbcon->selectFetch(
+            (new \fpcm\model\dbal\selectParams($this->table))
+            ->setWhere($where)->setFetchAll(true)
         );
 
         $res = [];
@@ -73,25 +74,20 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      */
     public function getDatabaseListByCondition(search $conditions)
     {
-        $where = array('1=1');
+        $where = [];
         $valueParams = [];
-
-        if ($conditions->filename) {
-            $where[] = "filename ".$this->dbcon->dbLike()." ?";
-            $valueParams[] = '%' . $conditions->filename . '%';
+        $combination = '';
+        
+        if ($conditions->isMultiple()) {
+            $this->assignMultipleSearchParams($conditions, $where, $valueParams, $combination);
+        }
+        else {
+            $this->assignSearchParams($conditions, $where, $valueParams, $combination);
         }
 
-        if ($conditions->datefrom) {
-            $where[] = "filetime >= ?";
-            $valueParams[] = $conditions->datefrom;
+        if (!count($where)) {
+            $where = ['1=1'];
         }
-
-        if ($conditions->dateto) {
-            $where[] = "filetime <= ?";
-            $valueParams[] = $conditions->dateto;
-        }
-
-        $combination = $conditions->combination ? $conditions->combination : 'AND';
 
         $where = implode(" {$combination} ", $where);
 
@@ -104,10 +100,9 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
 
         $where .= ' ' . implode(' ', $where2);
 
-        $images = $this->dbcon->fetch(
-            $this->dbcon->select(
-                    $this->table, '*', $where, $valueParams
-            ), true
+        $images = $this->dbcon->selectFetch(
+            (new \fpcm\model\dbal\selectParams($this->table))
+            ->setWhere($where)->setParams($valueParams)->setFetchAll(true)
         );
 
         $res = [];
@@ -127,25 +122,16 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      */
     public function getDatabaseCountByCondition(search $conditions)
     {
-        $where = array('1=1');
+        $where = [];
         $valueParams = [];
+        $combination = '';
 
-        if ($conditions->filename) {
-            $where[] = "filename ".$this->dbcon->dbLike()." ?";
-            $valueParams[] = '%' . $conditions->filename . '%';
+        $this->assignSearchParams($conditions, $where, $valueParams, $combination);
+
+        if (!count($where)) {
+            $where = ['1=1'];
         }
 
-        if ($conditions->datefrom) {
-            $where[] = "filetime >= ?";
-            $valueParams[] = $conditions->datefrom;
-        }
-
-        if ($conditions->dateto) {
-            $where[] = "filetime <= ?";
-            $valueParams[] = $conditions->dateto;
-        }
-
-        $combination = $conditions->combination ? $conditions->combination : 'AND';
         return $this->dbcon->count($this->table, 'id', implode(" {$combination} ", $where), $valueParams);
     }
 
@@ -267,6 +253,65 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         }
 
         return $result->sizesum;
+    }
+
+    /**
+     * Assigns search params from search object to where condition
+     * @param \fpcm\model\files\search $conditions
+     * @param array $where
+     * @param array $valueParams
+     * @param string $combination
+     * @return bool
+     * @since FPCm 4.3
+     */
+    private function assignSearchParams(search $conditions, array &$where, array &$valueParams, string $combination)
+    {
+        if ($conditions->filename) {
+            $where[] = "filename ".$this->dbcon->dbLike()." ?";
+            $valueParams[] = '%' . $conditions->filename . '%';
+        }
+
+        if ($conditions->datefrom) {
+            $where[] = "filetime >= ?";
+            $valueParams[] = $conditions->datefrom;
+        }
+
+        if ($conditions->dateto) {
+            $where[] = "filetime <= ?";
+            $valueParams[] = $conditions->dateto;
+        }
+        
+        $combination = $conditions->combination ? $conditions->combination : 'AND';
+
+        return true;
+    }
+
+    /**
+     * Assigns search params object to value arrays
+     * @param \fpcm\model\files\search $conditions
+     * @param array $where
+     * @param array $valueParams
+     * @param string $combination
+     * @return bool
+     */
+    private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams, string $combination) : bool
+    {
+        if ($conditions->filename) {
+            $where[] = "filename ".$this->dbcon->dbLike()." ?";
+            $valueParams[] = '%' . $conditions->filename . '%';
+        }
+
+        if ($conditions->datefrom !== null) {
+            $where[] = $conditions->getCondition('datefrom', 'filetime >= ?');
+            $valueParams[] = $conditions->datefrom;
+        }
+
+        if ($conditions->dateto !== null) {
+            $where[] = $conditions->getCondition('dateto', 'filetime <= ?');
+            $valueParams[] = $conditions->dateto;
+        }
+
+        return true;
     }
 
 }

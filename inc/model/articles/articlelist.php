@@ -682,7 +682,14 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
 
         return true;
     }
-    
+
+    /**
+     * Assigns search params object to value arrays
+     * @param \fpcm\model\comments\search $conditions
+     * @param array $where
+     * @param array $valueParams
+     * @since FPCM 4.3
+     */
     private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams) : bool
     {
         if ($conditions->title !== null && $conditions->content !== null && $conditions->combination !== null) {

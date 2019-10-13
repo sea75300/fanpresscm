@@ -435,7 +435,7 @@ fpcm.filemanager = {
             fpcm.vars.jsvars.filesLastSearch = (new Date()).getTime();
         }
 
-        fpcm.ajax.get('filelist', {
+        fpcm.ajax.post('filelist', {
             data: {
                 mode: fpcm.vars.jsvars.fmgrMode,
                 page: page,
@@ -466,20 +466,8 @@ fpcm.filemanager = {
 
         fpcm.dom.fromId('opensearch').click(function () {
 
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-filesearch', {
-                width: '100%',
-                appendTo: '#fpcm-dialog-files-search'
-            });
-
-            fpcm.ui.autocomplete('#articleId', {
-                source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
-                appendTo: '#fpcm-dialog-files-search',
-                minLength: 3
-            });
-
-            fpcm.ui.dialog({
+            var sDlg = fpcm.ui.dialog({
                 id      : 'files-search',
-                dlWidth: fpcm.ui.getDialogSizes(top, 0.75).width,
                 resizable: true,
                 title    : fpcm.ui.translate('ARTICLES_SEARCH'),
                 dlButtons  : [
@@ -487,15 +475,10 @@ fpcm.filemanager = {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
                         icon: "ui-icon-check",
                         class: 'fpcm-ui-button-primary',
-                        click: function() {                            
-                            var sfields = fpcm.dom.fromClass('fpcm-files-search-input');
-                            var sParams = {};
-                            var el = {};
-
-                            jQuery.each(sfields, function( key, obj ) {
-                                el = fpcm.dom.fromTag(obj);
-                                sParams[el.attr('name')] = el.val();
-                            });
+                        click: function() {               
+                            
+                            var sParams = fpcm.ui.getValuesByClass('fpcm-files-search-input');                            
+                            sParams.combinations = fpcm.ui.getValuesByClass('fpcm-ui-input-select-filessearch-combination');
 
                             fpcm.filemanager.startFilesSearch(sParams);
                             fpcm.dom.fromTag(this).dialog('close');
@@ -512,6 +495,11 @@ fpcm.filemanager = {
                 dlOnOpen: function( event, ui ) {
                     fpcm.dom.fromId('text').focus();
                 }
+            });
+
+            fpcm.ui.selectmenu('.fpcm-ui-input-select-filessearch-combination', {
+                width: '100%',
+                appendTo: '#' + sDlg.attr('id')
             });
 
             return false;

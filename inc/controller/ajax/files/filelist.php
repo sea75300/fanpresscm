@@ -17,7 +17,8 @@ namespace fpcm\controller\ajax\files;
  */
 class filelist extends \fpcm\controller\abstracts\ajaxController {
 
-    use \fpcm\controller\traits\files\lists;
+    use \fpcm\controller\traits\files\lists,
+        \fpcm\controller\traits\common\searchParams;
 
     /**
      * Dateimanager-Modus
@@ -59,8 +60,14 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
             return true;
         }
 
-        $this->filter->filename      = $filter['filename'];
-        $this->filter->combination   = $filter['combination'] ? 'OR' : 'AND';
+        $this->filter->setMultiple(true);
+        $this->assignParamsVars( ($filter['combinations'] ?? []) , $this->filter);
+        
+        if (trim($filter['filename'])) {
+            $this->filter->filename = \fpcm\classes\http::filter($filter['filename'], [
+                \fpcm\classes\http::FILTER_HTMLENTITY_DECODE
+            ]);
+        }
 
         if ($filter['datefrom']) {
             $this->filter->datefrom   = strtotime($filter['datefrom']);
@@ -104,11 +111,11 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
 
         $this->filter->limit = [$this->config->file_list_limit, \fpcm\classes\tools::getPageOffset($page, $this->config->file_list_limit)];
         $list = $fileList->getDatabaseListByCondition($this->filter);
-        
+
         $pagerData = \fpcm\classes\tools::calcPagination(
             $this->config->file_list_limit,
             $page,
-            $fileList->getDatabaseCountByCondition($this->filter),
+            $this->showPager ? $fileList->getDatabaseCountByCondition($this->filter) : 0,
             count($list)
         );
 

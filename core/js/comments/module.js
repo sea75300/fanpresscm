@@ -82,23 +82,7 @@ fpcm.comments = {
         fpcm.dom.fromId('opensearch').unbind('click');
         fpcm.dom.fromId('opensearch').click(function () {
 
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch', {
-                width: '100%',
-                appendTo: '#fpcm-dialog-comments-search'
-            });
-            
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch-combination', {
-                width: '100%',
-                appendTo: '#fpcm-dialog-comments-search',
-            });
-            
-            fpcm.ui.autocomplete('#articleId', {
-                source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
-                appendTo: '#fpcm-dialog-comments-search',
-                minLength: 3
-            });
-
-            fpcm.ui.dialog({
+            var sDlg = fpcm.ui.dialog({
                 id      : 'comments-search',
                 resizable: true,
                 title    : fpcm.ui.translate('ARTICLES_SEARCH'),
@@ -131,6 +115,22 @@ fpcm.comments = {
                 dlOnOpen: function() {
                     fpcm.dom.fromId('text').focus();
                 }
+            });
+
+            fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch', {
+                width: '100%',
+                appendTo: '#' + sDlg.attr('id')
+            });
+            
+            fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch-combination', {
+                width: '100%',
+                appendTo: '#' + sDlg.attr('id'),
+            });
+            
+            fpcm.ui.autocomplete('#articleId', {
+                source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
+                appendTo: '#' + sDlg.attr('id'),
+                minLength: 3
             });
 
             return false;
