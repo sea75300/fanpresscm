@@ -111,7 +111,8 @@ fpcm.editor = {
         
         fpcm.dom.fromId('articlecategories').selectize({
             placeholder: fpcm.ui.translate('EDITOR_CATEGORIES_SEARCH'),
-            searchField: ['text', 'value']
+            searchField: ['text', 'value'],
+            plugins: ['remove_button']
         });
 
         if (!fpcm.vars.jsvars.articleId) {
