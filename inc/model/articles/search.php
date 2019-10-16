@@ -31,6 +31,7 @@ namespace fpcm\model\articles;
  * @property int $combinationApproval AND/OR for approval
  * @property int $combinationDraft AND/OR for draft
  * @property int $combinationDeleted AND/OR for deleted
+ * @property int $combinationArchived AND/OR for archived
  * @property string $title via Title-Inhalt
  * @property string $content via content-Inhalt
  * @property string $combination logische Verknüpfung AND/OR

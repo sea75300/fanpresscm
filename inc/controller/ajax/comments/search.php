@@ -91,7 +91,7 @@ class search extends \fpcm\controller\abstracts\ajaxController {
             $this->conditions->articleid = (int) $filter['articleId'];
         }
 
-        $this->conditions->combinationDeleted = 0;
+        $this->conditions->combinationDeleted = \fpcm\model\comments\search::COMBINATION_AND;
         $this->conditions = $this->events->trigger('comments\prepareSearch', $this->conditions);
 
         return true;

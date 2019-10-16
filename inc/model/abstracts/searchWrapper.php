@@ -18,6 +18,9 @@ namespace fpcm\model\abstracts;
  */
 abstract class searchWrapper extends staticModel {
 
+    const COMBINATION_AND = 0;
+    const COMBINATION_OR = 1;
+    
     /**
      * Multiple search flag
      * @var bool
@@ -73,11 +76,11 @@ abstract class searchWrapper extends staticModel {
     public function getCondition(string $condition, string $query)
     {
         $value = $this->{'combination'.ucfirst($condition)};
-        if ($value === 0) {
+        if ($value === self::COMBINATION_AND) {
             return ' AND '.$query;
         }
 
-        if ($value === 1) {
+        if ($value === self::COMBINATION_OR) {
             return ' OR '.$query;
         }
         

@@ -134,13 +134,16 @@ class search extends \fpcm\controller\abstracts\ajaxController {
             case 1 :
                 $this->showArchivedStatus = false;
                 $this->showDraftStatus = false;
+                $sparams->combinationDraft = \fpcm\model\articles\search::COMBINATION_AND;
+                $sparams->combinationArchived = \fpcm\model\articles\search::COMBINATION_AND;
                 break;
             case 0 :
+                $sparams->combinationArchived = \fpcm\model\articles\search::COMBINATION_AND;
                 $this->showArchivedStatus = false;
                 break;
         }
 
-        $sparams->combinationDeleted = 0;
+        $sparams->combinationDeleted = \fpcm\model\articles\search::COMBINATION_AND;
 
         $sparams = $this->events->trigger('article\prepareSearch', $sparams);
 
