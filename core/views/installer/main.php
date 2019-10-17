@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 
 <div class="fpcm-ui-full-view-height">
-    <div class="row no-gutters fpcm-ui-background-white-50p">
+    <div class="row no-gutters fpcm ui-background-white-50p">
         <div class="col-12 col-md-6 fpcm-ui-ellipsis">
             <h1 class="fpcm-ui-padding-lg-lr"><?php $theView->icon('chevron-right '); ?> <span>FanPress CM</span> <span>News System</span></h1>
         </div>               

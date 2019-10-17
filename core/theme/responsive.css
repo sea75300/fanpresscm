@@ -93,3 +93,11 @@
     }
 
 }
+
+@media (min-width: 1200px) {
+
+    div.fpcm.ui-form-login {
+        max-width: 750px !important;
+    }
+
+}

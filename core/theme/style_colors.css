@@ -43,10 +43,13 @@ div.fpcm-ui-dataview div.fpcm-ui-dataview-subhead {
     color: #fff;
 }
 
+.fpcm.ui-background-white-50p,
 .fpcm-ui-background-white-50p {
     background: rgba(255,255,255,0.75);
+
 }
 
+.fpcm.ui-background-white-90p,
 .fpcm-ui-background-white-90p {
     background: rgba(255,255,255,0.90);
 }

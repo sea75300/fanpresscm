@@ -223,6 +223,10 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
             $buttons[] = (new \fpcm\view\helper\icon('exclamation-triangle'))->setText('UPDATE_VERSIONCECK_FILETXT_ERR2')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text')->setSize('lg');
         }
 
+        if (!$item->isWritable()) {
+            $buttons[] = (new \fpcm\view\helper\icon('times-circle'))->setText('MODULES_FAILED_FSWRITE')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text')->setSize('lg');
+        }
+
         $buttons[] = '<div class="fpcm-ui-controlgroup">';
         $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
                             ->setText('MODULES_LIST_INFORMATIONS')
@@ -264,7 +268,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                 
             }
 
-            if ($this->permArr['canUninstall'] && !$item->isActive()) {
+            if ($this->permArr['canUninstall'] && !$item->isActive() && $item->isWritable()) {
                 $buttons[] = (new \fpcm\view\helper\button('uninstall'.$hash))->setText('MODULES_LIST_UNINSTALL')->setIcon('minus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'uninstall'])->setClass('fpcm-ui-modulelist-action-local');
             }
 
@@ -292,7 +296,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                 $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'install', 'dir' => true])->setClass('fpcm-ui-modulelist-action-local')->setReadonly(!$item->isInstallable());
             }            
 
-            if ($this->permArr['canUninstall']) {
+            if ($this->permArr['canUninstall'] && $item->isWritable()) {
                 $buttons[] = (new \fpcm\view\helper\button('delete'.$hash))->setText('MODULES_LIST_DELETE')->setIcon('trash')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'delete'])->setClass('fpcm-ui-modulelist-action-local');
             }            
         }

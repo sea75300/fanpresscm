@@ -37,7 +37,7 @@
         <div class="col-12 col-xl-6 pl-0 pl-xl-1">
             <div class="row no-gutters align-self-center justify-content-center">        
                 <div id="fpcm-filemanager-upload-drop" class="col-12 fpcm-ui-background-white-100">
-                    <h4 class="fpcm-ui-center"><?php $theView->icon('file-upload')->setSize('4x')->setClass('fpcm-ui-padding-md-bottom fpcm-ui-status-075'); ?><br><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4>
+                    <h4 class="fpcm-ui-center"><?php $theView->icon('file-upload')->setSize('4x')->setClass('fpcm-ui-padding-md-bottom fpcm ui-status-075'); ?><br><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
 <script id="template-upload" type="text/x-tmpl">
 
 {% for (var i=0, file; file=o.files[i]; i++) { %}
-    <div class="row template-upload fade fpcm-ui-padding-md-tb fpcm-ui-background-white-50p fpcm-ui-border-radius-all fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom">
+    <div class="row template-upload fade fpcm-ui-padding-md-tb fpcm ui-background-white-50p fpcm-ui-border-radius-all fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom">
         <div class="col-12 col-sm-auto fpcm-ui-center jqupload-row-buttons">
         
             {% if (!i && !o.options.autoUpload) { %}

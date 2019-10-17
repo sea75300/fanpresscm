@@ -87,6 +87,13 @@ class module {
     protected $initDb;
 
     /**
+     * Module base path
+     * @var string
+     * @since FPCM 4.3
+     */
+    protected $basePath = '';
+
+    /**
      * Konstruktor
      * @param string $key
      * @param boolean $initDb
@@ -101,6 +108,7 @@ class module {
 
         $this->mkey = $key;
         $this->prefix = str_replace('/', '', $this->mkey);
+        $this->basePath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $this->mkey));
 
         $this->initObjects();
         $this->init();
@@ -292,6 +300,16 @@ class module {
         }
 
         return true;
+    }
+
+    /**
+     * 
+     * @return bool
+     * @since FPCM 4.3
+     */
+    public function isWritable() : bool
+    {
+        return is_writable($this->basePath) && is_writable($this->basePath.DIRECTORY_SEPARATOR.'module.yml');
     }
 
     /**
@@ -542,7 +560,7 @@ class module {
         fpcmLogSystem('Update modules table with ' . $this->mkey);
 
         $values = get_object_vars($this);
-        unset($values['db'], $values['config'], $values['id'], $values['prefix'], $values['systemConfig'], $values['cache'], $values['initDb']);
+        unset($values['db'], $values['config'], $values['id'], $values['prefix'], $values['systemConfig'], $values['cache'], $values['initDb'], $values['basePath']);
         $values['data'] = json_encode($this->config);
 
         $result = $fromDir
@@ -550,7 +568,7 @@ class module {
                 : $this->db->insert(\fpcm\classes\database::tableModules, $values);
 
         if (!$result) {
-            trigger_error('Error while running update of module table! $fromDir: '.$fromDir);
+            trigger_error('Error while running update of module table for '.$this->mkey);
             return false;
         }
 

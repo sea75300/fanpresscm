@@ -28,6 +28,7 @@ namespace fpcm\view;
  * @property string $formActionTarget
  * @property string $langCode
  * @property string $bodyClass
+ * @property string $toolbarItemRight
  * @property int    $loginTime
  * 
  * @property array  $navigation
@@ -140,9 +141,8 @@ class viewVars {
      */
     public function getIncludePath($view) : string
     {
-        $path = \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $view);
-
-        if (!file_exists($path)) {
+        $path = realpath(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $view));
+        if (!trim($path) || strpos($path, \fpcm\classes\dirs::getFullDirPath('') ) !== 0 || !file_exists($path)) {
             trigger_error('Include view path ' . $view . ' does not exists');
             return '';
         }

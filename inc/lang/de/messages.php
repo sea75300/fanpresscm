@@ -170,6 +170,7 @@ $lang = array(
     'MODULES_FAILED_INSTALL' => 'Das ausgewählte Modul konnte nicht installiert werden.',
     'MODULES_FAILED_UNINSTALL' => 'Das ausgewählte Modul konnte nicht deinstalliert werden.',
     'MODULES_FAILED_DEPENCIES' => 'Es wurden nicht-erfüllte Abhängigkeiten erkannt, dass Modul kann daher nicht installiert werden!',
+    'MODULES_FAILED_FSWRITE' => 'Das Dateisystem ist für das Modul bzw. seine Dateien nicht beschreibbar!',
     'PUBLIC_FAILED_CAPTCHA' => 'Du hast die Captcha-Frage nicht korrekt beantwortet!',
     'PUBLIC_FAILED_NAME' => 'Bitte gibt deinen Namen ein!',
     'PUBLIC_FAILED_EMAIL' => 'Bitte gibt deine E-Mail-Adresse ein!',

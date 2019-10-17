@@ -884,6 +884,16 @@ class view {
     }
 
     /**
+     * Add HTML items into toolbar right hand to pager
+     * @param string $data
+     * @since FPCM 4.3
+     */
+    public function addToolbarRight(string $data)
+    {
+        $this->defaultViewVars->toolbarItemRight = $data;
+    }
+
+    /**
      * Triggers events addJsFiles/addCssFiles for given type
      * @param string $type
      */

@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="row no-gutters fpcm-ui-full-view-height m-2 ms-0">
-    <div class="fpcm-ui-form-login col-12 col-sm-10 col-md-8 col-lg-5 fpcm-ui-margin-center align-self-center">
-        <div class="fpcm-ui-background-white-50p fpcm-ui-border-radius-all fpcm-ui-border-blue-light fpcm-ui-padding-md-tb fpcm-ui-padding-lg-lr">
+    <div class="fpcm ui-form-login col-12 col-md-10 col-lg-8 col-xl-5 fpcm-ui-margin-center align-self-center">
+        <div class="fpcm ui-background-white-50p ui-blurring fpcm-ui-border-radius-all p-3 py-md-3 px-md-4">
 
             <h1 class="fpcm-ui-margin-md-bottom"><?php $theView->icon('chevron-right'); ?> <span>FanPress CM</span> <span>News System</span></h1>
             

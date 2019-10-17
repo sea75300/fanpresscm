@@ -169,7 +169,7 @@
             <?php else : ?>
             <div class="row fpcm-ui-padding-md-tb">
                 <div class="col-12">
-                    <?php $theView->icon('user-secret')->setStack('check fpcm-ui-editor-metainfo fpcm-ui-status-075')->setSize('lg')->setStackTop(true); ?>
+                    <?php $theView->icon('user-secret')->setStack('check fpcm-ui-editor-metainfo fpcm ui-status-075')->setSize('lg')->setStackTop(true); ?>
                     <?php $theView->write('USERS_AUTHTOKEN_ACTIVE'); ?>
                     <?php $theView->checkbox('disable2Fa')->setText('GLOBAL_DISABLE'); ?>
                 </div>

@@ -16,7 +16,7 @@
 
         <div class="row no-gutters align-self-center fpcm-ui-full-view-height m-5">
 
-            <div class="col-12 align-self-center fpcm-ui-center fpcm-ui-background-white-50p fpcm-ui-padding-md-tb">
+            <div class="col-12 align-self-center fpcm-ui-center fpcm ui-background-white-50p fpcm-ui-padding-md-tb">
                 <?php $theView->icon($icon.' fa-inverse')->setStack('square')->setClass('fa-5x fpcm-ui-important-text'); ?>
                 <p><?php print $errorMessage; ?></p>
                 <p><?php $theView->linkButton('backBtn')->setUrl($backController ? $backController : 'javascript:window.history.back();')->setText('GLOBAL_BACK')->setIcon('chevron-circle-left'); ?></p>

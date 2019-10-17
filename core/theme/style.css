@@ -351,10 +351,11 @@ div.fpcm-ui-inline-loader {
     opacity: 1.0;
 }
 
-.fpcm-ui-blurring {
+.fpcm.ui-blurring {
     backdrop-filter: blur(5px);
 }
 
+.fpcm.ui-status-075,
 .fpcm-ui-status-075 {
     opacity: 0.75;
 }
@@ -528,10 +529,6 @@ div.fpcm-filelist-thumb-box img {
 
 .pre-box {
     white-space: pre-line;
-}
-
-div.fpcm-ui-form-login {
-    max-width: 500px
 }
 
 .fpcm-ui-box-sizing-none {

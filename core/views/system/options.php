@@ -626,7 +626,7 @@
                         <?php if ($smtpActive) : ?>
                         <div class="row fpcm-ui-padding-md-tb">
                             <div class="col-12">
-                                <?php $theView->icon('envelope')->setStack('check fpcm-ui-editor-metainfo fpcm-ui-status-075')->setSize('lg')->setStackTop(true); ?>
+                                <?php $theView->icon('envelope')->setStack('check fpcm-ui-editor-metainfo fpcm ui-status-075')->setSize('lg')->setStackTop(true); ?>
                                 <?php $theView->write('SYSTEM_OPTIONS_EMAIL_ACTIVE'); ?>
                             </div>
                         </div>
@@ -731,7 +731,7 @@
                             </div>
                             <div class="col-12 col-md-6 align-self-center">
                             <?php if ($twitterIsActive) : ?>
-                                <?php $theView->icon('twitter', 'fab')->setStack('check fpcm-ui-editor-metainfo fpcm-ui-status-075')->setSize('lg')->setStackTop(true); ?>
+                                <?php $theView->icon('twitter', 'fab')->setStack('check fpcm-ui-editor-metainfo fpcm ui-status-075')->setSize('lg')->setStackTop(true); ?>
                                 <?php $theView->write('SYSTEM_OPTIONS_TWITTER_ACTIVE', ['{{screenname}}' => $twitterScreenName]); ?>
                             <?php endif; ?>
                             </div>
