@@ -39,6 +39,9 @@ fpcm.users = {
             });
         };
 
+        if (fpcm.vars.jsvars.chartData) {
+            fpcm.ui_chart.draw(fpcm.vars.jsvars.chartData);
+        }
     },
     
     initMoveDeleteArticles: function() {

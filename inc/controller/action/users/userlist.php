@@ -30,6 +30,18 @@ class userlist extends \fpcm\controller\abstracts\controller {
     protected $articleList;
 
     /**
+     *
+     * @var array
+     */
+    protected $chartItems;
+
+    /**
+     *
+     * @var array
+     */
+    protected $chartItemColors;
+
+    /**
      * 
      * @return string
      */
@@ -131,11 +143,12 @@ class userlist extends \fpcm\controller\abstracts\controller {
         
         $this->view->assign('usersListSelect', $this->userList->getUsersNameList());
         $this->view->assign('rollPermissions', $rollsPerm);
-        $this->view->addJsFiles(['users.js']);
+        
+        $chart = new \fpcm\components\charts\chart('pie', 'userArticles');
+        
+        $this->view->addJsFiles(array_merge(['users.js'], $chart->getJsFiles()));
         $this->view->addJsLangVars(['USERS_ARTICLES_SELECT', 'HL_OPTIONS_PERMISSIONS']);
-        $this->view->addJsVars([
-            'activeTab' => $this->getActiveTab()
-        ]);
+
         $this->view->setFormAction('users/list');
 
         $buttons = [
@@ -156,6 +169,23 @@ class userlist extends \fpcm\controller\abstracts\controller {
         if ($rollsPerm) {
             $this->createRollsView();
         }
+
+        $chart->setLabels(array_keys($this->chartItems));
+        
+        $chartItem = new \fpcm\components\charts\chartItem(
+            array_values($this->chartItems),
+            array_values($this->chartItemColors)
+        );
+
+        $chartItem->setBorderColor('none');
+        
+        $chart->setValues($chartItem);
+        $this->view->assign('userArticles', $chart);
+
+        $this->view->addJsVars([
+            'activeTab' => $this->getActiveTab(),
+            'chartData' => $chart
+        ]);
 
         $this->view->render();
         return true;
@@ -212,8 +242,13 @@ class userlist extends \fpcm\controller\abstracts\controller {
 
                 $noRb   = $user->getId() == $currentUser ? true : false;
 
+                $count = isset($articleCount[$userId]) ? $articleCount[$userId] : 0;
+
+                $this->chartItems[$user->getDisplayname()] = $count;
+                $this->chartItemColors[$user->getDisplayname()] = \fpcm\components\charts\chartItem::getRandomColor();
+
                 $metadata = [
-                    (new \fpcm\view\helper\badge('art'.$userId))->setValue(isset($articleCount[$userId]) ? $articleCount[$userId] : 0)->setText('USERS_ARTICLE_COUNT')->setIcon('book')->setClass('fpcm-ui-badge-userarticles'),
+                    (new \fpcm\view\helper\badge('art'.$userId))->setValue($count)->setText('USERS_ARTICLE_COUNT')->setIcon('book')->setClass('fpcm-ui-badge-userarticles'),
                     (new \fpcm\view\helper\icon('user-slash fa-inverse'))->setText('USERS_DISABLED')->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $user->getDisabled())->setStack('square')
                 ];
                 
