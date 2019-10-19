@@ -17,11 +17,11 @@ fpcm.ui_chart = {
             return false;
         }
 
-        for (var i = 0; i < _chartConf.data.length; i++) {
-            _chartConf.data[i].borderWidth = (_chartConf.type === 'line' ? 5 : 0);            
+        for (var i = 0; i < _chartConf.data.datasets.length; i++) {
+            _chartConf.data.datasets[i].borderWidth = (_chartConf.type === 'line' ? 2 : 0);            
         }
 
-        var isBarOrLine = (_chartConf.type === 'line' || _chartConf.type === 'bar');
+        let isBarOrLine = (_chartConf.type === 'line' || _chartConf.type === 'bar');
 
         if (_chartConf.options.legend === undefined) {
 
