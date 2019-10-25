@@ -98,7 +98,7 @@ class crons extends \fpcm\controller\abstracts\controller {
     protected function initDataViewRow($cronjob)
     {
         if ($this->currentTime > ($cronjob->getNextExecTime() - 60) || $cronjob->isRunning()) {
-            $processingIcon = (new \fpcm\view\helper\icon('spinner'))->setClass('fa-pulse');
+            $processingIcon = (string) (new \fpcm\view\helper\icon('spinner'))->setClass('fa-pulse');
             $processingClass = 'fpcm-ui-important-text';
         }
         else {
@@ -107,7 +107,7 @@ class crons extends \fpcm\controller\abstracts\controller {
         }
 
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\button($cronjob->getCronName()))->setText('CRONJOB_LIST_EXECDEMAND')->setClass('fpcm-cronjoblist-exec')->setIcon('play-circle')->setIconOnly(true)->setData([
+            new \fpcm\components\dataView\rowCol('button', $processingIcon.(new \fpcm\view\helper\button($cronjob->getCronName()))->setText('CRONJOB_LIST_EXECDEMAND')->setClass('fpcm-cronjoblist-exec')->setIcon('play-circle')->setIconOnly(true)->setData([
                 'cjid' => $cronjob->getCronName(),
                 'cjdescr' => $this->language->translate($cronjob->getCronNameLangVar())
             ]), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
