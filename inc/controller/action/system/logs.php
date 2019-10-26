@@ -58,11 +58,11 @@ class logs extends \fpcm\controller\abstracts\controller {
             (new \fpcm\view\helper\tabItem('logs-error'))->setText('HL_LOGS_ERROR')->setUrl($baseUrl.'2')->setDataViewId('logs'),
             (new \fpcm\view\helper\tabItem('logs-database'))->setText('HL_LOGS_DATABASE')->setUrl($baseUrl.'3')->setDataViewId('logs'),
             (new \fpcm\view\helper\tabItem('logs-crons'))->setText('HL_LOGS_CRONJOBS')->setUrl($baseUrl.'5')->setDataViewId('logs'),
-            (new \fpcm\view\helper\tabItem('logs-package'))->setText('HL_LOGS_PACKAGES')->setUrl($baseUrl.'4')->setDataViewId('')
+            (new \fpcm\view\helper\tabItem('logs-package'))->setText('HL_LOGS_PACKAGES')->setUrl($baseUrl.'4')
         ];
         
         if (defined('FPCM_DEBUG_EVENTS') && FPCM_DEBUG_EVENTS) {
-            $logs[] = (new \fpcm\view\helper\tabItem('logs-events'))->setText('HL_LOGS_EVENTS')->setUrl($baseUrl.'6');
+            $logs[] = (new \fpcm\view\helper\tabItem('logs-events'))->setText('HL_LOGS_EVENTS')->setUrl($baseUrl.'6')->setDataViewId('logs');
         }
         
         $this->view->assign('logs', $this->events->trigger('logs\addToList', $logs));
