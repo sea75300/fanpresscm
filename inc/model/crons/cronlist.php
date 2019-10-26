@@ -109,31 +109,6 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * Cron-Klassen-Liste
-     * @return array
-     */
-    public function getCrons()
-    {
-        $cronFiles = glob(\fpcm\classes\dirs::getIncDirPath('model' . DIRECTORY_SEPARATOR . 'crons' . DIRECTORY_SEPARATOR . '*.php'));
-
-        if (!is_array($cronFiles)) {
-            return [];
-        }
-
-        $crons = [];
-        foreach ($cronFiles as $cronFile) {
-
-            if ($cronFile == __FILE__) {
-                continue;
-            }
-
-            $crons[] = basename($cronFile, '.php');
-        }
-
-        return $this->events->trigger('cron\getList', $crons);
-    }
-
-    /**
      * Liefert Liste von Cronjobs, deren letzte Ausführung + Interval <= aktuellen Zeit ist
      * @return array
      * @since FPCM 3.2.0
