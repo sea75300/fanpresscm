@@ -649,7 +649,12 @@ class module {
                 ->setWhere('modulekey = ?')
                 ->setParams([$this->mkey])
                 ->setFetchStyle(\PDO::FETCH_KEY_PAIR)
+                ->setFetchAll(true)
         );
+        
+        if (!is_array($cronjobs)) {
+            $cronjobs = [];
+        }
 
         $failed = [];
         foreach ($crons as $name => $interval) {

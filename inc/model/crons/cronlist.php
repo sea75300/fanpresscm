@@ -31,9 +31,11 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
      * @param bool $async
      * @return bool
      */
-    public function registerCron($cronName, $async = false)
+    public function registerCron($cronName, $async = false, $module = false)
     {
-        $cronName = \fpcm\model\abstracts\cron::getCronNamespace($cronName);
+        $cronName   = $module
+                    ? \fpcm\module\module::getCronNamespace($module, $cronName)
+                    : \fpcm\model\abstracts\cron::getCronNamespace($cronName);
         if (!class_exists($cronName)) {
             trigger_error("Undefined cronjon {$cronName} called");
             return false;

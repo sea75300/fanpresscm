@@ -18,7 +18,7 @@ fpcm.crons = {
 
                 fpcm.dom.fromClass('fpcm-cronjoblist-exec').click(function () {
                     var data = fpcm.dom.fromTag(this).data();
-                    fpcm.crons.execCronjobDemand(data.cjid, data.cjdescr);
+                    fpcm.crons.execCronjobDemand(data.cjid, data.cjmod, data.cjdescr);
                     return false;
                 });
                 
@@ -35,11 +35,12 @@ fpcm.crons = {
 
     },
 
-    execCronjobDemand : function(cronjobId, descr) {
+    execCronjobDemand : function(cronjobId, modulekey, descr) {
         fpcm.ui.showLoader(true, fpcm.ui.translate('CRONJOB_ECEDUTING').replace('{{cjname}}', descr) );
         fpcm.ajax.get('cronasync', {
             data    : {
-                cjId: cronjobId
+                cjId: cronjobId,
+                cjmod: modulekey
             },
             execDone: 'fpcm.ui.showLoader();'
         });

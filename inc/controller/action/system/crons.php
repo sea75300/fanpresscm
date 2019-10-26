@@ -109,7 +109,8 @@ class crons extends \fpcm\controller\abstracts\controller {
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('button', $processingIcon.(new \fpcm\view\helper\button($cronjob->getCronName()))->setText('CRONJOB_LIST_EXECDEMAND')->setClass('fpcm-cronjoblist-exec')->setIcon('play-circle')->setIconOnly(true)->setData([
                 'cjid' => $cronjob->getCronName(),
-                'cjdescr' => $this->language->translate($cronjob->getCronNameLangVar())
+                'cjdescr' => $this->language->translate($cronjob->getCronNameLangVar()),
+                'cjmod' => $cronjob->getModuleKey()
             ]), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             new \fpcm\components\dataView\rowCol('name', $this->language->translate($cronjob->getCronNameLangVar())),
             new \fpcm\components\dataView\rowCol('interval', (new \fpcm\view\helper\select('intervals_' . $cronjob->getCronName()))->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)->setOptions($this->intervals)->setSelected($cronjob->getIntervalTime())->setClass('fpcm-cronjoblist-intervals')),

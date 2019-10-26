@@ -32,11 +32,24 @@ class cronasync extends \fpcm\controller\abstracts\ajaxController {
     public function process()
     {
         $cronName = $this->getRequestVar('cjId');
+        $module = $this->getRequestVar('cjmod');
         if (!$cronName) {
             return true;
         }
 
-        $cronName = \fpcm\model\abstracts\cron::getCronNamespace($cronName);
+        if (trim($module)) {
+            
+            if (!(new \fpcm\module\module($module))->isActive()) {
+                trigger_error("Undefined cronjon {$cronName} called");
+                return false;
+            }
+
+            $cronName = \fpcm\module\module::getCronNamespace($module, $cronName);
+        }
+        else {
+            $cronName = \fpcm\model\abstracts\cron::getCronNamespace($cronName);
+        }
+
         if (!class_exists($cronName)) {
             trigger_error("Undefined cronjon {$cronName} called");
             return false;
