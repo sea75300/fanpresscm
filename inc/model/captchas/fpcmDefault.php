@@ -73,6 +73,25 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
      * Create input field for Captcha
      * @param bool $wrap
      * @return string
+     * @since FPCM 4.3
+     */
+    public function createPluginTextInput()
+    {
+        if ($this->session->exists()) {
+            return '';
+        }
+
+        return (string) (new \fpcm\view\helper\textInput('commentCaptcha'))
+            ->setClass('fpcm-pub-textinput')
+            ->setAutocomplete(false)
+            ->setText($this->config->comments_antispam_question)
+            ->setDisplaySizesDefault();
+    }
+    
+    /**
+     * Create input field for Captcha
+     * @param bool $wrap
+     * @return string
      */
     public function createPluginInput($wrap = false)
     {
@@ -80,7 +99,7 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
             return '';
         }
 
-        return (string) (new \fpcm\view\helper\textInput('commentCaptcha'))->setClass('fpcm-pub-textinput')->setWrapper($wrap)->setAutocomplete(false);
+        return (string) (new \fpcm\view\helper\textInput('commentCaptcha'))->setClass('fpcm-pub-textinput')->setWrapper($wrap)->setAutocomplete(false)->setText('');
     }
 
     /**

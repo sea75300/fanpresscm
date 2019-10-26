@@ -7,7 +7,6 @@
 
                 <div class="row fpcm-ui-padding-md-tb no-gutters">
                     <?php $theView->textInput('conf[system_email]')                             
-                        ->setWrapper(false)
                         ->setText('GLOBAL_EMAIL')
                         ->setType('email')
                         ->setDisplaySizesDefault(); ?>
@@ -16,7 +15,6 @@
                 <div class="row fpcm-ui-padding-md-tb no-gutters">
                     <?php $theView->textInput('conf[system_url]')
                         ->setValue(fpcm\classes\dirs::getRootUrl('index.php'))                                        
-                        ->setWrapper(false)
                         ->setText('SYSTEM_OPTIONS_URL')
                         ->setType('url')
                         ->setDisplaySizesDefault(); ?>
@@ -51,7 +49,6 @@
                         <div class="row">
                             <?php $theView->textInput('conf[system_dtmask]')
                                 ->setValue('d.m.Y H:i:s')                                        
-                                ->setWrapper(false)
                                 ->setText('SYSTEM_OPTIONS_DATETIMEMASK')
                                 ->setDisplaySizes(['xs' => 12, 'md' => 5], ['xs' => 12, 'md' => 5]); ?>
 
@@ -105,14 +102,12 @@
 
                 <div class="row fpcm-ui-padding-md-tb no-gutters">
                     <?php $theView->textInput('conf[comments_antispam_question]')                                        
-                        ->setWrapper(false)
                         ->setText('SYSTEM_OPTIONS_ANTISPAMQUESTION')
                         ->setDisplaySizesDefault(); ?>
                 </div>
 
                 <div class="row fpcm-ui-padding-md-tb no-gutters">
                     <?php $theView->textInput('conf[comments_antispam_answer]')
-                        ->setWrapper(false)
                         ->setText('SYSTEM_OPTIONS_ANTISPAMANSWER')
                         ->setDisplaySizesDefault(); ?>
                 </div>

@@ -5,7 +5,6 @@
         <?php $theView->textInput('links[url]', 'linksurl')
                 ->setType('url')
                 ->setValue('')
-                ->setWrapper(false)
                 ->setText('EDITOR_LINKURL')
                 ->setIcon('external-link-alt')
                 ->setSize('lg')
@@ -14,7 +13,6 @@
     </div>
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('links[text]', 'linkstext')
-                ->setWrapper(false)
                 ->setText('EDITOR_LINKTXT')
                 ->setIcon('keyboard')
                 ->setSize('lg')
@@ -45,7 +43,6 @@
         <?php $theView->textInput('images[path]', 'imagespath')
                 ->setType('url')
                 ->setValue('')
-                ->setWrapper(false)
                 ->setText('EDITOR_IMGPATH')
                 ->setIcon('image')
                 ->setSize('lg')
@@ -54,7 +51,6 @@
     </div>
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('images[alt]', 'imagesalt')
-                ->setWrapper(false)
                 ->setText('EDITOR_IMGALTTXT')
                 ->setIcon('keyboard')
                 ->setSize('lg')
@@ -84,7 +80,7 @@
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('table[rows]', 'tablerows')
                 ->setValue(1)->setMaxlenght(5)
-                ->setWrapper(false)->setText('EDITOR_INSERTTABLE_ROWS')
+                ->setText('EDITOR_INSERTTABLE_ROWS')
                 ->setIcon('arrow-down')
                 ->setSize('lg')
                 ->setLabelClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-label-general'); ?>
@@ -92,7 +88,7 @@
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('table[rows]', 'tablecols')
                 ->setValue(1)->setMaxlenght(5)
-                ->setWrapper(false)->setText('EDITOR_INSERTTABLE_COLS')
+                ->setText('EDITOR_INSERTTABLE_COLS')
                 ->setIcon('arrow-right')
                 ->setSize('lg')
                 ->setLabelClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-label-general'); ?>
@@ -104,7 +100,7 @@
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('list[rows]', 'listrows')
                 ->setValue(1)->setMaxlenght(5)
-                ->setWrapper(false)->setText('EDITOR_INSERTTABLE_ROWS')
+                ->setText('EDITOR_INSERTTABLE_ROWS')
                 ->setIcon('keyboard')
                 ->setSize('lg')
                 ->setLabelClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-label-general'); ?>
@@ -112,7 +108,7 @@
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('list[type]', 'listtype')
                 ->setValue('')
-                ->setWrapper(false)->setText('EDITOR_INSERTLIST_TYPESIGN')
+                ->setText('EDITOR_INSERTLIST_TYPESIGN')
                 ->setIcon('list-ul')
                 ->setSize('lg')
                 ->setClass('col-6 col-md-4 fpcm-ui-field-input-nowrapper-general')
@@ -129,7 +125,6 @@
                 <?php $theView->textInput('media[path]', 'mediapath')
                         ->setType('url')
                         ->setValue('')
-                        ->setWrapper(false)
                         ->setText('EDITOR_IMGPATH')
                         ->setIcon('film ')
                         ->setSize('lg')
@@ -151,7 +146,6 @@
                 <?php $theView->textInput('media[path]', 'mediapath2')
                         ->setType('url')
                         ->setValue('')
-                        ->setWrapper(false)
                         ->setText('EDITOR_IMGPATH_ALT')
                         ->setIcon('file-video')
                         ->setSize('lg')
@@ -185,7 +179,6 @@
         <?php $theView->textInput('colorhexcode')
                 ->setValue('#000000')
                 ->setType('color')
-                ->setWrapper(false)
                 ->setMaxlenght(7)
                 ->setText('EDITOR_INSERTCOLOR_HEXCODE')
                 ->setIcon('eye-dropper')
@@ -228,7 +221,6 @@
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('quote[src]')
                 ->setValue('')
-                ->setWrapper(false)
                 ->setText('TEMPLATE_ARTICLE_SOURCES')
                 ->setIcon('external-link-alt')
                 ->setSize('lg')

@@ -37,7 +37,6 @@
 
             <div class="row fpcm-ui-padding-md-tb">
                 <?php $theView->textInput('comment[name]')
-                        ->setWrapper(false)
                         ->setText('COMMMENT_AUTHOR')
                         ->setValue($comment->getName())
                         ->setIcon('signature')
@@ -46,7 +45,6 @@
             </div>            
             <div class="row fpcm-ui-padding-md-tb">
                 <?php $theView->textInput('comment[email]')
-                        ->setWrapper(false)
                         ->setText('GLOBAL_EMAIL')
                         ->setValue($comment->getEmail())
                         ->setType('email')
@@ -56,7 +54,6 @@
             </div>            
             <div class="row fpcm-ui-padding-md-tb">
                 <?php $theView->textInput('comment[website]')
-                        ->setWrapper(false)
                         ->setText('COMMMENT_WEBSITE')
                         ->setValue($comment->getWebsite())
                         ->setType('url')

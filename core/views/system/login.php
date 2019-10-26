@@ -8,7 +8,7 @@
             <?php if ($twoFactorAuth) : ?>
             <div class="row no-gutters fpcm-ui-padding-md-tb">
                 <div class="col-12">
-                <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true); ?>
+                <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true)->setWrapper(true); ?>
                 <?php $theView->hiddenInput('login[username]')->setValue($username); ?>
                 <?php $theView->hiddenInput('login[password]')->setValue($password); ?>
                 </div>
@@ -16,31 +16,24 @@
             <?php else : ?>
             <div class="row no-gutters fpcm-ui-padding-md-tb">
                 <div class="col-12">
-                    <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true); ?>
+                    <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true)->setWrapper(true); ?>
                 </div>
             </div>
 
             <div class="row no-gutters fpcm-ui-padding-md-tb">
                 <div class="col-12">
                 <?php if ($resetPasswort) : ?>
-                    <?php $theView->textInput('email')->setType('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true); ?>
+                    <?php $theView->textInput('email')->setType('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true)->setWrapper(true); ?>
                 <?php else : ?>
-                    <?php $theView->passwordInput('login[password]')->setText('GLOBAL_PASSWORD')->setPlaceholder(true)->setAutocomplete(false); ?>
+                    <?php $theView->passwordInput('login[password]')->setText('GLOBAL_PASSWORD')->setPlaceholder(true)->setAutocomplete(false)->setWrapper(true); ?>
                 <?php endif; ?>
                 </div>
             </div>
             <?php endif; ?>
 
             <?php if ($resetPasswort) : ?>
-            <div class="row no-gutters fpcm-ui-padding-md-tb">
-                <label class="col-6 fpcm-ui-field-label-general align-self-center">
-                    <div class="fpcm-ui-padding-md-lr"><?php print $captcha->createPluginText(); ?></div>
-                </label>
-                <div class="col-6 fpcm-ui-input-wrapper fpcm-ui-padding-none-lr fpcm-ui-border-radius-right">
-                    <div class="fpcm-ui-input-wrapper-inner">
-                        <?php print $captcha->createPluginInput(false); ?>
-                    </div>
-                </div>
+            <div class="row fpcm-ui-padding-md-tb">
+                <?php print $captcha->createPluginTextInput(); ?>
             </div>
             <?php endif; ?>
 

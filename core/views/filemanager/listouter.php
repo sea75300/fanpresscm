@@ -37,12 +37,11 @@
 
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-rename">
     <div class="row fpcm-ui-padding-md-tb">
-            <?php $theView->textInput('newFilenameDialog')
-                    ->setWrapper(false)
-                    ->setText('FILE_LIST_FILENAME')
-                    ->setValue('')
-                    ->setIcon('edit')
-                    ->setDisplaySizesDefault(); ?>
+        <?php $theView->textInput('newFilenameDialog')
+            ->setText('FILE_LIST_FILENAME')
+            ->setValue('')
+            ->setIcon('edit')
+            ->setDisplaySizesDefault(); ?>
     </div>    
 </div>
 

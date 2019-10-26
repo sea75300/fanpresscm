@@ -12,7 +12,7 @@
         </div>
 
         <div class="col-12 col-md-8 my-2 my-md-0">
-            <?php $theView->textInput('text')->setClass('fpcm-articles-search-input')->setMaxlenght(255)->setText('ARTICLE_SEARCH_TEXT')->setPlaceholder(true); ?>
+            <?php $theView->textInput('text')->setClass('fpcm-articles-search-input')->setMaxlenght(255)->setText('ARTICLE_SEARCH_TEXT')->setPlaceholder(true)->setWrapper(true); ?>
         </div>
     </div>
 
@@ -30,6 +30,7 @@
             <?php $theView->dateTimeInput('datefrom')
                     ->setClass('fpcm-articles-search-input fpcm-ui-full-width-date')
                     ->setMaxlenght(10)
+                    ->setWrapper(true)
                     ->setText('ARTICLE_SEARCH_DATE_FROM')
                     ->setPlaceholder(true)
                     ->setData(['mindate' => $searchMinDate]); ?>
@@ -49,6 +50,7 @@
             <?php $theView->dateTimeInput('dateto')
                     ->setClass('fpcm-articles-search-input fpcm-ui-full-width-date')
                     ->setMaxlenght(10)
+                    ->setWrapper(true)
                     ->setText('ARTICLE_SEARCH_DATE_TO')
                     ->setPlaceholder(true); ?>
         </div>

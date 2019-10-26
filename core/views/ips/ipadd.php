@@ -25,7 +25,6 @@
                             <div class="col-12">
                                 <div class="row">
                                     <?php $theView->textInput('ipaddress')
-                                        ->setWrapper(false)
                                         ->setValue($object->getIpaddress())
                                         ->setText('IPLIST_IPADDRESS')
                                         ->setIcon('network-wired')

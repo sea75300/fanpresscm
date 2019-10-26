@@ -19,7 +19,6 @@
 
         <div class="row fpcm-ui-padding-md-tb">
                 <?php $theView->textInput('database[DBHOST]')
-                        ->setWrapper(false)
                         ->setText('INSTALLER_DBCONNECTION_HOST')
                         ->setValue('localhost')
                         ->setClass('fpcm-installer-data')
@@ -28,7 +27,6 @@
 
         <div class="row fpcm-ui-padding-md-tb">
                 <?php $theView->textInput('database[DBNAME]')
-                        ->setWrapper(false)
                         ->setText('INSTALLER_DBCONNECTION_NAME')
                         ->setClass('fpcm-installer-data')
                         ->setDisplaySizesDefault(); ?>
@@ -36,7 +34,6 @@
 
         <div class="row fpcm-ui-padding-md-tb">
                 <?php $theView->textInput('database[DBUSER]')
-                        ->setWrapper(false)
                         ->setText('INSTALLER_DBCONNECTION_USER')
                         ->setClass('fpcm-installer-data')
                         ->setDisplaySizesDefault(); ?>
@@ -44,7 +41,6 @@
 
         <div class="row fpcm-ui-padding-md-tb">
                 <?php $theView->textInput('database[DBPASS]')
-                        ->setWrapper(false)
                         ->setText('INSTALLER_DBCONNECTION_PASS')
                         ->setClass('fpcm-installer-data')
                         ->setDisplaySizesDefault(); ?>
@@ -52,7 +48,6 @@
 
         <div class="row fpcm-ui-padding-md-tb">
                 <?php $theView->textInput('database[DBPREF]')
-                        ->setWrapper(false)
                         ->setText('INSTALLER_DBCONNECTION_PREF')
                         ->setValue('fpcm4')
                         ->setClass('fpcm-installer-data')

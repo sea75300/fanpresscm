@@ -27,7 +27,6 @@
     <div class="row fpcm-ui-padding-md-tb fpcm-ui-padding-none-lr-small">
 
         <?php $theView->dateTimeInput('article[postponedate]')
-                ->setWrapper(false)
                 ->setText('EDITOR_POSTPONED_DATE')
                 ->setPlaceholder((string) $theView->dateText($postponedTimer, 'Y-m-d'))
                 ->setValue($theView->dateText($postponedTimer, 'Y-m-d'))
@@ -38,8 +37,8 @@
 
         
         <div class="fpcm-ui-controlgroup mt-2 mt-md-0 ml-0 ml-md-2">
-            <?php $theView->textInput('article[postponehour]')->setText('')->setClass('fpcm-ui-spinner-hour ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'H'))->setWrapper(false); ?>
-            <?php $theView->textInput('article[postponeminute]')->setText('')->setClass('fpcm-ui-spinner-minutes ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'i'))->setWrapper(false); ?>
+            <?php $theView->textInput('article[postponehour]')->setText('')->setClass('fpcm-ui-spinner-hour ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'H')); ?>
+            <?php $theView->textInput('article[postponeminute]')->setText('')->setClass('fpcm-ui-spinner-minutes ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'i')); ?>
             <?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'postponed'])->setLabelClass('fpcm-ui-margin-md-left')->setIconOnly(true); ?>
         </div>
     </div>
@@ -50,7 +49,6 @@
     <legend><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?></legend>
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('article[sources]')
-                ->setWrapper(false)
                 ->setPlaceholder('http://')
                 ->setText('TEMPLATE_ARTICLE_SOURCES')
                 ->setValue($article->getSources())
@@ -66,7 +64,6 @@
     <div class="row fpcm-ui-padding-md-tb fpcm-editor-dialog-fullwidth-items">
 
         <?php $theView->textInput('article[tweettxt]')
-                ->setWrapper(false)
                 ->setPlaceholder($twitterTplPlaceholder)
                 ->setText('EDITOR_TWEET_TEXT')
                 ->setValue('')
@@ -89,7 +86,6 @@
     <div class="row fpcm-ui-padding-md-tb">
         <?php $theView->textInput('article[imagepath]')
                 ->setType('url')
-                ->setWrapper(false)
                 ->setPlaceholder('http://')
                 ->setText('TEMPLATE_ARTICLE_ARTICLEIMAGE')
                 ->setValue($article->getImagepath())

@@ -10,7 +10,6 @@
                         <?php $theView->textInput('data[displayname]')
                             ->setValue($author->getDisplayName())
                             ->setAutocomplete(false)
-                            ->setWrapper(false)
                             ->setText('USERS_DISPLAYNAME')
                             ->setIcon('signature')
                             ->setDisplaySizes([12, 5], [12, 7]); ?>
@@ -25,7 +24,6 @@
                             ->setValue($author->getUserName())
                             ->setReadonly((isset($inProfile) && $inProfile))
                             ->setAutocomplete(false)
-                            ->setWrapper(false)
                             ->setText('GLOBAL_USERNAME')
                             ->setIcon('user')
                             ->setDisplaySizes([12, 5], [12, 7]); ?>
@@ -38,7 +36,6 @@
                     <div class="row">
                         <?php $theView->textInput('data[password]', 'password')
                             ->setAutocomplete(false)
-                            ->setWrapper(false)
                             ->setText('GLOBAL_PASSWORD')
                             ->setIcon('passport')
                             ->setDisplaySizes([12, 5], [12, 7]); ?>
@@ -55,7 +52,6 @@
                     <div class="row">
                         <?php $theView->textInput('data[password_confirm]', 'password_confirm')
                             ->setAutocomplete(false)
-                            ->setWrapper(false)
                             ->setText('USERS_PASSWORD_CONFIRM')
                             ->setIcon('passport')
                             ->setDisplaySizes([12, 5], [12, 7]); ?>
@@ -69,7 +65,6 @@
                         <?php $theView->textInput('data[email]')
                             ->setType('email')
                             ->setValue($author->getEmail())
-                            ->setWrapper(false)
                             ->setText('GLOBAL_EMAIL')
                             ->setIcon('at')
                             ->setDisplaySizes([12, 5], [12, 7]); ?>
@@ -102,7 +97,6 @@
                     <div class="row">
                         <?php $theView->passwordInput('data[current_pass]')
                             ->setAutocomplete(false)
-                            ->setWrapper(false)
                             ->setText('GLOBAL_PASSWORD_CONFIRM')
                             ->setIcon('exclamation-triangle fpcm-ui-important-text')
                             ->setSize('lg')
@@ -151,7 +145,6 @@
                             ->setValue('')
                             ->setMaxlenght(6)
                             ->setAutocomplete(false)
-                            ->setWrapper(false)
                             ->setText('USERS_AUTHTOKEN_SAVE2')
                             ->setIcon('exclamation-triangle fpcm-ui-important-text')
                             ->setSize('lg')

@@ -9,7 +9,6 @@
                     <div class="row">
                         <?php $theView->textInput('wbitem[searchtext]')
                             ->setValue($item->getSearchtext())
-                            ->setWrapper(false)
                             ->setText('WORDBAN_NAME')
                             ->setIcon('filter')
                             ->setDisplaySizesDefault(); ?>
@@ -22,7 +21,6 @@
                     <div class="row">
                         <?php $theView->textInput('wbitem[replacementtext]')
                             ->setValue($item->getReplacementtext())
-                            ->setWrapper(false)
                             ->setText('WORDBAN_REPLACEMENT_TEXT')
                             ->setIcon('edit')
                             ->setDisplaySizesDefault(); ?>

@@ -834,12 +834,6 @@ class view {
         $this->showPageToken = (bool) $showPageToken;
         return $this;
     }
-        
-    /**
-     * Set form action path
-     * @param string $controller
-     * @param array $params
-     */
     
     /**
      * Adds dataview object to view variables
@@ -871,7 +865,21 @@ class view {
         }
 
     }
-    
+
+    /**
+     * Sets view to standard tab view,
+     * do not use if you want to include tabs in aother view!!!
+     * @param string $tabsId
+     * @param array $tabs
+     * @since FPCM 4.3
+     */
+    public function addTabs(string $tabsId, array $tabs)
+    {
+        $this->setViewPath('components/tabs');
+        $this->assign('tabsId', $tabsId);
+        $this->assign('tabs', $tabs);
+    }
+
     /**
      * Add pager to view
      * @param \fpcm\view\helper\pager $pager

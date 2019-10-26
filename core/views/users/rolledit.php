@@ -11,7 +11,6 @@
                     <div class="row">
                         <?php $theView->textInput('rollname')
                             ->setValue($userRoll->getRollName())
-                            ->setWrapper(false)
                             ->setText('USERS_ROLLS_NAME')
                             ->setDisplaySizesDefault(); ?>
                     </div>

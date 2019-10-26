@@ -61,7 +61,6 @@
                         <?php $theView->textInput('data[system_dtmask]')
                                 ->setValue($author->getUserMeta('system_dtmask'))
                                 ->setAutocomplete(false)
-                                ->setWrapper(false)
                                 ->setText('SYSTEM_OPTIONS_DATETIMEMASK')
                                 ->setIcon('calendar')
                                 ->setDisplaySizes(['xs' => 12, 'sm' => 6], ['xs' => 12, 'sm' => 6, 'lg' => 4]); ?>

@@ -12,7 +12,7 @@
         </div>
 
         <div class="col-12 col-md-8 my-2 my-md-0">
-            <?php $theView->textInput('text')->setClass('fpcm-comments-search-input')->setMaxlenght(255)->setText('ARTICLE_SEARCH_TEXT')->setPlaceholder(true); ?>
+            <?php $theView->textInput('text')->setClass('fpcm-comments-search-input')->setMaxlenght(255)->setText('ARTICLE_SEARCH_TEXT')->setPlaceholder(true)->setWrapper(true); ?>
         </div>
     </div>
 
@@ -31,6 +31,7 @@
                     ->setClass('fpcm-comments-search-input fpcm-ui-full-width-date')
                     ->setMaxlenght(10)
                     ->setText('ARTICLE_SEARCH_DATE_FROM')
+                    ->setWrapper(true)
                     ->setPlaceholder(true); ?>
         </div>
     </div>
@@ -49,6 +50,7 @@
                     ->setClass('fpcm-comments-search-input fpcm-ui-full-width-date')
                     ->setMaxlenght(10)
                     ->setText('ARTICLE_SEARCH_DATE_TO')
+                    ->setWrapper(true)
                     ->setPlaceholder(true); ?>
         </div>
     </div>
@@ -114,7 +116,7 @@
         </div>
 
         <div class="col-12 col-md-8 my-2 my-md-0">
-            <?php $theView->textInput('articleId')->setClass('fpcm-comments-search-input fpcm-ui-input-articleid')->setMaxlenght(20)->setText('COMMMENT_SEARCH_ARTICLE')->setPlaceholder(true); ?>
+            <?php $theView->textInput('articleId')->setClass('fpcm-comments-search-input fpcm-ui-input-articleid')->setMaxlenght(20)->setText('COMMMENT_SEARCH_ARTICLE')->setPlaceholder(true)->setWrapper(true); ?>
         </div>
     </div>
 

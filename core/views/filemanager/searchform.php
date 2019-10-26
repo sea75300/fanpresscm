@@ -6,7 +6,7 @@
         <div class="col-12 col-md-4 my-2 my-md-0"></div>
 
         <div class="col-12 col-md-8 my-2 my-md-0">
-            <?php $theView->textInput('filename')->setText('FILE_LIST_FILENAME')->setMaxlenght(255)->setPlaceholder(true)->setClass('fpcm-files-search-input'); ?>
+            <?php $theView->textInput('filename')->setText('FILE_LIST_FILENAME')->setMaxlenght(255)->setPlaceholder(true)->setWrapper(true)->setClass('fpcm-files-search-input'); ?>
         </div>
     </div>
 
@@ -25,7 +25,8 @@
                     ->setClass('fpcm-files-search-input fpcm-ui-full-width-date')
                     ->setMaxlenght(10)
                     ->setText('ARTICLE_SEARCH_DATE_FROM')
-                    ->setPlaceholder(true); ?>
+                    ->setPlaceholder(true)
+                    ->setWrapper(true); ?>
         </div>
     </div>
 
@@ -43,7 +44,8 @@
                     ->setClass('fpcm-files-search-input fpcm-ui-full-width-date')
                     ->setMaxlenght(10)
                     ->setText('ARTICLE_SEARCH_DATE_TO')
-                    ->setPlaceholder(true); ?>
+                    ->setPlaceholder(true)
+                    ->setWrapper(true); ?>
         </div>
     </div>
 

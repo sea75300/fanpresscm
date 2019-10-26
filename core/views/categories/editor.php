@@ -9,7 +9,6 @@
                     <div class="row">
                         <?php $theView->textInput('category[name]')
                             ->setValue($category->getName())
-                            ->setWrapper(false)
                             ->setText('CATEGORIES_NAME')
                             ->setIcon('tag')
                             ->setDisplaySizesDefault(); ?>
@@ -23,7 +22,6 @@
                         <?php $theView->textInput('category[iconpath]')
                             ->setValue($category->getIconPath())
                             ->setType('url')
-                            ->setWrapper(false)
                             ->setText('CATEGORIES_ICON_PATH')
                             ->setIcon('link')
                             ->setDisplaySizesDefault(); ?>
