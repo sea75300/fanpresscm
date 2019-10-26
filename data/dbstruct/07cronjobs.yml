@@ -24,9 +24,18 @@ cols:
         type: bigint
         length: 20
         params: NOT NULL
+    modulekey:
+        type: varchar
+        length: 255
+        params: NULL
 indices:
     cjname:
         col: cjname
+        isUnqiue: true
+    cjname_modulekey:
+        col:
+            cjname
+            modulekey
         isUnqiue: true
     lastexec:
         col: lastexec
@@ -38,48 +47,58 @@ defaultvalues:
             cjname: "anonymizeIps"
             lastexec: 0
             execinterval: 2419200
+            modulekey: 
         2:
             id: 2
             cjname: "clearLogs"
             lastexec: 0
             execinterval: 2419200
+            modulekey: 
         3:
             id: 3
             cjname: "clearTemp"
             lastexec: 0
             execinterval: 604800
+            modulekey: 
         4:
             id: 4
             cjname: "fmThumbs"
             lastexec: 0
             execinterval: 604800
+            modulekey: 
         5:
             id: 5
             cjname: "postponedArticles"
             lastexec: 0
             execinterval: 600
+            modulekey: 
         6:
             id: 6
             cjname: "updateCheck"
             lastexec: 0
             execinterval: 86400
+            modulekey: 
         7:
             id: 7
             cjname: "dbBackup"
             lastexec: 0
             execinterval: 604800
+            modulekey: 
         8:
             id: 8
             cjname: "fileindex"
             lastexec: 0
             execinterval: 86400
+            modulekey: 
         9:
             id: 9
             cjname: "removeRevisions"
             lastexec: 0
             execinterval: 2419200
+            modulekey: 
         10:
             id: 10
             cjname: "cleanupTrash"
             lastexec: 0
             execinterval: 86400
+            modulekey: 

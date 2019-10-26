@@ -39,6 +39,7 @@ class moduleTest extends \PHPUnit_Framework_TestCase {
         $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
         $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab1', '*')), 'Fetch from table module_nkorgexample_tab1 failed');
         $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab2', '*')), 'Fetch from table module_nkorgexample_tab2 failed');
+        $this->assertGreaterThanOrEqual(1, $db->count(fpcm\classes\database::tableCronjobs, 'modulekey = ?', ['nkorg/example']));
 
     }
     
@@ -70,6 +71,7 @@ class moduleTest extends \PHPUnit_Framework_TestCase {
         $success = $GLOBALS['module']->update();
 
         $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab1', '*')), 'Fetch from table module_nkorgexample_tab1 failed');
+        $this->assertGreaterThanOrEqual(1, $db->count(fpcm\classes\database::tableCronjobs, 'modulekey = ?', ['nkorg/example']));
     }
 
     public function testGetInstalledModules()
@@ -107,5 +109,6 @@ class moduleTest extends \PHPUnit_Framework_TestCase {
         /* @var $db \fpcm\classes\database */
         $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
         $this->assertCount(0, $db->getTableStructure('module_nkorgexample_tab1', false, false));
+        $this->assertEquals(0, $db->count(fpcm\classes\database::tableCronjobs, 'modulekey = ?', ['nkorg/example']));
     }
 }

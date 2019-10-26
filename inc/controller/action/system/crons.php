@@ -52,7 +52,7 @@ class crons extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
-        $this->items = (new \fpcm\model\crons\cronlist())->getCronsData();
+        $this->items = (new \fpcm\model\crons\cronlist())->getAllCrons();
 
         $this->intervals = $this->language->translate('SYSTEM_OPTIONS_CRONINTERVALS');
         $this->currentTime = time();

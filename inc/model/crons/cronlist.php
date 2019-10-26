@@ -70,7 +70,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
 
         fpcmLogCron('Finished cronjob "' . $cron->getCronName() . '" in ' . \fpcm\classes\timer::cal(__METHOD__) . ' sec');
 
-        if (!is_null($cron->getReturnData())) {
+        if ($cron->getReturnData() !== null) {
             return $cron->getReturnData();
         }
 
@@ -109,76 +109,79 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * Liefert Liste von Cronjobs, deren letzte Ausführung + Interval <= aktuellen Zeit ist
+     * Returns a list of cronjobs to be executed within the current request
      * @return array
      * @since FPCM 3.2.0
      */
     public function getExecutableCrons()
     {
-        $res = \fpcm\classes\loader::getObject('\fpcm\classes\database')->fetch(
-                \fpcm\classes\loader::getObject('\fpcm\classes\database')->select(
-                        \fpcm\classes\database::tableCronjobs, '*', '(lastexec+execinterval) < ?', [time()]
-                ), true
-        );
+        return $this->getResult(\fpcm\classes\loader::getObject('\fpcm\classes\database')->selectFetch(
+            (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
+                ->setWhere('(lastexec+execinterval) < ?')
+                ->setParams([time()])
+                ->setFetchAll(true)
+        ), true);
+    }
 
-        $list = [];
-
-        if (!count($res)) {
-            return $list;
-        }
-
-        foreach ($res as $value) {
-            $cronName = \fpcm\model\abstracts\cron::getCronNamespace($value->cjname);
-
-            if (!class_exists($cronName)) {
-                continue;
-            }
-
-            /**
-             * @var \fpcm\model\abstracts\cron
-             */
-            $cron = new $cronName(false);
-
-            if (!is_a($cron, '\fpcm\model\abstracts\cron')) {
-                trigger_error("Cronjob class {$cronName} must be an instance of \"\fpcm\model\abstracts\cron\"!");
-                return false;
-            }
-
-            $cron->createFromDbObject($value);
-
-            $list[] = $cron;
-        }
-
-        return $list;
+    /**
+     * Returns a list of all registered cronjobs
+     * @return array
+     * @since FPCm 4.3
+     */
+    public function getAllCrons() : array
+    {
+        return $this->getResult(
+            \fpcm\classes\loader::getObject('\fpcm\classes\database')->selectFetch(
+                (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
+                ->setFetchAll(true)
+        ));
     }
 
     /**
      * Cron-Klassen-Liste, wird im Cache vorgehalten
      * @return array
+     * @deprecated since version FPCM 4.3
      */
     public function getCronsData()
     {
-        $res = \fpcm\classes\loader::getObject('\fpcm\classes\database')->fetch(\fpcm\classes\loader::getObject('\fpcm\classes\database')->select(\fpcm\classes\database::tableCronjobs), true);
+        trigger_error('"'.__FUNCTION__.'" is deprecated as of FPCM 4.3, use "getAllCrons" instead.', E_USER_DEPRECATED);
+        return $this->getAllCrons();
+    }
 
-        $list = [];
-
-        if (!count($res)) {
-            return $list;
+    /**
+     * Creates result list
+     * @param array $values
+     * @return array
+     * @since FPCM 4.3
+     */
+    private function getResult(array $values, $activeOnly = false) : array
+    {
+        if (!count($values)) {
+            return [];
         }
 
-        foreach ($res as $value) {
+        $list = [];
+        foreach ($values as $value) {
 
-            $cronName = \fpcm\model\abstracts\cron::getCronNamespace($value->cjname);
-
-            if (!class_exists($cronName))
+            if ($activeOnly && $value->modulekey && !(new \fpcm\module\module($value->modulekey))->isActive()) {
                 continue;
+            }
+
+            $cronName   = trim($value->modulekey)
+                        ? \fpcm\module\module::getCronNamespace($value->modulekey, $value->cjname)
+                        : \fpcm\model\abstracts\cron::getCronNamespace($value->cjname);
+
+            if (!class_exists($cronName)) {
+                trigger_error("Cronjob class {$cronName} not found!");
+                continue;
+            }
 
             /**
              * @var \fpcm\model\abstracts\cron
              */
             $cron = new $cronName(false);
 
-            if (!is_a($cron, '\fpcm\model\abstracts\cron')) {
+            if (!$cron instanceof \fpcm\model\abstracts\cron) {
                 trigger_error("Cronjob class {$cronName} must be an instance of \"\fpcm\model\abstracts\cron\"!");
                 return false;
             }

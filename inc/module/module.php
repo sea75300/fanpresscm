@@ -535,6 +535,11 @@ class module {
             return false;
         }
 
+        if (!$this->installUpdateCronjobs()) {
+            trigger_error('Install module cronjobs was not successful!');
+            return false;
+        }
+
         if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\installAfter', $this->mkey)) {
             return false;
         }
@@ -626,6 +631,62 @@ class module {
     }
 
     /**
+     * Create module config options
+     * @return bool
+     */
+    private function installUpdateCronjobs() : bool
+    {
+        fpcmLogSystem('Add modules cronjobs for ' . $this->mkey);
+        
+        $crons = $this->config->crons;
+        if (!is_array($crons) || !count($crons)) {
+            return true;
+        }
+        
+        $cronjobs = $this->db->selectFetch(
+            (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
+                ->setItem('id, cjname')
+                ->setWhere('modulekey = ?')
+                ->setParams([$this->mkey])
+                ->setFetchStyle(\PDO::FETCH_KEY_PAIR)
+        );
+
+        $failed = [];
+        foreach ($crons as $name => $interval) {
+            
+            
+            $className = self::getCronNamespace($this->mkey, $name);
+            if (!class_exists($className)) {
+                trigger_error("Unable to add cronjob, class {$className} does not exists!");
+                continue;
+            }
+
+            if (in_array($name, $cronjobs)) {
+                fpcmLogSystem('Module cronjobs '.$name.' already exists, skipping...');
+                continue;
+            }
+
+            $success = $this->db->insert(\fpcm\classes\database::tableCronjobs, [
+                'cjname' => $name,
+                'execinterval' => $interval,
+                'modulekey' => $this->mkey,
+                'lastexec' => 0
+            ]);
+
+            if (!$success) {
+                $failed[] = $name;
+            }
+        }
+
+        if (count($failed)) {
+            trigger_error("An error occurred while installing the following cronjobs:".PHP_EOL. implode(PHP_EOL, $failed));
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Uninstall module
      * @param boolean $delete
      * @return bool
@@ -636,6 +697,10 @@ class module {
         $this->cache->cleanup();
 
         if (!$delete && !\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\uninstallAfter', $this->mkey)) {
+            return false;
+        }
+
+        if (!$this->removeCronjobs() && !$delete) {
             return false;
         }
 
@@ -729,6 +794,22 @@ class module {
     }
 
     /**
+     * Create module config options
+     * @return bool
+     */
+    private function removeCronjobs() : bool
+    {
+        fpcmLogSystem('Remove modules cronjobs for ' . $this->mkey);
+        
+        $crons = $this->config->crons;
+        if (!is_array($crons) || !count($crons)) {
+            return true;
+        }
+
+        return $this->db->delete(\fpcm\classes\database::tableCronjobs, 'modulekey = ?', [$this->mkey]);
+    }
+
+    /**
      * Update module
      * @return bool
      */
@@ -743,6 +824,10 @@ class module {
         }
 
         if (!$this->updateConfig()) {
+            return false;
+        }
+
+        if (!$this->installUpdateCronjobs()) {
             return false;
         }
 
@@ -926,6 +1011,18 @@ class module {
     public static function getControllerNamespace($key, $event) : string
     {
         return "\\fpcm\\modules\\" . str_replace('/', '\\', $key) . "\\controller\\{$event}";
+    }
+
+    /**
+     * Return Namespace of module cronjobs
+     * @param string $key
+     * @param string $cron
+     * @return string
+     * @since FPCM 4.3
+     */
+    public static function getCronNamespace(string $key, string $cron) : string
+    {
+        return "\\fpcm\\modules\\" . str_replace('/', '\\', $key) . "\\crons\\{$cron}";
     }
 
     /**
