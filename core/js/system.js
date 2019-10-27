@@ -61,6 +61,7 @@ fpcm.system = {
 
         fpcm.dom.fromId('genPasswd').click(function () {
             fpcm.system.generatePasswdString();
+            fpcm.ui.showCurrentPasswordConfirmation();
             return false;
         });
 
@@ -123,14 +124,9 @@ fpcm.system = {
     },
 
     generatePasswdString: function () {
-
-        var randVal = new Int8Array(1);
-        crypto.getRandomValues(randVal);
-        var passwd = generatePassword(12, false, /[\w\d\?\-]/) + randVal[0];
-
-        fpcm.dom.fromId('password').val(passwd);
-        fpcm.dom.fromId('password_confirm').val(passwd);
-
+        var newPass = nkorgPassGen.getPassword(6);
+        fpcm.dom.fromId('password').val(newPass);
+        fpcm.dom.fromId('password_confirm').val(newPass);
         return false;
     },
 

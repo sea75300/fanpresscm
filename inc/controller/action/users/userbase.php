@@ -99,7 +99,7 @@ class userbase extends \fpcm\controller\abstracts\controller {
         $this->view->assign('inProfile', false);
 
         $this->view->addJsFiles([
-            \fpcm\classes\loader::libGetFileUrl('password-generator/password-generator.min.js'),
+            \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'),
             'fileuploader.js'
         ]);
 

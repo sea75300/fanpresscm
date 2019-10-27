@@ -70,7 +70,7 @@ class htmlEditor extends articleEditor {
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/javascript/javascript.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/css/css.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/htmlmixed/htmlmixed.js'),
-            \fpcm\classes\dirs::getLibUrl('jscharmap/charmap.js'),
+            \fpcm\classes\dirs::getLibUrl('nkorg/jscharmap/charmap.js'),
             'editor/editor_filemanager.js',
             'editor/editor_codemirror.js'
         ];

@@ -225,7 +225,7 @@ class profile extends \fpcm\controller\abstracts\controller {
         $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());
         $this->view->assign('showDisableButton', false);
         $this->view->addJsFiles([
-            \fpcm\classes\loader::libGetFileUrl('password-generator/password-generator.min.js'),
+            \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'),
             'profile.js', 'fileuploader.js', 'useredit.js'
         ]);
 
