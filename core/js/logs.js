@@ -100,7 +100,7 @@ fpcm.logs = {
 
                 fpcm.dom.fromClass('fpcm-ui-logslist').remove();
 
-                ui.panel.append(fpcm.dataview.getDataViewWrapper(ui.tab.attr('data-dataview-list'), 'fpcm-ui-logslist'));
+                ui.panel.append(fpcm.dataview.getDataViewWrapper(ui.tab.data('dataview-list'), 'fpcm-ui-logslist'));
                 fpcm.dataview.updateAndRender(fpcm.vars.jsvars.dataviews.extSettings.name);
 
                 var logSizeEl = fpcm.vars.jsvars.dataviews.extSettings.logSize ? 'fpcm-logs-size-row-' + fpcm.vars.jsvars.dataviews.extSettings.name : false;
@@ -118,11 +118,10 @@ fpcm.logs = {
             },
             addTabScroll: true
         });
-        
-        var linkEl = fpcm.dom.fromId('fpcm-tabs-logs-sessions').find('a');
-        
-        linkEl.attr('href', linkEl.attr('data-href'));
-        linkEl.removeAttr('data-href');
+
+        var tabEl = fpcm.dom.fromId('fpcm-tabs-logs-sessions');
+        tabEl.find('a').attr('href', tabEl.data('href'));
+        tabEl.removeAttr('data-href');
 
         tabs.tabs('load', 0);
 
