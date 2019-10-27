@@ -894,7 +894,7 @@ fpcm.ui = {
             dialogParams.resizable = params.resizable;
         }
 
-        dialogParams.dlButtons = [];
+        dialogParams.dlButtons = params.dlButtons ? params.dlButtons : [];
 
         if (params.insertAction) {
             dialogParams.dlButtons.push({

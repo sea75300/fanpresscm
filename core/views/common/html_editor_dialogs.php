@@ -170,6 +170,8 @@
             </div>
         </div>
     </div>
+    
+    <div class="row no-gutters align-self-center align-content-center justify-content-center" id="fpcm-dialog-editor-html-insertmedia-preview"></div>
 </div>
 
 <!-- Farben einfügen -->

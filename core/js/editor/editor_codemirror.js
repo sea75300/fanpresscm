@@ -478,6 +478,14 @@ if (fpcm.editor) {
             dlWidth: fpcm.ui.getDialogSizes().width,
             title: 'EDITOR_INSERTMEDIA',
             resizable: true,
+            dlButtons: [{
+                text: 'Vorschau',
+                icon: "ui-icon-video",
+                click: function () {
+                    var data = fpcm.editor.getMediaData(true);
+                    fpcm.dom.assignHtml('#fpcm-dialog-editor-html-insertmedia-preview', '<div class="col-12 col-md-10 my-3">' + data.aTag + data.eTag +'</div>');
+                }
+            }],
             onCreate: function (event, ui) {
                 fpcm.ui.controlgroup('#fpcm-ui-editor-media-controlgroup', {
                     onlyVisible: false
@@ -499,24 +507,11 @@ if (fpcm.editor) {
                 fpcm.dom.fromId('mediatypea').prop('checked', true );
                 fpcm.dom.fromId('mediaformat').val('').selectmenu('refresh');
                 fpcm.dom.fromId('mediaformat2').val('').selectmenu('refresh');
+                fpcm.dom.fromId('fpcm-dialog-editor-html-insertmedia-preview').empty();
             },
             insertAction: function() {
-                var tagName = fpcm.dom.fromClass('fpcm-editor-mediatype:checked').val();
-
-                var elPath = fpcm.dom.fromId('mediapath');
-                var elPathAlt = fpcm.dom.fromId('mediapath2');
-                var elFormatVal = fpcm.dom.fromId('mediaformat').val();
-                var elFormatAltVal = fpcm.dom.fromId('mediaformat2').val();
-                var elAutoplay = fpcm.dom.fromId('autoplay:checked');
-
-                var aTag = '<' + tagName + '>';
-                aTag += '<source src="' + elPath.val() + '"' + (elFormatVal ? ' type="' + elFormatVal + '"' : '') + (elAutoplay.length && elAutoplay.val() ? ' autoplay' : '') + '>';
-
-                if (elPathAlt.val()) {
-                    aTag += '<source src="' + elPathAlt.val() + '"' + (elFormatAltVal ? ' type="' + elFormatAltVal + '"' : '') + '>';
-                }
-
-                fpcm.editor.insert(aTag, '</' + tagName + '>');
+                var data = fpcm.editor.getMediaData();
+                fpcm.editor.insert(data.aTag, data.eTag);
                 fpcm.dom.fromTag(this).dialog( "close" );
             }
         });
@@ -764,4 +759,27 @@ if (fpcm.editor) {
             return false;
         });
     };
+    
+    fpcm.editor.getMediaData = function (_addWidth) {
+
+        var tagName = fpcm.dom.fromClass('fpcm-editor-mediatype:checked').val();
+
+        var elPath = fpcm.dom.fromId('mediapath');
+        var elPathAlt = fpcm.dom.fromId('mediapath2');
+        var elFormatVal = fpcm.dom.fromId('mediaformat').val();
+        var elFormatAltVal = fpcm.dom.fromId('mediaformat2').val();
+        var elAutoplay = fpcm.dom.fromId('autoplay:checked');
+
+        var aTag = '<' + tagName + (_addWidth ? ' style="width:100%"' : '') + '>';
+        aTag += '<source src="' + elPath.val() + '"' + (elFormatVal ? ' type="' + elFormatVal + '"' : '') + (elAutoplay.length && elAutoplay.val() ? ' autoplay' : '') + '>';
+
+        if (elPathAlt.val()) {
+            aTag += '<source src="' + elPathAlt.val() + '"' + (elFormatAltVal ? ' type="' + elFormatAltVal + '"' : '') + '>';
+        }
+
+        return {
+            aTag: aTag,
+            eTag: '</' + tagName + '>'
+        }
+    }
 }
