@@ -64,8 +64,6 @@ final class pageTokens {
     {
         $_SESSION['pageTokens'] = $_SESSION['pageTokens'] ?? [];
         $_SESSION['pageTokens'] = array_slice($_SESSION['pageTokens'], 0, FPCM_PAGETOKEN_MAX);
-        
-        fpcmLogSystem($_SESSION['pageTokens']);
 
         return true;
     }
