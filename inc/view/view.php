@@ -230,7 +230,7 @@ class view {
             'GLOBAL_CONFIRM', 'GLOBAL_CLOSE', 'GLOBAL_OK', 'GLOBAL_YES', 'GLOBAL_NO', 'GLOBAL_SAVE', 'GLOBAL_CLOSE',
             'GLOBAL_OPENNEWWIN', 'GLOBAL_EXTENDED', 'GLOBAL_EDIT_SELECTED', 'GLOBAL_NOTFOUND', 'SAVE_FAILED_ARTICLES',
             'AJAX_REQUEST_ERROR', 'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK', 'SELECT_ITEMS_MSG',
-            'HL_HELP'
+            'HL_HELP', 'CSRF_INVALID'
         ]);
 
         $this->jsLangVars['calendar']['days'] = $this->language->getDays();
@@ -914,6 +914,20 @@ class view {
         $this->viewJsFiles = $this->events->trigger($type.'\addJsFiles', $this->viewJsFiles);
         $this->viewCssFiles = $this->events->trigger($type.'\addCssFiles', $this->viewCssFiles);    
 
+        return true;
+    }
+
+    /**
+     * Add AJAX page token to view
+     * @param string $name
+     * @return bool
+     * @since FPCm 4.3
+     */
+    public function addAjaxPageToken(string $name) : bool
+    {
+        $name = 'ajax/'.$name;
+
+        $this->jsvars['pageTokens'][$name] = (new \fpcm\classes\pageTokens)->refresh($name);
         return true;
     }
 

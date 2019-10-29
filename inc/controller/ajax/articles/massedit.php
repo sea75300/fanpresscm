@@ -42,7 +42,7 @@ class massedit extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        if (!$this->checkPageToken('articles/massedit')) {
+        if (!$this->checkPageToken()) {
             return false;
         }
 

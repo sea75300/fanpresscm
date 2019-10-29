@@ -43,6 +43,12 @@ fpcm.ajax = {
         if (params.workData) {
             fpcm.ajax.workData[action] = params.workData;
         }
+        
+        if (params.pageToken) {            
+            params.data._token  = fpcm.vars.jsvars.pageTokens[params.pageToken]
+                                ? fpcm.vars.jsvars.pageTokens[params.pageToken]
+                                : null;
+        }
 
         jQuery.ajax({
             url         : fpcm.vars.ajaxActionPath + action,
@@ -54,6 +60,13 @@ fpcm.ajax = {
             statusCode: {
                 500: function() {
                     fpcm.ajax.showAjaxErrorMessage();
+                    fpcm.ui.showLoader();
+                },
+                400: function() {
+                    fpcm.ui.addMessage({
+                        txt: 'CSRF_INVALID',
+                        type: 'error'
+                    })
                     fpcm.ui.showLoader();
                 },
                 401: function() {

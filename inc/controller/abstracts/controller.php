@@ -282,10 +282,10 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Check page token
-     * @param string $overrideModule
+     * @param string $name
      * @return bool
      */
-    final protected function checkPageToken($overrideModule = '')
+    protected function checkPageToken($name = '')
     {
         if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
             trigger_error('Page token check failed, no referer available or referrer mismatch in '. get_class($this));
@@ -293,38 +293,7 @@ class controller implements \fpcm\controller\interfaces\controller {
             return $this->checkPageToken;
         }
 
-        $fopt = new \fpcm\model\files\fileOption(\fpcm\classes\security::getPageTokenFieldName($overrideModule));
-        $tokenData = \fpcm\classes\loader::getObject('\fpcm\classes\crypt')->decrypt($fopt->read());
-        $fopt->remove();
-
-        if (is_string($tokenData)) {
-            $tokenData = json_decode($tokenData);
-        }
-
-        if (!is_object($tokenData)) {
-            $this->checkPageToken = false;
-            return $this->checkPageToken;
-        }
-
-        if (time() > $tokenData->exp) {
-            trigger_error('Submitted page token has been expired on ' . date('Y-m-d', $tokenData->exp).' in '. get_class($this));
-            $this->checkPageToken = false;
-            return $this->checkPageToken;
-        }
-
-        $postToken = \fpcm\classes\http::getPageToken($overrideModule);
-        if ($postToken !== null && $postToken != $tokenData->str) {
-            trigger_error('Submitted page token was inavlid. Token: ' . \fpcm\classes\http::getPageToken($overrideModule).' in '. get_class($this));
-            $this->checkPageToken = false;
-        }
-
-        $ajaxToken = \fpcm\classes\http::postOnly('pageTkn');
-        if ($ajaxToken !== null && $ajaxToken != $tokenData->str) {
-            trigger_error('Submitted page token was inavlid. Token: ' . $ajaxToken.' in '. get_class($this));
-            $this->checkPageToken = false;
-        }
-
-        $this->checkPageToken = true;
+        $this->checkPageToken = (new \fpcm\classes\pageTokens())->validate($name);
         return $this->checkPageToken;
     }
 

@@ -119,14 +119,6 @@ final class http {
     public static function init()
     {
         self::$request = array_merge($_REQUEST, $_COOKIE);
-        
-        $preconditions = baseconfig::dbConfigExists() && !baseconfig::installerEnabled() &&
-                         !baseconfig::isCli() && !baseconfig::noToken();
-
-        if ($preconditions && !security::getTokenCookieValue() && !setcookie(\fpcm\classes\security::getTokenCookieName(), base64_encode(crypt::getRandomString()), time() + 86400, '/', '', false, true)) {
-            trigger_error('Unable to set token cookie!');
-            exit;
-        }
     }
 
     /**
@@ -205,21 +197,6 @@ final class http {
     public static function getHttpHost()
     {
         return isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
-    }
-
-    /**
-     * Gibt Page-Token-Informationen zurück
-     * @return string
-     */
-
-    /**
-     * Returns sumitted page token
-     * @param string $overrideModule
-     * @return string
-     */
-    public static function getPageToken($overrideModule = '')
-    {
-        return self::postOnly(security::getPageTokenFieldName($overrideModule));
     }
 
     /**

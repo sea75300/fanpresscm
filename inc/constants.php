@@ -167,3 +167,10 @@ if (!defined('FPCM_MODULE_DEV')) {
      */
     define('FPCM_MODULE_DEV', false);
 }
+
+if (!defined('FPCM_PAGETOKEN_MAX')) {
+    /**
+     * Timeout für Pagetoken-Cache
+     */
+    define('FPCM_PAGETOKEN_MAX', 20);
+}

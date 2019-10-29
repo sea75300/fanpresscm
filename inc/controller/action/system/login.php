@@ -172,7 +172,6 @@ class login extends \fpcm\controller\abstracts\controller {
         }
 
         if ($loginRes === true && $session->save() && $session->setCookie()) {
-            session_destroy();
             $this->redirect('system/dashboard');
             return true;
         }
@@ -287,8 +286,6 @@ class login extends \fpcm\controller\abstracts\controller {
             $this->loginLocked = false;
             $this->loginLockedDate = 0;
             $this->currentAttempts = 0;
-
-            session_destroy();
         }
     }
 

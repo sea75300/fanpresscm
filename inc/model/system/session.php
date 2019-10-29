@@ -378,6 +378,11 @@ final class session extends \fpcm\model\abstracts\dataset {
      */
     public function setCookie()
     {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_create_id();
+            session_start();            
+        }
+
         $expire = $this->getLastaction() + $this->config->system_session_length;
 
         $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
@@ -390,6 +395,10 @@ final class session extends \fpcm\model\abstracts\dataset {
      */
     public function deleteCookie()
     {
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_destroy();
+        }
+
         $expire = $this->getLogin() - ($this->config->system_session_length * 5);
         return setcookie(\fpcm\classes\security::getSessionCookieName(), 0, $expire, '/', '', false, true);
     }
@@ -489,6 +498,10 @@ final class session extends \fpcm\model\abstracts\dataset {
 
         $this->currentUser->createFromDbObject($userData);
         $this->sessionExists = true;
+
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();            
+        }
     }
 
     /**

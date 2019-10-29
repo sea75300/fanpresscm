@@ -52,7 +52,7 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxController {
             \fpcm\classes\http::FILTER_JSON_DECODE,
             'object' => false
         ]);
-        
+
         if ($ids === null) {
             return false;
         }

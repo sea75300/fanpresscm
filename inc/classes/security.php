@@ -60,51 +60,6 @@ final class security {
     }
 
     /**
-     * Cookie-Name zurückgeben
-     * @return string
-     */
-    public static function getTokenCookieName()
-    {
-        if (self::$cookieTokenName) {
-            return self::$cookieTokenName;
-        }
-
-        $conf = baseconfig::getSecurityConfig();
-        if (!is_array($conf) || !isset($conf['cookieName'])) {
-            return false;
-        }
-
-        self::$cookieTokenName = 'token' . $conf['cookieName'];
-        return self::$cookieTokenName;
-    }
-
-    /**
-     * Page-Token-Feld-Name zurückgeben
-     * @param string $name
-     * @return string
-     */
-    public static function getPageTokenFieldName($name = '')
-    {
-        $conf = baseconfig::getSecurityConfig();
-        $return = tools::getHash(trim($name) ? trim($name) : $conf['pageTokenBase']) . self::getTokenCookieValue();
-        return $return;
-    }
-
-    /**
-     * gibt Inhalt von Session cookie zurück
-     * @return string
-     */
-    public static function getTokenCookieValue()
-    {
-        return http::cookieOnly(self::getTokenCookieName(), [
-            http::FILTER_BASE64DECODE,
-            http::FILTER_TRIM,
-            http::FILTER_STRIPTAGS,
-            http::FILTER_DECRYPT
-        ]);
-    }
-
-    /**
      * gibt Inhalt von Session cookie zurück
      * @return string
      */
@@ -166,15 +121,7 @@ final class security {
      */
     public static function createPageToken($overrideModule = '')
     {
-        $str = tools::getHash(uniqid(true, __FUNCTION__) . mt_rand() . microtime(true));
-
-        $fopt = new \fpcm\model\files\fileOption(self::getPageTokenFieldName($overrideModule));
-        $fopt->write(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt([
-                    'str' => $str,
-                    'exp' => time() + FPCM_PAGETOKENCACHE_TIMEOUT
-        ]));
-
-        return $str;
+        return (new \fpcm\classes\pageTokens())->refresh();
     }
 
     /**

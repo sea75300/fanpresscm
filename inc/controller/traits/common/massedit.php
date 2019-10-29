@@ -42,10 +42,7 @@ trait massedit {
      */
     protected function assignPageToken($module)
     {
-        $this->view->addJsVars(['masseditPageToken' =>
-            \fpcm\classes\security::createPageToken($module.'/massedit')
-        ]);
-
+        $this->view->addAjaxPageToken($module.'/massedit');
         return true;
     }
 
@@ -57,7 +54,6 @@ trait massedit {
     protected function assignFields(array $fields)
     {
         $this->view->assign('masseditFields', $fields);
-        
         return true;
     }
 

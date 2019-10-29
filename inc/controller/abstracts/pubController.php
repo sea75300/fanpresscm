@@ -30,6 +30,8 @@ class pubController extends controller {
      */
     public function hasAccess()
     {
+        define('FPCM_PUB_MODE', true);
+        
         if (!$this->maintenanceMode(false) && !$this->session->exists()) {
             return false;
         }

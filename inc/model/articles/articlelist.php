@@ -609,7 +609,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     private function assignSearchParams(search $conditions, array &$where, array &$valueParams)
     {
         if ($conditions->ids !== null && is_array($conditions->ids)) {
-            $where[] = $this->dbcon->inQuery('id', $valueParams);
+            $where[] = $this->dbcon->inQuery('id', $conditions->ids);
             $valueParams = array_merge($valueParams, $conditions->ids);
         }
 

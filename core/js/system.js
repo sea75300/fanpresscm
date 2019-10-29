@@ -170,7 +170,6 @@ fpcm.system = {
                                 var params = {
                                     fields: fpcm.ui.getValuesByClass('fpcm-ui-input-massedit'),
                                     ids: fpcm.ajax.toJSON(objectIDs),
-                                    pageTkn: fpcm.vars.jsvars.masseditPageToken
                                 };
 
                                 var catEl = fpcm.dom.fromId('categories');
