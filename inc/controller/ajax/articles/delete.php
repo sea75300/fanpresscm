@@ -20,6 +20,15 @@ class delete extends \fpcm\controller\abstracts\ajaxController {
         return ['article' => 'delete'];
     }
 
+    public function request() : bool
+    {
+        if (!$this->checkPageToken('articles/delete')) {
+            return false;
+        }
+        
+        return true;
+    }
+
     /**
      * Controller-Processing
      */

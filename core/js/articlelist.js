@@ -232,6 +232,7 @@ fpcm.articlelist = {
                     fpcm.ui.showLoader(true);
                     fpcm.ajax.exec('articles/delete', {
                         dataType: 'json',
+                        pageToken: 'articles/delete',
                         data: {
                             id: articleId
                         },
@@ -273,6 +274,7 @@ fpcm.articlelist = {
                 fpcm.ui.showLoader(true);
                 fpcm.ajax.exec('articles/delete', {
                     dataType: 'json',
+                    pageToken: 'articles/delete',
                     data: {
                         id: articleIds,
                         multiple: 1

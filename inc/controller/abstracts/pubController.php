@@ -25,13 +25,20 @@ class pubController extends controller {
     protected $viewEvents = false;
 
     /**
+     * Konstruktor
+     */
+    public function __construct()
+    {
+        define('FPCM_PUB_MODE', true);
+        return parent::__construct();
+    }
+
+    /**
      * Access check processing
      * @return bool, false prevent execution of @see request() @see process()
      */
     public function hasAccess()
     {
-        define('FPCM_PUB_MODE', true);
-        
         if (!$this->maintenanceMode(false) && !$this->session->exists()) {
             return false;
         }

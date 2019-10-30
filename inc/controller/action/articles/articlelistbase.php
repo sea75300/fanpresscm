@@ -159,6 +159,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
     {
         $this->initActionVars();
 
+        $this->view->addAjaxPageToken('articles/delete');
         $this->view->assign('users', array_flip($this->users));
         $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
         $this->view->assign('showDraftStatus', $this->showDraftStatus);

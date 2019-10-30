@@ -379,7 +379,6 @@ final class session extends \fpcm\model\abstracts\dataset {
     public function setCookie()
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_create_id();
             session_start();            
         }
 
@@ -398,6 +397,8 @@ final class session extends \fpcm\model\abstracts\dataset {
         if (session_status() === PHP_SESSION_ACTIVE) {
             session_destroy();
         }
+        
+        (new \fpcm\classes\pageTokens)->delete();
 
         $expire = $this->getLogin() - ($this->config->system_session_length * 5);
         return setcookie(\fpcm\classes\security::getSessionCookieName(), 0, $expire, '/', '', false, true);
