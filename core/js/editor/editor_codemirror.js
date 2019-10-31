@@ -479,7 +479,7 @@ if (fpcm.editor) {
             title: 'EDITOR_INSERTMEDIA',
             resizable: true,
             dlButtons: [{
-                text: 'Vorschau',
+                text: fpcm.ui.translate('GLOBAL_PREVIEW'),
                 icon: "ui-icon-video",
                 click: function () {
                     var data = fpcm.editor.getMediaData(true);
@@ -571,6 +571,15 @@ if (fpcm.editor) {
             id: 'editor-html-insertimage',
             dlWidth: fpcm.ui.getDialogSizes(top, 0.35).width,
             title: 'EDITOR_INSERTPIC',
+            dlButtons: [{
+                text: fpcm.ui.translate('EDITOR_INSERTPIC_ASLINK'),
+                icon: "ui-icon-link",
+                click: function () {
+                    var data = fpcm.editor.getImageData(true);
+                    fpcm.editor.insert(data.aTag, data.eTag);
+                    fpcm.dom.fromTag(this).dialog( "close" );
+                }
+            }],
             dlOnOpen: function () {
                 
                 fpcm.ajax.exec('autocomplete&src=editorfiles', {
@@ -595,30 +604,9 @@ if (fpcm.editor) {
                 fpcm.dom.fromId('imagescss').val('');
             },
             insertAction: function() {
-                var pic_path = fpcm.dom.fromId('imagespath').val();
-                var pic_align = fpcm.dom.fromId('imagesalign').val();
-                var pic_atxt = fpcm.dom.fromId('imagesalt').val();
-                var pic_css = fpcm.dom.fromId('imagescss').val();
+                var data = fpcm.editor.getImageData();
 
-                var elCss = fpcm.dom.fromId('imagescss');
-                if(elCss) {
-                    var pic_css = elCss.val();
-                }
-
-                if (pic_align == "right" || pic_align == "left") {
-                    aTag = '<img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\" style=\"float:' + pic_align + ';margin:3px;\"';
-                    if(pic_css) { aTag = aTag + ' class=\"'+ pic_css +'\"'; }
-                    fpcm.editor.insert(aTag + '/>', ' ');
-                } else if (pic_align == "center") {
-                    aTag = '<div style=\"text-align:' + pic_align + ';\"><img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\"';
-                    if(pic_css) { aTag = aTag + ' class=\"'+ pic_css +'\"'; }
-                    fpcm.editor.insert(aTag + '/></div>', ' ');
-                } else {
-                    aTag = '<img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\"';
-                    if(pic_css) { aTag = aTag + ' class=\"'+ pic_css +'\"'; }
-                    fpcm.editor.insert(aTag + ' />', ' ');
-                }
-
+                fpcm.editor.insert(data.aTag, data.eTag);
                 fpcm.dom.fromTag(this).dialog( "close" );
             },
             fileManagerAction: function () {
@@ -641,7 +629,7 @@ if (fpcm.editor) {
             dlOnOpen: function () {
                 fpcm.ajax.exec('autocomplete&src=editorlinks', {
                     dataType: 'json',
-                    execDone: function () {
+                    execDone: function (result) {
                         fpcm.ui.autocomplete('#linksurl', {
                             source: result,
                             minLength: 2,
@@ -661,25 +649,14 @@ if (fpcm.editor) {
                 fpcm.dom.fromId('linkscss').val('');
             },
             insertAction: function() {
-                var lnk_url = fpcm.dom.fromId('linksurl').val();
-                var lnk_txt = fpcm.dom.fromId('linkstext').val();
-                var lnk_tgt = fpcm.dom.fromId('linkstarget').val();
+                var linkEl = fpcm.editor.getLinkData(
+                    fpcm.dom.fromId('linksurl').val(),
+                    fpcm.dom.fromId('linkstext').val(),
+                    fpcm.dom.fromId('linkstarget').val(),
+                    fpcm.dom.fromId('linkscss').length ? fpcm.dom.fromId('linkscss').val() : ''
+                );
 
-                var cssInputEl = fpcm.dom.fromId('linkscss');
-                var lnk_css = cssInputEl.length ? fpcm.dom.fromId('linkscss').val() : '';
-
-                if (lnk_tgt != "") {
-                    aTag = '<a href=\"' + lnk_url + '"\ target=\"' + lnk_tgt + '\"';
-                    if(lnk_css) { aTag = aTag + ' class=\"'+ lnk_css +'\"'; }
-                    aTag = aTag + '>' + lnk_txt ;
-                }
-                else {
-                    aTag = '<a href=\"' + lnk_url + '\"';
-                    if(lnk_css) { aTag = aTag + ' class=\"'+ lnk_css +'\"'; }
-                    aTag = aTag + '>' + lnk_txt ;
-                }
-
-                fpcm.editor.insert(aTag, '</a>');
+                fpcm.editor.insert(linkEl.aTag, linkEl.eTag);
                 fpcm.dom.fromTag(this).dialog( "close" );
             },
             fileManagerAction: function () {
@@ -770,7 +747,7 @@ if (fpcm.editor) {
         var elFormatAltVal = fpcm.dom.fromId('mediaformat2').val();
         var elAutoplay = fpcm.dom.fromId('autoplay:checked');
 
-        var aTag = '<' + tagName + (_addWidth ? ' style="width:100%"' : '') + '>';
+        var aTag = '<' + tagName + (_addWidth ? ' class="fpcm ui-full-width"' : '') + ' controls>';
         aTag += '<source src="' + elPath.val() + '"' + (elFormatVal ? ' type="' + elFormatVal + '"' : '') + (elAutoplay.length && elAutoplay.val() ? ' autoplay' : '') + '>';
 
         if (elPathAlt.val()) {
@@ -782,4 +759,89 @@ if (fpcm.editor) {
             eTag: '</' + tagName + '>'
         }
     }
+    
+    fpcm.editor.getLinkData = function (url, text, target, cssClass) {
+
+        if (target != "") {
+            aTag = '<a href=\"' + url + '"\ target=\"' + target + '\"';
+            if(cssClass) { aTag = aTag + ' class=\"'+ cssClass +'\"'; }
+            aTag = aTag + '>' + text ;
+        }
+        else {
+            aTag = '<a href=\"' + url + '\"';
+            if(cssClass) { aTag = aTag + ' class=\"'+ cssClass +'\"'; }
+            aTag = aTag + '>' + text ;
+        }
+
+        return {
+            aTag: aTag,
+            eTag: '</a>'
+        }
+    };
+    
+    fpcm.editor.getImageData = function (_asLink) {
+
+        var pic_path = fpcm.dom.fromId('imagespath').val();
+        var pic_align = fpcm.dom.fromId('imagesalign').val();
+        var pic_atxt = fpcm.dom.fromId('imagesalt').val();
+        var pic_css = fpcm.dom.fromId('imagescss').val();
+
+        var elCss = fpcm.dom.fromId('imagescss');
+        if(elCss) {
+            var pic_css = elCss.val();
+        }
+
+        var aTag = '';
+
+        if (pic_align == "right" || pic_align == "left") {
+
+            aTag = '<img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\" style=\"float:' + pic_align + ';margin:3px;\"';
+            if(pic_css && !_asLink) {
+                aTag += ' class=\"'+ pic_css +'\"';
+            }
+
+            aTag += ' />';
+            
+            if (_asLink) {
+                var linkData = fpcm.editor.getLinkData(pic_path, aTag, '', pic_css);
+                aTag = linkData.aTag + linkData.eTag;
+            }
+
+        } else if (pic_align == "center") {
+            var wrapper = '<div style=\"text-align:' + pic_align + ';\">';
+
+            aTag = '<img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\"';
+            
+            if(pic_css && !_asLink) {
+                aTag += ' class=\"'+ pic_css +'\"';
+            }
+
+            aTag += '/>';
+            
+            if (_asLink) {
+                var linkData = fpcm.editor.getLinkData(pic_path, aTag, '', pic_css);
+                aTag = linkData.aTag + linkData.eTag;
+            }
+
+            aTag = wrapper + aTag + '</div>';
+            
+        } else {
+            aTag = '<img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\"';
+            if(pic_css && !_asLink) {
+                aTag += ' class=\"'+ pic_css +'\"';
+            }
+            
+            aTag += ' />';
+            
+            if (_asLink) {
+                var linkData = fpcm.editor.getLinkData(pic_path, aTag, '', pic_css);
+                aTag = linkData.aTag + linkData.eTag;
+            }
+        }
+
+        return {
+            aTag: aTag,
+            eTag: ''
+        }
+    };
 }

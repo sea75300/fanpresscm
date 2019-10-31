@@ -7,6 +7,8 @@
 
 namespace fpcm\controller\abstracts;
 
+define('FPCM_MODE_NOPAGETOKEN', true);
+
 /**
  * Basis für "public"-Controller
  * 
@@ -23,15 +25,6 @@ class pubController extends controller {
      * @var bool
      */
     protected $viewEvents = false;
-
-    /**
-     * Konstruktor
-     */
-    public function __construct()
-    {
-        define('FPCM_PUB_MODE', true);
-        return parent::__construct();
-    }
 
     /**
      * Access check processing

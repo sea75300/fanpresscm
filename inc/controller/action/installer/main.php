@@ -10,6 +10,7 @@
 namespace fpcm\controller\action\installer;
 
 define('FPCM_INSTALLER_NOCACHE', true);
+define('FPCM_MODE_NOPAGETOKEN', true);
 
 class main extends \fpcm\controller\abstracts\controller {
 

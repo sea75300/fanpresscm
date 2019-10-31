@@ -33,6 +33,7 @@ $lang = array(
     'EDITOR_IMGALIGN' => 'Ausrichtung',
     'EDITOR_IMGALTTXT' => 'Alternativtext',
     'EDITOR_INSERTPIC' => 'Bild einfügen',
+    'EDITOR_INSERTPIC_ASLINK' => 'Bild als Link einfügen',
     'EDITOR_INSERTTABLE' => 'Tabelle einfügen',
     'EDITOR_INSERTLIST_TYPESIGN' => 'CSS list-style-type',
     'EDITOR_INSERTTABLE_ROWS' => 'Anzahl Zeilen',

@@ -8,7 +8,7 @@
 namespace fpcm\migrations;
 
 /**
- * Migration to v4.3.0-rc1
+ * Migration to v4.3.0-rc4
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
@@ -17,6 +17,12 @@ namespace fpcm\migrations;
  * @since FPCM 4.3
  * @see migration
  */
-class v430rc1 extends migration {
+class v430rc4 extends migration {
 
+    protected function alterTablesAfter() : bool
+    {
+        return $this->getDB()->update(\fpcm\classes\database::tableArticles, ['inedit'], ['']);
+    }
+
+    
 }

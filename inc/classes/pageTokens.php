@@ -111,7 +111,7 @@ final class pageTokens {
      */
     private function isActive() : bool
     {
-        return !defined('FPCM_PUB_MODE') || session_status() === PHP_SESSION_ACTIVE;
+        return !defined('FPCM_MODE_NOPAGETOKEN') || session_status() === PHP_SESSION_ACTIVE;
     }
 
 }

@@ -1044,14 +1044,14 @@ Help language file
     </chapter>
     <chapter ref="SYSTEM_OPTIONS_TWITTER_CONNECTION">
         <![CDATA[
-        <p>FanPress CM bietet dir die Möglichkeit, beim schreiben/aktualisieren eines Artikels automatisch einen Tweet bei Twitter
+        <p>FanPress CM bietet dir die Möglichkeit, beim Schreiben/ Aktualisieren eines Artikels automatisch einen Tweet bei Twitter
             erzeugen zu lassen.</p>
         <p>Um die Verbindung zu Twitter herzustellen, folge einfach der Anleitung.</p>
         <ol class="list-large">
-            <li>Logge dich zuerst über die Twitter-Webseite ganz normal ein. <a rel="noreferrer,noopener,external" href="https://twitter.com/login" class="ui-button ui-corner-all ui-widget fpcm-ui-button">zum Login</a></li>
+            <li>Logge dich zuerst über die Twitter-Webseite ganz normal ein. <a rel="noreferrer,noopener,external" target="_blank" href="https://twitter.com/login" class="ui-button ui-corner-all ui-widget fpcm-ui-button">zum Login</a></li>
             <li>Öffne die Einstellungen der Twitter-Verbindungen über <strong>Optionen &rarr; Systemeinstellungen &rarr;
                     Twitter-Verbindung</strong>.</li>
-            <li><strong>API-Schlüssel:</strong> Klicke auf den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">API-Schlüssel
+            <li><strong>API-Schlüssel und Token:</strong> Klicke auf den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">API-Schlüssel bzw. Token anfordern
                     anzufordern</span>, du wirst zur AppVerwaltung von Twitter weitergeleitet.</li>
             <li>Wähle den Button <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Create new app</span>.</li>
             <li>Fülle das angezeigte Formular aus und bestätige mit <span class="ui-button ui-corner-all ui-widget fpcm-ui-button">Create your Twitter application</span>.</li>

@@ -16,33 +16,44 @@ fpcm.editor = {
         fpcm.editor.initToolbar();
         fpcm.ui.setFocus('commentname');
 
+        fpcm.dom.fromId('btnLockIp').unbind('click');
         fpcm.dom.fromId('btnLockIp').click(function (event, ui) {
 
             var cid = fpcm.dom.fromTag(event.currentTarget).data('commentid');
 
-            fpcm.ui.showLoader(true);
-            fpcm.ajax.post('comments/lockip', {
-                dataType: 'json',
-                data: {
-                    cid: cid
-                },
-                execDone: function (result) {
+            fpcm.ui.confirmDialog({
+                clickNoDefault: true,
+                clickYes: function () {
+                    fpcm.ui.showLoader(true);
+                    fpcm.ajax.post('comments/lockip', {
+                        dataType: 'json',
+                        data: {
+                            cid: cid
+                        },
+                        execDone: function (result) {
 
-                    fpcm.ui.showLoader(false);
-                    if (!result.code) {
-                        fpcm.ui.addMessage({
-                            type: 'error',
-                            txt: result.data
-                        });
-                        return false;
-                    }
+                            fpcm.ui.showLoader(false);
+                            if (!result.code) {
+                                fpcm.ui.addMessage({
+                                    type: 'error',
+                                    txt: result.data
+                                });
+                                return false;
+                            }
 
-                    fpcm.ui.addMessage({
-                        type: 'notice',
-                        txt: result.data
+                            fpcm.ui.addMessage({
+                                type: 'notice',
+                                txt: result.data
+                            });
+                        }
                     });
+                    
+                    fpcm.dom.fromTag(this).dialog("close");
                 }
             });
+
+
+
 
             return false;
         });

@@ -14,14 +14,21 @@
 
     <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
 
-        <div class="row no-gutters align-self-center fpcm-ui-full-view-height m-5">
+        <div class="row no-gutters fpcm-ui-full-view-height m-2 ms-0 justify-content-center">
+            <div class="fpcm ui-form-login col-12 col-md-10 col-lg-8 col-xl-5 align-self-center">
+                <div class="fpcm ui-background-white-50p ui-blurring fpcm-ui-border-radius-all p-3 py-md-3 px-md-4 fpcm ui-align-center">
 
-            <div class="col-12 align-self-center fpcm-ui-center fpcm ui-background-white-50p fpcm-ui-padding-md-tb">
-                <?php $theView->icon($icon.' fa-inverse')->setStack('square')->setClass('fa-5x fpcm-ui-important-text'); ?>
-                <p><?php print $errorMessage; ?></p>
-                <p><?php $theView->linkButton('backBtn')->setUrl($backController ? $backController : 'javascript:window.history.back();')->setText('GLOBAL_BACK')->setIcon('chevron-circle-left'); ?></p>
+                    <h1 class="fpcm-ui-margin-md-bottom"><?php $theView->icon('chevron-right'); ?> <span>FanPress CM</span> <span>News System</span></h1>
+
+                    <p class=""><?php $theView->icon($icon.' fa-inverse')->setStack('square')->setClass('fa-5x fpcm-ui-important-text'); ?></p>
+                    <p><?php print $errorMessage; ?></p>
+                    <p><?php $theView->linkButton('backBtn')->setUrl($backController ? $backController : 'javascript:window.history.back();')->setText('GLOBAL_BACK')->setIcon('chevron-circle-left'); ?></p>
+
+                </div>
             </div>
         </div>
         
     </body>
 </html>
+
+

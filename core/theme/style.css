@@ -1,21 +1,26 @@
 /* ------ Text aligns */
+.fpcm.ui-align-ellipsis,
 .fpcm-ui-ellipsis    {
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
+.fpcm.ui-align-left,
 .fpcm-ui-align-left {
     text-align:left;
 }
 
+.fpcm.ui-align-right,
 .fpcm-ui-align-right {
     text-align:right;
 }
 
+.fpcm.ui-align-justify,
 .fpcm-ui-align-justify {
     text-align:justify;
 }
 
+.fpcm.ui-align-center,
 .fpcm-ui-center,
 .fpcm-ui-align-center {
     text-align: center;
@@ -252,6 +257,7 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
 }
 
 /* ------ Widths and heights */
+.fpcm.ui-full-width,
 .fpcm-ui-full-width,
 .fpcm-ui-input-wrapper,
 .fpcm-ui-input-wrapper input,
