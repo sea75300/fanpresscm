@@ -119,7 +119,23 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
      */
     public function getRollsbyIdString(string $data) : array
     {
-        return $this->getRollsbyIdsTranslated(explode(';', $data));
+        if (!trim($data)) {
+            return [];
+        }
+
+        $idx = 'getRollsbyIdString'.$data;
+        if (isset($this->data[$idx]) && is_array($this->data[$idx]) && count($this->data[$idx])) {
+            return $this->data[$idx];
+        }
+
+        $this->data[$idx] = [];
+
+        $rolls = $this->getUserRollsByIds(explode(';', $data) );
+        array_walk($rolls, function(userRoll $obj) use ($idx) {            
+            $this->data[$idx][$this->language->translate($obj->getRollName())] = $obj->getId();
+        });
+        
+        return $this->data[$idx];
     }
 
 }
