@@ -500,11 +500,12 @@ if (fpcm.editor) {
                 });
             },
             dlOnClose: function() {
-                fpcm.dom.fromClass('fpcm-editor-mediatype').removeAttr('checked');    
                 fpcm.dom.fromId('autoplay').prop('checked', false).checkboxradio('refresh');
+                fpcm.dom.fromId('controls').prop('checked', true).checkboxradio('refresh');
+                fpcm.dom.fromId('mediatypea').prop('checked', true).checkboxradio('refresh');
+                fpcm.dom.fromId('mediatypev').prop('checked', false).checkboxradio('refresh');
                 fpcm.dom.fromId('mediapath').val('');
                 fpcm.dom.fromId('mediapath2').val('');
-                fpcm.dom.fromId('mediatypea').prop('checked', true );
                 fpcm.dom.fromId('mediaformat').val('').selectmenu('refresh');
                 fpcm.dom.fromId('mediaformat2').val('').selectmenu('refresh');
                 fpcm.dom.fromId('fpcm-dialog-editor-html-insertmedia-preview').empty();
@@ -746,8 +747,9 @@ if (fpcm.editor) {
         var elFormatVal = fpcm.dom.fromId('mediaformat').val();
         var elFormatAltVal = fpcm.dom.fromId('mediaformat2').val();
         var elAutoplay = fpcm.dom.fromId('autoplay:checked');
+        var elControls = fpcm.dom.fromId('controls:checked');
 
-        var aTag = '<' + tagName + (_addWidth ? ' class="fpcm ui-full-width"' : '') + ' controls>';
+        var aTag = '<' + tagName + (_addWidth ? ' class="fpcm ui-full-width"' : '') + (elControls.length && elControls.val() ? ' controls' : '') + '>';
         aTag += '<source src="' + elPath.val() + '"' + (elFormatVal ? ' type="' + elFormatVal + '"' : '') + (elAutoplay.length && elAutoplay.val() ? ' autoplay' : '') + '>';
 
         if (elPathAlt.val()) {

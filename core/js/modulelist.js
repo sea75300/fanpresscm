@@ -143,12 +143,17 @@ fpcm.modulelist = {
             });
         });
 
-        fpcm.dom.fromTag('button.fpcm-ui-modulelist-info').click(function() {
+        fpcm.dom.fromTag('a.fpcm-ui-modulelist-info').click(function(event) {
+
             var btnEl = fpcm.dom.fromTag(this);
             fpcm.ui.dialog({
                 id: 'modulelist-infos',
                 title: fpcm.ui.translate('MODULES_LIST_INFORMATIONS'),
                 resizable: true,
+                dlHeight: fpcm.ui.getDialogSizes(top, 0.75).height,
+                content: fpcm.ui.createIFrame({
+                    src: btnEl.attr('href')
+                }),
                 dlButtons: [
                     {
                         text: fpcm.ui.translate('GLOBAL_CLOSE'),
@@ -158,27 +163,12 @@ fpcm.modulelist = {
                         }
                     }
                 ],
-                dlOnOpen: function () {
-                    
-                    var link = btnEl.data('link');
-
-                    fpcm.dom.fromId('fpcm-modulelist-info-name').text(btnEl.data('name'));
-                    fpcm.dom.fromId('fpcm-modulelist-info-author').text(btnEl.data('author'));
-                    fpcm.dom.fromId('fpcm-modulelist-info-link').html('<a href="' + link + '" target="_blank">' + link + '</a>');
-                    fpcm.dom.fromId('fpcm-modulelist-info-require-system').text(btnEl.data('system'));
-                    fpcm.dom.fromId('fpcm-modulelist-info-require-php').text(btnEl.data('php'));
-                    fpcm.dom.fromId('fpcm-modulelist-info-description').html(btnEl.data('descr'));
-                },
                 dlOnClose: function() {
-                    fpcm.dom.fromId('fpcm-modulelist-info-name').empty();
-                    fpcm.dom.fromId('fpcm-modulelist-info-author').empty();
-                    fpcm.dom.fromId('fpcm-modulelist-info-link').empty();
-                    fpcm.dom.fromId('fpcm-modulelist-info-require-system').empty();
-                    fpcm.dom.fromId('fpcm-modulelist-info-require-php').empty();
-                    fpcm.dom.fromId('fpcm-modulelist-info-description').empty();
+                    fpcm.dom.fromId('fpcm-dialog-modulelist-infos').remove();
                 }
             });
             
+            return false;
         });
         
     }

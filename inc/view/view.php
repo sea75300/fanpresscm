@@ -185,7 +185,10 @@ class view {
      */
     public function __construct($viewName = '', $module = false)
     {
-        $this->setViewPath($viewName, $module);
+        if (trim($viewName)) {
+            $this->setViewPath($viewName, $module);
+        }
+        
 
         $this->showHeader = self::INCLUDE_HEADER_FULL;
         
@@ -865,19 +868,21 @@ class view {
         }
 
     }
-
+    
     /**
      * Sets view to standard tab view,
      * do not use if you want to include tabs in aother view!!!
      * @param string $tabsId
      * @param array $tabs
+     * @param string $tabsClass
      * @since FPCM 4.3
      */
-    public function addTabs(string $tabsId, array $tabs)
+    public function addTabs(string $tabsId, array $tabs, string $tabsClass = '')
     {
         $this->setViewPath('components/tabs');
         $this->assign('tabsId', $tabsId);
         $this->assign('tabs', $tabs);
+        $this->assign('tabsClass', $tabsClass);
     }
 
     /**

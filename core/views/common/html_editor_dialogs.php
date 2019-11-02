@@ -166,6 +166,7 @@
             <div id="fpcm-ui-editor-media-controlgroup">
                 <?php $theView->radiobutton('mediatype', 'mediatypea')->setText('EDITOR_INSERTMEDIA_AUDIO')->setClass('fpcm-editor-mediatype')->setValue('audio')->setSelected(true); ?>
                 <?php $theView->radiobutton('mediatype', 'mediatypev')->setText('EDITOR_INSERTMEDIA_VIDEO')->setClass('fpcm-editor-mediatype')->setValue('video'); ?>
+                <?php $theView->checkbox('controls', 'controls')->setText('EDITOR_INSERTMEDIA_CONTROLS')->setValue(1)->setSelected(1); ?>
                 <?php $theView->checkbox('autoplay', 'autoplay')->setText('EDITOR_INSERTMEDIA_AUTOPLAY')->setValue(1); ?>
             </div>
         </div>

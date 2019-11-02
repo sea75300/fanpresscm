@@ -228,19 +228,12 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
         }
 
         $buttons[] = '<div class="fpcm-ui-controlgroup">';
-        $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
+        $buttons[] = (new \fpcm\view\helper\linkButton('info'.$hash))
                             ->setText('MODULES_LIST_INFORMATIONS')
                             ->setIcon('info-circle')
                             ->setClass('fpcm-ui-modulelist-info')
                             ->setIconOnly(true)
-                            ->setData([
-                                'name' => (string) new \fpcm\view\helper\escape($config->name),
-                                'descr' => $config->description,
-                                'author' => (string) new \fpcm\view\helper\escape($config->author),
-                                'link' => $config->link,
-                                'php' => $config->requirements['php'],
-                                'system' => $config->requirements['system']
-                            ]);
+                            ->setUrl($this->getControllerLink('modules/info', ['key' => $item->getKey()]));
 
         $hasUpdates = $this->permArr['canInstall'] && $item->hasUpdates();
         $hasLocalUpdates = $this->permArr['canInstall'] && $item->hasLocalUpdates();
@@ -333,19 +326,12 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
 
         $buttons[] = '<div class="fpcm-ui-controlgroup">';
 
-        $buttons[] = (new \fpcm\view\helper\button('info'.$hash))
+        $buttons[] = (new \fpcm\view\helper\linkButton('info'.$hash))
                     ->setText('MODULES_LIST_INFORMATIONS')
                     ->setIcon('info-circle')
                     ->setClass('fpcm-ui-modulelist-info')
                     ->setIconOnly(true)
-                    ->setData([
-                        'name' => (string) new \fpcm\view\helper\escape($config->name),
-                        'descr' => $config->description,
-                        'author' => (string) new \fpcm\view\helper\escape($config->author),
-                        'link' => $config->link,
-                        'php' => $config->requirements['php'],
-                        'system' => $config->requirements['system']
-                    ]);
+                    ->setUrl($this->getControllerLink('modules/info', ['key' => $item->getKey(), 'repo' => 1]));
 
         if ($this->permArr['canInstall'] && !in_array($item->getKey(), $this->installed) ) {
             $buttons[] = (new \fpcm\view\helper\linkButton('install'.$hash))
