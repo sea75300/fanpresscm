@@ -226,7 +226,7 @@ class profile extends \fpcm\controller\abstracts\controller {
         $this->view->assign('showDisableButton', false);
         $this->view->addJsFiles([
             \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'),
-            'profile.js', 'fileuploader.js', 'useredit.js'
+            'users/profile.js', 'fileuploader.js', 'users/edit.js'
         ]);
 
         $this->view->addButtons([

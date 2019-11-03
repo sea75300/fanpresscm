@@ -102,7 +102,7 @@ class useredit extends userbase {
 
         $this->view->addButtons($buttons);
         
-        $this->view->addJsFiles(['useredit.js']);
+        $this->view->addJsFiles(['users/edit.js']);
         $this->view->render();
     }
 

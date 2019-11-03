@@ -146,7 +146,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
         
         $chart = new \fpcm\components\charts\chart('pie', 'userArticles');
         
-        $this->view->addJsFiles(array_merge(['users.js'], $chart->getJsFiles()));
+        $this->view->addJsFiles(array_merge(['users/module.js'], $chart->getJsFiles()));
         $this->view->addJsLangVars(['USERS_ARTICLES_SELECT', 'HL_OPTIONS_PERMISSIONS']);
 
         $this->view->setFormAction('users/list');

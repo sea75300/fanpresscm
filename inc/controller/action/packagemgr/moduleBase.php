@@ -112,7 +112,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller {
             (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget('_blank'),
         ]);        
         
-        $this->view->addJsFiles(['moduleinstaller.js']);
+        $this->view->addJsFiles(['modules/installer.js']);
         $this->view->render();
     }
 
