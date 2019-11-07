@@ -1,1 +1,1 @@
-<script>jQuery.extend(fpcm, <?php print json_encode($theView->varsJs); ?>);</script>
+<script>jQuery.extend(fpcm, <?php print json_encode($theView->varsJs, JSON_PARTIAL_OUTPUT_ON_ERROR); ?>);</script>
