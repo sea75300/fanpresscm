@@ -350,6 +350,15 @@ fpcm.system = {
         }
 
         return fpcm.dom.fromClass('' + _str);
+    },
+    
+    mergeToVars: function (_newvalue) {
+
+        if (!_newvalue) {
+            _newvalue = [];
+        }
+        
+        return jQuery.extend(fpcm, _newvalue);
     }
 
 };
