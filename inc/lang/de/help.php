@@ -9,13 +9,13 @@ Help language file
 <chapters>
     <chapter ref="HL_DASHBOARD">
         <![CDATA[
-            <p>Im <b>Dashboard</b> findest du verschiedene Informationen zu deiner FanPress CM Installation, etc. Eigene Dashboard-Container
+            <p>Im <b>Dashboard</b> findest du verschiedene Informationen zu deiner FanPress CM Installation etc. Eigene Dashboard-Container
             können durch Module bzw. neue Datei unter "fanpress/inc/dashboard" erzeugt werden.</p>
             <dl>
                 <dt>Zuletzt geschriebene News:</dt>
-                <dd class="fpcm-ui-padding-md-bottom">Hier findest die eine Übersicht der zuletzt verfassten Artikel.</dd>
+                <dd class="fpcm-ui-padding-md-bottom">Hier findest eine Übersicht der zuletzt verfassten Artikel.</dd>
                 <dt>Zuletzt geschriebene Kommentare:</dt>
-                <dd class="fpcm-ui-padding-md-bottom">Hier findest die eine Übersicht der zuletzt verfassten Kommentare.</dd>
+                <dd class="fpcm-ui-padding-md-bottom">Hier findest eine Übersicht der zuletzt verfassten Kommentare.</dd>
                 <dt>Verfügbare Updates:</dt>
                 <dd class="fpcm-ui-padding-md-bottom">Dieser Container beinhaltet Informationen zum Update-Status des Systems und von Modulen.</dd>
                 <dt>Systemprüfung:</dt>
@@ -24,7 +24,7 @@ Help language file
                 <dd class="fpcm-ui-padding-md-bottom">In diesem Bereich werden statistische Informationen ausgegeben, u. a. zur Anzahl verfasster
                 Artikel oder Kommentare.</dd>
                 <dt>Aktuelle FanPress CM News:</dt>
-                <dd class="fpcm-ui-padding-md-bottom">Dieser Container beinhaltet News rund vom FanPress CM, bspw. über neue Versionen.</dd>
+                <dd class="fpcm-ui-padding-md-bottom">Dieser Container beinhaltet Neuigkeiten rund vom FanPress CM, bspw. neue Versionen, künftige Entwicklungen usw..</dd>
                 <dt>Team-Kontakte:</dt>
                 <dd class="fpcm-ui-padding-md-bottom">Dieser Container beinhaltet eine Liste aller aktiven Benutzer mit der Möglichkeit, dies eine
                 E-Mail zu verfassen.</dd>
@@ -56,11 +56,11 @@ Help language file
         <dl>
             <dt>Artikelbild:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Mit dem Artikelbild kannst du einen Artikel eine zusätzliche Dekoration, optische
-                Beschreibung, etc. geben. Die Position und Größe des Artikelbildes kann über das Artikel-Template festgelegt werden. Über den Button rechts neben dem
+                Beschreibung etc. geben. Die Position und Größe des Artikelbildes kann über das Artikel-Template festgelegt werden. Über den Button rechts neben dem
             Eingabefeld kannst du ein bereits hochgeladenes Bild auswählen und weitere Bilder hochladen.</dd>
             <dt>Quellenverzeichnis:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Der Inhalt dieses Feldes wird durch den Template-Tag "{{sources}}" dargestellt. Hier kannst du Links zu deinen Informationsquellen,
-                Quellen von Bildern, Videos, etc. oder zu weiterführenden Informationen angeben. Links werden so weit es geht automatisch in HTML-Links umgewandelt.</dd>
+                Quellen von Bildern, Videos etc. oder zu weiterführenden Informationen angeben. Links werden so weit es geht automatisch in HTML-Links umgewandelt.</dd>
             <dt>Tweet erzeugen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diese Option kann die Erzeugung eines Tweets bei aktiver Twitter-Verbindung manuell
                 deaktiviert werden, wenn sie in den Systemoptionen aktiviert wurde.</dd>
@@ -95,7 +95,7 @@ Help language file
         </dl>
  
         <p>In FanPress CM kannst du über den <strong>&lt;readmore&gt;</strong>-Tag ein Stück Text einfügen, das beim Aufruf der Seite
-        nicht angezeigt wird. (bspw. für Spoiler, etc.)</p>
+        nicht angezeigt wird (bspw. für Spoiler etc.).</p>
 
         <h3>Register</h3>
 
@@ -104,14 +104,15 @@ Help language file
         <dl>
             <dt>Artikel-Editor:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieser Tab wird immer angezeigt und beinhaltet den Editor an sich.</dd>
-            <dt>Erweietrt:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Der zweite Tab umfasst die verschiedenen Status-Optionen wie Gepinnt, Entwurf, Artikel-Freigabe,
-            Artikelbild, usw.</dd>
+            <dt>Erweitert:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Der zweite Tab umfasst die verschiedenen Status-Optionen wie Gepinnt, Entwurf,
+            Artikel-Freigabe, Artikelbild usw.</dd>
             <dt>Kommentare:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieses Register beinhaltet Auflistung aller Kommentare, welche zu zum ausgewählten Artikel
-            geschrieben wurden. Die Liste bietet dir die Möglichkeit, einzelne Kommentare zu löschen. Über einen Klick auf den Namen des
-            Verfassern kannst du in einem einfachen Editor die Kommentare bearbeiten, freischalten, auf privat setzen, etc. Den Zugriff auf
-            die Kommentare können du über die Berechtigungen geregelt werden.</dd>
+            <dd class="fpcm-ui-padding-md-bottom">Dieses Register beinhaltet Auflistung aller Kommentare, welche zum ausgewählten Artikel
+            geschrieben wurden. Die Liste bietet dir die Möglichkeit, einzelne Kommentare zu löschen. Über einen Klick auf den Bearbeiten-Button
+            kann der entsprechende Kommentare bearbeitet werden (freischalten, auf privat setzen etc.). Der Zugriff auf die Kommentare 
+            wird über die Berechtigungen geregelt. Ausführliche Informationen hierzu findest du in der Hilfe den "Kommentare"-Bereichs
+            über das Hauptmenü.</dd>
             <dt>Revisionen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">FanPress CM besitzt ein Revisions-System, d. h. bei Änderungen wird der vorherige Zustand
             gesichert und kann jederzeit wiederhergestellt werden. Die Revisionen können über die Systemeinstellungen (de)aktiviert werden.
@@ -129,7 +130,7 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Über diesen Button wird der aktuell im Editor geöffnete Artikel im Frontend, d. h. auf deiner Webseite geöffnet.</dd>
             <dt>Kurzlink</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diesen Button ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a rel="noreferrer,noopener,external" href=http://is.gd>is.gd</a> kürzen
-            zu lassen und bei Twitter, etc. zu nutzen. Der genutzte Dienst kann über ein Modul-Event geändert werden.</dd>
+            zu lassen und bei Twitter etc. zu nutzen. Der genutzte Dienst kann über ein Modul-Event geändert werden.</dd>
             <dt>Artikel-Bild anzeigen</dt>
             <dd class="fpcm-ui-padding-md-bottom">Wurde für den Artikel ein Artikel-Bild definiert, so kann dieses über diese Schaltfläche angezeigt werden.</dd>
             <dt>Bearbeiten (Kommentare)</dt>
@@ -187,7 +188,10 @@ Help language file
             <dt>Suche und Filter:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Artikel anhand
             verschiedener Kriterien weiter eingrenzen. Über die Hauptnavigation kannst du bereits eine Vorauswahl treffen, welche Artikel
-            dir angezeigt werden sollen.</dd>
+            dir angezeigt werden sollen. Unterschiedliche Felder können im Bedarfsfall miteinander verknüpft werden oder die Suche
+            in speziellen Konstellationen durchgeführt werden. Hierzu dient das linke Dropdown-Feld in der jeweiligen Zeile. Auf der
+            rechten Seite einer Zeile wird der jeweiligen Wert angegeben.
+            </dd>
             <dt>Neuen Tweet erzeugen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Für den bzw. die ausgewählten Artikel neue Posts bei Twitter erzeugen, wenn Verbindung
             zu Twitter eingerichtet wurde.</dd>
@@ -203,7 +207,7 @@ Help language file
     <chapter ref="HL_COMMENTS_MNG">
         <![CDATA[
         <p>Im Bereich <b>Kommentare</b> erhältst du - unabhängig von den Artikeln - eine generelle Übersicht über alle
-            geschriebenen Kommentare. Hier besteht die Möglichkeit, alle Kommentare zu löschen, ent/sperren, etc.</p>
+            geschriebenen Kommentare. Hier besteht die Möglichkeit, alle Kommentare zu löschen, ent/sperren etc.</p>
         <p>Willst du nur die Artikel zu einem bestimmten Artikel anzeigen lassen, geht das wie gewohnt über die Liste
             auf dem Kommentar-Tab im Artikel-Editor.</p>
         
@@ -234,7 +238,9 @@ Help language file
             Die auswählbaren Optionen entsprechen denen im Kommentar-Editor.</dd>
             <dt>Suche und Filter:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Kommentare anhand
-            verschiedener Kriterien weiter eingrenzen.</dd>
+            verschiedener Kriterien weiter eingrenzen. Unterschiedliche Felder können im Bedarfsfall miteinander verknüpft werden oder die Suche
+            in speziellen Konstellationen durchgeführt werden. Hierzu dient das linke Dropdown-Feld in der jeweiligen Zeile. Auf der
+            rechten Seite einer Zeile wird der jeweiligen Wert angegeben.</dd>
             <dt>Löschen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Den bzw. die ausgewählten Kommentare löschen.</dd>
             <dt>Zugehörigen Artikel bearbeiten:</dt>
@@ -251,7 +257,7 @@ Help language file
         <h3>Kommentar-Editor</h3>
         
         <p>Der Editor bietet genau wie der Artikel-Editor die Auswahl zwischen TinyMCE und CodeMirror, besitzt jedoch nicht alle Funktionen des Artikel-Editors. Oberhalb des Editors
-        werden noch zusätzliche Informationen angezeigt, u. a. von welcher IP-Adresse der Kommentar geschrieben wurde. Diese Information kann zur Vermeidung von Spam, bei Straftaten, etc.
+        werden noch zusätzliche Informationen angezeigt, u. a. von welcher IP-Adresse der Kommentar geschrieben wurde. Diese Information kann zur Vermeidung von Spam, bei Straftaten etc.
         wichtig sein.</p>
         
         <p>Aus Datenschutz-Gründen wird die IP-Adresse durch den Cronjob <em>IP-Adressen aus Kommentaren anonymisieren</em> per default einmal im Monat anonymisiert. Die Anonymisierung
@@ -262,15 +268,16 @@ Help language file
     </chapter>
     <chapter ref="HL_FILES_MNG">
         <![CDATA[
-        <p>Im <b>Dateimanager</b> kannst du Bilder hochladen, welche du in deinen Artikeln verwendet willst. Eine vereinfachte Ansicht lässt
+        <p>Im <b>Dateimanager</b> kannst du Grafiken hochladen, welche du in deinen Artikeln verwendet willst. Eine vereinfachte Ansicht lässt
             sich auch direkt aus dem Artikel-Editor heraus aufrufen. Er zeigt neben einem Vorschau-Bild noch einige zusätzliche Informationen zur
             hochgeladenen Datei an.</p>
 
         <dl>
             <dt>Suche und Filter:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Artikel anhand
-            verschiedener Kriterien weiter eingrenzen. Über die Hauptnavigation kannst du bereits eine Vorauswahl treffen, welche Artikel
-            dir angezeigt werden sollen.</dd>
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Grafiken
+            anhand verschiedener Kriterien weiter eingrenzen. Unterschiedliche Felder können im Bedarfsfall miteinander verknüpft werden oder die Suche
+            in speziellen Konstellationen durchgeführt werden. Hierzu dient das linke Dropdown-Feld in der jeweiligen Zeile. Auf der
+            rechten Seite einer Zeile wird der jeweiligen Wert angegeben.</dd>
             <dt>Thumbnails erzeugen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Für ausgewählte Dateien kann das Thumbnial neu erzeugt werden.</dd>
             <dt>Löschen:</dt>
@@ -312,7 +319,7 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Zeichenkette welches für den Login verwendet wird. Neben dem Eingabefeld findest du den Button <strong>Password generieren</strong>.
             Über diesen kannst du eine zufällige Zeichenkette erzeugen lassen und als Passwort abspeichern.</dd>
             <dt>E-Mail-Adresse:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">E-Mail-Adresse für Benachrichtigungen, ein neu gesetztes Passwort, etc.</dd>
+            <dd class="fpcm-ui-padding-md-bottom">E-Mail-Adresse für Benachrichtigungen, ein neu gesetztes Passwort etc.</dd>
             <dt>Aktuelles Passwort zur Bestätigung eingeben:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Zur Änderung des Passwortes und bestimmter anderer Einstellungen ist eine Bestätigung per Passwort nötig.</dd>
             <dt>Zwei-Faktor-Authentifizierung:</strong> (optional)</dt>
@@ -393,7 +400,7 @@ Help language file
             wenn du FanPress CM via iframe oder die Template-Vorschau nutzt.</dd>
             <dt><em>Frontend</em> - Verwendung per:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Nutzung von FanPress CM via phpinclude oder in einem iframe. Diese Einstellung beeinflusst,
-            wie sich das System im Frontend verhält und welche zusätzlichen Daten beim Aufruf von Artikel-Listen, etc. geladen werden.</dd>
+            wie sich das System im Frontend verhält und welche zusätzlichen Daten beim Aufruf von Artikel-Listen etc. geladen werden.</dd>
             <dt><em>Frontend</em> - jQuery Bibliothek im Frontend laden:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Soll jQuery bei Nutzung von phpinclude geladen werden oder nicht. Wichtig wenn du phpinclude
             verwendest und jQuery nicht bereits anderweitig in deiner Seite eingebunden ist. Ohne jQuery stehen einige Frontend-Funktionen nicht
@@ -460,7 +467,7 @@ Help language file
             einem Template verwendet, so wird er bei der Einstellung "Nein" aus der Frontend-Anzeige entfernt.</dd>
             <dt><em>Frontend</em> - Geteilte Artikel über Share-Buttons zählen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Diese Option ermöglicht es zu zählen, wie oft ein Artikel über die Share-Buttons bereits geteilt
-            wurde. Diese Option wie oft ein Artikel geteilt wurde und wann dies zuletzt erfolgte. Es erfolgt keine Erfassung, von welcher IP, etc.
+            wurde. Diese Option wie oft ein Artikel geteilt wurde und wann dies zuletzt erfolgte. Es erfolgt keine Erfassung, von welcher IP etc.
             dies erfolgte.</dd>
             <dt><em>Frontend</em> - URL-Rewriting für Artikel-Links aktivieren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Statt der klassischen Artikel-URL mit der Artikel-ID wird eine erweiterte Version erzeugt,
@@ -514,14 +521,14 @@ Help language file
         <dl>
             <dt>Sicherheit & Wartung - Wartungsmodus aktiv:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Wurde der Wartungsmodus aktiviert, so haben nur angemeldete Benutzer Zugriff auf FanPress CM.
-            Besucher deiner Seite, etc. erhalten eine Hinweis-Meldung. Nur bereits angemeldete Benutzer können in diesem Status Änderungen
+            Besucher deiner Seite etc. erhalten eine Hinweis-Meldung. Nur bereits angemeldete Benutzer können in diesem Status Änderungen
             am System vornehmen.</dd>
             <dt>Sicherheit & Wartung - Maximale Länge einer Admin-Sitzung:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Länge einer Session Admin-Bereich. Eine Session läuft automatisch ab, wenn innerhalb der angegebenen
             Zeit keine Aktion im Admin-Bereich erfolgte bzw. der Check der Session fehlgeschlagen ist.</dd>
             <dt>Sicherheit & Wartung - Anzahl Login-Versuche vor temporärer Sperre:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Hiermit kann die Anzahl der Fehlgeschlagenen Logins einstellen, bis der Login vorübergehend
-            gesperrt wird. Diese Option erschwert die Übernahme von Benutzer-Accounts durch massenweises Durchprobieren von Passwörtern, etc.</dd>
+            gesperrt wird. Diese Option erschwert die Übernahme von Benutzer-Accounts durch massenweises Durchprobieren von Passwörtern etc.</dd>
             <dt>Sicherheit & Wartung - Zwei-Faktor-Authentifizierung:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz von Benutzer-Konten gegen Fishing,
             Bots und ähnliches. Die Nutzung ist optional und wird durch jeden Benutzer selbst festgelegt. Der zweite Faktor zum Login wird mittels
@@ -603,9 +610,9 @@ Help language file
         
         <ul>
             <li>Über Benutzer wird der Zugriff auf den Admin-Bereich gesteuert, sowie dokumentiert wer welchen Artikel,
-            Kommentar, etc. verfasst oder bearbeitet hat.</li>
+            Kommentar etc. verfasst oder bearbeitet hat.</li>
             <li>Benutzer können deaktiviert werden. Dabei wird der Login gesperrt und somit der Zugriff auf den
-            Admin-Bereich gesperrt. Die erstellten Artikel, etc. bleiben erhalten. Dies kann nützlich sein, wenn
+            Admin-Bereich gesperrt. Die erstellten Artikel etc. bleiben erhalten. Dies kann nützlich sein, wenn
             der Benutzer das Team deiner Seite verlassen hat, aus ihm ausgeschlossen wurde oder der Account irgendwie
             missbraucht wurde.</li>
             <li>Die änderbaren Informationen in den Benutzern entsprechen denen im Benutzer-Profil. Die von einem Benutzer
@@ -721,11 +728,11 @@ Help language file
         <ul>
             <li>Benutzer mit Rechten zur Änderung der Systemeinstellungen können hier IP-Adressen sperren oder Sperren wieder aufheben.
             (z. B. wegen Spam)</li>
-            <li>Durch die Nutzung von Proxy-Servern, privaten Netzwerken, dynamischen IP-Adressen, etc. kann es passieren, dass von der
+            <li>Durch die Nutzung von Proxy-Servern, privaten Netzwerken, dynamischen IP-Adressen etc. kann es passieren, dass von der
             Sperrung einer IP-Adresse nicht nur ein einzelner, sondern viele Nutzer (ungewollt) betroffen sind.</li>
             <li>Pro Eintrag kann festgelegt werden, für welchen Bereich von FanPress CM die Sperren gelten soll.</li>
             <li>Durch entsprechende Muster können ganze IP-Adress-Bereiche gesperrt werden, Beispiele werden sind im Editor angezeigt. Dies
-            kann nötig werden, wenn zum Beispiel Bots (Spam, Suchmaschinen, etc.) häufig ihre IP-Adresse wechseln.</li>
+            kann nötig werden, wenn zum Beispiel Bots (Spam, Suchmaschinen etc.) häufig ihre IP-Adresse wechseln.</li>
         </ul>
         
         <dl>
@@ -745,9 +752,9 @@ Help language file
         <![CDATA[
 
         <ul>
-            <li>Die Textzensur ermöglicht es, bestimmte Wörter, Textgruppen oder Zeichenketten für die Verwendung in Artikeln, Kommentaren, etc. zu
+            <li>Die Textzensur ermöglicht es, bestimmte Wörter, Textgruppen oder Zeichenketten für die Verwendung in Artikeln, Kommentaren etc. zu
             sperren.</li>
-            <li>Hierüber kann vermieden werden, dass Beleidigungen, Spam, usw. öffentlich auf der Seite veröffentlicht werden und/oder
+            <li>Hierüber kann vermieden werden, dass Beleidigungen, Spam usw. öffentlich auf der Seite dargestellt bzw.
             falsche/unvollständige Angaben erneut veröffentlicht werden.</li>
         </ul>
         
@@ -789,7 +796,7 @@ Help language file
     </chapter>
     <chapter ref="HL_OPTIONS_TEMPLATES">
         <![CDATA[
-        <p>Benutzer mit entsprechenden Rechten können die Templates zur Ausgabe von Artikeln, Kommentaren, etc. bearbeiten.
+        <p>Benutzer mit entsprechenden Rechten können die Templates zur Ausgabe von Artikeln, Kommentaren etc. bearbeiten.
         Für eine bessere Übersicht bietet der Template-Editor Syntax-Highlighting und eine Liste der verfügbaren Platzhalter.</p>
 
         <h3>Templates</h3>
@@ -799,7 +806,7 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Template für Anzeige von Artikeln in der Artikel-Liste.</dd>
             <dt>Artikel-Einzel-Ansicht:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Template für Anzeige eines einzelnen Artikels inkl. dessen Kommentaren, dem
-            Kommentar-Formular, etc. Dieser Tab wird nicht angezeigt, wenn für <em>Artikel-Liste</em> und <em>Artikel-Einzel-Ansicht</em>
+            Kommentar-Formular etc. Dieser Tab wird nicht angezeigt, wenn für <em>Artikel-Liste</em> und <em>Artikel-Einzel-Ansicht</em>
             das gleiche Template genutzt wird.</dd>
             <dt>Kommentar:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Template für die Anzeige eines einzelnen Kommentars im Frontend.</dd>
@@ -828,7 +835,7 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Der Editor basiert ebenfalls auf CodeMirror und arbeitet ähnlich wie der Artikel-Editor.</dd>
             <dt>Vorschau anzeigen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Der Button <strong>Vorschau anzeigen</strong> ermöglicht es, den im Editor vorhandenen Template-Inhalt
-            als Vorschau anzeigen zu lassen und somit die Wirkung, Formatierungsfehler, etc. sofort zu erkennen.</dd>
+            als Vorschau anzeigen zu lassen und somit die Wirkung, Formatierungsfehler etc. sofort zu erkennen.</dd>
         </dl>
         
         <h3>Vorlagen</h3>
@@ -926,7 +933,7 @@ Help language file
     <chapter ref="HL_LOGS">
         <![CDATA[
         <p>Im Bereich <em>Protokollee</em> findest du eine Auflistung aller bisherigen Benutzer-Logins, System-Meldungen von FanPress und
-            Fehlermeldungen durch PHP selbst oder der Datenbank. Über den Button <strong>Leeren</strong> kannst du Meldungen, etc. löschen
+            Fehlermeldungen durch PHP selbst oder der Datenbank. Über den Button <strong>Leeren</strong> kannst du Meldungen etc. löschen
             lassen.</p>
         
         <dl>
@@ -937,14 +944,14 @@ Help language file
             <dt>Sonstige:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieses Protokoll beinhaltet allgemeine Meldungen von FanPress CM, Status-Meldungen und falls nötig Diagnose-Informationen.</dd>
             <dt>Ereignisse:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">In diesem Protokoll werden allen von Fehlern, welche im Betrieb, bei Updates, Änderungen der Systemkonfiguration, etc. auftreten.
+            <dd class="fpcm-ui-padding-md-bottom">In diesem Protokoll werden allen von Fehlern, welche im Betrieb, bei Updates, Änderungen der Systemkonfiguration etc. auftreten.
             Fatale PHP_Fehler können hier unter Umständen nicht angezeigt werden, da die System-Protokollierung zu diesem Zeitpunkt noch nicht greift. Nicht alle Einträge sind
             zwangsläufig kritisch. Bei Fragen lassen uns einfach eine Nachricht zukommen.</dd>
             <dt>Datenbank:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die Datenbank-Protokolldatei enthält weitergehende Informationen zu Ereignissen auf Datenbank-Seite, z. B. fehlschlagende Abfragen, fehlschlagende
-            Verbindungen zum Datenbank-Server, etc.</dd>
+            Verbindungen zum Datenbank-Server etc.</dd>
             <dt>Cronjobs:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Hier werden Status-Informationen, Laufzeiten, etc. zu ausgeführten Cronjobs protokolliert. Dieses Log kann in Abhängigkeit von der
+            <dd class="fpcm-ui-padding-md-bottom">Hier werden Status-Informationen, Laufzeiten etc. zu ausgeführten Cronjobs protokolliert. Dieses Log kann in Abhängigkeit von der
             Cronjob-Konfiguration sehr schnell stark wachsen und sollte daher regelmäßig bereinigt werden.</dd>
             <dt>Paketmanager:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieses Protokolle beinhaltet Status-Informationen zu System-Updates, sowie Installation oder Updates von Modulen.</dd>
@@ -998,7 +1005,7 @@ Help language file
             <dt>Modul deinstallieren:</dt>
             <dt>Modul löschen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die Deinstallation eines Moduls entfernt alle durch das Modul angelegten
-            Tabellen, Konfigurationsoptionen, etc. Die Dateien selbst werden dabei nicht gelöscht. Dies muss durch den
+            Tabellen, Konfigurationsoptionen etc. Die Dateien selbst werden dabei nicht gelöscht. Dies muss durch den
             Button <strong>Modul löschen</strong> erfolgen.</dd>
             <dt>Modul aktualisieren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Ist im öffentlichen Repository eine neuere Version des Modules
@@ -1008,7 +1015,7 @@ Help language file
             <dt>Modul aktivieren:</dt>
             <dt>Modul deaktivieren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Nach der Installation eines Moduls muss dies aktiviert werden, so
-            dass definierte Events, Aktionen, etc. zur Verfügung stehen. Die Deaktivierung ermöglicht es, die Ausführung
+            dass definierte Events, Aktionen etc. zur Verfügung stehen. Die Deaktivierung ermöglicht es, die Ausführung
             z. B. bei auftretenden Fehlern zu beenden ohne das Modul komplett zu deaktivieren.</dd>
             <dt>Modul konfigurieren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieser Button wird angezeigt, wenn das Modul das Template <em>configure.php</em>
