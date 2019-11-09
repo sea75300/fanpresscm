@@ -91,6 +91,8 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
+        $this->setReturnJson();
+        
         if (!method_exists($this, $this->step)) {
             trigger_error('Module processing step '.$this->step.' not defined!');
             $this->returnData = [

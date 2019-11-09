@@ -18,6 +18,8 @@ class moduleInstaller extends moduleBase {
     public function process()
     {
         $this->steps['tabHeadline'] = 'MODULES_LIST_INSTALL';
+        $this->steps['successMsg'] = 'PACKAGEMANAGER_SUCCESS';
+        $this->steps['errorMsg'] = 'PACKAGEMANAGER_FAILED';
 
         $this->jsVars = [
             'pkgdata' => [
@@ -26,6 +28,8 @@ class moduleInstaller extends moduleBase {
             ]
         ];
         
+        $this->view->assign('successMsg', 'PACKAGEMANAGER_SUCCESS');
+        $this->view->assign('errorMsg', 'PACKAGEMANAGER_FAILED');
         parent::process();
     }
 

@@ -62,9 +62,7 @@ fpcm.moduleinstaller = {
                 key : fpcm.vars.jsvars.pkgdata.key,
                 mode: fpcm.vars.jsvars.pkgdata.action
             },
-            execDone: function () {
-
-                var res = fpcm.ajax.getResult('packagemgr/moduleInstaller', true);
+            execDone: function (res) {
 
                 var statusEl = fpcm.moduleinstaller.currentEl.find('.fpcm-ui-update-iconstatus');
                 statusEl.removeClass(fpcm.moduleinstaller.statusSpinner);
@@ -77,6 +75,10 @@ fpcm.moduleinstaller = {
                         fpcm.ui.addMessage({
                             txt: res.pkgdata.errorMsg,
                             type: 'error'
+                        });
+
+                        fpcm.ui_notify.show({
+                            body: res.pkgdata.errorMsg
                         });
                     }
 
@@ -102,7 +104,14 @@ fpcm.moduleinstaller = {
             },
             execFail: function () {
                 fpcm.moduleinstaller.currentEl.find('.fpcm-ui-update-iconstatus').removeClass(fpcm.moduleinstaller.statusSpinner).addClass('fa-ban fpcm-ui-important-text');
-                fpcm.dom.fromId('fpcm-ui-update-result-0').removeClass('fpcm-ui-hidden');
+
+                var resultEl = fpcm.dom.fromId('fpcm-ui-update-result-0');
+                resultEl.removeClass('fpcm-ui-hidden');
+
+                fpcm.ui_notify.show({
+                    body: resultEl.find('div.fpcm-ui-updater-descr').text()
+                });
+
                 fpcm.moduleinstaller.currentEl = {};
                 return false;
             }
@@ -118,8 +127,13 @@ fpcm.moduleinstaller = {
     stopTimer: function() {
         fpcm.moduleinstaller.stopTime = (new Date().getTime());
         fpcm.dom.appendHtml('#fpcm-ui-update-timer', ': ' + (fpcm.moduleinstaller.stopTime - fpcm.moduleinstaller.startTime) / 1000 + ' sec');
-        fpcm.dom.appendHtml('#fpcm-ui-update-newver-descr', ': ' + fpcm.vars.jsvars.pkgdata.module.version);
         fpcm.dom.fromId('fpcm-ui-update-timer').parent().removeClass('fpcm-ui-hidden');
-        fpcm.dom.fromId('fpcm-ui-update-result-1').removeClass('fpcm-ui-hidden');
+
+        var resultEl = fpcm.dom.fromId('fpcm-ui-update-result-1');
+        resultEl.removeClass('fpcm-ui-hidden');
+
+        fpcm.ui_notify.show({
+            body: resultEl.find('div.fpcm-ui-updater-descr').text()
+        }); 
     }
 };

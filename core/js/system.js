@@ -73,6 +73,14 @@ fpcm.system = {
             return true;
         }
 
+        fpcm.ui_notify.show({
+            body: 'SESSION_TIMEOUT',
+            timeout: -1,
+            click: function (event) {
+                window.focus();
+            }
+        });
+
         fpcm.ui.dialog({
             content: fpcm.ui.translate('SESSION_TIMEOUT'),
             dlButtons: buttons = [

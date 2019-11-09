@@ -34,6 +34,7 @@ if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled(
         __DIR__.DIRECTORY_SEPARATOR.'dom.js',
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'base.js',
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'navigation.js',
+        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'webnotify.js',
         __DIR__.DIRECTORY_SEPARATOR.'notifications.js',
         __DIR__.DIRECTORY_SEPARATOR.'system.js'
     ];

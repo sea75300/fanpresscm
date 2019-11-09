@@ -135,7 +135,8 @@
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
                 <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
                     <?php $theView->icon('lightbulb')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                        'step' => 'maintenanceOff'
+                        'step' => 'maintenanceOff',
+                        'after' => 'stopTimer',
                     ]); ?>
                 </div>
                 <div class="col-11 align-self-center fpcm-ui-updater-descr">
@@ -158,7 +159,7 @@
                     <?php $theView->icon('check')->setSize('3x')->setClass('fpcm-ui-editor-metainfo'); ?>
                 </div>
                 <div class="col-11 align-self-center fpcm-ui-updater-descr">
-                    <?php $theView->write('PACKAGEMANAGER_SUCCESS'); ?>
+                    <?php $theView->write($successMsg); ?>
                 </div>
             </div>
 
@@ -167,7 +168,7 @@
                     <?php $theView->icon('times')->setSize('3x')->setClass('fpcm-ui-important-text'); ?>
                 </div>
                 <div class="col-11 align-self-center fpcm-ui-updater-descr">
-                    <?php $theView->write('PACKAGEMANAGER_FAILED'); ?>
+                    <?php $theView->write($errorMsg); ?>
                 </div>
             </div>
 

@@ -33,9 +33,9 @@ fpcm.updater = {
         fpcm.updater.currentIdx++;
 
         var params = {
-            step: el.attr('data-step'),
-            func: el.attr('data-func'),
-            var: el.attr('data-var'),
+            step: el.data('step'),
+            func: el.data('func'),
+            var: el.data('var'),
         };
 
         el.parent().parent().removeClass('fpcm-ui-status-0').addClass('fpcm-ui-status-1');
@@ -60,9 +60,7 @@ fpcm.updater = {
             data: {
                 step : params.step
             },
-            execDone: function () {
-
-                var res = fpcm.ajax.getResult('packagemgr/processUpdate', true);
+            execDone: function (res) {
 
                 var statusEl = fpcm.updater.currentEl.find('.fpcm-ui-update-iconstatus');
                 statusEl.removeClass(fpcm.updater.statusSpinner);
@@ -76,6 +74,10 @@ fpcm.updater = {
                             txt: res.pkgdata.errorMsg,
                             type: 'error'
                         });
+                        
+                        fpcm.ui_notify.show({
+                            body: res.pkgdata.errorMsg
+                        });
                     }
 
                     fpcm.updater.currentEl = {};
@@ -86,7 +88,7 @@ fpcm.updater = {
                     jQuery.extend(fpcm.vars.jsvars.pkgdata.update, res.pkgdata);
                 }
 
-                var afterFunc = fpcm.updater.currentEl.attr('data-after');
+                var afterFunc = fpcm.updater.currentEl.data('after');
                 if (afterFunc && typeof fpcm.updater[afterFunc] === 'function') {
                     fpcm.updater[afterFunc].call();
                 }
@@ -100,7 +102,14 @@ fpcm.updater = {
             },
             execFail: function () {
                 fpcm.updater.currentEl.find('.fpcm-ui-update-iconstatus').removeClass(fpcm.updater.statusSpinner).addClass('fa-ban fpcm-ui-important-text');
-                fpcm.dom.fromId('fpcm-ui-update-result-0').removeClass('fpcm-ui-hidden');
+                
+                var resultEl = fpcm.dom.fromId('fpcm-ui-update-result-0');
+                resultEl.removeClass('fpcm-ui-hidden');
+
+                fpcm.ui_notify.show({
+                    body: resultEl.find('div.fpcm-ui-updater-descr').text()
+                });
+
                 fpcm.updater.currentEl = {};
                 return false;
             }
@@ -118,6 +127,13 @@ fpcm.updater = {
         fpcm.dom.appendHtml('#fpcm-ui-update-timer', ': ' + (fpcm.updater.stopTime - fpcm.updater.startTime) / 1000 + ' sec');
         fpcm.dom.appendHtml('#fpcm-ui-update-newver-descr', ': ' + fpcm.vars.jsvars.pkgdata.update.version);
         fpcm.dom.fromId('fpcm-ui-update-timer').parent().removeClass('fpcm-ui-hidden');
-        fpcm.dom.fromId('fpcm-ui-update-result-1').removeClass('fpcm-ui-hidden');
+        
+        var resultEl = fpcm.dom.fromId('fpcm-ui-update-result-1');
+        resultEl.removeClass('fpcm-ui-hidden');
+
+        fpcm.ui_notify.show({
+            body: resultEl.find('div.fpcm-ui-updater-descr').text()
+        });        
+
     }
 };
