@@ -187,7 +187,8 @@ final class http {
      */
     public static function getIp()
     {
-        return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
+        $return = explode(', ',  $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1' );
+        return $return[0];
     }
 
     /**
@@ -196,7 +197,7 @@ final class http {
      */
     public static function getHttpHost()
     {
-        return isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
+        return $_SERVER['HTTP_HOST'] ?? 'localhost';
     }
 
     /**
