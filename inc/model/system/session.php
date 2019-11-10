@@ -363,7 +363,7 @@ final class session extends \fpcm\model\abstracts\dataset {
         $this->lastaction = $timer;
         $this->logout = 0;
         $this->userid = $userid;
-        $this->sessionid = \fpcm\classes\security::createSessionId();
+        $this->sessionid = $this->generateSessionId();
         $this->ip = \fpcm\classes\http::getIp();
         $this->external = (int) $external;
         $this->useragent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
@@ -561,6 +561,16 @@ final class session extends \fpcm\model\abstracts\dataset {
         }
 
         return true;
+    }
+
+    /**
+     * Generates session id string
+     * @return string
+     * @since FPCM 4.3
+     */
+    public function generateSessionId() : string
+    {
+        return \fpcm\classes\tools::getHash(bin2hex(random_bytes(64)));
     }
 
 }

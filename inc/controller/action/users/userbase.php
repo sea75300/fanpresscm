@@ -100,7 +100,7 @@ class userbase extends \fpcm\controller\abstracts\controller {
 
         $this->view->addJsFiles([
             \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'),
-            'fileuploader.js'
+            'files/uploader.js'
         ]);
 
         $this->view->addJsVars([

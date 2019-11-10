@@ -34,11 +34,9 @@ fpcm.installer = {
                 dbdata: sParams
             },
             async: false,
-            execDone: function () {
+            execDone: function (res) {
                 
                 jQuery('#fpcm-messages').empty();
-
-                var res = fpcm.ajax.getResult('installer/checkdb');
                 if (res === '1' || res === 1) {
                     jQuery('#fpcm-ui-form').submit();
                     return true;
@@ -82,10 +80,10 @@ fpcm.installer = {
             data: {
                 file: obj.path
             },
-            execDone: function () {
+            execDone: function (result) {
                 jQuery('#fpcm-installer-execlist').find('span.fa-spinner').remove();
 
-                if(fpcm.ajax.getResult('installer/initdb') != 0){
+                if(result != 0){
                     fpcm.ui.prependHtml('#' + rowId, '<span class="fa fa-check fa-fw"></span>');
                     fpcm.installer.currentDbFileIndex++;
                     fpcm.installer.execDbFile();

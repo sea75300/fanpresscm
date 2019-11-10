@@ -126,7 +126,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
         $this->view->assign('hasFiles', $hasFiles);
         $this->view->assign('newUploader', $this->config->file_uploader_new);
         $this->view->assign('jquploadPath', \fpcm\classes\dirs::getLibUrl('jqupload/'));
-        $this->view->addJsFiles(['filemanager.js', 'fileuploader.js']);
+        $this->view->addJsFiles(['files/module.js', 'files/uploader.js']);
 
         $actionPath = \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]);
         

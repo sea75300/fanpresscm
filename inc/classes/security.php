@@ -35,12 +35,6 @@ final class security {
     private static $cookieName;
 
     /**
-     * Token Cookie Name
-     * @since FPCM 3.6
-     */
-    private static $cookieTokenName;
-
-    /**
      * Cookie-Name zurückgeben
      * @return string
      */
@@ -73,14 +67,6 @@ final class security {
         ]);
     }
 
-    /**
-     * gibt Inhalt von Session cookie zurück
-     * @return string
-     */
-    public static function createSessionId()
-    {
-        return tools::getHash(self::getSecureBaseString());
-    }
 
     /**
      * Passwort-Hash erzeugen
@@ -115,16 +101,6 @@ final class security {
     }
 
     /**
-     * Erzeugt Page-Token zur Absicherung gegen CSRF-Angriffe
-     * @param bool $overrideModule
-     * @return string
-     */
-    public static function createPageToken($overrideModule = '')
-    {
-        return (new \fpcm\classes\pageTokens())->refresh();
-    }
-
-    /**
      * Config für Sicherheitsconfig
      * @return bool
      * @since FPCM 3.6
@@ -136,12 +112,12 @@ final class security {
             return true;
         }
 
-        $secConf = [
-            'cookieName' => tools::getHash('cookie' . uniqid('fpcm', true) . dirs::getRootUrl()),
-            'pageTokenBase' => tools::getHash('pgToken' . dirs::getRootUrl() . '$')
-        ];
+        $secConf = var_export([
+            'cookieName' => tools::getHash('cookie' . self::getSecureBaseString() . dirs::getRootUrl()),
+        ],
+        true);
 
-        return file_put_contents(dirs::getDataDirPath(dirs::DATA_CONFIG, 'sec.php'), '<?php' . PHP_EOL . ' $config = ' . var_export($secConf, true) . PHP_EOL . '?>');
+        return file_put_contents(dirs::getDataDirPath(dirs::DATA_CONFIG, 'sec.php'), '<?php' . PHP_EOL . ' $config = ' . $secConf . PHP_EOL . '?>');
     }
 
     /**
@@ -194,8 +170,34 @@ final class security {
      */
     private static function getSecureBaseString()
     {
-        $md5base = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : __FILE__;
-        return uniqid('fpcm', true) . '#' . microtime(true) . '#' . md5($md5base) . '#' . mt_rand();
+        try {            
+            $data = bin2hex(random_bytes(64));
+        } catch (\Exception $exc) {
+            $md5base = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : __FILE__;
+            $data = uniqid('fpcm', true) . '#' . microtime(true) . '#' . md5($md5base) . '#' . mt_rand();
+        }
+
+        return $data;
     }
 
+    /**
+     * gibt Inhalt von Session cookie zurück
+     * @return string
+     * @deprecated since version FPCM 4.3
+     */
+    public static function createSessionId()
+    {
+        return tools::getHash(self::getSecureBaseString());
+    }
+
+    /**
+     * Erzeugt Page-Token zur Absicherung gegen CSRF-Angriffe
+     * @param bool $overrideModule
+     * @return string
+     * @deprecated since version FPCM 4.3
+     */
+    public static function createPageToken($overrideModule = '')
+    {
+        return (new \fpcm\classes\pageTokens())->refresh();
+    }
 }

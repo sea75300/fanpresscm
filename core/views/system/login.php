@@ -3,7 +3,10 @@
     <div class="fpcm ui-form-login col-12 col-md-10 col-lg-8 col-xl-5 fpcm-ui-margin-center align-self-center">
         <div class="fpcm ui-background-white-50p ui-blurring fpcm-ui-border-radius-all p-3 py-md-3 px-md-4">
 
-            <h1 class="fpcm-ui-margin-md-bottom"><?php $theView->icon('chevron-right'); ?> <span>FanPress CM</span> <span>News System</span></h1>
+            <header>
+                <h1 class="fpcm-ui-margin-md-bottom"><?php $theView->icon('chevron-right'); ?> <span>FanPress CM</span> <span>News System</span></h1>
+                <!-- FanPress CM News System <?php print $theView->version; ?> -->
+            </header>
             
             <?php if ($twoFactorAuth) : ?>
             <div class="row no-gutters fpcm-ui-padding-md-tb">
