@@ -95,76 +95,18 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $where = [];
         $valueParams = [];
 
-        $searchTypeAllNmw = in_array($conditions->searchtype, [\fpcm\model\comments\search::TYPE_ALL, \fpcm\model\comments\search::TYPE_NAMEMAILWEB]);
-        if ($conditions->text && $searchTypeAllNmw) {
-            $where[] = "name " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions->text}%";
+        if ( $conditions->isMultiple() ) {
+            $this->assignMultipleSearchParams($conditions, $where, $valueParams);
+            $combination = '';
         }
-
-        if ($conditions->text && $searchTypeAllNmw) {
-            $where[] = "email " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions->text}%";
-        }
-
-        if ($conditions->text && $searchTypeAllNmw) {
-            $where[] = "website " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions->text}%";
-        }
-
-        if ($conditions->text) {
-            $where[] = "text " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions->text}%";
-        }
-
-        if (count($where) && $searchTypeAllNmw) {
-            $where = ['(' . implode(' OR ', $where) . ')'];
-        }
-
-        if ($conditions->datefrom) {
-            $where[] = "createtime >= ?";
-            $valueParams[] = $conditions->datefrom;
-        }
-
-        if ($conditions->dateto) {
-            $where[] = "createtime <= ?";
-            $valueParams[] = $conditions->dateto;
-        }
-
-        if ($conditions->spam && $conditions->spam > -1) {
-            $where[] = "spammer = ?";
-            $valueParams[] = (int) $conditions->spam;
-        }
-
-        if ($conditions->private && $conditions->private > -1) {
-            $where[] = "private = ?";
-            $valueParams[] = (int) $conditions->private;
-        }
-
-        if ($conditions->approved && $conditions->approved > -1) {
-            $where[] = "approved = ?";
-            $valueParams[] = (int) $conditions->approved;
-        }
-
-        if ($conditions->deleted !== null) {
-            $where[] = "deleted = ?";
-            $valueParams[] = (int) $conditions->deleted;
-        }
-
-        if ($conditions->articleid) {
-            $where[] = "articleid = ?";
-            $valueParams[] = (int) $conditions->articleid;
-        }
-
-        if ($conditions->ipaddress) {
-            $where[] = "ipaddress = ?";
-            $valueParams[] = $conditions->ipaddress;
+        else {
+            $this->assignSearchParams($conditions, $where, $valueParams);
+            $combination = $conditions->combination !== null ? $conditions->combination : 'AND';
         }
         
         if (!count($where)) {
             $where = ['1=1'];
         }
-
-        $combination = $conditions->combination ? $conditions->combination : 'AND';
 
         $eventData = $this->events->trigger('comments\getByCondition', [
             'conditions' => $conditions,
@@ -173,15 +115,15 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         ]);
 
         $where = $eventData['where'];
-        $where = implode(" {$combination} ", $where);
         $valueParams = $eventData['values'];
+
+        $where = implode(" {$combination} ", $where);
 
         $where2 = [];
         $where2[] = $this->dbcon->orderBy( ($conditions->orderby ? $conditions->orderby : ['createtime ASC']) );
 
-        $limit = $conditions->limit;
-        if ($limit) {
-            $where2[] = $this->dbcon->limitQuery($limit[0], $limit[1]);
+        if ($conditions->limit !== null) {
+            $where2[] = $this->dbcon->limitQuery($conditions->limit[0], $conditions->limit[1]);
         }
 
         $where .= ' ' . implode(' ', $where2);
@@ -492,6 +434,168 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         }
 
         return $res;
+    }
+
+    /**
+     * Assigns search params object to value arrays
+     * @param \fpcm\model\comments\search $conditions
+     * @param array $where
+     * @param array $valueParams
+     * @since FPCM 4.3
+     */
+    private function assignSearchParams(search $conditions, array &$where, array &$valueParams) : bool
+    {
+        $searchTypeAllNmw = in_array($conditions->searchtype, [\fpcm\model\comments\search::TYPE_ALL, \fpcm\model\comments\search::TYPE_NAMEMAILWEB]);
+        if ($conditions->text && $searchTypeAllNmw) {
+            $where[] = "name " . $this->dbcon->dbLike() . " ?";
+            $valueParams[] = "%{$conditions->text}%";
+        }
+
+        if ($conditions->text && $searchTypeAllNmw) {
+            $where[] = "email " . $this->dbcon->dbLike() . " ?";
+            $valueParams[] = "%{$conditions->text}%";
+        }
+
+        if ($conditions->text && $searchTypeAllNmw) {
+            $where[] = "website " . $this->dbcon->dbLike() . " ?";
+            $valueParams[] = "%{$conditions->text}%";
+        }
+
+        if ($conditions->text) {
+            $where[] = "text " . $this->dbcon->dbLike() . " ?";
+            $valueParams[] = "%{$conditions->text}%";
+        }
+
+        if (count($where) && $searchTypeAllNmw) {
+            $where = ['(' . implode(' OR ', $where) . ')'];
+        }
+
+        if ($conditions->datefrom) {
+            $where[] = "createtime >= ?";
+            $valueParams[] = $conditions->datefrom;
+        }
+
+        if ($conditions->dateto) {
+            $where[] = "createtime <= ?";
+            $valueParams[] = $conditions->dateto;
+        }
+
+        if ($conditions->spam && $conditions->spam > -1) {
+            $where[] = "spammer = ?";
+            $valueParams[] = (int) $conditions->spam;
+        }
+
+        if ($conditions->private && $conditions->private > -1) {
+            $where[] = "private = ?";
+            $valueParams[] = (int) $conditions->private;
+        }
+
+        if ($conditions->approved && $conditions->approved > -1) {
+            $where[] = "approved = ?";
+            $valueParams[] = (int) $conditions->approved;
+        }
+
+        if ($conditions->deleted !== null) {
+            $where[] = "deleted = ?";
+            $valueParams[] = (int) $conditions->deleted;
+        }
+
+        if ($conditions->articleid) {
+            $where[] = "articleid = ?";
+            $valueParams[] = (int) $conditions->articleid;
+        }
+
+        if ($conditions->ipaddress) {
+            $where[] = "ipaddress = ?";
+            $valueParams[] = $conditions->ipaddress;
+        }
+
+        return true;
+    }
+
+    /**
+     * Assigns search params object to value arrays
+     * @param \fpcm\model\comments\search $conditions
+     * @param array $where
+     * @param array $valueParams
+     * @since FPCM 4.3
+     */
+    private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams) : bool
+    {
+        if ($conditions->text !== null) {
+            
+            switch ($conditions->searchtype) {
+                case search::TYPE_NAMEMAILWEB:
+                case search::TYPE_NAMEMAILWEB_OR:
+                    $valueParams[] = "%{$conditions->text}%";
+                    $valueParams[] = "%{$conditions->text}%";
+                    $valueParams[] = "%{$conditions->text}%";
+                case search::TYPE_NAMEMAILWEB:
+                    $where[] = "name " . $this->dbcon->dbLike() . " ? AND email " . $this->dbcon->dbLike() . " ? AND website " . $this->dbcon->dbLike() . " ?";
+                    break;
+                case search::TYPE_NAMEMAILWEB_OR:
+                    $where[] = "name " . $this->dbcon->dbLike() . " ? OR email " . $this->dbcon->dbLike() . " ? OR website " . $this->dbcon->dbLike() . " ?";
+                    break;
+                case search::TYPE_TEXT:
+                    $where[] = "text " . $this->dbcon->dbLike() . " ?";
+                    $valueParams[] = "%{$conditions->text}%";
+                    break;
+                case search::TYPE_ALLOR:
+                    $where[] = "name " . $this->dbcon->dbLike() . " ? OR email " . $this->dbcon->dbLike() . " ? OR website " . $this->dbcon->dbLike() . " ? OR text " . $this->dbcon->dbLike() . " ?";
+                    $valueParams[] = "%{$conditions->text}%";
+                    $valueParams[] = "%{$conditions->text}%";
+                    $valueParams[] = "%{$conditions->text}%";
+                    $valueParams[] = "%{$conditions->text}%";
+                    break;
+                default:
+                    $where[] = "name " . $this->dbcon->dbLike() . " ? AND email " . $this->dbcon->dbLike() . " ? AND website " . $this->dbcon->dbLike() . " ? AND text " . $this->dbcon->dbLike() . " ?";
+                    $valueParams[] = "%{$conditions->text}%";
+                    $valueParams[] = "%{$conditions->text}%";
+                    $valueParams[] = "%{$conditions->text}%";
+                    $valueParams[] = "%{$conditions->text}%";
+                    break;
+            }            
+        }
+
+        if ($conditions->datefrom) {
+            $where[] = $conditions->getCondition('datefrom', "createtime >= ?");
+            $valueParams[] = $conditions->datefrom;
+        }
+
+        if ($conditions->dateto) {
+            $where[] = $conditions->getCondition('dateto', "createtime <= ?");
+            $valueParams[] = $conditions->dateto;
+        }
+
+        if ($conditions->spam && $conditions->spam > -1) {
+            $where[] = $conditions->getCondition('spam', "spammer = ?");
+            $valueParams[] = (int) $conditions->spam;
+        }
+
+        if ($conditions->private && $conditions->private > -1) {
+            $where[] = $conditions->getCondition('private', "private = ?");
+            $valueParams[] = (int) $conditions->private;
+        }
+
+        if ($conditions->approved && $conditions->approved > -1) {
+            $where[] = $conditions->getCondition('approved', "approved = ?");
+            $valueParams[] = (int) $conditions->approved;
+        }
+
+        if ($conditions->articleid) {
+            $where[] = $conditions->getCondition('articleid', "articleid = ?");
+            $valueParams[] = (int) $conditions->articleid;
+        }
+
+        if ($conditions->ipaddress) {
+            $where[] = $conditions->getCondition('categoryid', "ipaddress = ?");
+            $valueParams[] = $conditions->ipaddress;
+        }
+
+        $where[] = $conditions->getCondition('deleted', "deleted = ?");
+        $valueParams[] = $conditions->deleted !== null ? $conditions->deleted : 0;
+        
+        return true;
     }
 
 }

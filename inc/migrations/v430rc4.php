@@ -19,6 +19,10 @@ namespace fpcm\migrations;
  */
 class v430rc4 extends migration {
 
+    /**
+     * Update inedit data for articles
+     * @return bool
+     */
     protected function alterTablesAfter() : bool
     {
         return $this->getDB()->update(\fpcm\classes\database::tableArticles, ['inedit'], ['']);

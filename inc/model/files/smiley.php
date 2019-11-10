@@ -277,7 +277,11 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
 
         $this->initImageSize();
     }
-    
+
+    /**
+     * Fetch smileyy data by id
+     * @return boolean
+     */
     public function initById()
     {
         $obj = (new \fpcm\model\dbal\selectParams($this->table))

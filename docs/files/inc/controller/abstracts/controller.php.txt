@@ -282,10 +282,10 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Check page token
-     * @param string $overrideModule
+     * @param string $name
      * @return bool
      */
-    final protected function checkPageToken($overrideModule = '')
+    protected function checkPageToken($name = '')
     {
         if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
             trigger_error('Page token check failed, no referer available or referrer mismatch in '. get_class($this));
@@ -293,38 +293,7 @@ class controller implements \fpcm\controller\interfaces\controller {
             return $this->checkPageToken;
         }
 
-        $fopt = new \fpcm\model\files\fileOption(\fpcm\classes\security::getPageTokenFieldName($overrideModule));
-        $tokenData = \fpcm\classes\loader::getObject('\fpcm\classes\crypt')->decrypt($fopt->read());
-        $fopt->remove();
-
-        if (is_string($tokenData)) {
-            $tokenData = json_decode($tokenData);
-        }
-
-        if (!is_object($tokenData)) {
-            $this->checkPageToken = false;
-            return $this->checkPageToken;
-        }
-
-        if (time() > $tokenData->exp) {
-            trigger_error('Submitted page token has been expired on ' . date('Y-m-d', $tokenData->exp).' in '. get_class($this));
-            $this->checkPageToken = false;
-            return $this->checkPageToken;
-        }
-
-        $postToken = \fpcm\classes\http::getPageToken($overrideModule);
-        if ($postToken !== null && $postToken != $tokenData->str) {
-            trigger_error('Submitted page token was inavlid. Token: ' . \fpcm\classes\http::getPageToken($overrideModule).' in '. get_class($this));
-            $this->checkPageToken = false;
-        }
-
-        $ajaxToken = \fpcm\classes\http::postOnly('pageTkn');
-        if ($ajaxToken !== null && $ajaxToken != $tokenData->str) {
-            trigger_error('Submitted page token was inavlid. Token: ' . $ajaxToken.' in '. get_class($this));
-            $this->checkPageToken = false;
-        }
-
-        $this->checkPageToken = true;
+        $this->checkPageToken = (new \fpcm\classes\pageTokens())->validate($name);
         return $this->checkPageToken;
     }
 
@@ -335,38 +304,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function requestExit(array $vars) : bool
     {
-        if (!defined('FPCM_REQUEST_EXIT') || !FPCM_REQUEST_EXIT) {
-            return true;
-        }
-
-        define(
-            'FPCM_EXITREQUEST_REGEX',
-            '/('.implode('|', ['SELECT', 'CHR', 'UPPER', 'INFORMATION_SCHEMA',
-                               '\sAND', '\sOR', 'UNION', 'CONCAT', 'THEN']).')+/'
-        );
-        
-        $result = array_map(function($var) {
-
-                $varData = $this->getRequestVar($var);
-                if (is_array($varData)) {
-                    return 0;
-                }
-
-                $res = preg_match_all(FPCM_EXITREQUEST_REGEX, $varData);
-                return ($res === false || $res === 0) ? 0 : 1;
-            },
-            $vars
-        );
-
-        if (!is_array($result)) {
-            return false;
-        }
-        
-        $count = count(array_keys($result, 1));
-        if ($count) {
-            sleep($count > 30 ? 30 : $count);
-            print date(DATE_W3C).' - Bad request';
-            http_response_code(400);
+        if (!\fpcm\classes\security::requestExit($vars)) {
             exit;
         }
 
@@ -577,6 +515,31 @@ class controller implements \fpcm\controller\interfaces\controller {
         }
         
         return 0;
+    }
+    
+    /**
+     * Executes function by param from GET-request in current controller
+     * @param string $prefix
+     * @param string $actionFrom
+     * @return real|bool
+     * @since FPCM 4.3
+     */
+    final protected function processByParam(string $prefix = 'process', string $actionFrom = 'fn')
+    {
+        $actionName = $this->getRequestVar($actionFrom, [
+            \fpcm\classes\http::FILTER_REGEX_REPLACE,
+            \fpcm\classes\http::FILTER_FIRSTUPPER,
+            'regex' => '/([A-Za-z0-9\_]{3,})/',
+            'regexReplace' => '$0'
+        ]);
+
+        $fn = trim($prefix.$actionName);
+        if (!method_exists($this, $fn)) {
+            trigger_error('Request for undefined function '.$fn);
+            return 0x404;
+        }
+
+        return call_user_func([$this, $fn]);
     }
 
 }

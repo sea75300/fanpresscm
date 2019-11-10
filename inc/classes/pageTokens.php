@@ -18,6 +18,11 @@ namespace fpcm\classes;
  */
 final class pageTokens {
 
+    /**
+     * Constructor
+     * @return void
+     * @ignore
+     */
     final public function __construct()
     {
         if (!$this->isActive()) {

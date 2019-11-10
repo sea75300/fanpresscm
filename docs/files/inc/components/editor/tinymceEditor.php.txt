@@ -50,7 +50,7 @@ class tinymceEditor extends articleEditor {
      */
     public function getJsFiles()
     {
-        return [\fpcm\classes\loader::libGetFileUrl('tinymce4/tinymce.min.js'), 'editor_tinymce.js', 'editor_tinymce4.js', 'editor_filemanager.js'];
+        return [\fpcm\classes\loader::libGetFileUrl('tinymce4/tinymce.min.js'), 'editor/editor_tinymce.js', 'editor/editor_tinymce4.js', 'editor/editor_filemanager.js'];
     }
 
     /**

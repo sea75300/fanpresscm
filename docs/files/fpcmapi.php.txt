@@ -357,6 +357,21 @@ class fpcmAPI {
         return fpcm\classes\loader::getObject('fpcm\classes\crypt')->decrypt($value);
     }
 
+    /**
+     * Exit script execution on request
+     * @param array $param
+     * @return bool
+     * @since FPCM 4.3
+     */
+    public function exitOnRequest(array $param) : bool
+    {
+        if (!\fpcm\classes\security::requestExit($vars)) {
+            exit;
+        }
+
+        return true;
+    }
+
 }
 
 ?>

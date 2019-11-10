@@ -74,8 +74,8 @@ trait labelFieldSize {
     public function setDisplaySizesDefault()
     {
         return $this->setDisplaySizes(
-            ['xs' => 12, 'sm' => 6, 'md' => 5],
-            ['xs' => 12, 'sm' => 6, 'md' => 7]
+            ['xs' => 12, 'sm' => 6, 'md' => 3],
+            ['xs' => 12, 'sm' => 6, 'md' => 9]
         );
     }
 

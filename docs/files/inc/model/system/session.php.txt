@@ -363,7 +363,7 @@ final class session extends \fpcm\model\abstracts\dataset {
         $this->lastaction = $timer;
         $this->logout = 0;
         $this->userid = $userid;
-        $this->sessionid = \fpcm\classes\security::createSessionId();
+        $this->sessionid = $this->generateSessionId();
         $this->ip = \fpcm\classes\http::getIp();
         $this->external = (int) $external;
         $this->useragent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
@@ -378,6 +378,10 @@ final class session extends \fpcm\model\abstracts\dataset {
      */
     public function setCookie()
     {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();            
+        }
+
         $expire = $this->getLastaction() + $this->config->system_session_length;
 
         $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
@@ -390,6 +394,12 @@ final class session extends \fpcm\model\abstracts\dataset {
      */
     public function deleteCookie()
     {
+        if (session_status() === PHP_SESSION_ACTIVE) {
+            session_destroy();
+        }
+        
+        (new \fpcm\classes\pageTokens)->delete();
+
         $expire = $this->getLogin() - ($this->config->system_session_length * 5);
         return setcookie(\fpcm\classes\security::getSessionCookieName(), 0, $expire, '/', '', false, true);
     }
@@ -489,6 +499,10 @@ final class session extends \fpcm\model\abstracts\dataset {
 
         $this->currentUser->createFromDbObject($userData);
         $this->sessionExists = true;
+
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();            
+        }
     }
 
     /**
@@ -547,6 +561,16 @@ final class session extends \fpcm\model\abstracts\dataset {
         }
 
         return true;
+    }
+
+    /**
+     * Generates session id string
+     * @return string
+     * @since FPCM 4.3
+     */
+    public function generateSessionId() : string
+    {
+        return \fpcm\classes\tools::getHash(bin2hex(random_bytes(64)));
     }
 
 }

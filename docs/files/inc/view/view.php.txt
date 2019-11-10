@@ -185,7 +185,10 @@ class view {
      */
     public function __construct($viewName = '', $module = false)
     {
-        $this->setViewPath($viewName, $module);
+        if (trim($viewName)) {
+            $this->setViewPath($viewName, $module);
+        }
+        
 
         $this->showHeader = self::INCLUDE_HEADER_FULL;
         
@@ -230,7 +233,7 @@ class view {
             'GLOBAL_CONFIRM', 'GLOBAL_CLOSE', 'GLOBAL_OK', 'GLOBAL_YES', 'GLOBAL_NO', 'GLOBAL_SAVE', 'GLOBAL_CLOSE',
             'GLOBAL_OPENNEWWIN', 'GLOBAL_EXTENDED', 'GLOBAL_EDIT_SELECTED', 'GLOBAL_NOTFOUND', 'SAVE_FAILED_ARTICLES',
             'AJAX_REQUEST_ERROR', 'AJAX_RESPONSE_ERROR', 'CONFIRM_MESSAGE', 'CACHE_CLEARED_OK', 'SELECT_ITEMS_MSG',
-            'HL_HELP'
+            'HL_HELP', 'CSRF_INVALID', 'HEADLINE'
         ]);
 
         $this->jsLangVars['calendar']['days'] = $this->language->getDays();
@@ -566,8 +569,8 @@ class view {
      * @return bool
      */
     public function render()
-    {        
-        if (!file_exists($this->viewPath)) {
+    {
+        if (!file_exists($this->viewPath) || strpos(realpath($this->viewPath), \fpcm\classes\dirs::getFullDirPath('') ) !== 0) {
             trigger_error("View file {$this->viewName} not found!");
             exit("View file {$this->viewName} not found!");
         }
@@ -638,7 +641,8 @@ class view {
         $this->defaultViewVars->self = strip_tags(trim($_SERVER['PHP_SELF']));
         $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
-        $this->defaultViewVars->currentModule = \fpcm\classes\http::get('module');
+
+        $this->getModuleString();
         $this->defaultViewVars->buttons = $this->buttons;
         $this->defaultViewVars->formActionTarget = $this->formAction;
         $this->defaultViewVars->bodyClass = $this->bodyClass;
@@ -833,12 +837,6 @@ class view {
         $this->showPageToken = (bool) $showPageToken;
         return $this;
     }
-        
-    /**
-     * Set form action path
-     * @param string $controller
-     * @param array $params
-     */
     
     /**
      * Adds dataview object to view variables
@@ -872,6 +870,22 @@ class view {
     }
     
     /**
+     * Sets view to standard tab view,
+     * do not use if you want to include tabs in aother view!!!
+     * @param string $tabsId
+     * @param array $tabs
+     * @param string $tabsClass
+     * @since FPCM 4.3
+     */
+    public function addTabs(string $tabsId, array $tabs, string $tabsClass = '')
+    {
+        $this->setViewPath('components/tabs');
+        $this->assign('tabsId', $tabsId);
+        $this->assign('tabs', $tabs);
+        $this->assign('tabsClass', $tabsClass);
+    }
+
+    /**
      * Add pager to view
      * @param \fpcm\view\helper\pager $pager
      */
@@ -880,6 +894,16 @@ class view {
         $this->defaultViewVars->pager = $pager;
         $this->addJsVars(['pager' => $pager->getJsVars()]);
         $this->addJsLangVars($pager->getJsLangVars());
+    }
+
+    /**
+     * Add HTML items into toolbar right hand to pager
+     * @param string $data
+     * @since FPCM 4.3
+     */
+    public function addToolbarRight(string $data)
+    {
+        $this->defaultViewVars->toolbarItemRight = $data;
     }
 
     /**
@@ -899,6 +923,20 @@ class view {
     }
 
     /**
+     * Add AJAX page token to view
+     * @param string $name
+     * @return bool
+     * @since FPCm 4.3
+     */
+    public function addAjaxPageToken(string $name) : bool
+    {
+        $name = 'ajax/'.$name;
+
+        $this->jsvars['pageTokens'][$name] = (new \fpcm\classes\pageTokens)->refresh($name);
+        return true;
+    }
+
+    /**
      * Initialize default CSS files
      * @return array
      */
@@ -907,7 +945,7 @@ class view {
         $this->addCssFiles([
             self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.css',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.css',
-            self::ROOTURL_LIB.'font-awesome/css/fontawesome-all.min.css',
+            self::ROOTURL_LIB.'font-awesome/css/all.min.css',
             self::ROOTURL_LIB.'bootstrap/bootstrap-grid.min.css',
             self::ROOTURL_CORE_THEME.'style.php'
         ]);
@@ -929,6 +967,31 @@ class view {
         ]);
 
         return $this->viewJsFiles;
+    }
+
+    /**
+     * Assigns current controller name with additional filter
+     * @return bool
+     * @since FPCM 4.3
+     */
+    final private function getModuleString() : bool
+    {
+        $moduleData = \fpcm\classes\http::get('module', [
+            \fpcm\classes\http::FILTER_REGEX,
+            'regex' => '/^([a-z0-9]+)\/{1}([a-z0-9]+)\/?([a-z0-9]*)/i'
+        ]);
+
+        unset($moduleData[0]);
+        if (isset($moduleData[3]) && !trim($moduleData[3])) {
+            unset($moduleData[3]);
+        }
+
+        if (isset($moduleData[4]) && !trim($moduleData[4])) {
+            unset($moduleData[4]);
+        }
+
+        $this->defaultViewVars->currentModule = is_array($moduleData) ? implode('/', $moduleData) : $moduleData;
+        return true;
     }
 
     /**

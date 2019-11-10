@@ -102,6 +102,24 @@ class ajaxController extends controller {
         return true;
     }
 
+    /**
+     * Check page token
+     * @param string $name
+     * @return bool
+     * @since FPCm 4.3
+     */
+    final protected function checkPageToken($name = 'token')
+    {
+        $res = parent::checkPageToken(\fpcm\classes\http::get('module'));
+        if (!$res) {
+            http_response_code(400);
+            header('Bad Request');
+            return false;
+        }
+        
+        return true;
+    }
+
 }
 
 ?>

@@ -67,10 +67,11 @@ abstract class searchWrapper extends staticModel {
         $this->isMultiple = $isMultiple;
         return $this;
     }
-
+    
     /**
-     * 
-     * @param int $value
+     * Returns condition for given value
+     * @param string $condition
+     * @param string $query
      * @return string
      */
     public function getCondition(string $condition, string $query)

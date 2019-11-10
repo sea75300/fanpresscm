@@ -24,12 +24,13 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
     {
         $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
     }
-
+    
     /**
-     * Cronjob zur Ausführung registrieren
+     * Register cronjob for execution
      * @param string $cronName
      * @param bool $async
-     * @return bool
+     * @param string $module
+     * @return boolean
      */
     public function registerCron($cronName, $async = false, $module = false)
     {
@@ -149,10 +150,11 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
         trigger_error('"'.__FUNCTION__.'" is deprecated as of FPCM 4.3, use "getAllCrons" instead.', E_USER_DEPRECATED);
         return $this->getAllCrons();
     }
-
+    
     /**
      * Creates result list
      * @param array $values
+     * @param bool $activeOnly
      * @return array
      * @since FPCM 4.3
      */

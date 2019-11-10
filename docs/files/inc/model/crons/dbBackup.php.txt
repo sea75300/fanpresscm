@@ -77,13 +77,23 @@ class dbBackup extends \fpcm\model\abstracts\cron {
 
         fpcmLogCron('Create new database dump in "' . \fpcm\model\files\ops::removeBaseDir($this->dumpfile, true) . '"...');
 
-        $mysqlDump = new \Ifsnop\Mysqldump\Mysqldump(
-                $this->dbcon->getPdoDns(), $dbconfig['DBUSER'], $dbconfig['DBPASS'], $dumpSettings
-        );
+        try {
+            
+            $mysqlDump = new \Ifsnop\Mysqldump\Mysqldump(
+                $this->dbcon->getPdoDns(),
+                $dbconfig['DBUSER'],
+                $dbconfig['DBPASS'],
+                $dumpSettings
+            );
 
-        $mysqlDump->start($this->dumpfile);
+            $mysqlDump->start($this->dumpfile);
+            $this->updateLastExecTime();
 
-        $this->updateLastExecTime();
+        } catch (\Exception $exc) {
+            trigger_error('Error while databse dump: '.$exc->getMessage());
+            return false;
+        }
+
         if (!file_exists($this->dumpfile)) {
             fpcmLogCron('Unable to create database dump in "' . \fpcm\model\files\ops::removeBaseDir($this->dumpfile, true) . '", file not found. See system check and error log!');
             return false;

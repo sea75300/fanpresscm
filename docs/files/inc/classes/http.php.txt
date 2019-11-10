@@ -96,6 +96,18 @@ final class http {
     const FILTER_FIRSTUPPER = 13;
 
     /**
+     * Regex filter
+     * @since FPCM 4.3
+     */
+    const FILTER_REGEX = 14;
+
+    /**
+     * Regex replace filter
+     * @since FPCM 4.3
+     */
+    const FILTER_REGEX_REPLACE = 15;
+
+    /**
      * HTTP-Reuqest aus $_REQUEST und $_COOKIE
      * @var array
      */
@@ -107,14 +119,6 @@ final class http {
     public static function init()
     {
         self::$request = array_merge($_REQUEST, $_COOKIE);
-        
-        $preconditions = baseconfig::dbConfigExists() && !baseconfig::installerEnabled() &&
-                         !baseconfig::isCli() && !baseconfig::noToken();
-
-        if ($preconditions && !security::getTokenCookieValue() && !setcookie(\fpcm\classes\security::getTokenCookieName(), base64_encode(crypt::getRandomString()), time() + 86400, '/', '', false, true)) {
-            trigger_error('Unable to set token cookie!');
-            exit;
-        }
     }
 
     /**
@@ -196,21 +200,6 @@ final class http {
     }
 
     /**
-     * Gibt Page-Token-Informationen zurück
-     * @return string
-     */
-
-    /**
-     * Returns sumitted page token
-     * @param string $overrideModule
-     * @return string
-     */
-    public static function getPageToken($overrideModule = '')
-    {
-        return self::postOnly(security::getPageTokenFieldName($overrideModule));
-    }
-
-    /**
      * Gibt Inhalt von Dateiupload via PHP zurück
      * @return array
      */
@@ -263,6 +252,7 @@ final class http {
         }
 
         if (is_array($filterString)) {
+
             foreach ($filterString as &$value) {
                 $value = static::filter($value, $filters);
             }
@@ -270,14 +260,13 @@ final class http {
             return $filterString;
         }
 
-        $allowedTags = (isset($filters['allowedtags'])) ? $filters['allowedtags'] : '';
-        $htmlMode = isset($filters['mode']) ? $filters['mode'] : (ENT_COMPAT | ENT_HTML401);
+        $htmlMode = $filters['mode'] ?? (ENT_COMPAT | ENT_HTML401);
 
         foreach ($filters as $filter) {
             $filter = (int) $filter;
             switch ($filter) {
                 case self::FILTER_STRIPTAGS :
-                    $filterString = strip_tags($filterString, $allowedTags);
+                    $filterString = strip_tags($filterString, $filters['allowedtags'] ?? '');
                     break;
                 case self::FILTER_HTMLSPECIALCHARS :
                     $filterString = htmlspecialchars($filterString, $htmlMode);
@@ -315,6 +304,13 @@ final class http {
                     break;
                 case self::FILTER_FIRSTUPPER :
                     $filterString = ucfirst($filterString);
+                    break;
+                case self::FILTER_REGEX :
+                    preg_match($filters['regex'] ?? '', $filterString, $match);
+                    $filterString = $match;
+                    break;
+                case self::FILTER_REGEX_REPLACE :
+                    $filterString = preg_filter($filters['regex'] ?? '', $filters['regexReplace'] ?? '', $filterString);
                     break;
             }
         }

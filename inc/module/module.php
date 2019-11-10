@@ -303,7 +303,7 @@ class module {
     }
 
     /**
-     * 
+     * Check if module base folder and module.yml file are writable
      * @return bool
      * @since FPCM 4.3
      */

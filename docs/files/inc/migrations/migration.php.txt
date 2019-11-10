@@ -72,7 +72,7 @@ abstract class migration {
     final protected function getDB() : \fpcm\classes\database
     {
         if ( !($this->db instanceof \fpcm\classes\database) ) {
-            $this->db = new \fpcm\model\system\config(false);
+            $this->db = new \fpcm\classes\database();
         }
 
         return $this->db;

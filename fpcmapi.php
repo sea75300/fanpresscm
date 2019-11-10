@@ -358,7 +358,7 @@ class fpcmAPI {
     }
 
     /**
-     * 
+     * Exit script execution on request
      * @param array $param
      * @return bool
      * @since FPCM 4.3

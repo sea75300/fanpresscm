@@ -49,6 +49,13 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     protected $execinterval;
 
     /**
+     * Module key string
+     * @var string
+     * @since FPCM 4.3.0
+     */
+    protected $modulekey;
+
+    /**
      * asynchrone Ausführung über cronasync-AJAX-Controller deaktivieren
      * @var bool, false wenn cronasync-AJAX nicht ausgführt werden soll
      */
@@ -132,6 +139,23 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     }
 
     /**
+     * Returns module key string
+     * @return string
+     */
+    public function getModuleKey() {
+        return $this->modulekey;
+    }
+
+    /**
+     * Interval-Dauer zurückgeben
+     * @return int
+     */
+    public function getIntervalTime()
+    {
+        return (int) $this->execinterval;
+    }
+    
+    /**
      * Daten, die für Rückgabe vorgesehen sind abrufen
      * @return mixed
      */
@@ -164,6 +188,10 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      */
     public function getCronNameLangVar()
     {
+        if ($this->modulekey) {
+            return \fpcm\module\module::getLanguageVarPrefixed($this->modulekey). 'CRONJOB_' . strtoupper($this->cronName);
+        }
+        
         return 'CRONJOB_' . strtoupper($this->cronName);
     }
 
@@ -200,10 +228,10 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     public function init()
     {
         $res = $this->dbcon->selectFetch((new selectParams($this->table))
-            ->setItem('lastexec, execinterval')
+            ->setItem('lastexec, execinterval, modulekey')
             ->setWhere('cjname = ?')
-            ->setParams([$this->cronName]
-        ));
+            ->setParams([$this->cronName])
+        );
 
         $this->lastExecTime = isset($res->lastexec) ? $res->lastexec : 0;
     }
@@ -223,6 +251,10 @@ abstract class cron implements \fpcm\model\interfaces\cron {
         if (isset($data->execinterval)) {
             $this->execinterval = $data->execinterval;
         }
+
+        if (isset($data->modulekey)) {
+            $this->modulekey = $data->modulekey;
+        }
     }
 
     /**
@@ -237,15 +269,6 @@ abstract class cron implements \fpcm\model\interfaces\cron {
         }
 
         return $this->getLastExecTime() + $this->getIntervalTime();
-    }
-
-    /**
-     * Interval-Dauer zurückgeben
-     * @return int
-     */
-    public function getIntervalTime()
-    {
-        return (int) $this->execinterval;
     }
 
     /**

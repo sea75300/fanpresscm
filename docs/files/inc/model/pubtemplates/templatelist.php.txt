@@ -56,7 +56,7 @@ class templatelist extends \fpcm\model\abstracts\staticModel {
         foreach ($templates as $template) {
 
             $basename = basename($template);
-            if (preg_match('/^(_preview)([0-9]+)(\.html)$/i', $basename)) {
+            if (preg_match('/_preview/i', $basename)) {
                 continue;
             }
 

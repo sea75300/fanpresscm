@@ -19,22 +19,22 @@ namespace fpcm\view\helper;
 class tabItem extends helper {
 
     /**
-     * Description
+     * Url
      * @var string
      */
-    protected $description = '';
+    protected $url = '';
 
     /**
-     * Data
+     * File path
      * @var string
      */
-    protected $data = [];
+    protected $file = '';
 
     /**
      * Tab-ID
      * @var string
      */
-    protected $dataViewId = 'logs';
+    protected $dataViewId = '';
 
     /**
      * Returns item id
@@ -54,6 +54,29 @@ class tabItem extends helper {
     {
         $this->url = $url;
         return $this;
+    }
+
+    /**
+     * File path
+     * @param string $file
+     * @return $this
+     * @since FPCm 4.3
+     */
+    public function setFile(string $file) 
+    {
+        $this->url = '#'.$this->id;
+        $this->file = $file;
+        return $this;
+    }
+
+    /**
+     * Tab required file inclution
+     * @return bool
+     * @since FPCm 4.3
+     */
+    public function getFile() : string
+    {
+        return $this->file;
     }
 
     /**

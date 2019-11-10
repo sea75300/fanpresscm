@@ -21,6 +21,7 @@ namespace fpcm\module;
  * @property array $requirements Module requirements array
  * @property array $tables Module tables data
  * @property array $configOptions Module config data
+ * @property array $crons Module cronjob data
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer

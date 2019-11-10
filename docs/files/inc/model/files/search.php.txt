@@ -18,6 +18,8 @@ namespace fpcm\model\files;
  * 
  * @property int $datefrom seit Datum X.Y.Z
  * @property int $dateto bis Datum X.Y.Z
+ * @property int $combinationDatefrom AND/OR for datefrom
+ * @property int $combinationDateto AND/OR for dateto
  * @property string $filename Dateiname
  * @property string $combination logische Verknüpfung AND/OR
  * @property array $limit Abfrage einschränken

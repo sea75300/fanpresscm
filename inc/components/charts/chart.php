@@ -47,10 +47,11 @@ class chart implements \JsonSerializable {
      * @var array
      */
     private $options = [];
-
+    
     /**
      * Constructor
-     * @param string $type Chart type
+     * @param string $type Chart.js chart type
+     * @param string $id Chart id
      */
     public function __construct(string $type, string $id)
     {

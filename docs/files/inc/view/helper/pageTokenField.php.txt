@@ -23,10 +23,9 @@ class pageTokenField extends hiddenInput {
      */
     protected function getString()
     {
-        $name = \fpcm\classes\security::getPageTokenFieldName();
-        $value = \fpcm\classes\security::createPageToken();
+        $pageTokens = new \fpcm\classes\pageTokens();
 
-        return "<input type=\"hidden\" name=\"{$name}\" value=\"$value\">";
+        return "<input type=\"hidden\" name=\"token\" value=\"{$pageTokens->refresh()}\">";
     }
 
 }
