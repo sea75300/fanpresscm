@@ -197,11 +197,6 @@ div.fpcm-status-info ul li:active {
     border-left: 5px solid #0073ea;
 }
 
-/* ------ Top and main navigation and toolbar common styles */
-div.fpcm-status-info ul.fpcm-menu-top li ul {
-    border-top: 2px dotted #0073ea;
-}
-
 /* ------ Forms styles */
 fieldset,
 textarea,
