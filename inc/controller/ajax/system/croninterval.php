@@ -29,17 +29,29 @@ class croninterval extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-        $cronjobId = $this->getRequestVar('cjId');
+        $cronName = $this->getRequestVar('cjId');
         $interval = $this->getRequestVar('interval');
+        $module = $this->getRequestVar('cjmod');
 
-        if (!$cronjobId || $interval === null) {
+        if (!$cronName || $interval === null) {
             return false;
         }
 
-        $cjClassName = \fpcm\model\abstracts\cron::getCronNamespace($cronjobId);
+        if (trim($module)) {
+            
+            if (!(new \fpcm\module\module($module))->isActive()) {
+                trigger_error("Undefined cronjon {$cronName} called");
+                return false;
+            }
+
+            $cronName = \fpcm\module\module::getCronNamespace($module, $cronName);
+        }
+        else {
+            $cronName = \fpcm\model\abstracts\cron::getCronNamespace($cronName);
+        }
 
         /* @var $cronjob \fpcm\model\abstracts\cron */
-        $cronjob = new $cjClassName($cronjobId);
+        $cronjob = new $cronName();
 
         if (!is_a($cronjob, '\fpcm\model\abstracts\cron')) {
             trigger_error("Cronjob class {$cronjobId} must be an instance of \"\fpcm\model\abstracts\cron\"!");

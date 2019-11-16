@@ -25,7 +25,7 @@ fpcm.crons = {
                 fpcm.ui.selectmenu(".fpcm-cronjoblist-intervals", {
                     change: function(event, ui) {
                         var cronjob  = fpcm.dom.fromTag(this).attr('id').split('_');
-                        fpcm.crons.setCronjobInterval(cronjob[1], this.value);
+                        fpcm.crons.setCronjobInterval(cronjob[1], this.value, jQuery(this).data('cjmod'));
                         return false;
                     }
                 });
@@ -36,24 +36,22 @@ fpcm.crons = {
     },
 
     execCronjobDemand : function(cronjobId, modulekey, descr) {
-        fpcm.ui.showLoader(true, fpcm.ui.translate('CRONJOB_ECEDUTING').replace('{{cjname}}', descr) );
         fpcm.ajax.get('cronasync', {
             data    : {
                 cjId: cronjobId,
                 cjmod: modulekey
             },
-            execDone: 'fpcm.ui.showLoader();'
+            loaderMsg: fpcm.ui.translate('CRONJOB_ECEDUTING').replace('{{cjname}}', descr)
         });
     },
     
-    setCronjobInterval : function(cronjobId, cronjobInterval) {
-        fpcm.ui.showLoader(true);
+    setCronjobInterval : function(cronjobId, cronjobInterval, modulekey) {
         fpcm.ajax.get('croninterval', {
             data    : {
                 cjId:cronjobId,
-                interval:cronjobInterval
-            },
-            execDone: 'fpcm.ui.showLoader();'
+                interval:cronjobInterval,
+                cjmod: modulekey
+            }
         });
     }
 
