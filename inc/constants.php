@@ -172,5 +172,5 @@ if (!defined('FPCM_PAGETOKEN_MAX')) {
     /**
      * Timeout für Pagetoken-Cache
      */
-    define('FPCM_PAGETOKEN_MAX', 20);
+    define('FPCM_PAGETOKEN_MAX', 10);
 }

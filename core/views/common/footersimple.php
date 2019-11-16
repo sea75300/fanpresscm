@@ -2,7 +2,7 @@
         </div>
         
         <?php if ($theView->formActionTarget && $theView->showPageToken) : ?>
-            <?php $theView->pageTokenField('pgtkn'); ?>
+            <?php $theView->pageTokenField(); ?>
         </form>
         <?php endif; ?>
 

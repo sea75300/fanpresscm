@@ -1,7 +1,7 @@
             </div>
 
             <?php if ($theView->formActionTarget && $theView->showPageToken) : ?>
-                <?php $theView->pageTokenField('pgtkn'); ?>
+                <?php $theView->pageTokenField(); ?>
                 <?php $theView->hiddenInput('activeTab')->setValue((isset($activeTab) ? $activeTab : 0)); ?>
             </form>
             <?php endif; ?>

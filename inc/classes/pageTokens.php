@@ -92,7 +92,7 @@ final class pageTokens {
     private function init() : bool
     {
         $_SESSION['pageTokens'] = $_SESSION['pageTokens'] ?? [];
-        $_SESSION['pageTokens'] = array_slice($_SESSION['pageTokens'], 0, FPCM_PAGETOKEN_MAX);
+        $_SESSION['pageTokens'] = array_slice($_SESSION['pageTokens'], FPCM_PAGETOKEN_MAX * -1);
         return true;
     }
 

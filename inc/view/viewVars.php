@@ -91,7 +91,7 @@ class viewVars {
      */
     public function __get($name)
     {
-        return isset($this->vars[$name]) ? $this->vars[$name] : null;
+        return $this->vars[$name] ?? null;
     }
 
     /**
