@@ -50,6 +50,8 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
+        $this->setReturnJson();
+
         $this->key = $this->getRequestVar('key');
         $this->action = $this->getRequestVar('action');
         $this->fromDir = $this->getRequestVar('fromDir', [

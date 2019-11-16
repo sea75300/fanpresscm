@@ -57,6 +57,7 @@ fpcm.moduleinstaller = {
         fpcm.moduleinstaller.currentEl = el;
 
         fpcm.ajax.post('packagemgr/moduleInstaller', {
+            quiet: true,
             data: {
                 step: params.step,
                 key : fpcm.vars.jsvars.pkgdata.key,

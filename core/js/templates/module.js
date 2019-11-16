@@ -15,9 +15,9 @@ fpcm.templates = {
 
         fpcm.ui.tabs('#fpcm-tabs-templates', {
             beforeLoad: function(event, ui) {
-                fpcm.ui.showLoader(true);
+                fpcm.ui_loader.show();
                 ui.jqXHR.done(function(result) {
-                    fpcm.ui.showLoader();
+                    fpcm.ui_loader.hide();
                     return true;
                 });
             },
@@ -76,7 +76,7 @@ fpcm.templates = {
         
         fpcm.dom.fromClass('fpcm-articletemplates-edit').click(function() {
 
-            fpcm.ui.showLoader();
+            fpcm.ui_loader.hide();
 
             var sizes       = fpcm.ui.getDialogSizes(top, 0.75);
             fpcm.ui.dialog({
@@ -96,7 +96,7 @@ fpcm.templates = {
                         class: 'fpcm-ui-button-primary',
                         click: function() {
                             fpcm.dom.fromTag(this).children('#fpcm-articletemplates-editor-frame').contents().find('#btnSaveTemplate').trigger('click');
-                            fpcm.ui.showLoader(false);
+                            fpcm.ui_loader.hide();
                         }
                     },
                     {
@@ -104,7 +104,7 @@ fpcm.templates = {
                         icon: "ui-icon-closethick",                    
                         click: function() {
                             fpcm.dom.fromTag(this).dialog('close');
-                            fpcm.ui.showLoader(false);
+                            fpcm.ui_loader.hide();
                         }
                     }
                 ]
@@ -119,7 +119,8 @@ fpcm.templates = {
     saveTemplatePreview: function() {
 
         fpcm.ajax.post('templates/savetemp', {
-            data    : {
+            quiet: true,
+            data: {
                 content: fpcm.templates.editorInstance.getValue(),
                 tplid  : fpcm.dom.fromId('templateid').val()
             },

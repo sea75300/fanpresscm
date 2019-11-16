@@ -60,9 +60,9 @@ fpcm.editor.initTinyMce = function() {
             return true;
         }
 
-        fpcm.ui.showLoader(true);
+        fpcm.ui_loader.show();
         args.content = fpcm.editor_videolinks.createFrame(content, true);
-        fpcm.ui.showLoader(false);
+        fpcm.ui_loader.hide();
     };
 
     fpcm.editor_tinymce.create(fpcm.vars.jsvars.editorConfig);

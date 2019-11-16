@@ -124,8 +124,6 @@ fpcm.articlelist = {
             return false;
         }
 
-        fpcm.ui.showLoader(true);
-
         fpcm.ajax.post('articles/search', {
             data: sParams,
             dataType: 'json',
@@ -144,7 +142,6 @@ fpcm.articlelist = {
 
                 fpcm.articlelist.clearArticleCache();
                 fpcm.articlelist.deleteSingleArticle();
-                fpcm.ui.showLoader(false);
             }
         });
 
@@ -157,12 +154,11 @@ fpcm.articlelist = {
             clickYes: function() {
                 var articleIds = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
                 if (articleIds.length == 0) {
-                    fpcm.ui.showLoader(false);
+                    fpcm.ui_loader.hide();
                     return false;
                 }
 
                 fpcm.dom.fromTag(this).dialog('close');
-                fpcm.ui.showLoader(true);
                 fpcm.articlelist.execNewTweet(articleIds);
             }
         });
@@ -178,10 +174,7 @@ fpcm.articlelist = {
             async   : false,
             dataType: 'json',
             execDone: function(result) {
-
                 fpcm.articlelist.resetActionsMenu();
-
-                fpcm.ui.showLoader(false);
                 if (result.notice != 0) {
                     fpcm.ui.addMessage({
                         type: 'notice',
@@ -229,7 +222,6 @@ fpcm.articlelist = {
             fpcm.ui.confirmDialog({
                 
                 clickYes: function () {
-                    fpcm.ui.showLoader(true);
                     fpcm.ajax.exec('articles/delete', {
                         dataType: 'json',
                         pageToken: 'articles/delete',
@@ -264,14 +256,13 @@ fpcm.articlelist = {
 
         var articleIds = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
         if (articleIds.length == 0) {
-            fpcm.ui.showLoader(false);
+            fpcm.ui_loader.hide();
             return false;
         }
 
         fpcm.ui.confirmDialog({
 
             clickYes: function () {
-                fpcm.ui.showLoader(true);
                 fpcm.ajax.exec('articles/delete', {
                     dataType: 'json',
                     pageToken: 'articles/delete',

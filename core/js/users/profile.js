@@ -15,7 +15,7 @@ fpcm.profile = {
 
         if (fpcm.vars.jsvars.reloadPage) {
             setTimeout(function () {
-                fpcm.ui.showLoader(true);
+                fpcm.ui_loader.show();
                 fpcm.ui.relocate(fpcm.vars.actionPath + 'system/profile');
             }, 1500);
         }

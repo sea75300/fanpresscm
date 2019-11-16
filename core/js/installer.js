@@ -77,6 +77,7 @@ fpcm.installer = {
         fpcm.ui.appendHtml('#fpcm-installer-execlist', '<div class="row no-gutters fpcm-ui-padding-md-tb"><div class="col-12" id="' + rowId + '"><span class="fa fa-spinner fa-spin fa-fw"></span> ' + fpcm.ui.translate('INSTALLER_CREATETABLES_STEP').replace('{{tablename}}', obj.descr) + '</div></div>');
 
         fpcm.ajax.post('installer/initdb', {
+            quiet: true,
             data: {
                 file: obj.path
             },

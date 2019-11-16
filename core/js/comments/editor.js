@@ -24,7 +24,6 @@ fpcm.editor = {
             fpcm.ui.confirmDialog({
                 clickNoDefault: true,
                 clickYes: function () {
-                    fpcm.ui.showLoader(true);
                     fpcm.ajax.post('comments/lockip', {
                         dataType: 'json',
                         data: {
@@ -32,7 +31,6 @@ fpcm.editor = {
                         },
                         execDone: function (result) {
 
-                            fpcm.ui.showLoader(false);
                             if (!result.code) {
                                 fpcm.ui.addMessage({
                                     type: 'error',

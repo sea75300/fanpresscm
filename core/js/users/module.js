@@ -52,7 +52,7 @@ fpcm.users = {
 
         var size = fpcm.ui.getDialogSizes();
 
-        fpcm.ui.showLoader(false);
+        fpcm.ui_loader.hide();
         fpcm.ui.dialog({
             id         : 'users-select-delete',
             dlWidth    : size.width,
@@ -99,7 +99,7 @@ fpcm.users = {
                         fpcm.dom.fromTag(this).dialog('close');
                         fpcm.dom.fromId('articlesaction').val('').selectmenu("refresh");
                         fpcm.dom.fromId('articlesuser').val('').selectmenu("refresh");
-                        fpcm.ui.showLoader(false);
+                        fpcm.ui_loader.hide();
                     }
                 }                            
             ],
@@ -142,7 +142,7 @@ fpcm.users = {
                         icon: "ui-icon-disk",                        
                         click: function() {
                             fpcm.dom.fromTag(this).children('iframe').contents().find('#btnPermissionsSave').trigger('click');
-                            fpcm.ui.showLoader(false);
+                            fpcm.ui_loader.hide();
                         }
                     },
                     {
@@ -150,7 +150,7 @@ fpcm.users = {
                         icon: "ui-icon-closethick",                    
                         click: function() {
                             fpcm.dom.fromTag(this).dialog('close');
-                            fpcm.ui.showLoader(false);
+                            fpcm.ui_loader.hide();
                         }
                     }                            
                 ],

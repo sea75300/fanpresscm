@@ -39,7 +39,7 @@ fpcm.logs = {
         var tabs = fpcm.ui.tabs('#fpcm-tabs-logs', {
             beforeLoad: function(event, ui) {
                 
-                fpcm.ui.showLoader(true);
+                fpcm.ui_loader.show();
                 fpcm.vars.jsvars.dataviews.extSettings = null;
                 
                 var tabId = ui.ajaxSettings.url.split(fpcm.logs.delimiter);
@@ -77,7 +77,7 @@ fpcm.logs = {
                     console.error('STATUS MESSAGE: ' + textStatus);
                     console.error('ERROR MESSAGE: ' + errorThrown);
                     fpcm.ajax.showAjaxErrorMessage();
-                    fpcm.ui.showLoader(false);
+                    fpcm.ui_loader.hide();
                 });
 
                 return true;
@@ -94,7 +94,7 @@ fpcm.logs = {
 
                 if (!fpcm.vars.jsvars.dataviews.extSettings) {
                     fpcm.ui.accordion('.fpcm-accordion-pkgmanager');
-                    fpcm.ui.showLoader();
+                    fpcm.ui_loader.hide();
                     return true;
                 }
 
@@ -112,7 +112,7 @@ fpcm.logs = {
                     ui.panel.height(fpcm.vars.jsvars.dataviews[fpcm.vars.jsvars.dataviews.extSettings.name].dataViewHeight + (logSizeEl ? fpcm.dom.fromId('' + logSizeEl).height() : 0) );
                 }
 
-                fpcm.ui.showLoader();
+                fpcm.ui_loader.hide();
                 return true;
 
             },
@@ -134,10 +134,9 @@ fpcm.logs = {
             data: {
                 log: id
             },
-            execDone: function() {
-                fpcm.ui.showLoader(false);
+            execDone: function(result) {
                 fpcm.logs.reloadLogs();
-                fpcm.ui.addMessage(fpcm.ajax.getResult('logs/clear', true), true);
+                fpcm.ui.addMessage(result, true);
             }
         });
 

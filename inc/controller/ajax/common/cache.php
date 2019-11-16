@@ -48,6 +48,8 @@ class cache extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
+        $this->setReturnJson();
+
         $this->module = $this->getRequestVar('cache', [\fpcm\classes\http::FILTER_URLDECODE, \fpcm\classes\http::FILTER_DECRYPT]);
         $this->objid = $this->getRequestVar('objid', [\fpcm\classes\http::FILTER_CASTINT]);
 

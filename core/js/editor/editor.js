@@ -121,9 +121,7 @@ fpcm.editor = {
 
         fpcm.dom.fromId('btnShortlink').click(function (event, handler) {
 
-            fpcm.ui.showLoader(true);
-
-            fpcm.ajax.get('editor/editorlist',{
+            fpcm.ajax.get('editor/editorlist', {
                 dataType: 'json',
                 data: {
                     id: fpcm.dom.fromTag(this).data().article,
@@ -157,8 +155,7 @@ fpcm.editor = {
                             fpcm.dom.fromTag(this).empty();
                         }
                      });
-                     
-                     fpcm.ui.showLoader(false);
+
                 }
             });
 
@@ -195,7 +192,6 @@ fpcm.editor = {
                     click: function() {
                         fpcm.dom.fromTag(this).children('#fpcm-editor-comment-frame').contents().find('#btnCommentSave').trigger('click');
                         fpcm.editor.editorTabs.tabs('load', 2);
-                        fpcm.ui.showLoader(false);
                     }
                 },
                 {
@@ -218,13 +214,13 @@ fpcm.editor = {
                     icon: "ui-icon-closethick",                    
                     click: function() {
                         fpcm.dom.fromTag(this).dialog('close');
-                        fpcm.ui.showLoader(false);
                         fpcm.dom.fromClass('fpcm-ui-commentaction-buttons').fadeIn();
                     }
                 }                            
             ]
         });
-        fpcm.ui.showLoader(false);
+        
+        fpcm.ui_loader.hide();
         return false;
     },
     
@@ -273,10 +269,10 @@ fpcm.editor = {
                 return false;
             }
 
-            fpcm.ui.showLoader(true);
+            fpcm.ui_loader.show();
             event.preventDefault();
             fpcm.editor_videolinks.createFrame(chgText, false);
-            fpcm.ui.showLoader(false);
+            fpcm.ui_loader.hide();
             return true;
 
         });
@@ -318,7 +314,7 @@ fpcm.editor = {
         fpcm.comments.assignActions();
         
         fpcm.dom.fromClass('fpcm-ui-commentlist-link').click(function () {
-            fpcm.ui.showLoader(false);
+            fpcm.ui_loader.hide();
             fpcm.editor.showCommentLayer(fpcm.dom.fromTag(this).attr('href'));
             return false;
         });

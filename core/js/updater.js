@@ -57,6 +57,7 @@ fpcm.updater = {
         fpcm.updater.currentEl = el;
 
         fpcm.ajax.post('packagemgr/processUpdate', {
+            quiet: true,
             data: {
                 step : params.step
             },

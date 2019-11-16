@@ -348,6 +348,7 @@ if (fpcm.editor) {
             title: 'EDITOR_INSERTSMILEY',
             dlOnOpen: function () {
                 fpcm.ajax.exec('editor/smileys', {
+                    quiet: true,
                     execDone: function (result) {
                         fpcm.dom.fromId('fpcm-dialog-editor-html-insertsmileys').append(result);
                         fpcm.dom.fromClass('fpcm-editor-htmlsmiley').click(function() {

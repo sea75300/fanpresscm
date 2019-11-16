@@ -148,15 +148,11 @@ fpcm.comments = {
             return false;
         }
 
-        fpcm.ui.showLoader(true);
-        
         fpcm.ajax.post('comments/search', {
             data: sParams,
-            execDone: function () {
+            execDone: function (result) {
                 fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
                 fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-
-                var result = fpcm.ajax.getResult('comments/search', true);
                 fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
                 fpcm.dataview.updateAndRender(result.dataViewName, {
                     onRenderAfter: function () {
@@ -164,8 +160,6 @@ fpcm.comments = {
                         fpcm.ui.assignControlgroups();
                     }
                 });
-
-                fpcm.ui.showLoader(false);
             }
         });
 

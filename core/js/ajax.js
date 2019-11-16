@@ -50,6 +50,11 @@ fpcm.ajax = {
                                 : null;
         }
 
+        if (!params.quiet) {
+            console.log('quiet');
+            fpcm.ui_loader.show(params.loaderMsg ? params.loaderMsg : null);
+        }
+
         jQuery.ajax({
             url         : fpcm.vars.ajaxActionPath + action,
             type        : params.method.toUpperCase(),
@@ -60,22 +65,22 @@ fpcm.ajax = {
             statusCode: {
                 500: function() {
                     fpcm.ajax.showAjaxErrorMessage();
-                    fpcm.ui.showLoader();
+                    fpcm.ui_loader.hide();
                 },
                 400: function() {
                     fpcm.ui.addMessage({
                         txt: 'CSRF_INVALID',
                         type: 'error'
                     })
-                    fpcm.ui.showLoader();
+                    fpcm.ui_loader.hide();
                 },
                 401: function() {
                     fpcm.system.showSessionCheckDialog();
-                    fpcm.ui.showLoader();
+                    fpcm.ui_loader.hide();
                 },
                 404: function() {
                     fpcm.ajax.showAjaxErrorMessage();
-                    fpcm.ui.showLoader();
+                    fpcm.ui_loader.hide();
                 }
             }
         })
@@ -84,7 +89,7 @@ fpcm.ajax = {
             if (result.search && result.search('FATAL ERROR:') === 3) {
                 console.error(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
                 console.error('ERROR MESSAGE: ' + errorThrown);
-                fpcm.ui.showLoader();
+                fpcm.ui_loader.hide();
             }
 
             if (result.cmd !== undefined) {
@@ -100,18 +105,23 @@ fpcm.ajax = {
             if (typeof params.execDone == 'function') {
                 params.execDone(result);
             }
+            
+            if (!params.quiet) {
+                fpcm.ui_loader.hide();
+            }
+
         })
         .fail(function(jqXHR, textStatus, errorThrown) {
             
             if (textStatus == 'parsererror') {
                 fpcm.ajax.showAjaxErrorMessage();
-                fpcm.ui.showLoader();
+                fpcm.ui_loader.hide();
             }
 
             console.error(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
             console.error('STATUS MESSAGE: ' + textStatus);
             console.error('ERROR MESSAGE: ' + errorThrown);
-            fpcm.ui.showLoader();
+            fpcm.ui_loader.hide();
 
             if (typeof params.execFail == 'string') {
                 eval(params.execFail);
@@ -120,6 +130,7 @@ fpcm.ajax = {
             if (typeof params.execFail == 'function') {
                 params.execFail();
             }
+            
         });
 
     },
@@ -145,6 +156,7 @@ fpcm.ajax = {
     },
 
     getResult: function(action, isJson) {
+        console.warn('fpcm.ajax.getResult is deprecated as of FPCM 4.3. Uuse "result" parameter in execDone-callback instead.');
         return fpcm.ajax.result[action] ? (isJson ? fpcm.ajax.fromJSON(fpcm.ajax.result[action]) : fpcm.ajax.result[action])  : null;
     },
 

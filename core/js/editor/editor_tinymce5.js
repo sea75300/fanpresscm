@@ -81,9 +81,9 @@ fpcm.editor.initTinyMce = function() {
             return true;
         }
 
-        fpcm.ui.showLoader(true);
+        fpcm.ui_loader.show();
         args.content = fpcm.editor_videolinks.createFrame(content, true);
-        fpcm.ui.showLoader(false);
+        fpcm.ui_loader.hide();
     };
 
     fpcm.vars.jsvars.editorConfig.onInitAfterStd = function(editor) {
@@ -128,6 +128,7 @@ fpcm.editor.initTinyMce = function() {
             },
             onSetup: function (buttonApi) {
                 fpcm.ajax.get('editor/smileys', {
+                    quiet: true,
                     dataType: 'json',
                     data: {
                         json: true

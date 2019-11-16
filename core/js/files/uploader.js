@@ -41,7 +41,7 @@ fpcm.fileuploader = {
         });
 
         fpcm.dom.fromId('btnUploadFile').click(function () {
-            fpcm.ui.showLoader(true);
+            fpcm.ui_loader.show();
         });
 
         fpcm.dom.fromId('btnCancelUpload').click(function () {
@@ -74,12 +74,11 @@ fpcm.fileuploader = {
                 return true;
             }
 
-            fpcm.ui.showLoader(true, fpcm.ui.translate('FILE_LIST_ADDTOINDEX'));
             fpcm.ajax.get('cronasync', {
                 data    : {
                     cjId: 'fileindex'
                 },
-                execDone: fpcm.ui.showLoader
+                loaderMsg: fpcm.ui.translate('FILE_LIST_ADDTOINDEX')
             });
         });
 

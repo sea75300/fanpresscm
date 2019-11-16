@@ -30,6 +30,8 @@ class clear extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
+        $this->setReturnJson();
+        
         if (!$this->session->exists()) {
             return false;
         }

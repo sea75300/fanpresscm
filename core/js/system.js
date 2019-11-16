@@ -38,6 +38,7 @@ fpcm.system = {
             fpcm.ui.showCurrentPasswordConfirmation();
 
             fpcm.ajax.post('passcheck', {
+                quiet: true,
                 data: {
                     password: password
                 },
@@ -111,12 +112,11 @@ fpcm.system = {
     doRefresh: function () {
 
         fpcm.ajax.exec('refresh', {
+            quiet: true,
             data: {
                 articleId: fpcm.vars.jsvars.articleId
             },
-            execDone: function () {
-
-                var result = fpcm.ajax.getResult('refresh', true);
+            execDone: function (result) {
 
                 if (fpcm.vars.jsvars.articleId == 1) {
                     fpcm.editor.showInEditDialog(result);
@@ -171,7 +171,7 @@ fpcm.system = {
 
                                 var objectIDs = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
                                 if (objectIDs.length == 0) {
-                                    fpcm.ui.showLoader(false);
+                                    fpcm.ui_loader.hide();
                                     return false;
                                 }
 
@@ -212,7 +212,7 @@ fpcm.system = {
                     catEl[0].selectize.clear();
                 }
 
-                fpcm.ui.showLoader(false);
+                fpcm.ui_loader.hide();
             }
         });
 
@@ -247,19 +247,10 @@ fpcm.system = {
             params = {};
         }
 
-        fpcm.ui.showLoader(true);
-
         fpcm.ajax.get('cache', {
             data: params,
-            execDone: function () {
-                fpcm.ui.showLoader(false);
-
-                var data = fpcm.ajax.getResult('cache', true);
-                fpcm.ui.addMessage({
-                    type: data.type,
-                    icon: data.icon,
-                    txt: data.txt
-                }, true);
+            execDone: function (result) {
+                fpcm.ui.addMessage(result, true);
             }
         });
 
@@ -272,6 +263,7 @@ fpcm.system = {
             var el = fpcm.dom.fromTag(this);
 
             fpcm.ajax.get('help', {
+                quiet: true,
                 data: {
                     ref: el.data('ref'),
                     chapter: el.data('chapter'),
@@ -330,12 +322,10 @@ fpcm.system = {
 
     checkForUpdates: function () {
         fpcm.dom.fromId('checkUpdate').click(function () {
-            fpcm.ui.showLoader(true);
             fpcm.ajax.get('cronasync', {
                 data: {
                     cjId: 'updateCheck'
-                },
-                execDone: fpcm.ui.showLoader(false)
+                }
             });
         });
 

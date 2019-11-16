@@ -54,6 +54,8 @@ class search extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
+        $this->setReturnJson();
+        
         $filter = $this->getRequestVar('filter');
 
         $this->conditions->setMultiple(true);

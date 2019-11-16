@@ -22,13 +22,9 @@ fpcm.options = {
         fpcm.ui.checkboxradio('.fpcm-ui-input-checkbox');
 
         fpcm.dom.fromId('syschecksubmitstats').click(function () {
-            fpcm.ui.showLoader(true);
             fpcm.ajax.get('syscheck', {
                 data: {
                     sendstats: 1
-                },
-                execDone: function () {
-                    fpcm.ui.showLoader(false);
                 }
             });
         });

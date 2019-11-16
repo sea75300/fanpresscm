@@ -41,6 +41,8 @@ class refresh extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
+        $this->setReturnJson();
+
         $this->runCrons();
         $this->runSessionCheck();
         $this->runArticleInEdit();

@@ -27,7 +27,7 @@ fpcm.ui = {
         fpcm.ui.initDateTimeMasks();
 
         fpcm.dom.fromClass('fpcm-navigation-noclick').click(function () {
-            fpcm.ui.showLoader(false);
+            fpcm.ui_loader.hide();
             return false;
         });
 
@@ -42,11 +42,11 @@ fpcm.ui = {
                 return false;
             }
 
-            fpcm.ui.showLoader(true);
+            fpcm.ui_loader.show();
         });
         
         fpcm.dom.fromId('fpcm-ui-form').submit(function () {
-            fpcm.ui.showLoader(true);
+            fpcm.ui_loader.show();
             return true;
         });
         
@@ -68,14 +68,14 @@ fpcm.ui = {
 
         fpcm.dom.fromClass('fpcm-ui-button.fpcm-ui-button-confirm').click(function() {
 
-            fpcm.ui.showLoader(false);
+            fpcm.ui_loader.hide();
             if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
-                fpcm.ui.showLoader(false);
+                fpcm.ui_loader.hide();
                 return false;
             }
             
             if (!fpcm.dom.fromTag(this).data('hidespinner')) {
-                fpcm.ui.showLoader(true);
+                fpcm.ui_loader.show();
             }
 
         });
@@ -226,7 +226,7 @@ fpcm.ui = {
 
             params.beforeLoad = function(event, ui) {
 
-                fpcm.ui.showLoader(true);   
+                fpcm.ui_loader.show();   
                 
                 tabList = ui.tab.data('dataview-list');                
                 if (!tabList) {
@@ -268,7 +268,7 @@ fpcm.ui = {
                     console.error('STATUS MESSAGE: ' + textStatus);
                     console.error('ERROR MESSAGE: ' + errorThrown);
                     fpcm.ajax.showAjaxErrorMessage();
-                    fpcm.ui.showLoader(false);
+                    fpcm.ui_loader.hide();
                 });
             };
 
@@ -299,7 +299,7 @@ fpcm.ui = {
                     params.initDataViewJsonAfter(event, ui);
                 }
 
-                fpcm.ui.showLoader(false);
+                fpcm.ui_loader.hide();
                 return false;
             };
         }
@@ -746,26 +746,12 @@ fpcm.ui = {
     showLoader: function(show, addtext) {
 
         if (!show) {
-            fpcm.dom.fromId('fpcm-loader').fadeOut('fast', function(){
-                fpcm.dom.fromTag(this).fadeOut(100).remove();
-            });
-            return false;
+            console.warn('fpcm.ui.showLoader is deprecated as of FPCM 4.3. use "fpcm.ui_loader.hide() instead."');
+            return fpcm.ui_loader.hide();
         }
-        
-        var html = [
-            '<div id="fpcm-loader" class="row no-gutters fpcm-ui-position-fixed fpcm-ui-position-left-0 fpcm-ui-position-right-0 fpcm-ui-position-bottom-0 fpcm-ui-position-top-0 align-self-center">',
-            '   <div class="fpcm-ui-position-absolute fpcm-ui-position-top-0 fpcm-ui-background-white-50p fpcm ui-blurring fpcm-ui-full-width fpcm-ui-full-height"></div>',
-            '   <div class="fpcm-ui-position-relative fpcm-ui-align-center fpcm-loader-icon">\n\n',
-            '       <span class="fa-stack fa-fw ' + (addtext ? 'fa-lg' : 'fa-2x') + '"><span class="fa fa-circle fa-stack-2x fpcm ui-status-075"></span><span class="fa fa-spinner fa-pulse fa-stack-1x fa-inverse fa-fw"></span></span> ',
-                    (addtext ? '<span>' + addtext + '</span>' : ''),
-            '   </div>',
-            '</div>'            
-        ];
 
-        fpcm.dom.appendHtml('#fpcm-body', html.join(''));
-        fpcm.dom.fromId('fpcm-loader').fadeIn(100);
-
-        return true;
+        console.warn('fpcm.ui.showLoader is deprecated as of FPCM 4.3. use "fpcm.ui_loader.show(Your messaage) instead."');
+        return fpcm.ui_loader.show(addtext ? addtext : null);
     },
     
     initDateTimeMasks: function() {

@@ -150,15 +150,12 @@ fpcm.filemanager = {
                         icon: "ui-icon-check",                        
                         click: function() {
                             fpcm.dom.fromTag(this).dialog( "close" );
-                            fpcm.ui.showLoader(true);
                             fpcm.ajax.exec('files/rename', {
                                 data: {
                                     newName: fpcm.dom.fromId('newFilenameDialog').val(),
                                     oldName: selectedFile
                                 },
-                                execDone: function () {
-                                    
-                                    var result = fpcm.ajax.getResult('files/rename', true);
+                                execDone: function (result) {
                                     fpcm.ui.addMessage({
                                         txtComplete: result.message,
                                         type: result.code < 1 ? 'error' : 'notice'
@@ -166,7 +163,6 @@ fpcm.filemanager = {
                                     
                                     fpcm.filemanager.closeRenameDialog();
                                     fpcm.filemanager.reloadFiles();
-                                    fpcm.ui.showLoader();
                                 }
                             })
                             
@@ -214,7 +210,6 @@ fpcm.filemanager = {
                             });
 
                             fpcm.filemanager.reloadFiles();
-                            fpcm.ui.showLoader();
                             return false;
                         }
                     });
@@ -241,7 +236,6 @@ fpcm.filemanager = {
                 return false;
             }
 
-            fpcm.ui.showLoader(true);
             fpcm.ajax.exec('files/createthumbs', {
                 dataType: 'json',
                 data: {
@@ -420,10 +414,6 @@ fpcm.filemanager = {
 
     reloadFiles: function (page, filter) {
 
-        if (!fpcm.dom.fromTag('div.fpcm-ui-inline-loader').length) {
-            fpcm.ui.showLoader(true);
-        }
-
         if (!page) {
             page = 1;
         }
@@ -436,6 +426,7 @@ fpcm.filemanager = {
         }
 
         fpcm.ajax.post('filelist', {
+            quiet: fpcm.dom.fromTag('div.fpcm-ui-inline-loader').length ? true : false,
             data: {
                 mode: fpcm.vars.jsvars.fmgrMode,
                 page: page,
@@ -447,7 +438,7 @@ fpcm.filemanager = {
                 fpcm.filemanager.initJqUiWidgets();
                 var fpcmRFDinterval = setInterval(function(){
                     if (fpcm.dom.fromId('fpcm-filelist-images-finished').length == 1) {
-                        fpcm.ui.showLoader(false);
+                        fpcm.ui_loader.hide();
                         clearInterval(fpcmRFDinterval);
                         if (page) {
                             fpcm.dom.fromWindow().scrollTop(0);
@@ -517,7 +508,6 @@ fpcm.filemanager = {
             return false;
         }
 
-        fpcm.ui.showLoader(true);
         fpcm.filemanager.reloadFiles(1, sParams);        
     }
 };
