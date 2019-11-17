@@ -132,20 +132,16 @@ final class security {
             return true;
         }
 
-        define(
-            'FPCM_EXITREQUEST_REGEX',
-            '/('.implode('|', ['SELECT', 'CHR', 'UPPER', 'INFORMATION_SCHEMA',
-                               '\sAND', '\sOR', 'UNION', 'CONCAT', 'THEN']).')+/'
-        );
+        $regEx = '/('.implode('|', ['SELECT', 'CHR', 'UPPER', 'INFORMATION_SCHEMA', '\sAND', '\sOR', 'UNION', 'CONCAT', 'THEN']).')+/';
         
-        $result = array_map(function($var) {
+        $result = array_map(function($var) use ($regEx) {
 
             $varData = http::get($var);
             if (is_array($varData)) {
                 return 0;
             }
 
-            $res = preg_match_all(FPCM_EXITREQUEST_REGEX, $varData);
+            $res = preg_match_all($regEx, $varData);
             return ($res === false || $res === 0) ? 0 : 1;
         }, $vars);
 
