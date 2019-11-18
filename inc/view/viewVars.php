@@ -120,7 +120,7 @@ class viewVars {
         }
 
 
-        $whiteList = ['dateText', 'escape', 'icon'];
+        $whiteList = ['dateText', 'escape', 'icon', 'pageTokenField'];
 
         if (!in_array($name, $whiteList) && (empty($arguments[0]) || !is_string($arguments[0]))) {
             trigger_error('Invalid view helper params found for name of ' . $name);
