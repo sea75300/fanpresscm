@@ -17,15 +17,18 @@ namespace fpcm\view\helper;
  */
 class pageTokenField extends hiddenInput {
 
+    public function __construct()
+    {
+        parent::__construct('token');
+    }
+    
     /**
      * Return element string
      * @return string
      */
     protected function getString()
     {
-        $pageTokens = new \fpcm\classes\pageTokens();
-
-        return "<input type=\"hidden\" name=\"token\" value=\"{$pageTokens->refresh()}\">";
+        return "<input type=\"hidden\" name=\"token\" value=\"".(new \fpcm\classes\pageTokens())->refresh()."\">";
     }
 
 }
