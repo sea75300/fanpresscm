@@ -8,7 +8,7 @@
             <label class="col-12 col-sm-6 col-md-5 fpcm-ui-field-label-general">
                 <?php $theView->write('INSTALLER_DBCONNECTION_TYPE'); ?>
             </label>
-            <div class="col-12 col-sm-6 col-md-7 fpcm-ui-padding-none-lr">
+            <div class="col-12 col-sm-6 col-md-3 fpcm-ui-padding-none-lr">
                 <?php $theView->select('database[DBTYPE]')
                         ->setText('INSTALLER_DBCONNECTION_TYPE')
                         ->setOptions($sqlDrivers)

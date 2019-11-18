@@ -5,19 +5,19 @@
             <fieldset>
                 <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
 
-                <div class="row fpcm-ui-padding-md-tb no-gutters">
+                <div class="row fpcm-ui-padding-md-tb">
                     <?php $theView->textInput('conf[system_email]')                             
                         ->setText('GLOBAL_EMAIL')
                         ->setType('email')
-                        ->setDisplaySizesDefault(); ?>
+                        ->setDisplaySizes(['xs' => 12, 'sm' => 6, 'md' => 5], ['xs' => 12, 'sm' => 6, 'md' => 7]); ?>
                 </div>                
                 
-                <div class="row fpcm-ui-padding-md-tb no-gutters">
+                <div class="row fpcm-ui-padding-md-tb">
                     <?php $theView->textInput('conf[system_url]')
                         ->setValue(fpcm\classes\dirs::getRootUrl('index.php'))                                        
                         ->setText('SYSTEM_OPTIONS_URL')
                         ->setType('url')
-                        ->setDisplaySizesDefault(); ?>
+                        ->setDisplaySizes(['xs' => 12, 'sm' => 6, 'md' => 5], ['xs' => 12, 'sm' => 6, 'md' => 7]); ?>
                 </div>
 
                 <div class="row fpcm-ui-padding-md-tb">
@@ -95,7 +95,7 @@
         </div>
     </div>
 
-    <div class="row no-gutters fpcm-ui-padding-md-tb">
+    <div class="row fpcm-ui-padding-md-tb">
         <div class="col-12">
             <fieldset>
                 <legend><?php $theView->write('SYSTEM_OPTIONS_CAPTCHASETTING'); ?></legend>
@@ -103,13 +103,13 @@
                 <div class="row fpcm-ui-padding-md-tb no-gutters">
                     <?php $theView->textInput('conf[comments_antispam_question]')                                        
                         ->setText('SYSTEM_OPTIONS_ANTISPAMQUESTION')
-                        ->setDisplaySizesDefault(); ?>
+                        ->setDisplaySizes(['xs' => 12, 'sm' => 6, 'md' => 5], ['xs' => 12, 'sm' => 6, 'md' => 7]); ?>
                 </div>
 
                 <div class="row fpcm-ui-padding-md-tb no-gutters">
                     <?php $theView->textInput('conf[comments_antispam_answer]')
                         ->setText('SYSTEM_OPTIONS_ANTISPAMANSWER')
-                        ->setDisplaySizesDefault(); ?>
+                        ->setDisplaySizes(['xs' => 12, 'sm' => 6, 'md' => 5], ['xs' => 12, 'sm' => 6, 'md' => 7]); ?>
                 </div>
             </fieldset>
         </div>
