@@ -51,7 +51,6 @@ fpcm.ajax = {
         }
 
         if (!params.quiet) {
-            console.log('quiet');
             fpcm.ui_loader.show(params.loaderMsg ? params.loaderMsg : null);
         }
 
