@@ -475,7 +475,7 @@ fpcm.ui = {
             params = {};
         }
 
-        fpcm.dom.fromTag(elemClassId).progressbar(params);
+        return fpcm.dom.fromTag(elemClassId).progressbar(params);
     },
     
     dialog: function(params) {

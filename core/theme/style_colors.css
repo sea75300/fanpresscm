@@ -24,7 +24,6 @@ h1 span:nth-child(odd) {
     color: #00aded;
 }
 
-.fpcm-ui-progressbar-label,
 .cm-s-mdn-like.CodeMirror {
     color: #fefefe !important;
 }
@@ -127,10 +126,6 @@ label.fpcm-ui-label-bg-grey,
 .fpcm-ui-field-label-general
 {
     background: #f8f8f8;
-}
-
-.fpcm-ui-progressbar-label {
-    text-shadow: 0px 0px 2px #ececec;
 }
 
 .fpcm-ui-button-primary {

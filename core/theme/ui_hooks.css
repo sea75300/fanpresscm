@@ -95,8 +95,17 @@ div.ui-tabs {
     background-color: #fff;
 }
 
-.ui-button.fpcm-ui-button-primary {
+.ui-progressbar .ui-progressbar-value {
+    margin: 0;
+}
+
+.ui-button.fpcm-ui-button-primary,
+.ui-progressbar-value {
     background-image: url("../../lib/jquery-ui/images/ui-bg_highlight-soft_25_0073ea_1x100_dark.png");
+}
+
+.ui-progressbar-value {
+    background-color: #0073ea;
 }
 
 .ui-checkboxradio-label:hover .ui-checkboxradio-icon {

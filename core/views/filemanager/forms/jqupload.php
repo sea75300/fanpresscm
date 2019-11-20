@@ -6,16 +6,20 @@
 
 <form id="fileupload" action="<?php print $actionPath; ?>" method="POST" enctype="multipart/form-data">
 
-    <div class="fileupload-progress fpcm-ui-fade fpcm-ui-box-sizing-none fpcm-ui-margin-md-bottom fpcm-ui-hidden">
-        <div class="progress active ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-            <div class="ui-progressbar-value ui-corner-left ui-widget-header progress-bar progress-bar-success" style="width:0%;"></div>
+    <div class="row no-gutters">
+        <div class="col-12">
+            <div class="fileupload-progress fpcm-ui-fade fpcm-ui-hidden my-3">
+                <div class="fpcm ui-progressbar progress active ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div class="ui-progressbar-value ui-corner-left ui-widget-header progress-bar progress-bar-success" style="width:0%;"></div>
+                </div>
+                <div class="progress-extended fpcm ui-progressbar-label">&nbsp;</div>
+            </div>            
         </div>
-        <div class="progress-extended">&nbsp;</div>        
     </div>
 
     <div class="row no-gutters">
         
-        <div class="col-12 col-xl-6 pr-0 pr-xl-1">
+        <div class="col-12 mb-1">
             <fieldset class="fpcm-ui-margin-lg-bottom">
                 <legend><?php $theView->write('FILE_LIST_UPLOADFORM'); ?></legend>
 
@@ -34,7 +38,7 @@
             </fieldset>
         </div>
 
-        <div class="col-12 col-xl-6 pl-0 pl-xl-1">
+        <div class="col-12 my-1">
             <div class="row no-gutters align-self-center justify-content-center">        
                 <div id="fpcm-filemanager-upload-drop" class="col-12 fpcm-ui-background-white-100">
                     <h4 class="fpcm-ui-center"><?php $theView->icon('file-upload')->setSize('4x')->setClass('fpcm-ui-padding-md-bottom fpcm ui-status-075'); ?><br><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4>
@@ -65,7 +69,7 @@
         </div>
 
         <div class="col-12 col-sm-auto align-self-center fpcm-ui-ellipsis pt-3 pt-sm-0">
-            <span class="name">{%=file.name%}</span>
+            <span class="name">{%=file.name%}</span> (<span class="size">{%=file.size%}</span>)
             <strong class="error"></strong>
         </div>
     </div>

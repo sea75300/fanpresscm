@@ -10,6 +10,8 @@ if (fpcm === undefined) {
 
 fpcm.fileuploader = {
 
+    _uploadsDone: 0,
+
     init: function() {
         this.initJqUpload();
         this.initUploadButtons();
@@ -67,7 +69,8 @@ fpcm.fileuploader = {
             dropZone: fpcm.dom.fromId('fpcm-filemanager-upload-drop'),
         });
 
-        this._uploadsDone = 0;
+        fpcm.filemanager._uploadsDone = 0;
+
         uploaderEl.on('fileuploaddone', function (e, data) {
             fpcm.filemanager._uploadsDone++;
             if (fpcm.filemanager._uploadsDone < data.getNumberOfFiles()) {
@@ -84,16 +87,6 @@ fpcm.fileuploader = {
 
         uploaderEl.addClass('fileupload-processing');
 
-        jQuery.ajax({
-            url: uploaderEl.fileupload('option', 'url'),
-            dataType: 'json',
-            context: uploaderEl[0]
-        }).always(function () {
-            fpcm.dom.fromTag(this).removeClass('fileupload-processing');
-        }).done(function (result) {
-            fpcm.dom.fromTag(this).fileupload('option', 'done').call(this, jQuery.Event('done'), {result: result});
-        });
-        
         jQuery(document).bind('dragover', function (e) {
             var dropZone = fpcm.dom.fromId('fpcm-filemanager-upload-drop'), timeout = window.dropZoneTimeout;
 
