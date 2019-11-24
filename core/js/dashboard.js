@@ -11,6 +11,8 @@ if (fpcm === undefined) {
 
 fpcm.dashboard = {
 
+    onDone: {},
+
     init: function () {
         fpcm.dashboard.load();
     },
@@ -23,7 +25,7 @@ fpcm.dashboard = {
                 fpcm.ui.initJqUiWidgets();
                 fpcm.dashboard.forceUpdate();
                 fpcm.dashboard.openUpdateCheckUrl();
-                
+
                 var el = fpcm.dom.fromId('fpcm-dashboard-containers');
                 el.sortable({
                     items: 'div.fpcm-dashboard-container',
@@ -47,6 +49,17 @@ fpcm.dashboard = {
 
                     }
                 });
+
+                jQuery.each(fpcm.dashboard.onDone, function (idx, object) {
+
+                    if (!object.execAfter || typeof object.execAfter !== 'function') {
+                        return true;
+                    }
+
+                    object.execAfter();
+                });
+                
+                
                 return false;
             }
         });
