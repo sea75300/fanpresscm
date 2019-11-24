@@ -332,24 +332,6 @@ fpcm.system = {
         return true;
     },
     
-    domFromId: function (_str) {
-        
-        if (!_str) {
-            return false;
-        }
-
-        return fpcm.dom.fromId('' + _str);
-    },
-    
-    domFromClass: function (_str) {
-        
-        if (!_str) {
-            return false;
-        }
-
-        return fpcm.dom.fromClass('' + _str);
-    },
-    
     mergeToVars: function (_newvalue) {
 
         if (!_newvalue) {
