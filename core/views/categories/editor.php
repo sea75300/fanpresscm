@@ -9,6 +9,7 @@
                     <div class="row">
                         <?php $theView->textInput('category[name]')
                             ->setValue($category->getName())
+                            ->setAutoFocused(true)
                             ->setText('CATEGORIES_NAME')
                             ->setIcon('tag')
                             ->setDisplaySizesDefault(); ?>

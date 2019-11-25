@@ -9,78 +9,34 @@
 
 namespace fpcm\controller\action\categories;
 
-class categoryedit extends \fpcm\controller\abstracts\controller {
-
-    protected $category;
-
-    protected function getViewPath() : string
-    {
-        return 'categories/categoryedit';
-    }
-
-    protected function getPermissions()
-    {
-        return ['system' => 'categories'];
-    }
+class categoryedit extends base {
 
     public function request()
     {
-        if (is_null($this->getRequestVar('categoryid'))) {
+        $this->saveMessage = 'edited';
+        $this->tabHeadline = 'CATEGORIES_EDIT';
+        
+        $id = $this->getRequestVar('categoryid', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]);
+        
+        if ($id === null) {
             $this->redirect('categories/list');
         }
 
-        $this->category = new \fpcm\model\categories\category($this->getRequestVar('categoryid'));
-
+        $this->category = new \fpcm\model\categories\category($id);
         if (!$this->category->exists()) {
             $this->view = new \fpcm\view\error('LOAD_FAILED_CATEGORY', 'categories/list');
             return false;
         }
 
-        if ($this->buttonClicked('categorySave')) {
-            $data = $this->getRequestVar('category');
-
-            if (!trim($data['name']) || empty($data['groups'])) {
-                $this->view->addErrorMessage('SAVE_FAILED_CATEGORY');
-                return true;
-            }
-
-            $groups = implode(';', array_map('intval', $data['groups']));
-            $this->category->setGroups($groups);
-            $this->category->setIconPath($data['iconpath']);
-            $this->category->setName($data['name']);
-
-            $res = $this->category->update();
-
-            if ($res === false)
-                $this->view->addErrorMessage('SAVE_FAILED_CATEGORY');
-            if ($res === true)
-                $this->redirect('categories/list', array('edited' => 1));
-        }
-
+        parent::request();
         return true;
     }
 
-    protected function getHelpLink()
-    {
-        return 'HL_CATEGORIES_MNG';
-    }
-
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-categories';
-    }
-
-    public function process()
-    {
-        $userRolls = new \fpcm\model\users\userRollList();
-        $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());
-        $this->view->assign('category', $this->category);
-        $this->view->assign('selectedGroups', explode(';', $this->category->getGroups()));
-        $this->view->setFieldAutofocus('categoryname');
+    public function process() {
         $this->view->setFormAction($this->category->getEditLink(), [], true);
-        $this->view->addButton(new \fpcm\view\helper\saveButton('categorySave'));
-        $this->view->addJsFiles(['categories.js']);
-        $this->view->render();
+        parent::process();
     }
 
 }
