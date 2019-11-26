@@ -84,9 +84,12 @@ class categorylist extends \fpcm\controller\abstracts\controller {
             return true;
         }
 
-        if ($this->buttonClicked('delete') && !is_null($this->getRequestVar('ids'))) {
-            $category = new \fpcm\model\categories\category($this->getRequestVar('ids'));
+        $id = $this->getRequestVar('ids', [
+            \fpcm\classes\http::FILTER_CASTINT
+        ]);
 
+        if ($this->buttonClicked('delete') && isset($id[0]) ) {
+            $category = new \fpcm\model\categories\category($id[0]);
             if ($category->delete()) {
                 $this->view->addNoticeMessage('DELETE_SUCCESS_CATEGORIES');
             } else {
@@ -109,13 +112,42 @@ class categorylist extends \fpcm\controller\abstracts\controller {
         $this->countReadOnly = $this->itemsCount < 2 ? true : false;
         $this->initDataView();
 
-        $this->view->addJsFiles(['categories.js']);
+        $this->view->addCssFiles([\fpcm\classes\loader::libGetFileUrl('selectize_js/dist/css/selectize.default.css')]);
+        $this->view->addJsFiles(['categories.js', \fpcm\classes\loader::libGetFileUrl('selectize_js/dist/js/selectize.min.js')]);
+        $this->view->addJsLangVars(['CATEGORIES_ROLLS', 'SAVE_FAILED_CATEGORY']);
+
+        $this->view->addAjaxPageToken('categories/massedit');
+        $this->view->setFormAction('categories/list');
+        
         $this->view->assign('headline', 'HL_CATEGORIES_MNG');
 
-        $this->view->setFormAction('categories/list');
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('categories/add'))->setText('CATEGORIES_ADD')->setIcon('tag')->setClass('fpcm-loader'),
+            (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true),
             (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')
+        ]);
+
+        $rolls = (new \fpcm\model\users\userRollList())->getUserRollsTranslated();
+        
+        $this->view->addJsVars([
+            'masseditFields' => [
+                'fieldIconPath' => (string) new \fpcm\components\masseditField(
+                    'link',
+                    'CATEGORIES_ICON_PATH',
+                    (new \fpcm\view\helper\textInput('iconpath'))
+                        ->setText('')
+                        ->setType('url')
+                        ->setClass('fpcm-ui-input-massedit fpcm-ui-field-input-nowrapper-general fpcm ui-full-width'),
+                    'col-md-8'
+                ),
+                'fieldRolls' => (string) new \fpcm\components\masseditField(
+                    'users',
+                    'CATEGORIES_ROLLS',
+                    (new \fpcm\view\helper\select('rolls'))->setOptions($rolls)->setIsMultiple(true)->setSelected([])->setClass('fpcm-ui-borderradius-remove-left'),
+                    'col-md-8 fpcm-ui-editor-categories-massedit'
+                ),
+            ],
+            'massEditSaveFailed' => 'SAVE_FAILED_CATEGORY'
         ]);
 
         $this->view->render();
@@ -156,7 +188,7 @@ class categorylist extends \fpcm\controller\abstracts\controller {
         $rolls = $this->rollList->getRollsbyIdString($category->getGroups());
 
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('ids', 'ids' . $category->getId()))->setValue($category->getId())->setReadonly($this->countReadOnly), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('ids[]', 'ids' . $category->getId()))->setValue($category->getId())->setReadonly($this->countReadOnly)->setClass('fpcm-ui-list-checkbox'), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\editButton('editCat'))->setUrlbyObject($category), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             new \fpcm\components\dataView\rowCol('name', new \fpcm\view\helper\escape($category->getName())),
             new \fpcm\components\dataView\rowCol('groups', implode(', ', array_keys($rolls))),

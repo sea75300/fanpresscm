@@ -138,7 +138,7 @@ fpcm.system = {
         return false;
     },
 
-    initMassEditDialog: function (func, dialogId, list) {
+    initMassEditDialog: function (func, dialogId, list, _params) {
 
         var dialogIdCom = '#fpcm-dialog-' + dialogId;
 
@@ -180,10 +180,16 @@ fpcm.system = {
                                     ids: fpcm.ajax.toJSON(objectIDs),
                                 };
 
-                                var catEl = fpcm.dom.fromId('categories');
-                                if (catEl) {
-                                    params.fields.categories = catEl.val();
+                                if (_params.multipleSelect) {
+                                    params.fields[_params.multipleSelectField] = fpcm.dom.fromId(_params.multipleSelect).val();
                                 }
+                                else {
+                                    var catEl = fpcm.dom.fromId('categories');
+                                    if (catEl) {
+                                        params.fields.categories = catEl.val();
+                                    }                                    
+                                }
+
 
                                 fpcm.system.execMassEdit(func, params);
 

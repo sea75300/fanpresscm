@@ -38,6 +38,7 @@ ajax/comments/massedit: ajax/comments/massedit
 ajax/comments/lockip: ajax/comments/lockIp
 ajax/templates/savetemp: ajax/templates/savetemptpl
 ajax/templates/fetch: ajax/templates/fetchEditor
+ajax/categories/massedit: ajax/categories/massedit
 ajax/shareClick: ajax/pub/shareClick
 ajax/help: ajax/system/help
 ajax/passcheck: ajax/system/passcheck

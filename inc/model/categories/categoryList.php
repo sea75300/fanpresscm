@@ -32,7 +32,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
      */
     public function getCategoriesAll()
     {
-        $list = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setFetchAll(true));
+        $list = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setFetchAll(true)->setWhere('1=1 '.$this->dbcon->orderBy(['id ASC'])));
 
         $res = [];
 
@@ -156,6 +156,39 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
         }
         
         return $result;
+    }
+
+    /**
+     * Mass edit
+     * @param array $ids
+     * @param array $fields
+     * @since FPCM 4.3
+     */
+    public function editCategoriesByMass(array $ids, array $fields)
+    {
+        if (!count($ids)) {
+            return false;
+        }
+
+        if (isset($fields['groups']) && $fields['groups'] === -1) {
+            unset($fields['groups']);
+        }
+
+        if (isset($fields['iconpath']) && $fields['iconpath'] === -1) {
+            unset($fields['iconpath']);
+        }
+
+        if (!count($fields)) {
+            return false;
+        }
+
+        $this->cache->cleanup();
+        return $this->dbcon->update(
+            $this->table,
+            array_keys($fields),
+            array_merge(array_values($fields), $ids),
+            $this->dbcon->inQuery('id', $ids)
+        );
     }
 
 }
