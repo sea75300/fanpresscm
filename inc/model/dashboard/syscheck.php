@@ -92,9 +92,9 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
         /* @var $data \fpcm\model\system\syscheckOption */
         foreach ($options as $description => $data) {
             $checkres = (new \fpcm\view\helper\boolToText($description))->setValue($data->getResult());
-            $dat  = "<div class=\"row\">";
-            $dat .= "<div class=\"col-1 fpcm-ui-padding-none-lr fpcm-ui-center\">{$checkres}</div>";
-            $dat .= "<div class=\"col-11 fpcm-ui-padding-none-lr \">{$description}</div>";
+            $dat  = "<div class=\"row no-gutters\">";
+            $dat .= "<div class=\"col-auto px-2 fpcm-ui-center\">{$checkres}</div>";
+            $dat .= "<div class=\"col px-2 \">{$description}</div>";
             $dat .= "</div>";
 
             $this->tableContent[] = $dat;
@@ -104,9 +104,9 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
         foreach ($folders as $description => $data) {
             $checkres = (new \fpcm\view\helper\boolToText($description))->setValue($data->getResult())->setText($data->getResult() ? 'GLOBAL_WRITABLE' : 'GLOBAL_NOT_WRITABLE');
             
-            $dat  = "<div class=\"row\">";
-            $dat .= "<div class=\"col-1 fpcm-ui-padding-none-lr fpcm-ui-center\">{$checkres}</div>";
-            $dat .= "<div class=\"col-11 fpcm-ui-padding-none-lr \">{$description}</div>";
+            $dat  = "<div class=\"row no-gutters\">";
+            $dat .= "<div class=\"col-auto px-2 fpcm-ui-center\">{$checkres}</div>";
+            $dat .= "<div class=\"col px-2 \">{$description}</div>";
             $dat .= "</div>";
 
             $this->tableContent[] = $dat;

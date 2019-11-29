@@ -23,6 +23,7 @@ $lang = array(
     'SYSTEM_STATS_ARTICLES_ARCHIVE' => 'Artikel archiviert',
     'SYSTEM_STATS_ARTICLES_DRAFT' => 'Artikel-Entwürfe',
     'SYSTEM_STATS_ARTICLES_APPROVAL' => 'freizugebende Artikel',
+    'SYSTEM_STATS_ARTICLES_POSTPONED' => 'geplante Artikel',
     'SYSTEM_STATS_COMMENTS_ALL' => 'Kommentare gesamt',
     'SYSTEM_STATS_COMMENTS_UNAPPR' => 'Kommentare nicht genehmigt',
     'SYSTEM_STATS_COMMENTS_PRIVATE' => 'Kommentare privat',

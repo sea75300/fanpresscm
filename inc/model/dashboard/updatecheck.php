@@ -56,12 +56,12 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
         $this->getModuleUpdateStatus();
 
         $this->tableContent[] = implode(PHP_EOL, [
-            '<div class="row no-gutters fpcm-ui-font-small fpcm-ui-padding-lg-top">',
-            '<div class="col-12 align-self-center">'.$this->language->translate('UPDATE_VERSIONCHECK_NOTES').'</div>',
+            '<div class="row no-gutters py-3 fpcm ui-align-center">',
+            '<div class="col align-self-center">'.$this->language->translate('UPDATE_VERSIONCHECK_NOTES').'</div>',
             '</div>'
         ]);
 
-        return '<div class="fpcm-dashboard-updates fpcm-ui-center">'.implode(PHP_EOL, $this->tableContent).'</div>';
+        return '<div class="fpcm-dashboard-updates">'.implode(PHP_EOL, $this->tableContent).'</div>';
     }
 
     /**
@@ -196,8 +196,8 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     {
         $this->tableContent[] = implode(PHP_EOL, [
             '<div class="row no-gutters">',
-            '<div class="col-3">'.(new \fpcm\view\helper\icon($iconClass.' fa-inverse'))->setSize('2x')->setClass($statusClass)->setStack('square').'</div>',
-            '<div class="col-9 align-self-center">'.$this->language->translate($statusText).'</div>',
+            '<div class="col-auto px-2">'.(new \fpcm\view\helper\icon($iconClass.' fa-inverse'))->setSize('2x')->setClass($statusClass)->setStack('square').'</div>',
+            '<div class="col px-2 align-self-center">'.$this->language->translate($statusText).'</div>',
             '</div>'
         ]);
     }

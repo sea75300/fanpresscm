@@ -17,6 +17,8 @@ namespace fpcm\model\dashboard;
  */
 class sysstats extends \fpcm\model\abstracts\dashcontainer {
 
+    use \fpcm\model\traits\dashContainerCols;
+    
     /**
      * Container table content
      * @var array
@@ -104,32 +106,40 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
         $articleList = new \fpcm\model\articles\articlelist();
 
         $sObj = new \fpcm\model\articles\search();
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
-                . (new \fpcm\view\helper\icon('book')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_ALL') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
+
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('book')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_ALL'),
+            $articleList->countArticlesByCondition($sObj)
+        );
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->approval = -1;
         $sObj->draft = 0;
         $sObj->archived = 0;
         $sObj->deleted = 0;
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
-                . (new \fpcm\view\helper\icon('newspaper', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_ACTIVE') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
+
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('newspaper', 'far')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_ACTIVE'),
+            $articleList->countArticlesByCondition($sObj)
+        );
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->archived = 1;
         $sObj->approval = -1;
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
-                . (new \fpcm\view\helper\icon('archive')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_ARCHIVE') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
+
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('archive')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_ARCHIVE'),
+            $articleList->countArticlesByCondition($sObj)
+        );
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->draft = 1;
         $sObj->approval = -1;
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
-                . (new \fpcm\view\helper\icon('file-alt', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_DRAFT') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-padding-none-lr fpcm-ui-center">' . $articleList->countArticlesByCondition($sObj) . '</div>';
+
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('file-alt', 'far')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_DRAFT'),
+            $articleList->countArticlesByCondition($sObj)
+        );
 
         $sObj = new \fpcm\model\articles\search();
         $sObj->deleted = 1;
@@ -138,9 +148,24 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
         $sObj = new \fpcm\model\articles\search();
         $sObj->approval = 1;
         $count = $articleList->countArticlesByCondition($sObj);
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '">'
-                . (new \fpcm\view\helper\icon('thumbs-up', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_ARTICLES_APPROVAL') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-center">' . $count . '</div>';
+
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('thumbs-up', 'far')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_APPROVAL'),
+            $count,
+            ($count > 0 ? 'fpcm-ui-important-text' : '')
+        );
+
+        $sObj = new \fpcm\model\articles\search();
+        $sObj->postponed = 1;
+        $sObj->draft = 0;
+        $sObj->approval = 0;
+        $count = $articleList->countArticlesByCondition($sObj);
+
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('calendar-plus')).' '.$this->language->translate('SYSTEM_STATS_ARTICLES_POSTPONED'),
+            $count,
+            ($count > 0 ? 'fpcm-ui-important-text' : '')
+        );
     }
 
     /**
@@ -149,32 +174,43 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     protected function getCommentStats()
     {
         $commentList = new \fpcm\model\comments\commentList();
-
         $sObj = new \fpcm\model\comments\search();
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
-                . (new \fpcm\view\helper\icon('comments')).' <strong>' . $this->language->translate('SYSTEM_STATS_COMMENTS_ALL') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-center">' . $commentList->countCommentsByCondition($sObj) . '</div>';
+
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('comments')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_ALL'),
+            $commentList->countCommentsByCondition($sObj)
+        );
 
         $sObj = new \fpcm\model\comments\search();
         $sObj->unapproved = true;
         $count = $commentList->countCommentsByCondition($sObj);
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '">'
-                . (new \fpcm\view\helper\icon('check-circle', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_COMMENTS_UNAPPR') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-center">' . $count . '</div>';
+
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('check-circle', 'far')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_UNAPPR'),
+            $count,
+            ($count > 0 ? 'fpcm-ui-important-text' : '')
+        );          
 
         $sObj = new \fpcm\model\comments\search();
         $sObj->private = true;
         $count = $commentList->countCommentsByCondition($sObj);
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '">'
-                . (new \fpcm\view\helper\icon('eye-slash')).' <strong>' . $this->language->translate('SYSTEM_STATS_COMMENTS_PRIVATE') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-center">' . $count . '</div>';
+
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('eye-slash')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_PRIVATE'),
+            $count,
+            ($count > 0 ? 'fpcm-ui-important-text' : '')
+        );          
 
         $sObj = new \fpcm\model\comments\search();
         $sObj->spam = true;
         $count = $commentList->countCommentsByCondition($sObj);
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr ' . ($count > 0 ? 'fpcm-ui-important-text' : '') . '">'
-                . (new \fpcm\view\helper\icon('flag')).' <strong>' . $this->language->translate('SYSTEM_STATS_COMMENTS_SPAM') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-center">' . $count . '</div>';
+
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('flag')).' '.$this->language->translate('SYSTEM_STATS_COMMENTS_SPAM'),
+            $count,
+            ($count > 0 ? 'fpcm-ui-important-text' : '')
+        );        
+        
 
         $sObj = new \fpcm\model\comments\search();
         $sObj->deleted = true;
@@ -188,14 +224,16 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     {
         $userCountAll = $this->dbcon->count(\fpcm\classes\database::tableAuthors);
         $userCountAct = $this->dbcon->count(\fpcm\classes\database::tableAuthors, '*', 'disabled = 0');
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
-                . (new \fpcm\view\helper\icon('users')).' <strong>' . $this->language->translate('SYSTEM_STATS_USERS') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-center">' . $userCountAll . ' (' . $userCountAct . ')</div>';
 
-        $categoryCount = $this->dbcon->count(\fpcm\classes\database::tableCategories);
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
-                . (new \fpcm\view\helper\icon('file-alt', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_CATEGORIES') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-center">' . $categoryCount . '</div>';
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('users')).' '.$this->language->translate('SYSTEM_STATS_USERS'),
+            "{$userCountAll} ({$userCountAct})"
+        );
+
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('file-alt', 'far')).' '.$this->language->translate('SYSTEM_STATS_CATEGORIES'),
+            $this->dbcon->count(\fpcm\classes\database::tableCategories)
+        );
     }
 
     /**
@@ -203,17 +241,16 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
      */
     protected function getFileStats()
     {
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('copy', 'far')).' '.$this->language->translate('SYSTEM_STATS_UPLOAD_COUNT'),
+            $this->dbcon->count(\fpcm\classes\database::tableFiles, '*')
+        );
 
-        $fileCount = $this->dbcon->count(\fpcm\classes\database::tableFiles, '*');
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
-                . (new \fpcm\view\helper\icon('copy', 'far')).' <strong>' . $this->language->translate('SYSTEM_STATS_UPLOAD_COUNT') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-center">' . $fileCount . '</div>';
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('calculator')).' '.$this->language->translate('SYSTEM_STATS_UPLOAD_SIZE'),
+            \fpcm\classes\tools::calcSize((new \fpcm\model\files\imagelist)->getUploadFolderSize())
+        );
 
-        $imgList = new \fpcm\model\files\imagelist();
-        $folderSize = \fpcm\classes\tools::calcSize($imgList->getUploadFolderSize());
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
-                . (new \fpcm\view\helper\icon('calculator')).' <strong>' . $this->language->translate('SYSTEM_STATS_UPLOAD_SIZE') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-center">' . $folderSize . '</div>';
     }
 
     /**
@@ -221,14 +258,16 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
      */
     protected function getCacheStats()
     {
-        $folderSize = \fpcm\classes\tools::calcSize($this->cache->getSize());
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
-                . (new \fpcm\view\helper\icon('hdd')).' <strong>' . $this->language->translate('SYSTEM_STATS_CACHE_SIZE') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-center">' . $folderSize . '</div>';
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('hdd')).' '.$this->language->translate('SYSTEM_STATS_CACHE_SIZE'),
+            \fpcm\classes\tools::calcSize($this->cache->getSize())
+        );
 
-        $this->tableContent[] = '<div class="col-8 fpcm-ui-padding-none-lr">'
-                . (new \fpcm\view\helper\icon('flag')).' <strong>' . $this->language->translate('SYSTEM_STATS_TRASHCOUNT') . ':</strong></div>'
-                . '<div class="col-4 fpcm-ui-center">' . $this->deletedCount . '</div>';
+        $this->tableContent[] = $this->get2ColRow(
+            (new \fpcm\view\helper\icon('flag')).' '.$this->language->translate('SYSTEM_STATS_TRASHCOUNT'),
+            $this->deletedCount
+        );
+
     }
 
 }

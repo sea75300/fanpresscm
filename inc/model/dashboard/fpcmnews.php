@@ -17,6 +17,8 @@ namespace fpcm\model\dashboard;
  */
 class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
 
+    use \fpcm\model\traits\dashContainerCols;
+    
     /**
      * Returns name
      * @return string
@@ -95,16 +97,14 @@ class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
                 break;
             }
 
-            $content[] = '<div class="row fpcm-ui-font-small fpcm-ui-padding-md-tb">';
-            $content[] = '  <div class="col-2 fpcm-ui-padding-none-lr fpcm-ui-center">';
-            $content[] = (new \fpcm\view\helper\openButton(uniqid('fpcmNews')))->setUrl(strip_tags($item->link))->setTarget('_blank')->setRel('external');
-            $content[] = '  </div>';
-            $content[] = '  <div class="col-10">';
-            $content[] = '  <div class="fpcm-ui-ellipsis">';
-            $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags($item->title))) . '</strong><br>';
-            $content[] = '  <span>' . (new \fpcm\view\helper\dateText(strtotime($item->pubDate))) . '</span>';
-            $content[] = '  </div></div>';
-            $content[] = '</div>';
+            $content[] = '<div class="row fpcm-ui-font-small py-2">';
+            $content[] = $this->get2ColRowSmallLeftAuto(
+                (new \fpcm\view\helper\openButton(uniqid('fpcmNews')))->setUrl(strip_tags($item->link))->setTarget('_blank')->setRel('external'),
+                '<strong>' . (new \fpcm\view\helper\escape(strip_tags($item->title))) . '</strong><br><span>' . (new \fpcm\view\helper\dateText(strtotime($item->pubDate))) . '</span>',
+                'fpcm-ui-ellipsis'
+            );
+            $content[] = '</div>';            
+
             $idx++;
         }
 
@@ -112,7 +112,7 @@ class fpcmnews extends \fpcm\model\abstracts\dashcontainer {
 
         $this->content = implode(PHP_EOL, $content);
 
-        $this->cache->write($this->cacheName, $this->content, $this->config->system_cache_timeout);
+        $this->cache->write($this->cacheName, $this->content);
     }
 
 }

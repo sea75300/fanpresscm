@@ -135,17 +135,17 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer {
             }
 
             $content[] = '<div class="row fpcm-ui-font-small fpcm-ui-padding-md-tb">';
-            $content[] = '  <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">';
+            $content[] = '  <div class="col-12 col-md-auto px-3 fpcm-ui-center">';
             $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($comment)->setTarget('_blank');
             $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($comment, '&mode=1')->setReadonly($comment->getEditPermission() ? false : true);
             $content[] = '  </div>';
 
-            $content[] = '  <div class="col-sm-12 col-md-8">';
+            $content[] = '  <div class="col align-self-center">';
             $content[] = '  <div class="fpcm-ui-ellipsis">';
             $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags($comment->getName()))) . '</strong> @ ' . (new \fpcm\view\helper\dateText($comment->getCreatetime())) . '<br>';
             $content[] = '  <span>' . $createInfo . '</span>';
             $content[] = '  </div></div>';
-            $content[] = '  <div class="col-auto fpcm-ui-metabox fpcm-ui-padding-none-lr">';
+            $content[] = '  <div class="col-auto fpcm-ui-metabox px-4 align-self-center">';
 
             $content[] = $comment->getStatusIconSpam();
             $content[] = $comment->getStatusIconApproved();

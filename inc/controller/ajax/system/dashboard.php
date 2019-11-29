@@ -50,8 +50,7 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
 
             /* @var $containerObj \fpcm\model\abstracts\dashcontainer */
             $containerObj = new $container();
-
-            if (!is_a($containerObj, '\fpcm\model\abstracts\dashcontainer')) {
+            if (!$containerObj instanceof \fpcm\model\abstracts\dashcontainer) {
                 trigger_error('Dashboard container class "' . $container . '" must be an instance of "\fpcm\model\abstracts\dashcontainer".');
                 continue;
             }

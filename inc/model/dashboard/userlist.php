@@ -16,6 +16,8 @@ namespace fpcm\model\dashboard;
  */
 class userlist extends \fpcm\model\abstracts\dashcontainer {
 
+    use \fpcm\model\traits\dashContainerCols;
+    
     /**
      * Returns name
      * @return string
@@ -73,16 +75,14 @@ class userlist extends \fpcm\model\abstracts\dashcontainer {
         foreach ($items as $item) {
 
             $emailAddress = (new \fpcm\view\helper\escape($item->getEmail()));
-
-            $content[] = '<div class="row fpcm-ui-font-small fpcm-ui-padding-md-tb">';
-            $content[] = '  <div class="col-2 fpcm-ui-padding-none-lr ">';
-            $content[] = (new \fpcm\view\helper\linkButton(uniqid('createMail')))->setUrl('mailto:' . $emailAddress)->setText('GLOBAL_WRITEMAIL')->setTarget('_blank')->setIcon('envelope')->setIconOnly(true);
-            $content[] = '  </div>';
-            $content[] = '  <div col="col-10">';
-            $content[] = '      <strong>' . (new \fpcm\view\helper\escape($item->getDisplayname())) . '</strong><br>';
-            $content[] = '      <span>' . $emailAddress . '</span>';
-            $content[] = '  </div>';
+            
+            $content[] = '<div class="row fpcm-ui-font-small py-2">';
+            $content[] = $this->get2ColRowSmallLeftAuto(
+                (new \fpcm\view\helper\linkButton(uniqid('createMail')))->setUrl('mailto:' . $emailAddress)->setText('GLOBAL_WRITEMAIL')->setTarget('_blank')->setIcon('envelope')->setIconOnly(true),
+                '<strong>' . (new \fpcm\view\helper\escape($item->getDisplayname())) . '</strong><br><span>' . $emailAddress . '</span>'
+            );
             $content[] = '</div>';
+
         }
 
         $content[] = '</div>';

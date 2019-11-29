@@ -145,6 +145,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
         $this->view->assign('rollPermissions', $rollsPerm);
         
         $chart = new \fpcm\components\charts\chart('pie', 'userArticles');
+        $this->view->addCssFiles($chart->getCssFiles());
         
         $this->view->addJsFiles(array_merge(['users/module.js'], $chart->getJsFiles()));
         $this->view->addJsLangVars(['USERS_ARTICLES_SELECT', 'HL_OPTIONS_PERMISSIONS']);
