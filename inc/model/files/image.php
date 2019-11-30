@@ -181,6 +181,15 @@ class image extends \fpcm\model\abstracts\file {
     }
 
     /**
+     * Checks if file amanager thumbnail exists
+     * @return bool
+     * @since FPCM 4.3
+     */
+    public function hasFileManageThumbnail() : bool {
+        return file_exists($this->getFileManagerThumbnail());
+    }
+
+    /**
      * Breite ausgeben
      * @return int
      */
@@ -315,7 +324,7 @@ class image extends \fpcm\model\abstracts\file {
         }
         
         parent::delete();
-        if (file_exists($this->getFileManagerThumbnail())) {
+        if ($this->hasFileManageThumbnail()) {
             unlink($this->getFileManagerThumbnail());
         }
 
@@ -408,18 +417,26 @@ class image extends \fpcm\model\abstracts\file {
     {
         include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop');
 
-        $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($this->getFullpath());
-        if (memory_get_usage(true) < \fpcm\classes\baseconfig::memoryLimit(true) * 0.5) {
-            $phpImgWsp->cropMaximumInPixel(0, 0, 'MM');
-        }
+        try {
+            $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($this->getFullpath());
+            $phpImgWsp->cropToAspectRatio(
+                \PHPImageWorkshop\Core\ImageWorkshopLayer::UNIT_PIXEL,
+                $this->config->file_img_thumb_width,
+                $this->config->file_img_thumb_height,
+                0, 0, 'MM'
+            );
 
-        $phpImgWsp->resizeInPixel($this->config->file_img_thumb_width, $this->config->file_img_thumb_height);
-        $fullThumbPath = $this->getThumbnailFull();
-        $phpImgWsp->save(dirname($fullThumbPath), basename($fullThumbPath), true, null, 85);
+            $fullThumbPath = $this->getThumbnailFull();
+            $phpImgWsp->resizeInPixel($this->config->file_img_thumb_width, $this->config->file_img_thumb_height);
+            $phpImgWsp->save(dirname($fullThumbPath), basename($fullThumbPath), true, null, 85);
+        } catch (\ErrorException $exc) {
+            trigger_error('Error while creating file thumbnail '.$this->getThumbnail().PHP_EOL.$exc->getMessage());
+            return false;
+        }        
 
         $this->events->trigger('image\thumbnailCreate', $this);
         if (!file_exists($fullThumbPath)) {
-            trigger_error('Unable to create filemanager thumbnail: ' . $this->getThumbnail());
+            trigger_error('Unable to create thumbnail: ' . $this->getThumbnail());
             return false;
         }
 

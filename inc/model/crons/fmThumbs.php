@@ -22,10 +22,7 @@ class fmThumbs extends \fpcm\model\abstracts\cron {
      */
     public function run()
     {
-
-        $imageList = new \fpcm\model\files\imagelist();
-        $imageList->createFilemanagerThumbs();
-
+        (new \fpcm\model\files\imagelist)->createFilemanagerThumbs();
         return true;
     }
 

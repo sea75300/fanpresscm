@@ -201,7 +201,6 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         $memoryLimit = \fpcm\classes\baseconfig::memoryLimit(true);
 
         $filesizeLimit = $memoryLimit * 0.025;
-        $memoryWorkLimit = $memoryLimit * (\fpcm\classes\baseconfig::memoryLimit() < 128) ? 0.33 : 0.5;
         foreach ($folderFiles as $folderFile) {
 
             if (filesize($folderFile) >= $filesizeLimit) {
@@ -209,30 +208,38 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
                 fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath} because of image dimension. You may reduce file size?");
                 continue;
             }
-            
+
             if (pathinfo($folderFile, PATHINFO_EXTENSION) == 'bmp' || substr($folderFile, -4) === '.bmp') {
                 $msgPath = ops::removeBaseDir($folderFile);
                 fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath}, \"".pathinfo($folderFile, PATHINFO_EXTENSION)."\" is no supported. You may use another image type?");
                 continue;
             }
 
-            $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($folderFile);
-            $this->removeBasePath($folderFile);
-            $image = new \fpcm\model\files\image($folderFile);
-            if (file_exists($image->getFileManagerThumbnail())) {
+            $imgPath = $folderFile;
+            $this->removeBasePath($imgPath);
+            $image = new \fpcm\model\files\image($imgPath);
+
+            if ($image->hasFileManageThumbnail()) {
                 $image = null;
                 $phpImgWsp = null;
                 continue;
             }
+            
+            try {
+                $phpImgWsp = \PHPImageWorkshop\ImageWorkshop::initFromPath($folderFile);
+                $phpImgWsp->cropToAspectRatio(
+                    \PHPImageWorkshop\Core\ImageWorkshopLayer::UNIT_PIXEL,
+                    100, 100, 0, 0, 'MM'
+                );
 
-            if (memory_get_usage(true) < $memoryWorkLimit) {
-                $phpImgWsp->cropMaximumInPixel(0, 0, "MM");
+                $phpImgWsp->resizeInPixel(100, 100);
+                $phpImgWsp->save(dirname($image->getFileManagerThumbnail()), basename($image->getFileManagerThumbnail()));
+            } catch (\ErrorException $exc) {
+                trigger_error('Error while creating filemanager thumbnail '.$image->getFileManagerThumbnail().PHP_EOL.$exc->getMessage());
+                continue;
             }
 
-            $phpImgWsp->resizeInPixel(100, 100);
-            $phpImgWsp->save(dirname($image->getFileManagerThumbnail()), basename($image->getFileManagerThumbnail()));
-
-            if (!file_exists($image->getFileManagerThumbnail())) {
+            if (!$image->hasFileManageThumbnail()) {
                 trigger_error('Unable to create filemanager thumbnail: ' . $image->getFileManagerThumbnail());
             }
 
