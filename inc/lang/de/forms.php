@@ -57,6 +57,7 @@ $lang = array(
     'GLOBAL_METADATA' => 'Meta-Informationen',
     'GLOBAL_PROPERTIES' => 'Eigenschaften',
     'GLOBAL_TABLE_OF_CONTENT' => 'Inhaltsverzeichnis',
+    'GLOBAL_DEPRECATED' => 'Veraltet, wird in Kürze entfernt',
     'LOGIN_BTN' => 'Anmelden',
     'LOGIN_NEWPASSWORD' => 'Neues Passwort anfordern',
     'LOGIN_AUTHCODE' => 'Authenticator-Code eingeben',

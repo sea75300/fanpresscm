@@ -356,6 +356,14 @@ fpcm.system = {
 jQuery.noConflict();
 jQuery(document).ready(function () {
 
+    fpcm.ui.init();
+    fpcm.ui_navigation.init();
+    fpcm.ui_notify.init();
+
+    delete fpcm.ui.init;
+    delete fpcm.ui_navigation.init;
+    delete fpcm.ui_notify.init;
+
     jQuery.each(fpcm, function (idx, object) {
 
         if (!object.init || typeof object.init !== 'function') {

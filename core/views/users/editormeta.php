@@ -105,8 +105,11 @@
                             <?php $theView->icon('file-upload'); ?>
                             <?php $theView->write('SYSTEM_OPTIONS_NEWS_NEWUPLOADER'); ?>:
                         </label>
-                        <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                        <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
                             <?php $theView->boolSelect('usermeta[file_uploader_new]')->setSelected($author->getUserMeta('file_uploader_new')); ?>
+                        </div>
+                        <div class="col px-0 align-self-center">
+                            <?php $theView->icon('skull-crossbones')->setText('GLOBAL_DEPRECATED')->setSize('lg'); ?>
                         </div>
                     </div>
                 </div>

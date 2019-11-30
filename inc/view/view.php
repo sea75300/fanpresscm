@@ -299,6 +299,12 @@ class view {
                 (new helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE')->setClass('fpcm-ui-important-text')
             ));
         }
+        
+        if (!$this->config->file_uploader_new) {
+            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
+                (new helper\icon('file-upload'))->setText('FILES_NEWUPLOADER_DISABLED')->setClass('fpcm-ui-important-text')
+            ));
+        }
 
         if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
