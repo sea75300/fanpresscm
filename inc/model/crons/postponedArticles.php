@@ -22,7 +22,6 @@ class postponedArticles extends \fpcm\model\abstracts\cron {
      */
     public function run()
     {
-
         $articlesList = new \fpcm\model\articles\articlelist();
         $articleIds = $articlesList->getArticlesPostponedIDs();
 
@@ -32,6 +31,11 @@ class postponedArticles extends \fpcm\model\abstracts\cron {
 
         if (!$articlesList->publishPostponedArticles($articleIds)) {
             return false;
+        }
+
+        $config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+        if (!\fpcm\classes\baseconfig::canConnect() || (!$config->twitter_events['create'] && !$config->twitter_events['update'])) {
+            return true;
         }
 
         $params = new \fpcm\model\articles\search();

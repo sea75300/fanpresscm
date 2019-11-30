@@ -307,7 +307,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             $this->table,
             ['postponed'],
             array_merge([0], $ids),
-            $this->dbcon->inQuery('id', $ids) . ') AND postponed = 1 AND approval = 0 AND deleted = 0 AND draft = 0'
+            $this->dbcon->inQuery('id', $ids) . ' AND postponed = 1 AND approval = 0 AND deleted = 0 AND draft = 0'
         );
     }
 
