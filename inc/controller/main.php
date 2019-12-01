@@ -47,7 +47,7 @@ class main {
             return true;
         }
 
-        $controllerName = (isset($controllers[$module]) ? $controllers[$module] : '');
+        $controllerName = $controllers[$module] ?? '';
         if (strpos($controllerName, 'fpcm\\modules\\') === false) {
             $controllerName = "fpcm/controller/" . $controllerName;
         }
