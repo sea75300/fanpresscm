@@ -16,9 +16,7 @@ class fpcmAPiTest extends \PHPUnit_Framework_TestCase {
 
     public function setUp()
     {
-
         $this->object = new fpcmAPI();
-
         parent::setUp();
     }
 

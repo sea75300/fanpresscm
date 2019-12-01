@@ -378,7 +378,7 @@ final class session extends \fpcm\model\abstracts\dataset {
      */
     public function setCookie()
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
+        if (!defined('FPCM_MODE_NOPAGETOKEN') && session_status() !== PHP_SESSION_ACTIVE) {
             session_start();            
         }
 
@@ -394,7 +394,7 @@ final class session extends \fpcm\model\abstracts\dataset {
      */
     public function deleteCookie()
     {
-        if (session_status() === PHP_SESSION_ACTIVE) {
+        if (!defined('FPCM_MODE_NOPAGETOKEN') && session_status() === PHP_SESSION_ACTIVE) {
             session_destroy();
         }
         
@@ -500,7 +500,7 @@ final class session extends \fpcm\model\abstracts\dataset {
         $this->currentUser->createFromDbObject($userData);
         $this->sessionExists = true;
 
-        if (session_status() !== PHP_SESSION_ACTIVE) {
+        if (!defined('FPCM_MODE_NOPAGETOKEN') && session_status() !== PHP_SESSION_ACTIVE) {
             session_start();            
         }
     }

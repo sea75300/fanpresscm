@@ -81,6 +81,10 @@ final class pageTokens {
      */
     final public function delete() : bool
     {
+        if (!$this->isActive()) {
+            return true;
+        }
+
         unset($_SESSION['pageTokens']);
         return true;
     }

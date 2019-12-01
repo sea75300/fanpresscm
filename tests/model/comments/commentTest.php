@@ -19,7 +19,7 @@ class commentTest extends testBase {
         $GLOBALS['commentName'] = 'Max Mustermann ' . microtime(true);
         $GLOBALS['commentEmail'] = 'max.mustermann' . microtime(true) . '@nobody-knows.org';
         $GLOBALS['commentWebsite'] = 'nobody-knows.org';
-        $GLOBALS['commentContent'] = 'FPCM UnitTest Article from https://nobody-knows.org!';
+        $GLOBALS['commentContent'] = 'FPCM UnitTest Comment from https://nobody-knows.org!';
         $GLOBALS['commentCreated'] = time();
 
         $object->setName($GLOBALS['commentName']);
