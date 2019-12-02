@@ -224,14 +224,16 @@ div.fileupload-progress.in,
 .fpcm-ui-progressbar-label,
 .fpcm.ui-progressbar-label,
 .fpcm-ui-permissions-container .ui-button,
-.fpcm-ui-block {
+.fpcm-ui-block,
+.fpcm.ui-block {
     display: block;
 }
 
 span.fpcm-ui-badge.fpcm-ui-badge-comments,
 span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
 .fpcm-ui-input-wrapper,
-.fpcm-ui-inline-block {
+.fpcm-ui-inline-block,
+.fpcm.ui-inline-block {
     display: inline-block;
 }
 

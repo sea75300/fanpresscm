@@ -25,6 +25,11 @@
     padding: 0.2em 0.3em;
 }
 
+.fpcm-dashboard-container .fpcm-dashboard-container-header h3 > span:first-child {
+    width: calc(100% - 1.4em);
+    white-space: nowrap;
+}
+
 .fpcm-dashboard-container .fpcm-dashboard-container-content {
     padding: 0.1em 0.5em;
     bottom: 0px;

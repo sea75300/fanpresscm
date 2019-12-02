@@ -170,6 +170,15 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
             return false;
         }
 
+        $result = $this->events->trigger('category\massEditBefore', [
+            'fields' => $fields,
+            'ids' => $ids
+        ]);
+
+        foreach ($result as $key => $val) {
+            ${$key} = $val;
+        }
+        
         if (isset($fields['groups']) && $fields['groups'] === -1) {
             unset($fields['groups']);
         }
@@ -183,12 +192,20 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
         }
 
         $this->cache->cleanup();
-        return $this->dbcon->update(
+        $result = $this->dbcon->update(
             $this->table,
             array_keys($fields),
             array_merge(array_values($fields), $ids),
             $this->dbcon->inQuery('id', $ids)
         );
+
+        $result = $this->events->trigger('category\massEditAfter', [
+            'result' => $result,
+            'fields' => $fields,
+            'ids' => $ids
+        ]);
+
+        return $result['result'];
     }
 
 }
