@@ -1,0 +1,7 @@
+{
+    "name": "FanPress CM News System 4",
+    "description": "FanPress CM News System 4",
+    "dir": "ltr",
+    "display": "minimal-ui",
+    "start_url": "/?module=system/login"
+}
