@@ -12,7 +12,7 @@
 <?php foreach($files AS $file) : ?>
 <div class="row fpcm-filelist-thumb-box fpcm-ui-center">
     <div class="col-12 fpcm-ui-padding-none">
-        <div class="row fpcm-filelist-thumb-box-inner fpcm-ui-background-transition fpcm-ui-padding-md-all fpcm-ui-margin-none">
+        <div class="row fpcm-filelist-thumb-box-inner fpcm-ui-background-transition p-3 my-1 ui-corner-all">
 
             <div class="col-12 col-lg-3 align-self-center fpcm-ui-padding-none-lr">
                 <div class="fpcm-filelist-actions-box fpcm-ui-center fpcm-ui-font-small">

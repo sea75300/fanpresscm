@@ -79,7 +79,8 @@ dt,
 a, a:visited, a.fpcm-link,
 a:hover, a:focus, a:active,
 h2,
-h3, .fpcm-dashboard-container h3 {
+h3,
+.fpcm-dashboard-container h3 {
     font-weight: bold;
 }
 
