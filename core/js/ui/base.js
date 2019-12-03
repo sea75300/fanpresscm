@@ -14,8 +14,6 @@ fpcm.ui = {
 
     init: function() {
 
-        console.log('ui.init');
-
         fpcm.ui._intVars.msgEl = fpcm.dom.fromId('fpcm-messages');
 
         fpcm.ui.showMessages();
