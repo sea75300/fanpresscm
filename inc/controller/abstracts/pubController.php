@@ -7,7 +7,10 @@
 
 namespace fpcm\controller\abstracts;
 
-define('FPCM_MODE_NOPAGETOKEN', true);
+if (!defined('FPCM_MODE_NOPAGETOKEN')) {
+    define('FPCM_MODE_NOPAGETOKEN', true);
+}
+
 
 /**
  * Basis für "public"-Controller

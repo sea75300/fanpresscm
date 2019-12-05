@@ -205,7 +205,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     {
         $html = [];
         $html[] = '<div id="fpcm-dashboard-container-' . $this->getName() . '" class="fpcm-dashboard-container fpcm-dashboard-container-' . $this->getName() . ' col-sm-12 col-md-' . $this->getWidth() . ' fpcm-dashboard-container-width-' . $this->getWidth() . ' fpcm-dashboard-container-height-' . $this->getHeight() . ' fpcm-ui-padding-none-lr" data-container="' . $this->getName() . '">';
-        $html[] = ' <div class="fpcm-dashboard-container-inner ui-corner-all fpcm ui-background-white-50p ui-blurring">';
+        $html[] = ' <div class="fpcm-dashboard-container-inner fpcm ui-background-white-50p ui-blurring ui-border-radius-all">';
         $html[] = '     <h3 class="fpcm-dashboard-container-headline p-2" title="' . strip_tags($this->language->translate($this->getHeadline())) . '">';
         $html[] = '         <span class="fpcm ui-inline-block ui-align-ellipsis">' . $this->language->translate($this->getHeadline()) . '</span> ';
         $html[] = '         ' . (new \fpcm\view\helper\icon('arrows-alt'))->setClass('fpcm-dashboard-container-move fpcm-ui-float-right');

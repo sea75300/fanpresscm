@@ -249,3 +249,7 @@ div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even):hover {
 .fpcm-ui-input-text:required {
     border-left: 5px solid #f00;
 }
+
+.fpcm.ui-box-shadow-dark {
+    box-shadow: 0 0 15px #555;
+}

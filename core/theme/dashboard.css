@@ -1,6 +1,11 @@
 /* ------ Dashboard conatienr styles */
+#fpcm-dashboard-containers {
+    margin-left: -0.5rem !important;
+    margin-right: -0.5rem !important;
+}
+
 .fpcm-dashboard-container {
-    margin-bottom: 0.3em;
+    margin-bottom: 0.75rem;
 }
 
 .fpcm-dashboard-container ul {
@@ -10,7 +15,7 @@
 
 .fpcm-dashboard-container .fpcm-dashboard-container-inner {
     height: 100%;
-    margin: 0.3em 0.2em;
+    margin: 0 0.5rem;
 }
     
 .fpcm-dashboard-container .fpcm-dashboard-container-content,
