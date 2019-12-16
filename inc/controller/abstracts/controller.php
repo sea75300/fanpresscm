@@ -404,8 +404,11 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        $permissions = $this->getPermissions();
-        if ($this->permissions && count($permissions) && !$this->permissions->check($permissions)) {
+        $accessResult   = $this instanceof \fpcm\controller\interfaces\isAccessible
+                        ? $this->isAccessible()
+                        : $this->permissions && count($this->getPermissions()) && !$this->permissions->check($this->getPermissions());
+
+        if ($accessResult) {
             $this->execDestruct = false;
             $this->view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
             $this->view->render($this->moduleCheckExit);
