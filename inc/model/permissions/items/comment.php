@@ -5,10 +5,10 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\permissions;
+namespace fpcm\model\permissions\items;
 
 /**
- * Article permissions object
+ * Comment permissions object
  * 
  * @package fpcm\model\permissions
  * @author Stefan Seehafer <sea75300@yahoo.de>
@@ -16,36 +16,24 @@ namespace fpcm\model\permissions;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 4.4
  */
-class article extends editMass {
+class comment extends editMass {
 
     /**
-     * Add articles
-     * @var bool
-     */
-    public $add;
-
-    /**
-     * To archive processing
-     * @var bool
-     */
-    public $archive;
-
-    /**
-     * Approval of articles
+     * Approval processing
      * @var bool
      */
     public $approve;
 
     /**
-     * Revision management
+     * Private edit processing
      * @var bool
      */
-    public $revisions;
+    public $private;
 
     /**
-     * Edit author
+     * Move comments to articles
      * @var bool
      */
-    public $authors;
+    public $move;
 
 }

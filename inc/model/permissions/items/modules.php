@@ -5,7 +5,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\permissions;
+namespace fpcm\model\permissions\items;
 
 /**
  * Comment permissions object
@@ -16,24 +16,24 @@ namespace fpcm\model\permissions;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 4.4
  */
-class comment extends editMass {
+class modules extends base {
 
     /**
-     * Approval processing
+     * Install module processing
      * @var bool
      */
-    public $approve;
+    public $install;
 
     /**
-     * Private edit processing
+     * Uninstall module processing
      * @var bool
      */
-    public $private;
+    public $uninstall;
 
     /**
-     * Move comments to articles
+     * Configure module processing
      * @var bool
      */
-    public $move;
+    public $configure;
 
 }

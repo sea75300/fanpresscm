@@ -18,6 +18,15 @@ class articlelisttrash extends articlelistbase {
      */
     protected $isTrash = true;
 
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->articleTrash();
+    }
+
     protected function getArticleItems()
     {
         $this->articleItems = $this->articleList->getArticlesDeleted(true);
@@ -26,15 +35,6 @@ class articlelisttrash extends articlelistbase {
     protected function getListAction()
     {
         $this->listAction = 'articles/trash';
-    }
-
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return ['article' => ['edit', 'editall']];
     }
 
     /**
@@ -87,7 +87,6 @@ class articlelisttrash extends articlelistbase {
         $this->articleActions = [$this->language->translate('ARTICLE_LIST_RESTOREARTICLE') => 'restore', $this->language->translate('ARTICLE_LIST_EMPTYTRASH') => 'trash'];
 
         $res = parent::request();
-
         if ($this->deleteActions) {
             $this->view->addButton((new \fpcm\view\helper\deleteButton('trash'))->setText('ARTICLE_LIST_EMPTYTRASH')->setClass('fpcm-ui-hidden fpcm-ui-button-confirm'));
         }
@@ -102,22 +101,7 @@ class articlelisttrash extends articlelistbase {
             return false;
         }
 
-        $this->canEdit = $this->permissions->check(['article' => ['edit', 'editall', 'approve', 'archive']]);
-
-        $this->view->assign('canEdit', $this->canEdit);
-        $this->deleteActions = $this->permissions->check(['article' => 'delete']);
-
-        $tweet = new \fpcm\model\system\twitter();
-
-        if ($tweet->checkRequirements() && $tweet->checkConnection()) {
-            $this->articleActions['ARTICLE_LIST_NEWTWEET'] = 'newtweet';
-        }
-
-        if ($this->deleteActions) {
-            $this->articleActions['GLOBAL_DELETE'] = 'delete';
-        }
-
-        $this->articleActions['ARTICLES_CACHE_CLEAR'] = 'articlecache';
+        $this->deleteActions = $this->permissions->article->delete;
 
         $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
         $this->view->addJsVars(['artCacheMod' => urlencode($crypt->encrypt(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE))]);

@@ -23,9 +23,17 @@ class articlelistarchive extends articlelistbase {
      */
     protected $showArchivedStatus = false;
 
-    protected function getPermissions()
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
     {
-        return ['article' => ['edit', 'editall'], 'article' => 'archive'];
+        if (!$this->permissions->article->edit && !$this->permissions->article->editall) {
+            return false;
+        }
+
+        return $this->permissions->article->archive;
     }
 
     protected function getArticleCount()

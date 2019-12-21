@@ -44,31 +44,31 @@ class permissions extends \fpcm\model\abstracts\dataset {
 
     /**
      *
-     * @var article 
+     * @var items\article 
      */
     public $article;
 
     /**
      *
-     * @var comment
+     * @var items\comment
      */
     public $comment;
 
     /**
      *
-     * @var system
+     * @var items\system
      */
     public $system;
 
     /**
      *
-     * @var modules
+     * @var items\modules
      */
     public $modules;
 
     /**
      *
-     * @var uploads
+     * @var items\uploads
      */
     public $uploads;
 
@@ -192,6 +192,10 @@ class permissions extends \fpcm\model\abstracts\dataset {
 
         parent::__construct();
 
+        if (!$rollid && \fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
+            $rollid = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getRoll();
+        }
+
         if (!$rollid) {
             return;
         }
@@ -246,13 +250,18 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function init()
     {
-        $this->permissiondata = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setWhere('rollid = ?')->setParams([$this->rollid]) );
+        $data = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setWhere('rollid = ?')->setParams([$this->rollid]) );
+
+        $this->id = $data->id;
+        $this->rollid = $data->rollid;
+        $this->permissiondata = json_decode($data->permissiondata);
+
         if (!is_object($this->permissiondata)) {
             return false;
         }
 
-        foreach ($data->permissiondata as $key => $value) {
-            $className = "\\fpcm\\model\\permissions\\{$key}";
+        foreach ($this->permissiondata as $key => $value) {
+            $className = "\\fpcm\\model\\permissions\items\\{$key}";
             $this->$key = new $className($value);
         }
         
@@ -265,6 +274,10 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function save()
     {
+        if (!$this->system->permissions) {
+            return false;
+        }
+        
         if (!($this->events instanceof \fpcm\events\events)) {
             $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
         }
@@ -278,6 +291,10 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function update()
     {
+        if (!$this->system->permissions) {
+            return false;
+        }
+
         if (!($this->events instanceof \fpcm\events\events)) {
             $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
         }
@@ -306,9 +323,12 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function delete()
     {
+        if (!$this->system->permissions) {
+            return false;
+        }
+
         $this->dbcon->delete($this->table, 'rollid = ?', [$this->rollid]);
         $this->cache->cleanup();
-
         return true;
     }
 
@@ -319,9 +339,12 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function addDefault($rollid)
     {
+        if (!$this->system->permissions) {
+            return false;
+        }
+
         $this->setRollId($rollid);
         $this->setPermissionData($this->defaultPermissions);
-
         return $this->save();
     }
 
@@ -350,6 +373,40 @@ class permissions extends \fpcm\model\abstracts\dataset {
         return \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('permission\getAll', $res);
     }
 
+    /**
+     * User has comment editing permissions
+     * @return bool
+     */
+    public function editArticlesMass() : bool
+    {
+        if (!$this->article->massedit) {
+            return false;
+        }
+        
+        return $this->article->edit || $this->article->editall || $this->article->approve || $this->article->archive;
+    }
+
+    /**
+     * User has comment editing permissions
+     * @return bool
+     */
+    public function editComments() : bool
+    {
+        return ($this->article->edit || $this->article->editall) && ($this->comment->edit || $this->comment->editall);
+    }
+
+    /**
+     * User has permissions for article trash
+     * @return bool
+     */
+    public function articleTrash() : bool
+    {
+        if (!$this->article->edit && !$this->article->editall) {
+            return false;
+        }
+
+        return $this->article->delete;
+    }
     /**
      * Magic get
      * @param string $name

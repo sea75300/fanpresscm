@@ -158,16 +158,10 @@ class controller implements \fpcm\controller\interfaces\controller {
 
         $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
         $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
-
-        $this->permissions = \fpcm\classes\loader::getObject(
-            '\fpcm\model\system\permissions',
-            $this->session->exists() ? $this->session->getCurrentUser()->getRoll() : 0
-        );
-
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
-        
-        $this->hasActiveModule();
 
+        $this->initPermissionObject();
+        $this->hasActiveModule();
         $this->initActionObjects();
         $this->initView();
     }
@@ -406,9 +400,9 @@ class controller implements \fpcm\controller\interfaces\controller {
 
         $accessResult   = $this instanceof \fpcm\controller\interfaces\isAccessible
                         ? $this->isAccessible()
-                        : $this->permissions && count($this->getPermissions()) && !$this->permissions->check($this->getPermissions());
+                        : ( $this->permissions && count($this->getPermissions()) && !$this->permissions->check($this->getPermissions()) ? false : true );
 
-        if ($accessResult) {
+        if (!$accessResult) {
             $this->execDestruct = false;
             $this->view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
             $this->view->render($this->moduleCheckExit);
@@ -543,6 +537,26 @@ class controller implements \fpcm\controller\interfaces\controller {
         }
 
         return call_user_func([$this, $fn]);
+    }
+
+    /**
+     * Initialize permission object
+     * @return bool
+     * @since FPCM 4.4
+     */    
+    final protected function initPermissionObject() : bool
+    {
+        if ($this instanceof \fpcm\controller\interfaces\isAccessible) {
+            $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
+            return true;
+        }
+
+        $this->permissions = \fpcm\classes\loader::getObject(
+            '\fpcm\model\system\permissions',
+            $this->session->exists() ? $this->session->getCurrentUser()->getRoll() : 0
+        );
+
+        return true;
     }
 
 }

@@ -5,10 +5,10 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\permissions;
+namespace fpcm\model\permissions\items;
 
 /**
- * Comment permissions object
+ * Edit and delete permissions object
  * 
  * @package fpcm\model\permissions
  * @author Stefan Seehafer <sea75300@yahoo.de>
@@ -16,24 +16,30 @@ namespace fpcm\model\permissions;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 4.4
  */
-class modules extends base {
-
+class editMass extends base {
+    
     /**
-     * Install module processing
+     * Edit own comments
      * @var bool
      */
-    public $install;
+    public $edit;
 
     /**
-     * Uninstall module processing
+     * Edit all comments
      * @var bool
      */
-    public $uninstall;
+    public $editall;
 
     /**
-     * Configure module processing
+     * Delete processing
      * @var bool
      */
-    public $configure;
+    public $delete;
+
+    /**
+     * Mass edit processing
+     * @var bool
+     */
+    public $massedit;
 
 }

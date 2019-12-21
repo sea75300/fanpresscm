@@ -629,6 +629,7 @@ class view {
             $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation())->render();
             $this->defaultViewVars->navigationActiveModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
             $this->defaultViewVars->loggedIn = true;
+            $this->defaultViewVars->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
         }
 
         if ($hasDbConfig) {

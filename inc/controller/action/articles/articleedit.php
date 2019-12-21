@@ -40,11 +40,11 @@ class articleedit extends articlebase {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['article' => ['edit', 'editall']];
+        return $this->permissions->article->edit || $this->permissions->article->editall;
     }
 
     /**
@@ -158,7 +158,7 @@ class articleedit extends articlebase {
             'articleId' => $this->article->getId(),
             'checkTimeout' => FPCM_ARTICLE_LOCKED_INTERVAL * 1000,
             'checkLastState' => -1,
-            'lkIp' => $this->permissions->check(['system' => 'ipaddr']) ? 1 : 0
+            'lkIp' => $this->permissions->system->ipadd ? 1 : 0
         ]);
 
         $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'EDITOR_ARTICLE_SHORTLINK', 'COMMENTS_EDIT', 'COMMMENT_LOCKIP']);
@@ -232,7 +232,7 @@ class articleedit extends articlebase {
             $this->view->assign('showShares', $this->config->system_share_count);
         }
         
-        if ($this->permissions->check(['article' => 'revisions'])) {
+        if ($this->permissions->article->revisions) {
              $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setReadonly($this->article->isInEdit())->setClass('fpcm-ui-maintoolbarbuttons-tab3 '.($this->showRevision ? '' : 'fpcm-ui-hidden')));
             if (!$this->showRevision) {
                 $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
@@ -248,11 +248,7 @@ class articleedit extends articlebase {
      */
     protected function initPermissions()
     {
-        $editComments = $this->permissions->check(array(
-            'article' => array('editall', 'edit'),
-            'comment' => array('editall', 'edit')
-        ));
-
+        $editComments = $this->permissions->editComments();
         $this->view->assign('showComments', $editComments);
 
         if ($editComments) {
@@ -271,9 +267,7 @@ class articleedit extends articlebase {
             $this->initCommentMassEditForm(2);
         }
 
-        $deletePermissions = $this->permissions->check(array('article' => 'delete'));
-
-        if ($deletePermissions && !$this->getRequestVar('rev')) {
+        if ($this->permissions->article->delete && !$this->getRequestVar('rev')) {
             $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setReadonly($this->article->isInEdit()));
         }
 

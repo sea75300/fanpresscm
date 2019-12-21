@@ -5,7 +5,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\permissions;
+namespace fpcm\model\permissions\items;
 
 /**
  * Base permissions object
@@ -28,7 +28,10 @@ class base implements \JsonSerializable {
             $values = json_decode($values, true);
         }
 
-        array_map([$this, 'assign'], $values);
+        foreach ($values as $key => $value) {
+            $this->{$key} = (bool) $value;
+        }
+
     }
 
     /**
@@ -39,16 +42,6 @@ class base implements \JsonSerializable {
     public function jsonSerialize() : array
     {
         return get_object_vars($this);
-    }
-
-    /**
-     * Assigns value to object
-     * @param int $value
-     * @param string $index
-     */
-    private function assign($value, $index)
-    {
-        $this->{$index} = $value;
     }
 
 }
