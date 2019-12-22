@@ -18,6 +18,12 @@ namespace fpcm\model\system;
 class permissions extends \fpcm\model\permissions\permissions {
 
     /**
+     * Berechtigungsdaten - bereits geprüft
+     * @var array
+     */
+    protected $checkedData = [];
+
+    /**
      * Berechtigungen initialisieren
      * @return void
      */

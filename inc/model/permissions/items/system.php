@@ -94,6 +94,6 @@ class system extends base {
      * IP address management
      * @var bool
      */
-    public $ipadd;
+    public $ipaddr;
 
 }

@@ -16,7 +16,7 @@ namespace fpcm\model\permissions\items;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 4.4
  */
-class base implements \JsonSerializable {
+abstract class base implements \JsonSerializable {
 
     /**
      * Constructor
@@ -24,12 +24,16 @@ class base implements \JsonSerializable {
      */
     public function __construct($values)
     {
-        if (!is_object($values)) {
+        if ($values === null) {
+            return;
+        }
+        
+        if (!is_array($values)) {
             $values = json_decode($values, true);
         }
 
         foreach ($values as $key => $value) {
-            $this->{$key} = (bool) $value;
+            $this->{$key} = (int) $value;
         }
 
     }
@@ -41,7 +45,36 @@ class base implements \JsonSerializable {
      */
     public function jsonSerialize() : array
     {
-        return get_object_vars($this);
+        return $this->getObjectVars();
+    }
+
+    /**
+     * Retruns values from object
+     * @return array
+     */
+    final protected function getObjectVars() : array
+    {
+        return array_map('intval', get_object_vars($this));
+    }
+
+    /**
+     * Returns an array for a default permission set
+     * @return array
+     */
+    public function getDefault() : array
+    {
+        return $this->getObjectVars();
+    }
+
+    /**
+     * Returns an array for an empty permission set
+     * @return array
+     */
+    final public function getAllFalse() : array
+    {
+        return array_map( function($value) {
+            return 0;
+        }, $this->getObjectVars());
     }
 
 }

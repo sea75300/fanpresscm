@@ -48,4 +48,16 @@ class article extends editMass {
      */
     public $authors;
 
+    /**
+     * @see base::getDefault()
+     * @return array
+     */
+    final public function getDefault() : array
+    {
+        return array_merge($this->getObjectVars(), [
+            'add' => 1,
+            'edit' => 1
+        ]);
+
+    }
 }

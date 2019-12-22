@@ -16,7 +16,7 @@ namespace fpcm\model\permissions\items;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 4.4
  */
-class editMass extends base {
+abstract class editMass extends base {
     
     /**
      * Edit own comments

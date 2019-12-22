@@ -14,11 +14,11 @@ namespace fpcm\controller\action\users;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.6
  */
-class permissions extends \fpcm\controller\abstracts\controller {
+class permissions extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
-     * @var \fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      */
     protected $permissionObj;
 
@@ -28,9 +28,9 @@ class permissions extends \fpcm\controller\abstracts\controller {
      */
     protected $rollId;
 
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'permissions'];
+        return $this->permissions->system->permissions;
     }
 
     protected function getViewPath() : string
@@ -53,7 +53,7 @@ class permissions extends \fpcm\controller\abstracts\controller {
         $roll = new \fpcm\model\users\userRoll($this->rollId);
         $this->view->assign('rollname', $this->language->translate($roll->getRollName()));
 
-        $this->permissionObj = new \fpcm\model\system\permissions($this->rollId);
+        $this->permissionObj = new \fpcm\model\permissions\permissions($this->rollId);
 
         if ($this->buttonClicked('permissionsSave') && !$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
@@ -62,7 +62,6 @@ class permissions extends \fpcm\controller\abstracts\controller {
         $permissionData = $this->getRequestVar('permissions', [
             \fpcm\classes\http::FILTER_CASTINT
         ]);
-        
 
         if ($this->buttonClicked('permissionsSave') && is_array($permissionData) && $this->checkPageToken) {
 
@@ -70,7 +69,7 @@ class permissions extends \fpcm\controller\abstracts\controller {
                 $permissionData['system']['permissions'] = 1;
             }
 
-            $permissionData = array_replace_recursive($this->permissions->getPermissionSet(), $permissionData);
+            $permissionData = array_replace_recursive($this->permissions->getPermissionSet() , $permissionData);
             $this->permissionObj->setPermissionData($permissionData);
             if (!$this->permissionObj->update()) {
                 $this->view->addErrorMessage('SAVE_FAILED_PERMISSIONS');

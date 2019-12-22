@@ -36,4 +36,16 @@ class comment extends editMass {
      */
     public $move;
 
+    /**
+     * @see base::getDefault()
+     * @return array
+     */
+    final public function getDefault() : array
+    {
+        return array_merge($this->getObjectVars(), [
+            'edit' => 1,
+            'approve' => 1,
+            'private' => 1
+        ]);
+    }
 }

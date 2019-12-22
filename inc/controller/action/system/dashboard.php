@@ -58,7 +58,7 @@ class dashboard extends \fpcm\controller\abstracts\controller implements \fpcm\c
                 ->setIcon('wrench')
                 ->setText('PROFILE_OPEN');
 
-        if ($this->permissions->check(['system' => 'options'])) {
+        if ($this->permissions->system->options) {
             $buttons[] = (new \fpcm\view\helper\linkButton('runSyscheck'))
                     ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['syscheck' => 1]))
                     ->setIcon('sync')
