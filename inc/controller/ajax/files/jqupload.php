@@ -16,15 +16,15 @@ namespace fpcm\controller\ajax\files;
  * @package fpcm\controller\ajax\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class jqupload extends \fpcm\controller\abstracts\ajaxController {
+class jqupload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['uploads' => 'add'];
+        return $this->permissions->uploads->add;
     }
     
     /**

@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\files;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class createThumbs extends \fpcm\controller\abstracts\ajaxController {
+class createThumbs extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
@@ -37,11 +37,11 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['uploads' => 'thumbs'];
+        return $this->permissions->uploads->thumbs;
     }
     
     /**
