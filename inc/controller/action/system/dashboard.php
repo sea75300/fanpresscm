@@ -16,6 +16,8 @@ namespace fpcm\controller\action\system;
 
 class dashboard extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
+    use \fpcm\controller\traits\common\isAccessibleTrue;
+    
     /**
      * Get view path for controller
      * @return string
@@ -32,15 +34,6 @@ class dashboard extends \fpcm\controller\abstracts\controller implements \fpcm\c
     protected function getHelpLink()
     {
         return 'hl_dashboard';
-    }
-
-    /**
-     * 
-     * @return bool
-     */
-    public function isAccessible() : bool
-    {
-        return true;
     }
 
     /**

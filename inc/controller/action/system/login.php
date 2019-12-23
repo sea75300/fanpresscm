@@ -312,6 +312,15 @@ class login extends \fpcm\controller\abstracts\controller {
         exit;
     }
 
+    /**
+     * 
+     * @return bool
+     */
+    protected function initPermissionObject(): bool
+    {
+        return true;
+    }
+
 }
 
 ?>

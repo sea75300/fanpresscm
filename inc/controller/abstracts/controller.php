@@ -544,14 +544,14 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @return bool
      * @since FPCM 4.4
      */    
-    final protected function initPermissionObject() : bool
+    protected function initPermissionObject() : bool
     {
         if ($this instanceof \fpcm\controller\interfaces\isAccessible) {
             $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
             return true;
         }
 
-        trigger_error('Permissions objects of instance \\fpcm\\model\\system\\permissions are deprecated. Use \\fpcm\\model\\permissions\\permissions instead', E_USER_DEPRECATED);
+        trigger_error(get_called_class(). ' :: Permissions objects of instance \\fpcm\\model\\system\\permissions are deprecated. Use \\fpcm\\model\\permissions\\permissions instead', E_USER_DEPRECATED);
 
         $this->permissions = \fpcm\classes\loader::getObject(
             '\fpcm\model\system\permissions',

@@ -16,7 +16,9 @@ namespace fpcm\controller\ajax\system;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class refresh extends \fpcm\controller\abstracts\ajaxController {
+class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+
+    use \fpcm\controller\traits\common\isAccessibleTrue;
 
     /**
      * @see \fpcm\controller\abstracts\controller::hasAccess()
@@ -25,16 +27,6 @@ class refresh extends \fpcm\controller\abstracts\ajaxController {
     public function hasAccess()
     {
         return \fpcm\classes\baseconfig::installerEnabled() || !\fpcm\classes\baseconfig::dbConfigExists() ? false : true;
-    }
-
-    /**
-     * 
-     * @return bool
-     */
-    public function request()
-    {
-        $this->permissions = new \fpcm\model\permissions\permissions();
-        return true;
     }
     
     /**

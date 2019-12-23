@@ -78,7 +78,7 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
             }
 
             return '    > '.implode(' ', $return);
-        }, array_slice(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 7), 0)) );
+        }, array_slice(debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 10), 0)) );
     }
 
     $LogLine = json_encode([

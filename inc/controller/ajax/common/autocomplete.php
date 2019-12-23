@@ -18,6 +18,8 @@ namespace fpcm\controller\ajax\common;
  */
 class autocomplete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
+    use \fpcm\controller\traits\common\isAccessibleTrue;
+    
     /**
      * Modul-String
      * @var string
@@ -38,10 +40,6 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
     {
         $this->module = ucfirst($this->getRequestVar('src'));
         $this->term = $this->getRequestVar('term', [\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_STRIPSLASHES, \fpcm\classes\http::FILTER_TRIM, \fpcm\classes\http::FILTER_URLDECODE]);
-        return true;
-    }
-
-    public function isAccessible(): bool {
         return true;
     }
 

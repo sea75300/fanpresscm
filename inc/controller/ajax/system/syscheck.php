@@ -69,7 +69,6 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController implements \fpc
         return $this->permissions->system->options;
     }
 
-    
     /**
      * @see \fpcm\controller\abstracts\controller::hasAccess()
      * @return bool

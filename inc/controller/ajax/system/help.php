@@ -13,7 +13,9 @@ namespace fpcm\controller\ajax\system;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class help extends \fpcm\controller\abstracts\controller {
+class help extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+
+    use \fpcm\controller\traits\common\isAccessibleTrue;
 
     /**
      * 

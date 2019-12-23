@@ -162,7 +162,7 @@ class articleedit extends articlebase {
             'articleId' => $this->article->getId(),
             'checkTimeout' => FPCM_ARTICLE_LOCKED_INTERVAL * 1000,
             'checkLastState' => -1,
-            'lkIp' => $this->permissions->system->ipadd ? 1 : 0
+            'lkIp' => $this->permissions->system->ipaddr ? 1 : 0
         ]);
 
         $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'EDITOR_ARTICLE_SHORTLINK', 'COMMENTS_EDIT', 'COMMMENT_LOCKIP']);
@@ -260,11 +260,11 @@ class articleedit extends articlebase {
             $this->initCommentPermissions();
             
             $this->view->addJsFiles(['comments/module.js']);
-            if ($this->permissionsArray['canEditComments'] && $this->permissionsArray['canMassEdit']) {
+            if ($this->permissions->editCommentsMass()) {
                 $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden'));
             }
 
-            if ($this->permissionsArray['canDelete']) {
+            if ($this->permissions->comment->delete) {
                 $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_COMMENTS_DELETE'));
             }
 
@@ -306,7 +306,7 @@ class articleedit extends articlebase {
             return false;
         }
 
-        if ($this->article->delete()) {
+        if ($this->permissions->article->delete && $this->article->delete()) {
             $this->redirect('articles/listall');
             return true;
         }
@@ -323,6 +323,10 @@ class articleedit extends articlebase {
     {
         if ($this->getRequestVar('revrestore')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLEREVRESTORE');
+        }
+        
+        if (!$this->permissions->article->revisions) {
+            return false;
         }
 
         $revisionIdsArray = $this->getRequestVar('revisionIds', [\fpcm\classes\http::FILTER_CASTINT]);

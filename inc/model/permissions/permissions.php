@@ -31,6 +31,12 @@ class permissions extends \fpcm\model\abstracts\dataset {
     protected $permissiondata = [];
 
     /**
+     * Berechtigungsdaten - bereits geprüft
+     * @var array
+     */
+    protected $checkedData = [];
+
+    /**
      *
      * @var items\article 
      */
@@ -351,4 +357,51 @@ class permissions extends \fpcm\model\abstracts\dataset {
         return true;
     }
 
+    /**
+     * Prüft ob Benutzer Berechtigung hat
+     * @param array $permissionArray
+     * @return bool
+     */
+    final public function check(array $permissionArray) : bool
+    {
+        trigger_error('Method "check" or permissions objects of instance \\fpcm\\model\\system\\permissions are deprecated. Use \\fpcm\\model\\permissions\\permissions instead', E_USER_DEPRECATED);
+        if (!count($this->permissiondata)) {
+            return false;
+        }
+
+        $res = true;
+
+        $permissionArrayHash = \fpcm\classes\tools::getHash(json_encode($permissionArray));
+        if (isset($this->checkedData[$permissionArrayHash])) {
+            return $this->checkedData[$permissionArrayHash];
+        }
+
+        $permissionArray = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('permission\check', $permissionArray);
+        foreach ($permissionArray as $module => $permission) {
+
+            if (!isset($this->permissiondata[$module])) {
+                trigger_error("No permissions available for module \"{$module}\" and roll \"{$this->rollid}\"!". PHP_EOL.
+                              "   > Permission-Debug: ".PHP_EOL.(is_array($permission) ? implode(PHP_EOL, $permission) : $permission) );
+                return false;
+            }
+
+            $check = false;
+            if (is_array($permission)) {
+
+                foreach ($permission as $permissionItem) {
+                    $check = isset($this->permissiondata[$module][$permissionItem]) ? $this->permissiondata[$module][$permissionItem] : false;
+                    if ($check) {
+                        break;
+                    }
+                }
+            } else {
+                $check = isset($this->permissiondata[$module][$permission]) ? (bool) $this->permissiondata[$module][$permission] : false;
+            }
+
+            $res = $res && $check;
+        }
+
+        $this->checkedData[$permissionArrayHash] = $res;
+        return $res;
+    }
 }

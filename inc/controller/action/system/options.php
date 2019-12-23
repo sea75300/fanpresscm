@@ -37,11 +37,16 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
      */
     protected $mailSettingsChanged = false;
 
+    /**
+     * 
+     * @return bool
+     */
     public function isAccessible() : bool
     {
         return $this->permissions->system->options;
     }
-        protected function getViewPath() : string
+
+    protected function getViewPath() : string
     {
         return 'system/options';
     }

@@ -43,6 +43,15 @@ class addmsg extends \fpcm\controller\abstracts\ajaxController {
         $this->getResponse();
     }
 
+    /**
+     * 
+     * @return bool
+     */
+    protected function initPermissionObject(): bool
+    {
+        return true;
+    }
+
 }
 
 ?>
