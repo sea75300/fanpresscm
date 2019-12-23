@@ -19,5 +19,5 @@
 </div>
 
 <?php include $theView->getIncludePath('comments/searchform.php'); ?>
-<?php if ($canEditComments && $canMassEdit) : ?><?php include $theView->getIncludePath('comments/massedit.php'); ?><?php endif; ?>
+<?php if ($theView->permissions->editCommentsMass()) : ?><?php include $theView->getIncludePath('comments/massedit.php'); ?><?php endif; ?>
 

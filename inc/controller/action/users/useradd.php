@@ -17,11 +17,6 @@ class useradd extends userbase {
      */
     protected $author;
 
-    protected function getPermissions()
-    {
-        return ['system' => 'users'];
-    }
-
     protected function getViewPath() : string
     {
         return 'users/useradd';

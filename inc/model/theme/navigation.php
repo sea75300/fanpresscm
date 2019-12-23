@@ -152,11 +152,11 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     {
         $submenu = [];
         
-        if ($this->permissions->check(['article' => 'delete'])) {
+        if ($this->permissions->article->delete) {
             $submenu[] = (new navigationItem())->setUrl('articles/trash')->setDescription('HL_ARTICLES')->setIcon('book');
         }
 
-        if ($this->permissions->check(['comment' => 'delete'])) {
+        if ($this->permissions->comment->delete) {
             $submenu[] = (new navigationItem())->setUrl('comments/trash')->setDescription('COMMMENT_HEADLINE')->setIcon('comments');
         }
 

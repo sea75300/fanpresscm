@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\users;
 
-abstract class rollbase extends \fpcm\controller\abstracts\controller {
+abstract class rollbase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
@@ -17,9 +17,9 @@ abstract class rollbase extends \fpcm\controller\abstracts\controller {
      */
     protected $userRoll;
 
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'users', 'system' => 'rolls'];
+        return $this->permissions->system->users && $this->permissions->system->rolls;
     }
 
     protected function getHelpLink()

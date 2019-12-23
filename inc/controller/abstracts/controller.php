@@ -551,6 +551,8 @@ class controller implements \fpcm\controller\interfaces\controller {
             return true;
         }
 
+        trigger_error('Permissions objects of instance \\fpcm\\model\\system\\permissions are deprecated. Use \\fpcm\\model\\permissions\\permissions instead', E_USER_DEPRECATED);
+
         $this->permissions = \fpcm\classes\loader::getObject(
             '\fpcm\model\system\permissions',
             $this->session->exists() ? $this->session->getCurrentUser()->getRoll() : 0

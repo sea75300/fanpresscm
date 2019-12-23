@@ -35,8 +35,7 @@ trait permissions {
         }
 
         $isAdmin = $session->getCurrentUser()->isAdmin();
-        
-        if ($this->permissions instanceof \fpcm\model\system\permissions) {            
+        if ($this->permissions instanceof \fpcm\model\system\permissions) {
             $permEditAll = $this->permissions->check(array('article' => 'editall'));
             $permEditOwn = $this->permissions->check(array('article' => 'edit'));
         }

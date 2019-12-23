@@ -45,7 +45,7 @@ trait syscheck {
                 if (\fpcm\classes\baseconfig::isCli()) {
                     $option->setNotice('You may run       : php '.\fpcm\classes\dirs::getFullDirPath('fpcmcli.php').' pkg --upgrade system');
                 }
-                elseif ($this->permissions->check(['system' => 'update'])) {
+                elseif ($this->permissions->system->update) {
                     $button = new \fpcm\view\helper\linkButton('startUpdate');
                     $button->setReturned(true)->setIcon('sync')->setUrl(\fpcm\classes\tools::getFullControllerLink('package/sysupdate'))->setText('PACKAGES_UPDATE');
                     $option->setActionButton($button);

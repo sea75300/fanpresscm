@@ -39,15 +39,12 @@ trait permissions {
         }
 
         $isAdmin = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->isAdmin();
-        $permEditAll = $this->permissions->check(array('comment' => 'editall'));
-        $permEditOwn = $this->permissions->check(array('comment' => 'edit'));
-
-        if ($isAdmin || $permEditAll) {
+        if ($isAdmin || $this->permissions->comment->editall) {
             $comment->setEditPermission(true);
             return true;
         }
         
-        if ($permEditOwn && in_array($comment->getArticleid(), $this->ownArticleIds)) {
+        if ($this->permissions->comment->edit && in_array($comment->getArticleid(), $this->ownArticleIds)) {
             $comment->setEditPermission(true);
             return true;
         }

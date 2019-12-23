@@ -33,6 +33,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
+        $this->permissions = new \fpcm\model\permissions\permissions();
         return true;
     }
     
@@ -113,7 +114,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxController {
             \fpcm\classes\http::FILTER_CASTINT
         ]);
 
-        if ($this->returnData['sessionCode'] < 1 || !$articleId || !$this->permissions->check([ 'article' => ['edit','editall']])) {
+        if ($this->returnData['sessionCode'] < 1 || !$this->permissions->editArticles() || !$articleId) {
             return true;
         }
         

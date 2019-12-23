@@ -130,7 +130,7 @@ trait lists {
             return true;
         }
 
-        if ($this->permissionsArray['canDelete'] && $commentList->deleteComments($ids)) {
+        if ($this->permissions->comment->delete && $commentList->deleteComments($ids)) {
             $this->view->addNoticeMessage('DELETE_SUCCESS_COMMENTS');
             return true;
         }
@@ -147,7 +147,7 @@ trait lists {
     {
         $fields = [];
         
-        if ($this->permissionsArray['canApprove']) {
+        if ($this->permissions->comment->approve) {
             $fields[] = new \fpcm\components\masseditField(
                 'flag',
                 'COMMMENT_SPAM',
@@ -169,7 +169,7 @@ trait lists {
             );
         }
         
-        if ($this->permissionsArray['canPrivate']) {
+        if ($this->permissions->comment->private) {
             $fields[] = new \fpcm\components\masseditField(
                 'eye-slash',
                 'COMMMENT_PRIVATE',
@@ -181,7 +181,7 @@ trait lists {
             );
         }
         
-        if ($mode === 1 && $this->permissionsArray['canMove']) {
+        if ($mode === 1 && $this->permissions->comment->move) {
             $fields[] = new \fpcm\components\masseditField(
                 'clipboard',
                 'COMMMENT_MOVE',

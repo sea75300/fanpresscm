@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\system;
  * @package fpcm\controller\ajax\system\syscheck
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class syscheck extends \fpcm\controller\abstracts\ajaxController {
+class syscheck extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\system\syscheck;
 
@@ -64,6 +64,12 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController {
         return true;
     }
 
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->options;
+    }
+
+    
     /**
      * @see \fpcm\controller\abstracts\controller::hasAccess()
      * @return bool
@@ -74,7 +80,7 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController {
             return true;
         }
 
-        if (\fpcm\classes\baseconfig::dbConfigExists() && $this->session->exists() && $this->permissions->check(['system' => 'options'])) {
+        if (\fpcm\classes\baseconfig::dbConfigExists() && $this->session->exists() && $this->isAccessible()) {
             return true;
         }
 

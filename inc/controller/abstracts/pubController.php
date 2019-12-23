@@ -67,9 +67,9 @@ class pubController extends controller {
 
         if ($this->session->exists()) {
             $showToolbars = true;
-            $permAdd = $this->permissions->check(['article' => 'add']);
-            $permEditOwn = $this->permissions->check(['article' => 'edit']);
-            $permEditAll = $this->permissions->check(['article' => 'editall']);
+            $permAdd = $this->permissions->article->add;
+            $permEditOwn = $this->permissions->article->edit;
+            $permEditAll = $this->permissions->article->editall;
             $currentUserId = $this->session->getUserId();
             $isAdmin = $this->session->getCurrentUser()->isAdmin();
         }

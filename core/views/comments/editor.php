@@ -19,9 +19,9 @@
 
                 <div class="col-sm-12 col-md-6 fpcm-ui-align-right align-self-center">
                     <div class="fpcm-ui-controlgroup">
-                        <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setReadonly(!$canApprove)->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status'); ?>
-                        <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setReadonly(!$canApprove)->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status'); ?>
-                        <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$canPrivate)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status'); ?>
+                        <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status'); ?>
+                        <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status'); ?>
+                        <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$theView->permissions->comment->private)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status'); ?>
                     </div>
                 </div>
             </div>

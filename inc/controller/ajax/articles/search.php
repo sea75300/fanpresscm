@@ -50,7 +50,7 @@ class search extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        $this->deleteActions = $this->permissions->check(['article' => 'delete']);
+        $this->deleteActions = $this->permissions->article->delete;
         $this->initActionVars();
 
         $this->mode = $this->getRequestVar('mode', [

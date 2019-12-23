@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\logs;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class reload extends \fpcm\controller\abstracts\ajaxController {
+class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\dataView;
 
@@ -24,12 +24,6 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
      * @var int
      */
     protected $log;
-
-    /**
-     * Array mit zu prüfenden Berchtigungen
-     * @var array
-     */
-    protected $checkPermission = ['system' => 'logs'];
 
     /**
      * Array mit Benutzern
@@ -63,6 +57,15 @@ class reload extends \fpcm\controller\abstracts\ajaxController {
     {
         $this->log = $this->getRequestVar('log');
         return $this->log === null ? false : true;
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->logs;
     }
 
     /**

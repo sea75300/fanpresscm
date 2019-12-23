@@ -247,13 +247,22 @@ class permissions extends \fpcm\model\abstracts\dataset {
      * User has comment editing permissions
      * @return bool
      */
+    public function editArticles() : bool
+    {
+        return $this->article->edit || $this->article->editall;
+    }
+
+    /**
+     * User has comment editing permissions
+     * @return bool
+     */
     public function editArticlesMass() : bool
     {
         if (!$this->article->massedit) {
             return false;
         }
         
-        return $this->article->edit || $this->article->editall || $this->article->approve || $this->article->archive;
+        return $this->editArticles() && ($this->article->approve || $this->article->archive);
     }
 
     /**
@@ -262,7 +271,20 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function editComments() : bool
     {
-        return ($this->article->edit || $this->article->editall) && ($this->comment->edit || $this->comment->editall);
+        return $this->editArticles() && ($this->comment->edit || $this->comment->editall);
+    }
+
+    /**
+     * User has comment editing permissions
+     * @return bool
+     */
+    public function editCommentsMass() : bool
+    {
+        if (!$this->comment->massedit) {
+            return false;
+        }
+
+        return ($this->editComments()) && ($this->comment->approve || $this->comment->private);
     }
 
     /**

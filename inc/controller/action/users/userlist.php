@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\users;
 
-class userlist extends \fpcm\controller\abstracts\controller {
+class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
@@ -50,13 +50,9 @@ class userlist extends \fpcm\controller\abstracts\controller {
         return 'users/userlist';
     }
 
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'users'];
+        return $this->permissions->system->users;
     }
 
     /**
@@ -139,10 +135,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
      */
     public function process()
     {
-        $rollsPerm = $this->permissions->check(['system' => 'rolls']);
-        
         $this->view->assign('usersListSelect', $this->userList->getUsersNameList());
-        $this->view->assign('rollPermissions', $rollsPerm);
         
         $chart = new \fpcm\components\charts\chart('pie', 'userArticles');
         $this->view->addCssFiles($chart->getCssFiles());
@@ -159,7 +152,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
             (new \fpcm\view\helper\deleteButton('deleteUser'))->setClass('fpcm-ui-maintoolbarbuttons-tab1')            
         ];
         
-        if ($rollsPerm) {
+        if ($this->permissions->system->rolls) {
             $buttons[] = (new \fpcm\view\helper\linkButton('addRoll'))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/addroll'))->setText('USERS_ROLL_ADD')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden')->setIcon('users');
             $buttons[] = (new \fpcm\view\helper\deleteButton('deleteRoll'))->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden fpcm-ui-button-confirm');
         }
@@ -167,7 +160,7 @@ class userlist extends \fpcm\controller\abstracts\controller {
         $this->view->addButtons($buttons);
         $this->createUsersView();
         
-        if ($rollsPerm) {
+        if ($this->permissions->system->rolls) {
             $this->createRollsView();
         }
 
