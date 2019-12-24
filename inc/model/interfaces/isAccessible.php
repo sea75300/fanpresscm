@@ -5,7 +5,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\models\interfaces;
+namespace fpcm\model\interfaces;
 
 /**
  * New permission system interface for models
@@ -19,7 +19,7 @@ namespace fpcm\models\interfaces;
 interface isAccessible {
 
     /**
-     * Must return true, if controller is accessible
+     * Must return true, if object is accessible
      * @return bool
      */
     public function isAccessible() : bool;

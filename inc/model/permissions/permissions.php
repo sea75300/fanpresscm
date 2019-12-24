@@ -152,11 +152,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        foreach ($this->permissiondata as $key => $value) {
-            $className = "\\fpcm\\model\\permissions\items\\{$key}";
-            $this->$key = new $className($value);
-        }
-        
+        $this->initItems();
         return true;
     }
 
@@ -332,6 +328,25 @@ class permissions extends \fpcm\model\abstracts\dataset {
         }
 
         parent::__set($name, $value);
+    }
+
+    /**
+     * Init permission object items
+     * @return bool
+     * @since FPCM 4.4
+     */
+    final protected function initItems()
+    {
+        if (!is_array($this->permissiondata)) {
+            return false;
+        }
+        
+        foreach ($this->permissiondata as $key => $value) {
+            $className = "\\fpcm\\model\\permissions\items\\{$key}";
+            $this->$key = new $className($value);
+        }
+        
+        return true;
     }
 
     /**

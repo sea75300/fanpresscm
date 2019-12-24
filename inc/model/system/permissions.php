@@ -35,28 +35,14 @@ class permissions extends \fpcm\model\permissions\permissions {
      */
     final public function init()
     {
-        
         if (!$this->cache->isExpired($this->cacheName)) {
             $this->permissiondata = $this->cache->read($this->cacheName);
+            $this->initItems();
             return true;
         }
-
-        $data = $this->dbcon->selectFetch(
-            (new \fpcm\model\dbal\selectParams($this->table))
-                ->setWhere('rollid = ?')
-                ->setParams([$this->rollid])
-        );
         
-        if (!is_object($data)) {
-            return false;
-        }
-
-        foreach ($data as $key => $value) {
-            $this->$key = $value;
-        }
-
-        $this->permissiondata = json_decode($this->permissiondata, true);
-        $this->cache->write($this->cacheName, $this->permissiondata, $this->config->system_cache_timeout);
+        parent::init();
+        $this->cache->write($this->cacheName, $this->permissiondata);
     }
 
 }
