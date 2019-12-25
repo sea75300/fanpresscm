@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\smileys;
 
-class smileybase extends \fpcm\controller\abstracts\controller {
+class smileybase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
@@ -23,14 +23,18 @@ class smileybase extends \fpcm\controller\abstracts\controller {
      */
     protected $id;
 
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->smileys;
+    }
+
     final protected function getViewPath() : string
     {
         return 'smileys/editor';
-    }
-
-    final protected function getPermissions()
-    {
-        return ['system' => 'smileys'];
     }
 
     final protected function getHelpLink()

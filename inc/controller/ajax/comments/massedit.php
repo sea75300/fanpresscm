@@ -11,7 +11,7 @@ namespace fpcm\controller\ajax\comments;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.6
  */
-class massedit extends \fpcm\controller\abstracts\ajaxController {
+class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\comments\lists;
 
@@ -35,16 +35,12 @@ class massedit extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return  [
-            'article' => ['editall', 'edit', 'massedit'],
-            'comment' => ['editall', 'edit', 'approve', 'private']
-        ];
+        return $this->permissions->editCommentsMass();
     }
-
     
     /**
      * Request-Handler

@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\templates;
 
-class preview extends \fpcm\controller\abstracts\controller {
+class preview extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\templates\preview;
 
@@ -24,15 +24,6 @@ class preview extends \fpcm\controller\abstracts\controller {
      * @var int 
      */
     protected $tid;
-
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return ['system' => 'templates'];
-    }
 
     /**
      * Request-Handler

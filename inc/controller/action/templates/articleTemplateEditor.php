@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\templates;
 
-class articleTemplateEditor extends \fpcm\controller\abstracts\controller {
+class articleTemplateEditor extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
@@ -19,11 +19,11 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'templates'];
+        return $this->permissions->system->templates;
     }
 
     /**

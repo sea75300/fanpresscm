@@ -44,6 +44,15 @@ trait preview {
         return false;
     }
 
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->templates;
+    }
+
 }
 
 ?>

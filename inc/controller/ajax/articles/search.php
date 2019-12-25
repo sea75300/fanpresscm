@@ -1,27 +1,25 @@
 <?php
 
 /**
- * AJAX article search controller
- * 
- * AJAX controller for article search
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\ajax\articles;
 
 /**
- * Artikelsuche
+ * AJAX article search ontroller
  * 
  * @package fpcm\controller\ajax\articles\search
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class search extends \fpcm\controller\abstracts\ajaxController {
+class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\articles\lists,
-        \fpcm\controller\traits\common\searchParams;
+        \fpcm\controller\traits\common\searchParams,
+        \fpcm\controller\traits\common\isAccessibleTrue;
 
     /**
      * Suchmodus

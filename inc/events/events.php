@@ -10,7 +10,7 @@ namespace fpcm\events;
 /**
  * FanPress CM event list model
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/events
  */
@@ -39,12 +39,12 @@ final class events {
         }
 
         /**
-         * @var \fpcm\events\event
+         * @var abstracts\event
          */
         $eventClassName = "\\fpcm\\events\\" . $eventName;
         $event = new $eventClassName($dataParams);
 
-        if (!$event->checkPermissions()) {
+        if (!$event->isExecutable()) {
             return $dataParams;
         }
 

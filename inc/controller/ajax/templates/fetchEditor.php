@@ -14,7 +14,7 @@ namespace fpcm\controller\ajax\templates;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-class fetchEditor extends \fpcm\controller\abstracts\ajaxController {
+class fetchEditor extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\templates\edit;
     
@@ -29,15 +29,6 @@ class fetchEditor extends \fpcm\controller\abstracts\ajaxController {
      * @var string
      */
     private $templateFunction;
-
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return ['system' => 'templates'];
-    }
 
     /**
      * 

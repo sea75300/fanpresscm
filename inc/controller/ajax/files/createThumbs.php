@@ -41,7 +41,7 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxController implements 
      */
     public function isAccessible(): bool
     {
-        return $this->permissions->uploads->thumbs;
+        return $this->permissions->uploads->visible && $this->permissions->uploads->thumbs;
     }
     
     /**

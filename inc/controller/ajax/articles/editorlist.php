@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\articles;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since FPCM 3.6
  */
-class editorlist extends \fpcm\controller\abstracts\ajaxController {
+class editorlist extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\comments\lists,
         \fpcm\model\articles\permissions;
@@ -53,11 +53,11 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['article' => 'edit'];
+        return $this->permissions->editArticles();
     }
 
     /**
@@ -89,6 +89,10 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processComments()
     {
+        if (!$this->permissions->editComments()) {
+            exit;
+        }
+        
         $this->conditions->articleid = $this->oid;
         $this->conditions->searchtype = 0;
 
@@ -108,7 +112,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processRevisions()
     {
-        if (!$this->article->exists()) {
+        if (!$this->permissions->article->revisions || !$this->article->exists()) {
             exit;
         }
 

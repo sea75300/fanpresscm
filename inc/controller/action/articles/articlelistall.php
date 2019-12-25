@@ -20,11 +20,6 @@ class articlelistall extends articlelistbase {
         return $this->permissions->article->edit || $this->permissions->article->editall;
     }
 
-    protected function getPermissions()
-    {
-        return ['article' => ['edit', 'editall']];
-    }
-
     protected function getListAction()
     {
         $this->listAction = 'articles/listall';

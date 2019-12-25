@@ -13,7 +13,7 @@ namespace fpcm\controller\action\wordban;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class itemlist extends \fpcm\controller\abstracts\controller {
+class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\dataView;
 
@@ -25,11 +25,11 @@ class itemlist extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'wordban'];
+        return $this->permissions->system->wordban;
     }
 
     /**

@@ -44,7 +44,7 @@ class delete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function isAccessible(): bool
     {
-        return $this->permissions->uploads->delete;
+        return $this->permissions->uploads->visible && $this->permissions->uploads->delete;
     }
     
     /**

@@ -9,18 +9,22 @@
 
 namespace fpcm\controller\action\wordban;
 
-class itemadd extends \fpcm\controller\abstracts\controller {
+class itemadd extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     protected $item;
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->wordban;
+    }
 
     protected function getViewPath() : string
     {
         return 'wordban/itemadd';
-    }
-
-    protected function getPermissions()
-    {
-        return ['system' => 'wordban'];
     }
 
     public function request()

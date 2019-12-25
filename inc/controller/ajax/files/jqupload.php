@@ -24,7 +24,7 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController implements \fpc
      */
     public function isAccessible(): bool
     {
-        return $this->permissions->uploads->add;
+        return $this->permissions->uploads->visible && $this->permissions->uploads->add;
     }
     
     /**

@@ -1,32 +1,21 @@
 <?php
 
 /**
- * AJAX article list new tweets controller
- * 
- * AJAX controller for tweet creation
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\ajax\articles;
 
 /**
- * AJAX Controller zum erzeugen von Tweets aus Artikelliste
+ * AJAX article list new tweets controller
  * 
  * @package fpcm\controller\ajax\articles
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2019, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class listnewtweets extends \fpcm\controller\abstracts\ajaxController {
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return ['article' => ['add', 'edit', 'editall']];
-    }
+class listnewtweets extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * Artikel-Listen-objekt
@@ -39,6 +28,15 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxController {
      * @var array
      */
     protected $articleItems;
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->editArticles() || $this->permissions->article->add;
+    }
 
     /**
      * Request-Handler

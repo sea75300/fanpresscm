@@ -35,7 +35,7 @@ class rename extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function isAccessible(): bool
     {
-        return $this->permissions->uploads->rename;
+        return $this->permissions->uploads->visible && $this->permissions->uploads->rename;
     }
     
     /**

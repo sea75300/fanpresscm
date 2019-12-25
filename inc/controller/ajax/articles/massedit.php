@@ -11,7 +11,7 @@ namespace fpcm\controller\ajax\articles;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.6
  */
-class massedit extends \fpcm\controller\abstracts\ajaxController {
+class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\articles\lists;
 
@@ -29,11 +29,11 @@ class massedit extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['article' => ['edit', 'editall', 'approve', 'archive', 'massedit']];
+        return $this->permissions->editArticlesMass();
     }
 
     /**

@@ -14,15 +14,15 @@ namespace fpcm\controller\ajax\articles;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since FPCM 3.5
  */
-class imgupload extends \fpcm\controller\abstracts\ajaxController {
+class imgupload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions() : array
+    public function isAccessible(): bool
     {
-        return ['uploads' => 'add'];
+        return $this->permissions->uploads->visible && $this->permissions->uploads->add;
     }
 
     /**
