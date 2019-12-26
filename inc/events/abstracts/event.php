@@ -73,7 +73,7 @@ abstract class event {
 
     /**
      * Berechtigungen
-     * @var \fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      */
     protected $permissions;
 

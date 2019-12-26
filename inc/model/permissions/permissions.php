@@ -264,7 +264,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             return false;
         }
         
-        return $this->editArticles() && ($this->article->approve || $this->article->archive);
+        return $this->editArticles();
     }
 
     /**
@@ -286,7 +286,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        return ($this->editComments()) && ($this->comment->approve || $this->comment->private);
+        return $this->editComments();
     }
 
     /**

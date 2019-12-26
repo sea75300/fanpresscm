@@ -30,7 +30,7 @@ class permissions extends \fpcm\controller\abstracts\controller implements \fpcm
 
     public function isAccessible(): bool
     {
-        return $this->permissions->system->permissions;
+        return $this->permissions->system->users && $this->permissions->system->rolls && $this->permissions->system->permissions;
     }
 
     protected function getViewPath() : string

@@ -79,6 +79,12 @@ class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpc
         }
 
         if (isset($this->data['moveToArticle']) && is_numeric($this->data['moveToArticle'])) {
+
+            if (!$this->permissions->comment->move) {
+                $this->returnCode = 0;
+                $this->getResponse();
+            }
+
             $fields['articleId'] = (int) $this->data['moveToArticle'];
         }
 

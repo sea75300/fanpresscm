@@ -67,7 +67,7 @@ abstract class staticModel {
 
     /**
      * Permissions
-     * @var \fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      * @since FPCM 4
      */
     protected $permissions;
@@ -107,7 +107,7 @@ abstract class staticModel {
             $this->config->setUserSettings();
         }
 
-        $this->permissions = loader::getObject('\fpcm\model\system\permissions');
+        $this->permissions = loader::getObject('\fpcm\model\permissions\permissions');
         
         if (method_exists($this, 'init')) {
             $this->init();

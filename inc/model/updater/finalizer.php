@@ -99,7 +99,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
         foreach ($rolls as $group) {
 
-            $permissionObj = new \fpcm\model\system\permissions($group->getId());
+            $permissionObj = new \fpcm\model\permissions\permissions($group->getId());
             
             if ($default === null) {
                 $default = $permissionObj->getPermissionSet();

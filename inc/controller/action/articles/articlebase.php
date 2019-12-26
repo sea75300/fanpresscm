@@ -314,11 +314,14 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->article->setImagepath(isset($data['imagepath']) ? $data['imagepath'] : '');
         $this->article->setSources(isset($data['sources']) ? $data['sources'] : '');
 
-        $this->article->setArchived(isset($data['archived']) ? 1 : 0);
-        if ($this->article->getArchived()) {
-            $this->article->setPinned(0);
-            $this->article->setDraft(0);
+        if ($this->permissions->article->archive) {
+            $this->article->setArchived(isset($data['archived']) ? 1 : 0);
+            if ($this->article->getArchived()) {
+                $this->article->setPinned(0);
+                $this->article->setDraft(0);
+            }
         }
+        
         
         $authorId = (isset($data['author']) && trim($data['author']) && $this->canChangeAuthor ? $data['author'] : $this->session->getUserId());
         $this->article->setCreateuser($authorId);

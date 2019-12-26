@@ -98,7 +98,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        $permission = new \fpcm\model\system\permissions();
+        $permission = new \fpcm\model\permissions\permissions();
         $return = $permission->addDefault($newId);
 
         $this->id = $newId;

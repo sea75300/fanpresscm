@@ -28,7 +28,7 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
     public function isAccessible(): bool
     {
-        return $this->permissions->system->users && $this->permissions->system->rolls;
+        return $this->permissions->system->users;
     }
 
     /**

@@ -325,6 +325,13 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
      */
     private function initMassEditForm()
     {
+        $this->view->assign('tabHeadline', $this->getTabHeadline());
+        $this->view->assign('massEditCategories', $this->categories);
+        $this->view->addJsVars(['massEditSaveFailed' => 'SAVE_FAILED_ARTICLES']);
+        $this->view->addJsLangVars(['EDITOR_CATEGORIES_SEARCH']);
+        $this->view->addJsFiles([\fpcm\classes\loader::libGetFileUrl('selectize_js/dist/js/selectize.min.js')]);
+        $this->view->addCssFiles([\fpcm\classes\loader::libGetFileUrl('selectize_js/dist/css/selectize.default.css')]);
+
         if (!$this->permissions->editArticlesMass()) {
             return [];
         }
@@ -366,7 +373,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
             );
         }
         
-        if ($this->permissions->article->approve) {
+        if (!$this->permissions->article->approve) {
             $fields[] = new \fpcm\components\masseditField(
                 ['icon' => 'thumbs-up', 'prefix' => 'far'],
                 'EDITOR_STATUS_APPROVAL',
@@ -403,13 +410,6 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         }
 
         $this->assignFields($fields);
-
-        $this->view->assign('tabHeadline', $this->getTabHeadline());
-        $this->view->assign('massEditCategories', $this->categories);
-        $this->view->addJsVars(['massEditSaveFailed' => 'SAVE_FAILED_ARTICLES']);
-        $this->view->addJsLangVars(['EDITOR_CATEGORIES_SEARCH']);
-        $this->view->addJsFiles([\fpcm\classes\loader::libGetFileUrl('selectize_js/dist/js/selectize.min.js')]);
-        $this->view->addCssFiles([\fpcm\classes\loader::libGetFileUrl('selectize_js/dist/css/selectize.default.css')]);
     }
 
     /**

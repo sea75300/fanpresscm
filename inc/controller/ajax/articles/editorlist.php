@@ -90,7 +90,8 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController implements \f
     private function processComments()
     {
         if (!$this->permissions->editComments()) {
-            exit;
+            $this->returnData = [];
+            $this->getSimpleResponse();
         }
         
         $this->conditions->articleid = $this->oid;
@@ -113,7 +114,8 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController implements \f
     private function processRevisions()
     {
         if (!$this->permissions->article->revisions || !$this->article->exists()) {
-            exit;
+            $this->returnData = [];
+            $this->getSimpleResponse();
         }
 
         $revision = $this->article->getRevisions();

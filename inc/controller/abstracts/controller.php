@@ -44,7 +44,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Berechtigungen
-     * @var \fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      */
     protected $permissions;
 
@@ -406,6 +406,7 @@ class controller implements \fpcm\controller\interfaces\controller {
             $this->execDestruct = false;
             $this->view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
             $this->view->render($this->moduleCheckExit);
+            return false;
         }
 
         return $this->moduleController === null ? true : in_array($this->moduleController, $this->enabledModules);

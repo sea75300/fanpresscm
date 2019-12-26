@@ -296,12 +296,16 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 '<div class="fpcm-ui-controlgroup">',
                 (new \fpcm\view\helper\editButton('rollEditBtn'.$rollId))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/editroll', [
                     'id' => $rollId
-                ]))->setReadonly($readonly),
-                (new \fpcm\view\helper\linkButton('rollPermBtn'.$rollId))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/permissions', [
-                    'id' => $rollId
-                ]))->setIcon('key')->setIconOnly(true)->setText('USERS_ROLLS_PERMISSIONS')->setClass('fpcm-ui-rolllist-permissionedit'),
-                '</div>'
+                ]))->setReadonly($readonly)
             ];
+            
+            if ($this->permissions->system->permissions) {
+                $buttons[] = (new \fpcm\view\helper\linkButton('rollPermBtn'.$rollId))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/permissions', [
+                    'id' => $rollId
+                ]))->setIcon('key')->setIconOnly(true)->setText('USERS_ROLLS_PERMISSIONS')->setClass('fpcm-ui-rolllist-permissionedit');
+            }
+            
+            $buttons[] = '</div>';
 
             $dataView->addRow(
                 new \fpcm\components\dataView\row([

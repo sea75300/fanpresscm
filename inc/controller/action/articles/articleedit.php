@@ -148,7 +148,7 @@ class articleedit extends articlebase {
 
         $this->view->setFormAction('articles/edit', ['articleid' => $this->article->getId()]);
         $this->view->assign('editorMode', 1);
-        $this->view->assign('showRevisions', true);
+        $this->view->assign('showRevisions', $this->permissions->article->revisions);
         $this->view->assign('postponedTimer', $this->article->getCreatetime());
         $this->view->assign('commentCount', array_sum($this->commentList->countComments([$this->article->getId()])));
         $this->view->assign('commentsMode', 2);

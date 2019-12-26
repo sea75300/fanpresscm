@@ -39,21 +39,22 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     private function checkPermissions($navigation)
     {
         /* @var $value navigationItem */
-        foreach ($navigation as $key => &$value) {
-            
+        foreach ($navigation as $key => $value) {
+
             if ($value->hasSubmenu()) {
                 $value->setSubmenu($this->checkPermissions($value->getSubmenu()));
             }
 
-            if ($value->isAccessible() !== null && $value->isAccessible()) {
+            $accesible = $value->isAccessible();
+            if ($accesible !== null && !$accesible) {
+                unset($navigation[$key]);
                 continue;
             }
-            elseif (!$value->hasPermission() || $value->hasPermission() && $this->permissions->check($value->getPermission())) {
+            elseif ($value->hasPermission() && $this->permissions->check($value->getPermission())) {
+                unset($navigation[$key]);
                 continue;
             }
 
-            unset($navigation[$key]);
-            continue;
         }
 
         return $navigation;
