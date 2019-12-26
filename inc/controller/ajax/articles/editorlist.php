@@ -109,7 +109,8 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
     private function processRevisions()
     {
         if (!$this->article->exists()) {
-            exit;
+            $this->returnData = [];
+            $this->getSimpleResponse();
         }
 
         $revision = $this->article->getRevisions();
@@ -171,7 +172,8 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
     private function processShortlink()
     {
         if (!$this->article->exists()) {
-            exit;
+            $this->returnData = [];
+            $this->getSimpleResponse();
         }
 
         $this->returnData = [

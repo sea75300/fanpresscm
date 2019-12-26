@@ -156,11 +156,14 @@ fpcm.filemanager = {
                                     oldName: selectedFile
                                 },
                                 execDone: function (result) {
-                                    fpcm.ui.addMessage({
-                                        txtComplete: result.message,
-                                        type: result.code < 1 ? 'error' : 'notice'
-                                    });
-                                    
+
+                                    if (!result.message) {
+                                        fpcm.ui.addMessage({
+                                            txtComplete: result.message,
+                                            type: result.code < 1 ? 'error' : 'notice'
+                                        });
+                                    }
+
                                     fpcm.filemanager.closeRenameDialog();
                                     fpcm.filemanager.reloadFiles();
                                 }
