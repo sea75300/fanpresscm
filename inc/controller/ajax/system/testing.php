@@ -8,15 +8,20 @@
 namespace fpcm\controller\ajax\system;
 
 /**
- * AJAX controllertesting
+ * AJAX testing controller
  * 
  * @package fpcm\controller\ajax\system\refresh
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @ignore
  */
-class testing extends \fpcm\controller\abstracts\ajaxController {
+class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+
+    public function isAccessible(): bool
+    {
+        return true;
+    }
 
     /**
      * @see \fpcm\controller\abstracts\controller::hasAccess()

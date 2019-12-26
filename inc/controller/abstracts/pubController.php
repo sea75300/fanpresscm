@@ -29,6 +29,30 @@ class pubController extends controller {
      */
     protected $viewEvents = false;
 
+    public function __construct()
+    {
+        if (\fpcm\classes\baseconfig::installerEnabled() || !\fpcm\classes\baseconfig::dbConfigExists()) {
+            exit;
+        }
+
+        $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
+        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
+        $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+        $this->session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        $this->config->setUserSettings();
+
+        $this->ipList = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
+        $this->crons = \fpcm\classes\loader::getObject('\fpcm\model\crons\cronlist');
+
+        $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
+        $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
+        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
+
+        $this->hasActiveModule();
+        $this->initActionObjects();
+        $this->initView();
+    }
+
     /**
      * Access check processing
      * @return bool, false prevent execution of @see request() @see process()
@@ -58,27 +82,15 @@ class pubController extends controller {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
         }
 
-        $showToolbars = false;
-        $permAdd = false;
-        $permEditOwn = false;
-        $permEditAll = false;
         $currentUserId = false;
         $isAdmin = false;
 
         if ($this->session->exists()) {
-            $showToolbars = true;
-            $permAdd = $this->permissions->article->add;
-            $permEditOwn = $this->permissions->article->edit;
-            $permEditAll = $this->permissions->article->editall;
             $currentUserId = $this->session->getUserId();
             $isAdmin = $this->session->getCurrentUser()->isAdmin();
         }
 
         $this->view->setViewVars([
-            'showToolbars' => $showToolbars,
-            'permAdd' => $permAdd,
-            'permEditOwn' => $permEditOwn,
-            'permEditAll' => $permEditAll,
             'currentUserId' => $currentUserId,
             'isAdmin' => $isAdmin,
             'hideDebug' => false,

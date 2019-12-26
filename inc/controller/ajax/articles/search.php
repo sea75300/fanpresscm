@@ -18,8 +18,7 @@ namespace fpcm\controller\ajax\articles;
 class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\articles\lists,
-        \fpcm\controller\traits\common\searchParams,
-        \fpcm\controller\traits\common\isAccessibleTrue;
+        \fpcm\controller\traits\common\searchParams;
 
     /**
      * Suchmodus
@@ -32,6 +31,15 @@ class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      * @var bool
      */
     protected $deleteActions = false;
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->editArticles() || $this->permissions->article->archive;
+    }
 
     /**
      * @see controller::getViewPath
