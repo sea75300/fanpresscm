@@ -48,6 +48,8 @@ trait savePermissions {
         }
 
         if ($this->rollId == 1) {
+            $permissionData['system']['users'] = 1;
+            $permissionData['system']['rolls'] = 1;
             $permissionData['system']['permissions'] = 1;
         }
 

@@ -55,7 +55,7 @@
                 <fieldset>
                     <legend><?php $theView->write('PERMISSION_SYSTEM'); ?></legend>
                     <?php foreach ($permissions['system'] as $key => $value) : ?>
-                        <?php $readOnly = ($key == 'permissions' && $rollId == 1) ? true : false; ?>
+                        <?php $readOnly = (in_array($key, ['permissions', 'users', 'rolls']) && $rollId == 1) ? true : false; ?>
                         <?php $theView->checkbox("permissions[system][{$key}]", "{$rollId}_system_{$key}")->setText('PERMISSION_SYSTEM_' . strtoupper($key))->setSelected($value)->setReadonly($readOnly)->setLabelClass('fpcm-ui-align-left'); ?>
                         <?php if ($readOnly) : ?><?php $theView->hiddenInput("permissions[system][{$key}]"); ?><?php endif; ?>
                     <?php endforeach; ?>
