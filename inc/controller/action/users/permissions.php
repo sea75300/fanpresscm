@@ -16,17 +16,8 @@ namespace fpcm\controller\action\users;
  */
 class permissions extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
-    /**
-     *
-     * @var \fpcm\model\permissions\permissions
-     */
-    protected $permissionObj;
+    use \fpcm\controller\traits\users\savePermissions;
 
-    /**
-     *
-     * @var int
-     */
-    protected $rollId;
 
     public function isAccessible(): bool
     {
@@ -48,32 +39,24 @@ class permissions extends \fpcm\controller\abstracts\controller implements \fpcm
             \fpcm\classes\http::FILTER_CASTINT
         ]);
 
-        $this->view->assign('rollId', $this->rollId);
-
         $roll = new \fpcm\model\users\userRoll($this->rollId);
         $this->view->assign('rollname', $this->language->translate($roll->getRollName()));
 
-        $this->permissionObj = new \fpcm\model\permissions\permissions($this->rollId);
-
+        $this->fetchRollPermssions();
+        
         if ($this->buttonClicked('permissionsSave') && !$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
         }
 
-        $permissionData = $this->getRequestVar('permissions', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
+        if ($this->buttonClicked('permissionsSave') && $this->checkPageToken) {
 
-        if ($this->buttonClicked('permissionsSave') && is_array($permissionData) && $this->checkPageToken) {
-
-            if ($this->rollId == 1) {
-                $permissionData['system']['permissions'] = 1;
-            }
-
-            $permissionData = array_replace_recursive($this->permissions->getPermissionSet() , $permissionData);
-            $this->permissionObj->setPermissionData($permissionData);
-            if (!$this->permissionObj->update()) {
+            if (!$this->savePermissions()) {
                 $this->view->addErrorMessage('SAVE_FAILED_PERMISSIONS');
                 return true;
+            }
+            
+            if ($this->rollId == 1) {
+                $permissionData['system']['permissions'] = 1;
             }
 
             $this->view->addNoticeMessage('SAVE_SUCCESS_PERMISSIONS');
@@ -86,14 +69,13 @@ class permissions extends \fpcm\controller\abstracts\controller implements \fpcm
      * Controller-Processing
      */
     public function process()
-    {
-        $this->view->assign('permissions', $this->permissionObj->getPermissionData());
+    {        
+        $this->assignToView();
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         $this->view->setFormAction('users/permissions', [
             'id' => $this->rollId
         ]);
 
-        $this->view->addJsFiles(['permissions.js']);
         $this->view->render();
     }
 

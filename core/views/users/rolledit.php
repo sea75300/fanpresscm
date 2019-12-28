@@ -3,6 +3,9 @@
     <div class="fpcm-ui-tabs-general">
         <ul>
             <li><a href="#tabs-roll"><?php $theView->write($tabsHeadline); ?></a></li>
+            <?php if ($theView->permissions->system->permissions && $userRoll->getId()) : ?>
+            <li><a href="#tabs-permissions"><?php $theView->write('HL_OPTIONS_PERMISSIONS'); ?></a></li>
+            <?php endif; ?>
         </ul>            
 
         <div id="tabs-roll">
@@ -17,5 +20,11 @@
                 </div>
             </div>            
         </div>
+
+        <?php if ($theView->permissions->system->permissions && $userRoll->getId()) : ?>
+        <div id="tabs-permissions">
+            <?php include $theView->getIncludePath('users/permissions_editor.php'); ?>
+        </div>
+        <?php endif; ?>
     </div>
 </div>

@@ -175,9 +175,9 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         
         $chart->setValues($chartItem);
         $this->view->assign('userArticles', $chart);
+        $this->view->setActiveTab($this->getActiveTab());
 
         $this->view->addJsVars([
-            'activeTab' => $this->getActiveTab(),
             'chartData' => $chart
         ]);
 

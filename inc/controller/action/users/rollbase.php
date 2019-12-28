@@ -56,6 +56,11 @@ abstract class rollbase extends \fpcm\controller\abstracts\controller implements
             return false;
         }
 
+        if ($this->buttonClicked('permissionsSave') && !$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return false;
+        }
+
         $rollName = $this->getRequestVar('rollname');
         
         if (!trim($rollName)) {
@@ -66,12 +71,21 @@ abstract class rollbase extends \fpcm\controller\abstracts\controller implements
         $this->userRoll->setRollName($rollName);
         $func = $update ? 'update' : 'save';
         $msg  = $update ? 'edited' : 'added';
-        if (call_user_func([$this->userRoll, $func])) {
+
+        $result = call_user_func([$this->userRoll, $func]);
+        $errMsg = 'SAVE_FAILED_ROLL';
+
+        if ($update && $result && $this->permissions->system->permissions && !$this->savePermissions()) {
+            $errMsg = 'SAVE_FAILED_PERMISSIONS';
+            $result = false;
+        }
+        
+        if ($result) {
             $this->redirect('users/list', [$msg => 2, 'rg' => 1]);
             return true;
         }
 
-        $this->view->addErrorMessage('SAVE_FAILED_ROLL');
+        $this->view->addErrorMessage($errMsg);
         return true;
     }
     

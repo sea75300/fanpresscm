@@ -11,6 +11,8 @@ namespace fpcm\controller\action\users;
 
 class rolledit extends rollbase {
 
+    use \fpcm\controller\traits\users\savePermissions;
+
     /**
      *
      * @var string
@@ -19,26 +21,45 @@ class rolledit extends rollbase {
 
     public function request()
     {
-        $id = $this->getRequestVar('id', [
+        $this->rollId = $this->getRequestVar('id', [
             \fpcm\classes\http::FILTER_CASTINT
         ]);
 
-        if (!$id || $id <= 3) {
+        if (!$this->rollId || $this->rollId <= 3) {
             $this->redirect('users/list');
             return false;
         }
 
-        $this->getRollObject($id);
-        $this->view->setFormAction($this->userRoll->getEditLink(), [], true);
+        $this->getRollObject($this->rollId);
 
         if (!$this->userRoll->exists()) {
             $this->view = new \fpcm\view\error('LOAD_FAILED_ROLL', 'users/list');
             return true;
         }
+        
+        $this->view->setFormAction($this->userRoll->getEditLink(), [], true);
+
+        if ($this->permissions->system->permissions) {
+            $this->fetchRollPermssions();
+        }
 
         $this->save(true);
         return parent::request();
     }
+
+    /**
+     * 
+     * @return bool
+     */
+    public function process() {
+
+        if ($this->permissions->system->permissions) {
+            $this->assignToView();
+        }
+
+        return parent::process();
+    }
+
 }
 
 ?>
