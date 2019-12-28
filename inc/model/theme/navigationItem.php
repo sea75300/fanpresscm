@@ -279,9 +279,11 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     /**
      * Berechtigungen setzen
      * @param array $permission
+     * @deprecated since version FPCM 4.4
      */
     public function setPermission(array $permission)
     {
+        trigger_error('Using '.__METHOD__.' ist deprecated as of FPCM 4.4. Use '.__CLASS__.'::setAccessible instead', E_USER_DEPRECATED);
         $this->permission = $permission;
         return $this;
     }
@@ -327,6 +329,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     /**
      * Status, Berechtigungen geprüft werden müssen
      * @return bool
+     * @deprecated since version FPCM 4.4
      */
     public function hasPermission()
     {
