@@ -24,7 +24,7 @@ class permissionsTest extends testBase {
 
         $GLOBALS['roll_id'] = $roll->getId();
 
-        $this->object = new fpcm\model\system\permissions($GLOBALS['roll_id']);
+        $this->object = new \fpcm\model\permissions\permissions($GLOBALS['roll_id']);
 
         $this->object->setPermissionData([
             'article' => [
@@ -38,7 +38,7 @@ class permissionsTest extends testBase {
 
     public function testCheckPermissions()
     {
-        $this->object = new fpcm\model\system\permissions($GLOBALS['roll_id']);
+        $this->object = new \fpcm\model\permissions\permissions($GLOBALS['roll_id']);
         $this->assertEquals(1, $this->object->article->editall);
         $this->assertEquals(1, $this->object->article->delete);
         
