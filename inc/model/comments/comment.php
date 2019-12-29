@@ -460,7 +460,7 @@ class comment extends \fpcm\model\abstracts\dataset {
      */
     public function getStatusIconSpam()
     {
-        return (new \fpcm\view\helper\icon('flag fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getSpammer())->setText('COMMMENT_SPAM')->setStack('square');
+        return (new \fpcm\view\helper\icon('fire fa-inverse'))->setClass('fpcm-ui-editor-metainfo fpcm-ui-status-' . $this->getSpammer())->setText('COMMMENT_SPAM')->setStack('square');
     }
 
     /**
