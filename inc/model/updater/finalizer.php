@@ -385,11 +385,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function cliOutput(string $str)
     {
-        if (!$this->isCli) {
-            return false;
-        }
-
-        print $str.PHP_EOL;
+        \fpcm\model\cli\io::output($str);
     }
 
 }

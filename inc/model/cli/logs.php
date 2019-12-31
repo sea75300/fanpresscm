@@ -68,7 +68,7 @@ final class logs extends \fpcm\model\abstracts\cli {
                 }
 
                 $this->output($row->text);
-                $this->output('-----');
+                $this->output(PHP_EOL.'-----'.PHP_EOL);
             }
         }
 
