@@ -13,7 +13,7 @@ namespace fpcm\controller\action\comments;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class commentlist extends \fpcm\controller\abstracts\controller {
+class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\comments\lists,
         \fpcm\controller\traits\common\searchParams;
@@ -23,6 +23,15 @@ class commentlist extends \fpcm\controller\abstracts\controller {
      * @var \fpcm\components\dataView\dataView
      */
     protected $dataView;
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->editComments();
+    }
 
     /**
      * 
@@ -75,13 +84,13 @@ class commentlist extends \fpcm\controller\abstracts\controller {
         $this->view->addJsFiles(['comments/module.js']);
         $this->view->setFormAction('comments/list');
 
-        if ($this->permissionsArray['canEditComments'] && $this->permissionsArray['canMassEdit']) {
+        if ($this->permissions->editCommentsMass()) {
             $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true));
         }
 
         $this->view->addButton((new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true));
 
-        if ($this->permissionsArray['canDelete']) {
+        if ($this->permissions->comment->delete) {
             $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm-ui-button-confirm'));
         }
 

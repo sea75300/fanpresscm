@@ -13,7 +13,7 @@ namespace fpcm\controller\ajax\modules;
  * @package fpcm\controller\ajax\modules\moduleactions
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class fetchList extends \fpcm\controller\abstracts\ajaxController {
+class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\dataView;
 
@@ -47,16 +47,9 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
      */
     protected $permArr = [];
 
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return [
-            'system' => 'options',
-            'modules' => 'configure'
-        ];
+        return $this->permissions->system->options && $this->permissions->modules->configure;
     }
 
     /**
@@ -235,11 +228,11 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                             ->setIconOnly(true)
                             ->setUrl($this->getControllerLink('modules/info', ['key' => $item->getKey()]));
 
-        $hasUpdates = $this->permArr['canInstall'] && $item->hasUpdates();
-        $hasLocalUpdates = $this->permArr['canInstall'] && $item->hasLocalUpdates();
+        $hasUpdates = $this->permissions->modules->install && $item->hasUpdates();
+        $hasLocalUpdates = $this->permissions->modules->install && $item->hasLocalUpdates();
         if ($item->isInstalled()) {
 
-            if ($this->permArr['canConfigure']) {
+            if ($this->permissions->modules->configure) {
                 
                 if ($item->isActive()) {
                     
@@ -261,7 +254,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                 
             }
 
-            if ($this->permArr['canUninstall'] && !$item->isActive() && $item->isWritable()) {
+            if ($this->permissions->modules->uninstall && !$item->isActive() && $item->isWritable()) {
                 $buttons[] = (new \fpcm\view\helper\button('uninstall'.$hash))->setText('MODULES_LIST_UNINSTALL')->setIcon('minus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'uninstall'])->setClass('fpcm-ui-modulelist-action-local');
             }
 
@@ -285,11 +278,11 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
         }
         
         if (!$item->isInstalled()) {
-            if ($this->permArr['canInstall']) {
+            if ($this->permissions->modules->install) {
                 $buttons[] = (new \fpcm\view\helper\button('install'.$hash))->setText('MODULES_LIST_INSTALL')->setIcon('plus-circle')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'install', 'dir' => true])->setClass('fpcm-ui-modulelist-action-local')->setReadonly(!$item->isInstallable());
             }            
 
-            if ($this->permArr['canUninstall'] && $item->isWritable()) {
+            if ($this->permissions->modules->uninstall && $item->isWritable()) {
                 $buttons[] = (new \fpcm\view\helper\button('delete'.$hash))->setText('MODULES_LIST_DELETE')->setIcon('trash')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'delete'])->setClass('fpcm-ui-modulelist-action-local');
             }            
         }
@@ -333,7 +326,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
                     ->setIconOnly(true)
                     ->setUrl($this->getControllerLink('modules/info', ['key' => $item->getKey(), 'repo' => 1]));
 
-        if ($this->permArr['canInstall'] && !in_array($item->getKey(), $this->installed) ) {
+        if ($this->permissions->modules->install && !in_array($item->getKey(), $this->installed) ) {
             $buttons[] = (new \fpcm\view\helper\linkButton('install'.$hash))
                     ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modinstall', ['key' => $item->getKey()]))
                     ->setText('MODULES_LIST_INSTALL')
@@ -360,13 +353,6 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController {
     protected function initActionObjects()
     {
         $this->modules = new \fpcm\module\modules();
-
-        $this->permArr = [
-            'canInstall' => $this->permissions->check(['modules' => 'install']),
-            'canUninstall' => $this->permissions->check(['modules' => 'uninstall']),
-            'canConfigure' => $this->permissions->check(['modules' => 'configure']),
-        ];
-
         return true;
     }
 

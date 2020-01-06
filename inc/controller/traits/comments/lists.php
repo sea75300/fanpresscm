@@ -79,24 +79,6 @@ trait lists {
     protected $mode = 1;
 
     /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return [
-            'article' => [
-                'editall',
-                'edit'
-            ],
-            'comment' => [
-                'editall',
-                'edit'
-            ]
-        ];
-    }
-
-    /**
      * Initialisiert Berechtigungen
      */
     protected function initCommentPermissions()
@@ -105,12 +87,12 @@ trait lists {
             return false;
         }
 
-        $this->permissionsArray['canEditComments'] = $this->permissions->check(['comment' => ['editall', 'edit']]);
-        $this->permissionsArray['canApprove'] = $this->permissions->check(['comment' => 'approve']);
-        $this->permissionsArray['canPrivate'] = $this->permissions->check(['comment' => 'private']);
-        $this->permissionsArray['canMove'] = $this->permissions->check(['comment' => 'move']);
-        $this->permissionsArray['canDelete'] = $this->permissions->check(['comment' => 'delete']);
-        $this->permissionsArray['canMassEdit'] = $this->permissions->check(['comment' => 'massedit']);
+        $this->permissionsArray['canEditComments'] = $this->permissions->editComments();
+        $this->permissionsArray['canApprove'] = $this->permissions->comment->approve;
+        $this->permissionsArray['canPrivate'] = $this->permissions->comment->private;
+        $this->permissionsArray['canMove'] = $this->permissions->comment->move;
+        $this->permissionsArray['canDelete'] = $this->permissions->comment->delete;
+        $this->permissionsArray['canMassEdit'] = $this->permissions->comment->massedit;
 
         foreach ($this->permissionsArray as $key => $value) {
             $this->view->assign($key, $value);
@@ -130,7 +112,7 @@ trait lists {
             return true;
         }
 
-        if ($this->permissionsArray['canDelete'] && $commentList->deleteComments($ids)) {
+        if ($this->permissions->comment->delete && $commentList->deleteComments($ids)) {
             $this->view->addNoticeMessage('DELETE_SUCCESS_COMMENTS');
             return true;
         }
@@ -147,7 +129,7 @@ trait lists {
     {
         $fields = [];
         
-        if ($this->permissionsArray['canApprove']) {
+        if ($this->permissions->comment->approve) {
             $fields[] = new \fpcm\components\masseditField(
                 'flag',
                 'COMMMENT_SPAM',
@@ -169,7 +151,7 @@ trait lists {
             );
         }
         
-        if ($this->permissionsArray['canPrivate']) {
+        if ($this->permissions->comment->private) {
             $fields[] = new \fpcm\components\masseditField(
                 'eye-slash',
                 'COMMMENT_PRIVATE',
@@ -181,7 +163,7 @@ trait lists {
             );
         }
         
-        if ($mode === 1 && $this->permissionsArray['canMove']) {
+        if ($mode === 1 && $this->permissions->comment->move) {
             $fields[] = new \fpcm\components\masseditField(
                 'clipboard',
                 'COMMMENT_MOVE',

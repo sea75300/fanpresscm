@@ -11,7 +11,7 @@ namespace fpcm\model\theme;
  * ACP navigation item object
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2017, Stefan Seehafer
+ * @copyright (c) 2017-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\theme
  * @since FPCM 3.5
@@ -73,8 +73,15 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     /**
      * Berechtigungen
      * @var array
+     * @deprecated since version FPCM 4.4
      */
     protected $permission = [];
+
+    /**
+     * Permissions flag for access
+     * @var bool
+     */
+    protected $accessible = null;
 
     /**
      * Untermenü, array mit Elementen vom Typ navigationItem
@@ -99,7 +106,6 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
      */
     public function __construct()
     {
-
         $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
 
@@ -273,9 +279,11 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     /**
      * Berechtigungen setzen
      * @param array $permission
+     * @deprecated since version FPCM 4.4
      */
     public function setPermission(array $permission)
     {
+        trigger_error('Using '.__METHOD__.' ist deprecated as of FPCM 4.4. Use '.__CLASS__.'::setAccessible instead', E_USER_DEPRECATED);
         $this->permission = $permission;
         return $this;
     }
@@ -321,6 +329,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     /**
      * Status, Berechtigungen geprüft werden müssen
      * @return bool
+     * @deprecated since version FPCM 4.4
      */
     public function hasPermission()
     {
@@ -337,35 +346,24 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * navigationItem aus Array erzeugen
-     * @param array $data
-     * @return \fpcm\model\theme\navigationItem
+     * Returns true, is navigation is is accessible
+     * @return bool
      */
-    public static function createItemFromArray(array $data)
+    public function isAccessible()
     {
-        $item = new navigationItem();
-        $item->setUrl(isset($data['url']) ? $data['url'] : '#');
-        $item->setDescription(isset($data['description']) ? $data['description'] : '');
-        $item->setIcon(isset($data['icon']) ? $data['icon'] : 'fa fa-fw fa-square');
-
-        if (isset($data['id'])) {
-            $item->setId($data['id']);
-        }
-
-        if (isset($data['class'])) {
-            $item->setClass($data['class']);
-        }
-
-        if (isset($data['wrapperClass'])) {
-            $item->setWrapperClass($data['wrapperClass']);
-        }
-
-        $item->setPermission(isset($data['permission']) && is_array($data['permission']) ? $data['permission'] : []);
-        $item->setSubmenu(isset($data['submenu']) && is_array($data['submenu']) ? $data['submenu'] : []);
-
-        return $item;
+        return $this->accessible;
     }
 
+    /**
+     * Set accessible mode
+     * @param bool $accessible
+     * @return $this
+     */
+    public function setAccessible(bool $accessible) {
+        $this->accessible = $accessible;
+        return $this;
+    }
+    
     /**
      * @ignore
      * @return array
@@ -375,7 +373,7 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
         $this->config = null;
         $this->language = null;
 
-        return ['description', 'url', 'icon', 'class', 'id', 'parent', 'permission', 'submenu', 'spacer', 'wrapperClass'];
+        return ['description', 'url', 'icon', 'class', 'id', 'parent', 'accessible', 'permission', 'submenu', 'spacer', 'wrapperClass'];
     }
 
     /**

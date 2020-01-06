@@ -24,10 +24,10 @@ trait lists {
      */
     public function initPermissions()
     {
-        $this->permissionsData['permUpload'] = $this->permissions->check(['uploads' => 'add']);
-        $this->permissionsData['permDelete'] = $this->permissions->check(['uploads' => 'delete']);
-        $this->permissionsData['permThumbs'] = $this->permissions->check(['uploads' => 'thumbs']);
-        $this->permissionsData['permRename'] = $this->permissions->check(['uploads' => 'rename']);
+        $this->permissionsData['permUpload'] = $this->permissions->uploads->add;
+        $this->permissionsData['permDelete'] = $this->permissions->uploads->delete;
+        $this->permissionsData['permThumbs'] = $this->permissions->uploads->thumbs;
+        $this->permissionsData['permRename'] = $this->permissions->uploads->rename;
 
         foreach ($this->permissionsData as $key => $value) {
             $this->view->assign($key, $value);

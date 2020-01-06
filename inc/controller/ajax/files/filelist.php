@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\files;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class filelist extends \fpcm\controller\abstracts\ajaxController {
+class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\files\lists,
         \fpcm\controller\traits\common\searchParams;
@@ -37,6 +37,15 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
      * @var \fpcm\model\files\search
      */
     protected $showPager = false;
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->uploads->visible;
+    }
 
     /**
      * Request-Handler
@@ -88,15 +97,6 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
     {
         return 'filemanager/'.$this->getListView();
     }
-
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return ['uploads' => 'visible'];
-    }
     
     /**
      * Controller-Processing
@@ -125,7 +125,6 @@ class filelist extends \fpcm\controller\abstracts\ajaxController {
         $this->initViewAssigns($list, $userList->getUsersAll(), $pagerData);
         $this->initPermissions();
 
-        $this->view->assign('canRename', $this->permissionsData['permRename']);
         $this->view->assign('showPager', $this->showPager);
         $this->view->render();
     }

@@ -5,7 +5,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\permissions;
+namespace fpcm\model\permissions\items;
 
 /**
  * Comment permissions object
@@ -36,4 +36,16 @@ class comment extends editMass {
      */
     public $move;
 
+    /**
+     * @see base::getDefault()
+     * @return array
+     */
+    final public function getDefault() : array
+    {
+        return array_merge($this->getObjectVars(), [
+            'edit' => 1,
+            'approve' => 1,
+            'private' => 1
+        ]);
+    }
 }

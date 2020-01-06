@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\packagemgr;
 
-class moduleBase extends \fpcm\controller\abstracts\controller {
+class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\packagemgr\initialize;
 
@@ -55,10 +55,11 @@ class moduleBase extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions() {
-        return ['modules' => 'install'];
+    public function isAccessible(): bool
+    {
+        return $this->permissions->modules->install;
     }
 
     /**

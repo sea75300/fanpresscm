@@ -11,9 +11,13 @@ namespace fpcm\controller\action\articles;
 
 class articlelistall extends articlelistbase {
 
-    protected function getPermissions()
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
     {
-        return ['article' => ['edit', 'editall']];
+        return $this->permissions->article->edit || $this->permissions->article->editall;
     }
 
     protected function getListAction()

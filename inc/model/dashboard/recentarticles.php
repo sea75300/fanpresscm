@@ -15,17 +15,11 @@ namespace fpcm\model\dashboard;
  * @package fpcm\model\dashboard
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class recentarticles extends \fpcm\model\abstracts\dashcontainer {
-
-    /**
-     * ggf. nötige Container-Berechtigungen
-     * @var array
-     */
-    protected $checkPermissions = array('article' => array('edit', 'editall'));
+class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpcm\model\interfaces\isAccessible {
 
     /**
      * Permissions-Objekt
-     * @var \fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      */
     protected $permissions = null;
 
@@ -41,6 +35,15 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
      * @var int
      */
     protected $isAdmin = false;
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->editArticles();
+    }
 
     /**
      * Returns container name
@@ -63,7 +66,7 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
 
         $this->getCacheName('_' . $this->currentUser);
 
-        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
+        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
 
         if ($this->cache->isExpired($this->cacheName)) {
             $this->renderContent();

@@ -98,7 +98,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        $permission = new \fpcm\model\system\permissions();
+        $permission = new \fpcm\model\permissions\permissions();
         $return = $permission->addDefault($newId);
 
         $this->id = $newId;
@@ -120,7 +120,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
 
         $return = parent::delete();
 
-        $permissions = new \fpcm\model\system\permissions($this->getId());
+        $permissions = new \fpcm\model\permissions\permissions($this->getId());
 
         if ($permissions->delete()) {
             $return = $return && true;

@@ -13,15 +13,15 @@ namespace fpcm\controller\ajax\system;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class croninterval extends \fpcm\controller\abstracts\ajaxController {
+class croninterval extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'crons'];
+        return $this->permissions->system->crons;
     }
 
     /**

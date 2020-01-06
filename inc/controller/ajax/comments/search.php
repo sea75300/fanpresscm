@@ -19,7 +19,7 @@ namespace fpcm\controller\ajax\comments;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since FPCM 3.3
  */
-class search extends \fpcm\controller\abstracts\ajaxController {
+class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\comments\lists,
         \fpcm\controller\traits\common\searchParams;
@@ -29,6 +29,15 @@ class search extends \fpcm\controller\abstracts\ajaxController {
      * @var \fpcm\components\dataView\dataView
      */
     protected $dataView;
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->editCommentsMass();
+    }
 
     /**
      * 

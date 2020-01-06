@@ -9,10 +9,10 @@
     <?php $theView->linkButton(uniqid('thumbs'))->setUrl($file->getThumbnailUrl())->setText('FILE_LIST_OPEN_THUMB')->setClass('fpcm-filelist-link-thumb')->setIcon('image', 'far')->setIconOnly(true)->setTarget('_blank'); ?>
     <?php $theView->linkButton(uniqid('imgurl'))->setUrl($file->getImageUrl())->setText('FILE_LIST_OPEN_FULL')->setClass('fpcm-filelist-link-full fpcm-file-list-link')->setIcon('search-plus')->setIconOnly(true)->setTarget('_blank'); ?>
 <?php endif; ?>
-<?php if ($canRename && $file->existsFolder()) : ?>
+<?php if ($theView->permissions->uploads->rename && $file->existsFolder()) : ?>
     <?php $theView->button(uniqid('rename'))->setText('FILE_LIST_RENAME')->setIcon('edit')->setIconOnly(true)->setData(['file' => base64_encode($file->getFilename()), 'oldname' => basename($file->getFilename(), '.'.$file->getExtension())])->setClass('fpcm-filelist-rename'); ?>
 <?php endif; ?>
-<?php if ($permDelete) : ?>
+<?php if ($theView->permissions->uploads->delete) : ?>
     <?php $theView->button(uniqid('delete'))->setText('GLOBAL_DELETE')->setIcon('trash')->setIconOnly(true)->setData(['file' => base64_encode($file->getFilename()), 'filename' => $file->getFilename()])->setClass('fpcm-filelist-delete'); ?>
 <?php endif; ?>
 <?php if ($file->existsFolder()) : ?>

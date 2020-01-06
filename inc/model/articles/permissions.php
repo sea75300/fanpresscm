@@ -34,16 +34,12 @@ trait permissions {
             return true;
         }
 
-        $isAdmin = $session->getCurrentUser()->isAdmin();
-        $permEditAll = $this->permissions->check(array('article' => 'editall'));
-        $permEditOwn = $this->permissions->check(array('article' => 'edit'));
-
-        if ($isAdmin || $permEditAll) {
+        if ($session->getCurrentUser()->isAdmin() || $this->permissions->article->editall) {
             $article->setEditPermission(true);
             return true;
         }
 
-        if ($permEditOwn && $article->getCreateuser() == $session->getUserId()) {
+        if ($this->permissions->article->edit && $article->getCreateuser() == $session->getUserId()) {
             $article->setEditPermission(true);
             return true;
         }

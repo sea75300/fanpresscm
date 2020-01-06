@@ -13,7 +13,7 @@ namespace fpcm\controller\action\ips;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class iplist extends \fpcm\controller\abstracts\controller {
+class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\dataView;
 
@@ -31,11 +31,11 @@ class iplist extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'ipaddr'];
+        return $this->permissions->system->ipaddr;
     }
 
     /**

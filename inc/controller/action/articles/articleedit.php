@@ -1,14 +1,18 @@
 <?php
 
 /**
- * Article edit controller
- * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\articles;
 
+/**
+ * Article edit controller
+ * @article Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
 class articleedit extends articlebase {
 
     use \fpcm\controller\traits\comments\lists,
@@ -40,11 +44,11 @@ class articleedit extends articlebase {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['article' => ['edit', 'editall']];
+        return $this->permissions->article->edit || $this->permissions->article->editall;
     }
 
     /**
@@ -144,7 +148,7 @@ class articleedit extends articlebase {
 
         $this->view->setFormAction('articles/edit', ['articleid' => $this->article->getId()]);
         $this->view->assign('editorMode', 1);
-        $this->view->assign('showRevisions', true);
+        $this->view->assign('showRevisions', $this->permissions->article->revisions);
         $this->view->assign('postponedTimer', $this->article->getCreatetime());
         $this->view->assign('commentCount', array_sum($this->commentList->countComments([$this->article->getId()])));
         $this->view->assign('commentsMode', 2);
@@ -158,7 +162,7 @@ class articleedit extends articlebase {
             'articleId' => $this->article->getId(),
             'checkTimeout' => FPCM_ARTICLE_LOCKED_INTERVAL * 1000,
             'checkLastState' => -1,
-            'lkIp' => $this->permissions->check(['system' => 'ipaddr']) ? 1 : 0
+            'lkIp' => $this->permissions->system->ipaddr ? 1 : 0
         ]);
 
         $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'EDITOR_ARTICLE_SHORTLINK', 'COMMENTS_EDIT', 'COMMMENT_LOCKIP']);
@@ -232,7 +236,7 @@ class articleedit extends articlebase {
             $this->view->assign('showShares', $this->config->system_share_count);
         }
         
-        if ($this->permissions->check(['article' => 'revisions'])) {
+        if ($this->permissions->article->revisions) {
              $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setReadonly($this->article->isInEdit())->setClass('fpcm-ui-maintoolbarbuttons-tab3 '.($this->showRevision ? '' : 'fpcm-ui-hidden')));
             if (!$this->showRevision) {
                 $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
@@ -248,11 +252,7 @@ class articleedit extends articlebase {
      */
     protected function initPermissions()
     {
-        $editComments = $this->permissions->check(array(
-            'article' => array('editall', 'edit'),
-            'comment' => array('editall', 'edit')
-        ));
-
+        $editComments = $this->permissions->editComments();
         $this->view->assign('showComments', $editComments);
 
         if ($editComments) {
@@ -260,20 +260,18 @@ class articleedit extends articlebase {
             $this->initCommentPermissions();
             
             $this->view->addJsFiles(['comments/module.js']);
-            if ($this->permissionsArray['canEditComments'] && $this->permissionsArray['canMassEdit']) {
+            if ($this->permissions->editCommentsMass()) {
                 $this->view->addButton((new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden'));
             }
 
-            if ($this->permissionsArray['canDelete']) {
+            if ($this->permissions->comment->delete) {
                 $this->view->addButton((new \fpcm\view\helper\deleteButton('deleteComment'))->setClass('fpcm-ui-button-confirm fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_COMMENTS_DELETE'));
             }
 
             $this->initCommentMassEditForm(2);
         }
 
-        $deletePermissions = $this->permissions->check(array('article' => 'delete'));
-
-        if ($deletePermissions && !$this->getRequestVar('rev')) {
+        if ($this->permissions->article->delete && !$this->getRequestVar('rev')) {
             $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setReadonly($this->article->isInEdit()));
         }
 
@@ -308,7 +306,7 @@ class articleedit extends articlebase {
             return false;
         }
 
-        if ($this->article->delete()) {
+        if ($this->permissions->article->delete && $this->article->delete()) {
             $this->redirect('articles/listall');
             return true;
         }
@@ -325,6 +323,10 @@ class articleedit extends articlebase {
     {
         if ($this->getRequestVar('revrestore')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLEREVRESTORE');
+        }
+        
+        if (!$this->permissions->article->revisions) {
+            return false;
         }
 
         $revisionIdsArray = $this->getRequestVar('revisionIds', [\fpcm\classes\http::FILTER_CASTINT]);

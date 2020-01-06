@@ -5,10 +5,10 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\permissions;
+namespace fpcm\model\permissions\items;
 
 /**
- * Article permissions object
+ * Comment permissions object
  * 
  * @package fpcm\model\permissions
  * @author Stefan Seehafer <sea75300@yahoo.de>
@@ -16,36 +16,24 @@ namespace fpcm\model\permissions;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 4.4
  */
-class article extends editMass {
+class modules extends base {
 
     /**
-     * Add articles
+     * Install module processing
      * @var bool
      */
-    public $add;
+    public $install;
 
     /**
-     * To archive processing
+     * Uninstall module processing
      * @var bool
      */
-    public $archive;
+    public $uninstall;
 
     /**
-     * Approval of articles
+     * Configure module processing
      * @var bool
      */
-    public $approve;
-
-    /**
-     * Revision management
-     * @var bool
-     */
-    public $revisions;
-
-    /**
-     * Edit author
-     * @var bool
-     */
-    public $authors;
+    public $configure;
 
 }

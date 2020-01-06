@@ -1,19 +1,23 @@
 <?php
 
 /**
- * Article add controller
- * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\articles;
 
+/**
+ * Article add controller
+ * @article Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
 class articleadd extends articlebase {
 
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['article' => 'add'];
+        return $this->permissions->article->add;
     }
 
     public function request()
@@ -26,7 +30,7 @@ class articleadd extends articlebase {
             } elseif ($id > 0) {
                 $this->redirect('articles/edit', [
                     'articleid' => $id,
-                    'added' => $this->permissions->check(['article' => 'approve']) ? 2 : 1
+                    'added' => $this->permissions->article->approve ? 2 : 1
                 ]);
             }
         }

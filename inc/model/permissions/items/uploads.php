@@ -5,7 +5,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\permissions;
+namespace fpcm\model\permissions\items;
 
 /**
  * File manager permissions object
@@ -48,4 +48,16 @@ class uploads extends base {
      */
     public $rename;
 
+    /**
+     * @see base::getDefault()
+     * @return array
+     */
+    final public function getDefault() : array
+    {
+        return array_merge($this->getObjectVars(), [
+            'visible' => 1,
+            'add' => 1,
+            'thumbs' => 1
+        ]);
+    }
 }

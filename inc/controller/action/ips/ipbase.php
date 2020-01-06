@@ -1,15 +1,19 @@
 <?php
 
 /**
- * IP address edit controller
- * @category Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\ips;
 
-class ipbase extends \fpcm\controller\abstracts\controller {
+/**
+ * IP address edit controller
+ * @category Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2019, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+class ipbase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * Ip-Adress-Objekt
@@ -23,14 +27,18 @@ class ipbase extends \fpcm\controller\abstracts\controller {
      */
     protected $ipaddress;
 
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->ipaddr;
+    }
+
     protected function getViewPath() : string
     {
         return 'ips/ipadd';
-    }
-
-    protected function getPermissions()
-    {
-        return ['system' => 'ipaddr'];
     }
 
     protected function getHelpLink()

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
 namespace fpcm\controller\ajax\articles;
 
 /**
@@ -9,15 +14,15 @@ namespace fpcm\controller\ajax\articles;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since FPCM 3.5
  */
-class delete extends \fpcm\controller\abstracts\ajaxController {
+class delete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['article' => 'delete'];
+        return $this->permissions->article->delete;
     }
 
     public function request() : bool

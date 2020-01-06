@@ -9,10 +9,11 @@
 
 namespace fpcm\controller\action\system;
 
-class profile extends \fpcm\controller\abstracts\controller {
+class profile extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\timezone,
-        \fpcm\controller\traits\users\authorImages;
+        \fpcm\controller\traits\users\authorImages,
+        \fpcm\controller\traits\common\isAccessibleTrue;
 
     /**
      *

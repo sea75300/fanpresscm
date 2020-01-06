@@ -13,7 +13,7 @@ namespace fpcm\events\abstracts;
  * @package fpcm\events\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class event {
@@ -73,7 +73,7 @@ abstract class event {
 
     /**
      * Berechtigungen
-     * @var \fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      */
     protected $permissions;
 
@@ -153,17 +153,13 @@ abstract class event {
     }
 
     /**
-     * Check permissions for event
+     * User acan execute event
      * @return bool
+     * @since FPCM 4.4
      */
-    public function checkPermissions()
+    public function isExecutable() : bool
     {
-        $checkPermission = $this->getEventPermissons();
-        if (!$this->permissions || !count($checkPermission)) {
-            return true;
-        }
-
-        return $this->permissions->check($checkPermission);
+        return true;
     }
 
     /**
@@ -173,15 +169,6 @@ abstract class event {
     protected function getReturnType()
     {
         return self::RETURNTYPE_SCALAR;
-    }
-
-    /**
-     * Defines type of returned data
-     * @return mixed|bool
-     */
-    protected function getEventPermissons()
-    {
-        return [];
     }
 
     /**

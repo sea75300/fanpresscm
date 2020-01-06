@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\users;
 
-class userbase extends \fpcm\controller\abstracts\controller {
+class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\timezone,
         \fpcm\controller\traits\users\authorImages;
@@ -26,13 +26,9 @@ class userbase extends \fpcm\controller\abstracts\controller {
      */
     protected $user;
 
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'users'];
+        return $this->permissions->system->users;
     }
 
     /**

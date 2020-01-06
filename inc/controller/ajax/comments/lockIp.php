@@ -15,17 +15,16 @@ use fpcm\model\ips\ipaddress;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.6
  */
-class lockIp extends \fpcm\controller\abstracts\ajaxController {
+class lockIp extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return  ['system' => 'ipaddr'];
+        return $this->permissions->system->ipaddr;
     }
-
     
     /**
      * Request-Handler

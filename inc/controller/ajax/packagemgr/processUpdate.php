@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\packagemgr;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class processUpdate extends \fpcm\controller\abstracts\ajaxController {
+class processUpdate extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * Auszuführender Schritt
@@ -55,11 +55,11 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'update'];
+        return $this->permissions->system->options && $this->permissions->system->update;
     }
 
     /**

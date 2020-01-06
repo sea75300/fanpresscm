@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\packagemgr;
 
-class sysupdate extends \fpcm\controller\abstracts\controller {
+class sysupdate extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
@@ -34,11 +34,11 @@ class sysupdate extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'update'];
+        return $this->permissions->system->options && $this->permissions->system->update;
     }
 
     /**

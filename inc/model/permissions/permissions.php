@@ -37,148 +37,40 @@ class permissions extends \fpcm\model\abstracts\dataset {
     protected $checkedData = [];
 
     /**
-     * Nicht in Datenbank zu speichernde Daten
-     * @var array
-     */
-    protected $dbExcludes = ['defaultPermissions', 'permissionSet', 'checkedData'];
-
-    /**
      *
-     * @var article 
+     * @var items\article 
      */
     public $article;
 
     /**
      *
-     * @var comment
+     * @var items\comment
      */
     public $comment;
 
     /**
      *
-     * @var system
+     * @var items\system
      */
     public $system;
 
     /**
      *
-     * @var modules
+     * @var items\modules
      */
     public $modules;
 
     /**
      *
-     * @var uploads
+     * @var items\uploads
      */
     public $uploads;
 
     /**
-     * Standard-Berechtigungsset für Anlegen einer neuen Gruppe
+     * Nicht in Datenbank zu speichernde Daten
      * @var array
      */
-    protected $defaultPermissions = [
-        'article' => array(
-            'add' => 1,
-            'edit' => 1,
-            'editall' => 0,
-            'delete' => 0,
-            'archive' => 0,
-            'approve' => 0,
-            'revisions' => 0,
-            'authors' => 0,
-            'massedit' => 0
-        ),
-        'comment' => array(
-            'edit' => 1,
-            'editall' => 0,
-            'delete' => 0,
-            'approve' => 1,
-            'private' => 1,
-            'move' => 0,
-            'massedit' => 0
-        ),
-        'system' => array(
-            'categories' => 0,
-            'options' => 0,
-            'users' => 0,
-            'rolls' => 0,
-            'permissions' => 0,
-            'templates' => 0,
-            'smileys' => 0,
-            'update' => 0,
-            'logs' => 0,
-            'crons' => 0,
-            'backups' => 0,
-            'wordban' => 0,
-            'ipaddr' => 0
-        ),
-        'modules' => array(
-            'install' => 0,
-            'uninstall' => 0,
-            'configure' => 0
-        ),
-        'uploads' => array(
-            'visible' => 1,
-            'add' => 1,
-            'delete' => 0,
-            'thumbs' => 1,
-            'rename' => 0
-        ),
-    ];
-
-    /**
-     * Standard-Berechtigungsset beim Aktualisieren der Brechtigungen
-     * @var array
-     */
-    protected $permissionSet = [
-        'article' => array(
-            'add' => 0,
-            'edit' => 0,
-            'editall' => 0,
-            'delete' => 0,
-            'archive' => 0,
-            'approve' => 0,
-            'revisions' => 0,
-            'authors' => 0,
-            'massedit' => 0
-        ),
-        'comment' => array(
-            'edit' => 0,
-            'editall' => 0,
-            'delete' => 0,
-            'approve' => 0,
-            'private' => 0,
-            'move' => 0,
-            'massedit' => 0
-        ),
-        'system' => array(
-            'categories' => 0,
-            'options' => 0,
-            'users' => 0,
-            'rolls' => 0,
-            'permissions' => 0,
-            'templates' => 0,
-            'smileys' => 0,
-            'update' => 0,
-            'logs' => 0,
-            'crons' => 0,
-            'backups' => 0,
-            'wordban' => 0,
-            'ipaddr' => 0
-        ),
-        'modules' => array(
-            'install' => 0,
-            'uninstall' => 0,
-            'configure' => 0
-        ),
-        'uploads' => array(
-            'visible' => 0,
-            'add' => 0,
-            'delete' => 0,
-            'thumbs' => 0,
-            'rename' => 0
-        ),
-    ];
+    protected $dbExcludes = ['checkedData', 'article', 'comment', 'system', 'modules', 'uploads'];
 
     /**
      * Konstruktor
@@ -191,6 +83,10 @@ class permissions extends \fpcm\model\abstracts\dataset {
         $this->cacheName = 'system/permissioncache' . $rollid;
 
         parent::__construct();
+
+        if (!$rollid && \fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
+            $rollid = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getRoll();
+        }
 
         if (!$rollid) {
             return;
@@ -237,7 +133,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function setPermissionData(array $permissiondata)
     {
-        $this->permissiondata = json_encode(array_merge($this->permissionSet, $permissiondata));
+        $this->permissiondata = json_encode(array_merge(sets::getAllFalse(), $permissiondata));
     }
 
     /**
@@ -246,16 +142,17 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function init()
     {
-        $this->permissiondata = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setWhere('rollid = ?')->setParams([$this->rollid]) );
-        if (!is_object($this->permissiondata)) {
+        $data = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setWhere('rollid = ?')->setParams([$this->rollid]) );
+
+        $this->id = $data->id;
+        $this->rollid = $data->rollid;
+        $this->permissiondata = json_decode($data->permissiondata, true);
+
+        if (!is_array($this->permissiondata)) {
             return false;
         }
 
-        foreach ($data->permissiondata as $key => $value) {
-            $className = "\\fpcm\\model\\permissions\\{$key}";
-            $this->$key = new $className($value);
-        }
-        
+        $this->initItems();
         return true;
     }
 
@@ -308,7 +205,6 @@ class permissions extends \fpcm\model\abstracts\dataset {
     {
         $this->dbcon->delete($this->table, 'rollid = ?', [$this->rollid]);
         $this->cache->cleanup();
-
         return true;
     }
 
@@ -320,8 +216,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
     public function addDefault($rollid)
     {
         $this->setRollId($rollid);
-        $this->setPermissionData($this->defaultPermissions);
-
+        $this->setPermissionData(sets::getDefault());
         return $this->save();
     }
 
@@ -331,7 +226,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function getPermissionSet()
     {
-        return $this->permissionSet;
+        return sets::getAllFalse();
     }
 
     /**
@@ -350,6 +245,62 @@ class permissions extends \fpcm\model\abstracts\dataset {
         return \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('permission\getAll', $res);
     }
 
+    /**
+     * User has comment editing permissions
+     * @return bool
+     */
+    public function editArticles() : bool
+    {
+        return $this->article->edit || $this->article->editall;
+    }
+
+    /**
+     * User has comment editing permissions
+     * @return bool
+     */
+    public function editArticlesMass() : bool
+    {
+        if (!$this->article->massedit) {
+            return false;
+        }
+        
+        return $this->editArticles();
+    }
+
+    /**
+     * User has comment editing permissions
+     * @return bool
+     */
+    public function editComments() : bool
+    {
+        return $this->editArticles() && ($this->comment->edit || $this->comment->editall);
+    }
+
+    /**
+     * User has comment editing permissions
+     * @return bool
+     */
+    public function editCommentsMass() : bool
+    {
+        if (!$this->comment->massedit) {
+            return false;
+        }
+
+        return $this->editComments();
+    }
+
+    /**
+     * User has permissions for article trash
+     * @return bool
+     */
+    public function articleTrash() : bool
+    {
+        if (!$this->article->edit && !$this->article->editall) {
+            return false;
+        }
+
+        return $this->article->delete;
+    }
     /**
      * Magic get
      * @param string $name
@@ -380,6 +331,25 @@ class permissions extends \fpcm\model\abstracts\dataset {
     }
 
     /**
+     * Init permission object items
+     * @return bool
+     * @since FPCM 4.4
+     */
+    final protected function initItems()
+    {
+        if (!is_array($this->permissiondata)) {
+            return false;
+        }
+        
+        foreach ($this->permissiondata as $key => $value) {
+            $className = "\\fpcm\\model\\permissions\items\\{$key}";
+            $this->$key = new $className($value);
+        }
+        
+        return true;
+    }
+
+    /**
      * Returns event base string
      * @see \fpcm\model\abstracts\dataset::getEventModule
      * @return string
@@ -402,4 +372,51 @@ class permissions extends \fpcm\model\abstracts\dataset {
         return true;
     }
 
+    /**
+     * Prüft ob Benutzer Berechtigung hat
+     * @param array $permissionArray
+     * @return bool
+     */
+    final public function check(array $permissionArray) : bool
+    {
+        trigger_error('Method "check" or permissions objects of instance \\fpcm\\model\\system\\permissions are deprecated. Use \\fpcm\\model\\permissions\\permissions instead', E_USER_DEPRECATED);
+        if (!count($this->permissiondata)) {
+            return false;
+        }
+
+        $res = true;
+
+        $permissionArrayHash = \fpcm\classes\tools::getHash(json_encode($permissionArray));
+        if (isset($this->checkedData[$permissionArrayHash])) {
+            return $this->checkedData[$permissionArrayHash];
+        }
+
+        $permissionArray = \fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('permission\check', $permissionArray);
+        foreach ($permissionArray as $module => $permission) {
+
+            if (!isset($this->permissiondata[$module])) {
+                trigger_error("No permissions available for module \"{$module}\" and roll \"{$this->rollid}\"!". PHP_EOL.
+                              "   > Permission-Debug: ".PHP_EOL.(is_array($permission) ? implode(PHP_EOL, $permission) : $permission) );
+                return false;
+            }
+
+            $check = false;
+            if (is_array($permission)) {
+
+                foreach ($permission as $permissionItem) {
+                    $check = isset($this->permissiondata[$module][$permissionItem]) ? $this->permissiondata[$module][$permissionItem] : false;
+                    if ($check) {
+                        break;
+                    }
+                }
+            } else {
+                $check = isset($this->permissiondata[$module][$permission]) ? (bool) $this->permissiondata[$module][$permission] : false;
+            }
+
+            $res = $res && $check;
+        }
+
+        $this->checkedData[$permissionArrayHash] = $res;
+        return $res;
+    }
 }

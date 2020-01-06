@@ -9,18 +9,9 @@
 
 namespace fpcm\controller\action\templates;
 
-class templates extends \fpcm\controller\abstracts\controller {
+class templates extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\templates\edit;
-
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return ['system' => 'templates'];
-    }
 
     /**
      * 

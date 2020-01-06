@@ -70,6 +70,9 @@
 
 <?php if ($showComments && !$isRevision) : ?>
     <?php include $theView->getIncludePath('comments/massedit.php'); ?>
-    <!-- Shortlink layer -->  
-    <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-shortlink"></div>
+<?php endif; ?>
+
+<?php if (!$isRevision) : ?>
+<!-- Shortlink layer -->
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-shortlink"></div>
 <?php endif; ?>

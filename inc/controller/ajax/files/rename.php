@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\files;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class rename extends \fpcm\controller\abstracts\ajaxController {
+class rename extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
@@ -31,11 +31,11 @@ class rename extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['uploads' => 'rename'];
+        return $this->permissions->uploads->visible && $this->permissions->uploads->rename;
     }
     
     /**

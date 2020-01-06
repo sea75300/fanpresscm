@@ -5,7 +5,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\permissions;
+namespace fpcm\model\permissions\items;
 
 /**
  * System permissions object
@@ -94,6 +94,6 @@ class system extends base {
      * IP address management
      * @var bool
      */
-    public $ipadd;
+    public $ipaddr;
 
 }

@@ -1,16 +1,23 @@
 <?php
 
 /**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\action\system;
+
+/**
  * Dashboard controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\controller\action\system;
+class dashboard extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
-class dashboard extends \fpcm\controller\abstracts\controller {
-
+    use \fpcm\controller\traits\common\isAccessibleTrue;
+    
     /**
      * Get view path for controller
      * @return string
@@ -44,7 +51,7 @@ class dashboard extends \fpcm\controller\abstracts\controller {
                 ->setIcon('wrench')
                 ->setText('PROFILE_OPEN');
 
-        if ($this->permissions->check(['system' => 'options'])) {
+        if ($this->permissions->system->options) {
             $buttons[] = (new \fpcm\view\helper\linkButton('runSyscheck'))
                     ->setUrl(\fpcm\classes\tools::getFullControllerLink('system/options', ['syscheck' => 1]))
                     ->setIcon('sync')

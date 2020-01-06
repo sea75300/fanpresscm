@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
 namespace fpcm\controller\ajax\categories;
 
 /**
@@ -11,7 +16,7 @@ namespace fpcm\controller\ajax\categories;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 4.3
  */
-class massedit extends \fpcm\controller\abstracts\ajaxController {
+class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * Kommentar-IDs
@@ -27,13 +32,12 @@ class massedit extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'categories'];
+        return $this->permissions->system->categories;
     }
-
     
     /**
      * Request-Handler

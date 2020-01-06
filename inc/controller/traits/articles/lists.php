@@ -131,17 +131,17 @@ trait lists {
             return false;
         }
 
-        $this->view->assign('permEditOwn', $this->permissions->check(array('article' => 'edit')));
-        $this->view->assign('permEditAll', $this->permissions->check(array('article' => 'editall')));
-        $this->view->assign('permMassEdit', $this->permissions->check(['article' => 'massedit']));
+        $this->view->assign('permEditOwn', $this->permissions->article->edit);
+        $this->view->assign('permEditAll', $this->permissions->article->editall);
+        $this->view->assign('permMassEdit', $this->permissions->article->massedit);
         $this->view->assign('currentUserId', $this->session->getUserId());
         $this->view->assign('isAdmin', $this->session->getCurrentUser()->isAdmin());
 
-        $this->view->assign('canArchive', $this->permissions->check(['article' => 'archive']));
-        $this->view->assign('canApprove', $this->permissions->check(['article' => 'approve']));
-        $this->view->assign('canChangeAuthor', $this->permissions->check(['article' => 'authors']));
+        $this->view->assign('canArchive', $this->permissions->article->archive);
+        $this->view->assign('canApprove', $this->permissions->article->approve);
+        $this->view->assign('canChangeAuthor', $this->permissions->article->authors);
 
-        $this->deleteActions = $this->permissions->check(['article' => 'delete']);
+        $this->deleteActions = $this->permissions->article->delete;
     }
 
     /**

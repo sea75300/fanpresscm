@@ -2,7 +2,6 @@
 ---
 ajax/cache: ajax/common/cache
 ajax/addmsg: ajax/common/addmsg
-ajax/session: ajax/common/sessioncheck
 ajax/autocomplete: ajax/common/autocomplete
 ajax/setconfig: ajax/common/setConfig
 ajax/logs/clear: ajax/logs/clear

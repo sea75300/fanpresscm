@@ -16,8 +16,10 @@ namespace fpcm\controller\ajax\common;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.6
  */
-class autocomplete extends \fpcm\controller\abstracts\ajaxController {
+class autocomplete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
+    use \fpcm\controller\traits\common\isAccessibleTrue;
+    
     /**
      * Modul-String
      * @var string
@@ -46,6 +48,8 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
+        $this->setReturnJson();
+
         if ($this->processByParam('autocomplete', 'src') === 0x404) {
             $this->getSimpleResponse();
         }
@@ -64,7 +68,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function autocompleteArticles()
     {
-        if (!$this->permissions->check(['article' => ['edit', 'editall']])) {
+        if ($this->hasNoArticlesAccess()) {
             $this->returnData = [];
             return false;
         }
@@ -101,7 +105,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function autocompleteArticlesources()
     {
-        if (!$this->permissions->check(['article' => ['edit', 'editall']])) {
+        if ($this->hasNoArticlesAccess()) {
             $this->returnData = [];
             return false;
         }
@@ -129,7 +133,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function autocompleteEditorfiles()
     {
-        if (!$this->permissions->check(['article' => ['edit', 'editall']])) {
+        if ($this->hasNoArticlesAccess()) {
             $this->returnData = [];
             return false;
         }
@@ -144,13 +148,18 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController {
      */
     protected function autocompleteEditorlinks()
     {
-        if (!$this->permissions->check(['article' => ['edit', 'editall']])) {
+        if ($this->hasNoArticlesAccess()) {
             $this->returnData = [];
             return false;
         }
 
         $this->returnData = \fpcm\components\components::getArticleEditor()->getEditorLinks();
         return true;
+    }
+    
+    private function hasNoArticlesAccess() : bool
+    {
+        return !$this->permissions->article->edit && !$this->permissions->article->editall ? true : false;
     }
 
 }

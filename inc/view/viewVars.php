@@ -31,6 +31,8 @@ namespace fpcm\view;
  * @property string $toolbarItemRight
  * @property int    $loginTime
  * 
+ * @property \fpcm\model\permissions\permissions  $permissions
+ * 
  * @property array  $navigation
  * @property array  $navigationActiveModule
  * @property array  $messages
