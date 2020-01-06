@@ -12,7 +12,7 @@ namespace fpcm\model\abstracts;
  * 
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.3
  */
@@ -160,17 +160,7 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
      */
     protected function output($str, $exit = false)
     {
-        if (is_array($str)) {
-            $str = implode(PHP_EOL, $str);
-        }
-        
-        $str = 'fpcm@localhost:# '.$str . PHP_EOL;
-
-        if ($exit) {
-            exit($str);
-        }
-
-        print $str;
+        \fpcm\model\cli\io::output($str, $exit);
     }
 
     /**
@@ -180,7 +170,6 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
      */
     protected function debug($str, $exit = false)
     {
-
         if (is_array($str)) {
             $str = print_r($str, true);
         }
@@ -195,7 +184,7 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
      */
     protected function input($str)
     {
-        return readline($str . ' ');
+        return \fpcm\model\cli\io::input($str);
     }
 
     /**

@@ -14,7 +14,7 @@ use fpcm\model\files\fileOption;
 /**
  * Repository class
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 final class repository extends remoteModel {
@@ -65,9 +65,8 @@ final class repository extends remoteModel {
         clearstatcache();
         foreach ($this->files as $rem => $local) {
 
-
             if ($cliOutput) {
-                print 'fpcm@localhost:# Fetch package information from '.$rem.'...'.PHP_EOL;
+                \fpcm\model\cli\io::output('Fetch package information from '.$rem.'...');
             }
             else {
                 fpcmLogCron('Fetch package information from '.$rem);
@@ -83,7 +82,7 @@ final class repository extends remoteModel {
             $success = parent::fetchRemoteData();
             
             if ($cliOutput && $success !== true) {
-                exit('fpcm@localhost:# Error while retrieving information from '.$rem.PHP_EOL.PHP_EOL);
+                \fpcm\model\cli\io::output('Error while retrieving information from '.$rem.'!', true);
             }
 
             if ($success !== true) {
@@ -91,15 +90,19 @@ final class repository extends remoteModel {
             }
 
             if ($cliOutput) {
-                print 'fpcm@localhost:# Update local package information storage...'.PHP_EOL;
+                \fpcm\model\cli\io::output('Update local package information storage...');
             }
 
             if (!$this->saveRemoteData()) {
+                if ($cliOutput) {
+                    \fpcm\model\cli\io::output('Error during update of package information storage!');
+                }
+                
                 return false;
             }
             
             if ($cliOutput) {
-                print 'fpcm@localhost:# -- Finished.'.PHP_EOL.PHP_EOL;
+                \fpcm\model\cli\io::output('Update check finished successfully!');
             }
         }
 

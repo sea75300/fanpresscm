@@ -329,6 +329,12 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
      */
     private function initMassEditForm()
     {
+        $this->view->assign('tabHeadline', $this->getTabHeadline());
+        $this->view->assign('massEditCategories', $this->categories);
+        $this->view->addJsVars(['massEditSaveFailed' => 'SAVE_FAILED_ARTICLES']);
+        $this->view->addJsLangVars(['EDITOR_CATEGORIES_SEARCH']);
+        $this->view->addJsFiles([\fpcm\classes\loader::libGetFileUrl('selectize_js/dist/js/selectize.min.js')]);
+        $this->view->addCssFiles([\fpcm\classes\loader::libGetFileUrl('selectize_js/dist/css/selectize.default.css')]);
         $this->assignPageToken('articles');
         
         $fields = [];
@@ -403,13 +409,6 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         }
 
         $this->assignFields($fields);
-
-        $this->view->assign('tabHeadline', $this->getTabHeadline());
-        $this->view->assign('massEditCategories', $this->categories);
-        $this->view->addJsVars(['massEditSaveFailed' => 'SAVE_FAILED_ARTICLES']);
-        $this->view->addJsLangVars(['EDITOR_CATEGORIES_SEARCH']);
-        $this->view->addJsFiles([\fpcm\classes\loader::libGetFileUrl('selectize_js/dist/js/selectize.min.js')]);
-        $this->view->addCssFiles([\fpcm\classes\loader::libGetFileUrl('selectize_js/dist/css/selectize.default.css')]);
     }
 
     /**
