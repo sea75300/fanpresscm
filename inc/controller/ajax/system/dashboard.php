@@ -101,7 +101,7 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController implements \fp
      */
     private function checkPermissions(\fpcm\model\abstracts\dashcontainer $obj) : bool
     {
-        if ($obj instanceof \fpcm\models\interfaces\isAccessible) {
+        if ($obj instanceof \fpcm\model\interfaces\isAccessible) {
             return $obj->isAccessible();
         }
         
