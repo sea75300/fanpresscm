@@ -90,7 +90,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                     ->setDescription('HL_COMMENTS_MNG')
                     ->setIcon('comments fa-lg')
                     ->setId('nav-item-editcomments')
-                    ->setAccessible($this->permissions->editComments())
+                    ->setAccessible($this->config->system_comments_enabled && $this->permissions->editComments())
             ),
             navigationItem::AREA_FILEMANAGER => array(
                 (new navigationItem())->setUrl('files/list&mode=1')
@@ -131,7 +131,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             $submenu[] = (new navigationItem())->setUrl('articles/trash')->setDescription('HL_ARTICLES')->setIcon('book');
         }
 
-        if ($this->permissions->comment->delete) {
+        if ($this->config->system_comments_enabled && $this->permissions->comment->delete) {
             $submenu[] = (new navigationItem())->setUrl('comments/trash')->setDescription('COMMMENT_HEADLINE')->setIcon('comments');
         }
 

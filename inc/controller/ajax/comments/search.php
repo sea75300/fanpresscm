@@ -36,7 +36,7 @@ class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function isAccessible(): bool
     {
-        return $this->permissions->editCommentsMass();
+        return $this->config->system_comments_enabled && $this->permissions->editCommentsMass();
     }
 
     /**

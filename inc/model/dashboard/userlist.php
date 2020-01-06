@@ -1,9 +1,7 @@
 <?php
 
 /**
- * User list Dashboard Container
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -11,7 +9,9 @@ namespace fpcm\model\dashboard;
 
 /**
  * User list dashboard container object
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.2.0
  */
 class userlist extends \fpcm\model\abstracts\dashcontainer {

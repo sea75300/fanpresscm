@@ -35,7 +35,7 @@ class commenttrash extends \fpcm\controller\abstracts\controller implements \fpc
      */
     public function isAccessible(): bool
     {
-        return $this->permissions->comment->delete;
+        return $this->config->system_comments_enabled && $this->permissions->comment->delete;
     }
 
     /**

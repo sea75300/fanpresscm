@@ -89,7 +89,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController implements \f
      */
     private function processComments()
     {
-        if (!$this->permissions->editComments()) {
+        if (!$this->config->system_comments_enabled || !$this->permissions->editComments()) {
             $this->returnData = [];
             $this->getSimpleResponse();
         }

@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Update check Dashboard Container
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,9 +11,11 @@ namespace fpcm\model\dashboard;
  * Update check dashboard container object
  * 
  * @package fpcm\model\dashboard
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class updatecheck extends \fpcm\model\abstracts\dashcontainer {
+class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\model\interfaces\isAccessible {
 
     /**
      * Container table content
@@ -36,6 +36,15 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
      * @since FPCM 3.1.3
      */
     private $systemUpdates;
+
+    /**
+     * @see \fpcm\model\interfaces\isAccessible::isAccessible()
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->options && $this->permissions->system->update;
+    }
 
     /**
      * Returns name
@@ -62,15 +71,6 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
         ]);
 
         return '<div class="fpcm-dashboard-updates">'.implode(PHP_EOL, $this->tableContent).'</div>';
-    }
-
-    /**
-     * Returns permissions
-     * @return array
-     */
-    public function getPermissions()
-    {
-        return ['system' => 'options', 'system' => 'update'];
     }
 
     /**

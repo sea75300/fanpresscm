@@ -30,7 +30,7 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
      */
     public function isAccessible(): bool
     {
-        return $this->permissions->editComments();
+        return $this->config->system_comments_enabled && $this->permissions->editComments();
     }
 
     /**

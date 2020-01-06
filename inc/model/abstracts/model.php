@@ -132,10 +132,12 @@ abstract class model implements \fpcm\model\interfaces\model {
             $this->config->setUserSettings();
         }
 
-        if (!is_null($id)) {
-            $this->id = (int) $id;
-            $this->init();
+        if ($id === null) {
+            return;
         }
+
+        $this->id = (int) $id;
+        $this->init();
     }
 
     /**
