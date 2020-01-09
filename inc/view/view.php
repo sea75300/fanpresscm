@@ -650,7 +650,17 @@ class view {
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
 
         $this->defaultViewVars->currentModule = \fpcm\classes\http::getModuleString();
-        $this->defaultViewVars->buttons = $this->events->trigger('view\extendToolbar', $this->buttons);
+
+        
+        $toolbarButtons = new \fpcm\events\view\extendToolbarResult();
+        $toolbarButtons->buttons = $this->buttons;
+        
+        /* @var $toolbarButtons \fpcm\events\view\extendToolbarResult */
+        $toolbarButtons = $this->events->trigger('view\extendToolbar', $toolbarButtons);        
+        $this->defaultViewVars->toolbarArea = $toolbarButtons->area;
+        $this->defaultViewVars->buttons = $toolbarButtons->buttons;
+        unset($toolbarButtons);
+
         $this->defaultViewVars->formActionTarget = $this->formAction;
         $this->defaultViewVars->bodyClass = $this->bodyClass;
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');

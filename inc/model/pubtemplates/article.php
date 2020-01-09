@@ -29,6 +29,7 @@ final class article extends template {
     protected $replacementTags = array(
         '{{headline}}' => '',
         '{{text}}' => '',
+        '{{textShort}}' => '',
         '{{author}}' => '',
         '{{authorEmail}}' => '',
         '{{authorInfoText}}' => '',
@@ -120,6 +121,9 @@ final class article extends template {
                     $value1 = $this->commentsEnabled ? '</a>' : '';
                     break;
                 case '<readmore>' :
+                    
+                    trigger_error('The <readmore> Tag is deprecated as of FPCM 4.4', E_USER_DEPRECATED);
+
                     $value = '<a href="#" class="fpcm-pub-readmore-link" id="' . $value . '">' . $this->language->translate('ARTICLES_PUBLIC_READMORE') . '</a><div class="fpcm-pub-readmore-text" id="fpcm-pub-readmore-text-' . $value . '">';
                     $value1 = '</div>';
                     break;
