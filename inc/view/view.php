@@ -649,8 +649,8 @@ class view {
         $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
 
-        $this->getModuleString();
-        $this->defaultViewVars->buttons = $this->buttons;
+        $this->defaultViewVars->currentModule = \fpcm\classes\http::getModuleString();
+        $this->defaultViewVars->buttons = $this->events->trigger('view\extendToolbar', $this->buttons);
         $this->defaultViewVars->formActionTarget = $this->formAction;
         $this->defaultViewVars->bodyClass = $this->bodyClass;
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
@@ -974,31 +974,6 @@ class view {
         ]);
 
         return $this->viewJsFiles;
-    }
-
-    /**
-     * Assigns current controller name with additional filter
-     * @return bool
-     * @since FPCM 4.3
-     */
-    final private function getModuleString() : bool
-    {
-        $moduleData = \fpcm\classes\http::get('module', [
-            \fpcm\classes\http::FILTER_REGEX,
-            'regex' => '/^([a-z0-9]+)\/{1}([a-z0-9]+)\/?([a-z0-9]*)/i'
-        ]);
-
-        unset($moduleData[0]);
-        if (isset($moduleData[3]) && !trim($moduleData[3])) {
-            unset($moduleData[3]);
-        }
-
-        if (isset($moduleData[4]) && !trim($moduleData[4])) {
-            unset($moduleData[4]);
-        }
-
-        $this->defaultViewVars->currentModule = is_array($moduleData) ? implode('/', $moduleData) : $moduleData;
-        return true;
     }
 
     /**
