@@ -10,9 +10,9 @@ namespace fpcm\events\view;
 /**
  * Module-Event: extendToolbar
  * 
- * Event extends main toolbar
- * Parameter: array Liste mit CSS-Dateien
- * Rückgabe: array Liste mit CSS-Dateien
+ * Event extends main toolbar, calls a function "extendToolbarControllerName"
+ * Parameter: array List with toolbar elements
+ * Rückgabe: array List with toolbar elements
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2020, Stefan Seehafer
