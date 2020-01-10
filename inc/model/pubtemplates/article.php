@@ -22,6 +22,8 @@ final class article extends template {
 
     const TEMPLATE_ID_SINGLE = 'articleSingle';
 
+    const PAGEBREAK_TAG = '<!--- Page Break --->';
+
     /**
      * Template-Platzhalter
      * @var array
@@ -107,60 +109,35 @@ final class article extends template {
         $tags = array_merge($this->replacementInternal, $this->replacementTags);
         
         $replacementData = [];
+        $replacementData1 = [];
+
         foreach ($tags as $replacement => $value) {
 
-            $replacement = explode(':', $replacement);
+            $splitTags = explode(':', $replacement);         
 
-            switch ($replacement[0]) {
-                case '{{permaLink}}' :
-                    $value = "<a href=\"$value\" class=\"fpcm-pub-permalink\">";
-                    $value1 = '</a>';
-                    break;
-                case '{{commentLink}}' :
-                    $value = $this->commentsEnabled ? "<a href=\"$value\" class=\"fpcm-pub-commentlink\">" : '';
-                    $value1 = $this->commentsEnabled ? '</a>' : '';
-                    break;
-                case '<readmore>' :
-                    
-                    trigger_error('The <readmore> Tag is deprecated as of FPCM 4.4', E_USER_DEPRECATED);
+            if ($splitTags[0] === '<readmore>') {
+                $replacementData[$splitTags[0]] = '<a href="#" class="fpcm-pub-readmore-link" id="' . $value . '">' . $this->language->translate('ARTICLES_PUBLIC_READMORE') . '</a><div class="fpcm-pub-readmore-text" id="fpcm-pub-readmore-text-' . $value . '">';
+                $replacementData[$splitTags[1]] = '</div>';
+                continue;
+            }
 
-                    $value = '<a href="#" class="fpcm-pub-readmore-link" id="' . $value . '">' . $this->language->translate('ARTICLES_PUBLIC_READMORE') . '</a><div class="fpcm-pub-readmore-text" id="fpcm-pub-readmore-text-' . $value . '">';
-                    $value1 = '</div>';
-                    break;
-                case '{{sources}}' :
+            $replacementDataResult = [];
+            $this->parseTag($splitTags[0], $value, $replacementDataResult, $replacement);
 
-                    $this->parseLinks($value, [
-                        'rel' => 'noopener noreferrer,external',
-                        'target' => '_blank',
-                    ]);
-
-                    $this->processAttributes('sources', $value, $replacementData, function($attr, $value, $newVal) {
-
-                        $isEmpty = trim($value) ? false : true;
-                        if (isset($attr['hideEmpty']) && $isEmpty) {
-                            return '';
-                        }
-
-                        if (isset($attr['descr']) && trim($attr['descr'])) {
-                            $newVal .= $attr['descr'];
-                        }
-
-                        if (isset($attr['descrAlt']) && trim($attr['descrAlt']) && $isEmpty) {
-                            $newVal .= $attr['descrAlt'];
-                        }
-
-                        return $newVal.$value;
-                    });
-                    
-
-                    break;
+            if (!count($replacementDataResult)) {
+                $replacementData[$splitTags[0]] = $value;
             }
             
-            $replacementData[$replacement[0]] = $value;
-            
-            if(isset($replacement[1])) {
-                $replacementData[$replacement[1]] = $value1;
+            foreach ($replacementDataResult as $idx => $newVal) {
+                
+                if (!is_int($idx)) {
+                    $replacementData[$idx] = $newVal;
+                    continue;
+                }
+                
+                $replacementData[$splitTags[$idx]] = $replacementDataResult[$idx];
             }
+
         }
 
         return $this->parseSmileys(str_replace(array_keys($replacementData), $this->cleanup(array_values($replacementData)), $this->content));
@@ -195,9 +172,12 @@ final class article extends template {
         $share = \fpcm\classes\loader::getObject('\fpcm\model\pubtemplates\sharebuttons');
         $share->assignData($article->getElementLink(), $article->getTitle(), $article->getId());
 
+        $this->data['tmpLink'] = $article->getElementLink();
+        
         $this->setReplacementTags([
             '{{headline}}' => $article->getTitle(),
             '{{text}}' => $article->getContent(),
+            '{{textShort}}' => $article->getContent(),
             '{{date}}' => date($this->config->system_dtmask, $article->getCreatetime()),
             '{{statusPinned}}' => $article->getPinned() ? $this->language->translate('PUBLIC_ARTICLE_PINNED') : '',
             '{{shareButtons}}' => $share->parse(),
@@ -252,6 +232,91 @@ final class article extends template {
 
         return true;
     }
+    
+    /**
+     * Parse perma link tag
+     * @param mixed $value
+     * @param array $return
+     * @since FPCm 4.4
+     */
+    protected function parsePermaLink($value, array &$return)
+    {
+        $return[0] = "<a href=\"$value\" class=\"fpcm-pub-permalink\">";
+        $return[1] = '</a>';
+    }
+
+    /**
+     * Parse short text tag
+     * @param mixed $value
+     * @param array $return
+     * @since FPCm 4.4
+     */
+    protected function parseTextShort($value, array &$return)
+    {
+        $pos = strpos( $value, self::PAGEBREAK_TAG);
+        if (!$pos) {
+            return true;
+        }
+        
+        $return[0] = substr( $value, 0, $pos ) .
+                    "<a href=\"{$this->data['tmpLink']}\" class=\"fpcm-pub-pagebreak-link\">".
+                    $this->language->translate('ARTICLES_PUBLIC_READMORE') .
+                    '</a>';
+
+        return true;
+    }
+
+    /**
+     * Parse comment link tag
+     * @param mixed $value
+     * @param array $return
+     * @since FPCm 4.4
+     */
+    protected function parseCommentLink($value, array &$return)
+    {
+        if (!$this->commentsEnabled) {
+            $return[0] = '';
+            $return[1] = '';
+            return true;
+        }
+        
+        $return[0] = "<a href=\"$value\" class=\"fpcm-pub-commentlink\">";
+        $return[1] = '</a>';
+    }
+
+    /**
+     * Parse comment link tag
+     * @param mixed $value
+     * @param array $return
+     * @since FPCm 4.4
+     */
+    protected function parseSources($value, array &$return)
+    {
+        $this->parseLinks($value, [
+            'rel' => 'noopener noreferrer,external',
+            'target' => '_blank',
+        ]);
+
+        $this->processAttributes('sources', $value, $return, function($attr, $value, $newVal) {
+
+            $isEmpty = trim($value) ? false : true;
+            if (isset($attr['hideEmpty']) && $isEmpty) {
+                return '';
+            }
+
+            if (isset($attr['descr']) && trim($attr['descr'])) {
+                $newVal .= $attr['descr'];
+            }
+
+            if (isset($attr['descrAlt']) && trim($attr['descrAlt']) && $isEmpty) {
+                $newVal .= $attr['descrAlt'];
+            }
+
+            return $newVal.$value;
+        });
+
+    }
+
 }
 
 ?>

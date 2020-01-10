@@ -368,6 +368,22 @@ class template extends \fpcm\model\abstracts\file {
 
         return $this->replacementAttributes;
     }
+    
+    protected function parseTag(string $tag, $value, array &$return, $replacement)
+    {
+        $tag = ucfirst(substr($tag, 2, -2));
+        if (!trim($tag)) {
+            return false;
+        }
+        
+        $func = 'parse'.$tag;
+        if (!method_exists($this, $func)) {
+            return false;
+        }
+        
+        $this->{$func}($value, $return, $replacement);
+        return true;
+    }
 
 }
 
