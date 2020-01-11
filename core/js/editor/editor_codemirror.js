@@ -78,7 +78,7 @@ fpcm.editor_codemirror = {
             fpcm.editor.insertSymbol();
         },
         "Shift-Ctrl-M"    : function() {
-            fpcm.editor.insertReadMore();
+            fpcm.editor.insertPageBreak()();
         },
         "Shift-Ctrl-B"    : function() {
             fpcm.editor.insertIFrame();
