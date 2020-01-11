@@ -236,7 +236,9 @@ class template extends \fpcm\model\abstracts\file {
 
         foreach ($this->replacementTags as $key => $value) {
             $data = explode(':', strtoupper(str_replace(['{{', '}}'], '', $key)));
-            $this->replacementTranslated[$key] = $this->language->translate($prefix . $data[0]);
+            $this->replacementTranslated[$key] = $this->language->translate($prefix . $data[0], [
+                'pagebreakVar' => htmlspecialchars(article::PAGEBREAK_TAG)
+            ]);
         }
 
         return $this->replacementTranslated;

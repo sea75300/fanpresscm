@@ -22,7 +22,7 @@ final class article extends template {
 
     const TEMPLATE_ID_SINGLE = 'articleSingle';
 
-    const PAGEBREAK_TAG = '<!--- Page Break --->';
+    const PAGEBREAK_TAG = '<!-- pagebreak -->';
 
     /**
      * Template-Platzhalter
