@@ -8,7 +8,7 @@
 namespace fpcm\view\helper;
 
 /**
- * Logs tab item
+ * Tab item
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2017, Stefan Seehafer

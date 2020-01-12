@@ -251,24 +251,21 @@ trait lists {
 
             foreach ($articles as $articleId => $article) {
 
-                $buttons = [
-                    '<div class="fpcm-ui-controlgroup">',
-                    (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget('_blank'),
-                    (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article),
-                    (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article),
-                ];
+                $buttons = (new \fpcm\view\helper\controlgroup('articlebuttons' . $article->getId() ))
+                            ->addItem( (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget('_blank') )
+                            ->addItem( (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article) )
+                            ->addItem( (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article) );
 
                 $isTrash = $this->isTrash ?? false;
                 if ($this->deleteActions && !$isTrash) {
-                    $buttons[] = (new \fpcm\view\helper\button('delete'.$articleId))
+                    
+                    $buttons->addItem( (new \fpcm\view\helper\button('delete'.$articleId))
                             ->setText('GLOBAL_DELETE')
                             ->setIcon('trash')
                             ->setIconOnly(true)
                             ->setClass('fpcm-ui-button-delete fpcm-ui-button-delete-article-single')
-                            ->setData(['articleid' => $articleId]);
+                            ->setData(['articleid' => $articleId]) );
                 }
-
-                $buttons[] = '</div>';
 
                 $title = [
                     '<strong>' . strip_tags($article->getTitle()) . '</strong>',
@@ -284,7 +281,7 @@ trait lists {
                 $this->dataView->addRow(
                         new \fpcm\components\dataView\row([
                             new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('actions[' . ($article->getEditPermission() || $article->isInEdit() ? 'ids' : 'ro') . '][]', 'chbx' . $articleId))->setClass('fpcm-ui-list-checkbox fpcm-ui-list-checkbox-subitem' . $articleMonth)->setValue($articleId)->setReadonly(!$article->getEditPermission()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-                            new \fpcm\components\dataView\rowCol('button', implode('', $buttons), 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                            new \fpcm\components\dataView\rowCol('button', $buttons, 'fpcm-ui-dataview-align-center fpcm-ui-font-small', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                             new \fpcm\components\dataView\rowCol('title', implode(PHP_EOL, $title), 'fpcm-ui-ellipsis'),
                             new \fpcm\components\dataView\rowCol('categories', wordwrap(implode(', ', $article->getCategories()), 50, '<br>')),
                             new \fpcm\components\dataView\rowCol('metadata', implode('', $metaDataIcons), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),

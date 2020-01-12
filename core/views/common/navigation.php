@@ -36,7 +36,7 @@
     <?php endforeach; ?>
         </ul>
 
-        <?php $theView->button('hiddenMenu')->setIcon('bars')->setSize('lg')->setText('NAVIGATION_SHOW')->setIconOnly(true)->setClass('fpcm-ui-center fpcm-ui-hidden'); ?>
+        <?php $theView->button('hiddenMenu')->setIcon('bars')->setSize('lg')->setText('NAVIGATION_SHOW')->setIconOnly(true)->setClass('fpcm ui-border-radius-none ui-center fpcm-ui-hidden'); ?>
 
         <ul class="fpcm-ui-nav-hidden-links fpcm ui-background-white-90p ui-blurring fpcm-ui-hidden"></ul>
 
