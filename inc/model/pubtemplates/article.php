@@ -18,6 +18,8 @@ namespace fpcm\model\pubtemplates;
  */
 final class article extends template {
 
+    use \fpcm\model\traits\pubTemplateArticles;
+
     const TEMPLATE_ID = 'article';
 
     const TEMPLATE_ID_SINGLE = 'articleSingle';
@@ -113,7 +115,7 @@ final class article extends template {
 
         foreach ($tags as $replacement => $value) {
 
-            $splitTags = explode(':', $replacement);         
+            $splitTags = explode(':', $replacement);
 
             if ($splitTags[0] === '<readmore>') {
                 $replacementData[$splitTags[0]] = '<a href="#" class="fpcm-pub-readmore-link" id="' . $value . '">' . $this->language->translate('ARTICLES_PUBLIC_READMORE') . '</a><div class="fpcm-pub-readmore-text" id="fpcm-pub-readmore-text-' . $value . '">';
@@ -232,18 +234,6 @@ final class article extends template {
 
         return true;
     }
-    
-    /**
-     * Parse perma link tag
-     * @param mixed $value
-     * @param array $return
-     * @since FPCm 4.4
-     */
-    protected function parsePermaLink($value, array &$return)
-    {
-        $return[0] = "<a href=\"$value\" class=\"fpcm-pub-permalink\">";
-        $return[1] = '</a>';
-    }
 
     /**
      * Parse short text tag
@@ -264,24 +254,6 @@ final class article extends template {
                     '</a>';
 
         return true;
-    }
-
-    /**
-     * Parse comment link tag
-     * @param mixed $value
-     * @param array $return
-     * @since FPCm 4.4
-     */
-    protected function parseCommentLink($value, array &$return)
-    {
-        if (!$this->commentsEnabled) {
-            $return[0] = '';
-            $return[1] = '';
-            return true;
-        }
-        
-        $return[0] = "<a href=\"$value\" class=\"fpcm-pub-commentlink\">";
-        $return[1] = '</a>';
     }
 
     /**
