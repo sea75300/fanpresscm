@@ -37,6 +37,12 @@ class comment extends editMass {
     public $move;
 
     /**
+     * Lock ip adress
+     * @var bool
+     */
+    public $lockip;
+
+    /**
      * @see base::getDefault()
      * @return array
      */
@@ -45,7 +51,8 @@ class comment extends editMass {
         return array_merge($this->getObjectVars(), [
             'edit' => 1,
             'approve' => 1,
-            'private' => 1
+            'private' => 1,
+            'lockip' => 1,
         ]);
     }
 }

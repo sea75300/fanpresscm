@@ -162,7 +162,7 @@ class articleedit extends articlebase {
             'articleId' => $this->article->getId(),
             'checkTimeout' => FPCM_ARTICLE_LOCKED_INTERVAL * 1000,
             'checkLastState' => -1,
-            'lkIp' => $this->permissions->system->ipaddr ? 1 : 0
+            'lkIp' => $this->permissions->comment->lockip ? 1 : 0
         ]);
 
         $this->view->addJsLangVars(['EDITOR_STATUS_INEDIT', 'EDITOR_STATUS_NOTINEDIT', 'EDITOR_ARTICLE_SHORTLINK', 'COMMENTS_EDIT', 'COMMMENT_LOCKIP']);

@@ -1,8 +1,8 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-content-wrapper">
-    <div class="fpcm-ui-tabs-general">
-        <ul class="fpcm-tabs-articles-headers">
-            <li><a href="#tabs-article-list"><?php $theView->write($tabHeadline); ?></a></li>
+    <div class="fpcm-ui-tabs-general ui-tabs ui-corner-all ui-widget ui-widget-content">
+        <ul class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
+            <?php $theView->tabItem('tabs-article-list')->setText($tabHeadline)->setUrl('#tabs-article-list'); ?>
         </ul>
 
         <div id="tabs-article-list">

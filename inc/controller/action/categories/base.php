@@ -58,11 +58,10 @@ class base extends \fpcm\controller\abstracts\controller implements \fpcm\contro
         $this->view->assign('selectedGroups', explode(';', $this->category->getGroups()));
         $this->view->addButton(new \fpcm\view\helper\saveButton('categorySave'));
         $this->view->addJsFiles(['categories.js']);
-
         $this->view->addTabs('fpcm-category-tabs', [
             (new \fpcm\view\helper\tabItem('tabs-category'))->setText($this->tabHeadline)->setFile('categories/editor.php')
         ]);
-        
+
         $this->view->render();
     }
     

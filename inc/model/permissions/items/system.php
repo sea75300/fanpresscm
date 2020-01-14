@@ -55,6 +55,12 @@ class system extends base {
     public $templates;
 
     /**
+     * Draft management
+     * @var bool
+     */
+    public $drafts;
+
+    /**
      * Smileys management
      * @var bool
      */

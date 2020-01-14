@@ -23,7 +23,7 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller implem
      */
     public function isAccessible(): bool
     {
-        return $this->permissions->system->templates;
+        return $this->permissions->system->templates && $this->permissions->system->drafts;
     }
 
     /**

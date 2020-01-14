@@ -23,7 +23,7 @@ class lockIp extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function isAccessible(): bool
     {
-        return $this->config->system_comments_enabled && $this->permissions->system->ipaddr;
+        return $this->config->system_comments_enabled && $this->permissions->comment->lockip;
     }
     
     /**

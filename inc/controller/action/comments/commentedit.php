@@ -106,7 +106,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
             unset($commentData['text']);
 
             foreach ($commentData as &$value) {
-                $value = \fpcm\classes\http::filter($value, array(1, 3));
+                $value = \fpcm\classes\http::filter($value, array(\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_HTMLENTITIES));
             }
 
             $this->comment->setName($commentData['name']);
@@ -167,8 +167,8 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         if (isset($viewVars['editorButtons']) && count($viewVars['editorButtons'])) {
             $viewVars['editorButtons']['frame']->setReturned(true);
             unset($viewVars['editorButtons']['frame']);
-            $viewVars['editorButtons']['readmore']->setReturned(true);
-            unset($viewVars['editorButtons']['readmore']);
+            $viewVars['editorButtons']['pagebreak']->setReturned(true);
+            unset($viewVars['editorButtons']['pagebreak']);
             $viewVars['editorButtons']['drafts']->setReturned(true);
             unset($viewVars['editorButtons']['drafts']);
             $viewVars['editorButtons']['restore']->setReturned(true);
@@ -247,7 +247,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
 
         $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")->setTarget('_blank')->setText('Whois')->setIcon('home')->setClass($hiddenClass)->setRel('noreferrer,noopener,external');
 
-        if ($this->permissions->system->ipaddr) {
+        if ($this->permissions->comment->lockip) {
             $buttons[] = (new \fpcm\view\helper\button('lockIp'))->setText('COMMMENT_LOCKIP')->setIcon('globe')->setClass($hiddenClass)->setData([
                 'commentid' => $this->comment->getId()
             ]);
