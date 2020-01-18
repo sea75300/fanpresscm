@@ -17,6 +17,12 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
     protected $modules;
 
     /**
+     *
+     * @var bool
+     */
+    protected $uploadDisabled;
+
+    /**
      * 
      * @return bool
      */
@@ -49,6 +55,7 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
      */
     public function request()
     {
+        $this->uploadDisabled = defined('FPCM_DISABLE_MODULE_ZIPUPLOAD') && FPCM_DISABLE_MODULE_ZIPUPLOAD;
         $this->uploadModule();
         return true;
     }
@@ -92,6 +99,11 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
         }
 
         $this->view->addButtons($buttons);
+        
+        if ($this->uploadDisabled) {
+            $this->view->assign('maxFilesInfo', false);
+            return true;
+        }
 
         $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [            
             '{{filecount}}' => 1,
@@ -107,7 +119,12 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
      */
     private function uploadModule()
     {
+        if (!$this->uploadDisabled) {
+            return false;
+        }
+        
         if (!$this->permissions->modules->install) {
+            $this->view->addErrorMessage('SAVE_FAILED_UPLOADMODULE');
             return false;
         }
         
