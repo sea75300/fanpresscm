@@ -8,49 +8,16 @@
 namespace fpcm\controller\traits\modules;
 
 /**
- * Module tools trait
+ * Module tools trait, replaced by @see \fpcm\module\tools
  * 
- * @package fpcm\controller\traits\modules\tools
+ * @package fpcm\controller\traits\modules
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @deprecated since version FPCM 4.4
  */
 trait tools {
 
-    /**
-     * Returns modul key based on current class
-     * @return string
-     */
-    final protected function getModuleKey()
-    {
-        $class = get_class($this);
-        $stack = \fpcm\classes\loader::stackPull('modulekeys');
-        if (isset($stack[$class])) {
-            return $stack[$class];
-        }
+    use \fpcm\module\tools;
 
-        $stack[$class] = \fpcm\module\module::getKeyFromClass($class);
-        \fpcm\classes\loader::stackPush('modulekeys', $stack);
-        return $stack[$class];
-    }
-
-    /**
-     * Returns language variable with module prefix
-     * @param string $var
-     * @return string
-     */
-    protected function addLangVarPrefix($var)
-    {
-        return \fpcm\module\module::getLanguageVarPrefixed($this->getModuleKey()).strtoupper($var);
-    }
-
-    /**
-     * Additional initialize process after @see self::__construct
-     * @return boolean
-     */
-    protected function initConstruct() : bool
-    {
-        return true;
-    }
-    
 }

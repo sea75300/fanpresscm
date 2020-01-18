@@ -12,7 +12,7 @@ namespace fpcm\view;
  * 
  * @package fpcm\view
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class view {
@@ -476,19 +476,8 @@ class view {
      */
     public function addErrorMessage($messageText, $params = [])
     {
-        $msg = $this->language->translate($messageText, $params);
-        if (!$msg) {
-            $msg = $messageText;
-        }
+        $this->messages[] = new message($this->language->translate($messageText, $params), message::TYPE_ERROR, message::ICON_ERROR);
 
-        $type = 'error';
-
-        $this->messages[] = array(
-            'txt' => $msg,
-            'type' => $type,
-            'id' => md5($type . $msg),
-            'icon' => 'exclamation-triangle'
-        );
     }
 
     /**
@@ -499,19 +488,7 @@ class view {
      */
     public function addNoticeMessage($messageText, $params = [])
     {
-        $msg = $this->language->translate($messageText, $params);
-        if (!$msg) {
-            $msg = $messageText;
-        }
-
-        $type = 'notice';
-
-        $this->messages[] = array(
-            'txt' => $msg,
-            'type' => $type,
-            'id' => md5($type . $msg),
-            'icon' => 'check'
-        );
+        $this->messages[] = new message($this->language->translate($messageText, $params), message::TYPE_NOTICE, message::ICON_NOTICE);
     }
 
     /**
@@ -522,19 +499,7 @@ class view {
      */
     public function addMessage($messageText, $params = [])
     {
-        $msg = $this->language->translate($messageText, $params);
-        if (!$msg) {
-            $msg = $messageText;
-        }
-
-        $type = 'neutral';
-
-        $this->messages[] = array(
-            'txt' => $msg,
-            'type' => $type,
-            'id' => md5($type . $msg),
-            'icon' => 'info-circle'
-        );
+        $this->messages[] = new message($this->language->translate($messageText, $params), message::TYPE_NEUTRAL, message::ICON_NEUTRAL);
     }
 
     /**
