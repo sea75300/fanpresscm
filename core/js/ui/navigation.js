@@ -39,6 +39,7 @@ fpcm.ui_navigation = {
 
         fpcm.ui_navigation._vars.btn.click(function() {
             fpcm.ui_navigation._vars.hlinks.toggleClass('fpcm-ui-hidden');
+            fpcm.dom.fromTag(this).toggleClass('menu-hover');
         });
 
         fpcm.ui_navigation._checkGreedy();
@@ -93,7 +94,7 @@ fpcm.ui_navigation = {
     highlightModule: function() {
 
         if (fpcm.vars.jsvars.navigationActive) {
-            fpcm.dom.fromId('' + fpcm.vars.jsvars.navigationActive).addClass('fpcm-menu-item-active').parents('li.fpcm-menu-level1').addClass('fpcm-menu-item-active');
+            fpcm.dom.fromId(fpcm.vars.jsvars.navigationActive).addClass('fpcm-menu-item-active').parents('li.fpcm-menu-level1').addClass('fpcm-menu-item-active');
             return true;
         }
 

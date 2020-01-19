@@ -500,6 +500,11 @@ fpcm.filemanager = {
                 appendTo: '#' + sDlg.attr('id')
             });
 
+            fpcm.ui.selectmenu('.fpcm-ui-input-select-filessearch', {
+                width: '100%',
+                appendTo: '#' + sDlg.attr('id')
+            });
+
             return false;
         });
 

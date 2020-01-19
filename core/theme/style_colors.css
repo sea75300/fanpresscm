@@ -168,6 +168,7 @@ div.fpcm-status-info ul li:active {
 }
 
 
+#fpcm-navigation .fpcm.menu-hover,
 #fpcm-navigation li:hover,
 #fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active:hover,
 #fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active:hover,
@@ -175,9 +176,11 @@ div.fpcm-status-info ul li:active {
     background: rgba(0, 115, 234, 0.75);
 }
 
+#fpcm-navigation .fpcm.menu-hover,
 #fpcm-navigation li:hover > a,
 #fpcm-navigation li:focus > a,
-#fpcm-navigation li:active > a {
+#fpcm-navigation li:active > a,
+#btnHiddenMenu:hover {
     color: #fff !important;
 }
 

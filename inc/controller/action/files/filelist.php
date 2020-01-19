@@ -116,6 +116,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             'GLOBAL_PROPERTIES', 'FILE_LIST_RESOLUTION_PIXEL'
         ]);
 
+        $this->view->assign('searchUsers', ['ARTICLE_SEARCH_USER' => -1] + (new \fpcm\model\users\userList)->getUsersNameList());
         $this->view->assign('mode', $this->mode);
         $this->view->assign('hasFiles', $hasFiles);
         $this->view->assign('newUploader', $this->config->file_uploader_new);

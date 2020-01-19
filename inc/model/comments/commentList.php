@@ -572,14 +572,14 @@ class commentList extends \fpcm\model\abstracts\tablelist {
             $valueParams[] = (int) $conditions->spam;
         }
 
-        if ($conditions->private && $conditions->private > -1) {
-            $where[] = $conditions->getCondition('private', "private = ?");
-            $valueParams[] = (int) $conditions->private;
-        }
-
         if ($conditions->approved && $conditions->approved > -1) {
             $where[] = $conditions->getCondition('approved', "approved = ?");
             $valueParams[] = (int) $conditions->approved;
+        }
+
+        if ($conditions->private && $conditions->private > -1) {
+            $where[] = $conditions->getCondition('private', "private = ?");
+            $valueParams[] = (int) $conditions->private;
         }
 
         if ($conditions->articleid) {
@@ -588,7 +588,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         }
 
         if ($conditions->ipaddress) {
-            $where[] = $conditions->getCondition('categoryid', "ipaddress = ?");
+            $where[] = $conditions->getCondition('ipaddress', "ipaddress = ?");
             $valueParams[] = $conditions->ipaddress;
         }
 

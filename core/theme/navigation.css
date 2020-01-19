@@ -68,11 +68,6 @@
     margin: 0;
 }
 
-#fpcm-navigation > ul.fpcm-ui-menu:first-child > li,
-#fpcm-navigation > ul.fpcm-ui-menu:first-child > li:hover {
-    transition: 0.5s ease;
-}
-
 #btnHiddenMenu {
     border: 0 !important;
     padding: 22.5px 10px 22.5px 10px;
@@ -156,4 +151,12 @@ body.fpcm-ui-hide-toolbar #fpcm-ui-toolbar {
 div.sidebar div.sidebar-forum ul {
     list-style-type: none;
     list-style-image: none;
+}
+
+/* ------ Transition */
+#fpcm-navigation ul.fpcm-ui-menu li,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links li,
+div.fpcm-status-info ul.fpcm-menu-top li,
+#btnHiddenMenu {
+    transition: 0.5s ease;
 }

@@ -86,6 +86,11 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
             $this->filter->dateto     = strtotime($filter['dateto']);
         }
         
+
+        if ($filter['userid']) {
+            $this->filter->userid     = (int) $filter['userid'];
+        }
+        
         return true;
     }
 
