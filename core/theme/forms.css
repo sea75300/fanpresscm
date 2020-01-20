@@ -41,6 +41,23 @@ textarea[readonly],
     opacity: 0.35;
 }
 
+select,
+option {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+select {
+    width: 200px;
+    height: 31.333333px;
+}
+
 textarea.fpcm-ui-textarea-medium {
     height: 150px;
 }
