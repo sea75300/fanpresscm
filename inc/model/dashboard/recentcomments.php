@@ -111,6 +111,7 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer implements \fpc
 
         $search = new \fpcm\model\comments\search();
         $search->searchtype = 0;
+        $search->deleted = 0;
         $search->limit = array(10, 0);
         $search->orderby = array('createtime DESC');
         $comments = $commenList->getCommentsBySearchCondition($search);
