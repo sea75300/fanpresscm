@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\abstracts;
+
+/**
+ * AJAX controller with predefined JSOn return
+ * 
+ * @package fpcm\controller\abstracts
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @since FPCM 4.4
+ */
+class ajaxControllerJSON extends ajaxController {
+
+    /**
+     * Constructor
+     * @ignore
+     */
+    public function __construct() 
+    {
+        fpcmLogSystem(__METHOD__);
+        $this->setReturnJson();
+        parent::__construct();
+    }
+
+    /**
+     * @see controller::getViewPath
+     * @return string
+     */
+    protected function getViewPath(): string
+    {
+        return '';
+    }
+
+
+}
+
+?>

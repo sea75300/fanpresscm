@@ -107,6 +107,9 @@ final class finalizer extends \fpcm\model\abstracts\model {
             
             $data = $permissionObj->getPermissionData();
             
+            $default['comment']['lockip'] = 1;
+            $default['system']['profile'] = 1;
+            
             $newData = $data;
             foreach ($default as $key => $value) {
                 $newData[$key] = array_merge(array_intersect_key($data[$key], $value), array_diff_key($value, $data[$key]));

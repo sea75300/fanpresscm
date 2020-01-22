@@ -13,7 +13,7 @@ namespace fpcm\controller\ajax\modules;
  * @package fpcm\controller\ajax\modules\moduleactions
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class execAction extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class execAction extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\modules\moduleactions;
 
@@ -46,8 +46,6 @@ class execAction extends \fpcm\controller\abstracts\ajaxController implements \f
      */
     public function request()
     {
-        $this->setReturnJson();
-
         $this->key = $this->getRequestVar('key');
         $this->action = $this->getRequestVar('action');
         $this->fromDir = $this->getRequestVar('fromDir', [

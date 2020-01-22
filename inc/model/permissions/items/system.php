@@ -102,4 +102,10 @@ class system extends base {
      */
     public $ipaddr;
 
+    /**
+     * Can change profile
+     * @var bool
+     */
+    public $profile;
+
 }

@@ -376,6 +376,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
      * Prüft ob Benutzer Berechtigung hat
      * @param array $permissionArray
      * @return bool
+     * @deprecated since version FPCM 4.4
      */
     final public function check(array $permissionArray) : bool
     {

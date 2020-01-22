@@ -19,7 +19,7 @@ namespace fpcm\controller\ajax\comments;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since FPCM 3.3
  */
-class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class search extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\comments\lists,
         \fpcm\controller\traits\common\searchParams;
@@ -49,22 +49,11 @@ class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     }
 
     /**
-     * @see controller::getViewPath
-     * @return string
-     */
-    protected function getViewPath(): string
-    {
-        return '';
-    }
-
-    /**
      * Request-Handler
      * @return bool
      */
     public function request()
     {
-        $this->setReturnJson();
-        
         $filter = $this->getRequestVar('filter');
 
         $this->conditions->setMultiple(true);

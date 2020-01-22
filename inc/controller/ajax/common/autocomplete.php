@@ -16,7 +16,7 @@ namespace fpcm\controller\ajax\common;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.6
  */
-class autocomplete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class autocomplete extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
     
@@ -48,8 +48,6 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
      */
     public function process()
     {
-        $this->setReturnJson();
-
         if ($this->processByParam('autocomplete', 'src') === 0x404) {
             $this->getSimpleResponse();
         }

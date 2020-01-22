@@ -9,12 +9,14 @@
                <?php $theView->icon('angle-down')->setClass('fpcm-navicon')->setSize('lg'); ?>
             </a>
             <ul class="fpcm-ui-sub-menu fpcm-ui-list-style-none fpcm-ui-margin-none fpcm-ui-padding-none fpcm ui-background-white-50p ui-blurring">
+                <?php if ($theView->permissions->system->profile) : ?>
                 <li class="fpcm-menu-top-level2 fpcm-ui-align-left fpcm-ui-padding-md-tb">
                     <a href="<?php print $theView->basePath; ?>system/profile" class="fpcm-loader fpcm-ui-full-width">
                         <?php $theView->icon('wrench'); ?>
                         <span class="fpcm-navigation-descr"><?php $theView->write('PROFILE_MENU_OPENPROFILE'); ?></span>
                     </a>
                 </li>
+                <?php endif; ?>
                 <li class="fpcm-menu-top-level2 fpcm-ui-align-left fpcm-ui-padding-md-tb">
                     <a href="<?php print $theView->basePath; ?>system/logout" class="fpcm-loader fpcm-ui-full-width">
                         <?php $theView->icon('sign-out-alt'); ?>

@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\articles;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class search extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\articles\lists,
         \fpcm\controller\traits\common\searchParams;
@@ -39,15 +39,6 @@ class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     public function isAccessible(): bool
     {
         return $this->permissions->editArticles() || $this->permissions->article->archive;
-    }
-
-    /**
-     * @see controller::getViewPath
-     * @return string
-     */
-    protected function getViewPath() : string
-    {
-        return '';
     }
 
     /**

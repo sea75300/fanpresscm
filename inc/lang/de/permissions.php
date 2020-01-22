@@ -43,6 +43,7 @@ $lang = array(
     'PERMISSION_SYSTEM_BACKUPS' => 'Backups verwalten',
     'PERMISSION_SYSTEM_WORDBAN' => 'Textzensur verwalten',
     'PERMISSION_SYSTEM_IPADDR' => 'IP-Adressen verwalten',
+    'PERMISSION_SYSTEM_PROFILE' => 'Profil ändern',
     'PERMISSION_MODULES_CONFIGURE' => 'Module konfigurieren',
     'PERMISSION_MODULES_INSTALL' => 'Module installieren',
     'PERMISSION_MODULES_UNINSTALL' => 'Module deinstallieren',

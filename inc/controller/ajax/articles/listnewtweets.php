@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\articles;
  * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class listnewtweets extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class listnewtweets extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * Artikel-Listen-objekt
@@ -44,6 +44,8 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxController implements
      */
     public function request()
     {
+        $this->returnData = array('notice' => 0, 'error' => 0);
+        
         $ids = $this->getRequestVar('ids', [
             \fpcm\classes\http::FILTER_STRIPTAGS,
             \fpcm\classes\http::FILTER_TRIM,
@@ -52,7 +54,7 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxController implements
         ]);
 
         if ($ids === null) {
-            return false;
+            $this->getSimpleResponse();
         }
 
         $conditions = new \fpcm\model\articles\search();
@@ -85,7 +87,6 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxController implements
             sleep(1);
         }
 
-        $this->returnData = array('notice' => 0, 'error' => 0);
         if (count($resOk)) {
             $this->returnData['notice'] = $this->language->translate('SAVE_SUCCESS_ARTICLENEWTWEET', array('{{titles}}' => implode(', ', $resOk)));
         }

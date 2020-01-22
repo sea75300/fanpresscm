@@ -13,7 +13,7 @@ namespace fpcm\controller\ajax\modules;
  * @package fpcm\controller\ajax\modules\moduleactions
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+class fetchList extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\dataView;
 
@@ -67,8 +67,6 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
      */
     public function request()
     {
-        $this->setReturnJson();
-
         $this->mode = $this->getRequestVar('mode', [
             \fpcm\classes\http::FILTER_FIRSTUPPER
         ]);
