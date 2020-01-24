@@ -415,7 +415,7 @@ class module {
      * @param string $key
      * @return string
      */
-    private function getFullPrefix($key = '') : string
+    public function getFullPrefix($key = '') : string
     {
         return 'module_' . $this->prefix . '_' . $key;
     }
