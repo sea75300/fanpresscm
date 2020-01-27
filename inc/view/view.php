@@ -26,6 +26,8 @@ class view {
     const ROOTURL_LIB = '{$lib}';
     const ROOTURL_UNIQUE = '{$unique}';
 
+    const PATH_COMPONENTS = '{$components}';
+
     const JS_FILETYP_URL  = 0b100;
     const JS_FILETYP_FILE = 0b010;
     const JS_FILETYP_FILE_EXT = 0b001;
@@ -687,6 +689,8 @@ class view {
         $this->viewPath = $module
                         ? \fpcm\module\module::getTemplateDirByKey($module, $viewName)
                         : \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
+        
+        $this->viewPath = str_replace(self::PATH_COMPONENTS, \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'components'.DIRECTORY_SEPARATOR), $viewName);
 
         $this->viewName = $viewName;
     }
