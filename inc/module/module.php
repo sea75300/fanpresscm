@@ -1061,7 +1061,7 @@ class module {
      */
     public static function getJsDirByKey(string $key, string $filePath) : string
     {
-        return self::getModuleBasePathFromKey($key) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . $filePath;
+        return self::getModuleUrlFromKey($key) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . $filePath;
     }
 
     /**
@@ -1091,10 +1091,22 @@ class module {
      * Get base path from module
      * @param string $key
      * @return string
+     * @since FPCM 4.4
      */
     public static function getModuleBasePathFromKey(string $key) : string
     {
         return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $key));
+    }
+
+    /**
+     * Returns root URL for module path
+     * @param string $key
+     * @return string
+     * @since FPCM 4.4
+     */
+    public static function getModuleUrlFromKey(string $key) : string
+    {
+        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $key));
     }
 
     /**

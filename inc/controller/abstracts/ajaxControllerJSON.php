@@ -24,7 +24,6 @@ class ajaxControllerJSON extends ajaxController {
      */
     public function __construct() 
     {
-        fpcmLogSystem(__METHOD__);
         $this->setReturnJson();
         parent::__construct();
     }
