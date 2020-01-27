@@ -690,7 +690,13 @@ class view {
                         ? \fpcm\module\module::getTemplateDirByKey($module, $viewName)
                         : \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
         
-        $this->viewPath = str_replace(self::PATH_COMPONENTS, \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'components'.DIRECTORY_SEPARATOR), $viewName);
+        if (strpos($viewName, self::PATH_COMPONENTS) !== false) {
+            $this->viewPath = str_replace(
+                self::PATH_COMPONENTS,
+                \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'components'.DIRECTORY_SEPARATOR),
+                $viewName
+            );
+        }
 
         $this->viewName = $viewName;
     }
