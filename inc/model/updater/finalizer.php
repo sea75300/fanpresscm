@@ -388,7 +388,18 @@ final class finalizer extends \fpcm\model\abstracts\model {
         if (!$this->isCli) {
             return;
         }
-        
+
+        // this workaround will be removed in FPCM 4.4
+        if (!class_exists('\fpcm\model\cli\io')) {
+
+            if (is_array($str)) {
+                $str = implode(PHP_EOL, $str);
+            }
+
+            print $str . PHP_EOL;
+            return;
+        }
+
         \fpcm\model\cli\io::output($str);
     }
 
