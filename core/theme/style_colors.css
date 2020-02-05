@@ -197,6 +197,8 @@ div.fpcm-status-info ul li:active {
 #fpcm-navigation li:active > a,
 #fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active > a:hover,
 #fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active > a:hover,
+#fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active:hover > a,
+#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active:hover > a,
 #btnHiddenMenu:hover {
     color: #fff !important;
 }
