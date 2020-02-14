@@ -40,7 +40,7 @@ class fpcmCLI {
             \fpcm\model\cli\io::output($title . ' must be run from console!', true);
         }
 
-        $this->output(PHP_EOL . '--- ' . $title . ' ---' . PHP_EOL);
+        \fpcm\model\cli\io::output(PHP_EOL . '--- ' . $title . ' ---' . PHP_EOL);
 
         if (version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<')) {
             \fpcm\model\cli\io::output($title . ' requires PHP ' . FPCM_PHP_REQUIRED . ' or better!', true);
