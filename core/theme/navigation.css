@@ -8,7 +8,6 @@
 
 #fpcm-navigation a {
     font-weight: normal !important;
-    color: #362b36 !important;
 }
 
 #fpcm-navigation ul,
@@ -66,11 +65,6 @@
 #fpcm-navigation a,
 #btnHiddenMenu {
     margin: 0;
-}
-
-#fpcm-navigation > ul.fpcm-ui-menu:first-child > li,
-#fpcm-navigation > ul.fpcm-ui-menu:first-child > li:hover {
-    transition: 0.5s ease;
 }
 
 #btnHiddenMenu {
@@ -156,4 +150,12 @@ body.fpcm-ui-hide-toolbar #fpcm-ui-toolbar {
 div.sidebar div.sidebar-forum ul {
     list-style-type: none;
     list-style-image: none;
+}
+
+/* ------ Transition */
+#fpcm-navigation ul.fpcm-ui-menu li,
+#fpcm-navigation ul.fpcm-ui-nav-hidden-links li,
+div.fpcm-status-info ul.fpcm-menu-top li,
+#btnHiddenMenu {
+    transition: 0.5s ease;
 }

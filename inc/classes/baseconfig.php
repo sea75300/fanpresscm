@@ -106,7 +106,7 @@ final class baseconfig {
             loader::getObject('\fpcm\model\system\config')->setUserSettings();
             loader::getObject('\fpcm\classes\language', $config->system_lang);
             loader::getObject('\fpcm\model\theme\notifications');
-            loader::getObject('\fpcm\model\system\permissions', ($session->exists() ? $session->getCurrentUser()->getRoll() : 0));
+            loader::getObject('\fpcm\model\permissions\permissions');
         }
 
 

@@ -78,7 +78,7 @@ fpcm.editor_codemirror = {
             fpcm.editor.insertSymbol();
         },
         "Shift-Ctrl-M"    : function() {
-            fpcm.editor.insertReadMore();
+            fpcm.editor.insertPageBreak()();
         },
         "Shift-Ctrl-B"    : function() {
             fpcm.editor.insertIFrame();
@@ -669,7 +669,12 @@ if (fpcm.editor) {
     };
     
     fpcm.editor.insertReadMore = function () {
+        console.warn('fpcm.editor.insertReadMore is deprecated as of FPCM 4.4, use fpcm.editor.insertPageBreak instead');
         fpcm.editor.insert('<readmore>', '</readmore>');
+    };
+    
+    fpcm.editor.insertPageBreak = function () {
+        fpcm.editor.insert('<p>' + fpcm.vars.jsvars.editorConfig.pageBreakVar, '</p>');
     };
 
     fpcm.editor.insertQuote = function () {

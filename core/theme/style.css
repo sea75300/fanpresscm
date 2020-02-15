@@ -237,6 +237,7 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
     display: inline-block;
 }
 
+.fpcm.ui-hidden,
 .fpcm-ui-hidden,
 .fpcm-editor-select {
     display: none;
@@ -513,6 +514,10 @@ img.fpcm-ui-smileylist-preview {
 
 .fpcm-ui-border-radius-bottom {
     border-radius: 0 0 5px 5px;
+}
+
+.fpcm.ui-border-radius-none {
+    border-radius: 0;
 }
 
 div.fpcm-accordion-pkgmanager ul {

@@ -15,14 +15,9 @@ namespace fpcm\controller\ajax\templates;
  * @package fpcm\controller\ajax\system\cronasync
  * @since FPCM 3.4
  */
-class savetemptpl extends \fpcm\controller\abstracts\ajaxController {
+class savetemptpl extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\templates\preview;
-
-    protected function getPermissions()
-    {
-        return ['system' => 'templates'];
-    }
 
     /**
      * Controller-Processing

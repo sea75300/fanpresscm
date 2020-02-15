@@ -171,6 +171,15 @@ if (!defined('FPCM_MODULE_DEV')) {
 if (!defined('FPCM_PAGETOKEN_MAX')) {
     /**
      * Timeout für Pagetoken-Cache
+     * @since FPCM 4.3
      */
     define('FPCM_PAGETOKEN_MAX', 10);
+}
+
+if (!defined('FPCM_DISABLE_MODULE_ZIPUPLOAD')) {
+    /**
+     * Disable upload für module package files
+     * @since FPCM 4.4
+     */
+    define('FPCM_DISABLE_MODULE_ZIPUPLOAD', true);
 }

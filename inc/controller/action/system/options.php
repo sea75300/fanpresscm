@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\system;
 
-class options extends \fpcm\controller\abstracts\controller {
+class options extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\timezone;
 
@@ -37,9 +37,13 @@ class options extends \fpcm\controller\abstracts\controller {
      */
     protected $mailSettingsChanged = false;
 
-    protected function getPermissions()
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible() : bool
     {
-        return ['system' => 'options'];
+        return $this->permissions->system->options;
     }
 
     protected function getViewPath() : string
@@ -207,7 +211,7 @@ class options extends \fpcm\controller\abstracts\controller {
             (new \fpcm\view\helper\button('syschecksubmitstats', 'syschecksubmitstats'))->setText('SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-button-primary fpcm-ui-hidden')->setIcon('chart-line'),
         ];
 
-        if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->check(['system' => 'update'])) {
+        if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->system->update) {
             $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync');
         }
 

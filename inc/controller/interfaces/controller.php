@@ -1,40 +1,39 @@
 <?php
+
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\interfaces;
+
+/**
+ * Controller base interface
+ * 
+ * @package fpcm\controller\interfaces\isAccessible
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+interface controller {
+
     /**
-     * Base controller interface
-     * 
-     * Controller base interface
-     * 
-     * @author Stefan Seehafer <sea75300@yahoo.de>
-     * @copyright (c) 2011-2018, Stefan Seehafer
-     * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+     * Request processing
+     * @return bool, false prevent execution of @see process()
      */
-    namespace fpcm\controller\interfaces;
-    
+    public function request();
+
     /**
-     * Controller interface
-     * 
-     * @package fpcm\controller\interfaces\controller
-     * @author Stefan Seehafer <sea75300@yahoo.de>
+     * Access check processing
+     * @return bool, false prevent execution of @see request() @see process()
      */
-    interface controller {
+    public function hasAccess();
 
-        /**
-         * Request processing
-         * @return bool, false prevent execution of @see process()
-         */ 
-        public function request();
+    /**
+     * Controller-Processing
+     * @return bool
+     */
+    public function process();
+}
 
-        /**
-         * Access check processing
-         * @return bool, false prevent execution of @see request() @see process()
-         */ 
-        public function hasAccess();
-
-        /**
-         * Controller-Processing
-         * @return bool
-         */ 
-        public function process();
-
-    }
 ?>

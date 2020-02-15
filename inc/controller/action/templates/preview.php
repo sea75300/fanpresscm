@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\templates;
 
-class preview extends \fpcm\controller\abstracts\controller {
+class preview extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\templates\preview;
 
@@ -24,15 +24,6 @@ class preview extends \fpcm\controller\abstracts\controller {
      * @var int 
      */
     protected $tid;
-
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return ['system' => 'templates'];
-    }
 
     /**
      * Request-Handler
@@ -108,7 +99,7 @@ class preview extends \fpcm\controller\abstracts\controller {
 
         $article1 = new \fpcm\model\articles\article();
         $article1->setTitle('Lorem ipsum dolor sit amet, consetetur sadipscing elitr!');
-        $article1->setContent('Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.');
+        $article1->setContent('Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.<!--- Page Break --->Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.');
         $article1->setPinned(0);
         $article1->setSources($this->config->system_url);
         $article1->setCategories([1,2,3]);
@@ -126,7 +117,7 @@ class preview extends \fpcm\controller\abstracts\controller {
 
         $article2 = new \fpcm\model\articles\article();
         $article2->setTitle('Ut wisi enim ad minim veniam?');
-        $article2->setContent('Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. ');
+        $article2->setContent('Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.<!--- Page Break --->Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. ');
         $article2->setPinned(0);
         $article2->setSources('');
         $article2->setCategories([1,2,3]);

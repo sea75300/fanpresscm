@@ -15,7 +15,9 @@ namespace fpcm\controller\ajax\common;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class setConfig extends \fpcm\controller\abstracts\ajaxController {
+class setConfig extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+
+    use \fpcm\controller\traits\common\isAccessibleTrue;
 
     private $whiteList = ['file_view', 'dashboardpos'];
 

@@ -7,11 +7,11 @@ namespace fpcm\controller\ajax\articles;
  * 
  * @package fpcm\controller\ajax\articles\search
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.6
  */
-class massedit extends \fpcm\controller\abstracts\ajaxController {
+class massedit extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\articles\lists;
 
@@ -29,11 +29,11 @@ class massedit extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['article' => ['edit', 'editall', 'approve', 'archive', 'massedit']];
+        return $this->permissions->editArticlesMass();
     }
 
     /**
@@ -43,7 +43,8 @@ class massedit extends \fpcm\controller\abstracts\ajaxController {
     public function request()
     {
         if (!$this->checkPageToken()) {
-            return false;
+            $this->returnCode = $result ? 1 : 0;
+            $this->getResponse();
         }
 
         $this->articleList = new \fpcm\model\articles\articlelist();
@@ -89,7 +90,6 @@ class massedit extends \fpcm\controller\abstracts\ajaxController {
         }
 
         $result = $this->articleList->editArticlesByMass($this->articleIds, $fields);
-
 
         $this->returnCode = $result ? 1 : 0;
         $this->getResponse();

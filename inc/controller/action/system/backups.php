@@ -13,7 +13,7 @@ namespace fpcm\controller\action\system;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class backups extends \fpcm\controller\abstracts\controller {
+class backups extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\dataView;
     
@@ -21,9 +21,13 @@ class backups extends \fpcm\controller\abstracts\controller {
 
     protected $deletePrevent = 5;
 
-    protected function getPermissions()
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
     {
-        return ['system' => 'backups'];
+        return $this->permissions->system->backups;
     }
 
     protected function getHelpLink()

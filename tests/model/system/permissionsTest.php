@@ -5,7 +5,7 @@ require_once dirname(dirname(__DIR__)) . '/testBase.php';
 class permissionsTest extends testBase {
 
     /**
-     * @var fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      */
     protected $object;
 
@@ -24,7 +24,7 @@ class permissionsTest extends testBase {
 
         $GLOBALS['roll_id'] = $roll->getId();
 
-        $this->object = new fpcm\model\system\permissions($GLOBALS['roll_id']);
+        $this->object = new \fpcm\model\permissions\permissions($GLOBALS['roll_id']);
 
         $this->object->setPermissionData([
             'article' => [
@@ -38,10 +38,11 @@ class permissionsTest extends testBase {
 
     public function testCheckPermissions()
     {
-
-        $this->object = new fpcm\model\system\permissions($GLOBALS['roll_id']);
-        $res = $this->object->check(['article' => ['add', 'edit', 'editall', 'delete']]);
-        $this->assertTrue($res);
+        $this->object = new \fpcm\model\permissions\permissions($GLOBALS['roll_id']);
+        $this->assertEquals(1, $this->object->article->editall);
+        $this->assertEquals(1, $this->object->article->delete);
+        
+        $this->assertTrue($this->object->article->add || $this->object->article->edit || $this->object->article->editall || $this->object->article->delete);
 
         $roll = new fpcm\model\users\userRoll($GLOBALS['roll_id']);
         $this->assertTrue($roll->delete());

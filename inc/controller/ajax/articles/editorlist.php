@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\articles;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since FPCM 3.6
  */
-class editorlist extends \fpcm\controller\abstracts\ajaxController {
+class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\comments\lists,
         \fpcm\model\articles\permissions;
@@ -53,20 +53,11 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['article' => 'edit'];
-    }
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getViewPath() : string
-    {
-        return '';
+        return $this->permissions->editArticles();
     }
 
     /**
@@ -76,7 +67,8 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
     {
         $fn = 'process' . ucfirst($this->module);
         if (!method_exists($this, $fn) || !$this->oid) {
-            exit;
+            $this->returnData = [];
+            $this->getSimpleResponse();
         }
 
         call_user_func([$this, $fn]);
@@ -89,6 +81,11 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processComments()
     {
+        if (!$this->config->system_comments_enabled || !$this->permissions->editComments()) {
+            $this->returnData = [];
+            $this->getSimpleResponse();
+        }
+        
         $this->conditions->articleid = $this->oid;
         $this->conditions->searchtype = 0;
 
@@ -108,7 +105,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processRevisions()
     {
-        if (!$this->article->exists()) {
+        if (!$this->permissions->article->revisions || !$this->article->exists()) {
             $this->returnData = [];
             $this->getSimpleResponse();
         }

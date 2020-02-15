@@ -76,6 +76,15 @@ class initdb extends \fpcm\controller\abstracts\ajaxController {
         exit('0');
     }
 
+    /**
+     * 
+     * @return bool
+     */
+    protected function initPermissionObject(): bool
+    {
+        return true;
+    }
+
 }
 
 ?>

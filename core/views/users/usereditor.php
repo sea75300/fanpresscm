@@ -38,6 +38,7 @@
                             ->setAutocomplete(false)
                             ->setText('GLOBAL_PASSWORD')
                             ->setIcon('passport')
+                            ->setPattern('^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$')
                             ->setDisplaySizes([12, 5], [12, 7]); ?>
                     </div>
                 </div>
@@ -54,6 +55,7 @@
                             ->setAutocomplete(false)
                             ->setText('USERS_PASSWORD_CONFIRM')
                             ->setIcon('passport')
+                            ->setPattern('^.*(?=.{6,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$')
                             ->setDisplaySizes([12, 5], [12, 7]); ?>
                     </div>
                 </div>

@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\comments;
 
-class commentedit extends \fpcm\controller\abstracts\controller {
+class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\model\comments\permissions;
 
@@ -18,18 +18,6 @@ class commentedit extends \fpcm\controller\abstracts\controller {
      * @var \fpcm\model\comments\comment
      */
     protected $comment;
-
-    /**
-     *
-     * @var bool
-     */
-    protected $approve = false;
-
-    /**
-     *
-     * @var bool
-     */
-    protected $private = false;
 
     /**
      *
@@ -45,29 +33,20 @@ class commentedit extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->config->system_comments_enabled && $this->permissions->editComments();
+    }
+
+    /**
+     * 
      * @return string
      */
     protected function getViewPath() : string
     {
         return 'comments/commentedit';
-    }
-
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return [
-            'article' => [
-                'editall',
-                'edit'
-            ],
-            'comment' => [
-                'editall',
-                'edit'
-            ]
-        ];
     }
 
     /**
@@ -95,11 +74,6 @@ class commentedit extends \fpcm\controller\abstracts\controller {
     public function request()
     {
         $this->mode = $this->getRequestVar('mode', [\fpcm\classes\http::FILTER_CASTINT]);
-
-        if ($this->permissions) {
-            $this->approve = $this->permissions->check(array('comment' => 'approve'));
-            $this->private = $this->permissions->check(array('comment' => 'private'));
-        }
 
         $id = $this->getRequestVar('commentid', [
             \fpcm\classes\http::FILTER_CASTINT
@@ -132,19 +106,19 @@ class commentedit extends \fpcm\controller\abstracts\controller {
             unset($commentData['text']);
 
             foreach ($commentData as &$value) {
-                $value = \fpcm\classes\http::filter($value, array(1, 3));
+                $value = \fpcm\classes\http::filter($value, array(\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_HTMLENTITIES));
             }
 
             $this->comment->setName($commentData['name']);
             $this->comment->setEmail($commentData['email']);
             $this->comment->setWebsite($commentData['website']);
 
-            if ($this->approve) {
+            if ($this->permissions->comment->approve) {
                 $this->comment->setApproved(isset($commentData['approved']) ? true : false);
                 $this->comment->setSpammer(isset($commentData['spam']) ? true : false);
             }
 
-            if ($this->private) {
+            if ($this->permissions->comment->private) {
                 $this->comment->setPrivate(isset($commentData['private']) ? true : false);
             }
 
@@ -193,8 +167,8 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         if (isset($viewVars['editorButtons']) && count($viewVars['editorButtons'])) {
             $viewVars['editorButtons']['frame']->setReturned(true);
             unset($viewVars['editorButtons']['frame']);
-            $viewVars['editorButtons']['readmore']->setReturned(true);
-            unset($viewVars['editorButtons']['readmore']);
+            $viewVars['editorButtons']['pagebreak']->setReturned(true);
+            unset($viewVars['editorButtons']['pagebreak']);
             $viewVars['editorButtons']['drafts']->setReturned(true);
             unset($viewVars['editorButtons']['drafts']);
             $viewVars['editorButtons']['restore']->setReturned(true);
@@ -273,7 +247,7 @@ class commentedit extends \fpcm\controller\abstracts\controller {
 
         $buttons[] = (new \fpcm\view\helper\linkButton('whoisIp'))->setUrl("http://www.whois.com/whois/{$this->comment->getIpaddress()}")->setTarget('_blank')->setText('Whois')->setIcon('home')->setClass($hiddenClass)->setRel('noreferrer,noopener,external');
 
-        if ($this->permissions->check(['system' => 'ipaddr'])) {
+        if ($this->permissions->comment->lockip) {
             $buttons[] = (new \fpcm\view\helper\button('lockIp'))->setText('COMMMENT_LOCKIP')->setIcon('globe')->setClass($hiddenClass)->setData([
                 'commentid' => $this->comment->getId()
             ]);
@@ -285,8 +259,6 @@ class commentedit extends \fpcm\controller\abstracts\controller {
         $this->view->setFormAction($this->comment->getEditLink(), ['mode' => $this->mode], true);
         $this->view->assign('comment', $this->comment);
         $this->view->assign('commentsMode', $this->mode);
-        $this->view->assign('canApprove', $this->approve);
-        $this->view->assign('canPrivate', $this->private);
         $this->view->render();
         
         return true;

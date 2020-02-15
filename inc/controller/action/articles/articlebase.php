@@ -1,15 +1,19 @@
 <?php
 
 /**
- * Article controller base
- * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\articles;
 
-class articlebase extends \fpcm\controller\abstracts\controller {
+/**
+ * Article controller base
+ * @article Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+abstract class articlebase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
@@ -111,8 +115,8 @@ class articlebase extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
-        $this->canChangeAuthor = $this->permissions->check(['article' => 'authors']);
-        $this->approvalRequired = $this->permissions->check(['article' => 'approve']);
+        $this->canChangeAuthor = $this->permissions->article->authors;
+        $this->approvalRequired = $this->permissions->article->approve;
         $this->initObject();
 
         if ($this->buttonClicked('doAction') && !$this->checkPageToken()) {
@@ -310,11 +314,14 @@ class articlebase extends \fpcm\controller\abstracts\controller {
         $this->article->setImagepath(isset($data['imagepath']) ? $data['imagepath'] : '');
         $this->article->setSources(isset($data['sources']) ? $data['sources'] : '');
 
-        $this->article->setArchived(isset($data['archived']) ? 1 : 0);
-        if ($this->article->getArchived()) {
-            $this->article->setPinned(0);
-            $this->article->setDraft(0);
+        if ($this->permissions->article->archive) {
+            $this->article->setArchived(isset($data['archived']) ? 1 : 0);
+            if ($this->article->getArchived()) {
+                $this->article->setPinned(0);
+                $this->article->setDraft(0);
+            }
         }
+        
         
         $authorId = (isset($data['author']) && trim($data['author']) && $this->canChangeAuthor ? $data['author'] : $this->session->getUserId());
         $this->article->setCreateuser($authorId);

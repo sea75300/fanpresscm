@@ -310,11 +310,11 @@ fpcm.editor = {
     },
     
     initCommentListActions: function () {
-
+        
         if (!fpcm.comments) {
             return true;
         }
-
+        
         fpcm.comments.assignActions();
         
         fpcm.dom.fromClass('fpcm-ui-commentlist-link').click(function () {

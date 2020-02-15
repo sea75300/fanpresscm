@@ -13,7 +13,7 @@ namespace fpcm\controller\ajax\modules;
  * @package fpcm\controller\ajax\modules\moduleactions
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class execAction extends \fpcm\controller\abstracts\ajaxController {
+class execAction extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\modules\moduleactions;
 
@@ -35,13 +35,9 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     protected $fromDir;
 
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['modules' => ['configure', 'install', 'uninstall']];
+        return $this->permissions->modules->configure || $this->permissions->modules->install || $this->permissions->modules->uninstall;
     }
 
     /**
@@ -50,8 +46,6 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        $this->setReturnJson();
-
         $this->key = $this->getRequestVar('key');
         $this->action = $this->getRequestVar('action');
         $this->fromDir = $this->getRequestVar('fromDir', [
@@ -85,7 +79,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processInstall()
     {
-        if (!$this->getPermissionsArray()['canInstall']) {
+        if (!$this->permissions->modules->install) {
             trigger_error('Unable to install module, permission denied!');
             $this->returnData['code'] = \fpcm\module\module::STATUS_NOT_INSTALLED;
             return false;
@@ -106,7 +100,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processUninstall()
     {
-        if (!$this->getPermissionsArray()['canUnInstall']) {
+        if (!$this->permissions->modules->uninstall) {
             trigger_error('Unable to uninstall module, permission denied!');
             $this->returnData['code'] = \fpcm\module\module::STATUS_NOT_UNINSTALLED;
             return false;
@@ -125,7 +119,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processDelete()
     {
-        if (!$this->getPermissionsArray()['canUnInstall']) {
+        if (!$this->permissions->modules->uninstall) {
             trigger_error('Unable to delete module, permission denied!');
             $this->returnData['code'] = \fpcm\module\module::STATUS_NOT_UNINSTALLED;
             return false;
@@ -144,7 +138,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processEnable()
     {
-        if (!$this->getPermissionsArray()['canEnable']) {
+        if (!$this->permissions->modules->configure) {
             trigger_error('Unable to enable module, permission denied!');
             $this->returnData['code'] = \fpcm\module\module::STATUS_NOT_ENABLED;
             return false;
@@ -162,7 +156,7 @@ class execAction extends \fpcm\controller\abstracts\ajaxController {
      */
     private function processDisable()
     {
-        if (!$this->getPermissionsArray()['canEnable']) {
+        if (!$this->permissions->modules->configure) {
             trigger_error('Unable to disable module, permission denied!');
             $this->returnData['code'] = \fpcm\module\module::STATUS_NOT_DISABLED;
             return false;

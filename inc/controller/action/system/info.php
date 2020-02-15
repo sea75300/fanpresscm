@@ -25,12 +25,25 @@ class info extends \fpcm\controller\abstracts\controller {
         return 'system/info';
     }
 
+    /**
+     * 
+     * @return bool
+     */
     public function process() : bool
     {
         $this->view->setViewVars([
             'content' => simplexml_load_string($this->language->getHelp())->xpath("/chapters/chapter[@ref=\"HL_HELP_SUPPORT\"]")[0],
             'licence' => file_get_contents(\fpcm\classes\dirs::getFullDirPath('', 'licence.txt'))
         ]);
+        return true;
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    protected function initPermissionObject(): bool
+    {
         return true;
     }
 

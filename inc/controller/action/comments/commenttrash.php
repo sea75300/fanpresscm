@@ -13,7 +13,7 @@ namespace fpcm\controller\action\comments;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class commenttrash extends \fpcm\controller\abstracts\controller {
+class commenttrash extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\dataView;
 
@@ -31,6 +31,15 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->config->system_comments_enabled && $this->permissions->comment->delete;
+    }
+
+    /**
+     * 
      * @return string
      */
     protected function getHelpLink()
@@ -45,15 +54,6 @@ class commenttrash extends \fpcm\controller\abstracts\controller {
     protected function getViewPath() : string
     {
         return 'comments/trash';
-    }
-
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return ['comment' => 'delete'];
     }
     
     protected function initActionObjects()

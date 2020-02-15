@@ -1,12 +1,7 @@
 <?php
 
 /**
- * AJAX article editor smileys controller
- * 
- * Editor Smiley controller
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -17,18 +12,24 @@ namespace fpcm\controller\ajax\articles;
  * 
  * @package fpcm\controller\ajax\articles\smileys
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class smileys extends \fpcm\controller\abstracts\ajaxController {
+class smileys extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['article' => ['add', 'edit', 'editall']];
+        return $this->permissions->editArticles() || $this->permissions->article->add;
     }
 
+    /**
+     * 
+     * @return string
+     */
     protected function getViewPath() : string
     {
         return $this->getRequestVar('json') ? '' : 'articles/editors/smileys';
@@ -42,6 +43,7 @@ class smileys extends \fpcm\controller\abstracts\ajaxController {
         $values = array_values((new \fpcm\model\files\smileylist())->getDatabaseList());
 
         if ($this->getRequestVar('json')) {
+            $this->setReturnJson();
             $this->returnData = $values;
             $this->getSimpleResponse();
         }

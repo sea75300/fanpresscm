@@ -671,7 +671,8 @@ Help language file
             Artikel verschieben</dd>
             <dt>Kommentare in Masse bearbeiten</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer können Kommentare in Masse bearbeiten</dd>
-            <dd class="fpcm-ui-padding-md-bottom"></dd>
+            <dt>IP-Adresse des Kommentars sperren</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer können die IP-Adresse des Kommentar-Authors sperren</dd>
             <dt>Systemeinstellungen verwalten</dt>
             <dd class="fpcm-ui-padding-md-bottom">Diese Berechtigung legt zentral fest, ob der Benutzer auf
             die Systemeinstellungen zugreifen kann.</dd>
@@ -701,6 +702,8 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Begriffe der Textzensur verwalten</dd>
             <dt>IP-Adressen verwalten</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer kann IP-Adress-Sperren verwalten</dd>
+            <dt>Profil ändern</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann sein Profil ändern</dd>
             <dt>Module aktivieren/deaktivieren</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer kann aktivieren und deaktivieren</dd>
             <dt>Module installieren</dt>

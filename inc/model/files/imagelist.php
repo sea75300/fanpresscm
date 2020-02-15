@@ -318,6 +318,12 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
             $valueParams[] = $conditions->dateto;
         }
 
+        if ($conditions->userid > -1) {
+            $where[] = $conditions->getCondition('userid', $this->dbcon->inQuery('userid', [0, $conditions->userid]));
+            $valueParams[] = 0;
+            $valueParams[] = $conditions->userid;
+        }
+
         return true;
     }
 

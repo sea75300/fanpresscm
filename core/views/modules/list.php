@@ -4,10 +4,10 @@
         <ul>
             <li data-dataview-list="modulesLocal"><a href="<?php print $theView->controllerLink('ajax/modules/fetch', ['mode' => 'local']); ?>"><?php $theView->write('MODULES_LIST_HEADLINE'); ?></a></li>
             <li data-dataview-list="modulesRemote"><a href="<?php print $theView->controllerLink('ajax/modules/fetch', ['mode' => 'remote']); ?>"><?php $theView->write('MODULES_LIST_AVAILABLE'); ?></a></li>
-            <?php if ($canInstall) : ?><li><a href="#tabs-modules-upload"><?php $theView->write('MODULES_LIST_UPLOAD'); ?></a></li><?php endif; ?>
+            <?php if ($theView->permissions->modules->install && $maxFilesInfo) : ?><li><a href="#tabs-modules-upload"><?php $theView->write('MODULES_LIST_UPLOAD'); ?></a></li><?php endif; ?>
         </ul>
 
-        <?php if ($canInstall) : ?>
+        <?php if ($theView->permissions->modules->install && $maxFilesInfo) : ?>
         <div id="tabs-modules-upload">
             
             <fieldset>

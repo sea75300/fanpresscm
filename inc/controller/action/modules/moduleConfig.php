@@ -9,7 +9,7 @@ namespace fpcm\controller\action\modules;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-class moduleConfig extends \fpcm\controller\abstracts\controller {
+class moduleConfig extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
@@ -44,14 +44,14 @@ class moduleConfig extends \fpcm\controller\abstracts\controller {
         
         return true;
     }
-    
+
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['modules' => 'configure'];
+        return $this->permissions->modules->configure;
     }
 
     /**

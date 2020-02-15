@@ -60,25 +60,6 @@ trait moduleactions {
             $this->view->addJsVars(array('fpcmModuleLayerInfos' => $jsInfo));
         }
 
-        $permissionsArray = $this->getPermissionsArray();
-        
-        $this->view->assign('permissionInstall', $permissionsArray['canInstall']);
-        $this->view->assign('permissionUninstall', $permissionsArray['canUnInstall']);
-        $this->view->assign('permissionEnable', $permissionsArray['canEnable']);
-    }
-
-    /**
-     * 
-     * @return array
-     * @since FPCM 4.1.2
-     */
-    public function getPermissionsArray() : array
-    {
-        return [
-            'canInstall' => $this->permissions->check(['modules' => 'install']),
-            'canUnInstall' => $this->permissions->check(['modules' => 'uninstall']),
-            'canEnable' => $this->permissions->check(['modules' => 'configure'])
-        ];
     }
 
 }

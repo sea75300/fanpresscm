@@ -86,25 +86,15 @@ final class comment extends template {
 
         foreach ($tags as $replacement => $value) {
 
-            $replacement = explode(':', $replacement);
+            $splitTags = explode(':', $replacement);
+            
             $values = [];
-
-            switch ($replacement[0]) {
-                case '{{mention}}':
-                    $keys = $replacement;
-                    $values = array("<a href=\"\" id=\"$value\" class=\"fpcm-pub-mentionlink\">", '</a>');
-                    break;
-                case '{{website}}':
-                    $keys = $replacement;
-                    $values = array("<a href=\"{$value}\" class=\"fpcm-pub-websitelink\">{$value}</a>");
-                    break;
-                default:
-                    $keys = $replacement;
-                    $values = array($value);
-                    break;
+            $this->parseTag($splitTags[0], $value, $values, $replacement);
+            if (!count($values)) {
+                $values = $value;
             }
 
-            $content = str_replace($keys, $values, $content);
+            $content = str_replace($splitTags, $values, $content);
         }
 
         $this->parseMentions($content);
@@ -147,6 +137,28 @@ final class comment extends template {
         ]);
         
         return true;
+    }
+
+    /**
+     * Parse comment link tag
+     * @param mixed $value
+     * @param array $return
+     * @since FPCm 4.4
+     */
+    protected function parseMention($value, array &$return)
+    {
+        $return = ["<a href=\"\" id=\"$value\" class=\"fpcm-pub-mentionlink\">", '</a>'];
+    }
+
+    /**
+     * Parse comment link tag
+     * @param mixed $value
+     * @param array $return
+     * @since FPCm 4.4
+     */
+    protected function parseWebsite($value, array &$return)
+    {
+        $return = ["<a href=\"{$value}\" class=\"fpcm-pub-websitelink\">{$value}</a>"];
     }
 }
 

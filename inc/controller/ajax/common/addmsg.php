@@ -16,31 +16,31 @@ namespace fpcm\controller\ajax\common;
  * @package fpcm\controller\ajax\commom.addmsg
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class addmsg extends \fpcm\controller\abstracts\ajaxController {
+class addmsg extends \fpcm\controller\abstracts\ajaxControllerJSON {
 
     /**
      * Controller-Processing
      */
     public function process()
     {
-        parent::process();
-
         $type = $this->getRequestVar('type');
         $msg = $this->getRequestVar('msgtxt');
 
-        $str = $this->language->translate($msg);
-        if (!$str) {
-            $str = $msg;
-        }
+        $icon   = ($type === \fpcm\view\message::ICON_ERROR
+                ? \fpcm\view\message::ICON_ERROR
+                : ($type === \fpcm\view\message::TYPE_NOTICE ? \fpcm\view\message::ICON_NOTICE : \fpcm\view\message::ICON_NEUTRAL));
 
-        $this->returnData[] = array(
-            'txt' => $str,
-            'type' => $type,
-            'id' => md5($type . $msg),
-            'icon' => $type === 'error' ? 'exclamation-triangle' : ( $type === 'notice' ? 'check' : 'info-circle' )
-        );
-
+        $this->returnData[] = new \fpcm\view\message($this->language->translate($msg), $type, $icon);
         $this->getResponse();
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    protected function initPermissionObject(): bool
+    {
+        return true;
     }
 
 }

@@ -12,15 +12,19 @@ namespace fpcm\controller\action\articles;
 class articlelistactive extends articlelistbase {
 
     /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->article->edit;
+    }
+
+    /**
      *
      * @var bool
      */
     protected $showArchivedStatus = false;
-
-    protected function getPermissions()
-    {
-        return ['article' => 'edit'];
-    }
     
     protected function getArticleCount()
     {

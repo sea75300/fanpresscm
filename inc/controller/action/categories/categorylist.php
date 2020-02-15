@@ -10,10 +10,10 @@ namespace fpcm\controller\action\categories;
 /**
  * Category list controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class categorylist extends \fpcm\controller\abstracts\controller {
+class categorylist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\dataView;
 
@@ -37,20 +37,20 @@ class categorylist extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->categories;
+    }
+
+    /**
+     * 
      * @return string
      */
     protected function getViewPath() : string
     {
         return 'components/dataview';
-    }
-
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return ['system' => 'categories'];
     }
 
     /**

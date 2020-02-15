@@ -18,33 +18,15 @@ namespace fpcm\model\theme;
 class navigation extends \fpcm\model\abstracts\staticModel {
 
     /**
-     * Konstruktor
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->cacheName = 'theme/navigation_' . $this->session->getUserId();
-    }
-
-    /**
      * Navigation rendern
      * @return array
      */
     public function render()
     {
-        if (!$this->cache->isExpired($this->cacheName)) {
-            return $this->cache->read($this->cacheName);
-        }
-
-        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
         $navigation = $this->events->trigger('navigation\render', $this->getNavigation());
-
         foreach ($navigation as &$moduleOptions) {
             $moduleOptions = $this->checkPermissions($moduleOptions);
         }
-
-        $this->cache->write($this->cacheName, $navigation, $this->config->system_cache_timeout);
 
         return $navigation;
     }
@@ -57,24 +39,22 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     private function checkPermissions($navigation)
     {
         /* @var $value navigationItem */
-        foreach ($navigation as $key => &$value) {
-
-            if (is_array($value)) {
-                trigger_error('Using an array as navigation item is deprecated as of FPCM 3.5. Create an instance of "\fpcm\model\theme\navigationItem" instead.' . PHP_EOL . print_r($value, true));
-                $value = navigationItem::createItemFromArray($value);
-            }
+        foreach ($navigation as $key => $value) {
 
             if ($value->hasSubmenu()) {
                 $value->setSubmenu($this->checkPermissions($value->getSubmenu()));
             }
 
-            if ($value->hasPermission()) {
-                if ($this->permissions->check($value->getPermission())) {
-                    continue;
-                }
-
+            $accesible = $value->isAccessible();
+            if ($accesible !== null && !$accesible) {
                 unset($navigation[$key]);
+                continue;
             }
+            elseif ($value->hasPermission() && $this->permissions->check($value->getPermission())) {
+                unset($navigation[$key]);
+                continue;
+            }
+
         }
 
         return $navigation;
@@ -94,14 +74,14 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 (new navigationItem())->setUrl('articles/add')
                     ->setDescription('HL_ARTICLE_ADD')
                     ->setIcon('pen-square fa-lg')
-                    ->setPermission(['article' => 'add'])
+                    ->setAccessible($this->permissions->article->add)
             ),
             navigationItem::AREA_EDITNEWS => array(
                 (new navigationItem())->setUrl('#')
                     ->setDescription('HL_ARTICLE_EDIT')
                     ->setIcon('book fa-lg')
                     ->setSubmenu($this->editorSubmenu())
-                    ->setPermission(['article' => ['editall', 'edit', 'archive']])
+                    ->setAccessible($this->permissions->editArticles() || $this->permissions->article->archive)
                     ->setId('nav-id-editnews')
                     ->setClass('fpcm-navigation-noclick')
             ),
@@ -110,23 +90,20 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                     ->setDescription('HL_COMMENTS_MNG')
                     ->setIcon('comments fa-lg')
                     ->setId('nav-item-editcomments')
-                    ->setPermission([
-                        'article' => ['editall', 'edit'],
-                        'comment' => ['editall', 'edit']
-                    ])
+                    ->setAccessible($this->config->system_comments_enabled && $this->permissions->editComments())
             ),
             navigationItem::AREA_FILEMANAGER => array(
                 (new navigationItem())->setUrl('files/list&mode=1')
                     ->setDescription('HL_FILES_MNG')
                     ->setIcon('folder-open fa-lg')
-                    ->setPermission(['uploads' => 'visible'])
+                    ->setAccessible($this->permissions->uploads->visible)
             ),
             navigationItem::AREA_OPTIONS => array(
                 (new navigationItem())->setUrl('#')
                     ->setDescription('HL_OPTIONS')
                     ->setIcon('cog fa-lg')
                     ->setSubmenu($this->optionSubmenu())
-                    ->setPermission(['system' => 'options'])
+                    ->setAccessible($this->permissions->system->options)
                     ->setId('fpcm-options-submenu')
                     ->setClass('fpcm-navigation-noclick')
             ),
@@ -135,9 +112,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                     ->setDescription('HL_MODULES')
                     ->setIcon('plug fa-lg')
                     ->setSubmenu($this->modulesSubmenu())
-                    ->setPermission(['modules' => [
-                        'install', 'uninstall', 'configure'
-                    ]])
+                    ->setAccessible($this->permissions->modules->configure || $this->permissions->modules->install || $this->permissions->modules->uninstall)
             ),
             navigationItem::AREA_TRASH => $this->addTrashItem(),
             navigationItem::AREA_AFTER => []
@@ -152,11 +127,11 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     {
         $submenu = [];
         
-        if ($this->permissions->check(['article' => 'delete'])) {
+        if ($this->permissions->article->delete) {
             $submenu[] = (new navigationItem())->setUrl('articles/trash')->setDescription('HL_ARTICLES')->setIcon('book');
         }
 
-        if ($this->permissions->check(['comment' => 'delete'])) {
+        if ($this->config->system_comments_enabled && $this->permissions->comment->delete) {
             $submenu[] = (new navigationItem())->setUrl('comments/trash')->setDescription('COMMMENT_HEADLINE')->setIcon('comments');
         }
 
@@ -184,15 +159,15 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             (new navigationItem())->setUrl('articles/listall')
                 ->setDescription('HL_ARTICLE_EDIT_ALL')
                 ->setIcon('book')
-                ->setPermission(['article' => ['edit', 'editall']]),
+                ->setAccessible($this->permissions->editArticles()),
             (new navigationItem())->setUrl('articles/listactive')
                 ->setDescription('HL_ARTICLE_EDIT_ACTIVE')
                 ->setIcon('newspaper', 'far')
-                ->setPermission(['article' => 'edit']),
+                ->setAccessible($this->permissions->article->edit),
             (new navigationItem())->setUrl('articles/listarchive')
                 ->setDescription('HL_ARTICLE_EDIT_ARCHIVE')
                 ->setIcon('archive')
-                ->setPermission(['article' => 'archive'])
+                ->setAccessible($this->permissions->article->archive)
         ];
     }
 
@@ -206,48 +181,48 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             (new navigationItem())->setUrl('system/options')
                 ->setDescription('HL_OPTIONS_SYSTEM')
                 ->setIcon('cog')
-                ->setPermission(['system' => 'options']),
+                ->setAccessible($this->permissions->system->options),
             (new navigationItem())->setUrl('users/list')
                 ->setDescription('HL_OPTIONS_USERS')
                 ->setIcon('users')
                 ->setId('nav-item-users')
-                ->setPermission(['system' => 'users', 'system' => 'rolls']),
+                ->setAccessible($this->permissions->system->users || $this->permissions->system->rolls),
             (new navigationItem())->setUrl('ips/list')
                 ->setDescription('HL_OPTIONS_IPBLOCKING')
                 ->setIcon('globe')
                 ->setId('nav-item-ips')
-                ->setPermission(['system' => 'ipaddr']),
+                ->setAccessible($this->permissions->system->ipaddr),
             (new navigationItem())->setUrl('wordban/list')
                 ->setDescription('HL_OPTIONS_WORDBAN')
                 ->setIcon('ban')
                 ->setId('nav-item-wordban')
-                ->setPermission(['system' => 'wordban']),
+                ->setAccessible($this->permissions->system->wordban),
             (new navigationItem())->setUrl('categories/list')
                 ->setDescription('HL_CATEGORIES_MNG')
                 ->setIcon('tags')
                 ->setId('nav-item-categories')
-                ->setPermission(['system' => 'categories']),
+                ->setAccessible($this->permissions->system->categories),
             (new navigationItem())->setUrl('templates/templates')
                 ->setDescription('HL_OPTIONS_TEMPLATES')
                 ->setIcon('code')
-                ->setPermission(['system' => 'templates']),
+                ->setAccessible($this->permissions->system->templates),
             (new navigationItem())->setUrl('smileys/list')
                 ->setDescription('HL_OPTIONS_SMILEYS')
                 ->setIcon('smile-beam')
                 ->setId('nav-item-smileys')
-                ->setPermission(['system' => 'smileys']),
+                ->setAccessible($this->permissions->system->smileys),
             (new navigationItem())->setUrl('system/crons')
                 ->setDescription('HL_CRONJOBS')
                 ->setIcon('history')
-                ->setPermission(['system' => 'crons']),
+                ->setAccessible($this->permissions->system->crons),
             (new navigationItem())->setUrl('system/backups')
                 ->setDescription('HL_BACKUPS')
                 ->setIcon('life-ring')
-                ->setPermission(['system' => 'backups']),
+                ->setAccessible($this->permissions->system->backups),
             (new navigationItem())->setUrl('system/logs')
                 ->setDescription('HL_LOGS')
                 ->setIcon('exclamation-triangle')
-                ->setPermission(['system' => 'logs']),
+                ->setAccessible($this->permissions->system->logs),
         ];
 
         return $data;

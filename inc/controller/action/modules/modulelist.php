@@ -8,13 +8,28 @@ namespace fpcm\controller\action\modules;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class modulelist extends \fpcm\controller\abstracts\controller {
+class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
      * @var \fpcm\module\modules
      */
     protected $modules;
+
+    /**
+     *
+     * @var bool
+     */
+    protected $uploadDisabled;
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->options && $this->permissions->modules->configure;
+    }
 
     /**
      * 
@@ -33,31 +48,14 @@ class modulelist extends \fpcm\controller\abstracts\controller {
     {
         return 'hl_modules';
     }
-
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return [
-            'system' => 'options',
-            'modules' => 'configure'
-        ];
-    }
     
     /**
      * 
      * @return bool
      */
     public function request()
-    {        
-        $this->view->setViewVars([
-            'canInstall' => $this->permissions->check(['modules' => 'install']),
-            'canUninstall' => $this->permissions->check(['modules' => 'uninstall']),
-            'canConfigure' => $this->permissions->check(['modules' => 'configure']),
-        ]);
-
+    {
+        $this->uploadDisabled = defined('FPCM_DISABLE_MODULE_ZIPUPLOAD') && FPCM_DISABLE_MODULE_ZIPUPLOAD;
         $this->uploadModule();
         return true;
     }
@@ -89,7 +87,7 @@ class modulelist extends \fpcm\controller\abstracts\controller {
         $this->view->addDataView(new \fpcm\components\dataView\dataView('modulesRemote', false));
         
         $buttons = [];
-        if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->check(['modules' => 'install'])) {
+        if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->modules->install) {
             $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync');
             
             $updatesAvailable = (new \fpcm\module\modules())->getInstalledUpdates();
@@ -101,6 +99,11 @@ class modulelist extends \fpcm\controller\abstracts\controller {
         }
 
         $this->view->addButtons($buttons);
+        
+        if ($this->uploadDisabled) {
+            $this->view->assign('maxFilesInfo', false);
+            return true;
+        }
 
         $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [            
             '{{filecount}}' => 1,
@@ -116,6 +119,15 @@ class modulelist extends \fpcm\controller\abstracts\controller {
      */
     private function uploadModule()
     {
+        if (!$this->uploadDisabled) {
+            return false;
+        }
+        
+        if (!$this->permissions->modules->install) {
+            $this->view->addErrorMessage('SAVE_FAILED_UPLOADMODULE');
+            return false;
+        }
+        
         $files = \fpcm\classes\http::getFiles();
         if (!$this->buttonClicked('uploadFile') || !$files) {
             return true;

@@ -1,39 +1,29 @@
 <?php
 
 /**
- * AJAX remove editor tags controller
- * 
- * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\ajax\articles;
 
 /**
- * Entfernt in HTML-Editor-Ansicht über entsprechenden Button alle HTML-Tags
+ * Remove tags from article
  * 
  * @package fpcm\controller\ajax\articles\removeeditortags
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2018, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class removeeditortags extends \fpcm\controller\abstracts\ajaxController {
+class removeeditortags extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return ['article' => ['add', 'edit', 'editall']];
-    }
-
-    /**
-     * Request-Handler
      * @return bool
      */
-    public function request()
+    public function isAccessible(): bool
     {
-        return $this->session->exists();
+        return $this->permissions->editArticles() || $this->permissions->article->add;
     }
 
     /**
@@ -41,8 +31,6 @@ class removeeditortags extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-
-
         exit(strip_tags($this->getRequestVar('text')));
     }
 

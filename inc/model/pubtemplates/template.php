@@ -236,7 +236,9 @@ class template extends \fpcm\model\abstracts\file {
 
         foreach ($this->replacementTags as $key => $value) {
             $data = explode(':', strtoupper(str_replace(['{{', '}}'], '', $key)));
-            $this->replacementTranslated[$key] = $this->language->translate($prefix . $data[0]);
+            $this->replacementTranslated[$key] = $this->language->translate($prefix . $data[0], [
+                'pagebreakVar' => htmlspecialchars(article::PAGEBREAK_TAG)
+            ]);
         }
 
         return $this->replacementTranslated;
@@ -367,6 +369,22 @@ class template extends \fpcm\model\abstracts\file {
         }
 
         return $this->replacementAttributes;
+    }
+    
+    protected function parseTag(string $tag, $value, array &$return, $replacement)
+    {
+        $tag = ucfirst(substr($tag, 2, -2));
+        if (!trim($tag)) {
+            return false;
+        }
+        
+        $func = 'parse'.$tag;
+        if (!method_exists($this, $func)) {
+            return false;
+        }
+        
+        $this->{$func}($value, $return, $replacement);
+        return true;
     }
 
 }

@@ -32,7 +32,7 @@ class checkdb extends \fpcm\controller\abstracts\ajaxController {
      */
     public function hasAccess()
     {
-        return \fpcm\classes\baseconfig::dbConfigExists() ? false : true;
+        return \fpcm\classes\baseconfig::dbConfigExists();
     }
 
     /**
@@ -71,6 +71,15 @@ class checkdb extends \fpcm\controller\abstracts\ajaxController {
         \fpcm\classes\security::initSecurityConfig();
 
         exit('1');
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    protected function initPermissionObject(): bool
+    {
+        return true;
     }
 
 }

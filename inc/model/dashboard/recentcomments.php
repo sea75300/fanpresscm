@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Recent comments Dashboard Container
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,13 +11,15 @@ namespace fpcm\model\dashboard;
  * Recent comments dashboard container object
  * 
  * @package fpcm\model\dashboard
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class recentcomments extends \fpcm\model\abstracts\dashcontainer {
+class recentcomments extends \fpcm\model\abstracts\dashcontainer implements \fpcm\model\interfaces\isAccessible {
 
     /**
      * Permissions-Objekt
-     * @var \fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      */
     protected $permissions = null;
 
@@ -37,24 +37,21 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer {
     protected $isAdmin = false;
 
     /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->config->system_comments_enabled && $this->permissions->editComments();
+    }
+
+    /**
      * Returns container name
      * @return string
      */
     public function getName()
     {
         return 'recentcomments';
-    }
-
-    /**
-     * Returns container permissions
-     * @return array
-     */
-    public function getPermissions()
-    {
-        return [
-            'article' => ['edit', 'editall'],
-            'comment' => ['edit', 'editall']
-        ];
     }
 
     /**
@@ -69,7 +66,7 @@ class recentcomments extends \fpcm\model\abstracts\dashcontainer {
 
         $this->getCacheName('_' . $this->currentUser);
 
-        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
+        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
 
         if ($this->cache->isExpired($this->cacheName)) {
             $this->renderContent();

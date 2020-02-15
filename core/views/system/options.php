@@ -1,11 +1,11 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-content-wrapper">
-    <div id="fpcm-options-tabs">
-        <ul>
+    <div id="fpcm-options-tabs" class="fpcm-ui-tabs-general ui-tabs ui-corner-all ui-widget ui-widget-content">
+        <ul class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
             <?php foreach ($tabs as $tab) : ?><?php print $tab; ?><?php endforeach; ?>
         </ul>
 
-        <div id="tabs-options-general">
+        <div id="tabs-options-general" class="fpcm tabs-register ui-tabs-panel ui-corner-bottom ui-widget-content">
 
             <div class="row no-gutters">
 

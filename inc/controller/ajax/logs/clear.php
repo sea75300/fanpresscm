@@ -16,7 +16,7 @@ namespace fpcm\controller\ajax\logs;
  * @package fpcm\controller\ajax\logs\clear
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class clear extends \fpcm\controller\abstracts\ajaxController {
+class clear extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * System-Log-Typ
@@ -25,26 +25,24 @@ class clear extends \fpcm\controller\abstracts\ajaxController {
     protected $log;
 
     /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->logs;
+    }
+
+    /**
      * Request-Handler
      * @return bool
      */
     public function request()
     {
-        $this->setReturnJson();
-        
-        if (!$this->session->exists()) {
-            return false;
-        }
-
-        if (!$this->permissions->check(array('system' => 'logs'))) {
-            return false;
-        }
-
-        if ($this->getRequestVar('log') === null) {
-            return false;
-        }
-
         $this->log = $this->getRequestVar('log');
+        if ($this->log === null) {
+            return false;
+        }
 
         return true;
     }
@@ -70,7 +68,7 @@ class clear extends \fpcm\controller\abstracts\ajaxController {
 
         $this->returnData = [
             'txt' => $res ? 'LOGS_CLEARED_LOG_OK' : 'LOGS_CLEARED_LOG_FAILED',
-            'type' => $res ? 'notice' : 'error',
+            'type' => $res ? \fpcm\view\message::TYPE_NOTICE : \fpcm\view\message::TYPE_ERROR
         ];
 
         $this->getSimpleResponse();

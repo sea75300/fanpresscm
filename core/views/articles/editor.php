@@ -10,7 +10,7 @@
             <li id="fpcm-editor-tabs-editorregister" data-toolbar-buttons="1"><a href="#tabs-article"><?php $theView->write('ARTICLES_EDITOR'); ?></a></li>
             <li id="fpcm-editor-tabs-editorextended" data-toolbar-buttons="1"><a href="#tabs-extended"><?php $theView->write('GLOBAL_EXTENDED'); ?></a></li>
             <?php endif; ?>
-            <?php if ($showComments && !$isRevision) : ?>
+            <?php if ($showComments && $commentEnabledGlobal && !$isRevision) : ?>
             <li data-toolbar-buttons="2" data-dataview-list="commentlist"><a href="<?php print $theView->controllerLink('ajax/editor/editorlist', ['id' => $article->getId(), 'view' => 'comments']); ?>">
                 <?php $theView->write('HL_ARTICLE_EDIT_COMMENTS', [ 'count' => $commentCount ]); ?>
             </a></li>
@@ -70,6 +70,9 @@
 
 <?php if ($showComments && !$isRevision) : ?>
     <?php include $theView->getIncludePath('comments/massedit.php'); ?>
-    <!-- Shortlink layer -->  
-    <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-shortlink"></div>
+<?php endif; ?>
+
+<?php if (!$isRevision) : ?>
+<!-- Shortlink layer -->
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-shortlink"></div>
 <?php endif; ?>

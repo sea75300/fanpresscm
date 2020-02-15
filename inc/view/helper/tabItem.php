@@ -8,7 +8,7 @@
 namespace fpcm\view\helper;
 
 /**
- * Logs tab item
+ * Tab item
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2017, Stefan Seehafer
@@ -98,7 +98,7 @@ class tabItem extends helper {
     {
         $html = [];
         $html[] = '<li';
-        $html[] = 'id="fpcm-tabs-'.$this->id.'"';
+        $html[] = 'id="fpcm-tabs-'.$this->id.'" class="ui-tabs-tab ui-corner-top ui-state-default"';
 
         if ($this->dataViewId) {
             $html[] = 'data-dataview-list="'.$this->dataViewId.'"';
@@ -108,7 +108,7 @@ class tabItem extends helper {
             $html[] = $this->getDataString();
         }
 
-        $html[] = '><a href="'.$this->url.'" '.($this->useWrapper ? $this->getDataString() : '').'>'.$this->text.'</a>';
+        $html[] = '><a class="ui-tabs-anchor" href="'.$this->url.'" '.($this->useWrapper ? $this->getDataString() : '').'>'.$this->text.'</a>';
         $html[] = '</li>';
 
         return implode(' ', $html);

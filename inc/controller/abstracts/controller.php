@@ -44,7 +44,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Berechtigungen
-     * @var \fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      */
     protected $permissions;
 
@@ -158,16 +158,10 @@ class controller implements \fpcm\controller\interfaces\controller {
 
         $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
         $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
-
-        $this->permissions = \fpcm\classes\loader::getObject(
-            '\fpcm\model\system\permissions',
-            $this->session->exists() ? $this->session->getCurrentUser()->getRoll() : 0
-        );
-
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
-        
-        $this->hasActiveModule();
 
+        $this->initPermissionObject();
+        $this->hasActiveModule();
         $this->initActionObjects();
         $this->initView();
     }
@@ -237,6 +231,8 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     protected function redirect($controller = '', array $params = [])
     {
+        $this->execDestruct = false;
+
         $redirectString = 'Location: ' . ($controller ? \fpcm\classes\tools::getFullControllerLink($controller, $params) : 'index.php');
         if (is_object($this->events)) {
             $redirectString = $this->events->trigger('controllerRedirect', $redirectString);
@@ -404,11 +400,15 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        $permissions = $this->getPermissions();
-        if ($this->permissions && count($permissions) && !$this->permissions->check($permissions)) {
+        $accessResult   = $this instanceof \fpcm\controller\interfaces\isAccessible
+                        ? $this->isAccessible()
+                        : ( $this->permissions && count($this->getPermissions()) && !$this->permissions->check($this->getPermissions()) ? false : true );
+
+        if (!$accessResult) {
             $this->execDestruct = false;
             $this->view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
             $this->view->render($this->moduleCheckExit);
+            return false;
         }
 
         return $this->moduleController === null ? true : in_array($this->moduleController, $this->enabledModules);
@@ -540,6 +540,28 @@ class controller implements \fpcm\controller\interfaces\controller {
         }
 
         return call_user_func([$this, $fn]);
+    }
+
+    /**
+     * Initialize permission object
+     * @return bool
+     * @since FPCM 4.4
+     */    
+    protected function initPermissionObject() : bool
+    {
+        if ($this instanceof \fpcm\controller\interfaces\isAccessible) {
+            $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
+            return true;
+        }
+
+        trigger_error(get_called_class(). ' :: Permissions objects of instance \\fpcm\\model\\system\\permissions are deprecated. Use \\fpcm\\model\\permissions\\permissions instead', E_USER_DEPRECATED);
+
+        $this->permissions = \fpcm\classes\loader::getObject(
+            '\fpcm\model\system\permissions',
+            $this->session->exists() ? $this->session->getCurrentUser()->getRoll() : 0
+        );
+
+        return true;
     }
 
 }

@@ -49,4 +49,21 @@
         </div>
     </div>
 
+    <div class="row my-3">
+        
+        <div class="col-12 col-md-4 my-2 my-md-0">
+            <?php $theView->select('combinationUserid')
+                    ->setOptions($searchCombination)
+                    ->setClass('fpcm-ui-input-select-filessearch-combination')
+                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+        </div>
+
+        <div class="col-12 col-md-8 my-2 my-md-0">
+            <?php $theView->select('userid')
+                    ->setOptions($searchUsers)
+                    ->setClass('fpcm-files-search-input fpcm-ui-input-select-filessearch')
+                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+        </div>
+    </div>
+
 </div>

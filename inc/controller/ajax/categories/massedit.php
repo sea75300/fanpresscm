@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
 namespace fpcm\controller\ajax\categories;
 
 /**
@@ -7,11 +12,11 @@ namespace fpcm\controller\ajax\categories;
  * 
  * @package fpcm\controller\ajax\articles\search
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2019, Stefan Seehafer
+ * @copyright (c) 2019-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 4.3
  */
-class massedit extends \fpcm\controller\abstracts\ajaxController {
+class massedit extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * Kommentar-IDs
@@ -27,13 +32,12 @@ class massedit extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'categories'];
+        return $this->permissions->system->categories;
     }
-
     
     /**
      * Request-Handler
@@ -41,8 +45,6 @@ class massedit extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
-        $this->setReturnJson();
-        
         if (!$this->checkPageToken()) {
             $this->returnCode = 0;
             return false;

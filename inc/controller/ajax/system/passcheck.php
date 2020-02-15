@@ -15,7 +15,9 @@ namespace fpcm\controller\ajax\system;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class passcheck extends \fpcm\controller\abstracts\ajaxController {
+class passcheck extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+
+    use \fpcm\controller\traits\common\isAccessibleTrue;
 
     /**
      * Check controlelr acccess

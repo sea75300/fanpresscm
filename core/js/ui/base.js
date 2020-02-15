@@ -201,7 +201,7 @@ fpcm.ui = {
                     params.addMainToobarToggleAfter(event, ui);
                 }
 
-            }            
+            }
         }
         
         if (params.saveActiveTab) {

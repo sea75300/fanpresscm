@@ -11,7 +11,7 @@ namespace fpcm\module;
  * Module base model
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\module
  */
@@ -108,7 +108,7 @@ class module {
 
         $this->mkey = $key;
         $this->prefix = str_replace('/', '', $this->mkey);
-        $this->basePath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $this->mkey));
+        $this->basePath = self::getModuleBasePathFromKey($this->mkey);
 
         $this->initObjects();
         $this->init();
@@ -415,7 +415,7 @@ class module {
      * @param string $key
      * @return string
      */
-    private function getFullPrefix($key = '') : string
+    public function getFullPrefix($key = '') : string
     {
         return 'module_' . $this->prefix . '_' . $key;
     }
@@ -1038,7 +1038,7 @@ class module {
      */
     public static function getConfigByKey($key, $config) : string
     {
-        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $key) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR .$config. '.yml');
+        return self::getModuleBasePathFromKey($key) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR .$config. '.yml';
     }
 
     /**
@@ -1049,7 +1049,31 @@ class module {
      */
     public static function getTemplateDirByKey($key, $viewName) : string
     {
-        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $key) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $viewName);
+        return self::getModuleBasePathFromKey($key) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $viewName;
+    }
+
+    /**
+     * Get JS file path
+     * @param string $key
+     * @param string $filePath
+     * @return string
+     * @since FPCM 4.4
+     */
+    public static function getJsDirByKey(string $key, string $filePath) : string
+    {
+        return self::getModuleUrlFromKey($key) . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . $filePath;
+    }
+
+    /**
+     * Get CSS file path
+     * @param string $key
+     * @param string $filePath
+     * @return string
+     * @since FPCM 4.4
+     */
+    public static function getStyleDirByKey(string $key, string $filePath) : string
+    {
+        return self::getModuleBasePathFromKey($key) . DIRECTORY_SEPARATOR . 'style' . DIRECTORY_SEPARATOR . $filePath;
     }
 
     /**
@@ -1058,9 +1082,31 @@ class module {
      * @param string $langKey
      * @return string
      */
-    public static function getLanguageFileByKey($key, $langKey) : string
+    public static function getLanguageFileByKey(string $key, string $langKey) : string
     {
-        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $key) . DIRECTORY_SEPARATOR . 'lang' . DIRECTORY_SEPARATOR . $langKey . '.php');
+        return self::getModuleBasePathFromKey($key) . DIRECTORY_SEPARATOR . 'lang' . DIRECTORY_SEPARATOR . $langKey . '.php';
+    }
+
+    /**
+     * Get base path from module
+     * @param string $key
+     * @return string
+     * @since FPCM 4.4
+     */
+    public static function getModuleBasePathFromKey(string $key) : string
+    {
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $key));
+    }
+
+    /**
+     * Returns root URL for module path
+     * @param string $key
+     * @return string
+     * @since FPCM 4.4
+     */
+    public static function getModuleUrlFromKey(string $key) : string
+    {
+        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $key));
     }
 
     /**

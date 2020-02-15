@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\files;
 
-class filelist extends \fpcm\controller\abstracts\controller {
+class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\files\lists,
         \fpcm\controller\traits\common\searchParams;
@@ -32,6 +32,11 @@ class filelist extends \fpcm\controller\abstracts\controller {
      */
     protected $mode = 1;
 
+    public function isAccessible(): bool
+    {
+        return $this->permissions->uploads->visible;
+    }
+
     /**
      * 
      * @return string
@@ -39,15 +44,6 @@ class filelist extends \fpcm\controller\abstracts\controller {
     protected function getViewPath() : string
     {
         return 'filemanager/listouter';
-    }
-
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return ['uploads' => 'visible'];
     }
 
     /**
@@ -65,8 +61,6 @@ class filelist extends \fpcm\controller\abstracts\controller {
      */
     public function request()
     {
-        $this->initPermissions();
-        
         $this->fileList = new \fpcm\model\files\imagelist();
 
         $styleLeftMargin = true;
@@ -87,7 +81,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
     private function uploadPhpForm() : bool
     {
         $files = \fpcm\classes\http::getFiles();
-        if (!$this->permissionsData['permUpload'] || $files === null) {
+        if (!$this->permissions->uploads->add || $files === null) {
             return false;
         }
 
@@ -122,6 +116,7 @@ class filelist extends \fpcm\controller\abstracts\controller {
             'GLOBAL_PROPERTIES', 'FILE_LIST_RESOLUTION_PIXEL'
         ]);
 
+        $this->view->assign('searchUsers', ['ARTICLE_SEARCH_USER' => -1] + (new \fpcm\model\users\userList)->getUsersNameList());
         $this->view->assign('mode', $this->mode);
         $this->view->assign('hasFiles', $hasFiles);
         $this->view->assign('newUploader', $this->config->file_uploader_new);
@@ -147,15 +142,15 @@ class filelist extends \fpcm\controller\abstracts\controller {
             (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
         ];
 
-        if ($this->permissionsData['permThumbs']) {
+        if ($this->permissions->uploads->thumbs) {
             $buttons[] = (new \fpcm\view\helper\submitButton('createThumbs', 'createThumbs'))->setText('FILE_LIST_NEWTHUMBS')->setIcon('image', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1');
         }
 
-        if ($this->permissionsData['permDelete']) {
+        if ($this->permissions->uploads->delete) {
             $buttons[] = (new \fpcm\view\helper\deleteButton('deleteFiles', 'deleteFiles'))->setClass('fpcm-ui-maintoolbarbuttons-tab1');
         }
 
-        if ($this->permissionsData['permUpload']) {
+        if ($this->permissions->uploads->add) {
             $buttons[] = (new \fpcm\view\helper\button('fmgrUploadBack'))->setText('GLOBAL_BACK')->setIcon('chevron-circle-left')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden');
         }
 

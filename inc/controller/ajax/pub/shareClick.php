@@ -78,6 +78,15 @@ class shareClick extends \fpcm\controller\abstracts\ajaxController {
         return $share->exists() ? $share->update() : $share->save();
     }
 
+    /**
+     * 
+     * @return bool
+     */
+    protected function initPermissionObject(): bool
+    {
+        return true;
+    }
+
 }
 
 ?>

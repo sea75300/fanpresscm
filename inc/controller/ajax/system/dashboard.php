@@ -9,7 +9,9 @@
 
 namespace fpcm\controller\ajax\system;
 
-class dashboard extends \fpcm\controller\abstracts\ajaxController {
+class dashboard extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+
+    use \fpcm\controller\traits\common\isAccessibleTrue;
 
     /**
      * Dashboard-Container-Array
@@ -54,8 +56,8 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
                 trigger_error('Dashboard container class "' . $container . '" must be an instance of "\fpcm\model\abstracts\dashcontainer".');
                 continue;
             }
-
-            if (count($containerObj->getPermissions()) && !$this->permissions->check($containerObj->getPermissions())) {
+            
+            if (!$this->checkPermissions($containerObj)) {
                 continue;
             }
 
@@ -90,6 +92,47 @@ class dashboard extends \fpcm\controller\abstracts\ajaxController {
     protected function parseClassname($filename)
     {
         return '\\fpcm\\model\\dashboard\\' . basename($filename, '.php');
+    }
+
+    /**
+     * 
+     * @param \fpcm\model\abstracts\dashcontainer $obj
+     * @return bool
+     */
+    private function checkPermissions(\fpcm\model\abstracts\dashcontainer $obj) : bool
+    {
+        if ($obj instanceof \fpcm\model\interfaces\isAccessible) {
+            return $obj->isAccessible();
+        }
+        
+        $perm = $obj->getPermissions();
+        if (!count($perm)) {
+            return true;
+        }
+
+        foreach ($perm as $mod => $vals) {
+            
+            if (!is_array($vals)) {
+                $vals = [$vals];
+            }
+
+            foreach ($vals as $val) {
+                
+                $res = $this->permissions->{$mod}->{$val};
+                if ($val) {
+                    break;
+                }
+                
+            }
+            
+            if (!$res) {
+                return false;
+            }
+            
+        }
+        
+        return true;
+ 
     }
 
 }

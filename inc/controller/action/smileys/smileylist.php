@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\smileys;
 
-class smileylist extends \fpcm\controller\abstracts\controller {
+class smileylist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\dataView;
     
@@ -21,11 +21,11 @@ class smileylist extends \fpcm\controller\abstracts\controller {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'smileys'];
+        return $this->permissions->system->smileys;
     }
 
     /**

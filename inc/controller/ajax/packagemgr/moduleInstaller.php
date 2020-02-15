@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\packagemgr;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class moduleInstaller extends \fpcm\controller\abstracts\ajaxController {
+class moduleInstaller extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * Module key
@@ -67,11 +67,11 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['modules' => 'install'];
+        return $this->permissions->modules->install;
     }
 
     /**
@@ -91,8 +91,6 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-        $this->setReturnJson();
-        
         if (!method_exists($this, $this->step)) {
             trigger_error('Module processing step '.$this->step.' not defined!');
             $this->returnData = [

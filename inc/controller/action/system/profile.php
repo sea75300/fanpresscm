@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\system;
 
-class profile extends \fpcm\controller\abstracts\controller {
+class profile extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\timezone,
         \fpcm\controller\traits\users\authorImages;
@@ -33,6 +33,15 @@ class profile extends \fpcm\controller\abstracts\controller {
     protected function getViewPath() : string
     {
         return 'system/profile';
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->profile;
     }
 
     /**

@@ -3,12 +3,12 @@
 <p><?php $theView->write(__FILE__.' required to assign variables "$headline" and "$dataViewId"!'); ?></p>
 <?php else: ?>
     <div class="fpcm-content-wrapper">
-        <div class="fpcm-ui-tabs-general">
-            <ul>
-                <li><a href="#tabs-<?php print $dataViewId; ?>-list"><?php $theView->write($headline); ?></a></li>                
+        <div class="fpcm-ui-tabs-general ui-tabs ui-corner-all ui-widget ui-widget-content">
+            <ul class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
+                <?php $theView->tabItem('tabs-'.$dataViewId.'-list')->setText($headline)->setUrl('#tabs-'.$dataViewId.'-list'); ?>            
             </ul>
 
-            <div id="tabs-<?php print $dataViewId; ?>-list">
+            <div id="tabs-<?php print $dataViewId; ?>-list" class="fpcm tabs-register ui-tabs-panel ui-corner-bottom ui-widget-content">
 
                 <?php if (!empty($topDescription)) : ?>
                 <div class="row no-gutters mt-2 mb-3">

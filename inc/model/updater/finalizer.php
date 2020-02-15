@@ -99,13 +99,16 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
         foreach ($rolls as $group) {
 
-            $permissionObj = new \fpcm\model\system\permissions($group->getId());
+            $permissionObj = new \fpcm\model\permissions\permissions($group->getId());
             
             if ($default === null) {
                 $default = $permissionObj->getPermissionSet();
             }
             
             $data = $permissionObj->getPermissionData();
+            
+            $default['comment']['lockip'] = 1;
+            $default['system']['profile'] = 1;
             
             $newData = $data;
             foreach ($default as $key => $value) {

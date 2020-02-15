@@ -230,6 +230,30 @@ final class http {
     }
 
     /**
+     * Assigns current controller name with additional filter
+     * @return string
+     * @since FPCm 4.4
+     */
+    public static function getModuleString() : string
+    {
+        $moduleData = self::get('module', [
+            self::FILTER_REGEX,
+            'regex' => '/^([a-z0-9]+)\/{1}([a-z0-9]+)\/?([a-z0-9]*)/i'
+        ]);
+
+        unset($moduleData[0]);
+        if (isset($moduleData[3]) && !trim($moduleData[3])) {
+            unset($moduleData[3]);
+        }
+
+        if (isset($moduleData[4]) && !trim($moduleData[4])) {
+            unset($moduleData[4]);
+        }
+
+        return is_array($moduleData) ? implode('/', $moduleData) : $moduleData;
+    }
+
+    /**
      * Führt Filter auf einen String aus,
      * Verwendung v. A. für Werte aus Formularen, etc.
      * 

@@ -12,7 +12,7 @@ namespace fpcm\view;
  * 
  * @package fpcm\view
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class view {
@@ -25,6 +25,8 @@ class view {
     const ROOTURL_CORE_THEME = '{$coreTheme}';
     const ROOTURL_LIB = '{$lib}';
     const ROOTURL_UNIQUE = '{$unique}';
+
+    const PATH_COMPONENTS = '{$components}';
 
     const JS_FILETYP_URL  = 0b100;
     const JS_FILETYP_FILE = 0b010;
@@ -476,19 +478,8 @@ class view {
      */
     public function addErrorMessage($messageText, $params = [])
     {
-        $msg = $this->language->translate($messageText, $params);
-        if (!$msg) {
-            $msg = $messageText;
-        }
+        $this->messages[] = new message($this->language->translate($messageText, $params), message::TYPE_ERROR, message::ICON_ERROR);
 
-        $type = 'error';
-
-        $this->messages[] = array(
-            'txt' => $msg,
-            'type' => $type,
-            'id' => md5($type . $msg),
-            'icon' => 'exclamation-triangle'
-        );
     }
 
     /**
@@ -499,19 +490,7 @@ class view {
      */
     public function addNoticeMessage($messageText, $params = [])
     {
-        $msg = $this->language->translate($messageText, $params);
-        if (!$msg) {
-            $msg = $messageText;
-        }
-
-        $type = 'notice';
-
-        $this->messages[] = array(
-            'txt' => $msg,
-            'type' => $type,
-            'id' => md5($type . $msg),
-            'icon' => 'check'
-        );
+        $this->messages[] = new message($this->language->translate($messageText, $params), message::TYPE_NOTICE, message::ICON_NOTICE);
     }
 
     /**
@@ -522,19 +501,7 @@ class view {
      */
     public function addMessage($messageText, $params = [])
     {
-        $msg = $this->language->translate($messageText, $params);
-        if (!$msg) {
-            $msg = $messageText;
-        }
-
-        $type = 'neutral';
-
-        $this->messages[] = array(
-            'txt' => $msg,
-            'type' => $type,
-            'id' => md5($type . $msg),
-            'icon' => 'info-circle'
-        );
+        $this->messages[] = new message($this->language->translate($messageText, $params), message::TYPE_NEUTRAL, message::ICON_NEUTRAL);
     }
 
     /**
@@ -629,6 +596,7 @@ class view {
             $this->defaultViewVars->navigation = (new \fpcm\model\theme\navigation())->render();
             $this->defaultViewVars->navigationActiveModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
             $this->defaultViewVars->loggedIn = true;
+            $this->defaultViewVars->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
         }
 
         if ($hasDbConfig) {
@@ -648,8 +616,18 @@ class view {
         $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
 
-        $this->getModuleString();
-        $this->defaultViewVars->buttons = $this->buttons;
+        $this->defaultViewVars->currentModule = \fpcm\classes\http::getModuleString();
+
+        
+        $toolbarButtons = new \fpcm\events\view\extendToolbarResult();
+        $toolbarButtons->buttons = $this->buttons;
+        
+        /* @var $toolbarButtons \fpcm\events\view\extendToolbarResult */
+        $toolbarButtons = $this->events->trigger('view\extendToolbar', $toolbarButtons);        
+        $this->defaultViewVars->toolbarArea = $toolbarButtons->area;
+        $this->defaultViewVars->buttons = $toolbarButtons->buttons;
+        unset($toolbarButtons);
+
         $this->defaultViewVars->formActionTarget = $this->formAction;
         $this->defaultViewVars->bodyClass = $this->bodyClass;
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
@@ -711,6 +689,14 @@ class view {
         $this->viewPath = $module
                         ? \fpcm\module\module::getTemplateDirByKey($module, $viewName)
                         : \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, $viewName);
+        
+        if (strpos($viewName, self::PATH_COMPONENTS) !== false) {
+            $this->viewPath = str_replace(
+                self::PATH_COMPONENTS,
+                \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'components'.DIRECTORY_SEPARATOR),
+                $viewName
+            );
+        }
 
         $this->viewName = $viewName;
     }
@@ -973,31 +959,6 @@ class view {
         ]);
 
         return $this->viewJsFiles;
-    }
-
-    /**
-     * Assigns current controller name with additional filter
-     * @return bool
-     * @since FPCM 4.3
-     */
-    final private function getModuleString() : bool
-    {
-        $moduleData = \fpcm\classes\http::get('module', [
-            \fpcm\classes\http::FILTER_REGEX,
-            'regex' => '/^([a-z0-9]+)\/{1}([a-z0-9]+)\/?([a-z0-9]*)/i'
-        ]);
-
-        unset($moduleData[0]);
-        if (isset($moduleData[3]) && !trim($moduleData[3])) {
-            unset($moduleData[3]);
-        }
-
-        if (isset($moduleData[4]) && !trim($moduleData[4])) {
-            unset($moduleData[4]);
-        }
-
-        $this->defaultViewVars->currentModule = is_array($moduleData) ? implode('/', $moduleData) : $moduleData;
-        return true;
     }
 
     /**

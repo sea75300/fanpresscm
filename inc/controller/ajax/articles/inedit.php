@@ -9,15 +9,15 @@ namespace fpcm\controller\ajax\articles;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since FPCM 3.5
  */
-class inedit extends \fpcm\controller\abstracts\ajaxController {
+class inedit extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * 
-     * @return array
+     * @return bool
      */
-    protected function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['article' => ['add', 'edit', 'editall']];
+        return $this->permissions->editArticles();
     }
 
     /**

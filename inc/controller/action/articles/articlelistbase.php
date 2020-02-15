@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\articles;
 
-abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
+abstract class articlelistbase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\articles\lists,
         \fpcm\controller\traits\common\massedit,
@@ -173,11 +173,11 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
 
         if ($this->listAction !== 'articles/trash') {
 
-            if ($this->permissions->check(['article' => 'add'])) {
+            if ($this->permissions->article->add) {
                 $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pen-square')->setIconOnly(true)->setClass('fpcm-loader');
             }
 
-            if ($this->canEdit && $this->permissions->check(['article' => 'massedit'])) {
+            if ($this->permissions->editArticlesMass()) {
                 $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true);
             }
 
@@ -251,11 +251,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
             return false;
         }
 
-        $this->canEdit = $this->permissions->check(['article' => ['edit', 'editall', 'approve', 'archive']]);
-        $this->deleteActions = $this->permissions->check(['article' => 'delete']);
-
-        $this->view->assign('canEdit', $this->canEdit);
-
+        $this->deleteActions = $this->permissions->article->delete;
         $tweet = new \fpcm\model\system\twitter();
 
         if ($tweet->checkRequirements() && $tweet->checkConnection()) {
@@ -335,11 +331,16 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
         $this->view->addJsLangVars(['EDITOR_CATEGORIES_SEARCH']);
         $this->view->addJsFiles([\fpcm\classes\loader::libGetFileUrl('selectize_js/dist/js/selectize.min.js')]);
         $this->view->addCssFiles([\fpcm\classes\loader::libGetFileUrl('selectize_js/dist/css/selectize.default.css')]);
+
+        if (!$this->permissions->editArticlesMass()) {
+            return [];
+        }
+        
         $this->assignPageToken('articles');
         
         $fields = [];
         
-        if ($this->permissions->check(['article' => 'authors'])) {
+        if ($this->permissions->article->authors) {
             $fields[] = new \fpcm\components\masseditField(
                 'users',
                 'EDITOR_CHANGEAUTHOR',
@@ -372,7 +373,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
             );
         }
         
-        if ($this->permissions->check(['article' => 'approve'])) {
+        if (!$this->permissions->article->approve) {
             $fields[] = new \fpcm\components\masseditField(
                 ['icon' => 'thumbs-up', 'prefix' => 'far'],
                 'EDITOR_STATUS_APPROVAL',
@@ -384,7 +385,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
             );
         }
         
-        if ($this->config->system_comments_enabled) {
+        if ($this->config->system_comments_enabled && $this->permissions->editComments()) {
             $fields[] = new \fpcm\components\masseditField(
                 ['icon' => 'comments', 'prefix' => 'far'],
                 'EDITOR_COMMENTS',
@@ -396,7 +397,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller {
             );
         }
         
-        if ($this->permissions->check(['article' => 'archive'])) {
+        if ($this->permissions->article->archive) {
             $fields[] = new \fpcm\components\masseditField(
                 'archive',
                 'EDITOR_ARCHIVE',

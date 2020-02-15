@@ -9,18 +9,9 @@
 
 namespace fpcm\controller\action\templates;
 
-class templates extends \fpcm\controller\abstracts\controller {
+class templates extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\templates\edit;
-
-    /**
-     * 
-     * @return array
-     */
-    protected function getPermissions()
-    {
-        return ['system' => 'templates'];
-    }
 
     /**
      * 
@@ -89,7 +80,7 @@ class templates extends \fpcm\controller\abstracts\controller {
                 ->setWrapper(false);
         }
         
-        $this->view->assign('tabs', array_merge($tabs, [
+        $tabs = array_merge($tabs, [
             (new \fpcm\view\helper\tabItem('tpl-comment'))
                 ->setText('TEMPLATE_HL_COMMENTS')
                 ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/templates/fetch', [''
@@ -133,14 +124,18 @@ class templates extends \fpcm\controller\abstracts\controller {
                 ->setData(['toolbar-buttons' => 2, 'tplId' => \fpcm\model\pubtemplates\tweet::TEMPLATE_ID])
                 ->setDataViewId('')
                 ->setWrapper(false),
-
-            (new \fpcm\view\helper\tabItem('tpl-editor-templates'))
-                ->setText('TEMPLATE_HL_DRAFTS')
-                ->setUrl('#tab-article-editor-templates')
-                ->setData(['toolbar-buttons' => 3, 'noEmpty' => true])
-                ->setDataViewId('')
-                ->setWrapper(false),
-        ]));
+        ]);
+        
+        if ($this->permissions->system->drafts) {
+            $tabs[] = (new \fpcm\view\helper\tabItem('tpl-editor-templates'))
+                    ->setText('TEMPLATE_HL_DRAFTS')
+                    ->setUrl('#tab-article-editor-templates')
+                    ->setData(['toolbar-buttons' => 3, 'noEmpty' => true])
+                    ->setDataViewId('')
+                    ->setWrapper(false);
+        }
+        
+        $this->view->assign('tabs', $tabs);
 
         $this->view->setActiveTab($this->getActiveTab());
         $this->view->addJsVars([
@@ -233,6 +228,10 @@ class templates extends \fpcm\controller\abstracts\controller {
      */
     private function uploadEditorTemplate()
     {
+        if (!$this->permissions->system->drafts) {
+            return false;
+        }
+
         $files = \fpcm\classes\http::getFiles();
         if (!$this->buttonClicked('uploadFile') || !$files) {
             return false;
@@ -253,6 +252,10 @@ class templates extends \fpcm\controller\abstracts\controller {
      */
     private function deleteEditorTemplate()
     {
+        if (!$this->permissions->system->drafts) {
+            return false;
+        }
+        
         $delFiles = $this->getRequestVar('deltplfiles', [
             \fpcm\classes\http::FILTER_BASE64DECODE
         ]);

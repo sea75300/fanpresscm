@@ -21,7 +21,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
 
     /**
      * Permission Object
-     * @var \fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      * @since FPCM 3.3
      */
     protected $permissions = false;
@@ -35,7 +35,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         $this->table = \fpcm\classes\database::tableArticles;
 
         if (is_object(\fpcm\classes\loader::getObject('\fpcm\model\system\session')) && \fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
-            $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
+            $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
         }
 
         parent::__construct();
@@ -706,6 +706,16 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             $valueParams[] = "%{$conditions->content}%";
         }
 
+        if ($conditions->datefrom !== null) {
+            $where[] = $conditions->getCondition('datefrom', 'createtime >= ?');
+            $valueParams[] = $conditions->datefrom;
+        }
+
+        if ($conditions->dateto !== null) {
+            $where[] = $conditions->getCondition('dateto', 'createtime <= ?');
+            $valueParams[] = $conditions->dateto;
+        }
+
         if ($conditions->user !== null) {
             $where[] = $conditions->getCondition('userid', 'createuser = ?');
             $valueParams[] = $conditions->user;
@@ -720,14 +730,9 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             $valueParams[] = "%,{$catId}]";
         }
 
-        if ($conditions->datefrom !== null) {
-            $where[] = $conditions->getCondition('datefrom', 'createtime >= ?');
-            $valueParams[] = $conditions->datefrom;
-        }
-
-        if ($conditions->dateto !== null) {
-            $where[] = $conditions->getCondition('dateto', 'createtime <= ?');
-            $valueParams[] = $conditions->dateto;
+        if ($conditions->pinned !== null) {
+            $where[] = $conditions->getCondition('pinned', 'pinned = ?');
+            $valueParams[] = $conditions->pinned;
         }
 
         if ($conditions->postponed !== null) {
@@ -735,19 +740,14 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             $valueParams[] = $conditions->postponed;
         }
 
-        if ($conditions->archived !== null) {           
-            $where[] = $conditions->getCondition('archived', 'archived = ?');
-            $valueParams[] = $conditions->archived;
-        }
-
-        if ($conditions->pinned !== null) {
-            $where[] = $conditions->getCondition('pinned', 'pinned = ?');
-            $valueParams[] = $conditions->pinned;
-        }
-
         if ($conditions->comments !== null) {
             $where[] = $conditions->getCondition('comments', 'comments = ?');
             $valueParams[] = $conditions->comments;
+        }
+
+        if ($conditions->approval !== null) {
+            $where[] = $conditions->getCondition('approval', 'approval = ?');
+            $valueParams[] = $conditions->approval > -1 ? $conditions->approval : 0;
         }
 
         if ($conditions->draft !== null) {
@@ -755,9 +755,9 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             $valueParams[] = $conditions->draft > -1 ? $conditions->draft : 0;
         }
 
-        if ($conditions->approval !== null) {
-            $where[] = $conditions->getCondition('approval', 'approval = ?');
-            $valueParams[] = $conditions->approval > -1 ? $conditions->approval : 0;
+        if ($conditions->archived !== null) {           
+            $where[] = $conditions->getCondition('archived', 'archived = ?');
+            $valueParams[] = $conditions->archived;
         }
 
         $where[] = $conditions->getCondition('deleted', "deleted = ?");

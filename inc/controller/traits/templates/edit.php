@@ -101,6 +101,16 @@ trait edit {
         $this->template = new \fpcm\model\pubtemplates\tweet();
         return true;
     }
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->templates;
+    }
+
 }
 
 ?>

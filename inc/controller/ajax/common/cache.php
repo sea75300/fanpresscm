@@ -15,8 +15,10 @@ namespace fpcm\controller\ajax\common;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class cache extends \fpcm\controller\abstracts\ajaxController {
+class cache extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
 
+    use \fpcm\controller\traits\common\isAccessibleTrue;
+    
     /**
      *
      * @var string

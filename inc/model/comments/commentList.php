@@ -35,7 +35,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
 
     /**
      * Permission Object
-     * @var \fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      * @since FPCM 3.3
      */
     protected $permissions = false;
@@ -48,7 +48,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $this->table = \fpcm\classes\database::tableComments;
 
         if (is_object(\fpcm\classes\loader::getObject('\fpcm\model\system\session')) && \fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
-            $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
+            $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
         }
 
         parent::__construct();
@@ -572,14 +572,14 @@ class commentList extends \fpcm\model\abstracts\tablelist {
             $valueParams[] = (int) $conditions->spam;
         }
 
-        if ($conditions->private && $conditions->private > -1) {
-            $where[] = $conditions->getCondition('private', "private = ?");
-            $valueParams[] = (int) $conditions->private;
-        }
-
         if ($conditions->approved && $conditions->approved > -1) {
             $where[] = $conditions->getCondition('approved', "approved = ?");
             $valueParams[] = (int) $conditions->approved;
+        }
+
+        if ($conditions->private && $conditions->private > -1) {
+            $where[] = $conditions->getCondition('private', "private = ?");
+            $valueParams[] = (int) $conditions->private;
         }
 
         if ($conditions->articleid) {
@@ -588,7 +588,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         }
 
         if ($conditions->ipaddress) {
-            $where[] = $conditions->getCondition('categoryid', "ipaddress = ?");
+            $where[] = $conditions->getCondition('ipaddress', "ipaddress = ?");
             $valueParams[] = $conditions->ipaddress;
         }
 
