@@ -248,6 +248,7 @@ trait lists {
             
             $showCommentsStatus = $this->config->system_comments_enabled;
             $showSharesCount = $this->config->system_share_count;
+            $isTrash = $this->isTrash ?? false;
 
             foreach ($articles as $articleId => $article) {
 
@@ -256,9 +257,7 @@ trait lists {
                             ->addItem( (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article) )
                             ->addItem( (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article) );
 
-                $isTrash = $this->isTrash ?? false;
                 if ($this->deleteActions && !$isTrash) {
-                    
                     $buttons->addItem( (new \fpcm\view\helper\button('delete'.$articleId))
                             ->setText('GLOBAL_DELETE')
                             ->setIcon('trash')

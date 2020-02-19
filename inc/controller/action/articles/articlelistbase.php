@@ -205,10 +205,9 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         $this->view->setFormAction($this->listAction, $formActionParams);
         
         $this->translateCategories();
-
         $this->initDataView();
         $this->view->addDataView($this->dataView);
-
+        
         return true;
     }
 
