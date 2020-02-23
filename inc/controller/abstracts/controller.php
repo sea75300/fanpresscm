@@ -19,8 +19,8 @@ namespace fpcm\controller\abstracts;
 class controller implements \fpcm\controller\interfaces\controller {
 
     /**
-     * Request-Daten
-     * @var array
+     * Request object
+     * @var \fpcm\model\http\request
      */
     protected $request;
 
@@ -137,6 +137,8 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     public function __construct()
     {
+        $this->request = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
+
         if (\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
             return $this->redirect('installer');
             exit;
@@ -171,9 +173,23 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param string $varname
      * @param array $filter
      * @return mixed
+     * @deprecated since version FPCM 4.4
      */
-    final public function getRequestVar($varname = null, array $filter = [\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_HTMLENTITIES, \fpcm\classes\http::FILTER_STRIPSLASHES, \fpcm\classes\http::FILTER_TRIM])
+    final public function getRequestVar
+    (
+        $varname = null,
+        array $filter = [
+            \fpcm\classes\http::FILTER_STRIPTAGS,
+            \fpcm\classes\http::FILTER_HTMLENTITIES,
+            \fpcm\classes\http::FILTER_STRIPSLASHES,
+            \fpcm\classes\http::FILTER_TRIM
+        ]
+    )
     {
+        if (is_object($this->request)) {
+            return $this->request->fromCompleteRequest($varname, $filter);
+        }
+
         return \fpcm\classes\http::get($varname, $filter);
     }
 
@@ -362,7 +378,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
      * @return bool
      */
     public function process()
@@ -412,18 +428,6 @@ class controller implements \fpcm\controller\interfaces\controller {
         }
 
         return $this->moduleController === null ? true : in_array($this->moduleController, $this->enabledModules);
-    }
-
-    /**
-     * Filter
-     * @param string $filterString
-     * @param array $filters
-     * @return string
-     * @deprecated since version 4.1
-     */
-    public static function filterRequest($filterString, array $filters)
-    {
-        return \fpcm\classes\http::filter($filterString, $filters);
     }
 
     /**
@@ -504,14 +508,16 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function getActiveTab() : int
     {
-        $activeTab = $this->getRequestVar('rg');
+        $activeTab = $this->request->fromGET('rg', [ \fpcm\model\http\request::FILTER_CASTINT ]);
+
         if ($activeTab !== null) {
             return (int) $activeTab;
         }
 
-        $activeTab = $this->getRequestVar('activeTab');
+        $activeTab = $this->request->fromGET('activeTab', [ \fpcm\model\http\request::FILTER_CASTINT ]);
+
         if ($activeTab !== null) {
-            return (int) $activeTab;
+            return $activeTab;
         }
         
         return 0;
@@ -526,12 +532,14 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function processByParam(string $prefix = 'process', string $actionFrom = 'fn')
     {
-        $actionName = $this->getRequestVar($actionFrom, [
-            \fpcm\classes\http::FILTER_REGEX_REPLACE,
-            \fpcm\classes\http::FILTER_FIRSTUPPER,
-            'regex' => '/([A-Za-z0-9\_]{3,})/',
-            'regexReplace' => '$0'
+        $this->request->fromGET($actionFrom, [
+            \fpcm\model\http\request::FILTER_REGEX_REPLACE,
+            \fpcm\model\http\request::FILTER_FIRSTUPPER,
+            \fpcm\model\http\request::PARAM_REGEX => '/([A-Za-z0-9\_]{3,})/',
+            \fpcm\model\http\request::PARAM_REGEX_REPLACE => '$0'
         ]);
+        
+        $actionName = $this->getRequestVar($actionFrom);
 
         $fn = trim($prefix.$actionName);
         if (!method_exists($this, $fn)) {
