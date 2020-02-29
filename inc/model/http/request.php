@@ -13,7 +13,7 @@ namespace fpcm\model\http;
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\http
- * @since FPCm 4.4
+ * @since FPCM 4.4
  * @ignore
  */
 final class request {
@@ -140,7 +140,7 @@ final class request {
 
     }
 
-        /**
+    /**
      * Fetch ID from GET-request
      * @return int
      */
@@ -151,7 +151,7 @@ final class request {
             return 0;
         }
 
-        return $this->filter($value, self::FILTER_CASTINT);
+        return $this->filter($value, [self::FILTER_CASTINT]);
     }
 
     /**
@@ -166,6 +166,20 @@ final class request {
         }
 
         return $values;
+    }
+
+    /**
+     * Fetch mode as integer value from GET-request
+     * @return int
+     */
+    public function getIntMode() : int
+    {
+        $value = $this->fromGET('mode');
+        if (!$value) {
+            return 0;
+        }
+
+        return $this->filter($value, [self::FILTER_CASTINT]);
     }
 
     /**
@@ -271,7 +285,7 @@ final class request {
             return $values;
         }
 
-        array_map(function($filter) use (&$values) {
+        array_map(function($filter) use (&$values, $filters) {
             
             $filter = (int) $filter;
             
@@ -349,7 +363,7 @@ final class request {
      */
     private function assignFilter8(&$value, array $filters)
     {
-        $value = json_decode($values, ($filters[self::PARAM_JSON_ASOBJECT] ? false : true));
+        $value = json_decode($value, ($filters[self::PARAM_JSON_ASOBJECT] ? false : true));
         return true;
     }
     
@@ -360,7 +374,7 @@ final class request {
      */
     private function assignFilter9(&$value)
     {
-        $value = filter_var($value, FILTER_SANITIZE_NUMBER_INT);
+        $value = (int) $value;
         return true;
     }
     
@@ -372,7 +386,7 @@ final class request {
      */
     private function assignFilter10(&$value)
     {
-        $value = loader::getObject('\fpcm\classes\crypt')->decrypt($value);
+        $value = \fpcm\classes\loader::getObject('\fpcm\classes\crypt')->decrypt($value);
         return true;
     }
     
@@ -405,7 +419,7 @@ final class request {
      */
     private function assignFilter13(&$value)
     {
-        $value = ucfirst($values);
+        $value = ucfirst($value);
         return true;
     }
     

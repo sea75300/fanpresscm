@@ -20,9 +20,7 @@ class categoryedit extends base {
         $this->saveMessage = 'edited';
         $this->tabHeadline = 'CATEGORIES_EDIT';
         
-        $id = $this->getRequestVar('categoryid', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
+        $id = $this->request->getID();
         
         if ($id === null) {
             $this->redirect('categories/list');

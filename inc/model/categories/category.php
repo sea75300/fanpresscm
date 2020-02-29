@@ -39,7 +39,7 @@ class category extends \fpcm\model\abstracts\dataset {
      * Action-String für edit-Action
      * @var string
      */
-    protected $editAction = 'categories/edit&categoryid=';
+    protected $editAction = 'categories/edit&id=';
 
     /**
      * Wortsperren-Liste

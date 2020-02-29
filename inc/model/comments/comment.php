@@ -109,7 +109,7 @@ class comment extends \fpcm\model\abstracts\dataset {
      * Action-String für edit-Action
      * @var string
      */
-    protected $editAction = 'comments/edit&commentid=';
+    protected $editAction = 'comments/edit&id=';
 
     /**
      * Wortsperren-Liste

@@ -55,7 +55,7 @@ class item extends \fpcm\model\abstracts\dataset {
      * Action-String für edit-Action
      * @var string
      */
-    protected $editAction = 'wordban/edit&itemid=';
+    protected $editAction = 'wordban/edit&id=';
 
     /**
      * Konstruktor

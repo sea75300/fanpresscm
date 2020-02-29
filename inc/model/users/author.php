@@ -129,7 +129,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * Edit action string
      * @var string
      */
-    protected $editAction = 'users/edit&userid=';
+    protected $editAction = 'users/edit&id=';
 
     /**
      * Wortsperren-Liste

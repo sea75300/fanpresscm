@@ -66,7 +66,7 @@ class articleedit extends articlebase {
      */
     public function request()
     {
-        if (is_null($this->getRequestVar('articleid'))) {
+        if ($this->request->getID() === null) {
             $this->redirect('articles/list');
         }
 
@@ -146,7 +146,7 @@ class articleedit extends articlebase {
     {
         parent::process();
 
-        $this->view->setFormAction('articles/edit', ['articleid' => $this->article->getId()]);
+        $this->view->setFormAction($this->article->getEditLink(), [], true);
         $this->view->assign('editorMode', 1);
         $this->view->assign('showRevisions', $this->permissions->article->revisions);
         $this->view->assign('postponedTimer', $this->article->getCreatetime());
@@ -271,7 +271,7 @@ class articleedit extends articlebase {
             $this->initCommentMassEditForm(2);
         }
 
-        if ($this->permissions->article->delete && !$this->getRequestVar('rev')) {
+        if ($this->permissions->article->delete && !$this->request->fromGET('rev')) {
             $this->view->addButton((new \fpcm\view\helper\deleteButton('articleDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-confirm')->setReadonly($this->article->isInEdit()));
         }
 
@@ -341,12 +341,21 @@ class articleedit extends articlebase {
             return true;
         }
 
-        $this->revisionId = !is_null($this->getRequestVar('rev')) ? (int) $this->getRequestVar('rev') : (is_array($revisionIdsArray) ? array_shift($revisionIdsArray) : false);
+        $this->revisionId = false;
+        
+        $revFromGet = $this->request->fromGET('rev', [ \fpcm\model\http\request::FILTER_CASTINT ]);
+        
+        if ($revFromGet === null && is_array($revisionIdsArray)) {
+            $this->revisionId = array_shift($revisionIdsArray);
+        }
+        elseif ($revFromGet !== null) {        
+            $this->revisionId = $revFromGet;
+        }
 
         if ($this->buttonClicked('articleRevisionRestore') && $this->revisionId && $this->checkPageToken) {
 
             if ($this->article->restoreRevision($this->revisionId)) {
-                $this->redirect('articles/edit&articleid=' . $this->article->getId() . '&revrestore=1');
+                $this->redirect('articles/edit&id=' . $this->article->getId() . '&revrestore=1');
             } else {
                 $this->view->addErrorMessage('SAVE_FAILED_ARTICLEREVRESTORE');
             }

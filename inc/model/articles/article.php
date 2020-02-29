@@ -163,7 +163,7 @@ class article extends \fpcm\model\abstracts\dataset {
      * Action-String für edit-Action
      * @var string
      */
-    protected $editAction = 'articles/edit&articleid=';
+    protected $editAction = 'articles/edit&id=';
 
     /**
      * Wortsperren-Liste

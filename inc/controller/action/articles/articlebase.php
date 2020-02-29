@@ -102,11 +102,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
      */
     protected function initObject()
     {
-        $id = $this->getRequestVar('articleid', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
-
-        $this->article = new \fpcm\model\articles\article($id);
+        $this->article = new \fpcm\model\articles\article($this->request->getID());
     }
 
     /**

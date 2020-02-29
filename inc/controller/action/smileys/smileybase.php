@@ -49,7 +49,7 @@ class smileybase extends \fpcm\controller\abstracts\controller implements \fpcm\
 
     public function request()
     {
-        $this->id = \fpcm\classes\http::get('id', [\fpcm\classes\http::FILTER_CASTINT]);
+        $this->id = $this->request->getID();
         
         $this->smiley = new \fpcm\model\files\smiley();
         if ($this->id) {

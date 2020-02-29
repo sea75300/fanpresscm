@@ -73,11 +73,9 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
      */
     public function request()
     {
-        $this->mode = $this->getRequestVar('mode', [\fpcm\classes\http::FILTER_CASTINT]);
+        $this->mode = $this->request->getIntMode();
 
-        $id = $this->getRequestVar('commentid', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
+        $id = $this->request->getID();
         if (!$id) {
             $this->redirect('comments/list');
         }

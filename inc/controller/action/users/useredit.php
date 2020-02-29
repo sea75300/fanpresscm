@@ -26,9 +26,7 @@ class useredit extends userbase {
      */
     public function request()
     {
-        $this->userId = $this->getRequestVar('userid', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
+        $this->userId = $this->request->getID();
 
         if (!$this->userId) {
             $this->redirect('users/list');

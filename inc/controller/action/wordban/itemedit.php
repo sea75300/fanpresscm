@@ -33,12 +33,13 @@ class itemedit extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
     public function request()
     {
+        $id = $this->request->getID();
 
-        if (is_null($this->getRequestVar('itemid'))) {
+        if (!$id) {
             $this->redirect('wordban/list');
         }
 
-        $this->item = new \fpcm\model\wordban\item($this->getRequestVar('itemid', array(9)));
+        $this->item = new \fpcm\model\wordban\item($id);
 
         if (!$this->item->exists()) {
             $this->view = new \fpcm\view\error('LOAD_FAILED_WORDBAN', 'wordban/list');
