@@ -93,9 +93,8 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
             return $this->init();
         }
 
-        if ($this->buttonClicked('doAction') && !is_null($this->getRequestVar('actions'))) {
-
-            $actionData = $this->getRequestVar('actions');
+        $actionData = $this->request->fromPOST('actions');
+        if ($this->buttonClicked('doAction') && is_array($actionData)) {
 
             if ($actionData['action'] === 'trash') {
 

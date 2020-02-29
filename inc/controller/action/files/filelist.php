@@ -65,7 +65,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
         $styleLeftMargin = true;
         
-        $this->mode = $this->getRequestVar('mode', [\fpcm\classes\http::FILTER_CASTINT]);
+        $this->mode = $this->request->getIntMode();
         if ($this->mode > 1) {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
             $this->view->setBodyClass('fpcm-ui-hide-toolbar');

@@ -532,14 +532,12 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function processByParam(string $prefix = 'process', string $actionFrom = 'fn')
     {
-        $this->request->fromGET($actionFrom, [
+        $actionName = $this->request->fromGET($actionFrom, [
             \fpcm\model\http\request::FILTER_REGEX_REPLACE,
             \fpcm\model\http\request::FILTER_FIRSTUPPER,
             \fpcm\model\http\request::PARAM_REGEX => '/([A-Za-z0-9\_]{3,})/',
             \fpcm\model\http\request::PARAM_REGEX_REPLACE => '$0'
         ]);
-        
-        $actionName = $this->getRequestVar($actionFrom);
 
         $fn = trim($prefix.$actionName);
         if (!method_exists($this, $fn)) {
