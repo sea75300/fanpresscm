@@ -39,7 +39,8 @@ fpcm.articlelist = {
     
     assignActions: function() {
         
-        var action = fpcm.dom.fromId('actionsaction').val();
+        var action = fpcm.dom.fromId('action').val();
+
         if (action == 'newtweet') {
             fpcm.articlelist.articleActionsTweet();
             return -1;
@@ -56,6 +57,16 @@ fpcm.articlelist = {
 
         if (action == 'delete') {
             fpcm.articlelist.deleteMultipleArticle();
+            return -1;
+        }
+
+        if (action == 'trash') {
+            fpcm.articlelist.emptyTrash();
+            return -1;
+        }
+
+        if (action == 'restore') {
+            fpcm.articlelist.restoreFromTrash();
             return -1;
         }
 
@@ -295,11 +306,36 @@ fpcm.articlelist = {
         return true;
 
     },
+
+    emptyTrash: function() {
+
+        fpcm.system.emptyTrash({
+            fn: 'clearArticles'
+        });
+
+        return true;
+
+    },
+
+    restoreFromTrash: function() {
+
+        var ids = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+        if (ids.length == 0) {
+            fpcm.ui_loader.hide();
+            return false;
+        }
+
+        fpcm.system.emptyTrash({
+            fn: 'restoreArticles',
+            ids: ids
+        });
+
+        return true;
+
+    },
     
     resetActionsMenu: function () {
-        var el = fpcm.dom.fromId('actionsaction');
-        el.prop('selectedIndex',0);
-        el.selectmenu('refresh');
+        fpcm.ui.resetSelectMenuSelection('#action');
         return true;
     }
 };

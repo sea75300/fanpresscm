@@ -18,7 +18,7 @@ fpcm.comments = {
         }
     
         fpcm.ui.checkboxradio('.fpcm-ui-comments-status');
-        fpcm.comments.assignActions();
+        fpcm.comments.assignActionsList();
 
         if (parent.fpcm.editor && parent.fpcm.editor.editorTabs && fpcm.vars.jsvars.reloadList) {
             parent.fpcm.editor.editorTabs.tabs('load', 2);
@@ -49,7 +49,7 @@ fpcm.comments = {
         
     },
 
-    assignActions: function() {
+    assignActionsList: function() {
             
         if (fpcm.vars.jsvars.activeTab) {
             fpcm.vars.jsvars.massEdit = {
@@ -64,6 +64,17 @@ fpcm.comments = {
         });
 
         return true;
+    },
+
+    assignActions: function() {
+        
+        var action = fpcm.dom.fromId('action').val();
+        if (!fpcm.comments[action]) {
+            return -1;
+        }
+        
+        fpcm.comments[action]();
+        return -1;
     },
 
     initWidgets: function(dialogId) {
@@ -164,6 +175,33 @@ fpcm.comments = {
         });
 
         fpcm.vars.jsvars.commentsLastSearch = (new Date()).getTime();
+    },
+
+    emptyTrash: function() {
+
+        fpcm.system.emptyTrash({
+            fn: 'clearComments'
+        });
+
+        return true;
+
+    },
+
+    restoreFromTrash: function() {
+
+        var ids = fpcm.ui.getCheckboxCheckedValues('.fpcm-ui-list-checkbox');
+        if (ids.length == 0) {
+            fpcm.ui_loader.hide();
+            return false;
+        }
+
+        fpcm.system.emptyTrash({
+            fn: 'restoreComments',
+            ids: ids
+        });
+
+        return true;
+
     }
 
 };

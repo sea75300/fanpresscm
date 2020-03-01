@@ -267,6 +267,48 @@ fpcm.system = {
         return false;
     },
 
+    emptyTrash: function (_params) {
+
+        fpcm.ui.confirmDialog({
+
+            clickYes: function () {
+                fpcm.ajax.exec('clearTrash', {
+                    pageToken: 'ajax/clearTrash',
+                    dataType: 'json',
+                    data: {
+                        ids: _params.ids ? _params.ids : [],
+                        fn: _params.fn
+                    },
+                    execDone: function (result) {
+
+                        fpcm.ui.resetSelectMenuSelection('#action');
+
+                        if (!result.msg && !result.code) {
+                            fpcm.ajax.showAjaxErrorMessage();
+                            fpcm.ui_loader.hide();
+                            return false;
+                        }
+
+                        fpcm.ui.addMessage(result.msg, true);
+                        if (result.code == 1) {
+                            setTimeout(function () {
+                                window.location.reload();
+                            }, 2500);
+                            return true;
+                        }
+
+                    }
+                });
+
+                fpcm.dom.fromTag(this).dialog("close");
+            },
+            clickNoDefault: true
+
+        });
+
+        return false;
+    },
+
     showHelpDialog: function () {
 
         fpcm.dom.fromClass('fpcm-ui-help-dialog').click(function () {

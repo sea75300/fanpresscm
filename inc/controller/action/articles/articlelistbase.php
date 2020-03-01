@@ -87,52 +87,9 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
      * @return bool
      */
     public function request()
-    {   
-        if (($this->buttonClicked('doAction') || $this->buttonClicked('clearTrash')) && !$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return $this->init();
-        }
-
-        $actionData = $this->request->fromPOST('actions');
-        if ($this->buttonClicked('doAction') && is_array($actionData)) {
-
-            if ($actionData['action'] === 'trash') {
-
-                if (!$this->doTrash()) {
-                    $this->view->addErrorMessage('DELETE_FAILED_TRASH');
-                } else {
-                    $this->view->addNoticeMessage('DELETE_SUCCESS_TRASH');
-                }
-
-                return $this->init();
-            }
-
-
-            if ((!isset($actionData['ids']) && $actionData['action'] != 'trash') || !$actionData['action']) {
-                $this->view->addErrorMessage('SELECT_ITEMS_MSG');
-                return $this->init();
-            }
-
-            $ids = array_map('intval', $actionData['ids']);
-
-            $action = in_array($actionData['action'], array_values($this->articleActions)) ? $actionData['action'] : false;
-
-            if ($action === false) {
-                $this->view->addErrorMessage('SELECT_ITEMS_MSG');
-                return $this->init();
-            }
-
-            if (!call_user_func([$this, 'do' . ucfirst($action)], $ids)) {
-                $msg = ($action == 'delete') ? 'DELETE_FAILED_ARTICLE' : 'SAVE_FAILED_ARTICLE';
-                $this->view->addErrorMessage($msg);
-                return $this->init();
-            }
-
-            $msg = ($action == 'delete') ? 'DELETE_SUCCESS_ARTICLE' : 'SAVE_SUCCESS_ARTICLE' . strtoupper($action);
-            $this->view->addNoticeMessage($msg);
-        }
-
-        return $this->init();
+    {
+        $this->init();
+        return true;
     }
 
     /**
@@ -146,7 +103,6 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         $this->getConditionItem();
         $this->getArticleCount();
         $this->getArticleItems();
-        
         return true;
     }
 
@@ -183,10 +139,8 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
             $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true);
         }
 
-        $buttons[] = (new \fpcm\view\helper\select('actions[action]'))->setOptions($this->articleActions);
-        $buttons[] = (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-loader fpcm-ui-articleactions-ok')->setIcon('check')->setIconOnly(true)->setData([
-            'hidespinner' => $this->listAction !== 'articles/trash' ? true :  false
-        ]);
+        $buttons[] = (new \fpcm\view\helper\select('action'))->setOptions($this->articleActions);
+        $buttons[] = (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-ui-articleactions-ok')->setIcon('check')->setIconOnly(true)->setData(['hidespinner' => true]);
         
         if ($this->listAction !== 'articles/trash') {
             $this->view->addPager((new \fpcm\view\helper\pager($this->listAction, $this->page, count($this->articleItems), $this->config->articles_acp_limit, $this->articleCount)));
@@ -208,33 +162,6 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         $this->view->addDataView($this->dataView);
         
         return true;
-    }
-
-    /**
-     * Papierkorb leeren
-     * @return bool
-     */
-    protected function doTrash()
-    {
-        if (!$this->deleteActions) {
-            return false;
-        }
-
-        return $this->articleList->emptyTrash();
-    }
-
-    /**
-     * Artikel aus Papierkorb wiederherstellen
-     * @param array $ids
-     * @return bool
-     */
-    protected function doRestore(array $ids)
-    {
-        if (!$this->deleteActions) {
-            return false;
-        }
-        
-        return $this->articleList->restoreArticles($ids);
     }
     
     protected function getLimitsByPage()

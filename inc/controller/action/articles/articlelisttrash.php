@@ -105,6 +105,7 @@ class articlelisttrash extends articlelistbase {
 
         $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
         $this->view->addJsVars(['artCacheMod' => urlencode($crypt->encrypt(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE))]);
+        $this->view->addAjaxPageToken('clearTrash');
     }
 
 }

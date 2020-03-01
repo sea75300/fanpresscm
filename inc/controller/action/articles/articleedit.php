@@ -66,10 +66,6 @@ class articleedit extends articlebase {
      */
     public function request()
     {
-        if ($this->request->getID() === null) {
-            $this->redirect('articles/list');
-        }
-
         if (!parent::request()) {
             return false;
         }

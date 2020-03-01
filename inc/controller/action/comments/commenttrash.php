@@ -68,23 +68,6 @@ class commenttrash extends \fpcm\controller\abstracts\controller implements \fpc
      */
     public function request()
     {
-        if (!$this->buttonClicked('doAction')) {
-            return true;
-        }
-
-        if (!$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return true;
-        }
-        
-        $action = 'do'.$this->getRequestVar('action', [
-            \fpcm\classes\http::FILTER_FIRSTUPPER
-        ]);
-        
-        if (method_exists($this, $action)) {
-            call_user_func([$this, $action]);
-        }
-
         return true;
     }
 
@@ -98,13 +81,14 @@ class commenttrash extends \fpcm\controller\abstracts\controller implements \fpc
         $conditions->deleted = 1;
         $this->items = $this->comments->getCommentsBySearchCondition($conditions);
 
+        $this->view->addAjaxPageToken('clearTrash');
         $this->view->assign('commentsMode', 1);
         $this->view->setFormAction('comments/trash');
         $this->view->addJsFiles(['comments/module.js']);
 
         $this->view->addButtons([    
-            (new \fpcm\view\helper\select('action'))->setOptions(['ARTICLE_LIST_RESTOREARTICLE' => 'restore', 'ARTICLE_LIST_EMPTYTRASH' => 'trash']),
-            (new \fpcm\view\helper\submitButton('doAction'))->setIcon('check')->setText('GLOBAL_OK')->setIconOnly(true)
+            (new \fpcm\view\helper\select('action'))->setOptions(['ARTICLE_LIST_RESTOREARTICLE' => 'restoreFromTrash', 'ARTICLE_LIST_EMPTYTRASH' => 'emptyTrash']),
+            (new \fpcm\view\helper\submitButton('doAction'))->setIcon('check')->setText('GLOBAL_OK')->setIconOnly(true)->setClass('fpcm-ui-articleactions-ok')
 
         ]);
 
@@ -152,36 +136,6 @@ class commenttrash extends \fpcm\controller\abstracts\controller implements \fpc
         ]);
     }
 
-    /**
-     * Papierkorb leeren
-     * @return bool
-     */
-    private function doTrash()
-    {
-        if (!$this->comments->emptyTrash()) {
-            $this->view->addErrorMessage('DELETE_FAILED_TRASH');
-            return false;
-        }
-
-        $this->view->addNoticeMessage('DELETE_SUCCESS_TRASH');
-        return true;
-    }
-
-    /**
-     * Retore comments from trash
-     * @param array $ids
-     * @return bool
-     */
-    private function doRestore()
-    {
-        if (!$this->comments->retoreComments($this->getRequestVar('ids'))) {
-            $this->view->addErrorMessage('SAVE_FAILED_ARTICLERESTORE');
-            return false;
-        }
-
-        $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLERESTORE');
-        return true;
-    }
 }
 
 ?>

@@ -315,7 +315,7 @@ fpcm.editor = {
             return true;
         }
         
-        fpcm.comments.assignActions();
+        fpcm.comments.assignActionsList();
         
         fpcm.dom.fromClass('fpcm-ui-commentlist-link').click(function () {
             fpcm.ui_loader.hide();

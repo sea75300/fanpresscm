@@ -532,16 +532,16 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function processByParam(string $prefix = 'process', string $actionFrom = 'fn')
     {
-        $actionName = $this->request->fromGET($actionFrom, [
+        $actionName = $this->request->fromCompleteRequest($actionFrom, [
             \fpcm\model\http\request::FILTER_REGEX_REPLACE,
             \fpcm\model\http\request::FILTER_FIRSTUPPER,
             \fpcm\model\http\request::PARAM_REGEX => '/([A-Za-z0-9\_]{3,})/',
             \fpcm\model\http\request::PARAM_REGEX_REPLACE => '$0'
         ]);
 
-        $fn = trim($prefix.$actionName);
+        $fn = trim($prefix.$actionName);        
         if (!method_exists($this, $fn)) {
-            trigger_error('Request for undefined function '.$fn);
+            trigger_error('Request for undefined function '.$fn.' in '. get_called_class());
             return 0x404;
         }
 
