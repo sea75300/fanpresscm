@@ -62,30 +62,15 @@ class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\cont
      */
     public function request()
     {
-        if ($this->getRequestVar('added') == 1) {
+        if ($this->request->hasMessage('added') == 1) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_IPADDRESS');
         }
 
-        if ($this->getRequestVar('added') == 2) {
+        if ($this->request->hasMessage('added') == 2) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_IPADDRESS_CHG');
         }
 
-        if ($this->buttonClicked('delete') && !$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return true;
-        }
-
-        if ($this->buttonClicked('delete') && !is_null($this->getRequestVar('ipids'))) {
-
-            $ids = array_map('intval', $this->getRequestVar('ipids'));
-
-            if ($this->ipList->deleteIpAdresses($ids)) {
-                $this->view->addNoticeMessage('DELETE_SUCCESS_IPADDRESS');
-            } else {
-                $this->view->addErrorMessage('DELETE_FAILED_IPADDRESS');
-            }
-        }
-
+        $this->delete();
         return true;
     }
 
@@ -155,13 +140,38 @@ class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\cont
         ];
 
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('ipids[]', 'chbx' . $item->getId()))->setClass('fpcm-ui-list-checkbox')->setValue($item->getId()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+            new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\checkbox('ids[]', 'chbx' . $item->getId()))->setClass('fpcm-ui-list-checkbox')->setValue($item->getId()), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
             new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\editButton('ipedit'.$item->getId()))->setUrlbyObject($item) ),
             new \fpcm\components\dataView\rowCol('ipaddress', new \fpcm\view\helper\escape($item->getIpaddress()) ),
             new \fpcm\components\dataView\rowCol('user', new \fpcm\view\helper\escape($userName) ),
             new \fpcm\components\dataView\rowCol('time', new \fpcm\view\helper\dateText($item->getIptime()) ),
             new \fpcm\components\dataView\rowCol('metadata', implode('', $metaData), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT ),
         ]);
+    }
+    
+    private function delete()
+    {
+        if (!$this->buttonClicked('delete')) {
+            return true;
+        }
+
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
+        $ids = $this->request->getIDs();
+        if (!count($ids)) {
+            return true;
+        }
+
+        if ($this->ipList->deleteIpAdresses($ids)) {
+            $this->view->addNoticeMessage('DELETE_SUCCESS_IPADDRESS');
+            return true;
+        }
+      
+        $this->view->addErrorMessage('DELETE_FAILED_IPADDRESS');
+        return true;
     }
 
     

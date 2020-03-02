@@ -27,42 +27,20 @@ class itemadd extends \fpcm\controller\abstracts\controller implements \fpcm\con
         return 'wordban/itemadd';
     }
 
+    protected function getHelpLink()
+    {
+        return 'HL_OPTIONS_WORDBAN';
+    }
+
+    protected function getActiveNavigationElement()
+    {
+        return 'submenu-itemnav-item-wordban';
+    }
+
     public function request()
     {
-
         $this->item = new \fpcm\model\wordban\item();
-
-        if ($this->buttonClicked('wbitemSave') && !$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return true;
-        }
-
-        if ($this->buttonClicked('wbitemSave')) {
-
-            $data = $this->getRequestVar('wbitem');
-
-            if (!trim($data['searchtext']) || !trim($data['replacementtext'])) {
-                $this->view->addErrorMessage('SAVE_FAILED_WORDBAN');
-            } else {
-                $this->item->setSearchtext($data['searchtext']);
-                $this->item->setReplacementtext($data['replacementtext']);
-                $this->item->setReplaceTxt(isset($data['replacetxt']) ? $data['replacetxt'] : 0);
-                $this->item->setLockArticle(isset($data['lockarticle']) ? $data['lockarticle'] : 0);
-                $this->item->setCommentApproval(isset($data['commentapproval']) ? $data['commentapproval'] : 0);
-
-                $res = $this->item->save();
-
-                if ($res === false) {
-                    $this->view->addErrorMessage('SAVE_FAILED_WORDBAN');                    
-                }
-
-                if ($res === true) {
-                    $this->redirect('wordban/list', array('added' => 1));
-                }
-            }
-        }
-
-
+        $this->save();
         return true;
     }
 
@@ -76,16 +54,38 @@ class itemadd extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->render();
     }
 
-    protected function getHelpLink()
+    private function save()
     {
-        return 'HL_OPTIONS_WORDBAN';
-    }
+        if (!$this->buttonClicked('wbitemSave')) {
+            return true;
+        }
+        
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
 
-    protected function getActiveNavigationElement()
-    {
-        return 'submenu-itemnav-item-wordban';
-    }
+        $data = $this->request->fromPOST('wbitem');
 
+        if (!trim($data['searchtext']) || !trim($data['replacementtext'])) {
+            $this->view->addErrorMessage('SAVE_FAILED_WORDBAN');
+            return true;
+        }
+        
+        $this->item->setSearchtext($data['searchtext']);
+        $this->item->setReplacementtext($data['replacementtext']);
+        $this->item->setReplaceTxt(isset($data['replacetxt']) ? $data['replacetxt'] : 0);
+        $this->item->setLockArticle(isset($data['lockarticle']) ? $data['lockarticle'] : 0);
+        $this->item->setCommentApproval(isset($data['commentapproval']) ? $data['commentapproval'] : 0);
+
+        if ($this->item->save() !== true) {
+            $this->view->addErrorMessage('SAVE_FAILED_WORDBAN');
+            return true;
+        }
+
+        $this->redirect('wordban/list', array('added' => 1));
+        return true;
+    }
 }
 
 ?>

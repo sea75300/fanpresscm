@@ -102,7 +102,12 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
      */
     protected function initObject()
     {
-        $this->article = new \fpcm\model\articles\article($this->request->getID());
+        $id = $this->request->getID();
+        if (!$id) {
+            $id = null;
+        }
+        
+        $this->article = new \fpcm\model\articles\article($id);
     }
 
     /**

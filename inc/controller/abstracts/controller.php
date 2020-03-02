@@ -200,8 +200,11 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final public function buttonClicked($buttonName)
     {
-        $btnName = 'btn' . ucfirst($buttonName);
-        return !is_null(\fpcm\classes\http::postOnly($btnName)) && is_null(\fpcm\classes\http::getOnly($btnName));
+        if ($this->request->fromPOST('btn' . ucfirst($buttonName), []) !== null) {
+            return true;
+        }
+        
+        return false;
     }
 
     /**

@@ -183,6 +183,16 @@ final class request {
     }
 
     /**
+     * Check if get parameter contains message indicator
+     * @param string $msg
+     * @return bool
+     */
+    public function hasMessage(string $msg) : bool
+    {
+        return $this->fromGET($msg, []) ? true : false;
+    }
+
+    /**
      * Fetch data from GET request
      * @param string $var
      * @param array $filters

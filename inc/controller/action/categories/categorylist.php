@@ -64,6 +64,15 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
 
     /**
      * 
+     * @return string
+     */
+    protected function getDataViewName()
+    {
+        return 'categorylist';
+    }
+
+    /**
+     * 
      * @return bool
      */
     public function request()
@@ -71,32 +80,15 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
         $this->list = new \fpcm\model\categories\categoryList();
         $this->rollList = new \fpcm\model\users\userRollList();
 
-        if ($this->getRequestVar('added')) {
+        if ($this->request->hasMessage('added')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_ADDCATEGORY');
         }
 
-        if ($this->getRequestVar('edited')) {
+        if ($this->request->hasMessage('edited')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_EDITCATEGORY');
         }
 
-        if ($this->buttonClicked('delete') && !$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return true;
-        }
-
-        $id = $this->getRequestVar('ids', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
-
-        if ($this->buttonClicked('delete') && isset($id[0]) ) {
-            $category = new \fpcm\model\categories\category($id[0]);
-            if ($category->delete()) {
-                $this->view->addNoticeMessage('DELETE_SUCCESS_CATEGORIES');
-            } else {
-                $this->view->addErrorMessage('DELETE_FAILED_CATEGORIES');
-            }
-        }
-
+        $this->delete();
         return true;
     }
 
@@ -171,15 +163,6 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
 
     /**
      * 
-     * @return string
-     */
-    protected function getDataViewName()
-    {
-        return 'categorylist';
-    }
-
-    /**
-     * 
      * @param \fpcm\model\categories\category $category
      * @return \fpcm\components\dataView\row
      */
@@ -194,6 +177,32 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
             new \fpcm\components\dataView\rowCol('groups', implode(', ', array_keys($rolls))),
             new \fpcm\components\dataView\rowCol('icon', $category->getCategoryImage()),
         ]);
+    }
+    
+    private function delete()
+    {
+        if (!$this->buttonClicked('delete')) {
+            return false;
+        }
+        
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return false;
+        }
+
+        $id = $this->request->getIDs()[0] ?? false;
+        if (!$id) {
+            return true;
+        }
+
+        $category = new \fpcm\model\categories\category($id);
+        if ($category->delete()) {
+            $this->view->addNoticeMessage('DELETE_SUCCESS_CATEGORIES');
+            return true;
+        }
+
+        $this->view->addErrorMessage('DELETE_FAILED_CATEGORIES');
+        return false;
     }
 
 }

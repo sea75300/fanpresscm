@@ -47,31 +47,17 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
      */
     public function request()
     {
-
         $this->list = new \fpcm\model\wordban\items();
 
-        if ($this->getRequestVar('added')) {
+        if ($this->request->hasMessage('added')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_WORDBAN');
         }
 
-        if ($this->getRequestVar('edited')) {
+        if ($this->request->hasMessage('edited')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_WORDBAN');
         }
 
-        if ($this->buttonClicked('delete') && !$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return true;
-        }
-
-        $ids = $this->getRequestVar('ids');
-        if ($this->buttonClicked('delete') && !is_null($ids)) {
-            if ($this->list->deleteItems($ids)) {
-                $this->view->addNoticeMessage('DELETE_SUCCESS_WORDBAN');
-            } else {
-                $this->view->addErrorMessage('DELETE_FAILED_WORDBAN');
-            }
-        }
-
+        $this->delete();
         return true;
     }
 
@@ -139,6 +125,31 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             new \fpcm\components\dataView\rowCol('replacement', new \fpcm\view\helper\escape($item->getReplacementtext())),
             new \fpcm\components\dataView\rowCol('metadata', implode('', $metaData), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
         ]);
+    }
+    
+    private function delete()
+    {
+        if (!$this->buttonClicked('delete')) {
+            return false;
+        }
+        
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
+        $ids = $this->request->getIDs();
+        if (!count($ids)) {
+            return false;
+        }
+
+        if ($this->list->deleteItems($ids)) {
+            $this->view->addNoticeMessage('DELETE_SUCCESS_WORDBAN');
+            return true;
+        }
+
+        $this->view->addErrorMessage('DELETE_FAILED_WORDBAN');
+        return true;
     }
 
 }
