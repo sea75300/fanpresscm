@@ -84,6 +84,11 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
         $this->key = $this->getRequestVar('key', [
             \fpcm\classes\http::FILTER_URLDECODE
         ]);
+        
+        if (!\fpcm\module\module::validateKey($this->key)) {
+            $this->view = new \fpcm\view\error('MODULES_KEY_INVALID');
+            return false;
+        }
 
         $this->keepMaintenance = $this->getRequestVar('keepMaintenance', [
             \fpcm\classes\http::FILTER_CASTINT

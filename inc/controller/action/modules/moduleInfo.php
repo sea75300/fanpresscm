@@ -43,16 +43,13 @@ class moduleInfo extends \fpcm\controller\abstracts\controller implements \fpcm\
      */
     protected function initActionObjects()
     {
-        $this->key = $this->getRequestVar('key');
-        if (!$this->key) {
+        $this->key = $this->request->fromGET('key');
+        if (!$this->key || !\fpcm\module\module::validateKey($this->key)) {
+            $this->view = new \fpcm\view\error('MODULES_KEY_INVALID');
             return false;
         }
 
-        if (!$this->key) {
-            return false;
-        }
-
-        $this->repo = $this->getRequestVar('repo', [
+        $this->repo = $this->request->fromGET('repo', [
             \fpcm\classes\http::FILTER_CASTINT
         ]);
 

@@ -30,7 +30,8 @@ class moduleConfig extends \fpcm\controller\abstracts\controller implements \fpc
     protected function initActionObjects()
     {
         $this->key = $this->getRequestVar('key');
-        if (!$this->key) {
+        if (!$this->key || !\fpcm\module\module::validateKey($this->key)) {
+            $this->view = new \fpcm\view\error('MODULES_KEY_INVALID');
             return false;
         }
         

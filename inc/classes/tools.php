@@ -150,10 +150,12 @@ final class tools {
     {
         $data = [];
 
-        $mode = \fpcm\classes\http::getOnly('mode');
-        $key = \fpcm\classes\http::getOnly('key');
+        $request = new \fpcm\model\http\request();
+        
+        $mode = $request->fromGET('mode');
+        $key = $request->fromGET('key');
 
-        $data[] = \fpcm\classes\http::getOnly('module');
+        $data[] = $request->fromGET('module');
         $data[] = ($mode ? '&mode=' . $mode : '');
         $data[] = ($key ? '&key=' . $key : '');
 

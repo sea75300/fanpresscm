@@ -60,6 +60,12 @@ class execAction extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      */
     public function process()
     {
+        if (!\fpcm\module\module::validateKey($this->key))
+        {
+            trigger_error('Module processing step '.$this->step.' not defined!');
+            (new \fpcm\model\http\response)->setCode(400)->addHeaders('Bad Request')->fetch();
+        }
+
         $function = 'process'.ucfirst($this->action);
         
         if (!method_exists($this, $function)) {

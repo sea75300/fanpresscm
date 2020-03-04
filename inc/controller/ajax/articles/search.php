@@ -50,11 +50,9 @@ class search extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
         $this->deleteActions = $this->permissions->article->delete;
         $this->initActionVars();
 
-        $this->mode = $this->getRequestVar('mode', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
+        $this->mode = $this->request->getIntMode();
 
-        $filter = $this->getRequestVar('filter');
+        $filter = $this->request->fromPOST('filter');
 
         $sparams = new \fpcm\model\articles\search();
         $sparams->setMultiple(true);

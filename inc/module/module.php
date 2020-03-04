@@ -1119,4 +1119,21 @@ class module {
         return 'MODULE_'.strtoupper(str_replace(['\\', DIRECTORY_SEPARATOR], '', $key)).'_';
     }
 
+    /**
+     * Validate module key
+     * @param string $key
+     * @return bool
+     * @since FPCM 4.4
+     */
+    public static function validateKey(string $key) : bool
+    {
+        $regex = '/^([a-z0-9\_]{3,})(\/{1})([A-Za-z0-9\_]+)$/';
+        if (preg_match($regex, $key, $match) !== 1) {
+            trigger_error('Invalid module key, "'.$key.'" does not match '.$regex, E_USER_ERROR);
+            return false;
+        }
+
+        return isset($match[0]);        
+    }
+
 }

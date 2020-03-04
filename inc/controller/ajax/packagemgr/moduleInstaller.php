@@ -80,9 +80,9 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxControllerJSON impl
      */
     public function request()
     {
-        $this->key = $this->getRequestVar('key');
-        $this->step = 'exec'.$this->getRequestVar('step', [\fpcm\classes\http::FILTER_FIRSTUPPER]);
-        $this->mode = $this->getRequestVar('mode', [\fpcm\classes\http::FILTER_FIRSTUPPER]);
+        $this->key = $this->request->fromPOST('key');
+        $this->step = 'exec'.$this->request->fromPOST('step', [\fpcm\classes\http::FILTER_FIRSTUPPER]);
+        $this->mode = $this->request->fromPOST('mode', [\fpcm\classes\http::FILTER_FIRSTUPPER]);
         return true;
     }
 
@@ -91,6 +91,12 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxControllerJSON impl
      */
     public function process()
     {
+        if (!\fpcm\module\module::validateKey($this->key))
+        {
+            trigger_error('Module processing step '.$this->step.' not defined!');
+            (new \fpcm\model\http\response)->setCode(400)->addHeaders('Bad Request')->fetch();
+        }
+
         if (!method_exists($this, $this->step)) {
             trigger_error('Module processing step '.$this->step.' not defined!');
             $this->returnData = [
