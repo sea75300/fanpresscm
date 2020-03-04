@@ -31,6 +31,7 @@ class pubController extends controller {
 
     public function __construct()
     {
+        $this->request = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
         if (\fpcm\classes\baseconfig::installerEnabled() || !\fpcm\classes\baseconfig::dbConfigExists()) {
             exit;
         }

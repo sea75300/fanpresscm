@@ -29,7 +29,7 @@ class articleadd extends articlebase {
                 $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');
             } elseif ($id > 0) {
                 $this->redirect('articles/edit', [
-                    'articleid' => $id,
+                    'id' => $id,
                     'added' => $this->permissions->article->approve ? 2 : 1
                 ]);
             }
