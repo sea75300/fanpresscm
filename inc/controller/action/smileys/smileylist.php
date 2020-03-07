@@ -45,18 +45,19 @@ class smileylist extends \fpcm\controller\abstracts\controller implements \fpcm\
     {
         $this->smileyList = new \fpcm\model\files\smileylist();
 
-        if ($this->getRequestVar('saved')) {
+        if ($this->request->hasMessage('saved')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_SMILEY');
         }
 
-        if ($this->buttonClicked('configSave') && !$this->checkPageToken()) {
+        if ($this->buttonClicked('deleteSmiley') && !$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return true;
         }
 
-        $ids = $this->getRequestVar('smileyids', [
+        $ids = $this->request->fromPOST('smileyids', [
             \fpcm\classes\http::FILTER_BASE64DECODE
         ]);
+
         if ($this->buttonClicked('deleteSmiley') && is_array($ids)) {
             $deleteItems = array_map('unserialize', $ids);
             if ($this->smileyList->deleteSmileys($deleteItems)) {

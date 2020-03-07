@@ -141,7 +141,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
     {
         $this->crons->registerCron('postponedArticles');
 
-        $this->articleId = $this->getRequestVar('id');
+        $this->articleId = $this->request->fromGET('id');
         if (!$this->articleId) {
             $this->view->addErrorMessage('LOAD_FAILED_ARTICLE');
             return true;
@@ -293,7 +293,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             return '';
         }
 
-        $data = $this->getRequestVar('newcomment');
+        $data = $this->request->fromPOST('newcomment');
         if (!$this->buttonClicked('sendComment') && !$data && $this->session->exists()) {
             $this->newComment->setName($this->session->getCurrentUser()->getDisplayname());
             $this->newComment->setEmail($this->session->getCurrentUser()->getEmail());
@@ -337,7 +337,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         $this->commentTemplate = new \fpcm\model\pubtemplates\comment($this->config->comments_template_active);
         $this->commentFormTemplate = new \fpcm\model\pubtemplates\commentform();
 
-        $newCommentData = $this->getRequestVar('newcomment');
+        $newCommentData = $this->request->fromPOST('newcomment');
         if ($this->buttonClicked('sendComment') && $newCommentData !== null && !$this->ipList->ipIsLocked() && !$this->ipList->ipIsLocked('nocomments')) {
 
             $hasPrivacy = (isset($newCommentData['privacy']) && $this->config->comments_privacy_optin) || !$this->config->comments_privacy_optin ? true : false;

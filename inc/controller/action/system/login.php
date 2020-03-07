@@ -104,11 +104,11 @@ class login extends \fpcm\controller\abstracts\controller {
             return $this->redirect('system/dashboard');
         }
 
-        if ($this->getRequestVar('nologin')) {
+        if ($this->request->fromGET('nologin')) {
             $this->view->addErrorMessage('LOGIN_REQUIRED');
         }
         
-        $this->reset = $this->getRequestVar('reset') !== null || $this->getRequestVar('username') !== null ? true : false;
+        $this->reset = $this->request->fromGET('reset') !== null || $this->request->fromPOST('username') !== null ? true : false;
 
         session_start();
         
@@ -150,7 +150,7 @@ class login extends \fpcm\controller\abstracts\controller {
             return false;
         }        
 
-        $data = $this->getRequestVar('login');
+        $data = $this->request->fromPOST('login');
         if (!is_array($data) || !count($data)) {
             $this->view->addErrorMessage('LOGIN_FAILED');
             return false;
@@ -226,8 +226,8 @@ class login extends \fpcm\controller\abstracts\controller {
             return false;
         }
         
-        $username = $this->getRequestVar('username');
-        $email = $this->getRequestVar('email');
+        $username = $this->request->fromPOST('username');
+        $email = $this->request->fromPOST('email');
         if (!trim($username) || !trim($email) || !$this->captcha->checkAnswer()) {
             fpcmLogSystem("Passwort reset for user id {$user->getUsername()} failed, empty data or captcha failed.");
             $this->view->addErrorMessage('LOGIN_PASSWORD_RESET_FAILED');

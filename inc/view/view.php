@@ -612,7 +612,7 @@ class view {
         }
 
         $this->defaultViewVars->langCode = $this->language->getLangCode();
-        $this->defaultViewVars->self = strip_tags(trim($_SERVER['PHP_SELF']));
+        $this->defaultViewVars->self = trim(filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL));
         $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
 

@@ -124,15 +124,15 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
             return true;
         }
 
-        $saveData = $this->getRequestVar('data');
+        $saveData = $this->request->fromPOST('data');
         if ($saveData['email'] !== $this->user->getEmail() && !$this->checkCurrentPass($saveData['current_pass'])) {
             return false;
         }
-
+        
         $this->user->setEmail($saveData['email']);
         $this->user->setDisplayName($saveData['displayname']);
 
-        $metaData = $this->getRequestVar('usermeta');
+        $metaData = $this->request->fromPOST('usermeta');
         $this->user->setUserMeta($metaData);
         $this->user->setUsrinfo($saveData['usrinfo']);
         $this->user->setChangeTime(time());
@@ -156,7 +156,7 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
             $this->user->disablePasswordSecCheck();
         }
 
-        if ($this->getRequestVar('disable2Fa', [\fpcm\classes\http::FILTER_CASTINT]) === 1) {
+        if ($this->request->fromPOST('disable2Fa', [\fpcm\classes\http::FILTER_CASTINT]) === 1) {
             $this->user->setAuthtoken('');
         }
 

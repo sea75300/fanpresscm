@@ -73,9 +73,7 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
         $content = '';
         switch ($this->action) {
             case 'page' :
-                $page = $this->getRequestVar('page', [
-                    \fpcm\classes\http::FILTER_CASTINT
-                ]);
+                $page = $this->request->getPage();
 
                 if (!$page) {
                     return '';
@@ -85,11 +83,11 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
                 break;
             case 'title' :
 
-                $id = $this->getRequestVar('id', [
-                    \fpcm\classes\http::FILTER_CASTINT
+                $id = $this->request->fromGET('id', [
+                    \fpcm\model\http\request::FILTER_CASTINT
                 ]);
 
-                if ($this->getRequestVar('module') != 'fpcm/article' || $id === null) {
+                if ($this->request->getModule() != 'fpcm/article' || $id === null) {
                     return;
                 }
 

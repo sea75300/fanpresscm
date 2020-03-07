@@ -93,51 +93,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
             return false;
         }
 
-        $commentData = $this->getRequestVar('comment', [
-            \fpcm\classes\http::FILTER_STRIPSLASHES,
-            \fpcm\classes\http::FILTER_TRIM
-        ]);
-
-        if ($this->buttonClicked('commentSave') && $commentData !== null) {
-
-            $this->comment->setText($commentData['text']);
-            unset($commentData['text']);
-
-            foreach ($commentData as &$value) {
-                $value = \fpcm\classes\http::filter($value, array(\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_HTMLENTITIES));
-            }
-
-            $this->comment->setName($commentData['name']);
-            $this->comment->setEmail($commentData['email']);
-            $this->comment->setWebsite($commentData['website']);
-
-            if ($this->permissions->comment->approve) {
-                $this->comment->setApproved(isset($commentData['approved']) ? true : false);
-                $this->comment->setSpammer(isset($commentData['spam']) ? true : false);
-            }
-
-            if ($this->permissions->comment->private) {
-                $this->comment->setPrivate(isset($commentData['private']) ? true : false);
-            }
-
-            $this->comment->setChangetime(time());
-            $this->comment->setChangeuser($this->session->getUserId());
-
-            if (!$this->checkPageToken()) {
-                $this->view->addErrorMessage('CSRF_INVALID');
-                return true;
-            }
-
-            $this->view->addJsVars([ 'reloadList' => $this->mode === 2 ? true : false ]);
-
-            if ($this->comment->update()) {
-                $this->view->addNoticeMessage('SAVE_SUCCESS_COMMENT');
-                return true;
-            }
-
-            $this->view->addErrorMessage('SAVE_FAILED_COMMENT');
-        }
-
+        $this->save();
         return true;
     }
 
@@ -260,6 +216,67 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         $this->view->render();
         
         return true;
+    }
+    
+    private function save() : bool
+    {
+        if (!$this->buttonClicked('commentSave')) {
+            return false;
+        }
+        
+        
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return false;
+        }
+        
+        $commentData = $this->request->fromPOST('comment', [
+            \fpcm\classes\http::FILTER_STRIPSLASHES,
+            \fpcm\classes\http::FILTER_TRIM
+        ]);
+
+        if (!is_array($commentData) || !count($commentData)) {
+            $this->view->addErrorMessage('SAVE_FAILED_COMMENT');
+            return false;
+        }
+        
+        $commentData['email'] = filter_var($commentData['email'], FILTER_VALIDATE_EMAIL);
+        if ($this->config->comments_email_optional && !$commentData['email']) {
+            $this->view->addErrorMessage('PUBLIC_FAILED_EMAIL');
+            return true;
+        }
+
+        $this->comment->setText($commentData['text']);
+        unset($commentData['text']);
+
+        foreach ($commentData as &$value) {
+            $value = $this->request->filter($value, [\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_HTMLENTITIES]);
+        }
+
+        $this->comment->setName($commentData['name']);
+        $this->comment->setEmail($commentData['email']);
+        $this->comment->setWebsite(filter_var($commentData['website'], FILTER_SANITIZE_URL));
+
+        if ($this->permissions->comment->approve) {
+            $this->comment->setApproved(isset($commentData['approved']) ? true : false);
+            $this->comment->setSpammer(isset($commentData['spam']) ? true : false);
+        }
+
+        if ($this->permissions->comment->private) {
+            $this->comment->setPrivate(isset($commentData['private']) ? true : false);
+        }
+
+        $this->comment->setChangetime(time());
+        $this->comment->setChangeuser($this->session->getUserId());
+
+        $this->view->addJsVars([ 'reloadList' => $this->mode === 2 ? true : false ]);
+
+        if ($this->comment->update()) {
+            $this->view->addNoticeMessage('SAVE_SUCCESS_COMMENT');
+            return true;
+        }
+
+        $this->view->addErrorMessage('SAVE_FAILED_COMMENT');
     }
 
 }

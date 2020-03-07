@@ -154,11 +154,8 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
     {
         $this->crons->registerCron('postponedArticles');
 
-        $this->page = $this->getRequestVar('page', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
-
-        if ($this->page === null) {
+        $this->page = $this->request->getPage();
+        if (!$this->page) {
             $this->page = 1;
         }
 

@@ -143,7 +143,7 @@ class main extends \fpcm\controller\abstracts\controller {
             exit;
         }
 
-        $this->step = $this->getRequestVar('step', [
+        $this->step = $this->request->fromGET('step', [
             \fpcm\classes\http::FILTER_CASTINT
         ]);
 
@@ -151,7 +151,7 @@ class main extends \fpcm\controller\abstracts\controller {
             $this->step = 1;
         }
 
-        $this->langCode = $this->getRequestVar('language');
+        $this->langCode = $this->request->fromGET('language');
         if (!$this->langCode) {
             $this->langCode = FPCM_DEFAULT_LANGUAGE_CODE;
         }
@@ -299,7 +299,7 @@ class main extends \fpcm\controller\abstracts\controller {
      */
     protected function runStep5()
     {
-        if ($this->getRequestVar('cserr') !== null) {
+        if ($this->request->fromGET('cserr') !== null) {
             $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
         }
 
@@ -315,7 +315,7 @@ class main extends \fpcm\controller\abstracts\controller {
      */
     protected function runAfterStep5()
     {
-        $newconfig = $this->getRequestVar('conf');
+        $newconfig = $this->request->fromPOST('conf');
         $newconfig['system_version'] = \fpcm\classes\baseconfig::getVersionFromFile();
 
         $config = new \fpcm\model\system\config(false, false);
@@ -338,8 +338,8 @@ class main extends \fpcm\controller\abstracts\controller {
      */
     protected function runStep6()
     {
-        $data = $this->getRequestVar('conf');
-        $msg = $this->getRequestVar('msg');
+        $data = $this->request->fromPOST('conf');
+        $msg = $this->request->fromGET('msg');
         
         $user = new \fpcm\model\users\author();
         $user->setEmail(isset($data['system_email']) ? $data['system_email'] : (isset($_SESSION['username']) ? $_SESSION['email'] : ''));        
@@ -392,7 +392,7 @@ class main extends \fpcm\controller\abstracts\controller {
      */
     protected function runAfterStep6()
     {
-        $data = $this->getRequestVar('data');
+        $data = $this->request->fromPOST('data');
         $_SESSION['username'] = $data['username'];
         $_SESSION['email'] = $data['email'];
         $_SESSION['displayname'] = $data['displayname'];

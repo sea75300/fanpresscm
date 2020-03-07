@@ -206,7 +206,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'EDITOR_CATEGORIES_SEARCH'], $this->editorPlugin->getJsLangVars()));
         $this->view->addJsVars($this->jsVars);
 
-        if (!$this->getRequestVar('rev')) {
+        if (!$this->showRevision) {
             $this->view->addButton((new \fpcm\view\helper\saveButton('articleSave'))
                     ->setClass( 'fpcm-ui-maintoolbarbuttons-tab1'.($this->article->getId() ? ' fpcm-ui-button-primary' : '') )
                     ->setReadonly($this->article->isInEdit()));
@@ -233,7 +233,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
             $this->article->prepareRevision();
         }
 
-        $data = $this->getRequestVar('article', [
+        $data = $this->request->fromPOST('article', [
             \fpcm\classes\http::FILTER_STRIPSLASHES,
             \fpcm\classes\http::FILTER_TRIM
         ]);

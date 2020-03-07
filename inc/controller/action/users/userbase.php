@@ -136,7 +136,7 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
             $this->user->setPassword(null);
         }
 
-        if ($this->getRequestVar('disable2Fa', [\fpcm\classes\http::FILTER_CASTINT]) === 1) {
+        if ($this->request->fromPOST('disable2Fa', [\fpcm\classes\http::FILTER_CASTINT]) === 1) {
             $this->user->setAuthtoken('');
         }
 
@@ -185,12 +185,12 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
      */
     protected function initFormData() : array
     {
-        $data = $this->getRequestVar('data');
+        $data = $this->request->fromPOST('data');
         if (!isset($data['username'])) {
             return [];
         }
 
-        $userMeta = $this->getRequestVar('usermeta');
+        $userMeta = $this->request->fromPOST('usermeta');
         if (!is_array($userMeta)) {
             $userMeta = [];
         }

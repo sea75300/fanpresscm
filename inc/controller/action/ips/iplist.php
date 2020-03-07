@@ -62,11 +62,11 @@ class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\cont
      */
     public function request()
     {
-        if ($this->request->hasMessage('added') == 1) {
+        if ($this->request->hasMessage('added')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_IPADDRESS');
         }
 
-        if ($this->request->hasMessage('added') == 2) {
+        if ($this->request->hasMessage('edited')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_IPADDRESS_CHG');
         }
 

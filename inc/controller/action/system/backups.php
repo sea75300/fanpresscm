@@ -37,61 +37,35 @@ class backups extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
     public function request()
     {
-        if ($this->buttonClicked('delete')) {
+        if (!$this->buttonClicked('delete')) {
+            return true;
+        }
             
-            $deleteFile = $this->getRequestVar('files', [
-                \fpcm\classes\http::FILTER_URLDECODE,
-                \fpcm\classes\http::FILTER_BASE64DECODE,
-                \fpcm\classes\http::FILTER_DECRYPT
-            ]);
+        $deleteFile = $this->request->fromPOST('files', [
+            \fpcm\classes\http::FILTER_URLDECODE,
+            \fpcm\classes\http::FILTER_BASE64DECODE,
+            \fpcm\classes\http::FILTER_DECRYPT
+        ]);
 
-            $file = new \fpcm\model\files\dbbackup($deleteFile);
-            if (!$file->exists()) {
-                $this->view->addErrorMessage('GLOBAL_NOTFOUND_FILE');
-                return true;
-            }
+        $file = new \fpcm\model\files\dbbackup($deleteFile);
+        if (!$file->exists()) {
+            $this->view->addErrorMessage('GLOBAL_NOTFOUND_FILE');
+            return true;
+        }
 
-            if (!$file->isValidDataFolder('', \fpcm\classes\dirs::DATA_DBDUMP) || !$file->delete()) {
-                $this->view->addErrorMessage('DELETE_FAILED_FILES', [
-                    '{{filenames}}' => $deleteFile
-                ]);
-
-                return true;
-            }
-
-            $this->view->addNoticeMessage('DELETE_SUCCESS_FILES', [
+        if (!$file->isValidDataFolder('', \fpcm\classes\dirs::DATA_DBDUMP) || !$file->delete()) {
+            $this->view->addErrorMessage('DELETE_FAILED_FILES', [
                 '{{filenames}}' => $deleteFile
             ]);
 
             return true;
         }
 
-        if (!$this->getRequestVar('save')) {
-            return true;
-        }
-
-        $filePath = $this->getRequestVar('save', [
-            \fpcm\classes\http::FILTER_URLDECODE,
-            \fpcm\classes\http::FILTER_BASE64DECODE,
-            \fpcm\classes\http::FILTER_DECRYPT
+        $this->view->addNoticeMessage('DELETE_SUCCESS_FILES', [
+            '{{filenames}}' => $deleteFile
         ]);
 
-        $file = new \fpcm\model\files\dbbackup($filePath);
-
-        if (!$file->exists()) {
-            $this->view = new \fpcm\view\error('GLOBAL_NOTFOUND_FILE');
-            return false;
-        }
-
-        header('Content-Description: File Transfer');
-        header('Content-Type: ' . $file->getMimetype());
-        header('Content-Disposition: attachment; filename="' . $file->getFilename() . '"');
-        header('Expires: 0');
-        header('Cache-Control: must-revalidate');
-        header('Pragma: public');
-        header('Content-Length: ' . $file->getFilesize());
-        readfile($file->getFullpath());
-        exit;
+        return true;
     }
 
     /**

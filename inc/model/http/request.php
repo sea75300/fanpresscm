@@ -94,6 +94,11 @@ final class request {
     const FILTER_REGEX_REPLACE = 15;
 
     /**
+     * filter_var sanitize filter
+     */
+    const FILTER_SANITIZE = 16;
+
+    /**
      * Regex expression param
      */
     const PARAM_REGEX = 'regex';
@@ -119,6 +124,11 @@ final class request {
     const PARAM_HTML_MODE = 'mode';
 
     /**
+     * filter_var sanitize filter param
+     */
+    const PARAM_SANITIZE = 'filter';
+
+    /**
      * Filter functions mapping for
      * @see request::assignFilterCommon
      * @var array
@@ -138,6 +148,29 @@ final class request {
             self::FILTER_HTMLENTITY_DECODE => 'html_entity_decode',
         ];
 
+    }
+
+    /**
+     * Fetch module string from GET-request
+     * @return int
+     */
+    public function getModule() : string
+    {
+        $value = $this->fromGET('module', [
+            self::FILTER_REGEX,
+            self::PARAM_REGEX => '/^([a-z0-9]+)\/{1}([a-z0-9]+)\/?([a-z0-9]*)/i'
+        ]);
+
+        unset($value[0]);
+        if (isset($value[3]) && !trim($value[3])) {
+            unset($value[3]);
+        }
+
+        if (isset($value[4]) && !trim($value[4])) {
+            unset($value[4]);
+        }
+
+        return is_array($value) ? implode('/', $value) : $value;
     }
 
     /**
@@ -175,6 +208,20 @@ final class request {
     public function getIntMode() : int
     {
         $value = $this->fromGET('mode');
+        if (!$value) {
+            return 0;
+        }
+
+        return $this->filter($value, [self::FILTER_CASTINT]);
+    }
+
+    /**
+     * Fetch current pagefrom request
+     * @return int
+     */
+    public function getPage() : int
+    {
+        $value = $this->fromCompleteRequest('page');
         if (!$value) {
             return 0;
         }
@@ -455,6 +502,23 @@ final class request {
     private function assignFilter15(&$value, array $filters)
     {
         $value = preg_filter($filters[self::PARAM_REGEX] ?? '', $filters[self::PARAM_REGEX_REPLACE] ?? '', $value);
+        return true;
+    }
+    
+    /**
+     * Sanitize filter
+     * @param mixed $value
+     * @param array $filters
+     * @return bool
+     */
+    private function assignFilter16(&$value, array $filters)
+    {
+        if (!isset($filters[self::PARAM_SANITIZE])) {
+            trigger_error('Invalid request filter, missing sanitize filter param');
+            return false;
+        }
+
+        $value = filter_var($value, $filters[self::PARAM_SANITIZE]);
         return true;
     }
 

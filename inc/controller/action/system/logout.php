@@ -41,10 +41,7 @@ class logout extends \fpcm\controller\abstracts\controller {
             return true;
         }
 
-        if (!is_null($this->getRequestVar('redirect'))) {
-            $this->redirectFE = true;
-        }
-
+        $this->redirectFE = $this->request->fromGET('redirect') !== null ? true : false;
         $this->session->setLogout(time());
         $this->session->update();
         $this->session->deleteCookie();

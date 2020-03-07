@@ -95,7 +95,7 @@ class smileybase extends \fpcm\controller\abstracts\controller implements \fpcm\
             return false;
         }
 
-        $smileyData = $this->getRequestVar('smiley');
+        $smileyData = $this->request->fromPOST('smiley');
         if (empty($smileyData['filename']) || !$smileyData['code']) {
             $this->view->addErrorMessage('SAVE_FAILED_SMILEY');
             return true;

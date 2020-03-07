@@ -41,12 +41,12 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller implem
      */
     public function request()
     {
-        if (!$this->getRequestVar('file')) {
+        if (!$this->request->fromGET('file')) {
             return false;
         }
 
         $this->file = new \fpcm\model\files\templatefile(
-                $this->getRequestVar('file', [
+                $this->request->fromGET('file', [
                     \fpcm\classes\http::FILTER_URLDECODE,
                     \fpcm\classes\http::FILTER_DECRYPT
                 ])
@@ -59,7 +59,7 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller implem
             return true;
         }
 
-        $newCode = $this->getRequestVar('templatecode', [
+        $newCode = $this->request->fromPOST('templatecode', [
             \fpcm\classes\http::FILTER_TRIM,
             \fpcm\classes\http::FILTER_STRIPSLASHES
         ]);

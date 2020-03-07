@@ -29,7 +29,7 @@ class moduleConfig extends \fpcm\controller\abstracts\controller implements \fpc
      */
     protected function initActionObjects()
     {
-        $this->key = $this->getRequestVar('key');
+        $this->key = $this->request->fromGET('key');
         if (!$this->key || !\fpcm\module\module::validateKey($this->key)) {
             $this->view = new \fpcm\view\error('MODULES_KEY_INVALID');
             return false;
@@ -101,7 +101,7 @@ class moduleConfig extends \fpcm\controller\abstracts\controller implements \fpc
             return true;
         }
 
-        $options = $this->getRequestVar('config');
+        $options = $this->request->fromPOST('config');
         if (!is_array($options)) {
             $this->view->addErrorMessage('SAVE_FAILED_OPTIONS_MODULES');
             return true;

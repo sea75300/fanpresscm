@@ -71,7 +71,7 @@ class base extends \fpcm\controller\abstracts\controller implements \fpcm\contro
             return true;
         }
 
-        $data = $this->getRequestVar('category', [
+        $data = $this->request->fromPOST('category', [
             \fpcm\classes\http::FILTER_STRIPSLASHES,
             \fpcm\classes\http::FILTER_TRIM
         ]);

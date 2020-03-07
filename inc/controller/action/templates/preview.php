@@ -31,7 +31,7 @@ class preview extends \fpcm\controller\abstracts\controller implements \fpcm\con
      */
     public function request()
     {
-        $this->tid = $this->getRequestVar('tid');
+        $this->tid = $this->request->fromGET('tid');
 
         if (!$this->tid) {
             return false;

@@ -86,7 +86,7 @@ class articleedit extends articlebase {
         $this->commentList  = new \fpcm\model\comments\commentList();
 
         if ($this->buttonClicked('doAction') && !$this->checkPageToken) {
-            $data = $this->getRequestVar('article', [
+            $data = $this->request->fromPOST('article', [
                 \fpcm\classes\http::FILTER_STRIPSLASHES,
                 \fpcm\classes\http::FILTER_TRIM
             ]);
@@ -111,7 +111,7 @@ class articleedit extends articlebase {
             }
         }
         
-        $added = $this->getRequestVar('added', [
+        $added = $this->request->fromGET('added', [
             \fpcm\classes\http::FILTER_CASTINT
         ]);
 
@@ -317,7 +317,7 @@ class articleedit extends articlebase {
      */
     private function handleRevisionActions()
     {
-        if ($this->getRequestVar('revrestore')) {
+        if ($this->request->fromGET('revrestore')) {
             $this->view->addNoticeMessage('SAVE_SUCCESS_ARTICLEREVRESTORE');
         }
         
@@ -325,8 +325,7 @@ class articleedit extends articlebase {
             return false;
         }
 
-        $revisionIdsArray = $this->getRequestVar('revisionIds', [\fpcm\classes\http::FILTER_CASTINT]);
-
+        $revisionIdsArray = $this->request->fromPOST('revisionIds', [\fpcm\classes\http::FILTER_CASTINT]);
         if ($this->buttonClicked('revisionDelete') && is_array($revisionIdsArray) && !$this->showRevision && $this->checkPageToken) {
             if ($this->article->deleteRevisions($revisionIdsArray)) {
                 $this->view->addNoticeMessage('DELETE_SUCCESS_REVISIONS');
@@ -368,7 +367,7 @@ class articleedit extends articlebase {
         $this->revisionArticle = clone $this->article;
 
         if (!$this->revisionId) {
-            $this->revisionId = $this->getRequestVar('rev', [\fpcm\classes\http::FILTER_CASTINT]);
+            $this->revisionId = $this->request->fromGET('rev', [ \fpcm\model\http\request::FILTER_CASTINT ]);
         }
 
         $this->showRevision = ($this->revisionArticle->getRevision($this->revisionId) ? true : false);

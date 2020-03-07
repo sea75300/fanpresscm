@@ -256,7 +256,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
             return false;
         }
         
-        $delFiles = $this->getRequestVar('deltplfiles', [
+        $delFiles = $this->request->fromPOST('deltplfiles', [
             \fpcm\classes\http::FILTER_BASE64DECODE
         ]);
 
@@ -299,7 +299,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
      */
     private function save()
     {
-        $tplData = $this->getRequestVar('template', [
+        $tplData = $this->request->fromPOST('template', [
             \fpcm\classes\http::FILTER_TRIM,
             \fpcm\classes\http::FILTER_STRIPSLASHES
         ]);

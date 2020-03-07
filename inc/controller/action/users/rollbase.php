@@ -61,7 +61,7 @@ abstract class rollbase extends \fpcm\controller\abstracts\controller implements
             return false;
         }
 
-        $rollName = $this->getRequestVar('rollname');
+        $rollName = $this->request->fromPOST('rollname');
         
         if (!trim($rollName)) {
             $this->view->addErrorMessage('SAVE_FAILED_ROLL');

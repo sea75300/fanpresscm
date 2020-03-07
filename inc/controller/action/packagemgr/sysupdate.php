@@ -57,7 +57,7 @@ class sysupdate extends \fpcm\controller\abstracts\controller implements \fpcm\c
     public function request()
     {
         \fpcm\classes\baseconfig::enableAsyncCronjobs(false);
-        $this->updateDb = ($this->getRequestVar('update-db') !== null);
+        $this->updateDb = ($this->request->fromGET('update-db') !== null);
 
         return parent::request();
     }

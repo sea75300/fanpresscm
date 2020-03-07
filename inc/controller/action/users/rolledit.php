@@ -21,9 +21,7 @@ class rolledit extends rollbase {
 
     public function request()
     {
-        $this->rollId = $this->getRequestVar('id', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
+        $this->rollId = $this->request->getID();
 
         if (!$this->rollId || $this->rollId <= 3) {
             $this->redirect('users/list');

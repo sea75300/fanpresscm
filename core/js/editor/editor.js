@@ -169,10 +169,16 @@ fpcm.editor = {
     },
     
     showCommentLayer: function(layerUrl) {
-        
-        var size = fpcm.ui.getDialogSizes();
-        
-        fpcm.dom.appendHtml('#fpcm-dialog-editor-comments', '<iframe id="fpcm-editor-comment-frame" name="fpcmeditorcommentframe" class="fpcm-ui-full-width" src="' + layerUrl + '"></iframe>');
+
+        fpcm.dom.appendHtml(
+            '#fpcm-dialog-editor-comments', 
+            fpcm.ui.createIFrame({
+                src: layerUrl,
+                id: 'fpcm-editor-comment-frame',
+
+            })
+        );
+
         fpcm.dom.fromClass('fpcm-ui-commentaction-buttons').fadeOut();
 
         var size = fpcm.ui.getDialogSizes(top, 0.75);

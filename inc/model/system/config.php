@@ -313,6 +313,18 @@ final class config extends dataset {
      */
     public function prepareDataSave()
     {
+        if (isset($this->newConfig['system_email'])) {
+            $this->newConfig['system_email'] = filter_var($this->newConfig['system_email'], FILTER_SANITIZE_EMAIL);
+        }
+
+        if (isset($this->newConfig['system_url'])) {
+            $this->newConfig['system_url'] = filter_var($this->newConfig['system_url'], FILTER_SANITIZE_URL);
+        }
+
+        if (isset($this->newConfig['system_css_path'])) {
+            $this->newConfig['system_css_path'] = filter_var($this->newConfig['system_css_path'], FILTER_SANITIZE_URL);
+        }
+
         if (isset($this->newConfig['system_editor'])) {
             $this->newConfig['system_editor'] = base64_decode($this->newConfig['system_editor']);
         }
@@ -326,6 +338,7 @@ final class config extends dataset {
         }
 
         if (isset($this->newConfig['smtp_settings']) && is_array($this->newConfig['smtp_settings'])) {
+            $this->newConfig['smtp_settings']['addr'] = filter_var($this->newConfig['smtp_settings']['addr'], FILTER_SANITIZE_EMAIL);            
             $this->newConfig['smtp_settings'] = json_encode($this->newConfig['smtp_settings']);
         }
 

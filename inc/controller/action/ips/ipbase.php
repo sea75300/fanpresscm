@@ -53,9 +53,7 @@ class ipbase extends \fpcm\controller\abstracts\controller implements \fpcm\cont
 
     public function request()
     {
-        $this->id = $this->getRequestVar('id', [
-            \fpcm\classes\http::FILTER_CASTINT
-        ]);
+        $this->id = $this->request->getID();
 
         $this->ipaddress = new \fpcm\model\ips\ipaddress($this->id);
         $this->save();
@@ -79,13 +77,18 @@ class ipbase extends \fpcm\controller\abstracts\controller implements \fpcm\cont
             return false;
         }
 
-        $ipAddr = $this->getRequestVar('ipaddress');
+        $ipAddr = $this->request->fromPOST('ipaddress');
+        if (!filter_var($ipAddr, FILTER_VALIDATE_IP, [ 'flags' => FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 ])) {
+            $this->view->addErrorMessage('SAVE_FAILED_IPINVALID');
+            return false;
+        }
+
         $this->ipaddress->setIpaddress($ipAddr);
         $this->ipaddress->setIptime(time());
         $this->ipaddress->setUserid($this->session->getUserId());
-        $this->ipaddress->setNoaccess($this->getRequestVar('noaccess') ? true : false);
-        $this->ipaddress->setNocomments($this->getRequestVar('nocomments') ? true : false);
-        $this->ipaddress->setNologin($this->getRequestVar('nologin') ? true : false);
+        $this->ipaddress->setNoaccess($this->request->fromPOST('noaccess') ? true : false);
+        $this->ipaddress->setNocomments($this->request->fromPOST('nocomments') ? true : false);
+        $this->ipaddress->setNologin($this->request->fromPOST('nologin') ? true : false);
         
         if ($ipAddr === \fpcm\classes\http::getIp()) {
             $this->view->addErrorMessage('SAVE_FAILED_IPADDRESS');
@@ -99,7 +102,7 @@ class ipbase extends \fpcm\controller\abstracts\controller implements \fpcm\cont
         }
 
         $this->redirect('ips/list', [
-            'added' => $this->id ? 2 : 1
+            ($this->id ? 'edited' : 'added') => 1
         ]);
 
         return true;

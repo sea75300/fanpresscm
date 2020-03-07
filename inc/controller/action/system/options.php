@@ -65,69 +65,14 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
         $this->config = new \fpcm\model\system\config(false, false);
 
-        if ($this->getRequestVar('syscheck')) {
-            $this->syscheck = $this->getRequestVar('syscheck', array(9));
+        if ($this->request->fromGET('syscheck')) {
+            $this->syscheck = $this->request->fromGET('syscheck', [
+                \fpcm\model\http\request::FILTER_CASTINT
+            ]);
         }
 
-        if ($this->buttonClicked('configSave') && !$this->checkPageToken()) {
-            $this->view->addErrorMessage('CSRF_INVALID');
-            return true;
-        }
-
-        if ($this->buttonClicked('configSave')) {
-            $this->newconfig = $this->getRequestVar();
-
-            if (!isset($this->newconfig['twitter_events'])) {
-                $this->newconfig['twitter_events'] = ['create' => 0, 'update' => 0];
-            }
-
-            foreach ($this->config->twitter_events as $key => $value) {
-                $this->newconfig['twitter_events'][$key] = (isset($this->newconfig['twitter_events'][$key]) && $this->newconfig['twitter_events'][$key] ? 1 : 0);
-            }
-
-            if (!isset($this->newconfig['twitter_data'])) {
-                $this->newconfig['twitter_data'] = ['consumer_key' => '', 'consumer_secret' => '', 'user_token' => '', 'user_secret' => ''];
-            }
-
-            foreach ($this->config->twitter_data as $key => $value) {
-                $this->newconfig['twitter_data'][$key] = isset($this->newconfig['twitter_data'][$key]) ? $this->newconfig['twitter_data'][$key] : '';
-            }
-
-            foreach ($this->config->smtp_settings as $key => $value) {
-                $this->newconfig['smtp_settings'][$key] = isset($this->newconfig['smtp_settings'][$key]) ? $this->newconfig['smtp_settings'][$key] : '';
-            }
-
-            $this->config->setNewConfig($this->newconfig);
-            $this->config->prepareDataSave();
-
-            $this->mailSettingsChanged = (\fpcm\classes\tools::getHash(json_encode($this->config->smtp_settings)) === \fpcm\classes\tools::getHash(json_encode($this->newconfig['smtp_settings'])) ? false : true);
-
-            if (!$this->config->update()) {
-                $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
-                return true;
-            }
-
-            $this->view->addNoticeMessage('SAVE_SUCCESS_OPTIONS');
-        }
-
-        if ($this->buttonClicked('twitterDisconnect')) {
-            $twitterData = $this->config->twitter_data;
-
-            $twitterData['user_token'] = '';
-            $twitterData['user_secret'] = '';
-
-            $this->config->setNewConfig(array(
-                'twitter_data' => json_encode($twitterData),
-                'twitter_events' => json_encode(array('create' => 0, 'update' => 0))
-            ));
-            if (!$this->config->update()) {
-                $this->view->addNoticeMessage('SAVE_FAILED_OPTIONS');
-                return true;
-            }
-
-            $this->view->addNoticeMessage('SAVE_SUCCESS_OPTIONS');
-        }
-
+        $this->save();
+        $this->twitterDisconnect();
         return true;
     }
 
@@ -241,6 +186,81 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
         
         $this->view->addButtons($buttons);
         $this->view->render();
+    }
+    
+    private function save() : bool
+    {
+        if (!$this->buttonClicked('configSave')) {
+            return false;
+        }
+
+        if (!$this->checkPageToken()) {
+            $this->view->addErrorMessage('CSRF_INVALID');
+            return true;
+        }
+
+        $this->newconfig = $this->request->fromPOST(null);
+
+        if (!isset($this->newconfig['twitter_events'])) {
+            $this->newconfig['twitter_events'] = ['create' => 0, 'update' => 0];
+        }
+
+        foreach ($this->config->twitter_events as $key => $value) {
+            $this->newconfig['twitter_events'][$key] = (isset($this->newconfig['twitter_events'][$key]) && $this->newconfig['twitter_events'][$key] ? 1 : 0);
+        }
+
+        if (!isset($this->newconfig['twitter_data'])) {
+            $this->newconfig['twitter_data'] = ['consumer_key' => '', 'consumer_secret' => '', 'user_token' => '', 'user_secret' => ''];
+        }
+
+        foreach ($this->config->twitter_data as $key => $value) {
+            $this->newconfig['twitter_data'][$key] = isset($this->newconfig['twitter_data'][$key]) ? $this->newconfig['twitter_data'][$key] : '';
+        }
+
+        foreach ($this->config->smtp_settings as $key => $value) {
+            $this->newconfig['smtp_settings'][$key] = isset($this->newconfig['smtp_settings'][$key]) ? $this->newconfig['smtp_settings'][$key] : '';
+        }
+
+        if (trim($this->newconfig['smtp_settings']['srvurl']) && !filter_var($this->newconfig['smtp_settings']['srvurl'], FILTER_VALIDATE_DOMAIN)) {
+            $this->view->addErrorMessage('SAVE_FAILED_OPTIONS_SMTP_HOST');
+        }
+
+        $this->config->setNewConfig($this->newconfig);
+        $this->config->prepareDataSave();
+
+        $this->mailSettingsChanged = (\fpcm\classes\tools::getHash(json_encode($this->config->smtp_settings)) === \fpcm\classes\tools::getHash(json_encode($this->newconfig['smtp_settings'])) ? false : true);
+
+        if (!$this->config->update()) {
+            $this->view->addErrorMessage('SAVE_FAILED_OPTIONS');
+            return false;
+        }
+
+        $this->view->addNoticeMessage('SAVE_SUCCESS_OPTIONS');
+        return true;
+    }
+
+    private function twitterDisconnect() : bool
+    {
+        if (!$this->buttonClicked('twitterDisconnect')) {
+            return false;
+        }
+
+        $twitterData = $this->config->twitter_data;
+
+        $twitterData['user_token'] = '';
+        $twitterData['user_secret'] = '';
+
+        $this->config->setNewConfig(array(
+            'twitter_data' => json_encode($twitterData),
+            'twitter_events' => json_encode(array('create' => 0, 'update' => 0))
+        ));
+        if (!$this->config->update()) {
+            $this->view->addNoticeMessage('SAVE_FAILED_OPTIONS');
+            return false;
+        }
+
+        $this->view->addNoticeMessage('SAVE_SUCCESS_OPTIONS');
+        return true;
     }
 
 }
