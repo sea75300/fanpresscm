@@ -46,7 +46,7 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxControllerJSON implem
     {
         $this->returnData = array('notice' => 0, 'error' => 0);
         
-        $ids = $this->getRequestVar('ids', [
+        $ids = $this->request->fromPOST('ids', [
             \fpcm\classes\http::FILTER_STRIPTAGS,
             \fpcm\classes\http::FILTER_TRIM,
             \fpcm\classes\http::FILTER_JSON_DECODE,

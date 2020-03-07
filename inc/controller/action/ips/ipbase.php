@@ -78,7 +78,7 @@ class ipbase extends \fpcm\controller\abstracts\controller implements \fpcm\cont
         }
 
         $ipAddr = $this->request->fromPOST('ipaddress');
-        if (!filter_var($ipAddr, FILTER_VALIDATE_IP, [ 'flags' => FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 ])) {
+        if (!filter_var(str_replace('*', 1, $ipAddr), FILTER_VALIDATE_IP, [ 'flags' => FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 ])) {
             $this->view->addErrorMessage('SAVE_FAILED_IPINVALID');
             return false;
         }

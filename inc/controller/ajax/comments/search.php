@@ -54,7 +54,7 @@ class search extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
      */
     public function request()
     {
-        $filter = $this->getRequestVar('filter');
+        $filter = $this->request->fromPOST('filter');
 
         $this->conditions->setMultiple(true);
         $this->assignParamsVars( ($filter['combinations'] ?? []) , $this->conditions);

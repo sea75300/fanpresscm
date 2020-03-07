@@ -63,7 +63,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
 
         $this->filter = new \fpcm\model\files\search();
 
-        $filter = $this->getRequestVar('filter');
+        $filter = $this->request->fromPOST('filter');
         if (!is_array($filter) || !count($filter)) {
             $this->showPager = true;
             return true;
@@ -110,7 +110,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
     {
         $fileList = new \fpcm\model\files\imagelist();
 
-        $page = $this->getRequestVar('page', [
+        $page = $this->request->fromPOST('page', [
             \fpcm\classes\http::FILTER_CASTINT
         ]);
 

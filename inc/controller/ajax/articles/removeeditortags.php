@@ -31,7 +31,7 @@ class removeeditortags extends \fpcm\controller\abstracts\ajaxController impleme
      */
     public function process()
     {
-        exit(strip_tags($this->getRequestVar('text')));
+        exit(strip_tags($this->request->fromPOST('text')));
     }
 
 }

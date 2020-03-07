@@ -25,7 +25,7 @@ class draft extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fp
      */
     public function process()
     {
-        $draftPath = $this->getRequestVar('path');
+        $draftPath = $this->request->fetchAll('path');
         if (!trim($draftPath)) {
             $this->returnCode = -1;
             $this->returnData = '';

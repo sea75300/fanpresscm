@@ -44,10 +44,9 @@ class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      */
     public function request()
     {
-        $this->oid = $this->getRequestVar('id', [\fpcm\classes\http::FILTER_CASTINT]);
-        $this->module = $this->getRequestVar('view');
+        $this->oid = $this->request->getID();
+        $this->module = $this->request->fromGET('view');
         $this->initActionObjects();
-
         return true;
     }
 
@@ -64,14 +63,11 @@ class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      * Controller-Processing
      */
     public function process()
-    {
-        $fn = 'process' . ucfirst($this->module);
-        if (!method_exists($this, $fn) || !$this->oid) {
+    {        
+        if ($this->processByParam('process', 'view') === self::ERROR_PROCESS_BYPARAMS) {
             $this->returnData = [];
-            $this->getSimpleResponse();
         }
 
-        call_user_func([$this, $fn]);
         $this->getSimpleResponse();
     }
 
@@ -79,7 +75,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      * 
      * @return bool
      */
-    private function processComments()
+    protected function processComments()
     {
         if (!$this->config->system_comments_enabled || !$this->permissions->editComments()) {
             $this->returnData = [];
@@ -103,7 +99,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      * 
      * @return bool
      */
-    private function processRevisions()
+    protected function processRevisions()
     {
         if (!$this->permissions->article->revisions || !$this->article->exists()) {
             $this->returnData = [];
@@ -166,7 +162,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      * 
      * @return bool
      */
-    private function processShortlink()
+    protected function processShortlink()
     {
         if (!$this->article->exists()) {
             $this->returnData = [];

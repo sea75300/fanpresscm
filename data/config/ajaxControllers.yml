@@ -20,7 +20,6 @@ ajax/editor/cleartags: ajax/articles/removeeditortags
 ajax/editor/smileys: ajax/articles/smileys
 ajax/editor/draft: ajax/articles/draft
 ajax/editor/imgupload: ajax/articles/imgupload
-ajax/editor/inedit: ajax/articles/inedit
 ajax/editor/editorlist: ajax/articles/editorlist
 ajax/dashboard: ajax/system/dashboard
 ajax/syscheck: ajax/system/syscheck

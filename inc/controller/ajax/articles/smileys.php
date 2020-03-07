@@ -32,7 +32,7 @@ class smileys extends \fpcm\controller\abstracts\ajaxController implements \fpcm
      */
     protected function getViewPath() : string
     {
-        return $this->getRequestVar('json') ? '' : 'articles/editors/smileys';
+        return $this->request->fetchAll('json') ? '' : 'articles/editors/smileys';
     }
 
     /**
@@ -42,7 +42,7 @@ class smileys extends \fpcm\controller\abstracts\ajaxController implements \fpcm
     {
         $values = array_values((new \fpcm\model\files\smileylist())->getDatabaseList());
 
-        if ($this->getRequestVar('json')) {
+        if ($this->request->fetchAll('json')) {
             $this->setReturnJson();
             $this->returnData = $values;
             $this->getSimpleResponse();

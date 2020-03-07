@@ -185,6 +185,12 @@ fpcm.ajax = {
     
     showAjaxErrorMessage: function () {
         fpcm.ui.addMessage({ txt: 'AJAX_RESPONSE_ERROR', type: 'error' }, true);
+    },
+    
+    execFunction: function (_action, _function, _params) {
+        _params.data.fn = _function;
+        _params.dataType = 'json';
+        fpcm.ajax.post(_action, _params);
     }
     
 };

@@ -221,7 +221,7 @@ final class request {
      */
     public function getPage() : int
     {
-        $value = $this->fromCompleteRequest('page');
+        $value = $this->fetchAll('page');
         if (!$value) {
             return 0;
         }
@@ -302,7 +302,7 @@ final class request {
      * @return mixed[scalar|array]
      * @ignore
      */
-    public function fromCompleteRequest($var, array $filters = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
+    public function fetchAll($var, array $filters = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
         $value = array_merge($_REQUEST, $_COOKIE)[$var] ?? null;
         if ($value === null || !count($filters)) {

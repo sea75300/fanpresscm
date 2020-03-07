@@ -101,6 +101,7 @@ class smileybase extends \fpcm\controller\abstracts\controller implements \fpcm\
             return true;
         }
         
+        $smileyData['filename'] = \fpcm\classes\tools::escapeFileName($smileyData['filename']);
         if (!$this->smiley instanceof \fpcm\model\files\smiley) {
             $this->smiley = new \fpcm\model\files\smiley($smileyData['filename']);
         }

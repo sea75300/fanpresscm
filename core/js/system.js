@@ -272,12 +272,11 @@ fpcm.system = {
         fpcm.ui.confirmDialog({
 
             clickYes: function () {
-                fpcm.ajax.exec('clearTrash', {
+                
+                fpcm.ajax.execFunction('clearTrash', _params.fn, {
                     pageToken: 'ajax/clearTrash',
-                    dataType: 'json',
                     data: {
                         ids: _params.ids ? _params.ids : [],
-                        fn: _params.fn
                     },
                     execDone: function (result) {
 

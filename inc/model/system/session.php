@@ -349,7 +349,6 @@ final class session extends \fpcm\model\abstracts\dataset {
     {
         $userid = \fpcm\components\components::getAuthProvider()->authenticate($data);
         if ($userid === false) {
-            trigger_error('Login failed for username ' . $data['username'] . '! Wrong username or password. Request was made by ' . \fpcm\classes\http::getIp());
             return false;
         }
 

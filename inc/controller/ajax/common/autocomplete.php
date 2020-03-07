@@ -48,7 +48,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxControllerJSON impleme
      */
     public function process()
     {
-        if ($this->processByParam('autocomplete', 'src') === 0x404) {
+        if ($this->processByParam('autocomplete', 'src') === self::ERROR_PROCESS_BYPARAMS) {
             $this->getSimpleResponse();
         }
 
