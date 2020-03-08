@@ -567,17 +567,17 @@ class commentList extends \fpcm\model\abstracts\tablelist {
             $valueParams[] = $conditions->dateto;
         }
 
-        if ($conditions->spam && $conditions->spam > -1) {
+        if ($conditions->spam !== null && $conditions->spam > -1) {
             $where[] = $conditions->getCondition('spam', "spammer = ?");
             $valueParams[] = (int) $conditions->spam;
         }
 
-        if ($conditions->approved && $conditions->approved > -1) {
+        if ($conditions->approved !== null && $conditions->approved > -1) {
             $where[] = $conditions->getCondition('approved', "approved = ?");
             $valueParams[] = (int) $conditions->approved;
         }
 
-        if ($conditions->private && $conditions->private > -1) {
+        if ($conditions->private !== null && $conditions->private > -1) {
             $where[] = $conditions->getCondition('private', "private = ?");
             $valueParams[] = (int) $conditions->private;
         }
