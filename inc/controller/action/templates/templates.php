@@ -257,7 +257,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
         }
         
         $delFiles = $this->request->fromPOST('deltplfiles', [
-            \fpcm\classes\http::FILTER_BASE64DECODE
+            \fpcm\model\http\request::FILTER_BASE64DECODE
         ]);
 
         if (!$this->buttonClicked('fileDelete') || !is_array($delFiles) || !count($delFiles)) {
@@ -300,8 +300,8 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
     private function save()
     {
         $tplData = $this->request->fromPOST('template', [
-            \fpcm\classes\http::FILTER_TRIM,
-            \fpcm\classes\http::FILTER_STRIPSLASHES
+            \fpcm\model\http\request::FILTER_TRIM,
+            \fpcm\model\http\request::FILTER_STRIPSLASHES
         ]);
 
         if (!$this->buttonClicked('saveTemplates') || $tplData === null) {

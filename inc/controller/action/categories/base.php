@@ -72,8 +72,8 @@ class base extends \fpcm\controller\abstracts\controller implements \fpcm\contro
         }
 
         $data = $this->request->fromPOST('category', [
-            \fpcm\classes\http::FILTER_STRIPSLASHES,
-            \fpcm\classes\http::FILTER_TRIM
+            \fpcm\model\http\request::FILTER_STRIPSLASHES,
+            \fpcm\model\http\request::FILTER_TRIM
         ]);
 
         if (!trim($data['name']) || empty($data['groups'])) {

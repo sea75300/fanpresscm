@@ -68,7 +68,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxControllerJSON implements
     public function request()
     {
         $this->mode = $this->request->fromGET('mode', [
-            \fpcm\classes\http::FILTER_FIRSTUPPER
+            \fpcm\model\http\request::FILTER_FIRSTUPPER
         ]);
 
         $fn = 'fetch'.$this->mode;

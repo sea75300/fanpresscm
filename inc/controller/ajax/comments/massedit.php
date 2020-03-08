@@ -53,8 +53,8 @@ class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpc
         }
 
         $this->commentList = new \fpcm\model\comments\commentList();
-        $this->commentIds = array_map('intval', $this->request->fromPOST('ids', [\fpcm\classes\http::FILTER_JSON_DECODE, 'object' => false]));
-        $this->data = $this->request->fromPOST('fields', [\fpcm\classes\http::FILTER_JSON_DECODE, 'object' => false]);
+        $this->commentIds = array_map('intval', $this->request->fromPOST('ids', [\fpcm\model\http\request::FILTER_JSON_DECODE, 'object' => false]));
+        $this->data = $this->request->fromPOST('fields', [\fpcm\model\http\request::FILTER_JSON_DECODE, 'object' => false]);
 
         return true;
     }

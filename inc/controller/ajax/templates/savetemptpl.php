@@ -26,8 +26,8 @@ class savetemptpl extends \fpcm\controller\abstracts\ajaxController implements \
     {
         $tplId = $this->request->fromPOST('tplid');
         $content = $this->request->fromPOST('content', [
-            \fpcm\classes\http::FILTER_TRIM,
-            \fpcm\classes\http::FILTER_HTMLENTITY_DECODE
+            \fpcm\model\http\request::FILTER_TRIM,
+            \fpcm\model\http\request::FILTER_HTMLENTITY_DECODE
         ]);
 
         $template = $this->getTemplateById($tplId);

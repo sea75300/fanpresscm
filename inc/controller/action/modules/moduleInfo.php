@@ -50,7 +50,7 @@ class moduleInfo extends \fpcm\controller\abstracts\controller implements \fpcm\
         }
 
         $this->repo = $this->request->fromGET('repo', [
-            \fpcm\classes\http::FILTER_CASTINT
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
         if ($this->repo) {

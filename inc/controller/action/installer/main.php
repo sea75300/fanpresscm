@@ -144,7 +144,7 @@ class main extends \fpcm\controller\abstracts\controller {
         }
 
         $this->step = $this->request->fromGET('step', [
-            \fpcm\classes\http::FILTER_CASTINT
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
         if (!$this->step) {

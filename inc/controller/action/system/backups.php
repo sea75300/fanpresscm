@@ -42,9 +42,9 @@ class backups extends \fpcm\controller\abstracts\controller implements \fpcm\con
         }
             
         $deleteFile = $this->request->fromPOST('files', [
-            \fpcm\classes\http::FILTER_URLDECODE,
-            \fpcm\classes\http::FILTER_BASE64DECODE,
-            \fpcm\classes\http::FILTER_DECRYPT
+            \fpcm\model\http\request::FILTER_URLDECODE,
+            \fpcm\model\http\request::FILTER_BASE64DECODE,
+            \fpcm\model\http\request::FILTER_DECRYPT
         ]);
 
         $file = new \fpcm\model\files\dbbackup($deleteFile);

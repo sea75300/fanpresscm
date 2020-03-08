@@ -234,8 +234,8 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         }
 
         $data = $this->request->fromPOST('article', [
-            \fpcm\classes\http::FILTER_STRIPSLASHES,
-            \fpcm\classes\http::FILTER_TRIM
+            \fpcm\model\http\request::FILTER_STRIPSLASHES,
+            \fpcm\model\http\request::FILTER_TRIM
         ]);
 
         $this->assignArticleFormData($data, $allTimer);

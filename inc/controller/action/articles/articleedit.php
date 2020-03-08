@@ -87,8 +87,8 @@ class articleedit extends articlebase {
 
         if ($this->buttonClicked('doAction') && !$this->checkPageToken) {
             $data = $this->request->fromPOST('article', [
-                \fpcm\classes\http::FILTER_STRIPSLASHES,
-                \fpcm\classes\http::FILTER_TRIM
+                \fpcm\model\http\request::FILTER_STRIPSLASHES,
+                \fpcm\model\http\request::FILTER_TRIM
             ]);
 
             $this->assignArticleFormData($data, time());
@@ -112,7 +112,7 @@ class articleedit extends articlebase {
         }
         
         $added = $this->request->fromGET('added', [
-            \fpcm\classes\http::FILTER_CASTINT
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
         if ($res > 0 || $added === 1) {
@@ -325,7 +325,7 @@ class articleedit extends articlebase {
             return false;
         }
 
-        $revisionIdsArray = $this->request->fromPOST('revisionIds', [\fpcm\classes\http::FILTER_CASTINT]);
+        $revisionIdsArray = $this->request->fromPOST('revisionIds', [\fpcm\model\http\request::FILTER_CASTINT]);
         if ($this->buttonClicked('revisionDelete') && is_array($revisionIdsArray) && !$this->showRevision && $this->checkPageToken) {
             if ($this->article->deleteRevisions($revisionIdsArray)) {
                 $this->view->addNoticeMessage('DELETE_SUCCESS_REVISIONS');

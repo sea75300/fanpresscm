@@ -51,7 +51,7 @@ class massedit extends \fpcm\controller\abstracts\ajaxControllerJSON implements 
         }
 
         $this->ids = $this->request->fromPOST('ids', [
-            \fpcm\classes\http::FILTER_JSON_DECODE,
+            \fpcm\model\http\request::FILTER_JSON_DECODE,
             'object' => false
         ]);
 

@@ -48,7 +48,7 @@ class rename extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
 
         $this->newFileName = $this->request->fromPOST('newName');
         $this->fileName = $this->request->fromPOST('oldName', [
-            \fpcm\classes\http::FILTER_BASE64DECODE
+            \fpcm\model\http\request::FILTER_BASE64DECODE
         ]);
 
         if (!$this->newFileName || !$this->fileName) {

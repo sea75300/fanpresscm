@@ -47,8 +47,8 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller implem
 
         $this->file = new \fpcm\model\files\templatefile(
                 $this->request->fromGET('file', [
-                    \fpcm\classes\http::FILTER_URLDECODE,
-                    \fpcm\classes\http::FILTER_DECRYPT
+                    \fpcm\model\http\request::FILTER_URLDECODE,
+                    \fpcm\model\http\request::FILTER_DECRYPT
                 ])
         );
 
@@ -60,8 +60,8 @@ class articleTemplateEditor extends \fpcm\controller\abstracts\controller implem
         }
 
         $newCode = $this->request->fromPOST('templatecode', [
-            \fpcm\classes\http::FILTER_TRIM,
-            \fpcm\classes\http::FILTER_STRIPSLASHES
+            \fpcm\model\http\request::FILTER_TRIM,
+            \fpcm\model\http\request::FILTER_STRIPSLASHES
         ]);
 
         if ($this->buttonClicked('saveTemplate') && $newCode) {

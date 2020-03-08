@@ -136,7 +136,7 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
             $this->user->setPassword(null);
         }
 
-        if ($this->request->fromPOST('disable2Fa', [\fpcm\classes\http::FILTER_CASTINT]) === 1) {
+        if ($this->request->fromPOST('disable2Fa', [\fpcm\model\http\request::FILTER_CASTINT]) === 1) {
             $this->user->setAuthtoken('');
         }
 

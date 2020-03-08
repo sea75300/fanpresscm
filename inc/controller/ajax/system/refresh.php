@@ -101,7 +101,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxControllerJSON implements \
         $this->returnData['articleUser'] = false;
 
         $articleId = $this->request->fetchAll('articleId', [
-            \fpcm\classes\http::FILTER_CASTINT
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
         if ($this->returnData['sessionCode'] < 1 || !$this->permissions->editArticles() || !$articleId) {

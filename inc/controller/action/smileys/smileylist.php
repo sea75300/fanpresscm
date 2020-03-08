@@ -55,7 +55,7 @@ class smileylist extends \fpcm\controller\abstracts\controller implements \fpcm\
         }
 
         $ids = $this->request->fromPOST('smileyids', [
-            \fpcm\classes\http::FILTER_BASE64DECODE
+            \fpcm\model\http\request::FILTER_BASE64DECODE
         ]);
 
         if ($this->buttonClicked('deleteSmiley') && is_array($ids)) {

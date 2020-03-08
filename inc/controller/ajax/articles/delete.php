@@ -44,11 +44,11 @@ class delete extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
     public function process()
     {
         $isMultiple = $this->request->fromPOST('multiple', [
-            \fpcm\classes\http::FILTER_CASTINT
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
         
         $id = $this->request->fromPOST('id', [
-            \fpcm\classes\http::FILTER_CASTINT
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
         if ($isMultiple) {

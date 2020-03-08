@@ -62,7 +62,7 @@ class search extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
         if (trim($filter['text'])) {
 
             $filter['text'] = \fpcm\classes\http::filter($filter['text'], [
-                \fpcm\classes\http::FILTER_HTMLENTITY_DECODE
+                \fpcm\model\http\request::FILTER_HTMLENTITY_DECODE
             ]);
 
             switch ($filter['searchtype']) {

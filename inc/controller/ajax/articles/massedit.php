@@ -48,8 +48,8 @@ class massedit extends \fpcm\controller\abstracts\ajaxControllerJSON implements 
         }
 
         $this->articleList = new \fpcm\model\articles\articlelist();
-        $this->articleIds = array_map('intval', $this->request->fromPOST('ids', [\fpcm\classes\http::FILTER_JSON_DECODE, 'object' => false]));
-        $this->data = $this->request->fromPOST('fields', [\fpcm\classes\http::FILTER_JSON_DECODE, 'object' => false]);
+        $this->articleIds = array_map('intval', $this->request->fromPOST('ids', [\fpcm\model\http\request::FILTER_JSON_DECODE, 'object' => false]));
+        $this->data = $this->request->fromPOST('fields', [\fpcm\model\http\request::FILTER_JSON_DECODE, 'object' => false]);
 
         return true;
     }

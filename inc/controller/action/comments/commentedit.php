@@ -231,8 +231,8 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         }
         
         $commentData = $this->request->fromPOST('comment', [
-            \fpcm\classes\http::FILTER_STRIPSLASHES,
-            \fpcm\classes\http::FILTER_TRIM
+            \fpcm\model\http\request::FILTER_STRIPSLASHES,
+            \fpcm\model\http\request::FILTER_TRIM
         ]);
 
         if (!is_array($commentData) || !count($commentData)) {
@@ -250,7 +250,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         unset($commentData['text']);
 
         foreach ($commentData as &$value) {
-            $value = $this->request->filter($value, [\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_HTMLENTITIES]);
+            $value = $this->request->filter($value, [\fpcm\model\http\request::FILTER_STRIPTAGS, \fpcm\model\http\request::FILTER_HTMLENTITIES]);
         }
 
         $this->comment->setName($commentData['name']);

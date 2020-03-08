@@ -38,7 +38,7 @@ class testing extends \fpcm\controller\abstracts\ajaxControllerJSON implements \
     public function process()
     {
         $ts = $this->request->fromPOST('timestamp', [
-            \fpcm\classes\http::FILTER_CASTINT
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
         if (!$ts) {
@@ -46,7 +46,7 @@ class testing extends \fpcm\controller\abstracts\ajaxControllerJSON implements \
         }
 
         $step = $this->request->fromPOST('step', [
-            \fpcm\classes\http::FILTER_CASTINT
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
         $fopt = new \fpcm\model\files\fileOption('lastchange');

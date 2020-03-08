@@ -82,7 +82,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
         }
 
         $this->key = $this->request->fromGET('key', [
-            \fpcm\classes\http::FILTER_URLDECODE
+            \fpcm\model\http\request::FILTER_URLDECODE
         ]);
         
         if (!\fpcm\module\module::validateKey($this->key)) {
@@ -91,7 +91,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
         }
 
         $this->keepMaintenance = $this->request->fromGET('keepMaintenance', [
-            \fpcm\classes\http::FILTER_CASTINT
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
         $this->updateDb = ($this->request->fromGET('update-db') !== null);

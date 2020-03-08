@@ -74,7 +74,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
         
         if (trim($filter['filename'])) {
             $this->filter->filename = \fpcm\classes\http::filter($filter['filename'], [
-                \fpcm\classes\http::FILTER_HTMLENTITY_DECODE
+                \fpcm\model\http\request::FILTER_HTMLENTITY_DECODE
             ]);
         }
 
@@ -111,7 +111,7 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
         $fileList = new \fpcm\model\files\imagelist();
 
         $page = $this->request->fromPOST('page', [
-            \fpcm\classes\http::FILTER_CASTINT
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
         $this->filter->limit = [$this->config->file_list_limit, \fpcm\classes\tools::getPageOffset($page, $this->config->file_list_limit)];
