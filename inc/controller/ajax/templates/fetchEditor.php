@@ -45,7 +45,7 @@ class fetchEditor extends \fpcm\controller\abstracts\ajaxController implements \
      */
     public function request()
     {
-        $this->templateId = $this->getRequestVar('tpl');
+        $this->templateId = $this->request->fromGET('tpl');
         $this->templateFunction = 'get'. ucfirst($this->templateId).'Template';
 
         if (!$this->templateId || !$this->templateFunction || !method_exists($this, $this->templateFunction)) {

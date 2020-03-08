@@ -24,8 +24,8 @@ class savetemptpl extends \fpcm\controller\abstracts\ajaxController implements \
      */
     public function process()
     {
-        $tplId = $this->getRequestVar('tplid');
-        $content = $this->getRequestVar('content', [
+        $tplId = $this->request->fromPOST('tplid');
+        $content = $this->request->fromPOST('content', [
             \fpcm\classes\http::FILTER_TRIM,
             \fpcm\classes\http::FILTER_HTMLENTITY_DECODE
         ]);

@@ -37,7 +37,7 @@ class testing extends \fpcm\controller\abstracts\ajaxControllerJSON implements \
      */
     public function process()
     {
-        $ts = $this->getRequestVar('timestamp', [
+        $ts = $this->request->fromPOST('timestamp', [
             \fpcm\classes\http::FILTER_CASTINT
         ]);
 
@@ -45,7 +45,7 @@ class testing extends \fpcm\controller\abstracts\ajaxControllerJSON implements \
             $this->getSimpleResponse();
         }
 
-        $step = $this->getRequestVar('step', [
+        $step = $this->request->fromPOST('step', [
             \fpcm\classes\http::FILTER_CASTINT
         ]);
 
@@ -53,6 +53,8 @@ class testing extends \fpcm\controller\abstracts\ajaxControllerJSON implements \
 
         $step++;
 
+
+        
         $this->returnData = [
             'step' => $step,
             'res' => mt_rand(0,1),
@@ -71,12 +73,13 @@ class testing extends \fpcm\controller\abstracts\ajaxControllerJSON implements \
 
 
             if ($this->returnData['res']) {
-                $this->getSimpleResponse();
+                break;
             }
 
         }
 
-        $this->getSimpleResponse();
+        (new \fpcm\model\http\response())->setReturnData($this->returnData)->fetch();
+
     }
 
 

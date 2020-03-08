@@ -106,7 +106,7 @@ trait lists {
      */
     protected function processCommentActions(\fpcm\model\comments\commentList $commentList)
     {
-        $ids = $this->getRequestVar('ids', [\fpcm\classes\http::FILTER_CASTINT]);
+        $ids = $this->request->fromPOST('ids', [\fpcm\classes\http::FILTER_CASTINT]);
         if (!is_array($ids) || !count($ids)) {
             $this->view->addErrorMessage('SELECT_ITEMS_MSG');
             return true;
@@ -243,7 +243,7 @@ trait lists {
      */
     protected function commentDataView()
     {
-        $this->page          = $this->getRequestVar('page', [\fpcm\classes\http::FILTER_CASTINT]);
+        $this->page          = $this->request->getPage();
         $this->listShowStart = \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit);
 
         if ($this->getMode() < 2) {
