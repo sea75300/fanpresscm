@@ -31,8 +31,8 @@ class cronasync extends \fpcm\controller\abstracts\ajaxController implements \fp
      */
     public function process()
     {
-        $cronName = $this->getRequestVar('cjId');
-        $module = $this->getRequestVar('cjmod');
+        $cronName = $this->request->fromGET('cjId');
+        $module = $this->request->fromGET('cjmod');
         if (!$cronName) {
             return true;
         }

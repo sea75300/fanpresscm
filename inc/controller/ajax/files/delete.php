@@ -53,11 +53,11 @@ class delete extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
      */
     public function request()
     {
-        $this->fileName = $this->getRequestVar('filename', [
-            \fpcm\classes\http::FILTER_BASE64DECODE
+        $this->fileName = $this->request->fromPOST('filename', [
+            \fpcm\model\http\request::FILTER_BASE64DECODE
         ]);
 
-        $this->multiple = (bool) $this->getRequestVar('multiple');
+        $this->multiple = (bool) $this->request->fromPOST('multiple');
         return true;
     }
 

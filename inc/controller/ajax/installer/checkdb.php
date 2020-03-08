@@ -49,7 +49,7 @@ class checkdb extends \fpcm\controller\abstracts\ajaxController {
      */
     public function process()
     {
-        $databaseInfo = $this->getRequestVar('dbdata');
+        $databaseInfo = $this->request->fromPOST('dbdata');
 
         try {
             $db = new \fpcm\classes\database($databaseInfo);

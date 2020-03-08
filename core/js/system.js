@@ -111,7 +111,7 @@ fpcm.system = {
 
     doRefresh: function () {
 
-        fpcm.ajax.exec('refresh', {
+        fpcm.ajax.post('refresh', {
             quiet: true,
             data: {
                 articleId: fpcm.vars.jsvars.articleId
@@ -257,7 +257,7 @@ fpcm.system = {
             params = {};
         }
 
-        fpcm.ajax.get('cache', {
+        fpcm.ajax.post('cache', {
             data: params,
             execDone: function (result) {
                 fpcm.ui.addMessage(result, true);

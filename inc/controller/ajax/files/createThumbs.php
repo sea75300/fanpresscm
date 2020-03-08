@@ -50,8 +50,8 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxControllerJSON impleme
      */
     public function request()
     {
-        $this->files = $this->getRequestVar('items', [
-            \fpcm\classes\http::FILTER_BASE64DECODE
+        $this->files = $this->request->fromPOST('items', [
+            \fpcm\model\http\request::FILTER_BASE64DECODE
         ]);
 
         if (!$this->files) {

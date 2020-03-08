@@ -46,7 +46,7 @@ fpcm.crons = {
     },
     
     setCronjobInterval : function(cronjobId, cronjobInterval, modulekey) {
-        fpcm.ajax.get('croninterval', {
+        fpcm.ajax.post('croninterval', {
             data    : {
                 cjId:cronjobId,
                 interval:cronjobInterval,

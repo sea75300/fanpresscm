@@ -35,7 +35,7 @@ class lockIp extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
         $this->returnCode = 0;
         $this->returnData = $this->language->translate('SAVE_FAILED_IPADDRESS');
 
-        $cid = $this->getRequestVar('cid', [
+        $cid = $this->request->fromPOST('cid', [
             http::FILTER_CASTINT
         ]);
 

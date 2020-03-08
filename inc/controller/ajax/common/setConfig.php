@@ -26,14 +26,14 @@ class setConfig extends \fpcm\controller\abstracts\ajaxController implements \fp
      */
     public function request()
     {
-        $var    = $this->getRequestVar('var');
+        $var    = $this->request->fromPOST('var');
         if (!in_array($var, $this->whiteList)) {
             trigger_error('Invalid variable '.$var);
             return false;
         }
 
         $usrmeta = $this->session->currentUser->getUserMeta();
-        $usrmeta[$var] = $this->getRequestVar('value');
+        $usrmeta[$var] = $this->request->fromPOST('value');
 
         $this->session->currentUser->disablePasswordSecCheck();
         $this->session->currentUser->setPassword(null);

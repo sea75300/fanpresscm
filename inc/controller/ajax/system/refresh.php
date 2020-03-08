@@ -37,7 +37,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxControllerJSON implements \
         $this->runCrons();
         $this->runSessionCheck();
         $this->runArticleInEdit();
-        if ($this->getRequestVar('t') !== null) {
+        if ($this->request->fetchAll('t') !== null) {
             exit('{}');
         }
 
@@ -100,7 +100,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxControllerJSON implements \
         $this->returnData['articleCode'] = 0;
         $this->returnData['articleUser'] = false;
 
-        $articleId = $this->getRequestVar('articleId', [
+        $articleId = $this->request->fetchAll('articleId', [
             \fpcm\classes\http::FILTER_CASTINT
         ]);
 

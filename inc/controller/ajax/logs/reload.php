@@ -55,7 +55,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function request()
     {
-        $this->log = $this->getRequestVar('log');
+        $this->log = $this->request->fromGET('log');
         return $this->log === null ? false : true;
     }
 

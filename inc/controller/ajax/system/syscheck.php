@@ -47,7 +47,7 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController implements \fpc
      */
     protected function getViewPath() : string
     {
-        return $this->noView || $this->getRequestVar('sendstats') ? '' : 'system/syscheck';
+        return $this->noView || $this->request->fromPOST('sendstats') ? '' : 'system/syscheck';
     }
 
     /**
@@ -56,7 +56,7 @@ class syscheck extends \fpcm\controller\abstracts\ajaxController implements \fpc
      */
     public function request()
     {
-        if ($this->getRequestVar('sendstats')) {
+        if ($this->request->fromPOST('sendstats')) {
             $this->submitStatsData();
             return false;
         }

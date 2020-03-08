@@ -97,7 +97,7 @@ fpcm.modulelist = {
                         text: fpcm.ui.translate('GLOBAL_YES'),
                         icon: "ui-icon-check",                    
                         click: function () {
-                            fpcm.ajax.exec('modules/exec', {
+                            fpcm.ajax.post('modules/exec', {
                                 data: params,
                                 execDone: function (result) {
                                     if (result.code !== undefined && result.code < 1) {

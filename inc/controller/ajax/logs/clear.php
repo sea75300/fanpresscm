@@ -39,7 +39,7 @@ class clear extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fp
      */
     public function request()
     {
-        $this->log = $this->getRequestVar('log');
+        $this->log = $this->request->fromPOST('log');
         if ($this->log === null) {
             return false;
         }

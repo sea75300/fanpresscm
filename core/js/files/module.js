@@ -204,7 +204,7 @@ fpcm.filemanager = {
                 clickYes: function () {
 
                     fpcm.dom.fromTag(this).dialog( "close" );
-                    fpcm.ajax.exec('files/delete', {
+                    fpcm.ajax.post('files/delete', {
                         dataType: 'json',
                         data: {
                             filename: path

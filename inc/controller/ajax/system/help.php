@@ -32,13 +32,13 @@ class help extends \fpcm\controller\abstracts\controller implements \fpcm\contro
      */
     public function process()
     {
-        $ref = $this->getRequestVar('ref', [
-            \fpcm\classes\http::FILTER_URLDECODE,
-            \fpcm\classes\http::FILTER_BASE64DECODE
+        $ref = $this->request->fromGET('ref', [
+            \fpcm\model\http\request::FILTER_URLDECODE,
+            \fpcm\model\http\request::FILTER_BASE64DECODE
         ]);
 
-        $chapter = $this->getRequestVar('chapter', [
-            \fpcm\classes\http::FILTER_CASTINT
+        $chapter = $this->request->fromGET('chapter', [
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
         
         if ($chapter === null) {

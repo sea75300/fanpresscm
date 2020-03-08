@@ -52,8 +52,8 @@ class cache extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fp
     {
         $this->setReturnJson();
 
-        $this->module = $this->getRequestVar('cache', [\fpcm\classes\http::FILTER_URLDECODE, \fpcm\classes\http::FILTER_DECRYPT]);
-        $this->objid = $this->getRequestVar('objid', [\fpcm\classes\http::FILTER_CASTINT]);
+        $this->module = $this->request->fromPOST('cache', [\fpcm\model\http\request::FILTER_URLDECODE, \fpcm\model\http\request::FILTER_DECRYPT, \fpcm\model\http\request::FILTER_FIRSTUPPER]);
+        $this->objid = $this->request->fromPOST('objid', [\fpcm\model\http\request::FILTER_CASTINT]);
 
         return true;
     }
@@ -79,11 +79,11 @@ class cache extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fp
             'objid' => $this->objid
         ]);
 
-        $this->returnData = [
-            'txt'  => 'CACHE_CLEARED_OK',
-            'type' => 'notice',
-            'icon' => 'hdd'
-        ];
+        $this->returnData = new \fpcm\view\message(
+            'CACHE_CLEARED_OK',
+            \fpcm\view\message::TYPE_NOTICE,
+            'hdd'
+        );
 
         $this->getSimpleResponse();
     }

@@ -10,9 +10,9 @@ namespace fpcm\controller\ajax\common;
 /**
  * AJAX autocomplete controller
  * 
- * @package fpcm\controller\ajax\commom.addmsg
+ * @package fpcm\controller\ajax\commom
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.6
  */
@@ -38,8 +38,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxControllerJSON impleme
      */
     public function request()
     {
-        $this->module = ucfirst($this->getRequestVar('src'));
-        $this->term = $this->getRequestVar('term', [\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_STRIPSLASHES, \fpcm\classes\http::FILTER_TRIM, \fpcm\classes\http::FILTER_URLDECODE]);
+        $this->term = $this->request->fetchAll('term', [\fpcm\model\http\request::FILTER_STRIPTAGS, \fpcm\model\http\request::FILTER_STRIPSLASHES, \fpcm\model\http\request::FILTER_TRIM, \fpcm\model\http\request::FILTER_URLDECODE]);
         return true;
     }
 
@@ -53,7 +52,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxControllerJSON impleme
         }
 
         $this->returnData = $this->events->trigger('autocompleteGetData', [
-            'module'     => $this->module,
+            'module'     => $this->request->fetchAll('src'),
             'returnData' => $this->returnData
         ]);
 

@@ -46,10 +46,10 @@ class execAction extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      */
     public function request()
     {
-        $this->key = $this->getRequestVar('key');
-        $this->action = $this->getRequestVar('action');
-        $this->fromDir = $this->getRequestVar('fromDir', [
-            \fpcm\classes\http::FILTER_CASTINT
+        $this->key = $this->request->fromPOST('key');
+        $this->action = $this->request->fromPOST('action');
+        $this->fromDir = $this->request->fromPOST('fromDir', [
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
         
         return trim($this->key) ? true : false;

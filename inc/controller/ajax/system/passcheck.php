@@ -37,7 +37,7 @@ class passcheck extends \fpcm\controller\abstracts\ajaxController implements \fp
      */
     public function process()
     {
-        $this->returnData = (new \fpcm\model\users\passCheck($this->getRequestVar('password')))->isPowned() ? 1 : 0;
+        $this->returnData = (new \fpcm\model\users\passCheck($this->request->fromPOST('password')))->isPowned() ? 1 : 0;
         $this->getSimpleResponse();
     }
 

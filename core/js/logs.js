@@ -129,7 +129,7 @@ fpcm.logs = {
 
     clearLogs: function(id) {
 
-        fpcm.ajax.get('logs/clear', {
+        fpcm.ajax.post('logs/clear', {
             workData: id,
             data: {
                 log: id
