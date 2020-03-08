@@ -20,6 +20,9 @@ class button extends helper {
     use traits\iconHelper,
         traits\typeHelper;
 
+    /*  @since FPCM 4.4.0 */
+    const NAME_PREFIX = 'btn';
+
     /**
      * Return element string
      * @return string
@@ -51,7 +54,7 @@ class button extends helper {
      */
     protected function init()
     {
-        $this->prefix = 'btn';
+        $this->prefix = self::NAME_PREFIX;
         $this->class = 'ui-button ui-corner-all fpcm-ui-button';
         $this->type = 'button';
     }

@@ -436,6 +436,36 @@ class controller implements \fpcm\controller\interfaces\controller {
     }
 
     /**
+     * Process click of form items as function
+     * @return bool
+     * @since FPCM 4.4 (experimental)
+     */
+    public function processButtons() : bool
+    {
+        $items = $this->request->getPOSTItems();
+        if (!is_array($items) || !count($items)) {
+            return false;
+        }
+
+        foreach ($items as $item) {
+
+            if (substr($item, 0, 3) !== \fpcm\view\helper\button::NAME_PREFIX) {
+                continue;
+            }
+            
+            $func = 'process'.substr($item, 3);
+            if (!method_exists($this, $func)) {
+                continue;
+            }
+            
+            call_user_func([$this, $func]);
+   
+        }        
+        
+        return true;
+    }
+
+    /**
      * Magische Methode für nicht vorhandene Methoden
      * @param string $name
      * @param mixed $arguments

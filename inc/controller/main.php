@@ -75,6 +75,10 @@ class main {
             return false;
         }
 
+        if ($controller instanceof interfaces\requestFunctions) {
+            $controller->processButtons();
+        }
+        
         $controller->process();
     }
 

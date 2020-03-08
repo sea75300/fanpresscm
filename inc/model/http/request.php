@@ -312,6 +312,14 @@ final class request {
         return $this->filter($value, $filters);
     }
 
+    /**
+     * Returns item keys for POST request 
+     * @return array
+     */
+    public function getPOSTItems() : array
+    {
+        return array_keys($_POST);
+    }
 
     /**
      * Filter request values
