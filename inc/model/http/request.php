@@ -14,7 +14,6 @@ namespace fpcm\model\http;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\http
  * @since FPCM 4.4
- * @ignore
  */
 final class request {
 

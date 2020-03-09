@@ -1,10 +1,7 @@
 <?php
 
 /**
- * FanPress CM cronjob model
- * 
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -19,7 +16,9 @@ use fpcm\model\files\fileOption;
  * Cronjob model base
  * 
  * @package fpcm\model\abstracts
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class cron implements \fpcm\model\interfaces\cron {
 
