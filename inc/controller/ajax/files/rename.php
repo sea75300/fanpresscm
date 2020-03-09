@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\files;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class rename extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class rename extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
@@ -44,7 +44,7 @@ class rename extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
      */
     public function request()
     {
-        $this->setReturnJson();
+        $this->response = new \fpcm\model\http\response;
 
         $this->newFileName = $this->request->fromPOST('newName');
         $this->fileName = $this->request->fromPOST('oldName', [
@@ -52,13 +52,13 @@ class rename extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
         ]);
 
         if (!$this->newFileName || !$this->fileName) {
-            $this->returnData['code'] = -1;
-            $this->returnData['message'] = $this->language->translate('DELETE_FAILED_RENAME', [
-                '{{filename1}}' => $this->fileName,
-                '{{filename2}}' => $this->newFileName
-            ]);
-
-            $this->getSimpleResponse();
+            $this->response->setReturnData([
+                'code' => -1 ,
+                'message' => $this->language->translate('DELETE_FAILED_RENAME', [
+                    '{{filename1}}' => $this->fileName,
+                    '{{filename2}}' => $this->newFileName
+                ])
+            ])->fetch();
         }
 
         return true;
@@ -75,15 +75,19 @@ class rename extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
         if ($image->rename($this->newFileName, $this->session->getUserId())) {
 
             (new \fpcm\model\files\imagelist())->createFilemanagerThumbs();
-            
-            $this->returnData['code'] = 1;
-            $this->returnData['message'] = $this->language->translate('DELETE_SUCCESS_RENAME', $replace);
-            $this->getSimpleResponse();
+
+            $this->response->setReturnData([
+                'code' => -1 ,
+                'message' => $this->language->translate('DELETE_SUCCESS_RENAME', $replace)
+            ])->fetch();
+
         }
 
-        $this->returnData['code'] = 0;
-        $this->returnData['message'] = $this->language->translate('DELETE_FAILED_RENAME', $replace);
-        $this->getSimpleResponse();
+        $this->response->setReturnData([
+            'code' => -0 ,
+            'message' => $this->language->translate('DELETE_FAILED_RENAME', $replace)
+        ])->fetch();
+
     }
 
 }

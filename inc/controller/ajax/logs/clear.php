@@ -16,7 +16,7 @@ namespace fpcm\controller\ajax\logs;
  * @package fpcm\controller\ajax\logs\clear
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class clear extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class clear extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * System-Log-Typ
@@ -39,6 +39,7 @@ class clear extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fp
      */
     public function request()
     {
+        $this->response = new \fpcm\model\http\response;
         $this->log = $this->request->fromPOST('log');
         if ($this->log === null) {
             return false;
@@ -66,12 +67,12 @@ class clear extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fp
 
         $this->events->trigger('logs\clearSystemLogs');
 
-        $this->returnData = [
-            'txt' => $res ? 'LOGS_CLEARED_LOG_OK' : 'LOGS_CLEARED_LOG_FAILED',
-            'type' => $res ? \fpcm\view\message::TYPE_NOTICE : \fpcm\view\message::TYPE_ERROR
-        ];
+        $this->response->setReturnData(new \fpcm\view\message(
+            $res ? 'LOGS_CLEARED_LOG_OK' : 'LOGS_CLEARED_LOG_FAILED',
+            $res ? \fpcm\view\message::TYPE_NOTICE : \fpcm\view\message::TYPE_ERROR,
+            $res ? \fpcm\view\message::ICON_NOTICE : \fpcm\view\message::ICON_ERROR
+        ))->fetch();
 
-        $this->getSimpleResponse();
     }
 
 }

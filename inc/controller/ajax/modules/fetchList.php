@@ -13,7 +13,7 @@ namespace fpcm\controller\ajax\modules;
  * @package fpcm\controller\ajax\modules\moduleactions
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class fetchList extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\dataView;
 
@@ -67,6 +67,8 @@ class fetchList extends \fpcm\controller\abstracts\ajaxControllerJSON implements
      */
     public function request()
     {
+        $this->response = new \fpcm\model\http\response;
+
         $this->mode = $this->request->fromGET('mode', [
             \fpcm\model\http\request::FILTER_FIRSTUPPER
         ]);
@@ -90,13 +92,12 @@ class fetchList extends \fpcm\controller\abstracts\ajaxControllerJSON implements
         $dvVars = $this->dataView->getJsVars();
         $dbName = $this->getDataViewName();
         
-        $this->returnData = [
+        $this->response->setReturnData([
             'dataViewVars' => $dvVars['dataviews'][$dbName],
             'dataViewName' => $dbName,
             'loadTab' => $this->tab
-        ];
+        ])->fetch();
 
-        $this->getSimpleResponse();
     }
 
     /**

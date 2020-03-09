@@ -68,12 +68,13 @@ final class response {
         $this->returnData = $returnData;
         return $this;
     }
-
+    
     /**
-     * Fetch response result
-     * @return bool
+     * Fetch reponse data
+     * @param bool $includeData
+     * @return void
      */
-    public function fetch()
+    public function fetch($includeData = true)
     {
         if ($this->code !== null) {
             http_response_code($this->code);
@@ -85,6 +86,10 @@ final class response {
                 header($header);
             }
 
+        }
+
+        if (!$includeData) {
+            return;
         }
 
         if ($this->returnData === null) {

@@ -140,7 +140,7 @@ final class installer extends \fpcm\model\abstracts\cli {
     {
         $this->output('Init database connection...');
 
-        $databaseInfo = array_combine(array_map('strtoupper', array_keys($this->conf['database'])), array_map('trim', array_values($this->conf['database'])));
+        $databaseInfo = array_change_key_case($this->conf['database'], CASE_UPPER);
         usleep(250000);
 
         try {

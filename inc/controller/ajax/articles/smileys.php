@@ -43,9 +43,7 @@ class smileys extends \fpcm\controller\abstracts\ajaxController implements \fpcm
         $values = array_values((new \fpcm\model\files\smileylist())->getDatabaseList());
 
         if ($this->request->fetchAll('json')) {
-            $this->setReturnJson();
-            $this->returnData = $values;
-            $this->getSimpleResponse();
+            (new \fpcm\model\http\response)->setReturnData($values)->fetch();
         }
 
         $this->view->assign('smileys', $values);

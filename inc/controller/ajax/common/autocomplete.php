@@ -16,7 +16,7 @@ namespace fpcm\controller\ajax\common;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.6
  */
-class autocomplete extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class autocomplete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
     
@@ -38,6 +38,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxControllerJSON impleme
      */
     public function request()
     {
+        $this->response = new \fpcm\model\http\response;
         $this->term = $this->request->fetchAll('term', [\fpcm\model\http\request::FILTER_STRIPTAGS, \fpcm\model\http\request::FILTER_STRIPSLASHES, \fpcm\model\http\request::FILTER_TRIM, \fpcm\model\http\request::FILTER_URLDECODE]);
         return true;
     }
@@ -47,16 +48,15 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxControllerJSON impleme
      */
     public function process()
     {
-        if ($this->processByParam('autocomplete', 'src') === self::ERROR_PROCESS_BYPARAMS) {
-            $this->getSimpleResponse();
+        if ($this->processByParam('autocomplete', 'src') !== true) {
+            $this->response->setReturnData([])->fetch();
         }
 
-        $this->returnData = $this->events->trigger('autocompleteGetData', [
+        $this->response->setReturnData($this->events->trigger('autocompleteGetData', [
             'module'     => $this->request->fetchAll('src'),
             'returnData' => $this->returnData
-        ]);
+        ]))->fetch();
 
-        $this->getSimpleResponse();
     }
 
     /**
@@ -135,7 +135,15 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxControllerJSON impleme
             return false;
         }
 
-        $this->returnData = \fpcm\components\components::getArticleEditor()->getFileList();
+        $data = \fpcm\components\components::getArticleEditor()->getFileList();
+        foreach ($data as $value) {
+            if (stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false) {
+                continue;
+            }
+
+            $this->returnData[] = $value;
+        }
+        
         return true;
     }
 
@@ -150,7 +158,15 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxControllerJSON impleme
             return false;
         }
 
-        $this->returnData = \fpcm\components\components::getArticleEditor()->getEditorLinks();
+        $data = \fpcm\components\components::getArticleEditor()->getEditorLinks();
+        foreach ($data as $value) {
+            if (stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false) {
+                continue;
+            }
+
+            $this->returnData[] = $value;
+        }
+        
         return true;
     }
     

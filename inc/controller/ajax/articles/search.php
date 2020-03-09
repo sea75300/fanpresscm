@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\articles;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class search extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\articles\lists,
         \fpcm\controller\traits\common\searchParams;
@@ -47,6 +47,8 @@ class search extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
      */
     public function request()
     {
+        $this->response = new \fpcm\model\http\response;
+        
         $this->deleteActions = $this->permissions->article->delete;
         $this->initActionVars();
 
@@ -154,12 +156,11 @@ class search extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
 
         $dvVars = $this->dataView->getJsVars();
 
-        $this->returnData = [
+        $this->response->setReturnData([
             'dataViewVars' => $dvVars['dataviews'][$this->getDataViewName()],
             'dataViewName' => $this->getDataViewName()
-        ];
+        ])->fetch();
 
-        $this->getSimpleResponse();
     }
 
 }

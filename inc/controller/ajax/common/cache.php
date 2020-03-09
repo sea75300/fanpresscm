@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\common;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class cache extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class cache extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
     
@@ -50,8 +50,7 @@ class cache extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fp
      */
     public function request()
     {
-        $this->setReturnJson();
-
+        $this->response = new \fpcm\model\http\response;
         $this->module = $this->request->fromPOST('cache', [\fpcm\model\http\request::FILTER_URLDECODE, \fpcm\model\http\request::FILTER_DECRYPT, \fpcm\model\http\request::FILTER_FIRSTUPPER]);
         $this->objid = $this->request->fromPOST('objid', [\fpcm\model\http\request::FILTER_CASTINT]);
 
@@ -78,14 +77,13 @@ class cache extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fp
             'module' => $this->module,
             'objid' => $this->objid
         ]);
-
-        $this->returnData = new \fpcm\view\message(
+        
+        $this->response->setReturnData(new \fpcm\view\message(
             'CACHE_CLEARED_OK',
             \fpcm\view\message::TYPE_NOTICE,
             'hdd'
-        );
+        ))->fetch();
 
-        $this->getSimpleResponse();
     }
 
     /**

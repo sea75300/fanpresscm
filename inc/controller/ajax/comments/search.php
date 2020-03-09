@@ -54,6 +54,8 @@ class search extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
      */
     public function request()
     {
+        $this->response = new \fpcm\model\http\response();
+        
         $filter = $this->request->fromPOST('filter');
 
         $this->conditions->setMultiple(true);
@@ -103,12 +105,11 @@ class search extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
 
         $dvVars = $this->dataView->getJsVars();
 
-        $this->returnData = [
+        $this->response->setReturnData([
             'dataViewVars' => $dvVars['dataviews'][$this->getDataViewName()],
             'dataViewName' => $this->getDataViewName()
-        ];
+        ])->fetch();
 
-        $this->getSimpleResponse();
     }
 
 }

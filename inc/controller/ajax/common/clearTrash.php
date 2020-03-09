@@ -16,7 +16,7 @@ namespace fpcm\controller\ajax\common;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 4.4
  */
-class clearTrash extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class clearTrash extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * 
@@ -34,8 +34,9 @@ class clearTrash extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      */
     public function request()
     {
+        $this->response = new \fpcm\model\http\response;
         $this->processByParam();
-        $this->getSimpleResponse();
+        $this->response->fetch();
         return true;
     }
 
@@ -51,15 +52,15 @@ class clearTrash extends \fpcm\controller\abstracts\ajaxControllerJSON implement
 
         $res = (new \fpcm\model\articles\articlelist)->emptyTrash();
         
-        $this->returnData = [
+        $this->response->setReturnData([
             'code' => (int)$res,
             'msg' => new \fpcm\view\message(
                 $this->language->translate( $res ? 'DELETE_SUCCESS_TRASH' : 'DELETE_FAILED_TRASH' ),
                 $res ? \fpcm\view\message::TYPE_NOTICE : \fpcm\view\message::TYPE_ERROR,
                 $res ? \fpcm\view\message::ICON_NOTICE : \fpcm\view\message::ICON_ERROR
             )
-        ];
-        
+        ]);
+
         return true;
     }
 
@@ -89,15 +90,15 @@ class clearTrash extends \fpcm\controller\abstracts\ajaxControllerJSON implement
         
         $res = (new \fpcm\model\articles\articlelist)->restoreArticles($ids);
 
-        $this->returnData = [
+        $this->response->setReturnData([
             'code' => (int)$res,
             'msg' => new \fpcm\view\message(
                 $this->language->translate( $res ? 'SAVE_SUCCESS_ARTICLERESTORE' : 'SAVE_FAILED_ARTICLERESTORE' ),
                 $res ? \fpcm\view\message::TYPE_NOTICE : \fpcm\view\message::TYPE_ERROR,
                 $res ? \fpcm\view\message::ICON_NOTICE : \fpcm\view\message::ICON_ERROR
             )
-        ];
-        
+        ]);
+
         return true;
     }
 
@@ -112,16 +113,16 @@ class clearTrash extends \fpcm\controller\abstracts\ajaxControllerJSON implement
         }
 
         $res = (new \fpcm\model\comments\commentList)->emptyTrash();
-        
-        $this->returnData = [
+
+        $this->response->setReturnData([
             'code' => (int)$res,
             'msg' => new \fpcm\view\message(
                 $this->language->translate( $res ? 'DELETE_SUCCESS_TRASH' : 'DELETE_FAILED_TRASH' ),
                 $res ? \fpcm\view\message::TYPE_NOTICE : \fpcm\view\message::TYPE_ERROR,
                 $res ? \fpcm\view\message::ICON_NOTICE : \fpcm\view\message::ICON_ERROR
             )
-        ];
-        
+        ]);
+
         return true;
     }
 
@@ -137,28 +138,28 @@ class clearTrash extends \fpcm\controller\abstracts\ajaxControllerJSON implement
 
         $ids = $this->request->getIDs();
         if (!count($ids)) {
-            $this->returnData = [
+            $this->response->setReturnData([
                 'code' => 0,
                 'msg' => new \fpcm\view\message(
                     $this->language->translate('SELECT_ITEMS_MSG'),
                     \fpcm\view\message::TYPE_ERROR,
                     \fpcm\view\message::ICON_ERROR
                 )
-            ];
+            ]);
 
             return false;
         }
         
         $res = (new \fpcm\model\comments\commentList)->retoreComments($ids);
 
-        $this->returnData = [
+        $this->response->setReturnData([
             'code' => (int)$res,
             'msg' => new \fpcm\view\message(
                 $this->language->translate( $res ? 'SAVE_SUCCESS_ARTICLERESTORE' : 'SAVE_FAILED_ARTICLERESTORE' ),
                 $res ? \fpcm\view\message::TYPE_NOTICE : \fpcm\view\message::TYPE_ERROR,
                 $res ? \fpcm\view\message::ICON_NOTICE : \fpcm\view\message::ICON_ERROR
             )
-        ];
+        ]);
         
         return true;
     }

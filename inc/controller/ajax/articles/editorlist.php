@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\articles;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since FPCM 3.6
  */
-class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class editorlist extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\comments\lists,
         \fpcm\model\articles\permissions;
@@ -44,6 +44,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      */
     public function request()
     {
+        $this->response = new \fpcm\model\http\response();
         $this->oid = $this->request->getID();
         $this->module = $this->request->fromGET('view');
         $this->initActionObjects();
@@ -64,11 +65,11 @@ class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      */
     public function process()
     {        
-        if ($this->processByParam('process', 'view') === self::ERROR_PROCESS_BYPARAMS) {
-            $this->returnData = [];
+        if ($this->processByParam('process', 'view') !== true) {
+            $this->response->setReturnData([]);
         }
 
-        $this->getSimpleResponse();
+        $this->response->fetch();
     }
 
     /**
@@ -78,8 +79,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implement
     protected function processComments()
     {
         if (!$this->config->system_comments_enabled || !$this->permissions->editComments()) {
-            $this->returnData = [];
-            $this->getSimpleResponse();
+            return false;
         }
         
         $this->conditions->articleid = $this->oid;
@@ -87,10 +87,11 @@ class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implement
 
         $this->commentDataView();
         $dvVars = $this->dataView->getJsVars();
-        $this->returnData = [
+        
+        $this->response->setReturnData([
             'dataViewVars' => $dvVars['dataviews'][$this->getDataViewName()],
             'dataViewName' => $this->getDataViewName()
-        ];
+        ]);
 
         return true;
     }
@@ -102,8 +103,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implement
     protected function processRevisions()
     {
         if (!$this->permissions->article->revisions || !$this->article->exists()) {
-            $this->returnData = [];
-            $this->getSimpleResponse();
+            return false;
         }
 
         $revision = $this->article->getRevisions();
@@ -150,10 +150,11 @@ class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implement
         }
 
         $dvVars = $this->dataView->getJsVars();
-        $this->returnData = [
+        
+        $this->response->setReturnData([
             'dataViewVars' => $dvVars['dataviews']['revisionslist'],
             'dataViewName' => 'revisionslist'
-        ];
+        ]);
 
         return true;
     }
@@ -165,14 +166,13 @@ class editorlist extends \fpcm\controller\abstracts\ajaxControllerJSON implement
     protected function processShortlink()
     {
         if (!$this->article->exists()) {
-            $this->returnData = [];
-            $this->getSimpleResponse();
+            return false;
         }
-
-        $this->returnData = [
+        
+        $this->response->setReturnData([
             'shortend' => $this->article->getArticleShortLink(),
             'permalink' => \fpcm\classes\baseconfig::canConnect() || (defined('FPCM_ARTICLE_DISABLE_SHORTLINKS') && FPCM_ARTICLE_DISABLE_SHORTLINKS) ? true : false
-        ];
+        ]);
 
         return true;
     }
