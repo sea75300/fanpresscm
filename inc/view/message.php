@@ -57,7 +57,7 @@ class message implements \JsonSerializable {
      * @param string $icon
      * @param string $id
      */
-    public function __construct(string $txt, string $type, string $icon, string $id = '')
+    public function __construct(string $txt, string $type, string $icon = '', string $id = '')
     {
         $this->txt = $txt;
         $this->type = $type;

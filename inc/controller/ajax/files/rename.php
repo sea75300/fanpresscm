@@ -52,13 +52,13 @@ class rename extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         ]);
 
         if (!$this->newFileName || !$this->fileName) {
-            $this->response->setReturnData([
-                'code' => -1 ,
-                'message' => $this->language->translate('DELETE_FAILED_RENAME', [
+            $this->response->setReturnData(new \fpcm\view\message(
+                $this->language->translate('DELETE_FAILED_RENAME', [
                     '{{filename1}}' => $this->fileName,
                     '{{filename2}}' => $this->newFileName
-                ])
-            ])->fetch();
+                ]),
+                \fpcm\view\message::TYPE_ERROR
+            ))->fetch();
         }
 
         return true;
@@ -76,17 +76,17 @@ class rename extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
             (new \fpcm\model\files\imagelist())->createFilemanagerThumbs();
 
-            $this->response->setReturnData([
-                'code' => -1 ,
-                'message' => $this->language->translate('DELETE_SUCCESS_RENAME', $replace)
-            ])->fetch();
+            $this->response->setReturnData(new \fpcm\view\message(
+                $this->language->translate('DELETE_SUCCESS_RENAME', $replace),
+                \fpcm\view\message::TYPE_NOTICE
+            ))->fetch();            
 
         }
 
-        $this->response->setReturnData([
-            'code' => -0 ,
-            'message' => $this->language->translate('DELETE_FAILED_RENAME', $replace)
-        ])->fetch();
+        $this->response->setReturnData(new \fpcm\view\message(
+            $this->language->translate('DELETE_FAILED_RENAME', $replace),
+            \fpcm\view\message::TYPE_ERROR
+        ))->fetch();            
 
     }
 

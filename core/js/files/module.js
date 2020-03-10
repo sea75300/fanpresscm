@@ -21,7 +21,7 @@ fpcm.filemanager = {
         fpcm.filemanager.initNewThumbButton();
         fpcm.filemanager.initDeleteMultipleButton();
 
-        fpcm.dom.fromId('tabs-files-list-reload').click(function () {
+        fpcm.dom.fromId('fpcm-tabs-tabs-files-list-reload').click(function () {
             fpcm.filemanager.reloadFiles();
             return false;
         });
@@ -150,24 +150,13 @@ fpcm.filemanager = {
                         icon: "ui-icon-check",                        
                         click: function() {
                             fpcm.dom.fromTag(this).dialog( "close" );
-                            fpcm.ajax.exec('files/rename', {
+                            fpcm.ajax.post('files/rename', {
                                 data: {
                                     newName: fpcm.dom.fromId('newFilenameDialog').val(),
                                     oldName: selectedFile
                                 },
                                 execDone: function (result) {
-                                    
-                                    if (!result.message) {
-                                        fpcm.filemanager.closeRenameDialog();
-                                        fpcm.filemanager.reloadFiles();
-                                        return false;
-                                    }
-                                    
-                                    fpcm.ui.addMessage({
-                                        txtComplete: result.message,
-                                        type: result.code < 1 ? 'error' : 'notice'
-                                    });
-                                    
+                                    fpcm.ui.addMessage(result);
                                     fpcm.filemanager.closeRenameDialog();
                                     fpcm.filemanager.reloadFiles();
                                 }
@@ -211,10 +200,8 @@ fpcm.filemanager = {
                         },
                         execDone: function (result) {
 
-                            fpcm.ui.addMessage({
-                                txt: result.message.replace('{{filenames}}', filename),
-                                type: result.code == 0 ? 'error' : 'notice'
-                            });
+                            result.txt.replace('{{filenames}}', filename);
+                            fpcm.ui.addMessage(result);
 
                             fpcm.filemanager.reloadFiles();
                             return false;
@@ -243,19 +230,16 @@ fpcm.filemanager = {
                 return false;
             }
 
-            fpcm.ajax.exec('files/createthumbs', {
+            fpcm.ajax.post('files/createthumbs', {
                 dataType: 'json',
                 data: {
                     items: items
                 },
                 execDone: function (result) {
 
-                    jQuery.each(result.message, function (i, value) {
-                        fpcm.ui.addMessage({
-                            txt: value,
-                            type: result.code[i] ? 'notice' : 'error'
-                        }, i == 1 ? true : false);
-                    })
+                    jQuery.each(result, function (i, value) {
+                        fpcm.ui.addMessage(value, i == 1 ? true : false);
+                    });
 
                     fpcm.filemanager.reloadFiles();
                 }
@@ -286,7 +270,7 @@ fpcm.filemanager = {
                 clickYes: function () {
 
                     fpcm.dom.fromTag(this).dialog( "close" );
-                    fpcm.ajax.exec('files/delete', {
+                    fpcm.ajax.post('files/delete', {
                         dataType: 'json',
                         data: {
                             filename: items,
@@ -294,12 +278,9 @@ fpcm.filemanager = {
                         },
                         execDone: function (result) {
 
-                            jQuery.each(result.message, function (i, value) {
-                                fpcm.ui.addMessage({
-                                    txt: value,
-                                    type: result.code[i] ? 'notice' : 'error'
-                                }, i == 1 ? true : false);
-                            })
+                            jQuery.each(result, function (i, value) {
+                                fpcm.ui.addMessage(value, i == 1 ? true : false);
+                            });
 
                             fpcm.filemanager.reloadFiles();
                         }

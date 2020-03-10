@@ -115,10 +115,10 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController implemen
         $this->response->setReturnData([
             'code' => $this->res,
             'pkgdata' => $this->pkgdata
-        ])->fetch();
+        ]);
 
         usleep(500000);
-        $this->getSimpleResponse();
+        $this->response->fetch();
     }
 
     private function execMaintenanceOn()

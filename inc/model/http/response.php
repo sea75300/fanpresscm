@@ -96,7 +96,7 @@ final class response {
         }
         
         if (is_array($this->returnData) || is_object($this->returnData)) {
-            $this->addHeaders('Content-Type: application/json');
+            header('Content-Type: application/json');
             $this->returnData = json_encode($this->returnData);
         }
 

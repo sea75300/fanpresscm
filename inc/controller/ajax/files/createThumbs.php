@@ -50,15 +50,19 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxControllerJSON impleme
      */
     public function request()
     {
+        $this->response = new \fpcm\model\http\response;
+        
         $this->files = $this->request->fromPOST('items', [
             \fpcm\model\http\request::FILTER_BASE64DECODE
         ]);
 
         if (!$this->files) {
-            $this->returnData['code'][1] = 0;
-            $this->returnData['message'][1] = $this->language->translate('GLOBAL_NOTFOUND2');
 
-            $this->getSimpleResponse();
+            $this->response->setReturnData([new \fpcm\view\message(
+                $this->language->translate('GLOBAL_NOTFOUND2', ''),
+                \fpcm\view\message::TYPE_ERROR
+            )])->fetch();
+
         }
 
         return true;
@@ -74,26 +78,37 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxControllerJSON impleme
         $hasSuccess = count($this->success);
         $hasFailed = count($this->failed);
         if ($hasSuccess) {
-            $this->returnData['code'][1] = 1;
-            $this->returnData['message'][1] = $this->language->translate('SUCCESS_FILES_NEWTHUMBS', [
-                '{{filenames}}' => implode(', ', $this->success)
-            ]);
+
+            $this->returnData[] = new \fpcm\view\message(
+                $this->language->translate('SUCCESS_FILES_NEWTHUMBS', [
+                    '{{filenames}}' => implode(', ', $this->success)
+                ]),
+                \fpcm\view\message::TYPE_NOTICE
+            );
+
         }
 
         if ($hasFailed) {
-            $this->returnData['code'][2] = 0;
-            $this->returnData['message'][2] = $this->language->translate('FAILED_FILES_NEWTHUMBS', [
-                '{{filenames}}' => implode(', ', $this->failed)
-            ]);
+            
+            $this->returnData[] = new \fpcm\view\message(
+                    $this->language->translate('FAILED_FILES_NEWTHUMBS', [
+                    '{{filenames}}' => implode(', ', $this->failed)
+                ]),
+                \fpcm\view\message::TYPE_ERROR
+            );
+
         }
 
         if ($hasSuccess || $hasFailed) {
-            $this->getSimpleResponse();
+            $this->response->setReturnData($this->returnData)->fetch();
         }
 
-        $this->returnData['code'][1] = 0;
-        $this->returnData['message'][1] = $this->language->translate('GLOBAL_NOTFOUND2');
-        $this->getSimpleResponse();
+        $this->response->setReturnData([new \fpcm\view\message(
+            $this->language->translate('GLOBAL_NOTFOUND2', ''),
+            \fpcm\view\message::TYPE_ERROR
+        )])->fetch();
+
+        $this->response->setReturnData($this->returnData)->fetch();
     }
 
     private function createThumb($fileName) : bool
