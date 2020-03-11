@@ -39,6 +39,7 @@ final class dateTimeInput extends input {
     {
         $this->type = 'date';
         $this->replaceDefaultCssClass('fpcm-ui-input-date-native');
+        return $this;
     }
 
     /**
@@ -49,6 +50,7 @@ final class dateTimeInput extends input {
     {
         $this->type = 'time';
         $this->replaceDefaultCssClass('fpcm-ui-input-time-native');
+        return $this;
     }
 
     /**
@@ -59,6 +61,7 @@ final class dateTimeInput extends input {
     {
         $this->type = 'datetime-local';
         $this->replaceDefaultCssClass('fpcm-ui-input-datetime-native');
+        return $this;
     }
 
     /**

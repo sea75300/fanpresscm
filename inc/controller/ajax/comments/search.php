@@ -69,11 +69,11 @@ class search extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
             ]);
         }
 
-        if ($filter['datefrom']) {
+        if ($filter['datefrom'] && \fpcm\classes\tools::validateDateString($filter['datefrom'])) {
             $this->conditions->datefrom = strtotime($filter['datefrom']);
         }
 
-        if ($filter['dateto']) {
+        if ($filter['dateto'] && \fpcm\classes\tools::validateDateString($filter['dateto'])) {
             $this->conditions->dateto = strtotime($filter['dateto']);
         }
 

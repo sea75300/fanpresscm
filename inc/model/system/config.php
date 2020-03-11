@@ -411,7 +411,10 @@ final class config extends dataset {
         }
 
         if (isset($this->newConfig['articles_archive_datelimit'])) {
-            $this->newConfig['articles_archive_datelimit'] = $this->newConfig['articles_archive_datelimit'] ? strtotime($this->newConfig['articles_archive_datelimit']) : 0;
+
+            $this->newConfig['articles_archive_datelimit']  = $this->newConfig['articles_archive_datelimit'] && \fpcm\classes\tools::validateDateString($this->newConfig['articles_archive_datelimit'])
+                                                            ? strtotime($this->newConfig['articles_archive_datelimit'])
+                                                            : 0;
         }
 
         return true;

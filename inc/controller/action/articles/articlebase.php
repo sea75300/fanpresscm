@@ -287,7 +287,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
 
         $this->article->setCategories($categories);
 
-        if (isset($data['postponed']) && !isset($data['archived'])) {
+        if (!isset($data['archived']) && isset($data['postponed']) && \fpcm\classes\tools::validateDateString($data['postponedate'])) {
             $timer = strtotime($data['postponedate'] . ' ' . (int) $data['postponehour'] . ':' . (int) $data['postponeminute'] . ':00');
 
             $postpone = 1;

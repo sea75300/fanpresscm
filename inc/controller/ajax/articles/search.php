@@ -95,11 +95,11 @@ class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             $sparams->category = (int) $filter['categoryid'];
         }
 
-        if ($filter['datefrom']) {
+        if ($filter['datefrom'] && \fpcm\classes\tools::validateDateString($filter['datefrom'])) {
             $sparams->datefrom = strtotime($filter['datefrom']);
         }
 
-        if ($filter['dateto']) {
+        if ($filter['dateto'] && \fpcm\classes\tools::validateDateString($filter['dateto'])) {
             $sparams->dateto = strtotime($filter['dateto']);
         }
 

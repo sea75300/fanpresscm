@@ -78,11 +78,11 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
             ]);
         }
 
-        if ($filter['datefrom']) {
+        if ($filter['datefrom'] && \fpcm\classes\tools::validateDateString($filter['datefrom'])) {
             $this->filter->datefrom   = strtotime($filter['datefrom']);
         }
 
-        if ($filter['dateto']) {
+        if ($filter['dateto'] && \fpcm\classes\tools::validateDateString($filter['dateto'])) {
             $this->filter->dateto     = strtotime($filter['dateto']);
         }
         

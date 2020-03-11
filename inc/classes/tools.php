@@ -182,6 +182,29 @@ final class tools {
         return hash(security::defaultHashAlgo, $data);
     }
 
+    /**
+     * Validates date string
+     * @param string $str
+     * @return bool
+     * @since FPCM 4.4
+     */
+    public static function validateDateString(string $str) : bool
+    {
+        if (preg_match('/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/', $str, $matches) !== 1) {
+            return false;
+        }
+        
+        if ((int) $matches[1] < 1 || (int) $matches[1] > 12) {
+            return false;
+        }
+        
+        if ((int) $matches[2] < 1 || (int) $matches[2] > 31) {
+            return false;
+        }
+        
+        return true;
+    }
+
 }
 
 ?>
