@@ -52,7 +52,7 @@ class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         $this->deleteActions = $this->permissions->article->delete;
         $this->initActionVars();
 
-        $this->mode = $this->request->getIntMode();
+        $this->mode = $this->request->fromPOST('mode', [\fpcm\model\http\request::FILTER_CASTINT ]);
 
         $filter = $this->request->fromPOST('filter');
 
@@ -64,7 +64,11 @@ class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         if (trim($filter['text'])) {
 
             $filter['text'] = \fpcm\classes\http::filter($filter['text'], [
-                \fpcm\model\http\request::FILTER_HTMLENTITY_DECODE
+                \fpcm\model\http\request::FILTER_URLDECODE,
+                \fpcm\model\http\request::FILTER_TRIM,
+                \fpcm\model\http\request::FILTER_SANITIZE,
+                \fpcm\model\http\request::FILTER_HTMLENTITY_DECODE,
+                \fpcm\model\http\request::PARAM_SANITIZE => FILTER_SANITIZE_STRING
             ]);
 
             switch ($filter['searchtype']) {

@@ -19,12 +19,6 @@ namespace fpcm\controller\ajax\common;
 class autocomplete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
-    
-    /**
-     * Modul-String
-     * @var string
-     */
-    protected $module = null;
 
     /**
      * Suchbegriff
@@ -38,8 +32,14 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
      */
     public function request()
     {
+        $this->returnData = [];
         $this->response = new \fpcm\model\http\response;
-        $this->term = $this->request->fetchAll('term', [\fpcm\model\http\request::FILTER_STRIPTAGS, \fpcm\model\http\request::FILTER_STRIPSLASHES, \fpcm\model\http\request::FILTER_TRIM, \fpcm\model\http\request::FILTER_URLDECODE]);
+        $this->term = $this->request->fetchAll('term', [
+            \fpcm\model\http\request::FILTER_STRIPTAGS,
+            \fpcm\model\http\request::FILTER_STRIPSLASHES,
+            \fpcm\model\http\request::FILTER_TRIM, \fpcm\model\http\request::FILTER_URLDECODE
+        ]);
+
         return true;
     }
 
@@ -66,7 +66,6 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
     protected function autocompleteArticles()
     {
         if ($this->hasNoArticlesAccess()) {
-            $this->returnData = [];
             return false;
         }
 
@@ -103,7 +102,6 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
     protected function autocompleteArticlesources()
     {
         if ($this->hasNoArticlesAccess()) {
-            $this->returnData = [];
             return false;
         }
 
@@ -114,7 +112,7 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
         }
 
         foreach ($data as $value) {
-            if (stripos($value, $this->term) === false) {
+            if ($this->term && stripos($value, $this->term) === false) {
                 continue;
             }
 
@@ -131,19 +129,18 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
     protected function autocompleteEditorfiles()
     {
         if ($this->hasNoArticlesAccess()) {
-            $this->returnData = [];
             return false;
         }
 
         $data = \fpcm\components\components::getArticleEditor()->getFileList();
         foreach ($data as $value) {
-            if (stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false) {
+            if ($this->term && stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false) {
                 continue;
             }
 
             $this->returnData[] = $value;
         }
-        
+
         return true;
     }
 
@@ -154,13 +151,12 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
     protected function autocompleteEditorlinks()
     {
         if ($this->hasNoArticlesAccess()) {
-            $this->returnData = [];
             return false;
         }
 
         $data = \fpcm\components\components::getArticleEditor()->getEditorLinks();
         foreach ($data as $value) {
-            if (stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false) {
+            if ($this->term && stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false) {
                 continue;
             }
 

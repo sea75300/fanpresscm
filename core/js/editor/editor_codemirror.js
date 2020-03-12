@@ -584,8 +584,11 @@ if (fpcm.editor) {
             }],
             dlOnOpen: function () {
                 
-                fpcm.ajax.exec('autocomplete&src=editorfiles', {
+                fpcm.ajax.get('autocomplete', {
                     dataType: 'json',
+                    data: {
+                        src: 'editorfiles'
+                    },
                     execDone: function (result) {
                         fpcm.ui.autocomplete('#imagespath', {
                             source: result,
@@ -629,8 +632,12 @@ if (fpcm.editor) {
             dlWidth: fpcm.ui.getDialogSizes().width,
             title: 'EDITOR_INSERTLINK',
             dlOnOpen: function () {
-                fpcm.ajax.exec('autocomplete&src=editorlinks', {
+                
+                fpcm.ajax.get('autocomplete', {
                     dataType: 'json',
+                    data: {
+                        src: 'editorlinks'
+                    },
                     execDone: function (result) {
                         fpcm.ui.autocomplete('#linksurl', {
                             source: result,
