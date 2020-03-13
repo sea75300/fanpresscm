@@ -616,7 +616,7 @@ class view {
         $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
 
-        $this->defaultViewVars->currentModule = \fpcm\classes\http::getModuleString();
+        $this->defaultViewVars->currentModule = \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getModule();
 
         
         $toolbarButtons = new \fpcm\events\view\extendToolbarResult();

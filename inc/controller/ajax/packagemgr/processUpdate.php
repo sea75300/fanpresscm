@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\packagemgr;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class processUpdate extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class processUpdate extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * Auszuführender Schritt
@@ -68,6 +68,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxControllerJSON implem
      */
     public function request()
     {
+        $this->setReturnJson();
         $this->step = 'exec'.ucfirst($this->getRequestVar('step'));
         return true;
     }

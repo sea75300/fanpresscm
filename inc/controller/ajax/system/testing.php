@@ -16,7 +16,7 @@ namespace fpcm\controller\ajax\system;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @ignore
  */
-class testing extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     public function isAccessible(): bool
     {

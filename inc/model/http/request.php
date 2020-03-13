@@ -169,6 +169,10 @@ final class request {
             unset($value[4]);
         }
 
+        if ($value === null) {
+            return '';
+        }
+        
         return is_array($value) ? implode('/', $value) : $value;
     }
 

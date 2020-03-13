@@ -232,7 +232,7 @@ final class http {
     /**
      * Assigns current controller name with additional filter
      * @return string
-     * @since FPCm 4.4
+     * @since FPCM 4.4
      */
     public static function getModuleString() : string
     {
@@ -248,6 +248,10 @@ final class http {
 
         if (isset($moduleData[4]) && !trim($moduleData[4])) {
             unset($moduleData[4]);
+        }
+
+        if ($moduleData === null) {
+            return '';
         }
 
         return is_array($moduleData) ? implode('/', $moduleData) : $moduleData;
