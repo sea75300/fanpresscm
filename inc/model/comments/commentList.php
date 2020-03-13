@@ -523,25 +523,24 @@ class commentList extends \fpcm\model\abstracts\tablelist {
     private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams) : bool
     {
         if ($conditions->text !== null) {
-            
+
             switch ($conditions->searchtype) {
                 case search::TYPE_NAMEMAILWEB:
-                case search::TYPE_NAMEMAILWEB_OR:
-                    $valueParams[] = "%{$conditions->text}%";
-                    $valueParams[] = "%{$conditions->text}%";
-                    $valueParams[] = "%{$conditions->text}%";
-                case search::TYPE_NAMEMAILWEB:
                     $where[] = "name " . $this->dbcon->dbLike() . " ? AND email " . $this->dbcon->dbLike() . " ? AND website " . $this->dbcon->dbLike() . " ?";
-                    break;
                 case search::TYPE_NAMEMAILWEB_OR:
-                    $where[] = "name " . $this->dbcon->dbLike() . " ? OR email " . $this->dbcon->dbLike() . " ? OR website " . $this->dbcon->dbLike() . " ?";
+                    $where[] = "(name " . $this->dbcon->dbLike() . " ? OR email " . $this->dbcon->dbLike() . " ? OR website " . $this->dbcon->dbLike() . " ?)";
+                case search::TYPE_NAMEMAILWEB:
+                case search::TYPE_NAMEMAILWEB_OR:
+                    $valueParams[] = "%{$conditions->text}%";
+                    $valueParams[] = "%{$conditions->text}%";
+                    $valueParams[] = "%{$conditions->text}%";
                     break;
                 case search::TYPE_TEXT:
                     $where[] = "text " . $this->dbcon->dbLike() . " ?";
                     $valueParams[] = "%{$conditions->text}%";
                     break;
                 case search::TYPE_ALLOR:
-                    $where[] = "name " . $this->dbcon->dbLike() . " ? OR email " . $this->dbcon->dbLike() . " ? OR website " . $this->dbcon->dbLike() . " ? OR text " . $this->dbcon->dbLike() . " ?";
+                    $where[] = "(name " . $this->dbcon->dbLike() . " ? OR email " . $this->dbcon->dbLike() . " ? OR website " . $this->dbcon->dbLike() . " ? OR text " . $this->dbcon->dbLike() . " ?)";
                     $valueParams[] = "%{$conditions->text}%";
                     $valueParams[] = "%{$conditions->text}%";
                     $valueParams[] = "%{$conditions->text}%";
