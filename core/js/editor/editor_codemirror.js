@@ -149,6 +149,7 @@ if (fpcm.editor) {
     fpcm.editor.initToolbar = function () {
 
         fpcm.ui.selectmenu('#fpcm-editor-paragraphs', {
+            width: 'auto',
             select: function( event, ui ) {
                 if (!ui.item.value) {
                     return false;
@@ -164,6 +165,7 @@ if (fpcm.editor) {
         });
 
         fpcm.ui.selectmenu('#fpcm-editor-styles', {
+            width: 'auto',
             select: function( event, ui ) {
                 if (!ui.item.value) {
                     return false;
@@ -179,6 +181,7 @@ if (fpcm.editor) {
         });
 
         fpcm.ui.selectmenu('#fpcm-editor-fontsizes', {
+            width: 'auto',
             select: function( event, ui ) {
                 if (!ui.item.value) {
                     return false;
@@ -317,6 +320,7 @@ if (fpcm.editor) {
             id: 'editor-html-insertlist',
             dlWidth: fpcm.ui.getDialogSizes().width,
             title: 'EDITOR_HTML_BUTTONS_LIST' + listtype.toUpperCase(),
+            resizable: true,
             dlOnOpen: function () {
                 fpcm.editor.setSelectToDialog(this);
             },
@@ -390,6 +394,7 @@ if (fpcm.editor) {
             dlWidth: 'auto',
             dlMaxWidth: 550,
             title: 'EDITOR_INSERTCOLOR',
+            resizable: true,
             onCreate: function (event, ui) {
                 fpcm.ui.controlgroup('#fpcm-ui-editor-color-controlgroup', {
                     onlyVisible: false
@@ -573,6 +578,7 @@ if (fpcm.editor) {
             id: 'editor-html-insertimage',
             dlWidth: fpcm.ui.getDialogSizes(top, 0.35).width,
             title: 'EDITOR_INSERTPIC',
+            resizable: true,
             dlButtons: [{
                 text: fpcm.ui.translate('EDITOR_INSERTPIC_ASLINK'),
                 icon: "ui-icon-link",
@@ -631,6 +637,7 @@ if (fpcm.editor) {
             id: 'editor-html-insertlink',
             dlWidth: fpcm.ui.getDialogSizes().width,
             title: 'EDITOR_INSERTLINK',
+            resizable: true,
             dlOnOpen: function () {
                 
                 fpcm.ajax.get('autocomplete', {
@@ -690,6 +697,7 @@ if (fpcm.editor) {
             id: 'editor-html-insertquote',
             dlWidth: fpcm.ui.getDialogSizes().width,
             title: 'EDITOR_HTML_BUTTONS_QUOTE',
+            resizable: true,
             onCreate: function (event, ui) {
                 fpcm.ui.controlgroup('#fpcm-ui-editor-quote-controlgroup', {
                     onlyVisible: false
