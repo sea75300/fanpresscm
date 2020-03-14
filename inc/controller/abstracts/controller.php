@@ -453,7 +453,7 @@ class controller implements \fpcm\controller\interfaces\controller {
                 continue;
             }
             
-            $func = 'process'.substr($item, 3);
+            $func = 'on'.substr($item, 3);
             if (!method_exists($this, $func)) {
                 continue;
             }

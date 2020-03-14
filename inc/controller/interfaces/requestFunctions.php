@@ -8,7 +8,7 @@
 namespace fpcm\controller\interfaces;
 
 /**
- * Process button clicks as functions, function name has to be "processBUTTONNAME"
+ * Process button clicks as functions, function name has to be "onBUTTONNAME"
  * 
  * @package fpcm\controller\interfaces
  * @author Stefan Seehafer <sea75300@yahoo.de>
