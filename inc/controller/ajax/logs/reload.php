@@ -155,6 +155,15 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     {
         $this->initView();
         $log = new \fpcm\model\files\logfile($this->log);
+
+        $this->view->assign('colorCb', function(string $data) {
+            return preg_replace(
+                '/(.+\ \>{1}\ .+)(skipped)/im',
+                '<span class="fpcm ui-color-font-grey">$0</span>',
+                $data
+            );
+        });
+
         $this->view->assign('items', $log->fetchData());
         $this->view->assign('size', \fpcm\classes\tools::calcSize($log->getFilesize()));
         $this->view->render();

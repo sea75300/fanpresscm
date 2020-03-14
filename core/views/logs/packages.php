@@ -9,7 +9,7 @@
         <div>
             <ul>
                 <?php foreach ($value->text as $line) : ?>
-                <li><?php print $line; ?></li>
+                <li><?php print $colorCb($line); ?></li>
                 <?php endforeach; ?>                
             </ul>
         </div>

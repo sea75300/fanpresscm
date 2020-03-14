@@ -122,6 +122,7 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
     color: transparent;
 }
 
+.fpcm.ui-color-font-grey,
 span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-spinner {
     color: #aaaaaa;
 }
