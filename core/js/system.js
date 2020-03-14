@@ -44,7 +44,7 @@ fpcm.system = {
                 },
                 execDone: function (result) {
 
-                    if (parseInt(result) === 0) {
+                    if (result.code == 0) {
                         return false;
                     }
 

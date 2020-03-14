@@ -28,6 +28,7 @@ class passcheck extends \fpcm\controller\abstracts\ajaxController implements \fp
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return true;
         }
+        
 
         return parent::hasAccess();
     }
@@ -37,7 +38,9 @@ class passcheck extends \fpcm\controller\abstracts\ajaxController implements \fp
      */
     public function process()
     {
-        (new \fpcm\model\http\response)->setReturnData( (new \fpcm\model\users\passCheck($this->request->fromPOST('password')))->isPowned() ? 1 : 0 )->fetch();
+        (new \fpcm\model\http\response)->setReturnData(new \fpcm\model\http\responseData(
+            (new \fpcm\model\users\passCheck($this->request->fromPOST('password')))->isPowned() ? 1 : 0
+        ))->fetch();
     }
 
 }
