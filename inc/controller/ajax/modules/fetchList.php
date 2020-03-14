@@ -75,8 +75,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
 
         $fn = 'fetch'.$this->mode;
         if (!method_exists($this, $fn)) {
-            $this->returnData['exec'] = 0;
-            $this->getSimpleResponse();
+            $this->response->setReturnData([ 'exec' => 0 ])->fetch();
         }
 
         return call_user_func([$this, $fn]);

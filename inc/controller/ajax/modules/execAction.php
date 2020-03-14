@@ -24,12 +24,6 @@ class execAction extends \fpcm\controller\abstracts\ajaxControllerJSON implement
     protected $key;
 
     /**
-     * Action to execute
-     * @var string
-     */
-    protected $action;
-
-    /**
      * From directory
      * @var string
      */
@@ -46,13 +40,13 @@ class execAction extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      */
     public function request()
     {
+        $this->response = new \fpcm\model\http\response;
         $this->key = $this->request->fromPOST('key');
-        $this->action = $this->request->fromPOST('action');
         $this->fromDir = $this->request->fromPOST('fromDir', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
-        
-        return trim($this->key) ? true : false;
+
+        return true;
     }
 
     /**
@@ -63,37 +57,32 @@ class execAction extends \fpcm\controller\abstracts\ajaxControllerJSON implement
         if (!\fpcm\module\module::validateKey($this->key))
         {
             trigger_error('Module processing step '.$this->step.' not defined!');
-            (new \fpcm\model\http\response)->setCode(400)->addHeaders('Bad Request')->fetch();
+            $this->response->setCode(400)->addHeaders('Bad Request')->fetch();
+        }
+        
+        
+        if ($this->processByParam('process', 'action') === self::ERROR_PROCESS_BYPARAMS) {
+            trigger_error('Invalid module module '.$this->request->fromPOST('action').' action detected!');
+            $this->response->setReturnData( new \fpcm\model\http\responseData(0) )->fetch();
         }
 
-        $function = 'process'.ucfirst($this->action);
-        
-        if (!method_exists($this, $function)) {
-            trigger_error('Invalid module module '.$this->action.' action detected!');
-            $this->returnData['code'] = 0;
-            $this->getSimpleResponse();
-        }
-        
-        call_user_func([$this, $function]);
         $this->cache->cleanup();
-        $this->getSimpleResponse();
+        $this->response->setReturnData( new \fpcm\model\http\responseData($this->returnData) )->fetch();
     }
 
     /**
      * 
      * @return bool
      */
-    private function processInstall()
+    protected function processInstall()
     {
         if (!$this->permissions->modules->install) {
             trigger_error('Unable to install module, permission denied!');
-            $this->returnData['code'] = \fpcm\module\module::STATUS_NOT_INSTALLED;
+            $this->returnData = \fpcm\module\module::STATUS_NOT_INSTALLED;
             return false;
         }
 
-        $module = new \fpcm\module\module($this->key);
-
-        $this->returnData['code']   = (new \fpcm\module\module($this->key))->install($this->fromDir)
+        $this->returnData   = (new \fpcm\module\module($this->key))->install($this->fromDir)
                                     ? \fpcm\module\module::STATUS_INSTALLED
                                     : \fpcm\module\module::STATUS_NOT_INSTALLED;
 
@@ -104,15 +93,15 @@ class execAction extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      * 
      * @return bool
      */
-    private function processUninstall()
+    protected function processUninstall()
     {
         if (!$this->permissions->modules->uninstall) {
             trigger_error('Unable to uninstall module, permission denied!');
-            $this->returnData['code'] = \fpcm\module\module::STATUS_NOT_UNINSTALLED;
+            $this->returnData = \fpcm\module\module::STATUS_NOT_UNINSTALLED;
             return false;
         }
 
-        $this->returnData['code']   = (new \fpcm\module\module($this->key))->uninstall()
+        $this->returnData   = (new \fpcm\module\module($this->key))->uninstall()
                                     ? \fpcm\module\module::STATUS_UNINSTALLED
                                     : \fpcm\module\module::STATUS_NOT_UNINSTALLED;
 
@@ -123,15 +112,15 @@ class execAction extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      * 
      * @return bool
      */
-    private function processDelete()
+    protected function processDelete()
     {
         if (!$this->permissions->modules->uninstall) {
             trigger_error('Unable to delete module, permission denied!');
-            $this->returnData['code'] = \fpcm\module\module::STATUS_NOT_UNINSTALLED;
+            $this->returnData = \fpcm\module\module::STATUS_NOT_UNINSTALLED;
             return false;
         }
 
-        $this->returnData['code']   = (new \fpcm\module\module($this->key))->uninstall(true)
+        $this->returnData   = (new \fpcm\module\module($this->key))->uninstall(true)
                                     ? \fpcm\module\module::STATUS_UNINSTALLED
                                     : \fpcm\module\module::STATUS_NOT_UNINSTALLED;
 
@@ -142,15 +131,15 @@ class execAction extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      * 
      * @return bool
      */
-    private function processEnable()
+    protected function processEnable()
     {
         if (!$this->permissions->modules->configure) {
             trigger_error('Unable to enable module, permission denied!');
-            $this->returnData['code'] = \fpcm\module\module::STATUS_NOT_ENABLED;
+            $this->returnData = \fpcm\module\module::STATUS_NOT_ENABLED;
             return false;
         }
 
-        $this->returnData['code']   = (new \fpcm\module\module($this->key))->enable()
+        $this->returnData   = (new \fpcm\module\module($this->key))->enable()
                                     ? \fpcm\module\module::STATUS_ENABLED
                                     : \fpcm\module\module::STATUS_NOT_ENABLED;
         return true;
@@ -160,15 +149,15 @@ class execAction extends \fpcm\controller\abstracts\ajaxControllerJSON implement
      * 
      * @return bool
      */
-    private function processDisable()
+    protected function processDisable()
     {
         if (!$this->permissions->modules->configure) {
             trigger_error('Unable to disable module, permission denied!');
-            $this->returnData['code'] = \fpcm\module\module::STATUS_NOT_DISABLED;
+            $this->returnData = \fpcm\module\module::STATUS_NOT_DISABLED;
             return false;
         }
 
-        $this->returnData['code']   = (new \fpcm\module\module($this->key))->disable()
+        $this->returnData   = (new \fpcm\module\module($this->key))->disable()
                                     ? \fpcm\module\module::STATUS_DISABLED
                                     : \fpcm\module\module::STATUS_NOT_DISABLED;
         return true;

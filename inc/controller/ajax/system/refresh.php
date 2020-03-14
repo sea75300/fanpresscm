@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\system;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class refresh extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
 
@@ -33,6 +33,8 @@ class refresh extends \fpcm\controller\abstracts\ajaxControllerJSON implements \
      */
     public function process()
     {
+        $this->response = new \fpcm\model\http\response;
+
         $this->runCrons();
         $this->runSessionCheck();
         $this->runArticleInEdit();
@@ -40,8 +42,7 @@ class refresh extends \fpcm\controller\abstracts\ajaxControllerJSON implements \
             exit('{}');
         }
 
-        $this->getSimpleResponse();
-        return true;
+        $this->response->setReturnData($this->returnData)->fetch();
     }
 
     /**

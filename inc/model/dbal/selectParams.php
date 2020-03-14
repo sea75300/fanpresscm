@@ -36,6 +36,12 @@ class selectParams {
     private $where = '';
 
     /**
+     * JOIN clause
+     * @var string
+     */
+    private $join = '';
+
+    /**
      * Select params
      * @var array 
      */    
@@ -104,7 +110,16 @@ class selectParams {
     }
 
     /**
-     * Returns elect params
+     * Returns join clause
+     * @return string
+     */
+    public function getJoin(): string
+    {
+        return $this->join;
+    }
+    
+    /**
+     * Return select params
      * @return array
      */
     public function getParams() : array
@@ -178,6 +193,17 @@ class selectParams {
     public function setWhere(string $where)
     {
         $this->where = $where;
+        return $this;
+    }
+
+    /**
+     * Set JOIN clause
+     * @param string $join
+     * @return $this
+     */
+    public function setJoin(string $join)
+    {
+        $this->join = $join;
         return $this;
     }
 

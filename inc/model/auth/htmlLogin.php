@@ -44,6 +44,11 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
             trigger_error('Login failed for username ' . $param['username'] . '! User is disabled. Request was made by ' . \fpcm\classes\http::getIp());
             return \fpcm\model\users\author::AUTHOR_ERROR_DISABLED;
         }
+        
+        if (! ( new \fpcm\model\users\userRoll($user->getRoll()) )->exists() ) {
+            trigger_error('Login failed for username ' . $param['username'] . '! User roll id '.$user->getRoll().' does not exists. Request was made by ' . \fpcm\classes\http::getIp());
+            return \fpcm\model\users\author::AUTHOR_ERROR_DISABLED;            
+        }
 
         if (!password_verify("{$param['password']}", "{$user->getPasswd()}" )) {
             trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given, check simple hash. Request was made by ' . \fpcm\classes\http::getIp());

@@ -644,19 +644,16 @@ class author extends \fpcm\model\abstracts\dataset {
      * Inittiert Objekt mit Daten aus der Datenbank, sofern ID vergeben wurde
      */
     public function init()
-    {
-        $item = $this->dbcon->getTablePrefixed($this->table) . '.*, ';
-        $item .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll) . '.leveltitle AS groupname';
-
-        $where = $this->dbcon->getTablePrefixed($this->table) . '.roll = ';
-        $where .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll) . '.id AND ';
-        $where .= $this->dbcon->getTablePrefixed($this->table) . '.id = ?';
-
+    {       
+        $prefixUserTab = $this->dbcon->getTablePrefixed($this->table);
+        $prefixRollTab = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll);
+        
         $data = $this->dbcon->selectFetch(
             (new \fpcm\model\dbal\selectParams())
-                ->setTable([$this->table, \fpcm\classes\database::tableRoll])
-                ->setItem($item)
-                ->setWhere($where)
+                ->setTable($this->table)
+                ->setItem($prefixUserTab . '.*, ' . $prefixRollTab . '.leveltitle AS groupname')
+                ->setJoin('LEFT JOIN '.$prefixRollTab . ' ON '.$prefixUserTab . '.roll = '.$prefixRollTab . '.id')
+                ->setWhere($prefixUserTab.'.id = ?')
                 ->setParams([$this->id])
         );
 

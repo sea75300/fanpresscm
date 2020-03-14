@@ -254,8 +254,9 @@ final class database {
      */
     public function selectFetch(\fpcm\model\dbal\selectParams $obj)
     {
-        $sql = $obj->getDistinct() ? 'SELECT DISTINCT' : 'SELECT';
+        $sql  = $obj->getDistinct() ? 'SELECT DISTINCT' : 'SELECT';
         $sql .= " {$obj->getItem()} FROM {$this->getTablePrefixed($obj->getTable())}";
+        $sql .= $obj->getJoin() ? " {$obj->getJoin()}" : "";
         $sql .= $obj->getWhere() ? " WHERE {$obj->getWhere()}" : "";
 
         $result = $this->query($sql, $obj->getParams());

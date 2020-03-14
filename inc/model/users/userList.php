@@ -48,15 +48,16 @@ class userList extends \fpcm\model\abstracts\tablelist {
      */
     public function getUsersAll($byGroup = false)
     {
-        $item = $this->dbcon->getTablePrefixed($this->table) . '.*, ';
-        $item .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll) . '.leveltitle AS groupname';
+        $prefixUserTab = $this->dbcon->getTablePrefixed($this->table);
+        $prefixRollTab = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll);
 
-        $where = $this->dbcon->getTablePrefixed($this->table) . '.roll = ';
-        $where .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll) . '.id';
-        $where .= $this->dbcon->orderBy(['registertime ASC']);
-        $result = $this->dbcon->select(array($this->table, \fpcm\classes\database::tableRoll), $item, $where);
-        $users = $this->dbcon->fetch($result, true);
-
+        $obj = new \fpcm\model\dbal\selectParams($this->table);
+        $obj->setItem($prefixUserTab . '.*, ' . $prefixRollTab . '.leveltitle AS groupname');
+        $obj->setJoin('LEFT JOIN '.$prefixRollTab . ' ON '.$prefixUserTab . '.roll = '.$prefixRollTab . '.id');
+        $obj->setWhere('1=1 '.$this->dbcon->orderBy(['registertime ASC']));
+        $obj->setFetchAll(true);
+        
+        $users = $this->dbcon->selectFetch($obj);
         if (!$users || !count($users)) {
             return [];
         }

@@ -16,7 +16,7 @@ namespace fpcm\controller\ajax\categories;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 4.3
  */
-class massedit extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * Kommentar-IDs
@@ -45,9 +45,9 @@ class massedit extends \fpcm\controller\abstracts\ajaxControllerJSON implements 
      */
     public function request()
     {
+        $this->response = new \fpcm\model\http\response;
         if (!$this->checkPageToken()) {
-            $this->returnCode = 0;
-            return false;
+            $this->response->setReturnData( new \fpcm\model\http\responseData(0) )->fetch();
         }
 
         $this->ids = $this->request->fromPOST('ids', [
@@ -71,8 +71,8 @@ class massedit extends \fpcm\controller\abstracts\ajaxControllerJSON implements 
                         : -1
         ];
 
-        $this->returnCode = (new \fpcm\model\categories\categoryList)->editCategoriesByMass(array_map('intval', $this->ids), $fields) ? 1 : 0;
-        $this->getResponse();
+        $code = (new \fpcm\model\categories\categoryList)->editCategoriesByMass(array_map('intval', $this->ids), $fields) ? 1 : 0;
+        $this->response->setReturnData( new \fpcm\model\http\responseData($code) )->fetch();
     }
 
 }

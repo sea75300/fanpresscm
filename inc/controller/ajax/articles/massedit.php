@@ -11,7 +11,7 @@ namespace fpcm\controller\ajax\articles;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.6
  */
-class massedit extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\articles\lists;
 
@@ -42,9 +42,10 @@ class massedit extends \fpcm\controller\abstracts\ajaxControllerJSON implements 
      */
     public function request()
     {
+        $this->response = new \fpcm\model\http\response;
+        
         if (!$this->checkPageToken()) {
-            $this->returnCode = $result ? 1 : 0;
-            $this->getResponse();
+            $this->response->setReturnData(new \fpcm\model\http\responseData(0))->fetch();
         }
 
         $this->articleList = new \fpcm\model\articles\articlelist();
@@ -91,8 +92,7 @@ class massedit extends \fpcm\controller\abstracts\ajaxControllerJSON implements 
 
         $result = $this->articleList->editArticlesByMass($this->articleIds, $fields);
 
-        $this->returnCode = $result ? 1 : 0;
-        $this->getResponse();
+        $this->response->setReturnData(new \fpcm\model\http\responseData($result ? 1 : 0))->fetch();
     }
 
 }

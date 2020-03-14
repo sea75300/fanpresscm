@@ -201,9 +201,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             'fullheight' => $this->logsize > 1048576 ? false : true
         ];
 
-        $this->getSimpleResponse();
-
-        return true;
+        exit(json_encode($this->returnData));
     }
 
     /**

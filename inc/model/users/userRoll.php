@@ -126,6 +126,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
             $return = $return && true;
         }
 
+        $this->dbcon->update(\fpcm\classes\database::tableAuthors, ['roll'], [-1, $this->id], 'id = ?');
         return $return;
     }
 

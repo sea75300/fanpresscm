@@ -15,7 +15,7 @@ namespace fpcm\controller\ajax\articles;
  * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class listnewtweets extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class listnewtweets extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * Artikel-Listen-objekt
@@ -44,8 +44,13 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxControllerJSON implem
      */
     public function request()
     {
-        $this->returnData = array('notice' => 0, 'error' => 0);
+        $this->response = new \fpcm\model\http\response;
+        $this->returnData = ['notice' => 0, 'error' => 0];
         
+        if (!(new \fpcm\model\system\twitter())->checkRequirements()) {
+            $this->response->setReturnData($this->returnData)->fetch();
+        }
+
         $ids = $this->request->fromPOST('ids', [
             \fpcm\model\http\request::FILTER_STRIPTAGS,
             \fpcm\model\http\request::FILTER_TRIM,
@@ -54,7 +59,7 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxControllerJSON implem
         ]);
 
         if ($ids === null) {
-            $this->getSimpleResponse();
+            $this->response->setReturnData($this->returnData)->fetch();
         }
 
         $conditions = new \fpcm\model\articles\search();
@@ -95,7 +100,8 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxControllerJSON implem
             $this->returnData['error'] = $this->language->translate('SAVE_FAILED_ARTICLENEWTWEET', array('{{titles}}' => implode(', ', $resError)));
         }
 
-        $this->getSimpleResponse();
+        $this->response->setReturnData($this->returnData)->fetch();
+        
     }
 
 }

@@ -14,7 +14,7 @@ namespace fpcm\controller\ajax\articles;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since FPCM 3.5
  */
-class delete extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class delete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * 
@@ -35,6 +35,7 @@ class delete extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
             return false;
         }
         
+        $this->response = new \fpcm\model\http\response;
         return true;
     }
 
@@ -52,18 +53,14 @@ class delete extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
         ]);
 
         if ($isMultiple) {
-            $this->returnCode = (new \fpcm\model\articles\articlelist())->deleteArticles($id) ? 1 : 0;
-            $this->getResponse();            
+            $this->response->setReturnData(new \fpcm\model\http\responseData( (new \fpcm\model\articles\articlelist())->deleteArticles($id) ? 1 : 0 ))->fetch();
         }
         
         $article = new \fpcm\model\articles\article($id);
-        if ($article->exists() && $article->delete()) {
-            $this->returnCode = 1;
-            $this->getResponse();
-        }
 
-        $this->returnCode = 0;
-        $this->getResponse();
+        $this->response->setReturnData(new \fpcm\model\http\responseData(
+            $article->exists() && $article->delete() ? 1 : 0
+        ))->fetch();
     }
 
 }

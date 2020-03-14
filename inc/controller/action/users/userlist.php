@@ -194,8 +194,22 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $usersInGroups = $this->userList->getUsersAll(true);
         $userGroups    = $this->rollList->getUserRollsByIds(array_keys($usersInGroups));
         
-        $rolls = $this->rollList->getUserRollsTranslated();
+        $notFoundRoll = new \fpcm\model\users\userRoll();
+        $notFoundRoll->setRollName($this->language->translate('GLOBAL_NOTFOUND'));
+        $notFoundRoll->setId(-1);
         
+        $userGroups[-1] = $notFoundRoll;
+        if (!isset($usersInGroups[-1])) {
+            $usersInGroups[-1] = [];
+        }
+
+        array_map(function($diff) use (&$usersInGroups) {
+
+            $usersInGroups[-1] += $diff;
+
+        }, array_diff_key($usersInGroups, $userGroups));
+        
+
         $dataView = new \fpcm\components\dataView\dataView('userlist');
         
         $dataView->addColumns([
@@ -208,13 +222,17 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         ]);
 
         $articleCount = $this->articleList->countArticlesByUsers();
+        $currentUser = $this->session->getUserId();
 
         $descr = $this->language->translate('USERS_ROLL');
+        
         foreach($usersInGroups AS $rollId => $users) {
             
-            $title  = $descr.': '.isset($userGroups[$rollId])
-                    ? $this->language->translate($userGroups[$rollId]->getRollName())
-                    : 'GLOBAL_NOTFOUND';
+            if (!isset($userGroups[$rollId]) || ($rollId === -1) && !count($users)) {
+                continue;
+            }
+            
+            $title  = $descr.': '.$this->language->translate($userGroups[$rollId]->getRollName());
             
             $dataView->addRow(
                 new \fpcm\components\dataView\row([
@@ -228,8 +246,6 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 'fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset',
                 true
             ));
-            
-            $currentUser = $this->session->getUserId();
             
             /* @var $user \fpcm\model\users\author */
             foreach ($users as $userId => $user) {

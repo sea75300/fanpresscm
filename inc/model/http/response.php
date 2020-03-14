@@ -8,7 +8,7 @@
 namespace fpcm\model\http;
 
 /**
- * HTTP response handler object (incomplete!!!)
+ * HTTP response handler object
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -64,6 +64,11 @@ final class response {
      */
     public function setReturnData($returnData)
     {
+        if (is_array($returnData) || is_object($returnData)) {
+            $this->addHeaders('Content-Type: application/json');
+            $returnData = json_encode($returnData);
+        }
+
         $this->returnData = $returnData;
         return $this;
     }
@@ -93,11 +98,6 @@ final class response {
 
         if ($this->returnData === null) {
             exit;
-        }
-        
-        if (is_array($this->returnData) || is_object($this->returnData)) {
-            header('Content-Type: application/json');
-            $this->returnData = json_encode($this->returnData);
         }
 
         exit($this->returnData);

@@ -48,14 +48,14 @@ class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpc
      */
     public function request()
     {
+        $this->response = new \fpcm\model\http\response;
         if (!$this->checkPageToken()) {
-            return false;
+            $this->response->setReturnData( new \fpcm\model\http\responseData(0) )->fetch();
         }
 
         $this->commentList = new \fpcm\model\comments\commentList();
         $this->commentIds = array_map('intval', $this->request->fromPOST('ids', [\fpcm\model\http\request::FILTER_JSON_DECODE, 'object' => false]));
         $this->data = $this->request->fromPOST('fields', [\fpcm\model\http\request::FILTER_JSON_DECODE, 'object' => false]);
-
         return true;
     }
 
@@ -90,8 +90,7 @@ class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpc
 
         $result = $this->commentList->editCommentsByMass($this->commentIds, $fields);
 
-        $this->returnCode = $result ? 1 : 0;
-        $this->getResponse();
+        $this->response->setReturnData( new \fpcm\model\http\responseData($result ? 1 : 0) )->fetch();
     }
 
 }

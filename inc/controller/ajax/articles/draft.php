@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\articles;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @since FPCM 3.3
  */
-class draft extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class draft extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * 
@@ -25,23 +25,19 @@ class draft extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fp
      */
     public function process()
     {
+        $this->response = new \fpcm\model\http\response;
+        
         $draftPath = $this->request->fetchAll('path');
         if (!trim($draftPath)) {
-            $this->returnCode = -1;
-            $this->returnData = '';
-            $this->getResponse();
+            $this->response->setReturnData(new \fpcm\model\http\responseData(-1, ''))->fetch();
         }
 
         $file = new \fpcm\model\files\templatefile($draftPath);
         if (!$file->exists() || !$file->loadContent()) {
-            $this->returnCode = -1;
-            $this->returnData = '';
-            $this->getResponse();
+            $this->response->setReturnData(new \fpcm\model\http\responseData(-1, ''))->fetch();
         }
 
-        $this->returnData = $file->getContent();
-        $this->returnCode = 1;
-        $this->getResponse();
+        $this->response->setReturnData(new \fpcm\model\http\responseData(1, $file->getContent()))->fetch();        
     }
 
 }

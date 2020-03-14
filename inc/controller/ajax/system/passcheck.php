@@ -12,7 +12,7 @@ namespace fpcm\controller\ajax\system;
  * 
  * @package fpcm\controller\ajax\system\passcheck
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class passcheck extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
@@ -37,8 +37,7 @@ class passcheck extends \fpcm\controller\abstracts\ajaxController implements \fp
      */
     public function process()
     {
-        $this->returnData = (new \fpcm\model\users\passCheck($this->request->fromPOST('password')))->isPowned() ? 1 : 0;
-        $this->getSimpleResponse();
+        (new \fpcm\model\http\response)->setReturnData( (new \fpcm\model\users\passCheck($this->request->fromPOST('password')))->isPowned() ? 1 : 0 )->fetch();
     }
 
 }

@@ -30,19 +30,7 @@ fpcm.editor = {
                             cid: cid
                         },
                         execDone: function (result) {
-
-                            if (!result.code) {
-                                fpcm.ui.addMessage({
-                                    type: 'error',
-                                    txt: result.data
-                                });
-                                return false;
-                            }
-
-                            fpcm.ui.addMessage({
-                                type: 'notice',
-                                txt: result.data
-                            });
+                            fpcm.ui.addMessage(result);
                         }
                     });
                     

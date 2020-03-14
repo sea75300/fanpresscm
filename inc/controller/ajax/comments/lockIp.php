@@ -15,7 +15,7 @@ use fpcm\model\ips\ipaddress;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.6
  */
-class lockIp extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class lockIp extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      * 
@@ -32,20 +32,19 @@ class lockIp extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
      */
     public function process()
     {
-        $this->returnCode = 0;
-        $this->returnData = $this->language->translate('SAVE_FAILED_IPADDRESS');
-
+        $this->response = new \fpcm\model\http\response;
+        
         $cid = $this->request->fromPOST('cid', [
             http::FILTER_CASTINT
         ]);
 
         if (!$cid) {
-            $this->getResponse();
+            $this->response->setReturnData(new \fpcm\view\message($this->language->translate('SAVE_FAILED_IPADDRESS'), \fpcm\view\message::TYPE_ERROR))->fetch();
         }
 
         $comment = new comment($cid);
         if (!$comment->exists()) {
-            $this->getResponse();
+            $this->response->setReturnData(new \fpcm\view\message($this->language->translate('SAVE_FAILED_IPADDRESS'), \fpcm\view\message::TYPE_ERROR))->fetch();
         }
 
         $ipAddr = new ipaddress();
@@ -58,9 +57,7 @@ class lockIp extends \fpcm\controller\abstracts\ajaxControllerJSON implements \f
             $this->getResponse();
         }
 
-        $this->returnCode = 1;
-        $this->returnData = $this->language->translate('SAVE_SUCCESS_IPADDRESS');
-        $this->getResponse();
+        $this->response->setReturnData(new \fpcm\view\message($this->language->translate('SAVE_SUCCESS_IPADDRESS'), \fpcm\view\message::TYPE_NOTICE))->fetch();
     }
 
 }

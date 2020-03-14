@@ -37,12 +37,14 @@ class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm
      */
     public function process()
     {
+        $this->response = new \fpcm\model\http\response;
+        
         $ts = $this->request->fromPOST('timestamp', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
         if (!$ts) {
-            $this->getSimpleResponse();
+            $this->response->fetch();
         }
 
         $step = $this->request->fromPOST('step', [
@@ -53,8 +55,6 @@ class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm
 
         $step++;
 
-
-        
         $this->returnData = [
             'step' => $step,
             'res' => mt_rand(0,1),
@@ -78,7 +78,7 @@ class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm
 
         }
 
-        (new \fpcm\model\http\response())->setReturnData($this->returnData)->fetch();
+        $this->response->setReturnData($this->returnData)->fetch();
 
     }
 
