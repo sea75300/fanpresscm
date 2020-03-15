@@ -12,7 +12,7 @@ namespace fpcm\model\articles;
  * 
  * @package fpcm\model\articles
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class article extends \fpcm\model\abstracts\dataset {
@@ -163,7 +163,7 @@ class article extends \fpcm\model\abstracts\dataset {
      * Action-String für edit-Action
      * @var string
      */
-    protected $editAction = 'articles/edit&articleid=';
+    protected $editAction = 'articles/edit&id=';
 
     /**
      * Wortsperren-Liste

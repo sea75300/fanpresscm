@@ -49,6 +49,7 @@ class uploads extends base {
     public $rename;
 
     /**
+     * Get default permission values
      * @see base::getDefault()
      * @return array
      */

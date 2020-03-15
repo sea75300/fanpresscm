@@ -27,13 +27,19 @@ final class boolToText extends helper {
     protected function getString()
     {
         if ($this->value) {
-            $this->text = $this->text ?? $this->setText('GLOBAL_YES');
+
+            if (!trim($this->text)) {
+                $this->setText('GLOBAL_YES');
+            }
 
             $this->setIcon('check-square');
             $this->setClass('fpcm-ui-booltext-yes');
             
         } else {
-            $this->text = $this->text ?? $this->setText('GLOBAL_NO');
+
+            if (!trim($this->text)) {
+                $this->setText('GLOBAL_NO');
+            }
 
             $this->setClass('fpcm-ui-booltext-no');
             $this->setIcon('minus-square');

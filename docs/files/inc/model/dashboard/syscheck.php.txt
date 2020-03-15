@@ -1,9 +1,7 @@
 <?php
 
 /**
- * System check Dashboard Container
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,7 +11,9 @@ namespace fpcm\model\dashboard;
  * System check dashboard container object
  * 
  * @package fpcm\model\dashboard
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class syscheck extends \fpcm\model\abstracts\dashcontainer {
 
@@ -33,12 +33,13 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * Returns permissions
-     * @return array
+     * Container is accessible
+     * @see \fpcm\model\interfaces\isAccessible::isAccessible()
+     * @return bool
      */
-    public function getPermissions()
+    public function isAccessible(): bool
     {
-        return ['system' => 'options'];
+        return $this->permissions->system->options;
     }
 
     /**
@@ -92,9 +93,9 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
         /* @var $data \fpcm\model\system\syscheckOption */
         foreach ($options as $description => $data) {
             $checkres = (new \fpcm\view\helper\boolToText($description))->setValue($data->getResult());
-            $dat  = "<div class=\"row\">";
-            $dat .= "<div class=\"col-1 fpcm-ui-padding-none-lr fpcm-ui-center\">{$checkres}</div>";
-            $dat .= "<div class=\"col-11 fpcm-ui-padding-none-lr \">{$description}</div>";
+            $dat  = "<div class=\"row no-gutters\">";
+            $dat .= "<div class=\"col-auto px-2 fpcm-ui-center\">{$checkres}</div>";
+            $dat .= "<div class=\"col px-2 \">{$description}</div>";
             $dat .= "</div>";
 
             $this->tableContent[] = $dat;
@@ -104,9 +105,9 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
         foreach ($folders as $description => $data) {
             $checkres = (new \fpcm\view\helper\boolToText($description))->setValue($data->getResult())->setText($data->getResult() ? 'GLOBAL_WRITABLE' : 'GLOBAL_NOT_WRITABLE');
             
-            $dat  = "<div class=\"row\">";
-            $dat .= "<div class=\"col-1 fpcm-ui-padding-none-lr fpcm-ui-center\">{$checkres}</div>";
-            $dat .= "<div class=\"col-11 fpcm-ui-padding-none-lr \">{$description}</div>";
+            $dat  = "<div class=\"row no-gutters\">";
+            $dat .= "<div class=\"col-auto px-2 fpcm-ui-center\">{$checkres}</div>";
+            $dat .= "<div class=\"col px-2 \">{$description}</div>";
             $dat .= "</div>";
 
             $this->tableContent[] = $dat;

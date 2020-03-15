@@ -37,7 +37,7 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpc
     protected $isAdmin = false;
 
     /**
-     * 
+     * Container is accessible
      * @return bool
      */
     public function isAccessible(): bool

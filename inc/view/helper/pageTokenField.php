@@ -17,6 +17,9 @@ namespace fpcm\view\helper;
  */
 class pageTokenField extends hiddenInput {
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct('token');

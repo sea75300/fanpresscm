@@ -11,7 +11,7 @@ namespace fpcm\model\comments;
  * Comments permissions model trait
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\traits\comments
  * @since FPCM 3.4.4
@@ -39,15 +39,12 @@ trait permissions {
         }
 
         $isAdmin = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->isAdmin();
-        $permEditAll = $this->permissions->check(array('comment' => 'editall'));
-        $permEditOwn = $this->permissions->check(array('comment' => 'edit'));
-
-        if ($isAdmin || $permEditAll) {
+        if ($isAdmin || $this->permissions->comment->editall) {
             $comment->setEditPermission(true);
             return true;
         }
         
-        if ($permEditOwn && in_array($comment->getArticleid(), $this->ownArticleIds)) {
+        if ($this->permissions->comment->edit && in_array($comment->getArticleid(), $this->ownArticleIds)) {
             $comment->setEditPermission(true);
             return true;
         }

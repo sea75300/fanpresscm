@@ -130,7 +130,7 @@ final class dataView {
      */
     public function getJsFiles()
     {
-        return ['dataview.js'];
+        return ['ui/dataview.js'];
     }
 
     /**

@@ -17,10 +17,12 @@ namespace fpcm\controller\abstracts;
  * @abstract
  */
 class controller implements \fpcm\controller\interfaces\controller {
+    
+    const ERROR_PROCESS_BYPARAMS = 0x404;
 
     /**
-     * Request-Daten
-     * @var array
+     * Request object
+     * @var \fpcm\model\http\request
      */
     protected $request;
 
@@ -44,7 +46,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Berechtigungen
-     * @var \fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      */
     protected $permissions;
 
@@ -137,6 +139,8 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     public function __construct()
     {
+        $this->request = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
+
         if (\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
             return $this->redirect('installer');
             exit;
@@ -158,16 +162,10 @@ class controller implements \fpcm\controller\interfaces\controller {
 
         $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
         $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
-
-        $this->permissions = \fpcm\classes\loader::getObject(
-            '\fpcm\model\system\permissions',
-            $this->session->exists() ? $this->session->getCurrentUser()->getRoll() : 0
-        );
-
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
-        
-        $this->hasActiveModule();
 
+        $this->initPermissionObject();
+        $this->hasActiveModule();
         $this->initActionObjects();
         $this->initView();
     }
@@ -177,9 +175,23 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param string $varname
      * @param array $filter
      * @return mixed
+     * @deprecated since version FPCM 4.4
      */
-    final public function getRequestVar($varname = null, array $filter = [\fpcm\classes\http::FILTER_STRIPTAGS, \fpcm\classes\http::FILTER_HTMLENTITIES, \fpcm\classes\http::FILTER_STRIPSLASHES, \fpcm\classes\http::FILTER_TRIM])
+    final public function getRequestVar
+    (
+        $varname = null,
+        array $filter = [
+            \fpcm\classes\http::FILTER_STRIPTAGS,
+            \fpcm\classes\http::FILTER_HTMLENTITIES,
+            \fpcm\classes\http::FILTER_STRIPSLASHES,
+            \fpcm\classes\http::FILTER_TRIM
+        ]
+    )
     {
+        if (is_object($this->request)) {
+            return $this->request->fetchAll($varname, $filter);
+        }
+
         return \fpcm\classes\http::get($varname, $filter);
     }
 
@@ -190,8 +202,11 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final public function buttonClicked($buttonName)
     {
-        $btnName = 'btn' . ucfirst($buttonName);
-        return !is_null(\fpcm\classes\http::postOnly($btnName)) && is_null(\fpcm\classes\http::getOnly($btnName));
+        if ($this->request->fromPOST('btn' . ucfirst($buttonName), []) !== null) {
+            return true;
+        }
+        
+        return false;
     }
 
     /**
@@ -237,6 +252,8 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     protected function redirect($controller = '', array $params = [])
     {
+        $this->execDestruct = false;
+
         $redirectString = 'Location: ' . ($controller ? \fpcm\classes\tools::getFullControllerLink($controller, $params) : 'index.php');
         if (is_object($this->events)) {
             $redirectString = $this->events->trigger('controllerRedirect', $redirectString);
@@ -366,7 +383,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     }
 
     /**
-     * Controller-Processing
+     * Controller processing
      * @return bool
      */
     public function process()
@@ -404,26 +421,48 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        $permissions = $this->getPermissions();
-        if ($this->permissions && count($permissions) && !$this->permissions->check($permissions)) {
+        $accessResult   = $this instanceof \fpcm\controller\interfaces\isAccessible
+                        ? $this->isAccessible()
+                        : ( $this->permissions && count($this->getPermissions()) && !$this->permissions->check($this->getPermissions()) ? false : true );
+
+        if (!$accessResult) {
             $this->execDestruct = false;
             $this->view = new \fpcm\view\error('PERMISSIONS_REQUIRED');
             $this->view->render($this->moduleCheckExit);
+            return false;
         }
 
         return $this->moduleController === null ? true : in_array($this->moduleController, $this->enabledModules);
     }
 
     /**
-     * Filter
-     * @param string $filterString
-     * @param array $filters
-     * @return string
-     * @deprecated since version 4.1
+     * Process click of form items as function
+     * @return bool
+     * @since FPCM 4.4 (experimental)
      */
-    public static function filterRequest($filterString, array $filters)
+    public function processButtons() : bool
     {
-        return \fpcm\classes\http::filter($filterString, $filters);
+        $items = $this->request->getPOSTItems();
+        if (!is_array($items) || !count($items)) {
+            return false;
+        }
+
+        foreach ($items as $item) {
+
+            if (substr($item, 0, 3) !== \fpcm\view\helper\button::NAME_PREFIX) {
+                continue;
+            }
+            
+            $func = 'on'.substr($item, 3);
+            if (!method_exists($this, $func)) {
+                continue;
+            }
+            
+            call_user_func([$this, $func]);
+   
+        }        
+        
+        return true;
     }
 
     /**
@@ -504,14 +543,16 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function getActiveTab() : int
     {
-        $activeTab = $this->getRequestVar('rg');
+        $activeTab = $this->request->fromGET('rg', [ \fpcm\model\http\request::FILTER_CASTINT ]);
+
         if ($activeTab !== null) {
             return (int) $activeTab;
         }
 
-        $activeTab = $this->getRequestVar('activeTab');
+        $activeTab = $this->request->fromGET('activeTab', [ \fpcm\model\http\request::FILTER_CASTINT ]);
+
         if ($activeTab !== null) {
-            return (int) $activeTab;
+            return $activeTab;
         }
         
         return 0;
@@ -526,20 +567,42 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function processByParam(string $prefix = 'process', string $actionFrom = 'fn')
     {
-        $actionName = $this->getRequestVar($actionFrom, [
-            \fpcm\classes\http::FILTER_REGEX_REPLACE,
-            \fpcm\classes\http::FILTER_FIRSTUPPER,
-            'regex' => '/([A-Za-z0-9\_]{3,})/',
-            'regexReplace' => '$0'
+        $actionName = $this->request->fetchAll($actionFrom, [
+            \fpcm\model\http\request::FILTER_REGEX_REPLACE,
+            \fpcm\model\http\request::FILTER_FIRSTUPPER,
+            \fpcm\model\http\request::PARAM_REGEX => '/([A-Za-z0-9\_]{3,})/',
+            \fpcm\model\http\request::PARAM_REGEX_REPLACE => '$0'
         ]);
 
         $fn = trim($prefix.$actionName);
         if (!method_exists($this, $fn)) {
-            trigger_error('Request for undefined function '.$fn);
-            return 0x404;
+            trigger_error('Request for undefined function '.$fn.' in '. get_called_class());
+            return self::ERROR_PROCESS_BYPARAMS;
         }
 
         return call_user_func([$this, $fn]);
+    }
+
+    /**
+     * Initialize permission object
+     * @return bool
+     * @since FPCM 4.4
+     */    
+    protected function initPermissionObject() : bool
+    {
+        if ($this instanceof \fpcm\controller\interfaces\isAccessible) {
+            $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
+            return true;
+        }
+
+        trigger_error(get_called_class(). ' :: Permissions objects of instance \\fpcm\\model\\system\\permissions are deprecated. Use \\fpcm\\model\\permissions\\permissions instead', E_USER_DEPRECATED);
+
+        $this->permissions = \fpcm\classes\loader::getObject(
+            '\fpcm\model\system\permissions',
+            $this->session->exists() ? $this->session->getCurrentUser()->getRoll() : 0
+        );
+
+        return true;
     }
 
 }

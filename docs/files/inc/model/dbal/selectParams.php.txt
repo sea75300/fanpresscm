@@ -12,7 +12,7 @@ namespace fpcm\model\dbal;
  * 
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class selectParams {
@@ -34,6 +34,12 @@ class selectParams {
      * @var string
      */
     private $where = '';
+
+    /**
+     * JOIN clause
+     * @var string
+     */
+    private $join = '';
 
     /**
      * Select params
@@ -104,7 +110,16 @@ class selectParams {
     }
 
     /**
-     * Returns elect params
+     * Returns join clause
+     * @return string
+     */
+    public function getJoin(): string
+    {
+        return $this->join;
+    }
+    
+    /**
+     * Return select params
      * @return array
      */
     public function getParams() : array
@@ -178,6 +193,17 @@ class selectParams {
     public function setWhere(string $where)
     {
         $this->where = $where;
+        return $this;
+    }
+
+    /**
+     * Set JOIN clause
+     * @param string $join
+     * @return $this
+     */
+    public function setJoin(string $join)
+    {
+        $this->join = $join;
         return $this;
     }
 

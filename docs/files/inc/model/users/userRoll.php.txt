@@ -12,7 +12,7 @@ namespace fpcm\model\users;
  * 
  * @package fpcm\model\user
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class userRoll extends \fpcm\model\abstracts\dataset {
@@ -98,7 +98,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
-        $permission = new \fpcm\model\system\permissions();
+        $permission = new \fpcm\model\permissions\permissions();
         $return = $permission->addDefault($newId);
 
         $this->id = $newId;
@@ -120,12 +120,13 @@ class userRoll extends \fpcm\model\abstracts\dataset {
 
         $return = parent::delete();
 
-        $permissions = new \fpcm\model\system\permissions($this->getId());
+        $permissions = new \fpcm\model\permissions\permissions($this->getId());
 
         if ($permissions->delete()) {
             $return = $return && true;
         }
 
+        $this->dbcon->update(\fpcm\classes\database::tableAuthors, ['roll'], [-1, $this->id], 'id = ?');
         return $return;
     }
 

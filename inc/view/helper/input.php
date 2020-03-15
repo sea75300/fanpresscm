@@ -193,6 +193,10 @@ abstract class input extends helper {
         return 'pattern="'. trim($this->pattern).'"';
     }
 
+    /**
+     * Fetch string for element attributes
+     * @return string
+     */
     private function getAttributeStrings()
     {
         return implode(' ', [

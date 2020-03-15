@@ -33,6 +33,7 @@ class syscheck extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
+     * Container is accessible
      * @see \fpcm\model\interfaces\isAccessible::isAccessible()
      * @return bool
      */

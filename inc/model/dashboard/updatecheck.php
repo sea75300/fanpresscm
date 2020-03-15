@@ -38,6 +38,8 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
     private $systemUpdates;
 
     /**
+     * Container is accessible
+     * 
      * @see \fpcm\model\interfaces\isAccessible::isAccessible()
      * @return bool
      */

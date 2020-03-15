@@ -18,6 +18,10 @@ namespace fpcm\model\cli;
  */
 final class help extends \fpcm\model\abstracts\cli {
 
+    /**
+     * Exclude cli classes from help
+     * @var array
+     */
     private $exclude = ['help', 'io'];
 
     /**

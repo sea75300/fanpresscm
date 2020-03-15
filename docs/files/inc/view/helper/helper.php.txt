@@ -216,7 +216,8 @@ abstract class helper {
     {
         if (trim($this->text) ||
             $this instanceof radiocheck ||
-            $this instanceof icon) {
+            $this instanceof icon ||
+            $this instanceof boolToText ) {
             return false;
         }
         

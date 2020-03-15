@@ -49,6 +49,7 @@ class article extends editMass {
     public $authors;
 
     /**
+     * Get default permission values
      * @see base::getDefault()
      * @return array
      */

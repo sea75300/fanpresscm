@@ -43,6 +43,12 @@ class ajaxController extends controller {
     protected $moduleCheckExit = false;
 
     /**
+     * response object
+     * @var \fpcm\model\http\response
+     */
+    protected $response = null;
+
+    /**
      * Initialises view object
      * @return bool
      */
@@ -63,6 +69,10 @@ class ajaxController extends controller {
      */
     protected function getResponse()
     {
+        if (is_object($this->response) && $this->response instanceof \fpcm\model\http\response) {
+            $this->response->fetch();
+        }
+        
         $data = array(
             'code' => $this->returnCode,
             'data' => $this->returnData
@@ -78,6 +88,10 @@ class ajaxController extends controller {
      */
     protected function getSimpleResponse()
     {
+        if (is_object($this->response) && $this->response instanceof \fpcm\model\http\response) {
+            $this->response->fetch();
+        }
+
         exit(json_encode($this->returnData));
     }
 

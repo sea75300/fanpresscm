@@ -18,6 +18,11 @@ namespace fpcm\model\cli;
  */
 final class io {
 
+    /**
+     * CLI output
+     * @param mixed $str
+     * @param bool $exit
+     */
     public static function output($str, $exit = false)
     {
         if (is_array($str)) {
@@ -33,7 +38,12 @@ final class io {
         print $str;
     }
 
-    public static function input($str, $exit = false)
+    /**
+     * CLI input reader
+     * @param string $str
+     * @return string
+     */
+    public static function input($str)
     {
         return readline($str . ' ');
     }

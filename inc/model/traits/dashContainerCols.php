@@ -17,12 +17,13 @@ namespace fpcm\model\traits;
  * @since FPCM 4.3.1
  */
 trait dashContainerCols {
-
+    
     /**
      * Row with two columns, small right hand side
      * @param string $col1
      * @param string $col2
-     * @return bool
+     * @param string $class
+     * @return string
      */
     private function get2ColRow(string $col1, string $col2, string $class = '') : string
     {        
@@ -36,12 +37,13 @@ trait dashContainerCols {
         ]);
 
     }
-
+    
     /**
      * Row with two columns, small left hand side
      * @param string $col1
      * @param string $col2
-     * @return bool
+     * @param string $class
+     * @return string
      */
     private function get2ColRowSmallLeftAuto(string $col1, string $col2, string $class = '') : string
     {        

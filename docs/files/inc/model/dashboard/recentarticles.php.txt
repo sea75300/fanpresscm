@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Recent articles Dashboard Container
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,19 +11,15 @@ namespace fpcm\model\dashboard;
  * Recent articles dashboard container object
  * 
  * @package fpcm\model\dashboard
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class recentarticles extends \fpcm\model\abstracts\dashcontainer {
-
-    /**
-     * ggf. nötige Container-Berechtigungen
-     * @var array
-     */
-    protected $checkPermissions = array('article' => array('edit', 'editall'));
+class recentarticles extends \fpcm\model\abstracts\dashcontainer implements \fpcm\model\interfaces\isAccessible {
 
     /**
      * Permissions-Objekt
-     * @var \fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      */
     protected $permissions = null;
 
@@ -41,6 +35,15 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
      * @var int
      */
     protected $isAdmin = false;
+
+    /**
+     * Container is accessible
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->editArticles();
+    }
 
     /**
      * Returns container name
@@ -63,7 +66,7 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
 
         $this->getCacheName('_' . $this->currentUser);
 
-        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
+        $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
 
         if ($this->cache->isExpired($this->cacheName)) {
             $this->renderContent();
@@ -127,17 +130,17 @@ class recentarticles extends \fpcm\model\abstracts\dashcontainer {
             ));
 
             $content[] = '<div class="row fpcm-ui-font-small fpcm-ui-padding-md-tb">';
-            $content[] = '  <div class="col-sm-12 col-md-2 fpcm-ui-padding-none-lr fpcm-ui-center">';
+            $content[] = '  <div class="col-12 col-md-auto px-3 fpcm-ui-center">';
             $content[] = (string) (new \fpcm\view\helper\openButton('openBtn'))->setUrlbyObject($article)->setTarget('_blank');
             $content[] = (string) (new \fpcm\view\helper\editButton('editBtn'))->setUrlbyObject($article)->setReadonly($article->getEditPermission() ? false : true);
             $content[] = '  </div>';
 
-            $content[] = '  <div class="col-sm-12 col-md-7">';
+            $content[] = '  <div class="col align-self-center">';
             $content[] = '  <div class="fpcm-ui-ellipsis">';
             $content[] = '  <strong>' . (new \fpcm\view\helper\escape(strip_tags(rtrim($article->getTitle(), '.!?')))) . '</strong><br>';
             $content[] = '  <span>' . $createInfo . '</span>';
             $content[] = '  </div></div>';
-            $content[] = '  <div class="col-auto fpcm-ui-metabox fpcm-ui-padding-none-lr">';
+            $content[] = '  <div class="col-auto fpcm-ui-metabox px-4 align-self-center">';
             $content[] = $article->getStatusIconPinned();
             $content[] = $article->getStatusIconDraft();
             $content[] = $article->getStatusIconPostponed();

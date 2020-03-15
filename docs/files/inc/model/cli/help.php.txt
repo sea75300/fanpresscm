@@ -12,11 +12,17 @@ namespace fpcm\model\cli;
  * 
  * @package fpcm\model\cli
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.5.1
  */
 final class help extends \fpcm\model\abstracts\cli {
+
+    /**
+     * Exclude cli classes from help
+     * @var array
+     */
+    private $exclude = ['help', 'io'];
 
     /**
      * Modul ausführen
@@ -28,7 +34,7 @@ final class help extends \fpcm\model\abstracts\cli {
 
         $files = glob(__DIR__ . '/*.php');
 
-        $lines = $module && $module !== 'help' ?  [] : array_merge([''], $this->help());
+        $lines = $module && !in_array($module, $this->exclude) ?  [] : array_merge([''], $this->help());
         foreach ($files as $file) {
 
             $file = basename($file, '.php');
@@ -38,7 +44,8 @@ final class help extends \fpcm\model\abstracts\cli {
             }
 
             $moduleClass = '\\fpcm\model\\cli\\' . $file;
-            if (!class_exists($moduleClass) || $file === 'help') {
+
+            if (!class_exists($moduleClass) || in_array($file, $this->exclude)) {
                 continue;
             }
 

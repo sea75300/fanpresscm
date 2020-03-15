@@ -13,10 +13,13 @@ namespace fpcm\module;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 abstract class event {
+    
+    use tools;
 
     /**
      * Module key
      * @var string
+     * @deprecated since version FPCM 4.4
      */
     protected $key = '';
 

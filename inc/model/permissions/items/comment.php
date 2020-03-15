@@ -43,6 +43,7 @@ class comment extends editMass {
     public $lockip;
 
     /**
+     * Get default permission values
      * @see base::getDefault()
      * @return array
      */

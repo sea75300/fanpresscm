@@ -370,7 +370,15 @@ class template extends \fpcm\model\abstracts\file {
 
         return $this->replacementAttributes;
     }
-    
+
+    /**
+     * Parse replacement tags
+     * @param string $tag
+     * @param string $value
+     * @param array $return
+     * @param type $replacement
+     * @return bool
+     */
     protected function parseTag(string $tag, $value, array &$return, $replacement)
     {
         $tag = ucfirst(substr($tag, 2, -2));

@@ -72,6 +72,15 @@ class chart implements \JsonSerializable {
     }
 
     /**
+     * Returns list of CSS files
+     * @return array
+     */
+    final public function getCssFiles() : array
+    {
+        return [\fpcm\classes\dirs::getLibUrl('chart-js/Chart.min.css')];
+    }
+
+    /**
      * Adds label to data
      * @param array $labels
      * @return $this

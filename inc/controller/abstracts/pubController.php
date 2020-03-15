@@ -29,6 +29,10 @@ class pubController extends controller {
      */
     protected $viewEvents = false;
 
+    /**
+     * Constructor
+     * @ignore
+     */
     public function __construct()
     {
         $this->request = \fpcm\classes\loader::getObject('\fpcm\model\http\request');

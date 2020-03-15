@@ -20,7 +20,8 @@ trait tools {
 
     /**
      * Get module object instance
-     * @param type $key
+     * @param string $key
+     * @param bool $initDb
      * @return \fpcm\module\module
      */
     final protected function getObject(string $key = '', bool $initDb = true) : module

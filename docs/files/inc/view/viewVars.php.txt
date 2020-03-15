@@ -29,7 +29,10 @@ namespace fpcm\view;
  * @property string $langCode
  * @property string $bodyClass
  * @property string $toolbarItemRight
+ * @property string $toolbarArea
  * @property int    $loginTime
+ * 
+ * @property \fpcm\model\permissions\permissions  $permissions
  * 
  * @property array  $navigation
  * @property array  $navigationActiveModule
@@ -56,11 +59,9 @@ namespace fpcm\view;
  * @method helper\editButton        editButton(string $name , string $id)
  * @method helper\escape            escape(mixed $value , int $mode)
  * @method helper\hiddenInput       hiddenInput(string $name , string $id)
- * @method helper\icon              icon(string $icon)
  * @method helper\input             input(string $name , string $id)
  * @method helper\linkButton        linkButton(string $name , string $id)
  * @method helper\openButton        openButton(string $name , string $id)
- * @method helper\pageTokenField    pageTokenField(string $name , string $id)
  * @method helper\pager             pager(string $actionLink, int $currentPage, int $currentPageItemsCount, int $itemsPerPage, int $maxItemCount)
  * @method helper\passwordInput     passwordInput(string $name , string $id)
  * @method helper\radiobutton       radiobutton(string $name , string $id)
@@ -91,7 +92,7 @@ class viewVars {
      */
     public function __get($name)
     {
-        return isset($this->vars[$name]) ? $this->vars[$name] : null;
+        return $this->vars[$name] ?? null;
     }
 
     /**
@@ -118,17 +119,12 @@ class viewVars {
             trigger_error('View helper ' . $name . ' does not exists in ' . $helperClass);
             exit('View helper "' . $name . '" does not exists ' . $helperClass);
         }
-
-
+        
         $whiteList = ['dateText', 'escape', 'icon'];
 
         if (!in_array($name, $whiteList) && (empty($arguments[0]) || !is_string($arguments[0]))) {
             trigger_error('Invalid view helper params found for name of ' . $name);
             exit('Invalid view helper params found for name of ' . $name);
-        }
-
-        if ($name === 'icon') {
-            return new $helperClass($arguments[0], (isset($arguments[1]) ? $arguments[1] : 'fa'), (isset($arguments[2]) ? $arguments[2] : true));
         }
 
         return new $helperClass($arguments[0], (isset($arguments[1]) ? $arguments[1] : ''));
@@ -209,6 +205,29 @@ class viewVars {
     public function calcSize(int $value, int $decimals = 2, string $delimDec = ',', string $delimTousands = '.') : string
     {
         return \fpcm\classes\tools::calcSize($value, $decimals, $delimDec, $delimTousands);
+    }
+
+    /**
+     * Returns page token field view helper object
+     * @return \fpcm\view\helper\pageTokenField
+     * @since FPCM 4.3 as own funktion
+     */
+    final public function pageTokenField() : helper\pageTokenField
+    {
+        return new helper\pageTokenField();
+    }
+
+    /**
+     * Returns icon view helper object
+     * @param string $icon
+     * @param string $prefix
+     * @param bool $useFa
+     * @return \fpcm\view\helper\icon
+     * @since FPCM 4.3 as own funktion
+     */
+    final public function icon(string $icon, string $prefix = 'fa', bool $useFa = true) : helper\icon
+    {
+        return new helper\icon($icon, $prefix, $useFa);
     }
 
 }

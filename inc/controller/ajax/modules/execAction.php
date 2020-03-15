@@ -8,12 +8,12 @@
 namespace fpcm\controller\ajax\modules;
 
 /**
- * AJAX-Controller der die Aktionen im Module-Manager ausführt
+ * Execute actions in module manager
  * 
  * @package fpcm\controller\ajax\modules\moduleactions
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class execAction extends \fpcm\controller\abstracts\ajaxControllerJSON implements \fpcm\controller\interfaces\isAccessible {
+class execAction extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\modules\moduleactions;
 

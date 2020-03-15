@@ -9,6 +9,7 @@
  * FPCM frontend api flag
  */
 define('FPCM_FE', true);
+define('FPCM_MODE_NOPAGETOKEN', true);
 
 /**
  * Include of base files
@@ -94,14 +95,21 @@ class fpcmAPI {
         $this->registerController();
         $this->initObjects();
 
-        $module = (!is_null(\fpcm\classes\http::get('module'))) ? \fpcm\classes\http::get('module', array(1, 4, 7)) : 'fpcm/list';
-        if (strpos($module, 'fpcm/') === false || !in_array($module, array('fpcm/list', 'fpcm/article', 'fpcm/archive')))
+        $module = \fpcm\classes\http::get('module', [
+            fpcm\classes\http::FILTER_STRIPTAGS,
+            fpcm\classes\http::FILTER_STRIPSLASHES,
+            fpcm\classes\http::FILTER_TRIM
+        ]);
+        
+        if ($module === null) {
+            $module = 'fpcm/list';
+        }
+
+        if (strpos($module, 'fpcm/') === false || !in_array($module, ['fpcm/list', 'fpcm/article', 'fpcm/archive']) || !$this->controllers[$module]) {
             return false;
+        }
 
-        $controllerName = "fpcm/controller/";
-        $controllerName .= (isset($this->controllers[$module])) ? $this->controllers[$module] : ($module ? $module : 'action\system\login');
-        $controllerName = str_replace('/', '\\', $controllerName);
-
+        $controllerName  = str_replace('/', '\\', "fpcm/controller/".$this->controllers[$module]);
         if (!class_exists($controllerName)) {
             trigger_error('Undefined controller called: ' . $module);
             return false;
@@ -113,9 +121,8 @@ class fpcmAPI {
          * @var abstracts\controller
          */
         $controller = new $controllerName($params);
-
-        if (!is_a($controller, 'fpcm\controller\abstracts\controller')) {
-            exit("ERROR: The controller for <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>. ;)");
+        if (!$controller instanceof fpcm\controller\abstracts\pubController) {
+            exit("ERROR: The controller for <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\pubController</b>. ;)");
             return false;
         }
 
@@ -145,14 +152,14 @@ class fpcmAPI {
          * @var abstracts\controller
          */
         $controller = new \fpcm\controller\action\pub\showlatest($params);
-
-        if (!is_a($controller, 'fpcm\controller\abstracts\controller')) {
-            exit("ERROR: The controller for <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\controller</b>. ;)");
+        if (!$controller instanceof fpcm\controller\abstracts\pubController) {
+            exit("ERROR: The controller for <b>$module</b> must be an instance of <b>fpcm\controller\abstracts\pubController</b>. ;)");
             return false;
         }
 
-        if (!$controller->request())
+        if (!$controller->request()) {
             return false;
+        }
 
         $controller->process();
     }

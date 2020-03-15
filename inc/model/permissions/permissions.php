@@ -37,37 +37,37 @@ class permissions extends \fpcm\model\abstracts\dataset {
     protected $checkedData = [];
 
     /**
-     *
+     * Article permissions
      * @var items\article 
      */
     public $article;
 
     /**
-     *
+     * Comment permissions
      * @var items\comment
      */
     public $comment;
 
     /**
-     *
+     * Common system permissions
      * @var items\system
      */
     public $system;
 
     /**
-     *
+     * Module manager permissions
      * @var items\modules
      */
     public $modules;
 
     /**
-     *
+     * Filemanager permissions
      * @var items\uploads
      */
     public $uploads;
 
     /**
-     * Nicht in Datenbank zu speichernde Daten
+     * Exclude items from databse save
      * @var array
      */
     protected $dbExcludes = ['checkedData', 'article', 'comment', 'system', 'modules', 'uploads'];

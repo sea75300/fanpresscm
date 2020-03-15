@@ -176,7 +176,12 @@ abstract class migration {
             return;
         }
 
-        print $str.PHP_EOL;
+        if (!class_exists('\fpcm\model\cli\io')) {
+            print $str.PHP_EOL;
+            return;
+        }
+
+        \fpcm\model\cli\io::output($str);
     }
 
     /**

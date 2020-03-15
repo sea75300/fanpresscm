@@ -92,6 +92,7 @@ class htmlEditor extends articleEditor {
                     '#ed8ebe', '#efbf8f', '#e8e88b', '#bbeabb', '#bcebeb', '#89b6e4', '#b88ae6', '#ffffff'
                 ],
                 'autosavePref' => 'fpcm-editor-as-' . $this->session->getUserId() . 'draft',
+                'pageBreakVar' => \fpcm\model\pubtemplates\article::PAGEBREAK_TAG
             ],
             'editorInitFunction' => 'initCodeMirror'
         ]);
@@ -176,7 +177,7 @@ class htmlEditor extends articleEditor {
                 'image' => (new \fpcm\view\helper\button('editor-html-buttoninsertimage'))->setText('EDITOR_INSERTPIC')->setIcon('images')->setData(['action' => 'insertPicture']),
                 'media' => (new \fpcm\view\helper\button('editor-html-buttoninsertmedia'))->setText('EDITOR_INSERTMEDIA')->setIcon('play')->setData(['action' => 'insertMedia']),
                 'frame' => (new \fpcm\view\helper\button('editor-html-buttoninsertframe'))->setText('EDITOR_HTML_BUTTONS_IFRAME')->setIcon('puzzle-piece')->setData(['action' => 'insertIFrame']),
-                'readmore' => (new \fpcm\view\helper\button('editor-html-buttonreadmore'))->setText('EDITOR_HTML_BUTTONS_READMORE')->setIcon('plus-square')->setData(['action' => 'insertReadMore']),
+                'pagebreak' => (new \fpcm\view\helper\button('editor-html-buttonreadmore'))->setText('EDITOR_HTML_BUTTONS_PAGEBREAK')->setIcon('percentage')->setData(['action' => 'insertPageBreak']),
                 'table' => (new \fpcm\view\helper\button('editor-html-buttontable'))->setText('EDITOR_INSERTTABLE')->setIcon('table')->setData(['action' => 'insertTable']),
                 'smileys' => (new \fpcm\view\helper\button('editor-html-buttonsmileys'))->setText('HL_OPTIONS_SMILEYS')->setIcon('smile-beam')->setData(['action' => 'insertSmilies']),
                 'drafts' => (new \fpcm\view\helper\button('editor-html-buttondrafts'))->setText('EDITOR_HTML_BUTTONS_ARTICLETPL')->setIcon('file-alt', 'far')->setData(['action' => 'insertDrafts']),

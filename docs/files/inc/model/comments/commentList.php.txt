@@ -12,7 +12,7 @@ namespace fpcm\model\comments;
  * 
  * @package fpcm\model\comments
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class commentList extends \fpcm\model\abstracts\tablelist {
@@ -35,7 +35,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
 
     /**
      * Permission Object
-     * @var \fpcm\model\system\permissions
+     * @var \fpcm\model\permissions\permissions
      * @since FPCM 3.3
      */
     protected $permissions = false;
@@ -48,7 +48,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         $this->table = \fpcm\classes\database::tableComments;
 
         if (is_object(\fpcm\classes\loader::getObject('\fpcm\model\system\session')) && \fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
-            $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\system\permissions');
+            $this->permissions = \fpcm\classes\loader::getObject('\fpcm\model\permissions\permissions');
         }
 
         parent::__construct();
@@ -396,7 +396,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
 
     /**
      * Empty trash bin
-     * @param ARARY $ids Description
+     * @param array $ids Description
      * @return bool
      */
     public function retoreComments(array $ids)
@@ -523,25 +523,24 @@ class commentList extends \fpcm\model\abstracts\tablelist {
     private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams) : bool
     {
         if ($conditions->text !== null) {
-            
+
             switch ($conditions->searchtype) {
                 case search::TYPE_NAMEMAILWEB:
-                case search::TYPE_NAMEMAILWEB_OR:
-                    $valueParams[] = "%{$conditions->text}%";
-                    $valueParams[] = "%{$conditions->text}%";
-                    $valueParams[] = "%{$conditions->text}%";
-                case search::TYPE_NAMEMAILWEB:
                     $where[] = "name " . $this->dbcon->dbLike() . " ? AND email " . $this->dbcon->dbLike() . " ? AND website " . $this->dbcon->dbLike() . " ?";
-                    break;
                 case search::TYPE_NAMEMAILWEB_OR:
-                    $where[] = "name " . $this->dbcon->dbLike() . " ? OR email " . $this->dbcon->dbLike() . " ? OR website " . $this->dbcon->dbLike() . " ?";
+                    $where[] = "(name " . $this->dbcon->dbLike() . " ? OR email " . $this->dbcon->dbLike() . " ? OR website " . $this->dbcon->dbLike() . " ?)";
+                case search::TYPE_NAMEMAILWEB:
+                case search::TYPE_NAMEMAILWEB_OR:
+                    $valueParams[] = "%{$conditions->text}%";
+                    $valueParams[] = "%{$conditions->text}%";
+                    $valueParams[] = "%{$conditions->text}%";
                     break;
                 case search::TYPE_TEXT:
                     $where[] = "text " . $this->dbcon->dbLike() . " ?";
                     $valueParams[] = "%{$conditions->text}%";
                     break;
                 case search::TYPE_ALLOR:
-                    $where[] = "name " . $this->dbcon->dbLike() . " ? OR email " . $this->dbcon->dbLike() . " ? OR website " . $this->dbcon->dbLike() . " ? OR text " . $this->dbcon->dbLike() . " ?";
+                    $where[] = "(name " . $this->dbcon->dbLike() . " ? OR email " . $this->dbcon->dbLike() . " ? OR website " . $this->dbcon->dbLike() . " ? OR text " . $this->dbcon->dbLike() . " ?)";
                     $valueParams[] = "%{$conditions->text}%";
                     $valueParams[] = "%{$conditions->text}%";
                     $valueParams[] = "%{$conditions->text}%";
@@ -567,19 +566,19 @@ class commentList extends \fpcm\model\abstracts\tablelist {
             $valueParams[] = $conditions->dateto;
         }
 
-        if ($conditions->spam && $conditions->spam > -1) {
+        if ($conditions->spam !== null && $conditions->spam > -1) {
             $where[] = $conditions->getCondition('spam', "spammer = ?");
             $valueParams[] = (int) $conditions->spam;
         }
 
-        if ($conditions->private && $conditions->private > -1) {
-            $where[] = $conditions->getCondition('private', "private = ?");
-            $valueParams[] = (int) $conditions->private;
-        }
-
-        if ($conditions->approved && $conditions->approved > -1) {
+        if ($conditions->approved !== null && $conditions->approved > -1) {
             $where[] = $conditions->getCondition('approved', "approved = ?");
             $valueParams[] = (int) $conditions->approved;
+        }
+
+        if ($conditions->private !== null && $conditions->private > -1) {
+            $where[] = $conditions->getCondition('private', "private = ?");
+            $valueParams[] = (int) $conditions->private;
         }
 
         if ($conditions->articleid) {
@@ -588,7 +587,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
         }
 
         if ($conditions->ipaddress) {
-            $where[] = $conditions->getCondition('categoryid', "ipaddress = ?");
+            $where[] = $conditions->getCondition('ipaddress', "ipaddress = ?");
             $valueParams[] = $conditions->ipaddress;
         }
 

@@ -42,6 +42,13 @@ abstract class input extends helper {
     protected $autocomplete = true;
 
     /**
+     * Pattern for client side validation
+     * @var string
+     * @since FPCM 4.4
+     */
+    protected $pattern = '';
+
+    /**
      * Column with if input uses an icon
      * @var string
      */
@@ -64,8 +71,8 @@ abstract class input extends helper {
         else {
             $this->class .= ' fpcm-ui-field-input-nowrapper-general'.$this->getFieldSize();
         }
-
-        $input = "<input type=\"{$this->type}\" {$this->getNameIdString()}{$this->getClassString()} {$this->getValueString()} {$this->getReadonlyString()} maxlength=\"{$this->maxlenght}\" {$this->getAutocompleteString()}  {$this->getAutoFocusedString()} {$this->getPlaceholderString()}  {$this->getDataString()}>";
+        
+        $input = "<input type=\"{$this->type}\"maxlength=\"{$this->maxlenght}\" {$this->getAttributeStrings()}>";
         if (!$this->text) {
             return $wrapperStart . $input . $wrapperEnd;
         }
@@ -132,7 +139,19 @@ abstract class input extends helper {
         $this->autocomplete = (bool) $autocomplete;
         return $this;
     }
-    
+
+    /**
+     * Pattern for client side validation
+     * @param string $pattern
+     * @return $this
+     * @since FPCm 4.4
+     */
+    public function setPattern(string $pattern)
+    {
+        $this->pattern = ltrim($pattern, '/');
+        return $this;
+    }
+
     /**
      * Placeholder string
      * @return string
@@ -149,7 +168,7 @@ abstract class input extends helper {
 
         return '';
     }
-    
+
     /**
      * Browser autocomplete string
      * @return string
@@ -160,6 +179,38 @@ abstract class input extends helper {
         return ($this->autocomplete ? '' : "autocomplete=\"off\"");
     }
 
+    /**
+     * Browser autocomplete string
+     * @return string
+     * @since FPCM 4.1
+     */
+    protected function getPatternString()
+    {
+        if (!trim($this->pattern)) {
+            return '';
+        }
+        
+        return 'pattern="'. trim($this->pattern).'"';
+    }
+
+    /**
+     * Fetch string for element attributes
+     * @return string
+     */
+    private function getAttributeStrings()
+    {
+        return implode(' ', [
+            $this->getNameIdString(),
+            $this->getClassString(),
+            $this->getValueString(),
+            $this->getReadonlyString(),
+            $this->getAutocompleteString(),
+            $this->getAutoFocusedString(),
+            $this->getPlaceholderString(),
+            $this->getPatternString(),
+            $this->getDataString()
+        ]);
+    }
 
 }
 

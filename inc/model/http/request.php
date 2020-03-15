@@ -380,6 +380,7 @@ final class request {
     /**
      * Common filter
      * @param mixed $value
+     * @param string $function
      * @param array $filters
      * @return bool
      */

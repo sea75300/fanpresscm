@@ -18,6 +18,10 @@ namespace fpcm\model\permissions;
  */
 class sets {
 
+    /**
+     * Returns default permission set
+     * @return array
+     */
     final public static function getDefault() : array 
     {
         return [
@@ -29,6 +33,10 @@ class sets {
         ];
     }
 
+    /**
+     * Returns permission set with all permissions set to false
+     * @return array
+     */
     final public static function getAllFalse() : array 
     {
         return [

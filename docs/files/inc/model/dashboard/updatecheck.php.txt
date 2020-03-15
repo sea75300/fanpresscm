@@ -1,9 +1,7 @@
 <?php
 
 /**
- * Update check Dashboard Container
- * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,9 +11,11 @@ namespace fpcm\model\dashboard;
  * Update check dashboard container object
  * 
  * @package fpcm\model\dashboard
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class updatecheck extends \fpcm\model\abstracts\dashcontainer {
+class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\model\interfaces\isAccessible {
 
     /**
      * Container table content
@@ -38,6 +38,17 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     private $systemUpdates;
 
     /**
+     * Container is accessible
+     * 
+     * @see \fpcm\model\interfaces\isAccessible::isAccessible()
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        return $this->permissions->system->options && $this->permissions->system->update;
+    }
+
+    /**
      * Returns name
      * @return string
      */
@@ -56,21 +67,12 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
         $this->getModuleUpdateStatus();
 
         $this->tableContent[] = implode(PHP_EOL, [
-            '<div class="row no-gutters fpcm-ui-font-small fpcm-ui-padding-lg-top">',
-            '<div class="col-12 align-self-center">'.$this->language->translate('UPDATE_VERSIONCHECK_NOTES').'</div>',
+            '<div class="row no-gutters py-3 fpcm ui-align-center">',
+            '<div class="col align-self-center">'.$this->language->translate('UPDATE_VERSIONCHECK_NOTES').'</div>',
             '</div>'
         ]);
 
-        return '<div class="fpcm-dashboard-updates fpcm-ui-center">'.implode(PHP_EOL, $this->tableContent).'</div>';
-    }
-
-    /**
-     * Returns permissions
-     * @return array
-     */
-    public function getPermissions()
-    {
-        return ['system' => 'options', 'system' => 'update'];
+        return '<div class="fpcm-dashboard-updates">'.implode(PHP_EOL, $this->tableContent).'</div>';
     }
 
     /**
@@ -196,8 +198,8 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer {
     {
         $this->tableContent[] = implode(PHP_EOL, [
             '<div class="row no-gutters">',
-            '<div class="col-3">'.(new \fpcm\view\helper\icon($iconClass.' fa-inverse'))->setSize('2x')->setClass($statusClass)->setStack('square').'</div>',
-            '<div class="col-9 align-self-center">'.$this->language->translate($statusText).'</div>',
+            '<div class="col-auto px-2">'.(new \fpcm\view\helper\icon($iconClass.' fa-inverse'))->setSize('2x')->setClass($statusClass)->setStack('square').'</div>',
+            '<div class="col px-2 align-self-center">'.$this->language->translate($statusText).'</div>',
             '</div>'
         ]);
     }

@@ -12,7 +12,7 @@ namespace fpcm\model\cli;
  * 
  * @package fpcm\model\cli
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.5.1
  */
@@ -68,7 +68,7 @@ final class logs extends \fpcm\model\abstracts\cli {
                 }
 
                 $this->output($row->text);
-                $this->output('-----');
+                $this->output(PHP_EOL.'-----'.PHP_EOL);
             }
         }
 
