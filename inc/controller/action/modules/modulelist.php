@@ -128,7 +128,7 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
             return false;
         }
         
-        $files = \fpcm\classes\http::getFiles();
+        $files = $this->request->fromFiles();
         if (!$this->buttonClicked('uploadFile') || !$files) {
             return true;
         }

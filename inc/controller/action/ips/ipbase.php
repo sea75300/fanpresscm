@@ -89,8 +89,8 @@ class ipbase extends \fpcm\controller\abstracts\controller implements \fpcm\cont
         $this->ipaddress->setNoaccess($this->request->fromPOST('noaccess') ? true : false);
         $this->ipaddress->setNocomments($this->request->fromPOST('nocomments') ? true : false);
         $this->ipaddress->setNologin($this->request->fromPOST('nologin') ? true : false);
-        
-        if ($ipAddr === \fpcm\classes\http::getIp()) {
+
+        if ($ipAddr === $this->request->getIp()) {
             $this->view->addErrorMessage('SAVE_FAILED_IPADDRESS');
             return false;
         }

@@ -69,7 +69,7 @@ class iplist extends \fpcm\model\abstracts\tablelist {
             return true;
         }
 
-        $ip = \fpcm\classes\http::getIp();
+        $ip = \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getIp();
         if (isset($this->lockCache[$ip.'-'.$lockType])) {
             return $this->lockCache[$ip.'-'.$lockType];
         }

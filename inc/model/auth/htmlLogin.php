@@ -36,33 +36,24 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
         /* @var $user \fpcm\model\users\author */
         $user = \fpcm\classes\loader::getObject('\fpcm\model\users\userList')->getUserByUsername($param['username']);
         if (!$user || !$user->exists() ) {
-            trigger_error('Login failed for username ' . $param['username'] . '! User not found. Request was made by ' . \fpcm\classes\http::getIp());
+            $this->triggerError('User ' . $param['username'] . ' not found!');
             return false;
         }
 
         if ($user->getDisabled()) {
-            trigger_error('Login failed for username ' . $param['username'] . '! User is disabled. Request was made by ' . \fpcm\classes\http::getIp());
+            $this->triggerError('User ' . $param['username'] . '! is disabled.');
             return \fpcm\model\users\author::AUTHOR_ERROR_DISABLED;
         }
         
         if (! ( new \fpcm\model\users\userRoll($user->getRoll()) )->exists() ) {
-            trigger_error('Login failed for username ' . $param['username'] . '! User roll id '.$user->getRoll().' does not exists. Request was made by ' . \fpcm\classes\http::getIp());
+            $this->triggerError('User roll ' . $user->getRoll() . ' does not exists of user ' . $param['username'] . '!');
             return \fpcm\model\users\author::AUTHOR_ERROR_DISABLED;            
         }
 
-        if (!password_verify("{$param['password']}", "{$user->getPasswd()}" )) {
-            trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given, check simple hash. Request was made by ' . \fpcm\classes\http::getIp());
-            
-            if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_LOGIN')) {
-                trigger_error('Password hash information:  ');
-                trigger_error(print_r(password_get_info($user->getPasswd()), true));
-            }
-
-            trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given, check simple hash. Request was made by ' . \fpcm\classes\http::getIp());
-            if (!hash_equals($user->getPasswd(), md5($param['password']))) {
-                trigger_error('Login failed for username ' . $param['username'] . '! Invalid password given. Request was made by ' . \fpcm\classes\http::getIp());
-                return false;                
-            }
+        $success = password_verify("{$param['password']}", "{$user->getPasswd()}");
+        if (!$success && !hash_equals($user->getPasswd(), md5($param['password'])) ) {
+            $this->triggerError('Login failed for username ' . $param['username'] . ', wrong password given!');
+            return false;            
         }
 
         if (!$user->getAuthtoken() || !$this->config->system_2fa_auth || (isset($param['external']) && $param['external'])) {
@@ -71,7 +62,7 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
 
         include_once \fpcm\classes\loader::libGetFilePath('sonata-project'.DIRECTORY_SEPARATOR.'GoogleAuthenticator');
         if (!isset($param['authcode']) || !(new \Sonata\GoogleAuthenticator\GoogleAuthenticator())->checkCode($user->getAuthtoken(), $param['authcode'])) {
-            trigger_error('Login failed for username ' . $param['username'] . '! Invalid auth token given. Request was made by ' . \fpcm\classes\http::getIp());
+            $this->triggerError('Login failed for username ' . $param['username'] . ', invalid auth token given!');
             return false;
         }
 
@@ -85,6 +76,15 @@ final class htmlLogin extends \fpcm\model\abstracts\authProvider {
     public function getLoginTemplate()
     {
         return 'system/login';
+    }
+
+    /**
+     * Error message
+     * @param string $str
+     */
+    private function triggerError(string $str)
+    {
+        trigger_error( $str.' Request was made by ' . \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getIp() );
     }
 
 

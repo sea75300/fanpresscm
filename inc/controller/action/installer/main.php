@@ -137,7 +137,7 @@ class main extends \fpcm\controller\abstracts\controller {
     public function request()
     {
         if (!\fpcm\classes\baseconfig::installerEnabled()) {
-            trigger_error('Access to disabled installer from ip address ' . \fpcm\classes\http::getIp());
+            trigger_error('Access to disabled installer from ip address ' . $this->request->getIp());
             $this->view = new \fpcm\view\error('The FanPress CM installer is not enabled!');
             $this->view->render();
             exit;

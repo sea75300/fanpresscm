@@ -610,14 +610,19 @@ class view {
             $this->defaultViewVars->dateTimeMask = 'd.m.Y H:i';
             $this->defaultViewVars->dateTimeZone = 'Europe/Berlin';
         }
+        
+        unset($hasDbConfig);
 
         $this->defaultViewVars->langCode = $this->language->getLangCode();
         $this->defaultViewVars->self = trim(filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL));
         $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
 
-        $this->defaultViewVars->currentModule = \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getModule();
-
+        /* @var $req \fpcm\model\http\request */
+        $req = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
+        $this->defaultViewVars->currentModule = $req->getModule();
+        $this->defaultViewVars->ipAddress = $req->getIp();
+        unset($req);
         
         $toolbarButtons = new \fpcm\events\view\extendToolbarResult();
         $toolbarButtons->buttons = $this->buttons;

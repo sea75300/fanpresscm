@@ -297,7 +297,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         if (!$this->buttonClicked('sendComment') && !$data && $this->session->exists()) {
             $this->newComment->setName($this->session->getCurrentUser()->getDisplayname());
             $this->newComment->setEmail($this->session->getCurrentUser()->getEmail());
-            $this->newComment->setWebsite(\fpcm\classes\http::getHttpHost());
+            $this->newComment->setWebsite($this->request->getHost());
         }
 
         $this->commentFormTemplate->assignByObject($this->article, $this->newComment, $this->captcha);
@@ -379,7 +379,7 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $this->newComment->setWebsite($newCommentData['website']);
             $this->newComment->setText(nl2br(strip_tags($newCommentData['text'], \fpcm\model\comments\comment::COMMENT_TEXT_HTMLTAGS_CHECK)));
             $this->newComment->setPrivate(isset($newCommentData['private']));
-            $this->newComment->setIpaddress(\fpcm\classes\http::getIp());
+            $this->newComment->setIpaddress($this->request->getIp());
             $this->newComment->setApproved($this->config->comments_confirm ? false : true);
             $this->newComment->setArticleid($this->articleId);
             $this->newComment->setCreatetime($timer);

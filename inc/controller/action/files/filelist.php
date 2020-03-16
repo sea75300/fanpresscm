@@ -80,7 +80,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
     
     private function uploadPhpForm() : bool
     {
-        $files = \fpcm\classes\http::getFiles();
+        $files = $this->request->fromFiles();
         if (!$this->permissions->uploads->add || $files === null) {
             return false;
         }

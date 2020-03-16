@@ -57,7 +57,7 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
         $comment->setEmail($cdata['email']);
         $comment->setName($cdata['name']);
         $comment->setWebsite($cdata['website']);
-        $comment->setIpaddress(\fpcm\classes\http::getIp());
+        $comment->setIpaddress(\fpcm\classes\loader::getObject('\fpcm\model\http\request')->getIp());
 
         if ($commentList->spamExistsbyCommentData($comment)) {
             return true;

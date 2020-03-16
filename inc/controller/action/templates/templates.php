@@ -232,7 +232,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
             return false;
         }
 
-        $files = \fpcm\classes\http::getFiles();
+        $files = $this->request->fromFiles();
         if (!$this->buttonClicked('uploadFile') || !$files) {
             return false;
         }

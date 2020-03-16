@@ -281,22 +281,6 @@ final class request {
 
         return $this->filter($value, $filters);   
     }
-    
-    /**
-     * Fetch data from cookies request
-     * @param string $var
-     * @param array $filters
-     * @return mixed[scalar|array]
-     */
-    public function fromCookie($var, array $filters = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
-    {
-        $value = $_COOKIE[$var] ?? null;
-        if ($value === null || !count($filters)) {
-            return $value;
-        }
-
-        return $this->filter($value, $filters);   
-    }
 
     /**
      * Fetch data from $_REQUEST and $_COOKIE, use carfully!!!
@@ -322,6 +306,54 @@ final class request {
     public function getPOSTItems() : array
     {
         return array_keys($_POST);
+    }
+    
+    /**
+     * Fetch data from cookies request
+     * @param string $var
+     * @param array $filters
+     * @return mixed[scalar|array]
+     */
+    public function fromCookie($var, array $filters = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
+    {
+        $value = $_COOKIE[$var] ?? null;
+        if ($value === null || !count($filters)) {
+            return $value;
+        }
+
+        return $this->filter($value, $filters);   
+    }
+
+    /**
+     * Fetch data from uploaded files HTML form request
+     * @param string $var
+     * @return null|array
+     */
+    public function fromFiles(string $var = 'files')
+    {
+        if (!isset($_FILES[$var]) || !count($_FILES[$var])) {
+            return null;
+        }
+
+        return $_FILES[$var];
+    }
+
+    /**
+     * Returns HTTP Host string
+     * @return string
+     */
+    public function getHost() : string
+    {
+        return $_SERVER['HTTP_HOST'] ?? 'localhost';
+    }
+
+    /**
+     * Return remote address (ip address)
+     * @return string
+     */
+    public function getIp() : string
+    {
+        return filter_var(explode(', ',  $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1' )[0], FILTER_VALIDATE_IP);
     }
 
     /**

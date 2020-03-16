@@ -363,7 +363,7 @@ final class session extends \fpcm\model\abstracts\dataset {
         $this->logout = 0;
         $this->userid = $userid;
         $this->sessionid = $this->generateSessionId();
-        $this->ip = \fpcm\classes\http::getIp();
+        $this->ip = \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getIp();
         $this->external = (int) $external;
         $this->useragent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
         $this->sessionExists = true;

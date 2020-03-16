@@ -169,7 +169,7 @@ class preview extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $comment = new \fpcm\model\comments\comment();
         $comment->setName($this->session->getCurrentUser()->getDisplayname());
         $comment->setEmail($this->session->getCurrentUser()->getEmail());
-        $comment->setWebsite(\fpcm\classes\http::getHttpHost());
+        $comment->setWebsite($this->request->getHost());
         $comment->setText('Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis. ');
         $comment->setCreatetime(time() - 1800);
         
@@ -187,7 +187,7 @@ class preview extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $comment = new \fpcm\model\comments\comment();
         $comment->setName($this->session->getCurrentUser()->getDisplayname());
         $comment->setEmail($this->session->getCurrentUser()->getEmail());
-        $comment->setWebsite(\fpcm\classes\http::getHttpHost());
+        $comment->setWebsite($this->request->getHost());
         $this->template->assignByObject(new \fpcm\model\articles\article(), $comment, \fpcm\components\components::getChatptchaProvider());
 
         $this->view->assign('commentform', $this->template->parse());
