@@ -63,7 +63,7 @@ class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
         if (trim($filter['text'])) {
 
-            $filter['text'] = \fpcm\classes\http::filter($filter['text'], [
+            $filter['text'] = $this->request->filter($filter['text'], [
                 \fpcm\model\http\request::FILTER_URLDECODE,
                 \fpcm\model\http\request::FILTER_TRIM,
                 \fpcm\model\http\request::FILTER_SANITIZE,

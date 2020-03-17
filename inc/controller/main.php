@@ -41,7 +41,7 @@ class main {
     {
         $controllers = \fpcm\classes\baseconfig::getControllers();
 
-        $module = \fpcm\classes\http::get('module');
+        $module = \fpcm\classes\loader::getObject('\fpcm\model\http\request')->fromGet('module');
         if (!$module) {
             header('Location: ' . \fpcm\classes\tools::getControllerLink('system/login'));
             return true;

@@ -8,7 +8,7 @@
 
 require_once dirname(dirname(__DIR__)).'/inc/common.php';
 
-$unique = preg_replace('/([^a-z0-9]*)/', '', fpcm\classes\http::getOnly('uq', [ fpcm\classes\http::FILTER_TRIM ]));
+$unique = preg_replace('/([^a-z0-9]*)/', '', \fpcm\classes\loader::getObject('\fpcm\model\http\request')->fromGet('uq', [\fpcm\model\http\request::FILTER_TRIM ]));
 $cacheName = fpcm\view\view::JS_FILES_CACHE.'data'.$unique;
 
 /* @var $cache fpcm\classes\cache */

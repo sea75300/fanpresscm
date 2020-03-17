@@ -40,7 +40,7 @@ trait savePermissions {
         }
         
         $permissionData = $this->request->fromPOST('permissions', [
-            \fpcm\classes\http::FILTER_CASTINT
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
         
         if (!is_array($permissionData)) {

@@ -124,7 +124,7 @@ class ajaxController extends controller {
      */
     final protected function checkPageToken($name = 'token')
     {
-        $res = parent::checkPageToken(\fpcm\classes\http::get('module'));
+        $res = parent::checkPageToken($this->request->fetchAll('module'));
         if (!$res) {
             http_response_code(400);
             header('Bad Request');

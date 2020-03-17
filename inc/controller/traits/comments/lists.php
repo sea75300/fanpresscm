@@ -106,7 +106,7 @@ trait lists {
      */
     protected function processCommentActions(\fpcm\model\comments\commentList $commentList)
     {
-        $ids = $this->request->fromPOST('ids', [\fpcm\classes\http::FILTER_CASTINT]);
+        $ids = $this->request->fromPOST('ids', [ \fpcm\model\http\request::FILTER_CASTINT ]);
         if (!is_array($ids) || !count($ids)) {
             $this->view->addErrorMessage('SELECT_ITEMS_MSG');
             return true;

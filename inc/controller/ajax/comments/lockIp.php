@@ -1,8 +1,12 @@
 <?php
 
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
 namespace fpcm\controller\ajax\comments;
 
-use fpcm\classes\http;
 use fpcm\model\comments\comment;
 use fpcm\model\ips\ipaddress;
 
@@ -35,7 +39,7 @@ class lockIp extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         $this->response = new \fpcm\model\http\response;
         
         $cid = $this->request->fromPOST('cid', [
-            http::FILTER_CASTINT
+            \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
         if (!$cid) {
