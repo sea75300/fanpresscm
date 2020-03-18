@@ -17,9 +17,10 @@
     </div>
 </div>
 
-<div class="row no-gutters fpcm-ui-padding-md-tb">
-    <div class="col-12">
-        <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
+<div class="row no-gutters mt-3">
+    
+    <div class="col-12 col-md-6 col-lg-5 col-xl-3 mb-3 mb-md-0">
+        <fieldset class="ml-0 mr-md-3 fpcm-ui-full-height">
             <legend><?php $theView->write('TEMPLATE_REPLACEMENTS'); ?></legend>
 
             <dl class="fpcm-ui-monospace">
@@ -33,22 +34,31 @@
             </dl>
         </fieldset>
     </div>
-</div>
 
-<?php if (count($allowedTags)) : ?>
-<div class="row ui-widget-content ui-corner-all ui-state-normal fpcm-ui-padding-md-lr fpcm-ui-padding-md-tb">
-    <div class="fpcm-ui-controlgroup">
-        <?php foreach ($allowedTags as $tag) : ?>
-            <?php $theView->button('tpl-editor-'.substr($tag, 1, -1))->setText(htmlentities($tag))->setClass('fpcm-editor-html-click')->setData(['htmltag' => substr($tag, 1, -1)]); ?>
-        <?php endforeach; ?>
-    </div>                
-</div>
-<?php endif; ?>
-
-<div class="row no-gutters fpcm-ui-padding-md-tb">
-    <div class="col-12">
-        <?php $theView->textarea('template[content]', 'content_'.$tplId)->setValue($content, ENT_QUOTES)->setClass('fpcm-editor-html-click'); ?>
+    <div class="col-12 col-md-6 col-lg-7 col-xl-9">
+        <?php if (count($allowedTags)) : ?>
+        <div class="row no-gutters">
+            <div class="col-12 mb-2">
+                <fieldset>
+                    <legend><?php $theView->write('TEMPLATE_EDITOR'); ?></legend>
+                    
+                    <div class="fpcm-ui-controlgroup">
+                    <?php foreach ($allowedTags as $tag) : ?>
+                        <?php $theView->button('tpl-editor-'.substr($tag, 1, -1))->setText(htmlentities($tag))->setClass('fpcm-editor-html-click')->setData(['htmltag' => substr($tag, 1, -1)]); ?>
+                    <?php endforeach; ?>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <?php endif; ?>
+        
+        <div class="row no-gutters">
+            <div class="col-12">
+                <?php $theView->textarea('template[content]', 'content_'.$tplId)->setValue($content, ENT_QUOTES)->setClass('fpcm-editor-html-click'); ?>
+            </div>
+        </div>
     </div>
+    
 </div>
 
 <?php $theView->hiddenInput('template[id]')->setValue($tplId); ?>
