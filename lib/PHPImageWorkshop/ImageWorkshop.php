@@ -4,7 +4,7 @@ namespace PHPImageWorkshop;
 
 use PHPImageWorkshop\Core\ImageWorkshopLayer as ImageWorkshopLayer;
 use PHPImageWorkshop\Core\ImageWorkshopLib as ImageWorkshopLib;
-use PHPImageWorkshop\Exception\ImageWorkshopException as ImageWorkshopException;
+use PHPImageWorkshop\Exception\ImageWorkshopException;
 
 /**
  * ImageWorkshop class
@@ -22,22 +22,22 @@ class ImageWorkshop
      * @var integer
      */
     const ERROR_NOT_AN_IMAGE_FILE = 1;
-    
+
     /**
      * @var integer
      */
     const ERROR_IMAGE_NOT_FOUND = 2;
-    
+
     /**
      * @var integer
      */
     const ERROR_NOT_READABLE_FILE = 3;
-    
+
     /**
      * @var integer
      */
     const ERROR_CREATE_IMAGE_FROM_STRING = 4;
-      
+
     /**
      * Initialize a layer from a given image path
      *
@@ -47,6 +47,8 @@ class ImageWorkshop
      * @param bool $fixOrientation
      *
      * @return ImageWorkshopLayer
+     *
+     * @throws ImageWorkshopException
      */
     public static function initFromPath($path, $fixOrientation = false)
     {
@@ -55,12 +57,17 @@ class ImageWorkshop
         }
 
         if (false === ($imageSizeInfos = @getImageSize($path))) {
-            throw new ImageWorkshopException('Can\'t open the file at "'.$path.'" : file is not readable, did you check permissions (755 / 777) ?', static::ERROR_NOT_READABLE_FILE);
+            if (version_compare(PHP_VERSION, '7.1', '>=')) {
+                throw new ImageWorkshopException('Can\'t open the file at "' . $path . '" : file is not readable, did you check permissions (755 / 777) ?', static::ERROR_NOT_READABLE_FILE);
+            }
+
+            $imageSizeInfos = array('mime' => mime_content_type($path));
         }
 
         $mimeContentType = explode('/', $imageSizeInfos['mime']);
         if (!$mimeContentType || !isset($mimeContentType[1])) {
-            throw new ImageWorkshopException('Not an image file (jpeg/png/gif) at "'.$path.'"', static::ERROR_NOT_AN_IMAGE_FILE);
+            $givenType = isset($mimeContentType[1]) ? $mimeContentType[1] : 'none';
+            throw new ImageWorkshopException('Not an image file (jpeg/png/gif) at "'.$path.'" (given format: "'.$givenType.'")', static::ERROR_NOT_AN_IMAGE_FILE);
         }
 
         $mimeContentType = $mimeContentType[1];
@@ -83,8 +90,12 @@ class ImageWorkshop
                 $image = imageCreateFromPNG($path);
             break;
 
+            case 'webp':
+                $image = imagecreatefromwebp($path);
+            break;
+
             default:
-                throw new ImageWorkshopException('Not an image file (jpeg/png/gif) at "'.$path.'"', static::ERROR_NOT_AN_IMAGE_FILE);
+                throw new ImageWorkshopException('Not an image file (jpeg/png/gif) at "'.$path.'" (given format: "'.$mimeContentType.'")', static::ERROR_NOT_AN_IMAGE_FILE);
             break;
         }
 
@@ -100,7 +111,7 @@ class ImageWorkshop
 
         return $layer;
     }
-    
+
     /**
      * Initialize a text layer
      *
@@ -119,10 +130,10 @@ class ImageWorkshop
 
         $layer = static::initVirginLayer($textDimensions['width'], $textDimensions['height'], $backgroundColor);
         $layer->write($text, $fontPath, $fontSize, $fontColor, $textDimensions['left'], $textDimensions['top'], $textRotation);
-        
+
         return $layer;
     }
-    
+
     /**
      * Initialize a new virgin layer
      *
@@ -135,15 +146,15 @@ class ImageWorkshop
     public static function initVirginLayer($width = 100, $height = 100, $backgroundColor = null)
     {
         $opacity = 0;
-        
+
         if (null === $backgroundColor || $backgroundColor == 'transparent') {
             $opacity = 127;
             $backgroundColor = 'ffffff';
         }
-        
+
         return new ImageWorkshopLayer(ImageWorkshopLib::generateImage($width, $height, $backgroundColor, $opacity));
     }
-    
+
     /**
      * Initialize a layer from a resource image var
      *
@@ -155,7 +166,7 @@ class ImageWorkshop
     {
         return new ImageWorkshopLayer($image);
     }
-    
+
     /**
      * Initialize a layer from a string (obtains with file_get_contents, cURL...)
      *
@@ -170,7 +181,7 @@ class ImageWorkshop
         if (!$image = @imageCreateFromString($imageString)) {
             throw new ImageWorkshopException('Can\'t generate an image from the given string.', static::ERROR_CREATE_IMAGE_FROM_STRING);
         }
-        
+
         return new ImageWorkshopLayer($image);
     }
 }
