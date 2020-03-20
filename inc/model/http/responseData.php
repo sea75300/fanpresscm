@@ -16,6 +16,8 @@ namespace fpcm\model\http;
  * @since FPCM 4.4
  */
 final class responseData implements \JsonSerializable {
+    
+    use \fpcm\model\traits\jsonSerializeReturnObject;
 
     /**
      * Response code
@@ -38,16 +40,6 @@ final class responseData implements \JsonSerializable {
     {
         $this->code = $code;
         $this->data = $data;
-    }
-
-    /**
-     * JSON data
-     * @return array
-     * @ignore
-     */
-    public function jsonSerialize() : array
-    {
-        return get_object_vars($this);
     }
 
 }

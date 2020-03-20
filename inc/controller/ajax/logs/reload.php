@@ -20,10 +20,16 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     use \fpcm\controller\traits\common\dataView;
 
     /**
-     * System-Logs-Typ
+     * Log file
      * @var int
      */
     protected $log;
+
+    /**
+     * Module key
+     * @var int
+     */
+    protected $moduleKey;
 
     /**
      * Array mit Benutzern
@@ -50,12 +56,22 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     private $logsize = '';
 
     /**
+     *
+     * @var \fpcm\model\files\logfileResult
+     */
+    private $logObj = '';
+
+    /**
      * Request-Handler
      * @return bool
      */
     public function request()
     {
+        $this->response = new \fpcm\model\http\response;
+
         $this->log = $this->request->fromGET('log');
+        $this->moduleKey = $this->request->fromGET('module');
+        
         return $this->log === null ? false : true;
     }
 
@@ -79,18 +95,48 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
     /**
      * Controller-Processing
+     * @return bool
      */
     public function process()
-    {
+    {    
         if (method_exists($this, 'loadLog' . $this->log)) {
             return call_user_func(array($this, 'loadLog' . $this->log));
         }
 
-        $this->logsize = (int) $this->events->trigger('logs\getLogSize', $this->log);
-        $this->items = $this->events->trigger('logs\load', $this->log);
-        if (!is_array($this->items))  {
+        
+        return $this->getModuleLog();
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    private function getModuleLog() : bool
+    {
+        if (!trim($this->moduleKey) || !\fpcm\module\module::validateKey($this->moduleKey)) {
+            return false;
+        }
+
+        /* @var $log \fpcm\model\files\logfileResult */
+        $this->logObj = $this->events->trigger('logs\getModuleLog', [
+            'key' => $this->moduleKey,
+            'log' => $this->log
+        ]);
+        
+        if (!$this->logObj instanceof \fpcm\model\files\logfileResult) {
+            return false;
+        }
+
+        if (!$this->logObj->asObject()) {
+            $this->view->assign('items', $this->logObj->fetchData());
+            $this->view->assign('size', \fpcm\classes\tools::calcSize( $this->logObj->getSize() ) );
+            $this->view->render();
             return true;
         }
+
+        $this->logsize = $this->logObj->getSize();
+        $this->items = $this->logObj->fetchData();
+        $this->itemsCount = $this->logObj->getItemsCount();
 
         $this->initDataView();
         $this->assignDataViewvars();
@@ -194,14 +240,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     private function assignDataViewvars()
     {
         $dvVars = $this->dataView->getJsVars();
-        $this->returnData = [
+        $this->response->setReturnData([
             'dataViewVars' => $dvVars['dataviews']['logs'],
             'dataViewName' => 'logs',
             'logsize' => \fpcm\classes\tools::calcSize($this->logsize),
             'fullheight' => $this->logsize > 1048576 ? false : true
-        ];
-
-        exit(json_encode($this->returnData));
+        ])->fetch();
     }
 
     /**
@@ -222,8 +266,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         if (method_exists($this, 'getCols' . $this->log)) {
             return call_user_func(array($this, 'getCols' . $this->log));
         }
-
-        return $this->events->trigger('logs\getCols', $this->log);
+        
+        if (!$this->logObj instanceof \fpcm\model\files\logfileResult) {
+            return [];
+        }
+        
+        return $this->logObj->colsCallback();
     }
 
     /**
@@ -297,13 +345,15 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     protected function initDataViewRow($item)
     {
         if (method_exists($this, 'getRow' . $this->log)) {
-            return call_user_func(array($this, 'getRow' . $this->log), $item);
+            return call_user_func([$this, 'getRow' . $this->log], $item);
+        }
+        
+        if (!$this->logObj instanceof \fpcm\model\files\logfileResult) {
+            return [];
         }
 
-        return $this->events->trigger('logs\getRow', [
-            'log' => $this->log,
-            'item' => $item
-        ]);
+        return $this->logObj->rowCallback($item);
+
     }
     
     /**

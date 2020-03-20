@@ -25,6 +25,12 @@ class clear extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
     protected $log;
 
     /**
+     * Module key
+     * @var int
+     */
+    protected $moduleKey;
+
+    /**
      * 
      * @return bool
      */
@@ -41,6 +47,8 @@ class clear extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
     {
         $this->response = new \fpcm\model\http\response;
         $this->log = $this->request->fromPOST('log');
+        $this->moduleKey = $this->request->fromPOST('module');
+
         if ($this->log === null) {
             return false;
         }
@@ -53,6 +61,7 @@ class clear extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
      */
     public function process()
     {
+        $res = true;
         if (is_numeric($this->log)) {
 
             if ($this->log < 1) {
@@ -61,11 +70,13 @@ class clear extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
                 $logfile = new \fpcm\model\files\logfile($this->log, false);
                 $res = $logfile->clear();
             }
-        } else {
-            $res = $this->events->trigger('logs\clearSystemLog', $this->log);
         }
-
-        $this->events->trigger('logs\clearSystemLogs');
+        elseif (trim($this->moduleKey) && !\fpcm\module\module::validateKey($this->moduleKey)) {
+            $res = $this->events->trigger('logs\clearModuleLog', [
+                'key' => $this->moduleKey,
+                'log' => $this->log
+            ]);
+        }
 
         $this->response->setReturnData(new \fpcm\view\message(
             $res ? 'LOGS_CLEARED_LOG_OK' : 'LOGS_CLEARED_LOG_FAILED',

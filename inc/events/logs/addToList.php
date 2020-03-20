@@ -21,4 +21,6 @@ namespace fpcm\events\logs;
  */
 final class addToList extends \fpcm\events\abstracts\eventReturnArray {
 
+    
+    
 }

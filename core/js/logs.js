@@ -46,19 +46,10 @@ fpcm.logs = {
                 tabId = tabId[1] !== undefined ? tabId[1] : 0;
 
                 fpcm.dom.fromId('btnCleanLogs').data('logid', tabId);
-                
-                ui.ajaxSettings.dataFilter = function( response ) {
 
-                    if (tabId == 4) {
-                        return response;
-                    }
-
-                    return fpcm.ajax.fromJSON(response);
-                };
-                
                 ui.jqXHR.done(function(jqXHR) {
                     
-                    if (!jqXHR.dataViewVars) {
+                    if (!jqXHR instanceof Object || !jqXHR.dataViewVars) {
                         return true;
                     }
                     

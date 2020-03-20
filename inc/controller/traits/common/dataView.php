@@ -107,6 +107,12 @@ trait dataView {
      * @return string
      */
     abstract protected function getDataViewName();
+
+    /**
+     * Get data view Columns
+     * @return array
+     */
+    abstract protected function getDataViewCols();
     
     /**
      * Initialize Data view row
@@ -117,12 +123,6 @@ trait dataView {
     {
         return null;
     }
-
-    /**
-     * Get data view Columns
-     * @return array
-     */
-    abstract protected function getDataViewCols();
 
 }
 
