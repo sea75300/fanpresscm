@@ -5,7 +5,7 @@
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
-namespace fpcm\model\files;
+namespace fpcm\model\logs;
 
 /**
  * Log file result object
@@ -122,8 +122,8 @@ final class logfileResult {
      * Return row callback function
      * @return callable
      */
-    public function rowCallback($item): callable {
-        return $this->rowCallback($item);
+    public function rowCallback(): callable {
+        return $this->rowCallback;
     }
 
 

@@ -32,7 +32,7 @@ final class clearModuleLog extends \fpcm\events\abstracts\event {
             return null;
         }
         
-        $class = \fpcm\module\module::getEventNamespace($obj->getKey(), 'clearModuleLog');
+        $class = \fpcm\module\module::getEventNamespace($obj->getKey(), 'logs\\clearModuleLog');
         if (!class_exists($class)) {
             trigger_error('Undefined event class '.$class);
             return null;

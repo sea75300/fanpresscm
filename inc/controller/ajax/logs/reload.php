@@ -70,7 +70,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         $this->response = new \fpcm\model\http\response;
 
         $this->log = $this->request->fromGET('log');
-        $this->moduleKey = $this->request->fromGET('module');
+        $this->moduleKey = $this->request->fromGET('key');
         
         return $this->log === null ? false : true;
     }
@@ -103,7 +103,6 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             return call_user_func(array($this, 'loadLog' . $this->log));
         }
 
-        
         return $this->getModuleLog();
     }
 
@@ -123,7 +122,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             'log' => $this->log
         ]);
         
-        if (!$this->logObj instanceof \fpcm\model\files\logfileResult) {
+        if (!$this->logObj instanceof \fpcm\model\logs\logfileResult) {
             return false;
         }
 
@@ -267,11 +266,11 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             return call_user_func(array($this, 'getCols' . $this->log));
         }
         
-        if (!$this->logObj instanceof \fpcm\model\files\logfileResult) {
+        if (!$this->logObj instanceof \fpcm\model\logs\logfileResult) {
             return [];
         }
         
-        return $this->logObj->colsCallback();
+        return $this->logObj->colsCallback()();
     }
 
     /**
@@ -348,11 +347,11 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             return call_user_func([$this, 'getRow' . $this->log], $item);
         }
         
-        if (!$this->logObj instanceof \fpcm\model\files\logfileResult) {
+        if (!$this->logObj instanceof \fpcm\model\logs\logfileResult) {
             return [];
         }
 
-        return $this->logObj->rowCallback($item);
+        return $this->logObj->rowCallback(){$item};
 
     }
     
