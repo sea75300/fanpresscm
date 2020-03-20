@@ -12,7 +12,7 @@ namespace fpcm\events\logs;
  * 
  * Event to clear an module log file
  * Parameter: array with module key and log name
- * Rückgabe: \fpcm\model\files\logfileResult
+ * Rückgabe: bool
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2020, Stefan Seehafer
@@ -23,7 +23,7 @@ final class clearModuleLog extends \fpcm\events\abstracts\event {
 
     /**
      * Executes the event
-     * @return null|\fpcm\model\files\logfileResult
+     * @return bool
      */
     public function run() {
 
