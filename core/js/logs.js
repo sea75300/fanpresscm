@@ -11,10 +11,6 @@ if (fpcm === undefined) {
 fpcm.logs = {
     
     delimiter     : 'log=',
-    reloadDataHref: '',
-    reloadDataDest: '',
-    currentTabItem: null,
-    oldTabItem    : null,
 
     init: function () {
 
@@ -22,12 +18,12 @@ fpcm.logs = {
         cleanEl.unbind('click');
         cleanEl.click(function () {
             
-            var logId = fpcm.dom.fromTag(this).data('logid');
+            var elData = fpcm.dom.fromTag(this).data();
             
             fpcm.ui.confirmDialog({
                 clickNoDefault: true,
                 clickYes: function () {
-                    fpcm.logs.clearLogs(logId);
+                    fpcm.logs.clearLogs(elData.logid, elData.mkey ? elData.mkey : null);
                     fpcm.dom.fromTag(this).dialog('close');
                     return true;
                 }
@@ -41,11 +37,13 @@ fpcm.logs = {
                 
                 fpcm.ui_loader.show();
                 fpcm.vars.jsvars.dataviews.extSettings = null;
-                
-                var tabId = ui.ajaxSettings.url.split(fpcm.logs.delimiter);
-                tabId = tabId[1] !== undefined ? tabId[1] : 0;
 
-                fpcm.dom.fromId('btnCleanLogs').data('logid', tabId);
+                var btnParams = fpcm.system.parseUrlQuery(ui.ajaxSettings.url);
+
+                fpcm.dom.fromId('btnCleanLogs').data({
+                    logid: btnParams.log ? btnParams.log : 0,
+                    key: btnParams.key ? btnParams.key : null
+                });
 
                 ui.jqXHR.done(function(jqXHR) {
                     
@@ -118,12 +116,12 @@ fpcm.logs = {
 
     },
 
-    clearLogs: function(id) {
+    clearLogs: function(_id, _mkey) {
 
         fpcm.ajax.post('logs/clear', {
-            workData: id,
             data: {
-                log: id
+                log: _id,
+                key: _mkey
             },
             execDone: function(result) {
                 fpcm.logs.reloadLogs();

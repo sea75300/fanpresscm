@@ -71,7 +71,7 @@ class clear extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
                 $res = $logfile->clear();
             }
         }
-        elseif (trim($this->moduleKey) && !\fpcm\module\module::validateKey($this->moduleKey)) {
+        elseif (trim($this->moduleKey) && \fpcm\module\module::validateKey($this->moduleKey)) {
             $res = $this->events->trigger('logs\clearModuleLog', [
                 'key' => $this->moduleKey,
                 'log' => $this->log

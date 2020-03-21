@@ -390,6 +390,27 @@ fpcm.system = {
         }
         
         return jQuery.extend(fpcm, _newvalue);
+    },
+    
+    parseUrlQuery: function (_url) {
+        
+        if (!_url) {
+            return {};
+        }
+        
+        var urlItems = _url.replace(/.*\?/, '').split('&');
+        var returnValues = {};
+        for (var i = 0; i < urlItems.length; i++) {
+
+            if (urlItems[i] === undefined) {
+                continue;
+            }
+
+            var current = urlItems[i].split(/([a-z]+)\=(.*)/);
+            returnValues[current[1]] = current[2];
+        }
+
+        return returnValues;
     }
 
 };
