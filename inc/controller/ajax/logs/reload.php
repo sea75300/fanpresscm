@@ -121,7 +121,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             'key' => $this->moduleKey,
             'log' => $this->log
         ]);
-        
+
         if (!$this->logObj instanceof \fpcm\model\logs\logfileResult) {
             return false;
         }
@@ -351,7 +351,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             return [];
         }
 
-        return $this->logObj->rowCallback(){$item};
+        return $this->logObj->rowCallback()($item);
 
     }
     

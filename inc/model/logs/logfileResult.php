@@ -63,7 +63,7 @@ final class logfileResult {
      * @param callable $rowCallback
      * @param bool $object
      */
-    public function __construct(array $items, int $itemsCount, int $size, $colsCallback, $rowCallback, bool $object = true)
+    public function __construct(array $items, $itemsCount, int $size, $colsCallback, $rowCallback, bool $object = true)
     {
         $this->colsCallback = is_callable($colsCallback) ? $colsCallback : null;
         $this->rowCallback = is_callable($rowCallback) ? $rowCallback : null;
@@ -86,7 +86,7 @@ final class logfileResult {
      * Fetch number of items
      * @return int
      */
-    public function getItemsCount(): int
+    public function getItemsCount()
     {
         return $this->itemsCount;
     }

@@ -40,10 +40,8 @@ fpcm.logs = {
 
                 var btnParams = fpcm.system.parseUrlQuery(ui.ajaxSettings.url);
 
-                fpcm.dom.fromId('btnCleanLogs').data({
-                    logid: btnParams.log ? btnParams.log : 0,
-                    key: btnParams.key ? btnParams.key : null
-                });
+                fpcm.dom.fromId('btnCleanLogs').data('logid', btnParams.log ? btnParams.log : null);
+                fpcm.dom.fromId('btnCleanLogs').data('mkey', btnParams.key ? btnParams.key : null);
 
                 ui.jqXHR.done(function(jqXHR) {
                     
