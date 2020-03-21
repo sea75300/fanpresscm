@@ -406,7 +406,7 @@ fpcm.system = {
                 continue;
             }
 
-            var current = urlItems[i].split(/([a-z]+)\=(.*)/);
+            var current = urlItems[i].split(/([a-zA-Z0-9]+)\=(.*)/);
             returnValues[current[1]] = current[2];
         }
 
