@@ -157,8 +157,8 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
     {
         return [
             (new \fpcm\components\dataView\column('buttons', ''))->setAlign('center')->setSize(3),
-            (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY'))->setAlign('center')->setSize(4),
             (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME'))->setAlign('center')->setSize(4),
+            (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY'))->setAlign('center')->setSize(4),
             (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_LOCAL'))->setAlign('center')->setSize(1)
         ];
     }
@@ -171,8 +171,8 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
     {
         return [
             (new \fpcm\components\dataView\column('buttons', ''))->setAlign('center')->setSize(3),
-            (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY'))->setAlign('center')->setSize(4),
             (new \fpcm\components\dataView\column('description', 'MODULES_LIST_NAME'))->setAlign('center')->setSize(4),
+            (new \fpcm\components\dataView\column('key', 'MODULES_LIST_KEY'))->setAlign('center')->setSize(4),
             (new \fpcm\components\dataView\column('version', 'MODULES_LIST_VERSION_REMOTE'))->setAlign('center')->setSize(1)
         ];
     }
@@ -218,7 +218,6 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
             $buttons[] = (new \fpcm\view\helper\icon('times-circle'))->setText('MODULES_FAILED_FSWRITE')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text')->setSize('lg');
         }
 
-        $buttons[] = '<div class="fpcm-ui-controlgroup">';
         $buttons[] = (new \fpcm\view\helper\linkButton('info'.$hash))
                             ->setText('MODULES_LIST_INFORMATIONS')
                             ->setIcon('info-circle')
@@ -284,16 +283,13 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
                 $buttons[] = (new \fpcm\view\helper\button('delete'.$hash))->setText('MODULES_LIST_DELETE')->setIcon('trash')->setIconOnly(true)->setData(['key' => $item->getKey(), 'action' => 'delete'])->setClass('fpcm-ui-modulelist-action-local');
             }            
         }
-        
-
-        $buttons[] = '</div>';
 
         $class = ($hasUpdates ? 'fpcm-ui-important-text' : '');
         
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('buttons', implode('', $buttons)),
-            new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key), $class ),
             new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($config->name ), $class ),
+            new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key), $class ),
             new \fpcm\components\dataView\rowCol('version', new \fpcm\view\helper\escape($config->version), $class )
         ]);
     }
@@ -315,8 +311,6 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
             $buttons[] = (new \fpcm\view\helper\icon('exclamation-triangle'))->setText('MODULES_FAILED_DEPENCIES')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text');
         }
 
-        $buttons[] = '<div class="fpcm-ui-controlgroup">';
-
         $buttons[] = (new \fpcm\view\helper\linkButton('info'.$hash))
                     ->setText('MODULES_LIST_INFORMATIONS')
                     ->setIcon('info-circle')
@@ -334,12 +328,10 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
                     ->setReadonly(!$item->isInstallable());
         }
 
-        $buttons[] = '</div>';
-
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('buttons', implode('', $buttons)),
-            new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key) ),
             new \fpcm\components\dataView\rowCol('description', new \fpcm\view\helper\escape($config->name ) ),
+            new \fpcm\components\dataView\rowCol('key', new \fpcm\view\helper\escape($key) ),
             new \fpcm\components\dataView\rowCol('version', new \fpcm\view\helper\escape($config->version) )
         ]);
     }
