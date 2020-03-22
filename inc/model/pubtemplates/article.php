@@ -142,7 +142,11 @@ final class article extends template {
 
         }
 
-        return $this->parseSmileys(str_replace(array_keys($replacementData), $this->cleanup(array_values($replacementData)), $this->content));
+        return $this->parseSmileys($this->parseGallery(str_replace(
+            array_keys($replacementData),
+            $this->cleanup(array_values($replacementData)),
+            $this->content
+        )));
     }
 
     /**
@@ -287,6 +291,59 @@ final class article extends template {
             return $newVal.$value;
         });
 
+    }
+
+    /**
+     * Parse gallery tag
+     * @param string $content
+     * @return string
+     * @since FPCM 4.4
+     */
+    protected function parseGallery(string $content) : string
+    {
+        $regex = '/(\[gallery\])(.*)(\[\/gallery\])/i';
+        if (preg_match($regex, $content, $matches) === false) {
+            return $content;
+        }
+
+        $images = $matches[2] ?? [];
+        if (!count($images)) {
+            return $content;
+        }
+
+        $w = $this->config->file_img_thumb_width;
+        $h = $this->config->file_img_thumb_height;
+
+        $thumbLen = 6;
+        $linkLen = -5;
+        
+        $data = array_map(function ($fileName) use ($w, $h, $thumbLen, $linkLen)
+        {
+            $isThumb = (substr($fileName, 0, $thumbLen) === 'thumb:');
+            $isLink = (substr($fileName, $linkLen) === ':link');
+
+            $imgObj = new \fpcm\model\files\image(
+                substr(
+                    $fileName,
+                    ($isThumb ? $thumbLen : 0),
+                    ($isLink ? $linkLen : NULL)
+                ),
+                false
+            );
+
+            $url = $isThumb ? $imgObj->getThumbnailUrl() : $imgObj->getImageUrl();
+            $whStr = $isThumb ? "width=\"{$w}\" height=\"{$h}\"" : $imgObj->getWhstring();
+
+            $imgTag = "<img src=\"{$url}\" {$whStr} alt=\"{$imgObj->getFilename()}\">";
+            if (!$isLink) {
+                return $imgTag;
+            }
+
+            return "<a href=\"{$imgObj->getImageUrl()}\">{$imgTag}</a>";
+
+        }, explode('|', $images));
+
+        return preg_replace($regex, "<div class=\"fpcm-pub-content-gallery\">".implode("\n", $data)."</div>", $content);
     }
 
 }
