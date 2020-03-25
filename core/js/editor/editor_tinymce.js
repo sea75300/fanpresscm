@@ -186,5 +186,15 @@ if (fpcm.editor) {
 
         top.tinymce.activeEditor.windowManager.close();
     };
+    
+    fpcm.editor.insertGalleryByEditor = function (_values) {
+
+        if (!_values.length) {
+            return false;
+        }
+
+        top.tinymce.activeEditor.insertContent(fpcm.editor.getGalleryReplacement(_values) + fpcm.vars.jsvars.editorGalleryTagEnd);        
+        top.tinymce.activeEditor.windowManager.close();
+    };
 
 }

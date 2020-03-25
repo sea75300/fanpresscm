@@ -26,6 +26,13 @@ fpcm.editor.showFileManager = function(fmgrMode) {
         title    : fpcm.ui.translate('HL_FILES_MNG'),
         dlButtons  : [
             {
+                text: fpcm.ui.translate('FILE_LIST_INSERTGALLERY'),
+                icon: "ui-icon-suitcase",
+                click: function() {
+                    fpcm.dom.fromTag(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#insertGallery').click();
+                }
+            },
+            {
                 text: fpcm.ui.translate('ARTICLES_SEARCH'),
                 icon: "ui-icon-search",
                 click: function() {

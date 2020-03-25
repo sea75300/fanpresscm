@@ -244,6 +244,22 @@ if (fpcm.editor) {
         return false;
     };
 
+    fpcm.editor.insertGalleryByEditor = function (_values) {
+
+        if (!_values.length) {
+            return false;
+        }
+
+        fpcm.editor.insert(fpcm.editor.getGalleryReplacement(_values), fpcm.vars.jsvars.editorGalleryTagEnd);
+        
+        var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
+        dialogEl.dialog('close');
+        dialogEl.empty();
+
+        window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-insertimage").dialog('close');
+        return false;
+    };
+
     fpcm.editor._insertToFields = function (url, title) {
         
         if (!url || !title) {

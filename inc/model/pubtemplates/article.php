@@ -26,6 +26,14 @@ final class article extends template {
 
     const PAGEBREAK_TAG = '<!-- pagebreak -->';
 
+    const GALLERY_TAG_START = '[gallery]{{IMAGES}}';
+
+    const GALLERY_TAG_END = '[/gallery]';
+
+    const GALLERY_TAG_THUMB = 'thumb:';
+
+    const GALLERY_TAG_LINK = ':link';
+
     /**
      * Template-Platzhalter
      * @var array
@@ -319,8 +327,8 @@ final class article extends template {
         
         $data = array_map(function ($fileName) use ($w, $h, $thumbLen, $linkLen)
         {
-            $isThumb = (substr($fileName, 0, $thumbLen) === 'thumb:');
-            $isLink = (substr($fileName, $linkLen) === ':link');
+            $isThumb = (substr($fileName, 0, $thumbLen) === self::GALLERY_TAG_THUMB);
+            $isLink = (substr($fileName, $linkLen) === self::GALLERY_TAG_LINK);
 
             $imgObj = new \fpcm\model\files\image(
                 substr(
@@ -334,16 +342,16 @@ final class article extends template {
             $url = $isThumb ? $imgObj->getThumbnailUrl() : $imgObj->getImageUrl();
             $whStr = $isThumb ? "width=\"{$w}\" height=\"{$h}\"" : $imgObj->getWhstring();
 
-            $imgTag = "<img src=\"{$url}\" {$whStr} alt=\"{$imgObj->getFilename()}\">";
+            $imgTag = "<img src=\"{$url}\" {$whStr} alt=\"{$imgObj->getFilename()}\" class=\"fpcm pub-content pub-gallery-image\">";
             if (!$isLink) {
                 return $imgTag;
             }
 
-            return "<a href=\"{$imgObj->getImageUrl()}\">{$imgTag}</a>";
+            return "<a class=\"fpcm pub-content pub-gallery-link\" href=\"{$imgObj->getImageUrl()}\">{$imgTag}</a>";
 
         }, explode('|', $images));
 
-        return preg_replace($regex, "<div class=\"fpcm-pub-content-gallery\">".implode("\n", $data)."</div>", $content);
+        return preg_replace($regex, "<div class=\"fpcm pub-content pub-gallery\">".implode("\n", $data)."</div>", $content);
     }
 
 }

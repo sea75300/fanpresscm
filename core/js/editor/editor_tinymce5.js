@@ -18,7 +18,8 @@ fpcm.editor.initTinyMce = function() {
         fpcm.editor.filePickerActions = {
             fmSearch: 'opensearch',
             fmNewThumbs: 'createThumbs',
-            fmDelete: 'deleteFiles'
+            fmDelete: 'deleteFiles',
+            fmGallery: 'insertGallery',
         };
 
         tinymce.activeEditor.windowManager.openUrl({
@@ -26,7 +27,15 @@ fpcm.editor.initTinyMce = function() {
             size: 'large',
             url: fpcm.vars.jsvars.filemanagerUrl + fpcm.vars.jsvars.filemanagerMode,
             id: 'fpcm-dialog-editor-tinymce-filemanager',
-            buttons: [
+            buttons: [                
+                {
+                    type:  'custom',
+                    name: 'fmGallery',
+                    text: fpcm.ui.translate('FILE_LIST_INSERTGALLERY'),
+                    disabled: false,
+                    primary: false,
+                    align: 'start'
+                },
                 {
                     type:  'custom',
                     name: 'fmSearch',

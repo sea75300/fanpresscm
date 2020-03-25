@@ -144,6 +144,7 @@ $lang = array(
     'FILE_LIST_INSERT_THUMB' => 'Thumbnail-URL einfügen',
     'FILE_LIST_INSERT_FULL' => 'Bild-URL einfügen',
     'FILE_LIST_NEWTHUMBS' => 'Thumbnails erzeugen',
+    'FILE_LIST_INSERTGALLERY' => 'Gallery einfügen',
     'FILE_LIST_RENAME' => 'Umbenennen',
     'FILE_LIST_RENAME_NEWNAME' => 'Bitte einen neuen Dateiname eingeben:',
     'FILE_LIST_UPLOAD_NOTFOUND' => 'Die zugehörige Datei wurde im Upload-Ordner nicht gefunden!',

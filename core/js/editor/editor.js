@@ -348,6 +348,13 @@ fpcm.editor = {
         }
 
         return code;
+    },
+    
+    getGalleryReplacement: function (_values) {
+        return fpcm.vars.jsvars.editorGalleryTagStart.replace(
+            '{{IMAGES}}',
+            fpcm.vars.jsvars.editorGalleryTagThumb + _values.join(fpcm.vars.jsvars.editorGalleryTagLink + '|' + fpcm.vars.jsvars.editorGalleryTagThumb) + fpcm.vars.jsvars.editorGalleryTagLink
+        );
     }
 
 };

@@ -142,6 +142,10 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
         ];
 
+        if ($this->mode === 2) {
+            $buttons[] = (new \fpcm\view\helper\submitButton('insertGallery', 'insertGallery'))->setText('FILE_LIST_INSERTGALLERY')->setIcon('images', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1');
+        }
+
         if ($this->permissions->uploads->thumbs) {
             $buttons[] = (new \fpcm\view\helper\submitButton('createThumbs', 'createThumbs'))->setText('FILE_LIST_NEWTHUMBS')->setIcon('image', 'far')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1');
         }
@@ -166,5 +170,3 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
     }
 
 }
-
-?>

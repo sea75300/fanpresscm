@@ -200,10 +200,14 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->jsVars  = $this->editorPlugin->getJsVars();
         $this->jsVars += array(
             'filemanagerUrl' => \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => '']),
-            'filemanagerMode' => 2
+            'filemanagerMode' => 2,
+            'editorGalleryTagStart' => \fpcm\model\pubtemplates\article::GALLERY_TAG_START,
+            'editorGalleryTagEnd' => \fpcm\model\pubtemplates\article::GALLERY_TAG_END,
+            'editorGalleryTagThumb' => \fpcm\model\pubtemplates\article::GALLERY_TAG_THUMB,
+            'editorGalleryTagLink' => \fpcm\model\pubtemplates\article::GALLERY_TAG_LINK
         );
 
-        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'EDITOR_CATEGORIES_SEARCH'], $this->editorPlugin->getJsLangVars()));
+        $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'EDITOR_CATEGORIES_SEARCH', 'FILE_LIST_INSERTGALLERY'], $this->editorPlugin->getJsLangVars()));
         $this->view->addJsVars($this->jsVars);
 
         if (!$this->showRevision) {

@@ -127,6 +127,21 @@ fpcm.filemanager = {
             dialogEl.empty();
             return false;
         });
+
+        fpcm.dom.fromId('insertGallery').click(function () {
+
+            var values = [];
+            fpcm.dom.fromClass('fpcm-ui-list-checkbox:checked').map(function (idx, item) {
+                values.push(jQuery(item).data('gallery'));
+            });
+            
+            if (!values.length) {
+                return false;
+            }
+            
+            parent.fpcm.editor.insertGalleryByEditor(values);
+            return false;
+        });
     },
 
     initRenameButtons: function() {
