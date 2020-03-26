@@ -28,6 +28,7 @@ fpcm.editor.showFileManager = function(fmgrMode) {
             {
                 text: fpcm.ui.translate('FILE_LIST_INSERTGALLERY'),
                 icon: "ui-icon-suitcase",
+                disabled: ( !top.fpcm.editor.cmInstance.doc.getValue() || fpcm.editor.cmInstance.doc.getValue().search('/gallery') == -1  ? false : true ),
                 click: function() {
                     fpcm.dom.fromTag(this).children('#fpcm-dialog-editor-html-filemanager-frame').contents().find('#insertGallery').click();
                 }

@@ -195,6 +195,8 @@ if (fpcm.editor) {
 
         top.tinymce.activeEditor.insertContent(fpcm.editor.getGalleryReplacement(_values) + fpcm.vars.jsvars.editorGalleryTagEnd);        
         top.tinymce.activeEditor.windowManager.close();
+        top.tinymce.activeEditor.windowManager.close();
+
     };
 
 }
