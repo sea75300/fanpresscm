@@ -68,12 +68,12 @@ class selectParams {
     /**
      * Fetch style
      * @var int
-     * @since FPCm 4.2.1
+     * @since FPCM 4.2.1
      */
     private $fetchStyle = 5;
 
     /**
-     * Constructor method, as of FPCm 4.1 the destination table(s) can be set directly
+     * Constructor method, as of FPCM 4.1 the destination table(s) can be set directly
      * @param string|array $table (@since FPCM 4.1)
      */
     public function __construct($table = '')
@@ -157,7 +157,7 @@ class selectParams {
     /**
      * Returns fetch style
      * @return int
-     * @since FPCm 4.2.1
+     * @since FPCM 4.2.1
      */
     public function getFetchStyle() : int {
         return $this->fetchStyle;
@@ -255,7 +255,7 @@ class selectParams {
      * Set fetch style
      * @param int $fetchStyle
      * @return $this
-     * @since FPCm 4.2.1
+     * @since FPCM 4.2.1
      */
     public function setFetchStyle(int $fetchStyle) {
         $this->fetchStyle = $fetchStyle;

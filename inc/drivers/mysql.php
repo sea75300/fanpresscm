@@ -1,10 +1,7 @@
 <?php
 
 /**
- * FanPress CM MySQL database driver class
- * 
- * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,8 +10,10 @@ namespace fpcm\drivers;
 /**
  * MySQL database driver class
  * 
- * @package fpcm\drivers\mysql
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @package fpcm\drivers
+ * @article Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.2
  */
 final class mysql implements sqlDriver {
@@ -243,6 +242,21 @@ final class mysql implements sqlDriver {
     {
         $data[$table . '_' . $row->Key_name] = $row->Non_unique ? false : true;
         return true;
+    }
+
+    /**
+     * Map driver error code to common system error code
+     * @param int|string $code
+     * @return int
+     * @see sqlDriver::mapErrorCodes
+     */
+    public function mapErrorCodes($code)
+    {
+        $map = [
+            1062 => self::CODE_ERROR_UNIQUEKEY
+        ];
+        
+        return $map[$code] ?? null;
     }
 
 }

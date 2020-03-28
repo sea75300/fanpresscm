@@ -85,7 +85,7 @@ class view {
     /**
      * Local view files in core/js
      * @var array
-     * @since FPCm 4.1
+     * @since FPCM 4.1
      */
     protected $viewJsFilesLocal = [];
 
@@ -176,7 +176,7 @@ class view {
     /**
      * Root urls for replacements
      * @var array
-     * @since FPCm 4.1
+     * @since FPCM 4.1
      */
     protected $rootUrls = [];
     
@@ -923,7 +923,7 @@ class view {
      * Add AJAX page token to view
      * @param string $name
      * @return bool
-     * @since FPCm 4.3
+     * @since FPCM 4.3
      */
     public function addAjaxPageToken(string $name) : bool
     {

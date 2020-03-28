@@ -24,14 +24,19 @@ final class article extends template {
 
     const TEMPLATE_ID_SINGLE = 'articleSingle';
 
+    /* Image gallery: page break tag, replaces <readmore< block */
     const PAGEBREAK_TAG = '<!-- pagebreak -->';
 
+    /* Image gallery: start tag */
     const GALLERY_TAG_START = '[gallery]{{IMAGES}}';
 
+    /* Image gallery: end tag */
     const GALLERY_TAG_END = '[/gallery]';
 
+    /* Image gallery: thumbnail attribute */
     const GALLERY_TAG_THUMB = 'thumb:';
 
+    /* Image gallery: link attribute */
     const GALLERY_TAG_LINK = ':link';
 
     /**
@@ -251,7 +256,7 @@ final class article extends template {
      * Parse short text tag
      * @param mixed $value
      * @param array $return
-     * @since FPCm 4.4
+     * @since FPCM 4.4
      */
     protected function parseTextShort($value, array &$return)
     {
@@ -272,7 +277,7 @@ final class article extends template {
      * Parse comment link tag
      * @param mixed $value
      * @param array $return
-     * @since FPCm 4.4
+     * @since FPCM 4.4
      */
     protected function parseSources($value, array &$return)
     {

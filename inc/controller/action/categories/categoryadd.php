@@ -18,7 +18,6 @@ class categoryadd extends base {
     public function request()
     {
         $this->category = new \fpcm\model\categories\category();
-        parent::request();
         return true;
     }
 

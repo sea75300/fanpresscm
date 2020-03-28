@@ -144,7 +144,7 @@ abstract class input extends helper {
      * Pattern for client side validation
      * @param string $pattern
      * @return $this
-     * @since FPCm 4.4
+     * @since FPCM 4.4
      */
     public function setPattern(string $pattern)
     {

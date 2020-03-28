@@ -59,7 +59,7 @@ abstract class helper {
     /**
      * Element is autoFocused
      * @var bool
-     * @since FPCm 4.1
+     * @since FPCM 4.1
      */
     protected $autoFocused = false;
 
@@ -292,7 +292,7 @@ abstract class helper {
      * Make helper auto focused
      * @param bool $autoFocused
      * @return $this
-     * @since FPCm 4.1
+     * @since FPCM 4.1
      */
     public function setAutoFocused($autoFocused) {
         $this->autoFocused = (bool) $autoFocused;

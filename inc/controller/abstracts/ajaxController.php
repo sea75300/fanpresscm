@@ -108,7 +108,7 @@ class ajaxController extends controller {
     /**
      * Sets Header to return JSON data
      * @return boolean
-     * @since FPCm 4.3.0
+     * @since FPCM 4.3.0
      */
     protected function setReturnJson()
     {
@@ -120,7 +120,7 @@ class ajaxController extends controller {
      * Check page token
      * @param string $name
      * @return bool
-     * @since FPCm 4.3
+     * @since FPCM 4.3
      */
     final protected function checkPageToken($name = 'token')
     {

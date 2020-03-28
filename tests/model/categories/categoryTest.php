@@ -27,6 +27,7 @@ class categoryTest extends testBase {
         $this->assertGreaterThanOrEqual(1, $result);
 
         $GLOBALS['objectId'] = $object->getId();
+        $this->assertGreaterThanOrEqual(fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY, $object->save());
     }
 
     public function testUpdate()

@@ -73,6 +73,7 @@ $lang = array(
     'SAVE_FAILED_USER_ENABLE' => 'Der Benutzer konnte nicht aktiviert werden!',
     'SAVE_FAILED_ROLL' => 'Die Benutzerrolle konnte nicht gespeichert werden!',
     'SAVE_FAILED_CATEGORY' => 'Die Kategorie konnte nicht gespeichert werden!',
+    'SAVE_FAILED_CATEGORY_EXISTS' => 'Der Kategorie-Name existiert bereits! Bitte wähle einen anderen Namen.',
     'SAVE_FAILED_PASSWORD_SECURITY' => 'Ein Password muss Groß- und Kleinbuchstaben sowie Zahlen enthalten und min. 6 Zeichen lang sein.',
     'SAVE_FAILED_PASSWORD_MATCH' => 'Die eingegebenen Passwörter stimmen nicht überein.',
     'SAVE_FAILED_PASSWORD_MATCH_CURRENT' => 'Das aktuelle Passwort stimmt nicht.',

@@ -115,19 +115,6 @@ class category extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * existiert Kategorie?
-     * @param string $name
-     * @return bool
-     * @since FPCM
-     * @deprecated since version FPCM 4.1
-     */
-    private function categoryExists($name)
-    {
-        $counted = $this->dbcon->count("categories", 'id', "name = ?", [$name]);
-        return ($counted > 0) ? true : false;
-    }
-
-    /**
      * Liefert <img>-Tag für Kategorie-Icon zurück
      * @return string
      * @since FPCM 3.1.0
@@ -135,6 +122,20 @@ class category extends \fpcm\model\abstracts\dataset {
     public function getCategoryImage()
     {
         return '<img src="' . $this->getIconPath() . '" alt="' . $this->getName() . '" title="' . $this->getName() . '" class="fpcm-pub-category-icon">';
+    }
+
+    /**
+     * Executes save process to database and events
+     * @return bool|int
+     */
+    public function save()
+    {
+        $success = parent::save();
+        if ($success === false && $this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY) {
+            return \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY;
+        }
+
+        return $success;
     }
 
     /**

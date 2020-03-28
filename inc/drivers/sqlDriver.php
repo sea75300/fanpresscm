@@ -1,10 +1,7 @@
 <?php
 
 /**
- * FanPress CM Database driver base class
- * 
- * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * FanPress CM 4.x
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -13,11 +10,16 @@ namespace fpcm\drivers;
 /**
  * Database driver base class
  * 
- * @package fpcm\drivers\sqlDriver
- * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @package fpcm\drivers
+ * @article Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 3.2
  */
 interface sqlDriver {
+
+    /* Unique key constraint error */
+    const CODE_ERROR_UNIQUEKEY = 0x111;
 
     /**
      * Erzeugt DNS-String für \PDO:__construct
@@ -153,4 +155,11 @@ interface sqlDriver {
      * @since FPCM 4.1
      */
     public function prepareIndexRow(string $table, $row, array &$data) : bool;
+
+    /**
+     * Map driver error code to common system error code
+     * @param int|string $code
+     * @return int
+     */
+    public function mapErrorCodes($code);
 }

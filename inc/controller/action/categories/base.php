@@ -13,8 +13,13 @@ namespace fpcm\controller\action\categories;
  * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class base extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class base extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces\requestFunctions {
 
+    /**
+     *
+     * @var \fpcm\model\categories\category
+     */
     protected $category;
 
     protected $saveMessage = 'added';
@@ -33,12 +38,6 @@ class base extends \fpcm\controller\abstracts\controller implements \fpcm\contro
     protected function getViewPath() : string
     {
         return 'categories/editor';
-    }
-
-    public function request()
-    {
-        $this->save();
-        return true;
     }
 
     protected function getHelpLink()
@@ -65,12 +64,8 @@ class base extends \fpcm\controller\abstracts\controller implements \fpcm\contro
         $this->view->render();
     }
     
-    protected function save()
+    public function oncategorySave()
     {
-        if (!$this->buttonClicked('categorySave')) {
-            return true;
-        }
-
         $data = $this->request->fromPOST('category', [
             \fpcm\model\http\request::FILTER_STRIPSLASHES,
             \fpcm\model\http\request::FILTER_TRIM
@@ -90,7 +85,12 @@ class base extends \fpcm\controller\abstracts\controller implements \fpcm\contro
              ? $this->category->update()
              : $this->category->save();
 
-        if ($res === false) {
+        if ($res === \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY) {
+            $this->view->addErrorMessage('SAVE_FAILED_CATEGORY_EXISTS');
+            return false;
+        }
+
+        if ($res === false) {            
             $this->view->addErrorMessage('SAVE_FAILED_CATEGORY');
             return false;
         }
@@ -98,6 +98,7 @@ class base extends \fpcm\controller\abstracts\controller implements \fpcm\contro
         $this->redirect('categories/list', [$this->saveMessage => 1]);
         return true;
     }
+    
 }
 
 ?>

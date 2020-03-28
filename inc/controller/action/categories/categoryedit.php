@@ -32,7 +32,6 @@ class categoryedit extends base {
             return false;
         }
 
-        parent::request();
         return true;
     }
 
