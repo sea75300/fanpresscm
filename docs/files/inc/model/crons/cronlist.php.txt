@@ -129,7 +129,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
     /**
      * Returns a list of all registered cronjobs
      * @return array
-     * @since FPCm 4.3
+     * @since FPCM 4.3
      */
     public function getAllCrons() : array
     {

@@ -14,7 +14,7 @@ namespace fpcm\model\system;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @deprecated since version FPCm 4.4
+ * @deprecated since version FPCM 4.4
  */
 class permissions extends \fpcm\model\permissions\permissions {
 
@@ -25,7 +25,7 @@ class permissions extends \fpcm\model\permissions\permissions {
      */
     final public function __construct($rollid = 0)
     {
-        trigger_error('Permissions objects of instance \\fpcm\\model\\system\\permissions are deprecated. Use \\fpcm\\model\\permissions\\permissions instead', E_USER_DEPRECATED);
+//        trigger_error('Permissions objects of instance \\fpcm\\model\\system\\permissions are deprecated. Use \\fpcm\\model\\permissions\\permissions instead', E_USER_DEPRECATED);
         return parent::__construct($rollid);
     }
 

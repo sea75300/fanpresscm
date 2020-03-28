@@ -127,6 +127,7 @@ final class http {
      * @param string $varname Variablenname
      * @param array $filter Filter vor Rückgabe durchführen, @see http::filter()
      * @return mixed null wenn Variable nicht gesetzt
+     * @deprecated FPCM 4.4
      */
     public static function get($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
@@ -143,6 +144,7 @@ final class http {
      * @param string $varname Variablenname
      * @param array $filter Filter vor Rückgabe durchführen, @see http::filter()
      * @return mixed null wenn Variable nicht gesetzt
+     * @deprecated FPCM 4.4
      */
     public static function postOnly($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
@@ -159,6 +161,7 @@ final class http {
      * @param string $varname Variablenname
      * @param array $filter Filter vor Rückgabe durchführen, @see http::filter()
      * @return mixed null wenn Variable nicht gesetzt
+     * @deprecated FPCM 4.4
      */
     public static function getOnly($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
@@ -175,6 +178,7 @@ final class http {
      * @param string $varname Variablenname
      * @param array $filter Filter vor Rückgabe durchführen, @see http::filter()
      * @return mixed null wenn Variable nicht gesetzt
+     * @deprecated FPCM 4.4
      */
     public static function cookieOnly($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
@@ -184,6 +188,7 @@ final class http {
     /**
      * Gibt IP-Adresse des aktuellen Nutzers zurück
      * @return string
+     * @deprecated FPCM 4.4
      */
     public static function getIp()
     {
@@ -194,6 +199,7 @@ final class http {
     /**
      * Gibt HTTP-Host des aktuellen Nutzers zurück
      * @return string
+     * @deprecated FPCM 4.4
      */
     public static function getHttpHost()
     {
@@ -203,6 +209,7 @@ final class http {
     /**
      * Gibt Inhalt von Dateiupload via PHP zurück
      * @return array
+     * @deprecated FPCM 4.4
      */
     public static function getFiles()
     {
@@ -230,34 +237,6 @@ final class http {
     }
 
     /**
-     * Assigns current controller name with additional filter
-     * @return string
-     * @since FPCM 4.4
-     */
-    public static function getModuleString() : string
-    {
-        $moduleData = self::get('module', [
-            self::FILTER_REGEX,
-            'regex' => '/^([a-z0-9]+)\/{1}([a-z0-9]+)\/?([a-z0-9]*)/i'
-        ]);
-
-        unset($moduleData[0]);
-        if (isset($moduleData[3]) && !trim($moduleData[3])) {
-            unset($moduleData[3]);
-        }
-
-        if (isset($moduleData[4]) && !trim($moduleData[4])) {
-            unset($moduleData[4]);
-        }
-
-        if ($moduleData === null) {
-            return '';
-        }
-
-        return is_array($moduleData) ? implode('/', $moduleData) : $moduleData;
-    }
-
-    /**
      * Führt Filter auf einen String aus,
      * Verwendung v. A. für Werte aus Formularen, etc.
      * 
@@ -273,6 +252,7 @@ final class http {
      * * object - json_decode-Ergebnis als Objekt oder Array
      * 
      * @return mixed
+     * @deprecated FPCM 4.4
      */
     public static function filter($filterString, array $filters)
     {

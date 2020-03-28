@@ -85,7 +85,7 @@ class view {
     /**
      * Local view files in core/js
      * @var array
-     * @since FPCm 4.1
+     * @since FPCM 4.1
      */
     protected $viewJsFilesLocal = [];
 
@@ -176,7 +176,7 @@ class view {
     /**
      * Root urls for replacements
      * @var array
-     * @since FPCm 4.1
+     * @since FPCM 4.1
      */
     protected $rootUrls = [];
     
@@ -610,14 +610,19 @@ class view {
             $this->defaultViewVars->dateTimeMask = 'd.m.Y H:i';
             $this->defaultViewVars->dateTimeZone = 'Europe/Berlin';
         }
+        
+        unset($hasDbConfig);
 
         $this->defaultViewVars->langCode = $this->language->getLangCode();
         $this->defaultViewVars->self = trim(filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL));
         $this->defaultViewVars->basePath = \fpcm\classes\tools::getFullControllerLink();
         $this->defaultViewVars->themePath = \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME);
 
-        $this->defaultViewVars->currentModule = \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getModule();
-
+        /* @var $req \fpcm\model\http\request */
+        $req = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
+        $this->defaultViewVars->currentModule = $req->getModule();
+        $this->defaultViewVars->ipAddress = $req->getIp();
+        unset($req);
         
         $toolbarButtons = new \fpcm\events\view\extendToolbarResult();
         $toolbarButtons->buttons = $this->buttons;
@@ -918,7 +923,7 @@ class view {
      * Add AJAX page token to view
      * @param string $name
      * @return bool
-     * @since FPCm 4.3
+     * @since FPCM 4.3
      */
     public function addAjaxPageToken(string $name) : bool
     {

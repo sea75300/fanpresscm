@@ -295,7 +295,9 @@ class commentList extends \fpcm\model\abstracts\tablelist {
     public function getLastCommentTimeByIP()
     {
         $where = 'deleted = 0 AND ipaddress ' . $this->dbcon->dbLike() . ' ?' . $this->dbcon->orderBy(array('createtime ASC')) . $this->dbcon->limitQuery(0, 1);
-        $obj = (new \fpcm\model\dbal\selectParams($this->table))->setItem('createtime')->setWhere($where)->setParams([\fpcm\classes\http::getIp()]);
+        $obj = (new \fpcm\model\dbal\selectParams($this->table))->setItem('createtime')->setWhere($where)->setParams([
+            \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getIp()
+        ]);
         $res = $this->dbcon->selectFetch($obj);
 
         return isset($res->createtime) ? $res->createtime : 0;

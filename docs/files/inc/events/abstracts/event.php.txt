@@ -112,7 +112,7 @@ abstract class event {
      */
     public function __get($name)
     {
-        return isset($this->data[$name]) ? $this->data[$name] : false;
+        return $this->data[$name] ?? false;
     }
 
     /**

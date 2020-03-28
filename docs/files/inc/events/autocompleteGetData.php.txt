@@ -18,7 +18,7 @@ namespace fpcm\events;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/events
- * @since FPCm 3.6
+ * @since FPCM 3.6
  */
 final class autocompleteGetData extends \fpcm\events\abstracts\eventReturnArray {
 

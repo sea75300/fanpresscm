@@ -23,7 +23,7 @@ trait pubTemplateArticles {
      * Parse perma link tag
      * @param mixed $value
      * @param array $return
-     * @since FPCm 4.4
+     * @since FPCM 4.4
      */
     protected function parsePermaLink($value, array &$return)
     {
@@ -35,7 +35,7 @@ trait pubTemplateArticles {
      * Parse comment link tag
      * @param mixed $value
      * @param array $return
-     * @since FPCm 4.4
+     * @since FPCM 4.4
      */
     protected function parseCommentLink($value, array &$return)
     {

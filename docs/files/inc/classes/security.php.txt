@@ -59,11 +59,12 @@ final class security {
      */
     public static function getSessionCookieValue()
     {
-        return http::cookieOnly(self::getSessionCookieName(), [
-            http::FILTER_STRIPTAGS,
-            http::FILTER_STRIPSLASHES,
-            http::FILTER_TRIM,
-            http::FILTER_DECRYPT
+        return \fpcm\classes\loader::getObject('\fpcm\model\http\request')->fromCookie(
+            self::getSessionCookieName(), [
+            \fpcm\model\http\request::FILTER_STRIPTAGS,
+            \fpcm\model\http\request::FILTER_STRIPSLASHES,
+            \fpcm\model\http\request::FILTER_TRIM,
+            \fpcm\model\http\request::FILTER_DECRYPT
         ]);
     }
 
@@ -134,9 +135,12 @@ final class security {
 
         $regEx = '/('.implode('|', ['SELECT', 'CHR', 'UPPER', 'INFORMATION_SCHEMA', '\sAND', '\sOR', 'UNION', 'CONCAT', 'THEN']).')+/';
         
-        $result = array_map(function($var) use ($regEx) {
+        /* @var $req \fpcm\model\http\request */
+        $req = \fpcm\classes\loader::getObject('\fpcm\model\http\request');        
 
-            $varData = http::get($var);
+        $result = array_map(function($var) use ($regEx, $req) {
+
+            $varData = $req->fetchAll($var);
             if (is_array($varData)) {
                 return 0;
             }

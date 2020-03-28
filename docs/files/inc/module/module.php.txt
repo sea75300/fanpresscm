@@ -17,13 +17,28 @@ namespace fpcm\module;
  */
 class module {
 
+    /* Module manager status: installed */
     const STATUS_INSTALLED = 1001;
+
+    /* Module manager status: uninstalled */
     const STATUS_UNINSTALLED = 1002;
+
+    /* Module manager status: enabled */
     const STATUS_ENABLED = 1004;
+
+    /* Module manager status: disabled */
     const STATUS_DISABLED = 1005;
+
+    /* Module manager status: not installed */
     const STATUS_NOT_INSTALLED = -1001;
+
+    /* Module manager status: no uninstalled */
     const STATUS_NOT_UNINSTALLED = -1002;
+
+    /* Module manager status: not enabled */
     const STATUS_NOT_ENABLED = -1004;
+
+    /* Module manager status: not disabled */
     const STATUS_NOT_DISABLED = -1005;
 
     /**

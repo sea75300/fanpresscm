@@ -34,7 +34,7 @@ final class extendToolbar extends \fpcm\events\abstracts\event {
      */
     public function run() : extendToolbarResult
     {
-        $this->data->area = 'extendToolbar'. ucfirst(str_replace('/', '', \fpcm\classes\http::getModuleString()));
+        $this->data->area = 'extendToolbar'. ucfirst(str_replace('/', '', \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getModule()));
         
         $eventClasses = $this->getEventClasses();
         if (!count($eventClasses)) {

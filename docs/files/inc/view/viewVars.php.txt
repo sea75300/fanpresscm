@@ -30,6 +30,7 @@ namespace fpcm\view;
  * @property string $bodyClass
  * @property string $toolbarItemRight
  * @property string $toolbarArea
+ * @property string $ipAddress
  * @property int    $loginTime
  * 
  * @property \fpcm\model\permissions\permissions  $permissions

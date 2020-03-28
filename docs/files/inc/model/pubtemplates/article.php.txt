@@ -24,7 +24,20 @@ final class article extends template {
 
     const TEMPLATE_ID_SINGLE = 'articleSingle';
 
+    /* Image gallery: page break tag, replaces <readmore< block */
     const PAGEBREAK_TAG = '<!-- pagebreak -->';
+
+    /* Image gallery: start tag */
+    const GALLERY_TAG_START = '[gallery]{{IMAGES}}';
+
+    /* Image gallery: end tag */
+    const GALLERY_TAG_END = '[/gallery]';
+
+    /* Image gallery: thumbnail attribute */
+    const GALLERY_TAG_THUMB = 'thumb:';
+
+    /* Image gallery: link attribute */
+    const GALLERY_TAG_LINK = ':link';
 
     /**
      * Template-Platzhalter
@@ -142,7 +155,11 @@ final class article extends template {
 
         }
 
-        return $this->parseSmileys(str_replace(array_keys($replacementData), $this->cleanup(array_values($replacementData)), $this->content));
+        return $this->parseSmileys($this->parseGallery(str_replace(
+            array_keys($replacementData),
+            $this->cleanup(array_values($replacementData)),
+            $this->content
+        )));
     }
 
     /**
@@ -239,7 +256,7 @@ final class article extends template {
      * Parse short text tag
      * @param mixed $value
      * @param array $return
-     * @since FPCm 4.4
+     * @since FPCM 4.4
      */
     protected function parseTextShort($value, array &$return)
     {
@@ -260,7 +277,7 @@ final class article extends template {
      * Parse comment link tag
      * @param mixed $value
      * @param array $return
-     * @since FPCm 4.4
+     * @since FPCM 4.4
      */
     protected function parseSources($value, array &$return)
     {
@@ -287,6 +304,59 @@ final class article extends template {
             return $newVal.$value;
         });
 
+    }
+
+    /**
+     * Parse gallery tag
+     * @param string $content
+     * @return string
+     * @since FPCM 4.4
+     */
+    protected function parseGallery(string $content) : string
+    {
+        $regex = '/(\[gallery\])(.*)(\[\/gallery\])/i';
+        if (preg_match($regex, $content, $matches) === false) {
+            return $content;
+        }
+
+        $images = $matches[2] ?? [];
+        if (!count($images)) {
+            return $content;
+        }
+
+        $w = $this->config->file_img_thumb_width;
+        $h = $this->config->file_img_thumb_height;
+
+        $thumbLen = 6;
+        $linkLen = -5;
+        
+        $data = array_map(function ($fileName) use ($w, $h, $thumbLen, $linkLen)
+        {
+            $isThumb = (substr($fileName, 0, $thumbLen) === self::GALLERY_TAG_THUMB) ? true : false;
+            $isLink = (substr($fileName, $linkLen) === self::GALLERY_TAG_LINK) ? true : false;
+
+            $imgObj = new \fpcm\model\files\image(
+                substr(
+                    $fileName,
+                    ($isThumb ? $thumbLen : 0),
+                    ($isLink ? $linkLen : strlen($fileName))
+                ),
+                false
+            );
+
+            $url = $isThumb ? $imgObj->getThumbnailUrl() : $imgObj->getImageUrl();
+            $whStr = $isThumb ? "width=\"{$w}\" height=\"{$h}\"" : $imgObj->getWhstring();
+
+            $imgTag = "<img src=\"{$url}\" {$whStr} alt=\"{$imgObj->getFilename()}\" class=\"fpcm-pub-content-gallery-image\">";
+            if (!$isLink) {
+                return $imgTag;
+            }
+
+            return "<a class=\"fpcm-pub-content-gallery-link\" href=\"{$imgObj->getImageUrl()}\">{$imgTag}</a>";
+
+        }, explode('|', $images));
+
+        return preg_replace($regex, "<figure role=\"group\" class=\"fpcm-pub-content-gallery\">".implode("\n", $data)."</figure>", $content);
     }
 
 }

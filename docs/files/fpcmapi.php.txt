@@ -197,45 +197,6 @@ class fpcmAPI {
     }
 
     /**
-     * Executes article redirect for article urls of FanPress CM 2.5.x and older
-     * @param int $articlesPerPage Artikel pro Seite
-     * @return boolean
-     * @since 3.0.3
-     * @deprecated FPCm 4.2.2
-     */
-    public function legacyRedirect($articlesPerPage = 5)
-    {
-        if ($this->versionFailed) {
-            return false;
-        }
-
-        if (isset($_GET['fn']) && trim($_GET['fn']) == 'cmt' && isset($_GET['nid'])) {
-            $aricleId = (int) $_GET['nid'];
-            header("HTTP/1.1 302 Temporary Redirect");
-            header("Location: index.php?module=fpcm/article&id={$aricleId}#contentmarker");
-            return true;
-        }
-
-        if (isset($_GET['fn']) && trim($_GET['fn']) == 'archive') {
-            $page = isset($_GET['apid']) ? (int) $_GET['apid'] / $articlesPerPage : 1;
-            $page = ($page > 1 ? '&page=' . $page : '');
-            header("HTTP/1.1 302 Temporary Redirect");
-            header("Location: index.php?module=fpcm/archive{$page}#contentmarker");
-            return true;
-        }
-
-        if (isset($_GET['npid'])) {
-            $page = (int) $_GET['npid'] / $articlesPerPage;
-            $page = ($page > 1 ? '&page=' . $page : '');
-            header("HTTP/1.1 302 Temporary Redirect");
-            header("Location: index.php?module=fpcm/list{$page}#contentmarker");
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * PHP-Magic-Methode __call, ruft Event apiCallFunction auf
      * Form: MODULEKEY mit _ statt _ + "_" +  FUNCTIONNAME (Bsp.: nkorg_example_foo)
      * 

@@ -154,6 +154,13 @@ final class database {
     private $lastQueryString = '';
 
     /**
+     * Common error code for last query
+     * @var string
+     * @since FPCM 4.4
+     */
+    private $lastQueryErrorCode = null;
+
+    /**
      * Anzahl an Datenbank abgesetzte Queries
      * @var int
      */
@@ -644,7 +651,14 @@ final class database {
      */
     public function getError()
     {
-        fpcmLogSql(print_r($this->connection->errorInfo(), true));
+        $info = $this->connection->errorInfo();
+        $this->lastQueryErrorCode = $this->driver->mapErrorCodes($info[1]);
+
+        $err = 'ERROR MESSAGE: ' . $info[2] . PHP_EOL;
+        $err .= 'SQL STATE: ' . $info[0] . PHP_EOL;
+        $err .= $this->getDbtype() . ' ERROR CODE: ' . $info[1] . PHP_EOL;
+
+        fpcmLogSql($err);
         return true;
     }
 
@@ -656,6 +670,7 @@ final class database {
     public function getStatementError(\PDOStatement &$statement)
     {
         $info = $statement->errorInfo();
+        $this->lastQueryErrorCode = $this->driver->mapErrorCodes($info[1]);
 
         $err = 'ERROR MESSAGE: ' . $info[2] . PHP_EOL;
         $err .= 'SQL STATE: ' . $info[0] . PHP_EOL;
@@ -710,6 +725,16 @@ final class database {
     }
 
     /**
+     * Returns common sql error code
+     * @return string
+     * @since FPCM 4.4
+     */
+    public function getLastQueryErrorCode()
+    {
+        return $this->lastQueryErrorCode;
+    }
+    
+    /**
      * Erzeugt LIMIT-SQL-String
      * @param int $offset
      * @param int $limit
@@ -759,7 +784,7 @@ final class database {
      * @param array $values
      * @param bool $notId
      * @return string
-     * @since FPCm 4.2.1
+     * @since FPCM 4.2.1
      */
     public function inQuery(string $field, array $values, bool $notId = false) : string
     {
@@ -984,7 +1009,7 @@ final class database {
      * Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl 
      * @param \fpcm\model\system\yatdl $yatdl
      * @return bool
-     * @since FPCm 4.1
+     * @since FPCM 4.1
      */
     public function addTableIndices(\fpcm\model\system\yatdl $yatdl)
     {
@@ -1124,7 +1149,7 @@ final class database {
      * @param string $field
      * @param bool $cache
      * @return array
-     * @since FPCm 4.1
+     * @since FPCM 4.1
      */
     public function getTableIndices(string $table, $field = false, $cache = true) : array
     {

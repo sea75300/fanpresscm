@@ -269,7 +269,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      * @param array $valueParams
      * @param string $combination
      * @return bool
-     * @since FPCm 4.3
+     * @since FPCM 4.3
      */
     private function assignSearchParams(search $conditions, array &$where, array &$valueParams, string $combination)
     {

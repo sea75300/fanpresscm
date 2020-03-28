@@ -446,7 +446,7 @@ final class config extends dataset {
     /**
      * Returns minor version string as Number
      * @return string
-     * @since FPCm 4.1
+     * @since FPCM 4.1
      */
     public function getVersionNumberString() : string
     {

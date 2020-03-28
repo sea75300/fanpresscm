@@ -572,7 +572,7 @@ class image extends \fpcm\model\abstracts\file {
      * reads IPTC data from file
      * @param array $info
      * @return bool
-     * @since FPCm 4.2.1 
+     * @since FPCM 4.2.1 
      */
     public function parseIptc($info)
     {

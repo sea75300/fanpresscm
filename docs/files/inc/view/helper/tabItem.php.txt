@@ -60,7 +60,7 @@ class tabItem extends helper {
      * File path
      * @param string $file
      * @return $this
-     * @since FPCm 4.3
+     * @since FPCM 4.3
      */
     public function setFile(string $file) 
     {
@@ -72,7 +72,7 @@ class tabItem extends helper {
     /**
      * Tab required file inclution
      * @return bool
-     * @since FPCm 4.3
+     * @since FPCM 4.3
      */
     public function getFile() : string
     {
