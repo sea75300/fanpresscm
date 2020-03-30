@@ -190,11 +190,12 @@ final class config extends dataset {
 
     /**
      * Neuen Config-Key erzeugen
-     * @param string $keyname
-     * @param string $keyvalue
+     * @param string $keyname Config option name
+     * @param string $keyvalue Config option value
+     * @param string $modulekey Module key
      * @return bool
      */
-    public function add($keyname, $keyvalue)
+    public function add($keyname, $keyvalue, $modulekey = '')
     {
         if (isset($this->data[$keyname])) {
             return -1;
@@ -204,7 +205,12 @@ final class config extends dataset {
                     ? json_encode($keyvalue)
                     : $keyvalue;
 
-        $res = $this->dbcon->insert($this->table, ['config_name' => $keyname, 'config_value' => $keyvalue]);
+        $res = $this->dbcon->insert($this->table, [
+            'config_name' => $keyname,
+            'config_value' => $keyvalue,
+            'modulekey' => $modulekey
+        ]);
+
         $this->refresh();
 
         return $res;
@@ -212,7 +218,7 @@ final class config extends dataset {
 
     /**
      * Config Key löschen
-     * @param string $keyname
+     * @param string $keyname Config option name
      * @return bool
      */
     public function remove($keyname)
@@ -428,7 +434,7 @@ final class config extends dataset {
      */
     public function getModuleOptions(string $key) : array
     {
-        $obj = (new selectParams())->setTable($this->table)->setWhere('config_name '.$this->dbcon->dbLike().' ?')->setParams([$key.'%'])->setFetchAll(true);
+        $obj = (new selectParams())->setTable($this->table)->setWhere('modulekey = ?')->setParams([ $key ])->setFetchAll(true);
 
         $result = $this->dbcon->selectFetch($obj);
         if (!$result) {
