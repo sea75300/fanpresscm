@@ -61,7 +61,7 @@ class fpcmCLI {
     {
 
         $moduleClass = '\\fpcm\model\\cli\\' . preg_replace('/([^A-Za-z0-9\_]+)/is', '', trim($this->params[0]));
-        if (!$moduleClass || !class_exists($moduleClass)) {
+        if (!$moduleClass || !class_exists($moduleClass) || !is_subclass_of($moduleClass, '\fpcm\model\abstracts\cli')) {
             \fpcm\model\cli\io::output('Invalid module given.', true);
         }
 

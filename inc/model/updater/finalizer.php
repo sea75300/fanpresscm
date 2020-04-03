@@ -329,11 +329,18 @@ final class finalizer extends \fpcm\model\abstracts\model {
             \fpcm\classes\database::tableRoll,
             \fpcm\classes\database::tableSessions,
             \fpcm\classes\database::tableSmileys,
+            \fpcm\classes\database::tableShares,
             \fpcm\classes\database::tableTexts,
             \fpcm\classes\database::tableRevisions
         ]);
 
-        foreach ($tables as $table) {
+        $progress = new \fpcm\model\cli\progress(count($tables));
+        
+        foreach ($tables as $i => $table) {
+
+            $progress->setCurrentValue(($i+1));
+            $progress->output();
+
             $this->dbcon->optimize($table);
         }
 

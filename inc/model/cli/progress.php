@@ -1,0 +1,120 @@
+<?php
+
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\model\cli;
+
+/**
+ * Cli progress bar object
+ * 
+ * @package fpcm\model\cli
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @since FPCM 4.4-b5
+ */
+final class progress {
+
+    /* Maximum chars for one cli line */
+    const LINE_MAX_CHARS = 80;
+
+    /* Progress char */
+    const PROGRESS_CHAR = '#';
+
+    /**
+     * Maxmimum progress value
+     * @var int
+     */
+    private $maxValue = 0;
+
+    /**
+     * Current value used to calculate char output
+     * @var int
+     */
+    private $currentValue = 0;
+
+    /**
+     * FUnction closure to calculate char output
+     * @var callable
+     */
+    private $displayCallback;
+
+    /**
+     * Internal char counter
+     * @var int
+     */
+    private $charCounter = 0;
+
+    /**
+     * Cli flag
+     * @var bool
+     */
+    private $isCli = true;
+
+    /**
+     * Constructor
+     * @param int $maxValue
+     * @param int $currentValue
+     * @param callable $displayCallback
+     */
+    public function __construct(int $maxValue, int $currentValue = 0, $displayCallback = null)
+    {
+        $this->maxValue = $maxValue;
+        $this->currentValue = $currentValue;
+        $this->displayCallback = $displayCallback;
+        $this->isCli = \fpcm\classes\baseconfig::isCli();
+        
+        if (!is_callable($this->displayCallback)) {
+            
+            $this->displayCallback = function ($currentValue,  $maxValue, $counter) {
+
+                if ($currentValue >= $maxValue) {
+                    return false;
+                }
+
+                $stepSize = $maxValue / progress::LINE_MAX_CHARS;
+                return $currentValue >= $stepSize * $counter ? true : false;
+            };
+
+        }
+    }
+
+    /**
+     * Update current value for calculation
+     * @param int $currentValue
+     * @return $this
+     */
+    public function setCurrentValue(int $currentValue)
+    {
+        $this->currentValue = $currentValue;
+        return $this;
+    }
+
+    /**
+     * Show progress output
+     * @return bool
+     */
+    public function output() : bool
+    {
+        if (!$this->isCli) {
+            return false;
+        }
+        
+        if (!call_user_func($this->displayCallback, $this->currentValue, $this->maxValue, $this->charCounter)) {
+            return false;
+        }
+        
+        $this->charCounter++;
+        if ($this->charCounter >= self::LINE_MAX_CHARS) {
+            print PHP_EOL;
+            return true;
+        }
+
+        print self::PROGRESS_CHAR;
+        return true;
+    }
+
+}
