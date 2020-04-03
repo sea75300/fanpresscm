@@ -222,7 +222,7 @@ class module {
      */
     final public function getOptions() : array
     {
-        return $this->systemConfig->getModuleOptions($this->getFullPrefix());
+        return $this->systemConfig->getModuleOptions($this->mkey);
     }
 
     /**
@@ -636,7 +636,7 @@ class module {
         $sysConfig = new \fpcm\model\system\config(false);
         foreach ($configOptions as $key => $value) {
             $key = $this->getFullPrefix($key);
-            if ($sysConfig->add($key, $value) === false) {
+            if ($sysConfig->add($key, $value, $this->mkey) === false) {
                 trigger_error('Unable to create config option ' . $key.', error code: '.$res);
                 return false;
             }
@@ -808,9 +808,7 @@ class module {
             return true;
         }
 
-        return $this->db->delete(
-            \fpcm\classes\database::tableConfig, 'config_name IN (' . implode(', ', array_fill(0, count($configOptions), '?')) . ')', array_map([$this, 'getFullPrefix'], array_keys($configOptions))
-        );
+        return $this->db->delete(\fpcm\classes\database::tableConfig, 'modulekey = ?', [$this->mkey]);
     }
 
     /**
@@ -965,7 +963,7 @@ class module {
         fpcmLogSystem('Add modules config options for ' . $this->mkey);
         foreach ($configOptions as $key => $value) {
             $key = $this->getFullPrefix($key);
-            if ($this->systemConfig->add($key, $value) === false) {
+            if ($this->systemConfig->add($key, $value, $this->mkey) === false) {
                 trigger_error('Unable to create config option ' . $key);
                 return false;
             }
