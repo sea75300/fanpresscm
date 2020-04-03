@@ -190,15 +190,15 @@ final class tools {
      */
     public static function validateDateString(string $str) : bool
     {
-        if (preg_match('/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/', $str, $matches) !== 1) {
+        if (preg_match('/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/', $str, $matches) !== 1) {            
             return false;
         }
         
-        if ((int) $matches[1] < 1 || (int) $matches[1] > 12) {
+        if ((int) $matches[2] < 1 || (int) $matches[2] > 12) {
             return false;
         }
         
-        if ((int) $matches[2] < 1 || (int) $matches[2] > 31) {
+        if ((int) $matches[3] < 1 || (int) $matches[3] > 31) {
             return false;
         }
         
