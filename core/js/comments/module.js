@@ -162,6 +162,11 @@ fpcm.comments = {
         fpcm.ajax.post('comments/search', {
             data: sParams,
             execDone: function (result) {
+
+                if (result.message) {
+                    fpcm.ui.addMessage(result.message);
+                }
+
                 fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
                 fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
                 fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;

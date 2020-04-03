@@ -71,15 +71,15 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             \fpcm\model\http\request::FILTER_TRIM
         ]);
 
-        if (!trim($data['name']) || empty($data['groups'])) {
-            $this->view->addErrorMessage('SAVE_FAILED_CATEGORY');
-            return true;
-        }
-
         $groups = implode(';', array_map('intval', $data['groups']));
         $this->category->setGroups($groups);
         $this->category->setIconPath($data['iconpath']);
         $this->category->setName($data['name']);
+
+        if (!trim($data['name']) || empty($data['groups'])) {
+            $this->view->addErrorMessage('SAVE_FAILED_CATEGORY');
+            return true;
+        }
 
         $res = $this->category->getId()
              ? $this->category->update()

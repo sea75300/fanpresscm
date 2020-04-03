@@ -12,12 +12,22 @@ namespace fpcm\controller\traits\files;
  * 
  * @package fpcm\controller\traits\files\lists
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 trait lists {
 
+    /**
+     *
+     * @var array
+     */
     protected $permissionsData = [];
+
+    /**
+     *
+     * @var \fpcm\view\message
+     */
+    protected $filterError = null;
 
     /**
      * Berechtigungen initialisieren
@@ -45,6 +55,7 @@ trait lists {
         $this->view->assign('files', $list);
         $this->view->assign('users', $users);
         $this->view->assign('mode', $this->mode);
+        $this->view->assign('filterError', $this->filterError);
 
         $this->view->assign('showPager', true);
         foreach ($pagerData as $key => $value) {

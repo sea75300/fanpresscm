@@ -23,6 +23,7 @@ $lang = array(
     'CONFIRM_MESSAGE' => 'Willst du diese Aktion wirklich durchführen?',
     'SELECT_ITEMS_MSG' => 'Bitte wähle Elemente oder eine Aktion aus!',
     'SEARCH_WAITMSG' => 'Bitte warte 10 Sekunden, bevor du einen neuen Suchvorgang durchführst.',
+    'SEARCH_ERROR' => 'Die Suche konnte nicht ausgeführt werden, da die Filterbedigungen fehlerhaft sind. Bitte überprüfe diese nochmals auf fehlende Verknüpfungen usw.',
     'RSSFEED_DISABLED' => 'Der RSS-Feed ist deaktiviert. Wende dich für weitere Informationen an den Seitenbetreiber.',
     'MAINTENANCE_MODE_ENABLED' => 'Der Wartungsmodus von FanPress CM ist gerade aktiv, daher steht diese Funktion im Moment nicht zur Verfügung.',
     'CSRF_INVALID' => 'Das CSRF-Token ist ungültig. Die Aktion wurde nicht durchgeführt!',

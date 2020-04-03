@@ -33,6 +33,12 @@ class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     protected $deleteActions = false;
 
     /**
+     *
+     * @var \fpcm\view\message
+     */
+    protected $filterError = null;
+
+    /**
      * 
      * @return bool
      */
@@ -150,6 +156,11 @@ class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
         $this->articleItems = $this->articleList->getArticlesByCondition($sparams, true);
 
+        if ($this->articleItems === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
+            $this->articleItems = [];
+            $this->filterError = new \fpcm\view\message($this->language->translate('SEARCH_ERROR'), \fpcm\view\message::TYPE_ERROR);
+        }
+
         return true;
     }
 
@@ -162,7 +173,8 @@ class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
         $this->response->setReturnData([
             'dataViewVars' => $dvVars['dataviews'][$this->getDataViewName()],
-            'dataViewName' => $this->getDataViewName()
+            'dataViewName' => $this->getDataViewName(),
+            'message'      => $this->filterError
         ])->fetch();
 
     }

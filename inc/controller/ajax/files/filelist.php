@@ -121,6 +121,11 @@ class filelist extends \fpcm\controller\abstracts\ajaxController implements \fpc
         $this->filter->limit = [$this->config->file_list_limit, \fpcm\classes\tools::getPageOffset($page, $this->config->file_list_limit)];
         $list = $fileList->getDatabaseListByCondition($this->filter);
 
+        if ($list === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
+            $list = [];
+            $this->filterError = true;
+        }
+        
         $pagerData = \fpcm\classes\tools::calcPagination(
             $this->config->file_list_limit,
             $page,

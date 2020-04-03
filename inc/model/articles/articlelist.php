@@ -238,8 +238,12 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
                 ->setWhere($where)
                 ->setParams($valueParams);
 
-        $return = $this->createListResult($this->dbcon->selectFetch($obj), $monthIndex);
-        return $return;
+        $result = $this->dbcon->selectFetch($obj);
+        if ($this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
+            return \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX;
+        }
+
+        return $this->createListResult($result, $monthIndex);
     }
 
     /**

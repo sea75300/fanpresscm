@@ -111,7 +111,8 @@ class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
         $this->response->setReturnData([
             'dataViewVars' => $dvVars['dataviews'][$this->getDataViewName()],
-            'dataViewName' => $this->getDataViewName()
+            'dataViewName' => $this->getDataViewName(),
+            'message'      => $this->filterError
         ])->fetch();
 
     }

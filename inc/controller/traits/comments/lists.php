@@ -79,6 +79,12 @@ trait lists {
     protected $mode = 1;
 
     /**
+     *
+     * @var \fpcm\view\message
+     */
+    protected $filterError = null;
+
+    /**
      * Initialisiert Berechtigungen
      */
     protected function initCommentPermissions()
@@ -253,7 +259,12 @@ trait lists {
         $this->conditions->deleted = 0;
         $this->conditions->orderby = ['createtime DESC'];
 
-        $comments           = $this->list->getCommentsBySearchCondition($this->conditions);
+        $comments = $this->list->getCommentsBySearchCondition($this->conditions);
+        if ($comments === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
+            $comments = [];
+            $this->filterError = new \fpcm\view\message($this->language->translate('SEARCH_ERROR'), \fpcm\view\message::TYPE_ERROR);
+        }        
+        
         $this->commentCount = count($comments);
         $this->maxItemCount = $this->list->countCommentsByCondition(new \fpcm\model\comments\search());
 

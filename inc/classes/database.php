@@ -670,7 +670,7 @@ final class database {
     public function getStatementError(\PDOStatement &$statement)
     {
         $info = $statement->errorInfo();
-        $this->lastQueryErrorCode = $this->driver->mapErrorCodes($info[1]);
+        $this->lastQueryErrorCode = $this->driver->mapErrorCodes($info[0]);
 
         $err = 'ERROR MESSAGE: ' . $info[2] . PHP_EOL;
         $err .= 'SQL STATE: ' . $info[0] . PHP_EOL;
