@@ -207,7 +207,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
         
         $buttons = [];        
         if (!$item->isInstallable()) {
-            $buttons[] = (new \fpcm\view\helper\icon('exclamation-triangle'))->setText('MODULES_FAILED_DEPENCIES')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text')->setSize('lg');
+            $buttons[] = (new \fpcm\view\helper\icon('project-diagram'))->setText('MODULES_FAILED_DEPENCIES')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text')->setSize('lg');
         }
 
         if (!$item->hasFilesListFile()) {
@@ -308,7 +308,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
         
         $buttons = [];        
         if (!$item->isInstallable()) {
-            $buttons[] = (new \fpcm\view\helper\icon('exclamation-triangle'))->setText('MODULES_FAILED_DEPENCIES')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text');
+            $buttons[] = (new \fpcm\view\helper\icon('project-diagram'))->setText('MODULES_FAILED_DEPENCIES')->setClass('fpcm-ui-padding-lg-right fpcm-ui-important-text');
         }
 
         $buttons[] = (new \fpcm\view\helper\linkButton('info'.$hash))
