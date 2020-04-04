@@ -157,6 +157,7 @@ fpcm.articlelist = {
 
                 fpcm.articlelist.clearArticleCache();
                 fpcm.articlelist.deleteSingleArticle();
+                fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
             }
         });
 
@@ -211,6 +212,7 @@ fpcm.articlelist = {
 
     clearArticleCache: function() {
         
+        fpcm.dom.fromClass('fpcm-article-cache-clear').unbind('click');
         fpcm.dom.fromClass('fpcm-article-cache-clear').click(function() {
             
             var obj = fpcm.dom.fromTag(this);
@@ -230,6 +232,7 @@ fpcm.articlelist = {
 
     deleteSingleArticle: function() {
         
+        fpcm.dom.fromClass('fpcm-ui-button-delete-article-single').unbind('click');
         fpcm.dom.fromClass('fpcm-ui-button-delete-article-single').click(function() {
 
             var articleId = fpcm.dom.fromTag(this).data('articleid');

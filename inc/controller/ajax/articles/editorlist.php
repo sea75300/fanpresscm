@@ -88,11 +88,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController implements \f
         $this->commentDataView();
         $dvVars = $this->dataView->getJsVars();
         
-        $this->response->setReturnData([
-            'dataViewVars' => $dvVars['dataviews'][$this->getDataViewName()],
-            'dataViewName' => $this->getDataViewName()
-        ]);
-
+        $this->response->setReturnData( new \fpcm\model\http\responseDataview( $this->getDataViewName(), $dvVars['dataviews'][$this->getDataViewName()]) );
         return true;
     }
 
@@ -149,13 +145,7 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController implements \f
             }
         }
 
-        $dvVars = $this->dataView->getJsVars();
-        
-        $this->response->setReturnData([
-            'dataViewVars' => $dvVars['dataviews']['revisionslist'],
-            'dataViewName' => 'revisionslist'
-        ]);
-
+        $this->response->setReturnData( new \fpcm\model\http\responseDataview( 'revisionslist', $this->dataView->getJsVars()['dataviews']['revisionslist']) );
         return true;
     }
 

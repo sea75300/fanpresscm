@@ -171,12 +171,7 @@ class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
         $dvVars = $this->dataView->getJsVars();
 
-        $this->response->setReturnData([
-            'dataViewVars' => $dvVars['dataviews'][$this->getDataViewName()],
-            'dataViewName' => $this->getDataViewName(),
-            'message'      => $this->filterError
-        ])->fetch();
-
+        $this->response->setReturnData( new \fpcm\model\http\responseDataview( $this->getDataViewName(), $dvVars['dataviews'][$this->getDataViewName()], $this->filterError) )->fetch();
     }
 
 }

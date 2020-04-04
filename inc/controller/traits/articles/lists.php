@@ -140,8 +140,6 @@ trait lists {
         $this->view->assign('canArchive', $this->permissions->article->archive);
         $this->view->assign('canApprove', $this->permissions->article->approve);
         $this->view->assign('canChangeAuthor', $this->permissions->article->authors);
-
-        $this->deleteActions = $this->permissions->article->delete;
     }
 
     /**
@@ -226,6 +224,10 @@ trait lists {
 
             return true;
         }
+        
+        $showCommentsStatus = $this->config->system_comments_enabled;
+        $showSharesCount = $this->config->system_share_count;
+        $showDeleteButton = $this->permissions->article->delete && !($this->isTrash ?? false);
 
         /* @var $article \fpcm\model\articles\article */
         foreach ($this->articleItems as $articleMonth => $articles) {
@@ -245,10 +247,6 @@ trait lists {
                     'fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset',
                     true
             ));
-            
-            $showCommentsStatus = $this->config->system_comments_enabled;
-            $showSharesCount = $this->config->system_share_count;
-            $isTrash = $this->isTrash ?? false;
 
             foreach ($articles as $articleId => $article) {
 
@@ -257,7 +255,7 @@ trait lists {
                             ->addItem( (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article) )
                             ->addItem( (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article) );
 
-                if ($this->deleteActions && !$isTrash) {
+                if ($showDeleteButton) {
                     $buttons->addItem( (new \fpcm\view\helper\button('delete'.$articleId))
                             ->setText('GLOBAL_DELETE')
                             ->setIcon('trash')

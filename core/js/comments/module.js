@@ -176,6 +176,7 @@ fpcm.comments = {
                         fpcm.ui.assignControlgroups();
                     }
                 });
+                fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
             }
         });
 

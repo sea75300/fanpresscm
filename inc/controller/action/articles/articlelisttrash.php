@@ -87,7 +87,7 @@ class articlelisttrash extends articlelistbase {
         $this->articleActions = [$this->language->translate('ARTICLE_LIST_RESTOREARTICLE') => 'restore', $this->language->translate('ARTICLE_LIST_EMPTYTRASH') => 'trash'];
 
         $res = parent::request();
-        if ($this->deleteActions) {
+        if ($this->permissions->article->delete) {
             $this->view->addButton((new \fpcm\view\helper\deleteButton('trash'))->setText('ARTICLE_LIST_EMPTYTRASH')->setClass('fpcm-ui-hidden fpcm-ui-button-confirm'));
         }
 
@@ -100,8 +100,6 @@ class articlelisttrash extends articlelistbase {
         if (!$this->permissions) {
             return false;
         }
-
-        $this->deleteActions = $this->permissions->article->delete;
 
         $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
         $this->view->addJsVars(['artCacheMod' => urlencode($crypt->encrypt(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE))]);

@@ -23,6 +23,7 @@ fpcm.filemanager = {
 
         fpcm.dom.fromId('fpcm-tabs-tabs-files-list-reload').click(function () {
             fpcm.filemanager.reloadFiles();
+            fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
             return false;
         });
         
@@ -52,7 +53,10 @@ fpcm.filemanager = {
                         var: 'file_view',
                         value: fpcm.dom.fromTag(this).val()
                     },
-                    execDone: fpcm.filemanager.reloadFiles
+                    execDone: function() {
+                        fpcm.filemanager.reloadFiles();
+                        fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
+                    }
                 });
             });
 
@@ -516,6 +520,7 @@ fpcm.filemanager = {
             return false;
         }
 
-        fpcm.filemanager.reloadFiles(1, sParams);        
+        fpcm.filemanager.reloadFiles(1, sParams);
+        fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
     }
 };

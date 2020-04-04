@@ -239,6 +239,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     private function assignDataViewvars()
     {
         $dvVars = $this->dataView->getJsVars();
+
         $this->response->setReturnData([
             'dataViewVars' => $dvVars['dataviews']['logs'],
             'dataViewName' => 'logs',

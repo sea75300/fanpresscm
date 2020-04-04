@@ -176,14 +176,13 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
             return false;
         }
 
-        $this->deleteActions = $this->permissions->article->delete;
         $tweet = new \fpcm\model\system\twitter();
 
         if ($tweet->checkRequirements() && $tweet->checkConnection()) {
             $this->articleActions['ARTICLE_LIST_NEWTWEET'] = 'newtweet';
         }
 
-        if ($this->deleteActions) {
+        if ($this->permissions->article->delete) {
             $this->articleActions['GLOBAL_DELETE'] = 'delete';
         }
 
