@@ -14,32 +14,6 @@ fpcm.modulelist = {
     init: function() {
 
         fpcm.system.checkForUpdates();
-        var btnUpdateAll = fpcm.dom.fromId('runUpdateAll');
-        if (btnUpdateAll.length && fpcm.vars.jsvars.updateAllkeys && fpcm.vars.jsvars.updateAllkeys.length) {
-            btnUpdateAll.click(function (){
-
-                fpcm.ui.confirmDialog({
-                    clickNoDefault: true,
-                    clickYes: function () {
-                        var url = fpcm.vars.actionPath + 'package/modupdate&key=';
-                        var urls = [];
-
-                        jQuery.each(fpcm.vars.jsvars.updateAllkeys, function( index, value ) {
-                            urls[index] = url + value + '&keepMaintenance=' + (index == fpcm.vars.jsvars.updateAllkeys.length - 1 ? 0 : 1);
-                        });
-
-                        urls = urls.reverse();
-                        jQuery.each(urls, function (i, dest) {
-                            fpcm.ui.openWindow(dest);
-                        });
-
-                        fpcm.dom.fromTag(this).dialog("close");
-                    }
-                });
-
-            });
-        }
-
         fpcm.modulelist.tabs = fpcm.ui.tabs('#fpcm-tabs-modules',
         {
             addTabScroll: true,

@@ -25,10 +25,6 @@ class moduleUpdater extends moduleBase {
             $this->steps['checkFs'] = true;
         }
 
-        if ($this->keepMaintenance) {
-            $this->steps['keepMaintenance'] = true;
-        }
-
         $this->steps['tabHeadline'] = 'MODULES_LIST_UPDATE';
         $this->steps['successMsg'] = 'PACKAGEMANAGER_SUCCESS_UPDATE';
         $this->steps['errorMsg'] = 'PACKAGEMANAGER_FAILED_UPDATE';

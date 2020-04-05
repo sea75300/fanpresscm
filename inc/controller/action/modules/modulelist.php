@@ -92,8 +92,13 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
             
             $updatesAvailable = (new \fpcm\module\modules())->getInstalledUpdates();
             if (count($updatesAvailable)) {
-                $this->view->addJsVars(['updateAllkeys' => $updatesAvailable]);
-                $buttons[] = (new \fpcm\view\helper\button('runUpdateAll', 'runUpdateAll'))->setText('MODULES_LIST_UPDATE_ALL')->setIcon('sync');
+                $buttons[] = (new \fpcm\view\helper\linkButton('runUpdateAll'))
+                        ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', [
+                                'key' => array_shift($updatesAvailable),
+                                'updateKeys' => urlencode(base64_encode($this->crypt->encrypt(implode(';', $updatesAvailable))))
+                            ])
+                        )->setText('MODULES_LIST_UPDATE_ALL')
+                        ->setIcon('sync');
             }
             
         }

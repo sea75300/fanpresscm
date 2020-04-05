@@ -131,7 +131,6 @@
             </div>
             <?php endif; ?>
 
-            <?php if (!$keepMaintenance) : ?>
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
                 <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
                     <?php $theView->icon('lightbulb')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
@@ -143,7 +142,6 @@
                     <?php $theView->write('PACKAGEMANAGER_MAINTENANCE_DIS'); ?>
                 </div>
             </div>
-            <?php endif; ?>
 
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-hidden">
                 <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">

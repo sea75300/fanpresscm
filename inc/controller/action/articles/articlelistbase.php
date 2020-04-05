@@ -188,8 +188,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
 
         $this->articleActions['ARTICLES_CACHE_CLEAR'] = 'articlecache';
 
-        $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
-        $this->view->addJsVars(['artCacheMod' => urlencode($crypt->encrypt(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE))]);
+        $this->view->addJsVars(['artCacheMod' => urlencode(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE))]);
     }
 
     /**

@@ -20,10 +20,10 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
     protected $key;
 
     /**
-     * Keep maintenance mode
+     * Add multiple button
      * @var bool
      */
-    protected $keepMaintenance = false;
+    protected $updateMultiple = false;
 
     /**
      * 
@@ -49,8 +49,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
         'updateFs' => true,
         'updateDb' => true,
         'updateLog' => true,
-        'cleanup' => true,
-        'keepMaintenance' => false
+        'cleanup' => true
     ];
 
     /**
@@ -90,10 +89,6 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
             return false;
         }
 
-        $this->keepMaintenance = $this->request->fromGET('keepMaintenance', [
-            \fpcm\model\http\request::FILTER_CASTINT
-        ]);
-
         $this->updateDb = ($this->request->fromGET('update-db') !== null);
 
         return trim($this->key) ? true : false;
@@ -118,8 +113,49 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
             (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget('_blank'),
         ]);        
         
+        $this->assignMultipleUpdates();
         $this->view->addJsFiles(['modules/installer.js']);
         $this->view->render();
+  
     }
 
+    /**
+     * Adds button to update next module
+     * @return bool
+     */
+    private function assignMultipleUpdates() : bool
+    {
+        if (!$this->updateMultiple) {
+            return true;
+        }
+
+        $updateKeys = $this->request->fromGET('updateKeys', [
+            \fpcm\model\http\request::FILTER_URLDECODE,
+            \fpcm\model\http\request::FILTER_BASE64DECODE,
+            \fpcm\model\http\request::FILTER_DECRYPT
+        ]);
+        
+        if ($updateKeys === null || !trim($updateKeys)) {
+            return false;
+        }
+
+        $updateKeys = explode(';', $updateKeys);
+        if (!count($updateKeys)) {
+            return false;
+        }
+
+        $this->view->addButton(
+            (new \fpcm\view\helper\linkButton('runUpdateNext'))
+                ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', [
+                    'key' => array_shift($updateKeys),
+                    'updateKeys' => base64_decode(implode(';', $updateKeys))
+                ])
+            )->setText('MODULES_LIST_UPDATE_NEXT')
+            ->setIcon('sync')
+            ->setClass('fpcm ui-hidden fpcm-ui-button-primary')
+        );
+
+        return true;
+    }
+    
 }
