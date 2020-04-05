@@ -37,7 +37,8 @@ if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled(
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'webnotify.js',
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'notifications.js',
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'loader.js',
-        __DIR__.DIRECTORY_SEPARATOR.'system.js'
+        __DIR__.DIRECTORY_SEPARATOR.'system.js',
+        __DIR__.DIRECTORY_SEPARATOR.'init.js'
     ];
 
     foreach (array_merge($jsFilesDefault, $jsFiles) as $jsFile) {

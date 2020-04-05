@@ -45,5 +45,5 @@
                 </div>
             </nav>
 
+            <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
             <div class="container-fluid">
-                    <?php include_once $theView->getIncludePath('common/buttons.php'); ?>

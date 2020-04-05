@@ -134,7 +134,6 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
             'GLOBAL_NO' => 0
         ));
 
-        $this->view->addJsLangVars(['SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START']);
         $this->view->addJsVars([
             'commentsLastSearch' => 0,
             'massEditSaveFailed' => 'SAVE_FAILED_COMMENTS'

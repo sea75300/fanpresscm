@@ -996,6 +996,11 @@ fpcm.ui = {
     },
     
     relocate: function (url) {
+
+        if (url === 'self') {
+            url = window.location.href;
+        }
+
         window.location.href = url;
     },
 

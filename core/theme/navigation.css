@@ -3,7 +3,7 @@
     width: 100%;
     position: relative;
     z-index: 100;
-    font-size: 9pt;
+    font-size: 0.8rem;
 }
 
 #fpcm-navigation a {
@@ -96,7 +96,6 @@ div.fpcm-status-info ul li {
 /*------ Main toolbar */
 #fpcm-ui-toolbar {
     padding: 0.75rem;
-    border-radius: 0 0 10px 10px;
 }
 
 /* ------ Top and main navigation and toolbar common styles */

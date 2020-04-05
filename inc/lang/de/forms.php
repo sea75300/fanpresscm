@@ -96,6 +96,7 @@ $lang = array(
     'ARTICLE_SEARCH_DATE_FROM' => 'Datum von',
     'ARTICLE_SEARCH_DATE_TO' => 'Datum bis',
     'ARTICLE_SEARCH_START' => 'Suche starten...',
+    'ARTICLE_SEARCH_RESET' => 'Filter zurücksetzen',
     'ARTICLE_SEARCH_LOGICAND' => 'UND',
     'ARTICLE_SEARCH_LOGICOR' => 'ODER',
     'ARTICLE_SEARCH_LOGICNONE' => 'keine',

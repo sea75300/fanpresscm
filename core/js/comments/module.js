@@ -116,6 +116,13 @@ fpcm.comments = {
                         }
                     },                    
                     {
+                        text: fpcm.ui.translate('ARTICLE_SEARCH_RESET'),
+                        icon: "ui-icon-refresh" ,                        
+                        click: function() {
+                            fpcm.ui.relocate('self');
+                        }
+                    },                    
+                    {
                         text: fpcm.ui.translate('GLOBAL_CLOSE'),
                         icon: "ui-icon-closethick",                        
                         click: function() {

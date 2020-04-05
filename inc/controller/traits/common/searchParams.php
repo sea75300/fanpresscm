@@ -30,7 +30,7 @@ trait searchParams {
             'ARTICLE_SEARCH_LOGICOR' => 1,
         ]);
         
-        $this->view->addJsLangVars(['SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START']);
+        $this->view->addJsLangVars(['SEARCH_WAITMSG', 'ARTICLES_SEARCH', 'ARTICLE_SEARCH_START', 'ARTICLE_SEARCH_RESET']);
     }
 
     /**
