@@ -269,6 +269,16 @@ final class language {
     }
 
     /**
+     * Returns full language data
+     * @return array
+     * @since FPCM 4.4
+     */
+    public function getAll() : array
+    {
+        return $GLOBALS['langdata'];
+    }
+
+    /**
      * Gibt sprachspezifische Tage zurück
      * @return array
      */

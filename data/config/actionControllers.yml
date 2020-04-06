@@ -9,6 +9,7 @@ system/logs: action/system/logs
 system/backups: action/system/backups
 system/crons: action/system/crons
 system/info: action/system/info
+system/langedit: action/system/langedit
 templates/templates: action/templates/templates
 templates/preview: action/templates/preview
 templates/templateedit: action/templates/articleTemplateEditor
