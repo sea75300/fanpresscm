@@ -9,7 +9,6 @@
 $lang = array(
     'HEADLINE' => 'FanPress CM News System',
     'INSTALLER' => 'Installations-Assistent',
-    'UPDATER' => 'Update-Assistent',
     'VERSION' => 'Version',
     'DEBUG_MODE' => 'Debug-Modus aktiv',
     'HL_DASHBOARD' => 'Dashboard',

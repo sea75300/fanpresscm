@@ -36,7 +36,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
     public function process()
     {
         $this->view->addTabs('langedit', [
-            (new \fpcm\view\helper\tabItem('editor'))->setText('HL_LOGS_SESSIONS')->setFile('system/langedit.php'), 
+            (new \fpcm\view\helper\tabItem('editor'))->setText('Language variable editor')->setFile('system/langedit.php'), 
         ]);
         
         $skipVal = '{{skip}}';
@@ -51,6 +51,8 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
 
         $this->view->addButton((new \fpcm\view\helper\saveButton('save')));
         
+        ksort($fullLang);
+        
         $this->view->setFormAction('system/langedit');
         $this->view->assign('langVars', $fullLang);
         $this->view->addJsFiles(['langedit.js']);
@@ -61,18 +63,34 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
     {
         $langsave = $this->request->fromPOST('lang');
         
-        foreach ($langsave as $key => $value) {
+        array_walk($langsave, function (&$value, $index) {
             
             if (strpos($value, '{"') === false) {
-                continue;
+                return true;
             }
-            
-            fpcmDump(__METHOD__, $key, json_decode($value, true));
-            
-        }
+
+            $value = json_decode($value, true);
+        });
         
+        ksort($langsave);
+
+        $tmp1 = new \fpcm\model\files\tempfile('langedit');
+        $tmp1->setContent('<?php' . PHP_EOL . PHP_EOL . "/**\n* FanPress CM 4.x\n* Language file\n* @license http://www.gnu.org/licenses/gpl.txt GPLv3\n*/".PHP_EOL.PHP_EOL.'$lang = ' . var_export($langsave, true).PHP_EOL);
+        $tmp1->save();
+
+        unset($tmp1);
+        
+        $tmp2 = new \fpcm\model\files\tempfile('langedit');
+        $tmp2->loadContent();
+        
+        print "<pre>";
+        print htmlentities($tmp2->getContent());
+        print "</pre>";
+        
+        $tmp2->delete();
         
         return true;
+        
     }
 }
 
