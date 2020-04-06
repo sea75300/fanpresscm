@@ -88,18 +88,23 @@ Help language file
                 herausgenommen werden.</dd>
             <dt>Autor ändern:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer mit entsprechenden Rechten können hierüber den Verfasser eines Artikeln ändern.</dd>
-            <dt>Geteilte Inhalte und LIkes:</dt>
+            <dt>Geteilte Inhalte und Likes:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Sofern das Zählen von Klicks auf die Share-Buttons aktiviert wurde, wird in diesem Bereich
             die aktuelle Anzahl pro Artikel angezeigt, diese umfasst sowohl Teilungen bei den verfügbaren sozialen Netzwerken als auch Klicks auf den
             FanPress CM-eigenen "Gefällt mir"-Button. Eine Summe über alle geteilten Inhalte pro Artikel wird in den Artikel-Listen neben der Kommentar-Anzahl angezeigt.</dd>
         </dl>
  
-        <p>In FanPress CM kannst du über den <strong>&lt;readmore&gt;</strong>-Tag ein Stück Text einfügen, das beim Aufruf der Seite
-        nicht angezeigt wird (bspw. für Spoiler etc.).</p>
+        <h3>Weiterlesen-Link/ Seitenumbruch einfügen</h3>
 
-        <h3>Register</h3>
+        <p>Vor allem bei sehr langen Beiträgen kann es sinnvoll sein, dass man nur einen kurzen Anreiser ind er Artikelliste anzeigen lässt und den
+        Rest erst durch Klick auf den "Weiterlesen"-Link. Hierzu bietet der Editor die "Seitenumbruch einfügen"-Funktion. Dies erzeugt im Artikel
+        einen Eintrag der Form <pre>&lt;!-- pagebreak --&gt;</pre> welcher im Frontend in einen Weiterlesen-Link umǵesetzt wird. <b>Achtung!</b> Hierfür muss
+        das Template entsprechend angepasst werden.</p>
+        
+        <p>In älteren Versionen wurde hierfür das <strong>&lt;readmore&gt;</strong>-Tag verwendet. Dieses gilt seit Fanpress CM 4.4 als veraltet, wird aber
+        in der Frontend-Ausgabe vorerst weiterhin umgesetzt.</p>
 
-        <p>Der Artikel-Editor kann am oberen Rand bis zu drei Tabs enthalten.</p>
+        <p>Der Artikel-Editor kann am oberen Rand bis zu vier Tabs enthalten.</p>
 
         <dl>
             <dt>Artikel-Editor:</dt>
@@ -117,7 +122,8 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">FanPress CM besitzt ein Revisions-System, d. h. bei Änderungen wird der vorherige Zustand
             gesichert und kann jederzeit wiederhergestellt werden. Die Revisionen können über die Systemeinstellungen (de)aktiviert werden.
             Eine Liste aller Revisionen findest du über den entsprechenden Reiter im Editor. Dort kannst du jede Revision einzeln aufrufen
-            bzw. den aktuelle Artikel auf eine Revision zurücksetzen.</dd>
+            bzw. den aktuelle Artikel auf eine Revision zurücksetzen. Beim Öffnen einer Revision werden die die Änderungen zur jeweils
+            aktuellen Artikel-Version angezeigt.</dd>
         </dl>
         
         <h3>Buttons und Aktionen</h3>
@@ -148,16 +154,43 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Wurde eine Revision geöffnet, so gelangst du durch diese Schaltfläche zurück in den aktuellen Artikel.</dd>
         </dl>
 
-        <h3>Bild in Artikel einfügen</h3>
+        <h3>Einzelnes Bild in Artikel einfügen</h3>
 
-        <p>Um den Pfad eines Bildes direkt in den <em>Bild einfügen</em>-Formular zu kopieren, klicke auf die Buttons
-        <strong>Thumbnail-Pfad in Quelle einfügen</strong> bzw. <strong>Datei-Pfad in Quelle einfügen</strong>
-        zwischen dem Thumbnail und den Meta-Informationen des jeweiligen Bildes, je nachdem was du nutzen möchtest.</p>
+        <p>Um den Pfad eines Bildes direkt in den <em>Bild einfügen</em>-Dialog zu übernehmen, klicke auf die Buttons <strong>Thumbnail-Pfad in Quelle einfügen</strong>
+        bzw. <strong>Datei-Pfad in Quelle einfügen</strong> unterhalb/ neben dem Thumbnail des jeweiligen Bildes. Je nachm gewähltem Button wird der entsprechende Pfad
+        übernommen.</p>
 
-        <p>Alternativ mache in der Dateiliste einen Rechtsklick auf den Bild- und/oder Thumbnail öffnen Button. Wähle nun im Kontext-Menü des
-        jeweiligen Browsers <strong>Link-Adresse kopieren / Verknüpfung kopieren / o. ä.</strong>. Füge den Pfad anschließend in das Feld <em>Quelle</em> im Editor
-        ein. Im HTML-Editor kannst du auch einfach anfangen, den Dateinamen einzutippen. Hier öffnet sich dann eine
-        Autovervollständigung. In TinyMCE steht im Bild einfügen Dialog auch ein Punkt <strong>Image List</strong> zur Verfügung.</p>
+        <p>Sollte die Übernahme einfach nicht funktionieren, so öffne via Rechtsklick das Kontextmenü der genannten Buttons. Wähle dort die
+        Option <strong>Link-Adresse kopieren / Verknüpfung kopieren / o. ä.</strong> aus und für den Pfad anschließend in das Feld <em>Quelle</em> im Editor
+        ein.</p>
+        
+        <ul>
+            <li>Im HTML-Editor öffnet sich beim Eintippen in das Quelle-Feld zudem eine Autovervollständigung mit Treffern in der hochgeladenen Bilder.</li>
+            <li>Weiterhin kann im Einfügen-Dialog über den Button "Bild als Link einfügen" direkt eine Verlinkung zum ausgewählten Bild erzeugt werden.</li>
+            <li>In TinyMCE steht im "Bild einfügen"-Dialog zudem der Punkt <strong>Bildliste</strong> zur Verfügung.</li>
+        </ul>
+        
+        <h3>Gallery in Artikel einfügen</h3>
+
+        <p>Über den Button "Gallery einfügen" lassen sich mehrere Bilder mit einmal in einen Artikel einfügen. Das folgende Beispiel zeigt eine Gallery mit vier Bidlern.</p>
+
+        <pre>[gallery]thumb:2020-04/bild01.jpg:link|thumb:2020-03/bild02.png:link|thumb:2020-02/bild03.jpg:link|thumb:2020-01/bild04.jpg:link[/gallery]</pre>
+
+        <dl>
+            <dt>[gallery] & [/gallery]</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die beiden PLatzhalter öffnen und schließen eine Gallery. Bitte beachte, das pro Artikel nur <strong>eine</strong>
+            Gallery eingefügt werden kann/ sollte und entsprechend ausgewertet wird. Weitere, händisch eingefügt Gallerien werden vom System nicht ausgewertet.</dd>
+            <dt>Trennzeichen</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Die Bilder einer Gallery werden hintereinander angegeben, als Trennzeichen dient das "|"-Zeichen
+            (die sogenannte Pipe).</dd>
+            <dt>thumb:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Durch Hinzufügen/ Weglassen des "thumb:"-Präfix kann gesteuert werden, ob in der Gallery das Thumbnail bzw. komplette Bild
+            angezeigt wird. Beim Einfügen aus dem Dateimanager wird das Präfix standardmäßig immer vorangestellt.</dd>
+            <dt>thumb:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Durch Hinzufügen/ Weglassen des "link:"-Suffix kann gesteuert werden, ob das verwendete Bild in der Gallery
+            verlinkt ist oder nicht. Beim Einfügen aus dem Dateimanager wird das Suffix standardmäßig immer angefügt.</dd>
+        </dl>
+        
         ]]>
     </chapter>
     <chapter ref="HL_ARTICLE_EDIT">
@@ -190,7 +223,8 @@ Help language file
             verschiedener Kriterien weiter eingrenzen. Über die Hauptnavigation kannst du bereits eine Vorauswahl treffen, welche Artikel
             dir angezeigt werden sollen. Unterschiedliche Felder können im Bedarfsfall miteinander verknüpft werden oder die Suche
             in speziellen Konstellationen durchgeführt werden. Hierzu dient das linke Dropdown-Feld in der jeweiligen Zeile. Auf der
-            rechten Seite einer Zeile wird der jeweiligen Wert angegeben.
+            rechten Seite einer Zeile wird der jeweiligen Wert angegeben. Der Button "Filter zurücksetzen" führt eine Aktualisierung der
+            aktuellen Ansicht durch. Hierdurch werden die Filter-Einstellungen komplett zurückgesetzt.
             </dd>
             <dt>Neuen Tweet erzeugen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Für den bzw. die ausgewählten Artikel neue Posts bei Twitter erzeugen, wenn Verbindung
@@ -284,6 +318,8 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Die ausgewählten Dateien können gelöscht werden. Wichtig! Für Dateien existiert kein Papierkorb.</dd>
             <dt>Umbenennen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über den Button kann die Datei umbenannt werden, die Dateiendung muss dabei nicht angehangen werden.</dd>
+            <dt>Eigenschaften:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button werden relevante Informationen zum gewählten Eintrag (Upload-Datum/ Benutzer, Dateigröße, Auflösung usw.) angezeigt.</dd>
             <dt>Thumbnail öffnen:</strong> (nur Dateimanager)</dt>
             <dd class="fpcm-ui-padding-md-bottom">Öffnen des Thumbnails.</dd>
             <dt>Bild öffnen:</strong> (nur Dateimanager)</dt>
@@ -350,7 +386,8 @@ Help language file
             <dt>Standard-Schriftgröße im Editor:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Schriftgröße, die standardmäßig im Artikel-Editor genutzt wird</dd>
             <dt>jQuery Dateiupload verwenden:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Nutzung des AJAX- oder HTML-Uploads</dd>
+            <dd class="fpcm-ui-padding-md-bottom">Nutzung des AJAX- oder HTML-Uploads. Diese Option ist seit FanPress CM 4.3 veraltet und wird
+            in Kürze entfernt.</dd>
             <dt>Dateimanager-Ansicht:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
             die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
@@ -432,7 +469,8 @@ Help language file
             <dt>Dateimanager - jQuery Dateiupload verwenden:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Soll der moderne AJAX-Uploader genutzt werden, mit dem mehrere Dateien auf einmal hochgeladen
             werden können oder soll der klassische PHP-Uploader aktiviert werden. Der PHP-Uploader kann notwendig werden, wenn du einen
-            älteren Browser verwendest, JavaScript deaktiviert bzw. teilweise geblockt ist.</dd>
+            älteren Browser verwendest, JavaScript deaktiviert bzw. teilweise geblockt ist. Diese Option ist seit FanPress CM 4.3 veraltet und wird
+            in Kürze entfernt.</dd>
             <dt>Dateimanager - Dateien beim Upload in Unterordner organisieren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diese Option kannst du festlegen, dass Dateien beim Upload in Unterordnern abgelegt werden.
             Diese besitzen immer das Muster <em>YYYY-MM</em> (vierstellige Jahreszahl - zweistelliger Monat). </dd>
@@ -692,7 +730,7 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Smileys neu definieren und bestehende löschen</dd>
             <dt>Updates durchführen</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer kann verfügbare Updates installieren.</dd>
-            <dt>System-Protokollee verwalten</dt>
+            <dt>System-Protokolle verwalten</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer kann die vom System erzeugten Protokolledateien einsehen und bei Bedarf bereinigen</dd>
             <dt>Cronjobs verwalten</dt>
             <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Cronjobs verwalten</dd>
@@ -780,8 +818,10 @@ Help language file
         <ul>
             <li>Kategorien ermöglichen die Einsortierung von Artikeln nach bestimmten Stichworten bzw. Themengebieten. Insbesondere bei der Suche
             nach Artikeln ermöglicht dies eine Beschleunigung der Suche.</li>
-            <li>Benutzer mit entsprechenden Rechten können neue Kategorien anlegen, sowie bestehende ändern oder auch löschen.</li>
+            <li>Benutzer mit entsprechenden Rechten können neue Kategorien anlegen, sowie Bestehende ändern oder auch löschen.</li>
             <li>Der Zugriff auf Kategorien kann auf bestimmte Benutzergruppen beschränkt werden.</li>
+            <li>Der Button <strong>Bearbeiten</strong> öffnet die Massenbearbeitung. Über diese können alle ausgewählten Kategorien
+            auf einmal verändert werden.</li>
         </ul>
         
         <dl>
@@ -905,28 +945,40 @@ Help language file
             <dt>Artikel-Revisionen bereinigen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Wurde die Option <em>Alte Revisionen löschen, wenn älter als</em> auf einen Wert ungleich <em>Nie</em> gesetzt,
             bereinigt dieser Cronjob die Artikel-Revisionen im eingestellten Intervall. Standardmäßig erfolgt dies einmal im Monat.</dd>
+
             <dt>Dateiindex neu aufbauen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Standardmäßig einmal pro Tag wird der Dateiindex, d. h. die Informationen über hochgeladene Bilder
             neu aufgebaut. Hierbei werden gelöschte Dateien entfernt und ggf. neu hochgeladene Bilder erfasst, sollte dies beim Upload nicht automatisch erfolgt sein.</dd>
+
             <dt>Dateimanager-Thumbnails erzeugen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieser Cronjob erzeugt die Vorschaubilder im Dateimanager neu. (Standard: einmal pro Woche)</dd>
+
             <dt>geplante Artikel veröffentlichen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieser Cronjob wird im Standard aller zehn Minuten ausgeführt und sorgt für die automatische Veröffentlichung von
             geplanten Artikeln. Wurde dieser Cronjob deaktiviert, müssen alle Artikel - auch solche die im Editor oder den Listen als geplant angezeigt werden - manuell
             veröffentlicht werden.</dd>
+
             <dt>IP-Adressen aus Kommentaren anonymisieren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über diesen Cronjob erfolgt die regelmäßig Anonymisierung der IP-Adressen in Kommentaren. Hierdurch wird die Personenbindung
             aufgehoben, allerdings lässt sich dann auch nicht mehr erkennen, woher der Kommentar genau kam. Die Ausführung erfolgt per default einmal im Monat.</dd>
+
+            <dt>Papierkorb bereinigen:</dt>
+            <dd class="fpcm-ui-padding-md-bottom">Werden Artikel oder Kommentare gelöscht, so werden diese zuerst in den Papierkorb verschoben. Dieser Automatismus
+            führt eine regelmäßige Bereinigung der Papierkörbe durch.</dd>
+            
             <dt>Prüfung auf Updates:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die Prüfung auf System- und Modul-Updates wird durch diesen Cronjob durchgeführt. Die Ausführung erfolgt nur, wenn FanPress CM
             sich zum Update-Server verbinden kann. Die Prüfung erfolgt standardmäßig einmal täglich.</dd>
+
             <dt>System-Datenbank sichern:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die Sicherung der System-Datenbank dient dieser Cronjob. Die erzeugten Backups werden im Verzeichnis <em>/data/dbdump</em> abgelegt
             und können über den Backup-Manager verwaltet werden. Im Standard erfolgt die Sicherung einmal pro Woche. Bei hohem Artikel-Aufkommen sollte das Intervall entsprechend
             reduziert werden.</dd>
+
             <dt>System-Protokollee leeren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Die Protokoll-Dateien können unter Umständen sehr groß werden, daher werden diese (im Standard monatlich) auf ihre Dateigröße geprüft und
             bei Überschreitung einer Größe von 1 MB bereinigt. Das vorherige Log wird gespeichert. Die Bereinigung des Session-Protokolls erfolgt unabhängig von der Anzahl der Einträge.</dd>
+
             <dt>temporäre Dateien aufräumen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Bei Updates, sowie in der täglichen Arbeit fallen immer wieder temporäre Dateien an, welche unter Umständen nicht sofort bereinigt werden
             (können). Dieser Cronjob prüft auf entsprechende Dateien und löscht diese; im Standard einmal pro Woche.</dd>
@@ -957,7 +1009,8 @@ Help language file
             <dd class="fpcm-ui-padding-md-bottom">Hier werden Status-Informationen, Laufzeiten etc. zu ausgeführten Cronjobs protokolliert. Dieses Log kann in Abhängigkeit von der
             Cronjob-Konfiguration sehr schnell stark wachsen und sollte daher regelmäßig bereinigt werden.</dd>
             <dt>Paketmanager:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieses Protokolle beinhaltet Status-Informationen zu System-Updates, sowie Installation oder Updates von Modulen.</dd>
+            <dd class="fpcm-ui-padding-md-bottom">Dieses Protokolle beinhaltet Status-Informationen zu System-Updates, sowie Installation oder Updates von Modulen.
+            Im Paketmanager-Protokoll werden Dateien ohne Änderungen ausgegraut angezeigt, andere Einträge sind schwarz.</dd>
         </dl>
         ]]>
     </chapter>
@@ -994,7 +1047,8 @@ Help language file
             <dt>Modul-Paketdatei hochladen:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Über dieses Register können Module aus externen Quellen ins System hochgeladen werden. Die
             als ZIP-Archive gepackten Module werden bei diesem Vorgang automatisch entpackt. Die Nutzung der Upload-Funktion kann notwendig
-            werden, wenn dein Host keine Verbindung zu externen Servern zulässt.</dd>
+            werden, wenn dein Host keine Verbindung zu externen Servern zulässt. Dieses Register ist standardmäßig deaktiviert und muss
+            durch Anpassung der Konstante "FPCM_DISABLE_MODULE_ZIPUPLOAD" aktiviert werden.</dd>
         </dl>
         
         <h3>Aktionen</h3>
@@ -1022,8 +1076,14 @@ Help language file
             z. B. bei auftretenden Fehlern zu beenden ohne das Modul komplett zu deaktivieren.</dd>
             <dt>Modul konfigurieren:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Dieser Button wird angezeigt, wenn das Modul das Template <em>configure.php</em>
-            beinhaltet..</dd>
+            beinhaltet.</dd>
         </dl>
+        
+        <p>Im Bereich der Aktionen werden im Bedarfsfall weitere Informationen angezeigt, z. B. bei fehlenden Anhängigkeiten oder Schreibrechten
+        auf dem Server. Fahre im diesem Fall mit der Maus über das entsprechende Icon. nach kurzer Zeit erscheint ein Tooltip inkl. weiteren Informationen.</p>
+        
+        <p>Sind für mehrere Module Aktualisierungen evrfügbar, so erscheint in der Toolbar der Button "Updates für alle Module einspielen".
+        Über diesen können - ohne zusätzlichen Wechsel zurück in den Modulmanager - alle Aktualisierungen nacheinander eingespielt werden.</p>
 
         <h3>Modul-Detail-Informationen</h3>
 
@@ -1050,6 +1110,7 @@ Help language file
             <dt>Erfordert FanPress CM:</dt>
             <dd class="fpcm-ui-padding-md-bottom">Module können eine bestimmte FanPress CM -Version voraussetzen, diese wird hier angegeben.</dd>
         </dl>
+        
         ]]>
     </chapter>
     <chapter ref="SYSTEM_OPTIONS_TWITTER_CONNECTION">
