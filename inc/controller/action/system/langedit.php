@@ -17,9 +17,11 @@ class langedit extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces\requestFunctions {
 
     /**
-     * 
-     * @return bool
+     *
+     * @var \SimpleXMLElement
      */
+    private $xml;
+
     public function isAccessible(): bool
     {
         return $this->permissions->system->options && FPCM_DEBUG;
@@ -62,36 +64,88 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
     public function onSave()
     {
         $langsave = $this->request->fromPOST('lang');
+        ksort($langsave);
         
-        array_walk($langsave, function (&$value, $index) {
-            
+        $this->xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><langvars></langvars>', null, false);
+        
+        array_walk($langsave, function ($value, $descr) {
+
+            $child = $this->xml->addChild('langvar');
+            $child->addAttribute('var', $descr);
+
             if (strpos($value, '{"') === false) {
+                $child->addAttribute('value', $value);
                 return true;
             }
 
-            $value = json_decode($value, true);
+            $value = json_decode($value, true);            
+            if (!is_array($value)) {
+                return true;
+            }
+
+            $childVal = $child->addChild('list');
+            foreach ($value as $key => $val) {
+                $subchildVal = $childVal->addChild('item');
+                $subchildVal->addAttribute('var', $key);
+                $subchildVal->addAttribute('value', $val);
+            }
+            
+            unset($subchildVal, $childVal, $child);
+            return true;
         });
         
-        ksort($langsave);
+        $this->execDestruct = false;
+        
+        //(new \fpcm\model\http\response)->addHeaders('Content-type: text/xml; charset=utf-8')->setReturnData($this->xml->asXML())->fetch();exit;
+        
+        
 
-        $tmp1 = new \fpcm\model\files\tempfile('langedit');
-        $tmp1->setContent('<?php' . PHP_EOL . PHP_EOL . "/**\n* FanPress CM 4.x\n* Language file\n* @license http://www.gnu.org/licenses/gpl.txt GPLv3\n*/".PHP_EOL.PHP_EOL.'$lang = ' . var_export($langsave, true).PHP_EOL);
-        $tmp1->save();
+        $list = [];
 
-        unset($tmp1);
+        $var1 = 'EDITOR_HTML_BUTTONS_READMORE';
+        $this->getLangVar($this->xml->xpath("/langvars/langvar[@var=\"{$var1}\"]")[0], $list);
         
-        $tmp2 = new \fpcm\model\files\tempfile('langedit');
-        $tmp2->loadContent();
+        $var2 = 'EDITOR_INSERTMEDIA_FORMATS';
+        $this->getLangVar($this->xml->xpath("/langvars/langvar[@var=\"{$var2}\"]")[0], $list);
         
-        print "<pre>";
-        print htmlentities($tmp2->getContent());
-        print "</pre>";
-        
-        $tmp2->delete();
+        fpcmDump($list);exit;
+
         
         return true;
         
     }
+    
+    private function getLangVar(\SimpleXMLElement $item, array &$list) : bool
+    {
+        $attr = $item->attributes();
+        $children = $item->children();
+
+        if (!isset($attr->value) && !count($children)) {
+            return false;
+        }
+
+        $langVar = (string) $attr->var;
+        if (isset($attr->value)) {
+            $list[$langVar] = (string) $attr->value;
+            return true;
+        }
+
+        /* @var $value \SimpleXMLElement */
+        foreach ($children->list->item as $subItem) {
+
+            $subAttr = $subItem->attributes();
+            $subVar = (string) $subAttr->var;
+
+            if (!isset($list[$langVar])) {
+                $list[$langVar] = [];
+            }
+
+            $list[$langVar][$subVar] = (string) $subAttr->value;
+        }
+
+        return true;
+    }
+    
 }
 
 ?>
