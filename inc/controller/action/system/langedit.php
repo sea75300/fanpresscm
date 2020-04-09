@@ -51,7 +51,10 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         
         $fullLang = array_diff_key($fullLang, array_flip(array_keys($fullLang, $skipVal)));
 
-        $this->view->addButton((new \fpcm\view\helper\saveButton('save')));
+        $this->view->addButtons([
+            (new \fpcm\view\helper\saveButton('save')),
+            (new \fpcm\view\helper\button('new'))->setText('Neue Variable')->setIcon('plus'),
+        ]);
         
         ksort($fullLang);
         
@@ -94,9 +97,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             return true;
         });
         
-        $this->execDestruct = false;
-        
-        //(new \fpcm\model\http\response)->addHeaders('Content-type: text/xml; charset=utf-8')->setReturnData($this->xml->asXML())->fetch();exit;
+        //$this->execDestruct = false;(new \fpcm\model\http\response)->addHeaders('Content-type: text/xml; charset=utf-8')->setReturnData($this->xml->asXML())->fetch();exit;
         
         
 
@@ -108,6 +109,9 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         $var2 = 'EDITOR_INSERTMEDIA_FORMATS';
         $this->getLangVar($this->xml->xpath("/langvars/langvar[@var=\"{$var2}\"]")[0], $list);
         
+        $var2 = 'NEW_LANG_VAR';
+        $this->getLangVar($this->xml->xpath("/langvars/langvar[@var=\"{$var2}\"]")[0], $list);
+        
         fpcmDump($list);exit;
 
         
@@ -115,8 +119,13 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         
     }
     
-    private function getLangVar(\SimpleXMLElement $item, array &$list) : bool
+    private function getLangVar( $item, array &$list) : bool
     {
+        if (!$item instanceof \SimpleXMLElement) {
+            print "Element not found!";
+            return false;
+        }
+        
         $attr = $item->attributes();
         $children = $item->children();
 

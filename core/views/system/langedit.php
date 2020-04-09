@@ -3,7 +3,7 @@
 
     <div class="row py-2">
         
-        <div class="col-1 align-self-center">
+        <div class="col-auto align-self-center">
             <?php $theView->button('edit'. strtolower($key))->setData([
                 'var' => $key,
                 'dest' => strtolower($key)
@@ -12,13 +12,19 @@
             ->setIcon('edit')
             ->setIconOnly(true)
             ->setClass('fpcm-language-edit'); ?>
+
+            <?php $theView->button('delete'. strtolower($key))
+            ->setText('GLOBAL_DELETE')
+            ->setIcon('trash')
+            ->setIconOnly(true)
+            ->setClass('fpcm-language-delete'); ?>
         </div>
         
         <div class="col-4 align-self-center fpcm-ui-ellipsis">
             <?php print $theView->escapeVal($key); ?>
         </div>
 
-        <div class="col-7 align-self-center fpcm-ui-ellipsis" id="lang_descr_<?php print strtolower($key); ?>">
+        <div class="col-6 align-self-center fpcm-ui-ellipsis" id="lang_descr_<?php print strtolower($key); ?>">
             <?php print $theView->escapeVal( (is_array($value) ? json_encode($value) : $value) ); ?>
         </div>
 

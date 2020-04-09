@@ -12,6 +12,53 @@ if (fpcm === undefined) {
 fpcm.langedit = {
 
     init: function() {
+        
+        fpcm.dom.fromId('btnNew').unbind('click');
+        fpcm.dom.fromId('btnNew').click(function() {
+
+            fpcm.ui.dialog({
+                id: 'langform-new',
+                resizable: true,
+                title: 'New language variable ',
+                content: '<input typer="text" id="fpcm-langedit-newvar" class="fpcm-ui-full-width fpcm-ui-input fpcm-ui-input-text mb-2" placeholder="Variable name"><br>\n\
+                          <input typer="text" id="fpcm-langedit-newval" class="fpcm-ui-full-width fpcm-ui-input fpcm-ui-input-text" placeholder="Variable value">',
+                dlOnClose: function() {
+                    fpcm.dom.fromTag(this).remove();
+                },
+                dlButtons: [
+                    {
+                        text: fpcm.ui.translate('GLOBAL_SAVE'),
+                        icon: "ui-icon-check",
+                        class: 'fpcm-ui-button-primary',
+                        click: function () {
+                            
+                            var newVarName = fpcm.dom.fromId('fpcm-langedit-newvar').val();
+                            var newVarValue = fpcm.dom.fromId('fpcm-langedit-newval').val();
+                            newVarName = newVarName.trim();
+                            newVarValue = newVarValue.trim();
+                            if (!newVarName) {
+                                return false;
+                            }
+
+                            fpcm.dom.appendHtml('form', '<input type="hidden" name="lang[' + newVarName.toUpperCase() + ']" value="' + newVarValue + '">');
+                            fpcm.dom.fromId('btnSave').trigger('click');
+                            fpcm.dom.fromTag(this).dialog('close');
+                        }
+                    },
+                    {
+                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                        icon: "ui-icon-closethick",
+                        click: function () {
+                            fpcm.dom.fromTag(this).dialog('close');
+                        }
+                    }
+                ]
+            });
+                        
+            
+            
+        });
+        
 
         var buttons = fpcm.dom.fromClass('fpcm-language-edit');
 
@@ -59,6 +106,14 @@ fpcm.langedit = {
             
             return false;
             
+        });
+
+        var buttons2 = fpcm.dom.fromClass('fpcm-language-delete');
+
+        buttons2.unbind('click');
+        buttons2.click(function() {
+            jQuery(this).parent().parent().remove();
+            fpcm.dom.fromId('btnSave').trigger('click');
         });
     },
 
