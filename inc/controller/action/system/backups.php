@@ -73,13 +73,25 @@ class backups extends \fpcm\controller\abstracts\controller implements \fpcm\con
      */
     public function process()
     {
+        $isPg = \fpcm\classes\loader::getObject('\fpcm\classes\database')->getDbtype() === \fpcm\classes\database::DBTYPE_POSTGRES;
+        
+        $this->view->addButton((new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')->setReadonly($isPg));
+        $this->view->addJsFiles(['backups.js']);
+
+        $this->view->assign('headline', 'HL_BACKUPS');
+        if ($isPg) {
+            $this->view->addErrorMessage('BACKUPS_NOTICE_POSTGRES');
+            $this->items = [];
+            $this->initDataView();
+            $this->view->render();
+            return true;
+        }        
+        
+        
         $folderList = new \fpcm\model\files\backuplist();
         $this->items = $folderList->getFolderList();
         rsort($this->items);
         $this->initDataView();
-        $this->view->assign('headline', 'HL_BACKUPS');
-        $this->view->addJsFiles(['backups.js']);
-        $this->view->addButton((new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm'));
         $this->view->setFormAction('system/backups');
         $this->view->addTopDescription(
             'BACKUPS_TOP_DESCRIPTION',

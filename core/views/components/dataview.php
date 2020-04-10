@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if (!isset($headline) || !isset($dataViewId)) : ?>
-<p><?php $theView->write(__FILE__.' required to assign variables "$headline" and "$dataViewId"!'); ?></p>
+<p><?php $theView->icon('ban')->setSize('lg')->setClass('fpcm-ui-important-text'); ?> <?php $theView->write(__FILE__.' required to assign variables "$headline" and "$dataViewId"!'); ?></p>
 <?php else: ?>
     <div class="fpcm-content-wrapper">
         <div class="fpcm-ui-tabs-general ui-tabs ui-corner-all ui-widget ui-widget-content">
