@@ -226,7 +226,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             (new navigationItem())->setUrl('system/langedit')
                 ->setDescription('Language Editor')
                 ->setIcon('language')
-                ->setAccessible($this->permissions->system->options && FPCM_DEBUG),
+                ->setAccessible($this->permissions->system->options && FPCM_DEBUG && defined('FPCM_LANG_XML')),
         ];
 
         return $data;

@@ -24,12 +24,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
 
     public function isAccessible(): bool
     {
-        return $this->permissions->system->options && FPCM_DEBUG;
-    }
-
-    protected function getViewPath() : string
-    {
-        return 'system/langedit';
+        return $this->permissions->system->options && FPCM_DEBUG && defined('FPCM_LANG_XML');
     }
 
     /**
@@ -37,6 +32,8 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
      */
     public function process()
     {
+        $this->view = new \fpcm\view\view;
+        
         $this->view->addTabs('langedit', [
             (new \fpcm\view\helper\tabItem('editor'))->setText('Language variable editor')->setFile('system/langedit.php'), 
         ]);
