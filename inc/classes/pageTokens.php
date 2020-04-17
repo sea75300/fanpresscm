@@ -19,6 +19,12 @@ namespace fpcm\classes;
 final class pageTokens {
 
     /**
+     *
+     * @var \fpcm\model\http\request
+     */
+    private $request;
+
+    /**
      * Constructor
      * @return void
      * @ignore
@@ -42,12 +48,12 @@ final class pageTokens {
         if (!$this->isActive()) {
             return true;
         }
-        
+
         if (!trim($name)) {
-            $name = 'token/'.http::get('module');
+            $name = 'token/'. $this->request->getModule();
         }
 
-        $token = http::postOnly('token');
+        $token = $this->request->fromPOST('token');
         if ($token === null || hash_equals($this->getValue($name), $token)) {
             return true;
         }
@@ -68,7 +74,7 @@ final class pageTokens {
         }
         
         if (!trim($name)) {
-            $name = 'token/'.http::get('module');
+            $name = 'token/'.$this->request->getModule();
         }
 
         $_SESSION['pageTokens'][$name] = hash_hmac(security::defaultHashAlgo, bin2hex(random_bytes(32)), crypt::getRandomString());
@@ -95,6 +101,7 @@ final class pageTokens {
      */
     private function init() : bool
     {
+        $this->request = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
         $_SESSION['pageTokens'] = $_SESSION['pageTokens'] ?? [];
         $_SESSION['pageTokens'] = array_slice($_SESSION['pageTokens'], FPCM_PAGETOKEN_MAX * -1);
         return true;

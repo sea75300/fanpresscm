@@ -17,7 +17,8 @@ namespace fpcm\controller\abstracts\module;
  * @abstract
  * @since FPCM 4.1
  */
-class ajaxController extends \fpcm\controller\abstracts\ajaxController {
+class ajaxController extends \fpcm\controller\abstracts\ajaxController
+implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\module\tools;
     
@@ -29,6 +30,16 @@ class ajaxController extends \fpcm\controller\abstracts\ajaxController {
     {
         parent::__construct();
         $this->initConstruct();
+    }
+
+    /**
+     * Must return true, if controller is accessible
+     * @return bool
+     * @since FPCm 4.4
+     */
+    public function isAccessible(): bool
+    {
+        return true;
     }
 
     /**

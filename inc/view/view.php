@@ -190,7 +190,6 @@ class view {
         if (trim($viewName)) {
             $this->setViewPath($viewName, $module);
         }
-        
 
         $this->showHeader = self::INCLUDE_HEADER_FULL;
         

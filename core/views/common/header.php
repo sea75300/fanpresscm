@@ -17,7 +17,7 @@
 
     <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
 
-        <div id="fpcm-messages" class="fpcm-ui-position-absolute fpcm-ui-position-right-0"></div>
+        <?php include_once $theView->getIncludePath('common/messagesTpl.php'); ?>
         
         <div class="fpcm-ui-wrapper">
 

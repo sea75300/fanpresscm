@@ -158,6 +158,12 @@ window.onload = function() {
             },
 
             addMessage: function (msg) {
+                
+                if (!jQuery('#fpcm-messages').length) {
+                    alert(msg.txt);
+                    return true;
+                }
+
                 jQuery('#fpcm-messages').append(
                     '<div class="fpcm-pub-message-box fpcm-pub-message-' + msg.type +
                     '" id="msgbox-' + msg.id + '"><div class="fpcm-pub-message-box-text">' + msg.txt +

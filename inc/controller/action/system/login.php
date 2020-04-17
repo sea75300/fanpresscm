@@ -13,7 +13,8 @@ namespace fpcm\controller\action\system;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class login extends \fpcm\controller\abstracts\controller {
+class login extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\requestFunctions {
 
     /**
      * aktuelle Anzahl an Fehler-Logins
@@ -118,9 +119,6 @@ class login extends \fpcm\controller\abstracts\controller {
         
         $this->loginLocked();
         $this->showLockedForm();
-        
-        $this->resetPassword();
-        $this->processLogin();
 
         return true;
     }
@@ -143,12 +141,8 @@ class login extends \fpcm\controller\abstracts\controller {
      * 
      * @return bool
      */
-    private function processLogin() : bool
+    protected function onLogin()
     {
-        if (!$this->buttonClicked('login')) {
-            return false;
-        }
-
         if (!$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return false;
@@ -219,12 +213,8 @@ class login extends \fpcm\controller\abstracts\controller {
      * 
      * @return bool
      */
-    private function resetPassword() : bool
+    protected function onReset()
     {
-        if (!$this->buttonClicked('reset')) {
-            return false;
-        }
-
         if (!$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return false;
@@ -267,22 +257,17 @@ class login extends \fpcm\controller\abstracts\controller {
      */
     protected function loginLocked()
     {
-        if (!\fpcm\classes\http::getSessionVar('loginAttempts')) {
-            \fpcm\classes\http::setSessionVar('loginAttempts', $this->currentAttempts);
-        } else {
-            $this->currentAttempts = \fpcm\classes\http::getSessionVar('loginAttempts');
+        if (!$this->getAttemptsCount()) {
+            $this->setAttemptsCount();
         }
 
-        if (\fpcm\classes\http::getSessionVar('lockedTime')) {
-            $this->loginLockedDate = \fpcm\classes\http::getSessionVar('lockedTime');
-        }
+        $this->getLockTime();
 
         if ($this->currentAttempts >= $this->config->system_loginfailed_locked) {
             $this->loginLocked = true;
 
             if (!$this->loginLockedDate) {
-                $this->loginLockedDate = time();
-                \fpcm\classes\http::setSessionVar('lockedTime', $this->loginLockedDate);
+                $this->setLockTime();
             }
         }
 
@@ -322,6 +307,57 @@ class login extends \fpcm\controller\abstracts\controller {
      */
     protected function initPermissionObject(): bool
     {
+        return true;
+    }
+
+    /**
+     * 
+     * @return bool|int
+     */
+    private function getAttemptsCount()
+    {
+        $val = $_SESSION['loginAttempts'] ?? false;
+        if ($val === false) {
+            return $val;
+        }
+
+        $this->currentAttempts = $val;
+        return $this->currentAttempts;
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    private function getLockTime()
+    {
+        $val = $_SESSION['lockedTime'] ?? false;
+        if ($val === false) {
+            return false;
+        }
+
+        $this->loginLockedDate = $val;
+        return true;
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    private function setAttemptsCount()
+    {
+        $_SESSION['loginAttempts'] = $this->currentAttempts;
+        return true;
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    private function setLockTime()
+    {
+        $this->loginLockedDate = time();
+        $_SESSION['lockedTime'] = $this->loginLockedDate;
         return true;
     }
 

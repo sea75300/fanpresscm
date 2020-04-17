@@ -17,7 +17,8 @@ namespace fpcm\controller\abstracts\module;
  * @abstract
  * @since FPCM 4.1
  */
-class controller extends \fpcm\controller\abstracts\controller {
+class controller extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\module\tools;
     
@@ -38,6 +39,16 @@ class controller extends \fpcm\controller\abstracts\controller {
     final protected function initView()
     {
         return parent::initView();
+    }
+
+    /**
+     * Must return true, if controller is accessible
+     * @return bool
+     * @since FPCm 4.4
+     */
+    public function isAccessible(): bool
+    {
+        return true;
     }
 
 }

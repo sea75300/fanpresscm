@@ -95,11 +95,7 @@ class fpcmAPI {
         $this->registerController();
         $this->initObjects();
 
-        $module = \fpcm\classes\http::get('module', [
-            fpcm\classes\http::FILTER_STRIPTAGS,
-            fpcm\classes\http::FILTER_STRIPSLASHES,
-            fpcm\classes\http::FILTER_TRIM
-        ]);
+        $module = (new \fpcm\model\http\request)->getModule();
         
         if ($module === null) {
             $module = 'fpcm/list';
@@ -338,6 +334,16 @@ class fpcmAPI {
         }
 
         return true;
+    }
+
+    /**
+     * Display messages div in frontend
+     * @return void
+     * @since FPCM 4.4
+     */
+    public function showMessagesBox()
+    {
+        require_once fpcm\classes\dirs::getCoreDirPath(fpcm\classes\dirs::CORE_VIEWS, 'common/messagesTpl.php');
     }
 
 }
