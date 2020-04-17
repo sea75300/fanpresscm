@@ -175,8 +175,8 @@ implements \fpcm\controller\interfaces\requestFunctions {
         }
 
         $this->currentAttempts++;
-
-        \fpcm\classes\http::setSessionVar('loginAttempts', $this->currentAttempts);
+        
+        $this->setAttemptsCount();
         if ($this->currentAttempts >= $this->config->system_loginfailed_locked) {
             $this->loginLocked();
             $this->showLockedForm();
