@@ -97,7 +97,7 @@ class fpcmAPI {
 
         $module = (new \fpcm\model\http\request)->getModule();
         
-        if ($module === null) {
+        if (!trim($module)) {
             $module = 'fpcm/list';
         }
 
