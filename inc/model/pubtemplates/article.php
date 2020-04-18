@@ -226,7 +226,7 @@ final class article extends template {
      */
     protected function cleanup($values)
     {
-        return str_replace(array_keys($this->cleanups), array_values($this->cleanups), $values);
+        return \fpcm\classes\tools::strReplaceArray($values, $this->cleanups);
     }
 
     /**

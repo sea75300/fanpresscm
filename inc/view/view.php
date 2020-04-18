@@ -261,7 +261,7 @@ class view {
             return $jsCorePath;
         }
 
-        return str_replace(array_keys($this->rootUrls), array_values($this->rootUrls), $item);
+        return \fpcm\classes\tools::strReplaceArray($item, $this->rootUrls);
     }
 
     /**

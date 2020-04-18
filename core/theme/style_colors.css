@@ -61,6 +61,11 @@ h3.fpcm-dashboard-container-headline span.fpcm-ui-icon {
     background: rgba(255,255,255,0.90);
 }
 
+.fpcm.ui-background-black-75p {
+    background: rgba(0,0,0,0.75);
+
+}
+
 div.fpcm-filelist-thumb-box div.fpcm-filelist-thumb-box-inner,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-row {
     background: rgba(254,254,254,0.7);

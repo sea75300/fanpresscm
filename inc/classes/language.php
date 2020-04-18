@@ -217,7 +217,7 @@ final class language {
     public function translate($langvar, array $replaceParams = [])
     {
         $langvarUc = strtoupper($langvar);
-        $langData = isset($GLOBALS['langdata'][$langvarUc]) ? $GLOBALS['langdata'][$langvarUc] : $langvar;
+        $langData = $GLOBALS['langdata'][$langvarUc] ?? $langvar;
 
         $replacement = [];
         foreach ($replaceParams as $key => $val) {
@@ -229,7 +229,7 @@ final class language {
             $replacement[$key] = $val;
         }
 
-        return str_replace(array_keys($replacement), array_values($replacement), $langData);
+        return tools::strReplaceArray($langData, $replacement);
     }
 
     /**
@@ -241,7 +241,7 @@ final class language {
     public function writeMonth($monthId, $return = false)
     {
         $monthId = (string) $monthId;
-        $result = isset($GLOBALS['langdata']['SYSTEM_MONTHS'][$monthId]) ? $GLOBALS['langdata']['SYSTEM_MONTHS'][$monthId] : null;
+        $result = $GLOBALS['langdata']['SYSTEM_MONTHS'][$monthId] ?? null;
 
         if ($return) {
             return $result;
