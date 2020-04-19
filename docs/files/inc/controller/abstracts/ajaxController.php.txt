@@ -66,6 +66,8 @@ class ajaxController extends controller {
      * JSON-codiertes Array mit Rückgabe-Code und ggf. Rückgabe-Daten erzeugen
      * @return void
      * @since FPCM 3.2
+     * @deprecated FPCM 4.4, use $this->response (\fpcm\model\http\response instance) instead
+     * @see \fpcm\model\http\response
      */
     protected function getResponse()
     {
@@ -85,6 +87,8 @@ class ajaxController extends controller {
      * JSON-codiertes Array nur mit Nutzdaten als Rückgabe erzeugen
      * @return void
      * @since FPCM 3.6
+     * @deprecated FPCM 4.4, use $this->response (\fpcm\model\http\response instance) instead
+     * @see \fpcm\model\http\response
      */
     protected function getSimpleResponse()
     {
@@ -109,6 +113,8 @@ class ajaxController extends controller {
      * Sets Header to return JSON data
      * @return boolean
      * @since FPCM 4.3.0
+     * @deprecated FPCM 4.4, use $this->response (\fpcm\model\http\response instance) instead
+     * @see \fpcm\model\http\response
      */
     protected function setReturnJson()
     {

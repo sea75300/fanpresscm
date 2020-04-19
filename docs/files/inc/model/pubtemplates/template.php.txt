@@ -219,7 +219,7 @@ class template extends \fpcm\model\abstracts\file {
         $this->replacementTags = $this->events->trigger('template\parse', $this->replacementTags);
 
         $tags = array_merge($this->replacementInternal, $this->replacementTags);
-        return str_replace(array_keys($tags), array_values($tags), $this->content);
+        return \fpcm\classes\tools::strReplaceArray($this->content, $tags);
     }
 
     /**

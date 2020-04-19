@@ -26,6 +26,9 @@ class main {
             exit('FanPress CM requires at least PHP ' . FPCM_PHP_REQUIRED . ' or better!');
         }
 
+        /**
+         * @todo usage removal of old HTTP wrapper
+         */
         \fpcm\classes\http::init();
 
         if (!\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {

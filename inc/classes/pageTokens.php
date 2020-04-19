@@ -19,7 +19,7 @@ namespace fpcm\classes;
 final class pageTokens {
 
     /**
-     *
+     * Request object
      * @var \fpcm\model\http\request
      */
     private $request;

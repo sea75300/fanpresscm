@@ -13,7 +13,10 @@ namespace fpcm\classes;
  * 
  * @package fpcm\classes\http
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @deprecated FPCM 4.4, use new request/ response handler instead
+ * @see \fpcm\model\http\request
+ * @see \fpcm\model\http\response 
  */
 final class http {
 
@@ -127,7 +130,6 @@ final class http {
      * @param string $varname Variablenname
      * @param array $filter Filter vor Rückgabe durchführen, @see http::filter()
      * @return mixed null wenn Variable nicht gesetzt
-     * @deprecated FPCM 4.4
      */
     public static function get($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
@@ -144,7 +146,6 @@ final class http {
      * @param string $varname Variablenname
      * @param array $filter Filter vor Rückgabe durchführen, @see http::filter()
      * @return mixed null wenn Variable nicht gesetzt
-     * @deprecated FPCM 4.4
      */
     public static function postOnly($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
@@ -161,7 +162,6 @@ final class http {
      * @param string $varname Variablenname
      * @param array $filter Filter vor Rückgabe durchführen, @see http::filter()
      * @return mixed null wenn Variable nicht gesetzt
-     * @deprecated FPCM 4.4
      */
     public static function getOnly($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
@@ -178,7 +178,6 @@ final class http {
      * @param string $varname Variablenname
      * @param array $filter Filter vor Rückgabe durchführen, @see http::filter()
      * @return mixed null wenn Variable nicht gesetzt
-     * @deprecated FPCM 4.4
      */
     public static function cookieOnly($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
@@ -188,7 +187,6 @@ final class http {
     /**
      * Gibt IP-Adresse des aktuellen Nutzers zurück
      * @return string
-     * @deprecated FPCM 4.4
      */
     public static function getIp()
     {
@@ -199,7 +197,6 @@ final class http {
     /**
      * Gibt HTTP-Host des aktuellen Nutzers zurück
      * @return string
-     * @deprecated FPCM 4.4
      */
     public static function getHttpHost()
     {
@@ -209,7 +206,6 @@ final class http {
     /**
      * Gibt Inhalt von Dateiupload via PHP zurück
      * @return array
-     * @deprecated FPCM 4.4
      */
     public static function getFiles()
     {
@@ -252,7 +248,6 @@ final class http {
      * * object - json_decode-Ergebnis als Objekt oder Array
      * 
      * @return mixed
-     * @deprecated FPCM 4.4
      */
     public static function filter($filterString, array $filters)
     {

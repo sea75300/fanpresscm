@@ -19,7 +19,7 @@ abstract class event {
     /**
      * Module key
      * @var string
-     * @deprecated since version FPCM 4.4
+     * @deprecated since version FPCM 4.4, use $this->getModuleKey() instead
      */
     protected $key = '';
 

@@ -233,11 +233,11 @@ final class baseconfig {
     {
         if (!isset($GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__])) {
 
-            $noToken = http::getOnly('t', [
-                http::FILTER_CASTINT
+            $noToken = \fpcm\classes\loader::getObject('\fpcm\model\http\request')->fromPOST('t', [
+                \fpcm\model\http\request::FILTER_CASTINT
             ]);
 
-            $module = http::getOnly('module');
+            $module = \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getModule();
             $blacklist = ['ajax/refresh'];
 
             $GLOBALS['fpcm']['baseconfigdata'][__FUNCTION__] = (strpos($module, 'fpcm/') !== false || in_array($module, $blacklist) || $noToken ? true : false);

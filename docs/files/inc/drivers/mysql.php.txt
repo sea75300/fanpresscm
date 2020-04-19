@@ -253,7 +253,8 @@ final class mysql implements sqlDriver {
     public function mapErrorCodes($code)
     {
         $map = [
-            1062 => self::CODE_ERROR_UNIQUEKEY
+            23000 => self::CODE_ERROR_UNIQUEKEY,
+            42000 => self::CODE_ERROR_SYNTAX
         ];
         
         return $map[$code] ?? null;

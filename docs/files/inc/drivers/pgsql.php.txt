@@ -250,7 +250,8 @@ final class pgsql implements sqlDriver {
     public function mapErrorCodes($code)
     {
         $map = [
-            7 => self::CODE_ERROR_UNIQUEKEY
+            23505 => self::CODE_ERROR_UNIQUEKEY,
+            42601 => self::CODE_ERROR_SYNTAX
         ];
         
         return $map[$code] ?? null;

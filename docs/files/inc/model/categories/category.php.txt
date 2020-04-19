@@ -139,6 +139,20 @@ class category extends \fpcm\model\abstracts\dataset {
     }
 
     /**
+     * Executes update process to database and events
+     * @return bool|int
+     */
+    public function update()
+    {
+        $success = parent::update();
+        if ($success === false && $this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY) {
+            return \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY;
+        }
+
+        return $success;
+    }
+
+    /**
      * Führt Ersetzung von gesperrten Texten in Kommentar-Daten durch
      * @return bool
      * @since FPCM 3.2.0

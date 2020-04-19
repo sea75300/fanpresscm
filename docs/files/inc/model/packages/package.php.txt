@@ -194,12 +194,13 @@ abstract class package {
 
         return false;
     }
-
+    
     /**
-     * fetch package content from package server
-     * @return bool
+     * Fetch package content from package server
+     * @param \fpcm\model\cli\progress $progress
+     * @return boolean
      */
-    public function download()
+    public function download($progress = null)
     {
         $remotePath = $this->getRemotePath();
 
@@ -218,11 +219,23 @@ abstract class package {
             return self::LOCALFILE_ERROR;
         }
 
+        $cliProgress = ($progress instanceof \fpcm\model\cli\progress);
+        $size = 0;
+        
         while (!feof($remoteHandle)) {
-            if (fwrite($remoteHandleLocal, fgets($remoteHandle)) === false) {
+            
+            $res = fwrite($remoteHandleLocal, fgets($remoteHandle));
+            if ($res === false) {
                 trigger_error("Error while writing content of {$remotePath} to {$localPath}.");
                 return self::LOCALWRITE_ERROR;
-            }           
+            }
+            
+            $size += $res;
+            if ($cliProgress) {
+                $progress->setCurrentValue($size);
+                $progress->output();
+            }
+
         }
 
         fclose($remoteHandle);

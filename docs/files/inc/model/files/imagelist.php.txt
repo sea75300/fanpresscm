@@ -105,6 +105,10 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
             ->setWhere($where)->setParams($valueParams)->setFetchAll(true)
         );
 
+        if ($this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
+            return \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX;
+        }
+
         $res = [];
         foreach ($images as $image) {
             $imageObj = new image('', false);

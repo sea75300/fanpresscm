@@ -175,7 +175,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param string $varname
      * @param array $filter
      * @return mixed
-     * @deprecated since version FPCM 4.4
+     * @deprecated FPCM 4.4, use $this->request instead
      */
     final public function getRequestVar
     (
@@ -192,6 +192,9 @@ class controller implements \fpcm\controller\interfaces\controller {
             return $this->request->fetchAll($varname, $filter);
         }
 
+        /**
+         * @todo usage removal of old HTTP wrapper
+         */
         return \fpcm\classes\http::get($varname, $filter);
     }
 

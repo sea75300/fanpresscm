@@ -72,7 +72,7 @@ final class commentform extends template {
 
         $this->replacementTags = $this->events->trigger('template\parseCommentForm', $this->replacementTags);
         $tags = array_merge($this->replacementInternal, $this->replacementTags);
-        return str_replace(array_keys($tags), array_values($tags), $this->content);
+        return \fpcm\classes\tools::strReplaceArray($this->content, $tags);
     }
 
     /**

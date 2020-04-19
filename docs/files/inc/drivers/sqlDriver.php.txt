@@ -18,8 +18,11 @@ namespace fpcm\drivers;
  */
 interface sqlDriver {
 
-    /* Unique key constraint error */
+    /* Unique key constraint error (since FPCM 4.4) */
     const CODE_ERROR_UNIQUEKEY = 0x111;
+
+    /* Unique key constraint error (since FPCM 4.4) */
+    const CODE_ERROR_SYNTAX = 0x501;
 
     /**
      * Erzeugt DNS-String für \PDO:__construct
