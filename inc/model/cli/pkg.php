@@ -138,12 +138,17 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $updates = $modules->getInstalledUpdates();
 
         $this->output('-- successful!');
-        $this->output('FanPress CM ' . $this->updaterSys->version . ' was relesed on ' . $this->updaterSys->release . ' width size of ' . \fpcm\classes\tools::calcSize($this->updaterSys->size));
-        if ($successSys === system::FORCE_UPDATE) {
+        $this->output('FanPress CM ' . $this->updaterSys->version . ' was relesed on ' . $this->updaterSys->release . ', size is ' . \fpcm\classes\tools::calcSize($this->updaterSys->size));
+        if ($successSys === true) {
+            $this->output('-- You are NOT up to date.');            
+        }
+        elseif ($successSys === false) {
+            $this->output('-- You are up to date.');            
+        }
+        elseif ($successSys === system::FORCE_UPDATE) {
             $this->output('-- This released is forced to be installed, you should run fpcmcli.php pkg --update system as soon as possible.');
         }
-
-        if ($successSys && $this->updaterSys->phpversion && version_compare(phpversion(), $this->updaterSys->phpversion, '<')) {
+        elseif ($successSys && $this->updaterSys->phpversion && version_compare(phpversion(), $this->updaterSys->phpversion, '<')) {
             $this->output('-- This released requires PHP ' . $this->updaterSys->phpversion . ' or better, you current PHP version is ' . phpversion());
         }
 
