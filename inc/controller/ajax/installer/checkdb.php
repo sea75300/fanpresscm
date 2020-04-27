@@ -32,7 +32,7 @@ class checkdb extends \fpcm\controller\abstracts\ajaxController {
      */
     public function hasAccess()
     {
-        return \fpcm\classes\baseconfig::dbConfigExists();
+        return !\fpcm\classes\baseconfig::dbConfigExists();
     }
 
     /**
@@ -41,6 +41,7 @@ class checkdb extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
+        $this->request = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
         return true;
     }
 

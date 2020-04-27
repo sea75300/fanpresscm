@@ -126,6 +126,10 @@ fpcm.installer = {
             return false;
         });
 
+        if (fpcm.vars.jsvars.activeTab == 0) {
+            return true;
+        }
+
         fpcm.ui.selectmenu('.fpcm-ui-input-select', {
             removeCornerLeft: true
         });

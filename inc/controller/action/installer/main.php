@@ -109,6 +109,7 @@ class main extends \fpcm\controller\abstracts\controller {
     public function __construct()
     {
         session_start();
+        $this->request = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
         return true;
     }
     

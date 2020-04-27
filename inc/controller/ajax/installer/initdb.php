@@ -42,7 +42,7 @@ class initdb extends \fpcm\controller\abstracts\ajaxController {
         if (!\fpcm\classes\baseconfig::dbConfigExists() && !\fpcm\classes\baseconfig::installerEnabled()) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -52,6 +52,7 @@ class initdb extends \fpcm\controller\abstracts\ajaxController {
      */
     public function request()
     {
+        $this->request = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
         $this->filename = base64_decode(str_rot13($this->request->fromPOST('file', [
             \fpcm\model\http\request::FILTER_BASE64DECODE
         ])));
