@@ -195,7 +195,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         if ($success !== true) {
             $this->output('Package integity check for ' . basename($pkg->getLocalPath()) . ' failed. ERROR CODE: ' . $success, true);
         }
-        $this->output('-- Finished.' . PHP_EOL, true);
+        $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Unpacking package file ' . basename($pkg->getLocalPath()) . '...');
         $success = $pkg->extract();
