@@ -28,6 +28,11 @@ indices:
     config_name:
         col: config_name
         isUnqiue: true
+    cfmodule:
+        col:
+            config_name
+            modulekey
+        isUnqiue: true
 defaultvalues:
     rows:
         system_version:

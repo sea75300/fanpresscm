@@ -14,6 +14,7 @@ namespace nkorg\yatdl;
  * 
  * @property string $type Type of column
  * @property string $length Lenght of data
+ * @property string $charset Column charset
  * @property mixed $defaultValue Default value to set for new dataset
  * @property string $params Additional params
  * 

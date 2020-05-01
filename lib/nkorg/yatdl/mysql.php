@@ -72,6 +72,7 @@ class mysql extends driver {
 
             $sql .= " {$this->colTypes[$col->type]}";
             $sql .= ($col->length && in_array($col->type, $this->lenghtTypes)) ? "({$col->length}) " : " ";
+            $sql .= ($col->charset) ? "CHARACTER SET {$col->charset} " : " ";
 
             if ($col->params) {
                 $sql .= $col->params;

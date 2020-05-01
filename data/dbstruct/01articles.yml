@@ -16,6 +16,7 @@ cols:
         type: varchar
         length: 255
         params: NOT NULL
+        charset: utf8mb4
     content:
         type: text
         length: 
