@@ -25,15 +25,36 @@ class v441 extends migration {
      */
     protected function alterTablesAfter() : bool
     {
-        
-        if ($this->getDB()->getDbtype() === \fpcm\classes\database::DBTYPE_POSTGRES) {
-            fpcmLogSystem('Skip this migration on postgres...');
-            return true;
+        fpcmLogSystem('Covnert charset for '.$this->getDB()->getTablePrefixed(\fpcm\classes\database::tableArticles).' to utf8mb4_general_ci...');
+
+        $fieldName = 'content';
+        $struct = $this->getDB()->getTableStructure(\fpcm\classes\database::tableArticles, $fieldName)[$fieldName] ?? false;        
+        if (!$struct) {
+            trigger_error('field '.$fieldName.' not found!');
+            return false;
         }
 
-        $struct = $this->getDB()->getTableStructure(\fpcm\classes\database::tableArticles, 'content');       
-        $this->getDB()->alter(\fpcm\classes\database::tableArticles, 'CHANGE', "`content`", "`content` {$struct['type']} COLLATE 'utf8mb4_general_ci'");
-        return true;
+        return $this->getDB()->alter(\fpcm\classes\database::tableArticles, 'CHANGE', $fieldName, "`{$fieldName}` {$struct['type']} COLLATE 'utf8mb4_general_ci'");
+    }
+
+    /**
+     * Returns a list of migrations which have to be executed before
+     * @return array
+     */
+    protected function required(): array
+    {
+        return ['440b4'];
+    }
+
+    /**
+     * Returns a list of database driver names the migration should be executed to,
+     * default is MySQL/ MariaDB and Postgres
+     * @return array
+     * @since FPCM 4.4.1
+     */
+    protected function onDatabase(): array
+    {
+        return [\fpcm\classes\database::DBTYPE_MYSQLMARIADB];
     }
 
     

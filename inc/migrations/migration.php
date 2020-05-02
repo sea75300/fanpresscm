@@ -138,6 +138,12 @@ abstract class migration {
 
         $cn = get_called_class();
         $this->output('Processing migration '.$cn);
+        
+        $dbType = $this->getDB()->getDbtype();
+        if (!in_array($this->getDB()->getDbtype(), $this->onDatabase())) {
+            $this->output('Skip migration '.$cn.' on '.$dbType.'...');
+            return true;
+        }
 
         if (!$this->alterTablesAfter()) {
             return false;
@@ -245,6 +251,17 @@ abstract class migration {
     protected function updateSystemConfig() : bool
     {
         return true;
+    }
+
+    /**
+     * Returns a list of database driver names the migration should be executed to,
+     * default is MySQL/ MariaDB and Postgres
+     * @return array
+     * @since FPCM 4.4.1
+     */
+    protected function onDatabase() : array
+    {
+        return [\fpcm\classes\database::DBTYPE_MYSQLMARIADB, \fpcm\classes\database::DBTYPE_POSTGRES];
     }
 
     /**
