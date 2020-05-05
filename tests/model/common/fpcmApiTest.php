@@ -67,4 +67,14 @@ class fpcmAPiTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($result, $GLOBALS['testSessionId']);
     }
 
+    public function testCheckLockedIp()
+    {
+        $ip = new fpcm\model\ips\ipaddress();
+        $ip->setIpaddress('127.0.0.1');
+        $ip->setNoaccess(1);
+
+        $this->assertTrue( $ip->save());
+        $this->assertTrue($this->object->checkLockedIp());
+        $this->assertTrue($ip->delete());
+    }
 }

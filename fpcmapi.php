@@ -70,6 +70,7 @@ class fpcmAPI {
      */
     private function initObjects() : bool
     {
+        \fpcm\classes\loader::getObject('\fpcm\model\http\request');
         \fpcm\classes\loader::getObject('\fpcm\classes\database');
         \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
         \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
@@ -344,6 +345,18 @@ class fpcmAPI {
     public function showMessagesBox()
     {
         require_once fpcm\classes\dirs::getCoreDirPath(fpcm\classes\dirs::CORE_VIEWS, 'common/messagesTpl.php');
+    }
+
+    /**
+     * Check if IP adress is locked
+     * @param string $lockType
+     * @return bool
+     * @see \fpcm\model\ips\iplist::ipIsLocked
+     * @since FPCM 4.4.1
+     */
+    public function checkLockedIp($lockType = 'noaccess') : bool
+    {
+        return (new \fpcm\model\ips\iplist)->ipIsLocked() ? true : false;
     }
 
 }
