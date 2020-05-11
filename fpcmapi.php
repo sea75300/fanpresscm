@@ -356,7 +356,7 @@ class fpcmAPI {
      */
     public function checkLockedIp($lockType = 'noaccess') : bool
     {
-        return (new \fpcm\model\ips\iplist)->ipIsLocked() ? true : false;
+        return (new \fpcm\model\ips\iplist)->ipIsLocked($lockType) ? true : false;
     }
 
 }

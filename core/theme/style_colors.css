@@ -148,7 +148,9 @@ label.fpcm-ui-label-bg-grey,
 
 legend,
 span.fpcm-ui-badge,
-.fpcm-ui-button-primary {
+.fpcm-ui-button-primary,
+#fpcm-loader > div.fpcm-loader-icon > span.fpcm.ui-label,
+#fpcm-loader > div.fpcm-loader-icon > span.fpcm.ui-label * {
     color: #fff;
 }
 
@@ -164,6 +166,10 @@ span.fpcm-ui-badge.fpcm-ui-badge-red {
 #fpcm-filemanager-upload-drop,
 div.fpcm-filelist-thumb-box img {
     border: 1px dotted #00aded;
+}
+
+#fpcm-loader > div.fpcm-loader-icon {
+    color: #0073ea !important;
 }
 
 /* ------ Main navigation menu */

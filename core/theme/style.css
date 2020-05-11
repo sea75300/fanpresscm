@@ -413,6 +413,10 @@ div.fpcm-ui-editor-metabox span.fpcm-ui-editor-metainfo {
     top: calc(50vh - 2em);
 }
 
+#fpcm-loader > div.fpcm-loader-icon > span.fpcm.ui-label {
+    margin-left: 0.5rem;
+}
+
 div.fpcm-ui-datepicker-inputwrapper {
     max-width: 200px;
 }

@@ -72,6 +72,8 @@ class fpcmAPiTest extends \PHPUnit_Framework_TestCase {
         $ip = new fpcm\model\ips\ipaddress();
         $ip->setIpaddress('127.0.0.1');
         $ip->setNoaccess(1);
+        $ip->setIptime(time());
+        $ip->setUserid(1);
 
         $this->assertTrue( $ip->save());
         $this->assertTrue($this->object->checkLockedIp());
