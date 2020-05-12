@@ -172,6 +172,15 @@ div.fpcm-filelist-thumb-box img {
     color: #0073ea !important;
 }
 
+@keyframes fpcm-loader-glow {
+  from { text-shadow: none; }
+  to { text-shadow: 0 0 25px #0073ea; }
+}
+
+#fpcm-loader > div.fpcm-loader-icon > span:first-child {
+    animation: fpcm-loader-glow 1.5s infinite alternate;
+}
+
 /* ------ Main navigation menu */
 
 #fpcm-navigation a {
