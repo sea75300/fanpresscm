@@ -2,7 +2,7 @@
 <?php if ($theView->navigation && $theView->loggedIn) : ?>
 <div id="fpcm-navigation" class="fpcm ui-background-white-50p">
     <div class="greedy">        
-        <ul class="fpcm-ui-menu col-12">
+        <ul class="fpcm-ui-menu col">
     <?php foreach ($theView->navigation as $navigationGroup) : ?>
         <?php foreach ($navigationGroup as $groupName => $navigationItem) : ?>     
             <li id="item<?php print $navigationItem->getId(); ?>" class="col-12 fpcm-menu-level1 fpcm-menu-level1-show fpcm-ui-center <?php print $navigationItem->getWrapperClass(); ?> <?php if ($navigationItem->hasSubmenu()) : ?>fpcm-menu-has-submenu<?php endif; ?> <?php if ($navigationItem->isActive()) : ?>fpcm-menu-item-active<?php endif; ?>">
@@ -38,7 +38,7 @@
 
         <?php $theView->button('hiddenMenu')->setIcon('bars')->setSize('lg')->setText('NAVIGATION_SHOW')->setIconOnly(true)->setClass('fpcm ui-border-radius-none ui-center fpcm-ui-hidden'); ?>
 
-        <ul class="fpcm-ui-nav-hidden-links fpcm ui-background-white-90p ui-blurring fpcm-ui-hidden"></ul>
+        <ul class="fpcm-ui-nav-hidden-links fpcm ui-background-white-90p ui-blurring fpcm-ui-hidden fpcm-ui-position-right-0"></ul>
 
         <div class="fpcm-ui-clear"></div>
     </div>

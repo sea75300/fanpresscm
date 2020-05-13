@@ -23,16 +23,22 @@
     display: block;
 }
 
-#fpcm-navigation li,
 #btnHiddenMenu {
+    float: right;
+    min-width: 5em;
+    max-width: 100px;
+    border: 0 !important;
+    padding: 22.5px 0px;
+}
+
+#fpcm-navigation li {
     float: left;
     width: 200px;
 }
 
 #fpcm-navigation ul.fpcm-ui-menu li,
 #fpcm-navigation ul.fpcm-ui-nav-hidden-links li,
-#fpcm-navigation ul.fpcm-ui-menu:first-child li ul.fpcm-ui-sub-menu li,
-#btnHiddenMenu {
+#fpcm-navigation ul.fpcm-ui-menu:first-child li ul.fpcm-ui-sub-menu li {
     max-width: 200px;
 }
 
@@ -65,11 +71,6 @@
 #fpcm-navigation a,
 #btnHiddenMenu {
     margin: 0;
-}
-
-#btnHiddenMenu {
-    border: 0 !important;
-    padding: 22.5px 10px 22.5px 10px;
 }
 
 /* ------ Top navigation menu */
