@@ -204,7 +204,8 @@ final class pgsql implements sqlDriver {
     {
         $data[$colRow->column_name] = array(
             'type' => $colRow->data_type,
-            'length' => (int) $colRow->character_maximum_length
+            'length' => (int) $colRow->character_maximum_length,
+            'charset' => 'utf-8'
         );
 
         return true;

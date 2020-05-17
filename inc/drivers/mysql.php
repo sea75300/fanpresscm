@@ -184,7 +184,7 @@ final class mysql implements sqlDriver {
      */
     public function getTableStructureQuery($table, $field = false)
     {
-        $query = 'SHOW COLUMNS FROM ' . $table;
+        $query = 'SHOW FULL COLUMNS FROM ' . $table;
         if ($field !== false && trim($field)) {
             $query .= " WHERE Field = '{$field}'";
         }
@@ -207,7 +207,8 @@ final class mysql implements sqlDriver {
 
         $data[$colRow->Field] = array(
             'type' => $type,
-            'length' => $length
+            'length' => $length,
+            'charset' => $colRow->Collation
         );
 
         return true;

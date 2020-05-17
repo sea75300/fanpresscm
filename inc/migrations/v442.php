@@ -25,15 +25,16 @@ class v442 extends migration {
      */
     protected function alterTablesAfter() : bool
     {
-        fpcmLogSystem('Covnert charset for '.$this->getDB()->getTablePrefixed(\fpcm\classes\database::tableArticles).' to utf8mb4_general_ci...');
 
         $struct = [
-            \fpcm\classes\database::tableArticles => ['title'],
+            \fpcm\classes\database::tableArticles => ['title', 'content'],
             \fpcm\classes\database::tableComments => ['text'],
         ];
         
         $res = true;
         foreach ($struct as $tab => $fields) {
+
+            fpcmLogSystem('Convert charset for '.$this->getDB()->getTablePrefixed($tab).' to utf8mb4_general_ci...');
             
             foreach ($fields as $fieldName) {
 
@@ -43,6 +44,10 @@ class v442 extends migration {
                     return false;
                 }
 
+                if ($struct['charset'] === 'utf8mb4_general_ci') {
+                    continue;
+                }
+                
                 return $this->getDB()->alter($tab, 'CHANGE', $fieldName, "`{$fieldName}` {$struct['type']} COLLATE 'utf8mb4_general_ci'");
             }
 
@@ -57,7 +62,7 @@ class v442 extends migration {
      */
     protected function required(): array
     {
-        return ['441'];
+        return ['440b4'];
     }
 
     /**
