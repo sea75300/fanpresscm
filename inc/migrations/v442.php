@@ -26,19 +26,21 @@ class v442 extends migration {
     protected function alterTablesAfter() : bool
     {
 
-        $struct = [
+        $changes = [
             \fpcm\classes\database::tableArticles => ['title', 'content'],
             \fpcm\classes\database::tableComments => ['text'],
         ];
-        
-        $res = true;
-        foreach ($struct as $tab => $fields) {
 
-            fpcmLogSystem('Convert charset for '.$this->getDB()->getTablePrefixed($tab).' to utf8mb4_general_ci...');
+        $res = true;
+        foreach ($changes as $tab => $fields) {
+
+            $this->output('Convert charset for '.$this->getDB()->getTablePrefixed($tab).' to utf8mb4_general_ci...');
+            
+            $tabStruct = $this->getDB()->getTableStructure($tab);
             
             foreach ($fields as $fieldName) {
 
-                $struct = $this->getDB()->getTableStructure($tab, $fieldName)[$fieldName] ?? false;
+                $struct = $tabStruct[$fieldName] ?? false;
                 if (!$struct) {
                     trigger_error('field '.$fieldName.' not found!');
                     return false;
@@ -48,7 +50,8 @@ class v442 extends migration {
                     continue;
                 }
                 
-                return $this->getDB()->alter($tab, 'CHANGE', $fieldName, "`{$fieldName}` {$struct['type']} COLLATE 'utf8mb4_general_ci'");
+                $typeStr =  $struct['length'] ? $struct['type'].'('.$struct['length'].')' : $struct['type'];
+                $res = $res && $this->getDB()->alter($tab, 'CHANGE', $fieldName, "`{$fieldName}` {$typeStr} COLLATE 'utf8mb4_general_ci'");
             }
 
         }
