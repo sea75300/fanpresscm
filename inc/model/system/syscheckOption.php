@@ -164,7 +164,7 @@ final class syscheckOption {
      */
     public function asString($descr)
     {
-        $line       = "> {$descr} : {$this->current}".($this->result ? '' : ' !!!');
+        $line = str_pad($descr, 55, ' ',  STR_PAD_RIGHT).": {$this->current}".($this->result ? '' : ' !!!');
         if (!$this->notice) {
             return $line;
         }

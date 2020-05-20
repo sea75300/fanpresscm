@@ -343,8 +343,6 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
             $this->dbcon->optimize($table);
         }
-        
-        $this->cliOutput('');
 
         return true;
     }
@@ -416,5 +414,3 @@ final class finalizer extends \fpcm\model\abstracts\model {
     }
 
 }
-
-?>

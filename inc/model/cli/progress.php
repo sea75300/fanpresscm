@@ -12,6 +12,7 @@ namespace fpcm\model\cli;
  * 
  * @package fpcm\model\cli
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @author mayconbordin, https://gist.github.com/mayconbordin
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 4.4-b5
@@ -37,18 +38,6 @@ final class progress {
     private $currentValue = 0;
 
     /**
-     * FUnction closure to calculate char output
-     * @var callable
-     */
-    private $displayCallback;
-
-    /**
-     * Internal char counter
-     * @var int
-     */
-    private $charCounter = 0;
-
-    /**
      * Cli flag
      * @var bool
      */
@@ -60,26 +49,11 @@ final class progress {
      * @param int $currentValue
      * @param callable $displayCallback
      */
-    public function __construct(int $maxValue, int $currentValue = 0, $displayCallback = null)
+    public function __construct(int $maxValue, int $currentValue = 0)
     {
         $this->maxValue = $maxValue;
         $this->currentValue = $currentValue;
-        $this->displayCallback = $displayCallback;
         $this->isCli = \fpcm\classes\baseconfig::isCli();
-        
-        if (!is_callable($this->displayCallback)) {
-            
-            $this->displayCallback = function ($currentValue,  $maxValue, $counter) {
-
-                if ($currentValue >= $maxValue) {
-                    return false;
-                }
-
-                $stepSize = $maxValue / progress::LINE_MAX_CHARS;
-                return $currentValue >= $stepSize * $counter ? true : false;
-            };
-
-        }
     }
 
     /**
@@ -102,19 +76,21 @@ final class progress {
         if (!$this->isCli) {
             return false;
         }
-        
-        if (!call_user_func($this->displayCallback, $this->currentValue, $this->maxValue, $this->charCounter)) {
-            return false;
-        }
-        
-        $this->charCounter++;
-        if ($this->charCounter >= self::LINE_MAX_CHARS) {
-            print PHP_EOL;
-            return true;
-        }
 
-        print self::PROGRESS_CHAR;
+        $percent = round(($this->currentValue * 100) / $this->maxValue);
+        $bars = round((self::LINE_MAX_CHARS * $percent) / 100);
+        print sprintf("%s%%[%s#%s]\r", $percent, str_repeat(self::PROGRESS_CHAR, $bars), str_repeat(" ", self::LINE_MAX_CHARS-$bars));
         return true;
     }
+
+    /**
+     * Destructor
+     * @ignore
+     */
+    public function __destruct()
+    {
+        print PHP_EOL;
+    }
+
 
 }

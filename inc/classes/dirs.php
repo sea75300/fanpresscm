@@ -12,7 +12,7 @@ namespace fpcm\classes;
  * 
  * @package fpcm\classes\baseconfig
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  */
 final class dirs {
 
@@ -65,12 +65,7 @@ final class dirs {
      */
     private static function initUrls()
     {
-        if (baseconfig::isCli()) {
-            $GLOBALS['fpcm']['urls']['base'] = '';
-            return false;
-        }
-
-        $GLOBALS['fpcm']['urls']['base'] = (baseconfig::canHttps() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/';
+        $GLOBALS['fpcm']['urls']['base'] = baseconfig::isCli() ? 'localhost' :  ( (baseconfig::canHttps() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/' ) ;
 
         $base = basename($GLOBALS['fpcm']['dir']['base']);
         if (strpos($GLOBALS['fpcm']['urls']['base'], $base) === false) {
@@ -174,5 +169,3 @@ final class dirs {
     }
 
 }
-
-?>
