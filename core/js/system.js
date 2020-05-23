@@ -314,7 +314,6 @@ fpcm.system = {
             var el = fpcm.dom.fromTag(this);
 
             fpcm.ajax.get('help', {
-                quiet: true,
                 data: {
                     ref: el.data('ref'),
                     chapter: el.data('chapter'),

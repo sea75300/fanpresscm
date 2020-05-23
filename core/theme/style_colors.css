@@ -13,10 +13,7 @@ span.fpcm-ui-button-shorthelp,
 div.fpcm-ui-inline-loader,
 .fpcm-ui-color-grey-dark,
 .fpcm-message-neutral,
-#btnHiddenMenu,
-#btnHiddenMenu:hover,
-#btnHiddenMenu:focus,
-#btnHiddenMenu:active {
+#btnHiddenMenu {
     color: #454545;
 }
 
@@ -187,17 +184,13 @@ div.fpcm-filelist-thumb-box img {
     color: #362b36 !important;
 }
 
-div.fpcm-status-info ul li:hover,
-div.fpcm-status-info ul li:focus,
-div.fpcm-status-info ul li:active {
-    background: rgba(255, 239, 143, 0.5);
-}
-
-
 #fpcm-navigation .fpcm.menu-hover,
 #fpcm-navigation li:hover,
 #fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active:hover,
 #fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active:hover,
+div.fpcm-status-info ul li:hover,
+div.fpcm-status-info ul li:focus,
+div.fpcm-status-info ul li:active,
 #btnHiddenMenu:hover {
     background: rgba(0, 115, 234, 0.75);
 }
@@ -220,6 +213,18 @@ div.fpcm-status-info ul li:active {
 #fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active > a:hover,
 #fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active:hover > a,
 #fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active:hover > a,
+div.fpcm-status-info ul li:hover > a,
+div.fpcm-status-info ul li:focus > a,
+div.fpcm-status-info ul li:active > a,
+div.fpcm-status-info ul li:hover em,
+div.fpcm-status-info ul li:focus em,
+div.fpcm-status-info ul li:active em,
+div.fpcm-status-info ul li:hover .fpcm-ui-important-text,
+div.fpcm-status-info ul li:focus.fpcm-ui-important-text,
+div.fpcm-status-info ul li:active .fpcm-ui-important-text,
+div.fpcm-status-info ul li:hover .fpcm-menu-top-level2:hover,
+div.fpcm-status-info ul li:focus .fpcm-menu-top-level2:focus,
+div.fpcm-status-info ul li:active .fpcm-menu-top-level2:active,
 #btnHiddenMenu:hover {
     color: #fff !important;
 }
