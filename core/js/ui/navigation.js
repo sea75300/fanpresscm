@@ -38,7 +38,7 @@ fpcm.ui_navigation = {
         });
 
         fpcm.ui_navigation._vars.btn.click(function() {
-            fpcm.ui_navigation._vars.hlinks.toggleClass('fpcm-ui-hidden');
+            fpcm.ui_navigation._vars.hlinks.toggleClass('ui-scale-standlone-active');
             fpcm.dom.fromTag(this).toggleClass('menu-hover');
         });
 

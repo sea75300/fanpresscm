@@ -85,8 +85,8 @@ div.fpcm-status-info li {
 }
 
 div.fpcm-status-info ul.fpcm-menu-top li ul {
-    margin-top: 0.3rem;
     right: 0rem;
+    top: 100%;
     width: 300px;
 }
 
@@ -139,8 +139,6 @@ div.fpcm-status-info ul.fpcm-menu-top li:active ul {
     display: block;
 }
 
-#fpcm-navigation li ul.fpcm-ui-sub-menu,
-div.fpcm-status-info ul.fpcm-menu-top li ul,
 body.fpcm-ui-hide-toolbar #fpcm-ui-toolbar {
     display: none;
 }
@@ -158,4 +156,18 @@ div.sidebar div.sidebar-forum ul {
 div.fpcm-status-info ul.fpcm-menu-top li,
 #btnHiddenMenu {
     transition: 0.5s ease;
+}
+
+.fpcm.menu-sub-animation,
+.ui-scale-standlone {
+  transform: scaleY(0);    
+  transform-origin: top;
+  transition: transform 0.25s ease;
+}
+
+.fpcm.menu-sub-animation-parent:hover .fpcm.menu-sub-animation-active,
+.fpcm.menu-sub-animation-parent:focus .fpcm.menu-sub-animation-active,
+.fpcm.menu-sub-animation-parent:active .fpcm.menu-sub-animation-active,
+.fpcm.ui-scale-standlone-active {
+    transform: scaleY(1);
 }

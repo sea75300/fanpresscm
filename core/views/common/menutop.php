@@ -2,13 +2,13 @@
 <?php if ($theView->loggedIn) : ?>
 <div class="fpcm-status-info">
     <ul class="fpcm-menu-top fpcm-ui-list-style-none fpcm-ui-float-right fpcm-ui-margin-none fpcm-ui-padding-none">
-        <li class="fpcm-menu-top-level1 fpcm-ui-float-right fpcm-ui-center fpcm-ui-border-radius-all fpcm-ui-margin-md-right" id="fpcm-navigation-profile">
+        <li class="fpcm-menu-top-level1 fpcm-ui-float-right fpcm-ui-center fpcm-ui-border-radius-all m-r-2 fpcm menu-sub-animation-parent">
             <a href="#" target="_blank" class="fpcm-navigation-noclick">
                <?php $theView->icon('user-circle')->setClass('fpcm-navicon')->setSize('lg'); ?>                
                <?php $theView->write('PROFILE_MENU_LOGGEDINAS',  ['{{username}}' => $theView->currentUser->getDisplayName()]); ?>
                <?php $theView->icon('angle-down')->setClass('fpcm-navicon')->setSize('lg'); ?>
             </a>
-            <ul class="fpcm-ui-sub-menu fpcm-ui-list-style-none fpcm-ui-margin-none fpcm-ui-padding-none fpcm ui-background-white-50p ui-blurring">
+            <ul class="fpcm-ui-sub-menu fpcm-ui-list-style-none m-0 p-0 fpcm ui-background-white-50p ui-blurring menu-sub-animation menu-sub-animation-active">
                 <?php if ($theView->permissions->system->profile) : ?>
                 <li class="fpcm-menu-top-level2 fpcm-ui-align-left fpcm-ui-padding-md-tb">
                     <a href="<?php print $theView->controllerLink('system/profile'); ?>" class="fpcm-loader fpcm-ui-full-width">
