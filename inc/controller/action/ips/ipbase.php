@@ -55,7 +55,7 @@ class ipbase extends \fpcm\controller\abstracts\controller implements \fpcm\cont
     {
         $this->id = $this->request->getID();
 
-        $this->ipaddress = new \fpcm\model\ips\ipaddress($this->id);
+        $this->ipaddress = new \fpcm\model\ips\ipaddress($this->id ? $this->id : null);
         $this->save();
 
         $this->view->assign('object', $this->ipaddress);
