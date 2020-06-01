@@ -25,6 +25,12 @@ final class finalizer extends \fpcm\model\abstracts\model {
     private $isCli = false;
 
     /**
+     * CLI progress
+     * @var \fpcm\model\cli\progress
+     */
+    private $cliProgress = false;
+
+    /**
      * Initialisiert System Update
      * @param int $init
      */
@@ -97,8 +103,12 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
         $default = null;
 
+        $this->cliProgress = new \fpcm\model\cli\progress(count($rolls));
+        
+        $i = 1;
         foreach ($rolls as $group) {
 
+            
             $permissionObj = new \fpcm\model\permissions\permissions($group->getId());
             
             if ($default === null) {
@@ -116,6 +126,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
             }
             
             if (\fpcm\classes\tools::getHash(json_encode($data)) === \fpcm\classes\tools::getHash(json_encode($newData))) {
+                $this->cliProgress->setCurrentValue($i)->output();
+                $i++;
                 continue;
             }
 
@@ -123,9 +135,14 @@ final class finalizer extends \fpcm\model\abstracts\model {
             if (!$permissionObj->update()) {
                 return false;
             }
+            
+            $this->cliProgress->setCurrentValue($i)->output();
+            $i++;
 
         }
 
+        $this->cliProgress = null;
+        
         return true;
     }
 
@@ -185,7 +202,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 1 => '\fpcm\components\editor\htmlEditor'
             ];
 
-            $newConfig['system_editor'] = isset($editors[$this->config->system_editor]) ? $editors[$this->config->system_editor] : $editors[0];
+            $newConfig['system_editor'] = $editors[$this->config->system_editor] ?? $editors[0];
         }
 
         if (!count($newConfig)) {
@@ -234,6 +251,9 @@ final class finalizer extends \fpcm\model\abstracts\model {
         
         $addIndeices = method_exists($this->dbcon, 'addTableIndices');
 
+        $this->cliProgress = new \fpcm\model\cli\progress(count($tableFiles));
+
+        $i = 1;
         foreach ($tableFiles as $tableFile) {
 
             $tab = new \fpcm\model\system\yatdl($tableFile);
@@ -245,7 +265,9 @@ final class finalizer extends \fpcm\model\abstracts\model {
             }
 
             $tableName = $tab->getArray()['name'];
-            $this->cliOutput(" >> Alter table structure {$tableName}...");
+            fpcmLogSql(" >> Alter table structure {$tableName}...");
+
+            $this->cliProgress->setCurrentValue($i)->output();
 
             $struct = $this->dbcon->getTableStructure($tableName);
             $tabExists = count($struct) ? true : false;
@@ -258,14 +280,11 @@ final class finalizer extends \fpcm\model\abstracts\model {
             if (in_array($tableName, $dropTables)) {
 
                 fpcmLogSql("Drop table {$tableName}...");
-                $this->cliOutput("     >> Drop table {$tableName}...");
-
                 $successDrop = false;
                 if (!$tabExists) {
                     $this->cliOutput("     >> Table not found, skipping...");
                 }
                 elseif (!$this->dbcon->drop($tableName)) {
-                    $this->cliOutput("     -- FAILED");
                     trigger_error('Unable to drop table ' . $tableName . ' during update');
                     return false;
                 }
@@ -280,12 +299,8 @@ final class finalizer extends \fpcm\model\abstracts\model {
             }
 
             if (!$tabExists) {
-                
                 fpcmLogSql("Add table {$tableName}...");
-                $this->cliOutput("     >> Add table {$tableName}...");
-
                 if (!$this->dbcon->execYaTdl($tableFile)) {
-                    $this->cliOutput("     -- FAILED");
                     trigger_error('Unable to create table ' . $tableName . ' during update');
                     return false;
                 }
@@ -295,9 +310,11 @@ final class finalizer extends \fpcm\model\abstracts\model {
             if ($tabExists && $addIndeices) {
                 $this->dbcon->addTableIndices($tab);
             }
-
-            $this->cliOutput("     -- FINISHED");
+          
+            $i++;
         }
+        
+        $this->cliProgress = null;
 
         if (!$addIndeices) {
             $this->cliOutput("     ++ Important!! Table indices could not be added during database update. Please run \"fpcmcli.php pkg " . \fpcm\model\abstracts\cli::PARAM_UPGRADE_DB. " system\" after auto-update was finished.");
@@ -334,15 +351,17 @@ final class finalizer extends \fpcm\model\abstracts\model {
             \fpcm\classes\database::tableRevisions
         ]);
 
-        $progress = new \fpcm\model\cli\progress(count($tables));
+        $this->cliProgress = new \fpcm\model\cli\progress(count($tables));
         
         foreach ($tables as $i => $table) {
 
-            $progress->setCurrentValue(($i+1));
-            $progress->output();
+            $this->cliProgress->setCurrentValue(($i+1));
+            $this->cliProgress->output();
 
             $this->dbcon->optimize($table);
         }
+        
+        $this->cliProgress = null;
 
         return true;
     }
