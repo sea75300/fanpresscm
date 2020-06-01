@@ -51,6 +51,10 @@ class lockIp extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             $this->response->setReturnData(new \fpcm\view\message($this->language->translate('SAVE_FAILED_IPADDRESS'), \fpcm\view\message::TYPE_ERROR))->fetch();
         }
 
+        if ($comment->getIpaddress() === $this->request->getIp()) {
+            $this->response->setReturnData(new \fpcm\view\message($this->language->translate('SAVE_FAILED_IPADDRESS_SAME'), \fpcm\view\message::TYPE_ERROR))->fetch();
+        }
+
         $ipAddr = new ipaddress();
         $ipAddr->setIpaddress($comment->getIpaddress());
         $ipAddr->setNocomments(1);

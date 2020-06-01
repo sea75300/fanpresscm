@@ -13,7 +13,8 @@ namespace fpcm\controller\action\ips;
  * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class ipbase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class ipbase extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces\requestFunctions {
 
     /**
      * Ip-Adress-Objekt
@@ -56,22 +57,16 @@ class ipbase extends \fpcm\controller\abstracts\controller implements \fpcm\cont
         $this->id = $this->request->getID();
 
         $this->ipaddress = new \fpcm\model\ips\ipaddress($this->id ? $this->id : null);
-        $this->save();
 
         $this->view->assign('object', $this->ipaddress);
         $this->view->setFieldAutofocus('ipSave');
-        $this->view->setFormAction('ips/add');
         $this->view->addButton(new \fpcm\view\helper\saveButton('ipSave'));
         $this->view->addJsFiles(['ipadresses.js']);
         return true;
     }
     
-    protected function save()
+    protected function onIpSave()
     {
-        if (!$this->buttonClicked('ipSave')) {
-            return false;
-        }
-        
         if (!$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return false;
@@ -83,6 +78,11 @@ class ipbase extends \fpcm\controller\abstracts\controller implements \fpcm\cont
             return false;
         }
 
+        if ($ipAddr === $this->request->getIp()) {
+            $this->view->addErrorMessage('SAVE_FAILED_IPADDRESS_SAME');
+            return false;            
+        }
+        
         $this->ipaddress->setIpaddress($ipAddr);
         $this->ipaddress->setIptime(time());
         $this->ipaddress->setUserid($this->session->getUserId());

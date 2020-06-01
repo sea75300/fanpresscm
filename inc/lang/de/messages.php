@@ -87,6 +87,7 @@ $lang = array(
     'SAVE_FAILED_SMILEY' => 'Der Smiley konnte nicht gespeichert werden!',
     'SAVE_FAILED_IPINVALID' => 'Die eingegebe IP-Adresse ist ungültig und kann daher nicht gesperrt werden!',
     'SAVE_FAILED_IPADDRESS' => 'Die IP-Adresse konnte nicht gesperrt werden!',
+    'SAVE_FAILED_IPADDRESS_SAME' => 'Deine eigene IP-Adresse kann nicht gesperrt werden!',
     'SAVE_FAILED_WORDBAN' => 'Der Begriff konnte nicht gespeichert werden!',
     'SAVE_FAILED_UPLOADPHP' => 'Beim hochladen der Dateien ist ein Fehler aufgetreten!<br>{{filenames}}',
     'SAVE_FAILED_TEMPLATE' => 'Beim Speichern des Templates {{filename}} ist ein Fehler aufgetreten!',
