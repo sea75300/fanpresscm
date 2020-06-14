@@ -230,7 +230,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $pkg->cleanup();
         $this->output('-- Finished.' . PHP_EOL);
 
-        $this->output('System update successful. New version: ' . $this->config->system_version . PHP_EOL);
+        $this->output('System update successful. New version: ' . \fpcm\classes\baseconfig::getVersionFromFile() . PHP_EOL);
         $this->output('Please check error log and data folder permissions.' . PHP_EOL);
         return true;
     }
