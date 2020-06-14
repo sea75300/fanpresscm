@@ -829,11 +829,12 @@ final class database {
      */
     public function getTablePrefixed($table)
     {
-        if (is_array($table)) {
-            return $this->dbprefix . '_' . implode(', ' . $this->dbprefix . '_', $table);
+        if (!is_array($table)) {
+            $table = [$table];
         }
 
-        return $this->dbprefix . '_' . $table;
+        $prefixStr = $this->dbprefix . '_';
+        return $prefixStr . implode(', ' . $prefixStr, $table);
     }
 
     /**
