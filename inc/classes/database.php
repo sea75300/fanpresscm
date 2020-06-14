@@ -246,7 +246,9 @@ final class database {
      */
     public function select($table, $item = '*', $where = null, array $params = [], $distinct = false)
     {
-        $sql = $distinct ? "SELECT DISTINCT $item FROM {$this->getTablePrefixed($table)}" : "SELECT $item FROM {$this->getTablePrefixed($table)}";
+        $distinct = $distinct ? 'DISTINCT ' : '';
+        $sql = "SELECT {$distinct}{$item} FROM {$this->getTablePrefixed($table)}";
+        
         if (!is_null($where)) {
             $sql .= " WHERE $where";
         }
