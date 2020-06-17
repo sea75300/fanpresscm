@@ -35,7 +35,13 @@ fpcm.dashboard = {
 
                         var saveItems = {};
                         jQuery.each(ui.item.parent().children(), function (pos, item) {
-                            saveItems[fpcm.dom.fromTag(item).data('container')] = parseInt(pos) + 1;
+
+                            var cid = fpcm.dom.fromTag(item).data('container');
+                            if (!cid) {
+                                return false;
+                            }
+
+                            saveItems[cid] = parseInt(pos) + 1;
                         });
 
                         fpcm.ajax.post('setconfig', {
