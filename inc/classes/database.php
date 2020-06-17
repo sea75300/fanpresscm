@@ -1049,6 +1049,25 @@ final class database {
     }
 
     /**
+     * 
+     * @param string $viewName
+     * @return bool
+     * @ignore
+     */
+    public function addView(string $viewName) : bool
+    {
+        /*CREATE VIEW "session_userdata" AS
+        SELECT sess.id as sess_id, usr.id as usr_id, sess.sessionid as sess_sessionid, sess.userid as sess_userid, sess.login as sess_login, sess.logout as sess_logout, sess.lastaction as sess_lastaction, sess.ip as sess_ip, sess.external as sess_external, sess.useragent as sess_useragent, usr.displayname as usr_displayname, usr.email as usr_email, usr.registertime as usr_registertime, usr.username as usr_username, usr.passwd as usr_passwd, usr.roll as usr_roll, usr.disabled as usr_disabled, usr.usrmeta as usr_usrmeta, usr.usrinfo as usr_usrinfo, usr.authtoken as usr_authtoken, usr.changetime as usr_changetime, usr.changeuser as usr_changeuser
+        FROM fpcm4_authors usr
+        JOIN fpcm4_sessions sess ON (sess.userid = usr.id)*/
+        /*CREATE VIEW `session_userdata` AS
+        SELECT sess.id as sess_id, usr.id as usr_id, sess.sessionid as sess_sessionid, sess.userid as sess_userid, sess.login as sess_login, sess.logout as sess_logout, sess.lastaction as sess_lastaction, sess.ip as sess_ip, sess.external as sess_external, sess.useragent as sess_useragent, usr.displayname as usr_displayname, usr.email as usr_email, usr.registertime as usr_registertime, usr.username as usr_username, usr.passwd as usr_passwd, usr.roll as usr_roll, usr.disabled as usr_disabled, usr.usrmeta as usr_usrmeta, usr.usrinfo as usr_usrinfo, usr.authtoken as usr_authtoken, usr.changetime as usr_changetime, usr.changeuser as usr_changeuser
+        FROM fpcm3_authors usr
+        JOIN fpcm3_sessions sess ON (sess.userid = usr.id)*/
+        
+    }
+
+    /**
      * Datei data/config/database.php erzeugen
      * @param array $data
      * @return bool
