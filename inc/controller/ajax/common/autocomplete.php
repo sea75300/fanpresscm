@@ -110,14 +110,10 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
             $this->returnData = $data;
             return true;
         }
-
-        foreach ($data as $value) {
-            if ($this->term && stripos($value, $this->term) === false) {
-                continue;
-            }
-
-            $this->returnData[] = $value;
-        }
+        
+        $this->returnData = array_filter($data, function ($value) {
+            return $this->term && stripos($value, $this->term) === false ? false : true;
+        });
         
         return true;
     }
@@ -133,13 +129,9 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
         }
 
         $data = \fpcm\components\components::getArticleEditor()->getFileList();
-        foreach ($data as $value) {
-            if ($this->term && stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false) {
-                continue;
-            }
-
-            $this->returnData[] = $value;
-        }
+        $this->returnData = array_filter($data, function ($value) {
+            return $this->term && stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false ? false : true;
+        });        
 
         return true;
     }
@@ -155,14 +147,10 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
         }
 
         $data = \fpcm\components\components::getArticleEditor()->getEditorLinks();
-        foreach ($data as $value) {
-            if ($this->term && stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false) {
-                continue;
-            }
+        $this->returnData = array_filter($data, function ($value) {
+            return $this->term && stripos($value['label'], $this->term) === false && stripos($value['value'], $this->term) === false ? false : true;
+        });
 
-            $this->returnData[] = $value;
-        }
-        
         return true;
     }
     

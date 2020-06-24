@@ -226,11 +226,12 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
         $descr = $this->language->translate('USERS_ROLL');
         
+        $usersInGroups = array_filter($usersInGroups, function ($users, $rollId) use ($userGroups) {
+            return !isset($userGroups[$rollId]) || ($rollId === -1) && !count($users) ? false : true;
+        }, ARRAY_FILTER_USE_BOTH);
+        
+        
         foreach($usersInGroups AS $rollId => $users) {
-            
-            if (!isset($userGroups[$rollId]) || ($rollId === -1) && !count($users)) {
-                continue;
-            }
             
             $title  = $descr.': '.$this->language->translate($userGroups[$rollId]->getRollName());
             
