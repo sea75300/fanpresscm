@@ -90,6 +90,7 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
         }
 
         $this->updateDb = ($this->request->fromGET('update-db') !== null);
+        $this->updateMultiple = $this->request->fromGET('updateKeys') ? true : false;
 
         return trim($this->key) ? true : false;
     }
@@ -139,6 +140,9 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
             return false;
         }
 
+        fpcmLogSystem(__METHOD__);
+        fpcmLogSystem($updateKeys);
+        
         $updateKeys = explode(';', $updateKeys);
         if (!count($updateKeys)) {
             return false;

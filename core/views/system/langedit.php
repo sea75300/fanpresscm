@@ -25,10 +25,10 @@
         </div>
 
         <div class="col-6 align-self-center fpcm-ui-ellipsis" id="lang_descr_<?php print strtolower($key); ?>">
-            <?php print $theView->escapeVal( (is_array($value) ? json_encode($value) : $value) ); ?>
+            <?php print $theView->escapeVal( (is_array($value) ? serialize($value) : $value) ); ?>
         </div>
 
-        <?php $theView->hiddenInput('lang['.$key.']', 'lang_'. strtolower($key))->setValue( (is_array($value) ? json_encode($value) : $value) );  ?>
+        <?php $theView->hiddenInput('lang['.$key.']', 'lang_'. strtolower($key))->setValue( (is_array($value) ? serialize($value) : $value) );  ?>
     </div>
 
 <?php endforeach; ?>

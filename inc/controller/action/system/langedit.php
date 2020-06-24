@@ -14,7 +14,8 @@ namespace fpcm\controller\action\system;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class langedit extends \fpcm\controller\abstracts\controller
-implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces\requestFunctions {
+implements \fpcm\controller\interfaces\isAccessible,
+           \fpcm\controller\interfaces\requestFunctions {
 
     /**
      *
@@ -65,6 +66,26 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
     {
         $langsave = $this->request->fromPOST('lang');
         ksort($langsave);
+        
+        $lists = array_filter($langsave, function ($value) {
+            return (substr($value, 0, 2) === 'a:') ? true : false;
+        });
+        
+        
+        $strings = array_diff($langsave, $lists);
+        $lists = array_map('unserialize', $lists);
+
+        
+        $tmpFile = new \fpcm\model\files\tempfile('lang_lists_'.$this->language->getLangCode());
+        $tmpFile->setContent('<?php'.PHP_EOL.'/* Language list file '.$this->language->getLangCode().' */'.PHP_EOL.PHP_EOL.'$lang = '.var_export($lists, true).';'.PHP_EOL.PHP_EOL);
+        $tmpFile->save();
+
+        
+        $tmpFile = new \fpcm\model\files\tempfile('lang_labels_'.$this->language->getLangCode());
+        $tmpFile->setContent('<?php'.PHP_EOL.'/* Language strings file '.$this->language->getLangCode().' */'.PHP_EOL.PHP_EOL.'$lang = '.var_export($strings, true).';'.PHP_EOL.PHP_EOL);
+        $tmpFile->save();
+        
+        return true;
         
         $this->xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><langvars></langvars>', null, false);
         

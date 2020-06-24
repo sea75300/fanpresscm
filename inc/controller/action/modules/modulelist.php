@@ -91,7 +91,7 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
             $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync');
             
             $updatesAvailable = (new \fpcm\module\modules())->getInstalledUpdates();
-            if (count($updatesAvailable)) {
+            if (count($updatesAvailable) > 1) {
                 $buttons[] = (new \fpcm\view\helper\linkButton('runUpdateAll'))
                         ->setUrl(\fpcm\classes\tools::getFullControllerLink('package/modupdate', [
                                 'key' => array_shift($updatesAvailable),
