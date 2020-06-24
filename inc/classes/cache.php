@@ -136,20 +136,16 @@ final class cache {
             return false;
         }
 
-        foreach ($cacheFiles as $cacheFile) {
+        
+        $cacheFiles = array_filter($cacheFiles, function ($cacheFile) {
+            return file_exists($cacheFile) && is_writable($cacheFile);            
+        });
 
-            if (!file_exists($cacheFile)) {
-                continue;
-            }
-
-            if (!is_writable($cacheFile)) {
-                trigger_error('Unable to delete cache file '.$cacheFile.', cache file is not writable.');
-                continue;
-            }
-
-            unlink($cacheFile);
+        if (!count($cacheFiles)) {
+            return true;
         }
-
+        
+        array_map('unlink', $cacheFiles);
         return true;
     }
 

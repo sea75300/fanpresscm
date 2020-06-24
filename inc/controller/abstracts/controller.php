@@ -450,12 +450,16 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
+        $items = array_filter($items, function ($item) {
+            return substr($item, 0, 3) !== \fpcm\view\helper\button::NAME_PREFIX ? false : true;
+        });
+        
+        if (!count($items)) {
+            return true;
+        }
+        
         foreach ($items as $item) {
 
-            if (substr($item, 0, 3) !== \fpcm\view\helper\button::NAME_PREFIX) {
-                continue;
-            }
-            
             $func = 'on'.substr($item, 3);
             if (!method_exists($this, $func)) {
                 continue;
