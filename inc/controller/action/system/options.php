@@ -214,11 +214,11 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
         }
 
         foreach ($this->config->twitter_data as $key => $value) {
-            $this->newconfig['twitter_data'][$key] = isset($this->newconfig['twitter_data'][$key]) ? $this->newconfig['twitter_data'][$key] : '';
+            $this->newconfig['twitter_data'][$key] = $this->newconfig['twitter_data'][$key] ?? '';
         }
 
         foreach ($this->config->smtp_settings as $key => $value) {
-            $this->newconfig['smtp_settings'][$key] = isset($this->newconfig['smtp_settings'][$key]) ? $this->newconfig['smtp_settings'][$key] : '';
+            $this->newconfig['smtp_settings'][$key] = $this->newconfig['smtp_settings'][$key] ?? '';
         }
 
         if (trim($this->newconfig['smtp_settings']['srvurl']) && !filter_var($this->newconfig['smtp_settings']['srvurl'], FILTER_VALIDATE_DOMAIN)) {

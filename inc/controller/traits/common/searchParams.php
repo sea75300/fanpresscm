@@ -45,12 +45,11 @@ trait searchParams {
             return false;
         }
 
+        $combinations = array_filter($combinations, function ($value) {
+            return $value == -1 ? false : true;
+        });
+
         foreach ($combinations as $key => $value) {
-
-            if ($value == -1) {
-                continue;
-            }
-
             $obj->$key = (int) $value;
         }
 

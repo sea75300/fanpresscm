@@ -182,7 +182,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
             $this->articleActions['ARTICLE_LIST_NEWTWEET'] = 'newtweet';
         }
 
-        if ($this->permissions->article->delete) {
+        if ($this->permissions->article && $this->permissions->article->delete) {
             $this->articleActions['GLOBAL_DELETE'] = 'delete';
         }
 
