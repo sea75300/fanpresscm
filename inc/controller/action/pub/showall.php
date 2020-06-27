@@ -15,14 +15,6 @@ namespace fpcm\controller\action\pub;
  */
 class showall extends showcommon {
 
-    /**
-     * @see \fpcm\controller\abstracts\controller::getViewPath
-     * @return string
-     */
-    protected function getViewPath(): string
-    {
-        return 'public/showall';
-    }
 
     /**
      * 
@@ -31,67 +23,6 @@ class showall extends showcommon {
     protected function getCacheNameString() : string
     {
         return 'articlelist';
-    }
-
-    /**
-     * Controller-Processing
-     * @return bool
-     */
-    public function process()
-    {
-        parent::process();
-
-        $parsed = [];
-        if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
-
-            $conditions = new \fpcm\model\articles\search();
-            $conditions->limit = [$this->limit, $this->offset];
-            $conditions->draft = 0;
-            $conditions->approval = 0;
-            $conditions->deleted = 0;
-            $conditions->postponed = 0;
-            $conditions->archived = 0;
-            $conditions->orderby = ['pinned DESC, ' . $this->config->articles_sort . ' ' . $this->config->articles_sort_order];
-
-            if ($this->category !== 0) {
-                $conditions->category = $this->category;
-            }
-
-            $articles = $this->articleList->getArticlesByCondition($conditions);
-            $this->users = $this->userList->getUsersForArticles(array_keys($articles));
-
-            foreach ($articles as $article) {
-                $parsed[] = $this->assignData($article);
-            }
-
-            $countConditions = new \fpcm\model\articles\search();
-            $countConditions->draft = 0;
-            $countConditions->approval = 0;
-            $countConditions->deleted = 0;
-            $countConditions->postponed = 0;
-            $countConditions->archived = 0;
-            if ($this->category !== 0) {
-                $countConditions->category = $this->category;
-            }
-
-            $parsed[] = $this->createPagination($this->articleList->countArticlesByCondition($countConditions));
-            $parsed = $this->events->trigger('pub\showAll', $parsed);
-
-            if (!$this->session->exists()) {
-                $this->cache->write($this->cacheName, $parsed, $this->config->system_cache_timeout);
-            }
-        } else {
-            $parsed = $this->cache->read($this->cacheName);
-        }
-
-        $content = implode(PHP_EOL, $parsed);
-        if (!$this->isUtf8) {
-            $content = utf8_decode($content);
-        }
-
-        $this->view->assign('content', $content);
-        $this->view->assign('systemMode', $this->config->system_mode);
-        $this->view->render();
     }
 
     /**
@@ -110,6 +41,47 @@ class showall extends showcommon {
         $res = $this->events->trigger('pub\pageinationShowAll', $res);
 
         return $res ? $res : '';
+    }
+    
+    protected function getContentData(): array
+    {
+        $conditions = new \fpcm\model\articles\search();
+        $conditions->limit = [$this->limit, $this->offset];
+        $conditions->draft = 0;
+        $conditions->approval = 0;
+        $conditions->deleted = 0;
+        $conditions->postponed = 0;
+        $conditions->archived = 0;
+        $conditions->orderby = ['pinned DESC, ' . $this->config->articles_sort . ' ' . $this->config->articles_sort_order];
+
+        if ($this->category !== 0) {
+            $conditions->category = $this->category;
+        }
+
+        $articles = $this->articleList->getArticlesByCondition($conditions);
+        $this->users = $this->userList->getUsersForArticles(array_keys($articles));
+
+        foreach ($articles as $article) {
+            $parsed[] = $this->assignData($article);
+        }
+
+        $countConditions = new \fpcm\model\articles\search();
+        $countConditions->draft = 0;
+        $countConditions->approval = 0;
+        $countConditions->deleted = 0;
+        $countConditions->postponed = 0;
+        $countConditions->archived = 0;
+        if ($this->category !== 0) {
+            $countConditions->category = $this->category;
+        }
+
+        $parsed[] = $this->createPagination($this->articleList->countArticlesByCondition($countConditions));
+        return $this->events->trigger('pub\showAll', $parsed);
+    }
+
+    protected function isArchive(): bool
+    {
+        return false;
     }
 
 }

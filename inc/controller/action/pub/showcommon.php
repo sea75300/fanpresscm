@@ -13,7 +13,7 @@ namespace fpcm\controller\action\pub;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class showcommon extends \fpcm\controller\abstracts\pubController {
+abstract class showcommon extends \fpcm\controller\abstracts\pubController {
 
     /**
      * Artikel-Listen-Objekt
@@ -112,6 +112,15 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
     protected $templateString = false;
 
     /**
+     * @see \fpcm\controller\abstracts\controller::getViewPath
+     * @return string
+     */
+    protected function getViewPath(): string
+    {
+        return 'public/showall';
+    }
+
+    /**
      * 
      * Konstruktor
      * @param array $params
@@ -180,7 +189,23 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
         $this->view->addJsLangVars(['PUBLIC_SHARE_LIKE', 'AJAX_RESPONSE_ERROR']);
         if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
             $this->commentCounts = ($this->config->system_comments_enabled) ? $this->commentList->countComments([], 0, 1) : [];
+            
+            $parsed = $this->getContentData();
+            if (!$this->session->exists()) {
+                $this->cache->write($this->cacheName, $parsed, $this->config->system_cache_timeout);
+            }
+            
+        } else {
+            $parsed = $this->cache->read($this->cacheName);
         }
+
+        $content = implode(PHP_EOL, $parsed);
+
+        $this->view->assign('content', $this->isUtf8 ? $content : utf8_decode($content));
+        $this->view->assign('systemMode', $this->config->system_mode);
+        $this->view->assign('isArchive', $this->isArchive());
+        $this->view->assign('archievDate', $this->config->articles_archive_datelimit);
+        $this->view->render();
     }
 
     /**
@@ -265,10 +290,11 @@ class showcommon extends \fpcm\controller\abstracts\pubController {
      * 
      * @return string
      */
-    protected function getCacheNameString() : string
-    {
-        return '';
-    }
+    abstract protected function getCacheNameString() : string;
+
+    abstract protected function isArchive() : bool;
+
+    abstract protected function getContentData() : array;
 
 }
 

@@ -187,5 +187,6 @@ $lang = array(
     'PUBLIC_ARTICLE_PINNED' => 'Dieser Artikel ist gepinnt und wird über allen anderen angezeigt.',
     'PUBLIC_PRIVACY' => 'Du musst unserer Datenschutz-Erklärung zustimmen, um einen Kommentar zu verfassen.',
     'PUBLIC_SHARE_LIKE' => 'Danke für den Like. Wir freuen uns, dass dir der Beitrag gefällt!',
+    'PUBLIC_ARCHIVE_LIMIT' => 'Das Archiv zeigt nur Artikel an, welche nach dem <strong>{{archievDate}}</strong> veröffentlicht wurden.',
 );
 ?>
