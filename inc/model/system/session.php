@@ -440,43 +440,10 @@ final class session extends \fpcm\model\abstracts\dataset {
      */
     public function init()
     {
-        $lastaction = time() + $this->config->system_session_length;
-
-        if (version_compare($this->config->system_version, '4.0.0', '<')) {
-            $lastaction = time() + $this->config->system_session_length;
-            $data = $this->dbcon->fetch($this->dbcon->select($this->table, '*', "sessionid = ? AND logout = 0 AND lastaction <= ? " . $this->dbcon->limitQuery(1, 0), array($this->sessionid, $lastaction)));
-
-            if ($data === false) {
-                $this->sessionExists = false;
-                return;
-            }
-
-            foreach ($data as $key => $value) {
-                $this->$key = $value;
-            }
-
-            $this->currentUser = new \fpcm\model\users\author($this->userid);
-            $this->sessionExists = true;
-
-            return true;
-        }
-
-
         $this->currentUser = new \fpcm\model\users\author();
-
-        $cols = [];
-        foreach (array_keys($this->getPreparedSaveParams()) as $col) {
-            $cols[] = 'sess.' . $col . ' as sess_' . $col;
-        }
-
-        foreach (array_keys($this->currentUser->getPreparedSaveParams()) as $col) {
-            $cols[] = 'usr.' . $col . ' as usr_' . $col;
-        }
-
-        $obj = (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableAuthors . ' usr JOIN ' . $this->dbcon->getTablePrefixed($this->table) . ' sess ON (sess.userid = usr.id)'))
-                ->setItem('sess.id as sess_id, usr.id as usr_id, ' . implode(', ', $cols))
-                ->setWhere("sess.sessionid = ? AND sess.logout = 0 AND sess.lastaction <= ? " . $this->dbcon->limitQuery(1, 0))
-                ->setParams([$this->sessionid, $lastaction]);
+        $obj = (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::viewSessionUserdata))
+                ->setWhere("sess_sessionid = ? AND sess_logout = 0 AND sess_lastaction <= ? " . $this->dbcon->limitQuery(1, 0))
+                ->setParams([$this->sessionid, time() + $this->config->system_session_length ]);
 
         $data = $this->dbcon->selectFetch($obj);
 
