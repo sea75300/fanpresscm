@@ -36,7 +36,7 @@ class mysql extends driver {
      */
     public function createTableString(&$sqlArray)
     {
-        $sqlArray[] = "CREATE TABLE IF NOT EXISTS `{{dbpref}}_{$this->yamlArray['name']}` (";
+        $sqlArray[] = "CREATE TABLE IF NOT EXISTS `{{dbpref}}_{$this->yamlArray->name}` (";
         return true;
     }
 
@@ -45,12 +45,12 @@ class mysql extends driver {
      */
     public function createTableEndline(&$sqlArray)
     {
-        if (!isset($this->yamlArray['autoincrement'])) {
+        if (!$this->yamlArray->autoincrement) {
             return true;
         }
         
-        $aiItem = new autoIncrementItem($this->yamlArray['autoincrement']);
-        $sqlArray[] = ") ENGINE={$this->yamlArray['engine']} DEFAULT CHARSET={$this->yamlArray['charset']} AUTO_INCREMENT={$aiItem->start};";
+        $aiItem = new autoIncrementItem($this->yamlArray->autoincrement);
+        $sqlArray[] = ") ENGINE={$this->yamlArray->engine} DEFAULT CHARSET={$this->yamlArray->charset} AUTO_INCREMENT={$aiItem->start};";
         return true;
     }
 
@@ -60,7 +60,7 @@ class mysql extends driver {
      */
     public function createColRows(&$sqlArray)
     {
-        foreach ($this->yamlArray['cols'] as $colName => $col) {
+        foreach ($this->yamlArray->cols as $colName => $col) {
             
             $col = new columnItem($col);
             if (!$this->checkYamlColRow($colName, $col)) {
@@ -106,7 +106,7 @@ class mysql extends driver {
      */
     public function createPrimaryKey(&$sqlArray)
     {
-        $sqlArray['cols'][] = "PRIMARY KEY (`{$this->yamlArray['primarykey']}`)";
+        $sqlArray['cols'][] = "PRIMARY KEY (`{$this->yamlArray->primarykey}`)";
         return true;
     }
 
@@ -116,7 +116,11 @@ class mysql extends driver {
      */
     public function createIndices(&$sqlArray)
     {
-        foreach ($this->yamlArray['indices'] as $rowName => $row) {
+        if (!is_array($this->yamlArray->indices) || !count($this->yamlArray->indices)) {
+            return true;
+        }
+
+        foreach ($this->yamlArray->indices as $rowName => $row) {
             
             $row = new indiceItem($row);
             if (!$this->checkYamlIndiceRow($rowName, $row)) {
@@ -128,7 +132,7 @@ class mysql extends driver {
             }
 
             $index = ($row->isUnqiue ? 'UNIQUE' : 'INDEX');
-            $sql = "ALTER TABLE {{dbpref}}_{$this->yamlArray['name']} ADD {$index} `{$rowName}` ( `{$row->col}` );";
+            $sql = "ALTER TABLE {{dbpref}}_{$this->yamlArray->name} ADD {$index} `{$rowName}` ( `{$row->col}` );";
 
             $sqlArray[] = $sql;
         }

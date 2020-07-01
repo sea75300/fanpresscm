@@ -441,8 +441,30 @@ final class session extends \fpcm\model\abstracts\dataset {
     public function init()
     {
         $this->currentUser = new \fpcm\model\users\author();
-        $obj = (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::viewSessionUserdata))
-                ->setWhere("sess_sessionid = ? AND sess_logout = 0 AND sess_lastaction <= ? " . $this->dbcon->limitQuery(1, 0))
+
+        if (version_compare($this->config->system_version, '4.4.3-rc1', '<=')) {
+            $cols = [];
+            foreach (array_keys($this->getPreparedSaveParams()) as $col) {
+                $cols[] = 'sess.' . $col . ' as sess_' . $col;
+            }
+
+            foreach (array_keys($this->currentUser->getPreparedSaveParams()) as $col) {
+                $cols[] = 'usr.' . $col . ' as usr_' . $col;
+            }
+
+            $tab = \fpcm\classes\database::tableAuthors . ' usr JOIN ' . $this->dbcon->getTablePrefixed($this->table) . ' sess ON (sess.userid = usr.id)';
+            $item = 'sess.id as sess_id, usr.id as usr_id, ' . implode(', ', $cols);
+            $where = "sess.sessionid = ? AND sess.logout = 0 AND sess.lastaction <= ? " . $this->dbcon->limitQuery(1, 0);
+        }
+        else {
+            $tab = \fpcm\classes\database::viewSessionUserdata;
+            $item = '*';
+            $where = "sess_sessionid = ? AND sess_logout = 0 AND sess_lastaction <= ? " . $this->dbcon->limitQuery(1, 0);
+        }
+
+        $obj = (new \fpcm\model\dbal\selectParams($tab))
+                ->setItem($item)
+                ->setWhere($where)
                 ->setParams([$this->sessionid, time() + $this->config->system_session_length ]);
 
         $data = $this->dbcon->selectFetch($obj);

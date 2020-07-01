@@ -35,8 +35,13 @@ final class parser {
     const ERROR_YAMLPARSER_INDICES = -4;
 
     /**
+     * Error while parsing a view file
+     */
+    const ERROR_YAMLPARSER_VIEW = -5;
+
+    /**
      * In Array geparstes YAML-String
-     * @var array
+     * @var tableItem
      */
     protected $yamlArray;
 
@@ -126,8 +131,21 @@ final class parser {
         if (!$this->checkYamlArray()) {
             return self::ERROR_YAMLCHECK_FAILED;
         }
-
+        
         $this->driver->setYamlArray($this->yamlArray);
+
+        $isView = $this->yamlArray['isview'] ?? false;
+        if ((bool) $isView) {
+
+            if (empty($this->yamlArray['isview'])) {
+                return self::ERROR_YAMLPARSER_VIEW;
+            }
+
+            $this->createViewString();
+            $this->parsingOk = true;
+            return true;
+        }
+
         $this->driver->createTableString($this->sqlArray);
 
         if (!$this->driver->createColRows($this->sqlArray)) {
@@ -278,6 +296,16 @@ final class parser {
             trigger_error('Invalid YAML data, no valid data available!');
             return false;
         }
+        
+        if (array_key_exists('isview', $this->yamlArray) && $this->yamlArray['isview']) {
+
+            if (!array_key_exists('query', $this->yamlArray)) {
+                trigger_error('Invalid YAML data, no "query" property found!');
+                return false;
+            }
+
+            return true;
+        }
 
         if (!array_key_exists('name', $this->yamlArray) || !trim($this->yamlArray['name'])) {
             trigger_error('Invalid YAML data, no "name" property found!');
@@ -314,6 +342,7 @@ final class parser {
             return false;
         }
 
+        $this->yamlArray = new tableItem($this->yamlArray);
         return true;
     }
 
@@ -329,6 +358,17 @@ final class parser {
             return $map;
         }
 
+        return true;
+    }
+
+    /**
+     * Create view statement
+     * @return bool
+     * @since FPCM 4.4.3-rc1
+     */
+    private function createViewString() : bool
+    {
+        $this->sqlString = 'CREATE VIEW {{dbpref}}_'.$this->yamlArray['name'].' AS '.$this->yamlArray['query'];
         return true;
     }
 

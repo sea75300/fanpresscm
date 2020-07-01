@@ -265,14 +265,15 @@ final class finalizer extends \fpcm\model\abstracts\model {
             }
 
             $tableName = $tab->getArray()['name'];
-            fpcmLogSql(" >> Alter table structure {$tableName}...");
+            $isView = $tab->getArray()['isview'] ?? false;
+            fpcmLogSql("Alter table structure {$tableName}...");
 
             $this->cliProgress->setCurrentValue($i)->output();
 
             $struct = $this->dbcon->getTableStructure($tableName);
             $tabExists = count($struct) ? true : false;
 
-            if ($tabExists && !$this->dbcon->addTableCols($tab) || !$this->dbcon->removeTableCols($tab)) {
+            if (!$isView &&  ( $tabExists && !$this->dbcon->addTableCols($tab) || !$this->dbcon->removeTableCols($tab) ) ) {
                 trigger_error('Failed to alter table ' . $tableName . ' during update.');
                 return false;
             }
@@ -282,7 +283,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 fpcmLogSql("Drop table {$tableName}...");
                 $successDrop = false;
                 if (!$tabExists) {
-                    $this->cliOutput("     >> Table not found, skipping...");
+                    $this->cliOutput("     Table not found, skipping...");
                 }
                 elseif (!$this->dbcon->drop($tableName)) {
                     trigger_error('Unable to drop table ' . $tableName . ' during update');
@@ -307,7 +308,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
             }
             
-            if ($tabExists && $addIndeices) {
+            if (!$isView && $tabExists && $addIndeices) {
                 $this->dbcon->addTableIndices($tab);
             }
           

@@ -21,7 +21,7 @@ class pgsql extends driver {
      */
     public function createTableString(&$sqlArray)
     {
-        $sqlArray[] = "CREATE TABLE {{dbpref}}_{$this->yamlArray['name']} (";
+        $sqlArray[] = "CREATE TABLE {{dbpref}}_{$this->yamlArray->name} (";
         return true;
     }
 
@@ -40,7 +40,7 @@ class pgsql extends driver {
      */
     public function createColRows(&$sqlArray)
     {
-        foreach ($this->yamlArray['cols'] as $colName => $col) {
+        foreach ($this->yamlArray->cols as $colName => $col) {
 
             $col = new columnItem($col);
             if (!$this->checkYamlColRow($colName, $col)) {
@@ -75,7 +75,7 @@ class pgsql extends driver {
      */
     public function createAutoincrement(array &$sqlArray, autoIncrementItem $column)
     {
-        $seqName = "{{dbpref}}_{$this->yamlArray['name']}_{$column->colname}_seq";
+        $seqName = "{{dbpref}}_{$this->yamlArray->name}_{$column->colname}_seq";
 
         $seq = "CREATE SEQUENCE {$seqName}";
         $seq .= " START WITH {$column->start}";
@@ -85,8 +85,8 @@ class pgsql extends driver {
         $seq .= " CACHE 1;";
 
         $sqlArray[] = $seq;
-        $sqlArray[] = "ALTER SEQUENCE {$seqName} OWNED BY {{dbpref}}_{$this->yamlArray['name']}.{$column->colname};";
-        $sqlArray[] = "ALTER TABLE ONLY {{dbpref}}_{$this->yamlArray['name']} ALTER COLUMN id SET DEFAULT nextval('{$seqName}'::regclass);";
+        $sqlArray[] = "ALTER SEQUENCE {$seqName} OWNED BY {{dbpref}}_{$this->yamlArray->name}.{$column->colname};";
+        $sqlArray[] = "ALTER TABLE ONLY {{dbpref}}_{$this->yamlArray->name} ALTER COLUMN id SET DEFAULT nextval('{$seqName}'::regclass);";
 
         return true;
     }
@@ -97,7 +97,7 @@ class pgsql extends driver {
      */
     public function createPrimaryKey(&$sqlArray)
     {
-        $sqlArray[] = "ALTER TABLE ONLY {{dbpref}}_{$this->yamlArray['name']} ADD CONSTRAINT {{dbpref}}_{$this->yamlArray['name']}_{$this->yamlArray['primarykey']} PRIMARY KEY ({$this->yamlArray['primarykey']});";
+        $sqlArray[] = "ALTER TABLE ONLY {{dbpref}}_{$this->yamlArray->name} ADD CONSTRAINT {{dbpref}}_{$this->yamlArray->name}_{$this->yamlArray->primarykey} PRIMARY KEY ({$this->yamlArray->primarykey});";
         return true;
     }
 
@@ -107,11 +107,11 @@ class pgsql extends driver {
      */
     public function createIndices(&$sqlArray)
     {
-        if (!is_array($this->yamlArray['indices']) || !count($this->yamlArray['indices'])) {
+        if (!is_array($this->yamlArray->indices) || !count($this->yamlArray->indices)) {
             return true;
         }
 
-        foreach ($this->yamlArray['indices'] as $rowName => $row) {
+        foreach ($this->yamlArray->indices as $rowName => $row) {
 
             $row = new indiceItem($row);
             if (!$this->checkYamlIndiceRow($rowName, $row)) {
@@ -123,7 +123,7 @@ class pgsql extends driver {
             }
 
             $index = ($row->isUnqiue ? 'UNIQUE INDEX' : 'INDEX');
-            $sql = "CREATE {$index} {{dbpref}}_{$this->yamlArray['name']}_{$rowName} ON {{dbpref}}_{$this->yamlArray['name']} USING btree ({$row->col});";
+            $sql = "CREATE {$index} {{dbpref}}_{$this->yamlArray->name}_{$rowName} ON {{dbpref}}_{$this->yamlArray->name} USING btree ({$row->col});";
 
             $sqlArray[] = $sql;
         }

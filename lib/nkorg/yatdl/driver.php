@@ -16,7 +16,7 @@ abstract class driver {
 
     /**
      * In Array geparstes YAML-String
-     * @var array
+     * @var tableItem
      */
     protected $yamlArray;
 
