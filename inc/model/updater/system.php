@@ -37,6 +37,18 @@ final class system extends staticModel {
     const FORCE_UPDATE = 1001;
 
     /**
+     * Develop prefix
+     * @since FPCM 4.4.3-rc1
+     */
+    const PREFIX_DEV = 'dev';
+
+    /**
+     * Default prefix
+     * @since FPCM 4.4.3-rc1
+     */
+    const PREFIX_DEFAULT = 'default';
+
+    /**
      * File option object for repo data
      * @var \fpcm\model\files\fileOption
      */
@@ -52,13 +64,13 @@ final class system extends staticModel {
             return remoteModel::FURLOPEN_ERROR;
         }
 
-        $newVersion = version_compare($this->data['version'], $this->config->system_version, '>');
-        if ($newVersion && isset($this->data['phpversion']) && version_compare(phpversion(), $this->data['phpversion'], '<')) {
-            fpcmLogSystem('FanPress CM ' . $this->data['version'] . ' is available, but requires PHP ' . $this->data['phpversion'] . ' or higher.');
+        $newVersion = version_compare($this->version, $this->config->system_version, '>');
+        if ($newVersion && isset($this->phpversion) && version_compare(phpversion(), $this->phpversion, '<')) {
+            fpcmLogSystem('FanPress CM ' . $this->version . ' is available, but requires PHP ' . $this->phpversion . ' or higher.');
             return true;
         }
 
-        if ($newVersion && $this->data['force']) {
+        if ( $newVersion && $this->force ) {
             return self::FORCE_UPDATE;
         }
 
@@ -102,27 +114,23 @@ final class system extends staticModel {
         $currentVersionMinor    = implode('.', array_slice(explode('.', $currentVersionComplete), 0, 2));
 
         if ($this->config->system_updates_devcheck) {
-            $currentVersionComplete .= '-dev';
-            $currentVersionMinor .= '-dev';
+            $currentVersionComplete .= '-'.self::PREFIX_DEV;
+            $currentVersionMinor .= '-'.self::PREFIX_DEV;
         }
 
         if (isset($foptData[$currentVersionComplete])) {
             $this->data = $foptData[$currentVersionComplete];
-            if ($this->size === null) {
-                $this->size = 0;
-            }
-            return true;
         }
-
-        if (isset($foptData[$currentVersionMinor]) ) {
+        elseif (isset($foptData[$currentVersionMinor]) ) {
             $this->data = $foptData[$currentVersionMinor];
-            if ($this->size === null) {
-                $this->size = 0;
-            }
-            return true;
+        }
+        elseif ($this->config->system_updates_devcheck && isset ($foptData[self::PREFIX_DEV])) {
+            $this->data = $foptData[self::PREFIX_DEV];
+        }
+        else {
+            $this->data = $foptData[self::PREFIX_DEFAULT] ?? [];
         }
 
-        $this->data = isset($foptData['default']) ? $foptData['default'] : [];
         if ($this->size === null) {
             $this->size = 0;
         }
