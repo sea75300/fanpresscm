@@ -39,12 +39,12 @@ class tableItem extends item implements \ArrayAccess
 
     public function offsetSet($offset, $value): void
     {
-        return false;
+        return;
     }
 
     public function offsetUnset($offset): void
     {
-        return false;
+        return;
     }
 
 }
