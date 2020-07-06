@@ -85,12 +85,7 @@ final class parser {
      * Liste mit Datentypen, die gemappt sein müssen
      * @var array
      */
-    protected $dataTypeList = [
-        'int', 'bigint',
-        'varchar', 'text', 'mtext', 'ltext', 'char',
-        'bool', 'bin', 'lbin',
-        'float', 'double'
-    ];
+    protected $dataTypeList = [];
 
     /**
      * 
@@ -111,6 +106,7 @@ final class parser {
             throw new \Exception('Data type map check failed. Undefined data types found: ' . implode(', ', $dtCheck));
         }
 
+        $this->dataTypeList = dataTypes::getTypeList();
         $this->currentDriver = $driver;
         $className = 'nkorg\\yatdl\\' . $driver;
         $this->driver = new $className($dataTypes);
@@ -292,17 +288,15 @@ final class parser {
             return true;
         }
 
-        $textTypes = array('varchar', 'text', 'mtext', 'bin');
+        $textTypes = dataTypes::getTextTypeList();
 
         $values = [];
         foreach ($this->yamlArray->defaultvalues['rows'] as $row) {
 
-            $rowVal = [];
-            foreach ($row as $col => $colval) {
-                $rowVal[] = (in_array($this->yamlArray->cols[$col]['type'], $textTypes) ? "'{$colval}'" : $colval);
-            }
+            $values[] = implode(', ', array_map($row, function ($colval, $col) use ($textTypes)  {
+                return in_array($this->yamlArray->cols[$col]['type'], $textTypes) ? "'{$colval}'" : $colval;
+            }));
 
-            $values[] = implode(', ', $rowVal);
         }
 
         $cols = implode(', ', array_keys($this->yamlArray->cols));

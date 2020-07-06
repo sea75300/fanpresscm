@@ -23,12 +23,7 @@ class mysql extends driver {
     public function __construct(array $types)
     {
         parent::__construct($types);
-        $this->lenghtTypes[] = 'int';
-        $this->lenghtTypes[] = 'bigint';
-        $this->lenghtTypes[] = 'bool';
-        $this->lenghtTypes[] = 'smallint';
-        $this->lenghtTypes[] = 'float';
-        $this->lenghtTypes[] = 'double';
+        $this->lenghtTypes = array_merge($this->lenghtTypes, dataTypes::getLenghtTypesMySQL());
     }
 
     /**
