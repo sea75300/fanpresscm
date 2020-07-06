@@ -8,9 +8,9 @@ namespace nkorg\yatdl;
  * 
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2016-2019, Stefan Seehafer
+ * @copyright (c) 2016-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @version YaTDL3.0
+ * @version YaTDL4.0
  */
 abstract class item {
 
@@ -24,7 +24,7 @@ abstract class item {
      * Constructor
      * @param array $data
      */
-    final public function __construct(array $data)
+    final public function __construct($data)
     {
         $this->data = $data;
     }

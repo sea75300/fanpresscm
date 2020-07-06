@@ -8,9 +8,9 @@ namespace nkorg\yatdl;
  * 
  * @package nkorg\yatdl
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2016-2019, Stefan Seehafer
+ * @copyright (c) 2016-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @version YaTDL3.0
+ * @version YaTDL4.0
  */
 final class parser {
 
@@ -76,6 +76,12 @@ final class parser {
     protected $driver = [];
 
     /**
+     * Current databse driver
+     * @var string
+     */
+    protected $currentDriver = '';
+
+    /**
      * Liste mit Datentypen, die gemappt sein müssen
      * @var array
      */
@@ -93,7 +99,7 @@ final class parser {
      * @param array $dataTypes
      * @throws Exception
      */
-    public function __construct(array $yamlArray, $driver, array $dataTypes)
+    public function __construct(array $yamlArray, string $driver, array $dataTypes)
     {
         $drvPath = __DIR__ . DIRECTORY_SEPARATOR . $driver . '.php';
         if (!file_exists($drvPath)) {
@@ -105,6 +111,7 @@ final class parser {
             throw new \Exception('Data type map check failed. Undefined data types found: ' . implode(', ', $dtCheck));
         }
 
+        $this->currentDriver = $driver;
         $className = 'nkorg\\yatdl\\' . $driver;
         $this->driver = new $className($dataTypes);
         $this->yamlArray = $yamlArray;
@@ -114,7 +121,7 @@ final class parser {
      * Setzt zusätzliches Tabellen-Prefix
      * @param string $tablePrefix
      */
-    public function setTablePrefix($tablePrefix)
+    public function setTablePrefix(string $tablePrefix)
     {
         $this->yamlArray['name'] = $tablePrefix . $this->yamlArray['name'];
     }
@@ -133,45 +140,11 @@ final class parser {
         }
         
         $this->driver->setYamlArray($this->yamlArray);
-
-        $isView = $this->yamlArray['isview'] ?? false;
-        if ((bool) $isView) {
-
-            if (empty($this->yamlArray['isview'])) {
-                return self::ERROR_YAMLPARSER_VIEW;
-            }
-
-            $this->createViewString();
-            $this->parsingOk = true;
-            return true;
+        if ($this->yamlArray->isview === null) {
+            return $this->parseTable();
         }
 
-        $this->driver->createTableString($this->sqlArray);
-
-        if (!$this->driver->createColRows($this->sqlArray)) {
-            return self::ERROR_YAMLPARSER_COLS;
-        }
-
-        $this->driver->createTableEndline($this->sqlArray);
-
-        if (!$this->createAutoincrement()) {
-            return self::ERROR_YAMLPARSER_AUTOINCREMENT;
-        }
-
-        $this->createPrimaryKey();
-
-        if (!$this->createIndices()) {
-            return self::ERROR_YAMLPARSER_INDICES;
-        }
-
-        $this->createDefaultInsert();
-
-        $this->sqlArray['cols'] = implode(',' . PHP_EOL, $this->sqlArray['cols']);
-        $this->sqlString = implode(PHP_EOL, $this->sqlArray);
-
-        $this->parsingOk = true;
-
-        return true;
+        return $this->parseView();
     }
 
     /**
@@ -214,12 +187,66 @@ final class parser {
     }
 
     /**
+     * Parse yatdl-file as table
+     * @return bool
+     * @since YaTDL4.0
+     */
+    private function parseTable() : bool
+    {
+        $this->driver->createTableString($this->sqlArray);
+
+        if (!$this->driver->createColRows($this->sqlArray)) {
+            return self::ERROR_YAMLPARSER_COLS;
+        }
+
+        $this->driver->createTableEndline($this->sqlArray);
+
+        if (!$this->createAutoincrement()) {
+            return self::ERROR_YAMLPARSER_AUTOINCREMENT;
+        }
+
+        $this->createPrimaryKey();
+
+        if (!$this->createIndices()) {
+            return self::ERROR_YAMLPARSER_INDICES;
+        }
+
+        $this->createDefaultInsert();
+
+        $this->sqlArray['cols'] = implode(',' . PHP_EOL, $this->sqlArray['cols']);
+        $this->sqlString = implode(PHP_EOL, $this->sqlArray);
+
+        $this->parsingOk = true;
+        return true;
+    }
+
+    /**
+     * Parse yatdl-file as view
+     * @return bool
+     * @since YaTDL4.0
+     */
+    private function parseView() : bool
+    {
+        if ($this->yamlArray->isview === '') {
+            return self::ERROR_YAMLPARSER_VIEW;
+        }
+
+        if (!$this->yamlArray->isview) {
+            return false;
+        }
+
+        $this->createViewString();
+        $this->parsingOk = true;
+        return true;
+    }
+
+    /**
      * Auto Increment Angaben übersetzen
      * @return boolean
      */
     private function createAutoincrement()
     {
-        $aiItem = new autoIncrementItem($this->yamlArray['autoincrement']);
+        $aiItem = new autoIncrementItem($this->yamlArray->autoincrement);
         if ($aiItem->start === null) {
             trigger_error('Invalid YAML autoincrement data, no "start" property found!');
             return false;
@@ -248,7 +275,7 @@ final class parser {
      */
     private function createIndices()
     {
-        if (!is_array($this->yamlArray['indices']) || !count($this->yamlArray['indices'])) {
+        if (!is_array($this->yamlArray->indices) || !count($this->yamlArray->indices)) {
             return true;
         }
 
@@ -261,27 +288,27 @@ final class parser {
      */
     private function createDefaultInsert()
     {
-        if (!isset($this->yamlArray['defaultvalues']) || !is_array($this->yamlArray['defaultvalues']['rows']) || !count($this->yamlArray['defaultvalues']['rows'])) {
+        if (!isset($this->yamlArray->defaultvalues) || !is_array($this->yamlArray->defaultvalues['rows']) || !count($this->yamlArray->defaultvalues['rows'])) {
             return true;
         }
 
         $textTypes = array('varchar', 'text', 'mtext', 'bin');
 
         $values = [];
-        foreach ($this->yamlArray['defaultvalues']['rows'] as $row) {
+        foreach ($this->yamlArray->defaultvalues['rows'] as $row) {
 
             $rowVal = [];
             foreach ($row as $col => $colval) {
-                $rowVal[] = (in_array($this->yamlArray['cols'][$col]['type'], $textTypes) ? "'{$colval}'" : $colval);
+                $rowVal[] = (in_array($this->yamlArray->cols[$col]['type'], $textTypes) ? "'{$colval}'" : $colval);
             }
 
             $values[] = implode(', ', $rowVal);
         }
 
-        $cols = implode(', ', array_keys($this->yamlArray['cols']));
+        $cols = implode(', ', array_keys($this->yamlArray->cols));
         $values = implode('), (', $values);
 
-        $this->sqlArray['defaultinsert'] = "INSERT INTO {{dbpref}}_{$this->yamlArray['name']} ({$cols}) VALUES ($values);";
+        $this->sqlArray['defaultinsert'] = "INSERT INTO {{dbpref}}_{$this->yamlArray->name} ({$cols}) VALUES ($values);";
 
         return true;
     }
@@ -299,11 +326,12 @@ final class parser {
         
         if (array_key_exists('isview', $this->yamlArray) && $this->yamlArray['isview']) {
 
-            if (!array_key_exists('query', $this->yamlArray)) {
+            if (!array_key_exists('query', $this->yamlArray) && !array_key_exists('query'.$this->currentDriver, $this->yamlArray)) {
                 trigger_error('Invalid YAML data, no "query" property found!');
                 return false;
             }
 
+            $this->yamlArray = new tableItem($this->yamlArray);
             return true;
         }
 
@@ -364,11 +392,20 @@ final class parser {
     /**
      * Create view statement
      * @return bool
-     * @since FPCM 4.4.3-rc1
+     * @since @since YaTDL4.0
      */
     private function createViewString() : bool
     {
-        $this->sqlString = 'CREATE VIEW {{dbpref}}_'.$this->yamlArray['name'].' AS '.$this->yamlArray['query'];
+        $queryStr   = $this->yamlArray->{'query'.$this->currentDriver}
+                    ? $this->yamlArray->{'query'.$this->currentDriver}
+                    : $this->yamlArray->query;
+                    
+                    
+        if (!trim($queryStr)) {
+            return false;
+        }
+
+        $this->sqlString = 'CREATE OR REPLACE VIEW {{dbpref}}_'.$this->yamlArray->name.' AS '.$queryStr;
         return true;
     }
 
