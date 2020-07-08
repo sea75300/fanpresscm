@@ -53,9 +53,9 @@ final class error extends \fpcm\view\view {
     /**
      * Renders view
      * @param bool $exit
-     * @return boolean
+     * @return bool
      */
-    public function render($exit = true)
+    public function render($exit = true) : bool
     {
         $this->assign('errorMessage', $this->errorMessage);
         $this->assign('backController', \fpcm\classes\tools::getFullControllerLink($this->backController));

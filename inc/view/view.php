@@ -165,7 +165,7 @@ class view {
      * View was already rendered
      * @var bool
      */
-    protected $rendered;
+    protected $rendered = false;
 
     /**
      * View was already rendered
@@ -217,7 +217,7 @@ class view {
      * Inits file library
      * @return bool
      */
-    protected function initFileLib()
+    protected function initFileLib() : bool
     {
         if ($this->showHeader === self::INCLUDE_HEADER_NONE) {
             return true;
@@ -240,6 +240,7 @@ class view {
         $this->jsLangVars['calendar']['days'] = $this->language->getDays();
         $this->jsLangVars['calendar']['daysShort'] = $this->language->getDaysShort();
         $this->jsLangVars['calendar']['months'] = array_values($this->language->getMonths());
+        return true;
     }
 
     /**
@@ -289,7 +290,7 @@ class view {
      * Initializes notifications
      * @return bool
      */
-    protected function prepareNotifications()
+    protected function prepareNotifications() : bool
     {
         if (!\fpcm\classes\baseconfig::dbConfigExists()) {
             return false;
@@ -580,7 +581,7 @@ class view {
      * Initializes basic view vars
      * @return bool
      */
-    protected function initAssigns()
+    protected function initAssigns() : bool
     {
         $this->defaultViewVars->loggedIn = false;
 
@@ -676,7 +677,7 @@ class view {
      * Returns view path
      * @return string
      */
-    public function getViewPath()
+    public function getViewPath() : string
     {
         return $this->viewPath;
     }
@@ -751,7 +752,7 @@ class view {
      * Check if view was already rendered
      * @return bool
      */
-    public function wasRendered()
+    public function wasRendered() : bool
     {
         return $this->rendered;
     }

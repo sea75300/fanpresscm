@@ -201,16 +201,7 @@ final class config extends dataset {
             return -1;
         }
 
-        $keyvalue   = is_array($keyvalue) || is_object($keyvalue)
-                    ? json_encode($keyvalue)
-                    : $keyvalue;
-
-        $res = $this->dbcon->insert($this->table, [
-            'config_name' => $keyname,
-            'config_value' => $keyvalue,
-            'modulekey' => $modulekey
-        ]);
-
+        $res = $this->dbcon->insert($this->table, (new configItem($keyname, $keyvalue, $modulekey))->getData());
         $this->refresh();
 
         return $res;
