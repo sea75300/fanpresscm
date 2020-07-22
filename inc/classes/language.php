@@ -88,41 +88,51 @@ final class language {
             return;
         }
 
-        $langfiles = array_merge(glob($this->langPath . DIRECTORY_SEPARATOR . '*.php'));
-        foreach ($langfiles as $file) {
-
-            if (strpos($file, 'help.php') !== false) {
-                continue;
-            }
-
-            include $file;
-
-            if (!isset($lang)) {
-                trigger_error('No language data defined in:' . $file);
-                continue;
-            }
-
-            $GLOBALS['langdata'] = array_merge($GLOBALS['langdata'], $lang);
-        }
-        
+        $this->loadDataFromSystem('vars');
+        $this->loadDataFromSystem('lists');        
         $this->getModuleLanguage();
 
         $this->cache->write($cacheName, $GLOBALS['langdata'], FPCM_LANGCACHE_TIMEOUT);
     }
 
     /**
-     * fetch module language files
-     * @return array
+     * lOAD LANGUEG DATA FROM FILE
+     * @param string $name
+     * @return void
      */
-    private function getModuleLanguage()
+    private function loadDataFromSystem(string $name, $module = null) : void
+    {
+        $file = $this->langPath . DIRECTORY_SEPARATOR . $name . '.php';
+        if (!file_exists($file)) {
+            trigger_error('Language file ' . $file . ' does not exists!');
+            print 'ERR LANG 1 vars';
+            return;
+        }
+        
+        include $file;
+        if (!isset($lang) || !is_array($lang)) {
+            trigger_error('No language data defined in:' . $file);
+            print 'ERR LANG 1 vars';
+            return;
+        }
+
+        $GLOBALS['langdata'] = array_merge($GLOBALS['langdata'], $lang);
+        unset($file);
+    }
+
+    /**
+     * fetch module language files
+     * @return void
+     */
+    private function getModuleLanguage() : void
     {
         if (baseconfig::installerEnabled() || !baseconfig::dbConfigExists()) {
-            return true;
+            return;
         }
 
         $activeModules = loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
         if (!count($activeModules)) {
-            return true;
+            return;
         }
         
         foreach ($activeModules as $module) {
@@ -157,7 +167,7 @@ final class language {
             $GLOBALS['langdata'] = array_merge($GLOBALS['langdata'], $lang);
         }
 
-        return true;        
+        return;        
     }
 
     /**
