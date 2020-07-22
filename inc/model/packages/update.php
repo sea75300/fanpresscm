@@ -126,22 +126,25 @@ class update extends package {
      */
     public function copy()
     {
-        $srcBasePath    = $this->getExtractionPath();        
-        $files          = $this->getFileList($srcBasePath. DIRECTORY_SEPARATOR. 'fanpress'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'files.txt', 1);
-        
+        $srcBasePath = $this->getExtractionPath();        
+        $files       = $this->getFileList($srcBasePath. DIRECTORY_SEPARATOR. 'fanpress'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'files.txt', 1);
         if (!count($files)) {
             return self::FILESCOPY_ERROR;
         }
         
         $excludes = $this->getExcludes();
+        $files = array_filter(array_diff($files, $excludes), function ($file) {
+            return trim($file) ? true : false;
+        });
+        
+        $progress = new \fpcm\model\cli\progress(count($files));
 
         $proto = [];
         $failed = [];
-        foreach ($files as $file) {
-
-            if (!trim($file) || in_array($file, $excludes)) {
-                continue;
-            }
+        foreach ($files as $i => $file) {
+            
+            $progress->setCurrentValue(($i+1));
+            $progress->output();
             
             $src = $srcBasePath.DIRECTORY_SEPARATOR.$file;
             $dest = $this->replaceFanPressBaseFolder($file);
