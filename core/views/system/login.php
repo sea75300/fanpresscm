@@ -11,7 +11,9 @@
             <?php if ($twoFactorAuth) : ?>
             <div class="row no-gutters fpcm-ui-padding-md-tb">
                 <div class="col-12">
-                <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true)->setWrapper(true); ?>
+                <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')
+                        ->setMaxlenght(6)->setPlaceholder(true)->setAutocomplete(false)
+                        ->setAutoFocused(true)->setWrapper(true)->setClass('fpcm-ui-monospace'); ?>
                 <?php $theView->hiddenInput('login[username]')->setValue($username); ?>
                 <?php $theView->hiddenInput('login[password]')->setValue($password); ?>
                 </div>
