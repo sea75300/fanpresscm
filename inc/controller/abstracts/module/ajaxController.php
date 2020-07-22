@@ -35,7 +35,7 @@ implements \fpcm\controller\interfaces\isAccessible {
     /**
      * Must return true, if controller is accessible
      * @return bool
-     * @since FPCm 4.4
+     * @since FPCM 4.4
      */
     public function isAccessible(): bool
     {
@@ -49,24 +49,6 @@ implements \fpcm\controller\interfaces\isAccessible {
     final protected function initView()
     {
         return parent::initView();
-    }
-
-    /**
-     * Description @see \fpcm\controller\abstracts\ajaxController::getResponse
-     * @return void
-     */
-    final protected function getResponse()
-    {
-        parent::getResponse();
-    }
-
-    /**
-     * Description @see \fpcm\controller\abstracts\ajaxController::getSimpleResponse
-     * @return void
-     */
-    final protected function getSimpleResponse()
-    {
-        parent::getSimpleResponse();
     }
 
 }

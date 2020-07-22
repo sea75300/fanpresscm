@@ -407,16 +407,16 @@ final class baseconfig {
      */
     private static function initModuleControllers()
     {
-        $modules = [];
         if (self::installerEnabled() || !self::dbConfigExists()) {
-            return $modules;
+            return [];
         }
 
         $activeModules = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
         if (!count($activeModules)) {
-            return $modules;
+            return [];
         }
 
+        $modules = [];
         foreach ($activeModules as $module) {
 
             $controllers = \Spyc::YAMLLoad(\fpcm\module\module::getConfigByKey($module, 'controller'));

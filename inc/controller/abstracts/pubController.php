@@ -49,7 +49,6 @@ class pubController extends controller {
         $this->ipList = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
         $this->crons = \fpcm\classes\loader::getObject('\fpcm\model\crons\cronlist');
 
-        $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
         $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
 
@@ -74,7 +73,7 @@ class pubController extends controller {
             return false;
         }
 
-        return $this->hasActiveModule();
+        return true;
     }
 
     /**

@@ -140,7 +140,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
         $this->view->setActiveTab($this->getActiveTab());
         $this->view->addJsVars([
             'templateId' => 1,
-            'jqUploadInit' => 0
+            'jqUploadInit' => false
         ]);
 
         $this->view->addJsLangVars(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT']);

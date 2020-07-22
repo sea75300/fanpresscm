@@ -103,7 +103,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         
         $this->view->addJsVars([
             'fmgrMode' => $this->mode,
-            'jqUploadInit' => $this->config->file_uploader_new ? true : false,
+            'jqUploadInit' => true,
             'loadAjax' => $hasFiles,
             'currentModule' => $this->request->getModule(),
             'filesLastSearch' => 0,

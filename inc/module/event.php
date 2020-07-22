@@ -17,13 +17,6 @@ abstract class event {
     use tools;
 
     /**
-     * Module key
-     * @var string
-     * @deprecated since version FPCM 4.4, use $this->getModuleKey() instead
-     */
-    protected $key = '';
-
-    /**
      * Event data
      * @var mixed
      */
@@ -35,7 +28,6 @@ abstract class event {
      */
     final public function __construct($data)
     {
-        $this->key = module::getKeyFromClass(get_called_class());
         $this->data = $data;
 
         $this->init();

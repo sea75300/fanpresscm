@@ -34,8 +34,7 @@ class moduleConfig extends \fpcm\controller\abstracts\controller implements \fpc
             $this->view = new \fpcm\view\error('MODULES_KEY_INVALID');
             return false;
         }
-        
-        $this->moduleController = $this->key;
+
         $this->module = new \fpcm\module\module($this->key);
         
         if (!$this->module->isInstalled() || !$this->module->isActive()) {

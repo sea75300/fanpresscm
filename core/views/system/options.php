@@ -193,19 +193,7 @@
 
                 <div class="col-sm-12 col-lg-6">
                     <fieldset class="fpcm-ui-margin-md-left">
-                        <legend><?php $theView->write('HL_FILES_MNG'); ?></legend>
-
-                        <div class="row fpcm-ui-padding-md-tb">
-                            <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
-                                <?php $theView->write('SYSTEM_OPTIONS_NEWS_NEWUPLOADER'); ?>
-                            </label>
-                            <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
-                                <?php $theView->boolSelect('file_uploader_new')->setSelected($globalConfig['file_uploader_new']); ?>
-                            </div>
-                            <div class="col px-0 align-self-center">
-                                <?php $theView->icon('skull-crossbones')->setText('GLOBAL_DEPRECATED')->setSize('lg'); ?>
-                            </div>
-                        </div>                          
+                        <legend><?php $theView->write('HL_FILES_MNG'); ?></legend>                       
 
                         <div class="row fpcm-ui-padding-md-tb">
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">

@@ -68,7 +68,6 @@ use fpcm\model\traits\eventModuleEmpty;
  * 
  * @property int    $file_img_thumb_width Thumbnail width
  * @property int    $file_img_thumb_height Thumbnail height
- * @property bool   $file_uploader_new Use jQuery base uplaoder (@deprecated since version FPCM 4.3)
  * @property int    $file_list_limit Numer of files per page
  * @property bool   $file_subfolders Create subfolder of form YYYY-MM
  * @property string $file_view File manager view

@@ -20,6 +20,10 @@ class controller implements \fpcm\controller\interfaces\controller {
     
     const ERROR_PROCESS_BYPARAMS = 0x404;
 
+    const BYPARAM_DEFAULT_PREFIX = 'process';
+
+    const BYPARAM_DEFAULT_ACTION = 'fn';
+
     /**
      * Request object
      * @var \fpcm\model\http\request
@@ -99,12 +103,6 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected $moduleCheckExit = true;
 
     /**
-     * Aktive Module für Prüfung von Controlelr-Ausführung
-     * @var array
-     */
-    protected $enabledModules = [];
-
-    /**
      * View object
      * @var \fpcm\view\view
      */
@@ -132,7 +130,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * Check if controller was defined in module
      * @var bool
      */
-    protected $moduleController = null;
+    protected $moduleElement = false;
 
     /**
      * Konstruktor
@@ -160,7 +158,6 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->ipList = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
         $this->crons = \fpcm\classes\loader::getObject('\fpcm\model\crons\cronlist');
 
-        $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
         $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
 
@@ -168,34 +165,6 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->hasActiveModule();
         $this->initActionObjects();
         $this->initView();
-    }
-
-    /**
-     * Gibt Wert in $_GET, $_POST, $_FILE zurück
-     * @param string $varname
-     * @param array $filter
-     * @return mixed
-     * @deprecated FPCM 4.4, use $this->request instead
-     */
-    final public function getRequestVar
-    (
-        $varname = null,
-        array $filter = [
-            \fpcm\classes\http::FILTER_STRIPTAGS,
-            \fpcm\classes\http::FILTER_HTMLENTITIES,
-            \fpcm\classes\http::FILTER_STRIPSLASHES,
-            \fpcm\classes\http::FILTER_TRIM
-        ]
-    )
-    {
-        if (is_object($this->request)) {
-            return $this->request->fetchAll($varname, $filter);
-        }
-
-        /**
-         * @todo usage removal of old HTTP wrapper
-         */
-        return \fpcm\classes\http::get($varname, $filter);
     }
 
     /**
@@ -232,7 +201,7 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        $this->view = new \fpcm\view\view($viewPath, $this->moduleController ? $this->moduleController : false);
+        $this->view = new \fpcm\view\view($viewPath, $this->moduleElement ? $this->getObject()->getKey() : false );
         $this->view->setHelpLink($this->getHelpLink());
         $this->view->setActiveNavigationElement($this->getActiveNavigationElement());
         $this->view->triggerFilesEvents($this->viewEvents);
@@ -435,7 +404,7 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        return $this->moduleController === null ? true : in_array($this->moduleController, $this->enabledModules);
+        return true;
     }
 
     /**
@@ -517,29 +486,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function hasActiveModule()
     {
-        $class = get_class($this);
-
-        $module = \fpcm\module\module::getKeyFromClass($class);
-        if ($module === false) {
-            $this->moduleController = null;
-            return true;
-        }
-
-        if (!in_array($module, $this->enabledModules)) {
-            $this->execDestruct = false;
-            trigger_error("Request for controller '{$this->getRequestVar('module')}' of disabled module '{$module}'!");
-            $view = new \fpcm\view\error("The controller '{$this->getRequestVar('module')}' is not enabled for execution!");
-            $view->render($this->moduleCheckExit);
-            return false;
-        }
-        
-        $parent = get_parent_class($class);        
-        if ($module && in_array($parent, ['fpcm\controller\abstracts\controller', 'fpcm\controller\abstracts\ajaxController']) ) {
-            trigger_error("The use of \"{$parent}\" for module-defined controllers is deprecated as of FPCM 4.1! ".
-                          "\"{$class}\" should be an instance of ". str_replace("controller\\abstracts\\", "controller\\abstracts\\module\\", $parent)." instead.");
-        }
-
-        $this->moduleController = trim($module) && $module !== false ? $module : null;
+        $this->moduleElement = !(fpcm\module\module::getKeyFromClass(get_class($this)) == false);
         return true;
     }
 
@@ -572,7 +519,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @return real|bool
      * @since FPCM 4.3
      */
-    final protected function processByParam(string $prefix = 'process', string $actionFrom = 'fn')
+    final protected function processByParam(string $prefix = self::BYPARAM_DEFAULT_PREFIX, string $actionFrom = self::BYPARAM_DEFAULT_ACTION)
     {
         $actionName = $this->request->fetchAll($actionFrom, [
             \fpcm\model\http\request::FILTER_REGEX_REPLACE,

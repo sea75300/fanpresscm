@@ -101,7 +101,7 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
         $this->view->addJsVars([
             'dtMasks' => $this->getDateTimeMasks(),
-            'jqUploadInit' => 0
+            'jqUploadInit' => false
         ]);
 
         $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH', 'SAVE_FAILED_PASSWORD_SECURITY', 'SAVE_FAILED_PASSWORD_SECURITY_PWNDPASS']);

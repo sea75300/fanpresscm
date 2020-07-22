@@ -139,17 +139,6 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
                 ->setFetchAll(true)
         ));
     }
-
-    /**
-     * Cron-Klassen-Liste, wird im Cache vorgehalten
-     * @return array
-     * @deprecated since version FPCM 4.3
-     */
-    public function getCronsData()
-    {
-        trigger_error('"'.__FUNCTION__.'" is deprecated as of FPCM 4.3, use "getAllCrons" instead.', E_USER_DEPRECATED);
-        return $this->getAllCrons();
-    }
     
     /**
      * Creates result list

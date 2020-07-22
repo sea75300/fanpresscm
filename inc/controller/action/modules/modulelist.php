@@ -74,7 +74,7 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
         $this->view->addJsFiles(['modules/list.js', 'files/uploader.js']);
         $this->view->setFormAction('modules/list');
         $this->view->addJsVars([
-            'jqUploadInit' => 0,
+            'jqUploadInit' => false,
             'codes' => [
                 'installFailed' => \fpcm\module\module::STATUS_NOT_INSTALLED,
                 'uninstallFailed' => \fpcm\module\module::STATUS_NOT_UNINSTALLED,

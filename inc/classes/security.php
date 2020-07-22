@@ -180,24 +180,4 @@ final class security {
         return $data;
     }
 
-    /**
-     * gibt Inhalt von Session cookie zurück
-     * @return string
-     * @deprecated since version FPCM 4.3
-     */
-    public static function createSessionId()
-    {
-        return tools::getHash(self::getSecureBaseString());
-    }
-
-    /**
-     * Erzeugt Page-Token zur Absicherung gegen CSRF-Angriffe
-     * @param bool $overrideModule
-     * @return string
-     * @deprecated since version FPCM 4.3
-     */
-    public static function createPageToken($overrideModule = '')
-    {
-        return (new \fpcm\classes\pageTokens())->refresh();
-    }
 }

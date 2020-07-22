@@ -225,7 +225,7 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->addJsVars(array(
             'dtMasks' => $this->getDateTimeMasks(),
             'reloadPage' => $this->reloadSite,
-            'jqUploadInit' => 0
+            'jqUploadInit' => false
         ));
 
         $this->view->setActiveTab($this->getActiveTab());

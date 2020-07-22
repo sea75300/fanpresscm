@@ -50,7 +50,6 @@ class fpcmAPI {
             return;
         }
 
-        \fpcm\classes\http::init();
     }
     
     /**

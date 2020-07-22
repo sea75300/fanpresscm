@@ -280,43 +280,38 @@ defaultvalues:
             config_name: "file_img_thumb_height"
             config_value: "100"
             modulekey: ""
-        file_uploader_new:
-            id: 50
-            config_name: "file_uploader_new"
-            config_value: "1"
-            modulekey: ""
         file_list_limit:
-            id: 51
+            id: 50
             config_name: "file_list_limit"
             config_value: "25"
             modulekey: ""
         file_subfolders:
-            id: 52
+            id: 51
             config_name: "file_subfolders"
             config_value: "1"
             modulekey: ""
         file_view:
-            id: 53
+            id: 52
             config_name: "file_view"
             config_value: "cards"
             modulekey: ""
         twitter_data:
-            id: 54
+            id: 53
             config_name: "twitter_data"
             config_value: '{"consumer_key":"","consumer_secret":"","user_token":"","user_secret":""}'
             modulekey: ""
         twitter_events:
-            id: 55
+            id: 54
             config_name: "twitter_events"
             config_value: '{"create":0,"update":0}'
             modulekey: ""
         smtp_enabled:
-            id: 56
+            id: 55
             config_name: "smtp_enabled"
             config_value: 0
             modulekey: ""
         smtp_settings:
-            id: 57
+            id: 56
             config_name: "smtp_settings"
             config_value: '{"srvurl":"","user":"","pass":"","encr":"","port":"25","addr":""}'
             modulekey: ""
