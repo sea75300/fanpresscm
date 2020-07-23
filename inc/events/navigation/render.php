@@ -19,6 +19,6 @@ namespace fpcm\events\navigation;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm/events
  */
-final class render extends \fpcm\events\abstracts\eventReturnArray {
+final class render extends \fpcm\events\abstracts\eventReturnObject {
 
 }

@@ -68,8 +68,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
      */
     public function request()
     {
-        $this->setReturnJson();
-        $this->step = 'exec'.ucfirst($this->getRequestVar('step'));
+        $this->step = 'exec'.ucfirst($this->request->fromPOST('step'));
         return true;
     }
 
@@ -79,25 +78,24 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
     public function process()
     {
         if (!method_exists($this, $this->step)) {
-            trigger_error('Update step '.$this->step.' not defined!');
-            $this->returnData = [
+            trigger_error('Update step '.$this->step.' not defined!');           
+            $this->response->setReturnData([
                 'code' => $this->res,
                 'pkgdata' => $this->pkgdata
-            ];
-
-            $this->getSimpleResponse();
+            ])->fetch();
         }
 
         $this->init();
 
         call_user_func([$this, $this->step]);
-        $this->returnData = [
+        
+        $this->response->setReturnData([
             'code' => $this->res,
             'pkgdata' => $this->pkgdata
-        ];
+        ]);
 
         usleep(500000);
-        $this->getSimpleResponse();
+        $this->response->fetch();
     }
 
     private function execMaintenanceOn()

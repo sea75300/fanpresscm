@@ -34,8 +34,8 @@ namespace fpcm\view;
  * @property int    $loginTime
  * 
  * @property \fpcm\model\permissions\permissions  $permissions
+ * @property \fpcm\model\theme\navigationList  $navigation
  * 
- * @property array  $navigation
  * @property array  $navigationActiveModule
  * @property array  $messages
  * @property array  $filesJs

@@ -80,7 +80,6 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController implemen
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
         $this->key = $this->request->fromPOST('key');
         $this->step = 'exec'.$this->request->fromPOST('step', [\fpcm\model\http\request::FILTER_FIRSTUPPER]);
         $this->mode = $this->request->fromPOST('mode', [\fpcm\model\http\request::FILTER_FIRSTUPPER]);

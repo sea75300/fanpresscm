@@ -56,7 +56,7 @@ class main {
         }
 
         if (!class_exists($class)) {
-            trigger_error('Undefined controller called: ' . $module.', Class: '.$class);
+            trigger_error('Undefined controller called: ' . $module.', Class: '.$class, E_USER_ERROR);
             $this->errorPage("The requested controller <b>{$module}</b> does not exist! <span class=\"fa fa-frown-o\"></span>");
         }
 
@@ -111,7 +111,7 @@ class main {
         }
         
         $errMsg = sprintf("ERROR: The controller for <b>%s</b> must be an instance of <b>%s</b>.", $action, $parent);
-        trigger_error($errMsg);
+        trigger_error($errMsg, E_USER_ERROR);
         $this->errorPage($errMsg);
     }
 

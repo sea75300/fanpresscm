@@ -48,13 +48,21 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
         return false;
     }
 
+    $codeMap = [
+        E_USER_DEPRECATED => 'Deprecation warning',
+        E_DEPRECATED => 'Deprecation warning',
+        E_USER_NOTICE => 'Notice',
+        E_NOTICE => 'Notice',
+        E_USER_WARNING => 'Warning',
+        E_WARNING => 'Warning',
+    ];
+    
     $text = [
+        $ecode. ' :: '.($codeMap[$ecode] ?? 'Error'),
         $etext,
         'in file ' .
         $efile . ', line ' .
-        $eline,
-        'ERROR CODE: ' .
-        $ecode,
+        $eline
     ];
     
     if (defined('FPCM_DEBUG') && FPCM_DEBUG) {

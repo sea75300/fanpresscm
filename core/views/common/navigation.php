@@ -3,7 +3,7 @@
 <div id="fpcm-navigation" class="fpcm ui-background-white-50p">
     <div class="greedy">        
         <ul class="fpcm-ui-menu col">
-    <?php foreach ($theView->navigation as $navigationGroup) : ?>
+    <?php foreach ($theView->navigation->fetch() as $navigationGroup) : ?>
         <?php foreach ($navigationGroup as $groupName => $navigationItem) : ?>     
             <li id="item<?php print $navigationItem->getId(); ?>" class="col-12 fpcm ui-align-center fpcm-menu-level1 fpcm-menu-level1-show <?php print $navigationItem->getWrapperClass(); ?> <?php if ($navigationItem->hasSubmenu()) : ?>fpcm-menu-has-submenu menu-sub-animation-parent<?php endif; ?> <?php if ($navigationItem->isActive()) : ?>fpcm-menu-item-active<?php endif; ?>">
                 <a href="<?php print $navigationItem->getFullUrl(); ?>" class="<?php print $navigationItem->getClass(); ?> fpcm-loader" id="<?php print $navigationItem->getId(); ?>">

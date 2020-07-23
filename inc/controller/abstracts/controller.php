@@ -140,7 +140,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->request = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
 
         if (\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
-            return $this->redirect('installer');
+            $this->redirect('installer');
             exit;
         }
 
@@ -165,6 +165,36 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->hasActiveModule();
         $this->initActionObjects();
         $this->initView();
+    }
+
+    /**
+     * Gibt Wert in $_GET, $_POST, $_FILE zurück
+     * @param string $varname
+     * @param array $filter
+     * @return mixed
+     * @deprecated FPCM 4.4, use $this->request instead
+     */
+    final public function getRequestVar
+    (
+        $varname = null,
+        array $filter = [
+            \fpcm\classes\http::FILTER_STRIPTAGS,
+            \fpcm\classes\http::FILTER_HTMLENTITIES,
+            \fpcm\classes\http::FILTER_STRIPSLASHES,
+            \fpcm\classes\http::FILTER_TRIM
+        ]
+    )
+    {
+        trigger_error(__METHOD__.' is deprecated as of FPCM 4.4, use $this->request instead! This method will be removed in future  releases.', E_USER_DEPRECATED);
+        
+        if (is_object($this->request)) {
+            return $this->request->fetchAll($varname, $filter);
+        }
+
+        /**
+         * @todo usage removal of old HTTP wrapper
+         */
+        return \fpcm\classes\http::get($varname, $filter);
     }
 
     /**
@@ -200,7 +230,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         if (!$viewPath) {
             return false;
         }
-
+        
         $this->view = new \fpcm\view\view($viewPath, $this->moduleElement ? $this->getObject()->getKey() : false );
         $this->view->setHelpLink($this->getHelpLink());
         $this->view->setActiveNavigationElement($this->getActiveNavigationElement());
@@ -277,7 +307,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected function checkPageToken($name = '')
     {
         if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
-            trigger_error('Page token check failed, no referer available or referrer mismatch in '. get_class($this));
+            trigger_error('Page token check failed, no referer available or referrer mismatch in '. get_class($this), E_USER_ERROR);
             $this->checkPageToken = false;
             return $this->checkPageToken;
         }
@@ -449,6 +479,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     public function __call($name, $arguments)
     {
+        http_response_code(404);
         print "Function not found! {$name}";
         return false;
     }
@@ -461,6 +492,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     public static function __callStatic($name, $arguments)
     {
+        http_response_code(404);
         print "Function not found! {$name}";
         return false;
     }
@@ -486,7 +518,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function hasActiveModule()
     {
-        $this->moduleElement = !(fpcm\module\module::getKeyFromClass(get_class($this)) == false);
+        $this->moduleElement = !(\fpcm\module\module::getKeyFromClass(get_class($this)) == false);
         return true;
     }
 
@@ -530,7 +562,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
         $fn = trim($prefix.$actionName);
         if (!method_exists($this, $fn)) {
-            trigger_error('Request for undefined function '.$fn.' in '. get_called_class());
+            trigger_error('Request for undefined function '.$fn.' in '. get_called_class(), E_USER_WARNING);
             return self::ERROR_PROCESS_BYPARAMS;
         }
 

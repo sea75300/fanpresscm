@@ -538,8 +538,8 @@ class view {
     public function render()
     {
         if (!file_exists($this->viewPath) || strpos(realpath($this->viewPath), \fpcm\classes\dirs::getFullDirPath('') ) !== 0) {
-            trigger_error("View file {$this->viewName} not found!");
-            exit("View file {$this->viewName} not found!");
+            trigger_error("View file {$this->viewName} not found in {$this->viewPath}!", E_USER_ERROR);
+            exit("View file {$this->viewName} not found in {$this->viewPath}!");
         }
 
         $this->initAssigns();
