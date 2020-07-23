@@ -55,6 +55,13 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     protected $modulekey;
 
     /**
+     * Cronjob is running
+     * @var bool
+     * @since FPCM 4.5.0-a1
+     */
+    protected $isrunning;
+
+    /**
      * asynchrone Ausführung über cronasync-AJAX-Controller deaktivieren
      * @var bool, false wenn cronasync-AJAX nicht ausgführt werden soll
      */
@@ -71,12 +78,6 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      * @var bool
      */
     protected $asyncCurrent = false;
-
-    /**
-     * Wird Cronjob aktuell asynchron ausgeführt
-     * @var \fpcm\model\files\fileOption
-     */
-    protected $fopt;
     
     /**
      * Konstruktor
@@ -88,7 +89,6 @@ abstract class cron implements \fpcm\model\interfaces\cron {
         $this->dbcon = loader::getObject('\fpcm\classes\database');
         $this->events = loader::getObject('\fpcm\events\events');
         $this->cronName = basename(str_replace('\\', DIRECTORY_SEPARATOR, get_class($this)));
-        $this->fopt = new fileOption('crons/'.$this->cronName);
 
         if (!$init) {
             return;
@@ -227,7 +227,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     public function init()
     {
         $res = $this->dbcon->selectFetch((new selectParams($this->table))
-            ->setItem('lastexec, execinterval, modulekey')
+            ->setItem('lastexec, execinterval, isrunning, modulekey')
             ->setWhere('cjname = ?')
             ->setParams([$this->cronName])
         );
@@ -285,7 +285,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      */
     public function isRunning()
     {
-        return $this->fopt->read() == 1 ? true : false;
+        return $this->isrunning ? true : false;
     }
 
     /**
@@ -294,7 +294,8 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      */
     public function setRunning()
     {
-        return $this->fopt->write(1);
+        $this->isrunning = 1;
+        return $this->dbcon->update($this->table, ['isrunning'], [$this->isrunning, $this->cronName], 'cjname=?');        
     }
 
     /**
@@ -303,7 +304,8 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      */
     public function setFinished()
     {
-        return $this->fopt->remove();
+        $this->isrunning = 0;
+        return $this->dbcon->update($this->table, ['isrunning'], [$this->isrunning, $this->cronName], 'cjname=?');        
     }
 
     /**

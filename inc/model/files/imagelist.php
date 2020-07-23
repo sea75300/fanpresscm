@@ -153,7 +153,6 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         }
 
         foreach ($folderFiles as $folderFile) {
-
             $this->removeBasePath($folderFile);
             if (isset($dbFiles[$folderFile])) {
                 $dbFiles[$folderFile]->update();
@@ -172,6 +171,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
             if (!$image->exists(true) && !$image->save()) {
                 trigger_error("Unable to save image \"$folderFile\" to database.");
             }
+            
         }
 
         foreach ($dbFiles as $dbFile) {
