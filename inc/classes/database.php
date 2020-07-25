@@ -255,7 +255,7 @@ final class database {
         $distinct = $distinct ? 'DISTINCT ' : '';
         $sql = "SELECT {$distinct}{$item} FROM {$this->getTablePrefixed($table)}";
         
-        if (!is_null($where)) {
+        if ($where !== null) {
             $sql .= " WHERE $where";
         }
 
@@ -314,7 +314,7 @@ final class database {
     public function update($table, array $fields, array $params = [], $where = null)
     {
         $sql = "UPDATE {$this->getTablePrefixed($table)} SET " . implode(' = ?, ', $fields) . ' = ?';
-        if (!is_null($where)) {
+        if ($where !== null) {
             $sql .= " WHERE $where";
         }
 
@@ -408,7 +408,7 @@ final class database {
     public function count($table, $countitem = '*', $where = null, array $params = [])
     {
         $sql = "SELECT count(" . $countitem . ") AS counted FROM {$this->getTablePrefixed($table)}";
-        if (!is_null($where)) {
+        if ($where !== null) {
             $sql .= " WHERE " . $where . ";";
         }
 
@@ -417,9 +417,8 @@ final class database {
             $this->getError();
             return false;
         }
-        $row = $this->fetch($result);
 
-        return isset($row->counted) ? $row->counted : 0;
+        return $this->fetch($result)->counted ?? 0;
     }
 
     /**
@@ -432,7 +431,7 @@ final class database {
     public function reverseBool($table, $field, $where)
     {
         $sql = "UPDATE {$this->getTablePrefixed($table)} SET " . $this->driver->getNotQuery($field);
-        if (!is_null($where)) {
+        if ($where !== null) {
             $sql .= " WHERE $where";
         }
         return $this->exec($sql);

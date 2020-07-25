@@ -1,8 +1,8 @@
 <?php
 
-require_once dirname(__DIR__).'/inc/common.php';
+require_once dirname(dirname(__FILE__)).'/inc/common.php';
 
-class testBase extends \PHPUnit_Framework_TestCase {
+class testBase extends \PHPUnit\Framework\TestCase {
 
     /**
      * @var string
@@ -19,7 +19,8 @@ class testBase extends \PHPUnit_Framework_TestCase {
      */
     protected $backupGlobals = false;
 
-    public function setUp() {        
+    protected function setUp() : void
+    {        
         $class = '\\fpcm\\model\\'.$this->className;
         
         if (!isset($GLOBALS['objectId'])) {
@@ -30,8 +31,8 @@ class testBase extends \PHPUnit_Framework_TestCase {
         $this->name   = __CLASS__;
     }
 
-    public function tearDown() {
-        
+    public function tearDown() : void {
+
     }
 
 }
