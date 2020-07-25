@@ -22,7 +22,9 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
 
     public function testInstall()
     {
+        /* @var fpcm\module\module $GLOBALS['module'] */
         $GLOBALS['module'] = new \fpcm\module\module('nkorg/example');
+        $this->assertDirectoryExists($GLOBALS['module']->getConfig()->basePath);
         $success = $GLOBALS['module']->install(true);
 
         $this->assertTrue($success);
@@ -37,10 +39,22 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
 
         /* @var $db \fpcm\classes\database */
         $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
-        $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab1', '*')), 'Fetch from table module_nkorgexample_tab1 failed');
-        $this->assertNotFalse($db->fetch($db->select('module_nkorgexample_tab2', '*')), 'Fetch from table module_nkorgexample_tab2 failed');
+
         $this->assertGreaterThanOrEqual(1, $db->count(fpcm\classes\database::tableCronjobs, '*', 'modulekey = ?', ['nkorg/example']));
 
+        $struct1 = $db->getTableStructure('module_nkorgexample_tab1');
+        $this->assertIsArray($struct1);
+        $this->assertGreaterThan(0, count($struct1));
+
+        $tab1 = $db->selectFetch( (new \fpcm\model\dbal\selectParams('module_nkorgexample_tab1')) );        
+        $this->assertNotFalse($tab1);
+
+        $struct2 = $db->getTableStructure('module_nkorgexample_tab2');
+        $this->assertIsArray($struct2);
+        $this->assertGreaterThan(0, count($struct2));
+
+        $tab2 = $db->selectFetch( (new \fpcm\model\dbal\selectParams('module_nkorgexample_tab2')) );
+        $this->assertNotFalse($tab2);
     }
     
     public function testSetOptions()
@@ -60,6 +74,8 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
 
     public function testUpdate()
     {
+        $this->markTestSkipped();
+        
         /* @var $db \fpcm\classes\database */
         $db = \fpcm\classes\loader::getObject('\fpcm\classes\database');
         $dbResult = $db->delete(\fpcm\classes\database::tableConfig, "config_name IN ('module_nkorgexample_opt1', 'module_nkorgexample_opt2', 'module_nkorgexample_opt3')");
@@ -89,9 +105,6 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
 
     public function testUninstall()
     {
-        
-        $this->markTestSkipped();
-        
         $success = $GLOBALS['module']->uninstall();
         
         $this->assertTrue($success);

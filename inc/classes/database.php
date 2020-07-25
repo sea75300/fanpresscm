@@ -154,6 +154,13 @@ final class database {
     private $dbtype;
 
     /**
+     * Database name
+     * @var string
+     * @since FPCM 4.5
+     */
+    private $dbname;
+
+    /**
      * letzter ausgeführter Datenbank-Querystring
      * @var string
      */
@@ -231,6 +238,7 @@ final class database {
 
         $this->dbprefix = $dbconfig['DBPREF'];
         $this->dbtype = $dbconfig['DBTYPE'];
+        $this->dbname = $dbconfig['DBNAME'];
     }
 
     /**

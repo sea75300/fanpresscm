@@ -261,4 +261,13 @@ final class mysql implements sqlDriver {
         return $map[$code] ?? null;
     }
 
+    /**
+     * Table exists pre-check query
+     * @since FPCM 4.5
+     */
+    public function getPreChecktableExistsQuery() : string
+    {
+        return "show tables;";
+    }
+
 }

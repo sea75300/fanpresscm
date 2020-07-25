@@ -736,9 +736,9 @@ class module {
             return false;
         }
 
-        if (!$this->removeFiles()) {
-            return false;
-        }
+//        if (!$this->removeFiles()) {
+//            return false;
+//        }
 
         $this->id = 0;
         $this->active = false;

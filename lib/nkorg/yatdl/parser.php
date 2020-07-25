@@ -284,7 +284,7 @@ final class parser {
      */
     private function createDefaultInsert()
     {
-        if (!isset($this->yamlArray->defaultvalues) || !is_array($this->yamlArray->defaultvalues['rows']) || !count($this->yamlArray->defaultvalues['rows'])) {
+        if ($this->yamlArray->defaultvalues === null || !is_array($this->yamlArray->defaultvalues['rows']) || !count($this->yamlArray->defaultvalues['rows'])) {
             return true;
         }
 
@@ -293,17 +293,18 @@ final class parser {
         $values = [];
         foreach ($this->yamlArray->defaultvalues['rows'] as $row) {
 
-            $values[] = implode(', ', array_map($row, function ($colval, $col) use ($textTypes)  {
-                return in_array($this->yamlArray->cols[$col]['type'], $textTypes) ? "'{$colval}'" : $colval;
-            }));
+            array_walk($row, function (&$colval, $col) use ($textTypes, &$values)  {
+                $colval = in_array($this->yamlArray->cols[$col]['type'], $textTypes) ? "'{$colval}'" : $colval;
+            });
 
+            $values[] = implode(', ', $row);
+            
         }
 
         $cols = implode(', ', array_keys($this->yamlArray->cols));
         $values = implode('), (', $values);
 
         $this->sqlArray['defaultinsert'] = "INSERT INTO {{dbpref}}_{$this->yamlArray->name} ({$cols}) VALUES ($values);";
-
         return true;
     }
 
