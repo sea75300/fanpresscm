@@ -124,16 +124,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
         $actionPath = \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]);
         
-        if ($this->config->file_uploader_new) {
-            $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'));
-        } else {
-            $this->view->assign('actionPath', $actionPath);
-            $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [
-                '{{filecount}}' => ini_get("max_file_uploads"),
-                '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
-            ]));
-        }
-
+        $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'));
         $this->initViewAssigns([], [], \fpcm\classes\tools::calcPagination(1, 1, 0, 0));
 
         $buttons = [
