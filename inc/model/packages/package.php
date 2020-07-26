@@ -289,6 +289,11 @@ abstract class package {
             trigger_error('Unable to open ZIP archive: ' . $localPath);
             return self::ZIPOPEN_ERROR;
         }
+        
+        if (!$this->archive->count()) {
+            trigger_error('Empty ZIP archive detected, package contains no files: ' . $localPath);
+            return self::ZIPOPEN_ERROR;
+        }
 
         if ($this->archive->extractTo($this->getExtractionPath()) !== true) {
             trigger_error('Unable to extract ZIP archive: ' . $localPath);

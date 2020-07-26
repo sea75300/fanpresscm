@@ -33,7 +33,8 @@ fpcm.editor_tinymce = {
             convert_urls        : true,
             browser_spellcheck  : true,
             branding            : false,
-            element_format      : 'html'
+            element_format      : 'html',
+            content_style       : 'body { font-size: ' + fpcm.vars.jsvars.editorDefaultFontsize + '; }'
         };
         
         if (config.skin !== undefined) {
@@ -113,10 +114,6 @@ fpcm.editor_tinymce = {
         }
         else {
             params.setup = function(editor) {
-                editor.on('init', function() {
-                    this.getBody().style.fontSize = fpcm.vars.jsvars.editorDefaultFontsize;           
-                });    
-
                 if (config.onInitAfterStd) {
                     config.onInitAfterStd(editor);
                 }

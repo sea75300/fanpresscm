@@ -37,7 +37,6 @@ final class components {
     public static function getArticleEditors()
     {
         $list = [
-            'SYSTEM_OPTIONS_NEWS_EDITOR_STD' => '\fpcm\components\editor\tinymceEditor',
             'SYSTEM_OPTIONS_NEWS_EDITOR_TINYMCE5' => '\fpcm\components\editor\tinymceEditor5',
             'SYSTEM_OPTIONS_NEWS_EDITOR_CLASSIC' => '\fpcm\components\editor\htmlEditor'
         ];

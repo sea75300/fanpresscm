@@ -686,11 +686,16 @@ final class database {
     {
         $info = $statement->errorInfo();
         $this->lastQueryErrorCode = $this->driver->mapErrorCodes($info[0]);
+        
 
         $err = 'ERROR MESSAGE: ' . $info[2] . PHP_EOL;
         $err .= 'SQL STATE: ' . $info[0] . PHP_EOL;
         $err .= $this->getDbtype() . ' ERROR CODE: ' . $info[1] . PHP_EOL;
-        $err .= 'Query: ' . $statement->queryString . PHP_EOL;
+
+        ob_start();
+        $statement->debugDumpParams();
+        $err .= 'Query: ' . ob_get_contents() . PHP_EOL;
+        ob_end_clean();
 
         fpcmLogSql($err);
         return true;

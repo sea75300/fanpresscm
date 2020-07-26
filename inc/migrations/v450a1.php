@@ -18,14 +18,32 @@ namespace fpcm\migrations;
  * @see migration
  */
 class v450a1 extends migration {
-
+    
     /**
-     * Update inedit data for articles
+     * Update system configs
      * @return bool
      */
-    protected function alterTablesAfter() : bool
+    protected function updateSystemConfig(): bool
     {
-        if ($this->getConfig()->file_uploader_new === null) {
+
+        if ($this->getConfig()->system_editor === '\\fpcm\\components\\editor\\tinymceEditor') {
+
+            fpcmLogSystem('Check for active instance of TinyMCE 4: ' . $this->getConfig()->system_editor);
+            
+            $this->getConfig()->setNewConfig([
+                'system_editor' => '\\fpcm\\components\\editor\\tinymceEditor5'
+            ]);
+            
+            if (!$this->getConfig()->update()) {
+                trigger_error('Failed to migration TinyMCE 4 editor setting to TinyMCE 5!');
+                return false;
+            }
+
+            fpcmLogSystem('Default editor is now TinyMCE 5');
+        }
+
+        if ($this->getConfig()->file_uploader_new === false) {
+            fpcmLogSystem('Config option does not exists, skip process...');
             return true;
         }
         
@@ -38,8 +56,10 @@ class v450a1 extends migration {
         fpcmLogSystem('Remove "file_uploader_new" config option from users...');
         $obj = new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableAuthors);
         $obj->setWhere("usrmeta NOT LIKE '' AND usrmeta LIKE '%file_uploader_new%'");
+        $obj->setFetchAll(true);
         $users = $this->getDB()->selectFetch($obj);
-        if (!$users) {
+
+        if ($users === false) {
             trigger_error('Failed to fetch user list from database!');
             return false;
         }

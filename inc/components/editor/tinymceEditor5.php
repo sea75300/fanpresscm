@@ -15,7 +15,34 @@ namespace fpcm\components\editor;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class tinymceEditor5 extends tinymceEditor {
+class tinymceEditor5 extends articleEditor {
+
+    /**
+     * Liefert zu ladender CSS-Dateien für Editor zurück
+     * @return array
+     */
+    public function getCssFiles()
+    {
+        return [];
+    }
+
+    /**
+     * Pfad der Editor-Template-Datei
+     * @return string
+     */
+    public function getEditorTemplate()
+    {
+        return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'articles/editors/tinymce.php');
+    }
+
+    /**
+     * Pfad der Kommentar-Editor-Template-Datei
+     * @return string
+     */
+    public function getCommentEditorTemplate()
+    {
+        return \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'comments/editors/tinymce.php');        
+    }
 
     /**
      * Liefert zu ladender Javascript-Dateien für Editor zurück
@@ -80,4 +107,104 @@ class tinymceEditor5 extends tinymceEditor {
         ]);
     }
 
+    /**
+     * Array von Variablen, welche in Editor-Template genutzt werden
+     * @return array
+     */
+    public function getViewVars()
+    {
+        return [];
+    }
+
+    /**
+     * Editor-Styles initialisieren
+     * @return array
+     */
+    protected function getEditorStyles()
+    {
+        if (!$this->config->system_editor_css) {
+            return [];
+        }
+
+        $classes = explode(PHP_EOL, $this->config->system_editor_css);
+
+        $editorStyles = [];
+        foreach ($classes as $class) {
+            $class = trim(str_replace(array('.', '{', '}'), '', $class));
+            $editorStyles[] = array('title' => $class, 'value' => $class);
+        }
+
+        return $this->events->trigger('editor\addStyles', $editorStyles);
+    }
+
+    /**
+     * Editor-Links initialisieren
+     * @return string
+     */
+    public function getEditorLinks()
+    {
+        $links = $this->events->trigger('editor\addLinks');
+        if (!is_array($links) || !count($links)) {
+            return [];
+        }
+
+        return json_decode(str_replace('label', 'title', json_encode($links)), false);
+    }
+
+    /**
+     * Dateiliste initialisieren
+     * @return array
+     */
+    public function getFileList()
+    {
+        $data = [];
+        foreach ($this->fileList->getDatabaseList() as $image) {
+            $data[] = array('title' => $image->getFilename(), 'value' => $image->getImageUrl());
+        }
+
+        $res = $this->events->trigger('editor\getFileList', array('label' => 'title', 'files' => $data));
+
+        return isset($res['files']) && count($res['files']) ? $res['files'] : [];
+    }
+
+    /**
+     * Arary mit Informationen u. a. für template-Plugin von TinyMCE
+     * @see \fpcm\model\abstracts\articleEditor::getTemplateDrafts()
+     * @return array
+     * @since FPCM 3.3
+     */
+    public function getTemplateDrafts()
+    {
+        $templatefilelist = new \fpcm\model\files\templatefilelist();
+
+        $ret = [];
+        foreach ($templatefilelist->getFolderList() as $file) {
+
+            $basename = basename($file);
+
+            if ($basename === 'index.html') {
+                continue;
+                ;
+            }
+
+            $ret[] = array(
+                "title" => $basename,
+                "description" => $basename,
+                "url" => \fpcm\classes\dirs::getRootUrl(\fpcm\model\files\ops::removeBaseDir($file))
+            );
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Array von Sprachvariablen für Nutzung in Javascript
+     * @see \fpcm\model\abstracts\articleEditor
+     * @return array
+     * @since FPCM 3.3
+     */
+    public function getJsLangVars()
+    {
+        return ['EDITOR_HTML_BUTTONS_READMORE', 'EDITOR_INSERTSMILEY'];
+    }
 }
