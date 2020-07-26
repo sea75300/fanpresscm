@@ -119,7 +119,6 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->view->assign('searchUsers', ['ARTICLE_SEARCH_USER' => -1] + (new \fpcm\model\users\userList)->getUsersNameList());
         $this->view->assign('mode', $this->mode);
         $this->view->assign('hasFiles', $hasFiles);
-        $this->view->assign('newUploader', $this->config->file_uploader_new);
         $this->view->assign('jquploadPath', \fpcm\classes\dirs::getLibUrl('jqupload/'));
         $this->view->addJsFiles(['files/module.js', 'files/uploader.js']);
 

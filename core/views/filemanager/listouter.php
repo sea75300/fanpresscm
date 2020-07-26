@@ -31,14 +31,10 @@
         </div>
 
         <?php if ($theView->permissions->uploads->add) : ?>
-        <?php if ($newUploader) : ?></form><?php endif; ?>
-        <div id="tabs-files-upload">
-            <?php if ($newUploader) : ?>
-                <?php include $theView->getIncludePath('filemanager/forms/jqupload.php'); ?>
-            <?php else : ?>
-                <?php include $theView->getIncludePath('filemanager/forms/phpupload.php'); ?>
-            <?php endif; ?>
 
+        </form>
+        <div id="tabs-files-upload">
+            <?php include $theView->getIncludePath('filemanager/forms/jqupload.php'); ?>
         </div>
         <?php endif; ?>
     </div>
