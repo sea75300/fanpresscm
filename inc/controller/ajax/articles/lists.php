@@ -1,0 +1,291 @@
+<?php
+
+/**
+ * FanPress CM 4.x
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
+
+namespace fpcm\controller\ajax\articles;
+
+/**
+ * AJAX Article list controller
+ * 
+ * @package fpcm\controller\ajax\articles\search
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @since FPCM 4.5
+ */
+class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+
+    use \fpcm\controller\traits\common\searchParams,
+        \fpcm\controller\traits\articles\listsCommon,
+        \fpcm\controller\traits\articles\lists;
+    
+    const MODE_ALL = 'all';
+
+    const MODE_ACTIVE = 'active';
+
+    const MODE_ARCHIVE = 'archive';
+
+    /**
+     * Search instance
+     * @var \fpcm\model\articles\search
+     */
+    private $conditions;
+
+    /**
+     * Current Page
+     * @var int
+     */
+    protected $page = 1;
+
+    /**
+     * Current offset
+     * @var int
+     */
+    protected $offset = 0;
+
+    /**
+     * View message
+     * @var \fpcm\view\message
+     */
+    protected $message = null;
+
+    /**
+     * Is filter view
+     * @var bool
+     */
+    protected $isFilter = false;
+
+    /**
+     * 
+     * @return bool
+     */
+    public function isAccessible(): bool
+    {
+        $res = $this->processByParam('getModePerms', 'mode');
+        if ($res === self::ERROR_PROCESS_BYPARAMS) {
+            return false;
+        }
+        
+        return $res;
+    }
+    
+    protected function precountValues()
+    {
+        $this->commentCount = $this->config->system_comments_enabled
+                            ? $this->commentList->countComments($this->getItemsIds())
+                            : [];
+
+        $this->commentPrivateUnapproved = $this->config->system_comments_enabled
+                                        ? $this->commentList->countUnapprovedPrivateComments($this->getItemsIds())
+                                        : [];
+
+        $this->sharesCounts = $this->config->system_share_count
+                            ? (new \fpcm\model\shares\shares())->getSharesCountByArticles()
+                            : [];
+    }
+
+    protected function getItemsIds() : array
+    {
+        if (!count($this->items)) {
+            return [];
+        }
+        
+        $articleIds = [];
+        foreach ($this->items as $monthData) {
+            $articleIds = array_merge($articleIds, array_keys($monthData));
+        }
+
+        return $articleIds;
+    }
+    
+    protected function getModePermsAll() : bool
+    {
+        return $this->permissions->article->edit || $this->permissions->article->editall;
+    }
+    
+    protected function getModePermsActive() : bool
+    {
+        return $this->permissions->article->edit;
+    }
+    
+    protected function getModePermsArchive() : bool
+    {
+        if (!$this->permissions->article->edit && !$this->permissions->article->editall) {
+            return false;
+        }
+
+        return $this->permissions->article->archive;
+    }
+    
+    protected function getModeContitionsAll() : void
+    {
+        $this->conditions->orderby = ['createtime DESC'];
+    }
+    
+    protected function getModeContitionsActive() : void
+    {
+        $this->showArchivedStatus = false;
+        $this->conditions->archived = 0;
+        $this->conditions->deleted = 0;
+        $this->conditions->orderby = ['createtime DESC'];
+    }
+    
+    protected function getModeContitionsArchive() : void
+    {
+        $this->showArchivedStatus = false;
+        $this->showDraftStatus = false;
+        $this->conditions->archived = 1;
+        $this->conditions->deleted = 0;
+        $this->conditions->orderby = ['createtime DESC'];
+    }
+    
+    protected function getFilterContitions() : void
+    {
+        $filter = $this->request->fromPOST('filter');
+
+        $this->conditions->setMultiple(true);
+        
+        $this->assignParamsVars( ($filter['combinations'] ?? []) , $this->conditions);
+
+        if (trim($filter['text'])) {
+
+            $filter['text'] = $this->request->filter($filter['text'], [
+                \fpcm\model\http\request::FILTER_URLDECODE,
+                \fpcm\model\http\request::FILTER_TRIM,
+                \fpcm\model\http\request::FILTER_SANITIZE,
+                \fpcm\model\http\request::FILTER_HTMLENTITY_DECODE,
+                \fpcm\model\http\request::PARAM_SANITIZE => FILTER_SANITIZE_STRING
+            ]);
+
+            switch ($filter['searchtype']) {
+                case \fpcm\model\articles\search::TYPE_TITLE :
+                    $this->conditions->title = $filter['text'];
+                    break;
+                case \fpcm\model\articles\search::TYPE_CONTENT :
+                    $this->conditions->content = $filter['text'];
+                    break;
+                case \fpcm\model\articles\search::TYPE_COMBINED_OR :
+                    $this->conditions->combination   = 'OR';
+                    $this->conditions->title = $filter['text'];
+                    $this->conditions->content = $filter['text'];
+                    break;
+                default:
+                    $this->conditions->combination   = 'AND';
+                    $this->conditions->title = $filter['text'];
+                    $this->conditions->content = $filter['text'];
+                    break;
+            }
+        }
+
+        if ($filter['userid'] > 0) {
+            $this->conditions->user = (int) $filter['userid'];
+        }
+
+        if ($filter['categoryid'] > 0) {
+            $this->conditions->category = (int) $filter['categoryid'];
+        }
+
+        if ($filter['datefrom'] && \fpcm\classes\tools::validateDateString($filter['datefrom'])) {
+            $this->conditions->datefrom = strtotime($filter['datefrom']);
+        }
+
+        if ($filter['dateto'] && \fpcm\classes\tools::validateDateString($filter['dateto'])) {
+            $this->conditions->dateto = strtotime($filter['dateto']);
+        }
+
+        if ($filter['pinned'] > -1) {
+            $this->conditions->pinned = (int) $filter['pinned'];
+        }
+
+        if ($filter['postponed'] > -1) {
+            $this->conditions->postponed = (int) $filter['postponed'];
+        }
+
+        if ($filter['comments'] > -1) {
+            $this->conditions->comments = (int) $filter['comments'];
+        }
+
+        if ($filter['draft'] > -1) {
+            $this->conditions->draft = (int) $filter['draft'];
+        }
+
+        if ($filter['approval'] > -1) {
+            $this->conditions->approval = (int) $filter['approval'];
+        }
+
+        switch ($this->mode) {
+            case 1 :
+                $this->showArchivedStatus = false;
+                $this->showDraftStatus = false;
+                $this->conditions->combinationDraft = \fpcm\model\articles\search::COMBINATION_AND;
+                $this->conditions->combinationArchived = \fpcm\model\articles\search::COMBINATION_AND;
+                break;
+            case 0 :
+                $this->conditions->combinationArchived = \fpcm\model\articles\search::COMBINATION_AND;
+                $this->showArchivedStatus = false;
+                break;
+        }
+
+        $this->conditions->combinationDeleted = \fpcm\model\articles\search::COMBINATION_AND;
+
+        $sparams = $this->events->trigger('article\prepareSearch', $sparams);
+    }
+
+    /**
+     * Request-Handler
+     * @return bool
+     */
+    public function request()
+    {
+        $this->initActionObjects();
+        $this->precountValues();
+        
+        $this->conditions = new \fpcm\model\articles\search();
+        
+        $res = $this->processByParam('getModeConditions', 'mode');
+        if ($res === self::ERROR_PROCESS_BYPARAMS) {
+            $this->response->setReturnData( new \fpcm\view\message($this->language->translate($this->isFilter ? 'SEARCH_ERROR' : 'ARTICLELIST_ERROR'), \fpcm\view\message::TYPE_ERROR) )->fetch();
+        }
+
+        $this->isFilter = $this->request->fromPOST('filter') === null;
+        if ($this->isFilter) {
+            $this->page = $this->request->getPage();
+            $this->conditionItems->limit = [$this->config->articles_acp_limit, \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit)];
+        }
+        else {
+            $this->getFilterContitions();
+        }
+
+        return true;
+    }
+
+    public function process()
+    {
+        $this->count = $this->articleList->countArticlesByCondition($this->conditions);
+        $this->items = $this->articleList->getArticlesByCondition($this->conditions, true);
+
+        if ($this->items === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {
+            $this->items = [];
+            $this->count = 0;
+            $this->message = new \fpcm\view\message($this->language->translate($this->isFilter ? 'SEARCH_ERROR' : 'ARTICLELIST_ERROR'), \fpcm\view\message::TYPE_ERROR);
+        }
+        else {
+            $this->translateCategories();
+        }
+
+        $this->initDataView();
+
+        $this->response->setReturnData(new \fpcm\model\http\responseDataview(
+            $this->getDataViewName(),
+            $this->dataView->getJsVars()['dataviews'][$this->getDataViewName()],
+            $this->message,
+            $this->isFilter ? (new \fpcm\view\helper\pager($this->listAction, $this->page, count($this->items), $this->config->articles_acp_limit, $this->count)) : ''
+        ))->fetch();
+    }
+
+}
+
+?>

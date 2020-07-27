@@ -38,16 +38,23 @@ final class responseDataview implements \JsonSerializable {
     private $message;
 
     /**
+     * Dataview pager
+     * @var \fpcm\view\helper\pager
+     */
+    private $pager;
+
+    /**
      * Constructor
      * @param string $dataViewName
      * @param array $dataViewVars
      * @param \fpcm\view\message $message
      */
-    public function __construct(string $dataViewName, $dataViewVars, $message = null)
+    public function __construct(string $dataViewName, $dataViewVars, $message = null, $pager = null)
     {
         $this->dataViewVars = $dataViewVars;
         $this->dataViewName = $dataViewName;
         $this->message = $message;
+        $this->pager = $pager instanceof \fpcm\view\helper\pager ? (string) $pager : 0;
     }
 
 }

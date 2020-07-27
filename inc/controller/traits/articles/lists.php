@@ -43,21 +43,15 @@ trait lists {
 
     /**
      *
-     * @var array
+     * @var int
      */
-    protected $articleItems = [];
+    protected $count = 0;
 
     /**
      *
      * @var array
      */
-    protected $categories = [];
-
-    /**
-     *
-     * @var array
-     */
-    protected $users = [];
+    protected $items = [];
 
     /**
      *
@@ -79,24 +73,6 @@ trait lists {
 
     /**
      *
-     * @var int
-     */
-    protected $listShowLimit = 0;
-
-    /**
-     *
-     * @var int
-     */
-    protected $listShowStart = 0;
-
-    /**
-     *
-     * @var int
-     */
-    protected $articleCount = 0;
-
-    /**
-     *
      * @var bool
      */
     protected $showArchivedStatus = true;
@@ -114,46 +90,17 @@ trait lists {
     protected $dataView;
 
     /**
-     * 
-     * @return string
-     */
-    protected function getDataViewName()
-    {
-        return 'articlelist';
-    }
-
-    /**
-     * Berechtigungen zum Bearbeiten initialisieren
-     */
-    public function initEditPermisions()
-    {
-        if (!$this->session->exists()) {
-            return false;
-        }
-
-        $this->view->assign('permEditOwn', $this->permissions->article->edit);
-        $this->view->assign('permEditAll', $this->permissions->article->editall);
-        $this->view->assign('permMassEdit', $this->permissions->article->massedit);
-        $this->view->assign('currentUserId', $this->session->getUserId());
-        $this->view->assign('isAdmin', $this->session->getCurrentUser()->isAdmin());
-
-        $this->view->assign('canArchive', $this->permissions->article->archive);
-        $this->view->assign('canApprove', $this->permissions->article->approve);
-        $this->view->assign('canChangeAuthor', $this->permissions->article->authors);
-    }
-
-    /**
      * Kategorien übersetzen
      * @return void
      */
     protected function translateCategories()
     {
-        if (!count($this->articleItems) || !$this->session->exists()) {
+        if (!count($this->items) || !$this->session->exists()) {
             return false;
         }
 
         $categories = $this->categoryList->getCategoriesNameListAll();
-        foreach ($this->articleItems as $articles) {
+        foreach ($this->items as $articles) {
 
             /* @var $article \fpcm\model\articles\article */
             foreach ($articles as &$article) {
@@ -166,49 +113,12 @@ trait lists {
      * 
      * @return bool
      */
-    protected function initActionObjects()
-    {
-        $this->articleList = new \fpcm\model\articles\articlelist();
-        $this->categoryList = new \fpcm\model\categories\categoryList();
-        $this->commentList = new \fpcm\model\comments\commentList();
-        $this->userList = new \fpcm\model\users\userList();
-
-        return true;
-    }
-
-    /**
-     * Init action vars
-     * @return bool
-     */
-    protected function initActionVars()
-    {
-        $this->users = $this->userList->getUsersNameList();
-        $this->categories = $this->categoryList->getCategoriesNameListCurrent();
-
-        $this->commentCount = $this->config->system_comments_enabled
-                            ? $this->commentList->countComments($this->getArticleListIds())
-                            : [];
-
-        $this->commentPrivateUnapproved = $this->config->system_comments_enabled
-                                        ? $this->commentList->countUnapprovedPrivateComments($this->getArticleListIds())
-                                        : [];
-
-        $this->sharesCounts = $this->config->system_share_count
-                            ? (new \fpcm\model\shares\shares())->getSharesCountByArticles()
-                            : [];
-        return true;
-    }
-
-    /**
-     * 
-     * @return bool
-     */
     protected function initDataView()
     {
         $this->dataView = new \fpcm\components\dataView\dataView($this->getDataViewName());
         $this->dataView->addColumns($this->getDataViewCols());
 
-        if (!count($this->articleItems)) {
+        if (!count($this->items)) {
             $this->dataView->addRow(
                 new \fpcm\components\dataView\row([
                     new \fpcm\components\dataView\rowCol(
@@ -230,7 +140,7 @@ trait lists {
         $showDeleteButton = $this->permissions->article->delete && !($this->isTrash ?? false);
 
         /* @var $article \fpcm\model\articles\article */
-        foreach ($this->articleItems as $articleMonth => $articles) {
+        foreach ($this->items as $articleMonth => $articles) {
 
             $titleStr  = $this->language->writeMonth(date('n', $articleMonth), true);
             $titleStr .= ' ' .date('Y', $articleMonth);
@@ -350,20 +260,6 @@ trait lists {
             ]),
             '</span>'
         ]);
-    }
-
-    /**
-     * Artikel-IDs ermitteln
-     * @return array
-     */
-    protected function getArticleListIds()
-    {
-        $articleIds = [];
-        foreach ($this->articleItems as $monthData) {
-            $articleIds = array_merge($articleIds, array_keys($monthData));
-        }
-
-        return $articleIds;
     }
 
     /**
