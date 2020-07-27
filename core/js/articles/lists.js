@@ -11,20 +11,20 @@ if (fpcm === undefined) {
 fpcm.articles = {
 
     init: function() {
-//        fpcm.dom.fromId('massEdit').click(function () {
-//            fpcm.system.initMassEditDialog('articles/massedit', 'articles-massedit', fpcm.articles);
-//            return false;
-//        });
+        fpcm.dom.fromId('massEdit').click(function () {
+            fpcm.system.initMassEditDialog('articles/massedit', 'articles-massedit', fpcm.articles);
+            return false;
+        });
         
         fpcm.articles.loadArticles({
             page: fpcm.vars.jsvars.listPage
         });
 
-//        fpcm.articles.initArticleSearch();
+        fpcm.articles.initArticleSearch();
     },
     
     initAfter: function() {
-        
+
         fpcm.dom.fromId('categories').selectize({
             placeholder: fpcm.ui.translate('EDITOR_CATEGORIES_SEARCH'),
             searchField: ['text', 'value'],
@@ -82,13 +82,10 @@ fpcm.articles = {
                         icon: 'ui-icon-check',
                         class: 'fpcm-ui-button-primary',
                         click: function() {                            
-                            var sParams = {
-                                mode: fpcm.vars.jsvars.articleSearchMode,
-                                filter: fpcm.ui.getValuesByClass('fpcm-articles-search-input')
-                            };
-                            
-                            sParams.filter.combinations = fpcm.ui.getValuesByClass('fpcm-ui-input-select-articlesearch-combination');
-                            fpcm.articles.startSearch(sParams);
+                            let _filter = {};
+                            _filter = fpcm.ui.getValuesByClass('fpcm-articles-search-input');
+                            _filter.combinations = fpcm.ui.getValuesByClass('fpcm-ui-input-select-articlesearch-combination');
+                            fpcm.articles.startSearch(_filter);
                             fpcm.dom.fromTag(this).dialog('close');
                         }
                     },                    
@@ -127,7 +124,7 @@ fpcm.articles = {
 
     },
     
-    startSearch: function (sParams) {
+    startSearch: function (_filter) {
 
         if (((new Date()).getTime() - fpcm.vars.jsvars.articlesLastSearch) < 10000) {
             fpcm.ui.addMessage({
@@ -137,47 +134,30 @@ fpcm.articles = {
             return false;
         }
 
-        fpcm.ajax.post('articles/search', {
-            data: sParams,
-            dataType: 'json',
-            execDone: function (result) {
-
-                fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
-                fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-
-                if (result.message) {
-                    fpcm.ui.addMessage(result.message);
-                }
-
-                fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
-                fpcm.dataview.updateAndRender(result.dataViewName, {
-                    onRenderAfter: function () {
-                        fpcm.ui.assignCheckboxes();
-                        fpcm.ui.assignControlgroups();
-                    }
-                });
-
-                fpcm.articles.clearArticleCache();
-                fpcm.articles.deleteSingleArticle();
-                fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
-            }
+        fpcm.articles.loadArticles({
+            filter: _filter
         });
 
         fpcm.vars.jsvars.articlesLastSearch = (new Date()).getTime();
     },
     
     loadArticles: function(_params) {
-    
+
         if (!_params) {
             _params = {};
         }
 
-        debugger;
+        let _data = {
+            mode: fpcm.vars.jsvars.listMode,
+            page: _params.page !== undefined ? parseInt(_params.page) : 1,    
+        };
+        
+        if (_params.filter instanceof Object) {
+            _data.filter = _params.filter;
+        }
 
         fpcm.ajax.post('articles/lists', {
-            mode: fpcm.vars.jsvars.listMode,
-            filter: _params.filter instanceof Object ? _params.filter : null,
-            page: _params.page !== undefined ? parseInt(_params.page) : 1,
+            data: _data,
             execDone: function (result)
             {
                 if (!result) {
@@ -189,14 +169,29 @@ fpcm.articles = {
                     return false;
                 }
                 
-                result.onRenderAfter = function() {
-                    fpcm.ui.assignCheckboxes();
-                    fpcm.ui.assignControlgroups();
-                };
-                
-                fpcm.dataview.updateAndRender(fpcm.vars.jsvars.listName, result);
+                fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
+                fpcm.dataview.updateAndRender(result.dataViewName, {
+                    onRenderAfter: function() {
+                        fpcm.ui.assignCheckboxes();
+                        fpcm.ui.assignControlgroups();
+                    }
+                });
+
+//                if (result.pager && !_params.filter) {
+//                    fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').removeClass('fpcm-ui-hidden');
+//                    fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
+//                    fpcm.vars.jsvars.pager = result.pager;
+//                    fpcm.ui.initPager();
+//                }
+
                 fpcm.articles.clearArticleCache();
                 fpcm.articles.deleteSingleArticle();
+                
+                if (_params.filter) {
+                    fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
+                    fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
+                    fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
+                }
             }
         });
         

@@ -931,7 +931,7 @@ fpcm.ui = {
         if (params === undefined) {
             params = {};
         }
-
+        
         if (!fpcm.vars.jsvars.pager) {
             return false;
         }
@@ -965,6 +965,7 @@ fpcm.ui = {
         var selectId    = 'pageSelect';
         var selectEl    = fpcm.dom.fromId(selectId);
         selectEl.unbind('select');
+        //selectEl.empty();
         
         if (fpcm.vars.jsvars.pager.maxPages) {
             for(i=1; i<= fpcm.vars.jsvars.pager.maxPages; i++) {

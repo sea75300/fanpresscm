@@ -120,12 +120,12 @@ class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
         return $this->permissions->article->archive;
     }
     
-    protected function getModeContitionsAll() : void
+    protected function getModeConditionsAll() : void
     {
         $this->conditions->orderby = ['createtime DESC'];
     }
     
-    protected function getModeContitionsActive() : void
+    protected function getModeConditionsActive() : void
     {
         $this->showArchivedStatus = false;
         $this->conditions->archived = 0;
@@ -133,7 +133,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
         $this->conditions->orderby = ['createtime DESC'];
     }
     
-    protected function getModeContitionsArchive() : void
+    protected function getModeConditionsArchive() : void
     {
         $this->showArchivedStatus = false;
         $this->showDraftStatus = false;
@@ -142,7 +142,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
         $this->conditions->orderby = ['createtime DESC'];
     }
     
-    protected function getFilterContitions() : void
+    protected function getFilterConditions() : void
     {
         $filter = $this->request->fromPOST('filter');
 
@@ -216,22 +216,19 @@ class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
             $this->conditions->approval = (int) $filter['approval'];
         }
 
-        switch ($this->mode) {
-            case 1 :
-                $this->showArchivedStatus = false;
-                $this->showDraftStatus = false;
+        switch ($this->request->fromPOST('mode')) {
+            case self::MODE_ARCHIVE :
                 $this->conditions->combinationDraft = \fpcm\model\articles\search::COMBINATION_AND;
                 $this->conditions->combinationArchived = \fpcm\model\articles\search::COMBINATION_AND;
                 break;
-            case 0 :
+            case self::MODE_ACTIVE :
                 $this->conditions->combinationArchived = \fpcm\model\articles\search::COMBINATION_AND;
-                $this->showArchivedStatus = false;
                 break;
         }
 
         $this->conditions->combinationDeleted = \fpcm\model\articles\search::COMBINATION_AND;
 
-        $sparams = $this->events->trigger('article\prepareSearch', $sparams);
+        $this->conditions = $this->events->trigger('article\prepareSearch', $this->conditions);
     }
 
     /**
@@ -240,6 +237,8 @@ class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
      */
     public function request()
     {
+        $this->page = $this->request->getPage();
+
         $this->initActionObjects();
         $this->precountValues();
         
@@ -250,13 +249,12 @@ class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
             $this->response->setReturnData( new \fpcm\view\message($this->language->translate($this->isFilter ? 'SEARCH_ERROR' : 'ARTICLELIST_ERROR'), \fpcm\view\message::TYPE_ERROR) )->fetch();
         }
 
-        $this->isFilter = $this->request->fromPOST('filter') === null;
+        $this->isFilter = $this->request->fromPOST('filter') === null ? false : true;
         if ($this->isFilter) {
-            $this->page = $this->request->getPage();
-            $this->conditionItems->limit = [$this->config->articles_acp_limit, \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit)];
+            $this->getFilterConditions();
         }
         else {
-            $this->getFilterContitions();
+            $this->conditions->limit = [$this->config->articles_acp_limit, \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit)];
         }
 
         return true;
@@ -282,7 +280,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
             $this->getDataViewName(),
             $this->dataView->getJsVars()['dataviews'][$this->getDataViewName()],
             $this->message,
-            $this->isFilter ? (new \fpcm\view\helper\pager($this->listAction, $this->page, count($this->items), $this->config->articles_acp_limit, $this->count)) : ''
+            $this->isFilter ? '' : (new \fpcm\view\helper\pager('ajax/articles/lists', $this->page, count($this->items), $this->config->articles_acp_limit, $this->count))
         ))->fetch();
     }
 

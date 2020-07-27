@@ -14,7 +14,7 @@ class articlelisttrash extends \fpcm\controller\abstracts\controller implements 
 
     use \fpcm\controller\traits\articles\listsCommon,
         \fpcm\controller\traits\articles\lists; 
-   
+
     /**
      * 
      * @return bool
@@ -44,6 +44,8 @@ class articlelisttrash extends \fpcm\controller\abstracts\controller implements 
 
     public function process()
     {
+        $this->isTrash = true;
+        
         $this->initActionObjects();
         
         $this->view->assign('tabHeadline', 'ARTICLES_TRASH');

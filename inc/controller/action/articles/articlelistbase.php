@@ -89,21 +89,10 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
      */
     public function request()
     {
-        $this->init();
-        return true;
-    }
-
-    /**
-     * 
-     * @return bool
-     */
-    private function init()
-    {
+        $this->page = $this->request->getPage();
         $this->getListAction();
-        $this->getLimitsByPage();
-//        $this->getConditionItem();
-//        $this->getArticleCount();
-//        $this->getArticleItems();
+        
+        
         return true;
     }
 
@@ -123,7 +112,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         $this->initSearchForm();
         $this->initMassEditForm();
 
-        $this->view->addJsFiles(['articles/list.js']);
+        $this->view->addJsFiles(['articles/lists.js']);
 
         $buttons = [];
 
@@ -143,7 +132,6 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         $this->view->addButtons($buttons);
         $this->view->addJsVars([
             'listMode' => $this->getSearchMode(),
-            'listName' => $this->getDataViewName(),
             'listPage' => $this->page ? $this->page : 1
         ]);
 
@@ -157,11 +145,6 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         $this->view->setFormAction($this->listAction, $formActionParams);
         $this->view->addDataView( new \fpcm\components\dataView\dataView('articlelist') );
         return true;
-    }
-    
-    protected function getLimitsByPage()
-    {
-        $this->page = $this->request->getPage();
     }
 
     protected function initArticleActions()

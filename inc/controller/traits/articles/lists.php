@@ -84,6 +84,12 @@ trait lists {
     protected $showDraftStatus = true;
 
     /**
+     *
+     * @var bool
+     */
+    protected $isTrash = false;
+
+    /**
      * Data view object
      * @var \fpcm\components\dataView\dataView
      */
@@ -162,10 +168,14 @@ trait lists {
 
                 $buttons = (new \fpcm\view\helper\controlgroup('articlebuttons' . $article->getId() ))
                             ->addItem( (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget('_blank') )
-                            ->addItem( (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article) )
-                            ->addItem( (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article) );
+                            ->addItem( (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article) );
+
+                if (!$this->isTrash) {
+                    $buttons->addItem( (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article) );
+                }
 
                 if ($showDeleteButton) {
+
                     $buttons->addItem( (new \fpcm\view\helper\button('delete'.$articleId))
                             ->setText('GLOBAL_DELETE')
                             ->setIcon('trash')
@@ -213,7 +223,7 @@ trait lists {
 
         $badge->setClass(($privateUnapproved ? 'fpcm-ui-badge-red fpcm-ui-badge-comments' : 'fpcm-ui-badge-comments'))
                 ->setText(($privateUnapproved ? 'ARTICLE_LIST_COMMENTNOTICE' : 'COMMMENT_HEADLINE'))
-                ->setValue((isset($this->commentCount[$articleId]) ? $this->commentCount[$articleId] : 0))
+                ->setValue($this->commentCount[$articleId] ?? 0)
                 ->setIcon('comments');
 
         return $badge;
@@ -228,7 +238,7 @@ trait lists {
     {
         return (new \fpcm\view\helper\badge('badge' . $articleId))->setClass('fpcm-ui-badge-comments')
             ->setText('EDITOR_SHARES')
-            ->setValue((isset($this->sharesCounts[$articleId]) ? $this->sharesCounts[$articleId] : 0))
+            ->setValue($this->sharesCounts[$articleId] ?? 0)
             ->setIcon('share');
     }
 

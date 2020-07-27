@@ -54,7 +54,10 @@ final class responseDataview implements \JsonSerializable {
         $this->dataViewVars = $dataViewVars;
         $this->dataViewName = $dataViewName;
         $this->message = $message;
-        $this->pager = $pager instanceof \fpcm\view\helper\pager ? (string) $pager : 0;
+        $this->pager = $pager instanceof \fpcm\view\helper\pager ? $pager->getJsVars() : null;
+
+        $pager = (string) $pager;
+        $pager = null;
     }
 
 }
