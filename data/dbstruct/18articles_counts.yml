@@ -1,0 +1,25 @@
+## article shares table definition
+---
+name: articles_counts
+isview: true
+query: >
+    SELECT {{dbpref}}_articles.id as article_id, COALESCE(com_count_all.counter, 0) as ccount, COALESCE(com_count_prunap.counter, 0) as cprivunapp, COALESCE(sha_count.counter, 0) as shares
+    FROM {{dbpref}}_articles
+    LEFT JOIN (
+            SELECT articleid, count(id) as counter
+            FROM {{dbpref}}_comments
+            GROUP BY articleid
+    ) com_count_all ON {{dbpref}}_articles.id = com_count_all.articleid
+
+    LEFT JOIN (
+            SELECT articleid, count(id) as counter
+            FROM {{dbpref}}_comments
+            WHERE (private = 1 or approved = 0)
+            GROUP BY articleid
+    ) com_count_prunap ON {{dbpref}}_articles.id = com_count_prunap.articleid
+
+    LEFT JOIN (
+            SELECT article_id, SUM(sharecount) as counter
+            FROM {{dbpref}}_shares
+            GROUP BY article_id
+    ) sha_count ON {{dbpref}}_articles.id = sha_count.article_id

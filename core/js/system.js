@@ -194,9 +194,11 @@ fpcm.system = {
                                     }                                    
                                 }
 
+                                if (_params.onSuccess) {
+                                    params.onSuccess = _params.onSuccess;
+                                }
 
                                 fpcm.system.execMassEdit(func, params);
-
                                 fpcm.dom.fromTag(this).dialog('close');
 
                             },
@@ -230,13 +232,20 @@ fpcm.system = {
     },
 
     execMassEdit: function (func, params) {
+        
+        if (!params.onSuccess) {
+            params.onSuccess = function () {
+                fpcm.ui.relocate(window.location.href + (fpcm.vars.jsvars.massEdit && fpcm.vars.jsvars.massEdit.relocateParams ? fpcm.vars.jsvars.massEdit.relocateParams : ''));
+            };
+        }
+        
         fpcm.ajax.post(func, {
             data: params,
             dataType: 'json',
             execDone: function (res) {
 
                 if (res !== null && res.code == 1) {
-                    fpcm.ui.relocate(window.location.href + (fpcm.vars.jsvars.massEdit && fpcm.vars.jsvars.massEdit.relocateParams ? fpcm.vars.jsvars.massEdit.relocateParams : ''));
+                    params.onSuccess();
                     return true;
                 }
 
