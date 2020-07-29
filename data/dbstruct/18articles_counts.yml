@@ -8,13 +8,14 @@ query: >
     LEFT JOIN (
             SELECT articleid, count(id) as counter
             FROM {{dbpref}}_comments
+            WHERE deleted = 0
             GROUP BY articleid
     ) com_count_all ON {{dbpref}}_articles.id = com_count_all.articleid
 
     LEFT JOIN (
             SELECT articleid, count(id) as counter
             FROM {{dbpref}}_comments
-            WHERE (private = 1 or approved = 0)
+            WHERE (private = 1 OR approved = 0) AND deleted = 0
             GROUP BY articleid
     ) com_count_prunap ON {{dbpref}}_articles.id = com_count_prunap.articleid
 

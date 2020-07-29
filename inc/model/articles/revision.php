@@ -8,7 +8,7 @@
 namespace fpcm\model\articles;
 
 /**
- * NEW Article revision object for storage in database
+ * Article revision object for storage in database
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer

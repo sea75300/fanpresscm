@@ -160,8 +160,8 @@ fpcm.articles = {
                     return false;
                 }
                 
-                if (!result.dataViewName && result.txt && result.type) {
-                    fpcm.ui.addMessage(result);
+                if (result.message && result.message.txt && result.message.type) {
+                    fpcm.ui.addMessage(result.message);
                     return false;
                 }
                 
@@ -193,8 +193,8 @@ fpcm.articles = {
 
                     fpcm.ui.initPager({
                         nextAction: function () {
-                                
-                            if (!fpcm.vars.jsvars.pager.showBackButton || fpcm.vars.jsvars.pager.currentPage >= fpcm.vars.jsvars.pager.maxPages) {
+
+                            if (!fpcm.vars.jsvars.pager.showNextButton || fpcm.vars.jsvars.pager.currentPage >= fpcm.vars.jsvars.pager.maxPages) {
                                 return false;
                             }
 

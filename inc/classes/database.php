@@ -105,6 +105,12 @@ final class database {
     const viewSessionUserdata = 'session_userdata';
 
     /**
+     * View for article counts
+     * @since FPCM 4.5
+     */
+    const viewArticleCounts = 'articles_counts';
+
+    /**
      * Datenbank-TypKonstante MySQL
      * @since FPCM 3.5
      */
@@ -802,13 +808,13 @@ final class database {
      * Creates IN-Query for prepared statement
      * @param string $field
      * @param array $values
-     * @param bool $notId
+     * @param bool $not
      * @return string
      * @since FPCM 4.2.1
      */
-    public function inQuery(string $field, array $values, bool $notId = false) : string
+    public function inQuery(string $field, array $values, bool $not = false) : string
     {
-        return $field.($notId ? ' NOT ' : '').' IN ('. implode(', ', array_fill(0, count($values), '?')).')';
+        return $field.($not ? ' NOT ' : '').' IN ('. implode(', ', array_fill(0, count($values), '?')).')';
     }
 
     /**

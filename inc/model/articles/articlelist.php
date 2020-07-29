@@ -571,6 +571,47 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
+     * Fetch counts of comments amnd shares for articles
+     * @param array $ids
+     * @return array
+     * @since FPCM 4.5
+     */
+    public function getRelatedItemsCount(array $ids = []) : array
+    {
+        if (isset($this->data[__METHOD__])) {
+            return $this->data[__METHOD__];
+        }
+        
+        $obj = (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::viewArticleCounts))
+                ->setItem('*')
+                ->setFetchAll(true);
+        
+        if (count($ids)) {
+            $obj->setWhere($this->dbcon->inQuery('article_id', $ids));
+            $obj->setParams($ids);
+        }
+        
+        $data = $this->dbcon->selectFetch($obj);
+        if (!is_array($data) || !count($data)) {
+            return [];
+        }
+        
+        $return = [];
+        array_walk($data, function ($value) use (&$return) {
+           
+            $return[$value->article_id] = new relatedCountItem(
+                (int) $value->article_id,
+                (int) $value->ccount,
+                (int) $value->cprivunapp,
+                (int) $value->shares
+            );
+
+        });
+
+        return $this->data[__METHOD__] = $return;
+    }
+
+    /**
      * Erzeugt Listen-Result-Array
      * @param array $list
      * @param bool $monthIndex

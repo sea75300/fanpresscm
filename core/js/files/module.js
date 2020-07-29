@@ -386,10 +386,11 @@ fpcm.filemanager = {
         fpcm.vars.jsvars.pager = {
             maxPages: 0,
             showBackButton: true,
-            showNextButton: true,            
+            showNextButton: true
         };
 
         fpcm.ui.initPager({
+            keepSelect: true,
             backAction: function() {
                 var link = fpcm.dom.fromTag(this).attr('href');
                 if (link === '#') {

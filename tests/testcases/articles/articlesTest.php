@@ -186,6 +186,21 @@ class articlesTest extends testBase {
         $this->assertEquals(2, $object->getCreateuser());
     }
 
+    public function testGetRelatedItemsCount()
+    {
+        $result = $this->object->getRelatedItemsCount([ $GLOBALS['articleId'] ]);
+        $this->assertIsArray($result);
+        $this->assertNotEmpty($result[$GLOBALS['articleId']]);
+        $this->assertInstanceOf('fpcm\model\articles\relatedCountItem', $result[$GLOBALS['articleId']]);
+
+        /* @var $obj fpcm\model\articles\relatedCountItem */
+        $obj = $result[$GLOBALS['articleId']];
+        $this->assertEquals($GLOBALS['articleId'], $obj->getArticleId());
+        $this->assertGreaterThanOrEqual(0, $obj->getComments());
+        $this->assertGreaterThanOrEqual(0, $obj->getPrivateUnapprovedComments());
+        $this->assertGreaterThanOrEqual(5, $obj->getShares());
+    }
+
     public function testDeleteArticles()
     {
         $result = $this->object->deleteArticles([$GLOBALS['articleId']]);
@@ -254,6 +269,14 @@ class articlesTest extends testBase {
         $this->assertGreaterThanOrEqual(1, $result);
 
         $GLOBALS['articleId'] = $result;
+
+        $share = new fpcm\model\shares\share();
+        $share->setArticleId($GLOBALS['articleId']);
+        $share->setSharecount(5);
+        $share->setShareitem('likebutton');
+        $share->setLastshare(time());        
+        $this->assertGreaterThanOrEqual(1, $share->save());
+
     }
 
 }

@@ -955,17 +955,28 @@ fpcm.ui = {
         }
 
         if (fpcm.vars.jsvars.pager.showBackButton) {
+            backEl.removeClass('fpcm-ui-readonly');
             backEl.click(params.backAction);
+        }
+        else if (!fpcm.vars.jsvars.pager.showBackButton && backEl && !backEl.hasClass('fpcm-ui-readonly')) {
+            backEl.addClass('fpcm-ui-readonly');
         }
         
         if (fpcm.vars.jsvars.pager.showNextButton) {
+            nextEl.removeClass('fpcm-ui-readonly');
             nextEl.click(params.nextAction);
+        }
+        else if (!fpcm.vars.jsvars.pager.showNextButton && nextEl && !nextEl.hasClass('fpcm-ui-readonly')) {
+            nextEl.addClass('fpcm-ui-readonly');
         }
 
         var selectId    = 'pageSelect';
         var selectEl    = fpcm.dom.fromId(selectId);
         selectEl.unbind('select');
-        selectEl.empty();
+        
+        if (!params.keepSelect) {
+            selectEl.empty();
+        }
         
         if (fpcm.vars.jsvars.pager.maxPages) {
             for(i=1; i<= fpcm.vars.jsvars.pager.maxPages; i++) {

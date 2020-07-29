@@ -71,32 +71,19 @@ class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
         
         return $res;
     }
-    
-    protected function precountValues()
-    {
-        $this->commentCount = $this->config->system_comments_enabled
-                            ? $this->commentList->countComments($this->getItemsIds())
-                            : [];
-
-        $this->commentPrivateUnapproved = $this->config->system_comments_enabled
-                                        ? $this->commentList->countUnapprovedPrivateComments($this->getItemsIds())
-                                        : [];
-
-        $this->sharesCounts = $this->config->system_share_count
-                            ? (new \fpcm\model\shares\shares())->getSharesCountByArticles()
-                            : [];
-    }
 
     protected function getItemsIds() : array
     {
         if (!count($this->items)) {
             return [];
         }
-        
-        $articleIds = [];
-        foreach ($this->items as $monthData) {
-            $articleIds = array_merge($articleIds, array_keys($monthData));
-        }
+
+        $articleIds = array_merge(
+            $articleIds,
+            array_walk( $this->items, function ($monthData) {
+                return array_keys($monthData);
+            } )
+        );
 
         return $articleIds;
     }
@@ -240,7 +227,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
         $this->page = $this->request->getPage();
 
         $this->initActionObjects();
-        $this->precountValues();
+        $this->relatedCounts = $this->articleList->getRelatedItemsCount($this->getItemsIds());
         
         $this->conditions = new \fpcm\model\articles\search();
         

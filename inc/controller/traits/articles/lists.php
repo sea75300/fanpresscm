@@ -57,19 +57,7 @@ trait lists {
      *
      * @var array
      */
-    protected $commentCount = [];
-
-    /**
-     *
-     * @var array
-     */
-    protected $commentPrivateUnapproved = [];
-
-    /**
-     *
-     * @var array
-     */
-    protected $sharesCounts = [];
+    protected $relatedCounts = [];
 
     /**
      *
@@ -189,9 +177,12 @@ trait lists {
                     $this->getMetaData($article)
                 ];
 
+                /* @var $relatedCountItem \fpcm\model\articles\relatedCountItem */
+                $relatedCountItem = $this->relatedCounts[$articleId] ?? null;
+
                 $metaDataIcons = array_merge(
-                    [$showCommentsStatus ? $this->getCommentBadge($articleId) : ''],
-                    [$showSharesCount ? $this->getSharesBadge($articleId) : ''],
+                    [$showCommentsStatus ? $this->getCommentBadge($relatedCountItem) : ''],
+                    [$showSharesCount ? $this->getSharesBadge($relatedCountItem) : ''],
                     $article->getMetaDataStatusIcons($this->showDraftStatus, $showCommentsStatus,$this->showArchivedStatus)
                 );
 
@@ -209,21 +200,21 @@ trait lists {
 
         return true;
     }
-
+    
     /**
      * 
-     * @param int $articleId
+     * @param \fpcm\model\articles\relatedCountItem|null $countItem
      * @return \fpcm\view\helper\badge
      */
-    private function getCommentBadge($articleId)
+    private function getCommentBadge(?\fpcm\model\articles\relatedCountItem $countItem)
     {
-        $badge = new \fpcm\view\helper\badge('badge' . $articleId);
-
-        $privateUnapproved = (isset($this->commentPrivateUnapproved[$articleId]) && $this->commentPrivateUnapproved[$articleId] ? true : false);
+        $badge = new \fpcm\view\helper\badge('badge' . $countItem->getArticleId() );
+       
+        $privateUnapproved = $countItem !== null && $countItem->getPrivateUnapprovedComments() ? true : false;
 
         $badge->setClass(($privateUnapproved ? 'fpcm-ui-badge-red fpcm-ui-badge-comments' : 'fpcm-ui-badge-comments'))
                 ->setText(($privateUnapproved ? 'ARTICLE_LIST_COMMENTNOTICE' : 'COMMMENT_HEADLINE'))
-                ->setValue($this->commentCount[$articleId] ?? 0)
+                ->setValue($countItem !== null ? $countItem->getComments() : 0)
                 ->setIcon('comments');
 
         return $badge;
@@ -234,11 +225,11 @@ trait lists {
      * @param int $articleId
      * @return \fpcm\view\helper\badge
      */
-    private function getSharesBadge($articleId)
+    private function getSharesBadge(?\fpcm\model\articles\relatedCountItem $countItem)
     {
-        return (new \fpcm\view\helper\badge('badge' . $articleId))->setClass('fpcm-ui-badge-comments')
+        return (new \fpcm\view\helper\badge('badge' . $countItem->getArticleId() ))->setClass('fpcm-ui-badge-comments')
             ->setText('EDITOR_SHARES')
-            ->setValue($this->sharesCounts[$articleId] ?? 0)
+            ->setValue($countItem !== null ? $countItem->getShares() : 0)
             ->setIcon('share');
     }
 

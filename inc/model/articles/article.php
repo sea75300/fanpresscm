@@ -8,7 +8,7 @@
 namespace fpcm\model\articles;
 
 /**
- * Artikel Objekt
+ * Artikel object
  * 
  * @package fpcm\model\articles
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
