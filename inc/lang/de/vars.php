@@ -1,9 +1,16 @@
 <?php
-/* Language strings file de */
+
+/**
+ * FanPress CM language variables file: de
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
 
 $lang = array (
   'AJAX_REQUEST_ERROR' => 'Beim Ausführen der Aktion ist ein Fehler aufgetreten! Weitere Informationen findest du im Javascript-Log deines Browsers.',
   'AJAX_RESPONSE_ERROR' => 'Vom Server wurde eine ungültige Antwort geliefert! Weitere Informationen findest du im Javascript-Log deines Browsers und ggf. im PHP-Log.',
+  'ARTICLELIST_ERROR' => 'Die Liste konnte nicht geladen werden, da ein Fehler beim Abruf der Daten aufgetreten ist.',
   'ARTICLES_CACHE_CLEAR' => 'Artikel-Cache leeren',
   'ARTICLES_DRAFTS' => 'Entwürfe',
   'ARTICLES_EDITOR' => 'Artikel-Editor',
@@ -235,7 +242,6 @@ $lang = array (
   'EDITOR_TWEET_TEXT_REPLACER' => 'Platzhalter aus Tweet-Template nutzbar!',
   'ERROR_IP_LOCKED' => 'Deine IP-Adresse wurde für diese Aktion gesperrt! Um den Grund zu erfahren wende dich an die Betreiber der Seite.',
   'FAILED_FILES_NEWTHUMBS' => 'Thumbnails konnten nicht erzeugt werden!{{filenames}}',
-  'FILES_NEWUPLOADER_DISABLED' => 'Der  jQuery-Dateiupload ist inaktiv. Diese Einstellung ist veraltet und wird in Kürze entfernt!',
   'FILE_FORM_FILEADD' => 'Datei(en) auswählen',
   'FILE_FORM_UPLOADCANCEL' => 'Upload abbrechen',
   'FILE_FORM_UPLOADSTART' => 'Upload starten',
@@ -636,7 +642,6 @@ Logge dich ein um den Kommentar zu moderieren. {{systemurl}}',
   'SAVE_SUCCESS_USER_DISABLE' => 'Der Benutzer wurde deaktiviert!',
   'SAVE_SUCCESS_USER_ENABLE' => 'Der Benutzer wurde aktiviert!',
   'SAVE_SUCCESS_WORDBAN' => 'Der Begriff wurde gespeichert!',
-  'ARTICLELIST_ERROR' => 'Die Liste konnte nicht geladen werden, da ein Fehler beim Abruf der Daten aufgetreten ist.',
   'SEARCH_ERROR' => 'Die Suche konnte nicht ausgeführt werden, da die Filterbedigungen fehlerhaft sind. Bitte überprüfe diese nochmals auf fehlende Verknüpfungen usw.',
   'SEARCH_WAITMSG' => 'Bitte warte 10 Sekunden, bevor du einen neuen Suchvorgang durchführst.',
   'SELECT_ITEMS_MSG' => 'Bitte wähle Elemente oder eine Aktion aus!',
@@ -917,4 +922,3 @@ Logge dich ein um den Kommentar zu moderieren. {{systemurl}}',
   'WORDBAN_REPLACEMENT_TEXT' => 'Ersetzung',
   'WORDBAN_REPLACETEXT' => 'Text ersetzen',
 );
-

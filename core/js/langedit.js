@@ -19,6 +19,7 @@ fpcm.langedit = {
             fpcm.ui.dialog({
                 id: 'langform-new',
                 resizable: true,
+                dlHeight: 300,
                 title: 'New language variable ',
                 content: '<input typer="text" id="fpcm-langedit-newvar" class="fpcm-ui-full-width fpcm-ui-input fpcm-ui-input-text mb-2" placeholder="Variable name"><br>\n\
                           <input typer="text" id="fpcm-langedit-newval" class="fpcm-ui-full-width fpcm-ui-input fpcm-ui-input-text" placeholder="Variable value">',
@@ -78,6 +79,7 @@ fpcm.langedit = {
             fpcm.ui.dialog({
                 id: 'langform-' + data.dest,
                 resizable: true,
+                dlHeight: 300,
                 title: 'Edit language var: ' + data.var,
                 content: content.join('\n'),
                 dlOnClose: function() {

@@ -1,5 +1,11 @@
 <?php
-/* Language list file de */
+
+/**
+ * FanPress CM language list file: de
+ * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2011-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ */
 
 $lang = array (
   'EDITOR_INSERTMEDIA_FORMATS' => 
@@ -151,4 +157,3 @@ $lang = array (
     'Artikel verschieben zu' => 'move',
   ),
 );
-

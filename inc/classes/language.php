@@ -17,6 +17,10 @@ namespace fpcm\classes;
  */
 final class language {
 
+    private const FILENAME_VARS = 'vars';
+
+    private const FILENAME_LISTS = 'lists';
+    
     /**
      * Languages list
      * @var array
@@ -88,22 +92,35 @@ final class language {
             return;
         }
 
-        $this->loadDataFromSystem('vars');
-        $this->loadDataFromSystem('lists');        
+        $this->loadDataFromSystem(self::FILENAME_VARS);
+        $this->loadDataFromSystem(self::FILENAME_LISTS);        
         $this->getModuleLanguage();
 
         $this->cache->write($cacheName, $GLOBALS['langdata'], FPCM_LANGCACHE_TIMEOUT);
     }
 
     /**
-     * lOAD LANGUEG DATA FROM FILE
+     * Get language file name and path
      * @param string $name
-     * @return void
+     * @return string|null
+     * @since FPCM 4.5
      */
-    private function loadDataFromSystem(string $name, $module = null) : void
+    private function getFileName(string $name) : ?string
     {
         $file = $this->langPath . DIRECTORY_SEPARATOR . $name . '.php';
-        if (!file_exists($file)) {
+        return file_exists($file) ? $file : null;
+    }
+
+    /**
+     * Load language data from file
+     * @param string $name
+     * @return void
+     * @since FPCM 4.5
+     */
+    private function loadDataFromSystem(string $name) : void
+    {
+        $file = $this->getFileName($name);
+        if ($file === null) {
             trigger_error('Language file ' . $file . ' does not exists!');
             print 'ERR LANG 1 vars';
             return;
@@ -310,6 +327,91 @@ final class language {
     public function write($langvar, array $replaceParams = [])
     {
         print $this->translate($langvar, $replaceParams);
+    }
+
+    /**
+     * Save language vars to corresponding files
+     * @param array $vars
+     * @param array $lists
+     * @return bool
+     * @since FPCM 4.5
+     */
+    public function saveFiles(array $vars, array $lists) : bool
+    {
+        if (!count($vars) || !count($lists)) {
+            trigger_error('Language files cannot be saved with empty data.');
+            return false;
+        }
+
+        $res = $this->writeNewFile(self::FILENAME_VARS, implode(PHP_EOL, [
+            '<?php',
+            '',
+            '/**',
+            ' * FanPress CM language variables file: '.$this->getLangCode(),
+            ' * @author Stefan Seehafer <sea75300@yahoo.de>',
+            ' * @copyright (c) 2011-'.date('Y').', Stefan Seehafer',
+            ' * @license http://www.gnu.org/licenses/gpl.txt GPLv3',
+            ' */',
+            '',
+            '$lang = '. var_export($vars, true).';',
+            ''
+        ]));
+
+        if (!$res) {
+            return false;
+        }
+
+        $res = $this->writeNewFile(self::FILENAME_LISTS, implode(PHP_EOL, [
+            '<?php',
+            '',
+            '/**',
+            ' * FanPress CM language list file: '.$this->getLangCode(),
+            ' * @author Stefan Seehafer <sea75300@yahoo.de>',
+            ' * @copyright (c) 2011-'.date('Y').', Stefan Seehafer',
+            ' * @license http://www.gnu.org/licenses/gpl.txt GPLv3',
+            ' */',
+            '',
+            '$lang = '. var_export($lists, true).';',
+            ''
+        ]));
+
+        if (!$res) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Write file content
+     * @param string $file
+     * @param string $content
+     * @return bool
+     * @since FPCM 4.5
+     */
+    private function writeNewFile(string $file, string $content) : bool
+    {
+        $file = $this->getFileName($file);
+
+        if ($file === null || !is_writable($file)) {
+            trigger_error('Language file ' . $file . ' does not exists or is not writable!');
+            return false;
+        }
+
+        $backFile = $file.'lebck';
+        if (!copy($file, $backFile)) {
+            trigger_error('Unable to create back file '.$backFile.' for ' . $file);
+            return false;
+        }
+
+        $res = file_put_contents($file, $content, LOCK_EX);
+        if (!$res) {
+            trigger_error('Unable to write language file ' . $file);
+            return false;
+        }
+
+        unlink($backFile);
+        return true;
     }
 
 }
