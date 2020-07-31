@@ -84,8 +84,9 @@ class permissions extends \fpcm\model\abstracts\dataset {
 
         parent::__construct();
 
-        if (!$rollid && \fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
-            $rollid = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getRoll();
+        $sessObj = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        if (!$rollid && $sessObj->exists()) {
+            $rollid = $sessObj->getCurrentUser()->getRoll();
         }
 
         if (!$rollid) {

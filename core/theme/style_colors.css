@@ -287,3 +287,13 @@ div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even):hover {
 .fpcm.ui-box-shadow-dark {
     box-shadow: 0 0 15px #555;
 }
+
+div.row.fpcm-ui-dataview-row.fpcm-ui-logs-error
+{
+    border-left: 5px solid #cc0000;
+}
+
+div.row.fpcm-ui-dataview-row.fpcm-ui-logs-deprecation-warning
+{
+    border-left: 5px solid #cc0000;
+}

@@ -101,8 +101,7 @@ final class baseconfig {
 
             $config = loader::getObject('\fpcm\model\system\config');
 
-            /* @var $session \fpcm\model\system\session */
-            $session = loader::getObject('\fpcm\model\system\session');
+            loader::getObject('\fpcm\model\system\session');
             loader::getObject('\fpcm\model\system\config')->setUserSettings();
             loader::getObject('\fpcm\classes\language', $config->system_lang);
             loader::getObject('\fpcm\model\theme\notifications');

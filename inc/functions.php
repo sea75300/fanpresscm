@@ -57,8 +57,10 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
         E_WARNING => 'Warning',
     ];
     
+    $typeStr = $codeMap[$ecode] ?? 'Error';
+    
     $text = [
-        $ecode. ' :: '.($codeMap[$ecode] ?? 'Error'),
+        $ecode. ' :: '.$typeStr,
         $etext,
         'in file ' .
         $efile . ', line ' .
@@ -91,7 +93,8 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
 
     $LogLine = json_encode([
         'time' => date('Y-m-d H:i:s'),
-        'text' => implode(PHP_EOL, $text)
+        'text' => implode(PHP_EOL, $text),
+        'type' => strtolower(str_replace(' ', '-', $typeStr))
     ]);
 
     file_put_contents($errorLog, $LogLine . PHP_EOL, FILE_APPEND);
