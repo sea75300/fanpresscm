@@ -319,7 +319,7 @@ final class article extends template {
             return $content;
         }
 
-        $images = $matches[2] ?? [];
+        $images = explode('|', ( $matches[2] ?? '' ) );
         if (!count($images)) {
             return $content;
         }
@@ -354,7 +354,7 @@ final class article extends template {
 
             return "<a class=\"fpcm-pub-content-gallery-link\" href=\"{$imgObj->getImageUrl()}\">{$imgTag}</a>";
 
-        }, explode('|', $images));
+        }, $images);
 
         return preg_replace($regex, "<figure role=\"group\" class=\"fpcm-pub-content-gallery\">".implode("\n", $data)."</figure>", $content);
     }

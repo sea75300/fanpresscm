@@ -67,18 +67,12 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
-
-        $this->mode = $this->request->fromGET('mode', [
-            \fpcm\model\http\request::FILTER_FIRSTUPPER
-        ]);
-
-        $fn = 'fetch'.$this->mode;
-        if (!method_exists($this, $fn)) {
+        $res = $this->processByParam('fetch', 'mode');
+        if ($res === self::ERROR_PROCESS_BYPARAMS) {
             $this->response->setReturnData([ 'exec' => 0 ])->fetch();
         }
 
-        return call_user_func([$this, $fn]);
+        return $res;
     }
 
     /**
@@ -103,7 +97,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
      * 
      * @return bool
      */
-    private function fetchLocal()
+    protected function fetchLocal()
     {
         $this->tab = 0;
         $this->modules->updateFromFilesystem();
@@ -116,7 +110,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
      * 
      * @return bool
      */
-    private function fetchRemote()
+    protected function fetchRemote()
     {
         $this->tab = 1;
         $this->installed = $this->modules->getKeysFromDatabase();
@@ -142,8 +136,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
     {
         $fn = 'getCols'.$this->mode;
         if (!method_exists($this, $fn)) {
-            $this->returnData['exec'] = 0;
-            $this->getSimpleResponse();
+            $this->response->setReturnData(['exec' => 0])->fetch();
         }        
         
         return call_user_func([$this, $fn]);
@@ -186,8 +179,7 @@ class fetchList extends \fpcm\controller\abstracts\ajaxController implements \fp
     {
         $fn = 'initRow'.$this->mode;
         if (!method_exists($this, $fn)) {
-            $this->returnData['exec'] = 0;
-            $this->getSimpleResponse();
+            $this->response->setReturnData(['exec' => 0])->fetch();
         }        
 
         return call_user_func([$this, $fn], $item);

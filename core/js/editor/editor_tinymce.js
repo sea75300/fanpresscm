@@ -196,4 +196,30 @@ if (fpcm.editor) {
 
     };
 
+    fpcm.editor.insertGalleryDisabled = function (_mode) {
+
+        if (_mode === undefined) {
+            _mode = fpcm.vars.jsvars.filemanagerMode;
+        }
+
+        if (_mode !== 2) {
+            return true;
+        }
+        
+        if (top.tinymce === undefined) {
+            return true;
+        }
+        
+        if (top.tinymce.activeEditor === undefined) {
+            return true;
+        }
+        
+        let cont = top.tinymce.activeEditor.getContent({format: 'text'});
+        if (cont && cont.search('/gallery') != -1 ) {
+            return true;
+        }
+
+        return false;
+    };
+
 }

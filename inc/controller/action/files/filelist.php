@@ -62,38 +62,13 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
     public function request()
     {
         $this->fileList = new \fpcm\model\files\imagelist();
-
-        $styleLeftMargin = true;
-        
         $this->mode = $this->request->getIntMode();
-        if ($this->mode > 1) {
-            $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-            $this->view->setBodyClass('fpcm-ui-hide-toolbar');
-            $styleLeftMargin = false;
+        if ($this->mode == 1) {
+            return true;
         }
 
-        $this->view->assign('styleLeftMargin', $styleLeftMargin);
-
-        $this->uploadPhpForm();
-        return true;
-    }
-    
-    private function uploadPhpForm() : bool
-    {
-        $files = $this->request->fromFiles();
-        if (!$this->permissions->uploads->add || $files === null) {
-            return false;
-        }
-
-        $result = (new \fpcm\model\files\fileuploader($files))->processUpload($this->session->getUserId());
-        if (count($result['success'])) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['success'])));
-        }
-
-        if (count($result['error'])) {
-            $this->view->addErrorMessage('SAVE_FAILED_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['error'])));
-        }
-
+        $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
+        $this->view->setBodyClass('fpcm-ui-hide-toolbar');
         return true;
     }
 

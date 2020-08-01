@@ -560,6 +560,10 @@ class controller implements \fpcm\controller\interfaces\controller {
             \fpcm\model\http\request::PARAM_REGEX_REPLACE => '$0'
         ]);
 
+        if (property_exists($this, $actionFrom)) {
+            $this->{$actionFrom} = $actionName;
+        }
+        
         $fn = trim($prefix.$actionName);
         if (!method_exists($this, $fn)) {
             trigger_error('Request for undefined function '.$fn.' in '. get_called_class(), E_USER_WARNING);

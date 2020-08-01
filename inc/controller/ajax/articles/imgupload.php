@@ -54,8 +54,9 @@ class imgupload extends \fpcm\controller\abstracts\ajaxController implements \fp
         $result = $uploader->processUpload($this->session->getUserId());
 
         if (!count($result['error']) && count($result['success'])) {
-            $this->returnData = ['location' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $uploader->getUploadFileName($name))];
-            $this->getSimpleResponse();
+            $this->response->setReturnData([
+                'location' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $uploader->getUploadFileName($name))
+            ])->fetch();
         }
 
         header("HTTP/1.0 500 Server Error");

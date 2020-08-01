@@ -32,7 +32,7 @@ fpcm.editor.initTinyMce = function() {
                     type:  'custom',
                     name: 'fmGallery',
                     text: fpcm.ui.translate('FILE_LIST_INSERTGALLERY'),
-                    disabled: ( !top.tinymce.activeEditor.getContent({format: 'text'}) || top.tinymce.activeEditor.getContent({format: 'text'}).search('/gallery') == -1  ? false : true ),
+                    disabled: fpcm.editor.insertGalleryDisabled(),
                     primary: false,
                     align: 'start'
                 },
