@@ -227,7 +227,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     {
         $data = $this->dbcon->selectFetch((new selectParams($this->table))->setWhere('id = ?')->setParams([$this->id]));
         if (!$data) {
-            trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!');
+            trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!', E_USER_WARNING);
             return false;
         }
 

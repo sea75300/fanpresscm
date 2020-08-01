@@ -293,7 +293,12 @@ div.row.fpcm-ui-dataview-row.fpcm-ui-logs-error
     border-left: 5px solid #cc0000;
 }
 
+div.row.fpcm-ui-dataview-row.fpcm-ui-logs-warning
+{
+    border-left: 5px solid #FAD42E;
+}
+
 div.row.fpcm-ui-dataview-row.fpcm-ui-logs-deprecation-warning
 {
-    border-left: 5px solid #cc0000;
+    border-left: 5px solid #c3c3c3;
 }

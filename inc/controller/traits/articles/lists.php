@@ -183,7 +183,7 @@ trait lists {
                 $metaDataIcons = array_merge(
                     [$showCommentsStatus ? $this->getCommentBadge($relatedCountItem) : ''],
                     [$showSharesCount ? $this->getSharesBadge($relatedCountItem) : ''],
-                    $article->getMetaDataStatusIcons($this->showDraftStatus, $showCommentsStatus,$this->showArchivedStatus)
+                    $article->getMetaDataStatusIcons($this->showDraftStatus, $showCommentsStatus, $this->showArchivedStatus)
                 );
 
                 $this->dataView->addRow(
@@ -208,7 +208,7 @@ trait lists {
      */
     private function getCommentBadge(?\fpcm\model\articles\relatedCountItem $countItem)
     {
-        $badge = new \fpcm\view\helper\badge('badge' . $countItem->getArticleId() );
+        $badge = new \fpcm\view\helper\badge('badge' . uniqid() );
        
         $privateUnapproved = $countItem !== null && $countItem->getPrivateUnapprovedComments() ? true : false;
 
@@ -227,7 +227,8 @@ trait lists {
      */
     private function getSharesBadge(?\fpcm\model\articles\relatedCountItem $countItem)
     {
-        return (new \fpcm\view\helper\badge('badge' . $countItem->getArticleId() ))->setClass('fpcm-ui-badge-comments')
+        return (new \fpcm\view\helper\badge('badge' . uniqid() ))
+            ->setClass('fpcm-ui-badge-comments')
             ->setText('EDITOR_SHARES')
             ->setValue($countItem !== null ? $countItem->getShares() : 0)
             ->setIcon('share');
