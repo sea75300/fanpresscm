@@ -102,10 +102,7 @@ fpcm.articles = {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_RESET'),
                         icon: "ui-icon-refresh" ,                        
                         click: function() {
-                            fpcm.articles.loadArticles({
-                                loader: true
-                            });
-                            fpcm.dom.fromTag(this).dialog('close');
+                            fpcm.ui.relocate('self');
                         }
                     },
                     {
@@ -142,101 +139,47 @@ fpcm.articles = {
             _params = {};
         }
 
-        let _data = {
+        let _fnParams = {
             mode: fpcm.vars.jsvars.listMode,
-            page: _params.page !== undefined ? parseInt(_params.page) : 1,    
-        };
-        
-        if (_params.filter instanceof Object) {
-            _data.filter = _params.filter;
-        }
-
-        fpcm.ajax.post('articles/lists', {
-            data: _data,
-            quiet: _data.filter !== undefined || _params.loader ? false : true,
-            execDone: function (result)
-            {
-                if (!result) {
-                    return false;
-                }
-                
-                if (result.message && result.message.txt && result.message.type) {
-                    fpcm.ui.addMessage(result.message);
-                    return false;
-                }
-                
-                fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
-                fpcm.dataview.updateAndRender(result.dataViewName, {
-                    onRenderAfter: function() {
-                        fpcm.ui.assignCheckboxes();
-                        fpcm.ui.assignControlgroups();
-
-                        fpcm.articles.clearArticleCache();
-                        fpcm.articles.deleteSingleArticle();
-                    }
+            page: _params.page !== undefined ? parseInt(_params.page) : 1,
+            module: 'articles',
+            onRenderDataViewAfter: function () {
+                fpcm.ui.assignCheckboxes();
+                fpcm.ui.assignControlgroups();
+                fpcm.articles.clearArticleCache();
+                fpcm.articles.deleteSingleArticle();
+            },
+            onPagerNext: function () {
+                fpcm.articles.loadArticles({
+                    page: fpcm.vars.jsvars.pager.showNextButton,
+                    loader: true
                 });
                 
-                if (_params.filter) {
-                    fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
-                    fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-                    fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
-                }
-                else if (result.pager && !_params.filter) {
-                    fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').removeClass('fpcm-ui-hidden');
-                    fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-                    fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
-                    
-                    fpcm.vars.jsvars.pager.currentPage = result.pager.currentPage;
-                    fpcm.vars.jsvars.pager.maxPages = result.pager.maxPages;
-                    fpcm.vars.jsvars.pager.showBackButton = result.pager.showBackButton;
-                    fpcm.vars.jsvars.pager.showNextButton = result.pager.showNextButton;
-
-                    fpcm.ui.initPager({
-                        nextAction: function () {
-
-                            if (!fpcm.vars.jsvars.pager.showNextButton || fpcm.vars.jsvars.pager.currentPage >= fpcm.vars.jsvars.pager.maxPages) {
-                                return false;
-                            }
-
-                            fpcm.articles.loadArticles({
-                                page: fpcm.vars.jsvars.pager.showNextButton,
-                                loader: true
-                            });
-                            
-                            return false;
-                        },
-                        backAction: function () {
-                                
-                            if (!fpcm.vars.jsvars.pager.showBackButton) {
-                                return false;
-                            }
-
-                            fpcm.articles.loadArticles({
-                                page: fpcm.vars.jsvars.pager.showBackButton,
-                                loader: true
-                            });
-
-                        },
-                        selectAction: function( event, ui ) {
-                            
-                            if (ui.item.value == fpcm.vars.jsvars.pager.currentPage) {
-                                return false;
-                            }
-
-                            fpcm.articles.loadArticles({
-                                page: ui.item.value,
-                                loader: true
-                            });
-
-                        }
-                    });
-                }
+                return true;
+            },
+            onPagerBack: function () {
+                fpcm.articles.loadArticles({
+                    page: fpcm.vars.jsvars.pager.showBackButton,
+                    loader: true
+                });
+                
+                return true;
+            },
+            onPagerSelect: function (event, ui) {
+                fpcm.articles.loadArticles({
+                    page: ui.item.value,
+                    loader: true
+                });
 
                 return true;
             }
-        });
-        
-        
+        };
+
+        if (_params.filter instanceof Object) {
+            _fnParams.filter = _params.filter;
+        }
+
+        fpcm.ajax.getItemList(_fnParams);        
     },
     
     articleActionsTweet: function() {

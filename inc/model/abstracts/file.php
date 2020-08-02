@@ -260,6 +260,10 @@ abstract class file {
         }
 
         $newFullPath = $this->basePath($newname);
+        if (!$this->isValidDataFolder($newFullPath)) {
+            return false;
+        }
+
         if (!rename($this->fullpath, $newFullPath)) {
             trigger_error('Unable to rename file: ' . $this->fullpath);
             return false;
@@ -470,12 +474,47 @@ abstract class file {
         }
 
         $dataPath = dirs::getDataDirPath($type);
-        if (strpos(realpath($path), $dataPath) === 0) {
+        $realpath = realpath($path);
+        
+        if (!trim($realpath)) {
+            $realpath = $this->realpathNoExists($path);
+        }
+
+        if (strpos($realpath, $dataPath) === 0) {
             return true;
         }
         
         trigger_error('Invalid data path found: '.$path);
         return false;
+    }
+    
+    protected function realpathNoExists(string $path) : string
+    {
+        $items = explode('/', $path);
+        if (!count($items)) {
+            return '';
+        }
+        
+        $realpath = array_reduce($items, function ($carry, $item) use ($path) {
+            
+            if ($carry === 0) {
+                $carry = DIRECTORY_SEPARATOR;
+            }
+            
+            if($item === "" || $item === ".") {
+                return $item;
+            }
+            
+            if ($item == '..') {
+                return dirname($carry);
+            }
+
+            return preg_replace("/\/+/", "/", "$carry/$item");
+        });
+
+        return $realpath;
+        
+        
     }
 
 }

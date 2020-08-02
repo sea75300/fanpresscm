@@ -60,6 +60,16 @@ class rename extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 \fpcm\view\message::TYPE_ERROR
             ))->fetch();
         }
+        
+        if (strpos($this->newFileName, '..') !== false) {
+            $this->response->setReturnData(new \fpcm\view\message(
+                $this->language->translate('DELETE_FAILED_RENAME', [
+                    '{{filename1}}' => $this->fileName,
+                    '{{filename2}}' => $this->newFileName
+                ]),
+                \fpcm\view\message::TYPE_ERROR
+            ))->fetch();
+        }
 
         return true;
     }
@@ -70,7 +80,7 @@ class rename extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     public function process()
     {
         $image = new \fpcm\model\files\image($this->fileName, false);
-        
+
         $replace = ['{{filename1}}' => basename($this->fileName), '{{filename2}}' => basename($this->newFileName)];
         if ($image->rename($this->newFileName, $this->session->getUserId())) {
 

@@ -92,7 +92,7 @@ fpcm.filemanager = {
         
     },
 
-    initJqUiWidgets: function () {
+    initJqUiWidgets: function (_hideLoader) {
         fpcm.dom.fromId('fpcm-select-all').prop('checked', false).checkboxradio('refresh');
         fpcm.ui.assignCheckboxes();
         fpcm.ui.assignControlgroups();
@@ -102,6 +102,10 @@ fpcm.filemanager = {
         fpcm.filemanager.initPropertiesButton();
         fpcm.filemanager.initPagination();
         fpcm.dom.fromClass('fpcm-link-fancybox').fancybox();
+        
+        if (_hideLoader === true) {
+            fpcm.ui_loader.hide();
+        }
     },
     
     closeRenameDialog: function() {
@@ -420,42 +424,27 @@ fpcm.filemanager = {
 
     },
 
-    reloadFiles: function (page, filter) {
+    reloadFiles: function (_page, _filter) {
 
-        if (!page) {
-            page = 1;
+        if (!_page) {
+            _page = 1;
         }
         
-        if (!filter) {
-            filter = {};
-        }
-        else if (filter) {
+         if (_filter) {
             fpcm.vars.jsvars.filesLastSearch = (new Date()).getTime();
         }
 
-        fpcm.ajax.post('filelist', {
-            quiet: fpcm.dom.fromTag('div.fpcm-ui-inline-loader').length ? true : false,
-            data: {
-                mode: fpcm.vars.jsvars.fmgrMode,
-                page: page,
-                filter: filter
-            },
-            execDone: function (result) {
-
-                fpcm.ui.assignHtml("#tabs-files-list-content", result);
-                fpcm.filemanager.initJqUiWidgets();
-                var fpcmRFDinterval = setInterval(function(){
-                    if (fpcm.dom.fromId('fpcm-filelist-images-finished').length == 1) {
-                        fpcm.ui_loader.hide();
-                        clearInterval(fpcmRFDinterval);
-                        if (page) {
-                            fpcm.dom.fromWindow().scrollTop(0);
-                        }
-                        return false;
-                    }
-                }, 250);
-
-            }
+        fpcm.ajax.getItemList({
+            module: 'files',
+            destination: "#tabs-files-list-content",
+            mode: fpcm.vars.jsvars.fmgrMode,
+            page: _page,
+            filter: _filter ? _filter : null,
+            loader: fpcm.dom.fromTag('div.fpcm-ui-inline-loader').length ? false : true,
+            dataType: 'html',
+            onAssignHtmlAfter: function () {
+                fpcm.filemanager.initJqUiWidgets(true);
+             }
         });
         
         return false;

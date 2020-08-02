@@ -556,7 +556,7 @@ class image extends \fpcm\model\abstracts\file {
     {
         $filename = explode('/', $filename, 2);
 
-        $fn = (isset($filename[1]) ? $filename[1] : $filename[0]);
+        $fn = $filename[1] ?? $filename[0];
         $this->escapeFileName($fn);
         if (isset($filename[1])) {
             $filename[1] = $fn;

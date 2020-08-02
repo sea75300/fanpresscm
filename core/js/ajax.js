@@ -10,10 +10,7 @@ if (fpcm === undefined) {
 }
 
 fpcm.ajax = {
-    
-    result   : [],
-    workData : [],
-    
+
     exec: function(action, params) {
 
         if (!params) {
@@ -38,10 +35,6 @@ fpcm.ajax = {
 
         if (!params.execFail) {
             params.execFail = false;
-        }
-
-        if (params.workData) {
-            fpcm.ajax.workData[action] = params.workData;
         }
         
         if (params.pageToken) {            
@@ -96,7 +89,6 @@ fpcm.ajax = {
                 return true;
             }
 
-            fpcm.ajax.result[action] = result;
             if (typeof params.execDone == 'string') {
                 eval(params.execDone);
             }
@@ -154,15 +146,6 @@ fpcm.ajax = {
         fpcm.ajax.exec(action, params);
     },
 
-    getResult: function(action, isJson) {
-        console.warn('fpcm.ajax.getResult is deprecated as of FPCM 4.3. Uuse "result" parameter in execDone-callback instead.');
-        return fpcm.ajax.result[action] ? (isJson ? fpcm.ajax.fromJSON(fpcm.ajax.result[action]) : fpcm.ajax.result[action])  : null;
-    },
-
-    getWorkData: function(action) {
-        return fpcm.ajax.workData[action] ? fpcm.ajax.workData[action] : null;
-    },
-
     fromJSON: function(data) {
         
         if (data instanceof Object || data instanceof Array) {
@@ -184,13 +167,114 @@ fpcm.ajax = {
     },
     
     showAjaxErrorMessage: function () {
-        fpcm.ui.addMessage({ txt: 'AJAX_RESPONSE_ERROR', type: 'error' }, true);
+        fpcm.ui.addMessage({
+            txt: 'AJAX_RESPONSE_ERROR',
+            type: 'error'
+        }, true );
     },
     
     execFunction: function (_action, _function, _params) {
         _params.data.fn = _function;
         _params.dataType = 'json';
         fpcm.ajax.post(_action, _params);
+    },
+    
+    getItemList: function (_params) {
+        
+        if (!_params.module) {
+            console.error('Invalid module given.');
+            return false;
+        }
+        
+        if (!_params.dataType) {
+            _params.dataType = 'json';
+        }
+
+        let _data = {
+            mode: _params.mode ? _params.mode : null,
+            page: _params.page !== undefined ? parseInt(_params.page) : 1,    
+        };
+        
+        if (_params.filter instanceof Object) {
+            _data.filter = _params.filter;
+        }
+
+        fpcm.ajax.post(_params.module + '/lists', {
+            data: _data,
+            quiet: (_data.filter !== undefined && _data.filter !== null ) || _params.loader ? false : true,
+            execDone: function (result)
+            {
+                if (!result) {
+                    return false;
+                }
+                
+                if (_params.dataType !== 'json') {
+                    fpcm.dom.assignHtml(_params.destination, result);
+                    _params.onAssignHtmlAfter();
+                    return true;
+                }
+                
+                if (result.message && result.message.txt && result.message.type) {
+                    fpcm.ui.addMessage(result.message);
+                    return false;
+                }
+                
+                fpcm.vars.jsvars.dataviews[result.dataViewName] = result.dataViewVars;
+                fpcm.dataview.updateAndRender(result.dataViewName, {
+                    onRenderAfter: _params.onRenderDataViewAfter
+                });
+                
+                if (_params.filter) {
+                    fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
+                    fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
+                    fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
+                }
+                else if (result.pager && !_params.filter) {
+                    fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').removeClass('fpcm-ui-hidden');
+                    fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
+                    fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
+                    
+                    fpcm.vars.jsvars.pager.currentPage = result.pager.currentPage;
+                    fpcm.vars.jsvars.pager.maxPages = result.pager.maxPages;
+                    fpcm.vars.jsvars.pager.showBackButton = result.pager.showBackButton;
+                    fpcm.vars.jsvars.pager.showNextButton = result.pager.showNextButton;
+
+                    fpcm.ui.initPager({
+                        nextAction: function (event, ui) {
+
+                            if (!fpcm.vars.jsvars.pager.showNextButton || fpcm.vars.jsvars.pager.currentPage >= fpcm.vars.jsvars.pager.maxPages) {
+                                return false;
+                            }
+
+                            _params.onPagerNext(event, ui);
+                            return true;
+                        },
+                        backAction: function (event, ui) {
+                                
+                            if (!fpcm.vars.jsvars.pager.showBackButton) {
+                                return false;
+                            }
+
+                            _params.onPagerBack(event, ui);
+                            return true;
+
+                        },
+                        selectAction: function( event, ui ) {
+                            
+                            if (ui.item.value == fpcm.vars.jsvars.pager.currentPage) {
+                                return false;
+                            }
+
+                            _params.onPagerSelect(event, ui);
+                            return true;
+                        }
+                    });
+                }
+
+                return true;
+            }
+        });
+
     }
     
 };
