@@ -95,4 +95,14 @@ final class components {
         ];
     }
 
+    /**
+     * Return jQuery libary path, generic instance
+     * @return string
+     * @since FPCM 4.5
+     */
+    public static function getjQuery() : string
+    {
+        return \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.5.1.min.js');
+    }
+
 }
