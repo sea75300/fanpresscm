@@ -60,6 +60,7 @@ final class navigationList implements \ArrayAccess {
             return true;
         }
 
+        $this->checkSubmenu($item);
         $this->data[$area][$item->getId()] = $item;
         return true;
     }
@@ -137,6 +138,25 @@ final class navigationList implements \ArrayAccess {
     public function offsetUnset($offset): void
     {
         return;
+    }
+    
+    /**
+     * Checks submenu if available and removed items without access permissions
+     * @param \fpcm\model\theme\navigationItem $item
+     * @return bool
+     */
+    private function checkSubmenu(navigationItem &$item) : bool
+    {
+        if (!$item->hasSubmenu()) {
+            return true;
+        }
+
+        $submenu = array_filter($item->getSubmenu(), function (navigationItem $subItem) {
+            return $subItem->isAccessible() === false ? false : true;
+        });
+
+        $item->setSubmenu($submenu);
+        return true;
     }
 
 }

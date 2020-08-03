@@ -544,6 +544,7 @@ $lang = array (
   'PERMISSION_UPLOADS_VISIBLE' => 'Dateimanager ist sichtbar',
   'PROFILE_MENU_LOGGEDINAS' => 'angemeldet als <em>{{username}}</em>',
   'PROFILE_MENU_LOGGEDINSINCE' => 'seit',
+  'PROFILE_MENU_NOTIFICATIONS' => 'Benachrichtigungen',
   'PROFILE_MENU_OPENPROFILE' => 'Benutzerprofil',
   'PROFILE_MENU_YOURIP' => 'Meine IP-Adresse:',
   'PROFILE_OPEN' => 'Mein Profil öffnen',

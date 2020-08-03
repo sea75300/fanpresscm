@@ -89,9 +89,14 @@ implements \fpcm\controller\interfaces\isAccessible,
         $lists = array_filter($langsave, function ($value) {
             return (substr($value, 0, 2) === 'a:') ? true : false;
         });
+        
+        $vars = array_diff($langsave, $lists);
+        array_walk($vars, function (&$value) {
+            $value = str_replace(\fpcm\classes\language::VARTEXT_NEWLINE, PHP_EOL, $value);
+        });
 
         $res = $this->langObj->saveFiles(
-            array_diff($langsave, $lists),
+            $vars,
             array_map('unserialize', $lists)
         );
 

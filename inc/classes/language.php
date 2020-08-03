@@ -20,6 +20,8 @@ final class language {
     private const FILENAME_VARS = 'vars';
 
     private const FILENAME_LISTS = 'lists';
+
+    public const VARTEXT_NEWLINE = '[NL]';
     
     /**
      * Languages list

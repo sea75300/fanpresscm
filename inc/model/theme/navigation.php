@@ -32,12 +32,6 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     public function render()
     {
         $this->getNavigation();
-
-        $navigation = $this->events->trigger('navigation\render', $this->navList);
-//        foreach ($navigation as &$moduleOptions) {
-//            $moduleOptions = $this->checkPermissions($moduleOptions);
-//        }
-
         return $this->events->trigger('navigation\render', $this->navList);
     }
 

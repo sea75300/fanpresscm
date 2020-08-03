@@ -33,18 +33,22 @@
                 </li>
             </ul>
         </li>
-        <?php if ($theView->notificationString) : ?>
         <li class="fpcm-ui-position-relative fpcm-menu-top-level1 fpcm-ui-float-right fpcm-ui-center fpcm-ui-border-radius-all m-r-2 fpcm menu-sub-animation-parent">
             <a href="#" class="fpcm-navigation-noclick">
                <?php $theView->icon('envelope')->setClass('fpcm-navicon')->setSize('lg'); ?>                
-               <?php $theView->write('Benachrichtigungen'); ?>
+               <?php $theView->write('PROFILE_MENU_NOTIFICATIONS'); ?>
                <?php $theView->icon('angle-down')->setClass('fpcm-navicon')->setSize('lg'); ?>
             </a>
             <ul class="fpcm-ui-sub-menu fpcm-ui-list-style-none m-0 p-0 fpcm-ui-position-left-0 fpcm-ui-position-right-0 fpcm ui-background-white-50p ui-blurring menu-sub-animation menu-sub-animation-active">
+            <?php if ($theView->notificationString) : ?>
                 <?php print $theView->notificationString; ?>
+            <?php else : ?>
+                <li id="fpcm-notification-itemnotfound" class="fpcm-menu-top-level2 fpcm-notification-item fpcm-ui-align-left py-2">
+                    <?php $theView->icon('ban')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?>
+                </li>
+            <?php endif; ?>
             </ul>
         </li>        
-        <?php endif; ?>
         <li class="fpcm-menu-top-level1 fpcm-ui-float-right fpcm-ui-helplink fpcm-ui-border-radius-all">
             <a href="<?php print $theView->controllerLink('system/info'); ?>" title="<?php $theView->write('HL_HELP_SUPPORT'); ?>" rel="license">
                 <?php $theView->icon('info-circle')->setSize('lg'); ?>
