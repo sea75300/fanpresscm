@@ -93,7 +93,7 @@ fpcm.langedit = {
                         click: function () {
                             var newVal = fpcm.dom.fromId(newTextid).val();
                             fpcm.dom.fromId(oldTextId).val(newVal);
-                            fpcm.dom.fromId(descrId).text(newVal);                            
+                            fpcm.dom.fromId(descrId).html(newVal);                            
                         }
                     },
                     {

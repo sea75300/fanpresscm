@@ -28,7 +28,7 @@
             <?php print $theView->escapeVal( (is_array($value) ? serialize($value) : $value) ); ?>
         </div>
 
-        <?php $theView->hiddenInput('lang['.$key.']', 'lang_'. strtolower($key))->setValue( (is_array($value) ? serialize($value) : $value) );  ?>
+        <?php $theView->textarea('lang['.$key.']', 'lang_'. strtolower($key))->setValue( (is_array($value) ? serialize($value) : $value ) )->setClass('fpcm ui-hidden');  ?>
     </div>
 
 <?php endforeach; ?>

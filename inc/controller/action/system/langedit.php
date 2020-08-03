@@ -80,7 +80,7 @@ implements \fpcm\controller\interfaces\isAccessible,
 
     public function onSave()
     {
-        $langsave = $this->request->fromPOST('lang');
+        $langsave = $this->request->fromPOST('lang', [ $this->requestFILTER_TRIM ]);
         ksort($langsave);
         
         $lists = array_filter($langsave, function ($value) {
@@ -100,42 +100,6 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->addNoticeMessage('Änderungen gespeichert.');
         return true;
         
-    }
-    
-    private function getLangVar( $item, array &$list) : bool
-    {
-        if (!$item instanceof \SimpleXMLElement) {
-            print "Element not found!";
-            return false;
-        }
-        
-        $attr = $item->attributes();
-        $children = $item->children();
-
-        if (!isset($attr->value) && !count($children)) {
-            return false;
-        }
-
-        $langVar = (string) $attr->var;
-        if (isset($attr->value)) {
-            $list[$langVar] = (string) $attr->value;
-            return true;
-        }
-
-        /* @var $value \SimpleXMLElement */
-        foreach ($children->list->item as $subItem) {
-
-            $subAttr = $subItem->attributes();
-            $subVar = (string) $subAttr->var;
-
-            if (!isset($list[$langVar])) {
-                $list[$langVar] = [];
-            }
-
-            $list[$langVar][$subVar] = (string) $subAttr->value;
-        }
-
-        return true;
     }
     
 }
