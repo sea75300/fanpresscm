@@ -26,7 +26,7 @@
             <header>
                 <div class="row no-gutters fpcm-ui-background-white-100">
                     <div class="col-12 col-md-6 fpcm-ui-ellipsis">
-                        <h1 class="fpcm-ui-padding-lg-lr"><?php $theView->icon('chevron-right '); ?> <span>FanPress CM</span> <span>News System</span></h1>
+                        <h1 class="mx-3- mx-md-0"><?php $theView->icon('chevron-right '); ?> <span>FanPress CM</span> <span>News System</span></h1>
                     </div>
                     <div class="col-12 col-md-6 fpcm-ui-ellipsis d-block d-sm-none">
                         <p class="fpcm-ui-center fpcm-ui-padding-md-lr fpcm-ui-font-small"><?php $theView->icon('exclamation-circle'); ?> <?php $theView->write('GUI_VIEWPORT_SIZE'); ?></p>

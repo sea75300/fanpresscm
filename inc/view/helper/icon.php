@@ -32,6 +32,16 @@ class icon extends helper {
     }
 
     /**
+     * Return text set on icon
+     * @return string
+     * @since FPCM 4.5
+     */
+    public function getText() : string
+    {
+        return $this->text;
+    }
+
+    /**
      * Return element string
      * @return string
      */

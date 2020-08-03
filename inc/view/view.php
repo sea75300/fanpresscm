@@ -298,19 +298,22 @@ class view {
         
         if ($this->config->system_maintenance) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE')->setClass('fpcm-ui-important-text')
+                (new helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE'),
+                '', '', 'fpcm-ui-important-text'
             ));
         }
 
         if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS')->setClass('fpcm-ui-important-text')
+                (new helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS'),
+                '', '', 'fpcm-ui-important-text'
             ));
         }
         
         if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('terminal'))->setText('DEBUG_MODE')->setClass('fpcm-ui-important-text')
+                (new helper\icon('terminal'))->setText('DEBUG_MODE'),
+                '', '', 'fpcm-ui-important-text'
             ));
         }
 
