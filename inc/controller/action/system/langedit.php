@@ -38,6 +38,10 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->langCode = $this->request->fromPOST('langselect');
         $this->langObj = $this->langCode !== null ? new \fpcm\classes\language($this->langCode) : $this->language;
         $this->view = new \fpcm\view\view;
+        if ($this->langCode === '') {
+            return false;
+        }
+
         return true;
     }
 
@@ -46,16 +50,15 @@ implements \fpcm\controller\interfaces\isAccessible,
      */
     public function process()
     {
-        if ($this->langCode === '') {
-            return false;
-        }
+        $skipVal = '{{skip}}';
 
         $this->view->addTabs('langedit', [
             (new \fpcm\view\helper\tabItem('editor'))->setText('Language variable editor')->setFile('system/langedit.php'), 
         ]);
         
-        $skipVal = '{{skip}}';
 
+        $this->cache->cleanup('system/langcache' . strtoupper($this->langObj->getLangCode()));
+        
         $fullLang = $this->langObj->getAll();
 
         array_walk($fullLang, function (&$value, $index) use ($skipVal) {
@@ -80,7 +83,7 @@ implements \fpcm\controller\interfaces\isAccessible,
 
     public function onSave()
     {
-        $langsave = $this->request->fromPOST('lang', [ $this->requestFILTER_TRIM ]);
+        $langsave = $this->request->fromPOST('lang', [\fpcm\model\http\request::FILTER_TRIM ]);
         ksort($langsave);
         
         $lists = array_filter($langsave, function ($value) {
@@ -91,7 +94,7 @@ implements \fpcm\controller\interfaces\isAccessible,
             array_diff($langsave, $lists),
             array_map('unserialize', $lists)
         );
-        
+
         if (!$res) {
             $this->view->addErrorMessage('Fehler beim speichern, Error-Log-prüfen!');
             return false;

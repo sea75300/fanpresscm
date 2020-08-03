@@ -65,31 +65,40 @@ final class language {
             return false;
         }
 
+        $this->langCode = $langCode;
+        $this->init();
+    }
+
+    /**
+     * Load language variables
+     * @return bool
+     * @since FPCm 4.5
+     */
+    private function init() : bool
+    {
         if (!isset($GLOBALS['langdata'])) {
             $GLOBALS['langdata'] = [];
         }
 
-        $this->langCode = $langCode;
-
         $confFile = $this->langPath . '/lang.cfg';
         if (!file_exists($confFile)) {
-            trigger_error('Unable to find language config file in: ' . $langCode);
+            trigger_error('Unable to find language config file in: ' . $this->langCode);
             return false;
         }
 
-        $this->langList[$langCode] = file_get_contents($confFile);
+        $this->langList[$this->langCode] = file_get_contents($confFile);
         $this->helpFile = $this->langPath . '/help.php';
 
         $this->cache = loader::getObject('\fpcm\classes\cache');
-        $cacheName = 'system/langcache' . strtoupper($langCode);
+        $cacheName = 'system/langcache' . strtoupper($this->langCode);
         
         if (!$this->cache->isExpired($cacheName)) {
             $GLOBALS['langdata'] = $this->cache->read($cacheName);
-            return;
+            return true;
         }
         
         if (count($GLOBALS['langdata'])) {
-            return;
+            return true;
         }
 
         $this->loadDataFromSystem(self::FILENAME_VARS);
@@ -97,6 +106,7 @@ final class language {
         $this->getModuleLanguage();
 
         $this->cache->write($cacheName, $GLOBALS['langdata'], FPCM_LANGCACHE_TIMEOUT);
+        return true;
     }
 
     /**
@@ -379,6 +389,9 @@ final class language {
             return false;
         }
 
+        $this->cache->cleanup('system/langcache' . strtoupper($this->getLangCode()));
+        unset($GLOBALS['langdata']);
+        $this->init();
         return true;
     }
 
