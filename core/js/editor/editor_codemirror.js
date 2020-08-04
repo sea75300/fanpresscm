@@ -244,6 +244,27 @@ if (fpcm.editor) {
         return false;
     };
 
+    fpcm.editor.insertGalleryDisabled = function (_mode) {
+        
+        if (_mode === undefined) {
+            _mode = fpcm.vars.jsvars.filemanagerMode;
+        }        
+
+        if (_mode !== 2) {
+            return true;
+        }
+        
+        if (top.fpcm.editor.cmInstance === undefined) {
+            return true;
+        }
+        
+        if (top.fpcm.editor.cmInstance.doc.getValue() && fpcm.editor.cmInstance.doc.getValue().search('/gallery') != -1 ) {
+            return true;
+        }
+
+        return false;
+    };
+
     fpcm.editor.insertGalleryByEditor = function (_values) {
 
         if (!_values.length) {
