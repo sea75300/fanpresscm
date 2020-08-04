@@ -1,11 +1,5 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<link rel="stylesheet" type="text/css" href="<?php print $jquploadPath ?>css/jquery.fileupload.css">
-<link rel="stylesheet" type="text/css" href="<?php print $jquploadPath ?>css/jquery.fileupload-ui.css">
-<noscript><link rel="stylesheet" type="text/css" href="<?php print $jquploadPath ?>css/jquery.fileupload-noscript.css"></noscript>
-<noscript><link rel="stylesheet" type="text/css" href="<?php print $jquploadPath ?>css/jquery.fileupload-ui-noscript.css"></noscript>
-
-<form id="fileupload" action="<?php print $actionPath; ?>" method="POST" enctype="multipart/form-data">
-
+<div id="fileupload" class="fileupload-processing">
     <div class="row no-gutters">
         <div class="col-12">
             <div class="fileupload-progress fpcm-ui-fade fpcm-ui-hidden my-3">
@@ -52,35 +46,4 @@
     <div role="presentation" class="fpcm-ui-margin-lg-top">
         <div class="files"></div>
     </div>
-
-<!-- The template to display files available for upload -->
-<script id="template-upload" type="text/x-tmpl">
-
-{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <div class="row template-upload fade fpcm-ui-padding-md-tb fpcm ui-background-white-50p fpcm-ui-border-radius-all fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom">
-        <div class="col-12 col-sm-auto fpcm-ui-center jqupload-row-buttons">
-        
-            {% if (!i && !o.options.autoUpload) { %}
-                <?php $theView->button('startlist')->setClass('start')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload')->setIconOnly(true); ?>
-            {% } %}
-            {% if (!i) { %}
-                <?php $theView->button('cancellist')->setClass('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban')->setIconOnly(true); ?>
-            {% } %}
-        </div>
-
-        <div class="col-12 col-sm-auto align-self-center fpcm-ui-ellipsis pt-3 pt-sm-0">
-            <span class="name">{%=file.name%}</span> (<span class="size">{%=file.size%}</span>)
-            <strong class="error"></strong>
-        </div>
-    </div>
-{% } %}
-</script>
-
-<script id="template-download" type="text/x-tmpl">
-</script>
-<script src="<?php print $jquploadPath ?>js/template.js"></script>
-<script src="<?php print $jquploadPath ?>js/jquery.iframe-transport.js"></script>
-<script src="<?php print $jquploadPath ?>js/jquery.fileupload.js"></script>
-<script src="<?php print $jquploadPath ?>js/jquery.fileupload-process.js"></script>
-<script src="<?php print $jquploadPath ?>js/jquery.fileupload-validate.js"></script>
-<script src="<?php print $jquploadPath ?>js/jquery.fileupload-ui.js"></script>
+</div>

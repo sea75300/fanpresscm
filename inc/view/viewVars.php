@@ -39,6 +39,7 @@ namespace fpcm\view;
  * @property array  $navigationActiveModule
  * @property array  $messages
  * @property array  $filesJs
+ * @property array  $filesJsLate
  * @property array  $filesCss
  * @property array  $varsJs
  * @property array  $buttons

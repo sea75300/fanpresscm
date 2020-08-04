@@ -82,7 +82,11 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             'loadAjax' => $hasFiles,
             'currentModule' => $this->request->getModule(),
             'filesLastSearch' => 0,
-            'checkboxRefresh' => true
+            'checkboxRefresh' => true,
+            'uploadLIstButtons' => [
+                'start' => (string) (new \fpcm\view\helper\button('startlist'))->setClass('start')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload')->setIconOnly(true),
+                'cancel' => (string) (new \fpcm\view\helper\button('cancellist'))->setClass('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban')->setIconOnly(true)
+            ]
         ]);
         
         $this->assignSearchFromVars();
@@ -94,8 +98,19 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->view->assign('searchUsers', ['ARTICLE_SEARCH_USER' => -1] + (new \fpcm\model\users\userList)->getUsersNameList());
         $this->view->assign('mode', $this->mode);
         $this->view->assign('hasFiles', $hasFiles);
-        $this->view->assign('jquploadPath', \fpcm\classes\dirs::getLibUrl('jqupload/'));
         $this->view->addJsFiles(['files/module.js', 'files/uploader.js']);
+        $this->view->addJsFilesLate([
+            \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.iframe-transport.js'),
+            \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload.js'),
+            \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload-process.js'),
+            \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload-validate.js'),
+            \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload-ui.js'),
+        ]);
+
+        $this->view->addCssFiles([
+            \fpcm\classes\dirs::getLibUrl('jqupload/css/jquery.fileupload.css'),
+            \fpcm\classes\dirs::getLibUrl('jqupload/css/jquery.fileupload-ui.css'),
+        ]);
 
         $actionPath = \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]);
         

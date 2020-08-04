@@ -18,6 +18,10 @@ fpcm.fileuploader = {
     },
     
     initUploadButtons: function() {
+        
+        if (fpcm.vars.jsvars.jqUploadInit) {
+            return false;
+        }
 
         fpcm.dom.fromId('btnAddFile').click(function () {
             fpcm.dom.fromId('fpcm-ui-phpupload-filelist').empty();
@@ -67,6 +71,45 @@ fpcm.fileuploader = {
         uploaderEl.fileupload({
             url: fpcm.vars.ajaxActionPath + 'jqupload',
             dropZone: fpcm.dom.fromId('fpcm-filemanager-upload-drop'),
+            uploadTemplateId: null,
+            downloadTemplateId: null,
+            downloadTemplate: function (_params) {
+                return '';
+            },
+            uploadTemplate: function (_params) {
+
+                if (!_params.files) {
+                    return '';
+                }
+
+                let rows = '';
+
+                jQuery.each(_params.files, function (index, file) {
+                    
+                    
+                    let html = '<div class="row template-upload fade py-2 my-2 fpcm ui-background-white-50p fpcm-ui-border-radius-all">';
+                    html += '   <div class="col-12 col-sm-auto fpcm-ui-center jqupload-row-buttons align-self-center">';
+                    
+                    if (!index && !_params.options.autoUpload) {
+                        html += fpcm.vars.jsvars.uploadLIstButtons.start;
+                    }
+                    
+                    if (!index) {
+                        html += fpcm.vars.jsvars.uploadLIstButtons.cancel;
+                    }
+                    
+                    html += '   </div>';
+                    html += '   <div class="col-12 col-sm-auto align-self-center fpcm-ui-ellipsis pt-3 pt-sm-0">';
+                    html += '       <span class="name">' + file.name + '</span> (<span class="size">' + _params.formatFileSize(file.size) + '</span>)';
+                    html += '       <strong class="error"></strong>';
+                    html += '   </div>';
+                    html += '</div>';
+                    
+                    rows += html;
+                });
+                
+                return rows;
+            }
         });
 
         fpcm.filemanager._uploadsDone = 0;
@@ -84,8 +127,6 @@ fpcm.fileuploader = {
                 loaderMsg: fpcm.ui.translate('FILE_LIST_ADDTOINDEX')
             });
         });
-
-        uploaderEl.addClass('fileupload-processing');
 
         jQuery(document).bind('dragover', function (e) {
             var dropZone = fpcm.dom.fromId('fpcm-filemanager-upload-drop'), timeout = window.dropZoneTimeout;
