@@ -175,7 +175,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @deprecated FPCM 4.4, use $this->request instead
      */
     final public function getRequestVar
-    (
+    (        
         $varname = null,
         array $filter = [
             \fpcm\classes\http::FILTER_STRIPTAGS,

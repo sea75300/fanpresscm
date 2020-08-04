@@ -383,18 +383,9 @@ final class session extends \fpcm\model\abstracts\dataset {
 
         $expire = $this->getLastaction() + $this->config->system_session_length;
 
-        $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
-        return setcookie(
-            \fpcm\classes\security::getSessionCookieName(),
-            '_$$' . $crypt->encrypt($this->sessionid),
-            [
-                'expires' => $expire,
-                'path' => '/',
-                'samesite' => 'Lax',
-                'secure' => false,
-                'httponly' => true
-            ]
-        );
+        return (new \fpcm\model\http\cookie( \fpcm\classes\security::getSessionCookieName() ))
+                ->setExpires($expire)
+                ->set('_$$' . \fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt($this->sessionid));
     }
 
     /**

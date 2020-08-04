@@ -60,6 +60,7 @@ $lang = array (
   ),
   'SYSTEM_OPTIONS_CRONINTERVALS' => 
   array (
+    'nie/ manuell' => -1,
     'bei jedem Aufruf' => 0,
     'minütlich' => 60,
     '90 Sekunden' => 90,

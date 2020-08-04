@@ -120,7 +120,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
     {
         return $this->getResult(\fpcm\classes\loader::getObject('\fpcm\classes\database')->selectFetch(
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
-                ->setWhere('(lastexec+execinterval) < ?')
+                ->setWhere('(lastexec+execinterval) < ? AND execinterval > -1')
                 ->setParams([time()])
                 ->setFetchAll(true)
         ), true);

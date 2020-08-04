@@ -21,6 +21,12 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
 
     /**
      *
+     * @var \fpcm\model\articles\articlelist
+     */
+    protected $articleList;
+
+    /**
+     *
      * @var array
      */
     protected $ownArticleIds = [];

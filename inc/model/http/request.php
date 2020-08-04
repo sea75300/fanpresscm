@@ -8,7 +8,7 @@
 namespace fpcm\model\http;
 
 /**
- * HTTP request handler object (incomplete!!!)
+ * HTTP request handler object
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3

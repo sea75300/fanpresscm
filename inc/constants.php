@@ -15,7 +15,7 @@ if (file_exists(dirname(__DIR__) . '/data/config/constants.custom.php')) {
  * @since FPCM 3.5
  * @ignore
  */
-define('FPCM_PHP_REQUIRED', '7.3.0');
+define('FPCM_PHP_REQUIRED', '7.2.0');
 
 /**
  * Constant of seconds per day
