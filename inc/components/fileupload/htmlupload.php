@@ -16,7 +16,7 @@ namespace fpcm\components\fileupload;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since FPCM 4.5
  */
-final class hmlupload extends uploader {
+final class htmlupload extends uploader {
 
     /**
      * Returns CSS files for uploader
@@ -60,13 +60,7 @@ final class hmlupload extends uploader {
      */
     public function getJsVars(): array
     {
-        return [
-            'jqUploadInit' => true,
-            'uploadListButtons' => [
-                'start' => (string) (new \fpcm\view\helper\button('startlist', 'startlist_{{id}}'))->setClass('start')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload')->setIconOnly(true),
-                'cancel' => (string) (new \fpcm\view\helper\button('cancellist', 'cancellist_{{id}}'))->setClass('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban')->setIconOnly(true)
-            ]
-        ];
+        return [];
     }
 
     /**

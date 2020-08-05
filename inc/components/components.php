@@ -101,10 +101,10 @@ final class components {
      * @return fileupload\uploader
      * @since FPCM 4.5
      */
-    public static function getFileUploader($uploader = '\fpcm\components\fileupload\jqupload') : object
+    public static function getFileUploader($uploader = '\\fpcm\\components\\fileupload\\jqupload') : object
     {
         $return = new $uploader();
-        if (!$return instanceof fileupload) {
+        if (!$return instanceof fileupload\uploader) {
             return new fileupload\jqupload();
         }
         
