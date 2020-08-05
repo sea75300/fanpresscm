@@ -34,7 +34,7 @@
 
         </form>
         <div id="tabs-files-upload">
-            <?php include $theView->getIncludePath('filemanager/forms/jqupload.php'); ?>
+            <?php include $templatePath; ?>
         </div>
         <?php endif; ?>
     </div>

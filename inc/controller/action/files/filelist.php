@@ -75,46 +75,40 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
     public function process()
     {
         $hasFiles = ($this->fileList->getDatabaseFileCount() ? true : false);
+
+        /* @var $uploader \fpcm\components\fileupload\jqupload */
+        $uploader = \fpcm\components\components::getFileUploader();
         
-        $this->view->addJsVars([
+        $this->view->addCssFiles($uploader->getCssFiles());
+        $this->view->addJsVars(array_merge([
             'fmgrMode' => $this->mode,
-            'jqUploadInit' => true,
             'loadAjax' => $hasFiles,
             'currentModule' => $this->request->getModule(),
             'filesLastSearch' => 0,
             'checkboxRefresh' => true,
-            'uploadLIstButtons' => [
-                'start' => (string) (new \fpcm\view\helper\button('startlist'))->setClass('start')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload')->setIconOnly(true),
-                'cancel' => (string) (new \fpcm\view\helper\button('cancellist'))->setClass('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setIcon('ban')->setIconOnly(true)
-            ]
-        ]);
+        ], $uploader->getJsVars() ));
+
+        $this->view->addJsLangVars(array_merge([
+            'FILE_LIST_RENAME_NEWNAME', 'FILE_LIST_ADDTOINDEX', 'GLOBAL_PROPERTIES', 'FILE_LIST_RESOLUTION_PIXEL'
+        ], $uploader->getJsLangVars()));
         
+        $tplPath = $uploader->getTemplate();
+        if (!trim($tplPath) || !realpath($tplPath)) {
+            trigger_error('Undefined file upload template given in '.$tplPath);
+            $this->execDestruct = false;
+            return false;
+        }
+
+        $this->view->addJsFiles(array_merge( ['files/module.js'], $uploader->getJsFiles() ));
+        $this->view->addJsFilesLate($uploader->getJsFilesLate());
+        $this->view->setViewVars(array_merge([
+            'searchUsers' => ['ARTICLE_SEARCH_USER' => -1] + (new \fpcm\model\users\userList)->getUsersNameList(),
+            'mode' => $this->mode,
+            'hasFiles' => $hasFiles,
+            'templatePath' => $tplPath
+        ], $uploader->getViewVars() ));
+
         $this->assignSearchFromVars();
-
-        $this->view->addJsLangVars(['FILE_LIST_RENAME_NEWNAME', 'FILE_LIST_ADDTOINDEX',
-            'GLOBAL_PROPERTIES', 'FILE_LIST_RESOLUTION_PIXEL'
-        ]);
-
-        $this->view->assign('searchUsers', ['ARTICLE_SEARCH_USER' => -1] + (new \fpcm\model\users\userList)->getUsersNameList());
-        $this->view->assign('mode', $this->mode);
-        $this->view->assign('hasFiles', $hasFiles);
-        $this->view->addJsFiles(['files/module.js', 'files/uploader.js']);
-        $this->view->addJsFilesLate([
-            \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.iframe-transport.js'),
-            \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload.js'),
-            \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload-process.js'),
-            \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload-validate.js'),
-            \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload-ui.js'),
-        ]);
-
-        $this->view->addCssFiles([
-            \fpcm\classes\dirs::getLibUrl('jqupload/css/jquery.fileupload.css'),
-            \fpcm\classes\dirs::getLibUrl('jqupload/css/jquery.fileupload-ui.css'),
-        ]);
-
-        $actionPath = \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]);
-        
-        $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'));
         $this->initViewAssigns([], [], \fpcm\classes\tools::calcPagination(1, 1, 0, 0));
 
         $buttons = [

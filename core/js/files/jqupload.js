@@ -13,56 +13,6 @@ fpcm.fileuploader = {
     _uploadsDone: 0,
 
     init: function() {
-        this.initJqUpload();
-        this.initUploadButtons();
-    },
-    
-    initUploadButtons: function() {
-        
-        if (fpcm.vars.jsvars.jqUploadInit) {
-            return false;
-        }
-
-        fpcm.dom.fromId('btnAddFile').click(function () {
-            fpcm.dom.fromId('fpcm-ui-phpupload-filelist').empty();
-            fpcm.dom.fromTag(this).parent().find('.fpcm-ui-fileinput-select').trigger('click');
-            fpcm.dom.fromClass('fpcm-ui-fileinput-select').change(function () {
-
-                fpcm.dom.fromId('fpcm-ui-phpupload-filelist').empty();
-                if (!fpcm.dom.fromTag(this)[0] || !fpcm.dom.fromTag(this)[0].files) {
-                    return false;
-                }
-
-                var fileList = fpcm.dom.fromTag(this)[0].files;
-                for (var i=0;i<fileList.length;i++) {
-                    fpcm.ui.appendHtml('#fpcm-ui-phpupload-filelist', '<div class="row no-gutters fpcm-ui-padding-md-tb"><div class="col-12 fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom"><span class="far fa-fw fa-lg fa-file-image"></span>' + fileList[i].name +'</div></div>')
-                }
-                
-                fpcm.dom.fromId('fpcm-ui-fileupload-list').fadeIn();
-                return false;
-            });
-
-            return false;
-
-        });
-
-        fpcm.dom.fromId('btnUploadFile').click(function () {
-            fpcm.ui_loader.show();
-        });
-
-        fpcm.dom.fromId('btnCancelUpload').click(function () {
-            fpcm.dom.fromId('fpcm-ui-fileupload-list').fadeOut();
-            fpcm.dom.fromId('fpcm-ui-phpupload-filelist').empty();
-            fpcm.dom.fromClass('fpcm-ui-fileinput-select').empty();
-        });
-
-    },
-    
-    initJqUpload: function() {
-        
-        if (!fpcm.vars.jsvars.jqUploadInit) {
-            return false;
-        }
 
         'use strict';
 
@@ -91,11 +41,11 @@ fpcm.fileuploader = {
                     html += '   <div class="col-12 col-sm-auto fpcm-ui-center jqupload-row-buttons align-self-center">';
                     
                     if (!index && !_params.options.autoUpload) {
-                        html += fpcm.vars.jsvars.uploadLIstButtons.start;
+                        html += fpcm.vars.jsvars.uploadListButtons.start.replace('{{id}}', (new Date).getTime());
                     }
                     
                     if (!index) {
-                        html += fpcm.vars.jsvars.uploadLIstButtons.cancel;
+                        html += fpcm.vars.jsvars.uploadListButtons.cancel.replace('{{id}}', (new Date).getTime());
                     }
                     
                     html += '   </div>';
