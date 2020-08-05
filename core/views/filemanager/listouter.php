@@ -31,8 +31,6 @@
         </div>
 
         <?php if ($theView->permissions->uploads->add) : ?>
-
-        </form>
         <div id="tabs-files-upload">
             <?php include $templatePath; ?>
         </div>

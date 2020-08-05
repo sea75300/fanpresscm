@@ -3,13 +3,15 @@
 /**
  * Template controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
 namespace fpcm\controller\action\templates;
 
-class templates extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class templates extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\isAccessible,
+           \fpcm\controller\interfaces\requestFunctions {
 
     use \fpcm\controller\traits\templates\edit;
 
@@ -39,10 +41,6 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
     {
         $editor = new \fpcm\components\editor\htmlEditor();
         $this->view->addCssFiles($editor->getCssFiles());
-
-        $this->uploadEditorTemplate();
-        $this->deleteEditorTemplate();
-        $this->save();
 
         $jsFiles = $editor->getJsFiles();
         unset($jsFiles[16]);  
@@ -134,23 +132,34 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
                     ->setDataViewId('')
                     ->setWrapper(false);
         }
+
+        /* @var $uploader \fpcm\components\fileupload\jqupload */
+        $uploader = \fpcm\components\components::getFileUploader();
         
-        $this->view->assign('tabs', $tabs);
-
         $this->view->setActiveTab($this->getActiveTab());
-        $this->view->addJsVars([
+        $this->view->addJsVars(array_merge([
             'templateId' => 1,
-            'jqUploadInit' => false
-        ]);
+            'uploadDest' => 'drafts'
+        ], $uploader->getJsVars() ));
 
+        $this->view->addCssFiles($uploader->getCssFiles());
         $this->view->addJsLangVars(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT']);
-        $this->view->addJsFiles(['files/uploader.js', 'templates/module.js']);
-        $this->initDataView();
+        $this->view->addJsFiles(array_merge(['templates/module.js'], $uploader->getJsFiles() ));
+        $this->view->addJsFilesLate($uploader->getJsFilesLate());
+        
+        $tplPath = $uploader->getTemplate();
+        if (!trim($tplPath) || !realpath($tplPath)) {
+            trigger_error('Undefined file upload template given in '.$tplPath);
+            $this->execDestruct = false;
+            return false;
+        }
 
-        $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [
-            '{{filecount}}' => 1,
-            '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
-        ]));
+        $this->view->setViewVars(array_merge([
+            'tabs' => $tabs,
+            'templatePath' => $tplPath
+        ], $uploader->getViewVars() ));
+
+        $this->initDataView();
 
         $this->view->setFormAction('templates/templates');
         $this->view->addButtons([
@@ -226,31 +235,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
      * 
      * @return bool
      */
-    private function uploadEditorTemplate()
-    {
-        if (!$this->permissions->system->drafts) {
-            return false;
-        }
-
-        $files = $this->request->fromFiles();
-        if (!$this->buttonClicked('uploadFile') || !$files) {
-            return false;
-        }
-
-        if (!(new \fpcm\model\files\fileuploader($files))->processArticleTemplateUpload()) {
-            $this->view->addErrorMessage('SAVE_FAILED_UPLOADTPLFILE');
-            return false;
-        }
-
-        $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADTPLFILE');
-        return true;
-    }
-
-    /**
-     * 
-     * @return bool
-     */
-    private function deleteEditorTemplate()
+    protected function onFileDelete()
     {
         if (!$this->permissions->system->drafts) {
             return false;
@@ -260,7 +245,7 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
             \fpcm\model\http\request::FILTER_BASE64DECODE
         ]);
 
-        if (!$this->buttonClicked('fileDelete') || !is_array($delFiles) || !count($delFiles)) {
+        if (!is_array($delFiles) || !count($delFiles)) {
             return false;
         }
 
@@ -297,14 +282,14 @@ class templates extends \fpcm\controller\abstracts\controller implements \fpcm\c
      * 
      * @return bool
      */
-    private function save()
+    protected function onSaveTemplates()
     {
         $tplData = $this->request->fromPOST('template', [
             \fpcm\model\http\request::FILTER_TRIM,
             \fpcm\model\http\request::FILTER_STRIPSLASHES
         ]);
 
-        if (!$this->buttonClicked('saveTemplates') || $tplData === null) {
+        if ($tplData === null) {
             return true;
         }
 

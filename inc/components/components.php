@@ -8,10 +8,11 @@
 namespace fpcm\components;
 
 /**
- * Component loader
- * 
- * @package fpcm\drivers\mysql
+ * FanPress CM 4.x component loader
  * @author Stefan Seehafer <sea75300@yahoo.de>
+ * @copyright (c) 2018-2020, Stefan Seehafer
+ * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @package fpcm\model\http
  */
 final class components {
 
@@ -100,9 +101,14 @@ final class components {
      * @return fileupload\uploader
      * @since FPCM 4.5
      */
-    public static function getFileUploader() : object
+    public static function getFileUploader($uploader = '\fpcm\components\fileupload\jqupload') : object
     {
-        return new fileupload\jqupload();
+        $return = new $uploader();
+        if (!$return instanceof fileupload) {
+            return new fileupload\jqupload();
+        }
+        
+        return $return;
     }
 
     /**

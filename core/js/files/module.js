@@ -519,5 +519,16 @@ fpcm.filemanager = {
 
         fpcm.filemanager.reloadFiles(1, sParams);
         fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
+    },
+    
+    runFileIndexUpdate: function () {
+
+        fpcm.ajax.get('cronasync', {
+            data    : {
+                cjId: 'fileindex'
+            },
+            loaderMsg: fpcm.ui.translate('FILE_LIST_ADDTOINDEX')
+        });
+
     }
 };

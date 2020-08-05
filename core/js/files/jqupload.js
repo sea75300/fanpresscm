@@ -19,7 +19,7 @@ fpcm.fileuploader = {
         var uploaderEl = fpcm.dom.fromId('fileupload');
 
         uploaderEl.fileupload({
-            url: fpcm.vars.ajaxActionPath + 'jqupload',
+            url: fpcm.vars.ajaxActionPath + 'jqupload&dest=' + fpcm.vars.jsvars.uploadDest,
             dropZone: fpcm.dom.fromId('fpcm-filemanager-upload-drop'),
             uploadTemplateId: null,
             downloadTemplateId: null,
@@ -62,20 +62,20 @@ fpcm.fileuploader = {
             }
         });
 
-        fpcm.filemanager._uploadsDone = 0;
+        fpcm.fileuploader._uploadsDone = 0;
 
         uploaderEl.on('fileuploaddone', function (e, data) {
-            fpcm.filemanager._uploadsDone++;
-            if (fpcm.filemanager._uploadsDone < data.getNumberOfFiles()) {
+            fpcm.fileuploader._uploadsDone++;
+            if (fpcm.fileuploader._uploadsDone < data.getNumberOfFiles()) {
                 return true;
             }
 
-            fpcm.ajax.get('cronasync', {
-                data    : {
-                    cjId: 'fileindex'
-                },
-                loaderMsg: fpcm.ui.translate('FILE_LIST_ADDTOINDEX')
-            });
+            if (!fpcm.filemanager || fpcm.filemanager.runFileIndexUpdate === undefined) {
+                return true;
+            }
+
+            fpcm.filemanager.runFileIndexUpdate();
+            return true;
         });
 
         jQuery(document).bind('dragover', function (e) {

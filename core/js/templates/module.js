@@ -150,3 +150,11 @@ fpcm.templates = {
     }
 
 };
+
+fpcm.filemanager = {
+
+    runFileIndexUpdate: function () {
+        fpcm.ui.relocate('self');
+    }
+
+};
