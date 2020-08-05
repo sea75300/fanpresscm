@@ -151,41 +151,6 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * Führt Upload von HTML-Template für Artikle-Editor via HTML-Form + PHP durch
-     * @since FPCM 3.3
-     * @return bool
-     */
-    public function processArticleTemplateUpload()
-    {
-        $tempNames = $this->uploader['tmp_name'];
-        $fileNames = $this->uploader['name'];
-        $fileTypes = $this->uploader['type'];
-
-        foreach ($tempNames as $key => $value) {
-
-            if (!is_uploaded_file($value) || !isset($fileNames[$key]) || !isset($fileTypes[$key]) || $this->uploader['name'] == 'index.html' || $this->uploader['name'] == 'index.htm') {
-                return false;
-            }
-
-            $ext = pathinfo($fileNames[$key], PATHINFO_EXTENSION);
-            $ext = ($ext) ? strtolower($ext) : '';
-
-            if ((isset($fileTypes[$key]) && !in_array($fileTypes[$key], templatefile::$allowedTypes)) || !in_array($ext, templatefile::$allowedExts)) {
-                trigger_error('Unsupported filetype in ' . $fileNames[$key]);
-                return false;
-            }
-
-            $file = new templatefile($fileNames[$key]);
-            if (!$file->moveUploadedFile($value)) {
-                trigger_error('Unable to move uploaded to to uploader folder! ' . $fileNames[$key]);
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
      * Führt Upload eines Artikel-Bildes aus
      * @param string $filename
      * @since FPCM 3.6
