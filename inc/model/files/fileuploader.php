@@ -101,56 +101,6 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * Führt Upload von Module-Package via HTML-Form + PHP sowie Installation aus Modulmanager durch
-     * @return bool
-     */
-    public function processModuleUpload()
-    {
-        $tempNames = $this->uploader['tmp_name'];
-        $fileNames = $this->uploader['name'];
-        $fileTypes = $this->uploader['type'];
-
-        foreach ($tempNames as $key => $value) {
-
-            if (!is_uploaded_file($value) || !isset($fileNames[$key]) || !isset($fileTypes[$key])) {
-                continue;
-            }
-
-            $fileName = $this->getUploadFileName($fileNames[$key]);
-
-            $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-            if (strtolower($ext) !== \fpcm\model\packages\package::DEFAULT_EXTENSION) {
-                return false;
-            }
-
-            $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $fileName);
-            if (!move_uploaded_file($value, $path)) {
-                return false;
-            }
-
-            $package = new \fpcm\model\packages\module($fileName);
-            if (!$package->extract()) {
-                return false;
-            }
-
-            if (!$package->copy()) {
-                return false;
-            }
-            
-            break;
-
-        }
-
-        $module = new \fpcm\module\module(\fpcm\module\module::getKeyFromFilename($fileName), false );
-        if (!$module->addModule()) {
-            return false;
-        }
-
-        $package->cleanup();
-        return true;
-    }
-
-    /**
      * Führt Upload eines Artikel-Bildes aus
      * @param string $filename
      * @since FPCM 3.6

@@ -43,6 +43,12 @@ class module extends package {
         $this->moduleKey = \fpcm\module\module::getKeyFromFilename($this->packageName);
         $this->repo = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->moduleKey);
         $this->hashKey = \fpcm\classes\tools::getHash($this->packageName);
+        
+        if (!\fpcm\module\module::validateKey(  $this->moduleKey)) {
+            $this->preValidate = false;
+            return false;
+        }
+
         return true;
     }
 
@@ -76,7 +82,7 @@ class module extends package {
 
     /**
      * Returns local destination path for packeg content
-     * @return type
+     * @return string
      */
     public function getLocalDestinationPath()
     {
@@ -85,6 +91,10 @@ class module extends package {
         }
 
         $this->data = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $this->moduleKey);
+        if (!\fpcm\model\files\ops::isValidDataFolder($this->data, \fpcm\classes\dirs::DATA_MODULES)) {
+            $this->preValidate = false;
+        }
+
         return $this->data;
     }
 
@@ -131,6 +141,11 @@ class module extends package {
     public function checkFiles()
     {
         $path = $this->getLocalDestinationPath().DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'files.txt';
+
+        if(!$this->preValidate) {
+            return false;
+        }
+
         $files = $this->getFileList($path, 1);
         if (!count($files)) {
             return false;
@@ -161,9 +176,12 @@ class module extends package {
      */
     public function copy()
     {
-        $srcBasePath    = $this->getExtractionPath();        
+        $srcBasePath    = $this->getExtractionPath();
+        if(!$this->preValidate) {
+            return false;
+        }
+
         $files          = $this->getFileList($this->getFileListPath(), 1);
-        
         if (!count($files)) {
             return self::FILESCOPY_ERROR;
         }
@@ -172,6 +190,9 @@ class module extends package {
         $failed = [];
 
         $destinationPath = $this->getLocalDestinationPath();
+        if(!$this->preValidate) {
+            return false;
+        }
 
         $vendorPath = dirname($destinationPath);
         if (!file_exists($vendorPath) && !mkdir($vendorPath, 0777)) {
@@ -259,6 +280,10 @@ class module extends package {
      */
     public function updateLog()
     {
+        if(!$this->preValidate) {
+            return false;
+        }
+
         $fopt = new \fpcm\model\files\fileOption('modulecopy'.$this->hashKey);
         $data = array_map([$this, 'removeModuleBaseDir'], $fopt->read());        
         

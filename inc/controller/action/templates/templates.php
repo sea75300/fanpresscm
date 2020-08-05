@@ -146,17 +146,15 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->addJsLangVars(['HL_TEMPLATE_PREVIEW', 'TEMPLATE_HL_DRAFTS_EDIT']);
         $this->view->addJsFiles(array_merge(['templates/module.js'], $uploader->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
-        
-        $tplPath = $uploader->getTemplate();
-        if (!trim($tplPath) || !realpath($tplPath)) {
-            trigger_error('Undefined file upload template given in '.$tplPath);
+
+        if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
+            trigger_error('Undefined file upload template given in '.$uploader->getTemplate());
             $this->execDestruct = false;
             return false;
         }
 
         $this->view->setViewVars(array_merge([
             'tabs' => $tabs,
-            'templatePath' => $tplPath
         ], $uploader->getViewVars() ));
 
         $this->initDataView();

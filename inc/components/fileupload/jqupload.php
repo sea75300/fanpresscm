@@ -92,7 +92,10 @@ final class jqupload extends uploader {
      */
     public function getViewVars(): array
     {
-        return [];
+        return [
+            'uploadTemplatePath' => $this->getTemplate(),
+            'uploadMultiple' => true
+        ];
     }
 
 }

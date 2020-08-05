@@ -19,6 +19,13 @@ namespace fpcm\controller\abstracts;
 class ajaxController extends controller {
 
     /**
+     * Rückgabe-Daten
+     * @var mixed
+     * @deprecated since version FPCM 4.5
+     */
+    protected $returnData;
+
+    /**
      * Update-Check de/aktivieren
      * @var bool
      */

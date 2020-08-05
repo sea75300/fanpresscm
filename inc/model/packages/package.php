@@ -91,6 +91,11 @@ abstract class package {
      */
     protected $data;
 
+    /**
+     * Prevalidation failed
+     * @var mixed
+     */
+    protected $preValidate = true;
     
     /**
      * Konstruktor
@@ -258,6 +263,10 @@ abstract class package {
         $hashLocal = $this->getLocalSignature();
         $hashRemote = $this->getRemoteSignature();
 
+        if(!$this->preValidate) {
+            return self::HASHCHECK_ERROR;
+        }
+
         if (!trim($hashLocal) || !trim($hashRemote)) {
             trigger_error("Error while checking package signatures, no signature given.");
             return self::HASHCHECK_ERROR;
@@ -285,6 +294,10 @@ abstract class package {
     {
         $localPath  = $this->getLocalPath();
 
+        if(!$this->preValidate) {
+            return false;
+        }
+
         if ($this->archive->open($localPath) !== true) {
             trigger_error('Unable to open ZIP archive: ' . $localPath);
             return self::ZIPOPEN_ERROR;
@@ -310,6 +323,11 @@ abstract class package {
     public function cleanup()
     {
         $localPath = $this->getLocalPath();
+
+        if(!$this->preValidate) {
+            return false;
+        }
+
         if (!file_exists($localPath)) {
             trigger_error("Package cleanup error, local package path {$localPath} was not found!");
             return false;
@@ -334,6 +352,16 @@ abstract class package {
         return true;
     }
 
+    /**
+     * Return prevalidation flag
+     * @return bool
+     * @since FPCM 4.5
+     */
+    public function isPreValidated() : bool
+    {
+        return $this->preValidate;
+    }
+    
     /**
      * Replaces "fanpress" base folder name in given path
      * @param string $path
@@ -376,6 +404,10 @@ abstract class package {
      */
     protected function getFileList($path, $start = 0)
     {
+        if(!$this->preValidate) {
+            return [];
+        }
+
         if (!trim($path) || !file_exists($path)) {
             trigger_error($path.' was not found on expected path. This is an unexpected behaviour and should NOT be happen. You should contact the developer for further help.');
             return [];

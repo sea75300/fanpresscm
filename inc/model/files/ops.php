@@ -212,4 +212,67 @@ final class ops {
         );
     }
 
+    /**
+     * "realpath" wrapper for non-existing files
+     * @param string $path
+     * @return string
+     * @since FPCM 4.5
+     */
+    public static function realpathNoExists(string $path) : string
+    {
+        $items = explode('/', $path);
+        if (!count($items)) {
+            return '';
+        }
+        
+        $realpath = array_reduce($items, function ($carry, $item) use ($path) {
+            
+            if ($carry === 0) {
+                $carry = DIRECTORY_SEPARATOR;
+            }
+            
+            if($item === "" || $item === ".") {
+                return $item;
+            }
+            
+            if ($item == '..') {
+                return dirname($carry);
+            }
+
+            return preg_replace("/\/+/", "/", "$carry/$item");
+        });
+
+        return $realpath;
+        
+        
+    }
+
+    /**
+     * Check if fullpath is valid path in /data folder structure
+     * @param string $path
+     * @param string $type
+     * @return bool
+     * @since FPCM 4.5
+     */
+    public static function isValidDataFolder(string $path = '', string $type = '/') : bool
+    {
+        if (!trim($path)) {
+            return false;
+        }
+
+        $dataPath = \fpcm\classes\dirs::getDataDirPath($type);
+        $realpath = realpath($path);
+        
+        if (!trim($realpath)) {
+            $realpath = self::realpathNoExists($path);
+        }
+
+        if (strpos($realpath, $dataPath) === 0) {
+            return true;
+        }
+        
+        trigger_error('Invalid data path found: '.$path);
+        return false;
+    }
+
 }

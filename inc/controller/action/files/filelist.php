@@ -92,10 +92,9 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->view->addJsLangVars(array_merge([
             'FILE_LIST_RENAME_NEWNAME', 'FILE_LIST_ADDTOINDEX', 'GLOBAL_PROPERTIES', 'FILE_LIST_RESOLUTION_PIXEL'
         ], $uploader->getJsLangVars()));
-        
-        $tplPath = $uploader->getTemplate();
-        if (!trim($tplPath) || !realpath($tplPath)) {
-            trigger_error('Undefined file upload template given in '.$tplPath);
+
+        if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
+            trigger_error('Undefined file upload template given in '.$uploader->getTemplate());
             $this->execDestruct = false;
             return false;
         }
@@ -106,7 +105,6 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             'searchUsers' => ['ARTICLE_SEARCH_USER' => -1] + (new \fpcm\model\users\userList)->getUsersNameList(),
             'mode' => $this->mode,
             'hasFiles' => $hasFiles,
-            'templatePath' => $tplPath
         ], $uploader->getViewVars() ));
 
         $this->assignSearchFromVars();

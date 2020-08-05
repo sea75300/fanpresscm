@@ -27,6 +27,7 @@ ajax/cronasync: ajax/system/cronasync
 ajax/croninterval: ajax/system/croninterval
 ajax/packagemgr/processUpdate: ajax/packagemgr/processUpdate
 ajax/packagemgr/moduleInstaller: ajax/packagemgr/moduleInstaller
+ajax/packagemgr/unzcp: ajax/packagemgr/moduleExtractCopy
 ajax/modules/exec: ajax/modules/execAction
 ajax/modules/fetch: ajax/modules/fetchList
 ajax/installer/checkdb: ajax/installer/checkdb

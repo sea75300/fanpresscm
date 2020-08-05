@@ -146,3 +146,30 @@ fpcm.modulelist = {
     }
  
 };
+
+fpcm.filemanager = {
+
+    runFileIndexUpdate: function (_params) {
+
+        if (!_params.files || !_params.files[0] || !_params.files[0].name) {
+            return false;
+        }
+
+        fpcm.ajax.post('packagemgr/unzcp', {
+            data    : {
+                file: _params.files[0].name
+            },
+            loaderMsg: fpcm.ui.translate('MODULES_LIST_INSTALL'),
+            execDone: function (result) {
+                fpcm.ui.addMessage(result);
+                if (result.type !== 'notice') {
+                    return false;
+                }
+
+                fpcm.modulelist.tabs.tabs('load', 0);
+            }
+        });
+
+    }
+
+};

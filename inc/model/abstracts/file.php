@@ -473,48 +473,19 @@ abstract class file {
             $path = $this->fullpath;
         }
 
-        $dataPath = dirs::getDataDirPath($type);
-        $realpath = realpath($path);
-        
-        if (!trim($realpath)) {
-            $realpath = $this->realpathNoExists($path);
-        }
-
-        if (strpos($realpath, $dataPath) === 0) {
-            return true;
-        }
-        
-        trigger_error('Invalid data path found: '.$path);
-        return false;
+        return ops::isValidDataFolder($path, $type);
     }
-    
+
+    /**
+     * "realpath" wrapper for non-existing files
+     * @param string $path
+     * @return string
+     * @since FPCM 4.5
+     * @see ops::realpathNoExists
+     */
     protected function realpathNoExists(string $path) : string
     {
-        $items = explode('/', $path);
-        if (!count($items)) {
-            return '';
-        }
-        
-        $realpath = array_reduce($items, function ($carry, $item) use ($path) {
-            
-            if ($carry === 0) {
-                $carry = DIRECTORY_SEPARATOR;
-            }
-            
-            if($item === "" || $item === ".") {
-                return $item;
-            }
-            
-            if ($item == '..') {
-                return dirname($carry);
-            }
-
-            return preg_replace("/\/+/", "/", "$carry/$item");
-        });
-
-        return $realpath;
-        
-        
+        return ops::realpathNoExists($path);
     }
 
 }

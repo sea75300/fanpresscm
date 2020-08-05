@@ -1,3 +1,3 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<?php include $templatePath; ?>
+<?php include $uploadTemplatePath; ?>
 <div id="fpcm-dataview-draftfiles"></div>

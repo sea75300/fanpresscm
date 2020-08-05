@@ -74,7 +74,7 @@ fpcm.fileuploader = {
                 return true;
             }
 
-            fpcm.filemanager.runFileIndexUpdate();
+            fpcm.filemanager.runFileIndexUpdate(data);
             return true;
         });
 

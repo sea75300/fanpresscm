@@ -705,13 +705,15 @@ class module {
 
         return true;
     }
-
+    
     /**
+     * 
      * Uninstall module
-     * @param boolean $delete
+     * @param bool $delete
+     * @param bool $keepFiles
      * @return bool
      */
-    final public function uninstall($delete = false) : bool
+    final public function uninstall(bool $delete = false, bool $keepFiles = false) : bool
     {
         fpcmLogSystem('Uninstall module ' . $this->mkey);
         $this->cache->cleanup();
@@ -736,9 +738,9 @@ class module {
             return false;
         }
 
-//        if (!$this->removeFiles()) {
-//            return false;
-//        }
+        if (!$keepFiles && !$this->removeFiles()) {
+            return false;
+        }
 
         $this->id = 0;
         $this->active = false;
@@ -991,8 +993,7 @@ class module {
      */
     public static function getKeyFromFilename($filename) : string
     {
-        $key = explode('_version', $filename, 2)[0];
-        return implode('/', explode('_', $key, 1));
+        return implode('/', explode('_', explode('_version', $filename, 2)[0], 2));
     }
 
     /**

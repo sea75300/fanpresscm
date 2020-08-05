@@ -105,7 +105,7 @@ class moduleTest extends \PHPUnit\Framework\TestCase {
 
     public function testUninstall()
     {
-        $success = $GLOBALS['module']->uninstall();
+        $success = $GLOBALS['module']->uninstall(false, true);
         
         $this->assertTrue($success);
         $this->assertFalse($GLOBALS['module']->isInstalled());

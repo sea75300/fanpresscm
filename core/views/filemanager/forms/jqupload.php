@@ -22,7 +22,7 @@
                         <a class="fileinput-button">
                             <?php $theView->icon('plus'); ?>
                             <span><?php $theView->write('FILE_FORM_FILEADD'); ?></span>
-                            <input type="file" name="files[]" multiple>
+                            <input type="file" name="files[]" <?php if ($uploadMultiple) : ?>multiple<?php endif; ?>>
                         </a>
 
                         <?php $theView->submitButton('start')->setText('FILE_FORM_UPLOADSTART')->setClass('start')->setIcon('upload'); ?>

@@ -32,7 +32,7 @@
 
         <?php if ($theView->permissions->uploads->add) : ?>
         <div id="tabs-files-upload">
-            <?php include $templatePath; ?>
+            <?php include $uploadTemplatePath; ?>
         </div>
         <?php endif; ?>
     </div>

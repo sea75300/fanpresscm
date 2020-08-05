@@ -19,6 +19,12 @@ namespace fpcm\controller\ajax\files;
 class jqupload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     /**
+     *
+     * @var string
+     */
+    protected $dest = '';
+
+    /**
      * 
      * @return bool
      */
@@ -39,6 +45,8 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController implements \fpc
             $this->response->setCode('501')->addHeaders('HTTP/1.1 501 Not Implemented')->fetch();
         }
 
+        $config['script_url'] = \fpcm\classes\tools::getFullControllerLink('ajax/jqupload', [ 'dest' => $this->dest ]);
+        
         new \fpcmUploadHandler($config);
 
     }
@@ -50,7 +58,6 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController implements \fpc
     protected function getConfigDefault() : array
     {
         return [
-            'script_url' => \fpcm\classes\tools::getFullControllerLink('ajax/jqupload', ['dest' => $this->request->fetchAll('dest') ]),
             'upload_dir' => \fpcm\model\files\ops::getUploadPath(DIRECTORY_SEPARATOR, $this->config->file_subfolders),
             'upload_url' => \fpcm\model\files\ops::getUploadUrl('/', $this->config->file_subfolders),
             'accept_file_types' => '/\.(gif|jpe?g|png|bmp)$/i',
@@ -77,11 +84,32 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController implements \fpc
     protected function getConfigDrafts() : array
     {
         return [
-            'script_url' => \fpcm\classes\tools::getFullControllerLink('ajax/jqupload', ['dest' => $this->request->fetchAll('dest')]),
             'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS, DIRECTORY_SEPARATOR),
             'upload_url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_DRAFTS, '/'),
             'accept_file_types' => '/\.(htm|html|txt)$/i',
             'image_versions' => array(),
+            'min_width' => false,
+            'max_width' => false,
+            'min_height' => false,
+            'max_height' => false
+        ];
+    }
+
+    /**
+     * 
+     * @return array
+     */
+    protected function getConfigModules() : array
+    {
+        $unique = \fpcm\classes\tools::getHash($this->session->getSessionId().$this->session->getUserId());
+
+        return [
+            'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, DIRECTORY_SEPARATOR. $unique. DIRECTORY_SEPARATOR),
+            'upload_url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_TEMP, '/'. $unique . '/'),
+            'accept_file_types' => '/\.(zip)$/i',
+            'max_number_of_files' => 1,
+            'image_versions' => array(),
+            'replace_dots_in_filenames' => null,
             'min_width' => false,
             'max_width' => false,
             'min_height' => false,
