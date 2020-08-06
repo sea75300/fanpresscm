@@ -41,9 +41,9 @@ fpcm.ui_notify = {
             body: fpcm.ui.translate(_params.body),
         };
 
-        if (_params.icon) {
-            opts.icon = _params.icon;
-        }
+        opts.icon = _params.icon ? _params.icon : fpcm.vars.ui.notifyicon;
+        
+        //
 
         if (_params.tag) {
             opts.tag = _params.tag;
