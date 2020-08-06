@@ -94,14 +94,10 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());
         $this->view->assign('inProfile', false);
 
-        $this->view->addJsFiles([
-            \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'),
-            'files/uploader.js'
-        ]);
+        $this->view->addJsFiles([ \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'), ]);
 
         $this->view->addJsVars([
-            'dtMasks' => $this->getDateTimeMasks(),
-            'jqUploadInit' => false
+            'dtMasks' => $this->getDateTimeMasks()
         ]);
 
         $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH', 'SAVE_FAILED_PASSWORD_SECURITY', 'SAVE_FAILED_PASSWORD_SECURITY_PWNDPASS']);

@@ -213,9 +213,10 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
                 continue;
             }
 
-            if (pathinfo($folderFile, PATHINFO_EXTENSION) == 'bmp' || substr($folderFile, -4) === '.bmp') {
+            $ext = \fpcm\model\abstracts\file::retrieveFileExtension($folderFile);
+            if ($ext == 'bmp' || substr($folderFile, -4) === '.bmp') {
                 $msgPath = ops::removeBaseDir($folderFile);
-                fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath}, \"".pathinfo($folderFile, PATHINFO_EXTENSION)."\" is no supported. You may use another image type?");
+                fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath}, \"".$ext."\" is no supported. You may use another image type?");
                 continue;
             }
 

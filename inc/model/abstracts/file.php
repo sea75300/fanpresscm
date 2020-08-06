@@ -147,8 +147,7 @@ abstract class file {
         $this->notifications = loader::getObject('\fpcm\model\theme\notifications');
 
         if ($this->exists()) {
-            $ext = pathinfo($this->fullpath, PATHINFO_EXTENSION);
-            $this->extension = ($ext) ? $ext : '';
+            $this->extension = self::retrieveFileExtension($this->fullpath);
             $this->filesize = filesize($this->fullpath);
         }
     }
@@ -486,6 +485,22 @@ abstract class file {
     protected function realpathNoExists(string $path) : string
     {
         return ops::realpathNoExists($path);
+    }
+
+    /**
+     * Retrieve file extension via pathinfo
+     * @param string $filename
+     * @return string
+     * @since FPCM 4.5
+     */
+    public static function retrieveFileExtension(string $filename) : string
+    {
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        if (!$ext) {
+            return '';
+        }
+
+        return strtolower($ext);        
     }
 
 }

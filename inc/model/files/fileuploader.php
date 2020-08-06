@@ -48,17 +48,16 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
 
         $res = ['error' => [], 'success' => []];
 
+        $finfo = function_exists('finfo_open') && function_exists('finfo_file') ? finfo_open(FILEINFO_MIME_TYPE) : null;
         foreach ($tempNames as $key => $value) {
 
             if (!is_uploaded_file($value) || !isset($fileNames[$key]) || !isset($fileTypes[$key])) {
                 continue;
             }
 
-            $ext = pathinfo($fileNames[$key], PATHINFO_EXTENSION);
-            $ext = ($ext) ? strtolower($ext) : '';
-
-            if ((isset($fileTypes[$key]) && !in_array($fileTypes[$key], image::$allowedTypes)) || !in_array($ext, image::$allowedExts)) {
-                trigger_error('Unsupported filetype in ' . $fileNames[$key]);
+            $mime = $finfo === null ? $fileTypes[$key] : finfo_file($finfo, $value);
+            if ($fileTypes[$key] !== $mime || !image::isValidType(\fpcm\model\abstracts\file::retrieveFileExtension($fileNames[$key]), $mime )) {
+                trigger_error('Unsupported filetype '.$mime.' in ' . $fileNames[$key]);
                 $res['error'][$key] = $fileNames[$key];
                 continue;
             }
@@ -115,17 +114,18 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
         if (!is_uploaded_file($this->uploader['tmp_name']) || !trim($this->uploader['name'])) {
             return false;
         }
+        
+        $finfo = function_exists('finfo_open') && function_exists('finfo_file') ? finfo_open(FILEINFO_MIME_TYPE) : null;
+        $mime = $finfo === null ? $this->uploader['type'] : finfo_file($finfo, $this->uploader['tmp_name']);
 
-        if ($this->uploader['size'] > FPCM_AUTHOR_IMAGE_MAX_SIZE) {
-            trigger_error('Uploaded file ' . $this->uploader['name'] . ' is to large, maximum size is ' . \fpcm\classes\tools::calcSize(FPCM_AUTHOR_IMAGE_MAX_SIZE));
+        $ext = \fpcm\model\abstracts\file::retrieveFileExtension($this->uploader['name']);
+        if ($this->uploader['type'] !== $mime || !authorImage::isValidType($ext, $mime )) {
+            trigger_error('Unsupported filetype '.$mime.' in ' . $this->uploader['name']);
             return false;
         }
 
-        $ext = pathinfo($this->uploader['name'], PATHINFO_EXTENSION);
-        $ext = ($ext) ? strtolower($ext) : '';
-
-        if (!in_array($this->uploader['type'], authorImage::$allowedTypes) || !in_array($ext, authorImage::$allowedExts)) {
-            trigger_error('Unsupported filetype in ' . $this->uploader['name']);
+        if ($this->uploader['size'] > FPCM_AUTHOR_IMAGE_MAX_SIZE) {
+            trigger_error('Uploaded file ' . $this->uploader['name'] . ' is to large, maximum size is ' . \fpcm\classes\tools::calcSize(FPCM_AUTHOR_IMAGE_MAX_SIZE));
             return false;
         }
 
