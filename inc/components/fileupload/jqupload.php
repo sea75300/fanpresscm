@@ -18,6 +18,12 @@ namespace fpcm\components\fileupload;
  */
 final class jqupload extends uploader {
 
+    const FILETYPES_IMG = '/\.(gif|jpe?g|png|bmp)$/i';
+
+    const FILETYPES_DRAFTS = '/\.(htm|html|txt)$/i';
+
+    const FILETYPES_MODULES = '/\.(zip)$/i';
+    
     /**
      * Returns CSS files for uploader
      * @return array
@@ -60,7 +66,7 @@ final class jqupload extends uploader {
      */
     public function getJsLangVars(): array
     {
-        return [];
+        return ['SAVE_FAILED_UPLOAD_GEN'];
     }
 
     /**

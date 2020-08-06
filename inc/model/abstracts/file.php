@@ -397,7 +397,7 @@ abstract class file {
      * @since FPCM 3.3
      */
     public function moveUploadedFile($uploadedPath)
-    {
+    {        
         if (!$this->isValidDataFolder($this->filepath)) {
             return false;
         }

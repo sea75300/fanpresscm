@@ -86,11 +86,12 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             'currentModule' => $this->request->getModule(),
             'filesLastSearch' => 0,
             'checkboxRefresh' => true,
-            'uploadDest' => 'default',
+            'uploadDest' => 'default'
         ], $uploader->getJsVars() ));
 
         $this->view->addJsLangVars(array_merge([
-            'FILE_LIST_RENAME_NEWNAME', 'FILE_LIST_ADDTOINDEX', 'GLOBAL_PROPERTIES', 'FILE_LIST_RESOLUTION_PIXEL'
+            'FILE_LIST_RENAME_NEWNAME', 'FILE_LIST_ADDTOINDEX',
+            'GLOBAL_PROPERTIES', 'FILE_LIST_RESOLUTION_PIXEL',
         ], $uploader->getJsLangVars()));
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {

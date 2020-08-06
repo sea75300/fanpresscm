@@ -60,7 +60,7 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController implements \fpc
         return [
             'upload_dir' => \fpcm\model\files\ops::getUploadPath(DIRECTORY_SEPARATOR, $this->config->file_subfolders),
             'upload_url' => \fpcm\model\files\ops::getUploadUrl('/', $this->config->file_subfolders),
-            'accept_file_types' => '/\.(gif|jpe?g|png|bmp)$/i',
+            'accept_file_types' => \fpcm\components\fileupload\jqupload::FILETYPES_IMG,
             'image_versions' => array(
                 'thumbnail' => array(
                     'upload_dir' => \fpcm\model\files\ops::getUploadPath(DIRECTORY_SEPARATOR.'thumbs'.DIRECTORY_SEPARATOR),
@@ -86,7 +86,7 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController implements \fpc
         return [
             'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS, DIRECTORY_SEPARATOR),
             'upload_url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_DRAFTS, '/'),
-            'accept_file_types' => '/\.(htm|html|txt)$/i',
+            'accept_file_types' => \fpcm\components\fileupload\jqupload::FILETYPES_DRAFTS,
             'image_versions' => array(),
             'min_width' => false,
             'max_width' => false,
@@ -106,7 +106,7 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController implements \fpc
         return [
             'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, DIRECTORY_SEPARATOR. $unique. DIRECTORY_SEPARATOR),
             'upload_url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_TEMP, '/'. $unique . '/'),
-            'accept_file_types' => '/\.(zip)$/i',
+            'accept_file_types' => \fpcm\components\fileupload\jqupload::FILETYPES_MODULES,
             'max_number_of_files' => 1,
             'image_versions' => array(),
             'replace_dots_in_filenames' => null,

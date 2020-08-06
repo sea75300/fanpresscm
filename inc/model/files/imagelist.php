@@ -238,7 +238,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
 
                 $phpImgWsp->resizeInPixel(100, 100);
                 $phpImgWsp->save(dirname($image->getFileManagerThumbnail()), basename($image->getFileManagerThumbnail()));
-            } catch (\ErrorException $exc) {
+            } catch (\Exception $exc) {
                 trigger_error('Error while creating filemanager thumbnail '.$image->getFileManagerThumbnail().PHP_EOL.$exc->getMessage());
                 continue;
             }

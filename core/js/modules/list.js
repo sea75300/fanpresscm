@@ -155,6 +155,10 @@ fpcm.filemanager = {
             return false;
         }
 
+        if (_params.result.files[0].error) {
+            return false;
+        }
+
         fpcm.ajax.post('packagemgr/unzcp', {
             data    : {
                 file: _params.files[0].name
@@ -170,6 +174,11 @@ fpcm.filemanager = {
             }
         });
 
+    },
+    
+    getAcceptTypes: function ()
+    {
+        return /(\.|\/)(zip)$/i;
     }
 
 };

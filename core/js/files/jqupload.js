@@ -23,8 +23,15 @@ fpcm.fileuploader = {
             dropZone: fpcm.dom.fromId('fpcm-filemanager-upload-drop'),
             uploadTemplateId: null,
             downloadTemplateId: null,
+            acceptFileTypes: fpcm.filemanager.getAcceptTypes ? fpcm.filemanager.getAcceptTypes() : /(\.|\/)(gif|jpe?g|png)$/i,
             downloadTemplate: function (_params) {
-                return '';
+
+                let file = _params.files[0];
+                if (!file.error) {
+                    return '';
+                }
+
+                return fpcm.fileuploader.createFileListItem(_params, file, false, true);
             },
             uploadTemplate: function (_params) {
 
@@ -33,29 +40,8 @@ fpcm.fileuploader = {
                 }
 
                 let rows = '';
-
                 jQuery.each(_params.files, function (index, file) {
-                    
-                    
-                    let html = '<div class="row template-upload fade py-2 my-2 fpcm ui-background-white-50p fpcm-ui-border-radius-all">';
-                    html += '   <div class="col-12 col-sm-auto fpcm-ui-center jqupload-row-buttons align-self-center">';
-                    
-                    if (!index && !_params.options.autoUpload) {
-                        html += fpcm.vars.jsvars.uploadListButtons.start.replace('{{id}}', (new Date).getTime());
-                    }
-                    
-                    if (!index) {
-                        html += fpcm.vars.jsvars.uploadListButtons.cancel.replace('{{id}}', (new Date).getTime());
-                    }
-                    
-                    html += '   </div>';
-                    html += '   <div class="col-12 col-sm-auto align-self-center fpcm-ui-ellipsis pt-3 pt-sm-0">';
-                    html += '       <span class="name">' + file.name + '</span> (<span class="size">' + _params.formatFileSize(file.size) + '</span>)';
-                    html += '       <strong class="error"></strong>';
-                    html += '   </div>';
-                    html += '</div>';
-                    
-                    rows += html;
+                    rows += fpcm.fileuploader.createFileListItem(_params, file, !index && !_params.options.autoUpload, !index);
                 });
                 
                 return rows;
@@ -107,5 +93,31 @@ fpcm.fileuploader = {
             }, 100);
         });
 
+    },
+    
+    createFileListItem: function (_params, _file, _addUploadButton, _addCancelButton) {
+        
+        let html = '<div class="row template-upload fade py-2 my-2 fpcm ui-background-white-50p fpcm-ui-border-radius-all">';
+        html += '   <div class="col-12 col-sm-auto fpcm-ui-center jqupload-row-buttons align-self-center">';
+
+        if (_addUploadButton) {
+            html += fpcm.vars.jsvars.uploadListButtons.start.replace('{{id}}', (new Date).getTime());
+        }
+
+        if (_addCancelButton) {
+            html += fpcm.vars.jsvars.uploadListButtons.cancel.replace('{{id}}', (new Date).getTime());
+        }
+
+        html += '   </div>';
+        html += '   <div class="col-12 col-md align-self-center fpcm-ui-ellipsis pt-3 pt-sm-0">';
+        html += '       <span class="name">' + _file.name + '</span> (<span class="size">' + _params.formatFileSize(_file.size) + '</span>)';
+        html += '   </div>';
+        html += '   <div class="col-12 col-md align-self-center fpcm-ui-ellipsis pt-3 pt-sm-0">';
+        html += '       <span class="error fpcm fpcm-ui-important-text"> ' + (_file.error ? fpcm.ui.translate('SAVE_FAILED_UPLOAD_GEN').replace('{{uploadMsg}}', _file.error) : '') + '</span>';
+        html += '   </div>';
+        html += '</div>';
+
+        return html;
     }
+    
 };
