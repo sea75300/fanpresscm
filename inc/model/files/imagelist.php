@@ -213,9 +213,10 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
                 continue;
             }
 
-            if (pathinfo($folderFile, PATHINFO_EXTENSION) == 'bmp' || substr($folderFile, -4) === '.bmp') {
+            $ext = \fpcm\model\abstracts\file::retrieveFileExtension($folderFile);
+            if ($ext == 'bmp' || substr($folderFile, -4) === '.bmp') {
                 $msgPath = ops::removeBaseDir($folderFile);
-                fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath}, \"".pathinfo($folderFile, PATHINFO_EXTENSION)."\" is no supported. You may use another image type?");
+                fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath}, \"".$ext."\" is no supported. You may use another image type?");
                 continue;
             }
 
@@ -238,7 +239,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
 
                 $phpImgWsp->resizeInPixel(100, 100);
                 $phpImgWsp->save(dirname($image->getFileManagerThumbnail()), basename($image->getFileManagerThumbnail()));
-            } catch (\ErrorException $exc) {
+            } catch (\Exception $exc) {
                 trigger_error('Error while creating filemanager thumbnail '.$image->getFileManagerThumbnail().PHP_EOL.$exc->getMessage());
                 continue;
             }

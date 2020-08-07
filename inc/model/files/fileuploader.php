@@ -24,6 +24,12 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
     protected $uploader;
 
     /**
+     *
+     * @var \finfo
+     */
+    private $finfo = null;
+
+    /**
      * Konstruktor
      * @param array $uploader includes $_FILES array
      */
@@ -54,11 +60,12 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
                 continue;
             }
 
-            $ext = pathinfo($fileNames[$key], PATHINFO_EXTENSION);
-            $ext = ($ext) ? strtolower($ext) : '';
-
-            if ((isset($fileTypes[$key]) && !in_array($fileTypes[$key], image::$allowedTypes)) || !in_array($ext, image::$allowedExts)) {
-                trigger_error('Unsupported filetype in ' . $fileNames[$key]);
+            $mime = $this->getFinfoData($value);
+            if ($mime === null) {
+                $mime = $fileTypes[$key];
+            }
+            if ($fileTypes[$key] !== $mime || !image::isValidType(\fpcm\model\abstracts\file::retrieveFileExtension($fileNames[$key]), $mime )) {
+                trigger_error('Unsupported filetype '.$mime.' in ' . $fileNames[$key]);
                 $res['error'][$key] = $fileNames[$key];
                 continue;
             }
@@ -116,12 +123,19 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
                 continue;
             }
 
-            $fileName = $this->getUploadFileName($fileNames[$key]);
-
-            $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-            if (strtolower($ext) !== \fpcm\model\packages\package::DEFAULT_EXTENSION) {
-                return false;
+            $mime = $this->getFinfoData($value);
+            if ($mime === null) {
+                $mime = $fileTypes[$key];
             }
+            if ($fileTypes[$key] !== $mime ||
+                $mime !== 'application/zip' ||
+                \fpcm\model\abstracts\file::retrieveFileExtension($fileNames[$key])  !== \fpcm\model\packages\package::DEFAULT_EXTENSION ) {
+                trigger_error('Unsupported filetype '.$mime.' in ' . $fileNames[$key]);
+                $res['error'][$key] = $fileNames[$key];
+                continue;
+            }            
+            
+            $fileName = $this->getUploadFileName($fileNames[$key]);
 
             $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $fileName);
             if (!move_uploaded_file($value, $path)) {
@@ -161,19 +175,36 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
         $fileNames = $this->uploader['name'];
         $fileTypes = $this->uploader['type'];
 
+        $combinations = array_combine(templatefile::$allowedExts, templatefile::$allowedTypes);
+        
         foreach ($tempNames as $key => $value) {
 
-            if (!is_uploaded_file($value) || !isset($fileNames[$key]) || !isset($fileTypes[$key]) || $this->uploader['name'] == 'index.html' || $this->uploader['name'] == 'index.htm') {
+            if (!is_uploaded_file($value) || !isset($fileNames[$key]) || !isset($fileTypes[$key])) {
+                continue;
+            }
+
+            $ext = \fpcm\model\abstracts\file::retrieveFileExtension($fileNames[$key]);
+
+            $mime = $this->getFinfoData($value);
+            if ($mime === null) {
+                $mime = $fileTypes[$key];
+            }
+            
+            $assigned = $combinations[$ext] ?? null;
+            if ($assigned === templatefile::$allowedTypes[0]) {
+                $assigned = templatefile::$allowedTypes[1];
+            }
+
+            if ($assigned === null ){
+                trigger_error('Unsupported filetype '.$mime.' in ' . $fileNames[$key]);
                 return false;
             }
 
-            $ext = pathinfo($fileNames[$key], PATHINFO_EXTENSION);
-            $ext = ($ext) ? strtolower($ext) : '';
-
-            if ((isset($fileTypes[$key]) && !in_array($fileTypes[$key], templatefile::$allowedTypes)) || !in_array($ext, templatefile::$allowedExts)) {
-                trigger_error('Unsupported filetype in ' . $fileNames[$key]);
+            $isValidType = in_array($mime, templatefile::$allowedTypes) && in_array($ext, templatefile::$allowedExts) && $assigned === $mime;
+            if ($fileTypes[$key] !== $mime || !$isValidType) {
+                trigger_error('Unsupported filetype '.$mime.' in ' . $fileNames[$key]);
                 return false;
-            }
+            }                        
 
             $file = new templatefile($fileNames[$key]);
             if (!$file->moveUploadedFile($value)) {
@@ -201,16 +232,19 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
             return false;
         }
 
-        if ($this->uploader['size'] > FPCM_AUTHOR_IMAGE_MAX_SIZE) {
-            trigger_error('Uploaded file ' . $this->uploader['name'] . ' is to large, maximum size is ' . \fpcm\classes\tools::calcSize(FPCM_AUTHOR_IMAGE_MAX_SIZE));
+        $mime = $this->getFinfoData($this->uploader['tmp_name']);
+        if ($mime === null) {
+            $mime = $this->uploader['type'];
+        }        
+
+        $ext = \fpcm\model\abstracts\file::retrieveFileExtension($this->uploader['name']);
+        if ($this->uploader['type'] !== $mime || !authorImage::isValidType($ext, $mime )) {
+            trigger_error('Unsupported filetype '.$mime.' in ' . $this->uploader['name']);
             return false;
         }
 
-        $ext = pathinfo($this->uploader['name'], PATHINFO_EXTENSION);
-        $ext = ($ext) ? strtolower($ext) : '';
-
-        if (!in_array($this->uploader['type'], authorImage::$allowedTypes) || !in_array($ext, authorImage::$allowedExts)) {
-            trigger_error('Unsupported filetype in ' . $this->uploader['name']);
+        if ($this->uploader['size'] > FPCM_AUTHOR_IMAGE_MAX_SIZE) {
+            trigger_error('Uploaded file ' . $this->uploader['name'] . ' is to large, maximum size is ' . \fpcm\classes\tools::calcSize(FPCM_AUTHOR_IMAGE_MAX_SIZE));
             return false;
         }
 
@@ -237,6 +271,26 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
         }
 
         return basename($fileName);
+    }
+
+    /**
+     * Get file information via finfo
+     * @param string $filename
+     * @param int $option
+     * @return string|null
+     * @since FPCM FPCM 4.4.5
+     */
+    protected function getFinfoData(string $filename, int $option = FILEINFO_MIME_TYPE)
+    {
+        if (!class_exists('\finfo')) {
+            return null;
+}
+
+        if (!$this->finfo instanceof \finfo) {
+            $this->finfo = new \finfo();
+        }
+
+        return $this->finfo->file($filename, $option);
     }
 
 }

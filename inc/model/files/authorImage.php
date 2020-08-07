@@ -98,6 +98,10 @@ final class authorImage extends image {
      */
     public function delete()
     {
+        if (!$this->isValidDataFolder($this->filepath)) {
+            return false;
+        }
+
         return unlink($this->fullpath);
     }
 
@@ -151,8 +155,7 @@ final class authorImage extends image {
             return false;
         }
 
-        $ext = pathinfo($this->fullpath, PATHINFO_EXTENSION);
-        $this->extension = ($ext) ? $ext : '';
+        $this->extension = self::retrieveFileExtension($this->fullpath);
         $this->filesize = filesize($this->fullpath);
 
         $fileData = getimagesize($this->fullpath);

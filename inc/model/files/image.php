@@ -479,8 +479,7 @@ class image extends \fpcm\model\abstracts\file {
             return true;            
         }
 
-        $ext = pathinfo($this->fullpath, PATHINFO_EXTENSION);
-        $this->extension = ($ext) ? $ext : '';
+        $this->extension = self::retrieveFileExtension($this->fullpath);
 
         if (!$this->filesize) {
             $this->filesize = filesize($this->fullpath);
@@ -556,7 +555,7 @@ class image extends \fpcm\model\abstracts\file {
     {
         $filename = explode('/', $filename, 2);
 
-        $fn = (isset($filename[1]) ? $filename[1] : $filename[0]);
+        $fn = $filename[1] ?? $filename[0];
         $this->escapeFileName($fn);
         if (isset($filename[1])) {
             $filename[1] = $fn;
@@ -603,8 +602,29 @@ class image extends \fpcm\model\abstracts\file {
 
         }, $info);
 
-        $this->iptcStr = utf8_encode(implode(PHP_EOL, $this->iptcStr));
+        $this->iptcStr = htmlspecialchars(strip_tags(utf8_encode(implode(PHP_EOL, $this->iptcStr))));
         return true;
+    }
+
+    /**
+     * Check if file extension and file type is valid
+     * @param string $ext
+     * @param string $type
+     * @return bool
+     * @since FPCM FPCM 4.4.5
+     */
+    public static function isValidType(string $ext, string $type) : bool
+    {
+        $assigned = array_combine(self::$allowedExts, self::$allowedTypes)[$ext] ?? null;
+        if ($assigned === null) {
+            return false;
+        }
+
+        if ($ext === 'jpg' || $type === 'image/jpg') {
+            $assigned = 'image/jpeg';
+        }
+
+        return in_array($type, self::$allowedTypes) && in_array($ext, self::$allowedExts) && $assigned === $type;
     }
 
 }
