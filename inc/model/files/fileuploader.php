@@ -24,6 +24,12 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
     protected $uploader;
 
     /**
+     *
+     * @var \finfo
+     */
+    private $finfo = null;
+
+    /**
      * Konstruktor
      * @param array $uploader includes $_FILES array
      */
@@ -48,14 +54,16 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
 
         $res = ['error' => [], 'success' => []];
 
-        $finfo = function_exists('finfo_open') && function_exists('finfo_file') ? finfo_open(FILEINFO_MIME_TYPE) : null;
         foreach ($tempNames as $key => $value) {
 
             if (!is_uploaded_file($value) || !isset($fileNames[$key]) || !isset($fileTypes[$key])) {
                 continue;
             }
 
-            $mime = $finfo === null ? $fileTypes[$key] : finfo_file($finfo, $value);
+            $mime = $this->getFinfoData($value);
+            if ($mime === null) {
+                $mime = $fileTypes[$key];
+            }
             if ($fileTypes[$key] !== $mime || !image::isValidType(\fpcm\model\abstracts\file::retrieveFileExtension($fileNames[$key]), $mime )) {
                 trigger_error('Unsupported filetype '.$mime.' in ' . $fileNames[$key]);
                 $res['error'][$key] = $fileNames[$key];
@@ -114,9 +122,11 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
         if (!is_uploaded_file($this->uploader['tmp_name']) || !trim($this->uploader['name'])) {
             return false;
         }
-        
-        $finfo = function_exists('finfo_open') && function_exists('finfo_file') ? finfo_open(FILEINFO_MIME_TYPE) : null;
-        $mime = $finfo === null ? $this->uploader['type'] : finfo_file($finfo, $this->uploader['tmp_name']);
+
+        $mime = $this->getFinfoData($this->uploader['tmp_name']);
+        if ($mime === null) {
+            $mime = $this->uploader['type'];
+        }        
 
         $ext = \fpcm\model\abstracts\file::retrieveFileExtension($this->uploader['name']);
         if ($this->uploader['type'] !== $mime || !authorImage::isValidType($ext, $mime )) {
@@ -152,6 +162,26 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
         }
 
         return basename($fileName);
+    }
+
+    /**
+     * Get file information via finfo
+     * @param string $filename
+     * @param int $option
+     * @return string|null
+     * @since FPCM 4.5
+     */
+    protected function getFinfoData(string $filename, int $option = FILEINFO_MIME_TYPE) : ?string
+    {
+        if (!class_exists('\finfo')) {
+            return null;
+        }
+
+        if (!$this->finfo instanceof \finfo) {
+            $this->finfo = new \finfo();
+        }
+
+        return $this->finfo->file($filename, $option);
     }
 
 }
