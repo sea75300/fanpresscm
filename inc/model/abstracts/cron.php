@@ -264,7 +264,6 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     public function getNextExecTime()
     {
         if ($this->getIntervalTime() === -1) {
-            trigger_error('');
             return '';
         }
 

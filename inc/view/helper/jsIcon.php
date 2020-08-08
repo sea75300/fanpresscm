@@ -27,6 +27,7 @@ class jsIcon extends icon implements \JsonSerializable {
     final public function __construct($icon, $prefix = 'fa', $useFa = true)
     {
         parent::__construct('{{icon}}', '{{prefix}}', true);
+        $this->setClass('{{class}}');
     }
 
     /**
@@ -45,31 +46,21 @@ class jsIcon extends icon implements \JsonSerializable {
      */
     public function jsonSerialize() : array
     {
+        $this->returned = true;
+
         $return = [];
+        $this->setSpinner('{{spinner}}');
+        $this->setSize('{{size}}');
         
         $return['unstacked'] = $this->getString();
-        
-        $this->setSpinner('{{spinner}}');
-        $return['unstackedSpinner'] = $this->getString();
-        
+
         $this->setStack('{{stack}}');
-        $this->setSpinner('');
         $return['stacked'] = $this->getString();
-        
-        $this->setStack('{{stack}}');
-        $this->setSpinner('{{spinner}}');
-        $return['stackedSpinner'] = $this->getString();
-        
-        $this->setStack('{{}stack}');
+
         $this->setStackTop(true);
-        $this->setSpinner('');
         $return['stackedTop'] = $this->getString();
-        
-        $this->setStack('{{}stack}');
-        $this->setStackTop(true);
-        $this->setSpinner('{{spinner}}');
-        $return['stackedTopSpinner'] = $this->getString();
-        
+
+        $return['defaultPrefix'] = 'fa';
         return $return;
     }
 

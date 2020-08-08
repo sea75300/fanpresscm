@@ -677,7 +677,8 @@ class view {
                 'ui' => [
                     'messages' => $this->messages,
                     'lang' => $this->jsLangVars,
-                    'notifyicon' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::CORE_THEME, 'favicon-32x32.png')
+                    'notifyicon' => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, 'favicon-32x32.png'),
+                    'jsIconDummy' => new helper\jsIcon('')
                 ],
                 'jsvars' => $this->jsVars,
                 'actionPath' => \fpcm\classes\tools::getFullControllerLink(''),

@@ -74,7 +74,7 @@ fpcm.installer = {
         var obj = fpcm.vars.jsvars.sqlFiles[fpcm.installer.currentDbFileIndex];
         var rowId = 'installer-tabs-' + fpcm.installer.currentDbFileIndex;
 
-        fpcm.ui.appendHtml('#fpcm-installer-execlist', '<div class="row no-gutters fpcm-ui-padding-md-tb"><div class="col-12" id="' + rowId + '"><span class="fa fa-spinner fa-spin fa-fw"></span> ' + fpcm.ui.translate('INSTALLER_CREATETABLES_STEP').replace('{{tablename}}', obj.descr) + '</div></div>');
+        fpcm.ui.appendHtml('#fpcm-installer-execlist', '<div class="row no-gutters fpcm-ui-padding-md-tb"><div class="col-12" id="' + rowId + '">' + fpcm.ui.getIcon('spinner', { spinner: 'pulse' }) + fpcm.ui.translate('INSTALLER_CREATETABLES_STEP').replace('{{tablename}}', obj.descr) + '</div></div>');
 
         fpcm.ajax.post('installer/initdb', {
             quiet: true,
@@ -85,7 +85,7 @@ fpcm.installer = {
                 jQuery('#fpcm-installer-execlist').find('span.fa-spinner').remove();
 
                 if(result != 0){
-                    fpcm.ui.prependHtml('#' + rowId, '<span class="fa fa-check fa-fw"></span>');
+                    fpcm.ui.prependHtml('#' + rowId, fpcm.ui.getIcon('check') );
                     fpcm.installer.currentDbFileIndex++;
                     fpcm.installer.execDbFile();
                     
@@ -96,7 +96,9 @@ fpcm.installer = {
                     return true;
                 }
 
-                fpcm.ui.prependHtml('#' + rowId, '<span class="fa fa-ban fa-fw fpcm-ui-important-text"></span>');
+                fpcm.ui.prependHtml('#' + rowId, fpcm.ui.getIcon('ban', {
+                    class: 'fpcm-ui-important-text'
+                }));
                 fpcm.installer.breakDbInit = false;
 
                 return false;
