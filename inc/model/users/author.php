@@ -17,6 +17,8 @@ namespace fpcm\model\users;
  */
 class author extends \fpcm\model\abstracts\dataset {
 
+    use \fpcm\model\traits\autoTable;
+    
     /**
      * Error-Code: Benutzer existiert
      */
@@ -150,7 +152,6 @@ class author extends \fpcm\model\abstracts\dataset {
      */
     public function __construct($id = null)
     {
-        $this->table = \fpcm\classes\database::tableAuthors;
         $this->wordbanList = new \fpcm\model\wordban\items();
 
         if ($id !== null) {
