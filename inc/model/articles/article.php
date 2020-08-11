@@ -17,6 +17,8 @@ namespace fpcm\model\articles;
  */
 class article extends \fpcm\model\abstracts\dataset {
 
+    use \fpcm\model\traits\autoTable;
+    
     /**
      * Cache-Name für einzelnen Artikel
      * @since FPCM 3.4
@@ -206,7 +208,6 @@ class article extends \fpcm\model\abstracts\dataset {
      */
     public function __construct($id = null)
     {
-        $this->table = \fpcm\classes\database::tableArticles;
         $this->wordbanList = new \fpcm\model\wordban\items();
         $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
 

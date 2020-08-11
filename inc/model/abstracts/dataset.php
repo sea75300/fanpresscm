@@ -121,6 +121,10 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      */
     public function __construct($id = null)
     {
+        if (method_exists($this, 'getTableName')) {
+            $this->getTableName();
+        }
+        
         $this->dbcon = loader::getObject('\fpcm\classes\database');
         $this->events = loader::getObject('\fpcm\events\events');
         $this->cache = loader::getObject('\fpcm\classes\cache');
@@ -225,7 +229,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      */
     public function init()
     {
-        $data = $this->dbcon->selectFetch((new selectParams($this->table))->setWhere('id = ?')->setParams([$this->id]));
+        $data = $this->dbcon->selectFetch((new selectParams($this->table))->setWhere('id = :id')->setParams(['id' => $this->id]));
         if (!$data) {
             trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!', E_USER_WARNING);
             return false;
