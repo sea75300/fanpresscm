@@ -12,7 +12,7 @@ namespace fpcm\controller\ajax\articles;
  * 
  * @package fpcm\controller\ajax\articles\removeeditortags
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @since FPCM 3.5
+ * @since 3.5
  */
 class imgupload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 

@@ -43,7 +43,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      * Gibt Dateiindex in Datenbank zurück
      * @param int $limit
      * @param int $offset
-     * @return array:\fpcm\model\files\image
+     * @return array
      */
     public function getDatabaseList($limit = false, $offset = false)
     {
@@ -70,7 +70,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     /**
      * Fetch file index by condition
      * @param \fpcm\model\files\search $conditions
-     * @return array:\fpcm\model\files\image
+     * @return array
      */
     public function getDatabaseListByCondition(search $conditions)
     {
@@ -122,7 +122,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     /**
      * Fetch file index by condition
      * @param \fpcm\model\files\search $conditions
-     * @return array:\fpcm\model\files\image
+     * @return array
      */
     public function getDatabaseCountByCondition(search $conditions)
     {
@@ -186,7 +186,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     /**
      * Liefert Anzahl von Dateieinträgen in Datenbank zurück
      * @return int
-     * @since FPCM 3.1
+     * @since 3.1
      */
     public function getDatabaseFileCount()
     {
@@ -274,7 +274,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      * @param array $valueParams
      * @param string $combination
      * @return bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     private function assignSearchParams(search $conditions, array &$where, array &$valueParams, string $combination)
     {

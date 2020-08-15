@@ -58,14 +58,14 @@ final class session extends \fpcm\model\abstracts\dataset {
     /**
      * Kam Session durch externen Login via API zustande?
      * @var bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     protected $external;
 
     /**
      * Session user agent string
      * @var string
-     * @since FPCM 4
+     * @since 4
      */
     protected $useragent = '';
 
@@ -175,7 +175,7 @@ final class session extends \fpcm\model\abstracts\dataset {
     /**
      * Flag auslesen, ob externe Session
      * @return int
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function getExternal()
     {
@@ -537,7 +537,7 @@ final class session extends \fpcm\model\abstracts\dataset {
      * Prüft ob übergebene Session-ID existiert und noch gültig ist
      * @param string $sessionId
      * @return bool
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function pingExternal($sessionId)
     {
@@ -555,7 +555,7 @@ final class session extends \fpcm\model\abstracts\dataset {
     /**
      * Generates session id string
      * @return string
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function generateSessionId() : string
     {

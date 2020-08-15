@@ -88,43 +88,43 @@ final class database {
 
     /**
      * Wordsperre-Tabelle
-     * @since FPCM 3.2
+     * @since 3.2
      */
     const tableTexts = 'texts';
 
     /**
      * Tabelle für revisionen
-     * @since FPCM 3.3
+     * @since 3.3
      */
     const tableRevisions = 'revisions';
 
     /**
      * View for session and user data
-     * @since FPCM 4.4.3
+     * @since 4.4.3
      */
     const viewSessionUserdata = 'session_userdata';
 
     /**
      * View for article counts
-     * @since FPCM 4.5
+     * @since 4.5
      */
     const viewArticleCounts = 'articles_counts';
 
     /**
      * Datenbank-TypKonstante MySQL
-     * @since FPCM 3.5
+     * @since 3.5
      */
     const DBTYPE_MYSQLMARIADB = 'mysql';
 
     /**
      * Datenbank-TypKonstante Postgres
-     * @since FPCM 3.5
+     * @since 3.5
      */
     const DBTYPE_POSTGRES = 'pgsql';
 
     /**
      * Liste mit unterstützten Datenbanksystemen
-     * @since FPCM 3.3
+     * @since 3.3
      * mysql => MySQL 5.5 + oder MariaDB 10 +
      * pgsql => Postgres 9 +
      */
@@ -142,7 +142,7 @@ final class database {
     /**
      * Datenbank-Treiber
      * @var \fpcm\drivers\sqlDriver
-     * @since FPCM 3.2
+     * @since 3.2
      */
     private $driver;
 
@@ -155,14 +155,14 @@ final class database {
     /**
      * Datenbank-Typ
      * @var string
-     * @since FPCM 3.2
+     * @since 3.2
      */
     private $dbtype;
 
     /**
      * Database name
      * @var string
-     * @since FPCM 4.5
+     * @since 4.5
      */
     private $dbname;
 
@@ -175,7 +175,7 @@ final class database {
     /**
      * Common error code for last query
      * @var string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     private $lastQueryErrorCode = null;
 
@@ -188,14 +188,14 @@ final class database {
     /**
      * Tabelle, in welcher zuletzt eine Aktion durchgeführt wurde
      * @var string
-     * @since FPCM 3.2
+     * @since 3.2
      */
     private $lastTable = '';
 
     /**
      * SQL-Query via explain testen
      * @var bool
-     * @since FPCM 3.6
+     * @since 3.6
      */
     private $explain = false;
 
@@ -342,7 +342,7 @@ final class database {
      * @param array $params
      * @param array $where
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function updateMultiple($table, array $fields, array $params = [], array $where = [])
     {
@@ -485,7 +485,7 @@ final class database {
      * @param string $field
      * @param bool $isUnique
      * @return bool
-     * @since FPCM 3.3.1
+     * @since 3.3.1
      */
     public function createIndex($table, $indexName, $field, $isUnique = false)
     {
@@ -543,7 +543,7 @@ final class database {
      * Führt SQL-Datei aus
      * @param string $path
      * @return bool
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     public function execSqlFile($path)
     {
@@ -585,7 +585,7 @@ final class database {
      * Parst YaTDL-Datei und führt SQL-Statement aus
      * @param string $path
      * @return bool
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     public function execYaTdl($path)
     {
@@ -753,7 +753,7 @@ final class database {
     /**
      * Returns common sql error code
      * @return string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public function getLastQueryErrorCode()
     {
@@ -785,7 +785,7 @@ final class database {
      * Erzeugt CONCAT SQL-String
      * @param array $fields
      * @return string
-     * @since FPCM 3.1.0
+     * @since 3.1.0
      */
     public function concatString(array $fields)
     {
@@ -797,7 +797,7 @@ final class database {
      * @param string $delim
      * @param array $fields
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function implodeCols($delim, array $fields)
     {
@@ -810,7 +810,7 @@ final class database {
      * @param array $values
      * @param bool $not
      * @return string
-     * @since FPCM 4.2.1
+     * @since 4.2.1
      */
     public function inQuery(string $field, array $values, bool $not = false) : string
     {
@@ -820,7 +820,7 @@ final class database {
     /**
      * Erzeugt LIKE-SQL-String
      * @return string
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     public function dbLike()
     {
@@ -831,7 +831,7 @@ final class database {
      * Erzeugt Query für Optimierungsvorgang auf Datenbank-Tabellen
      * @param string $table Name der Tabelle
      * @return bool
-     * @since FPCM 3.3.0
+     * @since 3.3.0
      */
     public function optimize($table)
     {
@@ -851,7 +851,7 @@ final class database {
      * Kompletten Tabellen-Name mit Prefix zurückgeben
      * @param string $table
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function getTablePrefixed($table)
     {
@@ -866,7 +866,7 @@ final class database {
     /**
      * Datenbank-Typ zurückgeben
      * @return string
-     * @since FPCM 3.2
+     * @since 3.2
      */
     public function getDbtype()
     {
@@ -876,7 +876,7 @@ final class database {
     /**
      * Gibt Anzahl an ausgeführt Datenbank-Queries zurück
      * @return int
-     * @since FPCM 3.1.0
+     * @since 3.1.0
      */
     public function getQueryCount()
     {
@@ -886,7 +886,7 @@ final class database {
     /**
      * Gibt Datentypen-Map zurück für YATDL
      * @return array
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     public function getYaTDLDataTypes()
     {
@@ -896,7 +896,7 @@ final class database {
     /**
      * Gibt Version des verbundenen Datenbank-Systems zurück
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function getDbVersion()
     {
@@ -906,7 +906,7 @@ final class database {
     /**
      * Prüft, ob aktuelle Version des DBMS >= der empfohlenen Version ist
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function checkDbVersion()
     {
@@ -916,7 +916,7 @@ final class database {
     /**
      * Gibt Version des verbundenen Datenbank-Systems zurück
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function getRecommendVersion()
     {
@@ -929,7 +929,7 @@ final class database {
      * @param string $field
      * @param string $cache
      * @return array
-     * @since FPCM 3.3.2
+     * @since 3.3.2
      */
     public function getTableStructure($table, $field = false, $cache = true)
     {
@@ -1036,7 +1036,7 @@ final class database {
      * Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl 
      * @param \fpcm\model\system\yatdl $yatdl
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function addTableIndices(\fpcm\model\system\yatdl $yatdl)
     {
@@ -1077,7 +1077,7 @@ final class database {
      * @param string $viewName
      * @param string $queryString
      * @return bool
-     * @since FPCM 4.4.3-rc1
+     * @since 4.4.3-rc1
      */
     public function createView(string $viewName, string $queryString) : bool
     {
@@ -1096,7 +1096,7 @@ final class database {
      * Datei data/config/database.php erzeugen
      * @param array $data
      * @return bool
-     * @since FPCM 3.5.1
+     * @since 3.5.1
      */
     public function createDbConfigFile(array $data)
     {
@@ -1140,7 +1140,7 @@ final class database {
      * Liefert YMl-Dateien aus Pfad zurück
      * @param string $path
      * @return array
-     * @since FPCM 3.3.2
+     * @since 3.3.2
      */
     public static function getTableFiles($path = false)
     {
@@ -1164,7 +1164,7 @@ final class database {
     /**
      * SQL-EXPLAIN de/aktivieren
      * @param bool $explain
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function setExplain($explain)
     {
@@ -1196,7 +1196,7 @@ final class database {
      * @param string $field
      * @param bool $cache
      * @return array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function getTableIndices(string $table, $field = false, $cache = true) : array
     {

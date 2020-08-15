@@ -14,7 +14,7 @@ namespace fpcm\model\permissions;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.4
+ * @since 4.4
  */
 class permissions extends \fpcm\model\abstracts\dataset {
 
@@ -334,7 +334,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
     /**
      * Init permission object items
      * @return bool
-     * @since FPCM 4.4
+     * @since 4.4
      */
     final protected function initItems()
     {
@@ -354,7 +354,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
      * Returns event base string
      * @see \fpcm\model\abstracts\dataset::getEventModule
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function getEventModule(): string
     {
@@ -365,7 +365,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
      * Is triggered after successful database insert
      * @see \fpcm\model\abstracts\dataset::afterSaveInternal
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterSaveInternal(): bool
     {

@@ -58,8 +58,9 @@ class pubController extends controller {
     }
 
     /**
-     * Access check processing
-     * @return bool, false prevent execution of @see request() @see process()
+     * Access check processing,
+     * false prevent execution of @see request() @see process()
+     * @return bool
      */
     public function hasAccess()
     {

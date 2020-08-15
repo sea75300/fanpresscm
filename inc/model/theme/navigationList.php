@@ -14,7 +14,7 @@ namespace fpcm\model\theme;
  * @copyright (c) 2017-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\theme
- * @since FPCM 4.5
+ * @since 4.5
  */
 final class navigationList implements \ArrayAccess {
 

@@ -28,7 +28,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
     /**
      * Wortsperren-Liste
      * @var \fpcm\model\wordban\items
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     protected $wordbanList;
 
@@ -71,7 +71,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
     /**
      * Returns translates roll name
      * @return string
-     * @since FPCM 4.0.3
+     * @since 4.0.3
      */
     public function getRollNameTranslated() : string
     {
@@ -170,7 +170,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
     /**
      * Führt Ersetzung von gesperrten Texten in Kommentar-Daten durch
      * @return bool
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     protected function removeBannedTexts()
     {

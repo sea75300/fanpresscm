@@ -13,7 +13,7 @@ namespace fpcm\model\crons;
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\crons
- * @since FPCM 3.4
+ * @since 3.4
  */
 class removeRevisions extends \fpcm\model\abstracts\cron {
 

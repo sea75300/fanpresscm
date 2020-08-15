@@ -14,7 +14,7 @@ namespace fpcm\view\helper;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4-5
+ * @since 4-5
  */
 class jsIcon extends icon implements \JsonSerializable {
 
@@ -33,7 +33,7 @@ class jsIcon extends icon implements \JsonSerializable {
     /**
      * Return text set on icon
      * @return string
-     * @since FPCM 4.5
+     * @since 4.5
      */
     public function getText() : string
     {

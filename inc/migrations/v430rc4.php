@@ -14,7 +14,7 @@ namespace fpcm\migrations;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\migrations
- * @since FPCM 4.3
+ * @since 4.3
  * @see migration
  */
 class v430rc4 extends migration {

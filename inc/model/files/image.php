@@ -183,7 +183,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     /**
      * Checks if file amanager thumbnail exists
      * @return bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function hasFileManageThumbnail() : bool {
         return file_exists($this->getFileManagerThumbnail());
@@ -398,7 +398,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     /**
      * Prüft, ob Bild nur in Dateisystem existiert
      * @return bool
-     * @since FPCM 3.1.2
+     * @since 3.1.2
      */
     public function existsFolder()
     {
@@ -502,7 +502,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
      * Füllt Objekt mit Daten aus Datenbank-Result
      * @param object $object
      * @return bool
-     * @since FPCM 3.1.2
+     * @since 3.1.2
      */
     public function createFromDbObject($object)
     {
@@ -532,7 +532,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     /**
      * Bereitet Eigenschaften des Objects zum Speichern ind er Datenbank vor und entfernt nicht speicherbare Eigenschaften
      * @return array
-     * @since FPCM 3.1.2
+     * @since 3.1.2
      */
     protected function getPreparedSaveParams()
     {
@@ -549,7 +549,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
      * Splits filename with possible folder
      * @param string $filename
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function splitFilename(string $filename) : string
     {
@@ -571,7 +571,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
      * reads IPTC data from file
      * @param array $info
      * @return bool
-     * @since FPCM 4.2.1 
+     * @since 4.2.1 
      */
     public function parseIptc($info)
     {
@@ -611,7 +611,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
      * @param string $ext
      * @param string $type
      * @return bool
-     * @since FPCM 4.5
+     * @since 4.5
      * @see \fpcm\model\interfaces\validateFileType
      */
     public static function isValidType(string $ext, string $type, array $map = []) : bool

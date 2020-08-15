@@ -14,7 +14,7 @@ namespace fpcm\model\files;
  * @copyright (c) 2017, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\articles
- * @since FPCM 3.6.3
+ * @since 3.6.3
  * 
  * @property int $datefrom seit Datum X.Y.Z
  * @property int $dateto bis Datum X.Y.Z

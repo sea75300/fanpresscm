@@ -14,7 +14,7 @@ namespace fpcm\controller\ajax\categories;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2019-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.3
+ * @since 4.3
  */
 class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 

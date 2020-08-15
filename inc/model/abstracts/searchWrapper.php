@@ -14,7 +14,9 @@ namespace fpcm\model\abstracts;
  * @copyright (c) 2017, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\abstracts
- * @since FPCM 3.5
+ * @since 3.5
+ * @package fpcm\model\abstracts
+ * @abstract
  */
 abstract class searchWrapper extends staticModel {
 
@@ -24,7 +26,7 @@ abstract class searchWrapper extends staticModel {
     /**
      * Multiple search flag
      * @var bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     protected $isMultiple = false;
 
@@ -49,7 +51,7 @@ abstract class searchWrapper extends staticModel {
     /**
      * Is multiple flag set
      * @return bool
-     * @since FPCM 4.2
+     * @since 4.2
      */
     public function isMultiple() : bool
     {
@@ -60,7 +62,7 @@ abstract class searchWrapper extends staticModel {
      * Sets multiple lag
      * @param bool $isMultiple
      * @return $this
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function setMultiple(bool $isMultiple)
     {

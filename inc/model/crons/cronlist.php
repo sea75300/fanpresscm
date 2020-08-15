@@ -84,7 +84,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
      * Cronjob zur Ausführung via AJAX registrieren
      * @param \fpcm\model\abstracts\cron $cron
      * @return bool
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     public function registerCronAjax(\fpcm\model\abstracts\cron $cron)
     {
@@ -114,7 +114,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
     /**
      * Returns a list of cronjobs to be executed within the current request
      * @return array
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     public function getExecutableCrons()
     {
@@ -129,7 +129,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
     /**
      * Returns a list of all registered cronjobs
      * @return array
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function getAllCrons() : array
     {
@@ -145,7 +145,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
      * @param array $values
      * @param bool $activeOnly
      * @return array
-     * @since FPCM 4.3
+     * @since 4.3
      */
     private function getResult(array $values, $activeOnly = false) : array
     {

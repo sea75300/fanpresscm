@@ -104,7 +104,7 @@ class module {
     /**
      * Module base path
      * @var string
-     * @since FPCM 4.3
+     * @since 4.3
      */
     protected $basePath = '';
 
@@ -320,7 +320,7 @@ class module {
     /**
      * Check if module base folder and module.yml file are writable
      * @return bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function isWritable() : bool
     {
@@ -373,7 +373,7 @@ class module {
     /**
      * Checks if file system version number matches module.yml data
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function hasLocalUpdates() : bool
     {
@@ -396,7 +396,7 @@ class module {
     /**
      * Check if config/files.txt file exists
      * @return bool
-     * @since FÜPCM 4.1
+     * @since  4.1
      */
     final public function hasFilesListFile() : bool
     {
@@ -1037,7 +1037,7 @@ class module {
      * @param string $key
      * @param string $cron
      * @return string
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public static function getCronNamespace(string $key, string $cron) : string
     {
@@ -1071,7 +1071,7 @@ class module {
      * @param string $key
      * @param string $filePath
      * @return string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public static function getJsDirByKey(string $key, string $filePath) : string
     {
@@ -1083,7 +1083,7 @@ class module {
      * @param string $key
      * @param string $filePath
      * @return string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public static function getStyleDirByKey(string $key, string $filePath) : string
     {
@@ -1105,7 +1105,7 @@ class module {
      * Get base path from module
      * @param string $key
      * @return string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public static function getModuleBasePathFromKey(string $key) : string
     {
@@ -1116,7 +1116,7 @@ class module {
      * Returns root URL for module path
      * @param string $key
      * @return string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public static function getModuleUrlFromKey(string $key) : string
     {
@@ -1137,7 +1137,7 @@ class module {
      * Validate module key
      * @param string $key
      * @return bool
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public static function validateKey(string $key) : bool
     {

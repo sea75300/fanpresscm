@@ -14,7 +14,7 @@ namespace fpcm\model\crons;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.1.4
+ * @since 3.1.4
  */
 class fileindex extends \fpcm\model\abstracts\cron {
 

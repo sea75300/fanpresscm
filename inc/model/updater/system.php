@@ -20,6 +20,7 @@ use fpcm\model\packages\update;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @package fpcm\model\updater
  * 
  * @property string $version New system version
  * @property bool $force Force update to new version
@@ -38,13 +39,13 @@ final class system extends staticModel {
 
     /**
      * Develop prefix
-     * @since FPCM 4.4.3-rc1
+     * @since 4.4.3-rc1
      */
     const PREFIX_DEV = 'dev';
 
     /**
      * Default prefix
-     * @since FPCM 4.4.3-rc1
+     * @since 4.4.3-rc1
      */
     const PREFIX_DEFAULT = 'default';
 
@@ -141,7 +142,7 @@ final class system extends staticModel {
     /**
      * Check if data/config/files.txt path exists
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     final public function filesListExists() : bool
     {

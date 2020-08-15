@@ -22,91 +22,91 @@ final class http {
 
     /**
      * HTTP Filter strip_tags
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_STRIPTAGS = 1;
 
     /**
      * HTTP Filter htmlspecialchars
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_HTMLSPECIALCHARS = 2;
 
     /**
      * HTTP Filter htmlentities
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_HTMLENTITIES = 3;
 
     /**
      * HTTP Filter stripslashes
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_STRIPSLASHES = 4;
 
     /**
      * HTTP Filter htmlspecialchars_decode
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_HTMLSPECIALCHARS_DECODE = 5;
 
     /**
      * HTTP Filter html_entity_decode
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_HTMLENTITY_DECODE = 6;
 
     /**
      * HTTP Filter trim
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_TRIM = 7;
 
     /**
      * HTTP Filter json_decode
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_JSON_DECODE = 8;
 
     /**
      * HTTP Filter intval
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_CASTINT = 9;
 
     /**
      * HTTP Filter crypt::decrypt
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_DECRYPT = 10;
 
     /**
      * HTTP Filter urldecode
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_URLDECODE = 11;
 
     /**
      * HTTP Filter base64_decode
-     * @since FPCM 4
+     * @since 4
      */
     const FILTER_BASE64DECODE = 12;
 
     /**
      * HTTP Filter ucfirst
-     * @since FPCM 4
+     * @since 4
      */
     const FILTER_FIRSTUPPER = 13;
 
     /**
      * Regex filter
-     * @since FPCM 4.3
+     * @since 4.3
      */
     const FILTER_REGEX = 14;
 
     /**
      * Regex replace filter
-     * @since FPCM 4.3
+     * @since 4.3
      */
     const FILTER_REGEX_REPLACE = 15;
 

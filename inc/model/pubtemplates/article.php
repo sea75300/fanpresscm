@@ -91,7 +91,7 @@ final class article extends template {
     /**
      * List of attributes by replacement tag
      * @var array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected $replacementAttributesMap = [
         '{{sources}}' => ['descr', 'descrAlt', 'hideEmpty']
@@ -236,7 +236,7 @@ final class article extends template {
      * @param array $replacementData
      * @param callable $callback
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     private function processAttributes(string $tag, $value, array &$replacementData, callable $callback) : bool
     {
@@ -256,7 +256,7 @@ final class article extends template {
      * Parse short text tag
      * @param mixed $value
      * @param array $return
-     * @since FPCM 4.4
+     * @since 4.4
      */
     protected function parseTextShort($value, array &$return)
     {
@@ -277,7 +277,7 @@ final class article extends template {
      * Parse comment link tag
      * @param mixed $value
      * @param array $return
-     * @since FPCM 4.4
+     * @since 4.4
      */
     protected function parseSources($value, array &$return)
     {
@@ -310,7 +310,7 @@ final class article extends template {
      * Parse gallery tag
      * @param string $content
      * @return string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     protected function parseGallery(string $content) : string
     {

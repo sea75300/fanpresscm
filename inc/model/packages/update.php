@@ -14,7 +14,7 @@ namespace fpcm\model\packages;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.1
+ * @since 3.1
  */
 class update extends package {
 
@@ -271,7 +271,7 @@ class update extends package {
     /**
      * Get data/config/files.txt path
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     final public static function getFilesListPath() : string
     {

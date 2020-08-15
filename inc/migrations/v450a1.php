@@ -14,7 +14,7 @@ namespace fpcm\migrations;
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\migrations
- * @since FPCM 4.5.0-a1
+ * @since 4.5.0-a1
  * @see migration
  */
 class v450a1 extends migration {

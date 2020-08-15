@@ -13,7 +13,7 @@ namespace fpcm\controller\ajax\templates;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\controller\ajax\system\cronasync
- * @since FPCM 3.4
+ * @since 3.4
  */
 class savetemptpl extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 

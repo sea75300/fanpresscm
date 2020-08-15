@@ -20,7 +20,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
     /**
      * Navigation list
      * @var navigationList
-     * @since FPCM 4.5
+     * @since 4.5
      */
     private $navList;
 

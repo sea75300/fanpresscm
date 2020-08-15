@@ -14,7 +14,7 @@ namespace fpcm\view\helper;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.2
+ * @since 4.2
  */
 final class dateTimeInput extends input {
 

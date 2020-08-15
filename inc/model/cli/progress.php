@@ -15,7 +15,7 @@ namespace fpcm\model\cli;
  * @author mayconbordin, https://gist.github.com/mayconbordin
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.4-b5
+ * @since 4.4-b5
  */
 final class progress {
 

@@ -12,7 +12,7 @@ namespace fpcm\components;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2018-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @package fpcm\model\http
+ * @package fpcm\components
  */
 final class components {
 
@@ -99,7 +99,7 @@ final class components {
     /**
      * Return jQuery libary path, generic instance
      * @return fileupload\uploader
-     * @since FPCM 4.5
+     * @since 4.5
      */
     public static function getFileUploader($uploader = '\\fpcm\\components\\fileupload\\jqupload') : object
     {
@@ -114,7 +114,7 @@ final class components {
     /**
      * Return jQuery libary path, generic instance
      * @return string
-     * @since FPCM 4.5
+     * @since 4.5
      */
     public static function getjQuery() : string
     {

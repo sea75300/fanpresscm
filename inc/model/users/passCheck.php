@@ -13,7 +13,7 @@ namespace fpcm\model\users;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.1
+ * @since 4.1
  */
 class passCheck extends \fpcm\model\abstracts\remoteModel {
 

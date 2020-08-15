@@ -187,7 +187,7 @@ class viewVars {
      * @param array $params
      * @return string
      * @see \fpcm\classes\tools::getControllerLink
-     * @since FPCM 4.2
+     * @since 4.2
      */
     public function controllerLink(string $controller, array $params = []) : string
     {
@@ -202,7 +202,7 @@ class viewVars {
      * @param string $delimTousands
      * @return string
      * @see \fpcm\classes\tools::calcSize
-     * @since FPCM 4.2
+     * @since 4.2
      */
     public function calcSize(int $value, int $decimals = 2, string $delimDec = ',', string $delimTousands = '.') : string
     {
@@ -212,7 +212,7 @@ class viewVars {
     /**
      * Returns page token field view helper object
      * @return \fpcm\view\helper\pageTokenField
-     * @since FPCM 4.3 as own funktion
+     * @since 4.3 as own funktion
      */
     final public function pageTokenField() : helper\pageTokenField
     {
@@ -225,7 +225,7 @@ class viewVars {
      * @param string $prefix
      * @param bool $useFa
      * @return \fpcm\view\helper\icon
-     * @since FPCM 4.3 as own funktion
+     * @since 4.3 as own funktion
      */
     final public function icon(string $icon, string $prefix = 'fa', bool $useFa = true) : helper\icon
     {

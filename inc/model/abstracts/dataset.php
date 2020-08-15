@@ -17,6 +17,7 @@ use fpcm\model\dbal\selectParams;
  * Model base object
  * 
  * @package fpcm\model\abstracts
+ * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -92,7 +93,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     /**
      * Notifications
      * @var \fpcm\model\theme\notifications
-     * @since FPCM 3.6
+     * @since 3.6
      */
     protected $notifications;
 
@@ -290,7 +291,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     /**
      * Executes save process to database and events
      * @return bool|int
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function save()
     {
@@ -323,7 +324,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     /**
      * Executes update process to database and events
      * @return bool|int
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function update()
     {
@@ -435,7 +436,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     /**
      * Bereitet Daten für Speicherung in Datenbank vor
      * @return bool
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function prepareDataSave()
     {
@@ -455,7 +456,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      * Returns full event name string
      * @param string $event
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     final protected function getEventName(string $event) : string
     {
@@ -465,14 +466,14 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     /**
      * Returns event base string
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     abstract protected function getEventModule() : string;
 
     /**
      * Is triggered after successful database insert
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterSaveInternal() : bool
     {
@@ -482,7 +483,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     /**
      * Is triggered after successful database update
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterUpdateInternal() : bool
     {

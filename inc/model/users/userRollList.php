@@ -117,7 +117,7 @@ class userRollList extends \fpcm\model\abstracts\tablelist {
      * Returns translated IDs by id string
      * @param string $data
      * @return array
-     * @since FPCM 4.0.3
+     * @since 4.0.3
      */
     public function getRollsbyIdString(string $data) : array
     {

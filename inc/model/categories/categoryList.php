@@ -49,7 +49,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
     /**
      * Liefert ein array aller Kategorien
      * @return array
-     * @since FPCM 3.3
+     * @since 3.3
      */
     public function getCategoriesNameListAll()
     {
@@ -162,7 +162,7 @@ class categoryList extends \fpcm\model\abstracts\tablelist {
      * Mass edit
      * @param array $ids
      * @param array $fields
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function editCategoriesByMass(array $ids, array $fields)
     {

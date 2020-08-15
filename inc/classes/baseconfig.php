@@ -130,7 +130,7 @@ final class baseconfig {
     /**
      * Lädt crypt.php
      * @return array
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public static function getCryptConfig()
     {
@@ -146,7 +146,7 @@ final class baseconfig {
     /**
      * Lädt sec.php
      * @return array
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public static function getSecurityConfig()
     {
@@ -162,7 +162,7 @@ final class baseconfig {
     /**
      * Lädt version.txt
      * @return string
-     * @since FPCM 4
+     * @since 4
      */
     public static function getVersionFromFile()
     {
@@ -198,7 +198,7 @@ final class baseconfig {
     /**
      * HTTPS aktiv
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public static function canHttps()
     {
@@ -212,7 +212,7 @@ final class baseconfig {
     /**
      * Aufruf über CLI
      * @return bool
-     * @since FPCM 4.0
+     * @since 4.0
      */
     public static function isCli()
     {
@@ -226,7 +226,7 @@ final class baseconfig {
     /**
      * Aufruf über CLI
      * @return bool
-     * @since FPCM 4.0
+     * @since 4.0
      */
     public static function noToken()
     {

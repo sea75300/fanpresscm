@@ -14,7 +14,7 @@ namespace fpcm\model\theme;
  * @copyright (c) 2017, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\theme
- * @since FPCM 3.6
+ * @since 3.6
  */
 class notificationItem {
 
@@ -98,7 +98,7 @@ class notificationItem {
     /**
      * Return callback string
      * @return string
-     * @since FPCM 4.5
+     * @since 4.5
      */
     private function getCallback() : string
     {

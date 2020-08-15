@@ -74,7 +74,7 @@ final class language {
     /**
      * Load language variables
      * @return bool
-     * @since FPCm 4.5
+     * @since 4.5
      */
     private function init() : bool
     {
@@ -115,7 +115,7 @@ final class language {
      * Get language file name and path
      * @param string $name
      * @return string|null
-     * @since FPCM 4.5
+     * @since 4.5
      */
     private function getFileName(string $name) : ?string
     {
@@ -127,7 +127,7 @@ final class language {
      * Load language data from file
      * @param string $name
      * @return void
-     * @since FPCM 4.5
+     * @since 4.5
      */
     private function loadDataFromSystem(string $name) : void
     {
@@ -310,7 +310,7 @@ final class language {
     /**
      * Returns full language data
      * @return array
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public function getAll() : array
     {
@@ -346,7 +346,7 @@ final class language {
      * @param array $vars
      * @param array $lists
      * @return bool
-     * @since FPCM 4.5
+     * @since 4.5
      */
     public function saveFiles(array $vars, array $lists) : bool
     {
@@ -402,7 +402,7 @@ final class language {
      * @param string $file
      * @param string $content
      * @return bool
-     * @since FPCM 4.5
+     * @since 4.5
      */
     private function writeNewFile(string $file, string $content) : bool
     {

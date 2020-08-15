@@ -14,7 +14,7 @@ namespace fpcm\drivers;
  * @article Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.2
+ * @since 3.2
  */
 final class mysql implements sqlDriver {
 
@@ -105,7 +105,7 @@ final class mysql implements sqlDriver {
      * Erzeugt Query für Optimierungsvorgang auf Datenbank-Tabellen
      * @param string $table
      * @return string
-     * @since FPCM 3.3.0
+     * @since 3.3.0
      */
     public function optimize($table)
     {
@@ -119,7 +119,7 @@ final class mysql implements sqlDriver {
      * @param string $field
      * @param string $isUnique
      * @return string
-     * @since FPCM 3.3.1
+     * @since 3.3.1
      */
     public function createIndexString($table, $indexName, $field, $isUnique)
     {
@@ -136,7 +136,7 @@ final class mysql implements sqlDriver {
      * @param string $delim
      * @param array $fields
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function implodeCols($delim, array $fields)
     {
@@ -168,7 +168,7 @@ final class mysql implements sqlDriver {
     /**
      * Liefert empfohlene Version für Datenbank-System zurück
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function getRecommendVersion()
     {
@@ -180,7 +180,7 @@ final class mysql implements sqlDriver {
      * @param string $table
      * @param string $field
      * @return string
-     * @since FPCM 3.3.2
+     * @since 3.3.2
      */
     public function getTableStructureQuery($table, $field = false)
     {
@@ -197,7 +197,7 @@ final class mysql implements sqlDriver {
      * @param object $colRow
      * @param array $data
      * @return bool
-     * @since FPCM 3.3.2
+     * @since 3.3.2
      */
     public function prepareColRow($colRow, array &$data)
     {
@@ -219,7 +219,7 @@ final class mysql implements sqlDriver {
      * @param string $table
      * @param string $field
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function getTableIndexQuery(string $table, $field = false): string
     {
@@ -237,7 +237,7 @@ final class mysql implements sqlDriver {
      * @param object $row
      * @param array $data
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function prepareIndexRow(string $table, $row, array &$data): bool
     {
@@ -263,7 +263,7 @@ final class mysql implements sqlDriver {
 
     /**
      * Table exists pre-check query
-     * @since FPCM 4.5
+     * @since 4.5
      */
     public function getPreChecktableExistsQuery() : string
     {

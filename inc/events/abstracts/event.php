@@ -20,25 +20,25 @@ abstract class event {
 
     /**
      * Array returntype für Module-Event
-     * @since FPCM 3.4
+     * @since 3.4
      */
     const RETURNTYPE_ARRAY = 'array';
 
     /**
      * Object returntype für Module-Event
-     * @since FPCM 3.4
+     * @since 3.4
      */
     const RETURNTYPE_OBJ = 'object';
 
     /**
      * Object returntype für Module-Event
-     * @since FPCM 4
+     * @since 4
      */
     const RETURNTYPE_SCALAR = 'scalar';
 
     /**
      * Object returntype für Module-Event
-     * @since FPCM 4
+     * @since 4
      */
     const RETURNTYPE_VOID = null;
 
@@ -155,7 +155,7 @@ abstract class event {
     /**
      * User acan execute event
      * @return bool
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public function isExecutable() : bool
     {
@@ -190,7 +190,7 @@ abstract class event {
     /**
      * Liefert Array mit Event-Klassen in installierten Modulen zurück
      * @return array
-     * @since FPCM 3.3
+     * @since 3.3
      */
     protected function getEventClasses()
     {

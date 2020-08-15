@@ -20,7 +20,7 @@ class shares extends \fpcm\model\abstracts\tablelist {
     /**
      * Articles shares count cache
      * @var array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected $sharesCache = [];
 
@@ -70,7 +70,7 @@ class shares extends \fpcm\model\abstracts\tablelist {
      * Fetch share count sum for all articles
      * @param array $ids
      * @return array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function getSharesCountByArticles(array $ids = []) : array
     {

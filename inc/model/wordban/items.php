@@ -6,7 +6,7 @@
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.2.0
+ * @since 3.2.0
  */
 
 namespace fpcm\model\wordban;
@@ -16,7 +16,7 @@ namespace fpcm\model\wordban;
  * 
  * @package fpcm\model\wordban
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @since FPCM 3.2.0
+ * @since 3.2.0
  */
 class items extends \fpcm\model\abstracts\tablelist {
 
@@ -102,7 +102,7 @@ class items extends \fpcm\model\abstracts\tablelist {
      * Prüft, ob Suchtext in $text angegeben ist um Artikel auf zu Prüfung zu setzen
      * @param string $text
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function checkArticleApproval($text)
     {
@@ -137,7 +137,7 @@ class items extends \fpcm\model\abstracts\tablelist {
      * Prüft, ob Suchtext in $text angegeben ist um Kommentar auf zu Prüfung zu setzen
      * @param string $text
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function checkCommentApproval($text)
     {

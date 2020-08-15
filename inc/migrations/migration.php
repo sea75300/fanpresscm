@@ -14,7 +14,7 @@ namespace fpcm\migrations;
  * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\migrations
- * @since FPCM 4.3
+ * @since 4.3
  */
 abstract class migration {
 
@@ -171,7 +171,7 @@ abstract class migration {
      * @param string $str
      * @param bool $error
      * @return void
-     * @since FPCM 4.3
+     * @since 4.3
      */
     final protected function output(string $str, $error = false)
     {
@@ -257,7 +257,7 @@ abstract class migration {
      * Returns a list of database driver names the migration should be executed to,
      * default is MySQL/ MariaDB and Postgres
      * @return array
-     * @since FPCM 4.4.1
+     * @since 4.4.1
      */
     protected function onDatabase() : array
     {

@@ -75,7 +75,7 @@ class ajaxController extends controller {
      * Check page token
      * @param string $name
      * @return bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     final protected function checkPageToken($name = 'token')
     {

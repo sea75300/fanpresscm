@@ -12,6 +12,7 @@ namespace fpcm\model\interfaces;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @package fpcm\model\interfaces
  */
 interface dashcontainer {
 

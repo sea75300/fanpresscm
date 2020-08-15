@@ -62,7 +62,7 @@ abstract class file {
     /**
      * Notifications
      * @var \fpcm\model\theme\notifications
-     * @since FPCM 3.6
+     * @since 3.6
      */
     protected $notifications;
 
@@ -117,7 +117,7 @@ abstract class file {
     /**
      * Cache Modul
      * @var string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     protected $cacheModule = '';
     
@@ -354,7 +354,7 @@ abstract class file {
     /**
      * File SHA256 hash
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function getFileHash() : string
     {
@@ -393,7 +393,7 @@ abstract class file {
      * Verschiebt via PHP Upload hochgeladene Datei von tmp-Pfad nach Zielpfad
      * @param string $uploadedPath
      * @return bool
-     * @since FPCM 3.3
+     * @since 3.3
      */
     public function moveUploadedFile($uploadedPath)
     {        
@@ -407,7 +407,7 @@ abstract class file {
     /**
      * Lädt Inhalt von gespeicherter Datei
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function loadContent()
     {
@@ -427,7 +427,7 @@ abstract class file {
     /**
      * Lädt Inhalt von gespeicherter Datei
      * @return bool
-     * @since FPCM 4.2
+     * @since 4.2
      */
     public function writeContent()
     {
@@ -441,7 +441,7 @@ abstract class file {
     /**
      * ist Datei beschreibbar
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function isWritable()
     {
@@ -451,7 +451,7 @@ abstract class file {
     /**
      * ist Datei lesbar
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function isReadable()
     {
@@ -464,7 +464,7 @@ abstract class file {
      * @param string $path
      * @param string $type
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function isValidDataFolder(string $path = '', string $type = '/') : bool
     {
@@ -479,7 +479,7 @@ abstract class file {
      * "realpath" wrapper for non-existing files
      * @param string $path
      * @return string
-     * @since FPCM 4.5
+     * @since 4.5
      * @see ops::realpathNoExists
      */
     protected function realpathNoExists(string $path) : string
@@ -491,7 +491,7 @@ abstract class file {
      * Retrieve file extension via pathinfo
      * @param string $filename
      * @return string
-     * @since FPCM 4.5
+     * @since 4.5
      */
     public static function retrieveFileExtension(string $filename) : string
     {

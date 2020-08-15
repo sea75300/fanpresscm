@@ -60,7 +60,7 @@ class view {
     /**
      * <body> CSS class
      * @var string
-     * @since FPCM 4.2
+     * @since 4.2
      */
     protected $bodyClass = '';
 
@@ -85,14 +85,14 @@ class view {
     /**
      * View JS files
      * @var array
-     * @since FPCM 4.5
+     * @since 4.5
      */
     protected $jsFilesLate = [];
 
     /**
      * Local view files in core/js
      * @var array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected $jsFilesLocal = [];
 
@@ -183,7 +183,7 @@ class view {
     /**
      * Root urls for replacements
      * @var array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected $rootUrls = [];
     
@@ -253,7 +253,7 @@ class view {
     /**
      * Checks item if included system paths
      * @param string $item
-     * @since FPCM 3.6
+     * @since 3.6
      */
     private function addRootPath($item)
     {
@@ -276,7 +276,7 @@ class view {
      * Checks path type of given JS file
      * @param string $item
      * @param string $jsCorePath
-     * @since FPCM 4.1
+     * @since 4.1
      */
     private function getJsFileType(string $item, &$jsCorePath) : int
     {
@@ -418,7 +418,7 @@ class view {
 
     /**
      * Add array of buttons to toolbar
-     * @param array[fpcm/view/helper/helper] $buttons
+     * @param array $buttons Array of fpcm/view/helper/helper items
      */
     public function addButtons(array $buttons)
     {
@@ -451,7 +451,7 @@ class view {
 
     /**
      * Force to load jQuery in Pub-Controllers before other JS-Files if not already done
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     public function prependjQuery()
     {
@@ -476,7 +476,7 @@ class view {
      * Adds top description
      * @param string $descr
      * @param array $params
-     * @since FPCM 4.2
+     * @since 4.2
      */
     public function addTopDescription(string $descr, array $params = [])
     {
@@ -780,7 +780,7 @@ class view {
     /**
      * Returns Sha256-hash on view path
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function getViewHash() : string
     {
@@ -791,7 +791,7 @@ class view {
      * Returns Sha256-hash on view path
      * @param string $viewHash
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function setViewHashDefault(string $viewHash) : bool
     {
@@ -825,7 +825,7 @@ class view {
      * Set Active tab
      * @param int $tab
      * @return void
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function setActiveTab(int $tab)
     {
@@ -837,7 +837,7 @@ class view {
      * Set <body>-tag CSS class
      * @param int $bodyClass
      * @return void
-     * @since FPCM 4.2
+     * @since 4.2
      */
     public function setBodyClass(string $bodyClass)
     {
@@ -892,7 +892,7 @@ class view {
      * @param string $tabsId
      * @param array $tabs
      * @param string $tabsClass
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function addTabs(string $tabsId, array $tabs, string $tabsClass = '')
     {
@@ -916,7 +916,7 @@ class view {
     /**
      * Add HTML items into toolbar right hand to pager
      * @param string $data
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function addToolbarRight(string $data)
     {
@@ -943,7 +943,7 @@ class view {
      * Add AJAX page token to view
      * @param string $name
      * @return bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function addAjaxPageToken(string $name) : bool
     {

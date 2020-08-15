@@ -109,6 +109,12 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected $view;
 
     /**
+     * View events namespace
+     * @var string
+     */
+    protected $viewEvents = 'theme';
+
+    /**
      * Page token check result
      * @var bool
      */
@@ -119,12 +125,6 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @var bool
      */
     protected $execDestruct = true;
-
-    /**
-     * View events namespace
-     * @var bool
-     */
-    protected $viewEvents = 'theme';
 
     /**
      * Check if controller was defined in module
@@ -251,6 +251,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * Controller Redirect
      * @param string $controller
      * @param array $params
+     * @return bool
      */
     protected function redirect($controller = '', array $params = [])
     {
@@ -350,7 +351,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Get controller access lock module
-     * @return array()
+     * @return string
      */
     protected function getIpLockedModul()
     {
@@ -359,7 +360,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Get controller permissions
-     * @return array()
+     * @return array
      */
     protected function getPermissions()
     {
@@ -387,6 +388,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     /**
      * Controller processing
      * @return bool
+     * @see \fpcm\controller\interfaces\controller
      */
     public function process()
     {
@@ -394,8 +396,10 @@ class controller implements \fpcm\controller\interfaces\controller {
     }
 
     /**
-     * Request processing
-     * @return bool, false prevent execution of @see process()
+     * Request processing,
+     * false prevent execution
+     * @return bool
+     * @see \fpcm\controller\interfaces\controller
      */
     public function request()
     {
@@ -403,8 +407,10 @@ class controller implements \fpcm\controller\interfaces\controller {
     }
 
     /**
-     * Access check processing
-     * @return bool, false prevent execution of @see request() @see process()
+     * Access check processing,
+     * false prevent execution of request() and process()
+     * @return bool
+     * @see \fpcm\controller\interfaces\controller
      */
     public function hasAccess()
     {
@@ -440,7 +446,8 @@ class controller implements \fpcm\controller\interfaces\controller {
     /**
      * Process click of form items as function
      * @return bool
-     * @since FPCM 4.4 (experimental)
+     * @since 4.4 
+     * @todo experimental
      */
     public function processButtons() : bool
     {
@@ -525,7 +532,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     /**
      * Returns active tab ID, jQuery UI zero-based index
      * @return int
-     * @since FPCM 4.1
+     * @since 4.1
      */
     final protected function getActiveTab() : int
     {
@@ -549,7 +556,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param string $prefix
      * @param string $actionFrom
      * @return real|bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     final protected function processByParam(string $prefix = self::BYPARAM_DEFAULT_PREFIX, string $actionFrom = self::BYPARAM_DEFAULT_ACTION)
     {
@@ -576,7 +583,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     /**
      * Initialize permission object
      * @return bool
-     * @since FPCM 4.4
+     * @since 4.4
      */    
     protected function initPermissionObject() : bool
     {

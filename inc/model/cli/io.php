@@ -14,7 +14,7 @@ namespace fpcm\model\cli;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.3.1
+ * @since 4.3.1
  */
 final class io {
 

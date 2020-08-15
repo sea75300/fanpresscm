@@ -14,7 +14,7 @@ namespace fpcm\model\comments;
  * @copyright (c) 2017, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\comments
- * @since FPCM 3.5
+ * @since 3.5
  * 
  * @property int $articleid Artikel-ID
  * @property int $datefrom seit Datum X.Y.Z

@@ -17,7 +17,7 @@ namespace fpcm\controller\ajax\comments;
  * 
  * @package fpcm\controller\ajax\comments\search
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @since FPCM 3.3
+ * @since 3.3
  */
 class search extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 

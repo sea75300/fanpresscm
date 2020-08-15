@@ -114,14 +114,14 @@ class comment extends \fpcm\model\abstracts\dataset {
     /**
      * Wortsperren-Liste
      * @var \fpcm\model\wordban\items
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     protected $wordbanList;
 
     /**
      * Status ob Kommentar bearbeitet werden kann
      * @var bool
-     * @since FPCM 3.3
+     * @since 3.3
      */
     protected $editPermission = true;
 
@@ -269,7 +269,7 @@ class comment extends \fpcm\model\abstracts\dataset {
     /**
      * Liefert Status, ob Kommentar bearbeitet werden kann zurück
      * @return bool
-     * @since FPCM 3.3
+     * @since 3.3
      */
     public function getEditPermission()
     {
@@ -396,7 +396,7 @@ class comment extends \fpcm\model\abstracts\dataset {
     /**
      * Setzt Status, ob Kommentar bearbeitet werden kann
      * @param bool $editPermission
-     * @since FPCM 3.3
+     * @since 3.3
      */
     public function setEditPermission($editPermission)
     {
@@ -431,7 +431,7 @@ class comment extends \fpcm\model\abstracts\dataset {
     /**
      * Bereitet Daten für Speicherung in Datenbank vor
      * @return bool
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function prepareDataSave()
     {
@@ -493,7 +493,7 @@ class comment extends \fpcm\model\abstracts\dataset {
     /**
      * Führt Ersetzung von gesperrten Texten in Kommentar-Daten durch
      * @return bool
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     protected function removeBannedTexts()
     {
@@ -517,7 +517,7 @@ class comment extends \fpcm\model\abstracts\dataset {
      * Returns event base string
      * @see \fpcm\model\abstracts\dataset::getEventModule
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function getEventModule(): string
     {
@@ -528,7 +528,7 @@ class comment extends \fpcm\model\abstracts\dataset {
      * Is triggered after successful database insert
      * @see \fpcm\model\abstracts\dataset::afterSaveInternal
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterSaveInternal(): bool
     {
@@ -540,7 +540,7 @@ class comment extends \fpcm\model\abstracts\dataset {
      * Is triggered after successful database update
      * @see \fpcm\model\abstracts\dataset::afterUpdateInternal
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterUpdateInternal(): bool
     {

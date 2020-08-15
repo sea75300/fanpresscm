@@ -14,7 +14,7 @@ namespace fpcm\view\helper;
  * @copyright (c) 2017, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\view\helper
- * @since FPCM 4
+ * @since 4
  */
 class tabItem extends helper {
 
@@ -60,7 +60,7 @@ class tabItem extends helper {
      * File path
      * @param string $file
      * @return $this
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function setFile(string $file) 
     {
@@ -72,7 +72,7 @@ class tabItem extends helper {
     /**
      * Tab required file inclution
      * @return bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function getFile() : string
     {

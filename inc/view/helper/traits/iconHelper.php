@@ -50,7 +50,7 @@ trait iconHelper {
     /**
      * Spinner class for icon
      * @var string
-     * @since FPCM 4.2
+     * @since 4.2
      */
     protected $spinner = '';
 

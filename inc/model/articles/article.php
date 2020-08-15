@@ -21,19 +21,19 @@ class article extends \fpcm\model\abstracts\dataset {
     
     /**
      * Cache-Name für einzelnen Artikel
-     * @since FPCM 3.4
+     * @since 3.4
      */
     const CACHE_ARTICLE_SINGLE = 'articlesingle';
 
     /**
      * Cache-Module-Name
-     * @since FPCM 3.4
+     * @since 3.4
      */
     const CACHE_ARTICLE_MODULE = 'articles';
 
     /**
      * Sources auto-complete fileoption name
-     * @since FPCM 4.1
+     * @since 4.1
      */
     const SOURCES_AUTOCOMPLETE = 'articles/sources';
 
@@ -100,7 +100,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Pfad zum Artikel-Bild
      * @var string
-     * @since FPCM 3.1.0
+     * @since 3.1.0
      */
     protected $imagepath = '';
 
@@ -131,14 +131,14 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Artikel-Quellen
      * @var string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     protected $sources = '';
 
     /**
      * Artikel-Quellen
      * @var int
-     * @since FPCM 3.5
+     * @since 3.5
      */
     protected $inedit = '';
 
@@ -170,35 +170,35 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Wortsperren-Liste
      * @var \fpcm\model\wordban\items
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     protected $wordbanList;
 
     /**
      * Crypto-Objekt
      * @var \fpcm\classes\crypt
-     * @since FPCM 3.6
+     * @since 3.6
      */
     protected $crypt;
 
     /**
      * Status ob Artikel bearbeitet werden kann
      * @var bool
-     * @since FPCM 3.3
+     * @since 3.3
      */
     protected $editPermission = true;
 
     /**
      * Text für überschriebenes Tweet-Template
      * @var string
-     * @since FPCM 3.3
+     * @since 3.3
      */
     protected $tweetOverride = false;
 
     /**
      * TWeet Erstellung aktivieren
      * @var bool
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     protected $tweetCreate = null;
 
@@ -347,7 +347,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Gibt Pfad zum Artikel-Bild zurück
      * @return string
-     * @since FPCM 3.1.0
+     * @since 3.1.0
      */
     public function getImagepath()
     {
@@ -357,7 +357,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Liefert Status, ob Artikel bearbeitet werden kann zurück
      * @return bool
-     * @since FPCM 3.3
+     * @since 3.3
      */
     public function getEditPermission()
     {
@@ -367,7 +367,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Gibt Artikel-Quellen zurück
      * @return bool
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function getSources()
     {
@@ -377,7 +377,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Tweet-Erstellung aktiv?
      * @return bool
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     function tweetCreationEnabled()
     {
@@ -513,7 +513,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Setzt Pfad zum Artikel-Bild
      * @param string $imagepath
-     * @since FPCM 3.1.0
+     * @since 3.1.0
      */
     public function setImagepath($imagepath)
     {
@@ -524,7 +524,7 @@ class article extends \fpcm\model\abstracts\dataset {
      * Setzt Artikel-Quellen-Daten
      * @param string $sources
      * @return bool
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function setSources($sources)
     {
@@ -534,7 +534,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Setzt Status, ob Artikel bearbeitet werden kann
      * @param bool $editPermission
-     * @since FPCM 3.3
+     * @since 3.3
      */
     public function setEditPermission($editPermission)
     {
@@ -553,7 +553,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Text für überschriebenes Tweet-Template zurückgeben
      * @return string
-     * @since FPCM 3.3
+     * @since 3.3
      */
     function getTweetOverride()
     {
@@ -563,7 +563,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Text für überschriebenes Tweet-Template setzen
      * @param string $tweetOverride
-     * @since FPCM 3.3
+     * @since 3.3
      */
     function setTweetOverride($tweetOverride)
     {
@@ -573,7 +573,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Tweet-Erstellung aktivieren
      * @param bool $tweetCreate
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     function enableTweetCreation($tweetCreate)
     {
@@ -610,7 +610,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Link zum Löschen des Artikel-Caches
      * @return string
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function getArticleCacheParams()
     {
@@ -655,7 +655,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Liefert <img>-Tag für Artikel-Image zurück
      * @return string
-     * @since FPCM 3.1.0
+     * @since 3.1.0
      */
     public function getArticleImage()
     {
@@ -693,7 +693,7 @@ class article extends \fpcm\model\abstracts\dataset {
 
     /**
      * Artikel-Daten für Revision vorbereiten
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function prepareRevision()
     {
@@ -777,7 +777,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Anzahl Revisionen des Artikels
      * @return array
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function getRevisionsCount()
     {
@@ -874,7 +874,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Sperrt Artikel als in Bearbeitung
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function setInEdit()
     {
@@ -884,7 +884,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * In Bearbeitung Informationen auslesen
      * @return array
-     * @since FPCM 3.5.3
+     * @since 3.5.3
      */
     public function getInEdit()
     {
@@ -894,7 +894,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Ist Artikel in Bearbeitung
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function isInEdit()
     {
@@ -909,7 +909,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Prüft, ob Artikel öffentlich sichtbar ist
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function publicIsVisible()
     {
@@ -1020,7 +1020,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Führt Ersetzung von gesperrten Texten in Artikel-Daten durch
      * @return bool
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     protected function removeBannedTexts()
     {
@@ -1039,7 +1039,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Bereinigt Caches
      * @return void
-     * @since FPCM 3.4-rc3
+     * @since 3.4-rc3
      */
     private function cleanupCaches()
     {
@@ -1053,7 +1053,7 @@ class article extends \fpcm\model\abstracts\dataset {
      * Returns event base string
      * @see \fpcm\model\abstracts\dataset::getEventModule
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function getEventModule() : string
     {
@@ -1064,7 +1064,7 @@ class article extends \fpcm\model\abstracts\dataset {
      * Is triggered after successful database insert
      * @see \fpcm\model\abstracts\dataset::afterSaveInternal
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterSaveInternal(): bool
     {
@@ -1077,7 +1077,7 @@ class article extends \fpcm\model\abstracts\dataset {
      * Is triggered after successful database update
      * @see \fpcm\model\abstracts\dataset::afterUpdateInternal
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterUpdateInternal(): bool
     {
@@ -1091,7 +1091,7 @@ class article extends \fpcm\model\abstracts\dataset {
      * Add sources string to auto-complete file option, max. 25 values saved
      * @param string $sources
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     static public function addSourcesAutocomplete(string $sources) : bool
     {
@@ -1111,7 +1111,7 @@ class article extends \fpcm\model\abstracts\dataset {
     /**
      * Fetch sources strings from auto-complete file option
      * @return array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     static public function fetchSourcesAutocomplete() : array
     {

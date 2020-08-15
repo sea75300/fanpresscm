@@ -12,6 +12,7 @@ namespace fpcm\model\packages;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @package fpcm\model\packages
  */
 abstract class package {
 
@@ -57,19 +58,19 @@ abstract class package {
 
     /**
      * Fehler bei Schreibrechte-Prüfung vorhandener Dateien
-     * @since FPCM 3.5
+     * @since 3.5
      */
     const FILESCHECK_ERROR = 909;
 
     /**
      * Fehler bei Schreibrechte-Prüfung vorhandener Dateien
-     * @since FPCM 3.5
+     * @since 3.5
      */
     const REMOTEPATH_UNTRUSTED = 910;
 
     /**
      * Fehler bei Schreibrechte-Prüfung vorhandener Dateien
-     * @since FPCM 3.5
+     * @since 3.5
      */
     const DEFAULT_EXTENSION = 'zip';
 
@@ -355,7 +356,7 @@ abstract class package {
     /**
      * Return prevalidation flag
      * @return bool
-     * @since FPCM 4.5
+     * @since 4.5
      */
     public function isPreValidated() : bool
     {
@@ -388,7 +389,7 @@ abstract class package {
      * @param bool $success
      * @return bool
      * @see package::copy
-     * @since FPCM 3.6
+     * @since 3.6
      */
     protected function updateProtocol($file, $success)
     {

@@ -13,7 +13,9 @@ namespace fpcm\model\abstracts;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.2.0
+ * @since 3.2.0
+ * @package fpcm\model\abstracts
+ * @abstract
  */
 abstract class tablelist {
 
@@ -56,7 +58,7 @@ abstract class tablelist {
     /**
      * Notifications
      * @var \fpcm\model\theme\notifications
-     * @since FPCM 3.6
+     * @since 3.6
      */
     protected $notifications;
 
@@ -69,14 +71,14 @@ abstract class tablelist {
     /**
      * Cache Modul
      * @var string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     protected $cacheModule = '';
 
     /**
      * Data array
      * @var array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected $data = [];
 

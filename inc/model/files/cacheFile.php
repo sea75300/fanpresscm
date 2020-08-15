@@ -154,7 +154,7 @@ class cacheFile {
      * Initialize cache module name
      * @param string $module
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     protected function initCacheModule($module)
     {

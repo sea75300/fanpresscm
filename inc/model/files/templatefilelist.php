@@ -14,7 +14,7 @@ namespace fpcm\model\files;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\files
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @since FPCM 3.3
+ * @since 3.3
  */
 final class templatefilelist extends \fpcm\model\abstracts\filelist {
 
@@ -54,7 +54,7 @@ final class templatefilelist extends \fpcm\model\abstracts\filelist {
     /**
      * Gibt Liste von Dateiobjekte zurück
      * @return array
-     * @since FPCM 3.3
+     * @since 3.3
      */
     public function getFolderObjectList()
     {
