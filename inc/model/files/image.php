@@ -15,19 +15,19 @@ namespace fpcm\model\files;
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class image extends \fpcm\model\abstracts\file {
+class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces\validateFileType {
 
     /**
      * Erlaubte Dateitypen
      * @var array
      */
-    public static $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/bmp'];
+    public static $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
 
     /**
      * Erlaubte Dateiendungen
      * @var array
      */
-    public static $allowedExts = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+    public static $allowedExts = ['jpeg', 'jpg', 'png', 'gif'];
 
     /**
      * ID von Datei-Eintrag in DB
@@ -612,8 +612,9 @@ class image extends \fpcm\model\abstracts\file {
      * @param string $type
      * @return bool
      * @since FPCM 4.5
+     * @see \fpcm\model\interfaces\validateFileType
      */
-    public static function isValidType(string $ext, string $type) : bool
+    public static function isValidType(string $ext, string $type, array $map = []) : bool
     {
         $assigned = array_combine(self::$allowedExts, self::$allowedTypes)[$ext] ?? null;
         if ($assigned === null) {

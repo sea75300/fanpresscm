@@ -36,6 +36,30 @@ class imagesTest extends testBase {
         $this->assertEquals($GLOBALS['imageCreated'], $object->getFiletime());
         $this->assertTrue($object->delete());
     }
+    
+    public function testValidateType()
+    {
+        $files = glob(__DIR__.DIRECTORY_SEPARATOR.'icon.*');
+        $this->assertIsArray($files);
+        $this->assertCount(3, $files);
+
+        foreach ($files as $file) {
+            $ext = fpcm\model\abstracts\file::retrieveFileExtension($file);
+            $this->assertTrue(in_array($ext, ['png', 'jpg', 'gif']));
+            $mime = (new finfo(FILEINFO_MIME_TYPE))->file($file);
+            $this->assertTrue(\fpcm\model\files\image::isValidType($ext, $mime), 'Mismatched ' . $ext . ' and ' . $mime);    
+        }
+        
+        unset($ext, $file, $files);
+
+        $file = __DIR__.DIRECTORY_SEPARATOR.'failed.bmp';
+        $ext = fpcm\model\abstracts\file::retrieveFileExtension($file);
+        $this->assertEquals('bmp', $ext);
+
+        $mime = (new finfo(FILEINFO_MIME_TYPE))->file($file);
+        $this->assertFalse(\fpcm\model\files\image::isValidType($ext, $mime));   
+
+    }
 
     private function createImage()
     {

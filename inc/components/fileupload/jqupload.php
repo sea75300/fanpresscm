@@ -18,7 +18,7 @@ namespace fpcm\components\fileupload;
  */
 final class jqupload extends uploader {
 
-    const FILETYPES_IMG = '/\.(gif|jpe?g|png|bmp)$/i';
+    const FILETYPES_IMG = '/\.(gif|jpe?g|png)$/i';
 
     const FILETYPES_DRAFTS = '/\.(htm|html|txt)$/i';
 
