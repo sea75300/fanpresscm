@@ -121,22 +121,103 @@ class update extends package {
     }
 
     /**
+     * Create backup zip archive for current version
+     * @return bool
+     * @since 4.5
+     */
+    public function backup() : bool
+    {
+        $srcBasePath = \fpcm\classes\dirs::getFullDirPath('');
+        $files = $this->retrieveFilesFromFileTxt($srcBasePath);
+        if (!count($files)) {
+            return false;
+        }
+
+        /* @var $conf \fpcm\model\system\config */
+        $conf = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
+        $backupFile = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_BACKUP, 'fsback_'.preg_replace('/[^0-9a-z]/i', '', $conf->system_version).'.zip' );
+
+        if ($this->archive->open($backupFile, \ZipArchive::CREATE | \ZipArchive::OVERWRITE ) !== true) {
+            trigger_error('Unable to open backup ZIP archive: ' . $backupFile);
+            return false;
+        }
+
+        $progress = new \fpcm\model\cli\progress(count($files));
+
+        $zip = $this->archive;
+        
+        $dirs = array_filter($files, function($file) {
+            return is_dir($this->replaceFanPressBaseFolder($file));
+        });
+
+        $opsys = 0;
+        $attr = 0;
+        $error = 0;
+        $counter = 0;
+        
+        array_walk($dirs, function ($path, $i) use ($backupFile, $progress, &$counter, &$error, &$zip, &$opsys, &$attr) {
+
+            $counter++;
+            
+            $progress->setCurrentValue($counter);
+            $progress->output();
+
+            if ($this->archive->getExternalAttributesName($path, $opsys, $attr)) {
+                return true;
+            }
+            
+            if ($zip->addEmptyDir($path)) {
+                return true;
+            }
+
+            $error++;
+            trigger_error('Failed to add '.$path . ' to backup file '.$backupFile, E_USER_WARNING);
+            return false;
+        });
+        
+        unset($dirs);
+        
+        $realFiles = array_filter($files, function($file) {
+            return !is_dir($this->replaceFanPressBaseFolder($file));
+        });
+
+        array_walk($realFiles, function ($path, $i) use ($backupFile, $progress, &$counter, &$error, &$zip, &$opsys, &$attr) {
+
+            $counter++;
+            
+            $progress->setCurrentValue($counter);
+            $progress->output();
+
+            $fullPath = $this->replaceFanPressBaseFolder($path);            
+            if ($this->archive->getExternalAttributesName($path, $opsys, $attr)) {
+                return true;
+            }
+
+            if ($zip->addFile($fullPath, $path)) {
+                return true;
+            }
+
+            $error++;
+            trigger_error('Failed to add '.$path . ' to backup file '.$backupFile, E_USER_WARNING);
+            return false;
+        });
+
+        $this->archive->close();
+        return $error ? false : true;
+    }
+
+    /**
      * Updates files in local file system
      * @return bool
      */
     public function copy()
     {
-        $srcBasePath = $this->getExtractionPath();        
-        $files       = $this->getFileList($srcBasePath. DIRECTORY_SEPARATOR. 'fanpress'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'files.txt', 1);
+        $srcBasePath = $this->getExtractionPath();
+        $files = $this->retrieveFilesFromFileTxt($srcBasePath . DIRECTORY_SEPARATOR . fanpress);
         if (!count($files)) {
             return self::FILESCOPY_ERROR;
         }
-        
-        $excludes = $this->getExcludes();
-        $files = array_filter(array_diff($files, $excludes), function ($file) {
-            return trim($file) ? true : false;
-        });
-        
+
         $progress = new \fpcm\model\cli\progress(count($files));
 
         $proto = [];
@@ -172,19 +253,13 @@ class update extends package {
 
             if ($destExists) {
 
+                if (file_exists($dest.'.back')) {
+                    unlink($dest.'.back');
+                }
+
                 if (\fpcm\model\files\ops::hashFile($src) === \fpcm\model\files\ops::hashFile($dest)) {
                     $proto[] = $dest.' > file update skipped';
                     continue;
-                }
-
-                $backFile = $dest.'.back';
-                if (file_exists($backFile)) {
-                    unlink($backFile);
-                }
-
-                if (!copy($dest, $backFile)) {
-                    $failed[] = $backFile.' > backup creation failed';
-                    $proto[] = $backFile.' > backup creation failed';
                 }
 
             }
@@ -265,7 +340,7 @@ class update extends package {
      */
     private function getExcludes()
     {
-        return ['fanpress'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'installer.enabled'];
+        return ['fanpress'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'installer.enabled', 'fanpress'.DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'backup'];
     }
 
     /**
@@ -276,6 +351,25 @@ class update extends package {
     final public static function getFilesListPath() : string
     {
         return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt');
+    }
+
+    /**
+     * Retrieves file list for package
+     * @return array
+     * @since 4.5
+     */
+    private function retrieveFilesFromFileTxt(string $srcBasePath) : array
+    {  
+        $files = $this->getFileList($srcBasePath .DIRECTORY_SEPARATOR.'data'.DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'files.txt', 1);
+        if (!count($files)) {
+            return [];
+        }
+        
+        $excludes = $this->getExcludes();
+        return array_filter(array_diff($files, $excludes), function ($file) {
+            return trim($file) ? true : false;
+        });
+
     }
 
 }

@@ -204,6 +204,13 @@ final class pkg extends \fpcm\model\abstracts\cli {
         }
         $this->output('-- Finished.' . PHP_EOL);
 
+        $this->output('Backup files in local file systems...');
+        $success = $pkg->backup();
+        if ($success !== true) {
+            $this->output('File system backup ' . basename($pkg->getLocalPath()) . ' was not successful. ERROR CODE: ' . $success, true);
+        }
+        $this->output('-- Finished.' . PHP_EOL);
+
         $this->output('Update files in local file systems...');
         $success = $pkg->copy();
         if ($success !== true) {

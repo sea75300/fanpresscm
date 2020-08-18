@@ -48,6 +48,12 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
     protected $pkgdata = [];
 
     /**
+     * Returned message
+     * @var \fpcm\view\message
+     */
+    protected $message;
+
+    /**
      * Version data file
      * @var \fpcm\model\files\tempfile
      */
@@ -77,38 +83,29 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
      */
     public function process()
     {
-        if (!method_exists($this, $this->step)) {
-            trigger_error('Update step '.$this->step.' not defined!');           
-            $this->response->setReturnData([
-                'code' => $this->res,
-                'pkgdata' => $this->pkgdata
-            ])->fetch();
-        }
 
         $this->init();
+        if ($this->processByParam('exec', 'step') === self::ERROR_PROCESS_BYPARAMS) {
+            $this->response->setReturnData(new \fpcm\model\http\responseDataPkgMgr(false))->fetch();
+        }
 
-        call_user_func([$this, $this->step]);
-        
-        $this->response->setReturnData([
-            'code' => $this->res,
-            'pkgdata' => $this->pkgdata
-        ]);
+        $this->response->setReturnData(new \fpcm\model\http\responseDataPkgMgr($this->res, $this->pkgdata, $this->message));
 
         usleep(500000);
         $this->response->fetch();
     }
 
-    private function execMaintenanceOn()
+    protected function execMaintenanceOn()
     {
         $this->res = $this->config->setMaintenanceMode(true) && \fpcm\classes\baseconfig::enableAsyncCronjobs(false);
     }
 
-    private function execMaintenanceOff()
+    protected function execMaintenanceOff()
     {
         $this->res = $this->config->setMaintenanceMode(false) && \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
     }
 
-    private function execCheckFiles()
+    protected function execCheckFiles()
     {
         $success = $this->pkg->checkFiles();
         if ($success === \fpcm\model\packages\package::FILESCHECK_ERROR) {
@@ -124,7 +121,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
         fpcmLogSystem('Local file system check was successful');
     }
 
-    private function execDownload()
+    protected function execDownload()
     {
         if (!$this->pkg->isTrustedPath()) {
             $this->addErrorMessage('PACKAGES_FAILED_DOWNLOAD_UNTRUSTED', [
@@ -145,7 +142,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
         $this->res = false;
     }
     
-    private function execCheckPkg()
+    protected function execCheckPkg()
     {
         $this->res = $this->pkg->checkPackage();
         if ($this->res === true) {
@@ -157,7 +154,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
         $this->res = false;
     }
 
-    private function execExtract()
+    protected function execExtract()
     {
         $this->res = $this->pkg->extract();
         if ($this->res === true) {
@@ -170,7 +167,20 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
         $this->res = false;
     }
 
-    private function execUpdateFs()
+    protected function execBackupFs()
+    {
+        $this->res = $this->pkg->backup();
+        if ($this->res === true) {
+            fpcmLogSystem('File system back from '.basename($this->pkg->getLocalPath()).' was successful.');
+            return true;
+        }
+
+        $this->addErrorMessage('PACKAGES_FAILED_ERROR_BACKUPS');
+        \fpcm\classes\baseconfig::enableAsyncCronjobs(true);
+        $this->res = false;
+    }
+
+    protected function execUpdateFs()
     {
         $this->res = $this->pkg->copy();
         if ($this->res === true) {
@@ -183,7 +193,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
         $this->res = false;
     }
 
-    private function execUpdateDb()
+    protected function execUpdateDb()
     {
         $finalizer = new \fpcm\model\updater\finalizer();
         $this->res = $finalizer->runUpdate();
@@ -196,14 +206,14 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
         fpcmLogSystem('Database update failed. See error and database log for further information.');
     }
     
-    private function execUpdateLog()
+    protected function execUpdateLog()
     {
         fpcmLogSystem('Update package manager logfile!');
         $this->res = $this->pkg->updateLog();
         return;
     }
 
-    private function execCleanup()
+    protected function execCleanup()
     {
         fpcmLogSystem('Cleanup of outdated and temporary files!');
         $this->pkg->cleanupFiles();
@@ -212,7 +222,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
         $this->res = true;
     }
 
-    private function execGetVersion()
+    protected function execGetVersion()
     {
         $this->pkgdata['version'] = $this->config->system_version;
         $this->res = true;
@@ -229,7 +239,7 @@ class processUpdate extends \fpcm\controller\abstracts\ajaxController implements
      */
     private function addErrorMessage($var, $params = [])
     {
-        $this->pkgdata['errorMsg'] = $this->language->translate($var, $params);
+        $this->message = new \fpcm\view\message($this->language->translate($var, $params), \fpcm\view\message::TYPE_ERROR);
     }
 }
 
