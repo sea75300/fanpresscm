@@ -17,6 +17,10 @@ fpcm.ui_chart = {
             return false;
         }
 
+        if (!_chartConf.data || !_chartConf.data || !_chartConf.data.datasets) {
+            return false;
+        }
+
         for (var i = 0; i < _chartConf.data.datasets.length; i++) {
             _chartConf.data.datasets[i].borderWidth = (_chartConf.type === 'line' ? 2 : 0);            
         }

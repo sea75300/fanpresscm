@@ -254,7 +254,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
             $this->article->setTweetOverride($data['tweettxt']);
         }
 
-        if (!$this->article->getId()) {
+        if (!$this->article->getId() && !$this->article->getCreatetime()) {
             $this->article->setCreatetime($allTimer);
         }
 
@@ -296,6 +296,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
 
             $postpone = 1;
             if ($timer === false) {
+                trigger_error('Error while processing postponed date-time information');
                 $timer = $allTimer;
                 $postpone = 0;
             }
