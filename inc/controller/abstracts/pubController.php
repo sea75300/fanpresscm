@@ -39,7 +39,9 @@ class pubController extends controller {
         if (\fpcm\classes\baseconfig::installerEnabled() || !\fpcm\classes\baseconfig::dbConfigExists()) {
             exit;
         }
-
+        
+        //fpcmLogSql(__METHOD__ . ' start');
+        
         $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
         $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
         $this->config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
@@ -122,6 +124,12 @@ class pubController extends controller {
 
         return true;
     }
+
+    /*public function __destruct() {
+        fpcmLogSql(__METHOD__ . ' Stop');
+        return parent::__destruct();
+    }*/
+
 
 }
 

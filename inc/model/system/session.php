@@ -441,6 +441,11 @@ final class session extends \fpcm\model\abstracts\dataset {
      */
     public function init()
     {
+        if ($this->sessionid === null) {
+            $this->sessionExists = false;
+            return;
+        }
+        
         $this->currentUser = new \fpcm\model\users\author();
 
         if (version_compare($this->config->system_version, '4.4.3-rc1', '<=')) {

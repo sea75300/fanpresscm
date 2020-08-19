@@ -78,6 +78,13 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     protected $iptcStr;
 
     /**
+     * Flag if file is in file index
+     * @var bool
+     * @since 4.5
+     */
+    protected $isIndexed = false;
+
+    /**
      * Felder die in Datenbank gespeichert werden können
      * @var array
      */
@@ -97,9 +104,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
 
         $this->filename = $filename;
 
-        if ($this->exists() || $forceInit) {
-            $this->init($initDB);
-        }
+        $this->init($initDB);
     }
 
     /**
@@ -375,10 +380,10 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
 
         return true;
     }
-
+    
     /**
-     * Prüft ob Datei existiert
-     * @param bool $dbOnly
+     * Check if image exists
+     * @param type $dbOnly
      * @return bool
      */
     public function exists($dbOnly = false)
@@ -386,13 +391,13 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
         if (!$this->filename) {
             return false;
         }
-
-        $count = $this->dbcon->count($this->table, '*', "filename = ?", array($this->filename));
+        
+        $fileExists = $this->existsFolder();
         if ($dbOnly) {
-            return $count > 0 ? true : false;
+            return (bool) $this->isIndexed;
         }
 
-        return (parent::exists() && $this->isValidDataFolder($this->filepath) && $count > 0) ? true : false;
+        return $fileExists && $this->isIndexed ? true : false;
     }
 
     /**
@@ -467,12 +472,18 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
         if ($initDB) {
             $dbData = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setWhere('filename = ?')->setParams([$this->filename]));
             if (!$dbData) {
+                $this->isIndexed = false;
                 return false;
             }
 
             foreach ($dbData as $key => $value) {
                 $this->$key = $value;
             }
+            
+            $this->isIndexed = true;
+        }
+        else {
+            $this->isIndexed = true;            
         }
 
         if (!parent::exists()) {
@@ -480,7 +491,6 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
         }
 
         $this->extension = self::retrieveFileExtension($this->fullpath);
-
         if (!$this->filesize) {
             $this->filesize = filesize($this->fullpath);
         }

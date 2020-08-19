@@ -36,7 +36,7 @@ final class loader {
             return $GLOBALS['fpcm']['objects'][$class];
         }
 
-        $GLOBALS['fpcm']['objects'][$class] = $params ? new $class($params) : new $class();
+        $GLOBALS['fpcm']['objects'][$class] = $params !== null ? new $class($params) : new $class();
         return $GLOBALS['fpcm']['objects'][$class];
     }
 

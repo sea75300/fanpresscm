@@ -6,8 +6,7 @@
  */
 
 jQuery.noConflict();
-jQuery(document).ready(function () {
-
+(function () {
     fpcm.ui.init();
     fpcm.ui_navigation.init();
     fpcm.ui_notify.init();
@@ -15,7 +14,10 @@ jQuery(document).ready(function () {
     delete fpcm.ui.init;
     delete fpcm.ui_navigation.init;
     delete fpcm.ui_notify.init;
+})();
 
+
+jQuery(document).ready(function () {
     jQuery.each(fpcm, function (idx, object) {
 
         if (!object.init || typeof object.init !== 'function') {

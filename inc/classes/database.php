@@ -1078,6 +1078,12 @@ final class database {
      * @param string $queryString
      * @return bool
      * @since 4.4.3-rc1
+     * 
+     * @todo select art.id, art.title, art.postponed, art.createtime, createusr.username, chgusr.username from fpcm3_articles art
+                LEFT JOIN fpcm3_authors createusr ON art.createuser = createusr.id
+                LEFT JOIN fpcm3_authors chgusr ON art.changeuser = chgusr.id
+                where art.deleted = 0 AND (art.postponed = 0 OR (art.postponed = 1 AND art.createtime <= 1597871237) )
+                order by art.id desc;
      */
     public function createView(string $viewName, string $queryString) : bool
     {

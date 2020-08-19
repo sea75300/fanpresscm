@@ -652,6 +652,7 @@ class view {
         $this->defaultViewVars->filesCss = array_unique(array_map([$this, 'addRootPath'], $this->cssFiles));
 
         $this->jsFiles = array_unique(array_diff(array_map([$this, 'addRootPath'], $this->jsFiles), $this->jsFilesLocal));
+        $this->jsFilesLate = array_unique(array_map([$this, 'addRootPath'], $this->jsFilesLate));
         $this->jsFilesLocal = array_unique($this->jsFilesLocal);
 
         $this->viewHash = \fpcm\classes\tools::getHash($this->viewPath.$this->viewHash. implode('-', $this->jsFilesLocal));
@@ -982,6 +983,8 @@ class view {
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
             self::ROOTURL_CORE_JS.'script.php?uq={$unique}'
         ]);
+        
+        $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init.js']);
 
         return $this->jsFiles;
     }

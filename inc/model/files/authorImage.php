@@ -117,8 +117,8 @@ final class authorImage extends image {
     }
 
     /**
-     * Prüft ob Datei existiert
-     * @param bool $dbOnly
+     * Check if image exists
+     * @param type $dbOnly
      * @return bool
      */
     public function exists($dbOnly = false)
