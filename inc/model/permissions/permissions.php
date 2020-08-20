@@ -274,7 +274,15 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function editComments() : bool
     {
-        return $this->editArticles() && ($this->comment->edit || $this->comment->editall);
+        if ($this->article->edit && $this->comment->edit) {
+            return true;
+        }
+
+        if ($this->article->editall && $this->comment->editall) {
+            return true;
+        }
+        
+        return false;
     }
 
     /**
