@@ -67,8 +67,7 @@ class ajaxController extends controller {
      */
     protected function redirectNoSession()
     {
-        header('HTTP/1.1 401 Unauthorized');
-        exit;
+        $this->response->setCode(401)->addHeaders('HTTP/1.1 401 Unauthorized')->fetch();
     }
 
     /**
@@ -90,5 +89,3 @@ class ajaxController extends controller {
     }
 
 }
-
-?>

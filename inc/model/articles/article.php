@@ -38,6 +38,24 @@ class article extends \fpcm\model\abstracts\dataset {
     const SOURCES_AUTOCOMPLETE = 'articles/sources';
 
     /**
+     * Postpoed active status
+     * @since 4.5
+     */
+    const POSTPONED_ACTIVE = 1;
+
+    /**
+     * Postpoed active status
+     * @since 4.5
+     */
+    const POSTPONED_INACTIVE = 0;
+
+    /**
+     * Postpoed search status flag
+     * @since 4.5
+     */
+    const POSTPONED_SEARCH_FE = 2;
+
+    /**
      * News-Titel
      * @var string
      */

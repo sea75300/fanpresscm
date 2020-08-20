@@ -100,5 +100,3 @@ class showtitle extends \fpcm\controller\abstracts\pubController {
     }
 
 }
-
-?>

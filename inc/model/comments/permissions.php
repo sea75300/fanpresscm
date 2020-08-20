@@ -33,7 +33,7 @@ trait permissions {
             return true;
         }
 
-        if (!is_array($this->ownArticleIds) || !count($this->ownArticleIds)) {
+        if (!is_array($this->ownArticleIds)) {
             
             if (!$this->articleList instanceof \fpcm\model\articles\articlelist) {
                 $this->articleList = new \fpcm\model\articles\articlelist();

@@ -692,7 +692,13 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
             $valueParams[':createtime'] = $conditions->dateto;
         }
 
-        if ($conditions->postponed !== null) {
+        if ($conditions->postponed === article::POSTPONED_SEARCH_FE) {
+            $where[] = "(postponed = :postponed0 OR (postponed = :postponed1 AND createtime <= :postponedt))";
+            $valueParams[':postponed0'] = article::POSTPONED_INACTIVE;
+            $valueParams[':postponed1'] = article::POSTPONED_ACTIVE;
+            $valueParams[':postponedt'] = time();
+        }
+        elseif ($conditions->postponed !== null) {
             $where[] = "postponed = :postponed";
             $valueParams[':postponed'] = $conditions->postponed;
         }

@@ -70,8 +70,8 @@ class iplist extends \fpcm\model\abstracts\tablelist {
         }
 
         $ip = \fpcm\classes\loader::getObject('\fpcm\model\http\request')->getIp();
-        if (isset($this->lockCache[$ip.'-'.$lockType])) {
-            return $this->lockCache[$ip.'-'.$lockType];
+        if (isset($this->lockCache[$ip])) {
+            return (bool) ($this->lockCache[$ip][$lockType] ?? false);
         }
         
         $delim = strpos($ip, ':') !== false ? ':' : '.';
@@ -88,14 +88,13 @@ class iplist extends \fpcm\model\abstracts\tablelist {
             $where[] = '?';
         }
 
-        $result = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))
-            ->setWhere("ipaddress IN (" . implode(', ', $where) . ") AND {$lockType} = 1")
-            ->setItem('count(id) AS counted')
-            ->setParams($adresses));
-            
-        $this->lockCache[$ip.'-'.$lockType] = is_object($result) && isset($result->counted) && $result->counted ? true : false;
+        $this->lockCache[$ip] = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))
+            ->setWhere($this->dbcon->inQuery('ipaddress', $where))
+            ->setItem('nocomments, nologin, noaccess')
+            ->setParams($adresses)
+            ->setFetchStyle(\PDO::FETCH_ASSOC));
 
-        return $this->lockCache[$ip.'-'.$lockType];
+        return (bool) ($this->lockCache[$ip][$lockType] ?? false);
     }
 
     /**
@@ -105,6 +104,10 @@ class iplist extends \fpcm\model\abstracts\tablelist {
      */
     public function deleteIpAdresses(array $ids)
     {
+        if (!count($ids)) {
+            return false;
+        }
+        
         return $this->dbcon->delete($this->table, 'id IN (' . implode(',', $ids) . ')');
     }
 

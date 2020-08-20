@@ -163,5 +163,3 @@ class showlatest extends \fpcm\controller\abstracts\pubController {
     }
 
 }
-
-?>
