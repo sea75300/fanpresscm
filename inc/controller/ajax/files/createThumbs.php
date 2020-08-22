@@ -73,17 +73,12 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxController implements 
      */
     public function process()
     {
-        try {
-            array_walk($this->files, [$this, 'createThumb']);
-            
-        } catch (\Exception $exc) {
-            $this->returnData[] = new \fpcm\view\message(
-                    $this->language->translate('FAILED_FILES_NEWTHUMBS', [
-                    '{{filenames}}' => implode(', ', $this->files)
-                ]),
-                \fpcm\view\message::TYPE_ERROR
-            );            
-        }
+        $this->returnData[] = new \fpcm\view\message(
+                $this->language->translate('FAILED_FILES_NEWTHUMBS', [
+                '{{filenames}}' => implode(', ', $this->files)
+            ]),
+            \fpcm\view\message::TYPE_ERROR
+        );
 
         $hasSuccess = count($this->success);
         $hasFailed = count($this->failed);
