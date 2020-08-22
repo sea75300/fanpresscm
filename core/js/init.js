@@ -16,7 +16,6 @@ jQuery.noConflict();
     delete fpcm.ui_navigation.init;
     delete fpcm.ui_notify.init;
 
-    
     fpcm.worker = new Worker('core/js/worker.js');
     fpcm.worker.onmessage = function(_event) {
 
@@ -37,6 +36,8 @@ jQuery.noConflict();
                 setInterval(function () {
                     _func(_event.data.param);
                 }, _event.data.intvl);
+
+                _func(_event.data.param);
                 return true;
             }
 

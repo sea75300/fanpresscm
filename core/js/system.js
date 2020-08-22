@@ -13,13 +13,12 @@ fpcm.system = {
 
     init: function () {
 
-        if (!fpcm.vars.jsvars.noRefresh) {
-            fpcm.worker.postMessage({
-                namespace: 'system',
-                function: 'doRefresh',
-                interval: 10000
-            });
-        }
+        fpcm.worker.postMessage({
+            namespace: 'system',
+            function: 'doRefresh',
+            interval: 60000,
+            id: 'system.refresh'
+        });
 
         fpcm.system.initPasswordFieldActions();
         fpcm.system.showHelpDialog();
@@ -114,12 +113,22 @@ fpcm.system = {
 
     doRefresh: function () {
 
+        if (fpcm.vars.jsvars.noRefresh) {
+            return false;
+        }
+
         fpcm.ajax.post('refresh', {
             quiet: true,
             data: {
                 articleId: fpcm.vars.jsvars.articleId
             },
             execDone: function (result) {
+                
+                fpcm.worker.postMessage({
+                    cmd: 'remove',
+                    id: 'system.refresh'
+                });                
+                
 
                 if (fpcm.vars.jsvars.articleId == 1) {
                     fpcm.editor.showInEditDialog(result);
@@ -132,6 +141,7 @@ fpcm.system = {
             },
         });
 
+        return true;
     },
 
     generatePasswdString: function () {
