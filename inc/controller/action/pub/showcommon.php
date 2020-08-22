@@ -161,8 +161,6 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
      */
     public function request()
     {
-        $this->crons->registerCron('postponedArticles');
-
         $this->page = $this->request->getPage();
         if (!$this->page) {
             $this->page = 1;
@@ -297,5 +295,3 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
     abstract protected function getContentData() : array;
 
 }
-
-?>

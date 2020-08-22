@@ -15,19 +15,19 @@ namespace fpcm\model\files;
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class image extends \fpcm\model\abstracts\file {
+class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces\validateFileType {
 
     /**
      * Erlaubte Dateitypen
      * @var array
      */
-    public static $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/bmp'];
+    public static $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
 
     /**
      * Erlaubte Dateiendungen
      * @var array
      */
-    public static $allowedExts = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+    public static $allowedExts = ['jpeg', 'jpg', 'png', 'gif'];
 
     /**
      * ID von Datei-Eintrag in DB
@@ -78,6 +78,13 @@ class image extends \fpcm\model\abstracts\file {
     protected $iptcStr;
 
     /**
+     * Flag if file is in file index
+     * @var bool
+     * @since 4.5
+     */
+    protected $isIndexed = false;
+
+    /**
      * Felder die in Datenbank gespeichert werden können
      * @var array
      */
@@ -97,9 +104,7 @@ class image extends \fpcm\model\abstracts\file {
 
         $this->filename = $filename;
 
-        if ($this->exists() || $forceInit) {
-            $this->init($initDB);
-        }
+        $this->init($initDB);
     }
 
     /**
@@ -183,7 +188,7 @@ class image extends \fpcm\model\abstracts\file {
     /**
      * Checks if file amanager thumbnail exists
      * @return bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function hasFileManageThumbnail() : bool {
         return file_exists($this->getFileManagerThumbnail());
@@ -375,10 +380,10 @@ class image extends \fpcm\model\abstracts\file {
 
         return true;
     }
-
+    
     /**
-     * Prüft ob Datei existiert
-     * @param bool $dbOnly
+     * Check if image exists
+     * @param type $dbOnly
      * @return bool
      */
     public function exists($dbOnly = false)
@@ -386,19 +391,19 @@ class image extends \fpcm\model\abstracts\file {
         if (!$this->filename) {
             return false;
         }
-
-        $count = $this->dbcon->count($this->table, '*', "filename = ?", array($this->filename));
+        
+        $fileExists = $this->existsFolder();
         if ($dbOnly) {
-            return $count > 0 ? true : false;
+            return (bool) $this->isIndexed;
         }
 
-        return (parent::exists() && $this->isValidDataFolder($this->filepath) && $count > 0) ? true : false;
+        return $fileExists && $this->isIndexed ? true : false;
     }
 
     /**
      * Prüft, ob Bild nur in Dateisystem existiert
      * @return bool
-     * @since FPCM 3.1.2
+     * @since 3.1.2
      */
     public function existsFolder()
     {
@@ -467,12 +472,18 @@ class image extends \fpcm\model\abstracts\file {
         if ($initDB) {
             $dbData = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setWhere('filename = ?')->setParams([$this->filename]));
             if (!$dbData) {
+                $this->isIndexed = false;
                 return false;
             }
 
             foreach ($dbData as $key => $value) {
                 $this->$key = $value;
             }
+            
+            $this->isIndexed = true;
+        }
+        else {
+            $this->isIndexed = true;            
         }
 
         if (!parent::exists()) {
@@ -480,7 +491,6 @@ class image extends \fpcm\model\abstracts\file {
         }
 
         $this->extension = self::retrieveFileExtension($this->fullpath);
-
         if (!$this->filesize) {
             $this->filesize = filesize($this->fullpath);
         }
@@ -502,7 +512,7 @@ class image extends \fpcm\model\abstracts\file {
      * Füllt Objekt mit Daten aus Datenbank-Result
      * @param object $object
      * @return bool
-     * @since FPCM 3.1.2
+     * @since 3.1.2
      */
     public function createFromDbObject($object)
     {
@@ -532,7 +542,7 @@ class image extends \fpcm\model\abstracts\file {
     /**
      * Bereitet Eigenschaften des Objects zum Speichern ind er Datenbank vor und entfernt nicht speicherbare Eigenschaften
      * @return array
-     * @since FPCM 3.1.2
+     * @since 3.1.2
      */
     protected function getPreparedSaveParams()
     {
@@ -549,7 +559,7 @@ class image extends \fpcm\model\abstracts\file {
      * Splits filename with possible folder
      * @param string $filename
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function splitFilename(string $filename) : string
     {
@@ -571,7 +581,7 @@ class image extends \fpcm\model\abstracts\file {
      * reads IPTC data from file
      * @param array $info
      * @return bool
-     * @since FPCM 4.2.1 
+     * @since 4.2.1 
      */
     public function parseIptc($info)
     {
@@ -611,9 +621,10 @@ class image extends \fpcm\model\abstracts\file {
      * @param string $ext
      * @param string $type
      * @return bool
-     * @since FPCM 4.5
+     * @since 4.5
+     * @see \fpcm\model\interfaces\validateFileType
      */
-    public static function isValidType(string $ext, string $type) : bool
+    public static function isValidType(string $ext, string $type, array $map = []) : bool
     {
         $assigned = array_combine(self::$allowedExts, self::$allowedTypes)[$ext] ?? null;
         if ($assigned === null) {

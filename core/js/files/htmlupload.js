@@ -24,7 +24,7 @@ fpcm.fileuploader = {
 
                 var fileList = fpcm.dom.fromTag(this)[0].files;
                 for (var i=0;i<fileList.length;i++) {
-                    fpcm.ui.appendHtml('#fpcm-ui-phpupload-filelist', '<div class="row no-gutters fpcm-ui-padding-md-tb"><div class="col-12 fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom"><span class="far fa-fw fa-lg fa-file-image"></span>' + fileList[i].name +'</div></div>')
+                    fpcm.ui.appendHtml('#fpcm-ui-phpupload-filelist', '<div class="row no-gutters fpcm-ui-padding-md-tb"><div class="col-12 fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom">' + fpcm.ui.getIcon('file-image', { prefix: 'far', size: 'lg' }) + fileList[i].name +'</div></div>')
                 }
                 
                 fpcm.dom.fromId('fpcm-ui-fileupload-list').fadeIn();

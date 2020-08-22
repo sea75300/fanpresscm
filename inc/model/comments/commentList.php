@@ -22,21 +22,21 @@ class commentList extends \fpcm\model\abstracts\tablelist {
     /**
      * articlelist Objekt
      * @var \fpcm\model\articles\articlelist
-     * @since FPCM 3.3
+     * @since 3.3
      */
     protected $articleList;
 
     /**
      * Liste mit IDs von Artikeln, die vom aktuelle Benutzer verschrieben wurden
      * @var array
-     * @since FPCM 3.3
+     * @since 3.3
      */
     protected $ownArticleIds = false;
 
     /**
      * Permission Object
      * @var \fpcm\model\permissions\permissions
-     * @since FPCM 3.3
+     * @since 3.3
      */
     protected $permissions = false;
 
@@ -335,7 +335,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      * Massenbearbeitung
      * @param array $commentIds
      * @param array $fields
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function editCommentsByMass(array $commentIds, array $fields)
     {
@@ -448,7 +448,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      * @param \fpcm\model\comments\search $conditions
      * @param array $where
      * @param array $valueParams
-     * @since FPCM 4.3
+     * @since 4.3
      */
     private function assignSearchParams(search $conditions, array &$where, array &$valueParams) : bool
     {
@@ -525,7 +525,7 @@ class commentList extends \fpcm\model\abstracts\tablelist {
      * @param \fpcm\model\comments\search $conditions
      * @param array $where
      * @param array $valueParams
-     * @since FPCM 4.3
+     * @since 4.3
      */
     private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams) : bool
     {

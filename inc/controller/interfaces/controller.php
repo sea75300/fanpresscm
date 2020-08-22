@@ -18,14 +18,16 @@ namespace fpcm\controller\interfaces;
 interface controller {
 
     /**
-     * Request processing
-     * @return bool, false prevent execution of @see process()
+     * Request processing,
+     * false prevent execution of @see process()
+     * @return bool
      */
     public function request();
 
     /**
-     * Access check processing
-     * @return bool, false prevent execution of @see request() @see process()
+     * Access check processing,
+     * false prevent execution of @see request() @see process()
+     * @return bool
      */
     public function hasAccess();
 

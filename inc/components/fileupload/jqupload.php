@@ -10,15 +10,15 @@ namespace fpcm\components\fileupload;
 /**
  * jqUpload object
  * 
- * @package fpcm\components\editor
+ * @package fpcm\components\fileupload
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.5
+ * @since 4.5
  */
 final class jqupload extends uploader {
 
-    const FILETYPES_IMG = '/\.(gif|jpe?g|png|bmp)$/i';
+    const FILETYPES_IMG = '/\.(gif|jpe?g|png)$/i';
 
     const FILETYPES_DRAFTS = '/\.(htm|html|txt)$/i';
 

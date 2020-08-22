@@ -10,11 +10,11 @@ namespace fpcm\components\fileupload;
 /**
  * Abstract uploader object
  * 
- * @package fpcm\components\editor
+ * @package fpcm\components\fileupload
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.5
+ * @since 4.5
  */
 abstract class uploader extends \fpcm\model\abstracts\staticModel {
 

@@ -15,7 +15,7 @@ namespace fpcm\controller\abstracts\module;
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @abstract
- * @since FPCM 4.1
+ * @since 4.1
  */
 class ajaxController extends \fpcm\controller\abstracts\ajaxController
 implements \fpcm\controller\interfaces\isAccessible {
@@ -35,7 +35,7 @@ implements \fpcm\controller\interfaces\isAccessible {
     /**
      * Must return true, if controller is accessible
      * @return bool
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public function isAccessible(): bool
     {

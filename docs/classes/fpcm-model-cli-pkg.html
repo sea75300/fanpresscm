@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
+                            </ul>
+            
+        <h1 class="phpdocumentor-sidebar__category-header">Packages</h1>
+            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/Default.html"><abbr title="\Default">Default</abbr></a></h2>
+        <ul class="phpdocumentor-list">
+                    </ul>
+            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h2>
+        <ul class="phpdocumentor-list">
+                            <li><a href="../packages/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
+                            <li><a href="../packages/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
+                            <li><a href="../packages/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
+                            <li><a href="../packages/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
+                            <li><a href="../packages/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
+                            <li><a href="../packages/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
+                            <li><a href="../packages/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
+                            <li><a href="../packages/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
+                            <li><a href="../packages/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
+                    </ul>
+        
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/fpcm.html">fpcm</a></li>
+                    <li><a href="../namespaces/fpcm-model.html">model</a></li>
+                    <li><a href="../namespaces/fpcm-model-cli.html">cli</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            pkg
+                            <span class="phpdocumentor-class__extends">
+                    extends <a href="../classes/fpcm-model-abstracts-cli.html"><abbr title="\fpcm\model\abstracts\cli">cli</abbr></a>
+                </span>
+                                        <div class="phpdocumentor-element__package">
+                    in
+                    <ul class="phpdocumentor-breadcrumbs">
+                                                    <li><a href="../packages/fpcm.html">fpcm</a></li>
+                                                    <li><a href="../packages/fpcm-model.html">model</a></li>
+                                                    <li><a href="../packages/fpcm-model-cli.html">cli</a></li>
+                                            </ul>
+                </div>
+                                            </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">23</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">FanPress CM cli help module</p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#property_updaterSys">$updaterSys</a></th>
+                    <td class="phpdocumentor-cell">System updater object</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-updater-system.html"><abbr title="\fpcm\model\updater\system">system</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#property_updaterMod">$updaterMod</a></th>
+                    <td class="phpdocumentor-cell">Module updater object</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-updater-modules.html"><abbr title="\fpcm\model\updater\modules">modules</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#property_modulekey">$modulekey</a></th>
+                    <td class="phpdocumentor-cell">Moduel key string</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#property_exSystem">$exSystem</a></th>
+                    <td class="phpdocumentor-cell">Internal execution via system</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#property_noMaintenanceMode">$noMaintenanceMode</a></th>
+                    <td class="phpdocumentor-cell">List of actions without maintenace mode enabled</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                                                    <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-cli.html#property_funcParams">$funcParams</a></th>
+                    <td class="phpdocumentor-cell">Funktionsparameter</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_data">$data</a></th>
+                    <td class="phpdocumentor-cell">Data array</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_cache">$cache</a></th>
+                    <td class="phpdocumentor-cell">Cache object</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-cache.html"><abbr title="\fpcm\classes\cache">cache</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_events">$events</a></th>
+                    <td class="phpdocumentor-cell">Event list</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-events-events.html"><abbr title="\fpcm\events\events">events</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_config">$config</a></th>
+                    <td class="phpdocumentor-cell">Config object</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-system-config.html"><abbr title="\fpcm\model\system\config">config</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_language">$language</a></th>
+                    <td class="phpdocumentor-cell">Sprachobjekt</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-language.html"><abbr title="\fpcm\classes\language">language</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_session">$session</a></th>
+                    <td class="phpdocumentor-cell">Session objekt</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-system-session.html"><abbr title="\fpcm\model\system\session">session</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_notifications">$notifications</a></th>
+                    <td class="phpdocumentor-cell">Notifications</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-theme-notifications.html"><abbr title="\fpcm\model\theme\notifications">notifications</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_permissions">$permissions</a></th>
+                    <td class="phpdocumentor-cell">Permissions</td>
+                    <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-permissions-permissions.html"><abbr title="\fpcm\model\permissions\permissions">permissions</abbr></a></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_cacheName">$cacheName</a></th>
+                    <td class="phpdocumentor-cell">Cache name</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#property_cacheModule">$cacheModule</a></th>
+                    <td class="phpdocumentor-cell">Cache Modul</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_initObjects">initObjects()</a></th>
+                    <td class="phpdocumentor-cell">Initialize objects</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_process">process()</a></th>
+                    <td class="phpdocumentor-cell">Modul ausführen</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_processUpdate">processUpdate()</a></th>
+                    <td class="phpdocumentor-cell">Process update check</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_processUpgradeSystem">processUpgradeSystem()</a></th>
+                    <td class="phpdocumentor-cell">Process full system update</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_processUpgradedbSystem">processUpgradedbSystem()</a></th>
+                    <td class="phpdocumentor-cell">Run system database update</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_processUpgradedbModule">processUpgradedbModule()</a></th>
+                    <td class="phpdocumentor-cell">Run update finalizer</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_processListUpdatefs">processListUpdatefs()</a></th>
+                    <td class="phpdocumentor-cell">Process local file system for new modules</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_processListLocal">processListLocal()</a></th>
+                    <td class="phpdocumentor-cell">Process local module list output</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_processListRemote">processListRemote()</a></th>
+                    <td class="phpdocumentor-cell">Process remote module list output</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_processInfoModule">processInfoModule()</a></th>
+                    <td class="phpdocumentor-cell">Displays information for given module key</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_moduleslIstDetails">moduleslIstDetails()</a></th>
+                    <td class="phpdocumentor-cell">Displays information for given module</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_processInstallModule">processInstallModule()</a></th>
+                    <td class="phpdocumentor-cell">Process module installation</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_processUpgradeModule">processUpgradeModule()</a></th>
+                    <td class="phpdocumentor-cell">Process module update</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_processModulePackage">processModulePackage()</a></th>
+                    <td class="phpdocumentor-cell">Process module package actions</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_getModuleKey">getModuleKey()</a></th>
+                    <td class="phpdocumentor-cell">Returns module key by cli params and run check for existance</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_processRemoveModule">processRemoveModule()</a></th>
+                    <td class="phpdocumentor-cell">Process complete modul removal</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_processDeleteModule">processDeleteModule()</a></th>
+                    <td class="phpdocumentor-cell">Process complete modul deletion</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-cli-pkg.html#method_help">help()</a></th>
+                    <td class="phpdocumentor-cell">Hilfe-Text zurückgeben ausführen</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                                                    <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Konstruktor</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-cli.html#method_process">process()</a></th>
+                    <td class="phpdocumentor-cell">Modul ausführen</td>
+                    <td class="phpdocumentor-cell">void</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-cli.html#method_help">help()</a></th>
+                    <td class="phpdocumentor-cell">Hilfe-Text zurückgeben ausführen</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-cli.html#method_output">output()</a></th>
+                    <td class="phpdocumentor-cell">CLI output</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-cli.html#method_debug">debug()</a></th>
+                    <td class="phpdocumentor-cell">CLI debug output</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-cli.html#method_input">input()</a></th>
+                    <td class="phpdocumentor-cell">CLI input</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-cli.html#method_boolText">boolText()</a></th>
+                    <td class="phpdocumentor-cell">Returns text by bool value</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-staticModel.html#method_getCacheName">getCacheName()</a></th>
+                    <td class="phpdocumentor-cell">Cache-Name zurückgeben</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                    </table>
+
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_updaterSys"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$updaterSys</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">29</span>
+    </aside>
+            <p class="phpdocumentor-summary">System updater object</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-model-updater-system.html"><abbr title="\fpcm\model\updater\system">system</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$updaterSys</span>
+            </code>
+    </article>
+                                    <a id="property_updaterMod"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$updaterMod</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">35</span>
+    </aside>
+            <p class="phpdocumentor-summary">Module updater object</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-model-updater-modules.html"><abbr title="\fpcm\model\updater\modules">modules</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$updaterMod</span>
+            </code>
+    </article>
+                                    <a id="property_modulekey"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$modulekey</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">41</span>
+    </aside>
+            <p class="phpdocumentor-summary">Moduel key string</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$modulekey</span>
+            </code>
+    </article>
+                                    <a id="property_exSystem"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$exSystem</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">47</span>
+    </aside>
+            <p class="phpdocumentor-summary">Internal execution via system</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$exSystem</span>
+            </code>
+    </article>
+                                    <a id="property_noMaintenanceMode"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$noMaintenanceMode</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">53</span>
+    </aside>
+            <p class="phpdocumentor-summary">List of actions without maintenace mode enabled</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$noMaintenanceMode</span>
+         = <span class="phpdocumentor-signature__default-value">[self::PARAM_UPDATE, self::PARAM_LIST, self::PARAM_INFO]</span>    </code>
+    </article>
+                                                                    <a id="property_funcParams"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$funcParams</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cli.php"><a href="../files/inc-model-abstracts-cli.html"><abbr title="inc/model/abstracts/cli.php">cli.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">128</span>
+    </aside>
+            <p class="phpdocumentor-summary">Funktionsparameter</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$funcParams</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
+    </article>
+                                    <a id="property_data"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$data</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">28</span>
+    </aside>
+            <p class="phpdocumentor-summary">Data array</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$data</span>
+            </code>
+    </article>
+                                    <a id="property_cache"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$cache</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">34</span>
+    </aside>
+            <p class="phpdocumentor-summary">Cache object</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-classes-cache.html"><abbr title="\fpcm\classes\cache">cache</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$cache</span>
+            </code>
+    </article>
+                                    <a id="property_events"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$events</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">40</span>
+    </aside>
+            <p class="phpdocumentor-summary">Event list</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-events-events.html"><abbr title="\fpcm\events\events">events</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$events</span>
+            </code>
+    </article>
+                                    <a id="property_config"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$config</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">46</span>
+    </aside>
+            <p class="phpdocumentor-summary">Config object</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-model-system-config.html"><abbr title="\fpcm\model\system\config">config</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$config</span>
+            </code>
+    </article>
+                                    <a id="property_language"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$language</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">52</span>
+    </aside>
+            <p class="phpdocumentor-summary">Sprachobjekt</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-classes-language.html"><abbr title="\fpcm\classes\language">language</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$language</span>
+            </code>
+    </article>
+                                    <a id="property_session"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$session</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">58</span>
+    </aside>
+            <p class="phpdocumentor-summary">Session objekt</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-model-system-session.html"><abbr title="\fpcm\model\system\session">session</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$session</span>
+            </code>
+    </article>
+                                    <a id="property_notifications"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$notifications</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">65</span>
+    </aside>
+            <p class="phpdocumentor-summary">Notifications</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-model-theme-notifications.html"><abbr title="\fpcm\model\theme\notifications">notifications</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$notifications</span>
+            </code>
+    </article>
+                                    <a id="property_permissions"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$permissions</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">72</span>
+    </aside>
+            <p class="phpdocumentor-summary">Permissions</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><a href="../classes/fpcm-model-permissions-permissions.html"><abbr title="\fpcm\model\permissions\permissions">permissions</abbr></a></span>
+        <span class="phpdocumentor-signature__name">$permissions</span>
+            </code>
+    </article>
+                                    <a id="property_cacheName"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$cacheName</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">78</span>
+    </aside>
+            <p class="phpdocumentor-summary">Cache name</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$cacheName</span>
+         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
+    </article>
+                                    <a id="property_cacheModule"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$cacheModule</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">85</span>
+    </aside>
+            <p class="phpdocumentor-summary">Cache Modul</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$cacheModule</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method_initObjects"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">initObjects()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">63</span>
+    </aside>
+        <p class="phpdocumentor-summary">Initialize objects</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">initObjects</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_process"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">process()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">73</span>
+    </aside>
+        <p class="phpdocumentor-summary">Modul ausführen</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">process</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+        
+    
+</article>
+                                    <a id="method_processUpdate"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processUpdate()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">112</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process update check</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processUpdate</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_processUpgradeSystem"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processUpgradeSystem()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">165</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process full system update</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processUpgradeSystem</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_processUpgradedbSystem"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processUpgradedbSystem()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">242</span>
+    </aside>
+        <p class="phpdocumentor-summary">Run system database update</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processUpgradedbSystem</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_processUpgradedbModule"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processUpgradedbModule()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">266</span>
+    </aside>
+        <p class="phpdocumentor-summary">Run update finalizer</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processUpgradedbModule</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_processListUpdatefs"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processListUpdatefs()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">288</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process local file system for new modules</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processListUpdatefs</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_processListLocal"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processListLocal()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">305</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process local module list output</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processListLocal</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_processListRemote"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processListRemote()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">326</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process remote module list output</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processListRemote</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_processInfoModule"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processInfoModule()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">346</span>
+    </aside>
+        <p class="phpdocumentor-summary">Displays information for given module key</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processInfoModule</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_moduleslIstDetails"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">moduleslIstDetails()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">361</span>
+    </aside>
+        <p class="phpdocumentor-summary">Displays information for given module</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">moduleslIstDetails</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$module</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/fpcm-module-module.html"><abbr title="\fpcm\module\module">module</abbr></a></span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$remote</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$descr</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$module</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/fpcm-module-module.html"><abbr title="\fpcm\module\module">module</abbr></a></span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$remote</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$descr</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_processInstallModule"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processInstallModule()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">384</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process module installation</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processInstallModule</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_processUpgradeModule"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processUpgradeModule()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">401</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process module update</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processUpgradeModule</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_processModulePackage"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processModulePackage()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">420</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process module package actions</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processModulePackage</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$mode</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$checkFiles</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$mode</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$checkFiles</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_getModuleKey"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getModuleKey()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">496</span>
+    </aside>
+        <p class="phpdocumentor-summary">Returns module key by cli params and run check for existance</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">getModuleKey</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$pos</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">2</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$pos</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">2</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_processRemoveModule"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processRemoveModule()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">514</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process complete modul removal</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processRemoveModule</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_processDeleteModule"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">processDeleteModule()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">534</span>
+    </aside>
+        <p class="phpdocumentor-summary">Process complete modul deletion</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">processDeleteModule</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_help"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">help()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/cli/pkg.php"><a href="../files/inc-model-cli-pkg.html"><abbr title="inc/model/cli/pkg.php">pkg.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">554</span>
+    </aside>
+        <p class="phpdocumentor-summary">Hilfe-Text zurückgeben ausführen</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">help</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">91</span>
+    </aside>
+        <p class="phpdocumentor-summary">Konstruktor</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">__construct</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+        
+    
+</article>
+                                    <a id="method_process"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">process()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cli.php"><a href="../files/inc-model-abstracts-cli.html"><abbr title="inc/model/abstracts/cli.php">cli.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">149</span>
+    </aside>
+        <p class="phpdocumentor-summary">Modul ausführen</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">process</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">void</span>
+    </code>
+
+    
+    
+        
+    
+</article>
+                                    <a id="method_help"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">help()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cli.php"><a href="../files/inc-model-abstracts-cli.html"><abbr title="inc/model/abstracts/cli.php">cli.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">155</span>
+    </aside>
+        <p class="phpdocumentor-summary">Hilfe-Text zurückgeben ausführen</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">help</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                    <a id="method_output"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">output()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cli.php"><a href="../files/inc-model-abstracts-cli.html"><abbr title="inc/model/abstracts/cli.php">cli.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">162</span>
+    </aside>
+        <p class="phpdocumentor-summary">CLI output</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">output</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$str</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$exit</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$str</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$exit</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_debug"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">debug()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cli.php"><a href="../files/inc-model-abstracts-cli.html"><abbr title="inc/model/abstracts/cli.php">cli.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">172</span>
+    </aside>
+        <p class="phpdocumentor-summary">CLI debug output</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">debug</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$str</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$exit</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$str</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$exit</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_input"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">input()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cli.php"><a href="../files/inc-model-abstracts-cli.html"><abbr title="inc/model/abstracts/cli.php">cli.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">186</span>
+    </aside>
+        <p class="phpdocumentor-summary">CLI input</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">input</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$str</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$str</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_boolText"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">boolText()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/cli.php"><a href="../files/inc-model-abstracts-cli.html"><abbr title="inc/model/abstracts/cli.php">cli.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">196</span>
+    </aside>
+        <p class="phpdocumentor-summary">Returns text by bool value</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">boolText</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getCacheName"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getCacheName()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/staticModel.php"><a href="../files/inc-model-abstracts-staticmodel.html"><abbr title="inc/model/abstracts/staticModel.php">staticModel.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">170</span>
+    </aside>
+        <p class="phpdocumentor-summary">Cache-Name zurückgeben</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getCacheName</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$addName</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$addName</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">&#039;&#039;</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

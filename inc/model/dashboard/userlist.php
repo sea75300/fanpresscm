@@ -12,7 +12,8 @@ namespace fpcm\model\dashboard;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.2.0
+ * @since 3.2.0
+ * @package fpcm\model\dashboard
  */
 class userlist extends \fpcm\model\abstracts\dashcontainer {
 

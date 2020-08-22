@@ -11,6 +11,7 @@ namespace fpcm\model\abstracts;
  * Model base object
  * 
  * @package fpcm\model\abstracts
+ * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -80,7 +81,7 @@ abstract class model implements \fpcm\model\interfaces\model {
     /**
      * Notifications
      * @var \fpcm\model\theme\notifications
-     * @since FPCM 3.6
+     * @since 3.6
      */
     protected $notifications;
 
@@ -346,7 +347,7 @@ abstract class model implements \fpcm\model\interfaces\model {
     /**
      * Bereitet Daten für Speicherung in Datenbank vor
      * @return bool
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function prepareDataSave()
     {

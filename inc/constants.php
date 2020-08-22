@@ -12,14 +12,14 @@ if (file_exists(dirname(__DIR__) . '/data/config/constants.custom.php')) {
 
 /**
  * Minimum required PHP version
- * @since FPCM 3.5
+ * @since 3.5
  * @ignore
  */
 define('FPCM_PHP_REQUIRED', '7.2.0');
 
 /**
  * Constant of seconds per day
- * @since FPCM 3.5
+ * @since 3.5
  * @ignore
  */
 define('FPCM_DATE_SECONDS', 86400);
@@ -90,7 +90,7 @@ if (!defined('FPCM_DEFAULT_LANGUAGE_CODE')) {
 if (!defined('FPCM_CACHE_DEBUG')) {
     /**
      * Cache-Datei-Namen nicht hashen
-     * @since FPCM 3.2
+     * @since 3.2
      */
     define('FPCM_CACHE_DEBUG', false);
 }
@@ -98,7 +98,7 @@ if (!defined('FPCM_CACHE_DEBUG')) {
 if (!defined('FPCM_CACHEMODULE_DEBUG')) {
     /**
      * Cache-Moduleordner-Namen nicht hashen
-     * @since FPCM 3.4
+     * @since 3.4
      */
     define('FPCM_CACHEMODULE_DEBUG', false);
 }
@@ -106,7 +106,7 @@ if (!defined('FPCM_CACHEMODULE_DEBUG')) {
 if (!defined('FPCM_NOJSCSSPHP_FILESIZE_HEADER')) {
     /**
      * Dateigröße in style.php und script.php nicht als Header mitschicken
-     * @since FPCM 3.4
+     * @since 3.4
      */
     define('FPCM_NOJSCSSPHP_FILESIZE_HEADER', false);
 }
@@ -114,7 +114,7 @@ if (!defined('FPCM_NOJSCSSPHP_FILESIZE_HEADER')) {
 if (!defined('FPCM_ARTICLE_LOCKED_INTERVAL')) {
     /**
      * Interval um Artikel auf "In Bearbeitung" zu setzten bzw. zu prüfen
-     * @since FPCM 3.5
+     * @since 3.5
      */
     define('FPCM_ARTICLE_LOCKED_INTERVAL', 60);
 }
@@ -122,7 +122,7 @@ if (!defined('FPCM_ARTICLE_LOCKED_INTERVAL')) {
 if (!defined('FPCM_ARTICLE_DISABLE_SHORTLINKS')) {
     /**
      * Erstellung von Artikel-Shortlink über is.gd deaktivieren
-     * @since FPCM 3.5
+     * @since 3.5
      */
     define('FPCM_ARTICLE_DISABLE_SHORTLINKS', false);
 }
@@ -130,7 +130,7 @@ if (!defined('FPCM_ARTICLE_DISABLE_SHORTLINKS')) {
 if (!defined('FPCM_AUTHOR_IMAGE_MAX_SIZE')) {
     /**
      * Maximale Größe von Author-Bildern
-     * @since FPCM 3.6
+     * @since 3.6
      */
     define('FPCM_AUTHOR_IMAGE_MAX_SIZE', 32768);
 }
@@ -138,7 +138,7 @@ if (!defined('FPCM_AUTHOR_IMAGE_MAX_SIZE')) {
 if (!defined('FPCM_INSECURE_USERNAMES')) {
     /**
      * List of insecure usernams
-     * @since FPCM 3.6
+     * @since 3.6
      */
     define('FPCM_INSECURE_USERNAMES', ['admin', 'root', 'test', 'support', 'administrator', 'adm']);
 }
@@ -146,7 +146,7 @@ if (!defined('FPCM_INSECURE_USERNAMES')) {
 if (!defined('FPCM_ARTICLES_SOURCES_AUTOCOMPLETE')) {
     /**
      * Number of sources entries saved in file options
-     * @since FPCM 4.1
+     * @since 4.1
      */
     define('FPCM_ARTICLES_SOURCES_AUTOCOMPLETE', 25);
 }
@@ -154,7 +154,7 @@ if (!defined('FPCM_ARTICLES_SOURCES_AUTOCOMPLETE')) {
 if (!defined('FPCM_REQUEST_EXIT')) {
     /**
      * Enable extended request check
-     * @since FPCM 4.2.1
+     * @since 4.2.1
      */
     define('FPCM_REQUEST_EXIT', true);
 }
@@ -162,7 +162,7 @@ if (!defined('FPCM_REQUEST_EXIT')) {
 if (!defined('FPCM_MODULE_DEV')) {
     /**
      * Enable module developement
-     * @since FPCM 4.2.1
+     * @since 4.2.1
      */
     define('FPCM_MODULE_DEV', false);
 }
@@ -170,7 +170,7 @@ if (!defined('FPCM_MODULE_DEV')) {
 if (!defined('FPCM_PAGETOKEN_MAX')) {
     /**
      * Timeout für Pagetoken-Cache
-     * @since FPCM 4.3
+     * @since 4.3
      */
     define('FPCM_PAGETOKEN_MAX', 10);
 }
@@ -178,7 +178,7 @@ if (!defined('FPCM_PAGETOKEN_MAX')) {
 if (!defined('FPCM_DISABLE_MODULE_ZIPUPLOAD')) {
     /**
      * Disable upload für module package files
-     * @since FPCM 4.4
+     * @since 4.4
      */
     define('FPCM_DISABLE_MODULE_ZIPUPLOAD', true);
 }

@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
+                            </ul>
+            
+        <h1 class="phpdocumentor-sidebar__category-header">Packages</h1>
+            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/Default.html"><abbr title="\Default">Default</abbr></a></h2>
+        <ul class="phpdocumentor-list">
+                    </ul>
+            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h2>
+        <ul class="phpdocumentor-list">
+                            <li><a href="../packages/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
+                            <li><a href="../packages/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
+                            <li><a href="../packages/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
+                            <li><a href="../packages/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
+                            <li><a href="../packages/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
+                            <li><a href="../packages/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
+                            <li><a href="../packages/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
+                            <li><a href="../packages/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
+                            <li><a href="../packages/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
+                    </ul>
+        
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/fpcm.html">fpcm</a></li>
+                    <li><a href="../namespaces/fpcm-model.html">model</a></li>
+                    <li><a href="../namespaces/fpcm-model-packages.html">packages</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            package
+                                        <div class="phpdocumentor-element__package">
+                    in
+                    <ul class="phpdocumentor-breadcrumbs">
+                                                    <li><a href="../packages/fpcm.html">fpcm</a></li>
+                                                    <li><a href="../packages/fpcm-model.html">model</a></li>
+                                                    <li><a href="../packages/fpcm-model-packages.html">packages</a></li>
+                                            </ul>
+                </div>
+                                            </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">17</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">Package object</p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#constant_REMOTEFILE_ERROR">REMOTEFILE_ERROR</a></th>
+                    <td class="phpdocumentor-cell">Fehler beim Abrufen der Update-Server-Infos</td>
+                    <td class="phpdocumentor-cell">901</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#constant_LOCALFILE_ERROR">LOCALFILE_ERROR</a></th>
+                    <td class="phpdocumentor-cell">Fehler beim Öffnen der lokalen Datei</td>
+                    <td class="phpdocumentor-cell">902</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#constant_LOCALWRITE_ERROR">LOCALWRITE_ERROR</a></th>
+                    <td class="phpdocumentor-cell">Fehler beim Schreiben der Daten in die lokalen Datei</td>
+                    <td class="phpdocumentor-cell">903</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#constant_LOCALEXISTS_ERROR">LOCALEXISTS_ERROR</a></th>
+                    <td class="phpdocumentor-cell">Prüfung, dass Datei lokal vorhanden ist schlägt fehl</td>
+                    <td class="phpdocumentor-cell">904</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#constant_HASHCHECK_ERROR">HASHCHECK_ERROR</a></th>
+                    <td class="phpdocumentor-cell">Hash-Wert stimmt nicht überein</td>
+                    <td class="phpdocumentor-cell">905</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#constant_ZIPOPEN_ERROR">ZIPOPEN_ERROR</a></th>
+                    <td class="phpdocumentor-cell">ZIP-Archiv kann nicht geöffnet werden</td>
+                    <td class="phpdocumentor-cell">906</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#constant_ZIPEXTRACT_ERROR">ZIPEXTRACT_ERROR</a></th>
+                    <td class="phpdocumentor-cell">Fehler beim Entpacken des ZIP-Archivs</td>
+                    <td class="phpdocumentor-cell">907</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#constant_FILESCOPY_ERROR">FILESCOPY_ERROR</a></th>
+                    <td class="phpdocumentor-cell">Fehler beim kopieren der Paket-Dateien</td>
+                    <td class="phpdocumentor-cell">908</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#constant_FILESCHECK_ERROR">FILESCHECK_ERROR</a></th>
+                    <td class="phpdocumentor-cell">Fehler bei Schreibrechte-Prüfung vorhandener Dateien</td>
+                    <td class="phpdocumentor-cell">909</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#constant_REMOTEPATH_UNTRUSTED">REMOTEPATH_UNTRUSTED</a></th>
+                    <td class="phpdocumentor-cell">Fehler bei Schreibrechte-Prüfung vorhandener Dateien</td>
+                    <td class="phpdocumentor-cell">910</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#constant_DEFAULT_EXTENSION">DEFAULT_EXTENSION</a></th>
+                    <td class="phpdocumentor-cell">Fehler bei Schreibrechte-Prüfung vorhandener Dateien</td>
+                    <td class="phpdocumentor-cell">&#039;zip&#039;</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#property_packageName">$packageName</a></th>
+                    <td class="phpdocumentor-cell">Package name</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#property_archive">$archive</a></th>
+                    <td class="phpdocumentor-cell">ZIP-Archiv-Object</td>
+                    <td class="phpdocumentor-cell"><abbr title="\ZipArchive">ZipArchive</abbr></td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#property_data">$data</a></th>
+                    <td class="phpdocumentor-cell">Internal cache</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#property_preValidate">$preValidate</a></th>
+                    <td class="phpdocumentor-cell">Prevalidation failed</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method___construct">__construct()</a></th>
+                    <td class="phpdocumentor-cell">Konstruktor</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_getPackageKey">getPackageKey()</a></th>
+                    <td class="phpdocumentor-cell">Returns full /data/config/package.key file path</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_initObjects">initObjects()</a></th>
+                    <td class="phpdocumentor-cell">Initialize objects</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_getRemotePath">getRemotePath()</a></th>
+                    <td class="phpdocumentor-cell">Returns remote package path</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_getRemoteSignature">getRemoteSignature()</a></th>
+                    <td class="phpdocumentor-cell">Returns remote package signature string</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_getLocalPath">getLocalPath()</a></th>
+                    <td class="phpdocumentor-cell">Returns local path for package file</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_getLocalSignature">getLocalSignature()</a></th>
+                    <td class="phpdocumentor-cell">Returns local package hash</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_getExtractionPath">getExtractionPath()</a></th>
+                    <td class="phpdocumentor-cell">Returns local path to extract archive</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_getLocalDestinationPath">getLocalDestinationPath()</a></th>
+                    <td class="phpdocumentor-cell">Returns local destination path for packeg content</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_checkFiles">checkFiles()</a></th>
+                    <td class="phpdocumentor-cell">Checks local filesystem if files are writable</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_copy">copy()</a></th>
+                    <td class="phpdocumentor-cell">Updates files in local file system</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_updateLog">updateLog()</a></th>
+                    <td class="phpdocumentor-cell">Updates local package manager log</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_isTrustedPath">isTrustedPath()</a></th>
+                    <td class="phpdocumentor-cell">Check if remote path points to trusted server</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_download">download()</a></th>
+                    <td class="phpdocumentor-cell">Fetch package content from package server</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_checkPackage">checkPackage()</a></th>
+                    <td class="phpdocumentor-cell">Validates package signature</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_extract">extract()</a></th>
+                    <td class="phpdocumentor-cell">Extract package file</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_cleanup">cleanup()</a></th>
+                    <td class="phpdocumentor-cell">Performs cleanup of update files and cache</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_isPreValidated">isPreValidated()</a></th>
+                    <td class="phpdocumentor-cell">Return prevalidation flag</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_replaceFanPressBaseFolder">replaceFanPressBaseFolder()</a></th>
+                    <td class="phpdocumentor-cell">Replaces &quot;fanpress&quot; base folder name in given path</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_explodeModuleFileName">explodeModuleFileName()</a></th>
+                    <td class="phpdocumentor-cell">Split filename for module key</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_updateProtocol">updateProtocol()</a></th>
+                    <td class="phpdocumentor-cell">Updates protocoll data for file system update</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_getFileList">getFileList()</a></th>
+                    <td class="phpdocumentor-cell">Fetch array of local file system files from &quot;files.txt&quot; file</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_REMOTEFILE_ERROR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">REMOTEFILE_ERROR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">22</span>
+    </aside>
+            <p class="phpdocumentor-summary">Fehler beim Abrufen der Update-Server-Infos</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$REMOTEFILE_ERROR</span>
+        = <span class="phpdocumentor-signature__default-value">901</span>
+    </code>
+    </article>
+                                    <a id="constant_LOCALFILE_ERROR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">LOCALFILE_ERROR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">27</span>
+    </aside>
+            <p class="phpdocumentor-summary">Fehler beim Öffnen der lokalen Datei</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$LOCALFILE_ERROR</span>
+        = <span class="phpdocumentor-signature__default-value">902</span>
+    </code>
+    </article>
+                                    <a id="constant_LOCALWRITE_ERROR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">LOCALWRITE_ERROR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">32</span>
+    </aside>
+            <p class="phpdocumentor-summary">Fehler beim Schreiben der Daten in die lokalen Datei</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$LOCALWRITE_ERROR</span>
+        = <span class="phpdocumentor-signature__default-value">903</span>
+    </code>
+    </article>
+                                    <a id="constant_LOCALEXISTS_ERROR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">LOCALEXISTS_ERROR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">37</span>
+    </aside>
+            <p class="phpdocumentor-summary">Prüfung, dass Datei lokal vorhanden ist schlägt fehl</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$LOCALEXISTS_ERROR</span>
+        = <span class="phpdocumentor-signature__default-value">904</span>
+    </code>
+    </article>
+                                    <a id="constant_HASHCHECK_ERROR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">HASHCHECK_ERROR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">42</span>
+    </aside>
+            <p class="phpdocumentor-summary">Hash-Wert stimmt nicht überein</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$HASHCHECK_ERROR</span>
+        = <span class="phpdocumentor-signature__default-value">905</span>
+    </code>
+    </article>
+                                    <a id="constant_ZIPOPEN_ERROR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">ZIPOPEN_ERROR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">47</span>
+    </aside>
+            <p class="phpdocumentor-summary">ZIP-Archiv kann nicht geöffnet werden</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$ZIPOPEN_ERROR</span>
+        = <span class="phpdocumentor-signature__default-value">906</span>
+    </code>
+    </article>
+                                    <a id="constant_ZIPEXTRACT_ERROR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">ZIPEXTRACT_ERROR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">52</span>
+    </aside>
+            <p class="phpdocumentor-summary">Fehler beim Entpacken des ZIP-Archivs</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$ZIPEXTRACT_ERROR</span>
+        = <span class="phpdocumentor-signature__default-value">907</span>
+    </code>
+    </article>
+                                    <a id="constant_FILESCOPY_ERROR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILESCOPY_ERROR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">57</span>
+    </aside>
+            <p class="phpdocumentor-summary">Fehler beim kopieren der Paket-Dateien</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILESCOPY_ERROR</span>
+        = <span class="phpdocumentor-signature__default-value">908</span>
+    </code>
+    </article>
+                                    <a id="constant_FILESCHECK_ERROR"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILESCHECK_ERROR</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">63</span>
+    </aside>
+            <p class="phpdocumentor-summary">Fehler bei Schreibrechte-Prüfung vorhandener Dateien</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILESCHECK_ERROR</span>
+        = <span class="phpdocumentor-signature__default-value">909</span>
+    </code>
+    </article>
+                                    <a id="constant_REMOTEPATH_UNTRUSTED"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">REMOTEPATH_UNTRUSTED</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">69</span>
+    </aside>
+            <p class="phpdocumentor-summary">Fehler bei Schreibrechte-Prüfung vorhandener Dateien</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$REMOTEPATH_UNTRUSTED</span>
+        = <span class="phpdocumentor-signature__default-value">910</span>
+    </code>
+    </article>
+                                    <a id="constant_DEFAULT_EXTENSION"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">DEFAULT_EXTENSION</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">75</span>
+    </aside>
+            <p class="phpdocumentor-summary">Fehler bei Schreibrechte-Prüfung vorhandener Dateien</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$DEFAULT_EXTENSION</span>
+        = <span class="phpdocumentor-signature__default-value">&#039;zip&#039;</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_packageName"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$packageName</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">81</span>
+    </aside>
+            <p class="phpdocumentor-summary">Package name</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$packageName</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                    <a id="property_archive"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$archive</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">87</span>
+    </aside>
+            <p class="phpdocumentor-summary">ZIP-Archiv-Object</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type"><abbr title="\ZipArchive">ZipArchive</abbr></span>
+        <span class="phpdocumentor-signature__name">$archive</span>
+            </code>
+    </article>
+                                    <a id="property_data"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$data</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">93</span>
+    </aside>
+            <p class="phpdocumentor-summary">Internal cache</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$data</span>
+            </code>
+    </article>
+                                    <a id="property_preValidate"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$preValidate</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">99</span>
+    </aside>
+            <p class="phpdocumentor-summary">Prevalidation failed</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$preValidate</span>
+         = <span class="phpdocumentor-signature__default-value">true</span>    </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method___construct"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                phpdocumentor-element--final        "
+>
+    <h4 class="phpdocumentor-method__name">__construct()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">105</span>
+    </aside>
+        <p class="phpdocumentor-summary">Konstruktor</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__final">final</span>                <span class="phpdocumentor-signature__name">__construct</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$packageName</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$packageName</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_getPackageKey"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getPackageKey()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">116</span>
+    </aside>
+        <p class="phpdocumentor-summary">Returns full /data/config/package.key file path</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">getPackageKey</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_initObjects"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">initObjects()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">125</span>
+    </aside>
+        <p class="phpdocumentor-summary">Initialize objects</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">initObjects</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_getRemotePath"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">getRemotePath()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">131</span>
+    </aside>
+        <p class="phpdocumentor-summary">Returns remote package path</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">getRemotePath</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getRemoteSignature"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">getRemoteSignature()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">137</span>
+    </aside>
+        <p class="phpdocumentor-summary">Returns remote package signature string</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">getRemoteSignature</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getLocalPath"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">getLocalPath()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">143</span>
+    </aside>
+        <p class="phpdocumentor-summary">Returns local path for package file</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">getLocalPath</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getLocalSignature"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">getLocalSignature()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">149</span>
+    </aside>
+        <p class="phpdocumentor-summary">Returns local package hash</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">getLocalSignature</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getExtractionPath"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">getExtractionPath()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">155</span>
+    </aside>
+        <p class="phpdocumentor-summary">Returns local path to extract archive</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">getExtractionPath</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getLocalDestinationPath"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">getLocalDestinationPath()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">161</span>
+    </aside>
+        <p class="phpdocumentor-summary">Returns local destination path for packeg content</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">getLocalDestinationPath</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_checkFiles"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">checkFiles()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">167</span>
+    </aside>
+        <p class="phpdocumentor-summary">Checks local filesystem if files are writable</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">checkFiles</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_copy"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">copy()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">173</span>
+    </aside>
+        <p class="phpdocumentor-summary">Updates files in local file system</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">copy</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_updateLog"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">updateLog()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">179</span>
+    </aside>
+        <p class="phpdocumentor-summary">Updates local package manager log</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">updateLog</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_isTrustedPath"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                phpdocumentor-element--final        "
+>
+    <h4 class="phpdocumentor-method__name">isTrustedPath()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">185</span>
+    </aside>
+        <p class="phpdocumentor-summary">Check if remote path points to trusted server</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__final">final</span>                <span class="phpdocumentor-signature__name">isTrustedPath</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_download"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">download()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">209</span>
+    </aside>
+        <p class="phpdocumentor-summary">Fetch package content from package server</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">download</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$progress</span> :
+                <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/fpcm-model-cli-progress.html"><abbr title="\fpcm\model\cli\progress">progress</abbr></a></span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$progress</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><a href="../classes/fpcm-model-cli-progress.html"><abbr title="\fpcm\model\cli\progress">progress</abbr></a></span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_checkPackage"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">checkPackage()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">262</span>
+    </aside>
+        <p class="phpdocumentor-summary">Validates package signature</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">checkPackage</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_extract"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">extract()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">294</span>
+    </aside>
+        <p class="phpdocumentor-summary">Extract package file</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">extract</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_cleanup"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">cleanup()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">324</span>
+    </aside>
+        <p class="phpdocumentor-summary">Performs cleanup of update files and cache</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">cleanup</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_isPreValidated"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">isPreValidated()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">361</span>
+    </aside>
+        <p class="phpdocumentor-summary">Return prevalidation flag</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">isPreValidated</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_replaceFanPressBaseFolder"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">replaceFanPressBaseFolder()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">371</span>
+    </aside>
+        <p class="phpdocumentor-summary">Replaces &quot;fanpress&quot; base folder name in given path</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">replaceFanPressBaseFolder</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$path</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$path</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_explodeModuleFileName"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">explodeModuleFileName()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">381</span>
+    </aside>
+        <p class="phpdocumentor-summary">Split filename for module key</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">explodeModuleFileName</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$filename</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$filename</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                    <a id="method_updateProtocol"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">updateProtocol()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">394</span>
+    </aside>
+        <p class="phpdocumentor-summary">Updates protocoll data for file system update</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">updateProtocol</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$file</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$success</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$file</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$success</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">see</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_getFileList"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getFileList()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">406</span>
+    </aside>
+        <p class="phpdocumentor-summary">Fetch array of local file system files from &quot;files.txt&quot; file</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">getFileList</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$path</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$start</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$path</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$start</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

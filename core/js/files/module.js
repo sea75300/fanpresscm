@@ -347,7 +347,7 @@ fpcm.filemanager = {
                         switch (prop) {
                             case 'resulution' :
                                 titleTxt = el.data('fileresx') + ' X ' + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
-                                titleHtml = el.data('fileresx') + '<span class="fa fa-times fa-fw"></span>' + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
+                                titleHtml = el.data('fileresx') + fpcm.ui.getIcon('times') + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
                                 fpcm.dom.fromId('fpcm-dialog-files-properties-' + prop).attr('title', titleTxt).html(titleHtml);
                                 break;
                             default:

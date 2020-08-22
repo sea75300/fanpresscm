@@ -20,7 +20,6 @@ require_once __DIR__ . '/inc/common.php';
 /**
  * FanPress CM API, class for integration into a website
  * 
- * @package fpcmapi
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -65,7 +64,7 @@ class fpcmAPI {
     /**
      * Initialized objects required by system
      * @return bool
-     * @since FPCM 4.2.1
+     * @since 4.2.1
      */
     private function initObjects() : bool
     {
@@ -84,7 +83,7 @@ class fpcmAPI {
     /**
      * Artikel anzeigen
      * @param array $params params @see \fpcm\controller\action\pub\showcommon
-     * @return boolean
+     * @return bool
      */
     public function showArticles(array $params = [])
     {
@@ -133,7 +132,7 @@ class fpcmAPI {
      * 
      * Exec Latest News display
      * @param array $params params @see \fpcm\controller\action\pub\showlatest
-     * @return boolean
+     * @return bool
      */
     public function showLatestNews(array $params = [])
     {
@@ -199,7 +198,7 @@ class fpcmAPI {
      * @param string $name
      * @param array $arguments
      * @return mixed
-     * @since FPCM 3.1.5
+     * @since 3.1.5
      */
     public function __call($name, $arguments)
     {
@@ -222,7 +221,7 @@ class fpcmAPI {
      * @param string $name
      * @param array $arguments
      * @return mixed
-     * @since FPCM 3.1.5
+     * @since 3.1.5
      */
     public static function __callStatic($name, $arguments)
     {
@@ -241,8 +240,8 @@ class fpcmAPI {
     /**
      * FPCM-Login für externe Anwendungen nutzen
      * @param array $credentials
-     * @return boolean|string
-     * @since FPCM 3.4
+     * @return bool|string
+     * @since 3.4
      */
     public function loginExternal(array $credentials)
     {
@@ -270,8 +269,8 @@ class fpcmAPI {
     /**
      * Logout für externe Anwendungen nutzen
      * @param string $sessionId
-     * @return boolean|string
-     * @since FPCM 3.4
+     * @return bool|string
+     * @since 3.4
      */
     public function logoutExternal($sessionId)
     {
@@ -295,7 +294,7 @@ class fpcmAPI {
      * FPCM-interne Verschlüsselung nutzen - Verschlüsseln
      * @param string $value
      * @return string
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function fpcmEnCrypt($value)
     {
@@ -310,7 +309,7 @@ class fpcmAPI {
      * FPCM-interne Verschlüsselung nutzen - Entschlüsseln
      * @param string $value
      * @return string
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function fpcmDeCrypt($value)
     {
@@ -325,7 +324,7 @@ class fpcmAPI {
      * Exit script execution on request
      * @param array $param
      * @return bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function exitOnRequest(array $param) : bool
     {
@@ -339,7 +338,7 @@ class fpcmAPI {
     /**
      * Display messages div in frontend
      * @return void
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public function showMessagesBox()
     {
@@ -351,7 +350,7 @@ class fpcmAPI {
      * @param string $lockType
      * @return bool
      * @see \fpcm\model\ips\iplist::ipIsLocked
-     * @since FPCM 4.4.1
+     * @since 4.4.1
      */
     public function checkLockedIp($lockType = 'noaccess') : bool
     {

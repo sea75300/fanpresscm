@@ -24,13 +24,13 @@ final class security {
 
     /**
      * Standard-Hash-Algorithmus
-     * @since FPCM 3.4
+     * @since 3.4
      */
     const defaultHashAlgo = "sha256";
 
     /**
      * Session Cookie Name
-     * @since FPCM 3.6
+     * @since 3.6
      */
     private static $cookieName;
 
@@ -84,7 +84,7 @@ final class security {
      * Passwort-Hash erzeugen
      * @param string $password
      * @return string
-     * @since FPCM 4
+     * @since 4
      */
     public static function createUserPasswordHash($password)
     {
@@ -104,7 +104,7 @@ final class security {
     /**
      * Config für Sicherheitsconfig
      * @return bool
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public static function initSecurityConfig()
     {
@@ -125,7 +125,7 @@ final class security {
      * Exit script execution on request
      * @param array $vars
      * @return boolean
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public static function requestExit(array $vars) : bool
     {

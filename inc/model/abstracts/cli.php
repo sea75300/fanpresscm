@@ -10,11 +10,12 @@ namespace fpcm\model\abstracts;
 /**
  * FanPress CM cli object
  * 
- * @package fpcm\model\system
+ * @package fpcm\model\abstracts
+ * @abstract
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.3
+ * @since 3.3
  */
 abstract class cli extends \fpcm\model\abstracts\staticModel {
 

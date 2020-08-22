@@ -14,7 +14,7 @@ namespace fpcm\classes;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.5
+ * @since 3.5
  */
 final class crypt {
 
@@ -213,7 +213,7 @@ final class crypt {
      * Return random string by openssl_random_pseudo_bytes
      * @param int $length
      * @return string
-     * @since FPCM 4
+     * @since 4
      */
     public static function getRandomString($length = 32)
     {

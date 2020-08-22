@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Documentation</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
+<body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
+
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
+                            </ul>
+            
+        <h1 class="phpdocumentor-sidebar__category-header">Packages</h1>
+            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/Default.html"><abbr title="\Default">Default</abbr></a></h2>
+        <ul class="phpdocumentor-list">
+                    </ul>
+            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h2>
+        <ul class="phpdocumentor-list">
+                            <li><a href="../packages/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
+                            <li><a href="../packages/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
+                            <li><a href="../packages/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
+                            <li><a href="../packages/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
+                            <li><a href="../packages/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
+                            <li><a href="../packages/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
+                            <li><a href="../packages/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
+                            <li><a href="../packages/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
+                            <li><a href="../packages/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
+                    </ul>
+        
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
+
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+    <li><a href="../index.html">Home</a></li>
+                        <li><a href="../namespaces/fpcm.html">fpcm</a></li>
+                    <li><a href="../namespaces/fpcm-classes.html">classes</a></li>
+            </ul>
+
+    <article class="phpdocumentor-element phpdocumentor-class">
+        <h2 class="phpdocumentor-content__title">
+            http
+                                        <div class="phpdocumentor-element__package">
+                    in
+                    <ul class="phpdocumentor-breadcrumbs">
+                                                    <li><a href="../packages/fpcm.html">fpcm</a></li>
+                                                    <li><a href="../packages/fpcm-classes.html">classes</a></li>
+                                                    <li><a href="../packages/fpcm-classes-http.html">http</a></li>
+                                            </ul>
+                </div>
+                                            </h2>
+        <aside class="phpdocumentor-element-found-in">
+            <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+            :
+            <span class="phpdocumentor-element-found-in__line">21</span>
+        </aside>
+
+        <p class="phpdocumentor-class__summary">FanPress CM HTTP request class
+Handler für $_GET, $_POST, $_COOKIE, $_FILES, $_SESSION</p>
+        <section class="phpdocumentor-class__description"></section>
+
+        <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_STRIPTAGS">FILTER_STRIPTAGS</a></th>
+                    <td class="phpdocumentor-cell">HTTP Filter strip_tags</td>
+                    <td class="phpdocumentor-cell">1</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_HTMLSPECIALCHARS">FILTER_HTMLSPECIALCHARS</a></th>
+                    <td class="phpdocumentor-cell">HTTP Filter htmlspecialchars</td>
+                    <td class="phpdocumentor-cell">2</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_HTMLENTITIES">FILTER_HTMLENTITIES</a></th>
+                    <td class="phpdocumentor-cell">HTTP Filter htmlentities</td>
+                    <td class="phpdocumentor-cell">3</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_STRIPSLASHES">FILTER_STRIPSLASHES</a></th>
+                    <td class="phpdocumentor-cell">HTTP Filter stripslashes</td>
+                    <td class="phpdocumentor-cell">4</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_HTMLSPECIALCHARS_DECODE">FILTER_HTMLSPECIALCHARS_DECODE</a></th>
+                    <td class="phpdocumentor-cell">HTTP Filter htmlspecialchars_decode</td>
+                    <td class="phpdocumentor-cell">5</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_HTMLENTITY_DECODE">FILTER_HTMLENTITY_DECODE</a></th>
+                    <td class="phpdocumentor-cell">HTTP Filter html_entity_decode</td>
+                    <td class="phpdocumentor-cell">6</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_TRIM">FILTER_TRIM</a></th>
+                    <td class="phpdocumentor-cell">HTTP Filter trim</td>
+                    <td class="phpdocumentor-cell">7</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_JSON_DECODE">FILTER_JSON_DECODE</a></th>
+                    <td class="phpdocumentor-cell">HTTP Filter json_decode</td>
+                    <td class="phpdocumentor-cell">8</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_CASTINT">FILTER_CASTINT</a></th>
+                    <td class="phpdocumentor-cell">HTTP Filter intval</td>
+                    <td class="phpdocumentor-cell">9</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_DECRYPT">FILTER_DECRYPT</a></th>
+                    <td class="phpdocumentor-cell">HTTP Filter crypt::decrypt</td>
+                    <td class="phpdocumentor-cell">10</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_URLDECODE">FILTER_URLDECODE</a></th>
+                    <td class="phpdocumentor-cell">HTTP Filter urldecode</td>
+                    <td class="phpdocumentor-cell">11</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_BASE64DECODE">FILTER_BASE64DECODE</a></th>
+                    <td class="phpdocumentor-cell">HTTP Filter base64_decode</td>
+                    <td class="phpdocumentor-cell">12</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_FIRSTUPPER">FILTER_FIRSTUPPER</a></th>
+                    <td class="phpdocumentor-cell">HTTP Filter ucfirst</td>
+                    <td class="phpdocumentor-cell">13</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_REGEX">FILTER_REGEX</a></th>
+                    <td class="phpdocumentor-cell">Regex filter</td>
+                    <td class="phpdocumentor-cell">14</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#constant_FILTER_REGEX_REPLACE">FILTER_REGEX_REPLACE</a></th>
+                    <td class="phpdocumentor-cell">Regex replace filter</td>
+                    <td class="phpdocumentor-cell">15</td>
+                </tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#property_request">$request</a></th>
+                    <td class="phpdocumentor-cell">HTTP-Reuqest aus $_REQUEST und $_COOKIE</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                                                                <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#method_init">init()</a></th>
+                    <td class="phpdocumentor-cell">HTTP initialisieren</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#method_get">get()</a></th>
+                    <td class="phpdocumentor-cell">Daten aus $_REQUEST, $_POST, $_GET, $_COOKIE auslesen
+Ersetz für direkten Zugriff auf $_REQUEST, $_POST, $_GET, $_COOKIE!!!</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#method_postOnly">postOnly()</a></th>
+                    <td class="phpdocumentor-cell">Daten aus $_POST
+Ersetz für direkten Zugriff auf $_POST</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#method_getOnly">getOnly()</a></th>
+                    <td class="phpdocumentor-cell">Daten aus $_GET
+Ersetz für direkten Zugriff auf $_GET</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#method_cookieOnly">cookieOnly()</a></th>
+                    <td class="phpdocumentor-cell">Daten aus $_COOKIE
+Ersetz für direkten Zugriff auf $_COOKIE</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#method_getIp">getIp()</a></th>
+                    <td class="phpdocumentor-cell">Gibt IP-Adresse des aktuellen Nutzers zurück</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#method_getHttpHost">getHttpHost()</a></th>
+                    <td class="phpdocumentor-cell">Gibt HTTP-Host des aktuellen Nutzers zurück</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#method_getFiles">getFiles()</a></th>
+                    <td class="phpdocumentor-cell">Gibt Inhalt von Dateiupload via PHP zurück</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#method_getSessionVar">getSessionVar()</a></th>
+                    <td class="phpdocumentor-cell">Ließt Daten aus $_SESSION</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#method_setSessionVar">setSessionVar()</a></th>
+                    <td class="phpdocumentor-cell">Schreibt Daten in $_SESSION</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-http.html#method_filter">filter()</a></th>
+                    <td class="phpdocumentor-cell">Führt Filter auf einen String aus,
+Verwendung v. A. für Werte aus Formularen, etc.</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                                            </table>
+
+                    <section>
+                <h3 class="phpdocumentor-constants__header">Constants</h3>
+                                    <a id="constant_FILTER_STRIPTAGS"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_STRIPTAGS</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">27</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP Filter strip_tags</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_STRIPTAGS</span>
+        = <span class="phpdocumentor-signature__default-value">1</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_HTMLSPECIALCHARS"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_HTMLSPECIALCHARS</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">33</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP Filter htmlspecialchars</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_HTMLSPECIALCHARS</span>
+        = <span class="phpdocumentor-signature__default-value">2</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_HTMLENTITIES"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_HTMLENTITIES</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">39</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP Filter htmlentities</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_HTMLENTITIES</span>
+        = <span class="phpdocumentor-signature__default-value">3</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_STRIPSLASHES"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_STRIPSLASHES</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">45</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP Filter stripslashes</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_STRIPSLASHES</span>
+        = <span class="phpdocumentor-signature__default-value">4</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_HTMLSPECIALCHARS_DECODE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_HTMLSPECIALCHARS_DECODE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">51</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP Filter htmlspecialchars_decode</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_HTMLSPECIALCHARS_DECODE</span>
+        = <span class="phpdocumentor-signature__default-value">5</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_HTMLENTITY_DECODE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_HTMLENTITY_DECODE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">57</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP Filter html_entity_decode</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_HTMLENTITY_DECODE</span>
+        = <span class="phpdocumentor-signature__default-value">6</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_TRIM"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_TRIM</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">63</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP Filter trim</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_TRIM</span>
+        = <span class="phpdocumentor-signature__default-value">7</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_JSON_DECODE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_JSON_DECODE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">69</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP Filter json_decode</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_JSON_DECODE</span>
+        = <span class="phpdocumentor-signature__default-value">8</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_CASTINT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_CASTINT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">75</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP Filter intval</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_CASTINT</span>
+        = <span class="phpdocumentor-signature__default-value">9</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_DECRYPT"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_DECRYPT</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">81</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP Filter crypt::decrypt</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_DECRYPT</span>
+        = <span class="phpdocumentor-signature__default-value">10</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_URLDECODE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_URLDECODE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">87</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP Filter urldecode</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_URLDECODE</span>
+        = <span class="phpdocumentor-signature__default-value">11</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_BASE64DECODE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_BASE64DECODE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">93</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP Filter base64_decode</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_BASE64DECODE</span>
+        = <span class="phpdocumentor-signature__default-value">12</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_FIRSTUPPER"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_FIRSTUPPER</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">99</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP Filter ucfirst</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_FIRSTUPPER</span>
+        = <span class="phpdocumentor-signature__default-value">13</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_REGEX"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_REGEX</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">105</span>
+    </aside>
+            <p class="phpdocumentor-summary">Regex filter</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_REGEX</span>
+        = <span class="phpdocumentor-signature__default-value">14</span>
+    </code>
+    </article>
+                                    <a id="constant_FILTER_REGEX_REPLACE"></a>
+<article
+        class="
+            phpdocumentor-element
+            phpdocumentor-constant
+            phpdocumentor-constant--
+                    "
+>
+    <h4 class="phpdocumentor-constant__name">FILTER_REGEX_REPLACE</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">111</span>
+    </aside>
+            <p class="phpdocumentor-summary">Regex replace filter</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility"></span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__name">$FILTER_REGEX_REPLACE</span>
+        = <span class="phpdocumentor-signature__default-value">15</span>
+    </code>
+    </article>
+                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_request"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+            phpdocumentor-property--static                    "
+>
+    <h4 class="phpdocumentor-property__name">$request</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">117</span>
+    </aside>
+            <p class="phpdocumentor-summary">HTTP-Reuqest aus $_REQUEST und $_COOKIE</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$request</span>
+            </code>
+    </article>
+                                                            </section>
+        
+                    <section>
+                <h3 class="phpdocumentor-methods__header">Methods</h3>
+                                    <a id="method_init"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                    phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">init()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">122</span>
+    </aside>
+        <p class="phpdocumentor-summary">HTTP initialisieren</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">init</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_get"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+            phpdocumentor-element--deprecated                        phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">get()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">136</span>
+    </aside>
+        <p class="phpdocumentor-summary">Daten aus $_REQUEST, $_POST, $_GET, $_COOKIE auslesen
+Ersetz für direkten Zugriff auf $_REQUEST, $_POST, $_GET, $_COOKIE!!!</p>
+        <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">get</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$varname</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$filter</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM]</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$varname</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Variablenname</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$filter</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">[self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM]</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Filter vor Rückgabe durchführen, @see http::filter()</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>FPCM 4.4</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash; <span class="phpdocumentor-description"><p>null wenn Variable nicht gesetzt</p></span>
+            
+</article>
+                                    <a id="method_postOnly"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+            phpdocumentor-element--deprecated                        phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">postOnly()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">155</span>
+    </aside>
+        <p class="phpdocumentor-summary">Daten aus $_POST
+Ersetz für direkten Zugriff auf $_POST</p>
+        <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">postOnly</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$varname</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$filter</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM]</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$varname</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Variablenname</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$filter</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">[self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM]</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Filter vor Rückgabe durchführen, @see http::filter()</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>FPCM 4.4</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash; <span class="phpdocumentor-description"><p>null wenn Variable nicht gesetzt</p></span>
+            
+</article>
+                                    <a id="method_getOnly"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+            phpdocumentor-element--deprecated                        phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getOnly()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">174</span>
+    </aside>
+        <p class="phpdocumentor-summary">Daten aus $_GET
+Ersetz für direkten Zugriff auf $_GET</p>
+        <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getOnly</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$varname</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$filter</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM]</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$varname</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Variablenname</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$filter</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">[self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM]</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Filter vor Rückgabe durchführen, @see http::filter()</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>FPCM 4.4</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash; <span class="phpdocumentor-description"><p>null wenn Variable nicht gesetzt</p></span>
+            
+</article>
+                                    <a id="method_cookieOnly"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+            phpdocumentor-element--deprecated                        phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">cookieOnly()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">193</span>
+    </aside>
+        <p class="phpdocumentor-summary">Daten aus $_COOKIE
+Ersetz für direkten Zugriff auf $_COOKIE</p>
+        <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">cookieOnly</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$varname</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$filter</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM]</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$varname</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Variablenname</p></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$filter</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">[self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM]</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Filter vor Rückgabe durchführen, @see http::filter()</p></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>FPCM 4.4</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash; <span class="phpdocumentor-description"><p>null wenn Variable nicht gesetzt</p></span>
+            
+</article>
+                                    <a id="method_getIp"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+            phpdocumentor-element--deprecated                        phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getIp()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">205</span>
+    </aside>
+        <p class="phpdocumentor-summary">Gibt IP-Adresse des aktuellen Nutzers zurück</p>
+        <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getIp</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>FPCM 4.4</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getHttpHost"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+            phpdocumentor-element--deprecated                        phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getHttpHost()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">218</span>
+    </aside>
+        <p class="phpdocumentor-summary">Gibt HTTP-Host des aktuellen Nutzers zurück</p>
+        <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getHttpHost</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>FPCM 4.4</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getFiles"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+            phpdocumentor-element--deprecated                        phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getFiles()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">230</span>
+    </aside>
+        <p class="phpdocumentor-summary">Gibt Inhalt von Dateiupload via PHP zurück</p>
+        <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getFiles</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>FPCM 4.4</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                    <a id="method_getSessionVar"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+            phpdocumentor-element--deprecated                        phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">getSessionVar()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">243</span>
+    </aside>
+        <p class="phpdocumentor-summary">Ließt Daten aus $_SESSION</p>
+        <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">getSessionVar</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$varName</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$varName</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>FPCM 4.4</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+                    &mdash; <span class="phpdocumentor-description"><p>false, wenn Variable nicht gesetzt</p></span>
+            
+</article>
+                                    <a id="method_setSessionVar"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+            phpdocumentor-element--deprecated                        phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">setSessionVar()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">256</span>
+    </aside>
+        <p class="phpdocumentor-summary">Schreibt Daten in $_SESSION</p>
+        <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">setSessionVar</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$varName</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$value</span> :
+                <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$varName</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$value</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>FPCM 4.4</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                    <a id="method_filter"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+            phpdocumentor-element--deprecated                        phpdocumentor-element--static                    "
+>
+    <h4 class="phpdocumentor-method__name">filter()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/http.php"><a href="../files/inc-classes-http.html"><abbr title="inc/classes/http.php">http.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">281</span>
+    </aside>
+        <p class="phpdocumentor-summary">Führt Filter auf einen String aus,
+Verwendung v. A. für Werte aus Formularen, etc.</p>
+        <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                        <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">filter</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$filterString</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$filters</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$filterString</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$filters</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>@see FILTER_* constants</p>
+<ul>
+<li>allowedtags - erlaubte HTML-Tags für &quot;1 - strip_tags&quot;</li>
+<li>mode - Modus für</li>
+<li>
+<ul>
+<li>&quot;2 - htmlspecialchars&quot;</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>&quot;3 - htmlentities&quot;,</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>&quot;5 - htmlspecialchars_decode&quot;</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>&quot;6 - html_entity_decode&quot;</li>
+</ul>
+</li>
+<li>object - json_decode-Ergebnis als Objekt oder Array</li>
+</ul></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">deprecated</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>FPCM 4.4</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
+                                                            </section>
+            </article>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

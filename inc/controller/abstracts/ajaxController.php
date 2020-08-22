@@ -67,15 +67,14 @@ class ajaxController extends controller {
      */
     protected function redirectNoSession()
     {
-        header('HTTP/1.1 401 Unauthorized');
-        exit;
+        $this->response->setCode(401)->addHeaders('HTTP/1.1 401 Unauthorized')->fetch();
     }
 
     /**
      * Check page token
      * @param string $name
      * @return bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     final protected function checkPageToken($name = 'token')
     {
@@ -90,5 +89,3 @@ class ajaxController extends controller {
     }
 
 }
-
-?>

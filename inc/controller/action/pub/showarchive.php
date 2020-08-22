@@ -44,7 +44,7 @@ class showarchive extends showcommon {
         $conditions = new \fpcm\model\articles\search();
         $conditions->limit = [$this->limit, $this->offset];
         $conditions->archived = 1;
-        $conditions->postponed = 0;
+        $conditions->postponed = \fpcm\model\articles\article::POSTPONED_INACTIVE;
 
         if ($this->config->articles_archive_datelimit) {
             $conditions->datefrom = $this->config->articles_archive_datelimit;
@@ -82,5 +82,3 @@ class showarchive extends showcommon {
     }
 
 }
-
-?>

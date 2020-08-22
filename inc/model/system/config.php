@@ -305,7 +305,7 @@ final class config extends dataset {
     /**
      * Bereitet Daten für Speicherung in Datenbank vor
      * @return bool
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function prepareDataSave()
     {
@@ -420,7 +420,7 @@ final class config extends dataset {
      * Returns config options by module key
      * @param string $key
      * @return array
-     * @since FPCM 4
+     * @since 4
      */
     public function getModuleOptions(string $key) : array
     {
@@ -442,7 +442,7 @@ final class config extends dataset {
     /**
      * Returns minor version string as Number
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function getVersionNumberString() : string
     {
@@ -462,7 +462,7 @@ final class config extends dataset {
     /**
      * Array mit Schriftgrößen für Editor
      * @return array
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public static function getDefaultFontsizes()
     {
@@ -478,7 +478,7 @@ final class config extends dataset {
     /**
      * Array mit Anzahl-Limits für Artikel in ACP-Liste
      * @return array
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public static function getAcpArticleLimits()
     {
@@ -498,7 +498,7 @@ final class config extends dataset {
     /**
      * Array mit Anzahl-Limits für Artikel-Listen
      * @return array
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public static function getArticleLimits()
     {

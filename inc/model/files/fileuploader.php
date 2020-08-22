@@ -110,7 +110,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
     /**
      * Führt Upload eines Artikel-Bildes aus
      * @param string $filename
-     * @since FPCM 3.6
+     * @since 3.6
      * @return bool
      */
     public function processAuthorImageUpload($filename)
@@ -169,7 +169,7 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
      * @param string $filename
      * @param int $option
      * @return string|null
-     * @since FPCM 4.5
+     * @since 4.5
      */
     protected function getFinfoData(string $filename, int $option = FILEINFO_MIME_TYPE) : ?string
     {

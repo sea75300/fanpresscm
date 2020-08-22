@@ -17,8 +17,8 @@ namespace fpcm\events\cron;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @package fpcm/events
- * @since FPCM 3.1
+ * @package fpcm\events
+ * @since 3.1
  */
 final class includeDumpTables extends \fpcm\events\abstracts\eventReturnArray {
 

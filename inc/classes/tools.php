@@ -14,7 +14,7 @@ namespace fpcm\classes;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.1.2
+ * @since 3.1.2
  */
 final class tools {
 
@@ -26,7 +26,7 @@ final class tools {
      * @param string $delimDec Dezimal-Trennzeichen
      * @param string $delimTousands Tausender-Trennzeichen
      * @return string
-     * @since FPCM 3.1.2
+     * @since 3.1.2
      */
     public static function calcSize($value, $decimals = 2, $delimDec = ',', $delimTousands = '.')
     {
@@ -51,7 +51,7 @@ final class tools {
      * @param string $controller
      * @param array $params
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public static function getControllerLink($controller = '', array $params = [])
     {
@@ -68,7 +68,7 @@ final class tools {
      * @param string $controller
      * @param array $params
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public static function getFullControllerLink($controller = '', array $params = [])
     {
@@ -82,7 +82,7 @@ final class tools {
      * @param int $maxItemCount
      * @param int $currentItemCount
      * @return array
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public static function calcPagination($pageLimit, $currentPage, $maxItemCount, $currentItemCount)
     {
@@ -134,7 +134,7 @@ final class tools {
      * @param int $page
      * @param int $pageLimit
      * @return int
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public static function getPageOffset($page, $pageLimit)
     {
@@ -144,7 +144,7 @@ final class tools {
     /**
      * String zum Setzen des aktuell aktiven Modules in Navigation
      * @return string
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public static function getNavigationActiveCheckStr()
     {
@@ -186,7 +186,7 @@ final class tools {
      * Validates date string
      * @param string $str
      * @return bool
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public static function validateDateString(string $str) : bool
     {
@@ -212,7 +212,7 @@ final class tools {
      * @param int $count
      * @return string
      * @see str_replace
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public static function strReplaceArray($subject, array $replacement, int &$count = NULL)
     {

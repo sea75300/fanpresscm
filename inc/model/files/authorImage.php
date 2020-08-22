@@ -14,7 +14,7 @@ namespace fpcm\model\files;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.6
+ * @since 3.6
  */
 final class authorImage extends image {
 
@@ -117,8 +117,8 @@ final class authorImage extends image {
     }
 
     /**
-     * Prüft ob Datei existiert
-     * @param bool $dbOnly
+     * Check if image exists
+     * @param type $dbOnly
      * @return bool
      */
     public function exists($dbOnly = false)
@@ -172,7 +172,7 @@ final class authorImage extends image {
      * Füllt Objekt mit Daten aus Datenbank-Result
      * @param object $object
      * @return bool
-     * @since FPCM 3.1.2
+     * @since 3.1.2
      */
     public function createFromDbObject($object)
     {

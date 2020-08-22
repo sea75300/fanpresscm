@@ -94,6 +94,12 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
     protected $viewVars = [];
 
     /**
+     * Comment count
+     * @var int
+     */
+    protected $commentCount = 0;
+
+    /**
      * 
      * Konstruktor
      * @param array $params
@@ -181,8 +187,8 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
 
         $parsed = array('articles' => '', 'comments' => '');
         if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
-            $parsed['articles'] = $this->assignArticleData();
             $parsed['comments'] = $this->assignCommentsData();
+            $parsed['articles'] = $this->assignArticleData();
 
             $parsed = $this->events->trigger('pub\showSingle', $parsed);
 
@@ -236,7 +242,9 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
             $this->article, [
                 'author' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : false,
                 'changeUser' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : false
-            ], $this->categoryList->assignPublic($this->article), $this->commentList->countComments([$this->article->getId()], $privateNo, $approvedOnly, $spamNo, $useCache)[$this->article->getId()]
+            ],
+            $this->categoryList->assignPublic($this->article),
+            $this->commentCount
         );
 
         $this->articleTemplate->setCommentsEnabled($this->config->system_comments_enabled && $this->article->getComments());
@@ -260,8 +268,9 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
      */
     protected function assignCommentsData()
     {
-        if (!$this->config->system_comments_enabled || !$this->article->getComments())
+        if (!$this->config->system_comments_enabled || !$this->article->getComments()) {
             return '';
+        }
 
         $conditions = new \fpcm\model\comments\search();
         $conditions->articleid = $this->articleId;
@@ -270,6 +279,8 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
         $conditions->spam = $this->session->exists() ? null : 0;
         $comments = $this->commentList->getCommentsBySearchCondition($conditions);
 
+        $this->commentCount = count($comments);
+        
         $parsed = [];
         $i = 1;
         foreach ($comments as $comment) {
@@ -418,5 +429,3 @@ class showsingle extends \fpcm\controller\abstracts\pubController {
     }
 
 }
-
-?>

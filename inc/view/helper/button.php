@@ -20,7 +20,7 @@ class button extends helper {
     use traits\iconHelper,
         traits\typeHelper;
 
-    /*  @since FPCM 4.4.0 */
+    /*  @since 4.4.0 */
     const NAME_PREFIX = 'btn';
 
     /**

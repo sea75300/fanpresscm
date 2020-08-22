@@ -171,7 +171,7 @@ class tinymceEditor5 extends articleEditor {
      * Arary mit Informationen u. a. für template-Plugin von TinyMCE
      * @see \fpcm\model\abstracts\articleEditor::getTemplateDrafts()
      * @return array
-     * @since FPCM 3.3
+     * @since 3.3
      */
     public function getTemplateDrafts()
     {
@@ -201,7 +201,7 @@ class tinymceEditor5 extends articleEditor {
      * Array von Sprachvariablen für Nutzung in Javascript
      * @see \fpcm\model\abstracts\articleEditor
      * @return array
-     * @since FPCM 3.3
+     * @since 3.3
      */
     public function getJsLangVars()
     {

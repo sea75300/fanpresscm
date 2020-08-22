@@ -50,7 +50,7 @@ class showall extends showcommon {
         $conditions->draft = 0;
         $conditions->approval = 0;
         $conditions->deleted = 0;
-        $conditions->postponed = 0;
+        $conditions->postponed = \fpcm\model\articles\article::POSTPONED_SEARCH_FE;
         $conditions->archived = 0;
         $conditions->orderby = ['pinned DESC, ' . $this->config->articles_sort . ' ' . $this->config->articles_sort_order];
 
@@ -85,5 +85,3 @@ class showall extends showcommon {
     }
 
 }
-
-?>

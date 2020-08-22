@@ -198,5 +198,3 @@ class feed extends \fpcm\controller\abstracts\pubController {
     }
 
 }
-
-?>

@@ -17,8 +17,8 @@ namespace fpcm\events\category;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @package fpcm/events
- * @since FPCM 4.3
+ * @package fpcm\events
+ * @since 4.3
  */
 final class massEditAfter extends \fpcm\events\abstracts\eventReturnArray {
 

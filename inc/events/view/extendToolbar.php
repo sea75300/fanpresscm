@@ -17,8 +17,8 @@ namespace fpcm\events\view;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @package fpcm/events
- * @since FPCM 4.4
+ * @package fpcm\events
+ * @since 4.4
  */
 final class extendToolbar extends \fpcm\events\abstracts\event {
 

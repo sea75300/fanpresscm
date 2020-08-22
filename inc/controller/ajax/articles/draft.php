@@ -7,7 +7,7 @@ namespace fpcm\controller\ajax\articles;
  * 
  * @package fpcm\controller\ajax\articles\removeeditortags
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @since FPCM 3.3
+ * @since 3.3
  */
 class draft extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 

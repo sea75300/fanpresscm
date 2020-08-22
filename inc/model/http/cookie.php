@@ -13,7 +13,7 @@ namespace fpcm\model\http;
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\http
- * @since FPCM 4.5
+ * @since 4.5
  */
 final class cookie {
 

@@ -12,7 +12,7 @@ namespace fpcm\model\packages;
  * 
  * @package fpcm\model\packages
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @since FPCM 3.1
+ * @since 3.1
  */
 class module extends package {
 

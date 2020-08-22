@@ -26,14 +26,14 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
     /**
      * Ergebnis der System-Update-Prüfung
      * @var bool
-     * @since FPCM 3.1.3
+     * @since 3.1.3
      */
     private $systemCheckresult;
 
     /**
      * System-Update-Object
      * @var \fpcm\model\updater\system
-     * @since FPCM 3.1.3
+     * @since 3.1.3
      */
     private $systemUpdates;
 
@@ -105,7 +105,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
     
     /**
      * Liefert System-Update-HTML zurück
-     * @since FPCM 3.1.0
+     * @since 3.1.0
      */
     private function getSystemUpdateStatus()
     {
@@ -145,7 +145,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
 
     /**
      * Liefert Modul-Update-HTML zurück
-     * @since FPCM 3.1.0
+     * @since 3.1.0
      */
     private function getModuleUpdateStatus()
     {
@@ -192,7 +192,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
      * @param string $iconClass
      * @param string $statusClass
      * @param string $statusText
-     * @since FPCM 3.1.0
+     * @since 3.1.0
      */
     private function renderTable($iconClass, $statusClass, $statusText)
     {

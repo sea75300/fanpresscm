@@ -34,7 +34,7 @@ class icon extends helper {
     /**
      * Return text set on icon
      * @return string
-     * @since FPCM 4.5
+     * @since 4.5
      */
     public function getText() : string
     {

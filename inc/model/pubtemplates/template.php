@@ -43,21 +43,21 @@ class template extends \fpcm\model\abstracts\file {
     /**
      * Platzhalter mit Sprachbezeichner
      * @var array
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     protected $replacementTranslated = [];
 
     /**
      * List of previously parsed attributes
      * @var array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected $replacementAttributes = [];
 
     /**
      * List of attributes by replacement tag
      * @var array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected $replacementAttributesMap = [];
 
@@ -95,7 +95,7 @@ class template extends \fpcm\model\abstracts\file {
     /**
      * Returns raw allowed HTML tags list
      * @return array
-     * @since FPCM 4.2
+     * @since 4.2
      */
     public function getAllowedTagsArray()
     {
@@ -226,7 +226,7 @@ class template extends \fpcm\model\abstracts\file {
      * Platzhalter-Übersetzungen
      * @param string $prefix
      * @return array
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     public function getReplacementTranslations($prefix)
     {
@@ -320,7 +320,7 @@ class template extends \fpcm\model\abstracts\file {
      * Parses replacement attributes
      * @param string $var
      * @return array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function parseAttributes(string $var) : array
     {

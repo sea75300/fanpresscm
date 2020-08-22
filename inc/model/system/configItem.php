@@ -14,7 +14,7 @@ namespace fpcm\model\system;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.4.3-rc2
+ * @since 4.4.3-rc2
  */
 final class configItem {
 

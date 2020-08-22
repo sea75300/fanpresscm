@@ -16,6 +16,7 @@ use fpcm\model\files\fileOption;
  * Cronjob model base
  * 
  * @package fpcm\model\abstracts
+ * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -43,27 +44,28 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     /**
      * Interval der Ausführung
      * @var int
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     protected $execinterval;
 
     /**
      * Module key string
      * @var string
-     * @since FPCM 4.3.0
+     * @since 4.3.0
      */
     protected $modulekey;
 
     /**
      * Cronjob is running
      * @var bool
-     * @since FPCM 4.5.0-a1
+     * @since 4.5.0-a1
      */
     protected $isrunning;
 
     /**
-     * asynchrone Ausführung über cronasync-AJAX-Controller deaktivieren
-     * @var bool, false wenn cronasync-AJAX nicht ausgführt werden soll
+     * asynchrone Ausführung über cronasync-AJAX-Controller deaktivieren,
+     * false wenn cronasync-AJAX nicht ausgführt werden soll
+     * @var bool
      */
     protected $runAsync = true;
 
@@ -264,7 +266,6 @@ abstract class cron implements \fpcm\model\interfaces\cron {
     public function getNextExecTime()
     {
         if ($this->getIntervalTime() === -1) {
-            trigger_error('');
             return '';
         }
 
@@ -317,7 +318,7 @@ abstract class cron implements \fpcm\model\interfaces\cron {
      * Gibt Klassen-Namepsace für Cronjob-Klassen zurück
      * @param string $cronId
      * @return string
-     * @since FPCM 3.3
+     * @since 3.3
      */
     public static function getCronNamespace($cronId)
     {

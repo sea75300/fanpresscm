@@ -14,7 +14,7 @@ namespace fpcm\view\helper;
  * @copyright (c) 2017, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\view\helper
- * @since FPCM 4.4
+ * @since 4.4
  */
 class controlgroup extends helper {
 

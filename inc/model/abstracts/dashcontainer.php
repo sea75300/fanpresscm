@@ -76,7 +76,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     /**
      * Berechtigungen
      * @var \fpcm\model\permissions\permissions
-     * @since FPCM 4.4
+     * @since 4.4
      */
     protected $permissions;
 
@@ -125,7 +125,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     /**
      * Returns stored container position
      * @return int|bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     final public function getStoredPosition()
     {
@@ -145,7 +145,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     /**
      * Return JavaScript view vars
      * @return array
-     * @since FPCM 3.1.3
+     * @since 3.1.3
      */
     public function getJavascriptVars()
     {
@@ -155,7 +155,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     /**
      * Return JavaScript language vars
      * @return array
-     * @since FPCM 3.1.3
+     * @since 3.1.3
      */
     public function getJavascriptLangVars()
     {
@@ -165,7 +165,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     /**
      * Return JavaScript files
      * @return array
-     * @since FPCM 3.1.3
+     * @since 3.1.3
      */
     public function getJavascriptFiles()
     {
@@ -175,7 +175,7 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
     /**
      * Returns view vars
      * @return array
-     * @since FPCM 3.1.3
+     * @since 3.1.3
      */
     public function getControllerViewVars()
     {
@@ -184,8 +184,8 @@ abstract class dashcontainer extends model implements \fpcm\model\interfaces\das
 
     /**
      * Gibt Liste mit zu Variablen zurück, welche an Dashboard-Controller-View übergeben werden sollen
-     * @return ''
-     * @since FPCM 3.1.3
+     * @return string
+     * @since 3.1.3
      */
     public function getView()
     {

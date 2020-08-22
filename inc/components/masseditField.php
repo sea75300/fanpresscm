@@ -10,7 +10,7 @@ namespace fpcm\components;
 /**
  * Mass edit field
  * 
- * @package fpcm\drivers\mysql
+ * @package fpcm\components
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 final class masseditField {

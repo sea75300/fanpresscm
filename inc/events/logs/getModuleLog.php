@@ -17,7 +17,7 @@ namespace fpcm\events\logs;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @package fpcm/events/logs
+ * @package fpcm\events\logs
  */
 final class getModuleLog extends \fpcm\events\abstracts\event {
 

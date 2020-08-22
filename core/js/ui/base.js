@@ -625,16 +625,13 @@ fpcm.ui = {
             msgCode += '    <div class="col-12 col-sm-11 fpcm-ui-padding-none-lr">';
             msgCode += '        <div class="row">';
             msgCode += '            <div class="col-12 col-sm-auto align-self-center fpcm-ui-center fpcm-ui-padding-none-lr">';
-            msgCode += '                <span class="fa-stack fa-2x">';
-            msgCode += '                    <span class="fa fa-square fa-stack-2x fa-inverse"></span>';                    
-            msgCode += '                    <span class="fa fa-' + msg.icon + ' fa-stack-1x"></span>';
-            msgCode += '                </span>';
+            msgCode += '                ' + fpcm.ui.getIcon(msg.icon, { stack: 'square fa-inverse', size: '2x' });
             msgCode += '            </div>';
             msgCode += '            <div class="col-12 col-sm-10 align-self-center fpcm-ui-ellipsis">' + msg.txt +  '</div>';
             msgCode += '        </div>';
             msgCode += '    </div>';
             msgCode += '    <div class="col-12 col-sm-1 fpcm-ui-padding-none-lr fpcm-ui-messages-close fpcm-ui-align-right" id="msgclose-' + msg.id + '">';
-            msgCode += '        <span class="fa-stack"><span class="fa fa-square fa-stack-2x fa-inverse"></span><span class="fa fa-times fa-stack-1x"></span></span>';
+            msgCode += '                ' + fpcm.ui.getIcon('times', { stack: 'square fa-inverse'});
             msgCode += '    </div>';
             msgCode += '</div>';
             fpcm.dom.appendHtml('#fpcm-messages', msgCode);
@@ -742,16 +739,61 @@ fpcm.ui = {
 
         return '<iframe src="' + params.src + '" id="' + params.id + '" class="' + params.classes + '" ' + params.style + '></iframe>';
     },
-    
-    showLoader: function(show, addtext) {
 
-        if (!show) {
-            console.warn('fpcm.ui.showLoader is deprecated as of FPCM 4.3. use "fpcm.ui_loader.hide() instead."');
-            return fpcm.ui_loader.hide();
+    getIcon: function(_icon, _params) {
+
+        if (!_icon) {
+            console.warn('Invalid icon class given!');
+            return '';
+        }
+        
+        if (!_params) {
+            _params = {};
         }
 
-        console.warn('fpcm.ui.showLoader is deprecated as of FPCM 4.3. use "fpcm.ui_loader.show(Your messaage) instead."');
-        return fpcm.ui_loader.show(addtext ? addtext : null);
+        if (!_params.spinner) {
+            _params.spinner = '';
+        }
+
+        if (!_params.stack) {
+            _params.stack = '';
+        }
+
+        if (!_params.size) {
+            _params.size = '1x';
+        }
+
+        if (!_params.text) {
+            _params.text = '';
+        }
+
+        if (!_params.class) {
+            _params.class = '';
+        }
+
+        let iconType = 'unstacked';
+
+        if (_params.stack && _params.stackTop) {
+            iconType = 'stackedTop';
+        }
+        else if (_params.stack && !_params.stackTop) {
+            iconType = 'stacked';
+        }
+
+        let iconStr = fpcm.vars.ui.jsIconDummy[iconType] ? fpcm.vars.ui.jsIconDummy[iconType] : '';
+        if (!iconStr) {
+            return '';
+        }
+
+        return iconStr.replace('{{icon}}', _icon)
+                      .replace('{{class}}', _params.class)
+                      .replace('{{spinner}}', _params.spinner)
+                      .replace('{{stack}}', _params.stack)
+                      .replace('{{size}}', _params.size)
+                      .replace('{{text}}', _params.text)
+                      .replace('{{prefix}}', ( _params.prefix ? _params.prefix : fpcm.vars.ui.jsIconDummy.defaultPrefix ));
+       
+        
     },
     
     initDateTimeMasks: function() {

@@ -218,8 +218,14 @@ if (fpcm.editor) {
         var colorsEl = fpcm.dom.fromId('fpcm-dialog-editor-html-insertcolor').find('div.fpcm-dialog-editor-colors');
         if (colorsEl.length) {
 
+            let icon = fpcm.ui.getIcon('square', {
+                prefix: 'fas',
+                size: '2x',
+                class: 'pb-2'
+            });
+
             for (var i = 0;i < fpcm.vars.jsvars.editorConfig.colors.length; i++) {
-                colorsEl.append('<span class="fpcm-ui-padding-md-tb fas fa-square fa-fw fa-2x" style="color:' + fpcm.vars.jsvars.editorConfig.colors[i] + '" data-color="' + fpcm.vars.jsvars.editorConfig.colors[i] + '"></span>');
+                colorsEl.append(fpcm.dom.fromTag(icon).css('color', fpcm.vars.jsvars.editorConfig.colors[i]).data('color', fpcm.vars.jsvars.editorConfig.colors[i]));
                 if ((i+1) % 10 == 0) {
                     colorsEl.append('<br>');
                 }

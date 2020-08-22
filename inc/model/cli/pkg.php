@@ -18,7 +18,7 @@ use fpcm\model\updater\system;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.5.1
+ * @since 3.5.1
  */
 final class pkg extends \fpcm\model\abstracts\cli {
 
@@ -201,6 +201,13 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $success = $pkg->extract();
         if ($success !== true) {
             $this->output('Package extraction for ' . basename($pkg->getLocalPath()) . ' was not successful. ERROR CODE: ' . $success, true);
+        }
+        $this->output('-- Finished.' . PHP_EOL);
+
+        $this->output('Backup files in local file systems...');
+        $success = $pkg->backup();
+        if ($success !== true) {
+            $this->output('File system backup ' . basename($pkg->getLocalPath()) . ' was not successful. ERROR CODE: ' . $success, true);
         }
         $this->output('-- Finished.' . PHP_EOL);
 

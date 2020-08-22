@@ -20,7 +20,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
     /**
      * Run in command line mode
      * @var bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     private $isCli = false;
 
@@ -326,7 +326,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
     /**
      * Führt Optimierung der Datenbank-Tabellen durch
-     * @since FPCM 3.3
+     * @since 3.3
      * @return bool
      */
     private function optimizeTables()
@@ -372,7 +372,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
      * @param string $version
      * @param string $option
      * @return bool
-     * @since FPCM 3.2
+     * @since 3.2
      */
     private function checkVersion($version, $option = '<')
     {
@@ -411,7 +411,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
     /**
      * Print text in command line mode
      * @param string $str
-     * @since FPCM 4.1
+     * @since 4.1
      */
     private function cliOutput(string $str)
     {

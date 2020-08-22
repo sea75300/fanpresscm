@@ -29,7 +29,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
      *
      * @var array
      */
-    protected $ownArticleIds = [];
+    protected $ownArticleIds = false;
 
     /**
      *

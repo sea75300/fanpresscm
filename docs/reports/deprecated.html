@@ -1,373 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <meta charset="utf-8"/>
-    <title>     &raquo; Deprecated elements
+    <meta charset="utf-8">
+    <title>    Documentation &raquo; Deprecated elements
 </title>
-    <meta name="author" content=""/>
-    <meta name="description" content=""/>
-
-    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/prism.css" rel="stylesheet" media="all"/>
-    <link href="../css/template.css" rel="stylesheet" media="all"/>
-    
-    <!--[if lt IE 9]>
-    <script src="../js/html5.js"></script>
-    <![endif]-->
-    <script src="../js/jquery-1.11.0.min.js"></script>
-    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.smooth-scroll.js"></script>
-    <script src="../js/prism.min.js"></script>
-    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
-    
-    <link rel="shortcut icon" href="../images/favicon.ico"/>
-    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
-    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
-</head>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/template.css">
+    <link rel="icon" href="../images/favicon.ico"/>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.6/fuse.min.js"></script>
+    <script src="../js/search.js"></script>
+    <script defer src="../js/searchIndex.js"></script>
+    </head>
 <body>
+<header class="phpdocumentor-top-header"></header>
+<header class="phpdocumentor-header">
+    <section class="phpdocumentor-section">
+        <h1 class="phpdocumentor-title">Documentation</h1>
+    </section>
+</header>
+<main class="phpdocumentor">
+    <div class="phpdocumentor-section">
+        <aside class="three phpdocumentor-columns phpdocumentor-sidebar">
+    <section data-search-form class="phpdocumentor-search">
+        <h1 class="phpdocumentor-sidebar__category-header">Search</h1>
+        <label class="phpdocumentor-label">
+            <span class="visually-hidden">Search for</span>
+            <input type="search" class="phpdocumentor-field phpdocumentor-search__field" placeholder="Loading .." disabled />
+        </label>
+    </section>
 
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <i class="icon-ellipsis-vertical"></i>
-            </a>
-            <a class="brand" href="../index.html">API Documentation</a>
+    
+    <h1 class="phpdocumentor-sidebar__category-header">Namespaces</h1>
+            <h2 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/default.html"><abbr title="\">Global</abbr></a></h2>
+                    <h3 class="phpdocumentor-sidebar__root-namespace"><a href="../namespaces/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h3>
+            <ul class="phpdocumentor-list">
+                                    <li><a href="../namespaces/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
+                                    <li><a href="../namespaces/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
+                            </ul>
+            
+        <h1 class="phpdocumentor-sidebar__category-header">Packages</h1>
+            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/Default.html"><abbr title="\Default">Default</abbr></a></h2>
+        <ul class="phpdocumentor-list">
+                    </ul>
+            <h2 class="phpdocumentor-sidebar__root-package"><a href="../packages/fpcm.html"><abbr title="\fpcm">fpcm</abbr></a></h2>
+        <ul class="phpdocumentor-list">
+                            <li><a href="../packages/fpcm-classes.html"><abbr title="\fpcm\classes">classes</abbr></a></li>
+                            <li><a href="../packages/fpcm-model.html"><abbr title="\fpcm\model">model</abbr></a></li>
+                            <li><a href="../packages/fpcm-components.html"><abbr title="\fpcm\components">components</abbr></a></li>
+                            <li><a href="../packages/fpcm-controller.html"><abbr title="\fpcm\controller">controller</abbr></a></li>
+                            <li><a href="../packages/fpcm-module.html"><abbr title="\fpcm\module">module</abbr></a></li>
+                            <li><a href="../packages/fpcm-drivers.html"><abbr title="\fpcm\drivers">drivers</abbr></a></li>
+                            <li><a href="../packages/fpcm-events.html"><abbr title="\fpcm\events">events</abbr></a></li>
+                            <li><a href="../packages/fpcm-migrations.html"><abbr title="\fpcm\migrations">migrations</abbr></a></li>
+                            <li><a href="../packages/fpcm-view.html"><abbr title="\fpcm\view">view</abbr></a></li>
+                    </ul>
+        
+    <h1 class="phpdocumentor-sidebar__category-header">Reports</h1>
+        <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/deprecated.html">Deprecated</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/errors.html">Errors</a></h2>
+    <h2 class="phpdocumentor-sidebar__root-package"><a href="../reports/markers.html">Markers</a></h2>
+</aside>
 
-            <div class="nav-collapse">
-                <ul class="nav pull-right">
-                                        <li class="dropdown">
-                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
-                            API Documentation <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                                                        <li><a href="../namespaces/fpcm.html">\fpcm</a></li>
-                                                    </ul>
-                    </li>
-                                        <li class="dropdown" id="charts-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Charts <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../graphs/class.html">
-                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" id="reports-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Reports <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/deprecated.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">14</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+        <div class="nine phpdocumentor-columns phpdocumentor-content">
+            <ul class="phpdocumentor-breadcrumbs">
+        <li><a href="../index.html">Home</a></li>
+    </ul>
+
+    <div class="phpdocumentor-row">
+        <h2 class="phpdocumentor-content__title">Deprecated</h2>
+
+                <h3>Table of Contents</h3>
+        <table class="phpdocumentor-table_of_contents">
+                            <tr>
+                    <td class="phpdocumentor-cell"><a href="#inc/classes/http.php">inc/classes/http.php</a></td>
+                </tr>
+                            <tr>
+                    <td class="phpdocumentor-cell"><a href="#inc/controller/abstracts/ajaxController.php">inc/controller/abstracts/ajaxController.php</a></td>
+                </tr>
+                            <tr>
+                    <td class="phpdocumentor-cell"><a href="#inc/controller/abstracts/controller.php">inc/controller/abstracts/controller.php</a></td>
+                </tr>
+                            <tr>
+                    <td class="phpdocumentor-cell"><a href="#inc/controller/traits/modules/tools.php">inc/controller/traits/modules/tools.php</a></td>
+                </tr>
+                            <tr>
+                    <td class="phpdocumentor-cell"><a href="#inc/model/permissions/permissions.php">inc/model/permissions/permissions.php</a></td>
+                </tr>
+                            <tr>
+                    <td class="phpdocumentor-cell"><a href="#inc/model/system/permissions.php">inc/model/system/permissions.php</a></td>
+                </tr>
+                    </table>
+        
+                    <a id="inc/classes/http.php"></a>
+            <h3><abbr title="inc/classes/http.php">http.php</abbr></h3>
+            <table>
+                <tr>
+                    <th class="phpdocumentor-heading">Line</th>
+                    <th class="phpdocumentor-heading">Element</th>
+                    <th class="phpdocumentor-heading">Reason</th>
+                </tr>
+                                                            <tr>
+                            <td class="phpdocumentor-cell">21</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html"><abbr title="\fpcm\classes\http">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">FPCM 4.4, use new request/ response handler instead</td>
+                        </tr>
+                                                                                <tr>
+                            <td class="phpdocumentor-cell">136</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_get"><abbr title="\fpcm\classes\http::get()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                        </tr>
+                                                                                <tr>
+                            <td class="phpdocumentor-cell">155</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_postOnly"><abbr title="\fpcm\classes\http::postOnly()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                        </tr>
+                                                                                <tr>
+                            <td class="phpdocumentor-cell">174</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_getOnly"><abbr title="\fpcm\classes\http::getOnly()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                        </tr>
+                                                                                <tr>
+                            <td class="phpdocumentor-cell">193</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_cookieOnly"><abbr title="\fpcm\classes\http::cookieOnly()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                        </tr>
+                                                                                <tr>
+                            <td class="phpdocumentor-cell">205</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_getIp"><abbr title="\fpcm\classes\http::getIp()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                        </tr>
+                                                                                <tr>
+                            <td class="phpdocumentor-cell">218</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_getHttpHost"><abbr title="\fpcm\classes\http::getHttpHost()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                        </tr>
+                                                                                <tr>
+                            <td class="phpdocumentor-cell">230</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_getFiles"><abbr title="\fpcm\classes\http::getFiles()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                        </tr>
+                                                                                <tr>
+                            <td class="phpdocumentor-cell">243</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_getSessionVar"><abbr title="\fpcm\classes\http::getSessionVar()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                        </tr>
+                                                                                <tr>
+                            <td class="phpdocumentor-cell">256</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_setSessionVar"><abbr title="\fpcm\classes\http::setSessionVar()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                        </tr>
+                                                                                <tr>
+                            <td class="phpdocumentor-cell">281</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-classes-http.html#method_filter"><abbr title="\fpcm\classes\http::filter()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">FPCM 4.4</td>
+                        </tr>
+                                                </table>
+                    <a id="inc/controller/abstracts/ajaxController.php"></a>
+            <h3><abbr title="inc/controller/abstracts/ajaxController.php">ajaxController.php</abbr></h3>
+            <table>
+                <tr>
+                    <th class="phpdocumentor-heading">Line</th>
+                    <th class="phpdocumentor-heading">Element</th>
+                    <th class="phpdocumentor-heading">Reason</th>
+                </tr>
+                                                            <tr>
+                            <td class="phpdocumentor-cell">26</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-controller-abstracts-ajaxController.html#property_returnData"><abbr title="\fpcm\controller\abstracts\ajaxController::$returnData">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">since version FPCM 4.5</td>
+                        </tr>
+                                                </table>
+                    <a id="inc/controller/abstracts/controller.php"></a>
+            <h3><abbr title="inc/controller/abstracts/controller.php">controller.php</abbr></h3>
+            <table>
+                <tr>
+                    <th class="phpdocumentor-heading">Line</th>
+                    <th class="phpdocumentor-heading">Element</th>
+                    <th class="phpdocumentor-heading">Reason</th>
+                </tr>
+                                                            <tr>
+                            <td class="phpdocumentor-cell">177</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-controller-abstracts-controller.html#method_getRequestVar"><abbr title="\fpcm\controller\abstracts\controller::getRequestVar()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">FPCM 4.4, use $this-&gt;request instead</td>
+                        </tr>
+                                                </table>
+                    <a id="inc/controller/traits/modules/tools.php"></a>
+            <h3><abbr title="inc/controller/traits/modules/tools.php">tools.php</abbr></h3>
+            <table>
+                <tr>
+                    <th class="phpdocumentor-heading">Line</th>
+                    <th class="phpdocumentor-heading">Element</th>
+                    <th class="phpdocumentor-heading">Reason</th>
+                </tr>
+                                                            <tr>
+                            <td class="phpdocumentor-cell">19</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-controller-traits-modules-tools.html"><abbr title="\fpcm\controller\traits\modules\tools">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">since version FPCM 4.4</td>
+                        </tr>
+                                                </table>
+                    <a id="inc/model/permissions/permissions.php"></a>
+            <h3><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></h3>
+            <table>
+                <tr>
+                    <th class="phpdocumentor-heading">Line</th>
+                    <th class="phpdocumentor-heading">Element</th>
+                    <th class="phpdocumentor-heading">Reason</th>
+                </tr>
+                                                            <tr>
+                            <td class="phpdocumentor-cell">382</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-permissions-permissions.html#method_check"><abbr title="\fpcm\model\permissions\permissions::check()">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">since version FPCM 4.4</td>
+                        </tr>
+                                                </table>
+                    <a id="inc/model/system/permissions.php"></a>
+            <h3><abbr title="inc/model/system/permissions.php">permissions.php</abbr></h3>
+            <table>
+                <tr>
+                    <th class="phpdocumentor-heading">Line</th>
+                    <th class="phpdocumentor-heading">Element</th>
+                    <th class="phpdocumentor-heading">Reason</th>
+                </tr>
+                                                            <tr>
+                            <td class="phpdocumentor-cell">19</td>
+                            <td class="phpdocumentor-cell"><a href="../classes/fpcm-model-system-permissions.html"><abbr title="\fpcm\model\system\permissions">normal</abbr></a></td>
+                            <td class="phpdocumentor-cell">since version FPCM 4.4</td>
+                        </tr>
+                                                </table>
+            </div>
+            <div data-search-results class="phpdocumentor-search-results phpdocumentor-search-results--hidden">
+
+                <h2>Search results</h2>
+                <ul class="phpdocumentor-search-results__entries">
+
                 </ul>
             </div>
         </div>
     </div>
-    <!--<div class="go_to_top">-->
-    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
-    <!--</div>-->
-</div>
-
-<div id="___" class="container-fluid">
-        <div class="row-fluid">
-
-        <div class="span2 sidebar">
-            <ul class="side-nav nav nav-list">
-                <li class="nav-header">Navigation</li>
-                                                            <li><a href="#inc/module/event.php"><i class="icon-file"></i> inc/module/event.php</a></li>
-                                                                                                    <li><a href="#inc/classes/http.php"><i class="icon-file"></i> inc/classes/http.php</a></li>
-                                                                                                    <li><a href="#inc/classes/security.php"><i class="icon-file"></i> inc/classes/security.php</a></li>
-                                                                                                                                                            <li><a href="#inc/model/permissions/permissions.php"><i class="icon-file"></i> inc/model/permissions/permissions.php</a></li>
-                                                                                                    <li><a href="#inc/model/theme/navigationItem.php"><i class="icon-file"></i> inc/model/theme/navigationItem.php</a></li>
-                                                                                                                                                                                                                    <li><a href="#inc/controller/abstracts/ajaxController.php"><i class="icon-file"></i> inc/controller/abstracts/ajaxController.php</a></li>
-                                                                                                                                                                                                                    <li><a href="#inc/controller/abstracts/controller.php"><i class="icon-file"></i> inc/controller/abstracts/controller.php</a></li>
-                                                                                                    <li><a href="#inc/model/crons/cronlist.php"><i class="icon-file"></i> inc/model/crons/cronlist.php</a></li>
-                                                                                                    <li><a href="#inc/model/system/permissions.php"><i class="icon-file"></i> inc/model/system/permissions.php</a></li>
-                                                                    </ul>
-        </div>
-
-        <div class="span10 offset2">
-            <ul class="breadcrumb">
-                <li><a href="../"><i class="icon-remove-sign"></i></a><span class="divider">\</span></li>
-                <li>Deprecated elements</li>
-            </ul>
-
-            <div id="marker-accordion">
-                                                                            <a name="inc/module/event.php" id="inc/module/event.php"></a>
-                    <h3>
-                        <i class="icon-file"></i>
-                        inc/module/event.php
-                        <small style="float: right;padding-right: 10px;">1</small>
-                    </h3>
-                    <div>
-                        <table class="table markers table-bordered">
-                            <tr>
-                                <th>Element</th>
-                                <th>Line</th>
-                                <th>Description</th>
-                            </tr>
-                                                                                <tr>
-                                    <td>\fpcm\module\event::key</td>
-                                    <td>24</td>
-                                    <td>since version FPCM 4.4, use $this-&gt;getModuleKey() instead</td>
-                                </tr>
-                                                                                                                                </table>
-                    </div>
-                                        <a name="inc/classes/http.php" id="inc/classes/http.php"></a>
-                    <h3>
-                        <i class="icon-file"></i>
-                        inc/classes/http.php
-                        <small style="float: right;padding-right: 10px;">1</small>
-                    </h3>
-                    <div>
-                        <table class="table markers table-bordered">
-                            <tr>
-                                <th>Element</th>
-                                <th>Line</th>
-                                <th>Description</th>
-                            </tr>
-                                                                                <tr>
-                                    <td>\fpcm\classes\http</td>
-                                    <td>21</td>
-                                    <td>FPCM 4.4, use new request/ response handler instead</td>
-                                </tr>
-                                                                                                                                </table>
-                    </div>
-                                        <a name="inc/classes/security.php" id="inc/classes/security.php"></a>
-                    <h3>
-                        <i class="icon-file"></i>
-                        inc/classes/security.php
-                        <small style="float: right;padding-right: 10px;">1</small>
-                    </h3>
-                    <div>
-                        <table class="table markers table-bordered">
-                            <tr>
-                                <th>Element</th>
-                                <th>Line</th>
-                                <th>Description</th>
-                            </tr>
-                                                                                <tr>
-                                    <td>\fpcm\classes\security::createSessionId()</td>
-                                    <td>188</td>
-                                    <td>since version FPCM 4.3</td>
-                                </tr>
-                                                                                                                                                <tr>
-                                    <td>\fpcm\classes\security::createPageToken()</td>
-                                    <td>199</td>
-                                    <td>since version FPCM 4.3</td>
-                                </tr>
-                                                                                                                                </table>
-                    </div>
-                                        <a name="inc/model/permissions/permissions.php" id="inc/model/permissions/permissions.php"></a>
-                    <h3>
-                        <i class="icon-file"></i>
-                        inc/model/permissions/permissions.php
-                        <small style="float: right;padding-right: 10px;">1</small>
-                    </h3>
-                    <div>
-                        <table class="table markers table-bordered">
-                            <tr>
-                                <th>Element</th>
-                                <th>Line</th>
-                                <th>Description</th>
-                            </tr>
-                                                                                <tr>
-                                    <td>\fpcm\model\permissions\permissions::check()</td>
-                                    <td>381</td>
-                                    <td>since version FPCM 4.4</td>
-                                </tr>
-                                                                                                                                </table>
-                    </div>
-                                        <a name="inc/model/theme/navigationItem.php" id="inc/model/theme/navigationItem.php"></a>
-                    <h3>
-                        <i class="icon-file"></i>
-                        inc/model/theme/navigationItem.php
-                        <small style="float: right;padding-right: 10px;">1</small>
-                    </h3>
-                    <div>
-                        <table class="table markers table-bordered">
-                            <tr>
-                                <th>Element</th>
-                                <th>Line</th>
-                                <th>Description</th>
-                            </tr>
-                                                                                <tr>
-                                    <td>\fpcm\model\theme\navigationItem::setPermission()</td>
-                                    <td>284</td>
-                                    <td>since version FPCM 4.4</td>
-                                </tr>
-                                                                                                                                                <tr>
-                                    <td>\fpcm\model\theme\navigationItem::hasPermission()</td>
-                                    <td>334</td>
-                                    <td>since version FPCM 4.4</td>
-                                </tr>
-                                                                                                                                                <tr>
-                                    <td>\fpcm\model\theme\navigationItem::permission</td>
-                                    <td>78</td>
-                                    <td>since version FPCM 4.4</td>
-                                </tr>
-                                                                                                                                </table>
-                    </div>
-                                        <a name="inc/controller/abstracts/ajaxController.php" id="inc/controller/abstracts/ajaxController.php"></a>
-                    <h3>
-                        <i class="icon-file"></i>
-                        inc/controller/abstracts/ajaxController.php
-                        <small style="float: right;padding-right: 10px;">1</small>
-                    </h3>
-                    <div>
-                        <table class="table markers table-bordered">
-                            <tr>
-                                <th>Element</th>
-                                <th>Line</th>
-                                <th>Description</th>
-                            </tr>
-                                                                                <tr>
-                                    <td>\fpcm\controller\abstracts\ajaxController::getResponse()</td>
-                                    <td>72</td>
-                                    <td>FPCM 4.4, use $this-&gt;response (\fpcm\model\http\response instance) instead</td>
-                                </tr>
-                                                                                                                                                <tr>
-                                    <td>\fpcm\controller\abstracts\ajaxController::getSimpleResponse()</td>
-                                    <td>93</td>
-                                    <td>FPCM 4.4, use $this-&gt;response (\fpcm\model\http\response instance) instead</td>
-                                </tr>
-                                                                                                                                                <tr>
-                                    <td>\fpcm\controller\abstracts\ajaxController::setReturnJson()</td>
-                                    <td>119</td>
-                                    <td>FPCM 4.4, use $this-&gt;response (\fpcm\model\http\response instance) instead</td>
-                                </tr>
-                                                                                                                                </table>
-                    </div>
-                                        <a name="inc/controller/abstracts/controller.php" id="inc/controller/abstracts/controller.php"></a>
-                    <h3>
-                        <i class="icon-file"></i>
-                        inc/controller/abstracts/controller.php
-                        <small style="float: right;padding-right: 10px;">1</small>
-                    </h3>
-                    <div>
-                        <table class="table markers table-bordered">
-                            <tr>
-                                <th>Element</th>
-                                <th>Line</th>
-                                <th>Description</th>
-                            </tr>
-                                                                                <tr>
-                                    <td>\fpcm\controller\abstracts\controller::getRequestVar()</td>
-                                    <td>180</td>
-                                    <td>FPCM 4.4, use $this-&gt;request instead</td>
-                                </tr>
-                                                                                                                                </table>
-                    </div>
-                                        <a name="inc/model/crons/cronlist.php" id="inc/model/crons/cronlist.php"></a>
-                    <h3>
-                        <i class="icon-file"></i>
-                        inc/model/crons/cronlist.php
-                        <small style="float: right;padding-right: 10px;">1</small>
-                    </h3>
-                    <div>
-                        <table class="table markers table-bordered">
-                            <tr>
-                                <th>Element</th>
-                                <th>Line</th>
-                                <th>Description</th>
-                            </tr>
-                                                                                <tr>
-                                    <td>\fpcm\model\crons\cronlist::getCronsData()</td>
-                                    <td>148</td>
-                                    <td>since version FPCM 4.3</td>
-                                </tr>
-                                                                                                                                </table>
-                    </div>
-                                        <a name="inc/model/system/permissions.php" id="inc/model/system/permissions.php"></a>
-                    <h3>
-                        <i class="icon-file"></i>
-                        inc/model/system/permissions.php
-                        <small style="float: right;padding-right: 10px;">1</small>
-                    </h3>
-                    <div>
-                        <table class="table markers table-bordered">
-                            <tr>
-                                <th>Element</th>
-                                <th>Line</th>
-                                <th>Description</th>
-                            </tr>
-                                                                                <tr>
-                                    <td>\fpcm\model\system\permissions</td>
-                                    <td>19</td>
-                                    <td>since version FPCM 4.4</td>
-                                </tr>
-                                                                                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer class="row-fluid">
-        <section class="span10 offset2">
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <section class="row-fluid footer-sections">
-                        <section class="span4">
-                                                        <h1><i class="icon-code"></i></h1>
-                            <div>
-                                <ul>
-                                                                            <li><a href="../namespaces/fpcm.html">\fpcm</a></li>
-                                                                    </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-bar-chart"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-pushpin"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../reports/errors.html">Errors</a></li>
-                                    <li><a href="../reports/markers.html">Markers</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-            </section>
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <hr />
-                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on April 19th, 2020 at 18:01.
-                </section>
-            </section>
-        </section>
-    </footer>
-</div>
+</main>
 
 </body>
 </html>

@@ -44,7 +44,7 @@ class category extends \fpcm\model\abstracts\dataset {
     /**
      * Wortsperren-Liste
      * @var \fpcm\model\wordban\items
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     protected $wordbanList;
 
@@ -117,7 +117,7 @@ class category extends \fpcm\model\abstracts\dataset {
     /**
      * Liefert <img>-Tag für Kategorie-Icon zurück
      * @return string
-     * @since FPCM 3.1.0
+     * @since 3.1.0
      */
     public function getCategoryImage()
     {
@@ -155,7 +155,7 @@ class category extends \fpcm\model\abstracts\dataset {
     /**
      * Führt Ersetzung von gesperrten Texten in Kommentar-Daten durch
      * @return bool
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     protected function removeBannedTexts()
     {
@@ -169,7 +169,7 @@ class category extends \fpcm\model\abstracts\dataset {
      * Returns event base string
      * @see \fpcm\model\abstracts\dataset::getEventModule
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function getEventModule(): string
     {
@@ -180,7 +180,7 @@ class category extends \fpcm\model\abstracts\dataset {
      * Is triggered after successful database insert
      * @see \fpcm\model\abstracts\dataset::afterSaveInternal
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterSaveInternal(): bool
     {
@@ -192,7 +192,7 @@ class category extends \fpcm\model\abstracts\dataset {
      * Is triggered after successful database update
      * @see \fpcm\model\abstracts\dataset::afterUpdateInternal
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterUpdateInternal(): bool
     {
