@@ -14,8 +14,11 @@ fpcm.system = {
     init: function () {
 
         if (!fpcm.vars.jsvars.noRefresh) {
-            fpcm.system.doRefresh();
-            setInterval(fpcm.system.doRefresh, 60000);
+            fpcm.worker.postMessage({
+                namespace: 'system',
+                function: 'doRefresh',
+                interval: 10000
+            });
         }
 
         fpcm.system.initPasswordFieldActions();

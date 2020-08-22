@@ -6,6 +6,7 @@
  */
 
 jQuery.noConflict();
+
 (function () {
     fpcm.ui.init();
     fpcm.ui_navigation.init();
@@ -14,6 +15,36 @@ jQuery.noConflict();
     delete fpcm.ui.init;
     delete fpcm.ui_navigation.init;
     delete fpcm.ui_notify.init;
+
+    
+    fpcm.worker = new Worker('core/js/worker.js');
+    fpcm.worker.onmessage = function(_event) {
+
+        if (typeof _event.data.cmd) {
+
+            if (!fpcm[_event.data.ns]) {
+                console.warn('Invalid namespace given fpcm.' + _event.data.ns);
+                return false;
+            }
+
+            if (!fpcm[_event.data.ns][_event.data.func]) {
+                console.warn('Invalid function call fpcm.' + _event.data.ns + '.' + _event.data.func);
+                return false;
+            }
+
+            let _func = fpcm[_event.data.ns][_event.data.func];
+            if (_event.data.intvl) {
+                setInterval(function () {
+                    _func(_event.data.param);
+                }, _event.data.intvl);
+                return true;
+            }
+
+            _func(_event.data.param);
+            return true;
+        }
+    }
+
 })();
 
 
