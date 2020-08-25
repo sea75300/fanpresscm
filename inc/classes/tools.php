@@ -28,7 +28,7 @@ final class tools {
      * @return string
      * @since 3.1.2
      */
-    public static function calcSize($value, $decimals = 2, $delimDec = ',', $delimTousands = '.')
+    public static function calcSize($value, $decimals = 2, $delimDec = ',', $delimTousands = '.') : string
     {
         if (!is_numeric($value)) {
             return $value;
@@ -53,7 +53,7 @@ final class tools {
      * @return string
      * @since 3.4
      */
-    public static function getControllerLink($controller = '', array $params = [])
+    public static function getControllerLink($controller = '', array $params = []) : string
     {
         $redirectString = dirs::getRootUrl("index.php?module={$controller}");
         if (!count($params)) {
@@ -70,7 +70,7 @@ final class tools {
      * @return string
      * @since 3.4
      */
-    public static function getFullControllerLink($controller = '', array $params = [])
+    public static function getFullControllerLink($controller = '', array $params = []) : string
     {
         return self::getControllerLink($controller, $params);
     }
@@ -84,7 +84,7 @@ final class tools {
      * @return array
      * @since 3.4
      */
-    public static function calcPagination($pageLimit, $currentPage, $maxItemCount, $currentItemCount)
+    public static function calcPagination($pageLimit, $currentPage, $maxItemCount, $currentItemCount) : array
     {
         $data = [
             'pageCurrent' => 1,
@@ -146,7 +146,7 @@ final class tools {
      * @return string
      * @since 3.5
      */
-    public static function getNavigationActiveCheckStr()
+    public static function getNavigationActiveCheckStr() : string
     {
         $data = [];
 
@@ -167,7 +167,7 @@ final class tools {
      * @param string $filename
      * @return string
      */
-    public static function escapeFileName($filename)
+    public static function escapeFileName($filename) : string
     {
         return preg_replace('/[^A-Za-z0-9_.\-]/', '', htmlentities($filename, ENT_COMPAT | ENT_HTML401));
     }
@@ -177,7 +177,7 @@ final class tools {
      * @param string $data
      * @return string
      */
-    public static function getHash($data)
+    public static function getHash($data) : string
     {
         return hash(security::defaultHashAlgo, $data);
     }
@@ -210,7 +210,7 @@ final class tools {
      * @param string $subject
      * @param array $replacement
      * @param int $count
-     * @return string
+     * @return array
      * @see str_replace
      * @since 4.4
      */

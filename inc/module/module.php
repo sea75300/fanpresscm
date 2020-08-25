@@ -383,14 +383,37 @@ class module {
 
         return version_compare((new config($this->mkey, null))->version, $this->config->version, '=') ? false : true;
     }
+    
+    /**
+     * 
+     * Check if configure action should be displayed
+     * @param int $status
+     * @return boolean
+     */
+    public function hasConfigure(int &$legacy = 0)
+    {
+        if ( file_exists(self::getConfigByKey($this->mkey, 'configure')) ) {
+            $legacy = 0;
+            return true;
+        }
+
+        if ( file_exists(\fpcm\module\module::getTemplateDirByKey($this->mkey, 'configure.php')) ) {
+            $legacy = 1;
+            return true;
+        }
+
+        return false;
+    }
 
     /**
-     * Check if configure action should be displayed
-     * @return bool
+     * Fetch module configuration config from configure.yml
+     * @return array
+     * @since 4.5
      */
-    public function hasConfigure() : bool
+    public function getConfigureFields() : array
     {
-        return file_exists(\fpcm\module\module::getTemplateDirByKey($this->mkey, 'configure.php'));
+        include_once loader::libGetFilePath('spyc/Spyc.php');
+        return \Spyc::YAMLLoad( self::getConfigByKey($this->mkey, 'configure') );
     }
 
     /**

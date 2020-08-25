@@ -68,7 +68,6 @@ final class crypt {
      */
     public function __construct()
     {
-
         $this->hasCrypt = function_exists('openssl_encrypt') && function_exists('openssl_decrypt');
         if (!$this->hasCrypt || baseconfig::installerEnabled()) {
             return false;
@@ -95,7 +94,7 @@ final class crypt {
      * @param string $data
      * @return string
      */
-    public function encrypt($data)
+    public function encrypt($data) : string
     {
         if (is_array($data) || is_object($data)) {
             $data = json_encode($data);
@@ -119,7 +118,7 @@ final class crypt {
      * @param string $data
      * @return string
      */
-    public function decrypt($data)
+    public function decrypt($data) : string
     {
         if (is_array($data) || is_object($data)) {
             $data = json_decode($data);
@@ -142,9 +141,8 @@ final class crypt {
      * Initialisiert Crypt Key und Methode
      * @return bool
      */
-    public function initCrypt()
+    public function initCrypt() : bool
     {
-
         if (!$this->hasCrypt) {
             return false;
         }
@@ -180,7 +178,7 @@ final class crypt {
      * @param string $data
      * @return string
      */
-    private function simpleEncrypt($data)
+    private function simpleEncrypt($data) : string
     {
         return str_rot13(base64_encode(str_rot13(base64_encode(str_rot13(base64_encode($data))))));
     }
@@ -190,7 +188,7 @@ final class crypt {
      * @param string $data
      * @return string
      */
-    private function simpleDecrypt($data)
+    private function simpleDecrypt($data) : string
     {
         return base64_decode(str_rot13(base64_decode(str_rot13(base64_decode(str_rot13($data))))));
     }
@@ -199,9 +197,8 @@ final class crypt {
      * Check ob Konfiguration vollständig
      * @return bool
      */
-    private function hasCompleteConfig()
+    private function hasCompleteConfig() : bool
     {
-
         if (!$this->hasCrypt || !$this->hasConfig || !$this->method || !$this->passwd || !$this->iv) {
             return false;
         }
@@ -213,9 +210,9 @@ final class crypt {
      * Return random string by openssl_random_pseudo_bytes
      * @param int $length
      * @return string
-     * @since 4
+     * @since 4.0
      */
-    public static function getRandomString($length = 32)
+    public static function getRandomString($length = 32) : string
     {
         return openssl_random_pseudo_bytes($length);
     }

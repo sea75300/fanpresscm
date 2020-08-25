@@ -19,6 +19,12 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
      * @var \fpcm\module\module
      */
     protected $module;
+    
+    /**
+     *
+     * @var int
+     */
+    protected $useLegacy = 0;
 
     /**
      * 
@@ -29,17 +35,18 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         $key = $this->request->fromGET('key');
         if (!$key || !\fpcm\module\module::validateKey($key)) {
             $this->view = new \fpcm\view\error('MODULES_KEY_INVALID');
+            $this->view->render();
             return false;
         }
 
         $this->module = $this->getObject($key);
-        
-        if (!$this->module->isInstalled() || !$this->module->isActive()) {
-            $view = new \fpcm\view\error("The module '{$key}' is not installed or enabled!");
-            $view->render();
+        if (!$this->module->isInstalled() || !$this->module->isActive() || !$this->module->hasConfigure($this->useLegacy)) {
+            $this->view = new \fpcm\view\error("The module '{$key}' is not installed or enabled!");
+            $this->view->render();
+            return false;
         }
-        
-        $this->view = new \fpcm\view\view('configure', $key);
+
+        $this->view = new \fpcm\view\view('configure', $this->useLegacy ? $key : false);
         return true;
     }
 
@@ -97,7 +104,9 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         $this->view->setViewVars(array_merge(
             $this->module->getConfigViewVars(),
             [
-                'options' => $this->module->getOptions()
+                'options' => $this->module->getOptions(),
+                'fields' => $this->useLegacy ? [] : $this->module->getConfigureFields(),
+                'prefix' => $this->module->getFullPrefix()
             ]
         ));
 

@@ -43,7 +43,11 @@ fpcm.filemanager = {
     initAfter: function() {
 
         if (fpcm.vars.jsvars.loadAjax) {
-            fpcm.filemanager.reloadFiles();
+            fpcm.worker.postMessage({
+                namespace: 'filemanager',
+                function: 'reloadFiles',
+                id: 'filemanager.reloadFiles'
+            });
         }
 
         if (fpcm.vars.jsvars.fmgrMode === 1) {

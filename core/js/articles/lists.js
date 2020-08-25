@@ -11,9 +11,14 @@ if (fpcm === undefined) {
 fpcm.articles = {
 
     init: function() {
-        
-        fpcm.articles.loadArticles({
-            page: fpcm.vars.jsvars.listPage
+
+        fpcm.worker.postMessage({
+            namespace: 'articles',
+            function: 'loadArticles',
+            id: 'articles.loadArticles',
+            param: {
+                page: fpcm.vars.jsvars.listPage
+            }
         });
 
         fpcm.articles.initArticleSearch();
