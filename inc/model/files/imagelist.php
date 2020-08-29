@@ -159,7 +159,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
                 continue;
             }
 
-            $image = new \fpcm\model\files\image($folderFile, false, true);
+            $image = new \fpcm\model\files\image($folderFile, false);
             $image->setFiletime($image->getModificationTime());
             $image->setUserid($userId);
 

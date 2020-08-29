@@ -983,9 +983,8 @@ class view {
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
             self::ROOTURL_CORE_JS.'script.php?uq={$unique}'
         ]);
-        
-        $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init.js']);
 
+        $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init'.self::getJsExt()]);
         return $this->jsFiles;
     }
 
@@ -1004,6 +1003,20 @@ class view {
         return preg_match("/($key)/is", $_SERVER['HTTP_USER_AGENT']) === 1 ? true : false;
     }
 
+    /**
+     * Return JS file extension
+     * @return string
+     * @since 4.5
+     */
+    final public static function getJsExt() : string
+    {
+        $jsExt = '.js';
+        if (!defined('FPCM_VIEW_JS_USE_MINIFIED') || !FPCM_VIEW_JS_USE_MINIFIED) {
+            return $jsExt;
+        }
+
+        return '.min'.$jsExt;
+    }
 }
 
 ?>

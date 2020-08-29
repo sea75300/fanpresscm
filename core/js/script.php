@@ -29,19 +29,21 @@ if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled(
         $jsFiles = [];
     }
 
+    $jsExt = \fpcm\view\view::getJsExt();
+
     $jsFilesDefault = [
-        __DIR__.DIRECTORY_SEPARATOR.'ajax.js',
-        __DIR__.DIRECTORY_SEPARATOR.'dom.js',
-        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'base.js',
-        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'navigation.js',
-        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'webnotify.js',
-        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'notifications.js',
-        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'loader.js',
-        __DIR__.DIRECTORY_SEPARATOR.'system.js'
+        __DIR__.DIRECTORY_SEPARATOR.'ajax'.$jsExt,
+        __DIR__.DIRECTORY_SEPARATOR.'dom'.$jsExt,
+        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'base'.$jsExt,
+        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'navigation'.$jsExt,
+        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'webnotify'.$jsExt,
+        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'notifications'.$jsExt,
+        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'loader'.$jsExt,
+        __DIR__.DIRECTORY_SEPARATOR.'system'.$jsExt
     ];
 
     foreach (array_merge($jsFilesDefault, $jsFiles) as $jsFile) {
-
+        
         $fileContent = file_get_contents($jsFile);
         if (!trim($fileContent)) {
             continue;

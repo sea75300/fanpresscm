@@ -182,3 +182,11 @@ if (!defined('FPCM_DISABLE_MODULE_ZIPUPLOAD')) {
      */
     define('FPCM_DISABLE_MODULE_ZIPUPLOAD', true);
 }
+
+if (!defined('FPCM_VIEW_JS_USE_MINIFIED')) {
+    /**
+     * Disable upload für module package files
+     * @since 4.5
+     */
+    define('FPCM_VIEW_JS_USE_MINIFIED', false);
+}

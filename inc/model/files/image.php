@@ -96,7 +96,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
      * @param bool $initDB Datenbank-Eintrag initialisieren
      * @param bool $forceInit Initialisierung erzwingen
      */
-    public function __construct($filename = '', $initDB = true, $forceInit = false)
+    public function __construct($filename = '', $initDB = true)
     {
         $this->table = \fpcm\classes\database::tableFiles;
         $filename = $this->splitFilename($filename);
@@ -471,19 +471,19 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     {
         if ($initDB) {
             $dbData = $this->dbcon->selectFetch((new \fpcm\model\dbal\selectParams($this->table))->setWhere('filename = ?')->setParams([$this->filename]));
-            if (!$dbData) {
+            if (!$dbData) {  
                 $this->isIndexed = false;
-                return false;
             }
+            else {                
+                foreach ($dbData as $key => $value) {
+                    $this->$key = $value;
+                }
 
-            foreach ($dbData as $key => $value) {
-                $this->$key = $value;
+                $this->isIndexed = true;
             }
-            
-            $this->isIndexed = true;
         }
         else {
-            $this->isIndexed = true;            
+            $this->isIndexed = false;            
         }
 
         if (!parent::exists()) {

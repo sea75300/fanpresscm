@@ -8,9 +8,6 @@
 var _workerQueue = {};
 onmessage = function(_msg) {
 
-
-    console.log(_workerQueue);
-    
     if (_msg.data.cmd  && _msg.data.cmd === 'remove' && _workerQueue[_msg.data.id]) {
         _workerQueue[_msg.data.id] = false;
         return true;
@@ -34,5 +31,4 @@ onmessage = function(_msg) {
         return true;
 
     }
-
 }
