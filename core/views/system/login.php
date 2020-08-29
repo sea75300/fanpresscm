@@ -28,7 +28,7 @@
             <div class="row no-gutters fpcm-ui-padding-md-tb">
                 <div class="col-12">
                 <?php if ($resetPasswort) : ?>
-                    <?php $theView->textInput('email')->setType('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true)->setWrapper(true); ?>
+                    <?php $theView->textInput('email')->setType('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true)->setAutocomplete(false)->setWrapper(true); ?>
                 <?php else : ?>
                     <?php $theView->passwordInput('login[password]')->setText('GLOBAL_PASSWORD')->setPlaceholder(true)->setAutocomplete(false)->setWrapper(true); ?>
                 <?php endif; ?>

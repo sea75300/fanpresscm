@@ -72,7 +72,7 @@ abstract class input extends helper {
             $this->class .= ' fpcm-ui-field-input-nowrapper-general'.$this->getFieldSize();
         }
         
-        $input = "<input type=\"{$this->type}\"maxlength=\"{$this->maxlenght}\" {$this->getAttributeStrings()}>";
+        $input = "<input type=\"{$this->type}\" maxlength=\"{$this->maxlenght}\" {$this->getAttributeStrings()}>";
         if (!$this->text) {
             return $wrapperStart . $input . $wrapperEnd;
         }
