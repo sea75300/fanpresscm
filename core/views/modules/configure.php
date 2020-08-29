@@ -6,20 +6,34 @@
         </ul>            
 
         <div id="tabs-config-<?php print $prefix; ?>">
-        <?php foreach ($fields as $field => $conf) : ?>
-            <?php $field = $theView->{$conf['type']}('config['.$field.']'); ?>
-            <?php if ($field instanceof \fpcm\view\helper\select) : ?>
-                <label class="col-12 col-sm-6 col-md-3 fpcm-ui-field-label-general">
-                    <?php $theView->icon($conf['icon']); ?>
-                    <?php $theView->write($conf['label']); ?>:
-                </label>
-                <div class="col-auto fpcm-ui-padding-none-lr">
-                    <?php $field->setSelected($options[$field])->setOptions($conf['options'])->setFirstOption($conf['first']); ?>
+            <?php if (!empty($descriptions['top'])) : ?>
+            <div class="row no-gutters mx-0 mt-2 mb-3">
+                <div class="col-12">
+                    <fieldset class="m-0">
+                        <legend><?php $theView->write($descriptions['top']['headline']); ?></legend>
+                        <?php $theView->write($descriptions['top']['text']); ?>
+                    </fieldset>
                 </div>
-            <?php else : ?>
-                <?php $field->setValue($options[$field])->setText($conf['label'])->setIcon($conf['icon'])->setSize('lg'); ?>
-            <?php endif; ?>
+            </div>
+            <?php endif; ?>            
+            
+            
+        <?php foreach ($fields as $option => $field) : ?>
+            <div class="row my-2 mx-0">
+                <?php print $field; ?>
+            </div>
         <?php endforeach; ?>
+            
+            <?php if (!empty($descriptions['buttom'])) : ?>
+            <div class="row no-gutters mx-0 mt-3 mb-2">
+                <div class="col-12">
+                    <fieldset class="m-0">
+                        <legend><?php $theView->write($descriptions['buttom']['headline']); ?></legend>
+                        <?php $theView->write($descriptions['buttom']['text']); ?>
+                    </fieldset>
+                </div>
+            </div>
+            <?php endif; ?>       
         </div>
     </div>
 </div>

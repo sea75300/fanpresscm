@@ -384,6 +384,38 @@ abstract class helper {
     }
 
     /**
+     * 
+     * @param array $param
+     * @return bool
+     * @since 4.5
+     */
+    final public function initFromYml(array $param, array $viewVars)
+    {
+        if (!count($param)) {
+            return $this;
+        }
+
+        $functions = array_filter($param, function ($value, $func) {
+            return method_exists($this, 'set'.ucfirst($func));
+        }, ARRAY_FILTER_USE_BOTH);
+
+        foreach ($functions as $func => $value) {
+
+            $fromVar = is_string($value) && substr($value, 0, 1) === '$'
+                     ? substr($value, 1)
+                     : false;
+
+            if ($fromVar && isset($viewVars[$fromVar])) {
+                $value = $viewVars[$fromVar];
+            }
+
+            $this->{'set'.ucfirst($func)}($value);            
+        }
+
+        return $this;
+    }
+
+    /**
      * Optional init function
      * @return void
      * @ignore

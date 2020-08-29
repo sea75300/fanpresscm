@@ -16,8 +16,8 @@ namespace fpcm\view\helper;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class select extends helper {
+    
     /* @var Auto-add empty first option */
-
     const FIRST_OPTION_EMPTY = -1;
 
     /* @var Auto-add first action with please select text */
@@ -28,7 +28,8 @@ class select extends helper {
 
     use traits\iconHelper,
         traits\valueHelper,
-        traits\selectedHelper;
+        traits\selectedHelper,
+        traits\labelFieldSize;
 
     /**
      * Select options
@@ -49,6 +50,12 @@ class select extends helper {
     protected $hasOptGroup = false;
 
     /**
+     * Prepend label to selectbox
+     * @var boolean
+     */
+    protected $prependLabel = false;
+
+    /**
      * Option return string
      * @var string
      */
@@ -63,8 +70,13 @@ class select extends helper {
         if ($this->isMultiple) {
             $this->class = str_replace('fpcm-ui-input-select', 'fpcm-ui-input-select-multiple', $this->class);        
         }
+
+        $label = '';
+        if ($this->prependLabel) {
+            $label = "<label class=\"fpcm-ui-field-label-general {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
+        }
         
-        return implode(' ', [
+        return $label.implode(' ', [
             "<select".($this->isMultiple ? ' multiple' : ''),
             $this->getNameIdString(),
             $this->getClassString(),
@@ -127,6 +139,16 @@ class select extends helper {
     public function setWidth($width)
     {
         $this->data['width'] = (int) $width;
+        return $this;
+    }
+
+    /**
+     * Prepend label to select menu
+     * @return $this
+     * @since 4.5
+     */
+    public function prependLabel() {
+        $this->prependLabel = true;
         return $this;
     }
 

@@ -412,7 +412,7 @@ class module {
      */
     public function getConfigureFields() : array
     {
-        include_once loader::libGetFilePath('spyc/Spyc.php');
+        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
         return \Spyc::YAMLLoad( self::getConfigByKey($this->mkey, 'configure') );
     }
 

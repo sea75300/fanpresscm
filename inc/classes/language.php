@@ -58,8 +58,12 @@ final class language {
      * @param string $langCode
      * @return bool
      */
-    public function __construct($langCode = FPCM_DEFAULT_LANGUAGE_CODE)
+    public function __construct($langCode = '')
     {
+        if (!trim($langCode)) {
+            $langCode = FPCM_DEFAULT_LANGUAGE_CODE;
+        }
+        
         $this->langPath = dirs::getIncDirPath('lang' . DIRECTORY_SEPARATOR . $langCode);
 
         if (!is_dir($this->langPath)) {

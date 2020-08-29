@@ -46,7 +46,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             return false;
         }
 
-        $this->view = new \fpcm\view\view('configure', $this->useLegacy ? $key : false);
+        $this->view = new \fpcm\view\view(($this->useLegacy ? '' : 'modules/') .'configure', $this->useLegacy ? $key : false);
         return true;
     }
 
@@ -100,15 +100,15 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         $this->view->setFormAction('modules/configure', [
             'key' => $this->module->getKey()
         ]);
+        
+        ;
 
         $this->view->setViewVars(array_merge(
             $this->module->getConfigViewVars(),
-            [
-                'options' => $this->module->getOptions(),
-                'fields' => $this->useLegacy ? [] : $this->module->getConfigureFields(),
-                'prefix' => $this->module->getFullPrefix()
-            ]
+            $this->prepareFields()
         ));
+        
+        $this->view->assign('prefix', $this->module->getFullPrefix());
 
         $path = $this->module->getKey() . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'moduleConfig.js';
         if (file_exists( \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $path) )) {
@@ -119,6 +119,58 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
 
         $this->view->addButton(new \fpcm\view\helper\saveButton('save'));
         $this->view->render();
+    }
+    
+    private function prepareFields() : array
+    {
+        $data = [
+            'options' => $this->module->getOptions(),
+            'fields' => []
+        ];
+
+        if ($this->useLegacy) {
+            return $data;
+        }
+
+        $optionDef = $this->module->getConfigureFields();
+        $data['descriptions'] = $optionDef['descriptions'] ?? null;
+        unset($optionDef['descriptions']);
+
+        $viewVars = $this->module->getConfigViewVars();
+
+        foreach ($optionDef as $option => $field) {
+            
+            $fullOption = $this->module->getFullPrefix($option);
+            if (!isset($data['options'][$fullOption])) {
+                continue;
+            }
+            
+            $class = '\\fpcm\\view\\helper\\' . $field['type'];
+
+            if (!class_exists($class)) {
+                trigger_error('Undefined field type ' . $field['type']);
+                return [];
+            }
+
+            if (isset($field['conf']['text'])) {
+                $field['conf']['text'] = \fpcm\module\module::getLanguageVarPrefixed($this->module->getKey()).$field['conf']['text'];
+            }
+            
+            $obj = ( new $class('config[' . $fullOption . ']') )->initFromYml( $field['conf'] ?? [] , $viewVars );
+            $valueFunc = method_exists($obj, 'setSelected') ? 'setSelected' : (method_exists($obj, 'setValue') ? 'setValue' :  false);
+            if ($valueFunc !== false) {
+                $obj->{$valueFunc}($data['options'][$fullOption]);
+            }
+            
+            if (method_exists($obj, 'prependLabel')) {
+                $obj->prependLabel();
+            }
+
+            $data['fields'][$option] = (string) $obj;
+            unset($obj,$valueFunc);
+        }
+
+        return $data;
     }
 
     /**
