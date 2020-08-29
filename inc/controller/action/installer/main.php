@@ -152,12 +152,12 @@ class main extends \fpcm\controller\abstracts\controller {
             $this->step = 1;
         }
 
-        $this->langCode = $this->request->fromGET('language');
+        $this->langCode = $this->request->fetchAll('language');
         if (!$this->langCode) {
             $this->langCode = FPCM_DEFAULT_LANGUAGE_CODE;
         }
 
-        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->langCode);
+        $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->langCode, false);
         $this->initView();
 
         return true;
