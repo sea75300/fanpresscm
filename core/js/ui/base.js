@@ -383,7 +383,7 @@ fpcm.ui = {
             params = {};
         }
 
-        if (elemClassId.substr(1,1) === '#') {
+        if (elemClassId.substr(0,1) === '#') {
             var dataWidth = fpcm.dom.fromTag(elemClassId).data('width');
             if (dataWidth) {
                 params.width = dataWidth;

@@ -62,7 +62,6 @@ trait lists {
             $this->view->assign($key, $value);
         }
 
-        $this->view->assign('listAction', 'files/list');
     }
 
 }

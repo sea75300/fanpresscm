@@ -51,18 +51,21 @@ fpcm.filemanager = {
         }
 
         if (fpcm.vars.jsvars.fmgrMode === 1) {
-            fpcm.ui.checkboxradio('.fpcm-ui-listeview-setting', {}, function () {
-                fpcm.ajax.post('setconfig', {
-                    data: {
-                        var: 'file_view',
-                        value: fpcm.dom.fromTag(this).val()
-                    },
-                    execDone: function() {
-                        fpcm.filemanager.reloadFiles();
-                        fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
-                    }
-                });
-            });
+            
+            fpcm.ui.selectmenu('#listView', {
+                change: function (event, ui) {
+                    fpcm.ajax.post('setconfig', {
+                        data: {
+                            var: 'file_view',
+                            value: ui.item.value
+                        },
+                        execDone: function() {
+                            fpcm.filemanager.reloadFiles();
+                            fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
+                        }
+                    });
+                }
+            });            
 
             fpcm.filemanager.tabsObj = fpcm.ui.tabs('#fpcm-files-tabs', {
                 beforeActivate: function( event, ui ) {
@@ -76,15 +79,8 @@ fpcm.filemanager = {
                     fpcm.dom.fromId('fpcm-select-all').checkboxradio('instance').option('classes', {
                         "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "")
                     });
-
-                    fpcm.dom.fromId('listViewCards').checkboxradio('instance').option('classes', {
-                        "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "")
-                    });
-
-                    fpcm.dom.fromId('listViewList').checkboxradio('instance').option('classes', {
-                        "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "")
-                    });
-
+                    
+                    fpcm.dom.fromId('listView-button').toggleClass("fpcm-ui-hidden");
                     fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
                 }
             });

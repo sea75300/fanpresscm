@@ -133,9 +133,12 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         }
 
         if ($this->mode === 1) {
-            foreach (\fpcm\components\components::getFilemanagerViews() as $descr => $view) {
-                $buttons[] = (new \fpcm\view\helper\radiobutton('listView', 'listView'. ucfirst($view)))->setText($descr)->setClass('fpcm-ui-listeview-setting')->setValue($view)->setSelected($this->config->file_view);
-            }
+            $buttons[] = (new \fpcm\view\helper\select('listView'))
+                    ->setOptions(\fpcm\components\components::getFilemanagerViews())
+                    ->setClass('fpcm-ui-listeview-setting')
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected($this->config->file_view)
+                    ->setData(['width' => '150px']);
         }
 
         $this->view->addButtons($buttons);
