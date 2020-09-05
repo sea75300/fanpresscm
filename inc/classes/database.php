@@ -283,17 +283,52 @@ final class database {
      */
     public function selectFetch(\fpcm\model\dbal\selectParams $obj)
     {
-        $sql  = $obj->getDistinct() ? 'SELECT DISTINCT' : 'SELECT';
-        $sql .= " {$obj->getItem()} FROM {$this->getTablePrefixed($obj->getTable())}";
-        $sql .= $obj->getJoin() ? " {$obj->getJoin()}" : "";
-        $sql .= $obj->getWhere() ? " WHERE {$obj->getWhere()}" : "";
+        $obj->setTable($this->getTablePrefixed($obj->getTable()));
 
-        $result = $this->query($sql, $obj->getParams());
+        $result = $this->query($obj->getQuery(), $obj->getParams());
         if ($obj->getReturnResult()) {
             return $result;
         }
 
         return $this->fetch($result, $obj->getFetchAll(), $obj->getFetchStyle());
+    }
+  
+
+    /**
+     * Executes UNION combined select and fetch
+     * @param array $selects
+     * @param int $fetchStyle
+     * @param bool $returnResult
+     * @return array
+     * @since 4.5
+     */
+    public function unionSelectFetch(array $selects, int $fetchStyle = \PDO::FETCH_OBJ, bool $returnResult = false)
+    {
+        $selects = array_filter($selects, function ($item) {            
+            return ($item instanceof \fpcm\model\dbal\selectParams);
+        });
+        
+        if (!count($selects)) {
+            return [];
+        }
+
+        $params = [];
+        $queries = array_map(function (\fpcm\model\dbal\selectParams $obj) use (&$params) {
+            $obj->setTable($this->getTablePrefixed($obj->getTable()));
+            $params = array_merge($params, $obj->getParams());
+            return $obj->getQuery();
+        }, $selects);
+        
+        if (!count($queries)) {
+            return [];
+        }
+
+        $result = $this->query('('.implode(') UNION (', $queries).')', $params);
+        if ($returnResult) {
+            return $result;
+        }
+
+        return $this->fetch($result, true, $fetchStyle);
     }
 
     /**

@@ -282,8 +282,7 @@ final class config extends dataset {
 
         if ($this->cache->isExpired($this->cacheName) || !$this->useCache) {
 
-            $obj = new \fpcm\model\dbal\selectParams();
-            $obj->setTable($this->table);
+            $obj = new \fpcm\model\dbal\selectParams($this->table);
             $obj->setFetchAll(true);
             foreach ($this->dbcon->selectFetch($obj) as $data) {
                 $this->data[$data->config_name] = $data->config_value;

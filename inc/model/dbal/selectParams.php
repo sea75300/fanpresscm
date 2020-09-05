@@ -262,6 +262,15 @@ class selectParams {
         return $this;
     }
 
+    final public function getQuery() : string
+    {
+        $sql  = $this->getDistinct() ? 'SELECT DISTINCT' : 'SELECT';
+        $sql .= " {$this->getItem()} FROM {$this->getTable()}";
+        $sql .= $this->getJoin() ? " {$this->getJoin()}" : "";
+        $sql .= $this->getWhere() ? " WHERE {$this->getWhere()}" : "";   
+        
+        return $sql;
+    }
 
 
 }
