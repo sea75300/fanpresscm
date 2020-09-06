@@ -73,14 +73,14 @@ class permissions extends \fpcm\model\abstracts\dataset {
     protected $dbExcludes = ['checkedData', 'article', 'comment', 'system', 'modules', 'uploads'];
 
     /**
-     * Konstruktor
-     * @param int $rollid ID der Benutzerrolle
+     * Constructor
+     * @param int $rollid
+     * @param bool $useCache
      * @return void
      */
-    public function __construct($rollid = 0)
+    public function __construct($rollid = 0, bool $useCache = true)
     {
         $this->table = \fpcm\classes\database::tablePermissions;
-        $this->cacheName = 'system/permissioncache' . $rollid;
 
         parent::__construct();
 
@@ -93,6 +93,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             return;
         }
 
+        $this->cacheName = $useCache ? 'permissioncache' . $this->rollid : false;
         $this->rollid = $rollid;
         $this->init();
     }
@@ -143,6 +144,12 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function init()
     {
+        if ($this->cacheName && session_status() === PHP_SESSION_ACTIVE && isset($_SESSION[$this->cacheName])) {
+            $this->permissiondata = $_SESSION[$this->cacheName];
+            $this->initItems();
+            return true;
+        }
+        
         $data = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setWhere('rollid = ?')->setParams([$this->rollid]) );
 
         $this->id = $data->id;
@@ -151,6 +158,10 @@ class permissions extends \fpcm\model\abstracts\dataset {
 
         if (!is_array($this->permissiondata)) {
             return false;
+        }
+
+        if ($this->cacheName) {
+            $_SESSION[$this->cacheName] = $this->permissiondata;
         }
 
         $this->initItems();
@@ -167,6 +178,10 @@ class permissions extends \fpcm\model\abstracts\dataset {
             $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
         }
         
+        if ($this->cacheName) {
+            unset($_SESSION[$this->cacheName]);
+        }
+
         return parent::save() === false ? false : true;
     }
 
@@ -193,8 +208,12 @@ class permissions extends \fpcm\model\abstracts\dataset {
         }
 
         $this->cache->cleanup();
-        $this->init();
+        
+        if ($this->cacheName) {
+            unset($_SESSION[$this->cacheName]);
+        }
 
+        $this->init();
         return $return;
     }
 

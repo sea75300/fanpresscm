@@ -23,9 +23,9 @@ class permissions extends \fpcm\model\permissions\permissions {
      * @param int $rollid
      * @return void
      */
-    final public function __construct($rollid = 0)
+    final public function __construct($rollid = 0, bool $useCache = true)
     {
-//        trigger_error('Permissions objects of instance \\fpcm\\model\\system\\permissions are deprecated. Use \\fpcm\\model\\permissions\\permissions instead', E_USER_DEPRECATED);
+        trigger_error('Permissions objects of instance \\fpcm\\model\\system\\permissions are deprecated. Use \\fpcm\\model\\permissions\\permissions instead', E_USER_DEPRECATED);
         return parent::__construct($rollid);
     }
 

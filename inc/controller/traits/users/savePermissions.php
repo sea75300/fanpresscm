@@ -59,7 +59,7 @@ trait savePermissions {
     
     protected function fetchRollPermssions() : bool
     {
-        $this->permissionObj = new \fpcm\model\permissions\permissions($this->rollId);
+        $this->permissionObj = new \fpcm\model\permissions\permissions($this->rollId, false);
         return true;
     }
     

@@ -37,7 +37,7 @@ class permissions extends \fpcm\controller\abstracts\controller implements \fpcm
     {
         $this->rollId = $this->request->getID();
 
-        $roll = new \fpcm\model\users\userRoll($this->rollId);
+        $roll = new \fpcm\model\users\userRoll($this->rollId, false);
         $this->view->assign('rollname', $this->language->translate($roll->getRollName()));
 
         $this->fetchRollPermssions();
