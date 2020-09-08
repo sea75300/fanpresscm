@@ -56,6 +56,7 @@ trait lists {
         $this->view->assign('users', $users);
         $this->view->assign('mode', $this->mode);
         $this->view->assign('filterError', $this->filterError);
+        $this->view->assign('listAction', 'files/list');
 
         $this->view->assign('showPager', true);
         foreach ($pagerData as $key => $value) {

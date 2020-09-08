@@ -129,7 +129,7 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
 
         $this->tableContent[] = $this->get2ColRow(
             (new \fpcm\view\helper\icon('calculator')).' '.$this->language->translate('SYSTEM_STATS_UPLOAD_SIZE'),
-            \fpcm\classes\tools::calcSize($this->dbStats['upload_size'])
+            \fpcm\classes\tools::calcSize($this->dbStats['upload_size'] ?? 0)
         );
 
         $this->tableContent[] = $this->get2ColRow(
