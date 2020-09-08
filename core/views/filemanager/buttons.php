@@ -12,6 +12,7 @@
 <?php if ($theView->permissions->uploads->rename && $file->existsFolder()) : ?>
     <?php $theView->button(uniqid('rename'))->setText('FILE_LIST_RENAME')->setIcon('edit')->setIconOnly(true)->setData(['file' => base64_encode($file->getFilename()), 'oldname' => basename($file->getFilename(), '.'.$file->getExtension())])->setClass('fpcm-filelist-rename'); ?>
 <?php endif; ?>
+<?php $theView->linkButton(uniqid('edit'))->setUrl($file->getImageUrl())->setText('Bild bearbeiten')->setIcon('crop')->setIconOnly(true)->setClass('fpcm-filelist-link-edit'); ?>
 <?php if ($theView->permissions->uploads->delete) : ?>
     <?php $theView->button(uniqid('delete'))->setText('GLOBAL_DELETE')->setIcon('trash')->setIconOnly(true)->setData(['file' => base64_encode($file->getFilename()), 'filename' => $file->getFilename()])->setClass('fpcm-filelist-delete'); ?>
 <?php endif; ?>
