@@ -206,46 +206,10 @@ fpcm.filemanager = {
 
         fpcm.dom.fromClass('fpcm-filelist-link-edit').unbind('click');
         fpcm.dom.fromClass('fpcm-filelist-link-edit').click(function () {
-            
-            fpcm.ui.dialog({
-                id: 'files-editor',
-                title: fpcm.ui.translate('Bild bearbeiten'),
-                resizable: true,
-                content: '<div class="m-2"><img id="fpcm-dialog-files-imgeditor" class="d-block mw-100" src="' + fpcm.dom.fromTag(this).attr('href') + '"></div>',
-                dlOnOpen: function() {
-
-                    let imgEL = fpcm.dom.fromId('fpcm-dialog-files-imgeditor');
-                    imgEL.attr('src', fpcm.dom.fromTag(this).attr('href'));
-                    fpcm.filemanager.cropper = new Cropper(imgEL[0], {
-                        viewMode: 1
-                    });
-
-                    return true;
-                },
-                dlOnClose: function() {
-                    fpcm.dom.fromTag(this).remove();
-                },
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_SAVE'),
-                        icon: "ui-icon-check",                        
-                        click: function() {
-                            fpcm.dom.fromTag(this).dialog( "close" );
-                            
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                
-                        click: function () {
-                            fpcm.dom.fromTag(this).dialog('close');
-                        }
-                    }
-                ]
-            });            
-            
-            
-            
+            fpcm.imageEditor.initEditorDialog({
+                afterUpload: fpcm.filemanager.reloadFiles,
+                data: fpcm.dom.fromTag(this).data()
+            });
             return false;
         });
     },

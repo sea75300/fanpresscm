@@ -43,7 +43,7 @@ final class jqupload extends uploader {
      */
     public function getJsFiles(): array
     {
-        return ['files/jqupload.js', \fpcm\classes\dirs::getLibUrl('cropper_js/cropper.min.js')];
+        return ['files/jqupload.js', 'files/imageEditor.js', \fpcm\classes\dirs::getLibUrl('cropper_js/cropper.min.js')];
     }
 
     /**

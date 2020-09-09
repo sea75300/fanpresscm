@@ -285,6 +285,14 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
     height: 100vh;
 }
 
+.fpcm.ui-full-view-max-width-100p {
+    max-width: 100%;
+}
+
+.fpcm.ui-full-view-min-width-100p {
+    min-width: 100%;
+}
+
 .fpcm-ui-full-view-min-height {
     min-height: 100vh !important;
 }

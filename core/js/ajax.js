@@ -54,6 +54,8 @@ fpcm.ajax = {
             async       : params.async,
             dataType    : params.dataType ? params.dataType : null,
             cache       : params.cache !== undefined ? params.cache : true,
+            processData : params.processData !== undefined ? params.processData : true,
+            contentType : params.contentType !== undefined ? params.contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
             statusCode: {
                 500: function() {
                     fpcm.ajax.showAjaxErrorMessage();

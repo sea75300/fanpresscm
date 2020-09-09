@@ -554,8 +554,12 @@ fpcm.ui = {
             dlParams.maxHeight   = params.dlMaxHeight;            
         }
         
-        if (params.onCreate !== undefined) {
-            dlParams.create   = params.onCreate; 
+        if (params.dlPosition !== undefined) {
+            dlParams.position   = params.dlPosition; 
+        }
+        
+        if (params.onResize !== undefined) {
+            dlParams.resize   = params.onResize; 
         }
 
         dlParams.show = true;
