@@ -88,6 +88,7 @@ fpcm.imageEditor = {
                     text: fpcm.ui.translate('GLOBAL_SAVE'),
                     icon: "ui-icon-check",                        
                     click: function() {
+                        fpcm.dom.fromTag(this).dialog( "close" );
                         fpcm.filemanager.cropper.getCroppedCanvas().toBlob((blob) => {
 
                             const formData = new FormData();
@@ -101,8 +102,6 @@ fpcm.imageEditor = {
                             });
 
                         }, _param.data.mime);
-                        
-                        fpcm.dom.fromTag(this).dialog( "close" );
                     }
                 },
                 {
