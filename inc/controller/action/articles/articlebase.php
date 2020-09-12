@@ -141,18 +141,19 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         }
         
         $this->view->addJsFiles(array_merge([
-                \fpcm\classes\loader::libGetFileUrl('selectize_js/dist/js/selectize.min.js'),
                 'editor/editor.js',
                 'editor/editor_videolinks.js',
             ],
             $this->editorPlugin->getJsFiles()
         ));
 
-        $this->view->addCssFiles(array_merge([
-                \fpcm\classes\loader::libGetFileUrl('selectize_js/dist/css/selectize.default.css'),
-            ],
-            $this->editorPlugin->getCssFiles()
-        ));
+        $this->view->addCssFiles($this->editorPlugin->getCssFiles());
+        
+        $this->view->addFromLibrary(
+            'selectize_js',
+            [ 'dist/js/selectize.min.js' ],
+            [ 'dist/css/selectize.default.css' ]
+        );
 
         if (!$this->showRevision) {
             $viewVars = $this->editorPlugin->getViewVars();

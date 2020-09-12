@@ -417,6 +417,37 @@ class view {
     }
 
     /**
+     * Add js and css files from 3rd party library
+     * @param string $lib
+     * @param array $jsFiles
+     * @param array $cssFiles
+     * @return bool
+     * @since 4.5
+     */
+    final public function addFromLibrary(string $lib, array $jsFiles = [], array $cssFiles = []) : bool
+    {
+        if (!trim($lib)) {
+            return false;
+        }
+        
+        $lib = \fpcm\classes\dirs::getLibUrl($lib. '/' );
+        
+        $this->addJsFiles(array_map(function ($item) use ($lib) {
+            return $lib.$item;
+        }, $jsFiles));
+
+        if (!count($cssFiles)) {
+            return true;
+        }
+        
+        $this->addCssFiles(array_map(function ($item) use ($lib) {
+            return $lib.$item;
+        }, $cssFiles));
+
+        return true;
+    }
+
+    /**
      * Add array of buttons to toolbar
      * @param array $buttons Array of fpcm/view/helper/helper items
      */
@@ -1018,5 +1049,3 @@ class view {
         return '.min'.$jsExt;
     }
 }
-
-?>

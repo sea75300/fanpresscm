@@ -92,6 +92,10 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->view->addJsLangVars(array_merge([
             'FILE_LIST_RENAME_NEWNAME', 'FILE_LIST_ADDTOINDEX',
             'GLOBAL_PROPERTIES', 'FILE_LIST_RESOLUTION_PIXEL',
+            'FILE_LIST_EDIT', 'FILE_LIST_EDIT_CROP',
+            'FILE_LIST_EDIT_MOVE', 'FILE_LIST_EDIT_ROTATE_ANTICLOCKWISE',
+            'FILE_LIST_EDIT_ROTATE_CLOCKWISE', 'FILE_LIST_EDIT_ZOOMIN',
+            'FILE_LIST_EDIT_ZOOMOUT'
         ], $uploader->getJsLangVars()));
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {

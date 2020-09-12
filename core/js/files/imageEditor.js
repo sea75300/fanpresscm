@@ -16,7 +16,7 @@ fpcm.imageEditor = {
 
         fpcm.ui.dialog({
             id: 'files-editor',
-            title: fpcm.ui.translate('Bild bearbeiten'),
+            title: fpcm.ui.translate('FILE_LIST_EDIT'),
             content: '<div class="m-2"><img id="fpcm-dialog-files-imgeditor" class="d-block fpcm ui-full-view-max-width-100p" src="' + _param.data.url + '"></div>',
             dlPosition: {
                 my: "center center-25%",
@@ -37,7 +37,7 @@ fpcm.imageEditor = {
             },
             dlButtons: [
                 {
-                    text: fpcm.ui.translate('Rauszoomen'),
+                    text: fpcm.ui.translate('FILE_LIST_EDIT_ZOOMOUT'),
                     icon: "ui-icon-zoomout",
                     showLabel: false,
                     click: function() {
@@ -45,7 +45,7 @@ fpcm.imageEditor = {
                     }
                 },
                 {
-                    text: fpcm.ui.translate('Reinzoomen'),
+                    text: fpcm.ui.translate('FILE_LIST_EDIT_ZOOMIN'),
                     icon: "ui-icon-zoomin",
                     showLabel: false,
                     click: function() {
@@ -53,7 +53,7 @@ fpcm.imageEditor = {
                     }
                 },
                 {
-                    text: fpcm.ui.translate('Gegen Uhrzeigersinn drehen'),
+                    text: fpcm.ui.translate('FILE_LIST_EDIT_ROTATE_ANTICLOCKWISE'),
                     icon: "ui-icon-arrowthick-1-sw",
                     showLabel: false,
                     click: function() {
@@ -61,7 +61,7 @@ fpcm.imageEditor = {
                     }
                 },
                 {
-                    text: fpcm.ui.translate('Im Uhrzeigersinn drehen'),
+                    text: fpcm.ui.translate('FILE_LIST_EDIT_ROTATE_CLOCKWISE'),
                     icon: "ui-icon-arrowthick-1-se",
                     showLabel: false,
                     click: function() {
@@ -69,7 +69,7 @@ fpcm.imageEditor = {
                     }
                 },
                 {
-                    text: fpcm.ui.translate('Verschieben'),
+                    text: fpcm.ui.translate('FILE_LIST_EDIT_MOVE'),
                     icon: "ui-icon-arrow-4-diag",
                     showLabel: false,
                     click: function() {
@@ -77,7 +77,7 @@ fpcm.imageEditor = {
                     }
                 },
                 {
-                    text: fpcm.ui.translate('Zuschneiden'),
+                    text: fpcm.ui.translate('FILE_LIST_EDIT_CROP'),
                     icon: "ui-icon-scissors",
                     showLabel: false,
                     click: function() {
