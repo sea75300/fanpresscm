@@ -98,7 +98,9 @@ fpcm.imageEditor = {
                                 data: formData,
                                 processData: false,
                                 contentType: false,
-                                execDone: _param.afterUpload
+                                execDone: function (result) {
+                                    _param.afterUpload(result);
+                                }
                             });
 
                         }, _param.data.mime);
