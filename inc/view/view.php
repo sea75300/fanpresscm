@@ -323,6 +323,13 @@ class view {
                 '', '', 'fpcm-ui-important-text'
             ));
         }
+        
+        if (defined('FPCM_VIEW_JS_USE_MINIFIED') && FPCM_VIEW_JS_USE_MINIFIED) {
+            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
+                (new helper\icon('js', 'fab'))->setText('NOTIFICATION_EXPERIMENTAL_MINJS'),
+                '', '', 'fpcm-ui-important-text'
+            ));
+        }
 
         $this->defaultViewVars->notificationString = $this->notifications->getNotificationsString();
         return true;

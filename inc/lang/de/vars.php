@@ -469,6 +469,7 @@ $lang = array (
   'MODULES_LIST_VERSION_LOCAL' => 'Version (lokal)',
   'MODULES_LIST_VERSION_REMOTE' => 'Version (Server)',
   'NAVIGATION_SHOW' => 'Menü',
+  'NOTIFICATION_EXPERIMENTAL_MINJS' => 'Minimierte JavaScript-Dateien werden verwendet. Änderungen werden evtl. nicht sofort übernommen.',
   'PACKAGEMANAGER_BACKUPFS' => 'Erstelle Dateisystem-Backup...',
   'PACKAGEMANAGER_CHECKLOCAL' => 'Überprüfe Dateisystem...',
   'PACKAGEMANAGER_CHECKPKG' => 'Überprüfe Paketinformationen <em>{{var}}</em>',
