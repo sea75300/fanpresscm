@@ -35,7 +35,7 @@ fpcm.langedit = {
                             
                             var newVarName = fpcm.dom.fromId('fpcm-langedit-newvar').val();
                             var newVarValue = fpcm.dom.fromId('fpcm-langedit-newval').val();
-                            newVarName = newVarName.trim();
+                            newVarName = newVarName.trim().replace(/[^a-z0-9\_]/ig, '');
                             newVarValue = newVarValue.trim();
                             if (!newVarName) {
                                 return false;

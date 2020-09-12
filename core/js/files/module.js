@@ -1,7 +1,7 @@
 /**
  * FanPress CM Filemanager Namespace
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2015-2018, Stefan Seehafer
+ * @copyright (c) 2015-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 if (fpcm === undefined) {
@@ -26,18 +26,7 @@ fpcm.filemanager = {
             fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
             return false;
         });
-        
-        window.addEventListener('message', function (event) {
 
-            if (!event.data || !event.data.cmd) {
-                return false;
-            }
-
-            if (event.data.mceAction === 'clickFmgrBtn') {
-                fpcm.dom.fromId('' + event.data.cmd).click()
-            }
-
-        });
     },
     
     initAfter: function() {

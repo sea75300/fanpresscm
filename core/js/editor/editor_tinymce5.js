@@ -76,7 +76,8 @@ fpcm.editor.initTinyMce = function() {
 
                 api.sendMessage({
                     mceAction: 'clickFmgrBtn',
-                    cmd: fpcm.editor.filePickerActions[action.name]
+                    cmd: fpcm.editor.filePickerActions[action.name],
+                    validSource: window.location.href
                 });
             }
         });
