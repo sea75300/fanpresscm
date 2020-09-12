@@ -113,7 +113,7 @@ fpcm.articlelist = {
                     }                            
                 ],
                 dlOnOpen: function( event, ui ) {
-                    fpcm.dom.setFocus('#text');
+                    fpcm.dom.setFocus('text');
                 }
             });
 
