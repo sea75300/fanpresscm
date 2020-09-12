@@ -1,7 +1,7 @@
 /**
  * FanPress CM UI Namespace
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2015-2018, Stefan Seehafer
+ * @copyright (c) 2015-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 if (fpcm === undefined) {
@@ -51,7 +51,7 @@ fpcm.ui = {
         });
         
         if (fpcm.vars.jsvars.fieldAutoFocus) {
-            fpcm.ui.setFocus(fpcm.vars.jsvars.fieldAutoFocus);
+            fpcm.dom.setFocus(fpcm.vars.jsvars.fieldAutoFocus);
         }
 
     },
@@ -558,6 +558,10 @@ fpcm.ui = {
             dlParams.position   = params.dlPosition; 
         }
         
+        if (params.onCreate) {
+            dlParams.create = params.onCreate;
+        }
+        
         if (params.onResize !== undefined) {
             dlParams.resize   = params.onResize; 
         }
@@ -696,32 +700,8 @@ fpcm.ui = {
         });
     },
     
-    setFocus: function(elemId) {
-        fpcm.dom.setFocus(elemId);
-    },
-    
-    assignHtml: function(elemId, data) {
-        fpcm.dom.assignHtml(elemId, data);
-    },
-    
-    assignText: function(elemId, data) {
-        fpcm.dom.assignText(elemId, data);
-    },
-    
-    appendHtml: function(elemId, data) {
-        fpcm.dom.appendHtml(elemId, data);
-    },
-    
-    prependHtml: function(elemId, data) {
-        fpcm.dom.prependHtml(elemId, data);
-    },
-    
     removeLoaderClass: function(elemId) {
         fpcm.dom.fromTag(_id).removeClass('fpcm-loader');
-    },
-    
-    isReadonly: function(elemId, state) {
-        fpcm.dom.isReadonly(elemId, state);
     },
     
     createIFrame: function(params) {
@@ -1147,6 +1127,37 @@ fpcm.ui = {
         })
         
         
+    },
+    
+    /* deprecated about to remove in fpcm 4.6 or later! */
+    setFocus: function(elemId) {
+        console.warn('fpcm.ui.setFocus is deprecated and will be removed shortly. Use fpcm.dom.setFocus instead!');
+        fpcm.dom.setFocus(elemId);
+    },
+
+    assignHtml: function(elemId, data) {
+        console.warn('fpcm.ui.assignHtml is deprecated and will be removed shortly. Use fpcm.dom.assignHtml instead!');
+        fpcm.dom.assignHtml(elemId, data);
+    },
+    
+    assignText: function(elemId, data) {
+        console.warn('fpcm.ui.assignText is deprecated and will be removed shortly. Use fpcm.dom.assignText instead!');
+        fpcm.dom.assignText(elemId, data);
+    },
+    
+    appendHtml: function(elemId, data) {
+        console.warn('fpcm.ui.appendHtml is deprecated and will be removed shortly. Use fpcm.dom.appendHtml instead!');
+        fpcm.dom.appendHtml(elemId, data);
+    },
+    
+    prependHtml: function(elemId, data) {
+        console.warn('fpcm.ui.prependHtml is deprecated and will be removed shortly. Use fpcm.dom.prependHtml instead!');
+        fpcm.dom.prependHtml(elemId, data);
+    },
+    
+    isReadonly: function(elemId, state) {
+        console.warn('fpcm.ui.isReadonly is deprecated and will be removed shortly. Use fpcm.dom.isReadonly instead!');
+        fpcm.dom.isReadonly(elemId, state);
     }
 
 };

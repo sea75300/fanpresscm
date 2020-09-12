@@ -449,9 +449,9 @@ if (fpcm.editor) {
                 fpcm.editor.insert('<span style="' + (mode === undefined ? 'color' : mode) + ':' + (color == '' ? '#000000' : color) + ';">', '</span>');
 
                 fpcm.dom.fromId('colorhexcode').val('');
-                fpcm.dom.fromId('color_mode1').prop( "checked", true ).checkboxradio('refresh');
-                fpcm.dom.fromId('color_mode2').prop( "checked", false ).checkboxradio('refresh');
-
+                fpcm.dom.fromId('color_mode1').prop( "checked", true );
+                fpcm.dom.fromId('color_mode2').prop( "checked", false );
+                fpcm.ui.controlgroup('#fpcm-ui-editor-color-controlgroup', 'refresh');
                 fpcm.dom.fromTag(this).dialog( "close" );
             }
         });

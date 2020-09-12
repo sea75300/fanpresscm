@@ -41,6 +41,7 @@
                         ->setValue($comment->getName())
                         ->setIcon('signature')
                         ->setSize('lg')
+                        ->setAutoFocused(true)
                         ->setDisplaySizesDefault(); ?>
             </div>            
             <div class="row fpcm-ui-padding-md-tb">

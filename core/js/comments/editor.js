@@ -14,7 +14,6 @@ fpcm.editor = {
     init: function () {
         fpcm.editor[fpcm.vars.jsvars.editorInitFunction].call();
         fpcm.editor.initToolbar();
-        fpcm.ui.setFocus('commentname');
 
         fpcm.dom.fromId('btnLockIp').unbind('click');
         fpcm.dom.fromId('btnLockIp').click(function (event, ui) {

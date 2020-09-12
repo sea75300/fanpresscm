@@ -9,16 +9,22 @@ if (fpcm === undefined) {
 }
 
 fpcm.fileuploader = {
+    
+    _hasDomList: false,
 
     init: function() {
 
+        fpcm.fileuploader._hasDomList = fpcm.dom.fromId('fpcm-ui-phpupload-filelist').length ? true : false;
+
         fpcm.dom.fromId('btnAddFile').click(function () {
-            fpcm.dom.fromId('fpcm-ui-phpupload-filelist').empty();
+
+            fpcm.fileuploader.emptyFileList();
+
             fpcm.dom.fromTag(this).parent().find('.fpcm-ui-fileinput-select').trigger('click');
             fpcm.dom.fromClass('fpcm-ui-fileinput-select').change(function () {
 
-                fpcm.dom.fromId('fpcm-ui-phpupload-filelist').empty();
-                if (!fpcm.dom.fromTag(this)[0] || !fpcm.dom.fromTag(this)[0].files) {
+                fpcm.fileuploader.emptyFileList();
+                if (!fpcm.fileuploader._hasDomList || !fpcm.dom.fromTag(this)[0] || !fpcm.dom.fromTag(this)[0].files) {
                     return false;
                 }
 
@@ -41,9 +47,20 @@ fpcm.fileuploader = {
 
         fpcm.dom.fromId('btnCancelUpload').click(function () {
             fpcm.dom.fromId('fpcm-ui-fileupload-list').fadeOut();
-            fpcm.dom.fromId('fpcm-ui-phpupload-filelist').empty();
             fpcm.dom.fromClass('fpcm-ui-fileinput-select').empty();
+            fpcm.fileuploader.emptyFileList();
         });
+    },
+    
+    emptyFileList: function() {
+
+        if (!fpcm.fileuploader._hasDomList) {
+            return false;
+        }
+
+        fpcm.dom.fromId('fpcm-ui-phpupload-filelist').empty();
+        return true;
     }
+
 
 };

@@ -38,7 +38,7 @@
 
                                     <div class="row fpcm-ui-padding-md-tb fpcm-ui-editor-categories">
                                         <div class="col-12 fpcm-ui-padding-none-lr">
-                                            <?php $theView->textInput('article[title]')->setValue($article->getTitle())->setText('ARTICLE_LIST_TITLE')->setPlaceholder(true)->setWrapper(true); ?>
+                                            <?php $theView->textInput('article[title]')->setValue($article->getTitle())->setText('ARTICLE_LIST_TITLE')->setPlaceholder(true)->setWrapper(true)->setAutoFocused(true); ?>
                                         </div>
                                     </div>
 
