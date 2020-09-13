@@ -798,12 +798,12 @@ if (fpcm.editor) {
     
     fpcm.editor.getMediaData = function (_addWidth) {
 
-        var tagName = fpcm.dom.fromClass('fpcm-editor-mediatype:checked').val();
+        var tagName = fpcm.dom.fromClass('fpcm-editor-mediatype:checked').val().replace(/[^a-z]/, '');
 
         var elPath = fpcm.dom.fromId('mediapath');
         var elPathAlt = fpcm.dom.fromId('mediapath2');
-        var elFormatVal = fpcm.dom.fromId('mediaformat').val();
-        var elFormatAltVal = fpcm.dom.fromId('mediaformat2').val();
+        var elFormatVal = fpcm.dom.fromId('mediaformat').val().match(/[a-z]{5}\/{1}[a-z0-9]{3,}/);
+        var elFormatAltVal = fpcm.dom.fromId('mediaformat2').val().match(/[a-z]{5}\/{1}[a-z0-9]{3,}/);
         var elAutoplay = fpcm.dom.fromId('autoplay:checked');
         var elControls = fpcm.dom.fromId('controls:checked');
 
