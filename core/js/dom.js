@@ -33,26 +33,62 @@ fpcm.dom = {
     },
     
     setFocus: function(_id) {
-        fpcm.dom.fromTag(_id).focus();
+        
+        if (!fpcm.dom.fromId(_id).length) {
+            console.warn('Set focus to undefined element: ' + _id);
+            return false;
+        }
+
+        fpcm.dom.fromId(_id).focus();
     },
     
     assignHtml: function(_id, data) {
+        
+        if (!fpcm.dom.fromTag(_id).length) {
+            console.warn('Assign html to undefined element: ' + _id);
+            return false;
+        }
+
         fpcm.dom.fromTag(_id).html(data);
     },
     
     assignText: function(_id, data) {
+        
+        if (!fpcm.dom.fromTag(_id).length) {
+            console.warn('Assign text to undefined element: ' + _id);
+            return false;
+        }
+
         fpcm.dom.fromTag(_id).text(data);
     },
     
     appendHtml: function(_id, data) {
+        
+        if (!fpcm.dom.fromTag(_id).length) {
+            console.warn('Appending html to undefined element: ' + _id);
+            return false;
+        }
+
         fpcm.dom.fromTag(_id).append(data);
     },
     
     prependHtml: function(_id, data) {
+        
+        if (!fpcm.dom.fromTag(_id).length) {
+            console.warn('Prepend html to undefined element: ' + _id);
+            return false;
+        }
+
         fpcm.dom.fromTag(_id).prepend(data);
     },
     
     isReadonly: function(_id, state) {
+        
+        if (!fpcm.dom.fromTag(_id).length) {
+            console.warn('Set property to undefined element: ' + _id);
+            return false;
+        }
+
         fpcm.dom.fromTag(_id).prop('readonly', state);
     }
 
