@@ -27,6 +27,7 @@ fpcm.imageEditor = {
                 let imgEL = fpcm.dom.fromId('fpcm-dialog-files-imgeditor');
                 imgEL.attr('src', fpcm.dom.fromTag(this).attr('href'));
                 fpcm.filemanager.cropper = new Cropper(imgEL[0], {
+                    autoCrop: false
                 });
 
                 return true;
@@ -86,7 +87,7 @@ fpcm.imageEditor = {
                 },
                 {
                     text: fpcm.ui.translate('GLOBAL_SAVE'),
-                    icon: "ui-icon-check",                        
+                    icon: "ui-icon-disk",                        
                     click: function() {
                         fpcm.dom.fromTag(this).dialog( "close" );
                         fpcm.filemanager.cropper.getCroppedCanvas().toBlob((blob) => {
@@ -104,6 +105,13 @@ fpcm.imageEditor = {
                             });
 
                         }, _param.data.mime);
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('GLOBAL_RESET'),
+                    icon: "ui-icon-closethick",                
+                    click: function () {
+                        fpcm.filemanager.cropper.reset();
                     }
                 },
                 {
