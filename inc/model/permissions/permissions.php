@@ -93,7 +93,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             return;
         }
 
-        $this->cacheName = $useCache ? 'permissioncache' . $this->rollid : false;
+        $this->cacheName = $useCache ? 'permissioncache' . $rollid: false;       
         $this->rollid = $rollid;
         $this->init();
     }
@@ -178,10 +178,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
         }
         
-        if ($this->cacheName) {
-            unset($_SESSION[$this->cacheName]);
-        }
-
+        $this->refresh();
         return parent::save() === false ? false : true;
     }
 
@@ -207,12 +204,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             $return = true;
         }
 
-        $this->cache->cleanup();
-        
-        if ($this->cacheName) {
-            unset($_SESSION[$this->cacheName]);
-        }
-
+        $this->refresh();
         $this->init();
         return $return;
     }
@@ -224,7 +216,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
     public function delete()
     {
         $this->dbcon->delete($this->table, 'rollid = ?', [$this->rollid]);
-        $this->cache->cleanup();
+        $this->refresh();
         return true;
     }
 
@@ -389,18 +381,6 @@ class permissions extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * Is triggered after successful database insert
-     * @see \fpcm\model\abstracts\dataset::afterSaveInternal
-     * @return bool
-     * @since 4.1
-     */
-    protected function afterSaveInternal(): bool
-    {
-        $this->cache->cleanup();
-        return true;
-    }
-
-    /**
      * Prüft ob Benutzer Berechtigung hat
      * @param array $permissionArray
      * @return bool
@@ -447,5 +427,26 @@ class permissions extends \fpcm\model\abstracts\dataset {
 
         $this->checkedData[$permissionArrayHash] = $res;
         return $res;
+    }
+
+    /**
+     * Refresh cache and session data
+     * @return bool
+     * @since 4.5
+     */
+    private function refresh() : bool
+    {
+        $this->cache->cleanup();
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            return true;
+        }
+
+        $cacheName = $this->cacheName ? $this->cacheName : 'permissioncache' . $this->rollid;
+        if (!isset($_SESSION[$cacheName])) {
+            return true;
+        }
+
+        unset($_SESSION[$cacheName]);
+        return true;
     }
 }
