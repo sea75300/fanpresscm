@@ -50,8 +50,6 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxController implements 
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
-        
         $this->files = $this->request->fromPOST('items', [
             \fpcm\model\http\request::FILTER_BASE64DECODE
         ]);
@@ -73,18 +71,30 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxController implements 
      */
     public function process()
     {
-        $this->returnData[] = new \fpcm\view\message(
-                $this->language->translate('FAILED_FILES_NEWTHUMBS', [
-                '{{filenames}}' => implode(', ', $this->files)
-            ]),
-            \fpcm\view\message::TYPE_ERROR
-        );
+        try {
+            array_walk($this->files, [$this, 'createThumb']);
+            
+        } catch (\Exception $exc) {
+            
+            trigger_error($exc->getMessage());
+
+            $this->response->setReturnData([
+                new \fpcm\view\message(
+                        $this->language->translate('FAILED_FILES_NEWTHUMBS', [
+                        '{{filenames}}' => implode(', ', $this->files)
+                    ]),
+                    \fpcm\view\message::TYPE_ERROR
+                )
+            ])->fetch();            
+        }
 
         $hasSuccess = count($this->success);
         $hasFailed = count($this->failed);
+        
+        $msg = [];
         if ($hasSuccess) {
 
-            $this->returnData[] = new \fpcm\view\message(
+            $msg[] = new \fpcm\view\message(
                 $this->language->translate('SUCCESS_FILES_NEWTHUMBS', [
                     '{{filenames}}' => implode(', ', $this->success)
                 ]),
@@ -95,7 +105,7 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxController implements 
 
         if ($hasFailed) {
             
-            $this->returnData[] = new \fpcm\view\message(
+            $msg[] = new \fpcm\view\message(
                     $this->language->translate('FAILED_FILES_NEWTHUMBS', [
                     '{{filenames}}' => implode(', ', $this->failed)
                 ]),
@@ -105,15 +115,16 @@ class createThumbs extends \fpcm\controller\abstracts\ajaxController implements 
         }
 
         if ($hasSuccess || $hasFailed) {
-            $this->response->setReturnData($this->returnData)->fetch();
+            $this->response->setReturnData($msg)->fetch();
         }
 
-        $this->response->setReturnData([new \fpcm\view\message(
-            $this->language->translate('GLOBAL_NOTFOUND2', ''),
-            \fpcm\view\message::TYPE_ERROR
-        )])->fetch();
+        $this->response->setReturnData([
+            new \fpcm\view\message(
+                $this->language->translate('GLOBAL_NOTFOUND2', ''),
+                \fpcm\view\message::TYPE_ERROR
+            )
+        ])->fetch();
 
-        $this->response->setReturnData($this->returnData)->fetch();
     }
 
     private function createThumb($fileName) : bool

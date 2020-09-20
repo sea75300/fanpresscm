@@ -255,7 +255,6 @@ fpcm.filemanager = {
             }
 
             fpcm.ajax.post('files/createthumbs', {
-                dataType: 'json',
                 data: {
                     items: items
                 },
