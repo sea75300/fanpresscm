@@ -34,6 +34,7 @@ ips/add: action/ips/ipadd
 ips/edit: action/ips/ipedit
 articles/add: action/articles/articleadd
 articles/edit: action/articles/articleedit
+articles/revision: action/articles/revision
 articles/listall: action/articles/articlelistall
 articles/listactive: action/articles/articlelistactive
 articles/listarchive: action/articles/articlelistarchive

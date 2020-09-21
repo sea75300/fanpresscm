@@ -180,3 +180,8 @@ div.mce-fpcm-ui-emoticons-panel {
 .fpcm-ui-editor-categories-massedit .selectize-control.multi.selectize-input.has-items {
     width: 100%;
 }
+
+/* php-diff */
+table.diff-wrapper > thead {
+    display: none;
+}

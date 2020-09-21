@@ -49,12 +49,6 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
      *
      * @var bool
      */
-    protected $showRevision = false;
-
-    /**
-     *
-     * @var bool
-     */
     protected $approvalRequired = false;
 
     /**
@@ -155,12 +149,10 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
             [ 'dist/css/selectize.default.css' ]
         );
 
-        if (!$this->showRevision) {
-            $viewVars = $this->editorPlugin->getViewVars();
-            foreach ($viewVars as $key => $value) {
-                $this->view->assign($key, $value);
-            }            
-        }
+        $viewVars = $this->editorPlugin->getViewVars();
+        foreach ($viewVars as $key => $value) {
+            $this->view->assign($key, $value);
+        }            
 
         $this->view->assign('changeAuthor', $this->canChangeAuthor);
         if ($this->canChangeAuthor) {
@@ -170,9 +162,8 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         }
 
         $this->view->assign('approvalRequired', $this->approvalRequired);
-        $this->view->assign('isRevision', false);
         $this->view->assign('article', $this->article);
-        $this->view->assign('categories', $this->showRevision ? $this->categoryList->getCategoriesCurrentUser() : $this->categoryList->getCategoriesNameListCurrent());
+        $this->view->assign('categories', $this->categoryList->getCategoriesNameListCurrent());
         $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
         $this->view->assign('showArchiveStatus', true);
         $this->view->assign('showDraftStatus', true);
@@ -211,11 +202,9 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->view->addJsLangVars(array_merge(['HL_FILES_MNG', 'ARTICLES_SEARCH', 'FILE_LIST_NEWTHUMBS', 'GLOBAL_DELETE', 'EDITOR_CATEGORIES_SEARCH', 'FILE_LIST_INSERTGALLERY'], $this->editorPlugin->getJsLangVars()));
         $this->view->addJsVars($this->jsVars);
 
-        if (!$this->showRevision) {
-            $this->view->addButton((new \fpcm\view\helper\saveButton('articleSave'))
-                    ->setClass( 'fpcm-ui-maintoolbarbuttons-tab1'.($this->article->getId() ? ' fpcm-ui-button-primary' : '') )
-                    ->setReadonly($this->article->isInEdit()));
-        }
+        $this->view->addButton((new \fpcm\view\helper\saveButton('articleSave'))
+                ->setClass( 'fpcm-ui-maintoolbarbuttons-tab1'.($this->article->getId() ? ' fpcm-ui-button-primary' : '') )
+                ->setReadonly($this->article->isInEdit()));
 
         return true;
     }

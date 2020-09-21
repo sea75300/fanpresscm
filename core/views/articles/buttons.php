@@ -1,6 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 
-<?php if (!$isRevision) : ?>
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
     <legend><?php $theView->write('GLOBAL_EXTENDED'); ?></legend>
 
@@ -110,6 +109,4 @@
     </div>
     <?php endforeach; ?>
 </fieldset>
-<?php endif; ?>
-
 <?php endif; ?>

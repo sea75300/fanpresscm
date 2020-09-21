@@ -31,18 +31,6 @@ class articleedit extends articlebase {
     protected $commentList;
 
     /**
-     *
-     * @var \fpcm\model\articles\article
-     */
-    protected $revisionArticle = null;
-
-    /**
-     *
-     * @var int
-     */
-    protected $revisionId = 0;
-
-    /**
      * 
      * @return bool
      */
@@ -98,7 +86,7 @@ class articleedit extends articlebase {
         $this->handleDeleteAction();
         
         $res = false;
-        if (!$this->showRevision && $this->checkPageToken && !$this->article->isInEdit()) {
+        if ($this->checkPageToken && !$this->article->isInEdit()) {
             $res = $this->saveArticle();
             if (!$res && !$this->emptyTitleContent) {
                 $this->view->addErrorMessage('SAVE_FAILED_ARTICLE');
@@ -120,11 +108,6 @@ class articleedit extends articlebase {
         }
 
         $this->handleCommentActions();
-
-        if (!$this->revisionId) {
-            $this->article->enableTweetCreation($this->config->twitter_events['update']);
-        }
-
         return true;
     }
 
@@ -171,67 +154,48 @@ class articleedit extends articlebase {
             $this->view->addMessage('EDITOR_STATUS_INEDIT', ['{{username}}' => $username]);
         }
 
-        if ($this->showRevision) {
-            $this->view->assign('revisionArticle', $this->revisionArticle);
-            $this->view->assign('editorFile', \fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'articles/editors/revisiondiff.php'));
-            $this->view->assign('isRevision', true);
-            $this->view->assign('showRevisions', false);
-            $this->view->assign('showComments', false);
-            $this->view->assign('showShares', false);
-            $this->view->setFormAction($this->article->getEditLink(), ['rev' => $this->revisionId], true);
+        $users = $this->userList->getUsersByIds([
+            $this->article->getCreateuser(),
+            $this->article->getChangeuser()
+        ]);
 
-            $this->view->addButton((new \fpcm\view\helper\linkButton('backToArticel'))
-                    ->setUrl($this->article->getEditLink())
-                    ->setText('EDITOR_BACKTOCURRENT')
-                    ->setIcon('chevron-circle-left'), 2);
-        } else {
+        $createUser = isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : null;
+        $changeUser = isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : null;
 
-            $users = $this->userList->getUsersByIds([
-                $this->article->getCreateuser(),
-                $this->article->getChangeuser()
-            ]);
-            
-            $createUser = isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()] : null;
-            $changeUser = isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()] : null;
-            
-            $this->view->assign('createInfo', $this->language->translate('EDITOR_AUTHOREDIT', [
-                '{{username}}' => $createUser ? $createUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
-                '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())           
-            ]));
+        $this->view->assign('createInfo', $this->language->translate('EDITOR_AUTHOREDIT', [
+            '{{username}}' => $createUser ? $createUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+            '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())           
+        ]));
 
-            $this->view->assign('changeInfo', $this->language->translate('EDITOR_LASTEDIT', [
-                '{{username}}' => $changeUser ? $changeUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
-                '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
-            ]));
-            
-            $this->view->addButtons([
-                (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($this->article)->setTarget('_blank')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
-                (new \fpcm\view\helper\button('shortlink'))
-                    ->setText('EDITOR_ARTICLE_SHORTLINK')
-                    ->setIcon('external-link-square-alt')
-                    ->setIconOnly(true)
-                    ->setClass('fpcm-ui-maintoolbarbuttons-tab1')
-                    ->setData([
-                        'article' => $this->article->getId()
-                    ]),
-            ]);
+        $this->view->assign('changeInfo', $this->language->translate('EDITOR_LASTEDIT', [
+            '{{username}}' => $changeUser ? $changeUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
+            '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
+        ]));
 
-            if ($this->article->getImagepath()) {
-                $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly(true)->setClass('fpcm-editor-articleimage fpcm-ui-maintoolbarbuttons-tab1'));
-            }
+        $this->view->addButtons([
+            (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($this->article)->setTarget('_blank')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1'),
+            (new \fpcm\view\helper\button('shortlink'))
+                ->setText('EDITOR_ARTICLE_SHORTLINK')
+                ->setIcon('external-link-square-alt')
+                ->setIconOnly(true)
+                ->setClass('fpcm-ui-maintoolbarbuttons-tab1')
+                ->setData([
+                    'article' => $this->article->getId()
+                ]),
+        ]);
 
-            $shares = (new \fpcm\model\shares\shares())->getByArticleId($this->article->getId());
-
-            $this->view->assign('shares', $shares);
-            $this->view->assign('showShares', $this->config->system_share_count);
+        if ($this->article->getImagepath()) {
+            $this->view->addButton((new \fpcm\view\helper\linkButton('articleimg'))->setUrl($this->article->getImagepath())->setText('EDITOR_ARTICLEIMAGE_SHOW')->setIcon('image')->setIconOnly(true)->setClass('fpcm-editor-articleimage fpcm-ui-maintoolbarbuttons-tab1'));
         }
+
+        $shares = (new \fpcm\model\shares\shares())->getByArticleId($this->article->getId());
+
+        $this->view->assign('shares', $shares);
+        $this->view->assign('showShares', $this->config->system_share_count);
         
         if ($this->permissions->article->revisions) {
-             $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setReadonly($this->article->isInEdit())->setClass('fpcm-ui-maintoolbarbuttons-tab3 '.($this->showRevision ? '' : 'fpcm-ui-hidden')));
-            if (!$this->showRevision) {
-                $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
-                
-            }
+            $this->view->addButton((new \fpcm\view\helper\submitButton('articleRevisionRestore'))->setText('EDITOR_REVISION_RESTORE')->setIcon('undo')->setReadonly($this->article->isInEdit())->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden'));
+            $this->view->addButton((new \fpcm\view\helper\deleteButton('revisionDelete'))->setClass('fpcm-ui-maintoolbarbuttons-tab3 fpcm-ui-hidden fpcm-ui-button-confirm')->setText('EDITOR_REVISION_DELETE'));
         }
 
         $this->view->render();
@@ -288,7 +252,7 @@ class articleedit extends articlebase {
      */
     private function handleDeleteAction()
     {
-        if (!$this->buttonClicked('articleDelete') || $this->showRevision || !$this->checkPageToken) {
+        if (!$this->buttonClicked('articleDelete') || !$this->checkPageToken) {
             return true;
         }
 
@@ -320,7 +284,15 @@ class articleedit extends articlebase {
         }
 
         $revisionIdsArray = $this->request->fromPOST('revisionIds', [\fpcm\model\http\request::FILTER_CASTINT]);
-        if ($this->buttonClicked('revisionDelete') && is_array($revisionIdsArray) && !$this->showRevision && $this->checkPageToken) {
+        if (!is_array($revisionIdsArray) || !count($revisionIdsArray)) {
+            return false;
+        }
+
+        if (!$this->checkPageToken) {
+            return false;
+        }
+        
+        if ($this->buttonClicked('revisionDelete')) {
             if ($this->article->deleteRevisions($revisionIdsArray)) {
                 $this->view->addNoticeMessage('DELETE_SUCCESS_REVISIONS');
             } else {
@@ -330,75 +302,17 @@ class articleedit extends articlebase {
             return true;
         }
 
-        $this->revisionId = false;
-        
-        $revFromGet = $this->request->fromGET('rev', [ \fpcm\model\http\request::FILTER_CASTINT ]);
-        
-        if ($revFromGet === null && is_array($revisionIdsArray)) {
-            $this->revisionId = array_shift($revisionIdsArray);
+        if (!$this->buttonClicked('articleRevisionRestore')) {
+            return true;
         }
-        elseif ($revFromGet !== null) {        
-            $this->revisionId = $revFromGet;
-        }
-
-        if ($this->buttonClicked('articleRevisionRestore') && $this->revisionId && $this->checkPageToken) {
-
-            if ($this->article->restoreRevision($this->revisionId)) {
-                $this->redirect('articles/edit&id=' . $this->article->getId() . '&revrestore=1');
-            } else {
-                $this->view->addErrorMessage('SAVE_FAILED_ARTICLEREVRESTORE');
-            }
-
+        
+        $rid = array_shift($revisionIdsArray);
+        if ($this->article->restoreRevision($rid)) {
+            $this->redirect('articles/edit&id=' . $this->article->getId() . '&revrestore=1');
             return true;
         }
 
-        if (!$this->revisionId) {
-            return false;
-        }
-
-        include_once \fpcm\classes\loader::libGetFilePath('PHP-FineDiff/finediff.php');
-
-        $this->revisionArticle = clone $this->article;
-
-        if (!$this->revisionId) {
-            $this->revisionId = $this->request->fromGET('rev', [ \fpcm\model\http\request::FILTER_CASTINT ]);
-        }
-
-        $this->showRevision = ($this->revisionArticle->getRevision($this->revisionId) ? true : false);
-        
-        $users = $this->userList->getUsersByIds([
-            $this->article->getCreateuser(),
-            $this->article->getChangeuser(),
-            $this->revisionArticle->getCreateuser(),
-            $this->revisionArticle->getChangeuser(),
-        ]);
-        
-        $this->view->assign('createInfoOrg', $this->language->translate('EDITOR_AUTHOREDIT', [
-            '{{username}}' => isset($users[$this->article->getCreateuser()]) ? $users[$this->article->getCreateuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
-            '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getCreatetime())           
-        ]));
-
-        $this->view->assign('changeInfoOrg', $this->language->translate('EDITOR_LASTEDIT', [
-            '{{username}}' => isset($users[$this->article->getChangeuser()]) ? $users[$this->article->getChangeuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
-            '{{time}}'     => new \fpcm\view\helper\dateText($this->article->getChangetime())
-        ]));
-        
-        $this->view->assign('createInfoRev', $this->language->translate('EDITOR_AUTHOREDIT', [
-            '{{username}}' => isset($users[$this->revisionArticle->getCreateuser()]) ? $users[$this->revisionArticle->getCreateuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
-            '{{time}}'     => new \fpcm\view\helper\dateText($this->revisionArticle->getCreatetime())           
-        ]));
-
-        $this->view->assign('changeInfoRev', $this->language->translate('EDITOR_LASTEDIT', [
-            '{{username}}' => isset($users[$this->revisionArticle->getChangeuser()]) ? $users[$this->revisionArticle->getChangeuser()]->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
-            '{{time}}'     => new \fpcm\view\helper\dateText($this->revisionArticle->getChangetime())
-        ]));
-        
-
-        $from   = $this->revisionArticle->getContent();
-        $opcode = \FineDiff::getDiffOpcodes($from, $this->article->getContent(), \FineDiff::$characterGranularity);
-        $this->view->assign('textDiff', \FineDiff::renderDiffToHTMLFromOpcodes($from, $opcode));
-        $this->view->addJsVars(['isRevision' => true]);
-
+        $this->view->addErrorMessage('SAVE_FAILED_ARTICLEREVRESTORE');
         return true;
     }
 
