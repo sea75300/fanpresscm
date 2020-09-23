@@ -36,8 +36,6 @@ class lockIp extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function process()
     {
-        $this->response = new \fpcm\model\http\response;
-        
         $cid = $this->request->fromPOST('cid', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);

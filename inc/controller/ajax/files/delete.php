@@ -53,8 +53,6 @@ class delete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
-        
         $this->fileName = $this->request->fromPOST('filename', [
             \fpcm\model\http\request::FILTER_BASE64DECODE
         ]);

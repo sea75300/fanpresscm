@@ -45,7 +45,6 @@ class clear extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
         $this->log = $this->request->fromPOST('log');
         $this->moduleKey = $this->request->fromPOST('key', [
             \fpcm\model\http\request::FILTER_URLDECODE

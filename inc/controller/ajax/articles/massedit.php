@@ -42,8 +42,6 @@ class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpc
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
-        
         if (!$this->checkPageToken()) {
             $this->response->setReturnData(new \fpcm\model\http\responseData(0))->fetch();
         }

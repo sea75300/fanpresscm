@@ -34,7 +34,6 @@ class clearTrash extends \fpcm\controller\abstracts\ajaxController implements \f
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
         $this->processByParam();
         $this->response->fetch();
         return true;

@@ -67,8 +67,6 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
-
         $this->log = $this->request->fromGET('log');
         $this->moduleKey = $this->request->fromGET('key');
         

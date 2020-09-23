@@ -25,8 +25,6 @@ class draft extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
      */
     public function process()
     {
-        $this->response = new \fpcm\model\http\response;
-        
         $draftPath = $this->request->fetchAll('path');
         if (!trim($draftPath)) {
             $this->response->setReturnData(new \fpcm\model\http\responseData(-1, ''))->fetch();

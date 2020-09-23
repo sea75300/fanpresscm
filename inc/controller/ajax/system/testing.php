@@ -37,8 +37,6 @@ class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm
      */
     public function process()
     {
-        $this->response = new \fpcm\model\http\response;
-        
         $ts = $this->request->fromPOST('timestamp', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);

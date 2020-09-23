@@ -35,7 +35,6 @@ class delete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             return false;
         }
         
-        $this->response = new \fpcm\model\http\response;
         return true;
     }
 

@@ -33,8 +33,6 @@ class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm
      */
     public function process()
     {
-        $this->response = new \fpcm\model\http\response;
-
         $this->runCrons();
         $this->runSessionCheck();
         $this->runArticleInEdit();

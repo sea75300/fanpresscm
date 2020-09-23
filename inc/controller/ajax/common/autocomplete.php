@@ -33,11 +33,11 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
     public function request()
     {
         $this->returnData = [];
-        $this->response = new \fpcm\model\http\response;
         $this->term = $this->request->fetchAll('term', [
             \fpcm\model\http\request::FILTER_STRIPTAGS,
             \fpcm\model\http\request::FILTER_STRIPSLASHES,
-            \fpcm\model\http\request::FILTER_TRIM, \fpcm\model\http\request::FILTER_URLDECODE
+            \fpcm\model\http\request::FILTER_TRIM,
+            \fpcm\model\http\request::FILTER_URLDECODE
         ]);
 
         return true;
