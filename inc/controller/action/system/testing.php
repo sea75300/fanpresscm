@@ -32,6 +32,8 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->addJsFiles([
             'testing.js'
         ]);
+        
+        $this->view->assign('progressbarName', 'testing');
 
         return true;
     }

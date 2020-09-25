@@ -41,62 +41,51 @@ class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
-        $next = $this->request->fromPOST('next', [
+        $next = (bool) $this->request->fromPOST('next', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
-        $reponseData = [
-            'current' => 0,
-            'next' => 0,
-            'data' => [
-                'fs' => 0,
-                'lines' => []
-            ],
-        ];
-        
-        if (!$next) {
-            $this->response->setReturnData($reponseData)->fetch();
-        }
-
-        $timer = time();
-
         $fpath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_OPTIONS, 'import.csv');
         $handle = fopen($fpath, 'r');
-        
+
+        $progressObj = new \fpcm\model\system\progress(function (&$data, &$current, $next) use (&$handle) {
+
+            $line = fgetcsv($handle);
+            if (is_array($line) && count($line)) {
+                $data['lines'][]  = $line;
+            }
+
+            $current = ftell($handle);
+            usleep(2500);
+
+            return !feof($handle) ? true : false;
+        });
+
+        $progressObj->setNext($next)->setData([
+            'fs' => filesize($fpath),
+            'lines' => []
+        ]);
+
         if (!is_resource($handle)) {
-            $this->response->setReturnData($reponseData)->fetch();
+            $this->response->setReturnData($progressObj)->fetch();
+        }
+
+        if (!$progressObj->getNext()) {
+            $this->response->setReturnData($progressObj)->fetch();
         }
 
         if (fseek($handle, $current) === -1) {
-            $this->response->setReturnData($reponseData)->fetch();
+            $this->response->setReturnData($progressObj)->fetch();
         }
 
-        $reponseData['current']    = $current;
-        $reponseData['next']       = !feof($handle);
-        $reponseData['data']['fs'] = filesize($fpath);
-
-        $fetch = $reponseData['next'] > 0 ? 1 : 0;
+        $progressObj->setCurrent($current)->setNext(!feof($handle));
         
-        if (!$fetch) {
-            $this->response->setReturnData($reponseData)->fetch();
-        }
-        
-        while ($fetch === 1) {
-            
-            $line = fgetcsv($handle);
-            if (is_array($line) && count($line)) {
-                $reponseData['data']['lines'][]  = $line;
-            }
-
-            $reponseData['current'] = ftell($handle);
-            $fetch = feof($handle) ? -1 : ( (time() - $timer) > 5 ? 0 : 1 );
-            usleep(5000);
-        }
-
-        $reponseData['next'] = feof($handle) ? 0 : 1;
+        $progressObj->process();
+        $progressObj->setNext(!feof($handle));
 
         fclose($handle);
-        $this->response->setReturnData($reponseData)->fetch();
+
+        $this->response->setReturnData($progressObj)->fetch();
 
     }
 

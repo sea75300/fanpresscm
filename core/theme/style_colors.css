@@ -302,3 +302,8 @@ div.row.fpcm-ui-dataview-row.fpcm-ui-logs-deprecation-warning
 {
     border-left: 5px solid #c3c3c3;
 }
+
+.fpcm-ui-progressbar-label,
+.fpcm.ui-progressbar-label {
+    background: rgba(255, 255, 255, 0.9);
+}

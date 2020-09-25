@@ -502,12 +502,15 @@ img.fpcm-ui-smileylist-preview {
     margin: 0 auto;
     overflow: hidden;
     min-height: 35px;
+    position: relative;
 }
 
 .fpcm-ui-progressbar-label,
 .fpcm.ui-progressbar-label {
-    padding: 0 0.5rem;
-    line-height: 30px;
+    position: absolute;
+    left: 0.2rem;
+    top: 0.2rem;
+    font-size: 0.8rem;
 }
 
 .fpcm-ui-border-radius-right,

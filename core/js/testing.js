@@ -13,7 +13,7 @@ fpcm.testing = {
 
     init: function() {
         
-        fpcm.ui.progressbar('#progress', {
+        fpcm.ui.progressbar('.fpcm-ui-progressbar', {
             max: 1,
             value: 0
         });       
@@ -41,6 +41,8 @@ fpcm.testing = {
             _params.next = 1;
         }
         
+        fpcm.dom.fromClass('fpcm-ui-progressbar-label').text('Loading data...');
+        
         fpcm.ajax.post('testing', {
             data: {
                 current: _params.current,
@@ -51,17 +53,18 @@ fpcm.testing = {
             quiet: true,
             execDone: function (result) {
 
-                fpcm.ui.progressbar('#progress', {
+                fpcm.dom.fromClass('fpcm-ui-progressbar-label').empty();
+
+                fpcm.ui.progressbar('.fpcm-ui-progressbar', {
                     max: result.data.fs,
-                    value: result.current
+                    value: result.current ? result.current : result.data.fs
                 });
-                
-                
-                if (result.data.lines) {
+
+                if (result.data.lines && result.data.lines.length) {
                     fpcm.dom.fromId('list').append('<li>' + result.data.lines.join('</li><li>') + '</li>');
                 }
                 
-                if (result.next < 1) {
+                if (!result.next) {
                     return false;
                 }
                 
