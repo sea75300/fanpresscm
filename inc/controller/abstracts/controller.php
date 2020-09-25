@@ -337,6 +337,10 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     protected function getViewPath() : string
     {
+        if ($this instanceof \fpcm\controller\interfaces\viewByNamespace) {
+            return str_replace(['fpcm\\controller\\action\\', '\\'], ['', DIRECTORY_SEPARATOR], get_called_class());
+        }
+
         return '';
     }
 

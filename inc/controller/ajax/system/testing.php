@@ -37,46 +37,66 @@ class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm
      */
     public function process()
     {
-        $ts = $this->request->fromPOST('timestamp', [
+        $current = $this->request->fromPOST('current', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
-        if (!$ts) {
-            $this->response->fetch();
+        $next = $this->request->fromPOST('next', [
+            \fpcm\model\http\request::FILTER_CASTINT
+        ]);
+
+        $reponseData = [
+            'current' => 0,
+            'next' => 0,
+            'data' => [
+                'fs' => 0,
+                'lines' => []
+            ],
+        ];
+        
+        if (!$next) {
+            $this->response->setReturnData($reponseData)->fetch();
         }
 
-        $step = $this->request->fromPOST('step', [
-            \fpcm\model\http\request::FILTER_CASTINT
-        ]);
+        $timer = time();
 
-        $fopt = new \fpcm\model\files\fileOption('lastchange');
+        $fpath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_OPTIONS, 'import.csv');
+        $handle = fopen($fpath, 'r');
+        
+        if (!is_resource($handle)) {
+            $this->response->setReturnData($reponseData)->fetch();
+        }
 
-        $step++;
+        if (fseek($handle, $current) === -1) {
+            $this->response->setReturnData($reponseData)->fetch();
+        }
 
-        $this->returnData = [
-            'step' => $step,
-            'res' => mt_rand(0,1),
-            'data' => []
-        ];
+        $reponseData['current']    = $current;
+        $reponseData['next']       = !feof($handle);
+        $reponseData['data']['fs'] = filesize($fpath);
 
-        while ($fopt->read() <= $ts) {
-
-
-            sleep(2);
-            clearstatcache();
-            $ts = $fopt->read();
-
-            $this->returnData['res'] = $step >= 5 ? 2 : mt_rand(0,1);
-            $this->returnData['data'][] =  (string) new \fpcm\view\helper\dateText(time(), 'd.m.Y H:i:s');
-
-
-            if ($this->returnData['res']) {
-                break;
+        $fetch = $reponseData['next'] > 0 ? 1 : 0;
+        
+        if (!$fetch) {
+            $this->response->setReturnData($reponseData)->fetch();
+        }
+        
+        while ($fetch === 1) {
+            
+            $line = fgetcsv($handle);
+            if (is_array($line) && count($line)) {
+                $reponseData['data']['lines'][]  = $line;
             }
 
+            $reponseData['current'] = ftell($handle);
+            $fetch = feof($handle) ? -1 : ( (time() - $timer) > 5 ? 0 : 1 );
+            usleep(5000);
         }
 
-        $this->response->setReturnData($this->returnData)->fetch();
+        $reponseData['next'] = feof($handle) ? 0 : 1;
+
+        fclose($handle);
+        $this->response->setReturnData($reponseData)->fetch();
 
     }
 
