@@ -179,6 +179,13 @@ abstract class package {
     abstract public function updateLog();
 
     /**
+     * Validate archive content after opening archive
+     * @return bool
+     * @since 4.5
+     */
+    abstract public function extractionValidateArchiveData() : bool;
+
+    /**
      * Check if remote path points to trusted server
      * @return bool
      */
@@ -307,6 +314,11 @@ abstract class package {
         if (!$this->archive->count()) {
             trigger_error('Empty ZIP archive detected, package contains no files: ' . $localPath);
             return self::ZIPOPEN_ERROR;
+        }
+        
+        if (!$this->extractionValidateArchiveData()) {
+            trigger_error('Package archive extraction pre-validation failed: ' . $localPath);
+            return self::ZIPEXTRACT_ERROR;
         }
 
         if ($this->archive->extractTo($this->getExtractionPath()) !== true) {

@@ -89,6 +89,16 @@ class update extends package {
     }
 
     /**
+     * Validate archive content after opening archive
+     * @return bool
+     * @since 4.5
+     */
+    public function extractionValidateArchiveData() : bool
+    {
+        return true;
+    }
+
+    /**
      * Check if local files are writable
      * @return bool
      */

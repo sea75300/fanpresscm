@@ -44,7 +44,7 @@ class module extends package {
         $this->repo = (new \fpcm\model\updater\modules())->getDataCachedByKey($this->moduleKey);
         $this->hashKey = \fpcm\classes\tools::getHash($this->packageName);
         
-        if (!\fpcm\module\module::validateKey(  $this->moduleKey)) {
+        if (!\fpcm\module\module::validateKey($this->moduleKey)) {
             $this->preValidate = false;
             return false;
         }
@@ -132,6 +132,16 @@ class module extends package {
     public function getRemoteSignature()
     {
         return $this->repo['signature'];
+    }
+
+    /**
+     * Validate archive content after opening archive
+     * @return bool
+     * @since 4.5
+     */
+    public function extractionValidateArchiveData() : bool
+    {
+        return $this->preValidate && is_array($this->archive->statName($this->moduleKey . '/module.yml'));
     }
 
     /**

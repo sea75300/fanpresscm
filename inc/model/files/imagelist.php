@@ -151,6 +151,10 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
         if (!$folderFiles || !count($folderFiles)) {
             return;
         }
+        
+        if ($userId === '' || $userId === null) {
+            $userId = 0;
+        }
 
         foreach ($folderFiles as $folderFile) {
             $this->removeBasePath($folderFile);
