@@ -50,7 +50,6 @@ fpcm.testing = {
             },
             cache: false,
             dataType: 'json',
-            quiet: true,
             execDone: function (result) {
 
                 fpcm.dom.fromClass('fpcm-ui-progressbar-label').empty();
