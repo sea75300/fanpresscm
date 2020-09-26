@@ -46,6 +46,18 @@ implements \fpcm\controller\interfaces\isAccessible,
     protected $revision = null;
 
     /**
+     *
+     * @var int
+     */
+    protected $rid = 0;
+
+    /**
+     *
+     * @var int
+     */
+    protected $aid = 0;
+
+    /**
      * 
      * @return bool
      */
@@ -87,20 +99,20 @@ implements \fpcm\controller\interfaces\isAccessible,
      */
     public function request()
     {        
-        $aid = $this->request->fromGET('aid', [
+        $this->aid = $this->request->fromGET('aid', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
         
-        $rid = $this->request->fromGET('rid', [
+        $this->rid = $this->request->fromGET('rid', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
         
-        if (!$aid || !$rid) {
+        if (!$this->aid || !$this->rid) {
             $this->view = new \fpcm\view\error('GLOBAL_NOTFOUND');
             return false;
         }
 
-        $this->article = new \fpcm\model\articles\article($aid);
+        $this->article = new \fpcm\model\articles\article($this->aid);
 
         if (!$this->article->exists()) {
             $this->view = new \fpcm\view\error('LOAD_FAILED_ARTICLE', 'articles/listall');
@@ -108,7 +120,7 @@ implements \fpcm\controller\interfaces\isAccessible,
         }
 
         $this->revision = clone $this->article;
-        $this->revision->getRevision($rid);
+        $this->revision->getRevision($this->rid);
 
         $this->userList     = new \fpcm\model\users\userList();
         $this->categoryList = new \fpcm\model\categories\categoryList();
@@ -135,17 +147,38 @@ implements \fpcm\controller\interfaces\isAccessible,
 
         $this->view->setFormAction(
             'articles/revision', [
-                'aid' => $this->article->getId(), 
-                'rid' => $this->revision->getId()
-            ],
-            true
+                'aid' => $this->aid, 
+                'rid' => $this->rid
+            ]
         );
+        
+        $this->view->addJsVars([
+            'articleId' => $this->aid
+        ]);
 
-        $this->view->addButton((new \fpcm\view\helper\linkButton('backToArticel'))
+        $this->view->addJsFiles(['articles/revisions.js']);
+        
+        $revision = [];
+
+        array_map(function ($value) use (&$revision) {
+            $revision[(string) new \fpcm\view\helper\dateText($value)] = $value;
+        }, array_keys($this->article->getRevisions()));
+        
+        $this->view->addButtons([
+            (new \fpcm\view\helper\linkButton('backToArticel'))
                 ->setUrl($this->article->getEditLink().'&rg=3')
                 ->setText('EDITOR_BACKTOCURRENT')
-                ->setIcon('chevron-circle-left'), 2);
-
+                ->setIcon('chevron-circle-left'),    
+            (new \fpcm\view\helper\select('revisionList'))
+                ->setOptions($revision)
+                ->setSelected($this->rid)
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
+            (new \fpcm\view\helper\submitButton('revisionRestore'))
+                ->setText('EDITOR_REVISION_RESTORE')
+                ->setIcon('undo')
+                ->setReadonly($this->article->isInEdit()),
+        ]);
+        
         include_once \fpcm\classes\loader::libGetFilePath('Jfcherng');
 
         $users = $this->userList->getUsersByIds([
@@ -190,6 +223,21 @@ implements \fpcm\controller\interfaces\isAccessible,
 
         $this->view->assign('diffResult', html_entity_decode($renderer->render($differ)) );
         $this->view->render();
+    }
+    
+    protected function onRevisionRestore()
+    {
+        if (!$this->rid || !$this->article->restoreRevision($this->rid)) {
+            $this->view->addErrorMessage('SAVE_FAILED_ARTICLEREVRESTORE');
+            return false;
+        }
+
+        $this->redirect('articles/edit', [
+            'id' => $this->aid,
+            'revrestore' => 1
+        ]);
+
+        return true;
     }
 
 }
