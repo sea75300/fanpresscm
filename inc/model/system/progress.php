@@ -31,28 +31,39 @@ class progress implements \JsonSerializable {
     private $next = true;
 
     /**
+     * Stop flag
+     * @var bool
+     */
+    private $stop = false;
+
+    /**
      * Data parameter
      * @var null|array
      */
     private $data = null;
 
     /**
-     *
+     * Callback Function 
      * @var callable
      */
     private $callback = null;
 
     /**
-     *
+     * Maximum execution time in seconds, 80% of max_execution_time
      * @var int
      */
-    private $maxExec = 5;
+    private $maxExec = 10;
 
+    /**
+     * Controller
+     * @param callable $callback
+     * @return void
+     */
     public function __construct(callable $callback)
     {
         $this->callback = $callback;   
 
-        $ini = 0; //ini_get('max_execution_time');
+        $ini = ini_get('max_execution_time');
         if (!$ini) {
             return;
         }
@@ -60,39 +71,79 @@ class progress implements \JsonSerializable {
         $this->maxExec = round(((int) $ini) * 0.8, 0, PHP_ROUND_HALF_DOWN);
     }
 
+    /**
+     * Get current value
+     * @return mixed
+     */
     public function getCurrent()
     {
         return $this->current;
     }
 
+    /**
+     * Next execution required/ possible
+     * @return int
+     */
     public function getNext()
     {
         return (int) $this->next;
     }
 
+    /**
+     * Get data
+     * @return array|null
+     */
     public function getData() : ?array
     {
         return $this->data;
     }
 
+    /**
+     * Check if progress was stopped
+     * @return bool
+     */
+    public function getStop(): bool
+    {
+        return $this->stop;
+    }
+
+    /**
+     * Set current value
+     * @param mixed $current
+     * @return $this
+     */
     public function setCurrent($current)
     {
         $this->current = $current;
         return $this;
     }
 
+    /**
+     * Set Next execution flag
+     * @param int|bool $next
+     * @return $this
+     */
     public function setNext($next)
     {
         $this->next = (int) $next;
         return $this;
     }
 
+    /**
+     * Set data
+     * @param array $data
+     * @return $this
+     */
     public function setData(?array $data)
     {
         $this->data = $data;
         return $this;
     }
-    
+
+    /**
+     * Process progress
+     * @return bool
+     */
     final public function process() : bool
     {
         if ($this->callback === null) {
@@ -105,7 +156,13 @@ class progress implements \JsonSerializable {
 
         while ($continue) {
 
-            $continue = $cb($this->data, $this->current, $this->next);
+            $continue = $cb($this->data, $this->current, $this->next, $this->stop);
+            
+            if ($this->stop) {
+                $this->setNext(false);
+                return true;
+            }
+            
             if (!$continue) {
                 $continue = false;
                 break;
@@ -123,7 +180,7 @@ class progress implements \JsonSerializable {
     }
 
     /**
-     * JSON data
+     * JSON data serialization
      * @return array
      * @ignore
      */

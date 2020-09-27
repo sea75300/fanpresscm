@@ -48,15 +48,21 @@ class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm
         $fpath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_OPTIONS, 'import.csv');
         $handle = fopen($fpath, 'r');
 
-        $progressObj = new \fpcm\model\system\progress(function (&$data, &$current, $next) use (&$handle) {
+        $progressObj = new \fpcm\model\system\progress(function (&$data, &$current, $next, &$stop) use (&$handle) {
 
+            if ($current >= $data['fs'] * 0.5) {
+                fpcmLogSystem('Stopped reading file after 50% of filesize');
+                $stop = true;
+                return false;
+            }
+            
             $line = fgetcsv($handle);
             if (is_array($line) && count($line)) {
                 $data['lines'][]  = $line;
             }
 
             $current = ftell($handle);
-            usleep(2500);
+            usleep(2000);
 
             return !feof($handle) ? true : false;
         });
@@ -79,9 +85,12 @@ class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm
         }
 
         $progressObj->setCurrent($current)->setNext(!feof($handle));
-        
         $progressObj->process();
-        $progressObj->setNext(!feof($handle));
+        
+        if (!$progressObj->getStop()) {
+            $progressObj->setNext(!feof($handle));
+        }
+        
 
         fclose($handle);
 
