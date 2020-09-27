@@ -28,7 +28,7 @@ final class tools {
      * @return string
      * @since 3.1.2
      */
-    public static function calcSize($value, $decimals = 2, $delimDec = ',', $delimTousands = '.') : string
+    public static function calcSize($value, $decimals = 2, $delimDec = ',', $delimTousands = '.') : ?string
     {
         if (!is_numeric($value)) {
             return $value;

@@ -186,7 +186,7 @@ class main extends \fpcm\controller\abstracts\controller {
             'INSTALLER_DBCONNECTION_FAILEDMSG',
             'INSTALLER_CREATETABLES_STEP',
             'SAVE_FAILED_PASSWORD_MATCH',
-            'INSTALLER_DBCONNECTION_FAILEDMSG'
+            'INSTALLER_CREATETABLES_ERROR'
         ]);
         
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
@@ -279,19 +279,8 @@ class main extends \fpcm\controller\abstracts\controller {
      */
     protected function runStep4()
     {
-        $sqlFiles = [];
-
-        $files = \fpcm\classes\database::getTableFiles();
-        foreach ($files as $value) {
-            $sqlFiles[] = [
-                'descr' => substr(basename($value, '.yml'), 2),
-                'path' => base64_encode(str_rot13(base64_encode($value)))
-            ];
-        }
-
         $this->view->addJsVars(array(
-            'sqlFilesCount' => count($sqlFiles),
-            'sqlFiles' => $sqlFiles,
+            'sqlFilesCount' => count(\fpcm\classes\database::getTableFiles()),
         ));
     }
 
