@@ -249,6 +249,7 @@ $lang = array (
   'FILE_LIST_EDIT' => 'Bild bearbeiten',
   'FILE_LIST_EDIT_CROP' => 'Zuschneiden',
   'FILE_LIST_EDIT_MOVE' => 'Verschieben',
+  'FILE_LIST_EDIT_RESIZE' => 'Größe ändern',
   'FILE_LIST_EDIT_ROTATE_ANTICLOCKWISE' => 'Gegen Uhrzeigersinn drehen',
   'FILE_LIST_EDIT_ROTATE_CLOCKWISE' => 'Im Uhrzeigersinn drehen',
   'FILE_LIST_EDIT_ZOOMIN' => 'Reinzoomen',
