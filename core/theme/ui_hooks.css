@@ -43,6 +43,10 @@ div.ui-tabs {
     margin-bottom: 3px;
 }
 
+div.row.fpcm-ui-selectmenu-border-radius-right > span.ui-selectmenu-button {
+    border-radius: 0 5px 5px 0;
+}
+
 .ui-accordion.ui-state-disabled {
     opacity: 1;
 }

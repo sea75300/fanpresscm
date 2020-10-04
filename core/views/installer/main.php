@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
 
-        <div class="row no-gutters fpcm-ui-margin-lg-top">
+        <div class="row no-gutters mt-3">
             <div class="col-12">
                 <div id="fpcm-tabs-installer">
                     <ul>

@@ -186,7 +186,8 @@ class main extends \fpcm\controller\abstracts\controller {
             'INSTALLER_DBCONNECTION_FAILEDMSG',
             'INSTALLER_CREATETABLES_STEP',
             'SAVE_FAILED_PASSWORD_MATCH',
-            'INSTALLER_CREATETABLES_ERROR'
+            'INSTALLER_CREATETABLES_ERROR',
+            'INSTALLER_CREATETABLES_HEAD'
         ]);
         
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
@@ -282,6 +283,8 @@ class main extends \fpcm\controller\abstracts\controller {
         $this->view->addJsVars(array(
             'sqlFilesCount' => count(\fpcm\classes\database::getTableFiles()),
         ));
+        
+        $this->view->assign('progressbarName', 'fpcm-installer-dbtables');
     }
 
     /**

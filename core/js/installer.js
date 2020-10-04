@@ -13,6 +13,7 @@ fpcm.installer = {
     currentDbFileIndex: 0,
 
     init: function() {
+
         fpcm.installer.initUi();
         fpcm.installer.initDatabase(1, 0);
         
@@ -27,7 +28,7 @@ fpcm.installer = {
             var objVal  = jQuery(obj).val();
             var objName = jQuery(obj).attr('id').replace('database', '');                                
             sParams[objName] = objVal;
-        }); 
+        });
         
         fpcm.ajax.post('installer/checkdb', {
             data: {
@@ -61,6 +62,13 @@ fpcm.installer = {
             return false;
         }
 
+        var _progress = fpcm.ui.progressbar('.fpcm-installer-dbtables', {
+            max: fpcm.vars.jsvars.sqlFilesCount,
+            value: _current
+        });
+        
+        fpcm.dom.fromClass('fpcm-ui-progressbar-label').text(fpcm.ui.translate('INSTALLER_CREATETABLES_HEAD'));
+
         fpcm.ajax.post('installer/initdb', {
             quiet: true,
             data: {
@@ -82,9 +90,11 @@ fpcm.installer = {
                         }) + fpcm.ui.translate('INSTALLER_CREATETABLES_STEP').replace('{{tablename}}', item.tab) + '</div></div>');
                     }
                 }
+                
+                _progress.progressbar('option', 'value', result.current);
 
                 if (result.current >= fpcm.vars.jsvars.sqlFilesCount && !result.next) {
-                    fpcm.dom.fromId('fpcm-installer-execlist-headline').hide();
+                    fpcm.dom.fromClass('fpcm-ui-progressbar-label').hide();
                     fpcm.dom.fromTag('button.fpcm-installer-next-4').show();
                     return true;
                 }
