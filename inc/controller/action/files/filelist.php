@@ -97,7 +97,8 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             'FILE_LIST_EDIT_ROTATE_CLOCKWISE', 'FILE_LIST_EDIT_ZOOMIN',
             'FILE_LIST_EDIT_ZOOMOUT', 'FILE_LIST_EDIT_RESIZE', 'GLOBAL_RESET',
             'SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT',
-            'SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH'
+            'SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH',
+            'FILE_LIST_EDIT_RESIZE_NOTICE'
         ], $uploader->getJsLangVars()));
 
         if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {

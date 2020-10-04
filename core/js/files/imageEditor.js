@@ -51,7 +51,7 @@ fpcm.imageEditor = {
                             defaultCloseEmpty: true,
                             id: 'files-editor_prop',
                             title: fpcm.ui.translate('FILE_LIST_EDIT_RESIZE'),
-                            content: '<div class="row no-gutters">\n\<div class="fpcm-ui-input-wrapper my-2 mr-1 col-3"><div class="fpcm-ui-input-wrapper-inner"><input type="text" id="fpcm-ui-files-editor-width" placeholder="' + fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH') + '" value="' + _cropBox.width + '"></div></div>\n\<div class="fpcm-ui-input-wrapper my-2 ml-1 col-3"><div class="fpcm-ui-input-wrapper-inner"><input type="text" id="fpcm-ui-files-editor-height" placeholder="' + fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT') + '" value="' + _cropBox.height + '"></div></div>\n\</div>',
+                            content: '<div class="row no-gutters mb-2">' + fpcm.ui.translate('FILE_LIST_EDIT_RESIZE_NOTICE') + '</div>\n\<div class="row no-gutters">\n\<div class="fpcm-ui-input-wrapper my-2 mr-1 col-3"><div class="fpcm-ui-input-wrapper-inner"><input type="text" id="fpcm-ui-files-editor-width" placeholder="' + fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH') + '" value="' + _cropBox.width + '"></div></div>\n\<div class="fpcm-ui-input-wrapper my-2 ml-1 col-3"><div class="fpcm-ui-input-wrapper-inner"><input type="text" id="fpcm-ui-files-editor-height" placeholder="' + fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT') + '" value="' + _cropBox.height + '"></div></div>\n\</div>',
                             dlButtons: [
                                 {
                                     text: fpcm.ui.translate('GLOBAL_SAVE'),
