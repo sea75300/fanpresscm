@@ -433,4 +433,31 @@ final class finalizer extends \fpcm\model\abstracts\model {
         \fpcm\model\cli\io::output($str);
     }
 
+    /**
+     * Check if fullpath is valid path in /data folder structure
+     * @param string $path
+     * @param string $type
+     * @return bool
+     */
+    public static function isValidDataFolder(string $path = '', string $type = '/') : bool
+    {
+        if (!trim($path)) {
+            return false;
+        }
+
+        $dataPath = \fpcm\classes\dirs::getDataDirPath($type);
+        $realpath = realpath($path);
+        
+        if (!trim($realpath)) {
+            $realpath = self::realpathNoExists($path);
+        }
+
+        if (strpos($realpath, $dataPath) === 0) {
+            return true;
+        }
+        
+        trigger_error('Invalid data path found: '.$path);
+        return false;
+    }
+
 }
