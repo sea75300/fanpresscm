@@ -472,7 +472,7 @@ abstract class file {
             $path = $this->fullpath;
         }
 
-        if (!function_exists('\fpcm\model\files\ops::isValidDataFolder')) {            
+        if (!method_exists('fpcm\model\files\ops', 'isValidDataFolder')) {            
             return \fpcm\model\updater\finalizer::isValidDataFolder($path, $type);
         }
 
