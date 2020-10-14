@@ -173,10 +173,6 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
      */
     protected function getFinfoData(string $filename, int $option = FILEINFO_MIME_TYPE) : ?string
     {
-        if (!class_exists('\finfo')) {
-            return null;
-        }
-
         if (!$this->finfo instanceof \finfo) {
             $this->finfo = new \finfo();
         }
