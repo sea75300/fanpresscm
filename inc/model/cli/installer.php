@@ -163,6 +163,11 @@ final class installer extends \fpcm\model\abstracts\cli {
         $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
         $crypt->initCrypt();
 
+        $this->output('Init system security data...');
+        usleep(250000);
+        
+        \fpcm\classes\security::initSecurityConfig();
+
         usleep(250000);
         $this->input(PHP_EOL . 'Press any key to proceed...');
 
