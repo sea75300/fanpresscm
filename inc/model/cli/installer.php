@@ -185,18 +185,18 @@ final class installer extends \fpcm\model\abstracts\cli {
         $this->output('Create tables...' . PHP_EOL);
         $files = \fpcm\classes\database::getTableFiles();
 
+        $i = 0;
+        $progress = new progress(count($files), $i);
+        
         foreach ($files as $file) {
 
+            $i++;
+            $progress->setCurrentValue($i)->output();            
+            
             $tabName = substr(basename($file, '.yml'), 2);
-            $this->output('Create table ' . $tabName);
-            print '...';
-            usleep(50000);
-
             $res = \fpcm\classes\loader::getObject('\fpcm\classes\database')->execYaTdl($file);
-            print '.';
             usleep(50000);
 
-            print '.'.PHP_EOL;
             if (!$res) {
                 $this->output('Failed to create table table ' . $tabName . PHP_EOL, true);
             }
