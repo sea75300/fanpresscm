@@ -555,6 +555,7 @@ if (fpcm.editor) {
                 fpcm.dom.fromId('mediatypev').prop('checked', false).checkboxradio('refresh');
                 fpcm.dom.fromId('mediapath').val('');
                 fpcm.dom.fromId('mediapath2').val('');
+                fpcm.dom.fromId('mediaposter').val('');
                 fpcm.dom.fromId('mediaformat').val('').selectmenu('refresh');
                 fpcm.dom.fromId('mediaformat2').val('').selectmenu('refresh');
                 fpcm.dom.fromId('fpcm-dialog-editor-html-insertmedia-preview').empty();
@@ -807,14 +808,16 @@ if (fpcm.editor) {
         var tagName = fpcm.dom.fromClass('fpcm-editor-mediatype:checked').val().replace(/[^a-z]/, '');
 
         var elPath = fpcm.dom.fromId('mediapath');
+        var elPoster = fpcm.dom.fromId('mediaposter');
         var elPathAlt = fpcm.dom.fromId('mediapath2');
         var elFormatVal = fpcm.dom.fromId('mediaformat').val().match(/[a-z]{5}\/{1}[a-z0-9]{3,}/);
         var elFormatAltVal = fpcm.dom.fromId('mediaformat2').val().match(/[a-z]{5}\/{1}[a-z0-9]{3,}/);
         var elAutoplay = fpcm.dom.fromId('autoplay:checked');
         var elControls = fpcm.dom.fromId('controls:checked');
 
-        var aTag = '<' + tagName + (_addWidth ? ' class="fpcm ui-full-width"' : '') + (elControls.length && elControls.val() ? ' controls' : '') + '>';
-        aTag += '<source src="' + elPath.val() + '"' + (elFormatVal ? ' type="' + elFormatVal + '"' : '') + (elAutoplay.length && elAutoplay.val() ? ' autoplay' : '') + '>';
+        var aTag  = '<' + tagName + (_addWidth ? ' class="fpcm ui-full-width"' : '') + (elControls.length && elControls.val() ? ' controls' : '');
+            aTag +=  (elPoster.val() ? ' poster="' + elPoster.val() + '"' : '') + '>';
+            aTag += '<source src="' + elPath.val() + '"' + (elFormatVal ? ' type="' + elFormatVal + '"' : '') + (elAutoplay.length && elAutoplay.val() ? ' autoplay' : '') + '>';
 
         if (elPathAlt.val()) {
             aTag += '<source src="' + elPathAlt.val() + '"' + (elFormatAltVal ? ' type="' + elFormatAltVal + '"' : '') + '>';

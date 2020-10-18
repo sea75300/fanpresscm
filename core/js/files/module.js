@@ -105,41 +105,80 @@ fpcm.filemanager = {
     
     initInsertButtons: function () {
 
-        fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').click(function () {
-            parent.fpcm.editor.insertThumbByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
-            return false;
-        });
+        fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').unbind('click');
+        fpcm.dom.fromClass('fpcm-filelist-tinymce-full').unbind('click');
+        fpcm.dom.fromClass('fpcm-filelist-articleimage').unbind('click');
+        fpcm.dom.fromId('insertGallery').unbind('click');
 
-        fpcm.dom.fromClass('fpcm-filelist-tinymce-full').click(function () {
-            parent.fpcm.editor.insertFullByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
-            return false;
-        });
+        if (fpcm.vars.jsvars.fmgrMode === 2) {
+            fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').click(function () {
+                parent.fpcm.editor.insertThumbByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
+                return false;
+            });
 
-        fpcm.dom.fromClass('fpcm-filelist-articleimage').click(function () {
+            fpcm.dom.fromClass('fpcm-filelist-tinymce-full').click(function () {
+                parent.fpcm.editor.insertFullByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
+                return false;
+            });
 
-            var url   = fpcm.dom.fromTag(this).attr('href');
-            parent.document.getElementById('articleimagepath').value  = url;
-            var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
-            
-            dialogEl.dialog('close');
-            dialogEl.empty();
-            return false;
-        });
+            fpcm.dom.fromId('insertGallery').click(function () {
 
-        fpcm.dom.fromId('insertGallery').click(function () {
+                var values = [];
+                fpcm.dom.fromClass('fpcm-ui-list-checkbox:checked').map(function (idx, item) {
+                    values.push(jQuery(item).data('gallery'));
+                });
 
-            var values = [];
-            fpcm.dom.fromClass('fpcm-ui-list-checkbox:checked').map(function (idx, item) {
-                values.push(jQuery(item).data('gallery'));
+                if (!values.length) {
+                    return false;
+                }
+
+                parent.fpcm.editor.insertGalleryByEditor(values);
+                return false;
             });
             
-            if (!values.length) {
-                return false;
-            }
-            
-            parent.fpcm.editor.insertGalleryByEditor(values);
             return false;
-        });
+        }
+        
+        if (fpcm.vars.jsvars.fmgrMode === 3) {
+            fpcm.dom.fromClass('fpcm-filelist-articleimage').click(function () {
+
+                var url   = fpcm.dom.fromTag(this).attr('href');
+                parent.document.getElementById('articleimagepath').value  = url;
+                var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
+
+                dialogEl.dialog('close');
+                dialogEl.empty();
+                return false;
+            });
+
+            return false;
+        }
+        
+        if (fpcm.vars.jsvars.fmgrMode === 4) {
+            
+            fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').click(function () {
+                var url   = fpcm.dom.fromTag(this).attr('href');
+                parent.document.getElementById('mediaposter').value  = url;
+                var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
+
+                dialogEl.dialog('close');
+                dialogEl.empty();
+                return false;
+            });
+
+            fpcm.dom.fromClass('fpcm-filelist-tinymce-full').click(function () {
+                var url   = fpcm.dom.fromTag(this).attr('href');
+                parent.document.getElementById('mediaposter').value  = url;
+                var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
+
+                dialogEl.dialog('close');
+                dialogEl.empty();
+                return false;
+            });
+        }
+
+
+
     },
 
     initRenameButtons: function() {

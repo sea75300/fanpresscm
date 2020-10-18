@@ -320,6 +320,23 @@ final class config extends dataset {
             $this->newConfig['system_css_path'] = filter_var($this->newConfig['system_css_path'], FILTER_SANITIZE_URL);
         }
 
+        
+        
+        $classes = $this->newConfig['system_editor_css'] ?? null;
+        if (trim($classes)) {
+            $classes = explode(PHP_EOL, trim($classes));
+            if (count($classes)) {
+                $classes = implode(PHP_EOL, array_filter($classes, function ($item) {
+                    return (bool) preg_match('/^\.{1}[a-z0-9\_\-]+\{\}$/i', trim($item));
+                }));
+
+                $this->newConfig['system_editor_css'] = trim($classes);
+            }
+            else {
+                $this->newConfig['system_editor_css'] = '';
+            }
+        }
+
         if (isset($this->newConfig['system_editor'])) {
             $this->newConfig['system_editor'] = base64_decode($this->newConfig['system_editor']);
         }

@@ -186,6 +186,7 @@ $lang = array (
   'EDITOR_INSERTMEDIA_AUTOPLAY' => 'Autoplay',
   'EDITOR_INSERTMEDIA_CONTROLS' => 'Kontrollelemente',
   'EDITOR_INSERTMEDIA_FORMAT_SELECT' => 'Medien-Format auswählen',
+  'EDITOR_INSERTMEDIA_POSTER' => 'Vorschau-Bild',
   'EDITOR_INSERTMEDIA_VIDEO' => 'als Video-Player',
   'EDITOR_INSERTPIC' => 'Bild einfügen',
   'EDITOR_INSERTPIC_ASLINK' => 'Bild als Link einfügen',
