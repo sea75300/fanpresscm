@@ -128,7 +128,7 @@ fpcm.imageEditor = {
                     icon: "ui-icon-disk",                        
                     click: function() {
                         fpcm.dom.fromTag(this).dialog( "close" );
-                        fpcm.filemanager.cropper.getCroppedCanvas(fpcm.vars.jsvars.cropperSizes.maxWidth && fpcm.vars.jsvars.cropperSizes.maxHeight ? fpcm.vars.jsvars.cropperSizes : {}).toBlob((blob) => {
+                        fpcm.filemanager.cropper.getCroppedCanvas(fpcm.vars.jsvars.cropperSizes !== undefined ? fpcm.vars.jsvars.cropperSizes : {}).toBlob((blob) => {
 
                             const formData = new FormData();
                             formData.append('file', blob, _param.data.filename);
