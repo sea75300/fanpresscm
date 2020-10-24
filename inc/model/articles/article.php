@@ -681,7 +681,7 @@ class article extends \fpcm\model\abstracts\dataset {
             return '';
         }
 
-        return "<img class=\"fpcm-pub-article-image\" src=\"{$this->imagepath}\" alt=\"{$this->title}\" title=\"{$this->title}\">";
+        return "<img loading=\"lazy\" class=\"fpcm-pub-article-image\" src=\"{$this->imagepath}\" alt=\"{$this->title}\" title=\"{$this->title}\" role=\"presentation\">";
     }
 
     /**

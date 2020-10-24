@@ -131,7 +131,7 @@ final class sharebuttons extends template {
                 $this->stack[$replacement]['class'] = $this->stack['class'].' fpcm-pub-sharebutton-'.$item;
             }
             
-            $content = str_replace($replacement, "<a class=\"{$this->stack[$replacement]['class']}\" href=\"{$value['link']}\" target=\"{$value['target']}\" {$dataStr}><img src=\"{$value['icon']}\" alt=\"{$value['text']}\"></a>", $content);
+            $content = str_replace($replacement, "<a class=\"{$this->stack[$replacement]['class']}\" href=\"{$value['link']}\" target=\"{$value['target']}\" {$dataStr}><img {$this->getLazyLoadingImg()} src=\"{$value['icon']}\" alt=\"{$value['text']}\"></a>", $content);
         }
 
         $this->cache->write($cacheName, $content, $this->config->system_cache_timeout);

@@ -273,7 +273,7 @@ class template extends \fpcm\model\abstracts\file {
      */
     private function parseSmileyFilePath(\fpcm\model\files\smiley $smiley)
     {
-        return '<img src="' . $smiley->getSmileyUrl() . '" class="fpcm-pub-smiley" ' . $smiley->getWhstring() . ' alt="">';
+        return "<img {$this->getLazyLoadingImg()} src=\"{$smiley->getSmileyUrl()}\" class=\"fpcm-pub-smiley\" {$smiley->getWhstring()} role=\"presentation\">";
     }
 
     /**
@@ -393,6 +393,29 @@ class template extends \fpcm\model\abstracts\file {
         
         $this->{$func}($value, $return, $replacement);
         return true;
+    }
+
+    /**
+     * Get lazy loading string for images
+     * @return string
+     * @since 4.5
+     */
+    final public function getLazyLoadingImg() : string
+    {
+        return 'loading="lazy"';
+    }
+
+    /**
+     * Adds lazy loading string to images
+     * @param string $content
+     * @return int
+     * @since 4.5
+     */
+    protected function lazyReplace(string &$content) : int
+    {
+        $counted = 0;
+        $content = preg_replace('/\<img src\=/i', '<img '.$this->getLazyLoadingImg().' src=', $content, -1, $counted);
+        return $counted;
     }
 
 }

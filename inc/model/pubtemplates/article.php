@@ -155,6 +155,9 @@ final class article extends template {
 
         }
 
+        $this->lazyReplace($replacementData['{{text}}']);
+        $this->lazyReplace($replacementData['{{textShort}}']);
+
         return $this->parseSmileys($this->parseGallery(str_replace(
             array_keys($replacementData),
             $this->cleanup(array_values($replacementData)),
@@ -347,7 +350,7 @@ final class article extends template {
             $url = $isThumb ? $imgObj->getThumbnailUrl() : $imgObj->getImageUrl();
             $whStr = $isThumb ? "width=\"{$w}\" height=\"{$h}\"" : $imgObj->getWhstring();
 
-            $imgTag = "<img src=\"{$url}\" {$whStr} alt=\"{$imgObj->getFilename()}\" class=\"fpcm-pub-content-gallery-image\">";
+            $imgTag = "<img {$this->getLazyLoadingImg()} src=\"{$url}\" {$whStr} alt=\"{$imgObj->getFilename()}\" class=\"fpcm-pub-content-gallery-image\">";
             if (!$isLink) {
                 return $imgTag;
             }

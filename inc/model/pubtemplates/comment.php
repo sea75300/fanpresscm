@@ -97,8 +97,8 @@ final class comment extends template {
             $content = str_replace($splitTags, $values, $content);
         }
 
+        $this->lazyReplace($content);
         $this->parseMentions($content);
-
         return $this->parseSmileys($content);
     }
 

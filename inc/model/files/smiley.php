@@ -386,7 +386,7 @@ final class smiley extends \fpcm\model\abstracts\file implements \Serializable, 
      */
     public function getImageTag()
     {
-        return "<img src=\"{$this->getSmileyUrl()}\" alt=\"{$this->getFilename()}\" {$this->getWhstring()}>";
+        return "<img loading=\"lazy\" src=\"{$this->getSmileyUrl()}\" alt=\"{$this->getFilename()}\" {$this->getWhstring()}>";
     }
 
     /**
