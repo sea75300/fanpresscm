@@ -48,6 +48,16 @@
     </div>    
 </div>
 
+<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-alttext">
+    <div class="row fpcm-ui-padding-md-tb">
+        <?php $theView->textInput('altTextDialog')
+            ->setText('FILE_LIST_ALTTEXT')
+            ->setValue('')
+            ->setIcon('edit')
+            ->setDisplaySizesDefault(); ?>
+    </div>    
+</div>
+
 <?php include $theView->getIncludePath('filemanager/searchform.php'); ?>
 
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-properties">

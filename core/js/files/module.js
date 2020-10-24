@@ -89,6 +89,7 @@ fpcm.filemanager = {
         fpcm.filemanager.initRenameButtons();
         fpcm.filemanager.initEditButtons();
         fpcm.filemanager.initDeleteButtons();
+        fpcm.filemanager.initAltTextButtons();
         fpcm.filemanager.initPropertiesButton();
         fpcm.filemanager.initPagination();
         fpcm.dom.fromClass('fpcm-link-fancybox').fancybox();
@@ -182,6 +183,7 @@ fpcm.filemanager = {
     },
 
     initRenameButtons: function() {
+        fpcm.dom.fromClass('fpcm-filelist-rename').unbind('click');
         fpcm.dom.fromClass('fpcm-filelist-rename').click(function () {
 
             if (!fpcm.ui.langvarExists('FILE_LIST_RENAME_NEWNAME')) {
@@ -238,6 +240,54 @@ fpcm.filemanager = {
                 afterUpload: fpcm.filemanager.reloadFiles,
                 data: fpcm.dom.fromTag(this).data()
             });
+            return false;
+        });
+    },
+
+    initAltTextButtons: function() {
+
+        fpcm.dom.fromClass('fpcm-filelist-link-alttext').unbind('click');
+        fpcm.dom.fromClass('fpcm-filelist-link-alttext').click(function () {
+
+        var selectedFile = fpcm.dom.fromTag(this).data('file');
+        fpcm.dom.fromId('altTextDialog').val(fpcm.dom.fromTag(this).data('alttext'));
+
+        fpcm.ui.dialog({
+            id: 'files-alttext',
+            dlWidth: fpcm.ui.getDialogSizes().width,
+            title: fpcm.ui.translate('FILE_LIST_ALTTEXT'),
+            dlButtons: [
+                {
+                    text: fpcm.ui.translate('GLOBAL_SAVE'),
+                    icon: "ui-icon-disk",                        
+                    click: function() {
+                        fpcm.dom.fromTag(this).dialog( "close" );
+                        fpcm.ajax.post('files/alttext', {
+                            data: {
+                                file: selectedFile,
+                                alttext: fpcm.dom.fromId('altTextDialog').val()
+                            },
+                            execDone: function (result) {
+                                fpcm.ui.addMessage(result);
+                                fpcm.dom.fromId('altTextDialog').val('');
+                                fpcm.filemanager.reloadFiles();
+                            }
+                        });
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    icon: "ui-icon-closethick",                
+                    click: function () {
+                        fpcm.dom.fromTag(this).dialog('close');
+                    }
+                }
+            ]
+        });     
+
+
+
+
             return false;
         });
     },

@@ -28,9 +28,17 @@ cols:
         type: bigint
         length: 20
         params: NOT NULL
+    alttext:
+        type: varchar
+        length: 255
+        params: NOT NULL
+        charset: utf8mb4_general_ci
 indices:
     filename:
         col: filename
+        isUnqiue: false
+    alttext:
+        col: alttext
         isUnqiue: false
     file_name_time:
         col:

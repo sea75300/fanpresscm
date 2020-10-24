@@ -234,6 +234,7 @@ final class database {
 
         try {
             $this->connection = new \PDO($dbconfig['DBTYPE'] . ':' . $this->driver->getPdoDns($dbconfig), $dbconfig['DBUSER'], $dbconfig['DBPASS'], $this->driver->getPdoOptions());
+            $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $e) {
             fpcmLogSql($e->getMessage());
             if (!$dieOnError) {
@@ -292,7 +293,6 @@ final class database {
 
         return $this->fetch($result, $obj->getFetchAll(), $obj->getFetchStyle());
     }
-  
 
     /**
      * Executes UNION combined select and fetch
@@ -421,8 +421,9 @@ final class database {
     public function delete($table, $where = null, array $params = [])
     {
         $sql = "DELETE FROM {$this->getTablePrefixed($table)}";
-        if (!is_null($where))
+        if ($where !== null) {
             $sql .= " WHERE $where";
+        }
 
         return $this->exec($sql, $params);
     }
@@ -463,7 +464,6 @@ final class database {
 
         $result = $this->query($sql, $params);
         if ($result === false) {
-            $this->getError();
             return false;
         }
 
@@ -483,6 +483,7 @@ final class database {
         if ($where !== null) {
             $sql .= " WHERE $where";
         }
+
         return $this->exec($sql);
     }
 
@@ -524,17 +525,16 @@ final class database {
      */
     public function createIndex($table, $indexName, $field, $isUnique = false)
     {
-        $sql = $this->driver->createIndexString($this->getTablePrefixed($table), $indexName, $field, $isUnique);
-        return $this->exec($sql);
-    }
+        return $this->exec( $this->driver->createIndexString($this->getTablePrefixed($table), $indexName, $field, $isUnique) );
+    }   
 
     /**
-     * Führt ein SQL Kommando aus
-     * @param string $command SQL String
-     * @param array $bindParams Paramater, welche gebunden werden sollen
+     * Executes a sql query
+     * @param string $command
+     * @param array $bindParams
      * @return bool
      */
-    public function exec($command, array $bindParams = [])
+    public function exec($command, array $bindParams = []) : bool
     {
         if (!trim($command)) {
             trigger_error('Invalid SQL command detected, query was empty!');
@@ -546,6 +546,8 @@ final class database {
         if ($this->explain) {
             $command = 'EXPLAIN ' . $command;
         }
+        
+        $this->replacePrefixVar($command);        
 
         $statement = $this->connection->prepare($command);
         if (!trim($statement->queryString)) {
@@ -562,16 +564,12 @@ final class database {
         try {
             $res = $statement->execute($bindParams);
         } catch (\PDOException $e) {
-            fpcmLogSql((string) $e);
+            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());                        
+            fpcmLogSql((string) $e . $this->getStatementError($statement));
             return false;
         }
 
-        if (!$res) {
-            $this->getStatementError($statement);
-            return false;
-        }
-
-        return true;
+        return (bool) $res;
     }
 
     /**
@@ -580,7 +578,7 @@ final class database {
      * @return bool
      * @since 3.2.0
      */
-    public function execSqlFile($path)
+    public function execSqlFile($path) : bool
     {
         if (substr($path, -4) != '.sql') {
             trigger_error('Given file was not SQL file ' . $path);
@@ -594,22 +592,20 @@ final class database {
 
         $this->queryCount++;
 
-        $sql = str_replace('{{dbpref}}', $this->getDbprefix(), file_get_contents($path));
+        $sql = file_get_contents($path);
+        $this->replacePrefixVar($sql);
+        
         $this->lastQueryString = $sql;
 
         if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($sql);
         }
-
+        
         try {
-            $res = $this->connection->exec($sql);
+            $this->connection->exec($sql);
         } catch (\PDOException $e) {
-            fpcmLogSql((string) $e);
-            return false;
-        }
-
-        if ($res === false) {
-            $this->getError();
+            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());                        
+            fpcmLogSql((string) $e . PHP_EOL.'Query: ' . $this->lastQueryString);
             return false;
         }
 
@@ -622,7 +618,7 @@ final class database {
      * @return bool
      * @since 3.2.0
      */
-    public function execYaTdl($path)
+    public function execYaTdl($path) : bool
     {
         if (substr($path, -4) !== '.yml') {
             $path .= '.yml';
@@ -634,22 +630,20 @@ final class database {
             return false;
         }
 
-        $sql = str_replace('{{dbpref}}', $this->getDbprefix(), $yatdl->getSqlString());
+        $sql = $yatdl->getSqlString();
+        $this->replacePrefixVar($sql);
+
         $this->lastQueryString = $sql;
 
         if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($sql);
         }
-
+        
         try {
-            $res = $this->connection->exec($sql);
+            $this->connection->exec($sql);
         } catch (\PDOException $e) {
-            fpcmLogSql((string) $e);
-            return false;
-        }
-
-        if ($res === false) {
-            $this->getError();
+            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());                        
+            fpcmLogSql((string) $e . PHP_EOL.'Query: ' . $this->lastQueryString);
             return false;
         }
 
@@ -660,7 +654,7 @@ final class database {
      * Führt ein SQL Kommando aus und gibt Result-Set zurück
      * @param string $command SQL String
      * @param array $bindParams Paramater, welche gebunden werden sollen
-     * @return PDOStatement Zeilen in der Datenbank
+     * @return \PDOStatement
      */
     public function query($command, array $bindParams = [])
     {
@@ -690,32 +684,13 @@ final class database {
         try {
             $res = $statement->execute($bindParams);
         } catch (\PDOException $e) {
-            fpcmLogSql((string) $e);
+            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());                        
+            fpcmLogSql((string) $e . $this->getStatementError($statement));
+            $e->errorInfo;
             return false;
         }
 
-        if (!$res) {
-            $this->getStatementError($statement);
-        }
-
         return $statement;
-    }
-
-    /**
-     * Schreibt letzte Fehlermeldung der DB-Verbindung in DB-Log
-     * @return bool
-     */
-    public function getError()
-    {
-        $info = $this->connection->errorInfo();
-        $this->lastQueryErrorCode = $this->driver->mapErrorCodes($info[1]);
-
-        $err = 'ERROR MESSAGE: ' . $info[2] . PHP_EOL;
-        $err .= 'SQL STATE: ' . $info[0] . PHP_EOL;
-        $err .= $this->getDbtype() . ' ERROR CODE: ' . $info[1] . PHP_EOL;
-
-        fpcmLogSql($err);
-        return true;
     }
 
     /**
@@ -723,23 +698,14 @@ final class database {
      * @param \PDOStatement $statement
      * @return bool
      */
-    public function getStatementError(\PDOStatement &$statement)
+    public function getStatementError(\PDOStatement &$statement) : string
     {
-        $info = $statement->errorInfo();
-        $this->lastQueryErrorCode = $this->driver->mapErrorCodes($info[0]);
-        
-
-        $err = 'ERROR MESSAGE: ' . $info[2] . PHP_EOL;
-        $err .= 'SQL STATE: ' . $info[0] . PHP_EOL;
-        $err .= $this->getDbtype() . ' ERROR CODE: ' . $info[1] . PHP_EOL;
-
         ob_start();
         $statement->debugDumpParams();
-        $err .= 'Query: ' . ob_get_contents() . PHP_EOL;
+        $err = PHP_EOL.'Query: ' . ob_get_contents();
         ob_end_clean();
 
-        fpcmLogSql($err);
-        return true;
+        return $err;
     }
     
     /**
@@ -1030,6 +996,9 @@ final class database {
             if ($isPg) {
                 $attr['params'] = str_replace('NOT NULL', '', $attr['params']);
             }
+            elseif ($attr['charset']) {
+                $type .= ' COLLATE `'.$attr['charset'].'`';
+            }
 
             $type .= trim($attr['params']) ? ' ' . $attr['params'] : '';
             if (!$this->alter($table, 'ADD', $col, $type, false)) {
@@ -1281,6 +1250,18 @@ final class database {
         $lenghtTypes[] = 'double';
 
         return $lenghtTypes;
+    }
+
+    /**
+     * Replaces {{dbpref}} variable in SQL query
+     * @param string $sql
+     * @return bool
+     * @since 4.5
+     */
+    private function replacePrefixVar(string &$sql) : bool
+    {
+        $sql = str_replace('{{dbpref}}', $this->getDbprefix(), $sql);
+        return true;
     }
 
 }

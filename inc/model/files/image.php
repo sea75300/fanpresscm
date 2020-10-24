@@ -66,6 +66,12 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     protected $filetime;
 
     /**
+     * Alternate text
+     * @var string
+     */
+    protected $alttext;
+
+    /**
      * MIME-Dateityp-Info
      * @var string
      */
@@ -88,7 +94,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
      * Felder die in Datenbank gespeichert werden können
      * @var array
      */
-    protected $dbParams = ['userid', 'filename', 'filetime', 'filesize'];
+    protected $dbParams = ['userid', 'filename', 'filetime', 'filesize', 'alttext'];
     
     /**
      * Konstruktor
@@ -240,6 +246,16 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     }
 
     /**
+     * Get alternate text
+     * @return string
+     * @since 4.5
+     */
+    public function getAltText(): ?string
+    {
+        return $this->alttext;
+    }
+
+    /**
      * MIME-Type ausgeben
      * @return int
      */
@@ -281,6 +297,16 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
     public function setFiletime($filetime)
     {
         $this->filetime = $filetime;
+    }
+
+    /**
+     * Set alternate text
+     * @param string $alttext
+     * #@since 4.5
+     */
+    public function setAltText(string $alttext)
+    {
+        $this->alttext = $alttext;
     }
 
     /**
@@ -637,6 +663,7 @@ class image extends \fpcm\model\abstracts\file implements \fpcm\model\interfaces
 
         return in_array($type, self::$allowedTypes) && in_array($ext, self::$allowedExts) && $assigned === $type;
     }
+
 
 }
 
