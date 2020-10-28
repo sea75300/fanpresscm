@@ -996,7 +996,7 @@ final class database {
             if ($isPg) {
                 $attr['params'] = str_replace('NOT NULL', '', $attr['params']);
             }
-            elseif ($attr['charset']) {
+            elseif (isset ($attr['charset']) && $attr['charset']) {
                 $type .= ' COLLATE `'.$attr['charset'].'`';
             }
 

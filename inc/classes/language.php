@@ -271,6 +271,33 @@ final class language {
 
             $replacement[$key] = $val;
         }
+        
+        unset($val);
+
+        if (!is_array($langData) && strpos($langData, '{{icon=') !== false) {
+
+            $regEx = '/\{{2}(icon\=\"[\w\-]+\"){1}\ ?(spinner\=\"[a-z0-9]*\")?\ ?(prefix\=\"[\w\-]*\")?\ ?(fa\=\"(true|false)\")?\}{2}/i';
+            
+            preg_match($regEx, $langData, $matches);
+            
+            if (preg_match($regEx, $langData, $matches) === 1) {
+                $iconStr = array_shift($matches);
+                parse_str(implode('&', str_replace('"', '', $matches)), $arr);
+
+                $icon = new \fpcm\view\helper\icon(
+                    $arr['icon'],
+                    $arr['prefix'] ?? null,
+                    (isset($arr['fa']) ? (bool) $arr['fa'] : null)
+                );
+
+                if (isset($arr['spinner'])) {
+                    $icon->setSpinner($arr['spinner']);
+                }
+
+                $langData = str_replace($iconStr, (string) $icon, $langData);
+            }
+            
+        }
 
         return tools::strReplaceArray($langData, $replacement);
     }

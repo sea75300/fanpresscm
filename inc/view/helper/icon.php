@@ -25,8 +25,16 @@ class icon extends helper {
      * @param string $prefix
      * @param bool $useFa
      */
-    public function __construct($icon, $prefix = 'fa', $useFa = true)
+    public function __construct($icon, ?string $prefix = null, ?bool $useFa = null)
     {
+        if ($prefix === null) {
+            $prefix = 'fa';
+        }
+
+        if ($useFa === null) {
+            $useFa = true;
+        }
+        
         $this->setIcon($icon, $prefix, $useFa);
         parent::__construct(uniqid());
     }
