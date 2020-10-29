@@ -364,22 +364,22 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     private function assignSearchParams(search $conditions, array &$where, array &$valueParams, string $combination)
     {
         if ($conditions->filename) {
-            $where[] = "filename ".$this->dbcon->dbLike()." ?";
-            $valueParams[] = '%' . $conditions->filename . '%';
+            $where[] = "filename ".$this->dbcon->dbLike()." :filename OR alttext ".$this->dbcon->dbLike()." :alttext";
+            $valueParams[':filename'] = '%' . $conditions->filename . '%';
+            $valueParams[':alttext'] = $valueParams[':filename'];
         }
 
         if ($conditions->datefrom) {
-            $where[] = "filetime >= ?";
-            $valueParams[] = $conditions->datefrom;
+            $where[] = "filetime >= :filetimef";
+            $valueParams[':filetimef'] = $conditions->datefrom;
         }
 
         if ($conditions->dateto) {
-            $where[] = "filetime <= ?";
-            $valueParams[] = $conditions->dateto;
+            $where[] = "filetime <= :filetimet";
+            $valueParams[':filetimet'] = $conditions->dateto;
         }
         
         $combination = $conditions->combination ? $conditions->combination : 'AND';
-
         return true;
     }
 
@@ -394,7 +394,8 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams, string $combination) : bool
     {
         if ($conditions->filename) {
-            $where[] = "filename ".$this->dbcon->dbLike()." ?";
+            $where[] = "filename ".$this->dbcon->dbLike()." ? OR alttext ".$this->dbcon->dbLike()." ?";
+            $valueParams[] = '%' . $conditions->filename . '%';
             $valueParams[] = '%' . $conditions->filename . '%';
         }
 
