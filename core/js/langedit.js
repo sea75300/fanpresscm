@@ -38,6 +38,7 @@ fpcm.langedit = {
                             newVarName = newVarName.trim().replace(/[^a-z0-9\_]/ig, '');
                             newVarValue = newVarValue.trim();
                             if (!newVarName) {
+                                console.error('Empty language variable found!');
                                 return false;
                             }
 
@@ -93,7 +94,9 @@ fpcm.langedit = {
                         click: function () {
                             var newVal = fpcm.dom.fromId(newTextid).val();
                             fpcm.dom.fromId(oldTextId).val(newVal);
-                            fpcm.dom.fromId(descrId).html(newVal);                            
+                            fpcm.dom.fromId(descrId).html(newVal);
+                            fpcm.dom.fromId('btnSave').trigger('click');
+                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     },
                     {
