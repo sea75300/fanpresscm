@@ -18,6 +18,8 @@ namespace fpcm\view;
  */
 class message implements \JsonSerializable {
     
+    use \fpcm\model\traits\jsonSerializeReturnObject;
+    
     const TYPE_ERROR = 'error';
     const TYPE_NOTICE = 'notice';
     const TYPE_NEUTRAL = 'neutral';
@@ -51,17 +53,25 @@ class message implements \JsonSerializable {
     private $icon = '';
 
     /**
+     * Use web notification
+     * @var bool
+     */
+    private $webnotify = false;
+    
+    /**
      * Constructor
      * @param string $txt
      * @param string $type
      * @param string $icon
      * @param string $id
+     * @param bool $webnotify
      */
-    public function __construct(string $txt, string $type, string $icon = '', string $id = '')
+    public function __construct(string $txt, string $type, string $icon = '', string $id = '', bool $webnotify = false)
     {
         $this->txt = $txt;
         $this->type = $type;
         $this->icon = $icon;
+        $this->webnotify = $webnotify;
         $this->id = $id;
 
         if (!trim($this->id)) {
@@ -99,16 +109,6 @@ class message implements \JsonSerializable {
      */
     public function getIcon(): string {
         return $this->icon;
-    }
-
-    /**
-     * Returns Data for json_encode
-     * @return array
-     * @ignore
-     */
-    public function jsonSerialize()
-    {        
-        return get_object_vars($this);
     }
 
 }

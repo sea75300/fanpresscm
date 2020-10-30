@@ -629,6 +629,14 @@ fpcm.ui = {
                 continue;
             }
 
+            if (msg.webnotify) {
+                fpcm.ui_notify.show({
+                    body: msg.txt,
+                });
+                
+                continue;
+            }
+
             msgCode  = '<div class="row fpcm-message-box fpcm-message-' + msg.type + '" id="' + msgBoxid + '">';
             msgCode += '    <div class="col-12 col-sm-11 fpcm-ui-padding-none-lr">';
             msgCode += '        <div class="row">';
