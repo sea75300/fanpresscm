@@ -13,12 +13,12 @@ fpcm.dom = {
    
     fromId: function (_str)
     {
-        return fpcm.dom.fromTag('#' + fpcm.dom.__encodeIdClass(_str));
+        return fpcm.dom.fromTag('#' + _str.replace(/([^A-Za-z0-9\_\:\.\-])/gim, ''));
     },
     
     fromClass: function (_str)
     {
-        return fpcm.dom.fromTag('.' + fpcm.dom.__encodeIdClass(_str));
+        return fpcm.dom.fromTag('.' + _str.replace(/([^\#\ \.\-\w\>\w\d])/gim, ''));
     },
 
     fromTag: function (_str)
@@ -100,11 +100,6 @@ fpcm.dom = {
         }
 
         fpcm.dom.fromTag(_id).prop('readonly', state);
-    },
-    
-    __encodeIdClass: function (_str)
-    {
-        return _str.replace(/([^\#\ \.\-\w\>\w\d])/gim);
     }
 
 };
