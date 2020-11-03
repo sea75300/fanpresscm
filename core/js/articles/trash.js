@@ -66,7 +66,7 @@ fpcm.articles_trash = {
     },
     
     resetActionsMenu: function () {
-        fpcm.ui.resetSelectMenuSelection('#action');
+        fpcm.ui.resetSelectMenuSelection('action');
         return true;
     }
 };

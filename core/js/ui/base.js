@@ -1073,7 +1073,7 @@ fpcm.ui = {
     },
 
     resetSelectMenuSelection: function (elId) {
-        fpcm.dom.resetValuesByIdsSelect([elId.substr(1)]);
+        fpcm.dom.resetValuesByIdsSelect([elId]);
         return true;
     },
     

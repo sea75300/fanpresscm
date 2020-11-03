@@ -302,7 +302,7 @@ fpcm.system = {
                     },
                     execDone: function (result) {
 
-                        fpcm.ui.resetSelectMenuSelection('#action');
+                        fpcm.ui.resetSelectMenuSelection('action');
 
                         if (!result.msg && !result.code) {
                             fpcm.ajax.showAjaxErrorMessage();
