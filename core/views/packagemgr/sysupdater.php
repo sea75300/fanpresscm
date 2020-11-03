@@ -8,7 +8,7 @@
         <div id="tabs-updater-general">
 
             <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('code-branch fa-flip-vertical')->setSize('2x'); ?>
                 </div>
                 <div class="col-11 align-self-center fpcm-ui-updater-descr">
@@ -18,7 +18,7 @@
             </div>
 
             <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('language')->setSize('2x'); ?>
                 </div>
                 <div class="col-11 align-self-center fpcm-ui-updater-descr">
@@ -28,7 +28,7 @@
             </div>
 
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('lightbulb')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
                         'step' => 'maintenanceOn',
                         'func' => 'startTimer'
@@ -41,7 +41,7 @@
 
             <?php if ($checkFs) : ?>
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('medkit')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
                         'step' => 'checkFiles'
                     ]); ?>
@@ -54,7 +54,7 @@
 
             <?php if ($download) : ?>
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('cloud-download-alt')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
                         'step' => 'download'
                     ]); ?>
@@ -70,7 +70,7 @@
 
             <?php if ($checkPkg) : ?>
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('file-signature')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
                         'step' => 'checkPkg'
                     ]); ?>
@@ -85,7 +85,7 @@
 
             <?php if ($extract) : ?>
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('file-archive', 'far')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
                         'step' => 'extract'
                     ]); ?>
@@ -100,7 +100,7 @@
 
             <?php if ($backupFs) : ?>
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('life-ring')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
                         'step' => 'backupFs'
                     ]); ?>
@@ -113,7 +113,7 @@
 
             <?php if ($updateFs) : ?>
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('copy')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
                         'step' => 'updateFs'
                     ]); ?>
@@ -126,7 +126,7 @@
 
             <?php if ($updateDb) : ?>
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('database')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
                         'step' => 'updateDb'
                     ]); ?>
@@ -139,7 +139,7 @@
 
             <?php if ($updateLog) : ?>
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('file-alt', 'far')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
                         'step' => 'updateLog'
                     ]); ?>
@@ -152,7 +152,7 @@
 
             <?php if ($cleanup) : ?>
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('eraser')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
                         'step' => 'cleanup'
                     ]); ?>
@@ -164,7 +164,7 @@
             <?php endif; ?>
 
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('lightbulb')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
                         'step' => 'maintenanceOff'
                     ]); ?>
@@ -175,7 +175,7 @@
             </div>
 
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('code-branch')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setData([
                         'step' => 'getVersion',
                         'var' => 'version',
@@ -188,7 +188,7 @@
             </div>
 
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-hidden">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('clock', 'far')->setSize('2x'); ?>
                 </div>
                 <div class="col-11 align-self-center" id="fpcm-ui-update-timer">
@@ -197,7 +197,7 @@
             </div>
 
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-hidden" id="fpcm-ui-update-result-1">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('check')->setSize('3x')->setClass('fpcm-ui-editor-metainfo'); ?>
                 </div>
                 <div class="col-11 align-self-center fpcm-ui-updater-descr">
@@ -206,7 +206,7 @@
             </div>
 
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-hidden" id="fpcm-ui-update-result-0">
-                <div class="col-1 fpcm-ui-padding-none-lr fpcm-ui-center">
+                <div class="col-1 px-0 fpcm-ui-center">
                     <?php $theView->icon('times')->setSize('3x')->setClass('fpcm-ui-important-text'); ?>
                 </div>
                 <div class="col-11 align-self-center fpcm-ui-updater-descr">

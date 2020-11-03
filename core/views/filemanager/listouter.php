@@ -39,7 +39,7 @@
 </div>
 
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-rename">
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <?php $theView->textInput('newFilenameDialog')
             ->setText('FILE_LIST_FILENAME')
             ->setValue('')
@@ -49,7 +49,7 @@
 </div>
 
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-alttext">
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <?php $theView->textInput('altTextDialog')
             ->setText('FILE_LIST_ALTTEXT')
             ->setValue('')

@@ -75,13 +75,13 @@
             </div>
             
             <div class="row fpcm-ui-padding-md-tb <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
-                <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
+                <div class="col-12 col-sm-6 px-0">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                             <?php $theView->icon('users'); ?>
                             <?php $theView->write('USERS_ROLL'); ?>:
                         </label>
-                        <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                        <div class="col-12 col-sm-7 px-0">
                             <?php $theView->select('data[roll]')
                                     ->setOptions($userRolls)
                                     ->setSelected($author->getRoll())
@@ -110,13 +110,13 @@
 
             <?php if ($showDisableButton) : ?>
             <div class="row fpcm-ui-padding-md-tb <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
-                <div class="col-12 col-sm-6 fpcm-ui-padding-none-lr">
+                <div class="col-12 col-sm-6 px-0">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                             <?php $theView->icon('user-slash'); ?>
                             <?php $theView->write('GLOBAL_DISABLE'); ?>:
                         </label>
-                        <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                        <div class="col-12 col-sm-7 px-0">
                             <?php $theView->boolSelect('data[disabled]')->setSelected($author->getDisabled()); ?>
                         </div>
                     </div>

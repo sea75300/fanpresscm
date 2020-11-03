@@ -18,7 +18,7 @@ fpcm.dom = {
     
     fromClass: function (_str)
     {
-        return fpcm.dom.fromTag('.' + _str.replace(/([^\#\ \.\-\w\>\w\d])/gim, ''));
+        return fpcm.dom.fromTag('.' + _str.replace(/([^\#\ \.\-\w\>\:\w\d])/gim, ''));
     },
 
     fromTag: function (_str)
@@ -100,6 +100,92 @@ fpcm.dom = {
         }
 
         fpcm.dom.fromTag(_id).prop('readonly', state);
+    },
+    
+    getValuesFromIds: function (_elements)
+    {
+        if (typeof _elements === 'string' && _elements.substr(0,1) === '#') {
+            return fpcm.dom.fromId(_elements).val();1
+        }
+
+        if (typeof _elements === 'object' && _elements.length) {
+
+            let _return = {};
+            for (var i in _elements) {
+
+                let _el = _elements[i];
+                if (_el === undefined) {
+                    continue;
+                }
+
+                _return[_el.replace(':', '_')] = fpcm.dom.fromId(_el).val();
+            }
+
+            return _return;
+        }
+
+        return null;
+    },
+
+    resetValuesByIdsString: function (_elements, _val)
+    {
+        if (typeof _elements !== 'object' || !_elements.length) {
+            return false;
+        }
+        
+        if (_val === undefined) {
+            _val = '';
+        }
+
+        for (var i in _elements) {
+
+            let _el = _elements[i];
+            if (_el === undefined) {
+                continue;
+            }
+
+            fpcm.dom.fromId(_el).val(_val);            
+        }
+
+        return true;
+    },
+
+    resetValuesByIdsChecked: function (_elements)
+    {
+        if (typeof _elements !== 'object' || !_elements.length) {
+            return false;
+        }
+
+        for (var i in _elements) {
+
+            let _el = _elements[i];
+            if (_el === undefined) {
+                continue;
+            }
+            
+            fpcm.dom.fromId(_el).prop('checked', false).checkboxradio('refresh');
+        }
+
+        return true;
+    },
+
+    resetValuesByIdsSelect: function (_elements)
+    {
+        if (typeof _elements !== 'object' || !_elements.length) {
+            return false;
+        }
+
+        for (var i in _elements) {
+
+            let _el = _elements[i];
+            if (_el === undefined) {
+                continue;
+            }
+
+            fpcm.dom.fromId(_el).val('').prop('selectedIndex', 0).selectmenu('refresh');
+        }
+
+        return true;
     }
 
 };

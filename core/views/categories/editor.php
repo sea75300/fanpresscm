@@ -31,13 +31,13 @@
             </div>
 
             <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-12 fpcm-ui-padding-none-lr">
+                <div class="col-12 px-0">
                     <div class="row">
                         <label class="col-12 col-sm-6 col-md-3 fpcm-ui-field-label-general">
                             <?php $theView->icon('users'); ?>
                             <?php $theView->write('CATEGORIES_ROLLS'); ?>:
                         </label>
-                        <div class="col-12 col-sm-6 col-md-9 fpcm-ui-padding-none-lr">
+                        <div class="col-12 col-sm-6 col-md-9 px-0">
                             <div class="fpcm-ui-controlgroup fpcm-ui-borderradius-remove-left">
                             <?php foreach ($userRolls as $rollname => $rollid) : ?>
                                 <?php $theView->checkbox('category[groups][]', 'cat'.$rollid)->setText($rollname)->setValue($rollid)->setSelected(isset($selectedGroups) && in_array($rollid, $selectedGroups) ? true : false); ?>

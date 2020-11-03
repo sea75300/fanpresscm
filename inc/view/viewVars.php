@@ -232,6 +232,16 @@ class viewVars {
         return new helper\icon($icon, $prefix, $useFa);
     }
 
+    /**
+     * Prints default box values
+     * @return void
+     * @since 4.5
+     */
+    final public function defaultBoxHalf() : void
+    {
+        print 'col-12 col-md-6';
+    }
+
 }
 
 ?>

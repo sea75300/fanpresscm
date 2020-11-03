@@ -44,7 +44,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_TIMEZONE'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('system_timezone')->setOptions($timezoneAreas)->setSelected($globalConfig['system_timezone'])->setOptGroup(true); ?>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_LANG'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('system_lang')->setOptions($languages)->setSelected($globalConfig['system_lang'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
                         </div>
@@ -62,7 +62,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_ACPARTICLES_LIMIT'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('articles_acp_limit')
                                         ->setOptions($articleLimitListAcp)
                                         ->setSelected($globalConfig['articles_acp_limit'])
@@ -74,7 +74,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_CACHETIMEOUT'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('system_cache_timeout')->setOptions($theView->translate('SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL'))->setSelected($globalConfig['system_cache_timeout'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('system_trash_cleanup')->setOptions($theView->translate('SYSTEM_OPTIONS_TRASH_CLEANUP_DAYS_LIST'))->setSelected($globalConfig['system_trash_cleanup'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_USEMODE'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('system_mode')->setOptions($systemModes)->setSelected($globalConfig['system_mode'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_INCLUDEJQUERY'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('system_loader_jquery')->setSelected($globalConfig['system_loader_jquery']); ?>
                                 <?php $theView->shorthelpButton('jqueryInclude')->setText('SYSTEM_OPTIONS_INCLUDEJQUERY_YES'); ?>
                             </div>
@@ -137,7 +137,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('system_editor')->setOptions($editors)->setSelected(base64_encode($globalConfig['system_editor']))->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
                         </div>                        
@@ -146,7 +146,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('system_editor_fontsize')
                                         ->setOptions($defaultFontsizes)
                                         ->setSelected($globalConfig['system_editor_fontsize'])
@@ -158,7 +158,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_REVISIONS_ENABLED'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('articles_revisions')->setSelected($globalConfig['articles_revisions']); ?>
                             </div>
                         </div>                        
@@ -167,7 +167,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('articles_revisions_limit')
                                         ->setOptions($theView->translate('SYSTEM_OPTIONS_NEWS_REVISIONS_LIMIT_LIST'))
                                         ->setSelected($globalConfig['articles_revisions_limit'])
@@ -179,7 +179,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_IMGTOOLS'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('articles_imageedit_persistence')->setSelected($globalConfig['articles_imageedit_persistence']); ?>
                             </div>
                         </div>                        
@@ -199,7 +199,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_SUBFOLDERS'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('file_subfolders')->setSelected($globalConfig['file_subfolders']); ?>
                             </div>
                         </div>                          
@@ -208,7 +208,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_FILEMANAGER_LIMIT'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('file_list_limit')
                                         ->setOptions($articleLimitListAcp)
                                         ->setSelected($globalConfig['file_list_limit'])
@@ -220,7 +220,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_FILEMANAGER_VIEW'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('file_view')->setOptions($filemanagerViews)->setSelected($globalConfig['file_view'])->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
                             </div>
                         </div>                          
@@ -270,7 +270,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWLIMIT'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('articles_limit')
                                         ->setOptions($articleLimitList)
                                         ->setSelected($globalConfig['articles_limit'])
@@ -282,7 +282,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_ACTIVENEWSTEMPLATE'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('articles_template_active')
                                         ->setOptions($articleTemplates)
                                         ->setSelected($globalConfig['articles_template_active'])
@@ -294,7 +294,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_ACTIVENEWSTEMPLATESINGLE'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('article_template_active')
                                         ->setOptions($articleTemplates)
                                         ->setSelected($globalConfig['article_template_active'])
@@ -306,7 +306,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_SORTING'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('articles_sort')
                                         ->setOptions($sorts)
                                         ->setSelected($globalConfig['articles_sort'])
@@ -318,7 +318,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_SORTING_ORDER'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                     <?php $theView->select('articles_sort_order')
                                             ->setOptions($sortsOrders)
                                             ->setSelected($globalConfig['articles_sort_order'])
@@ -330,7 +330,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWSSHOWSHARELINKS'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('system_show_share')->setSelected($globalConfig['system_show_share']); ?>
                             </div>
                         </div>
@@ -339,7 +339,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWSSHARECOUNT'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('system_share_count')->setSelected($globalConfig['system_share_count']); ?>
                             </div>
                         </div>
@@ -348,7 +348,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_URLREWRITING'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('articles_link_urlrewrite')->setSelected($globalConfig['articles_link_urlrewrite']); ?>
                             </div>
                         </div>
@@ -357,7 +357,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_NEWS_ENABLEFEED'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('articles_rss')->setSelected($globalConfig['articles_rss']); ?>
                             </div>
                         </div>
@@ -372,7 +372,7 @@
                             <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_ARCHIVE_LINK'); ?>
                             </label>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('articles_archive_show')->setSelected($globalConfig['articles_archive_show']); ?>
                             </div>
                         </div> 
@@ -400,7 +400,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_COMMENT_ENABLED_GLOBAL'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('system_comments_enabled')->setSelected($globalConfig['system_comments_enabled']); ?>		
                             </div>
                         </div>
@@ -409,7 +409,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_COMMENT_PRIVACYOPTIN'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('comments_privacy_optin')->setSelected($globalConfig['comments_privacy_optin']); ?>		
                             </div>
                         </div>
@@ -418,7 +418,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_COMMENT_NOTIFY'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('comments_notify')
                                         ->setOptions($notify)
                                         ->setSelected($globalConfig['comments_notify'])
@@ -430,7 +430,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_ACTIVECOMMENTTEMPLATE'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('comments_template_active')
                                         ->setOptions($commentTemplates)
                                         ->setSelected($globalConfig['comments_template_active'])
@@ -442,7 +442,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_FLOODPROTECTION'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('comments_flood')
                                         ->setOptions($theView->translate('SYSTEM_OPTIONS_FLOODPROTECTION_INTERVALS'))
                                         ->setSelected($globalConfig['comments_flood'])
@@ -454,7 +454,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_COMMENTEMAIL'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('comments_email_optional')->setSelected($globalConfig['comments_email_optional']); ?>
                             </div>
                         </div>
@@ -463,7 +463,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_COMMENT_APPROVE'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('comments_confirm')->setSelected($globalConfig['comments_confirm']); ?>		
                             </div>
                         </div>
@@ -515,7 +515,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_MAINTENANCE'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('system_maintenance')->setSelected($globalConfig['system_maintenance']); ?>
                             </div>
                         </div>
@@ -524,7 +524,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_SESSIONLENGHT'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('system_session_length')
                                         ->setOptions($theView->translate('SYSTEM_OPTIONS_SESSIONLENGHT_INTERVALS'))
                                         ->setSelected($globalConfig['system_session_length'])
@@ -549,7 +549,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_LOGIN_TWOFACTORAUTH'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('system_2fa_auth')->setSelected($globalConfig['system_2fa_auth']); ?>
                             </div>
                         </div>
@@ -558,7 +558,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_USERS_PASSCHECK'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('system_passcheck_enabled')->setSelected($globalConfig['system_passcheck_enabled']); ?>
                             </div>
                         </div>
@@ -571,7 +571,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_EXTENDED_EMAILUPDATES'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('system_updates_emailnotify')->setSelected($globalConfig['system_updates_emailnotify']); ?>
                             </div>
                         </div>
@@ -580,7 +580,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_EXTENDED_DEVUPDATES'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->boolSelect('system_updates_devcheck')->setSelected($globalConfig['system_updates_devcheck']); ?>
                             </div>
                         </div>
@@ -589,7 +589,7 @@
                             <div class="align-self-center col-sm-12 col-md-5 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_EXTENDED_UPDATESMANCHK'); ?>
                             </div>
-                            <div class="col-12 col-sm-7 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-7 px-0">
                                 <?php $theView->select('system_updates_manual')
                                         ->setOptions($theView->translate('SYSTEM_OPTIONS_UPDATESMANUAL'))
                                         ->setSelected($globalConfig['system_updates_manual'])
@@ -616,7 +616,7 @@
                             <div class="align-self-center col-12 col-sm-6 col-md-3 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_EMAIL_ENABLED'); ?>
                             </div>
-                            <div class="col-12 col-sm-6 col-sm-9 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-6 col-sm-9 px-0">
                                 <?php $theView->boolSelect('smtp_enabled')->setSelected($globalConfig['smtp_enabled']); ?>
                             </div>
                         </div>
@@ -675,7 +675,7 @@
                             <div class="align-self-center col-12 col-sm-6 col-md-3 fpcm-ui-field-label-general">
                                 <?php $theView->write('SYSTEM_OPTIONS_EMAIL_ENCRYPTED'); ?>
                             </div>
-                            <div class="col-12 col-sm-6 col-sm-9 fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-sm-6 col-sm-9 px-0">
                                 <?php $theView->select('smtp_settings[encr]')
                                         ->setOptions($smtpEncryption)
                                         ->setSelected($globalConfig['smtp_settings']['encr'])
@@ -695,7 +695,7 @@
                     <fieldset>
                         <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSTATE'); ?></legend>
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="col-12 col-md-6 align-self-center fpcm-ui-padding-none-lr">
+                            <div class="col-12 col-md-6 align-self-center px-0">
                             <?php if (!$globalConfig['twitter_data']['consumer_key'] || !$globalConfig['twitter_data']['consumer_secret'] || !$twitterIsActive) : ?>
                                 <?php $theView->linkButton('twitterConnect')->setText('SYSTEM_OPTIONS_TWITTER_CONNECT')->setUrl('https://apps.twitter.com/')->setTarget('_blank')->setIcon('twitter', 'fab'); ?>
                             <?php elseif ($globalConfig['twitter_data']['user_token'] && $globalConfig['twitter_data']['user_secret'] && $twitterIsActive) : ?>
@@ -720,7 +720,7 @@
                     <fieldset>
                         <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_EVENTS'); ?></legend>
                         <div class="row fpcm-ui-padding-md-tb">
-                            <div class="col-12 align-self-center fpcm-ui-padding-none-lr">
+                            <div class="col-12 align-self-center px-0">
                                 <div class="fpcm-ui-controlgroup">
                                     <?php $theView->checkbox('twitter_events[create]', 'twitter_events_create')->setText('SYSTEM_OPTIONS_TWITTER_EVENTCREATE')->setSelected($globalConfig['twitter_events']['create']); ?>
                                     <?php $theView->checkbox('twitter_events[update]', 'twitter_events_update')->setText('SYSTEM_OPTIONS_TWITTER_EVENTUPDATE')->setSelected($globalConfig['twitter_events']['update']); ?>

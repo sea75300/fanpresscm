@@ -5,7 +5,7 @@
             <legend><?php $theView->write('GLOBAL_METADATA'); ?></legend>
 
             <div class="row no-gutters">
-                <div class="col-sm-12 col-md-6 align-self-center">
+                <div class="<?php $theView->defaultBoxHalf(); ?> align-self-center">
 
                     <div class="fpcm-ui-editor-metabox-left">
                         <div class="col-11 pl-0 fpcm-ui-ellipsis">
@@ -15,7 +15,7 @@
                     </div>
                 </div>
 
-                <div class="col-12 col-md-6 fpcm-ui-align-right">
+                <div class="<?php $theView->defaultBoxHalf(); ?> fpcm-ui-align-right">
                     <?php print implode(PHP_EOL, $article->getMetaDataStatusIcons($showDraftStatus, $commentEnabledGlobal, $showArchiveStatus)); ?>
                 </div>
             </div>

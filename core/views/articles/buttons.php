@@ -23,7 +23,7 @@
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
     <legend><?php $theView->write('EDITOR_POSTPONETO'); ?></legend>
 
-    <div class="row fpcm-ui-padding-md-tb fpcm-ui-padding-none-lr-small">
+    <div class="row fpcm-ui-padding-md-tb px-0-small">
 
         <?php $theView->dateTimeInput('article[postponedate]')
                 ->setText('EDITOR_POSTPONED_DATE')

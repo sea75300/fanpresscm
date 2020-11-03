@@ -7,7 +7,7 @@
 
                 <?php if ($showImage) : ?>
                 <div class="row no-gutters fpcm-ui-padding-md-tb">
-                    <div class="col-12 fpcm-ui-padding-none-lr">
+                    <div class="col-12 px-0">
                         <div class="fpcm-ui-controlgroup fpcm-ui-margin-lg-bottom" id="user_profile_image_buttons">
                             <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
                             <?php $theView->submitButton('uploadFile')->setText('FILE_FORM_UPLOADSTART')->setIcon('upload'); ?>
@@ -17,7 +17,7 @@
                         </div>
 
                         <?php if ($avatar) : ?>
-                            <div class="col-12 col-sm-6 col-lg-4 fpcm-ui-padding-none-lr fpcm-filelist-thumb-box fpcm-ui-center">
+                            <div class="col-12 col-sm-6 col-lg-4 px-0 fpcm-filelist-thumb-box fpcm-ui-center">
                                 <div class="fpcm-filelist-thumb-box-inner fpcm-ui-background-transition fpcm-ui-padding-md-all fpcm-ui-margin-md-all">
                                     <div class="fpcm-ui-center">
                                         <img src="<?php print $avatar; ?>">
@@ -42,7 +42,7 @@
                 <legend><?php $theView->write('USERS_BIOGRAPHY'); ?></legend>
 
                 <div class="row fpcm-ui-padding-md-tb">
-                    <div class="col-12 fpcm-ui-padding-none-lr">
+                    <div class="col-12 px-0">
                         <?php $theView->textarea('data[usrinfo]')->setValue(str_replace(['\n', '\n\r', '\r', PHP_EOL], '', $author->getUsrinfo()))->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width') ?>
                     </div>
                 </div>

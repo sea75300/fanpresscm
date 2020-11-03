@@ -1073,10 +1073,7 @@ fpcm.ui = {
     },
 
     resetSelectMenuSelection: function (elId) {
-        var selectEl = fpcm.dom.fromTag(elId);
-        selectEl.prop('selectedIndex', 0);
-        selectEl.val('');
-        selectEl.selectmenu("refresh");
+        fpcm.dom.resetValuesByIdsSelect([elId.substr(1)]);
         return true;
     },
     

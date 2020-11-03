@@ -21,22 +21,22 @@
         <div id="tabs-article">
             <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-filemanager"></div>            
 
-            <div class="row fpcm-ui-padding-md-tb">
+            <div class="row py-2">
                 
-                <div class="col-12 fpcm-ui-padding-none-lr">                
-                    <div class="row fpcm-ui-padding-md-bottom">
-                        <div class="col-12 fpcm-ui-padding-none-lr">
+                <div class="col-12 px-0">                
+                    <div class="row pb-2">
+                        <div class="col-12 px-0">
                             <fieldset>
                                 <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
 
-                                    <div class="row fpcm-ui-padding-md-tb fpcm-ui-editor-categories">
-                                        <div class="col-12 fpcm-ui-padding-none-lr">
+                                    <div class="row py-2 fpcm-ui-editor-categories">
+                                        <div class="col-12 px-0">
                                             <?php $theView->textInput('article[title]')->setValue($article->getTitle())->setText('ARTICLE_LIST_TITLE')->setPlaceholder(true)->setWrapper(true)->setAutoFocused(true); ?>
                                         </div>
                                     </div>
 
-                                    <div class="row fpcm-ui-padding-md-tb fpcm-ui-editor-categories">
-                                        <div class="col-12 fpcm-ui-padding-none-lr">
+                                    <div class="row py-2 fpcm-ui-editor-categories">
+                                        <div class="col-12 px-0">
                                             <?php $theView->select('article[categories][]')->setIsMultiple(true)->setOptions($categories)->setSelected($article->getCategories()); ?>
                                         </div>
                                     </div>
