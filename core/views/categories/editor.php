@@ -39,7 +39,7 @@
                         </label>
                         <div class="col-12 col-sm-6 col-md-9 fpcm ui-element-min-height-md fpcm-ui-input-wrapper-inner fpcm-ui-border-grey-medium fpcm-ui-border-radius-right">
                             <?php foreach ($userRolls as $rollname => $rollid) : ?>
-                                <?php $theView->checkbox('category[groups][]', 'cat'.$rollid)->setText($rollname)->setValue($rollid)->setSelected(isset($selectedGroups) && in_array($rollid, $selectedGroups) ? true : false); ?>
+                                <?php $theView->checkbox('category[groups][]', 'cat'.$rollid)->setLabelClass('mr-2')->setText($rollname)->setValue($rollid)->setSelected(isset($selectedGroups) && in_array($rollid, $selectedGroups) ? true : false); ?>
                             <?php endforeach; ?>
                         </div>
                     </div>

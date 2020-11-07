@@ -175,14 +175,14 @@ class userList extends \fpcm\model\abstracts\tablelist {
      */
     public function getUsersByIds(array $ids)
     {
-        $item = $this->dbcon->getTablePrefixed($this->table) . '.*, ';
-        $item .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll) . '.leveltitle AS groupname';
+        $tabUser = $this->dbcon->getTablePrefixed($this->table);
+        $tabRoll = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll);
 
-        $where = $this->dbcon->getTablePrefixed($this->table) . '.roll = ';
-        $where .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll) . '.id AND ';
-        $where .= $this->dbcon->getTablePrefixed($this->table) . '.id IN (' . implode(', ', $ids) . ') ';
-
-        $result = $this->dbcon->select(array($this->table, \fpcm\classes\database::tableRoll), $item, $where);
+        $result = $this->dbcon->select(
+            "{$this->table} LEFT JOIN {$tabRoll} on {$tabUser}.roll = {$tabRoll}.id",
+            $tabUser . '.*, ' . $tabRoll . '.leveltitle AS groupname',
+            $tabUser . '.id IN (' . implode(', ', $ids) . ') '
+        );
         $users = $this->dbcon->fetch($result, true);
 
         if (!$users || !count($users)) {

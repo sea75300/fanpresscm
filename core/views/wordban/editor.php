@@ -35,12 +35,10 @@
                             <?php $theView->icon('cogs'); ?>
                             <?php $theView->write('GLOBAL_ACTION_PERFORM'); ?>:
                         </label>
-                        <div class="col-12 col-sm-6 col-md-9 px-0">
-                            <div class="fpcm-ui-controlgroup fpcm-ui-borderradius-remove-left">
-                                <?php $theView->checkbox('wbitem[replacetxt]')->setText('WORDBAN_REPLACETEXT')->setSelected($item->getReplaceTxt()); ?>
-                                <?php $theView->checkbox('wbitem[lockarticle]')->setText('WORDBAN_APPROVE_ARTICLE')->setSelected($item->getLockArticle()); ?>
-                                <?php $theView->checkbox('wbitem[commentapproval]')->setText('WORDBAN_APPROVA_COMMENT')->setSelected($item->getCommentApproval()); ?>
-                            </div>
+                        <div class="col-12 col-sm-6 col-md-9 fpcm ui-element-min-height-md fpcm-ui-input-wrapper-inner fpcm-ui-border-grey-medium fpcm-ui-border-radius-right">
+                            <?php $theView->checkbox('wbitem[replacetxt]')->setText('WORDBAN_REPLACETEXT')->setSelected($item->getReplaceTxt())->setLabelClass('mr-2'); ?>
+                            <?php $theView->checkbox('wbitem[lockarticle]')->setText('WORDBAN_APPROVE_ARTICLE')->setSelected($item->getLockArticle())->setLabelClass('mr-2'); ?>
+                            <?php $theView->checkbox('wbitem[commentapproval]')->setText('WORDBAN_APPROVA_COMMENT')->setSelected($item->getCommentApproval()); ?>                            
                         </div>
                     </div>
                 </div>
