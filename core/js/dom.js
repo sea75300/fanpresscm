@@ -105,7 +105,7 @@ fpcm.dom = {
     getValuesFromIds: function (_elements)
     {
         if (typeof _elements === 'string' && _elements.substr(0,1) === '#') {
-            return fpcm.dom.fromId(_elements).val();1
+            return fpcm.dom.fromId(_elements).val();
         }
 
         if (typeof _elements === 'object' && _elements.length) {

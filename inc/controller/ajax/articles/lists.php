@@ -249,7 +249,7 @@ class lists extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
 
     public function process()
     {
-        $this->count = $this->articleList->countArticlesByCondition($this->conditions);
+        $this->count = $this->isFilter ? false : $this->articleList->countArticlesByCondition($this->conditions);
         $this->items = $this->articleList->getArticlesByCondition($this->conditions, true);
 
         if ($this->items === \fpcm\drivers\sqlDriver::CODE_ERROR_SYNTAX) {

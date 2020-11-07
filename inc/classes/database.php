@@ -291,6 +291,10 @@ final class database {
             return $result;
         }
 
+        if (!$result instanceof \PDOStatement) {
+            return false;
+        }
+        
         return $this->fetch($result, $obj->getFetchAll(), $obj->getFetchStyle());
     }
 
@@ -326,6 +330,10 @@ final class database {
         $result = $this->query('('.implode(') UNION (', $queries).')', $params);
         if ($returnResult) {
             return $result;
+        }
+
+        if (!$result instanceof \PDOStatement) {
+            return [];
         }
 
         return $this->fetch($result, true, $fetchStyle);
@@ -684,7 +692,7 @@ final class database {
         try {
             $res = $statement->execute($bindParams);
         } catch (\PDOException $e) {
-            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());                        
+            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());
             fpcmLogSql((string) $e . $this->getStatementError($statement));
             $e->errorInfo;
             return false;

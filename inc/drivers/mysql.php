@@ -257,7 +257,7 @@ final class mysql implements sqlDriver {
             23000 => self::CODE_ERROR_UNIQUEKEY,
             42000 => self::CODE_ERROR_SYNTAX
         ];
-        
+
         return $map[$code] ?? null;
     }
 

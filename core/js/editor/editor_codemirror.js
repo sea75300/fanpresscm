@@ -874,7 +874,7 @@ if (fpcm.editor) {
             
             if (_asLink) {
                 var linkData = fpcm.editor.getLinkData(_formData.imagespath, _res.aTag, '', _formData.imagescss);
-                _res.aTag = linkData._res.aTag + linkData.eTag;
+                _res.aTag = linkData.aTag + linkData.eTag;
             }
         }
 
