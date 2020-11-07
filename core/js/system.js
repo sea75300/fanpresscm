@@ -348,7 +348,7 @@ fpcm.system = {
                         id: 'help',
                         dlWidth: sizes.width,
                         dlMaxHeight: sizes.height,
-                        resizable: false,
+                        resizable: true,
                         title: fpcm.ui.translate('HL_HELP'),
                         content: result,
                         dlButtons: [

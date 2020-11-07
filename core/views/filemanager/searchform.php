@@ -6,7 +6,7 @@
         <div class="col-12 col-md-4 my-2 my-md-0"></div>
 
         <div class="col-12 col-md-8 my-2 my-md-0">
-            <?php $theView->textInput('filename')->setText('FILE_LIST_FILENAME')->setMaxlenght(255)->setPlaceholder(true)->setWrapper(true)->setClass('fpcm-files-search-input'); ?>
+            <?php $theView->textInput('filename')->setText('FILE_LIST_SEARCHTEXT')->setMaxlenght(255)->setPlaceholder(true)->setWrapper(true)->setClass('fpcm-files-search-input'); ?>
         </div>
     </div>
 

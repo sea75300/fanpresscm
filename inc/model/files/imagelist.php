@@ -198,15 +198,25 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
                 trigger_error('Unable to remove file index data for files with names: ' . implode(', ', array_keys($notInFs)));
             }
         }
-        
+
         if (count($notInDb)) {
 
             $this->indexUserId = (int) $userId;
             $this->finfo = new \finfo();
 
             /* @var $file image */
-            array_map([$this, 'addToIndex'], array_keys($notInDb));
-            $this->createFilemanagerThumbs($notInDb);
+            $res = array_map([$this, 'addToIndex'], array_keys($notInDb));
+
+            $doThumbs = array_keys(array_intersect($notInDb, array_keys($res, true)));
+            if (!is_array($doThumbs) || !count($doThumbs)) {
+                return true;
+            }
+
+            array_walk($doThumbs, function (&$file) {
+                $file = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $file);
+            });
+
+            $this->createFilemanagerThumbs($doThumbs);
         }
 
         return true;

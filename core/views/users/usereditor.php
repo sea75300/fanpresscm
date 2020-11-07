@@ -4,7 +4,7 @@
         <fieldset>
             <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
             
-            <div class="row fpcm-ui-padding-md-tb no-gutters">
+            <div class="row py-2 no-gutters">
                 <div class="col-12 col-sm-6">
                     <div class="row">
                         <?php $theView->textInput('data[displayname]')
@@ -17,7 +17,7 @@
                 </div>
             </div>
             
-            <div class="row fpcm-ui-padding-md-tb no-gutters">
+            <div class="row py-2 no-gutters">
                 <div class="col-12 col-sm-6">
                     <div class="row">
                         <?php $theView->textInput('data[username]')
@@ -31,7 +31,7 @@
                 </div>
             </div>
             
-            <div class="row fpcm-ui-padding-md-tb no-gutters">
+            <div class="row py-2 no-gutters">
                 <div class="col-12 col-sm-6">
                     <div class="row">
                         <?php $theView->textInput('data[password]', 'password')
@@ -48,7 +48,7 @@
                 </div>
             </div>
             
-            <div class="row fpcm-ui-padding-md-tb no-gutters">
+            <div class="row py-2 no-gutters">
                 <div class="col-12 col-sm-6">
                     <div class="row">
                         <?php $theView->textInput('data[password_confirm]', 'password_confirm')
@@ -61,7 +61,7 @@
                 </div>
             </div>
             
-            <div class="row fpcm-ui-padding-md-tb no-gutters">
+            <div class="row py-2 no-gutters">
                 <div class="col-12 col-sm-6">
                     <div class="row">
                         <?php $theView->textInput('data[email]')
@@ -74,7 +74,7 @@
                 </div>
             </div>
             
-            <div class="row fpcm-ui-padding-md-tb <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
+            <div class="row py-2 <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
                 <div class="col-12 col-sm-6 px-0">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
@@ -94,7 +94,7 @@
             
             <?php if($inProfile) : ?>
             
-            <div id="fpcm-ui-currentpass-box" class="row no-gutters fpcm-ui-padding-md-tb fpcm-ui-hidden">
+            <div id="fpcm-ui-currentpass-box" class="row no-gutters py-2 fpcm-ui-hidden">
                 <div class="col-12 col-sm-6">
                     <div class="row">
                         <?php $theView->passwordInput('data[current_pass]')
@@ -109,7 +109,7 @@
             <?php endif; ?>
 
             <?php if ($showDisableButton) : ?>
-            <div class="row fpcm-ui-padding-md-tb <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
+            <div class="row py-2 <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
                 <div class="col-12 col-sm-6 px-0">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
@@ -134,35 +134,32 @@
             <legend><?php $theView->write('SYSTEM_OPTIONS_LOGIN_TWOFACTORAUTH'); ?></legend>
 
             <?php if ($secret !== false && $qrCode !== false) : ?>
-            <div class="row no-gutters fpcm-ui-padding-md-tb">
-                <div class="col-12">
-                    <?php $theView->write('USERS_AUTHTOKEN_SAVE'); ?>:
-                </div>
-            </div>
-
-            <div class="row no-gutters fpcm-ui-padding-md-tb">
-                <div class="col-12 col-sm-6">
+            
+            <div class="row no-gutters py-2">
+                <div class="col-12 col-md-auto mr-0 mr-md-3">
+                    <img loading="lazy" src="<?php echo $qrCode; ?>">
+                </div>            
+                
+                <div class="col-12 col-md-auto">
+                    <p><?php $theView->write('USERS_AUTHTOKEN_SAVE'); ?>:</p>
+                
                     <div class="row">
                         <?php $theView->textInput('data[authCodeConfirm]', 'authCodeConfirm')
                             ->setValue('')
                             ->setMaxlenght(6)
                             ->setAutocomplete(false)
                             ->setText('USERS_AUTHTOKEN_SAVE2')
+                            ->setLabelClass('pr-3')
                             ->setIcon('exclamation-triangle fpcm-ui-important-text')
-                            ->setSize('lg')
-                            ->setDisplaySizes([12, 5], [12, 5]); ?>                    
+                            ->setSize('lg'); ?>                    
 
                         <?php $theView->hiddenInput('data[authSecret]', 'authSecret')->setValue($secret); ?>
                     </div>
-                </div>
+                </div>                
             </div>
-            <div class="row no-gutters fpcm-ui-padding-md-tb fpcm-ui-center">
-                <div class="col-12 col-sm-6">
-                    <img src="<?php echo $qrCode; ?>">
-                </div>
-            </div>
+
             <?php else : ?>
-            <div class="row fpcm-ui-padding-md-tb">
+            <div class="row py-2">
                 <div class="col-12">
                     <?php $theView->icon('user-secret')->setStack('check fpcm-ui-editor-metainfo fpcm ui-status-075')->setSize('lg')->setStackTop(true); ?>
                     <?php $theView->write('USERS_AUTHTOKEN_ACTIVE'); ?>

@@ -17,7 +17,6 @@ fpcm.comments = {
             fpcm.comments.initCommentSearch();
         }
     
-        fpcm.ui.checkboxradio('.fpcm-ui-comments-status');
         fpcm.comments.assignActionsList();
 
         if (parent.fpcm.editor && parent.fpcm.editor.editorTabs && fpcm.vars.jsvars.reloadList) {

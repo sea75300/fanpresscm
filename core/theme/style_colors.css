@@ -307,3 +307,10 @@ div.row.fpcm-ui-dataview-row.fpcm-ui-logs-deprecation-warning
 .fpcm.ui-progressbar-label {
     background: rgba(255, 255, 255, 0.9);
 }
+
+input[type=checkbox][disabled] + label:before,
+input[type=radio][disabled] + label:before,
+input[type=checkbox][readonly] + label:before,
+input[type=radio][readonly] + label:before  {
+    color: #c3c3c3;
+}
