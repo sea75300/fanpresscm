@@ -1016,7 +1016,17 @@ class module {
      */
     public static function getKeyFromFilename($filename) : string
     {
-        return implode('/', explode('_', explode('_version', $filename, 2)[0], 2));
+        if (preg_match('/^(.*)(\_version.+)$/i', $filename, $matches) !== 1) {
+            return $filename;
+        }
+
+        $raw = $matches[1] ?? null;
+        if (!trim($raw)) {
+            return $filename;
+        }
+
+        list($vendor, $key) = explode('_', $raw, 2); 
+        return $vendor . '/' . $key;
     }
 
     /**
@@ -1164,7 +1174,7 @@ class module {
      */
     public static function validateKey(string $key) : bool
     {
-        $regex = '/^([a-z0-9\_]{3,})(\/{1})([A-Za-z0-9\_]+)$/';
+        $regex = '/^([a-z0-9\_]{3,})(\/{1})([A-Za-z0-9\_]+)$/i';
         if (preg_match($regex, $key, $match) !== 1) {
             trigger_error('Invalid module key, "'.$key.'" does not match '.$regex, E_USER_ERROR);
             return false;
