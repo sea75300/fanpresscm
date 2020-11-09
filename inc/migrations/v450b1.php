@@ -8,7 +8,7 @@
 namespace fpcm\migrations;
 
 /**
- * Migration to v4.5.0-a1
+ * Migration to v4.5.0-b1
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2020, Stefan Seehafer
@@ -17,7 +17,7 @@ namespace fpcm\migrations;
  * @since 4.5.0-a1
  * @see migration
  */
-class v450a1 extends migration {
+class v450b1 extends migration {
     
     /**
      * Update system configs
