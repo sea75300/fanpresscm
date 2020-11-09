@@ -97,7 +97,7 @@ abstract class migration {
      */
     final public function isRequired() : bool
     {
-        return true; version_compare($this->getNewVersion(), $this->getConfig()->system_version, '<');
+        return version_compare($this->getNewVersion(), $this->getConfig()->system_version, '<');
     }
 
     /**

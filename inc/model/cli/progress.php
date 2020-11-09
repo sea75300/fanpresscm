@@ -89,6 +89,10 @@ final class progress {
      */
     public function __destruct()
     {
+        if (!$this->isCli) {
+            return;
+        }
+
         print PHP_EOL;
     }
 
