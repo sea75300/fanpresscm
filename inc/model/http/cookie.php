@@ -62,7 +62,7 @@ final class cookie {
     public function set(string $value) : bool
     {
         if ($this->legacySet) {
-            setcookie(
+            return setcookie(
                 $this->name,
                 $value,
                 $this->flags['expires'],

@@ -223,13 +223,22 @@ class update extends package {
     public function copy()
     {
         $srcBasePath = $this->getExtractionPath();
-        $files = $this->retrieveFilesFromFileTxt($srcBasePath . DIRECTORY_SEPARATOR . fanpress);
+        $files = $this->retrieveFilesFromFileTxt($srcBasePath . DIRECTORY_SEPARATOR . 'fanpress');
         if (!count($files)) {
             return self::FILESCOPY_ERROR;
         }
 
         $progress = new \fpcm\model\cli\progress(count($files));
 
+        $filesback = copy(
+            \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt'),
+            \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt.prev')
+        );
+        
+        if (!$filesback) {
+            trigger_error('Unable to create ' . \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_CONFIG, 'files.txt.prev'));
+        }
+        
         $proto = [];
         $failed = [];
         foreach ($files as $i => $file) {
@@ -315,7 +324,7 @@ class update extends package {
      */
     public function cleanupFiles()
     {
-        $oldList = $this->getFileList(self::getFilesListPath() . '.back', 1);
+        $oldList = $this->getFileList(self::getFilesListPath() . '.prev', 1);
         $newList = $this->getFileList(self::getFilesListPath(), 1);
 
         if (!count($oldList) || !count($newList)) {
