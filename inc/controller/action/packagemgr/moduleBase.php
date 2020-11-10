@@ -139,9 +139,6 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
         if ($updateKeys === null || !trim($updateKeys)) {
             return false;
         }
-
-        fpcmLogSystem(__METHOD__);
-        fpcmLogSystem($updateKeys);
         
         $updateKeys = explode(';', $updateKeys);
         if (!count($updateKeys)) {
