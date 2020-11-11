@@ -167,8 +167,18 @@
                     <td class="phpdocumentor-cell">string</td>
                 </tr>
                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-update.html#method_extractionValidateArchiveData">extractionValidateArchiveData()</a></th>
+                    <td class="phpdocumentor-cell">Validate archive content after opening archive</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-update.html#method_checkFiles">checkFiles()</a></th>
                     <td class="phpdocumentor-cell">Check if local files are writable</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-update.html#method_backup">backup()</a></th>
+                    <td class="phpdocumentor-cell">Create backup zip archive for current version</td>
                     <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
@@ -195,6 +205,11 @@
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-update.html#method_getFilesListPath">getFilesListPath()</a></th>
                     <td class="phpdocumentor-cell">Get data/config/files.txt path</td>
                     <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-update.html#method_retrieveFilesFromFileTxt">retrieveFilesFromFileTxt()</a></th>
+                    <td class="phpdocumentor-cell">Retrieves file list for package</td>
+                    <td class="phpdocumentor-cell">array</td>
                 </tr>
                                                     <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method___construct">__construct()</a></th>
@@ -254,6 +269,11 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_updateLog">updateLog()</a></th>
                     <td class="phpdocumentor-cell">Updates local package manager log</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-packages-package.html#method_extractionValidateArchiveData">extractionValidateArchiveData()</a></th>
+                    <td class="phpdocumentor-cell">Validate archive content after opening archive</td>
                     <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
@@ -611,6 +631,41 @@
         <span class="phpdocumentor-signature__response_type">string</span>
             
 </article>
+                                    <a id="method_extractionValidateArchiveData"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">extractionValidateArchiveData()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/update.php"><a href="../files/inc-model-packages-update.html"><abbr title="inc/model/packages/update.php">update.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">96</span>
+    </aside>
+        <p class="phpdocumentor-summary">Validate archive content after opening archive</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">extractionValidateArchiveData</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
                                     <a id="method_checkFiles"></a>
 <article
         class="
@@ -622,7 +677,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/update.php"><a href="../files/inc-model-packages-update.html"><abbr title="inc/model/packages/update.php">update.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">95</span>
+        <span class="phpdocumentor-element-found-in__line">105</span>
     </aside>
         <p class="phpdocumentor-summary">Check if local files are writable</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -639,6 +694,41 @@
         <span class="phpdocumentor-signature__response_type">bool</span>
             
 </article>
+                                    <a id="method_backup"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">backup()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/update.php"><a href="../files/inc-model-packages-update.html"><abbr title="inc/model/packages/update.php">update.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">138</span>
+    </aside>
+        <p class="phpdocumentor-summary">Create backup zip archive for current version</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">backup</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
                                     <a id="method_copy"></a>
 <article
         class="
@@ -650,7 +740,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/update.php"><a href="../files/inc-model-packages-update.html"><abbr title="inc/model/packages/update.php">update.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">127</span>
+        <span class="phpdocumentor-element-found-in__line">223</span>
     </aside>
         <p class="phpdocumentor-summary">Updates files in local file system</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -678,7 +768,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/update.php"><a href="../files/inc-model-packages-update.html"><abbr title="inc/model/packages/update.php">update.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">216</span>
+        <span class="phpdocumentor-element-found-in__line">310</span>
     </aside>
         <p class="phpdocumentor-summary">Updates local package manager log</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -706,7 +796,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/update.php"><a href="../files/inc-model-packages-update.html"><abbr title="inc/model/packages/update.php">update.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">231</span>
+        <span class="phpdocumentor-element-found-in__line">325</span>
     </aside>
         <p class="phpdocumentor-summary">Performs cleanup of update files and cache</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -734,7 +824,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/update.php"><a href="../files/inc-model-packages-update.html"><abbr title="inc/model/packages/update.php">update.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">266</span>
+        <span class="phpdocumentor-element-found-in__line">360</span>
     </aside>
         <p class="phpdocumentor-summary">Returns list of files not to check or change</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -762,7 +852,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/update.php"><a href="../files/inc-model-packages-update.html"><abbr title="inc/model/packages/update.php">update.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">276</span>
+        <span class="phpdocumentor-element-found-in__line">370</span>
     </aside>
         <p class="phpdocumentor-summary">Get data/config/files.txt path</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -784,6 +874,53 @@
     
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_retrieveFilesFromFileTxt"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">retrieveFilesFromFileTxt()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/update.php"><a href="../files/inc-model-packages-update.html"><abbr title="inc/model/packages/update.php">update.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">380</span>
+    </aside>
+        <p class="phpdocumentor-summary">Retrieves file list for package</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">retrieveFilesFromFileTxt</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$srcBasePath</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$srcBasePath</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
             
 </article>
                                                                     <a id="method___construct"></a>
@@ -1134,6 +1271,41 @@
         <span class="phpdocumentor-signature__response_type">bool</span>
             
 </article>
+                                    <a id="method_extractionValidateArchiveData"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                        phpdocumentor-element--abstract                                "
+>
+    <h4 class="phpdocumentor-method__name">extractionValidateArchiveData()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">186</span>
+    </aside>
+        <p class="phpdocumentor-summary">Validate archive content after opening archive</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__abstract">abstract</span>                        <span class="phpdocumentor-signature__name">extractionValidateArchiveData</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
                                     <a id="method_isTrustedPath"></a>
 <article
         class="
@@ -1145,7 +1317,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">185</span>
+        <span class="phpdocumentor-element-found-in__line">192</span>
     </aside>
         <p class="phpdocumentor-summary">Check if remote path points to trusted server</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1173,7 +1345,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">209</span>
+        <span class="phpdocumentor-element-found-in__line">216</span>
     </aside>
         <p class="phpdocumentor-summary">Fetch package content from package server</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1213,7 +1385,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">262</span>
+        <span class="phpdocumentor-element-found-in__line">269</span>
     </aside>
         <p class="phpdocumentor-summary">Validates package signature</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1241,7 +1413,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">294</span>
+        <span class="phpdocumentor-element-found-in__line">301</span>
     </aside>
         <p class="phpdocumentor-summary">Extract package file</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1269,7 +1441,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">324</span>
+        <span class="phpdocumentor-element-found-in__line">336</span>
     </aside>
         <p class="phpdocumentor-summary">Performs cleanup of update files and cache</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1297,7 +1469,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">361</span>
+        <span class="phpdocumentor-element-found-in__line">373</span>
     </aside>
         <p class="phpdocumentor-summary">Return prevalidation flag</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1332,7 +1504,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">371</span>
+        <span class="phpdocumentor-element-found-in__line">383</span>
     </aside>
         <p class="phpdocumentor-summary">Replaces &quot;fanpress&quot; base folder name in given path</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1372,7 +1544,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">381</span>
+        <span class="phpdocumentor-element-found-in__line">393</span>
     </aside>
         <p class="phpdocumentor-summary">Split filename for module key</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1412,7 +1584,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">394</span>
+        <span class="phpdocumentor-element-found-in__line">406</span>
     </aside>
         <p class="phpdocumentor-summary">Updates protocoll data for file system update</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1472,7 +1644,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/packages/package.php"><a href="../files/inc-model-packages-package.html"><abbr title="inc/model/packages/package.php">package.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">406</span>
+        <span class="phpdocumentor-element-found-in__line">418</span>
     </aside>
         <p class="phpdocumentor-summary">Fetch array of local file system files from &quot;files.txt&quot; file</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">

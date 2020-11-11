@@ -119,6 +119,11 @@
                     <td class="phpdocumentor-cell">Coutn of deleted items</td>
                     <td class="phpdocumentor-cell">int</td>
                 </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dashboard-sysstats.html#property_dbStats">$dbStats</a></th>
+                    <td class="phpdocumentor-cell">Databased stats values</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
                                                     <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-dashcontainer.html#property_name">$name</a></th>
                     <td class="phpdocumentor-cell">Container-Name</td>
@@ -245,29 +250,9 @@
                     <td class="phpdocumentor-cell">mixed</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dashboard-sysstats.html#method_getArticleStats">getArticleStats()</a></th>
-                    <td class="phpdocumentor-cell">Artikel-Statistiken berechnen</td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dashboard-sysstats.html#method_getCommentStats">getCommentStats()</a></th>
-                    <td class="phpdocumentor-cell">Kommentar-Statistiken berechnen</td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dashboard-sysstats.html#method_getUserStats">getUserStats()</a></th>
-                    <td class="phpdocumentor-cell">Benutzer-Statistiken berechnen</td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dashboard-sysstats.html#method_getFileStats">getFileStats()</a></th>
-                    <td class="phpdocumentor-cell">Datei-Statistiken berechnen</td>
-                    <td class="phpdocumentor-cell">mixed</td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dashboard-sysstats.html#method_getCacheStats">getCacheStats()</a></th>
-                    <td class="phpdocumentor-cell">Cache-Statistiken berechnen</td>
-                    <td class="phpdocumentor-cell">mixed</td>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-dashboard-sysstats.html#method_initObjects">initObjects()</a></th>
+                    <td class="phpdocumentor-cell">Fetch stats from database</td>
+                    <td class="phpdocumentor-cell">bool</td>
                 </tr>
                                                     <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-traits-dashContainerCols.html#method_get2ColRow">get2ColRow()</a></th>
@@ -478,6 +463,26 @@
                 <span class="phpdocumentor-signature__type">int</span>
         <span class="phpdocumentor-signature__name">$deletedCount</span>
          = <span class="phpdocumentor-signature__default-value">""</span>    </code>
+    </article>
+                                    <a id="property_dbStats"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$dbStats</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dashboard/sysstats.php"><a href="../files/inc-model-dashboard-sysstats.html"><abbr title="inc/model/dashboard/sysstats.php">sysstats.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">39</span>
+    </aside>
+            <p class="phpdocumentor-summary">Databased stats values</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$dbStats</span>
+         = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
     </article>
                                                                     <a id="property_name"></a>
 <article
@@ -874,7 +879,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dashboard/sysstats.php"><a href="../files/inc-model-dashboard-sysstats.html"><abbr title="inc/model/dashboard/sysstats.php">sysstats.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">38</span>
+        <span class="phpdocumentor-element-found-in__line">45</span>
     </aside>
         <p class="phpdocumentor-summary">Returns name</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -902,7 +907,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dashboard/sysstats.php"><a href="../files/inc-model-dashboard-sysstats.html"><abbr title="inc/model/dashboard/sysstats.php">sysstats.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">47</span>
+        <span class="phpdocumentor-element-found-in__line">54</span>
     </aside>
         <p class="phpdocumentor-summary">Returns content</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -930,7 +935,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dashboard/sysstats.php"><a href="../files/inc-model-dashboard-sysstats.html"><abbr title="inc/model/dashboard/sysstats.php">sysstats.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">58</span>
+        <span class="phpdocumentor-element-found-in__line">155</span>
     </aside>
         <p class="phpdocumentor-summary">Return container headline</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -958,7 +963,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dashboard/sysstats.php"><a href="../files/inc-model-dashboard-sysstats.html"><abbr title="inc/model/dashboard/sysstats.php">sysstats.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">67</span>
+        <span class="phpdocumentor-element-found-in__line">164</span>
     </aside>
         <p class="phpdocumentor-summary">Returns container position</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -986,7 +991,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dashboard/sysstats.php"><a href="../files/inc-model-dashboard-sysstats.html"><abbr title="inc/model/dashboard/sysstats.php">sysstats.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">76</span>
+        <span class="phpdocumentor-element-found-in__line">173</span>
     </aside>
         <p class="phpdocumentor-summary">Returns container height</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1014,7 +1019,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dashboard/sysstats.php"><a href="../files/inc-model-dashboard-sysstats.html"><abbr title="inc/model/dashboard/sysstats.php">sysstats.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">84</span>
+        <span class="phpdocumentor-element-found-in__line">181</span>
     </aside>
         <p class="phpdocumentor-summary">Check ausführen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1031,144 +1036,39 @@
         <span class="phpdocumentor-signature__response_type">mixed</span>
             
 </article>
-                                    <a id="method_getArticleStats"></a>
+                                    <a id="method_initObjects"></a>
 <article
         class="
             phpdocumentor-method
             phpdocumentor-method--protected
                                                         "
 >
-    <h4 class="phpdocumentor-method__name">getArticleStats()</h4>
+    <h4 class="phpdocumentor-method__name">initObjects()</h4>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dashboard/sysstats.php"><a href="../files/inc-model-dashboard-sysstats.html"><abbr title="inc/model/dashboard/sysstats.php">sysstats.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">104</span>
+        <span class="phpdocumentor-element-found-in__line">190</span>
     </aside>
-        <p class="phpdocumentor-summary">Artikel-Statistiken berechnen</p>
+        <p class="phpdocumentor-summary">Fetch stats from database</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
-                                <span class="phpdocumentor-signature__name">getArticleStats</span>(
+                                <span class="phpdocumentor-signature__name">initObjects</span>(
                 )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
+        : <span class="phpdocumentor-signature__response_type">bool</span>
     </code>
 
     
     
-        
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_getCommentStats"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--protected
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getCommentStats()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dashboard/sysstats.php"><a href="../files/inc-model-dashboard-sysstats.html"><abbr title="inc/model/dashboard/sysstats.php">sysstats.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">174</span>
-    </aside>
-        <p class="phpdocumentor-summary">Kommentar-Statistiken berechnen</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                                <span class="phpdocumentor-signature__name">getCommentStats</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_getUserStats"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--protected
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getUserStats()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dashboard/sysstats.php"><a href="../files/inc-model-dashboard-sysstats.html"><abbr title="inc/model/dashboard/sysstats.php">sysstats.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">223</span>
-    </aside>
-        <p class="phpdocumentor-summary">Benutzer-Statistiken berechnen</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                                <span class="phpdocumentor-signature__name">getUserStats</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_getFileStats"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--protected
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getFileStats()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dashboard/sysstats.php"><a href="../files/inc-model-dashboard-sysstats.html"><abbr title="inc/model/dashboard/sysstats.php">sysstats.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">242</span>
-    </aside>
-        <p class="phpdocumentor-summary">Datei-Statistiken berechnen</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                                <span class="phpdocumentor-signature__name">getFileStats</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
-            
-</article>
-                                    <a id="method_getCacheStats"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--protected
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getCacheStats()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/dashboard/sysstats.php"><a href="../files/inc-model-dashboard-sysstats.html"><abbr title="inc/model/dashboard/sysstats.php">sysstats.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">259</span>
-    </aside>
-        <p class="phpdocumentor-summary">Cache-Statistiken berechnen</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                                <span class="phpdocumentor-signature__name">getCacheStats</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
+        <span class="phpdocumentor-signature__response_type">bool</span>
             
 </article>
                                                                     <a id="method_get2ColRow"></a>

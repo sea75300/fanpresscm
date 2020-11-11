@@ -150,6 +150,11 @@
                     <td class="phpdocumentor-cell">int</td>
                 </tr>
                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-image.html#property_alttext">$alttext</a></th>
+                    <td class="phpdocumentor-cell">Alternate text</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-image.html#property_mimetype">$mimetype</a></th>
                     <td class="phpdocumentor-cell">MIME-Dateityp-Info</td>
                     <td class="phpdocumentor-cell">string</td>
@@ -158,6 +163,11 @@
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-image.html#property_iptcStr">$iptcStr</a></th>
                     <td class="phpdocumentor-cell">Exif/ IPCT data</td>
                     <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-image.html#property_isIndexed">$isIndexed</a></th>
+                    <td class="phpdocumentor-cell">Flag if file is in file index</td>
+                    <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-image.html#property_dbParams">$dbParams</a></th>
@@ -320,6 +330,11 @@
                     <td class="phpdocumentor-cell">int</td>
                 </tr>
                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-image.html#method_getAltText">getAltText()</a></th>
+                    <td class="phpdocumentor-cell">Get alternate text</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-image.html#method_getMimetype">getMimetype()</a></th>
                     <td class="phpdocumentor-cell">MIME-Type ausgeben</td>
                     <td class="phpdocumentor-cell">int</td>
@@ -345,6 +360,11 @@
                     <td class="phpdocumentor-cell">mixed</td>
                 </tr>
                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-image.html#method_setAltText">setAltText()</a></th>
+                    <td class="phpdocumentor-cell">Set alternate text</td>
+                    <td class="phpdocumentor-cell">mixed</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-image.html#method_save">save()</a></th>
                     <td class="phpdocumentor-cell">Speichert einen neuen Datei-Eintrag in der Datenbank</td>
                     <td class="phpdocumentor-cell">bool</td>
@@ -366,7 +386,7 @@
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-image.html#method_exists">exists()</a></th>
-                    <td class="phpdocumentor-cell">Prüft ob Datei existiert</td>
+                    <td class="phpdocumentor-cell">Check if image exists</td>
                     <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
@@ -704,6 +724,26 @@
         <span class="phpdocumentor-signature__name">$filetime</span>
             </code>
     </article>
+                                    <a id="property_alttext"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$alttext</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">72</span>
+    </aside>
+            <p class="phpdocumentor-summary">Alternate text</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$alttext</span>
+            </code>
+    </article>
                                     <a id="property_mimetype"></a>
 <article
         class="
@@ -715,7 +755,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">72</span>
+        <span class="phpdocumentor-element-found-in__line">78</span>
     </aside>
             <p class="phpdocumentor-summary">MIME-Dateityp-Info</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -735,7 +775,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">78</span>
+        <span class="phpdocumentor-element-found-in__line">84</span>
     </aside>
             <p class="phpdocumentor-summary">Exif/ IPCT data</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -743,6 +783,26 @@
                 <span class="phpdocumentor-signature__type">string</span>
         <span class="phpdocumentor-signature__name">$iptcStr</span>
             </code>
+    </article>
+                                    <a id="property_isIndexed"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$isIndexed</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">91</span>
+    </aside>
+            <p class="phpdocumentor-summary">Flag if file is in file index</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$isIndexed</span>
+         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
     </article>
                                     <a id="property_dbParams"></a>
 <article
@@ -755,14 +815,14 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">84</span>
+        <span class="phpdocumentor-element-found-in__line">97</span>
     </aside>
             <p class="phpdocumentor-summary">Felder die in Datenbank gespeichert werden können</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
                 <span class="phpdocumentor-signature__type">array</span>
         <span class="phpdocumentor-signature__name">$dbParams</span>
-         = <span class="phpdocumentor-signature__default-value">[&#039;userid&#039;, &#039;filename&#039;, &#039;filetime&#039;, &#039;filesize&#039;]</span>    </code>
+         = <span class="phpdocumentor-signature__default-value">[&#039;userid&#039;, &#039;filename&#039;, &#039;filetime&#039;, &#039;filesize&#039;, &#039;alttext&#039;]</span>    </code>
     </article>
                                                                     <a id="property_table"></a>
 <article
@@ -1099,7 +1159,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">92</span>
+        <span class="phpdocumentor-element-found-in__line">105</span>
     </aside>
         <p class="phpdocumentor-summary">Konstruktor</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1113,10 +1173,6 @@
             [,                 <span class="phpdocumentor-signature__argument__name">$initDB</span> :
                 <span class="phpdocumentor-signature__argument__return-type">bool</span>
                  = <span class="phpdocumentor-signature__argument__default-value">true</span> ]            </span>
-                    <span class="phpdocumentor-signature__argument">
-            [,                 <span class="phpdocumentor-signature__argument__name">$forceInit</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">bool</span>
     </code>
@@ -1134,11 +1190,6 @@
                     : <span class="phpdocumentor-signature__argument__return-type">bool</span>
                      = <span class="phpdocumentor-signature__argument__default-value">true</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Datenbank-Eintrag initialisieren</p></section></dd>
-                            <dt class="phpdocumentor-argument-list__entry">
-                    <span class="phpdocumentor-signature__argument__name">$forceInit</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Initialisierung erzwingen</p></section></dd>
                     </dl>
     
         
@@ -1157,7 +1208,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">110</span>
+        <span class="phpdocumentor-element-found-in__line">121</span>
     </aside>
         <p class="phpdocumentor-summary">Returns base path for file</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1197,7 +1248,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">119</span>
+        <span class="phpdocumentor-element-found-in__line">130</span>
     </aside>
         <p class="phpdocumentor-summary">Datensatz-ID</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1225,7 +1276,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">128</span>
+        <span class="phpdocumentor-element-found-in__line">139</span>
     </aside>
         <p class="phpdocumentor-summary">Bild-Url ausgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1253,7 +1304,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">137</span>
+        <span class="phpdocumentor-element-found-in__line">148</span>
     </aside>
         <p class="phpdocumentor-summary">Thumbnail-Url ausgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1281,7 +1332,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">146</span>
+        <span class="phpdocumentor-element-found-in__line">157</span>
     </aside>
         <p class="phpdocumentor-summary">Dateimanager-Thumbnail ausgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1309,7 +1360,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">155</span>
+        <span class="phpdocumentor-element-found-in__line">166</span>
     </aside>
         <p class="phpdocumentor-summary">Thumbnail-Pfad ausgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1337,7 +1388,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">169</span>
+        <span class="phpdocumentor-element-found-in__line">180</span>
     </aside>
         <p class="phpdocumentor-summary">kompletten Thumbnail-Pfad ausgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1365,7 +1416,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">178</span>
+        <span class="phpdocumentor-element-found-in__line">189</span>
     </aside>
         <p class="phpdocumentor-summary">Dateimanager-Thumbnail-Pfad ausgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1393,7 +1444,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">188</span>
+        <span class="phpdocumentor-element-found-in__line">199</span>
     </aside>
         <p class="phpdocumentor-summary">Checks if file amanager thumbnail exists</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1428,7 +1479,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">196</span>
+        <span class="phpdocumentor-element-found-in__line">207</span>
     </aside>
         <p class="phpdocumentor-summary">Breite ausgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1456,7 +1507,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">205</span>
+        <span class="phpdocumentor-element-found-in__line">216</span>
     </aside>
         <p class="phpdocumentor-summary">Höhe ausgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1484,7 +1535,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">214</span>
+        <span class="phpdocumentor-element-found-in__line">225</span>
     </aside>
         <p class="phpdocumentor-summary">String width=&quot;&quot; height=&quot;&quot; auslesen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1512,7 +1563,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">223</span>
+        <span class="phpdocumentor-element-found-in__line">234</span>
     </aside>
         <p class="phpdocumentor-summary">Uploader-ID ausgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1540,7 +1591,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">232</span>
+        <span class="phpdocumentor-element-found-in__line">243</span>
     </aside>
         <p class="phpdocumentor-summary">Upload-Zeit ausgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1557,6 +1608,41 @@
         <span class="phpdocumentor-signature__response_type">int</span>
             
 </article>
+                                    <a id="method_getAltText"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getAltText()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">253</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get alternate text</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getAltText</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
                                     <a id="method_getMimetype"></a>
 <article
         class="
@@ -1568,7 +1654,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">241</span>
+        <span class="phpdocumentor-element-found-in__line">262</span>
     </aside>
         <p class="phpdocumentor-summary">MIME-Type ausgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1596,7 +1682,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">250</span>
+        <span class="phpdocumentor-element-found-in__line">271</span>
     </aside>
         <p class="phpdocumentor-summary">Returns IPTC credit string</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1624,7 +1710,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">258</span>
+        <span class="phpdocumentor-element-found-in__line">279</span>
     </aside>
         <p class="phpdocumentor-summary">Datensatz-ID setzen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1664,7 +1750,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">267</span>
+        <span class="phpdocumentor-element-found-in__line">288</span>
     </aside>
         <p class="phpdocumentor-summary">Benutzer-ID setzen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1704,7 +1790,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">276</span>
+        <span class="phpdocumentor-element-found-in__line">297</span>
     </aside>
         <p class="phpdocumentor-summary">Upload-Zeit setzen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1733,6 +1819,46 @@
         <span class="phpdocumentor-signature__response_type">mixed</span>
             
 </article>
+                                    <a id="method_setAltText"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setAltText()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">307</span>
+    </aside>
+        <p class="phpdocumentor-summary">Set alternate text</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setAltText</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$alttext</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">mixed</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$alttext</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><h1>@since 4.5</h1></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">mixed</span>
+            
+</article>
                                     <a id="method_save"></a>
 <article
         class="
@@ -1744,7 +1870,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">285</span>
+        <span class="phpdocumentor-element-found-in__line">316</span>
     </aside>
         <p class="phpdocumentor-summary">Speichert einen neuen Datei-Eintrag in der Datenbank</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1772,7 +1898,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">301</span>
+        <span class="phpdocumentor-element-found-in__line">332</span>
     </aside>
         <p class="phpdocumentor-summary">Aktualisiert einen Datei-Eintrag in der Datenbank</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1800,7 +1926,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">320</span>
+        <span class="phpdocumentor-element-found-in__line">351</span>
     </aside>
         <p class="phpdocumentor-summary">Löscht Datei-Eintrag in Datenbank und Datei in Dateisystem</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1828,7 +1954,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">345</span>
+        <span class="phpdocumentor-element-found-in__line">376</span>
     </aside>
         <p class="phpdocumentor-summary">Benennt eine Datei um</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1877,15 +2003,15 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">384</span>
+        <span class="phpdocumentor-element-found-in__line">415</span>
     </aside>
-        <p class="phpdocumentor-summary">Prüft ob Datei existiert</p>
+        <p class="phpdocumentor-summary">Check if image exists</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">exists</span>(
                     <span class="phpdocumentor-signature__argument">
             [                <span class="phpdocumentor-signature__argument__name">$dbOnly</span> :
-                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\fpcm\model\files\type">type</abbr></span>
                  = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">bool</span>
@@ -1896,7 +2022,7 @@
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$dbOnly</span>
-                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\fpcm\model\files\type">type</abbr></span>
                      = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
@@ -1917,7 +2043,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">403</span>
+        <span class="phpdocumentor-element-found-in__line">434</span>
     </aside>
         <p class="phpdocumentor-summary">Prüft, ob Bild nur in Dateisystem existiert</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1952,7 +2078,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">416</span>
+        <span class="phpdocumentor-element-found-in__line">447</span>
     </aside>
         <p class="phpdocumentor-summary">Erzeugt ein Thumbnail für das aktuelle Bild</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1980,7 +2106,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">450</span>
+        <span class="phpdocumentor-element-found-in__line">481</span>
     </aside>
         <p class="phpdocumentor-summary">Gibt Speicher-Values zurück</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2008,7 +2134,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">465</span>
+        <span class="phpdocumentor-element-found-in__line">496</span>
     </aside>
         <p class="phpdocumentor-summary">initialisiert Bild-Objekt</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2048,7 +2174,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">507</span>
+        <span class="phpdocumentor-element-found-in__line">543</span>
     </aside>
         <p class="phpdocumentor-summary">Füllt Objekt mit Daten aus Datenbank-Result</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2095,7 +2221,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">537</span>
+        <span class="phpdocumentor-element-found-in__line">573</span>
     </aside>
         <p class="phpdocumentor-summary">Bereitet Eigenschaften des Objects zum Speichern ind er Datenbank vor und entfernt nicht speicherbare Eigenschaften</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2130,7 +2256,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">554</span>
+        <span class="phpdocumentor-element-found-in__line">590</span>
     </aside>
         <p class="phpdocumentor-summary">Splits filename with possible folder</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2177,7 +2303,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">576</span>
+        <span class="phpdocumentor-element-found-in__line">612</span>
     </aside>
         <p class="phpdocumentor-summary">reads IPTC data from file</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2224,7 +2350,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/image.php"><a href="../files/inc-model-files-image.html"><abbr title="inc/model/files/image.php">image.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">617</span>
+        <span class="phpdocumentor-element-found-in__line">653</span>
     </aside>
         <p class="phpdocumentor-summary">Check if file extension and file type is valid</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3107,7 +3233,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/file.php"><a href="../files/inc-model-abstracts-file.html"><abbr title="inc/model/abstracts/file.php">file.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">485</span>
+        <span class="phpdocumentor-element-found-in__line">489</span>
     </aside>
         <p class="phpdocumentor-summary">&quot;realpath&quot; wrapper for non-existing files</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3158,7 +3284,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/file.php"><a href="../files/inc-model-abstracts-file.html"><abbr title="inc/model/abstracts/file.php">file.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">496</span>
+        <span class="phpdocumentor-element-found-in__line">500</span>
     </aside>
         <p class="phpdocumentor-summary">Retrieve file extension via pathinfo</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">

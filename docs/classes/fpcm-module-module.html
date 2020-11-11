@@ -307,6 +307,11 @@
                     <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-module-module.html#method_getConfigureFields">getConfigureFields()</a></th>
+                    <td class="phpdocumentor-cell">Fetch module configuration config from configure.yml</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-module-module.html#method_hasFilesListFile">hasFilesListFile()</a></th>
                     <td class="phpdocumentor-cell">Check if config/files.txt file exists</td>
                     <td class="phpdocumentor-cell">bool</td>
@@ -1602,21 +1607,68 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">391</span>
+        <span class="phpdocumentor-element-found-in__line">393</span>
     </aside>
         <p class="phpdocumentor-summary">Check if configure action should be displayed</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">hasConfigure</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$legacy</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">bool</span>
     </code>
 
     
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$legacy</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_getConfigureFields"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getConfigureFields()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">413</span>
+    </aside>
+        <p class="phpdocumentor-summary">Fetch module configuration config from configure.yml</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getConfigureFields</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
             
 </article>
                                     <a id="method_hasFilesListFile"></a>
@@ -1630,7 +1682,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">401</span>
+        <span class="phpdocumentor-element-found-in__line">424</span>
     </aside>
         <p class="phpdocumentor-summary">Check if config/files.txt file exists</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1665,7 +1717,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">410</span>
+        <span class="phpdocumentor-element-found-in__line">433</span>
     </aside>
         <p class="phpdocumentor-summary">Initialize module object</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1693,7 +1745,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">433</span>
+        <span class="phpdocumentor-element-found-in__line">456</span>
     </aside>
         <p class="phpdocumentor-summary">Fetch complete module prefix</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1733,7 +1785,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">443</span>
+        <span class="phpdocumentor-element-found-in__line">466</span>
     </aside>
         <p class="phpdocumentor-summary">Remove module prefix</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1773,7 +1825,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">453</span>
+        <span class="phpdocumentor-element-found-in__line">476</span>
     </aside>
         <p class="phpdocumentor-summary">Fetch \fpcm\model\system\yatdl object</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1813,7 +1865,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">471</span>
+        <span class="phpdocumentor-element-found-in__line">494</span>
     </aside>
         <p class="phpdocumentor-summary">Return list of table files from module</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1841,7 +1893,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">486</span>
+        <span class="phpdocumentor-element-found-in__line">509</span>
     </aside>
         <p class="phpdocumentor-summary">Fetch module system config options</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1869,7 +1921,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">513</span>
+        <span class="phpdocumentor-element-found-in__line">536</span>
     </aside>
         <p class="phpdocumentor-summary">Create module config</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1909,7 +1961,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">537</span>
+        <span class="phpdocumentor-element-found-in__line">560</span>
     </aside>
         <p class="phpdocumentor-summary">Install module</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1949,7 +2001,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">578</span>
+        <span class="phpdocumentor-element-found-in__line">601</span>
     </aside>
         <p class="phpdocumentor-summary">Add module entry to database</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1989,7 +2041,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">603</span>
+        <span class="phpdocumentor-element-found-in__line">626</span>
     </aside>
         <p class="phpdocumentor-summary">Create module tables</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2017,7 +2069,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">627</span>
+        <span class="phpdocumentor-element-found-in__line">650</span>
     </aside>
         <p class="phpdocumentor-summary">Create module config options</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2045,7 +2097,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">652</span>
+        <span class="phpdocumentor-element-found-in__line">675</span>
     </aside>
         <p class="phpdocumentor-summary">Create module config options</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2073,7 +2125,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">716</span>
+        <span class="phpdocumentor-element-found-in__line">739</span>
     </aside>
         <p class="phpdocumentor-summary">Uninstall module</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2122,7 +2174,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">756</span>
+        <span class="phpdocumentor-element-found-in__line">779</span>
     </aside>
         <p class="phpdocumentor-summary">Remove module database entry</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2150,7 +2202,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">766</span>
+        <span class="phpdocumentor-element-found-in__line">789</span>
     </aside>
         <p class="phpdocumentor-summary">Remove module files</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2178,7 +2230,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">776</span>
+        <span class="phpdocumentor-element-found-in__line">799</span>
     </aside>
         <p class="phpdocumentor-summary">Remove module tables</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2206,7 +2258,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">806</span>
+        <span class="phpdocumentor-element-found-in__line">829</span>
     </aside>
         <p class="phpdocumentor-summary">Remove module config</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2234,7 +2286,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">820</span>
+        <span class="phpdocumentor-element-found-in__line">843</span>
     </aside>
         <p class="phpdocumentor-summary">Create module config options</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2262,7 +2314,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">836</span>
+        <span class="phpdocumentor-element-found-in__line">859</span>
     </aside>
         <p class="phpdocumentor-summary">Update module</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2290,7 +2342,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">870</span>
+        <span class="phpdocumentor-element-found-in__line">893</span>
     </aside>
         <p class="phpdocumentor-summary">Update module databse entry</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2318,7 +2370,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">884</span>
+        <span class="phpdocumentor-element-found-in__line">907</span>
     </aside>
         <p class="phpdocumentor-summary">Update module tables</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2346,7 +2398,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">958</span>
+        <span class="phpdocumentor-element-found-in__line">981</span>
     </aside>
         <p class="phpdocumentor-summary">Update module config</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2374,7 +2426,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">982</span>
+        <span class="phpdocumentor-element-found-in__line">1005</span>
     </aside>
         <p class="phpdocumentor-summary">fetch module key from filepath</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2414,7 +2466,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">994</span>
+        <span class="phpdocumentor-element-found-in__line">1017</span>
     </aside>
         <p class="phpdocumentor-summary">fetch module key from filename</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2454,7 +2506,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1004</span>
+        <span class="phpdocumentor-element-found-in__line">1037</span>
     </aside>
         <p class="phpdocumentor-summary">fetch module key from class name</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2494,7 +2546,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1019</span>
+        <span class="phpdocumentor-element-found-in__line">1052</span>
     </aside>
         <p class="phpdocumentor-summary">Get module event class name</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2543,7 +2595,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1030</span>
+        <span class="phpdocumentor-element-found-in__line">1063</span>
     </aside>
         <p class="phpdocumentor-summary">Get module controller class name</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2592,7 +2644,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1042</span>
+        <span class="phpdocumentor-element-found-in__line">1075</span>
     </aside>
         <p class="phpdocumentor-summary">Return Namespace of module cronjobs</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2648,7 +2700,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1053</span>
+        <span class="phpdocumentor-element-found-in__line">1086</span>
     </aside>
         <p class="phpdocumentor-summary">Get config file path</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2697,7 +2749,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1064</span>
+        <span class="phpdocumentor-element-found-in__line">1097</span>
     </aside>
         <p class="phpdocumentor-summary">Get template file path</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2746,7 +2798,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1076</span>
+        <span class="phpdocumentor-element-found-in__line">1109</span>
     </aside>
         <p class="phpdocumentor-summary">Get JS file path</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2802,7 +2854,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1088</span>
+        <span class="phpdocumentor-element-found-in__line">1121</span>
     </aside>
         <p class="phpdocumentor-summary">Get CSS file path</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2858,7 +2910,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1099</span>
+        <span class="phpdocumentor-element-found-in__line">1132</span>
     </aside>
         <p class="phpdocumentor-summary">Get language file path</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2907,7 +2959,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1110</span>
+        <span class="phpdocumentor-element-found-in__line">1143</span>
     </aside>
         <p class="phpdocumentor-summary">Get base path from module</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2954,7 +3006,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1121</span>
+        <span class="phpdocumentor-element-found-in__line">1154</span>
     </aside>
         <p class="phpdocumentor-summary">Returns root URL for module path</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3001,7 +3053,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1131</span>
+        <span class="phpdocumentor-element-found-in__line">1164</span>
     </aside>
         <p class="phpdocumentor-summary">Assign module language variable prefix</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3041,7 +3093,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/module/module.php"><a href="../files/inc-module-module.html"><abbr title="inc/module/module.php">module.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1142</span>
+        <span class="phpdocumentor-element-found-in__line">1175</span>
     </aside>
         <p class="phpdocumentor-summary">Validate module key</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">

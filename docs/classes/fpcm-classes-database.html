@@ -283,6 +283,11 @@
                     <td class="phpdocumentor-cell"><abbr title="\PDOStatement">PDOStatement</abbr>|array</td>
                 </tr>
                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-database.html#method_unionSelectFetch">unionSelectFetch()</a></th>
+                    <td class="phpdocumentor-cell">Executes UNION combined select and fetch</td>
+                    <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-database.html#method_insert">insert()</a></th>
                     <td class="phpdocumentor-cell">Execute insert query</td>
                     <td class="phpdocumentor-cell">int</td>
@@ -334,7 +339,7 @@
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-database.html#method_exec">exec()</a></th>
-                    <td class="phpdocumentor-cell">Führt ein SQL Kommando aus</td>
+                    <td class="phpdocumentor-cell">Executes a sql query</td>
                     <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
@@ -350,12 +355,7 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-database.html#method_query">query()</a></th>
                     <td class="phpdocumentor-cell">Führt ein SQL Kommando aus und gibt Result-Set zurück</td>
-                    <td class="phpdocumentor-cell"><abbr title="\fpcm\classes\PDOStatement">PDOStatement</abbr></td>
-                </tr>
-                            <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-database.html#method_getError">getError()</a></th>
-                    <td class="phpdocumentor-cell">Schreibt letzte Fehlermeldung der DB-Verbindung in DB-Log</td>
-                    <td class="phpdocumentor-cell">bool</td>
+                    <td class="phpdocumentor-cell"><abbr title="\PDOStatement">PDOStatement</abbr></td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-database.html#method_getStatementError">getStatementError()</a></th>
@@ -521,6 +521,11 @@
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-database.html#method_getLenghtTypes">getLenghtTypes()</a></th>
                     <td class="phpdocumentor-cell">Return data types with length params</td>
                     <td class="phpdocumentor-cell">array</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-classes-database.html#method_replacePrefixVar">replacePrefixVar()</a></th>
+                    <td class="phpdocumentor-cell">Replaces {{dbpref}} variable in SQL query</td>
+                    <td class="phpdocumentor-cell">bool</td>
                 </tr>
                                             </table>
 
@@ -1272,7 +1277,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">253</span>
+        <span class="phpdocumentor-element-found-in__line">254</span>
     </aside>
         <p class="phpdocumentor-summary">Der Destruktor</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1300,7 +1305,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">267</span>
+        <span class="phpdocumentor-element-found-in__line">268</span>
     </aside>
         <p class="phpdocumentor-summary">Führt SELECT-Befehl auf DB aus</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1376,7 +1381,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">284</span>
+        <span class="phpdocumentor-element-found-in__line">285</span>
     </aside>
         <p class="phpdocumentor-summary">Executes select and fetch in one function</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1405,6 +1410,71 @@
         <span class="phpdocumentor-signature__response_type"><abbr title="\PDOStatement">PDOStatement</abbr>|array</span>
             
 </article>
+                                    <a id="method_unionSelectFetch"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">unionSelectFetch()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">309</span>
+    </aside>
+        <p class="phpdocumentor-summary">Executes UNION combined select and fetch</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">unionSelectFetch</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$selects</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$fetchStyle</span> :
+                <span class="phpdocumentor-signature__argument__return-type">int</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">\PDO::FETCH_OBJ</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$returnResult</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">array</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$selects</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fetchStyle</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">\PDO::FETCH_OBJ</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$returnResult</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
                                     <a id="method_insert"></a>
 <article
         class="
@@ -1416,7 +1486,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">305</span>
+        <span class="phpdocumentor-element-found-in__line">348</span>
     </aside>
         <p class="phpdocumentor-summary">Execute insert query</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1465,7 +1535,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">328</span>
+        <span class="phpdocumentor-element-found-in__line">371</span>
     </aside>
         <p class="phpdocumentor-summary">Führt UPDATE-Befehl auf DB aus</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1532,7 +1602,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">347</span>
+        <span class="phpdocumentor-element-found-in__line">390</span>
     </aside>
         <p class="phpdocumentor-summary">Führt mehrere UPDATE-Befehl auf DB mit einmal aus</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1606,7 +1676,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">386</span>
+        <span class="phpdocumentor-element-found-in__line">429</span>
     </aside>
         <p class="phpdocumentor-summary">Führt DELETE-Befehl auf DB aus</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1664,7 +1734,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">404</span>
+        <span class="phpdocumentor-element-found-in__line">448</span>
     </aside>
         <p class="phpdocumentor-summary">Ändert Tabellenstruktur via ALTER TABLE</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1740,7 +1810,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">422</span>
+        <span class="phpdocumentor-element-found-in__line">466</span>
     </aside>
         <p class="phpdocumentor-summary">Zählt nach den angebenen Einstellungen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1807,7 +1877,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">445</span>
+        <span class="phpdocumentor-element-found-in__line">488</span>
     </aside>
         <p class="phpdocumentor-summary">Negiert den Wert des übergebenen Feldes</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1865,7 +1935,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">459</span>
+        <span class="phpdocumentor-element-found-in__line">503</span>
     </aside>
         <p class="phpdocumentor-summary">Liefert höchten Wert einer Tabellen-ID</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1905,7 +1975,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">476</span>
+        <span class="phpdocumentor-element-found-in__line">520</span>
     </aside>
         <p class="phpdocumentor-summary">Tabelle via DROP TABLE löschen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1945,7 +2015,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">490</span>
+        <span class="phpdocumentor-element-found-in__line">534</span>
     </aside>
         <p class="phpdocumentor-summary">Index auf eine Spalte in der übergebenen Tabelle erzeugen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2019,9 +2089,9 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">502</span>
+        <span class="phpdocumentor-element-found-in__line">545</span>
     </aside>
-        <p class="phpdocumentor-summary">Führt ein SQL Kommando aus</p>
+        <p class="phpdocumentor-summary">Executes a sql query</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">exec</span>(
@@ -2044,12 +2114,12 @@
                     <span class="phpdocumentor-signature__argument__name">$command</span>
                     : <span class="phpdocumentor-signature__argument__return-type">string</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>SQL String</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$bindParams</span>
                     : <span class="phpdocumentor-signature__argument__return-type">array</span>
                      = <span class="phpdocumentor-signature__argument__default-value">[]</span>                </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Paramater, welche gebunden werden sollen</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
         
@@ -2068,7 +2138,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">548</span>
+        <span class="phpdocumentor-element-found-in__line">589</span>
     </aside>
         <p class="phpdocumentor-summary">Führt SQL-Datei aus</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2115,7 +2185,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">590</span>
+        <span class="phpdocumentor-element-found-in__line">629</span>
     </aside>
         <p class="phpdocumentor-summary">Parst YaTDL-Datei und führt SQL-Statement aus</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2162,7 +2232,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">630</span>
+        <span class="phpdocumentor-element-found-in__line">667</span>
     </aside>
         <p class="phpdocumentor-summary">Führt ein SQL Kommando aus und gibt Result-Set zurück</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2177,7 +2247,7 @@
                 <span class="phpdocumentor-signature__argument__return-type">array</span>
                  = <span class="phpdocumentor-signature__argument__default-value">[]</span> ]            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type"><abbr title="\fpcm\classes\PDOStatement">PDOStatement</abbr></span>
+        : <span class="phpdocumentor-signature__response_type"><abbr title="\PDOStatement">PDOStatement</abbr></span>
     </code>
 
     
@@ -2197,36 +2267,7 @@
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type"><abbr title="\fpcm\classes\PDOStatement">PDOStatement</abbr></span>
-                    &mdash; <span class="phpdocumentor-description"><p>Zeilen in der Datenbank</p></span>
-            
-</article>
-                                    <a id="method_getError"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--public
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">getError()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">673</span>
-    </aside>
-        <p class="phpdocumentor-summary">Schreibt letzte Fehlermeldung der DB-Verbindung in DB-Log</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">public</span>
-                                <span class="phpdocumentor-signature__name">getError</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
-
-    
-    
-        
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\PDOStatement">PDOStatement</abbr></span>
             
 </article>
                                     <a id="method_getStatementError"></a>
@@ -2240,7 +2281,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">691</span>
+        <span class="phpdocumentor-element-found-in__line">709</span>
     </aside>
         <p class="phpdocumentor-summary">Schreibt letzte Fehlermeldung des ausgefühtren Statements in DB-Log</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2280,7 +2321,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">717</span>
+        <span class="phpdocumentor-element-found-in__line">726</span>
     </aside>
         <p class="phpdocumentor-summary">Returns result set from database query</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2338,7 +2379,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">730</span>
+        <span class="phpdocumentor-element-found-in__line">739</span>
     </aside>
         <p class="phpdocumentor-summary">Liefert ID des letzten Insert-Eintrags</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2366,7 +2407,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">748</span>
+        <span class="phpdocumentor-element-found-in__line">757</span>
     </aside>
         <p class="phpdocumentor-summary">Liefert zuletzt ausgeführten Query-String zurück</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2394,7 +2435,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">758</span>
+        <span class="phpdocumentor-element-found-in__line">767</span>
     </aside>
         <p class="phpdocumentor-summary">Returns common sql error code</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2429,7 +2470,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">769</span>
+        <span class="phpdocumentor-element-found-in__line">778</span>
     </aside>
         <p class="phpdocumentor-summary">Erzeugt LIMIT-SQL-String</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2478,7 +2519,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">779</span>
+        <span class="phpdocumentor-element-found-in__line">788</span>
     </aside>
         <p class="phpdocumentor-summary">Erzeugt ORDER BY-SQL-String</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2518,7 +2559,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">790</span>
+        <span class="phpdocumentor-element-found-in__line">799</span>
     </aside>
         <p class="phpdocumentor-summary">Erzeugt CONCAT SQL-String</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2565,7 +2606,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">802</span>
+        <span class="phpdocumentor-element-found-in__line">811</span>
     </aside>
         <p class="phpdocumentor-summary">Erzeugt CONCAT_WS SQL-String</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2621,7 +2662,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">815</span>
+        <span class="phpdocumentor-element-found-in__line">824</span>
     </aside>
         <p class="phpdocumentor-summary">Creates IN-Query for prepared statement</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2686,7 +2727,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">825</span>
+        <span class="phpdocumentor-element-found-in__line">834</span>
     </aside>
         <p class="phpdocumentor-summary">Erzeugt LIKE-SQL-String</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2721,7 +2762,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">836</span>
+        <span class="phpdocumentor-element-found-in__line">845</span>
     </aside>
         <p class="phpdocumentor-summary">Erzeugt Query für Optimierungsvorgang auf Datenbank-Tabellen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2768,7 +2809,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">845</span>
+        <span class="phpdocumentor-element-found-in__line">854</span>
     </aside>
         <p class="phpdocumentor-summary">Tabellen-Prefix zurückgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2796,7 +2837,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">856</span>
+        <span class="phpdocumentor-element-found-in__line">865</span>
     </aside>
         <p class="phpdocumentor-summary">Kompletten Tabellen-Name mit Prefix zurückgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2843,7 +2884,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">871</span>
+        <span class="phpdocumentor-element-found-in__line">880</span>
     </aside>
         <p class="phpdocumentor-summary">Datenbank-Typ zurückgeben</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2878,7 +2919,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">881</span>
+        <span class="phpdocumentor-element-found-in__line">890</span>
     </aside>
         <p class="phpdocumentor-summary">Gibt Anzahl an ausgeführt Datenbank-Queries zurück</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2913,7 +2954,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">891</span>
+        <span class="phpdocumentor-element-found-in__line">900</span>
     </aside>
         <p class="phpdocumentor-summary">Gibt Datentypen-Map zurück für YATDL</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2948,7 +2989,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">901</span>
+        <span class="phpdocumentor-element-found-in__line">910</span>
     </aside>
         <p class="phpdocumentor-summary">Gibt Version des verbundenen Datenbank-Systems zurück</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2983,7 +3024,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">911</span>
+        <span class="phpdocumentor-element-found-in__line">920</span>
     </aside>
         <p class="phpdocumentor-summary">Prüft, ob aktuelle Version des DBMS &gt;= der empfohlenen Version ist</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3018,7 +3059,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">921</span>
+        <span class="phpdocumentor-element-found-in__line">930</span>
     </aside>
         <p class="phpdocumentor-summary">Gibt Version des verbundenen Datenbank-Systems zurück</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3053,7 +3094,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">934</span>
+        <span class="phpdocumentor-element-found-in__line">943</span>
     </aside>
         <p class="phpdocumentor-summary">Returns database structure for certain table and/or column</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3118,7 +3159,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">967</span>
+        <span class="phpdocumentor-element-found-in__line">976</span>
     </aside>
         <p class="phpdocumentor-summary">Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3158,7 +3199,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1014</span>
+        <span class="phpdocumentor-element-found-in__line">1026</span>
     </aside>
         <p class="phpdocumentor-summary">Removes columns to database table by definition in object of type @see \fpcm\model\system\yatdl</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3198,7 +3239,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1041</span>
+        <span class="phpdocumentor-element-found-in__line">1053</span>
     </aside>
         <p class="phpdocumentor-summary">Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3245,7 +3286,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1082</span>
+        <span class="phpdocumentor-element-found-in__line">1094</span>
     </aside>
         <p class="phpdocumentor-summary">Create view in database</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3301,7 +3342,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1101</span>
+        <span class="phpdocumentor-element-found-in__line">1113</span>
     </aside>
         <p class="phpdocumentor-summary">Datei data/config/database.php erzeugen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3348,7 +3389,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1134</span>
+        <span class="phpdocumentor-element-found-in__line">1146</span>
     </aside>
         <p class="phpdocumentor-summary">Error die</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3376,7 +3417,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1145</span>
+        <span class="phpdocumentor-element-found-in__line">1157</span>
     </aside>
         <p class="phpdocumentor-summary">Liefert YMl-Dateien aus Pfad zurück</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3423,7 +3464,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1169</span>
+        <span class="phpdocumentor-element-found-in__line">1181</span>
     </aside>
         <p class="phpdocumentor-summary">SQL-EXPLAIN de/aktivieren</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3470,7 +3511,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1178</span>
+        <span class="phpdocumentor-element-found-in__line">1190</span>
     </aside>
         <p class="phpdocumentor-summary">Returns PDO DNS string</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3498,7 +3539,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1188</span>
+        <span class="phpdocumentor-element-found-in__line">1200</span>
     </aside>
         <p class="phpdocumentor-summary">Returns PDO options array</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3526,7 +3567,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1201</span>
+        <span class="phpdocumentor-element-found-in__line">1213</span>
     </aside>
         <p class="phpdocumentor-summary">Returns indices defined for the certain table and or column</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3591,7 +3632,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1233</span>
+        <span class="phpdocumentor-element-found-in__line">1245</span>
     </aside>
         <p class="phpdocumentor-summary">Return data types with length params</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3606,6 +3647,53 @@
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">array</span>
+            
+</article>
+                                    <a id="method_replacePrefixVar"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">replacePrefixVar()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/classes/database.php"><a href="../files/inc-classes-database.html"><abbr title="inc/classes/database.php">database.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">1269</span>
+    </aside>
+        <p class="phpdocumentor-summary">Replaces {{dbpref}} variable in SQL query</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">replacePrefixVar</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$sql</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$sql</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
             
 </article>
                                                             </section>

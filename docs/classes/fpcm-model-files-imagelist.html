@@ -106,7 +106,17 @@
 
         <h3>Table of Contents</h3>
         <table class="phpdocumentor-table_of_contents">
-                                                                <tr>
+                                        <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-imagelist.html#property_indexUserId">$indexUserId</a></th>
+                    <td class="phpdocumentor-cell">User id to use for file indexing</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-imagelist.html#property_finfo">$finfo</a></th>
+                    <td class="phpdocumentor-cell">finfo instance</td>
+                    <td class="phpdocumentor-cell"><abbr title="\finfo">finfo</abbr></td>
+                </tr>
+                                                    <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-filelist.html#property_exts">$exts</a></th>
                     <td class="phpdocumentor-cell">erlaute Dateierweiterungen</td>
                     <td class="phpdocumentor-cell">array</td>
@@ -198,8 +208,13 @@
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-imagelist.html#method_updateFileIndex">updateFileIndex()</a></th>
-                    <td class="phpdocumentor-cell">Aktualisiert Dateiindex in Datenbank</td>
-                    <td class="phpdocumentor-cell">mixed</td>
+                    <td class="phpdocumentor-cell">Updates file index</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-imagelist.html#method_addToIndex">addToIndex()</a></th>
+                    <td class="phpdocumentor-cell">Add single file to index</td>
+                    <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-imagelist.html#method_getDatabaseFileCount">getDatabaseFileCount()</a></th>
@@ -208,8 +223,8 @@
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-imagelist.html#method_createFilemanagerThumbs">createFilemanagerThumbs()</a></th>
-                    <td class="phpdocumentor-cell">Erzeugt Thumbanils für Dateimanager</td>
-                    <td class="phpdocumentor-cell">mixed</td>
+                    <td class="phpdocumentor-cell">Creates file manager thumbnails</td>
+                    <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-files-imagelist.html#method_getUploadFolderSize">getUploadFolderSize()</a></th>
@@ -271,6 +286,46 @@
         
                     <section>
                 <h3 class="phpdocumentor-properties__header">Properties</h3>
+                                    <a id="property_indexUserId"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$indexUserId</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">24</span>
+    </aside>
+            <p class="phpdocumentor-summary">User id to use for file indexing</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">int</span>
+        <span class="phpdocumentor-signature__name">$indexUserId</span>
+         = <span class="phpdocumentor-signature__default-value">""</span>    </code>
+    </article>
+                                    <a id="property_finfo"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$finfo</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">31</span>
+    </aside>
+            <p class="phpdocumentor-summary">finfo instance</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type"><abbr title="\finfo">finfo</abbr></span>
+        <span class="phpdocumentor-signature__name">$finfo</span>
+         = <span class="phpdocumentor-signature__default-value">null</span>    </code>
+    </article>
                                                                     <a id="property_exts"></a>
 <article
         class="
@@ -546,7 +601,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">22</span>
+        <span class="phpdocumentor-element-found-in__line">36</span>
     </aside>
         <p class="phpdocumentor-summary">Konstruktor</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -574,7 +629,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">35</span>
+        <span class="phpdocumentor-element-found-in__line">49</span>
     </aside>
         <p class="phpdocumentor-summary">Return list of files in file system</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -602,7 +657,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">48</span>
+        <span class="phpdocumentor-element-found-in__line">66</span>
     </aside>
         <p class="phpdocumentor-summary">Gibt Dateiindex in Datenbank zurück</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -651,7 +706,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">75</span>
+        <span class="phpdocumentor-element-found-in__line">93</span>
     </aside>
         <p class="phpdocumentor-summary">Fetch file index by condition</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -691,7 +746,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">127</span>
+        <span class="phpdocumentor-element-found-in__line">145</span>
     </aside>
         <p class="phpdocumentor-summary">Fetch file index by condition</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -731,9 +786,9 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">146</span>
+        <span class="phpdocumentor-element-found-in__line">170</span>
     </aside>
-        <p class="phpdocumentor-summary">Aktualisiert Dateiindex in Datenbank</p>
+        <p class="phpdocumentor-summary">Updates file index</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">updateFileIndex</span>(
@@ -742,7 +797,7 @@
                 <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
+        : <span class="phpdocumentor-signature__response_type">bool</span>
     </code>
 
     
@@ -757,7 +812,54 @@
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_addToIndex"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                phpdocumentor-element--final        "
+>
+    <h4 class="phpdocumentor-method__name">addToIndex()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">232</span>
+    </aside>
+        <p class="phpdocumentor-summary">Add single file to index</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__final">final</span>                <span class="phpdocumentor-signature__name">addToIndex</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$file</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$file</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
             
 </article>
                                     <a id="method_getDatabaseFileCount"></a>
@@ -771,7 +873,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">191</span>
+        <span class="phpdocumentor-element-found-in__line">269</span>
     </aside>
         <p class="phpdocumentor-summary">Liefert Anzahl von Dateieinträgen in Datenbank zurück</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -806,18 +908,18 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">200</span>
+        <span class="phpdocumentor-element-found-in__line">279</span>
     </aside>
-        <p class="phpdocumentor-summary">Erzeugt Thumbanils für Dateimanager</p>
+        <p class="phpdocumentor-summary">Creates file manager thumbnails</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">public</span>
                                 <span class="phpdocumentor-signature__name">createFilemanagerThumbs</span>(
                     <span class="phpdocumentor-signature__argument">
             [                <span class="phpdocumentor-signature__argument__name">$folderFiles</span> :
-                <span class="phpdocumentor-signature__argument__return-type"><abbr title="\fpcm\model\files\arraye">arraye</abbr></span>
+                <span class="phpdocumentor-signature__argument__return-type">null|array</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
-        : <span class="phpdocumentor-signature__response_type">mixed</span>
+        : <span class="phpdocumentor-signature__response_type">bool</span>
     </code>
 
     
@@ -825,14 +927,14 @@
         <dl class="phpdocumentor-argument-list">
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$folderFiles</span>
-                    : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\fpcm\model\files\arraye">arraye</abbr></span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|array</span>
                      = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">mixed</span>
+        <span class="phpdocumentor-signature__response_type">bool</span>
             
 </article>
                                     <a id="method_getUploadFolderSize"></a>
@@ -846,7 +948,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">260</span>
+        <span class="phpdocumentor-element-found-in__line">355</span>
     </aside>
         <p class="phpdocumentor-summary">Gibt aktuelle Größe des upload-Ordners in byte zurück</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -874,7 +976,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">279</span>
+        <span class="phpdocumentor-element-found-in__line">374</span>
     </aside>
         <p class="phpdocumentor-summary">Assigns search params from search object to where condition</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -948,7 +1050,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/files/imagelist.php"><a href="../files/inc-model-files-imagelist.html"><abbr title="inc/model/files/imagelist.php">imagelist.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">309</span>
+        <span class="phpdocumentor-element-found-in__line">404</span>
     </aside>
         <p class="phpdocumentor-summary">Assigns search params object to value arrays</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">

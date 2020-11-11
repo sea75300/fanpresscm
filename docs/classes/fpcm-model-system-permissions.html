@@ -337,13 +337,13 @@
                     <td class="phpdocumentor-cell">string</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-dataset.html#method_afterSaveInternal">afterSaveInternal()</a></th>
-                    <td class="phpdocumentor-cell">Is triggered after successful database insert</td>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-permissions-permissions.html#method_check">check()</a></th>
+                    <td class="phpdocumentor-cell">Prüft ob Benutzer Berechtigung hat</td>
                     <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
-                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-permissions-permissions.html#method_check">check()</a></th>
-                    <td class="phpdocumentor-cell">Prüft ob Benutzer Berechtigung hat</td>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-permissions-permissions.html#method_refresh">refresh()</a></th>
+                    <td class="phpdocumentor-cell">Refresh cache and session data</td>
                     <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
@@ -425,6 +425,11 @@
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-dataset.html#method_getEventName">getEventName()</a></th>
                     <td class="phpdocumentor-cell">Returns full event name string</td>
                     <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-dataset.html#method_afterSaveInternal">afterSaveInternal()</a></th>
+                    <td class="phpdocumentor-cell">Is triggered after successful database insert</td>
+                    <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-dataset.html#method_afterUpdateInternal">afterUpdateInternal()</a></th>
@@ -921,6 +926,10 @@
                             <span class="phpdocumentor-signature__argument__name">$rollid</span> :
                 <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$useCache</span> :
+                <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">true</span> ]            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">void</span>
     </code>
@@ -932,7 +941,12 @@
                     <span class="phpdocumentor-signature__argument__name">$rollid</span>
                     : <span class="phpdocumentor-signature__argument__return-type">int</span>
                                     </dt>
-                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>ID der Benutzerrolle</p></section></dd>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$useCache</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">true</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
         
@@ -1013,7 +1027,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">104</span>
+        <span class="phpdocumentor-element-found-in__line">105</span>
     </aside>
         <p class="phpdocumentor-summary">Rollen-ID auslesen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1041,7 +1055,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">113</span>
+        <span class="phpdocumentor-element-found-in__line">114</span>
     </aside>
         <p class="phpdocumentor-summary">Berechtigungsdaten auslesen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1069,7 +1083,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">126</span>
+        <span class="phpdocumentor-element-found-in__line">127</span>
     </aside>
         <p class="phpdocumentor-summary">Rollen-ID setzen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1109,7 +1123,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">135</span>
+        <span class="phpdocumentor-element-found-in__line">136</span>
     </aside>
         <p class="phpdocumentor-summary">Berechtigungsdaten setzen</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1275,7 +1289,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">217</span>
+        <span class="phpdocumentor-element-found-in__line">228</span>
     </aside>
         <p class="phpdocumentor-summary">Initialisiert Berechtigungen mit Standardwerten</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1315,7 +1329,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">228</span>
+        <span class="phpdocumentor-element-found-in__line">239</span>
     </aside>
         <p class="phpdocumentor-summary">Gibt leeren Standard-Berechtigungsset zurück</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1343,7 +1357,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">237</span>
+        <span class="phpdocumentor-element-found-in__line">248</span>
     </aside>
         <p class="phpdocumentor-summary">Gibt Array mit allen Berechtigungsdatensätzen zurück</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1371,7 +1385,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">253</span>
+        <span class="phpdocumentor-element-found-in__line">264</span>
     </aside>
         <p class="phpdocumentor-summary">User has comment editing permissions</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1399,7 +1413,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">262</span>
+        <span class="phpdocumentor-element-found-in__line">273</span>
     </aside>
         <p class="phpdocumentor-summary">User has comment editing permissions</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1427,7 +1441,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">275</span>
+        <span class="phpdocumentor-element-found-in__line">286</span>
     </aside>
         <p class="phpdocumentor-summary">User has comment editing permissions</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1455,7 +1469,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">284</span>
+        <span class="phpdocumentor-element-found-in__line">303</span>
     </aside>
         <p class="phpdocumentor-summary">User has comment editing permissions</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1483,7 +1497,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">297</span>
+        <span class="phpdocumentor-element-found-in__line">316</span>
     </aside>
         <p class="phpdocumentor-summary">User has permissions for article trash</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1600,7 +1614,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">339</span>
+        <span class="phpdocumentor-element-found-in__line">358</span>
     </aside>
         <p class="phpdocumentor-summary">Init permission object items</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1659,41 +1673,6 @@
         <span class="phpdocumentor-signature__response_type">string</span>
             
 </article>
-                                    <a id="method_afterSaveInternal"></a>
-<article
-        class="
-            phpdocumentor-method
-            phpdocumentor-method--protected
-                                                        "
->
-    <h4 class="phpdocumentor-method__name">afterSaveInternal()</h4>
-    <aside class="phpdocumentor-element-found-in">
-        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/dataset.php"><a href="../files/inc-model-abstracts-dataset.html"><abbr title="inc/model/abstracts/dataset.php">dataset.php</abbr></a></abbr>
-        :
-        <span class="phpdocumentor-element-found-in__line">478</span>
-    </aside>
-        <p class="phpdocumentor-summary">Is triggered after successful database insert</p>
-        <code class="phpdocumentor-signature phpdocumentor-code ">
-        <span class="phpdocumentor-signature__visibility">protected</span>
-                                <span class="phpdocumentor-signature__name">afterSaveInternal</span>(
-                )
-        : <span class="phpdocumentor-signature__response_type">bool</span>
-    </code>
-
-    
-    
-                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
-        <dl class="phpdocumentor-tag-list">
-                                                <dt class="phpdocumentor-tag-list__entry">
-                        <span class="phpdocumentor-tag__name">since</span>
-                    </dt>
-                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
-                                    </dl>
-    
-            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">bool</span>
-            
-</article>
                                     <a id="method_check"></a>
 <article
         class="
@@ -1705,7 +1684,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">382</span>
+        <span class="phpdocumentor-element-found-in__line">389</span>
     </aside>
         <p class="phpdocumentor-summary">Prüft ob Benutzer Berechtigung hat</p>
         <code class="phpdocumentor-signature phpdocumentor-code phpdocumentor-signature--deprecated">
@@ -1735,6 +1714,41 @@
                         <span class="phpdocumentor-tag__name">deprecated</span>
                     </dt>
                     <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"><p>since version FPCM 4.4</p></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
+                                    <a id="method_refresh"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">refresh()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/permissions/permissions.php"><a href="../files/inc-model-permissions-permissions.html"><abbr title="inc/model/permissions/permissions.php">permissions.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">437</span>
+    </aside>
+        <p class="phpdocumentor-summary">Refresh cache and session data</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">refresh</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
                                     </dl>
     
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
@@ -2301,6 +2315,41 @@
     
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_afterSaveInternal"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">afterSaveInternal()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/dataset.php"><a href="../files/inc-model-abstracts-dataset.html"><abbr title="inc/model/abstracts/dataset.php">dataset.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">478</span>
+    </aside>
+        <p class="phpdocumentor-summary">Is triggered after successful database insert</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">afterSaveInternal</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
             
 </article>
                                     <a id="method_afterUpdateInternal"></a>

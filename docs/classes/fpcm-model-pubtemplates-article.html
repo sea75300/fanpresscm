@@ -445,6 +445,16 @@
                     <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-pubtemplates-template.html#method_getLazyLoadingImg">getLazyLoadingImg()</a></th>
+                    <td class="phpdocumentor-cell">Get lazy loading string for images</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-pubtemplates-template.html#method_lazyReplace">lazyReplace()</a></th>
+                    <td class="phpdocumentor-cell">Adds lazy loading string to images</td>
+                    <td class="phpdocumentor-cell">int</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-model-abstracts-file.html#method_getData">getData()</a></th>
                     <td class="phpdocumentor-cell">Gibt Inhalt von &quot;data&quot; zurück</td>
                     <td class="phpdocumentor-cell">array</td>
@@ -1317,7 +1327,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="../files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">169</span>
+        <span class="phpdocumentor-element-found-in__line">172</span>
     </aside>
         <p class="phpdocumentor-summary">Kommentar-Parser aktivieren</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1357,7 +1367,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="../files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">182</span>
+        <span class="phpdocumentor-element-found-in__line">185</span>
     </aside>
         <p class="phpdocumentor-summary">Assigns template variables by object of type @see \fpcm\model\articles\article</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1424,7 +1434,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="../files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">227</span>
+        <span class="phpdocumentor-element-found-in__line">230</span>
     </aside>
         <p class="phpdocumentor-summary">Cleanup tags</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1464,7 +1474,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="../files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">241</span>
+        <span class="phpdocumentor-element-found-in__line">244</span>
     </aside>
         <p class="phpdocumentor-summary">Fetch and replace tag attributes</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1538,7 +1548,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="../files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">261</span>
+        <span class="phpdocumentor-element-found-in__line">264</span>
     </aside>
         <p class="phpdocumentor-summary">Parse short text tag</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1594,7 +1604,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="../files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">282</span>
+        <span class="phpdocumentor-element-found-in__line">285</span>
     </aside>
         <p class="phpdocumentor-summary">Parse comment link tag</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1650,7 +1660,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/article.php"><a href="../files/inc-model-pubtemplates-article.html"><abbr title="inc/model/pubtemplates/article.php">article.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">315</span>
+        <span class="phpdocumentor-element-found-in__line">318</span>
     </aside>
         <p class="phpdocumentor-summary">Parse gallery tag</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2664,6 +2674,88 @@
         <span class="phpdocumentor-signature__response_type">bool</span>
             
 </article>
+                                    <a id="method_getLazyLoadingImg"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                phpdocumentor-element--final        "
+>
+    <h4 class="phpdocumentor-method__name">getLazyLoadingImg()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/template.php"><a href="../files/inc-model-pubtemplates-template.html"><abbr title="inc/model/pubtemplates/template.php">template.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">403</span>
+    </aside>
+        <p class="phpdocumentor-summary">Get lazy loading string for images</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__final">final</span>                <span class="phpdocumentor-signature__name">getLazyLoadingImg</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_lazyReplace"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--protected
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">lazyReplace()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/model/pubtemplates/template.php"><a href="../files/inc-model-pubtemplates-template.html"><abbr title="inc/model/pubtemplates/template.php">template.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">414</span>
+    </aside>
+        <p class="phpdocumentor-summary">Adds lazy loading string to images</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                                <span class="phpdocumentor-signature__name">lazyReplace</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$content</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">int</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$content</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">int</span>
+            
+</article>
                                     <a id="method_getData"></a>
 <article
         class="
@@ -3257,7 +3349,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/file.php"><a href="../files/inc-model-abstracts-file.html"><abbr title="inc/model/abstracts/file.php">file.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">485</span>
+        <span class="phpdocumentor-element-found-in__line">489</span>
     </aside>
         <p class="phpdocumentor-summary">&quot;realpath&quot; wrapper for non-existing files</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3308,7 +3400,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/model/abstracts/file.php"><a href="../files/inc-model-abstracts-file.html"><abbr title="inc/model/abstracts/file.php">file.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">496</span>
+        <span class="phpdocumentor-element-found-in__line">500</span>
     </aside>
         <p class="phpdocumentor-summary">Retrieve file extension via pathinfo</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">

@@ -96,7 +96,7 @@
                 </div>
                                                     <span class="phpdocumentor-class__extends">
                     Uses
-                                            <a href="../classes/fpcm-view-helper-traits-iconHelper.html"><abbr title="\fpcm\view\helper\traits\iconHelper">iconHelper</abbr></a>,                                             <a href="../classes/fpcm-view-helper-traits-valueHelper.html"><abbr title="\fpcm\view\helper\traits\valueHelper">valueHelper</abbr></a>,                                             <a href="../classes/fpcm-view-helper-traits-selectedHelper.html"><abbr title="\fpcm\view\helper\traits\selectedHelper">selectedHelper</abbr></a>                                    </span>
+                                            <a href="../classes/fpcm-view-helper-traits-iconHelper.html"><abbr title="\fpcm\view\helper\traits\iconHelper">iconHelper</abbr></a>,                                             <a href="../classes/fpcm-view-helper-traits-valueHelper.html"><abbr title="\fpcm\view\helper\traits\valueHelper">valueHelper</abbr></a>,                                             <a href="../classes/fpcm-view-helper-traits-selectedHelper.html"><abbr title="\fpcm\view\helper\traits\selectedHelper">selectedHelper</abbr></a>,                                             <a href="../classes/fpcm-view-helper-traits-labelFieldSize.html"><abbr title="\fpcm\view\helper\traits\labelFieldSize">labelFieldSize</abbr></a>                                    </span>
                     </h2>
         <aside class="phpdocumentor-element-found-in">
             <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
@@ -137,6 +137,11 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-select.html#property_hasOptGroup">$hasOptGroup</a></th>
                     <td class="phpdocumentor-cell">Select includes opt groups</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-select.html#property_prependLabel">$prependLabel</a></th>
+                    <td class="phpdocumentor-cell">Prepend label to selectbox</td>
                     <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
@@ -188,6 +193,21 @@
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-traits-selectedHelper.html#property_isMultiple">$isMultiple</a></th>
                     <td class="phpdocumentor-cell">Select multiple options</td>
                     <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-traits-labelFieldSize.html#property_labelSize">$labelSize</a></th>
+                    <td class="phpdocumentor-cell">Label size string</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-traits-labelFieldSize.html#property_fieldSize">$fieldSize</a></th>
+                    <td class="phpdocumentor-cell">Input field size</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-traits-labelFieldSize.html#property_sizeMap">$sizeMap</a></th>
+                    <td class="phpdocumentor-cell">Size map</td>
+                    <td class="phpdocumentor-cell">array</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-helper.html#property_data">$data</a></th>
@@ -285,6 +305,11 @@
                     <td class="phpdocumentor-cell">$this</td>
                 </tr>
                             <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-select.html#method_prependLabel">prependLabel()</a></th>
+                    <td class="phpdocumentor-cell">Prepend label to select menu</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-select.html#method_getFirstOption">getFirstOption()</a></th>
                     <td class="phpdocumentor-cell">Return first option string</td>
                     <td class="phpdocumentor-cell">bool</td>
@@ -358,6 +383,43 @@
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-traits-selectedHelper.html#method_getSelectedString">getSelectedString()</a></th>
                     <td class="phpdocumentor-cell">Return selected string</td>
                     <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-traits-labelFieldSize.html#method_getLabelSize">getLabelSize()</a></th>
+                    <td class="phpdocumentor-cell">Fetch label size classes</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-traits-labelFieldSize.html#method_getFieldSize">getFieldSize()</a></th>
+                    <td class="phpdocumentor-cell">Fetch field size classes</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-traits-labelFieldSize.html#method_setDisplaySizesDefault">setDisplaySizesDefault()</a></th>
+                    <td class="phpdocumentor-cell">Sets default label and field sizes values,
+Label: xs: 12, sm: 6, md: 5
+Fields: xs: 12, sm: 6, md: 7</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-traits-labelFieldSize.html#method_setDisplaySizes">setDisplaySizes()</a></th>
+                    <td class="phpdocumentor-cell">Sets label and field sizes</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-traits-labelFieldSize.html#method_setLabelSize">setLabelSize()</a></th>
+                    <td class="phpdocumentor-cell">Sets label sizes only</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-traits-labelFieldSize.html#method_setFieldSize">setFieldSize()</a></th>
+                    <td class="phpdocumentor-cell">Sets field sizes only</td>
+                    <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-traits-labelFieldSize.html#method_mapSizes">mapSizes()</a></th>
+                    <td class="phpdocumentor-cell">Maps indices to sizeMap</td>
+                    <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-helper.html#method___construct">__construct()</a></th>
@@ -463,6 +525,11 @@
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-helper.html#method_setData">setData()</a></th>
                     <td class="phpdocumentor-cell">Add array for &#039;data-&#039;-params to element</td>
                     <td class="phpdocumentor-cell">$this</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-helper.html#method_initFromYml">initFromYml()</a></th>
+                    <td class="phpdocumentor-cell"></td>
+                    <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-helper-helper.html#method_getString">getString()</a></th>
@@ -572,7 +639,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">37</span>
+        <span class="phpdocumentor-element-found-in__line">38</span>
     </aside>
             <p class="phpdocumentor-summary">Select options</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -592,7 +659,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">43</span>
+        <span class="phpdocumentor-element-found-in__line">44</span>
     </aside>
             <p class="phpdocumentor-summary">Is first option auto added</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -612,13 +679,33 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">49</span>
+        <span class="phpdocumentor-element-found-in__line">50</span>
     </aside>
             <p class="phpdocumentor-summary">Select includes opt groups</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
         <span class="phpdocumentor-signature__visibility">protected</span>
                 <span class="phpdocumentor-signature__type">bool</span>
         <span class="phpdocumentor-signature__name">$hasOptGroup</span>
+         = <span class="phpdocumentor-signature__default-value">false</span>    </code>
+    </article>
+                                    <a id="property_prependLabel"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$prependLabel</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">56</span>
+    </aside>
+            <p class="phpdocumentor-summary">Prepend label to selectbox</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">bool</span>
+        <span class="phpdocumentor-signature__name">$prependLabel</span>
          = <span class="phpdocumentor-signature__default-value">false</span>    </code>
     </article>
                                     <a id="property_returnString"></a>
@@ -632,7 +719,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">55</span>
+        <span class="phpdocumentor-element-found-in__line">62</span>
     </aside>
             <p class="phpdocumentor-summary">Option return string</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -820,6 +907,66 @@
                 <span class="phpdocumentor-signature__type">bool</span>
         <span class="phpdocumentor-signature__name">$isMultiple</span>
          = <span class="phpdocumentor-signature__default-value">false</span>    </code>
+    </article>
+                                    <a id="property_labelSize"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$labelSize</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/traits/labelFieldSize.php"><a href="../files/inc-view-helper-traits-labelfieldsize.html"><abbr title="inc/view/helper/traits/labelFieldSize.php">labelFieldSize.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">25</span>
+    </aside>
+            <p class="phpdocumentor-summary">Label size string</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$labelSize</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                    <a id="property_fieldSize"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$fieldSize</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/traits/labelFieldSize.php"><a href="../files/inc-view-helper-traits-labelfieldsize.html"><abbr title="inc/view/helper/traits/labelFieldSize.php">labelFieldSize.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">31</span>
+    </aside>
+            <p class="phpdocumentor-summary">Input field size</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$fieldSize</span>
+         = <span class="phpdocumentor-signature__default-value">&#039;&#039;</span>    </code>
+    </article>
+                                    <a id="property_sizeMap"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--private
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$sizeMap</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/traits/labelFieldSize.php"><a href="../files/inc-view-helper-traits-labelfieldsize.html"><abbr title="inc/view/helper/traits/labelFieldSize.php">labelFieldSize.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">37</span>
+    </aside>
+            <p class="phpdocumentor-summary">Size map</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                <span class="phpdocumentor-signature__type">array</span>
+        <span class="phpdocumentor-signature__name">$sizeMap</span>
+         = <span class="phpdocumentor-signature__default-value">[0 =&gt; &#039;col-&#039;, 1 =&gt; &#039;col-sm-&#039;, 2 =&gt; &#039;col-md-&#039;, 3 =&gt; &#039;col-lg-&#039;, 4 =&gt; &#039;col-xl-&#039;, &#039;xs&#039; =&gt; &#039;col-&#039;, &#039;sm&#039; =&gt; &#039;col-sm-&#039;, &#039;md&#039; =&gt; &#039;col-md-&#039;, &#039;lg&#039; =&gt; &#039;col-lg-&#039;, &#039;xl&#039; =&gt; &#039;col-xl-&#039;]</span>    </code>
     </article>
                                     <a id="property_data"></a>
 <article
@@ -1096,7 +1243,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">61</span>
+        <span class="phpdocumentor-element-found-in__line">68</span>
     </aside>
         <p class="phpdocumentor-summary">Return element string</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1124,7 +1271,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">83</span>
+        <span class="phpdocumentor-element-found-in__line">95</span>
     </aside>
         <p class="phpdocumentor-summary">Optional init function</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1150,7 +1297,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">94</span>
+        <span class="phpdocumentor-element-found-in__line">106</span>
     </aside>
         <p class="phpdocumentor-summary">Set options for selectbox</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1190,7 +1337,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">105</span>
+        <span class="phpdocumentor-element-found-in__line">117</span>
     </aside>
         <p class="phpdocumentor-summary">Select auto-added first option, values are fpcm\view\helper\select::FIRST_OPTION_EMPTY, fpcm\view\helper\select::FIRST_OPTION_PLEASESELECT, fpcm\view\helper\select::FIRST_OPTION_DISABLED</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1230,7 +1377,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">116</span>
+        <span class="phpdocumentor-element-found-in__line">128</span>
     </aside>
         <p class="phpdocumentor-summary">Enables opt group for select element</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1270,7 +1417,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">127</span>
+        <span class="phpdocumentor-element-found-in__line">139</span>
     </aside>
         <p class="phpdocumentor-summary">Set with of select menu</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1299,6 +1446,41 @@
         <span class="phpdocumentor-signature__response_type">$this</span>
             
 </article>
+                                    <a id="method_prependLabel"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">prependLabel()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">150</span>
+    </aside>
+        <p class="phpdocumentor-summary">Prepend label to select menu</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">prependLabel</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
                                     <a id="method_getFirstOption"></a>
 <article
         class="
@@ -1310,7 +1492,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">137</span>
+        <span class="phpdocumentor-element-found-in__line">159</span>
     </aside>
         <p class="phpdocumentor-summary">Return first option string</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1338,7 +1520,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">156</span>
+        <span class="phpdocumentor-element-found-in__line">178</span>
     </aside>
         <p class="phpdocumentor-summary">Create options string</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1378,7 +1560,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/select.php"><a href="../files/inc-view-helper-select.html"><abbr title="inc/view/helper/select.php">select.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">189</span>
+        <span class="phpdocumentor-element-found-in__line">211</span>
     </aside>
         <p class="phpdocumentor-summary">Create options string</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1891,6 +2073,270 @@
         
             <h5 class="phpdocumentor-return-value__heading">Return values</h5>
         <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getLabelSize"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getLabelSize()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/traits/labelFieldSize.php"><a href="../files/inc-view-helper-traits-labelfieldsize.html"><abbr title="inc/view/helper/traits/labelFieldSize.php">labelFieldSize.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">54</span>
+    </aside>
+        <p class="phpdocumentor-summary">Fetch label size classes</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getLabelSize</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_getFieldSize"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">getFieldSize()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/traits/labelFieldSize.php"><a href="../files/inc-view-helper-traits-labelfieldsize.html"><abbr title="inc/view/helper/traits/labelFieldSize.php">labelFieldSize.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">63</span>
+    </aside>
+        <p class="phpdocumentor-summary">Fetch field size classes</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">getFieldSize</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">string</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">string</span>
+            
+</article>
+                                    <a id="method_setDisplaySizesDefault"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setDisplaySizesDefault()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/traits/labelFieldSize.php"><a href="../files/inc-view-helper-traits-labelfieldsize.html"><abbr title="inc/view/helper/traits/labelFieldSize.php">labelFieldSize.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">74</span>
+    </aside>
+        <p class="phpdocumentor-summary">Sets default label and field sizes values,
+Label: xs: 12, sm: 6, md: 5
+Fields: xs: 12, sm: 6, md: 7</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setDisplaySizesDefault</span>(
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_setDisplaySizes"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setDisplaySizes()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/traits/labelFieldSize.php"><a href="../files/inc-view-helper-traits-labelfieldsize.html"><abbr title="inc/view/helper/traits/labelFieldSize.php">labelFieldSize.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">88</span>
+    </aside>
+        <p class="phpdocumentor-summary">Sets label and field sizes</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setDisplaySizes</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$label</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$field</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$label</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$field</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_setLabelSize"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setLabelSize()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/traits/labelFieldSize.php"><a href="../files/inc-view-helper-traits-labelfieldsize.html"><abbr title="inc/view/helper/traits/labelFieldSize.php">labelFieldSize.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">100</span>
+    </aside>
+        <p class="phpdocumentor-summary">Sets label sizes only</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setLabelSize</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$labelSizes</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$labelSizes</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_setFieldSize"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">setFieldSize()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/traits/labelFieldSize.php"><a href="../files/inc-view-helper-traits-labelfieldsize.html"><abbr title="inc/view/helper/traits/labelFieldSize.php">labelFieldSize.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">112</span>
+    </aside>
+        <p class="phpdocumentor-summary">Sets field sizes only</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                                <span class="phpdocumentor-signature__name">setFieldSize</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$fieldSizes</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">$this</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$fieldSizes</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">$this</span>
+            
+</article>
+                                    <a id="method_mapSizes"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--private
+                                                        "
+>
+    <h4 class="phpdocumentor-method__name">mapSizes()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/traits/labelFieldSize.php"><a href="../files/inc-view-helper-traits-labelfieldsize.html"><abbr title="inc/view/helper/traits/labelFieldSize.php">labelFieldSize.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">125</span>
+    </aside>
+        <p class="phpdocumentor-summary">Maps indices to sizeMap</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">private</span>
+                                <span class="phpdocumentor-signature__name">mapSizes</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__reference-operator">&amp;</span><span class="phpdocumentor-signature__argument__name">$size</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string|int</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$index</span> :
+                <span class="phpdocumentor-signature__argument__return-type">string|int</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$size</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string|int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$index</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">string|int</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+        
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
             
 </article>
                                     <a id="method___construct"></a>
@@ -2636,6 +3082,61 @@
         <span class="phpdocumentor-signature__response_type">$this</span>
             
 </article>
+                                    <a id="method_initFromYml"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                phpdocumentor-element--final        "
+>
+    <h4 class="phpdocumentor-method__name">initFromYml()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/helper.php"><a href="../files/inc-view-helper-helper.html"><abbr title="inc/view/helper/helper.php">helper.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">392</span>
+    </aside>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__final">final</span>                <span class="phpdocumentor-signature__name">initFromYml</span>(
+                    <span class="phpdocumentor-signature__argument">
+                            <span class="phpdocumentor-signature__argument__name">$param</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                    <span class="phpdocumentor-signature__argument">
+            ,                 <span class="phpdocumentor-signature__argument__name">$viewVars</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$param</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$viewVars</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                                    </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
                                     <a id="method_getString"></a>
 <article
         class="
@@ -2647,7 +3148,7 @@
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/helper/helper.php"><a href="../files/inc-view-helper-helper.html"><abbr title="inc/view/helper/helper.php">helper.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">400</span>
+        <span class="phpdocumentor-element-found-in__line">432</span>
     </aside>
         <p class="phpdocumentor-summary">Return element string</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
