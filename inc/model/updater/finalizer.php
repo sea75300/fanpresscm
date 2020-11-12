@@ -55,26 +55,64 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 $this->addSystemOptions() &&
                 $this->updateSystemOptions() &&
                 $this->updatePermissions() &&
+                $this->runMigrations() &&
                 $this->updateVersion() &&
                 $this->optimizeTables();
-
-        $class = \fpcm\migrations\migration::getNamespace(\fpcm\classes\baseconfig::getVersionFromFile());
-
-        if (class_exists($class)) {
-
-            /* @var $obj migration */
-            $obj = new $class;
-            if ($obj->isRequired()) {
-                $res = $res && $obj->process();
-            }
-
-        }
 
         if (\fpcm\classes\baseconfig::canConnect()) {
             (new \fpcm\model\crons\updateCheck())->run();
         }
 
         return $res;
+    }
+
+    /**
+     * 
+     * @return bool
+     * @since 4.5-b3
+     */
+    private function runMigrations() : bool
+    {
+        $migrations = glob(\fpcm\classes\dirs::getIncDirPath('migrations/v*.php'));
+        
+        
+        if (!is_array($migrations)) {
+            return true;
+        }
+
+        array_walk($migrations, function (&$item) {
+            $item ='fpcm\\migrations\\' . basename($item, '.php');
+        });
+
+        $migrations = array_filter($migrations, function ($class) {
+            return class_exists($class);
+        });
+
+        if (!count($migrations)) {
+            return true;
+        }
+
+        array_walk($migrations, function (&$item) {
+            $item = new $item;
+        });
+
+        $migrations = array_filter($migrations, function ($obj) {
+            return $obj->isRequired();
+        });
+
+        if (!count($migrations)) {
+            return true;
+        }
+
+        /* @var $migration \fpcm\migrations\migration */
+        foreach ($migrations as $migration) {
+            if (!$migration->process()) {
+                $this->output('Processing of migration '. get_class($migration).' failed!.');
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     /**

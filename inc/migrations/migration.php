@@ -97,10 +97,6 @@ abstract class migration {
      */
     final public function isRequired() : bool
     {
-        if (version_compare($this->getNewVersion(), $this->getConfig()->system_version, '==')) {
-            return true;
-        }
-
         return version_compare($this->getNewVersion(), $this->getConfig()->system_version, '>');
     }
 
@@ -110,36 +106,6 @@ abstract class migration {
      */
     final public function process() : bool
     {
-        $required = $this->required();
-        if (count($required)) {
-            
-            array_map(function($version) {
-
-                $className = self::getNamespace($version);
-
-                if (!$this->requiredResult) {
-                    $this->output('Processing of a previously executed migration failed. Skipping migration '.$className, true);
-                    return false;
-                }
-
-                /* @var $obj migration */
-                $obj = new $className;
-                if (!$obj->isRequired()) {
-                    return true;
-                }
-
-                $this->requiredResult = $obj->process();
-
-                if (!$this->requiredResult) {
-                    $this->output('Error while processing migration '.$className, true);
-                    return false;
-                }
-
-                return true;
-            }, $required);
-
-        }
-
         $cn = get_called_class();
         $this->output('Processing migration '.$cn);
         
