@@ -179,15 +179,6 @@ abstract class migration {
     }
 
     /**
-     * Returns a list of migrations which have to be executed before
-     * @return array
-     */
-    protected function required() : array
-    {
-        return [];
-    }
-
-    /**
      * Execute additional database table changes
      * @return bool
      */

@@ -60,15 +60,6 @@ class v442 extends migration {
     }
 
     /**
-     * Returns a list of migrations which have to be executed before
-     * @return array
-     */
-    protected function required(): array
-    {
-        return ['440b4'];
-    }
-
-    /**
      * Returns a list of database driver names the migration should be executed to,
      * default is MySQL/ MariaDB and Postgres
      * @return array
