@@ -84,9 +84,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
      */
     public function save()
     {
-        if ($this->rollExists()) {
-            return false;
-        }
+        $this->dbcon->transaction();
 
         $this->removeBannedTexts();
 
@@ -95,11 +93,15 @@ class userRoll extends \fpcm\model\abstracts\dataset {
         $newId = $this->dbcon->insert($this->table, ['leveltitle' => $this->leveltitle]);
         if (!$newId) {
             trigger_error('Failed to create new user roll "' . $this->leveltitle . '"');
-            return false;
+            return $this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY
+                ? \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY
+                : false;
         }
 
         $permission = new \fpcm\model\permissions\permissions();
         $return = $permission->addDefault($newId);
+
+        $this->dbcon->commit();
 
         $this->id = $newId;
         $this->cache->cleanup();
@@ -118,6 +120,8 @@ class userRoll extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
+        $this->dbcon->transaction();
+
         $return = parent::delete();
 
         $permissions = new \fpcm\model\permissions\permissions($this->getId());
@@ -127,6 +131,9 @@ class userRoll extends \fpcm\model\abstracts\dataset {
         }
 
         $this->dbcon->update(\fpcm\classes\database::tableAuthors, ['roll'], [-1, $this->id], 'id = ?');
+        $this->dbcon->commit();
+        $this->cache->cleanup();
+        
         return $return;
     }
 
@@ -141,6 +148,8 @@ class userRoll extends \fpcm\model\abstracts\dataset {
             return false;
         }
 
+        $this->dbcon->transaction();
+
         $this->removeBannedTexts();
 
         $return = false;
@@ -151,6 +160,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
             $return = true;
         }
 
+        $this->dbcon->commit();
         $this->cache->cleanup();
         $this->init();
 

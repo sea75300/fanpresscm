@@ -28,5 +28,14 @@ class v430rc4 extends migration {
         return $this->getDB()->update(\fpcm\classes\database::tableArticles, ['inedit'], ['']);
     }
 
+    /**
+     * Returns new version, e. g. from version.txt
+     * @return string
+     */
+    protected function getNewVersion() : string
+    {
+        return '4.3.0-rc4';
+    }
+
     
 }

@@ -70,5 +70,14 @@ class v442 extends migration {
         return [\fpcm\classes\database::DBTYPE_MYSQLMARIADB];
     }
 
+    /**
+     * Returns new version, e. g. from version.txt
+     * @return string
+     */
+    protected function getNewVersion() : string
+    {
+        return '4.4.2';
+    }
+
     
 }

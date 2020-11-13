@@ -88,5 +88,14 @@ class v450b1 extends migration {
         
         return true;
     }
+
+    /**
+     * Returns new version, e. g. from version.txt
+     * @return string
+     */
+    protected function getNewVersion() : string
+    {
+        return '4.5.0-b1';
+    }
     
 }

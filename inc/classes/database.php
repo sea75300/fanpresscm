@@ -751,6 +751,48 @@ final class database {
     }
 
     /**
+     * Starts transaction
+     * @return bool
+     * @since 4.5.0-b3
+     */
+    public function transaction() : bool
+    {
+        try {
+            $res = $this->connection->beginTransaction();
+        } catch (\PDOException $exc) {
+            fpcmLogSql('Failed to begin transaction' . PHP_EOL . PHP_EOL . $exc->getTraceAsString());
+            return false;
+        }
+
+        fpcmLogSql('Start Transaction: ' . ($res ? 'OK' : 'ERR'));
+        return $res;
+    }
+
+    /**
+     * Starts transaction
+     * @return bool
+     * @since 4.5.0-b3
+     */
+    public function commit() : bool
+    {
+        try {
+            fpcmLogSql('Transaction commit forced, transaction available: ' . ($this->connection->inTransaction() ? 'YES' : 'NO'));
+            $res = $this->connection->commit();            
+        } catch (\PDOException $exc) {
+            fpcmLogSql('Failed to commit transaction' . PHP_EOL . PHP_EOL . $exc->getTraceAsString());
+            return false;
+        }
+
+        if ($res) {
+            fpcmLogSql('Transaction commit succesfull.');
+            return true;
+        }
+
+        fpcmLogSql('Rollback of transaction required. Result: '. ($this->connection->rollBack() ? 'OK' : 'ERR') );
+        return false;
+    }
+
+    /**
      * Liefert zuletzt ausgeführten Query-String zurück
      * @return string
      */
@@ -1141,39 +1183,6 @@ final class database {
     }
 
     /**
-     * Error die
-     */
-    private function dieError()
-    {
-        exit('Connection to database failed!');
-    }
-
-    /**
-     * Liefert YMl-Dateien aus Pfad zurück
-     * @param string $path
-     * @return array
-     * @since 3.3.2
-     */
-    public static function getTableFiles($path = false)
-    {
-        if (!$path) {
-            $path = dirs::getDataDirPath(dirs::DATA_DBSTRUCT, '/');
-        }
-
-        if (!is_dir($path)) {
-            trigger_error('Invalid path given, ' . $path . ' is not a directory');
-            return [];
-        }
-
-        $files = glob($path . '*.yml');
-        if (!is_array($files) || !count($files)) {
-            return [];
-        }
-
-        return $files;
-    }
-
-    /**
      * SQL-EXPLAIN de/aktivieren
      * @param bool $explain
      * @since 3.6
@@ -1239,6 +1248,14 @@ final class database {
     }
 
     /**
+     * Error die
+     */
+    private function dieError()
+    {
+        exit('Connection to database failed!');
+    }
+
+    /**
      * Return data types with length params
      * @return array
      */
@@ -1270,6 +1287,31 @@ final class database {
     {
         $sql = str_replace('{{dbpref}}', $this->getDbprefix(), $sql);
         return true;
+    }
+
+    /**
+     * Liefert YMl-Dateien aus Pfad zurück
+     * @param string $path
+     * @return array
+     * @since 3.3.2
+     */
+    public static function getTableFiles($path = false)
+    {
+        if (!$path) {
+            $path = dirs::getDataDirPath(dirs::DATA_DBSTRUCT, '/');
+        }
+
+        if (!is_dir($path)) {
+            trigger_error('Invalid path given, ' . $path . ' is not a directory');
+            return [];
+        }
+
+        $files = glob($path . '*.yml');
+        if (!is_array($files) || !count($files)) {
+            return [];
+        }
+
+        return $files;
     }
 
 }

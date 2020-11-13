@@ -49,6 +49,10 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     public function runUpdate()
     {
+        if (method_exists($this->dbcon, 'transaction')) {
+            $this->dbcon->transaction();
+        }
+
         $res    = true &&
                 $this->alterTables() &&
                 $this->removeSystemOptions() &&
@@ -58,6 +62,10 @@ final class finalizer extends \fpcm\model\abstracts\model {
                 $this->runMigrations() &&
                 $this->updateVersion() &&
                 $this->optimizeTables();
+
+        if (method_exists($this->dbcon, 'commit')) {
+            $this->dbcon->commit();
+        }
 
         if (\fpcm\classes\baseconfig::canConnect()) {
             (new \fpcm\model\crons\updateCheck())->run();
@@ -276,6 +284,12 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function alterTables()
     {
+        $this->dbcon->insert(\fpcm\classes\database::tableCategories, [
+           'name'  => __METHOD__,
+            'iconpath' => 'https://',
+            'groups' => '1'
+        ]);
+        
         $tableFiles = $this->dbcon->getTableFiles();
         if (!count($tableFiles)) {
             return true;
