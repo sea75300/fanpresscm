@@ -66,6 +66,7 @@ class htmlEditor extends articleEditor {
             \fpcm\classes\dirs::getLibUrl('codemirror/addon/hint/html-hint.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/addon/runmode/runmode.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/addon/runmode/colorize.js'),
+            \fpcm\classes\dirs::getLibUrl('codemirror/mode/yaml/yaml.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/xml/xml.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/javascript/javascript.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/css/css.js'),
