@@ -80,12 +80,19 @@ input[type=radio] {
     display: none;
 }
 
+input[type=radio]:hover + label:before,
+input[type=radio]:focus + label:before {
+    border-radius: 50%;
+}
+
 .ui-controlgroup input[type=checkbox] + label,
 .ui-controlgroup input[type=checkbox] + label:before,
 .ui-controlgroup input[type=checkbox]:checked + label:before,
 .ui-controlgroup input[type=radio] + label,
 .ui-controlgroup input[type=radio] + label:before,
-.ui-controlgroup input[type=radio]:checked + label:before {
+.ui-controlgroup input[type=radio]:checked + label:before,
+.ui-controlgroup input[type=radio]:hover + label:before,
+.ui-controlgroup input[type=radio]:focus + label:before {
     content: inherit;
     font-family: initial;
     appearance: initial;
