@@ -223,7 +223,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
         $username = $this->request->fromPOST('username');
         $email = $this->request->fromPOST('email');
         if (!trim($username) || !trim($email) || !$this->captcha->checkAnswer()) {
-            fpcmLogSystem("Passwort reset for user id {$user->getUsername()} failed, empty data or captcha failed.");
+            fpcmLogSystem("Passwort reset for user id {$username} failed, empty data or captcha failed.");
             $this->view->addErrorMessage('LOGIN_PASSWORD_RESET_FAILED');
             return false;
         }
