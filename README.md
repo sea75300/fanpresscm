@@ -1,6 +1,6 @@
 # FanPress CM News System version 4
 
-The FanPress CM News System version 4 is a lightweight but powerful content management system for small and mid-size websites. Based on the stable FanPress CM 3.x, this version includes major improvements in functionality, code quality, speed and more.
+The FanPress CM News System version 4 is a lightweight but powerful content management system for small and mid-size websites, especially blogs and such looking for a post manament system in combination with static HTML.
 
 ## Demo system
 
