@@ -50,7 +50,7 @@ final class email {
     /**
      * E-Mail-Anhänge
      * @var array
-     * @since FPCM 3.6
+     * @since 3.6
      */
     private $attachments = [];
 
@@ -130,7 +130,7 @@ final class email {
     /**
      * Array mit Dateipfaden der Anhänge auslesen
      * @return array
-     * @since FPCN 3.6
+     * @since 3.6
      */
     public function getAttachments()
     {
@@ -194,7 +194,7 @@ final class email {
     /**
      * Array mit Pfaden der Anhänge setzen
      * @param array $attachments
-     * @since FPCN 3.6
+     * @since 3.6
      */
     public function setAttachments(array $attachments)
     {
@@ -258,7 +258,7 @@ final class email {
     /**
      * SMTP-Zugangsdaten testen
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function checkSmtp()
     {
@@ -296,7 +296,7 @@ final class email {
     /**
      * E-Mail versenden via PHP versenden
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     private function submitPhp()
     {
@@ -314,7 +314,7 @@ final class email {
     /**
      * E-Mail via SMTP versenden
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     private function submitSmtp()
     {
@@ -343,7 +343,7 @@ final class email {
     /**
      * Erzeugt neues PHPMailer-Objekt
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     private function getMailerObj()
     {
@@ -360,7 +360,7 @@ final class email {
     /**
      * Return SMTP encryption modes
      * @return array
-     * @since FPCM 4
+     * @since 4
      */
     public static function getEncryptions() : array
     {

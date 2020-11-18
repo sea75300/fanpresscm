@@ -21,7 +21,7 @@ fpcm.dashboard = {
         fpcm.ajax.exec('dashboard', {
             quiet: true,
             execDone: function(result) {
-                fpcm.ui.assignHtml('#fpcm-dashboard-containers', result);
+                fpcm.dom.assignHtml('#fpcm-dashboard-containers', result);
                 fpcm.ui.initJqUiWidgets();
                 fpcm.dashboard.forceUpdate();
                 fpcm.dashboard.openUpdateCheckUrl();

@@ -17,6 +17,8 @@ namespace fpcm\model\users;
  */
 class author extends \fpcm\model\abstracts\dataset {
 
+    use \fpcm\model\traits\autoTable;
+    
     /**
      * Error-Code: Benutzer existiert
      */
@@ -88,14 +90,14 @@ class author extends \fpcm\model\abstracts\dataset {
     /**
      * Author-Beschreibung
      * @var string
-     * @since FPCM 3.6
+     * @since 3.6
      */
     protected $usrinfo = '';
 
     /**
      * Two factor auth token
      * @var string
-     * @since FPCM 4
+     * @since 4
      */
     protected $authtoken = '';
 
@@ -114,14 +116,14 @@ class author extends \fpcm\model\abstracts\dataset {
     /**
      * Übersetzter Gruppenname
      * @var string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     protected $groupname;
 
     /**
      * Authoren-Bild
      * @var string
-     * @since FPCM 3.6
+     * @since 3.6
      */
     protected $image = '';
 
@@ -134,7 +136,7 @@ class author extends \fpcm\model\abstracts\dataset {
     /**
      * Wortsperren-Liste
      * @var \fpcm\model\wordban\items
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     protected $wordbanList;
 
@@ -150,7 +152,6 @@ class author extends \fpcm\model\abstracts\dataset {
      */
     public function __construct($id = null)
     {
-        $this->table = \fpcm\classes\database::tableAuthors;
         $this->wordbanList = new \fpcm\model\wordban\items();
 
         if ($id !== null) {
@@ -253,7 +254,7 @@ class author extends \fpcm\model\abstracts\dataset {
     /**
      * Übersetzter Gruppenname
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     function getGroupname()
     {
@@ -262,7 +263,7 @@ class author extends \fpcm\model\abstracts\dataset {
 
     /**
      * Kurze Authoren-Beschreibung setzen
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function getUsrinfo()
     {
@@ -271,7 +272,7 @@ class author extends \fpcm\model\abstracts\dataset {
 
     /**
      * Author-Bild zurückliefern
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function getImage()
     {
@@ -381,7 +382,7 @@ class author extends \fpcm\model\abstracts\dataset {
     /**
      * Kurze Authoren-Beschreibung setzen
      * @param string $usrinfo
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function setUsrinfo($usrinfo)
     {
@@ -568,7 +569,7 @@ class author extends \fpcm\model\abstracts\dataset {
     /**
      * Reset Profile settings
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function resetProfileSettings()
     {
@@ -581,7 +582,7 @@ class author extends \fpcm\model\abstracts\dataset {
     /**
      * Reset Dashboard container settings
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function resetDashboard()
     {
@@ -629,7 +630,7 @@ class author extends \fpcm\model\abstracts\dataset {
     /**
      * Führt Ersetzung von gesperrten Texten in Benutzer-Daten durch
      * @return bool
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     protected function removeBannedTexts()
     {
@@ -712,7 +713,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * @param \fpcm\model\users\author $author
      * @param bool $asUrl
      * @return string
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public static function getAuthorImageDataOrPath($author, $asUrl = true)
     {
@@ -773,7 +774,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * Returns event base string
      * @see \fpcm\model\abstracts\dataset::getEventModule
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function getEventModule(): string
     {
@@ -784,7 +785,7 @@ class author extends \fpcm\model\abstracts\dataset {
      * Is triggered after successful database insert
      * @see \fpcm\model\abstracts\dataset::afterSaveInternal
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterSaveInternal(): bool
     {

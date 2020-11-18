@@ -1,4 +1,13 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="col-12 col-sm-8 col-md-6 fpcm-ui-center">
-    <?php $theView->select('language')->setOptions($languages)->setSelected('de')->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+<div class="col-12">
+    <div class="row fpcm-ui-selectmenu-border-radius-right">        
+        <?php $theView->select('language')
+                ->setOptions($languages)
+                ->setSelected('de')
+                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                ->setText('INSTALLER_LANGUAGE_SELECT')
+                ->setLabelClass('fpcm-ui-field-input-nowrapper-general')
+                ->setDisplaySizesDefault()
+                ->prependLabel(); ?>
+    </div>
 </div>

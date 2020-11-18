@@ -68,13 +68,13 @@ class selectParams {
     /**
      * Fetch style
      * @var int
-     * @since FPCM 4.2.1
+     * @since 4.2.1
      */
     private $fetchStyle = 5;
 
     /**
      * Constructor method, as of FPCM 4.1 the destination table(s) can be set directly
-     * @param string|array $table (@since FPCM 4.1)
+     * @param string|array $table (@since 4.1)
      */
     public function __construct($table = '')
     {
@@ -157,7 +157,7 @@ class selectParams {
     /**
      * Returns fetch style
      * @return int
-     * @since FPCM 4.2.1
+     * @since 4.2.1
      */
     public function getFetchStyle() : int {
         return $this->fetchStyle;
@@ -255,13 +255,22 @@ class selectParams {
      * Set fetch style
      * @param int $fetchStyle
      * @return $this
-     * @since FPCM 4.2.1
+     * @since 4.2.1
      */
     public function setFetchStyle(int $fetchStyle) {
         $this->fetchStyle = $fetchStyle;
         return $this;
     }
 
+    final public function getQuery() : string
+    {
+        $sql  = $this->getDistinct() ? 'SELECT DISTINCT' : 'SELECT';
+        $sql .= " {$this->getItem()} FROM {$this->getTable()}";
+        $sql .= $this->getJoin() ? " {$this->getJoin()}" : "";
+        $sql .= $this->getWhere() ? " WHERE {$this->getWhere()}" : "";   
+        
+        return $sql;
+    }
 
 
 }

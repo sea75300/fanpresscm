@@ -1,4 +1,8 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<div class="col-12 col-sm-8 col-md-6">
-    <div class="fpcm-half-width fpcm-ui-margin-center" id="fpcm-installer-execlist"></div>
+<div class="col-12">
+    <div class="my-2">
+        <?php include $theView->getIncludePath('components/progress.php'); ?>
+    </div>
+
+    <div id="fpcm-installer-execlist"></div>
 </div>

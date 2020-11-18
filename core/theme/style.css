@@ -285,6 +285,14 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
     height: 100vh;
 }
 
+.fpcm.ui-full-view-max-width-100p {
+    max-width: 100%;
+}
+
+.fpcm.ui-full-view-min-width-100p {
+    min-width: 100%;
+}
+
 .fpcm-ui-full-view-min-height {
     min-height: 100vh !important;
 }
@@ -311,6 +319,7 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
     line-height: 18.666666666666666666666667px;
 }
 
+.fpcm.ui-element-min-height-md,
 .fpcm-ui-element-min-height-md,
 .fpcm-ui-field-input-nowrapper-general,
 .fpcm-ui-field-label-general {
@@ -494,12 +503,15 @@ img.fpcm-ui-smileylist-preview {
     margin: 0 auto;
     overflow: hidden;
     min-height: 35px;
+    position: relative;
 }
 
 .fpcm-ui-progressbar-label,
 .fpcm.ui-progressbar-label {
-    padding: 0 0.5rem;
-    line-height: 30px;
+    position: absolute;
+    left: 0.2rem;
+    top: 0.2rem;
+    font-size: 0.8rem;
 }
 
 .fpcm-ui-border-radius-right,

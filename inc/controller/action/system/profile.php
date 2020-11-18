@@ -50,6 +50,8 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
      */
     public function request()
     {
+        $this->initUploader();
+        
         $this->user = $this->session->getCurrentUser();
         
         if ($this->config->system_2fa_auth) {
@@ -209,7 +211,7 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
      * @return bool
      */
     public function process()
-    {
+    {        
         $userRolls = new \fpcm\model\users\userRollList();
         $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());
         $this->view->assign('languages', array_flip($this->language->getLanguages()));
@@ -222,21 +224,17 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->assign('showImage', true);
 
         $this->view->addJsLangVars(['SAVE_FAILED_PASSWORD_MATCH', 'SAVE_FAILED_PASSWORD_SECURITY', 'SAVE_FAILED_PASSWORD_SECURITY_PWNDPASS']);
-        $this->view->addJsVars(array(
+        $this->view->addJsVars([
             'dtMasks' => $this->getDateTimeMasks(),
             'reloadPage' => $this->reloadSite,
-            'jqUploadInit' => 0
-        ));
+        ]);
 
         $this->view->setActiveTab($this->getActiveTab());
         $this->view->assign('articleLimitList', \fpcm\model\system\config::getAcpArticleLimits());
         $this->view->assign('defaultFontsizes', \fpcm\model\system\config::getDefaultFontsizes());
         $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());
         $this->view->assign('showDisableButton', false);
-        $this->view->addJsFiles([
-            \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'),
-            'users/profile.js', 'files/uploader.js', 'users/edit.js'
-        ]);
+        $this->view->addJsFiles([ \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'), 'users/profile.js', 'users/edit.js' ]);
 
         $this->view->addButtons([
             (new \fpcm\view\helper\saveButton('profileSave'))->setClass('fpcm-ui-button-primary'),

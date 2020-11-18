@@ -37,48 +37,64 @@ class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm
      */
     public function process()
     {
-        $this->response = new \fpcm\model\http\response;
-        
-        $ts = $this->request->fromPOST('timestamp', [
+        $current = $this->request->fromPOST('current', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
-        if (!$ts) {
-            $this->response->fetch();
-        }
-
-        $step = $this->request->fromPOST('step', [
+        $next = (bool) $this->request->fromPOST('next', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
-        $fopt = new \fpcm\model\files\fileOption('lastchange');
+        $fpath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_OPTIONS, 'import.csv');
+        $handle = fopen($fpath, 'r');
 
-        $step++;
+        $progressObj = new \fpcm\model\system\progress(function (&$data, &$current, $next, &$stop) use (&$handle) {
 
-        $this->returnData = [
-            'step' => $step,
-            'res' => mt_rand(0,1),
-            'data' => []
-        ];
-
-        while ($fopt->read() <= $ts) {
-
-
-            sleep(2);
-            clearstatcache();
-            $ts = $fopt->read();
-
-            $this->returnData['res'] = $step >= 5 ? 2 : mt_rand(0,1);
-            $this->returnData['data'][] =  (string) new \fpcm\view\helper\dateText(time(), 'd.m.Y H:i:s');
-
-
-            if ($this->returnData['res']) {
-                break;
+            if ($current >= $data['fs'] * 0.5) {
+                fpcmLogSystem('Stopped reading file after 50% of filesize');
+                $stop = true;
+                return false;
+            }
+            
+            $line = fgetcsv($handle);
+            if (is_array($line) && count($line)) {
+                $data['lines'][]  = $line;
             }
 
+            $current = ftell($handle);
+            usleep(2000);
+
+            return !feof($handle) ? true : false;
+        });
+
+        $progressObj->setNext($next)->setData([
+            'fs' => filesize($fpath),
+            'lines' => []
+        ]);
+
+        if (!is_resource($handle)) {
+            $this->response->setReturnData($progressObj)->fetch();
         }
 
-        $this->response->setReturnData($this->returnData)->fetch();
+        if (!$progressObj->getNext()) {
+            $this->response->setReturnData($progressObj)->fetch();
+        }
+
+        if (fseek($handle, $current) === -1) {
+            $this->response->setReturnData($progressObj)->fetch();
+        }
+
+        $progressObj->setCurrent($current)->setNext(!feof($handle));
+        $progressObj->process();
+        
+        if (!$progressObj->getStop()) {
+            $progressObj->setNext(!feof($handle));
+        }
+        
+
+        fclose($handle);
+
+        $this->response->setReturnData($progressObj)->fetch();
 
     }
 

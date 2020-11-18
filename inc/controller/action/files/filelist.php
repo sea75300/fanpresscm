@@ -3,7 +3,7 @@
 /**
  * File manager controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -62,79 +62,66 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
     public function request()
     {
         $this->fileList = new \fpcm\model\files\imagelist();
-
-        $styleLeftMargin = true;
-        
         $this->mode = $this->request->getIntMode();
-        if ($this->mode > 1) {
-            $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
-            $this->view->setBodyClass('fpcm-ui-hide-toolbar');
-            $styleLeftMargin = false;
+        if ($this->mode == 1) {
+            return true;
         }
 
-        $this->view->assign('styleLeftMargin', $styleLeftMargin);
-
-        $this->uploadPhpForm();
-        return true;
-    }
-    
-    private function uploadPhpForm() : bool
-    {
-        $files = $this->request->fromFiles();
-        if (!$this->permissions->uploads->add || $files === null) {
-            return false;
-        }
-
-        $result = (new \fpcm\model\files\fileuploader($files))->processUpload($this->session->getUserId());
-        if (count($result['success'])) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['success'])));
-        }
-
-        if (count($result['error'])) {
-            $this->view->addErrorMessage('SAVE_FAILED_UPLOADPHP', array('{{filenames}}' => implode(', ', $result['error'])));
-        }
-
+        $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
+        $this->view->setBodyClass('fpcm-ui-hide-toolbar');
         return true;
     }
 
     public function process()
     {
         $hasFiles = ($this->fileList->getDatabaseFileCount() ? true : false);
+
+        /* @var $uploader \fpcm\components\fileupload\jqupload */
+        $uploader = \fpcm\components\components::getFileUploader();
         
-        $this->view->addJsVars([
+        $this->view->addCssFiles($uploader->getCssFiles());
+        $this->view->addJsVars(array_merge([
             'fmgrMode' => $this->mode,
-            'jqUploadInit' => $this->config->file_uploader_new ? true : false,
             'loadAjax' => $hasFiles,
             'currentModule' => $this->request->getModule(),
             'filesLastSearch' => 0,
-            'checkboxRefresh' => true
-        ]);
-        
-        $this->assignSearchFromVars();
+            'checkboxRefresh' => true,
+            'uploadDest' => 'default'
+        ], $uploader->getJsVars() ));
 
-        $this->view->addJsLangVars(['FILE_LIST_RENAME_NEWNAME', 'FILE_LIST_ADDTOINDEX',
-            'GLOBAL_PROPERTIES', 'FILE_LIST_RESOLUTION_PIXEL'
-        ]);
+        $this->view->addJsLangVars(array_merge([
+            'FILE_LIST_RENAME_NEWNAME', 'FILE_LIST_ADDTOINDEX',
+            'GLOBAL_PROPERTIES', 'FILE_LIST_RESOLUTION_PIXEL',
+            'FILE_LIST_EDIT', 'FILE_LIST_EDIT_CROP',
+            'FILE_LIST_EDIT_MOVE', 'FILE_LIST_EDIT_ROTATE_ANTICLOCKWISE',
+            'FILE_LIST_EDIT_ROTATE_CLOCKWISE', 'FILE_LIST_EDIT_ZOOMIN',
+            'FILE_LIST_EDIT_ZOOMOUT', 'FILE_LIST_EDIT_RESIZE', 'GLOBAL_RESET',
+            'SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT',
+            'SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH',
+            'FILE_LIST_EDIT_RESIZE_NOTICE',
+            'FILE_LIST_ALTTEXT'
+        ], $uploader->getJsLangVars()));
 
-        $this->view->assign('searchUsers', ['ARTICLE_SEARCH_USER' => -1] + (new \fpcm\model\users\userList)->getUsersNameList());
-        $this->view->assign('mode', $this->mode);
-        $this->view->assign('hasFiles', $hasFiles);
-        $this->view->assign('newUploader', $this->config->file_uploader_new);
-        $this->view->assign('jquploadPath', \fpcm\classes\dirs::getLibUrl('jqupload/'));
-        $this->view->addJsFiles(['files/module.js', 'files/uploader.js']);
-
-        $actionPath = \fpcm\classes\tools::getFullControllerLink('files/list', ['mode' => $this->mode]);
-        
-        if ($this->config->file_uploader_new) {
-            $this->view->assign('actionPath', \fpcm\classes\tools::getFullControllerLink('ajax/jqupload'));
-        } else {
-            $this->view->assign('actionPath', $actionPath);
-            $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [
-                '{{filecount}}' => ini_get("max_file_uploads"),
-                '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
-            ]));
+        if (!trim($uploader->getTemplate()) || !realpath($uploader->getTemplate())) {
+            trigger_error('Undefined file upload template given in '.$uploader->getTemplate());
+            $this->execDestruct = false;
+            return false;
         }
 
+        $jsFiles = ['files/module.js'];
+        if ($this->mode == 2 && $this->config->system_editor === '\fpcm\components\editor\tinymceEditor5') {
+            $jsFiles[] = 'files/tinymce5Messages.js';
+        }
+        
+        $this->view->addJsFiles(array_merge( $jsFiles, $uploader->getJsFiles() ));
+        $this->view->addJsFilesLate($uploader->getJsFilesLate());
+        $this->view->setViewVars(array_merge([
+            'searchUsers' => ['ARTICLE_SEARCH_USER' => -1] + (new \fpcm\model\users\userList)->getUsersNameList(),
+            'mode' => $this->mode,
+            'hasFiles' => $hasFiles,
+        ], $uploader->getViewVars() ));
+
+        $this->assignSearchFromVars();
         $this->initViewAssigns([], [], \fpcm\classes\tools::calcPagination(1, 1, 0, 0));
 
         $buttons = [
@@ -159,9 +146,12 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         }
 
         if ($this->mode === 1) {
-            foreach (\fpcm\components\components::getFilemanagerViews() as $descr => $view) {
-                $buttons[] = (new \fpcm\view\helper\radiobutton('listView', 'listView'. ucfirst($view)))->setText($descr)->setClass('fpcm-ui-listeview-setting')->setValue($view)->setSelected($this->config->file_view);
-            }
+            $buttons[] = (new \fpcm\view\helper\select('listView'))
+                    ->setOptions(\fpcm\components\components::getFilemanagerViews())
+                    ->setClass('fpcm-ui-listeview-setting')
+                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                    ->setSelected($this->config->file_view)
+                    ->setData(['width' => '150px']);
         }
 
         $this->view->addButtons($buttons);

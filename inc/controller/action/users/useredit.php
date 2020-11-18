@@ -33,6 +33,8 @@ class useredit extends userbase {
             return false;
         }
         
+        $this->initUploader();
+        
         $this->initActionObjects();
         parent::request();
 

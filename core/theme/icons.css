@@ -1,5 +1,9 @@
 i.mce-ico.mce-i-fpcm-readmore:before,
-legend:before {
+legend:before,
+input[type=checkbox] + label:before,
+input[type=checkbox]:checked + label:before,
+input[type=radio] + label:before,
+input[type=radio]:checked + label:before {
     font-family: "Font Awesome 5 Free";
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
@@ -17,4 +21,20 @@ legend:before {
 
 .fa-stack {
     width: 2em;
+}
+
+input[type=checkbox] + label:before {
+    content: '\f0c8';
+}
+
+input[type=checkbox]:checked + label:before {
+    content: '\f14a';
+}
+
+input[type=radio] + label:before {
+    content: '\f111';
+}
+
+input[type=radio]:checked + label:before {
+    content: '\f192';
 }

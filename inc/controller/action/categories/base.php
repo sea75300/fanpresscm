@@ -71,7 +71,7 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             \fpcm\model\http\request::FILTER_TRIM
         ]);
 
-        $groups = implode(';', array_map('intval', $data['groups']));
+        $groups = implode(';', array_map('intval', ( $data['groups'] ?? [] ) ));
         $this->category->setGroups($groups);
         $this->category->setIconPath($data['iconpath']);
         $this->category->setName($data['name']);

@@ -19,14 +19,9 @@ namespace fpcm\controller\abstracts;
 class ajaxController extends controller {
 
     /**
-     * Rückgabe-Code
-     * @var string
-     */
-    protected $returnCode;
-
-    /**
      * Rückgabe-Daten
      * @var mixed
+     * @deprecated since version FPCM 4.5
      */
     protected $returnData;
 
@@ -59,44 +54,11 @@ class ajaxController extends controller {
             $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_NONE);
         }
 
-        return true;
-    }
-
-    /**
-     * JSON-codiertes Array mit Rückgabe-Code und ggf. Rückgabe-Daten erzeugen
-     * @return void
-     * @since FPCM 3.2
-     * @deprecated FPCM 4.4, use $this->response (\fpcm\model\http\response instance) instead
-     * @see \fpcm\model\http\response
-     */
-    protected function getResponse()
-    {
-        if (is_object($this->response) && $this->response instanceof \fpcm\model\http\response) {
-            $this->response->fetch();
+        if (!$this->response instanceof \fpcm\model\http\response) {
+            $this->response = new \fpcm\model\http\response();
         }
         
-        $data = array(
-            'code' => $this->returnCode,
-            'data' => $this->returnData
-        );
-
-        exit(json_encode($data));
-    }
-
-    /**
-     * JSON-codiertes Array nur mit Nutzdaten als Rückgabe erzeugen
-     * @return void
-     * @since FPCM 3.6
-     * @deprecated FPCM 4.4, use $this->response (\fpcm\model\http\response instance) instead
-     * @see \fpcm\model\http\response
-     */
-    protected function getSimpleResponse()
-    {
-        if (is_object($this->response) && $this->response instanceof \fpcm\model\http\response) {
-            $this->response->fetch();
-        }
-
-        exit(json_encode($this->returnData));
+        return true;
     }
 
     /**
@@ -105,28 +67,14 @@ class ajaxController extends controller {
      */
     protected function redirectNoSession()
     {
-        header('HTTP/1.1 401 Unauthorized');
-        exit;
-    }
-
-    /**
-     * Sets Header to return JSON data
-     * @return boolean
-     * @since FPCM 4.3.0
-     * @deprecated FPCM 4.4, use $this->response (\fpcm\model\http\response instance) instead
-     * @see \fpcm\model\http\response
-     */
-    protected function setReturnJson()
-    {
-        header('Content-Type: application/json');
-        return true;
+        $this->response->setCode(401)->addHeaders('HTTP/1.1 401 Unauthorized')->fetch();
     }
 
     /**
      * Check page token
      * @param string $name
      * @return bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     final protected function checkPageToken($name = 'token')
     {
@@ -141,5 +89,3 @@ class ajaxController extends controller {
     }
 
 }
-
-?>

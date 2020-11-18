@@ -37,14 +37,14 @@ abstract class input extends helper {
     /**
      * Enables default browser autocompletion
      * @var string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected $autocomplete = true;
 
     /**
      * Pattern for client side validation
      * @var string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     protected $pattern = '';
 
@@ -132,7 +132,7 @@ abstract class input extends helper {
      * Enables/disables browser autocompletion
      * @param bool $autocomplete
      * @return $this
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function setAutocomplete($autocomplete)
     {
@@ -144,7 +144,7 @@ abstract class input extends helper {
      * Pattern for client side validation
      * @param string $pattern
      * @return $this
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public function setPattern(string $pattern)
     {
@@ -172,7 +172,7 @@ abstract class input extends helper {
     /**
      * Browser autocomplete string
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function getAutocompleteString()
     {
@@ -182,7 +182,7 @@ abstract class input extends helper {
     /**
      * Browser autocomplete string
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function getPatternString()
     {

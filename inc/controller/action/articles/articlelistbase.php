@@ -11,7 +11,8 @@ namespace fpcm\controller\action\articles;
 
 abstract class articlelistbase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
-    use \fpcm\controller\traits\articles\lists,
+    use \fpcm\controller\traits\articles\listsCommon,
+        \fpcm\controller\traits\articles\listsView,
         \fpcm\controller\traits\common\massedit,
         \fpcm\controller\traits\common\searchParams;
 
@@ -88,21 +89,10 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
      */
     public function request()
     {
-        $this->init();
-        return true;
-    }
-
-    /**
-     * 
-     * @return bool
-     */
-    private function init()
-    {
+        $this->page = $this->request->getPage();
         $this->getListAction();
-        $this->getLimitsByPage();
-        $this->getConditionItem();
-        $this->getArticleCount();
-        $this->getArticleItems();
+        
+        
         return true;
     }
 
@@ -112,42 +102,39 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
      */
     public function process()
     {
-        $this->initActionVars();
-
         $this->view->addAjaxPageToken('articles/delete');
         $this->view->assign('users', array_flip($this->users));
         $this->view->assign('commentEnabledGlobal', $this->config->system_comments_enabled);
-        $this->view->assign('showDraftStatus', $this->showDraftStatus);
+        $this->view->assign('showDraftStatus', $this->showDraftStatus());
+        $this->view->assign('includeSearchForm', true);
+        $this->view->assign('includeMassEditForm', true);
 
         $this->initSearchForm();
         $this->initMassEditForm();
 
-        $this->view->addJsFiles(['articlelist.js']);
+        $this->view->addJsFiles(['articles/lists.js']);
 
         $buttons = [];
 
-        if ($this->listAction !== 'articles/trash') {
-
-            if ($this->permissions->article->add) {
-                $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pen-square')->setIconOnly(true)->setClass('fpcm-loader');
-            }
-
-            if ($this->permissions->editArticlesMass()) {
-                $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true);
-            }
-
-            $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true);
+        if ($this->permissions->article->add) {
+            $buttons[] = (new \fpcm\view\helper\linkButton('addArticle'))->setUrl(\fpcm\classes\tools::getFullControllerLink('articles/add'))->setText('HL_ARTICLE_ADD')->setIcon('pen-square')->setIconOnly(true)->setClass('fpcm-loader');
         }
 
+        if ($this->permissions->editArticlesMass()) {
+            $buttons[] = (new \fpcm\view\helper\button('massEdit', 'massEdit'))->setText('GLOBAL_EDIT')->setIcon('edit')->setIconOnly(true);
+        }
+
+        $buttons[] = (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true);
         $buttons[] = (new \fpcm\view\helper\select('action'))->setOptions($this->articleActions);
         $buttons[] = (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-ui-articleactions-ok')->setIcon('check')->setIconOnly(true)->setData(['hidespinner' => true]);
         
-        if ($this->listAction !== 'articles/trash') {
-            $this->view->addPager((new \fpcm\view\helper\pager($this->listAction, $this->page, count($this->articleItems), $this->config->articles_acp_limit, $this->articleCount)));
-        }
-        
+        $this->view->addPager((new \fpcm\view\helper\pager($this->listAction, $this->page, 1, $this->config->articles_acp_limit, 1)));
         $this->view->addButtons($buttons);
-        $this->view->addJsVars(['articleSearchMode' => $this->getSearchMode()]);
+        $this->view->addJsVars([
+            'listMode' => $this->getSearchMode(),
+            'listPage' => $this->page ? $this->page : 1
+        ]);
+
         $this->view->assign('searchMinDate', date('Y-m-d', $this->articleList->getMinMaxDate(1)['minDate']));
 
         $formActionParams = [];
@@ -156,18 +143,8 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         }
         
         $this->view->setFormAction($this->listAction, $formActionParams);
-        
-        $this->translateCategories();
-        $this->initDataView();
-        $this->view->addDataView($this->dataView);
-        
+        $this->view->addDataView( new \fpcm\components\dataView\dataView('articlelist') );
         return true;
-    }
-    
-    protected function getLimitsByPage()
-    {
-        $this->page          = $this->request->getPage();
-        $this->listShowStart = \fpcm\classes\tools::getPageOffset($this->page, $this->config->articles_acp_limit);
     }
 
     protected function initArticleActions()
@@ -188,7 +165,9 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
 
         $this->articleActions['ARTICLES_CACHE_CLEAR'] = 'articlecache';
 
-        $this->view->addJsVars(['artCacheMod' => urlencode(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE))]);
+        $this->view->addJsVars([
+            'artCacheMod' => urlencode(\fpcm\classes\loader::getObject('\fpcm\classes\crypt')->encrypt(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE))
+        ]);
     }
 
     /**
@@ -284,7 +263,7 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
                 'col-sm-6 col-md-4'
         );
         
-        if ($this->showDraftStatus) {
+        if ($this->showDraftStatus()) {
             $fields[] = new \fpcm\components\masseditField(
                 ['icon' => 'file-alt'],
                 'EDITOR_DRAFT',
@@ -344,15 +323,11 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         return 'HL_ARTICLE_EDIT';
     }
 
-    abstract protected function getArticleCount();
+    abstract protected function getListAction() : void;
 
-    abstract protected function getArticleItems();
+    abstract protected function getSearchMode() : string;
 
-    abstract protected function getConditionItem();
-
-    abstract protected function getListAction();
-
-    abstract protected function getSearchMode();
+    abstract protected function showDraftStatus() : bool;
 
 }
 

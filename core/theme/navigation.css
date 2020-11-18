@@ -85,9 +85,7 @@ div.fpcm-status-info li {
 }
 
 div.fpcm-status-info ul.fpcm-menu-top li ul {
-    right: 0rem;
     top: 100%;
-    width: 300px;
 }
 
 div.fpcm-status-info ul li {

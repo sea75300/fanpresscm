@@ -28,7 +28,7 @@ class linkButton extends button {
     /**
      * rel-Attribute
      * @var string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected $rel = '';
 
@@ -55,7 +55,7 @@ class linkButton extends button {
      * Returns name and ID string
      * @param string $prefix
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function getRelString()
     {
@@ -109,7 +109,7 @@ class linkButton extends button {
      * Set "rel" attribute value
      * @param string $rel
      * @return $this
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function setRel(string $rel) {
         $this->rel = $rel;

@@ -25,10 +25,28 @@ class icon extends helper {
      * @param string $prefix
      * @param bool $useFa
      */
-    public function __construct($icon, $prefix = 'fa', $useFa = true)
+    public function __construct($icon, ?string $prefix = null, ?bool $useFa = null)
     {
+        if ($prefix === null) {
+            $prefix = 'fa';
+        }
+
+        if ($useFa === null) {
+            $useFa = true;
+        }
+        
         $this->setIcon($icon, $prefix, $useFa);
         parent::__construct(uniqid());
+    }
+
+    /**
+     * Return text set on icon
+     * @return string
+     * @since 4.5
+     */
+    public function getText() : string
+    {
+        return $this->text;
     }
 
     /**
@@ -60,6 +78,41 @@ class icon extends helper {
     protected function init()
     {
         $this->class = 'fpcm-ui-icon-single';
+    }
+
+    /**
+     * Parse language variable icon
+     * @param string $langvar
+     * @return bool1
+     * @since 4.5
+     */
+    final public static function parseLangvarIcon(&$langvar) : bool
+    {
+        if (!is_string($langvar)) {
+            return false;
+        }
+        
+        $regEx = '/\{{2}(icon\=\"[\w\-]+\"){1}\ ?(spinner\=\"[a-z0-9]*\")?\ ?(prefix\=\"[\w\-]*\")?\ ?(fa\=\"(true|false)\")?\}{2}/i';
+        if (preg_match($regEx, $langvar, $matches) !== 1) {
+            return false;
+        }
+
+        $iconStr = array_shift($matches);
+        parse_str(implode('&', str_replace('"', '', $matches)), $arr);
+
+        $icon = new static (
+            $arr['icon'],
+            $arr['prefix'] ?? null,
+            (isset($arr['fa']) ? (bool) $arr['fa'] : null)
+        );
+
+        if (isset($arr['spinner'])) {
+            $icon->setSpinner($arr['spinner']);
+        }
+
+        $langvar = str_replace($iconStr, (string) $icon, $langvar);
+        
+        return true;
     }
 
 }

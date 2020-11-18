@@ -305,7 +305,6 @@ final class parser {
         $values = implode('), (', $values);
 
         $this->sqlArray['defaultinsert'] = "INSERT INTO {{dbpref}}_{$this->yamlArray->name} ({$cols}) VALUES ($values);";
-
         return true;
     }
 

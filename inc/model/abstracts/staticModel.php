@@ -60,14 +60,14 @@ abstract class staticModel {
     /**
      * Notifications
      * @var \fpcm\model\theme\notifications
-     * @since FPCM 3.6
+     * @since 3.6
      */
     protected $notifications;
 
     /**
      * Permissions
      * @var \fpcm\model\permissions\permissions
-     * @since FPCM 4
+     * @since 4
      */
     protected $permissions;
 
@@ -80,7 +80,7 @@ abstract class staticModel {
     /**
      * Cache Modul
      * @var string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     protected $cacheModule = '';
 

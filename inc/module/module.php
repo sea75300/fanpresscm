@@ -104,7 +104,7 @@ class module {
     /**
      * Module base path
      * @var string
-     * @since FPCM 4.3
+     * @since 4.3
      */
     protected $basePath = '';
 
@@ -320,7 +320,7 @@ class module {
     /**
      * Check if module base folder and module.yml file are writable
      * @return bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function isWritable() : bool
     {
@@ -373,7 +373,7 @@ class module {
     /**
      * Checks if file system version number matches module.yml data
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function hasLocalUpdates() : bool
     {
@@ -383,20 +383,43 @@ class module {
 
         return version_compare((new config($this->mkey, null))->version, $this->config->version, '=') ? false : true;
     }
+    
+    /**
+     * 
+     * Check if configure action should be displayed
+     * @param int $status
+     * @return boolean
+     */
+    public function hasConfigure(int &$legacy = 0)
+    {
+        if ( file_exists(self::getConfigByKey($this->mkey, 'configure')) ) {
+            $legacy = 0;
+            return true;
+        }
+
+        if ( file_exists(\fpcm\module\module::getTemplateDirByKey($this->mkey, 'configure.php')) ) {
+            $legacy = 1;
+            return true;
+        }
+
+        return false;
+    }
 
     /**
-     * Check if configure action should be displayed
-     * @return bool
+     * Fetch module configuration config from configure.yml
+     * @return array
+     * @since 4.5
      */
-    public function hasConfigure() : bool
+    public function getConfigureFields() : array
     {
-        return file_exists(\fpcm\module\module::getTemplateDirByKey($this->mkey, 'configure.php'));
+        include_once \fpcm\classes\loader::libGetFilePath('spyc/Spyc.php');
+        return \Spyc::YAMLLoad( self::getConfigByKey($this->mkey, 'configure') );
     }
 
     /**
      * Check if config/files.txt file exists
      * @return bool
-     * @since FÜPCM 4.1
+     * @since  4.1
      */
     final public function hasFilesListFile() : bool
     {
@@ -705,13 +728,15 @@ class module {
 
         return true;
     }
-
+    
     /**
+     * 
      * Uninstall module
-     * @param boolean $delete
+     * @param bool $delete
+     * @param bool $keepFiles
      * @return bool
      */
-    final public function uninstall($delete = false) : bool
+    final public function uninstall(bool $delete = false, bool $keepFiles = false) : bool
     {
         fpcmLogSystem('Uninstall module ' . $this->mkey);
         $this->cache->cleanup();
@@ -736,7 +761,7 @@ class module {
             return false;
         }
 
-        if (!$this->removeFiles()) {
+        if (!$keepFiles && !$this->removeFiles()) {
             return false;
         }
 
@@ -991,8 +1016,17 @@ class module {
      */
     public static function getKeyFromFilename($filename) : string
     {
-        $key = explode('_version', $filename, 2)[0];
-        return implode('/', explode('_', $key, 1));
+        if (preg_match('/^(.*)(\_version.+)$/i', $filename, $matches) !== 1) {
+            return $filename;
+        }
+
+        $raw = $matches[1] ?? null;
+        if (!trim($raw)) {
+            return $filename;
+        }
+
+        list($vendor, $key) = explode('_', $raw, 2); 
+        return $vendor . '/' . $key;
     }
 
     /**
@@ -1036,7 +1070,7 @@ class module {
      * @param string $key
      * @param string $cron
      * @return string
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public static function getCronNamespace(string $key, string $cron) : string
     {
@@ -1070,7 +1104,7 @@ class module {
      * @param string $key
      * @param string $filePath
      * @return string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public static function getJsDirByKey(string $key, string $filePath) : string
     {
@@ -1082,7 +1116,7 @@ class module {
      * @param string $key
      * @param string $filePath
      * @return string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public static function getStyleDirByKey(string $key, string $filePath) : string
     {
@@ -1104,7 +1138,7 @@ class module {
      * Get base path from module
      * @param string $key
      * @return string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public static function getModuleBasePathFromKey(string $key) : string
     {
@@ -1115,7 +1149,7 @@ class module {
      * Returns root URL for module path
      * @param string $key
      * @return string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public static function getModuleUrlFromKey(string $key) : string
     {
@@ -1136,11 +1170,11 @@ class module {
      * Validate module key
      * @param string $key
      * @return bool
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public static function validateKey(string $key) : bool
     {
-        $regex = '/^([a-z0-9\_]{3,})(\/{1})([A-Za-z0-9\_]+)$/';
+        $regex = '/^([a-z0-9\_]{3,})(\/{1})([A-Za-z0-9\_]+)$/i';
         if (preg_match($regex, $key, $match) !== 1) {
             trigger_error('Invalid module key, "'.$key.'" does not match '.$regex, E_USER_ERROR);
             return false;

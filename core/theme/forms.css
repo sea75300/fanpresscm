@@ -24,18 +24,14 @@ textarea {
     height: auto;
 }
 
-input[type="text"][readonly],
-input[type="number"][readonly],
-input[type="url"][readonly],
-input[type="email"][readonly],
-input[type="datetime-local"][readonly],
-input[type="date"][readonly],
-input[type="time"][readonly],
-input[type="password"][readonly],
-input[type="checkbox"][readonly],
-input[type="radio"][readonly],
-input[type="checkbox"][disabled],
-input[type="radio"][disabled],
+input[type=text][readonly],
+input[type=number][readonly],
+input[type=url][readonly],
+input[type=email][readonly],
+input[type=datetime-local][readonly],
+input[type=date][readonly],
+input[type=time][readonly],
+input[type=password][readonly],
 textarea[readonly],
 .fpcm-ui-readonly {
     opacity: 0.35;
@@ -74,4 +70,30 @@ textarea.fpcm-ui-textarea-medium {
 
 .fpcm-ui-input-wrapper.fpcm-ui-input-wrapper-number .fpcm-ui-input-wrapper-inner {
     padding-right: 0;
+}
+
+input[type=checkbox],
+input[type=radio] {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+}
+
+input[type=radio]:hover + label:before,
+input[type=radio]:focus + label:before {
+    border-radius: 50%;
+}
+
+.ui-controlgroup input[type=checkbox] + label,
+.ui-controlgroup input[type=checkbox] + label:before,
+.ui-controlgroup input[type=checkbox]:checked + label:before,
+.ui-controlgroup input[type=radio] + label,
+.ui-controlgroup input[type=radio] + label:before,
+.ui-controlgroup input[type=radio]:checked + label:before,
+.ui-controlgroup input[type=radio]:hover + label:before,
+.ui-controlgroup input[type=radio]:focus + label:before {
+    content: inherit;
+    font-family: initial;
+    appearance: initial;
 }

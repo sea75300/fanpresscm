@@ -219,9 +219,9 @@ div.fpcm-status-info ul li:active > a,
 div.fpcm-status-info ul li:hover em,
 div.fpcm-status-info ul li:focus em,
 div.fpcm-status-info ul li:active em,
-div.fpcm-status-info ul li:hover .fpcm-ui-important-text,
-div.fpcm-status-info ul li:focus.fpcm-ui-important-text,
-div.fpcm-status-info ul li:active .fpcm-ui-important-text,
+div.fpcm-status-info ul li:hover .fpcm-ui-important-text:hover,
+div.fpcm-status-info ul li:focus .fpcm-ui-important-text:focus,
+div.fpcm-status-info ul li:active .fpcm-ui-important-text:active,
 div.fpcm-status-info ul li:hover .fpcm-menu-top-level2:hover,
 div.fpcm-status-info ul li:focus .fpcm-menu-top-level2:focus,
 div.fpcm-status-info ul li:active .fpcm-menu-top-level2:active,
@@ -286,4 +286,38 @@ div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even):hover {
 
 .fpcm.ui-box-shadow-dark {
     box-shadow: 0 0 15px #555;
+}
+
+div.row.fpcm-ui-dataview-row.fpcm-ui-logs-error
+{
+    border-left: 5px solid #cc0000;
+}
+
+div.row.fpcm-ui-dataview-row.fpcm-ui-logs-warning
+{
+    border-left: 5px solid #FAD42E;
+}
+
+div.row.fpcm-ui-dataview-row.fpcm-ui-logs-deprecation-warning
+{
+    border-left: 5px solid #c3c3c3;
+}
+
+.fpcm-ui-progressbar-label,
+.fpcm.ui-progressbar-label {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+input[type=checkbox][disabled] + label:before,
+input[type=radio][disabled] + label:before,
+input[type=checkbox][readonly] + label:before,
+input[type=radio][readonly] + label:before  {
+    color: #c3c3c3;
+}
+
+input[type=checkbox]:hover + label:before,
+input[type=checkbox]:focus + label:before,
+input[type=radio]:hover + label:before,
+input[type=radio]:focus + label:before {
+    background: #e3e3e3;
 }

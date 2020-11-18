@@ -13,10 +13,12 @@ fpcm.system = {
 
     init: function () {
 
-        if (!fpcm.vars.jsvars.noRefresh) {
-            fpcm.system.doRefresh();
-            setInterval(fpcm.system.doRefresh, 60000);
-        }
+        fpcm.worker.postMessage({
+            namespace: 'system',
+            function: 'doRefresh',
+            interval: 60000,
+            id: 'system.refresh'
+        });
 
         fpcm.system.initPasswordFieldActions();
         fpcm.system.showHelpDialog();
@@ -111,12 +113,22 @@ fpcm.system = {
 
     doRefresh: function () {
 
+        if (fpcm.vars.jsvars.noRefresh) {
+            return false;
+        }
+
         fpcm.ajax.post('refresh', {
             quiet: true,
             data: {
                 articleId: fpcm.vars.jsvars.articleId
             },
             execDone: function (result) {
+                
+                fpcm.worker.postMessage({
+                    cmd: 'remove',
+                    id: 'system.refresh'
+                });                
+                
 
                 if (fpcm.vars.jsvars.articleId == 1) {
                     fpcm.editor.showInEditDialog(result);
@@ -129,6 +141,7 @@ fpcm.system = {
             },
         });
 
+        return true;
     },
 
     generatePasswdString: function () {
@@ -194,9 +207,11 @@ fpcm.system = {
                                     }                                    
                                 }
 
+                                if (_params.onSuccess) {
+                                    params.onSuccess = _params.onSuccess;
+                                }
 
                                 fpcm.system.execMassEdit(func, params);
-
                                 fpcm.dom.fromTag(this).dialog('close');
 
                             },
@@ -230,13 +245,20 @@ fpcm.system = {
     },
 
     execMassEdit: function (func, params) {
+        
+        if (!params.onSuccess) {
+            params.onSuccess = function () {
+                fpcm.ui.relocate(window.location.href + (fpcm.vars.jsvars.massEdit && fpcm.vars.jsvars.massEdit.relocateParams ? fpcm.vars.jsvars.massEdit.relocateParams : ''));
+            };
+        }
+        
         fpcm.ajax.post(func, {
             data: params,
             dataType: 'json',
             execDone: function (res) {
 
                 if (res !== null && res.code == 1) {
-                    fpcm.ui.relocate(window.location.href + (fpcm.vars.jsvars.massEdit && fpcm.vars.jsvars.massEdit.relocateParams ? fpcm.vars.jsvars.massEdit.relocateParams : ''));
+                    params.onSuccess();
                     return true;
                 }
 
@@ -280,7 +302,7 @@ fpcm.system = {
                     },
                     execDone: function (result) {
 
-                        fpcm.ui.resetSelectMenuSelection('#action');
+                        fpcm.ui.resetSelectMenuSelection('action');
 
                         if (!result.msg && !result.code) {
                             fpcm.ajax.showAjaxErrorMessage();
@@ -326,7 +348,7 @@ fpcm.system = {
                         id: 'help',
                         dlWidth: sizes.width,
                         dlMaxHeight: sizes.height,
-                        resizable: false,
+                        resizable: true,
                         title: fpcm.ui.translate('HL_HELP'),
                         content: result,
                         dlButtons: [

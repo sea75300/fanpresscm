@@ -19,40 +19,20 @@ class articlelistactive extends articlelistbase {
     {
         return $this->permissions->article->edit;
     }
-
-    /**
-     *
-     * @var bool
-     */
-    protected $showArchivedStatus = false;
     
-    protected function getArticleCount()
-    {
-        $this->articleCount = $this->articleList->countArticlesByCondition($this->conditionItems);
-    }
-
-    protected function getArticleItems()
-    {
-        $this->conditionItems->limit = [$this->config->articles_acp_limit, $this->listShowStart];
-        $this->articleItems = $this->articleList->getArticlesByCondition($this->conditionItems, true);
-    }
-
-    protected function getConditionItem()
-    {
-        $this->conditionItems = new \fpcm\model\articles\search();
-        $this->conditionItems->archived = 0;
-        $this->conditionItems->deleted = 0;
-        $this->conditionItems->orderby = ['createtime DESC'];
-    }
-
-    protected function getSearchMode()
-    {
-        return 0;
-    }
-
-    protected function getListAction()
+    protected function getListAction() : void
     {
         $this->listAction = 'articles/listactive';
+    }
+
+    protected function getSearchMode() : string
+    {
+        return \fpcm\controller\ajax\articles\lists::MODE_ACTIVE;
+    }
+
+    protected function showDraftStatus() : bool
+    {
+        return false;
     }
 
 }

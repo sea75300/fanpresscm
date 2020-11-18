@@ -4,13 +4,9 @@
 
     <div id="fpcm-editor-tabs">
         <ul>
-            <?php if ($isRevision) : ?>
-            <li><a href="#tabs-article"><?php $theView->write('EDITOR_STATUS_REVISION'); ?></a></li>
-            <?php else : ?>
             <li id="fpcm-editor-tabs-editorregister" data-toolbar-buttons="1"><a href="#tabs-article"><?php $theView->write('ARTICLES_EDITOR'); ?></a></li>
             <li id="fpcm-editor-tabs-editorextended" data-toolbar-buttons="1"><a href="#tabs-extended"><?php $theView->write('GLOBAL_EXTENDED'); ?></a></li>
-            <?php endif; ?>
-            <?php if ($showComments && $commentEnabledGlobal && !$isRevision) : ?>
+            <?php if ($showComments && $commentEnabledGlobal) : ?>
             <li data-toolbar-buttons="2" data-dataview-list="commentlist"><a href="<?php print $theView->controllerLink('ajax/editor/editorlist', ['id' => $article->getId(), 'view' => 'comments']); ?>">
                 <?php $theView->write('HL_ARTICLE_EDIT_COMMENTS', [ 'count' => $commentCount ]); ?>
             </a></li>
@@ -25,25 +21,22 @@
         <div id="tabs-article">
             <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-filemanager"></div>            
 
-            <?php if ($isRevision) : ?>            
-                <?php include $theView->getIncludePath('articles/editors/revisiondiff.php'); ?>
-            <?php else : ?>
-            <div class="row fpcm-ui-padding-md-tb">
+            <div class="row py-2">
                 
-                <div class="col-12 fpcm-ui-padding-none-lr">                
-                    <div class="row fpcm-ui-padding-md-bottom">
-                        <div class="col-12 fpcm-ui-padding-none-lr">
+                <div class="col-12 px-0">                
+                    <div class="row pb-2">
+                        <div class="col-12 px-0">
                             <fieldset>
                                 <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
 
-                                    <div class="row fpcm-ui-padding-md-tb fpcm-ui-editor-categories">
-                                        <div class="col-12 fpcm-ui-padding-none-lr">
-                                            <?php $theView->textInput('article[title]')->setValue($article->getTitle())->setText('ARTICLE_LIST_TITLE')->setPlaceholder(true)->setWrapper(true); ?>
+                                    <div class="row py-2 fpcm-ui-editor-categories">
+                                        <div class="col-12 px-0">
+                                            <?php $theView->textInput('article[title]')->setValue($article->getTitle())->setText('ARTICLE_LIST_TITLE')->setPlaceholder(true)->setWrapper(true)->setAutoFocused(true); ?>
                                         </div>
                                     </div>
 
-                                    <div class="row fpcm-ui-padding-md-tb fpcm-ui-editor-categories">
-                                        <div class="col-12 fpcm-ui-padding-none-lr">
+                                    <div class="row py-2 fpcm-ui-editor-categories">
+                                        <div class="col-12 px-0">
                                             <?php $theView->select('article[categories][]')->setIsMultiple(true)->setOptions($categories)->setSelected($article->getCategories()); ?>
                                         </div>
                                     </div>
@@ -54,25 +47,19 @@
                 </div>
             </div>
 
-                <?php include \fpcm\components\components::getArticleEditor()->getEditorTemplate(); ?>
-            <?php endif; ?>
+            <?php include \fpcm\components\components::getArticleEditor()->getEditorTemplate(); ?>
         </div>
 
-        <?php if (!$isRevision) : ?>            
         <div id="tabs-extended"> 
                 <?php include $theView->getIncludePath('articles/buttons.php'); ?>
         </div>
-        <?php endif; ?>
-
 
     </div>
 </div>
 
-<?php if ($showComments && !$isRevision) : ?>
+<?php if ($showComments) : ?>
     <?php include $theView->getIncludePath('comments/massedit.php'); ?>
 <?php endif; ?>
 
-<?php if (!$isRevision) : ?>
 <!-- Shortlink layer -->
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-shortlink"></div>
-<?php endif; ?>

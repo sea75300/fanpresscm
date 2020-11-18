@@ -16,12 +16,12 @@ cols:
         type: varchar
         length: 255
         params: NOT NULL
-        charset: utf8mb4
+        charset: utf8mb4_general_ci
     content:
         type: text
         length: 
         params: NOT NULL
-        charset: utf8mb4
+        charset: utf8mb4_general_ci
     categories:
         type: varchar
         length: 512

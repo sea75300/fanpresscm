@@ -14,7 +14,7 @@ namespace fpcm\model\files;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.1.0
+ * @since 3.1.0
  */
 final class backuplist extends \fpcm\model\abstracts\filelist {
 

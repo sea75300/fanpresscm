@@ -53,8 +53,6 @@ class delete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
-        
         $this->fileName = $this->request->fromPOST('filename', [
             \fpcm\model\http\request::FILTER_BASE64DECODE
         ]);
@@ -86,7 +84,7 @@ class delete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         
         $replace = ['{{filenames}}' => basename($this->fileName)];
 
-        $img = new \fpcm\model\files\image($this->fileName, false);
+        $img = new \fpcm\model\files\image($this->fileName);
         if ($img->isValidDataFolder('', \fpcm\classes\dirs::DATA_UPLOADS) && $img->delete()) {
             
             $this->response->setReturnData(new \fpcm\view\message(
@@ -119,7 +117,7 @@ class delete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
         array_walk($this->fileName, function ($fileName)
         {
-            if ((new \fpcm\model\files\image($fileName, false))->delete()) {
+            if ((new \fpcm\model\files\image($fileName))->delete()) {
                 $this->deleted['ok'][] = $fileName;
                 return true;
             }

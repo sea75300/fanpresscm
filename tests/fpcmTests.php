@@ -1,12 +1,12 @@
 <?php
 
-class fpcmTests extends \PHPUnit_Framework_TestCase {
+class fpcmTests extends \PHPUnit\Framework\TestCase {
 
    public static function suite()
     {
-        $suite = new \PHPUnit_Framework_TestSuite();
+        $suite = new \PHPUnit\Framework\TestSuite();
         
-        $files = glob(__DIR__.'/*/*/*Test.php');
+        $files = glob(__DIR__.'/testcases/*/*Test.php');
 
         if (!is_array($files)) {
             return $suite;

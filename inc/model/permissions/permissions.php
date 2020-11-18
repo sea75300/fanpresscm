@@ -14,7 +14,7 @@ namespace fpcm\model\permissions;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.4
+ * @since 4.4
  */
 class permissions extends \fpcm\model\abstracts\dataset {
 
@@ -73,25 +73,27 @@ class permissions extends \fpcm\model\abstracts\dataset {
     protected $dbExcludes = ['checkedData', 'article', 'comment', 'system', 'modules', 'uploads'];
 
     /**
-     * Konstruktor
-     * @param int $rollid ID der Benutzerrolle
+     * Constructor
+     * @param int $rollid
+     * @param bool $useCache
      * @return void
      */
-    public function __construct($rollid = 0)
+    public function __construct($rollid = 0, bool $useCache = true)
     {
         $this->table = \fpcm\classes\database::tablePermissions;
-        $this->cacheName = 'system/permissioncache' . $rollid;
 
         parent::__construct();
 
-        if (!$rollid && \fpcm\classes\loader::getObject('\fpcm\model\system\session')->exists()) {
-            $rollid = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getCurrentUser()->getRoll();
+        $sessObj = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        if (!$rollid && $sessObj->exists()) {
+            $rollid = $sessObj->getCurrentUser()->getRoll();
         }
 
         if (!$rollid) {
             return;
         }
 
+        $this->cacheName = $useCache ? 'permissioncache' . $rollid: false;       
         $this->rollid = $rollid;
         $this->init();
     }
@@ -142,6 +144,12 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function init()
     {
+        if ($this->cacheName && session_status() === PHP_SESSION_ACTIVE && isset($_SESSION[$this->cacheName])) {
+            $this->permissiondata = $_SESSION[$this->cacheName];
+            $this->initItems();
+            return true;
+        }
+        
         $data = $this->dbcon->selectFetch( (new \fpcm\model\dbal\selectParams($this->table))->setWhere('rollid = ?')->setParams([$this->rollid]) );
 
         $this->id = $data->id;
@@ -150,6 +158,10 @@ class permissions extends \fpcm\model\abstracts\dataset {
 
         if (!is_array($this->permissiondata)) {
             return false;
+        }
+
+        if ($this->cacheName) {
+            $_SESSION[$this->cacheName] = $this->permissiondata;
         }
 
         $this->initItems();
@@ -166,6 +178,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
             $this->events = \fpcm\classes\loader::getObject('\fpcm\events\events');
         }
         
+        $this->refresh();
         return parent::save() === false ? false : true;
     }
 
@@ -191,9 +204,8 @@ class permissions extends \fpcm\model\abstracts\dataset {
             $return = true;
         }
 
-        $this->cache->cleanup();
+        $this->refresh();
         $this->init();
-
         return $return;
     }
 
@@ -204,7 +216,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
     public function delete()
     {
         $this->dbcon->delete($this->table, 'rollid = ?', [$this->rollid]);
-        $this->cache->cleanup();
+        $this->refresh();
         return true;
     }
 
@@ -273,7 +285,15 @@ class permissions extends \fpcm\model\abstracts\dataset {
      */
     public function editComments() : bool
     {
-        return $this->editArticles() && ($this->comment->edit || $this->comment->editall);
+        if ($this->article->edit && $this->comment->edit) {
+            return true;
+        }
+
+        if ($this->article->editall && $this->comment->editall) {
+            return true;
+        }
+        
+        return false;
     }
 
     /**
@@ -333,7 +353,7 @@ class permissions extends \fpcm\model\abstracts\dataset {
     /**
      * Init permission object items
      * @return bool
-     * @since FPCM 4.4
+     * @since 4.4
      */
     final protected function initItems()
     {
@@ -353,23 +373,11 @@ class permissions extends \fpcm\model\abstracts\dataset {
      * Returns event base string
      * @see \fpcm\model\abstracts\dataset::getEventModule
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function getEventModule(): string
     {
         return 'permission';
-    }
-
-    /**
-     * Is triggered after successful database insert
-     * @see \fpcm\model\abstracts\dataset::afterSaveInternal
-     * @return bool
-     * @since FPCM 4.1
-     */
-    protected function afterSaveInternal(): bool
-    {
-        $this->cache->cleanup();
-        return true;
     }
 
     /**
@@ -419,5 +427,26 @@ class permissions extends \fpcm\model\abstracts\dataset {
 
         $this->checkedData[$permissionArrayHash] = $res;
         return $res;
+    }
+
+    /**
+     * Refresh cache and session data
+     * @return bool
+     * @since 4.5
+     */
+    private function refresh() : bool
+    {
+        $this->cache->cleanup();
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            return true;
+        }
+
+        $cacheName = $this->cacheName ? $this->cacheName : 'permissioncache' . $this->rollid;
+        if (!isset($_SESSION[$cacheName])) {
+            return true;
+        }
+
+        unset($_SESSION[$cacheName]);
+        return true;
     }
 }

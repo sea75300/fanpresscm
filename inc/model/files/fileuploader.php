@@ -108,118 +108,9 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * Führt Upload von Module-Package via HTML-Form + PHP sowie Installation aus Modulmanager durch
-     * @return bool
-     */
-    public function processModuleUpload()
-    {
-        $tempNames = $this->uploader['tmp_name'];
-        $fileNames = $this->uploader['name'];
-        $fileTypes = $this->uploader['type'];
-
-        foreach ($tempNames as $key => $value) {
-
-            if (!is_uploaded_file($value) || !isset($fileNames[$key]) || !isset($fileTypes[$key])) {
-                continue;
-            }
-
-            $mime = $this->getFinfoData($value);
-            if ($mime === null) {
-                $mime = $fileTypes[$key];
-            }
-            if ($fileTypes[$key] !== $mime ||
-                $mime !== 'application/zip' ||
-                \fpcm\model\abstracts\file::retrieveFileExtension($fileNames[$key])  !== \fpcm\model\packages\package::DEFAULT_EXTENSION ) {
-                trigger_error('Unsupported filetype '.$mime.' in ' . $fileNames[$key]);
-                $res['error'][$key] = $fileNames[$key];
-                continue;
-            }            
-            
-            $fileName = $this->getUploadFileName($fileNames[$key]);
-
-            $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $fileName);
-            if (!move_uploaded_file($value, $path)) {
-                return false;
-            }
-
-            $package = new \fpcm\model\packages\module($fileName);
-            if (!$package->extract()) {
-                return false;
-            }
-
-            if (!$package->copy()) {
-                return false;
-            }
-            
-            break;
-
-        }
-
-        $module = new \fpcm\module\module(\fpcm\module\module::getKeyFromFilename($fileName), false );
-        if (!$module->addModule()) {
-            return false;
-        }
-
-        $package->cleanup();
-        return true;
-    }
-
-    /**
-     * Führt Upload von HTML-Template für Artikle-Editor via HTML-Form + PHP durch
-     * @since FPCM 3.3
-     * @return bool
-     */
-    public function processArticleTemplateUpload()
-    {
-        $tempNames = $this->uploader['tmp_name'];
-        $fileNames = $this->uploader['name'];
-        $fileTypes = $this->uploader['type'];
-
-        $combinations = array_combine(templatefile::$allowedExts, templatefile::$allowedTypes);
-        
-        foreach ($tempNames as $key => $value) {
-
-            if (!is_uploaded_file($value) || !isset($fileNames[$key]) || !isset($fileTypes[$key])) {
-                continue;
-            }
-
-            $ext = \fpcm\model\abstracts\file::retrieveFileExtension($fileNames[$key]);
-
-            $mime = $this->getFinfoData($value);
-            if ($mime === null) {
-                $mime = $fileTypes[$key];
-            }
-            
-            $assigned = $combinations[$ext] ?? null;
-            if ($assigned === templatefile::$allowedTypes[0]) {
-                $assigned = templatefile::$allowedTypes[1];
-            }
-
-            if ($assigned === null ){
-                trigger_error('Unsupported filetype '.$mime.' in ' . $fileNames[$key]);
-                return false;
-            }
-
-            $isValidType = in_array($mime, templatefile::$allowedTypes) && in_array($ext, templatefile::$allowedExts) && $assigned === $mime;
-            if ($fileTypes[$key] !== $mime || !$isValidType) {
-                trigger_error('Unsupported filetype '.$mime.' in ' . $fileNames[$key]);
-                return false;
-            }                        
-
-            $file = new templatefile($fileNames[$key]);
-            if (!$file->moveUploadedFile($value)) {
-                trigger_error('Unable to move uploaded to to uploader folder! ' . $fileNames[$key]);
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
      * Führt Upload eines Artikel-Bildes aus
      * @param string $filename
-     * @since FPCM 3.6
+     * @since 3.6
      * @return bool
      */
     public function processAuthorImageUpload($filename)
@@ -278,14 +169,10 @@ final class fileuploader extends \fpcm\model\abstracts\staticModel {
      * @param string $filename
      * @param int $option
      * @return string|null
-     * @since FPCM FPCM 4.4.5
+     * @since 4.5
      */
-    protected function getFinfoData(string $filename, int $option = FILEINFO_MIME_TYPE)
+    protected function getFinfoData(string $filename, int $option = FILEINFO_MIME_TYPE) : ?string
     {
-        if (!class_exists('\finfo')) {
-            return null;
-}
-
         if (!$this->finfo instanceof \finfo) {
             $this->finfo = new \finfo();
         }

@@ -17,6 +17,7 @@ use fpcm\model\dbal\selectParams;
  * Model base object
  * 
  * @package fpcm\model\abstracts
+ * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -92,7 +93,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     /**
      * Notifications
      * @var \fpcm\model\theme\notifications
-     * @since FPCM 3.6
+     * @since 3.6
      */
     protected $notifications;
 
@@ -121,6 +122,10 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      */
     public function __construct($id = null)
     {
+        if (method_exists($this, 'getTableName')) {
+            $this->getTableName();
+        }
+        
         $this->dbcon = loader::getObject('\fpcm\classes\database');
         $this->events = loader::getObject('\fpcm\events\events');
         $this->cache = loader::getObject('\fpcm\classes\cache');
@@ -152,7 +157,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      */
     public function __get($name)
     {
-        return isset($this->data[$name]) ? $this->data[$name] : false;
+        return $this->data[$name] ?? false;
     }
 
     /**
@@ -225,9 +230,9 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      */
     public function init()
     {
-        $data = $this->dbcon->selectFetch((new selectParams($this->table))->setWhere('id = ?')->setParams([$this->id]));
+        $data = $this->dbcon->selectFetch((new selectParams($this->table))->setWhere('id = :id')->setParams(['id' => $this->id]));
         if (!$data) {
-            trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!');
+            trigger_error('Failed to load data for object of type "' . get_class($this) . '" with given id ' . $this->id . '!', E_USER_WARNING);
             return false;
         }
 
@@ -286,7 +291,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     /**
      * Executes save process to database and events
      * @return bool|int
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function save()
     {
@@ -319,7 +324,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     /**
      * Executes update process to database and events
      * @return bool|int
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function update()
     {
@@ -431,7 +436,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     /**
      * Bereitet Daten für Speicherung in Datenbank vor
      * @return bool
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function prepareDataSave()
     {
@@ -451,7 +456,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
      * Returns full event name string
      * @param string $event
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     final protected function getEventName(string $event) : string
     {
@@ -461,14 +466,14 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     /**
      * Returns event base string
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     abstract protected function getEventModule() : string;
 
     /**
      * Is triggered after successful database insert
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterSaveInternal() : bool
     {
@@ -478,7 +483,7 @@ abstract class dataset implements \fpcm\model\interfaces\dataset {
     /**
      * Is triggered after successful database update
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterUpdateInternal() : bool
     {

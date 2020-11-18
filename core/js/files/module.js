@@ -1,7 +1,7 @@
 /**
  * FanPress CM Filemanager Namespace
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2015-2018, Stefan Seehafer
+ * @copyright (c) 2015-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 if (fpcm === undefined) {
@@ -26,39 +26,35 @@ fpcm.filemanager = {
             fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
             return false;
         });
-        
-        window.addEventListener('message', function (event) {
 
-            if (!event.data || !event.data.cmd) {
-                return false;
-            }
-
-            if (event.data.mceAction === 'clickFmgrBtn') {
-                fpcm.dom.fromId('' + event.data.cmd).click()
-            }
-
-        });
     },
     
     initAfter: function() {
 
         if (fpcm.vars.jsvars.loadAjax) {
-            fpcm.filemanager.reloadFiles();
+            fpcm.worker.postMessage({
+                namespace: 'filemanager',
+                function: 'reloadFiles',
+                id: 'filemanager.reloadFiles'
+            });
         }
 
         if (fpcm.vars.jsvars.fmgrMode === 1) {
-            fpcm.ui.checkboxradio('.fpcm-ui-listeview-setting', {}, function () {
-                fpcm.ajax.post('setconfig', {
-                    data: {
-                        var: 'file_view',
-                        value: fpcm.dom.fromTag(this).val()
-                    },
-                    execDone: function() {
-                        fpcm.filemanager.reloadFiles();
-                        fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
-                    }
-                });
-            });
+            
+            fpcm.ui.selectmenu('#listView', {
+                change: function (event, ui) {
+                    fpcm.ajax.post('setconfig', {
+                        data: {
+                            var: 'file_view',
+                            value: ui.item.value
+                        },
+                        execDone: function() {
+                            fpcm.filemanager.reloadFiles();
+                            fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
+                        }
+                    });
+                }
+            });            
 
             fpcm.filemanager.tabsObj = fpcm.ui.tabs('#fpcm-files-tabs', {
                 beforeActivate: function( event, ui ) {
@@ -72,15 +68,8 @@ fpcm.filemanager = {
                     fpcm.dom.fromId('fpcm-select-all').checkboxradio('instance').option('classes', {
                         "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "")
                     });
-
-                    fpcm.dom.fromId('listViewCards').checkboxradio('instance').option('classes', {
-                        "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "")
-                    });
-
-                    fpcm.dom.fromId('listViewList').checkboxradio('instance').option('classes', {
-                        "ui-checkboxradio-label": (showButtons == 2 ? "fpcm-ui-hidden" : "")
-                    });
-
+                    
+                    fpcm.dom.fromId('listView-button').toggleClass("fpcm-ui-hidden");
                     fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
                 }
             });
@@ -92,16 +81,22 @@ fpcm.filemanager = {
         
     },
 
-    initJqUiWidgets: function () {
+    initJqUiWidgets: function (_hideLoader) {
         fpcm.dom.fromId('fpcm-select-all').prop('checked', false).checkboxradio('refresh');
         fpcm.ui.assignCheckboxes();
         fpcm.ui.assignControlgroups();
         fpcm.filemanager.initInsertButtons();
         fpcm.filemanager.initRenameButtons();
+        fpcm.filemanager.initEditButtons();
         fpcm.filemanager.initDeleteButtons();
+        fpcm.filemanager.initAltTextButtons();
         fpcm.filemanager.initPropertiesButton();
         fpcm.filemanager.initPagination();
         fpcm.dom.fromClass('fpcm-link-fancybox').fancybox();
+        
+        if (_hideLoader === true) {
+            fpcm.ui_loader.hide();
+        }
     },
     
     closeRenameDialog: function() {
@@ -111,44 +106,84 @@ fpcm.filemanager = {
     
     initInsertButtons: function () {
 
-        fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').click(function () {
-            parent.fpcm.editor.insertThumbByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
-            return false;
-        });
+        fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').unbind('click');
+        fpcm.dom.fromClass('fpcm-filelist-tinymce-full').unbind('click');
+        fpcm.dom.fromClass('fpcm-filelist-articleimage').unbind('click');
+        fpcm.dom.fromId('insertGallery').unbind('click');
 
-        fpcm.dom.fromClass('fpcm-filelist-tinymce-full').click(function () {
-            parent.fpcm.editor.insertFullByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
-            return false;
-        });
+        if (fpcm.vars.jsvars.fmgrMode === 2) {
+            fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').click(function () {
+                parent.fpcm.editor.insertThumbByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
+                return false;
+            });
 
-        fpcm.dom.fromClass('fpcm-filelist-articleimage').click(function () {
+            fpcm.dom.fromClass('fpcm-filelist-tinymce-full').click(function () {
+                parent.fpcm.editor.insertFullByEditor(fpcm.dom.fromTag(this).attr('href'), fpcm.dom.fromTag(this).data('imgtext'));
+                return false;
+            });
 
-            var url   = fpcm.dom.fromTag(this).attr('href');
-            parent.document.getElementById('articleimagepath').value  = url;
-            var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
-            
-            dialogEl.dialog('close');
-            dialogEl.empty();
-            return false;
-        });
+            fpcm.dom.fromId('insertGallery').click(function () {
 
-        fpcm.dom.fromId('insertGallery').click(function () {
+                var values = [];
+                fpcm.dom.fromClass('fpcm-ui-list-checkbox:checked').map(function (idx, item) {
+                    values.push(jQuery(item).data('gallery'));
+                });
 
-            var values = [];
-            fpcm.dom.fromClass('fpcm-ui-list-checkbox:checked').map(function (idx, item) {
-                values.push(jQuery(item).data('gallery'));
+                if (!values.length) {
+                    return false;
+                }
+
+                parent.fpcm.editor.insertGalleryByEditor(values);
+                return false;
             });
             
-            if (!values.length) {
-                return false;
-            }
-            
-            parent.fpcm.editor.insertGalleryByEditor(values);
             return false;
-        });
+        }
+        
+        if (fpcm.vars.jsvars.fmgrMode === 3) {
+            fpcm.dom.fromClass('fpcm-filelist-articleimage').click(function () {
+
+                var url   = fpcm.dom.fromTag(this).attr('href');
+                parent.document.getElementById('articleimagepath').value  = url;
+                var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
+
+                dialogEl.dialog('close');
+                dialogEl.empty();
+                return false;
+            });
+
+            return false;
+        }
+        
+        if (fpcm.vars.jsvars.fmgrMode === 4) {
+            
+            fpcm.dom.fromClass('fpcm-filelist-tinymce-thumb').click(function () {
+                var url   = fpcm.dom.fromTag(this).attr('href');
+                parent.document.getElementById('mediaposter').value  = url;
+                var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
+
+                dialogEl.dialog('close');
+                dialogEl.empty();
+                return false;
+            });
+
+            fpcm.dom.fromClass('fpcm-filelist-tinymce-full').click(function () {
+                var url   = fpcm.dom.fromTag(this).attr('href');
+                parent.document.getElementById('mediaposter').value  = url;
+                var dialogEl = window.parent.fpcm.dom.fromId("fpcm-dialog-editor-html-filemanager");
+
+                dialogEl.dialog('close');
+                dialogEl.empty();
+                return false;
+            });
+        }
+
+
+
     },
 
     initRenameButtons: function() {
+        fpcm.dom.fromClass('fpcm-filelist-rename').unbind('click');
         fpcm.dom.fromClass('fpcm-filelist-rename').click(function () {
 
             if (!fpcm.ui.langvarExists('FILE_LIST_RENAME_NEWNAME')) {
@@ -179,8 +214,7 @@ fpcm.filemanager = {
                                     fpcm.filemanager.closeRenameDialog();
                                     fpcm.filemanager.reloadFiles();
                                 }
-                            })
-                            
+                            });
                         }
                     },
                     {
@@ -194,6 +228,66 @@ fpcm.filemanager = {
                 ]
             });
             
+            return false;
+        });
+    },
+    
+    initEditButtons: function() {
+
+        fpcm.dom.fromClass('fpcm-filelist-link-edit').unbind('click');
+        fpcm.dom.fromClass('fpcm-filelist-link-edit').click(function () {
+            fpcm.imageEditor.initEditorDialog({
+                afterUpload: fpcm.filemanager.reloadFiles,
+                data: fpcm.dom.fromTag(this).data()
+            });
+            return false;
+        });
+    },
+
+    initAltTextButtons: function() {
+
+        fpcm.dom.fromClass('fpcm-filelist-link-alttext').unbind('click');
+        fpcm.dom.fromClass('fpcm-filelist-link-alttext').click(function () {
+
+        var selectedFile = fpcm.dom.fromTag(this).data('file');
+        fpcm.dom.fromId('altTextDialog').val(fpcm.dom.fromTag(this).data('alttext'));
+
+        fpcm.ui.dialog({
+            id: 'files-alttext',
+            dlWidth: fpcm.ui.getDialogSizes().width,
+            title: fpcm.ui.translate('FILE_LIST_ALTTEXT'),
+            dlButtons: [
+                {
+                    text: fpcm.ui.translate('GLOBAL_SAVE'),
+                    icon: "ui-icon-disk",                        
+                    click: function() {
+                        fpcm.dom.fromTag(this).dialog( "close" );
+                        fpcm.ajax.post('files/alttext', {
+                            data: {
+                                file: selectedFile,
+                                alttext: fpcm.dom.fromId('altTextDialog').val()
+                            },
+                            execDone: function (result) {
+                                fpcm.ui.addMessage(result);
+                                fpcm.dom.fromId('altTextDialog').val('');
+                                fpcm.filemanager.reloadFiles();
+                            }
+                        });
+                    }
+                },
+                {
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    icon: "ui-icon-closethick",                
+                    click: function () {
+                        fpcm.dom.fromTag(this).dialog('close');
+                    }
+                }
+            ]
+        });     
+
+
+
+
             return false;
         });
     },
@@ -250,7 +344,6 @@ fpcm.filemanager = {
             }
 
             fpcm.ajax.post('files/createthumbs', {
-                dataType: 'json',
                 data: {
                     items: items
                 },
@@ -343,7 +436,7 @@ fpcm.filemanager = {
                         switch (prop) {
                             case 'resulution' :
                                 titleTxt = el.data('fileresx') + ' X ' + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
-                                titleHtml = el.data('fileresx') + '<span class="fa fa-times fa-fw"></span>' + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
+                                titleHtml = el.data('fileresx') + fpcm.ui.getIcon('times') + el.data('fileresy') + ' ' + fpcm.ui.translate('FILE_LIST_RESOLUTION_PIXEL');
                                 fpcm.dom.fromId('fpcm-dialog-files-properties-' + prop).attr('title', titleTxt).html(titleHtml);
                                 break;
                             default:
@@ -386,10 +479,11 @@ fpcm.filemanager = {
         fpcm.vars.jsvars.pager = {
             maxPages: 0,
             showBackButton: true,
-            showNextButton: true,            
+            showNextButton: true
         };
 
         fpcm.ui.initPager({
+            keepSelect: true,
             backAction: function() {
                 var link = fpcm.dom.fromTag(this).attr('href');
                 if (link === '#') {
@@ -419,42 +513,27 @@ fpcm.filemanager = {
 
     },
 
-    reloadFiles: function (page, filter) {
+    reloadFiles: function (_page, _filter) {
 
-        if (!page) {
-            page = 1;
+        if (!_page) {
+            _page = 1;
         }
         
-        if (!filter) {
-            filter = {};
-        }
-        else if (filter) {
+         if (_filter) {
             fpcm.vars.jsvars.filesLastSearch = (new Date()).getTime();
         }
 
-        fpcm.ajax.post('filelist', {
-            quiet: fpcm.dom.fromTag('div.fpcm-ui-inline-loader').length ? true : false,
-            data: {
-                mode: fpcm.vars.jsvars.fmgrMode,
-                page: page,
-                filter: filter
-            },
-            execDone: function (result) {
-
-                fpcm.ui.assignHtml("#tabs-files-list-content", result);
-                fpcm.filemanager.initJqUiWidgets();
-                var fpcmRFDinterval = setInterval(function(){
-                    if (fpcm.dom.fromId('fpcm-filelist-images-finished').length == 1) {
-                        fpcm.ui_loader.hide();
-                        clearInterval(fpcmRFDinterval);
-                        if (page) {
-                            fpcm.dom.fromWindow().scrollTop(0);
-                        }
-                        return false;
-                    }
-                }, 250);
-
-            }
+        fpcm.ajax.getItemList({
+            module: 'files',
+            destination: "#tabs-files-list-content",
+            mode: fpcm.vars.jsvars.fmgrMode,
+            page: _page,
+            filter: _filter ? _filter : null,
+            loader: fpcm.dom.fromTag('div.fpcm-ui-inline-loader').length ? false : true,
+            dataType: 'html',
+            onAssignHtmlAfter: function () {
+                fpcm.filemanager.initJqUiWidgets(true);
+             }
         });
         
         return false;
@@ -529,5 +608,16 @@ fpcm.filemanager = {
 
         fpcm.filemanager.reloadFiles(1, sParams);
         fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
+    },
+    
+    runFileIndexUpdate: function () {
+
+        fpcm.ajax.get('cronasync', {
+            data    : {
+                cjId: 'fileindex'
+            },
+            loaderMsg: fpcm.ui.translate('FILE_LIST_ADDTOINDEX')
+        });
+
     }
 };

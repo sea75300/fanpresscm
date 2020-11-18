@@ -13,4 +13,3 @@ require_once __DIR__ . '/inc/controller/main.php';
 require_once __DIR__ . '/inc/common.php';
 
 (new fpcm\controller\main)->exec();
-?>

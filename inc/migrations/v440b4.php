@@ -14,7 +14,7 @@ namespace fpcm\migrations;
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\migrations
- * @since FPCM 4.4
+ * @since 4.4
  * @see migration
  */
 class v440b4 extends migration {
@@ -50,6 +50,15 @@ class v440b4 extends migration {
         }
 
         return true;
+    }
+
+    /**
+     * Returns new version, e. g. from version.txt
+     * @return string
+     */
+    protected function getNewVersion() : string
+    {
+        return '4.4.0-b4';
     }
 
     

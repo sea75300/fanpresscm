@@ -40,7 +40,6 @@ class execAction extends \fpcm\controller\abstracts\ajaxController implements \f
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
         $this->key = $this->request->fromPOST('key');
         $this->fromDir = $this->request->fromPOST('fromDir', [
             \fpcm\model\http\request::FILTER_CASTINT

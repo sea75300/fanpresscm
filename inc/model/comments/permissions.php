@@ -14,7 +14,7 @@ namespace fpcm\model\comments;
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\traits\comments
- * @since FPCM 3.4.4
+ * @since 3.4.4
  */
 trait permissions {
 
@@ -33,8 +33,12 @@ trait permissions {
             return true;
         }
 
-        if (!is_array($this->ownArticleIds) || !count($this->ownArticleIds)) {
-            $this->articleList = new \fpcm\model\articles\articlelist();
+        if (!is_array($this->ownArticleIds)) {
+            
+            if (!$this->articleList instanceof \fpcm\model\articles\articlelist) {
+                $this->articleList = new \fpcm\model\articles\articlelist();
+            }
+            
             $this->ownArticleIds = $this->articleList->getArticleIDsByUser(\fpcm\classes\loader::getObject('\fpcm\model\system\session')->getUserId());
         }
 

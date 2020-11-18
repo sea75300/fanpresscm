@@ -59,7 +59,7 @@ final class ops {
      * @param string $path
      * @param bool $keepFanPress
      * @return string
-     * @since FPCM 3.1
+     * @since 3.1
      */
     public static function removeBaseDir($path, $keepFanPress = false)
     {
@@ -97,7 +97,7 @@ final class ops {
      * Interne Funktion, welche Löschvorgang durchführt
      * @param string $path
      * @return int
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     private static function deleteRecursiveExec($path)
     {
@@ -216,14 +216,14 @@ final class ops {
      * "realpath" wrapper for non-existing files
      * @param string $path
      * @return string
-     * @since FPCM 4.4.5
+     * @since 4.5
      */
     public static function realpathNoExists(string $path) : string
     {
         $items = explode('/', $path);
         if (!count($items)) {
             return '';
-}
+        }
         
         $realpath = array_reduce($items, function ($carry, $item) use ($path) {
             
@@ -252,7 +252,7 @@ final class ops {
      * @param string $path
      * @param string $type
      * @return bool
-     * @since FPCM FPCM 4.4.5
+     * @since 4.5
      */
     public static function isValidDataFolder(string $path = '', string $type = '/') : bool
     {

@@ -13,7 +13,7 @@
     </div>
     <?php endif; ?>
     <?php if ($theView->pager) : ?>
-    <div class="fpcm-ui-toolbar fpcm-ui-float-right">
+    <div class="fpcm-ui-toolbar fpcm-ui-float-right" id="fpcm-ui-pager">
         <?php print $theView->pager; ?>
     </div>
     <?php endif; ?>

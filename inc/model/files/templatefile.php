@@ -13,7 +13,7 @@ namespace fpcm\model\files;
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\files
- * @since FPCM 3.3
+ * @since 3.3
  */
 final class templatefile extends \fpcm\model\abstracts\file {
 
@@ -51,7 +51,7 @@ final class templatefile extends \fpcm\model\abstracts\file {
     /**
      * Liefert eine URL für Editor zurück
      * @return string
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function getEditLink()
     {

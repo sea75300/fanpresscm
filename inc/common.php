@@ -21,4 +21,3 @@ include __DIR__ . '/functions.php';
 
 \fpcm\classes\dirs::init();
 \fpcm\classes\baseconfig::init();
-?>

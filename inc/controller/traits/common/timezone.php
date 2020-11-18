@@ -51,7 +51,7 @@ trait timezone {
     /**
      * DateTime-Maske mit Beispielen
      * @return array
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function getDateTimeMasks()
     {

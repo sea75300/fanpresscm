@@ -12,7 +12,7 @@ namespace fpcm\controller\ajax\articles;
  * 
  * @package fpcm\controller\ajax\articles\removeeditortags
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @since FPCM 3.5
+ * @since 3.5
  */
 class imgupload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
@@ -54,8 +54,9 @@ class imgupload extends \fpcm\controller\abstracts\ajaxController implements \fp
         $result = $uploader->processUpload($this->session->getUserId());
 
         if (!count($result['error']) && count($result['success'])) {
-            $this->returnData = ['location' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $uploader->getUploadFileName($name))];
-            $this->getSimpleResponse();
+            $this->response->setReturnData([
+                'location' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_UPLOADS, $uploader->getUploadFileName($name))
+            ])->fetch();
         }
 
         header("HTTP/1.0 500 Server Error");

@@ -19,8 +19,6 @@ fpcm.options = {
             saveActiveTab: true
         });
 
-        fpcm.ui.checkboxradio('.fpcm-ui-input-checkbox');
-
         fpcm.dom.fromId('syschecksubmitstats').click(function () {
             fpcm.ajax.post('syscheck', {
                 data: {

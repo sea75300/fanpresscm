@@ -14,7 +14,7 @@ namespace fpcm\migrations;
  * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\migrations
- * @since FPCM 4.3
+ * @since 4.3
  */
 abstract class migration {
 
@@ -97,7 +97,7 @@ abstract class migration {
      */
     final public function isRequired() : bool
     {
-        return true; version_compare($this->getNewVersion(), $this->getConfig()->system_version, '<');
+        return version_compare($this->getConfig()->system_version, $this->getNewVersion(), '<');
     }
 
     /**
@@ -106,36 +106,6 @@ abstract class migration {
      */
     final public function process() : bool
     {
-        $required = $this->required();
-        if (count($required)) {
-            
-            array_map(function($version) {
-
-                $className = self::getNamespace($version);
-
-                if (!$this->requiredResult) {
-                    $this->output('Processing of a previously executed migration failed. Skipping migration '.$className, true);
-                    return false;
-                }
-
-                /* @var $obj migration */
-                $obj = new $className;
-                if (!$obj->isRequired()) {
-                    return true;
-                }
-
-                $this->requiredResult = $obj->process();
-
-                if (!$this->requiredResult) {
-                    $this->output('Error while processing migration '.$className, true);
-                    return false;
-                }
-
-                return true;
-            }, $required);
-
-        }
-
         $cn = get_called_class();
         $this->output('Processing migration '.$cn);
         
@@ -171,7 +141,7 @@ abstract class migration {
      * @param string $str
      * @param bool $error
      * @return void
-     * @since FPCM 4.3
+     * @since 4.3
      */
     final protected function output(string $str, $error = false)
     {
@@ -206,15 +176,6 @@ abstract class migration {
     protected function init() : bool
     {
         return true;
-    }
-
-    /**
-     * Returns a list of migrations which have to be executed before
-     * @return array
-     */
-    protected function required() : array
-    {
-        return [];
     }
 
     /**
@@ -257,7 +218,7 @@ abstract class migration {
      * Returns a list of database driver names the migration should be executed to,
      * default is MySQL/ MariaDB and Postgres
      * @return array
-     * @since FPCM 4.4.1
+     * @since 4.4.1
      */
     protected function onDatabase() : array
     {

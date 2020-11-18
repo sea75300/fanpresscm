@@ -13,20 +13,20 @@ Help language file
             können durch Module bzw. neue Datei unter "fanpress/inc/dashboard" erzeugt werden.</p>
             <dl>
                 <dt>Zuletzt geschriebene News:</dt>
-                <dd class="fpcm-ui-padding-md-bottom">Hier findest eine Übersicht der zuletzt verfassten Artikel.</dd>
+                <dd class="pb-2">Hier findest eine Übersicht der zuletzt verfassten Artikel.</dd>
                 <dt>Zuletzt geschriebene Kommentare:</dt>
-                <dd class="fpcm-ui-padding-md-bottom">Hier findest eine Übersicht der zuletzt verfassten Kommentare.</dd>
+                <dd class="pb-2">Hier findest eine Übersicht der zuletzt verfassten Kommentare.</dd>
                 <dt>Verfügbare Updates:</dt>
-                <dd class="fpcm-ui-padding-md-bottom">Dieser Container beinhaltet Informationen zum Update-Status des Systems und von Modulen.</dd>
+                <dd class="pb-2">Dieser Container beinhaltet Informationen zum Update-Status des Systems und von Modulen.</dd>
                 <dt>Systemprüfung:</dt>
-                <dd class="fpcm-ui-padding-md-bottom">Diese Box enthält grundlegende Status-Informationen zu deiner Installation.</dd>
+                <dd class="pb-2">Diese Box enthält grundlegende Status-Informationen zu deiner Installation.</dd>
                 <dt>Statistiken:</dt>
-                <dd class="fpcm-ui-padding-md-bottom">In diesem Bereich werden statistische Informationen ausgegeben, u. a. zur Anzahl verfasster
+                <dd class="pb-2">In diesem Bereich werden statistische Informationen ausgegeben, u. a. zur Anzahl verfasster
                 Artikel oder Kommentare.</dd>
                 <dt>Aktuelle FanPress CM News:</dt>
-                <dd class="fpcm-ui-padding-md-bottom">Dieser Container beinhaltet Neuigkeiten rund vom FanPress CM, bspw. neue Versionen, künftige Entwicklungen usw..</dd>
+                <dd class="pb-2">Dieser Container beinhaltet Neuigkeiten rund vom FanPress CM, bspw. neue Versionen, künftige Entwicklungen usw..</dd>
                 <dt>Team-Kontakte:</dt>
-                <dd class="fpcm-ui-padding-md-bottom">Dieser Container beinhaltet eine Liste aller aktiven Benutzer mit der Möglichkeit, dies eine
+                <dd class="pb-2">Dieser Container beinhaltet eine Liste aller aktiven Benutzer mit der Möglichkeit, dies eine
                 E-Mail zu verfassen.</dd>
             </dl>
 
@@ -44,10 +44,10 @@ Help language file
 
         <dl>
             <dt>TinyMCE:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieser WYSIWYG-Editor zeigt alle Formatierungen und Änderungen direkt an. Außerdem
+            <dd class="pb-2">Dieser WYSIWYG-Editor zeigt alle Formatierungen und Änderungen direkt an. Außerdem
             bietet er diverse zusätzliche Informationen u. a. zur Bearbeitung von Bildern.</dd>
             <dt>CodeMirror:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieser Editor ist ein reiner HTML-Editor, welcher verschiedene Formatierungsmöglichkeiten
+            <dd class="pb-2">Dieser Editor ist ein reiner HTML-Editor, welcher verschiedene Formatierungsmöglichkeiten
             bietet sowie zusätzliche Funktionen wie Syntax-Highlighting.</dd>
         </dl>        
 
@@ -55,41 +55,41 @@ Help language file
         
         <dl>
             <dt>Artikelbild:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Mit dem Artikelbild kannst du einen Artikel eine zusätzliche Dekoration, optische
+            <dd class="pb-2">Mit dem Artikelbild kannst du einen Artikel eine zusätzliche Dekoration, optische
                 Beschreibung etc. geben. Die Position und Größe des Artikelbildes kann über das Artikel-Template festgelegt werden. Über den Button rechts neben dem
             Eingabefeld kannst du ein bereits hochgeladenes Bild auswählen und weitere Bilder hochladen.</dd>
             <dt>Quellenverzeichnis:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Der Inhalt dieses Feldes wird durch den Template-Tag "{{sources}}" dargestellt. Hier kannst du Links zu deinen Informationsquellen,
+            <dd class="pb-2">Der Inhalt dieses Feldes wird durch den Template-Tag "{{sources}}" dargestellt. Hier kannst du Links zu deinen Informationsquellen,
                 Quellen von Bildern, Videos etc. oder zu weiterführenden Informationen angeben. Links werden so weit es geht automatisch in HTML-Links umgewandelt.</dd>
             <dt>Tweet erzeugen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diese Option kann die Erzeugung eines Tweets bei aktiver Twitter-Verbindung manuell
+            <dd class="pb-2">Über diese Option kann die Erzeugung eines Tweets bei aktiver Twitter-Verbindung manuell
                 deaktiviert werden, wenn sie in den Systemoptionen aktiviert wurde.</dd>
             <dt>Tweet erzeugen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über das Textfeld kann das Standard-Template für einen Beitrag bei Twitter
+            <dd class="pb-2">Über das Textfeld kann das Standard-Template für einen Beitrag bei Twitter
                 überschrieben und durch einen eigenen Text ersetzt werden. Der Inhalt dieses Feldes wird nicht gespeichert.
                 Das Dropdown bietet eine Schnellzugriff auf die Template-Platzhalter. Über die Checkbox am Ende kann zudem festgelegt werden,
                 ob beim nächsten Speicher-Vorgang der Tweet erzeugt wird oder nicht.
             </dd>
             <dt>Artikel freischalten:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Mittels dieser Option kannst du einen neuen Artikel verfassen und zu einem bestimmten
+            <dd class="pb-2">Mittels dieser Option kannst du einen neuen Artikel verfassen und zu einem bestimmten
                 Zeitpunkt automatisch veröffentlichen lassen. Der Zeitpunkt kann maximal zwei Monate in der Zukunft liegen.</dd>
             <dt>Artikel als Entwurf speichern:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Wird diese Option aktiviert, so wird der Artikel beim Speichern nicht als
+            <dd class="pb-2">Wird diese Option aktiviert, so wird der Artikel beim Speichern nicht als
                 Entwurf abgelegt. Entwürfe werden nicht sofort veröffentlicht, sondern sind nur für angemeldete Benutzer sichtbar
                 und können vor der Veröffentlichung noch bearbeitet werden.</dd>
             <dt>Artikel pinnen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">"Gepinnte" Artikel werden im Frontend vor allen anderen verfügbaren Artikeln angezeigt, auch
+            <dd class="pb-2">"Gepinnte" Artikel werden im Frontend vor allen anderen verfügbaren Artikeln angezeigt, auch
                 auch wenn das Datum ihrer Veröffentlichung vor neueren Artikeln liegt.</dd>
             <dt>Kommentare aktiv:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diese Option kann das Kommentar-System für einen einzelnen Artikel gesteuert werden.
+            <dd class="pb-2">Über diese Option kann das Kommentar-System für einen einzelnen Artikel gesteuert werden.
                 ist die Option nicht aktiv, so können keine Kommentare auf der Artikel verfasst werden.</dd>
             <dt>Artikel archivieren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Bestehende Artikel können über diese Option ins Archiv verschoben werden bzw.
+            <dd class="pb-2">Bestehende Artikel können über diese Option ins Archiv verschoben werden bzw.
                 herausgenommen werden.</dd>
             <dt>Autor ändern:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer mit entsprechenden Rechten können hierüber den Verfasser eines Artikeln ändern.</dd>
+            <dd class="pb-2">Benutzer mit entsprechenden Rechten können hierüber den Verfasser eines Artikeln ändern.</dd>
             <dt>Geteilte Inhalte und Likes:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Sofern das Zählen von Klicks auf die Share-Buttons aktiviert wurde, wird in diesem Bereich
+            <dd class="pb-2">Sofern das Zählen von Klicks auf die Share-Buttons aktiviert wurde, wird in diesem Bereich
             die aktuelle Anzahl pro Artikel angezeigt, diese umfasst sowohl Teilungen bei den verfügbaren sozialen Netzwerken als auch Klicks auf den
             FanPress CM-eigenen "Gefällt mir"-Button. Eine Summe über alle geteilten Inhalte pro Artikel wird in den Artikel-Listen neben der Kommentar-Anzahl angezeigt.</dd>
         </dl>
@@ -108,18 +108,18 @@ Help language file
 
         <dl>
             <dt>Artikel-Editor:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieser Tab wird immer angezeigt und beinhaltet den Editor an sich.</dd>
+            <dd class="pb-2">Dieser Tab wird immer angezeigt und beinhaltet den Editor an sich.</dd>
             <dt>Erweitert:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Der zweite Tab umfasst die verschiedenen Status-Optionen wie Gepinnt, Entwurf,
+            <dd class="pb-2">Der zweite Tab umfasst die verschiedenen Status-Optionen wie Gepinnt, Entwurf,
             Artikel-Freigabe, Artikelbild usw.</dd>
             <dt>Kommentare:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieses Register beinhaltet Auflistung aller Kommentare, welche zum ausgewählten Artikel
+            <dd class="pb-2">Dieses Register beinhaltet Auflistung aller Kommentare, welche zum ausgewählten Artikel
             geschrieben wurden. Die Liste bietet dir die Möglichkeit, einzelne Kommentare zu löschen. Über einen Klick auf den Bearbeiten-Button
             kann der entsprechende Kommentare bearbeitet werden (freischalten, auf privat setzen etc.). Der Zugriff auf die Kommentare 
             wird über die Berechtigungen geregelt. Ausführliche Informationen hierzu findest du in der Hilfe den "Kommentare"-Bereichs
             über das Hauptmenü.</dd>
             <dt>Revisionen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">FanPress CM besitzt ein Revisions-System, d. h. bei Änderungen wird der vorherige Zustand
+            <dd class="pb-2">FanPress CM besitzt ein Revisions-System, d. h. bei Änderungen wird der vorherige Zustand
             gesichert und kann jederzeit wiederhergestellt werden. Die Revisionen können über die Systemeinstellungen (de)aktiviert werden.
             Eine Liste aller Revisionen findest du über den entsprechenden Reiter im Editor. Dort kannst du jede Revision einzeln aufrufen
             bzw. den aktuelle Artikel auf eine Revision zurücksetzen. Beim Öffnen einer Revision werden die die Änderungen zur jeweils
@@ -130,28 +130,28 @@ Help language file
         
         <dl>
             <dt>Löschen-Buttons</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Je nach geöffnetem Register werden unterschiedlichen Löschen-Buttons angezeigt. Diese dienen dazu, entsprechende Elemente des
+            <dd class="pb-2">Je nach geöffnetem Register werden unterschiedlichen Löschen-Buttons angezeigt. Diese dienen dazu, entsprechende Elemente des
             angezeigten Tabs zu löschen.</dd>
             <dt>Artikel auf Webseite anzeigen</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button wird der aktuell im Editor geöffnete Artikel im Frontend, d. h. auf deiner Webseite geöffnet.</dd>
+            <dd class="pb-2">Über diesen Button wird der aktuell im Editor geöffnete Artikel im Frontend, d. h. auf deiner Webseite geöffnet.</dd>
             <dt>Kurzlink</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a rel="noreferrer,noopener,external" href=http://is.gd>is.gd</a> kürzen
+            <dd class="pb-2">Über diesen Button ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a rel="noreferrer,noopener,external" href=http://is.gd>is.gd</a> kürzen
             zu lassen und bei Twitter etc. zu nutzen. Der genutzte Dienst kann über ein Modul-Event geändert werden.</dd>
             <dt>Artikel-Bild anzeigen</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Wurde für den Artikel ein Artikel-Bild definiert, so kann dieses über diese Schaltfläche angezeigt werden.</dd>
+            <dd class="pb-2">Wurde für den Artikel ein Artikel-Bild definiert, so kann dieses über diese Schaltfläche angezeigt werden.</dd>
             <dt>Bearbeiten (Kommentare)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Schaltfläche <strong>Bearbeiten</strong> ind er Toolbar des Kommentar-Registers öffnen einen Massenbearbeitung-Dialog analog der
+            <dd class="pb-2">Die Schaltfläche <strong>Bearbeiten</strong> ind er Toolbar des Kommentar-Registers öffnen einen Massenbearbeitung-Dialog analog der
             globalen Kommentar-Liste. Hierüber kommen bestimmte Status der ausgewählten Kommentare verändert werden. Die gleiche Schaltfläche in der Kommentar-Liste
             öffnet des ausgewählten Kommentar in einem Dialog, wo dieser komplett bearbeitet werden kann.</dd>
             <dt>Revision wiederherstellen (Revisionen)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Diese Schaltfläche ermöglicht es, den aktuellen Artikel auf die ausgewählte Artikel-Revision zurückzusetzen. Beim Zurücksetzen wird
+            <dd class="pb-2">Diese Schaltfläche ermöglicht es, den aktuellen Artikel auf die ausgewählte Artikel-Revision zurückzusetzen. Beim Zurücksetzen wird
             automatisch eine neue Revision des aktuellen Stands erzeugt, bevor die ältere Version wiederhergestellt wird.</dd>
             <dt>Revision öffnen (Revisionen)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kann eine bestimmte Revision geöffnet werden. Du erhälst dann eine Vergleichansicht zwischen der ausgewählten
+            <dd class="pb-2">Über diesen Button kann eine bestimmte Revision geöffnet werden. Du erhälst dann eine Vergleichansicht zwischen der ausgewählten
             Revision (linke Seite) und dem aktuellen Zustand des Artikels (rechte Seite). Der Artikel-Text selbst wird in einer DIFF-Ansicht dargestellt, d. h. Veränderungen werden
             innerhalb des Textes dargestellt.</dd>
             <dt>Zurück zur aktuellen Ansicht (Revisionen)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Wurde eine Revision geöffnet, so gelangst du durch diese Schaltfläche zurück in den aktuellen Artikel.</dd>
+            <dd class="pb-2">Wurde eine Revision geöffnet, so gelangst du durch diese Schaltfläche zurück in den aktuellen Artikel.</dd>
         </dl>
 
         <h3>Einzelnes Bild in Artikel einfügen</h3>
@@ -178,16 +178,16 @@ Help language file
 
         <dl>
             <dt>[gallery] & [/gallery]</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die beiden PLatzhalter öffnen und schließen eine Gallery. Bitte beachte, das pro Artikel nur <strong>eine</strong>
+            <dd class="pb-2">Die beiden PLatzhalter öffnen und schließen eine Gallery. Bitte beachte, das pro Artikel nur <strong>eine</strong>
             Gallery eingefügt werden kann/ sollte und entsprechend ausgewertet wird. Weitere, händisch eingefügt Gallerien werden vom System nicht ausgewertet.</dd>
             <dt>Trennzeichen</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Bilder einer Gallery werden hintereinander angegeben, als Trennzeichen dient das "|"-Zeichen
+            <dd class="pb-2">Die Bilder einer Gallery werden hintereinander angegeben, als Trennzeichen dient das "|"-Zeichen
             (die sogenannte Pipe).</dd>
             <dt>thumb:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Durch Hinzufügen/ Weglassen des "thumb:"-Präfix kann gesteuert werden, ob in der Gallery das Thumbnail bzw. komplette Bild
+            <dd class="pb-2">Durch Hinzufügen/ Weglassen des "thumb:"-Präfix kann gesteuert werden, ob in der Gallery das Thumbnail bzw. komplette Bild
             angezeigt wird. Beim Einfügen aus dem Dateimanager wird das Präfix standardmäßig immer vorangestellt.</dd>
             <dt>thumb:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Durch Hinzufügen/ Weglassen des "link:"-Suffix kann gesteuert werden, ob das verwendete Bild in der Gallery
+            <dd class="pb-2">Durch Hinzufügen/ Weglassen des "link:"-Suffix kann gesteuert werden, ob das verwendete Bild in der Gallery
             verlinkt ist oder nicht. Beim Einfügen aus dem Dateimanager wird das Suffix standardmäßig immer angefügt.</dd>
         </dl>
         
@@ -201,13 +201,13 @@ Help language file
         
         <dl>
             <dt>Alle Artikel:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Diese Liste umfasst alle verfassten Artikel, inkl. aktiver und archivierter Artikel,
+            <dd class="pb-2">Diese Liste umfasst alle verfassten Artikel, inkl. aktiver und archivierter Artikel,
             sowie Entwürfe.</dd>
             <dt>Aktive Artikel:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Diese Liste umfasst ausschließlich Artikel, welche aktiv sind und entsprechend auf deiner
+            <dd class="pb-2">Diese Liste umfasst ausschließlich Artikel, welche aktiv sind und entsprechend auf deiner
             Webseite angezeigt werden sowie Entwürfe.</dd>
             <dt>Archivierte Artikel:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Hier werden all diejenigen Artikel aufgeführt, welche archiviert wurden.</dd>
+            <dd class="pb-2">Hier werden all diejenigen Artikel aufgeführt, welche archiviert wurden.</dd>
         </dl>
         
         <p>Die verfügbaren Eigenschaften werden im Artikel-Editor näher beschrieben.</p>
@@ -216,10 +216,10 @@ Help language file
         
         <dl>
             <dt>Bearbeiten:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über die Massenbearbeitung können alle ausgewählten Artikel auf einmal bearbeitet werden.
+            <dd class="pb-2">Über die Massenbearbeitung können alle ausgewählten Artikel auf einmal bearbeitet werden.
             Die auswählbaren Optionen entsprechen denen im Artikel-Editor.</dd>
             <dt>Suche und Filter:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Artikel anhand
+            <dd class="pb-2">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Artikel anhand
             verschiedener Kriterien weiter eingrenzen. Über die Hauptnavigation kannst du bereits eine Vorauswahl treffen, welche Artikel
             dir angezeigt werden sollen. Unterschiedliche Felder können im Bedarfsfall miteinander verknüpft werden oder die Suche
             in speziellen Konstellationen durchgeführt werden. Hierzu dient das linke Dropdown-Feld in der jeweiligen Zeile. Auf der
@@ -227,12 +227,12 @@ Help language file
             aktuellen Ansicht durch. Hierdurch werden die Filter-Einstellungen komplett zurückgesetzt.
             </dd>
             <dt>Neuen Tweet erzeugen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Für den bzw. die ausgewählten Artikel neue Posts bei Twitter erzeugen, wenn Verbindung
+            <dd class="pb-2">Für den bzw. die ausgewählten Artikel neue Posts bei Twitter erzeugen, wenn Verbindung
             zu Twitter eingerichtet wurde.</dd>
             <dt>Löschen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Den bzw. die ausgewählten Artikel löschen.</dd>
+            <dd class="pb-2">Den bzw. die ausgewählten Artikel löschen.</dd>
             <dt>Artikel-Cache leeren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diese Aktion kann bei Bedarf geziehlt der Cache eines einzelnen bzw. der ausgewählten Artikel geleert und somit
+            <dd class="pb-2">Über diese Aktion kann bei Bedarf geziehlt der Cache eines einzelnen bzw. der ausgewählten Artikel geleert und somit
             beim Öffnen des Frontends ein erneuten Rendern der entsprechenden Artikel erzwungen werden. Dies ist hilfreich, wenn Änderungen an Artikeln nicht sofort übernommen
             werden.</dd>
         </dl>
@@ -249,18 +249,18 @@ Help language file
         
         <dl>
             <dt>Kommentar ist privat:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Private Kommentare werden nicht öffentlich angezeigt, sondern sind nur
+            <dd class="pb-2">Private Kommentare werden nicht öffentlich angezeigt, sondern sind nur
             für Benutzer innerhalb von FanPress CM sichtbar.</dd>
             <dt>Kommentar ist genehmigt:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Genehmigte Kommentare werden öffentlich angezeigt und können von
+            <dd class="pb-2">Genehmigte Kommentare werden öffentlich angezeigt und können von
             deinen Besuchern gelesen und beantwortet werden. Nicht genehmigte Kommentare verhalten sich wie
             private Kommentare und sind nicht sichtbar. Diese Funktion kann in den Systemeinstellungen deaktiviert
             werden.</dd>
             <dt>Kommentar ist Spam:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Kommentare, welche als Spam markiert wurden, werden nicht öffentlich
+            <dd class="pb-2">Kommentare, welche als Spam markiert wurden, werden nicht öffentlich
             angezeigt. Ihre Daten werden zur Verbesserung der Spam-Erkennung genutzt, sofern du sie nicht löscht.</dd>
             <dt>Kommentar zu Artikel mit ID verschieben:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die ausgewählten Kommentare zur eingetragenen Artikel-ID
+            <dd class="pb-2">Die ausgewählten Kommentare zur eingetragenen Artikel-ID
             verschieben. Das Eingabefeld unterstützt die Suche nach Artikeln mittels Autovervollständigung.</dd>
         </dl>
 
@@ -268,23 +268,23 @@ Help language file
         
         <dl>
             <dt>Bearbeiten:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über die Massenbearbeitung können alle ausgewählten Kommentare auf einmal bearbeitet werden.
+            <dd class="pb-2">Über die Massenbearbeitung können alle ausgewählten Kommentare auf einmal bearbeitet werden.
             Die auswählbaren Optionen entsprechen denen im Kommentar-Editor.</dd>
             <dt>Suche und Filter:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Kommentare anhand
+            <dd class="pb-2">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Kommentare anhand
             verschiedener Kriterien weiter eingrenzen. Unterschiedliche Felder können im Bedarfsfall miteinander verknüpft werden oder die Suche
             in speziellen Konstellationen durchgeführt werden. Hierzu dient das linke Dropdown-Feld in der jeweiligen Zeile. Auf der
             rechten Seite einer Zeile wird der jeweiligen Wert angegeben.</dd>
             <dt>Löschen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Den bzw. die ausgewählten Kommentare löschen.</dd>
+            <dd class="pb-2">Den bzw. die ausgewählten Kommentare löschen.</dd>
             <dt>Zugehörigen Artikel bearbeiten:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Durch diesen Button gelangst du direkt in Artikel-Editor, in welchem der zum ausgewählten Kommentar zugehörige
+            <dd class="pb-2">Durch diesen Button gelangst du direkt in Artikel-Editor, in welchem der zum ausgewählten Kommentar zugehörige
             Artikel geöffnet wurde.</dd>
             <dt>Whois:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du eine Whois-Abfrage auf die IP-Adresse durchführen, um bspw. den etwaigen Standort
+            <dd class="pb-2">Über diesen Button kannst du eine Whois-Abfrage auf die IP-Adresse durchführen, um bspw. den etwaigen Standort
             herauszufinden.</dd>
             <dt>IP-Adresse sperren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kann für die gespeicherte IP-Adresse eine Sperre eingerichtet werden. Hierzu wird das entsprechende
+            <dd class="pb-2">Über diesen Button kann für die gespeicherte IP-Adresse eine Sperre eingerichtet werden. Hierzu wird das entsprechende
             Recht zu verwalten von IP-Adressen benötigt. Die Sperren können unter <strong>Optionen > IP-Adressen</strong> aufgehoben werden.</dd>
         </dl>
         
@@ -308,35 +308,32 @@ Help language file
 
         <dl>
             <dt>Suche und Filter:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Grafiken
+            <dd class="pb-2">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Grafiken
             anhand verschiedener Kriterien weiter eingrenzen. Unterschiedliche Felder können im Bedarfsfall miteinander verknüpft werden oder die Suche
             in speziellen Konstellationen durchgeführt werden. Hierzu dient das linke Dropdown-Feld in der jeweiligen Zeile. Auf der
             rechten Seite einer Zeile wird der jeweiligen Wert angegeben.</dd>
             <dt>Thumbnails erzeugen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Für ausgewählte Dateien kann das Thumbnial neu erzeugt werden.</dd>
+            <dd class="pb-2">Für ausgewählte Dateien kann das Thumbnial neu erzeugt werden.</dd>
             <dt>Löschen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die ausgewählten Dateien können gelöscht werden. Wichtig! Für Dateien existiert kein Papierkorb.</dd>
+            <dd class="pb-2">Die ausgewählten Dateien können gelöscht werden. Wichtig! Für Dateien existiert kein Papierkorb.</dd>
             <dt>Umbenennen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über den Button kann die Datei umbenannt werden, die Dateiendung muss dabei nicht angehangen werden.</dd>
+            <dd class="pb-2">Über den Button kann die Datei umbenannt werden, die Dateiendung muss dabei nicht angehangen werden.</dd>
             <dt>Eigenschaften:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button werden relevante Informationen zum gewählten Eintrag (Upload-Datum/ Benutzer, Dateigröße, Auflösung usw.) angezeigt.</dd>
+            <dd class="pb-2">Über diesen Button werden relevante Informationen zum gewählten Eintrag (Upload-Datum/ Benutzer, Dateigröße, Auflösung usw.) angezeigt.</dd>
             <dt>Thumbnail öffnen:</strong> (nur Dateimanager)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Öffnen des Thumbnails.</dd>
+            <dd class="pb-2">Öffnen des Thumbnails.</dd>
             <dt>Bild öffnen:</strong> (nur Dateimanager)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Öffnen des eigentlichen Bildes.</dd>
+            <dd class="pb-2">Öffnen des eigentlichen Bildes.</dd>
             <dt>Artikel-Bild festlegen:</strong> (nur Editor)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Ausgewählte Datei als Artikel-Bild festlegen.</dd>
+            <dd class="pb-2">Ausgewählte Datei als Artikel-Bild festlegen.</dd>
             <dt>Thumbnail-URL einfügen:</strong> (nur Editor)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Thumbnail-URL der ausgewählten Datei in Dialog übernehmen.</dd>
+            <dd class="pb-2">Thumbnail-URL der ausgewählten Datei in Dialog übernehmen.</dd>
             <dt>Bild-URL einfügen:</strong> (nur Editor)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Bild-URL der ausgewählten Datei in Dialog übernehmen.</dd>
+            <dd class="pb-2">Bild-URL der ausgewählten Datei in Dialog übernehmen.</dd>
             <dt>Karten / Liste:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
+            <dd class="pb-2">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
             die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
         </dl>
-        
-        <p>Zum Upload von Dateien bietet der Dateimanager zwei Methoden: die klassische Version mittels HTML-Formularen. Diese ist für ältere Browser
-        zu empfehlen. Alternativ steht der - standardmäßig aktive - Dateimanager auf Basis von jQuery zu Verfügung.</p>
         ]]>
     </chapter>
     <chapter ref="HL_PROFILE">
@@ -348,18 +345,18 @@ Help language file
         
         <dl>
             <dt>Angezeigter Name:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Name, welcher öffentlich angezeigt wird. Wird nicht für den Login verwendet.</dd>
+            <dd class="pb-2">Name, welcher öffentlich angezeigt wird. Wird nicht für den Login verwendet.</dd>
             <dt>Benutzername:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dein Name für den Login. Deinen Benutzernamen kannst du nicht selbst ändern. Wende dich hierfür an einen Administrator.</dd>
+            <dd class="pb-2">Dein Name für den Login. Deinen Benutzernamen kannst du nicht selbst ändern. Wende dich hierfür an einen Administrator.</dd>
             <dt>Passwort:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Zeichenkette welches für den Login verwendet wird. Neben dem Eingabefeld findest du den Button <strong>Password generieren</strong>.
+            <dd class="pb-2">Zeichenkette welches für den Login verwendet wird. Neben dem Eingabefeld findest du den Button <strong>Password generieren</strong>.
             Über diesen kannst du eine zufällige Zeichenkette erzeugen lassen und als Passwort abspeichern.</dd>
             <dt>E-Mail-Adresse:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">E-Mail-Adresse für Benachrichtigungen, ein neu gesetztes Passwort etc.</dd>
+            <dd class="pb-2">E-Mail-Adresse für Benachrichtigungen, ein neu gesetztes Passwort etc.</dd>
             <dt>Aktuelles Passwort zur Bestätigung eingeben:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Zur Änderung des Passwortes und bestimmter anderer Einstellungen ist eine Bestätigung per Passwort nötig.</dd>
+            <dd class="pb-2">Zur Änderung des Passwortes und bestimmter anderer Einstellungen ist eine Bestätigung per Passwort nötig.</dd>
             <dt>Zwei-Faktor-Authentifizierung:</strong> (optional)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist
+            <dd class="pb-2">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist
             optional und kann durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels der App "Google Authenticator" auf deinem Smartphone
             realisiert. Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den angezeigten QR Code mit deinem Smartphone mit der App. Trage im Anschluss den ersten Zahlencode
             in das Eingabefeld ein und speicher den Vorgang.</dd>
@@ -368,31 +365,29 @@ Help language file
         <h3>Erweitert</h3>
         <dl>
             <dt>Biografie / Sonstiges:</strong> (optional)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Kurzer Info-Text zum Autor, der in den News angezeigt werden kann.</dd>            
+            <dd class="pb-2">Kurzer Info-Text zum Autor, der in den News angezeigt werden kann.</dd>            
             <dt>Avatar:</strong> (optional)</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer-Avatar, Dateiname entspricht dem Muster <em>benutzername.jpg/png/gif/bmp</em></dd>
+            <dd class="pb-2">Benutzer-Avatar, Dateiname entspricht dem Muster <em>benutzername.jpg/png/gif/bmp</em></dd>
         </dl>
         
         <h3>Benutzereinstellungen</h3>
         <dl>
             <dt>Zeitzone:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Zeitzone für Datums- und Zeit-Angaben.</dd>
+            <dd class="pb-2">Zeitzone für Datums- und Zeit-Angaben.</dd>
             <dt>Sprache:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Sprach-Einstellung für das FanPress-ACP.</dd>
+            <dd class="pb-2">Sprach-Einstellung für das FanPress-ACP.</dd>
             <dt>Datum- und Zeitanzeige:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Muster, in welcher Art Datums- und Zeitangaben dargestellt werden.</dd>
+            <dd class="pb-2">Muster, in welcher Art Datums- und Zeitangaben dargestellt werden.</dd>
             <dt>Anzahl Elemente pro Seite im ACP:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Anzahl an dargestellten Elementen pro Seite im ACP</dd>
+            <dd class="pb-2">Anzahl an dargestellten Elementen pro Seite im ACP</dd>
             <dt>Standard-Schriftgröße im Editor:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Schriftgröße, die standardmäßig im Artikel-Editor genutzt wird</dd>
-            <dt>jQuery Dateiupload verwenden:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Nutzung des AJAX- oder HTML-Uploads. Diese Option ist seit FanPress CM 4.3 veraltet und wird
+            <dd class="pb-2">Schriftgröße, die standardmäßig im Artikel-Editor genutzt wird</dd>
             in Kürze entfernt.</dd>
             <dt>Dateimanager-Ansicht:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
+            <dd class="pb-2">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
             die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
             <dt>Container-Positionen zurücksetzen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über den Button können die Positionen der Dashboard-Conatiner
+            <dd class="pb-2">Über den Button können die Positionen der Dashboard-Conatiner
             auf die Standard-Einstellungen zurücksetzen.</dd>
         </dl>
 
@@ -413,33 +408,33 @@ Help language file
         
         <dl>
             <dt>Allgemein - E-Mail-Adresse:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Zentrale E-Mail-Adresse für Systembenachrichtigungen.</dd>
+            <dd class="pb-2">Zentrale E-Mail-Adresse für Systembenachrichtigungen.</dd>
             <dt>Allgemein - Basis-URL für Artikellinks:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Basis-URL für Artikel-Links im Frontend, wichtig v. a. bei der Nutzung
+            <dd class="pb-2">Basis-URL für Artikel-Links im Frontend, wichtig v. a. bei der Nutzung
             von phpinclude. Entspricht in vielen Fällen der <em>deine-domain.xyz/index.php</em> oder der Datei, in der
             <em>fpcmapi.php</em> includiert ist.</dd>
             <dt>Allgemein - Datum- und Zeitanzeige:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Maske für die Anzeige von Datums- und Zeitangaben.</dd>
+            <dd class="pb-2">Maske für die Anzeige von Datums- und Zeitangaben.</dd>
             <dt>Allgemein - Zeitzone:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Globale Zeitzone, kann durch Profileinstellung überschrieben werden.</dd>
+            <dd class="pb-2">Globale Zeitzone, kann durch Profileinstellung überschrieben werden.</dd>
             <dt>Allgemein - Sprache:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Globale Spracheinstellung für alle Benutzer sowie im Frontend.</dd>
+            <dd class="pb-2">Globale Spracheinstellung für alle Benutzer sowie im Frontend.</dd>
             <dt>Allgemein - Anzahl Elemente pro Seite im ACP:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Anzahl an Elementen im Admin-Bereich, wenn die Liste die Möglichkeit bietet,
+            <dd class="pb-2">Anzahl an Elementen im Admin-Bereich, wenn die Liste die Möglichkeit bietet,
             durch Seiten zu blättern (z. B. Artikel- und Kommentar-Listen)</dd>
             <dt>Allgemein - Zeit bis zum Cache-Timeout:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Zeitraum, nachdem der Inhalt des Caches als abgelaufen betrachtet wird und der Inhalt
+            <dd class="pb-2">Zeitraum, nachdem der Inhalt des Caches als abgelaufen betrachtet wird und der Inhalt
             neu aufgebaut wird. Diese Einstellung ist vor allem für den Frontend-Inhalt wichtig.</dd>
             <dt>Allgemein - Vorhaltezeit für gelöschte Elemente:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Anzahl an Tagen, bis Elemente im Papierkorb automatisch gelöscht werden.</dd>
+            <dd class="pb-2">Anzahl an Tagen, bis Elemente im Papierkorb automatisch gelöscht werden.</dd>
             <dt><em>Frontend</em> - Pfad zu deiner CSS-Datei:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Pfad zu deiner CSS-Datei mit deinen eigenen Style-Angaben. Wichtig
+            <dd class="pb-2">Pfad zu deiner CSS-Datei mit deinen eigenen Style-Angaben. Wichtig
             wenn du FanPress CM via iframe oder die Template-Vorschau nutzt.</dd>
             <dt><em>Frontend</em> - Verwendung per:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Nutzung von FanPress CM via phpinclude oder in einem iframe. Diese Einstellung beeinflusst,
+            <dd class="pb-2">Nutzung von FanPress CM via phpinclude oder in einem iframe. Diese Einstellung beeinflusst,
             wie sich das System im Frontend verhält und welche zusätzlichen Daten beim Aufruf von Artikel-Listen etc. geladen werden.</dd>
             <dt><em>Frontend</em> - jQuery Bibliothek im Frontend laden:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Soll jQuery bei Nutzung von phpinclude geladen werden oder nicht. Wichtig wenn du phpinclude
+            <dd class="pb-2">Soll jQuery bei Nutzung von phpinclude geladen werden oder nicht. Wichtig wenn du phpinclude
             verwendest und jQuery nicht bereits anderweitig in deiner Seite eingebunden ist. Ohne jQuery stehen einige Frontend-Funktionen nicht
             zur Verfügung. Beim Aufruf des Frontend wird automatisch geprüft ob jQuery zur Verfügung steht. Ist dies nicht der Fall,
             so wird eine entsprechende Fehlermeldung ausgegeben.</dd>
@@ -449,75 +444,70 @@ Help language file
         
         <dl>
             <dt>Editor - Editor auswählen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Standardmäßig kann hier zwischen TinyMCE und CodeMirror gewählt werden.
+            <dd class="pb-2">Standardmäßig kann hier zwischen TinyMCE und CodeMirror gewählt werden.
             Zusätzliche Editoren können über Module bereitgestellt werden. Diese Einstellung gilt für Artikel- und Kommentar-Editor im Admin-Bereich.</dd>
             <dt>Editor - Standard-Schriftgröße im Editor:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Schriftgröße, die standardmäßig im aktiven Editor genutzt wird.</dd>
+            <dd class="pb-2">Schriftgröße, die standardmäßig im aktiven Editor genutzt wird.</dd>
             <dt>Editor - Revisionen aktivieren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Soll FanPress CM Revisionen beim Speichern eines Artikels anlegen. Sind die Revisionen nicht aktiv,
+            <dd class="pb-2">Soll FanPress CM Revisionen beim Speichern eines Artikels anlegen. Sind die Revisionen nicht aktiv,
             so werden Artikel beim Speichern sofort überschrieben und der bisherige Stand ist verloren.</dd>
             <dt>Editor - Alte Revisionen löschen, wenn älter als:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Revisionen, welche älter als der angegebene Wert sind, werden beim nächsten Durchlauf des
+            <dd class="pb-2">Revisionen, welche älter als der angegebene Wert sind, werden beim nächsten Durchlauf des
             zugehörigen Cronjobs aus der Datenbank entfernt. Wurde der Wert "Nie" ausgewählt, so bleiben alle Revisionen erhalten, bis sie
             irgendwann manuell gelöscht werden.</dd>
             <dt>Editor - Bilder-Änderungen in TinyMCE auf Server speichern:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Werden in TinyMCE Änderungen an Bildern vorgenommen, so werden die Änderungen bei Aktivierung dieser
+            <dd class="pb-2">Werden in TinyMCE Änderungen an Bildern vorgenommen, so werden die Änderungen bei Aktivierung dieser
             Option als neue Datei im Upload-Ordner abgelegt und können später auch im Dateimanager ausgewählt werden.</dd>
             <dt>Editor - CSS-Klassen im Editor:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">CSS-Klassen zur Nutzung im FanPress CM Editor. bei den CSS-Klassen handelt es sich in der Regel
+            <dd class="pb-2">CSS-Klassen zur Nutzung im FanPress CM Editor. bei den CSS-Klassen handelt es sich in der Regel
             um solche, die du auch auf deiner Webseite verwendest.</dd>
-            <dt>Dateimanager - jQuery Dateiupload verwenden:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Soll der moderne AJAX-Uploader genutzt werden, mit dem mehrere Dateien auf einmal hochgeladen
-            werden können oder soll der klassische PHP-Uploader aktiviert werden. Der PHP-Uploader kann notwendig werden, wenn du einen
-            älteren Browser verwendest, JavaScript deaktiviert bzw. teilweise geblockt ist. Diese Option ist seit FanPress CM 4.3 veraltet und wird
-            in Kürze entfernt.</dd>
             <dt>Dateimanager - Dateien beim Upload in Unterordner organisieren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diese Option kannst du festlegen, dass Dateien beim Upload in Unterordnern abgelegt werden.
+            <dd class="pb-2">Über diese Option kannst du festlegen, dass Dateien beim Upload in Unterordnern abgelegt werden.
             Diese besitzen immer das Muster <em>YYYY-MM</em> (vierstellige Jahreszahl - zweistelliger Monat). </dd>
             <dt>Dateimanager - Anzahl Bilder pro Seite:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Anzahl an Bildern, die im Dateimanager pro Seite angezeigt werden.</dd>
+            <dd class="pb-2">Anzahl an Bildern, die im Dateimanager pro Seite angezeigt werden.</dd>
             <dt>Dateimanager - Dateimanager-Ansicht:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diese Option kann ausgewählt werden, ob die Dateien im Dateimanager nebeneinander als Karten
+            <dd class="pb-2">Über diese Option kann ausgewählt werden, ob die Dateien im Dateimanager nebeneinander als Karten
             oder untereinander in einer Listenform angezeigt werden. Die dargestellten Informationen bleiben die gleichen.</dd>
             
             <dt>Vorschaubild-Größe - Breite in Pixel:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die maximale Bereite von erzeugten Thumbnails.</dd>
+            <dd class="pb-2">Die maximale Bereite von erzeugten Thumbnails.</dd>
             <dt>Vorschaubild-Größe - Höhe in Pixel:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die maximale Höhe von erzeugten Thumbnails.</dd>
+            <dd class="pb-2">Die maximale Höhe von erzeugten Thumbnails.</dd>
         </dl>
 
         <h3>Artikel</h3>
         
         <dl>
             <dt><em>Frontend</em> - Anzahl Artikel pro öffentlicher Seite:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Anzahl an Artikeln, die im Frontend ausgegeben werden sollen. Diese Option beeinflusst die Anzahl
+            <dd class="pb-2">Anzahl an Artikeln, die im Frontend ausgegeben werden sollen. Diese Option beeinflusst die Anzahl
             an Artikeln in der öffentlichen Liste der aktiven Artikel, des öffentlichen Archives sowie im RSS-Feed.</dd>
             <dt><em>Frontend</em> - Template für Artikel-Liste:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Template, welches für die Artikel-Liste genutzt werden soll.</dd>
+            <dd class="pb-2">Template, welches für die Artikel-Liste genutzt werden soll.</dd>
             <dt><em>Frontend</em> - Template für einzelnen Artikel:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Template, welches für einen einzelnen Artikel verwendet werden soll. Die hier getroffene
+            <dd class="pb-2">Template, welches für einen einzelnen Artikel verwendet werden soll. Die hier getroffene
             Auswahl beeinflusst die angezeigten Register im Template-Editor</dd>
             <dt><em>Frontend</em> - News sortieren nach:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Reihenfolge, nach der Artikel im Frontend sortiert werden sollen. Die erste Auswahl legt fest,
+            <dd class="pb-2">Reihenfolge, nach der Artikel im Frontend sortiert werden sollen. Die erste Auswahl legt fest,
             nach welchem Kriterium die Sortierung erfolgt (im Standard den Zeitpunkt der Veröffentlichung), die zweite Auswahl die Richtung.</dd>
             <dt><em>Frontend</em> - Share-Buttons anzeigen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Hierüber können die Share-Buttons deaktiviert werden. Wurde der entsprechende Platzhalter in
+            <dd class="pb-2">Hierüber können die Share-Buttons deaktiviert werden. Wurde der entsprechende Platzhalter in
             einem Template verwendet, so wird er bei der Einstellung "Nein" aus der Frontend-Anzeige entfernt.</dd>
             <dt><em>Frontend</em> - Geteilte Artikel über Share-Buttons zählen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Diese Option ermöglicht es zu zählen, wie oft ein Artikel über die Share-Buttons bereits geteilt
+            <dd class="pb-2">Diese Option ermöglicht es zu zählen, wie oft ein Artikel über die Share-Buttons bereits geteilt
             wurde. Diese Option wie oft ein Artikel geteilt wurde und wann dies zuletzt erfolgte. Es erfolgt keine Erfassung, von welcher IP etc.
             dies erfolgte.</dd>
             <dt><em>Frontend</em> - URL-Rewriting für Artikel-Links aktivieren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Statt der klassischen Artikel-URL mit der Artikel-ID wird eine erweiterte Version erzeugt,
+            <dd class="pb-2">Statt der klassischen Artikel-URL mit der Artikel-ID wird eine erweiterte Version erzeugt,
             welche um den Artikel-Titel erweitert wird. Bei Änderung am Titel kann sich diese URL daher nachträglich ändern. Die klassische Variante
             steht weiterhin zur Verfügung.</dd>
             <dt><em>Frontend</em> - RSS-Feed ist aktiv:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diese Option kann der RSS-Feed aktiviert werden.</dd>
+            <dd class="pb-2">Über diese Option kann der RSS-Feed aktiviert werden.</dd>
             <dt>Archiv - Archiv-Link anzeigen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Diese Einstellung ermöglicht es, dass öffentliche Artikel-Archiv für deine Benutzer zu deaktivieren.
+            <dd class="pb-2">Diese Einstellung ermöglicht es, dass öffentliche Artikel-Archiv für deine Benutzer zu deaktivieren.
             Somit sind nur die Artikel sichtbar, welche in den aktiven Artikeln im Admin-Bereich ausgelistet werden.</dd>
             <dt>Archiv - Artikel in Archiv anzeigen ab:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Vor dem Datum angegebenen Datum veröffentlichte Artikel, welche im Archiv abgelegt wurden,
+            <dd class="pb-2">Vor dem Datum angegebenen Datum veröffentlichte Artikel, welche im Archiv abgelegt wurden,
             werden nicht für Besucher deiner Webseite angezeigt. ist dieses Feld leer, so werden alle archivierten Artikel angezeigt.</dd>
         </dl>
         
@@ -525,32 +515,32 @@ Help language file
         
         <dl>
             <dt>Kommentare - Kommentar-System ist aktiv:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Kommentar-System komplett aktivieren bzw. deaktivieren.</dd>
+            <dd class="pb-2">Kommentar-System komplett aktivieren bzw. deaktivieren.</dd>
             <dt>Kommentare - Zustimmung zur Datenschutz-Erklärung erforderlich:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Diese Option aktiviert eine zusätzliche Prüfung, ob die Checkbox für die Zustimmung
+            <dd class="pb-2">Diese Option aktiviert eine zusätzliche Prüfung, ob die Checkbox für die Zustimmung
             zur Speicherung personenbezogener Daten nach dem Verfassen eines Kommentars angehakt wurde. Diese Option sollte aktiv sein,
             wenn du das Kommentar-System verwendest und deine Webseite Besucher aus dem Raum der Europäische Union hat.</dd>
             <dt>Kommentare - Kommentar-Benachrichtigung an:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Auswahl, an welche E-Mail-Adresse die Benachrichtigung über einen neuen Kommentar geht
+            <dd class="pb-2">Auswahl, an welche E-Mail-Adresse die Benachrichtigung über einen neuen Kommentar geht
             (Autor des Artikels, globale E-Mail-Adresse aus den Systemeinstellungen oder an beide).</dd>
             <dt>Kommentare - Kommentar-Template:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Template für die Anzeige von Kommentaren im Frontend.</dd>
+            <dd class="pb-2">Template für die Anzeige von Kommentaren im Frontend.</dd>
             <dt>Kommentare - Zeitsperre zwischen zwei Kommentaren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Zeitspanne die zwischen zwei Kommentaren von der selben IP-Adresse vergangen
+            <dd class="pb-2">Zeitspanne die zwischen zwei Kommentaren von der selben IP-Adresse vergangen
             sein muss.</dd>
             <dt>Kommentare - E-Mail-Adresse erforderlich:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Muss E-Mail-Adresse beim Schreiben eines Kommentars
+            <dd class="pb-2">Muss E-Mail-Adresse beim Schreiben eines Kommentars
             angegeben werden oder nicht.</dd>
             <dt>Kommentare - Kommentar-Freigabe erforderlich:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Kommentare sind sofort sichtbar oder müssen manuell durch den Autor oder einen
+            <dd class="pb-2">Kommentare sind sofort sichtbar oder müssen manuell durch den Autor oder einen
             Admin freigegeben werden. Ob Artikel freigegeben werden können, hängt von den Berechtigungen des Benutzers ab</dd>
 
             <dt>Captcha-Einstellungen - Captcha-Frage:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Frage für das Standard-Captcha.</dd>
+            <dd class="pb-2">Frage für das Standard-Captcha.</dd>
             <dt>Captcha-Einstellungen - Antwort auf Captcha-Frage:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Antwort für das Standard-Spam-Plugin.</dd>
+            <dd class="pb-2">Antwort für das Standard-Spam-Plugin.</dd>
             <dt>Captcha-Einstellungen - Automatische Spam-Markierung:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Wurden Kommentare eines Kommentar-Autor so oft wie eingestellt als Spam markiert,
+            <dd class="pb-2">Wurden Kommentare eines Kommentar-Autor so oft wie eingestellt als Spam markiert,
             so werden neue Kommentar automatisch als Spam deklariert.</dd>
         </dl>
         
@@ -558,57 +548,57 @@ Help language file
         
         <dl>
             <dt>Sicherheit & Wartung - Wartungsmodus aktiv:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Wurde der Wartungsmodus aktiviert, so haben nur angemeldete Benutzer Zugriff auf FanPress CM.
+            <dd class="pb-2">Wurde der Wartungsmodus aktiviert, so haben nur angemeldete Benutzer Zugriff auf FanPress CM.
             Besucher deiner Seite etc. erhalten eine Hinweis-Meldung. Nur bereits angemeldete Benutzer können in diesem Status Änderungen
             am System vornehmen.</dd>
             <dt>Sicherheit & Wartung - Maximale Länge einer Admin-Sitzung:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Länge einer Session Admin-Bereich. Eine Session läuft automatisch ab, wenn innerhalb der angegebenen
+            <dd class="pb-2">Länge einer Session Admin-Bereich. Eine Session läuft automatisch ab, wenn innerhalb der angegebenen
             Zeit keine Aktion im Admin-Bereich erfolgte bzw. der Check der Session fehlgeschlagen ist.</dd>
             <dt>Sicherheit & Wartung - Anzahl Login-Versuche vor temporärer Sperre:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Hiermit kann die Anzahl der Fehlgeschlagenen Logins einstellen, bis der Login vorübergehend
+            <dd class="pb-2">Hiermit kann die Anzahl der Fehlgeschlagenen Logins einstellen, bis der Login vorübergehend
             gesperrt wird. Diese Option erschwert die Übernahme von Benutzer-Accounts durch massenweises Durchprobieren von Passwörtern etc.</dd>
             <dt>Sicherheit & Wartung - Zwei-Faktor-Authentifizierung:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz von Benutzer-Konten gegen Fishing,
+            <dd class="pb-2">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz von Benutzer-Konten gegen Fishing,
             Bots und ähnliches. Die Nutzung ist optional und wird durch jeden Benutzer selbst festgelegt. Der zweite Faktor zum Login wird mittels
             der App "Google Authenticator" auf dem Smartphone des Benutzers realisiert. Wurde die Zwei-Faktor-Authentifizierung aktiviert, so erscheint
             initial ein QR-Code, welcher eingescannt und bestätigt werden muss.</dd>
             <dt>Sicherheit & Wartung - Benutzer-Passwörter gegen Pwned Passwords prüfen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Bei Aktivierung dieser Option werden eingegebene Benutzer-Passwörter in einen SHA1-Hash umgewandet
+            <dd class="pb-2">Bei Aktivierung dieser Option werden eingegebene Benutzer-Passwörter in einen SHA1-Hash umgewandet
             und dessen erste fünf Zeichen an den Dienst <a rel="noreferrer,noopener,external" href="https://haveibeenpwned.com/Passwords" target="_blank">Pwned Passwords</a>
             übermittelt. Ist das Passwort in dieser Datenbank enthalten und bereits mehr als 100-mal geknackt worden, so wird eine Meldung ausgegeben.
             </dd>
             
             <dt>Update-Einstellungen - E-Mail-Benachrichtigung, wenn Updates verfügbar:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Diese Option ermöglicht es, die Benachrichtigung über
+            <dd class="pb-2">Diese Option ermöglicht es, die Benachrichtigung über
             verfügbare Updates durch den Update-Cronjob zu de/aktivieren. Die Benachrichtigung erfolgt dabei immer an die globale
             E-Mail-Adresse in den Systemeinstellungen.</dd>
             <dt>Update-Einstellungen - Entwickler-Versionen bei Update-Check anzeigen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Neben den offizielle Releases gibt es immer wieder Entwickler- und Test-Versionen.
+            <dd class="pb-2">Neben den offizielle Releases gibt es immer wieder Entwickler- und Test-Versionen.
             Nach Aktivierung dieser Option werden solche Versionen beim Update-Check angezeigt. <b>Achtung: Entwickler- und Test-Versionen
             können Fehler oder unvollständige Änderungen enthalten! Nutze diese Versionen daher nur, wenn du dazu aufgefordert wurdest oder dir
             bei Problemen, Datenverlust, o. ä. notfalls selbst helfen kannst.</b></dd>
             <dt>Update-Einstellungen - Update-Check-Intervall, wenn externe Server-Verbindungen nicht möglich:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Kann deine FanPress CM Installation keine direkte Verbindung zum Update herstellen,
+            <dd class="pb-2">Kann deine FanPress CM Installation keine direkte Verbindung zum Update herstellen,
             so wird dir in regelmäßigem Abstand ein Dialog angezeigt, welcher die Download-Seite auf
             <a rel="noreferrer,noopener,external" href="https://Nobody-Knows.org">Nobody-Knows.org</a> angezeigt. Mit dieser Einstellung kann festgelegt werden, in welchem
             zeitlichen Abstand dies passiert.</dd>
 
             <dt>E-Mail-Versand - E-Mails via SMTP versenden:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Wenn diese Option aktiv ist, erfolgt der E-Mail-Versand unter
+            <dd class="pb-2">Wenn diese Option aktiv ist, erfolgt der E-Mail-Versand unter
             welche durch die SMTP-Zugangsdaten definiert wird. Zur Nutzung des SMTP-Versands muss dein Host die Verbindung zu anderen Servern
             zulassen. Standardmäßig erfolgt der Versand von E-Mails über die PHP-eigenen Funktionen.</dd>
             <dt>E-Mail-Versand - E-Mail-Adresse:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">E-Mail-Server, die als Absender-Konto verwendet wird</dd>
+            <dd class="pb-2">E-Mail-Server, die als Absender-Konto verwendet wird</dd>
             <dt>E-Mail-Versand - SMTP-Server-Adresse:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">E-Mail-Server-Adresse</dd>
+            <dd class="pb-2">E-Mail-Server-Adresse</dd>
             <dt>E-Mail-Versand - SMTP-Server-Port:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">E-Mail-Server-Port. Der Port ist abhängig davon, ob eine verschlüsselte Verbindung verwendet wird
+            <dd class="pb-2">E-Mail-Server-Port. Der Port ist abhängig davon, ob eine verschlüsselte Verbindung verwendet wird
             oder nicht.</dd>
             <dt>E-Mail-Versand - SMTP-Benutzername:</dt>
             <dt>E-Mail-Versand - SMTP-Passwort:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzername und Passwort für das zu verwendende E-Mail-Konto</dd>
+            <dd class="pb-2">Benutzername und Passwort für das zu verwendende E-Mail-Konto</dd>
             <dt>E-Mail-Versand - SMTP-Verschlüsselung:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Legt fest, ob die Verbindung zum E-Mail-Server verschlüsselt erfolgen soll oder nicht. Die
+            <dd class="pb-2">Legt fest, ob die Verbindung zum E-Mail-Server verschlüsselt erfolgen soll oder nicht. Die
             gewählte Verschlüsselung muss vom E-Mail-Server unterstützt werden. Bei Aktivierung von "Auto" wird versucht, dies automatisch zu
             erkennen.</dd>
         </dl>
@@ -620,15 +610,15 @@ Help language file
         
         <dl>
             <dt>Verbindungsstatus:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">In diesem Bereich sieht du, ob bereits eine Verbindung zu Twitter hergestellt wurde oder ob diese
+            <dd class="pb-2">In diesem Bereich sieht du, ob bereits eine Verbindung zu Twitter hergestellt wurde oder ob diese
             noch eingerichtet werden muss. Wurde die Verbindung noch die aktiviert, so findest du hier den Button
             <strong>API-Schlüssel und/oder Token anfordern</strong>. Ansonsten steht hier, welcher Benutzername bei Twitter verwendet wird und die
             Verbindung kann hier deaktiviert werden.</dd>
             <dt>Tweet zu Artikel erzeugen beim:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über die beiden Punkte kann festgelegt werden, wann neue Tweets nur beim Veröffentlichen bzw. Ändern
+            <dd class="pb-2">Über die beiden Punkte kann festgelegt werden, wann neue Tweets nur beim Veröffentlichen bzw. Ändern
             eines Artikeln oder beiden Aktionen erzeugt werden sollen.</dd>
             <dt>Zugangsdaten:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Diese Eingabe-Felder beinhalten die Informationen, welche für den erfolgreichen Zugriff auf die
+            <dd class="pb-2">Diese Eingabe-Felder beinhalten die Informationen, welche für den erfolgreichen Zugriff auf die
             Twitter-API benötigt werden. Welche Daten hier eingetragen werden müssen, erfährst du in der Hilfe zur Einrichtung.</dd>
         </dl>
 
@@ -675,91 +665,91 @@ Help language file
         
         <dl>
             <dt>Artikel schreiben</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Funktion zum Artikel verfassen freigeben</dd>
+            <dd class="pb-2">Funktion zum Artikel verfassen freigeben</dd>
             <dt>Eigene Artikel Bearbeiten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann nur eigene Artikel bearbeiten</dd>
+            <dd class="pb-2">Benutzer kann nur eigene Artikel bearbeiten</dd>
             <dt>Aktive Artikel Bearbeiten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann aktive Artikel bearbeiten</dd>
+            <dd class="pb-2">Benutzer kann aktive Artikel bearbeiten</dd>
             <dt>Artikel löschen</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Artikel löschen</dd>
+            <dd class="pb-2">Benutzer kann Artikel löschen</dd>
             <dt>Artikel archivieren und im Archiv bearbeiten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Artikel archiviert und danach noch bearbeiten</dd>
+            <dd class="pb-2">Benutzer kann Artikel archiviert und danach noch bearbeiten</dd>
             <dt>Artikel müssen freigeschalten werden</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Artikel der Benutzer müssen vor der Veröffentlichung geprüft werden</dd>
+            <dd class="pb-2">Artikel der Benutzer müssen vor der Veröffentlichung geprüft werden</dd>
             <dt>Revisionen verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer können Revisionen löschen/wiederherstellen</dd>
+            <dd class="pb-2">Benutzer können Revisionen löschen/wiederherstellen</dd>
             <dt>Artikel-Autor ändern</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer können Autor eines Artikels ändern</dd>
+            <dd class="pb-2">Benutzer können Autor eines Artikels ändern</dd>
             <dt>Artikel in Masse bearbeiten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer können Artikel in Masse bearbeiten</dd>
+            <dd class="pb-2">Benutzer können Artikel in Masse bearbeiten</dd>
             <dt>Kommentare auf eigene Artikel bearbeiten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann nur Kommentare auf eigene Artikel
+            <dd class="pb-2">Benutzer kann nur Kommentare auf eigene Artikel
             bearbeiten</dd>
             <dt>Kommentare auf alle Artikel bearbeiten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann nur Kommentare auf alle Artikel
+            <dd class="pb-2">Benutzer kann nur Kommentare auf alle Artikel
             bearbeiten</dd>
             <dt>Kommentare löschen</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Kommentare löschen</dd>
+            <dd class="pb-2">Benutzer kann Kommentare löschen</dd>
             <dt>Kommentare genehmigen</dt>
             <dt>Kommentare auf "Privat" setzen</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Der Benutzer kann den Kommentar-Status auf
+            <dd class="pb-2">Der Benutzer kann den Kommentar-Status auf
             für Spam, Genehmigt und Privat ändern.</dd>
             <dt>Kommentare zu anderem Artikel verschieben</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Kommentare können vom aktuellen zu einem anderen
+            <dd class="pb-2">Kommentare können vom aktuellen zu einem anderen
             Artikel verschieben</dd>
             <dt>Kommentare in Masse bearbeiten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer können Kommentare in Masse bearbeiten</dd>
+            <dd class="pb-2">Benutzer können Kommentare in Masse bearbeiten</dd>
             <dt>IP-Adresse des Kommentars sperren</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer können die IP-Adresse des Kommentar-Authors sperren</dd>
+            <dd class="pb-2">Benutzer können die IP-Adresse des Kommentar-Authors sperren</dd>
             <dt>Systemeinstellungen verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Diese Berechtigung legt zentral fest, ob der Benutzer auf
+            <dd class="pb-2">Diese Berechtigung legt zentral fest, ob der Benutzer auf
             die Systemeinstellungen zugreifen kann.</dd>
             <dt>Benutzer verwalten</dt>
             <dt>Benutzer-Rollen verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Benutzer und Rollen verwalten</dd>
+            <dd class="pb-2">Benutzer kann Benutzer und Rollen verwalten</dd>
             <dt>Kategorien verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann neue Kategorien anlegen oder
+            <dd class="pb-2">Benutzer kann neue Kategorien anlegen oder
             bestehende bearbeiten/ löschen</dd>
             <dt>Berechtigungen verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Hierüber kann geregelt werden, ob ein Benutzer
+            <dd class="pb-2">Hierüber kann geregelt werden, ob ein Benutzer
             die Berechtigungen ändern kann. Für die Gruppe "Administratoren" kann dieses Recht
             nicht entzogen werden.</dd>
             <dt>Templates verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann die Templates und Vorlagen bearbeiten</dd>
+            <dd class="pb-2">Benutzer kann die Templates und Vorlagen bearbeiten</dd>
             <dt>Smileys verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Smileys neu definieren und bestehende löschen</dd>
+            <dd class="pb-2">Benutzer kann Smileys neu definieren und bestehende löschen</dd>
             <dt>Updates durchführen</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann verfügbare Updates installieren.</dd>
+            <dd class="pb-2">Benutzer kann verfügbare Updates installieren.</dd>
             <dt>System-Protokolle verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann die vom System erzeugten Protokolledateien einsehen und bei Bedarf bereinigen</dd>
+            <dd class="pb-2">Benutzer kann die vom System erzeugten Protokolledateien einsehen und bei Bedarf bereinigen</dd>
             <dt>Cronjobs verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Cronjobs verwalten</dd>
+            <dd class="pb-2">Benutzer kann Cronjobs verwalten</dd>
             <dt>Backups verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Datenbank-Backups verwalten</dd>
+            <dd class="pb-2">Benutzer kann Datenbank-Backups verwalten</dd>
             <dt>Textzensur verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Begriffe der Textzensur verwalten</dd>
+            <dd class="pb-2">Benutzer kann Begriffe der Textzensur verwalten</dd>
             <dt>IP-Adressen verwalten</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann IP-Adress-Sperren verwalten</dd>
+            <dd class="pb-2">Benutzer kann IP-Adress-Sperren verwalten</dd>
             <dt>Profil ändern</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann sein Profil ändern</dd>
+            <dd class="pb-2">Benutzer kann sein Profil ändern</dd>
             <dt>Module aktivieren/deaktivieren</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann aktivieren und deaktivieren</dd>
+            <dd class="pb-2">Benutzer kann aktivieren und deaktivieren</dd>
             <dt>Module installieren</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann installieren und aktualisieren</dd>
+            <dd class="pb-2">Benutzer kann installieren und aktualisieren</dd>
             <dt>Module deinstallieren</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann deinstallieren</dd>
+            <dd class="pb-2">Benutzer kann deinstallieren</dd>
             <dt>Dateimanager ist sichtbar</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Der Dateimanager ist für die Benutzer sichtbar und kann
+            <dd class="pb-2">Der Dateimanager ist für die Benutzer sichtbar und kann
             über den Editor aufgerufen werden.</dd>
             <dt>Dateien hochladen</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann neue Dateien hochladen</dd>
+            <dd class="pb-2">Benutzer kann neue Dateien hochladen</dd>
             <dt>Dateien löschen</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Dateien löschen</dd>
+            <dd class="pb-2">Benutzer kann Dateien löschen</dd>
             <dt>Thumbnails erzeugen</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Thumbnails für vorhandene
+            <dd class="pb-2">Benutzer kann Thumbnails für vorhandene
             Dateien neu erzeugen</dd>
             <dt>Dateien umbenennen</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Benutzer kann Dateien umbenennen</dd>
+            <dd class="pb-2">Benutzer kann Dateien umbenennen</dd>
         </dl>
         ]]>
     </chapter>
@@ -778,13 +768,13 @@ Help language file
         
         <dl>
             <dt>Keine Kommentare schreiben</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Der Besucher mit der angegebenen IP-Adresse kann keine
+            <dd class="pb-2">Der Besucher mit der angegebenen IP-Adresse kann keine
             Kommentare verfassen, wenn diese nicht für den Artikel oder generell deaktiviert sind.</dd>
             <dt>Kein ACP-Login</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Der Besucher mit der angegebenen IP-Adresse kann sich nicht in FanPress-CM
+            <dd class="pb-2">Der Besucher mit der angegebenen IP-Adresse kann sich nicht in FanPress-CM
                 einloggen bzw. hat keinen Zugriff auf die Login-Maske.</dd>
             <dt>Kein Frontend-Zugriff</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dem Besucher mit der angegebenen IP-Adresse werden veröffentlichte Artikel, Kommentare,
+            <dd class="pb-2">Dem Besucher mit der angegebenen IP-Adresse werden veröffentlichte Artikel, Kommentare,
             etc. nicht angezeigt. Der weitere Zugriffe auf deine Seite kann von anderen Faktoren abhängen.</dd>
         </dl>
         ]]>
@@ -801,14 +791,14 @@ Help language file
         
         <dl>
             <dt>Text ersetzen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Ist diese Checkbox markiert, so wird die entsprechende Textstelle durch den angegeben
+            <dd class="pb-2">Ist diese Checkbox markiert, so wird die entsprechende Textstelle durch den angegeben
             Text ersetzt. Die Textzensur wird beim Erstellen von Kommentaren, Artikeln, Kategorien, Benutzern und Benutzer-Rollen ausgeführt.</dd>
             <dt>Artikel muss überprüft werden:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Durch diese Option wird beim Speichern eines Artikels geprüft, ob die entsprechende Phrase
+            <dd class="pb-2">Durch diese Option wird beim Speichern eines Artikels geprüft, ob die entsprechende Phrase
             enthalten ist. In diesem Fall wird - unabhängig von den eingestellten Berechtigungen - der Artikel markiert, dass er freigeschalten
             werden muss.</dd>
             <dt>Kommentar muss freigeschalten werden:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Analog zur Option <em>Artikel muss überprüft werden</em>, allerdings wird hier der
+            <dd class="pb-2">Analog zur Option <em>Artikel muss überprüft werden</em>, allerdings wird hier der
             entsprechende Kommentar markiert, dass er manuell freigegeben werden muss.</dd>
         </dl>
         ]]>
@@ -826,14 +816,14 @@ Help language file
         
         <dl>
             <dt>Kategorie-Name:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Der Kategorie-Name wird im Artikel-Editor angezeigt und kann zudem über den Platzhalter
+            <dd class="pb-2">Der Kategorie-Name wird im Artikel-Editor angezeigt und kann zudem über den Platzhalter
             <em>{{categoryTexts}}</em> im Frontend ausgegeben werden.</dd>
             <dt>Kategorie-Icon:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Hierfür kann eine Bild-Datei auf einem externen Server oder lokal auf deinem Webspace verwendet
+            <dd class="pb-2">Hierfür kann eine Bild-Datei auf einem externen Server oder lokal auf deinem Webspace verwendet
             werden. In beiden Fällen sollte die vollständige URL angegeben werden. Die Anzeige der vergebenen Icons erfolgt im Frontend über
             den Platzhalter <em>{{categoryIcons}}</em>.</dd>
             <dt>Verfügbar für Rollen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diese Einstellung wird festgelegt, welche Benutzer eine bestimmte Kategorie nutzen kann.</dd>
+            <dd class="pb-2">Über diese Einstellung wird festgelegt, welche Benutzer eine bestimmte Kategorie nutzen kann.</dd>
         </dl>
         ]]>
     </chapter>
@@ -846,38 +836,38 @@ Help language file
         
         <dl>
             <dt>Artikel-Liste:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Template für Anzeige von Artikeln in der Artikel-Liste.</dd>
+            <dd class="pb-2">Template für Anzeige von Artikeln in der Artikel-Liste.</dd>
             <dt>Artikel-Einzel-Ansicht:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Template für Anzeige eines einzelnen Artikels inkl. dessen Kommentaren, dem
+            <dd class="pb-2">Template für Anzeige eines einzelnen Artikels inkl. dessen Kommentaren, dem
             Kommentar-Formular etc. Dieser Tab wird nicht angezeigt, wenn für <em>Artikel-Liste</em> und <em>Artikel-Einzel-Ansicht</em>
             das gleiche Template genutzt wird.</dd>
             <dt>Kommentar:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Template für die Anzeige eines einzelnen Kommentars im Frontend.</dd>
+            <dd class="pb-2">Template für die Anzeige eines einzelnen Kommentars im Frontend.</dd>
             <dt>Kommentar-Formular:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Template für das Formular zum Verfassen eines Kommentars.</dd>
+            <dd class="pb-2">Template für das Formular zum Verfassen eines Kommentars.</dd>
             <dt>Share-Buttons:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Template für die Darstellung der Share-Buttons in Artikeln.</dd>
+            <dd class="pb-2">Template für die Darstellung der Share-Buttons in Artikeln.</dd>
             <dt>Latest News:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Template für die einzelnen Zeilen in den "Latest News".</dd>
+            <dd class="pb-2">Template für die einzelnen Zeilen in den "Latest News".</dd>
             <dt>Tweet:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">HTML-freies Template für automatisch erzeugte Einträge bei Twitter (Tweets).</dd>
+            <dd class="pb-2">HTML-freies Template für automatisch erzeugte Einträge bei Twitter (Tweets).</dd>
             <dt>Vorlagen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">HTML-Vorlagen zu Nutzung im Artikel-Editor. (TinyMCE bzw. HTML-Ansicht).</dd>
+            <dd class="pb-2">HTML-Vorlagen zu Nutzung im Artikel-Editor. (TinyMCE bzw. HTML-Ansicht).</dd>
         </dl>
         
         <h3>Editor</h3>
         
         <dl>
             <dt>Verwendbare Platzhalter:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Verwendbaren Platzhalter können durch einen Klick auf das Plus-Icon in das ausgewählte
+            <dd class="pb-2">Die Verwendbaren Platzhalter können durch einen Klick auf das Plus-Icon in das ausgewählte
             Template eingefügt werden. Die Platzhalter werden später durch die entsprechenden Inhalte ersetzt.</dd>
             <dt>Erlaubte HTML-Tags:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die erlaubte HTML-Tags umfasst die HTML-Elemente, welche in Templates genutzt werden können.
+            <dd class="pb-2">Die erlaubte HTML-Tags umfasst die HTML-Elemente, welche in Templates genutzt werden können.
             Alle anderen Templates werden beim Speichern gefiltert.</dd>
             <dt>Editor:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Der Editor basiert ebenfalls auf CodeMirror und arbeitet ähnlich wie der Artikel-Editor.</dd>
+            <dd class="pb-2">Der Editor basiert ebenfalls auf CodeMirror und arbeitet ähnlich wie der Artikel-Editor.</dd>
             <dt>Vorschau anzeigen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Der Button <strong>Vorschau anzeigen</strong> ermöglicht es, den im Editor vorhandenen Template-Inhalt
+            <dd class="pb-2">Der Button <strong>Vorschau anzeigen</strong> ermöglicht es, den im Editor vorhandenen Template-Inhalt
             als Vorschau anzeigen zu lassen und somit die Wirkung, Formatierungsfehler etc. sofort zu erkennen.</dd>
         </dl>
         
@@ -898,18 +888,18 @@ Help language file
         
         <dl>
             <dt>Artikel-Templates - {{sources}}:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">
+            <dd class="pb-2">
                 <dl>
                     <dt>descr:</dt>
-                    <dd class="fpcm-ui-padding-md-bottom">Beschreibung vor der Ausgabe der Links aus dem Quellenverzeichnis.</dd>
+                    <dd class="pb-2">Beschreibung vor der Ausgabe der Links aus dem Quellenverzeichnis.</dd>
                 </dl>
                 <dl>
                     <dt>descrAlt:</dt>
-                    <dd class="fpcm-ui-padding-md-bottom">Alternativer Wert für die Ausgabe, wenn im Quellenverzeichnis keine Daten eingetragen sind.</dd>
+                    <dd class="pb-2">Alternativer Wert für die Ausgabe, wenn im Quellenverzeichnis keine Daten eingetragen sind.</dd>
                 </dl>
                 <dl>
                     <dt>hideEmpty:</dt>
-                    <dd class="fpcm-ui-padding-md-bottom">Quellenverzeichnis-Ausgabe unterdrücken, wenn im Quellenverzeichnis keine Daten eingetragen sind,
+                    <dd class="pb-2">Quellenverzeichnis-Ausgabe unterdrücken, wenn im Quellenverzeichnis keine Daten eingetragen sind,
                     muss immer mit Wert "1" angegeben werden.</dd>
                 </dl>
             </dd>
@@ -922,11 +912,11 @@ Help language file
         <p>Benutzer mit den entsprechenden Rechten können die nutzbaren Smileys verwalten.</p>
         <dl>
             <dt>Smiley-Code:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Der Smiley-Code wird in Artikeln und Kommentaren als Platzhalter für die entsprechende
+            <dd class="pb-2">Der Smiley-Code wird in Artikeln und Kommentaren als Platzhalter für die entsprechende
             Grafik verwendet. Die Ersetzung erfolgt beim Parsen eines Artikels bzw. Kommentars im Frontend. Jeder Smiley-Code kann nur
             einmal angelegt werden.</dd>
             <dt>Dateiname:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieses Feld umfasst nur den Dateiname der entsprechenden Smiley-Grafik, welche unter
+            <dd class="pb-2">Dieses Feld umfasst nur den Dateiname der entsprechenden Smiley-Grafik, welche unter
             <em>/data/smileys</em> abgelegt wurden.</dd>
         </dl>
         ]]>
@@ -943,44 +933,44 @@ Help language file
 
         <dl>
             <dt>Artikel-Revisionen bereinigen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Wurde die Option <em>Alte Revisionen löschen, wenn älter als</em> auf einen Wert ungleich <em>Nie</em> gesetzt,
+            <dd class="pb-2">Wurde die Option <em>Alte Revisionen löschen, wenn älter als</em> auf einen Wert ungleich <em>Nie</em> gesetzt,
             bereinigt dieser Cronjob die Artikel-Revisionen im eingestellten Intervall. Standardmäßig erfolgt dies einmal im Monat.</dd>
 
             <dt>Dateiindex neu aufbauen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Standardmäßig einmal pro Tag wird der Dateiindex, d. h. die Informationen über hochgeladene Bilder
+            <dd class="pb-2">Standardmäßig einmal pro Tag wird der Dateiindex, d. h. die Informationen über hochgeladene Bilder
             neu aufgebaut. Hierbei werden gelöschte Dateien entfernt und ggf. neu hochgeladene Bilder erfasst, sollte dies beim Upload nicht automatisch erfolgt sein.</dd>
 
             <dt>Dateimanager-Thumbnails erzeugen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieser Cronjob erzeugt die Vorschaubilder im Dateimanager neu. (Standard: einmal pro Woche)</dd>
+            <dd class="pb-2">Dieser Cronjob erzeugt die Vorschaubilder im Dateimanager neu. (Standard: einmal pro Woche)</dd>
 
             <dt>geplante Artikel veröffentlichen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieser Cronjob wird im Standard aller zehn Minuten ausgeführt und sorgt für die automatische Veröffentlichung von
+            <dd class="pb-2">Dieser Cronjob wird im Standard aller zehn Minuten ausgeführt und sorgt für die automatische Veröffentlichung von
             geplanten Artikeln. Wurde dieser Cronjob deaktiviert, müssen alle Artikel - auch solche die im Editor oder den Listen als geplant angezeigt werden - manuell
             veröffentlicht werden.</dd>
 
             <dt>IP-Adressen aus Kommentaren anonymisieren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Cronjob erfolgt die regelmäßig Anonymisierung der IP-Adressen in Kommentaren. Hierdurch wird die Personenbindung
+            <dd class="pb-2">Über diesen Cronjob erfolgt die regelmäßig Anonymisierung der IP-Adressen in Kommentaren. Hierdurch wird die Personenbindung
             aufgehoben, allerdings lässt sich dann auch nicht mehr erkennen, woher der Kommentar genau kam. Die Ausführung erfolgt per default einmal im Monat.</dd>
 
             <dt>Papierkorb bereinigen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Werden Artikel oder Kommentare gelöscht, so werden diese zuerst in den Papierkorb verschoben. Dieser Automatismus
+            <dd class="pb-2">Werden Artikel oder Kommentare gelöscht, so werden diese zuerst in den Papierkorb verschoben. Dieser Automatismus
             führt eine regelmäßige Bereinigung der Papierkörbe durch.</dd>
             
             <dt>Prüfung auf Updates:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Prüfung auf System- und Modul-Updates wird durch diesen Cronjob durchgeführt. Die Ausführung erfolgt nur, wenn FanPress CM
+            <dd class="pb-2">Die Prüfung auf System- und Modul-Updates wird durch diesen Cronjob durchgeführt. Die Ausführung erfolgt nur, wenn FanPress CM
             sich zum Update-Server verbinden kann. Die Prüfung erfolgt standardmäßig einmal täglich.</dd>
 
             <dt>System-Datenbank sichern:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Sicherung der System-Datenbank dient dieser Cronjob. Die erzeugten Backups werden im Verzeichnis <em>/data/dbdump</em> abgelegt
+            <dd class="pb-2">Die Sicherung der System-Datenbank dient dieser Cronjob. Die erzeugten Backups werden im Verzeichnis <em>/data/dbdump</em> abgelegt
             und können über den Backup-Manager verwaltet werden. Im Standard erfolgt die Sicherung einmal pro Woche. Bei hohem Artikel-Aufkommen sollte das Intervall entsprechend
             reduziert werden.</dd>
 
             <dt>System-Protokollee leeren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Protokoll-Dateien können unter Umständen sehr groß werden, daher werden diese (im Standard monatlich) auf ihre Dateigröße geprüft und
+            <dd class="pb-2">Die Protokoll-Dateien können unter Umständen sehr groß werden, daher werden diese (im Standard monatlich) auf ihre Dateigröße geprüft und
             bei Überschreitung einer Größe von 1 MB bereinigt. Das vorherige Log wird gespeichert. Die Bereinigung des Session-Protokolls erfolgt unabhängig von der Anzahl der Einträge.</dd>
 
             <dt>temporäre Dateien aufräumen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Bei Updates, sowie in der täglichen Arbeit fallen immer wieder temporäre Dateien an, welche unter Umständen nicht sofort bereinigt werden
+            <dd class="pb-2">Bei Updates, sowie in der täglichen Arbeit fallen immer wieder temporäre Dateien an, welche unter Umständen nicht sofort bereinigt werden
             (können). Dieser Cronjob prüft auf entsprechende Dateien und löscht diese; im Standard einmal pro Woche.</dd>
         </dl>
         ]]>
@@ -993,23 +983,23 @@ Help language file
         
         <dl>
             <dt>Sessions:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieses Protokoll zeigt eine Übersicht über die Logins aller Benutzer, abgesehen von aktuell aktiven Sessions, z. B. deiner eigenen.
+            <dd class="pb-2">Dieses Protokoll zeigt eine Übersicht über die Logins aller Benutzer, abgesehen von aktuell aktiven Sessions, z. B. deiner eigenen.
             Angezeigt werden alle relevanten Informationen, d. h. wer hat sich wann ein- bzw. ausgeloggt. Externe Logins erfolgten über die Funktionen der FanPress CM-API. Der
             User-Agent enthält Informationen, mit welchem Browser oder Programm der Login erfolgte.</dd>
             <dt>Sonstige:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieses Protokoll beinhaltet allgemeine Meldungen von FanPress CM, Status-Meldungen und falls nötig Diagnose-Informationen.</dd>
+            <dd class="pb-2">Dieses Protokoll beinhaltet allgemeine Meldungen von FanPress CM, Status-Meldungen und falls nötig Diagnose-Informationen.</dd>
             <dt>Ereignisse:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">In diesem Protokoll werden allen von Fehlern, welche im Betrieb, bei Updates, Änderungen der Systemkonfiguration etc. auftreten.
+            <dd class="pb-2">In diesem Protokoll werden allen von Fehlern, welche im Betrieb, bei Updates, Änderungen der Systemkonfiguration etc. auftreten.
             Fatale PHP_Fehler können hier unter Umständen nicht angezeigt werden, da die System-Protokollierung zu diesem Zeitpunkt noch nicht greift. Nicht alle Einträge sind
             zwangsläufig kritisch. Bei Fragen lassen uns einfach eine Nachricht zukommen.</dd>
             <dt>Datenbank:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Datenbank-Protokolldatei enthält weitergehende Informationen zu Ereignissen auf Datenbank-Seite, z. B. fehlschlagende Abfragen, fehlschlagende
+            <dd class="pb-2">Die Datenbank-Protokolldatei enthält weitergehende Informationen zu Ereignissen auf Datenbank-Seite, z. B. fehlschlagende Abfragen, fehlschlagende
             Verbindungen zum Datenbank-Server etc.</dd>
             <dt>Cronjobs:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Hier werden Status-Informationen, Laufzeiten etc. zu ausgeführten Cronjobs protokolliert. Dieses Log kann in Abhängigkeit von der
+            <dd class="pb-2">Hier werden Status-Informationen, Laufzeiten etc. zu ausgeführten Cronjobs protokolliert. Dieses Log kann in Abhängigkeit von der
             Cronjob-Konfiguration sehr schnell stark wachsen und sollte daher regelmäßig bereinigt werden.</dd>
             <dt>Paketmanager:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieses Protokolle beinhaltet Status-Informationen zu System-Updates, sowie Installation oder Updates von Modulen.
+            <dd class="pb-2">Dieses Protokolle beinhaltet Status-Informationen zu System-Updates, sowie Installation oder Updates von Modulen.
             Im Paketmanager-Protokoll werden Dateien ohne Änderungen ausgegraut angezeigt, andere Einträge sind schwarz.</dd>
         </dl>
         ]]>
@@ -1038,14 +1028,14 @@ Help language file
 
         <dl>
             <dt>Installierte Module:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">In diesem Register werden alle Module angezeigt, die im System verfügbar sind. Dies können
+            <dd class="pb-2">In diesem Register werden alle Module angezeigt, die im System verfügbar sind. Dies können
             Module aus dem öffentlichen Repository oder eigene Modul sein, welche dort noch nicht verfügbar sind.</dd>
             <dt>Verfügbare Module:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die verfügbaren Module listen alle Modul auf, welche im öffentlichen Repository verfügbar sind.
+            <dd class="pb-2">Die verfügbaren Module listen alle Modul auf, welche im öffentlichen Repository verfügbar sind.
             Diese Module werden vor der Veröffentlichung geprüft. Über das öffentliche Repository werden auch Aktualisierungen zur Verfügung 
             gestellt. Wurde ein Modul bereits installiert, so wird dieses in der Übersicht weiterhin angezeigt.</dd>
             <dt>Modul-Paketdatei hochladen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über dieses Register können Module aus externen Quellen ins System hochgeladen werden. Die
+            <dd class="pb-2">Über dieses Register können Module aus externen Quellen ins System hochgeladen werden. Die
             als ZIP-Archive gepackten Module werden bei diesem Vorgang automatisch entpackt. Die Nutzung der Upload-Funktion kann notwendig
             werden, wenn dein Host keine Verbindung zu externen Servern zulässt. Dieses Register ist standardmäßig deaktiviert und muss
             durch Anpassung der Konstante "FPCM_DISABLE_MODULE_ZIPUPLOAD" aktiviert werden.</dd>
@@ -1055,27 +1045,27 @@ Help language file
 
         <dl>
             <dt>Modul-Detail-Informationen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Detail-Informationen zum Modul (siehe unten) können über diesen
+            <dd class="pb-2">Die Detail-Informationen zum Modul (siehe unten) können über diesen
             angezeigt werden.</dd>
             <dt>Modul installieren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diesen Button kann ein Modul installiert werden.</dd>
+            <dd class="pb-2">Über diesen Button kann ein Modul installiert werden.</dd>
             <dt>Modul deinstallieren:</dt>
             <dt>Modul löschen:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Deinstallation eines Moduls entfernt alle durch das Modul angelegten
+            <dd class="pb-2">Die Deinstallation eines Moduls entfernt alle durch das Modul angelegten
             Tabellen, Konfigurationsoptionen etc. Die Dateien selbst werden dabei nicht gelöscht. Dies muss durch den
             Button <strong>Modul löschen</strong> erfolgen.</dd>
             <dt>Modul aktualisieren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Ist im öffentlichen Repository eine neuere Version des Modules
+            <dd class="pb-2">Ist im öffentlichen Repository eine neuere Version des Modules
             verfügbar, so kann die Aktualisierung des Moduls über diesen Button erfolgen. Der Button erscheint ebenfalls, wenn die Modul-Version in der
             Datenbank und im Dateisystem des Servers nicht übereinstimmen. Das kann nach manuellen Änderungen an Modul-Code passieren. Durch die
             Ausführung wird sichergestellt, dass die Datenbank dem Stand entspricht, welcher vom Modul funktional erwartet wird.</dd>
             <dt>Modul aktivieren:</dt>
             <dt>Modul deaktivieren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Nach der Installation eines Moduls muss dies aktiviert werden, so
+            <dd class="pb-2">Nach der Installation eines Moduls muss dies aktiviert werden, so
             dass definierte Events, Aktionen etc. zur Verfügung stehen. Die Deaktivierung ermöglicht es, die Ausführung
             z. B. bei auftretenden Fehlern zu beenden ohne das Modul komplett zu deaktivieren.</dd>
             <dt>Modul konfigurieren:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieser Button wird angezeigt, wenn das Modul das Template <em>configure.php</em>
+            <dd class="pb-2">Dieser Button wird angezeigt, wenn das Modul das Template <em>configure.php</em>
             beinhaltet.</dd>
         </dl>
         
@@ -1089,26 +1079,26 @@ Help language file
 
         <dl>
             <dt>Schlüssel:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dies ist die interne Bezeichnung des Moduls. Der Schlüssel muss einmalig sein.</dd>
+            <dd class="pb-2">Dies ist die interne Bezeichnung des Moduls. Der Schlüssel muss einmalig sein.</dd>
             <dt>Name:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Der Name ist eine nicht-technische Bezeichnung und gibt eine kurze Informationen,
+            <dd class="pb-2">Der Name ist eine nicht-technische Bezeichnung und gibt eine kurze Informationen,
             welchem Zweck das Modul dient.</dd>
             <dt>Version (lokal):</dt>
             <dt>Version (Server):</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Hier wird die Version angezeigt, welche lokal installiert und ggf. im öffentlichen
+            <dd class="pb-2">Hier wird die Version angezeigt, welche lokal installiert und ggf. im öffentlichen
             Repository verfügbar ist. Beide Angaben können unterschiedliche Werte besitzen, in der Regel sollte der Wert der lokalen
             Version dem der Server-Version entsprechen.</dd>
             <dt>Autor:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Die Autor-Angabe entspricht dem Entwickler des Moduls, dies kann ein Name,
+            <dd class="pb-2">Die Autor-Angabe entspricht dem Entwickler des Moduls, dies kann ein Name,
             E-Mail-Adresse o.ä. sein.</dd>
             <dt>Info-Link:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Diese Angabe enthält eine URL für weiteren Informationen zum Modul.</dd>
+            <dd class="pb-2">Diese Angabe enthält eine URL für weiteren Informationen zum Modul.</dd>
             <dt>Beschreibung:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Dieser Wert beinhaltet eine erweiterte Kurzbeschreibung zum Modul.</dd>
+            <dd class="pb-2">Dieser Wert beinhaltet eine erweiterte Kurzbeschreibung zum Modul.</dd>
             <dt>Erfordert PHP:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Module können eine bestimmte PHP-Version voraussetzen, diese wird hier angegeben.</dd>
+            <dd class="pb-2">Module können eine bestimmte PHP-Version voraussetzen, diese wird hier angegeben.</dd>
             <dt>Erfordert FanPress CM:</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Module können eine bestimmte FanPress CM -Version voraussetzen, diese wird hier angegeben.</dd>
+            <dd class="pb-2">Module können eine bestimmte FanPress CM -Version voraussetzen, diese wird hier angegeben.</dd>
         </dl>
         
         ]]>
@@ -1148,10 +1138,10 @@ Help language file
         <p>Die Papierkörbe werden regelmäßig automatisch geleert.</p>
         <dl>
             <dt>Element wiederherstellen</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über diese Option können die ausgewählten Elemente wiederherstellt werden. Dabei wird jeweils
+            <dd class="pb-2">Über diese Option können die ausgewählten Elemente wiederherstellt werden. Dabei wird jeweils
             die letzte Version eines Artikelns bzw. Kommentars wiederhergestellt.</dd>
             <dt>Papierkorb leeren</dt>
-            <dd class="fpcm-ui-padding-md-bottom">Über die Auswahl dieser Option wird der Papierkorb komplett geleert. Eine Lösung einzelner
+            <dd class="pb-2">Über die Auswahl dieser Option wird der Papierkorb komplett geleert. Eine Lösung einzelner
             Elemente ist nicht vorgesehen.</dd>
         </dl>
         ]]>

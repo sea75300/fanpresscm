@@ -61,7 +61,6 @@ fpcm.editor = {
     
     initAfter: function() {
 
-        fpcm.ui.setFocus('articletitle');
         fpcm.dom.fromClass('fpcm-editor-articleimage').fancybox();
 
         fpcm.ui.spinner('input.fpcm-ui-spinner-hour', {
@@ -76,6 +75,11 @@ fpcm.editor = {
 
         fpcm.dom.fromId('insertarticleimg').click(function () {
             fpcm.editor.showFileManager(3);
+            return false;
+        });
+
+        fpcm.dom.fromId('insertposterimg').click(function () {
+            fpcm.editor.showFileManager(4);
             return false;
         });
 

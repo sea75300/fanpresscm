@@ -31,6 +31,7 @@ final class dirs {
     const DATA_PROFILES = 'profiles';
     const DATA_MODULES = 'modules';
     const DATA_OPTIONS = 'options';
+    const DATA_BACKUP = 'backup';
     const CORE_JS = 'js';
     const CORE_THEME = 'theme';
     const CORE_VIEWS = 'views';
@@ -86,7 +87,7 @@ final class dirs {
      * @param boolean $base
      * @return string
      */
-    public static function getFullDirPath($type, $path = '', $base = false)
+    public static function getFullDirPath($type, $path = '', $base = false) : string
     {
         $path = $GLOBALS['fpcm']['dir']['base'] . $type . (trim($path ? DIRECTORY_SEPARATOR . $path : ''));
         return str_replace('//', DIRECTORY_SEPARATOR, ($base ? basename($path) : $path));
@@ -99,7 +100,7 @@ final class dirs {
      * @param boolean $base
      * @return string
      */
-    public static function getDataDirPath($type, $path = '', $base = false)
+    public static function getDataDirPath($type, $path = '', $base = false) : string
     {
         $path = $GLOBALS['fpcm']['dir']['data'] . $type . ($path ? DIRECTORY_SEPARATOR . $path : '');
         return str_replace('//', DIRECTORY_SEPARATOR, ($base ? basename($path) : $path));
@@ -110,7 +111,7 @@ final class dirs {
      * @param string $path
      * @return string
      */
-    public static function getIncDirPath($path = '')
+    public static function getIncDirPath($path = '') : string
     {
         return str_replace('//', DIRECTORY_SEPARATOR, $GLOBALS['fpcm']['dir']['inc'] . $path);
     }
@@ -121,7 +122,7 @@ final class dirs {
      * @param string $path
      * @return string
      */
-    public static function getCoreDirPath($type, $path = '')
+    public static function getCoreDirPath($type, $path = '') : string
     {
         return str_replace('//', DIRECTORY_SEPARATOR, $GLOBALS['fpcm']['dir']['core'] . $type . DIRECTORY_SEPARATOR . $path);
     }
@@ -131,7 +132,7 @@ final class dirs {
      * @param string $path
      * @return string
      */
-    public static function getRootUrl($path = '')
+    public static function getRootUrl($path = '') : string
     {
         return $GLOBALS['fpcm']['urls']['base'] . $path;
     }
@@ -142,7 +143,7 @@ final class dirs {
      * @param string $path
      * @return string
      */
-    public static function getDataUrl($type, $path)
+    public static function getDataUrl($type, $path) : string
     {
         return $GLOBALS['fpcm']['urls']['data'] . $type . '/' . $path;
     }
@@ -153,7 +154,7 @@ final class dirs {
      * @param string $path
      * @return string
      */
-    public static function getCoreUrl($type, $path = '')
+    public static function getCoreUrl($type, $path = '') : string
     {
         return $GLOBALS['fpcm']['urls']['core'] . $type . '/' . $path;
     }
@@ -163,7 +164,7 @@ final class dirs {
      * @param string $path
      * @return string
      */
-    public static function getLibUrl($path)
+    public static function getLibUrl($path) : string
     {
         return $GLOBALS['fpcm']['urls']['lib'] . $path;
     }

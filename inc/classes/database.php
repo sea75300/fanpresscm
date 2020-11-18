@@ -88,37 +88,43 @@ final class database {
 
     /**
      * Wordsperre-Tabelle
-     * @since FPCM 3.2
+     * @since 3.2
      */
     const tableTexts = 'texts';
 
     /**
      * Tabelle für revisionen
-     * @since FPCM 3.3
+     * @since 3.3
      */
     const tableRevisions = 'revisions';
 
     /**
      * View for session and user data
-     * @since FPCM 4.4.3
+     * @since 4.4.3
      */
     const viewSessionUserdata = 'session_userdata';
 
     /**
+     * View for article counts
+     * @since 4.5
+     */
+    const viewArticleCounts = 'articles_counts';
+
+    /**
      * Datenbank-TypKonstante MySQL
-     * @since FPCM 3.5
+     * @since 3.5
      */
     const DBTYPE_MYSQLMARIADB = 'mysql';
 
     /**
      * Datenbank-TypKonstante Postgres
-     * @since FPCM 3.5
+     * @since 3.5
      */
     const DBTYPE_POSTGRES = 'pgsql';
 
     /**
      * Liste mit unterstützten Datenbanksystemen
-     * @since FPCM 3.3
+     * @since 3.3
      * mysql => MySQL 5.5 + oder MariaDB 10 +
      * pgsql => Postgres 9 +
      */
@@ -136,7 +142,7 @@ final class database {
     /**
      * Datenbank-Treiber
      * @var \fpcm\drivers\sqlDriver
-     * @since FPCM 3.2
+     * @since 3.2
      */
     private $driver;
 
@@ -149,9 +155,16 @@ final class database {
     /**
      * Datenbank-Typ
      * @var string
-     * @since FPCM 3.2
+     * @since 3.2
      */
     private $dbtype;
+
+    /**
+     * Database name
+     * @var string
+     * @since 4.5
+     */
+    private $dbname;
 
     /**
      * letzter ausgeführter Datenbank-Querystring
@@ -162,7 +175,7 @@ final class database {
     /**
      * Common error code for last query
      * @var string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     private $lastQueryErrorCode = null;
 
@@ -175,14 +188,14 @@ final class database {
     /**
      * Tabelle, in welcher zuletzt eine Aktion durchgeführt wurde
      * @var string
-     * @since FPCM 3.2
+     * @since 3.2
      */
     private $lastTable = '';
 
     /**
      * SQL-Query via explain testen
      * @var bool
-     * @since FPCM 3.6
+     * @since 3.6
      */
     private $explain = false;
 
@@ -221,6 +234,7 @@ final class database {
 
         try {
             $this->connection = new \PDO($dbconfig['DBTYPE'] . ':' . $this->driver->getPdoDns($dbconfig), $dbconfig['DBUSER'], $dbconfig['DBPASS'], $this->driver->getPdoOptions());
+            $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         } catch (\PDOException $e) {
             fpcmLogSql($e->getMessage());
             if (!$dieOnError) {
@@ -231,6 +245,7 @@ final class database {
 
         $this->dbprefix = $dbconfig['DBPREF'];
         $this->dbtype = $dbconfig['DBTYPE'];
+        $this->dbname = $dbconfig['DBNAME'];
     }
 
     /**
@@ -255,7 +270,7 @@ final class database {
         $distinct = $distinct ? 'DISTINCT ' : '';
         $sql = "SELECT {$distinct}{$item} FROM {$this->getTablePrefixed($table)}";
         
-        if (!is_null($where)) {
+        if ($where !== null) {
             $sql .= " WHERE $where";
         }
 
@@ -269,17 +284,59 @@ final class database {
      */
     public function selectFetch(\fpcm\model\dbal\selectParams $obj)
     {
-        $sql  = $obj->getDistinct() ? 'SELECT DISTINCT' : 'SELECT';
-        $sql .= " {$obj->getItem()} FROM {$this->getTablePrefixed($obj->getTable())}";
-        $sql .= $obj->getJoin() ? " {$obj->getJoin()}" : "";
-        $sql .= $obj->getWhere() ? " WHERE {$obj->getWhere()}" : "";
+        $obj->setTable($this->getTablePrefixed($obj->getTable()));
 
-        $result = $this->query($sql, $obj->getParams());
+        $result = $this->query($obj->getQuery(), $obj->getParams());
         if ($obj->getReturnResult()) {
             return $result;
         }
 
+        if (!$result instanceof \PDOStatement) {
+            return false;
+        }
+        
         return $this->fetch($result, $obj->getFetchAll(), $obj->getFetchStyle());
+    }
+
+    /**
+     * Executes UNION combined select and fetch
+     * @param array $selects
+     * @param int $fetchStyle
+     * @param bool $returnResult
+     * @return array
+     * @since 4.5
+     */
+    public function unionSelectFetch(array $selects, int $fetchStyle = \PDO::FETCH_OBJ, bool $returnResult = false)
+    {
+        $selects = array_filter($selects, function ($item) {            
+            return ($item instanceof \fpcm\model\dbal\selectParams);
+        });
+        
+        if (!count($selects)) {
+            return [];
+        }
+
+        $params = [];
+        $queries = array_map(function (\fpcm\model\dbal\selectParams $obj) use (&$params) {
+            $obj->setTable($this->getTablePrefixed($obj->getTable()));
+            $params = array_merge($params, $obj->getParams());
+            return $obj->getQuery();
+        }, $selects);
+        
+        if (!count($queries)) {
+            return [];
+        }
+
+        $result = $this->query('('.implode(') UNION (', $queries).')', $params);
+        if ($returnResult) {
+            return $result;
+        }
+
+        if (!$result instanceof \PDOStatement) {
+            return [];
+        }
+
+        return $this->fetch($result, true, $fetchStyle);
     }
 
     /**
@@ -314,7 +371,7 @@ final class database {
     public function update($table, array $fields, array $params = [], $where = null)
     {
         $sql = "UPDATE {$this->getTablePrefixed($table)} SET " . implode(' = ?, ', $fields) . ' = ?';
-        if (!is_null($where)) {
+        if ($where !== null) {
             $sql .= " WHERE $where";
         }
 
@@ -328,7 +385,7 @@ final class database {
      * @param array $params
      * @param array $where
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function updateMultiple($table, array $fields, array $params = [], array $where = [])
     {
@@ -372,8 +429,9 @@ final class database {
     public function delete($table, $where = null, array $params = [])
     {
         $sql = "DELETE FROM {$this->getTablePrefixed($table)}";
-        if (!is_null($where))
+        if ($where !== null) {
             $sql .= " WHERE $where";
+        }
 
         return $this->exec($sql, $params);
     }
@@ -408,18 +466,16 @@ final class database {
     public function count($table, $countitem = '*', $where = null, array $params = [])
     {
         $sql = "SELECT count(" . $countitem . ") AS counted FROM {$this->getTablePrefixed($table)}";
-        if (!is_null($where)) {
+        if ($where !== null) {
             $sql .= " WHERE " . $where . ";";
         }
 
         $result = $this->query($sql, $params);
         if ($result === false) {
-            $this->getError();
             return false;
         }
-        $row = $this->fetch($result);
 
-        return isset($row->counted) ? $row->counted : 0;
+        return $this->fetch($result)->counted ?? 0;
     }
 
     /**
@@ -432,9 +488,10 @@ final class database {
     public function reverseBool($table, $field, $where)
     {
         $sql = "UPDATE {$this->getTablePrefixed($table)} SET " . $this->driver->getNotQuery($field);
-        if (!is_null($where)) {
+        if ($where !== null) {
             $sql .= " WHERE $where";
         }
+
         return $this->exec($sql);
     }
 
@@ -472,21 +529,20 @@ final class database {
      * @param string $field
      * @param bool $isUnique
      * @return bool
-     * @since FPCM 3.3.1
+     * @since 3.3.1
      */
     public function createIndex($table, $indexName, $field, $isUnique = false)
     {
-        $sql = $this->driver->createIndexString($this->getTablePrefixed($table), $indexName, $field, $isUnique);
-        return $this->exec($sql);
-    }
+        return $this->exec( $this->driver->createIndexString($this->getTablePrefixed($table), $indexName, $field, $isUnique) );
+    }   
 
     /**
-     * Führt ein SQL Kommando aus
-     * @param string $command SQL String
-     * @param array $bindParams Paramater, welche gebunden werden sollen
+     * Executes a sql query
+     * @param string $command
+     * @param array $bindParams
      * @return bool
      */
-    public function exec($command, array $bindParams = [])
+    public function exec($command, array $bindParams = []) : bool
     {
         if (!trim($command)) {
             trigger_error('Invalid SQL command detected, query was empty!');
@@ -498,6 +554,8 @@ final class database {
         if ($this->explain) {
             $command = 'EXPLAIN ' . $command;
         }
+        
+        $this->replacePrefixVar($command);        
 
         $statement = $this->connection->prepare($command);
         if (!trim($statement->queryString)) {
@@ -514,25 +572,21 @@ final class database {
         try {
             $res = $statement->execute($bindParams);
         } catch (\PDOException $e) {
-            fpcmLogSql((string) $e);
+            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());                        
+            fpcmLogSql((string) $e . $this->getStatementError($statement));
             return false;
         }
 
-        if (!$res) {
-            $this->getStatementError($statement);
-            return false;
-        }
-
-        return true;
+        return (bool) $res;
     }
 
     /**
      * Führt SQL-Datei aus
      * @param string $path
      * @return bool
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
-    public function execSqlFile($path)
+    public function execSqlFile($path) : bool
     {
         if (substr($path, -4) != '.sql') {
             trigger_error('Given file was not SQL file ' . $path);
@@ -546,22 +600,20 @@ final class database {
 
         $this->queryCount++;
 
-        $sql = str_replace('{{dbpref}}', $this->getDbprefix(), file_get_contents($path));
+        $sql = file_get_contents($path);
+        $this->replacePrefixVar($sql);
+        
         $this->lastQueryString = $sql;
 
         if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($sql);
         }
-
+        
         try {
-            $res = $this->connection->exec($sql);
+            $this->connection->exec($sql);
         } catch (\PDOException $e) {
-            fpcmLogSql((string) $e);
-            return false;
-        }
-
-        if ($res === false) {
-            $this->getError();
+            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());                        
+            fpcmLogSql((string) $e . PHP_EOL.'Query: ' . $this->lastQueryString);
             return false;
         }
 
@@ -572,9 +624,9 @@ final class database {
      * Parst YaTDL-Datei und führt SQL-Statement aus
      * @param string $path
      * @return bool
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
-    public function execYaTdl($path)
+    public function execYaTdl($path) : bool
     {
         if (substr($path, -4) !== '.yml') {
             $path .= '.yml';
@@ -586,22 +638,20 @@ final class database {
             return false;
         }
 
-        $sql = str_replace('{{dbpref}}', $this->getDbprefix(), $yatdl->getSqlString());
+        $sql = $yatdl->getSqlString();
+        $this->replacePrefixVar($sql);
+
         $this->lastQueryString = $sql;
 
         if (defined('FPCM_DEBUG') && FPCM_DEBUG && defined('FPCM_DEBUG_SQL') && FPCM_DEBUG_SQL) {
             fpcmLogSql($sql);
         }
-
+        
         try {
-            $res = $this->connection->exec($sql);
+            $this->connection->exec($sql);
         } catch (\PDOException $e) {
-            fpcmLogSql((string) $e);
-            return false;
-        }
-
-        if ($res === false) {
-            $this->getError();
+            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());                        
+            fpcmLogSql((string) $e . PHP_EOL.'Query: ' . $this->lastQueryString);
             return false;
         }
 
@@ -612,7 +662,7 @@ final class database {
      * Führt ein SQL Kommando aus und gibt Result-Set zurück
      * @param string $command SQL String
      * @param array $bindParams Paramater, welche gebunden werden sollen
-     * @return PDOStatement Zeilen in der Datenbank
+     * @return \PDOStatement
      */
     public function query($command, array $bindParams = [])
     {
@@ -642,32 +692,13 @@ final class database {
         try {
             $res = $statement->execute($bindParams);
         } catch (\PDOException $e) {
-            fpcmLogSql((string) $e);
+            $this->lastQueryErrorCode = $this->driver->mapErrorCodes($e->getCode());
+            fpcmLogSql((string) $e . $this->getStatementError($statement));
+            $e->errorInfo;
             return false;
         }
 
-        if (!$res) {
-            $this->getStatementError($statement);
-        }
-
         return $statement;
-    }
-
-    /**
-     * Schreibt letzte Fehlermeldung der DB-Verbindung in DB-Log
-     * @return bool
-     */
-    public function getError()
-    {
-        $info = $this->connection->errorInfo();
-        $this->lastQueryErrorCode = $this->driver->mapErrorCodes($info[1]);
-
-        $err = 'ERROR MESSAGE: ' . $info[2] . PHP_EOL;
-        $err .= 'SQL STATE: ' . $info[0] . PHP_EOL;
-        $err .= $this->getDbtype() . ' ERROR CODE: ' . $info[1] . PHP_EOL;
-
-        fpcmLogSql($err);
-        return true;
     }
 
     /**
@@ -675,18 +706,14 @@ final class database {
      * @param \PDOStatement $statement
      * @return bool
      */
-    public function getStatementError(\PDOStatement &$statement)
+    public function getStatementError(\PDOStatement &$statement) : string
     {
-        $info = $statement->errorInfo();
-        $this->lastQueryErrorCode = $this->driver->mapErrorCodes($info[0]);
+        ob_start();
+        $statement->debugDumpParams();
+        $err = PHP_EOL.'Query: ' . ob_get_contents();
+        ob_end_clean();
 
-        $err = 'ERROR MESSAGE: ' . $info[2] . PHP_EOL;
-        $err .= 'SQL STATE: ' . $info[0] . PHP_EOL;
-        $err .= $this->getDbtype() . ' ERROR CODE: ' . $info[1] . PHP_EOL;
-        $err .= 'Query: ' . $statement->queryString . PHP_EOL;
-
-        fpcmLogSql($err);
-        return true;
+        return $err;
     }
     
     /**
@@ -724,6 +751,48 @@ final class database {
     }
 
     /**
+     * Starts transaction
+     * @return bool
+     * @since 4.5.0-b3
+     */
+    public function transaction() : bool
+    {
+        try {
+            $res = $this->connection->beginTransaction();
+        } catch (\PDOException $exc) {
+            fpcmLogSql('Failed to begin transaction' . PHP_EOL . PHP_EOL . $exc->getTraceAsString());
+            return false;
+        }
+
+        fpcmLogSql('Start Transaction: ' . ($res ? 'OK' : 'ERR'));
+        return $res;
+    }
+
+    /**
+     * Starts transaction
+     * @return bool
+     * @since 4.5.0-b3
+     */
+    public function commit() : bool
+    {
+        try {
+            fpcmLogSql('Transaction commit forced, transaction available: ' . ($this->connection->inTransaction() ? 'YES' : 'NO'));
+            $res = $this->connection->commit();            
+        } catch (\PDOException $exc) {
+            fpcmLogSql('Failed to commit transaction' . PHP_EOL . PHP_EOL . $exc->getTraceAsString());
+            return false;
+        }
+
+        if ($res) {
+            fpcmLogSql('Transaction commit succesfull.');
+            return true;
+        }
+
+        fpcmLogSql('Rollback of transaction required. Result: '. ($this->connection->rollBack() ? 'OK' : 'ERR') );
+        return false;
+    }
+
+    /**
      * Liefert zuletzt ausgeführten Query-String zurück
      * @return string
      */
@@ -735,7 +804,7 @@ final class database {
     /**
      * Returns common sql error code
      * @return string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public function getLastQueryErrorCode()
     {
@@ -767,7 +836,7 @@ final class database {
      * Erzeugt CONCAT SQL-String
      * @param array $fields
      * @return string
-     * @since FPCM 3.1.0
+     * @since 3.1.0
      */
     public function concatString(array $fields)
     {
@@ -779,7 +848,7 @@ final class database {
      * @param string $delim
      * @param array $fields
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function implodeCols($delim, array $fields)
     {
@@ -790,19 +859,19 @@ final class database {
      * Creates IN-Query for prepared statement
      * @param string $field
      * @param array $values
-     * @param bool $notId
+     * @param bool $not
      * @return string
-     * @since FPCM 4.2.1
+     * @since 4.2.1
      */
-    public function inQuery(string $field, array $values, bool $notId = false) : string
+    public function inQuery(string $field, array $values, bool $not = false) : string
     {
-        return $field.($notId ? ' NOT ' : '').' IN ('. implode(', ', array_fill(0, count($values), '?')).')';
+        return $field.($not ? ' NOT ' : '').' IN ('. implode(', ', array_fill(0, count($values), '?')).')';
     }
 
     /**
      * Erzeugt LIKE-SQL-String
      * @return string
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     public function dbLike()
     {
@@ -813,7 +882,7 @@ final class database {
      * Erzeugt Query für Optimierungsvorgang auf Datenbank-Tabellen
      * @param string $table Name der Tabelle
      * @return bool
-     * @since FPCM 3.3.0
+     * @since 3.3.0
      */
     public function optimize($table)
     {
@@ -833,7 +902,7 @@ final class database {
      * Kompletten Tabellen-Name mit Prefix zurückgeben
      * @param string $table
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function getTablePrefixed($table)
     {
@@ -848,7 +917,7 @@ final class database {
     /**
      * Datenbank-Typ zurückgeben
      * @return string
-     * @since FPCM 3.2
+     * @since 3.2
      */
     public function getDbtype()
     {
@@ -858,7 +927,7 @@ final class database {
     /**
      * Gibt Anzahl an ausgeführt Datenbank-Queries zurück
      * @return int
-     * @since FPCM 3.1.0
+     * @since 3.1.0
      */
     public function getQueryCount()
     {
@@ -868,7 +937,7 @@ final class database {
     /**
      * Gibt Datentypen-Map zurück für YATDL
      * @return array
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     public function getYaTDLDataTypes()
     {
@@ -878,7 +947,7 @@ final class database {
     /**
      * Gibt Version des verbundenen Datenbank-Systems zurück
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function getDbVersion()
     {
@@ -888,7 +957,7 @@ final class database {
     /**
      * Prüft, ob aktuelle Version des DBMS >= der empfohlenen Version ist
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function checkDbVersion()
     {
@@ -898,7 +967,7 @@ final class database {
     /**
      * Gibt Version des verbundenen Datenbank-Systems zurück
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function getRecommendVersion()
     {
@@ -911,7 +980,7 @@ final class database {
      * @param string $field
      * @param string $cache
      * @return array
-     * @since FPCM 3.3.2
+     * @since 3.3.2
      */
     public function getTableStructure($table, $field = false, $cache = true)
     {
@@ -977,6 +1046,9 @@ final class database {
             if ($isPg) {
                 $attr['params'] = str_replace('NOT NULL', '', $attr['params']);
             }
+            elseif (isset ($attr['charset']) && $attr['charset']) {
+                $type .= ' COLLATE `'.$attr['charset'].'`';
+            }
 
             $type .= trim($attr['params']) ? ' ' . $attr['params'] : '';
             if (!$this->alter($table, 'ADD', $col, $type, false)) {
@@ -1018,7 +1090,7 @@ final class database {
      * Add columns to database table by definition in object of type @see \fpcm\model\system\yatdl 
      * @param \fpcm\model\system\yatdl $yatdl
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function addTableIndices(\fpcm\model\system\yatdl $yatdl)
     {
@@ -1059,16 +1131,10 @@ final class database {
      * @param string $viewName
      * @param string $queryString
      * @return bool
-     * @since FPCM 4.4.3-rc1
+     * @since 4.4.3-rc1
      */
     public function createView(string $viewName, string $queryString) : bool
     {
-        /*CREATE VIEW "session_userdata" AS
-        SELECT sess.id as sess_id, usr.id as usr_id, sess.sessionid as sess_sessionid, sess.userid as sess_userid, sess.login as sess_login, sess.logout as sess_logout, sess.lastaction as sess_lastaction, sess.ip as sess_ip, sess.external as sess_external, sess.useragent as sess_useragent, usr.displayname as usr_displayname, usr.email as usr_email, usr.registertime as usr_registertime, usr.username as usr_username, usr.passwd as usr_passwd, usr.roll as usr_roll, usr.disabled as usr_disabled, usr.usrmeta as usr_usrmeta, usr.usrinfo as usr_usrinfo, usr.authtoken as usr_authtoken, usr.changetime as usr_changetime, usr.changeuser as usr_changeuser
-        FROM fpcm4_authors usr
-        JOIN fpcm4_sessions sess ON (sess.userid = usr.id)*/
-        /*C*/
-
         $viewName = $this->getTablePrefixed($viewName);
         $result = $this->exec('CREATE VIEW '.$viewName.' AS '.$queryString);
         if ($result === false) {
@@ -1084,7 +1150,7 @@ final class database {
      * Datei data/config/database.php erzeugen
      * @param array $data
      * @return bool
-     * @since FPCM 3.5.1
+     * @since 3.5.1
      */
     public function createDbConfigFile(array $data)
     {
@@ -1117,42 +1183,9 @@ final class database {
     }
 
     /**
-     * Error die
-     */
-    private function dieError()
-    {
-        exit('Connection to database failed!');
-    }
-
-    /**
-     * Liefert YMl-Dateien aus Pfad zurück
-     * @param string $path
-     * @return array
-     * @since FPCM 3.3.2
-     */
-    public static function getTableFiles($path = false)
-    {
-        if (!$path) {
-            $path = dirs::getDataDirPath(dirs::DATA_DBSTRUCT, '/');
-        }
-
-        if (!is_dir($path)) {
-            trigger_error('Invalid path given, ' . $path . ' is not a directory');
-            return [];
-        }
-
-        $files = glob($path . '*.yml');
-        if (!is_array($files) || !count($files)) {
-            return [];
-        }
-
-        return $files;
-    }
-
-    /**
      * SQL-EXPLAIN de/aktivieren
      * @param bool $explain
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function setExplain($explain)
     {
@@ -1184,7 +1217,7 @@ final class database {
      * @param string $field
      * @param bool $cache
      * @return array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function getTableIndices(string $table, $field = false, $cache = true) : array
     {
@@ -1215,6 +1248,14 @@ final class database {
     }
 
     /**
+     * Error die
+     */
+    private function dieError()
+    {
+        exit('Connection to database failed!');
+    }
+
+    /**
      * Return data types with length params
      * @return array
      */
@@ -1234,6 +1275,43 @@ final class database {
         $lenghtTypes[] = 'double';
 
         return $lenghtTypes;
+    }
+
+    /**
+     * Replaces {{dbpref}} variable in SQL query
+     * @param string $sql
+     * @return bool
+     * @since 4.5
+     */
+    private function replacePrefixVar(string &$sql) : bool
+    {
+        $sql = str_replace('{{dbpref}}', $this->getDbprefix(), $sql);
+        return true;
+    }
+
+    /**
+     * Liefert YMl-Dateien aus Pfad zurück
+     * @param string $path
+     * @return array
+     * @since 3.3.2
+     */
+    public static function getTableFiles($path = false)
+    {
+        if (!$path) {
+            $path = dirs::getDataDirPath(dirs::DATA_DBSTRUCT, '/');
+        }
+
+        if (!is_dir($path)) {
+            trigger_error('Invalid path given, ' . $path . ' is not a directory');
+            return [];
+        }
+
+        $files = glob($path . '*.yml');
+        if (!is_array($files) || !count($files)) {
+            return [];
+        }
+
+        return $files;
     }
 
 }

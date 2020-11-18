@@ -43,57 +43,21 @@ trait lists {
 
     /**
      *
-     * @var array
-     */
-    protected $articleItems = [];
-
-    /**
-     *
-     * @var array
-     */
-    protected $categories = [];
-
-    /**
-     *
-     * @var array
-     */
-    protected $users = [];
-
-    /**
-     *
-     * @var array
-     */
-    protected $commentCount = [];
-
-    /**
-     *
-     * @var array
-     */
-    protected $commentPrivateUnapproved = [];
-
-    /**
-     *
-     * @var array
-     */
-    protected $sharesCounts = [];
-
-    /**
-     *
      * @var int
      */
-    protected $listShowLimit = 0;
+    protected $count = 0;
 
     /**
      *
-     * @var int
+     * @var array
      */
-    protected $listShowStart = 0;
+    protected $items = [];
 
     /**
      *
-     * @var int
+     * @var array
      */
-    protected $articleCount = 0;
+    protected $relatedCounts = [];
 
     /**
      *
@@ -108,39 +72,16 @@ trait lists {
     protected $showDraftStatus = true;
 
     /**
+     *
+     * @var bool
+     */
+    protected $isTrash = false;
+
+    /**
      * Data view object
      * @var \fpcm\components\dataView\dataView
      */
     protected $dataView;
-
-    /**
-     * 
-     * @return string
-     */
-    protected function getDataViewName()
-    {
-        return 'articlelist';
-    }
-
-    /**
-     * Berechtigungen zum Bearbeiten initialisieren
-     */
-    public function initEditPermisions()
-    {
-        if (!$this->session->exists()) {
-            return false;
-        }
-
-        $this->view->assign('permEditOwn', $this->permissions->article->edit);
-        $this->view->assign('permEditAll', $this->permissions->article->editall);
-        $this->view->assign('permMassEdit', $this->permissions->article->massedit);
-        $this->view->assign('currentUserId', $this->session->getUserId());
-        $this->view->assign('isAdmin', $this->session->getCurrentUser()->isAdmin());
-
-        $this->view->assign('canArchive', $this->permissions->article->archive);
-        $this->view->assign('canApprove', $this->permissions->article->approve);
-        $this->view->assign('canChangeAuthor', $this->permissions->article->authors);
-    }
 
     /**
      * Kategorien übersetzen
@@ -148,12 +89,12 @@ trait lists {
      */
     protected function translateCategories()
     {
-        if (!count($this->articleItems) || !$this->session->exists()) {
+        if (!count($this->items) || !$this->session->exists()) {
             return false;
         }
 
         $categories = $this->categoryList->getCategoriesNameListAll();
-        foreach ($this->articleItems as $articles) {
+        foreach ($this->items as $articles) {
 
             /* @var $article \fpcm\model\articles\article */
             foreach ($articles as &$article) {
@@ -166,49 +107,12 @@ trait lists {
      * 
      * @return bool
      */
-    protected function initActionObjects()
-    {
-        $this->articleList = new \fpcm\model\articles\articlelist();
-        $this->categoryList = new \fpcm\model\categories\categoryList();
-        $this->commentList = new \fpcm\model\comments\commentList();
-        $this->userList = new \fpcm\model\users\userList();
-
-        return true;
-    }
-
-    /**
-     * Init action vars
-     * @return bool
-     */
-    protected function initActionVars()
-    {
-        $this->users = $this->userList->getUsersNameList();
-        $this->categories = $this->categoryList->getCategoriesNameListCurrent();
-
-        $this->commentCount = $this->config->system_comments_enabled
-                            ? $this->commentList->countComments($this->getArticleListIds())
-                            : [];
-
-        $this->commentPrivateUnapproved = $this->config->system_comments_enabled
-                                        ? $this->commentList->countUnapprovedPrivateComments($this->getArticleListIds())
-                                        : [];
-
-        $this->sharesCounts = $this->config->system_share_count
-                            ? (new \fpcm\model\shares\shares())->getSharesCountByArticles()
-                            : [];
-        return true;
-    }
-
-    /**
-     * 
-     * @return bool
-     */
     protected function initDataView()
     {
         $this->dataView = new \fpcm\components\dataView\dataView($this->getDataViewName());
         $this->dataView->addColumns($this->getDataViewCols());
 
-        if (!count($this->articleItems)) {
+        if (!count($this->items)) {
             $this->dataView->addRow(
                 new \fpcm\components\dataView\row([
                     new \fpcm\components\dataView\rowCol(
@@ -230,7 +134,7 @@ trait lists {
         $showDeleteButton = $this->permissions->article->delete && !($this->isTrash ?? false);
 
         /* @var $article \fpcm\model\articles\article */
-        foreach ($this->articleItems as $articleMonth => $articles) {
+        foreach ($this->items as $articleMonth => $articles) {
 
             $titleStr  = $this->language->writeMonth(date('n', $articleMonth), true);
             $titleStr .= ' ' .date('Y', $articleMonth);
@@ -252,10 +156,14 @@ trait lists {
 
                 $buttons = (new \fpcm\view\helper\controlgroup('articlebuttons' . $article->getId() ))
                             ->addItem( (new \fpcm\view\helper\openButton('articlefe'))->setUrlbyObject($article)->setTarget('_blank') )
-                            ->addItem( (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article) )
-                            ->addItem( (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article) );
+                            ->addItem( (new \fpcm\view\helper\editButton('articleedit'))->setUrlbyObject($article) );
+
+                if (!$this->isTrash) {
+                    $buttons->addItem( (new \fpcm\view\helper\clearArticleCacheButton('cac'))->setDatabyObject($article) );
+                }
 
                 if ($showDeleteButton) {
+
                     $buttons->addItem( (new \fpcm\view\helper\button('delete'.$articleId))
                             ->setText('GLOBAL_DELETE')
                             ->setIcon('trash')
@@ -269,10 +177,13 @@ trait lists {
                     $this->getMetaData($article)
                 ];
 
+                /* @var $relatedCountItem \fpcm\model\articles\relatedCountItem */
+                $relatedCountItem = $this->relatedCounts[$articleId] ?? null;
+
                 $metaDataIcons = array_merge(
-                    [$showCommentsStatus ? $this->getCommentBadge($articleId) : ''],
-                    [$showSharesCount ? $this->getSharesBadge($articleId) : ''],
-                    $article->getMetaDataStatusIcons($this->showDraftStatus, $showCommentsStatus,$this->showArchivedStatus)
+                    [$showCommentsStatus ? $this->getCommentBadge($relatedCountItem) : ''],
+                    [$showSharesCount ? $this->getSharesBadge($relatedCountItem) : ''],
+                    $article->getMetaDataStatusIcons($this->showDraftStatus, $showCommentsStatus, $this->showArchivedStatus)
                 );
 
                 $this->dataView->addRow(
@@ -289,21 +200,21 @@ trait lists {
 
         return true;
     }
-
+    
     /**
      * 
-     * @param int $articleId
+     * @param \fpcm\model\articles\relatedCountItem|null $countItem
      * @return \fpcm\view\helper\badge
      */
-    private function getCommentBadge($articleId)
+    private function getCommentBadge(?\fpcm\model\articles\relatedCountItem $countItem)
     {
-        $badge = new \fpcm\view\helper\badge('badge' . $articleId);
-
-        $privateUnapproved = (isset($this->commentPrivateUnapproved[$articleId]) && $this->commentPrivateUnapproved[$articleId] ? true : false);
+        $badge = new \fpcm\view\helper\badge('badge' . uniqid() );
+       
+        $privateUnapproved = $countItem !== null && $countItem->getPrivateUnapprovedComments() ? true : false;
 
         $badge->setClass(($privateUnapproved ? 'fpcm-ui-badge-red fpcm-ui-badge-comments' : 'fpcm-ui-badge-comments'))
                 ->setText(($privateUnapproved ? 'ARTICLE_LIST_COMMENTNOTICE' : 'COMMMENT_HEADLINE'))
-                ->setValue((isset($this->commentCount[$articleId]) ? $this->commentCount[$articleId] : 0))
+                ->setValue($countItem !== null ? $countItem->getComments() : 0)
                 ->setIcon('comments');
 
         return $badge;
@@ -314,11 +225,12 @@ trait lists {
      * @param int $articleId
      * @return \fpcm\view\helper\badge
      */
-    private function getSharesBadge($articleId)
+    private function getSharesBadge(?\fpcm\model\articles\relatedCountItem $countItem)
     {
-        return (new \fpcm\view\helper\badge('badge' . $articleId))->setClass('fpcm-ui-badge-comments')
+        return (new \fpcm\view\helper\badge('badge' . uniqid() ))
+            ->setClass('fpcm-ui-badge-comments')
             ->setText('EDITOR_SHARES')
-            ->setValue((isset($this->sharesCounts[$articleId]) ? $this->sharesCounts[$articleId] : 0))
+            ->setValue($countItem !== null ? $countItem->getShares() : 0)
             ->setIcon('share');
     }
 
@@ -350,20 +262,6 @@ trait lists {
             ]),
             '</span>'
         ]);
-    }
-
-    /**
-     * Artikel-IDs ermitteln
-     * @return array
-     */
-    protected function getArticleListIds()
-    {
-        $articleIds = [];
-        foreach ($this->articleItems as $monthData) {
-            $articleIds = array_merge($articleIds, array_keys($monthData));
-        }
-
-        return $articleIds;
     }
 
     /**

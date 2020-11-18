@@ -14,7 +14,7 @@ namespace fpcm\model\wordban;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.2.0
+ * @since 3.2.0
  */
 class item extends \fpcm\model\abstracts\dataset {
 
@@ -33,21 +33,21 @@ class item extends \fpcm\model\abstracts\dataset {
     /**
      * Text ersetzen
      * @var bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     protected $replacetxt;
 
     /**
      * Artikel muss freigeschalten werden
      * @var bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     protected $lockarticle;
 
     /**
      * Kommentar muss freigegeben werden
      * @var bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     protected $commentapproval;
 
@@ -88,7 +88,7 @@ class item extends \fpcm\model\abstracts\dataset {
     /**
      * Status das Text ersetzt wird
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     function getReplaceTxt()
     {
@@ -98,7 +98,7 @@ class item extends \fpcm\model\abstracts\dataset {
     /**
      * Status ob Artikel überprüft werden muss
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     function getLockArticle()
     {
@@ -108,7 +108,7 @@ class item extends \fpcm\model\abstracts\dataset {
     /**
      * Status ob Kommentar freigegeben werden muss
      * @return bool
-     * @since FPCM 3.5
+     * @since 3.5
      */
     function getCommentApproval()
     {
@@ -118,7 +118,7 @@ class item extends \fpcm\model\abstracts\dataset {
     /**
      * gesuchter Text setzen
      * @param string $searchtext
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function setSearchtext($searchtext)
     {
@@ -128,7 +128,7 @@ class item extends \fpcm\model\abstracts\dataset {
     /**
      * Text für Ersetzung setzen
      * @param string $replacementtext
-     * @since FPCM 3.5
+     * @since 3.5
      */
     public function setReplacementtext($replacementtext)
     {
@@ -138,7 +138,7 @@ class item extends \fpcm\model\abstracts\dataset {
     /**
      * Status das Text ersetzt wird setzen
      * @param bool $replacetxt
-     * @since FPCM 3.5
+     * @since 3.5
      */
     function setReplaceTxt($replacetxt)
     {
@@ -148,7 +148,7 @@ class item extends \fpcm\model\abstracts\dataset {
     /**
      * Status ob Artikel überprüft werden muss setzen
      * @param bool $lockarticle
-     * @since FPCM 3.5
+     * @since 3.5
      */
     function setLockArticle($lockarticle)
     {
@@ -158,7 +158,7 @@ class item extends \fpcm\model\abstracts\dataset {
     /**
      * Status ob Kommentar freigegeben werden muss setzen
      * @param bool $commentapproval
-     * @since FPCM 3.5
+     * @since 3.5
      */
     function setCommentApproval($commentapproval)
     {
@@ -179,7 +179,7 @@ class item extends \fpcm\model\abstracts\dataset {
      * Returns event base string
      * @see \fpcm\model\abstracts\dataset::getEventModule
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function getEventModule(): string
     {
@@ -190,7 +190,7 @@ class item extends \fpcm\model\abstracts\dataset {
      * Returns event base string
      * @see \fpcm\model\abstracts\dataset::afterSaveInternal
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterSaveInternal(): bool
     {
@@ -202,7 +202,7 @@ class item extends \fpcm\model\abstracts\dataset {
      * Is triggered after successful database update
      * @see \fpcm\model\abstracts\dataset::afterUpdateInternal
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected function afterUpdateInternal(): bool
     {

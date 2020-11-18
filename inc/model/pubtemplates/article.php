@@ -91,7 +91,7 @@ final class article extends template {
     /**
      * List of attributes by replacement tag
      * @var array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected $replacementAttributesMap = [
         '{{sources}}' => ['descr', 'descrAlt', 'hideEmpty']
@@ -154,6 +154,9 @@ final class article extends template {
             }
 
         }
+
+        $this->lazyReplace($replacementData['{{text}}']);
+        $this->lazyReplace($replacementData['{{textShort}}']);
 
         return $this->parseSmileys($this->parseGallery(str_replace(
             array_keys($replacementData),
@@ -236,7 +239,7 @@ final class article extends template {
      * @param array $replacementData
      * @param callable $callback
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     private function processAttributes(string $tag, $value, array &$replacementData, callable $callback) : bool
     {
@@ -256,7 +259,7 @@ final class article extends template {
      * Parse short text tag
      * @param mixed $value
      * @param array $return
-     * @since FPCM 4.4
+     * @since 4.4
      */
     protected function parseTextShort($value, array &$return)
     {
@@ -277,7 +280,7 @@ final class article extends template {
      * Parse comment link tag
      * @param mixed $value
      * @param array $return
-     * @since FPCM 4.4
+     * @since 4.4
      */
     protected function parseSources($value, array &$return)
     {
@@ -310,7 +313,7 @@ final class article extends template {
      * Parse gallery tag
      * @param string $content
      * @return string
-     * @since FPCM 4.4
+     * @since 4.4
      */
     protected function parseGallery(string $content) : string
     {
@@ -319,7 +322,7 @@ final class article extends template {
             return $content;
         }
 
-        $images = $matches[2] ?? [];
+        $images = explode('|', ( $matches[2] ?? '' ) );
         if (!count($images)) {
             return $content;
         }
@@ -347,14 +350,14 @@ final class article extends template {
             $url = $isThumb ? $imgObj->getThumbnailUrl() : $imgObj->getImageUrl();
             $whStr = $isThumb ? "width=\"{$w}\" height=\"{$h}\"" : $imgObj->getWhstring();
 
-            $imgTag = "<img src=\"{$url}\" {$whStr} alt=\"{$imgObj->getFilename()}\" class=\"fpcm-pub-content-gallery-image\">";
+            $imgTag = "<img {$this->getLazyLoadingImg()} src=\"{$url}\" {$whStr} alt=\"{$imgObj->getFilename()}\" class=\"fpcm-pub-content-gallery-image\">";
             if (!$isLink) {
                 return $imgTag;
             }
 
             return "<a class=\"fpcm-pub-content-gallery-link\" href=\"{$imgObj->getImageUrl()}\">{$imgTag}</a>";
 
-        }, explode('|', $images));
+        }, $images);
 
         return preg_replace($regex, "<figure role=\"group\" class=\"fpcm-pub-content-gallery\">".implode("\n", $data)."</figure>", $content);
     }

@@ -22,91 +22,91 @@ final class http {
 
     /**
      * HTTP Filter strip_tags
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_STRIPTAGS = 1;
 
     /**
      * HTTP Filter htmlspecialchars
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_HTMLSPECIALCHARS = 2;
 
     /**
      * HTTP Filter htmlentities
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_HTMLENTITIES = 3;
 
     /**
      * HTTP Filter stripslashes
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_STRIPSLASHES = 4;
 
     /**
      * HTTP Filter htmlspecialchars_decode
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_HTMLSPECIALCHARS_DECODE = 5;
 
     /**
      * HTTP Filter html_entity_decode
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_HTMLENTITY_DECODE = 6;
 
     /**
      * HTTP Filter trim
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_TRIM = 7;
 
     /**
      * HTTP Filter json_decode
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_JSON_DECODE = 8;
 
     /**
      * HTTP Filter intval
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_CASTINT = 9;
 
     /**
      * HTTP Filter crypt::decrypt
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_DECRYPT = 10;
 
     /**
      * HTTP Filter urldecode
-     * @since FPCM 3.5.2
+     * @since 3.5.2
      */
     const FILTER_URLDECODE = 11;
 
     /**
      * HTTP Filter base64_decode
-     * @since FPCM 4
+     * @since 4
      */
     const FILTER_BASE64DECODE = 12;
 
     /**
      * HTTP Filter ucfirst
-     * @since FPCM 4
+     * @since 4
      */
     const FILTER_FIRSTUPPER = 13;
 
     /**
      * Regex filter
-     * @since FPCM 4.3
+     * @since 4.3
      */
     const FILTER_REGEX = 14;
 
     /**
      * Regex replace filter
-     * @since FPCM 4.3
+     * @since 4.3
      */
     const FILTER_REGEX_REPLACE = 15;
 
@@ -121,6 +121,7 @@ final class http {
      */
     public static function init()
     {
+        trigger_error(__METHOD__ . ' is deprecated as of FPCM 4.4, use new request/ response handler instead', E_USER_DEPRECATED);
         self::$request = array_merge($_REQUEST, $_COOKIE);
     }
 
@@ -130,9 +131,12 @@ final class http {
      * @param string $varname Variablenname
      * @param array $filter Filter vor Rückgabe durchführen, @see http::filter()
      * @return mixed null wenn Variable nicht gesetzt
+     * @deprecated FPCM 4.4
      */
     public static function get($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
+        trigger_error(__METHOD__ . ' is deprecated as of FPCM 4.4, use new request/ response handler instead', E_USER_DEPRECATED);
+
         if ($varname === null) {
             return self::$request;
         }
@@ -146,9 +150,12 @@ final class http {
      * @param string $varname Variablenname
      * @param array $filter Filter vor Rückgabe durchführen, @see http::filter()
      * @return mixed null wenn Variable nicht gesetzt
+     * @deprecated FPCM 4.4
      */
     public static function postOnly($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
+        trigger_error(__METHOD__ . ' is deprecated as of FPCM 4.4, use new request/ response handler instead', E_USER_DEPRECATED);
+
         if ($varname === null) {
             return $_POST;
         }
@@ -162,9 +169,12 @@ final class http {
      * @param string $varname Variablenname
      * @param array $filter Filter vor Rückgabe durchführen, @see http::filter()
      * @return mixed null wenn Variable nicht gesetzt
+     * @deprecated FPCM 4.4
      */
     public static function getOnly($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
+        trigger_error(__METHOD__ . ' is deprecated as of FPCM 4.4, use new request/ response handler instead', E_USER_DEPRECATED);
+
         if ($varname === null) {
             return $_GET;
         }
@@ -178,18 +188,24 @@ final class http {
      * @param string $varname Variablenname
      * @param array $filter Filter vor Rückgabe durchführen, @see http::filter()
      * @return mixed null wenn Variable nicht gesetzt
+     * @deprecated FPCM 4.4
      */
     public static function cookieOnly($varname = null, array $filter = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
+        trigger_error(__METHOD__ . ' is deprecated as of FPCM 4.4, use new request/ response handler instead', E_USER_DEPRECATED);
+
         return (isset($_COOKIE[$varname])) ? self::filter($_COOKIE[$varname], $filter) : null;
     }
 
     /**
      * Gibt IP-Adresse des aktuellen Nutzers zurück
      * @return string
+     * @deprecated FPCM 4.4
      */
     public static function getIp()
     {
+        trigger_error(__METHOD__ . ' is deprecated as of FPCM 4.4, use new request/ response handler instead', E_USER_DEPRECATED);
+
         $return = explode(', ',  $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1' );
         return $return[0];
     }
@@ -197,18 +213,24 @@ final class http {
     /**
      * Gibt HTTP-Host des aktuellen Nutzers zurück
      * @return string
+     * @deprecated FPCM 4.4
      */
     public static function getHttpHost()
     {
+        trigger_error(__METHOD__ . ' is deprecated as of FPCM 4.4, use new request/ response handler instead', E_USER_DEPRECATED);
+
         return $_SERVER['HTTP_HOST'] ?? 'localhost';
     }
 
     /**
      * Gibt Inhalt von Dateiupload via PHP zurück
      * @return array
+     * @deprecated FPCM 4.4
      */
     public static function getFiles()
     {
+        trigger_error(__METHOD__ . ' is deprecated as of FPCM 4.4, use new request/ response handler instead', E_USER_DEPRECATED);
+
         return (isset($_FILES['files']) && count($_FILES['files'])) ? $_FILES['files'] : null;
     }
 
@@ -216,9 +238,12 @@ final class http {
      * Ließt Daten aus $_SESSION
      * @param string $varName
      * @return mixed false, wenn Variable nicht gesetzt
+     * @deprecated FPCM 4.4
      */
     public static function getSessionVar($varName)
     {
+        trigger_error(__METHOD__ . ' is deprecated as of FPCM 4.4, use new request/ response handler instead', E_USER_DEPRECATED);
+
         return isset($_SESSION[$varName]) ? $_SESSION[$varName] : false;
     }
 
@@ -226,9 +251,12 @@ final class http {
      * Schreibt Daten in $_SESSION
      * @param string $varName
      * @param mixed $value
+     * @deprecated FPCM 4.4
      */
     public static function setSessionVar($varName, $value)
     {
+        trigger_error(__METHOD__ . ' is deprecated as of FPCM 4.4, use new request/ response handler instead', E_USER_DEPRECATED);
+
         $_SESSION[$varName] = $value;
     }
 
@@ -248,9 +276,12 @@ final class http {
      * * object - json_decode-Ergebnis als Objekt oder Array
      * 
      * @return mixed
+     * @deprecated FPCM 4.4
      */
     public static function filter($filterString, array $filters)
     {
+        trigger_error(__METHOD__ . ' is deprecated as of FPCM 4.4, use new request/ response handler instead', E_USER_DEPRECATED);
+
         if (!$filterString) {
             return $filterString;
         }

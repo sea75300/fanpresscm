@@ -6,12 +6,13 @@ ajax/clearTrash: ajax/common/clearTrash
 ajax/setconfig: ajax/common/setConfig
 ajax/logs/clear: ajax/logs/clear
 ajax/logs/reload: ajax/logs/reload
-ajax/filelist: ajax/files/filelist
+ajax/files/lists: ajax/files/filelist
 ajax/files/rename: ajax/files/rename
 ajax/files/delete: ajax/files/delete
 ajax/files/createthumbs: ajax/files/createThumbs
+ajax/files/alttext: ajax/files/alttext
 ajax/jqupload: ajax/files/jqupload
-ajax/articles/search: ajax/articles/search
+ajax/articles/lists: ajax/articles/lists
 ajax/articles/tweet: ajax/articles/listnewtweets
 ajax/articles/massedit: ajax/articles/massedit
 ajax/articles/delete: ajax/articles/delete
@@ -27,6 +28,7 @@ ajax/cronasync: ajax/system/cronasync
 ajax/croninterval: ajax/system/croninterval
 ajax/packagemgr/processUpdate: ajax/packagemgr/processUpdate
 ajax/packagemgr/moduleInstaller: ajax/packagemgr/moduleInstaller
+ajax/packagemgr/unzcp: ajax/packagemgr/moduleExtractCopy
 ajax/modules/exec: ajax/modules/execAction
 ajax/modules/fetch: ajax/modules/fetchList
 ajax/installer/checkdb: ajax/installer/checkdb

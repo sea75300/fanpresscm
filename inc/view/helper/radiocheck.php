@@ -64,8 +64,6 @@ abstract class radiocheck extends helper {
 
         if ($this->iconOnly) {            
             return implode(' ', [
-                "<label for=\"{$this->id}\" title=\"{$this->text}\" {$labelClass}>",
-                $this->getIconString(),
                 "<input type=\"{$this->type}\"",
                 $this->getNameIdString(),
                 $this->getClassString(),
@@ -74,14 +72,13 @@ abstract class radiocheck extends helper {
                 $this->getDataString(),
                 $this->getSelectedString(),
                 ">",
+                "<label for=\"{$this->id}\" title=\"{$this->text}\" {$labelClass}>",
+                $this->getIconString(),
                 "</label>"
             ]);
         }
         
         return implode(' ', [
-            "<label for=\"{$this->id}\" {$labelClass}>",
-            $this->getIconString(),
-            $this->getDescriptionTextString(),
             "<input type=\"{$this->type}\"",
             $this->getNameIdString(),
             $this->getClassString(),
@@ -89,8 +86,10 @@ abstract class radiocheck extends helper {
             $this->getValueString(),
             $this->getDataString(),
             $this->getSelectedString(),
-            ">",
-            "</label>"
+            "><label for=\"{$this->id}\" {$labelClass}>",
+            $this->getIconString(),
+            $this->getDescriptionTextString(),
+            "</label>",
         ]);
     }
 

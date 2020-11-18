@@ -10,7 +10,7 @@ namespace fpcm\components\dataView;
 /**
  * Data view row column component
  * 
- * @package fpcm\drivers\dataView
+ * @package fpcm\components\dataView
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
 final class row implements \JsonSerializable {

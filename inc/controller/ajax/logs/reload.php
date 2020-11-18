@@ -67,8 +67,6 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
-
         $this->log = $this->request->fromGET('log');
         $this->moduleKey = $this->request->fromGET('key');
         
@@ -385,7 +383,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('time', $item->time, 'fpcm-ui-dataview-align-self-start'),
             new \fpcm\components\dataView\rowCol('text', str_replace(['&NewLine;', PHP_EOL], '<br>', new \fpcm\view\helper\escape($item->text)), 'pre-box'),
-        ]);
+        ], ( isset($item->type) && trim($item->type) ? 'fpcm-ui-logs-'.$item->type : '' ) );
     }
 
     /**

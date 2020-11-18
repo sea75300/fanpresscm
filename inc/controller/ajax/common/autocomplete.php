@@ -14,7 +14,7 @@ namespace fpcm\controller\ajax\common;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.6
+ * @since 3.6
  */
 class autocomplete extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
@@ -33,11 +33,11 @@ class autocomplete extends \fpcm\controller\abstracts\ajaxController implements 
     public function request()
     {
         $this->returnData = [];
-        $this->response = new \fpcm\model\http\response;
         $this->term = $this->request->fetchAll('term', [
             \fpcm\model\http\request::FILTER_STRIPTAGS,
             \fpcm\model\http\request::FILTER_STRIPSLASHES,
-            \fpcm\model\http\request::FILTER_TRIM, \fpcm\model\http\request::FILTER_URLDECODE
+            \fpcm\model\http\request::FILTER_TRIM,
+            \fpcm\model\http\request::FILTER_URLDECODE
         ]);
 
         return true;

@@ -49,7 +49,6 @@ class pubController extends controller {
         $this->ipList = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
         $this->crons = \fpcm\classes\loader::getObject('\fpcm\model\crons\cronlist');
 
-        $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
         $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
 
@@ -59,8 +58,9 @@ class pubController extends controller {
     }
 
     /**
-     * Access check processing
-     * @return bool, false prevent execution of @see request() @see process()
+     * Access check processing,
+     * false prevent execution of @see request() @see process()
+     * @return bool
      */
     public function hasAccess()
     {
@@ -74,7 +74,7 @@ class pubController extends controller {
             return false;
         }
 
-        return $this->hasActiveModule();
+        return true;
     }
 
     /**
@@ -104,7 +104,7 @@ class pubController extends controller {
 
         $jsfiles = [];
         if ($this->config->system_loader_jquery) {
-            $jsfiles[] = \fpcm\classes\dirs::getLibUrl('jquery/jquery-3.4.1.min.js');
+            $jsfiles[] = \fpcm\components\components::getjQuery();
         }
         
         $jsfiles[]  =  defined('FPCM_DEBUG') && FPCM_DEBUG || !file_exists(\fpcm\classes\dirs::getFullDirPath('js/fpcm.min.js'))
@@ -124,5 +124,3 @@ class pubController extends controller {
     }
 
 }
-
-?>

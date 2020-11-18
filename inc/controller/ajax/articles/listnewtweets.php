@@ -44,7 +44,6 @@ class listnewtweets extends \fpcm\controller\abstracts\ajaxController implements
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
         $this->returnData = ['notice' => 0, 'error' => 0];
         
         if (!(new \fpcm\model\system\twitter())->checkRequirements()) {

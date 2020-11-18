@@ -48,13 +48,23 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
         return false;
     }
 
+    $codeMap = [
+        E_USER_DEPRECATED => 'Deprecation warning',
+        E_DEPRECATED => 'Deprecation warning',
+        E_USER_NOTICE => 'Notice',
+        E_NOTICE => 'Notice',
+        E_USER_WARNING => 'Warning',
+        E_WARNING => 'Warning',
+    ];
+    
+    $typeStr = $codeMap[$ecode] ?? 'Error';
+    
     $text = [
+        $ecode. ' :: '.$typeStr,
         $etext,
         'in file ' .
         $efile . ', line ' .
-        $eline,
-        'ERROR CODE: ' .
-        $ecode,
+        $eline
     ];
     
     if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
@@ -83,7 +93,8 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
 
     $LogLine = json_encode([
         'time' => date('Y-m-d H:i:s'),
-        'text' => implode(PHP_EOL, $text)
+        'text' => implode(PHP_EOL, $text),
+        'type' => strtolower(str_replace(' ', '-', $typeStr))
     ]);
 
     file_put_contents($errorLog, $LogLine . PHP_EOL, FILE_APPEND);
@@ -94,7 +105,7 @@ set_error_handler(function($ecode, $etext, $efile, $eline)
  * Systemlog schreiben
  * @param mixed $data
  * @return bool
- * @since FPCM 3.6
+ * @since 3.6
  */
 function fpcmLogSystem($data)
 {
@@ -112,7 +123,7 @@ function fpcmLogSystem($data)
  * Datenbanklog schreiben
  * @param mixed $data
  * @return bool
- * @since FPCM 3.6
+ * @since 3.6
  */
 function fpcmLogSql($data)
 {
@@ -131,7 +142,7 @@ function fpcmLogSql($data)
  * @param string $packageName
  * @param mixed $data
  * @return bool
- * @since FPCM 3.6
+ * @since 3.6
  */
 function fpcmLogPackages($packageName, array $data)
 {
@@ -147,7 +158,7 @@ function fpcmLogPackages($packageName, array $data)
  * Cronlog schreiben
  * @param mixed $data
  * @return bool
- * @since FPCM 3.6
+ * @since 3.6
  */
 function fpcmLogCron($data)
 {
@@ -165,7 +176,7 @@ function fpcmLogCron($data)
  * Event-Log
  * @param mixed $data
  * @return bool
- * @since FPCM 4
+ * @since 4
  */
 function fpcmLogEvents($data)
 {

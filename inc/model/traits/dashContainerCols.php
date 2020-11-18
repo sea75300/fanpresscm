@@ -14,7 +14,7 @@ namespace fpcm\model\traits;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2013, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.3.1
+ * @since 4.3.1
  */
 trait dashContainerCols {
     

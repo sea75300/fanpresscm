@@ -70,14 +70,11 @@ fpcm.updater = {
                     statusEl.addClass('fa-ban fpcm-ui-important-text');
                     fpcm.dom.fromId('fpcm-ui-update-result-0').removeClass('fpcm-ui-hidden');
                     
-                    if (res.pkgdata.errorMsg) {
-                        fpcm.ui.addMessage({
-                            txt: res.pkgdata.errorMsg,
-                            type: 'error'
-                        });
+                    if (res.message) {
+                        fpcm.ui.addMessage(res.message);
                         
                         fpcm.ui_notify.show({
-                            body: res.pkgdata.errorMsg
+                            body: res.message.txt
                         });
                     }
 

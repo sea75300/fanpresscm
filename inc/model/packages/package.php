@@ -12,6 +12,7 @@ namespace fpcm\model\packages;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
+ * @package fpcm\model\packages
  */
 abstract class package {
 
@@ -57,19 +58,19 @@ abstract class package {
 
     /**
      * Fehler bei Schreibrechte-Prüfung vorhandener Dateien
-     * @since FPCM 3.5
+     * @since 3.5
      */
     const FILESCHECK_ERROR = 909;
 
     /**
      * Fehler bei Schreibrechte-Prüfung vorhandener Dateien
-     * @since FPCM 3.5
+     * @since 3.5
      */
     const REMOTEPATH_UNTRUSTED = 910;
 
     /**
      * Fehler bei Schreibrechte-Prüfung vorhandener Dateien
-     * @since FPCM 3.5
+     * @since 3.5
      */
     const DEFAULT_EXTENSION = 'zip';
 
@@ -91,6 +92,11 @@ abstract class package {
      */
     protected $data;
 
+    /**
+     * Prevalidation failed
+     * @var mixed
+     */
+    protected $preValidate = true;
     
     /**
      * Konstruktor
@@ -171,6 +177,13 @@ abstract class package {
      * @return bool
      */
     abstract public function updateLog();
+
+    /**
+     * Validate archive content after opening archive
+     * @return bool
+     * @since 4.5
+     */
+    abstract public function extractionValidateArchiveData() : bool;
 
     /**
      * Check if remote path points to trusted server
@@ -258,6 +271,10 @@ abstract class package {
         $hashLocal = $this->getLocalSignature();
         $hashRemote = $this->getRemoteSignature();
 
+        if(!$this->preValidate) {
+            return self::HASHCHECK_ERROR;
+        }
+
         if (!trim($hashLocal) || !trim($hashRemote)) {
             trigger_error("Error while checking package signatures, no signature given.");
             return self::HASHCHECK_ERROR;
@@ -285,9 +302,23 @@ abstract class package {
     {
         $localPath  = $this->getLocalPath();
 
+        if(!$this->preValidate) {
+            return false;
+        }
+
         if ($this->archive->open($localPath) !== true) {
             trigger_error('Unable to open ZIP archive: ' . $localPath);
             return self::ZIPOPEN_ERROR;
+        }
+        
+        if (!$this->archive->count()) {
+            trigger_error('Empty ZIP archive detected, package contains no files: ' . $localPath);
+            return self::ZIPOPEN_ERROR;
+        }
+        
+        if (!$this->extractionValidateArchiveData()) {
+            trigger_error('Package archive extraction pre-validation failed: ' . $localPath);
+            return self::ZIPEXTRACT_ERROR;
         }
 
         if ($this->archive->extractTo($this->getExtractionPath()) !== true) {
@@ -305,6 +336,11 @@ abstract class package {
     public function cleanup()
     {
         $localPath = $this->getLocalPath();
+
+        if(!$this->preValidate) {
+            return false;
+        }
+
         if (!file_exists($localPath)) {
             trigger_error("Package cleanup error, local package path {$localPath} was not found!");
             return false;
@@ -329,6 +365,16 @@ abstract class package {
         return true;
     }
 
+    /**
+     * Return prevalidation flag
+     * @return bool
+     * @since 4.5
+     */
+    public function isPreValidated() : bool
+    {
+        return $this->preValidate;
+    }
+    
     /**
      * Replaces "fanpress" base folder name in given path
      * @param string $path
@@ -355,7 +401,7 @@ abstract class package {
      * @param bool $success
      * @return bool
      * @see package::copy
-     * @since FPCM 3.6
+     * @since 3.6
      */
     protected function updateProtocol($file, $success)
     {
@@ -371,6 +417,10 @@ abstract class package {
      */
     protected function getFileList($path, $start = 0)
     {
+        if(!$this->preValidate) {
+            return [];
+        }
+
         if (!trim($path) || !file_exists($path)) {
             trigger_error($path.' was not found on expected path. This is an unexpected behaviour and should NOT be happen. You should contact the developer for further help.');
             return [];

@@ -17,7 +17,7 @@ use fpcm\model\ips\ipaddress;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.6
+ * @since 3.6
  */
 class lockIp extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
@@ -36,8 +36,6 @@ class lockIp extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function process()
     {
-        $this->response = new \fpcm\model\http\response;
-        
         $cid = $this->request->fromPOST('cid', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);

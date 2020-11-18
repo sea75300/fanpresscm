@@ -1,13 +1,13 @@
 <div class="fpcm-ui-dataview">
     <div class="row fpcm-ui-dataview-head fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset">
-        <div class="col-1 fpcm-ui-padding-none-lr"></div>
+        <div class="col-1 px-0"></div>
         <div class="col-5"></div>
         <div class="col-5"><?php $theView->write('SYSTEM_OPTIONS_SYSCHECK_CURRENT'); ?></div>
-        <div class="col-1 fpcm-ui-padding-none-lr"></div>
+        <div class="col-1 px-0"></div>
     </div>
     <?php foreach ($checkOptions as $checkOption => $checkResult) : ?>
         <div class="row fpcm-ui-dataview-row">
-            <div class="col-1 fpcm-ui-center fpcm-ui-padding-none-lr align-self-center">
+            <div class="col-1 fpcm-ui-center px-0 align-self-center">
                 <?php if ($checkResult->isFolder()) : ?>
                     <?php print (new \fpcm\view\helper\icon('folder')); ?>
                 <?php elseif ($checkResult->getHelplink()) : ?>
@@ -21,7 +21,7 @@
             <div class="col-5 align-self-center">
                 <?php print $checkResult->getCurrent(); ?>
             </div>
-            <div class="col-1 fpcm-ui-center fpcm-ui-padding-none-lr align-self-center">
+            <div class="col-1 fpcm-ui-center px-0 align-self-center">
                 <?php $theView->boolToText(uniqid('checkres'))->setValue($checkResult->getResult())->setText($checkResult->isFolder() && $checkResult->isFolder() ? 'GLOBAL_WRITABLE' : 'GLOBAL_YES')->setSize('lg'); ?>
             </div>
         </div>    

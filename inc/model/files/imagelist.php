@@ -17,6 +17,20 @@ namespace fpcm\model\files;
 final class imagelist extends \fpcm\model\abstracts\filelist {
 
     /**
+     * User id to use for file indexing
+     * @var int
+     * @since 4.5
+     */
+    private $indexUserId = 0;
+
+    /**
+     * finfo instance
+     * @var \finfo
+     * @since 4.5
+     */
+    private $finfo = null;
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -34,16 +48,20 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      */
     public function getFolderList()
     {
-        $res = parent::getFolderList();
+        $res1 = parent::getFolderList();
         $this->pathprefix = '????-??'.DIRECTORY_SEPARATOR;
-        return array_merge($res, parent::getFolderList());
+        $res2 = parent::getFolderList();
+
+        return array_values(array_unique(
+            array_merge( array_combine($res1, $res1), array_combine($res2, $res2) )
+        ));
     }
 
     /**
      * Gibt Dateiindex in Datenbank zurück
      * @param int $limit
      * @param int $offset
-     * @return array:\fpcm\model\files\image
+     * @return array
      */
     public function getDatabaseList($limit = false, $offset = false)
     {
@@ -70,7 +88,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     /**
      * Fetch file index by condition
      * @param \fpcm\model\files\search $conditions
-     * @return array:\fpcm\model\files\image
+     * @return array
      */
     public function getDatabaseListByCondition(search $conditions)
     {
@@ -122,7 +140,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     /**
      * Fetch file index by condition
      * @param \fpcm\model\files\search $conditions
-     * @return array:\fpcm\model\files\image
+     * @return array
      */
     public function getDatabaseCountByCondition(search $conditions)
     {
@@ -143,82 +161,157 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      * Aktualisiert Dateiindex in Datenbank
      * @param int $userId
      */
+    
+    /**
+     * Updates file index
+     * @param int $userId
+     * @return bool
+     */
     public function updateFileIndex($userId)
     {
-        $folderFiles = $this->getFolderList();
+        $fsIdx = $this->getFolderList();
 
-        $dbFiles = $this->getDatabaseList();
-        if (!$folderFiles || !count($folderFiles)) {
-            return;
+        $dbIdx = $this->getDatabaseList();
+        if (!$fsIdx || !count($fsIdx)) {
+            return true;
+        }
+        
+        if ($userId === '' || $userId === null) {
+            $userId = 0;
         }
 
-        foreach ($folderFiles as $folderFile) {
+        array_walk($fsIdx, [$this, 'removeBasePath']);
+        
+        $fsIdx = array_flip($fsIdx);
+        
+        $notInDb  = array_diff_key($fsIdx, $dbIdx);
+        $notInFs  = array_diff_key($dbIdx, $fsIdx);
 
-            $this->removeBasePath($folderFile);
-            if (isset($dbFiles[$folderFile])) {
-                $dbFiles[$folderFile]->update();
-                continue;
-            }
+        if (count($notInFs)) {
 
-            $image = new \fpcm\model\files\image($folderFile, false, true);
-            $image->setFiletime($image->getModificationTime());
-            $image->setUserid($userId);
+            /* @var $file image */
+            $ids = array_map(function ($file) {
+                return $file->getId();
+            }, $notInFs);
 
-            if (!in_array($image->getMimetype(), image::$allowedTypes) || !in_array(strtolower($image->getExtension()), image::$allowedExts)) {
-                trigger_error("Filetype not allowed in \"$folderFile\".");
-                continue;
-            }
-
-            if (!$image->exists(true) && !$image->save()) {
-                trigger_error("Unable to save image \"$folderFile\" to database.");
-            }
-        }
-
-        foreach ($dbFiles as $dbFile) {
-            if (!$dbFile->existsFolder() && !$dbFile->delete()) {
-                trigger_error("Unable to remove image \"$folderFile\" from database.");
+            if (!$this->dbcon->delete($this->table, $this->dbcon->inQuery('id', $ids), array_values($ids)) ) {
+                trigger_error('Unable to remove file index data for files with names: ' . implode(', ', array_keys($notInFs)));
             }
         }
 
-        $this->createFilemanagerThumbs($folderFiles);
+        if (count($notInDb)) {
+
+            $this->indexUserId = (int) $userId;
+            $this->finfo = new \finfo();
+
+            /* @var $file image */
+            $res = array_map([$this, 'addToIndex'], array_keys($notInDb));
+
+            $doThumbs = array_keys(array_intersect($notInDb, array_keys($res, true)));
+            if (!is_array($doThumbs) || !count($doThumbs)) {
+                return true;
+            }
+
+            array_walk($doThumbs, function (&$file) {
+                $file = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_UPLOADS, $file);
+            });
+
+            $this->createFilemanagerThumbs($doThumbs);
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Add single file to index
+     * @param string $file
+     * @return bool
+     * @since 4.5
+     */
+    final private function addToIndex(string $file) : bool
+    {
+        $image = new \fpcm\model\files\image($file, false);
+        $image->setFiletime($image->getModificationTime());
+        $image->setUserid($this->indexUserId);
+
+        $mime = $this->finfo->file($image->getFullpath(), FILEINFO_MIME_TYPE);
+
+        if (!image::isValidType(\fpcm\model\abstracts\file::retrieveFileExtension($image->getFullpath()), $mime )) {
+            trigger_error("Unsupported filetype \"{$mime}\" in \"{$file}\"");
+            return false;
+        }
+
+        if (!in_array($image->getMimetype(), image::$allowedTypes) || !in_array(strtolower($image->getExtension()), image::$allowedExts)) {
+            trigger_error("Filetype not allowed in \"{$file}\".");
+            return false;
+        }
+
+        $res = $image->save();
+        if (!$res && $this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY) {
+            trigger_error("Unable to save image \"{$file}\" to database, file is already indexed.");
+            return false;
+        }
+        
+        if (!$res) {
+            trigger_error("Unable to save image \"{$file}\" to database, due to unknows reason.");
+            return false;            
+        }
+
+        return true;
     }
 
     /**
      * Liefert Anzahl von Dateieinträgen in Datenbank zurück
      * @return int
-     * @since FPCM 3.1
+     * @since 3.1
      */
     public function getDatabaseFileCount()
     {
         return $this->dbcon->count($this->table);
     }
-
+    
     /**
-     * Erzeugt Thumbanils für Dateimanager
-     * @param arraye $folderFiles
+     * Creates file manager thumbnails
+     * @param null|array $folderFiles
+     * @return bool
      */
-    public function createFilemanagerThumbs($folderFiles = null)
+    public function createFilemanagerThumbs(?array $folderFiles = null) : bool
     {
         include_once \fpcm\classes\loader::libGetFilePath('PHPImageWorkshop');
 
-        $folderFiles = is_null($folderFiles) ? $this->getFolderList() : $folderFiles;
-        $memoryLimit = \fpcm\classes\baseconfig::memoryLimit(true);
+        if ($folderFiles === null) {
+            $folderFiles = $this->getFolderList();
+        }
+        
+        if (!count($folderFiles)) {
+            return false;
+        }
 
-        $filesizeLimit = $memoryLimit * 0.025;
-        foreach ($folderFiles as $folderFile) {
-
+        $filesizeLimit = \fpcm\classes\baseconfig::memoryLimit(true) * 0.025;
+        $folderFiles = array_filter($folderFiles, function ($folderFile) use ($filesizeLimit) {
+            
             if (filesize($folderFile) >= $filesizeLimit) {
                 $msgPath = ops::removeBaseDir($folderFile);
                 fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath} because of image dimension. You may reduce file size?");
-                continue;
+                return false;
             }
 
             $ext = \fpcm\model\abstracts\file::retrieveFileExtension($folderFile);
             if ($ext == 'bmp' || substr($folderFile, -4) === '.bmp') {
                 $msgPath = ops::removeBaseDir($folderFile);
                 fpcmLogSystem("Skip filemanager thumbnail generation for {$msgPath}, \"".$ext."\" is no supported. You may use another image type?");
-                continue;
+                return false;
             }
+            
+            return true;
+        });
+        
+        if (!count($folderFiles)) {
+            return false;
+        }
+
+        foreach ($folderFiles as $folderFile) {
 
             $imgPath = $folderFile;
             $this->removeBasePath($imgPath);
@@ -251,6 +344,8 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
             $image = null;
             $phpImgWsp = null;
         }
+
+        return true;
     }
 
     /**
@@ -274,27 +369,27 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      * @param array $valueParams
      * @param string $combination
      * @return bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     private function assignSearchParams(search $conditions, array &$where, array &$valueParams, string $combination)
     {
         if ($conditions->filename) {
-            $where[] = "filename ".$this->dbcon->dbLike()." ?";
-            $valueParams[] = '%' . $conditions->filename . '%';
+            $where[] = "filename ".$this->dbcon->dbLike()." :filename OR alttext ".$this->dbcon->dbLike()." :alttext";
+            $valueParams[':filename'] = '%' . $conditions->filename . '%';
+            $valueParams[':alttext'] = $valueParams[':filename'];
         }
 
         if ($conditions->datefrom) {
-            $where[] = "filetime >= ?";
-            $valueParams[] = $conditions->datefrom;
+            $where[] = "filetime >= :filetimef";
+            $valueParams[':filetimef'] = $conditions->datefrom;
         }
 
         if ($conditions->dateto) {
-            $where[] = "filetime <= ?";
-            $valueParams[] = $conditions->dateto;
+            $where[] = "filetime <= :filetimet";
+            $valueParams[':filetimet'] = $conditions->dateto;
         }
         
         $combination = $conditions->combination ? $conditions->combination : 'AND';
-
         return true;
     }
 
@@ -309,7 +404,8 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
     private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams, string $combination) : bool
     {
         if ($conditions->filename) {
-            $where[] = "filename ".$this->dbcon->dbLike()." ?";
+            $where[] = "filename ".$this->dbcon->dbLike()." ? OR alttext ".$this->dbcon->dbLike()." ?";
+            $valueParams[] = '%' . $conditions->filename . '%';
             $valueParams[] = '%' . $conditions->filename . '%';
         }
 

@@ -56,7 +56,6 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
     public function request()
     {
         $this->uploadDisabled = defined('FPCM_DISABLE_MODULE_ZIPUPLOAD') && FPCM_DISABLE_MODULE_ZIPUPLOAD;
-        $this->uploadModule();
         return true;
     }
 
@@ -66,23 +65,28 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
      */
     public function process()
     {
+        $this->initUpload();
+        
         $this->view->addJsLangVars([
-            'MODULES_LIST_INFORMATIONS', 'MODULES_FAILED_ENABLE', 'MODULES_FAILED_DISABLE',
-            'MODULES_FAILED_INSTALL', 'MODULES_FAILED_UNINSTALL'
+            'MODULES_LIST_INFORMATIONS', 'MODULES_FAILED_ENABLE',
+            'MODULES_FAILED_DISABLE', 'MODULES_FAILED_INSTALL',
+            'MODULES_FAILED_UNINSTALL', 'MODULES_LIST_INSTALL'
         ]);
 
-        $this->view->addJsFiles(['modules/list.js', 'files/uploader.js']);
+        $this->view->addJsFiles(['modules/list.js']);
         $this->view->setFormAction('modules/list');
         $this->view->addJsVars([
-            'jqUploadInit' => 0,
             'codes' => [
                 'installFailed' => \fpcm\module\module::STATUS_NOT_INSTALLED,
                 'uninstallFailed' => \fpcm\module\module::STATUS_NOT_UNINSTALLED,
                 'enabledFailed' => \fpcm\module\module::STATUS_NOT_ENABLED,
                 'disabledFailed' => \fpcm\module\module::STATUS_NOT_DISABLED,
-            ]
+            ],
+            'uploadDest' => 'modules'
         ]);
-        
+
+        $this->view->assign('canUpload', !$this->uploadDisabled);
+        $this->view->assign('uploadMultiple', false);
         $this->view->addDataView(new \fpcm\components\dataView\dataView('modulesLocal', false));
         $this->view->addDataView(new \fpcm\components\dataView\dataView('modulesRemote', false));
         
@@ -104,17 +108,6 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
         }
 
         $this->view->addButtons($buttons);
-        
-        if ($this->uploadDisabled) {
-            $this->view->assign('maxFilesInfo', false);
-            return true;
-        }
-
-        $this->view->assign('maxFilesInfo', $this->language->translate('FILE_LIST_PHPMAXINFO', [            
-            '{{filecount}}' => 1,
-            '{{filesize}}' => \fpcm\classes\tools::calcSize(\fpcm\classes\baseconfig::uploadFilesizeLimit(true), 0)
-        ]));
-
         return true;
     }
 
@@ -122,31 +115,21 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
      * 
      * @return bool
      */
-    private function uploadModule()
+    private function initUpload() : bool
     {
-        if (!$this->uploadDisabled) {
+        if ($this->uploadDisabled) {
             return false;
         }
-        
-        if (!$this->permissions->modules->install) {
-            $this->view->addErrorMessage('SAVE_FAILED_UPLOADMODULE');
-            return false;
-        }
-        
-        $files = $this->request->fromFiles();
-        if (!$this->buttonClicked('uploadFile') || !$files) {
-            return true;
-        }
 
-        $uploader = new \fpcm\model\files\fileuploader($files);
-        if ($uploader->processModuleUpload() == true) {
-            $this->view->addNoticeMessage('SAVE_SUCCESS_UPLOADMODULE');
-            return true;
-        }
-
-        $this->view->addErrorMessage('SAVE_FAILED_UPLOADMODULE');
+        /* @var $uploader \fpcm\components\fileupload\jqupload */
+        $uploader = \fpcm\components\components::getFileUploader();
+        $this->view->addJsFiles($uploader->getJsFiles());
+        $this->view->addJsFilesLate($uploader->getJsFilesLate());
+        $this->view->addCssFiles($uploader->getCssFiles());
+        $this->view->addJsVars($uploader->getJsVars());
+        $this->view->addJsLangVars($uploader->getJsLangVars());
+        $this->view->setViewVars($uploader->getViewVars());
         return true;
-        
     }
 
 }

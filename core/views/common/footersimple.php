@@ -6,5 +6,6 @@
         </form>
         <?php endif; ?>
 
+        <?php include_once 'jsfilesbtm.php'; ?>
     </body>
 </html>

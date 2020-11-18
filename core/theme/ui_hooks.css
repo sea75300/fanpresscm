@@ -43,6 +43,10 @@ div.ui-tabs {
     margin-bottom: 3px;
 }
 
+div.row.fpcm-ui-selectmenu-border-radius-right > span.ui-selectmenu-button {
+    border-radius: 0 5px 5px 0;
+}
+
 .ui-accordion.ui-state-disabled {
     opacity: 1;
 }
@@ -179,4 +183,66 @@ div.mce-fpcm-ui-emoticons-panel {
 .fpcm-ui-editor-categories-massedit .selectize-input.items,
 .fpcm-ui-editor-categories-massedit .selectize-control.multi.selectize-input.has-items {
     width: 100%;
+}
+
+/* php-diff */
+.diff-wrapper > thead {
+    display: none;
+}
+
+.diff-wrapper.diff tbody th.sign.del {
+  background: #fbe1e1;
+}
+
+.diff-wrapper.diff tbody th.sign.ins {
+  background: #e1fbe1;
+}
+
+.diff-wrapper.diff.diff-html.diff-combined .change.change-rep .rep {
+  white-space: normal;
+}
+
+.diff-wrapper.diff.diff-html .change.change-eq .old,
+.diff-wrapper.diff.diff-html .change.change-eq .new {
+  background: #fff;
+}
+
+.diff-wrapper.diff.diff-html .change .old {
+  background: #fbe1e1;
+}
+
+.diff-wrapper.diff.diff-html .change .new {
+  background: #e1fbe1;
+}
+
+.diff-wrapper.diff.diff-html .change .rep {
+  background: #fef6d9;
+}
+
+.diff-wrapper.diff.diff-html .change .old.none,
+.diff-wrapper.diff.diff-html .change .new.none,
+.diff-wrapper.diff.diff-html .change .rep.none {
+  background: transparent;
+  cursor: not-allowed;
+}
+
+.diff-wrapper.diff.diff-html .change ins,
+.diff-wrapper.diff.diff-html .change del {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.diff-wrapper.diff.diff-html .change ins {
+  background: #94f094;
+}
+
+.diff-wrapper.diff.diff-html .change del {
+  background: #f09494;
+}
+
+.diff-wrapper.diff td,
+.diff-wrapper.diff th {
+  border-collapse: separate;
+  border: none;
+  padding: 0 0.35rem;
 }

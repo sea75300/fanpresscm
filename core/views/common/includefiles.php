@@ -5,8 +5,10 @@
     <link rel="stylesheet prefetch" type="text/css" href="<?php print $cssFile; ?>">
 <?php endif; ?>
 <?php endforeach; ?>
+<?php unset($cssFile); ?>
 
 <?php foreach ($theView->filesJs as $jsFile) : ?>
     <?php if (!trim($jsFile)) continue; ?>
     <script src="<?php print $jsFile; ?>" rel="prefetch"></script>
 <?php endforeach; ?>
+<?php unset($jsFile); ?>

@@ -8,13 +8,13 @@
 namespace fpcm\model\articles;
 
 /**
- * NEW Article revision object for storage in database
+ * Article revision object for storage in database
  * 
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\articles
- * @since FPCM 3.3
+ * @since 3.3
  */
 class revision extends \fpcm\model\abstracts\dataset {
 
@@ -41,7 +41,7 @@ class revision extends \fpcm\model\abstracts\dataset {
     /**
      * Revision hash
      * @var string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     protected $hashsum = '';
 
@@ -101,7 +101,7 @@ class revision extends \fpcm\model\abstracts\dataset {
     /**
      * Hash von Revision zurückgeben
      * @return string
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function getHashSum()
     {
@@ -138,7 +138,7 @@ class revision extends \fpcm\model\abstracts\dataset {
     /**
      * Hash von Revision setzen
      * @param type $hashsum
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function setHashsum($hashsum)
     {
@@ -185,7 +185,7 @@ class revision extends \fpcm\model\abstracts\dataset {
     /**
      * Revision Hash Sum erzeugen
      * @param array $data
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function createHashSum(array $data = [])
     {

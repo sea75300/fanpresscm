@@ -9,7 +9,7 @@ namespace fpcm\controller\ajax\comments;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.6
+ * @since 3.6
  */
 class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
@@ -48,7 +48,6 @@ class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpc
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
         if (!$this->checkPageToken()) {
             $this->response->setReturnData( new \fpcm\model\http\responseData(0) )->fetch();
         }
@@ -81,8 +80,7 @@ class massedit extends \fpcm\controller\abstracts\ajaxController implements \fpc
         if (isset($this->data['moveToArticle']) && is_numeric($this->data['moveToArticle'])) {
 
             if (!$this->permissions->comment->move) {
-                $this->returnCode = 0;
-                $this->getResponse();
+                $this->response->setReturnData( new \fpcm\model\http\responseData(0) )->fetch();
             }
 
             $fields['articleId'] = (int) $this->data['moveToArticle'];

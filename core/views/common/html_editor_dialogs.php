@@ -24,7 +24,7 @@
             <?php $theView->icon('window-restore')->setSize('lg'); ?>
             <?php $theView->write('EDITOR_LINKTARGET'); ?>
         </label>
-        <div class="col-8 fpcm-ui-padding-none-lr"><?php $theView->select('links[target]', 'linkstarget')->setOptions($targets); ?></div>
+        <div class="col-8 px-0"><?php $theView->select('links[target]', 'linkstarget')->setOptions($targets); ?></div>
     </div>
     <?php if (count($cssClasses)) : ?>
     <div class="row fpcm-ui-padding-md-tb">            
@@ -32,7 +32,7 @@
             <?php $theView->icon('paint-roller')->setSize('lg'); ?>
             <?php $theView->write('EDITOR_CSS_CLASS'); ?>
         </label>
-        <div class="col-8 fpcm-ui-padding-none-lr"><?php $theView->select('links[css]', 'linkscss')->setOptions($cssClasses); ?></div>
+        <div class="col-8 px-0"><?php $theView->select('links[css]', 'linkscss')->setOptions($cssClasses); ?></div>
     </div>
     <?php endif; ?>
 </div>
@@ -62,7 +62,7 @@
             <?php $theView->icon('align-center')->setSize('lg'); ?>
             <?php $theView->write('EDITOR_IMGALIGN'); ?>
         </label>
-        <div class="col-8 fpcm-ui-padding-none-lr"><?php $theView->select('images[align]', 'imagesalign')->setOptions($aligns); ?></div>
+        <div class="col-8 px-0"><?php $theView->select('images[align]', 'imagesalign')->setOptions($aligns); ?></div>
     </div>
     <?php if (count($cssClasses)) : ?>
     <div class="row fpcm-ui-padding-md-tb">            
@@ -70,7 +70,7 @@
             <?php $theView->icon('paint-roller')->setSize('lg'); ?>
             <?php $theView->write('EDITOR_CSS_CLASS'); ?>
         </label>
-        <div class="col-8 fpcm-ui-padding-none-lr"><?php $theView->select('images[css]', 'imagescss')->setOptions($cssClasses); ?></div>
+        <div class="col-8 px-0"><?php $theView->select('images[css]', 'imagescss')->setOptions($cssClasses); ?></div>
     </div>
     <?php endif; ?>
 </div>
@@ -120,7 +120,7 @@
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertmedia">
     
     <div class="row fpcm-ui-padding-md-tb">
-        <div class="col-12 col-md-8 fpcm-ui-padding-none-lr">
+        <div class="col-12 col-md-8 px-0">
             <div class="row">
                 <?php $theView->textInput('media[path]', 'mediapath')
                         ->setType('url')
@@ -135,13 +135,13 @@
         <div class="col-1 col-md-auto fpcm-ui-field-label-general">
             <?php $theView->icon('photo-video')->setClass('fpcm-ui-margin-md-right')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(true)->setSize('lg'); ?>
         </div>
-        <div class="col-11 col-md-3 mt-2 mt-md-0 fpcm-ui-padding-none-lr">
+        <div class="col-11 col-md-3 mt-2 mt-md-0 px-0">
             <?php $theView->select('media[format]', 'mediaformat')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat')->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
     </div> 
     
     <div class="row fpcm-ui-padding-md-tb">
-        <div class="col-12 col-md-8 fpcm-ui-padding-none-lr">
+        <div class="col-12 col-md-8 px-0">
             <div class="row">
                 <?php $theView->textInput('media[path]', 'mediapath2')
                         ->setType('url')
@@ -156,8 +156,26 @@
         <div class="col-1 col-md-auto fpcm-ui-field-label-general">
             <?php $theView->icon('photo-video')->setClass('fpcm-ui-margin-md-right')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(true)->setSize('lg'); ?>
         </div>
-        <div class="col-11 col-md-3 mt-2 mt-md-0 fpcm-ui-padding-none-lr">
+        <div class="col-11 col-md-3 mt-2 mt-md-0 px-0">
             <?php $theView->select('media[format2]', 'mediaformat2')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat')->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
+        </div>
+    </div> 
+    
+    <div class="row fpcm-ui-padding-md-tb">
+        <div class="col-12 col-md-8 px-0">
+            <div class="row">
+                <?php $theView->textInput('media[poster]', 'mediaposter')
+                        ->setType('url')
+                        ->setValue('')
+                        ->setText('EDITOR_INSERTMEDIA_POSTER')
+                        ->setIcon('file-image')
+                        ->setSize('lg')
+                        ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
+                        ->setLabelClass('col-6 col-md-4 col-lg-3 fpcm-ui-field-label-general'); ?>
+            </div>
+        </div>
+        <div class="col-1 col-md-auto px-0">
+            <?php $theView->button('insertposterimg', 'insertposterimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true); ?>
         </div>
     </div> 
     

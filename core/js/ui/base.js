@@ -1,7 +1,7 @@
 /**
  * FanPress CM UI Namespace
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2015-2018, Stefan Seehafer
+ * @copyright (c) 2015-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 if (fpcm === undefined) {
@@ -51,7 +51,7 @@ fpcm.ui = {
         });
         
         if (fpcm.vars.jsvars.fieldAutoFocus) {
-            fpcm.ui.setFocus(fpcm.vars.jsvars.fieldAutoFocus);
+            fpcm.dom.setFocus(fpcm.vars.jsvars.fieldAutoFocus);
         }
 
     },
@@ -383,7 +383,7 @@ fpcm.ui = {
             params = {};
         }
 
-        if (elemClassId.substr(1,1) === '#') {
+        if (elemClassId.substr(0,1) === '#') {
             var dataWidth = fpcm.dom.fromTag(elemClassId).data('width');
             if (dataWidth) {
                 params.width = dataWidth;
@@ -554,8 +554,16 @@ fpcm.ui = {
             dlParams.maxHeight   = params.dlMaxHeight;            
         }
         
-        if (params.onCreate !== undefined) {
-            dlParams.create   = params.onCreate; 
+        if (params.dlPosition !== undefined) {
+            dlParams.position   = params.dlPosition; 
+        }
+        
+        if (params.onCreate) {
+            dlParams.create = params.onCreate;
+        }
+        
+        if (params.onResize !== undefined) {
+            dlParams.resize   = params.onResize; 
         }
 
         dlParams.show = true;
@@ -621,20 +629,25 @@ fpcm.ui = {
                 continue;
             }
 
+            if (msg.webnotify) {
+                fpcm.ui_notify.show({
+                    body: msg.txt,
+                });
+                
+                continue;
+            }
+
             msgCode  = '<div class="row fpcm-message-box fpcm-message-' + msg.type + '" id="' + msgBoxid + '">';
             msgCode += '    <div class="col-12 col-sm-11 fpcm-ui-padding-none-lr">';
             msgCode += '        <div class="row">';
             msgCode += '            <div class="col-12 col-sm-auto align-self-center fpcm-ui-center fpcm-ui-padding-none-lr">';
-            msgCode += '                <span class="fa-stack fa-2x">';
-            msgCode += '                    <span class="fa fa-square fa-stack-2x fa-inverse"></span>';                    
-            msgCode += '                    <span class="fa fa-' + msg.icon + ' fa-stack-1x"></span>';
-            msgCode += '                </span>';
+            msgCode += '                ' + fpcm.ui.getIcon(msg.icon, { stack: 'square fa-inverse', size: '2x' });
             msgCode += '            </div>';
             msgCode += '            <div class="col-12 col-sm-10 align-self-center fpcm-ui-ellipsis">' + msg.txt +  '</div>';
             msgCode += '        </div>';
             msgCode += '    </div>';
             msgCode += '    <div class="col-12 col-sm-1 fpcm-ui-padding-none-lr fpcm-ui-messages-close fpcm-ui-align-right" id="msgclose-' + msg.id + '">';
-            msgCode += '        <span class="fa-stack"><span class="fa fa-square fa-stack-2x fa-inverse"></span><span class="fa fa-times fa-stack-1x"></span></span>';
+            msgCode += '                ' + fpcm.ui.getIcon('times', { stack: 'square fa-inverse'});
             msgCode += '    </div>';
             msgCode += '</div>';
             fpcm.dom.appendHtml('#fpcm-messages', msgCode);
@@ -695,32 +708,8 @@ fpcm.ui = {
         });
     },
     
-    setFocus: function(elemId) {
-        fpcm.dom.setFocus(elemId);
-    },
-    
-    assignHtml: function(elemId, data) {
-        fpcm.dom.assignHtml(elemId, data);
-    },
-    
-    assignText: function(elemId, data) {
-        fpcm.dom.assignText(elemId, data);
-    },
-    
-    appendHtml: function(elemId, data) {
-        fpcm.dom.appendHtml(elemId, data);
-    },
-    
-    prependHtml: function(elemId, data) {
-        fpcm.dom.prependHtml(elemId, data);
-    },
-    
     removeLoaderClass: function(elemId) {
         fpcm.dom.fromTag(_id).removeClass('fpcm-loader');
-    },
-    
-    isReadonly: function(elemId, state) {
-        fpcm.dom.isReadonly(elemId, state);
     },
     
     createIFrame: function(params) {
@@ -742,16 +731,61 @@ fpcm.ui = {
 
         return '<iframe src="' + params.src + '" id="' + params.id + '" class="' + params.classes + '" ' + params.style + '></iframe>';
     },
-    
-    showLoader: function(show, addtext) {
 
-        if (!show) {
-            console.warn('fpcm.ui.showLoader is deprecated as of FPCM 4.3. use "fpcm.ui_loader.hide() instead."');
-            return fpcm.ui_loader.hide();
+    getIcon: function(_icon, _params) {
+
+        if (!_icon) {
+            console.warn('Invalid icon class given!');
+            return '';
+        }
+        
+        if (!_params) {
+            _params = {};
         }
 
-        console.warn('fpcm.ui.showLoader is deprecated as of FPCM 4.3. use "fpcm.ui_loader.show(Your messaage) instead."');
-        return fpcm.ui_loader.show(addtext ? addtext : null);
+        if (!_params.spinner) {
+            _params.spinner = '';
+        }
+
+        if (!_params.stack) {
+            _params.stack = '';
+        }
+
+        if (!_params.size) {
+            _params.size = '1x';
+        }
+
+        if (!_params.text) {
+            _params.text = '';
+        }
+
+        if (!_params.class) {
+            _params.class = '';
+        }
+
+        let iconType = 'unstacked';
+
+        if (_params.stack && _params.stackTop) {
+            iconType = 'stackedTop';
+        }
+        else if (_params.stack && !_params.stackTop) {
+            iconType = 'stacked';
+        }
+
+        let iconStr = fpcm.vars.ui.jsIconDummy[iconType] ? fpcm.vars.ui.jsIconDummy[iconType] : '';
+        if (!iconStr) {
+            return '';
+        }
+
+        return iconStr.replace('{{icon}}', _icon)
+                      .replace('{{class}}', _params.class)
+                      .replace('{{spinner}}', _params.spinner)
+                      .replace('{{stack}}', _params.stack)
+                      .replace('{{size}}', _params.size)
+                      .replace('{{text}}', _params.text)
+                      .replace('{{prefix}}', ( _params.prefix ? _params.prefix : fpcm.vars.ui.jsIconDummy.defaultPrefix ));
+       
+        
     },
     
     initDateTimeMasks: function() {
@@ -931,7 +965,7 @@ fpcm.ui = {
         if (params === undefined) {
             params = {};
         }
-
+        
         if (!fpcm.vars.jsvars.pager) {
             return false;
         }
@@ -955,16 +989,28 @@ fpcm.ui = {
         }
 
         if (fpcm.vars.jsvars.pager.showBackButton) {
+            backEl.removeClass('fpcm-ui-readonly');
             backEl.click(params.backAction);
+        }
+        else if (!fpcm.vars.jsvars.pager.showBackButton && backEl && !backEl.hasClass('fpcm-ui-readonly')) {
+            backEl.addClass('fpcm-ui-readonly');
         }
         
         if (fpcm.vars.jsvars.pager.showNextButton) {
+            nextEl.removeClass('fpcm-ui-readonly');
             nextEl.click(params.nextAction);
+        }
+        else if (!fpcm.vars.jsvars.pager.showNextButton && nextEl && !nextEl.hasClass('fpcm-ui-readonly')) {
+            nextEl.addClass('fpcm-ui-readonly');
         }
 
         var selectId    = 'pageSelect';
         var selectEl    = fpcm.dom.fromId(selectId);
         selectEl.unbind('select');
+        
+        if (!params.keepSelect) {
+            selectEl.empty();
+        }
         
         if (fpcm.vars.jsvars.pager.maxPages) {
             for(i=1; i<= fpcm.vars.jsvars.pager.maxPages; i++) {
@@ -974,6 +1020,11 @@ fpcm.ui = {
         
         if (!params.selectAction) {
             params.selectAction = function( event, ui ) {
+
+                if (ui.item.value == fpcm.vars.jsvars.pager.currentPage) {
+                    return false;
+                }
+
                 if (ui.item.value == '1') {
                     window.location.href = fpcm.vars.actionPath + fpcm.vars.jsvars.currentModule;
                     return true;
@@ -1022,10 +1073,7 @@ fpcm.ui = {
     },
 
     resetSelectMenuSelection: function (elId) {
-        var selectEl = fpcm.dom.fromTag(elId);
-        selectEl.prop('selectedIndex', 0);
-        selectEl.val('');
-        selectEl.selectmenu("refresh");
+        fpcm.dom.resetValuesByIdsSelect([elId]);
         return true;
     },
     
@@ -1051,39 +1099,36 @@ fpcm.ui = {
     getUniqueID: function (descr) {
         return (new Date()).getMilliseconds() + Math.random().toString(36).substr(2, 9) + (descr ? descr : '');
     },
+    
+    /* deprecated about to remove in fpcm 4.6 or later! */
+    setFocus: function(elemId) {
+        console.warn('fpcm.ui.setFocus is deprecated and will be removed shortly. Use fpcm.dom.setFocus instead!');
+        fpcm.dom.setFocus(elemId);
+    },
 
-    testing: function (_params) {
-        
-        if (!_params) {
-            _params = {};
-        }
-        
-        if (!_params.step) {
-            _params.step = 1;
-        }
-        
-        fpcm.ajax.get('testing', {
-            data: {
-                timestamp: (new Date()).getTime(),
-                step: _params.step
-            },
-            cache: false,
-            dataType: 'json',
-            execDone: function (result) {
-                console.log(result);
-                
-                if (result.res == 2) {
-                    return false;
-                }
-                
-                
-                fpcm.ui.testing({
-                    step: result.step
-                });
-            }
-        })
-        
-        
+    assignHtml: function(elemId, data) {
+        console.warn('fpcm.ui.assignHtml is deprecated and will be removed shortly. Use fpcm.dom.assignHtml instead!');
+        fpcm.dom.assignHtml(elemId, data);
+    },
+    
+    assignText: function(elemId, data) {
+        console.warn('fpcm.ui.assignText is deprecated and will be removed shortly. Use fpcm.dom.assignText instead!');
+        fpcm.dom.assignText(elemId, data);
+    },
+    
+    appendHtml: function(elemId, data) {
+        console.warn('fpcm.ui.appendHtml is deprecated and will be removed shortly. Use fpcm.dom.appendHtml instead!');
+        fpcm.dom.appendHtml(elemId, data);
+    },
+    
+    prependHtml: function(elemId, data) {
+        console.warn('fpcm.ui.prependHtml is deprecated and will be removed shortly. Use fpcm.dom.prependHtml instead!');
+        fpcm.dom.prependHtml(elemId, data);
+    },
+    
+    isReadonly: function(elemId, state) {
+        console.warn('fpcm.ui.isReadonly is deprecated and will be removed shortly. Use fpcm.dom.isReadonly instead!');
+        fpcm.dom.isReadonly(elemId, state);
     }
 
 };

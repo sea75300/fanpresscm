@@ -74,8 +74,9 @@ class crons extends \fpcm\controller\abstracts\controller implements \fpcm\contr
     {
         return [
             (new \fpcm\components\dataView\column('button', ''))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('name', 'CRONJOB_LIST_NAME'))->setSize(3),
-            (new \fpcm\components\dataView\column('interval', 'CRONJOB_LIST_INTERVAL'))->setSize(3),
+            (new \fpcm\components\dataView\column('interval', 'CRONJOB_LIST_INTERVAL'))->setSize(2)->setAlign('center'),
+            (new \fpcm\components\dataView\column('exec', ''))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('name', 'CRONJOB_LIST_NAME'))->setSize(4),
             (new \fpcm\components\dataView\column('lastexec', 'CRONJOB_LIST_LASTEXEC'))->setSize(2)->setAlign('center'),
             (new \fpcm\components\dataView\column('nextecec', 'CRONJOB_LIST_NEXTEXEC'))->setSize(2)->setAlign('center'),
         ];
@@ -97,22 +98,24 @@ class crons extends \fpcm\controller\abstracts\controller implements \fpcm\contr
      */
     protected function initDataViewRow($cronjob)
     {
-        if ($this->currentTime > ($cronjob->getNextExecTime() - 60) || $cronjob->isRunning()) {
+        if ( ($cronjob->getIntervalTime() > -1 && $this->currentTime > $cronjob->getNextExecTime() - 60) || $cronjob->isRunning()) {
             $processingIcon = (string) (new \fpcm\view\helper\icon('spinner'))->setClass('fa-pulse');
             $processingClass = 'fpcm-ui-important-text';
         }
         else {
-            $processingIcon = '';
+            $processingIcon = (string) (new \fpcm\view\helper\icon('blank'));
             $processingClass = '';
         }
+        
+        $nextExecTs = $cronjob->getNextExecTime();
 
         return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('button', $processingIcon.(new \fpcm\view\helper\button($cronjob->getCronName()))->setText('CRONJOB_LIST_EXECDEMAND')->setClass('fpcm-cronjoblist-exec')->setIcon('play-circle')->setIconOnly(true)->setData([
+            
+            new \fpcm\components\dataView\rowCol('button', (new \fpcm\view\helper\button($cronjob->getCronName()))->setText('CRONJOB_LIST_EXECDEMAND')->setClass('fpcm-cronjoblist-exec')->setIcon('play-circle')->setIconOnly(true)->setData([
                 'cjid' => $cronjob->getCronName(),
                 'cjdescr' => $this->language->translate($cronjob->getCronNameLangVar()),
                 'cjmod' => $cronjob->getModuleKey()
             ]), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
-            new \fpcm\components\dataView\rowCol('name', $this->language->translate($cronjob->getCronNameLangVar())),
             new \fpcm\components\dataView\rowCol('interval',
                 (new \fpcm\view\helper\select('intervals_' . $cronjob->getCronName()))
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
@@ -123,8 +126,10 @@ class crons extends \fpcm\controller\abstracts\controller implements \fpcm\contr
                         'cjmod' => $cronjob->getModuleKey()
                     ])
             ),
+            new \fpcm\components\dataView\rowCol('exec', $processingIcon, \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT ),
+            new \fpcm\components\dataView\rowCol('name', $this->language->translate($cronjob->getCronNameLangVar())),
             new \fpcm\components\dataView\rowCol('lastexec', new \fpcm\view\helper\dateText($cronjob->getLastExecTime())),
-            new \fpcm\components\dataView\rowCol('nextecec', new \fpcm\view\helper\dateText($cronjob->getNextExecTime()))
+            new \fpcm\components\dataView\rowCol('nextecec', $nextExecTs ? new \fpcm\view\helper\dateText( $nextExecTs ) : '-')
         ], $processingClass);
     }
 

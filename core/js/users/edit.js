@@ -12,7 +12,6 @@ if (fpcm === undefined) {
 fpcm.useredit = {
 
     init: function () {
-        fpcm.ui.checkboxradio('#disable2Fa');
         fpcm.ui.selectmenu('.fpcm-ui-input-select', {
             removeCornerLeft: true
         });

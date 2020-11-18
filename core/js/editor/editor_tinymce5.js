@@ -32,7 +32,7 @@ fpcm.editor.initTinyMce = function() {
                     type:  'custom',
                     name: 'fmGallery',
                     text: fpcm.ui.translate('FILE_LIST_INSERTGALLERY'),
-                    disabled: ( !top.tinymce.activeEditor.getContent({format: 'text'}) || top.tinymce.activeEditor.getContent({format: 'text'}).search('/gallery') == -1  ? false : true ),
+                    disabled: fpcm.editor.insertGalleryDisabled(),
                     primary: false,
                     align: 'start'
                 },
@@ -76,7 +76,8 @@ fpcm.editor.initTinyMce = function() {
 
                 api.sendMessage({
                     mceAction: 'clickFmgrBtn',
-                    cmd: fpcm.editor.filePickerActions[action.name]
+                    cmd: fpcm.editor.filePickerActions[action.name],
+                    validSource: window.location.href
                 });
             }
         });
@@ -157,56 +158,6 @@ fpcm.editor.initTinyMce = function() {
 
                     }
                 });
-            }
-        });
-
-        editor.ui.registry.addButton('fpcm_readmore', {
-            icon: 'page-break',
-            tooltip: fpcm.ui.translate('EDITOR_HTML_BUTTONS_READMORE'),
-            disabled: false,
-            onAction: function () {
-                
-                tinymce.activeEditor.windowManager.open({
-                    title: fpcm.ui.translate('EDITOR_HTML_BUTTONS_READMORE'),
-                    size: 'large',
-                    body: {
-                        type: 'panel',
-                        items: [{
-                            type: 'textarea',
-                            name: 'readMoreText',
-                            placeholder: fpcm.ui.translate('EDITOR_HTML_BUTTONS_READMORE')
-                        }]
-                    },
-                    buttons: [
-                        {
-                            type:  'cancel',
-                            text: 'Cancel',
-                            disabled: false,
-                            primary: false
-                        },                          
-                        {
-                            type:  'submit',
-                            text: 'Insert',
-                            disabled: false,
-                            primary: true
-                        },                          
-                    ],
-                    onSubmit: function (api) {
-
-                        var data = api.getData();
-                        if (data.readMoreText) {
-
-                            if (data.readMoreText.search(/^(<\/?[\w\s="/.':;#-\/\?]+>)/i) === -1) {
-                                data.readMoreText = '<p>' + data.readMoreText + '</p>';
-                            }
-
-                            editor.insertContent('<readmore>' + data.readMoreText + '</readmore>');
-                        }
-
-                        api.close();
-                    }
-                });
-
             }
         });
 

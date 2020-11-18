@@ -8,12 +8,12 @@
 namespace fpcm\model\http;
 
 /**
- * HTTP request handler object (incomplete!!!)
+ * HTTP request handler object
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\http
- * @since FPCM 4.4
+ * @since 4.4
  */
 final class request {
 
@@ -246,7 +246,7 @@ final class request {
      * Fetch data from GET request
      * @param string $var
      * @param array $filters
-     * @return mixed[scalar|array]
+     * @return mixed
      */
     public function fromGET($var, array $filters = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
@@ -266,7 +266,7 @@ final class request {
      * Fetch data from POST request
      * @param string $var
      * @param array $filters
-     * @return mixed[scalar|array]
+     * @return mixed
      */
     public function fromPOST($var, array $filters = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
@@ -286,7 +286,7 @@ final class request {
      * Fetch data from $_REQUEST and $_COOKIE, use carfully!!!
      * @param string $var
      * @param array $filters
-     * @return mixed[scalar|array]
+     * @return mixed
      * @ignore
      */
     public function fetchAll($var, array $filters = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
@@ -312,7 +312,7 @@ final class request {
      * Fetch data from cookies request
      * @param string $var
      * @param array $filters
-     * @return mixed[scalar|array]
+     * @return mixed
      */
     public function fromCookie($var, array $filters = [self::FILTER_STRIPTAGS, self::FILTER_STRIPSLASHES, self::FILTER_TRIM])
     {
@@ -368,7 +368,7 @@ final class request {
      * regex: regex expression for preg_match/preg_filter<br>
      * regexReplace: filter expression for preg_filter
      * 
-     * @return mixed[scalar|array]
+     * @return mixed
      */
     public function filter($values, array $filters = [])
     {

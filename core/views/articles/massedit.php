@@ -8,7 +8,7 @@
             <?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?>
         </label>
         
-        <div class="col-12 col-md-8 fpcm-ui-padding-none-lr fpcm-ui-editor-categories fpcm-ui-editor-categories-massedit">
+        <div class="col-12 col-md-8 px-0 fpcm-ui-editor-categories fpcm-ui-editor-categories-massedit">
             <?php $theView->select('categories[]')->setIsMultiple(true)->setOptions($massEditCategories)->setSelected([]); ?>
         </div>
     </div>

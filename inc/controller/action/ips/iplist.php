@@ -13,7 +13,9 @@ namespace fpcm\controller\action\ips;
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class iplist extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\isAccessible,
+           \fpcm\controller\interfaces\requestFunctions {
 
     use \fpcm\controller\traits\common\dataView;
 
@@ -70,7 +72,6 @@ class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\cont
             $this->view->addNoticeMessage('SAVE_SUCCESS_IPADDRESS_CHG');
         }
 
-        $this->delete();
         return true;
     }
 
@@ -149,11 +150,8 @@ class iplist extends \fpcm\controller\abstracts\controller implements \fpcm\cont
         ]);
     }
     
-    private function delete()
+    protected function onDelete()
     {
-        if (!$this->buttonClicked('delete')) {
-            return true;
-        }
 
         if (!$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');

@@ -14,7 +14,7 @@ namespace fpcm\controller\ajax\common;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.4
+ * @since 4.4
  */
 class clearTrash extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
@@ -34,7 +34,6 @@ class clearTrash extends \fpcm\controller\abstracts\ajaxController implements \f
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
         $this->processByParam();
         $this->response->fetch();
         return true;

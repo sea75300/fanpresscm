@@ -7,7 +7,7 @@ namespace fpcm\controller\ajax\articles;
  * 
  * @package fpcm\controller\ajax\articles\removeeditortags
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @since FPCM 3.6
+ * @since 3.6
  */
 class editorlist extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
@@ -132,7 +132,14 @@ class editorlist extends \fpcm\controller\abstracts\ajaxController implements \f
         else {
             foreach ($revision as $revisionTime => $revisionTitle) {
 
-                $button = (new \fpcm\view\helper\linkButton('rev' . $revisionTime))->setUrl($this->article->getEditLink() . '&rev=' . $revisionTime)->setText('EDITOR_STATUS_REVISION_SHOW')->setIcon('play')->setIconOnly(true);
+                $button = (new \fpcm\view\helper\linkButton('rev' . $revisionTime))
+                        ->setText('EDITOR_STATUS_REVISION_SHOW')
+                        ->setIcon('play')
+                        ->setIconOnly(true)
+                        ->setUrl(\fpcm\classes\tools::getControllerLink('articles/revision', [
+                            'aid' => $this->article->getId(), 
+                            'rid' => $revisionTime
+                        ]));
 
                 $this->dataView->addRow(
                     new \fpcm\components\dataView\row([

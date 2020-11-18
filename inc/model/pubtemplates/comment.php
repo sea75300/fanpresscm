@@ -97,8 +97,8 @@ final class comment extends template {
             $content = str_replace($splitTags, $values, $content);
         }
 
+        $this->lazyReplace($content);
         $this->parseMentions($content);
-
         return $this->parseSmileys($content);
     }
 
@@ -143,7 +143,7 @@ final class comment extends template {
      * Parse comment link tag
      * @param mixed $value
      * @param array $return
-     * @since FPCM 4.4
+     * @since 4.4
      */
     protected function parseMention($value, array &$return)
     {
@@ -154,7 +154,7 @@ final class comment extends template {
      * Parse comment link tag
      * @param mixed $value
      * @param array $return
-     * @since FPCM 4.4
+     * @since 4.4
      */
     protected function parseWebsite($value, array &$return)
     {

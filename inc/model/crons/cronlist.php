@@ -84,7 +84,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
      * Cronjob zur Ausführung via AJAX registrieren
      * @param \fpcm\model\abstracts\cron $cron
      * @return bool
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     public function registerCronAjax(\fpcm\model\abstracts\cron $cron)
     {
@@ -114,13 +114,13 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
     /**
      * Returns a list of cronjobs to be executed within the current request
      * @return array
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     public function getExecutableCrons()
     {
         return $this->getResult(\fpcm\classes\loader::getObject('\fpcm\classes\database')->selectFetch(
             (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::tableCronjobs))
-                ->setWhere('(lastexec+execinterval) < ?')
+                ->setWhere('(lastexec+execinterval) < ? AND execinterval > -1')
                 ->setParams([time()])
                 ->setFetchAll(true)
         ), true);
@@ -129,7 +129,7 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
     /**
      * Returns a list of all registered cronjobs
      * @return array
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function getAllCrons() : array
     {
@@ -139,24 +139,13 @@ final class cronlist extends \fpcm\model\abstracts\staticModel {
                 ->setFetchAll(true)
         ));
     }
-
-    /**
-     * Cron-Klassen-Liste, wird im Cache vorgehalten
-     * @return array
-     * @deprecated since version FPCM 4.3
-     */
-    public function getCronsData()
-    {
-        trigger_error('"'.__FUNCTION__.'" is deprecated as of FPCM 4.3, use "getAllCrons" instead.', E_USER_DEPRECATED);
-        return $this->getAllCrons();
-    }
     
     /**
      * Creates result list
      * @param array $values
      * @param bool $activeOnly
      * @return array
-     * @since FPCM 4.3
+     * @since 4.3
      */
     private function getResult(array $values, $activeOnly = false) : array
     {

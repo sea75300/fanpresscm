@@ -14,7 +14,7 @@ namespace fpcm\model\articles;
  * @copyright (c) 2017, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\articles
- * @since FPCM 3.5
+ * @since 3.5
  *
  * @property int $ids Artikel-IDs
  * @property int $user via Benutzer

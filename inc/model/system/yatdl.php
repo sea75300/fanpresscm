@@ -16,14 +16,14 @@ namespace fpcm\model\system;
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.2.0
+ * @since 3.2.0
  */
 class yatdl extends \fpcm\model\abstracts\staticModel {
 
     /**
      * Datentypen mit Längen-Angabe
      * @var \nkorg\yatdl\yatdl
-     * @since FPCM 3.6
+     * @since 3.6
      */
     protected $parser;
     
@@ -46,7 +46,7 @@ class yatdl extends \fpcm\model\abstracts\staticModel {
     /**
      * Setzt zusätzliches Tabellen-Prefix
      * @param string $tablePrefix
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public function setTablePrefix($tablePrefix)
     {
@@ -83,7 +83,7 @@ class yatdl extends \fpcm\model\abstracts\staticModel {
     /**
      * Gibt geparsten YAML-String als Array zurück
      * @return array
-     * @since FPCM 3.3.2
+     * @since 3.3.2
      */
     public function getArray()
     {

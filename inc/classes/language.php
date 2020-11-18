@@ -17,6 +17,12 @@ namespace fpcm\classes;
  */
 final class language {
 
+    private const FILENAME_VARS = 'vars';
+
+    private const FILENAME_LISTS = 'lists';
+
+    public const VARTEXT_NEWLINE = '[NL]';
+    
     /**
      * Languages list
      * @var array
@@ -52,8 +58,12 @@ final class language {
      * @param string $langCode
      * @return bool
      */
-    public function __construct($langCode = FPCM_DEFAULT_LANGUAGE_CODE)
+    public function __construct($langCode = '')
     {
+        if (!trim($langCode)) {
+            $langCode = FPCM_DEFAULT_LANGUAGE_CODE;
+        }
+        
         $this->langPath = dirs::getIncDirPath('lang' . DIRECTORY_SEPARATOR . $langCode);
 
         if (!is_dir($this->langPath)) {
@@ -61,68 +71,101 @@ final class language {
             return false;
         }
 
+        $this->langCode = $langCode;
+        $this->init();
+    }
+
+    /**
+     * Load language variables
+     * @return bool
+     * @since 4.5
+     */
+    private function init() : bool
+    {
         if (!isset($GLOBALS['langdata'])) {
             $GLOBALS['langdata'] = [];
         }
 
-        $this->langCode = $langCode;
-
         $confFile = $this->langPath . '/lang.cfg';
         if (!file_exists($confFile)) {
-            trigger_error('Unable to find language config file in: ' . $langCode);
+            trigger_error('Unable to find language config file in: ' . $this->langCode);
             return false;
         }
 
-        $this->langList[$langCode] = file_get_contents($confFile);
+        $this->langList[$this->langCode] = file_get_contents($confFile);
         $this->helpFile = $this->langPath . '/help.php';
 
         $this->cache = loader::getObject('\fpcm\classes\cache');
-        $cacheName = 'system/langcache' . strtoupper($langCode);
+        $cacheName = 'system/langcache' . strtoupper($this->langCode);
         
         if (!$this->cache->isExpired($cacheName)) {
             $GLOBALS['langdata'] = $this->cache->read($cacheName);
-            return;
+            return true;
         }
         
         if (count($GLOBALS['langdata'])) {
-            return;
+            return true;
         }
 
-        $langfiles = array_merge(glob($this->langPath . DIRECTORY_SEPARATOR . '*.php'));
-        foreach ($langfiles as $file) {
-
-            if (strpos($file, 'help.php') !== false) {
-                continue;
-            }
-
-            include $file;
-
-            if (!isset($lang)) {
-                trigger_error('No language data defined in:' . $file);
-                continue;
-            }
-
-            $GLOBALS['langdata'] = array_merge($GLOBALS['langdata'], $lang);
-        }
-        
+        $this->loadDataFromSystem(self::FILENAME_VARS);
+        $this->loadDataFromSystem(self::FILENAME_LISTS);        
         $this->getModuleLanguage();
 
         $this->cache->write($cacheName, $GLOBALS['langdata'], FPCM_LANGCACHE_TIMEOUT);
+        return true;
+    }
+
+    /**
+     * Get language file name and path
+     * @param string $name
+     * @return string|null
+     * @since 4.5
+     */
+    private function getFileName(string $name) : ?string
+    {
+        $file = $this->langPath . DIRECTORY_SEPARATOR . $name . '.php';
+        return file_exists($file) ? $file : null;
+    }
+
+    /**
+     * Load language data from file
+     * @param string $name
+     * @return void
+     * @since 4.5
+     */
+    private function loadDataFromSystem(string $name) : void
+    {
+        $file = $this->getFileName($name);
+        if ($file === null) {
+            trigger_error('Language file ' . $file . ' does not exists!');
+            print 'ERR LANG 1 vars';
+            return;
+        }
+        
+        include $file;
+        if (!isset($lang) || !is_array($lang)) {
+            trigger_error('No language data defined in:' . $file);
+            print 'ERR LANG 1 vars';
+            return;
+        }
+
+        $GLOBALS['langdata'] = array_merge($GLOBALS['langdata'], $lang);
+        unset($file);
     }
 
     /**
      * fetch module language files
-     * @return array
+     * @return void
      */
-    private function getModuleLanguage()
+    private function getModuleLanguage() : void
     {
         if (baseconfig::installerEnabled() || !baseconfig::dbConfigExists()) {
-            return true;
+            return;
         }
 
         $activeModules = loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
         if (!count($activeModules)) {
-            return true;
+            return;
         }
         
         foreach ($activeModules as $module) {
@@ -157,7 +200,7 @@ final class language {
             $GLOBALS['langdata'] = array_merge($GLOBALS['langdata'], $lang);
         }
 
-        return true;        
+        return;        
     }
 
     /**
@@ -216,6 +259,10 @@ final class language {
      */
     public function translate($langvar, array $replaceParams = [])
     {
+        if (!trim($langvar)) {
+            return '';
+        }
+        
         $langvarUc = strtoupper($langvar);
         $langData = $GLOBALS['langdata'][$langvarUc] ?? $langvar;
 
@@ -228,7 +275,14 @@ final class language {
 
             $replacement[$key] = $val;
         }
+        
+        unset($val);
 
+        if (!method_exists('\fpcm\view\helper\icon', 'parseLangvarIcon')) {
+            return tools::strReplaceArray($langData, $replacement);
+        }
+        
+        \fpcm\view\helper\icon::parseLangvarIcon($langData);
         return tools::strReplaceArray($langData, $replacement);
     }
 
@@ -271,7 +325,7 @@ final class language {
     /**
      * Returns full language data
      * @return array
-     * @since FPCM 4.4
+     * @since 4.4
      */
     public function getAll() : array
     {
@@ -300,6 +354,94 @@ final class language {
     public function write($langvar, array $replaceParams = [])
     {
         print $this->translate($langvar, $replaceParams);
+    }
+
+    /**
+     * Save language vars to corresponding files
+     * @param array $vars
+     * @param array $lists
+     * @return bool
+     * @since 4.5
+     */
+    public function saveFiles(array $vars, array $lists) : bool
+    {
+        if (!count($vars) || !count($lists)) {
+            trigger_error('Language files cannot be saved with empty data.');
+            return false;
+        }
+
+        $res = $this->writeNewFile(self::FILENAME_VARS, implode(PHP_EOL, [
+            '<?php',
+            '',
+            '/**',
+            ' * FanPress CM language variables file: '.$this->getLangCode(),
+            ' * @author Stefan Seehafer <sea75300@yahoo.de>',
+            ' * @copyright (c) 2011-'.date('Y').', Stefan Seehafer',
+            ' * @license http://www.gnu.org/licenses/gpl.txt GPLv3',
+            ' */',
+            '',
+            '$lang = '. var_export($vars, true).';',
+            ''
+        ]));
+
+        if (!$res) {
+            return false;
+        }
+
+        $res = $this->writeNewFile(self::FILENAME_LISTS, implode(PHP_EOL, [
+            '<?php',
+            '',
+            '/**',
+            ' * FanPress CM language list file: '.$this->getLangCode(),
+            ' * @author Stefan Seehafer <sea75300@yahoo.de>',
+            ' * @copyright (c) 2011-'.date('Y').', Stefan Seehafer',
+            ' * @license http://www.gnu.org/licenses/gpl.txt GPLv3',
+            ' */',
+            '',
+            '$lang = '. var_export($lists, true).';',
+            ''
+        ]));
+
+        if (!$res) {
+            return false;
+        }
+
+        $this->cache->cleanup('system/langcache' . strtoupper($this->getLangCode()));
+        unset($GLOBALS['langdata']);
+        $this->init();
+        return true;
+    }
+
+    /**
+     * Write file content
+     * @param string $file
+     * @param string $content
+     * @return bool
+     * @since 4.5
+     */
+    private function writeNewFile(string $file, string $content) : bool
+    {
+        $file = $this->getFileName($file);
+
+        if ($file === null || !is_writable($file)) {
+            trigger_error('Language file ' . $file . ' does not exists or is not writable!');
+            return false;
+        }
+
+        $backFile = $file.'lebck';
+        if (!copy($file, $backFile)) {
+            trigger_error('Unable to create back file '.$backFile.' for ' . $file);
+            return false;
+        }
+
+        $res = file_put_contents($file, $content, LOCK_EX);
+        if (!$res) {
+            trigger_error('Unable to write language file ' . $file);
+            return false;
+        }
+
+        unlink($backFile);
+        return true;
     }
 
 }

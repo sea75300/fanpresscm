@@ -15,7 +15,7 @@ namespace fpcm\controller\abstracts\module;
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @abstract
- * @since FPCM 4.1
+ * @since 4.1
  */
 class controller extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\isAccessible {
@@ -44,7 +44,7 @@ implements \fpcm\controller\interfaces\isAccessible {
     /**
      * Must return true, if controller is accessible
      * @return bool
-     * @since FPCm 4.4
+     * @since 4.4
      */
     public function isAccessible(): bool
     {

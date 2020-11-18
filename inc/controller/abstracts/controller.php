@@ -20,6 +20,10 @@ class controller implements \fpcm\controller\interfaces\controller {
     
     const ERROR_PROCESS_BYPARAMS = 0x404;
 
+    const BYPARAM_DEFAULT_PREFIX = 'process';
+
+    const BYPARAM_DEFAULT_ACTION = 'fn';
+
     /**
      * Request object
      * @var \fpcm\model\http\request
@@ -99,16 +103,16 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected $moduleCheckExit = true;
 
     /**
-     * Aktive Module für Prüfung von Controlelr-Ausführung
-     * @var array
-     */
-    protected $enabledModules = [];
-
-    /**
      * View object
      * @var \fpcm\view\view
      */
     protected $view;
+
+    /**
+     * View events namespace
+     * @var string
+     */
+    protected $viewEvents = 'theme';
 
     /**
      * Page token check result
@@ -123,16 +127,10 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected $execDestruct = true;
 
     /**
-     * View events namespace
-     * @var bool
-     */
-    protected $viewEvents = 'theme';
-
-    /**
      * Check if controller was defined in module
      * @var bool
      */
-    protected $moduleController = null;
+    protected $moduleElement = false;
 
     /**
      * Konstruktor
@@ -142,7 +140,7 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->request = \fpcm\classes\loader::getObject('\fpcm\model\http\request');
 
         if (\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
-            return $this->redirect('installer');
+            $this->redirect('installer');
             exit;
         }
 
@@ -160,7 +158,6 @@ class controller implements \fpcm\controller\interfaces\controller {
         $this->ipList = \fpcm\classes\loader::getObject('\fpcm\model\ips\iplist');
         $this->crons = \fpcm\classes\loader::getObject('\fpcm\model\crons\cronlist');
 
-        $this->enabledModules = \fpcm\classes\loader::getObject('\fpcm\module\modules')->getEnabledDatabase();
         $this->crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language', $this->config->system_lang);
 
@@ -178,7 +175,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @deprecated FPCM 4.4, use $this->request instead
      */
     final public function getRequestVar
-    (
+    (        
         $varname = null,
         array $filter = [
             \fpcm\classes\http::FILTER_STRIPTAGS,
@@ -188,6 +185,8 @@ class controller implements \fpcm\controller\interfaces\controller {
         ]
     )
     {
+        trigger_error(__METHOD__.' is deprecated as of FPCM 4.4, use $this->request instead! This method will be removed in future  releases.', E_USER_DEPRECATED);
+        
         if (is_object($this->request)) {
             return $this->request->fetchAll($varname, $filter);
         }
@@ -231,8 +230,8 @@ class controller implements \fpcm\controller\interfaces\controller {
         if (!$viewPath) {
             return false;
         }
-
-        $this->view = new \fpcm\view\view($viewPath, $this->moduleController ? $this->moduleController : false);
+        
+        $this->view = new \fpcm\view\view($viewPath, $this->moduleElement ? $this->getObject()->getKey() : false );
         $this->view->setHelpLink($this->getHelpLink());
         $this->view->setActiveNavigationElement($this->getActiveNavigationElement());
         $this->view->triggerFilesEvents($this->viewEvents);
@@ -252,6 +251,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      * Controller Redirect
      * @param string $controller
      * @param array $params
+     * @return bool
      */
     protected function redirect($controller = '', array $params = [])
     {
@@ -308,7 +308,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     protected function checkPageToken($name = '')
     {
         if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
-            trigger_error('Page token check failed, no referer available or referrer mismatch in '. get_class($this));
+            trigger_error('Page token check failed, no referer available or referrer mismatch in '. get_class($this), E_USER_ERROR);
             $this->checkPageToken = false;
             return $this->checkPageToken;
         }
@@ -337,6 +337,10 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     protected function getViewPath() : string
     {
+        if ($this instanceof \fpcm\controller\interfaces\viewByNamespace) {
+            return str_replace(['fpcm\\controller\\action\\', '\\'], ['', DIRECTORY_SEPARATOR], get_called_class());
+        }
+
         return '';
     }
 
@@ -351,7 +355,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Get controller access lock module
-     * @return array()
+     * @return string
      */
     protected function getIpLockedModul()
     {
@@ -360,7 +364,7 @@ class controller implements \fpcm\controller\interfaces\controller {
 
     /**
      * Get controller permissions
-     * @return array()
+     * @return array
      */
     protected function getPermissions()
     {
@@ -388,6 +392,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     /**
      * Controller processing
      * @return bool
+     * @see \fpcm\controller\interfaces\controller
      */
     public function process()
     {
@@ -395,8 +400,10 @@ class controller implements \fpcm\controller\interfaces\controller {
     }
 
     /**
-     * Request processing
-     * @return bool, false prevent execution of @see process()
+     * Request processing,
+     * false prevent execution
+     * @return bool
+     * @see \fpcm\controller\interfaces\controller
      */
     public function request()
     {
@@ -404,8 +411,10 @@ class controller implements \fpcm\controller\interfaces\controller {
     }
 
     /**
-     * Access check processing
-     * @return bool, false prevent execution of @see request() @see process()
+     * Access check processing,
+     * false prevent execution of request() and process()
+     * @return bool
+     * @see \fpcm\controller\interfaces\controller
      */
     public function hasAccess()
     {
@@ -435,13 +444,14 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        return $this->moduleController === null ? true : in_array($this->moduleController, $this->enabledModules);
+        return true;
     }
 
     /**
      * Process click of form items as function
      * @return bool
-     * @since FPCM 4.4 (experimental)
+     * @since 4.4 
+     * @todo experimental
      */
     public function processButtons() : bool
     {
@@ -480,6 +490,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     public function __call($name, $arguments)
     {
+        http_response_code(404);
         print "Function not found! {$name}";
         return false;
     }
@@ -492,6 +503,7 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     public static function __callStatic($name, $arguments)
     {
+        http_response_code(404);
         print "Function not found! {$name}";
         return false;
     }
@@ -517,36 +529,14 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function hasActiveModule()
     {
-        $class = get_class($this);
-
-        $module = \fpcm\module\module::getKeyFromClass($class);
-        if ($module === false) {
-            $this->moduleController = null;
-            return true;
-        }
-
-        if (!in_array($module, $this->enabledModules)) {
-            $this->execDestruct = false;
-            trigger_error("Request for controller '{$this->getRequestVar('module')}' of disabled module '{$module}'!");
-            $view = new \fpcm\view\error("The controller '{$this->getRequestVar('module')}' is not enabled for execution!");
-            $view->render($this->moduleCheckExit);
-            return false;
-        }
-        
-        $parent = get_parent_class($class);        
-        if ($module && in_array($parent, ['fpcm\controller\abstracts\controller', 'fpcm\controller\abstracts\ajaxController']) ) {
-            trigger_error("The use of \"{$parent}\" for module-defined controllers is deprecated as of FPCM 4.1! ".
-                          "\"{$class}\" should be an instance of ". str_replace("controller\\abstracts\\", "controller\\abstracts\\module\\", $parent)." instead.");
-        }
-
-        $this->moduleController = trim($module) && $module !== false ? $module : null;
+        $this->moduleElement = !(\fpcm\module\module::getKeyFromClass(get_class($this)) == false);
         return true;
     }
 
     /**
      * Returns active tab ID, jQuery UI zero-based index
      * @return int
-     * @since FPCM 4.1
+     * @since 4.1
      */
     final protected function getActiveTab() : int
     {
@@ -570,9 +560,9 @@ class controller implements \fpcm\controller\interfaces\controller {
      * @param string $prefix
      * @param string $actionFrom
      * @return real|bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
-    final protected function processByParam(string $prefix = 'process', string $actionFrom = 'fn')
+    final protected function processByParam(string $prefix = self::BYPARAM_DEFAULT_PREFIX, string $actionFrom = self::BYPARAM_DEFAULT_ACTION)
     {
         $actionName = $this->request->fetchAll($actionFrom, [
             \fpcm\model\http\request::FILTER_REGEX_REPLACE,
@@ -581,9 +571,13 @@ class controller implements \fpcm\controller\interfaces\controller {
             \fpcm\model\http\request::PARAM_REGEX_REPLACE => '$0'
         ]);
 
+        if (property_exists($this, $actionFrom)) {
+            $this->{$actionFrom} = $actionName;
+        }
+        
         $fn = trim($prefix.$actionName);
         if (!method_exists($this, $fn)) {
-            trigger_error('Request for undefined function '.$fn.' in '. get_called_class());
+            trigger_error('Request for undefined function '.$fn.' in '. get_called_class(), E_USER_WARNING);
             return self::ERROR_PROCESS_BYPARAMS;
         }
 
@@ -593,7 +587,7 @@ class controller implements \fpcm\controller\interfaces\controller {
     /**
      * Initialize permission object
      * @return bool
-     * @since FPCM 4.4
+     * @since 4.4
      */    
     protected function initPermissionObject() : bool
     {

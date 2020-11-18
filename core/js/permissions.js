@@ -11,7 +11,7 @@ if (fpcm === undefined) {
 fpcm.permissions = {
 
     init: function() {
-        fpcm.ui.checkboxradio('.fpcm-ui-input-checkbox');
+        return false;
     }
 
 };

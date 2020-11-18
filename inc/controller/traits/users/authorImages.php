@@ -19,6 +19,12 @@ trait authorImages {
 
     /**
      *
+     * @var \fpcm\components\fileupload\htmlupload
+     */
+    protected $uploader;
+
+    /**
+     *
      * @var \Sonata\GoogleAuthenticator\GoogleAuthenticator
      */
     protected $gAuth;
@@ -108,6 +114,15 @@ trait authorImages {
         $secret = $this->gAuth->generateSecret();
         $this->view->assign('qrCode', \Sonata\GoogleAuthenticator\GoogleQrUrl::generate($this->user->getEmail(), $secret, $this->language->translate('HEADLINE')));
         $this->view->assign('secret', $secret);
+        return true;
+    }
+    
+    protected function initUploader() : bool
+    {
+        $this->uploader = \fpcm\components\components::getFileUploader('\\fpcm\\components\\fileupload\\htmlupload');
+        $this->view->setViewVars($this->uploader->getViewVars());
+        $this->view->addJsFiles($this->uploader->getJsFiles());
+        $this->view->addJsVars($this->uploader->getJsVars());
         return true;
     }
 

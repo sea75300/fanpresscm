@@ -20,31 +20,19 @@ class articlelistall extends articlelistbase {
         return $this->permissions->article->edit || $this->permissions->article->editall;
     }
 
-    protected function getListAction()
+    protected function getListAction() : void
     {
         $this->listAction = 'articles/listall';
     }
 
-    protected function getArticleCount()
+    protected function getSearchMode() : string
     {
-        $this->articleCount = $this->articleList->countArticlesByCondition($this->conditionItems);
+        return \fpcm\controller\ajax\articles\lists::MODE_ALL;
     }
 
-    protected function getArticleItems()
+    protected function showDraftStatus() : bool
     {
-        $this->conditionItems->limit = [$this->config->articles_acp_limit, $this->listShowStart];
-        $this->articleItems = $this->articleList->getArticlesByCondition($this->conditionItems, true);
-    }
-
-    protected function getSearchMode()
-    {
-        return -1;
-    }
-
-    protected function getConditionItem()
-    {
-        $this->conditionItems = new \fpcm\model\articles\search();
-        $this->conditionItems->orderby = ['createtime DESC'];
+        return true;
     }
 
 }

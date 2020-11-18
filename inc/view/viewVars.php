@@ -34,11 +34,12 @@ namespace fpcm\view;
  * @property int    $loginTime
  * 
  * @property \fpcm\model\permissions\permissions  $permissions
+ * @property \fpcm\model\theme\navigationList  $navigation
  * 
- * @property array  $navigation
  * @property array  $navigationActiveModule
  * @property array  $messages
  * @property array  $filesJs
+ * @property array  $filesJsLate
  * @property array  $filesCss
  * @property array  $varsJs
  * @property array  $buttons
@@ -186,7 +187,7 @@ class viewVars {
      * @param array $params
      * @return string
      * @see \fpcm\classes\tools::getControllerLink
-     * @since FPCM 4.2
+     * @since 4.2
      */
     public function controllerLink(string $controller, array $params = []) : string
     {
@@ -201,7 +202,7 @@ class viewVars {
      * @param string $delimTousands
      * @return string
      * @see \fpcm\classes\tools::calcSize
-     * @since FPCM 4.2
+     * @since 4.2
      */
     public function calcSize(int $value, int $decimals = 2, string $delimDec = ',', string $delimTousands = '.') : string
     {
@@ -211,7 +212,7 @@ class viewVars {
     /**
      * Returns page token field view helper object
      * @return \fpcm\view\helper\pageTokenField
-     * @since FPCM 4.3 as own funktion
+     * @since 4.3 as own funktion
      */
     final public function pageTokenField() : helper\pageTokenField
     {
@@ -224,11 +225,21 @@ class viewVars {
      * @param string $prefix
      * @param bool $useFa
      * @return \fpcm\view\helper\icon
-     * @since FPCM 4.3 as own funktion
+     * @since 4.3 as own funktion
      */
     final public function icon(string $icon, string $prefix = 'fa', bool $useFa = true) : helper\icon
     {
         return new helper\icon($icon, $prefix, $useFa);
+    }
+
+    /**
+     * Prints default box values
+     * @return void
+     * @since 4.5
+     */
+    final public function defaultBoxHalf() : void
+    {
+        print 'col-12 col-md-6';
     }
 
 }

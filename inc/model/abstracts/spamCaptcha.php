@@ -19,8 +19,8 @@ namespace fpcm\model\abstracts;
 abstract class spamCaptcha extends staticModel {
 
     /**
-     * Captcha-Antwort prüfen
-     * @return bool, true wenn Antwort richtig
+     * Captcha-Antwort prüfen, true wenn Antwort richtig
+     * @return bool
      */
     abstract public function checkAnswer();
 

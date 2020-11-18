@@ -17,7 +17,7 @@ namespace fpcm\view\helper;
  */
 abstract class helper {
 
-    /*  @since FPCM 4.3.0 */
+    /*  @since 4.3.0 */
     const TEXT_DEFAULT_LABEL = 'LABEL_FIELD_';
 
     /**
@@ -59,7 +59,7 @@ abstract class helper {
     /**
      * Element is autoFocused
      * @var bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected $autoFocused = false;
 
@@ -84,7 +84,7 @@ abstract class helper {
     /**
      * CS class for label
      * @var string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected $labelClass = '';
 
@@ -210,7 +210,7 @@ abstract class helper {
     /**
      * Initialized default label by field name
      * @return boolean
-     * @since FPCM 4.3.0
+     * @since 4.3.0
      */
     final protected function initLabel()
     {
@@ -292,7 +292,7 @@ abstract class helper {
      * Make helper auto focused
      * @param bool $autoFocused
      * @return $this
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function setAutoFocused($autoFocused) {
         $this->autoFocused = (bool) $autoFocused;
@@ -334,7 +334,7 @@ abstract class helper {
      * Set label class CSS string
      * @param string $labelClass
      * @return $this
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function setLabelClass(string $labelClass)
     {
@@ -380,6 +380,38 @@ abstract class helper {
     public function setData(array $data)
     {
         $this->data = $data;
+        return $this;
+    }
+
+    /**
+     * 
+     * @param array $param
+     * @return bool
+     * @since 4.5
+     */
+    final public function initFromYml(array $param, array $viewVars)
+    {
+        if (!count($param)) {
+            return $this;
+        }
+
+        $functions = array_filter($param, function ($value, $func) {
+            return method_exists($this, 'set'.ucfirst($func));
+        }, ARRAY_FILTER_USE_BOTH);
+
+        foreach ($functions as $func => $value) {
+
+            $fromVar = is_string($value) && substr($value, 0, 1) === '$'
+                     ? substr($value, 1)
+                     : false;
+
+            if ($fromVar && isset($viewVars[$fromVar])) {
+                $value = $viewVars[$fromVar];
+            }
+
+            $this->{'set'.ucfirst($func)}($value);            
+        }
+
         return $this;
     }
 

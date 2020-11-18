@@ -15,7 +15,7 @@ namespace fpcm\components\editor;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.1.0
+ * @since 3.1.0
  */
 abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
 
@@ -67,7 +67,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
     /**
      * Array von Sprachvariablen für Nutzung in Javascript
      * @return array
-     * @since FPCM 3.3
+     * @since 3.3
      */
     abstract public function getJsLangVars();
 
@@ -80,7 +80,7 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
     /**
      * Array mit Informationen u. a. für template-Plugin von TinyMCE
      * @return array
-     * @since FPCM 3.3
+     * @since 3.3
      */
     abstract public function getTemplateDrafts();
     

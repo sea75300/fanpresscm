@@ -1,3 +1,3 @@
-<div class="col-12 col-sm-8">
+<div class="col-12">
 <?php include $theView->getIncludePath('users/usereditor.php'); ?>
 </div>

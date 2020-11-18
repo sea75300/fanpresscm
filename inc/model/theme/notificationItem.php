@@ -14,15 +14,9 @@ namespace fpcm\model\theme;
  * @copyright (c) 2017, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\theme
- * @since FPCM 3.6
+ * @since 3.6
  */
 class notificationItem {
-
-    /**
-     * im Navigation angezeigte Beschreibung
-     * @var string
-     */
-    protected $description = '';
 
     /**
      * CSS-Klassen für Icon
@@ -54,11 +48,14 @@ class notificationItem {
      * @param string $id
      * @param string $callback
      */
-    function __construct(\fpcm\view\helper\icon $icon, string $id = '', string $callback = '')
+    function __construct(\fpcm\view\helper\icon $icon, string $id = '', string $callback = '', string $class = '')
     {
         $this->icon = $icon;
+        $this->icon->setSize('lg');
+
         $this->id = trim($id) ? trim($id) : uniqid('fpcm-notification-item');
         $this->callback = $callback;
+        $this->class = 'fpcm-menu-top-level2 fpcm-notification-item fpcm-ui-align-left py-2'.(trim($class) ? ' '.$class : '');
     }
 
     /**
@@ -95,17 +92,25 @@ class notificationItem {
      */
     public function __toString() : string
     {
-        $this->icon->setSize('lg');
-        
-        if ($this->callback && strpos($this->callback, 'http') === 0) {
-            return "<li title=\"{$this->description}\" id=\"{$this->id}\" class=\"fpcm-menu-top-level1 fpcm-ui-float-right fpcm-notification-item fpcm-ui-border-radius-all\"><a href=\"{$this->callback}\">" . $this->icon . "</a></li>";
+        return "<li id=\"{$this->id}\" class=\"{$this->class}\"".$this->getCallback(). $this->icon . $this->icon->getText() . "</li>";
+    }
+
+    /**
+     * Return callback string
+     * @return string
+     * @since 4.5
+     */
+    private function getCallback() : string
+    {
+        if (!trim($this->callback)) {
+            return '>';
         }
 
-        if ($this->callback) {
-            return "<li title=\"{$this->description}\" id=\"{$this->id}\" data-callback=\"{$this->callback}\" class=\"fpcm-menu-top-level1 fpcm-ui-float-right fpcm-notification-item fpcm-ui-border-radius-all\"><a href=\"#\">" . $this->icon . "</a></li>";
+        if (strpos($this->callback, 'http') === 0) {
+            return "><a href=\"{$this->callback}\">" . $this->icon . "</a>";
         }
 
-        return "<li title=\"{$this->description}\" id=\"{$this->id}\" class=\"fpcm-menu-top-level1 fpcm-ui-float-right fpcm-notification-item fpcm-ui-border-radius-all\">" . $this->icon . "</li>";
+        return " data-callback=\"{$this->callback}\">";
     }
 
 }

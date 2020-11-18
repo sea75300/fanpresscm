@@ -5,18 +5,15 @@
  * @article Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2011-2018, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 3.5
+ * @since 3.5
  */
 
 namespace fpcm\controller\action\articles;
 
-class articlelisttrash extends articlelistbase {
+class articlelisttrash extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
-    /**
-     *
-     * @var bool
-     */
-    protected $isTrash = true;
+    use \fpcm\controller\traits\articles\listsCommon,
+        \fpcm\controller\traits\articles\lists; 
 
     /**
      * 
@@ -27,83 +24,50 @@ class articlelisttrash extends articlelistbase {
         return $this->permissions->articleTrash();
     }
 
-    protected function getArticleItems()
-    {
-        $this->articleItems = $this->articleList->getArticlesDeleted(true);
-    }
-
-    protected function getListAction()
-    {
-        $this->listAction = 'articles/trash';
-    }
-
     /**
      * 
-     * @return int
+     * @return string
      */
-    protected function getArticleCount()
+    protected function getHelpLink()
     {
-        return 0;
-    }
-
-    /**
-     * 
-     * @return bool
-     */
-    protected function getConditionItem()
-    {
-        return false;
-    }
-
-    /**
-     * 
-     * @return bool
-     */
-    protected function getSearchMode()
-    {
-        return false;
+        return 'hl_article_edit';
     }
 
     /**
      * 
      * @return string
      */
-    protected function getHelpLink(): string
+    protected function getViewPath() : string
     {
-        return 'articles_trash';
+        return 'articles/listouter';
     }
 
-    /**
-     * 
-     * @return string
-     */
-    protected function getTabHeadline(): string
+    public function process()
     {
-        return 'ARTICLES_TRASH';
-    }
-
-    public function request()
-    {
-        $this->articleActions = [$this->language->translate('ARTICLE_LIST_RESTOREARTICLE') => 'restore', $this->language->translate('ARTICLE_LIST_EMPTYTRASH') => 'trash'];
-
-        $res = parent::request();
-        if ($this->permissions->article->delete) {
-            $this->view->addButton((new \fpcm\view\helper\deleteButton('trash'))->setText('ARTICLE_LIST_EMPTYTRASH')->setClass('fpcm-ui-hidden fpcm-ui-button-confirm'));
-        }
-
-        $this->view->setFormAction('articles/trash');
-        return $res;
-    }
-
-    protected function initArticleActions()
-    {
-        if (!$this->permissions) {
-            return false;
-        }
-
-        $crypt = \fpcm\classes\loader::getObject('\fpcm\classes\crypt');
-        $this->view->addJsVars(['artCacheMod' => urlencode($crypt->encrypt(\fpcm\model\articles\article::CACHE_ARTICLE_MODULE))]);
+        $this->isTrash = true;
+        
+        $this->initActionObjects();
+        
+        $this->view->assign('tabHeadline', 'ARTICLES_TRASH');
         $this->view->addAjaxPageToken('clearTrash');
+        $this->view->setFormAction('articles/trash');
+        $this->view->addJsFiles(['articles/trash.js']);
+        $this->view->assign('includeSearchForm', false);
+        $this->view->assign('includeMassEditForm', false);
+
+        $this->view->addButtons([
+            (new \fpcm\view\helper\select('action'))->setOptions([
+                $this->language->translate('ARTICLE_LIST_RESTOREARTICLE') => 'restore', 
+                $this->language->translate('ARTICLE_LIST_EMPTYTRASH') => 'trash'
+            ]),
+            (new \fpcm\view\helper\submitButton('doAction'))->setText('GLOBAL_OK')->setClass('fpcm-ui-articleactions-ok')->setIcon('check')->setIconOnly(true)->setData(['hidespinner' => true])
+        ]);        
+        
+        
+        $this->items = $this->articleList->getArticlesDeleted(true);
+
+        $this->initDataView();
+        $this->view->addDataView($this->dataView);
     }
 
 }

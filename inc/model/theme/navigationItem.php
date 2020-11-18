@@ -14,7 +14,7 @@ namespace fpcm\model\theme;
  * @copyright (c) 2017-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\model\theme
- * @since FPCM 3.5
+ * @since 3.5
  */
 class navigationItem extends \fpcm\model\abstracts\staticModel {
 
@@ -69,13 +69,6 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
      * @var string
      */
     protected $parent = 'after';
-
-    /**
-     * Berechtigungen
-     * @var array
-     * @deprecated since version FPCM 4.4
-     */
-    protected $permission = [];
 
     /**
      * Permissions flag for access
@@ -277,18 +270,6 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     }
 
     /**
-     * Berechtigungen setzen
-     * @param array $permission
-     * @deprecated since version FPCM 4.4
-     */
-    public function setPermission(array $permission)
-    {
-        trigger_error('Using '.__METHOD__.' ist deprecated as of FPCM 4.4. Use '.__CLASS__.'::setAccessible instead', E_USER_DEPRECATED);
-        $this->permission = $permission;
-        return $this;
-    }
-
-    /**
      * Untermenü-Array füllen
      * @param array $submenu
      */
@@ -324,16 +305,6 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
     public function hasSubmenu()
     {
         return count($this->submenu) ? true : false;
-    }
-
-    /**
-     * Status, Berechtigungen geprüft werden müssen
-     * @return bool
-     * @deprecated since version FPCM 4.4
-     */
-    public function hasPermission()
-    {
-        return count($this->permission) ? true : false;
     }
 
     /**

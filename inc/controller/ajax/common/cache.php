@@ -50,10 +50,8 @@ class cache extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
         $this->module = $this->request->fromPOST('cache', [\fpcm\model\http\request::FILTER_URLDECODE, \fpcm\model\http\request::FILTER_DECRYPT, \fpcm\model\http\request::FILTER_FIRSTUPPER]);
         $this->objid = $this->request->fromPOST('objid', [\fpcm\model\http\request::FILTER_CASTINT]);
-
         return true;
     }
 

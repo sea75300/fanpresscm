@@ -75,7 +75,7 @@ class fpcmDefault extends \fpcm\model\abstracts\spamCaptcha {
      * Create input field for Captcha
      * @param bool $wrap
      * @return string
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function createPluginTextInput()
     {

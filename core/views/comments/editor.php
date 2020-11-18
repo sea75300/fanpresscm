@@ -6,7 +6,7 @@
             <legend><?php $theView->write('GLOBAL_METADATA'); ?></legend>
 
             <div class="row no-gutters">                
-                <div class="col-sm-12 col-md-6">
+                <div class="<?php $theView->defaultBoxHalf(); ?>">
                     <?php $theView->icon('calendar'); ?>
                     <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
                     <?php $theView->dateText($comment->getCreatetime()); ?><br>
@@ -16,34 +16,27 @@
                     <strong><?php $theView->write('COMMMENT_IPADDRESS'); ?>:</strong>
                     <?php print $comment->getIpaddress(); ?>
                 </div>
-
-                <div class="col-sm-12 col-md-6 fpcm-ui-align-right align-self-center">
-                    <div class="fpcm-ui-controlgroup">
-                        <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status'); ?>
-                        <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status'); ?>
-                        <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$theView->permissions->comment->private)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status'); ?>
-                    </div>
-                </div>
             </div>
             
         </fieldset>
     </div>
 </div>
 
-<div class="row fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom">
-    <div class="col-12 fpcm-ui-padding-none-lr">
-        <fieldset class="fpcm-ui-margin-none-left">
+<div class="row my-2">
+    <div class="col-12 px-0">
+        <fieldset class="ml-0">
             <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
 
-            <div class="row fpcm-ui-padding-md-tb">
+            <div class="row py-2">
                 <?php $theView->textInput('comment[name]')
                         ->setText('COMMMENT_AUTHOR')
                         ->setValue($comment->getName())
                         ->setIcon('signature')
                         ->setSize('lg')
+                        ->setAutoFocused(true)
                         ->setDisplaySizesDefault(); ?>
             </div>            
-            <div class="row fpcm-ui-padding-md-tb">
+            <div class="row py-2">
                 <?php $theView->textInput('comment[email]')
                         ->setText('GLOBAL_EMAIL')
                         ->setValue($comment->getEmail())
@@ -52,7 +45,7 @@
                         ->setSize('lg')
                         ->setDisplaySizesDefault(); ?>
             </div>            
-            <div class="row fpcm-ui-padding-md-tb">
+            <div class="row py-2">
                 <?php $theView->textInput('comment[website]')
                         ->setText('COMMMENT_WEBSITE')
                         ->setValue($comment->getWebsite())
@@ -60,7 +53,15 @@
                         ->setIcon('home')
                         ->setSize('lg')
                         ->setDisplaySizesDefault(); ?>
-            </div>            
+            </div>
+
+            <div class="row no-gutters py-2">
+                <div class="<?php $theView->defaultBoxHalf(); ?> align-self-center">
+                    <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status')->setLabelClass('mr-2'); ?>
+                    <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status')->setLabelClass('mr-2'); ?>
+                    <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$theView->permissions->comment->private)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status'); ?>
+                </div>
+            </div>
         </fieldset>
     </div>
 </div>

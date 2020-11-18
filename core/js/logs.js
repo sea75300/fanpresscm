@@ -92,7 +92,7 @@ fpcm.logs = {
 
                 var logSizeEl = fpcm.vars.jsvars.dataviews.extSettings.logSize ? 'fpcm-logs-size-row-' + fpcm.vars.jsvars.dataviews.extSettings.name : false;
                 if (fpcm.vars.jsvars.dataviews.extSettings.logSize) {
-                    fpcm.dom.fromClass('fpcm-ui-logslist').append('<div id="' + logSizeEl + '" class="row fpcm-ui-font-small fpcm-ui-margin-lg-top"><div class="col-12 align-self-center fpcm-ui-padding-none-left"> <span class="fpcm-ui-icon fpcm-ui-icon-single fa fa-fw fa-weight fa-lg "></span>  ' + fpcm.ui.translate('FILE_LIST_FILESIZE') + ': ' + fpcm.vars.jsvars.dataviews.extSettings.logSize + '</div></div>');
+                    fpcm.dom.fromClass('fpcm-ui-logslist').append('<div id="' + logSizeEl + '" class="row fpcm-ui-font-small fpcm-ui-margin-lg-top"><div class="col-12 align-self-center fpcm-ui-padding-none-left">' + fpcm.ui.getIcon('weight', { size: 'lg' }) + fpcm.ui.translate('FILE_LIST_FILESIZE') + ': ' + fpcm.vars.jsvars.dataviews.extSettings.logSize + '</div></div>');
                 }
 
                 if (fpcm.vars.jsvars.dataviews.extSettings.fullheight) {

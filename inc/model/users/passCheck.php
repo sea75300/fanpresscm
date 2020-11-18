@@ -13,7 +13,7 @@ namespace fpcm\model\users;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.1
+ * @since 4.1
  */
 class passCheck extends \fpcm\model\abstracts\remoteModel {
 
@@ -67,23 +67,20 @@ class passCheck extends \fpcm\model\abstracts\remoteModel {
      */
     public function isPowned(): bool
     {
-        if (!$this->canConnect) {
+        if (!$this->canConnect || \fpcm\classes\baseconfig::installerEnabled()) {
             return false;
         }
 
-        if (!\fpcm\classes\baseconfig::installerEnabled()) {
-            if (!$this->config->system_passcheck_enabled) {
-                return false;
-            }
-
-            $this->remoteData = $this->cache->read($this->cacheName);
-            if (!trim($this->remoteData) || $this->cache->isExpired($this->cacheName)) {
-                $this->remoteServer = $this->remoteServerBase . strtoupper(substr($this->passHash, 0, $this->passLimit));
-                $this->fetchRemoteData();
-                $this->cache->write($this->cacheName, $this->remoteData);
-            }
+        if (!$this->config->system_passcheck_enabled) {
+            return false;
         }
 
+        $this->remoteData = $this->cache->read($this->cacheName);
+        if (!trim($this->remoteData) || $this->cache->isExpired($this->cacheName)) {
+            $this->remoteServer = $this->remoteServerBase . strtoupper(substr($this->passHash, 0, $this->passLimit));
+            $this->fetchRemoteData();
+            $this->cache->write($this->cacheName, $this->remoteData);
+        }
 
         $matches = [];
         $res = preg_match('/(' . substr($this->passHash, $this->passLimit) . ')(:)([0-9]+)/i', $this->remoteData, $matches);

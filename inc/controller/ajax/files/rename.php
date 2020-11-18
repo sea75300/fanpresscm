@@ -44,8 +44,6 @@ class rename extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
-
         $this->newFileName = $this->request->fromPOST('newName');
         $this->fileName = $this->request->fromPOST('oldName', [
             \fpcm\model\http\request::FILTER_BASE64DECODE
@@ -53,7 +51,17 @@ class rename extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
         if (!$this->newFileName || !$this->fileName) {
             $this->response->setReturnData(new \fpcm\view\message(
-                $this->language->translate('DELETE_FAILED_RENAME', [
+                $this->language->translate('RENAME_FAILED_FILE', [
+                    '{{filename1}}' => $this->fileName,
+                    '{{filename2}}' => $this->newFileName
+                ]),
+                \fpcm\view\message::TYPE_ERROR
+            ))->fetch();
+        }
+        
+        if (strpos($this->newFileName, '..') !== false) {
+            $this->response->setReturnData(new \fpcm\view\message(
+                $this->language->translate('RENAME_FAILED_FILE', [
                     '{{filename1}}' => $this->fileName,
                     '{{filename2}}' => $this->newFileName
                 ]),
@@ -70,7 +78,7 @@ class rename extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     public function process()
     {
         $image = new \fpcm\model\files\image($this->fileName, false);
-        
+
         $replace = ['{{filename1}}' => basename($this->fileName), '{{filename2}}' => basename($this->newFileName)];
         if ($image->rename($this->newFileName, $this->session->getUserId())) {
 
@@ -84,7 +92,7 @@ class rename extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         }
 
         $this->response->setReturnData(new \fpcm\view\message(
-            $this->language->translate('DELETE_FAILED_RENAME', $replace),
+            $this->language->translate('RENAME_FAILED_FILE', $replace),
             \fpcm\view\message::TYPE_ERROR
         ))->fetch();            
 

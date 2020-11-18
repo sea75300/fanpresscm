@@ -22,7 +22,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     /**
      * Permission Object
      * @var \fpcm\model\permissions\permissions
-     * @since FPCM 3.3
+     * @since 3.3
      */
     protected $permissions = false;
 
@@ -424,7 +424,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      * Liefert minimalen und maximalen createtime-Timestamp
      * @param int $archived
      * @return array
-     * @since FPCM 3.3.3
+     * @since 3.3.3
      */
     public function getMinMaxDate($archived = false)
     {
@@ -454,7 +454,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      * Verschiebt Artikel von einem Benutzer zu einem anderen
      * @param int $userIdFrom
      * @param int $userIdTo
-     * @since FPCM 3.5.1
+     * @since 3.5.1
      * @return bool
      */
     public function moveArticlesToUser($userIdFrom, $userIdTo)
@@ -482,7 +482,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     /**
      * Löscht alle Artikel eines Benutzers
      * @param int $userId
-     * @since FPCM 3.5.1
+     * @since 3.5.1
      * @return bool
      */
     public function deleteArticlesByUser($userId)
@@ -507,7 +507,7 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      * Massenbearbeitung
      * @param array $articleIds
      * @param array $fields
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function editArticlesByMass(array $articleIds, array $fields)
     {
@@ -571,6 +571,47 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     }
 
     /**
+     * Fetch counts of comments amnd shares for articles
+     * @param array $ids
+     * @return array
+     * @since 4.5
+     */
+    public function getRelatedItemsCount(array $ids = []) : array
+    {
+        if (isset($this->data[__METHOD__])) {
+            return $this->data[__METHOD__];
+        }
+        
+        $obj = (new \fpcm\model\dbal\selectParams(\fpcm\classes\database::viewArticleCounts))
+                ->setItem('*')
+                ->setFetchAll(true);
+        
+        if (count($ids)) {
+            $obj->setWhere($this->dbcon->inQuery('article_id', $ids));
+            $obj->setParams($ids);
+        }
+        
+        $data = $this->dbcon->selectFetch($obj);
+        if (!is_array($data) || !count($data)) {
+            return [];
+        }
+        
+        $return = [];
+        array_walk($data, function ($value) use (&$return) {
+           
+            $return[$value->article_id] = new relatedCountItem(
+                (int) $value->article_id,
+                (int) $value->ccount,
+                (int) $value->cprivunapp,
+                (int) $value->shares
+            );
+
+        });
+
+        return $this->data[__METHOD__] = $return;
+    }
+
+    /**
      * Erzeugt Listen-Result-Array
      * @param array $list
      * @param bool $monthIndex
@@ -618,71 +659,77 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
         }
 
         if ($conditions->title !== null) {
-            $where[] = "title " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions->title}%";
+            $where[] = "title " . $this->dbcon->dbLike() . " :title";
+            $valueParams[':title'] = "%{$conditions->title}%";
         }
 
         if ($conditions->content !== null) {
-            $where[] = "content " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions->content}%";
+            $where[] = "content " . $this->dbcon->dbLike() . " :content";
+            $valueParams[':content'] = "%{$conditions->content}%";
         }
 
         if ($conditions->user !== null) {
-            $where[] = "createuser = ?";
-            $valueParams[] = $conditions->user;
+            $where[] = "createuser = :createuser";
+            $valueParams[':createuser'] = $conditions->user;
         }
 
         if ($conditions->category !== null) {
             $catId = (int) $conditions->category;
-            $where[] = "(categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ?)";
-            $valueParams[] = "[{$catId}]";
-            $valueParams[] = "%,{$catId},%";
-            $valueParams[] = "[{$catId},%";
-            $valueParams[] = "%,{$catId}]";
+            $where[] = "(categories " . $this->dbcon->dbLike() . " :categories1 OR categories " . $this->dbcon->dbLike() . " :categories2 OR categories " . $this->dbcon->dbLike() . " :categories3 OR categories " . $this->dbcon->dbLike() . " :categories4)";
+            $valueParams[':categories1'] = "[{$catId}]";
+            $valueParams[':categories2'] = "%,{$catId},%";
+            $valueParams[':categories3'] = "[{$catId},%";
+            $valueParams[':categories4'] = "%,{$catId}]";
         }
 
         if ($conditions->datefrom !== null) {
-            $where[] = "createtime >= ?";
-            $valueParams[] = $conditions->datefrom;
+            $where[] = "createtime >= :createtime";
+            $valueParams[':createtime'] = $conditions->datefrom;
         }
 
         if ($conditions->dateto !== null) {
-            $where[] = "createtime <= ?";
-            $valueParams[] = $conditions->dateto;
+            $where[] = "createtime <= :createtime";
+            $valueParams[':createtime'] = $conditions->dateto;
         }
 
-        if ($conditions->postponed !== null) {
-            $where[] = "postponed = ?";
-            $valueParams[] = $conditions->postponed;
+        if ($conditions->postponed === article::POSTPONED_SEARCH_FE) {
+            $where[] = "(postponed = :postponed0 OR (postponed = :postponed1 AND createtime <= :postponedt))";
+            $valueParams[':postponed0'] = article::POSTPONED_INACTIVE;
+            $valueParams[':postponed1'] = article::POSTPONED_ACTIVE;
+            $valueParams[':postponedt'] = time();
+        }
+        elseif ($conditions->postponed !== null) {
+            $where[] = "postponed = :postponed";
+            $valueParams[':postponed'] = $conditions->postponed;
         }
 
         if ($conditions->archived !== null) {           
-            $where[] = "archived = ?";
-            $valueParams[] = $conditions->archived;
+            $where[] = "archived = :archived";
+            $valueParams[':archived'] = $conditions->archived;
         }
 
         if ($conditions->pinned !== null) {
-            $where[] = "pinned = ?";
+            $where[] = "pinned = :pinned";
             $valueParams[] = $conditions->pinned;
         }
 
         if ($conditions->comments !== null) {
-            $where[] = "comments = ?";
-            $valueParams[] = $conditions->comments;
+            $where[] = "comments = :comments";
+            $valueParams[':comments'] = $conditions->comments;
         }
 
-        $where[] = "deleted = ?";
-        $valueParams[] = $conditions->deleted !== null ? $conditions->deleted : 0;
-
         if ($conditions->draft !== null) {
-            $where[] = "draft = ?";
-            $valueParams[] = $conditions->draft > -1 ? $conditions->draft : 0;
+            $where[] = "draft = :draft";
+            $valueParams[':draft'] = $conditions->draft > -1 ? $conditions->draft : 0;
         }
 
         if ($conditions->approval !== null) {
-            $where[] = "approval = ?";
-            $valueParams[] = $conditions->approval > -1 ? $conditions->approval : 0;
+            $where[] = "approval = :approval";
+            $valueParams[':approval'] = $conditions->approval > -1 ? $conditions->approval : 0;
         }
+
+        $where[] = "deleted = :deleted";
+        $valueParams[':deleted'] = $conditions->deleted !== null ? $conditions->deleted : 0;
 
         return true;
     }
@@ -692,80 +739,80 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
      * @param \fpcm\model\comments\search $conditions
      * @param array $where
      * @param array $valueParams
-     * @since FPCM 4.3
+     * @since 4.3
      */
     private function assignMultipleSearchParams(search $conditions, array &$where, array &$valueParams) : bool
     {
         if ($conditions->title !== null && $conditions->content !== null && $conditions->combination !== null) {
-            $where[] = "(title " . $this->dbcon->dbLike() . " ? {$conditions->combination} content " . $this->dbcon->dbLike() . " ?)";
-            $valueParams[] = "%{$conditions->title}%";
-            $valueParams[] = "%{$conditions->content}%";
+            $where[] = "(title " . $this->dbcon->dbLike() . " :title {$conditions->combination} content " . $this->dbcon->dbLike() . " :content)";
+            $valueParams[':title'] = "%{$conditions->title}%";
+            $valueParams[':content'] = "%{$conditions->content}%";
         }
         elseif ($conditions->title !== null) {
-            $where[] = "title " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions->title}%";
+            $where[] = "title " . $this->dbcon->dbLike() . " :title";
+            $valueParams[':title'] = "%{$conditions->title}%";
         }
         elseif ($conditions->content !== null) {
-            $where[] = "content " . $this->dbcon->dbLike() . " ?";
-            $valueParams[] = "%{$conditions->content}%";
+            $where[] = "content " . $this->dbcon->dbLike() . " :content";
+            $valueParams[':content'] = "%{$conditions->content}%";
         }
 
         if ($conditions->datefrom !== null) {
-            $where[] = $conditions->getCondition('datefrom', 'createtime >= ?');
-            $valueParams[] = $conditions->datefrom;
+            $where[] = $conditions->getCondition('datefrom', 'createtime >= :createtime');
+            $valueParams[':createtime'] = $conditions->datefrom;
         }
 
         if ($conditions->dateto !== null) {
-            $where[] = $conditions->getCondition('dateto', 'createtime <= ?');
-            $valueParams[] = $conditions->dateto;
+            $where[] = $conditions->getCondition('dateto', 'createtime <= :createtime');
+            $valueParams[':createtime'] = $conditions->dateto;
         }
 
         if ($conditions->user !== null) {
-            $where[] = $conditions->getCondition('userid', 'createuser = ?');
-            $valueParams[] = $conditions->user;
+            $where[] = $conditions->getCondition('userid', 'createuser = :createuser');
+            $valueParams[':createuser'] = $conditions->user;
         }
 
         if ($conditions->category !== null) {
             $catId = (int) $conditions->category;
-            $where[] = $conditions->getCondition('categoryid', "(categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ? OR categories " . $this->dbcon->dbLike() . " ?)");
-            $valueParams[] = "[{$catId}]";
-            $valueParams[] = "%,{$catId},%";
-            $valueParams[] = "[{$catId},%";
-            $valueParams[] = "%,{$catId}]";
+            $where[] = $conditions->getCondition('categoryid', "(categories " . $this->dbcon->dbLike() . " :categories1 OR categories " . $this->dbcon->dbLike() . " :categories2 OR categories " . $this->dbcon->dbLike() . " :categories3 OR categories " . $this->dbcon->dbLike() . " :categories4)");
+            $valueParams[':categories1'] = "[{$catId}]";
+            $valueParams[':categories2'] = "%,{$catId},%";
+            $valueParams[':categories3'] = "[{$catId},%";
+            $valueParams[':categories4'] = "%,{$catId}]";
         }
 
         if ($conditions->pinned !== null) {
-            $where[] = $conditions->getCondition('pinned', 'pinned = ?');
-            $valueParams[] = $conditions->pinned;
+            $where[] = $conditions->getCondition('pinned', 'pinned = :pinned');
+            $valueParams[':pinned'] = $conditions->pinned;
         }
 
         if ($conditions->postponed !== null) {
-            $where[] = $conditions->getCondition('postponed', 'postponed = ?');
-            $valueParams[] = $conditions->postponed;
+            $where[] = $conditions->getCondition('postponed', 'postponed = :postponed');
+            $valueParams[':postponed'] = $conditions->postponed;
         }
 
         if ($conditions->comments !== null) {
-            $where[] = $conditions->getCondition('comments', 'comments = ?');
-            $valueParams[] = $conditions->comments;
+            $where[] = $conditions->getCondition('comments', 'comments = :comments');
+            $valueParams[':comments'] = $conditions->comments;
         }
 
         if ($conditions->approval !== null) {
-            $where[] = $conditions->getCondition('approval', 'approval = ?');
-            $valueParams[] = $conditions->approval > -1 ? $conditions->approval : 0;
+            $where[] = $conditions->getCondition('approval', 'approval = :approval');
+            $valueParams[':approval'] = $conditions->approval > -1 ? $conditions->approval : 0;
         }
 
         if ($conditions->draft !== null) {
-            $where[] = $conditions->getCondition('draft', 'draft = ?');
-            $valueParams[] = $conditions->draft > -1 ? $conditions->draft : 0;
+            $where[] = $conditions->getCondition('draft', 'draft = :draft');
+            $valueParams[':draft'] = $conditions->draft > -1 ? $conditions->draft : 0;
         }
 
         if ($conditions->archived !== null) {           
-            $where[] = $conditions->getCondition('archived', 'archived = ?');
-            $valueParams[] = $conditions->archived;
+            $where[] = $conditions->getCondition('archived', 'archived = :archived');
+            $valueParams[':archived'] = $conditions->archived;
         }
 
-        $where[] = $conditions->getCondition('deleted', "deleted = ?");
-        $valueParams[] = $conditions->deleted !== null ? $conditions->deleted : 0;
+        $where[] = $conditions->getCondition('deleted', "deleted = :deleted");
+        $valueParams[':deleted'] = $conditions->deleted !== null ? $conditions->deleted : 0;
 
         return true;
     }

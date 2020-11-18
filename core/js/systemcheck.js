@@ -24,7 +24,7 @@ fpcm.systemcheck = {
     execute: function() {
         fpcm.ajax.get('syscheck', {
             execDone: function (result) {
-                fpcm.ui.assignHtml("#tabs-options-check", result);
+                fpcm.dom.assignHtml("#tabs-options-check", result);
                 fpcm.ui.initJqUiWidgets();
             }
         });

@@ -13,8 +13,9 @@ fpcm.installer = {
     currentDbFileIndex: 0,
 
     init: function() {
+
         fpcm.installer.initUi();
-        fpcm.installer.initDatabase();
+        fpcm.installer.initDatabase(1, 0);
         
         jQuery('button.fpcm-installer-next-4').hide();
     },
@@ -27,7 +28,7 @@ fpcm.installer = {
             var objVal  = jQuery(obj).val();
             var objName = jQuery(obj).attr('id').replace('database', '');                                
             sParams[objName] = objVal;
-        }); 
+        });
         
         fpcm.ajax.post('installer/checkdb', {
             data: {
@@ -55,53 +56,54 @@ fpcm.installer = {
         return false;
     },
 
-    initDatabase: function () {
-        
+    initDatabase: function (_next, _current) {
+
         if (!fpcm.vars.jsvars.sqlFilesCount) {
             return false;
         }
 
-        fpcm.installer.execDbFile();
-
-    },
-
-    execDbFile: function() {
-
-        if (fpcm.vars.jsvars.sqlFiles[fpcm.installer.currentDbFileIndex] === undefined) {
-            return true;
-        }
-
-        var obj = fpcm.vars.jsvars.sqlFiles[fpcm.installer.currentDbFileIndex];
-        var rowId = 'installer-tabs-' + fpcm.installer.currentDbFileIndex;
-
-        fpcm.ui.appendHtml('#fpcm-installer-execlist', '<div class="row no-gutters fpcm-ui-padding-md-tb"><div class="col-12" id="' + rowId + '"><span class="fa fa-spinner fa-spin fa-fw"></span> ' + fpcm.ui.translate('INSTALLER_CREATETABLES_STEP').replace('{{tablename}}', obj.descr) + '</div></div>');
+        var _progress = fpcm.ui.progressbar('.fpcm-installer-dbtables', {
+            max: fpcm.vars.jsvars.sqlFilesCount,
+            value: _current
+        });
+        
+        fpcm.dom.fromClass('fpcm-ui-progressbar-label').text(fpcm.ui.translate('INSTALLER_CREATETABLES_HEAD'));
 
         fpcm.ajax.post('installer/initdb', {
             quiet: true,
             data: {
-                file: obj.path
+                next: _next,
+                current: _current
             },
             execDone: function (result) {
-                jQuery('#fpcm-installer-execlist').find('span.fa-spinner').remove();
+                
+                if (result.data.msg) {
+                    fpcm.ui.addMessage(result.data.msg);
+                    return false;
+                }
 
-                if(result != 0){
-                    fpcm.ui.prependHtml('#' + rowId, '<span class="fa fa-check fa-fw"></span>');
-                    fpcm.installer.currentDbFileIndex++;
-                    fpcm.installer.execDbFile();
-                    
-                    if (fpcm.installer.currentDbFileIndex === fpcm.vars.jsvars.sqlFiles.length) {
-                        jQuery('button.fpcm-installer-next-4').show();
+                if (result.data.html) {
+                    for (var i in result.data.html) {
+                        let item = result.data.html[i];                    
+                        fpcm.dom.appendHtml('#fpcm-installer-execlist', '<div class="row no-gutters py-2"><div class="col-12" id="installer-tabs-' + item.tab + '">' + fpcm.ui.getIcon(item.icon, {
+                            class: item.class
+                        }) + fpcm.ui.translate('INSTALLER_CREATETABLES_STEP').replace('{{tablename}}', item.tab) + '</div></div>');
                     }
+                }
+                
+                _progress.progressbar('option', 'value', result.current);
 
+                if (result.current >= fpcm.vars.jsvars.sqlFilesCount && !result.next) {
+                    fpcm.dom.fromClass('fpcm-ui-progressbar-label').hide();
+                    fpcm.dom.fromTag('button.fpcm-installer-next-4').show();
                     return true;
                 }
 
-                fpcm.ui.prependHtml('#' + rowId, '<span class="fa fa-ban fa-fw fpcm-ui-important-text"></span>');
-                fpcm.installer.breakDbInit = false;
-
-                return false;
+                fpcm.installer.initDatabase(result.next, result.current);
+                return true;
             }
         });
+
 
     },
 

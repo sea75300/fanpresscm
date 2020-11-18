@@ -68,7 +68,6 @@ use fpcm\model\traits\eventModuleEmpty;
  * 
  * @property int    $file_img_thumb_width Thumbnail width
  * @property int    $file_img_thumb_height Thumbnail height
- * @property bool   $file_uploader_new Use jQuery base uplaoder (@deprecated since version FPCM 4.3)
  * @property int    $file_list_limit Numer of files per page
  * @property bool   $file_subfolders Create subfolder of form YYYY-MM
  * @property string $file_view File manager view
@@ -283,8 +282,7 @@ final class config extends dataset {
 
         if ($this->cache->isExpired($this->cacheName) || !$this->useCache) {
 
-            $obj = new \fpcm\model\dbal\selectParams();
-            $obj->setTable($this->table);
+            $obj = new \fpcm\model\dbal\selectParams($this->table);
             $obj->setFetchAll(true);
             foreach ($this->dbcon->selectFetch($obj) as $data) {
                 $this->data[$data->config_name] = $data->config_value;
@@ -306,7 +304,7 @@ final class config extends dataset {
     /**
      * Bereitet Daten für Speicherung in Datenbank vor
      * @return bool
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function prepareDataSave()
     {
@@ -320,6 +318,23 @@ final class config extends dataset {
 
         if (isset($this->newConfig['system_css_path'])) {
             $this->newConfig['system_css_path'] = filter_var($this->newConfig['system_css_path'], FILTER_SANITIZE_URL);
+        }
+
+        
+        
+        $classes = $this->newConfig['system_editor_css'] ?? null;
+        if (trim($classes)) {
+            $classes = explode(PHP_EOL, trim($classes));
+            if (count($classes)) {
+                $classes = implode(PHP_EOL, array_filter($classes, function ($item) {
+                    return (bool) preg_match('/^\.{1}[a-z0-9\_\-]+\{\}$/i', trim($item));
+                }));
+
+                $this->newConfig['system_editor_css'] = trim($classes);
+            }
+            else {
+                $this->newConfig['system_editor_css'] = '';
+            }
         }
 
         if (isset($this->newConfig['system_editor'])) {
@@ -421,7 +436,7 @@ final class config extends dataset {
      * Returns config options by module key
      * @param string $key
      * @return array
-     * @since FPCM 4
+     * @since 4
      */
     public function getModuleOptions(string $key) : array
     {
@@ -443,7 +458,7 @@ final class config extends dataset {
     /**
      * Returns minor version string as Number
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function getVersionNumberString() : string
     {
@@ -463,7 +478,7 @@ final class config extends dataset {
     /**
      * Array mit Schriftgrößen für Editor
      * @return array
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public static function getDefaultFontsizes()
     {
@@ -479,7 +494,7 @@ final class config extends dataset {
     /**
      * Array mit Anzahl-Limits für Artikel in ACP-Liste
      * @return array
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public static function getAcpArticleLimits()
     {
@@ -499,7 +514,7 @@ final class config extends dataset {
     /**
      * Array mit Anzahl-Limits für Artikel-Listen
      * @return array
-     * @since FPCM 3.4
+     * @since 3.4
      */
     public static function getArticleLimits()
     {

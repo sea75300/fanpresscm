@@ -60,7 +60,7 @@ class view {
     /**
      * <body> CSS class
      * @var string
-     * @since FPCM 4.2
+     * @since 4.2
      */
     protected $bodyClass = '';
 
@@ -80,20 +80,27 @@ class view {
      * View JS files
      * @var array
      */
-    protected $viewJsFiles = [];
+    protected $jsFiles = [];
+
+    /**
+     * View JS files
+     * @var array
+     * @since 4.5
+     */
+    protected $jsFilesLate = [];
 
     /**
      * Local view files in core/js
      * @var array
-     * @since FPCM 4.1
+     * @since 4.1
      */
-    protected $viewJsFilesLocal = [];
+    protected $jsFilesLocal = [];
 
     /**
      * View CSS files
      * @var array
      */
-    protected $viewCssFiles = [];
+    protected $cssFiles = [];
 
     /**
      * View messages
@@ -105,7 +112,7 @@ class view {
      * View JS vars
      * @var array
      */
-    protected $jsvars = [];
+    protected $jsVars = [];
 
     /**
      * View JS language vars
@@ -176,7 +183,7 @@ class view {
     /**
      * Root urls for replacements
      * @var array
-     * @since FPCM 4.1
+     * @since 4.1
      */
     protected $rootUrls = [];
     
@@ -246,7 +253,7 @@ class view {
     /**
      * Checks item if included system paths
      * @param string $item
-     * @since FPCM 3.6
+     * @since 3.6
      */
     private function addRootPath($item)
     {
@@ -258,7 +265,7 @@ class view {
 
         $type = $this->getJsFileType($item, $jsCorePath);
         if ($type === self::JS_FILETYP_FILE) {
-            $this->viewJsFilesLocal[] = $jsCorePath;
+            $this->jsFilesLocal[] = $jsCorePath;
             return $jsCorePath;
         }
 
@@ -269,7 +276,7 @@ class view {
      * Checks path type of given JS file
      * @param string $item
      * @param string $jsCorePath
-     * @since FPCM 4.1
+     * @since 4.1
      */
     private function getJsFileType(string $item, &$jsCorePath) : int
     {
@@ -298,25 +305,29 @@ class view {
         
         if ($this->config->system_maintenance) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE')->setClass('fpcm-ui-important-text')
-            ));
-        }
-        
-        if (!$this->config->file_uploader_new) {
-            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('file-upload'))->setText('FILES_NEWUPLOADER_DISABLED')->setClass('fpcm-ui-important-text')
+                (new helper\icon('lightbulb'))->setText('SYSTEM_OPTIONS_MAINTENANCE'),
+                '', '', 'fpcm-ui-important-text'
             ));
         }
 
         if (!\fpcm\classes\baseconfig::asyncCronjobsEnabled()) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS')->setClass('fpcm-ui-important-text')
+                (new helper\icon('history'))->setText('SYSTEM_OPTIONS_CRONJOBS'),
+                '', '', 'fpcm-ui-important-text'
             ));
         }
         
         if (defined('FPCM_DEBUG') && FPCM_DEBUG) {
             $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
-                (new helper\icon('terminal'))->setText('DEBUG_MODE')->setClass('fpcm-ui-important-text')
+                (new helper\icon('terminal'))->setText('DEBUG_MODE'),
+                '', '', 'fpcm-ui-important-text'
+            ));
+        }
+        
+        if (defined('FPCM_VIEW_JS_USE_MINIFIED') && FPCM_VIEW_JS_USE_MINIFIED) {
+            $this->notifications->addNotification(new \fpcm\model\theme\notificationItem(
+                (new helper\icon('js', 'fab'))->setText('NOTIFICATION_EXPERIMENTAL_MINJS'),
+                '', '', 'fpcm-ui-important-text'
             ));
         }
 
@@ -326,86 +337,126 @@ class view {
 
     /**
      * Add JavScript files to view
-     * @param array $viewJsFiles
+     * @param array $jsFiles
      */
-    public function addJsFiles(array $viewJsFiles)
+    public function addJsFiles(array $jsFiles)
     {
-        $this->viewJsFiles = array_merge($this->viewJsFiles, $viewJsFiles);
+        $this->jsFiles = array_merge($this->jsFiles, $jsFiles);
+    }
+
+    /**
+     * Add JavScript files to view
+     * @param array $jsFiles
+     */
+    public function addJsFilesLate(array $jsFilesLate)
+    {
+        $this->jsFilesLate = array_merge($this->jsFilesLate, $jsFilesLate);
     }
 
     /**
      * Add CSS files variable to view
-     * @param array $viewCssFiles
+     * @param array $cssFiles
      */
-    public function addCssFiles(array $viewCssFiles)
+    public function addCssFiles(array $cssFiles)
     {
-        $this->viewCssFiles = array_merge($this->viewCssFiles, $viewCssFiles);
+        $this->cssFiles = array_merge($this->cssFiles, $cssFiles);
     }
 
     /**
      * Add new JS vars
-     * @param mixed $jsvars
+     * @param mixed $jsVars
      */
-    public function addJsVars(array $jsvars)
+    public function addJsVars(array $jsVars)
     {
-        $this->jsvars = array_merge($this->jsvars, $jsvars);
+        $this->jsVars = array_merge($this->jsVars, $jsVars);
     }
     
     /**
      * Merge new JS vars
      * @param string $jsVar
-     * @param array $jsvars
+     * @param array $jsVars
      */
-    protected function mergeJsVars($jsVar, array $jsvars)
+    protected function mergeJsVars($jsVar, array $jsVars)
     {
-        $this->jsvars[$jsVar] = array_merge($this->jsvars[$jsVar], $jsvars[$jsVar]);
+        $this->jsVars[$jsVar] = array_merge($this->jsVars[$jsVar], $jsVars[$jsVar]);
     }
 
     /**
      * Overrides CSS files variable to view
-     * @param array $viewCssFiles
+     * @param array $cssFiles
      */
-    public function overrideCssFiles(array $viewCssFiles)
+    public function overrideCssFiles(array $cssFiles)
     {
-        $this->viewCssFiles = $viewCssFiles;
+        $this->cssFiles = $cssFiles;
     }
 
     /**
      * Overrides new JS vars
-     * @param mixed $viewJsFiles
+     * @param mixed $jsFiles
      */
-    public function overrideJsFiles(array $viewJsFiles)
+    public function overrideJsFiles(array $jsFiles)
     {
-        $this->viewJsFiles = $viewJsFiles;
+        $this->jsFiles = $jsFiles;
     }
     
     /**
      * Overrides new JS language vars
-     * @param array $jsvars
+     * @param array $jsVars
      */
-    public function overrideJsLangVars(array $jsvars)
+    public function overrideJsLangVars(array $jsVars)
     {
-        $keys = array_values($jsvars);
-        $values = array_map([$this->language, 'translate'], array_values($jsvars));
+        $keys = array_values($jsVars);
+        $values = array_map([$this->language, 'translate'], array_values($jsVars));
 
         $this->jsLangVars = array_combine($keys, $values);
     }
 
     /**
      * Add new JS language vars
-     * @param mixed $jsvars
+     * @param mixed $jsVars
      */
-    public function addJsLangVars(array $jsvars)
+    public function addJsLangVars(array $jsVars)
     {
-        $keys = array_values($jsvars);
-        $values = array_map([$this->language, 'translate'], array_values($jsvars));
+        $keys = array_values($jsVars);
+        $values = array_map([$this->language, 'translate'], array_values($jsVars));
 
         $this->jsLangVars = array_merge($this->jsLangVars, array_combine($keys, $values));
     }
 
     /**
+     * Add js and css files from 3rd party library
+     * @param string $lib
+     * @param array $jsFiles
+     * @param array $cssFiles
+     * @return bool
+     * @since 4.5
+     */
+    final public function addFromLibrary(string $lib, array $jsFiles = [], array $cssFiles = []) : bool
+    {
+        if (!trim($lib)) {
+            return false;
+        }
+        
+        $lib = \fpcm\classes\dirs::getLibUrl($lib. '/' );
+        
+        $this->addJsFiles(array_map(function ($item) use ($lib) {
+            return $lib.$item;
+        }, $jsFiles));
+
+        if (!count($cssFiles)) {
+            return true;
+        }
+        
+        $this->addCssFiles(array_map(function ($item) use ($lib) {
+            return $lib.$item;
+        }, $cssFiles));
+
+        return true;
+    }
+
+    /**
      * Add array of buttons to toolbar
-     * @param array[fpcm/view/helper/helper] $buttons
+     * @param array $buttons Array of fpcm/view/helper/helper items
      */
     public function addButtons(array $buttons)
     {
@@ -438,7 +489,7 @@ class view {
 
     /**
      * Force to load jQuery in Pub-Controllers before other JS-Files if not already done
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     public function prependjQuery()
     {
@@ -446,7 +497,7 @@ class view {
             return false;
         }
 
-        array_unshift($this->viewJsFiles, \fpcm\classes\loader::libGetFileUrl('jquery/jquery-3.4.1.min.js'));
+        array_unshift($this->jsFiles, \fpcm\components\components::getjQuery());
     }
 
     /**
@@ -463,7 +514,7 @@ class view {
      * Adds top description
      * @param string $descr
      * @param array $params
-     * @since FPCM 4.2
+     * @since 4.2
      */
     public function addTopDescription(string $descr, array $params = [])
     {
@@ -544,8 +595,8 @@ class view {
     public function render()
     {
         if (!file_exists($this->viewPath) || strpos(realpath($this->viewPath), \fpcm\classes\dirs::getFullDirPath('') ) !== 0) {
-            trigger_error("View file {$this->viewName} not found!");
-            exit("View file {$this->viewName} not found!");
+            trigger_error("View file {$this->viewName} not found in {$this->viewPath}!", E_USER_ERROR);
+            exit("View file {$this->viewName} not found in {$this->viewPath}!");
         }
 
         $this->initAssigns();
@@ -636,31 +687,39 @@ class view {
         $this->defaultViewVars->formActionTarget = $this->formAction;
         $this->defaultViewVars->bodyClass = $this->bodyClass;
         $this->defaultViewVars->lang = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-        $this->defaultViewVars->filesCss = array_unique(array_map([$this, 'addRootPath'], $this->viewCssFiles));
+        $this->defaultViewVars->filesCss = array_unique(array_map([$this, 'addRootPath'], $this->cssFiles));
 
-        $this->viewJsFiles = array_unique(array_diff(array_map([$this, 'addRootPath'], $this->viewJsFiles), $this->viewJsFilesLocal));
-        $this->viewJsFilesLocal = array_unique($this->viewJsFilesLocal);
+        $this->jsFiles = array_unique(array_diff(array_map([$this, 'addRootPath'], $this->jsFiles), $this->jsFilesLocal));
+        $this->jsFilesLate = array_unique(array_map([$this, 'addRootPath'], $this->jsFilesLate));
+        $this->jsFilesLocal = array_unique($this->jsFilesLocal);
 
-        $this->viewHash = \fpcm\classes\tools::getHash($this->viewPath.$this->viewHash. implode('-', $this->viewJsFilesLocal));
-        $this->viewJsFiles = array_map(function($item) {
+        $this->viewHash = \fpcm\classes\tools::getHash($this->viewPath.$this->viewHash. implode('-', $this->jsFilesLocal));
+        $this->jsFiles = array_map(function($item) {
             return str_replace(self::ROOTURL_UNIQUE, $this->viewHash, $item);
-        }, $this->viewJsFiles);
+        }, $this->jsFiles);
+
+        $this->jsFilesLate = array_map(function($item) {
+            return str_replace(self::ROOTURL_UNIQUE, $this->viewHash, $item);
+        }, $this->jsFilesLate);
         
-        $this->defaultViewVars->filesJs = $this->viewJsFiles;
-        $this->cache->write(self::JS_FILES_CACHE.$this->getViewHash(), $this->viewJsFilesLocal);
+        $this->defaultViewVars->filesJs = $this->jsFiles;
+        $this->defaultViewVars->filesJsLate = $this->jsFilesLate;
+        $this->cache->write(self::JS_FILES_CACHE.$this->getViewHash(), $this->jsFilesLocal);
 
         $this->defaultViewVars->fullWrapper = in_array($this->defaultViewVars->currentModule, ['installer']);
         $this->defaultViewVars->showPageToken = $this->showPageToken;
 
-        $this->jsvars['currentModule'] = $this->defaultViewVars->currentModule;
+        $this->jsVars['currentModule'] = $this->defaultViewVars->currentModule;
 
         $this->defaultViewVars->varsJs = [
             'vars' => [
                 'ui' => [
                     'messages' => $this->messages,
                     'lang' => $this->jsLangVars,
+                    'notifyicon' => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, 'favicon-32x32.png'),
+                    'jsIconDummy' => new helper\jsIcon('')
                 ],
-                'jsvars' => $this->jsvars,
+                'jsvars' => $this->jsVars,
                 'actionPath' => \fpcm\classes\tools::getFullControllerLink(''),
                 'ajaxActionPath' => \fpcm\classes\tools::getFullControllerLink('ajax/'),
             ]
@@ -731,7 +790,7 @@ class view {
      */
     public function setFieldAutofocus($elementId)
     {
-        $this->jsvars['fieldAutoFocus'] = (string) $elementId;
+        $this->jsVars['fieldAutoFocus'] = (string) $elementId;
     }
 
     /**
@@ -745,7 +804,7 @@ class view {
             return false;
         }
 
-        $this->jsvars['navigationActive'] = (string) $elementId;
+        $this->jsVars['navigationActive'] = (string) $elementId;
     }
 
     /**
@@ -760,7 +819,7 @@ class view {
     /**
      * Returns Sha256-hash on view path
      * @return string
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function getViewHash() : string
     {
@@ -771,7 +830,7 @@ class view {
      * Returns Sha256-hash on view path
      * @param string $viewHash
      * @return bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function setViewHashDefault(string $viewHash) : bool
     {
@@ -805,11 +864,11 @@ class view {
      * Set Active tab
      * @param int $tab
      * @return void
-     * @since FPCM 4.1
+     * @since 4.1
      */
     public function setActiveTab(int $tab)
     {
-        $this->jsvars['activeTab'] = $tab;
+        $this->jsVars['activeTab'] = $tab;
         $this->viewVars['activeTab'] = $tab;
     }
 
@@ -817,7 +876,7 @@ class view {
      * Set <body>-tag CSS class
      * @param int $bodyClass
      * @return void
-     * @since FPCM 4.2
+     * @since 4.2
      */
     public function setBodyClass(string $bodyClass)
     {
@@ -846,7 +905,7 @@ class view {
         $vars = $dataView->getJsVars();
         
         if (count($vars)) {
-            if (isset($this->jsvars['dataviews'])) {
+            if (isset($this->jsVars['dataviews'])) {
                 $this->mergeJsVars('dataviews', $vars);
             }
             else {
@@ -872,7 +931,7 @@ class view {
      * @param string $tabsId
      * @param array $tabs
      * @param string $tabsClass
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function addTabs(string $tabsId, array $tabs, string $tabsClass = '')
     {
@@ -896,7 +955,7 @@ class view {
     /**
      * Add HTML items into toolbar right hand to pager
      * @param string $data
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function addToolbarRight(string $data)
     {
@@ -913,8 +972,8 @@ class view {
             return false;
         }
         
-        $this->viewJsFiles = $this->events->trigger($type.'\addJsFiles', $this->viewJsFiles);
-        $this->viewCssFiles = $this->events->trigger($type.'\addCssFiles', $this->viewCssFiles);    
+        $this->jsFiles = $this->events->trigger($type.'\addJsFiles', $this->jsFiles);
+        $this->cssFiles = $this->events->trigger($type.'\addCssFiles', $this->cssFiles);    
 
         return true;
     }
@@ -923,13 +982,13 @@ class view {
      * Add AJAX page token to view
      * @param string $name
      * @return bool
-     * @since FPCM 4.3
+     * @since 4.3
      */
     public function addAjaxPageToken(string $name) : bool
     {
         $name = 'ajax/'.$name;
 
-        $this->jsvars['pageTokens'][$name] = (new \fpcm\classes\pageTokens)->refresh($name);
+        $this->jsVars['pageTokens'][$name] = (new \fpcm\classes\pageTokens)->refresh($name);
         return true;
     }
 
@@ -947,7 +1006,7 @@ class view {
             self::ROOTURL_CORE_THEME.'style.php'
         ]);
 
-        return $this->viewCssFiles;
+        return $this->cssFiles;
     }
 
     /**
@@ -957,13 +1016,14 @@ class view {
     private function initJsFiles()
     {
         $this->addJsFiles([
-            self::ROOTURL_LIB.'jquery/jquery-3.4.1.min.js',
+            \fpcm\components\components::getjQuery(),
             self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.js',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
             self::ROOTURL_CORE_JS.'script.php?uq={$unique}'
         ]);
 
-        return $this->viewJsFiles;
+        $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init'.self::getJsExt()]);
+        return $this->jsFiles;
     }
 
     /**
@@ -981,6 +1041,18 @@ class view {
         return preg_match("/($key)/is", $_SERVER['HTTP_USER_AGENT']) === 1 ? true : false;
     }
 
-}
+    /**
+     * Return JS file extension
+     * @return string
+     * @since 4.5
+     */
+    final public static function getJsExt() : string
+    {
+        $jsExt = '.js';
+        if (!defined('FPCM_VIEW_JS_USE_MINIFIED') || !FPCM_VIEW_JS_USE_MINIFIED) {
+            return $jsExt;
+        }
 
-?>
+        return '.min'.$jsExt;
+    }
+}

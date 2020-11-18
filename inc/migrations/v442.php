@@ -14,7 +14,7 @@ namespace fpcm\migrations;
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @package fpcm\migrations
- * @since FPCM 4.4.2
+ * @since 4.4.2
  * @see migration
  */
 class v442 extends migration {
@@ -60,23 +60,23 @@ class v442 extends migration {
     }
 
     /**
-     * Returns a list of migrations which have to be executed before
-     * @return array
-     */
-    protected function required(): array
-    {
-        return ['440b4'];
-    }
-
-    /**
      * Returns a list of database driver names the migration should be executed to,
      * default is MySQL/ MariaDB and Postgres
      * @return array
-     * @since FPCM 4.4.1
+     * @since 4.4.1
      */
     protected function onDatabase(): array
     {
         return [\fpcm\classes\database::DBTYPE_MYSQLMARIADB];
+    }
+
+    /**
+     * Returns new version, e. g. from version.txt
+     * @return string
+     */
+    protected function getNewVersion() : string
+    {
+        return '4.4.2';
     }
 
     

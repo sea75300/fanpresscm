@@ -12,7 +12,7 @@ namespace fpcm\controller\ajax\packagemgr;
  * 
  * @package fpcm\controller\ajax\packagemgr\sysupdater
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class moduleInstaller extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
@@ -80,7 +80,6 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController implemen
      */
     public function request()
     {
-        $this->response = new \fpcm\model\http\response;
         $this->key = $this->request->fromPOST('key');
         $this->step = 'exec'.$this->request->fromPOST('step', [\fpcm\model\http\request::FILTER_FIRSTUPPER]);
         $this->mode = $this->request->fromPOST('mode', [\fpcm\model\http\request::FILTER_FIRSTUPPER]);

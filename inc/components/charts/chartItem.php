@@ -14,7 +14,7 @@ namespace fpcm\components\charts;
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
  * @copyright (c) 2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
- * @since FPCM 4.3
+ * @since 4.3
  */
 class chartItem {
 

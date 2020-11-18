@@ -79,12 +79,16 @@ abstract class rollbase extends \fpcm\controller\abstracts\controller implements
             $errMsg = 'SAVE_FAILED_PERMISSIONS';
             $result = false;
         }
-        
+        else  if ($result === \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY) {
+            $errMsg = 'SAVE_FAILED_ROLL_EXISTS';
+            $result = false;
+        }
+
         if ($result) {
             $this->redirect('users/list', [$msg => 2, 'rg' => 1]);
             return true;
         }
-
+        
         $this->view->addErrorMessage($errMsg);
         return true;
     }

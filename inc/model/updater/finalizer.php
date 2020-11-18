@@ -20,7 +20,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
     /**
      * Run in command line mode
      * @var bool
-     * @since FPCM 4.1
+     * @since 4.1
      */
     private $isCli = false;
 
@@ -49,26 +49,22 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     public function runUpdate()
     {
+        if (method_exists($this->dbcon, 'transaction')) {
+            $this->dbcon->transaction();
+        }
+
         $res    = true &&
                 $this->alterTables() &&
                 $this->removeSystemOptions() &&
                 $this->addSystemOptions() &&
                 $this->updateSystemOptions() &&
                 $this->updatePermissions() &&
+                $this->runMigrations() &&
                 $this->updateVersion() &&
-                $this->optimizeTables() &&
-                $this->createTemplates();
+                $this->optimizeTables();
 
-        $class = \fpcm\migrations\migration::getNamespace(\fpcm\classes\baseconfig::getVersionFromFile());
-
-        if (class_exists($class)) {
-
-            /* @var $obj migration */
-            $obj = new $class;
-            if ($obj->isRequired()) {
-                $res = $res && $obj->process();
-            }
-
+        if (method_exists($this->dbcon, 'commit')) {
+            $this->dbcon->commit();
         }
 
         if (\fpcm\classes\baseconfig::canConnect()) {
@@ -76,6 +72,55 @@ final class finalizer extends \fpcm\model\abstracts\model {
         }
 
         return $res;
+    }
+
+    /**
+     * 
+     * @return bool
+     * @since 4.5-b3
+     */
+    private function runMigrations() : bool
+    {
+        $migrations = glob(\fpcm\classes\dirs::getIncDirPath('migrations/v*.php'));
+        
+        
+        if (!is_array($migrations)) {
+            return true;
+        }
+
+        array_walk($migrations, function (&$item) {
+            $item ='fpcm\\migrations\\' . basename($item, '.php');
+        });
+
+        $migrations = array_filter($migrations, function ($class) {
+            return class_exists($class);
+        });
+
+        if (!count($migrations)) {
+            return true;
+        }
+
+        array_walk($migrations, function (&$item) {
+            $item = new $item;
+        });
+
+        $migrations = array_filter($migrations, function ($obj) {
+            return $obj->isRequired();
+        });
+
+        if (!count($migrations)) {
+            return true;
+        }
+
+        /* @var $migration \fpcm\migrations\migration */
+        foreach ($migrations as $migration) {
+            if (!$migration->process()) {
+                $this->output('Processing of migration '. get_class($migration).' failed!.');
+                return false;
+            }
+        }
+        
+        return true;
     }
 
     /**
@@ -239,6 +284,12 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function alterTables()
     {
+        $this->dbcon->insert(\fpcm\classes\database::tableCategories, [
+           'name'  => __METHOD__,
+            'iconpath' => 'https://',
+            'groups' => '1'
+        ]);
+        
         $tableFiles = $this->dbcon->getTableFiles();
         if (!count($tableFiles)) {
             return true;
@@ -326,7 +377,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
 
     /**
      * Führt Optimierung der Datenbank-Tabellen durch
-     * @since FPCM 3.3
+     * @since 3.3
      * @return bool
      */
     private function optimizeTables()
@@ -372,7 +423,7 @@ final class finalizer extends \fpcm\model\abstracts\model {
      * @param string $version
      * @param string $option
      * @return bool
-     * @since FPCM 3.2
+     * @since 3.2
      */
     private function checkVersion($version, $option = '<')
     {
@@ -380,38 +431,9 @@ final class finalizer extends \fpcm\model\abstracts\model {
     }
 
     /**
-     * Creates missing templates druing update if not template not exists
-     * @return bool
-     */
-    private function createTemplates()
-    {
-        $tpl = new \fpcm\model\pubtemplates\sharebuttons();
-        if ($tpl->exists()) {
-            fpcmLogSystem('Skip creation of new template '.$tpl->getFilename());
-            return true;
-        }
-
-        $res = file_put_contents($tpl->getFullpath(), implode(PHP_EOL, [
-            '<ul class="fpcm-pub-sharebuttons">',
-            '    <li>{{likeButton}}</li>',
-            '    <li>{{facebook}}</li>',
-            '    <li>{{twitter}}</li>',
-            '    <li>{{tumblr}}</li>',
-            '    <li>{{pinterest}}</li>',
-            '    <li>{{reddit}}</li>',
-            '    <li>{{whatsapp}}</li>',
-            '    <li>{{email}}</li>',
-            '</ul>',
-            '{{credits}}'
-        ]));
-
-        return $res ? true : false;
-    }
-
-    /**
      * Print text in command line mode
      * @param string $str
-     * @since FPCM 4.1
+     * @since 4.1
      */
     private function cliOutput(string $str)
     {
@@ -431,6 +453,33 @@ final class finalizer extends \fpcm\model\abstracts\model {
         }
 
         \fpcm\model\cli\io::output($str);
+    }
+
+    /**
+     * Check if fullpath is valid path in /data folder structure
+     * @param string $path
+     * @param string $type
+     * @return bool
+     */
+    public static function isValidDataFolder(string $path = '', string $type = '/') : bool
+    {
+        if (!trim($path)) {
+            return false;
+        }
+
+        $dataPath = \fpcm\classes\dirs::getDataDirPath($type);
+        $realpath = realpath($path);
+        
+        if (!trim($realpath)) {
+            $realpath = self::realpathNoExists($path);
+        }
+
+        if (strpos($realpath, $dataPath) === 0) {
+            return true;
+        }
+        
+        trigger_error('Invalid data path found: '.$path);
+        return false;
     }
 
 }

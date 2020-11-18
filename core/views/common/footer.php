@@ -19,5 +19,6 @@
         
         </div>
 
+        <?php include_once 'jsfilesbtm.php'; ?>
     </body>
 </html>

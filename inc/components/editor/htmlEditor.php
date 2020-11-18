@@ -66,6 +66,7 @@ class htmlEditor extends articleEditor {
             \fpcm\classes\dirs::getLibUrl('codemirror/addon/hint/html-hint.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/addon/runmode/runmode.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/addon/runmode/colorize.js'),
+            \fpcm\classes\dirs::getLibUrl('codemirror/mode/yaml/yaml.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/xml/xml.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/javascript/javascript.js'),
             \fpcm\classes\dirs::getLibUrl('codemirror/mode/css/css.js'),
@@ -102,7 +103,7 @@ class htmlEditor extends articleEditor {
      * Array von Sprachvariablen für Nutzung in Javascript
      * @see \fpcm\model\abstracts\articleEditor
      * @return array
-     * @since FPCM 3.3
+     * @since 3.3
      */
     public function getJsLangVars()
     {
@@ -194,7 +195,7 @@ class htmlEditor extends articleEditor {
      * Arary mit Informationen u. a. für template-Plugin von TinyMCE
      * @see \fpcm\model\abstracts\articleEditor::getTemplateDrafts()
      * @return array
-     * @since FPCM 3.3
+     * @since 3.3
      */
     public function getTemplateDrafts()
     {

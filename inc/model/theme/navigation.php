@@ -18,17 +18,21 @@ namespace fpcm\model\theme;
 class navigation extends \fpcm\model\abstracts\staticModel {
 
     /**
+     * Navigation list
+     * @var navigationList
+     * @since 4.5
+     */
+    private $navList;
+
+
+    /**
      * Navigation rendern
      * @return array
      */
     public function render()
     {
-        $navigation = $this->events->trigger('navigation\render', $this->getNavigation());
-        foreach ($navigation as &$moduleOptions) {
-            $moduleOptions = $this->checkPermissions($moduleOptions);
-        }
-
-        return $navigation;
+        $this->getNavigation();
+        return $this->events->trigger('navigation\render', $this->navList);
     }
 
     /**
@@ -66,57 +70,57 @@ class navigation extends \fpcm\model\abstracts\staticModel {
      */
     private function getNavigation()
     {
-        return $this->events->trigger('navigation\add', [
-            navigationItem::AREA_DASHBOARD => array(
-                (new navigationItem())->setUrl('system/dashboard')->setDescription('HL_DASHBOARD')->setIcon('home fa-lg')
-            ),
-            navigationItem::AREA_ADDNEWS => array(
-                (new navigationItem())->setUrl('articles/add')
-                    ->setDescription('HL_ARTICLE_ADD')
-                    ->setIcon('pen-square fa-lg')
-                    ->setAccessible($this->permissions->article->add)
-            ),
-            navigationItem::AREA_EDITNEWS => array(
-                (new navigationItem())->setUrl('#')
-                    ->setDescription('HL_ARTICLE_EDIT')
-                    ->setIcon('book fa-lg')
-                    ->setSubmenu($this->editorSubmenu())
-                    ->setAccessible($this->permissions->editArticles() || $this->permissions->article->archive)
-                    ->setId('nav-id-editnews')
-                    ->setClass('fpcm-navigation-noclick')
-            ),
-            navigationItem::AREA_COMMENTS => array(
-                (new navigationItem())->setUrl('comments/list')
-                    ->setDescription('HL_COMMENTS_MNG')
-                    ->setIcon('comments fa-lg')
-                    ->setId('nav-item-editcomments')
-                    ->setAccessible($this->config->system_comments_enabled && $this->permissions->editComments())
-            ),
-            navigationItem::AREA_FILEMANAGER => array(
-                (new navigationItem())->setUrl('files/list&mode=1')
-                    ->setDescription('HL_FILES_MNG')
-                    ->setIcon('folder-open fa-lg')
-                    ->setAccessible($this->permissions->uploads->visible)
-            ),
-            navigationItem::AREA_OPTIONS => array(
-                (new navigationItem())->setUrl('#')
-                    ->setDescription('HL_OPTIONS')
-                    ->setIcon('cog fa-lg')
-                    ->setSubmenu($this->optionSubmenu())
-                    ->setAccessible($this->permissions->system->options)
-                    ->setId('fpcm-options-submenu')
-                    ->setClass('fpcm-navigation-noclick')
-            ),
-            navigationItem::AREA_MODULES => array(
-                (new navigationItem())->setUrl('modules/list')
-                    ->setDescription('HL_MODULES')
-                    ->setIcon('plug fa-lg')
-                    ->setSubmenu($this->modulesSubmenu())
-                    ->setAccessible($this->permissions->modules->configure || $this->permissions->modules->install || $this->permissions->modules->uninstall)
-            ),
-            navigationItem::AREA_TRASH => $this->addTrashItem(),
-            navigationItem::AREA_AFTER => []
-        ]);
+        $this->navList = new navigationList;
+
+        $this->navList->add(
+            navigationItem::AREA_DASHBOARD,
+            (new navigationItem())->setUrl('system/dashboard')->setDescription('HL_DASHBOARD')->setIcon('home fa-lg')
+        );
+
+        $this->navList->add(
+            navigationItem::AREA_ADDNEWS,
+            (new navigationItem())->setUrl('articles/add')->setDescription('HL_ARTICLE_ADD')->setIcon('pen-square fa-lg')->setAccessible($this->permissions->article->add)
+        );
+
+        $this->navList->add(
+            navigationItem::AREA_EDITNEWS,
+            (new navigationItem())->setUrl('#')->setDescription('HL_ARTICLE_EDIT')
+            ->setIcon('book fa-lg')->setSubmenu($this->editorSubmenu())
+            ->setAccessible($this->permissions->editArticles() || $this->permissions->article->archive)
+            ->setId('nav-id-editnews')->setClass('fpcm-navigation-noclick')
+        );
+
+        $this->navList->add(
+            navigationItem::AREA_COMMENTS,
+            (new navigationItem())->setUrl('comments/list')->setDescription('HL_COMMENTS_MNG')
+            ->setIcon('comments fa-lg')->setId('nav-item-editcomments')
+            ->setAccessible($this->config->system_comments_enabled && $this->permissions->editComments())
+        );
+
+        $this->navList->add(
+            navigationItem::AREA_FILEMANAGER,
+            (new navigationItem())->setUrl('files/list&mode=1')->setDescription('HL_FILES_MNG')
+            ->setIcon('folder-open fa-lg')->setAccessible($this->permissions->uploads->visible)    
+        );
+
+        $this->navList->add(
+            navigationItem::AREA_OPTIONS,
+            (new navigationItem())->setUrl('#')->setDescription('HL_OPTIONS')
+            ->setIcon('cog fa-lg')->setSubmenu($this->optionSubmenu())
+            ->setAccessible($this->permissions->system->options)
+            ->setId('fpcm-options-submenu')->setClass('fpcm-navigation-noclick')
+        );
+
+        $this->navList->add(
+            navigationItem::AREA_MODULES,
+            (new navigationItem())->setUrl('modules/list')->setDescription('HL_MODULES')
+            ->setIcon('plug fa-lg')->setSubmenu($this->modulesSubmenu())
+            ->setAccessible($this->permissions->modules->configure || $this->permissions->modules->install || $this->permissions->modules->uninstall)
+        );
+
+        $this->addTrashItem();
+
+        return $this->events->trigger('navigation\add', $this->navList);
     }
 
     /**
@@ -136,17 +140,17 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         }
 
         if (!count($submenu)) {
-            return $submenu;
+            return false;
         }
+                
+        $this->navList->add(
+            navigationItem::AREA_TRASH,
+            (new navigationItem())->setUrl('#')->setDescription('ARTICLES_TRASH')
+            ->setIcon('trash-alt', 'far')->setId('nav-id-trashmain')
+            ->setClass('fpcm-navigation-noclick')->setSubmenu($submenu)
+        );
 
-        return [
-            (new navigationItem())->setUrl('#')
-                ->setDescription('ARTICLES_TRASH')
-                ->setIcon('trash-alt', 'far')
-                ->setId('nav-id-trashmain')
-                ->setClass('fpcm-navigation-noclick')
-                ->setSubmenu($submenu)
-        ];
+        return true;
     }
 
     /**

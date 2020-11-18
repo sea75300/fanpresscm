@@ -95,7 +95,7 @@ class userList extends \fpcm\model\abstracts\tablelist {
 
     /**
      * Liefert ein array aller aktiven Benutzer
-     * @param bool $byGroup (@since FPCM 3.2.0)
+     * @param bool $byGroup (@since 3.2.0)
      * @return array of \fpcm\model\users\author
      */
     public function getUsersActive($byGroup = false)
@@ -119,7 +119,7 @@ class userList extends \fpcm\model\abstracts\tablelist {
 
     /**
      * Liefert ein array aller aktiven Benutzer
-     * @param bool $byGroup (@since FPCM 3.2.0)
+     * @param bool $byGroup (@since 3.2.0)
      * @return array
      */
     public function getUsersDisabled($byGroup = false)
@@ -175,14 +175,14 @@ class userList extends \fpcm\model\abstracts\tablelist {
      */
     public function getUsersByIds(array $ids)
     {
-        $item = $this->dbcon->getTablePrefixed($this->table) . '.*, ';
-        $item .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll) . '.leveltitle AS groupname';
+        $tabUser = $this->dbcon->getTablePrefixed($this->table);
+        $tabRoll = $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll);
 
-        $where = $this->dbcon->getTablePrefixed($this->table) . '.roll = ';
-        $where .= $this->dbcon->getTablePrefixed(\fpcm\classes\database::tableRoll) . '.id AND ';
-        $where .= $this->dbcon->getTablePrefixed($this->table) . '.id IN (' . implode(', ', $ids) . ') ';
-
-        $result = $this->dbcon->select(array($this->table, \fpcm\classes\database::tableRoll), $item, $where);
+        $result = $this->dbcon->select(
+            "{$this->table} LEFT JOIN {$tabRoll} on {$tabUser}.roll = {$tabRoll}.id",
+            $tabUser . '.*, ' . $tabRoll . '.leveltitle AS groupname',
+            $tabUser . '.id IN (' . implode(', ', $ids) . ') '
+        );
         $users = $this->dbcon->fetch($result, true);
 
         if (!$users || !count($users)) {
@@ -246,7 +246,7 @@ class userList extends \fpcm\model\abstracts\tablelist {
      * Liste von Benutzern zurückgeben, die in den übergebenen Artikeln verwendet wurden
      * @param array $articleIds
      * @return \fpcm\model\users\author[]
-     * @since FPCM 3.6
+     * @since 3.6
      */
     public function getUsersForArticles(array $articleIds)
     {
@@ -279,7 +279,7 @@ class userList extends \fpcm\model\abstracts\tablelist {
      * @param array $users
      * @param bool $byGroup
      * @return array
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     private function getUserListResult(array $users, $byGroup = false)
     {
@@ -307,7 +307,7 @@ class userList extends \fpcm\model\abstracts\tablelist {
      * @param \fpcm\model\users\author $author
      * @param array $data
      * @return array
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     private function userListResultByGroup(author $author, array $data)
     {
@@ -321,7 +321,7 @@ class userList extends \fpcm\model\abstracts\tablelist {
      * @param \fpcm\model\users\author $author
      * @param array $data
      * @return array
-     * @since FPCM 3.2.0
+     * @since 3.2.0
      */
     private function userListResultById(author $author, array $data)
     {

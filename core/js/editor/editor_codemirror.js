@@ -158,9 +158,7 @@ if (fpcm.editor) {
                 fpcm.editor.insert('<' + ui.item.value + '>', '</' + ui.item.value + '>');
             },
             change: function( event, ui ) {            
-                this.selectedIndex = 0;
-                this.value = '';
-                fpcm.dom.fromTag(this).selectmenu("refresh");
+                fpcm.dom.resetValuesByIdsSelect(['fpcm-editor-paragraphs']);
             }
         });
 
@@ -174,9 +172,7 @@ if (fpcm.editor) {
                 fpcm.editor.insert(' class="' + ui.item.value + '"', '');
             },
             change: function( event, ui ) {            
-                this.selectedIndex = 0;
-                this.value = '';
-                fpcm.dom.fromTag(this).selectmenu("refresh");
+                fpcm.dom.resetValuesByIdsSelect(['fpcm-editor-styles']);
             }
         });
 
@@ -190,9 +186,7 @@ if (fpcm.editor) {
                 fpcm.editor.insertFontsize(ui.item.value);
             },
             change: function( event, ui ) {            
-                this.selectedIndex = 0;
-                this.value = '';
-                fpcm.dom.fromTag(this).selectmenu("refresh");
+                fpcm.dom.resetValuesByIdsSelect(['fpcm-editor-fontsizes']);
             }
         });
 
@@ -218,8 +212,14 @@ if (fpcm.editor) {
         var colorsEl = fpcm.dom.fromId('fpcm-dialog-editor-html-insertcolor').find('div.fpcm-dialog-editor-colors');
         if (colorsEl.length) {
 
+            let icon = fpcm.ui.getIcon('square', {
+                prefix: 'fas',
+                size: '2x',
+                class: 'pb-2'
+            });
+
             for (var i = 0;i < fpcm.vars.jsvars.editorConfig.colors.length; i++) {
-                colorsEl.append('<span class="fpcm-ui-padding-md-tb fas fa-square fa-fw fa-2x" style="color:' + fpcm.vars.jsvars.editorConfig.colors[i] + '" data-color="' + fpcm.vars.jsvars.editorConfig.colors[i] + '"></span>');
+                colorsEl.append(fpcm.dom.fromTag(icon).css('color', fpcm.vars.jsvars.editorConfig.colors[i]).data('color', fpcm.vars.jsvars.editorConfig.colors[i]));
                 if ((i+1) % 10 == 0) {
                     colorsEl.append('<br>');
                 }
@@ -443,9 +443,9 @@ if (fpcm.editor) {
                 fpcm.editor.insert('<span style="' + (mode === undefined ? 'color' : mode) + ':' + (color == '' ? '#000000' : color) + ';">', '</span>');
 
                 fpcm.dom.fromId('colorhexcode').val('');
-                fpcm.dom.fromId('color_mode1').prop( "checked", true ).checkboxradio('refresh');
-                fpcm.dom.fromId('color_mode2').prop( "checked", false ).checkboxradio('refresh');
-
+                fpcm.dom.fromId('color_mode1').prop( "checked", true );
+                fpcm.dom.fromId('color_mode2').prop( "checked", false );
+                fpcm.ui.controlgroup('#fpcm-ui-editor-color-controlgroup', 'refresh');
                 fpcm.dom.fromTag(this).dialog( "close" );
             }
         });
@@ -491,7 +491,7 @@ if (fpcm.editor) {
             },
             dlOnClose: function() {
                 fpcm.dom.fromId('fpcm-dialog-editor-html-insertdraft-preview').empty();
-                fpcm.ui.resetSelectMenuSelection('#tpldraft');
+                fpcm.dom.resetValuesByIdsSelect(['tpldraft']);
             },
             insertAction: function() {
                 var item = fpcm.dom.fromId('tpldraft').val();
@@ -543,14 +543,9 @@ if (fpcm.editor) {
                 });
             },
             dlOnClose: function() {
-                fpcm.dom.fromId('autoplay').prop('checked', false).checkboxradio('refresh');
-                fpcm.dom.fromId('controls').prop('checked', true).checkboxradio('refresh');
-                fpcm.dom.fromId('mediatypea').prop('checked', true).checkboxradio('refresh');
-                fpcm.dom.fromId('mediatypev').prop('checked', false).checkboxradio('refresh');
-                fpcm.dom.fromId('mediapath').val('');
-                fpcm.dom.fromId('mediapath2').val('');
-                fpcm.dom.fromId('mediaformat').val('').selectmenu('refresh');
-                fpcm.dom.fromId('mediaformat2').val('').selectmenu('refresh');
+                fpcm.dom.resetValuesByIdsString(['mediapath', 'mediapath2', 'mediaposter']);
+                fpcm.dom.resetValuesByIdsChecked(['autoplay', 'controls', 'mediatypea', 'mediatypev']);
+                fpcm.dom.resetValuesByIdsSelect(['mediaformat', 'mediaformat2']);
                 fpcm.dom.fromId('fpcm-dialog-editor-html-insertmedia-preview').empty();
             },
             insertAction: function() {
@@ -585,21 +580,19 @@ if (fpcm.editor) {
                 fpcm.editor.setSelectToDialog(this);
             },
             dlOnClose: function() {
-                fpcm.dom.fromId('tablerows').val('1');
-                fpcm.dom.fromId('tablecols').val('1');
+                fpcm.dom.resetValuesByIdsString(['tablerows', 'tablecols'], '1')
             },
             insertAction: function() {
-                var tablerows = fpcm.dom.fromId('tablerows').val();
-                var tablecols = fpcm.dom.fromId('tablecols').val();
-                var aTag = '<table>\n'
+                
+                let _formData = fpcm.dom.getValuesFromIds(['tablerows', 'tablecols']);
+                let aTag = '<table>\n';
 
-                for (i=0;i<tablerows;i++) {        
+                for (i=0;i< parseInt(_formData.tablerows) ;i++) {        
                     aTag += '<tr>\n';        
-                    for (x=0;x<tablecols;x++) { aTag += '<td></td>\n'; }        
+                    for (x=0;x< parseInt(_formData.tablecols);x++) { aTag += '<td></td>\n'; }        
                     aTag += '</tr>\n';        
                 }
-                fpcm.editor.insert(aTag + '</table>', '');
-
+                fpcm.editor.insert(aTag, '</table>');
                 fpcm.dom.fromTag(this).dialog( "close" );
             }
         });
@@ -646,14 +639,11 @@ if (fpcm.editor) {
                 fpcm.editor.setSelectToDialog(this);
             },
             dlOnClose: function() {
-                fpcm.dom.fromId('imagespath').val('');
-                fpcm.dom.fromId('imagesalign').val('');
-                fpcm.dom.fromId('imagesalt').val('');
-                fpcm.dom.fromId('imagescss').val('');
+                fpcm.dom.resetValuesByIdsString(['imagespath', 'imagesalt']);
+                fpcm.dom.resetValuesByIdsSelect(['imagesalign', 'imagescss']);
             },
             insertAction: function() {
-                var data = fpcm.editor.getImageData();
-
+                let data = fpcm.editor.getImageData();
                 fpcm.editor.insert(data.aTag, data.eTag);
                 fpcm.dom.fromTag(this).dialog( "close" );
             },
@@ -696,17 +686,18 @@ if (fpcm.editor) {
                 fpcm.editor.setSelectToDialog(this);
             },
             dlOnClose: function () {
-                fpcm.dom.fromId('linksurl').val('');
-                fpcm.dom.fromId('linkstext').val('');
-                fpcm.dom.fromId('linkstarget').val('');
-                fpcm.dom.fromId('linkscss').val('');
+                fpcm.dom.resetValuesByIdsString(['linksurl', 'linkstext']);
+                fpcm.dom.resetValuesByIdsSelect(['linkstarget', 'linkscss']);                
             },
             insertAction: function() {
+                
+                let _formData = fpcm.dom.getValuesFromIds(['linksurl', 'linkstext', 'linkstarget', 'linkscss']);
+
                 var linkEl = fpcm.editor.getLinkData(
-                    fpcm.dom.fromId('linksurl').val(),
-                    fpcm.dom.fromId('linkstext').val(),
-                    fpcm.dom.fromId('linkstarget').val(),
-                    fpcm.dom.fromId('linkscss').length ? fpcm.dom.fromId('linkscss').val() : ''
+                    _formData.linksurl,
+                    _formData.linkstext,
+                    _formData.linkstarget,
+                    _formData.linkscss ? _formData.linkscss : '',
                 );
 
                 fpcm.editor.insert(linkEl.aTag, linkEl.eTag);
@@ -741,10 +732,8 @@ if (fpcm.editor) {
                 });
             },
             dlOnClose: function () {
-                fpcm.dom.fromId('quotetext').val('');
-                fpcm.dom.fromId('quotesrc').val('');
-                fpcm.dom.fromId('quotetype2').prop('checked', false).checkboxradio('refresh');
-                fpcm.dom.fromId('quotetype1').prop('checked', true ).checkboxradio('refresh');
+                fpcm.dom.resetValuesByIdsString(['quotetext', 'quotesrc']);
+                fpcm.dom.resetValuesByIdsChecked(['quotetype1', 'quotetype2']);
             },
             insertAction: function() {
                 var values = {
@@ -799,19 +788,14 @@ if (fpcm.editor) {
     fpcm.editor.getMediaData = function (_addWidth) {
 
         var tagName = fpcm.dom.fromClass('fpcm-editor-mediatype:checked').val().replace(/[^a-z]/, '');
+        let _formData = fpcm.dom.getValuesFromIds(['mediapath', 'mediaposter', 'mediapath2', 'mediaformat', 'mediaformat2', 'autoplay:checked', 'controls:checked']);
+        
+        var aTag  = '<' + tagName + (_addWidth ? ' class="fpcm ui-full-width"' : '') + (_formData.controls_checked ? ' controls' : '');
+            aTag +=  (_formData.mediaposter ? ' poster="' + _formData.mediaposter + '"' : '') + '>';
+            aTag += '<source src="' + _formData.mediapath + '"' + (_formData.mediaformat ? ' type="' + _formData.mediaformat.match(/[a-z]{5}\/{1}[a-z0-9]{3,}/) + '"' : '') + (_formData.autoplay_checked ? ' autoplay' : '') + '>';
 
-        var elPath = fpcm.dom.fromId('mediapath');
-        var elPathAlt = fpcm.dom.fromId('mediapath2');
-        var elFormatVal = fpcm.dom.fromId('mediaformat').val().match(/[a-z]{5}\/{1}[a-z0-9]{3,}/);
-        var elFormatAltVal = fpcm.dom.fromId('mediaformat2').val().match(/[a-z]{5}\/{1}[a-z0-9]{3,}/);
-        var elAutoplay = fpcm.dom.fromId('autoplay:checked');
-        var elControls = fpcm.dom.fromId('controls:checked');
-
-        var aTag = '<' + tagName + (_addWidth ? ' class="fpcm ui-full-width"' : '') + (elControls.length && elControls.val() ? ' controls' : '') + '>';
-        aTag += '<source src="' + elPath.val() + '"' + (elFormatVal ? ' type="' + elFormatVal + '"' : '') + (elAutoplay.length && elAutoplay.val() ? ' autoplay' : '') + '>';
-
-        if (elPathAlt.val()) {
-            aTag += '<source src="' + elPathAlt.val() + '"' + (elFormatAltVal ? ' type="' + elFormatAltVal + '"' : '') + '>';
+        if (_formData.mediapath2) {
+            aTag += '<source src="' + _formData.mediapath2 + '"' + (_formData.mediaformat2 ? ' type="' + _formData.mediaformat2.match(/[a-z]{5}\/{1}[a-z0-9]{3,}/) + '"' : '') + '>';
         }
 
         return {
@@ -840,68 +824,59 @@ if (fpcm.editor) {
     };
     
     fpcm.editor.getImageData = function (_asLink) {
+        
+        let _formData = fpcm.dom.getValuesFromIds(['imagespath', 'imagesalign', 'imagesalt', 'imagescss']);
+        let _res = {
+            aTag: '',
+            eTag: ''
+        };
 
-        var pic_path = fpcm.dom.fromId('imagespath').val();
-        var pic_align = fpcm.dom.fromId('imagesalign').val();
-        var pic_atxt = fpcm.dom.fromId('imagesalt').val();
-        var pic_css = fpcm.dom.fromId('imagescss').val();
+        if (_formData.imagesalign == "right" || _formData.imagesalign == "left") {
 
-        var elCss = fpcm.dom.fromId('imagescss');
-        if(elCss) {
-            var pic_css = elCss.val();
-        }
-
-        var aTag = '';
-
-        if (pic_align == "right" || pic_align == "left") {
-
-            aTag = '<img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\" style=\"float:' + pic_align + ';margin:3px;\"';
-            if(pic_css && !_asLink) {
-                aTag += ' class=\"'+ pic_css +'\"';
+            _res.aTag = '<img src=\"' + _formData.imagespath + '\" alt=\"' + _formData.imagesalt + '\" style=\"float:' + _formData.imagesalign + ';margin:3px;\"';
+            if(_formData.imagescss && !_asLink) {
+                _res.aTag += ' class=\"'+ _formData.imagescss +'\"';
             }
 
-            aTag += ' />';
+            _res.aTag += ' />';
             
             if (_asLink) {
-                var linkData = fpcm.editor.getLinkData(pic_path, aTag, '', pic_css);
-                aTag = linkData.aTag + linkData.eTag;
+                var linkData = fpcm.editor.getLinkData(_formData.imagespath, _res.aTag, '', _formData.imagescss);
+                _res.aTag = linkData._res.aTag + linkData.eTag;
             }
 
-        } else if (pic_align == "center") {
-            var wrapper = '<div style=\"text-align:' + pic_align + ';\">';
+        } else if (_formData.imagesalign == "center") {
+            var wrapper = '<div style=\"text-align:' + _formData.imagesalign + ';\">';
 
-            aTag = '<img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\"';
+            _res.aTag = '<img src=\"' + _formData.imagespath + '\" alt=\"' + _formData.imagesalt + '\"';
             
-            if(pic_css && !_asLink) {
-                aTag += ' class=\"'+ pic_css +'\"';
+            if(_formData.imagescss && !_asLink) {
+                _res.aTag += ' class=\"'+ _formData.imagescss +'\"';
             }
 
-            aTag += '/>';
+            _res.aTag += '/>';
             
             if (_asLink) {
-                var linkData = fpcm.editor.getLinkData(pic_path, aTag, '', pic_css);
-                aTag = linkData.aTag + linkData.eTag;
+                var linkData = fpcm.editor.getLinkData(_formData.imagespath, _res.aTag, '', _formData.imagescss);
+                _res.aTag = linkData._res.aTag + linkData.eTag;
             }
 
-            aTag = wrapper + aTag + '</div>';
+            _res.aTag = wrapper + _res.aTag + '</div>';
             
         } else {
-            aTag = '<img src=\"' + pic_path + '\" alt=\"' + pic_atxt + '\"';
-            if(pic_css && !_asLink) {
-                aTag += ' class=\"'+ pic_css +'\"';
+            _res.aTag = '<img src=\"' + _formData.imagespath + '\" alt=\"' + _formData.imagesalt + '\"';
+            if(_formData.imagescss && !_asLink) {
+                _res.aTag += ' class=\"'+ _formData.imagescss +'\"';
             }
             
-            aTag += ' />';
+            _res.aTag += ' />';
             
             if (_asLink) {
-                var linkData = fpcm.editor.getLinkData(pic_path, aTag, '', pic_css);
-                aTag = linkData.aTag + linkData.eTag;
+                var linkData = fpcm.editor.getLinkData(_formData.imagespath, _res.aTag, '', _formData.imagescss);
+                _res.aTag = linkData.aTag + linkData.eTag;
             }
         }
 
-        return {
-            aTag: aTag,
-            eTag: ''
-        }
+        return _res;
     };
 }
