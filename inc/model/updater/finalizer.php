@@ -284,12 +284,6 @@ final class finalizer extends \fpcm\model\abstracts\model {
      */
     private function alterTables()
     {
-        $this->dbcon->insert(\fpcm\classes\database::tableCategories, [
-           'name'  => __METHOD__,
-            'iconpath' => 'https://',
-            'groups' => '1'
-        ]);
-        
         $tableFiles = $this->dbcon->getTableFiles();
         if (!count($tableFiles)) {
             return true;
