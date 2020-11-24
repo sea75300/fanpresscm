@@ -58,6 +58,11 @@ class showall extends showcommon {
             $conditions->category = $this->category;
         }
 
+        if (trim($this->search)) {
+            $conditions->title = $this->search;
+            $conditions->content =  $this->search;
+        }
+
         $articles = $this->articleList->getArticlesByCondition($conditions);
         $this->users = $this->userList->getUsersForArticles(array_keys($articles));
 
@@ -73,6 +78,11 @@ class showall extends showcommon {
         $countConditions->archived = 0;
         if ($this->category !== 0) {
             $countConditions->category = $this->category;
+        }
+
+        if (trim($this->search)) {
+            $countConditions->title = $this->search;
+            $countConditions->content =  $this->search;
         }
 
         $parsed[] = $this->createPagination($this->articleList->countArticlesByCondition($countConditions));

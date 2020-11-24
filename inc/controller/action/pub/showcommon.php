@@ -88,6 +88,13 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
     protected $apiMode = false;
 
     /**
+     * Suchbegriff
+     * @var string
+     * @since 4.5-b5
+     */
+    protected $search = '';
+
+    /**
      * Kategorie-Einschränung
      * @var int
      */
@@ -131,13 +138,14 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
             'module'
         ]);
 
-        $this->apiMode = isset($params['apiMode']) ? (bool) $params['apiMode'] : false;
-        $this->category = isset($params['category']) ? $params['category'] : 0;
-        $this->isUtf8 = isset($params['isUtf8']) ? (bool) $params['isUtf8'] : true;
+        $this->apiMode = (bool) ($params['apiMode'] ?? false);
+        $this->category = $params['category'] ?? 0;
+        $this->search = $params['search'] ?? 0;
+        $this->isUtf8 = (bool) ($params['isUtf8'] ?? true);
         $this->templateString = isset($params['template']) && trim($params['template']) ? $params['template'] : false;
 
         parent::__construct();
-        $this->limit = isset($params['count']) ? (int) $params['count'] : $this->config->articles_limit;
+        $this->limit = (int) ($params['count'] ?? $this->config->articles_limit);
         $this->view->showHeaderFooter($this->apiMode ? \fpcm\view\view::INCLUDE_HEADER_NONE : \fpcm\view\view::INCLUDE_HEADER_SIMPLE);
     }
 
