@@ -764,7 +764,7 @@ final class database {
             return false;
         }
 
-        fpcmLogSql('Start Transaction: ' . ($res ? 'OK' : 'ERR'));
+        fpcmLogSql('Start Transaction: ' . ($res && $this->connection->inTransaction() ? 'OK' : 'ERR'));
         return $res;
     }
 
