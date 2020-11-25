@@ -21,7 +21,7 @@ require_once __DIR__ . '/inc/common.php';
  * FanPress CM API, class for integration into a website
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class fpcmAPI {

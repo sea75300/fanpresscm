@@ -10,7 +10,7 @@ namespace fpcm\controller\ajax\system;
 /**
  * Help controller
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class help extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {

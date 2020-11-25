@@ -10,104 +10,92 @@ namespace fpcm\controller\action\pub;
 /**
  * Public article list controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class showcommon extends \fpcm\controller\abstracts\pubController {
 
     /**
-     * Artikel-Listen-Objekt
+     * Articles list instance
      * @var \fpcm\model\articles\articlelist
      */
     protected $articleList;
 
     /**
-     * Kommentarlisten-Objekt
+     * Comment list instance
      * @var \fpcm\model\comments\commentList
      */
     protected $commentList;
 
     /**
-     *
+     * Category list instance
      * @var \fpcm\model\categories\categoryList
      */
     protected $categoryList;
 
     /**
-     * Benutzerlisten-Objekt
+     * User list instance
      * @var \fpcm\model\users\userList
      */
     protected $userList;
 
     /**
-     * Template-Objekt
+     * Template instance
      * @var \fpcm\model\pubtemplates\article
      */
     protected $template;
 
     /**
-     * aktuelle Seite
+     * Current page
      * @var int
      */
     protected $page = 0;
 
     /**
-     * Benutzer-Array
+     * user list
      * @var array
      */
     protected $users = [];
 
     /**
-     * Benutzer-Array
-     * @var array
-     */
-    protected $usersEmails = [];
-
-    /**
-     * Kategorien-Array
-     * @var array
-     */
-    protected $categories = [];
-
-    /**
-     * Kommentare pro Artikel
+     * Comment count by articles
      * @var array
      */
     protected $commentCounts = [];
 
     /**
-     * Aktueller Listen-Offset
+     * Current offset by page
      * @var int
      */
     protected $offset = 0;
 
     /**
-     * APi-Modus
+     * API mode
      * @var bool
      */
     protected $apiMode = false;
 
     /**
-     * Suchbegriff
+     * Search term
      * @var string
      * @since 4.5-b5
      */
     protected $search = '';
 
     /**
-     * Kategorie-Einschränung
+     * Limit to category
      * @var int
      */
     protected $category = 0;
 
     /**
-     * Limit Artikel pro Seite
+     * Limit of articles per page
      * @var int
      */
     protected $limit = 0;
 
     /**
-     * UTF8-Encoding aktiv
+     * Use UTF-8 encoding
      * @var bool
      */
     protected $isUtf8 = true;
@@ -140,7 +128,7 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
 
         $this->apiMode = (bool) ($params['apiMode'] ?? false);
         $this->category = $params['category'] ?? 0;
-        $this->search = $params['search'] ?? 0;
+        $this->search = empty($params['search']) ? null : filter_var($params['search'], FILTER_SANITIZE_STRING);
         $this->isUtf8 = (bool) ($params['isUtf8'] ?? true);
         $this->templateString = isset($params['template']) && trim($params['template']) ? $params['template'] : false;
 
@@ -193,25 +181,51 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
     {
         parent::process();
         $this->view->addJsLangVars(['PUBLIC_SHARE_LIKE', 'AJAX_RESPONSE_ERROR']);
-        if ($this->cache->isExpired($this->cacheName) || $this->session->exists()) {
-            $this->commentCounts = ($this->config->system_comments_enabled) ? $this->commentList->countComments([], 0, 1) : [];
-            
-            $parsed = $this->getContentData();
-            if (!$this->session->exists()) {
-                $this->cache->write($this->cacheName, $parsed, $this->config->system_cache_timeout);
-            }
-            
-        } else {
-            $parsed = $this->cache->read($this->cacheName);
-        }
-
-        $content = implode(PHP_EOL, $parsed);
+        $content = implode(PHP_EOL, $this->parseArticles());
 
         $this->view->assign('content', $this->isUtf8 ? $content : utf8_decode($content));
         $this->view->assign('systemMode', $this->config->system_mode);
         $this->view->assign('isArchive', $this->isArchive());
         $this->view->assign('archievDate', $this->config->articles_archive_datelimit);
         $this->view->render();
+    }
+
+    /**
+     * Final article parsing
+     * @return array
+     * @since 4.5-b5
+     */
+    private function parseArticles() : array
+    {
+        if ($this->session instanceof \fpcm\model\system\session && $this->session->exists() || trim($this->search)) {
+            $this->initCommentCounts();
+            return $this->getContentData();
+        }
+        
+        if (!$this->cache->isExpired($this->cacheName)) {
+            return $this->cache->read($this->cacheName);
+        }
+        
+        $this->initCommentCounts();
+        $parsed = $this->getContentData();
+        $this->cache->write($this->cacheName, $parsed, $this->config->system_cache_timeout);
+        return $parsed;
+    }
+
+    /**
+     * Init comment counts
+     * @return bool
+     * @since 4.5-b5
+     */
+    private function initCommentCounts() : bool
+    {
+        if (!$this->config->system_comments_enabled) {
+            $this->commentCounts = [];
+            return false;
+        }
+
+        $this->commentCounts = $this->commentList->countComments([], 0, 1);
+        return true;
     }
 
     /**
@@ -224,9 +238,9 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
         $this->template->setCommentsEnabled($this->config->system_comments_enabled && $article->getComments());
         $this->template->assignByObject(
                 $article, [
-            'author' => isset($this->users[$article->getCreateuser()]) ? $this->users[$article->getCreateuser()] : false,
-            'changeUser' => isset($this->users[$article->getChangeuser()]) ? $this->users[$article->getChangeuser()] : false
-                ], $this->categoryList->assignPublic($article), isset($this->commentCounts[$article->getId()]) ? $this->commentCounts[$article->getId()] : 0
+            'author' => $this->users[$article->getCreateuser()] ?? false,
+            'changeUser' => $this->users[$article->getChangeuser()] ?? false
+                ], $this->categoryList->assignPublic($article), $this->commentCounts[$article->getId()] ?? 0
         );
 
         $parsed = $this->template->parse();
@@ -301,5 +315,7 @@ abstract class showcommon extends \fpcm\controller\abstracts\pubController {
     abstract protected function isArchive() : bool;
 
     abstract protected function getContentData() : array;
+
+    abstract protected function assignConditions(\fpcm\model\articles\search &$conditions) : bool;
 
 }

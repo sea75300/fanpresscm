@@ -3,7 +3,7 @@
 /**
  * FanPress CM constants
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 if (file_exists(dirname(__DIR__) . '/data/config/constants.custom.php')) {
@@ -189,4 +189,12 @@ if (!defined('FPCM_VIEW_JS_USE_MINIFIED')) {
      * @since 4.5
      */
     define('FPCM_VIEW_JS_USE_MINIFIED', false);
+}
+
+if (!defined('FPCM_PUB_SEARCH_MINLEN')) {
+    /**
+     * Minimum number of chars for public search
+     * @since 4.5
+     */
+    define('FPCM_PUB_SEARCH_MINLEN', 4);
 }

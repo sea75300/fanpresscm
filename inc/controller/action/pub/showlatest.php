@@ -10,7 +10,7 @@ namespace fpcm\controller\action\pub;
 /**
  * Public article list controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class showlatest extends \fpcm\controller\abstracts\pubController {

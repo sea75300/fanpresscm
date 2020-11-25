@@ -10,7 +10,7 @@ namespace fpcm\controller\action\pub;
 /**
  * Public article archive list controller
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2018, Stefan Seehafer
+ * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class showarchive extends showcommon {
@@ -42,8 +42,31 @@ class showarchive extends showcommon {
     protected function getContentData(): array
     {
         $conditions = new \fpcm\model\articles\search();
+        $this->assignConditions($conditions);
+
+        $articles = $this->articleList->getArticlesByCondition($conditions);
+        $this->users = $this->userList->getUsersForArticles(array_keys($articles));
+
+        foreach ($articles as $article) {
+            $parsed[] = $this->assignData($article);
+        }
+
+        $countConditions = new \fpcm\model\articles\search();
+        $this->assignConditions($countConditions);
+        $parsed[] = $this->createPagination($this->articleList->countArticlesByCondition($countConditions), 'fpcm/archive');
+
+        return $this->events->trigger('pub\showArchive', $parsed);
+    }
+
+    protected function isArchive(): bool
+    {
+        return true;
+    }
+
+    protected function assignConditions(\fpcm\model\articles\search &$conditions): bool
+    {
         $conditions->limit = [$this->limit, $this->offset];
-        $conditions->archived = 1;
+        $conditions->archived = true;
         $conditions->postponed = \fpcm\model\articles\article::POSTPONED_INACTIVE;
 
         if ($this->config->articles_archive_datelimit) {
@@ -54,40 +77,12 @@ class showarchive extends showcommon {
             $conditions->category = $this->category;
         }
 
-        if (trim($this->search)) {
-            $conditions->title = $this->search;
-            $conditions->content =  $this->search;
+        $doSearch = trim($this->search) && strlen($this->search) >= FPCM_PUB_SEARCH_MINLEN;
+        if (!$doSearch) {
+            return true;
         }
 
-        $articles = $this->articleList->getArticlesByCondition($conditions);
-        $this->users = $this->userList->getUsersForArticles(array_keys($articles));
-
-        foreach ($articles as $article) {
-            $parsed[] = $this->assignData($article);
-        }
-
-        $countConditions = new \fpcm\model\articles\search();
-        $countConditions->archived = true;
-        if ($this->category !== 0) {
-            $countConditions->category = $this->category;
-        }
-
-        if (trim($this->search)) {
-            $countConditions->title = $this->search;
-            $countConditions->content =  $this->search;
-        }
-
-        if ($this->config->articles_archive_datelimit) {
-            $countConditions->datefrom = $this->config->articles_archive_datelimit;
-        }
-
-        $parsed[] = $this->createPagination($this->articleList->countArticlesByCondition($countConditions), 'fpcm/archive');
-
-        return $this->events->trigger('pub\showArchive', $parsed);
-    }
-
-    protected function isArchive(): bool
-    {
+        $conditions->content =  $this->search;
         return true;
     }
 
