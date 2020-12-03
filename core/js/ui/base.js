@@ -772,7 +772,7 @@ fpcm.ui = {
             iconType = 'stacked';
         }
 
-        let iconStr = fpcm.vars.ui.jsIconDummy[iconType] ? fpcm.vars.ui.jsIconDummy[iconType] : '';
+        let iconStr = fpcm.vars.ui.components.icon[iconType] ? fpcm.vars.ui.components.icon[iconType] : '';
         if (!iconStr) {
             return '';
         }
@@ -783,9 +783,56 @@ fpcm.ui = {
                       .replace('{{stack}}', _params.stack)
                       .replace('{{size}}', _params.size)
                       .replace('{{text}}', _params.text)
-                      .replace('{{prefix}}', ( _params.prefix ? _params.prefix : fpcm.vars.ui.jsIconDummy.defaultPrefix ));
+                      .replace('{{prefix}}', ( _params.prefix ? _params.prefix : fpcm.vars.ui.components.icon.defaultPrefix ));
        
         
+    },
+
+    getTextInput: function(_params) {
+
+        if (!_params || !_params.name) {
+            console.warn('Invalid input params given!');
+            return '';
+        }
+
+        if (!_params.id) {
+            _params.id = _params.name;
+        }
+
+        if (!_params.value) {
+            _params.value = '';
+        }
+
+        if (!_params.text) {
+            _params.text = '';
+        }
+
+        if (!_params.placeholder) {
+            _params.placeholder = '';
+        }
+
+        if (!_params.maxlenght) {
+            _params.maxlenght = 255;
+        }
+
+        if (!_params.type) {
+            _params.type = 'text';
+        }
+
+        if (!_params.class) {
+            _params.class = '';
+        }
+
+        return fpcm.vars.ui.components.input
+                    .replace('{{name}}', _params.name)
+                    .replace('{{id}}', _params.id)
+                    .replace('{{value}}', _params.value)
+                    .replace('{{type}}', _params.type)
+                    .replace('{{text}}', _params.text)
+                    .replace('{{class}}', _params.class)
+                    .replace('{{type}}', _params.type)
+                    .replace('{{placeholder}}', _params.placeholder)
+                    .replace('{{maxlenght}}', _params.maxlenght);
     },
     
     initDateTimeMasks: function() {

@@ -717,7 +717,13 @@ class view {
                     'messages' => $this->messages,
                     'lang' => $this->jsLangVars,
                     'notifyicon' => \fpcm\classes\dirs::getCoreUrl(\fpcm\classes\dirs::CORE_THEME, 'favicon-32x32.png'),
-                    'jsIconDummy' => new helper\jsIcon('')
+                    'components' => [
+                        'icon' => new helper\jsIcon(''),
+                        'input' => (string) (new helper\textInput('{{name}}', '{{id}}'))->setValue('{{value}}')
+                                            ->setText('{{text}}')->setClass('{{class}}')->setType('{{type}}')
+                                            ->setPlaceholder('{{placeholder}}')->setMaxlenght('{{maxlenght}}')
+                                            ->setWrapper(false)
+                    ]
                 ],
                 'jsvars' => $this->jsVars,
                 'actionPath' => \fpcm\classes\tools::getFullControllerLink(''),
