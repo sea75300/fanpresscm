@@ -47,11 +47,30 @@ fpcm.imageEditor = {
                             return false;
                         }
 
+                        let inWidth = fpcm.ui.getTextInput({
+                            value: _cropBox.width,
+                            name: 'fpcm-ui-files-editor-width',
+                            text: fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH'),
+                            placeholder: fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH'),
+                        });
+
+                        let inHeight = fpcm.ui.getTextInput({
+                            value: _cropBox.height,
+                            name: 'fpcm-ui-files-editor-height',
+                            text: fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT'),
+                            placeholder: fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT'),
+                        });
+
                         fpcm.ui.dialog({
-                            defaultCloseEmpty: true,
                             id: 'files-editor_prop',
                             title: fpcm.ui.translate('FILE_LIST_EDIT_RESIZE'),
-                            content: '<div class="row no-gutters mb-2">' + fpcm.ui.translate('FILE_LIST_EDIT_RESIZE_NOTICE') + '</div>\n\<div class="row no-gutters">\n\<div class="fpcm-ui-input-wrapper my-2 mr-1 col-3"><div class="fpcm-ui-input-wrapper-inner"><input type="text" id="fpcm-ui-files-editor-width" placeholder="' + fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH') + '" value="' + _cropBox.width + '"></div></div>\n\<div class="fpcm-ui-input-wrapper my-2 ml-1 col-3"><div class="fpcm-ui-input-wrapper-inner"><input type="text" id="fpcm-ui-files-editor-height" placeholder="' + fpcm.ui.translate('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT') + '" value="' + _cropBox.height + '"></div></div>\n\</div>',
+                            content: '<div class="row no-gutters mb-2">' + fpcm.ui.translate('FILE_LIST_EDIT_RESIZE_NOTICE') + '</div>' +
+                                     '<div class="row mb-2">' + inWidth + '</div>' +
+                                     '<div class="row">' + inHeight + '</div>',
+                            dlOnClose: function () {
+                                fpcm.dom.fromTag(this).dialog("close");
+                                fpcm.dom.fromTag(this).remove();
+                            },
                             dlButtons: [
                                 {
                                     text: fpcm.ui.translate('GLOBAL_SAVE'),

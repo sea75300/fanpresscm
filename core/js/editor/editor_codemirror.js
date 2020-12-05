@@ -588,9 +588,11 @@ if (fpcm.editor) {
                 let aTag = '<table>\n';
 
                 for (i=0;i< parseInt(_formData.tablerows) ;i++) {        
-                    aTag += '<tr>\n';        
-                    for (x=0;x< parseInt(_formData.tablecols);x++) { aTag += '<td></td>\n'; }        
-                    aTag += '</tr>\n';        
+                    aTag += '    <tr>\n';        
+                    for (x=0;x< parseInt(_formData.tablecols);x++) {
+                        aTag += '        <td></td>\n';
+                    }        
+                    aTag += '    </tr>\n';        
                 }
                 fpcm.editor.insert(aTag, '</table>');
                 fpcm.dom.fromTag(this).dialog( "close" );

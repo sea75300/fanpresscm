@@ -147,11 +147,16 @@ fpcm.editor = {
                                 }
                             }
                         ],
-                        dlOnOpen: function (event, ui) {                
+                        dlOnOpen: function (event, ui) {
+
                             fpcm.dom.appendHtml(
                                 this, 
                                 result.permalink
-                                    ? '<div class="fpcm-ui-input-wrapper"><div class="fpcm-ui-input-wrapper-inner"><input type="text" value="' + result.shortend + '"></div></div>'
+                                    ? '<div class="row">' + fpcm.ui.getTextInput({
+                                            name: 'fpcm-editor-shotlink',
+                                            value: result.shortend,
+                                            text: fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK'),
+                                        }) + '</div>'
                                     : '<iframe class="fpcm-ui-full-width" src="https://is.gd/create.php?format=simple&url= '+ result.shortend + '"></iframe>'
                             );
                         },

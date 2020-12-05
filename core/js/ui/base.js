@@ -799,40 +799,42 @@ fpcm.ui = {
             _params.id = _params.name;
         }
 
-        if (!_params.value) {
+        if (_params.value === undefined) {
             _params.value = '';
         }
 
-        if (!_params.text) {
+        if (_params.text === undefined) {
             _params.text = '';
         }
 
-        if (!_params.placeholder) {
+        if (_params.placeholder === undefined) {
             _params.placeholder = '';
         }
 
-        if (!_params.maxlenght) {
-            _params.maxlenght = 255;
+        if (_params.maxlenght === undefined) {
+            _params.maxlenght = '255';
         }
 
-        if (!_params.type) {
+        if (_params.type === undefined) {
             _params.type = 'text';
         }
 
-        if (!_params.class) {
+        if (_params.class === undefined) {
             _params.class = '';
         }
 
         return fpcm.vars.ui.components.input
                     .replace('{{name}}', _params.name)
                     .replace('{{id}}', _params.id)
+                    .replace('{{id}}', _params.id)
                     .replace('{{value}}', _params.value)
+                    .replace('&lbrace;&lbrace;value&rcub;&rcub;', _params.value)
                     .replace('{{type}}', _params.type)
                     .replace('{{text}}', _params.text)
                     .replace('{{class}}', _params.class)
                     .replace('{{type}}', _params.type)
                     .replace('{{placeholder}}', _params.placeholder)
-                    .replace('{{maxlenght}}', _params.maxlenght);
+                    .replace('maxlength=\"255\" ', _params.maxlenght ? 'maxlength=\"' + _params.maxlenght + '\" ' : '');
     },
     
     initDateTimeMasks: function() {

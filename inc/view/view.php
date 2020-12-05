@@ -721,8 +721,8 @@ class view {
                         'icon' => new helper\jsIcon(''),
                         'input' => (string) (new helper\textInput('{{name}}', '{{id}}'))->setValue('{{value}}')
                                             ->setText('{{text}}')->setClass('{{class}}')->setType('{{type}}')
-                                            ->setPlaceholder('{{placeholder}}')->setMaxlenght('{{maxlenght}}')
-                                            ->setWrapper(false)
+                                            ->setPlaceholder('{{placeholder}}')->setMaxlenght('255')
+                                            ->setWrapper(false)->setDisplaySizesDefault()
                     ]
                 ],
                 'jsvars' => $this->jsVars,
