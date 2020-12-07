@@ -37,7 +37,7 @@ final class mysql implements sqlDriver {
     public function getPdoOptions()
     {
         return [
-            \PDO::ATTR_PERSISTENT => true
+            \PDO::ATTR_PERSISTENT => (defined('FPCM_DB_PERSISTENT') && FPCM_DB_PERSISTENT)
         ];
     }
 
