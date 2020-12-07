@@ -198,3 +198,11 @@ if (!defined('FPCM_PUB_SEARCH_MINLEN')) {
      */
     define('FPCM_PUB_SEARCH_MINLEN', 4);
 }
+
+if (!defined('FPCM_DB_PERSISTENT')) {
+    /**
+     * Toggle persistent databse connection
+     * @since 4.5
+     */
+    define('FPCM_DB_PERSISTENT', true);
+}
