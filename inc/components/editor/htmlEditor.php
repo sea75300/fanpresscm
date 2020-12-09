@@ -16,7 +16,19 @@ namespace fpcm\components\editor;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class htmlEditor extends articleEditor {
-
+    
+    /**
+     * Files list label name
+     * @since 4.5
+     */
+    const FILELIST_LABEL = 'label';
+    
+    /**
+     * Files list value name
+     * @since 4.5
+     */
+    const FILELIST_VALUE = 'value';
+    
     /**
      * Liefert zu ladender CSS-Dateien für Editor zurück
      * @return array

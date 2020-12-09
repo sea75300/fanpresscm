@@ -16,6 +16,18 @@ namespace fpcm\components\editor;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class tinymceEditor5 extends articleEditor {
+    
+    /**
+     * Files list label name
+     * @since 4.5
+     */
+    const FILELIST_LABEL = 'title';
+    
+    /**
+     * Files list value name
+     * @since 4.5
+     */
+    const FILELIST_VALUE = 'value';
 
     /**
      * Liefert zu ladender CSS-Dateien für Editor zurück
@@ -149,22 +161,6 @@ class tinymceEditor5 extends articleEditor {
         }
 
         return json_decode(str_replace('label', 'title', json_encode($links)), false);
-    }
-
-    /**
-     * Dateiliste initialisieren
-     * @return array
-     */
-    public function getFileList()
-    {
-        $data = [];
-        foreach ($this->fileList->getDatabaseList() as $image) {
-            $data[] = array('title' => $image->getFilename(), 'value' => $image->getImageUrl());
-        }
-
-        $res = $this->events->trigger('editor\getFileList', array('label' => 'title', 'files' => $data));
-
-        return isset($res['files']) && count($res['files']) ? $res['files'] : [];
     }
 
     /**
