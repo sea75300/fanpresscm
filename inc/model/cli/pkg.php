@@ -60,7 +60,8 @@ final class pkg extends \fpcm\model\abstracts\cli {
      * Initialize objects
      * @return bool
      */
-    private function initObjects() {
+    private function initObjects()
+    {
         $this->updaterSys = new system();
         $this->updaterMod = new modules();
         return true;
@@ -76,18 +77,26 @@ final class pkg extends \fpcm\model\abstracts\cli {
         if (!trim($this->funcParams[0])) {
             $this->output('Invalid parameter on position 0', true);
         }
+        
+        if (!isset($this->funcParams[1])) {
+            $this->funcParams[1] = null;
+        }
+        
+        if (!isset($this->funcParams[2])) {
+            $this->funcParams[2] = null;
+        }
 
-        $this->exSystem = isset($this->funcParams[2]) && $this->funcParams[2] === self::PARAM_EXECSYSTEM
-                        ? true
-                        : false;
+        list($action, $package, $ex) = $this->funcParams;
 
-        if (!in_array($this->funcParams[0], $this->noMaintenanceMode) && !$this->exSystem) {
+        $this->exSystem = $ex === self::PARAM_EXECSYSTEM ? true : false;
+
+        if (!in_array($action, $this->noMaintenanceMode) && !$this->exSystem) {
             $this->output('Enable maintenance mode...');
             $this->config->setMaintenanceMode(true);
             $this->output('-- Finished.' . PHP_EOL);
         }
 
-        $fn = 'process' . ucfirst(str_replace('-', '', trim($this->funcParams[0]))) . ( isset($this->funcParams[1]) && trim($this->funcParams[1]) ? ucfirst(trim($this->funcParams[1])) : '' );
+        $fn = 'process' . ucfirst(str_replace('-', '', trim($action))) . ( trim($package) ? ucfirst(trim($package)) : '' );
         if (!method_exists($this, $fn)) {
             $this->output('Invalid parameters', true);
         }
@@ -96,7 +105,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
             $this->output('Processing error, see error log for further information.', true);
         }
 
-        if (!in_array($this->funcParams[0], $this->noMaintenanceMode) && !$this->exSystem) {
+        if (!in_array($action, $this->noMaintenanceMode) && !$this->exSystem) {
             $this->output('Disable maintenance mode...');
             $this->config->setMaintenanceMode(false);
             $this->output('-- Finished.' . PHP_EOL);

@@ -63,15 +63,16 @@ final class repository extends remoteModel {
      */
     public function fetchRemoteData($cliOutput = false)
     {
+        $cliProgress = new \fpcm\model\cli\progress(count($this->files));
+        $i = 0;
+        
         clearstatcache();
         foreach ($this->files as $rem => $local) {
 
-            if ($cliOutput) {
-                \fpcm\model\cli\io::output('Fetch package information from '.$rem.'...');
-            }
-            else {
-                fpcmLogCron('Fetch package information from '.$rem);
-            }
+            fpcmLogCron('Fetch package information from '.$rem);
+
+            $i++;
+            $cliProgress->setCurrentValue($i)->output();
 
             if (strpos(get_headers($rem)[0], 'HTTP/1.1 404 Not Found') !== false) {
                 continue;
@@ -81,30 +82,19 @@ final class repository extends remoteModel {
             $this->current      = $local;
 
             $success = parent::fetchRemoteData();
-            
-            if ($cliOutput && $success !== true) {
-                \fpcm\model\cli\io::output('Error while retrieving information from '.$rem.'!', true);
+            if ($success !== true) {
+                fpcmLogCron("Error while retrieving information from {$rem}!");
             }
 
             if ($success !== true) {
                 return $success;
             }
 
-            if ($cliOutput) {
-                \fpcm\model\cli\io::output('Update local package information storage...');
-            }
-
             if (!$this->saveRemoteData()) {
-                if ($cliOutput) {
-                    \fpcm\model\cli\io::output('Error during update of package information storage!');
-                }
-                
+                fpcmLogCron('Error during update of package information storage!');
                 return false;
             }
-            
-            if ($cliOutput) {
-                \fpcm\model\cli\io::output('Update check finished successfully!');
-            }
+
         }
 
         return true;

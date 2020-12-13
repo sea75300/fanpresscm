@@ -248,6 +248,7 @@ trait syscheck {
             $this->language->translate('SYSCHECK_FOLDER_DBDUMPS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DBDUMP),
             $this->language->translate('SYSCHECK_FOLDER_DRAFTS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_DRAFTS),
             $this->language->translate('SYSCHECK_FOLDER_PROFILES') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_PROFILES),
+            $this->language->translate('SYSCHECK_FOLDER_BACKUPS') => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_BACKUP),
         );
 
         natsort($checkFolders);
