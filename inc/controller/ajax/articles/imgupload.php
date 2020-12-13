@@ -31,8 +31,7 @@ class imgupload extends \fpcm\controller\abstracts\ajaxController implements \fp
     public function process()
     {
         if (!isset($_FILES['file'])) {
-            header("HTTP/1.0 500 Server Error");
-            exit;
+            $this->response->setCode(500)->addHeaders('HTTP/1.1 500 Internal Server Error')->fetch();
         }
 
         $data = $_FILES['file'];
@@ -59,7 +58,7 @@ class imgupload extends \fpcm\controller\abstracts\ajaxController implements \fp
             ])->fetch();
         }
 
-        header("HTTP/1.0 500 Server Error");
+        $this->response->setCode(500)->addHeaders('HTTP/1.1 500 Internal Server Error')->fetch();
     }
 
 }

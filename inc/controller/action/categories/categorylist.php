@@ -104,8 +104,14 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
         $this->countReadOnly = $this->itemsCount < 2 ? true : false;
         $this->initDataView();
 
-        $this->view->addCssFiles([\fpcm\classes\loader::libGetFileUrl('selectize_js/dist/css/selectize.default.css')]);
-        $this->view->addJsFiles(['categories.js', \fpcm\classes\loader::libGetFileUrl('selectize_js/dist/js/selectize.min.js')]);
+        $this->view->addJsFiles(['categories.js']);
+
+        $this->view->addFromLibrary(
+            'selectize_js',
+            [ 'dist/js/selectize.min.js' ],
+            [ 'dist/css/selectize.default.css' ]
+        ); 
+
         $this->view->addJsLangVars(['CATEGORIES_ROLLS', 'SAVE_FAILED_CATEGORY']);
 
         $this->view->addAjaxPageToken('categories/massedit');

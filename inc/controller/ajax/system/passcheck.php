@@ -28,7 +28,6 @@ class passcheck extends \fpcm\controller\abstracts\ajaxController implements \fp
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return true;
         }
-        
 
         return parent::hasAccess();
     }

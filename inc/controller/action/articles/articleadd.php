@@ -53,5 +53,3 @@ class articleadd extends articlebase {
     }
 
 }
-
-?>

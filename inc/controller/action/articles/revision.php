@@ -241,5 +241,3 @@ implements \fpcm\controller\interfaces\isAccessible,
     }
 
 }
-
-?>

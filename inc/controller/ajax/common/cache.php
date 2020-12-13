@@ -37,6 +37,10 @@ class cache extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
      */
     public function hasAccess()
     {
+        if (!$this->checkReferer()) {
+            return false;
+        }             
+        
         if (!is_object($this->session) || !$this->session->exists()) {
             return false;
         }

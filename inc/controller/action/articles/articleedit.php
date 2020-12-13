@@ -317,5 +317,3 @@ class articleedit extends articlebase {
     }
 
 }
-
-?>

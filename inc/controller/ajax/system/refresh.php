@@ -25,6 +25,10 @@ class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm
      */
     public function hasAccess()
     {
+        if (!$this->checkReferer()) {
+            return false;
+        }
+
         return \fpcm\classes\baseconfig::installerEnabled() || !\fpcm\classes\baseconfig::dbConfigExists() ? false : true;
     }
     

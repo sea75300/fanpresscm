@@ -341,5 +341,3 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         return $fields;
     }
 }
-
-?>

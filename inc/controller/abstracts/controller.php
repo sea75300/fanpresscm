@@ -307,14 +307,34 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     protected function checkPageToken($name = '')
     {
+        if (method_exists($this, 'checkReferer') && !$this->checkReferer()) {
+            return false;
+        }
+
         if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
-            trigger_error('Page token check failed, no referer available or referrer mismatch in '. get_class($this), E_USER_ERROR);
+            trigger_error('Referer check failed for '. get_class($this).'.', E_USER_ERROR);
             $this->checkPageToken = false;
             return $this->checkPageToken;
         }
 
         $this->checkPageToken = (new \fpcm\classes\pageTokens())->validate($name);
         return $this->checkPageToken;
+    }
+
+    /**
+     * Check referrer
+     * @return bool
+     * @since 4.5-b7
+     */
+    final protected function checkReferer() : bool
+    {
+        $ref = $_SERVER['HTTP_REFERER'] ?? false;
+        if (!trim($ref)) {
+            trigger_error('Referer check failed for '. get_class($this).'.', E_USER_ERROR);
+            return false;
+        }
+
+        return !( strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false );
     }
 
     /**

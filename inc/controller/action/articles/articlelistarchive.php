@@ -45,5 +45,3 @@ class articlelistarchive extends articlelistbase {
         return parent::request();
     }
 }
-
-?>

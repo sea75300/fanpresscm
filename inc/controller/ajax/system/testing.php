@@ -20,6 +20,10 @@ class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm
 
     public function isAccessible(): bool
     {
+        if (!$this->checkReferer()) {
+            return false;
+        }
+
         return true;
     }
 

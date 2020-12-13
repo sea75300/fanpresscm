@@ -71,5 +71,3 @@ class articlelisttrash extends \fpcm\controller\abstracts\controller implements 
     }
 
 }
-
-?>

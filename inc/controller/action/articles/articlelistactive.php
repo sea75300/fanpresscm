@@ -36,5 +36,3 @@ class articlelistactive extends articlelistbase {
     }
 
 }
-
-?>
