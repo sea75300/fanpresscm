@@ -186,18 +186,26 @@ class view {
      * @since 4.1
      */
     protected $rootUrls = [];
+
+    /**
+     * Root urls for replacements
+     * @var string
+     * @since 4.5-b7
+     */
+    protected $module = null;
     
     /**
      * Konstruktor
      * @param string $viewName Viewname ohne Endung .php
      * @param string $module Module-Key
      */
-    public function __construct($viewName = '', $module = false)
+    public function __construct($viewName = '', ?string $module = null)
     {
         if (trim($viewName)) {
             $this->setViewPath($viewName, $module);
         }
 
+        $this->module = $module;
         $this->showHeader = self::INCLUDE_HEADER_FULL;
         
         $this->language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
@@ -449,6 +457,37 @@ class view {
         
         $this->addCssFiles(array_map(function ($item) use ($lib) {
             return $lib.$item;
+        }, $cssFiles));
+
+        return true;
+    }
+
+    /**
+     * Add js and css files from modules
+     * @param array $jsFiles
+     * @param array $cssFiles
+     * @param null|string $moduleKey
+     * @return bool
+     * @since 4.5-b7
+     */
+    final public function addFromModule(array $jsFiles = [], array $cssFiles = [], ?string $moduleKey = null) : bool
+    {
+        if (!trim($moduleKey)) {
+            $moduleKey = $this->module;
+        }
+        
+        $lib = \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_MODULES, $this->module);
+        
+        $this->addJsFiles(array_map(function ($item) use ($lib) {
+            return $lib.'/js/'.$item;
+        }, $jsFiles));
+
+        if (!count($cssFiles)) {
+            return true;
+        }
+        
+        $this->addCssFiles(array_map(function ($item) use ($lib) {
+            return $lib.'/style/'.$item;
         }, $cssFiles));
 
         return true;
@@ -752,7 +791,7 @@ class view {
      * @param string $viewName
      * @param string $module
      */
-    public function setViewPath($viewName, $module = false)
+    public function setViewPath($viewName, $module = null)
     {
         $viewName .= '.php';
 
