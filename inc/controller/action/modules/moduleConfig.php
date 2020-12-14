@@ -100,8 +100,6 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         $this->view->setFormAction('modules/configure', [
             'key' => $this->module->getKey()
         ]);
-        
-        ;
 
         $this->view->setViewVars(array_merge(
             $this->module->getConfigViewVars(),
@@ -109,12 +107,11 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         ));
         
         $this->view->assign('prefix', $this->module->getFullPrefix());
-
+        
+        
         $path = $this->module->getKey() . DIRECTORY_SEPARATOR . 'js' . DIRECTORY_SEPARATOR . 'moduleConfig.js';
         if (file_exists( \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_MODULES, $path) )) {
-            $this->view->addJsFiles([ 
-                \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_MODULES, $path)    
-            ]);            
+            $this->view->addFromModule(['moduleConfig.js'], [], $this->module->getKey());
         }
 
         $this->view->addButton(new \fpcm\view\helper\saveButton('save'));

@@ -475,19 +475,21 @@ class view {
         if (!trim($moduleKey)) {
             $moduleKey = $this->module;
         }
-        
-        $lib = \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_MODULES, $this->module);
-        
-        $this->addJsFiles(array_map(function ($item) use ($lib) {
-            return $lib.'/js/'.$item;
+
+        $jsPath = \fpcm\module\module::getJsDirByKey($moduleKey, '');
+
+        $this->addJsFiles(array_map(function ($item) use ($jsPath) {
+            return $jsPath.$item;
         }, $jsFiles));
 
         if (!count($cssFiles)) {
             return true;
         }
+
+        $cssPath = \fpcm\module\module::getStyleDirByKey($moduleKey, '');
         
-        $this->addCssFiles(array_map(function ($item) use ($lib) {
-            return $lib.'/style/'.$item;
+        $this->addCssFiles(array_map(function ($item) use ($cssPath) {
+            return $cssPath.$item;
         }, $cssFiles));
 
         return true;
