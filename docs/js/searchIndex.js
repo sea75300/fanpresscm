@@ -511,6 +511,16 @@ Search.appendIndex(
             "summary": "Liefert\u0020ID\u0020des\u0020letzten\u0020Insert\u002DEintrags",
             "url": "../classes/fpcm-classes-database.html#method_getLastInsertId"
         },                {
+            "fqsen": "\\fpcm\\classes\\database\u003A\u003Atransaction\u0028\u0029",
+            "name": "transaction",
+            "summary": "Starts\u0020transaction",
+            "url": "../classes/fpcm-classes-database.html#method_transaction"
+        },                {
+            "fqsen": "\\fpcm\\classes\\database\u003A\u003Acommit\u0028\u0029",
+            "name": "commit",
+            "summary": "Starts\u0020transaction",
+            "url": "../classes/fpcm-classes-database.html#method_commit"
+        },                {
             "fqsen": "\\fpcm\\classes\\database\u003A\u003AgetLastQueryString\u0028\u0029",
             "name": "getLastQueryString",
             "summary": "Liefert\u0020zuletzt\u0020ausgef\u00FChrten\u0020Query\u002DString\u0020zur\u00FCck",
@@ -626,16 +636,6 @@ Search.appendIndex(
             "summary": "Datei\u0020data\/config\/database.php\u0020erzeugen",
             "url": "../classes/fpcm-classes-database.html#method_createDbConfigFile"
         },                {
-            "fqsen": "\\fpcm\\classes\\database\u003A\u003AdieError\u0028\u0029",
-            "name": "dieError",
-            "summary": "Error\u0020die",
-            "url": "../classes/fpcm-classes-database.html#method_dieError"
-        },                {
-            "fqsen": "\\fpcm\\classes\\database\u003A\u003AgetTableFiles\u0028\u0029",
-            "name": "getTableFiles",
-            "summary": "Liefert\u0020YMl\u002DDateien\u0020aus\u0020Pfad\u0020zur\u00FCck",
-            "url": "../classes/fpcm-classes-database.html#method_getTableFiles"
-        },                {
             "fqsen": "\\fpcm\\classes\\database\u003A\u003AsetExplain\u0028\u0029",
             "name": "setExplain",
             "summary": "SQL\u002DEXPLAIN\u0020de\/aktivieren",
@@ -656,6 +656,11 @@ Search.appendIndex(
             "summary": "Returns\u0020indices\u0020defined\u0020for\u0020the\u0020certain\u0020table\u0020and\u0020or\u0020column",
             "url": "../classes/fpcm-classes-database.html#method_getTableIndices"
         },                {
+            "fqsen": "\\fpcm\\classes\\database\u003A\u003AdieError\u0028\u0029",
+            "name": "dieError",
+            "summary": "Error\u0020die",
+            "url": "../classes/fpcm-classes-database.html#method_dieError"
+        },                {
             "fqsen": "\\fpcm\\classes\\database\u003A\u003AgetLenghtTypes\u0028\u0029",
             "name": "getLenghtTypes",
             "summary": "Return\u0020data\u0020types\u0020with\u0020length\u0020params",
@@ -665,6 +670,11 @@ Search.appendIndex(
             "name": "replacePrefixVar",
             "summary": "Replaces\u0020\u007B\u007Bdbpref\u007D\u007D\u0020variable\u0020in\u0020SQL\u0020query",
             "url": "../classes/fpcm-classes-database.html#method_replacePrefixVar"
+        },                {
+            "fqsen": "\\fpcm\\classes\\database\u003A\u003AgetTableFiles\u0028\u0029",
+            "name": "getTableFiles",
+            "summary": "Liefert\u0020YMl\u002DDateien\u0020aus\u0020Pfad\u0020zur\u00FCck",
+            "url": "../classes/fpcm-classes-database.html#method_getTableFiles"
         },                {
             "fqsen": "\\fpcm\\classes\\database\u003A\u003AtableArticles",
             "name": "tableArticles",
@@ -2136,6 +2146,16 @@ Search.appendIndex(
             "summary": "Arary\u0020mit\u0020Informationen\u0020u.\u0020a.\u0020f\u00FCr\u0020template\u002DPlugin\u0020von\u0020TinyMCE",
             "url": "../classes/fpcm-components-editor-htmlEditor.html#method_getTemplateDrafts"
         },                {
+            "fqsen": "\\fpcm\\components\\editor\\htmlEditor\u003A\u003AFILELIST_LABEL",
+            "name": "FILELIST_LABEL",
+            "summary": "Files\u0020list\u0020label\u0020name",
+            "url": "../classes/fpcm-components-editor-htmlEditor.html#constant_FILELIST_LABEL"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\htmlEditor\u003A\u003AFILELIST_VALUE",
+            "name": "FILELIST_VALUE",
+            "summary": "Files\u0020list\u0020value\u0020name",
+            "url": "../classes/fpcm-components-editor-htmlEditor.html#constant_FILELIST_VALUE"
+        },                {
             "fqsen": "\\fpcm\\components\\editor\\tinymceEditor5",
             "name": "tinymceEditor5",
             "summary": "TinyMCE\u0020based\u0020editor\u0020plugin",
@@ -2181,11 +2201,6 @@ Search.appendIndex(
             "summary": "Editor\u002DLinks\u0020initialisieren",
             "url": "../classes/fpcm-components-editor-tinymceEditor5.html#method_getEditorLinks"
         },                {
-            "fqsen": "\\fpcm\\components\\editor\\tinymceEditor5\u003A\u003AgetFileList\u0028\u0029",
-            "name": "getFileList",
-            "summary": "Dateiliste\u0020initialisieren",
-            "url": "../classes/fpcm-components-editor-tinymceEditor5.html#method_getFileList"
-        },                {
             "fqsen": "\\fpcm\\components\\editor\\tinymceEditor5\u003A\u003AgetTemplateDrafts\u0028\u0029",
             "name": "getTemplateDrafts",
             "summary": "Arary\u0020mit\u0020Informationen\u0020u.\u0020a.\u0020f\u00FCr\u0020template\u002DPlugin\u0020von\u0020TinyMCE",
@@ -2195,6 +2210,16 @@ Search.appendIndex(
             "name": "getJsLangVars",
             "summary": "Array\u0020von\u0020Sprachvariablen\u0020f\u00FCr\u0020Nutzung\u0020in\u0020Javascript",
             "url": "../classes/fpcm-components-editor-tinymceEditor5.html#method_getJsLangVars"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\tinymceEditor5\u003A\u003AFILELIST_LABEL",
+            "name": "FILELIST_LABEL",
+            "summary": "Files\u0020list\u0020label\u0020name",
+            "url": "../classes/fpcm-components-editor-tinymceEditor5.html#constant_FILELIST_LABEL"
+        },                {
+            "fqsen": "\\fpcm\\components\\editor\\tinymceEditor5\u003A\u003AFILELIST_VALUE",
+            "name": "FILELIST_VALUE",
+            "summary": "Files\u0020list\u0020value\u0020name",
+            "url": "../classes/fpcm-components-editor-tinymceEditor5.html#constant_FILELIST_VALUE"
         },                {
             "fqsen": "\\fpcm\\components\\fileupload\\htmlupload",
             "name": "htmlupload",
@@ -2455,6 +2480,11 @@ Search.appendIndex(
             "name": "checkPageToken",
             "summary": "Page\u0020token\u0020check\u0020result",
             "url": "../classes/fpcm-controller-abstracts-controller.html#property_checkPageToken"
+        },                {
+            "fqsen": "\\fpcm\\controller\\abstracts\\controller\u003A\u003AcheckReferer\u0028\u0029",
+            "name": "checkReferer",
+            "summary": "Check\u0020referrer",
+            "url": "../classes/fpcm-controller-abstracts-controller.html#method_checkReferer"
         },                {
             "fqsen": "\\fpcm\\controller\\abstracts\\controller\u003A\u003ArequestExit\u0028\u0029",
             "name": "requestExit",
@@ -4486,11 +4516,6 @@ Search.appendIndex(
             "summary": "Pre\u002DInitializing",
             "url": "../classes/fpcm-migrations-migration.html#method_init"
         },                {
-            "fqsen": "\\fpcm\\migrations\\migration\u003A\u003Arequired\u0028\u0029",
-            "name": "required",
-            "summary": "Returns\u0020a\u0020list\u0020of\u0020migrations\u0020which\u0020have\u0020to\u0020be\u0020executed\u0020before",
-            "url": "../classes/fpcm-migrations-migration.html#method_required"
-        },                {
             "fqsen": "\\fpcm\\migrations\\migration\u003A\u003AalterTablesAfter\u0028\u0029",
             "name": "alterTablesAfter",
             "summary": "Execute\u0020additional\u0020database\u0020table\u0020changes",
@@ -4546,6 +4571,11 @@ Search.appendIndex(
             "summary": "Update\u0020inedit\u0020data\u0020for\u0020articles",
             "url": "../classes/fpcm-migrations-v430rc4.html#method_alterTablesAfter"
         },                {
+            "fqsen": "\\fpcm\\migrations\\v430rc4\u003A\u003AgetNewVersion\u0028\u0029",
+            "name": "getNewVersion",
+            "summary": "Returns\u0020new\u0020version,\u0020e.\u0020g.\u0020from\u0020version.txt",
+            "url": "../classes/fpcm-migrations-v430rc4.html#method_getNewVersion"
+        },                {
             "fqsen": "\\fpcm\\migrations\\v440b4",
             "name": "v440b4",
             "summary": "Migration\u0020to\u0020v4.4\u002Db3",
@@ -4555,6 +4585,11 @@ Search.appendIndex(
             "name": "alterTablesAfter",
             "summary": "Update\u0020inedit\u0020data\u0020for\u0020articles",
             "url": "../classes/fpcm-migrations-v440b4.html#method_alterTablesAfter"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v440b4\u003A\u003AgetNewVersion\u0028\u0029",
+            "name": "getNewVersion",
+            "summary": "Returns\u0020new\u0020version,\u0020e.\u0020g.\u0020from\u0020version.txt",
+            "url": "../classes/fpcm-migrations-v440b4.html#method_getNewVersion"
         },                {
             "fqsen": "\\fpcm\\migrations\\v442",
             "name": "v442",
@@ -4566,15 +4601,15 @@ Search.appendIndex(
             "summary": "Update\u0020inedit\u0020data\u0020for\u0020articles",
             "url": "../classes/fpcm-migrations-v442.html#method_alterTablesAfter"
         },                {
-            "fqsen": "\\fpcm\\migrations\\v442\u003A\u003Arequired\u0028\u0029",
-            "name": "required",
-            "summary": "Returns\u0020a\u0020list\u0020of\u0020migrations\u0020which\u0020have\u0020to\u0020be\u0020executed\u0020before",
-            "url": "../classes/fpcm-migrations-v442.html#method_required"
-        },                {
             "fqsen": "\\fpcm\\migrations\\v442\u003A\u003AonDatabase\u0028\u0029",
             "name": "onDatabase",
             "summary": "Returns\u0020a\u0020list\u0020of\u0020database\u0020driver\u0020names\u0020the\u0020migration\u0020should\u0020be\u0020executed\u0020to,\ndefault\u0020is\u0020MySQL\/\u0020MariaDB\u0020and\u0020Postgres",
             "url": "../classes/fpcm-migrations-v442.html#method_onDatabase"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v442\u003A\u003AgetNewVersion\u0028\u0029",
+            "name": "getNewVersion",
+            "summary": "Returns\u0020new\u0020version,\u0020e.\u0020g.\u0020from\u0020version.txt",
+            "url": "../classes/fpcm-migrations-v442.html#method_getNewVersion"
         },                {
             "fqsen": "\\fpcm\\migrations\\v450a1",
             "name": "v450a1",
@@ -4595,6 +4630,11 @@ Search.appendIndex(
             "name": "updateSystemConfig",
             "summary": "Update\u0020system\u0020configs",
             "url": "../classes/fpcm-migrations-v450b1.html#method_updateSystemConfig"
+        },                {
+            "fqsen": "\\fpcm\\migrations\\v450b1\u003A\u003AgetNewVersion\u0028\u0029",
+            "name": "getNewVersion",
+            "summary": "Returns\u0020new\u0020version,\u0020e.\u0020g.\u0020from\u0020version.txt",
+            "url": "../classes/fpcm-migrations-v450b1.html#method_getNewVersion"
         },                {
             "fqsen": "\\fpcm\\migrations\\v450b2",
             "name": "v450b2",
@@ -12851,6 +12891,11 @@ Search.appendIndex(
             "summary": "F\u00FChrt\u0020abschlie\u00DFende\u0020Update\u002DSchritte\u0020aus",
             "url": "../classes/fpcm-model-updater-finalizer.html#method_runUpdate"
         },                {
+            "fqsen": "\\fpcm\\model\\updater\\finalizer\u003A\u003ArunMigrations\u0028\u0029",
+            "name": "runMigrations",
+            "summary": "",
+            "url": "../classes/fpcm-model-updater-finalizer.html#method_runMigrations"
+        },                {
             "fqsen": "\\fpcm\\model\\updater\\finalizer\u003A\u003AupdateVersion\u0028\u0029",
             "name": "updateVersion",
             "summary": "aktualisiert\u0020Versionsinfos\u0020in\u0020Datenbank",
@@ -15641,6 +15686,11 @@ Search.appendIndex(
             "summary": "Add\u0020js\u0020and\u0020css\u0020files\u0020from\u00203rd\u0020party\u0020library",
             "url": "../classes/fpcm-view-view.html#method_addFromLibrary"
         },                {
+            "fqsen": "\\fpcm\\view\\view\u003A\u003AaddFromModule\u0028\u0029",
+            "name": "addFromModule",
+            "summary": "Add\u0020js\u0020and\u0020css\u0020files\u0020from\u0020modules",
+            "url": "../classes/fpcm-view-view.html#method_addFromModule"
+        },                {
             "fqsen": "\\fpcm\\view\\view\u003A\u003AaddButtons\u0028\u0029",
             "name": "addButtons",
             "summary": "Add\u0020array\u0020of\u0020buttons\u0020to\u0020toolbar",
@@ -15995,6 +16045,11 @@ Search.appendIndex(
             "name": "rootUrls",
             "summary": "Root\u0020urls\u0020for\u0020replacements",
             "url": "../classes/fpcm-view-view.html#property_rootUrls"
+        },                {
+            "fqsen": "\\fpcm\\view\\view\u003A\u003A\u0024module",
+            "name": "module",
+            "summary": "Root\u0020urls\u0020for\u0020replacements",
+            "url": "../classes/fpcm-view-view.html#property_module"
         },                {
             "fqsen": "\\fpcm\\view\\viewVars",
             "name": "viewVars",

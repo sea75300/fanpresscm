@@ -244,6 +244,11 @@
                     <td class="phpdocumentor-cell">Root urls for replacements</td>
                     <td class="phpdocumentor-cell">array</td>
                 </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-view.html#property_module">$module</a></th>
+                    <td class="phpdocumentor-cell">Root urls for replacements</td>
+                    <td class="phpdocumentor-cell">string</td>
+                </tr>
                                         <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-error.html#method___construct">__construct()</a></th>
                     <td class="phpdocumentor-cell">Konstruktor</td>
@@ -327,6 +332,11 @@
                             <tr>
                     <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-view.html#method_addFromLibrary">addFromLibrary()</a></th>
                     <td class="phpdocumentor-cell">Add js and css files from 3rd party library</td>
+                    <td class="phpdocumentor-cell">bool</td>
+                </tr>
+                            <tr>
+                    <th class="phpdocumentor-heading"><a href="../classes/fpcm-view-view.html#method_addFromModule">addFromModule()</a></th>
+                    <td class="phpdocumentor-cell">Add js and css files from modules</td>
                     <td class="phpdocumentor-cell">bool</td>
                 </tr>
                             <tr>
@@ -1070,6 +1080,26 @@ do not use if you want to include tabs in aother view!!!</td>
         <span class="phpdocumentor-signature__name">$rootUrls</span>
          = <span class="phpdocumentor-signature__default-value">[]</span>    </code>
     </article>
+                                    <a id="property_module"></a>
+<article
+        class="
+            phpdocumentor-property
+            phpdocumentor-property--protected
+                                "
+>
+    <h4 class="phpdocumentor-property__name">$module</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">195</span>
+    </aside>
+            <p class="phpdocumentor-summary">Root urls for replacements</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">protected</span>
+                <span class="phpdocumentor-signature__type">string</span>
+        <span class="phpdocumentor-signature__name">$module</span>
+         = <span class="phpdocumentor-signature__default-value">null</span>    </code>
+    </article>
                             </section>
         
                     <section>
@@ -1183,7 +1213,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">195</span>
+        <span class="phpdocumentor-element-found-in__line">202</span>
     </aside>
         <p class="phpdocumentor-summary">Konstruktor</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1196,7 +1226,7 @@ do not use if you want to include tabs in aother view!!!</td>
                     <span class="phpdocumentor-signature__argument">
             [,                 <span class="phpdocumentor-signature__argument__name">$module</span> :
                 <span class="phpdocumentor-signature__argument__return-type">string</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">mixed</span>
     </code>
@@ -1212,7 +1242,7 @@ do not use if you want to include tabs in aother view!!!</td>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$module</span>
                     : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"><p>Module-Key</p></section></dd>
                     </dl>
     
@@ -1232,7 +1262,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">227</span>
+        <span class="phpdocumentor-element-found-in__line">235</span>
     </aside>
         <p class="phpdocumentor-summary">Inits file library</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1260,7 +1290,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">258</span>
+        <span class="phpdocumentor-element-found-in__line">266</span>
     </aside>
         <p class="phpdocumentor-summary">Checks item if included system paths</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1307,7 +1337,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">281</span>
+        <span class="phpdocumentor-element-found-in__line">289</span>
     </aside>
         <p class="phpdocumentor-summary">Checks path type of given JS file</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1363,7 +1393,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">300</span>
+        <span class="phpdocumentor-element-found-in__line">308</span>
     </aside>
         <p class="phpdocumentor-summary">Initializes notifications</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1391,7 +1421,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">342</span>
+        <span class="phpdocumentor-element-found-in__line">350</span>
     </aside>
         <p class="phpdocumentor-summary">Add JavScript files to view</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1431,7 +1461,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">351</span>
+        <span class="phpdocumentor-element-found-in__line">359</span>
     </aside>
         <p class="phpdocumentor-summary">Add JavScript files to view</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1471,7 +1501,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">360</span>
+        <span class="phpdocumentor-element-found-in__line">368</span>
     </aside>
         <p class="phpdocumentor-summary">Add CSS files variable to view</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1511,7 +1541,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">369</span>
+        <span class="phpdocumentor-element-found-in__line">377</span>
     </aside>
         <p class="phpdocumentor-summary">Add new JS vars</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1551,7 +1581,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">379</span>
+        <span class="phpdocumentor-element-found-in__line">387</span>
     </aside>
         <p class="phpdocumentor-summary">Merge new JS vars</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1600,7 +1630,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">388</span>
+        <span class="phpdocumentor-element-found-in__line">396</span>
     </aside>
         <p class="phpdocumentor-summary">Overrides CSS files variable to view</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1640,7 +1670,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">397</span>
+        <span class="phpdocumentor-element-found-in__line">405</span>
     </aside>
         <p class="phpdocumentor-summary">Overrides new JS vars</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1680,7 +1710,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">406</span>
+        <span class="phpdocumentor-element-found-in__line">414</span>
     </aside>
         <p class="phpdocumentor-summary">Overrides new JS language vars</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1720,7 +1750,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">418</span>
+        <span class="phpdocumentor-element-found-in__line">426</span>
     </aside>
         <p class="phpdocumentor-summary">Add new JS language vars</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1760,7 +1790,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">434</span>
+        <span class="phpdocumentor-element-found-in__line">442</span>
     </aside>
         <p class="phpdocumentor-summary">Add js and css files from 3rd party library</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1814,6 +1844,71 @@ do not use if you want to include tabs in aother view!!!</td>
         <span class="phpdocumentor-signature__response_type">bool</span>
             
 </article>
+                                    <a id="method_addFromModule"></a>
+<article
+        class="
+            phpdocumentor-method
+            phpdocumentor-method--public
+                                                phpdocumentor-element--final        "
+>
+    <h4 class="phpdocumentor-method__name">addFromModule()</h4>
+    <aside class="phpdocumentor-element-found-in">
+        <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
+        :
+        <span class="phpdocumentor-element-found-in__line">473</span>
+    </aside>
+        <p class="phpdocumentor-summary">Add js and css files from modules</p>
+        <code class="phpdocumentor-signature phpdocumentor-code ">
+        <span class="phpdocumentor-signature__visibility">public</span>
+                <span class="phpdocumentor-signature__final">final</span>                <span class="phpdocumentor-signature__name">addFromModule</span>(
+                    <span class="phpdocumentor-signature__argument">
+            [                <span class="phpdocumentor-signature__argument__name">$jsFiles</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$cssFiles</span> :
+                <span class="phpdocumentor-signature__argument__return-type">array</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span> ]            </span>
+                    <span class="phpdocumentor-signature__argument">
+            [,                 <span class="phpdocumentor-signature__argument__name">$moduleKey</span> :
+                <span class="phpdocumentor-signature__argument__return-type">null|string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
+                )
+        : <span class="phpdocumentor-signature__response_type">bool</span>
+    </code>
+
+    
+            <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+        <dl class="phpdocumentor-argument-list">
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$jsFiles</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">[]</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$cssFiles</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">array</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">[]</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                            <dt class="phpdocumentor-argument-list__entry">
+                    <span class="phpdocumentor-signature__argument__name">$moduleKey</span>
+                    : <span class="phpdocumentor-signature__argument__return-type">null|string</span>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
+                <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
+                    </dl>
+    
+                <h5 class="phpdocumentor-tag-list__heading">Tags</h5>
+        <dl class="phpdocumentor-tag-list">
+                                                <dt class="phpdocumentor-tag-list__entry">
+                        <span class="phpdocumentor-tag__name">since</span>
+                    </dt>
+                    <dd class="phpdocumentor-tag-list__definition"><section class="phpdocumentor-description"></section></dd>
+                                    </dl>
+    
+            <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type">bool</span>
+            
+</article>
                                     <a id="method_addButtons"></a>
 <article
         class="
@@ -1825,7 +1920,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">461</span>
+        <span class="phpdocumentor-element-found-in__line">502</span>
     </aside>
         <p class="phpdocumentor-summary">Add array of buttons to toolbar</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1865,7 +1960,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">474</span>
+        <span class="phpdocumentor-element-found-in__line">515</span>
     </aside>
         <p class="phpdocumentor-summary">Add button to toolbar</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1912,7 +2007,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">494</span>
+        <span class="phpdocumentor-element-found-in__line">535</span>
     </aside>
         <p class="phpdocumentor-summary">Force to load jQuery in Pub-Controllers before other JS-Files if not already done</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1947,7 +2042,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">508</span>
+        <span class="phpdocumentor-element-found-in__line">549</span>
     </aside>
         <p class="phpdocumentor-summary">Assign new variable to view</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -1996,7 +2091,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">519</span>
+        <span class="phpdocumentor-element-found-in__line">560</span>
     </aside>
         <p class="phpdocumentor-summary">Adds top description</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2052,7 +2147,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">530</span>
+        <span class="phpdocumentor-element-found-in__line">571</span>
     </aside>
         <p class="phpdocumentor-summary">Add red error message</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2099,7 +2194,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">542</span>
+        <span class="phpdocumentor-element-found-in__line">583</span>
     </aside>
         <p class="phpdocumentor-summary">Add blue notification message</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2146,7 +2241,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">553</span>
+        <span class="phpdocumentor-element-found-in__line">594</span>
     </aside>
         <p class="phpdocumentor-summary">Add yellow message</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2193,7 +2288,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">564</span>
+        <span class="phpdocumentor-element-found-in__line">605</span>
     </aside>
         <p class="phpdocumentor-summary">Set help link data</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2242,7 +2337,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">586</span>
+        <span class="phpdocumentor-element-found-in__line">627</span>
     </aside>
         <p class="phpdocumentor-summary">Include header and footer into view,</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2297,7 +2392,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">595</span>
+        <span class="phpdocumentor-element-found-in__line">636</span>
     </aside>
         <p class="phpdocumentor-summary">Renders a set up view</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2325,7 +2420,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">635</span>
+        <span class="phpdocumentor-element-found-in__line">676</span>
     </aside>
         <p class="phpdocumentor-summary">Initializes basic view vars</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2353,7 +2448,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">739</span>
+        <span class="phpdocumentor-element-found-in__line">786</span>
     </aside>
         <p class="phpdocumentor-summary">Returns view path</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2381,7 +2476,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">749</span>
+        <span class="phpdocumentor-element-found-in__line">796</span>
     </aside>
         <p class="phpdocumentor-summary">Sets view path</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2394,7 +2489,7 @@ do not use if you want to include tabs in aother view!!!</td>
                     <span class="phpdocumentor-signature__argument">
             [,                 <span class="phpdocumentor-signature__argument__name">$module</span> :
                 <span class="phpdocumentor-signature__argument__return-type">string</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">false</span> ]            </span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span> ]            </span>
                 )
         : <span class="phpdocumentor-signature__response_type">mixed</span>
     </code>
@@ -2410,7 +2505,7 @@ do not use if you want to include tabs in aother view!!!</td>
                             <dt class="phpdocumentor-argument-list__entry">
                     <span class="phpdocumentor-signature__argument__name">$module</span>
                     : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                     = <span class="phpdocumentor-signature__argument__default-value">false</span>                </dt>
+                     = <span class="phpdocumentor-signature__argument__default-value">null</span>                </dt>
                 <dd class="phpdocumentor-argument-list__definition"><section class="phpdocumentor-description"></section></dd>
                     </dl>
     
@@ -2430,7 +2525,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">773</span>
+        <span class="phpdocumentor-element-found-in__line">820</span>
     </aside>
         <p class="phpdocumentor-summary">Return assigned view vars</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2470,7 +2565,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">782</span>
+        <span class="phpdocumentor-element-found-in__line">829</span>
     </aside>
         <p class="phpdocumentor-summary">Overrides assigned view vars</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2510,7 +2605,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">791</span>
+        <span class="phpdocumentor-element-found-in__line">838</span>
     </aside>
         <p class="phpdocumentor-summary">Auto focus element</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2550,7 +2645,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">801</span>
+        <span class="phpdocumentor-element-found-in__line">848</span>
     </aside>
         <p class="phpdocumentor-summary">Set active navigation item</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2590,7 +2685,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">814</span>
+        <span class="phpdocumentor-element-found-in__line">861</span>
     </aside>
         <p class="phpdocumentor-summary">Check if view was already rendered</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2618,7 +2713,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">824</span>
+        <span class="phpdocumentor-element-found-in__line">871</span>
     </aside>
         <p class="phpdocumentor-summary">Returns Sha256-hash on view path</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2653,7 +2748,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">835</span>
+        <span class="phpdocumentor-element-found-in__line">882</span>
     </aside>
         <p class="phpdocumentor-summary">Returns Sha256-hash on view path</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2700,7 +2795,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">853</span>
+        <span class="phpdocumentor-element-found-in__line">900</span>
     </aside>
         <p class="phpdocumentor-summary">Set form action path</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2756,7 +2851,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">869</span>
+        <span class="phpdocumentor-element-found-in__line">916</span>
     </aside>
         <p class="phpdocumentor-summary">Set Active tab</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2801,7 +2896,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">881</span>
+        <span class="phpdocumentor-element-found-in__line">928</span>
     </aside>
         <p class="phpdocumentor-summary">Set &lt;body&gt;-tag CSS class</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2846,7 +2941,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">891</span>
+        <span class="phpdocumentor-element-found-in__line">938</span>
     </aside>
         <p class="phpdocumentor-summary">Enables output of page token field</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2886,7 +2981,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">901</span>
+        <span class="phpdocumentor-element-found-in__line">948</span>
     </aside>
         <p class="phpdocumentor-summary">Adds dataview object to view variables</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -2926,7 +3021,7 @@ do not use if you want to include tabs in aother view!!!</td>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">936</span>
+        <span class="phpdocumentor-element-found-in__line">983</span>
     </aside>
         <p class="phpdocumentor-summary">Sets view to standard tab view,
 do not use if you want to include tabs in aother view!!!</p>
@@ -2992,7 +3087,7 @@ do not use if you want to include tabs in aother view!!!</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">948</span>
+        <span class="phpdocumentor-element-found-in__line">995</span>
     </aside>
         <p class="phpdocumentor-summary">Add pager to view</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3032,7 +3127,7 @@ do not use if you want to include tabs in aother view!!!</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">960</span>
+        <span class="phpdocumentor-element-found-in__line">1007</span>
     </aside>
         <p class="phpdocumentor-summary">Add HTML items into toolbar right hand to pager</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3079,7 +3174,7 @@ do not use if you want to include tabs in aother view!!!</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">969</span>
+        <span class="phpdocumentor-element-found-in__line">1016</span>
     </aside>
         <p class="phpdocumentor-summary">Triggers events addJsFiles/addCssFiles for given type</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3119,7 +3214,7 @@ do not use if you want to include tabs in aother view!!!</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">987</span>
+        <span class="phpdocumentor-element-found-in__line">1034</span>
     </aside>
         <p class="phpdocumentor-summary">Add AJAX page token to view</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3166,7 +3261,7 @@ do not use if you want to include tabs in aother view!!!</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">999</span>
+        <span class="phpdocumentor-element-found-in__line">1046</span>
     </aside>
         <p class="phpdocumentor-summary">Initialize default CSS files</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3194,7 +3289,7 @@ do not use if you want to include tabs in aother view!!!</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1016</span>
+        <span class="phpdocumentor-element-found-in__line">1063</span>
     </aside>
         <p class="phpdocumentor-summary">Initialize default JavaScript files</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3222,7 +3317,7 @@ do not use if you want to include tabs in aother view!!!</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1035</span>
+        <span class="phpdocumentor-element-found-in__line">1082</span>
     </aside>
         <p class="phpdocumentor-summary">Checks User Agent for a certain browser</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
@@ -3269,7 +3364,7 @@ do not use if you want to include tabs in aother view!!!</p>
     <aside class="phpdocumentor-element-found-in">
         <abbr class="phpdocumentor-element-found-in__file" title="inc/view/view.php"><a href="../files/inc-view-view.html"><abbr title="inc/view/view.php">view.php</abbr></a></abbr>
         :
-        <span class="phpdocumentor-element-found-in__line">1049</span>
+        <span class="phpdocumentor-element-found-in__line">1096</span>
     </aside>
         <p class="phpdocumentor-summary">Return JS file extension</p>
         <code class="phpdocumentor-signature phpdocumentor-code ">
