@@ -28,6 +28,13 @@ $lang = array (
     5 => 'Freitag',
     6 => 'Samstag',
   ),
+  'SYSTEM_IMPORT_ITEMS' => 
+  array (
+    'Artikel' => 'fpcm\\model\\articles\\article',
+    'Kommentare' => '\\fpcm\\model\\comments\\comment',
+    'Kategorien' => 'fpcm\\model\\categories\\category',
+    'Textzensur' => 'fpcm\\model\\wordban\\item',
+  ),
   'SYSTEM_MONTHS' => 
   array (
     1 => 'Januar',

@@ -23,6 +23,8 @@ final class jqupload extends uploader {
     const FILETYPES_DRAFTS = '/\.(htm|html|txt)$/i';
 
     const FILETYPES_MODULES = '/\.(zip)$/i';
+
+    const FILETYPES_CSV = '/\.(csv)$/i';
     
     /**
      * Returns CSS files for uploader

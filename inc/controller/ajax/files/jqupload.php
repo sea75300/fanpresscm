@@ -99,6 +99,24 @@ class jqupload extends \fpcm\controller\abstracts\ajaxController implements \fpc
      * 
      * @return array
      */
+    protected function getConfigCsv() : array
+    {
+        return [
+            'upload_dir' => \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, DIRECTORY_SEPARATOR),
+            'upload_url' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_TEMP, '/'),
+            'accept_file_types' => \fpcm\components\fileupload\jqupload::FILETYPES_CSV,
+            'image_versions' => array(),
+            'min_width' => false,
+            'max_width' => false,
+            'min_height' => false,
+            'max_height' => false
+        ];
+    }
+
+    /**
+     * 
+     * @return array
+     */
     protected function getConfigModules() : array
     {
         $unique = \fpcm\classes\tools::getHash($this->session->getSessionId().$this->session->getUserId());

@@ -42,4 +42,5 @@ ajax/categories/massedit: ajax/categories/massedit
 ajax/shareClick: ajax/pub/shareClick
 ajax/help: ajax/system/help
 ajax/passcheck: ajax/system/passcheck
+ajax/import: ajax/system/import
 ajax/testing: ajax/system/testing
