@@ -15,7 +15,8 @@ namespace fpcm\model\articles;
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class article extends \fpcm\model\abstracts\dataset {
+class article extends \fpcm\model\abstracts\dataset
+implements \fpcm\model\interfaces\isCsvImportable {
 
     use \fpcm\model\traits\autoTable;
     
@@ -1034,8 +1035,32 @@ class article extends \fpcm\model\abstracts\dataset {
                         ->setText('EDITOR_STATUS_ARCHIVE')
                         ->setStack('square');
     }
+    
+    public function assignCsvRow(array $csvRow): bool
+    {
+        return true;
+    }
 
-    /**
+    public function getFields(): array
+    {
+        return [
+            'Titel' => 'title',
+            'Artikeltext' => 'content',
+            'Kategorien' => 'categories',
+            'Entwurf-Status' => 'draft',
+            'Archiv-Status' => 'archived',
+            'Gespinnt-Status' => 'pinned',
+            'Geplant-Status' => 'postponed',
+            'Kommentare aktiv' => 'comments',
+            'Artikel-Freigabe' => 'approval',
+            'Artikel-Pfad' => 'imagepath',
+            'Veröffentlichungszeit' => 'createtime',
+            'Author' => 'createuser',
+            'Quellenverzeichnis' => 'sources',
+        ];
+    }
+
+        /**
      * Führt Ersetzung von gesperrten Texten in Artikel-Daten durch
      * @return bool
      * @since 3.2.0

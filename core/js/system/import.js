@@ -12,8 +12,43 @@ fpcm.import = {
 
     init: function () {      
 
+        fpcm.ui.selectmenu('#import_destination', {
+            removeCornerLeft: true,
+            change: function (event, ui) {
+                
+                if (!fpcm.vars.jsvars.fields[ui.item.value.replace('\\', '_')]) {
+                    fpcm.dom.fromId('fpcm-ui-csv-fields-select').empty();
+                    fpcm.dom.fromId('fpcm-ui-csv-fields-list').empty();
+                    return false;
+                }
+                
+                let fields = fpcm.vars.jsvars.fields[ui.item.value.replace('\\', '_')];
+                
+                for (var item in fields) {
+                    fpcm.dom.appendHtml('#fpcm-ui-csv-fields-select', '<li class="mb-1 mx-0 p-2 fpcm-ui-background-white-100 fpcm-ui-border-grey-medium" id="csv_field_' + fields[item] + '">' + item + '</li>')
+                }
+                
+                fpcm.dom.fromClass('fpcm-ui-csv-fields').sortable({
+                    connectWith: 'ul.fpcm-ui-csv-fields'
+                });
+
+                return false;
+            }
+            
+        });   
+                
         fpcm.dom.fromId('btnImportStart').click(function (event, ui)
         {
+            let _fields = fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray');
+            if (!_fields.length) {
+                fpcm.ui.addMessage({
+                   type: 'error',
+                   txt: 'Bitte führe eine Feldauswahl durch.'
+                });
+                return false;
+            }
+            
+            
             fpcm.worker.postMessage({
                 namespace: 'import',
                 function: '_exec',
@@ -23,6 +58,7 @@ fpcm.import = {
                     item: fpcm.dom.fromId('import_destination').val(),
                     delim: fpcm.dom.fromId('import_delimiter').val(),
                     enclo: fpcm.dom.fromId('import_enclosure').val(),
+                    fields: fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray'),
                     current: 1,
                     next: 1
                 }
@@ -38,12 +74,15 @@ fpcm.import = {
         if (!_params.file) {
             fpcm.ui.addMessage({
                type: 'error',
-               txt: 'BItte lade eine gültige CSV-Datei hoch!'
+               txt: 'Bitte lade eine gültige CSV-Datei hoch!'
             });
+
             return false;
         }
         
-        console.log(_params);
+        fpcm.dom.fromClass('fpcm-ui-progressbar').parent().removeClass('ui-hidden');
+        fpcm.dom.fromId('fpcm-ui-csv-upload').addClass('fpcm ui-hidden');        
+        fpcm.dom.fromId('fpcm-ui-csv-settings').addClass('fpcm ui-hidden');        
         
         return false;
         
@@ -87,15 +126,23 @@ fpcm.filemanager = {
             return false;
         }
 
-        fpcm.dom.fromId('import_filename').val(_params.files[0].name);
-
         fpcm.ui.progressbar('.fpcm-ui-progressbar', {
             max: parseInt(_params.files[0].size),
             value: 0
         });
+        
+        fpcm.dom.fromClass('fpcm-ui-progressbar-label').text( fpcm.ui.translate('IMPORT_PROGRESS').replace('{{filename}}', _params.files[0].name) );
 
-        fpcm.dom.fromClass('fpcm-ui-progressbar').parent().removeClass('ui-hidden');
-        fpcm.dom.fromId('fpcm-ui-csv-upload').addClass('fpcm ui-hidden');
+        fpcm.dom.fromId('fileupload').addClass('fpcm ui-hidden');
+        fpcm.dom.appendHtml('#fpcm-ui-csv-upload', '<div class="row my-2">' + fpcm.ui.getTextInput({
+                name: 'import_filename',
+                id: 'import_filename',
+                value: _params.files[0].name,
+                text: fpcm.ui.translate('IMPORT_FILE')
+            }) + '</div>'
+        );
+
+        fpcm.dom.isReadonly('#import_filename', true);
         return false;
     },
     

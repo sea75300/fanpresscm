@@ -8,14 +8,20 @@
 namespace fpcm\controller\ajax\system;
 
 /**
- * AJAX testing controller
+ * AJAX import controller
  * 
  * @package fpcm\controller\ajax\system\refresh
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2019, Stefan Seehafer
+ * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
+
+    /**
+     * 
+     * @var \fpcm\model\abstracts\dataset
+     */
+    private $instance;
 
     public function isAccessible(): bool
     {
@@ -27,9 +33,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function process()
     {
-        
-        
-        
+
         $current = $this->request->fromPOST('current', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
@@ -89,6 +93,27 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
         $this->response->setReturnData($progressObj)->fetch();
 
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    private function initImportItem() : bool
+    {
+        if ($this->instance instanceof \fpcm\model\interfaces\isCsvImportable) {
+            return true;
+        }
+
+        $item = $this->request->fromPOST('item');
+
+        $class = 'fpcm\\model\\'.$item;
+        if (!is_a($class, '\fpcm\model\interfaces\isCsvImportable')) {
+            $this->response->setCode(415)->setReturnData(new \fpcm\view\message('Ungültiger Typ', \fpcm\view\message::TYPE_ERROR ))->fetch();
+        }
+        
+        $this->instance = new $class;
+        return true;
     }
 
 

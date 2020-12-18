@@ -18,8 +18,8 @@
     <div class="col-12 col-md-6 mb-2 mb-md-0" id="fpcm-ui-csv-upload">
         <?php include $uploadTemplatePath; ?>
     </div>    
-    
-    <div class="col-12 col-md-6">
+
+    <div class="col-12 col-md-6" id="fpcm-ui-csv-settings">
         
         <div class="row my-2">
             <?php $theView->select('import_destination')->setOptions($theView->translate('SYSTEM_IMPORT_ITEMS'))
@@ -36,9 +36,28 @@
                 ->setText('IMPORT_ENCLOSURE')->setIcon('quote-left')->setDisplaySizesDefault(); ?>
         </div>
         
+        <div class="row my-2"> 
+
+            <div class="col-12 col-md-6">
+
+                <p><?php $theView->write('IMPORT_FIELDS_OBJECT'); ?>:</p>
+                
+                <ul class="fpcm-ui-list-style-none p-0 fpcm-ui-csv-fields" id="fpcm-ui-csv-fields-select"></ul>
+
+            </div>
+
+            <div class="col-12 col-md-6">
+
+                <p><?php $theView->write('IMPORT_FIELDS_CSV'); ?>:</p>
+
+                <ul class="fpcm-ui-list-style-none px-0 pt-0 pb-5 fpcm-ui-csv-fields" id="fpcm-ui-csv-fields-list"></ul>
+
+            </div>
+
+        </div>
         
-    </div>   
+        
+    </div>     
 </div>
 
-<?php $theView->hiddenInput('import_filename'); ?>
 <?php $theView->hiddenInput('import_size'); ?>

@@ -336,6 +336,10 @@ div.fpcm-ui-inline-loader {
     max-height: 1024px;
 }
 
+#fpcm-ui-csv-fields-list {
+    min-height: 100px;
+}
+
 .fpcm-ui-controlgroup.fpcm-ui-borderradius-remove-left > .ui-button:first-child {
     border-radius: 0 !important;
 }
@@ -568,4 +572,9 @@ div.fpcm-filelist-thumb-box img {
 
 .fpcm-ui-box-sizing-none {
     box-sizing: initial !important;
+}
+
+ul.fpcm-ui-list-style-none {
+    list-style-type: none;
+    list-style-image: none;
 }

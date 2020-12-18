@@ -30,10 +30,10 @@ $lang = array (
   ),
   'SYSTEM_IMPORT_ITEMS' => 
   array (
-    'Artikel' => 'fpcm\\model\\articles\\article',
-    'Kommentare' => '\\fpcm\\model\\comments\\comment',
-    'Kategorien' => 'fpcm\\model\\categories\\category',
-    'Textzensur' => 'fpcm\\model\\wordban\\item',
+    'Artikel' => 'articles\\article',
+    'Kommentare' => 'comments\\comment',
+    'Kategorien' => 'categories\\category',
+    'Textzensur' => 'wordban\\item',
   ),
   'SYSTEM_MONTHS' => 
   array (

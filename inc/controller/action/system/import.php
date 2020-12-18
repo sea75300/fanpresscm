@@ -36,11 +36,12 @@ implements \fpcm\controller\interfaces\isAccessible {
         
         
         $this->view->addJsVars(array_merge([
-            'uploadDest' => 'csv'
+            'uploadDest' => 'csv',
+            'fields' => $this->fetchFields()
         ], $uploader->getJsVars() ));
 
         $this->view->addCssFiles($uploader->getCssFiles());
-        $this->view->addJsLangVars(array_merge($uploader->getJsLangVars()));
+        $this->view->addJsLangVars(array_merge(['IMPORT_FILE', 'IMPORT_PROGRESS'], $uploader->getJsLangVars()));
         $this->view->addJsFiles(array_merge(['system/import.js'], $uploader->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
 
@@ -57,6 +58,33 @@ implements \fpcm\controller\interfaces\isAccessible {
         $this->view->render();
     }
 
+    public function fetchFields() : array
+    {
+        $list = $this->language->translate('SYSTEM_IMPORT_ITEMS');
+        if (!is_array($list) || !count($list)) {
+            return [];
+        }
+        
+        $ns = '\\fpcm\\model\\';
+        
+        $list = array_filter($list, function ($item) use ($ns) {
+            return is_subclass_of($ns.$item, '\fpcm\model\interfaces\isCsvImportable');
+        });
+
+        if (!is_array($list) || !count($list)) {
+            return [];
+        }
+
+        $result = [];
+        
+        foreach ($list as $item) {
+            
+            $class = $ns . $item;            
+            $result[str_replace('\\', '_', $item)] = (new $class)->getFields();
+        }
+
+        return $result;
+    }
 }
 
 ?>
