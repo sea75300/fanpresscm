@@ -79,8 +79,11 @@ implements \fpcm\controller\interfaces\isAccessible {
         
         foreach ($list as $item) {
             
-            $class = $ns . $item;            
+            $class = $ns . $item;
             $result[str_replace('\\', '_', $item)] = (new $class)->getFields();
+
+            $this->view->addJsLangVars(array_keys($result[str_replace('\\', '_', $item)]));
+            
         }
 
         return $result;

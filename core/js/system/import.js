@@ -25,7 +25,10 @@ fpcm.import = {
                 let fields = fpcm.vars.jsvars.fields[ui.item.value.replace('\\', '_')];
                 
                 for (var item in fields) {
-                    fpcm.dom.appendHtml('#fpcm-ui-csv-fields-select', '<li class="mb-1 mx-0 p-2 fpcm-ui-background-white-100 fpcm-ui-border-grey-medium" id="csv_field_' + fields[item] + '">' + item + '</li>')
+                    fpcm.dom.appendHtml(
+                        '#fpcm-ui-csv-fields-select',
+                        '<li class="mb-1 mx-0 p-2 fpcm-ui-background-white-100 fpcm-ui-border-grey-medium" id="csv_field_' + fields[item] + '">' + fpcm.ui.translate(item) + '</li>'
+                    )
                 }
                 
                 fpcm.dom.fromClass('fpcm-ui-csv-fields').sortable({
@@ -54,11 +57,13 @@ fpcm.import = {
                 function: '_exec',
                 id: 'import.exec',
                 param: {
-                    file: fpcm.dom.fromId('import_filename').val(),
-                    item: fpcm.dom.fromId('import_destination').val(),
-                    delim: fpcm.dom.fromId('import_delimiter').val(),
-                    enclo: fpcm.dom.fromId('import_enclosure').val(),
-                    fields: fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray'),
+                    item: fpcm.dom.fromId('import_destination').val().replace('\\', '__'),
+                    csv: {
+                        file: fpcm.dom.fromId('import_filename').val(),
+                        delim: fpcm.dom.fromId('import_delimiter').val(),
+                        enclo: fpcm.dom.fromId('import_enclosure').val(),
+                        fields: fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray')
+                    },
                     current: 1,
                     next: 1
                 }
@@ -71,7 +76,7 @@ fpcm.import = {
     
     _exec: function (_params) {
 
-        if (!_params.file) {
+        if (!_params.csv.file) {
             fpcm.ui.addMessage({
                type: 'error',
                txt: 'Bitte lade eine gültige CSV-Datei hoch!'
@@ -84,33 +89,42 @@ fpcm.import = {
         fpcm.dom.fromId('fpcm-ui-csv-upload').addClass('fpcm ui-hidden');        
         fpcm.dom.fromId('fpcm-ui-csv-settings').addClass('fpcm ui-hidden');        
         
-        return false;
-        
-        fpcm.ajax.post('system/import', {
+        fpcm.ajax.post('import', {
             data: _params,
             cache: false,
+            quiet: true,
             dataType: 'json',
             execDone: function (result) {
 
-//                fpcm.dom.fromClass('fpcm-ui-progressbar-label').empty();
-//
-//                fpcm.ui.progressbar('.fpcm-ui-progressbar', {
-//                    max: result.data.fs,
-//                    value: result.current ? result.current : result.data.fs
-//                });
-//
-//                if (result.data.lines && result.data.lines.length) {
-//                    fpcm.dom.fromId('list').append('<li>' + result.data.lines.join('</li><li>') + '</li>');
-//                }
-//                
-//                if (!result.next) {
-//                    return false;
-//                }
-//                
-//                fpcm.testing.exec({
-//                    current: result.current,
-//                    next: result.next
-//                });
+                if (!result.data) {
+
+                    fpcm.ui.progressbar('.fpcm-ui-progressbar', {
+                        max: 1,
+                        value: 1
+                    });
+
+                    fpcm.ui.addMessage(result);
+                    fpcm.ui.showMessages();
+                    return false;
+                }
+
+                fpcm.ui.progressbar('.fpcm-ui-progressbar', {
+                    max: result.data.fs,
+                    value: result.current ? result.current : result.data.fs
+                });
+
+                if (result.data.lines && result.data.lines.length) {
+                    fpcm.dom.fromId('list').append('<li>' + result.data.lines.join('</li><li>') + '</li>');
+                }
+                
+                if (!result.next) {
+                    return false;
+                }
+                
+                fpcm.testing.exec({
+                    current: result.current,
+                    next: result.next
+                });
             }
         });
         

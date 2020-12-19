@@ -1038,25 +1038,33 @@ implements \fpcm\model\interfaces\isCsvImportable {
     
     public function assignCsvRow(array $csvRow): bool
     {
+        
+        
+        
+        $csvRow = array_intersect_key(array_flip($this->getFields()), $csvRow);
+        
+        fpcmLogSql($csvRow);
+        
+        
         return true;
     }
 
     public function getFields(): array
     {
         return [
-            'Titel' => 'title',
-            'Artikeltext' => 'content',
-            'Kategorien' => 'categories',
-            'Entwurf-Status' => 'draft',
-            'Archiv-Status' => 'archived',
-            'Gespinnt-Status' => 'pinned',
-            'Geplant-Status' => 'postponed',
-            'Kommentare aktiv' => 'comments',
-            'Artikel-Freigabe' => 'approval',
-            'Artikel-Pfad' => 'imagepath',
-            'Veröffentlichungszeit' => 'createtime',
-            'Author' => 'createuser',
-            'Quellenverzeichnis' => 'sources',
+            'TEMPLATE_ARTICLE_HEADLINE' => 'title',
+            'TEMPLATE_ARTICLE_TEXT' => 'content',
+            'TEMPLATE_ARTICLE_CATEGORYTEXTS' => 'categories',
+            'EDITOR_STATUS_DRAFT' => 'draft',
+            'EDITOR_STATUS_ARCHIVE' => 'archived',
+            'EDITOR_STATUS_PINNED' => 'pinned',
+            'EDITOR_STATUS_POSTPONETO' => 'postponed',
+            'EDITOR_STATUS_COMMENTS' => 'comments',
+            'EDITOR_STATUS_APPROVAL' => 'approval',
+            'EDITOR_ARTICLEIMAGE' => 'imagepath',
+            'SYSTEM_OPTIONS_NEWS_BYWRITTENTIME' => 'createtime',
+            'TEMPLATE_ARTICLE_AUTHOR' => 'createuser',
+            'TEMPLATE_ARTICLE_SOURCES' => 'sources',
         ];
     }
 
