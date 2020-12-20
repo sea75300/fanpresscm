@@ -1044,15 +1044,61 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function assignCsvRow(array $csvRow): bool
     {
+        $data = array_intersect_key($csvRow, array_flip($this->getFields()));
         
+        if (!count($data)) {
+            trigger_error('Failed to assign data, empty field set!');
+            return false;
+        }
+
+        if (empty($data['title'])) {
+            trigger_error('Failed to assign data, title cnnot be empty!');
+            return false;
+        }
+
+        if (empty($data['content'])) {
+            trigger_error('Failed to assign data, content cnnot be empty!');
+            return false;
+        }
         
+        $obj = clone $this;
+
+
+        $obj->setTitle($data['title']);
+        $obj->setContent($data['content']);        
         
-        $csvRow = array_intersect_key($csvRow, array_flip($this->getFields()));
+        if (!empty($csvRow['categories'])) {
+            $obj->setCategories(array_map('intval', explode(';', $data['categories'])) );
+        }
+
+        $timer = false;
+        if (isset($data['createtime']) && \fpcm\classes\tools::validateDateString($data['createtime'])) {
+            $timer = strtotime($data['createtime']);
+        }
+
+        if ($timer === false) {
+            $timer = time();
+        }
+
+        $obj->setCreatetime($timer);
+        $obj->setCreateuser( $data['createuser'] ?? $obj->session->getUserId() );
+
+        $obj->setPinned($data['pinned'] ?? 0);
+        $obj->setDraft($data['draft'] ?? 0);
+        $obj->setComments($data['comments'] ?? 0);
+        $obj->setApproval($data['approval'] ?? 0);
+        $obj->setImagepath($data['imagepath'] ?? '');
+        $obj->setSources($data['sources'] ?? '');
+
+        if (isset($data['archived']) && $data['archived']) {
+            $obj->setArchived(1);
+            $obj->setPinned(0);
+            $obj->setPostponed(0);
+        }     
         
         fpcmLogSystem(__METHOD__);
-        fpcmLogSystem($csvRow);
-        
-        
+        fpcmLogSystem($obj->getPreparedSaveParams());
+
         return true;
     }
 

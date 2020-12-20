@@ -37,7 +37,8 @@ implements \fpcm\controller\interfaces\isAccessible {
         
         $this->view->addJsVars(array_merge([
             'uploadDest' => 'csv',
-            'fields' => $this->fetchFields()
+            'fields' => $this->fetchFields(),
+            'unique' => \fpcm\classes\tools::getHash( $this->session->getSessionId() . uniqid('csv') )
         ], $uploader->getJsVars() ));
 
         $this->view->addCssFiles($uploader->getCssFiles());

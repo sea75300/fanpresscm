@@ -10,7 +10,7 @@ namespace fpcm\controller\ajax\system;
 /**
  * AJAX import controller
  * 
- * @package fpcm\controller\ajax\system\refresh
+ * @package fpcm\controller\ajax\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
@@ -19,7 +19,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
     /**
      * 
-     * @var \fpcm\model\articles\article //\fpcm\model\abstracts\dataset
+     * @var \fpcm\model\interfaces\isCsvImportable
      */
     private $instance;
 
@@ -164,9 +164,9 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             }
             
             if ($csv->assignCsvFields($this->fields, $line) === false) {
-
-                $current = $csv->tell();
-
+                
+                $csv->delete();
+                
                 $this->response->setReturnData(new \fpcm\view\message(
                     'Übermittelte Datei ist ungültig!',
                     \fpcm\view\message::TYPE_ERROR,
@@ -174,10 +174,20 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                     '',
                     true
                 ))->fetch();
-
             }
-            
-            $this->instance->assignCsvRow($line);
+
+            if (!$this->instance->assignCsvRow($line)) {
+                
+                $csv->delete();
+                
+                $this->response->setReturnData(new \fpcm\view\message(
+                    'Fehler beim zuweisen der Import-Daten!',
+                    \fpcm\view\message::TYPE_ERROR,
+                    \fpcm\view\message::ICON_ERROR,
+                    '',
+                    true
+                ))->fetch();
+            }
             
             $current = $csv->tell();
             usleep(2000);
@@ -188,7 +198,16 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         $progressObj->setNext($this->next)->setData($this->responseData);
 
         if (!$csv->hasResource()) {
-            $this->response->setReturnData($progressObj)->fetch();
+            
+            $csv->delete();
+
+            $this->response->setReturnData(new \fpcm\view\message(
+                'Fehler beim Öffnen der zu importierenden Datei!',
+                \fpcm\view\message::TYPE_ERROR,
+                \fpcm\view\message::ICON_ERROR,
+                '',
+                true
+            ))->fetch();
         }
 
         $this->responseData['fs'] = $csv->getFilesize();

@@ -27,7 +27,7 @@ fpcm.import = {
                 for (var item in fields) {
                     fpcm.dom.appendHtml(
                         '#fpcm-ui-csv-fields-select',
-                        '<li class="mb-1 mx-0 p-2 fpcm-ui-background-white-100 fpcm-ui-border-grey-medium" id="csv_field_' + fields[item] + '">' + fpcm.ui.translate(item) + '</li>'
+                        '<li class="mb-1 mx-0 p-2 fpcm-ui-background-white-100 fpcm-ui-border-grey-medium fpcm-ui-border-radius-all" id="csv_field_' + fields[item] + '">' + fpcm.ui.translate(item) + '</li>'
                     )
                 }
                 
@@ -42,6 +42,22 @@ fpcm.import = {
                 
         fpcm.dom.fromId('btnImportStart').click(function (event, ui)
         {
+            if (!fpcm.dom.fromId('import_filename').val()) {
+                fpcm.ui.addMessage({
+                   type: 'error',
+                   txt: 'Bitte lade eine Datei zum Import hoch.'
+                });
+                return false;
+            }
+
+            if (!fpcm.dom.fromId('fpcm-ui-csv-fields-list').find('li').length) {
+                fpcm.ui.addMessage({
+                   type: 'error',
+                   txt: 'Bitte wähle ein Importziel aus und wähle die zu importierenden Felder aus.'
+                });
+                return false;
+            }
+            
             let _fields = fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray');
             if (!_fields.length) {
                 fpcm.ui.addMessage({
@@ -69,7 +85,7 @@ fpcm.import = {
                         fields: fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray')
                     },
                     start: true,
-                    unique: (new Date()).getTime(),
+                    unique: fpcm.vars.jsvars.unique,
                     current: 1,
                     next: 1
                 }
@@ -106,7 +122,6 @@ fpcm.import = {
                     });
 
                     fpcm.ui.addMessage(result);
-                    fpcm.ui.showMessages();
 
                     fpcm.worker.postMessage({
                         cmd: 'remove',
