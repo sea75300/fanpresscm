@@ -37,12 +37,26 @@ final class csvFile extends \fpcm\model\abstracts\file {
     private $handle;
 
     /**
+     * Delimiter char
+     * @var string
+     */
+    private $delim;
+
+    /**
+     * Enclosure char
+     * @var string
+     */
+    private $enclosure;
+
+    /**
      * Constructor
      * @param string $filename
      */
-    public function __construct($filename = '')
+    public function __construct($filename = '', string $delim, string $enclosure)
     {
         parent::__construct($filename);
+        $this->delim = $delim;
+        $this->enclosure = $enclosure;
         $this->init();
     }
 
@@ -66,7 +80,7 @@ final class csvFile extends \fpcm\model\abstracts\file {
      */
     protected function basePath($filename)
     {
-        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, \fpcm\classes\tools::getHash($filename).'.csv');
+        return \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_TEMP, $filename.'.csv');
     }
 
     /**
@@ -174,15 +188,15 @@ final class csvFile extends \fpcm\model\abstracts\file {
      * Fetch file content
      * @param string $delim
      * @param string $enclosure
-     * @return array
+     * @return bool|array
      */
-    public function getCsv(string $delim, string $enclosure) : array
+    public function getContent()
     {
         if (!$this->hasResource()) {
             return [];
         }
 
-        return fgetcsv($this->handle, 0, $delim, $enclosure);
+        return fgetcsv($this->handle, 0, $this->delim, $this->enclosure);
     }
 
     /**
@@ -223,7 +237,7 @@ final class csvFile extends \fpcm\model\abstracts\file {
                 return false;
             }
 
-            $res[$field] = $line[$index] ?? '';
+            $tmp[$field] = $line[$index] ?? '';
         }
 
         $line = $tmp;

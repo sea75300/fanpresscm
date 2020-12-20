@@ -62,6 +62,7 @@ fpcm.import = {
                         file: fpcm.dom.fromId('import_filename').val(),
                         delim: fpcm.dom.fromId('import_delimiter').val(),
                         enclo: fpcm.dom.fromId('import_enclosure').val(),
+                        skipfirst: fpcm.dom.fromId('import_first').prop('selected'),
                         fields: fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray')
                     },
                     current: 1,
@@ -105,6 +106,12 @@ fpcm.import = {
 
                     fpcm.ui.addMessage(result);
                     fpcm.ui.showMessages();
+
+                    fpcm.worker.postMessage({
+                        cmd: 'remove',
+                        id: 'import.exec'
+                    });
+
                     return false;
                 }
 
@@ -118,6 +125,11 @@ fpcm.import = {
                 }
                 
                 if (!result.next) {
+                    fpcm.worker.postMessage({
+                        cmd: 'remove',
+                        id: 'import.exec'
+                    });                
+
                     return false;
                 }
                 
@@ -125,6 +137,14 @@ fpcm.import = {
                     current: result.current,
                     next: result.next
                 });
+            },
+            execFailed: function () {
+
+                fpcm.worker.postMessage({
+                    cmd: 'remove',
+                    id: 'import.exec'
+                });
+                
             }
         });
         

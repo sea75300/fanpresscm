@@ -384,6 +384,7 @@ $lang = array (
   'HL_TEMPLATE_PREVIEW' => 'Template-Vorschau',
   'IMPORT_DELIMITER' => 'Trennzeichen',
   'IMPORT_ENCLOSURE' => 'Begrezungszeichen',
+  'IMPORT_EXCLUDE_FIRST' => 'Erste Zeile überspringen',
   'IMPORT_FIELDS_CSV' => 'Reihenfolge in CSV-Datei',
   'IMPORT_FIELDS_OBJECT' => 'Verfügbare Felder',
   'IMPORT_FILE' => 'CSV-Datei',

@@ -33,7 +33,11 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
     private $enclosure;
 
+    private $skipfirst;
+
     private $fields;
+    
+    private $responseData = [];
 
     public function isAccessible(): bool
     {
@@ -51,21 +55,20 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         ]);
 
         $csvParams = $this->request->fromPOST('csv');
-        
-        fpcmLogSystem(__METHOD__);
-        fpcmLogSystem($csvParams);
-        
-        $this->file = filter_var($csvParams['file'] ?? null, FILTER_SANITIZE_STRING);
 
-        $this->delim = filter_var($csvParams['delim'] ?? null, FILTER_SANITIZE_STRING);
+        $this->file = basename(filter_var($csvParams['file'] ?? null, FILTER_SANITIZE_STRING), '.csv');
+
+        $this->delim = substr(filter_var($csvParams['delim'] ?? null, FILTER_SANITIZE_STRING), 0, 1);
         if (!in_array($this->delim, [';', ','])) {
             $this->delim = ';';
         }
         
-        $this->enclosure = filter_var($csvParams['enclo'] ?? null, FILTER_SANITIZE_STRING);
-        if (!in_array($this->delim, ['"', '\''])) {
-            $this->delim = '"';
+        $this->enclosure = substr(filter_var($csvParams['enclo'] ?? null, FILTER_SANITIZE_STRING), 0, 1);
+        if (!in_array($this->enclosure, ['"', '\''])) {
+            $this->enclosure = '"';
         }
+        
+        $this->skipfirst = $csvParams['skipfirst'] ?? false;
         
         $this->fields = $csvParams['fields'] ?? [];
         if (!count($this->fields)) {
@@ -81,15 +84,17 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         $this->initImportItem();
         return true;
     }
-
-
     
     /**
      * Controller-Processing
      */
     public function process()
     {
-        $csv = new \fpcm\model\files\csvFile($this->file);        
+        $this->responseData = [
+             'fs' => 0,
+        ];
+        
+        $csv = new \fpcm\model\files\csvFile($this->file, $this->delim, $this->enclosure);        
         
         if ( !$csv->exists() || !$csv->isValidDataFolder('', \fpcm\classes\dirs::DATA_TEMP ) ) {
             $this->response->setReturnData(new \fpcm\view\message(
@@ -111,17 +116,32 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             ))->fetch();            
         }
 
-        $progressObj = new \fpcm\model\system\progress(function (&$data, &$current, $next, &$stop) use (&$csv) {
+        $i = 0;
 
-            if ($current >= $data['fs'] * 0.5) {
-                fpcmLogSystem('Stopped reading file after 50% of filesize');
+        $delim = $this->delim;
+        $enclosure = $this->enclosure;
+        
+        $progressObj = new \fpcm\model\system\progress(function (&$data, &$current, $next, &$stop) use (&$csv, &$i) {
+
+            if ($current >= $data['fs']) {
                 $stop = true;
                 return false;
             }
             
-            $line = $csv->getCsv($this->delim, $this->enclosure);
-            if (!$csv->assignCsvFields($this->fields, $line)) {
-                
+            $i++;
+            
+            $line = $csv->getContent();
+            
+            $assigned = null;
+            if (!$this->skipfirst || ($this->skipfirst && $i > 1) ) {
+                $assigned = $csv->assignCsvFields($this->fields, $line);
+            
+                fpcmLogSystem('csv import line after assignment in $line');
+                fpcmLogSystem($line);
+            }
+            
+            if ($assigned === false) {
+
                 $this->response->setReturnData(new \fpcm\view\message(
                     'Übermittelte Datei ist ungültig!',
                     \fpcm\view\message::TYPE_ERROR,
@@ -129,11 +149,8 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                     '',
                     true
                 ))->fetch();
-                
+
             }
-            
-            fpcmLogSystem('csv import line after assignment in $line');
-            fpcmLogSystem($line);
 
             $current = $csv->tell();
             usleep(2000);
@@ -141,8 +158,8 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             return !$csv->isEoF() ? true : false;
         });
 
-        $progressObj->setNext($next)->setData([
-            'fs' => filesize($this->file),
+        $progressObj->setNext($this->next)->setData([
+            'fs' => 0,
             'lines' => []
         ]);
 
@@ -150,19 +167,28 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             $this->response->setReturnData($progressObj)->fetch();
         }
 
+        $progressObj->setNext($this->next)->setData([
+            'fs' => $csv->getFilesize(),
+            'lines' => []
+        ]);
+
         if (!$progressObj->getNext()) {
             $this->response->setReturnData($progressObj)->fetch();
         }
 
-        if ($csv->seek($current) === -1) {
+        if ($csv->seek($this->current) === -1) {
             $this->response->setReturnData($progressObj)->fetch();
         }
 
-        $progressObj->setCurrent($current)->setNext(!feof($handle));
+        $progressObj->setCurrent($this->current)->setNext(!$csv->isEoF());
         $progressObj->process();
         
         if (!$progressObj->getStop()) {
-            $progressObj->setNext(!feof($handle));
+            $progressObj->setNext(!$csv->isEoF());
+        }
+
+        if ($csv->isEoF()) {
+            $csv->delete();
         }
 
         $csv = null;

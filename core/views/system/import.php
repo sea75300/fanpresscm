@@ -36,11 +36,15 @@
                 ->setText('IMPORT_ENCLOSURE')->setIcon('quote-left')->setDisplaySizesDefault(); ?>
         </div>
         
+        <div class="row my-2">
+            <?php $theView->checkbox('import_first')->setValue('1')->setText('IMPORT_EXCLUDE_FIRST')->setSelected(true); ?>
+        </div>
+        
         <div class="row my-2"> 
 
             <div class="col-12 col-md-6">
 
-                <p><?php $theView->write('IMPORT_FIELDS_OBJECT'); ?>:</p>
+                <p><?php $theView->write('IMPORT_FIELDS_OBJECT'); ?>: <?php $theView->icon('arrow-right')->setClass('fpcm-ui-float-right'); ?></p>
                 
                 <ul class="fpcm-ui-list-style-none p-0 fpcm-ui-csv-fields" id="fpcm-ui-csv-fields-select"></ul>
 
