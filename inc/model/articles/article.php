@@ -1035,20 +1035,32 @@ implements \fpcm\model\interfaces\isCsvImportable {
                         ->setText('EDITOR_STATUS_ARCHIVE')
                         ->setStack('square');
     }
-    
+
+    /**
+     * Assigns csv row to internal fields
+     * @param array $csvRow
+     * @return bool
+     * @since 4.5-b7
+     */
     public function assignCsvRow(array $csvRow): bool
     {
         
         
         
-        $csvRow = array_intersect_key(array_flip($this->getFields()), $csvRow);
+        $csvRow = array_intersect_key($csvRow, array_flip($this->getFields()));
         
-        fpcmLogSql($csvRow);
+        fpcmLogSystem(__METHOD__);
+        fpcmLogSystem($csvRow);
         
         
         return true;
     }
 
+    /**
+     * Fetch fields for mapping
+     * @return array
+     * @since 4.5-b7
+     */
     public function getFields(): array
     {
         return [

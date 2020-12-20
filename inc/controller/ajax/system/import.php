@@ -19,9 +19,17 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
     /**
      * 
-     * @var \fpcm\model\abstracts\dataset
+     * @var \fpcm\model\articles\article //\fpcm\model\abstracts\dataset
      */
     private $instance;
+
+    /**
+     * 
+     * @var \fpcm\model\files\fileOption
+     */
+    private $opt;
+
+    private $item;
 
     private $current;
     
@@ -36,6 +44,8 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     private $skipfirst;
 
     private $fields;
+
+    private $unique;
     
     private $responseData = [];
 
@@ -54,7 +64,22 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
-        $csvParams = $this->request->fromPOST('csv');
+        $this->unique = $this->request->fromPOST('unique');
+        if (!trim($this->unique)) {
+            $this->response->setReturnData(new \fpcm\view\message(
+                'Fehler beim initialisieren.',
+                \fpcm\view\message::TYPE_ERROR,
+                \fpcm\view\message::ICON_ERROR,
+                '',
+                true
+            ))->fetch();
+        }
+
+        $this->opt = new \fpcm\model\files\fileOption('csv/'.$this->unique);
+        $csvParams = $this->opt->read() !== null ? (array) $this->opt->read() : $this->request->fromPOST('csv');
+        $this->opt->write($csvParams);
+
+        $this->item = filter_var($csvParams['item'] ?? null, FILTER_SANITIZE_STRING);
 
         $this->file = basename(filter_var($csvParams['file'] ?? null, FILTER_SANITIZE_STRING), '.csv');
 
@@ -91,7 +116,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     public function process()
     {
         $this->responseData = [
-             'fs' => 0,
+            'fs' => 0,
         ];
         
         $csv = new \fpcm\model\files\csvFile($this->file, $this->delim, $this->enclosure);        
@@ -117,9 +142,6 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         }
 
         $i = 0;
-
-        $delim = $this->delim;
-        $enclosure = $this->enclosure;
         
         $progressObj = new \fpcm\model\system\progress(function (&$data, &$current, $next, &$stop) use (&$csv, &$i) {
 
@@ -127,20 +149,23 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 $stop = true;
                 return false;
             }
-            
+
+            usleep(10000);
+
             $i++;
             
             $line = $csv->getContent();
             
-            $assigned = null;
-            if (!$this->skipfirst || ($this->skipfirst && $i > 1) ) {
-                $assigned = $csv->assignCsvFields($this->fields, $line);
-            
-                fpcmLogSystem('csv import line after assignment in $line');
-                fpcmLogSystem($line);
+            if ($this->skipfirst && $i < 2) {
+                $current = $csv->tell();
+                usleep(2000);
+
+                return !$csv->isEoF() ? true : false;
             }
             
-            if ($assigned === false) {
+            if ($csv->assignCsvFields($this->fields, $line) === false) {
+
+                $current = $csv->tell();
 
                 $this->response->setReturnData(new \fpcm\view\message(
                     'Übermittelte Datei ist ungültig!',
@@ -151,26 +176,23 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 ))->fetch();
 
             }
-
+            
+            $this->instance->assignCsvRow($line);
+            
             $current = $csv->tell();
             usleep(2000);
 
             return !$csv->isEoF() ? true : false;
-        });
+        }, $this->unique);
 
-        $progressObj->setNext($this->next)->setData([
-            'fs' => 0,
-            'lines' => []
-        ]);
+        $progressObj->setNext($this->next)->setData($this->responseData);
 
         if (!$csv->hasResource()) {
             $this->response->setReturnData($progressObj)->fetch();
         }
 
-        $progressObj->setNext($this->next)->setData([
-            'fs' => $csv->getFilesize(),
-            'lines' => []
-        ]);
+        $this->responseData['fs'] = $csv->getFilesize();
+        $progressObj->setNext($this->next)->setData($this->responseData);
 
         if (!$progressObj->getNext()) {
             $this->response->setReturnData($progressObj)->fetch();
@@ -186,12 +208,13 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         if (!$progressObj->getStop()) {
             $progressObj->setNext(!$csv->isEoF());
         }
-
-        if ($csv->isEoF()) {
+        else {
             $csv->delete();
+            $this->opt->remove();
         }
 
         $csv = null;
+        $this->opt = null;
 
         $this->response->setReturnData($progressObj)->fetch();
 
@@ -207,11 +230,9 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             return true;
         }
 
-        $item = $this->request->fromPOST('item');
-
-        $class = 'fpcm\\model\\'. str_replace('__', '\\', $item);
+        $class = 'fpcm\\model\\'. str_replace('__', '\\', $this->item);
         if (!is_subclass_of($class, '\fpcm\model\interfaces\isCsvImportable')) {
-            $this->response->setReturnData(new \fpcm\view\message('Ungültiger Typ: ' . $class, \fpcm\view\message::TYPE_ERROR ))->fetch();
+            $this->response->setReturnData(new \fpcm\view\message('Ungültiger Typ: ' . $this->item, \fpcm\view\message::TYPE_ERROR ))->fetch();
         }
         
         $this->instance = new $class;

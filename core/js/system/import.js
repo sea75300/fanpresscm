@@ -50,21 +50,26 @@ fpcm.import = {
                 });
                 return false;
             }
-            
+
+            fpcm.dom.fromClass('fpcm-ui-progressbar').parent().removeClass('ui-hidden');
+            fpcm.dom.fromId('fpcm-ui-csv-upload').addClass('fpcm ui-hidden');
+            fpcm.dom.fromId('fpcm-ui-csv-settings').addClass('fpcm ui-hidden');
             
             fpcm.worker.postMessage({
                 namespace: 'import',
                 function: '_exec',
                 id: 'import.exec',
                 param: {
-                    item: fpcm.dom.fromId('import_destination').val().replace('\\', '__'),
                     csv: {
+                        item: fpcm.dom.fromId('import_destination').val().replace('\\', '__'),
                         file: fpcm.dom.fromId('import_filename').val(),
                         delim: fpcm.dom.fromId('import_delimiter').val(),
                         enclo: fpcm.dom.fromId('import_enclosure').val(),
-                        skipfirst: fpcm.dom.fromId('import_first').prop('selected'),
+                        skipfirst: fpcm.dom.fromId('import_first').prop('checked'),
                         fields: fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray')
                     },
+                    start: true,
+                    unique: (new Date()).getTime(),
                     current: 1,
                     next: 1
                 }
@@ -77,7 +82,7 @@ fpcm.import = {
     
     _exec: function (_params) {
 
-        if (!_params.csv.file) {
+        if (_params.start && !_params.csv.file) {
             fpcm.ui.addMessage({
                type: 'error',
                txt: 'Bitte lade eine gültige CSV-Datei hoch!'
@@ -85,10 +90,6 @@ fpcm.import = {
 
             return false;
         }
-        
-        fpcm.dom.fromClass('fpcm-ui-progressbar').parent().removeClass('ui-hidden');
-        fpcm.dom.fromId('fpcm-ui-csv-upload').addClass('fpcm ui-hidden');        
-        fpcm.dom.fromId('fpcm-ui-csv-settings').addClass('fpcm ui-hidden');        
         
         fpcm.ajax.post('import', {
             data: _params,
@@ -119,10 +120,6 @@ fpcm.import = {
                     max: result.data.fs,
                     value: result.current ? result.current : result.data.fs
                 });
-
-                if (result.data.lines && result.data.lines.length) {
-                    fpcm.dom.fromId('list').append('<li>' + result.data.lines.join('</li><li>') + '</li>');
-                }
                 
                 if (!result.next) {
                     fpcm.worker.postMessage({
@@ -133,9 +130,10 @@ fpcm.import = {
                     return false;
                 }
                 
-                fpcm.testing.exec({
+                fpcm.import._exec({
                     current: result.current,
-                    next: result.next
+                    next: result.next,
+                    unique: result.unique
                 });
             },
             execFailed: function () {

@@ -43,6 +43,12 @@ class progress implements \JsonSerializable {
     private $data = null;
 
     /**
+     * Data parameter
+     * @var null|array
+     */
+    private $unique = null;
+
+    /**
      * Callback Function 
      * @var callable
      */
@@ -59,16 +65,17 @@ class progress implements \JsonSerializable {
      * @param callable $callback
      * @return void
      */
-    public function __construct(callable $callback)
+    public function __construct(callable $callback, string $unique = '')
     {
-        $this->callback = $callback;   
+        $this->callback = $callback;
+        $this->unique = $unique;
 
         $ini = ini_get('max_execution_time');
         if (!$ini) {
             return;
         }
         
-        $this->maxExec = round(((int) $ini) * 0.8, 0, PHP_ROUND_HALF_DOWN);
+        $this->maxExec = 3; //round(((int) $ini) * 0.8, 0, PHP_ROUND_HALF_DOWN);
     }
 
     /**
