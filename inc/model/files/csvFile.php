@@ -231,8 +231,8 @@ final class csvFile extends \fpcm\model\abstracts\file {
     {
         $tmp = [];
         foreach ($fields as $index => $field) {
-            
-            $field = preg_replace('/^(csv_field_){1}(.+)$/i', '$2', $field);
+
+            self::prepareFieldName($field);
             if (!trim($field)) {
                 return false;
             }
@@ -260,6 +260,17 @@ final class csvFile extends \fpcm\model\abstracts\file {
         }
 
         return in_array($type, self::$allowedTypes) && in_array($ext, self::$allowedExts) && $assigned === $type;
+    }
+
+    /**
+     * Prepares field nam,e
+     * @param string $field
+     * @return bool
+     */
+    public static function prepareFieldName(string &$field) : bool
+    {
+        $field = preg_replace('/^(csv_field_){1}(.+)$/i', '$2', $field);
+        return true;
     }
 
 }

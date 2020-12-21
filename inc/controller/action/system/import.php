@@ -42,7 +42,7 @@ implements \fpcm\controller\interfaces\isAccessible {
         ], $uploader->getJsVars() ));
 
         $this->view->addCssFiles($uploader->getCssFiles());
-        $this->view->addJsLangVars(array_merge(['IMPORT_FILE', 'IMPORT_PROGRESS'], $uploader->getJsLangVars()));
+        $this->view->addJsLangVars(array_merge(['IMPORT_FILE', 'IMPORT_PROGRESS', 'GLOBAL_PREVIEW'], $uploader->getJsLangVars()));
         $this->view->addJsFiles(array_merge(['system/import.js'], $uploader->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
 
@@ -52,7 +52,11 @@ implements \fpcm\controller\interfaces\isAccessible {
             (new \fpcm\view\helper\tabItem('main'))->setText('IMPORT_MAIN')->setFile('system/import.php')
         ]);
 
-        $this->view->addButton( (new \fpcm\view\helper\button('importStart'))->setText('IMPORT_START') );
+        $this->view->addButtons([
+            (new \fpcm\view\helper\button('importStart'))->setText('IMPORT_START')->setIcon('file-import'),
+            (new \fpcm\view\helper\button('importPreview'))->setText('GLOBAL_PREVIEW')->setIcon('eye'),
+            (new \fpcm\view\helper\button('importReset'))->setText('GLOBAL_RESET')->setIcon('recycle'),
+        ]);
         
         $this->view->assign('progressbarName', 'csvimport');
         

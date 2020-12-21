@@ -46,6 +46,10 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     private $fields;
 
     private $unique;
+
+    private $preview;
+
+    private $reset;
     
     private $responseData = [];
 
@@ -64,6 +68,10 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
 
+        $this->preview = (bool) $this->request->fromPOST('preview');
+
+        $this->reset = (bool) $this->request->fromPOST('reset');
+
         $this->unique = $this->request->fromPOST('unique');
         if (!trim($this->unique)) {
             $this->response->setReturnData(new \fpcm\view\message(
@@ -71,7 +79,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 \fpcm\view\message::TYPE_ERROR,
                 \fpcm\view\message::ICON_ERROR,
                 '',
-                true
+                false
             ))->fetch();
         }
 
@@ -102,7 +110,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 \fpcm\view\message::TYPE_ERROR,
                 \fpcm\view\message::ICON_ERROR,
                 '',
-                true
+                false
             ))->fetch();
         }
 
@@ -119,7 +127,13 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             'fs' => 0,
         ];
         
-        $csv = new \fpcm\model\files\csvFile($this->file, $this->delim, $this->enclosure);        
+        $csv = new \fpcm\model\files\csvFile($this->file, $this->delim, $this->enclosure);
+        
+        if ($this->reset) {
+            $csv->delete();
+            $this->opt->remove();
+            $this->response->setReturnData(['reset' => 1])->fetch();
+        }
         
         if ( !$csv->exists() || !$csv->isValidDataFolder('', \fpcm\classes\dirs::DATA_TEMP ) ) {
             $this->response->setReturnData(new \fpcm\view\message(
@@ -127,7 +141,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 \fpcm\view\message::TYPE_ERROR,
                 \fpcm\view\message::ICON_ERROR,
                 '',
-                true
+                false
             ))->fetch();
         }
 
@@ -137,7 +151,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 \fpcm\view\message::TYPE_ERROR,
                 \fpcm\view\message::ICON_ERROR,
                 '',
-                true
+                false
             ))->fetch();            
         }
 
@@ -176,6 +190,31 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 ))->fetch();
             }
 
+            if ($this->preview) {
+                
+                if (!isset($data['previews'])) {
+                    
+                    $fields = array_map(function($field) {                       
+                        \fpcm\model\files\csvFile::prepareFieldName($field);
+                        return $field;
+                    }, $this->fields);
+
+                    $data['previews'] = [
+                        array_intersect($this->instance->getFields(), $fields)
+                    ];
+                }
+                
+                $data['previews'][] = $line;
+                
+                if (count($data['previews']) >= 10) {
+                    $stop = true;
+                    $current = 0;
+                    return false;
+                }
+
+                return true;
+            }
+            
             if (!$this->instance->assignCsvRow($line)) {
                 
                 $csv->delete();
@@ -185,7 +224,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                     \fpcm\view\message::TYPE_ERROR,
                     \fpcm\view\message::ICON_ERROR,
                     '',
-                    true
+                    false
                 ))->fetch();
             }
             
@@ -206,7 +245,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 \fpcm\view\message::TYPE_ERROR,
                 \fpcm\view\message::ICON_ERROR,
                 '',
-                true
+                false
             ))->fetch();
         }
 
@@ -227,7 +266,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         if (!$progressObj->getStop()) {
             $progressObj->setNext(!$csv->isEoF());
         }
-        else {
+        else if (!$this->preview) {
             $csv->delete();
             $this->opt->remove();
         }

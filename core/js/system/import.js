@@ -30,7 +30,7 @@ fpcm.import = {
                         '<li class="mb-1 mx-0 p-2 fpcm-ui-background-white-100 fpcm-ui-border-grey-medium fpcm-ui-border-radius-all" id="csv_field_' + fields[item] + '">' + fpcm.ui.translate(item) + '</li>'
                     )
                 }
-                
+
                 fpcm.dom.fromClass('fpcm-ui-csv-fields').sortable({
                     connectWith: 'ul.fpcm-ui-csv-fields'
                 });
@@ -38,8 +38,67 @@ fpcm.import = {
                 return false;
             }
             
-        });   
-                
+        });     
+        
+        fpcm.dom.fromId('btnImportReset').unbind('click');
+        fpcm.dom.fromId('btnImportReset').click(function (event, ui)
+        {
+            fpcm.import._exec({
+                csv: {
+                    file: fpcm.dom.fromId('import_filename').val(),
+                },
+                reset: true,
+                unique: fpcm.vars.jsvars.unique,
+            });
+        });
+        
+        fpcm.dom.fromId('btnImportPreview').unbind('click');
+        fpcm.dom.fromId('btnImportPreview').click(function (event, ui)
+        {
+            if (!fpcm.dom.fromId('import_filename').val()) {
+                fpcm.ui.addMessage({
+                   type: 'error',
+                   txt: 'Bitte lade eine Datei zum Import hoch.'
+                });
+                return false;
+            }
+
+            if (!fpcm.dom.fromId('fpcm-ui-csv-fields-list').find('li').length) {
+                fpcm.ui.addMessage({
+                   type: 'error',
+                   txt: 'Bitte wähle ein Importziel aus und wähle die zu importierenden Felder aus.'
+                });
+                return false;
+            }
+            
+            let _fields = fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray');
+            if (!_fields.length) {
+                fpcm.ui.addMessage({
+                   type: 'error',
+                   txt: 'Bitte führe eine Feldauswahl durch.'
+                });
+                return false;
+            }
+
+            fpcm.import._exec({
+                csv: {
+                    item: fpcm.dom.fromId('import_destination').val().replace('\\', '__'),
+                    file: fpcm.dom.fromId('import_filename').val(),
+                    delim: fpcm.dom.fromId('import_delimiter').val(),
+                    enclo: fpcm.dom.fromId('import_enclosure').val(),
+                    skipfirst: fpcm.dom.fromId('import_first').prop('checked'),
+                    fields: fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray')
+                },
+                start: true,
+                preview: true,
+                unique: fpcm.vars.jsvars.unique,
+                current: 1,
+                next: 1
+            });
+
+        });
+        
+        fpcm.dom.fromId('btnImportStart').unbind('click');
         fpcm.dom.fromId('btnImportStart').click(function (event, ui)
         {
             if (!fpcm.dom.fromId('import_filename').val()) {
@@ -71,25 +130,29 @@ fpcm.import = {
             fpcm.dom.fromId('fpcm-ui-csv-upload').addClass('fpcm ui-hidden');
             fpcm.dom.fromId('fpcm-ui-csv-settings').addClass('fpcm ui-hidden');
             
-            fpcm.worker.postMessage({
-                namespace: 'import',
-                function: '_exec',
-                id: 'import.exec',
-                param: {
-                    csv: {
-                        item: fpcm.dom.fromId('import_destination').val().replace('\\', '__'),
-                        file: fpcm.dom.fromId('import_filename').val(),
-                        delim: fpcm.dom.fromId('import_delimiter').val(),
-                        enclo: fpcm.dom.fromId('import_enclosure').val(),
-                        skipfirst: fpcm.dom.fromId('import_first').prop('checked'),
-                        fields: fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray')
-                    },
-                    start: true,
-                    unique: fpcm.vars.jsvars.unique,
-                    current: 1,
-                    next: 1
+            fpcm.ui.confirmDialog({
+                clickYes: function () {
+                    fpcm.worker.postMessage({
+                        namespace: 'import',
+                        function: '_exec',
+                        id: 'import.exec',
+                        param: {
+                            csv: {
+                                item: fpcm.dom.fromId('import_destination').val().replace('\\', '__'),
+                                file: fpcm.dom.fromId('import_filename').val(),
+                                delim: fpcm.dom.fromId('import_delimiter').val(),
+                                enclo: fpcm.dom.fromId('import_enclosure').val(),
+                                skipfirst: fpcm.dom.fromId('import_first').prop('checked'),
+                                fields: fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray')
+                            },
+                            start: true,
+                            unique: fpcm.vars.jsvars.unique,
+                            current: 1,
+                            next: 1
+                        }
+                    });                     
                 }
-            });              
+            });
             
         });
         
@@ -113,6 +176,11 @@ fpcm.import = {
             quiet: true,
             dataType: 'json',
             execDone: function (result) {
+                
+                if (result.reset !== undefined) {
+                    fpcm.ui.relocate('self');
+                    return false;
+                }
 
                 if (!result.data) {
 
@@ -128,6 +196,11 @@ fpcm.import = {
                         id: 'import.exec'
                     });
 
+                    return false;
+                }
+                
+                if (result.data.previews) {
+                    fpcm.import._showPreviewDialog(result.data);
                     return false;
                 }
 
@@ -161,6 +234,57 @@ fpcm.import = {
             }
         });
         
+    },
+    
+    _showPreviewDialog: function (_data) {
+
+        let html = [];
+        let _rowFields = [];
+
+        html.push('<div class="row mx-0 px-0">');
+        for (var item in _data.previews[0]) {            
+            html.push('<div class="col"><strong>' + fpcm.ui.translate(item) + '</strong></div>');
+            _rowFields.push(_data.previews[0][item]);
+        }
+
+        html.push('</div>');
+
+        for (var r = 1; r < _data.previews.length; r++) {
+
+            if (_data.previews[r] === undefined) {
+                continue;
+            }
+
+            html.push('<div class="row mx-0 my-1 px-0">');
+            for (var f = 0; f < _rowFields.length; f++) {
+                html.push('<div class="col">' + _data.previews[r][ _rowFields[f] ] + '</div>');
+            }
+
+            html.push('</div>');
+        }
+
+        html = html.join('\n');
+
+        fpcm.ui.dialog({
+            title: fpcm.ui.translate('GLOBAL_PREVIEW'),
+            dialogId: 'csv-import-preview',
+            content: html,
+            dlButtons: [
+                {
+                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
+                    icon: "ui-icon-closethick",
+                    click: function () {
+                        fpcm.dom.fromTag(this).dialog("close");
+                        return false;
+                    }
+                }
+            ],
+            dlOnClose: function () {
+                fpcm.dom.fromTag(this).remove();
+            }
+        });        
+
+        return false;
     }
 
 };

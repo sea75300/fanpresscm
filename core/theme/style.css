@@ -336,7 +336,7 @@ div.fpcm-ui-inline-loader {
     max-height: 1024px;
 }
 
-#fpcm-ui-csv-fields-list {
+ul.fpcm-ui-csv-fields {
     min-height: 100px;
 }
 
