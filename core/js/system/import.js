@@ -80,21 +80,26 @@ fpcm.import = {
                 return false;
             }
 
-            fpcm.import._exec({
-                csv: {
-                    item: fpcm.dom.fromId('import_destination').val().replace('\\', '__'),
-                    file: fpcm.dom.fromId('import_filename').val(),
-                    delim: fpcm.dom.fromId('import_delimiter').val(),
-                    enclo: fpcm.dom.fromId('import_enclosure').val(),
-                    skipfirst: fpcm.dom.fromId('import_first').prop('checked'),
-                    fields: fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray')
-                },
-                start: true,
-                preview: true,
-                unique: fpcm.vars.jsvars.unique,
-                current: 1,
-                next: 1
-            });
+            fpcm.worker.postMessage({
+                namespace: 'import',
+                function: '_exec',
+                id: 'import.exec',
+                param: {
+                    csv: {
+                        item: fpcm.dom.fromId('import_destination').val().replace('\\', '__'),
+                        file: fpcm.dom.fromId('import_filename').val(),
+                        delim: fpcm.dom.fromId('import_delimiter').val(),
+                        enclo: fpcm.dom.fromId('import_enclosure').val(),
+                        skipfirst: fpcm.dom.fromId('import_first').prop('checked'),
+                        fields: fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray')
+                    },
+                    start: true,
+                    preview: true,
+                    unique: fpcm.vars.jsvars.unique,
+                    current: 1,
+                    next: 1
+                }
+            }); 
 
         });
         
@@ -131,7 +136,12 @@ fpcm.import = {
             fpcm.dom.fromId('fpcm-ui-csv-settings').addClass('fpcm ui-hidden');
             
             fpcm.ui.confirmDialog({
+                
+                defaultYes: true,
                 clickYes: function () {
+                    
+                    fpcm.dom.fromTag(this).dialog("close");
+                    
                     fpcm.worker.postMessage({
                         namespace: 'import',
                         function: '_exec',
@@ -178,6 +188,12 @@ fpcm.import = {
             execDone: function (result) {
                 
                 if (result.reset !== undefined) {
+
+                    fpcm.worker.postMessage({
+                        cmd: 'remove',
+                        id: 'import.exec'
+                    });
+
                     fpcm.ui.relocate('self');
                     return false;
                 }
@@ -200,7 +216,14 @@ fpcm.import = {
                 }
                 
                 if (result.data.previews) {
+
+                    fpcm.worker.postMessage({
+                        cmd: 'remove',
+                        id: 'import.exec'
+                    });
+
                     fpcm.import._showPreviewDialog(result.data);
+
                     return false;
                 }
 
