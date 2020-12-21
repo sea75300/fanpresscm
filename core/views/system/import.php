@@ -42,20 +42,25 @@
         
         <div class="row my-2"> 
 
-            <div class="col-12 col-md-6 pl-0">
+            <div class="col-12 col-lg-5 px-0 pr-lg-1">
 
                 <fieldset>
-                    <legend><?php $theView->write('IMPORT_FIELDS_OBJECT'); ?>: <?php $theView->icon('arrow-right')->setClass('fpcm-ui-float-right'); ?></legend>
+                    <legend><?php $theView->write('IMPORT_FIELDS_OBJECT'); ?></legend>
                     <ul class="fpcm-ui-list-style-none p-0 fpcm-ui-csv-fields" id="fpcm-ui-csv-fields-select"></ul>
                 </fieldset>
 
             </div>
 
-            <div class="col-12 col-md-6 pr-0">
+            <div class="col-2 px-0 d-none d-lg-block align-self-center fpcm ui-align-center ui-color-font-grey">
+                <?php $theView->icon('chevron-right')->setSize('3x'); ?>
+                
+            </div>
+
+            <div class="col-12 col-lg-5 px-0 pl-lg-1">
 
                 <fieldset>
                     <legend><?php $theView->write('IMPORT_FIELDS_CSV'); ?></legend>
-                    <ul class="fpcm-ui-list-style-none px-0 pt-0 pb-2 fpcm-ui-csv-fields" id="fpcm-ui-csv-fields-list"></ul>
+                    <ul class="fpcm-ui-list-style-none p-0 fpcm-ui-csv-fields" id="fpcm-ui-csv-fields-list"></ul>
                 </fieldset>
 
             </div>

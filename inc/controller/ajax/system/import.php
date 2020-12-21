@@ -55,7 +55,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
     public function isAccessible(): bool
     {
-        return $this->permissions->system->options;
+        return $this->permissions->system->options && defined('FPCM_CSV_IMPORT') && FPCM_CSV_IMPORT;
     }
     
     public function request()
@@ -75,7 +75,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         $this->unique = $this->request->fromPOST('unique');
         if (!trim($this->unique)) {
             $this->response->setReturnData(new \fpcm\view\message(
-                'Fehler beim initialisieren.',
+                $this->language->translate('IMPORT_MSG_INITFAILED.'),
                 \fpcm\view\message::TYPE_ERROR,
                 \fpcm\view\message::ICON_ERROR,
                 '',
@@ -103,10 +103,14 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         
         $this->skipfirst = $csvParams['skipfirst'] ?? false;
         
+        if ($this->reset) {
+            return true;
+        }
+
         $this->fields = $csvParams['fields'] ?? [];
         if (!count($this->fields)) {
             $this->response->setReturnData(new \fpcm\view\message(
-                'Keine Felder zugewiesen.',
+                $this->language->translate('IMPORT_MSG_NOFIELDS'),
                 \fpcm\view\message::TYPE_ERROR,
                 \fpcm\view\message::ICON_ERROR,
                 '',
@@ -137,7 +141,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         
         if ( !$csv->exists() || !$csv->isValidDataFolder('', \fpcm\classes\dirs::DATA_TEMP ) ) {
             $this->response->setReturnData(new \fpcm\view\message(
-                'Die CSV-Datei wurde nicht gefunden!',
+                $this->language->translate('IMPORT_MSG_CSVNOTFOUND'),
                 \fpcm\view\message::TYPE_ERROR,
                 \fpcm\view\message::ICON_ERROR,
                 '',
@@ -147,7 +151,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
         if ( \fpcm\model\files\csvFile::isValidType($csv->getExtension(), $csv->getMimeType())  ) {
             $this->response->setReturnData(new \fpcm\view\message(
-                'Übermittelte Datei ist ungültig!',
+                $this->language->translate('IMPORT_MSG_CSVINVALID'),
                 \fpcm\view\message::TYPE_ERROR,
                 \fpcm\view\message::ICON_ERROR,
                 '',
@@ -178,7 +182,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 $csv->delete();
                 
                 $this->response->setReturnData(new \fpcm\view\message(
-                    'Übermittelte Datei ist ungültig!',
+                    $this->language->translate('IMPORT_MSG_EMPTYFIELD'),
                     \fpcm\view\message::TYPE_ERROR,
                     \fpcm\view\message::ICON_ERROR,
                     '',
@@ -216,7 +220,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 $csv->delete();
                 
                 $this->response->setReturnData(new \fpcm\view\message(
-                    'Fehler beim zuweisen und speichern der Import-Daten!',
+                    $this->language->translate('IMPORT_MSG_FAILEDSAVE'),
                     \fpcm\view\message::TYPE_ERROR,
                     \fpcm\view\message::ICON_ERROR,
                     '',
@@ -237,7 +241,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             $csv->delete();
 
             $this->response->setReturnData(new \fpcm\view\message(
-                'Fehler beim Öffnen der zu importierenden Datei!',
+                $this->language->translate('IMPORT_MSG_NOHANDLE'),
                 \fpcm\view\message::TYPE_ERROR,
                 \fpcm\view\message::ICON_ERROR,
                 '',
@@ -286,9 +290,13 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
 
         $class = 'fpcm\\model\\'. str_replace('__', '\\', $this->item);
         if (!is_subclass_of($class, '\fpcm\model\interfaces\isCsvImportable')) {
-            $this->response->setReturnData(new \fpcm\view\message('Ungültiger Typ: ' . $this->item, \fpcm\view\message::TYPE_ERROR ))->fetch();
+            $this->response->setReturnData(new \fpcm\view\message(
+                $this->language->translate('IMPORT_MSG_INVALIDIMPORTTYPE', [
+                    'importtype' => str_replace('__', '\\', $this->item)
+                ]), \fpcm\view\message::TYPE_ERROR
+            ))->fetch();
         }
-        
+
         $this->instance = new $class;
         return true;
     }

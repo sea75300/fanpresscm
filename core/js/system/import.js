@@ -54,31 +54,10 @@ fpcm.import = {
         
         fpcm.dom.fromId('btnImportPreview').unbind('click');
         fpcm.dom.fromId('btnImportPreview').click(function (event, ui)
-        {
-            if (!fpcm.dom.fromId('import_filename').val()) {
-                fpcm.ui.addMessage({
-                   type: 'error',
-                   txt: 'Bitte lade eine Datei zum Import hoch.'
-                });
+        {            
+            if (!fpcm.import._checkPreconditions()) {
                 return false;
-            }
-
-            if (!fpcm.dom.fromId('fpcm-ui-csv-fields-list').find('li').length) {
-                fpcm.ui.addMessage({
-                   type: 'error',
-                   txt: 'Bitte wähle ein Importziel aus und wähle die zu importierenden Felder aus.'
-                });
-                return false;
-            }
-            
-            let _fields = fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray');
-            if (!_fields.length) {
-                fpcm.ui.addMessage({
-                   type: 'error',
-                   txt: 'Bitte führe eine Feldauswahl durch.'
-                });
-                return false;
-            }
+            }            
 
             fpcm.worker.postMessage({
                 namespace: 'import',
@@ -106,28 +85,7 @@ fpcm.import = {
         fpcm.dom.fromId('btnImportStart').unbind('click');
         fpcm.dom.fromId('btnImportStart').click(function (event, ui)
         {
-            if (!fpcm.dom.fromId('import_filename').val()) {
-                fpcm.ui.addMessage({
-                   type: 'error',
-                   txt: 'Bitte lade eine Datei zum Import hoch.'
-                });
-                return false;
-            }
-
-            if (!fpcm.dom.fromId('fpcm-ui-csv-fields-list').find('li').length) {
-                fpcm.ui.addMessage({
-                   type: 'error',
-                   txt: 'Bitte wähle ein Importziel aus und wähle die zu importierenden Felder aus.'
-                });
-                return false;
-            }
-            
-            let _fields = fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray');
-            if (!_fields.length) {
-                fpcm.ui.addMessage({
-                   type: 'error',
-                   txt: 'Bitte führe eine Feldauswahl durch.'
-                });
+            if (!fpcm.import._checkPreconditions()) {
                 return false;
             }
 
@@ -174,7 +132,7 @@ fpcm.import = {
         if (_params.start && !_params.csv.file) {
             fpcm.ui.addMessage({
                type: 'error',
-               txt: 'Bitte lade eine gültige CSV-Datei hoch!'
+               txt: 'IMPORT_MSG_NOFILE'
             });
 
             return false;
@@ -259,6 +217,36 @@ fpcm.import = {
         
     },
     
+    _checkPreconditions: function() {
+        
+        if (!fpcm.dom.fromId('import_filename').val()) {
+            fpcm.ui.addMessage({
+               type: 'error',
+               txt: 'IMPORT_MSG_NOFILE'
+            });
+            return false;
+        }
+
+        if (!fpcm.dom.fromId('fpcm-ui-csv-fields-list').find('li').length) {
+            fpcm.ui.addMessage({
+               type: 'error',
+               txt: 'IMPORT_MSG_INVALIDIMPORTTYPE_NONE'
+            });
+            return false;
+        }
+
+        let _fields = fpcm.dom.fromId('fpcm-ui-csv-fields-list').sortable('toArray');
+        if (!_fields.length) {
+            fpcm.ui.addMessage({
+               type: 'error',
+               txt: 'IMPORT_MSG_NOFIELDS'
+            });
+            return false;
+        }
+        
+        return true;
+    },
+    
     _showPreviewDialog: function (_data) {
 
         let html = [];
@@ -293,6 +281,7 @@ fpcm.import = {
             dialogId: 'csv-import-preview',
             content: html,
             resizable: true,
+            dlWidth: '85%',
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_CLOSE'),

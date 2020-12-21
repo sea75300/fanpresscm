@@ -22,7 +22,7 @@ implements \fpcm\controller\interfaces\isAccessible {
      */
     public function isAccessible(): bool
     {
-        return $this->permissions->system->options;
+        return $this->permissions->system->options && defined('FPCM_CSV_IMPORT') && FPCM_CSV_IMPORT;
     }
 
     /**
@@ -42,7 +42,10 @@ implements \fpcm\controller\interfaces\isAccessible {
         ], $uploader->getJsVars() ));
 
         $this->view->addCssFiles($uploader->getCssFiles());
-        $this->view->addJsLangVars(array_merge(['IMPORT_FILE', 'IMPORT_PROGRESS', 'GLOBAL_PREVIEW'], $uploader->getJsLangVars()));
+        $this->view->addJsLangVars(array_merge(
+            ['IMPORT_FILE', 'IMPORT_PROGRESS', 'GLOBAL_PREVIEW', 'IMPORT_MSG_NOFILE', 'IMPORT_MSG_NOFIELDS', 'IMPORT_MSG_INVALIDIMPORTTYPE_NONE'],
+            $uploader->getJsLangVars()
+        ));
         $this->view->addJsFiles(array_merge(['system/import.js'], $uploader->getJsFiles() ));
         $this->view->addJsFilesLate($uploader->getJsFilesLate());
 
@@ -56,6 +59,7 @@ implements \fpcm\controller\interfaces\isAccessible {
             (new \fpcm\view\helper\button('importStart'))->setText('IMPORT_START')->setIcon('file-import'),
             (new \fpcm\view\helper\button('importPreview'))->setText('GLOBAL_PREVIEW')->setIcon('eye'),
             (new \fpcm\view\helper\button('importReset'))->setText('GLOBAL_RESET')->setIcon('recycle'),
+            (new \fpcm\view\helper\linkButton('protobtn'))->setText('HL_LOGS')->setUrl(\fpcm\classes\tools::getFullControllerLink('system/logs'))->setIcon('exclamation-triangle')->setTarget('_blank'),
         ]);
         
         $this->view->assign('progressbarName', 'csvimport');
