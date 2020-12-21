@@ -164,16 +164,12 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 return false;
             }
 
-            usleep(10000);
-
             $i++;
             
             $line = $csv->getContent();
             
             if ($this->skipfirst && $i < 2) {
                 $current = $csv->tell();
-                usleep(2000);
-
                 return !$csv->isEoF() ? true : false;
             }
             
@@ -220,7 +216,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 $csv->delete();
                 
                 $this->response->setReturnData(new \fpcm\view\message(
-                    'Fehler beim zuweisen der Import-Daten!',
+                    'Fehler beim zuweisen und speichern der Import-Daten!',
                     \fpcm\view\message::TYPE_ERROR,
                     \fpcm\view\message::ICON_ERROR,
                     '',
@@ -229,7 +225,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             }
             
             $current = $csv->tell();
-            usleep(2000);
+            usleep(500);
 
             return !$csv->isEoF() ? true : false;
         }, $this->unique);

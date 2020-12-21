@@ -292,6 +292,7 @@ fpcm.import = {
             title: fpcm.ui.translate('GLOBAL_PREVIEW'),
             dialogId: 'csv-import-preview',
             content: html,
+            resizable: true,
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_CLOSE'),

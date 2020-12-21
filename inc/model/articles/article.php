@@ -1095,10 +1095,13 @@ implements \fpcm\model\interfaces\isCsvImportable {
             $obj->setPinned(0);
             $obj->setPostponed(0);
         }     
-        
-        fpcmLogSystem(__METHOD__);
-        fpcmLogSystem($obj->getPreparedSaveParams());
 
+        if (!$obj->save())  {
+            trigger_error('Failed to import article.'.PHP_EOL.PHP_EOL.print_r($data, true));
+            return false;
+        }
+
+        unset($obj);
         return true;
     }
 
