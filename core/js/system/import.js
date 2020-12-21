@@ -194,7 +194,12 @@ fpcm.import = {
                     fpcm.worker.postMessage({
                         cmd: 'remove',
                         id: 'import.exec'
-                    });                
+                    });
+                    
+                    fpcm.ui.addMessage({
+                        txt: 'IMPORT_MSG_FINISHED',
+                        type: 'notice',
+                    });
 
                     return false;
                 }

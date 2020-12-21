@@ -1081,7 +1081,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
         }
 
         $obj->setCreatetime($timer);
-        $obj->setCreateuser( $data['createuser'] ?? $obj->session->getUserId() );
+        $obj->setCreateuser( $data['createuser'] ?? \fpcm\classes\loader::getObject('\fpcm\model\system\session')->getUserId() );
 
         $obj->setPinned($data['pinned'] ?? 0);
         $obj->setDraft($data['draft'] ?? 0);
@@ -1094,7 +1094,10 @@ implements \fpcm\model\interfaces\isCsvImportable {
             $obj->setArchived(1);
             $obj->setPinned(0);
             $obj->setPostponed(0);
-        }     
+        }
+
+        unset($obj);
+        return true;
 
         if (!$obj->save())  {
             trigger_error('Failed to import article.'.PHP_EOL.PHP_EOL.print_r($data, true));

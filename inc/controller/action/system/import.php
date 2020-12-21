@@ -43,7 +43,9 @@ implements \fpcm\controller\interfaces\isAccessible {
 
         $this->view->addCssFiles($uploader->getCssFiles());
         $this->view->addJsLangVars(array_merge(
-            ['IMPORT_FILE', 'IMPORT_PROGRESS', 'GLOBAL_PREVIEW', 'IMPORT_MSG_NOFILE', 'IMPORT_MSG_NOFIELDS', 'IMPORT_MSG_INVALIDIMPORTTYPE_NONE'],
+            ['IMPORT_FILE', 'IMPORT_PROGRESS', 'GLOBAL_PREVIEW',
+             'IMPORT_MSG_NOFILE', 'IMPORT_MSG_NOFIELDS',
+            'IMPORT_MSG_INVALIDIMPORTTYPE_NONE', 'IMPORT_MSG_FINISHED'],
             $uploader->getJsLangVars()
         ));
         $this->view->addJsFiles(array_merge(['system/import.js'], $uploader->getJsFiles() ));
