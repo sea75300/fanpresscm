@@ -1158,4 +1158,99 @@ Help language file
         und übermittelt einige grundlegende System-Informationen.</p>
         ]]>
     </chapter>
+    <chapter ref="IMPORT_MAIN">
+        <![CDATA[
+        <p>Der CSV-Import dient der Übernahme von Daten aus anderen Content Management Systemen nach FanPress CM mittels+
+        <a rel="noreferrer,noopener,external" href="https://de.wikipedia.org/wiki/CSV_(Dateiformat)" target="_blank">CSV-Datei</a>.</p>
+        
+        <h3>Einstellungen</h3>
+        
+        <p>Bevor der Import gestartet werden kann, müsse verschiedene Einstellungen festgelegt werden.</p>
+        
+        <dl>
+            <dt>Dateien hochladen</dt>
+            <dd>Über das Upload-Formular kannst du eine CSV-Datei beliebiger Größe hochladen. Ohne Upload einer Datei kann kein Import
+            gestartet werden. Wurde eine Datei erfolgreich hochgeladen, wird das Formular ausgeblendet und statt dessen der Dateiname
+            angezeigt.</dd>
+
+            <dt>Importieren nach</dt>
+            <dd>Über diese Option wählst du aus, wohin die Daten importiert werden sollen. Die Liste kann aktuell (Stand: 12/2020) nicht
+            individuell erweitert werden.</dd>
+
+            <dt>Trennzeichen</dt>
+            <dd>Die Datensätze von CSV-Dateien können mit unterschiedlichen Trennzeichen arbeiten, FanPress CM unerstützt ausschließlich Semikolon (;) bzw. Komma (,) verwendet.
+            Wird kein Trennzeichen angegeben, so wird automatisch das Semikolon verwendet.</dd>
+
+            <dt>Begrenzungszeichen</dt>
+            <dd>Texte mit Leerzeichen oder den o. g. Trennzeichen müssen für einen korrekten Import so in der CSv-Datei hinterlegt werden, dass
+            es beim Auswerten der Informationen nicht zu seiteneffekten kommt. Hierzu dient das "Begrenzungszeichen", meistens sind dies Anführungszeichen (&quot;).</dd>
+
+            <dt>Erste Zeile überspringen</dt>
+            <dd>CSV-Dateien beinhalten in der ersten Zeiole meist die Beschreibung der Spaltenköpfe. Ist dies in der zu importierenden Datei nicht der Fall,
+            so kann dies über diese Einstellung hinterlegt werden.</dd>
+
+            <dt>Verfügbare Felder / Reihenfolge in CSV-Datei</dt>
+            <dd>Anhand der Einstellung "Importieren nach" erscheint hier eine Liste mit Feldern, welche durch den CSV-Import befüllt werden können.
+            Um ein Feld zu befüllen, ziehe es von der Liste "Verfügbare Felder" in den Bereich "Reihenfolge in CSV-Datei". Anhand der Reihenfolge
+            legst du zudem fest, mit welchem Inhalt ein bestimmtes Feld befüllt wird.<br>
+            <em>Beispiel:</em>
+                <ol>
+                    <li>Artikel > Überschrift: wird die Daten aus Spalte 1 der CSV-Datei befüllt</li>
+                    <li>Artikel > Artikel-Text: wird die Daten aus Spalte 2 der CSV-Datei befüllt</li>
+                    <li>Artikel > veröffentlichung: wird die Daten aus Spalte 3 der CSV-Datei befüllt</li>
+                </ol>            
+            </dd>
+        </dl>
+
+        <h3>Aufbereitung von Import-Daten</h3>
+        <p>In Abhängigkeit vom vorherigen CMS ist im Regelfall eine Ausbereitung der Daten notwendig.</p>
+        
+        <dl>
+            <dt>Datumsangabe</dt>
+            <dd>Datumsangaben müssen im Format YYYY-MM-DD HH:II (bspw. 2020-01-01 09:00) importiert werden - andere
+            Datumsformate werden nicht unterstützt!</dd>
+
+            <dt>Checkboxen</dt>
+            <dd>Die Werte von Checkboxen bzw. Js/ Nein-Werte müssen in der CSV-Datei immer mit "0" (Nein) bzw. "1" (Ja) abgebildet werden.</dd>
+
+            <dt>Listenwerte</dt>
+            <dd>Die Werte aus Selectboxen (bspw. Artikel-Autor) wird im Regelfall über einen Index-Wert abgebildet. Dies kann bspw.
+            die interne ID (Benutzer, Kategorien, Artikel-Verknüpfung in Kommentaren) sein. </dd>
+
+            <dt>Artikel-Kategorien</dt>
+            <dd>Artikel können mehrere Kategorien besitzen. Der Import erfolgt anhand der internen ID der Katgorien.
+            Diese ermittelst du bspw. in der Adresszeile deines Browers nach dem Parameter "id"
+            (bspw. ndex.php?module=categories/edit&id=<b>1</b>). Trenne mehrere Kategorien durch ein Semikolon zwischen
+            den IDs (z. B. "1;2;5").</dd>
+
+            <dt>Kommentare zu Artikel zuweisen</dt>
+            <dd>Kommentare können via CSV-Import bei einem Artikel abgelegt werden- Hierzu muss beim Import für jeden Kommentar
+            die interne Artikel-ID hinterlegt sein.</dd>
+        </dl>
+
+        <h3>Hinweise</h3>
+        
+        <dl>
+            <dt>Vermeidung von defekten Umlauten und Sonderzeichen</dt>
+            <dd>Die zu importierenden Daten <strong>müssen</strong> im UTF-8-Zeichensatz vorliegen, andernfalls kann
+            es zu defekten Umlauten und Sonderzeichen kommen! Der CSV-Import unterstützt keine Konvertierung von anderen Zeichensätzen (bspw.
+            ISO-8895-1).</dd>
+
+            <dt>Doppelter Import / Aktualisierung von Daten</dt>
+            <dd>Der CSV-Import führt für eingeschränkt Prüfungen durch, ob ein zu importierender Datensatz bereits existiert.
+            Ist ein Element also bereits vorhganden, kann es es nach dem Import zu Dubletten kommen. Der Import unterstützt
+            zudem keine Aktualisierung bereits vorhandener Daten, sondern ist in erster Linie für die initiale Befüllung gedacht.</dd>
+
+            <dt>Vorschau</dt>
+            <dd>Die Vorschau-Funktion zeigt dir, ob die Informationen aus der CSV-Datei den korrekten Feldern zugewiesen wurden.
+            Aus der Datei werden maximal zehn Element herangezogen.</dd>
+
+            <dt>Zurücksetzen</dt>
+            <dd>Wurde die falsche CSV-Datei hochgeladen oder diese nach dem Upload nochmals verändert, starte den Import
+            über den Button "Zurücksetzen" neu.</dd>
+
+        </dl>
+
+        ]]>
+    </chapter>
 </chapters>

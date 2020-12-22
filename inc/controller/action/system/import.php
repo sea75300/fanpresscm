@@ -33,8 +33,7 @@ implements \fpcm\controller\interfaces\isAccessible {
         $this->view = new \fpcm\view\view('dummy');
         
         $uploader = \fpcm\components\components::getFileUploader();
-        
-        
+
         $this->view->addJsVars(array_merge([
             'uploadDest' => 'csv',
             'fields' => $this->fetchFields(),
@@ -65,11 +64,13 @@ implements \fpcm\controller\interfaces\isAccessible {
         ]);
         
         $this->view->assign('progressbarName', 'csvimport');
+        $this->view->assign('uploadMultiple', false);
+        $this->view->setHelpLink('IMPORT_MAIN');
         
         $this->view->render();
     }
-
-    public function fetchFields() : array
+    
+    private function fetchFields() : array
     {
         $list = $this->language->translate('SYSTEM_IMPORT_ITEMS');
         if (!is_array($list) || !count($list)) {
@@ -99,6 +100,7 @@ implements \fpcm\controller\interfaces\isAccessible {
 
         return $result;
     }
+
 }
 
 ?>

@@ -1072,7 +1072,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
         }
 
         $timer = false;
-        if (isset($data['createtime']) && \fpcm\classes\tools::validateDateString($data['createtime'])) {
+        if (isset($data['createtime']) && \fpcm\classes\tools::validateDateString($data['createtime'], true)) {
             $timer = strtotime($data['createtime']);
         }
 

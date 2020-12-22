@@ -227,6 +227,10 @@ class navigation extends \fpcm\model\abstracts\staticModel {
                 ->setDescription('HL_LOGS')
                 ->setIcon('exclamation-triangle')
                 ->setAccessible($this->permissions->system->logs),
+            (new navigationItem())->setUrl('system/import')
+                ->setDescription('IMPORT_MAIN')
+                ->setIcon('file-import')
+                ->setAccessible($this->permissions->system->options && defined('FPCM_CSV_IMPORT') && FPCM_CSV_IMPORT),
             (new navigationItem())->setUrl('system/langedit')
                 ->setDescription('Language Editor')
                 ->setIcon('language')

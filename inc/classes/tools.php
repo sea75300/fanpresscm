@@ -188,8 +188,12 @@ final class tools {
      * @return bool
      * @since 4.4
      */
-    public static function validateDateString(string $str) : bool
+    public static function validateDateString(string $str, $widthTime = false) : bool
     {
+        $regex  = $widthTime
+                ? '/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\ ([0-9]{2})\:([0-9]{2})$/'
+                : '/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/';
+        
         if (preg_match('/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/', $str, $matches) !== 1) {            
             return false;
         }
@@ -202,6 +206,18 @@ final class tools {
             return false;
         }
         
+        if (!$widthTime) {
+            return rue;
+        }
+        
+        if ((int) $matches[3] < 0 || (int) $matches[3] > 23) {
+            return false;
+        }
+        
+        if ((int) $matches[4] < 0 || (int) $matches[4] > 59) {
+            return false;
+        }
+
         return true;
     }
 
