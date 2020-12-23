@@ -122,6 +122,11 @@ abstract class cli extends \fpcm\model\abstracts\staticModel {
     const PARAM_TYPE_MODULE = 'module';
 
     /**
+     * CLI param: package manager type: modules (All modules)
+     */
+    const PARAM_TYPE_MODULES = 'modules';
+
+    /**
      * Funktionsparameter
      * @var array
      */

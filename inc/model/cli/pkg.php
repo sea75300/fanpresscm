@@ -143,8 +143,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
             $this->output('Unable to sync module package informations. Check error log for further information.' . PHP_EOL . 'Error Code ' . $successMod, true);
         }
 
-        $modules = new \fpcm\module\modules();
-        $updates = $modules->getInstalledUpdates();
+        $updates = (new \fpcm\module\modules())->getInstalledUpdates();
 
         $this->output('-- successful!');
         $this->output('FanPress CM ' . $this->updaterSys->version . ' was relesed on ' . $this->updaterSys->release . ', size is ' . \fpcm\classes\tools::calcSize($this->updaterSys->size));
@@ -413,6 +412,46 @@ final class pkg extends \fpcm\model\abstracts\cli {
     /**
      * Process module update
      * @return bool
+     * @since 4.5-b8
+     */
+    private function processUpgradeModules()
+    {
+        $this->initObjects();
+
+        $updates = (new \fpcm\module\modules())->getInstalledUpdates();
+        if (!count($updates)) {
+            $this->output('No module updates are available or were already updated.' . PHP_EOL);
+            return true;
+        }
+                
+        $this->output('Module updates are available for ' . PHP_EOL . implode(', ', $updates). PHP_EOL );
+        $this->input('Press enter to continue update for all modules...');
+
+        $addDelim = count($updates) > 1;
+        
+        array_map(function($module) use ($addDelim) {
+
+            $this->output('Start update of module ' . $module . PHP_EOL );
+
+            $this->modulekey = $module;
+            $this->processModulePackage('update', true);
+
+            $this->output('Update of module ' . $module . ' successful.' . PHP_EOL);
+            if (!$addDelim) {
+                return true;
+            }
+            
+            $this->output( '-------------------------' . PHP_EOL);
+            return true;
+
+        }, $updates);
+
+        return true;
+    }
+
+    /**
+     * Process module update
+     * @return bool
      */
     private function processUpgradeModule()
     {
@@ -477,6 +516,7 @@ final class pkg extends \fpcm\model\abstracts\cli {
         $this->output('-- Finished.' . PHP_EOL);
 
         $this->output('Update local database...');
+        
         $module = new \fpcm\module\module($this->modulekey);
         if (!method_exists($module, $mode)) {
             fpcmLogSystem('Undefined function ' . $mode . ' for module database update ' . $this->modulekey . '!');
