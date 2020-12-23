@@ -330,11 +330,16 @@ class controller implements \fpcm\controller\interfaces\controller {
     {
         $ref = $_SERVER['HTTP_REFERER'] ?? false;
         if (!trim($ref)) {
-            trigger_error('Referer check failed for '. get_class($this).'.', E_USER_ERROR);
+            trigger_error('No referer set in '. $this->request->getModule() . '.', E_USER_ERROR);
             return false;
         }
 
-        return !( strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false );
+        if ( strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false ) {
+            trigger_error('Referer ' . $ref . ' does not match ' . \fpcm\classes\dirs::getRootUrl() . ' in '. $this->request->getModule() .'.', E_USER_ERROR);
+            return false;
+        }
+
+        return true;
     }
 
     /**
