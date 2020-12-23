@@ -1040,7 +1040,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      * Assigns csv row to internal fields
      * @param array $csvRow
      * @return bool
-     * @since 4.5-b7
+     * @since 4.5-b8
      */
     public function assignCsvRow(array $csvRow): bool
     {
@@ -1111,7 +1111,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
     /**
      * Fetch fields for mapping
      * @return array
-     * @since 4.5-b7
+     * @since 4.5-b8
      */
     public function getFields(): array
     {
