@@ -194,7 +194,7 @@ final class tools {
                 ? '/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})\ ([0-9]{2})\:([0-9]{2})$/'
                 : '/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/';
         
-        if (preg_match('/^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/', $str, $matches) !== 1) {            
+        if (preg_match($regex, $str, $matches) !== 1) {            
             return false;
         }
         
@@ -210,11 +210,11 @@ final class tools {
             return rue;
         }
         
-        if ((int) $matches[3] < 0 || (int) $matches[3] > 23) {
+        if ((int) $matches[4] < 0 || (int) $matches[4] > 23) {
             return false;
         }
         
-        if ((int) $matches[4] < 0 || (int) $matches[4] > 59) {
+        if ((int) $matches[5] < 0 || (int) $matches[5] > 59) {
             return false;
         }
 
