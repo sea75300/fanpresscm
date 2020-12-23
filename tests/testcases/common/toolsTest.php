@@ -9,6 +9,16 @@ class toolsTest extends \PHPUnit\Framework\TestCase {
         parent::setUp();
     }
 
+    public function testCalcSize()
+    {
+        $this->assertStringContainsString('1,00 B', \fpcm\classes\tools::calcSize(1));
+        $this->assertStringContainsString('1,00 KiB',  \fpcm\classes\tools::calcSize(1024.01));
+        $this->assertStringContainsString('1,00 MiB', \fpcm\classes\tools::calcSize(1048576.01));
+        $this->assertStringContainsString('1,00 GiB', \fpcm\classes\tools::calcSize(1073741824.01));
+        $this->assertStringContainsString('1,00 TiB', \fpcm\classes\tools::calcSize(1073741824.01 * 1024));
+        
+    }
+
     public function testValidateDate()
     {
         $this->assertTrue( \fpcm\classes\tools::validateDateString('2020-01-01') );
