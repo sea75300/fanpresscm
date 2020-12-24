@@ -15,7 +15,8 @@ namespace fpcm\model\categories;
  * @copyright (c) 2011-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class category extends \fpcm\model\abstracts\dataset {
+class category extends \fpcm\model\abstracts\dataset
+implements \fpcm\model\interfaces\isCsvImportable {
 
     /**
      * Kategorie-Name
@@ -150,6 +151,60 @@ class category extends \fpcm\model\abstracts\dataset {
         }
 
         return $success;
+    }
+
+    /**
+     * Assigns csv row to internal fields
+     * @param array $csvRow
+     * @return bool
+     * @since 4.5-b8
+     */
+    public function assignCsvRow(array $csvRow): bool 
+    {
+        $data = array_intersect_key($csvRow, array_flip($this->getFields()));
+
+        if (!count($data)) {
+            trigger_error('Failed to assign data, empty field set!');
+            return false;
+        }
+
+        if (empty($data['name'])) {
+            trigger_error('Failed to assign data, name cannot be empty!');
+            return false;
+        }
+
+        if (empty($data['groups'])) {
+            trigger_error('Failed to assign data, groups cannot be empty!');
+            return false;
+        }
+
+        $obj = clone $this;
+
+        $obj->setName($data['name']);        
+        $obj->setGroups( implode(';', array_map( 'intval', explode(';', $data['groups']) ) ) );
+        $obj->setIconPath($data['iconpath'] ?? '');
+
+        if (!$obj->save())  {
+            trigger_error('Failed to import category.'.PHP_EOL.PHP_EOL.print_r($data, true));
+            return false;
+        }
+
+        unset($obj);
+        return true;
+    }
+
+    /**
+     * Fetch fields for mapping
+     * @return array
+     * @since 4.5-b8
+     */
+    public function getFields(): array
+    {
+        return [
+            'CATEGORIES_NAME' => 'name',
+            'CATEGORIES_ICON_PATH' => 'iconpath',
+            'CATEGORIES_ROLLS' => 'groups',
+        ];
     }
 
     /**

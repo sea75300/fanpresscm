@@ -16,7 +16,8 @@ namespace fpcm\model\wordban;
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  * @since 3.2.0
  */
-class item extends \fpcm\model\abstracts\dataset {
+class item extends \fpcm\model\abstracts\dataset
+implements \fpcm\model\interfaces\isCsvImportable {
 
     /**
      * gesuchter Text
@@ -175,6 +176,65 @@ class item extends \fpcm\model\abstracts\dataset {
         return parent::save() === false ? false : true;
     }
 
+    /**
+     * Assigns csv row to internal fields
+     * @param array $csvRow
+     * @return bool
+     * @since 4.5-b8
+     */
+    public function assignCsvRow(array $csvRow): bool
+    {
+        $data = array_intersect_key($csvRow, array_flip($this->getFields()));
+
+        if (!count($data)) {
+            trigger_error('Failed to assign data, empty field set!');
+            return false;
+        }
+
+        if (empty($data['searchtext'])) {
+            trigger_error('Failed to assign data, searchtext cannot be empty!');
+            return false;
+        }
+
+        if (empty($data['replacementtext'])) {
+            trigger_error('Failed to assign data, replacementtext cannot be empty!');
+            return false;
+        }
+
+        $obj = clone $this;
+
+        $obj->setSearchtext($data['searchtext']);
+        $obj->setReplacementtext($data['replacementtext']);
+        $obj->setReplaceTxt($data['replacetxt'] ?? 0);
+        $obj->setLockArticle($data['lockarticle'] ?? 0);
+        $obj->setCommentApproval($data['commentapproval'] ?? 0);
+
+        if (!$obj->save())  {
+            trigger_error('Failed to import text cencor item.'.PHP_EOL.PHP_EOL.print_r($data, true));
+            return false;
+        }
+
+        unset($obj);
+        return true;
+    }
+
+    /**
+     * Fetch fields for mapping
+     * @return array
+     * @since 4.5-b8
+     */
+    public function getFields(): array
+    {
+        return [
+            'WORDBAN_NAME' => 'searchtext',
+            'WORDBAN_REPLACEMENT_TEXT' => 'replacementtext',
+            'WORDBAN_REPLACETEXT' => 'replacetxt',
+            'WORDBAN_APPROVE_ARTICLE' => 'lockarticle',
+            'WORDBAN_APPROVA_COMMENT' => 'commentapproval',
+        ];
+    }
+
+    
     /**
      * Returns event base string
      * @see \fpcm\model\abstracts\dataset::getEventModule

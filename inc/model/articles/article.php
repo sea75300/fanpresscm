@@ -1052,17 +1052,16 @@ implements \fpcm\model\interfaces\isCsvImportable {
         }
 
         if (empty($data['title'])) {
-            trigger_error('Failed to assign data, title cnnot be empty!');
+            trigger_error('Failed to assign data, title cannot be empty!');
             return false;
         }
 
         if (empty($data['content'])) {
-            trigger_error('Failed to assign data, content cnnot be empty!');
+            trigger_error('Failed to assign data, content cannot be empty!');
             return false;
         }
         
         $obj = clone $this;
-
 
         $obj->setTitle($data['title']);
         $obj->setContent($data['content']);        
@@ -1095,9 +1094,6 @@ implements \fpcm\model\interfaces\isCsvImportable {
             $obj->setPinned(0);
             $obj->setPostponed(0);
         }
-
-        unset($obj);
-        return true;
 
         if (!$obj->save())  {
             trigger_error('Failed to import article.'.PHP_EOL.PHP_EOL.print_r($data, true));

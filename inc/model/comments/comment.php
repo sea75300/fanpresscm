@@ -15,7 +15,8 @@ namespace fpcm\model\comments;
  * @package fpcm\model\comments
  * @author Stefan Seehafer <sea75300@yahoo.de>
  */
-class comment extends \fpcm\model\abstracts\dataset {
+class comment extends \fpcm\model\abstracts\dataset
+implements \fpcm\model\interfaces\isCsvImportable {
 
     /**
      * Erlaubte HTML-Tags in einem Kommentar, für Formular
@@ -488,6 +489,88 @@ class comment extends \fpcm\model\abstracts\dataset {
     public function setForceDelete($forceDelete)
     {
         $this->forceDelete = $forceDelete;
+    }
+
+    /**
+     * Assigns csv row to internal fields
+     * @param array $csvRow
+     * @return bool
+     * @since 4.5-b8
+     */
+    public function assignCsvRow(array $csvRow): bool
+    {
+        $data = array_intersect_key($csvRow, array_flip($this->getFields()));
+        
+        if (!count($data)) {
+            trigger_error('Failed to assign data, empty field set!');
+            return false;
+        }
+
+        if (empty($data['text'])) {
+            trigger_error('Failed to assign data, title cannot be empty!');
+            return false;
+        }
+
+        if (empty($data['name'])) {
+            trigger_error('Failed to assign data, name cannot be empty!');
+            return false;
+        }
+
+        if (empty($data['articleid'])) {
+            trigger_error('Failed to assign data, articleid cannot be empty!');
+            return false;
+        }
+        
+        $obj = clone $this;
+
+        $obj->setArticleid($data['articleid']);
+        $obj->setName($data['name']);
+        $obj->setText(nl2br(strip_tags($data['text'], \fpcm\model\comments\comment::COMMENT_TEXT_HTMLTAGS_CHECK)));
+        $obj->setEmail(filter_var($data['email'] ?? '', FILTER_SANITIZE_EMAIL) );
+        $obj->setWebsite(filter_var($data['website'] ?? '', FILTER_SANITIZE_URL));
+        $obj->setApproved($data['approved'] ?? 1);
+        $obj->setSpammer($data['spam'] ?? 0);
+        $obj->setPrivate($data['spammer'] ?? 0);
+
+        $timer = false;
+        if (isset($data['createtime']) && \fpcm\classes\tools::validateDateString($data['createtime'], true)) {
+            $timer = strtotime($data['createtime']);
+        }
+
+        if ($timer === false) {
+            $timer = time();
+        }
+
+        $obj->setChangetime($timer);
+
+        if (!$obj->save())  {
+            trigger_error('Failed to import comment.'.PHP_EOL.PHP_EOL.print_r($data, true));
+            return false;
+        }
+
+        unset($obj);
+        return true;
+    }
+
+    /**
+     * Fetch fields for mapping
+     * @return array
+     * @since 4.5-b8
+     */
+    public function getFields(): array
+    {
+        return [
+            'COMMMENT_IMPORT_ARTICLEID' => 'articleid',
+            'COMMMENT_AUTHOR' => 'name',
+            'GLOBAL_EMAIL' => 'email',
+            'COMMMENT_WEBSITE' => 'website',
+            'COMMMENT_TEXT' => 'text',
+            'COMMMENT_PRIVATE' => 'private',
+            'COMMMENT_APPROVE' => 'approved',
+            'COMMMENT_SPAM' => 'spammer',
+            'COMMMENT_IPADDRESS' => 'ipaddress',
+            'COMMMENT_CREATEDATE' => 'createtime',
+        ];
     }
 
     /**
