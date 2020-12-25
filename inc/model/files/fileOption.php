@@ -92,6 +92,10 @@ class fileOption {
      */
     public function remove()
     {
+        if (!file_exists($this->path)) {
+            return true;
+        }
+
         return unlink($this->path);
     }
 

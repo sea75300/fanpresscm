@@ -16,9 +16,10 @@ fpcm.import = {
             removeCornerLeft: true,
             change: function (event, ui) {
                 
+                fpcm.dom.fromId('fpcm-ui-csv-fields-select').empty();
+                fpcm.dom.fromId('fpcm-ui-csv-fields-list').empty();
+
                 if (!fpcm.vars.jsvars.fields[ui.item.value.replace('\\', '_')]) {
-                    fpcm.dom.fromId('fpcm-ui-csv-fields-select').empty();
-                    fpcm.dom.fromId('fpcm-ui-csv-fields-list').empty();
                     return false;
                 }
                 
@@ -50,6 +51,12 @@ fpcm.import = {
                 reset: true,
                 unique: fpcm.vars.jsvars.unique,
             });
+
+            fpcm.worker.postMessage({
+                cmd: 'remove',
+                id: 'import.exec'
+            });
+
         });
         
         fpcm.dom.fromId('btnImportPreview').unbind('click');
@@ -163,7 +170,7 @@ fpcm.import = {
                         value: 1
                     });
 
-                    fpcm.ui.addMessage(result);
+                    fpcm.ui.addMessage(result, true);
 
                     fpcm.worker.postMessage({
                         cmd: 'remove',

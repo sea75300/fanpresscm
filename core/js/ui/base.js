@@ -646,7 +646,7 @@ fpcm.ui = {
             msgCode += '            <div class="col-12 col-sm-10 align-self-center fpcm-ui-ellipsis">' + msg.txt +  '</div>';
             msgCode += '        </div>';
             msgCode += '    </div>';
-            msgCode += '    <div class="col-12 col-sm-1 fpcm-ui-padding-none-lr fpcm-ui-messages-close fpcm-ui-align-right" id="msgclose-' + msg.id + '">';
+            msgCode += '    <div class="col-12 col-sm-1 fpcm-ui-padding-none-lr fpcm-ui-messages-close fpcm-ui-align-right" id="msgclose-' + msg.id + '" data-msgid="' + msg.id + '" data-msgidx="' + i + '">';
             msgCode += '                ' + fpcm.ui.getIcon('times', { stack: 'square fa-inverse'});
             msgCode += '    </div>';
             msgCode += '</div>';
@@ -696,15 +696,28 @@ fpcm.ui = {
     },
     
     messagesInitClose: function() {
-        fpcm.ui._intVars.msgEl.find('.fpcm-ui-messages-close').click(function () {
-            var closeId = fpcm.dom.fromTag(this).attr('id');
-            fpcm.dom.fromId('msgbox-' + closeId.substring(9)).fadeOut('slow');
+        
+        fpcm.ui._intVars.msgEl.find('.fpcm-ui-messages-close').unbind('click');
+        fpcm.ui._intVars.msgEl.find('.fpcm-ui-messages-close').click(function (event, ui) {
+
+            let _data = fpcm.dom.fromTag(this).data();
+
+            let _el = fpcm.dom.fromId('msgbox-' + _data.msgid);
+            _el.fadeOut('slow');
+            _el.remove();
+
+            if (fpcm.vars.ui.messages[_data.msgidx] === undefined) {
+                return true;
+            }
+
+            delete fpcm.vars.ui.messages.splice(_data.msgidx, 1);
+            return true;
         }).mouseover(function (event, ui) {
             fpcm.dom.fromTag(this).find('.fa.fa-square').removeClass('fa-inverse');
             fpcm.dom.fromTag(this).find('.fa.fa-times').addClass('fa-inverse');
         }).mouseout(function (event, ui) {
             fpcm.dom.fromTag(this).find('.fa.fa-square').addClass('fa-inverse');
-            fpcm.dom.fromTag(this).find('.fa.fa-times').removeClass('fa-inverse');
+            fpcm.dom.fromTag(this).find('.fa.fa-times').removeClass('fa-inverse'); 
         });
     },
     

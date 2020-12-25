@@ -77,14 +77,12 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             $this->response->setReturnData(new \fpcm\view\message(
                 $this->language->translate('IMPORT_MSG_INITFAILED.'),
                 \fpcm\view\message::TYPE_ERROR,
-                \fpcm\view\message::ICON_ERROR,
-                '',
-                false
+                \fpcm\view\message::ICON_ERROR
             ))->fetch();
         }
 
         $this->opt = new \fpcm\model\files\fileOption('csv/'.$this->unique);
-        $csvParams = $this->opt->read() !== null ? (array) $this->opt->read() : $this->request->fromPOST('csv');
+        $csvParams = !$this->preview && $this->opt->read() !== null ? (array) $this->opt->read() : $this->request->fromPOST('csv');
         $this->opt->write($csvParams);
 
         $this->item = filter_var($csvParams['item'] ?? null, FILTER_SANITIZE_STRING);
@@ -112,9 +110,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             $this->response->setReturnData(new \fpcm\view\message(
                 $this->language->translate('IMPORT_MSG_NOFIELDS'),
                 \fpcm\view\message::TYPE_ERROR,
-                \fpcm\view\message::ICON_ERROR,
-                '',
-                false
+                \fpcm\view\message::ICON_ERROR
             ))->fetch();
         }
 
@@ -130,11 +126,13 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         $this->responseData = [
             'fs' => 0,
         ];
+
+        $uploadUnique = \fpcm\classes\tools::getHash($this->session->getSessionId().$this->session->getUserId());
         
-        $csv = new \fpcm\model\files\csvFile($this->file, $this->delim, $this->enclosure);
+        $csv = new \fpcm\model\files\csvFile($uploadUnique . DIRECTORY_SEPARATOR . $this->file, $this->delim, $this->enclosure);
         
         if ($this->reset) {
-            $csv->delete();
+            if ($csv->exists()) $csv->delete();
             $this->opt->remove();
             $this->response->setReturnData(['reset' => 1])->fetch();
         }
@@ -143,9 +141,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             $this->response->setReturnData(new \fpcm\view\message(
                 $this->language->translate('IMPORT_MSG_CSVNOTFOUND'),
                 \fpcm\view\message::TYPE_ERROR,
-                \fpcm\view\message::ICON_ERROR,
-                '',
-                false
+                \fpcm\view\message::ICON_ERROR
             ))->fetch();
         }
 
@@ -153,9 +149,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             $this->response->setReturnData(new \fpcm\view\message(
                 $this->language->translate('IMPORT_MSG_CSVINVALID'),
                 \fpcm\view\message::TYPE_ERROR,
-                \fpcm\view\message::ICON_ERROR,
-                '',
-                false
+                \fpcm\view\message::ICON_ERROR
             ))->fetch();            
         }
 
@@ -176,17 +170,19 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
                 $current = $csv->tell();
                 return !$csv->isEoF() ? true : false;
             }
+
+            if (!is_array($line)) {
+                return !$csv->isEoF() ? true : false;
+            }
             
             if ($csv->assignCsvFields($this->fields, $line) === false) {
-                
-                $csv->delete();
-                
+
+                if (!$this->preview) $csv->delete();
+
                 $this->response->setReturnData(new \fpcm\view\message(
                     $this->language->translate('IMPORT_MSG_EMPTYFIELD'),
                     \fpcm\view\message::TYPE_ERROR,
-                    \fpcm\view\message::ICON_ERROR,
-                    '',
-                    true
+                    \fpcm\view\message::ICON_ERROR
                 ))->fetch();
             }
 
@@ -216,15 +212,13 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             }
             
             if (!$this->instance->assignCsvRow($line)) {
-                
+
                 $csv->delete();
-                
+
                 $this->response->setReturnData(new \fpcm\view\message(
                     $this->language->translate('IMPORT_MSG_FAILEDSAVE'),
                     \fpcm\view\message::TYPE_ERROR,
-                    \fpcm\view\message::ICON_ERROR,
-                    '',
-                    false
+                    \fpcm\view\message::ICON_ERROR
                 ))->fetch();
             }
             
@@ -243,9 +237,7 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             $this->response->setReturnData(new \fpcm\view\message(
                 $this->language->translate('IMPORT_MSG_NOHANDLE'),
                 \fpcm\view\message::TYPE_ERROR,
-                \fpcm\view\message::ICON_ERROR,
-                '',
-                false
+                \fpcm\view\message::ICON_ERROR
             ))->fetch();
         }
 
@@ -293,7 +285,9 @@ class import extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
             $this->response->setReturnData(new \fpcm\view\message(
                 $this->language->translate('IMPORT_MSG_INVALIDIMPORTTYPE', [
                     'importtype' => str_replace('__', '\\', $this->item)
-                ]), \fpcm\view\message::TYPE_ERROR
+                ]),
+                \fpcm\view\message::TYPE_ERROR,
+                \fpcm\view\message::ICON_ERROR
             ))->fetch();
         }
 

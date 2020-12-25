@@ -207,7 +207,7 @@ final class tools {
         }
         
         if (!$widthTime) {
-            return rue;
+            return true;
         }
         
         if ((int) $matches[4] < 0 || (int) $matches[4] > 23) {

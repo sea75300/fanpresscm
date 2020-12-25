@@ -193,7 +193,7 @@ final class csvFile extends \fpcm\model\abstracts\file {
     public function getContent()
     {
         if (!$this->hasResource()) {
-            return [];
+            return false;
         }
 
         return fgetcsv($this->handle, 0, $this->delim, $this->enclosure);
