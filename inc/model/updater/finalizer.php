@@ -82,11 +82,12 @@ final class finalizer extends \fpcm\model\abstracts\model {
     private function runMigrations() : bool
     {
         $migrations = glob(\fpcm\classes\dirs::getIncDirPath('migrations/v*.php'));
-        
-        
+
         if (!is_array($migrations)) {
             return true;
         }
+
+        $this->cliOutput(" >> Processing migrations...");
 
         array_walk($migrations, function (&$item) {
             $item ='fpcm\\migrations\\' . basename($item, '.php');

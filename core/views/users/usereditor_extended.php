@@ -43,7 +43,7 @@
 
                 <div class="row fpcm-ui-padding-md-tb">
                     <div class="col-12 px-0">
-                        <?php $theView->textarea('data[usrinfo]')->setValue(str_replace(['\n', '\n\r', '\r', PHP_EOL], '', $author->getUsrinfo()))->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width') ?>
+                        <?php $theView->textarea('data[usrinfo]')->setValue($author->getUsrinfo(), ENT_QUOTES | ENT_COMPAT)->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width'); ?>
                     </div>
                 </div>
             </fieldset>

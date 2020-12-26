@@ -119,6 +119,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
         );
 
         $this->addTrashItem();
+        $this->addUtilitiesItem();
 
         return $this->events->trigger('navigation\add', $this->navList);
     }
@@ -147,6 +148,40 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             navigationItem::AREA_TRASH,
             (new navigationItem())->setUrl('#')->setDescription('ARTICLES_TRASH')
             ->setIcon('trash-alt', 'far')->setId('nav-id-trashmain')
+            ->setClass('fpcm-navigation-noclick')->setSubmenu($submenu)
+        );
+
+        return true;
+    }
+
+    /**
+     * Add trash navigation items depending on delete permissions
+     * @return array
+     */
+    private function addUtilitiesItem()
+    {
+        if (!$this->permissions->system->options) {
+            return true;
+        }
+        
+        $submenu = [];
+
+        if (defined('FPCM_CSV_IMPORT') && FPCM_CSV_IMPORT) {
+            $submenu[] = (new navigationItem())->setUrl('system/import')->setDescription('IMPORT_MAIN')->setIcon('file-import');
+        }
+
+        if (FPCM_DEBUG && defined('FPCM_LANG_XML')) {
+            $submenu[] = (new navigationItem())->setUrl('system/langedit')->setDescription('Language Editor')->setIcon('language');
+        }
+
+        if (!count($submenu)) {
+            return false;
+        }
+                
+        $this->navList->add(
+            navigationItem::AREA_TRASH,
+            (new navigationItem())->setUrl('#')->setDescription('Werkzeuge')
+            ->setIcon('tools')->setId('nav-id-utilities')
             ->setClass('fpcm-navigation-noclick')->setSubmenu($submenu)
         );
 
@@ -226,15 +261,7 @@ class navigation extends \fpcm\model\abstracts\staticModel {
             (new navigationItem())->setUrl('system/logs')
                 ->setDescription('HL_LOGS')
                 ->setIcon('exclamation-triangle')
-                ->setAccessible($this->permissions->system->logs),
-            (new navigationItem())->setUrl('system/import')
-                ->setDescription('IMPORT_MAIN')
-                ->setIcon('file-import')
-                ->setAccessible($this->permissions->system->options && defined('FPCM_CSV_IMPORT') && FPCM_CSV_IMPORT),
-            (new navigationItem())->setUrl('system/langedit')
-                ->setDescription('Language Editor')
-                ->setIcon('language')
-                ->setAccessible($this->permissions->system->options && FPCM_DEBUG && defined('FPCM_LANG_XML')),
+                ->setAccessible($this->permissions->system->logs)
         ];
 
         return $data;

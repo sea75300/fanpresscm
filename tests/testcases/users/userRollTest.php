@@ -14,10 +14,12 @@ class userRollTest extends testBase {
     {
 
         $GLOBALS['rollName'] = 'fpcmTestRoll' . microtime(true);
+        $GLOBALS['rollCodex'] = 'fpcmTestRollCodex' . microtime(true);
 
         /* @var $object fpcm\model\users\userRoll */
         $object = $this->object;
         $object->setRollName($GLOBALS['rollName']);
+        $object->setCodex($GLOBALS['rollCodex']);
 
         $result = $object->save();
         $this->assertGreaterThanOrEqual(4, $result);
@@ -32,8 +34,10 @@ class userRollTest extends testBase {
         $object = $this->object;
 
         $GLOBALS['rollName'] .= '-UPDATED';
+        $GLOBALS['rollCodex'] .= '-UPDATED';
 
         $object->setRollName($GLOBALS['rollName']);
+        $object->setCodex($GLOBALS['rollCodex']);
 
         $result = $object->update();
         $this->assertTrue($result);
@@ -47,6 +51,7 @@ class userRollTest extends testBase {
 
         $this->assertTrue($object->exists());
         $this->assertEquals($GLOBALS['rollName'], $object->getRollName());
+        $this->assertEquals($GLOBALS['rollCodex'], $object->getCodex());
     }
 
     public function testDelete()

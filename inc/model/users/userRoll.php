@@ -26,6 +26,13 @@ class userRoll extends \fpcm\model\abstracts\dataset {
     protected $leveltitle = '';
 
     /**
+     * Roll codex
+     * @var string
+     * @since 4.5-b7
+     */
+    protected $codex = '';
+
+    /**
      * Wortsperren-Liste
      * @var \fpcm\model\wordban\items
      * @since 3.2.0
@@ -51,23 +58,42 @@ class userRoll extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * Liefert Rollenname zurück
+     * Return (raw) roll name
      * @return string
      */
-    public function getRollName()
+    public function getRollName(): string
     {
         return $this->leveltitle;
     }
 
     /**
-     * Setzt Rollenname
+     * Return codex
+     * @return string
+     * @since 4.5-b8
+     */
+    public function getCodex(): string
+    {
+        return $this->codex;
+    }
+
+    /**
+     * Set roll name
      * @param string $leveltitle
      */
-    public function setRollName($leveltitle)
+    public function setRollName(string $leveltitle)
     {
         $this->leveltitle = $leveltitle;
     }
 
+    /**
+     * Set codex
+     * @param string $codex
+     * @since 4.5-b8
+     */
+    public function setCodex(string $codex) {
+        $this->codex = $codex;
+    }
+    
     /**
      * Returns translates roll name
      * @return string
@@ -88,9 +114,13 @@ class userRoll extends \fpcm\model\abstracts\dataset {
 
         $this->removeBannedTexts();
 
-        $this->leveltitle = $this->events->trigger('userroll\save', $this->leveltitle);
+        $params = $this->events->trigger('userroll\save', [
+            'leveltitle' => $this->leveltitle,
+            'codex' => $this->codex,
+        ]);
 
-        $newId = $this->dbcon->insert($this->table, ['leveltitle' => $this->leveltitle]);
+        $newId = $this->dbcon->insert($this->table, $params);
+
         if (!$newId) {
             trigger_error('Failed to create new user roll "' . $this->leveltitle . '"');
             return $this->dbcon->getLastQueryErrorCode() === \fpcm\drivers\sqlDriver::CODE_ERROR_UNIQUEKEY
@@ -154,9 +184,14 @@ class userRoll extends \fpcm\model\abstracts\dataset {
 
         $return = false;
 
-        $this->leveltitle = $this->events->trigger('userroll\update', $this->leveltitle);
+        $params = $this->events->trigger('userroll\update', [
+            'leveltitle' => $this->leveltitle,
+            'codex' => $this->codex,
+        ]);
+        
+        $params[] = $this->id;
 
-        if ($this->dbcon->update($this->table, array('leveltitle'), array($this->leveltitle, $this->id), 'id = ?')) {
+        if ($this->dbcon->update($this->table, array_keys(array_slice($params, 0, 2)), array_values($params), 'id = ?')) {
             $return = true;
         }
 
@@ -168,16 +203,6 @@ class userRoll extends \fpcm\model\abstracts\dataset {
     }
 
     /**
-     * Prüft, ob Benutzer existiert
-     * @return bool
-     */
-    private function rollExists()
-    {
-        $result = $this->dbcon->count($this->table, "id", "leveltitle " . $this->dbcon->dbLike() . " ?", array($this->leveltitle));
-        return ($result > 0 ? true : false);
-    }
-
-    /**
      * Führt Ersetzung von gesperrten Texten in Kommentar-Daten durch
      * @return bool
      * @since 3.2.0
@@ -185,6 +210,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
     protected function removeBannedTexts()
     {
         $this->leveltitle = $this->wordbanList->replaceItems($this->leveltitle);
+        $this->codex = $this->wordbanList->replaceItems($this->codex);
         return true;
     }
 

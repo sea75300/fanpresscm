@@ -16,6 +16,10 @@ cols:
         type: varchar
         length: 255
         params: NOT NULL
+    codex:
+        type: text
+        length: 
+        params: NOT NULL
 indices:
     leveltitle:
         col: leveltitle
@@ -25,9 +29,12 @@ defaultvalues:
         1:
             id: 1
             leveltitle: "GLOBAL_ADMINISTRATOR"
+            codex: ""
         2:
             id: 2
             leveltitle: "GLOBAL_EDITOR"
+            codex: ""
         3:
             id: 3
             leveltitle: "GLOBAL_AUTHOR"
+            codex: "Feel free to create your content, but be aware an Admin und Editor might edit or reject an article."

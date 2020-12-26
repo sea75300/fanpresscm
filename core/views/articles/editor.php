@@ -21,6 +21,17 @@
         <div id="tabs-article">
             <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-filemanager"></div>            
 
+            <?php if ( trim($rollCodex) ) : ?></p>
+            <div class="row mb-2">
+                <div class="col-12 px-0">
+                    <fieldset>
+                        <legend><?php $theView->write('EDITOR_CODEX'); ?></legend>
+                        <p><?php print nl2br($theView->escapeVal($rollCodex)); ?></p>
+                    </fieldset>
+                </div>                    
+            </div>
+            <?php endif; ?>
+            
             <div class="row py-2">
                 
                 <div class="col-12 px-0">                

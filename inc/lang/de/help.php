@@ -657,6 +657,11 @@ Help language file
         <p>Ein Benutzer ist immer Mitglied einer Rolle, über deren Berechtigungen der Zugriff des Benutzers auf bestimmte Funktionen
         gesteuert wird.</p>
         
+        <h4>Codex</h4>
+        
+        <p>Mit Version 4.5 wurde die Möglichkeit eingeführt, einen <b>Codex</b> für Gruppen zu definieren. Dieser dient dazu, Benutzern
+        der gewählten Rolle bspw. Tipps zu Quellen, HInweise beim Verfassen von Artikeln oder sonstige Anmerkungen zu geben.</p>
+
         <h3>Berechtigungen</h3>
 
         <p>Benutzer mit entsprechenden Rechten können hier die Zugriffsrechte auf verschiedene Dinge von FanPress CM ändern und
@@ -1220,12 +1225,25 @@ Help language file
             <dt>Artikel-Kategorien</dt>
             <dd>Artikel können mehrere Kategorien besitzen. Der Import erfolgt anhand der internen ID der Katgorien.
             Diese ermittelst du bspw. in der Adresszeile deines Browers nach dem Parameter "id"
-            (bspw. ndex.php?module=categories/edit&id=<b>1</b>). Trenne mehrere Kategorien durch ein Semikolon zwischen
+            (bspw. index.php?module=categories/edit&id=<b>1</b>). Trenne mehrere Kategorien durch ein Semikolon zwischen
             den IDs (z. B. "1;2;5").</dd>
 
             <dt>Kommentare zu Artikel zuweisen</dt>
             <dd>Kommentare können via CSV-Import bei einem Artikel abgelegt werden- Hierzu muss beim Import für jeden Kommentar
             die interne Artikel-ID hinterlegt sein.</dd>
+
+            <dt>Kategorien zur Rollen zuweisen</dt>
+            <dd>Analog zu Artikeln können Kategorien für mehrere Rollen verfügbar sein. Der Import erfolgt anhand der internen ID der Rollen.
+            Diese ermittelst du bspw. in der Adresszeile deines Browers nach dem Parameter "id"
+            (bspw. index.php?module=users/editroll&id=<b>4</b>). Trenne mehrere Rollen durch ein Semikolon zwischen
+            den IDs (z. B. "1;2;3"). Die standardmäßig mitgelieferten Rollen haben folgende IDs:
+                <ul>
+                    <li>Administrator: 1</li>
+                    <li>Redakteur: 2</li>
+                    <li>Autor: 3</li>
+                </ul>
+            
+            </dd>
         </dl>
 
         <h3>Hinweise</h3>

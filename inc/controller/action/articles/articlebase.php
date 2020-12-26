@@ -168,6 +168,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->view->assign('showArchiveStatus', true);
         $this->view->assign('showDraftStatus', true);
         $this->view->assign('userfields', $this->getUserFields());
+        $this->view->assign('rollCodex', (new \fpcm\model\users\userRoll($this->session->getCurrentUser()->getRoll()))->getCodex());
 
         $twitter    = new \fpcm\model\system\twitter();
         $twitterOk  = $twitter->checkRequirements();

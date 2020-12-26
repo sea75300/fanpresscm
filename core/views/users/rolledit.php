@@ -1,4 +1,7 @@
-<?php /* @var $theView \fpcm\view\viewVars */ ?>
+<?php
+/* @var $theView \fpcm\view\viewVars */
+/* @var $userRoll \fpcm\model\users\userRoll */
+?>
 <div class="fpcm-content-wrapper">
     <div class="fpcm-ui-tabs-general">
         <ul>
@@ -9,16 +12,23 @@
         </ul>            
 
         <div id="tabs-roll">
-            <div class="row fpcm-ui-padding-md-tb no-gutters">
-                <div class="col-12">
-                    <div class="row">
-                        <?php $theView->textInput('rollname')
-                            ->setValue($userRoll->getRollName())
-                            ->setText('USERS_ROLLS_NAME')
-                            ->setDisplaySizesDefault(); ?>
-                    </div>
+            <div class="row mb-2">
+                <?php $theView->textInput('rollname')
+                    ->setValue($userRoll->getRollName())
+                    ->setText('USERS_ROLLS_NAME')
+                    ->setAutoFocused(true)
+                    ->setDisplaySizesDefault(); ?>
+            </div>
+            <div class="row mb-2">
+                <div class="col-12 px-0">
+                    <fieldset>
+                        <legend><?php $theView->write('USERS_ROLLS_CODEX'); ?></legend>
+                        <?php $theView->textarea('rollcodex')
+                            ->setValue($userRoll->getCodex(), ENT_QUOTES | ENT_COMPAT)
+                            ->setClass('fpcm-ui-textarea-medium fpcm-ui-full-width'); ?>
+                    </fieldset>
                 </div>
-            </div>            
+            </div>
         </div>
 
         <?php if ($theView->permissions->system->permissions && $userRoll->getId()) : ?>

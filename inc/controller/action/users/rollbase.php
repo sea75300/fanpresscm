@@ -39,7 +39,6 @@ abstract class rollbase extends \fpcm\controller\abstracts\controller implements
 
     public function request()
     {
-        $this->view->setFieldAutofocus('rollname');
         $this->view->addButton(new \fpcm\view\helper\saveButton('saveRoll'));
         return true;
     }
@@ -69,6 +68,7 @@ abstract class rollbase extends \fpcm\controller\abstracts\controller implements
         }
         
         $this->userRoll->setRollName($rollName);
+        $this->userRoll->setCodex($this->request->fromPOST('rollcodex'));
         $func = $update ? 'update' : 'save';
         $msg  = $update ? 'edited' : 'added';
 
