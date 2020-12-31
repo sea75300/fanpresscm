@@ -262,6 +262,11 @@ class selectParams {
         return $this;
     }
 
+    /**
+     * Return query string
+     * @return string
+     * @since 4.5
+     */
     final public function getQuery() : string
     {
         $sql  = $this->getDistinct() ? 'SELECT DISTINCT' : 'SELECT';
