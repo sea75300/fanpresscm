@@ -654,8 +654,9 @@ class articlelist extends \fpcm\model\abstracts\tablelist {
     private function assignSearchParams(search $conditions, array &$where, array &$valueParams)
     {
         if ($conditions->ids !== null && is_array($conditions->ids)) {
-            $where[] = $this->dbcon->inQuery('id', $conditions->ids);
-            $valueParams = array_merge($valueParams, $conditions->ids);
+            $where[] = 'id IN (:ids)';  //$this->dbcon->inQuery('id', $conditions->ids);
+            //$valueParams = array_merge($valueParams, $conditions->ids);
+            $valueParams[':ids'] = implode(',', $conditions->ids);
         }
 
         if ($conditions->title !== null) {

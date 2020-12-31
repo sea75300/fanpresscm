@@ -58,9 +58,11 @@ class articlesTest extends testBase {
         $this->assertEquals(0, $object->getDeleted());
         $this->assertEquals(0, $object->getDraft());
         $this->assertEquals(0, $object->getApproval());
+        
+        $res = (new fpcm\model\crons\postponedArticles())->run();
+        $this->assertTrue($res);
 
-        $GLOBALS['articleObj']->setPostponed(0);
-        $this->assertTrue($GLOBALS['articleObj']->update());
+        $this->assertEquals(0, (new \fpcm\model\articles\article($GLOBALS['articleId']))->getPostponed());
 
         usleep(1000);
     }
