@@ -25,7 +25,7 @@ class passCheckTest extends PHPUnit\Framework\TestCase {
     {
         /* @var $conf \fpcm\model\system\config */
         $conf = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
-        if (!$conf->system_passcheck_enabled) {
+        if (!$conf->system_passcheck_enabled || !defined('FPCM_TEST_PASS')) {
             $this->markTestSkipped('Password check is not enabled, skip test.');
         }
      

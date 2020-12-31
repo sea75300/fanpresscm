@@ -286,7 +286,7 @@ final class database {
     {
         $obj->setTable($this->getTablePrefixed($obj->getTable()));
 
-        $result = $this->query($obj->getQuery(), $obj->getParams());
+        $result = $this->query((string) $obj, $obj->getParams());
         if ($obj->getReturnResult()) {
             return $result;
         }

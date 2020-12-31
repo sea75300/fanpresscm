@@ -277,5 +277,15 @@ class selectParams {
         return $sql;
     }
 
+    /**
+     * Magic toString function
+     * @return string
+     * @since 4.5-b8
+     */
+    public function __toString()
+    {
+        return $this->getQuery();
+    }
+
 
 }
