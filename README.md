@@ -11,7 +11,7 @@ A small live demo system is available at https://area51.nobody-knows.org/fanpres
 
 ## Base Requirements
 
-* PHP 7.0 or better
+* __FanPress CM 4.5:__ PHP 7.2 or better; __FanPress CM 4.4 and older:__ PHP 7.0 or better
 * MySQL/ Maria DB 7 or Postgres 9.4
 * complete requirements check will be performed during setup.
 
@@ -47,6 +47,8 @@ The following functions are available:
     * _divider_: parameter for a separator of your text in <title>
     * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
 * `$api->legacyRedirect($articlesPerPage)`: perform redirect of article urls  in FanPress CM 1/2 style.
+   
+A full list of additional functions can be found in our [class documentation](http://updates.nobody-knows.org/fanpress/docs_fpcm4/).
 
 ## iframes
 
