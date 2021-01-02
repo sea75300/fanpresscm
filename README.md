@@ -1,6 +1,6 @@
 # FanPress CM News System version 4
 
-The FanPress CM News System version 4 is a lightweight but powerful content management system for small and mid-size websites, especially blogs and such looking for a post manament system in combination with static HTML.
+The FanPress CM News System version 4 is a lightweight but powerful content management system for small and mid-size websites, especially blogs and such looking for a post management system in combination with static HTML.
 
 ## Demo system
 
@@ -15,11 +15,11 @@ A small live demo system is available at https://area51.nobody-knows.org/fanpres
 * MySQL/ Maria DB 7 or Postgres 9.4
 * complete requirements check will be performed during setup.
 
-The inclusion into a website depends an how you use the system. An assistant for integration is provided. If you do it manually, here are further information:
+The inclusion into a website depends on how you use the system. An assistant for integration is provided. If you do it manually, here are further information:
 
-## php include
+## PHP include
 
-When using php include, fist include the api file and create a new API object.
+When using PHP include, first include the API file and create a new API object.
 
 ```php
 <?php include_once 'fanpress/fpcmapi.php'; ?>
@@ -31,14 +31,14 @@ The following functions are available:
 * `$api->showArticles(array $params)`: Display active articles, a single article or article archive in front end
     * `$params` is an array to further customize the out of the function
         * _count_: number of articles per page
-        * _category_: select articles of a a single category, default is 0
+        * _category_: select articles of a single category, default is 0
         * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
         * _template_: change used template to display articles in frontend
         * _search_: can be used to create search function for articles, only in content (v4.5-b5+)
-* `$api->showLatestNews(array $params)`: Display recent recent news list
+* `$api->showLatestNews(array $params)`: Display recent news list
     * `$params` is an array to further customize the out of the function
         * _count_: number of articles per page
-        * _category_: select articles of a a single category, default is 0
+        * _category_: select articles of a single category, default is 0
         * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
 * `$api->showPageNumber($divider, $isUtf8)`: displays current page number.
     * _divider_: parameter for page descriptions like "Page XYZ"
@@ -46,7 +46,7 @@ The following functions are available:
 * `$api->showTitle($divider, $isUtf8)`: displays article title in HTML <title>
     * _divider_: parameter for a separator of your text in <title>
     * _isUtf8_: out will be displayed utf-8 encoded or iso-8895-1, default is true
-* `$api->legacyRedirect($articlesPerPage)`: perform redirect of article urls  in FanPress CM 1/2 style.
+* `$api->legacyRedirect($articlesPerPage)`: perform redirect of article URLs in FanPress CM 1/2 style.
    
 A full list of additional functions can be found in our [class documentation](http://updates.nobody-knows.org/fanpress/docs_fpcm4/).
 
@@ -61,7 +61,7 @@ In case you are using iframes you have to call the controllers manually.
 * **your-domain.xyz/fanpress/index.php?module=fpcm/article&&id=A_DIGIT**
     * show a single article with given id including comments
 * **your-domain.xyz/fanpress/index.php?module=fpcm/latest**
-    * show latest news
+    * show the latest news
 
 ## RSS Feed
 
