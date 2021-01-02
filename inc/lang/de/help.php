@@ -13,9 +13,9 @@ Help language file
             können durch Module bzw. neue Datei unter "fanpress/inc/dashboard" erzeugt werden.</p>
             <dl>
                 <dt>Zuletzt geschriebene News:</dt>
-                <dd class="pb-2">Hier findest eine Übersicht der zuletzt verfassten Artikel.</dd>
+                <dd class="pb-2">Hier findest du eine Übersicht der zuletzt verfassten Artikel.</dd>
                 <dt>Zuletzt geschriebene Kommentare:</dt>
-                <dd class="pb-2">Hier findest eine Übersicht der zuletzt verfassten Kommentare.</dd>
+                <dd class="pb-2">Hier findest du eine Übersicht der zuletzt verfassten Kommentare.</dd>
                 <dt>Verfügbare Updates:</dt>
                 <dd class="pb-2">Dieser Container beinhaltet Informationen zum Update-Status des Systems und von Modulen.</dd>
                 <dt>Systemprüfung:</dt>
@@ -39,7 +39,7 @@ Help language file
         <h3>Editor</h3>
         
         <p>Mit dem <b>Artikel-Editor</b> kannst du Artikel schreiben und/oder bearbeiten. Hierbei hast du vielfältige Gestaltungsmöglichkeiten, welche
-            durch Module erweitert werden können. Du kannst einem Artikel Kategorien zuweisen, ihn "anpinnen", so dass er über allen anderen Artikeln
+            durch Module erweitert werden können. Du kannst einem Artikel Kategorien zuweisen, ihn "anpinnen", sodass er über allen anderen Artikeln
             dargestellt wird und verschiedene weitere Einstellungen vornehmen.</p>
 
         <dl>
@@ -67,7 +67,7 @@ Help language file
             <dt>Tweet erzeugen:</dt>
             <dd class="pb-2">Über das Textfeld kann das Standard-Template für einen Beitrag bei Twitter
                 überschrieben und durch einen eigenen Text ersetzt werden. Der Inhalt dieses Feldes wird nicht gespeichert.
-                Das Dropdown bietet eine Schnellzugriff auf die Template-Platzhalter. Über die Checkbox am Ende kann zudem festgelegt werden,
+                Das Dropdown bietet einen Schnellzugriff auf die Template-Platzhalter. Über die Checkbox am Ende kann zudem festgelegt werden,
                 ob beim nächsten Speicher-Vorgang der Tweet erzeugt wird oder nicht.
             </dd>
             <dt>Artikel freischalten:</dt>
@@ -96,9 +96,9 @@ Help language file
  
         <h3>Weiterlesen-Link/ Seitenumbruch einfügen</h3>
 
-        <p>Vor allem bei sehr langen Beiträgen kann es sinnvoll sein, dass man nur einen kurzen Anreiser ind er Artikelliste anzeigen lässt und den
+        <p>Vor allem bei sehr langen Beiträgen kann es sinnvoll sein, nur einen kurzen Anreißer in der Artikelliste anzuzeigen und den
         Rest erst durch Klick auf den "Weiterlesen"-Link. Hierzu bietet der Editor die "Seitenumbruch einfügen"-Funktion. Dies erzeugt im Artikel
-        einen Eintrag der Form <pre>&lt;!-- pagebreak --&gt;</pre> welcher im Frontend in einen Weiterlesen-Link umǵesetzt wird. <b>Achtung!</b> Hierfür muss
+        einen Eintrag der Form <pre>&lt;!-- pagebreak --&gt;</pre> welcher im Frontend in einen Weiterlesen-Link umgesetzt wird. <b>Achtung!</b> Hierfür muss
         das Template entsprechend angepasst werden.</p>
         
         <p>In älteren Versionen wurde hierfür das <strong>&lt;readmore&gt;</strong>-Tag verwendet. Dieses gilt seit Fanpress CM 4.4 als veraltet, wird aber
@@ -115,14 +115,14 @@ Help language file
             <dt>Kommentare:</dt>
             <dd class="pb-2">Dieses Register beinhaltet Auflistung aller Kommentare, welche zum ausgewählten Artikel
             geschrieben wurden. Die Liste bietet dir die Möglichkeit, einzelne Kommentare zu löschen. Über einen Klick auf den Bearbeiten-Button
-            kann der entsprechende Kommentare bearbeitet werden (freischalten, auf privat setzen etc.). Der Zugriff auf die Kommentare 
+            kann der entsprechende Kommentar bearbeitet werden (freischalten, auf privat setzen etc.). Der Zugriff auf die Kommentare 
             wird über die Berechtigungen geregelt. Ausführliche Informationen hierzu findest du in der Hilfe den "Kommentare"-Bereichs
             über das Hauptmenü.</dd>
             <dt>Revisionen:</dt>
             <dd class="pb-2">FanPress CM besitzt ein Revisions-System, d. h. bei Änderungen wird der vorherige Zustand
             gesichert und kann jederzeit wiederhergestellt werden. Die Revisionen können über die Systemeinstellungen (de)aktiviert werden.
             Eine Liste aller Revisionen findest du über den entsprechenden Reiter im Editor. Dort kannst du jede Revision einzeln aufrufen
-            bzw. den aktuelle Artikel auf eine Revision zurücksetzen. Beim Öffnen einer Revision werden die die Änderungen zur jeweils
+            bzw. den aktuellen Artikel auf eine Revision zurücksetzen. Beim Öffnen einer Revision werden die Änderungen zur jeweils
             aktuellen Artikel-Version angezeigt.</dd>
         </dl>
         
@@ -137,18 +137,18 @@ Help language file
             <dt>Kurzlink</dt>
             <dd class="pb-2">Über diesen Button ist es bei gespeicherten Artikeln möglich, die URL über den Dienst <a rel="noreferrer,noopener,external" href=http://is.gd>is.gd</a> kürzen
             zu lassen und bei Twitter etc. zu nutzen. Der genutzte Dienst kann über ein Modul-Event geändert werden.</dd>
-            <dt>Artikel-Bild anzeigen</dt>
-            <dd class="pb-2">Wurde für den Artikel ein Artikel-Bild definiert, so kann dieses über diese Schaltfläche angezeigt werden.</dd>
+            <dt>Artikelbild anzeigen</dt>
+            <dd class="pb-2">Wurde für den Artikel ein Artikelbild definiert, so kann dieses über diese Schaltfläche angezeigt werden.</dd>
             <dt>Bearbeiten (Kommentare)</dt>
-            <dd class="pb-2">Die Schaltfläche <strong>Bearbeiten</strong> ind er Toolbar des Kommentar-Registers öffnen einen Massenbearbeitung-Dialog analog der
+            <dd class="pb-2">Die Schaltfläche <strong>Bearbeiten</strong> in der Toolbar des Kommentar-Registers öffnen einen Massenbearbeitung-Dialog analog der
             globalen Kommentar-Liste. Hierüber kommen bestimmte Status der ausgewählten Kommentare verändert werden. Die gleiche Schaltfläche in der Kommentar-Liste
-            öffnet des ausgewählten Kommentar in einem Dialog, wo dieser komplett bearbeitet werden kann.</dd>
+            öffnet des ausgewählten Kommentars in einem Dialog, wo dieser komplett bearbeitet werden kann.</dd>
             <dt>Revision wiederherstellen (Revisionen)</dt>
             <dd class="pb-2">Diese Schaltfläche ermöglicht es, den aktuellen Artikel auf die ausgewählte Artikel-Revision zurückzusetzen. Beim Zurücksetzen wird
             automatisch eine neue Revision des aktuellen Stands erzeugt, bevor die ältere Version wiederhergestellt wird.</dd>
             <dt>Revision öffnen (Revisionen)</dt>
-            <dd class="pb-2">Über diesen Button kann eine bestimmte Revision geöffnet werden. Du erhälst dann eine Vergleichansicht zwischen der ausgewählten
-            Revision (linke Seite) und dem aktuellen Zustand des Artikels (rechte Seite). Der Artikel-Text selbst wird in einer DIFF-Ansicht dargestellt, d. h. Veränderungen werden
+            <dd class="pb-2">Über diesen Button kann eine bestimmte Revision geöffnet werden. Es wird eine Vergleichansicht zwischen der ausgewählten
+            Revision (linke Seite) und dem aktuellen Zustand des Artikels (rechte Seite) angezeigt. Der Artikeltext selbst wird in einer DIFF-Ansicht dargestellt, d. h. Veränderungen werden
             innerhalb des Textes dargestellt.</dd>
             <dt>Zurück zur aktuellen Ansicht (Revisionen)</dt>
             <dd class="pb-2">Wurde eine Revision geöffnet, so gelangst du durch diese Schaltfläche zurück in den aktuellen Artikel.</dd>
@@ -157,7 +157,7 @@ Help language file
         <h3>Einzelnes Bild in Artikel einfügen</h3>
 
         <p>Um den Pfad eines Bildes direkt in den <em>Bild einfügen</em>-Dialog zu übernehmen, klicke auf die Buttons <strong>Thumbnail-Pfad in Quelle einfügen</strong>
-        bzw. <strong>Datei-Pfad in Quelle einfügen</strong> unterhalb/ neben dem Thumbnail des jeweiligen Bildes. Je nachm gewähltem Button wird der entsprechende Pfad
+        bzw. <strong>Datei-Pfad in Quelle einfügen</strong> unterhalb/ neben dem Thumbnail des jeweiligen Bildes. Je nach gewähltem Button wird der entsprechende Pfad
         übernommen.</p>
 
         <p>Sollte die Übernahme einfach nicht funktionieren, so öffne via Rechtsklick das Kontextmenü der genannten Buttons. Wähle dort die
@@ -179,7 +179,7 @@ Help language file
         <dl>
             <dt>[gallery] & [/gallery]</dt>
             <dd class="pb-2">Die beiden PLatzhalter öffnen und schließen eine Gallery. Bitte beachte, das pro Artikel nur <strong>eine</strong>
-            Gallery eingefügt werden kann/ sollte und entsprechend ausgewertet wird. Weitere, händisch eingefügt Gallerien werden vom System nicht ausgewertet.</dd>
+            Gallery eingefügt werden kann/ sollte und entsprechend ausgewertet wird. Weitere, händisch eingefügt Galerien werden vom System nicht ausgewertet.</dd>
             <dt>Trennzeichen</dt>
             <dd class="pb-2">Die Bilder einer Gallery werden hintereinander angegeben, als Trennzeichen dient das "|"-Zeichen
             (die sogenannte Pipe).</dd>
@@ -223,7 +223,7 @@ Help language file
             verschiedener Kriterien weiter eingrenzen. Über die Hauptnavigation kannst du bereits eine Vorauswahl treffen, welche Artikel
             dir angezeigt werden sollen. Unterschiedliche Felder können im Bedarfsfall miteinander verknüpft werden oder die Suche
             in speziellen Konstellationen durchgeführt werden. Hierzu dient das linke Dropdown-Feld in der jeweiligen Zeile. Auf der
-            rechten Seite einer Zeile wird der jeweiligen Wert angegeben. Der Button "Filter zurücksetzen" führt eine Aktualisierung der
+            rechten Seite einer Zeile wird der jeweilige Wert angegeben. Der Button "Filter zurücksetzen" führt eine Aktualisierung der
             aktuellen Ansicht durch. Hierdurch werden die Filter-Einstellungen komplett zurückgesetzt.
             </dd>
             <dt>Neuen Tweet erzeugen:</dt>
@@ -232,8 +232,8 @@ Help language file
             <dt>Löschen:</dt>
             <dd class="pb-2">Den bzw. die ausgewählten Artikel löschen.</dd>
             <dt>Artikel-Cache leeren:</dt>
-            <dd class="pb-2">Über diese Aktion kann bei Bedarf geziehlt der Cache eines einzelnen bzw. der ausgewählten Artikel geleert und somit
-            beim Öffnen des Frontends ein erneuten Rendern der entsprechenden Artikel erzwungen werden. Dies ist hilfreich, wenn Änderungen an Artikeln nicht sofort übernommen
+            <dd class="pb-2">Über diese Aktion kann bei Bedarf gezielt der Cache eines einzelnen bzw. der ausgewählten Artikel geleert und somit
+            beim Öffnen des Frontends ein erneutes rendern der entsprechenden Artikel erzwungen werden. Dies ist hilfreich, wenn Änderungen an Artikeln nicht sofort übernommen
             werden.</dd>
         </dl>
         ]]>
@@ -274,7 +274,7 @@ Help language file
             <dd class="pb-2">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Kommentare anhand
             verschiedener Kriterien weiter eingrenzen. Unterschiedliche Felder können im Bedarfsfall miteinander verknüpft werden oder die Suche
             in speziellen Konstellationen durchgeführt werden. Hierzu dient das linke Dropdown-Feld in der jeweiligen Zeile. Auf der
-            rechten Seite einer Zeile wird der jeweiligen Wert angegeben.</dd>
+            rechten Seite einer Zeile wird der jeweilige Wert angegeben.</dd>
             <dt>Löschen:</dt>
             <dd class="pb-2">Den bzw. die ausgewählten Kommentare löschen.</dd>
             <dt>Zugehörigen Artikel bearbeiten:</dt>
@@ -294,7 +294,7 @@ Help language file
         werden noch zusätzliche Informationen angezeigt, u. a. von welcher IP-Adresse der Kommentar geschrieben wurde. Diese Information kann zur Vermeidung von Spam, bei Straftaten etc.
         wichtig sein.</p>
         
-        <p>Aus Datenschutz-Gründen wird die IP-Adresse durch den Cronjob <em>IP-Adressen aus Kommentaren anonymisieren</em> per default einmal im Monat anonymisiert. Die Anonymisierung
+        <p>Aus Datenschutz-Gründen wird die IP-Adresse durch den Cronjob <em>IP-Adressen aus Kommentaren anonymisieren</em> per Default einmal im Monat anonymisiert. Die Anonymisierung
         erfolgt nicht für Kommentare, welche als Spam eingestuft wurden, da entsprechende Kommentare später auch zur Spam-Erkennung herangezogen werden.</p>
         
         ]]>
@@ -302,7 +302,7 @@ Help language file
     </chapter>
     <chapter ref="HL_FILES_MNG">
         <![CDATA[
-        <p>Im <b>Dateimanager</b> kannst du Grafiken hochladen, welche du in deinen Artikeln verwendet willst. Eine vereinfachte Ansicht lässt
+        <p>Im <b>Dateimanager</b> kannst du Grafiken hochladen, welche du in deinen Artikeln verwenden willst. Eine vereinfachte Ansicht lässt
             sich auch direkt aus dem Artikel-Editor heraus aufrufen. Er zeigt neben einem Vorschau-Bild noch einige zusätzliche Informationen zur
             hochgeladenen Datei an.</p>
 
@@ -311,9 +311,9 @@ Help language file
             <dd class="pb-2">Über diesen Button kannst du mithilfe eines Dialogs die angezeigten Grafiken
             anhand verschiedener Kriterien weiter eingrenzen. Unterschiedliche Felder können im Bedarfsfall miteinander verknüpft werden oder die Suche
             in speziellen Konstellationen durchgeführt werden. Hierzu dient das linke Dropdown-Feld in der jeweiligen Zeile. Auf der
-            rechten Seite einer Zeile wird der jeweiligen Wert angegeben.</dd>
+            rechten Seite einer Zeile wird der jeweilige Wert angegeben.</dd>
             <dt>Thumbnails erzeugen:</dt>
-            <dd class="pb-2">Für ausgewählte Dateien kann das Thumbnial neu erzeugt werden.</dd>
+            <dd class="pb-2">Für ausgewählte Dateien kann das Thumbnail neu erzeugt werden.</dd>
             <dt>Löschen:</dt>
             <dd class="pb-2">Die ausgewählten Dateien können gelöscht werden. Wichtig! Für Dateien existiert kein Papierkorb.</dd>
             <dt>Umbenennen:</dt>
@@ -324,8 +324,8 @@ Help language file
             <dd class="pb-2">Öffnen des Thumbnails.</dd>
             <dt>Bild öffnen:</strong> (nur Dateimanager)</dt>
             <dd class="pb-2">Öffnen des eigentlichen Bildes.</dd>
-            <dt>Artikel-Bild festlegen:</strong> (nur Editor)</dt>
-            <dd class="pb-2">Ausgewählte Datei als Artikel-Bild festlegen.</dd>
+            <dt>Artikelbild festlegen:</strong> (nur Editor)</dt>
+            <dd class="pb-2">Ausgewählte Datei als Artikelbild festlegen.</dd>
             <dt>Thumbnail-URL einfügen:</strong> (nur Editor)</dt>
             <dd class="pb-2">Thumbnail-URL der ausgewählten Datei in Dialog übernehmen.</dd>
             <dt>Bild-URL einfügen:</strong> (nur Editor)</dt>
@@ -358,7 +358,7 @@ Help language file
             <dt>Zwei-Faktor-Authentifizierung:</strong> (optional)</dt>
             <dd class="pb-2">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz deines Logins gegen Fishing, Bots und ähnliches. Die Nutzung ist
             optional und kann durch einen Administrator bei Bedarf aktiviert werden. Der zweite Faktor zum Login wird mittels der App "Google Authenticator" auf deinem Smartphone
-            realisiert. Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den angezeigten QR Code mit deinem Smartphone mit der App. Trage im Anschluss den ersten Zahlencode
+            realisiert. Zur Aktivierung der Zwei-Faktor-Authentifizierung scanne den angezeigten QR-Code mit deinem Smartphone mit der App. Trage im Anschluss den ersten Zahlencode
             in das Eingabefeld ein und speicher den Vorgang.</dd>
         </dl>
 
@@ -387,7 +387,7 @@ Help language file
             <dd class="pb-2">Über diese Auswahl kann die Darstellung des Dateimanagers angepasst werden,
             die Optionen können auch über die Systemeinstellungen bzw. das Profil angepasst werden.</dd>
             <dt>Container-Positionen zurücksetzen:</dt>
-            <dd class="pb-2">Über den Button können die Positionen der Dashboard-Conatiner
+            <dd class="pb-2">Über den Button können die Positionen der Dashboard-Container
             auf die Standard-Einstellungen zurücksetzen.</dd>
         </dl>
 
@@ -395,8 +395,8 @@ Help language file
     </chapter>
     <chapter ref="HL_OPTIONS">
         <![CDATA[
-        <p>Benutzer mit den entsprechenden Rechten können hier zentrale Einstellungen von FanPress CM ändern. Die hier getroffenen Einstellungen
-        gelten grundsätzlich für alle Benutzer, sofern diese nicht in den Benutzer-Einstellungen verändert wurden. Entsprechende Änderungen
+        <p>Benutzer mit den entsprechenden Rechten können hier zentrale Einstellungen von FanPress CM ändern. Die hier getroffenen Werte
+        gelten grundsätzlich für alle Benutzer, sofern diese nicht vom einzelnen Anwender verändert wurden. Entsprechende Änderungen
         können bei Bedarf im Profil oder der Benutzer-Verwaltung zurückgesetzt werden.</p>
         
         <p>Einige Bereiche besitzen eine <em>Frontend</em>-Box. Die entsprechenden Einstellungen beeinflussen, wie sich FanPress CM
@@ -410,9 +410,9 @@ Help language file
             <dt>Allgemein - E-Mail-Adresse:</dt>
             <dd class="pb-2">Zentrale E-Mail-Adresse für Systembenachrichtigungen.</dd>
             <dt>Allgemein - Basis-URL für Artikellinks:</dt>
-            <dd class="pb-2">Basis-URL für Artikel-Links im Frontend, wichtig v. a. bei der Nutzung
+            <dd class="pb-2">Basis-URL für Artikellinks im Frontend, wichtig v. a. bei der Nutzung
             von phpinclude. Entspricht in vielen Fällen der <em>deine-domain.xyz/index.php</em> oder der Datei, in der
-            <em>fpcmapi.php</em> includiert ist.</dd>
+            <em>fpcmapi.php</em> inkludiert ist.</dd>
             <dt>Allgemein - Datum- und Zeitanzeige:</dt>
             <dd class="pb-2">Maske für die Anzeige von Datums- und Zeitangaben.</dd>
             <dt>Allgemein - Zeitzone:</dt>
@@ -423,7 +423,7 @@ Help language file
             <dd class="pb-2">Anzahl an Elementen im Admin-Bereich, wenn die Liste die Möglichkeit bietet,
             durch Seiten zu blättern (z. B. Artikel- und Kommentar-Listen)</dd>
             <dt>Allgemein - Zeit bis zum Cache-Timeout:</dt>
-            <dd class="pb-2">Zeitraum, nachdem der Inhalt des Caches als abgelaufen betrachtet wird und der Inhalt
+            <dd class="pb-2">Zeitraum, nachdem der Inhalt des Cache als abgelaufen betrachtet wird und der Inhalt
             neu aufgebaut wird. Diese Einstellung ist vor allem für den Frontend-Inhalt wichtig.</dd>
             <dt>Allgemein - Vorhaltezeit für gelöschte Elemente:</dt>
             <dd class="pb-2">Anzahl an Tagen, bis Elemente im Papierkorb automatisch gelöscht werden.</dd>
@@ -436,7 +436,7 @@ Help language file
             <dt><em>Frontend</em> - jQuery Bibliothek im Frontend laden:</dt>
             <dd class="pb-2">Soll jQuery bei Nutzung von phpinclude geladen werden oder nicht. Wichtig wenn du phpinclude
             verwendest und jQuery nicht bereits anderweitig in deiner Seite eingebunden ist. Ohne jQuery stehen einige Frontend-Funktionen nicht
-            zur Verfügung. Beim Aufruf des Frontend wird automatisch geprüft ob jQuery zur Verfügung steht. Ist dies nicht der Fall,
+            zur Verfügung. Beim Aufruf des Frontends wird automatisch geprüft ob jQuery zur Verfügung steht. Ist dies nicht der Fall,
             so wird eine entsprechende Fehlermeldung ausgegeben.</dd>
         </dl>
         
@@ -459,7 +459,7 @@ Help language file
             <dd class="pb-2">Werden in TinyMCE Änderungen an Bildern vorgenommen, so werden die Änderungen bei Aktivierung dieser
             Option als neue Datei im Upload-Ordner abgelegt und können später auch im Dateimanager ausgewählt werden.</dd>
             <dt>Editor - CSS-Klassen im Editor:</dt>
-            <dd class="pb-2">CSS-Klassen zur Nutzung im FanPress CM Editor. bei den CSS-Klassen handelt es sich in der Regel
+            <dd class="pb-2">CSS-Klassen zur Nutzung im FanPress CM Editor. Bei den CSS-Klassen handelt es sich in der Regel
             um solche, die du auch auf deiner Webseite verwendest.</dd>
             <dt>Dateimanager - Dateien beim Upload in Unterordner organisieren:</dt>
             <dd class="pb-2">Über diese Option kannst du festlegen, dass Dateien beim Upload in Unterordnern abgelegt werden.
@@ -481,7 +481,7 @@ Help language file
         <dl>
             <dt><em>Frontend</em> - Anzahl Artikel pro öffentlicher Seite:</dt>
             <dd class="pb-2">Anzahl an Artikeln, die im Frontend ausgegeben werden sollen. Diese Option beeinflusst die Anzahl
-            an Artikeln in der öffentlichen Liste der aktiven Artikel, des öffentlichen Archives sowie im RSS-Feed.</dd>
+            an Artikeln in der öffentlichen Liste der aktiven Artikel, des öffentlichen Archivs sowie im RSS-Feed.</dd>
             <dt><em>Frontend</em> - Template für Artikel-Liste:</dt>
             <dd class="pb-2">Template, welches für die Artikel-Liste genutzt werden soll.</dd>
             <dt><em>Frontend</em> - Template für einzelnen Artikel:</dt>
@@ -497,7 +497,7 @@ Help language file
             <dd class="pb-2">Diese Option ermöglicht es zu zählen, wie oft ein Artikel über die Share-Buttons bereits geteilt
             wurde. Diese Option wie oft ein Artikel geteilt wurde und wann dies zuletzt erfolgte. Es erfolgt keine Erfassung, von welcher IP etc.
             dies erfolgte.</dd>
-            <dt><em>Frontend</em> - URL-Rewriting für Artikel-Links aktivieren:</dt>
+            <dt><em>Frontend</em> - URL-Rewriting für Artikellinks aktivieren:</dt>
             <dd class="pb-2">Statt der klassischen Artikel-URL mit der Artikel-ID wird eine erweiterte Version erzeugt,
             welche um den Artikel-Titel erweitert wird. Bei Änderung am Titel kann sich diese URL daher nachträglich ändern. Die klassische Variante
             steht weiterhin zur Verfügung.</dd>
@@ -526,7 +526,7 @@ Help language file
             <dt>Kommentare - Kommentar-Template:</dt>
             <dd class="pb-2">Template für die Anzeige von Kommentaren im Frontend.</dd>
             <dt>Kommentare - Zeitsperre zwischen zwei Kommentaren:</dt>
-            <dd class="pb-2">Zeitspanne die zwischen zwei Kommentaren von der selben IP-Adresse vergangen
+            <dd class="pb-2">Zeitspanne die zwischen zwei Kommentaren von derselben IP-Adresse vergangen
             sein muss.</dd>
             <dt>Kommentare - E-Mail-Adresse erforderlich:</dt>
             <dd class="pb-2">Muss E-Mail-Adresse beim Schreiben eines Kommentars
@@ -540,8 +540,8 @@ Help language file
             <dt>Captcha-Einstellungen - Antwort auf Captcha-Frage:</dt>
             <dd class="pb-2">Antwort für das Standard-Spam-Plugin.</dd>
             <dt>Captcha-Einstellungen - Automatische Spam-Markierung:</dt>
-            <dd class="pb-2">Wurden Kommentare eines Kommentar-Autor so oft wie eingestellt als Spam markiert,
-            so werden neue Kommentar automatisch als Spam deklariert.</dd>
+            <dd class="pb-2">Wurden Kommentare eines Autors so oft wie eingestellt als Spam markiert,
+            so werden neue Kommentare automatisch als Spam deklariert.</dd>
         </dl>
         
         <h3>Erweitert</h3>
@@ -555,7 +555,7 @@ Help language file
             <dd class="pb-2">Länge einer Session Admin-Bereich. Eine Session läuft automatisch ab, wenn innerhalb der angegebenen
             Zeit keine Aktion im Admin-Bereich erfolgte bzw. der Check der Session fehlgeschlagen ist.</dd>
             <dt>Sicherheit & Wartung - Anzahl Login-Versuche vor temporärer Sperre:</dt>
-            <dd class="pb-2">Hiermit kann die Anzahl der Fehlgeschlagenen Logins einstellen, bis der Login vorübergehend
+            <dd class="pb-2">Hiermit kann die Anzahl der fehlgeschlagenen Logins einstellen, bis der Login vorübergehend
             gesperrt wird. Diese Option erschwert die Übernahme von Benutzer-Accounts durch massenweises Durchprobieren von Passwörtern etc.</dd>
             <dt>Sicherheit & Wartung - Zwei-Faktor-Authentifizierung:</dt>
             <dd class="pb-2">Die Zwei-Faktor-Authentifizierung bietet einen zusätzlichen Schutz von Benutzer-Konten gegen Fishing,
@@ -563,7 +563,7 @@ Help language file
             der App "Google Authenticator" auf dem Smartphone des Benutzers realisiert. Wurde die Zwei-Faktor-Authentifizierung aktiviert, so erscheint
             initial ein QR-Code, welcher eingescannt und bestätigt werden muss.</dd>
             <dt>Sicherheit & Wartung - Benutzer-Passwörter gegen Pwned Passwords prüfen:</dt>
-            <dd class="pb-2">Bei Aktivierung dieser Option werden eingegebene Benutzer-Passwörter in einen SHA1-Hash umgewandet
+            <dd class="pb-2">Bei Aktivierung dieser Option werden eingegebene Benutzer-Passwörter in einen SHA1-Hash umgewandelt
             und dessen erste fünf Zeichen an den Dienst <a rel="noreferrer,noopener,external" href="https://haveibeenpwned.com/Passwords" target="_blank">Pwned Passwords</a>
             übermittelt. Ist das Passwort in dieser Datenbank enthalten und bereits mehr als 100-mal geknackt worden, so wird eine Meldung ausgegeben.
             </dd>
@@ -573,7 +573,7 @@ Help language file
             verfügbare Updates durch den Update-Cronjob zu de/aktivieren. Die Benachrichtigung erfolgt dabei immer an die globale
             E-Mail-Adresse in den Systemeinstellungen.</dd>
             <dt>Update-Einstellungen - Entwickler-Versionen bei Update-Check anzeigen:</dt>
-            <dd class="pb-2">Neben den offizielle Releases gibt es immer wieder Entwickler- und Test-Versionen.
+            <dd class="pb-2">Neben den offiziellen Releases gibt es immer wieder Entwickler- und Test-Versionen.
             Nach Aktivierung dieser Option werden solche Versionen beim Update-Check angezeigt. <b>Achtung: Entwickler- und Test-Versionen
             können Fehler oder unvollständige Änderungen enthalten! Nutze diese Versionen daher nur, wenn du dazu aufgefordert wurdest oder dir
             bei Problemen, Datenverlust, o. ä. notfalls selbst helfen kannst.</b></dd>
@@ -616,7 +616,7 @@ Help language file
             Verbindung kann hier deaktiviert werden.</dd>
             <dt>Tweet zu Artikel erzeugen beim:</dt>
             <dd class="pb-2">Über die beiden Punkte kann festgelegt werden, wann neue Tweets nur beim Veröffentlichen bzw. Ändern
-            eines Artikeln oder beiden Aktionen erzeugt werden sollen.</dd>
+            eines Artikels oder beiden Aktionen erzeugt werden sollen.</dd>
             <dt>Zugangsdaten:</dt>
             <dd class="pb-2">Diese Eingabe-Felder beinhalten die Informationen, welche für den erfolgreichen Zugriff auf die
             Twitter-API benötigt werden. Welche Daten hier eingetragen werden müssen, erfährst du in der Hilfe zur Einrichtung.</dd>
@@ -637,7 +637,7 @@ Help language file
         <h3>Benutzer</h3>
         
         <ul>
-            <li>Über Benutzer wird der Zugriff auf den Admin-Bereich gesteuert, sowie dokumentiert wer welchen Artikel,
+            <li>Über Benutzer wird der Zugriff auf den Admin-Bereich gesteuert, sowie dokumentiert, wer welchen Artikel,
             Kommentar etc. verfasst oder bearbeitet hat.</li>
             <li>Benutzer können deaktiviert werden. Dabei wird der Login gesperrt und somit der Zugriff auf den
             Admin-Bereich gesperrt. Die erstellten Artikel etc. bleiben erhalten. Dies kann nützlich sein, wenn
@@ -660,7 +660,7 @@ Help language file
         <h4>Codex</h4>
         
         <p>Mit Version 4.5 wurde die Möglichkeit eingeführt, einen <b>Codex</b> für Gruppen zu definieren. Dieser dient dazu, Benutzern
-        der gewählten Rolle bspw. Tipps zu Quellen, HInweise beim Verfassen von Artikeln oder sonstige Anmerkungen zu geben.</p>
+        der gewählten Rolle bspw. Tipps zu Quellen, Hinweise beim Verfassen von Artikeln oder sonstige Anmerkungen zu geben.</p>
 
         <h3>Berechtigungen</h3>
 
@@ -679,7 +679,7 @@ Help language file
             <dd class="pb-2">Benutzer kann Artikel löschen</dd>
             <dt>Artikel archivieren und im Archiv bearbeiten</dt>
             <dd class="pb-2">Benutzer kann Artikel archiviert und danach noch bearbeiten</dd>
-            <dt>Artikel müssen freigeschalten werden</dt>
+            <dt>Artikel müssen freigeschaltet werden</dt>
             <dd class="pb-2">Artikel der Benutzer müssen vor der Veröffentlichung geprüft werden</dd>
             <dt>Revisionen verwalten</dt>
             <dd class="pb-2">Benutzer können Revisionen löschen/wiederherstellen</dd>
@@ -726,7 +726,7 @@ Help language file
             <dt>Updates durchführen</dt>
             <dd class="pb-2">Benutzer kann verfügbare Updates installieren.</dd>
             <dt>System-Protokolle verwalten</dt>
-            <dd class="pb-2">Benutzer kann die vom System erzeugten Protokolledateien einsehen und bei Bedarf bereinigen</dd>
+            <dd class="pb-2">Benutzer kann die vom System erzeugten Protokolldateien einsehen und bei Bedarf bereinigen</dd>
             <dt>Cronjobs verwalten</dt>
             <dd class="pb-2">Benutzer kann Cronjobs verwalten</dd>
             <dt>Backups verwalten</dt>
@@ -780,7 +780,7 @@ Help language file
                 einloggen bzw. hat keinen Zugriff auf die Login-Maske.</dd>
             <dt>Kein Frontend-Zugriff</dt>
             <dd class="pb-2">Dem Besucher mit der angegebenen IP-Adresse werden veröffentlichte Artikel, Kommentare,
-            etc. nicht angezeigt. Der weitere Zugriffe auf deine Seite kann von anderen Faktoren abhängen.</dd>
+            etc. nicht angezeigt. Der weitere Zugriff auf deine Seite kann von anderen Faktoren abhängen.</dd>
         </dl>
         ]]>
     </chapter>
@@ -800,9 +800,9 @@ Help language file
             Text ersetzt. Die Textzensur wird beim Erstellen von Kommentaren, Artikeln, Kategorien, Benutzern und Benutzer-Rollen ausgeführt.</dd>
             <dt>Artikel muss überprüft werden:</dt>
             <dd class="pb-2">Durch diese Option wird beim Speichern eines Artikels geprüft, ob die entsprechende Phrase
-            enthalten ist. In diesem Fall wird - unabhängig von den eingestellten Berechtigungen - der Artikel markiert, dass er freigeschalten
+            enthalten ist. In diesem Fall wird - unabhängig von den eingestellten Berechtigungen - der Artikel markiert, dass er freigeschaltet
             werden muss.</dd>
-            <dt>Kommentar muss freigeschalten werden:</dt>
+            <dt>Kommentar muss freigeschaltet werden:</dt>
             <dd class="pb-2">Analog zur Option <em>Artikel muss überprüft werden</em>, allerdings wird hier der
             entsprechende Kommentar markiert, dass er manuell freigegeben werden muss.</dd>
         </dl>
@@ -867,7 +867,7 @@ Help language file
             <dd class="pb-2">Die Verwendbaren Platzhalter können durch einen Klick auf das Plus-Icon in das ausgewählte
             Template eingefügt werden. Die Platzhalter werden später durch die entsprechenden Inhalte ersetzt.</dd>
             <dt>Erlaubte HTML-Tags:</dt>
-            <dd class="pb-2">Die erlaubte HTML-Tags umfasst die HTML-Elemente, welche in Templates genutzt werden können.
+            <dd class="pb-2">Die erlaubten HTML-Tags umfasst die HTML-Elemente, welche in Templates genutzt werden können.
             Alle anderen Templates werden beim Speichern gefiltert.</dd>
             <dt>Editor:</dt>
             <dd class="pb-2">Der Editor basiert ebenfalls auf CodeMirror und arbeitet ähnlich wie der Artikel-Editor.</dd>
@@ -879,7 +879,7 @@ Help language file
         <h3>Vorlagen</h3>
         
         <ul>
-            <li>Vorlagen sind HTML-Dateien, deren Inhalt Inhalt im Artikel-Editor verwendet werden kann.</li>
+            <li>Vorlagen sind HTML-Dateien, deren Inhalt im Artikel-Editor verwendet werden kann.</li>
             <li>Hiermit können wiederkehrende Artikel-Inhalte gesichert und immer in der gleichen Art wiederverwendet werden.</li>
             <li>Die Vorlagen können durch den Klick auf den Button <strong>Bearbeiten</strong> über einen CodeMirror-basierten Editor
             angepasst werden. Weitere können bei Bedarf ins System hochgeladen werden.</li>
@@ -888,7 +888,7 @@ Help language file
         <h3>Verfügbare Attribute</h3>
         
         <p>Die Template-Platzhalter können seit Version 4.1 <em>Attribute</em> besitzen, welche die Frontend-Ausgabe weiter beeinflussen. Attribute werden in der Form
-        <em>AttributeName="AttributeWert"</em> angegeben. Platzhalter können mehrere Attribute besitzen, wobei mehrere gleichezitig verwendet werden können.
+        <em>AttributeName="AttributeWert"</em> angegeben. Platzhalter können mehrere Attribute besitzen, wobei mehrere gleichzeitig verwendet werden können.
         Attribute können sich gegenseitig erfordern oder ausschließen.</p>
         
         <dl>
@@ -921,7 +921,7 @@ Help language file
             Grafik verwendet. Die Ersetzung erfolgt beim Parsen eines Artikels bzw. Kommentars im Frontend. Jeder Smiley-Code kann nur
             einmal angelegt werden.</dd>
             <dt>Dateiname:</dt>
-            <dd class="pb-2">Dieses Feld umfasst nur den Dateiname der entsprechenden Smiley-Grafik, welche unter
+            <dd class="pb-2">Dieses Feld umfasst nur den Dateinamen der entsprechenden Smiley-Grafik, welche unter
             <em>/data/smileys</em> abgelegt wurden.</dd>
         </dl>
         ]]>
@@ -932,8 +932,8 @@ Help language file
             <li>Cronjobs sind Aufgaben, welche in regelmäßigen Abständen automatisch durch FanPress CM im Hintergrund ausgeführt werden.</li>
             <li>Die Cronjob-Übersicht zeigt eine Liste aller verfügbaren Cronjobs, wenn sie zuletzt ausgeführt wurden, sowie den Zeitpunkt der
             nächsten voraussichtlichen Ausführung.</li>
-            <li>Die Häufigkeit der Ausführung eines Cronjobs kannst du anpassen, indem der Wert für das Intervall-Zeit angepasst wird.</li>
-            <li>Beachte bei der Änderung des Intervall, dass Cronjobs u. U. für erhöhte Serverlast führen kann.</li>
+            <li>Die Häufigkeit der Ausführung eines Cronjobs kannst du anpassen, indem der Wert für das Intervall angepasst wird.</li>
+            <li>Beachte bei der Änderung des Intervalls, dass Cronjobs u. U. für erhöhte Serverlast führen kann.</li>
         </ul>
 
         <dl>
@@ -949,13 +949,13 @@ Help language file
             <dd class="pb-2">Dieser Cronjob erzeugt die Vorschaubilder im Dateimanager neu. (Standard: einmal pro Woche)</dd>
 
             <dt>geplante Artikel veröffentlichen:</dt>
-            <dd class="pb-2">Dieser Cronjob wird im Standard aller zehn Minuten ausgeführt und sorgt für die automatische Veröffentlichung von
+            <dd class="pb-2">Dieser Cronjob wird im Standard alle zehn Minuten ausgeführt und sorgt für die automatische Veröffentlichung von
             geplanten Artikeln. Wurde dieser Cronjob deaktiviert, müssen alle Artikel - auch solche die im Editor oder den Listen als geplant angezeigt werden - manuell
             veröffentlicht werden.</dd>
 
             <dt>IP-Adressen aus Kommentaren anonymisieren:</dt>
             <dd class="pb-2">Über diesen Cronjob erfolgt die regelmäßig Anonymisierung der IP-Adressen in Kommentaren. Hierdurch wird die Personenbindung
-            aufgehoben, allerdings lässt sich dann auch nicht mehr erkennen, woher der Kommentar genau kam. Die Ausführung erfolgt per default einmal im Monat.</dd>
+            aufgehoben, allerdings lässt sich dann auch nicht mehr erkennen, woher der Kommentar genau kam. Die Ausführung erfolgt per Default einmal im Monat.</dd>
 
             <dt>Papierkorb bereinigen:</dt>
             <dd class="pb-2">Werden Artikel oder Kommentare gelöscht, so werden diese zuerst in den Papierkorb verschoben. Dieser Automatismus
@@ -970,7 +970,7 @@ Help language file
             und können über den Backup-Manager verwaltet werden. Im Standard erfolgt die Sicherung einmal pro Woche. Bei hohem Artikel-Aufkommen sollte das Intervall entsprechend
             reduziert werden.</dd>
 
-            <dt>System-Protokollee leeren:</dt>
+            <dt>System-Protokolle leeren:</dt>
             <dd class="pb-2">Die Protokoll-Dateien können unter Umständen sehr groß werden, daher werden diese (im Standard monatlich) auf ihre Dateigröße geprüft und
             bei Überschreitung einer Größe von 1 MB bereinigt. Das vorherige Log wird gespeichert. Die Bereinigung des Session-Protokolls erfolgt unabhängig von der Anzahl der Einträge.</dd>
 
@@ -982,14 +982,14 @@ Help language file
     </chapter>
     <chapter ref="HL_LOGS">
         <![CDATA[
-        <p>Im Bereich <em>Protokollee</em> findest du eine Auflistung aller bisherigen Benutzer-Logins, System-Meldungen von FanPress und
+        <p>Im Bereich <em>Protokolle</em> findest du eine Auflistung aller bisherigen Benutzer-Logins, System-Meldungen von FanPress und
             Fehlermeldungen durch PHP selbst oder der Datenbank. Über den Button <strong>Leeren</strong> kannst du Meldungen etc. löschen
             lassen.</p>
         
         <dl>
             <dt>Sessions:</dt>
             <dd class="pb-2">Dieses Protokoll zeigt eine Übersicht über die Logins aller Benutzer, abgesehen von aktuell aktiven Sessions, z. B. deiner eigenen.
-            Angezeigt werden alle relevanten Informationen, d. h. wer hat sich wann ein- bzw. ausgeloggt. Externe Logins erfolgten über die Funktionen der FanPress CM-API. Der
+            Angezeigt werden alle relevanten Informationen, d. h. wer hat sich, wann ein- bzw. ausgeloggt. Externe Logins erfolgten über die Funktionen der FanPress CM-API. Der
             User-Agent enthält Informationen, mit welchem Browser oder Programm der Login erfolgte.</dd>
             <dt>Sonstige:</dt>
             <dd class="pb-2">Dieses Protokoll beinhaltet allgemeine Meldungen von FanPress CM, Status-Meldungen und falls nötig Diagnose-Informationen.</dd>
@@ -1004,7 +1004,7 @@ Help language file
             <dd class="pb-2">Hier werden Status-Informationen, Laufzeiten etc. zu ausgeführten Cronjobs protokolliert. Dieses Log kann in Abhängigkeit von der
             Cronjob-Konfiguration sehr schnell stark wachsen und sollte daher regelmäßig bereinigt werden.</dd>
             <dt>Paketmanager:</dt>
-            <dd class="pb-2">Dieses Protokolle beinhaltet Status-Informationen zu System-Updates, sowie Installation oder Updates von Modulen.
+            <dd class="pb-2">Dieses Protokoll beinhaltet Status-Informationen zu System-Updates, sowie Installation oder Updates von Modulen.
             Im Paketmanager-Protokoll werden Dateien ohne Änderungen ausgegraut angezeigt, andere Einträge sind schwarz.</dd>
         </dl>
         ]]>
@@ -1068,16 +1068,16 @@ Help language file
             <dt>Modul deaktivieren:</dt>
             <dd class="pb-2">Nach der Installation eines Moduls muss dies aktiviert werden, so
             dass definierte Events, Aktionen etc. zur Verfügung stehen. Die Deaktivierung ermöglicht es, die Ausführung
-            z. B. bei auftretenden Fehlern zu beenden ohne das Modul komplett zu deaktivieren.</dd>
+            z. B. bei auftretenden Fehlern zu beenden, ohne das Modul komplett zu entfernen.</dd>
             <dt>Modul konfigurieren:</dt>
             <dd class="pb-2">Dieser Button wird angezeigt, wenn das Modul das Template <em>configure.php</em>
             beinhaltet.</dd>
         </dl>
         
-        <p>Im Bereich der Aktionen werden im Bedarfsfall weitere Informationen angezeigt, z. B. bei fehlenden Anhängigkeiten oder Schreibrechten
-        auf dem Server. Fahre im diesem Fall mit der Maus über das entsprechende Icon. nach kurzer Zeit erscheint ein Tooltip inkl. weiteren Informationen.</p>
+        <p>Im Bereich der Aktionen werden im Bedarfsfall weitere Informationen angezeigt, z. B. bei fehlenden Abhängigkeiten oder Schreibrechten
+        auf dem Server. Fahre in diesem Fall mit der Maus über das entsprechende Icon. Nach kurzer Zeit erscheint ein Tooltip inkl. weiteren Informationen.</p>
         
-        <p>Sind für mehrere Module Aktualisierungen evrfügbar, so erscheint in der Toolbar der Button "Updates für alle Module einspielen".
+        <p>Sind für mehrere Module Aktualisierungen verfügbar, so erscheint in der Toolbar der Button "Updates für alle Module einspielen".
         Über diesen können - ohne zusätzlichen Wechsel zurück in den Modulmanager - alle Aktualisierungen nacheinander eingespielt werden.</p>
 
         <h3>Modul-Detail-Informationen</h3>
@@ -1086,8 +1086,7 @@ Help language file
             <dt>Schlüssel:</dt>
             <dd class="pb-2">Dies ist die interne Bezeichnung des Moduls. Der Schlüssel muss einmalig sein.</dd>
             <dt>Name:</dt>
-            <dd class="pb-2">Der Name ist eine nicht-technische Bezeichnung und gibt eine kurze Informationen,
-            welchem Zweck das Modul dient.</dd>
+            <dd class="pb-2">Der Name ist eine nicht-technische Bezeichnung und gibt eine kurze Information, welchem Zweck das Modul dient.</dd>
             <dt>Version (lokal):</dt>
             <dt>Version (Server):</dt>
             <dd class="pb-2">Hier wird die Version angezeigt, welche lokal installiert und ggf. im öffentlichen
@@ -1138,13 +1137,13 @@ Help language file
     </chapter>
     <chapter ref="ARTICLES_TRASH">
         <![CDATA[
-        <p>Im Papierkorb werden Elemente beim Löschen abgelegt, so dass sie bei Bedarf wiederherstellt werden können. Elemente im
+        <p>Im Papierkorb werden Elemente beim Löschen abgelegt, sodass sie bei Bedarf wiederherstellt werden können. Elemente im
         Papierkorb sollten nicht bearbeitet werden.</p>
         <p>Die Papierkörbe werden regelmäßig automatisch geleert.</p>
         <dl>
             <dt>Element wiederherstellen</dt>
             <dd class="pb-2">Über diese Option können die ausgewählten Elemente wiederherstellt werden. Dabei wird jeweils
-            die letzte Version eines Artikelns bzw. Kommentars wiederhergestellt.</dd>
+            die letzte Version eines Artikels bzw. Kommentars wiederhergestellt.</dd>
             <dt>Papierkorb leeren</dt>
             <dd class="pb-2">Über die Auswahl dieser Option wird der Papierkorb komplett geleert. Eine Lösung einzelner
             Elemente ist nicht vorgesehen.</dd>
@@ -1155,7 +1154,7 @@ Help language file
         <![CDATA[
         <p>Solltest du Fragen haben oder (technische) Hilfe benötigen, kannst du über verschiedene Wege Kontakt aufzunehmen.</p>
         <p>Unseren Bugtracker findest du auf <a rel="noreferrer,noopener,external" href="https://github.com/sea75300/fanpresscm4/issues" target="_blank">GitHub.com</a>, hier werden
-        Weiterentwicklungen, Bugfixes und sonstige Fragen entgegen genommen. Alternativ schreibe eine E-Mail an
+        Weiterentwicklungen, Bugfixes und sonstige Fragen entgegengenommen. Alternativ schreibe eine E-Mail an
         <em>fanpress@nobody-knows.org</em> oder <em>sea75300@yahoo.de</em> oder hinterlasse unter
         <a rel="noreferrer,noopener,external" href="https://nobody-knows.org/download/fanpress-cm/" target="_blank">Nobody-Knows.org</a> einen Kommentar auf der Projekt-Seite.</p>
 
@@ -1165,7 +1164,7 @@ Help language file
     </chapter>
     <chapter ref="IMPORT_MAIN">
         <![CDATA[
-        <p>Der CSV-Import dient der Übernahme von Daten aus anderen Content Management Systemen nach FanPress CM mittels+
+        <p>Der CSV-Import dient der Übernahme von Daten aus anderen Content-Management-Systemen nach FanPress CM mittels 
         <a rel="noreferrer,noopener,external" href="https://de.wikipedia.org/wiki/CSV_(Dateiformat)" target="_blank">CSV-Datei</a>.</p>
         
         <h3>Einstellungen</h3>
@@ -1175,7 +1174,7 @@ Help language file
         <dl>
             <dt>Dateien hochladen</dt>
             <dd>Über das Upload-Formular kannst du eine CSV-Datei beliebiger Größe hochladen. Ohne Upload einer Datei kann kein Import
-            gestartet werden. Wurde eine Datei erfolgreich hochgeladen, wird das Formular ausgeblendet und statt dessen der Dateiname
+            gestartet werden. Wurde eine Datei erfolgreich hochgeladen, wird das Formular ausgeblendet und stattdessen der Dateiname
             angezeigt.</dd>
 
             <dt>Importieren nach</dt>
@@ -1183,15 +1182,15 @@ Help language file
             individuell erweitert werden.</dd>
 
             <dt>Trennzeichen</dt>
-            <dd>Die Datensätze von CSV-Dateien können mit unterschiedlichen Trennzeichen arbeiten, FanPress CM unerstützt ausschließlich Semikolon (;) bzw. Komma (,) verwendet.
+            <dd>Die Datensätze von CSV-Dateien können mit unterschiedlichen Trennzeichen arbeiten, FanPress CM unterstützt ausschließlich Semikolon (;) bzw. Komma (,) verwendet.
             Wird kein Trennzeichen angegeben, so wird automatisch das Semikolon verwendet.</dd>
 
             <dt>Begrenzungszeichen</dt>
-            <dd>Texte mit Leerzeichen oder den o. g. Trennzeichen müssen für einen korrekten Import so in der CSv-Datei hinterlegt werden, dass
-            es beim Auswerten der Informationen nicht zu seiteneffekten kommt. Hierzu dient das "Begrenzungszeichen", meistens sind dies Anführungszeichen (&quot;).</dd>
+            <dd>Texte mit Leerzeichen oder den o. g. Trennzeichen müssen für einen korrekten Import so in der CSV-Datei hinterlegt werden, dass
+            es beim Auswerten der Informationen nicht zu Seiteneffekten kommt. Hierzu dient das "Begrenzungszeichen", meistens sind dies Anführungszeichen (&quot;).</dd>
 
             <dt>Erste Zeile überspringen</dt>
-            <dd>CSV-Dateien beinhalten in der ersten Zeiole meist die Beschreibung der Spaltenköpfe. Ist dies in der zu importierenden Datei nicht der Fall,
+            <dd>CSV-Dateien beinhalten in der ersten Zeile meist die Beschreibung der Spaltenköpfe. Ist dies in der zu importierenden Datei nicht der Fall,
             so kann dies über diese Einstellung hinterlegt werden.</dd>
 
             <dt>Verfügbare Felder / Reihenfolge in CSV-Datei</dt>
@@ -1201,14 +1200,14 @@ Help language file
             <em>Beispiel:</em>
                 <ol>
                     <li>Artikel > Überschrift: wird die Daten aus Spalte 1 der CSV-Datei befüllt</li>
-                    <li>Artikel > Artikel-Text: wird die Daten aus Spalte 2 der CSV-Datei befüllt</li>
-                    <li>Artikel > veröffentlichung: wird die Daten aus Spalte 3 der CSV-Datei befüllt</li>
+                    <li>Artikel > Artikeltext: wird die Daten aus Spalte 2 der CSV-Datei befüllt</li>
+                    <li>Artikel > Veröffentlichung: wird die Daten aus Spalte 3 der CSV-Datei befüllt</li>
                 </ol>            
             </dd>
         </dl>
 
         <h3>Aufbereitung von Import-Daten</h3>
-        <p>In Abhängigkeit vom vorherigen CMS ist im Regelfall eine Ausbereitung der Daten notwendig.</p>
+        <p>In Abhängigkeit vom ursprünglichen CMS ist im Regelfall eine vorherige Aufbereitung der Daten notwendig.</p>
         
         <dl>
             <dt>Datumsangabe</dt>
@@ -1224,17 +1223,17 @@ Help language file
 
             <dt>Artikel-Kategorien</dt>
             <dd>Artikel können mehrere Kategorien besitzen. Der Import erfolgt anhand der internen ID der Katgorien.
-            Diese ermittelst du bspw. in der Adresszeile deines Browers nach dem Parameter "id"
+            Diese ermittelst du bspw. in der Adresszeile deines Browsers nach dem Parameter "id"
             (bspw. index.php?module=categories/edit&id=<b>1</b>). Trenne mehrere Kategorien durch ein Semikolon zwischen
             den IDs (z. B. "1;2;5").</dd>
 
             <dt>Kommentare zu Artikel zuweisen</dt>
-            <dd>Kommentare können via CSV-Import bei einem Artikel abgelegt werden- Hierzu muss beim Import für jeden Kommentar
+            <dd>Kommentare können via CSV-Import bei einem Artikel abgelegt werden. Hierzu muss beim Import für jeden Kommentar
             die interne Artikel-ID hinterlegt sein.</dd>
 
             <dt>Kategorien zur Rollen zuweisen</dt>
             <dd>Analog zu Artikeln können Kategorien für mehrere Rollen verfügbar sein. Der Import erfolgt anhand der internen ID der Rollen.
-            Diese ermittelst du bspw. in der Adresszeile deines Browers nach dem Parameter "id"
+            Diese ermittelst du bspw. in der Adresszeile deines Browsers nach dem Parameter "id"
             (bspw. index.php?module=users/editroll&id=<b>4</b>). Trenne mehrere Rollen durch ein Semikolon zwischen
             den IDs (z. B. "1;2;3"). Die standardmäßig mitgelieferten Rollen haben folgende IDs:
                 <ul>
@@ -1256,12 +1255,12 @@ Help language file
 
             <dt>Doppelter Import / Aktualisierung von Daten</dt>
             <dd>Der CSV-Import führt für eingeschränkt Prüfungen durch, ob ein zu importierender Datensatz bereits existiert.
-            Ist ein Element also bereits vorhganden, kann es es nach dem Import zu Dubletten kommen. Der Import unterstützt
+            Ist ein Element also bereits vorhanden, kann es nach dem Import zu Dubletten kommen. Der Import unterstützt
             zudem keine Aktualisierung bereits vorhandener Daten, sondern ist in erster Linie für die initiale Befüllung gedacht.</dd>
 
             <dt>Vorschau</dt>
             <dd>Die Vorschau-Funktion zeigt dir, ob die Informationen aus der CSV-Datei den korrekten Feldern zugewiesen wurden.
-            Aus der Datei werden maximal zehn Element herangezogen.</dd>
+            Aus der Datei werden maximal zehn Elemente herangezogen.</dd>
 
             <dt>Zurücksetzen</dt>
             <dd>Wurde die falsche CSV-Datei hochgeladen oder diese nach dem Upload nochmals verändert, starte den Import
