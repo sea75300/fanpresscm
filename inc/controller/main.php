@@ -27,7 +27,7 @@ class main {
         }
 
         if (!\fpcm\classes\baseconfig::installerEnabled() && !\fpcm\classes\baseconfig::dbConfigExists()) {
-            exit('You have to install FanPress CM 3 before using it.');
+            exit('You have to install FanPress CM 4 before using it.');
         }
     }
 
