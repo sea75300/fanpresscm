@@ -307,11 +307,12 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     protected function checkPageToken($name = '')
     {
-        if (method_exists($this, 'checkReferer') && !$this->checkReferer()) {
-            return false;
+        $hasFunc = method_exists($this, 'checkReferer');
+        if ($hasFunc && !$this->checkReferer()) {
+            $this->checkPageToken = false;
+            return $this->checkPageToken;
         }
-
-        if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false) {
+        elseif (!$hasFunc && ( !isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false )) {
             trigger_error('Referer check failed for '. get_class($this).'.', E_USER_ERROR);
             $this->checkPageToken = false;
             return $this->checkPageToken;
@@ -322,11 +323,13 @@ class controller implements \fpcm\controller\interfaces\controller {
     }
 
     /**
-     * Check referrer
+     * 
+     * Checks referrer
+     * @param bool $ext
      * @return bool
      * @since 4.5-b7
      */
-    final protected function checkReferer() : bool
+    final protected function checkReferer(bool $ext = false) : bool
     {
         $ref = $_SERVER['HTTP_REFERER'] ?? false;
         if (!trim($ref)) {
@@ -334,8 +337,13 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        if ( strpos($_SERVER['HTTP_REFERER'], \fpcm\classes\dirs::getRootUrl()) === false ) {
-            trigger_error('Referer ' . $ref . ' does not match ' . \fpcm\classes\dirs::getRootUrl() . ' in '. $this->request->getModule() .'.', E_USER_ERROR);
+        $root = \fpcm\classes\dirs::getRootUrl();
+        if ($ext) {
+            $root = dirname($root);
+        }
+
+        if ( strpos($_SERVER['HTTP_REFERER'], $root) === false ) {
+            trigger_error('Referer ' . $ref . ' does not match ' . $root . ' in '. $this->request->getModule() .'.', E_USER_ERROR);
             return false;
         }
 

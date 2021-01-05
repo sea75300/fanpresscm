@@ -18,6 +18,8 @@ namespace fpcm\controller\ajax\system;
 class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm\controller\interfaces\isAccessible {
 
     use \fpcm\controller\traits\common\isAccessibleTrue;
+    
+    private $ext = false;
 
     /**
      * @see \fpcm\controller\abstracts\controller::hasAccess()
@@ -25,11 +27,16 @@ class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm
      */
     public function hasAccess()
     {
-        if (!$this->checkReferer()) {
+        if (\fpcm\classes\baseconfig::installerEnabled() || !\fpcm\classes\baseconfig::dbConfigExists()) {
+            return false;
+        }
+        
+        $this->ext = $this->request->fetchAll('t') !== null;
+        if (!$this->checkReferer($this->ext)) {
             return false;
         }
 
-        return \fpcm\classes\baseconfig::installerEnabled() || !\fpcm\classes\baseconfig::dbConfigExists() ? false : true;
+        return true;
     }
     
     /**
@@ -38,12 +45,12 @@ class refresh extends \fpcm\controller\abstracts\ajaxController implements \fpcm
     public function process()
     {
         $this->runCrons();
-        $this->runSessionCheck();
-        $this->runArticleInEdit();
-        if ($this->request->fetchAll('t') !== null) {
+        if ($this->ext) {
             exit('{}');
         }
 
+        $this->runSessionCheck();
+        $this->runArticleInEdit();
         $this->response->setReturnData($this->returnData)->fetch();
     }
 
