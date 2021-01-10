@@ -290,7 +290,7 @@ final class config extends dataset {
 
             $this->data['twitter_data'] = json_decode($this->data['twitter_data'], true);
             $this->data['twitter_events'] = json_decode($this->data['twitter_events'], true);
-            $this->data['smtp_settings'] = json_decode($this->data['smtp_settings'], true);
+            $this->data['smtp_settings'] = new conf\smtpSettings($this->data['smtp_settings']);
 
             $this->cache->write($this->cacheName, $this->data);
 
@@ -320,8 +320,6 @@ final class config extends dataset {
             $this->newConfig['system_css_path'] = filter_var($this->newConfig['system_css_path'], FILTER_SANITIZE_URL);
         }
 
-        
-        
         $classes = $this->newConfig['system_editor_css'] ?? null;
         if (trim($classes)) {
             $classes = explode(PHP_EOL, trim($classes));
@@ -350,8 +348,7 @@ final class config extends dataset {
         }
 
         if (isset($this->newConfig['smtp_settings']) && is_array($this->newConfig['smtp_settings'])) {
-            $this->newConfig['smtp_settings']['addr'] = filter_var($this->newConfig['smtp_settings']['addr'], FILTER_SANITIZE_EMAIL);            
-            $this->newConfig['smtp_settings'] = json_encode($this->newConfig['smtp_settings']);
+            $this->newConfig['smtp_settings'] = json_encode(new conf\smtpSettings($this->newConfig['smtp_settings'], $this->data['smtp_settings'], $this->newConfig['smtp_enabled'] ? true : false));
         }
 
         if (isset($this->newConfig['articles_limit'])) {

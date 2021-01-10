@@ -24,7 +24,6 @@ class updateCheck extends \fpcm\model\abstracts\cron {
     {
         $repo = new \fpcm\model\packages\repository();
         if (!$repo->fetchRemoteData()) {
-            trigger_error('Unable to fetch data from package server.');
             return false;
         }
 
@@ -33,17 +32,19 @@ class updateCheck extends \fpcm\model\abstracts\cron {
         /* @var $config \fpcm\model\system\config */
         $config = \fpcm\classes\loader::getObject('\fpcm\model\system\config');
 
+        /* @var $session \fpcm\model\system\session */
+        $session = \fpcm\classes\loader::getObject('\fpcm\model\system\session');
+        
         $res = $updater->updateAvailable();
-        if ($res && $this->getAsyncCurrent() && $config->system_updates_emailnotify) {
-
-            $replacements = array(
-                '{{version}}' => $updater->getRemoteData('version'),
-                '{{acplink}}' => \fpcm\classes\dirs::getRootUrl()
-            );
+        if ($res && $config->system_updates_emailnotify && !$session->exists()) {
 
             $language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
-            $email = new \fpcm\classes\email($config->system_email, $language->translate('CRONJOB_UPDATES_NEWVERSION'), $language->translate('CRONJOB_UPDATES_NEWVERSION_TEXT', $replacements));
-            $email->submit();
+            $email = new \fpcm\classes\email($config->system_email, $language->translate('CRONJOB_UPDATES_NEWVERSION'), $language->translate('CRONJOB_UPDATES_NEWVERSION_TEXT', [
+                '{{version}}' => $updater->getRemoteData('version'),
+                '{{acplink}}' => \fpcm\classes\dirs::getRootUrl()
+            ]));
+
+            $res2 = $email->submit();
         }
 
         $this->updateLastExecTime();

@@ -624,7 +624,7 @@
                         <div class="row fpcm-ui-padding-md-tb">
                             <?php $theView->textInput('smtp_settings[addr]')
                                     ->setType('email')
-                                    ->setValue($globalConfig['smtp_settings']['addr'])
+                                    ->setValue($globalConfig['smtp_settings']->addr)
                                     ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                     ->setText('GLOBAL_EMAIL')
                                     ->setPlaceholder('mail@example.com')
@@ -634,7 +634,7 @@
 
                         <div class="row fpcm-ui-padding-md-tb">
                             <?php $theView->textInput('smtp_settings[srvurl]')
-                                    ->setValue($globalConfig['smtp_settings']['srvurl'])
+                                    ->setValue($globalConfig['smtp_settings']->srvurl)
                                     ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                     ->setText('SYSTEM_OPTIONS_EMAIL_SERVER')
                                     ->setPlaceholder('mail.example.com')
@@ -644,7 +644,7 @@
 
                         <div class="row fpcm-ui-padding-md-tb">
                             <?php $theView->textInput('smtp_settings[port]')
-                                    ->setValue($globalConfig['smtp_settings']['port'])
+                                    ->setValue($globalConfig['smtp_settings']->port)
                                     ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                     ->setText('SYSTEM_OPTIONS_EMAIL_PORT')
                                     ->setPlaceholder('25')
@@ -654,7 +654,7 @@
 
                         <div class="row fpcm-ui-padding-md-tb">
                             <?php $theView->textInput('smtp_settings[user]')
-                                    ->setValue($globalConfig['smtp_settings']['user'])
+                                    ->setValue($globalConfig['smtp_settings']->user)
                                     ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                     ->setText('SYSTEM_OPTIONS_EMAIL_USERNAME')
                                     ->setPlaceholder('mail@example.com')
@@ -665,9 +665,9 @@
                         <div class="row fpcm-ui-padding-md-tb">
                             <?php $theView->passwordInput('smtp_settings[pass]')
                                     ->setText('SYSTEM_OPTIONS_EMAIL_PASSWORD')
-                                    ->setValue($globalConfig['smtp_settings']['pass'])
                                     ->setReadonly(($globalConfig['smtp_enabled'] ? false : true))
                                     ->setClass('fpcm-ui-options-smtp-input')
+                                    ->setPlaceholder(trim($globalConfig['smtp_settings']->pass) ? '*****' : '')
                                     ->setDisplaySizesDefault(); ?>
                         </div>
 
@@ -678,7 +678,7 @@
                             <div class="col-12 col-sm-6 col-sm-9 px-0">
                                 <?php $theView->select('smtp_settings[encr]')
                                         ->setOptions($smtpEncryption)
-                                        ->setSelected($globalConfig['smtp_settings']['encr'])
+                                        ->setSelected($globalConfig['smtp_settings']->encr)
                                         ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                                         ->setReadonly(($globalConfig['smtp_enabled'] ? false : true)); ?>
                             </div>

@@ -212,8 +212,8 @@ final class email {
             'maildata' => [
                 'to' => $this->to,
                 'from' => $this->from,
-                'subject' => utf8_decode($this->subject),
-                'text' => ($this->html ? $this->text : utf8_decode($this->text)),
+                'subject' => $this->subject,
+                'text' => $this->text,
             ],
             'attachments' => $this->attachments
         ]);
