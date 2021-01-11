@@ -21,24 +21,40 @@
 
     <div class="col-12 col-md-6" id="fpcm-ui-csv-settings">
         
-        <div class="row my-2">
-            <?php $theView->select('import_destination')->setOptions($theView->translate('SYSTEM_IMPORT_ITEMS'))
-                ->prependLabel()->setText('IMPORT_ITEM')->setIcon('file-csv')->setDisplaySizesDefault(); ?>
-        </div>
-        
-        <div class="row my-2">
-            <?php $theView->textInput('import_delimiter')->setValue(';')->setMaxlenght(1)
-                ->setText('IMPORT_DELIMITER')->setIcon('cut')->setDisplaySizesDefault(); ?>
-        </div>
-        
-        <div class="row my-2">
-            <?php $theView->textInput('import_enclosure')->setValue('"')->setMaxlenght(1)
-                ->setText('IMPORT_ENCLOSURE')->setIcon('quote-left')->setDisplaySizesDefault(); ?>
-        </div>
-        
-        <div class="row my-2">
-            <?php $theView->checkbox('import_first')->setValue('1')->setText('IMPORT_EXCLUDE_FIRST')->setSelected(true); ?>
-        </div>
+        <fieldset>
+            <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
+
+            <div class="row my-2">
+                <?php $theView->select('import_destination')->setOptions($theView->translate('SYSTEM_IMPORT_ITEMS'))
+                    ->prependLabel()->setText('IMPORT_ITEM')->setIcon('file-csv')->setDisplaySizesDefault(); ?>
+            </div>
+
+            <div class="row my-2">
+                <?php $theView->textInput('import_delimiter')->setValue(';')->setMaxlenght(1)
+                    ->setText('IMPORT_DELIMITER')->setIcon('cut')->setDisplaySizesDefault(); ?>
+            </div>
+
+            <div class="row my-2">
+                <?php $theView->textInput('import_enclosure')->setValue('"')->setMaxlenght(1)
+                    ->setText('IMPORT_ENCLOSURE')->setIcon('quote-left')->setDisplaySizesDefault(); ?>
+            </div>
+
+            <div class="row my-2">
+
+                    <label title="<?php $theView->write('HL_OPTIONS'); ?>" class="fpcm-ui-field-label-general align-self-center col-12 col-sm-6 col-md-3">
+                        <?php $theView->icon('cog')->setSize('lg'); ?> <span class="fpcm-ui-label"><?php $theView->write('HL_OPTIONS'); ?></span>
+                    </label>                
+
+                    <div class="col-12 col-sm-6 col-md-9 align-self-center px-0">
+
+                        <div class="col-12 fpcm ui-element-min-height-md fpcm-ui-input-wrapper-inner fpcm-ui-border-grey-medium fpcm-ui-border-radius-all">
+                            <?php $theView->checkbox('import_first')->setValue('1')->setText('IMPORT_EXCLUDE_FIRST')->setSelected(true); ?>
+                        </div>
+
+                    </div>            
+
+            </div>
+        </fieldset>        
         
         <div class="row my-2"> 
 
