@@ -832,6 +832,7 @@ fpcm.ui = {
                     .replace('&lbrace;&lbrace;value&rcub;&rcub;', _params.value)
                     .replace('{{type}}', _params.type)
                     .replace('{{text}}', _params.text)
+                    .replace('{{text}}', _params.text)
                     .replace('{{class}}', _params.class)
                     .replace('{{type}}', _params.type)
                     .replace('{{placeholder}}', _params.placeholder)
