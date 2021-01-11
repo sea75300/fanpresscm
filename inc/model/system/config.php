@@ -72,11 +72,11 @@ use fpcm\model\traits\eventModuleEmpty;
  * @property bool   $file_subfolders Create subfolder of form YYYY-MM
  * @property string $file_view File manager view
  * 
- * @property array  $twitter_data Daten für Twitter-Verbindung
- * @property array  $twitter_events Events, wenn Tweets erzeugt werden sollen
+ * @property conf\twitterSettings  $twitter_data Daten für Twitter-Verbindung
+ * @property conf\twitterEvents    $twitter_events Events, wenn Tweets erzeugt werden sollen
  * 
- * @property array  $smtp_enabled E-Mail-Versand via SMTP aktiv
- * @property array  $smtp_settings Konfiguration für E-Mail-Versand via SMTP
+ * @property bool                  $smtp_enabled E-Mail-Versand via SMTP aktiv
+ * @property conf\smtpSettings     $smtp_settings Konfiguration für E-Mail-Versand via SMTP
  * 
  * @package fpcm\model\system
  * @author Stefan Seehafer <sea75300@yahoo.de>
@@ -288,8 +288,8 @@ final class config extends dataset {
                 $this->data[$data->config_name] = $data->config_value;
             }
 
-            $this->data['twitter_data'] = json_decode($this->data['twitter_data'], true);
-            $this->data['twitter_events'] = json_decode($this->data['twitter_events'], true);
+            $this->data['twitter_data'] = new conf\twitterSettings($this->data['twitter_data']);
+            $this->data['twitter_events'] = new conf\twitterEvents($this->data['twitter_events']);
             $this->data['smtp_settings'] = new conf\smtpSettings($this->data['smtp_settings']);
 
             $this->cache->write($this->cacheName, $this->data);
@@ -339,16 +339,26 @@ final class config extends dataset {
             $this->newConfig['system_editor'] = base64_decode($this->newConfig['system_editor']);
         }
 
-        if (isset($this->newConfig['twitter_events']) && is_array($this->newConfig['twitter_events'])) {
-            $this->newConfig['twitter_events'] = json_encode($this->newConfig['twitter_events']);
+        if (isset($this->newConfig['twitter_events'])) {
+            
+            if (!$this->newConfig['twitter_events'] instanceof conf\twitterEvents) {
+                $this->newConfig['twitter_events'] = new conf\twitterEvents($this->newConfig['twitter_events'], $this->data['twitter_events']);
+            }
+
+            $this->newConfig['twitter_events'] = $this->newConfig['twitter_events']->toJSON();
         }
 
-        if (isset($this->newConfig['twitter_data']) && is_array($this->newConfig['twitter_data'])) {
-            $this->newConfig['twitter_data'] = json_encode($this->newConfig['twitter_data']);
+        if (isset($this->newConfig['twitter_data'])) {
+            
+            if (!$this->newConfig['twitter_data'] instanceof conf\twitterSettings) {
+                $this->newConfig['twitter_data'] = new conf\twitterSettings($this->newConfig['twitter_data'], $this->data['twitter_data']);
+            }
+
+            $this->newConfig['twitter_data'] = $this->newConfig['twitter_data']->toJSON();
         }
 
         if (isset($this->newConfig['smtp_settings']) && is_array($this->newConfig['smtp_settings'])) {
-            $this->newConfig['smtp_settings'] = json_encode(new conf\smtpSettings($this->newConfig['smtp_settings'], $this->data['smtp_settings'], $this->newConfig['smtp_enabled'] ? true : false));
+            $this->newConfig['smtp_settings'] = (new conf\smtpSettings($this->newConfig['smtp_settings'], $this->data['smtp_settings'], (bool) $this->newConfig['smtp_enabled']))->toJSON();
         }
 
         if (isset($this->newConfig['articles_limit'])) {
@@ -461,6 +471,24 @@ final class config extends dataset {
     {
         preg_match('/([0-9]).([0-9])/i', $this->data['system_version'], $matches);
         return $matches[1].$matches[2];
+    }
+
+    /**
+     * Disables Twitter connection
+     * @return bool
+     * @since 4.5-rc2
+     */
+    final public function disableTwitter(): bool
+    {
+        $this->twitter_data->reset();
+        $this->twitter_events->reset();
+
+        $this->setNewConfig([
+            'twitter_data' => $this->twitter_data->toJSON(),
+            'twitter_events' => $this->twitter_events->toJSON()
+        ]);
+
+        return $this->update();
     }
 
     /**

@@ -43,7 +43,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
             return;
         }
 
-        $this->oAuth = new \tmhOAuth($this->config->twitter_data);
+        $this->oAuth = new \tmhOAuth((array) $this->config->twitter_data);
     }
 
     /**
@@ -52,12 +52,15 @@ class twitter extends \fpcm\model\abstracts\staticModel {
      */
     public function checkRequirements()
     {
-
-        if (!is_array($this->config->twitter_data)) {
+        if (!\fpcm\classes\baseconfig::canConnect() || !function_exists('curl_init')) {
             return false;
         }
 
-        return \fpcm\classes\baseconfig::canConnect() && function_exists('curl_init');
+        if (!$this->config->twitter_data->isConfigured()) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -72,17 +75,12 @@ class twitter extends \fpcm\model\abstracts\staticModel {
             return $this->cache->read($this->cacheName);
         }
 
-        $keys = $this->config->twitter_data['consumer_key'] &&
-                $this->config->twitter_data['consumer_secret'] &&
-                $this->config->twitter_data['user_token'] &&
-                $this->config->twitter_data['user_secret'];
-
-        if (!$this->checkRequirements() || !$keys) {
+        if (!$this->checkRequirements()) {
             return false;
         }
 
         $code = $this->oAuth->request(
-                'GET', $this->oAuth->url('1.1/account/verify_credentials')
+            'GET', $this->oAuth->url('1.1/account/verify_credentials')
         );
 
         $this->log();
@@ -106,7 +104,7 @@ class twitter extends \fpcm\model\abstracts\staticModel {
         }
 
         $code = $this->oAuth->request(
-                'POST', $this->oAuth->url('1.1/statuses/update'), array('status' => $text)
+            'POST', $this->oAuth->url('1.1/statuses/update'), array('status' => $text)
         );
         
         $this->log();

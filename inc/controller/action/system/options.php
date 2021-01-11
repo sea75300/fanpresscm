@@ -9,7 +9,9 @@
 
 namespace fpcm\controller\action\system;
 
-class options extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+class options extends \fpcm\controller\abstracts\controller
+implements \fpcm\controller\interfaces\isAccessible,
+\fpcm\controller\interfaces\requestFunctions {
 
     use \fpcm\controller\traits\common\timezone;
 
@@ -71,8 +73,6 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
             ]);
         }
 
-        $this->save();
-        $this->twitterDisconnect();
         return true;
     }
 
@@ -188,12 +188,8 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->render();
     }
     
-    private function save() : bool
+    protected function onConfigSave() : bool
     {
-        if (!$this->buttonClicked('configSave')) {
-            return false;
-        }
-
         if (!$this->checkPageToken()) {
             $this->view->addErrorMessage('CSRF_INVALID');
             return true;
@@ -201,16 +197,8 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
         $this->newconfig = $this->request->fromPOST(null);
 
-        if (!isset($this->newconfig['twitter_events'])) {
-            $this->newconfig['twitter_events'] = ['create' => 0, 'update' => 0];
-        }
-
         foreach ($this->config->twitter_events as $key => $value) {
-            $this->newconfig['twitter_events'][$key] = (isset($this->newconfig['twitter_events'][$key]) && $this->newconfig['twitter_events'][$key] ? 1 : 0);
-        }
-
-        if (!isset($this->newconfig['twitter_data'])) {
-            $this->newconfig['twitter_data'] = ['consumer_key' => '', 'consumer_secret' => '', 'user_token' => '', 'user_secret' => ''];
+            $this->newconfig['twitter_events'][$key] = $this->newconfig['twitter_events'][$key] ?? 0;
         }
 
         foreach ($this->config->twitter_data as $key => $value) {
@@ -239,22 +227,9 @@ class options extends \fpcm\controller\abstracts\controller implements \fpcm\con
         return true;
     }
 
-    private function twitterDisconnect() : bool
+    protected function onTwitterDisconnect() : bool
     {
-        if (!$this->buttonClicked('twitterDisconnect')) {
-            return false;
-        }
-
-        $twitterData = $this->config->twitter_data;
-
-        $twitterData['user_token'] = '';
-        $twitterData['user_secret'] = '';
-
-        $this->config->setNewConfig(array(
-            'twitter_data' => json_encode($twitterData),
-            'twitter_events' => json_encode(array('create' => 0, 'update' => 0))
-        ));
-        if (!$this->config->update()) {
+        if (!$this->config->disableTwitter()) {
             $this->view->addNoticeMessage('SAVE_FAILED_OPTIONS');
             return false;
         }

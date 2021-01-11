@@ -19,43 +19,43 @@ namespace fpcm\model\system\conf;
 class smtpSettings extends \fpcm\model\abstracts\configObj
 {
     /**
-     * 
+     * E-mail address
      * @var string
      */
-    public $addr;
+    public $addr = '';
 
     /**
-     * 
+     * SMTP server
      * @var string
      */
-    public $srvurl;
+    public $srvurl = '';
 
     /**
-     * 
+     * Server port
      * @var int
      */
-    public $port;
+    public $port = '25';
 
     /**
-     * 
+     * Username
      * @var string
      */
-    public $user;
+    public $user = '';
 
     /**
-     * 
+     * Password
      * @var string
      */
-    public $pass;
+    public $pass = '';
 
     /**
-     * 
+     * Conenction encryption
      * @var string
      */
-    public $encr;
+    public $encr = 'auto';
 
     /**
-     * 
+     * Constructor
      * @param array|string $data
      * @param bool $isEnabled
      * @return boolean

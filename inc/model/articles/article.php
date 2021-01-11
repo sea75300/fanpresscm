@@ -859,7 +859,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
      */
     public function createTweet($force = false)
     {
-        if (!\fpcm\classes\baseconfig::canConnect() || (!$this->config->twitter_events['create'] && !$this->config->twitter_events['update'] && !$force)) {
+        if (!$this->config->twitter_data->isConfigured() || (!$this->config->twitter_events->create && !$this->config->twitter_events->update && !$force)) {
             return false;
         }
 
@@ -886,8 +886,7 @@ implements \fpcm\model\interfaces\isCsvImportable {
             $tpl->setContent($this->tweetOverride);
         }
 
-        $twitter = new \fpcm\model\system\twitter();
-        return $twitter->updateStatus($tpl->parse());
+        return (new \fpcm\model\system\twitter())->updateStatus($tpl->parse());
     }
 
     /**
