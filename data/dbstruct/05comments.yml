@@ -3,7 +3,7 @@
 name: comments
 primarykey: id
 engine: InnoDB
-charset: utf8
+charset: utf8mb4
 autoincrement:
     colname: id
     start: 1
@@ -32,7 +32,7 @@ cols:
         type: text
         length: 
         params: NOT NULL
-        charset: utf8mb4
+        charset: utf8mb4_general_ci
     private:
         type: bool
         length: 

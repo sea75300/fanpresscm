@@ -3,7 +3,7 @@
 name: articles
 primarykey: id
 engine: InnoDB
-charset: utf8
+charset: utf8mb4
 autoincrement:
     colname: id
     start: 1
