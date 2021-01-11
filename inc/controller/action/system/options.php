@@ -109,7 +109,7 @@ implements \fpcm\controller\interfaces\isAccessible,
         $this->view->assign('articleTemplates', $templates->getArticleTemplates());
         $this->view->assign('commentTemplates', $templates->getCommentTemplates());
 
-        $this->view->assign('globalConfig', $this->config->getData());
+        $this->view->assign('globalConfig', $this->config);
         $this->view->assign('languages', array_flip($this->language->getLanguages()));
 
         $this->view->assign('notify', [

@@ -172,10 +172,6 @@ div.mce-fpcm-ui-emoticons-panel {
     max-height: 34px;
 }
 
-.fpcm-ui-editor-categories-massedit .selectize-input.items {
-    border-radius: 0px 5px 5px 0px !important;
-}
-
 .fpcm-ui-editor-categories-massedit .selectize-input {
     padding: 5px;
 }

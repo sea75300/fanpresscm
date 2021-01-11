@@ -149,7 +149,6 @@ if (fpcm.editor) {
     fpcm.editor.initToolbar = function () {
 
         fpcm.ui.selectmenu('#fpcm-editor-paragraphs', {
-            width: 'auto',
             select: function( event, ui ) {
                 if (!ui.item.value) {
                     return false;
@@ -163,7 +162,6 @@ if (fpcm.editor) {
         });
 
         fpcm.ui.selectmenu('#fpcm-editor-styles', {
-            width: 'auto',
             select: function( event, ui ) {
                 if (!ui.item.value) {
                     return false;
@@ -177,7 +175,6 @@ if (fpcm.editor) {
         });
 
         fpcm.ui.selectmenu('#fpcm-editor-fontsizes', {
-            width: 'auto',
             select: function( event, ui ) {
                 if (!ui.item.value) {
                     return false;
@@ -538,8 +535,6 @@ if (fpcm.editor) {
 
                 fpcm.ui.selectmenu('.fpcm-editor-mediaformat',{
                     appendTo: '#fpcm-dialog-editor-html-insertmedia',
-                    width: '100%',
-                    removeCornerLeft: true
                 });
             },
             dlOnClose: function() {
@@ -602,13 +597,9 @@ if (fpcm.editor) {
     
     fpcm.editor.insertPicture = function () {
 
-        fpcm.ui.selectmenu('#imagesalign',{
-            removeCornerLeft: true
-        });
-
         fpcm.ui.insertDialog({
             id: 'editor-html-insertimage',
-            dlWidth: fpcm.ui.getDialogSizes(top, 0.35).width,
+            dlWidth: fpcm.ui.getDialogSizes(top, 0.5).width,
             title: 'EDITOR_INSERTPIC',
             resizable: true,
             dlButtons: [{
@@ -657,10 +648,6 @@ if (fpcm.editor) {
     };
     
     fpcm.editor.insertLink = function() {
-
-        fpcm.ui.selectmenu('#linkstarget',{
-            removeCornerLeft: true
-        });
 
         fpcm.ui.insertDialog({
             id: 'editor-html-insertlink',

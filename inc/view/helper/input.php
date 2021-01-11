@@ -79,7 +79,7 @@ abstract class input extends helper {
 
         $description = $this->placeholder !== true ? $this->getDescriptionTextString() : '';
         if ($this->getIconString() || trim($description)) {
-            $description = "<label class=\"fpcm-ui-field-label-general {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
+            $description = "<label title=\"{$this->text}\" class=\"fpcm-ui-field-label-general {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
         }
 
         return $wrapperStart . $description . $input . $wrapperEnd;

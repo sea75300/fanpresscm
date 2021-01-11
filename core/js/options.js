@@ -40,12 +40,5 @@ fpcm.options = {
             }
         });
 
-        fpcm.ui.selectmenu('.fpcm-ui-input-select', {
-            removeCornerLeft: true
-        });
-
-        fpcm.ui.spinner('.fpcm-ui-spinner', {
-            removeCornerLeft: true
-        });
     }
 };

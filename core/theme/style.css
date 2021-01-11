@@ -522,8 +522,12 @@ img.fpcm-ui-smileylist-preview {
     top: 1.25rem;
 }
 
-.fpcm-ui-border-radius-right,
+.fpcm-ui-border-radius-all,
 .fpcm-ui-field-input-nowrapper-general {
+    border-radius: 5px;
+}
+
+.fpcm-ui-border-radius-right {
     border-radius: 0 5px 5px 0;
 }
 

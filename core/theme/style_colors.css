@@ -133,12 +133,6 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
     transition: background-color 0.35s ease;
 }
 
-label.fpcm-ui-label-bg-grey,
-.fpcm-ui-field-label-general
-{
-    background: #f8f8f8;
-}
-
 .fpcm-ui-button-primary {
     border-color: #0073ea;
 }
@@ -248,7 +242,6 @@ fieldset,
 textarea,
 .fpcm-ui-input-wrapper,
 .fpcm-ui-input-wrapper-hover,
-.fpcm-ui-field-label-general,
 .fpcm-ui-field-input-nowrapper-general,
 .fpcm-ui-border-grey-medium {
     border: 1px solid #bbb;

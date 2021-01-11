@@ -106,11 +106,11 @@ fpcm.users = {
             dlOnOpen: function (event, ui) {
 
                 fpcm.ui.selectmenu('#articlesaction', {
-                    appendTo: '#fpcm-dialog-users-select-delete'
+                    appendTo: '#fpcm-dialog-users-select-delete',
                 });
 
                 fpcm.ui.selectmenu('#articlesuser', {
-                    appendTo: '#fpcm-dialog-users-select-delete'
+                    appendTo: '#fpcm-dialog-users-select-delete',
                 });
 
             },

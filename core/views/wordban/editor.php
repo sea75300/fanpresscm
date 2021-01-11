@@ -35,7 +35,7 @@
                             <?php $theView->icon('cogs'); ?>
                             <?php $theView->write('GLOBAL_ACTION_PERFORM'); ?>:
                         </label>
-                        <div class="col-12 col-sm-6 col-md-9 fpcm ui-element-min-height-md fpcm-ui-input-wrapper-inner fpcm-ui-border-grey-medium fpcm-ui-border-radius-right">
+                        <div class="col-12 col-sm-6 col-md-9 fpcm ui-element-min-height-md fpcm-ui-input-wrapper-inner fpcm-ui-border-grey-medium">
                             <?php $theView->checkbox('wbitem[replacetxt]')->setText('WORDBAN_REPLACETEXT')->setSelected($item->getReplaceTxt())->setLabelClass('mr-2'); ?>
                             <?php $theView->checkbox('wbitem[lockarticle]')->setText('WORDBAN_APPROVE_ARTICLE')->setSelected($item->getLockArticle())->setLabelClass('mr-2'); ?>
                             <?php $theView->checkbox('wbitem[commentapproval]')->setText('WORDBAN_APPROVA_COMMENT')->setSelected($item->getCommentApproval()); ?>                            

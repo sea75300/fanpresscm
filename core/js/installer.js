@@ -132,8 +132,5 @@ fpcm.installer = {
             return true;
         }
 
-        fpcm.ui.selectmenu('.fpcm-ui-input-select', {
-            removeCornerLeft: true
-        });
     }
 };

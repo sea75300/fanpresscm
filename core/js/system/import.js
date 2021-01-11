@@ -13,7 +13,6 @@ fpcm.import = {
     init: function () {      
 
         fpcm.ui.selectmenu('#import_destination', {
-            removeCornerLeft: true,
             change: function (event, ui) {
                 
                 fpcm.dom.fromId('fpcm-ui-csv-fields-select').empty();

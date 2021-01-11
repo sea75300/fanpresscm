@@ -19,6 +19,14 @@ textarea {
     height: auto;
 }
 
+label,
+.fpcm-ui-field-label-general,
+.fpcm-ui-field-input-nowrapper-general {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .fpcm-ui-input-wrapper,
 .fpcm-ui-input-wrapper input {
     height: auto;
@@ -50,7 +58,7 @@ select::-ms-expand {
 }
 
 select {
-    width: 200px;
+    min-width: 15rem;
     height: 31.333333px;
 }
 

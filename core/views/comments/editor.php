@@ -55,11 +55,20 @@
                         ->setDisplaySizesDefault(); ?>
             </div>
 
-            <div class="row no-gutters py-2">
-                <div class="<?php $theView->defaultBoxHalf(); ?> align-self-center">
-                    <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status')->setLabelClass('mr-2'); ?>
-                    <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status')->setLabelClass('mr-2'); ?>
-                    <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$theView->permissions->comment->private)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status'); ?>
+            <div class="row py-2">
+                
+                <label title="<?php $theView->write('COMMMENT_STATUS'); ?>" class="fpcm-ui-field-label-general align-self-center col-12 col-sm-6 col-md-3">
+                    <?php $theView->icon('exclamation-circle')->setSize('lg'); ?> <span class="fpcm-ui-label"><?php $theView->write('COMMMENT_STATUS'); ?></span>
+                </label>                
+    
+                <div class="col-12 col-sm-6 col-md-9 align-self-center pl-0">
+                    
+                    <div class="col-12 fpcm ui-element-min-height-md fpcm-ui-input-wrapper-inner fpcm-ui-border-grey-medium fpcm-ui-border-radius-all">
+                        <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status')->setLabelClass('mr-2'); ?>
+                        <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status')->setLabelClass('mr-2'); ?>
+                        <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$theView->permissions->comment->private)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status'); ?>
+                    </div>
+                    
                 </div>
             </div>
         </fieldset>

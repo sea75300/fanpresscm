@@ -161,7 +161,6 @@ fpcm.system = {
 
         fpcm.ui.selectmenu('.fpcm-ui-input-select-massedit', {
             appendTo: dialogIdCom,
-            removeCornerLeft: true
         });
 
         if (typeof list.initWidgets === 'function') {

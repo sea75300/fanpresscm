@@ -76,6 +76,7 @@ $lang = array (
   'COMMMENT_SEARCH_ARTICLE' => 'Suche in Artikel mit ID',
   'COMMMENT_SELETDEST' => 'Bitte den Ziel-Artikel auswählen',
   'COMMMENT_SPAM' => 'Kommentar ist Spam',
+  'COMMMENT_STATUS' => 'Status',
   'COMMMENT_TEXT' => 'Kommentar-Text',
   'COMMMENT_WEBSITE' => 'Webseite',
   'CONFIRM_MESSAGE' => 'Willst du diese Aktion wirklich durchführen?',

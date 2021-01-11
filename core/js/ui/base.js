@@ -330,12 +330,6 @@ fpcm.ui = {
 
         if (params === undefined) params = {};
 
-        if (params.removeCornerLeft) {
-            params.classes = {
-                'ui-spinner': "fpcm-ui-border-radius-right"
-            }
-        }
-
         el.spinner(params);
     },
 
@@ -389,16 +383,10 @@ fpcm.ui = {
                 params.width = dataWidth;
             }
         }
-        
-        if (params.width === undefined) {
-            params.width = 300;
-        }
+
+        params.width = false;
 
         var el = fpcm.dom.fromTag(elemClassId).selectmenu(params);
-        if (params.removeCornerLeft || (elemClassId.substr(1,1) === '#' && el.data('remove_corner_left'))) {
-            el.selectmenu( "option", "classes.ui-selectmenu-button", "fpcm-ui-border-radius-right" );
-        }
-
         if (params.doRefresh) {
             el.selectmenu('refresh');
         }

@@ -135,12 +135,10 @@ fpcm.comments = {
             });
 
             fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch', {
-                width: '100%',
                 appendTo: '#' + sDlg.attr('id')
             });
             
             fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch-combination', {
-                width: '100%',
                 appendTo: '#' + sDlg.attr('id'),
             });
             

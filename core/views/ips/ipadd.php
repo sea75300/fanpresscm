@@ -40,7 +40,7 @@
                                         <?php $theView->icon('lock'); ?>
                                         <?php $theView->write('IPLIST_BLOCKTYPE'); ?>:
                                     </label>
-                                    <div class="col-12 col-sm-6 col-md-9 fpcm ui-element-min-height-md fpcm-ui-input-wrapper-inner fpcm-ui-border-grey-medium fpcm-ui-border-radius-right">
+                                    <div class="col-12 col-sm-6 col-md-9 fpcm ui-element-min-height-md fpcm-ui-input-wrapper-inner fpcm-ui-border-grey-medium fpcm-ui-border-radius-all">
                                         <?php $theView->checkbox('nocomments')->setText('IPLIST_NOCOMMENTS')->setSelected($object->getNocomments())->setLabelClass('mr-2'); ?>
                                         <?php $theView->checkbox('nologin')->setText('IPLIST_NOLOGIN')->setSelected($object->getNologin())->setLabelClass('mr-2'); ?>
                                         <?php $theView->checkbox('noaccess')->setText('IPLIST_NOACCESS')->setSelected($object->getNoaccess()); ?>

@@ -124,12 +124,10 @@ fpcm.articles = {
             });
 
             fpcm.ui.selectmenu('.fpcm-ui-input-select-articlesearch', {
-                width: '100%',
                 appendTo: '#' + sDlg.attr('id')
             });
 
             fpcm.ui.selectmenu('.fpcm-ui-input-select-articlesearch-combination', {
-                width: '100%',
                 appendTo: '#' + sDlg.attr('id')
             });
 

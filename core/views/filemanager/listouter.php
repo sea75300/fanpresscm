@@ -67,7 +67,7 @@
             <?php $theView->icon('calendar-alt', 'far')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_UPLOAD_DATE'); ?>
         </label>
-        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-filetime"></div>
+        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-grey-medium p-2 fpcm-ui-border-radius-all" id="fpcm-dialog-files-properties-filetime"></div>
     </div>
 
     <div class="row my-2">
@@ -75,7 +75,7 @@
             <?php $theView->icon('user')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_UPLOAD_BY'); ?>
         </label>
-        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-fileuser"></div>
+        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-grey-medium p-2 fpcm-ui-border-radius-all" id="fpcm-dialog-files-properties-fileuser"></div>
     </div>
 
     <div class="row my-2">
@@ -83,7 +83,7 @@
             <?php $theView->icon('weight')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_FILESIZE'); ?>
         </label>
-        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-filesize"></div>
+        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-grey-medium p-2 fpcm-ui-border-radius-all" id="fpcm-dialog-files-properties-filesize"></div>
     </div>
 
     <div class="row my-2">
@@ -91,7 +91,7 @@
             <?php $theView->icon('expand-arrows-alt')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_RESOLUTION'); ?>
         </label>
-        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-resulution"></div>
+        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-grey-medium p-2 fpcm-ui-border-radius-all" id="fpcm-dialog-files-properties-resulution"></div>
     </div>
 
     <div class="row my-2">
@@ -99,7 +99,7 @@
             <?php $theView->icon('file-alt ')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_FILETYPE'); ?>
         </label>
-        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-filemime"></div>
+        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-grey-medium p-2 fpcm-ui-border-radius-all" id="fpcm-dialog-files-properties-filemime"></div>
     </div>
 
     <div class="row my-2">
@@ -107,7 +107,7 @@
             <?php $theView->icon('hashtag')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_FILEHASH'); ?>
         </label>
-        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-ellipsis fpcm-ui-padding-md-all" id="fpcm-dialog-files-properties-filehash"></div>
+        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-grey-medium fpcm-ui-ellipsis p-2 fpcm-ui-border-radius-all" id="fpcm-dialog-files-properties-filehash"></div>
     </div>
 
     <div class="row my-2">
@@ -115,7 +115,7 @@
             <?php $theView->icon('copyright')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_FILECREDITS'); ?>
         </label>
-        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-radius-right fpcm-ui-border-grey-medium fpcm-ui-ellipsis fpcm-ui-padding-md-all pre-box" id="fpcm-dialog-files-properties-credits">
+        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-grey-medium fpcm-ui-ellipsis p-2 pre-box fpcm-ui-border-radius-all" id="fpcm-dialog-files-properties-credits">
             &nbsp;
         </div>
     </div>

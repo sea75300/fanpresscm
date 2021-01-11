@@ -582,12 +582,10 @@ fpcm.filemanager = {
             });
 
             fpcm.ui.selectmenu('.fpcm-ui-input-select-filessearch-combination', {
-                width: '100%',
                 appendTo: '#' + sDlg.attr('id')
             });
 
             fpcm.ui.selectmenu('.fpcm-ui-input-select-filessearch', {
-                width: '100%',
                 appendTo: '#' + sDlg.attr('id')
             });
 

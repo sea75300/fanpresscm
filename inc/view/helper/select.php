@@ -73,7 +73,7 @@ class select extends helper {
 
         $label = '';
         if ($this->prependLabel) {
-            $label = "<label class=\"fpcm-ui-field-label-general {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
+            $label = "<label title=\"{$this->text}\" class=\"fpcm-ui-field-label-general {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
         }
         
         return $label.implode(' ', [
