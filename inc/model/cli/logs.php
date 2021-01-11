@@ -24,12 +24,15 @@ final class logs extends \fpcm\model\abstracts\cli {
      */
     public function process()
     {
-
         if (empty($this->funcParams[1])) {
             $this->output('Invalid params', true);
         }
 
-        $path = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_LOGS, $this->funcParams[1] . '.txt');
+        $path = \fpcm\model\files\ops::realpathNoExists(\fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_LOGS, escapeshellcmd($this->funcParams[1]) . '.txt'));
+        
+        if (!\fpcm\model\files\ops::isValidDataFolder($path)) {
+            $this->output('Invalid logfile name given, not in data/logs: ' . $path, true);
+        }
 
         $this->output('--- Logfile: ' . \fpcm\model\files\ops::removeBaseDir($path, true) . ' ---');
 

@@ -22,6 +22,8 @@ final class language {
     private const FILENAME_LISTS = 'lists';
 
     public const VARTEXT_NEWLINE = '[NL]';
+
+    public const LANGCODE_VALIDATION = '/[^a-zA-Z0-9\-]/';
     
     /**
      * Languages list
@@ -60,6 +62,11 @@ final class language {
      */
     public function __construct($langCode = '')
     {
+
+        if (trim($langCode)) {
+            $langCode = preg_replace(self::LANGCODE_VALIDATION, '', $langCode);
+        }
+
         if (!trim($langCode)) {
             $langCode = FPCM_DEFAULT_LANGUAGE_CODE;
         }
