@@ -48,8 +48,17 @@ class testing extends \fpcm\controller\abstracts\ajaxController implements \fpcm
         $next = (bool) $this->request->fromPOST('next', [
             \fpcm\model\http\request::FILTER_CASTINT
         ]);
-
+        
         $fpath = \fpcm\classes\dirs::getDataDirPath(\fpcm\classes\dirs::DATA_OPTIONS, 'import.csv');
+
+        if (!file_exists($fpath)) {
+            $this->response->setReturnData([
+                'next' => 0,
+                'current' => 1,
+                'stop' => 1
+            ])->fetch();
+        }
+
         $handle = fopen($fpath, 'r');
 
         $progressObj = new \fpcm\model\system\progress(function (&$data, &$current, $next, &$stop) use (&$handle) {

@@ -52,6 +52,19 @@
             </div>
             <?php endif; ?>
 
+            <?php if ($backupFs) : ?>
+            <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
+                <div class="col-1 px-0 fpcm-ui-center">
+                    <?php $theView->icon('life-ring')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
+                        'step' => 'backupFs'
+                    ]); ?>
+                </div>
+                <div class="col-11 align-self-center fpcm-ui-updater-descr">
+                    <?php $theView->write('PACKAGEMANAGER_BACKUPFS'); ?>
+                </div>
+            </div>
+            <?php endif; ?>
+
             <?php if ($download) : ?>
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
                 <div class="col-1 px-0 fpcm-ui-center">
@@ -94,19 +107,6 @@
                     <?php $theView->write('PACKAGEMANAGER_EXTRACT', [
                         '{{var}}' => $pkgname
                     ]); ?>
-                </div>
-            </div>
-            <?php endif; ?>
-
-            <?php if ($backupFs) : ?>
-            <div class="row fpcm-ui-padding-md-tb fpcm-ui-status-0">
-                <div class="col-1 px-0 fpcm-ui-center">
-                    <?php $theView->icon('life-ring')->setSize('2x')->setClass('fpcm-ui-update-icons')->setStack('square fpcm-ui-update-iconstatus fpcm-ui-update-iconstatus-0')->setStackTop(true)->setData([
-                        'step' => 'backupFs'
-                    ]); ?>
-                </div>
-                <div class="col-11 align-self-center fpcm-ui-updater-descr">
-                    <?php $theView->write('PACKAGEMANAGER_BACKUPFS'); ?>
                 </div>
             </div>
             <?php endif; ?>

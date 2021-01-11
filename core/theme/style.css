@@ -518,6 +518,10 @@ img.fpcm-ui-smileylist-preview {
     font-size: 0.8rem;
 }
 
+.fileupload-progress .fpcm.ui-progressbar-label {
+    top: 1.25rem;
+}
+
 .fpcm-ui-border-radius-right,
 .fpcm-ui-field-input-nowrapper-general {
     border-radius: 0 5px 5px 0;

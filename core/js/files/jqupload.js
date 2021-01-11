@@ -1,7 +1,7 @@
 /**
  * FanPress CM File Uploader Namespace
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2017, Stefan Seehafer
+ * @copyright (c) 2017-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 if (fpcm === undefined) {
