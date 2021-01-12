@@ -6,7 +6,6 @@
                 ->setSelected('de')
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setText('INSTALLER_LANGUAGE_SELECT')
-                ->setLabelClass('fpcm-ui-field-input-nowrapper-general')
                 ->setDisplaySizesDefault()
                 ->prependLabel(); ?>
     </div>

@@ -24,7 +24,6 @@
                     ->setSelected($theView->langCode)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('SYSTEM_OPTIONS_LANG')
-                    ->setLabelClass('fpcm-ui-field-input-nowrapper-general')
                     ->setDisplaySizesDefault()
                     ->prependLabel(); ?>
         </div>
@@ -36,7 +35,6 @@
                     ->setOptGroup(true)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('SYSTEM_OPTIONS_TIMEZONE')
-                    ->setLabelClass('fpcm-ui-field-input-nowrapper-general')
                     ->setDisplaySizesDefault()
                     ->prependLabel(); ?>
         </div>
@@ -59,7 +57,6 @@
                     ->setSelected(3600)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('SYSTEM_OPTIONS_SESSIONLENGHT')
-                    ->setLabelClass('fpcm-ui-field-input-nowrapper-general')
                     ->setDisplaySizesDefault()
                     ->prependLabel(); ?>
         </div>
@@ -70,7 +67,6 @@
                     ->setSelected(FPCM_CACHE_DEFAULT_TIMEOUT)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('SYSTEM_OPTIONS_CACHETIMEOUT')
-                    ->setLabelClass('fpcm-ui-field-input-nowrapper-general')
                     ->setDisplaySizesDefault()
                     ->prependLabel(); ?>
         </div>
@@ -81,7 +77,6 @@
                     ->setSelected(1)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('SYSTEM_OPTIONS_USEMODE')
-                    ->setLabelClass('fpcm-ui-field-input-nowrapper-general')
                     ->setDisplaySizesDefault()
                     ->prependLabel(); ?>
         </div>

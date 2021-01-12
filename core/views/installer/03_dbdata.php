@@ -11,7 +11,6 @@
                     ->setClass('fpcm-installer-data')
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('INSTALLER_DBCONNECTION_TYPE')
-                    ->setLabelClass('fpcm-ui-field-label-general')
                     ->setDisplaySizesDefault()
                     ->prependLabel(); ?>
         </div>       
