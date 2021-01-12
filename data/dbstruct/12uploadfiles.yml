@@ -3,7 +3,7 @@
 name: uploadfiles
 primarykey: id
 engine: InnoDB
-charset: utf8
+charset: utf8mb4
 autoincrement:
     colname: id
     start: 1
@@ -32,7 +32,7 @@ cols:
         type: varchar
         length: 255
         params: NOT NULL
-        charset: utf8mb4_general_ci
+        charset: utf8mb4
 indices:
     filename:
         col: filename
