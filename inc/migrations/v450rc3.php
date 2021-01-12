@@ -26,6 +26,7 @@ class v450rc3 extends migration {
     protected function alterTablesAfter() : bool
     {
         $changes = [
+            \fpcm\classes\database::tableAuthors => ['usrinfo'],
             \fpcm\classes\database::tableFiles => ['alttext'],
             \fpcm\classes\database::tableRoll => ['codex'],
         ];
@@ -54,6 +55,8 @@ class v450rc3 extends migration {
             }
 
         }
+        
+        return $res;
     }
 
     /**
