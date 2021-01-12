@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="col-12">
-    <div class="row fpcm-ui-selectmenu-border-radius-right">        
+    <div class="row">        
         <?php $theView->select('language')
                 ->setOptions($languages)
                 ->setSelected('de')

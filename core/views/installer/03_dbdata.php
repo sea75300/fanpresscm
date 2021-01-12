@@ -4,7 +4,7 @@
     <fieldset>
         <legend><?php $theView->write('INSTALLER_DBCONNECTION'); ?></legend>
 
-        <div class="row my-2 fpcm-ui-selectmenu-border-radius-right">        
+        <div class="row my-2">        
             <?php $theView->select('database[DBTYPE]')
                     ->setText('INSTALLER_DBCONNECTION_TYPE')
                     ->setOptions($sqlDrivers)

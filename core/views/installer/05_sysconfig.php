@@ -18,7 +18,7 @@
                 ->setDisplaySizesDefault(); ?>
         </div>
 
-        <div class="row my-2 fpcm-ui-selectmenu-border-radius-right">        
+        <div class="row my-2">        
             <?php $theView->select('conf[system_lang]')
                     ->setOptions($languages)
                     ->setSelected($theView->langCode)
@@ -28,7 +28,7 @@
                     ->prependLabel(); ?>
         </div>
 
-        <div class="row my-2 fpcm-ui-selectmenu-border-radius-right">        
+        <div class="row my-2">        
             <?php $theView->select('conf[system_timezone]')
                     ->setOptions($timezoneAreas)
                     ->setSelected('Europe/Berlin')
@@ -51,7 +51,7 @@
 
         </div>
 
-        <div class="row my-2 fpcm-ui-selectmenu-border-radius-right">        
+        <div class="row my-2">        
             <?php $theView->select('conf[system_session_length]')
                     ->setOptions($theView->translate('SYSTEM_OPTIONS_SESSIONLENGHT_INTERVALS'))
                     ->setSelected(3600)
@@ -61,7 +61,7 @@
                     ->prependLabel(); ?>
         </div>
 
-        <div class="row my-2 fpcm-ui-selectmenu-border-radius-right">        
+        <div class="row my-2">        
             <?php $theView->select('conf[system_cache_timeout]')
                     ->setOptions($theView->translate('SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL'))
                     ->setSelected(FPCM_CACHE_DEFAULT_TIMEOUT)
@@ -71,7 +71,7 @@
                     ->prependLabel(); ?>
         </div>
 
-        <div class="row my-2 fpcm-ui-selectmenu-border-radius-right">        
+        <div class="row my-2">        
             <?php $theView->select('conf[system_mode]')
                     ->setOptions($systemModes)
                     ->setSelected(1)
