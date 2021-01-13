@@ -41,12 +41,13 @@ class v450rc3 extends migration {
             foreach ($fields as $fieldName) {
 
                 $struct = $tabStruct[$fieldName] ?? false;
-                if (!$struct) {
-                    trigger_error('field '.$fieldName.' not found!');
+                if (!$struct || $struct['charset'] === 'utf8mb4_general_ci') {
+                    trigger_error($fieldName.' does not exit, skipping...', E_USER_WARNING);
                     continue;
                 }
 
                 if ($struct['charset'] === 'utf8mb4_general_ci') {
+                    trigger_error($fieldName.' is already utf8mb4_general_ci, skipping...', E_USER_NOTICE);
                     continue;
                 }
                 

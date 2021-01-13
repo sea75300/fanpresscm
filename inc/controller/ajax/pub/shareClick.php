@@ -37,7 +37,7 @@ class shareClick extends \fpcm\controller\abstracts\ajaxController {
      */
     public function hasAccess() : bool
     {
-        if (!$this->checkReferer()) {
+        if (!$this->checkReferer(true)) {
             return false;
         }
 

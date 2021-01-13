@@ -10,7 +10,7 @@ namespace fpcm\controller\interfaces;
 /**
  * New controller access permission interface
  * 
- * @package fpcm\controller\interfaces\isAccessible
+ * @package fpcm\controller\interfaces
  * @author Stefan Seehafer <sea75300@yahoo.de>
  * @copyright (c) 2019-2020, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
