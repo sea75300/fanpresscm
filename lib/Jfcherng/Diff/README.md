@@ -18,14 +18,14 @@ Generated diff can be rendered in all of the standard formats including:
 **Text** renderers:
 
 - Context
-- Json (HTML)
+- Json (plain text)
 - Unified
 
 **HTML** renderers:
 
 - Combined
 - Inline
-- Json (plain text)
+- Json (HTML)
 - Side by Side
 
 Note that for HTML rendered results, you have to add CSS for a better visualization.
@@ -97,6 +97,8 @@ $rendererOptions = [
     'lineNumbers' => true,
     // show a separator between different diff hunks in HTML renderers
     'separateBlock' => true,
+    // show the (table) header
+    'showHeader' => true,
     // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
     // but if you want to visualize them in the backend with "&nbsp;", you can set this to true
     'spacesToNbsp' => false,
@@ -205,6 +207,8 @@ This renderer is suitable for articles and always has no line number information
 
 ### Renderer: Unified
 
+About the `Unified` diff format: https://en.wikipedia.org/wiki/Diff#Unified_format
+
 ```diff
 @@ -1,3 +1,4 @@
 -<p>Hello World!</p>
@@ -224,6 +228,8 @@ This renderer is suitable for articles and always has no line number information
 
 
 ### Renderer: Context
+
+About the `Context` diff format: https://en.wikipedia.org/wiki/Diff#Context_format
 
 <details><summary>Click to expand</summary>
 

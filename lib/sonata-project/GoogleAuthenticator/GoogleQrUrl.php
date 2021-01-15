@@ -16,7 +16,8 @@ namespace Sonata\GoogleAuthenticator;
 /**
  * Responsible for QR image url generation.
  *
- * @see https://developers.google.com/chart/infographics/docs/qr_codes
+ * @see http://goqr.me/api/
+ * @see http://goqr.me/api/doc/
  * @see https://github.com/google/google-authenticator/wiki/Key-Uri-Format
  *
  * @author Iltar van der Berg <kjarli@gmail.com>
@@ -54,10 +55,8 @@ final class GoogleQrUrl
      * @param string      $secret      The secret is the generated secret unique to that user
      * @param string|null $issuer      Where you log in to
      * @param int         $size        Image size in pixels, 200 will make it 200x200
-     *
-     * @return string
      */
-    public static function generate(string $accountName, string $secret, string $issuer = null, int $size = 200): string
+    public static function generate(string $accountName, string $secret, ?string $issuer = null, int $size = 200): string
     {
         if ('' === $accountName || false !== strpos($accountName, ':')) {
             throw RuntimeException::InvalidAccountName($accountName);
@@ -83,7 +82,7 @@ final class GoogleQrUrl
         $otpauthString = rawurlencode(sprintf($otpauthString, $label, $secret, $issuer));
 
         return sprintf(
-            'https://chart.googleapis.com/chart?chs=%1$dx%1$d&chld=M|0&cht=qr&chl=%2$s',
+            'https://api.qrserver.com/v1/create-qr-code/?size=%1$dx%1$d&data=%2$s&ecc=M',
             $size,
             $otpauthString
         );

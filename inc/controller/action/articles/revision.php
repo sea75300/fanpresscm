@@ -213,7 +213,8 @@ implements \fpcm\controller\interfaces\isAccessible,
             $renderer = RendererFactory::make('Combined', [
                 'detailLevel' => 'word',
                 'language' => 'eng',
-                'lineNumbers' => false
+                'lineNumbers' => false,
+                'showHeader' => false
             ]);
             
         } catch (\Exception $exc) {

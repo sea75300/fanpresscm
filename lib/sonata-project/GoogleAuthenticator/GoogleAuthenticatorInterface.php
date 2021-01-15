@@ -19,13 +19,13 @@ interface GoogleAuthenticatorInterface
      * @param string $secret
      * @param string $code
      */
-    public function checkCode($secret, $code): bool;
+    public function checkCode($secret, $code, $discrepancy = 1): bool;
 
     /**
      * NEXT_MAJOR: add the interface typehint to $time and remove deprecation.
      *
      * @param string                                   $secret
-     * @param float|string|int|null|\DateTimeInterface $time
+     * @param float|string|int|\DateTimeInterface|null $time
      */
     public function getCode($secret, /* \DateTimeInterface */$time = null): string;
 
