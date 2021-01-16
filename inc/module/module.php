@@ -243,7 +243,7 @@ class module {
     /**
      * Updates module options
      * @param array $options
-     * @return array
+     * @return bool
      */
     final public function setOptions(array $options) : bool
     {
@@ -388,9 +388,9 @@ class module {
      * 
      * Check if configure action should be displayed
      * @param int $status
-     * @return boolean
+     * @return bool
      */
-    public function hasConfigure(int &$legacy = 0)
+    public function hasConfigure(int &$legacy = 0) : bool
     {
         if ( file_exists(self::getConfigByKey($this->mkey, 'configure')) ) {
             $legacy = 0;
@@ -423,7 +423,32 @@ class module {
      */
     final public function hasFilesListFile() : bool
     {
-        return file_exists(rtrim($this->config->basePath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'files.txt' );
+        return file_exists( $this->getConfigPathFromCurrent('files.txt') );
+    }
+
+    /**
+     * Check if config/migrations/v*.php exists
+     * @return bool
+     * @since 4.5.0-rc3
+     */
+    final public function hasMigrations() : bool
+    {
+        return count($this->getMigrations());
+    }
+
+    /**
+     * Returns list of migrations
+     * @return array
+     * @since 4.5.0-rc3
+     */
+    final public function getMigrations() : array
+    {
+        $files = glob( $this->getConfigPathFromCurrent('migrations' . DIRECTORY_SEPARATOR . 'v*.php') );
+        if (!is_array($files) && !count($files)) {
+            return [];
+        }
+
+        return array_map('basename', $files);
     }
 
     /**
@@ -437,7 +462,7 @@ class module {
         }
 
         $result = ($this->initDb
-                ? $this->db->selectFetch((new \fpcm\model\dbal\selectParams())->setTable(\fpcm\classes\database::tableModules)->setWhere('mkey = ?')->setParams([$this->mkey]))
+                ? $this->db->selectFetch((new \fpcm\model\dbal\selectParams())->setTable(\fpcm\classes\database::tableModules)->setWhere('mkey = :mkey')->setParams([':mkey' => $this->mkey]))
                 : false);
 
         if (!$result) {
@@ -456,6 +481,17 @@ class module {
     public function getFullPrefix($key = '') : string
     {
         return 'module_' . $this->prefix . '_' . $key;
+    }
+
+    /**
+     * Return path for "config/" folder in current module base path
+     * @param string $dest
+     * @return string
+     * @since 4.5-rc3
+     */
+    private function getConfigPathFromCurrent(string $dest) : string
+    {
+        return rtrim($this->config->basePath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . $dest;
     }
 
     /**
@@ -493,11 +529,10 @@ class module {
      */
     private function getTableFiles() : array
     {
-        $files = glob(rtrim($this->config->basePath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'tables' . DIRECTORY_SEPARATOR . '*.yml');
+        $files = glob( $this->getConfigPathFromCurrent('tables' . DIRECTORY_SEPARATOR . '*.yml') );
         if (!is_array($files)) {
             return [];
         }
-        
 
         return $files;
     }
@@ -1078,6 +1113,18 @@ class module {
     }
 
     /**
+     * Return Namespace of module migrations
+     * @param string $key
+     * @param string $cron
+     * @return string
+     * @since 4.5.0-rc3
+     */
+    public static function getMigrationNamespace(string $key, string $migration) : string
+    {
+        return "\\fpcm\\modules\\" . str_replace('/', '\\', $key) . "\\migrations\\{$migration}";
+    }
+
+    /**
      * Get config file path
      * @param string $key
      * @param string $config
@@ -1153,7 +1200,7 @@ class module {
      */
     public static function getModuleUrlFromKey(string $key) : string
     {
-        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', DIRECTORY_SEPARATOR, $key));
+        return \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_MODULES, str_replace('\\', '/', $key));
     }
 
     /**
