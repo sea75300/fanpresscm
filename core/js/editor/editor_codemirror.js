@@ -556,14 +556,14 @@ if (fpcm.editor) {
         fpcm.ui.spinner('#tablerows', {
             min: 1,
             classes: {
-                "ui-spinner": "ui-corner-tr ui-corner-br col-6 col-md-2"
+                "ui-spinner": "ui-corner-all col-6 col-md-2"
             }
         });
 
         fpcm.ui.spinner('#tablecols', {
             min: 1,
             classes: {
-                "ui-spinner": "ui-corner-tr ui-corner-br col-6 col-md-2"
+                "ui-spinner": "ui-corner-all col-6 col-md-2"
             }
         });
         
