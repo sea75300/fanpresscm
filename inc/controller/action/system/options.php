@@ -173,10 +173,13 @@ implements \fpcm\controller\interfaces\isAccessible,
             (new \fpcm\view\helper\tabItem('comments'))->setText('SYSTEM_HL_OPTIONS_COMMENTS')->setWrapper(false)->setUrl('#tabs-options-comments')->setData([
                 'toolbar-buttons' => 1
             ]),
+            (new \fpcm\view\helper\tabItem('extended'))->setText('GLOBAL_EXTENDED')->setWrapper(false)->setUrl('#tabs-options-extended')->setData([
+                'toolbar-buttons' => 1
+            ]),
             (new \fpcm\view\helper\tabItem('twitter'))->setText('SYSTEM_HL_OPTIONS_TWITTER')->setWrapper(false)->setUrl('#tabs-options-twitter')->setData([
                 'toolbar-buttons' => 1
             ]),
-            (new \fpcm\view\helper\tabItem('extended'))->setText('GLOBAL_EXTENDED')->setWrapper(false)->setUrl('#tabs-options-extended')->setData([
+            (new \fpcm\view\helper\tabItem('smtp'))->setText('SYSTEM_OPTIONS_EXTENDED_EMAILSUBMISSION')->setWrapper(false)->setUrl('#tabs-options-smtp')->setData([
                 'toolbar-buttons' => 1
             ]),
             (new \fpcm\view\helper\tabItem('syscheck'))->setText('SYSTEM_HL_OPTIONS_SYSCHECK')->setWrapper(false)->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/syscheck'))->setData([

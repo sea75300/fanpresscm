@@ -539,7 +539,8 @@ if (fpcm.editor) {
             },
             dlOnClose: function() {
                 fpcm.dom.resetValuesByIdsString(['mediapath', 'mediapath2', 'mediaposter']);
-                fpcm.dom.resetValuesByIdsChecked(['autoplay', 'controls', 'mediatypea', 'mediatypev']);
+                fpcm.dom.resetValuesByIdsChecked(['autoplay', 'mediatypev']);
+                fpcm.dom.resetValuesByIdsChecked(['controls', 'mediatypea'], true);
                 fpcm.dom.resetValuesByIdsSelect(['mediaformat', 'mediaformat2']);
                 fpcm.dom.fromId('fpcm-dialog-editor-html-insertmedia-preview').empty();
             },

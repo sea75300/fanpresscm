@@ -145,8 +145,12 @@ fpcm.dom = {
         return true;
     },
 
-    resetValuesByIdsChecked: function (_elements)
+    resetValuesByIdsChecked: function (_elements, _value)
     {
+        if (_value === undefined) {
+            _value = false;
+        }
+
         if (typeof _elements !== 'object' || !_elements.length) {
             return false;
         }
@@ -158,14 +162,18 @@ fpcm.dom = {
                 continue;
             }
             
-            fpcm.dom.fromId(_el).prop('checked', false).checkboxradio('refresh');
+            fpcm.dom.fromId(_el).prop('checked', _value).checkboxradio('refresh');
         }
 
         return true;
     },
 
-    resetValuesByIdsSelect: function (_elements)
+    resetValuesByIdsSelect: function (_elements, _value)
     {
+        if (_value === undefined) {
+            _value = 0;
+        }
+
         if (typeof _elements !== 'object' || !_elements.length) {
             return false;
         }
@@ -177,7 +185,7 @@ fpcm.dom = {
                 continue;
             }
 
-            fpcm.dom.fromId(_el).val('').prop('selectedIndex', 0).selectmenu('refresh');
+            fpcm.dom.fromId(_el).val('').prop('selectedIndex', _value).selectmenu('refresh');
         }
 
         return true;

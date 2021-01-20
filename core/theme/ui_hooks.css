@@ -43,6 +43,10 @@ div.ui-tabs {
     margin-bottom: 3px;
 }
 
+.ui-selectmenu-menu .ui-menu .ui-selectmenu-optgroup {
+    font-size: 1.25em;
+}
+
 div.row.fpcm-ui-selectmenu-border-radius-right > span.ui-selectmenu-button {
     border-radius: 0 5px 5px 0;
 }
@@ -130,6 +134,13 @@ div.row.fpcm-ui-selectmenu-border-radius-right > span.ui-selectmenu-button {
 .ui-menu .ui-menu-item .ui-menu-item-wrapper.ui-state-active,
 .fpcm-ui-button-link.fpcm-ui-button-primary span {
     color: #fff;
+}
+
+.ui-datepicker-title > select,
+.ui-datepicker-title > .ui-datepicker-month,
+.ui-datepicker-title > .ui-datepicker-year {
+    min-width: auto;
+    height: auto;
 }
 
 @media (max-width: 1024px) {

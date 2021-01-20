@@ -1,7 +1,7 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <!-- Link einfügen -->  
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertlink">
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <?php $theView->textInput('links[url]', 'linksurl')
                 ->setType('url')
                 ->setValue('')
@@ -11,7 +11,7 @@
                 ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
                 ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
     </div>
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <?php $theView->textInput('links[text]', 'linkstext')
                 ->setText('EDITOR_LINKTXT')
                 ->setIcon('keyboard')
@@ -19,7 +19,7 @@
                 ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
                 ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
     </div>   
-    <div class="row fpcm-ui-padding-md-tb">            
+    <div class="row py-2">            
         <label class="col-6 col-md-4 fpcm-ui-field-label-general">
             <?php $theView->icon('window-restore')->setSize('lg'); ?>
             <?php $theView->write('EDITOR_LINKTARGET'); ?>
@@ -27,7 +27,7 @@
         <div class="col-8 px-0"><?php $theView->select('links[target]', 'linkstarget')->setOptions($targets); ?></div>
     </div>
     <?php if (count($cssClasses)) : ?>
-    <div class="row fpcm-ui-padding-md-tb">            
+    <div class="row py-2">            
         <label class="col-6 col-md-4 fpcm-ui-field-label-general">
             <?php $theView->icon('paint-roller')->setSize('lg'); ?>
             <?php $theView->write('EDITOR_CSS_CLASS'); ?>
@@ -39,7 +39,7 @@
 
 <!-- Bild einfügen -->  
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertimage">
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <?php $theView->textInput('images[path]', 'imagespath')
                 ->setType('url')
                 ->setValue('')
@@ -49,7 +49,7 @@
                 ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
                 ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
     </div>
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <?php $theView->textInput('images[alt]', 'imagesalt')
                 ->setText('EDITOR_IMGALTTXT')
                 ->setIcon('keyboard')
@@ -57,7 +57,7 @@
                 ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
                 ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
     </div>   
-    <div class="row fpcm-ui-padding-md-tb">            
+    <div class="row py-2">            
         <label class="col-6 col-md-4 fpcm-ui-field-label-general">
             <?php $theView->icon('align-center')->setSize('lg'); ?>
             <?php $theView->write('EDITOR_IMGALIGN'); ?>
@@ -65,7 +65,7 @@
         <div class="col-8 px-0"><?php $theView->select('images[align]', 'imagesalign')->setOptions($aligns); ?></div>
     </div>
     <?php if (count($cssClasses)) : ?>
-    <div class="row fpcm-ui-padding-md-tb">            
+    <div class="row py-2">            
         <label class="col-6 col-md-4 fpcm-ui-field-label-general">
             <?php $theView->icon('paint-roller')->setSize('lg'); ?>
             <?php $theView->write('EDITOR_CSS_CLASS'); ?>
@@ -77,7 +77,7 @@
 
 <!-- Tabelle einfügen -->  
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-inserttable">
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <?php $theView->textInput('table[rows]', 'tablerows')
                 ->setValue(1)->setMaxlenght(5)
                 ->setText('EDITOR_INSERTTABLE_ROWS')
@@ -85,7 +85,7 @@
                 ->setSize('lg')
                 ->setLabelClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-label-general'); ?>
     </div>
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <?php $theView->textInput('table[rows]', 'tablecols')
                 ->setValue(1)->setMaxlenght(5)
                 ->setText('EDITOR_INSERTTABLE_COLS')
@@ -97,7 +97,7 @@
 
 <!-- Liste einfügen -->  
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertlist">
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <?php $theView->textInput('list[rows]', 'listrows')
                 ->setValue(1)->setMaxlenght(5)
                 ->setText('EDITOR_INSERTTABLE_ROWS')
@@ -105,7 +105,7 @@
                 ->setSize('lg')
                 ->setLabelClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-label-general'); ?>
     </div>
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <?php $theView->textInput('list[type]', 'listtype')
                 ->setValue('')
                 ->setText('EDITOR_INSERTLIST_TYPESIGN')
@@ -119,7 +119,7 @@
 <!-- Player einfügen -->  
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertmedia">
     
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <div class="col-12 col-md-8 px-0">
             <div class="row">
                 <?php $theView->textInput('media[path]', 'mediapath')
@@ -140,7 +140,7 @@
         </div>
     </div> 
     
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <div class="col-12 col-md-8 px-0">
             <div class="row">
                 <?php $theView->textInput('media[path]', 'mediapath2')
@@ -161,7 +161,7 @@
         </div>
     </div> 
     
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <div class="col-12 col-md-8 px-0">
             <div class="row">
                 <?php $theView->textInput('media[poster]', 'mediaposter')
@@ -179,7 +179,7 @@
         </div>
     </div> 
     
-    <div class="row fpcm-ui-padding-md-tb">        
+    <div class="row py-2">        
         <div class="col-12 fpcm-ui-center">
             <div id="fpcm-ui-editor-media-controlgroup">
                 <?php $theView->radiobutton('mediatype', 'mediatypea')->setText('EDITOR_INSERTMEDIA_AUDIO')->setClass('fpcm-editor-mediatype')->setValue('audio')->setSelected(true); ?>
@@ -196,7 +196,7 @@
 <!-- Farben einfügen -->
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertcolor">
     
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <?php $theView->textInput('colorhexcode')
                 ->setValue('#000000')
                 ->setType('color')
@@ -208,12 +208,12 @@
                 ->setLabelClass('col-6 col-md-8 fpcm-ui-field-label-general'); ?>
     </div>    
 
-    <div class="row no-gutters fpcm-ui-padding-md-tb">
+    <div class="row no-gutters py-2">
         <div class="col-12 fpcm-dialog-editor-colors fpcm-ui-center fpcm-ui-editor-metabox"></div>
     </div>
     
-    <div class="row no-gutters fpcm-ui-padding-md-tb">
-        <div class="col-12 fpcm-ui-padding-md-tb fpcm-ui-center">
+    <div class="row no-gutters py-2">
+        <div class="col-12 py-2 fpcm-ui-center">
             <div id="fpcm-ui-editor-color-controlgroup">
                 <?php $theView->radiobutton('color_mode', 'color_mode1')->setText('EDITOR_INSERTCOLOR_TEXT')->setClass('fpcm-ui-editor-colormode')->setValue('color')->setSelected(true); ?>
                 <?php $theView->radiobutton('color_mode', 'color_mode2')->setText('EDITOR_INSERTCOLOR_BACKGROUND')->setClass('fpcm-ui-editor-colormode')->setValue('background'); ?>
@@ -230,7 +230,7 @@
 
 <!-- Vorlage einfügen -->
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertquote">
-    <div class="row no-gutters fpcm-ui-padding-md-tb">
+    <div class="row no-gutters py-2">
         <div class="col-12 fpcm-ui-padding-md-bottom">
             <label for="quotetext">
                 <?php $theView->icon('keyboard')->setSize('lg'); ?>
@@ -239,7 +239,7 @@
         </div>
         <div class="col-12 fpcm-ui-padding-md-bottom"><?php $theView->textarea('quote[text]')->setPlaceholder(true)->setText('EDITOR_HTML_BUTTONS_QUOTE')->setClass('fpcm-ui-full-width fpcm-ui-textarea-medium'); ?></div>
     </div>
-    <div class="row fpcm-ui-padding-md-tb">
+    <div class="row py-2">
         <?php $theView->textInput('quote[src]')
                 ->setValue('')
                 ->setText('TEMPLATE_ARTICLE_SOURCES')
@@ -248,8 +248,8 @@
                 ->setClass('col-6 col-md-8 col-lg-9 fpcm-ui-field-input-nowrapper-general')
                 ->setLabelClass('col-6 col-md-4 col-lg-3 fpcm-ui-field-label-general'); ?>
     </div>   
-    <div class="row no-gutters fpcm-ui-padding-md-tb">
-        <div class="col-12 fpcm-ui-padding-md-tb fpcm-ui-center">
+    <div class="row no-gutters py-2">
+        <div class="col-12 py-2 fpcm-ui-center">
             <div id="fpcm-ui-editor-quote-controlgroup">
                 <?php $theView->radiobutton('quote[type]', 'quotetype1')->setText('EDITOR_HTML_BUTTONS_QUOTE_BLOCK')->setClass('fpcm-ui-editor-quotemode')->setValue('blockquote')->setSelected(true); ?>
                 <?php $theView->radiobutton('quote[type]', 'quotetype2')->setText('EDITOR_HTML_BUTTONS_QUOTE_INLINE')->setClass('fpcm-ui-editor-quotemode')->setValue('q'); ?>

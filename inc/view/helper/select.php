@@ -67,6 +67,14 @@ class select extends helper {
      */
     protected function getString()
     {
+        if (trim($this->text) && substr($this->text, 0, strlen(self::TEXT_DEFAULT_LABEL)) !== self::TEXT_DEFAULT_LABEL) {
+            $this->prependLabel();
+        }
+        
+        if (!trim($this->labelSize) && !trim($this->fieldSize)) {
+            $this->setDisplaySizesDefault();
+        }
+        
         if ($this->isMultiple) {
             $this->class = str_replace('fpcm-ui-input-select', 'fpcm-ui-input-select-multiple', $this->class);        
         }

@@ -261,7 +261,10 @@ textarea:focus,
 textarea:active,
 .fpcm-ui-input-wrapper:hover,
 .fpcm-ui-input-wrapper-hover,
-.fpcm-ui-field-input-nowrapper-general:hover {
+.fpcm-ui-field-input-nowrapper-general:hover,
+span.ui-spinner.ui-widget.ui-widget-content:hover,
+span.ui-spinner.ui-widget.ui-widget-content:focus,
+span.ui-spinner.ui-widget.ui-widget-content:active {
     box-shadow: #0073ea 0px 0px 4px;
 }
 
@@ -312,5 +315,5 @@ input[type=checkbox]:hover + label:before,
 input[type=checkbox]:focus + label:before,
 input[type=radio]:hover + label:before,
 input[type=radio]:focus + label:before {
-    background: #e3e3e3;
+    text-shadow: #e3e3e3 0 0 4px;
 }

@@ -269,9 +269,8 @@ final class language {
         if (!trim($langvar)) {
             return '';
         }
-        
-        $langvarUc = strtoupper($langvar);
-        $langData = $GLOBALS['langdata'][$langvarUc] ?? $langvar;
+
+        $langData = $GLOBALS['langdata'][strtoupper($langvar)] ?? $langvar;
 
         $replacement = [];
         foreach ($replaceParams as $key => $val) {

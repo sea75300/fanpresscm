@@ -62,8 +62,13 @@ select {
     height: 31.333333px;
 }
 
-textarea.fpcm-ui-textarea-medium {
-    height: 150px;
+textarea.fpcm-ui-textarea-medium,
+textarea.fpcm.ui-textarea-medium {
+    min-height: 25vh;
+}
+
+textarea.fpcm.ui-textarea-noresize {
+    resize: none;
 }
 
 .fpcm-ui-box-sizing-none {
