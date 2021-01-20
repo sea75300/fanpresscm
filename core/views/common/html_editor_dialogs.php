@@ -83,7 +83,7 @@
                 ->setText('EDITOR_INSERTTABLE_ROWS')
                 ->setIcon('arrow-down')
                 ->setSize('lg')
-                ->setLabelClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-label-general'); ?>
+                ->setDisplaySizesDefault(); ?>
     </div>
     <div class="row py-2">
         <?php $theView->textInput('table[rows]', 'tablecols')
@@ -91,7 +91,7 @@
                 ->setText('EDITOR_INSERTTABLE_COLS')
                 ->setIcon('arrow-right')
                 ->setSize('lg')
-                ->setLabelClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-label-general'); ?>
+                ->setDisplaySizesDefault(); ?>
     </div>
 </div>
 
@@ -103,7 +103,7 @@
                 ->setText('EDITOR_INSERTTABLE_ROWS')
                 ->setIcon('keyboard')
                 ->setSize('lg')
-                ->setLabelClass('col-12 col-sm-6 col-lg-4 fpcm-ui-field-label-general'); ?>
+                ->setDisplaySizesDefault(); ?>
     </div>
     <div class="row py-2">
         <?php $theView->textInput('list[type]', 'listtype')
@@ -111,8 +111,7 @@
                 ->setText('EDITOR_INSERTLIST_TYPESIGN')
                 ->setIcon('list-ul')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-4 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
+                ->setDisplaySizesDefault(); ?>
     </div>
 </div>
 
@@ -237,7 +236,7 @@
                 <?php $theView->write('EDITOR_HTML_BUTTONS_QUOTE_TEXT'); ?>:
             </label>
         </div>
-        <div class="col-12 fpcm-ui-padding-md-bottom"><?php $theView->textarea('quote[text]')->setPlaceholder(true)->setText('EDITOR_HTML_BUTTONS_QUOTE')->setClass('fpcm-ui-full-width fpcm-ui-textarea-medium'); ?></div>
+        <div class="col-12 fpcm-ui-padding-md-bottom"><?php $theView->textarea('quote[text]')->setPlaceholder(true)->setText('EDITOR_HTML_BUTTONS_QUOTE')->setClass('fpcm ui-full-width ui-textarea-medium ui-textarea-noresize'); ?></div>
     </div>
     <div class="row py-2">
         <?php $theView->textInput('quote[src]')
@@ -245,8 +244,7 @@
                 ->setText('TEMPLATE_ARTICLE_SOURCES')
                 ->setIcon('external-link-alt')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-8 col-lg-9 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-4 col-lg-3 fpcm-ui-field-label-general'); ?>
+                ->setDisplaySizesDefault(); ?>
     </div>   
     <div class="row no-gutters py-2">
         <div class="col-12 py-2 fpcm-ui-center">

@@ -340,9 +340,6 @@ if (fpcm.editor) {
 
         fpcm.ui.spinner('#listrows', {
             min: 1,
-            classes: {
-                "ui-spinner": "ui-corner-tr ui-corner-br col-6 col-md-2"
-            }
         });
 
         fpcm.ui.autocomplete('#listtype', {
@@ -368,7 +365,7 @@ if (fpcm.editor) {
 
                 aTag = '<' + listtype + (cssType ? ' style="list-style-type:' + cssType + '"' : '') + '>\n';
                 for (i=0;i<rowCount;i++) {
-                    aTag += '<li></li>\n';
+                    aTag += '   <li></li>\n';
                 }
 
                 fpcm.editor.insert(aTag, '</' + listtype + '>');
@@ -555,17 +552,11 @@ if (fpcm.editor) {
     fpcm.editor.insertTable = function () {
 
         fpcm.ui.spinner('#tablerows', {
-            min: 1,
-            classes: {
-                "ui-spinner": "ui-corner-all col-6 col-md-2"
-            }
+            min: 1
         });
 
         fpcm.ui.spinner('#tablecols', {
-            min: 1,
-            classes: {
-                "ui-spinner": "ui-corner-all col-6 col-md-2"
-            }
+            min: 1
         });
         
         fpcm.ui.insertDialog({
