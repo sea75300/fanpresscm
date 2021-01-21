@@ -16,7 +16,8 @@
                 <?php $theView->textInput('rollname')
                     ->setValue($userRoll->getRollName())
                     ->setText('USERS_ROLLS_NAME')
-                    ->setAutoFocused(true)
+                    ->setAutoFocused($userRoll->getId() && $userRoll->getId() > 3)
+                    ->setReadonly($userRoll->getId() && $userRoll->getId() <= 3)
                     ->setDisplaySizesDefault(); ?>
             </div>
             <div class="row mb-2">

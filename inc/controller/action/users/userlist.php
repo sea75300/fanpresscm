@@ -307,13 +307,11 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
         foreach($rolls AS $descr => $rollId) {
 
-            $readonly = ($rollId <= 3 ? true : false);
-            
             $buttons = [
                 '<div class="fpcm-ui-controlgroup">',
                 (new \fpcm\view\helper\editButton('rollEditBtn'.$rollId))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/editroll', [
                     'id' => $rollId
-                ]))->setReadonly($readonly)
+                ]))
             ];
             
             if ($this->permissions->system->permissions) {
@@ -326,7 +324,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
             $dataView->addRow(
                 new \fpcm\components\dataView\row([
-                    new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('rollids', 'rollids'.$rollId))->setValue($rollId)->setReadonly($readonly), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
+                    new \fpcm\components\dataView\rowCol('select', (new \fpcm\view\helper\radiobutton('rollids', 'rollids'.$rollId))->setValue($rollId)->setReadonly($rollId <= 3), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     new \fpcm\components\dataView\rowCol('button', implode('', $buttons), '', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
                     new \fpcm\components\dataView\rowCol('title', new \fpcm\view\helper\escape($descr) ),
                 ]

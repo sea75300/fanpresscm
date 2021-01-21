@@ -82,6 +82,7 @@ class userRoll extends \fpcm\model\abstracts\dataset {
      */
     public function setRollName(string $leveltitle)
     {
+        $this->data['old_leveltitle'] = $this->leveltitle;
         $this->leveltitle = $leveltitle;
     }
 
@@ -90,7 +91,8 @@ class userRoll extends \fpcm\model\abstracts\dataset {
      * @param string $codex
      * @since 4.5-b8
      */
-    public function setCodex(string $codex) {
+    public function setCodex(string $codex)
+    {
         $this->codex = $codex;
     }
     
@@ -173,8 +175,8 @@ class userRoll extends \fpcm\model\abstracts\dataset {
      */
     public function update()
     {
-        if ($this->id <= 3) {
-            trigger_error('Tried to delete system roll with id ' . $this->id);
+        if ($this->id <= 3 && isset($this->data['old_leveltitle']) && $this->data['old_leveltitle'] !== $this->leveltitle) {
+            trigger_error('Tried to rename system roll with id ' . $this->id);
             return false;
         }
 

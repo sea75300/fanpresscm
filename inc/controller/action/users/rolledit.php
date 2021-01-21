@@ -23,7 +23,7 @@ class rolledit extends rollbase {
     {
         $this->rollId = $this->request->getID();
 
-        if (!$this->rollId || $this->rollId <= 3) {
+        if (!$this->rollId) {
             $this->redirect('users/list');
             return false;
         }
