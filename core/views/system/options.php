@@ -417,7 +417,13 @@
                         </div>
 
                         <div class="row py-2">
-                            <?php $theView->boolSelect('system_passcheck_enabled')->setText('SYSTEM_OPTIONS_USERS_PASSCHECK')->setSelected($globalConfig->system_passcheck_enabled); ?>
+                            <?php $theView->boolSelect('system_passcheck_enabled')
+                                    ->setText('SYSTEM_OPTIONS_USERS_PASSCHECK')
+                                    ->setSelected($globalConfig->system_passcheck_enabled); ?>
+
+                            <div class="col align-self-center">
+                                <?php $theView->shorthelpButton('pwndpass')->setText('GLOBAL_OPENNEWWIN')->setUrl('https://haveibeenpwned.com/passwords'); ?>
+                            </div>
                         </div>
                     </fieldset>
                 </div>

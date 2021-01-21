@@ -3,7 +3,7 @@
 /**
  * FanPress CM language variables file: de
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -395,8 +395,8 @@ $lang = array (
   'IMPORT_MSG_CSVINVALID' => 'Die übermittelte Datei ist keine gültige CSV-Datei!',
   'IMPORT_MSG_CSVNOTFOUND' => 'Die hochgeladene CSV-Datei wurde nicht gefunden. Führe einen Upload durch, setze den Import ggf. vorher zurück.',
   'IMPORT_MSG_EMPTYFIELD' => 'Die ausgewählten Felder dürfen nicht leer sein.',
-  'IMPORT_MSG_FINISHED' => 'Der CSV-Import wurde abgeschlossen.',
   'IMPORT_MSG_FAILEDSAVE' => 'Beim Speichern der zu importierenden Dateien ist ein Fehler aufgetreten. Für Details prüfen die Systemprotokolle.',
+  'IMPORT_MSG_FINISHED' => 'Der CSV-Import wurde abgeschlossen.',
   'IMPORT_MSG_INITFAILED' => 'Fehler beim initialisieren des Imports, keine Importkennung vorhanden vorhanden!',
   'IMPORT_MSG_INVALIDIMPORTTYPE' => 'Das ausgewählte Import-Ziel ist ungültig: {{importtype}}',
   'IMPORT_MSG_INVALIDIMPORTTYPE_NONE' => 'Bitte wähle ein Importziel aus und die zu importierenden Felder aus.',
@@ -825,7 +825,7 @@ Logge dich ein, um den Kommentar zu moderieren. {{systemurl}}',
   'SYSTEM_OPTIONS_USEMODE' => 'Verwendung per',
   'SYSTEM_OPTIONS_USEMODE_IFRAME' => 'iframe',
   'SYSTEM_OPTIONS_USEMODE_PHPINCLUDE' => 'phpinclude',
-  'SYSTEM_OPTIONS_USERS_PASSCHECK' => 'Benutzer-Passwörter gegen Pwned Passwords prüfen',
+  'SYSTEM_OPTIONS_USERS_PASSCHECK' => 'Benutzer-Passwörter gegen den Dienst haveibeenpwned.com/passwords prüfen',
   'SYSTEM_STATS' => '{{icon="chart-bar"}} Statistiken',
   'SYSTEM_STATS_ARTICLES_ACTIVE' => 'Artikel aktiv',
   'SYSTEM_STATS_ARTICLES_ALL' => 'Artikel gesamt',
@@ -950,8 +950,8 @@ Logge dich ein, um den Kommentar zu moderieren. {{systemurl}}',
   'USERS_REGISTEREDTIME' => 'Registriert am',
   'USERS_REQUIREMENTS' => 'Passwort muss min. 6 Zeichen sowie Groß- und Kleinbuchstaben und Ziffern enthalten.',
   'USERS_ROLL' => 'Rolle',
-  'USERS_ROLLS_NAME' => 'Rollenname',
   'USERS_ROLLS_CODEX' => 'Codex',
+  'USERS_ROLLS_NAME' => 'Rollenname',
   'USERS_ROLLS_PERMISSIONS' => 'Gruppen-Rechte bearbeiten',
   'USERS_ROLL_ADD' => 'Benutzerrolle anlegen',
   'USERS_ROLL_EDIT' => 'Benutzerrolle bearbeiten',

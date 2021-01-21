@@ -23,9 +23,7 @@
                     ->setOptions($languages)
                     ->setSelected($theView->langCode)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setText('SYSTEM_OPTIONS_LANG')
-                    ->setDisplaySizesDefault()
-                    ->prependLabel(); ?>
+                    ->setText('SYSTEM_OPTIONS_LANG'); ?>
         </div>
 
         <div class="row my-2">        
@@ -34,18 +32,17 @@
                     ->setSelected('Europe/Berlin')
                     ->setOptGroup(true)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setText('SYSTEM_OPTIONS_TIMEZONE')
-                    ->setDisplaySizesDefault()
-                    ->prependLabel(); ?>
+                    ->setText('SYSTEM_OPTIONS_TIMEZONE'); ?>
         </div>
 
         <div class="row my-2">
             <?php $theView->textInput('conf[system_dtmask]')
                 ->setValue('d.m.Y H:i:s')                                        
                 ->setText('SYSTEM_OPTIONS_DATETIMEMASK')
-                ->setDisplaySizes(['xs' => 12, 'sm' => 5, 'md' => 3], ['xs' => 12, 'sm' => 5, 'md' => 8]); ?>
+                ->setDisplaySizesDefault()
+                ->setFieldSize(['xs' => 4, 'md' => 2]); ?>
 
-                <div class="align-self-center col-md-1 fpcm-ui-padding-md-lr">
+                <div class="col align-self-center">
                     <?php $theView->shorthelpButton('dtmask')->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')->setUrl('http://php.net/manual/function.date.php'); ?>
                 </div>
 
@@ -56,9 +53,7 @@
                     ->setOptions($theView->translate('SYSTEM_OPTIONS_SESSIONLENGHT_INTERVALS'))
                     ->setSelected(3600)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setText('SYSTEM_OPTIONS_SESSIONLENGHT')
-                    ->setDisplaySizesDefault()
-                    ->prependLabel(); ?>
+                    ->setText('SYSTEM_OPTIONS_SESSIONLENGHT'); ?>
         </div>
 
         <div class="row my-2">        
@@ -66,9 +61,7 @@
                     ->setOptions($theView->translate('SYSTEM_OPTIONS_CACHETIMEOUT_INTERVAL'))
                     ->setSelected(FPCM_CACHE_DEFAULT_TIMEOUT)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setText('SYSTEM_OPTIONS_CACHETIMEOUT')
-                    ->setDisplaySizesDefault()
-                    ->prependLabel(); ?>
+                    ->setText('SYSTEM_OPTIONS_CACHETIMEOUT'); ?>
         </div>
 
         <div class="row my-2">        
@@ -76,9 +69,7 @@
                     ->setOptions($systemModes)
                     ->setSelected(1)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setText('SYSTEM_OPTIONS_USEMODE')
-                    ->setDisplaySizesDefault()
-                    ->prependLabel(); ?>
+                    ->setText('SYSTEM_OPTIONS_USEMODE'); ?>
         </div>
 
     </fieldset>
