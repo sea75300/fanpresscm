@@ -1047,7 +1047,7 @@ final class database {
                 $attr['params'] = str_replace('NOT NULL', '', $attr['params']);
             }
             elseif (isset ($attr['charset']) && $attr['charset']) {
-                $type .= ' COLLATE `'.$attr['charset'].'`';
+                $type .= ' CHARSET `'.$attr['charset'].'`';
             }
 
             $type .= trim($attr['params']) ? ' ' . $attr['params'] : '';
