@@ -109,30 +109,6 @@ abstract class tablelist {
     }
 
     /**
-     * Magische Methode für nicht vorhandene Methoden
-     * @param string $name
-     * @param mixed $arguments
-     * @return bool
-     */
-    public function __call($name, $arguments)
-    {
-        print "Function '{$name}' not found in " . get_class($this) . '<br>';
-        return false;
-    }
-
-    /**
-     * Magische Methode für nicht vorhandene, statische Methoden
-     * @param string $name
-     * @param mixed $arguments
-     * @return bool
-     */
-    public static function __callStatic($name, $arguments)
-    {
-        print "Static function '{$name}' not found in " . get_called_class() . '<br>';
-        return false;
-    }
-
-    /**
      * Konstruktor
      * @return void
      */

@@ -193,32 +193,6 @@ abstract class file {
     }
 
     /**
-     * Magische Methode für nicht vorhandene Methoden
-     * @param string $name
-     * @param mixed $arguments
-     * @return bool
-     * @ignore
-     */
-    public function __call($name, $arguments)
-    {
-        print "Function '{$name}' not found in " . get_class($this) . '<br>';
-        return false;
-    }
-
-    /**
-     * Magische Methode für nicht vorhandene, statische Methoden
-     * @param string $name
-     * @param mixed $arguments
-     * @return bool
-     * @ignore
-     */
-    public static function __callStatic($name, $arguments)
-    {
-        print "Static function '{$name}' not found in " . get_called_class() . '<br>';
-        return false;
-    }
-
-    /**
      * Gibt Inhalt von "data" zurück
      * @return array
      */
