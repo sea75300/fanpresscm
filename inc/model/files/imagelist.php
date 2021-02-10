@@ -229,7 +229,7 @@ final class imagelist extends \fpcm\model\abstracts\filelist {
      * @return bool
      * @since 4.5
      */
-    final private function addToIndex(string $file) : bool
+    private function addToIndex(string $file) : bool
     {
         $image = new \fpcm\model\files\image($file, false);
         $image->setFiletime($image->getModificationTime());
