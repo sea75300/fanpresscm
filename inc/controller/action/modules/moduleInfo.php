@@ -80,15 +80,19 @@ class moduleInfo extends \fpcm\controller\abstracts\controller implements \fpcm\
 
         $config = $this->module->getConfig();
                                         
+        $this->view->addJsFiles(['modules/info.js']);
+
         $this->view->assign('moduleName', $config->name);
         $this->view->assign('moduleAuthor', $config->author);
         $this->view->assign('moduleLink', $config->link);
         $this->view->assign('moduleSysVer', $config->requirements['system']);
         $this->view->assign('modulePhpVer', $config->requirements['php']);
         $this->view->assign('moduleDescription', $config->description);
+        $this->view->assign('moduleKeyHash', \fpcm\classes\tools::getHash($this->module->getKey()));
 
         $data = \fpcm\classes\loader::getObject('\fpcm\model\updater\modules')->getDataCachedByKey($this->key);
         $this->view->assign('moduleDownload', $data['packageUrl'] ?? false);
+        $this->view->assign('moduleInstall', $this->module->isInstallable() && !$this->module->isInstalled());
         $this->view->assign('moduleHash', $data['hash'] ?? false);
         $this->view->assign('moduleVersion', $data['version']);
 

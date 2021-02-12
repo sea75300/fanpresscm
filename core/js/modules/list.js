@@ -122,7 +122,8 @@ fpcm.modulelist = {
                 id: 'modulelist-infos',
                 title: fpcm.ui.translate('MODULES_LIST_INFORMATIONS'),
                 resizable: true,
-                dlHeight: fpcm.ui.getDialogSizes(top, 0.75).height,
+                dlWidth: fpcm.ui.getDialogSizes(top, 0.85).width,
+                dlHeight: fpcm.ui.getDialogSizes(top, 0.85).height,
                 content: fpcm.ui.createIFrame({
                     src: btnEl.attr('href')
                 }),
