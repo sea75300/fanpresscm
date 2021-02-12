@@ -20,7 +20,7 @@ namespace fpcm\model\cli;
 final class progress {
 
     /* Maximum chars for one cli line */
-    const LINE_MAX_CHARS = 80;
+    const LINE_MAX_CHARS = 70;
 
     /* Progress char */
     const PROGRESS_CHAR = '#';

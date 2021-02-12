@@ -115,6 +115,10 @@ abstract class migration {
             return true;
         }
 
+        if (method_exists($this->getDB(), 'transaction')) {
+            $this->getDB()->transaction();
+        }
+        
         if (!$this->alterTablesAfter()) {
             return false;
         }
@@ -129,6 +133,10 @@ abstract class migration {
 
         if (!$this->updateFileSystem()) {
             return false;
+        }
+
+        if (method_exists($this->getDB(), 'commit')) {
+            $this->getDB()->commit();
         }
 
         $this->output('Processing of migration '.$cn.' successful.');
