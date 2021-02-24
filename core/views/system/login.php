@@ -14,8 +14,7 @@
                 <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')
                         ->setMaxlenght(6)->setPlaceholder(true)->setAutocomplete(false)
                         ->setAutoFocused(true)->setWrapper(true)->setClass('fpcm-ui-monospace'); ?>
-                <?php $theView->hiddenInput('login[username]')->setValue($username); ?>
-                <?php $theView->hiddenInput('login[password]')->setValue($password); ?>
+                <?php $theView->hiddenInput('login[formData]')->setValue($formData); ?>
                 </div>
             </div>
             <?php else : ?>

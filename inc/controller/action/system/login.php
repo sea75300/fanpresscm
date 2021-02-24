@@ -160,6 +160,13 @@ implements \fpcm\controller\interfaces\requestFunctions {
 
         $data = $this->events->trigger('session\loginBefore', $data);
 
+        if (!empty($data['formData'])) {
+            $tmp = json_decode((new \fpcm\classes\crypt)->decrypt(base64_decode($data['formData'])), true);
+            $data['username'] = $tmp['username'];
+            $data['password'] = $tmp['password'];
+            unset($data['formData']);
+        }
+        
         $session = new \fpcm\model\system\session();
         $loginRes = $session->authenticate($data);
 
@@ -204,8 +211,7 @@ implements \fpcm\controller\interfaces\requestFunctions {
         }
 
         $this->twoFaAuth = true;
-        $this->view->assign('username', $data['username']);
-        $this->view->assign('password', $data['password']);
+        $this->view->assign('formData', base64_encode((new \fpcm\classes\crypt)->encrypt($data)) );
         return true;
     }
 
