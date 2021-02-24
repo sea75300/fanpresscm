@@ -82,7 +82,7 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController implemen
     {
         $this->key = $this->request->fromPOST('key');
         $this->step = 'exec'.$this->request->fromPOST('step', [\fpcm\model\http\request::FILTER_FIRSTUPPER]);
-        $this->mode = $this->request->fromPOST('mode', [\fpcm\model\http\request::FILTER_FIRSTUPPER]);
+        $this->mode = $this->request->fromPOST('mode');
         return true;
     }
 
@@ -210,7 +210,12 @@ class moduleInstaller extends \fpcm\controller\abstracts\ajaxController implemen
         $module = new \fpcm\module\module($this->key);
         if (!method_exists($module, $this->mode)) {
             fpcmLogSystem('Undefined function '.$this->mode.' for module database update '.$this->key.'!');
-            return true;
+            return false;
+        }
+        
+        if (!in_array($this->mode, ['install', 'update'])) {
+            fpcmLogSystem('Function '.$this->mode.' for module database update '.$this->key.' is not whitelisted!!');
+            return false;
         }
 
         $this->res = call_user_func([$module, $this->mode]);

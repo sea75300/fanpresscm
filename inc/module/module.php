@@ -909,6 +909,10 @@ class module {
             return false;
         }
 
+        if (!$this->runMigrations()) {
+            return false;
+        }
+
         if (!\fpcm\classes\loader::getObject('\fpcm\events\events')->trigger('modules\updateAfter', $this->mkey)) {
             return false;
         }
@@ -1029,6 +1033,59 @@ class module {
             }
         }
 
+        return true;
+    }
+
+    /**
+     * Executes module-defined migrations on update
+     * @return bool
+     * @since 4.5.1-b1
+     */
+    private function runMigrations() : bool
+    {
+
+        $migrations = $this->getMigrations();
+        if (!count($migrations)) {
+            return true;
+        }        
+
+        fpcmLogSystem("Processing module migrations for {$this->mkey}...");
+
+        array_walk($migrations, function (&$item) {
+            $item = module::getMigrationNamespace($this->mkey, $item);
+        });
+
+        $migrations = array_filter($migrations, function ($class) {
+            return class_exists($class) && is_subclass_of($class, '\\fpcm\\module\\migration');
+        });
+
+        if (!count($migrations)) {
+            return true;
+        }
+
+        array_walk($migrations, function (&$item) {
+            $item = new $item;
+        });
+
+        $migrations = array_filter($migrations, function ($obj) {
+            return $obj->isRequired();
+        });
+
+        if (!count($migrations)) {
+            return true;
+        }
+
+        /* @var $migration migration */
+        foreach ($migrations as $migration) {
+
+            if ($migration->process()) {
+                continue;
+            }
+
+            $this->output('Processing of migration '. get_class($migration).' failed!.');
+            return false;
+        }
+        
         return true;
     }
 
