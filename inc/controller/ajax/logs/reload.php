@@ -32,6 +32,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     protected $moduleKey;
 
     /**
+     * Is system logfile
+     * @var int
+     */
+    protected $isSystem = 0;
+
+    /**
      * Array mit Benutzern
      * @var array
      */
@@ -69,8 +75,11 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     {
         $this->log = $this->request->fromGET('log');
         $this->moduleKey = $this->request->fromGET('key');
+        $this->isSystem = $this->request->fromGET('system', [
+            \fpcm\model\http\request::FILTER_CASTINT
+        ]);
         
-        return $this->log === null ? false : true;
+        return $this->log !== null;
     }
 
     /**
@@ -88,7 +97,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     protected function getViewPath() : string
     {
-        return $this->log == 4 ? 'logs/packages' : '';
+        return $this->log === \fpcm\model\files\logfile::FPCM_LOGFILETYPE_PKGMGR ? 'logs/packages' : '';
     }
 
     /**
@@ -97,11 +106,15 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     public function process()
     {    
+        if (!$this->isSystem) {
+            return $this->getModuleLog();
+        }
+        
         if (method_exists($this, 'loadLog' . $this->log)) {
             return call_user_func(array($this, 'loadLog' . $this->log));
         }
 
-        return $this->getModuleLog();
+        return $this->loadGeneric();
     }
 
     /**
@@ -110,7 +123,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      */
     private function getModuleLog() : bool
     {
-        if (!trim($this->moduleKey) || !\fpcm\module\module::validateKey($this->moduleKey)) {
+        if ($this->isSystem || !trim($this->moduleKey) || !\fpcm\module\module::validateKey($this->moduleKey)) {
             return false;
         }
 
@@ -144,7 +157,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
      * Lädt Sessions-Log (Typ 0)
      * @return bool
      */
-    private function loadLog0()
+    private function loadLogSessions()
     {
         $this->items = $this->session->getSessions();
         $this->userList = (new \fpcm\model\users\userList())->getUsersAll();
@@ -158,10 +171,10 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     }
 
     /**
-     * Lädt System-Log (Typ 1)
+     * Lädt Sessions-Log (Typ 0)
      * @return bool
      */
-    private function loadLog1()
+    private function loadGeneric()
     {
         $log = new \fpcm\model\files\logfile($this->log, false);
         $this->items = $log->fetchData();
@@ -173,28 +186,10 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     }
 
     /**
-     * Lädt PHP-Error-Log (Typ 2)
-     * @return bool
-     */
-    private function loadLog2()
-    {
-        return $this->loadLog1();
-    }
-
-    /**
-     * Lädt Datenbank-Log (Typ 3)
-     * @return bool
-     */
-    private function loadLog3()
-    {
-        return $this->loadLog1();
-    }
-
-    /**
      * Lädt Cronjob-Log (Typ 4)
      * @return bool
      */
-    private function loadLog4()
+    private function loadLogPackages()
     {
         $this->initView();
         $log = new \fpcm\model\files\logfile($this->log);
@@ -210,24 +205,6 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         $this->view->assign('items', $log->fetchData());
         $this->view->assign('size', \fpcm\classes\tools::calcSize($log->getFilesize()));
         $this->view->render();
-    }
-
-    /**
-     * Lädt Cronjob-Log (Typ 5)
-     * @return bool
-     */
-    private function loadLog5()
-    {
-        return $this->loadLog1();
-    }
-
-    /**
-     * Lädt Events-Log (Typ 6)
-     * @return bool
-     */
-    private function loadLog6()
-    {
-        return $this->loadLog1();
     }
 
     /**
@@ -256,15 +233,20 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     }
 
     /**
-     * 
+     * Init data view cols
      * @return array
      */
     protected function getDataViewCols()
     {
-        if (method_exists($this, 'getCols' . $this->log)) {
-            return call_user_func(array($this, 'getCols' . $this->log));
+        if ($this->isSystem) {
+            
+            if (method_exists($this, 'getCols' . $this->log)) {
+                return call_user_func(array($this, 'getCols' . $this->log));
+            }
+
+            return $this->getColsGeneric();
         }
-        
+
         if (!$this->logObj instanceof \fpcm\model\logs\logfileResult) {
             return [];
         }
@@ -273,9 +255,22 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     }
 
     /**
-     * Lädt System-Log (Typ 1)
+     * Generic log cols
+     * @return array
      */
-    private function getCols0()
+    private function getColsGeneric() : array
+    {
+        return [
+            (new \fpcm\components\dataView\column('time', 'LOGS_LIST_TIME', 'fpcm-ui-padding-md-left'))->setSize(2),
+            (new \fpcm\components\dataView\column('text', 'LOGS_LIST_TEXT'))->setSize(10),
+        ];
+    }
+
+    /**
+     * Session log cols
+     * @return array
+     */
+    private function getColsSessions() : array
     {
         return [
             (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER', 'fpcm-ui-padding-md-left'))->setSize(2),
@@ -288,62 +283,19 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     }
 
     /**
-     * 
-     * @return array
-     */
-    private function getCols1()
-    {
-        return [
-            (new \fpcm\components\dataView\column('time', 'LOGS_LIST_TIME', 'fpcm-ui-padding-md-left'))->setSize(2),
-            (new \fpcm\components\dataView\column('text', 'LOGS_LIST_TEXT'))->setSize(10),
-        ];
-    }
-
-    /**
-     * 
-     * @return array
-     */
-    private function getCols2()
-    {
-        return $this->getCols1();
-    }
-
-    /**
-     * 
-     * @return array
-     */
-    private function getCols3()
-    {
-        return $this->getCols1();
-    }
-
-    /**
-     * 
-     * @return array
-     */
-    private function getCols5()
-    {
-        return $this->getCols1();
-    }
-
-    /**
-     * 
-     * @return array
-     */
-    private function getCols6()
-    {
-        return $this->getCols1();
-    }
-
-    /**
-     * 
+     * Init data view row
      * @param mixed $item
      * @return \fpcm\components\dataView\row
      */
     protected function initDataViewRow($item)
     {
-        if (method_exists($this, 'getRow' . $this->log)) {
-            return call_user_func([$this, 'getRow' . $this->log], $item);
+        if ($this->isSystem) {
+            
+            if (method_exists($this, 'getRow' . $this->log)) {
+                return call_user_func([$this, 'getRow' . $this->log], $item);
+            }
+
+            return $this->getRowGeneric($item);
         }
         
         if (!$this->logObj instanceof \fpcm\model\logs\logfileResult) {
@@ -353,13 +305,26 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
         return $this->logObj->rowCallback()($item);
 
     }
+
+    /**
+     * Generic log row
+     * @param \fpcm\model\files\logfile $item
+     * @return \fpcm\components\dataView\row
+     */
+    private function getRowGeneric($item) : \fpcm\components\dataView\row
+    {
+        return new \fpcm\components\dataView\row([
+            new \fpcm\components\dataView\rowCol('time', $item->time, 'fpcm-ui-dataview-align-self-start'),
+            new \fpcm\components\dataView\rowCol('text', str_replace(['&NewLine;', PHP_EOL], '<br>', new \fpcm\view\helper\escape($item->text)), 'pre-box'),
+        ], ( isset($item->type) && trim($item->type) ? 'fpcm-ui-logs-'.$item->type : '' ) );
+    }
     
     /**
-     * Lädt System-Log (Typ 0)
+     * Session log row
      * @param \fpcm\model\system\session $item
      * @return \fpcm\components\dataView\row
      */
-    private function getRow0($item)
+    private function getRowSessions($item) : \fpcm\components\dataView\row
     {
         $username = isset($this->userList[$item->getUserId()]) ? $this->userList[$item->getUserId()]->getDisplayName() : $this->notfoundStr;
 
@@ -374,54 +339,11 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     }
 
     /**
-     * 
+     * Events log row
      * @param \fpcm\model\files\logfile $item
      * @return \fpcm\components\dataView\row
      */
-    private function getRow1($item)
-    {
-        return new \fpcm\components\dataView\row([
-            new \fpcm\components\dataView\rowCol('time', $item->time, 'fpcm-ui-dataview-align-self-start'),
-            new \fpcm\components\dataView\rowCol('text', str_replace(['&NewLine;', PHP_EOL], '<br>', new \fpcm\view\helper\escape($item->text)), 'pre-box'),
-        ], ( isset($item->type) && trim($item->type) ? 'fpcm-ui-logs-'.$item->type : '' ) );
-    }
-
-    /**
-     * 
-     * @param \fpcm\model\files\logfile $item
-     * @return \fpcm\components\dataView\row
-     */
-    private function getRow2($item)
-    {
-        return $this->getRow1($item);
-    }
-
-    /**
-     * 
-     * @param \fpcm\model\files\logfile $item
-     * @return \fpcm\components\dataView\row
-     */
-    private function getRow3($item)
-    {
-        return $this->getRow1($item);
-    }
-
-    /**
-     * 
-     * @param \fpcm\model\files\logfile $item
-     * @return \fpcm\components\dataView\row
-     */
-    private function getRow5($item)
-    {
-        return $this->getRow1($item);
-    }
-
-    /**
-     * 
-     * @param \fpcm\model\files\logfile $item
-     * @return \fpcm\components\dataView\row
-     */
-    private function getRow6($item)
+    private function getRowEvents($item) : \fpcm\components\dataView\row
     {
         return new \fpcm\components\dataView\row([
             new \fpcm\components\dataView\rowCol('time', $item->time, 'fpcm-ui-dataview-align-self-start'),

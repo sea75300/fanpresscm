@@ -23,7 +23,7 @@ fpcm.logs = {
             fpcm.ui.confirmDialog({
                 clickNoDefault: true,
                 clickYes: function () {
-                    fpcm.logs.clearLogs(elData.logid, elData.mkey ? elData.mkey : null);
+                    fpcm.logs.clearLogs(fpcm.vars.jsvars.currentLog);
                     fpcm.dom.fromTag(this).dialog('close');
                     return true;
                 }
@@ -38,10 +38,11 @@ fpcm.logs = {
                 fpcm.ui_loader.show();
                 fpcm.vars.jsvars.dataviews.extSettings = null;
 
-                var btnParams = fpcm.system.parseUrlQuery(ui.ajaxSettings.url);
+                let _logParams = fpcm.system.parseUrlQuery(ui.ajaxSettings.url);
 
-                fpcm.dom.fromId('btnCleanLogs').data('logid', btnParams.log ? btnParams.log : null);
-                fpcm.dom.fromId('btnCleanLogs').data('mkey', btnParams.key ? btnParams.key : null);
+                fpcm.vars.jsvars.currentLog.name = _logParams.log ? _logParams.log : null;
+                fpcm.vars.jsvars.currentLog.key = _logParams.key ? _logParams.key : null;
+                fpcm.vars.jsvars.currentLog.system = _logParams.system ? _logParams.system : null;
 
                 ui.jqXHR.done(function(jqXHR) {
                     
@@ -114,12 +115,13 @@ fpcm.logs = {
 
     },
 
-    clearLogs: function(_id, _mkey) {
+    clearLogs: function(_params) {
 
         fpcm.ajax.post('logs/clear', {
             data: {
-                log: _id,
-                key: _mkey
+                log: _params.name,
+                key: _params.key,
+                system: _params.system
             },
             execDone: function(result) {
                 fpcm.logs.reloadLogs();

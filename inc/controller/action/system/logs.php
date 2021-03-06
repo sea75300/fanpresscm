@@ -17,6 +17,12 @@ class logs extends \fpcm\controller\abstracts\controller implements \fpcm\contro
 
     /**
      * 
+     * @var array
+     */
+    private $logs = [];
+
+    /**
+     * 
      * @return bool
      */
     public function isAccessible(): bool
@@ -47,37 +53,58 @@ class logs extends \fpcm\controller\abstracts\controller implements \fpcm\contro
      */
     public function process()
     {
-        $baseUrl = \fpcm\classes\tools::getFullControllerLink('ajax/logs/reload', [
-            'log' => ''
-        ]);
-
+        $this->initLogs();
         
-        $logs = [
-            (new \fpcm\view\helper\tabItem('logs-sessions'))->setText('HL_LOGS_SESSIONS')->setUrl('#loader')->setData(['href' => $baseUrl.'0'])->setDataViewId('logs'),
-            (new \fpcm\view\helper\tabItem('logs-system'))->setText('HL_LOGS_SYSTEM')->setUrl($baseUrl.'1')->setDataViewId('logs'),
-            (new \fpcm\view\helper\tabItem('logs-error'))->setText('HL_LOGS_ERROR')->setUrl($baseUrl.'2')->setDataViewId('logs'),
-            (new \fpcm\view\helper\tabItem('logs-database'))->setText('HL_LOGS_DATABASE')->setUrl($baseUrl.'3')->setDataViewId('logs'),
-            (new \fpcm\view\helper\tabItem('logs-crons'))->setText('HL_LOGS_CRONJOBS')->setUrl($baseUrl.'5')->setDataViewId('logs'),
-            (new \fpcm\view\helper\tabItem('logs-package'))->setText('HL_LOGS_PACKAGES')->setUrl($baseUrl.'4')
-        ];
-        
-        if (defined('FPCM_DEBUG_EVENTS') && FPCM_DEBUG_EVENTS) {
-            $logs[] = (new \fpcm\view\helper\tabItem('logs-events'))->setText('HL_LOGS_EVENTS')->setUrl($baseUrl.'6')->setDataViewId('logs');
-        }
-        
-        $this->view->assign('logs', $this->events->trigger('logs\addToList', $logs));
+        $this->view->assign('logs', $this->events->trigger('logs\addToList', $this->logs));
         $this->view->assign('fullheight', true);
 
         $this->view->addDataView(new \fpcm\components\dataView\dataView('logs', false));
 
         $this->view->addJsFiles(['logs.js']);
         $this->view->addJsLangVars(['LOGS_CLEARED_LOG_OK', 'LOGS_CLEARED_LOG_FAILED', 'FILE_LIST_FILESIZE']);
-        $this->view->addButton((new \fpcm\view\helper\button('cleanLogs'))
-                ->setText('LOGS_CLEARLOG')
-                ->setIcon('trash')
-                ->setData(['logid' => 0]));
+        $this->view->addJsVars([
+            'currentLog' => [
+                'name' => \fpcm\model\files\logfile::FPCM_LOGFILETYPE_SESSION,
+                'system' => 1,
+                'key' => ''
+            ]
+        ]);
+
+        $this->view->addButton((new \fpcm\view\helper\button('cleanLogs'))->setText('LOGS_CLEARLOG')->setIcon('trash'));
 
         $this->view->render();
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    private function initLogs() : bool
+    {
+        $baseUrl = \fpcm\classes\tools::getFullControllerLink('ajax/logs/reload', [
+            'system' => 1,
+            'log' => '',
+        ]);
+        
+        $map = \fpcm\model\files\logfile::getLogMap();
+        if (!defined('FPCM_DEBUG_EVENTS') || !FPCM_DEBUG_EVENTS) {
+            unset($map[\fpcm\model\files\logfile::FPCM_LOGFILETYPE_EVENTS]);
+        }
+
+        $this->logs = array_map(function ($key) use ($baseUrl) {
+
+            $tab = (new \fpcm\view\helper\tabItem('logs-' . $key))->setText('HL_LOGS_' . strtoupper($key))->setUrl($baseUrl.$key);
+            if ($key === \fpcm\model\files\logfile::FPCM_LOGFILETYPE_PKGMGR) {
+                return $tab;
+            }
+            
+            $tab->setDataViewId('logs');
+            return $tab;
+
+        }, array_keys($map));
+        
+        array_unshift($this->logs, (new \fpcm\view\helper\tabItem('logs-sessions'))->setText('HL_LOGS_SESSIONS')->setUrl('#loader')->setData(['href' => $baseUrl . \fpcm\model\files\logfile::FPCM_LOGFILETYPE_SESSION ])->setDataViewId('logs'));
+        return true;
     }
 
 }

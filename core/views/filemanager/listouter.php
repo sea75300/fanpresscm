@@ -107,7 +107,7 @@
             <?php $theView->icon('hashtag')->setSize('lg'); ?>
             <?php $theView->write('FILE_LIST_FILEHASH'); ?>
         </label>
-        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-grey-medium fpcm-ui-ellipsis p-2 fpcm-ui-border-radius-all" id="fpcm-dialog-files-properties-filehash"></div>
+        <div class="col-sm-12 col-md-8 align-self-center fpcm-ui-border-grey-medium fpcm-ui-ellipsis p-2 fpcm-ui-border-radius-all fpcm-ui-ellipsis" id="fpcm-dialog-files-properties-filehash"></div>
     </div>
 
     <div class="row my-2">

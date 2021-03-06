@@ -21,32 +21,37 @@ final class logfile extends \fpcm\model\abstracts\file {
     /**
      * Systemlog
      */
-    const FPCM_LOGFILETYPE_SYSTEM = 1;
+    const FPCM_LOGFILETYPE_SESSION = 'sessions';
+
+    /**
+     * Systemlog
+     */
+    const FPCM_LOGFILETYPE_SYSTEM = 'system';
 
     /**
      * Error-Log
      */
-    const FPCM_LOGFILETYPE_PHP = 2;
+    const FPCM_LOGFILETYPE_PHP = 'error';
 
     /**
      * SQl-Log
      */
-    const FPCM_LOGFILETYPE_SQL = 3;
+    const FPCM_LOGFILETYPE_SQL = 'database';
 
     /**
      * Paket Manager Log
      */
-    const FPCM_LOGFILETYPE_PKGMGR = 4;
+    const FPCM_LOGFILETYPE_PKGMGR = 'packages';
 
     /**
      * Cronjobs Log
      */
-    const FPCM_LOGFILETYPE_CRON = 5;
+    const FPCM_LOGFILETYPE_CRON = 'cronjobs';
 
     /**
      * Events Log
      */
-    const FPCM_LOGFILETYPE_EVENTS = 6;
+    const FPCM_LOGFILETYPE_EVENTS = 'events';
 
     /**
      * Mapping für Integer-Logtyp auf intere Datei
@@ -68,14 +73,7 @@ final class logfile extends \fpcm\model\abstracts\file {
      */
     public function __construct($logFile, bool $init = true)
     {
-        $this->fileMap = [
-            self::FPCM_LOGFILETYPE_SYSTEM => \fpcm\classes\baseconfig::$logFiles['syslog'],
-            self::FPCM_LOGFILETYPE_PHP => \fpcm\classes\baseconfig::$logFiles['phplog'],
-            self::FPCM_LOGFILETYPE_SQL => \fpcm\classes\baseconfig::$logFiles['dblog'],
-            self::FPCM_LOGFILETYPE_PKGMGR => \fpcm\classes\baseconfig::$logFiles['pkglog'],
-            self::FPCM_LOGFILETYPE_CRON => \fpcm\classes\baseconfig::$logFiles['cronlog'],
-            self::FPCM_LOGFILETYPE_EVENTS => \fpcm\classes\baseconfig::$logFiles['eventslogs'],
-        ];
+        $this->fileMap = self::getLogMap();
 
         if (!isset($this->fileMap[$logFile])) {
             trigger_error('Invalid logfile type given');
@@ -158,6 +156,23 @@ final class logfile extends \fpcm\model\abstracts\file {
         }
 
         $this->loadContent();
+    }
+
+    /**
+     * Returns logs map
+     * @return array
+     * @since 4.5.1-b1
+     */
+    final public static function getLogMap() : array
+    {
+        return [
+            self::FPCM_LOGFILETYPE_SYSTEM => \fpcm\classes\baseconfig::$logFiles['syslog'],
+            self::FPCM_LOGFILETYPE_PHP => \fpcm\classes\baseconfig::$logFiles['phplog'],
+            self::FPCM_LOGFILETYPE_SQL => \fpcm\classes\baseconfig::$logFiles['dblog'],
+            self::FPCM_LOGFILETYPE_PKGMGR => \fpcm\classes\baseconfig::$logFiles['pkglog'],
+            self::FPCM_LOGFILETYPE_CRON => \fpcm\classes\baseconfig::$logFiles['cronlog'],
+            self::FPCM_LOGFILETYPE_EVENTS => \fpcm\classes\baseconfig::$logFiles['eventslogs'],
+        ];
     }
 
 }

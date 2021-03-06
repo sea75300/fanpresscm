@@ -31,6 +31,12 @@ class clear extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
     protected $moduleKey;
 
     /**
+     * Is system logfile
+     * @var int
+     */
+    protected $isSystem = 0;
+
+    /**
      * 
      * @return bool
      */
@@ -46,15 +52,16 @@ class clear extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
     public function request()
     {
         $this->log = $this->request->fromPOST('log');
+
         $this->moduleKey = $this->request->fromPOST('key', [
             \fpcm\model\http\request::FILTER_URLDECODE
         ]);
 
-        if ($this->log === null) {
-            return false;
-        }
+        $this->isSystem = $this->request->fromPOST('system', [
+            \fpcm\model\http\request::FILTER_CASTINT
+        ]);
 
-        return true;
+        return $this->log !== null;
     }
 
     /**
@@ -63,14 +70,12 @@ class clear extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
     public function process()
     {
         $res = true;
-        if (is_numeric($this->log)) {
+        if ($this->isSystem) {
 
-            if ($this->log < 1) {
-                $res = \fpcm\classes\loader::getObject('\fpcm\model\system\session')->clearSessions();
-            } else {
-                $logfile = new \fpcm\model\files\logfile($this->log, false);
-                $res = $logfile->clear();
-            }
+            $res = method_exists($this, 'clear' . $this->log)
+                 ? call_user_func(array($this, 'clear' . $this->log))
+                 : $this->clearGeneric();
+
         }
         elseif (trim($this->moduleKey) && \fpcm\module\module::validateKey($this->moduleKey)) {
 
@@ -86,6 +91,25 @@ class clear extends \fpcm\controller\abstracts\ajaxController implements \fpcm\c
             $res ? \fpcm\view\message::ICON_NOTICE : \fpcm\view\message::ICON_ERROR
         ))->fetch();
 
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    private function clearSessions() : bool
+    {
+        return \fpcm\classes\loader::getObject('\fpcm\model\system\session')->clearSessions();
+    }
+
+    /**
+     * 
+     * @return bool
+     */
+    private function clearGeneric() : bool
+    {
+        $logfile = new \fpcm\model\files\logfile($this->log, false);
+        return $logfile->clear();
     }
 
 }

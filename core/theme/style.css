@@ -1,8 +1,12 @@
 /* ------ Text aligns */
+label,
+.fpcm-ui-field-label-general,
+.fpcm-ui-field-input-nowrapper-general,
 .fpcm.ui-align-ellipsis,
 .fpcm-ui-ellipsis    {
-    text-overflow: ellipsis;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .fpcm.ui-align-left,
@@ -530,8 +534,7 @@ img.fpcm-ui-smileylist-preview {
     border-radius: 0 5px 5px 0;
 }
 
-.fpcm-ui-border-radius-left,
-.fpcm-ui-field-label-general {
+.fpcm-ui-border-radius-left {
     border-radius: 5px 0 0 5px;
 }
 
