@@ -33,8 +33,7 @@
                         ->setValue($comment->getName())
                         ->setIcon('signature')
                         ->setSize('lg')
-                        ->setAutoFocused(true)
-                        ->setDisplaySizesDefault(); ?>
+                        ->setAutoFocused(true); ?>
             </div>            
             <div class="row py-2">
                 <?php $theView->textInput('comment[email]')
@@ -42,8 +41,7 @@
                         ->setValue($comment->getEmail())
                         ->setType('email')
                         ->setIcon('at')
-                        ->setSize('lg')
-                        ->setDisplaySizesDefault(); ?>
+                        ->setSize('lg'); ?>
             </div>            
             <div class="row py-2">
                 <?php $theView->textInput('comment[website]')
@@ -51,8 +49,7 @@
                         ->setValue($comment->getWebsite())
                         ->setType('url')
                         ->setIcon('home')
-                        ->setSize('lg')
-                        ->setDisplaySizesDefault(); ?>
+                        ->setSize('lg'); ?>
             </div>
 
             <div class="row py-2">

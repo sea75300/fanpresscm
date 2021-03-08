@@ -13,7 +13,7 @@ namespace fpcm\controller\action\ips;
  * @copyright (c) 2011-2019, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
-class ipbase extends \fpcm\controller\abstracts\controller
+abstract class ipbase extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces\requestFunctions {
 
     /**
@@ -62,6 +62,13 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         $this->view->setFieldAutofocus('ipSave');
         $this->view->addButton(new \fpcm\view\helper\saveButton('ipSave'));
         $this->view->addJsFiles(['ipadresses.js']);
+
+        $this->view->addTabs('ips', [
+            (new \fpcm\view\helper\tabItem('ip'))
+                ->setText('IPLIST_ADDIP')
+                ->setFile($this->getViewPath().'.php')
+        ]);
+
         return true;
     }
     

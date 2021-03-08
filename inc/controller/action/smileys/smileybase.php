@@ -9,7 +9,7 @@
 
 namespace fpcm\controller\action\smileys;
 
-class smileybase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
+abstract class smileybase extends \fpcm\controller\abstracts\controller implements \fpcm\controller\interfaces\isAccessible {
 
     /**
      *
@@ -86,6 +86,14 @@ class smileybase extends \fpcm\controller\abstracts\controller implements \fpcm\
         $this->view->addJsFiles(['smileys.js']);
         $this->view->assign('smiley', $this->smiley);
         $this->view->addButton(new \fpcm\view\helper\saveButton('saveSmiley'));
+        $this->view->assign('tabActionString', 'FILE_LIST_SMILEY'.$this->getActionText());
+
+        $this->view->addTabs('smileys', [
+            (new \fpcm\view\helper\tabItem('smiley'))
+                ->setText('FILE_LIST_SMILEY'.$this->getActionText())
+                ->setFile($this->getViewPath().'.php')
+        ]);
+
         $this->view->render();
     }
 
@@ -120,6 +128,8 @@ class smileybase extends \fpcm\controller\abstracts\controller implements \fpcm\
         $this->redirect('smileys/list', ['saved' => 1]);
         return true;
     }
+
+    abstract protected function getActionText() : string;
 
 }
 

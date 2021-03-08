@@ -60,6 +60,11 @@ abstract class input extends helper {
      */
     protected function getString()
     {
+        
+        if (!trim($this->labelSize) && !trim($this->fieldSize)) {
+            $this->setDisplaySizesDefault();
+        }
+
         $wrapperStart = '';
         $wrapperEnd = '';
 

@@ -43,8 +43,7 @@
         <?php $theView->textInput('newFilenameDialog')
             ->setText('FILE_LIST_FILENAME')
             ->setValue('')
-            ->setIcon('edit')
-            ->setDisplaySizesDefault(); ?>
+            ->setIcon('edit'); ?>
     </div>    
 </div>
 
@@ -53,8 +52,7 @@
         <?php $theView->textInput('altTextDialog')
             ->setText('FILE_LIST_ALTTEXT')
             ->setValue('')
-            ->setIcon('edit')
-            ->setDisplaySizesDefault(); ?>
+            ->setIcon('edit'); ?>
     </div>    
 </div>
 

@@ -13,11 +13,15 @@ class smileyedit extends smileybase {
 
     public function process()
     {
-        $this->view->assign('tabAction', 'EDIT');
         $this->view->setFormAction('smileys/edit', [
             'id' => $this->smiley->getId()
         ]);
         parent::process();
+    }
+
+    protected function getActionText() : string
+    {
+        return 'EDIT';
     }
 
 }

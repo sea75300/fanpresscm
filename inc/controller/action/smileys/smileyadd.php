@@ -13,10 +13,15 @@ class smileyadd extends smileybase {
 
     public function process()
     {
-        $this->view->assign('tabAction', 'ADD');
         $this->view->setFormAction('smileys/add');
         parent::process();
     }
+
+    protected function getActionText() : string
+    {
+        return 'ADD';
+    }
+
 }
 
 ?>
