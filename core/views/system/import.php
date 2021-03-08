@@ -26,17 +26,17 @@
 
             <div class="row my-2">
                 <?php $theView->select('import_destination')->setOptions($theView->translate('SYSTEM_IMPORT_ITEMS'))
-                    ->prependLabel()->setText('IMPORT_ITEM')->setIcon('file-csv')->setDisplaySizesDefault(); ?>
+                    ->prependLabel()->setText('IMPORT_ITEM')->setIcon('file-csv'); ?>
             </div>
 
             <div class="row my-2">
                 <?php $theView->textInput('import_delimiter')->setValue(';')->setMaxlenght(1)
-                    ->setText('IMPORT_DELIMITER')->setIcon('cut')->setDisplaySizesDefault(); ?>
+                    ->setText('IMPORT_DELIMITER')->setIcon('cut'); ?>
             </div>
 
             <div class="row my-2">
                 <?php $theView->textInput('import_enclosure')->setValue('"')->setMaxlenght(1)
-                    ->setText('IMPORT_ENCLOSURE')->setIcon('quote-left')->setDisplaySizesDefault(); ?>
+                    ->setText('IMPORT_ENCLOSURE')->setIcon('quote-left'); ?>
             </div>
 
             <div class="row my-2">

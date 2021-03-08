@@ -6,16 +6,14 @@
         <div class="row my-2">
             <?php $theView->textInput('conf[system_email]')                             
                 ->setText('GLOBAL_EMAIL')
-                ->setType('email')
-                ->setDisplaySizesDefault(); ?>
+                ->setType('email'); ?>
         </div>                
 
         <div class="row my-2">
             <?php $theView->textInput('conf[system_url]')
                 ->setValue(fpcm\classes\dirs::getRootUrl('index.php'))                                        
                 ->setText('SYSTEM_OPTIONS_URL')
-                ->setType('url')
-                ->setDisplaySizesDefault(); ?>
+                ->setType('url'); ?>
         </div>
 
         <div class="row my-2">        
@@ -81,14 +79,12 @@
 
         <div class="row my-2">
             <?php $theView->textInput('conf[comments_antispam_question]')                                        
-                ->setText('SYSTEM_OPTIONS_ANTISPAMQUESTION')
-                ->setDisplaySizesDefault(); ?>
+                ->setText('SYSTEM_OPTIONS_ANTISPAMQUESTION'); ?>
         </div>
 
         <div class="row my-2">
             <?php $theView->textInput('conf[comments_antispam_answer]')
-                ->setText('SYSTEM_OPTIONS_ANTISPAMANSWER')
-                ->setDisplaySizesDefault(); ?>
+                ->setText('SYSTEM_OPTIONS_ANTISPAMANSWER'); ?>
         </div>
     </fieldset>
 </div>

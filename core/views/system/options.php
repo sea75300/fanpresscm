@@ -17,16 +17,14 @@
                             <?php $theView->textInput('system_email')
                                 ->setValue($globalConfig->system_email)                                        
                                 ->setText('GLOBAL_EMAIL')
-                                ->setType('email')
-                                ->setDisplaySizesDefault(); ?>
+                                ->setType('email'); ?>
                         </div>
                         
                         <div class="row py-2">
                             <?php $theView->textInput('system_url')
                                 ->setValue($globalConfig->system_url)                                        
                                 ->setText('SYSTEM_OPTIONS_URL')
-                                ->setType('url')
-                                ->setDisplaySizesDefault(); ?>
+                                ->setType('url'); ?>
                         </div>
                         
                         <div class="row py-2">
@@ -92,8 +90,7 @@
                                     ->setValue($globalConfig->system_css_path, ENT_QUOTES)
                                     ->setText($theView->translate('SYSTEM_OPTIONS_STYLESHEET'))
                                     ->setType('url')
-                                    ->setPlaceholder('http://'.$_SERVER['HTTP_HOST'].'/style/style.css')
-                                    ->setDisplaySizesDefault(); ?>
+                                    ->setPlaceholder('http://'.$_SERVER['HTTP_HOST'].'/style/style.css'); ?>
                         </div>
 
                         <div class="row py-2">
@@ -202,8 +199,7 @@
                                     ->setText('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEWIDTH')
                                     ->setValue($globalConfig->file_img_thumb_width)
                                     ->setMaxlenght(5)
-                                    ->setClass('fpcm-ui-spinner')
-                                    ->setDisplaySizesDefault(); ?>
+                                    ->setClass('fpcm-ui-spinner'); ?>
                         </div>
 
                         <div class="row py-2">
@@ -211,8 +207,7 @@
                                     ->setText('SYSTEM_OPTIONS_NEWSSHOWMAXIMGSIZEHEIGHT')
                                     ->setValue($globalConfig->file_img_thumb_height)
                                     ->setMaxlenght(5)
-                                    ->setClass('fpcm-ui-spinner')
-                                    ->setDisplaySizesDefault(); ?>
+                                    ->setClass('fpcm-ui-spinner'); ?>
                         </div>
                     </fieldset>
                 </div>
@@ -361,15 +356,13 @@
                         <div class="row py-2">
                             <?php $theView->textInput('comments_antispam_question')
                                 ->setValue($globalConfig->comments_antispam_question)
-                                ->setText('SYSTEM_OPTIONS_ANTISPAMQUESTION')
-                                ->setDisplaySizesDefault(); ?>
+                                ->setText('SYSTEM_OPTIONS_ANTISPAMQUESTION'); ?>
                         </div>
 
                         <div class="row py-2">
                             <?php $theView->textInput('comments_antispam_answer')
                                 ->setValue($globalConfig->comments_antispam_answer)
-                                ->setText('SYSTEM_OPTIONS_ANTISPAMANSWER')
-                                ->setDisplaySizesDefault(); ?>
+                                ->setText('SYSTEM_OPTIONS_ANTISPAMANSWER'); ?>
                         </div>
                         
                         <div class="row py-2">
@@ -377,8 +370,7 @@
                                     ->setText('SYSTEM_OPTIONS_COMMENT_MARKSPAM_PASTCHECK')
                                     ->setValue($globalConfig->comments_markspam_commentcount)
                                     ->setMaxlenght(5)
-                                    ->setClass('fpcm-ui-spinner')
-                                    ->setDisplaySizesDefault(); ?>
+                                    ->setClass('fpcm-ui-spinner'); ?>
                         </div>
                     </fieldset>
                 </div>                
@@ -408,8 +400,7 @@
                                     ->setText('SYSTEM_OPTIONS_LOGIN_MAXATTEMPTS')
                                     ->setValue($globalConfig->system_loginfailed_locked)
                                     ->setMaxlenght(5)
-                                    ->setClass('fpcm-ui-spinner')
-                                    ->setDisplaySizesDefault(); ?>
+                                    ->setClass('fpcm-ui-spinner'); ?>
                         </div>
 
                         <div class="row py-2">
@@ -567,8 +558,7 @@
                                     ->setReadonly(($globalConfig->smtp_enabled ? false : true))
                                     ->setText('GLOBAL_EMAIL')
                                     ->setPlaceholder('mail@example.com')
-                                    ->setClass('fpcm-ui-options-smtp-input')
-                                    ->setDisplaySizesDefault(); ?>
+                                    ->setClass('fpcm-ui-options-smtp-input'); ?>
                         </div>
 
                         <div class="row py-2">
@@ -577,8 +567,7 @@
                                     ->setReadonly(($globalConfig->smtp_enabled ? false : true))
                                     ->setText('SYSTEM_OPTIONS_EMAIL_SERVER')
                                     ->setPlaceholder('mail.example.com')
-                                    ->setClass('fpcm-ui-options-smtp-input')
-                                    ->setDisplaySizesDefault(); ?>
+                                    ->setClass('fpcm-ui-options-smtp-input'); ?>
                         </div>
 
                         <div class="row py-2">
@@ -587,8 +576,7 @@
                                     ->setReadonly(($globalConfig->smtp_enabled ? false : true))
                                     ->setText('SYSTEM_OPTIONS_EMAIL_PORT')
                                     ->setPlaceholder('25')
-                                    ->setClass('fpcm-ui-options-smtp-input')
-                                    ->setDisplaySizesDefault(); ?>
+                                    ->setClass('fpcm-ui-options-smtp-input'); ?>
                         </div>
 
                         <div class="row py-2">
@@ -597,8 +585,7 @@
                                     ->setReadonly(($globalConfig->smtp_enabled ? false : true))
                                     ->setText('SYSTEM_OPTIONS_EMAIL_USERNAME')
                                     ->setPlaceholder('mail@example.com')
-                                    ->setClass('fpcm-ui-options-smtp-input')
-                                    ->setDisplaySizesDefault(); ?>
+                                    ->setClass('fpcm-ui-options-smtp-input'); ?>
                         </div>
 
                         <div class="row py-2">
@@ -606,8 +593,7 @@
                                     ->setText('SYSTEM_OPTIONS_EMAIL_PASSWORD')
                                     ->setReadonly(($globalConfig->smtp_enabled ? false : true))
                                     ->setClass('fpcm-ui-options-smtp-input')
-                                    ->setPlaceholder(trim($globalConfig->smtp_settings->pass) ? '*****' : '')
-                                    ->setDisplaySizesDefault(); ?>
+                                    ->setPlaceholder(trim($globalConfig->smtp_settings->pass) ? '*****' : ''); ?>
                         </div>
 
                         <div class="row py-2">

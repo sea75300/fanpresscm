@@ -7,32 +7,20 @@
                 ->setValue('')
                 ->setText('EDITOR_LINKURL')
                 ->setIcon('external-link-alt')
-                ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
+                ->setSize('lg') ?>
     </div>
     <div class="row py-2">
         <?php $theView->textInput('links[text]', 'linkstext')
                 ->setText('EDITOR_LINKTXT')
                 ->setIcon('keyboard')
-                ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
+                ->setSize('lg'); ?>
     </div>   
     <div class="row py-2">            
-        <label class="col-6 col-md-4 fpcm-ui-field-label-general">
-            <?php $theView->icon('window-restore')->setSize('lg'); ?>
-            <?php $theView->write('EDITOR_LINKTARGET'); ?>
-        </label>
-        <div class="col-8 px-0"><?php $theView->select('links[target]', 'linkstarget')->setOptions($targets); ?></div>
+        <?php $theView->select('links[target]', 'linkstarget')->setOptions($targets)->setText('EDITOR_LINKTARGET')->prependLabel()->setIcon('window-restore')->setSize('lg'); ?>
     </div>
     <?php if (count($cssClasses)) : ?>
     <div class="row py-2">            
-        <label class="col-6 col-md-4 fpcm-ui-field-label-general">
-            <?php $theView->icon('paint-roller')->setSize('lg'); ?>
-            <?php $theView->write('EDITOR_CSS_CLASS'); ?>
-        </label>
-        <div class="col-8 px-0"><?php $theView->select('links[css]', 'linkscss')->setOptions($cssClasses); ?></div>
+        <?php $theView->select('links[css]', 'linkscss')->setOptions($cssClasses)->setText('EDITOR_CSS_CLASS')->prependLabel()->setIcon('paint-roller')->setSize('lg'); ?>
     </div>
     <?php endif; ?>
 </div>
@@ -45,32 +33,20 @@
                 ->setValue('')
                 ->setText('EDITOR_IMGPATH')
                 ->setIcon('image')
-                ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
+                ->setSize('lg'); ?>
     </div>
     <div class="row py-2">
         <?php $theView->textInput('images[alt]', 'imagesalt')
                 ->setText('EDITOR_IMGALTTXT')
                 ->setIcon('keyboard')
-                ->setSize('lg')
-                ->setClass('col-6 col-md-8 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-4 fpcm-ui-field-label-general'); ?>
+                ->setSize('lg'); ?>
     </div>   
     <div class="row py-2">            
-        <label class="col-6 col-md-4 fpcm-ui-field-label-general">
-            <?php $theView->icon('align-center')->setSize('lg'); ?>
-            <?php $theView->write('EDITOR_IMGALIGN'); ?>
-        </label>
-        <div class="col-8 px-0"><?php $theView->select('images[align]', 'imagesalign')->setOptions($aligns); ?></div>
+        <?php $theView->select('images[align]', 'imagesalign')->setOptions($aligns)->setText('EDITOR_IMGALIGN')->prependLabel()->setIcon('align-center')->setSize('lg'); ?>
     </div>
     <?php if (count($cssClasses)) : ?>
     <div class="row py-2">            
-        <label class="col-6 col-md-4 fpcm-ui-field-label-general">
-            <?php $theView->icon('paint-roller')->setSize('lg'); ?>
-            <?php $theView->write('EDITOR_CSS_CLASS'); ?>
-        </label>
-        <div class="col-8 px-0"><?php $theView->select('images[css]', 'imagescss')->setOptions($cssClasses); ?></div>
+        <?php $theView->select('images[css]', 'imagescss')->setOptions($cssClasses)->setText('EDITOR_CSS_CLASS')->prependLabel()->setIcon('paint-roller')->setSize('lg'); ?>
     </div>
     <?php endif; ?>
 </div>
@@ -82,16 +58,14 @@
                 ->setValue(1)->setMaxlenght(5)
                 ->setText('EDITOR_INSERTTABLE_ROWS')
                 ->setIcon('arrow-down')
-                ->setSize('lg')
-                ->setDisplaySizesDefault(); ?>
+                ->setSize('lg'); ?>
     </div>
     <div class="row py-2">
         <?php $theView->textInput('table[rows]', 'tablecols')
                 ->setValue(1)->setMaxlenght(5)
                 ->setText('EDITOR_INSERTTABLE_COLS')
                 ->setIcon('arrow-right')
-                ->setSize('lg')
-                ->setDisplaySizesDefault(); ?>
+                ->setSize('lg'); ?>
     </div>
 </div>
 
@@ -102,16 +76,14 @@
                 ->setValue(1)->setMaxlenght(5)
                 ->setText('EDITOR_INSERTTABLE_ROWS')
                 ->setIcon('keyboard')
-                ->setSize('lg')
-                ->setDisplaySizesDefault(); ?>
+                ->setSize('lg'); ?>
     </div>
     <div class="row py-2">
         <?php $theView->textInput('list[type]', 'listtype')
                 ->setValue('')
                 ->setText('EDITOR_INSERTLIST_TYPESIGN')
                 ->setIcon('list-ul')
-                ->setSize('lg')
-                ->setDisplaySizesDefault(); ?>
+                ->setSize('lg'); ?>
     </div>
 </div>
 
@@ -131,10 +103,10 @@
                         ->setLabelClass('col-6 col-md-4 col-lg-3 fpcm-ui-field-label-general'); ?>
             </div>
         </div>
-        <div class="col-1 col-md-auto fpcm-ui-field-label-general">
-            <?php $theView->icon('photo-video')->setClass('fpcm-ui-margin-md-right')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(true)->setSize('lg'); ?>
+        <div class="col fpcm-ui-field-label-general fpcm-ui-align-center">
+            <?php $theView->icon('photo-video')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(true)->setSize('lg'); ?>
         </div>
-        <div class="col-11 col-md-3 mt-2 mt-md-0 px-0">
+        <div class="col-11 col-md-3 mt-2 mt-md-0">
             <?php $theView->select('media[format]', 'mediaformat')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat')->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
     </div> 
@@ -152,10 +124,10 @@
                         ->setLabelClass('col-6 col-md-4 col-lg-3 fpcm-ui-field-label-general'); ?>
             </div>
         </div>
-        <div class="col-1 col-md-auto fpcm-ui-field-label-general">
-            <?php $theView->icon('photo-video')->setClass('fpcm-ui-margin-md-right')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(true)->setSize('lg'); ?>
+        <div class="col fpcm-ui-field-label-general fpcm-ui-align-center">
+            <?php $theView->icon('photo-video')->setText('EDITOR_INSERTMEDIA_FORMAT_SELECT')->setIconOnly(true)->setSize('lg'); ?>
         </div>
-        <div class="col-11 col-md-3 mt-2 mt-md-0 px-0">
+        <div class="col-11 col-md-3 mt-2 mt-md-0">
             <?php $theView->select('media[format2]', 'mediaformat2')->setOptions($playerFormats)->setClass('fpcm-editor-mediaformat')->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
         </div>
     </div> 
@@ -173,7 +145,7 @@
                         ->setLabelClass('col-6 col-md-4 col-lg-3 fpcm-ui-field-label-general'); ?>
             </div>
         </div>
-        <div class="col-1 col-md-auto px-0">
+        <div class="col-1 col-md-auto">
             <?php $theView->button('insertposterimg', 'insertposterimg')->setText('HL_FILES_MNG')->setIcon('image')->setIconOnly(true); ?>
         </div>
     </div> 
@@ -203,8 +175,7 @@
                 ->setText('EDITOR_INSERTCOLOR_HEXCODE')
                 ->setIcon('eye-dropper')
                 ->setSize('lg')
-                ->setClass('col-6 col-md-4 fpcm-ui-field-input-nowrapper-general')
-                ->setLabelClass('col-6 col-md-8 fpcm-ui-field-label-general'); ?>
+                ->setDisplaySizes(['12', '10'], ['12', '2']); ?>
     </div>    
 
     <div class="row no-gutters py-2">
@@ -243,8 +214,7 @@
                 ->setValue('')
                 ->setText('TEMPLATE_ARTICLE_SOURCES')
                 ->setIcon('external-link-alt')
-                ->setSize('lg')
-                ->setDisplaySizesDefault(); ?>
+                ->setSize('lg'); ?>
     </div>   
     <div class="row no-gutters py-2">
         <div class="col-12 py-2 fpcm-ui-center">

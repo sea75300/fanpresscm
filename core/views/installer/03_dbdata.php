@@ -11,7 +11,6 @@
                     ->setClass('fpcm-installer-data')
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setText('INSTALLER_DBCONNECTION_TYPE')
-                    ->setDisplaySizesDefault()
                     ->prependLabel(); ?>
         </div>       
 
@@ -19,37 +18,32 @@
                 <?php $theView->textInput('database[DBHOST]')
                         ->setText('INSTALLER_DBCONNECTION_HOST')
                         ->setValue('localhost')
-                        ->setClass('fpcm-installer-data')
-                        ->setDisplaySizesDefault(); ?>
+                        ->setClass('fpcm-installer-data') ?>
         </div>
 
         <div class="row my-2">
                 <?php $theView->textInput('database[DBNAME]')
                         ->setText('INSTALLER_DBCONNECTION_NAME')
-                        ->setClass('fpcm-installer-data')
-                        ->setDisplaySizesDefault(); ?>
+                        ->setClass('fpcm-installer-data'); ?>
         </div>
 
         <div class="row my-2">
                 <?php $theView->textInput('database[DBUSER]')
                         ->setText('INSTALLER_DBCONNECTION_USER')
-                        ->setClass('fpcm-installer-data')
-                        ->setDisplaySizesDefault(); ?>
+                        ->setClass('fpcm-installer-data'); ?>
         </div>
 
         <div class="row my-2">
                 <?php $theView->textInput('database[DBPASS]')
                         ->setText('INSTALLER_DBCONNECTION_PASS')
-                        ->setClass('fpcm-installer-data')
-                        ->setDisplaySizesDefault(); ?>
+                        ->setClass('fpcm-installer-data'); ?>
         </div>
 
         <div class="row my-2">
                 <?php $theView->textInput('database[DBPREF]')
                         ->setText('INSTALLER_DBCONNECTION_PREF')
                         ->setValue('fpcm4')
-                        ->setClass('fpcm-installer-data')
-                        ->setDisplaySizesDefault(); ?>
+                        ->setClass('fpcm-installer-data'); ?>
         </div>
     </fieldset>
 

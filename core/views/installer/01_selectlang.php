@@ -6,7 +6,6 @@
                 ->setSelected('de')
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                 ->setText('INSTALLER_LANGUAGE_SELECT')
-                ->setDisplaySizesDefault()
                 ->prependLabel(); ?>
     </div>
 </div>

@@ -17,8 +17,7 @@
                     ->setValue($userRoll->getRollName())
                     ->setText('USERS_ROLLS_NAME')
                     ->setAutoFocused($userRoll->getId() && $userRoll->getId() > 3)
-                    ->setReadonly($userRoll->getId() && $userRoll->getId() <= 3)
-                    ->setDisplaySizesDefault(); ?>
+                    ->setReadonly($userRoll->getId() && $userRoll->getId() <= 3); ?>
             </div>
             <div class="row mb-2">
                 <div class="col-12 px-0">
