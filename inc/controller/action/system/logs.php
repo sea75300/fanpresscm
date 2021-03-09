@@ -98,7 +98,7 @@ class logs extends \fpcm\controller\abstracts\controller implements \fpcm\contro
                 return $tab;
             }
             
-            $tab->setDataViewId('logs');
+            $tab->setDataViewId('logs-'.$key);
             return $tab;
 
         }, array_keys($map));

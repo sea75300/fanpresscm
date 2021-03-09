@@ -234,7 +234,7 @@ fpcm.ui = {
                 }
 
                 if (params.initDataViewJsonBeforeLoad) {
-                    params.initDataViewJsonBefore(event, ui);
+                    params.initDataViewJsonBeforeLoad(event, ui);
                 }
 
                 if (!params.dataFilterParams) {
@@ -245,8 +245,8 @@ fpcm.ui = {
                     
                 }
 
-                ui.ajaxSettings.dataTypes = ['json'];
-                ui.ajaxSettings.accepts = 'application/json';
+                ui.ajaxSettings.dataTypes = params.dataTypes ? params.dataTypes : ['json'];
+                ui.ajaxSettings.accepts = params.accepts ? params.accepts : 'application/json';
                 ui.ajaxSettings.dataFilter = params.dataFilterParams;
 
                 ui.jqXHR.done(function(jqXHR) {
@@ -276,10 +276,17 @@ fpcm.ui = {
 
                 var tabList = ui.tab.data('dataview-list');                
                 if (!tabList) {
+
+                    if (params.initbeforeLoadDoneNoTabList) {
+                        params.initbeforeLoadDoneNoTabList(event, ui);
+                    }
+
+                    fpcm.ui_loader.hide();
                     return true;
                 }
 
                 if (!fpcm.vars.jsvars.dataviews[tabList]) {
+                    fpcm.ui_loader.hide();
                     return false;
                 }
 

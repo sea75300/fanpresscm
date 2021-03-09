@@ -91,6 +91,15 @@ class tabItem extends helper {
     }
 
     /**
+     * Get item ID
+     * @return string
+     */
+    final public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Return item string
      * @return string
      */

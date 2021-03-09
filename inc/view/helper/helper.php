@@ -172,7 +172,7 @@ abstract class helper {
      * Name cleanup from bracket, etc.
      * @return string
      */
-    final protected function getCleanName()
+    final public function getCleanName()
     {
         return trim(str_replace(['[', '(', ')', ']'], '', $this->name));
     }

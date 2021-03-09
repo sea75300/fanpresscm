@@ -337,13 +337,16 @@ class controller implements \fpcm\controller\interfaces\controller {
             return false;
         }
 
-        $root = \fpcm\classes\dirs::getRootUrl();
-        if ($ext) {
+        $root = defined('FPCM_REFERRER_BASE') && trim(FPCM_REFERRER_BASE)
+              ? FPCM_REFERRER_BASE
+              : \fpcm\classes\dirs::getRootUrl();
+
+        if (!defined('FPCM_REFERRER_BASE') && $ext) {
             $root = dirname($root);
         }
 
         if ( strpos($_SERVER['HTTP_REFERER'], $root) === false ) {
-            trigger_error('Referer ' . $ref . ' does not match ' . $root . ' in '. $this->request->getModule() .'.', E_USER_ERROR);
+            trigger_error('Referer ' . $ref . ' does not match ' . $root . ' in '. $this->request->getModule() .'.', E_USER_WARNING);
             return false;
         }
 

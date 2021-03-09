@@ -261,7 +261,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     private function getColsGeneric() : array
     {
         return [
-            (new \fpcm\components\dataView\column('time', 'LOGS_LIST_TIME', 'fpcm-ui-padding-md-left'))->setSize(2),
+            (new \fpcm\components\dataView\column('time', 'LOGS_LIST_TIME', 'pl-2'))->setSize(2),
             (new \fpcm\components\dataView\column('text', 'LOGS_LIST_TEXT'))->setSize(10),
         ];
     }
@@ -273,12 +273,12 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     private function getColsSessions() : array
     {
         return [
-            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER', 'fpcm-ui-padding-md-left'))->setSize(2),
-            (new \fpcm\components\dataView\column('ipaddress', 'LOGS_LIST_IPADDRESS'))->setSize(2),
-            (new \fpcm\components\dataView\column('login', 'LOGS_LIST_LOGIN'))->setSize(2),
-            (new \fpcm\components\dataView\column('logout', 'LOGS_LIST_LOGOUT'))->setSize(2),
-            (new \fpcm\components\dataView\column('external', 'GLOBAL_EXTERNAL'))->setSize(1)->setAlign('center'),
-            (new \fpcm\components\dataView\column('useragent', 'LOGS_LIST_USERAGENT'))->setSize(3)->setAlign('center'),
+            (new \fpcm\components\dataView\column('user', 'LOGS_LIST_USER', 'px-2'))->setSize(2),
+            (new \fpcm\components\dataView\column('ipaddress', 'LOGS_LIST_IPADDRESS', 'px-2'))->setSize(2),
+            (new \fpcm\components\dataView\column('login', 'LOGS_LIST_LOGIN', 'px-2'))->setSize(2),
+            (new \fpcm\components\dataView\column('logout', 'LOGS_LIST_LOGOUT', 'px-2'))->setSize(2),
+            (new \fpcm\components\dataView\column('external', 'GLOBAL_EXTERNAL', 'px-2'))->setSize(1)->setAlign('center'),
+            (new \fpcm\components\dataView\column('useragent', 'LOGS_LIST_USERAGENT', 'px-2'))->setSize(3)->setAlign('center'),
         ];
     }
 

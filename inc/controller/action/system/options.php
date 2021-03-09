@@ -119,9 +119,7 @@ implements \fpcm\controller\interfaces\isAccessible,
         ]);
 
         $this->view->assign('smtpEncryption', \fpcm\classes\email::getEncryptions());
-
         $this->view->assign('filemanagerViews', \fpcm\components\components::getFilemanagerViews());
-
         $this->view->assign('articleLimitList', \fpcm\model\system\config::getArticleLimits());
         $this->view->assign('articleLimitListAcp', \fpcm\model\system\config::getAcpArticleLimits());
         $this->view->assign('defaultFontsizes', \fpcm\model\system\config::getDefaultFontsizes());
@@ -148,19 +146,36 @@ implements \fpcm\controller\interfaces\isAccessible,
             'dtMasks' => $this->getDateTimeMasks()
         ]);
         
-        $this->view->setActiveTab($this->syscheck ? 6 : $this->getActiveTab());
         $this->view->setFormAction('system/options');
+
+        $this->initButtons();
+        $this->initTabs();
         
+        $this->view->render();
+    }
+
+    private function initButtons()
+    {
         $buttons = [
             (new \fpcm\view\helper\saveButton('configSave'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-primary'.($this->syscheck ? ' fpcm-ui-hidden' : '')),
             (new \fpcm\view\helper\button('syschecksubmitstats', 'syschecksubmitstats'))->setText('SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-button-primary fpcm-ui-hidden')->setIcon('chart-line'),
         ];
 
-        if (\fpcm\classes\baseconfig::canConnect() && $this->permissions->system->update) {
-            $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync');
+        if (!\fpcm\classes\baseconfig::canConnect() || !$this->permissions->system->update) {
+            $this->view->addButtons($buttons);
+            return true;
         }
 
-        $this->view->assign('tabs', [
+        $buttons[] = (new \fpcm\view\helper\button('checkUpdate', 'checkUpdate'))->setText('PACKAGES_MANUALCHECK')->setIcon('sync');
+
+        $this->view->addButtons($buttons);
+        return true;
+    }
+
+    private function initTabs()
+    {
+
+        $tabs = [
             (new \fpcm\view\helper\tabItem('general'))->setText('SYSTEM_HL_OPTIONS_GENERAL')->setWrapper(false)->setUrl('#tabs-options-general')->setData([
                 'toolbar-buttons' => 1
             ]),
@@ -185,12 +200,13 @@ implements \fpcm\controller\interfaces\isAccessible,
             (new \fpcm\view\helper\tabItem('syscheck'))->setText('SYSTEM_HL_OPTIONS_SYSCHECK')->setWrapper(false)->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/syscheck'))->setData([
                 'toolbar-buttons' => 2
             ]),
-        ]);
-        
-        $this->view->addButtons($buttons);
-        $this->view->render();
+        ];
+
+        $this->view->setActiveTab($this->syscheck ? count($tabs)-1 : $this->getActiveTab());
+        $this->view->assign('tabs', $tabs);
     }
-    
+
+
     protected function onConfigSave() : bool
     {
         if (!$this->checkPageToken()) {
