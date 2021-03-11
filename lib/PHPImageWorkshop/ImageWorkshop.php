@@ -57,15 +57,11 @@ class ImageWorkshop
         }
 
         if (false === ($imageSizeInfos = @getImageSize($path))) {
-            if (version_compare(PHP_VERSION, '7.1', '>=')) {
-                throw new ImageWorkshopException('Can\'t open the file at "' . $path . '" : file is not readable, did you check permissions (755 / 777) ?', static::ERROR_NOT_READABLE_FILE);
-            }
-
-            $imageSizeInfos = array('mime' => mime_content_type($path));
+            throw new ImageWorkshopException('Can\'t open the file at "' . $path . '" : file is not readable, did you check permissions (755 / 777) ?', static::ERROR_NOT_READABLE_FILE);
         }
 
         $mimeContentType = explode('/', $imageSizeInfos['mime']);
-        if (!$mimeContentType || !isset($mimeContentType[1])) {
+        if (!isset($mimeContentType[1])) {
             $givenType = isset($mimeContentType[1]) ? $mimeContentType[1] : 'none';
             throw new ImageWorkshopException('Not an image file (jpeg/png/gif) at "'.$path.'" (given format: "'.$givenType.'")', static::ERROR_NOT_AN_IMAGE_FILE);
         }
@@ -96,7 +92,6 @@ class ImageWorkshop
 
             default:
                 throw new ImageWorkshopException('Not an image file (jpeg/png/gif) at "'.$path.'" (given format: "'.$mimeContentType.'")', static::ERROR_NOT_AN_IMAGE_FILE);
-            break;
         }
 
         if (false === $image) {
@@ -117,10 +112,10 @@ class ImageWorkshop
      *
      * @param string $text
      * @param string $fontPath
-     * @param integer $fontSize
+     * @param int $fontSize
      * @param string $fontColor
-     * @param integer $textRotation
-     * @param integer $backgroundColor
+     * @param int $textRotation
+     * @param string $backgroundColor
      *
      * @return ImageWorkshopLayer
      */
@@ -137,8 +132,8 @@ class ImageWorkshop
     /**
      * Initialize a new virgin layer
      *
-     * @param integer $width
-     * @param integer $height
+     * @param int $width
+     * @param int $height
      * @param string $backgroundColor
      *
      * @return ImageWorkshopLayer
@@ -158,7 +153,7 @@ class ImageWorkshop
     /**
      * Initialize a layer from a resource image var
      *
-     * @param \resource $image
+     * @param resource $image
      *
      * @return ImageWorkshopLayer
      */

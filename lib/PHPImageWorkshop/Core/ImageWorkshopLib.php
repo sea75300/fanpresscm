@@ -25,12 +25,12 @@ class ImageWorkshopLib
      * Calculate the left top positions of a layer inside a parent layer container
      * $position: http://phpimageworkshop.com/doc/22/corners-positions-schema-of-an-image.html
      *
-     * @param integer $containerWidth
-     * @param integer $containerHeight
-     * @param integer $layerWidth
-     * @param integer $layerHeight
-     * @param integer $layerPositionX
-     * @param integer $layerPositionY
+     * @param int $containerWidth
+     * @param int $containerHeight
+     * @param int $layerWidth
+     * @param int $layerHeight
+     * @param int $layerPositionX
+     * @param int $layerPositionY
      * @param string $position
      *
      * @return array
@@ -86,12 +86,12 @@ class ImageWorkshopLib
     /**
      * Generate a new image resource var
      *
-     * @param integer $width
-     * @param integer $height
+     * @param int $width
+     * @param int $height
      * @param string $color
-     * @param integer $opacity
+     * @param int $opacity
      *
-     * @return resource
+     * @return resource|object
      */
     public static function generateImage($width = 100, $height = 100, $color = 'ffffff', $opacity = 127)
     {
@@ -108,12 +108,12 @@ class ImageWorkshopLib
     /**
      * Return dimension of a text
      *
-     * @param $fontSize
-     * @param $fontAngle
-     * @param $fontFile
-     * @param $text
+     * @param float $fontSize
+     * @param float $fontAngle
+     * @param string $fontFile
+     * @param string $text
      *
-     * @return array or boolean
+     * @return array|false
      */
     public static function getTextBoxDimension($fontSize, $fontAngle, $fontFile, $text)
     {
@@ -175,15 +175,15 @@ class ImageWorkshopLib
     /**
      * Copy an image on another one and converse transparency
      *
-     * @param resource $destImg
-     * @param resource $srcImg
-     * @param integer $destX
-     * @param integer $destY
-     * @param integer $srcX
-     * @param integer $srcY
-     * @param integer $srcW
-     * @param integer $srcH
-     * @param integer $pct
+     * @param resource|object $destImg
+     * @param resource|object $srcImg
+     * @param int $destX
+     * @param int $destY
+     * @param int $srcX
+     * @param int $srcY
+     * @param int $srcW
+     * @param int $srcH
+     * @param int $pct
      */
     public static function imageCopyMergeAlpha(&$destImg, &$srcImg, $destX, $destY, $srcX, $srcY, $srcW, $srcH, $pct = 0)
     {
@@ -196,6 +196,7 @@ class ImageWorkshopLib
         $pct = (int) $pct;
         $destW = imageSX($destImg);
         $destH = imageSY($destImg);
+        $alpha = 0;
 
         for ($y = 0; $y < $srcH + $srcY; $y++) {
             for ($x = 0; $x < $srcW + $srcX; $x++) {
@@ -246,7 +247,7 @@ class ImageWorkshopLib
                             }
 
                             $alpha = round((1 - $alpha) * 127);
-                            $color = imageColorAllocateAlpha($destImg, $red, $green, $blue, $alpha);
+                            $color = imageColorAllocateAlpha($destImg, $red, $green, $blue, (int) $alpha);
                             imageSetPixel($destImg, $x + $destX, $y + $destY, $color);
                         }
                     }
@@ -258,12 +259,12 @@ class ImageWorkshopLib
     /**
      * Merge two image var
      *
-     * @param resource $destinationImage
-     * @param resource $sourceImage
-     * @param integer $destinationPosX
-     * @param integer $destinationPosY
-     * @param integer $sourcePosX
-     * @param integer $sourcePosY
+     * @param resource|object $destinationImage
+     * @param resource|object $sourceImage
+     * @param int $destinationPosX
+     * @param int $destinationPosY
+     * @param int $sourcePosX
+     * @param int $sourcePosY
      */
     public static function mergeTwoImages(&$destinationImage, $sourceImage, $destinationPosX = 0, $destinationPosY = 0, $sourcePosX = 0, $sourcePosY = 0)
     {
