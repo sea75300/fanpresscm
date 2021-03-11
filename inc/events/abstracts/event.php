@@ -13,7 +13,7 @@ namespace fpcm\events\abstracts;
  * @package fpcm\events\abstracts
  * @abstract
  * @author Stefan Seehafer aka imagine <fanpress@nobody-knows.org>
- * @copyright (c) 2011-2019, Stefan Seehafer
+ * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 abstract class event {
@@ -54,18 +54,6 @@ abstract class event {
     protected $data;
 
     /**
-     * Events mit aktuellem Event
-     * @var array
-     */
-    protected $modules;
-
-    /**
-     * Liste mit aktiven Modulen
-     * @var array
-     */
-    protected $activeModules = [];
-
-    /**
      * Event-Cache
      * @var \fpcm\classes\cache
      */
@@ -84,12 +72,12 @@ abstract class event {
      */
     public function __construct($dataParams = null)
     {
-        $this->data = $dataParams;
-        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
-
         if (\fpcm\classes\baseconfig::installerEnabled()) {
             return false;
         }
+
+        $this->data = $dataParams;
+        $this->cache = \fpcm\classes\loader::getObject('\fpcm\classes\cache');
 
         if (isset($GLOBALS['fpcm']['events']['activeModules']) && count($GLOBALS['fpcm']['events']['activeModules'])) {
             return;
