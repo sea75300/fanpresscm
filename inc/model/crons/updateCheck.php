@@ -40,7 +40,7 @@ class updateCheck extends \fpcm\model\abstracts\cron {
 
             $language = \fpcm\classes\loader::getObject('\fpcm\classes\language');
             $email = new \fpcm\classes\email($config->system_email, $language->translate('CRONJOB_UPDATES_NEWVERSION'), $language->translate('CRONJOB_UPDATES_NEWVERSION_TEXT', [
-                '{{version}}' => $updater->getRemoteData('version'),
+                '{{version}}' => $repo->getRemoteData('version'),
                 '{{acplink}}' => \fpcm\classes\dirs::getRootUrl()
             ]));
 
