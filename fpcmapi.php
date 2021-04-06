@@ -21,7 +21,7 @@ require_once __DIR__ . '/inc/common.php';
  * FanPress CM API, class for integration into a website
  * 
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 class fpcmAPI {
@@ -355,6 +355,50 @@ class fpcmAPI {
     public function checkLockedIp($lockType = 'noaccess') : bool
     {
         return (new \fpcm\model\ips\iplist)->ipIsLocked($lockType) ? true : false;
+    }
+
+    /**
+     * Send e-mail via system settings
+     * @param array $param
+     * @since 4.5.2
+     */
+    public function sendMail(array $param) : bool
+    {
+        if (empty($param['to'])) {
+            trigger_error('No message recipient set!');
+            return false;
+        }
+
+        if (empty($param['subject'])) {
+            trigger_error('No message subject set!');
+            return false;
+        }
+
+        if (empty($param['text'])) {
+            trigger_error('No message content set!');
+            return false;
+        }
+        
+        if (!isset($param['subject'])) {
+            $param['html'] = false;
+        }
+        
+        
+        $mail = new fpcm\classes\email($param['to'], $param['subject'], $param['text'], false, $param['html']);
+        if (isset($param['attachments'])) {
+            $mail->setAttachments($param['attachments']);
+        }
+        
+        return $mail->submit();
+    }
+
+    /**
+     * Check if maintenance mode is enabled
+     * @since 4.5.2
+     */
+    public function isMaintenance() : bool
+    {
+        return \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_maintenance;
     }
 
 }
