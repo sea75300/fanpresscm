@@ -26,6 +26,12 @@ fpcm.system = {
 
     initPasswordFieldActions: function () {
 
+        fpcm.dom.fromClass('fpcm.ui-put-pass-toggle').click(function () {
+            let _el = fpcm.dom.fromTag(this).parent().find('input');
+            _el.attr('type', _el.attr('type') === 'text' ? 'password' : 'text');
+            return false;
+        });
+
         fpcm.dom.fromId('password_confirm').focusout(function () {
             var password = fpcm.dom.fromId('password').val();
             var confirm = fpcm.dom.fromTag(this).val();

@@ -78,6 +78,8 @@ abstract class input extends helper {
         }
         
         $input = "<input type=\"{$this->type}\" maxlength=\"{$this->maxlenght}\" {$this->getAttributeStrings()}>";
+        $this->appendItems($input);
+
         if (!$this->text) {
             return $wrapperStart . $input . $wrapperEnd;
         }
@@ -196,6 +198,17 @@ abstract class input extends helper {
         }
         
         return 'pattern="'. trim($this->pattern).'"';
+    }
+
+    /**
+     * 
+     * @param string $str
+     * @return bool
+     * @since 4.5.2
+     */
+    protected function appendItems(string &$str) : bool
+    {
+        return true;
     }
 
     /**

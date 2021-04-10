@@ -113,6 +113,12 @@ span.fpcm-ui-badge  {
     background-color: #3399ff;
 }
 
+.fpcm.ui-color-font-grey,
+.fpcm.ui-put-pass-toggle,
+span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-spinner {
+    color: #aaaaaa;
+}
+
 del,
 .fpcm-message-error,
 .fpcm-ui-important-text,
@@ -122,11 +128,6 @@ span.fpcm-ui-booltext-no {
 
 span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-0 {
     color: transparent;
-}
-
-.fpcm.ui-color-font-grey,
-span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-spinner {
-    color: #aaaaaa;
 }
 
 .fpcm-ui-background-transition {
