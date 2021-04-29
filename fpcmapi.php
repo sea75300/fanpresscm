@@ -44,11 +44,7 @@ class fpcmAPI {
      */
     public function __construct()
     {
-        if (version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<') || !\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled()) {
-            $this->versionFailed = true;
-            return;
-        }
-
+        $this->versionFailed = version_compare(PHP_VERSION, FPCM_PHP_REQUIRED, '<') || !\fpcm\classes\baseconfig::dbConfigExists() || \fpcm\classes\baseconfig::installerEnabled();
     }
     
     /**
@@ -399,6 +395,23 @@ class fpcmAPI {
     public function isMaintenance() : bool
     {
         return \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_maintenance;
+    }
+
+    /**
+     * Returns url of fanpress/js/fpcm(.min).js
+     * @return string
+     * @since 4.5.2
+     */
+    public function getPublicJsFile() : string
+    {
+        define('FPCM_PUBJS_LOADED', 1);
+        
+        if ( defined('FPCM_DEBUG') && FPCM_DEBUG || 
+             !file_exists(\fpcm\classes\dirs::getFullDirPath('js/fpcm.min.js') ) )  {
+            return \fpcm\classes\dirs::getRootUrl('js/fpcm.js');
+        }
+
+        return \fpcm\classes\dirs::getRootUrl('js/fpcm.min.js');
     }
 
 }
