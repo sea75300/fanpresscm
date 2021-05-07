@@ -1046,10 +1046,9 @@ class view {
     private function initCssFiles()
     {
         $this->addCssFiles([
-            self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.css',
+            self::ROOTURL_LIB.'bootstrap/css/bootstrap.min.css',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.css',
             self::ROOTURL_LIB.'font-awesome/css/all.min.css',
-            self::ROOTURL_LIB.'bootstrap/bootstrap-grid.min.css',
             self::ROOTURL_CORE_THEME.'style.php'
         ]);
 
@@ -1064,9 +1063,9 @@ class view {
     {
         $this->addJsFiles([
             \fpcm\components\components::getjQuery(),
-            self::ROOTURL_LIB.'jquery-ui/jquery-ui.min.js',
+            self::ROOTURL_LIB.'bootstrap/js/bootstrap.bundle.min.js',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
-            self::ROOTURL_CORE_JS.'script.php?uq={$unique}'
+            self::ROOTURL_CORE_JS.'script.php?uq=' . self::ROOTURL_UNIQUE
         ]);
 
         $this->addJsFilesLate([self::ROOTURL_CORE_JS.'init'.self::getJsExt()]);
