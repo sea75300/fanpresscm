@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 
 <div class="fpcm-ui-full-view-height">
-    <div class="row no-gutters fpcm ui-background-white-50p">
+    <div class="row g-0 fpcm ui-background-white-50p">
         <div class="col-12 col-md-6 fpcm-ui-ellipsis">
             <h1 class="fpcm-ui-padding-lg-lr"><?php $theView->icon('chevron-right '); ?> <span>FanPress CM</span> <span>News System</span></h1>
         </div>               
@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
 
-        <div class="row no-gutters mt-3">
+        <div class="row g-0 mt-3">
             <div class="col-12">
                 <div id="fpcm-tabs-installer">
                     <ul>
@@ -26,12 +26,12 @@
                     <div id="tabs-installer-<?php print md5($subTemplate); ?>">
                         <?php $tplFile = $theView->getIncludePath('installer/'.$subTemplate.'.php'); ?>
                         <?php if ($tplFile) : ?>                
-                        <div class="row no-gutters align-items-center fpcm-ui-padding-md-tb justify-content-center fpcm-ui-full-height">
+                        <div class="row g-0 align-items-center fpcm-ui-padding-md-tb justify-content-center fpcm-ui-full-height">
                             <?php include $tplFile; ?>
                         </div>
 
                         <?php else : ?>
-                            <div class="row no-gutters align-items-center">
+                            <div class="row g-0 align-items-center">
                                 <div class="col-12">
                                     <?php $theView->icon('search')->setSize('lg')->setStack('ban fpcm-ui-important-text')->setStackTop(true); ?>
                                     <?php $theView->write('GLOBAL_NOTFOUND'); ?>

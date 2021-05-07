@@ -7,7 +7,7 @@
 
         <div id="tabs-config-<?php print $prefix; ?>">
             <?php if (!empty($descriptions['top'])) : ?>
-            <div class="row no-gutters mx-0 mt-2 mb-3">
+            <div class="row g-0 mx-0 mt-2 mb-3">
                 <div class="col-12">
                     <fieldset class="m-0">
                         <legend><?php $theView->write($descriptions['top']['headline']); ?></legend>
@@ -25,7 +25,7 @@
         <?php endforeach; ?>
             
             <?php if (!empty($descriptions['buttom'])) : ?>
-            <div class="row no-gutters mx-0 mt-3 mb-2">
+            <div class="row g-0 mx-0 mt-3 mb-2">
                 <div class="col-12">
                     <fieldset class="m-0">
                         <legend><?php $theView->write($descriptions['buttom']['headline']); ?></legend>

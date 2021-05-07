@@ -161,7 +161,7 @@
         </div>
     </div>
     
-    <div class="row no-gutters align-self-center align-content-center justify-content-center" id="fpcm-dialog-editor-html-insertmedia-preview"></div>
+    <div class="row g-0 align-self-center align-content-center justify-content-center" id="fpcm-dialog-editor-html-insertmedia-preview"></div>
 </div>
 
 <!-- Farben einfügen -->
@@ -178,11 +178,11 @@
                 ->setDisplaySizes(['12', '10'], ['12', '2']); ?>
     </div>    
 
-    <div class="row no-gutters py-2">
+    <div class="row g-0 py-2">
         <div class="col-12 fpcm-dialog-editor-colors fpcm-ui-center fpcm-ui-editor-metabox"></div>
     </div>
     
-    <div class="row no-gutters py-2">
+    <div class="row g-0 py-2">
         <div class="col-12 py-2 fpcm-ui-center">
             <div id="fpcm-ui-editor-color-controlgroup">
                 <?php $theView->radiobutton('color_mode', 'color_mode1')->setText('EDITOR_INSERTCOLOR_TEXT')->setClass('fpcm-ui-editor-colormode')->setValue('color')->setSelected(true); ?>
@@ -200,7 +200,7 @@
 
 <!-- Vorlage einfügen -->
 <div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-insertquote">
-    <div class="row no-gutters py-2">
+    <div class="row g-0 py-2">
         <div class="col-12 fpcm-ui-padding-md-bottom">
             <label for="quotetext">
                 <?php $theView->icon('keyboard')->setSize('lg'); ?>
@@ -216,7 +216,7 @@
                 ->setIcon('external-link-alt')
                 ->setSize('lg'); ?>
     </div>   
-    <div class="row no-gutters py-2">
+    <div class="row g-0 py-2">
         <div class="col-12 py-2 fpcm-ui-center">
             <div id="fpcm-ui-editor-quote-controlgroup">
                 <?php $theView->radiobutton('quote[type]', 'quotetype1')->setText('EDITOR_HTML_BUTTONS_QUOTE_BLOCK')->setClass('fpcm-ui-editor-quotemode')->setValue('blockquote')->setSelected(true); ?>

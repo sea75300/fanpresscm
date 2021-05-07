@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="row no-gutters fpcm-ui-full-view-height m-2 ms-0">
+<div class="row g-0 fpcm-ui-full-view-height m-2 ms-0">
     <div class="fpcm ui-form-login col-12 col-md-10 col-lg-8 col-xl-5 fpcm-ui-margin-center align-self-center">
         <div class="fpcm ui-background-white-50p ui-blurring ui-box-shadow-dark ui-border-radius-all p-3 py-md-3 px-md-4">
 
@@ -9,7 +9,7 @@
             </header>
             
             <?php if ($twoFactorAuth) : ?>
-            <div class="row no-gutters fpcm-ui-padding-md-tb">
+            <div class="row g-0 fpcm-ui-padding-md-tb">
                 <div class="col-12">
                 <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')
                         ->setMaxlenght(6)->setPlaceholder(true)->setAutocomplete(false)
@@ -18,13 +18,13 @@
                 </div>
             </div>
             <?php else : ?>
-            <div class="row no-gutters fpcm-ui-padding-md-tb">
+            <div class="row g-0 fpcm-ui-padding-md-tb">
                 <div class="col-12">
                     <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true)->setWrapper(true); ?>
                 </div>
             </div>
 
-            <div class="row no-gutters fpcm-ui-padding-md-tb">
+            <div class="row g-0 fpcm-ui-padding-md-tb">
                 <div class="col-12">
                 <?php if ($resetPasswort) : ?>
                     <?php $theView->textInput('email')->setType('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true)->setAutocomplete(false)->setWrapper(true); ?>

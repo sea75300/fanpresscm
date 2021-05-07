@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <div id="fileupload" class="fileupload-processing">
-    <div class="row no-gutters">
+    <div class="row g-0">
         <div class="col-12">
             <div class="fileupload-progress fpcm-ui-fade fpcm-ui-hidden my-3">
                 <div class="fpcm ui-progressbar progress active ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100">
@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <div class="row no-gutters">
+    <div class="row g-0">
         
         <div class="col-12 mb-1">
             <fieldset class="fpcm-ui-margin-lg-bottom">
@@ -33,7 +33,7 @@
         </div>
 
         <div class="col-12 my-1">
-            <div class="row no-gutters align-self-center justify-content-center">        
+            <div class="row g-0 align-self-center justify-content-center">        
                 <div id="fpcm-filemanager-upload-drop" class="col-12 fpcm-ui-background-white-100">
                     <h4 class="fpcm-ui-center"><?php $theView->icon('file-upload')->setSize('4x')->setClass('fpcm-ui-padding-md-bottom fpcm ui-status-075'); ?><br><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4>
                 </div>

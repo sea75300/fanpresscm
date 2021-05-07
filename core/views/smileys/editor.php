@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="row no-gutters">
+<div class="row g-0">
     <div class="col-12">
         <fieldset class="py-2">
             <legend><?php $theView->write($tabActionString); ?></legend>

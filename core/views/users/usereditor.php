@@ -1,10 +1,10 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<div class="row no-gutters">
+<div class="row g-0">
     <div class="col-12">
         <fieldset>
             <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
             
-            <div class="row py-2 no-gutters">
+            <div class="row py-2 g-0">
                 <div class="col-12 col-sm-6">
                     <div class="row">
                         <?php $theView->textInput('data[displayname]')
@@ -17,7 +17,7 @@
                 </div>
             </div>
             
-            <div class="row py-2 no-gutters">
+            <div class="row py-2 g-0">
                 <div class="col-12 col-sm-6">
                     <div class="row">
                         <?php $theView->textInput('data[username]')
@@ -31,7 +31,7 @@
                 </div>
             </div>
             
-            <div class="row py-2 no-gutters">
+            <div class="row py-2 g-0">
                 <div class="col-12 col-sm-6">
                     <div class="row">
                         <?php $theView->textInput('data[password]', 'password')
@@ -42,13 +42,13 @@
                             ->setDisplaySizes([12, 5], [12, 7]); ?>
                     </div>
                 </div>
-                <div class="col-12 col-sm-auto mt-2 ml-0 mt-sm-0 ml-sm-3">
+                <div class="col-12 col-sm-auto mt-2 ms-0 mt-sm-0 ms-sm-3">
                     <?php $theView->button('genPasswd', 'genPasswd')->setText('USERS_PASSGEN')->setIcon('key')->setIconOnly(true); ?>
                     <?php $theView->shorthelpButton('dtmask')->setText('USERS_REQUIREMENTS'); ?>
                 </div>
             </div>
             
-            <div class="row py-2 no-gutters">
+            <div class="row py-2 g-0">
                 <div class="col-12 col-sm-6">
                     <div class="row">
                         <?php $theView->textInput('data[password_confirm]', 'password_confirm')
@@ -61,7 +61,7 @@
                 </div>
             </div>
             
-            <div class="row py-2 no-gutters">
+            <div class="row py-2 g-0">
                 <div class="col-12 col-sm-6">
                     <div class="row">
                         <?php $theView->textInput('data[email]')
@@ -94,7 +94,7 @@
             
             <?php if($inProfile) : ?>
             
-            <div id="fpcm-ui-currentpass-box" class="row no-gutters py-2 fpcm-ui-hidden">
+            <div id="fpcm-ui-currentpass-box" class="row g-0 py-2 fpcm-ui-hidden">
                 <div class="col-12 col-sm-6">
                     <div class="row">
                         <?php $theView->passwordInput('data[current_pass]')
@@ -128,15 +128,15 @@
 </div>
 
 <?php if ($twoFaAuth) : ?>
-<div class="row no-gutters">
+<div class="row g-0">
     <div class="col-12">
         <fieldset class="fpcm-ui-margin-md-top">
             <legend><?php $theView->write('SYSTEM_OPTIONS_LOGIN_TWOFACTORAUTH'); ?></legend>
 
             <?php if ($secret !== false && $qrCode !== false) : ?>
             
-            <div class="row no-gutters py-2">
-                <div class="col-12 col-md-auto mr-0 mr-md-3">
+            <div class="row g-0 py-2">
+                <div class="col-12 col-md-auto me-0 me-md-3">
                     <img loading="lazy" src="<?php echo $qrCode; ?>">
                 </div>            
                 
@@ -149,7 +149,7 @@
                             ->setMaxlenght(6)
                             ->setAutocomplete(false)
                             ->setText('USERS_AUTHTOKEN_SAVE2')
-                            ->setLabelClass('pr-3')
+                            ->setLabelClass('pe-3')
                             ->setIcon('exclamation-triangle fpcm-ui-important-text')
                             ->setSize('lg'); ?>                    
 

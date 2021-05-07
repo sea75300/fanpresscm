@@ -14,7 +14,7 @@
 
     <body class="fpcm-body <?php print $theView->bodyClass; ?>" id="fpcm-body">
 
-        <div class="row no-gutters fpcm-ui-full-view-height m-2 ms-0 justify-content-center">
+        <div class="row g-0 fpcm-ui-full-view-height m-2 ms-0 justify-content-center">
             <div class="fpcm ui-form-login col-12 col-md-10 col-lg-8 col-xl-5 align-self-center">
                 <div class="fpcm ui-background-white-50p ui-blurring fpcm-ui-border-radius-all p-3 py-md-3 px-md-4 fpcm ui-align-center">
 

@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="fpcm-ui-permissions-container">
     
-    <div class="row no-gutters mb-3">
+    <div class="row g-0 mb-3">
         <div class="col-12">
             <fieldset>
                 <legend><?php $theView->write('PERMISSION_ARTICLES'); ?></legend>
@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="row no-gutters mb-3">
+    <div class="row g-0 mb-3">
         <div class="col-12">
             <fieldset>
                 <legend><?php $theView->write('PERMISSION_COMMENTS'); ?></legend>
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="row no-gutters mb-3">
+    <div class="row g-0 mb-3">
         <div class="col-12">
             <fieldset>
                 <legend><?php $theView->write('PERMISSION_UPLOADS'); ?></legend>
@@ -34,7 +34,7 @@
         </div>
     </div>
 
-    <div class="row no-gutters mb-3">
+    <div class="row g-0 mb-3">
         <div class="col-12">
             <fieldset>
                 <legend><?php $theView->write('PERMISSION_SYSTEM'); ?></legend>
@@ -47,7 +47,7 @@
         </div>
     </div>
 
-    <div class="row no-gutters mb-3">
+    <div class="row g-0 mb-3">
         <div class="col-12">
             <fieldset>
                 <legend><?php $theView->write('PERMISSION_MODULES'); ?></legend>

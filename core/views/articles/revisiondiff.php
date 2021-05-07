@@ -7,18 +7,18 @@
 
         <div id="tabs-article">
 
-            <div class="row no-gutters my-1">
-                <div class="<?php $theView->defaultBoxHalf(); ?> pr-0 pr-md-2">
+            <div class="row g-0 my-1">
+                <div class="<?php $theView->defaultBoxHalf(); ?> pe-0 pe-md-2">
                     <h3><?php print $theView->escape($revision->getTitle()); ?></h3>
                 </div>
-                <div class="<?php $theView->defaultBoxHalf(); ?> pl-0 pl-md-2">
+                <div class="<?php $theView->defaultBoxHalf(); ?> ps-0 ps-md-2">
                     <h3><?php print $theView->escape($article->getTitle()); ?></h3>
                 </div>
             </div>
 
-            <div class="row no-gutters my-1">
+            <div class="row g-0 my-1">
 
-                <div class="<?php $theView->defaultBoxHalf(); ?> pr-0 pr-md-2">
+                <div class="<?php $theView->defaultBoxHalf(); ?> pe-0 pe-md-2">
                     <div class="row fpcm-ui-editor-metabox">
                         <?php
                             $tmpArticle = $article;
@@ -31,7 +31,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="<?php $theView->defaultBoxHalf(); ?> pl-0 pl-md-2">
+                <div class="<?php $theView->defaultBoxHalf(); ?> ps-0 ps-md-2">
                     <div class="row fpcm-ui-editor-metabox">
                         <?php
                             $article    = $tmpArticle;
@@ -47,14 +47,14 @@
 
             </div>
 
-            <div class="row no-gutters my-2">
-                <div class="<?php $theView->defaultBoxHalf(); ?> pr-0 pr-md-2">
+            <div class="row g-0 my-2">
+                <div class="<?php $theView->defaultBoxHalf(); ?> pe-0 pe-md-2">
                     <fieldset>
                         <legend><?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?></legend>
                         <?php print $theView->escape(implode(', ', $categoriesRevision)); ?>
                     </fieldset>
                 </div>
-                <div class="<?php $theView->defaultBoxHalf(); ?> pl-0 pl-md-2">
+                <div class="<?php $theView->defaultBoxHalf(); ?> ps-0 ps-md-2">
                     <fieldset>
                         <legend><?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?></legend>
                         <?php print $theView->escape(implode(', ', $categoriesArticle)); ?>
@@ -62,14 +62,14 @@
                 </div>
             </div>
 
-            <div class="row no-gutters my-2">
-                <div class="<?php $theView->defaultBoxHalf(); ?> pr-0 pr-md-2">
+            <div class="row g-0 my-2">
+                <div class="<?php $theView->defaultBoxHalf(); ?> pe-0 pe-md-2">
                     <fieldset>
                         <legend><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?></legend>
                         <?php print $revision->getSources() ? $revision->getSources() : '-'; ?>
                     </fieldset>
                 </div>
-                <div class="<?php $theView->defaultBoxHalf(); ?> pl-0 pl-md-2">
+                <div class="<?php $theView->defaultBoxHalf(); ?> ps-0 ps-md-2">
                     <fieldset>
                         <legend><?php $theView->write('TEMPLATE_ARTICLE_SOURCES'); ?></legend>
                         <?php print $article->getSources() ? $article->getSources() : '-'; ?>
@@ -77,14 +77,14 @@
                 </div>
             </div>
 
-            <div class="row no-gutters my-2">
-                <div class="<?php $theView->defaultBoxHalf(); ?> pr-0 pr-md-2">
+            <div class="row g-0 my-2">
+                <div class="<?php $theView->defaultBoxHalf(); ?> pe-0 pe-md-2">
                     <fieldset>
                         <legend><?php $theView->write('TEMPLATE_ARTICLE_ARTICLEIMAGE'); ?></legend>
                         <?php print $revision->getImagepath() ? $revision->getImagepath() : '-'; ?>
                     </fieldset>
                 </div>
-                <div class="<?php $theView->defaultBoxHalf(); ?> pl-0 pl-md-2">
+                <div class="<?php $theView->defaultBoxHalf(); ?> ps-0 ps-md-2">
                     <fieldset>
                         <legend><?php $theView->write('TEMPLATE_ARTICLE_ARTICLEIMAGE'); ?></legend>
                         <?php print $article->getImagepath() ? $article->getImagepath() : '-'; ?>
@@ -92,7 +92,7 @@
                 </div>
             </div>
 
-            <div class="row no-gutters mt-3">
+            <div class="row g-0 mt-3">
                 <div class="col-12 fpcm-ui-border-radius-all fpcm-ui-ellipsis">
                 <?php if (trim($diffResult)) : ?>
                     <?php print $diffResult; ?>

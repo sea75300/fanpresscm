@@ -64,7 +64,7 @@ fpcm.imageEditor = {
                         fpcm.ui.dialog({
                             id: 'files-editor_prop',
                             title: fpcm.ui.translate('FILE_LIST_EDIT_RESIZE'),
-                            content: '<div class="row no-gutters mb-2">' + fpcm.ui.translate('FILE_LIST_EDIT_RESIZE_NOTICE') + '</div>' +
+                            content: '<div class="row g-0 mb-2">' + fpcm.ui.translate('FILE_LIST_EDIT_RESIZE_NOTICE') + '</div>' +
                                      '<div class="row mb-2">' + inWidth + '</div>' +
                                      '<div class="row">' + inHeight + '</div>',
                             dlOnClose: function () {

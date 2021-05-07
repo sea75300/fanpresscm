@@ -3,7 +3,7 @@
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
     <legend><?php $theView->write('GLOBAL_EXTENDED'); ?></legend>
 
-    <div class="row no-gutters fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom">
+    <div class="row g-0 fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom">
         <div class="col-12">
             <div class="fpcm-ui-controlgroup">
             <?php if (!$article->getArchived()) : ?>
@@ -35,7 +35,7 @@
                 ->setData(['mindate' => '0d', 'maxdate' => '+2m']); ?>
 
         
-        <div class="fpcm-ui-controlgroup mt-2 mt-md-0 ml-0 ml-md-2">
+        <div class="fpcm-ui-controlgroup mt-2 mt-md-0 ms-0 ms-md-2">
             <?php $theView->textInput('article[postponehour]')->setText('')->setClass('fpcm-ui-spinner-hour ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'H')); ?>
             <?php $theView->textInput('article[postponeminute]')->setText('')->setClass('fpcm-ui-spinner-minutes ui-spinner-input')->setValue($theView->dateText($postponedTimer, 'i')); ?>
             <?php $theView->checkbox('article[postponed]')->setText('EDITOR_POSTPONETO')->setSelected($article->getPostponed())->setClass('fpcm-ui-editor-metainfo-checkbox')->setData(['icon' => 'postponed'])->setLabelClass('fpcm-ui-margin-md-left')->setIconOnly(true); ?>
@@ -101,7 +101,7 @@
 <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-lg-top">
     <legend><?php $theView->write('EDITOR_SHARES'); ?></legend>
     <?php foreach ($shares as $share) : ?>
-    <div class="row no-gutters fpcm-ui-padding-md-tb">
+    <div class="row g-0 fpcm-ui-padding-md-tb">
         <div class="col-2 col-lg-1"><?php print $share->getIcon(); ?></div>
         <div class="col-6 col-lg-2 align-self-center"><?php print $share->getDescription(); ?>:</div>
         <div class="col-4 col-lg-1 align-self-center fpcm-ui-center"><?php print $share->getSharecount(); ?></div>

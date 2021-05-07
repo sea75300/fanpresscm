@@ -24,7 +24,7 @@
             <?php if ($theView->formActionTarget) : ?><form method="post" action="<?php print $theView->formActionTarget; ?>" enctype="multipart/form-data" id="fpcm-ui-form"><?php endif; ?>
 
             <header>
-                <div class="row no-gutters fpcm-ui-background-white-100">
+                <div class="row g-0 fpcm-ui-background-white-100">
                     <div class="col-12 col-md-6 fpcm-ui-ellipsis">
                         <!-- <img src="<?php print $theView->themePath; ?>logo.svg">-->
                         <h1 class="mx-3- mx-md-0"><?php $theView->icon('chevron-right '); ?> <span>FanPress CM</span> <span>News System</span></h1>
@@ -39,7 +39,7 @@
             </header>
 
             <nav>
-                <div class="row no-gutters align-self-center">
+                <div class="row g-0 align-self-center">
                     <div class="col-12">
                         <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
                     </div>

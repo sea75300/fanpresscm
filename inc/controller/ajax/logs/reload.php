@@ -261,7 +261,7 @@ class reload extends \fpcm\controller\abstracts\ajaxController implements \fpcm\
     private function getColsGeneric() : array
     {
         return [
-            (new \fpcm\components\dataView\column('time', 'LOGS_LIST_TIME', 'pl-2'))->setSize(2),
+            (new \fpcm\components\dataView\column('time', 'LOGS_LIST_TIME', 'ps-2'))->setSize(2),
             (new \fpcm\components\dataView\column('text', 'LOGS_LIST_TEXT'))->setSize(10),
         ];
     }

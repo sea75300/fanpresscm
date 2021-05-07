@@ -58,7 +58,7 @@
         
         <div class="row my-2"> 
 
-            <div class="col-12 col-lg-5 px-0 pr-lg-1">
+            <div class="col-12 col-lg-5 px-0 pe-lg-1">
 
                 <fieldset>
                     <legend><?php $theView->write('IMPORT_FIELDS_OBJECT'); ?></legend>
@@ -72,7 +72,7 @@
                 
             </div>
 
-            <div class="col-12 col-lg-5 px-0 pl-lg-1">
+            <div class="col-12 col-lg-5 px-0 ps-lg-1">
 
                 <fieldset>
                     <legend><?php $theView->write('IMPORT_FIELDS_CSV'); ?></legend>

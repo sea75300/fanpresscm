@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if (!$isWritable) : ?>
-<div class="row no-gutters fpcm-ui-padding-md-tb">
+<div class="row g-0 fpcm-ui-padding-md-tb">
     <div class="col-5 col-md-1 align-self-center"><?php $theView->icon('lock ')->setSize('2x'); ?></div>
     <div class="col-7 col-md-11 align-self-center">
         <?php $theView->write('TEMPLATE_NOT_WRITABLE'); ?>
@@ -8,7 +8,7 @@
 </div>
 <?php endif; ?>
 
-<div class="row no-gutters mt-2 mb-3">
+<div class="row g-0 mt-2 mb-3">
     <div class="col-12">
         <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
             <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>
@@ -17,10 +17,10 @@
     </div>
 </div>
 
-<div class="row no-gutters mt-3">
+<div class="row g-0 mt-3">
     
     <div class="col-12 col-md-6 col-lg-5 col-xl-3 mb-3 mb-md-0">
-        <fieldset class="ml-0 mr-md-3 fpcm-ui-full-height">
+        <fieldset class="ms-0 me-md-3 fpcm-ui-full-height">
             <legend><?php $theView->write('TEMPLATE_REPLACEMENTS'); ?></legend>
 
             <dl class="fpcm-ui-monospace">
@@ -37,14 +37,14 @@
 
     <div class="col-12 col-md-6 col-lg-7 col-xl-9">
         <?php if (count($allowedTags)) : ?>
-        <div class="row no-gutters">
+        <div class="row g-0">
             <div class="col-12 mb-2">
                 <fieldset>
                     <legend><?php $theView->write('TEMPLATE_EDITOR'); ?></legend>
                     
                     <div class="fpcm-ui-controlgroup">
                     <?php foreach ($allowedTags as $tag) : ?>
-                        <?php $theView->button('tpl-editor-'.substr($tag, 1, -1))->setText(htmlentities($tag))->setClass('fpcm-editor-html-click')->setData(['htmltag' => substr($tag, 1, -1)]); ?>
+                        <?php $theView->button('tps-editor-'.substr($tag, 1, -1))->setText(htmlentities($tag))->setClass('fpcm-editor-html-click')->setData(['htmltag' => substr($tag, 1, -1)]); ?>
                     <?php endforeach; ?>
                     </div>
                 </fieldset>
@@ -52,7 +52,7 @@
         </div>
         <?php endif; ?>
         
-        <div class="row no-gutters">
+        <div class="row g-0">
             <div class="col-12">
                 <?php $theView->textarea('template[content]', 'content_'.$tplId)->setValue($content, ENT_QUOTES)->setClass('fpcm-editor-html-click'); ?>
             </div>

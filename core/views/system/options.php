@@ -7,7 +7,7 @@
 
         <div id="tabs-options-general" class="fpcm tabs-register ui-tabs-panel ui-corner-bottom ui-widget-content">
 
-            <div class="row no-gutters">
+            <div class="row g-0">
 
                 <div class="col-12">
                     <fieldset>
@@ -113,7 +113,7 @@
 
         <div id="tabs-options-editor">
 
-            <div class="row no-gutters">
+            <div class="row g-0">
                 <div class="col-12">
                     <fieldset>
                         <legend><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_SETTINGS'); ?></legend>
@@ -216,7 +216,7 @@
 
         <div id="tabs-options-news">
 
-            <div class="row no-gutters">
+            <div class="row g-0">
                 <div class="col-12">
                     <fieldset>
                         <legend><?php $theView->write('HL_FRONTEND'); ?></legend>
@@ -302,7 +302,7 @@
         </div>
 
         <div id="tabs-options-comments">
-            <div class="row no-gutters">
+            <div class="row g-0">
                 <div class="col-12">
                     <fieldset>
                         <legend><?php $theView->write('COMMMENT_HEADLINE'); ?></legend>
@@ -378,7 +378,7 @@
         </div>
 
         <div id="tabs-options-extended">
-            <div class="row no-gutters">
+            <div class="row g-0">
                 <div class="col-12">
                     <fieldset>
                         <legend><?php $theView->write('SYSTEM_HL_OPTIONS_SECURITY'); ?></legend>
@@ -445,7 +445,7 @@
 
         <div id="tabs-options-twitter">
 
-            <div class="row no-gutters">
+            <div class="row g-0">
                 <div class="col-12">
                     <fieldset>
                         <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CONSTATE'); ?></legend>
@@ -470,13 +470,13 @@
                 </div>
             </div>
 
-            <div class="row no-gutters my-2">
+            <div class="row g-0 my-2">
                 <div class="col-12">
                     <fieldset>
                         <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_EVENTS'); ?></legend>
                         <div class="row py-2">
                             <div class="col-12 align-self-center px-0">
-                                <?php $theView->checkbox('twitter_events[create]', 'twitter_events_create')->setText('SYSTEM_OPTIONS_TWITTER_EVENTCREATE')->setSelected($globalConfig->twitter_events->create)->setLabelClass('mr-2'); ?>
+                                <?php $theView->checkbox('twitter_events[create]', 'twitter_events_create')->setText('SYSTEM_OPTIONS_TWITTER_EVENTCREATE')->setSelected($globalConfig->twitter_events->create)->setLabelClass('me-2'); ?>
                                 <?php $theView->checkbox('twitter_events[update]', 'twitter_events_update')->setText('SYSTEM_OPTIONS_TWITTER_EVENTUPDATE')->setSelected($globalConfig->twitter_events->update); ?>
                             </div>
                         </div>
@@ -484,7 +484,7 @@
                 </div>
             </div>
 
-            <div class="row no-gutters my-2">
+            <div class="row g-0 my-2">
                 <div class="col-12">
                     <fieldset>
                         <legend><?php $theView->write('SYSTEM_OPTIONS_TWITTER_CREDENTIALS'); ?></legend>
@@ -524,7 +524,7 @@
 
 
         <div id="tabs-options-smtp">
-            <div class="row no-gutters">
+            <div class="row g-0">
                 <div class="col-12">
                 <?php if ($smtpActive) : ?>
                     <fieldset>
@@ -540,7 +540,7 @@
                 </div>
             </div>
 
-            <div class="row no-gutters my-2">
+            <div class="row g-0 my-2">
                 <div class="col-12">                
                 <?php endif; ?>
 

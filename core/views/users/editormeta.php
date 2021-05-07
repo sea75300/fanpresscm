@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="row no-gutters">
+<div class="row g-0">
     <div class="col-12">
         <fieldset>
             <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
@@ -55,7 +55,7 @@
                 </div>
             </div>
             
-            <div class="row fpcm-ui-padding-md-tb no-gutters">
+            <div class="row fpcm-ui-padding-md-tb g-0">
                 <div class="col-12 col-sm-6 col-lg-5">
                     <div class="row">
                         <?php $theView->textInput('data[system_dtmask]')
@@ -76,7 +76,7 @@
     </div>
 </div>
 
-<div class="row no-gutters">
+<div class="row g-0">
     <div class="col-12">
         <fieldset class="fpcm-ui-margin-md-top">
             <legend><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_SETTINGS'); ?> / <?php $theView->write('HL_FILES_MNG'); ?></legend>
@@ -135,7 +135,7 @@
     </div>
 </div>
 
-<div class="row no-gutters">
+<div class="row g-0">
     <div class="col-12">
         <fieldset class="fpcm-ui-margin-md-top">
             <legend><?php $theView->write('HL_DASHBOARD'); ?></legend>

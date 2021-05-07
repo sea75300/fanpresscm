@@ -85,7 +85,7 @@ fpcm.installer = {
                 if (result.data.html) {
                     for (var i in result.data.html) {
                         let item = result.data.html[i];                    
-                        fpcm.dom.appendHtml('#fpcm-installer-execlist', '<div class="row no-gutters py-2"><div class="col-12" id="installer-tabs-' + item.tab + '">' + fpcm.ui.getIcon(item.icon, {
+                        fpcm.dom.appendHtml('#fpcm-installer-execlist', '<div class="row g-0 py-2"><div class="col-12" id="installer-tabs-' + item.tab + '">' + fpcm.ui.getIcon(item.icon, {
                             class: item.class
                         }) + fpcm.ui.translate('INSTALLER_CREATETABLES_STEP').replace('{{tablename}}', item.tab) + '</div></div>');
                     }

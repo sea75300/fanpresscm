@@ -67,7 +67,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
         $this->getModuleUpdateStatus();
 
         $this->tableContent[] = implode(PHP_EOL, [
-            '<div class="row no-gutters py-3 fpcm ui-align-center">',
+            '<div class="row g-0 py-3 fpcm ui-align-center">',
             '<div class="col align-self-center">'.$this->language->translate('UPDATE_VERSIONCHECK_NOTES').'</div>',
             '</div>'
         ]);
@@ -197,7 +197,7 @@ class updatecheck extends \fpcm\model\abstracts\dashcontainer implements \fpcm\m
     private function renderTable($iconClass, $statusClass, $statusText)
     {
         $this->tableContent[] = implode(PHP_EOL, [
-            '<div class="row no-gutters">',
+            '<div class="row g-0">',
             '<div class="col-auto px-2">'.(new \fpcm\view\helper\icon($iconClass.' fa-inverse'))->setSize('2x')->setClass($statusClass)->setStack('square').'</div>',
             '<div class="col px-2 align-self-center">'.$this->language->translate($statusText).'</div>',
             '</div>'

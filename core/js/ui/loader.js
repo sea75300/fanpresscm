@@ -17,7 +17,7 @@ fpcm.ui_loader = {
         }
         
         var html = [
-            '<div id="fpcm-loader" class="row no-gutters fpcm-ui-position-fixed fpcm-ui-position-left-0 fpcm-ui-position-right-0 fpcm-ui-position-bottom-0 fpcm-ui-position-top-0 align-self-center">',
+            '<div id="fpcm-loader" class="row g-0 fpcm-ui-position-fixed fpcm-ui-position-left-0 fpcm-ui-position-right-0 fpcm-ui-position-bottom-0 fpcm-ui-position-top-0 align-self-center">',
             '   <div class="fpcm fpcm-ui-position-absolute fpcm-ui-position-top-0 ui-background-black-75p ui-blurring fpcm-ui-full-width fpcm-ui-full-height"></div>',
             '   <div class="fpcm-ui-position-relative fpcm-ui-align-center fpcm-loader-icon">\n\n',
                 fpcm.ui.getIcon('spinner', {

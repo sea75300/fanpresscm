@@ -1,12 +1,12 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if ($showExtended) : ?>
-    <div class="row no-gutters">
+    <div class="row g-0">
         <div class="col-12">
             <fieldset>
                 <legend><?php $theView->write('USERS_AVATAR'); ?></legend>
 
                 <?php if ($showImage) : ?>
-                <div class="row no-gutters fpcm-ui-padding-md-tb">
+                <div class="row g-0 fpcm-ui-padding-md-tb">
                     <div class="col-12 px-0">
                         <div class="fpcm-ui-controlgroup fpcm-ui-margin-lg-bottom" id="user_profile_image_buttons">
                             <?php $theView->button('addFile')->setText('FILE_FORM_FILEADD')->setIcon('plus'); ?>
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="row no-gutters">
+    <div class="row g-0">
         <div class="col-12">
             <fieldset class="fpcm-ui-margin-md-top">
                 <legend><?php $theView->write('USERS_BIOGRAPHY'); ?></legend>
