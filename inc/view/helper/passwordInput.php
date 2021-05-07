@@ -28,6 +28,15 @@ final class passwordInput extends input {
         $this->class .= ' fpcm-ui-input-password';
     }
 
+    protected function appendItems(string &$str): bool
+    {
+        $str .= ' ' . (string) (new icon('eye fa-inverse'))
+                ->setClass('fpcm ui-put-pass-toggle')
+                ->setStack('circle');
+        
+        return true;
+    }
+
 }
 
 ?>

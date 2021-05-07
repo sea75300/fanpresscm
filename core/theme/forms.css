@@ -37,6 +37,10 @@ textarea[readonly],
     opacity: 0.35;
 }
 
+input[type=password] {
+    padding-right: 2em;
+}
+
 select,
 option {
     -moz-appearance: none;
@@ -101,4 +105,15 @@ input[type=radio]:focus + label:before {
     content: inherit;
     font-family: initial;
     appearance: initial;
+}
+
+.fpcm.ui-put-pass-toggle {
+    position: relative;
+    font-size: 0.7em !important;
+    float: right;
+    margin-left: -2.5em;
+    margin-top: 0.6em;
+}
+.fpcm-ui-input-wrapper-password .fpcm.ui-put-pass-toggle {
+    margin-top: 0.2em;
 }

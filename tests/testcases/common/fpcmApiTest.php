@@ -79,4 +79,27 @@ class fpcmApiTest extends \PHPUnit\Framework\TestCase {
         $this->assertTrue($this->object->checkLockedIp());
         $this->assertTrue($ip->delete());
     }
+
+    public function testSendMail()
+    {
+        $this->assertTrue($this->object->sendMail([
+            'to' => 'sea75300@yahoo.de',
+            'subject' => 'Unit-Test ' . __METHOD__,
+            'text' => 'Unit-Test ' . __METHOD__,
+        ]));
+    }
+
+    public function testIsMaintenance()
+    {
+        \fpcm\classes\loader::getObject('\fpcm\model\system\config')->setMaintenanceMode(true);
+        $this->assertEquals(1, \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_maintenance);
+        \fpcm\classes\loader::getObject('\fpcm\model\system\config')->init();
+        $this->assertTrue($this->object->isMaintenance());
+
+        \fpcm\classes\loader::getObject('\fpcm\model\system\config')->setMaintenanceMode(false);
+        $this->assertEquals(0, \fpcm\classes\loader::getObject('\fpcm\model\system\config')->system_maintenance);
+        \fpcm\classes\loader::getObject('\fpcm\model\system\config')->init();
+
+        $this->assertFalse($this->object->isMaintenance());
+    }
 }
