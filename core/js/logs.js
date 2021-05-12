@@ -36,6 +36,12 @@ fpcm.logs = {
             initDataViewJson: true,
             addTabScroll: true,
             dataTypes: ['html', 'json'],
+            initNoListBeforeLoad: function (event, ui) {
+                let _logParams = fpcm.system.parseUrlQuery(ui.ajaxSettings.url);
+                fpcm.vars.jsvars.currentLog.name = _logParams.log ? _logParams.log : null;
+                fpcm.vars.jsvars.currentLog.key = _logParams.key ? _logParams.key : null;
+                fpcm.vars.jsvars.currentLog.system = _logParams.system ? _logParams.system : null;
+            },
             initDataViewJsonBeforeLoad: function (event, ui) {
                 let _logParams = fpcm.system.parseUrlQuery(ui.ajaxSettings.url);
                 fpcm.vars.jsvars.currentLog.name = _logParams.log ? _logParams.log : null;

@@ -230,6 +230,11 @@ fpcm.ui = {
                 
                 tabList = ui.tab.data('dataview-list');                
                 if (!tabList) {
+
+                    if (params.initNoListBeforeLoad) {
+                        params.initNoListBeforeLoad(event, ui);
+                    }
+
                     return true;
                 }
 
