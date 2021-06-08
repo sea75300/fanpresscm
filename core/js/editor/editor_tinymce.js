@@ -97,6 +97,10 @@ fpcm.editor_tinymce = {
             params.image_caption = config.image_caption;
         }
 
+        if (config.image_caption !== undefined) {
+            params.image_caption = config.image_caption;
+        }
+
         params.link_assume_external_targets = (config.link_assume_external_targets !== undefined
                                             ? config.link_assume_external_targets
                                             : true);

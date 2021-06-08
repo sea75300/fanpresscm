@@ -157,6 +157,8 @@ abstract class articleEditor extends \fpcm\model\abstracts\staticModel {
             ['start' => '* ', 'cmd' => 'InsertUnorderedList'],
             ['start' => '# ', 'cmd' => 'InsertOrderedList'],
             ['start' => '1. ', 'cmd' => 'InsertOrderedList'],
+            ['start' => '_', 'end' => '_', 'format' => 'italic'],
+            ['start' => '*', 'end' => '*', 'format' => 'bold'],
         ];
     }
 
