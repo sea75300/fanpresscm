@@ -3,7 +3,7 @@
 /**
  * FanPress CM language list file: de
  * @author Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2011-2020, Stefan Seehafer
+ * @copyright (c) 2011-2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 
@@ -33,7 +33,7 @@ $lang = array (
     'Artikel' => 'articles\\article',
     'Kommentare' => 'comments\\comment',
     'Kategorien' => 'categories\\category',
-    'Textzensur' => 'wordban\\item',
+    'Textzensur/ Autokorrektur' => 'wordban\\item',
   ),
   'SYSTEM_MONTHS' => 
   array (
