@@ -214,3 +214,11 @@ if (!defined('FPCM_CSV_IMPORT')) {
      */
     define('FPCM_CSV_IMPORT', false);
 }
+
+if (!defined('FPCM_CRON_DBDUMP_NOMAIL')) {
+    /**
+     * No attachments from sql dump cronjob
+     * @since 4.5.3
+     */
+    define('FPCM_CRON_DBDUMP_NOMAIL', false);
+}
