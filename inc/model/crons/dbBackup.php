@@ -102,8 +102,13 @@ class dbBackup extends \fpcm\model\abstracts\cron {
         fpcmLogCron('New database dump created in "' . \fpcm\model\files\ops::removeBaseDir($this->dumpfile, true) . '".');
         return $this->doMail();
     }
-    
-    private function doMail()
+
+    /**
+     * Submit e-mail width databse dump file
+     * @return bool
+     * @since 4.5.3
+     */
+    private function doMail() : bool
     {
         if (defined('FPCM_CRON_DBDUMP_NOMAIL') && FPCM_CRON_DBDUMP_NOMAIL) {
             return true;
