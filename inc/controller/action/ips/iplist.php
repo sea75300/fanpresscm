@@ -149,6 +149,21 @@ implements \fpcm\controller\interfaces\isAccessible,
             new \fpcm\components\dataView\rowCol('metadata', implode('', $metaData), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT ),
         ]);
     }
+
+    /**
+     * Get data view Columns
+     * @return array
+     */
+    protected function getDataViewTabs() : array
+    {
+        return [
+            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
+                ->setUrl('#tabs-'.$this->getDataViewName().'-list')
+                ->setText('HL_OPTIONS_IPBLOCKING')
+                ->setFile('components/dataview__inline.php')
+                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
+        ];
+    }
     
     protected function onDelete()
     {

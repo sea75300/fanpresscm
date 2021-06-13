@@ -3,20 +3,20 @@
 <?php if (!isset($tabsInline) || !$tabsInline) : ?>
 <div class="fpcm-content-wrapper">
 <?php endif; ?>
-    <div class="fpcm-ui-tabs-general ui-tabs ui-corner-all ui-widget ui-widget-content <?php print $tabsClass; ?>" id="<?php print $tabsId; ?>">
-        <ul class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
+    <div class="fpcm ui-tabs-wrapper" id="<?php print $tabsId; ?>">
+        <ul class="nav nav-tabs <?php print $tabsClass; ?>" role="tablist">
             <?php foreach ($tabs as $tab) : ?><?php print $tab; ?><?php endforeach; ?>
-        </ul>
-
+        </ul>    
+    
+        <div class="tab-content">
         <?php foreach ($tabs as $tab) : ?>
             <?php if (!$tab->getFile()) : continue; endif; ?>
-            <div <?php print $tab->getIdString(); ?> class="fpcm tabs-register ui-tabs-panel ui-corner-bottom ui-widget-content">
-                <?php include $theView->getIncludePath($tab->getFile()); ?>
-            </div>
-
+            <div <?php print $tab->getIdString(); ?> class="tab-pane fade <?php if ($tab->isActive()) : ?>show active<?php endif; ?>" role="tabpanel" aria-labelledby="fpcm-tab-<?php print $tab->getId(); ?>">
+                    <?php include $theView->getIncludePath($tab->getFile()); ?>
+                </div>
         <?php endforeach; ?>
-
         </div>
+    </div>        
 <?php if (!isset($tabsInline) || !$tabsInline) : ?>
-    </div>
+</div>
 <?php endif; ?>

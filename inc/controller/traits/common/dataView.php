@@ -98,6 +98,11 @@ trait dataView {
         
         if (isset($this->view) && $this->view instanceof \fpcm\view\view) {
             $this->view->addDataView($this->dataView);
+            
+            $tabs = $this->getDataViewTabs();
+            if (count($tabs)) {
+                $this->view->addTabs('tabs-'.$this->getDataViewName(), $tabs);                
+            }
         }
         
     }
@@ -113,6 +118,15 @@ trait dataView {
      * @return array
      */
     abstract protected function getDataViewCols();
+
+    /**
+     * Get data view Columns
+     * @return array
+     */
+    protected function getDataViewTabs() : array
+    {
+        return [];
+    }
     
     /**
      * Initialize Data view row

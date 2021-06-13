@@ -14,45 +14,45 @@ fpcm.ui = {
 
     init: function() {
 
-        fpcm.ui._intVars.msgEl = fpcm.dom.fromId('fpcm-messages');
-
-        fpcm.ui.showMessages();
-        fpcm.ui.messagesInitClose();
+//        fpcm.ui._intVars.msgEl = fpcm.dom.fromId('fpcm-messages');
+//
+//        fpcm.ui.showMessages();
+//        fpcm.ui.messagesInitClose();
 
         fpcm.ui.tabs('.fpcm-ui-tabs-general');
-        fpcm.ui.initJqUiWidgets();
-        fpcm.ui.spinner('input.fpcm-ui-spinner');
-        fpcm.ui.datepicker('input.fpcm-ui-datetime-picker');
-        fpcm.ui.accordion('.fpcm-tabs-accordion');
-        fpcm.ui.initDateTimeMasks();
-
-        fpcm.dom.fromClass('fpcm-navigation-noclick').click(function () {
-            fpcm.ui_loader.hide();
-            return false;
-        });
-
-        fpcm.dom.fromId('fpcm-clear-cache').click(function () {
-            return fpcm.system.clearCache();
-        });
-
-        fpcm.dom.fromClass('fpcm-loader').click(function () {
-
-            var el = fpcm.dom.fromTag(this);
-            if (el.hasClass('fpcm-navigation-noclick') || el.data('hidespinner')) {
-                return false;
-            }
-
-            fpcm.ui_loader.show();
-        });
-        
-        fpcm.dom.fromId('fpcm-ui-form').submit(function () {
-            fpcm.ui_loader.show();
-            return true;
-        });
-        
-        if (fpcm.vars.jsvars.fieldAutoFocus) {
-            fpcm.dom.setFocus(fpcm.vars.jsvars.fieldAutoFocus);
-        }
+//        fpcm.ui.initJqUiWidgets();
+//        fpcm.ui.spinner('input.fpcm-ui-spinner');
+//        fpcm.ui.datepicker('input.fpcm-ui-datetime-picker');
+//        fpcm.ui.accordion('.fpcm-tabs-accordion');
+//        fpcm.ui.initDateTimeMasks();
+//
+//        fpcm.dom.fromClass('fpcm-navigation-noclick').click(function () {
+//            fpcm.ui_loader.hide();
+//            return false;
+//        });
+//
+//        fpcm.dom.fromId('fpcm-clear-cache').click(function () {
+//            return fpcm.system.clearCache();
+//        });
+//
+//        fpcm.dom.fromClass('fpcm-loader').click(function () {
+//
+//            var el = fpcm.dom.fromTag(this);
+//            if (el.hasClass('fpcm-navigation-noclick') || el.data('hidespinner')) {
+//                return false;
+//            }
+//
+//            fpcm.ui_loader.show();
+//        });
+//        
+//        fpcm.dom.fromId('fpcm-ui-form').submit(function () {
+//            fpcm.ui_loader.show();
+//            return true;
+//        });
+//        
+//        if (fpcm.vars.jsvars.fieldAutoFocus) {
+//            fpcm.dom.setFocus(fpcm.vars.jsvars.fieldAutoFocus);
+//        }
 
     },
 
@@ -186,145 +186,145 @@ fpcm.ui = {
     },
     
     tabs: function(elemClassId, params) {
-    
-        if (params === undefined) params = {};
-        
-        var el = fpcm.dom.fromTag(elemClassId);
-        if (!el.length) {
-            return;
-        }
-        
-        if (params.addMainToobarToggle) {
-            params.beforeActivate = function( event, ui ) {
-                fpcm.ui.updateMainToolbar(ui);
-                if (params.addMainToobarToggleAfter) {
-                    params.addMainToobarToggleAfter(event, ui);
-                }
 
-            }
-        }
-        
-        if (params.saveActiveTab) {
-            params.activate = function(event, ui) {
-                fpcm.vars.jsvars.activeTab = fpcm.dom.fromTag(this).tabs('option', 'active');
-                fpcm.dom.fromId('activeTab').val(fpcm.vars.jsvars.activeTab);
-                fpcm.ui.updateMainToolbar(ui);
-                if (params.saveActiveTabAfter) {
-                    params.saveActiveTabAfter(event, ui);
-                }
-            };
-
-            params.create = function(event, ui) {
-                fpcm.ui.updateMainToolbar(ui);
-                if (params.saveActiveTabAfterInit) {
-                    params.saveActiveTabAfterInit(event, ui);
-                }
-            }
-        }
-
-        if (params.initDataViewJson) {
-
-            params.beforeLoad = function(event, ui) {
-
-                fpcm.ui_loader.show();   
-                
-                tabList = ui.tab.data('dataview-list');                
-                if (!tabList) {
-                    return true;
-                }
-
-                if (params.initDataViewJsonBeforeLoad) {
-                    params.initDataViewJsonBeforeLoad(event, ui);
-                }
-
-                if (!params.dataFilterParams) {
-                    params.dataFilterParams = function( response ) {
-                        this.dataTypes = ['html', 'text'];
-                        return response;
-                    };
-                    
-                }
-
-                ui.ajaxSettings.dataTypes = params.dataTypes ? params.dataTypes : ['json'];
-                ui.ajaxSettings.accepts = params.accepts ? params.accepts : 'application/json';
-                ui.ajaxSettings.dataFilter = params.dataFilterParams;
-
-                ui.jqXHR.done(function(jqXHR) {
-
-                    if (typeof jqXHR !== 'object' || !jqXHR.dataViewVars) {
-                        return true;
-                    }
-
-                    fpcm.vars.jsvars.dataviews[tabList] = jqXHR.dataViewVars;
-                    if (params.initbeforeLoadDone) {
-                        params.initbeforeLoadDone(jqXHR);
-                    }
-                    
-                    return true;
-                });
-
-                ui.jqXHR.fail(function(jqXHR, textStatus, errorThrown) {
-                    console.error(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
-                    console.error('STATUS MESSAGE: ' + textStatus);
-                    console.error('ERROR MESSAGE: ' + errorThrown);
-                    fpcm.ajax.showAjaxErrorMessage();
-                    fpcm.ui_loader.hide();
-                });
-            };
-
-            params.load = function(event, ui) {
-
-                var tabList = ui.tab.data('dataview-list');                
-                if (!tabList) {
-
-                    if (params.initbeforeLoadDoneNoTabList) {
-                        params.initbeforeLoadDoneNoTabList(event, ui);
-                    }
-
-                    fpcm.ui_loader.hide();
-                    return true;
-                }
-
-                if (!fpcm.vars.jsvars.dataviews[tabList]) {
-                    fpcm.ui_loader.hide();
-                    return false;
-                }
-
-                if (params.initDataViewJsonBefore) {
-                    params.initDataViewJsonBefore(event, ui);
-                }
-
-                ui.panel.append(fpcm.dataview.getDataViewWrapper(tabList, params.dataViewWrapperClass ? params.dataViewWrapperClass : ''));
-
-                fpcm.dataview.updateAndRender(
-                    tabList,
-                    {
-                        onRenderAfter: params.initDataViewOnRenderAfter
-                });
-
-                if (params.initDataViewJsonAfter) {
-                    params.initDataViewJsonAfter(event, ui);
-                }
-
-                fpcm.ui_loader.hide();
-                return false;
-            };
-        }
-        
-        var tabEl = el.tabs(params);
-        
-        if (params.addTabScroll) {
-
-            el.find('ul.ui-tabs-nav').wrap('<div class="fpcm-tabs-scroll"></div>');
-            fpcm.ui.initTabsScroll(elemClassId);
-            
-            fpcm.dom.fromWindow().resize(function() {
-                fpcm.ui.initTabsScroll(elemClassId, true);
-            });
-
-        }
-
-        return tabEl;
+//        if (params === undefined) params = {};
+//        
+//        var el = fpcm.dom.fromTag(elemClassId);
+//        if (!el.length) {
+//            return;
+//        }
+//        
+//        if (params.addMainToobarToggle) {
+//            params.beforeActivate = function( event, ui ) {
+//                fpcm.ui.updateMainToolbar(ui);
+//                if (params.addMainToobarToggleAfter) {
+//                    params.addMainToobarToggleAfter(event, ui);
+//                }
+//
+//            }
+//        }
+//        
+//        if (params.saveActiveTab) {
+//            params.activate = function(event, ui) {
+//                fpcm.vars.jsvars.activeTab = fpcm.dom.fromTag(this).tabs('option', 'active');
+//                fpcm.dom.fromId('activeTab').val(fpcm.vars.jsvars.activeTab);
+//                fpcm.ui.updateMainToolbar(ui);
+//                if (params.saveActiveTabAfter) {
+//                    params.saveActiveTabAfter(event, ui);
+//                }
+//            };
+//
+//            params.create = function(event, ui) {
+//                fpcm.ui.updateMainToolbar(ui);
+//                if (params.saveActiveTabAfterInit) {
+//                    params.saveActiveTabAfterInit(event, ui);
+//                }
+//            }
+//        }
+//
+//        if (params.initDataViewJson) {
+//
+//            params.beforeLoad = function(event, ui) {
+//
+//                fpcm.ui_loader.show();   
+//                
+//                tabList = ui.tab.data('dataview-list');                
+//                if (!tabList) {
+//                    return true;
+//                }
+//
+//                if (params.initDataViewJsonBeforeLoad) {
+//                    params.initDataViewJsonBeforeLoad(event, ui);
+//                }
+//
+//                if (!params.dataFilterParams) {
+//                    params.dataFilterParams = function( response ) {
+//                        this.dataTypes = ['html', 'text'];
+//                        return response;
+//                    };
+//                    
+//                }
+//
+//                ui.ajaxSettings.dataTypes = params.dataTypes ? params.dataTypes : ['json'];
+//                ui.ajaxSettings.accepts = params.accepts ? params.accepts : 'application/json';
+//                ui.ajaxSettings.dataFilter = params.dataFilterParams;
+//
+//                ui.jqXHR.done(function(jqXHR) {
+//
+//                    if (typeof jqXHR !== 'object' || !jqXHR.dataViewVars) {
+//                        return true;
+//                    }
+//
+//                    fpcm.vars.jsvars.dataviews[tabList] = jqXHR.dataViewVars;
+//                    if (params.initbeforeLoadDone) {
+//                        params.initbeforeLoadDone(jqXHR);
+//                    }
+//                    
+//                    return true;
+//                });
+//
+//                ui.jqXHR.fail(function(jqXHR, textStatus, errorThrown) {
+//                    console.error(fpcm.ui.translate('AJAX_RESPONSE_ERROR'));
+//                    console.error('STATUS MESSAGE: ' + textStatus);
+//                    console.error('ERROR MESSAGE: ' + errorThrown);
+//                    fpcm.ajax.showAjaxErrorMessage();
+//                    fpcm.ui_loader.hide();
+//                });
+//            };
+//
+//            params.load = function(event, ui) {
+//
+//                var tabList = ui.tab.data('dataview-list');                
+//                if (!tabList) {
+//
+//                    if (params.initbeforeLoadDoneNoTabList) {
+//                        params.initbeforeLoadDoneNoTabList(event, ui);
+//                    }
+//
+//                    fpcm.ui_loader.hide();
+//                    return true;
+//                }
+//
+//                if (!fpcm.vars.jsvars.dataviews[tabList]) {
+//                    fpcm.ui_loader.hide();
+//                    return false;
+//                }
+//
+//                if (params.initDataViewJsonBefore) {
+//                    params.initDataViewJsonBefore(event, ui);
+//                }
+//
+//                ui.panel.append(fpcm.dataview.getDataViewWrapper(tabList, params.dataViewWrapperClass ? params.dataViewWrapperClass : ''));
+//
+//                fpcm.dataview.updateAndRender(
+//                    tabList,
+//                    {
+//                        onRenderAfter: params.initDataViewOnRenderAfter
+//                });
+//
+//                if (params.initDataViewJsonAfter) {
+//                    params.initDataViewJsonAfter(event, ui);
+//                }
+//
+//                fpcm.ui_loader.hide();
+//                return false;
+//            };
+//        }
+//        
+//        var tabEl = el.tabs(params);
+//        
+//        if (params.addTabScroll) {
+//
+//            el.find('ul.ui-tabs-nav').wrap('<div class="fpcm-tabs-scroll"></div>');
+//            fpcm.ui.initTabsScroll(elemClassId);
+//            
+//            fpcm.dom.fromWindow().resize(function() {
+//                fpcm.ui.initTabsScroll(elemClassId, true);
+//            });
+//
+//        }
+//
+//        return tabEl;
 
     },
 
