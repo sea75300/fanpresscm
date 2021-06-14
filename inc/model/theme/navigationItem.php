@@ -358,4 +358,17 @@ class navigationItem extends \fpcm\model\abstracts\staticModel {
         $this->currentModule = \fpcm\classes\tools::getNavigationActiveCheckStr();
     }
 
+    public function getDefaultCss() : string
+    {
+        $css = [];
+        if ($this->isActive()) {
+            $css[] = 'active';
+        }
+
+        if ($this->hasSubmenu()) {
+            $css[] = 'dropdown-toggle';
+        }
+
+        return implode(' ', $css);
+    }
 }

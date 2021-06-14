@@ -55,7 +55,7 @@ class notificationItem {
 
         $this->id = trim($id) ? trim($id) : uniqid('fpcm-notification-item');
         $this->callback = $callback;
-        $this->class = 'fpcm-menu-top-level2 fpcm-notification-item fpcm-ui-align-left py-2'.(trim($class) ? ' '.$class : '');
+        $this->class = 'nav-link'.(trim($class) ? ' '.$class : '');
     }
 
     /**

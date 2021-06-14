@@ -48,7 +48,8 @@ h3.fpcm-dashboard-container-headline span.fpcm-ui-icon {
 }
 
 .fpcm.ui-background-white-50p,
-.fpcm-ui-background-white-50p {
+.fpcm-ui-background-white-50p,
+.fpcm.ui-navigation .dropdown-menu {
     background: rgba(255,255,255,0.75);
 
 }
@@ -174,59 +175,47 @@ div.fpcm-filelist-thumb-box img {
 }
 
 /* ------ Main navigation menu */
-
-#fpcm-navigation a {
-    color: #362b36 !important;
+.fpcm.ui-navigation  .nav-link
+{
+    color: #362b36;
 }
 
-#fpcm-navigation .fpcm.menu-hover,
-#fpcm-navigation li:hover,
-#fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active:hover,
-#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active:hover,
 div.fpcm-status-info ul li:hover,
 div.fpcm-status-info ul li:focus,
-div.fpcm-status-info ul li:active,
-#btnHiddenMenu:hover {
+div.fpcm-status-info ul li:active ,
+.fpcm.ui-navigation  .dropdown-item.active,
+.fpcm.ui-navigation  .dropdown-item:focus,
+.fpcm.ui-navigation  .dropdown-item:hover,
+.fpcm.ui-navigation  .nav-link:focus,
+.fpcm.ui-navigation  .nav-link:hover,
+.fpcm.ui-navigation  .navbar-toggler:hover,
+.fpcm.ui-navigation  .nav-link.active,
+.fpcm.ui-navigation  .navbar-toggler:focus
+{
     background: rgba(0, 115, 234, 0.75);
 }
 
-#btnHiddenMenu,
-#fpcm-navigation > ul.fpcm-ui-menu:first-child > li > a {
-    background: none;
+.fpcm.ui-navigation  .dropdown-item.active,
+.fpcm.ui-navigation  .dropdown-item:focus,
+.fpcm.ui-navigation  .dropdown-item:hover,
+.fpcm.ui-navigation  .nav-link:focus,
+.fpcm.ui-navigation  .nav-link:hover,
+.fpcm.ui-navigation  .nav-link.active,
+.fpcm.ui-navigation  .navbar-toggler:hover,
+.fpcm.ui-navigation  .navbar-toggler:focus
+{
+    color: #fff;
 }
 
-#fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active > a,
-#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active > a {
-    color: #0073ea !important;
-}
-
-#fpcm-navigation .fpcm.menu-hover,
-#fpcm-navigation li:hover > a,
-#fpcm-navigation li:focus > a,
-#fpcm-navigation li:active > a,
-#fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active > a:hover,
-#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active > a:hover,
-#fpcm-navigation li.fpcm-menu-level1.fpcm-menu-item-active:hover > a,
-#fpcm-navigation li.fpcm-menu-level2.fpcm-menu-item-active:hover > a,
-div.fpcm-status-info ul li:hover > a,
-div.fpcm-status-info ul li:focus > a,
-div.fpcm-status-info ul li:active > a,
-div.fpcm-status-info ul li:hover em,
-div.fpcm-status-info ul li:focus em,
-div.fpcm-status-info ul li:active em,
-div.fpcm-status-info ul li:hover .fpcm-ui-important-text:hover,
-div.fpcm-status-info ul li:focus .fpcm-ui-important-text:focus,
-div.fpcm-status-info ul li:active .fpcm-ui-important-text:active,
-div.fpcm-status-info ul li:hover .fpcm-menu-top-level2:hover,
-div.fpcm-status-info ul li:focus .fpcm-menu-top-level2:focus,
-div.fpcm-status-info ul li:active .fpcm-menu-top-level2:active,
-#btnHiddenMenu:hover {
-    color: #fff !important;
+.fpcm.ui-navigation  .navbar-toggler:hover,
+.fpcm.ui-navigation  .navbar-toggler:focus
+{
+    box-shadow: none;
 }
 
 /* ------ Forms styles */
 select {
-    background: #f6f6f6 url("../../lib/jquery-ui/images/ui-bg_highlight-soft_100_f6f6f6_1x100.png") 50% 50% repeat-x;
+    background: #f6f6f6;
     border: 1px solid #bbb;
 }
 

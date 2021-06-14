@@ -1,47 +1,67 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if ($theView->navigation && $theView->loggedIn) : ?>
-<div id="fpcm-navigation" class="fpcm ui-background-white-50p">
-    <div class="greedy">        
-        <ul class="fpcm-ui-menu col">
-    <?php foreach ($theView->navigation->fetch() as $navigationGroup) : ?>
-        <?php foreach ($navigationGroup as $groupName => $navigationItem) : ?>     
-            <li id="item<?php print $navigationItem->getId(); ?>" class="col-12 fpcm ui-align-center fpcm-menu-level1 fpcm-menu-level1-show <?php print $navigationItem->getWrapperClass(); ?> <?php if ($navigationItem->hasSubmenu()) : ?>fpcm-menu-has-submenu menu-sub-animation-parent<?php endif; ?> <?php if ($navigationItem->isActive()) : ?>fpcm-menu-item-active<?php endif; ?>">
-                <a href="<?php print $navigationItem->getFullUrl(); ?>" class="<?php print $navigationItem->getClass(); ?> fpcm-loader" id="<?php print $navigationItem->getId(); ?>">
-                    <span class="fpcm ui-align-center fpcm-ui-nav-icon"><?php print $navigationItem->getIcon(); ?></span>
-                    <span class="fpcm ui-align-center fpcm-ui-nav-descr">
-                        <?php print $navigationItem->getDescription(); ?>                    
-                        <?php if ($navigationItem->hasSubmenu()) : ?>&nbsp;<?php $theView->icon('chevron-down'); ?><?php endif; ?>
-                    </span>
-                </a>
-                <?php if ($navigationItem->hasSubmenu()) : ?>
-                    <ul class="fpcm-ui-sub-menu col-12 fpcm ui-background-white-90p ui-blurring menu-sub-animation menu-sub-animation-active">
-                        <?php 
-                        foreach ($navigationItem->getSubmenu() as $submenuItem) : ?>
-                        <li id="submenu-item<?php print $submenuItem->getId(); ?>" class="col-12 fpcm-menu-level2 fpcm-ui-ellipsis <?php if ($submenuItem->isActive()) : ?>fpcm-menu-item-active<?php endif; ?>">
-                                <a href="<?php print $submenuItem->getFullUrl(); ?>" class="<?php print $submenuItem->getClass(); ?> fpcm-loader" id="<?php print $submenuItem->getId(); ?>">
-                                    <?php if ($submenuItem->getIcon()) : ?>
-                                        <span class="fpcm-ui-center fpcm-ui-nav-sub-icon"><?php print $submenuItem->getIcon(); ?></span>
-                                    <?php endif; ?>
-                                    <span class="fpcm-ui-nav-sub-descr"><?php print $submenuItem->getDescription(); ?></span>
-                                </a>
-                            </li>
-                            <?php if ($submenuItem->hasSpacer()) :?>
-                                <div class="fpcm-admin-nav-modmgr-link"></div>
-                            <?php endif; ?>
+<nav class="navbar navbar-expand-xxl fpcm ui-background-white-50p ui-navigation" id="fpcm-navigation">
+
+    <div class="container-fluid">
+        
+        <div class="navbar-brand">
+            <img src="<?php print $theView->themePath; ?>logo.svg" alt="FanPress CM News System" title="FanPress CM News System">
+            <!-- <h1 class="mx-3- mx-md-0"><?php $theView->icon('chevron-right '); ?> <span>FanPress CM</span> <span>News System</span></h1>-->
+        </div>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#fpcm-navigation-menu" aria-controls="fpcm-navigation-menu" aria-expanded="false" aria-label="<?php $theView->write('NAVIGATION_SHOW'); ?>">
+            <?php $theView->icon('bars'); ?>
+        </button>
+
+        <div class="collapse navbar-collapse" id="fpcm-navigation-menu">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <?php foreach ($theView->navigation->fetch() as $ng) : ?>
+
+            <?php foreach ($ng as $groupName => $ni) : ?>   
+
+                <li class="nav-item mx-2 <?php if ($ni->hasSubmenu()) : ?>dropdown<?php endif; ?>"  id="item<?php print $ni->getId(); ?>">
+                    <a class="nav-link fpcm nav-level-1 text-center <?php print $ni->getDefaultCss(); ?>"
+                       href="<?php print $ni->getFullUrl(); ?>"
+                       <?php if ($ni->hasSubmenu()) : ?> role="button" data-bs-toggle="dropdown" aria-expanded="false"<?php endif; ?>
+                       <?php if ($ni->isActive()) : ?>aria-current="page"<?php endif; ?>>
+                        
+                        <span class="d-block"><?php print $ni->getIcon(); ?></span>
+                        <span class="fpcm nav-text"><?php print $ni->getDescription(); ?></span>
+                    </a>
+                    
+                    <?php if ($ni->hasSubmenu()) : ?>
+                    
+                    <ul class="dropdown-menu" aria-labelledby="item<?php print $ni->getId(); ?>">
+                        
+                        <?php foreach ($ni->getSubmenu() as $si) : ?>
+                        
+                        
+                        <li id="submenu-item<?php print $si->getId(); ?>">
+                            <a class="dropdown-item <?php print $si->getDefaultCss(); ?>"
+                               href="<?php print $si->getFullUrl(); ?>"
+                               <?php if ($ni->isActive()) : ?>aria-current="true"<?php endif; ?>>
+                                <?php print $si->getIcon(); ?>
+                                <?php print $si->getDescription(); ?>
+                            </a>
+                        </li>
+                        <?php if ($si->hasSpacer()) :?>
+                            <li><hr class="dropdown-divider"></li>
+                        <?php endif; ?>
+
                         <?php endforeach; ?>
+                        
                     </ul>
-                <?php endif; ?>
-            </li>            
+                    <?php endif; ?>
+                </li>
+
+            <?php endforeach; ?>
+
         <?php endforeach; ?>
-    <?php endforeach; ?>
-        </ul>
 
-        <?php $theView->button('hiddenMenu')->setIcon('bars')->setSize('lg')->setText('NAVIGATION_SHOW')->setIconOnly(true)->setClass('fpcm ui-border-radius-none ui-center fpcm-ui-hidden'); ?>
-
-        <ul class="fpcm-ui-nav-hidden-links fpcm-ui-position-right-0 fpcm ui-background-white-90p ui-blurring ui-scale-standlone"></ul>
-
-        <div class="fpcm-ui-clear"></div>
+            </ul>
+        </div>
     </div>
+    
 
-</div>
+</nav>
 <?php endif; ?>

@@ -14,35 +14,35 @@ fpcm.ui_navigation = {
 
     init: function() {
 
-        fpcm.ui_navigation.initGreedyEl();
-        fpcm.ui_navigation.highlightModule();
-
-        fpcm.ui_navigation._vars.btn = fpcm.dom.fromId('btnHiddenMenu');
-        fpcm.ui_navigation._vars.greedy = fpcm.dom.fromTag('div.greedy ul.fpcm-ui-menu:first-child');
-        fpcm.ui_navigation._vars.hlinks = fpcm.dom.fromTag('div.greedy ul.fpcm-ui-nav-hidden-links');
-
-        fpcm.ui_navigation._vars.numOfItems = 0;
-        fpcm.ui_navigation._vars.totalSpace = 0;
-        fpcm.ui_navigation._vars.breakWidths = [];
-
-        fpcm.ui_navigation._vars.checkcnt = 0;
-
-        fpcm.ui_navigation._vars.greedy.children().width(function(i, w) {
-            fpcm.ui_navigation._vars.totalSpace += w;
-            fpcm.ui_navigation._vars.numOfItems += 1;
-            fpcm.ui_navigation._vars.breakWidths.push(fpcm.ui_navigation._vars.totalSpace);
-        });
-
-        fpcm.dom.fromWindow().resize(function() {
-            fpcm.ui_navigation._checkGreedy();
-        });
-
-        fpcm.ui_navigation._vars.btn.click(function() {
-            fpcm.ui_navigation._vars.hlinks.toggleClass('ui-scale-standlone-active');
-            fpcm.dom.fromTag(this).toggleClass('menu-hover');
-        });
-
-        fpcm.ui_navigation._checkGreedy();
+//        fpcm.ui_navigation.initGreedyEl();
+//        fpcm.ui_navigation.highlightModule();
+//
+//        fpcm.ui_navigation._vars.btn = fpcm.dom.fromId('btnHiddenMenu');
+//        fpcm.ui_navigation._vars.greedy = fpcm.dom.fromTag('div.greedy ul.fpcm-ui-menu:first-child');
+//        fpcm.ui_navigation._vars.hlinks = fpcm.dom.fromTag('div.greedy ul.fpcm-ui-nav-hidden-links');
+//
+//        fpcm.ui_navigation._vars.numOfItems = 0;
+//        fpcm.ui_navigation._vars.totalSpace = 0;
+//        fpcm.ui_navigation._vars.breakWidths = [];
+//
+//        fpcm.ui_navigation._vars.checkcnt = 0;
+//
+//        fpcm.ui_navigation._vars.greedy.children().width(function(i, w) {
+//            fpcm.ui_navigation._vars.totalSpace += w;
+//            fpcm.ui_navigation._vars.numOfItems += 1;
+//            fpcm.ui_navigation._vars.breakWidths.push(fpcm.ui_navigation._vars.totalSpace);
+//        });
+//
+//        fpcm.dom.fromWindow().resize(function() {
+//            fpcm.ui_navigation._checkGreedy();
+//        });
+//
+//        fpcm.ui_navigation._vars.btn.click(function() {
+//            fpcm.ui_navigation._vars.hlinks.toggleClass('ui-scale-standlone-active');
+//            fpcm.dom.fromTag(this).toggleClass('menu-hover');
+//        });
+//
+//        fpcm.ui_navigation._checkGreedy();
 
     },
     
