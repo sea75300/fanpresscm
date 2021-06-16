@@ -84,6 +84,17 @@ h3,
     font-weight: bold;
 }
 
+a.fpcm-ui-button-link,
+a.fpcm-ui-button-link:hover,
+a.fpcm-ui-button-link:focus,
+a.fpcm-ui-button-link:active,
+a.dropdown-item:hover,
+a.dropdown-item:focus,
+a.dropdown-item:active,
+a.dropdown-item {
+    font-weight: normal;
+}
+
 table {
     border-spacing: 0;
 }
@@ -116,4 +127,20 @@ span.fpcm-ui-badge,
 .fpcm-ui-input-wrapper,
 .fpcm-ui-border-radius-all {
     border-radius: 5px !important;
+}
+
+.fpcm.ui-navigation .nav-link {
+    font-weight: normal;
+}
+
+.fpcm.ui-navigation .nav-link.fpcm.ui-navigation-l1 {
+    border-radius: 5px;
+}
+
+.fpcm.ui-navigation  a.fpcm.nav-level-1 > span.fpcm.nav-text {
+    font-size: 0.975rem;
+}
+
+.navbar-toggler {
+    box-shadow: none !important;
 }

@@ -19,7 +19,7 @@ fpcm.ui = {
 //        fpcm.ui.showMessages();
 //        fpcm.ui.messagesInitClose();
 
-        fpcm.ui.tabs('.fpcm-ui-tabs-general');
+//        fpcm.ui.tabs('.fpcm-ui-tabs-general');
 //        fpcm.ui.initJqUiWidgets();
 //        fpcm.ui.spinner('input.fpcm-ui-spinner');
 //        fpcm.ui.datepicker('input.fpcm-ui-datetime-picker');

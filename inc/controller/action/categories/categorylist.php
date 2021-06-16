@@ -116,8 +116,6 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
 
         $this->view->addAjaxPageToken('categories/massedit');
         $this->view->setFormAction('categories/list');
-        
-        $this->view->assign('headline', 'HL_CATEGORIES_MNG');
 
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('categories/add'))->setText('CATEGORIES_ADD')->setIcon('tag')->setClass('fpcm-loader'),
@@ -150,6 +148,17 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
 
         $this->view->render();
         return true;
+    }
+
+    protected function getDataViewTabs() : array
+    {
+        return [
+            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
+                ->setUrl('#tabs-'.$this->getDataViewName().'-list')
+                ->setText('HL_CATEGORIES_MNG')
+                ->setFile('components/dataview__inline.php')
+                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
+        ];
     }
 
     /**

@@ -17,10 +17,10 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <?php foreach ($theView->navigation->fetch() as $ng) : ?>
 
-            <?php foreach ($ng as $groupName => $ni) : ?>   
+            <?php foreach ($ng as $area => $ni) : ?>   
 
                 <li class="nav-item mx-2 <?php if ($ni->hasSubmenu()) : ?>dropdown<?php endif; ?>"  id="item<?php print $ni->getId(); ?>">
-                    <a class="nav-link fpcm nav-level-1 text-center <?php print $ni->getDefaultCss(); ?>"
+                    <a class="fpcm ui-navigation-l1 dropdown-item nav-link fpcm nav-level-1 text-center <?php print $ni->getDefaultCss(); ?>"
                        href="<?php print $ni->getFullUrl(); ?>"
                        <?php if ($ni->hasSubmenu()) : ?> role="button" data-bs-toggle="dropdown" aria-expanded="false"<?php endif; ?>
                        <?php if ($ni->isActive()) : ?>aria-current="page"<?php endif; ?>>
@@ -37,7 +37,7 @@
                         
                         
                         <li id="submenu-item<?php print $si->getId(); ?>">
-                            <a class="dropdown-item <?php print $si->getDefaultCss(); ?>"
+                            <a class="dropdown-item nav-link <?php print $si->getDefaultCss(); ?>"
                                href="<?php print $si->getFullUrl(); ?>"
                                <?php if ($ni->isActive()) : ?>aria-current="true"<?php endif; ?>>
                                 <?php print $si->getIcon(); ?>
@@ -59,9 +59,8 @@
         <?php endforeach; ?>
 
             </ul>
+
         </div>
-    </div>
-    
 
 </nav>
 <?php endif; ?>

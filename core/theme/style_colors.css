@@ -12,8 +12,7 @@ i, em,
 span.fpcm-ui-button-shorthelp,
 div.fpcm-ui-inline-loader,
 .fpcm-ui-color-grey-dark,
-.fpcm-message-neutral,
-#btnHiddenMenu {
+.fpcm-message-neutral {
     color: #454545;
 }
 
@@ -175,42 +174,26 @@ div.fpcm-filelist-thumb-box img {
 }
 
 /* ------ Main navigation menu */
-.fpcm.ui-navigation  .nav-link
+
+.nav-link
 {
     color: #362b36;
 }
 
-div.fpcm-status-info ul li:hover,
-div.fpcm-status-info ul li:focus,
-div.fpcm-status-info ul li:active ,
-.fpcm.ui-navigation  .dropdown-item.active,
-.fpcm.ui-navigation  .dropdown-item:focus,
-.fpcm.ui-navigation  .dropdown-item:hover,
-.fpcm.ui-navigation  .nav-link:focus,
-.fpcm.ui-navigation  .nav-link:hover,
-.fpcm.ui-navigation  .navbar-toggler:hover,
-.fpcm.ui-navigation  .nav-link.active,
-.fpcm.ui-navigation  .navbar-toggler:focus
-{
-    background: rgba(0, 115, 234, 0.75);
+.navbar-toggler:hover,
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.dropdown-item.active,
+.dropdown-item:active,
+.dropdown-menu-dark .dropdown-item:active,
+.dropdown-menu-dark .dropdown-item.active {
+    background-color: #0073ea;
 }
 
-.fpcm.ui-navigation  .dropdown-item.active,
-.fpcm.ui-navigation  .dropdown-item:focus,
-.fpcm.ui-navigation  .dropdown-item:hover,
-.fpcm.ui-navigation  .nav-link:focus,
-.fpcm.ui-navigation  .nav-link:hover,
-.fpcm.ui-navigation  .nav-link.active,
-.fpcm.ui-navigation  .navbar-toggler:hover,
-.fpcm.ui-navigation  .navbar-toggler:focus
-{
+.navbar-toggler:hover,
+.navbar-toggler:focus,
+.navbar-toggler:active {
     color: #fff;
-}
-
-.fpcm.ui-navigation  .navbar-toggler:hover,
-.fpcm.ui-navigation  .navbar-toggler:focus
-{
-    box-shadow: none;
 }
 
 /* ------ Forms styles */

@@ -28,6 +28,6 @@
                 <?php include_once $theView->getIncludePath('common/navigation.php'); ?>
             </header>
 
+            <?php include_once $theView->getIncludePath('common/buttons.php'); ?>
 
-            <?php //include_once $theView->getIncludePath('common/buttons.php'); ?>
             <div class="container-fluid">

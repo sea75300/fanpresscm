@@ -14,7 +14,7 @@ fpcm.dashboard = {
     onDone: {},
 
     init: function () {
-        fpcm.dashboard.load();
+        //fpcm.dashboard.load();
     },
     
     load: function () {

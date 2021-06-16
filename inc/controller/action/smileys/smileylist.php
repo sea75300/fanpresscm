@@ -83,10 +83,20 @@ class smileylist extends \fpcm\controller\abstracts\controller implements \fpcm\
             (new \fpcm\view\helper\deleteButton('deleteSmiley'))->setClass('fpcm-ui-button-confirm')
         ]);
         
-        $this->view->assign('headline', 'HL_OPTIONS_SMILEYS');
         $this->view->setFormAction('smileys/list');
         $this->view->addJsFiles(['smileys.js']);
         $this->view->render();
+    }
+
+    protected function getDataViewTabs() : array
+    {
+        return [
+            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
+                ->setUrl('#tabs-'.$this->getDataViewName().'-list')
+                ->setText('HL_OPTIONS_SMILEYS')
+                ->setFile('components/dataview__inline.php')
+                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
+        ];
     }
 
     /**

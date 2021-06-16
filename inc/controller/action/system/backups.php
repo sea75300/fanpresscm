@@ -78,7 +78,6 @@ class backups extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->addButton((new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')->setReadonly($isPg));
         $this->view->addJsFiles(['backups.js']);
 
-        $this->view->assign('headline', 'HL_BACKUPS');
         if ($isPg) {
             $this->view->addErrorMessage('BACKUPS_NOTICE_POSTGRES');
             $this->items = [];
@@ -99,6 +98,17 @@ class backups extends \fpcm\controller\abstracts\controller implements \fpcm\con
         );
 
         $this->view->render();
+    }
+
+    protected function getDataViewTabs() : array
+    {
+        return [
+            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
+                ->setUrl('#tabs-'.$this->getDataViewName().'-list')
+                ->setText('HL_BACKUPS')
+                ->setFile('components/dataview__inline.php')
+                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
+        ];
     }
 
     protected function getDataViewCols()

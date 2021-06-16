@@ -55,7 +55,7 @@ class button extends helper {
     protected function init()
     {
         $this->prefix = self::NAME_PREFIX;
-        $this->class = 'ui-button ui-corner-all fpcm-ui-button';
+        $this->class = 'btn btn-light fpcm ui-button fpcm-ui-button';
         $this->type = 'button';
     }
 

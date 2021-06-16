@@ -92,7 +92,7 @@ class notificationItem {
      */
     public function __toString() : string
     {
-        return "<li id=\"{$this->id}\" class=\"{$this->class}\"".$this->getCallback(). $this->icon . $this->icon->getText() . "</li>";
+        return "<li id=\"{$this->id}\" class=\"{$this->class} text-truncate\"".$this->getCallback(). $this->icon . $this->icon->getText() . "</li>";
     }
 
     /**
@@ -107,6 +107,7 @@ class notificationItem {
         }
 
         if (strpos($this->callback, 'http') === 0) {
+            $this->class .= ' nav-link';
             return "><a href=\"{$this->callback}\">" . $this->icon . "</a>";
         }
 

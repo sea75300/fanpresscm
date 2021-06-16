@@ -59,7 +59,6 @@ class crons extends \fpcm\controller\abstracts\controller implements \fpcm\contr
 
         $this->initDataView();
 
-        $this->view->assign('headline', 'HL_CRONJOBS');
         $this->view->addJsFiles(['crons.js']);
         $this->view->addJsLangVars(['CRONJOB_ECEDUTING']);
         $this->view->setBodyClass('fpcm-content-nobuttons');
@@ -79,6 +78,17 @@ class crons extends \fpcm\controller\abstracts\controller implements \fpcm\contr
             (new \fpcm\components\dataView\column('name', 'CRONJOB_LIST_NAME'))->setSize(4),
             (new \fpcm\components\dataView\column('lastexec', 'CRONJOB_LIST_LASTEXEC'))->setSize(2)->setAlign('center'),
             (new \fpcm\components\dataView\column('nextecec', 'CRONJOB_LIST_NEXTEXEC'))->setSize(2)->setAlign('center'),
+        ];
+    }
+
+    protected function getDataViewTabs() : array
+    {
+        return [
+            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
+                ->setUrl('#tabs-'.$this->getDataViewName().'-list')
+                ->setText('HL_CRONJOBS')
+                ->setFile('components/dataview__inline.php')
+                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
         ];
     }
 

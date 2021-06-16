@@ -70,13 +70,13 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->items = $this->list->getItems();
         $this->initDataView();
         
-        $this->view->assign('headline', 'HL_OPTIONS_WORDBAN');
         $this->view->setFormAction('wordban/list');
         $this->view->addJsFiles(['texts.js']);
         $this->view->addButtons([
             (new \fpcm\view\helper\linkButton('addnew'))->setUrl(\fpcm\classes\tools::getFullControllerLink('wordban/add'))->setText('WORDBAN_ADD')->setIcon('ban')->setClass('fpcm-loader'),
             (new \fpcm\view\helper\deleteButton('delete'))->setClass('fpcm-ui-button-confirm')
         ]);
+        
         $this->view->render();
         return true;
     }
@@ -125,6 +125,17 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             new \fpcm\components\dataView\rowCol('replacement', new \fpcm\view\helper\escape($item->getReplacementtext())),
             new \fpcm\components\dataView\rowCol('metadata', implode('', $metaData), 'fpcm-ui-metabox fpcm-ui-dataview-align-center', \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT),
         ]);
+    }
+
+    protected function getDataViewTabs() : array
+    {
+        return [
+            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
+                ->setUrl('#tabs-'.$this->getDataViewName().'-list')
+                ->setText('HL_OPTIONS_WORDBAN')
+                ->setFile('components/dataview__inline.php')
+                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
+        ];
     }
     
     private function delete()

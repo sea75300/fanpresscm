@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if ($theView->loggedIn) : ?>
-<nav class="navbar navbar-expand ui-navigation" id="fpcm-top-menu">
+<nav class="navbar navbar-expand navbar-dark bg-dark ui-navigation py-2 py-lg-0" id="fpcm-top-menu">
     <div class="container-fluid">
         
         <div class="navbar-brand"></div>
@@ -35,7 +35,7 @@
                         <?php $theView->icon('envelope')->setClass('fpcm-navicon')->setSize('lg'); ?>                
                         <?php $theView->write('PROFILE_MENU_NOTIFICATIONS'); ?>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="fpcm-notify-menu">
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="fpcm-notify-menu">
                         <?php if ($theView->notificationString) : ?>
                             <?php print $theView->notificationString; ?>
                         <?php else : ?>
@@ -50,17 +50,17 @@
                         <?php $theView->icon('user-circle')->setClass('fpcm-navicon')->setSize('lg'); ?>                
                         <?php $theView->write('PROFILE_MENU_LOGGEDINAS',  ['{{username}}' => $theView->currentUser->getDisplayName()]); ?>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="fpcm-profile-menu">
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="fpcm-profile-menu">
                         <li>
-                            <a class="dropdown-item" href="<?php print $theView->controllerLink('system/profile'); ?>">
-                                  <?php $theView->icon('wrench'); ?>
-                                  <?php $theView->write('PROFILE_MENU_OPENPROFILE'); ?>
+                            <a class="dropdown-item  text-truncate" href="<?php print $theView->controllerLink('system/profile'); ?>">
+                                <?php $theView->icon('wrench'); ?>
+                                <?php $theView->write('PROFILE_MENU_OPENPROFILE'); ?>
                             </a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="<?php print $theView->controllerLink('system/logout'); ?>">
-                                  <?php $theView->icon('sign-out-alt'); ?>
-                                  <?php $theView->write('LOGOUT_BTN'); ?>
+                                <?php $theView->icon('sign-out-alt'); ?>
+                                <?php $theView->write('LOGOUT_BTN'); ?>
                             </a>
                         </li>
                         <li><hr class="dropdown-divider"></li>

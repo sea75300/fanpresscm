@@ -9,11 +9,9 @@ jQuery.noConflict();
 
 (function () {
     fpcm.ui.init();
-    fpcm.ui_navigation.init();
     fpcm.ui_notify.init();
 
     delete fpcm.ui.init;
-    delete fpcm.ui_navigation.init;
     delete fpcm.ui_notify.init;
 
     fpcm.worker = new Worker('core/js/worker.js');

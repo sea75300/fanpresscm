@@ -35,6 +35,16 @@ class info extends \fpcm\controller\abstracts\controller {
             'content' => simplexml_load_string($this->language->getHelp())->xpath("/chapters/chapter[@ref=\"HL_HELP_SUPPORT\"]")[0],
             'licence' => file_get_contents(\fpcm\classes\dirs::getFullDirPath('', 'licence.txt'))
         ]);
+        
+        $this->view->assign('tabContentClass', 'fpcm ui-background-white-50p');
+        
+        $this->view->addTabs('supports', [
+            (new \fpcm\view\helper\tabItem('support'))
+                ->setText('HL_HELP_SUPPORT')
+                ->setFile( $this->getViewPath() . '.php' )
+                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE )
+        ]);
+        
         return true;
     }
 

@@ -38,7 +38,7 @@ class linkButton extends button {
      */
     protected function init()
     {
-        $this->class = 'ui-button ui-corner-all ui-widget fpcm-ui-button fpcm-ui-button-link';
+        $this->class = 'btn btn-light fpcm-ui-button fpcm-ui-button-link';
     }
 
     /**
