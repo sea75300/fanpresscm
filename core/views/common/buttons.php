@@ -20,7 +20,10 @@
             <?php endif; ?>
             <?php if ($theView->pager) : ?>
             <div class="nav-item">
-                <?php print $theView->pager; ?>
+                <div class="btn-group">
+                    <?php print $theView->pager; ?>
+                </div>
+                
             </div>
             <?php endif; ?>
         </div>

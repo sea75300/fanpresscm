@@ -347,28 +347,6 @@ ul.fpcm-ui-csv-fields {
     border-radius: 0 !important;
 }
 
-/* ------ Message box styles */
-#fpcm-messages {
-    top: 4em;
-    z-index: 10000;
-    max-width: 66%;
-    min-width: 400px;
-}
-
-.fpcm-message-box {
-    padding: 0.3em;
-    margin: 0.5em 0;
-}
-
-.fpcm-message-box a {
-    margin-left: 0.3em;
-}
-
-.fpcm-message-box .fpcm-ui-messages-close {
-    font-size: 0.6em;
-    cursor: pointer;
-}
-
 /* ------ Opacities */
 .fpcm-ui-status-0 {
     opacity: 0.2;

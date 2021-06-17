@@ -85,7 +85,6 @@ class crons extends \fpcm\controller\abstracts\controller implements \fpcm\contr
     {
         return [
             (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
-                ->setUrl('#tabs-'.$this->getDataViewName().'-list')
                 ->setText('HL_CRONJOBS')
                 ->setFile('components/dataview__inline.php')
                 ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)

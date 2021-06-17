@@ -131,7 +131,6 @@ class itemlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
     {
         return [
             (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
-                ->setUrl('#tabs-'.$this->getDataViewName().'-list')
                 ->setText('HL_OPTIONS_WORDBAN')
                 ->setFile('components/dataview__inline.php')
                 ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)

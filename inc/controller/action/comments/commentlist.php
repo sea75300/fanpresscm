@@ -97,6 +97,15 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
         $this->initDataView();
         $this->view->addDataView($this->dataView);
         $this->view->addPager(new \fpcm\view\helper\pager('comments/list', $this->page, $this->commentCount, $this->config->articles_acp_limit, $this->maxItemCount));
+        
+        
+        $this->view->addTabs('comments', [
+            (new \fpcm\view\helper\tabItem('tabs-comments-list'))
+                ->setText('COMMMENT_HEADLINE')
+                ->setFile($this->getViewPath() . '.php')
+                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
+        ]);
+        
     }
 
     
@@ -138,6 +147,17 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
             'commentsLastSearch' => 0,
             'massEditSaveFailed' => 'SAVE_FAILED_COMMENTS'
         ]);
+    }
+
+    protected function getDataViewTabs() : array
+    {
+        return [
+            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
+                ->setUrl('#tabs-'.$this->getDataViewName().'-list')
+                ->setText('COMMMENT_HEADLINE')
+                ->setFile($this->getViewPath() . '.php')
+                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
+        ];
     }
 
 }

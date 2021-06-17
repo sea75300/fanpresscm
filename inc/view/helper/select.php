@@ -75,13 +75,13 @@ class select extends helper {
             $this->setDisplaySizesDefault();
         }
         
-        if ($this->isMultiple) {
-            $this->class = str_replace('fpcm-ui-input-select', 'fpcm-ui-input-select-multiple', $this->class);        
-        }
+//        if ($this->isMultiple) {
+//            $this->class = str_replace('fpcm-ui-input-select', 'fpcm-ui-input-select-multiple', $this->class);        
+//        }
 
         $label = '';
         if ($this->prependLabel) {
-            $label = "<label title=\"{$this->text}\" class=\"fpcm-ui-field-label-general {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
+            $label = "<div class=\"input-group mb-3\"><label title=\"{$this->text}\" class=\"input-group-text {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
         }
         
         return $label.implode(' ', [
@@ -93,7 +93,8 @@ class select extends helper {
             ">",
             $this->hasOptGroup ? $this->getOptionsGroupsString() : $this->getOptionsString($this->options),
             "</select>",
-        ]);
+        ]) . ($this->prependLabel ? '</div>' : '');
+        
     }
 
     /**
@@ -102,7 +103,7 @@ class select extends helper {
      */
     protected function init()
     {
-        $this->class = 'fpcm-ui-input-select';
+        $this->class = 'form-select';
         $this->firstOption = self::FIRST_OPTION_PLEASESELECT;
     }
 

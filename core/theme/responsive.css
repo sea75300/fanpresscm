@@ -4,24 +4,6 @@
 
 @media (max-width: 576px) {
     
-    #fpcm-messages {
-        max-width: 100% !important;
-        min-width: 100% !important;
-        right: 0 !important;
-        top: 2em !important;
-    }
-    
-    div.fpcm-message-box {
-        border: 0;
-        margin: 0 !important;
-        z-index: 1 !important;
-    }
-
-    #fpcm-messages,
-    div.fpcm-ui-messages-close   {
-        text-align:center !important;
-    }
-    
     div.fpcm-ui-logo h1 {
         padding: 0.75em 0 !important;
     }

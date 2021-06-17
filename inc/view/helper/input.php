@@ -68,16 +68,10 @@ abstract class input extends helper {
         $wrapperStart = '';
         $wrapperEnd = '';
 
-        if ($this->useWrapper) {
-            $this->wrapperClass .= ' fpcm-ui-input-wrapper-'.$this->type;
-            $wrapperStart = "<div class=\"fpcm-ui-input-wrapper col-{$this->colWidth} {$this->wrapperClass} fpcm-ui-padding-none-lr\"><div class=\"fpcm-ui-input-wrapper-inner\">";
-            $wrapperEnd = "</div></div>";
-        }
-        else {
-            $this->class .= ' fpcm-ui-field-input-nowrapper-general'.$this->getFieldSize();
-        }
-        
-        $input = "<input type=\"{$this->type}\" maxlength=\"{$this->maxlenght}\" {$this->getAttributeStrings()}>";
+        $wrapperStart = "<div class=\"input-group mb-3\">";
+        $wrapperEnd = "</div>";
+
+        $input = "<input class=\"form-control\" type=\"{$this->type}\" maxlength=\"{$this->maxlenght}\" {$this->getAttributeStrings()}>";
         $this->appendItems($input);
 
         if (!$this->text) {
@@ -86,7 +80,7 @@ abstract class input extends helper {
 
         $description = $this->placeholder !== true ? $this->getDescriptionTextString() : '';
         if ($this->getIconString() || trim($description)) {
-            $description = "<label title=\"{$this->text}\" class=\"fpcm-ui-field-label-general {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
+            $description = "<label title=\"{$this->text}\" class=\"input-group-text {$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
         }
 
         return $wrapperStart . $description . $input . $wrapperEnd;

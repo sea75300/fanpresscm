@@ -23,6 +23,12 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
     protected $uploadDisabled;
 
     /**
+     *
+     * @var bool
+     */
+    protected $tabs = [];
+
+    /**
      * 
      * @return bool
      */
@@ -65,8 +71,7 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
      */
     public function process()
     {
-        $this->initUpload();
-        
+
         $this->view->addJsLangVars([
             'MODULES_LIST_INFORMATIONS', 'MODULES_FAILED_ENABLE',
             'MODULES_FAILED_DISABLE', 'MODULES_FAILED_INSTALL',
@@ -108,6 +113,24 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
         }
 
         $this->view->addButtons($buttons);
+        
+        $this->tabs = [
+            
+            (new \fpcm\view\helper\tabItem('local'))
+                ->setText('MODULES_LIST_HEADLINE')
+                ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/modules/fetch', ['mode' => 'local']))
+                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
+                ->setData(['dataview-list' => 'modulesLocal']),
+            (new \fpcm\view\helper\tabItem('remote'))
+                ->setText('MODULES_LIST_AVAILABLE')
+                ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/modules/fetch', ['mode' => 'remote']))
+                ->setData(['dataview-list' => 'modulesRemote']),            
+        ];
+        
+        $this->initUpload();
+        
+        $this->view->addTabs('tabs-modulemgr', $this->tabs);
+        
         return true;
     }
 
@@ -128,7 +151,14 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
         $this->view->addCssFiles($uploader->getCssFiles());
         $this->view->addJsVars($uploader->getJsVars());
         $this->view->addJsLangVars($uploader->getJsLangVars());
-        $this->view->setViewVars($uploader->getViewVars());
+        
+        $vvars = $uploader->getViewVars();
+        $this->view->setViewVars($vvars);
+        
+        $this->tabs[] = (new \fpcm\view\helper\tabItem('remote'))
+            ->setText('MODULES_LIST_UPLOAD')
+            ->setFile($vvars['uploadTemplatePath']);
+        
         return true;
     }
 

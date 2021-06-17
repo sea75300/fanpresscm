@@ -14,21 +14,21 @@ fpcm.modulelist = {
     init: function() {
 
         fpcm.system.checkForUpdates();
-        fpcm.modulelist.tabs = fpcm.ui.tabs('#fpcm-tabs-modules',
+        fpcm.modulelist.tabs = fpcm.ui.tabs('#tabs-modulemgr',
         {
-            addTabScroll: true,
-            initDataViewJson: true,         
-            dataViewWrapperClass: 'fpcm-ui-modulelist',
-            initDataViewOnRenderAfter: fpcm.modulelist.initButtons,
-            initDataViewJsonBefore:function(event, ui) {
-                fpcm.dom.fromClass('fpcm-ui-modulelist').remove();
-            },            
-            beforeActivate: function( event, ui ) {
-                fpcm.dom.fromTag(ui.oldTab).unbind('click');
-            },
+//            addTabScroll: true,
+//            initDataViewJson: true,         
+//            dataViewWrapperClass: 'fpcm-ui-modulelist',
+//            initDataViewOnRenderAfter: fpcm.modulelist.initButtons,
+//            initDataViewJsonBefore:function(event, ui) {
+//                fpcm.dom.fromClass('fpcm-ui-modulelist').remove();
+//            },            
+//            beforeActivate: function( event, ui ) {
+//                fpcm.dom.fromTag(ui.oldTab).unbind('click');
+//            },
         });
 
-        fpcm.modulelist.tabs.tabs('load', 0);
+//        fpcm.modulelist.tabs.tabs('load', 0);
     },
     
     initButtons: function () {

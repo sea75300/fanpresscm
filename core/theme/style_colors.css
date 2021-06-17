@@ -11,8 +11,7 @@ a, a:visited, a.fpcm-link
 i, em,
 span.fpcm-ui-button-shorthelp,
 div.fpcm-ui-inline-loader,
-.fpcm-ui-color-grey-dark,
-.fpcm-message-neutral {
+.fpcm-ui-color-grey-dark {
     color: #454545;
 }
 
@@ -25,8 +24,7 @@ h1 span:nth-child(odd) {
 }
 
 ins,
-div.fpcm-ui-dataview-rowcolpadding,
-.fpcm-message-notice {
+div.fpcm-ui-dataview-rowcolpadding {
     color: #2779aa;
 }
 
@@ -77,25 +75,6 @@ div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even) {
     background: rgba(200,200,200,0.5);
 }
 
-.fpcm-message-box {
-    box-shadow: 0px 0px 15px #555555;
-}
-
-.fpcm-message-notice {
-    background:rgba(204, 233, 244, 0.9);
-    border-left: 5px solid #69BDDD;
-}
-
-.fpcm-message-neutral {
-    background: rgba(251, 236, 136, 0.9);
-    border-left: 5px solid #FAD42E;
-}
-
-.fpcm-message-error {
-    background:rgba(230, 168, 168, 0.9);
-    border-left: 5px solid #cc0000;
-}
-
 .fpcm-dashboard-updates-checkerror {
     color: #666666;
 }
@@ -120,7 +99,6 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
 }
 
 del,
-.fpcm-message-error,
 .fpcm-ui-important-text,
 span.fpcm-ui-booltext-no {
     color: #cc0000;
@@ -197,10 +175,10 @@ div.fpcm-filelist-thumb-box img {
 }
 
 /* ------ Forms styles */
-select {
+/*select {
     background: #f6f6f6;
     border: 1px solid #bbb;
-}
+}*/
 
 fieldset,
 textarea,

@@ -48,7 +48,7 @@ fpcm.ajax = {
         }
 
         jQuery.ajax({
-            url         : fpcm.vars.ajaxActionPath + action,
+            url         : fpcm.vars.ajaxActionPath + action.replace(fpcm.vars.ajaxActionPath, ''),
             type        : params.method.toUpperCase(),
             data        : params.data,
             async       : params.async,

@@ -14,9 +14,9 @@ fpcm.ui = {
 
     init: function() {
 
-//        fpcm.ui._intVars.msgEl = fpcm.dom.fromId('fpcm-messages');
+        fpcm.ui._intVars.msgEl = fpcm.dom.fromClass('fpcm.ui-message');
 //
-//        fpcm.ui.showMessages();
+        fpcm.ui.showMessages();
 //        fpcm.ui.messagesInitClose();
 
 //        fpcm.ui.tabs('.fpcm-ui-tabs-general');
@@ -185,9 +185,45 @@ fpcm.ui = {
         return el.accordion(params);
     },
     
-    tabs: function(elemClassId, params) {
+    tabs: function(_elemClassId, params) {
 
-//        if (params === undefined) params = {};
+        if (params === undefined) params = {};
+
+        var _tb = [].slice.call(document.querySelectorAll(_elemClassId + ' a.nav-link'));
+        _tb.forEach(function (_el) {
+            var _obj = new bootstrap.Tab(_el);
+
+            _el.addEventListener('click', function (_ev) {
+                _ev.preventDefault()
+                _obj.show();
+            });
+            
+            
+            _el.addEventListener('shown.bs.tab', function (_ev) {
+                
+                let _href = _ev.target.search;
+                if (_href === '#') {
+                    _ev.preventDefault();
+                    return false;
+                }
+
+                fpcm.ajax.get(_ev.target.href, {
+                    execDone: function (_result) {
+                        console.log(_result);
+                        
+                        
+                        if (_result instanceof Object) {
+                            console.warn('yes!');
+                        }
+                        
+                    }
+                });
+                
+                
+                console.log(_href);
+            })
+        });
+        
 //        
 //        var el = fpcm.dom.fromTag(elemClassId);
 //        if (!el.length) {
@@ -375,30 +411,30 @@ fpcm.ui = {
 
     selectmenu: function(elemClassId, params) {
 
-        var el = fpcm.dom.fromTag(elemClassId);
-        if (!el.length) {
-            return false;
-        }
-    
-        if (params === undefined) {
-            params = {};
-        }
-
-        if (elemClassId.substr(0,1) === '#') {
-            var dataWidth = fpcm.dom.fromTag(elemClassId).data('width');
-            if (dataWidth) {
-                params.width = dataWidth;
-            }
-        }
-
-        params.width = false;
-
-        var el = fpcm.dom.fromTag(elemClassId).selectmenu(params);
-        if (params.doRefresh) {
-            el.selectmenu('refresh');
-        }
-
-        return el;
+//        var el = fpcm.dom.fromTag(elemClassId);
+//        if (!el.length) {
+//            return false;
+//        }
+//    
+//        if (params === undefined) {
+//            params = {};
+//        }
+//
+//        if (elemClassId.substr(0,1) === '#') {
+//            var dataWidth = fpcm.dom.fromTag(elemClassId).data('width');
+//            if (dataWidth) {
+//                params.width = dataWidth;
+//            }
+//        }
+//
+//        params.width = false;
+//
+//        var el = fpcm.dom.fromTag(elemClassId).selectmenu(params);
+//        if (params.doRefresh) {
+//            el.selectmenu('refresh');
+//        }
+//
+//        return el;
         
     },
     
@@ -428,25 +464,25 @@ fpcm.ui = {
     
     controlgroup: function(elemClassId, params) {
       
-        if (params === undefined) {
-            params = {};
-        }
-
-        var el = fpcm.dom.fromTag(elemClassId);
-        if (!el.length) {
-            return false;
-        }
-
-        var elResult = el.controlgroup(params);
-        if (params.removeLeftBorderRadius) {
-            elResult.find('.ui-controlgroup-item').first().removeClass('ui-corner-left');
-        }
-
-        if (params.removeRightBorderRadius) {
-            elResult.find('.ui-controlgroup-item').first().removeClass('ui-corner-right');
-        }
-        
-        return elResult;
+//        if (params === undefined) {
+//            params = {};
+//        }
+//
+//        var el = fpcm.dom.fromTag(elemClassId);
+//        if (!el.length) {
+//            return false;
+//        }
+//
+//        var elResult = el.controlgroup(params);
+//        if (params.removeLeftBorderRadius) {
+//            elResult.find('.ui-controlgroup-item').first().removeClass('ui-corner-left');
+//        }
+//
+//        if (params.removeRightBorderRadius) {
+//            elResult.find('.ui-controlgroup-item').first().removeClass('ui-corner-right');
+//        }
+//        
+//        return elResult;
     },
     
     button: function(elemClassId, params, onClick) {
@@ -615,6 +651,7 @@ fpcm.ui = {
 
         var msg = null;
         var msgBoxid = null;
+        var _css = ' alert d-flex align-items-center alert-dismissible fade show position-absolute top-50 start-50 translate-middle';
 
         for (var i = 0; i < window.fpcm.vars.ui.messages.length; i++) {
 
@@ -632,24 +669,30 @@ fpcm.ui = {
                 continue;
             }
 
-            msgCode  = '<div class="row fpcm-message-box fpcm-message-' + msg.type + '" id="' + msgBoxid + '">';
-            msgCode += '    <div class="col-12 col-sm-11 fpcm-ui-padding-none-lr">';
-            msgCode += '        <div class="row">';
-            msgCode += '            <div class="col-12 col-sm-auto align-self-center fpcm-ui-center fpcm-ui-padding-none-lr">';
-            msgCode += '                ' + fpcm.ui.getIcon(msg.icon, { stack: 'square fa-inverse', size: '2x' });
-            msgCode += '            </div>';
-            msgCode += '            <div class="col-12 col-sm-10 align-self-center fpcm-ui-ellipsis">' + msg.txt +  '</div>';
-            msgCode += '        </div>';
-            msgCode += '    </div>';
-            msgCode += '    <div class="col-12 col-sm-1 fpcm-ui-padding-none-lr fpcm-ui-messages-close fpcm-ui-align-right" id="msgclose-' + msg.id + '" data-msgid="' + msg.id + '" data-msgidx="' + i + '">';
-            msgCode += '                ' + fpcm.ui.getIcon('times', { stack: 'square fa-inverse'});
-            msgCode += '    </div>';
+            if (msg.type == 'info' || msg.type == 'notice') {
+                _css += ' ui-msg-fadeout';
+            }
+
+            if (msg.type == 'error') {
+                msg.type = 'danger';
+            }
+
+            if (msg.type == 'neutral') {
+                msg.type = 'warning';
+            }
+
+            if (msg.type == 'notice') {
+                msg.type = 'success';
+            }
+
+            msgCode  = '<div class="fpcm ui-message alert-' + msg.type + _css + '" role="alert">';
+            msgCode += fpcm.ui.getIcon(msg.icon, { size: '2x' });
+            msgCode += '<div class="mx-3">' + msg.txt + '</div>';
+            msgCode += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Schließen"></button>';
             msgCode += '</div>';
-            fpcm.dom.appendHtml('#fpcm-messages', msgCode);
+            fpcm.dom.appendHtml('#fpcm-body', msgCode);
         }
 
-        fpcm.dom.fromTag('div.fpcm-message-box.fpcm-message-notice').delay(1000).fadeOut('slow');
-        fpcm.dom.fromTag('div.fpcm-message-box.fpcm-message-neutral').delay(1000).fadeOut('slow');        
     },
     
     addMessage: function(value, clear) {

@@ -49,14 +49,14 @@ option {
     border: none;
 }
 
-select::-ms-expand {
+/*select::-ms-expand {
     display: none;
 }
 
 select {
     min-width: 15rem;
     height: 31.333333px;
-}
+}*/
 
 textarea.fpcm-ui-textarea-medium,
 textarea.fpcm.ui-textarea-medium {

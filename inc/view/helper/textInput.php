@@ -26,7 +26,6 @@ final class textInput extends input {
         parent::init();
 
         $this->type = 'text';
-        $this->class .= ' fpcm-ui-input-text';
     }
 
 }
