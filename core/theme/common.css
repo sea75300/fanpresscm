@@ -4,7 +4,7 @@
 /* ------ General common styles */
 
 body {
-    font-size: 10pt;
+    font-size: 12pt;
     margin:0;
     padding:0;
     height: 100%;
@@ -113,18 +113,14 @@ label {
 
 legend,
 span.fpcm-ui-badge {
-    padding: 0.3em 0.5em;
+    padding: 0.3rem;
 }
 
 h2,
 h3,
-fieldset,
-legend,
-textarea,
 span.fpcm-ui-badge,
-.fpcm.ui-border-radius-all,
 .fpcm-dashboard-container h3,
-.fpcm-ui-input-wrapper,
+.fpcm.ui-border-radius-all,
 .fpcm-ui-border-radius-all {
     border-radius: 5px !important;
 }

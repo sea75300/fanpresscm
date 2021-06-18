@@ -313,27 +313,6 @@ span.fpcm-ui-badge.fpcm-ui-badge-userarticles,
     width: 50% !important;
 }
 
-.fpcm-ui-button,
-.fpcm-ui-controlgroup > *,
-.ui-selectmenu-button,
-.ui-checkboxradio-label,
-.fpcm-ui-element-min-height {
-    min-height: 18.666666666666666666666667px;
-    line-height: 18.666666666666666666666667px;
-}
-
-.fpcm.ui-element-min-height-md,
-.fpcm-ui-element-min-height-md,
-.fpcm-ui-field-input-nowrapper-general,
-.fpcm-ui-field-label-general {
-    min-height: 21.3333px;
-    line-height: 21.3333px;
-}
-
-.fpcm-editor-html-click {
-    min-height: 31px;
-}
-
 div.fpcm-ui-inline-loader {
     height: 50vh;
     max-height: 1024px;
@@ -341,10 +320,6 @@ div.fpcm-ui-inline-loader {
 
 ul.fpcm-ui-csv-fields {
     min-height: 100px;
-}
-
-.fpcm-ui-controlgroup.fpcm-ui-borderradius-remove-left > .ui-button:first-child {
-    border-radius: 0 !important;
 }
 
 /* ------ Opacities */
@@ -503,8 +478,7 @@ img.fpcm-ui-smileylist-preview {
     top: 1.25rem;
 }
 
-.fpcm-ui-border-radius-all,
-.fpcm-ui-field-input-nowrapper-general {
+.fpcm-ui-border-radius-all {
     border-radius: 5px;
 }
 

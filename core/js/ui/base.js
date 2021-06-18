@@ -15,6 +15,20 @@ fpcm.ui = {
     init: function() {
 
         fpcm.ui._intVars.msgEl = fpcm.dom.fromClass('fpcm.ui-message');
+        fpcm.dom.fromTag("button[data-fn]").click(function (_e) {
+
+            _e.preventDefault();
+
+            let fn = this.dataset['fn'].split('.');
+            if (! typeof fpcm[fn[0]][fn[1]] == 'function') {
+                return false;
+            }
+            
+            fpcm[fn[0]][fn[1]](_e, this);
+            return false;
+        });
+        
+        
 //
         fpcm.ui.showMessages();
 //        fpcm.ui.messagesInitClose();
@@ -511,96 +525,119 @@ fpcm.ui = {
     
     dialog: function(params) {
 
-        if (params.title === undefined) {
-            params.title = '';
-        }
+//        if (params.title === undefined) {
+//            params.title = '';
+//        }
+//
+//        if (params.id === undefined) {
+//            params.id = (new Date()).getTime();
+//        }
+//
+//        if (params.dlWidth === undefined) {
+//            var size = fpcm.ui.getDialogSizes();
+//            params.dlWidth = size.width;
+//        }
+//
+//        if (params.modal === undefined) {
+//            params.modal = true;
+//        }
+//
+//        if (params.resizable === undefined) {
+//            params.resizable = false;
+//        }
+//        
+//        var dialogId = 'fpcm-dialog-'+  params.id;
+//        if (params.content !== undefined) {
+//            fpcm.dom.appendHtml('#fpcm-body', '<div class="fpcm-ui-dialog-layer fpcm-editor-dialog" id="' + dialogId + '">' +  params.content + '</div>');
+//        }
+//
+//        var el = fpcm.dom.fromId(dialogId);
+//        if (!el.length) {
+//            return false;
+//        }
+//
+//        if (params.defaultCloseEmpty) {
+//            params.dlOnClose = function () {
+//                fpcm.dom.fromTag(this).dialog("close");
+//                fpcm.dom.fromTag(this).empty();
+//                return false;
+//            }
+//        }
+//        else if (params.defaultClose) {
+//            params.dlOnClose = function () {
+//                fpcm.dom.fromTag(this).dialog("close");
+//                return false;
+//            }
+//        }
+//
+//        var dlParams = {};
+//        dlParams.width    = params.dlWidth;        
+//        dlParams.modal    = params.modal;
+//        dlParams.resizable= params.resizable;
+//        dlParams.title    = params.title;
+//        dlParams.buttons  = params.dlButtons;
+//        dlParams.open     = params.dlOnOpen;
+//        dlParams.close    = params.dlOnClose;
+//        
+//        if (params.dlHeight !== undefined) {
+//            dlParams.height   = params.dlHeight;            
+//        }
+//        
+//        if (params.dlMinWidth !== undefined) {
+//            dlParams.minWidth   = params.dlMinWidth;
+//        }
+//        
+//        if (params.dlMinHeight !== undefined) {
+//            dlParams.minHeight   = params.dlMinHeight;            
+//        }
+//        
+//        if (params.dlMaxWidth !== undefined) {
+//            dlParams.maxWidth   = params.dlMaxWidth;            
+//        }
+//        
+//        if (params.dlMaxHeight !== undefined) {
+//            dlParams.maxHeight   = params.dlMaxHeight;            
+//        }
+//        
+//        if (params.dlPosition !== undefined) {
+//            dlParams.position   = params.dlPosition; 
+//        }
+//        
+//        if (params.onCreate) {
+//            dlParams.create = params.onCreate;
+//        }
+//        
+//        if (params.onResize !== undefined) {
+//            dlParams.resize   = params.onResize; 
+//        }
+//
+//        dlParams.show = true;
+//        dlParams.hide = true;
 
-        if (params.id === undefined) {
-            params.id = (new Date()).getTime();
-        }
+        params.id = 'fpcm-dialog-' + params.id;
 
-        if (params.dlWidth === undefined) {
-            var size = fpcm.ui.getDialogSizes();
-            params.dlWidth = size.width;
-        }
+        let _modal = fpcm.vars.ui.dialogTpl;
 
-        if (params.modal === undefined) {
-            params.modal = true;
-        }
+        fpcm.dom.appendHtml('#fpcm-body', _modal.replace('{$title}', fpcm.ui.translate(params.title))
+              .replace('{$id}', params.id)
+              .replace('{$opener}', params.opener)
+              .replace('{$content}', params.content)
+              .replace('{$buttons}', ''));
+        
+        
+        
+        let _domEl = document.getElementById(params.id);
+        let _bsObj = new bootstrap.Modal(_domEl);
+        _bsObj.show(_domEl);
+        _domEl.addEventListener('hidden.bs.modal', function (event) {
+             _bsObj.dispose(_domEl);
+             fpcm.dom.fromId(params.id).remove();
+        });
 
-        if (params.resizable === undefined) {
-            params.resizable = false;
-        }
-        
-        var dialogId = 'fpcm-dialog-'+  params.id;
-        if (params.content !== undefined) {
-            fpcm.dom.appendHtml('#fpcm-body', '<div class="fpcm-ui-dialog-layer fpcm-editor-dialog" id="' + dialogId + '">' +  params.content + '</div>');
-        }
 
-        var el = fpcm.dom.fromId(dialogId);
-        if (!el.length) {
-            return false;
-        }
 
-        if (params.defaultCloseEmpty) {
-            params.dlOnClose = function () {
-                fpcm.dom.fromTag(this).dialog("close");
-                fpcm.dom.fromTag(this).empty();
-                return false;
-            }
-        }
-        else if (params.defaultClose) {
-            params.dlOnClose = function () {
-                fpcm.dom.fromTag(this).dialog("close");
-                return false;
-            }
-        }
 
-        var dlParams = {};
-        dlParams.width    = params.dlWidth;        
-        dlParams.modal    = params.modal;
-        dlParams.resizable= params.resizable;
-        dlParams.title    = params.title;
-        dlParams.buttons  = params.dlButtons;
-        dlParams.open     = params.dlOnOpen;
-        dlParams.close    = params.dlOnClose;
-        
-        if (params.dlHeight !== undefined) {
-            dlParams.height   = params.dlHeight;            
-        }
-        
-        if (params.dlMinWidth !== undefined) {
-            dlParams.minWidth   = params.dlMinWidth;
-        }
-        
-        if (params.dlMinHeight !== undefined) {
-            dlParams.minHeight   = params.dlMinHeight;            
-        }
-        
-        if (params.dlMaxWidth !== undefined) {
-            dlParams.maxWidth   = params.dlMaxWidth;            
-        }
-        
-        if (params.dlMaxHeight !== undefined) {
-            dlParams.maxHeight   = params.dlMaxHeight;            
-        }
-        
-        if (params.dlPosition !== undefined) {
-            dlParams.position   = params.dlPosition; 
-        }
-        
-        if (params.onCreate) {
-            dlParams.create = params.onCreate;
-        }
-        
-        if (params.onResize !== undefined) {
-            dlParams.resize   = params.onResize; 
-        }
-
-        dlParams.show = true;
-        dlParams.hide = true;
-
-        return el.dialog(dlParams);
+//        return el.dialog(dlParams);
     },
     
     autocomplete: function(elemClassId, params) {
@@ -985,13 +1022,13 @@ fpcm.ui = {
                 {
                     text: fpcm.ui.translate('GLOBAL_YES'),
                     icon: "ui-icon-check",
-                    class: (params.defaultYes ? 'fpcm-ui-button-primary' : ''),
+                    class: (params.defaultYes ? 'btn-primary' : ''),
                     click: params.clickYes
                 },
                 {
                     text: fpcm.ui.translate('GLOBAL_NO'),
                     icon: "ui-icon-closethick",
-                    class: (params.defaultNo ? 'fpcm-ui-button-primary' : ''),
+                    class: (params.defaultNo ? 'btn-primary' : ''),
                     click: params.clickNo
                 }
             ]
@@ -1021,7 +1058,7 @@ fpcm.ui = {
             dialogParams.dlButtons.push({
                 text: fpcm.ui.translate('GLOBAL_INSERT'),
                 icon: "ui-icon-check",
-                class: "fpcm-ui-button-primary",
+                class: "btn-primary",
                 click: params.insertAction
             });
         }

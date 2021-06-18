@@ -237,7 +237,7 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->addJsFiles([ \fpcm\classes\loader::libGetFileUrl('nkorg/passgen/passgen.js'), 'users/profile.js', 'users/edit.js' ]);
 
         $this->view->addButtons([
-            (new \fpcm\view\helper\saveButton('profileSave'))->setClass('fpcm-ui-button-primary'),
+            (new \fpcm\view\helper\saveButton('profileSave'))->setPrimary(),
             (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
         ]);
 

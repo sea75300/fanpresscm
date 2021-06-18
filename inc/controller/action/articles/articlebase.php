@@ -204,8 +204,9 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         $this->view->addJsVars($this->jsVars);
 
         $this->view->addButton((new \fpcm\view\helper\saveButton('articleSave'))
-                ->setClass( 'fpcm-ui-maintoolbarbuttons-tab1'.($this->article->getId() ? ' fpcm-ui-button-primary' : '') )
-                ->setReadonly($this->article->isInEdit()));
+                ->setClass( 'fpcm-ui-maintoolbarbuttons-tab1')
+                ->setReadonly($this->article->isInEdit())
+                ->setPrimary($this->article->getId() > 0));
 
         return true;
     }

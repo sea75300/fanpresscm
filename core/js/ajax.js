@@ -229,12 +229,12 @@ fpcm.ajax = {
                 if (_params.filter) {
                     fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').addClass('fpcm-ui-hidden');
                     fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-                    fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
+                    fpcm.dom.fromId('opensearch').addClass('btn-primary');
                 }
                 else if (result.pager && !_params.filter) {
                     fpcm.ui.mainToolbar.find('.fpcm-ui-pager-element').removeClass('fpcm-ui-hidden');
                     fpcm.ui.controlgroup(fpcm.ui.mainToolbar, 'refresh');
-                    fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
+                    fpcm.dom.fromId('opensearch').removeClass('btn-primary');
                     
                     fpcm.vars.jsvars.pager.currentPage = result.pager.currentPage;
                     fpcm.vars.jsvars.pager.maxPages = result.pager.maxPages;

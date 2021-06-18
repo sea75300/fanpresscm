@@ -80,7 +80,7 @@ abstract class input extends helper {
 
         $description = $this->placeholder !== true ? $this->getDescriptionTextString() : '';
         if ($this->getIconString() || trim($description)) {
-            $description = "<label title=\"{$this->text}\" class=\"input-group-text {$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
+            $description = "<label title=\"{$this->text}\" class=\"col-form-label {$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$description}</label>";
         }
 
         return $wrapperStart . $description . $input . $wrapperEnd;

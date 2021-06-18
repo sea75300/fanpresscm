@@ -30,10 +30,13 @@ final class passwordInput extends input {
 
     protected function appendItems(string &$str): bool
     {
-        $str .= ' ' . (string) (new icon('eye fa-inverse'))
-                ->setClass('fpcm ui-put-pass-toggle')
-                ->setStack('circle');
-        
+        $str .= ' ' . (string) (new button($this->name . '-toggle'))
+                        ->setIcon('eye')
+                        ->setText('PASSWORD_TOGGLE')
+                        ->setIconOnly(true)
+                        ->setClass('btn-secondary fpcm ui-put-pass-toggle')
+                        ->setData(['fn' => 'system.togglePasswordField']);
+
         return true;
     }
 

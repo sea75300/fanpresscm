@@ -93,7 +93,7 @@ fpcm.templates = {
                     {
                         text: fpcm.ui.translate('GLOBAL_SAVE'),
                         icon: "ui-icon-disk",
-                        class: 'fpcm-ui-button-primary',
+                        class: 'btn-primary',
                         click: function() {
                             fpcm.dom.fromTag(this).children('#fpcm-articletemplates-editor-frame').contents().find('#btnSaveTemplate').trigger('click');
                             fpcm.ui_loader.hide();

@@ -764,7 +764,8 @@ class view {
                                             ->setText('{{text}}')->setClass('{{class}}')->setType('{{type}}')
                                             ->setPlaceholder('{{placeholder}}')->setMaxlenght('255')
                                             ->setWrapper(false)->setDisplaySizesDefault()
-                    ]
+                    ],
+                    'dialogTpl' => file_get_contents(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS, 'systpl/dialog.fpcm.txt'))
                 ],
                 'jsvars' => $this->jsVars,
                 'actionPath' => \fpcm\classes\tools::getFullControllerLink(''),
@@ -980,8 +981,17 @@ class view {
      * @param string $tabsClass
      * @since 4.3
      */
-    public function addTabs(string $tabsId, array $tabs, string $tabsClass = '')
+    public function addTabs(string $tabsId, array $tabs, string $tabsClass = '', int $active = -1)
     {
+        if (count($tabs)) {
+            $active = 0;
+        }
+        
+        if ($active > -1 && isset($tabs[$active])) {
+            $tabs[$active]->setState(helper\tabItem::STATE_ACTIVE);
+            
+        }
+
         $this->setViewPath('components/tabs');
         $this->assign('tabsId', $tabsId);
         $this->assign('tabs', $tabs);

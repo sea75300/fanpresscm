@@ -1,52 +1,45 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<div class="row g-0 fpcm-ui-padding-md-tb">
+<div class="row">
     <div class="col-12">
-        <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
+        <fieldset class="m-3">
             <legend><?php $theView->write('CATEGORIES_EDIT'); ?></legend>
             
-            <div class="row g-0 py-2">
-                <div class="col-12">
-                    <div class="row">
-                        <?php $theView->textInput('category[name]')
-                            ->setValue($category->getName())
-                            ->setAutoFocused(true)
-                            ->setText('CATEGORIES_NAME')
-                            ->setIcon('tag'); ?>
-                    </div>
-                </div>
+            <div class="row">
+                <?php $theView->textInput('category[name]')
+                    ->setValue($category->getName())
+                    ->setAutoFocused(true)
+                    ->setText('CATEGORIES_NAME')
+                    ->setIcon('tag'); ?>
             </div>
 
-            <div class="row g-0 py-2">
-                <div class="col-12">
-                    <div class="row">
-                        <?php $theView->textInput('category[iconpath]')
-                            ->setValue($category->getIconPath())
-                            ->setType('url')
-                            ->setText('CATEGORIES_ICON_PATH')
-                            ->setIcon('link'); ?>
-                    </div>
-                </div>
+            <div class="row">
+                <?php $theView->textInput('category[iconpath]')
+                    ->setValue($category->getIconPath())
+                    ->setType('url')
+                    ->setText('CATEGORIES_ICON_PATH')
+                    ->setIcon('link'); ?>
             </div>
 
-            <div class="row py-2">
-                <div class="col-12 px-0">
-                    <div class="row">
-                        <label class="col-12 col-sm-6 col-md-3 fpcm-ui-field-label-general">
-                            <?php $theView->icon('users'); ?>
-                            <?php $theView->write('CATEGORIES_ROLLS'); ?>:
-                        </label>
-                        <div class="col-12 col-sm-6 col-md-9 fpcm ui-element-min-height-md fpcm-ui-input-wrapper-inner fpcm-ui-border-grey-medium fpcm-ui-border-radius-all">
-                            <?php foreach ($userRolls as $rollname => $rollid) : ?>
-                                <?php $theView->checkbox('category[groups][]', 'cat'.$rollid)
-                                        ->setLabelClass('me-2')
-                                        ->setText($rollname)
-                                        ->setValue($rollid)
-                                        ->setSelected(isset($selectedGroups) && in_array($rollid, $selectedGroups) ? true : false); ?>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
+
+            <div class="row">
+                
+                <div class="col-form-label col-12 col-sm-6 col-md-3">
+                    <?php $theView->icon('users'); ?> <span class="fpcm-ui-label ps-1"> <?php $theView->write('CATEGORIES_ROLLS'); ?></span>
                 </div>
+                
+                <div class=" col-12 col-sm-6 col-md-9">
+                    <?php foreach ($userRolls as $rollname => $rollid) : ?>
+                        <?php $theView->checkbox('category[groups][]', 'cat'.$rollid)
+                                ->setText($rollname)
+                                ->setValue($rollid)
+                                ->setSwitch(true)
+                                ->setSelected(isset($selectedGroups) && in_array($rollid, $selectedGroups)); ?>
+                    <?php endforeach; ?>                          
+                    
+                </div>
+                
             </div>
+
         </fieldset>
     </div>
 </div>

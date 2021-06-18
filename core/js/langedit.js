@@ -30,7 +30,7 @@ fpcm.langedit = {
                     {
                         text: fpcm.ui.translate('GLOBAL_SAVE'),
                         icon: "ui-icon-check",
-                        class: 'fpcm-ui-button-primary',
+                        class: 'btn-primary',
                         click: function () {
                             
                             var newVarName = fpcm.dom.fromId('fpcm-langedit-newvar').val();
@@ -90,7 +90,7 @@ fpcm.langedit = {
                     {
                         text: fpcm.ui.translate('GLOBAL_SAVE'),
                         icon: "ui-icon-check",
-                        class: 'fpcm-ui-button-primary',
+                        class: 'btn-primary',
                         click: function () {
                             var newVal = fpcm.dom.fromId(newTextid).val();
                             fpcm.dom.fromId(oldTextId).val(newVal);

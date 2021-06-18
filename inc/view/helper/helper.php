@@ -204,7 +204,7 @@ abstract class helper {
      */
     final protected function getDescriptionTextString()
     {
-        return "<span class=\"fpcm-ui-label\">{$this->text}</span>";
+        return "<span class=\"fpcm-ui-label ps-1\">{$this->text}</span>";
     }
 
     /**

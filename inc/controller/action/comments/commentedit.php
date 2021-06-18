@@ -185,7 +185,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         $hiddenClass = $this->mode === 2 ? 'fpcm-ui-hidden' : '';
         
         $buttons     = [];
-        $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass.' fpcm-ui-button-primary');
+        $buttons[]   = (new \fpcm\view\helper\saveButton('commentSave'))->setClass($hiddenClass)->setPrimary();
         
         if ($this->mode === 1) {
             $article     = new \fpcm\model\articles\article($this->comment->getArticleid());

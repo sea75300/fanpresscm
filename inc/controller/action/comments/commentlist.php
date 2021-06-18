@@ -103,7 +103,6 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
             (new \fpcm\view\helper\tabItem('tabs-comments-list'))
                 ->setText('COMMMENT_HEADLINE')
                 ->setFile($this->getViewPath() . '.php')
-                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
         ]);
         
     }
@@ -156,7 +155,6 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
                 ->setUrl('#tabs-'.$this->getDataViewName().'-list')
                 ->setText('COMMMENT_HEADLINE')
                 ->setFile($this->getViewPath() . '.php')
-                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
         ];
     }
 

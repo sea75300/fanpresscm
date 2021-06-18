@@ -93,7 +93,6 @@ span.fpcm-ui-badge  {
 }
 
 .fpcm.ui-color-font-grey,
-.fpcm.ui-put-pass-toggle,
 span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstatus-spinner {
     color: #aaaaaa;
 }
@@ -112,20 +111,14 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
     transition: background-color 0.35s ease;
 }
 
-.fpcm-ui-button-primary {
-    border-color: #0073ea;
-}
-
 legend,
 span.fpcm-ui-badge,
-.fpcm-ui-button-primary,
 #fpcm-loader > div.fpcm-loader-icon > span.fpcm.ui-label,
 #fpcm-loader > div.fpcm-loader-icon > span.fpcm.ui-label * {
     color: #fff;
 }
 
-legend,
-.fpcm-ui-button-primary {
+legend {
     background-color: #0073ea;
 }
 

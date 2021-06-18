@@ -4,7 +4,7 @@
     <div class="col-12">
         <fieldset class="fpcm-ui-margin-none-left fpcm-ui-margin-none-right fpcm-ui-margin-md-top">
             <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>
-            <?php $theView->write($topDescription); ?>
+            <p class="mx-2"><?php $theView->write($topDescription); ?></p>
         </fieldset>
     </div>
 </div>

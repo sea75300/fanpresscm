@@ -23,7 +23,7 @@ fpcm.filemanager = {
 
         fpcm.dom.fromId('fpcm-tabs-tabs-files-list-reload').click(function () {
             fpcm.filemanager.reloadFiles();
-            fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
+            fpcm.dom.fromId('opensearch').removeClass('btn-primary');
             return false;
         });
 
@@ -50,7 +50,7 @@ fpcm.filemanager = {
                         },
                         execDone: function() {
                             fpcm.filemanager.reloadFiles();
-                            fpcm.dom.fromId('opensearch').removeClass('fpcm-ui-button-primary');
+                            fpcm.dom.fromId('opensearch').removeClass('btn-primary');
                         }
                     });
                 }
@@ -551,7 +551,7 @@ fpcm.filemanager = {
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
                         icon: "ui-icon-check",
-                        class: 'fpcm-ui-button-primary',
+                        class: 'btn-primary',
                         click: function() {               
                             
                             var sParams = fpcm.ui.getValuesByClass('fpcm-files-search-input');                            
@@ -605,7 +605,7 @@ fpcm.filemanager = {
         }
 
         fpcm.filemanager.reloadFiles(1, sParams);
-        fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
+        fpcm.dom.fromId('opensearch').addClass('btn-primary');
     },
     
     runFileIndexUpdate: function () {

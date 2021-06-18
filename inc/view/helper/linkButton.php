@@ -68,6 +68,10 @@ class linkButton extends button {
      */
     protected function getString()
     {
+        if ($this->primary) {
+            $this->class = str_replace('btn-light', 'btn-primary', $this->class);
+        }
+
         if ($this->readonly) {
             
             $this->class .= ' fpcm-ui-readonly';

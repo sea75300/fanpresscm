@@ -156,7 +156,6 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
             (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
                 ->setText('HL_CATEGORIES_MNG')
                 ->setFile('components/dataview__inline.php')
-                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
         ];
     }
 

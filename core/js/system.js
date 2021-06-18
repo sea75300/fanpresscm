@@ -11,7 +11,8 @@ if (fpcm === undefined) {
 
 fpcm.system = {
 
-    init: function () {
+    init: function ()
+    {
 
         fpcm.worker.postMessage({
             namespace: 'system',
@@ -24,13 +25,18 @@ fpcm.system = {
         fpcm.system.showHelpDialog();
     },
 
-    initPasswordFieldActions: function () {
+    togglePasswordField: function (_event, _callee)
+    {
+        let _el = _callee.parentNode.querySelector('input');
+        let _map = {
+            password: 'text',
+            text: 'password',
+        }
+        
+        _el.type = _map[_el.type] ? _map[_el.type] : 'password';
+    },
 
-        fpcm.dom.fromClass('fpcm.ui-put-pass-toggle').click(function () {
-            let _el = fpcm.dom.fromTag(this).parent().find('input');
-            _el.attr('type', _el.attr('type') === 'text' ? 'password' : 'text');
-            return false;
-        });
+    initPasswordFieldActions: function () {
 
         fpcm.dom.fromId('password_confirm').focusout(function () {
             var password = fpcm.dom.fromId('password').val();
@@ -184,7 +190,7 @@ fpcm.system = {
                 {
                     text: fpcm.ui.translate('GLOBAL_SAVE'),
                     icon: "ui-icon-check",
-                    class: 'fpcm-ui-button-primary',
+                    class: 'btn-primary',
                     click: function () {
 
                         fpcm.ui.confirmDialog({
@@ -341,6 +347,8 @@ fpcm.system = {
             var el = fpcm.dom.fromTag(this);
 
             fpcm.ajax.get('help', {
+                
+                quiet: true,
                 data: {
                     ref: el.data('ref'),
                     chapter: el.data('chapter'),
@@ -355,6 +363,7 @@ fpcm.system = {
                         dlMaxHeight: sizes.height,
                         resizable: true,
                         title: fpcm.ui.translate('HL_HELP'),
+                        opener: el.attr('id'),
                         content: result,
                         dlButtons: [
                             {
@@ -371,23 +380,23 @@ fpcm.system = {
                         }
                     });
 
-                    fpcm.ui.tabs('#fpcm-ui-tabs-help');
-
-                    var headlines = fpcm.dom.fromId('tabs-help-general').find('h3');
-                    if (headlines.length < 2) {
-                        fpcm.dom.fromId('fpcm-ui-help-toc-headline').addClass('fpcm-ui-hidden');
-                        return true;
-                    }
-
-                    var listEl = fpcm.dom.fromId('fpcm-ui-help-toc');
-                    jQuery.each(headlines, function (i, val) {
-
-                        if (!i) {
-                            return true;
-                        }
-
-                        listEl.append('<li><strong>' + val.innerText + '</strong></li>');
-                    });
+//                    fpcm.ui.tabs('#fpcm-ui-tabs-help');
+//
+//                    var headlines = fpcm.dom.fromId('tabs-help-general').find('h3');
+//                    if (headlines.length < 2) {
+//                        fpcm.dom.fromId('fpcm-ui-help-toc-headline').addClass('fpcm-ui-hidden');
+//                        return true;
+//                    }
+//
+//                    var listEl = fpcm.dom.fromId('fpcm-ui-help-toc');
+//                    jQuery.each(headlines, function (i, val) {
+//
+//                        if (!i) {
+//                            return true;
+//                        }
+//
+//                        listEl.append('<li><strong>' + val.innerText + '</strong></li>');
+//                    });
 
                 }
             });

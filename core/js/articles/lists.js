@@ -81,7 +81,7 @@ fpcm.articles = {
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
                         icon: 'ui-icon-check',
-                        class: 'fpcm-ui-button-primary',
+                        class: 'btn-primary',
                         click: function() {                            
                             let _filter = {};
                             _filter = fpcm.ui.getValuesByClass('fpcm-articles-search-input');

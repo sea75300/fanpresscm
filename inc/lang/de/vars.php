@@ -537,6 +537,7 @@ $lang = array (
   'PASSWORD_NEWPASSWORDSET_TEXT' => 'Für deinen FanPress CM-Account <b>{{username}}</b> wurde das Passwort <b>{{newpass}}</b> festgelegt. Mit diesen Daten kannst du dich anmelden und auch ein eigenes Passwort vergeben.',
   'PASSWORD_RESET_SUBJECT' => 'Neues Passwort angefordert',
   'PASSWORD_RESET_TEXT' => 'Für dich wurde ein neues Passwort angefordert. Dies lautet <b>{{newpass}}</b>. Hast du dies nicht selbst veranlasst, so kontaktiere schnellstmöglich einen Administrator.',
+  'PASSWORD_TOGGLE' => 'Passwort anzeigen',
   'PERMISSIONS_REQUIRED' => 'Du hast keine Berechtigungen um auf diese Seite zuzugreifen!',
   'PERMISSION_ARTICLES' => 'Artikel',
   'PERMISSION_ARTICLE_ADD' => 'Artikel schreiben',

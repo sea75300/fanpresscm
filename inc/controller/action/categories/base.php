@@ -58,7 +58,9 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         $this->view->addButton(new \fpcm\view\helper\saveButton('categorySave'));
         $this->view->addJsFiles(['categories.js']);
         $this->view->addTabs('fpcm-category-tabs', [
-            (new \fpcm\view\helper\tabItem('tabs-category'))->setText($this->tabHeadline)->setFile('categories/editor.php')
+            (new \fpcm\view\helper\tabItem('tabs-category'))
+                ->setText($this->tabHeadline)
+                ->setFile('categories/editor.php')
         ]);
 
         $this->view->render();

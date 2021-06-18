@@ -25,7 +25,7 @@ final class radiobutton extends radiocheck {
     {
         parent::init();
         $this->type = 'radio';
-        $this->class .= ' fpcm-ui-input-radiobutton';
+        $this->class .= ' form-check-input';
     }
 
 }

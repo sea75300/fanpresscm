@@ -100,7 +100,7 @@ fpcm.comments = {
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
                         icon: 'ui-icon-check',
-                        class: 'fpcm-ui-button-primary',
+                        class: 'btn-primary',
                         click: function() {
                             
                             var sParams = {
@@ -180,7 +180,7 @@ fpcm.comments = {
                         fpcm.ui.assignControlgroups();
                     }
                 });
-                fpcm.dom.fromId('opensearch').addClass('fpcm-ui-button-primary');
+                fpcm.dom.fromId('opensearch').addClass('btn-primary');
             }
         });
 

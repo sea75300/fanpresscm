@@ -157,8 +157,8 @@ implements \fpcm\controller\interfaces\isAccessible,
     private function initButtons()
     {
         $buttons = [
-            (new \fpcm\view\helper\saveButton('configSave'))->setClass('fpcm-ui-maintoolbarbuttons-tab1 fpcm-ui-button-primary'.($this->syscheck ? ' fpcm-ui-hidden' : '')),
-            (new \fpcm\view\helper\button('syschecksubmitstats', 'syschecksubmitstats'))->setText('SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-button-primary fpcm-ui-hidden')->setIcon('chart-line'),
+            (new \fpcm\view\helper\saveButton('configSave'))->setPrimary()->setClass('fpcm-ui-maintoolbarbuttons-tab1'.($this->syscheck ? ' fpcm-ui-hidden' : '')),
+            (new \fpcm\view\helper\button('syschecksubmitstats', 'syschecksubmitstats'))->setPrimary()->setText('SYSTEM_OPTIONS_SYSCHECK_SUBMITSTATS')->setClass('fpcm-ui-maintoolbarbuttons-tab2 fpcm-ui-hidden')->setIcon('chart-line'),
         ];
 
         if (!\fpcm\classes\baseconfig::canConnect() || !$this->permissions->system->update) {

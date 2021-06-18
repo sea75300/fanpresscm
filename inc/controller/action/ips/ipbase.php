@@ -67,7 +67,6 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
             (new \fpcm\view\helper\tabItem('ip'))
                 ->setText('IPLIST_ADDIP')
                 ->setFile($this->getViewPath().'.php')
-                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
         ]);
 
         return true;

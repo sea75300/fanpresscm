@@ -25,7 +25,7 @@ final class checkbox extends radiocheck {
     {
         parent::init();
         $this->type = 'checkbox';
-        $this->class .= ' fpcm-ui-input-checkbox';
+        $this->class .= ' form-check-input';
     }
 
 }

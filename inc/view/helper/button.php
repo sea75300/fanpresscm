@@ -24,11 +24,22 @@ class button extends helper {
     const NAME_PREFIX = 'btn';
 
     /**
+     * Is primary button
+     * @var bool
+     * @since 4.6-dev
+     */
+    protected $primary = false;
+
+    /**
      * Return element string
      * @return string
      */
     protected function getString()
     {
+        if ($this->primary) {
+            $this->class = str_replace('btn-light', 'btn-primary', $this->class);
+        }
+        
         return implode(' ', [
             "<button type=\"{$this->type}\" ",
             $this->getDataString(),
@@ -57,6 +68,18 @@ class button extends helper {
         $this->prefix = self::NAME_PREFIX;
         $this->class = 'btn btn-light fpcm ui-button fpcm-ui-button';
         $this->type = 'button';
+    }
+    
+    /**
+     * Set button to primary
+     * @param bool $primary
+     * @return $this
+     * @since 4.6-dev
+     */
+    public function setPrimary(bool $primary = true)
+    {
+        $this->primary = $primary;
+        return $this;
     }
 
 }

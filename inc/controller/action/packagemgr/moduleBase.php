@@ -153,7 +153,8 @@ class moduleBase extends \fpcm\controller\abstracts\controller implements \fpcm\
                 ])
             )->setText('MODULES_LIST_UPDATE_NEXT')
             ->setIcon('sync')
-            ->setClass('fpcm ui-hidden fpcm-ui-button-primary')
+            ->setClass('fpcm ui-hidden')
+            ->setPrimary()
         );
 
         return true;
