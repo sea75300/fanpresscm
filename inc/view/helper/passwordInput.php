@@ -25,7 +25,6 @@ final class passwordInput extends input {
     {
         parent::init();
         $this->type = 'password';
-        $this->class .= ' fpcm-ui-input-password';
     }
 
     protected function appendItems(string &$str): bool
@@ -35,7 +34,7 @@ final class passwordInput extends input {
                         ->setText('PASSWORD_TOGGLE')
                         ->setIconOnly(true)
                         ->setClass('btn-secondary fpcm ui-put-pass-toggle')
-                        ->setData(['fn' => 'system.togglePasswordField']);
+                        ->setOnClick('system.togglePasswordField');
 
         return true;
     }

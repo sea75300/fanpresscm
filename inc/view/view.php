@@ -983,7 +983,7 @@ class view {
      */
     public function addTabs(string $tabsId, array $tabs, string $tabsClass = '', int $active = -1)
     {
-        if (count($tabs)) {
+        if (count($tabs) === 1) {
             $active = 0;
         }
         

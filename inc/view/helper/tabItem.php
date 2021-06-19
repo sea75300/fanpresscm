@@ -167,10 +167,8 @@ class tabItem extends helper {
             $html[] = $this->getDataString();
         }
 
-        if (substr($this->url, 0, 1) === '#') {
-            $this->data['bs-target'] = substr($this->url, 1);
-            $this->url = '#';
-        }
+        $this->data['bs-target'] = '#fpcm-tab-'.$this->id.'-pane';
+        $this->data['bs-toggle'] = 'tab';
 
         switch ($this->state) {
             case self::STATE_ACTIVE :

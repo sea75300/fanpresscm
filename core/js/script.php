@@ -38,6 +38,7 @@ if ($cache->isExpired($cacheName) || \fpcm\classes\baseconfig::installerEnabled(
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'webnotify'.$jsExt,
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'notifications'.$jsExt,
         __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'loader'.$jsExt,
+        __DIR__.DIRECTORY_SEPARATOR.'ui'.DIRECTORY_SEPARATOR.'tabs'.$jsExt,
         __DIR__.DIRECTORY_SEPARATOR.'system'.$jsExt
     ];
 

@@ -91,7 +91,7 @@ class smileylist extends \fpcm\controller\abstracts\controller implements \fpcm\
     protected function getDataViewTabs() : array
     {
         return [
-            (new \fpcm\view\helper\tabItem('tabs-'.$this->getDataViewName().'-list'))
+            (new \fpcm\view\helper\tabItem($this->getDataViewName().'-list'))
                 ->setText('HL_OPTIONS_SMILEYS')
                 ->setFile('components/dataview__inline.php')
         ];

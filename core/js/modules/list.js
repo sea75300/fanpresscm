@@ -16,25 +16,14 @@ fpcm.modulelist = {
         fpcm.system.checkForUpdates();
         fpcm.modulelist.tabs = fpcm.ui.tabs('#tabs-modulemgr',
         {
-//            addTabScroll: true,
-//            initDataViewJson: true,         
-//            dataViewWrapperClass: 'fpcm-ui-modulelist',
-//            initDataViewOnRenderAfter: fpcm.modulelist.initButtons,
-//            initDataViewJsonBefore:function(event, ui) {
-//                fpcm.dom.fromClass('fpcm-ui-modulelist').remove();
-//            },            
-//            beforeActivate: function( event, ui ) {
-//                fpcm.dom.fromTag(ui.oldTab).unbind('click');
-//            },
+            initDataViewOnRenderAfter: fpcm.modulelist.initButtons,
         });
 
-//        fpcm.modulelist.tabs.tabs('load', 0);
     },
     
     initButtons: function () {
 
-        fpcm.ui.assignControlgroups();
-
+        fpcm.dom.fromTag('a.fpcm-ui-modulelist-action-local-update').unbind('click');
         fpcm.dom.fromTag('a.fpcm-ui-modulelist-action-local-update').click(function() {
             var destUrl = fpcm.dom.fromTag(this).attr('href');
             fpcm.ui.confirmDialog({
@@ -48,6 +37,7 @@ fpcm.modulelist = {
             return false;
         });
 
+        fpcm.dom.fromTag('button.fpcm-ui-modulelist-action-local').unbind('click');
         fpcm.dom.fromTag('button.fpcm-ui-modulelist-action-local').click(function() {
             
             var btnEl = fpcm.dom.fromTag(this);
@@ -115,6 +105,7 @@ fpcm.modulelist = {
             });
         });
 
+        fpcm.dom.fromTag('a.fpcm-ui-modulelist-info').unbind('click');
         fpcm.dom.fromTag('a.fpcm-ui-modulelist-info').click(function(event) {
 
             var btnEl = fpcm.dom.fromTag(this);

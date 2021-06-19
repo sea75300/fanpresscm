@@ -116,12 +116,11 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
         
         $this->tabs = [
             
-            (new \fpcm\view\helper\tabItem('local'))
+            (new \fpcm\view\helper\tabItem('moduleslocal-list'))
                 ->setText('MODULES_LIST_HEADLINE')
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/modules/fetch', ['mode' => 'local']))
-                ->setState(\fpcm\view\helper\tabItem::STATE_ACTIVE)
                 ->setData(['dataview-list' => 'modulesLocal']),
-            (new \fpcm\view\helper\tabItem('remote'))
+            (new \fpcm\view\helper\tabItem('modulesremote-list'))
                 ->setText('MODULES_LIST_AVAILABLE')
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/modules/fetch', ['mode' => 'remote']))
                 ->setData(['dataview-list' => 'modulesRemote']),            

@@ -37,7 +37,7 @@ class button extends helper {
     protected function getString()
     {
         if ($this->primary) {
-            $this->class = str_replace('btn-light', 'btn-primary', $this->class);
+            $this->class = preg_replace('/(btn-)(.*)/i', '$1primary', $this->class);
         }
         
         return implode(' ', [
@@ -66,7 +66,7 @@ class button extends helper {
     protected function init()
     {
         $this->prefix = self::NAME_PREFIX;
-        $this->class = 'btn btn-light fpcm ui-button fpcm-ui-button';
+        $this->class = 'btn btn-light fpcm ui-button';
         $this->type = 'button';
     }
     
@@ -82,6 +82,12 @@ class button extends helper {
         return $this;
     }
 
+    final public function setOnClick(string $func, $args = null)
+    {
+        $this->data['fn'] = $func;
+        $this->data['fn-arg'] = $args;
+        return $this;
+    }
 }
 
 ?>

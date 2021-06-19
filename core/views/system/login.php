@@ -9,39 +9,33 @@
             </header>
             
             <?php if ($twoFactorAuth) : ?>
-            <div class="row g-0 fpcm-ui-padding-md-tb">
-                <div class="col-12">
+            <div class="row g-0">
                 <?php $theView->textInput('login[authcode]')->setText('LOGIN_AUTHCODE')
                         ->setMaxlenght(6)->setPlaceholder(true)->setAutocomplete(false)
                         ->setAutoFocused(true)->setWrapper(true)->setClass('fpcm-ui-monospace'); ?>
                 <?php $theView->hiddenInput('login[formData]')->setValue($formData); ?>
-                </div>
             </div>
             <?php else : ?>
-            <div class="row g-0 fpcm-ui-padding-md-tb">
-                <div class="col-12">
+            <div class="row g-0">
                     <?php $theView->textInput($userNameField)->setText('GLOBAL_USERNAME')->setPlaceholder(true)->setAutocomplete(false)->setAutoFocused(true)->setWrapper(true); ?>
-                </div>
             </div>
 
-            <div class="row g-0 fpcm-ui-padding-md-tb">
-                <div class="col-12">
+            <div class="row g-0">
                 <?php if ($resetPasswort) : ?>
                     <?php $theView->textInput('email')->setType('email')->setText('GLOBAL_EMAIL')->setPlaceholder(true)->setAutocomplete(false)->setWrapper(true); ?>
                 <?php else : ?>
                     <?php $theView->passwordInput('login[password]')->setText('GLOBAL_PASSWORD')->setPlaceholder(true)->setAutocomplete(false)->setWrapper(true); ?>
                 <?php endif; ?>
-                </div>
             </div>
             <?php endif; ?>
 
             <?php if ($resetPasswort) : ?>
-            <div class="row fpcm-ui-padding-md-tb">
+            <div class="row">
                 <?php print $captcha->createPluginTextInput(); ?>
             </div>
             <?php endif; ?>
 
-            <div class="fpcm-ui-margin-center fpcm-ui-margin-md-top fpcm-ui-margin-md-bottom fpcm-ui-center">
+            <div class="fpcm-ui-margin-center fpcm-ui-center my-2">
             <?php if ($resetPasswort) : ?>
                 <?php $theView->submitButton('reset')->setText('GLOBAL_OK')->setIcon('check')->setPrimary(); ?>
                 <?php $theView->linkButton('loginback')->setText('GLOBAL_BACK')->setUrl($theView->controllerLink('system/login'))->setIcon('chevron-circle-left'); ?>
