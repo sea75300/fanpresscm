@@ -147,9 +147,7 @@ trait lists {
                         new \fpcm\components\dataView\rowCol('title', $titleStr),
                         new \fpcm\components\dataView\rowCol('categories', '', 'd-none d-lg-block'),
                         new \fpcm\components\dataView\rowCol('metadata', '', 'd-none d-lg-block'),
-                    ],
-                    'fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset',
-                    true
+                    ]
             ));
 
             foreach ($articles as $articleId => $article) {

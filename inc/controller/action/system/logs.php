@@ -36,7 +36,7 @@ class logs extends \fpcm\controller\abstracts\controller implements \fpcm\contro
      */
     protected function getViewPath() : string
     {
-        return 'logs/overview';
+        return 'components/tabs';
     }
 
     /**
@@ -55,10 +55,10 @@ class logs extends \fpcm\controller\abstracts\controller implements \fpcm\contro
     {
         $this->initLogs();
         
-        $this->view->assign('logs', $this->events->trigger('logs\addToList', $this->logs));
-        $this->view->assign('fullheight', true);
 
-        $this->view->addDataView(new \fpcm\components\dataView\dataView('logs', false));
+        $this->view->addTabs('tabs-logs', $this->events->trigger('logs\addToList', $this->logs) );
+
+        //$this->view->addDataView(new \fpcm\components\dataView\dataView('logs', false));
 
         $this->view->addJsFiles(['logs.js']);
         $this->view->addJsLangVars(['LOGS_CLEARED_LOG_OK', 'LOGS_CLEARED_LOG_FAILED', 'FILE_LIST_FILESIZE']);
@@ -99,11 +99,14 @@ class logs extends \fpcm\controller\abstracts\controller implements \fpcm\contro
             }
             
             $tab->setDataViewId('logs-'.$key);
+            
+            $this->view->addDataView(new \fpcm\components\dataView\dataView('logs-'.$key, false));
             return $tab;
 
         }, array_keys($map));
         
-        array_unshift($this->logs, (new \fpcm\view\helper\tabItem('logs-sessions'))->setText('HL_LOGS_SESSIONS')->setUrl('#loader')->setData(['href' => $baseUrl . \fpcm\model\files\logfile::FPCM_LOGFILETYPE_SESSION ])->setDataViewId('logs'));
+        array_unshift($this->logs, (new \fpcm\view\helper\tabItem('logs-sessions'))->setText('HL_LOGS_SESSIONS')->setUrl($baseUrl . \fpcm\model\files\logfile::FPCM_LOGFILETYPE_SESSION)->setDataViewId('logs-sessions'));
+        $this->view->addDataView(new \fpcm\components\dataView\dataView('logs-sessions', false));
         return true;
     }
 

@@ -23,15 +23,14 @@ h1 span:nth-child(odd) {
     color: #fefefe !important;
 }
 
-ins,
-div.fpcm-ui-dataview-rowcolpadding {
+ins {
     color: #2779aa;
 }
 
 h3,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-head,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-subhead {
-    background: #0073ea url("../../lib/jquery-ui/images/ui-bg_highlight-soft_25_0073ea_1x100.png") 50% 50% repeat-x;
+    background: #0d6efd;
     color: #fff;
 }
 
@@ -46,6 +45,7 @@ h3.fpcm-dashboard-container-headline span.fpcm-ui-icon {
 
 .fpcm.ui-background-white-50p,
 .fpcm-ui-background-white-50p,
+.nav-tabs .nav-link,
 .fpcm.ui-navigation .dropdown-menu {
     background: rgba(255,255,255,0.75);
 

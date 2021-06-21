@@ -2,10 +2,6 @@ div.fpcm-ui-dataview {
     font-size: inherit;
 }
 
-div.fpcm-ui-dataview-rowcolpadding {
-    margin: 0.5em 0em;
-}
-
 div.fpcm-ui-dataview-head {
     margin-top: 0em;
     font-size: 0.9em;
@@ -29,26 +25,6 @@ div.fpcm-ui-dataview-subhead {
     line-height: 1.8em !important;
 }
 
-div.fpcm-ui-dataview-align-left {
-    text-align: left;
-}
-
-div.fpcm-ui-dataview-align-center {
-    text-align: center;
-}
-
-div.fpcm-ui-dataview-align-right {
-    text-align: right;
-}
-
-div.fpcm-ui-dataview-align-justify {
-    text-align: justify;
-}
-
-div.fpcm-ui-dataview-align-notfound {
-    text-align: left !important;
-}
-
 @media (min-width: 1024px) {
     div.fpcm-ui-dataview-size-05 {
         -ms-flex: 0 0 4.166666666%;
@@ -59,11 +35,6 @@ div.fpcm-ui-dataview-align-notfound {
 
 div.fpcm-ui-dataview-col-value {
     padding-right: 0.5em;
-}
-
-div.fpcm-ui-dataview-align-self-start {
-    -ms-flex-item-align: start !important;
-    align-self: flex-start !important;
 }
 
 @media (max-width: 1024px) {

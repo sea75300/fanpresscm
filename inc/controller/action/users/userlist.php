@@ -243,9 +243,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                     new \fpcm\components\dataView\rowCol('email', '', 'd-none d-lg-block'),
                     new \fpcm\components\dataView\rowCol('registered', '', 'd-none d-lg-block'),
                     new \fpcm\components\dataView\rowCol('metadata', '', 'd-none d-lg-block'),
-                ],
-                'fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset',
-                true
+                ]
             ));
             
             /* @var $user \fpcm\model\users\author */

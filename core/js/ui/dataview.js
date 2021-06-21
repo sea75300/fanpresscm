@@ -44,18 +44,16 @@ fpcm.dataview = {
         obj.rowsId      = obj.fullId + '-rows';
 
         obj.wrapper     = fpcm.dom.fromId(obj.fullId).addClass('fpcm-ui-dataview');
-        obj.wrapper.append('<div class="row fpcm-ui-dataview-head fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset" id="' + obj.headId + '"></div>');
+        obj.wrapper.append('<div class="row fpcm-ui-dataview-head" id="' + obj.headId + '"></div>');
         obj.wrapper.append('<div class="fpcm-ui-dataview-rows" id="' + obj.rowsId + '"></div>');
         
         obj.headline    = fpcm.dom.fromId(obj.headId);
         obj.lines       = fpcm.dom.fromId(obj.rowsId);
 
         jQuery.each(obj.columns, function (index, column) {
-            style = 'fpcm-ui-padding-none-lr fpcm-ui-dataview-col ' + column.class + ' fpcm-ui-dataview-align-' + column.align + ' col align-self-center ' + fpcm.dataview.getSizeString(column);
+            style = 'fpcm-ui-dataview-col ' + column.class + fpcm.dataview.getAlignString(column.align) + ' align-self-center py-0 py-md-2 ' + fpcm.dataview.getSizeString(column);
             obj.headline.append('<div class="' + style + '" id="' + obj.fullId + '-dataview-headcol-' + column.name + index + '">' + (column.descr ? fpcm.ui.translate(column.descr) : '&nbsp;') + '</div>');            
         });
-
-        obj.headline.append('<div class="fpcm-ui-clear"></div>');
 
         jQuery.each(obj.rows, function (index, row) {
             fpcm.dataview.addRow(obj.fullId, index, row, obj);
@@ -85,7 +83,7 @@ fpcm.dataview = {
 
         row.class           = baseclass + (row.class ? ' ' + row.class : '');
 
-        obj.lines.append('<div class="row ' + row.class + '" id="' + rowId + '"></span>');
+        obj.lines.append('<div class="row py-2 ' + row.class + '" id="' + rowId + '"></span>');
 
         jQuery.each(row.columns, function (index, rowCol) {
 
@@ -98,16 +96,24 @@ fpcm.dataview = {
                 rowColumn.size = 'auto';
             }
 
-            var style       = 'fpcm-ui-padding-none-lr fpcm-ui-dataview-col ' + rowColumn.class + ' fpcm-ui-dataview-align-' + rowColumn.align
+            var colId = rowId + '-dataview-rowcol-' + rowCol.name + index;
+            console.log(colId);
+            console.log(rowColumn);
+
+
+            var style       = 'fpcm-ui-dataview-col ' 
+                            + rowColumn.class 
+                            + fpcm.dataview.getAlignString(rowColumn.align)
                             + (isNotFound ? ' col col-12' : fpcm.dataview.getSizeString(rowColumn) )
-                            + ' fpcm-ui-dataview-type' + rowCol.type + ' align-self-center'
+                            + ' fpcm-ui-dataview-type' 
+                            + rowCol.type + ' align-self-center'
                             + (rowCol.class ? ' ' + rowCol.class : '');
 
             var valueStr    = ( rowCol.type == fpcm.vars.jsvars.dataviews.rolColTypes.coltypeValue
                             ? '<div class="fpcm-ui-dataview-col-value">' + (rowCol.value !== '' ? fpcm.ui.translate(rowCol.value) : '&nbsp;') + '</div>'
                             : (rowCol.value !== '' ? fpcm.ui.translate(rowCol.value) : '&nbsp;') );
 
-            fpcm.dom.appendHtml('#' + rowId, '<div class="' + style + '" id="' + rowId + '-dataview-rowcol-' + rowCol.name + index + '">' + valueStr + '</div>');
+            fpcm.dom.appendHtml('#' + rowId, '<div class="' + style + '" id="' + colId + '">' + valueStr + '</div>');
             
         });
     },
@@ -133,6 +139,21 @@ fpcm.dataview = {
 
     getFullId: function (id) {
         return 'fpcm-dataview-'+ id;
+    },
+    
+    getAlignString: function(_align) {
+        
+        switch (_align) {
+            case 'left' :
+                _align = 'start';
+                break;
+            case 'right' :
+                _align = 'end';
+                break;
+        }
+
+        return ' text-' + _align;
+        
     },
     
     getSizeString: function(item) {

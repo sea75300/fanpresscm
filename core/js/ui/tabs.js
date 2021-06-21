@@ -37,13 +37,25 @@ fpcm.ui_tabs = {
                     return true;
                 }
 
-                var _tabList = _ev.target.dataset['dataviewList']; 
-                let _paneId = 'fpcm-tab-' + _tabList.toLowerCase() + '-list-pane';
+                var _tabList = _ev.target.dataset.dataviewList
+                             ? _ev.target.dataset.dataviewList
+                             : false; 
                 
                 fpcm.ajax.get(_ev.target.href, {
                     execDone: function (_result) {
 
-                        if (! _result instanceof Object) {
+                        if (!_result instanceof Object || !_tabList) {
+                            
+                            if (typeof params.onRenderHtmlBefore === 'function') {
+                                params.onRenderHtmlBefore.call();
+                            }                            
+                            
+                            fpcm.dom.assignHtml(_ev.target.dataset.bsTarget, _result);
+                            
+                            if (typeof params.onRenderHtmlAfter === 'function') {
+                                params.onRenderHtmlAfter.call();
+                            }                            
+
                             return false;
                         }
                         
@@ -54,7 +66,7 @@ fpcm.ui_tabs = {
                         fpcm.vars.jsvars.dataviews[_tabList] = _result.dataViewVars;
 
                         fpcm.dom.assignHtml(
-                            '#' + _paneId,
+                            _ev.target.dataset.bsTarget,
                             fpcm.dataview.getDataViewWrapper(_tabList, params.dataViewWrapperClass ? params.dataViewWrapperClass : ''
                         ));
 

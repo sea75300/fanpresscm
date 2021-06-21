@@ -13,8 +13,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a id="fpcm-clear-cache" class="nav-link" href="#" title="<?php $theView->write('GLOBAL_CACHE_CLEAR'); ?>">
-                        <?php $theView->icon('hdd')->setSize('lg')->setClass('fpcm-navicon'); ?>
+                    <a  id="fpcm-clear-cache"
+                        href="#"
+                        class="nav-link" 
+                        title="<?php $theView->write('GLOBAL_CACHE_CLEAR'); ?>"
+                        data-fn="system.clearCache">
+                        <?php $theView->icon('hdd')->setSize('lg') ?>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -27,7 +31,7 @@
                     </a>                
                 </li>
                 <li class="nav-item">
-                    <a id="fpcm-clear-cache" class="nav-link" href="<?php print $theView->controllerLink('system/info'); ?>" title="<?php $theView->write('HL_HELP_SUPPORT'); ?>" rel="license">
+                    <a class="nav-link" href="<?php print $theView->controllerLink('system/info'); ?>" title="<?php $theView->write('HL_HELP_SUPPORT'); ?>" rel="license">
                         <?php $theView->icon('info-circle')->setSize('lg'); ?>
                     </a>
                 </li>

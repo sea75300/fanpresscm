@@ -23,6 +23,12 @@ fpcm.system = {
 
         fpcm.system.initPasswordFieldActions();
         fpcm.system.showHelpDialog();
+        
+        let ccEL = fpcm.dom.fromId('fpcm-clear-cache');
+        ccEL.unbind('click');
+        ccEL.click(function () {
+            return fpcm.system.clearCache();
+        });
     },
 
     togglePasswordField: function (_event, _callee)

@@ -92,6 +92,7 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
 
         $this->view->assign('canUpload', !$this->uploadDisabled);
         $this->view->assign('uploadMultiple', false);
+        $this->view->assign('hideTabBackground', true);
         $this->view->addDataView(new \fpcm\components\dataView\dataView('modulesLocal', false));
         $this->view->addDataView(new \fpcm\components\dataView\dataView('modulesRemote', false));
         
@@ -116,20 +117,18 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
         
         $this->tabs = [
             
-            (new \fpcm\view\helper\tabItem('moduleslocal-list'))
+            (new \fpcm\view\helper\tabItem('moduleslocal'))
                 ->setText('MODULES_LIST_HEADLINE')
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/modules/fetch', ['mode' => 'local']))
                 ->setData(['dataview-list' => 'modulesLocal']),
-            (new \fpcm\view\helper\tabItem('modulesremote-list'))
+            (new \fpcm\view\helper\tabItem('modulesremote'))
                 ->setText('MODULES_LIST_AVAILABLE')
                 ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/modules/fetch', ['mode' => 'remote']))
                 ->setData(['dataview-list' => 'modulesRemote']),            
         ];
         
-        $this->initUpload();
-        
         $this->view->addTabs('tabs-modulemgr', $this->tabs);
-        
+        $this->initUpload();
         return true;
     }
 

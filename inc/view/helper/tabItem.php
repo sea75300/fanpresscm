@@ -160,7 +160,7 @@ class tabItem extends helper {
         $html[] = '<li id="fpcm-tab-'.$this->id.'" class="nav-item"';
 
         if ($this->dataViewId) {
-            $html[] = 'data-dataview-list="'.$this->dataViewId.'"';
+            $this->data['dataview-list'] = $this->dataViewId;
         }
 
         if (!$this->useWrapper) {
@@ -172,7 +172,7 @@ class tabItem extends helper {
 
         switch ($this->state) {
             case self::STATE_ACTIVE :
-                $css = 'active primary';
+                $css = 'active';
                 $aria = 'aria-current="page"';
                 break;
             case self::STATE_DISABLED :

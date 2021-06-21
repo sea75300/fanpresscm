@@ -1,5 +1,5 @@
 <div class="fpcm-ui-dataview">
-    <div class="row fpcm-ui-dataview-head fpcm-ui-dataview-rowcolpadding ui-widget-header ui-corner-all ui-helper-reset">
+    <div class="row fpcm-ui-dataview-head">
         <div class="col-1 px-0"></div>
         <div class="col-5"></div>
         <div class="col-5"><?php $theView->write('SYSTEM_OPTIONS_SYSCHECK_CURRENT'); ?></div>

@@ -50,9 +50,7 @@ fpcm.ui = {
 //            return false;
 //        });
 //
-//        fpcm.dom.fromId('fpcm-clear-cache').click(function () {
-//            return fpcm.system.clearCache();
-//        });
+
 //
 //        fpcm.dom.fromClass('fpcm-loader').click(function () {
 //
