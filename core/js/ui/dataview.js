@@ -97,9 +97,6 @@ fpcm.dataview = {
             }
 
             var colId = rowId + '-dataview-rowcol-' + rowCol.name + index;
-            console.log(colId);
-            console.log(rowColumn);
-
 
             var style       = 'fpcm-ui-dataview-col ' 
                             + rowColumn.class 

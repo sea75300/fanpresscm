@@ -446,13 +446,38 @@ fpcm.ui = {
 
         params.id = 'fpcm-dialog-' + params.id;
 
+        let _buttons = '';
+        if (params.dlButtons !== undefined) {
+            
+            for (var _idx in params.dlButtons) {
+                
+                let _bid = 'fpcm-ui-dlgbtn-' + Date.now();
+                let _obj = params.dlButtons[_idx];
+                let _str = '<button type="button" id="' + _bid + '" class="btn' + (_obj.primary ? ' btn-primary' : '') + (_obj.class ? ' ' + _obj.class : '') + '">' + (_obj.icon ? fpcm.ui.getIcon(_obj.icon) : '') + ' <span class="fpcm-ui-label ps-1">' + fpcm.ui.translate(_obj.text) + '</span> </button>'
+
+                if (_obj.click) {
+//                    _str.addEventListener('onclick', params.click);
+                    
+                    document.getElementById(_bid).addEventListener('onclick', _obj.click);
+                    
+//                    fpcm.dom.fromId(_str).unbind('click');
+//                    fpcm.dom.fromId(_str).click(_obj.click);
+                }
+
+                _buttons += _str;
+            }
+            
+            
+        }
+
+
         let _modal = fpcm.vars.ui.dialogTpl;
 
         fpcm.dom.appendHtml('#fpcm-body', _modal.replace('{$title}', fpcm.ui.translate(params.title))
               .replace('{$id}', params.id)
               .replace('{$opener}', params.opener)
               .replace('{$content}', params.content)
-              .replace('{$buttons}', ''));
+              .replace('{$buttons}', _buttons));
         
         
         
@@ -843,23 +868,27 @@ fpcm.ui = {
                 return false;
             }
         }
+        
+        if (params.defaultYes === undefined && params.defaultNo === undefined) {
+            params.defaultYes = true;
+        }
 
         fpcm.ui.dialog({
-            title: fpcm.ui.translate('GLOBAL_CONFIRM'),
+            title: 'GLOBAL_CONFIRM',
             content: fpcm.ui.translate('CONFIRM_MESSAGE'),
             dlWidth: size.width,
             dlButtons: [
                 {
-                    text: fpcm.ui.translate('GLOBAL_YES'),
-                    icon: "ui-icon-check",
-                    class: (params.defaultYes ? 'btn-primary' : ''),
-                    click: params.clickYes
+                    text: 'GLOBAL_YES',
+                    icon: "check",
+                    click: params.clickYes,
+                    primary: params.defaultYes ? true : false
                 },
                 {
-                    text: fpcm.ui.translate('GLOBAL_NO'),
-                    icon: "ui-icon-closethick",
-                    class: (params.defaultNo ? 'btn-primary' : ''),
-                    click: params.clickNo
+                    text: 'GLOBAL_NO',
+                    icon: "times",
+                    click: params.clickNo,
+                    primary: params.defaultNo ? true : false
                 }
             ]
         });
