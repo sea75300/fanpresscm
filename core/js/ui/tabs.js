@@ -20,12 +20,6 @@ fpcm.ui_tabs = {
             var _obj = new bootstrap.Tab(_el);
 
             _el.addEventListener('click', function (_ev) {
-
-                let _href = _ev.target.search;
-                if (_href === '#') {
-                    return true;
-                }
-
                 _ev.preventDefault();
                 (new bootstrap.Tab(_ev.target)).show();
             });
@@ -33,7 +27,7 @@ fpcm.ui_tabs = {
             
             _el.addEventListener('show.bs.tab', function (_ev) {
 
-                if (_ev.target.search === '#') {
+                if (_ev	.target.attributes.href.value.substr(0,1) === '#') {
                     return true;
                 }
 

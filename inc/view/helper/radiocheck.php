@@ -93,7 +93,7 @@ abstract class radiocheck extends helper {
      */
     protected function getString()
     {
-        $labelClass .= ' form-check-label '.$this->labelClass;
+        $labelClass = ' form-check-label '.$this->labelClass;
         
         $wrapStart = $this->text ? '<div class="form-check '.($this->inline ? 'form-check-inline' : '') . ($this->switch ? 'form-switch' : '').'">' : '';
         $wrapEnd   = $this->text ? '</div>' : '';

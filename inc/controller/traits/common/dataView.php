@@ -69,7 +69,7 @@ trait dataView {
                     new \fpcm\components\dataView\rowCol(
                         'col',
                         $this->getNotFoundDesription(),
-                        'fpcm-ui-padding-md-lr fpcm-ui-dataview-align-notfound',
+                        '',
                         \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT
                     ),
                 ],

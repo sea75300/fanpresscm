@@ -15,6 +15,12 @@ namespace fpcm\controller\action\articles;
  */
 class articleadd extends articlebase {
 
+    /**
+     *
+     * @var bool
+     */
+    protected $showComments = false;
+
     public function isAccessible(): bool
     {
         return $this->permissions->article->add;

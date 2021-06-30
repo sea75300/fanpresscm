@@ -278,7 +278,7 @@ trait lists {
                         'title',
                         (new \fpcm\view\helper\icon('list-ul '))->setSize('lg')->setStack(true)->setStack('ban fpcm-ui-important-text')->setStackTop(true).' '.
                         $this->language->translate('GLOBAL_NOTFOUND2'),
-                        'fpcm-ui-padding-md-lr fpcm-ui-dataview-align-notfound',
+                        '',
                         \fpcm\components\dataView\rowCol::COLTYPE_ELEMENT
                     ),
                 ],

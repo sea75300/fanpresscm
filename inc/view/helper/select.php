@@ -75,13 +75,13 @@ class select extends helper {
             $this->setDisplaySizesDefault();
         }
         
-//        if ($this->isMultiple) {
-//            $this->class = str_replace('fpcm-ui-input-select', 'fpcm-ui-input-select-multiple', $this->class);        
-//        }
+        if ($this->isMultiple) {
+            $this->class = str_replace('form-select', '', $this->class);        
+        }
 
         $label = '';
         if ($this->prependLabel) {
-            $label = "<div class=\"input-group mb-3\"><label title=\"{$this->text}\" class=\"input-group-text {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
+            $label = "<div class=\"input-group mb-3\"><label title=\"{$this->text}\" class=\"col-form-label {$this->labelClass}{$this->getLabelSize()}\" for=\"{$this->id}\">{$this->getIconString()}{$this->getDescriptionTextString()}</label>";
         }
         
         return $label.implode(' ', [

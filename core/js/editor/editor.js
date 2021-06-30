@@ -14,22 +14,9 @@ fpcm.editor = {
 
     init: function() {
 
-        fpcm.editor.initToolbar();
-
-        fpcm.editor.editorTabs = fpcm.ui.tabs('#fpcm-editor-tabs',
-        {
-            dataViewWrapperClass: 'fpcm-ui-editor-editlist',
-            initDataViewJson: true,
-            addMainToobarToggle: true,
-            addTabScroll: true,
-            saveActiveTab: true,
-            initDataViewOnRenderAfter: function () {
-                fpcm.ui.assignCheckboxes();
-                fpcm.ui.assignControlgroups(),
-                fpcm.editor.initCommentListActions();
-            },
-            active: fpcm.vars.jsvars.activeTab !== undefined ? fpcm.vars.jsvars.activeTab : 0
-        });
+//        fpcm.editor.initToolbar();
+//
+        fpcm.editor.editorTabs = fpcm.ui.tabs('#tabs-editor');
 
         if (!fpcm.vars.jsvars.isRevision) {
             fpcm.editor[fpcm.vars.jsvars.editorInitFunction].call();
@@ -61,120 +48,121 @@ fpcm.editor = {
     
     initAfter: function() {
 
-        fpcm.dom.fromClass('fpcm-editor-articleimage').fancybox();
-
-        fpcm.ui.spinner('input.fpcm-ui-spinner-hour', {
-            min: 0,
-            max: 23
-        });
-
-        fpcm.ui.spinner('input.fpcm-ui-spinner-minutes', {
-            min: 0,
-            max: 59
-        });
-
-        fpcm.dom.fromId('insertarticleimg').click(function () {
-            fpcm.editor.showFileManager(3);
-            return false;
-        });
-
-        fpcm.dom.fromId('insertposterimg').click(function () {
-            fpcm.editor.showFileManager(4);
-            return false;
-        });
-
-        fpcm.ui.autocomplete('#articleimagepath', {
-            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=editorfiles',
-            minLength: 3,
-            position: {
-                my: "left bottom",
-                at: "left top"
-            }
-        });
-
-        fpcm.ui.autocomplete('#articlesources', {
-            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articlesources',
-            minLength: 3
-        });
-
-        fpcm.editor.tweetTextInput = fpcm.dom.fromId('articletweettxt');
-        fpcm.ui.selectmenu('#twitterReplacements', {
-            change: function( event, ui ) {
-
-                if (ui.item.value) {
-                    var currentText = fpcm.editor.tweetTextInput.val();
-                    var currentpos = fpcm.dom.fromTag(fpcm.editor.tweetTextInput).prop('selectionStart');
-                    fpcm.editor.tweetTextInput.val(currentText.substring(0, currentpos) + ui.item.value +  currentText.substring(currentpos));
-                }
-
-                this.selectedIndex = 0;
-                fpcm.dom.fromTag(this).selectmenu('refresh');
-                return false;
-            }
-        });
-        
         fpcm.dom.fromId('articlecategories').selectize({
             placeholder: fpcm.ui.translate('EDITOR_CATEGORIES_SEARCH'),
             searchField: ['text', 'value'],
             plugins: ['remove_button']
         });
 
-        if (!fpcm.vars.jsvars.articleId) {
-            return true;
-        }
-
-        fpcm.dom.fromId('btnShortlink').click(function (event, handler) {
-
-            fpcm.ajax.get('editor/editorlist', {
-                dataType: 'json',
-                data: {
-                    id: fpcm.dom.fromTag(this).data().article,
-                    view: 'shortlink'
-                },
-                execDone: function (result) {
-
-                    fpcm.ui.dialog({
-                        id: 'editor-shortlink',
-                        dlWidth: fpcm.ui.getDialogSizes().width,
-                        title: fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK'),
-                        resizable: true,
-                        dlButtons: [
-                            {
-                                text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                                icon: "ui-icon-closethick",                        
-                                click: function() {
-                                    fpcm.dom.fromTag(this).dialog( "close" );
-                                }
-                            }
-                        ],
-                        dlOnOpen: function (event, ui) {
-
-                            fpcm.dom.appendHtml(
-                                this, 
-                                result.permalink
-                                    ? '<div class="row">' + fpcm.ui.getTextInput({
-                                            name: 'fpcm-editor-shotlink',
-                                            value: result.shortend,
-                                            text: fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK'),
-                                        }) + '</div>'
-                                    : '<iframe class="fpcm-ui-full-width" src="https://is.gd/create.php?format=simple&url= '+ result.shortend + '"></iframe>'
-                            );
-                        },
-                        dlOnClose: function( event, ui ) {
-                            fpcm.dom.fromTag(this).empty();
-                        }
-                     });
-
-                }
-            });
-
-             return false;
-        });
-
-        fpcm.dom.fromTag('input.fpcm-ui-editor-metainfo-checkbox').click(function () {
-            fpcm.dom.fromTag('span.fpcm-ui-editor-metainfo-' + fpcm.dom.fromTag(this).data('icon')).toggleClass('fpcm-ui-status-1 fpcm-ui-status-0');
-            return true;
-        });
+//        fpcm.dom.fromClass('fpcm-editor-articleimage').fancybox();
+//
+//        fpcm.ui.spinner('input.fpcm-ui-spinner-hour', {
+//            min: 0,
+//            max: 23
+//        });
+//
+//        fpcm.ui.spinner('input.fpcm-ui-spinner-minutes', {
+//            min: 0,
+//            max: 59
+//        });
+//
+//        fpcm.dom.fromId('insertarticleimg').click(function () {
+//            fpcm.editor.showFileManager(3);
+//            return false;
+//        });
+//
+//        fpcm.dom.fromId('insertposterimg').click(function () {
+//            fpcm.editor.showFileManager(4);
+//            return false;
+//        });
+//
+//        fpcm.ui.autocomplete('#articleimagepath', {
+//            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=editorfiles',
+//            minLength: 3,
+//            position: {
+//                my: "left bottom",
+//                at: "left top"
+//            }
+//        });
+//
+//        fpcm.ui.autocomplete('#articlesources', {
+//            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articlesources',
+//            minLength: 3
+//        });
+//
+//        fpcm.editor.tweetTextInput = fpcm.dom.fromId('articletweettxt');
+//        fpcm.ui.selectmenu('#twitterReplacements', {
+//            change: function( event, ui ) {
+//
+//                if (ui.item.value) {
+//                    var currentText = fpcm.editor.tweetTextInput.val();
+//                    var currentpos = fpcm.dom.fromTag(fpcm.editor.tweetTextInput).prop('selectionStart');
+//                    fpcm.editor.tweetTextInput.val(currentText.substring(0, currentpos) + ui.item.value +  currentText.substring(currentpos));
+//                }
+//
+//                this.selectedIndex = 0;
+//                fpcm.dom.fromTag(this).selectmenu('refresh');
+//                return false;
+//            }
+//        });
+//        
+//
+//        if (!fpcm.vars.jsvars.articleId) {
+//            return true;
+//        }
+//
+//        fpcm.dom.fromId('btnShortlink').click(function (event, handler) {
+//
+//            fpcm.ajax.get('editor/editorlist', {
+//                dataType: 'json',
+//                data: {
+//                    id: fpcm.dom.fromTag(this).data().article,
+//                    view: 'shortlink'
+//                },
+//                execDone: function (result) {
+//
+//                    fpcm.ui.dialog({
+//                        id: 'editor-shortlink',
+//                        dlWidth: fpcm.ui.getDialogSizes().width,
+//                        title: fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK'),
+//                        resizable: true,
+//                        dlButtons: [
+//                            {
+//                                text: fpcm.ui.translate('GLOBAL_CLOSE'),
+//                                icon: "ui-icon-closethick",                        
+//                                click: function() {
+//                                    fpcm.dom.fromTag(this).dialog( "close" );
+//                                }
+//                            }
+//                        ],
+//                        dlOnOpen: function (event, ui) {
+//
+//                            fpcm.dom.appendHtml(
+//                                this, 
+//                                result.permalink
+//                                    ? '<div class="row">' + fpcm.ui.getTextInput({
+//                                            name: 'fpcm-editor-shotlink',
+//                                            value: result.shortend,
+//                                            text: fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK'),
+//                                        }) + '</div>'
+//                                    : '<iframe class="fpcm-ui-full-width" src="https://is.gd/create.php?format=simple&url= '+ result.shortend + '"></iframe>'
+//                            );
+//                        },
+//                        dlOnClose: function( event, ui ) {
+//                            fpcm.dom.fromTag(this).empty();
+//                        }
+//                     });
+//
+//                }
+//            });
+//
+//             return false;
+//        });
+//
+//        fpcm.dom.fromTag('input.fpcm-ui-editor-metainfo-checkbox').click(function () {
+//            fpcm.dom.fromTag('span.fpcm-ui-editor-metainfo-' + fpcm.dom.fromTag(this).data('icon')).toggleClass('fpcm-ui-status-1 fpcm-ui-status-0');
+//            return true;
+//        });
     },
     
     showCommentLayer: function(layerUrl) {

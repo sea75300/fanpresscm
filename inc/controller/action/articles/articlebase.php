@@ -64,6 +64,30 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
     protected $canChangeAuthor = false;
 
     /**
+     *
+     * @var bool
+     */
+    protected $showComments = true;
+
+    /**
+     *
+     * @var bool
+     */
+    protected $showRevisions = false;
+
+    /**
+     *
+     * @var bool
+     */
+    protected $commentCount = 0;
+
+    /**
+     *
+     * @var bool
+     */
+    protected $revisionCount = 0;
+
+    /**
      * Konstruktor
      */
     public function __construct()
@@ -128,6 +152,8 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
      */
     public function process()
     {
+        $this->initTabs();
+        
         $this->editorPlugin = \fpcm\components\components::getArticleEditor();
         if (!$this->editorPlugin) {
             $this->view = new \fpcm\view\error('Error loading article editor component '.$this->config->system_editor);
@@ -156,9 +182,7 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
 
         $this->view->assign('changeAuthor', $this->canChangeAuthor);
         if ($this->canChangeAuthor) {
-            $userlist = new \fpcm\model\users\userList();
-            $changeuserList = ['EDITOR_CHANGEAUTHOR' => ''] + $userlist->getUsersNameList();
-            $this->view->assign('changeuserList', $changeuserList);
+            $this->view->assign('changeuserList', (new \fpcm\model\users\userList())->getUsersNameList());
         }
 
         $this->view->assign('approvalRequired', $this->approvalRequired);
@@ -209,6 +233,48 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
                 ->setPrimary($this->article->getId() > 0));
 
         return true;
+    }
+    
+    private function initTabs()
+    {
+    
+        $tabs = [];
+        
+        $tabs[] = (new \fpcm\view\helper\tabItem('editor'))
+                ->setFile('articles/editor.php')
+                ->setText('ARTICLES_EDITOR');
+
+        $tabs[] = (new \fpcm\view\helper\tabItem('extended'))
+                ->setFile('articles/buttons.php')
+                ->setText('GLOBAL_EXTENDED');
+        
+        if ($this->showComments && $this->config->system_comments_enabled) {
+
+            $tabs[] = (new \fpcm\view\helper\tabItem('comments'))
+                    ->setUrl(\fpcm\classes\tools::getFullControllerLink('ajax/editor/editorlist', [
+                        'id' => $this->article->getId(),
+                        'view' => 'comments'])
+                    )
+                    ->setText('HL_ARTICLE_EDIT_COMMENTS', [ 'count' => $this->commentCount ])
+                    ->setDataViewId('commentlist');
+            
+        }
+        
+        if ($this->showRevisions) {
+
+            $tabs[] = (new \fpcm\view\helper\tabItem('revisions'))
+                    ->setUrl(\fpcm\classes\tools::getFullcontrollerLink('ajax/editor/editorlist', [
+                        'id' => $this->article->getId(),
+                        'view' => 'revisions'])
+                    )
+                    ->setText('HL_ARTICLE_EDIT_REVISIONS', [ 'count' => $this->revisionCount ])
+                    ->setDataViewId('revisionslist');
+            
+        }
+        
+        
+        $this->view->addTabs('tabs-editor', $tabs, '', $this->getActiveTab());
+        
     }
 
     /**

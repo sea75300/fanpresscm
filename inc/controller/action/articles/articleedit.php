@@ -54,10 +54,13 @@ class articleedit extends articlebase {
      */
     public function request()
     {
+        $this->showRevisions = $this->permissions->article->revisions;
+
         if (!parent::request()) {
             return false;
         }
 
+        
         if (!$this->article->exists()) {
             $this->view = new \fpcm\view\error('LOAD_FAILED_ARTICLE', 'articles/listall');
             return false;
@@ -117,15 +120,15 @@ class articleedit extends articlebase {
      */
     public function process()
     {
+        $this->commentCount = array_sum($this->commentList->countComments([$this->article->getId()]));
+        $this->revisionCount = $this->article->getRevisionsCount();
+        
         parent::process();
 
         $this->view->setFormAction($this->article->getEditLink(), [], true);
         $this->view->assign('editorMode', 1);
-        $this->view->assign('showRevisions', $this->permissions->article->revisions);
         $this->view->assign('postponedTimer', $this->article->getCreatetime());
-        $this->view->assign('commentCount', array_sum($this->commentList->countComments([$this->article->getId()])));
         $this->view->assign('commentsMode', 2);
-        $this->view->assign('revisionCount', $this->article->getRevisionsCount());
         
         $this->view->addDataView(new \fpcm\components\dataView\dataView('commentlist', false));
         $this->view->addDataView(new \fpcm\components\dataView\dataView('revisionslist', false));
