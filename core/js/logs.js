@@ -14,7 +14,30 @@ fpcm.logs = {
 
     init: function () {
 
-        fpcm.ui.tabs('#tabs-logs');
+        fpcm.logs.tabs = fpcm.ui.tabs('#tabs-logs', {
+            
+            onShow: function (_el) {
+                let _logParams = fpcm.system.parseUrlQuery(_el.target.attributes.href.value);
+                fpcm.vars.jsvars.currentLog.name = _logParams.log ? _logParams.log : null;
+                fpcm.vars.jsvars.currentLog.key = _logParams.key ? _logParams.key : null;
+                fpcm.vars.jsvars.currentLog.system = _logParams.system ? _logParams.system : null;
+            },
+            
+            onRenderJsonAfter: function (_el, _result) {
+
+                if (!_result.logsize) {
+                    return false;
+                }
+
+                let _str = '<div class="row fpcm-ui-font-small">';
+                _str += '<div class="col-12 align-self-center p-2">';
+                _str += fpcm.ui.getIcon('weight', { size: 'lg' }) + fpcm.ui.translate('FILE_LIST_FILESIZE') + ': ' + _result.logsize;
+                _str += '</div>';
+                _str += '</div>';
+                fpcm.dom.appendHtml(_el.target.dataset.bsTarget, _str);                
+            }
+            
+        });
 
         var cleanEl = fpcm.dom.fromId('btnCleanLogs');
         cleanEl.unbind('click');
@@ -26,8 +49,6 @@ fpcm.logs = {
                 clickNoDefault: true,
                 clickYes: function () {
                     fpcm.logs.clearLogs(fpcm.vars.jsvars.currentLog);
-                    fpcm.dom.fromTag(this).dialog('close');
-                    return true;
                 }
             });
             
@@ -108,9 +129,9 @@ fpcm.logs = {
     },
     
     reloadLogs: function() {
-//        var tabEl = fpcm.dom.fromId('fpcm-tabs-logs');
-//        tabEl.tabs('load', tabEl.tabs( "option", "active" ));
-//        return false;
+        let _dom = document.querySelector('#tabs-logs a.nav-link.active');
+        fpcm.dom.fromTag('#tabs-logs a.nav-link.active').removeClass('active');
+        (new bootstrap.Tab(_dom)).show();
     }
 
 };

@@ -14,7 +14,7 @@ fpcm.ui = {
 
     init: function() {
 
-        fpcm.ui._intVars.msgEl = fpcm.dom.fromClass('fpcm.ui-message');
+        fpcm.dom.fromClass('fpcm.ui-message');
         fpcm.dom.fromTag("button[data-fn]").click(function (_e) {
 
             _e.preventDefault();
@@ -32,9 +32,7 @@ fpcm.ui = {
             fpcm[_fn[0]][_fn[1]](_e, this, _args);
             return false;
         });
-        
-        
-//
+
         fpcm.ui.showMessages();
 //        fpcm.ui.messagesInitClose();
 
@@ -203,9 +201,7 @@ fpcm.ui = {
     },
     
     tabs: function(_elemClassId, params) {
-
         fpcm.ui_tabs.render(_elemClassId, params);
-
     },
 
     spinner: function(elemClassId, params) {
@@ -355,13 +351,13 @@ fpcm.ui = {
     
     dialog: function(params) {
 
-//        if (params.title === undefined) {
-//            params.title = '';
-//        }
-//
-//        if (params.id === undefined) {
-//            params.id = (new Date()).getTime();
-//        }
+        if (params.title === undefined) {
+            params.title = '';
+        }
+
+        if (params.id === undefined) {
+            params.id = (new Date()).getTime();
+        }
 //
 //        if (params.dlWidth === undefined) {
 //            var size = fpcm.ui.getDialogSizes();
@@ -384,20 +380,6 @@ fpcm.ui = {
 //        var el = fpcm.dom.fromId(dialogId);
 //        if (!el.length) {
 //            return false;
-//        }
-//
-//        if (params.defaultCloseEmpty) {
-//            params.dlOnClose = function () {
-//                fpcm.dom.fromTag(this).dialog("close");
-//                fpcm.dom.fromTag(this).empty();
-//                return false;
-//            }
-//        }
-//        else if (params.defaultClose) {
-//            params.dlOnClose = function () {
-//                fpcm.dom.fromTag(this).dialog("close");
-//                return false;
-//            }
 //        }
 //
 //        var dlParams = {};
@@ -444,55 +426,71 @@ fpcm.ui = {
 //        dlParams.show = true;
 //        dlParams.hide = true;
 
-        params.id = 'fpcm-dialog-' + params.id;
+        let _dlgId = 'fpcm-dialog-' + params.id;
+        let _btnbase = 'fpcm-ui-dlgbtn-' + params.id + '-';
 
         let _buttons = '';
         if (params.dlButtons !== undefined) {
             
             for (var _idx in params.dlButtons) {
-                
-                let _bid = 'fpcm-ui-dlgbtn-' + Date.now();
-                let _obj = params.dlButtons[_idx];
-                let _str = '<button type="button" id="' + _bid + '" class="btn' + (_obj.primary ? ' btn-primary' : '') + (_obj.class ? ' ' + _obj.class : '') + '">' + (_obj.icon ? fpcm.ui.getIcon(_obj.icon) : '') + ' <span class="fpcm-ui-label ps-1">' + fpcm.ui.translate(_obj.text) + '</span> </button>'
 
-                if (_obj.click) {
-//                    _str.addEventListener('onclick', params.click);
-                    
-                    document.getElementById(_bid).addEventListener('onclick', _obj.click);
-                    
-//                    fpcm.dom.fromId(_str).unbind('click');
-//                    fpcm.dom.fromId(_str).click(_obj.click);
+                if (params.dlButtons[_idx] == undefined) {
+                    continue;
                 }
 
-                _buttons += _str;
+                let _obj = params.dlButtons[_idx];                
+                _buttons += _str = '<button type="button" id="' + _btnbase + _idx + '" class="btn' + (_obj.primary ? ' btn-primary' : '') + (_obj.class ? ' ' + _obj.class : '') + '" >' + (_obj.icon ? fpcm.ui.getIcon(_obj.icon) : '') + ' <span class="fpcm-ui-label ps-1">' + fpcm.ui.translate(_obj.text) + '</span> </button>';
             }
-            
-            
+
         }
 
 
         let _modal = fpcm.vars.ui.dialogTpl;
 
         fpcm.dom.appendHtml('#fpcm-body', _modal.replace('{$title}', fpcm.ui.translate(params.title))
-              .replace('{$id}', params.id)
+              .replace('{$id}', _dlgId)
               .replace('{$opener}', params.opener)
               .replace('{$content}', params.content)
               .replace('{$buttons}', _buttons));
-        
-        
-        
-        let _domEl = document.getElementById(params.id);
+
+        let _domEl = document.getElementById(_dlgId);
         let _bsObj = new bootstrap.Modal(_domEl);
-        _bsObj.show(_domEl);
+        _bsObj.toggle(_domEl);
         _domEl.addEventListener('hidden.bs.modal', function (event) {
              _bsObj.dispose(_domEl);
-             fpcm.dom.fromId(params.id).remove();
+             fpcm.dom.fromId(_dlgId).remove();
         });
 
+        if (params.dlButtons !== undefined) {
+            
+            for (var _idx in params.dlButtons) {
 
+                if (params.dlButtons[_idx] == undefined) {
+                    continue;
+                }
 
+                let _obj = params.dlButtons[_idx];
+                if (_obj.click == undefined) {
+                    continue;
+                }
 
-//        return el.dialog(dlParams);
+                let _domEL = fpcm.dom.fromId(_btnbase + _idx);
+                _domEL.unbind('click');
+                _domEL.click(function () {
+                    
+                    _obj.click.call(this);
+                    if (!_obj.clickClose) {
+                        return false;
+                    }
+                    
+                    _bsObj.toggle(_domEl);
+                    return false;
+                });
+            }
+            
+            
+        }
+
     },
     
     autocomplete: function(elemClassId, params) {
@@ -591,7 +589,6 @@ fpcm.ui = {
 
         if (fpcm.vars.ui.messages === undefined || clear) {
             fpcm.vars.ui.messages = [];
-            fpcm.ui._intVars.msgEl.empty();
         }
         
         if (!value.icon) {
@@ -621,34 +618,7 @@ fpcm.ui = {
 
         fpcm.vars.ui.messages.push(value);
         fpcm.ui.showMessages();
-        fpcm.ui.messagesInitClose();
 
-    },
-    
-    messagesInitClose: function() {
-        
-        fpcm.ui._intVars.msgEl.find('.fpcm-ui-messages-close').unbind('click');
-        fpcm.ui._intVars.msgEl.find('.fpcm-ui-messages-close').click(function (event, ui) {
-
-            let _data = fpcm.dom.fromTag(this).data();
-
-            let _el = fpcm.dom.fromId('msgbox-' + _data.msgid);
-            _el.fadeOut('slow');
-            _el.remove();
-
-            if (fpcm.vars.ui.messages[_data.msgidx] === undefined) {
-                return true;
-            }
-
-            delete fpcm.vars.ui.messages.splice(_data.msgidx, 1);
-            return true;
-        }).mouseover(function (event, ui) {
-            fpcm.dom.fromTag(this).find('.fa.fa-square').removeClass('fa-inverse');
-            fpcm.dom.fromTag(this).find('.fa.fa-times').addClass('fa-inverse');
-        }).mouseout(function (event, ui) {
-            fpcm.dom.fromTag(this).find('.fa.fa-square').addClass('fa-inverse');
-            fpcm.dom.fromTag(this).find('.fa.fa-times').removeClass('fa-inverse'); 
-        });
     },
     
     removeLoaderClass: function(elemId) {
@@ -862,15 +832,12 @@ fpcm.ui = {
 
         var size  = fpcm.ui.getDialogSizes(top, 0.35);
         
-        if (params.clickNoDefault) {
-            params.clickNo = function () {
-                fpcm.dom.fromTag(this).dialog("close");
-                return false;
-            }
-        }
-        
         if (params.defaultYes === undefined && params.defaultNo === undefined) {
             params.defaultYes = true;
+        }
+        
+        if (params.clickNoDefault === undefined) {
+            params.clickNoDefault = true;
         }
 
         fpcm.ui.dialog({
@@ -882,13 +849,15 @@ fpcm.ui = {
                     text: 'GLOBAL_YES',
                     icon: "check",
                     click: params.clickYes,
-                    primary: params.defaultYes ? true : false
+                    primary: params.defaultYes ? true : false,
+                    clickClose: true
                 },
                 {
                     text: 'GLOBAL_NO',
                     icon: "times",
                     click: params.clickNo,
-                    primary: params.defaultNo ? true : false
+                    primary: params.defaultNo ? true : false,
+                    clickClose: params.clickNoDefault
                 }
             ]
         });

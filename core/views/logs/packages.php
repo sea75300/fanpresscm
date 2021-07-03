@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <?php if (!count($items)) : ?>
-<p class="fpcm-ui-padding-none fpcm-ui-margin-none"><?php $theView->icon('copy', 'far')->setSize('lg')->setStack('ban fpcm-ui-important-text')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
+<p class="px-2"><?php $theView->icon('copy', 'far')->setSize('lg')->setStack('ban fpcm-ui-important-text')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
 <?php else : ?>
 <div class="accordion" id="fpcm-pkgmgr-log-acc">
     <?php foreach ($items as $key => $value) : ?>
@@ -24,8 +24,8 @@
     <?php endforeach; ?>
 </div>
 <?php endif; ?>
-<div class="row fpcm-ui-font-small fpcm-ui-margin-lg-top">
-    <div class="col-12 align-self-center fpcm-ui-padding-none-left">
+<div class="row fpcm-ui-font-small">
+    <div class="col-12 align-self-center p-2">
         <?php $theView->icon('weight')->setSize('lg'); ?>
         <?php $theView->write('FILE_LIST_FILESIZE'); ?>:
         <?php $theView->escape($size); ?>

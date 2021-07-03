@@ -11,7 +11,7 @@
         <div class="tab-content <?php if (!isset($hideTabBackground)) : ?>fpcm ui-background-white-50p<?php endif; ?>">
         <?php foreach ($tabs as $tab) : ?>
             
-            <div id="fpcm-tab-<?php print $tab->getId(); ?>-pane" class="tab-pane <?php if ($tab->isActive()) : ?>show active<?php endif; ?>" role="tabpanel" aria-labelledby="fpcm-tab-<?php print $tab->getId(); ?>">
+            <div id="fpcm-tab-<?php print $tab->getId(); ?>-pane" class="tab-pane fade <?php if ($tab->isActive()) : ?>show active<?php endif; ?>" role="tabpanel" aria-labelledby="fpcm-tab-<?php print $tab->getId(); ?>">
                 <?php if ($tab->getFile()) : ?>
                     <?php include $theView->getIncludePath($tab->getFile()); ?>
                 <?php endif; ?>

@@ -157,7 +157,7 @@ class tabItem extends helper {
     protected function getString()
     {
         $html = [];
-        $html[] = '<li id="fpcm-tab-'.$this->id.'" class="nav-item"';
+        $html[] = '<li id="fpcm-tab-'.$this->id.'" class="nav-item me-1"';
 
         if ($this->dataViewId) {
             $this->data['dataview-list'] = $this->dataViewId;
