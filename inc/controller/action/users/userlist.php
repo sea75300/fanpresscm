@@ -135,6 +135,8 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
      */
     public function process()
     {
+        $this->initTabs();
+        
         $this->view->assign('usersListSelect', $this->userList->getUsersNameList());
         
         $chart = new \fpcm\components\charts\chart('pie', 'userArticles');
@@ -315,7 +317,11 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
             if ($this->permissions->system->permissions) {
                 $buttons[] = (new \fpcm\view\helper\linkButton('rollPermBtn'.$rollId))->setUrl(\fpcm\classes\tools::getFullControllerLink('users/permissions', [
                     'id' => $rollId
-                ]))->setIcon('key')->setIconOnly(true)->setText('USERS_ROLLS_PERMISSIONS')->setClass('fpcm-ui-rolllist-permissionedit');
+                ]))->setIcon('key')
+                    ->setIconOnly(true)
+                    ->setText('USERS_ROLLS_PERMISSIONS')
+                    ->setClass('fpcm ui-link-fancybox')
+                        ->setData(['type' => 'iframe']);
             }
             
             $buttons[] = '</div>';
@@ -433,6 +439,18 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         }
 
         $this->view->addNoticeMessage('DELETE_SUCCESS_USERS');
+    }
+    
+    protected function initTabs()
+    {
+        $tabs = [];
+        $tabs[] = (new \fpcm\view\helper\tabItem('users'))->setText('USERS_LIST')->setFile($this->getViewPath() . '.php');
+        
+        if ($this->permissions->system->rolls) {
+            $tabs[] = (new \fpcm\view\helper\tabItem('rolls'))->setText('USERS_LIST_ROLLS')->setFile('users/rollslist.php');
+        }
+        
+        $this->view->addTabs('users', $tabs, '', 0);
     }
 
 }

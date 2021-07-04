@@ -16,11 +16,6 @@ fpcm.users = {
         fpcm.dom.fromId('btnDeleteUser').click(function() {
             return fpcm.users.initMoveDeleteArticles();
         });
-        
-        fpcm.ui.tabs('#fpcm-ui-tabs-users', {
-            addMainToobarToggle: true,
-            active: fpcm.vars.jsvars.activeTab
-        });
 
         if (fpcm.dataview.exists('userlist')) {
             fpcm.dataview.render('userlist', {
@@ -33,8 +28,7 @@ fpcm.users = {
         if (fpcm.dataview.exists('rollslist')) {
             fpcm.dataview.render('rollslist', {
                 onRenderAfter: function() {
-                    fpcm.ui.assignControlgroups();
-                    fpcm.users.initPermissionEdit();
+                    fpcm.dom.fromClass('fpcm.ui-link-fancybox').fancybox();
                 }
             });
         };
@@ -121,47 +115,5 @@ fpcm.users = {
 
         return false;
 
-    },
-    
-    initPermissionEdit: function () {
-        fpcm.dom.fromClass('fpcm-ui-rolllist-permissionedit').click(function() {
-
-            var sizes = fpcm.ui.getDialogSizes(top, 0.75);
-            var link  = fpcm.dom.fromTag(this).attr('href');
-
-            fpcm.ui.dialog({
-                id       : 'users-permissions-edit',
-                dlWidth  : sizes.width,
-                dlHeight : fpcm.ui.getDialogSizes(top, 0.75).height,
-                resizable: true,
-                title    : fpcm.ui.translate('HL_OPTIONS_PERMISSIONS'),
-                defaultCloseEmpty: true,
-                dlButtons  : [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_SAVE'),
-                        icon: "ui-icon-disk",                        
-                        click: function() {
-                            fpcm.dom.fromTag(this).children('iframe').contents().find('#btnPermissionsSave').trigger('click');
-                            fpcm.ui_loader.hide();
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                    
-                        click: function() {
-                            fpcm.dom.fromTag(this).dialog('close');
-                            fpcm.ui_loader.hide();
-                        }
-                    }                            
-                ],
-                dlOnOpen: function (event, ui) {                
-                    fpcm.dom.appendHtml(this, fpcm.ui.createIFrame({
-                        src: link,
-                    }));
-                }
-            });
-
-            return false;
-        });
     }
 };
