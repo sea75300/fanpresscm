@@ -23,7 +23,7 @@ final class textarea extends input {
      */
     protected function init()
     {
-        $this->class = 'fpcm-ui-textarea';
+        $this->class = 'form-control';
     }
 
     /**

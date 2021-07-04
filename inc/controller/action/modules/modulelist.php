@@ -92,7 +92,6 @@ class modulelist extends \fpcm\controller\abstracts\controller implements \fpcm\
 
         $this->view->assign('canUpload', !$this->uploadDisabled);
         $this->view->assign('uploadMultiple', false);
-        $this->view->assign('hideTabBackground', true);
         $this->view->addDataView(new \fpcm\components\dataView\dataView('modulesLocal', false));
         $this->view->addDataView(new \fpcm\components\dataView\dataView('modulesRemote', false));
         

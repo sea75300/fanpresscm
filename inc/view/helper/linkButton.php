@@ -68,6 +68,8 @@ class linkButton extends button {
      */
     protected function getString()
     {
+        $this->text = $this->language->translate($this->text);
+        
         if ($this->primary) {
             $this->class = str_replace('btn-light', 'btn-primary', $this->class);
         }

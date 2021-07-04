@@ -19,11 +19,6 @@ fpcm.profile = {
                 fpcm.ui.relocate(fpcm.vars.actionPath + 'system/profile');
             }, 1500);
         }
-
-        fpcm.ui.tabs('.fpcm-ui-tabs-general', {
-            active: fpcm.vars.jsvars.activeTab,
-            saveActiveTab: true
-        });
         
         fpcm.dom.fromId('dataemail').focusout(function () {
             fpcm.ui.showCurrentPasswordConfirmation();

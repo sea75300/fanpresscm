@@ -5,7 +5,7 @@
             <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
             
             <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-12 col-sm-6 px-0">
+                <div class="col-12 col-md-6">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                             <?php $theView->icon('globe'); ?>
@@ -22,7 +22,7 @@
             </div>
 
             <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-12 col-sm-6 px-0">
+                <div class="col-12 col-md-6">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                             <?php $theView->icon('language'); ?>
@@ -39,7 +39,7 @@
             </div>
 
             <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-12 col-sm-6 px-0">
+                <div class="col-12 col-md-6">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                             <?php $theView->icon('list'); ?>
@@ -56,7 +56,7 @@
             </div>
             
             <div class="row fpcm-ui-padding-md-tb g-0">
-                <div class="col-12 col-sm-6 col-lg-5">
+                <div class="col-12 col-md-6 col-lg-5">
                     <div class="row">
                         <?php $theView->textInput('data[system_dtmask]')
                                 ->setValue($author->getUserMeta('system_dtmask'))
@@ -82,7 +82,7 @@
             <legend><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_SETTINGS'); ?> / <?php $theView->write('HL_FILES_MNG'); ?></legend>
 
             <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-12 col-sm-6 px-0">
+                <div class="col-12 col-md-6">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                             <?php $theView->icon('text-height'); ?>
@@ -99,7 +99,7 @@
             </div>            
 
             <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-12 col-sm-6 px-0">
+                <div class="col-12 col-md-6">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                             <?php $theView->icon('folder-open'); ?>
@@ -116,7 +116,7 @@
             </div>            
 
             <div class="row fpcm-ui-padding-md-tb">
-                <div class="col-12 col-sm-6 px-0">
+                <div class="col-12 col-md-6">
                     <div class="row">
                         <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
                             <?php $theView->icon('grip-horizontal'); ?>
@@ -137,13 +137,11 @@
 
 <div class="row g-0">
     <div class="col-12">
-        <fieldset class="fpcm-ui-margin-md-top">
+        <fieldset>
             <legend><?php $theView->write('HL_DASHBOARD'); ?></legend>
             
-            <div class="row fpcm-ui-padding-md-tb">
-                <div class="align-self-center col-12 px-0">        
-                    <?php $theView->submitButton('resetDashboardSettings')->setText('USERS_META_RESET_DASHBOARD')->setIcon('undo'); ?>
-                </div>
+            <div class="m-2">        
+                <?php $theView->submitButton('resetDashboardSettings')->setText('USERS_META_RESET_DASHBOARD')->setIcon('undo'); ?>
             </div>
         </fieldset>
     </div>

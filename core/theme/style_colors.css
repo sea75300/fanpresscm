@@ -126,11 +126,6 @@ span.fpcm-ui-badge.fpcm-ui-badge-red {
     background: #cc0000;
 }
 
-#fpcm-filemanager-upload-drop,
-div.fpcm-filelist-thumb-box img {
-    border: 1px dotted #00aded;
-}
-
 #fpcm-loader > div.fpcm-loader-icon {
     color: #0073ea !important;
 }
@@ -168,53 +163,26 @@ div.fpcm-filelist-thumb-box img {
 }
 
 /* ------ Forms styles */
-/*select {
-    background: #f6f6f6;
-    border: 1px solid #bbb;
-}*/
 
-fieldset,
 textarea,
-.fpcm-ui-input-wrapper,
-.fpcm-ui-input-text,
-.fpcm-ui-input-wrapper-inner input,
 .fpcm-ui-background-white-100 {
     background: #fefefe;
 }
 
-fieldset,
-textarea,
-.fpcm-ui-input-wrapper,
-.fpcm-ui-input-wrapper-hover,
-.fpcm-ui-field-input-nowrapper-general,
 .fpcm-ui-border-grey-medium {
     border: 1px solid #bbb;
 }
 
-textarea:hover,
-textarea:focus,
-textarea:active,
 .fpcm.ui-mouseover:hover,
 .fpcm.ui-mouseover:focus,
 .fpcm.ui-mouseover:active,
-.fpcm-ui-input-wrapper:hover,
-.fpcm-ui-field-input-nowrapper-general:hover,
 .fpcm-ui-border-blue-light {
     border: 1px solid #0073ea;
 }
 
-textarea:hover,
-textarea:focus,
-textarea:active,
-.fpcm-ui-input-wrapper:hover,
-.fpcm-ui-input-wrapper-hover,
-.fpcm-ui-field-input-nowrapper-general:hover,
 .fpcm.ui-mouseover:hover,
 .fpcm.ui-mouseover:focus,
-.fpcm.ui-mouseover:active,
-span.ui-spinner.ui-widget.ui-widget-content:hover,
-span.ui-spinner.ui-widget.ui-widget-content:focus,
-span.ui-spinner.ui-widget.ui-widget-content:active {
+.fpcm.ui-mouseover:active {
     box-shadow: #0073ea 0px 0px 4px;
 }
 

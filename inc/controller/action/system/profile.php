@@ -50,6 +50,7 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
      */
     public function request()
     {
+
         $this->initUploader();
         
         $this->user = $this->session->getCurrentUser();
@@ -74,6 +75,7 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
 
         $this->view->assign('author', $this->user);
         $this->view->assign('avatar', \fpcm\model\users\author::getAuthorImageDataOrPath($this->user, false));
+        
         return true;
     }
     
@@ -239,7 +241,13 @@ class profile extends \fpcm\controller\abstracts\controller implements \fpcm\con
         $this->view->addButtons([
             (new \fpcm\view\helper\saveButton('profileSave'))->setPrimary(),
             (new \fpcm\view\helper\submitButton('resetProfileSettings'))->setText('GLOBAL_RESET')->setIcon('undo')
-        ]);
+        ]);  
+
+        $this->view->addTabs('profile', [
+           (new \fpcm\view\helper\tabItem('user'))->setText('HL_PROFILE')->setFile('users/usereditor.php'),
+           (new \fpcm\view\helper\tabItem('extended'))->setText('GLOBAL_EXTENDED')->setFile('users/usereditor_extended.php'),
+           (new \fpcm\view\helper\tabItem('meta'))->setText('USERS_META_OPTIONS')->setFile('users/editormeta.php'),
+        ], '', $this->getActiveTab());
 
         $this->view->setFormAction('system/profile');
 

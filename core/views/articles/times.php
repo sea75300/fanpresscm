@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="row">
+<div class="row g-0">
     <div class="col-12 mb-2">
         <fieldset>
             <legend><?php $theView->write('GLOBAL_METADATA'); ?></legend>

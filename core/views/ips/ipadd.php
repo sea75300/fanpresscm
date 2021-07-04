@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-12">
-        <fieldset class="m-3">
+        <fieldset class="m-3 fpcm-ui-border-grey-medium">
             <legend><?php $theView->write('IPLIST_ADDIP'); ?></legend>
             
             <div class="row">

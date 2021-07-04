@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div>
     <?php if ( trim($rollCodex) ) : ?>
-    <div class="row">
+    <div class="row g-0">
         <div class="col-12 my-2">
             <fieldset>
                 <legend><?php $theView->write('EDITOR_CODEX'); ?></legend>
@@ -11,7 +11,7 @@
     </div>    
     <?php endif; ?>
 
-    <div class="row">
+    <div class="row g-0">
         <div class="col-12 my-2">
             <fieldset>
                 <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
