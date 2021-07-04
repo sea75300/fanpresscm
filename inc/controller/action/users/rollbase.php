@@ -101,7 +101,7 @@ abstract class rollbase extends \fpcm\controller\abstracts\controller implements
             (new \fpcm\view\helper\tabItem('roll'))->setText($this->headlineVar)->setFile('users/rolledit.php')           
         ];
         
-        if ( $theView->permissions->system->permissions && $this->userRoll->getId() ) {
+        if ( $this->permissions->system->permissions && $this->userRoll->getId() ) {
             $tabs[] = (new \fpcm\view\helper\tabItem('permission'))->setText('HL_OPTIONS_PERMISSIONS')->setFile('users/permissions_editor.php');
         }
         
