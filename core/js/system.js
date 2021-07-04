@@ -365,25 +365,16 @@ fpcm.system = {
 
                     fpcm.ui.dialog({
                         id: 'help',
-                        dlWidth: sizes.width,
-                        dlMaxHeight: sizes.height,
-                        resizable: true,
                         title: fpcm.ui.translate('HL_HELP'),
-                        opener: el.attr('id'),
                         content: result,
                         dlButtons: [
                             {
-                                text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                                icon: "ui-icon-closethick",
-                                click: function () {
-                                    fpcm.dom.fromTag(this).dialog('close');
-                                    return false;
-                                }
+                                text: 'GLOBAL_CLOSE',
+                                icon: "times",
+                                clickClose: true,
+                                primary: true
                             }
-                        ],
-                        dlOnClose: function (event, ui) {
-                            fpcm.dom.fromTag(this).remove();
-                        }
+                        ]
                     });
 
 //                    fpcm.ui.tabs('#fpcm-ui-tabs-help');

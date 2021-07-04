@@ -144,6 +144,10 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         
         $this->view->setFormAction($this->listAction, $formActionParams);
         $this->view->addDataView( new \fpcm\components\dataView\dataView('articlelist') );
+        
+        $this->view->addTabs('articles', [
+            (new \fpcm\view\helper\tabItem('articles'))->setText($this->getTabHeadline())->setFile('articles/listouter.php')
+        ]);
         return true;
     }
 

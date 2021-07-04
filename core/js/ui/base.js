@@ -36,10 +36,8 @@ fpcm.ui = {
         });
 
         fpcm.ui.showMessages();
-//        fpcm.ui.messagesInitClose();
 
-//        fpcm.ui.tabs('.fpcm-ui-tabs-general');
-//        fpcm.ui.initJqUiWidgets();
+        fpcm.ui.initJqUiWidgets();
 //        fpcm.ui.spinner('input.fpcm-ui-spinner');
 //        fpcm.ui.datepicker('input.fpcm-ui-datetime-picker');
 //        fpcm.ui.accordion('.fpcm-tabs-accordion');
@@ -75,32 +73,32 @@ fpcm.ui = {
 
     initJqUiWidgets: function () {
 
-        fpcm.dom.fromClass('fpcm-ui-button.fpcm-ui-button-confirm').unbind('click');
+//        fpcm.dom.fromClass('fpcm-ui-button.fpcm-ui-button-confirm').unbind('click');
+//
+//        fpcm.ui.mainToolbar = fpcm.ui.controlgroup('#fpcm-ui-toolbar div.fpcm-ui-toolbar', {
+//            onlyVisible: true
+//        });
+//
+//        fpcm.ui.assignControlgroups();
+//
+//        fpcm.dom.fromClass('fpcm-ui-button.fpcm-ui-button-confirm').click(function() {
+//
+//            fpcm.ui_loader.hide();
+//            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
+//                fpcm.ui_loader.hide();
+//                return false;
+//            }
+//            
+//            if (!fpcm.dom.fromTag(this).data('hidespinner')) {
+//                fpcm.ui_loader.show();
+//            }
+//
+//        });
+//
+//        fpcm.ui.selectmenu('.fpcm-ui-input-select');
 
-        fpcm.ui.mainToolbar = fpcm.ui.controlgroup('#fpcm-ui-toolbar div.fpcm-ui-toolbar', {
-            onlyVisible: true
-        });
-
-        fpcm.ui.assignControlgroups();
-
-        fpcm.dom.fromClass('fpcm-ui-button.fpcm-ui-button-confirm').click(function() {
-
-            fpcm.ui_loader.hide();
-            if (!confirm(fpcm.ui.translate('CONFIRM_MESSAGE'))) {
-                fpcm.ui_loader.hide();
-                return false;
-            }
-            
-            if (!fpcm.dom.fromTag(this).data('hidespinner')) {
-                fpcm.ui_loader.show();
-            }
-
-        });
-
-        fpcm.ui.selectmenu('.fpcm-ui-input-select');
-
-        fpcm.ui.assignCheckboxes();
-        fpcm.ui.articleActionsOkButton();
+//        fpcm.ui.assignCheckboxes();
+//        fpcm.ui.articleActionsOkButton();
         fpcm.ui.initPager();
     },
     
@@ -472,7 +470,7 @@ fpcm.ui = {
                 }
 
                 let _obj = params.dlButtons[_idx];
-                if (_obj.click == undefined) {
+                if (_obj.click == undefined && _obj.clickClose == undefined) {
                     continue;
                 }
 
@@ -480,7 +478,10 @@ fpcm.ui = {
                 _domEL.unbind('click');
                 _domEL.click(function () {
                     
-                    _obj.click.call(this);
+                    if (_obj.click) {
+                        _obj.click.call(this);
+                    }
+                    
                     if (!_obj.clickClose) {
                         return false;
                     }
@@ -972,45 +973,24 @@ fpcm.ui = {
             nextEl.addClass('fpcm-ui-readonly');
         }
 
-        var selectId    = 'pageSelect';
-        var selectEl    = fpcm.dom.fromId(selectId);
-        selectEl.unbind('select');
-        
-        if (!params.keepSelect) {
-            selectEl.empty();
-        }
+        var selectEl    = fpcm.dom.fromId('pageSelectList');
+        fpcm.dom.fromTag(selectEl).find('li').remove();
         
         if (fpcm.vars.jsvars.pager.maxPages) {
             for(i=1; i<= fpcm.vars.jsvars.pager.maxPages; i++) {
-                selectEl.append( '<option ' + (fpcm.vars.jsvars.pager.currentPage === i ? 'selected' : '') + ' value="' + i + '">' + fpcm.ui.translate('GLOBAL_PAGER').replace('{{current}}', i).replace('{{total}}', fpcm.vars.jsvars.pager.maxPages) + '</option>');
+
+                let _href = fpcm.vars.jsvars.pager.linkString.replace('__page__', i);
+                
+                selectEl.append('<li><a class="dropdown-item ' +  (fpcm.vars.jsvars.pager.currentPage === i ? ' active' : '') + ' " href="' + _href + '">' + fpcm.ui.translate('GLOBAL_PAGER').replace('{{current}}', i).replace('{{total}}', fpcm.vars.jsvars.pager.maxPages) + '</a></li>');
             }
         }
-        
-        if (!params.selectAction) {
-            params.selectAction = function( event, ui ) {
 
-                if (ui.item.value == fpcm.vars.jsvars.pager.currentPage) {
-                    return false;
-                }
-
-                if (ui.item.value == '1') {
-                    window.location.href = fpcm.vars.actionPath + fpcm.vars.jsvars.currentModule;
-                    return true;
-                }
-                window.location.href = fpcm.vars.actionPath + fpcm.vars.jsvars.currentModule + '&page=' + ui.item.value;
-            };
+        if (params.selectAction) {
+            fpcm.dom.fromTag(selectEl).find('li').click(function (_ev) {
+                _ev.preventDefault();
+                params.selectAction(this);
+            });
         }
-
-        var selectParams = {
-            width : 'auto',
-            select: params.selectAction,
-            classes: {
-                'ui-selectmenu-button': 'fpcm-ui-pager-element'
-            },
-            doRefresh: true
-        };
-
-        fpcm.ui.selectmenu('#' + selectId, selectParams);
         
     },
     

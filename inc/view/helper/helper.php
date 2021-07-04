@@ -27,6 +27,13 @@ abstract class helper {
     protected $data = [];
 
     /**
+     * Ement aria config
+     * @var array
+     * @since 4.6-dev
+     */
+    protected $aria = [];
+
+    /**
      * Element ID
      * @var string
      */
@@ -251,19 +258,39 @@ abstract class helper {
      */
     protected function getDataString()
     {
-        if (!count($this->data)) {
+        return $this->assocArrayToString('data', $this->data);
+    }
+
+    /**
+     * Return class string
+     * @return string
+     */
+    protected function getAriaString()
+    {
+         return $this->assocArrayToString('aria', $this->data);
+    }
+
+    /**
+     * Turns assoc array into string
+     * @param string $prefix
+     * @param array $data
+     * @return string
+     */
+    private function assocArrayToString(string $prefix, array $data) : string
+    {
+        if (!count($data)) {
             return '';
         }
 
-        $return = [];
-        foreach ($this->data as $key => $value) {
-
+        $return = array_map(function ($value, $key) use ($prefix) {
+            
             if (is_object($value) || is_array($value)) {
                 $value = json_encode($value);
             }
 
-            $return[] = "data-{$key}=\"{$value}\"";
-        }
+            return "{$prefix}-{$key}=\"{$value}\"";            
+            
+        }, array_values($data), array_keys($data));
 
         return implode(' ', $return);
     }
@@ -380,6 +407,17 @@ abstract class helper {
     public function setData(array $data)
     {
         $this->data = $data;
+        return $this;
+    }
+
+    /**
+     * Add array for 'data-'-params to element
+     * @param array $data
+     * @return $this
+     */
+    public function setAria(array $aria)
+    {
+        $this->aria = $aria;
         return $this;
     }
 

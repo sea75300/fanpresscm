@@ -43,6 +43,7 @@ class button extends helper {
         return implode(' ', [
             "<button type=\"{$this->type}\" ",
             $this->getDataString(),
+            $this->getAriaString(),
             $this->getReadonlyString(),
             ($this->readonly ? $this->getClassString() : $this->getNameIdString() . ' ' . $this->getClassString()),
             ($this->iconOnly ? "title=\"{$this->text}\">{$this->getIconString()}" : ">{$this->getIconString()} {$this->getDescriptionTextString()}"),

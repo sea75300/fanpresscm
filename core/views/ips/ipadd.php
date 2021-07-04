@@ -1,17 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="row g-0 py-2">
-    <div class="col-12">
-        <fieldset class="py-2">
-            <legend><?php $theView->write('GLOBAL_INFO'); ?></legend>
-            <p class="mx-2"><?php $theView->write('IPLIST_DESCRIPTION'); ?></p>
-        </fieldset>
-    </div>
-</div>
-
 <div class="row">
     <div class="col-12">
-        <fieldset class="m-3 fpcm-ui-border-grey-medium">
-            <legend><?php $theView->write('IPLIST_ADDIP'); ?></legend>
+        <fieldset class="my-3">
             
             <div class="row">
                 <?php $theView->textInput('ipaddress')

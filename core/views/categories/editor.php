@@ -1,8 +1,7 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <div class="row">
     <div class="col-12">
-        <fieldset class="m-3">
-            <legend><?php $theView->write('CATEGORIES_EDIT'); ?></legend>
+        <fieldset class="my-3">
             
             <div class="row">
                 <?php $theView->textInput('category[name]')
@@ -34,12 +33,9 @@
                                 ->setValue($rollid)
                                 ->setSwitch(true)
                                 ->setSelected(isset($selectedGroups) && in_array($rollid, $selectedGroups)); ?>
-                    <?php endforeach; ?>                          
-                    
+                    <?php endforeach; ?>
                 </div>
-                
             </div>
-
         </fieldset>
     </div>
 </div>

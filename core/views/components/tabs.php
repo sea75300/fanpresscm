@@ -4,7 +4,7 @@
 <div class="fpcm-content-wrapper">
 <?php endif; ?>
     <div class="fpcm ui-tabs-wrapper" id="<?php print $tabsId; ?>">
-        <ul class="nav nav-tabs <?php print $tabsClass; ?>" role="tablist">
+        <ul class="nav nav-tabs flex-column flex-sm-row <?php print $tabsClass; ?>" role="tablist">
             <?php foreach ($tabs as $tab) : ?><?php print $tab; ?><?php endforeach; ?>
         </ul>    
     
