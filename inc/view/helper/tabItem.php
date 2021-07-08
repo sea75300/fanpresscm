@@ -132,6 +132,17 @@ class tabItem extends helper {
     }
 
     /**
+     * Set item ID
+     * @param string $dataViewId
+     * @return $this
+     */
+    public function setTabToolbar($toolbarTab)
+    {
+        $this->data['toolbar-buttons'] = (string) $toolbarTab;
+        return $this;
+    }
+
+    /**
      * Get item ID
      * @return string
      */

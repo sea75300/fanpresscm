@@ -242,11 +242,13 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
         
         $tabs[] = (new \fpcm\view\helper\tabItem('editor'))
                 ->setFile('articles/editor.php')
-                ->setText('ARTICLES_EDITOR');
+                ->setText('ARTICLES_EDITOR')
+                ->setTabToolbar(1);
 
         $tabs[] = (new \fpcm\view\helper\tabItem('extended'))
                 ->setFile('articles/buttons.php')
-                ->setText('GLOBAL_EXTENDED');
+                ->setText('GLOBAL_EXTENDED')
+                ->setTabToolbar(1);
         
         if ($this->showComments && $this->config->system_comments_enabled) {
 
@@ -256,7 +258,8 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
                         'view' => 'comments'])
                     )
                     ->setText('HL_ARTICLE_EDIT_COMMENTS', [ 'count' => $this->commentCount ])
-                    ->setDataViewId('commentlist');
+                    ->setDataViewId('commentlist')
+                    ->setTabToolbar(2);
             
         }
         
@@ -268,7 +271,8 @@ abstract class articlebase extends \fpcm\controller\abstracts\controller impleme
                         'view' => 'revisions'])
                     )
                     ->setText('HL_ARTICLE_EDIT_REVISIONS', [ 'count' => $this->revisionCount ])
-                    ->setDataViewId('revisionslist');
+                    ->setDataViewId('revisionslist')
+                    ->setTabToolbar(3);
             
         }
         

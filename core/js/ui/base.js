@@ -14,8 +14,8 @@ fpcm.ui = {
 
     init: function() {
 
+        fpcm.ui.mainToolbar = fpcm.dom.fromId('#fpcm-ui-toolbar');
         fpcm.dom.fromClass('fpcm.ui-link-fancybox').fancybox();
-
         fpcm.dom.fromClass('fpcm.ui-message');
         fpcm.dom.fromTag("button[data-fn]").click(function (_e) {
 

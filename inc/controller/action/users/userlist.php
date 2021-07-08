@@ -444,10 +444,16 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
     protected function initTabs()
     {
         $tabs = [];
-        $tabs[] = (new \fpcm\view\helper\tabItem('users'))->setText('USERS_LIST')->setFile($this->getViewPath() . '.php');
+        $tabs[] = (new \fpcm\view\helper\tabItem('users'))
+                ->setText('USERS_LIST')
+                ->setFile($this->getViewPath() . '.php')
+                ->setTabToolbar(1);
         
         if ($this->permissions->system->rolls) {
-            $tabs[] = (new \fpcm\view\helper\tabItem('rolls'))->setText('USERS_LIST_ROLLS')->setFile('users/rollslist.php');
+            $tabs[] = (new \fpcm\view\helper\tabItem('rolls'))
+                    ->setText('USERS_LIST_ROLLS')
+                    ->setFile('users/rollslist.php')
+                    ->setTabToolbar(2);
         }
         
         $this->view->addTabs('users', $tabs, '', 0);

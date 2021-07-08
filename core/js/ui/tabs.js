@@ -26,6 +26,8 @@ fpcm.ui_tabs = {
 
             _el.addEventListener('show.bs.tab', function (_ev) {
                             
+                fpcm.ui_tabs._updateMainToolbar(_ev.target.dataset);
+
                 if (typeof params.onShow === 'function') {
                     params.onShow(_ev);
                 }
@@ -33,6 +35,7 @@ fpcm.ui_tabs = {
                 if (_ev.target.attributes.href.value.substr(0,1) === '#') {
                     return true;
                 }
+
 
                 var _tabList = _ev.target.dataset.dataviewList
                              ? _ev.target.dataset.dataviewList
@@ -90,5 +93,24 @@ fpcm.ui_tabs = {
         (new bootstrap.Tab(_tb[0])).show();
  
     },
+    
+    _updateMainToolbar: function (_data) {
+        
+        console.log('.fpcm-ui-maintoolbarbuttons-tab' + _data.toolbarButtons);
+        console.log(_data);
+
+        if (_data.toolbarButtons === undefined) {
+            return true;
+        }
+
+        let _navItemEL = fpcm.ui.mainToolbar.find('div.nav-item-left > *');
+        _navItemEL.addClass('fpcm ui-hidden').removeClass('fpcm-ui-hidden');
+        _navItemEL.parent('div.mx-1').removeClass('mx-1');
+        
+        let _tabItemsEl = fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab' + _data.toolbarButtons);
+        _tabItemsEl.removeClass('ui-hidden');
+        _tabItemsEl.parent('div').addClass('mx-1');
+        return true;
+    }
     
 }

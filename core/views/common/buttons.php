@@ -6,7 +6,7 @@
     <?php if ($theView->buttons) : ?>
         <div class="navbar me-auto">
         <?php foreach ($theView->buttons as $button) : ?>
-            <div class="nav-item mx-1">
+            <div class="nav-item nav-item-left mx-1">
                 <?php print $button; ?>
             </div>
         <?php endforeach; ?>
