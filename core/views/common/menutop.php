@@ -31,9 +31,7 @@
                     </a>                
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php print $theView->controllerLink('system/info'); ?>" title="<?php $theView->write('HL_HELP_SUPPORT'); ?>" rel="license">
-                        <?php $theView->icon('info-circle')->setSize('lg'); ?>
-                    </a>
+
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="fpcm-notify-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,9 +55,28 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="fpcm-profile-menu">
                         <li>
+                            <div class="px-3 fpcm-ui-font-small">
+                                <b><?php $theView->write('PROFILE_MENU_LOGGEDINSINCE'); ?>:</b><br>
+                                <?php $theView->dateText($theView->loginTime); ?> (<?php print $theView->dateTimeZone; ?>)
+                            </div>
+                        </li>
+                        <li>
+                            <div class="px-3 fpcm-ui-font-small">
+                                <b><?php $theView->write('PROFILE_MENU_YOURIP'); ?></b><br>
+                                <?php print $theView->ipAddress; ?>
+                            </div>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
                             <a class="dropdown-item  text-truncate" href="<?php print $theView->controllerLink('system/profile'); ?>">
                                 <?php $theView->icon('wrench'); ?>
                                 <?php $theView->write('PROFILE_MENU_OPENPROFILE'); ?>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="<?php print $theView->controllerLink('system/info'); ?>" rel="license">
+                                <?php $theView->icon('info-circle'); ?>
+                                <?php $theView->write('HL_HELP_SUPPORT'); ?>
                             </a>
                         </li>
                         <li>
@@ -67,19 +84,6 @@
                                 <?php $theView->icon('sign-out-alt'); ?>
                                 <?php $theView->write('LOGOUT_BTN'); ?>
                             </a>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li>
-                            <div class="px-3 fpcm-ui-font-small">
-                                <b><?php $theView->write('PROFILE_MENU_LOGGEDINSINCE'); ?>:</b>
-                                <?php $theView->dateText($theView->loginTime); ?> (<?php print $theView->dateTimeZone; ?>)
-                            </div>
-                        </li>
-                        <li>
-                            <div class="px-3 fpcm-ui-font-small">
-                                <b><?php $theView->write('PROFILE_MENU_YOURIP'); ?></b>
-                                <?php print $theView->ipAddress; ?>
-                            </div>
                         </li>
                     </ul>
                 </li>

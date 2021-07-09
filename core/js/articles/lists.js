@@ -123,14 +123,6 @@ fpcm.articles = {
                 }
             });
 
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-articlesearch', {
-                appendTo: '#' + sDlg.attr('id')
-            });
-
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-articlesearch-combination', {
-                appendTo: '#' + sDlg.attr('id')
-            });
-
             return false;
         });
 
@@ -165,12 +157,13 @@ fpcm.articles = {
                     page: fpcm.vars.jsvars.pager.showBackButton,
                     loader: true
                 });
-                
+
                 return true;
             },
             onPagerSelect: function (event, ui) {
+
                 fpcm.articles.loadArticles({
-                    page: ui.item.value,
+                    page: ui.value,
                     loader: true
                 });
 

@@ -51,8 +51,13 @@ fpcm.dataview = {
         obj.lines       = fpcm.dom.fromId(obj.rowsId);
 
         jQuery.each(obj.columns, function (index, column) {
-            style = 'fpcm-ui-dataview-col ' + column.class + fpcm.dataview.getAlignString(column.align) + ' align-self-center py-0 py-md-2 ' + fpcm.dataview.getSizeString(column);
-            obj.headline.append('<div class="' + style + '" id="' + obj.fullId + '-dataview-headcol-' + column.name + index + '">' + (column.descr ? fpcm.ui.translate(column.descr) : '&nbsp;') + '</div>');            
+            let _style = 'fpcm-ui-dataview-col ' + 
+                     column.class + fpcm.dataview.getAlignString(column.align) + 
+                     ' align-self-center py-0 py-md-2 ' + 
+                     fpcm.dataview.getSizeString(column) +
+                     (!column.descr ? ' d-none d-lg-block' : '');
+
+            obj.headline.append('<div class="' + _style + '" id="' + obj.fullId + '-dataview-headcol-' + column.name + index + '">' + (column.descr ? fpcm.ui.translate(column.descr) : '&nbsp;') + '</div>');            
         });
 
         jQuery.each(obj.rows, function (index, row) {

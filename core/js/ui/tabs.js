@@ -1,7 +1,7 @@
 /**
- * FanPress CM UI Namespace
+ * FanPress CM UI Tabs Namespace
  * @article Stefan Seehafer <sea75300@yahoo.de>
- * @copyright (c) 2015-2020, Stefan Seehafer
+ * @copyright (c) 2021, Stefan Seehafer
  * @license http://www.gnu.org/licenses/gpl.txt GPLv3
  */
 if (fpcm === undefined) {
@@ -10,11 +10,35 @@ if (fpcm === undefined) {
 
 fpcm.ui_tabs = {
 
+    init: function() {
+        
+        var _el = fpcm.dom.fromClass('fpcm.ui-tabs-function-autoinit');
+        if (_el === false || !_el.length) {
+            return false;
+        }
+
+        fpcm.ui_tabs.render('#' + _el.attr('id'));
+        return true;
+    },
+
     render: function(_elemClassId, params) {
 
-        if (params === undefined) params = {};
+        if (!_elemClassId) {
+            console.error('Invalid "_elemClassId" data given for, value cannot be empty!');
+            return false;
+        }
 
-        var _tb = [].slice.call(document.querySelectorAll(_elemClassId + ' a.nav-link'));
+        if (params === undefined) {
+            params = {};
+        }
+
+        let _nodes = document.querySelectorAll(_elemClassId + ' a.nav-link');
+        if (!_nodes.length) {
+            console.error('No tab nodes fround for "' + _elemClassId + ' a.nav-link"!');
+            return false;            
+        }
+
+        let _tb = [].slice.call(_nodes);
         _tb.forEach(function (_el) {
 
             var _obj = new bootstrap.Tab(_el);
@@ -25,8 +49,8 @@ fpcm.ui_tabs = {
             });
 
             _el.addEventListener('show.bs.tab', function (_ev) {
-                            
-                fpcm.ui_tabs._updateMainToolbar(_ev.target.dataset);
+
+                fpcm.ui_tabs._updateMainToolbar(_ev.target, _ev.relatedTarget);
 
                 if (typeof params.onShow === 'function') {
                     params.onShow(_ev);
@@ -35,7 +59,6 @@ fpcm.ui_tabs = {
                 if (_ev.target.attributes.href.value.substr(0,1) === '#') {
                     return true;
                 }
-
 
                 var _tabList = _ev.target.dataset.dataviewList
                              ? _ev.target.dataset.dataviewList
@@ -94,23 +117,21 @@ fpcm.ui_tabs = {
  
     },
     
-    _updateMainToolbar: function (_data) {
-        
-        console.log('.fpcm-ui-maintoolbarbuttons-tab' + _data.toolbarButtons);
-        console.log(_data);
+    _updateMainToolbar: function (_active, _prev) {
 
-        if (_data.toolbarButtons === undefined) {
+        if (_active === undefined || _prev === undefined || 
+            _active.dataset === undefined || _prev.dataset === undefined) {
             return true;
         }
 
-        let _navItemEL = fpcm.ui.mainToolbar.find('div.nav-item-left > *');
-        _navItemEL.addClass('fpcm ui-hidden').removeClass('fpcm-ui-hidden');
-        _navItemEL.parent('div.mx-1').removeClass('mx-1');
+        if (_active.dataset.toolbarButtons === undefined || _prev.dataset.toolbarButtons === undefined ||
+            _active.dataset.toolbarButtons === _prev.dataset.toolbarButtons) {
+            return true;
+        }
+
+        fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ _active.dataset.toolbarButtons).removeClass('fpcm-ui-hidden').parent('div').addClass('mx-1');        
+        fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ _prev.dataset.toolbarButtons).addClass('fpcm-ui-hidden').parent('div').removeClass('mx-1');
         
-        let _tabItemsEl = fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab' + _data.toolbarButtons);
-        _tabItemsEl.removeClass('ui-hidden');
-        _tabItemsEl.parent('div').addClass('mx-1');
-        return true;
     }
     
 }

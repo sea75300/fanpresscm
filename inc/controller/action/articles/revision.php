@@ -165,14 +165,13 @@ implements \fpcm\controller\interfaces\isAccessible,
         }, array_keys($this->article->getRevisions()));
         
         $this->view->addButtons([
+            (new \fpcm\view\helper\dropdown('revisionList'))
+                ->setOptions($revision)
+                ->setSelected($this->rid),
             (new \fpcm\view\helper\linkButton('backToArticel'))
                 ->setUrl($this->article->getEditLink().'&rg=3')
                 ->setText('EDITOR_BACKTOCURRENT')
                 ->setIcon('chevron-circle-left'),    
-            (new \fpcm\view\helper\select('revisionList'))
-                ->setOptions($revision)
-                ->setSelected($this->rid)
-                ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED),
             (new \fpcm\view\helper\submitButton('revisionRestore'))
                 ->setText('EDITOR_REVISION_RESTORE')
                 ->setIcon('undo')
@@ -221,8 +220,13 @@ implements \fpcm\controller\interfaces\isAccessible,
             $this->view = new \fpcm\view\error($exc->getMessage());
             exit;
         }
-
+        
         $this->view->assign('diffResult', html_entity_decode($renderer->render($differ)) );
+        
+        $this->view->addTabs('article', [
+            (new \fpcm\view\helper\tabItem('article'))->setText('EDITOR_STATUS_REVISION')->setFile('articles/revisiondiff.php')
+        ]);
+        
         $this->view->render();
     }
     

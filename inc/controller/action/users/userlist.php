@@ -235,7 +235,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         
         foreach($usersInGroups AS $rollId => $users) {
             
-            $title  = $descr.': '.$this->language->translate($userGroups[$rollId]->getRollName());
+            $title  = '<b>' . $descr.': '.$this->language->translate($userGroups[$rollId]->getRollName()) . '</b>';
             
             $dataView->addRow(
                 new \fpcm\components\dataView\row([
@@ -320,7 +320,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                 ]))->setIcon('key')
                     ->setIconOnly(true)
                     ->setText('USERS_ROLLS_PERMISSIONS')
-                    ->setClass('fpcm ui-link-fancybox')
+                    ->setClass('fpcm ui-rolls-edit')
                         ->setData(['type' => 'iframe']);
             }
             
@@ -456,7 +456,7 @@ class userlist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                     ->setTabToolbar(2);
         }
         
-        $this->view->addTabs('users', $tabs, '', 0);
+        $this->view->addTabs('users', $tabs, 'ui-tabs-function-autoinit', 0);
     }
 
 }

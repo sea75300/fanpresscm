@@ -18,7 +18,8 @@ namespace fpcm\view\helper;
 class dropdown extends helper {
 
     use traits\iconHelper,
-        traits\labelFieldSize;
+        traits\labelFieldSize,
+        traits\selectedHelper;
 
     /**
      * Select options
@@ -40,16 +41,18 @@ class dropdown extends helper {
     {        
         $btnId = $this->id . 'Button';
         
+        $options = $this->getOptionsString($this->options);
+        
         return implode(' ', [
             "<div",
             $this->getIdString(),
             $this->getClassString(),
             $this->getDataString(),
             "role=\"group\" >",
-            (new button($btnId))->setText($this->text)->setClass(' btn-danger dropdown-toggle')->setData([ 'bs-toggle' => 'dropdown' ])->setAria(['expanded' => 'false'])
+            (new button($btnId))->setText($this->text)->setClass('dropdown-toggle')->setData([ 'bs-toggle' => 'dropdown' ])->setAria(['expanded' => 'false'])
                 ,
             "   <ul class=\"dropdown-menu\" aria-labelledby=\"{$btnId}\" id=\"{$this->id}List\">",
-                $this->getOptionsString($this->options),
+                $options,
             "   </ul>",
             "</div>",
         ]);
@@ -107,30 +110,17 @@ class dropdown extends helper {
         foreach ($options as $key => $value) {
             $this->value = $this->escapeVal($value, ENT_QUOTES);
             $key = $this->escapeVal($key, ENT_QUOTES);
-            $this->returnString[] = "<li><a class=\"dropdown-item {$this->getSelectedString()}\" {$this->getValueString()}>{$this->language->translate($key)}</a></li>";
+            
+            $class = '';
+            if ($this->value == $this->selected) {
+                $class = 'active';
+                $this->text = $key;
+            }            
+
+            $this->returnString[] = "<li><a class=\"dropdown-item {$class}\">{$this->language->translate($key)}</a></li>";
         }
 
         return;
-    }
-
-    /**
-     * Get selected string
-     * @return string
-     * @since 4.6-dev
-     */
-    protected function getSelectedString() : string
-    {
-        return $this->value == $this->selected ? 'active' : '';
-    }
-
-    /**
-     * Get value string
-     * @return string
-     * @since 4.6-dev
-     */
-    protected function getValueString() : string
-    {
-        return $this->value == $this->selected ? 'active' : '';
     }
 
 }

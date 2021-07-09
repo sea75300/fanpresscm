@@ -31,7 +31,7 @@
                     
                     <?php if ($ni->hasSubmenu()) : ?>
                     
-                    <ul class="dropdown-menu" aria-labelledby="item<?php print $ni->getId(); ?>">
+                    <ul class="dropdown-menu shadow fpcm ui-blurring" aria-labelledby="item<?php print $ni->getId(); ?>">
                         
                         <?php foreach ($ni->getSubmenu() as $si) : ?>
                         

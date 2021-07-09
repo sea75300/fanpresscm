@@ -260,6 +260,15 @@ fpcm.ajax = {
                             _params.onPagerBack(event, ui);
                             return true;
 
+                        },
+                        selectAction: function( event, ui ) {
+                            
+                            if (ui.item.value == fpcm.vars.jsvars.pager.currentPage) {
+                                return false;
+                            }
+
+                            _params.onPagerSelect(event, ui);
+                            return true;
                         }
                     });
                 }

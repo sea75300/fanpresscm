@@ -6,6 +6,7 @@
     <?php if ($theView->buttons) : ?>
         <div class="navbar me-auto">
         <?php foreach ($theView->buttons as $button) : ?>
+            <?php $button->setClass('shadow-sm'); ?>
             <div class="nav-item nav-item-left mx-1">
                 <?php print $button; ?>
             </div>
@@ -19,12 +20,7 @@
             </div>
             <?php endif; ?>
             <?php if ($theView->pager) : ?>
-            <div class="nav-item">
-                <div class="btn-group">
-                    <?php print $theView->pager; ?>
-                </div>
-                
-            </div>
+            <?php print $theView->pager; ?>                
             <?php endif; ?>
         </div>
     </div>

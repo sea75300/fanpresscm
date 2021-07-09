@@ -180,7 +180,7 @@ fpcm.ui = {
     },
     
     assignSelectmenu: function() {
-        fpcm.ui.selectmenu('.fpcm-ui-input-select');
+        //fpcm.ui.selectmenu('.fpcm-ui-input-select');
     },
     
     accordion: function(elemClassId, params) {
@@ -249,33 +249,25 @@ fpcm.ui = {
         el.datepicker(params);
     },
 
-    selectmenu: function(elemClassId, params) {
+    selectmenu: function(_elemClassId, _params) {
 
-//        var el = fpcm.dom.fromTag(elemClassId);
-//        if (!el.length) {
-//            return false;
-//        }
-//    
-//        if (params === undefined) {
-//            params = {};
-//        }
-//
-//        if (elemClassId.substr(0,1) === '#') {
-//            var dataWidth = fpcm.dom.fromTag(elemClassId).data('width');
-//            if (dataWidth) {
-//                params.width = dataWidth;
-//            }
-//        }
-//
-//        params.width = false;
-//
-//        var el = fpcm.dom.fromTag(elemClassId).selectmenu(params);
-//        if (params.doRefresh) {
-//            el.selectmenu('refresh');
-//        }
-//
-//        return el;
-        
+        let _el = fpcm.dom.fromTag(_elemClassId);
+        if (_params.change) {
+            _el.bind('change', function (_ev) {
+                
+                _ev.preventDefault();
+                try {
+                    _params.change(_ev, this);
+                } catch (_e) {
+                    fpcm.ui.addMessage({
+                        type: 'error',
+                        txt: _e
+                    }, true);
+                }
+
+            });
+        }
+
     },
     
     checkboxradio: function(elemClassId, params, onClick) {
@@ -444,6 +436,19 @@ fpcm.ui = {
 
         }
 
+        if (params.url) {
+            params.content = fpcm.ui.createIFrame({
+                src: params.url,
+                id: _dlgId + '-frame',
+                classes: 'w-100 h-100'
+            });
+            
+            params.class = 'modal-fullscreen';
+        }
+        
+        if (params.class === undefined) {
+            params.class = '';
+        }
 
         let _modal = fpcm.vars.ui.dialogTpl;
 
@@ -451,6 +456,7 @@ fpcm.ui = {
               .replace('{$id}', _dlgId)
               .replace('{$opener}', params.opener)
               .replace('{$content}', params.content)
+              .replace('{$class}', params.class)
               .replace('{$buttons}', _buttons));
 
         let _domEl = document.getElementById(_dlgId);
@@ -846,7 +852,6 @@ fpcm.ui = {
         fpcm.ui.dialog({
             title: 'GLOBAL_CONFIRM',
             content: fpcm.ui.translate('CONFIRM_MESSAGE'),
-            dlWidth: size.width,
             dlButtons: [
                 {
                     text: 'GLOBAL_YES',
@@ -927,71 +932,6 @@ fpcm.ui = {
         }
 
         return fpcm.ui.dialog(dialogParams);
-    },
-    
-    initPager: function(params) {
-
-        if (params === undefined) {
-            params = {};
-        }
-        
-        if (!fpcm.vars.jsvars.pager) {
-            return false;
-        }
-
-        var backEl = fpcm.dom.fromId('pagerBack');
-        var nextEl = fpcm.dom.fromId('pagerNext');
-
-        backEl.unbind('click');
-        nextEl.unbind('click');
-
-        if (!params.backAction) {
-            params.backAction = function () {
-                fpcm.dom.fromTag(this).attr('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showBackButton) );
-            };
-        }
-
-        if (!params.nextAction) {
-            params.nextAction = function () {
-                fpcm.dom.fromTag(this).attr('href', fpcm.vars.jsvars.pager.linkString.replace('__page__', fpcm.vars.jsvars.pager.showNextButton) );
-            };
-        }
-
-        if (fpcm.vars.jsvars.pager.showBackButton) {
-            backEl.removeClass('fpcm-ui-readonly');
-            backEl.click(params.backAction);
-        }
-        else if (!fpcm.vars.jsvars.pager.showBackButton && backEl && !backEl.hasClass('fpcm-ui-readonly')) {
-            backEl.addClass('fpcm-ui-readonly');
-        }
-        
-        if (fpcm.vars.jsvars.pager.showNextButton) {
-            nextEl.removeClass('fpcm-ui-readonly');
-            nextEl.click(params.nextAction);
-        }
-        else if (!fpcm.vars.jsvars.pager.showNextButton && nextEl && !nextEl.hasClass('fpcm-ui-readonly')) {
-            nextEl.addClass('fpcm-ui-readonly');
-        }
-
-        var selectEl    = fpcm.dom.fromId('pageSelectList');
-        fpcm.dom.fromTag(selectEl).find('li').remove();
-        
-        if (fpcm.vars.jsvars.pager.maxPages) {
-            for(i=1; i<= fpcm.vars.jsvars.pager.maxPages; i++) {
-
-                let _href = fpcm.vars.jsvars.pager.linkString.replace('__page__', i);
-                
-                selectEl.append('<li><a class="dropdown-item ' +  (fpcm.vars.jsvars.pager.currentPage === i ? ' active' : '') + ' " href="' + _href + '">' + fpcm.ui.translate('GLOBAL_PAGER').replace('{{current}}', i).replace('{{total}}', fpcm.vars.jsvars.pager.maxPages) + '</a></li>');
-            }
-        }
-
-        if (params.selectAction) {
-            fpcm.dom.fromTag(selectEl).find('li').click(function (_ev) {
-                _ev.preventDefault();
-                params.selectAction(this);
-            });
-        }
-        
     },
     
     relocate: function (url) {

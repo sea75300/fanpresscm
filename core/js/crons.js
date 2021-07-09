@@ -29,10 +29,13 @@ fpcm.crons = {
                     return false;
                 });
                 
-                fpcm.ui.selectmenu(".fpcm-cronjoblist-intervals", {
-                    change: function(event, ui) {
-                        var cronjob  = fpcm.dom.fromTag(this).attr('id').split('_');
-                        fpcm.crons.setCronjobInterval(cronjob[1], this.value, jQuery(this).data('cjmod'));
+                fpcm.ui.selectmenu('select', {
+                    change: function(_event, _ui) {
+                        fpcm.crons.setCronjobInterval(
+                            _ui.attributes.id.value.replace(/^intervals_/i, ''),
+                            _ui.value,
+                            _ui.dataset.cjmod
+                        );
                         return false;
                     }
                 });

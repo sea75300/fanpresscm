@@ -18,6 +18,11 @@ class permissions extends \fpcm\controller\abstracts\controller implements \fpcm
 
     use \fpcm\controller\traits\users\savePermissions;
 
+    /**
+     * 
+     * @var \fpcm\model\users\userRoll
+     */
+    private $roll;
 
     public function isAccessible(): bool
     {
@@ -37,8 +42,7 @@ class permissions extends \fpcm\controller\abstracts\controller implements \fpcm
     {
         $this->rollId = $this->request->getID();
 
-        $roll = new \fpcm\model\users\userRoll($this->rollId, false);
-        $this->view->assign('rollname', $this->language->translate($roll->getRollName()));
+        $this->roll = new \fpcm\model\users\userRoll($this->rollId, false);
 
         $this->fetchRollPermssions();
         
@@ -72,6 +76,12 @@ class permissions extends \fpcm\controller\abstracts\controller implements \fpcm
         $this->view->showHeaderFooter(\fpcm\view\view::INCLUDE_HEADER_SIMPLE);
         $this->view->setFormAction('users/permissions', [
             'id' => $this->rollId
+        ]);
+
+        $this->view->addTabs('permissions', [
+            (new \fpcm\view\helper\tabItem('permissions-group'))
+                ->setText('USERS_EDIT_PERMISSION', ['rollname' => $this->language->translate($this->roll->getRollName())])
+                ->setFile($this->getViewPath() . '.php')
         ]);
 
         $this->view->render();

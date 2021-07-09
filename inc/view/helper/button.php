@@ -37,7 +37,7 @@ class button extends helper {
     protected function getString()
     {
         if ($this->primary) {
-            $this->class = preg_replace('/(btn-)(.*)/i', '$1primary', $this->class);
+            $this->class = preg_replace('/(btn-)(\w+\s{1})(.*)/i', '$1primary $3', $this->class);
         }
         
         return implode(' ', [

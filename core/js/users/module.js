@@ -28,7 +28,34 @@ fpcm.users = {
         if (fpcm.dataview.exists('rollslist')) {
             fpcm.dataview.render('rollslist', {
                 onRenderAfter: function() {
-                    fpcm.dom.fromClass('fpcm.ui-link-fancybox').fancybox();
+                    
+                    let _el = fpcm.dom.fromClass('fpcm.ui-rolls-edit');
+                    _el.unbind('click');
+                    _el.click(function (_ev) {
+                        _ev.preventDefault();
+                        fpcm.ui.dialog({
+                            id: 'edit-permissions',
+                            url: this.attributes.href.value,
+                            title: 'HL_OPTIONS_PERMISSIONS',
+                            dlButtons: [
+                                {
+                                    text: 'GLOBAL_SAVE',
+                                    icon: "check",
+                                    click: function () {
+                                        fpcm.dom.fromId('fpcm-dialog-edit-permissions-frame').contents().find('#btnPermissionsSave').click();
+                                    },
+                                    primary: true
+                                },
+                                {
+                                    text: 'GLOBAL_CLOSE',
+                                    icon: "times",
+                                    clickClose: true
+                                }
+                            ]
+                        });
+                        
+                        return false;
+                    });
                 }
             });
         };

@@ -12,8 +12,8 @@ fpcm.revisions = {
 
     init: function() {
         fpcm.ui.selectmenu('#revisionList', {
-            change: function (event, ui) {
-                fpcm.ui.relocate(fpcm.vars.actionPath + 'articles/revision&aid= ' + fpcm.vars.jsvars.articleId + '&rid=' + ui.item.value);
+            change: function (_event, _ui) {
+                fpcm.ui.relocate(fpcm.vars.actionPath + 'articles/revision&aid= ' + fpcm.vars.jsvars.articleId + '&rid=' + _ui.value);
             }
         });
     }

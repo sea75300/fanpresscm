@@ -152,9 +152,9 @@ class pager extends helper {
     protected function getString()
     {
         $return = implode('', [
-            (new linkButton('pagerBack'))->setText('GLOBAL_BACK')->setUrl('#')->setReadonly($this->showBackButton ? false : true)->setIcon('chevron-circle-left')->setIconOnly(true)->setClass('fpcm-ui-pager-element'),
-            (new dropdown('pageSelect'))->setOptions([])->setText('GLOBAL_PLEASE_SELECT')->setClass('btn-group'),
-            (new linkButton('pagerNext'))->setText('GLOBAL_NEXT')->setUrl('#')->setReadonly($this->showNextButton ? false : true)->setIcon('chevron-circle-right')->setIconOnly(true)->setClass('fpcm-ui-pager-element'),
+            '<div class="nav-item mx-1">' . (new linkButton('pagerBack'))->setText('GLOBAL_BACK')->setUrl('#')->setReadonly($this->showBackButton ? false : true)->setIcon('chevron-circle-left')->setIconOnly(true)->setClass('fpcm-ui-pager-element shadow-sm') . '</div>',
+            '<div class="nav-item mx-1 d-none d-md-block">' . (new select('pageSelect'))->setOptions([])->setFirstOption(select::FIRST_OPTION_DISABLED)->setClass('fpcm-ui-pager-element shadow-sm') . '</div>',
+            '<div class="nav-item mx-1">' . (new linkButton('pagerNext'))->setText('GLOBAL_NEXT')->setUrl('#')->setReadonly($this->showNextButton ? false : true)->setIcon('chevron-circle-right')->setIconOnly(true)->setClass('fpcm-ui-pager-element shadow-sm') . '</div>',
         ]);
 
         return $return;

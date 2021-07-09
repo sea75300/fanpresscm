@@ -133,14 +133,6 @@ fpcm.comments = {
                     fpcm.dom.fromId('text').focus();
                 }
             });
-
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch', {
-                appendTo: '#' + sDlg.attr('id')
-            });
-            
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-commentsearch-combination', {
-                appendTo: '#' + sDlg.attr('id'),
-            });
             
             fpcm.ui.autocomplete('#articleId', {
                 source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
