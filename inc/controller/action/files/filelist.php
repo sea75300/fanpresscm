@@ -156,6 +156,27 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
 
         $this->view->addButtons($buttons);
         $this->view->setFormAction('files/list', ['mode' => $this->mode]);
+        
+        $tabs = [
+            (new \fpcm\view\helper\tabItem('files-list'))
+                ->setText('FILE_LIST_AVAILABLE')
+                ->setTabToolbar(1)
+                ->setUrl(\fpcm\classes\tools::getControllerLink('ajax/files/lists', [ 'mode' => $this->mode ]) )
+        ];
+        
+        if ($this->permissions->uploads->add) {
+            
+            $path = str_replace(\fpcm\classes\dirs::getCoreDirPath(\fpcm\classes\dirs::CORE_VIEWS), '', $uploader->getTemplate());
+            
+            $tabs[] = (new \fpcm\view\helper\tabItem('upload'))
+                    ->setText('FILE_LIST_UPLOADFORM')
+                    ->setTabToolbar(2)
+                    ->setFile($path);
+            
+        }
+
+        $this->view->includeForms('filemanager');
+        $this->view->addTabs('files', $tabs, 'fpcm ui-tabs-function-autoinit', 0);
         $this->view->render();
     }
 

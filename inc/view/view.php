@@ -1020,6 +1020,16 @@ class view {
     }
 
     /**
+     * Add path for default forms.php view file
+     * @param string str
+     * @since 4.6-dev
+     */
+    public function includeForms(string $str)
+    {
+        $this->defaultViewVars->includeForms = $str . '/forms.php';
+    }
+
+    /**
      * Triggers events addJsFiles/addCssFiles for given type
      * @param string $type
      */

@@ -27,6 +27,8 @@ fpcm.ui_tabs = {
             console.error('Invalid "_elemClassId" data given for, value cannot be empty!');
             return false;
         }
+        
+        console.log(_elemClassId);
 
         if (params === undefined) {
             params = {};
@@ -64,10 +66,13 @@ fpcm.ui_tabs = {
                              ? _ev.target.dataset.dataviewList
                              : false; 
                 
+                        debugger;
                 fpcm.ajax.get(_ev.target.href, {
                     execDone: function (_result) {
 
+
                         if (!_result instanceof Object || !_tabList) {
+                            
                             
                             if (typeof params.onRenderHtmlBefore === 'function') {
                                 params.onRenderHtmlBefore(_ev);

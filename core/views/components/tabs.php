@@ -23,3 +23,7 @@
 </div>
 <?php endif; ?>
 
+<?php if (trim($theView->includeForms)) : ?>
+<?php include $theView->getIncludePath($theView->includeForms); ?>
+<?php endif; ?>
+
