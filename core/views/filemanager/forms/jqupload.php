@@ -1,6 +1,6 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <div id="fileupload" class="fileupload-processing">
-    <div class="row g-0">
+    <div class="row">
         <div class="col-12">
             <div class="fileupload-progress fpcm-ui-fade fpcm-ui-hidden my-3">
                 <div class="fpcm ui-progressbar progress active ui-progressbar ui-corner-all ui-widget ui-widget-content" role="progressbar" aria-valuemin="0" aria-valuemax="100">
@@ -11,39 +11,33 @@
         </div>
     </div>
 
-    <div class="row g-0">
+    <div class="row">
         
-        <div class="col-12 mb-1">
-            <fieldset class="fpcm-ui-margin-lg-bottom">
-                <legend><?php $theView->write('FILE_LIST_UPLOADFORM'); ?></legend>
-
-                <div class="fpcm-ui-padding-md-tb fileupload-buttonbar">
-                    <div class="fileupload-buttons fpcm-ui-controlgroup">
-                        <a class="fileinput-button">
-                            <?php $theView->icon('plus'); ?>
-                            <span><?php $theView->write('FILE_FORM_FILEADD'); ?></span>
-                            <input type="file" name="files[]" <?php if ($uploadMultiple) : ?>multiple<?php endif; ?>>
-                        </a>
-
-                        <?php $theView->submitButton('start')->setText('FILE_FORM_UPLOADSTART')->setClass('start')->setIcon('upload'); ?>
-                        <?php $theView->resetButton('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('cancel')->setIcon('ban'); ?>
-                    </div>
+        <div class="col-12 my-3">
+            <div class="fileupload-buttonbar">
+                <div class="fileupload-buttons fpcm-ui-controlgroup">
+                    <a class="btn btn-primary fpcm-ui-button fpcm-ui-button-link fileinput-button">
+                        <?php $theView->icon('plus'); ?>
+                        <span><?php $theView->write('FILE_FORM_FILEADD'); ?></span>
+                        <input type="file" name="files[]" <?php if ($uploadMultiple) : ?>multiple<?php endif; ?>>
+                    </a>
+                    <?php $theView->submitButton('start')->setText('FILE_FORM_UPLOADSTART')->setClass('start')->setIcon('upload'); ?>
+                    <?php $theView->resetButton('cancel')->setText('FILE_FORM_UPLOADCANCEL')->setClass('cancel')->setIcon('ban'); ?>
                 </div>
-            </fieldset>
+            </div>
         </div>
 
-        <div class="col-12 my-1">
-            <div class="row g-0 align-self-center justify-content-center">        
+        <div class="col-12 mb-3">
+            <div class="row align-self-center justify-content-center">        
                 <div id="fpcm-filemanager-upload-drop" class="col-12 fpcm-ui-background-white-100">
-                    <h4 class="fpcm-ui-center"><?php $theView->icon('file-upload')->setSize('4x')->setClass('fpcm-ui-padding-md-bottom fpcm ui-status-075'); ?><br><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4>
+                    <h4 class="fpcm-ui-center"><?php $theView->icon('file-upload')->setSize('4x')->setClass('fpcm ui-status-075'); ?><br><?php $theView->write('FILE_LIST_UPLOADDROP'); ?></h4>
                 </div>
             </div>
         </div>
         
     </div>
 
-
-    <div role="presentation" class="fpcm-ui-margin-lg-top">
-        <div class="files"></div>
+    <div  class="row" role="presentation">
+        <div class="col files"></div>
     </div>
 </div>

@@ -54,7 +54,13 @@ jQuery(document).ready(function () {
             return true;
         }
 
-        object.init();
+        try {
+            object.init();
+        } catch (_e) {
+            console.log(_e);
+            alert('UI init error!');
+        }
+
     });
 
     jQuery.each(fpcm, function (idx, object) {
@@ -62,7 +68,12 @@ jQuery(document).ready(function () {
             return true;
         }
 
-        object.initAfter();
+        try {
+            object.initAfter();
+        } catch (_e) {
+            console.log(_e);
+            alert('UI init error!');
+        }
     });
 
 });

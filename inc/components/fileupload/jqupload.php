@@ -34,7 +34,6 @@ final class jqupload extends uploader {
     {
         return [
             \fpcm\classes\dirs::getLibUrl('jqupload/css/jquery.fileupload.css'),
-//            \fpcm\classes\dirs::getLibUrl('jqupload/css/jquery.fileupload-ui.css'),
             \fpcm\classes\dirs::getLibUrl('cropper_js/cropper.min.css'),
         ];
     }
@@ -54,14 +53,13 @@ final class jqupload extends uploader {
      */
     public function getJsFilesLate(): array
     {
-        return [];
-        
         return [
+            \fpcm\classes\dirs::getLibUrl('jqupload/js/vendor/jquery.ui.widget.js'),
             \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.iframe-transport.js'),
             \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload.js'),
             \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload-process.js'),
             \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload-validate.js'),
-//            \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload-ui.js'),
+            \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload-ui.js'),
         ];
     }
 
