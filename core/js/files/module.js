@@ -17,35 +17,21 @@ fpcm.filemanager = {
         fpcm.ui_tabs.render('#files', {
             
             onRenderHtmlAfter: function () {
-                fpcm.filemanager.initPagination();
+                fpcm.filemanager.initListActions();
             }
 
         });
 
-//        if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
-//            fpcm.filemanager.initFilesSearch();
-//        }
-//
-//        fpcm.filemanager.initNewThumbButton();
-//        fpcm.filemanager.initDeleteMultipleButton();
+        if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
+            fpcm.filemanager.initFilesSearch();
+        }
 
-//        fpcm.dom.fromId('fpcm-tabs-tabs-files-list-reload').click(function () {
-//            fpcm.filemanager.reloadFiles();
-//            fpcm.dom.fromId('opensearch').removeClass('btn-primary');
-//            return false;
-//        });
+        fpcm.filemanager.initNewThumbButton();
+        fpcm.filemanager.initDeleteMultipleButton();
 
     },
     
     initAfter: function() {
-
-//        if (fpcm.vars.jsvars.loadAjax) {
-//            fpcm.worker.postMessage({
-//                namespace: 'filemanager',
-//                function: 'reloadFiles',
-//                id: 'filemanager.reloadFiles'
-//            });
-//        }
 
         if (fpcm.vars.jsvars.fmgrMode === 1) {
             
@@ -71,19 +57,17 @@ fpcm.filemanager = {
         
     },
 
-    initJqUiWidgets: function (_hideLoader) {
-//        fpcm.dom.fromId('fpcm-select-all').prop('checked', false).checkboxradio('refresh');
-//        fpcm.ui.assignCheckboxes();
-//        fpcm.ui.assignControlgroups();
-//        fpcm.filemanager.initInsertButtons();
-//        fpcm.filemanager.initRenameButtons();
-//        fpcm.filemanager.initEditButtons();
-//        fpcm.filemanager.initDeleteButtons();
-//        fpcm.filemanager.initAltTextButtons();
-//        fpcm.filemanager.initPropertiesButton();
-//        fpcm.filemanager.initPagination();
-//        fpcm.dom.fromClass('fpcm-link-fancybox').fancybox();
-        
+    initListActions: function (_hideLoader) {
+        fpcm.ui.assignCheckboxes();        
+        fpcm.filemanager.initPagination();
+        fpcm.filemanager.initInsertButtons();
+        fpcm.filemanager.initRenameButtons();
+        fpcm.filemanager.initEditButtons();
+        fpcm.filemanager.initDeleteButtons();
+        fpcm.filemanager.initAltTextButtons();
+        fpcm.filemanager.initPropertiesButton();
+        fpcm.filemanager.initPagination();
+        fpcm.dom.fromClass('fpcm-link-fancybox').fancybox();
         if (_hideLoader === true) {
             fpcm.ui_loader.hide();
         }
@@ -295,7 +279,6 @@ fpcm.filemanager = {
                 clickNoDefault: true,
                 clickYes: function () {
 
-                    fpcm.dom.fromTag(this).dialog( "close" );
                     fpcm.ajax.post('files/delete', {
                         dataType: 'json',
                         data: {
@@ -523,9 +506,8 @@ fpcm.filemanager = {
             loader: fpcm.dom.fromTag('div.fpcm-ui-inline-loader').length ? false : true,
             dataType: 'html',
             onAssignHtmlAfter: function () {
-                //fpcm.filemanager.initJqUiWidgets(true);
-                fpcm.filemanager.initPagination();
-             }
+                fpcm.filemanager.initListActions(true);
+            }
         });
         
         return false;

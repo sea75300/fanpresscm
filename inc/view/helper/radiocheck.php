@@ -95,7 +95,7 @@ abstract class radiocheck extends helper {
     {
         $labelClass = ' form-check-label '.$this->labelClass;
         
-        $wrapStart = $this->text ? '<div class="form-check '.($this->inline ? 'form-check-inline' : '') . ($this->switch ? 'form-switch' : '').'">' : '';
+        $wrapStart = $this->text ? '<div class="form-check '.($this->inline ? 'form-check-inline' : '') . ($this->switch ? 'form-switch' : '').' ' . $this->wrapperClass . '  ">' : '';
         $wrapEnd   = $this->text ? '</div>' : '';
 
         $inEL = "<input type=\"{$this->type}\"" .

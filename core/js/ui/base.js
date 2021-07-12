@@ -421,6 +421,11 @@ fpcm.ui = {
 
         let _dlgId = 'fpcm-dialog-' + params.id;
         let _btnbase = 'fpcm-ui-dlgbtn-' + params.id + '-';
+        
+        if (fpcm.dom.fromId(_dlgId).length) {
+            params.content = fpcm.dom.fromId(_dlgId).html();
+            fpcm.dom.fromId(_dlgId).remove();
+        }
 
         let _buttons = '';
         if (params.dlButtons !== undefined) {
@@ -485,16 +490,27 @@ fpcm.ui = {
                 _domEL.unbind('click');
                 _domEL.click(function () {
                     
-                    if (_obj.click) {
-                        _obj.click.call(this);
-                    }
-                    
-                    if (!_obj.clickClose) {
+                    try {
+                        
+                        if (_obj.click) {
+                            _obj.click.call(this);
+                        }
+
+                        if (!_obj.clickClose) {
+                            return false;
+                        }
+
+                        _bsObj.toggle(_domEl);
                         return false;
+                       
+                    } catch (_e) {
+                        fpcm.ui.addMessage({
+                            type: 'error',
+                            txt: _e
+                        }, true);
+                        
                     }
                     
-                    _bsObj.toggle(_domEl);
-                    return false;
                 });
             }
             

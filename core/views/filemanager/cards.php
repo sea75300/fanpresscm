@@ -14,19 +14,23 @@
         </div>
     </div>
 
-    <div class="row">
+    <?php $i = 0; ?>
+    <div class="card-group fpcm ui-files-card">
     <?php foreach($files AS $file) : ?>
-        <div class="col-12 col-sm-6 col-lg-4 px-0 fpcm-filelist-thumb-box fpcm-ui-center">
-            <div class="fpcm-filelist-thumb-box-inner fpcm-ui-background-transition ui-corner-all m-1 px-1 py-3">
-                <div class="fpcm-ui-center">
-                    <a href="<?php print $file->getImageUrl(); ?>" target="_blank" class="fpcm-link-fancybox" data-fancybox="group" >
-                        <img loading="lazy" src="<?php if (file_exists($file->getFileManagerThumbnail())) : ?><?php print $file->getFileManagerThumbnailUrl(); ?><?php else : ?><?php print $theView->themePath; ?>dummy.png<?php endif; ?>" width="100" height="100" title="<?php print $file->getFileName(); ?>">
-                    </a>
+    <?php $i++; ?>
+        <div class="card w-100 my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+            <img class="card-img-top rounded-top shadow-sm" loading="lazy" src="<?php if (file_exists($file->getFileManagerThumbnail())) : ?><?php print $file->getFileManagerThumbnailUrl(); ?><?php else : ?><?php print $theView->themePath; ?>dummy.png<?php endif; ?>" title="<?php print $file->getFileName(); ?>">
 
-                    <p class="fpcm-ui-padding-md-tb fpcm-ui-margin-none"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
+            <div class="card-body">
+                <p class="card-title text-center"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
+                <p class="card-text">
+
+                    <?php if (!$file->getAltText()) : ?>
+                        <p><?php print $theView->escapeVal($file->getAltText()); ?></p>
+                    <?php endif; ?>
 
                     <?php if (!$file->existsFolder()) : ?>
-                    <div class="row fpcm-ui-padding-md-tb fpcm-ui-important-text align-self-center">
+                    <div class="row fpcm-ui-important-text align-self-center">
                         <div class="col-12 col-md-2">
                             <?php $theView->icon('images', 'far')->setStack('ban')->setSize('lg')->setStackTop(true); ?>
                         </div>
@@ -35,15 +39,12 @@
                         </div>
                     </div>
                     <?php endif; ?>
-                </div>
+                </p>
 
-                <div class="fpcm-filelist-actions-box fpcm-ui-center fpcm-ui-font-small">
-                    <div class="fpcm-filelist-actions fpcm-ui-controlgroup fpcm-filelist-actions-checkbox">
-                        <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
-                    </div>
-                </div>
+                <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
             </div>
-        </div>
-        <?php endforeach; ?>
+        </div>        
+    <?php if ($i % 4 === 0) : ?></div><div class="card-group ui-files-card"><?php endif; ?>
+    <?php endforeach; ?>
     </div>
 <?php endif; ?>

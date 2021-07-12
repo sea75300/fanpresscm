@@ -502,10 +502,6 @@ img.fpcm-ui-smileylist-preview {
     border-radius: 0;
 }
 
-div.fpcm-filelist-actions-box {
-    margin: 0.5em 0em;
-}
-
 div.fpcm-filelist-thumb-box img {
     width: 100px !important;
     height: 100px !important;

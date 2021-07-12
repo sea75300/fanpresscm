@@ -125,7 +125,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         $this->initViewAssigns([], [], \fpcm\classes\tools::calcPagination(1, 1, 0, 0));
 
         $buttons = [
-            (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true),
+            (new \fpcm\view\helper\checkbox('fpcm-select-all'))->setText('GLOBAL_SELECTALL')->setIconOnly(true)->setWrapperClass('fpcm-ui-maintoolbarbuttons-tab1'),
             (new \fpcm\view\helper\button('opensearch', 'opensearch'))->setText('ARTICLES_SEARCH')->setIcon('search')->setIconOnly(true)->setClass('fpcm-ui-maintoolbarbuttons-tab1')
         ];
 
@@ -151,7 +151,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
                     ->setClass('fpcm-ui-listeview-setting')
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
                     ->setSelected($this->config->file_view)
-                    ->setData(['width' => '150px']);
+                    ->setClass('fpcm-ui-maintoolbarbuttons-tab1');
         }
 
         $this->view->addButtons($buttons);

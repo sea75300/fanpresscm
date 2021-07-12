@@ -69,12 +69,14 @@ h3.fpcm-dashboard-container-headline span.fpcm-ui-icon {
 
 }
 
-div.fpcm-filelist-thumb-box div.fpcm-filelist-thumb-box-inner,
+div.fpcm.ui-files-card div.fpcm.ui-files-item:nth-child(odd),
+div.fpcm.ui-files-list:nth-child(odd) div.fpcm.ui-files-item,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-row {
     background: rgba(254,254,254,0.7);
 }
 
-div.fpcm-filelist-thumb-box:nth-child(even) div.fpcm-filelist-thumb-box-inner,
+div.fpcm.ui-files-card div.fpcm.ui-files-item:nth-child(even),
+div.fpcm.ui-files-list:nth-child(even) div.fpcm.ui-files-item,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even) {
     background: rgba(254,254,254,0.5);
 }
@@ -115,7 +117,8 @@ span.fpcm-ui-update-icons span.fpcm-ui-update-iconstatus.fpcm-ui-update-iconstat
     color: transparent;
 }
 
-.fpcm-ui-background-transition {
+.fpcm-ui-background-transition,
+.fpcm.ui-background-transition {
     transition: background-color 0.35s ease;
 }
 
@@ -194,8 +197,12 @@ textarea,
     box-shadow: #0073ea 0px 0px 4px;
 }
 
-div.fpcm-filelist-thumb-box:hover div.fpcm-filelist-thumb-box-inner,
-div.fpcm-filelist-thumb-box:nth-child(even):hover div.fpcm-filelist-thumb-box-inner,
+div.fpcm.ui-files-card div.fpcm.ui-files-item:hover,
+div.fpcm.ui-files-card div.fpcm.ui-files-item:focus,
+div.fpcm.ui-files-card div.fpcm.ui-files-item:active,
+div.fpcm.ui-files-list div.fpcm.ui-files-item:hover,
+div.fpcm.ui-files-list div.fpcm.ui-files-item:focus,
+div.fpcm.ui-files-list div.fpcm.ui-files-item:active,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-row:hover ,
 div.fpcm-ui-dataview div.fpcm-ui-dataview-row:nth-child(even):hover {
     background: rgba(255, 239, 143, 0.5);
