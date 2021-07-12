@@ -14,7 +14,7 @@ fpcm.ui_tabs = {
         
         var _el = fpcm.dom.fromClass('fpcm.ui-tabs-function-autoinit');
         if (_el === false || !_el.length) {
-            return false;
+            return true;
         }
 
         fpcm.ui_tabs.render('#' + _el.attr('id'));
@@ -27,8 +27,6 @@ fpcm.ui_tabs = {
             console.error('Invalid "_elemClassId" data given for, value cannot be empty!');
             return false;
         }
-        
-        console.log(_elemClassId);
 
         if (params === undefined) {
             params = {};
@@ -66,7 +64,6 @@ fpcm.ui_tabs = {
                              ? _ev.target.dataset.dataviewList
                              : false; 
                 
-                        debugger;
                 fpcm.ajax.get(_ev.target.href, {
                     execDone: function (_result) {
 

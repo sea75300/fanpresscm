@@ -8,40 +8,42 @@
 
 <?php else : ?>
 
-<div class="mb-1">
-    <?php include $theView->getIncludePath('components/pager.php'); ?>
-</div>
+    <div class="row mb-1 justify-content-end">
+        <div class="col-auto">
+            <?php include $theView->getIncludePath('components/pager.php'); ?>
+        </div>
+    </div>
 
-<div class="row">
-<?php foreach($files AS $file) : ?>
-    <div class="col-12 col-sm-6 col-lg-4 px-0 fpcm-filelist-thumb-box fpcm-ui-center">
-        <div class="fpcm-filelist-thumb-box-inner fpcm-ui-background-transition ui-corner-all m-1 px-1 py-3">
-            <div class="fpcm-ui-center">
-                <a href="<?php print $file->getImageUrl(); ?>" target="_blank" class="fpcm-link-fancybox" data-fancybox="group" >
-                    <img loading="lazy" src="<?php if (file_exists($file->getFileManagerThumbnail())) : ?><?php print $file->getFileManagerThumbnailUrl(); ?><?php else : ?><?php print $theView->themePath; ?>dummy.png<?php endif; ?>" width="100" height="100" title="<?php print $file->getFileName(); ?>">
-                </a>
-                
-                <p class="fpcm-ui-padding-md-tb fpcm-ui-margin-none"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
-                
-                <?php if (!$file->existsFolder()) : ?>
-                <div class="row fpcm-ui-padding-md-tb fpcm-ui-important-text align-self-center">
-                    <div class="col-12 col-md-2">
-                        <?php $theView->icon('images', 'far')->setStack('ban')->setSize('lg')->setStackTop(true); ?>
+    <div class="row">
+    <?php foreach($files AS $file) : ?>
+        <div class="col-12 col-sm-6 col-lg-4 px-0 fpcm-filelist-thumb-box fpcm-ui-center">
+            <div class="fpcm-filelist-thumb-box-inner fpcm-ui-background-transition ui-corner-all m-1 px-1 py-3">
+                <div class="fpcm-ui-center">
+                    <a href="<?php print $file->getImageUrl(); ?>" target="_blank" class="fpcm-link-fancybox" data-fancybox="group" >
+                        <img loading="lazy" src="<?php if (file_exists($file->getFileManagerThumbnail())) : ?><?php print $file->getFileManagerThumbnailUrl(); ?><?php else : ?><?php print $theView->themePath; ?>dummy.png<?php endif; ?>" width="100" height="100" title="<?php print $file->getFileName(); ?>">
+                    </a>
+
+                    <p class="fpcm-ui-padding-md-tb fpcm-ui-margin-none"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
+
+                    <?php if (!$file->existsFolder()) : ?>
+                    <div class="row fpcm-ui-padding-md-tb fpcm-ui-important-text align-self-center">
+                        <div class="col-12 col-md-2">
+                            <?php $theView->icon('images', 'far')->setStack('ban')->setSize('lg')->setStackTop(true); ?>
+                        </div>
+                        <div class="col-12 col-md-10 align-self-center">
+                            <?php $theView->write('FILE_LIST_UPLOAD_NOTFOUND'); ?>
+                        </div>
                     </div>
-                    <div class="col-12 col-md-10 align-self-center">
-                        <?php $theView->write('FILE_LIST_UPLOAD_NOTFOUND'); ?>
-                    </div>
+                    <?php endif; ?>
                 </div>
-                <?php endif; ?>
-            </div>
 
-            <div class="fpcm-filelist-actions-box fpcm-ui-center fpcm-ui-font-small">
-                <div class="fpcm-filelist-actions fpcm-ui-controlgroup fpcm-filelist-actions-checkbox">
-                    <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
+                <div class="fpcm-filelist-actions-box fpcm-ui-center fpcm-ui-font-small">
+                    <div class="fpcm-filelist-actions fpcm-ui-controlgroup fpcm-filelist-actions-checkbox">
+                        <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
+                    </div>
                 </div>
             </div>
         </div>
+        <?php endforeach; ?>
     </div>
-    <?php endforeach; ?>
-</div>
 <?php endif; ?>

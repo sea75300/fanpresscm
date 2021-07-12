@@ -93,7 +93,7 @@ class tabItem extends helper {
      */
     public function setFile(string $file) 
     {
-        $this->url = '#'.$this->id;
+        $this->url = '#';
         $this->file = $file;
         return $this;
     }
@@ -184,19 +184,18 @@ class tabItem extends helper {
         switch ($this->state) {
             case self::STATE_ACTIVE :
                 $css = 'active';
-                $aria = 'aria-current="page"';
+                $this->setAria(['current' => 'page']);                
                 break;
             case self::STATE_DISABLED :
                 $css = 'disabled';
-                $aria = ' aria-disabled="true"';
+                $this->setAria(['disabled' => 'true']);                
                 break;
             default:
                 $css = '';
-                $aria = '';
                 break;
         }
 
-        $html[] = '><a class="nav-link '.$css.'" href="'.$this->url.'" role="tab" '.$aria.' '.$this->getDataString().'>'.$this->text.'</a>';
+        $html[] = '><a class="nav-link '.$css.'" href="'.$this->url.'" role="tab" '.$this->getDataString().' '.$this->getAriaString().'>'.$this->text.'</a>';
         $html[] = '</li>';
 
         return implode(' ', $html);

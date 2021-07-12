@@ -176,7 +176,7 @@ class filelist extends \fpcm\controller\abstracts\controller implements \fpcm\co
         }
 
         $this->view->includeForms('filemanager');
-        $this->view->addTabs('files', $tabs, 'fpcm ui-tabs-function-autoinit', 0);
+        $this->view->addTabs('files', $tabs);
         $this->view->render();
     }
 

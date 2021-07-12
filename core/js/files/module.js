@@ -13,6 +13,14 @@ fpcm.filemanager = {
     tabsObj: {},
 
     init: function() {
+        
+        fpcm.ui_tabs.render('#files', {
+            
+            onRenderHtmlAfter: function () {
+                fpcm.filemanager.initPagination();
+            }
+
+        });
 
 //        if (fpcm.ui.langvarExists('ARTICLES_SEARCH')) {
 //            fpcm.filemanager.initFilesSearch();
@@ -489,7 +497,8 @@ fpcm.filemanager = {
                 return false;
             },
             selectAction: function( event, ui ) {
-                fpcm.filemanager.reloadFiles(ui.item.value);
+                debugger;
+                fpcm.filemanager.reloadFiles(ui.value);
             }
         });
 
@@ -507,14 +516,15 @@ fpcm.filemanager = {
 
         fpcm.ajax.getItemList({
             module: 'files',
-            destination: "#tabs-files-list-content",
+            destination: "#fpcm-tab-files-list-pane",
             mode: fpcm.vars.jsvars.fmgrMode,
             page: _page,
             filter: _filter ? _filter : null,
             loader: fpcm.dom.fromTag('div.fpcm-ui-inline-loader').length ? false : true,
             dataType: 'html',
             onAssignHtmlAfter: function () {
-                fpcm.filemanager.initJqUiWidgets(true);
+                //fpcm.filemanager.initJqUiWidgets(true);
+                fpcm.filemanager.initPagination();
              }
         });
         

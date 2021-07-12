@@ -54,6 +54,8 @@ final class jqupload extends uploader {
      */
     public function getJsFilesLate(): array
     {
+        return [];
+        
         return [
             \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.iframe-transport.js'),
             \fpcm\classes\dirs::getLibUrl('jqupload/js/jquery.fileupload.js'),
@@ -101,6 +103,7 @@ final class jqupload extends uploader {
      */
     public function getViewVars(): array
     {
+        
         return [
             'uploadTemplatePath' => $this->getTemplate(),
             'uploadMultiple' => true

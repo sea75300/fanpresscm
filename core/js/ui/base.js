@@ -253,6 +253,7 @@ fpcm.ui = {
 
         let _el = fpcm.dom.fromTag(_elemClassId);
         if (_params.change) {
+
             _el.bind('change', function (_ev) {
                 
                 _ev.preventDefault();

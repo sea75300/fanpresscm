@@ -20,9 +20,13 @@ fpcm.ui.initPager = function(params) {
 
     var backEl = fpcm.dom.fromId('pagerBack');
     var nextEl = fpcm.dom.fromId('pagerNext');
+    var selectId    = 'pageSelect';
 
     backEl.unbind('click');
     nextEl.unbind('click');
+
+    var selectEl    = fpcm.dom.fromId(selectId);
+    selectEl.unbind('change');
 
     if (!params.backAction) {
         params.backAction = function () {
@@ -53,10 +57,6 @@ fpcm.ui.initPager = function(params) {
     }
 
     if (fpcm.vars.jsvars.pager.maxPages) {
-        var selectId    = 'pageSelect';
-        var selectEl    = fpcm.dom.fromId(selectId);
-        selectEl.unbind('change');
-
         for(i=1; i<= fpcm.vars.jsvars.pager.maxPages; i++) {
             if (!params.keepSelect) {
                 selectEl.empty();
@@ -73,20 +73,18 @@ fpcm.ui.initPager = function(params) {
     if (!params.selectAction) {
         params.selectAction = function( event, ui ) {
 
-            if (ui.item.value == fpcm.vars.jsvars.pager.currentPage) {
+            if (ui.value == fpcm.vars.jsvars.pager.currentPage) {
                 return false;
             }
 
-            if (ui.item.value == '1') {
+            if (ui.value == '1') {
                 window.location.href = fpcm.vars.actionPath + fpcm.vars.jsvars.currentModule;
                 return true;
             }
 
-            window.location.href = fpcm.vars.actionPath + fpcm.vars.jsvars.currentModule + '&page=' + ui.item.value;
+            window.location.href = fpcm.vars.actionPath + fpcm.vars.jsvars.currentModule + '&page=' + ui.value;
         };
     }
-
-    console.log(params);
 
     fpcm.ui.selectmenu('#' + selectId, {
         change: params.selectAction
