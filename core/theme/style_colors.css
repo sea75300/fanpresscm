@@ -234,7 +234,7 @@ div.row.fpcm-ui-dataview-row.fpcm-ui-logs-deprecation-warning
 
 .fpcm-ui-progressbar-label,
 .fpcm.ui-progressbar-label {
-    background: rgba(255, 255, 255, 0.9);
+    /*background: rgba(255, 255, 255, 0.9);*/
 }
 
 input[type=checkbox][disabled] + label:before,

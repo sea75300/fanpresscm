@@ -170,14 +170,14 @@ fpcm.filemanager = {
 
             fpcm.ui.dialog({
                 id: 'files-rename',
-                dlWidth: fpcm.ui.getDialogSizes().width,
                 title: fpcm.ui.translate('FILE_LIST_RENAME_NEWNAME'),
+                closeButton: true,
                 dlButtons: [
                     {
                         text: fpcm.ui.translate('GLOBAL_SAVE'),
-                        icon: "ui-icon-check",                        
+                        icon: "save",
+                        clickClose: true,
                         click: function() {
-                            fpcm.dom.fromTag(this).dialog( "close" );
                             fpcm.ajax.post('files/rename', {
                                 data: {
                                     newName: fpcm.dom.fromId('newFilenameDialog').val(),
@@ -189,14 +189,6 @@ fpcm.filemanager = {
                                     fpcm.filemanager.reloadFiles();
                                 }
                             });
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                
-                        click: function () {
-                            fpcm.filemanager.closeRenameDialog();
-                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     }
                 ]
@@ -228,14 +220,14 @@ fpcm.filemanager = {
 
         fpcm.ui.dialog({
             id: 'files-alttext',
-            dlWidth: fpcm.ui.getDialogSizes().width,
-            title: fpcm.ui.translate('FILE_LIST_ALTTEXT'),
+            title: 'FILE_LIST_ALTTEXT',
+            closeButton: true,
             dlButtons: [
                 {
                     text: fpcm.ui.translate('GLOBAL_SAVE'),
-                    icon: "ui-icon-disk",                        
+                    icon: "save",
+                    clickClose: true,
                     click: function() {
-                        fpcm.dom.fromTag(this).dialog( "close" );
                         fpcm.ajax.post('files/alttext', {
                             data: {
                                 file: selectedFile,
@@ -247,13 +239,6 @@ fpcm.filemanager = {
                                 fpcm.filemanager.reloadFiles();
                             }
                         });
-                    }
-                },
-                {
-                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                    icon: "ui-icon-closethick",                
-                    click: function () {
-                        fpcm.dom.fromTag(this).dialog('close');
                     }
                 }
             ]

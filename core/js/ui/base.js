@@ -404,6 +404,16 @@ fpcm.ui = {
             params.keepDom = true;
         }
 
+        if (params.closeButton) {
+            
+            params.dlButtons.push({
+                text: 'GLOBAL_CLOSE',
+                icon: 'times',
+                clickClose: true
+            });
+            
+        }
+
         let _buttons = '';
         if (params.dlButtons !== undefined) {
             
@@ -417,16 +427,6 @@ fpcm.ui = {
                 _buttons += _str = '<button type="button" id="' + _btnbase + _idx + '" class="btn' + (_obj.primary ? ' btn-primary' : '') + (_obj.class ? ' ' + _obj.class : '') + '" >' + (_obj.icon ? fpcm.ui.getIcon(_obj.icon) : '') + ' <span class="fpcm-ui-label ps-1">' + fpcm.ui.translate(_obj.text) + '</span> </button>';
             }
 
-        }
-
-        if (params.closeButton) {
-            
-            params.dlButtons.push({
-                text: 'GLOBAL_CLOSE',
-                icon: 'times',
-                clickClose: true
-            });
-            
         }
 
         if (params.url) {

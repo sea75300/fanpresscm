@@ -33,8 +33,8 @@
                 <p class="card-title text-center"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
                 <div class="card-text">
 
-                    <?php if (!$file->getAltText()) : ?>
-                        <p><?php print $theView->escapeVal($file->getAltText()); ?></p>
+                    <?php if ($file->getAltText()) : ?>
+                        <p class="text-center"><?php print $theView->escapeVal($file->getAltText()); ?></p>
                     <?php endif; ?>
 
                     <?php if (!$file->existsFolder()) : ?>

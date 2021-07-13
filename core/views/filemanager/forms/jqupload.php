@@ -6,8 +6,8 @@
                 <div class="fpcm ui-progressbar progress active ui-progressbar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
                     <div class="ui-progressbar-value progress-bar progress-bar-success" style="width:0%;"></div>
                 </div>
+                <div class="progress-extended fpcm ui-progressbar-label">&nbsp;</div>
             </div>            
-            <div class="progress-extended fpcm ui-progressbar-label m-1 px-2">&nbsp;</div>
         </div>
     </div>
 
