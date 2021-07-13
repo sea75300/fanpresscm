@@ -214,3 +214,11 @@ if (!defined('FPCM_CSV_IMPORT')) {
      */
     define('FPCM_CSV_IMPORT', false);
 }
+
+if (!defined('FPCM_FILEMANAGER_THUMBS')) {
+    /**
+     * Filemanager thumbnail size
+     * @since 4.6-dev
+     */
+    define('FPCM_FILEMANAGER_THUMBS', 250);
+}

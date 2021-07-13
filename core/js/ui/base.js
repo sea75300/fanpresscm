@@ -149,18 +149,12 @@ fpcm.ui = {
             
             var el0 = fpcm.dom.fromClass('fpcm-ui-list-checkbox-sub');
             el0.prop('checked', false);
-            if (fpcm.vars.jsvars.checkboxRefresh) {
-               el0.checkboxradio('refresh');
-            }
             
             var el1 = fpcm.dom.fromClass('fpcm-ui-list-checkbox');
             el1.prop('checked', (
                 fpcm.dom.fromTag(this).prop('checked') ? true : false
             ));
 
-            if (fpcm.vars.jsvars.checkboxRefresh) {
-                el1.checkboxradio('refresh');
-            }
         });
 
         var checkboxSub = fpcm.dom.fromClass('fpcm-ui-list-checkbox-sub');
@@ -172,35 +166,11 @@ fpcm.ui = {
         checkboxSub.click(function() {
             var el2 = fpcm.dom.fromClass('fpcm-ui-list-checkbox-subitem' + fpcm.dom.fromTag(this).val());
             el2.prop('checked', ( fpcm.dom.fromTag(this).prop('checked') ? true : false ));
-            
-            if (fpcm.vars.jsvars.checkboxRefresh) {
-                el2.checkboxradio('refresh');
-            }
         });
     },
     
-    assignSelectmenu: function() {
-        //fpcm.ui.selectmenu('.fpcm-ui-input-select');
-    },
-    
-    accordion: function(elemClassId, params) {
-        
-        var el = fpcm.dom.fromTag(elemClassId);
-        if (!el.length) {
-            return;
-        }
-
-        if (params === undefined) {
-            params = {
-                header: "h2",
-                heightStyle: "content"
-            };
-        }
-
-        return el.accordion(params);
-    },
-    
     tabs: function(_elemClassId, params) {
+        console.warn('fpcm.ui.tabs is deprecated as of version 4.6-dev. Use fpcm.ui_tabs.render instead.')
         fpcm.ui_tabs.render(_elemClassId, params);
     },
 

@@ -67,7 +67,7 @@ fpcm.filemanager = {
         fpcm.filemanager.initAltTextButtons();
         fpcm.filemanager.initPropertiesButton();
         fpcm.filemanager.initPagination();
-        fpcm.dom.fromClass('fpcm-link-fancybox').fancybox();
+        fpcm.dom.fromClass('fpcm.link-fancybox').fancybox();
         if (_hideLoader === true) {
             fpcm.ui_loader.hide();
         }

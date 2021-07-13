@@ -16,13 +16,19 @@
     <div class="row g-0 px-3 fpcm ui-files-list">    
         <div class="card shadow-sm w-100 my-2 fpcm ui-files-item ui-background-transition">
             <div class="row g-0">
-                <div class="col-auto">
-                    <img class="img-fluid rounded-start" loading="lazy" src="<?php if (file_exists($file->getFileManagerThumbnail())) : ?><?php print $file->getFileManagerThumbnailUrl(); ?><?php else : ?><?php print $theView->themePath; ?>dummy.png<?php endif; ?>" title="<?php print $file->getFileName(); ?>">
+                <div class="col-auto align-self-center">
+                <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
+                    <img class="img-fluid rounded-start" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>" width="<?php print FPCM_FILEMANAGER_THUMBS; ?>" height="<?php print FPCM_FILEMANAGER_THUMBS; ?>">
+                <?php else : ?>
+                    <div class="text-center" style="width:<?php print FPCM_FILEMANAGER_THUMBS; ?>px;">
+                        <?php $theView->icon('file-image fa-inverse', 'far')->setStack('square')->setSize('3x'); ?>
+                    </div>
+                <?php endif; ?>
                 </div>
                 <div class="col-auto align-self-center">
                     <div class="card-body">
                         <p class="card-title"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
-                        <p class="card-text">
+                        <div class="card-text">
 
                             <?php if (!$file->getAltText()) : ?>
                                 <p><?php print $theView->escapeVal($file->getAltText()); ?></p>
@@ -38,7 +44,7 @@
                                 </div>
                             </div>
                             <?php endif; ?>
-                        </p>
+                        </div>
 
                         <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
                     </div>

@@ -15,12 +15,23 @@
     <div class="card-group fpcm ui-files-card">
     <?php foreach($files AS $file) : ?>
     <?php $i++; ?>
-        <div class="card w-100 my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
-            <img class="card-img-top rounded-top shadow-sm" loading="lazy" src="<?php if (file_exists($file->getFileManagerThumbnail())) : ?><?php print $file->getFileManagerThumbnailUrl(); ?><?php else : ?><?php print $theView->themePath; ?>dummy.png<?php endif; ?>" title="<?php print $file->getFileName(); ?>">
+        <div class="card my-2 mx-sm-2 rounded fpcm ui-files-item ui-background-transition">
+            
+            <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
+                <img class="card-img-top rounded-top" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>">
+            <?php else : ?>
+                <div class="card-img-top text-center rounded-top h-75">
+                    <div class="row g-0 h-100">
+                        <div class="col align-self-center">
+                            <?php $theView->icon('file-image fa-inverse', 'far')->setStack('square')->setSize('3x'); ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>            
 
             <div class="card-body">
                 <p class="card-title text-center"><?php print $theView->escapeVal(basename($file->getFilename())); ?></p>
-                <p class="card-text">
+                <div class="card-text">
 
                     <?php if (!$file->getAltText()) : ?>
                         <p><?php print $theView->escapeVal($file->getAltText()); ?></p>
@@ -36,12 +47,12 @@
                         </div>
                     </div>
                     <?php endif; ?>
-                </p>
+                </div>
 
                 <?php include $theView->getIncludePath('filemanager/buttons.php'); ?>
             </div>
         </div>        
-    <?php if ($i % 4 === 0) : ?></div><div class="card-group ui-files-card"><?php endif; ?>
+    <?php if ($i % 5 === 0) : ?></div><div class="card-group ui-files-card"><?php endif; ?>
     <?php endforeach; ?>
     </div>
 <?php endif; ?>
