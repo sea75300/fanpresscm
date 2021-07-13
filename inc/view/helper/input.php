@@ -71,7 +71,7 @@ abstract class input extends helper {
         $wrapperStart = "<div class=\"input-group mb-3\">";
         $wrapperEnd = "</div>";
 
-        $input = "<input class=\"form-control\" type=\"{$this->type}\" maxlength=\"{$this->maxlenght}\" {$this->getAttributeStrings()}>";
+        $input = "<input type=\"{$this->type}\" maxlength=\"{$this->maxlenght}\" {$this->getAttributeStrings()}>";
         $this->appendItems($input);
 
         if (!$this->text) {
@@ -92,7 +92,7 @@ abstract class input extends helper {
      */
     protected function init()
     {
-        $this->class = 'fpcm-ui-input';
+        $this->class = 'fpcm-ui-input form-control';
         $this->labelClass = 'align-self-center';
     }
 

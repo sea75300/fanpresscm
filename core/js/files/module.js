@@ -518,49 +518,38 @@ fpcm.filemanager = {
         fpcm.dom.fromId('opensearch').click(function () {
 
             var sDlg = fpcm.ui.dialog({
-                id      : 'files-search',
-                resizable: true,
-                title    : fpcm.ui.translate('ARTICLES_SEARCH'),
-                dlButtons  : [
+                id: 'files-search',
+                title: 'ARTICLES_SEARCH',
+                dlButtons: [
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
-                        icon: "ui-icon-check",
-                        class: 'btn-primary',
-                        click: function() {               
+                        icon: "check",
+                        primary: true,
+                        clickClose: true,
+                        click: function(_ui, _bsObj) {               
                             
                             var sParams = fpcm.ui.getValuesByClass('fpcm-files-search-input');                            
                             sParams.combinations = fpcm.ui.getValuesByClass('fpcm-ui-input-select-filessearch-combination');
 
                             fpcm.filemanager.startFilesSearch(sParams);
-                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     },                    
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_RESET'),
-                        icon: "ui-icon-refresh" ,                        
+                        icon: "undo" ,                        
                         click: function() {
                             fpcm.ui.relocate('self');
                         }
                     },                    
                     {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                        
-                        click: function() {
-                            fpcm.dom.fromTag(this).dialog('close');
-                        }
-                    }                            
+                        text: 'GLOBAL_CLOSE',
+                        icon: 'times',
+                        clickClose: true
+                    }  
                 ],
                 dlOnOpen: function( event, ui ) {
                     fpcm.dom.fromId('text').focus();
                 }
-            });
-
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-filessearch-combination', {
-                appendTo: '#' + sDlg.attr('id')
-            });
-
-            fpcm.ui.selectmenu('.fpcm-ui-input-select-filessearch', {
-                appendTo: '#' + sDlg.attr('id')
             });
 
             return false;

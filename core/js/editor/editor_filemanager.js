@@ -71,9 +71,7 @@ if (fpcm.editor !== undefined) {
     };
 
     fpcm.editor.setSelectToDialog = function(obj) {
-        fpcm.dom.fromTag(obj).find('.fpcm-ui-input-select').selectmenu({
-            appendTo: "#" + fpcm.dom.fromTag(obj).attr('id')
-        });
+
     };
     
 }

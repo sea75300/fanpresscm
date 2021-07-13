@@ -97,7 +97,7 @@ fpcm.fileuploader = {
     
     createFileListItem: function (_params, _file, _addUploadButton, _addCancelButton) {
         
-        let html = '<div class="row my-3 template-upload fpcm ui-background-white-50p fpcm-ui-border-radius-all">';
+        let html = '<div class="row my-3 py-2 template-upload fpcm ui-background-white-50p fpcm-ui-border-radius-all">';
         html += '   <div class="col-12 col-sm-auto fpcm-ui-center jqupload-row-buttons align-self-center">';
 
         if (_addUploadButton) {

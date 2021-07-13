@@ -457,11 +457,9 @@ if (fpcm.editor) {
             resizable: true,
             onCreate: function () {
                 fpcm.ui.selectmenu('#tpldraft',{
-                    appendTo: '#fpcm-dialog-editor-html-insertdraft',
                     change: function( event, ui ) {
 
-                        var item = fpcm.dom.fromTag(this).val();
-                        if (!item) {
+                        if (!ui.value) {
                             fpcm.dom.fromId('fpcm-dialog-editor-html-insertdraft-preview').empty();
                             return false;
                         }
@@ -469,7 +467,7 @@ if (fpcm.editor) {
                         fpcm.ajax.exec('editor/draft', {
                             dataType: 'json',
                             data    : {
-                                path: item
+                                path: ui.value
                             },
                             execDone: function (result) {
                                 fpcm.editor_codemirror.highlight({
@@ -489,7 +487,7 @@ if (fpcm.editor) {
             },
             insertAction: function() {
                 var item = fpcm.dom.fromId('tpldraft').val();
-                if (!item) {
+                if (!ui.value) {
                     fpcm.dom.fromTag(this).dialog( "close" );
                     return false;
                 }
@@ -497,7 +495,7 @@ if (fpcm.editor) {
                 fpcm.ajax.exec('editor/draft', {
                     dataType: 'json',
                     data    : {
-                        path: item
+                        path: ui.value
                     },
                     execDone: function (result) {
                         fpcm.editor.cmInstance.doc.setValue(result.data);

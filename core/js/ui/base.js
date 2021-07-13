@@ -421,10 +421,17 @@ fpcm.ui = {
 
         let _dlgId = 'fpcm-dialog-' + params.id;
         let _btnbase = 'fpcm-ui-dlgbtn-' + params.id + '-';
+        let _domEx = fpcm.dom.fromId(_dlgId);
         
-        if (fpcm.dom.fromId(_dlgId).length) {
-            params.content = fpcm.dom.fromId(_dlgId).html();
-            fpcm.dom.fromId(_dlgId).remove();
+        if (_domEx.length) {
+            
+            if (!_domEx.hasClass('fpcm ui-dialog-dom')) {
+                params.content = fpcm.dom.fromId(_dlgId).html();
+                params.modalClass = 'fpcm ui-dialog-dom';
+                fpcm.dom.fromId(_dlgId).remove();
+            }
+            
+            params.keepDom = true;
         }
 
         let _buttons = '';
@@ -442,6 +449,16 @@ fpcm.ui = {
 
         }
 
+        if (params.closeButton) {
+            
+            params.dlButtons.push({
+                text: 'GLOBAL_CLOSE',
+                icon: 'times',
+                clickClose: true
+            });
+            
+        }
+
         if (params.url) {
             params.content = fpcm.ui.createIFrame({
                 src: params.url,
@@ -455,23 +472,38 @@ fpcm.ui = {
         if (params.class === undefined) {
             params.class = '';
         }
+        
+        if (params.modalClass === undefined) {
+            params.modalClass = '';
+        }
+        
+        if (params.opener === undefined) {
+            params.opener = '';
+        }
 
-        let _modal = fpcm.vars.ui.dialogTpl;
+        if (!fpcm.dom.fromId(_dlgId).length) {            
+            let _modal = fpcm.vars.ui.dialogTpl;
 
-        fpcm.dom.appendHtml('#fpcm-body', _modal.replace('{$title}', fpcm.ui.translate(params.title))
-              .replace('{$id}', _dlgId)
-              .replace('{$opener}', params.opener)
-              .replace('{$content}', params.content)
-              .replace('{$class}', params.class)
-              .replace('{$buttons}', _buttons));
+            fpcm.dom.appendHtml('#fpcm-body', _modal.replace('{$title}', fpcm.ui.translate(params.title))
+                  .replace('{$id}', _dlgId)
+                  .replace('{$opener}', params.opener)
+                  .replace('{$content}', params.content)
+                  .replace('{$class}', params.class)
+                  .replace('{$modalClass}', params.modalClass)
+                  .replace('{$buttons}', _buttons));
+        }
 
         let _domEl = document.getElementById(_dlgId);
         let _bsObj = new bootstrap.Modal(_domEl);
         _bsObj.toggle(_domEl);
-        _domEl.addEventListener('hidden.bs.modal', function (event) {
-             _bsObj.dispose(_domEl);
-             fpcm.dom.fromId(_dlgId).remove();
-        });
+        
+        if (!params.keepDom) {
+            _domEl.addEventListener('hidden.bs.modal', function (event) {
+                 _bsObj.dispose(_domEl);
+                 fpcm.dom.fromId(_dlgId).remove();
+            });
+        }
+        
 
         if (params.dlButtons !== undefined) {
             
@@ -493,7 +525,7 @@ fpcm.ui = {
                     try {
                         
                         if (_obj.click) {
-                            _obj.click.call(this);
+                            _obj.click.call(this, _bsObj);
                         }
 
                         if (!_obj.clickClose) {
@@ -604,7 +636,7 @@ fpcm.ui = {
             msgCode  = '<div class="fpcm ui-message alert-' + msg.type + _css + '" role="alert">';
             msgCode += fpcm.ui.getIcon(msg.icon, { size: '2x' });
             msgCode += '<div class="mx-3">' + msg.txt + '</div>';
-            msgCode += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Schließen"></button>';
+            msgCode += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' + fpcm.ui.translate('GLOBAL_CLOSE') + '"></button>';
             msgCode += '</div>';
             fpcm.dom.appendHtml('#fpcm-body', msgCode);
         }
