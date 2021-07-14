@@ -43,19 +43,16 @@ fpcm.ui_tabs = {
             var _obj = new bootstrap.Tab(_el);
 
             _el.addEventListener('click', function (_ev) {
-                
-                //console.log('click');
-                //console.log(_ev.target);                
-                
                 _ev.preventDefault();
-                //(new bootstrap.Tab(_ev.target)).hide();
+                
+                if (params.reload && fpcm.dom.fromTag(_ev.target).hasClass('active') ) {
+                    fpcm.dom.fromTag(_ev.target).removeClass('active');
+                }
+
                 (new bootstrap.Tab(_ev.target)).show();
             });
 
             _el.addEventListener('show.bs.tab', function (_ev) {
-
-                //console.log('show.bs.tab');
-                //console.log(_ev.target);
 
                 fpcm.ui_tabs._updateMainToolbar(_ev.target, _ev.relatedTarget);
 
