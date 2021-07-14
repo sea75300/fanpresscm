@@ -349,9 +349,7 @@ if (fpcm.editor) {
 
         fpcm.ui.insertDialog({
             id: 'editor-html-insertlist',
-            dlWidth: fpcm.ui.getDialogSizes().width,
             title: 'EDITOR_HTML_BUTTONS_LIST' + listtype.toUpperCase(),
-            resizable: true,
             dlOnClose: function() {
                 fpcm.dom.fromId('listrows').val('1');
                 fpcm.dom.fromId('listtype').val('');
@@ -376,7 +374,6 @@ if (fpcm.editor) {
         
         fpcm.ui.insertDialog({
             id: 'editor-html-insertsmileys',
-            dlWidth: fpcm.ui.getDialogSizes().width,
             title: 'EDITOR_INSERTSMILEY',
             dlOnOpen: function () {
                 fpcm.ajax.exec('editor/smileys', {
@@ -397,13 +394,9 @@ if (fpcm.editor) {
     };
     
     fpcm.editor.insertSymbol = function () {
-        
-        var sizeLarge = fpcm.ui.getDialogSizes();
 
         var el = fpcm.ui.insertDialog({
             id: 'editor-html-insertsymbol',
-            dlWidth: sizeLarge.width,
-            dlHeight: sizeLarge.height,
             title: 'EDITOR_INSERTSYMBOL'
         });
 
@@ -419,10 +412,7 @@ if (fpcm.editor) {
 
         fpcm.ui.insertDialog({
             id: 'editor-html-insertcolor',
-            dlWidth: 'auto',
-            dlMaxWidth: 550,
             title: 'EDITOR_INSERTCOLOR',
-            resizable: true,
             onCreate: function (event, ui) {
                 fpcm.ui.controlgroup('#fpcm-ui-editor-color-controlgroup', {
                     onlyVisible: false
@@ -448,10 +438,7 @@ if (fpcm.editor) {
         
         fpcm.ui.insertDialog({
             id: 'editor-html-insertdraft',
-            dlWidth  : sizeLarge.width,
-            dlHeight : sizeLarge.height,
             title: 'EDITOR_HTML_BUTTONS_ARTICLETPL',
-            resizable: true,
             onCreate: function () {
                 fpcm.ui.selectmenu('#tpldraft',{
                     change: function( event, ui ) {
@@ -507,9 +494,7 @@ if (fpcm.editor) {
         
         fpcm.ui.insertDialog({
             id: 'editor-html-insertmedia',
-            dlWidth: fpcm.ui.getDialogSizes().width,
             title: 'EDITOR_INSERTMEDIA',
-            resizable: true,
             dlButtons: [{
                 text: fpcm.ui.translate('GLOBAL_PREVIEW'),
                 icon: "ui-icon-video",
@@ -556,7 +541,6 @@ if (fpcm.editor) {
         
         fpcm.ui.insertDialog({
             id: 'editor-html-inserttable',
-            dlWidth: fpcm.ui.getDialogSizes(top, 0.35).width,
             title: 'EDITOR_INSERTTABLE',
             dlOnClose: function() {
                 fpcm.dom.resetValuesByIdsString(['tablerows', 'tablecols'], '1')
@@ -583,9 +567,7 @@ if (fpcm.editor) {
 
         fpcm.ui.insertDialog({
             id: 'editor-html-insertimage',
-            dlWidth: fpcm.ui.getDialogSizes(top, 0.5).width,
             title: 'EDITOR_INSERTPIC',
-            resizable: true,
             dlButtons: [{
                 text: fpcm.ui.translate('EDITOR_INSERTPIC_ASLINK'),
                 icon: "ui-icon-link",
@@ -634,9 +616,7 @@ if (fpcm.editor) {
 
         fpcm.ui.insertDialog({
             id: 'editor-html-insertlink',
-            dlWidth: fpcm.ui.getDialogSizes().width,
             title: 'EDITOR_INSERTLINK',
-            resizable: true,
             dlOnOpen: function () {
                 
                 fpcm.ajax.get('autocomplete', {
@@ -695,9 +675,7 @@ if (fpcm.editor) {
 
         fpcm.ui.insertDialog({
             id: 'editor-html-insertquote',
-            dlWidth: fpcm.ui.getDialogSizes().width,
             title: 'EDITOR_HTML_BUTTONS_QUOTE',
-            resizable: true,
             onCreate: function (event, ui) {
                 fpcm.ui.controlgroup('#fpcm-ui-editor-quote-controlgroup', {
                     onlyVisible: false

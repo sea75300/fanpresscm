@@ -14,7 +14,7 @@ fpcm.modulelist = {
     init: function() {
 
         fpcm.system.checkForUpdates();
-        fpcm.modulelist.tabs = fpcm.ui.tabs('#tabs-modulemgr',
+        fpcm.ui_tabs.render('#modulemgr',
         {
             initDataViewOnRenderAfter: fpcm.modulelist.initButtons,
         });
@@ -52,56 +52,39 @@ fpcm.modulelist = {
                 params.fromDir = fromDir;
             }
 
-            fpcm.ui.dialog({
-                title: fpcm.ui.translate('GLOBAL_CONFIRM'),
-                content: fpcm.ui.translate('CONFIRM_MESSAGE'),
-                dlWidth: fpcm.ui.getDialogSizes(top, 0.35).width,
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_YES'),
-                        icon: "ui-icon-check",                    
-                        click: function () {
-                            fpcm.ajax.post('modules/exec', {
-                                data: params,
-                                execDone: function (result) {
-                                    if (result.code !== undefined && result.code < 1) {
-                                        var msg = '';
-                                        switch (result.code) {
-                                            case fpcm.vars.jsvars.codes.installFailed :
-                                                msg = 'MODULES_FAILED_INSTALL';
-                                                break;
-                                            case fpcm.vars.jsvars.codes.uninstallFailed :
-                                                msg = 'MODULES_FAILED_UNINSTALL';
-                                                break;
-                                            case fpcm.vars.jsvars.codes.enabledFailed :
-                                                msg = 'MODULES_FAILED_ENABLE';
-                                                break;
-                                            case fpcm.vars.jsvars.codes.disabledFailed :
-                                                msg = 'MODULES_FAILED_DISABLE';
-                                                break;
-                                        }
-
-                                        fpcm.ui.addMessage({
-                                            txt: msg,
-                                            type: 'error'
-                                        }, true);
-                                    }
-                                    
-                                    fpcm.modulelist.tabs.tabs('load', 0);
+            fpcm.ui.confirmDialog({                
+                clickYes: function () {
+                    fpcm.ajax.post('modules/exec', {
+                        data: params,
+                        execDone: function (result) {
+                            if (result.code !== undefined && result.code < 1) {
+                                var msg = '';
+                                switch (result.code) {
+                                    case fpcm.vars.jsvars.codes.installFailed :
+                                        msg = 'MODULES_FAILED_INSTALL';
+                                        break;
+                                    case fpcm.vars.jsvars.codes.uninstallFailed :
+                                        msg = 'MODULES_FAILED_UNINSTALL';
+                                        break;
+                                    case fpcm.vars.jsvars.codes.enabledFailed :
+                                        msg = 'MODULES_FAILED_ENABLE';
+                                        break;
+                                    case fpcm.vars.jsvars.codes.disabledFailed :
+                                        msg = 'MODULES_FAILED_DISABLE';
+                                        break;
                                 }
-                            });
 
-                            fpcm.dom.fromTag(this).dialog( "close" );
+                                fpcm.ui.addMessage({
+                                    txt: msg,
+                                    type: 'error'
+                                }, true);
+                            }
+
+                            fpcm.ui_tabs.getNodes('#modulemgr', 0);
+                            fpcm.ui_tabs.show('#modulemgr', 0);
                         }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_NO'),
-                        icon: "ui-icon-closethick",
-                        click: function () {
-                            fpcm.dom.fromTag(this).dialog( "close" );
-                        }
-                    }
-                ]
+                    });
+                }
             });
         });
 
@@ -111,25 +94,9 @@ fpcm.modulelist = {
             var btnEl = fpcm.dom.fromTag(this);
             fpcm.ui.dialog({
                 id: 'modulelist-infos',
-                title: fpcm.ui.translate('MODULES_LIST_INFORMATIONS'),
-                resizable: true,
-                dlWidth: fpcm.ui.getDialogSizes(top, 0.85).width,
-                dlHeight: fpcm.ui.getDialogSizes(top, 0.85).height,
-                content: fpcm.ui.createIFrame({
-                    src: btnEl.attr('href')
-                }),
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                
-                        click: function() {
-                            fpcm.dom.fromTag(this).dialog( "close" );
-                        }
-                    }
-                ],
-                dlOnClose: function() {
-                    fpcm.dom.fromId('fpcm-dialog-modulelist-infos').remove();
-                }
+                title: 'MODULES_LIST_INFORMATIONS',
+                url: btnEl.attr('href'),
+                closeButton: true
             });
             
             return false;

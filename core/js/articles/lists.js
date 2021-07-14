@@ -75,7 +75,6 @@ fpcm.articles = {
 
             var sDlg = fpcm.ui.dialog({
                 id: 'articles-search',
-                resizable: true,
                 title: 'ARTICLES_SEARCH',
                 closeButton: true,
                 dlButtons: [

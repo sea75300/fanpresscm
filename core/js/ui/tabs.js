@@ -32,7 +32,7 @@ fpcm.ui_tabs = {
             params = {};
         }
 
-        let _nodes = fpcm.ui_tabs._getNodes(_elemClassId);
+        let _nodes = fpcm.ui_tabs.getNodes(_elemClassId);
         if (!_nodes) {
             return false;            
         }
@@ -43,11 +43,19 @@ fpcm.ui_tabs = {
             var _obj = new bootstrap.Tab(_el);
 
             _el.addEventListener('click', function (_ev) {
+                
+                //console.log('click');
+                //console.log(_ev.target);                
+                
                 _ev.preventDefault();
+                //(new bootstrap.Tab(_ev.target)).hide();
                 (new bootstrap.Tab(_ev.target)).show();
             });
 
             _el.addEventListener('show.bs.tab', function (_ev) {
+
+                //console.log('show.bs.tab');
+                //console.log(_ev.target);
 
                 fpcm.ui_tabs._updateMainToolbar(_ev.target, _ev.relatedTarget);
 
@@ -135,7 +143,7 @@ fpcm.ui_tabs = {
         
     },
     
-    _getNodes: function(_elemClassId) {
+    getNodes: function(_elemClassId) {
 
         let _nodes = document.querySelectorAll(_elemClassId + ' a.nav-link');
 
@@ -154,7 +162,7 @@ fpcm.ui_tabs = {
             return false;
         }
 
-        let _nodes = fpcm.ui_tabs._getNodes(_elemClassId);
+        let _nodes = fpcm.ui_tabs.getNodes(_elemClassId);
         if (!_nodes) {
             return false;            
         }

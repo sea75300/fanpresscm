@@ -94,7 +94,6 @@ fpcm.comments = {
 
             var sDlg = fpcm.ui.dialog({
                 id: 'comments-search',
-                resizable: true,
                 title: 'ARTICLES_SEARCH',
                 closeButton: true,
                 dlButtons  : [

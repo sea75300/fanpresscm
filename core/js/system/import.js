@@ -288,24 +288,10 @@ fpcm.import = {
         html = html.join('\n');
 
         fpcm.ui.dialog({
-            title: fpcm.ui.translate('GLOBAL_PREVIEW'),
+            title: 'GLOBAL_PREVIEW',
             dialogId: 'csv-import-preview',
             content: html,
-            resizable: true,
-            dlWidth: '85%',
-            dlButtons: [
-                {
-                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                    icon: "ui-icon-closethick",
-                    click: function () {
-                        fpcm.dom.fromTag(this).dialog("close");
-                        return false;
-                    }
-                }
-            ],
-            dlOnClose: function () {
-                fpcm.dom.fromTag(this).remove();
-            }
+            closeButton: true
         });        
 
         return false;

@@ -184,8 +184,6 @@ fpcm.system = {
 
         fpcm.ui.dialog({
             id: dialogId,
-            dlWidth: size.width,
-            resizable: true,
             title: 'GLOBAL_EDIT_SELECTED',
             dlButtons: [
                 {
