@@ -182,41 +182,37 @@ fpcm.editor = {
 
         fpcm.ui.dialog({
             id       : 'editor-comments',
-            dlWidth    : size.width,
-            dlHeight   : size.height,
-            resizable: true,
-            title    : fpcm.ui.translate('COMMENTS_EDIT'),
-            defaultCloseEmpty: true,
+            title    : 'COMMENTS_EDIT',
             dlButtons  : [
                 {
-                    text: fpcm.ui.translate('GLOBAL_SAVE'),
-                    icon: "ui-icon-disk",
-                    class: 'btn-primary',
+                    text: 'GLOBAL_SAVE',
+                    icon: "save",
+                    primary: true,
                     click: function() {
                         fpcm.dom.fromTag(this).children('#fpcm-editor-comment-frame').contents().find('#btnCommentSave').trigger('click');
-                        fpcm.editor.editorTabs.tabs('load', 2);
+                        fpcm.ui_tabs.show('#articles', 2);
                     }
                 },
                 {
-                    text: fpcm.ui.translate('COMMMENT_LOCKIP'),
-                    icon: "ui-icon-locked",
+                    text: 'COMMMENT_LOCKIP',
+                    icon: "lock",
                     disabled: fpcm.vars.jsvars.lkIp ? false : true,
                     click: function() {
                         fpcm.dom.fromTag(this).children('#fpcm-editor-comment-frame').contents().find('#btnLockIp').trigger('click');
                     }
                 },
                 {
-                    text: fpcm.ui.translate('Whois'),
-                    icon: "ui-icon-home",
+                    text: 'Whois',
+                    icon: "server",
                     click: function() {
                         window.open(fpcm.dom.fromTag(this).children('#fpcm-editor-comment-frame').contents().find('#whoisIp').attr('href'), '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
                     }
                 },
                 {
-                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                    icon: "ui-icon-closethick",                    
+                    text: 'GLOBAL_CLOSE',
+                    icon: "times",
+                    clickClose: true,
                     click: function() {
-                        fpcm.dom.fromTag(this).dialog('close');
                         fpcm.dom.fromClass('fpcm-ui-commentaction-buttons').fadeIn();
                     }
                 }                            

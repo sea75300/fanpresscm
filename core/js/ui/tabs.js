@@ -32,9 +32,8 @@ fpcm.ui_tabs = {
             params = {};
         }
 
-        let _nodes = document.querySelectorAll(_elemClassId + ' a.nav-link');
-        if (!_nodes.length) {
-            console.error('No tab nodes fround for "' + _elemClassId + ' a.nav-link"!');
+        let _nodes = fpcm.ui_tabs._getNodes(_elemClassId);
+        if (!_nodes) {
             return false;            
         }
 
@@ -134,6 +133,39 @@ fpcm.ui_tabs = {
         fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ _active.dataset.toolbarButtons).removeClass('fpcm-ui-hidden').parent('div').addClass('mx-1');        
         fpcm.ui.mainToolbar.find('.fpcm-ui-maintoolbarbuttons-tab'+ _prev.dataset.toolbarButtons).addClass('fpcm-ui-hidden').parent('div').removeClass('mx-1');
         
+    },
+    
+    _getNodes: function(_elemClassId) {
+
+        let _nodes = document.querySelectorAll(_elemClassId + ' a.nav-link');
+
+        if (!_nodes.length) {
+            console.error('No tab nodes fround for "' + _elemClassId + ' a.nav-link"!');
+            return false;
+        }
+        
+        return _nodes;
+    },
+    
+    show: function (_elemClassId, _tabId) {
+        
+        if (!_elemClassId || !_tabId === undefined) {
+            console.error('Invalid params data given data given "_elemClassId" or "_tabId" cennot be empty!');
+            return false;
+        }
+
+        let _nodes = fpcm.ui_tabs._getNodes(_elemClassId);
+        if (!_nodes) {
+            return false;            
+        }
+
+        _nodes = [].slice.call(_nodes);
+        if (!_nodes[_tabId]) {
+            console.error('Undefined tab node ' + _tabId + '!');
+            return false;
+        }
+
+        (new bootstrap.Tab(_nodes[_tabId])).show();
     }
     
 }

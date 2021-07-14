@@ -18,19 +18,16 @@ fpcm.langedit = {
 
             fpcm.ui.dialog({
                 id: 'langform-new',
-                resizable: true,
-                dlHeight: 300,
                 title: 'New language variable ',
                 content: '<input typer="text" id="fpcm-langedit-newvar" class="fpcm-ui-full-width fpcm-ui-input fpcm-ui-input-text mb-2" placeholder="Variable name"><br>\n\
                           <input typer="text" id="fpcm-langedit-newval" class="fpcm-ui-full-width fpcm-ui-input fpcm-ui-input-text" placeholder="Variable value">',
-                dlOnClose: function() {
-                    fpcm.dom.fromTag(this).remove();
-                },
+                closeButton: true,
                 dlButtons: [
                     {
                         text: fpcm.ui.translate('GLOBAL_SAVE'),
                         icon: "ui-icon-check",
-                        class: 'btn-primary',
+                        primary: true,
+                        clickClose: true,
                         click: function () {
                             
                             var newVarName = fpcm.dom.fromId('fpcm-langedit-newvar').val();
@@ -44,14 +41,6 @@ fpcm.langedit = {
 
                             fpcm.dom.appendHtml('form', '<input type="hidden" name="lang[' + newVarName.toUpperCase() + ']" value="' + newVarValue + '">');
                             fpcm.dom.fromId('btnSave').trigger('click');
-                            fpcm.dom.fromTag(this).dialog('close');
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",
-                        click: function () {
-                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     }
                 ]
@@ -79,31 +68,20 @@ fpcm.langedit = {
 
             fpcm.ui.dialog({
                 id: 'langform-' + data.dest,
-                resizable: true,
-                dlHeight: 300,
                 title: 'Edit language var: ' + data.var,
                 content: content.join('\n'),
-                dlOnClose: function() {
-                    fpcm.dom.fromTag(this).remove();
-                },
+                closeButton: true,
                 dlButtons: [
                     {
-                        text: fpcm.ui.translate('GLOBAL_SAVE'),
-                        icon: "ui-icon-check",
-                        class: 'btn-primary',
+                        text: 'GLOBAL_SAVE',
+                        icon: "check",
+                        primary: true,
+                        clickClose: true,
                         click: function () {
                             var newVal = fpcm.dom.fromId(newTextid).val();
                             fpcm.dom.fromId(oldTextId).val(newVal);
                             fpcm.dom.fromId(descrId).html(newVal);
                             fpcm.dom.fromId('btnSave').trigger('click');
-                            fpcm.dom.fromTag(this).dialog('close');
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",
-                        click: function () {
-                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     }
                 ]

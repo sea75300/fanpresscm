@@ -17,11 +17,9 @@ fpcm.imageEditor = {
         fpcm.ui.dialog({
             id: 'files-editor',
             title: fpcm.ui.translate('FILE_LIST_EDIT'),
+            class: 'modal-fullscreen',
             content: '<div class="m-2"><img id="fpcm-dialog-files-imgeditor" class="d-block fpcm ui-full-view-max-width-100p" src="' + _param.data.url + '"></div>',
-            dlPosition: {
-                my: "center center-25%",
-                at: "center center-25%"
-            },
+            closeButton: true,
             dlOnOpen: function() {
 
                 let imgEL = fpcm.dom.fromId('fpcm-dialog-files-imgeditor');
@@ -38,9 +36,8 @@ fpcm.imageEditor = {
             },
             dlButtons: [
                 {
-                    text: fpcm.ui.translate('FILE_LIST_EDIT_RESIZE'),
-                    icon: "ui-icon-arrow-4-diag",
-                    showLabel: false,
+                    text: 'FILE_LIST_EDIT_RESIZE',
+                    icon: "expand-arrows-alt",
                     click: function() {
                         var _cropBox = fpcm.filemanager.cropper.getCropBoxData();
                         if (!_cropBox.width || !_cropBox.height) {
@@ -64,89 +61,80 @@ fpcm.imageEditor = {
                         fpcm.ui.dialog({
                             id: 'files-editor_prop',
                             title: fpcm.ui.translate('FILE_LIST_EDIT_RESIZE'),
+                            closeButton: true,
                             content: '<div class="row g-0 mb-2">' + fpcm.ui.translate('FILE_LIST_EDIT_RESIZE_NOTICE') + '</div>' +
                                      '<div class="row mb-2">' + inWidth + '</div>' +
                                      '<div class="row">' + inHeight + '</div>',
-                            dlOnClose: function () {
-                                fpcm.dom.fromTag(this).dialog("close");
-                                fpcm.dom.fromTag(this).remove();
-                            },
                             dlButtons: [
                                 {
-                                    text: fpcm.ui.translate('GLOBAL_SAVE'),
-                                    icon: "ui-icon-disk",                        
+                                    text: 'GLOBAL_SAVE',
+                                    icon: "save",                        
+                                    clickClose: true,
                                     click: function() {
-                                        fpcm.dom.fromTag(this).dialog( "close" );
                                         fpcm.vars.jsvars.cropperSizes = {
                                             maxWidth: parseInt(fpcm.dom.fromId('fpcm-ui-files-editor-width').val()),
                                             maxHeight: parseInt(fpcm.dom.fromId('fpcm-ui-files-editor-height').val())
                                         }
                                     }
-                                },
-                                {
-                                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                                    icon: "ui-icon-closethick",                
-                                    click: function () {
-                                        fpcm.dom.fromTag(this).dialog('close');
-                                    }
-                                }                                
+                                }                  
                             ]
                         });
                     }
                 },
                 {
-                    text: fpcm.ui.translate('FILE_LIST_EDIT_ZOOMOUT'),
-                    icon: "ui-icon-zoomout",
+                    text: 'FILE_LIST_EDIT_ZOOMOUT',
+                    icon: "search-minus",
                     showLabel: false,
                     click: function() {
                         fpcm.filemanager.cropper.zoom(-0.2);
                     }
                 },
                 {
-                    text: fpcm.ui.translate('FILE_LIST_EDIT_ZOOMIN'),
-                    icon: "ui-icon-zoomin",
+                    text: 'FILE_LIST_EDIT_ZOOMIN',
+                    icon: "search-plus",
                     showLabel: false,
                     click: function() {
                         fpcm.filemanager.cropper.zoom(0.2);
                     }
                 },
                 {
-                    text: fpcm.ui.translate('FILE_LIST_EDIT_ROTATE_ANTICLOCKWISE'),
-                    icon: "ui-icon-arrowthick-1-sw",
+                    text: 'FILE_LIST_EDIT_ROTATE_ANTICLOCKWISE',
+                    icon: "undo",
                     showLabel: false,
                     click: function() {
                         fpcm.filemanager.cropper.rotate(-10);
                     }
                 },
                 {
-                    text: fpcm.ui.translate('FILE_LIST_EDIT_ROTATE_CLOCKWISE'),
-                    icon: "ui-icon-arrowthick-1-se",
+                    text: 'FILE_LIST_EDIT_ROTATE_CLOCKWISE',
+                    icon: "redo",
                     showLabel: false,
                     click: function() {
                         fpcm.filemanager.cropper.rotate(10);
                     }
                 },
                 {
-                    text: fpcm.ui.translate('FILE_LIST_EDIT_MOVE'),
-                    icon: "ui-icon-arrow-4",
+                    text: 'FILE_LIST_EDIT_MOVE',
+                    icon: "arrows-alt",
                     showLabel: false,
                     click: function() {
                         fpcm.filemanager.cropper.setDragMode("move");
                     }
                 },
                 {
-                    text: fpcm.ui.translate('FILE_LIST_EDIT_CROP'),
-                    icon: "ui-icon-scissors",
+                    text: 'FILE_LIST_EDIT_CROP',
+                    icon: "crop-alt",
                     showLabel: false,
                     click: function() {
                         fpcm.filemanager.cropper.setDragMode("crop");
                     }
                 },
                 {
-                    text: fpcm.ui.translate('GLOBAL_SAVE'),
-                    icon: "ui-icon-disk",                        
+                    text: 'GLOBAL_SAVE',
+                    icon: "save",                        
+                    clickClose: true,
+                    primary: true,
                     click: function() {
-                        fpcm.dom.fromTag(this).dialog( "close" );
                         fpcm.filemanager.cropper.getCroppedCanvas(fpcm.vars.jsvars.cropperSizes !== undefined ? fpcm.vars.jsvars.cropperSizes : {}).toBlob((blob) => {
 
                             const formData = new FormData();
@@ -164,18 +152,11 @@ fpcm.imageEditor = {
                         }, _param.data.mime);
                     }
                 },
-                {
-                    text: fpcm.ui.translate('GLOBAL_RESET'),
-                    icon: "ui-icon-closethick",                
-                    click: function () {
+                {                   
+                    text: 'GLOBAL_RESET',
+                    icon: "undo" ,                        
+                    click: function() {
                         fpcm.filemanager.cropper.reset();
-                    }
-                },
-                {
-                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                    icon: "ui-icon-closethick",                
-                    click: function () {
-                        fpcm.dom.fromTag(this).dialog('close');
                     }
                 }
             ]

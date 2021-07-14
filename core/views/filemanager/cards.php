@@ -20,7 +20,7 @@
             <?php if (file_exists($file->getFileManagerThumbnail())) : ?>
                 <img class="card-img-top rounded-top" loading="lazy" src="<?php print $file->getFileManagerThumbnailUrl(); ?>" title="<?php print $file->getFileName(); ?>">
             <?php else : ?>
-                <div class="card-img-top text-center rounded-top h-75">
+                <div class="card-img-top text-center rounded-top h-75 my-3">
                     <div class="row g-0 h-100">
                         <div class="col align-self-center">
                             <?php $theView->icon('file-image fa-inverse', 'far')->setStack('square')->setSize('3x'); ?>
@@ -34,7 +34,7 @@
                 <div class="card-text">
 
                     <?php if ($file->getAltText()) : ?>
-                        <p class="text-center"><?php print $theView->escapeVal($file->getAltText()); ?></p>
+                        <p class="text-center mb-0"><?php print $theView->escapeVal($file->getAltText()); ?></p>
                     <?php endif; ?>
 
                     <?php if (!$file->existsFolder()) : ?>

@@ -31,7 +31,7 @@
                         <div class="card-text">
 
                             <?php if ($file->getAltText()) : ?>
-                                <p class="text-center"><?php print $theView->escapeVal($file->getAltText()); ?></p>
+                                <p class="mb-0"><?php print $theView->escapeVal($file->getAltText()); ?></p>
                             <?php endif; ?>
 
                             <?php if (!$file->existsFolder()) : ?>

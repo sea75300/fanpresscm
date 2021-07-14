@@ -12,5 +12,3 @@
         <?php endif; ?>
     </div>
 </div>
-
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-templatepreview-layer"></div>

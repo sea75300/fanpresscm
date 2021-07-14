@@ -74,14 +74,16 @@ fpcm.articles = {
         fpcm.dom.fromId('opensearch').click(function () {
 
             var sDlg = fpcm.ui.dialog({
-                id      : 'articles-search',
+                id: 'articles-search',
                 resizable: true,
-                title    : fpcm.ui.translate('ARTICLES_SEARCH'),
-                dlButtons  : [
+                title: 'ARTICLES_SEARCH',
+                closeButton: true,
+                dlButtons: [
                     {
-                        text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
-                        icon: 'ui-icon-check',
-                        class: 'btn-primary',
+                        text: 'ARTICLE_SEARCH_START',
+                        icon: 'search',
+                        primary: true,
+                        clickClose: true,
                         click: function() {                            
                             let _filter = {};
                             _filter = fpcm.ui.getValuesByClass('fpcm-articles-search-input');
@@ -100,23 +102,15 @@ fpcm.articles = {
                             });
 
                             fpcm.vars.jsvars.articlesLastSearch = (new Date()).getTime();                            
-                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     },                    
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_RESET'),
-                        icon: "ui-icon-refresh" ,                        
+                        icon: "undo" ,                        
                         click: function() {
                             fpcm.ui.relocate('self');
                         }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick" ,                        
-                        click: function() {
-                            fpcm.dom.fromTag(this).dialog('close');
-                        }
-                    }                            
+                    }                          
                 ],
                 dlOnOpen: function( event, ui ) {
                     fpcm.dom.setFocus('text');
@@ -189,7 +183,6 @@ fpcm.articles = {
                     return false;
                 }
 
-                fpcm.dom.fromTag(this).dialog('close');
                 fpcm.articles.execNewTweet(ids);
             }
         });

@@ -352,9 +352,6 @@ if (fpcm.editor) {
             dlWidth: fpcm.ui.getDialogSizes().width,
             title: 'EDITOR_HTML_BUTTONS_LIST' + listtype.toUpperCase(),
             resizable: true,
-            dlOnOpen: function () {
-                fpcm.editor.setSelectToDialog(this);
-            },
             dlOnClose: function() {
                 fpcm.dom.fromId('listrows').val('1');
                 fpcm.dom.fromId('listtype').val('');
@@ -561,9 +558,6 @@ if (fpcm.editor) {
             id: 'editor-html-inserttable',
             dlWidth: fpcm.ui.getDialogSizes(top, 0.35).width,
             title: 'EDITOR_INSERTTABLE',
-            dlOnOpen: function () {
-                fpcm.editor.setSelectToDialog(this);
-            },
             dlOnClose: function() {
                 fpcm.dom.resetValuesByIdsString(['tablerows', 'tablecols'], '1')
             },
@@ -619,7 +613,6 @@ if (fpcm.editor) {
                         });
                     }
                 });
-                fpcm.editor.setSelectToDialog(this);
             },
             dlOnClose: function() {
                 fpcm.dom.resetValuesByIdsString(['imagespath', 'imagesalt']);
@@ -662,7 +655,7 @@ if (fpcm.editor) {
                         });
                     }
                 });
-                fpcm.editor.setSelectToDialog(this);
+
             },
             dlOnClose: function () {
                 fpcm.dom.resetValuesByIdsString(['linksurl', 'linkstext']);

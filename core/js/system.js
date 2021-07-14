@@ -103,27 +103,26 @@ fpcm.system = {
         });
 
         fpcm.ui.dialog({
+            id: 'sessioncheck',
             content: fpcm.ui.translate('SESSION_TIMEOUT'),
             dlButtons: buttons = [
                 {
                     text: fpcm.ui.translate('GLOBAL_YES'),
-                    icon: "ui-icon-check",
+                    icon: "check",
+                    clickClose: true,
                     click: function () {
                         fpcm.ui.relocate(fpcm.vars.actionPath + 'system/login');
-                        fpcm.dom.fromTag(this).dialog('close');
                     }
                 },
                 {
                     text: fpcm.ui.translate('GLOBAL_NO'),
-                    icon: "ui-icon-closethick",
+                    icon: "times",
+                    clickClose: true,
                     click: function () {
                         fpcm.vars.jsvars.sessionCheck = true;
-                        fpcm.dom.fromTag(this).dialog('close');
-                        fpcm.dom.fromTag(this).remove();
                     }
                 }
             ],
-            id: 'sessioncheck'
         });
 
         fpcm.vars.jsvars.sessionCheck = false;
@@ -187,12 +186,13 @@ fpcm.system = {
             id: dialogId,
             dlWidth: size.width,
             resizable: true,
-            title: fpcm.ui.translate('GLOBAL_EDIT_SELECTED'),
+            title: 'GLOBAL_EDIT_SELECTED',
             dlButtons: [
                 {
-                    text: fpcm.ui.translate('GLOBAL_SAVE'),
+                    text: 'GLOBAL_SAVE',
                     icon: "ui-icon-check",
-                    class: 'btn-primary',
+                    primary: true,
+                    closeButton: true,
                     click: function () {
 
                         fpcm.ui.confirmDialog({
@@ -225,21 +225,9 @@ fpcm.system = {
                                 }
 
                                 fpcm.system.execMassEdit(func, params);
-                                fpcm.dom.fromTag(this).dialog('close');
 
-                            },
-
-                            clickNo: function () {
-                                fpcm.dom.fromTag(this).dialog('close');
                             }
                         });
-                    }
-                },
-                {
-                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                    icon: "ui-icon-closethick",
-                    click: function () {
-                        fpcm.dom.fromTag(this).dialog('close');
                     }
                 }
             ],

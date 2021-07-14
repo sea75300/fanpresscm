@@ -80,30 +80,16 @@ fpcm.templates = {
 
             var sizes       = fpcm.ui.getDialogSizes(top, 0.75);
             fpcm.ui.dialog({
-                title     : fpcm.ui.translate('TEMPLATE_HL_DRAFTS_EDIT'),
-                content   : fpcm.ui.createIFrame({
-                    src: fpcm.dom.fromTag(this).attr('href'),
-                    id: 'fpcm-articletemplates-editor-frame'
-                }),
-                dlWidth   : parseInt(sizes.width),
-                dlHeight  : parseInt(sizes.height),
-                resizable : true,
-                defaultCloseEmpty: true,
+                title: 'TEMPLATE_HL_DRAFTS_EDIT',
+                url: fpcm.dom.fromTag(this).attr('href'),
+                closeButton: true,
                 dlButtons : [
                     {
-                        text: fpcm.ui.translate('GLOBAL_SAVE'),
-                        icon: "ui-icon-disk",
-                        class: 'btn-primary',
+                        text: 'GLOBAL_SAVE',
+                        icon: "save",
+                        primary: true,
                         click: function() {
                             fpcm.dom.fromTag(this).children('#fpcm-articletemplates-editor-frame').contents().find('#btnSaveTemplate').trigger('click');
-                            fpcm.ui_loader.hide();
-                        }
-                    },
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                    
-                        click: function() {
-                            fpcm.dom.fromTag(this).dialog('close');
                             fpcm.ui_loader.hide();
                         }
                     }
@@ -125,24 +111,10 @@ fpcm.templates = {
                 tplid  : fpcm.dom.fromId('templateid').val()
             },
             execDone: function() {
-                fpcm.dom.appendHtml('#fpcm-dialog-templatepreview-layer', '<iframe id="fpcm-dialog-templatepreview-layer-frame" class="fpcm-ui-full-width" src="' + fpcm.vars.actionPath + 'templates/preview&tid=' + fpcm.dom.fromId('templateid').val() + '"></iframe>');
                 fpcm.ui.dialog({
-                    id         : 'templatepreview-layer',
-                    dlWidth    : fpcm.ui.getDialogSizes(top, 0.75).width,
-                    dlHeight   : fpcm.ui.getDialogSizes(top, 0.75).height,
-                    title      : fpcm.ui.translate('HL_TEMPLATE_PREVIEW'),
-                    resizable  : true,
-                    defaultCloseEmpty: true,
-                    dlButtons  : [
-                        {
-                            text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                            icon: "ui-icon-closethick",                    
-                            click: function() {
-                                fpcm.dom.fromTag(this).dialog('close');
-                                fpcm.dom.fromClass('fpcm-dialog-templatepreview-layer-frame').remove();
-                            }
-                        }                            
-                    ]
+                    id: 'templatepreview-layer',
+                    closeButton: true,
+                    url: fpcm.vars.actionPath + 'templates/preview&tid=' + fpcm.dom.fromId('templateid').val()
                 });
             }
         });

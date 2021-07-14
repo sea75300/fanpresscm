@@ -404,6 +404,10 @@ fpcm.ui = {
             params.keepDom = true;
         }
 
+        if (params.dlButtons === undefined) {
+            params.dlButtons = [];
+        }
+
         if (params.closeButton) {
             
             params.dlButtons.push({
@@ -450,6 +454,10 @@ fpcm.ui = {
         if (params.opener === undefined) {
             params.opener = '';
         }
+        
+        if (params.size === undefined) {
+            params.size = 'lg';
+        }
 
         if (!fpcm.dom.fromId(_dlgId).length) {            
             let _modal = fpcm.vars.ui.dialogTpl;
@@ -460,20 +468,36 @@ fpcm.ui = {
                   .replace('{$content}', params.content)
                   .replace('{$class}', params.class)
                   .replace('{$modalClass}', params.modalClass)
+                  .replace('{$size}', params.size)
                   .replace('{$buttons}', _buttons));
         }
 
         let _domEl = document.getElementById(_dlgId);
         let _bsObj = new bootstrap.Modal(_domEl);
-        _bsObj.toggle(_domEl);
         
         if (!params.keepDom) {
             _domEl.addEventListener('hidden.bs.modal', function (event) {
                  _bsObj.dispose(_domEl);
                  fpcm.dom.fromId(_dlgId).remove();
+                 
+                if (params.dlOnClose) {
+                    params.dlOnClose(this, _bsObj);
+                }
+            });
+        }
+        else if (params.dlOnClose) {
+            _domEl.addEventListener('hidden.bs.modal', function (event) {
+                params.dlOnClose(this, _bsObj);                 
             });
         }
         
+        if (params.dlOnOpen) {
+            _domEl.addEventListener('show.bs.modal', function (event) {
+                params.dlOnOpen(this, _bsObj);
+            });
+        }
+
+        _bsObj.toggle(_domEl);
 
         if (params.dlButtons !== undefined) {
             
@@ -603,7 +627,7 @@ fpcm.ui = {
                 msg.type = 'success';
             }
 
-            msgCode  = '<div class="fpcm ui-message alert-' + msg.type + _css + '" role="alert">';
+            msgCode  = '<div class="fpcm ui-message shadow alert-' + msg.type + _css + '" role="alert">';
             msgCode += fpcm.ui.getIcon(msg.icon, { size: '2x' });
             msgCode += '<div class="mx-3">' + msg.txt + '</div>';
             msgCode += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="' + fpcm.ui.translate('GLOBAL_CLOSE') + '"></button>';

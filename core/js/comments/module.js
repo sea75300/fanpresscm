@@ -93,14 +93,16 @@ fpcm.comments = {
         fpcm.dom.fromId('opensearch').click(function () {
 
             var sDlg = fpcm.ui.dialog({
-                id      : 'comments-search',
+                id: 'comments-search',
                 resizable: true,
-                title    : fpcm.ui.translate('ARTICLES_SEARCH'),
+                title: 'ARTICLES_SEARCH',
+                closeButton: true,
                 dlButtons  : [
                     {
-                        text: fpcm.ui.translate('ARTICLE_SEARCH_START'),
-                        icon: 'ui-icon-check',
-                        class: 'btn-primary',
+                        text: 'ARTICLE_SEARCH_START',
+                        icon: 'check',
+                        primary: true,
+                        clickClose: true,
                         click: function() {
                             
                             var sParams = {
@@ -111,23 +113,16 @@ fpcm.comments = {
                             sParams.filter.combinations = fpcm.ui.getValuesByClass('fpcm-ui-input-select-commentsearch-combination');
 
                             fpcm.comments.startCommentSearch(sParams);
-                            fpcm.dom.fromTag(this).dialog('close');
                         }
                     },                    
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_RESET'),
-                        icon: "ui-icon-refresh" ,                        
+                        icon: "undo" ,
+                        clickClose: true,
                         click: function() {
                             fpcm.ui.relocate('self');
                         }
-                    },                    
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                        
-                        click: function() {
-                            fpcm.dom.fromTag(this).dialog('close');
-                        }
-                    }                            
+                    }              
                 ],
                 dlOnOpen: function() {
                     fpcm.dom.fromId('text').focus();

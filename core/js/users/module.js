@@ -71,61 +71,30 @@ fpcm.users = {
             return true;
         }
 
-        var size = fpcm.ui.getDialogSizes();
-
         fpcm.ui_loader.hide();
         fpcm.ui.dialog({
-            id         : 'users-select-delete',
-            dlWidth    : size.width,
-            title      : fpcm.ui.translate('USERS_ARTICLES_SELECT'),
-            dlButtons  : [
+            id: 'users-select-delete',
+            title: 'USERS_ARTICLES_SELECT',
+            closeButton: true,
+            dlButtons: [
                 {
-                    text: fpcm.ui.translate('GLOBAL_OK'),
-                    icon: "ui-icon-check",                    
+                    text: 'GLOBAL_OK',
+                    icon: "check",
+                    closeClick: true,
                     click: function() {
-                        
-                        fpcm.dom.fromTag(this).dialog('close');
-
-                        fpcm.ui.dialog({
-                            title: fpcm.ui.translate('GLOBAL_CONFIRM'),
-                            content: fpcm.ui.translate('CONFIRM_MESSAGE'),
-                            dlWidth: size.width,
-                            dlButtons: [
-                                {
-                                    text: fpcm.ui.translate('GLOBAL_YES'),
-                                    icon: "ui-icon-check",                    
-                                    click: function() {
-                                        fpcm.users.continueDelete = true;
-                                        fpcm.dom.fromId('btnDeleteUser').trigger('click');
-                                        fpcm.dom.fromTag(this).dialog('close');
-                                    }
-                                },
-                                {
-                                    text: fpcm.ui.translate('GLOBAL_NO'),
-                                    icon: "ui-icon-closethick",
-                                    click: function() {
-                                        fpcm.dom.fromTag(this).dialog('close');
-                                        fpcm.dom.fromId('articlesaction').val('').selectmenu("refresh");
-                                        fpcm.dom.fromId('articlesuser').val('').selectmenu("refresh");
-                                    }
-                                }
-                            ]
+                        fpcm.ui.confirmDialog({
+                            clickYes: function() {
+                                fpcm.users.continueDelete = true;
+                                fpcm.dom.fromId('btnDeleteUser').trigger('click');
+                            }
                         });
                     }
-                },
-                {
-                    text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                    icon: "ui-icon-closethick",                    
-                    click: function() {
-                        fpcm.dom.fromTag(this).dialog('close');
-                        fpcm.dom.fromId('articlesaction').val('').selectmenu("refresh");
-                        fpcm.dom.fromId('articlesuser').val('').selectmenu("refresh");
-                        fpcm.ui_loader.hide();
-                    }
-                }                            
+                }
             ],
             dlOnClose: function (event, ui) {
-                fpcm.dom.fromTag(this).dialog('destroy');
+                fpcm.dom.fromId('articlesaction').val('');
+                fpcm.dom.fromId('articlesuser').val('');
+                fpcm.ui_loader.hide();
             }
         });
 

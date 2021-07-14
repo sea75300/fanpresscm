@@ -51,9 +51,9 @@ fpcm.filemanager = {
             });            
         }
 
-//        fpcm.dom.fromId('btnFmgrUploadBack').click(function () {
-//            fpcm.filemanager.tabsObj.tabs('option', 'active', 0);
-//        });
+        fpcm.dom.fromId('btnFmgrUploadBack').click(function () {
+            fpcm.ui_tabs.show('#files', 0);
+        });
         
     },
 
@@ -177,6 +177,7 @@ fpcm.filemanager = {
                         text: fpcm.ui.translate('GLOBAL_SAVE'),
                         icon: "save",
                         clickClose: true,
+                        primary: true,
                         click: function() {
                             fpcm.ajax.post('files/rename', {
                                 data: {
@@ -226,6 +227,7 @@ fpcm.filemanager = {
                 {
                     text: fpcm.ui.translate('GLOBAL_SAVE'),
                     icon: "save",
+                    clickClose: true,
                     clickClose: true,
                     click: function() {
                         fpcm.ajax.post('files/alttext', {
@@ -384,6 +386,7 @@ fpcm.filemanager = {
             fpcm.ui.dialog({
                 id: 'files-properties',
                 title: fpcm.ui.translate('GLOBAL_PROPERTIES'),
+                closeButton: true,
                 dlOnOpen: function () {
 
                     var titleTxt = '';
@@ -415,16 +418,7 @@ fpcm.filemanager = {
                     jQuery.each(fpcm.filemanager.propertiesDialog, function (idx, prop) {
                         fpcm.dom.fromId('fpcm-dialog-files-properties-' + prop).empty().attr('title', '');
                     });
-                },
-                dlButtons: [
-                    {
-                        text: fpcm.ui.translate('GLOBAL_CLOSE'),
-                        icon: "ui-icon-closethick",                
-                        click: function() {
-                            fpcm.dom.fromTag(this).dialog( "close" );
-                        }
-                    }
-                ]
+                }
             })
             
 
