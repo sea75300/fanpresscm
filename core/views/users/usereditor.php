@@ -97,7 +97,7 @@
                         <?php $theView->passwordInput('data[current_pass]')
                             ->setAutocomplete(false)
                             ->setText('GLOBAL_PASSWORD_CONFIRM')
-                            ->setIcon('exclamation-triangle fpcm-ui-important-text')
+                            ->setIcon('exclamation-triangle text-danger')
                             ->setSize('lg'); ?>
                     </div>
                 </div>
@@ -140,7 +140,7 @@
                             ->setAutocomplete(false)
                             ->setText('USERS_AUTHTOKEN_SAVE2')
                             ->setLabelClass('pe-3')
-                            ->setIcon('exclamation-triangle fpcm-ui-important-text')
+                            ->setIcon('exclamation-triangle text-danger')
                             ->setSize('lg'); ?>                    
 
                         <?php $theView->hiddenInput('data[authSecret]', 'authSecret')->setValue($secret); ?>

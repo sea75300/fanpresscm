@@ -14,7 +14,9 @@ fpcm.logs = {
 
     init: function () {
 
-        fpcm.logs.tabs = fpcm.ui.tabs('#tabs-logs', {
+        fpcm.ui_tabs.render('#tabs-logs', {
+            
+            reload: true,
             
             onShow: function (_el) {
                 let _logParams = fpcm.system.parseUrlQuery(_el.target.attributes.href.value);

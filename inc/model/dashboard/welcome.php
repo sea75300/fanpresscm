@@ -32,7 +32,7 @@ class welcome extends \fpcm\model\abstracts\dashcontainer {
      */
     public function getContent()
     {
-        return $this->language->translate('WELCOME_CONTENT');
+        return '<p class="px-2">' . $this->language->translate('WELCOME_CONTENT') . '</p>';
     }
 
     /**

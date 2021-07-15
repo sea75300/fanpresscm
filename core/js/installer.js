@@ -109,9 +109,9 @@ fpcm.installer = {
 
     initUi: function() {
 
-        fpcm.ui.tabs('#fpcm-tabs-installer', {
-            disabled: fpcm.vars.jsvars.disabledTabs,
-            active  : fpcm.vars.jsvars.activeTab,
+        fpcm.ui_tabs.render('#fpcm-tabs-installer', {
+            /*disabled: fpcm.vars.jsvars.disabledTabs,
+            active  : fpcm.vars.jsvars.activeTab,*/
             beforeActivate: function( event, ui ) {
                 
                 var backLink = ui.newTab.find('a').attr('data-backlink');

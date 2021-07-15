@@ -21,7 +21,7 @@
                     <?php if ($avatar) : ?>
                         <img src="<?php print $avatar; ?>" class="img-thumbnail">
                     <?php else: ?>
-                        <p class="m-3"><?php $theView->icon('image')->setStack('ban fpcm-ui-important-text')->setStackTop(true); ?>
+                        <p class="m-3"><?php $theView->icon('image')->setStack('ban text-danger')->setStackTop(true); ?>
                         <?php $theView->write('GLOBAL_NOTFOUND'); ?></p>
                     <?php endif; ?>
                     </div>                        

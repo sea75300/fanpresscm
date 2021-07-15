@@ -207,7 +207,7 @@
 
             <div class="row fpcm-ui-padding-md-tb fpcm-ui-hidden" id="fpcm-ui-update-result-0">
                 <div class="col-1 px-0 fpcm-ui-center">
-                    <?php $theView->icon('times')->setSize('3x')->setClass('fpcm-ui-important-text'); ?>
+                    <?php $theView->icon('times')->setSize('3x')->setClass('text-danger'); ?>
                 </div>
                 <div class="col-11 align-self-center fpcm-ui-updater-descr">
                     <?php $theView->write('PACKAGEMANAGER_FAILED'); ?>

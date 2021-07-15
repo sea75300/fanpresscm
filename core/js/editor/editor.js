@@ -14,9 +14,7 @@ fpcm.editor = {
 
     init: function() {
 
-//        fpcm.editor.initToolbar();
-//
-        fpcm.editor.editorTabs = fpcm.ui.tabs('#tabs-editor');
+        fpcm.ui_tabs.render('#tabs-editor');
 
         if (!fpcm.vars.jsvars.isRevision) {
             fpcm.editor[fpcm.vars.jsvars.editorInitFunction].call();

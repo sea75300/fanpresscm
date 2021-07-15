@@ -67,7 +67,7 @@ fpcm.ui_tabs = {
                 var _tabList = _ev.target.dataset.dataviewList
                              ? _ev.target.dataset.dataviewList
                              : false; 
-                
+
                 fpcm.ajax.get(_ev.target.href, {
                     execDone: function (_result) {
 
@@ -168,6 +168,10 @@ fpcm.ui_tabs = {
         if (!_nodes[_tabId]) {
             console.error('Undefined tab node ' + _tabId + '!');
             return false;
+        }
+
+        if (fpcm.dom.fromTag(_nodes[_tabId]).hasClass('active') ) {
+            fpcm.dom.fromTag(_nodes[_tabId]).removeClass('active');
         }
 
         (new bootstrap.Tab(_nodes[_tabId])).show();

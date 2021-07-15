@@ -128,8 +128,8 @@ fpcm.filemanager = {
                 if (result.type !== 'notice') {
                     return false;
                 }
-
-                fpcm.modulelist.tabs.tabs('load', 0);
+                
+                fpcm.ui_tabs.show('#modulemgr', 0);
             }
         });
 

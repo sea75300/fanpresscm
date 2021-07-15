@@ -33,7 +33,7 @@
                         <?php else : ?>
                             <div class="row g-0 align-items-center">
                                 <div class="col-12">
-                                    <?php $theView->icon('search')->setSize('lg')->setStack('ban fpcm-ui-important-text')->setStackTop(true); ?>
+                                    <?php $theView->icon('search')->setSize('lg')->setStack('ban text-danger')->setStackTop(true); ?>
                                     <?php $theView->write('GLOBAL_NOTFOUND'); ?>
                                 </div>
                             </div>

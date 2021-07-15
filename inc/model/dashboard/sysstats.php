@@ -176,13 +176,6 @@ class sysstats extends \fpcm\model\abstracts\dashcontainer {
     }
 
     /**
-     * Check ausführen
-     */
-    protected function runCheck()
-    {
-    }
-
-    /**
      * Fetch stats from database
      * @return bool
      * @since 4.5

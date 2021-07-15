@@ -1,8 +1,8 @@
 <?php /* @var $theView fpcm\view\viewVars */ /* @var $file fpcm\model\files\image */ ?>
 <?php if ($filterError) : ?>
-<p class="p-3"><?php $theView->icon('search')->setStack('ban fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('SEARCH_ERROR'); ?></p>
+<p class="p-3"><?php $theView->icon('search')->setStack('ban text-danger')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('SEARCH_ERROR'); ?></p>
 <?php elseif (!count($files)) : ?>
-<p class="p-3"><?php $theView->icon('images', 'far')->setStack('ban fpcm-ui-important-text')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
+<p class="p-3"><?php $theView->icon('images', 'far')->setStack('ban text-danger')->setSize('lg')->setStackTop(true); ?> <?php $theView->write('GLOBAL_NOTFOUND2'); ?></p>
 <?php else : ?>
 
     <div class="row mb-1 justify-content-end">
@@ -38,11 +38,11 @@
                     <?php endif; ?>
 
                     <?php if (!$file->existsFolder()) : ?>
-                    <div class="row fpcm-ui-important-text align-self-center">
-                        <div class="col-12 col-md-2">
-                            <?php $theView->icon('images', 'far')->setStack('ban')->setSize('lg')->setStackTop(true); ?>
+                    <div class="row text-danger">
+                        <div class="col-auto text-center align-self-center">
+                            <?php $theView->icon('images', 'far')->setStack('ban')->setStackTop(true); ?>
                         </div>
-                        <div class="col-12 col-md-10 align-self-center">
+                        <div class="col align-self-center">
                             <?php $theView->write('FILE_LIST_UPLOAD_NOTFOUND'); ?>
                         </div>
                     </div>

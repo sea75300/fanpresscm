@@ -13,7 +13,7 @@ fpcm.templates = {
             onRenderAfter: fpcm.ui.assignControlgroups
         });
 
-        fpcm.ui.tabs('#fpcm-tabs-templates', {
+        fpcm.ui_tabs.render('#fpcm-tabs-templates', {
             beforeLoad: function(event, ui) {
                 fpcm.ui_loader.show();
                 ui.jqXHR.done(function(result) {

@@ -20,7 +20,7 @@
 
                     <h1 class="fpcm-ui-margin-md-bottom"><?php $theView->icon('chevron-right'); ?> <span>FanPress CM</span> <span>News System</span></h1>
 
-                    <p class=""><?php $theView->icon($icon.' fa-inverse')->setStack('square')->setClass('fa-5x fpcm-ui-important-text'); ?></p>
+                    <p class=""><?php $theView->icon($icon.' fa-inverse')->setStack('square')->setClass('fa-5x text-danger'); ?></p>
                     <p><?php print $errorMessage; ?></p>
                     <p><?php $theView->linkButton('backBtn')->setUrl($backController ? $backController : 'javascript:window.history.back();')->setText('GLOBAL_BACK')->setIcon('chevron-circle-left'); ?></p>
 

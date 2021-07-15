@@ -67,7 +67,7 @@ fpcm.updater = {
                 statusEl.removeClass(fpcm.updater.statusSpinner);
 
                 if (!res.code) {
-                    statusEl.addClass('fa-ban fpcm-ui-important-text');
+                    statusEl.addClass('fa-ban text-danger');
                     fpcm.dom.fromId('fpcm-ui-update-result-0').removeClass('fpcm-ui-hidden');
                     
                     if (res.message) {
@@ -99,7 +99,7 @@ fpcm.updater = {
                 fpcm.updater.execRequest(fpcm.dom.fromTag(fpcm.updater.elements[fpcm.updater.currentIdx]));
             },
             execFail: function () {
-                fpcm.updater.currentEl.find('.fpcm-ui-update-iconstatus').removeClass(fpcm.updater.statusSpinner).addClass('fa-ban fpcm-ui-important-text');
+                fpcm.updater.currentEl.find('.fpcm-ui-update-iconstatus').removeClass(fpcm.updater.statusSpinner).addClass('fa-ban text-danger');
                 
                 var resultEl = fpcm.dom.fromId('fpcm-ui-update-result-0');
                 resultEl.removeClass('fpcm-ui-hidden');

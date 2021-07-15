@@ -14,7 +14,7 @@ fpcm.dashboard = {
     onDone: {},
 
     init: function () {
-        //fpcm.dashboard.load();
+        fpcm.dashboard.load();
     },
     
     load: function () {
@@ -26,35 +26,35 @@ fpcm.dashboard = {
                 fpcm.dashboard.forceUpdate();
                 fpcm.dashboard.openUpdateCheckUrl();
 
-                var el = fpcm.dom.fromId('fpcm-dashboard-containers');
-                el.sortable({
-                    items: 'div.fpcm-dashboard-container',
-                    handle: 'span.fpcm-dashboard-container-move',
-                    opacity: 0.5,
-                    update: function ( event, ui ) {
-
-                        var saveItems = {};
-                        jQuery.each(ui.item.parent().children(), function (pos, item) {
-
-                            var cid = fpcm.dom.fromTag(item).data('container');
-                            if (!cid) {
-                                return false;
-                            }
-
-                            saveItems[cid] = parseInt(pos) + 1;
-                        });
-
-                        fpcm.ajax.post('setconfig', {
-                            data: {
-                                var: 'dashboardpos',
-                                value: saveItems
-                            },
-                            execDone: fpcm.dashboard.load,
-                            quiet: true
-                        });
-
-                    }
-                });
+//                var el = fpcm.dom.fromId('fpcm-dashboard-containers');
+//                el.sortable({
+//                    items: 'div.fpcm-dashboard-container',
+//                    handle: 'span.fpcm-dashboard-container-move',
+//                    opacity: 0.5,
+//                    update: function ( event, ui ) {
+//
+//                        var saveItems = {};
+//                        jQuery.each(ui.item.parent().children(), function (pos, item) {
+//
+//                            var cid = fpcm.dom.fromTag(item).data('container');
+//                            if (!cid) {
+//                                return false;
+//                            }
+//
+//                            saveItems[cid] = parseInt(pos) + 1;
+//                        });
+//
+//                        fpcm.ajax.post('setconfig', {
+//                            data: {
+//                                var: 'dashboardpos',
+//                                value: saveItems
+//                            },
+//                            execDone: fpcm.dashboard.load,
+//                            quiet: true
+//                        });
+//
+//                    }
+//                });
 
                 jQuery.each(fpcm.dashboard.onDone, function (idx, object) {
 

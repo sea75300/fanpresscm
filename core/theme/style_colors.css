@@ -42,12 +42,12 @@ div.fpcm-ui-dataview div.fpcm-ui-dataview-subhead {
     color: #fff;
 }
 
-h3.fpcm-dashboard-container-headline {
+h3.fpcm.dashboard-container.headline {
     background: none;
     color: #0073ea;
 }
 
-h3.fpcm-dashboard-container-headline span.fpcm-ui-icon {
+h3.fpcm.dashboard-container.headline span.fpcm-ui-icon {
     color: #000;
 }
 

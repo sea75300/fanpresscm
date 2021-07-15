@@ -343,40 +343,12 @@ fpcm.system = {
                 },
                 execDone: function (result) {
 
-                    var sizes = fpcm.ui.getDialogSizes(top, 0.90);
-
                     fpcm.ui.dialog({
                         id: 'help',
-                        title: fpcm.ui.translate('HL_HELP'),
+                        title: 'HL_HELP',
                         content: result,
-                        dlButtons: [
-                            {
-                                text: 'GLOBAL_CLOSE',
-                                icon: "times",
-                                clickClose: true,
-                                primary: true
-                            }
-                        ]
+                        closeButton: true
                     });
-
-//                    fpcm.ui.tabs('#fpcm-ui-tabs-help');
-//
-//                    var headlines = fpcm.dom.fromId('tabs-help-general').find('h3');
-//                    if (headlines.length < 2) {
-//                        fpcm.dom.fromId('fpcm-ui-help-toc-headline').addClass('fpcm-ui-hidden');
-//                        return true;
-//                    }
-//
-//                    var listEl = fpcm.dom.fromId('fpcm-ui-help-toc');
-//                    jQuery.each(headlines, function (i, val) {
-//
-//                        if (!i) {
-//                            return true;
-//                        }
-//
-//                        listEl.append('<li><strong>' + val.innerText + '</strong></li>');
-//                    });
-
                 }
             });
 

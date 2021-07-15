@@ -12,12 +12,7 @@ fpcm.options = {
 
     init: function () {
 
-        fpcm.ui.tabs('#fpcm-options-tabs', {
-            active: fpcm.vars.jsvars.activeTab,
-            addTabScroll: true,
-            addMainToobarToggle: true,
-            saveActiveTab: true
-        });
+        fpcm.ui_tabs.render('#fpcm-options-tabs');
 
         fpcm.dom.fromId('syschecksubmitstats').click(function () {
             fpcm.ajax.post('syscheck', {
