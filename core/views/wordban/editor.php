@@ -1,8 +1,7 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
 <div class="row">
     <div class="col-12">
-        <fieldset class="m-3">
-            <legend><?php $theView->write('WORDBAN_FORM'); ?></legend>
+        <fieldset class="my-3">
             
             <div class="row">
                 <?php $theView->textInput('wbitem[searchtext]')

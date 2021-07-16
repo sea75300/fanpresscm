@@ -4,74 +4,65 @@
         <fieldset>
             <legend><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></legend>
             
-            <div class="row fpcm-ui-padding-md-tb">
+            <div class="row py-2 g-0">
                 <div class="col-12 col-md-6">
                     <div class="row">
-                        <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
-                            <?php $theView->icon('globe'); ?>
-                            <?php $theView->write('SYSTEM_OPTIONS_TIMEZONE'); ?>:
-                        </label>
-                        <div class="col-12 col-sm-7 px-0">
-                            <?php $theView->select('usermeta[system_timezone]')
-                                    ->setOptions($timezoneAreas)
-                                    ->setSelected($author->getUserMeta('system_timezone'))
-                                    ->setOptGroup(true); ?>
-                        </div>
+                        <?php $theView->select('usermeta[system_timezone]')
+                                ->setOptions($timezoneAreas)
+                                ->setSelected($author->getUserMeta('system_timezone'))
+                                ->setOptGroup(true)
+                                ->setText('SYSTEM_OPTIONS_TIMEZONE')
+                                ->setIcon('globe')
+                                ->prependLabel(); ?>
                     </div>
                 </div>
-            </div>
-
-            <div class="row fpcm-ui-padding-md-tb">
+            </div>            
+            
+            <div class="row py-2 g-0">
                 <div class="col-12 col-md-6">
                     <div class="row">
-                        <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
-                            <?php $theView->icon('language'); ?>
-                            <?php $theView->write('SYSTEM_OPTIONS_LANG'); ?>:
-                        </label>
-                        <div class="col-12 col-sm-7 px-0">
-                            <?php $theView->select('usermeta[system_lang]')
+                        <?php $theView->select('usermeta[system_lang]')
                                     ->setOptions($languages)
                                     ->setSelected($author->getUserMeta('system_lang'))
-                                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-                        </div>
+                                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                                    ->setText('SYSTEM_OPTIONS_LANG')
+                                    ->setIcon('language')
+                                    ->prependLabel(); ?>
                     </div>
                 </div>
             </div>
 
-            <div class="row fpcm-ui-padding-md-tb">
+            <div class="row py-2 g-0">
                 <div class="col-12 col-md-6">
                     <div class="row">
-                        <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
-                            <?php $theView->icon('list'); ?>
-                            <?php $theView->write('SYSTEM_OPTIONS_ACPARTICLES_LIMIT'); ?>:
-                        </label>
-                        <div class="col-12 col-sm-7 px-0">
-                            <?php $theView->select('usermeta[articles_acp_limit]')
+                        <?php $theView->select('usermeta[articles_acp_limit]')
                                     ->setOptions($articleLimitList)
                                     ->setSelected($author->getUserMeta('articles_acp_limit'))
-                                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-                        </div>
+                                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                                    ->setText('SYSTEM_OPTIONS_ACPARTICLES_LIMIT')
+                                    ->setIcon('list')
+                                    ->prependLabel(); ?>
                     </div>
                 </div>
             </div>
-            
-            <div class="row fpcm-ui-padding-md-tb g-0">
-                <div class="col-12 col-md-6 col-lg-5">
+
+            <div class="row my-2 g-0">
+                <div class="col-6">
                     <div class="row">
                         <?php $theView->textInput('data[system_dtmask]')
                                 ->setValue($author->getUserMeta('system_dtmask'))
                                 ->setAutocomplete(false)
                                 ->setText('SYSTEM_OPTIONS_DATETIMEMASK')
-                                ->setIcon('calendar')
-                                ->setDisplaySizes(['xs' => 12, 'sm' => 6], ['xs' => 12, 'sm' => 6, 'lg' => 4]); ?>
-
-                        <?php $theView->shorthelpButton('dtmask')
-                                ->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')
-                                ->setUrl('http://php.net/manual/function.date.php')
-                                ->setClass('col-12 col-sm-auto align-self-center'); ?>
+                                ->setIcon('calendar'); ?>
                     </div>
                 </div>
-            </div>
+                <div class="col-auto align-self-center mx-3 mb-3">
+                    <?php $theView->shorthelpButton('dtmask')
+                            ->setText('SYSTEM_OPTIONS_DATETIMEMASK_HELP')
+                            ->setUrl('http://php.net/manual/function.date.php'); ?>
+                    
+                </div>
+            </div>            
         </fieldset>
     </div>
 </div>
@@ -80,57 +71,49 @@
     <div class="col-12">
         <fieldset class="fpcm-ui-margin-md-top">
             <legend><?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_SETTINGS'); ?> / <?php $theView->write('HL_FILES_MNG'); ?></legend>
-
-            <div class="row fpcm-ui-padding-md-tb">
+            
+            <div class="row py-2 g-0">
                 <div class="col-12 col-md-6">
                     <div class="row">
-                        <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
-                            <?php $theView->icon('text-height'); ?>
-                            <?php $theView->write('SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE'); ?>:
-                        </label>
-                        <div class="col-12 col-sm-7 px-0">
-                            <?php $theView->select('usermeta[system_editor_fontsize]')
+                        <?php $theView->select('usermeta[system_editor_fontsize]')
                                 ->setOptions($defaultFontsizes)
                                 ->setSelected($author->getUserMeta('system_editor_fontsize'))
-                                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-                        </div>
+                                ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                                ->setText('SYSTEM_OPTIONS_NEWS_EDITOR_FONTSIZE')
+                                ->setIcon('text-height')
+                                ->prependLabel(); ?>
                     </div>
                 </div>
-            </div>            
-
-            <div class="row fpcm-ui-padding-md-tb">
+            </div>    
+            
+            <div class="row py-2 g-0">
                 <div class="col-12 col-md-6">
                     <div class="row">
-                        <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
-                            <?php $theView->icon('folder-open'); ?>
-                            <?php $theView->write('SYSTEM_OPTIONS_FILEMANAGER_LIMIT'); ?>:
-                        </label>
-                        <div class="col-12 col-sm-7 px-0">
-                            <?php $theView->select('usermeta[file_list_limit]')
+                        <?php $theView->select('usermeta[file_list_limit]')
                                     ->setOptions($articleLimitList)
                                     ->setSelected($author->getUserMeta('file_list_limit'))
-                                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-                        </div>
+                                    ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                                    ->setText('SYSTEM_OPTIONS_FILEMANAGER_LIMIT')
+                                    ->setIcon('folder-open')
+                                    ->prependLabel(); ?>
                     </div>
                 </div>
-            </div>            
-
-            <div class="row fpcm-ui-padding-md-tb">
+            </div>    
+            
+            <div class="row py-2 g-0">
                 <div class="col-12 col-md-6">
                     <div class="row">
-                        <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
-                            <?php $theView->icon('grip-horizontal'); ?>
-                            <?php $theView->write('SYSTEM_OPTIONS_FILEMANAGER_VIEW'); ?>:
-                        </label>
-                        <div class="col-12 col-sm-7 px-0">
-                            <?php $theView->select('usermeta[file_view]')
-                            ->setOptions($filemanagerViews)
-                            ->setSelected($author->getUserMeta('file_view'))
-                            ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-                        </div>
+                        <?php $theView->select('usermeta[file_view]')
+                                        ->setOptions($filemanagerViews)
+                                        ->setSelected($author->getUserMeta('file_view'))
+                                        ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                                        ->setText('SYSTEM_OPTIONS_FILEMANAGER_VIEW')
+                                        ->setIcon('grip-horizontal')
+                                        ->prependLabel(); ?>
                     </div>
                 </div>
-            </div>
+            </div>    
+
         </fieldset>
     </div>
 </div>

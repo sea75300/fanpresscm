@@ -17,11 +17,6 @@ class useradd extends userbase {
      */
     protected $author;
 
-    protected function getViewPath() : string
-    {
-        return 'users/useradd';
-    }
-
     protected function getHelpLink()
     {
         return 'HL_OPTIONS_USERS';
@@ -46,6 +41,14 @@ class useradd extends userbase {
         $this->view->assign('showImage', false);
         $this->view->assign('twoFaAuth', false);
         $this->view->render();
+    }
+    
+    protected function initTabs()
+    {
+        $tabs = [];
+        $tabs[] = (new \fpcm\view\helper\tabItem('edit'))->setText('USERS_ADD')->setFile( $this->getViewPath() . '.php');       
+        $this->view->addTabs('users', $tabs, 'fpcm ui-tabs-autoinit');
+        
     }
 
 }

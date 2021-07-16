@@ -143,6 +143,17 @@ class tabItem extends helper {
     }
 
     /**
+     * Set item index
+     * @param int $index
+     * @return $this
+     */
+    public function setSaveIndex(int $index)
+    {
+        $this->data['tab-index'] = $index;
+        return $this;
+    }
+
+    /**
      * Get item ID
      * @return string
      */

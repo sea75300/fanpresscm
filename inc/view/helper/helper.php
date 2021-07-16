@@ -267,7 +267,7 @@ abstract class helper {
      */
     protected function getAriaString()
     {
-         return $this->assocArrayToString('aria', $this->data);
+         return $this->assocArrayToString('aria', $this->aria);
     }
 
     /**

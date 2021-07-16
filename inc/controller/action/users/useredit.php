@@ -12,13 +12,10 @@ namespace fpcm\controller\action\users;
 class useredit extends userbase {
 
     /**
-     * 
-     * @return string
+     *
+     * @var bool
      */
-    protected function getViewPath() : string
-    {
-        return 'users/useredit';
-    }
+    protected $showExtended = true;
 
     /**
      * 
@@ -104,6 +101,21 @@ class useredit extends userbase {
         
         $this->view->addJsFiles(['users/edit.js']);
         $this->view->render();
+    }
+    
+    protected function initTabs()
+    {
+        $tabs = [];
+        $tabs[] = (new \fpcm\view\helper\tabItem('edit'))->setText('USERS_EDIT')->setFile( $this->getViewPath() . '.php');
+        
+        if ($this->showExtended) {            
+            $tabs[] = (new \fpcm\view\helper\tabItem('extended'))->setText('GLOBAL_EXTENDED')->setFile('users/usereditor_extended.php');
+        }
+
+        $tabs[] = (new \fpcm\view\helper\tabItem('meta'))->setText('USERS_META_OPTIONS')->setFile('users/editormeta.php');
+        
+        $this->view->addTabs('users', $tabs, 'fpcm ui-tabs-autoinit', $this->getActiveTab());
+        
     }
 
 }

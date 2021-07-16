@@ -4,10 +4,10 @@
     
     <div class="container-fluid justify-content-start">
     <?php if ($theView->buttons) : ?>
-        <div class="navbar me-auto">
+        <div class="navbar me-auto d-flex">
         <?php foreach ($theView->buttons as $button) : ?>
             <?php $button->setClass('shadow-sm'); ?>
-            <div class="nav-item nav-item-left mx-1">
+            <div class="nav-item nav-item-left mx-1 align-self-center">
                 <?php print $button; ?>
             </div>
         <?php endforeach; ?>

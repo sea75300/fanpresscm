@@ -547,16 +547,16 @@ fpcm.ui = {
     
     autocomplete: function(elemClassId, params) {
 
-        var el = fpcm.dom.fromTag(elemClassId);
-        if (!el.length) {
-            return false;
-        }
-
-        if (params.minLength === undefined) {
-            params.minLength = 0;
-        }
-
-        return el.autocomplete(params);
+//        var el = fpcm.dom.fromTag(elemClassId);
+//        if (!el.length) {
+//            return false;
+//        }
+//
+//        if (params.minLength === undefined) {
+//            params.minLength = 0;
+//        }
+//
+//        return el.autocomplete(params);
     },
     
     getDialogSizes: function(el, scale_factor) {

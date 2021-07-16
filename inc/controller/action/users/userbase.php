@@ -26,6 +26,12 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
      */
     protected $user;
 
+    /**
+     *
+     * @var bool
+     */
+    protected $showExtended = false;
+
     public function isAccessible(): bool
     {
         return $this->permissions->system->users;
@@ -47,6 +53,15 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
     protected function getHelpLink()
     {
         return 'HL_OPTIONS_USERS';
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    protected function getViewPath() : string
+    {
+        return 'users/usereditor';
     }
 
     /**
@@ -83,6 +98,8 @@ class userbase extends \fpcm\controller\abstracts\controller implements \fpcm\co
      */
     public function process()
     {
+        $this->initTabs();
+        
         $userRolls = new \fpcm\model\users\userRollList();
         $this->view->assign('userRolls', $userRolls->getUserRollsTranslated());
         $this->view->assign('languages', array_flip($this->language->getLanguages()));

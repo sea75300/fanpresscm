@@ -55,6 +55,10 @@ fpcm.ui_tabs = {
             _el.addEventListener('show.bs.tab', function (_ev) {
 
                 fpcm.ui_tabs._updateMainToolbar(_ev.target, _ev.relatedTarget);
+                
+                if (_ev.target.dataset.tabIndex !== undefined) {
+                    fpcm.dom.fromId('activeTab').val(_ev.target.dataset.tabIndex);
+                }
 
                 if (typeof params.onShow === 'function') {
                     params.onShow(_ev);

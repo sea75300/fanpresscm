@@ -71,27 +71,8 @@
                 </div>
             </div>
             
-            <div class="row py-2 <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
-                <div class="col-12 col-md-6 px-0">
-                    <div class="row">
-                        <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
-                            <?php $theView->icon('users'); ?>
-                            <?php $theView->write('USERS_ROLL'); ?>:
-                        </label>
-                        <div class="col-12 col-sm-7 px-0">
-                            <?php $theView->select('data[roll]')
-                                    ->setOptions($userRolls)
-                                    ->setSelected($author->getRoll())
-                                    ->setReadonly((isset($inProfile) && $inProfile))
-                                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED); ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <?php if($inProfile) : ?>
-            
-            <div id="fpcm-ui-currentpass-box" class="row g-0 py-2 fpcm-ui-hidden">
+            <?php if($inProfile) : ?>           
+            <div id="fpcm-ui-currentpass-box" class="row py-2 g-0 fpcm-ui-hidden">
                 <div class="col-12 col-md-6">
                     <div class="row">
                         <?php $theView->passwordInput('data[current_pass]')
@@ -103,19 +84,32 @@
                 </div>
             </div>
             <?php endif; ?>
-
-            <?php if ($showDisableButton) : ?>
-            <div class="row py-2 <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
-                <div class="col-12 col-md-6 px-0">
+            
+            <div class="row py-2 g-0 <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
+                <div class="col-12 col-md-6">
                     <div class="row">
-                        <label class="col-12 col-sm-5 fpcm-ui-field-label-general">
-                            <?php $theView->icon('user-slash'); ?>
-                            <?php $theView->write('GLOBAL_DISABLE'); ?>:
-                        </label>
-                        <div class="col-12 col-sm-7 px-0">
-                            <?php $theView->boolSelect('data[disabled]')
-                                    ->setSelected($author->getDisabled()); ?>
-                        </div>
+                            <?php $theView->select('data[roll]')
+                                    ->setOptions($userRolls)
+                                    ->setSelected($author->getRoll())
+                                    ->setReadonly((isset($inProfile) && $inProfile))
+                                    ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
+                                    ->setText('USERS_ROLL')
+                                    ->setIcon('users')
+                                    ->prependLabel(); ?>
+                    </div>
+                </div>
+            </div>
+            
+            <?php if ($showDisableButton) : ?>
+            <div class="row py-2 g-0 <?php print $inProfile ? 'fpcm-ui-hidden' : '' ?>">
+                <div class="col-12 col-md-6">
+                    <div class="row">
+                        <?php $theView->boolSelect('data[disabled]')
+                                ->setSelected($author->getDisabled())
+                                    ->setText('GLOBAL_DISABLE')
+                                    ->setIcon('user-slash')
+                                    ->prependLabel(); ?>
+
                     </div>
                 </div>
             </div>
