@@ -5,8 +5,9 @@
     <div class="container-fluid">
         
         <div class="navbar-brand">
-            <img src="<?php print $theView->themePath; ?>logo.svg" alt="FanPress CM News System" title="FanPress CM News System">
-            <!-- <h1 class="mx-3- mx-md-0"><?php $theView->icon('chevron-right '); ?> <span>FanPress CM</span> <span>News System</span></h1>-->
+            <!-- FanPress CM News System <?php print $theView->version; ?> -->                
+            <img class="mb-3" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
+            <h1 class="d-none">FanPress CM News System</h1>
         </div>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#fpcm-navigation-menu" aria-controls="fpcm-navigation-menu" aria-expanded="false" aria-label="<?php $theView->write('NAVIGATION_SHOW'); ?>">

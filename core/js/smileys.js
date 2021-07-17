@@ -23,18 +23,13 @@ fpcm.smileys = {
 
         if (fpcm.vars.jsvars.files) {            
             var acObject = fpcm.ui.autocomplete('#smileyfilename', {
-                source: fpcm.vars.jsvars.files
+                source: fpcm.vars.jsvars.files,
+                minLength: 2,
+                onRenderItems: function( _item ) {
+                    _item.altLabel = '<img src="' + fpcm.vars.jsvars.smileypath + _item.value + '" class="fpcm-ui-smileylist-preview d-inline-block"><span>' +  _item.label + '</span>';
+                    return _item;
+                }
             });
-
-            acObject.autocomplete('instance').
-            _renderItem = function( ul, item ) {
-                return  fpcm.dom.fromTag('<li>').
-                        addClass('fpcm-ui-smileylist-preview').
-                        append('<div><img src="' + item.label + '" class="fpcm-ui-smileylist-preview"><span>' + item.value + '</span></div>').
-                        appendTo(ul);
-            };
         }
-
-
     }
 };

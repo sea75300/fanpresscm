@@ -1084,6 +1084,7 @@ class view {
         $this->addJsFiles([
             \fpcm\components\components::getjQuery(),
             self::ROOTURL_LIB.'bootstrap/js/bootstrap.bundle.min.js',
+            self::ROOTURL_LIB.'bs-autocomplete/autocomplete.js',
             self::ROOTURL_LIB.'fancybox/jquery.fancybox.min.js',
             self::ROOTURL_CORE_JS.'script.php?uq=' . self::ROOTURL_UNIQUE
         ]);

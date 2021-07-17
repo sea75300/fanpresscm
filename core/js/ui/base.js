@@ -545,18 +545,36 @@ fpcm.ui = {
 
     },
     
-    autocomplete: function(elemClassId, params) {
+    autocomplete: function(_elemClassId, _params) {
 
-//        var el = fpcm.dom.fromTag(elemClassId);
-//        if (!el.length) {
-//            return false;
-//        }
-//
-//        if (params.minLength === undefined) {
-//            params.minLength = 0;
-//        }
-//
-//        return el.autocomplete(params);
+        let _opt = {};
+
+        if (_params.source === undefined) {
+            _params.source = [];
+        }
+        
+        _opt.data = _params.source !== undefined ? _params.source : [];
+        
+        if (_params.minLength) {
+            _opt.treshold = _params.minLength;
+        }
+        
+        if (_params.onRenderItems) {
+            _opt.onRenderItems = _params.onRenderItems;
+        }
+        
+        if (_params.showValue) {
+            _opt.showValue = _params.showValue;
+        }
+
+        _opt.highlightTyped = false;
+
+        let _acDdEl = document.querySelector(_elemClassId);
+        _opt.onSelectItem = function (_el) {
+            _acDdEl.value = _el.value;
+        };
+
+        let _obj = new Autocomplete(_acDdEl, _opt);
     },
     
     getDialogSizes: function(el, scale_factor) {

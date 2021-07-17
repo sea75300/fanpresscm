@@ -74,19 +74,20 @@ abstract class smileybase extends \fpcm\controller\abstracts\controller implemen
         foreach ($smileyList->getFolderList() as $file) {
 
             $fileName = basename($file);
-            $url = \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SMILEYS, $fileName);
 
             $files[] = [
-                'label' => $url,
+                'label' => $fileName,
                 'value' => $fileName
             ];
         }
 
-        $this->view->addJsVars(['files' => $files]);
+        $this->view->addJsVars([
+            'files' => $files,
+            'smileypath' => \fpcm\classes\dirs::getDataUrl(\fpcm\classes\dirs::DATA_SMILEYS, '')
+        ]);
         $this->view->addJsFiles(['smileys.js']);
         $this->view->assign('smiley', $this->smiley);
         $this->view->addButton(new \fpcm\view\helper\saveButton('saveSmiley'));
-        $this->view->assign('tabActionString', 'FILE_LIST_SMILEY'.$this->getActionText());
 
         $this->view->addTabs('smileys', [
             (new \fpcm\view\helper\tabItem('smiley'))
