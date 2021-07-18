@@ -5,7 +5,6 @@
                 ->setOptions($languages)
                 ->setSelected('de')
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                ->setText('INSTALLER_LANGUAGE_SELECT')
-                ->prependLabel(); ?>
+                ->setText('INSTALLER_LANGUAGE_SELECT'); ?>
     </div>
 </div>

@@ -22,7 +22,7 @@ fpcm.smileys = {
         }
 
         if (fpcm.vars.jsvars.files) {            
-            var acObject = fpcm.ui.autocomplete('#smileyfilename', {
+            fpcm.ui.autocomplete('#smileyfilename', {
                 source: fpcm.vars.jsvars.files,
                 minLength: 2,
                 onRenderItems: function( _item ) {

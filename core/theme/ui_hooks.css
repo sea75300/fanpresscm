@@ -13,10 +13,6 @@ div.ui-tabs {
     min-height: 66vh;
 }
 
-.fpcm-ui-permissions-container .ui-button {
-    margin: 0.3em 0em;
-}
-
 .ui-spinner input,
 .ui-spinner input:hover,
 .ui-spinner input:focus,

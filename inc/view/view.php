@@ -996,6 +996,8 @@ class view {
         $this->assign('tabsId', $tabsId);
         $this->assign('tabs', $tabs);
         $this->assign('tabsClass', $tabsClass);
+
+        $this->setActiveTab($active);
     }
 
     /**

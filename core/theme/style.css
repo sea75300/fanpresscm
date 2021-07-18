@@ -226,7 +226,6 @@ span.fpcm-ui-badge,
 div.fileupload-progress.in,
 .fpcm-ui-progressbar-label,
 .fpcm.ui-progressbar-label,
-.fpcm-ui-permissions-container .ui-button,
 .fpcm-ui-block,
 .fpcm.ui-block {
     display: block;
@@ -423,7 +422,6 @@ div.fpcm-ui-datepicker-inputwrapper {
     min-height:50px;
 }
 
-.fpcm-ui-permissions-container h2,
 .fpcm-editor-dialog h2 {
     margin:0px 0px 5px 0px;
 }

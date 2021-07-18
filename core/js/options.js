@@ -12,7 +12,7 @@ fpcm.options = {
 
     init: function () {
 
-        fpcm.ui_tabs.render('#fpcm-options-tabs');
+        fpcm.ui_tabs.render('#options');
 
         fpcm.dom.fromId('syschecksubmitstats').click(function () {
             fpcm.ajax.post('syscheck', {
@@ -25,12 +25,10 @@ fpcm.options = {
         fpcm.system.checkForUpdates();
         
         fpcm.ui.selectmenu('#smtp_enabled', {
-            change: function( event, data ) {
-                var status = (data.item.value == 1 ? false : true);
-                fpcm.ui.isReadonly('input.fpcm-ui-options-smtp-input', status);
-                fpcm.ui.selectmenu('#smtp_settingsencr', {
-                    disabled: status
-                });
+            change: function( event, _item ) {
+                var status = (_item.value == 1 ? false : true);
+                fpcm.dom.isReadonly('input.fpcm-ui-options-smtp-input', status);
+                fpcm.dom.fromId('smtp_settingsencr').prop('disabled', status);
                 return true;
             }
         });

@@ -80,7 +80,6 @@ fpcm.comments = {
 
         fpcm.ui.autocomplete('.fpcm-ui-input-articleid', {
             source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
-            appendTo: dialogId,
             minLength: 3
         });
 
@@ -92,7 +91,7 @@ fpcm.comments = {
         fpcm.dom.fromId('opensearch').unbind('click');
         fpcm.dom.fromId('opensearch').click(function () {
 
-            var sDlg = fpcm.ui.dialog({
+            fpcm.ui.dialog({
                 id: 'comments-search',
                 title: 'ARTICLES_SEARCH',
                 closeButton: true,
@@ -130,7 +129,6 @@ fpcm.comments = {
             
             fpcm.ui.autocomplete('#articleId', {
                 source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articles',
-                appendTo: '#' + sDlg.attr('id'),
                 minLength: 3
             });
 

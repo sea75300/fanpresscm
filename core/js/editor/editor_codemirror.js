@@ -344,7 +344,6 @@ if (fpcm.editor) {
 
         fpcm.ui.autocomplete('#listtype', {
             source: (listtype === 'ol' ? ['decimal', 'decimal-leading-zero', 'lower-roman', 'upper-roman', 'lower-latin', 'upper-latin'] : ['disc', 'circle', 'square']),
-            appendTo: "#fpcm-dialog-editor-html-insertlist"
         });
 
         fpcm.ui.insertDialog({
@@ -588,7 +587,6 @@ if (fpcm.editor) {
                         fpcm.ui.autocomplete('#imagespath', {
                             source: result,
                             minLength: 2,
-                            appendTo: "#fpcm-dialog-editor-html-insertimage",
                             select: function( event, ui ) {
                                 fpcm.dom.fromId('imagesalt').val(ui.item.label);
                             }
@@ -628,7 +626,6 @@ if (fpcm.editor) {
                         fpcm.ui.autocomplete('#linksurl', {
                             source: result,
                             minLength: 2,
-                            appendTo: "#fpcm-dialog-editor-html-insertlink",
                             select: function( event, ui ) {
                                 fpcm.dom.fromId('linkstext').val(ui.item.label);
                             }

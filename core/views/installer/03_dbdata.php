@@ -10,8 +10,7 @@
                     ->setOptions($sqlDrivers)
                     ->setClass('fpcm-installer-data')
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setText('INSTALLER_DBCONNECTION_TYPE')
-                    ->prependLabel(); ?>
+                    ->setText('INSTALLER_DBCONNECTION_TYPE'); ?>
         </div>       
 
         <div class="row my-2">

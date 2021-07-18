@@ -16,11 +16,11 @@
                 ->setSize('lg'); ?>
     </div>   
     <div class="row py-2">            
-        <?php $theView->select('links[target]', 'linkstarget')->setOptions($targets)->setText('EDITOR_LINKTARGET')->prependLabel()->setIcon('window-restore')->setSize('lg'); ?>
+        <?php $theView->select('links[target]', 'linkstarget')->setOptions($targets)->setText('EDITOR_LINKTARGET')->setIcon('window-restore')->setSize('lg'); ?>
     </div>
     <?php if (count($cssClasses)) : ?>
     <div class="row py-2">            
-        <?php $theView->select('links[css]', 'linkscss')->setOptions($cssClasses)->setText('EDITOR_CSS_CLASS')->prependLabel()->setIcon('paint-roller')->setSize('lg'); ?>
+        <?php $theView->select('links[css]', 'linkscss')->setOptions($cssClasses)->setText('EDITOR_CSS_CLASS')->setIcon('paint-roller')->setSize('lg'); ?>
     </div>
     <?php endif; ?>
 </div>
@@ -42,11 +42,11 @@
                 ->setSize('lg'); ?>
     </div>   
     <div class="row py-2">            
-        <?php $theView->select('images[align]', 'imagesalign')->setOptions($aligns)->setText('EDITOR_IMGALIGN')->prependLabel()->setIcon('align-center')->setSize('lg'); ?>
+        <?php $theView->select('images[align]', 'imagesalign')->setOptions($aligns)->setText('EDITOR_IMGALIGN')->setIcon('align-center')->setSize('lg'); ?>
     </div>
     <?php if (count($cssClasses)) : ?>
     <div class="row py-2">            
-        <?php $theView->select('images[css]', 'imagescss')->setOptions($cssClasses)->setText('EDITOR_CSS_CLASS')->prependLabel()->setIcon('paint-roller')->setSize('lg'); ?>
+        <?php $theView->select('images[css]', 'imagescss')->setOptions($cssClasses)->setText('EDITOR_CSS_CLASS')->setIcon('paint-roller')->setSize('lg'); ?>
     </div>
     <?php endif; ?>
 </div>

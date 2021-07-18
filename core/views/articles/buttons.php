@@ -26,8 +26,7 @@
                 ->setOptions($changeuserList)
                 ->setSelected($article->getCreateuser())
                 ->setFirstOption(fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                ->setText('EDITOR_CHANGEAUTHOR')
-                ->prependLabel(); ?>
+                ->setText('EDITOR_CHANGEAUTHOR'); ?>
                 
             </div>
             

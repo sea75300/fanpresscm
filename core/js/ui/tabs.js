@@ -123,7 +123,11 @@ fpcm.ui_tabs = {
             });
         });
 
-        (new bootstrap.Tab(_tb[0])).show();
+        if (fpcm.vars.jsvars.activeTab === undefined || fpcm.vars.jsvars.activeTab < 0) {
+            fpcm.vars.jsvars.activeTab = 0;
+        }
+
+        (new bootstrap.Tab(_tb[fpcm.vars.jsvars.activeTab])).show();
  
     },
     

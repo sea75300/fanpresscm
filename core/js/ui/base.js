@@ -441,6 +441,7 @@ fpcm.ui = {
             });
             
             params.class = 'modal-fullscreen';
+            params.modalBodyClass = 'overflow-hidden';
         }
         
         if (params.class === undefined) {
@@ -449,6 +450,10 @@ fpcm.ui = {
         
         if (params.modalClass === undefined) {
             params.modalClass = '';
+        }
+        
+        if (params.modalBodyClass === undefined) {
+            params.modalBodyClass = '';
         }
         
         if (params.opener === undefined) {
@@ -468,6 +473,7 @@ fpcm.ui = {
                   .replace('{$content}', params.content)
                   .replace('{$class}', params.class)
                   .replace('{$modalClass}', params.modalClass)
+                  .replace('{$modalBodyClass}', params.modalBodyClass)
                   .replace('{$size}', params.size)
                   .replace('{$buttons}', _buttons));
         }

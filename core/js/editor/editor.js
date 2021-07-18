@@ -74,19 +74,15 @@ fpcm.editor = {
 //            return false;
 //        });
 //
-//        fpcm.ui.autocomplete('#articleimagepath', {
-//            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=editorfiles',
-//            minLength: 3,
-//            position: {
-//                my: "left bottom",
-//                at: "left top"
-//            }
-//        });
-//
-//        fpcm.ui.autocomplete('#articlesources', {
-//            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articlesources',
-//            minLength: 3
-//        });
+        fpcm.ui.autocomplete('#articleimagepath', {
+            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=editorfiles',
+            minLength: 3
+        });
+
+        fpcm.ui.autocomplete('#articlesources', {
+            source: fpcm.vars.ajaxActionPath + 'autocomplete&src=articlesources',
+            minLength: 3
+        });
 //
 //        fpcm.editor.tweetTextInput = fpcm.dom.fromId('articletweettxt');
 //        fpcm.ui.selectmenu('#twitterReplacements', {
