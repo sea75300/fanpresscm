@@ -387,18 +387,11 @@ class module {
     /**
      * 
      * Check if configure action should be displayed
-     * @param int $status
      * @return bool
      */
-    public function hasConfigure(int &$legacy = 0) : bool
+    public function hasConfigure() : bool
     {
         if ( file_exists(self::getConfigByKey($this->mkey, 'configure')) ) {
-            $legacy = 0;
-            return true;
-        }
-
-        if ( file_exists(\fpcm\module\module::getTemplateDirByKey($this->mkey, 'configure.php')) ) {
-            $legacy = 1;
             return true;
         }
 

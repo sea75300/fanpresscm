@@ -1,6 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <div class="row">
-    <div class="col-12">
+    <div class="col-12 col-md-6">
         <fieldset class="my-3">
 
             <div class="row">

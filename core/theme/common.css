@@ -111,6 +111,11 @@ label {
     font-weight: normal;
 }
 
+dl {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
 legend,
 span.fpcm-ui-badge {
     padding: 0.3rem;

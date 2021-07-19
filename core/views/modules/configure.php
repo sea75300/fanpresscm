@@ -1,39 +1,63 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="fpcm-content-wrapper">
-    <div class="fpcm-ui-tabs-general" id="tabs-module-<?php print $prefix; ?>-config">
-        <ul>
-            <li><a href="#tabs-config-<?php print $prefix; ?>"><?php $theView->write('SYSTEM_HL_OPTIONS_GENERAL'); ?></a></li>
-        </ul>            
+<?php if (!empty($descriptions['top'])) : ?>
+<div class="row g-0">
+    <div class="col-12">
+        <div class="m-3">
+            <?php $theView->button('topDescr')
+                ->setText($descriptions['top']['headline'])
+                ->setAria(['controls' => 'topDescrCollapse'])
+                ->setData(['bs-toggle' => 'collapse', 'bs-target' => '#topDescrCollapse'])
+                ->setIcon('chevron-down')
+                ->setPrimary(); ?>
 
-        <div id="tabs-config-<?php print $prefix; ?>">
-            <?php if (!empty($descriptions['top'])) : ?>
-            <div class="row g-0 mx-0 mt-2 mb-3">
-                <div class="col-12">
-                    <fieldset class="m-0">
-                        <legend><?php $theView->write($descriptions['top']['headline']); ?></legend>
-                        <?php $theView->write($descriptions['top']['text']); ?>
-                    </fieldset>
+            <div class="collapse mt-3" id="topDescrCollapse">
+                <div class="card card-body">
+                    <div class="row g-0">
+                        <div class="col-12">
+                            <?php $theView->write($descriptions['top']['text']); ?>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <?php endif; ?>            
-            
-            
-        <?php foreach ($fields as $option => $field) : ?>
-            <div class="row my-2 mx-0">
-                <?php print $field; ?>
-            </div>
-        <?php endforeach; ?>
-            
-            <?php if (!empty($descriptions['buttom'])) : ?>
-            <div class="row g-0 mx-0 mt-3 mb-2">
-                <div class="col-12">
-                    <fieldset class="m-0">
-                        <legend><?php $theView->write($descriptions['buttom']['headline']); ?></legend>
-                        <?php $theView->write($descriptions['buttom']['text']); ?>
-                    </fieldset>
-                </div>
-            </div>
-            <?php endif; ?>       
         </div>
     </div>
 </div>
+<?php endif; ?>            
+      
+<div class="row">
+    <div class="col-12 col-md-6">
+        <fieldset>            
+            <?php foreach ($fields as $option => $field) : ?>
+            <div class="row my-3">
+                <?php print $field; ?>
+            </div>
+            <?php endforeach; ?>
+        </fieldset>
+    </div>
+</div>
+
+<?php if (!empty($descriptions['buttom'])) : ?>
+<div class="row g-0">
+    <div class="col-12">
+        <div class="m-3">
+            
+            <?php $theView->button('topDescr')
+                ->setText($descriptions['buttom']['headline'])
+                ->setAria(['controls' => 'bottomDescrCollapse'])
+                ->setData(['bs-toggle' => 'collapse', 'bs-target' => '#bottomDescrCollapse'])
+                ->setIcon('chevron-down')
+                ->setPrimary(); ?>
+
+            <div class="collapse mt-3" id="bottomDescrCollapse">
+                <div class="card card-body">
+                    <div class="row g-0">
+                        <div class="col-12">
+                            <?php $theView->write($descriptions['buttom']['text']); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        </div>
+    </div>
+</div>
+<?php endif; ?>   

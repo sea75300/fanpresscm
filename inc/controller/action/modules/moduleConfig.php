@@ -40,13 +40,13 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         }
 
         $this->module = $this->getObject($key);
-        if (!$this->module->isInstalled() || !$this->module->isActive() || !$this->module->hasConfigure($this->useLegacy)) {
+        if (!$this->module->isInstalled() || !$this->module->isActive() || !$this->module->hasConfigure()) {
             $this->view = new \fpcm\view\error("The module '{$key}' is not installed or enabled!");
             $this->view->render();
             return false;
         }
 
-        $this->view = new \fpcm\view\view(($this->useLegacy ? '' : 'modules/') .'configure', $this->useLegacy ? $key : false);
+        $this->view = new \fpcm\view\view('', false);
         return true;
     }
 
@@ -115,6 +115,9 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         }
 
         $this->view->addButton(new \fpcm\view\helper\saveButton('save'));
+        $this->view->addTabs('-module'.$this->module->getKey(), [
+            (new \fpcm\view\helper\tabItem('configure-modul'.$this->module->getKey()))->setFile('modules/configure.php')->setText('SYSTEM_HL_OPTIONS_GENERAL')
+        ]);
         $this->view->render();
     }
     

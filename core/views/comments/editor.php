@@ -1,47 +1,6 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if($commentsMode === 2) : ?><div class="d-none"><?php include_once $theView->getIncludePath('common/buttons.php'); ?></div><?php endif; ?>
-<fieldset class="mb-2 fpcm-ui-font-small">
-    <legend><?php $theView->write('GLOBAL_METADATA'); ?></legend>
-
-    <div class="row my-2">
-        <div class="col-12 col-md-6">
-            
-            <div class="row g-0 mb-1">
-                <div class="col-12 col-sm-6 col-md-3">
-                    <?php $theView->icon('calendar'); ?>
-                    <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
-                </div>
-                <div class="col">
-                    <?php $theView->dateText($comment->getCreatetime()); ?>
-                </div>
-            </div>
-            
-            <div class="row g-0 mb-1">
-                <div class="col-12 col-sm-6 col-md-3">
-                    <?php $theView->icon('clock', 'far'); ?> 
-                    <strong><?php $theView->write('COMMMENT_LASTCHANGE'); ?>:</strong>
-                </div>
-                <div class="col">
-                    <?php print $changeInfo; ?>
-                </div>
-            </div>
-            
-            <div class="row g-0 mb-1">
-                <div class="col-12 col-sm-6 col-md-3">
-                    <?php $theView->icon('globe'); ?> 
-                    <strong><?php $theView->write('COMMMENT_IPADDRESS'); ?>:</strong>
-                </div>
-                <div class="col">
-                    <?php print $comment->getIpaddress(); ?>
-                </div>
-            </div>
-        </div>
-    </div>
-</fieldset>
-
 <fieldset class="ms-0">
-    <legend><?php $theView->write('COMMENTS_EDIT'); ?></legend>
-    
     <div class="row my-2">
         <div class="col-12 col-md-6">
             
@@ -78,9 +37,9 @@
                 </div>
 
                 <div class="col">
-                    <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status')->setLabelClass('me-2'); ?>
-                    <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status')->setLabelClass('me-2'); ?>
-                    <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$theView->permissions->comment->private)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status'); ?>
+                    <?php $theView->checkbox('comment[spam]', 'spam')->setText('COMMMENT_SPAM')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getSpammer())->setClass('fpcm-ui-comments-status')->setSwitch(true); ?>
+                    <?php $theView->checkbox('comment[approved]', 'approved')->setText('COMMMENT_APPROVE')->setReadonly(!$theView->permissions->comment->approve)->setSelected($comment->getApproved())->setClass('fpcm-ui-comments-status')->setSwitch(true); ?>
+                    <?php $theView->checkbox('comment[private]', 'private')->setReadonly(!$theView->permissions->comment->private)->setText('COMMMENT_PRIVATE')->setSelected($comment->getPrivate())->setClass('fpcm-ui-comments-status')->setSwitch(true); ?>
                 </div>
             </div>
         </div>
@@ -88,3 +47,42 @@
 </fieldset>
 
 <?php include \fpcm\components\components::getArticleEditor()->getCommentEditorTemplate(); ?>
+
+<fieldset class="my-2">
+    <legend class="fpcm-ui-font-small"><?php $theView->write('GLOBAL_METADATA'); ?></legend>
+
+    <div class="row my-2 fpcm-ui-font-small">
+        <div class="col-12 col-md-6">
+            
+            <div class="row g-0 mb-1">
+                <div class="col-12 col-sm-6 col-md-3">
+                    <?php $theView->icon('calendar'); ?>
+                    <strong><?php $theView->write('COMMMENT_CREATEDATE'); ?>:</strong>
+                </div>
+                <div class="col">
+                    <?php $theView->dateText($comment->getCreatetime()); ?>
+                </div>
+            </div>
+            
+            <div class="row g-0 mb-1">
+                <div class="col-12 col-sm-6 col-md-3">
+                    <?php $theView->icon('clock', 'far'); ?> 
+                    <strong><?php $theView->write('COMMMENT_LASTCHANGE'); ?>:</strong>
+                </div>
+                <div class="col">
+                    <?php print $changeInfo; ?>
+                </div>
+            </div>
+            
+            <div class="row g-0 mb-1">
+                <div class="col-12 col-sm-6 col-md-3">
+                    <?php $theView->icon('globe'); ?> 
+                    <strong><?php $theView->write('COMMMENT_IPADDRESS'); ?>:</strong>
+                </div>
+                <div class="col">
+                    <?php print $comment->getIpaddress(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
