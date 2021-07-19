@@ -363,8 +363,6 @@ if (fpcm.editor) {
                 }
 
                 fpcm.editor.insert(aTag, '</' + listtype + '>');
-
-                fpcm.dom.fromTag(this).dialog( "close" );
             }
         });
     };
@@ -496,23 +494,12 @@ if (fpcm.editor) {
             title: 'EDITOR_INSERTMEDIA',
             dlButtons: [{
                 text: fpcm.ui.translate('GLOBAL_PREVIEW'),
-                icon: "ui-icon-video",
+                icon: "film",
                 click: function () {
                     var data = fpcm.editor.getMediaData(true);
                     fpcm.dom.assignHtml('#fpcm-dialog-editor-html-insertmedia-preview', '<div class="col-12 col-md-10 my-3">' + data.aTag + data.eTag +'</div>');
                 }
             }],
-            onCreate: function (event, ui) {
-                fpcm.ui.controlgroup('#fpcm-ui-editor-media-controlgroup', {
-                    onlyVisible: false
-                });
-            },
-            dlOnOpen: function () {
-
-                fpcm.ui.selectmenu('.fpcm-editor-mediaformat',{
-                    appendTo: '#fpcm-dialog-editor-html-insertmedia',
-                });
-            },
             dlOnClose: function() {
                 fpcm.dom.resetValuesByIdsString(['mediapath', 'mediapath2', 'mediaposter']);
                 fpcm.dom.resetValuesByIdsChecked(['autoplay', 'mediatypev']);
@@ -523,7 +510,6 @@ if (fpcm.editor) {
             insertAction: function() {
                 var data = fpcm.editor.getMediaData();
                 fpcm.editor.insert(data.aTag, data.eTag);
-                fpcm.dom.fromTag(this).dialog( "close" );
             }
         });
     };
@@ -557,7 +543,6 @@ if (fpcm.editor) {
                     aTag += '    </tr>\n';        
                 }
                 fpcm.editor.insert(aTag, '</table>');
-                fpcm.dom.fromTag(this).dialog( "close" );
             }
         });
     };
@@ -568,12 +553,12 @@ if (fpcm.editor) {
             id: 'editor-html-insertimage',
             title: 'EDITOR_INSERTPIC',
             dlButtons: [{
-                text: fpcm.ui.translate('EDITOR_INSERTPIC_ASLINK'),
-                icon: "ui-icon-link",
+                text: 'EDITOR_INSERTPIC_ASLINK',
+                icon: "link",
+                clickClose: true,
                 click: function () {
                     var data = fpcm.editor.getImageData(true);
                     fpcm.editor.insert(data.aTag, data.eTag);
-                    fpcm.dom.fromTag(this).dialog( "close" );
                 }
             }],
             dlOnOpen: function () {
@@ -601,7 +586,6 @@ if (fpcm.editor) {
             insertAction: function() {
                 let data = fpcm.editor.getImageData();
                 fpcm.editor.insert(data.aTag, data.eTag);
-                fpcm.dom.fromTag(this).dialog( "close" );
             },
             fileManagerAction: function () {
                 fileOpenMode = 2;
@@ -650,7 +634,6 @@ if (fpcm.editor) {
                 );
 
                 fpcm.editor.insert(linkEl.aTag, linkEl.eTag);
-                fpcm.dom.fromTag(this).dialog( "close" );
             },
             fileManagerAction: function () {
                 fileOpenMode = 1;
@@ -673,11 +656,6 @@ if (fpcm.editor) {
         fpcm.ui.insertDialog({
             id: 'editor-html-insertquote',
             title: 'EDITOR_HTML_BUTTONS_QUOTE',
-            onCreate: function (event, ui) {
-                fpcm.ui.controlgroup('#fpcm-ui-editor-quote-controlgroup', {
-                    onlyVisible: false
-                });
-            },
             dlOnClose: function () {
                 fpcm.dom.resetValuesByIdsString(['quotetext', 'quotesrc']);
                 fpcm.dom.resetValuesByIdsChecked(['quotetype1', 'quotetype2']);
@@ -694,7 +672,6 @@ if (fpcm.editor) {
                 }
 
                 fpcm.editor.insert('<' + values.type + ' class="fpcm-articletext-quote"' + (values.sources ? ' cite="' + values.sources + '"' : '') + '>' + values.text, '</' + values.type + '>');
-                fpcm.dom.fromTag(this).dialog( "close" );
             }
         });
     };

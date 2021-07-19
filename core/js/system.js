@@ -188,7 +188,7 @@ fpcm.system = {
             dlButtons: [
                 {
                     text: 'GLOBAL_SAVE',
-                    icon: "ui-icon-check",
+                    icon: "save",
                     primary: true,
                     closeButton: true,
                     click: function () {
@@ -232,7 +232,7 @@ fpcm.system = {
             dlOnClose: function (event, ui) {
                 
                 let catEl = fpcm.dom.fromId('categories');
-                if (catEl[0]) {
+                if (catEl[0] && catEl[0].selectize) {
                     catEl[0].selectize.clear();
                 }
 

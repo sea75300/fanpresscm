@@ -140,6 +140,7 @@ $lang = array (
   'EDITOR_ARTICLEIMAGE_SHOW' => 'Artikelbild anzeigen',
   'EDITOR_ARTICLEURL' => 'Artikel-URL',
   'EDITOR_ARTICLE_SHORTLINK' => 'Kurzlink',
+  'EDITOR_ARTICLE_SHORTLINK_COPY' => 'Link kopieren',
   'EDITOR_AUTHOREDIT' => '<strong class="fpcm-ui-metabox">Geschrieben von:</strong> {{username}} am {{time}}',
   'EDITOR_AUTOSAVE_RESTORE' => 'Letzten Entwurf wiederherstellen',
   'EDITOR_BACKTOCURRENT' => 'Zurück zur aktuellen Version',

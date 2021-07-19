@@ -33,13 +33,13 @@ fpcm.articles = {
                 }
             });
 
-            return false;
-        });
+            fpcm.dom.fromId('categories').selectize({
+                placeholder: fpcm.ui.translate('EDITOR_CATEGORIES_SEARCH'),
+                searchField: ['text', 'value'],
+                plugins: ['remove_button']
+            });
 
-        fpcm.dom.fromId('categories').selectize({
-            placeholder: fpcm.ui.translate('EDITOR_CATEGORIES_SEARCH'),
-            searchField: ['text', 'value'],
-            plugins: ['remove_button']
+            return false;
         });
     },
     

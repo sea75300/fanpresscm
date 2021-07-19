@@ -53,18 +53,6 @@ div.ui-tabs {
     overflow-x: hidden;
 }
 
-.ui-icon-blank {
-    background-position: 16px 16px !important;
-}
-
-.ui-icon-check {
-    background-position: -64px -144px !important;
-}
-
-.ui-controlgroup-label.ui-widget-content:last-child {
-    border-right: 1px solid;
-}
-
 .ui-tabs .ui-tabs-nav {
     border-bottom: 1px solid #00aded;
 }
@@ -146,15 +134,6 @@ div.mce-fpcm-ui-emoticons-panel {
 .selectize-input {
     border: 1px solid #bbb !important;
     box-shadow: none !important;
-}
-
-.fpcm-ui-editor-categories-massedit .selectize-input {
-    padding: 5px;
-}
-
-.fpcm-ui-editor-categories-massedit .selectize-input.items,
-.fpcm-ui-editor-categories-massedit .selectize-control.multi.selectize-input.has-items {
-    width: 100%;
 }
 
 /* php-diff */

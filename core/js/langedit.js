@@ -24,8 +24,8 @@ fpcm.langedit = {
                 closeButton: true,
                 dlButtons: [
                     {
-                        text: fpcm.ui.translate('GLOBAL_SAVE'),
-                        icon: "ui-icon-check",
+                        text: 'GLOBAL_SAVE',
+                        icon: "save",
                         primary: true,
                         clickClose: true,
                         click: function () {

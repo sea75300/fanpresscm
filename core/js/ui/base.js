@@ -233,7 +233,7 @@ fpcm.ui = {
                     fpcm.ui.addMessage({
                         type: 'error',
                         txt: _e
-                    }, true);
+                    });
                 }
 
             });
@@ -539,7 +539,7 @@ fpcm.ui = {
                         fpcm.ui.addMessage({
                             type: 'error',
                             txt: _e
-                        }, true);
+                        });
                         
                     }
                     
@@ -594,9 +594,17 @@ fpcm.ui = {
                 fpcm.vars.ui.autocompletes[_elemClassId].setData([]);
                 return false;
             }
+            
+            fpcm.vars.ui.autocompletes[_elemClassId].setData([]);
 
             fpcm.ajax.get(_params.source + '&term=' + _val, {
+                quiet: true,
                 execDone: function (_result) {
+                    
+                    if (!_result instanceof Array) {
+                        _result = [];
+                    }
+                    
                     fpcm.vars.ui.autocompletes[_elemClassId].setData(_result);
                 }
             });
@@ -685,9 +693,13 @@ fpcm.ui = {
 
     },
     
-    addMessage: function(value, clear) {
+    addMessage: function(value, _clear) {
 
-        if (fpcm.vars.ui.messages === undefined || clear) {
+        if (_clear === undefined) {
+            _clear = true;
+        }
+
+        if (fpcm.vars.ui.messages === undefined || _clear) {
             fpcm.vars.ui.messages = [];
         }
         
@@ -968,48 +980,28 @@ fpcm.ui = {
         var dialogParams = {
             id: params.id,
             title: fpcm.ui.translate(params.title),
-            dlWidth: params.dlWidth,
         };
-
-        if (params.dlHeight !== undefined) {
-            dialogParams.dlHeight = params.dlHeight;
-        }
-        
-        if (params.resizable !== undefined) {
-            dialogParams.resizable = params.resizable;
-        }
 
         dialogParams.dlButtons = params.dlButtons ? params.dlButtons : [];
 
         if (params.insertAction) {
             dialogParams.dlButtons.push({
-                text: fpcm.ui.translate('GLOBAL_INSERT'),
-                icon: "ui-icon-check",
-                class: "btn-primary",
-                click: params.insertAction
+                text: 'GLOBAL_INSERT',
+                icon: "check",
+                clickClose: true,
+                click: params.insertAction,
+                primary: true
             });
         }
 
         if (params.fileManagerAction) {
             dialogParams.dlButtons.push({
-                text: fpcm.ui.translate('HL_FILES_MNG'),
-                icon: "ui-icon-folder-open",
+                text: 'HL_FILES_MNG',
+                icon: "folder-open",
                 click: params.fileManagerAction
             });
         }
- 
-        if (!params.closeAction) {
-            params.closeAction = function () {
-                fpcm.dom.fromTag(this).dialog("close");
-            }
-        }
-        
-        dialogParams.dlButtons.push({
-            text: fpcm.ui.translate('GLOBAL_CLOSE'),
-            icon: "ui-icon-closethick", 
-            click: params.closeAction
-        });
-        
+         
         if (params.dlOnOpen) {
             dialogParams.dlOnOpen = params.dlOnOpen;
         }
@@ -1021,6 +1013,8 @@ fpcm.ui = {
         if (params.onCreate) {
             dialogParams.onCreate = params.onCreate;
         }
+        
+        dialogParams.closeButton = true;
 
         return fpcm.ui.dialog(dialogParams);
     },

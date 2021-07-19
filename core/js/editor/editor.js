@@ -107,62 +107,63 @@ fpcm.editor = {
 //        });
 //        
 //
-//        if (!fpcm.vars.jsvars.articleId) {
-//            return true;
-//        }
-//
-//        fpcm.dom.fromId('btnShortlink').click(function (event, handler) {
-//
-//            fpcm.ajax.get('editor/editorlist', {
-//                dataType: 'json',
-//                data: {
-//                    id: fpcm.dom.fromTag(this).data().article,
-//                    view: 'shortlink'
-//                },
-//                execDone: function (result) {
-//
-//                    fpcm.ui.dialog({
-//                        id: 'editor-shortlink',
-//                        dlWidth: fpcm.ui.getDialogSizes().width,
-//                        title: fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK'),
-//                        resizable: true,
-//                        dlButtons: [
-//                            {
-//                                text: fpcm.ui.translate('GLOBAL_CLOSE'),
-//                                icon: "ui-icon-closethick",                        
-//                                click: function() {
-//                                    fpcm.dom.fromTag(this).dialog( "close" );
-//                                }
-//                            }
-//                        ],
-//                        dlOnOpen: function (event, ui) {
-//
-//                            fpcm.dom.appendHtml(
-//                                this, 
-//                                result.permalink
-//                                    ? '<div class="row">' + fpcm.ui.getTextInput({
-//                                            name: 'fpcm-editor-shotlink',
-//                                            value: result.shortend,
-//                                            text: fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK'),
-//                                        }) + '</div>'
-//                                    : '<iframe class="fpcm-ui-full-width" src="https://is.gd/create.php?format=simple&url= '+ result.shortend + '"></iframe>'
-//                            );
-//                        },
-//                        dlOnClose: function( event, ui ) {
-//                            fpcm.dom.fromTag(this).empty();
-//                        }
-//                     });
-//
-//                }
-//            });
-//
-//             return false;
-//        });
-//
-//        fpcm.dom.fromTag('input.fpcm-ui-editor-metainfo-checkbox').click(function () {
-//            fpcm.dom.fromTag('span.fpcm-ui-editor-metainfo-' + fpcm.dom.fromTag(this).data('icon')).toggleClass('fpcm-ui-status-1 fpcm-ui-status-0');
-//            return true;
-//        });
+        if (!fpcm.vars.jsvars.articleId) {
+            return true;
+        }
+
+        fpcm.dom.fromId('btnShortlink').click(function (event, handler) {
+
+            fpcm.ajax.get('editor/editorlist', {
+                dataType: 'json',
+                data: {
+                    id: fpcm.dom.fromTag(this).data().article,
+                    view: 'shortlink'
+                },
+                execDone: function (result) {
+
+
+                    let _par = {
+                        id: 'editor-shortlink',
+                        title: fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK'),
+                        closeButton: true,
+                        dlButtons: [{
+                            text: 'EDITOR_ARTICLE_SHORTLINK_COPY',
+                            icon: 'copy',
+                            click: function () {
+                                
+                                let _el = fpcm.dom.fromId('fpcm-editor-shotlink');
+                                if (!_el.length) {
+                                    return true;
+                                }
+
+                                _el.select();
+                                document.execCommand('copy');
+                            }
+                        }]
+                    };
+                             
+                    if (result.permalink) {
+                        _par.content = fpcm.ui.getTextInput({
+                                            name: 'fpcm-editor-shotlink',
+                                            value: result.shortend,
+                                            text: fpcm.ui.translate('EDITOR_ARTICLE_SHORTLINK'),
+                                        });
+                    }
+                    else {
+                        _par.url = result.shortend;
+                    }
+
+                    fpcm.ui.dialog(_par);
+                }
+            });
+
+             return false;
+        });
+
+        fpcm.dom.fromTag('input.fpcm-ui-editor-metainfo-checkbox').click(function () {
+            fpcm.dom.fromTag('span.fpcm-ui-editor-metainfo-' + fpcm.dom.fromTag(this).data('icon')).toggleClass('fpcm-ui-status-1 fpcm-ui-status-0');
+            return true;
+        });
     },
     
     showCommentLayer: function(_url) {

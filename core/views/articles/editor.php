@@ -21,12 +21,8 @@
                 </div>
                 
                 <div class="mx-2 fpcm-ui-editor-categories">
-                    <?php $theView->select('article[categories][]')->setIsMultiple(true)->setOptions($categories)->setSelected($article->getCategories()); ?>
-                    
+                    <?php $theView->select('article[categories][]')->setIsMultiple(true)->setOptions($categories)->setSelected($article->getCategories()); ?>                    
                 </div>
-                
-
-                
             </fieldset>
         </div>
     </div>
@@ -41,6 +37,3 @@
 <?php if ($showComments) : ?>
     <?php include $theView->getIncludePath('comments/massedit.php'); ?>
 <?php endif; ?>
-
-<!-- Shortlink layer -->
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-shortlink"></div>
