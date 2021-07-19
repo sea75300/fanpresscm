@@ -466,14 +466,7 @@ img.fpcm-ui-smileylist-preview {
 
 .fpcm-ui-progressbar-label,
 .fpcm.ui-progressbar-label {
-    /*position: absolute;
-    left: 0.2rem;
-    top: 0.2rem;*/
     font-size: 0.8rem;
-}
-
-.fileupload-progress .fpcm.ui-progressbar-label {
-    /*top: 1.25rem;*/
 }
 
 .fpcm-ui-border-radius-all {
@@ -529,4 +522,8 @@ div.fpcm-filelist-thumb-box img {
 ul.fpcm-ui-list-style-none {
     list-style-type: none;
     list-style-image: none;
+}
+
+div.fpcm.ui-message {
+    z-index: 9999 !important;
 }
