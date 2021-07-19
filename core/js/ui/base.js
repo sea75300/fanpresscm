@@ -558,21 +558,12 @@ fpcm.ui = {
         if (_params.source === undefined) {
             _params.source = [];
         }
-        
-        _opt.data = _params.source !== undefined ? _params.source : [];
-        
-        if (_params.minLength) {
-            _opt.treshold = _params.minLength;
-        }
-        
-        if (_params.onRenderItems) {
-            _opt.onRenderItems = _params.onRenderItems;
-        }
-        
-        if (_params.showValue) {
-            _opt.showValue = _params.showValue;
-        }
 
+        if (fpcm.vars.ui.autocompletes === undefined) {
+            fpcm.vars.ui.autocompletes = [];
+        }
+        
+        _opt.data = _params.source === undefined || !_params.source instanceof Array ? [] : _params.source;
         _opt.highlightTyped = false;
 
         let _acDdEl = document.querySelector(_elemClassId);
@@ -580,7 +571,40 @@ fpcm.ui = {
             _acDdEl.value = _el.value;
         };
 
-        let _obj = new Autocomplete(_acDdEl, _opt);
+        if (!_params.source instanceof Array) {
+            fpcm.vars.ui.autocompletes[_elemClassId];
+            return true;
+        }
+        
+        if (_params.minLength !== undefined) {
+            _opt.treshold = _params.minLength;
+        }
+        
+        if (_params.onRenderItems !== undefined) {
+            _opt.onRenderItems = _params.onRenderItems;
+        }
+        
+        if (_params.showValue !== undefined) {
+            _opt.showValue = _params.showValue;
+        }
+
+        _opt.onInput = function (_val) {
+
+            if ( _params.source instanceof Array || _val.length < this.treshold || !fpcm.vars.ui.autocompletes[_elemClassId] ) {
+                fpcm.vars.ui.autocompletes[_elemClassId].setData([]);
+                return false;
+            }
+
+            fpcm.ajax.get(_params.source + '&term=' + _val, {
+                execDone: function (_result) {
+                    fpcm.vars.ui.autocompletes[_elemClassId].setData(_result);
+                }
+            });
+            
+            return false;
+        };
+
+        fpcm.vars.ui.autocompletes[_elemClassId] = new Autocomplete(_acDdEl, _opt);
     },
     
     getDialogSizes: function(el, scale_factor) {

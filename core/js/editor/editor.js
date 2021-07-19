@@ -14,7 +14,13 @@ fpcm.editor = {
 
     init: function() {
 
-        fpcm.ui_tabs.render('#tabs-editor');
+        fpcm.ui_tabs.render('#tabs-editor', {
+            initDataViewOnRenderAfter: function () {
+                fpcm.ui.assignCheckboxes();
+                fpcm.ui.assignControlgroups(),
+                fpcm.editor.initCommentListActions();
+            }
+        });
 
         if (!fpcm.vars.jsvars.isRevision) {
             fpcm.editor[fpcm.vars.jsvars.editorInitFunction].call();
@@ -52,7 +58,7 @@ fpcm.editor = {
             plugins: ['remove_button']
         });
 
-//        fpcm.dom.fromClass('fpcm-editor-articleimage').fancybox();
+        fpcm.dom.fromClass('fpcm-editor-articleimage').fancybox();
 //
 //        fpcm.ui.spinner('input.fpcm-ui-spinner-hour', {
 //            min: 0,
@@ -159,57 +165,39 @@ fpcm.editor = {
 //        });
     },
     
-    showCommentLayer: function(layerUrl) {
-
-        fpcm.dom.appendHtml(
-            '#fpcm-dialog-editor-comments', 
-            fpcm.ui.createIFrame({
-                src: layerUrl,
-                id: 'fpcm-editor-comment-frame',
-
-            })
-        );
-
-        fpcm.dom.fromClass('fpcm-ui-commentaction-buttons').fadeOut();
-
-        var size = fpcm.ui.getDialogSizes(top, 0.75);
+    showCommentLayer: function(_url) {
 
         fpcm.ui.dialog({
-            id       : 'editor-comments',
-            title    : 'COMMENTS_EDIT',
+            id: 'editor-comments',
+            title: 'COMMENTS_EDIT',
+            url: _url,
+            closeButton: true,
             dlButtons  : [
                 {
                     text: 'GLOBAL_SAVE',
                     icon: "save",
                     primary: true,
-                    click: function() {
-                        fpcm.dom.fromTag(this).children('#fpcm-editor-comment-frame').contents().find('#btnCommentSave').trigger('click');
-                        fpcm.ui_tabs.show('#articles', 2);
+                    click: function(_ui) {
+                        fpcm.dom.findElementInDialogFrame(_ui, '#btnCommentSave').click();
+                        fpcm.ui_tabs.show('#tabs-editor', 2);
                     }
                 },
                 {
                     text: 'COMMMENT_LOCKIP',
                     icon: "lock",
                     disabled: fpcm.vars.jsvars.lkIp ? false : true,
-                    click: function() {
-                        fpcm.dom.fromTag(this).children('#fpcm-editor-comment-frame').contents().find('#btnLockIp').trigger('click');
+                    click: function(_ui) {
+                        fpcm.dom.findElementInDialogFrame(_ui, '#btnLockIp').click();
                     }
                 },
                 {
                     text: 'Whois',
-                    icon: "server",
-                    click: function() {
-                        window.open(fpcm.dom.fromTag(this).children('#fpcm-editor-comment-frame').contents().find('#whoisIp').attr('href'), '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
+                    icon: "globe",
+                    click: function(_ui) {
+                        let _el = fpcm.dom.findElementInDialogFrame(_ui, '#whoisIp');
+                        window.open(_el[0].href, '_blank', 'width=700,height=500,scrollbars=yes,resizable=yes,');
                     }
-                },
-                {
-                    text: 'GLOBAL_CLOSE',
-                    icon: "times",
-                    clickClose: true,
-                    click: function() {
-                        fpcm.dom.fromClass('fpcm-ui-commentaction-buttons').fadeIn();
-                    }
-                }                            
+                }                           
             ]
         });
         

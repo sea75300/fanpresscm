@@ -3,13 +3,11 @@
     <?php fpcm\components\components::getMassEditFields($masseditFields); ?>
     
     <div class="row py-2">
-        <label class="col-12 col-md-4 fpcm-ui-field-label-general">
-            <?php $theView->icon('tags')->setSize('lg'); ?>
-            <?php $theView->write('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?>
-        </label>
-        
-        <div class="col-12 col-md-8 px-0 fpcm-ui-editor-categories fpcm-ui-editor-categories-massedit">
-            <?php $theView->select('categories[]')->setIsMultiple(true)->setOptions($massEditCategories)->setSelected([]); ?>
-        </div>
+        <?php $theView->select('categories[]')
+            ->setIsMultiple(true)
+            ->setOptions($massEditCategories)
+            ->setSelected([])
+            ->setIcon('tags')
+            ->setText('TEMPLATE_ARTICLE_CATEGORYTEXTS'); ?>
     </div>
 </div>

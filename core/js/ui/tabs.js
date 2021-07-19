@@ -79,13 +79,13 @@ fpcm.ui_tabs = {
                         if (!_result instanceof Object || !_tabList) {
                             
                             
-                            if (typeof params.onRenderHtmlBefore === 'function') {
+                            if (typeof params.onRenderHtmlBefore) {
                                 params.onRenderHtmlBefore(_ev);
                             }                            
                             
                             fpcm.dom.assignHtml(_ev.target.dataset.bsTarget, _result);
                             
-                            if (typeof params.onRenderHtmlAfter === 'function') {
+                            if (typeof params.onRenderHtmlAfter) {
                                 params.onRenderHtmlAfter(_ev);
                             }                            
 
@@ -96,7 +96,7 @@ fpcm.ui_tabs = {
                             return false;
                         }
                             
-                        if (typeof params.onRenderJsonBefore === 'function') {
+                        if (typeof params.onRenderJsonBefore) {
                             params.onRenderJsonBefore(_ev, _result);
                         }
 

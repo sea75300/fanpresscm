@@ -52,7 +52,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
      */
     protected function getViewPath() : string
     {
-        return 'comments/commentedit';
+        return 'comments/editor';
     }
 
     /**
@@ -174,7 +174,7 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
             $changeUser = new \fpcm\model\users\author($this->comment->getChangeuser());
 
             $this->view->assign(
-                'changeInfo', $this->language->translate('COMMMENT_LASTCHANGE', array(
+                'changeInfo', $this->language->translate('COMMMENT_LASTCHANGE2', array(
                     '{{username}}' => $changeUser->exists() ? $changeUser->getDisplayname() : $this->language->translate('GLOBAL_NOTFOUND'),
                     '{{time}}' => date($this->config->system_dtmask, $this->comment->getChangetime())
             )));
@@ -219,6 +219,12 @@ class commentedit extends \fpcm\controller\abstracts\controller implements \fpcm
         $this->view->setFormAction($this->comment->getEditLink(), ['mode' => $this->mode], true);
         $this->view->assign('comment', $this->comment);
         $this->view->assign('commentsMode', $this->mode);
+        
+        $this->view->addTabs('comments', [
+            (new \fpcm\view\helper\tabItem('comment'))->setText('COMMENTS_EDIT')->setFile($this->getViewPath() . '.php')
+        ]);
+        
+        
         $this->view->render();
         
         return true;
