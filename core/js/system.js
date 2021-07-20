@@ -245,7 +245,13 @@ fpcm.system = {
         
         if (!params.onSuccess) {
             params.onSuccess = function () {
-                fpcm.ui.relocate(window.location.href + (fpcm.vars.jsvars.massEdit && fpcm.vars.jsvars.massEdit.relocateParams ? fpcm.vars.jsvars.massEdit.relocateParams : ''));
+                
+                if (!fpcm.vars.jsvars.massEdit || !fpcm.vars.jsvars.massEdit.relocateParams) {
+                    window.location.reload();
+                    return;
+                }
+                
+                fpcm.ui.relocate(window.location.href + fpcm.vars.jsvars.massEdit.relocateParams);
             };
         }
         
@@ -253,8 +259,6 @@ fpcm.system = {
             data: params,
             dataType: 'json',
             execDone: function (res) {
-
-                console.log(res);
 
                 if (res !== null && res.code == 1) {
                     params.onSuccess();

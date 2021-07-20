@@ -105,7 +105,6 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
         ]);
         
     }
-
     
     /**
      * Initialisiert Suchformular-Daten

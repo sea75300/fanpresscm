@@ -26,7 +26,11 @@ fpcm.comments = {
     
     initAfter: function() {
         
-        if (fpcm.dataview && fpcm.dataview.exists('commenttrash')) {
+        if (!fpcm.dataview) {
+            return false;
+        }
+        
+        if (fpcm.dataview.exists('commenttrash')) {
             fpcm.dataview.render('commenttrash', {
                 onRenderAfter: function() {
                     fpcm.ui.assignCheckboxes();
@@ -37,7 +41,7 @@ fpcm.comments = {
             return true;
         }
         
-        if (fpcm.dataview && fpcm.dataview.exists('commentlist')) {
+        if (fpcm.dataview.exists('commentlist')) {
             fpcm.dataview.render('commentlist', {
                 onRenderAfter: function() {
                     fpcm.ui.assignCheckboxes();

@@ -3,9 +3,17 @@
     <div class="shadow rounded p-4 fpcm ui-background-white-50p ui-blurring">
 
         <header>
-            <!-- FanPress CM News System <?php print $theView->version; ?> -->                
-            <img class="mb-3" src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
-            <h1 class="d-none d-xl-inline-block">FanPress CM News System</h1>
+            <div class="row g-0 mb-3">
+                <!-- FanPress CM News System <?php print $theView->version; ?> -->
+                <div class="col-auto">
+                    <img src="<?php print $theView->themePath; ?>logo.svg" role="presentation" alt="FanPress CM News System <?php print $theView->version; ?>">
+                </div>
+                <div class="col align-self-center">
+                    <h1 class="d-none d-xl-block fs-3">FanPress CM News System</h1>
+                </div>
+                
+            </div>
+            
         </header>
 
         <?php if ($twoFactorAuth) : ?>
