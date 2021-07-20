@@ -37,4 +37,4 @@
     <?php $theView->textarea('comment[text]')->setClass('fpcm-ui-full-width')->setValue($comment->getText(), ENT_QUOTES); ?>
 </div>
 
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-filemanager"></div>
+<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-editor-html-filemanager"></div>

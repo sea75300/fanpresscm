@@ -1,7 +1,7 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
 <?php if($mode > 1) : ?><?php include_once $theView->getIncludePath('common/buttons.php'); ?><?php endif; ?>
 
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-rename">
+<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-rename">
     <div class="row py-2">
         <?php $theView->textInput('newFilenameDialog')
             ->setText('FILE_LIST_FILENAME')
@@ -10,7 +10,7 @@
     </div>    
 </div>
 
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-alttext">
+<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-alttext">
     <div class="row py-2">
         <?php $theView->textInput('altTextDialog')
             ->setText('FILE_LIST_ALTTEXT')
@@ -19,7 +19,7 @@
     </div>    
 </div>
 
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-properties">
+<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-files-properties">
 
     <div class="row mb-3 g-0">
         <label class="col-form-label col-3 me-3">
@@ -81,7 +81,7 @@
 
 </div>
 
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden" id="fpcm-dialog-files-search">
+<div class="fpcm ui-hidden" id="fpcm-dialog-files-search">
 
     <div class="row my-3">
         

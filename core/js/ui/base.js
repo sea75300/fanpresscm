@@ -474,7 +474,7 @@ fpcm.ui = {
                   .replace('{$class}', params.class)
                   .replace('{$modalClass}', params.modalClass)
                   .replace('{$modalBodyClass}', params.modalBodyClass)
-                  .replace('{$size}', params.size)
+                  .replace('{$size}', params.size ? 'modal-' + params.size : '')
                   .replace('{$buttons}', _buttons));
         }
 

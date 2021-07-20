@@ -98,7 +98,7 @@ fpcm.comments = {
                 dlButtons  : [
                     {
                         text: 'ARTICLE_SEARCH_START',
-                        icon: 'check',
+                        icon: 'search',
                         primary: true,
                         clickClose: true,
                         click: function() {
@@ -114,7 +114,7 @@ fpcm.comments = {
                         }
                     },                    
                     {
-                        text: fpcm.ui.translate('ARTICLE_SEARCH_RESET'),
+                        text: 'ARTICLE_SEARCH_RESET',
                         icon: "undo" ,
                         clickClose: true,
                         click: function() {

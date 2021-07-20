@@ -26,13 +26,13 @@
             </fieldset>
         </div>
     </div>
-    
-    <?php if ($editorMode) : ?>
-        <?php include $theView->getIncludePath('articles/times.php'); ?>
-    <?php endif; ?>
 </div>                
 
 <?php include \fpcm\components\components::getArticleEditor()->getEditorTemplate(); ?>
+    
+<?php if ($editorMode) : ?>
+    <?php include $theView->getIncludePath('articles/times.php'); ?>
+<?php endif; ?>
 
 <?php if ($showComments) : ?>
     <?php include $theView->getIncludePath('comments/massedit.php'); ?>

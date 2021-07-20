@@ -180,11 +180,10 @@ fpcm.system = {
             list.initWidgets(dialogIdCom);
         }
 
-        var size = fpcm.ui.getDialogSizes();
-
         fpcm.ui.dialog({
             id: dialogId,
             title: 'GLOBAL_EDIT_SELECTED',
+            closeButton: true,
             dlButtons: [
                 {
                     text: 'GLOBAL_SAVE',
@@ -223,7 +222,6 @@ fpcm.system = {
                                 }
 
                                 fpcm.system.execMassEdit(func, params);
-
                             }
                         });
                     }
@@ -255,6 +253,8 @@ fpcm.system = {
             data: params,
             dataType: 'json',
             execDone: function (res) {
+
+                console.log(res);
 
                 if (res !== null && res.code == 1) {
                     params.onSuccess();

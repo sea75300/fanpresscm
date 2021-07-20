@@ -14,6 +14,8 @@ body {
    -ms-hyphens: auto;
    -hyphens: auto;
     scroll-behavior: smooth;
+/*    transform:scale(1.0);
+    transform-origin: 0 0;*/
 }
 
 body,
@@ -35,34 +37,8 @@ button {
 }
 
 h1,
-.fpcm-dashboard-container h3 {
+h3.card-title {
     font-family: Raleway, 'Droid Sans', sans-serif !important;
-}
-h1 {
-    font-size: 2rem !important;
-    font-weight: 300;
-    padding: 0.5rem 0;
-    margin: 0;
-}
-
-h1 span:nth-child(even) {
-    letter-spacing: -3px;
-}
-
-h2 {
-    font-size:1.35em;
-}
-
-h3 {
-    font-size:1.2em;
-    padding: 0.3em 0em;
-    margin: 0.2em 0em;    
-}
-
-h2,
-h3,
-.fpcm-dashboard-container h3 {
-    padding: 0.4em;
 }
 
 a, a:visited, a.fpcm-link {
@@ -114,6 +90,10 @@ label {
 dl {
     margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+legend {
+    font-size: 1.25rem;
 }
 
 legend,

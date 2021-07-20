@@ -21,7 +21,7 @@ fpcm.categories = {
 
             fpcm.dom.appendHtml(
                 '#fpcm-body',
-                '<div id="fpcm-dialog-categories-massedit"  class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-massedit-dialog">' + fieldIconPath + fieldRolls + '</div>'
+                '<div id="fpcm-dialog-categories-massedit"  class="fpcm ui-hidden">' + fieldIconPath + fieldRolls + '</div>'
             );
 
             fpcm.system.initMassEditDialog('categories/massedit', 'categories-massedit', fpcm.categories, {

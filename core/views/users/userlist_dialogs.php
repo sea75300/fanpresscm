@@ -1,5 +1,5 @@
 <?php /* @var $theView fpcm\view\viewVars */ ?>
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-users-select-delete">  
+<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-users-select-delete">  
     <div class="row py-2">
         <?php $theView->select('articles[action]', 'articlesaction')
                 ->setText('USERS_ARTICLES_SELECT')
@@ -14,4 +14,4 @@
     </div>
 </div>
 
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden fpcm-editor-dialog" id="fpcm-dialog-users-permissions-edit"></div>
+<div class="fpcm ui-hidden fpcm-editor-dialog" id="fpcm-dialog-users-permissions-edit"></div>

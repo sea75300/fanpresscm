@@ -1,7 +1,5 @@
 /* ------ Text aligns */
 label,
-.fpcm-ui-field-label-general,
-.fpcm-ui-field-input-nowrapper-general,
 .fpcm.ui-align-ellipsis,
 .fpcm-ui-ellipsis    {
     overflow: hidden;

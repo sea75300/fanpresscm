@@ -576,14 +576,14 @@ class controller implements \fpcm\controller\interfaces\controller {
      */
     final protected function getActiveTab() : int
     {
-        $activeTab = $this->request->fromGET('rg', [ \fpcm\model\http\request::FILTER_CASTINT ]);
+        $activeTab = $this->request->fromGET('rg');
         if ($activeTab !== null) {
-            return $activeTab;
+            return (int) $activeTab;
         }
 
-        $activeTab = $this->request->fromGET('activeTab', [ \fpcm\model\http\request::FILTER_CASTINT ]);
+        $activeTab = $this->request->fromPOST('activeTab');
         if ($activeTab !== null) {
-            return $activeTab;
+            return (int) $activeTab;
         }
         
         return 0;

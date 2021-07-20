@@ -252,70 +252,59 @@ abstract class articlelistbase extends \fpcm\controller\abstracts\controller imp
         
         if ($this->permissions->article->authors) {
             $fields[] = new \fpcm\components\masseditField(
-                'users',
-                'EDITOR_CHANGEAUTHOR',
                 (new \fpcm\view\helper\select('userid'))
                     ->setOptions(['GLOBAL_NOCHANGE_APPLY' => -1] + $this->users)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit')
+                    ->setText('EDITOR_CHANGEAUTHOR')
+                    ->setIcon('users')
             );
         }
 
         $fields[] = new \fpcm\components\masseditField(
-            'thumbtack fa-rotate-90',
-            'EDITOR_PINNED',
             (new \fpcm\view\helper\select('pinned'))
                 ->setOptions($this->yesNoChangeList)
                 ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
-                'col-sm-6 col-md-4'
+                ->setText('EDITOR_PINNED')
+                ->setIcon('thumbtack fa-rotate-90')
         );
         
         if ($this->showDraftStatus()) {
             $fields[] = new \fpcm\components\masseditField(
-                ['icon' => 'file-alt'],
-                'EDITOR_DRAFT',
                 (new \fpcm\view\helper\select('draft'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
-                    'col-sm-6 col-md-4'
+                    ->setText('EDITOR_DRAFT')
+                    ->setIcon('file-alt')
             );
         }
         
         if (!$this->permissions->article->approve) {
             $fields[] = new \fpcm\components\masseditField(
-                ['icon' => 'thumbs-up', 'prefix' => 'far'],
-                'EDITOR_STATUS_APPROVAL',
                 (new \fpcm\view\helper\select('approval'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
-                    'col-sm-6 col-md-4'
+                    ->setText('EDITOR_STATUS_APPROVAL')
+                    ->setIcon('thumbs-up', 'far')
             );
         }
         
         if ($this->config->system_comments_enabled && $this->permissions->editComments()) {
             $fields[] = new \fpcm\components\masseditField(
-                ['icon' => 'comments', 'prefix' => 'far'],
-                'EDITOR_COMMENTS',
                 (new \fpcm\view\helper\select('comments'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
-                    'col-sm-6 col-md-4'
+                    ->setText('EDITOR_COMMENTS')
+                    ->setIcon('comments', 'fra')
             );
         }
         
         if ($this->permissions->article->archive) {
             $fields[] = new \fpcm\components\masseditField(
-                'archive',
-                'EDITOR_ARCHIVE',
                 (new \fpcm\view\helper\select('archived'))
                     ->setOptions($this->yesNoChangeList)
                     ->setFirstOption(\fpcm\view\helper\select::FIRST_OPTION_DISABLED)
-                    ->setClass('fpcm-articles-search-input fpcm-ui-input-select-massedit fpcm-ui-input-massedit'),
-                    'col-sm-6 col-md-4'
+                    ->setText('EDITOR_ARCHIVE')
+                    ->setIcon('archive')
             );
         }
 

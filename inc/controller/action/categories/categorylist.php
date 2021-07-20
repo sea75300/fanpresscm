@@ -128,19 +128,21 @@ class categorylist extends \fpcm\controller\abstracts\controller implements \fpc
         $this->view->addJsVars([
             'masseditFields' => [
                 'fieldIconPath' => (string) new \fpcm\components\masseditField(
-                    'link',
-                    'CATEGORIES_ICON_PATH',
                     (new \fpcm\view\helper\textInput('iconpath'))
                         ->setText('')
                         ->setType('url')
-                        ->setClass('fpcm-ui-input-massedit fpcm-ui-field-input-nowrapper-general fpcm ui-full-width'),
-                    'col-md-8'
+                        ->setText('CATEGORIES_ICON_PATH')
+                        ->setIcon('link'),
+                    ''
                 ),
                 'fieldRolls' => (string) new \fpcm\components\masseditField(
-                    'users',
-                    'CATEGORIES_ROLLS',
-                    (new \fpcm\view\helper\select('rolls'))->setOptions($rolls)->setIsMultiple(true)->setSelected([])->setClass('fpcm-ui-borderradius-remove-left'),
-                    'col-md-8 fpcm-ui-editor-categories-massedit'
+                    (new \fpcm\view\helper\select('rolls'))
+                        ->setOptions($rolls)
+                        ->setIsMultiple(true)
+                        ->setSelected([])
+                        ->setClass('fpcm-ui-borderradius-remove-left')
+                        ->setText('CATEGORIES_ROLLS')
+                        ->setIcon('users'),
                 ),
             ],
             'massEditSaveFailed' => 'SAVE_FAILED_CATEGORY'

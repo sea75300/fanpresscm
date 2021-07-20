@@ -165,9 +165,9 @@ implements \fpcm\controller\interfaces\isAccessible,
         }, array_keys($this->article->getRevisions()));
         
         $this->view->addButtons([
-            (new \fpcm\view\helper\dropdown('revisionList'))
-                ->setOptions($revision)
-                ->setSelected($this->rid),
+//            (new \fpcm\view\helper\dropdown('revisionList'))
+//                ->setOptions($revision)
+//                ->setSelected($this->rid),
             (new \fpcm\view\helper\linkButton('backToArticel'))
                 ->setUrl($this->article->getEditLink().'&rg=3')
                 ->setText('EDITOR_BACKTOCURRENT')
@@ -208,9 +208,17 @@ implements \fpcm\controller\interfaces\isAccessible,
         ]));
         
         try {
-            $differ = new Differ([$this->revision->getContent()], [$this->article->getContent()]);
-            $renderer = RendererFactory::make('Combined', [
+            $differContent = new Differ([$this->revision->getContent()], [$this->article->getContent()]);
+            $rendererContent = RendererFactory::make('Combined', [
                 'detailLevel' => 'word',
+                'language' => 'eng',
+                'lineNumbers' => false,
+                'showHeader' => false
+            ]);
+
+            $differTitel = new Differ([$this->revision->getTitle()], [$this->article->getTitle()]);
+            $rendererTitle = RendererFactory::make('Combined', [
+                'detailLevel' => 'char',
                 'language' => 'eng',
                 'lineNumbers' => false,
                 'showHeader' => false
@@ -221,7 +229,8 @@ implements \fpcm\controller\interfaces\isAccessible,
             exit;
         }
         
-        $this->view->assign('diffResult', html_entity_decode($renderer->render($differ)) );
+        $this->view->assign('diffResultTitle', html_entity_decode($rendererTitle->render($differTitel)) );
+        $this->view->assign('diffResultText', html_entity_decode($rendererContent->render($differContent)) );
         
         $this->view->addTabs('article', [
             (new \fpcm\view\helper\tabItem('article'))->setText('EDITOR_STATUS_REVISION')->setFile('articles/revisiondiff.php')

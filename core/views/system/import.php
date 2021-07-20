@@ -47,7 +47,7 @@
 
             <div class="row my-2">
 
-                    <label title="<?php $theView->write('HL_OPTIONS'); ?>" class="fpcm-ui-field-label-general align-self-center col-12 col-sm-6 col-md-3">
+                    <label title="<?php $theView->write('HL_OPTIONS'); ?>" class="align-self-center col-12 col-sm-6 col-md-3">
                         <?php $theView->icon('cog')->setSize('lg'); ?> <span class="fpcm-ui-label"><?php $theView->write('HL_OPTIONS'); ?></span>
                     </label>                
 

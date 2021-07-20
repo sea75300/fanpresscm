@@ -1,5 +1,5 @@
 <?php /* @var $theView \fpcm\view\viewVars */ ?>
-<div class="fpcm-ui-dialog-layer fpcm-ui-hidden" id="fpcm-dialog-articles-search">
+<div class="fpcm ui-hidden" id="fpcm-dialog-articles-search">
 
     <div class="row my-3">
         

@@ -105,7 +105,8 @@ fpcm.articles = {
                     },                    
                     {
                         text: fpcm.ui.translate('ARTICLE_SEARCH_RESET'),
-                        icon: "undo" ,                        
+                        icon: "undo" ,
+                        clickClose: true,
                         click: function() {
                             fpcm.ui.relocate('self');
                         }

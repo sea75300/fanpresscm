@@ -98,7 +98,6 @@ class commentlist extends \fpcm\controller\abstracts\controller implements \fpcm
         $this->view->addDataView($this->dataView);
         $this->view->addPager(new \fpcm\view\helper\pager('comments/list', $this->page, $this->commentCount, $this->config->articles_acp_limit, $this->maxItemCount));
         
-        
         $this->view->addTabs('comments', [
             (new \fpcm\view\helper\tabItem('tabs-comments-list'))
                 ->setText('COMMMENT_HEADLINE')
