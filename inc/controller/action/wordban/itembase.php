@@ -13,6 +13,8 @@ abstract class itembase extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\isAccessible,
            \fpcm\controller\interfaces\requestFunctions {
 
+    use \fpcm\controller\traits\common\simpleEditForm;
+    
     /**
      *
      * @var \fpcm\model\wordban\item
@@ -28,11 +30,6 @@ implements \fpcm\controller\interfaces\isAccessible,
         return $this->permissions->system->wordban;
     }
 
-    protected function getViewPath() : string
-    {
-        return 'wordban/editor';
-    }
-
     protected function getHelpLink()
     {
         return 'HL_OPTIONS_WORDBAN';
@@ -45,8 +42,6 @@ implements \fpcm\controller\interfaces\isAccessible,
 
     public function process()
     {
-        $this->view->assign('item', $this->item);
-        $this->view->setFieldAutofocus('wbitemsearchtext');
         $this->view->addButton(new \fpcm\view\helper\saveButton('save'));
         $this->view->addJsFiles(['texts.js']);
 
@@ -56,6 +51,23 @@ implements \fpcm\controller\interfaces\isAccessible,
                 ->setFile($this->getViewPath().'.php')
         ]);
 
+        $this->assignFields([
+            (new \fpcm\view\helper\textInput('wbitem[searchtext]'))
+                    ->setValue($this->item->getSearchtext())
+                    ->setText('WORDBAN_NAME')
+                    ->setIcon('filter')
+                    ->setAutoFocused(true),
+            (new \fpcm\view\helper\textInput('wbitem[replacementtext]'))
+                    ->setValue($this->item->getReplacementtext())
+                    ->setText('WORDBAN_REPLACEMENT_TEXT')
+                    ->setIcon('edit'),
+            new \fpcm\components\fieldGroup([               
+                (new \fpcm\view\helper\checkbox('wbitem[replacetxt]'))->setText('WORDBAN_REPLACETEXT')->setSelected($this->item->getReplaceTxt())->setSwitch(true),
+                (new \fpcm\view\helper\checkbox('wbitem[lockarticle]'))->setText('WORDBAN_APPROVE_ARTICLE')->setSelected($this->item->getLockArticle())->setSwitch(true),
+                (new \fpcm\view\helper\checkbox('wbitem[commentapproval]'))->setText('WORDBAN_APPROVA_COMMENT')->setSelected($this->item->getCommentApproval())->setSwitch(true),
+            ], 'GLOBAL_ACTION_PERFORM', new \fpcm\view\helper\icon('cogs'))
+        ]);        
+        
         $this->view->render();
     }
 

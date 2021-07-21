@@ -16,6 +16,8 @@ namespace fpcm\controller\action\ips;
 abstract class ipbase extends \fpcm\controller\abstracts\controller
 implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces\requestFunctions {
 
+    use \fpcm\controller\traits\common\simpleEditForm;
+    
     /**
      * Ip-Adress-Objekt
      * @var int
@@ -37,11 +39,6 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
         return $this->permissions->system->ipaddr;
     }
 
-    protected function getViewPath() : string
-    {
-        return 'ips/ipadd';
-    }
-
     protected function getHelpLink()
     {
         return 'HL_OPTIONS_IPBLOCKING';
@@ -58,8 +55,6 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
 
         $this->ipaddress = new \fpcm\model\ips\ipaddress($this->id ? $this->id : null);
 
-        $this->view->assign('object', $this->ipaddress);
-        $this->view->setFieldAutofocus('ipSave');
         $this->view->addButton(new \fpcm\view\helper\saveButton('ipSave'));
         $this->view->addJsFiles(['ipadresses.js']);
 
@@ -69,6 +64,19 @@ implements \fpcm\controller\interfaces\isAccessible, \fpcm\controller\interfaces
                 ->setFile($this->getViewPath().'.php')
         ]);
 
+        $this->assignFields([
+            (new \fpcm\view\helper\textInput('ipaddress'))
+                    ->setValue($this->ipaddress->getIpaddress())
+                    ->setText('IPLIST_IPADDRESS')
+                    ->setIcon('network-wired')
+                    ->setAutoFocused(true),
+            new \fpcm\components\fieldGroup([
+                (new \fpcm\view\helper\checkbox('nocomments'))->setText('IPLIST_NOCOMMENTS')->setSelected($this->ipaddress->getNocomments())->setSwitch(true),
+                (new \fpcm\view\helper\checkbox('nologin'))->setText('IPLIST_NOLOGIN')->setSelected($this->ipaddress->getNologin())->setSwitch(true),
+                (new \fpcm\view\helper\checkbox('noaccess'))->setText('IPLIST_NOACCESS')->setSelected($this->ipaddress->getNoaccess())->setSwitch(true),
+            ], 'IPLIST_BLOCKTYPE', new \fpcm\view\helper\icon('lock'))
+        ]);
+        
         return true;
     }
     
